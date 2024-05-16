@@ -32,11 +32,7 @@
 #include "awsdoc/s3/s3_examples.h"
 
 
-/*
- * TODO: Handle calculating of HASH for TransferManager
- * TODO: Explain that you cannot use your own hash with the TransferManager
- * TODO: Check why MD5 is not working for TransferManager and MultiPart comparisons.
- */
+
 namespace AwsDoc::S3 {
      constexpr char TEST_FILE_KEY[] = "CMakeLists.txt";
     constexpr char TEST_FILE[] = SRC_DIR"/CMakeLists.txt";
@@ -69,11 +65,11 @@ namespace AwsDoc::S3 {
         bool calculateObjectHash(Aws::IOStream &data,
                                  HASH_METHOD hashMethod);
 
-        Aws::String getBase64HashString();
+        [[nodiscard]] Aws::String getBase64HashString() const;
 
-        Aws::String getHexHashString();
+        [[nodiscard]] Aws::String getHexHashString() const;
 
-        Aws::Utils::ByteBuffer getByteBufferHash();
+        [[nodiscard]] Aws::Utils::ByteBuffer getByteBufferHash() const;
     };
 
     //! Routine which runs the S3 object integrity workflow.
@@ -126,7 +122,16 @@ namespace AwsDoc::S3 {
     bool cleanUp(const Aws::String &bucket,
                  const Aws::Client::ClientConfiguration &clientConfiguration);
 
+
     void introductoryExplanations(const Aws::String &bucketName);
+    void explainPutObjectResults();
+    void introductoryTransferManagerUploadExplanations(const Aws::String &objectKey);
+    void multiPartUploadExplanationsPart2(const Aws::String &objectKey,
+                                          HASH_METHOD chosenHashMethod);
+    void verifyHashingResults(const Aws::String &retrievedHash, const Hasher &localHash,
+                              const Aws::String &uploadtype, HASH_METHOD hashMethod,
+                              const std::vector<Aws::String> &retrievedPartHashes = std::vector<Aws::String>(),
+                              const std::vector<Aws::String> &localPartHashes = std::vector<Aws::String>());
 
     //! Test routine passed as argument to askQuestion routine.
     /*!
@@ -178,6 +183,11 @@ namespace AwsDoc::S3 {
      */
     static bool alwaysTrueTest(const Aws::String &) { return true; }
 
+    void pressEnterToContinue() {
+        askQuestion("Press Enter to continue...", alwaysTrueTest);
+    }
+
+
     static bool DEBUGGING = false;
 } // namespace AwsDoc::S3
 
@@ -205,6 +215,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
     Aws::S3::S3ClientConfiguration s3ClientConfiguration(clientConfiguration);
     std::shared_ptr<Aws::S3::S3Client> client = Aws::MakeShared<Aws::S3::S3Client>("S3Client", s3ClientConfiguration);
     do {
+        printAsterisksLine();
         std::cout << "Choose from one of the following checksum algorithms."
                   << std::endl;
 
@@ -229,8 +240,9 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
                   << std::endl;
         if (gUseCalculatedChecksum) {
             std::cout
-                    << "A checksum computed by this workflow will be used for object integrity verification."
+                    << "A checksum computed by this workflow will be used for object integrity verification,"
                     << std::endl;
+            std::cout << "except for the TransferManager upload." << std::endl;
         }
         else {
             std::cout
@@ -238,7 +250,8 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
                     << std::endl;
         }
 
-        askQuestion("Press any key to continue...", alwaysTrueTest);
+        pressEnterToContinue();
+        printAsterisksLine();
 
         std::shared_ptr<Aws::IOStream> inputData =
                 Aws::MakeShared<Aws::FStream>("SampleAllocationTag",
@@ -290,62 +303,19 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
             return false;
         }
 
-        bool checksumsMatch = true;
-        if (putObjectHashMethod == MD5) {
-            Aws::String hashAsHex = hasher.getHexHashString();
-            if (hashAsHex != retrievedHash) {
-                std::cerr << "Error retrieved etag " << retrievedHash
-                          << " does not match " << hashAsHex << std::endl;
-                checksumsMatch = false;
-            }
-        }
-        else {
-            if (retrievedHash != localHash) {
-                std::cerr << "Error retrieved hash " << retrievedHash
-                          << " does not match " << localHash << std::endl;
-                checksumsMatch = false;
-            }
-        }
+        explainPutObjectResults();
+        verifyHashingResults(retrievedHash, hasher,
+                             "PutObject upload", putObjectHashMethod);
 
-        std::cout << "The upload was successful.\n ";
-        std::cout << "If the checksums had not matched, the upload would have failed."
-                  << std::endl;
-        std::cout
-                << "The checksums calculated by the server have been retrieved using the GetObjectAttributes."
-                << std::endl;
-        std::cout
-                << "The locally calculated checksums have been verified against the retrieved checksums."
-                << std::endl;
-        if (checksumsMatch) {
-            std::cout << "Everything matches!" << std::endl;
-        }
-        else {
-            std::cout
-                    << "The checksums did not match. This should not happen. Something is wrong with the code."
-                    << std::endl;
-        }
-        askQuestion("Press any key to continue...", alwaysTrueTest);
 
         printAsterisksLine();
+        pressEnterToContinue();
 
-        std::cout
-                << "Now the workflow will demonstrate object integrity for multi-part uploads."
-                << std::endl;
-        std::cout
-                << "The AWS C++ SDK has a TransferManager which simplifies multipart uploads."
-                << std::endl;
-        std::cout
-                << "The following code lets the TransferManager handle much of the checksum configuration."
-                << std::endl;
         key = "tr_";
         key += stringForHashMethod(chosenHashMethod) + "-s3-userguide.pdf";
 
-        std::cout << "An object with the key '" << key
-                  << ", will be uploaded by the TransferManager using a "
-                  << BUFFER_SIZE_IN_MEGABYTES << " MB buffer." << std::endl;
+        introductoryTransferManagerUploadExplanations(key);
 
-
-        askQuestion("Press any key to continue...", alwaysTrueTest);
         HASH_METHOD transferManagerHashMethod = chosenHashMethod;
         if (transferManagerHashMethod == DEFAULT) {
             transferManagerHashMethod = CRC32;
@@ -386,65 +356,22 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
             cleanUp(bucketName, clientConfiguration);
             return false;
         }
-        Aws::String hashString;
-        if (transferManagerHashMethod == MD5) {
-            hashString = locallyCalculatedFinalHash.getHexHashString();
-            hashString += "-" + std::to_string(locallyCalculatedPartHashes.size());
-        }
-        else {
-            hashString = locallyCalculatedFinalHash.getBase64HashString();
-        }
-        bool allMatch = true;
-        if (hashString != retrievedTransferManagerFinalHash) {
-            std::cerr << "The main hashes do not match" << std::endl;
-            std::cerr << "Local hash- '" << hashString << "'" << std::endl;
-            std::cerr << "Remote hash - '" << retrievedTransferManagerFinalHash << "'" << std::endl;
-            allMatch = false;
-        }
 
-        if (transferManagerHashMethod != MD5) {
-            if (locallyCalculatedPartHashes.size() != retrievedTransferManagerPartHashes.size()) {
-                std::cerr << "The number of part hashes do not match" << std::endl;
-                std::cerr << "Local number of hashes- '" << locallyCalculatedPartHashes.size() << "'"
-                          << std::endl;
-                std::cerr << "Remote number of hashes - '"
-                          << retrievedTransferManagerPartHashes.size()
-                          << "'" << std::endl;
-                continue;
-            }
+        verifyHashingResults(retrievedTransferManagerFinalHash,
+                             locallyCalculatedFinalHash, "TransferManager upload",
+                             transferManagerHashMethod,
+                             retrievedTransferManagerPartHashes,
+                             locallyCalculatedPartHashes);
 
-            for (int i = 0; i < locallyCalculatedPartHashes.size(); ++i) {
-                if (locallyCalculatedPartHashes[i] != retrievedTransferManagerPartHashes[i]) {
-                    std::cerr << "The part hashes do not match for part " << i + 1
-                              << "." << std::endl;
-                    std::cerr << "Local hash- '" << locallyCalculatedPartHashes[i] << "'"
-                              << std::endl;
-                    std::cerr << "Remote hash - '" << retrievedTransferManagerPartHashes[i] << "'"
-                              << std::endl;
-                    allMatch = false;
-                }
-            }
-        }
+        printAsterisksLine();
 
-        if (allMatch) {
-            std::cout << "Locally and remotely calculated hashes all match!" << std::endl;
-        }
+        key = "mp_";
+        key += stringForHashMethod(chosenHashMethod);
+        key += "-s3-userguide.pdf";
 
-        std::cout
-                << "Now we will provide an in-depth demonstration of multi-part uploading by calling the multi-part upload APIs directly."
-                << std::endl;
-        std::cout << "These are the same APIs used by the TransferManager."
-                  << std::endl;
-        std::cout
-                << "In the following code, the checksums are also calculated locally and then compared."
-                << std::endl;
-        std::cout
-                << "For multi-part uploads, a checksum is uploaded with each part. The final checksum is a concatenation of"
-                << std::endl;
-        std::cout << "the checksums for each part." << std::endl;
-        std::cout
-                << "This is explained in the user guide in the section \"Using part-level checksums for multipart uploads\"."
-                << std::endl;
+        multiPartUploadExplanationsPart2(key, chosenHashMethod);
+
+        pressEnterToContinue();
 
         std::shared_ptr<Aws::IOStream> largeFileInputData =
                 Aws::MakeShared<Aws::FStream>("SampleAllocationTag",
@@ -458,11 +385,6 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
             return false;
         }
 
-        key = "mp_";
-        key += stringForHashMethod(chosenHashMethod);
-        key += "-s3-userguide.pdf";
-        std::cout << "Starting multipart upload of with hash method " <<
-                  stringForHashMethod(chosenHashMethod) << std::endl;
         HASH_METHOD multipartUploadHashMethod = chosenHashMethod;
         if (multipartUploadHashMethod == DEFAULT) {
             multipartUploadHashMethod = MD5;
@@ -471,6 +393,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
                       << stringForHashMethod(putObjectHashMethod)
                       << std::endl;
         }
+
         AwsDoc::S3::Hasher hashData;
         std::vector<Aws::String> partHashes;
 
@@ -500,63 +423,11 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
             return false;
         }
 
-        std::cout << "Retrieved hash " << retrievedHash << std::endl;
-        std::cout << retrievedPartHashes.size() << " part hash(es) were also retrieved."
-                  << std::endl;
-        for (auto &retrievedPartHash: retrievedPartHashes) {
-            std::cout << "  Part hash " << retrievedPartHash << std::endl;
-        }
+        verifyHashingResults(retrievedHash, hashData, "MultiPart upload",
+                             multipartUploadHashMethod,
+                             retrievedPartHashes, partHashes);
 
-        if (multipartUploadHashMethod == MD5) {
-            hashString = hashData.getHexHashString();
-            hashString += "-" + std::to_string(partHashes.size());
-        }
-        else {
-            hashString = hashData.getBase64HashString();
-        }
-
-        allMatch = true;
-        if (hashString != retrievedHash) {
-            std::cerr << "The main hashes do not match" << std::endl;
-            std::cerr << "Local hash- '" << hashString << "'" << std::endl;
-            std::cerr << "Remote hash - '" << retrievedHash << "'" << std::endl;
-            allMatch = false;
-        }
-
-        if (multipartUploadHashMethod != MD5) {
-            if (partHashes.size() != retrievedPartHashes.size()) {
-                std::cerr << "The number of part hashes do not match" << std::endl;
-                std::cerr << "Local number of hashes- '" << partHashes.size() << "'"
-                          << std::endl;
-                std::cerr << "Remote number of hashes - '"
-                          << retrievedPartHashes.size()
-                          << "'" << std::endl;
-                continue;
-            }
-
-            for (int i = 0; i < partHashes.size(); ++i) {
-                if (partHashes[i] != retrievedPartHashes[i]) {
-                    std::cerr << "The part hashes do not match for part " << i + 1
-                              << "." << std::endl;
-                    std::cerr << "Local hash- '" << partHashes[i] << "'"
-                              << std::endl;
-                    std::cerr << "Remote hash - '" << retrievedPartHashes[i] << "'"
-                              << std::endl;
-                    allMatch = false;
-                }
-            }
-        }
-
-        if (allMatch) {
-            std::cout << "Locally and remotely calculated hashes all match!" << std::endl;
-        }
-
-        askQuestion("Press any key to continue...", alwaysTrueTest);
-
-        if (allMatch) {
-            std::cout << "All the local hashes match the remote hashes."
-                      << std::endl;
-        }
+        printAsterisksLine();
     } while (askYesNoQuestion(
             "Would you like to repeat with a different checksum algorithm? "));
 
@@ -1115,6 +986,7 @@ AwsDoc::S3::doTransferManagerUpload(const Aws::String &bucket, const Aws::String
 
     auto transfer_manager = Aws::Transfer::TransferManager::Create(transfer_config);
 
+    std::cout << "Uploading the file..." << std::endl;
     auto uploadHandle = transfer_manager->UploadFile(MULTI_PART_TEST_FILE, bucket, key,
                                                      "text/plain",
                                                      Aws::Map<Aws::String, Aws::String>());
@@ -1173,21 +1045,22 @@ bool AwsDoc::S3::calculatePartHashesForFile(AwsDoc::S3::HASH_METHOD hashMethod,
 void AwsDoc::S3::introductoryExplanations(const Aws::String &bucketName) {
 
     std::cout
-            << "Welcome to the Amazon Simple Storage Service (Amazon S3) object integrity\n";
-    std::cout << "workflow." << std::endl;
+            << "Welcome to the Amazon Simple Storage Service (Amazon S3) object integrity workflow." << std::endl;
+    printAsterisksLine();
     std::cout
             << "This workflow demonstrates how Amazon S3 uses checksum values to verify the integrity of data\n";
     std::cout << "uploaded to Amazon S3 buckets" << std::endl;
     std::cout
-            << "The AWS SDK for C++ automatically handles checksums. You can specify the checksum algorithm.\n";
+            << "The AWS SDK for C++ automatically handles checksums.\n";
     std::cout
-            << "If you do not specify a checksum, the SDK uses the default checksum algorithm.\n"
+            << "By default it calculates a checksum that is uploaded with an object.\n"
             << "The default checksum algorithm for PutObject and MultiPart upload is an MD5 hash.\n"
-            << "The default checksum algorithm for the TransferManager uploads is a CRC32 checksum."
+            << "The default checksum algorithm for TransferManager uploads is a CRC32 checksum."
             << std::endl;
     std::cout
-            << "You can specify one of 4 other checksums to use for object integrity verification,\n";
-    std::cout << "CRC32, CRC32C, SHA-1 or SHA-256." << std::endl;
+            << "You can override the default behavior, requiring one of the following checksums,\n";
+    std::cout << "MD5, CRC32, CRC32C, SHA-1 or SHA-256." << std::endl;
+    std::cout << "You can also set the checksum hash value, instead of letting the SDK calculate the value." << std::endl;
     std::cout
             << "For more information, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html."
             << std::endl;
@@ -1198,9 +1071,128 @@ void AwsDoc::S3::introductoryExplanations(const Aws::String &bucketName) {
     std::cout
             << "This is done to provide demonstration code for how the checksums are calculated."
             << std::endl;
-    std::cout << "A bucket named '" << "' will be created for the object uploads." << std::endl;
+    std::cout << "A bucket named '"<< bucketName << "' will be created for the object uploads." << std::endl;
+}
 
-    std::cout << "Now to begin..." << std::endl;
+void AwsDoc::S3::explainPutObjectResults() {
+
+    std::cout << "The upload was successful.\n";
+    std::cout << "If the checksums had not matched, the upload would have failed."
+              << std::endl;
+    std::cout
+            << "The checksums calculated by the server have been retrieved using the GetObjectAttributes."
+            << std::endl;
+    std::cout
+            << "The locally calculated checksums have been verified against the retrieved checksums."
+            << std::endl;
+}
+
+void AwsDoc::S3::introductoryTransferManagerUploadExplanations(
+        const Aws::String &objectKey) {
+    std::cout
+            << "Now the workflow will demonstrate object integrity for TransferManager multi-part uploads."
+            << std::endl;
+    std::cout
+            << "The AWS C++ SDK has a TransferManager class which simplifies multipart uploads."
+            << std::endl;
+    std::cout
+            << "The following code lets the TransferManager handle much of the checksum configuration."
+            << std::endl;
+
+    std::cout << "An object with the key '" << objectKey
+              << " will be uploaded by the TransferManager using a "
+              << BUFFER_SIZE_IN_MEGABYTES << " MB buffer." << std::endl;
+    if (gUseCalculatedChecksum) {
+        std::cout << "For TransferManager uploads, this demo always lets the SDK calculate the hash value." << std::endl;
+    }
+
+    pressEnterToContinue();
+    printAsterisksLine();
+}
+
+void AwsDoc::S3::multiPartUploadExplanationsPart2(const Aws::String &objectKey,
+                                                  HASH_METHOD chosenHashMethod) {
+    std::cout
+            << "Now we will provide an in-depth demonstration of multi-part uploading by calling the multi-part upload APIs directly."
+            << std::endl;
+    std::cout << "These are the same APIs used by the TransferManager when uploading large files."
+              << std::endl;
+    std::cout
+            << "In the following code, the checksums are also calculated locally and then compared."
+            << std::endl;
+    std::cout
+            << "For multi-part uploads, a checksum is uploaded with each part. The final checksum is a concatenation of"
+            << std::endl;
+    std::cout << "the checksums for each part." << std::endl;
+    std::cout
+            << "This is explained in the user guide, https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html,\""
+               << " in the section \"Using part-level checksums for multipart uploads\"." << std::endl;
+
+    std::cout << "Starting multipart upload of with hash method " <<
+              stringForHashMethod(chosenHashMethod) << " uploading to with object key\n"
+              << "'"  << objectKey << "'," << std::endl;
+
+}
+
+void AwsDoc::S3::verifyHashingResults(const Aws::String &retrievedHash,
+                                      const Hasher &localHash,
+                                      const Aws::String &uploadtype,
+                                      HASH_METHOD hashMethod,
+                                      const std::vector<Aws::String> &retrievedPartHashes,
+                                      const std::vector<Aws::String> &localPartHashes) {
+    std::cout << "For " << uploadtype << " retrieved hash is " << retrievedHash << std::endl;
+    if (!retrievedPartHashes.empty()) {
+        std::cout << retrievedPartHashes.size() << " part hash(es) were also retrieved."
+                  << std::endl;
+        for (auto &retrievedPartHash: retrievedPartHashes) {
+            std::cout << "  Part hash " << retrievedPartHash << std::endl;
+        }
+    }
+    Aws::String hashString;
+    if (hashMethod == MD5) {
+        hashString = localHash.getHexHashString();
+        if (!localPartHashes.empty()){
+            hashString += "-" + std::to_string(localPartHashes.size());
+        }
+    }
+    else {
+        hashString = localHash.getBase64HashString();
+    }
+
+    bool allMatch = true;
+    if (hashString != retrievedHash) {
+        std::cerr << "For " << uploadtype << ", the main hashes do not match" << std::endl;
+        std::cerr << "Local hash- '" << hashString << "'" << std::endl;
+        std::cerr << "Remote hash - '" << retrievedHash << "'" << std::endl;
+        allMatch = false;
+    }
+
+    if (hashMethod != MD5) {
+        if (localPartHashes.size() != retrievedPartHashes.size()) {
+            std::cerr << "For " << uploadtype << ", the number of part hashes do not match" << std::endl;
+            std::cerr << "Local number of hashes- '" << localPartHashes.size() << "'"
+                      << std::endl;
+            std::cerr << "Remote number of hashes - '"
+                      << retrievedPartHashes.size()
+                      << "'" << std::endl;
+        }
+
+        for (int i = 0; i < localPartHashes.size(); ++i) {
+            if (localPartHashes[i] != retrievedPartHashes[i]) {
+                std::cerr << "For " << uploadtype << ", the part hashes do not match for part " << i + 1
+                          << "." << std::endl;
+                std::cerr << "Local hash- '" << localPartHashes[i] << "'"
+                          << std::endl;
+                std::cerr << "Remote hash - '" << retrievedPartHashes[i] << "'"
+                          << std::endl;
+                allMatch = false;
+            }
+        }
+    }
+
+    if (allMatch) {
+        std::cout << "For " << uploadtype << ", locally and remotely calculated hashes all match!" << std::endl;
+    }
 
 }
 
@@ -1243,11 +1235,11 @@ bool AwsDoc::S3::Hasher::calculateObjectHash(Aws::IOStream &data,
     return true;
 }
 
-Aws::String AwsDoc::S3::Hasher::getBase64HashString() {
+Aws::String AwsDoc::S3::Hasher::getBase64HashString() const {
     return Aws::Utils::HashingUtils::Base64Encode(m_Hash);
 }
 
-Aws::String AwsDoc::S3::Hasher::getHexHashString() {
+Aws::String AwsDoc::S3::Hasher::getHexHashString() const  {
     std::stringstream stringstream;
     stringstream << std::hex << std::setfill('0');
     for (int i = 0; i < m_Hash.GetLength(); ++i) {
@@ -1257,7 +1249,7 @@ Aws::String AwsDoc::S3::Hasher::getHexHashString() {
     return stringstream.str();
 }
 
-Aws::Utils::ByteBuffer AwsDoc::S3::Hasher::getByteBufferHash() {
+Aws::Utils::ByteBuffer AwsDoc::S3::Hasher::getByteBufferHash() const {
     return m_Hash;
 }
 
