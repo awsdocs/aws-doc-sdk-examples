@@ -68,7 +68,7 @@ The application uses the following services:
   - Amazon SNS
   - Amazon Translate
 
-### [Amazon DynamoDB work item tracker web application](DynamodbWebApp/README.md)
+### [Amazon DynamoDB work item tracker web application](DynamoDbItemTracker/README.md)
 
 Shows how to create a web application that tracks work items in DynamoDB and emails 
 reports by using Amazon SES.
