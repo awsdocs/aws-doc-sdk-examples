@@ -55,36 +55,76 @@ This Getting Started scenario creates two key types. A symmetric encryption key 
 and an asymmetric key used to digitally sign data.
 Let's get started...
 
-Please enter 'c' to continue:
-c
-Continuing with the program...
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-First, we will create an AWS KMS key that is used to encrypt and decrypt data.
-Please enter 'c' to continue:
-c
-Continuing with the program...
-Created a customer key with ARN arn:aws:kms:us-west-2:814548047983:key/fe57938c-21ec-4ea7-a68f-5cbe2f617c80
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-By default, when you create an AWS key, it is enabled. Check to make sure if the key is enabled. If not,
-then enabled it.
 
-Please enter 'c' to continue:
+Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
+
+--------------------------------------------------------------------------------
+1. Create a symmetric KMS key
+First, we will create a symmetric KMS key that is used to encrypt and decrypt data by invoking createKey().
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+Created a customer key with ARN arn:aws:kms:us-west-2:814548047983:key/70744202-eeda-4271-aedc-2466a0152e26
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+--------------------------------------------------------------------------------
+2. Enable a KMS key
+
+By default when you create an AWS key, it is enabled. The code checks to
+determine if the key is enabled. If it is not enabled, the code enables it.
+
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
 The key is enabled.
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-Hello, AWS KMS!
-Lets encrypt this data.
-Please enter 'c' to continue:
+
+Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
+
+--------------------------------------------------------------------------------
+3. Encrypt data using the symmetric KMS key
+One of the main uses of symmetric keys is to encrypt and decrypt data.
+Next, you encrypt the string 'Hello, AWS KMS!' with the SYMMETRIC_DEFAULT encryption algorithm.
+
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
 The encryption algorithm is SYMMETRIC_DEFAULT
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
 --------------------------------------------------------------------------------
+4. Create an alias
+Enter an alias name for the key. The name should be prefixed with 'alias/'.
+For example, 'alias/myFirstKey'.
+
+
+alias/dev-encryption-key was successfully created.
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
 --------------------------------------------------------------------------------
-Please enter an alias name for the key that is prefixed by alias/ (default is alias/dev-encryption-key.
+5. List all of your aliases.
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
 
 The alias name is: alias/Scott
 The alias name is: alias/alias/myAlias
@@ -101,91 +141,183 @@ The alias name is: alias/aws/kinesisvideo
 The alias name is: alias/aws/lex
 The alias name is: alias/aws/rds
 The alias name is: alias/aws/redshift
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-Enable automatic rotation of the KMS key.
 
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+--------------------------------------------------------------------------------
+6. Enable automatic rotation of the KMS key
 By default, when you enable automatic rotation of a KMS key,
 KMS rotates the key material of the KMS key one year (approximately 365 days) from the enable date and every year
 thereafter.
 
-Please enter 'c' to continue:
+
+Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
-You have enabled key rotation for key fe57938c-21ec-4ea7-a68f-5cbe2f617c80
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-A grant is a policy instrument that allows Amazon Web Services principals to use KMS keys.
 
+You have enabled key rotation for key 70744202-eeda-4271-aedc-2466a0152e26
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+--------------------------------------------------------------------------------
+7. Create a grant.
+
+A grant is a policy instrument that allows Amazon Web Services principals to use KMS keys.
 It also can allow them to view a KMS key (DescribeKey) and create and manage grants.
 When authorizing access to a KMS key, grants are considered along with key policies and IAM policies.
 
-Please enter 'c' to continue:
+
+Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
-The grant id is ed5ddb49cae3e2d99be93fd8a1eb39b2607902b6f880c3705ebc291622a10855
-List grants for the KMS key.
-Please enter 'c' to continue:
+
+The grant id is 8ff5f9331aaae25633c65cedb5b211688e57bbc25caec22a1fe2fb25fb1a82f9
+
+Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
-The grant Id is : ed5ddb49cae3e2d99be93fd8a1eb39b2607902b6f880c3705ebc291622a10855
-Revoke the grant.
-Please enter 'c' to continue:
-c
-Continuing with the program...
-ed5ddb49cae3e2d99be93fd8a1eb39b2607902b6f880c3705ebc291622a10855 was successfully revoked!
+
 --------------------------------------------------------------------------------
+8. List grants for the KMS key.
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+The grant Id is : 8ff5f9331aaae25633c65cedb5b211688e57bbc25caec22a1fe2fb25fb1a82f9
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
 --------------------------------------------------------------------------------
+9. Revoke the grant.
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+8ff5f9331aaae25633c65cedb5b211688e57bbc25caec22a1fe2fb25fb1a82f9 was successfully revoked!
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+--------------------------------------------------------------------------------
+10. Decrypt the data.
 Lets decrypt the data that was encrypted in an early step.
-Please enter 'c' to continue:
+We'll use the same key to decrypt the string that we encrypted earlier in the program.
+
+
+Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
+
 Decrypted text is: Hello, AWS KMS!
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
 --------------------------------------------------------------------------------
+10. Create a key policy.
 A key policy is a resource policy for an KMS key. Key policies are the primary way to control
 access to KMS keys. Every KMS key must have exactly one key policy. The statements in the key policy
 determine who has permission to use the KMS key and how they can use it.
 You can also use IAM policies and grants to control access to the KMS key, but every KMS key
-must have a key policy..
+must have a key policy.
 
-Set a Key policy.
-Please enter 'c' to continue:
+We will set a key policy.
+    "Version": "2012-10-17",
+    "Statement": [{
+    "Effect": "Allow",
+    "Principal": {"AWS": "arn:aws:iam::0000000000:root"},
+    "Action": "kms:*",
+    "Resource": "*"
+    }]
+
+
+Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
+
 Policy Name: default
-Only one policy per key is supported. Unable to create the policy.
-Lets get the key policy to make sure it exists. 
-Please enter 'c' to continue:
+The Key already has a policy.
+
+Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
-The policy cannot be found. Error message: No such policy exists (Service: Kms, Status Code: 400, Request ID: 0a25d66d-e544-4d7b-a9ec-afc75e8f34c9)
+
 --------------------------------------------------------------------------------
+11. Get the key policy.
+Lets get the key policy to make sure it exists. 
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+The response is {
+  "Version" : "2012-10-17",
+  "Id" : "key-default-1",
+  "Statement" : [ {
+    "Sid" : "Enable IAM User Permissions",
+    "Effect" : "Allow",
+    "Principal" : {
+      "AWS" : "arn:aws:iam::814548047983:root"
+    },
+    "Action" : "kms:*",
+    "Resource" : "*"
+  } ]
+}
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+--------------------------------------------------------------------------------
+12. Sign your data with the asymmetric KMS key.
  Signing your data with an AWS key can provide several benefits that make it an attractive option
  for your data signing needs. By using an AWS KMS key, you can leverage the
  security controls and compliance features provided by AWS,
  which can help you meet various regulatory requirements and enhance the overall security posture
  of your organization.
 
-Please enter 'c' to continue:
+
+Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
-Created KMS key with ID: 85772333-f623-428e-9afc-19f659e29997
-Signature verification result: true
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-Tag your KMS Key.
 
+Created KMS key with ID: a1582f53-dc2f-4fb7-9b21-f50c5c757c8a
+Signature verification result: true
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+--------------------------------------------------------------------------------
+13. Tag your symmetric KMS Key.
 By using tags, you can improve the overall management, security, and governance of your
 KMS keys, making it easier to organize, track, and control access to your encrypted data within
 your AWS environment
 
-Please enter 'c' to continue:
+
+Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
+
 Tagged KMS key with key-value pair
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-Schedules the deletion of a KMS key. By default, KMS applies a waiting period of 30 days,
+14. Schedule the deletion of the KMS key.
+By default, KMS applies a waiting period of 30 days,
 but you can specify a waiting period of 7-30 days. When this operation is successful,
 the key state of the KMS key changes to PendingDeletion and the key can't be used in any
 cryptographic operations. It remains in this state for the duration of the waiting period.
@@ -196,15 +328,15 @@ all data that was encrypted under the KMS key is unrecoverable.
 Would you like to delete the Key Management resources? (y/n)
 y
 You selected to delete the AWS KMS resources.
-Please enter 'c' to continue:
+
+Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
+
 The key will be deleted in 7 days.
---------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 This concludes the AWS Key Management SDK Getting Started scenario
 --------------------------------------------------------------------------------
-
 
 ```
 
