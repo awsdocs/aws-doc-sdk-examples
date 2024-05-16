@@ -96,7 +96,6 @@ class Claude3WithDocumentRAG:
         while "bye" not in reply.lower():
             try:
                 prompt = template.format(document=document, input_text=reply)
-                breakpoint()
                 prediction = conversation.predict(input=prompt)
                 self.logger.warning(prediction)
                 reply = input("User: ")
