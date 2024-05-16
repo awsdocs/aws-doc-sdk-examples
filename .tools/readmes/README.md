@@ -37,33 +37,35 @@ authored for the SOS project. After you have authored metadata and snippet tags
 for your examples, run the following command in the root folder of the repo:
 
 ```
-python .tools/readmes/writeme.py <language> <version> <service>
+python .tools/readmes/multi.py --languages <language>:<version> --services <service>
 ```
 
-WRITME reads metadata and config data and generates a README in the service
-folder for the specified language, version, and service.
+WRITEME reads metadata and config data and generates READMEs in the service
+folder for the specified languages, versions, and services.
 
 For example, to generate an S3 README for Python:
 
 ```
-python .tools/readmes/writeme.py Python 3 s3
+python .tools/readmes/multi.py --languages Python:3 --services s3
 ```
 
 This creates a README.md file in the `python/example_code/s3` folder.
 
 ### Parameters
 
-- `language` must match a top-level language in sdks.yaml.
-- `version` must be defined for the language in sdks.yaml.
-- `service` must match a top-level service in services.yaml.
+- `--languages` must match a top-level language:version in sdks.yaml.
+- `--services` must match a top-level service in services.yaml.
 - `--safe` (optional) when specified, the existing README.md is renamed to the
   `saved_readme` value in config.py (such as README.old.md).
-- `--svc_folder` (optional) overrides the output folder for the README.
-
+- `--verbose` When set, output verbose debugging info.
+- `--dry-run`, `--no-dry-run` In dry run, compare current vs generated and exit with failure if they do not match.
+- `--check` Verifies whether the existing README.md matches the proposed new README.md
+  (but does not write a new README.md). This is the same check that is run by the GitHub action.
+ 
 You can get inline usage info by using the `-h` flag:
 
 ```
-python .tools/readmes/writeme.py -h
+python .tools/readmes/multi.py -h
 ```
 
 ### Configuration
@@ -107,7 +109,7 @@ Any content you add within these comments is preserved in subsequent generations
 of the README. Do not change the names of these comments or remove them. Keep them
 empty if you don't need custom content.
 
-## Generate multiple READMEs (EXPERIMENTAL)
+## Generate multiple READMEs
 
 [`multi.py`](multi.py) executes the WRITEME logic across a set of languages,
 versions, and services.
@@ -141,21 +143,8 @@ To specify `svc_folder` overrides, add a dict to the language in `config.py` wit
 the name `service_folder_overrides` and entries with the service name as the key
 and complete folder override as the value. See dotnetv3 for an example.
 
-And yes, building all readmes for all languages after changing metadta or templates is now as easy as
+And yes, building all readmes for all languages after changing metadata or templates is now as easy as
 
 ```
 python .tools/readmes/multi.py
-```
-
-### Parameters
-
-- `--languages` a list of `<language>:<sdk_version>` pairs. Each pair must be valid as defined for the languages in [`sdks.yaml`](../metadata/sdks.yaml).
-- `--services` a list where each must match a top-level service in [`services.yaml`](../metadata/services.yaml).
-- `--safe` (optional) when specified, the existing README.md is renamed to the `saved_readme` value in config.py (such as README.old.md).
-- `--dry-run` (default True) because the tool is experimental, you must explicitly opt in with `--no-dry-run` to execute today. This will change in the future.
-
-You can get inline usage info by using the `-h` flag:
-
-```
-python .tools/readmes/multi.py -h
 ```
