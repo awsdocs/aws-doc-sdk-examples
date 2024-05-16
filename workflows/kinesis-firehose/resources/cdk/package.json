@@ -1,0 +1,20 @@
+{
+  "name": "kinesis_firehose",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@aws-cdk/assertions": "^2.0.0",
+    "@aws-cdk/core": "latest",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-iam": "^1.204.0",
+    "@aws-cdk/aws-kinesisfirehose": "^1.204.0",
+    "@aws-cdk/aws-s3": "^1.204.0",
+    "@aws-cdk/core": "^1.204.0"
+  }
+}
