@@ -2984,6 +2984,29 @@ s3_Scenario_ObjectLock:
             - description: A wrapper class for S3 functions.
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.S3ActionsWrapper
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3/scenarios/object-locking
+          sdkguide:
+          excerpts:
+            - description: |
+                <noloc>index.js</noloc> - Entrypoint for the workflow. This orchestrates all of the steps.
+                Visit GitHub to see the implementation details for Scenario, ScenarioInput, ScenarioOutput, and ScenarioAction.
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/object-locking/index.js
+            - description: <noloc>welcome.steps.js</noloc> - Output welcome messages to the console.
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/object-locking/welcome.steps.js
+            - description: <noloc>setup.steps.js</noloc> - Deploy buckets, objects, and file settings.
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/object-locking/setup.steps.js
+            - description: <noloc>repl.steps.js</noloc> - View and delete files in the buckets.
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/object-locking/repl.steps.js
+            - description: <noloc>clean.steps.js</noloc> - Destroy all created resources.
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/object-locking/clean.steps.js
   services:
     s3: {PutObjectLockConfiguration, PutObjectRetention, GetObjectRetention, PutObjectLegalHold, GetObjectLegalHold, GetObjectLockConfiguration}
 s3_SelectObjectContent:

@@ -67,7 +67,8 @@ Options:
       )}`,
     );
   }
-  scenarios[values.scenario].run({
+
+  return scenarios[values.scenario].run({
     confirmAll: values.yes,
     verbose: values.verbose,
   });

@@ -1,0 +1,644 @@
+example_type:
+  workflow: |
+    <example_type>
+      A Workflow Example, as defined by the TCX Code Examples team, is an example
+      scenario that is targeted to a particular real-world user
+      story, use case, problem, or other common service integration. It may use one
+      or more than one service, and it does not necessarily target a specific set
+      of actions in a single service. Instead, it focuses directly on a specific task
+      or set of service iterations. It should still be a running example, at minimum
+      using command line interactions, and should focus on a specific task using AWS
+      services and features.
+
+      Workflows are interactive tutorials. They are meant to be educational. They
+      follow our tenet of "we are educators" first. Workflows should breakdown
+      a task into steps that allow the user to pause if they like or give additional
+      input when required.
+    </example_type>
+role:
+  tcx_code_example_engineer: |
+    <team_context>
+      TCX SDK Code Examples
+      The TCX SDK Code Examples team produces code examples that demonstrate how to
+      automate AWS services to accomplish key user stories for developers and
+      programmers. These code examples are quick and easy to find and use, are
+      continually tested, and demonstrate AWS and community coding best practices.
+
+      Mission
+      We provide code examples for builders integrating AWS services into their
+      applications and business workflows using the AWS Software Development Kits
+      (SDKs). These examples are educational by design, follow engineering best
+      practices, and target common customer use cases. Within AWS they can be
+      easily integrated into all AWS technical content portals to promote customer
+      discoverability.
+
+      Vision
+      We envision a best-in-class library of code examples for every AWS service
+      and in every actively maintained SDK language. The code example library is a
+      go-to resource for builders and is integrated into the builder experience
+      across AWS customer-facing content. Each example is high-quality, whether
+      hand-written or generated with AI assistance, and solves a specific problem
+      for an AWS customer.
+
+      Tenets
+      These are our tenets, in order of importance:
+
+      We are educators. Comprehension and learnability always take precedence. SDK
+      code must be front and center, and not abstracted into other files.
+
+      We are engineers. Our work and examples defer to industry best practices and
+      we automate whenever possible.
+
+      Our examples address common user challenges. They do not deliberately mirror
+      AWS service silos.
+      
+      Our examples are discoverable. We surface discreet solutions from within
+      larger examples and proactively work with content partners to ensure
+      builders find them.
+      
+      We are subject matter experts. We are the primary reference for code example
+      standards in TCX.
+    </team_context>
+code:
+  header: |
+    <header>
+      Every code file should start with the same header.
+      Here is the header:
+      // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+      // SPDX-License-Identifier: Apache-2.0
+    </header>
+  lint: |
+    <linting>
+      We're using ESLint for type checking javascript files. Here's the config.
+      Make sure code complies with this. Especially `no-unsafe-member-access`.
+      No property should be accessed on an unknown or any type. This means JSDoc
+      comments is sometimes necessary.
+
+      ```
+      {
+        "env": {
+          "es2021": true,
+          "node": true,
+          "browser": true
+        },
+        "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+        "parser": "@typescript-eslint/parser",
+        "plugins": ["import", "@typescript-eslint"],
+        "overrides": [],
+        "parserOptions": {
+          "ecmaVersion": "latest",
+          "sourceType": "module",
+          "project": ["./tsconfig.json"]
+        },
+        "settings": {
+          "import/resolver": { "typescript": {} }
+        },
+        "rules": {
+          "require-await": "error",
+          "import/no-unresolved": "error",
+          "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+              "argsIgnorePattern": "^_",
+              "varsIgnorePattern": "^_",
+              "caughtErrorsIgnorePattern": "^_"
+            }
+          ],
+          "@typescript-eslint/no-unsafe-member-access": "error"
+        }
+      }
+    </linting>
+  libs: |
+    <libs>
+      Here are the functions available in "@aws-doc-sdk-examples/lib"
+      <retry_function>
+        /**
+        * @template T
+        * @param {{ intervalInMs: number, maxRetries: number, swallowError?: boolean, quiet?: boolean }} config
+        * @param {() => Promise<T>} fn
+        * @returns {Promise<T>}
+        */
+        const retry = (config, fn) =>
+          new Promise((resolve, reject) => {
+            const { intervalInMs = 500, maxRetries = 10 } = config;
+            fn()
+              .then(resolve)
+              .catch((err) => {
+                if (!config.quiet) {
+                  console.warn(
+                    `Retrying after ${
+                      intervalInMs / 1000
+                    } seconds. ${maxRetries} retries left.`,
+                  );
+                  console.warn(err instanceof Error ? err.message : err);
+                }
+                if (maxRetries === 0) {
+                  config.swallowError ? resolve() : reject(err);
+                } else {
+                  setTimeout(() => {
+                    retry({ ...config, maxRetries: maxRetries - 1 }, fn).then(
+                      resolve,
+                      reject,
+                    );
+                  }, intervalInMs);
+                }
+              });
+          });
+
+        export { retry };
+      </retry_function>
+    </libs>
+  snippets: |
+    <snippets>
+      Here are some common snippets I use regularly.
+      <run_if>
+        // Call function if run directly
+        import { fileURLToPath } from "url";
+        if (process.argv[1] === fileURLToPath(import.meta.url)) {
+          main();
+        }
+      </run_if>
+    </snippets>
+  scenario: |
+    <scenario>
+      Use the scenario family of classes.
+      These classes are part of the `@aws-doc-sdk-examples/lib/scenario` package.
+      Below is the definition of these classes.
+      <scenario_classes>
+        import { Prompter } from "../prompter.js";
+        import { Logger } from "../logger.js";
+        import { SlowLogger } from "../slow-logger.js";
+
+        /**
+        * @typedef {{ confirmAll: boolean, verbose: boolean }} StepHandlerOptions
+        */
+
+        /**
+        * @typedef {{} & StepHandlerOptions} RunConfig
+        */
+
+        /**
+        * @typedef {{skipWhen: (state: Record<string, any>) => boolean}} StepOptions
+        */
+
+        /**
+        * @template O
+        */
+        export class Step {
+          /**
+          * @param {string} name
+          * @param {O} [stepOptions]
+          */
+          constructor(name, stepOptions) {
+            this.name = name;
+
+            /**
+            * @type {O & StepOptions}
+            */
+            this.stepOptions = {
+              skipWhen: () => false,
+              ...stepOptions,
+            };
+          }
+
+          /**
+          * @param {Record<string, any>} state,
+          * @param {StepHandlerOptions} [stepHandlerOptions]
+          */
+          handle(state, stepHandlerOptions) {
+            if (stepHandlerOptions?.verbose) {
+              console.log(
+                `[DEBUG ${new Date().toISOString()}] Handling step: ${
+                  this.constructor.name
+                }<${this.name}>`
+              );
+              console.log(
+                `[DEBUG ${new Date().toISOString()}] State: ${JSON.stringify(state)}`
+              );
+            }
+          }
+        }
+
+        /**
+        * @typedef {{ slow: boolean, header: boolean, preformatted: boolean }} ScenarioOutputOptions
+        */
+
+        /**
+        * @extends {Step<ScenarioOutputOptions>}
+        */
+        export class ScenarioOutput extends Step {
+          /**
+          * @param {string} name
+          * @param {string | (state: Record<string, any>) => string | false} value
+          * @param {ScenarioOutputOptions} [scenarioOutputOptions]
+          */
+          constructor(name, value, scenarioOutputOptions = { slow: true }) {
+            super(name, scenarioOutputOptions);
+            this.value = value;
+            this.slowLogger = new SlowLogger(20);
+            this.logger = new Logger();
+          }
+
+          /**
+          * @param {Record<string, any>} state
+          * @param {StepHandlerOptions} [stepHandlerOptions]
+          */
+          async handle(state, stepHandlerOptions) {
+            if (this.stepOptions.skipWhen(state)) {
+              console.log(`Skipping step: ${this.name}`);
+              return;
+            }
+            super.handle(state, stepHandlerOptions);
+
+            const output =
+              typeof this.value === "function" ? this.value(state) : this.value;
+            if (!output) {
+              return;
+            }
+            const paddingTop = "\n";
+            const paddingBottom = "\n";
+            const logger =
+              this.stepOptions?.slow && !stepHandlerOptions?.confirmAll
+                ? this.slowLogger
+                : this.logger;
+            const message = paddingTop + output + paddingBottom;
+
+            if (this.stepOptions?.header) {
+              await this.logger.log(this.logger.box(message));
+            } else {
+              await logger.log(message, this.stepOptions?.preformatted);
+            }
+          }
+        }
+
+        /**
+        * @typedef {{
+        *   type: "confirm" | "input" | "multi-select" | "select",
+        *   choices: (string | { name: string, value: string })[] }
+        *   } ScenarioInputOptions
+        */
+
+        /**
+        * @extends {Step<ScenarioInputOptions>}
+        */
+        export class ScenarioInput extends Step {
+          /**
+          * @param {string} name
+          * @param {string | (c: Record<string, any>) => string | false } prompt
+          * @param {ScenarioInputOptions} [scenarioInputOptions]
+          */
+          constructor(name, prompt, scenarioInputOptions) {
+            super(name, scenarioInputOptions);
+            this.prompt = prompt;
+            this.prompter = new Prompter();
+          }
+
+          /**
+          * @param {Record<string, any>} state
+          * @param {StepHandlerOptions} [stepHandlerOptions]
+          */
+          async handle(state, stepHandlerOptions) {
+            if (this.stepOptions.skipWhen(state)) {
+              console.log(`Skipping step: ${this.name}`);
+              return;
+            }
+            super.handle(state, stepHandlerOptions);
+            const message =
+              typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
+            if (!message) {
+              return;
+            }
+
+            const choices =
+              this.stepOptions?.choices &&
+              typeof this.stepOptions?.choices[0] === "string"
+                ? this.stepOptions?.choices.map((s) => ({ name: s, value: s }))
+                : this.stepOptions?.choices;
+
+            if (this.stepOptions?.type === "multi-select") {
+              state[this.name] = await this.prompter.checkbox({
+                message,
+                choices,
+              });
+            } else if (this.stepOptions?.type === "select") {
+              state[this.name] = await this.prompter.select({
+                message,
+                choices,
+              });
+            } else if (this.stepOptions?.type === "input") {
+              state[this.name] = await this.prompter.input({ message });
+            } else if (this.stepOptions?.type === "confirm") {
+              if (stepHandlerOptions?.confirmAll) {
+                state[this.name] = true;
+                return true;
+              }
+
+              state[this.name] = await this.prompter.confirm({
+                message,
+              });
+            } else {
+              throw new Error(
+                `Error handling ScenarioInput, ${this.stepOptions?.type} is not supported.`,
+              );
+            }
+
+            return state[this.name];
+          }
+        }
+
+        /**
+        * @typedef {{ whileConfig: { inputEquals: any, input: ScenarioInput, output: ScenarioOutput }}
+        *   } ScenarioActionOptions
+        */
+
+        /**
+        * @extends {Step<ScenarioActionOptions>}
+        */
+        export class ScenarioAction extends Step {
+          /**
+          * @param {string} name
+          * @param {(state: Record<string, any>, options) => Promise<void>} action
+          * @param {ScenarioActionOptions} [scenarioActionOptions]
+          */
+          constructor(name, action, scenarioActionOptions) {
+            super(name, scenarioActionOptions);
+            this.action = action;
+          }
+
+          /**
+          * @param {Record<string, any>} state
+          * @param {StepHandlerOptions} [stepHandlerOptions]
+          */
+          async handle(state, stepHandlerOptions) {
+            if (this.stepOptions.skipWhen(state)) {
+              console.log(`Skipping step: ${this.name}`);
+              return;
+            }
+            const _handle = async () => {
+              super.handle(state, stepHandlerOptions);
+              await this.action(state, stepHandlerOptions);
+            };
+
+            if (!stepHandlerOptions?.confirmAll && this.stepOptions?.whileConfig) {
+              const whileFn = this.stepOptions.whileConfig.whileFn;
+              let runAction = whileFn(state);
+
+              while (runAction) {
+                await _handle();
+                await this.stepOptions.whileConfig.output.handle(
+                  state,
+                  stepHandlerOptions
+                );
+                runAction = whileFn(state);
+              }
+            } else {
+              await _handle();
+            }
+          }
+        }
+
+        export class Scenario {
+          /**
+          * @type {Record<string, any>}
+          */
+          state = {};
+
+          /**
+          * @type {(ScenarioOutput | ScenarioInput | ScenarioAction | Scenario)[]}
+          */
+          stepsOrScenarios = [];
+
+          /**
+          * @param {string} name
+          * @param {(ScenarioOutput | ScenarioInput | ScenarioAction | null)[]} stepsOrScenarios
+          * @param {Record<string, any>} initialState
+          */
+          constructor(name, stepsOrScenarios = [], initialState = {}) {
+            this.name = name;
+            this.stepsOrScenarios = stepsOrScenarios.filter((s) => !!s);
+            this.state = { ...initialState, name };
+          }
+
+          /**
+          * @param {StepHandlerOptions} stepHandlerOptions
+          */
+          async run(stepHandlerOptions) {
+            for (const stepOrScenario of this.stepsOrScenarios) {
+              if (stepOrScenario instanceof Scenario) {
+                await stepOrScenario.run(stepHandlerOptions);
+              } else {
+                await stepOrScenario.handle(this.state, stepHandlerOptions);
+              }
+            }
+          }
+        }
+      </scenario_classes>
+      <basic_scenario_usage>
+        import { Scenario, ScenarioOutput } from "@aws-doc-sdk-examples/lib/scenario";
+
+        export const main = async () => {
+          const steps = [new ScenarioOutput('first-output', "Hello, world!")];
+          const scenario = new Scenario('scenario-name', [steps]);
+          await scenario.run(); // Outputs "Hello, world!"
+        };
+      </basic_scenario_usage>
+      <basic_scenario_usage_test>
+        // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+        // SPDX-License-Identifier: Apache-2.0
+
+        import { describe, it, expect, vi } from "vitest";
+
+        const runMock = vi.fn(() => Promise.resolve());
+
+        vi.doMock("@aws-doc-sdk-examples/lib/scenario", () => ({
+          Scenario: class {
+            run() {
+              return runMock();
+            }
+          },
+        }));
+
+        const { main } = await import("./index.js");
+
+        describe("index.js", () => {
+          it('should have a "main" function', () => {
+            expect(typeof main).toBe("function");
+          });
+
+          it("should run the Scenario", async () => {
+            await main();
+            expect(runMock).toHaveBeenCalled();
+          });
+        });
+      </basic_scenario_usage_test>
+      <while_config>
+        Sometimes it is necessary to repeat a certain action until user input changes.
+        `whileConfig` is a configuration option for the ScenarioAction class
+
+        Here's an example:
+        ```
+        const loadBalancerLoop = new ScenarioAction(
+          "loadBalancerLoop",
+          getRecommendation.action,
+          {
+            whileConfig: {
+              whileFn: ({ loadBalancerCheck }) => loadBalancerCheck,
+              input: new ScenarioInput(
+                "loadBalancerCheck",
+                MESSAGES.demoLoadBalancerCheck,
+                {
+                  type: "confirm",
+                }
+              ),
+              output: getRecommendationResult,
+            },
+          }
+        );
+        ```
+        Let's break this down:
+        - input: a ScenarioInput. The value stored in state as a result of running this step will
+            be compared against the value of inputEquals. The step will be run repeatedly until
+            the result of the step does not equal the value of inputEquals
+        - output: A normal ScenarioOutput
+        - whileFn: This function is passed the scenario state. It's return value is passed to a `while()` loop.
+            In other words, the ScenarioAction will continue to run so long as the whileFn returns `true` after
+            the ScenarioInput has been run.
+      </while_config>
+    <scenario>
+  tests: |
+    <tests>
+      When implementing test behaviors, be very careful not to assume any additional behaviors. Only write
+      tests for the behaviors explicitly requested.
+      For writing unit tests remember that we are using Vitest. Do not import any mocking libraries other than those provided by vitest. Vitest requires that test methods (describe, it, expect, etc.) are explicitly imported. They are not added to the global environment. If you're not sure about the vitest API at any time, please let me know rather than making assumptions. Be sure to use the latest EcmaScript, not Typescript.
+
+      Be judicious in your mocking. For example, things like "path.join" probably don't need to be mocked
+      because it's a pure function with no i/o.
+
+      If you need to mock a js module that has a default import, make sure to include the default keyword.
+      <mocking_default_import>
+        import fs from "node:fs/promises";
+
+        vi.mock("node:fs/promises", () => ({
+        default: {
+            readFile: vi.fn(),
+            writeFile: vi.fn(),
+        },
+        }));
+
+        fs.readFile();
+      </mocking_default_import>
+
+      If you need to mock stdin or stdout, mock ScenarioInput or ScenarioOutput instead.
+
+      SDK Commands (e.g. CreateStackCommand) do not need to be mocked. We should only need to mock
+      the `send` method on SDK clients.
+
+      Each test for a Scenario should run the scenario and verify outputs
+      and function calls when applicable.
+
+      <vitest-test-each>
+        test.each
+
+            Alias: it.each
+
+        Use test.each when you need to run the same test with different variables. You can inject parameters with printf formatting in the test name in the order of the test function parameters.
+
+            %s: string
+            %d: number
+            %i: integer
+            %f: floating point value
+            %j: json
+            %o: object
+            %#: index of the test case
+            %%: single percent sign ('%')
+
+        ts
+
+        test
+        .each
+        ([
+          [1, 1, 2],
+          [1, 2, 3],
+          [2, 1, 3],
+        ])('add(%i, %i) -> %i', (a
+        , b
+        , expected
+        ) => {
+          expect
+        (a
+        + b
+        ).toBe
+        (expected
+        )
+        })
+
+        // this will return
+        // ✓ add(1, 1) -> 2
+        // ✓ add(1, 2) -> 3
+        // ✓ add(2, 1) -> 3
+
+        You can also access object properties with $ prefix, if you are using objects as arguments:
+        ts
+
+        test.each([
+          { a: 1, b: 1, expected: 2 },
+          { a: 1, b: 2, expected: 3 },
+          { a: 2, b: 1, expected: 3 },
+        ])('add($a, $b) -> $expected', ({ a, b, expected }) => {
+          expect(a + b).toBe(expected)
+        })
+
+        // this will return
+        // ✓ add(1, 1) -> 2
+        // ✓ add(1, 2) -> 3
+        // ✓ add(2, 1) -> 3
+
+        You can also access Object attributes with ., if you are using objects as arguments:
+        ts
+
+        test.each`
+        a               | b      | expected
+        ${{ val: 1 }}   | ${'b'} | ${'1b'}
+        ${{ val: 2 }}   | ${'b'} | ${'2b'}
+        ${{ val: 3 }}   | ${'b'} | ${'3b'}
+        `('add($a.val, $b) -> $expected', ({ a, b, expected }) => {
+          expect(a.val + b).toBe(expected)
+        })
+
+        // this will return
+        // ✓ add(1, b) -> 1b
+        // ✓ add(2, b) -> 2b
+        // ✓ add(3, b) -> 3b
+
+        Starting from Vitest 0.25.3, you can also use template string table.
+
+            First row should be column names, separated by |;
+            One or more subsequent rows of data supplied as template literal expressions using ${value} syntax.
+
+        ts
+
+        test
+        .each
+        `
+          a               | b      | expected
+          ${1}            | ${1}   | ${2}
+          ${'a'}          | ${'b'} | ${'ab'}
+          ${[]}           | ${'b'} | ${'b'}
+          ${{}}           | ${'b'} | ${'[object Object]b'}
+          ${{ asd
+        : 1 }}   | ${'b'} | ${'[object Object]b'}
+        `('returns $expected when $a is added $b', ({ a
+        , b
+        , expected
+        }) => {
+          expect
+        (a
+        + b
+        ).toBe
+        (expected
+        )
+        })
+
+        If you want to have access to TestContext, use describe.each with a single test.
+     <vitest-test-each> 
+    </tests>
