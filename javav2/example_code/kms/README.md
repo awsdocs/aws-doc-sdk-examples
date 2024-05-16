@@ -29,23 +29,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [CreateAlias](src/main/java/com/example/kms/CreateAlias.java#L6)
-- [CreateGrant](src/main/java/com/example/kms/CreateGrant.java#L6)
-- [CreateKey](src/main/java/com/example/kms/CreateCustomerKey.java#L6)
-- [Decrypt](src/main/java/com/example/kms/EncryptDataKey.java#L78)
-- [DescribeKey](src/main/java/com/example/kms/DescribeKey.java#L6)
-- [DisableKey](src/main/java/com/example/kms/DisableCustomerKey.java#L6)
-- [EnableKey](src/main/java/com/example/kms/EnableCustomerKey.java#L6)
-- [Encrypt](src/main/java/com/example/kms/EncryptDataKey.java#L6)
-- [ListAliases](src/main/java/com/example/kms/ListAliases.java#L6)
-- [ListGrants](src/main/java/com/example/kms/ListGrants.java#L6)
-- [ListKeys](src/main/java/com/example/kms/ListKeys.java#L6)
-
-
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 
