@@ -1,5 +1,5 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: Apache-2.0
 
 using AWS.Messaging;
 using Handler;
@@ -24,10 +24,10 @@ public class HandlerTests
             Greeting = "Hello"
         };
 
-    var envelope = new MessageEnvelope<Handler.GreetingMessage>()
-    {
-        Message = message
-    };
+        var envelope = new MessageEnvelope<Handler.GreetingMessage>()
+        {
+            Message = message
+        };
 
         // Act.
         var response = await handler.HandleAsync(envelope);

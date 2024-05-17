@@ -1,10 +1,10 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: Apache-2.0
 
 using AWS.Messaging;
 using Microsoft.AspNetCore.Http;
-using Publisher;
 using Moq;
+using Publisher;
 
 namespace MessageProcessingFrameworkTests;
 
@@ -23,7 +23,7 @@ public class PublisherTests
         // Mock the publish operation.
         mockMessagePublisher.Setup(mp =>
             mp.PublishAsync(
-                It.IsAny<GreetingMessage>(),CancellationToken.None)).Returns(Task.CompletedTask);
+                It.IsAny<GreetingMessage>(), CancellationToken.None)).Returns(Task.CompletedTask);
 
 
         var message = new Publisher.GreetingMessage()
@@ -36,7 +36,7 @@ public class PublisherTests
         var response = await Program.PostGreeting(message, mockMessagePublisher.Object);
 
         // Assert.
-        Assert.Equal(Results.Ok(),response);
+        Assert.Equal(Results.Ok(), response);
     }
 
     /// <summary>
