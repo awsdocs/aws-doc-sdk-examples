@@ -66,6 +66,7 @@ functions within the same service.
 - [Create a presigned URL](scenarios/presigned-url-upload.js)
 - [Create a web page that lists Amazon S3 objects](../web/s3/list-objects/src/App.tsx)
 - [Get started with buckets and objects](scenarios/basic.js)
+- [Lock Amazon S3 objects](scenarios/object-locking/index.js)
 - [Upload or download large files](scenarios/multipart-upload.js)
 
 
@@ -150,6 +151,18 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.s3_Scenario_GettingStarted.start-->
 <!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+
+#### Lock Amazon S3 objects
+
+This example shows you how to work with S3 object lock features.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_ObjectLock.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ObjectLock.end-->
+
+
+<!--custom.scenarios.s3_Scenario_ObjectLock.start-->
+<!--custom.scenarios.s3_Scenario_ObjectLock.end-->
 
 #### Upload or download large files
 
