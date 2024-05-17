@@ -13,6 +13,6 @@
   "devDependencies": {
     "@aws-sdk/client-iam": "^3.421.0",
     "@aws-sdk/client-sqs": "^3.421.0",
-    "vitest": "^0.34.6"
+    "vitest": "^1.6.0"
   }
 }
