@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[SQS.dotnetv3.MPFTutorial.Handler]
+
 using AWS.Messaging;
+using Handler;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -14,6 +16,7 @@ builder.ConfigureServices(services =>
     services.AddAWSMessageBus(builder =>
     {
         // Check for input SQS URL.
+        // The SQS URL should be passed as a command line argument or set in the Debug launch profile.
         if ((args.Length == 1) && (args[0].Contains("https://sqs.")))
         {
             // Register you'll poll the following queue.
@@ -32,24 +35,30 @@ builder.ConfigureServices(services =>
 var host = builder.Build();
 await host.RunAsync();
 
-/// <summary>
-/// This class represents the message contents.
-/// </summary>
-public class GreetingMessage
+namespace Handler
 {
-    public string? SenderName { get; set; }
-    public string? Greeting { get; set; }
-}
-
-/// <summary>
-/// This handler is invoked each time you receive the message.
-/// </summary>
-public class GreetingMessageHandler : IMessageHandler<GreetingMessage>
-{
-    public Task<MessageProcessStatus> HandleAsync(MessageEnvelope<GreetingMessage> messageEnvelope, CancellationToken token = default)
+    /// <summary>
+    /// This class represents the message contents.
+    /// </summary>
+    public class GreetingMessage
     {
-        Console.WriteLine($"Received message {messageEnvelope.Message.Greeting} from {messageEnvelope.Message.SenderName}");
-        return Task.FromResult(MessageProcessStatus.Success());
+        public string? SenderName { get; set; }
+        public string? Greeting { get; set; }
+    }
+
+    /// <summary>
+    /// This handler is invoked each time you receive the message.
+    /// </summary>
+    public class GreetingMessageHandler : IMessageHandler<GreetingMessage>
+    {
+        public Task<MessageProcessStatus> HandleAsync(
+            MessageEnvelope<GreetingMessage> messageEnvelope,
+            CancellationToken token = default)
+        {
+            Console.WriteLine(
+                $"Received message {messageEnvelope.Message.Greeting} from {messageEnvelope.Message.SenderName}");
+            return Task.FromResult(MessageProcessStatus.Success());
+        }
     }
 }
 // snippet-end:[SQS.dotnetv3.MPFTutorial.Handler]

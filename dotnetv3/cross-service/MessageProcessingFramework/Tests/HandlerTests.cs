@@ -1,31 +1,38 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using Microsoft.Extensions.Configuration;
+using AWS.Messaging;
+using Handler;
 
-namespace SupportTests
+namespace MessageProcessingFrameworkTests;
+
+public class HandlerTests
 {
-    public class HandlerTests
+    /// <summary>
+    /// Handle a message. Should return success status.
+    /// </summary>
+    /// <returns>Async task.</returns>
+    [Fact]
+    public async Task TestHandleMessage()
     {
-        private readonly IConfiguration _configuration;
+        // Arrange.
+        var handler = new GreetingMessageHandler();
 
-        /// <summary>
-        /// Constructor for the test class.
-        /// </summary>
-        public HandlerTests()
+        var message = new Handler.GreetingMessage()
         {
-            _configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("testsettings.json") // Load test settings from .json file.
-                .AddJsonFile("testsettings.local.json",
-                    true) // Optionally load local settings.
-                .Build();
-        }
+            SenderName = "Sender",
+            Greeting = "Hello"
+        };
 
-        [Fact]
-        public void Test1()
-        {
+    var envelope = new MessageEnvelope<Handler.GreetingMessage>()
+    {
+        Message = message
+    };
 
-        }
+        // Act.
+        var response = await handler.HandleAsync(envelope);
+
+        // Assert.
+        Assert.True(response.IsSuccess);
     }
 }

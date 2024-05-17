@@ -1,31 +1,69 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using Microsoft.Extensions.Configuration;
+using AWS.Messaging;
+using Microsoft.AspNetCore.Http;
+using Publisher;
+using Moq;
 
-namespace SupportTests
+namespace MessageProcessingFrameworkTests;
+
+public class PublisherTests
 {
-    public class PublisherTests
+    /// <summary>
+    /// Test sending a complete message. Should return an OK response.
+    /// </summary>
+    /// <returns>Async task.</returns>
+    [Fact]
+    public async Task TestPublishMessage()
     {
-        private readonly IConfiguration _configuration;
+        // Arrange.
+        var mockMessagePublisher = new Mock<IMessagePublisher>();
 
-        /// <summary>
-        /// Constructor for the test class.
-        /// </summary>
-        public PublisherTests()
+        // Mock the publish operation.
+        mockMessagePublisher.Setup(mp =>
+            mp.PublishAsync(
+                It.IsAny<GreetingMessage>(),CancellationToken.None)).Returns(Task.CompletedTask);
+
+
+        var message = new Publisher.GreetingMessage()
         {
-            _configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("testsettings.json") // Load test settings from .json file.
-                .AddJsonFile("testsettings.local.json",
-                    true) // Optionally load local settings.
-                .Build();
-        }
+            SenderName = "Sender",
+            Greeting = "Hello"
+        };
 
-        [Fact]
-        public void Test1()
+        // Act.
+        var response = await Program.PostGreeting(message, mockMessagePublisher.Object);
+
+        // Assert.
+        Assert.Equal(Results.Ok(),response);
+    }
+
+    /// <summary>
+    /// Test sending an incomplete message. Should return a bad response.
+    /// </summary>
+    /// <returns>Async task.</returns>
+    [Fact]
+    public async Task TestPublishIncompleteMessage()
+    {
+        // Arrange.
+        var mockMessagePublisher = new Mock<IMessagePublisher>();
+
+        // Mock the publish operation.
+        mockMessagePublisher.Setup(mp =>
+            mp.PublishAsync(
+                It.IsAny<GreetingMessage>(), CancellationToken.None)).Returns(Task.CompletedTask);
+
+        // Message is missing the sender.
+        var message = new Publisher.GreetingMessage()
         {
+            Greeting = "Hello"
+        };
 
-        }
+        // Act.
+        var response = await Program.PostGreeting(message, mockMessagePublisher.Object);
+
+        // Assert.
+        Assert.Equal(Results.BadRequest(), response);
     }
 }

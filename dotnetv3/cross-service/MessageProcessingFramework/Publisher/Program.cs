@@ -4,6 +4,7 @@
 // snippet-start:[SQS.dotnetv3.MPFTutorial.Publisher]
 using AWS.Messaging;
 using Microsoft.AspNetCore.Mvc;
+using Publisher;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +13,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 // Configure the AWS Message Processing Framework for .NET.
 builder.Services.AddAWSMessageBus(builder =>
 {
     // Check for input SQS URL.
+    // The SQS URL should be passed as a command line argument or set in the Debug launch profile.
     if ((args.Length == 1) && (args[0].Contains("https://sqs.")))
     {
         // Register that you'll publish messages of type GreetingMessage:
@@ -40,29 +43,47 @@ app.UseHttpsRedirection();
 
 // Create an API Endpoint that receives GreetingMessage objects
 // from the caller and then sends them as an SQS message.
-app.MapPost("/greeting", async ([FromServices] IMessagePublisher publisher, GreetingMessage message) =>
-{
-    if (message.SenderName == null || message.Greeting == null)
+app.MapPost("/greeting", async ([FromServices] IMessagePublisher publisher, Publisher.GreetingMessage message) =>
     {
-        return Results.BadRequest();
-    }
-
-    // Publish the message to the queue configured above.
-    await publisher.PublishAsync(message);
-
-    return Results.Ok();
-})
+        return await PostGreeting(message, publisher);
+    })
 .WithName("SendGreeting")
 .WithOpenApi();
 
 app.Run();
 
-/// <summary>
-/// This class represents the message contents.
-/// </summary>
-public class GreetingMessage
+public partial class Program
 {
-    public string? SenderName { get; set; }
-    public string? Greeting { get; set; }
+    /// <summary>
+    /// Endpoint for posting a greeting message.
+    /// </summary>
+    /// <param name="greetingMessage">The greeting message.</param>
+    /// <param name="messagePublisher">The message publisher.</param>
+    /// <returns>Async task result.</returns>
+    public static async Task<IResult> PostGreeting(GreetingMessage greetingMessage,
+        IMessagePublisher messagePublisher)
+    {
+        if (greetingMessage.SenderName == null || greetingMessage.Greeting == null)
+        {
+            return Results.BadRequest();
+        }
+
+        // Publish the message to the queue configured above.
+        await messagePublisher.PublishAsync(greetingMessage);
+
+        return Results.Ok();
+    }
+}
+
+namespace Publisher
+{
+    /// <summary>
+    /// This class represents the message contents.
+    /// </summary>
+    public class GreetingMessage
+    {
+        public string? SenderName { get; set; }
+        public string? Greeting { get; set; }
+    }
 }
 // snippet-end:[SQS.dotnetv3.MPFTutorial.Publisher]
