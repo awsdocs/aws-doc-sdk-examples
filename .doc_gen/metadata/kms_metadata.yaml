@@ -702,7 +702,7 @@ kms_Scenario_KeyEncryption:
     kms: {Encrypt, Decrypt, ReEncrypt}
 kms_Scenario_KeyManagement:
   title: Getting started with &kms-keys-long; using an &AWS; SDK
-  title_abbrev: Manage keys
+  title_abbrev: Getting started with &kms-keys-long;
   synopsis_list:
     - Create a &kms-key;.
     - List &kms-keys; for your account and get details about them.
