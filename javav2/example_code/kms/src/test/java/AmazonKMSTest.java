@@ -28,9 +28,9 @@ public class AmazonKMSTest {
     @BeforeAll
     public static void setUp() {
         kmsClient = KmsClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_WEST_2)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -49,14 +49,14 @@ public class AmazonKMSTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests.
          * prop.load(input);
          * keyDesc = prop.getProperty("keyDesc");
          * operation = prop.getProperty("operation");
          * aliasName = prop.getProperty("aliasName");
          * granteePrincipal = prop.getProperty("granteePrincipal");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }
@@ -92,7 +92,7 @@ public class AmazonKMSTest {
         assertDoesNotThrow(() -> KMSScenario.revokeKeyGrant(kmsClient,  targetKeyId, grantId));
         assertDoesNotThrow(() -> KMSScenario.decryptData(kmsClient, ciphertext, targetKeyId));
         String policyName = "testPolicy1";
-        assertDoesNotThrow(() -> KMSScenario.createPolicy(kmsClient,targetKeyId, policyName));
+        assertDoesNotThrow(() -> KMSScenario.replacePolicy(kmsClient,targetKeyId, policyName));
         assertDoesNotThrow(() -> KMSScenario.signVerifyData(kmsClient));
         assertDoesNotThrow(() -> KMSScenario.tagKMSKey(kmsClient, targetKeyId));
         assertDoesNotThrow(() -> KMSScenario.deleteSpecificAlias(kmsClient, fullAliasName));
@@ -103,14 +103,14 @@ public class AmazonKMSTest {
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
         String secretName = "test/kms";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-                .secretId(secretName)
-                .build();
+            .secretId(secretName)
+            .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();
@@ -142,3 +142,13 @@ public class AmazonKMSTest {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+

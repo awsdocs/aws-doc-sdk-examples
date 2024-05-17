@@ -29,6 +29,35 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello KMS key](src/main/java/com/example/kms/HelloKMS.java#L6) (`listKeysPaginator`)
+
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [CreateAlias](src/main/java/com/example/kms/scenario/KMSScenario.java#L633)
+- [CreateGrant](src/main/java/com/example/kms/scenario/KMSScenario.java#L589)
+- [CreateKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L677)
+- [Decrypt](src/main/java/com/example/kms/scenario/KMSScenario.java#L526)
+- [DescribeKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L502)
+- [DisableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L314)
+- [EnableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L698)
+- [Encrypt](None)
+- [ListAliases](src/main/java/com/example/kms/scenario/KMSScenario.java#L294)
+- [ListGrants](src/main/java/com/example/kms/scenario/KMSScenario.java#L563)
+- [ListKeys](src/main/java/com/example/kms/HelloKMS.java#L6)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Getting started with &kms-keys-long;](src/main/java/com/example/kms/scenario/KMSScenario.java)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 
@@ -40,7 +69,30 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello KMS key
 
+This example shows you how to get started using KMS key.
+
+
+
+#### Getting started with &kms-keys-long;
+
+This example shows you how to do the following:
+
+- Create a KMS key.
+- List KMS keys for your account and get details about them.
+- Enable and disable KMS keys.
+- Generate a symmetric data key that can be used for client-side encryption.
+- Generate an asymmetric key used to digitally sign data.
+- Tag keys.
+- Delete KMS keys.
+
+<!--custom.scenario_prereqs.kms_Scenario_KeyManagement.start-->
+<!--custom.scenario_prereqs.kms_Scenario_KeyManagement.end-->
+
+
+<!--custom.scenarios.kms_Scenario_KeyManagement.start-->
+<!--custom.scenarios.kms_Scenario_KeyManagement.end-->
 
 ### Tests
 

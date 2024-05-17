@@ -29,6 +29,7 @@ import software.amazon.awssdk.services.kms.model.GetKeyPolicyRequest;
 import software.amazon.awssdk.services.kms.model.GetKeyPolicyResponse;
 import software.amazon.awssdk.services.kms.model.GrantListEntry;
 import software.amazon.awssdk.services.kms.model.GrantOperation;
+import software.amazon.awssdk.services.kms.model.KeySpec;
 import software.amazon.awssdk.services.kms.model.KeyState;
 import software.amazon.awssdk.services.kms.model.KeyUsageType;
 import software.amazon.awssdk.services.kms.model.KmsException;
@@ -51,6 +52,9 @@ import software.amazon.awssdk.services.kms.model.TagResourceRequest;
 import software.amazon.awssdk.services.kms.model.VerifyRequest;
 import software.amazon.awssdk.services.kms.model.VerifyResponse;
 import software.amazon.awssdk.services.secretsmanager.model.ResourceExistsException;
+import software.amazon.awssdk.services.sts.StsClient;
+import software.amazon.awssdk.services.sts.model.GetCallerIdentityResponse;
+
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -69,11 +73,13 @@ import java.util.Scanner;
 
 public class KMSScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
+    private static final String accountId = getAccountId();
 
     public static void main(String[] args) {
 
         String granteePrincipal = "arn:aws:iam::814548047983:role/aws-service-role/cks.kms.amazonaws.com/AWSServiceRoleForKeyManagementServiceCustomKeyStores";
-        String policyName = "testPolicy1";
+        String policyName = "default";
+
         Scanner scanner = new Scanner(System.in);
         String keyDesc = "Created by the AWS KMS API";
 
@@ -85,6 +91,7 @@ public class KMSScenario {
         System.out.println(DASHES);
         System.out.println("""
             Welcome to the AWS Key Management SDK Getting Started scenario.
+            
             This program demonstrates how to interact with AWS Key Management using the AWS SDK for Java (v2).
             The AWS Key Management Service (KMS) is a secure and highly available service that allows you to create 
             and manage AWS KMS keys and control their use across a wide range of AWS services and applications. 
@@ -98,8 +105,8 @@ public class KMSScenario {
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
-        System.out.println("1. Create a symmetric KMS key");
-        System.out.println("First, the code creates a symmetric KMS key that is used to encrypt and decrypt data by invoking createKey().");
+        System.out.println("1. Create a symmetric KMS key\n");
+        System.out.println("First, the program will creates a symmetric KMS key that you can used to encrypt and decrypt data.");
         waitForInputToContinue(scanner);
         String targetKeyId = createKey(kmsClient, keyDesc);
         waitForInputToContinue(scanner);
@@ -108,7 +115,7 @@ public class KMSScenario {
         System.out.println("""
             2. Enable a KMS key
                          
-            By default when the code creates an AWS key, it is enabled. The code checks to 
+            By default, when the SDK creates an AWS key it is enabled. The next bit of code checks to 
             determine if the key is enabled. If it is not enabled, the code enables it. 
              """);
         waitForInputToContinue(scanner);
@@ -120,10 +127,11 @@ public class KMSScenario {
         System.out.println(DASHES);
         System.out.println("3. Encrypt data using the symmetric KMS key");
         String plaintext = "Hello, AWS KMS!";
-        System.out.println("""
-            One of the main uses of symmetric keys is to encrypt and decrypt data.
-            Next, the code encrypts the string 'Hello, AWS KMS!' with the SYMMETRIC_DEFAULT encryption algorithm.
-            """);
+        System.out.printf("""
+                        
+                One of the main uses of symmetric keys is to encrypt and decrypt data.
+                Next, the code encrypts the string '%s' with the SYMMETRIC_DEFAULT encryption algorithm.
+                %n""", plaintext);
         waitForInputToContinue(scanner);
         SdkBytes ciphertext = encryptData(kmsClient, targetKeyId, plaintext);
         waitForInputToContinue(scanner);
@@ -131,6 +139,7 @@ public class KMSScenario {
         System.out.println(DASHES);
         System.out.println("4. Create an alias");
         System.out.println("""
+            
             Enter an alias name for the key. The name should be prefixed with 'alias/'. 
             For example, 'alias/myFirstKey'.
             """);
@@ -149,7 +158,8 @@ public class KMSScenario {
         System.out.println(DASHES);
         System.out.println("6. Enable automatic rotation of the KMS key");
         System.out.println("""
-            By default, when the code enables automatic rotation of a KMS key,
+            
+            By default, when the SDK enables automatic rotation of a KMS key,
             KMS rotates the key material of the KMS key one year (approximately 365 days) from the enable date and every year 
             thereafter. 
             """);
@@ -162,13 +172,14 @@ public class KMSScenario {
             7. Create a grant
             
             A grant is a policy instrument that allows Amazon Web Services principals to use KMS keys.
-            It also can allow them to view a KMS key (DescribeKey) and create and manage grants. 
+            It also can allow them to view a KMS key (DescribeKey) and create and manage grants.
             When authorizing access to a KMS key, grants are considered along with key policies and IAM policies.
             """);
 
         waitForInputToContinue(scanner);
         String grantId = grantKey(kmsClient, targetKeyId, granteePrincipal);
-        System.out.println("The grant id is " + grantId);
+        System.out.println("The code granted principal with ARN [" + granteePrincipal + "] ");
+        System.out.println("use of the symmetric key. The grant ID is [" + grantId + "]");
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -184,7 +195,7 @@ public class KMSScenario {
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
-        System.out.println("10. Decrypt the data");
+        System.out.println("10. Decrypt the data\n");
         System.out.println("""
             Lets decrypt the data that was encrypted in an early step.
             The code uses the same key to decrypt the string that we encrypted earlier in the program.
@@ -195,15 +206,19 @@ public class KMSScenario {
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
-        System.out.println("10. Create a key policy");
+        System.out.println("11. Replace a key policy\n");
         System.out.println("""
-            A key policy is a resource policy for an KMS key. Key policies are the primary way to control 
+            A key policy is a resource policy for a KMS key. Key policies are the primary way to control 
             access to KMS keys. Every KMS key must have exactly one key policy. The statements in the key policy 
             determine who has permission to use the KMS key and how they can use it. 
             You can also use IAM policies and grants to control access to the KMS key, but every KMS key 
             must have a key policy.
+            
+            By default, when you create a key by using the SDK, a policy is created that 
+            gives the AWS account that owns the KMS key full access to the KMS key.
+            
+            Let's try to replace the automatically created policy with the following policy.
                     
-            We will set a key policy.
                 "Version": "2012-10-17",
                 "Statement": [{
                 "Effect": "Allow",
@@ -214,22 +229,18 @@ public class KMSScenario {
             """);
 
         waitForInputToContinue(scanner);
-        boolean polAdded = createPolicy(kmsClient, targetKeyId, policyName);
+        boolean polAdded = replacePolicy(kmsClient, targetKeyId, policyName);
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
-        System.out.println("11. Get the key policy");
-        System.out.println("The code gets the key policy to make sure it exists.");
+        System.out.println("12. Get the key policy\n");
+        System.out.println("The next bit of code that runs gets the key policy to make sure it exists.");
         waitForInputToContinue(scanner);
-        if (polAdded) {
-            getKeyPolicy(kmsClient, targetKeyId, policyName);
-        }else{
-            getKeyPolicy(kmsClient, targetKeyId, "default");
-        }
+        getKeyPolicy(kmsClient, targetKeyId, policyName);
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
-        System.out.println("12. Sign your data with the asymmetric KMS key");
+        System.out.println("13. Create an asymmetric KMS key and sign your data\n");
         System.out.println("""
             Signing your data with an AWS key can provide several benefits that make it an attractive option 
             for your data signing needs. By using an AWS KMS key, you can leverage the 
@@ -242,7 +253,7 @@ public class KMSScenario {
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
-        System.out.println("13. Tag your symmetric KMS Key");
+        System.out.println("14. Tag your symmetric KMS Key\n");
         System.out.println("""
             By using tags, you can improve the overall management, security, and governance of your 
             KMS keys, making it easier to organize, track, and control access to your encrypted data within 
@@ -253,9 +264,9 @@ public class KMSScenario {
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
-        System.out.println("14. Schedule the deletion of the KMS key");
+        System.out.println("15. Schedule the deletion of the KMS key\n");
         System.out.println("""
-            By default, KMS applies a waiting period of 30 days, 
+            By default, KMS applies a waiting period of 30 days,
             but you can specify a waiting period of 7-30 days. When this operation is successful, 
             the key state of the KMS key changes to PendingDeletion and the key can't be used in any 
             cryptographic operations. It remains in this state for the duration of the waiting period.
@@ -322,7 +333,7 @@ public class KMSScenario {
 
         // Create an AWS KMS key used to digitally sign data.
         CreateKeyRequest request = CreateKeyRequest.builder()
-            .customerMasterKeySpec(CustomerMasterKeySpec.RSA_2048) // Specify key spec
+            .keySpec(KeySpec.RSA_2048) // Specify key spec
             .keyUsage(KeyUsageType.SIGN_VERIFY) // Specify key usage
             .origin(OriginType.AWS_KMS) // Specify key origin
             .build();
@@ -368,7 +379,7 @@ public class KMSScenario {
                 .build();
 
             kmsClient.tagResource(tagResourceRequest);
-            System.out.println("Tagged KMS key with key-value pair");
+            System.out.println("The key has been tagged.");
 
         } catch (KmsException e) {
             System.err.println(e.getMessage());
@@ -398,44 +409,45 @@ public class KMSScenario {
     // snippet-end:[kms.java2_get_policy.main]
 
     // snippet-start:[kms.java2_set_policy.main]
-    public static boolean createPolicy(KmsClient kmsClient, String keyId, String policyName) {
+    public static boolean replacePolicy(KmsClient kmsClient, String keyId, String policyName) {
         // Change the principle in the below JSON.
         String policy = """
             {
               "Version": "2012-10-17",
               "Statement": [{
                 "Effect": "Allow",
-                "Principal": {"AWS": "arn:aws:iam::814548047983:root"},
+                "Principal": {"AWS": "arn:aws:iam::%s:root"},
                 "Action": "kms:*",
                 "Resource": "*"
               }]
             }
-            """;
+            """.formatted(accountId);
 
         // Before we create a new policy, determine if the key has a policy on it.
-        boolean hasPol = doesKeyHavePolicy(kmsClient, keyId, policyName);
-        if (!hasPol) {
-            try {
-                PutKeyPolicyRequest keyPolicyRequest = PutKeyPolicyRequest.builder()
-                    .keyId(keyId)
-                    .policyName(policyName)
-                    .policy(policy)
-                    .build();
-                kmsClient.putKeyPolicy(keyPolicyRequest);
-                System.out.println("Added a key policy");
-                return true;
-            } catch (LimitExceededException e) {
-                System.out.println("Policy limit reached. Unable to create the policy.");
-            } catch (AlreadyExistsException e) {
-                System.out.println("Only one policy per key is supported. Unable to create the policy.");
-            } catch (KmsException e) {
-                System.err.println(e.getMessage());
-                System.exit(1);
-            }
-        } else {
-            System.out.println("The Key already has a policy.");
+        //      boolean hasPol = doesKeyHavePolicy(kmsClient, keyId, policyName);
+        //      if (!hasPol) {
+        try {
+            PutKeyPolicyRequest keyPolicyRequest = PutKeyPolicyRequest.builder()
+                .keyId(keyId)
+                .policyName(policyName)
+                .policy(policy)
+                .build();
+            kmsClient.putKeyPolicy(keyPolicyRequest);
+            System.out.println("The key policy has been replaced.");
+        } catch (LimitExceededException e) {
+            System.out.println("Policy limit reached. Unable to create the policy.");
+            return false;
+        } catch (AlreadyExistsException e) {
+            System.out.println("Only one policy per key is supported. Unable to create the policy.");
+            return false;
+        } catch (KmsException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
-        return false;
+        //    } else {
+        //        System.out.println("The Key already has a policy.");
+        //    }
+        return true;
     }
     // snippet-end:[kms.java2_set_policy.main]
 
@@ -445,12 +457,9 @@ public class KMSScenario {
             .build();
 
         boolean hasPolicy = false;
-        String polName = "" ;
         ListKeyPoliciesResponse response = kmsClient.listKeyPolicies(policiesRequest);
         List<String>policyNames = response.policyNames();
         for (String pol : policyNames) {
-            System.out.println("Policy Name: " + pol);
-            polName = pol;
             hasPolicy = true;
         }
         return hasPolicy;
@@ -542,7 +551,7 @@ public class KMSScenario {
                 .build();
 
             kmsClient.revokeGrant(grantRequest);
-            System.out.println(grantId +" was successfully revoked!");
+            System.out.println("Grant ID: [" + grantId +"] was successfully revoked!");
 
         } catch (KmsException e) {
             System.err.println(e.getMessage());
@@ -563,8 +572,13 @@ public class KMSScenario {
             List<GrantListEntry> grants = response.grants();
             for (GrantListEntry grant : grants) {
                 System.out.println("The grant Id is : " + grant.grantId());
-            }
+                System.out.println("and grants the following operations: ");
 
+                List<GrantOperation> ops = grant.operations();
+                for (GrantOperation op : ops) {
+                    System.out.println(op.name());
+                }
+            }
         } catch (KmsException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -607,7 +621,7 @@ public class KMSScenario {
                 .build();
 
             kmsClient.enableKeyRotation(enableKeyRotationRequest);
-            System.out.println("You have enabled key rotation for key "+keyId);
+            System.out.println("Key rotation has been enabled for key with id [" + keyId + "]");
 
         } catch (KmsException e) {
             System.err.println(e.getMessage());
@@ -647,7 +661,7 @@ public class KMSScenario {
 
             EncryptResponse response = kmsClient.encrypt(encryptRequest);
             String algorithm = response.encryptionAlgorithm().toString();
-            System.out.println("The encryption algorithm is " + algorithm);
+            System.out.println("The string was encrypted with algorithm " + algorithm + ".");
 
             // Get the encrypted data.
             SdkBytes encryptedData = response.ciphertextBlob();
@@ -670,7 +684,7 @@ public class KMSScenario {
                 .build();
 
             CreateKeyResponse result = kmsClient.createKey(keyRequest);
-            System.out.println("Created a customer key with ARN " +result.keyMetadata().arn());
+            System.out.println("Symmetric key with ARN [" + result.keyMetadata().arn() + "] has been created.");
             return result.keyMetadata().keyId();
 
         } catch (KmsException e) {
@@ -711,6 +725,12 @@ public class KMSScenario {
                 // Handle invalid input.
                 System.out.println("Invalid input. Please try again.");
             }
+        }
+    }
+    private static String getAccountId(){
+        try (StsClient stsClient = StsClient.create()){
+            GetCallerIdentityResponse callerIdentity = stsClient.getCallerIdentity();
+            return callerIdentity.account();
         }
     }
 }
