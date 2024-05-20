@@ -24,9 +24,6 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Content Include="testsettings.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 		<Content Include="testsettings.*.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<DependentUpon>testsettings.json</DependentUpon>
