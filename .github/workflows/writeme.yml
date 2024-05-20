@@ -32,4 +32,4 @@ jobs:
           python3 -m pip install -r .tools/readmes/requirements.txt
       - name: Check WRITEMEs
         run: >-
-          python3 .tools/readmes/multi.py --check
+          python3 .tools/readmes/writeme.py --check

@@ -112,7 +112,7 @@ def main():
     if len(failed) > 0:
         failed_list = "\n\t".join(failed)
         logging.error(f"READMEs with incorrect formatting:\n\t{failed_list}")
-        logging.error("Rerun multi.py to update README links and sections.")
+        logging.error("Rerun writeme.py to update README links and sections.")
     return len(failed)
 
 
