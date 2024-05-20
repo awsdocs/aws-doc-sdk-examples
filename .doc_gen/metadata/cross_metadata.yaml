@@ -3,6 +3,7 @@ cross_MessageProcessingFrameworkTutorial:
   title: Use the &AWS; Message Processing Framework for .NET to publish and receive &SQS; messages
   title_abbrev: Use the &AWS; Message Processing Framework for .NET with &SQS;
   synopsis: create applications that publish and receive &SQS; messages using the &AWS; Message Processing Framework for .NET.
+  category: Cross-service examples
   languages:
     .NET:
       versions:
