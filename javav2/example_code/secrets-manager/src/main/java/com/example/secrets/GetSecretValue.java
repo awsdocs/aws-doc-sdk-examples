@@ -38,12 +38,12 @@ public class GetSecretValue {
                     secretName - The name of the secret (for example, tutorials/MyFirstSecret).\s
                 """;
 
-      //  if (args.length != 1) {
-       //     System.out.println(usage);
-      //      System.exit(1);
-      //  }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String secretName = "mysecret" ; //args[0];
+        String secretName = args[0];
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
                 .region(region)
