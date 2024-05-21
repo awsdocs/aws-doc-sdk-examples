@@ -55,6 +55,12 @@ functions within the same service.
 
 - [Publish messages to queues](../cross-service/TopicsAndQueues/Scenarios/TopicsAndQueuesScenario/TopicsAndQueues.cs)
 
+### Cross-service examples
+
+Sample applications that work across multiple AWS services.
+
+- [Use the AWS Message Processing Framework for .NET with Amazon SQS](../cross-service/MessageProcessingFramework)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
