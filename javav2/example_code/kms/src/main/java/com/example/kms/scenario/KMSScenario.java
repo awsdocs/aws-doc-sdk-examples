@@ -76,8 +76,18 @@ public class KMSScenario {
     private static final String accountId = getAccountId();
 
     public static void main(String[] args) {
+        final String usage = """
+                Usage:    <granteePrincipal> 
 
-        String granteePrincipal = "arn:aws:iam::814548047983:role/aws-service-role/cks.kms.amazonaws.com/AWSServiceRoleForKeyManagementServiceCustomKeyStores";
+                Where:
+                   granteePrincipal - The principal (user, service account, or group) to whom the grant or permission is being given. 
+                """;
+
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
+        }
+        String granteePrincipal = args[0];
         String policyName = "default";
 
         Scanner scanner = new Scanner(System.in);
