@@ -163,6 +163,7 @@ class BedrockStudioBootstrapper:
 
         self._kms_key_arn = None
         self._iam_client = self._session.client("iam")
+        self._permission_boundary_policy_name = "DataZoneBedrockPermissionsBoundary"
 
     def run(self):
         logger.info("=" * 80)
@@ -333,7 +334,6 @@ class BedrockStudioBootstrapper:
         logger.info("Step 3: Create Permission Boundary.")
         logger.info("-" * 80)
 
-        self._permission_boundary_policy_name = "DataZoneBedrockPermissionsBoundary"
         logger.info(f"Creating permission boundary: '{self._permission_boundary_policy_name}'...")
 
         try:
