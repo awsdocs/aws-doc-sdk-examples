@@ -433,9 +433,6 @@ public class KMSScenario {
             }
             """.formatted(accountId);
 
-        // Before we create a new policy, determine if the key has a policy on it.
-        //      boolean hasPol = doesKeyHavePolicy(kmsClient, keyId, policyName);
-        //      if (!hasPol) {
         try {
             PutKeyPolicyRequest keyPolicyRequest = PutKeyPolicyRequest.builder()
                 .keyId(keyId)
@@ -454,9 +451,7 @@ public class KMSScenario {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        //    } else {
-        //        System.out.println("The Key already has a policy.");
-        //    }
+
         return true;
     }
     // snippet-end:[kms.java2_set_policy.main]
