@@ -696,7 +696,7 @@ public class KMSScenario {
     // snippet-end:[kms.java2_create_key.main]
 
     // snippet-start:[kms.java2_enable_key.main]
-    // Enable the customer key.
+    // Enable the KMS key.
     public static void enableKey(KmsClient kmsClient, String keyId) {
         try {
             EnableKeyRequest enableKeyRequest = EnableKeyRequest.builder()
