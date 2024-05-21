@@ -16,11 +16,9 @@ class SecretsManagerKotlinTest {
 
     private var secretName = "mysecret"
     @Test
-    @Order(3)
+    @Order(1)
     fun getSecretValue() = runBlocking {
         getValue(secretName)
         println("Test 3 passed")
     }
-
-
 }
