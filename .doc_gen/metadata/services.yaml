@@ -103,6 +103,21 @@ apigatewayv2:
   tags:
     product_categories: {'Networking &amp; Content Delivery'}
   version: '2018-11-29'
+application-auto-scaling:
+  long: '&APP-ASlong;'
+  short: '&APP-AS;'
+  sort: Application Auto Scaling
+  expanded:
+    long: AWS Application Auto Scaling
+    short: Application Auto Scaling
+  blurb: configures auto scaling for resources beyond just EC2, either with scaling policies or with scheduled scaling.
+  guide:
+    subtitle: User Guide
+    url: autoscaling/application/userguide/what-is-application-auto-scaling.html
+  api_ref: autoscaling/application/APIReference/Welcome.html
+  tags:
+    product_categories: {'Management &amp; Governance'}
+  version: application-autoscaling-2016-02-06
 app-mesh:
   api_ref: app-mesh/latest/APIReference/Welcome.html
   blurb: ''
@@ -133,21 +148,6 @@ appconfig:
   tags:
     product_categories: {}
   version: '2019-10-09'
-application-auto-scaling:
-  api_ref: autoscaling/application/APIReference/Welcome.html
-  blurb: configures auto scaling for resources beyond just EC2, either with scaling policies or with scheduled scaling.
-  expanded:
-    long: Application Auto Scaling
-    short: Application Auto Scaling
-  guide:
-    subtitle: User Guide
-    url: autoscaling/application/userguide/what-is-application-auto-scaling.html
-  long: '&APP-ASlong;'
-  short: '&APP-AS;'
-  sort: Application Auto Scaling
-  tags:
-    product_categories: {'Management &amp; Governance'}
-  version: application-autoscaling-2016-02-06
 application-discovery-service:
   api_ref: application-discovery/latest/APIReference/Welcome.html
   blurb: ''
@@ -1159,7 +1159,7 @@ elastic-load-balancing-v2:
   blurb: automatically distributes your incoming traffic across multiple targets, such as EC2 instances, containers, and IP addresses, in one or more Availability Zones.
   guide:
     subtitle: User Guide
-    url: elasticloadbalancing/latest/APIReference/Welcome.html
+    url: elasticloadbalancing/latest/userguide/what-is-load-balancing.html
   api_ref: elasticloadbalancing/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Networking &amp; Content Delivery'}
@@ -1784,6 +1784,21 @@ keyspaces:
   tags:
     product_categories: {'Databases'}
   version: keyspaces-2022-02-10
+kendra:
+  long: '&KENlong;'
+  short: '&KEN;'
+  sort: Kendra
+  expanded:
+    long: Amazon Kendra
+    short: Amazon Kendra
+  blurb: is a search service, powered by machine learning, that helps users to search unstructured text using natural language.
+  guide:
+    subtitle: Developer Guide
+    url: kendra/latest/dg/what-is-kendra.html
+  api_ref: kendra/latest/APIReference/welcome.html
+  tags:
+    product_categories: {'Machine Learning &amp; AI'}
+  version: kendra-2019-02-03
 kinesis:
   long: '&AKlong;'
   short: '&AK;'
@@ -1932,7 +1947,7 @@ machine-learning:
   short: '&ML;'
   sort: Machine Learning
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: 'machinelearning-2014-12-12'
 macie2:
   api_ref: macie/latest/APIReference/welcome.html
@@ -2129,6 +2144,21 @@ networkmanager:
   tags:
     product_categories: {}
   version: '2019-07-05'
+networkmonitor:
+  api_ref: networkmonitor/latest/APIReference/Welcome.html
+  blurb: is an AWS active network monitoring service that identifies if a network issues exists within the AWS network or your own company network.
+  expanded:
+    long: Amazon CloudWatch Network Monitoring
+    short: CloudWatch Network Monitoring
+  guide:
+    subtitle: User Guide
+    url: AmazonCloudWatch/latest/monitoring/CloudWatch-Network-Monitoring-Sections.html
+  long: '&cloudwatch-netmon-long;'
+  short: '&cloudwatch-netmon;'
+  sort: CloudWatch Network Monitoring
+  tags:
+    product_categories: {'Management &amp; Governance'}
+  version: networkmonitor-2023-08-01
 nimble:
   api_ref: nimble-studio/latest/APIReference/Welcome.html
   blurb: ''
@@ -3036,6 +3066,22 @@ transcribe:
   guide:
     subtitle: Developer Guide
     url: transcribe/latest/dg/what-is.html
+  api_ref: transcribe/latest/APIReference/Welcome.html
+  tags:
+    product_categories: {'Machine Learning &amp; AI'}
+  version: transcribe-2017-10-26
+transcribe-medical:
+  long: '&TSCMlong;'
+  short: '&TSCM;'
+  sort: Transcribe Medical
+  expanded:
+    long: Amazon Transcribe Medical
+    short: Amazon Transcribe Medical
+  blurb: is an automatic speech recognition (ASR) service designed for medical professionals who want to transcribe
+    medical-related speech, such as physician-dictated notes, drug safety monitoring, telemedicine appointments, or physician-patient conversations.
+  guide:
+    subtitle: Developer Guide
+    url: transcribe/latest/dg/transcribe-medical.html
   api_ref: transcribe/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Machine Learning &amp; AI'}
