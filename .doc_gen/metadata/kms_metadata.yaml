@@ -684,6 +684,15 @@ kms_RevokeGrant:
     kms: {RevokeGrant}
 kms_ListKeyPolicies:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_get_policy.main
     Python:
       versions:
         - sdk_version: 3
