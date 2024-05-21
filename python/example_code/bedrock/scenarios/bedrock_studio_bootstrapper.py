@@ -333,16 +333,17 @@ class BedrockStudioBootstrapper:
         logger.info("Step 3: Create Permission Boundary.")
         logger.info("-" * 80)
 
-        policy_name = "AmazonDataZoneBedrockPermissionsBoundary"
-        logger.info(f"Creating permission boundary: '{policy_name}'...")
+        self._permission_boundary_policy_name = "DataZoneBedrockPermissionsBoundary"
+        logger.info(f"Creating permission boundary: '{self._permission_boundary_policy_name}'...")
 
         try:
             self._iam_client.create_policy(
-                PolicyName=policy_name, PolicyDocument=self._get_permission_boundary()
+                PolicyName=self._permission_boundary_policy_name,
+                PolicyDocument=self._get_permission_boundary()
             )
             logger.info(f"Permission boundary policy created.")
         except self._iam_client.exceptions.EntityAlreadyExistsException:
-            logger.warning(f"Policy with name '{policy_name}' already exists.")
+            logger.warning(f"Policy with name '{self._permission_boundary_policy_name}' already exists.")
 
     def _create_kms_key(self):
         logger.info("=" * 80)
@@ -467,7 +468,7 @@ class BedrockStudioBootstrapper:
                         "Resource": "arn:aws:iam::*:role/DataZoneBedrockProjectRole*",
                         "Condition": {
                             "StringEquals": {
-                                "iam:PermissionsBoundary": f"arn:aws:iam::{account_id}:policy/AmazonDataZoneBedrockPermissionsBoundary",
+                                "iam:PermissionsBoundary": f"arn:aws:iam::{account_id}:policy/{self._permission_boundary_policy_name}",
                                 "aws:CalledViaFirst": ["cloudformation.amazonaws.com"],
                             },
                             "Null": {
