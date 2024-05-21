@@ -16,6 +16,19 @@ kms_Hello:
                 - kms.java2_list_keys.main
   services:
     kms: {listKeysPaginator}
+kms_TagResource:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_tag.main
+  services:
+    kms: {TagResource}
 kms_Sign:
   languages:
     Java:
@@ -503,6 +516,15 @@ kms_EnableKey:
     kms: {EnableKey}
 kms_ScheduleKeyDeletion:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_delete_key.main
     Python:
       versions:
         - sdk_version: 3
@@ -639,6 +661,15 @@ kms_RetireGrant:
     kms: {RetireGrant}
 kms_RevokeGrant:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_revoke_grant.main
     Python:
       versions:
         - sdk_version: 3
