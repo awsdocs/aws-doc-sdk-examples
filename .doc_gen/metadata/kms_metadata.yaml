@@ -16,6 +16,19 @@ kms_Hello:
                 - kms.java2_list_keys.main
   services:
     kms: {listKeysPaginator}
+kms_Sign:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_sign.main
+  services:
+    kms: {Sign}
 kms_CreateKey:
   languages:
     Kotlin:
