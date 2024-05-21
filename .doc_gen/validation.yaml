@@ -5,6 +5,7 @@ allow_list:
   # Safe look-alikes, mostly tokens and paths that happen to be 40 characters.
   - "/AmazonEventBridgeServiceIntegrationTest"
   - "/ListOrganizationalUnitsForParentExample"
+  - "AmazonDataZoneBedrockPermissionsBoundary"
   - "AWSEC2/latest/APIReference/OperationList"
   - "AWSManagedDomainsBotnetCommandandControl"
   - "AllocatedProvisionedConcurrentExecutions"
