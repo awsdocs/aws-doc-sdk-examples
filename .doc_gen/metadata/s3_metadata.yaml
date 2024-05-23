@@ -3102,3 +3102,35 @@ s3_Scenario_TrackUploadDownload:
                 - s3.tm.java2.trackdownloadfile.main
   services:
     s3: {PutObject, GetObject}
+s3_Scenario_AbortMultipartUpload:
+  title: Delete incomplete multipart uploads to &S3; using an &AWS; SDK
+  title_abbrev: Delete incomplete multipart uploads
+  synopsis: how to delete or stop incomplete &S3; multipart uploads.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: |
+                To stop multipart uploads that are in-progress or incomplete for any reason, you can get a list uploads and then delete them
+                as shown in the following example.
+              snippet_tags:
+                - s3.java2.abort_upload_from_list
+            - description: |
+                To delete incomplete multipart uploads that were initiated before or after a date, you can selectively
+                delete multipart uploads based on a point in time as shown in the following example.
+              snippet_tags:
+                - s3.java2.abort_upload_older_than
+            - description: If you have access to the upload ID after you begin a multipart upload, you can delete the in-progress upload by using the ID.
+              snippet_tags:
+                - s3.java2.abort_upload_using_upload_id
+            - description: |
+                To consistently delete incomplete multipart uploads older that a certain number of days, set up a bucket lifecycle configuration for the bucket.
+                The following example shows how to create a rule to delete incomplete uploads older than 7 days.
+              snippet_tags:
+                - s3.java2.abort_upload_using_lifecycle_config
+  services:
+    s3: {ListMultipartUploads, AbortMultipartUpload, PutBucketLifecycleConfiguration}
