@@ -3,16 +3,12 @@
 import { describe, it, expect, afterAll } from "vitest";
 import {
   S3Client,
-  DeleteBucketCommand,
   ListBucketsCommand,
   GetBucketVersioningCommand,
   GetObjectLockConfigurationCommand,
   ListObjectsCommand,
   GetObjectLegalHoldCommand,
   GetObjectRetentionCommand,
-  ListObjectVersionsCommand,
-  PutObjectLegalHoldCommand,
-  DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 import {
   createBucketsAction,
@@ -25,6 +21,7 @@ import {
   setRetentionPeriodFileRetentionAction,
 } from "./setup.steps.js";
 import * as Scenarios from "@aws-doc-sdk-examples/lib/scenario/index.js";
+import { legallyEmptyAndDeleteBuckets } from "../../libs/s3Utils.js";
 
 const bucketPrefix = "js-object-locking";
 const client = new S3Client({});
@@ -38,76 +35,13 @@ describe("S3 Object Locking Integration Tests", () => {
 
   afterAll(async () => {
     // Clean up resources
-    for (const bucketName of [
+    const buckets = [
       state.noLockBucketName,
       state.lockEnabledBucketName,
       state.retentionBucketName,
-    ]) {
-      const objectsResponse = await client.send(
-        new ListObjectVersionsCommand({ Bucket: bucketName }),
-      );
+    ];
 
-      for (const version of objectsResponse.Versions || []) {
-        const { Key, VersionId } = version;
-
-        try {
-          const legalHold = await client.send(
-            new GetObjectLegalHoldCommand({
-              Bucket: bucketName,
-              Key,
-              VersionId,
-            }),
-          );
-          if (legalHold.LegalHold?.Status === "ON") {
-            await client.send(
-              new PutObjectLegalHoldCommand({
-                Bucket: bucketName,
-                Key,
-                VersionId,
-                LegalHold: {
-                  Status: "OFF",
-                },
-              }),
-            );
-          }
-        } catch (err) {
-          console.log(
-            `Unable to fetch legal hold for ${Key} in ${bucketName}: '${err.message}'`,
-          );
-        }
-
-        try {
-          const retention = await client.send(
-            new GetObjectRetentionCommand({
-              Bucket: bucketName,
-              Key,
-              VersionId,
-            }),
-          );
-          if (retention.Retention?.Mode === "GOVERNANCE") {
-            await client.send(
-              new DeleteObjectCommand({
-                Bucket: bucketName,
-                Key,
-                VersionId,
-                BypassGovernanceRetention: true,
-              }),
-            );
-          }
-        } catch (err) {
-          console.log(
-            `Unable to fetch object lock retention for ${Key} in ${bucketName}: '${err.message}'`,
-          );
-        }
-
-        await client.send(
-          new DeleteObjectCommand({ Bucket: bucketName, Key, VersionId }),
-        );
-      }
-
-      await client.send(new DeleteBucketCommand({ Bucket: bucketName }));
-      console.log(`Delete for ${bucketName} complete.`);
-    }
+    await legallyEmptyAndDeleteBuckets(buckets);
   });
 
   it("should create buckets with correct configurations", async () => {
@@ -200,7 +134,7 @@ describe("S3 Object Locking Integration Tests", () => {
     );
   });
 
-  it.skip("should set legal hold on enabled file", async () => {
+  it("should set legal hold on enabled file", async () => {
     const action = setLegalHoldFileEnabledAction(Scenarios, client);
     state.confirmSetLegalHoldFileEnabled = true;
     await action.handle(state);

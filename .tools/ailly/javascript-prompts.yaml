@@ -1385,7 +1385,8 @@ code:
       When implementing test behaviors, be very careful not to assume any additional behaviors. Only write
       tests for the behaviors explicitly requested.
       For writing unit tests remember that we are using Vitest. Do not import any mocking libraries other than those provided by vitest. Vitest requires that test methods (describe, it, expect, etc.) are explicitly imported. They are not added to the global environment. If you're not sure about the vitest API at any time, please let me know rather than making assumptions. Be sure to use the latest EcmaScript, not Typescript.
-
+      While vitest allows for globals, we must explicitly import any vitest functions.
+      
       Be judicious in your mocking. For example, things like "path.join" probably don't need to be mocked
       because it's a pure function with no i/o.
 
@@ -1408,6 +1409,413 @@ code:
       SDK Commands (e.g. CreateStackCommand) do not need to be mocked. We should only need to mock
       the `send` method on SDK clients.
 
+      When testing that SDK Commands were called, be sure to test the inputs. We cannot compare
+      to instances of a command with same inputs because the test framework will compare by
+      reference instead of value.
+
       Each test for a Scenario should run the scenario and verify outputs
       and function calls when applicable.
+
+      <sample_unit_tests>
+        // Here is a sample unit test suite.
+        // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+        // SPDX-License-Identifier: Apache-2.0
+        import { describe, it, expect, vi, afterEach } from "vitest";
+        import { ChecksumAlgorithm } from "@aws-sdk/client-s3";
+        import * as Scenarios from "@aws-doc-sdk-examples/lib/scenario/index.js";
+        import {
+          createBucketsAction,
+          populateBucketsAction,
+          updateRetentionAction,
+          updateLockPolicyAction,
+        } from "./setup.steps.js";
+
+        describe("setup.steps.js", () => {
+          const mockClient = {
+            send: vi.fn(),
+          };
+
+          const state = {
+            noLockBucketName: "js-object-locking-no-lock",
+            lockEnabledBucketName: "js-object-locking-lock-enabled",
+            retentionBucketName: "js-object-locking-retention-after-creation",
+          };
+
+          afterEach(() => {
+            vi.resetAllMocks();
+          });
+
+          describe("createBucketsAction", () => {
+            it("should create three buckets with the correct configurations", async () => {
+              const action = createBucketsAction(Scenarios, mockClient);
+              await action.handle(state);
+
+              expect(mockClient.send).toHaveBeenCalledTimes(3);
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.noLockBucketName,
+                  },
+                }),
+              );
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.lockEnabledBucketName,
+                    ObjectLockEnabledForBucket: true,
+                  },
+                }),
+              );
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.retentionBucketName,
+                  },
+                }),
+              );
+            });
+          });
+
+          describe("populateBucketsAction", () => {
+            it("should upload six files to the three buckets", async () => {
+              const action = populateBucketsAction(Scenarios, mockClient);
+              await action.handle(state);
+
+              expect(mockClient.send).toHaveBeenCalledTimes(6);
+              for (const stateKey in state) {
+                ["file0.txt", "file1.txt"].forEach((fileName) => {
+                  expect(mockClient.send).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                      input: {
+                        Bucket: state[stateKey],
+                        Key: fileName,
+                        Body: "Content",
+                        ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
+                      },
+                    }),
+                  );
+                });
+              }
+            });
+          });
+
+          describe("updateRetentionAction", () => {
+            it("should enable versioning and set a retention period on the retention bucket", async () => {
+              const action = updateRetentionAction(Scenarios, mockClient);
+              await action.handle(state);
+
+              expect(mockClient.send).toHaveBeenCalledTimes(2);
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.retentionBucketName,
+                    VersioningConfiguration: {
+                      MFADelete: "Disabled",
+                      Status: "Enabled",
+                    },
+                  },
+                }),
+              );
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.retentionBucketName,
+                    ObjectLockConfiguration: {
+                      ObjectLockEnabled: "Enabled",
+                      Rule: {
+                        DefaultRetention: {
+                          Mode: "GOVERNANCE",
+                          Years: 1,
+                        },
+                      },
+                    },
+                  },
+                }),
+              );
+            });
+          });
+
+          describe("updateLockPolicyAction", () => {
+            it("should add an object lock policy to the lock-enabled bucket", async () => {
+              const action = updateLockPolicyAction(Scenarios, mockClient);
+              await action.handle(state);
+
+              expect(mockClient.send).toHaveBeenCalledTimes(1);
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.lockEnabledBucketName,
+                    ObjectLockConfiguration: {
+                      ObjectLockEnabled: "Enabled",
+                    },
+                  },
+                }),
+              );
+            });
+          });
+        });
+
+      </sample_unit_tests>
+      <sample_integration_test>
+      // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+      // SPDX-License-Identifier: Apache-2.0
+      import { describe, it, expect, afterAll } from "vitest";
+      import {
+        S3Client,
+        DeleteBucketCommand,
+        ListBucketsCommand,
+        GetBucketVersioningCommand,
+        GetObjectLockConfigurationCommand,
+        ListObjectsCommand,
+        GetObjectLegalHoldCommand,
+        GetObjectRetentionCommand,
+        ListObjectVersionsCommand,
+        PutObjectLegalHoldCommand,
+        DeleteObjectCommand,
+      } from "@aws-sdk/client-s3";
+      import {
+        createBucketsAction,
+        updateRetentionAction,
+        populateBucketsAction,
+        updateLockPolicyAction,
+        setLegalHoldFileEnabledAction,
+        setRetentionPeriodFileEnabledAction,
+        setLegalHoldFileRetentionAction,
+        setRetentionPeriodFileRetentionAction,
+      } from "./setup.steps.js";
+      import * as Scenarios from "@aws-doc-sdk-examples/lib/scenario/index.js";
+
+      const bucketPrefix = "js-object-locking";
+      const client = new S3Client({});
+
+      describe("S3 Object Locking Integration Tests", () => {
+        const state = {
+          noLockBucketName: `${bucketPrefix}-no-lock`,
+          lockEnabledBucketName: `${bucketPrefix}-lock-enabled`,
+          retentionBucketName: `${bucketPrefix}-retention-after-creation`,
+        };
+
+        afterAll(async () => {
+          // Clean up resources
+          for (const bucketName of [
+            state.noLockBucketName,
+            state.lockEnabledBucketName,
+            state.retentionBucketName,
+          ]) {
+            const objectsResponse = await client.send(
+              new ListObjectVersionsCommand({ Bucket: bucketName }),
+            );
+
+            for (const version of objectsResponse.Versions || []) {
+              const { Key, VersionId } = version;
+
+              try {
+                const legalHold = await client.send(
+                  new GetObjectLegalHoldCommand({
+                    Bucket: bucketName,
+                    Key,
+                    VersionId,
+                  }),
+                );
+                if (legalHold.LegalHold?.Status === "ON") {
+                  await client.send(
+                    new PutObjectLegalHoldCommand({
+                      Bucket: bucketName,
+                      Key,
+                      VersionId,
+                      LegalHold: {
+                        Status: "OFF",
+                      },
+                    }),
+                  );
+                }
+              } catch (err) {
+                console.log(
+                  `Unable to fetch legal hold for ${Key} in ${bucketName}: '${err.message}'`,
+                );
+              }
+
+              try {
+                const retention = await client.send(
+                  new GetObjectRetentionCommand({
+                    Bucket: bucketName,
+                    Key,
+                    VersionId,
+                  }),
+                );
+                if (retention.Retention?.Mode === "GOVERNANCE") {
+                  await client.send(
+                    new DeleteObjectCommand({
+                      Bucket: bucketName,
+                      Key,
+                      VersionId,
+                      BypassGovernanceRetention: true,
+                    }),
+                  );
+                }
+              } catch (err) {
+                console.log(
+                  `Unable to fetch object lock retention for ${Key} in ${bucketName}: '${err.message}'`,
+                );
+              }
+
+              await client.send(
+                new DeleteObjectCommand({ Bucket: bucketName, Key, VersionId }),
+              );
+            }
+
+            await client.send(new DeleteBucketCommand({ Bucket: bucketName }));
+            console.log(`Delete for ${bucketName} complete.`);
+          }
+        });
+
+        it("should create buckets with correct configurations", async () => {
+          const action = createBucketsAction(Scenarios, client);
+          await action.handle(state);
+
+          const bucketList = await client.send(new ListBucketsCommand({}));
+          expect(bucketList.Buckets?.map((bucket) => bucket.Name)).toContain(
+            state.noLockBucketName,
+          );
+          expect(bucketList.Buckets?.map((bucket) => bucket.Name)).toContain(
+            state.lockEnabledBucketName,
+          );
+          expect(bucketList.Buckets?.map((bucket) => bucket.Name)).toContain(
+            state.retentionBucketName,
+          );
+        });
+
+        it("should enable versioning and set retention period on retention bucket", async () => {
+          const action = updateRetentionAction(Scenarios, client);
+          await action.handle(state);
+
+          const versioningConfig = await client.send(
+            new GetBucketVersioningCommand({ Bucket: state.retentionBucketName }),
+          );
+          expect(versioningConfig.Status).toEqual("Enabled");
+
+          const lockConfig = await client.send(
+            new GetObjectLockConfigurationCommand({
+              Bucket: state.retentionBucketName,
+            }),
+          );
+          expect(lockConfig.ObjectLockConfiguration?.ObjectLockEnabled).toEqual(
+            "Enabled",
+          );
+          expect(
+            lockConfig.ObjectLockConfiguration?.Rule?.DefaultRetention?.Mode,
+          ).toEqual("GOVERNANCE");
+          expect(
+            lockConfig.ObjectLockConfiguration?.Rule?.DefaultRetention?.Years,
+          ).toEqual(1);
+        });
+
+        it("should upload files to buckets", async () => {
+          const action = populateBucketsAction(Scenarios, client);
+          await action.handle(state);
+
+          const noLockObjects = await client.send(
+            new ListObjectsCommand({ Bucket: state.noLockBucketName }),
+          );
+          expect(noLockObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file0.txt",
+          );
+          expect(noLockObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file1.txt",
+          );
+
+          const lockEnabledObjects = await client.send(
+            new ListObjectsCommand({ Bucket: state.lockEnabledBucketName }),
+          );
+          expect(lockEnabledObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file0.txt",
+          );
+          expect(lockEnabledObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file1.txt",
+          );
+
+          const retentionObjects = await client.send(
+            new ListObjectsCommand({ Bucket: state.retentionBucketName }),
+          );
+          expect(retentionObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file0.txt",
+          );
+          expect(retentionObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file1.txt",
+          );
+        });
+
+        it("should add object lock policy to lock-enabled bucket", async () => {
+          const action = updateLockPolicyAction(Scenarios, client);
+          await action.handle(state);
+
+          const lockConfig = await client.send(
+            new GetObjectLockConfigurationCommand({
+              Bucket: state.lockEnabledBucketName,
+            }),
+          );
+          expect(lockConfig.ObjectLockConfiguration?.ObjectLockEnabled).toEqual(
+            "Enabled",
+          );
+        });
+
+        it.skip("should set legal hold on enabled file", async () => {
+          const action = setLegalHoldFileEnabledAction(Scenarios, client);
+          state.confirmSetLegalHoldFileEnabled = true;
+          await action.handle(state);
+
+          const legalHold = await client.send(
+            new GetObjectLegalHoldCommand({
+              Bucket: state.lockEnabledBucketName,
+              Key: "file0.txt",
+            }),
+          );
+          expect(legalHold.LegalHold?.Status).toEqual("ON");
+        });
+
+        it("should set retention period on enabled file", async () => {
+          const action = setRetentionPeriodFileEnabledAction(Scenarios, client);
+          state.confirmSetRetentionPeriodFileEnabled = true;
+          await action.handle(state);
+
+          const retention = await client.send(
+            new GetObjectRetentionCommand({
+              Bucket: state.lockEnabledBucketName,
+              Key: "file1.txt",
+            }),
+          );
+          expect(retention.Retention?.Mode).toEqual("GOVERNANCE");
+          expect(retention.Retention?.RetainUntilDate).toBeDefined();
+        });
+
+        it("should set legal hold on retention file", async () => {
+          const action = setLegalHoldFileRetentionAction(Scenarios, client);
+          state.confirmSetLegalHoldFileRetention = true;
+          await action.handle(state);
+
+          const legalHold = await client.send(
+            new GetObjectLegalHoldCommand({
+              Bucket: state.retentionBucketName,
+              Key: "file0.txt",
+            }),
+          );
+          expect(legalHold.LegalHold?.Status).toEqual("ON");
+        });
+
+        it("should set retention period on retention file", async () => {
+          const action = setRetentionPeriodFileRetentionAction(Scenarios, client);
+          state.confirmSetRetentionPeriodFileRetention = true;
+          await action.handle(state);
+
+          const retention = await client.send(
+            new GetObjectRetentionCommand({
+              Bucket: state.retentionBucketName,
+              Key: "file1.txt",
+            }),
+          );
+          expect(retention.Retention?.Mode).toEqual("GOVERNANCE");
+          expect(retention.Retention?.RetainUntilDate).toBeDefined();
+        });
+      });
+      </sample_integration_test>
     </tests>

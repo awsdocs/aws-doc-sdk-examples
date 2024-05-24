@@ -1,4 +1,3 @@
-
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 import { fileURLToPath } from "url";
@@ -21,14 +20,16 @@ export const main = async (client, bucketName, objectKey) => {
     // RequestPayer: "requester",
     Retention: {
       Mode: "GOVERNANCE", // or "COMPLIANCE"
-      RetainUntilDate: new Date("2023-12-31"),
+      RetainUntilDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
     },
     // VersionId: "OBJECT_VERSION_ID",
   });
 
   try {
     const response = await client.send(command);
-    console.log(`Object Retention settings updated: ${response.$metadata.httpStatusCode}`);
+    console.log(
+      `Object Retention settings updated: ${response.$metadata.httpStatusCode}`,
+    );
   } catch (err) {
     console.error(err);
   }
@@ -39,4 +40,3 @@ export const main = async (client, bucketName, objectKey) => {
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   main(new S3Client(), "BUCKET_NAME", "OBJECT_KEY");
 }
-
