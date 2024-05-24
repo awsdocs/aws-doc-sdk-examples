@@ -50,6 +50,8 @@ Code excerpts that show you how to call individual service functions.
 - [GetBucketPolicy](actions/get-bucket-policy.js#L6)
 - [GetBucketWebsite](actions/get-bucket-website.js#L6)
 - [GetObject](actions/get-object.js#L6)
+- [GetObjectLockConfiguration](actions/get-object-lock-configuration.js)
+- [GetObjectRetention](actions/get-object-retention.js)
 - [ListBuckets](actions/list-buckets.js#L6)
 - [ListObjectsV2](actions/list-objects.js#L6)
 - [PutBucketAcl](actions/put-bucket-acl.js#L6)
@@ -57,6 +59,9 @@ Code excerpts that show you how to call individual service functions.
 - [PutBucketPolicy](actions/put-bucket-policy.js#L6)
 - [PutBucketWebsite](actions/put-bucket-website.js#L6)
 - [PutObject](actions/put-object.js#L6)
+- [PutObjectLegalHold](actions/put-object-legal-hold.js)
+- [PutObjectLockConfiguration](actions/put-object-lock-configuration.js)
+- [PutObjectRetention](actions/put-object-retention.js)
 
 ### Scenarios
 
@@ -66,6 +71,7 @@ functions within the same service.
 - [Create a presigned URL](scenarios/presigned-url-upload.js)
 - [Create a web page that lists Amazon S3 objects](../web/s3/list-objects/src/App.tsx)
 - [Get started with buckets and objects](scenarios/basic.js)
+- [Get the legal hold configuration of an object](actions/get-object-legal-hold.js)
 - [Lock Amazon S3 objects](scenarios/object-locking/index.js)
 - [Upload or download large files](scenarios/multipart-upload.js)
 
@@ -151,6 +157,18 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.s3_Scenario_GettingStarted.start-->
 <!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+
+#### Get the legal hold configuration of an object
+
+This example shows you how to get the legal hold configuration of an S3 bucket.
+
+
+<!--custom.scenario_prereqs.s3_GetObjectLegalHoldConfiguration.start-->
+<!--custom.scenario_prereqs.s3_GetObjectLegalHoldConfiguration.end-->
+
+
+<!--custom.scenarios.s3_GetObjectLegalHoldConfiguration.start-->
+<!--custom.scenarios.s3_GetObjectLegalHoldConfiguration.end-->
 
 #### Lock Amazon S3 objects
 

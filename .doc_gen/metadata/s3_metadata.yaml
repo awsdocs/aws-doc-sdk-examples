@@ -2139,10 +2139,10 @@ s3_PutObjectLockConfiguration:
           github: javascriptv3/example_code/s3
           sdkguide:
           excerpts:
-            - description:
-              snippet_files: Set the object lock configuration of a bucket.
+            - description: Set the object lock configuration of a bucket.
+              snippet_files: 
                 - javascriptv3/example_code/s3/actions/put-object-lock-configuration.js
-            - description:
+            - description: Set the default retention period of a bucket.
               snippet_files:
                 - javascriptv3/example_code/s3/actions/put-default-object-lock-configuration.js
   services:
