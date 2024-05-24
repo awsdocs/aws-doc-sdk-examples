@@ -9,7 +9,6 @@ import { GetObjectRetentionCommand, S3Client } from "@aws-sdk/client-s3";
  * @param {string} objectKey
  */
 export const main = async (client, bucketName, objectKey) => {
-  // snippet-start:[s3.JavaScript.buckets.getObjectRetentionV3]
   const command = new GetObjectRetentionCommand({
     Bucket: bucketName,
     Key: objectKey,
@@ -25,7 +24,6 @@ export const main = async (client, bucketName, objectKey) => {
   } catch (err) {
     console.error(err);
   }
-  // snippet-end:[s3.JavaScript.buckets.getObjectRetentionV3]
 };
 
 // Invoke main function if this file was run directly.

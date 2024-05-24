@@ -961,6 +961,15 @@ s3_GetObjectLegalHoldConfiguration:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.GetObjectLegalHold
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/get-object-legal-hold.js
   services:
     s3: {GetObjectLegalHold}
 s3_GetObjectLockConfiguration:
@@ -983,6 +992,15 @@ s3_GetObjectLockConfiguration:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.GetBucketObjectLockConfiguration
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/get-object-lock-configuration.js
   services:
     s3: {GetObjectLockConfiguration}
 s3_GetObjectRetention:
@@ -1005,6 +1023,15 @@ s3_GetObjectRetention:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.GetObjectRetention
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/get-object-retention.js
   services:
     s3: {GetObjectRetention}
 s3_PutBucketLogging:
@@ -2069,6 +2096,15 @@ s3_PutObjectLegalHold:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.ModifyObjectLegalHold
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/put-object-legal-hold.js
   services:
     s3: {PutObjectLegalHold}
 s3_PutObjectLockConfiguration:
@@ -2097,6 +2133,18 @@ s3_PutObjectLockConfiguration:
             - description: Set the default retention period of a bucket.
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.ModifyBucketDefaultRetention
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files: Set the object lock configuration of a bucket.
+                - javascriptv3/example_code/s3/actions/put-object-lock-configuration.js
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/put-default-object-lock-configuration.js
   services:
     s3: {PutObjectLockConfiguration}
 s3_PutObjectRetention:
@@ -2119,6 +2167,15 @@ s3_PutObjectRetention:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.ModifyObjectRetentionPeriod
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/put-object-retention.js
   services:
     s3: {PutObjectRetention}
 s3_UploadPart:

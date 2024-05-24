@@ -1,0 +1,4 @@
+---
+combined: true
+---
+ {{ code.tests }}

@@ -6,11 +6,10 @@ import { GetObjectLegalHoldCommand, S3Client } from "@aws-sdk/client-s3";
 
 /**
  * @param {S3Client} client
- * @param {string} bucketName 
- * @param {string} objectKey 
+ * @param {string} bucketName
+ * @param {string} objectKey
  */
 export const main = async (client, bucketName, objectKey) => {
-  // snippet-start:[s3.JavaScript.buckets.getObjectLegalHoldV3]
   const command = new GetObjectLegalHoldCommand({
     Bucket: bucketName,
     Key: objectKey,
@@ -26,7 +25,6 @@ export const main = async (client, bucketName, objectKey) => {
   } catch (err) {
     console.error(err);
   }
-  // snippet-end:[s3.JavaScript.buckets.getObjectLegalHoldV3]
 };
 
 // Invoke main function if this file was run directly.
