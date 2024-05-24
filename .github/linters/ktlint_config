@@ -1,0 +1,3 @@
+[*.{kt,kts}]
+ktlint_code_style = ktlint_official
+ktlint_standard_no-consecutive-comments = disabled
