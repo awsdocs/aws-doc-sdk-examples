@@ -8,7 +8,7 @@ import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.bedrockruntime.BedrockRuntimeClient;
 
-// snippet-start:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsV2_Quickstart]
+// snippet-start:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddings_Quickstart]
 // Generate and print an embedding with Amazon Titan Text Embeddings.
 public class TextEmbeddingsQuickstart {
 
@@ -41,4 +41,4 @@ public class TextEmbeddingsQuickstart {
         System.out.println(embedding);
     }
 }
-// snippet-end:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsV2_Quickstart]
+// snippet-end:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddings_Quickstart]

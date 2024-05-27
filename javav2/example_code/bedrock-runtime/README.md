@@ -46,6 +46,14 @@ functions within the same service.
 
 - [Generate images](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L343)
 
+### Amazon Titan Text
+
+- [Generate text](src/main/java/com/example/bedrockruntime/models/amazon/titan/TextQuickstart.java#L11)
+
+### Amazon Titan Text Embeddings
+
+- [Generate text embeddings](src/main/java/com/example/bedrockruntime/models/amazon/titan/TextEmbeddingsQuickstart.java#L11)
+
 ### Anthropic Claude
 
 - [Generate text](src/main/java/com/example/bedrockruntime/InvokeModel.java#L112)

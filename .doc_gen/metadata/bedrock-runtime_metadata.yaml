@@ -160,13 +160,13 @@ bedrock-runtime_InvokeModel_TitanText:
           excerpts:
             - description: Send your first prompt to Amazon Titan Text.
               snippet_tags:
-                - bedrock-runtime.java2.InvokeModel_TitanTextG1_Quickstart
+                - bedrock-runtime.java2.InvokeModel_TitanText_Quickstart
             - description: Invoke Titan Text with a system prompt and additional inference parameters.
               snippet_tags:
-                - bedrock-runtime.java2.InvokeModel_TitanTextG1_SingleMessage
+                - bedrock-runtime.java2.InvokeModel_TitanText_SingleMessage
             - description: Create a chat-like experience with Titan Text, using a conversation history.
               snippet_tags:
-                - bedrock-runtime.java2.InvokeModel_TitanTextG1_Conversation
+                - bedrock-runtime.java2.InvokeModel_TitanText_Conversation
     JavaScript:
       versions:
         - sdk_version: 3

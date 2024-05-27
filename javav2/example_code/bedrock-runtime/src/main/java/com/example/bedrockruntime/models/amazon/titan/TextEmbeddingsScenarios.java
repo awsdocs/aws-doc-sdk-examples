@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 public class TextEmbeddingsScenarios {
-    // snippet-start:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsV2_AdditionalFields]
+    // snippet-start:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddings_AdditionalFields]
 
     /**
      * Invoke Amazon Titan Text Embeddings V2 with additional inference parameters.
@@ -69,7 +69,7 @@ public class TextEmbeddingsScenarios {
         // Return the model's native response.
         return modelResponse;
     }
-    // snippet-end:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddingsV2_AdditionalFields]
+    // snippet-end:[bedrock-runtime.java2.InvokeModel_TitanTextEmbeddings_AdditionalFields]
 
     public static void main(String[] args) throws IOException {
         new DemoRunner(List.of(
