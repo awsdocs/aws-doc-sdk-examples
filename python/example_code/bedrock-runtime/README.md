@@ -7,19 +7,14 @@ Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Bedrock Runt
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon Bedrock Runtime is a fully managed service that makes it easy to use foundation models from third-party
-providers and Amazon._
+_Amazon Bedrock Runtime is a fully managed service that makes it easy to use foundation models from third-party providers and Amazon._
 
 ## ⚠ Important
 
-* Running this code might result in charges to your AWS account. For more details,
-  see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform
-  the task. For more information,
-  see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
-* This code is not tested in every AWS Region. For more information,
-  see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 <!--custom.important.start-->
 <!--custom.important.end-->
@@ -43,14 +38,13 @@ python -m pip install -r requirements.txt
 > see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 >
 <!--custom.prerequisites.end-->
-
 ### AI21 Labs Jurassic-2
 
 - [Generate text](models/ai21_labs_jurassic2/invoke_model.py#L4)
 
 ### Amazon Titan Image Generator
 
-- [Generate images](models/amazon_titan/titan_image_generator/invoke_model.py#L27)
+- [Generate images](models/amazon_titan/titan_image_generator/invoke_model.py#L4)
 
 ### Amazon Titan Text
 
@@ -59,7 +53,7 @@ python -m pip install -r requirements.txt
 
 ### Amazon Titan Text Embeddings
 
-- [V2: Generate text embeddings](models/amazon_titan/titan_text_embeddings/invoke_model.py#L4)
+- [Generate text embeddings](models/amazon_titan/titan_text_embeddings/invoke_model.py#L4)
 
 ### Anthropic Claude
 
@@ -80,7 +74,8 @@ python -m pip install -r requirements.txt
 
 ### Stability AI Diffusion
 
-- [Generate images](models/stability_ai/invoke_model.py#L27)
+- [Generate images](models/stability_ai/invoke_model.py#L4)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -88,6 +83,7 @@ python -m pip install -r requirements.txt
 ## Run the examples
 
 ### Instructions
+
 
 <!--custom.instructions.start-->
 The examples are wrapped into two separate scripts, with *claude_3.py* demonstrating the use of Claude 3, and
@@ -106,9 +102,12 @@ Mistral AI.
 
 <!--custom.instructions.end-->
 
+
+
 ### Tests
 
 ⚠ Running tests might result in charges to your AWS account.
+
 
 To find instructions for running these tests, see the [README](../../README.md#Tests)
 in the `python` folder.
