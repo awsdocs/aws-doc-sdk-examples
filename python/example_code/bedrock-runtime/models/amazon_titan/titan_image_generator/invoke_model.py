@@ -1,34 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-import base64
-import os
-
-
-def save_image(base64_image_data):
-    output_dir = "output"
-
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
-    i = 1
-    while os.path.exists(os.path.join(output_dir, f"image_{i}.png")):
-        i += 1
-
-    image_data = base64.b64decode(base64_image_data)
-
-    file_path = os.path.join(output_dir, f"image_{i}.png")
-    with open(file_path, "wb") as file:
-        file.write(image_data)
-
-    return file_path
-
-
 # snippet-start:[python.example_code.bedrock-runtime.InvokeModel_TitanImageGenerator]
 # Use the native inference API to create an image with Amazon Titan Image Generator
 
+import base64
 import boto3
 import json
+import os
 import random
 
 # Create a Bedrock Runtime client in the AWS Region of your choice.
@@ -70,7 +49,18 @@ model_response = json.loads(response["body"].read())
 base64_image_data = model_response["images"][0]
 
 # Save the generated image to a local folder.
-image_path = save_image(base64_image_data)
+i, output_dir = 1, "output"
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+while os.path.exists(os.path.join(output_dir, f"titan_{i}.png")):
+    i += 1
+
+image_data = base64.b64decode(base64_image_data)
+
+image_path = os.path.join(output_dir, f"titan_{i}.png")
+with open(image_path, "wb") as file:
+    file.write(image_data)
+
 print(f"The generated image has been saved to {image_path}")
 
 # snippet-end:[python.example_code.bedrock-runtime.InvokeModel_TitanImageGenerator]
