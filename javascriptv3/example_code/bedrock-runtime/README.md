@@ -43,20 +43,29 @@ functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](scenarios/cli_text_playground.js)
 
-### Invoke model examples
+### AI21 Labs Jurassic-2
 
-- [AI21 Labs Jurassic-2: Text generation](models/ai21_labs_jurassic2/jurassic2.js)
-- [Amazon Titan Text G1](models/amazon_titan/titan_text.js)
-- [Anthropic Claude 2: Real-time response stream processing](models/anthropic_claude/claude_3.js)
-- [Anthropic Claude 2: Text generation](models/anthropic_claude/claude_2.js)
-- [Anthropic Claude 3: Text generation](models/anthropic_claude/claude_3.js)
-- [Anthropic Claude Instant: Text generation](models/anthropic_claude/claude_instant_1.js)
-- [Meta Llama 2: Text generation](models/meta/llama2/invoke_model_quickstart.js#L4)
-- [Meta Llama 2: Text generation with response stream](models/meta/llama2/invoke_model_with_response_stream_quickstart.js#L4)
-- [Meta Llama 3: Text generation](models/meta/llama3/invoke_model_quickstart.js#L4)
-- [Meta Llama 3: Text generation with response stream](models/meta/llama3/invoke_model_with_response_stream_quickstart.js#L4)
-- [Mistral AI: Text generation with Mistral 7B Instruct](models/mistral_ai/mistral_7b.js)
-- [Mistral AI: Text generation with Mixtral 8x7B Instruct](models/mistral_ai/mixtral_8x7b.js)
+- [Generate text](models/ai21_labs_jurassic2/jurassic2.js)
+
+### Amazon Titan Text
+
+- [Generate text](models/amazon_titan/titan_text.js)
+
+### Anthropic Claude
+
+- [Generate text](models/anthropic_claude/claude_3.js)
+- [Generate text with a response stream](models/anthropic_claude/claude_3.js)
+
+### Meta Llama
+
+- [Llama 2: Generate text](models/meta/llama2/invoke_model_quickstart.js#L4)
+- [Llama 2: Generate text with a response stream](models/meta/llama2/invoke_model_with_response_stream_quickstart.js#L4)
+- [Llama 3: Generate text](models/meta/llama3/invoke_model_quickstart.js#L4)
+- [Llama 3: Generate text with a response stream](models/meta/llama3/invoke_model_with_response_stream_quickstart.js#L4)
+
+### Mistral AI
+
+- [Generate text](models/mistral_ai/mistral_7b.js)
 
 
 <!--custom.examples.start-->
