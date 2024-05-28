@@ -43,7 +43,12 @@ Code excerpts that show you how to call individual service functions.
 
 ### Instructions
 
-To find instructions for running the code example, see the [README](../../README.md#build-and-run-the-service-examples) in the `javav2` folder.
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
 ### Tests
 
 ⚠ Running tests might result in charges to your AWS account.
@@ -61,7 +66,7 @@ in the `javav2` folder.
 
 - [Secrets Manager User Guide](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
 - [Secrets Manager API Reference](https://docs.aws.amazon.com/secretsmanager/latest/apireference/Welcome.html)
-- [SDK for Java 2.x Secrets Manager reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/secrets-manager/package-summary.html)
+- [SDK for Java 2.x Secrets Manager reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/kms/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
