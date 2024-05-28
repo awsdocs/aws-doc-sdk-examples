@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: 
         <secretName> <secretValue>
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[secretsmanager.kotlin.get_secret.main]
 suspend fun getValue(secretName: String?) {
-
     val valueRequest = GetSecretValueRequest {
         secretId = secretName
     }
