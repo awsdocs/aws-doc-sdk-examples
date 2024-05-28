@@ -77,13 +77,13 @@ public class KMSScenario {
 
     public static void main(String[] args) {
         final String usage = """
-                Usage:    <granteePrincipal> 
+                Usage: <granteePrincipal>
 
                 Where:
                    granteePrincipal - The principal (user, service account, or group) to whom the grant or permission is being given. 
                 """;
 
-        if (args.length != 2) {
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
         }
