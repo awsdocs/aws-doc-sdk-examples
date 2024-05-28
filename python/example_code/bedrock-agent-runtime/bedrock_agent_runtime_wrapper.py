@@ -44,6 +44,9 @@ class BedrockAgentRuntimeWrapper:
         """
 
         try:
+            # Note: The execution time depends on the foundation model, complexity of the agent,
+            # and the length of the prompt. In some cases, it can take up to a minute or more to
+            # generate a response.
             response = self.agents_runtime_client.invoke_agent(
                 agentId=agent_id,
                 agentAliasId=agent_alias_id,
@@ -64,6 +67,5 @@ class BedrockAgentRuntimeWrapper:
         return completion
 
     # snippet-end:[python.example_code.bedrock-agent-runtime.InvokeAgent]
-
 
 # snippet-end:[python.example_code.bedrock-agent-runtime.BedrockAgentsRuntimeWrapper.class]
