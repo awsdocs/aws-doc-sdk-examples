@@ -3,13 +3,14 @@
 
 package com.example.secrets;
 
-// snippet-start:[secretsmanager.java2.put_secret.main]
-// snippet-start:[secretsmanager.java2.put_secret.import]
+// snippet-start:[secretsmanager.java2.get_secret.main]
+// snippet-start:[secretsmanager.java2.get_secret.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
-import software.amazon.awssdk.services.secretsmanager.model.PutSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerException;
-// snippet-end:[secretsmanager.java2.put_secret.import]
+// snippet-end:[secretsmanager.java2.get_secret.import]
 
 /**
  * Before running this Java V2 code example, set up your development
@@ -18,44 +19,49 @@ import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerExcept
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ * We recommend that you cache your secret values by using client-side caching.
+ *
+ * Caching secrets improves speed and reduces your costs. For more information,
+ * see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets.html
  */
-public class PutSecret {
+public class GetSecretValue {
     public static void main(String[] args) {
         final String usage = """
 
                 Usage:
-                    <secretName> <secretValue>
+                    <secretName>\s
 
                 Where:
                     secretName - The name of the secret (for example, tutorials/MyFirstSecret).\s
-                    secretValue - The text to encrypt and store in the new version of the secret.\s
                 """;
 
-        if (args.length < 2) {
+        if (args.length != 1) {
             System.out.println(usage);
             System.exit(1);
         }
 
         String secretName = args[0];
-        String secretValue = args[1];
         Region region = Region.US_EAST_1;
         SecretsManagerClient secretsClient = SecretsManagerClient.builder()
                 .region(region)
                 .build();
 
-        putSecret(secretsClient, secretName, secretValue);
+        getValue(secretsClient, secretName);
         secretsClient.close();
     }
 
-    public static void putSecret(SecretsManagerClient secretsClient, String secretName, String secretValue) {
+    public static void getValue(SecretsManagerClient secretsClient, String secretName) {
         try {
-            PutSecretValueRequest secretRequest = PutSecretValueRequest.builder()
+            GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
                     .secretId(secretName)
-                    .secretString(secretValue)
                     .build();
 
-            secretsClient.putSecretValue(secretRequest);
-            System.out.println("A new version was created.");
+            GetSecretValueResponse valueResponse = secretsClient.getSecretValue(valueRequest);
+            String secret = valueResponse.secretString();
+            System.out.println(secret);
 
         } catch (SecretsManagerException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -63,4 +69,4 @@ public class PutSecret {
         }
     }
 }
-// snippet-end:[secretsmanager.java2.put_secret.main]
+// snippet-end:[secretsmanager.java2.get_secret.main]
