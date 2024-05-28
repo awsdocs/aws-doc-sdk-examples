@@ -5,8 +5,10 @@ import {
   parseScenarioArgs,
   Scenario,
 } from "@aws-doc-sdk-examples/lib/scenario/index.js";
-
-import { loadState, saveState } from "./state-steps.js";
+import {
+  saveState,
+  loadState,
+} from "@aws-doc-sdk-examples/lib/scenario/steps-common.js";
 
 import {
   createStack,

@@ -23,7 +23,7 @@ import { SlowLogger } from "../slow-logger.js";
 export class Step {
   /**
    * @param {string} name
-   * @param {O} [stepOptions]
+   * @param {O & StepOptions} [stepOptions]
    */
   constructor(name, stepOptions) {
     this.name = name;
@@ -46,10 +46,10 @@ export class Step {
       console.log(
         `[DEBUG ${new Date().toISOString()}] Handling step: ${
           this.constructor.name
-        }<${this.name}>`
+        }<${this.name}>`,
       );
       console.log(
-        `[DEBUG ${new Date().toISOString()}] State: ${JSON.stringify(state)}`
+        `[DEBUG ${new Date().toISOString()}] State: ${JSON.stringify(state)}`,
       );
     }
   }
@@ -60,7 +60,7 @@ export class Step {
  */
 
 /**
- * @extends {Step<ScenarioOutputOptions}
+ * @extends {Step<ScenarioOutputOptions>}
  */
 export class ScenarioOutput extends Step {
   /**
@@ -183,7 +183,7 @@ export class ScenarioInput extends Step {
 }
 
 /**
- * @typedef {{ whileConfig: { inputEquals: any, input: ScenarioInput, output: ScenarioOutput }}
+ * @typedef {{ whileConfig: { whileFn: (state: Record<string, any>) => boolean, input: ScenarioInput, output: ScenarioOutput }}
  *   } ScenarioActionOptions
  */
 
@@ -194,7 +194,7 @@ export class ScenarioAction extends Step {
   /**
    * @param {string} name
    * @param {(state: Record<string, any>, options) => Promise<void>} action
-   * @param {ScenarioActionOptions} [scenarioActionOptions]
+   * @param {Step<ScenarioActionOptions>['stepOptions']} [scenarioActionOptions]
    */
   constructor(name, action, scenarioActionOptions) {
     super(name, scenarioActionOptions);
@@ -216,19 +216,21 @@ export class ScenarioAction extends Step {
     };
 
     if (!stepHandlerOptions?.confirmAll && this.stepOptions?.whileConfig) {
-      const whileFn = () =>
-        this.stepOptions.whileConfig.input.handle(state, stepHandlerOptions);
+      const whileFn = this.stepOptions.whileConfig.whileFn;
+      const output = this.stepOptions.whileConfig.output;
+      const input = this.stepOptions.whileConfig.input;
+      await input.handle(state, stepHandlerOptions);
 
-      let actual = await whileFn();
-      let expected = this.stepOptions.whileConfig.inputEquals;
-
-      while (actual === expected) {
+      let runAction = whileFn(state);
+      while (runAction) {
         await _handle();
-        await this.stepOptions.whileConfig.output.handle(
-          state,
-          stepHandlerOptions,
-        );
-        actual = await whileFn();
+        output &&
+          (await this.stepOptions.whileConfig.output.handle(
+            state,
+            stepHandlerOptions,
+          ));
+        await input.handle(state, stepHandlerOptions);
+        runAction = whileFn(state);
       }
     } else {
       await _handle();
