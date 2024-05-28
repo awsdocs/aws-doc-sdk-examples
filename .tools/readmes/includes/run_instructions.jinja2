@@ -138,3 +138,8 @@ ruby {{scenario['file']}}
 <!--custom.scenarios.{{ scenario['id'] }}.end-->
 
 {% endfor %}
+{% if lang_config['name'] == 'Java' and lang_config['sdk_ver'] == 2 %}
+### Instructions
+
+To find instructions for running the code example, see the [README](../../README.md#build-and-run-the-service-examples) in the `javav2` folder.
+{% endif %}

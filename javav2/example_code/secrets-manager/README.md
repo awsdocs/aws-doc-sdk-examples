@@ -43,13 +43,7 @@ Code excerpts that show you how to call individual service functions.
 
 ### Instructions
 
-<!--custom.instructions.start-->
-To find instructions for running the code example, see the [README](../../README.md#build-and-run-the-service-examples)
-in the `javav2` folder.
-<!--custom.instructions.end-->
-
-
-
+To find instructions for running the code example, see the [README](../../README.md#build-and-run-the-service-examples) in the `javav2` folder.
 ### Tests
 
 ⚠ Running tests might result in charges to your AWS account.
