@@ -12,6 +12,7 @@ import org.junit.jupiter.api.TestMethodOrder
 @TestMethodOrder(OrderAnnotation::class)
 class SecretsManagerKotlinTest {
     private var secretName = "mysecret"
+
     @Test
     @Order(1)
     fun getSecretValue() = runBlocking {
