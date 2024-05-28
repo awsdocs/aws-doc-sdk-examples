@@ -1,7 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-
-
 import com.kotlin.secrets.getValue
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
