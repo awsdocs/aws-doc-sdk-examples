@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.InvokeModel_MetaLlama3]
+# snippet-start:[python.example_code.bedrock-runtime.MetaLlama3_InvokeModel]
 # Use the native inference API to send a text message to Meta Llama 3.
 
 import boto3
@@ -13,21 +13,21 @@ client = boto3.client("bedrock-runtime", region_name="us-east-1")
 # Set the model ID, e.g., Llama 3 8b Instruct.
 model_id = "meta.llama3-8b-instruct-v1:0"
 
-# Define the message to send.
-user_message = "Describe the purpose of a 'hello world' program in one line."
+# Define the prompt for the model.
+prompt = "Describe the purpose of a 'hello world' program in one line."
 
-# Embed the message in Llama 3's prompt format.
-prompt = f"""
+# Embed the prompt in Llama 3's instruction format.
+formatted_prompt = f"""
 <|begin_of_text|>
 <|start_header_id|>user<|end_header_id|>
-{user_message}
+{prompt}
 <|eot_id|>
 <|start_header_id|>assistant<|end_header_id|>
 """
 
 # Format the request payload using the model's native structure.
 native_request = {
-    "prompt": prompt,
+    "prompt": formatted_prompt,
     "max_gen_len": 512,
     "temperature": 0.5,
 }
@@ -35,8 +35,13 @@ native_request = {
 # Convert the native request to JSON.
 request = json.dumps(native_request)
 
-# Invoke the model with the request.
-response = client.invoke_model(modelId=model_id, body=request)
+try:
+    # Invoke the model with the request.
+    response = client.invoke_model(modelId=model_id, body=request)
+
+except Exception as e:
+    print(f"ERROR: Can't invoke '{model_id}. Reason: {e}")
+    exit(1)
 
 # Decode the response body.
 model_response = json.loads(response["body"].read())
@@ -45,4 +50,4 @@ model_response = json.loads(response["body"].read())
 response_text = model_response["generation"]
 print(response_text)
 
-# snippet-end:[python.example_code.bedrock-runtime.InvokeModel_MetaLlama3]
+# snippet-end:[python.example_code.bedrock-runtime.MetaLlama3_InvokeModel]

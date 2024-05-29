@@ -1,8 +1,9 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.MistralAi_Converse]
-# Use the Conversation API to send a text message to Mistral AI.
+# snippet-start:[python.example_code.bedrock-runtime.MistralAi_ConverseStream]
+# Use the Conversation API to send a text message to Mistral AI
+# and print the response stream.
 
 import boto3
 from botocore.exceptions import ClientError
@@ -24,7 +25,7 @@ conversation = [
 
 try:
     # Send the message to the model, using a basic inference configuration.
-    response = client.converse(
+    streaming_response = client.converse_stream(
         modelId=model_id,
         messages=conversation,
         inferenceConfig={
@@ -34,12 +35,14 @@ try:
         },
     )
 
-    # Extract and print the response text.
-    response_text = response["output"]["message"]["content"][0]["text"]
-    print(response_text)
+    # Extract and print the streamed response text in real-time.
+    for chunk in streaming_response["stream"]:
+        if "contentBlockDelta" in chunk:
+            text = chunk["contentBlockDelta"]["delta"]["text"]
+            print(text, end="")
 
 except (ClientError, Exception) as e:
     print(f"ERROR: Can't invoke '{model_id}. Reason: {e}")
     exit(1)
 
-# snippet-end:[python.example_code.bedrock-runtime.MistralAi_Converse]
+# snippet-end:[python.example_code.bedrock-runtime.MistralAi_ConverseStream]

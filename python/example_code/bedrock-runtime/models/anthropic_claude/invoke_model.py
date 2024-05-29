@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.InvokeModel_AnthropicClaude]
+# snippet-start:[python.example_code.bedrock-runtime.AnthropicClaude_InvokeModel]
 # Use the native inference API to send a text message to Anthropic Claude.
 
 import boto3
@@ -32,8 +32,13 @@ native_request = {
 # Convert the native request to JSON.
 request = json.dumps(native_request)
 
-# Invoke the model with the request.
-response = client.invoke_model(modelId=model_id, body=request)
+try:
+    # Invoke the model with the request.
+    response = client.invoke_model(modelId=model_id, body=request)
+
+except Exception as e:
+    print(f"ERROR: Can't invoke '{model_id}. Reason: {e}")
+    exit(1)
 
 # Decode the response body.
 model_response = json.loads(response["body"].read())
@@ -42,4 +47,4 @@ model_response = json.loads(response["body"].read())
 response_text = model_response["content"][0]["text"]
 print(response_text)
 
-# snippet-end:[python.example_code.bedrock-runtime.InvokeModel_AnthropicClaude]
+# snippet-end:[python.example_code.bedrock-runtime.AnthropicClaude_InvokeModel]

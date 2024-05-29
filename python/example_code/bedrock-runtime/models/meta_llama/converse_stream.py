@@ -1,8 +1,9 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.MistralAi_Converse]
-# Use the Conversation API to send a text message to Mistral AI.
+# snippet-start:[python.example_code.bedrock-runtime.MetaLlama_ConverseStream]
+# Use the Conversation API to send a text message to Meta Llama
+# and print the response stream.
 
 import boto3
 from botocore.exceptions import ClientError
@@ -10,8 +11,8 @@ from botocore.exceptions import ClientError
 # Create a Bedrock Runtime client in the AWS Region you want to use.
 client = boto3.client("bedrock-runtime", region_name="us-east-1")
 
-# Set the model ID, e.g., Mistral Large.
-model_id = "mistral.mistral-large-2402-v1:0"
+# Set the model ID, e.g., Llama 3 8b Instruct.
+model_id = "meta.llama3-8b-instruct-v1:0"
 
 # Start a conversation with the user message.
 user_message = "Describe the purpose of a 'hello world' program in one line."
@@ -24,7 +25,7 @@ conversation = [
 
 try:
     # Send the message to the model, using a basic inference configuration.
-    response = client.converse(
+    streaming_response = client.converse_stream(
         modelId=model_id,
         messages=conversation,
         inferenceConfig={
@@ -34,12 +35,14 @@ try:
         },
     )
 
-    # Extract and print the response text.
-    response_text = response["output"]["message"]["content"][0]["text"]
-    print(response_text)
+    # Extract and print the streamed response text in real-time.
+    for chunk in streaming_response["stream"]:
+        if "contentBlockDelta" in chunk:
+            text = chunk["contentBlockDelta"]["delta"]["text"]
+            print(text, end="")
 
 except (ClientError, Exception) as e:
     print(f"ERROR: Can't invoke '{model_id}. Reason: {e}")
     exit(1)
 
-# snippet-end:[python.example_code.bedrock-runtime.MistralAi_Converse]
+# snippet-end:[python.example_code.bedrock-runtime.MetaLlama_ConverseStream]

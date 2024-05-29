@@ -6,20 +6,22 @@ import subprocess
 import sys
 
 files_under_test = [
+    # Text models
     "models/ai21_labs_jurassic2/invoke_model.py",
-    "models/amazon_titan/titan_image_generator/invoke_model.py",
-    "models/amazon_titan/titan_text/invoke_model.py",
-    "models/amazon_titan/titan_text_embeddings/invoke_model.py",
+    "models/amazon_titan_text/invoke_model.py",
     "models/anthropic_claude/invoke_model.py",
-    "models/anthropic_claude/invoke_model_with_response_stream.py",
-    "models/meta_llama/llama2/invoke_model.py",
-    "models/meta_llama/llama3/invoke_model.py",
+    "models/cohere_command/command_invoke_model.py",
+    "models/cohere_command/command_r_invoke_model.py",
+    "models/meta_llama/llama2_invoke_model.py",
+    "models/meta_llama/llama3_invoke_model.py",
     "models/mistral_ai/invoke_model.py",
+
+    # Embeddings models
+    "models/amazon_titan_text_embeddings/invoke_model.py",
+
+    # Image models
     "models/stability_ai/invoke_model.py",
-    "models/amazon_titan/titan_text/invoke_model_with_response_stream.py",
-    "models/meta_llama/llama2/invoke_model_with_response_stream.py",
-    "models/meta_llama/llama3/invoke_model_with_response_stream.py",
-    "models/mistral_ai/invoke_model_with_response_stream.py",
+    "models/amazon_titan_image_generator/invoke_model.py",
 ]
 
 
