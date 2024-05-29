@@ -38,17 +38,22 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateAlias](src/main/java/com/example/kms/scenario/KMSScenario.java#L633)
-- [CreateGrant](src/main/java/com/example/kms/scenario/KMSScenario.java#L589)
-- [CreateKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L677)
-- [Decrypt](src/main/java/com/example/kms/scenario/KMSScenario.java#L526)
-- [DescribeKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L502)
-- [DisableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L314)
-- [EnableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L698)
+- [CreateAlias](src/main/java/com/example/kms/scenario/KMSScenario.java#L638)
+- [CreateGrant](src/main/java/com/example/kms/scenario/KMSScenario.java#L594)
+- [CreateKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L682)
+- [Decrypt](src/main/java/com/example/kms/scenario/KMSScenario.java#L531)
+- [DescribeKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L507)
+- [DisableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L324)
+- [EnableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L703)
 - [Encrypt](None)
-- [ListAliases](src/main/java/com/example/kms/scenario/KMSScenario.java#L294)
-- [ListGrants](src/main/java/com/example/kms/scenario/KMSScenario.java#L563)
+- [ListAliases](src/main/java/com/example/kms/scenario/KMSScenario.java#L304)
+- [ListGrants](src/main/java/com/example/kms/scenario/KMSScenario.java#L568)
+- [ListKeyPolicies](src/main/java/com/example/kms/scenario/KMSScenario.java#L401)
 - [ListKeys](src/main/java/com/example/kms/HelloKMS.java#L6)
+- [RevokeGrant](src/main/java/com/example/kms/scenario/KMSScenario.java#L550)
+- [ScheduleKeyDeletion](src/main/java/com/example/kms/scenario/KMSScenario.java#L473)
+- [Sign](src/main/java/com/example/kms/scenario/KMSScenario.java#L340)
+- [TagResource](src/main/java/com/example/kms/scenario/KMSScenario.java#L378)
 
 ### Scenarios
 
@@ -67,6 +72,7 @@ functions within the same service.
 
 
 <!--custom.instructions.start-->
+To find instructions for running the code example, see the [README](../../README.md#build-and-run-the-service-examples) in the `javav2` folder.
 <!--custom.instructions.end-->
 
 #### Hello KMS key
