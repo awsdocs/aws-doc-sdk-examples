@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.MetaLlama2_InvokeModel]
+# snippet-start:[python.example_code.bedrock-runtime.InvokeModel_MetaLlama2]
 # Use the native inference API to send a text message to Meta Llama 2.
 
 import boto3
@@ -44,4 +44,4 @@ model_response = json.loads(response["body"].read())
 response_text = model_response["generation"]
 print(response_text)
 
-# snippet-end:[python.example_code.bedrock-runtime.MetaLlama2_InvokeModel]
+# snippet-end:[python.example_code.bedrock-runtime.InvokeModel_MetaLlama2]

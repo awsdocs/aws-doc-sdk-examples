@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.MistralAi_InvokeModel]
-# Use the native inference API to send a text message to Mistral AI.
+# snippet-start:[python.example_code.bedrock-runtime.InvokeModel_MistralAi]
+# Use the native inference API to send a text message to Mistral.
 
 import boto3
 import json
@@ -44,4 +44,4 @@ model_response = json.loads(response["body"].read())
 response_text = model_response["outputs"][0]["text"]
 print(response_text)
 
-# snippet-end:[python.example_code.bedrock-runtime.MistralAi_InvokeModel]
+# snippet-end:[python.example_code.bedrock-runtime.InvokeModel_MistralAi]

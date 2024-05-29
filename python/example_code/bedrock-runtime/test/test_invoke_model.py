@@ -15,10 +15,8 @@ files_under_test = [
     "models/meta_llama/llama2_invoke_model.py",
     "models/meta_llama/llama3_invoke_model.py",
     "models/mistral_ai/invoke_model.py",
-
     # Embeddings models
     "models/amazon_titan_text_embeddings/invoke_model.py",
-
     # Image models
     "models/stability_ai/invoke_model.py",
     "models/amazon_titan_image_generator/invoke_model.py",

@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.AmazonTitanText_InvokeModel]
+# snippet-start:[python.example_code.bedrock-runtime.InvokeModel_TitanText]
 # Use the native inference API to send a text message to Amazon Titan Text.
 
 import boto3
@@ -43,4 +43,4 @@ model_response = json.loads(response["body"].read())
 response_text = model_response["results"][0]["outputText"]
 print(response_text)
 
-# snippet-end:[python.example_code.bedrock-runtime.AmazonTitanText_InvokeModel]
+# snippet-end:[python.example_code.bedrock-runtime.InvokeModel_TitanText]

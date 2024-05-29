@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.Ai21LabsJurassic2_InvokeModel]
-# Use the native inference API to send a text message to AI21 Labs Jurassic2.
+# snippet-start:[python.example_code.bedrock-runtime.InvokeModel_Ai21LabsJurassic2]
+# Use the native inference API to send a text message to AI21 Labs Jurassic-2.
 
 import boto3
 import json

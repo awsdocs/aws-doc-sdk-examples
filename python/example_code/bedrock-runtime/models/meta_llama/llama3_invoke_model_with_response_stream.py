@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.MetaLlama3_InvokeModelWithResponseStream]
+# snippet-start:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MetaLlama3]
 # Use the native inference API to send a text message to Meta Llama 3
 # and print the response stream.
 
@@ -52,4 +52,4 @@ except Exception as e:
     print(f"ERROR: Can't invoke '{model_id}. Reason: {e}")
     exit(1)
 
-# snippet-end:[python.example_code.bedrock-runtime.MetaLlama3_InvokeModelWithResponseStream]
+# snippet-end:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MetaLlama3]

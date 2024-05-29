@@ -24,10 +24,199 @@ bedrock-runtime_Hello:
   services:
     bedrock-runtime: {InvokeModel}
 
-# AI21 Labs Jurassic
-bedrock-runtime_InvokeModel_Jurassic2:
+# Converse
+bedrock-runtime_Converse_Ai21LabsJurassic2:
+  title: Invoke AI21 Labs Jurassic-2 on &BR; using Bedrock's Conversation API
+  title_abbrev: "Conversation API"
+  synopsis: send a text message to AI21 Labs Jurassic-2, using Bedrock's Conversation API.
+  category: AI21 Labs Jurassic-2
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to AI21 Labs Jurassic-2, using Bedrock's Conversation API.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.Converse_Ai21LabsJurassic2
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_Converse_AmazonTitanText:
+  title: Invoke Amazon Titan Text on &BR; using Bedrock's Conversation API
+  title_abbrev: "Conversation API"
+  synopsis: send a text message to Amazon Titan Text, using Bedrock's Conversation API.
+  category: Amazon Titan Text
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Titan Text, using Bedrock's Conversation API.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.Converse_AmazonTitanText
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_Converse_AnthropicClaude:
+  title: Invoke Anthropic Claude on &BR; using Bedrock's Conversation API
+  title_abbrev: "Conversation API"
+  synopsis: send a text message to Anthropic Claude, using Bedrock's Conversation API.
+  category: Anthropic Claude
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Anthropic Claude, using Bedrock's Conversation API.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.Converse_AnthropicClaude
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_Converse_CohereCommand:
+  title: Invoke Cohere Command on &BR; using Bedrock's Conversation API
+  title_abbrev: "All models: Conversation API"
+  synopsis: send a text message to Cohere Command, using Bedrock's Conversation API.
+  category: Cohere Command
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Cohere Command, using Bedrock's Conversation API.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.Converse_CohereCommand
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_Converse_MetaLlama:
+  title: Invoke Meta Llama on &BR; using Bedrock's Conversation API
+  title_abbrev: "All models: Conversation API"
+  synopsis: send a text message to Meta Llama, using Bedrock's Conversation API.
+  category: Meta Llama
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Meta Llama, using Bedrock's Conversation API.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.Converse_MetaLlama
+  services:
+    bedrock-runtime: {Converse}
+
+bedrock-runtime_Converse_MistralAi:
+  title: Invoke Mistral on &BR; using Bedrock's Conversation API
+  title_abbrev: "Conversation API"
+  synopsis: send a text message to Mistral, using Bedrock's Conversation API.
+  category: Mistral AI
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Mistral, using Bedrock's Conversation API.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.Converse_MistralAi
+  services:
+    bedrock-runtime: {Converse}
+
+# Converse Stream
+bedrock-runtime_ConverseStream_AmazonTitanText:
+  title: Invoke Amazon Titan Text on &BR; using Bedrock's Conversation API with a response stream
+  title_abbrev: "Conversation API with response stream"
+  synopsis: send a text message to Amazon Titan Text, using Bedrock's Conversation API and process the response stream in real-time.
+  category: Amazon Titan Text
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Amazon Titan Text, using Bedrock's Conversation API and process the response stream in real-time.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.ConverseStream_AmazonTitanText
+  services:
+    bedrock-runtime: {ConverseStream}
+
+bedrock-runtime_ConverseStream_AnthropicClaude:
+  title: Invoke Anthropic Claude on &BR; using Bedrock's Conversation API with a response stream
+  title_abbrev: "Conversation API with response stream"
+  synopsis: send a text message to Anthropic Claude, using Bedrock's Conversation API and process the response stream in real-time.
+  category: Anthropic Claude
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Anthropic Claude, using Bedrock's Conversation API and process the response stream in real-time.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.ConverseStream_AnthropicClaude
+  services:
+    bedrock-runtime: {ConverseStream}
+
+bedrock-runtime_ConverseStream_CohereCommand:
+  title: Invoke Cohere Command on &BR; using Bedrock's Conversation API with a response stream
+  title_abbrev: "All models: Conversation API with response stream"
+  synopsis: send a text message to Cohere Command, using Bedrock's Conversation API and process the response stream in real-time.
+  category: Cohere Command
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Cohere Command, using Bedrock's Conversation API and process the response stream in real-time.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.ConverseStream_CohereCommand
+  services:
+    bedrock-runtime: {ConverseStream}
+
+bedrock-runtime_ConverseStream_MetaLlama:
+  title: Invoke Meta Llama on &BR; using Bedrock's Conversation API with a response stream
+  title_abbrev: "All models: Conversation API with response stream"
+  synopsis: send a text message to Meta Llama, using Bedrock's Conversation API and process the response stream in real-time.
+  category: Meta Llama
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Meta Llama, using Bedrock's Conversation API and process the response stream in real-time.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.ConverseStream_MetaLlama
+  services:
+    bedrock-runtime: {ConverseStream}
+
+bedrock-runtime_ConverseStream_MistralAi:
+  title: Invoke Mistral on &BR; using Bedrock's Conversation API with a response stream
+  title_abbrev: "Conversation API with response stream"
+  synopsis: send a text message to Mistral, using Bedrock's Conversation API and process the response stream in real-time.
+  category: Mistral AI
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Mistral, using Bedrock's Conversation API and process the response stream in real-time.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.ConverseStream_MistralAi
+  services:
+    bedrock-runtime: {ConverseStream}
+
+# Invoke Model
+bedrock-runtime_InvokeModel_Ai21LabsJurassic2:
   title: Invoke AI21 Labs Jurassic-2 models on &BR; using the Invoke Model API
-  title_abbrev: "Generate text"
+  title_abbrev: "Native InvokeModel API"
   synopsis: send a text message to AI21 Labs Jurassic-2models, using the Invoke Model API.
   category: AI21 Labs Jurassic-2
   languages:
@@ -38,7 +227,7 @@ bedrock-runtime_InvokeModel_Jurassic2:
           excerpts:
             - description: Use the Invoke Model API to send a text message.
               snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModel_Jurassic2
+                - python.example_code.bedrock-runtime.InvokeModel_Ai21LabsJurassic2
     Go:
       versions:
         - sdk_version: 2
@@ -85,63 +274,9 @@ bedrock-runtime_InvokeModel_Jurassic2:
   services:
     bedrock-runtime: {InvokeModel}
 
-# Amazon Titan Image Generator
-bedrock-runtime_InvokeModel_TitanImageGenerator:
-  title: Invoke Amazon Titan Image G1 on &BR; to generate an image
-  title_abbrev: 'Generate images'
-  synopsis: invoke Amazon Titan Image G1 on &BR; to generate an image.
-  category: Amazon Titan Image Generator
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Invoke the Amazon Titan Image Generator G1 model to generate images.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModel_TitanImageGenerator
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Asynchronously invoke the Amazon Titan Image Generator G1 model to generate images.
-              snippet_tags:
-                - bedrock-runtime.java2.invoke_titan_image_async.main
-            - description: Invoke the Amazon Titan Image Generator G1 model to generate images.
-              snippet_tags:
-                - bedrock-runtime.java2.invoke_titan_image.main
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/bedrock-runtime
-          excerpts:
-            - description: Invoke the Amazon Titan Image Generator G1 model to generate images.
-              snippet_tags:
-                - gov2.bedrock-runtime.InvokeTitanImage
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/bedrock-runtime
-          excerpts:
-            - description: Invoke the Amazon Titan Image Generator G1 model to generate images.
-              snippet_tags:
-                - php.example_code.bedrock-runtime.service.invokeTitanImage
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Asynchronously invoke the Amazon Titan Image Generator G1 foundation model to generate images.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.TitanImageGeneratorG1
-  services:
-    bedrock-runtime: {InvokeModel}
-
-# Amazon Titan Text
 bedrock-runtime_InvokeModel_TitanText:
   title: Invoke Amazon Titan Text models on &BR; using the Invoke Model API
-  title_abbrev: "Generate text"
+  title_abbrev: "Native InvokeModel API"
   synopsis: send a text message to Amazon Titan Text models, using the Invoke Model API.
   category: Amazon Titan Text
   languages:
@@ -194,59 +329,10 @@ bedrock-runtime_InvokeModel_TitanText:
   services:
     bedrock-runtime: {InvokeModel}
 
-bedrock-runtime_InvokeModelWithResponseStream_TitanText:
-  title: Invoke Amazon Titan Text models on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "Generate text with a response stream"
-  synopsis: send a text message to Amazon Titan Text models, using the Invoke Model API, and print the response stream.
-  category: Amazon Titan Text
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and print the response stream.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_TitanText
-  services:
-    bedrock-runtime: {InvokeModelWithResponseStream}
-
-# Amazon Titan Text Embeddings
-bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings:
-  title: Invoke Amazon Titan Text Embeddings on &BR;
-  title_abbrev: "Generate text embeddings"
-  synopsis_list:
-    - Get started creating your first embedding.
-    - Create embeddings configuring the number of dimensions and normalization (V2 only).
-  category: Amazon Titan Text Embeddings
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Create your first embedding with Titan Text Embeddings V2.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModel_TitanTextEmbeddings_Quickstart
-            - description: Invoke Titan Text Embeddings V2 configuring the number of dimensions and normalization.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModel_TitanTextEmbeddings_AdditionalFields
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Create your first embedding with Amazon Titan Text Embeddings.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModel_TitanTextEmbeddings
-  services:
-    bedrock-runtime: {InvokeModel}
-
-# Anthropic Claude
 bedrock-runtime_InvokeModel_AnthropicClaude:
-  title: Invoke Anthropic Claude models on &BR; using the Invoke Model API
-  title_abbrev: "Generate text"
-  synopsis: send a text message to Anthropic Claude models, using the Invoke Model API.
+  title: Invoke Anthropic Claude on &BR; using the Invoke Model API
+  title_abbrev: "Native InvokeModel API"
+  synopsis: send a text message to Anthropic Claude, using the Invoke Model API.
   category: Anthropic Claude
   languages:
     Python:
@@ -315,60 +401,43 @@ bedrock-runtime_InvokeModel_AnthropicClaude:
   services:
     bedrock-runtime: {InvokeModel}
 
-bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude:
-  title: Invoke Anthropic Claude models on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "Generate text with a response stream"
-  synopsis: send a text message to Anthropic Claude models, using the Invoke Model API, and print the response stream.
-  category: Anthropic Claude
+bedrock-runtime_InvokeModel_CohereCommand:
+  title: Invoke Cohere Command on &BR; using the Invoke Model API
+  title_abbrev: "Command and Command Light: Native InvokeModel API"
+  synopsis: send a text message to Cohere Command, using the Invoke Model API.
+  category: Cohere Command
   languages:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: Use the Invoke Model API to send a text message and print the response stream.
+            - description: Use the Invoke Model API to send a text message.
               snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_AnthropicClaude
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and print the response stream.
-              snippet_tags:
-                - gov2.bedrock-runtime.InvokeModelWithResponseStream
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and print the response stream.
-              snippet_tags:
-                - bedrock-runtime.java2.invoke_claude2_with_response_stream_messages_api.main
-
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and print the response stream.
-              snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/models/anthropic_claude/claude_3.js
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and print the response stream.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.ClaudeWithResponseStream
+                - python.example_code.bedrock-runtime.InvokeModel_CohereCommand
   services:
-    bedrock-runtime: {InvokeModelWithResponseStream}
+    bedrock-runtime: {InvokeModel}
 
-# Meta Llama
+bedrock-runtime_InvokeModel_CohereCommandR:
+  title: Invoke Cohere Command R and R+ on &BR; using the Invoke Model API
+  title_abbrev: "Command R and R+: Native InvokeModel API"
+  synopsis: send a text message to Cohere Command, using the Invoke Model API.
+  category: Cohere Command
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModel_CohereCommandR
+  services:
+    bedrock-runtime: {InvokeModel}
+
 bedrock-runtime_InvokeModel_MetaLlama2:
   title: Invoke Meta Llama 2 on &BR; using the Invoke Model API
-  title_abbrev: "Llama 2: Generate text"
+  title_abbrev: "Llama 2: Native InvokeModel API"
   synopsis: send a text message to Meta Llama 2, using the Invoke Model API.
   category: Meta Llama
   languages:
@@ -423,42 +492,9 @@ bedrock-runtime_InvokeModel_MetaLlama2:
   services:
     bedrock-runtime: {InvokeModel}
 
-bedrock-runtime_InvokeModelWithResponseStream_MetaLlama2:
-  title: Invoke Meta Llama 2 on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "Llama 2: Generate text with a response stream"
-  synopsis: send a text message to Meta Llama 2, using the Invoke Model API, and print the response stream.
-  category: Meta Llama
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and print the response stream.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MetaLlama2
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Send your first prompt to Meta Llama 3.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModelWithResponseStream_Llama2_Quickstart
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Send your first prompt to Meta Llama 3.
-              snippet_tags:
-                - javascript.v3.bedrock-runtime.InvokeModelWithResponseStream_Llama2_Quickstart
-  services:
-    bedrock-runtime: {InvokeModelWithResponseStream}
-
 bedrock-runtime_InvokeModel_MetaLlama3:
   title: Invoke Meta Llama 3 on &BR; using the Invoke Model API
-  title_abbrev: "Llama 3: Generate text"
+  title_abbrev: "Llama 3: Native InvokeModel API"
   synopsis: send a text message to Meta Llama 3, using the Invoke Model API.
   category: Meta Llama
   languages:
@@ -489,43 +525,9 @@ bedrock-runtime_InvokeModel_MetaLlama3:
   services:
     bedrock-runtime: {InvokeModel}
 
-bedrock-runtime_InvokeModelWithResponseStream_MetaLlama3:
-  title: Invoke Meta Llama 3 on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "Llama 3: Generate text with a response stream"
-  synopsis: send a text message to Meta Llama 3, using the Invoke Model API, and print the response stream.
-  category: Meta Llama
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and print the response stream.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MetaLlama3
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and print the response stream.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModelWithResponseStream_Llama3_Quickstart
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and print the response stream.
-              snippet_tags:
-                - javascript.v3.bedrock-runtime.InvokeModelWithResponseStream_Llama3_Quickstart
-  services:
-    bedrock-runtime: {InvokeModelWithResponseStream}
-
-# Mistral AI
-bedrock-runtime_InvokeModel_MistralAI:
+bedrock-runtime_InvokeModel_MistralAi:
   title: Invoke Mistral AI models on &BR; using the Invoke Model API
-  title_abbrev: "Generate text"
+  title_abbrev: "Native InvokeModel API"
   synopsis: send a text message to Mistral AI models, using the Invoke Model API.
   category: Mistral AI
   languages:
@@ -536,7 +538,7 @@ bedrock-runtime_InvokeModel_MistralAI:
           excerpts:
             - description: Use the Invoke Model API to send a text message.
               snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModel_MistralAI
+                - python.example_code.bedrock-runtime.InvokeModel_MistralAi
     Java:
       versions:
         - sdk_version: 2
@@ -567,9 +569,177 @@ bedrock-runtime_InvokeModel_MistralAI:
   services:
     bedrock-runtime: {InvokeModel}
 
-bedrock-runtime_InvokeModelWithResponseStream_MistralAI:
+# Invoke Model with Response Stream
+bedrock-runtime_InvokeModelWithResponseStream_TitanText:
+  title: Invoke Amazon Titan Text models on &BR; using the Invoke Model API with a response stream
+  title_abbrev: "Native InvokeModel API with response stream"
+  synopsis: send a text message to Amazon Titan Text models, using the Invoke Model API, and print the response stream.
+  category: Amazon Titan Text
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message and print the response stream.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_TitanText
+  services:
+    bedrock-runtime: {InvokeModelWithResponseStream}
+
+bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude:
+  title: Invoke Anthropic Claude models on &BR; using the Invoke Model API with a response stream
+  title_abbrev: "Native InvokeModel API with response stream"
+  synopsis: send a text message to Anthropic Claude models, using the Invoke Model API, and print the response stream.
+  category: Anthropic Claude
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message and print the response stream.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_AnthropicClaude
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message and print the response stream.
+              snippet_tags:
+                - gov2.bedrock-runtime.InvokeModelWithResponseStream
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message and print the response stream.
+              snippet_tags:
+                - bedrock-runtime.java2.invoke_claude2_with_response_stream_messages_api.main
+
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message and print the response stream.
+              snippet_files:
+                - javascriptv3/example_code/bedrock-runtime/models/anthropic_claude/claude_3.js
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message and print the response stream.
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.ClaudeWithResponseStream
+  services:
+    bedrock-runtime: {InvokeModelWithResponseStream}
+
+bedrock-runtime_InvokeModelWithResponseStream_CohereCommand:
+  title: Invoke Cohere Command on &BR; using the Invoke Model API with a response stream
+  title_abbrev: "Command and Command Light: Native InvokeModel API with response stream"
+  synopsis: send a text message to Cohere Command, using the Invoke Model API with a response stream.
+  category: Cohere Command
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message with a response stream.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_CohereCommand
+  services:
+    bedrock-runtime: {InvokeModel}
+
+bedrock-runtime_InvokeModelWithResponseStream_CohereCommandR:
+  title: Invoke Cohere Command R and R+ on &BR; using the Invoke Model API with a response stream
+  title_abbrev: "Command R and R+: Native InvokeModel API with response stream"
+  synopsis: send a text message to Cohere Command, using the Invoke Model API with a response stream.
+  category: Cohere Command
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message with a response stream.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_CohereCommandR
+  services:
+    bedrock-runtime: {InvokeModel}
+
+bedrock-runtime_InvokeModelWithResponseStream_MetaLlama2:
+  title: Invoke Meta Llama 2 on &BR; using the Invoke Model API with a response stream
+  title_abbrev: "Llama 2: Native InvokeModel API with a response stream"
+  synopsis: send a text message to Meta Llama 2, using the Invoke Model API, and print the response stream.
+  category: Meta Llama
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message and print the response stream.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MetaLlama2
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Send your first prompt to Meta Llama 3.
+              snippet_tags:
+                - bedrock-runtime.java2.InvokeModelWithResponseStream_Llama2_Quickstart
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Send your first prompt to Meta Llama 3.
+              snippet_tags:
+                - javascript.v3.bedrock-runtime.InvokeModelWithResponseStream_Llama2_Quickstart
+  services:
+    bedrock-runtime: {InvokeModelWithResponseStream}
+
+bedrock-runtime_InvokeModelWithResponseStream_MetaLlama3:
+  title: Invoke Meta Llama 3 on &BR; using the Invoke Model API with a response stream
+  title_abbrev: "Llama 3: Native InvokeModel API with a response stream"
+  synopsis: send a text message to Meta Llama 3, using the Invoke Model API, and print the response stream.
+  category: Meta Llama
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message and print the response stream.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MetaLlama3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message and print the response stream.
+              snippet_tags:
+                - bedrock-runtime.java2.InvokeModelWithResponseStream_Llama3_Quickstart
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-runtime
+          excerpts:
+            - description: Use the Invoke Model API to send a text message and print the response stream.
+              snippet_tags:
+                - javascript.v3.bedrock-runtime.InvokeModelWithResponseStream_Llama3_Quickstart
+  services:
+    bedrock-runtime: {InvokeModelWithResponseStream}
+
+bedrock-runtime_InvokeModelWithResponseStream_MistralAi:
   title: Invoke Mistral AI models on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "Generate text with a response stream"
+  title_abbrev: "Native InvokeModel API with response stream"
   synopsis: send a text message to Mistral AI models, using the Invoke Model API, and print the response stream.
   category: Mistral AI
   languages:
@@ -580,14 +750,66 @@ bedrock-runtime_InvokeModelWithResponseStream_MistralAI:
           excerpts:
             - description: Use the Invoke Model API to send a text message and print the response stream.
               snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MistralAI
+                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MistralAi
   services:
     bedrock-runtime: {InvokeModelWithResponseStream}
 
-# Stability AI
+# Image Generation Models
+bedrock-runtime_InvokeModel_TitanImageGenerator:
+  title: Invoke Amazon Titan Image G1 on &BR; to generate an image
+  title_abbrev: 'Generate images with the InvokeModel API'
+  synopsis: invoke Amazon Titan Image G1 on &BR; to generate an image.
+  category: Amazon Titan Image Generator
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the Amazon Titan Image Generator G1 model to generate images.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModel_TitanImageGenerator
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Asynchronously invoke the Amazon Titan Image Generator G1 model to generate images.
+              snippet_tags:
+                - bedrock-runtime.java2.invoke_titan_image_async.main
+            - description: Invoke the Amazon Titan Image Generator G1 model to generate images.
+              snippet_tags:
+                - bedrock-runtime.java2.invoke_titan_image.main
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/bedrock-runtime
+          excerpts:
+            - description: Invoke the Amazon Titan Image Generator G1 model to generate images.
+              snippet_tags:
+                - gov2.bedrock-runtime.InvokeTitanImage
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/bedrock-runtime
+          excerpts:
+            - description: Invoke the Amazon Titan Image Generator G1 model to generate images.
+              snippet_tags:
+                - php.example_code.bedrock-runtime.service.invokeTitanImage
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Bedrock-runtime
+          excerpts:
+            - description: Asynchronously invoke the Amazon Titan Image Generator G1 foundation model to generate images.
+              snippet_tags:
+                - BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.TitanImageGeneratorG1
+  services:
+    bedrock-runtime: {InvokeModel}
+
 bedrock-runtime_InvokeModel_StableDiffusion:
   title: Invoke Stability.ai Stable Diffusion XL on &BR; to generate an image
-  title_abbrev: 'Generate images'
+  title_abbrev: 'Generate images with the InvokeModel API'
   synopsis: invoke Stability.ai Stable Diffusion XL on &BR; to generate an image.
   category: Stability AI Diffusion
   languages:
@@ -639,6 +861,37 @@ bedrock-runtime_InvokeModel_StableDiffusion:
             - description: Asynchronously invoke Stability.ai Stable Diffusion XL foundation model to generate images.
               snippet_tags:
                 - BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.StableDiffusionXL
+  services:
+    bedrock-runtime: {InvokeModel}
+
+# Embedding Models
+bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings:
+  title: Invoke Amazon Titan Text Embeddings on &BR;
+  title_abbrev: "Generate text embeddings with the InvokeModel API"
+  synopsis_list:
+    - Get started creating your first embedding.
+    - Create embeddings configuring the number of dimensions and normalization (V2 only).
+  category: Amazon Titan Text Embeddings
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/bedrock-runtime
+          excerpts:
+            - description: Create your first embedding with Titan Text Embeddings V2.
+              snippet_tags:
+                - bedrock-runtime.java2.InvokeModel_TitanTextEmbeddings_Quickstart
+            - description: Invoke Titan Text Embeddings V2 configuring the number of dimensions and normalization.
+              snippet_tags:
+                - bedrock-runtime.java2.InvokeModel_TitanTextEmbeddings_AdditionalFields
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: Create your first embedding with Amazon Titan Text Embeddings.
+              snippet_tags:
+                - python.example_code.bedrock-runtime.InvokeModel_TitanTextEmbeddings
   services:
     bedrock-runtime: {InvokeModel}
 

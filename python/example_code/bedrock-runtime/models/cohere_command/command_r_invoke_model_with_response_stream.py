@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.CohereCommand_R_InvokeModelWithResponseStream]
+# snippet-start:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream_CohereCommandR]
 # Use the native inference API to send a text message to Cohere Command R and R+
 # and print the response stream.
 
@@ -43,4 +43,4 @@ except Exception as e:
     print(f"ERROR: Can't invoke '{model_id}. Reason: {e}")
     exit(1)
 
-# snippet-end:[python.example_code.bedrock-runtime.CohereCommand_R_InvokeModelWithResponseStream]
+# snippet-end:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream_CohereCommandR]

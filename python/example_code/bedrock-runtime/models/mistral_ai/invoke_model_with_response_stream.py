@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.MistralAi_InvokeModelWithResponseStream]
-# Use the native inference API to send a text message to Mistral AI
+# snippet-start:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MistralAi]
+# Use the native inference API to send a text message to Mistral
 # and print the response stream.
 
 import boto3
@@ -46,4 +46,4 @@ except Exception as e:
     print(f"ERROR: Can't invoke '{model_id}. Reason: {e}")
     exit(1)
 
-# snippet-end:[python.example_code.bedrock-runtime.MistralAi_InvokeModelWithResponseStream]
+# snippet-end:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MistralAi]
