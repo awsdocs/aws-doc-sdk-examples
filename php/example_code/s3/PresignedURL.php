@@ -2,52 +2,56 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-/*
- *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- *  https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/service/s3-presigned-url.html
- *
- */
 // snippet-start:[s3.php.presigned_url.complete]
+namespace S3;
 // snippet-start:[s3.php.presigned_url.import]
+use Aws\Exception\AwsException;
+use AwsUtilities\PrintableLineBreak;
+use AwsUtilities\TestableReadline;
+use DateTime;
 
 require 'vendor/autoload.php';
-
 // snippet-end:[s3.php.presigned_url.import]
 
-//Creating a presigned request
-// snippet-start:[s3.php.presigned_url.main]
-// snippet-start:[s3.php.presigned_url.get_object]
-$s3Client = new Aws\S3\S3Client([
-    'profile' => 'default',
-    'region' => 'us-east-2',
-    'version' => '2006-03-01',
-]);
+class PresignedURL
+{
+    use PrintableLineBreak;
+    use TestableReadline;
 
-$cmd = $s3Client->getCommand('GetObject', [
-    'Bucket' => 'my-bucket',
-    'Key' => 'testKey'
-]);
+    public function run()
+    {
+        // snippet-start:[s3.php.presigned_url.main]
+        $s3Service = new S3Service();
 
-$request = $s3Client->createPresignedRequest($cmd, '+20 minutes');
-// snippet-end:[s3.php.presigned_url.get_object]
+        $expiration = new DateTime("+20 minutes");
+        $linebreak = $this->getLineBreak();
 
-// snippet-start:[s3.php.presigned_url.create_url]
-//Creating a presigned URL
-$cmd = $s3Client->getCommand('GetObject', [
-    'Bucket' => 'my-bucket',
-    'Key' => 'testKey'
-]);
+        echo $linebreak;
+        echo ("Welcome to the Amazon S3 presigned URL demo.\n");
+        echo $linebreak;
 
-$request = $s3Client->createPresignedRequest($cmd, '+20 minutes');
+        $bucket = $this->testable_readline("First, please enter the name of the S3 bucket to use: ");
+        $key = $this->testable_readline("Next, provide the key of an object in the given bucket: ");
+        echo $linebreak;
+        $command = $s3Service->getClient()->getCommand('GetObject', [
+            'Bucket' => $bucket,
+            'Key' => $key,
+        ]);
+        try {
+            $preSignedUrl = $s3Service->preSignedUrl($command, $expiration);
+            echo "Your preSignedUrl is \n$preSignedUrl\nand will be good for the next 20 minutes.\n";
+            echo $linebreak;
+            echo "Thanks for trying the Amazon S3 presigned URL demo.\n";
+        } catch (AwsException $exception) {
+            echo $linebreak;
+            echo "Something went wrong: $exception";
+            die();
+        }
+        // snippet-end:[s3.php.presigned_url.main]
+    }
+}
 
-// Get the actual presigned-url
-$presignedUrl = (string)$request->getUri();
-// snippet-end:[s3.php.presigned_url.create_url]
+$runner = new PresignedURL();
+$runner->run();
 
-// snippet-start:[s3.php.presigned_url.get_url]
-//Getting the URL to an object
-$url = $s3Client->getObjectUrl('my-bucket', 'my-key');
-// snippet-end:[s3.php.presigned_url.get_url]
-
-// snippet-end:[s3.php.presigned_url.main]
 // snippet-end:[s3.php.presigned_url.complete]
