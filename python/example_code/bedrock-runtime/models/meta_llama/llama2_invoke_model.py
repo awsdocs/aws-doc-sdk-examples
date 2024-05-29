@@ -34,7 +34,7 @@ try:
     response = client.invoke_model(modelId=model_id, body=request)
 
 except Exception as e:
-    print(f"ERROR: Can't invoke '{model_id}. Reason: {e}")
+    print(f"ERROR: Can't invoke '{model_id}'. Reason: {e}")
     exit(1)
 
 # Decode the response body.

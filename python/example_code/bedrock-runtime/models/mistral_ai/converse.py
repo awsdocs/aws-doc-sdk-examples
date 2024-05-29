@@ -35,7 +35,7 @@ try:
     print(response_text)
 
 except (ClientError, Exception) as e:
-    print(f"ERROR: Can't invoke '{model_id}. Reason: {e}")
+    print(f"ERROR: Can't invoke '{model_id}'. Reason: {e}")
     exit(1)
 
 # snippet-end:[python.example_code.bedrock-runtime.Converse_MistralAi]

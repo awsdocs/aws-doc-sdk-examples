@@ -43,7 +43,7 @@ try:
             print(chunk["outputs"][0].get("text"), end="")
 
 except Exception as e:
-    print(f"ERROR: Can't invoke '{model_id}. Reason: {e}")
+    print(f"ERROR: Can't invoke '{model_id}''. Reason: {e}")
     exit(1)
 
 # snippet-end:[python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MistralAi]
