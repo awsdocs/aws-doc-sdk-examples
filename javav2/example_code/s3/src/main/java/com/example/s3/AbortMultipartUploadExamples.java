@@ -69,7 +69,7 @@ public class AbortMultipartUploadExamples {
         doAbortMultipartUploadsUsingLifecycleConfig();
     }
 
-    // Wrapper method
+    // A wrapper method that sets up the multipart upload environment for abortIncompleteMultipartUploadsFromList().
     public static void doAbortIncompleteMultipartUploadsFromList() {
         createBucket();
         initiateAndInterruptMultiPartUpload("uploadThread");
@@ -103,7 +103,7 @@ public class AbortMultipartUploadExamples {
     }
     // snippet-end:[s3.java2.abort_upload_from_list]
 
-    // Wrapper method
+    // A wrapper method that sets up the multipart upload environment for abortIncompleteMultipartUploadsOlderThan().
     static void doAbortIncompleteMultipartUploadsOlderThan() {
         createBucket();
         Instant secondUploadInstant = initiateAndInterruptTwoUploads();
@@ -140,7 +140,7 @@ public class AbortMultipartUploadExamples {
     }
     // snippet-end:[s3.java2.abort_upload_older_than]
 
-    // Wrapper method
+    // A wrapper method that sets up the multipart upload environment for abortMultipartUploadUsingUploadId().
     static void doAbortMultipartUploadUsingUploadId() {
         createBucket();
         try {
@@ -166,7 +166,7 @@ public class AbortMultipartUploadExamples {
     }
     // snippet-end:[s3.java2.abort_upload_using_upload_id]
 
-    // Wrapper method
+    // A wrapper method that sets up the multipart upload environment for abortMultipartUploadsUsingLifecycleConfig().
     static void doAbortMultipartUploadsUsingLifecycleConfig() {
         createBucket();
         try {
