@@ -41,7 +41,7 @@ python -m pip install -r requirements.txt
 ### AI21 Labs Jurassic-2
 
 - [Conversation API](models/ai21_labs_jurassic2/converse.py#L4)
-- [Native InvokeModel API](models/ai21_labs_jurassic2/invoke_model.py#L4)
+- [InvokeModel API](models/ai21_labs_jurassic2/invoke_model.py#L4)
 
 ### Amazon Titan Image Generator
 
@@ -51,8 +51,8 @@ python -m pip install -r requirements.txt
 
 - [Conversation API](models/amazon_titan_text/converse.py#L4)
 - [Conversation API with response stream](models/amazon_titan_text/converse_stream.py#L4)
-- [Native InvokeModel API](models/amazon_titan_text/invoke_model.py#L4)
-- [Native InvokeModel API with response stream](models/amazon_titan_text/invoke_model_with_response_stream.py#L4)
+- [InvokeModel API](models/amazon_titan_text/invoke_model.py#L4)
+- [InvokeModel API with response stream](models/amazon_titan_text/invoke_model_with_response_stream.py#L4)
 
 ### Amazon Titan Text Embeddings
 
@@ -62,33 +62,33 @@ python -m pip install -r requirements.txt
 
 - [Conversation API](models/anthropic_claude/converse.py#L4)
 - [Conversation API with response stream](models/anthropic_claude/converse_stream.py#L4)
-- [Native InvokeModel API](models/anthropic_claude/invoke_model.py#L4)
-- [Native InvokeModel API with response stream](models/anthropic_claude/invoke_model_with_response_stream.py#L4)
+- [InvokeModel API](models/anthropic_claude/invoke_model.py#L4)
+- [InvokeModel API with response stream](models/anthropic_claude/invoke_model_with_response_stream.py#L4)
 
 ### Cohere Command
 
 - [All models: Conversation API](models/cohere_command/converse.py#L4)
 - [All models: Conversation API with response stream](models/cohere_command/converse_stream.py#L4)
-- [Command R and R+: Native InvokeModel API](models/cohere_command/command_r_invoke_model.py#L4)
-- [Command R and R+: Native InvokeModel API with response stream](models/cohere_command/command_r_invoke_model_with_response_stream.py#L4)
-- [Command and Command Light: Native InvokeModel API](models/cohere_command/command_invoke_model.py#L4)
-- [Command and Command Light: Native InvokeModel API with response stream](models/cohere_command/command_invoke_model_with_response_stream.py#L4)
+- [Command R and R+: InvokeModel API](models/cohere_command/command_r_invoke_model.py#L4)
+- [Command R and R+: InvokeModel API with response stream](models/cohere_command/command_r_invoke_model_with_response_stream.py#L4)
+- [Command and Command Light: InvokeModel API](models/cohere_command/command_invoke_model.py#L4)
+- [Command and Command Light: InvokeModel API with response stream](models/cohere_command/command_invoke_model_with_response_stream.py#L4)
 
 ### Meta Llama
 
 - [All models: Conversation API](models/meta_llama/converse.py#L4)
 - [All models: Conversation API with response stream](models/meta_llama/converse_stream.py#L4)
-- [Llama 2: Native InvokeModel API](models/meta_llama/llama2_invoke_model.py#L4)
-- [Llama 2: Native InvokeModel API with a response stream](models/meta_llama/llama2_invoke_model_with_response_stream.py#L4)
-- [Llama 3: Native InvokeModel API](models/meta_llama/llama3_invoke_model.py#L4)
-- [Llama 3: Native InvokeModel API with a response stream](models/meta_llama/llama3_invoke_model_with_response_stream.py#L4)
+- [Llama 2: InvokeModel API](models/meta_llama/llama2_invoke_model.py#L4)
+- [Llama 2: InvokeModel API with a response stream](models/meta_llama/llama2_invoke_model_with_response_stream.py#L4)
+- [Llama 3: InvokeModel API](models/meta_llama/llama3_invoke_model.py#L4)
+- [Llama 3: InvokeModel API with a response stream](models/meta_llama/llama3_invoke_model_with_response_stream.py#L4)
 
 ### Mistral AI
 
 - [Conversation API](models/mistral_ai/converse.py#L4)
 - [Conversation API with response stream](models/mistral_ai/converse_stream.py#L4)
-- [Native InvokeModel API](models/mistral_ai/invoke_model.py#L4)
-- [Native InvokeModel API with response stream](models/mistral_ai/invoke_model_with_response_stream.py#L4)
+- [InvokeModel API](models/mistral_ai/invoke_model.py#L4)
+- [InvokeModel API with response stream](models/mistral_ai/invoke_model_with_response_stream.py#L4)
 
 ### Stability AI Diffusion
 

@@ -30,32 +30,32 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 <!--custom.prerequisites.end-->
 ### AI21 Labs Jurassic-2
 
-- [Generate text](Actions/InvokeModelAsync.cs#L164)
+- [InvokeModel API](Actions/InvokeModelAsync.cs#L164)
 
 ### Amazon Titan Image Generator
 
-- [Generate images](Actions/InvokeModelAsync.cs#L450)
+- [Generate images with the InvokeModel API](Actions/InvokeModelAsync.cs#L450)
 
 ### Amazon Titan Text
 
-- [Generate text](Actions/InvokeModelAsync.cs#L277)
+- [InvokeModel API](Actions/InvokeModelAsync.cs#L277)
 
 ### Anthropic Claude
 
-- [Generate text](Actions/InvokeModelAsync.cs#L18)
-- [Generate text with a response stream](Actions/InvokeModelAsync.cs#L76)
+- [InvokeModel API](Actions/InvokeModelAsync.cs#L18)
+- [InvokeModel API with response stream](Actions/InvokeModelAsync.cs#L76)
 
 ### Meta Llama
 
-- [Llama 2: Generate text](Actions/InvokeModelAsync.cs#L221)
+- [Llama 2: InvokeModel API](Actions/InvokeModelAsync.cs#L221)
 
 ### Mistral AI
 
-- [Generate text](Actions/InvokeModelAsync.cs#L338)
+- [InvokeModel API](Actions/InvokeModelAsync.cs#L338)
 
 ### Stability AI Diffusion
 
-- [Generate images](Actions/InvokeModelAsync.cs#L518)
+- [Generate images with the InvokeModel API](Actions/InvokeModelAsync.cs#L518)
 
 
 <!--custom.examples.start-->

@@ -28,7 +28,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 <!--custom.prerequisites.start-->
 
-> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
+> ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console)
+> before you have requested access to it, you will receive an error message. For more information,
+> see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 
 <!--custom.prerequisites.end-->
 
@@ -45,27 +47,41 @@ functions within the same service.
 
 ### AI21 Labs Jurassic-2
 
-- [Generate text](models/ai21_labs_jurassic2/jurassic2.js)
+- [Conversation API](models/old/ai21_labs_jurassic2/converse.js#L4)
+- [InvokeModel API](models/ai21_labs_jurassic2/jurassic2.js)
 
 ### Amazon Titan Text
 
-- [Generate text](models/amazon_titan/titan_text.js)
+- [Conversation API](models/old/amazon_titan/converse.js#L4)
+- [Conversation API with response stream](models/amazonTitanText/converseStream.js#L4)
+- [InvokeModel API](models/amazon_titan/titan_text.js)
 
 ### Anthropic Claude
 
-- [Generate text](models/anthropic_claude/claude_3.js)
-- [Generate text with a response stream](models/anthropic_claude/claude_3.js)
+- [Conversation API](models/old/anthropic_claude/converse.js#L4)
+- [Conversation API with response stream](models/anthropicClaude/converseStream.js#L4)
+- [InvokeModel API](models/anthropic_claude/claude_3.js)
+- [InvokeModel API with response stream](models/anthropic_claude/claude_3.js)
+
+### Cohere Command
+
+- [All models: Conversation API](models/cohereCommand/converse.js#L4)
+- [All models: Conversation API with response stream](models/cohereCommand/converseStream.js#L4)
 
 ### Meta Llama
 
-- [Llama 2: Generate text](models/meta/llama2/invoke_model_quickstart.js#L4)
-- [Llama 2: Generate text with a response stream](models/meta/llama2/invoke_model_with_response_stream_quickstart.js#L4)
-- [Llama 3: Generate text](models/meta/llama3/invoke_model_quickstart.js#L4)
-- [Llama 3: Generate text with a response stream](models/meta/llama3/invoke_model_with_response_stream_quickstart.js#L4)
+- [All models: Conversation API](models/metaLlama/converse.js#L4)
+- [All models: Conversation API with response stream](models/metaLlama/converseStream.js#L4)
+- [Llama 2: InvokeModel API](models/old/meta/llama2/invoke_model_quickstart.js#L4)
+- [Llama 2: InvokeModel API with a response stream](models/old/meta/llama2/invoke_model_with_response_stream_quickstart.js#L4)
+- [Llama 3: InvokeModel API](models/old/meta/llama3/invoke_model_quickstart.js#L4)
+- [Llama 3: InvokeModel API with a response stream](models/old/meta/llama3/invoke_model_with_response_stream_quickstart.js#L4)
 
 ### Mistral AI
 
-- [Generate text](models/mistral_ai/mistral_7b.js)
+- [Conversation API](models/mistral/converse.js#L4)
+- [Conversation API with response stream](models/mistral/converseStream.js#L4)
+- [InvokeModel API](models/mistral_ai/mistral_7b.js)
 
 
 <!--custom.examples.start-->

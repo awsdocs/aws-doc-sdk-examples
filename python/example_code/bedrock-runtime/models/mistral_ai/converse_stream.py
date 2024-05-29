@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.ConverseStream_MistralAi]
+# snippet-start:[python.example_code.bedrock-runtime.ConverseStream_Mistral]
 # Use the Conversation API to send a text message to Mistral
 # and print the response stream.
 
@@ -41,4 +41,4 @@ except (ClientError, Exception) as e:
     print(f"ERROR: Can't invoke '{model_id}'. Reason: {e}")
     exit(1)
 
-# snippet-end:[python.example_code.bedrock-runtime.ConverseStream_MistralAi]
+# snippet-end:[python.example_code.bedrock-runtime.ConverseStream_Mistral]
