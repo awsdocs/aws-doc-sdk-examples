@@ -104,10 +104,10 @@ public class PerformMultiPartUpload {
 
         try (RandomAccessFile file = new RandomAccessFile(filePath, "r")) {
             long fileSize = file.length();
-            long position = 0;
+            int position = 0;
             while (position < fileSize) {
                 file.seek(position);
-                long read = file.getChannel().read(bb);
+                int read = file.getChannel().read(bb);
 
                 bb.flip(); // Swap position and limit before reading from the buffer.
                 UploadPartRequest uploadPartRequest = UploadPartRequest.builder()

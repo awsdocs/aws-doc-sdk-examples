@@ -200,7 +200,6 @@ allow_list:
   - "https://docs.aws.amazon.com/ivs/latest/userguide//private-channels.html"
   - "CognitoEventUserPoolsMigrateUserResponse"
   - "v2/service/cognitoidentityprovider/types"
-  - "abortIncompleteMultipartUploadsOlderThan"
 sample_files:
   - "README.md"
   - "chat_sfn_state_machine.json"

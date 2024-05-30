@@ -72,7 +72,6 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Delete incomplete multipart uploads](src/main/java/com/example/s3/AbortMultipartUploadExamples.java)
 - [Download objects to a local directory](src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java)
 - [Get started with buckets and objects](src/main/java/com/example/s3/S3Scenario.java)
 - [Get the legal hold configuration of an object](src/main/java/com/example/s3/lockscenario/S3LockActions.java)
@@ -104,18 +103,6 @@ functions within the same service.
 This example shows you how to get started using Amazon S3.
 
 
-
-#### Delete incomplete multipart uploads
-
-This example shows you how to how to delete or stop incomplete Amazon S3 multipart uploads.
-
-
-<!--custom.scenario_prereqs.s3_Scenario_AbortMultipartUpload.start-->
-<!--custom.scenario_prereqs.s3_Scenario_AbortMultipartUpload.end-->
-
-
-<!--custom.scenarios.s3_Scenario_AbortMultipartUpload.start-->
-<!--custom.scenarios.s3_Scenario_AbortMultipartUpload.end-->
 
 #### Download objects to a local directory
 
