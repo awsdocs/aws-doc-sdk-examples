@@ -47,40 +47,40 @@ functions within the same service.
 
 ### AI21 Labs Jurassic-2
 
-- [Conversation API](models/old/ai21_labs_jurassic2/converse.js#L4)
+- [Converse API](models/old/ai21_labs_jurassic2/converse.js#L4)
 - [InvokeModel API](models/ai21_labs_jurassic2/jurassic2.js)
 
 ### Amazon Titan Text
 
-- [Conversation API](models/old/amazon_titan/converse.js#L4)
-- [Conversation API with response stream](models/amazonTitanText/converseStream.js#L4)
+- [Converse API](models/old/amazon_titan/converse.js#L4)
+- [Converse API with response stream](models/amazonTitanText/converseStream.js#L4)
 - [InvokeModel API](models/amazon_titan/titan_text.js)
 
 ### Anthropic Claude
 
-- [Conversation API](models/old/anthropic_claude/converse.js#L4)
-- [Conversation API with response stream](models/anthropicClaude/converseStream.js#L4)
+- [Converse API](models/old/anthropic_claude/converse.js#L4)
+- [Converse API with response stream](models/anthropicClaude/converseStream.js#L4)
 - [InvokeModel API](models/anthropic_claude/claude_3.js)
 - [InvokeModel API with response stream](models/anthropic_claude/claude_3.js)
 
 ### Cohere Command
 
-- [All models: Conversation API](models/cohereCommand/converse.js#L4)
-- [All models: Conversation API with response stream](models/cohereCommand/converseStream.js#L4)
+- [All models: Converse API](models/cohereCommand/converse.js#L4)
+- [All models: Converse API with response stream](models/cohereCommand/converseStream.js#L4)
 
 ### Meta Llama
 
-- [All models: Conversation API](models/metaLlama/converse.js#L4)
-- [All models: Conversation API with response stream](models/metaLlama/converseStream.js#L4)
-- [Llama 2: InvokeModel API](models/old/meta/llama2/invoke_model_quickstart.js#L4)
-- [Llama 2: InvokeModel API with a response stream](models/old/meta/llama2/invoke_model_with_response_stream_quickstart.js#L4)
-- [Llama 3: InvokeModel API](models/old/meta/llama3/invoke_model_quickstart.js#L4)
-- [Llama 3: InvokeModel API with a response stream](models/old/meta/llama3/invoke_model_with_response_stream_quickstart.js#L4)
+- [All models: Converse API](models/metaLlama/converse.js#L4)
+- [All models: Converse API with response stream](models/metaLlama/converseStream.js#L4)
+- [Llama 2: InvokeModel API](models/meta/llama2/invoke_model_quickstart.js#L4)
+- [Llama 2: InvokeModel API with a response stream](models/meta/llama2/invoke_model_with_response_stream_quickstart.js#L4)
+- [Llama 3: InvokeModel API](models/meta/llama3/invoke_model_quickstart.js#L4)
+- [Llama 3: InvokeModel API with a response stream](models/meta/llama3/invoke_model_with_response_stream_quickstart.js#L4)
 
 ### Mistral AI
 
-- [Conversation API](models/mistral/converse.js#L4)
-- [Conversation API with response stream](models/mistral/converseStream.js#L4)
+- [Converse API](models/mistral/converse.js#L4)
+- [Converse API with response stream](models/mistral/converseStream.js#L4)
 - [InvokeModel API](models/mistral_ai/mistral_7b.js)
 
 
