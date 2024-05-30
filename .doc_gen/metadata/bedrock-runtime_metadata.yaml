@@ -438,7 +438,7 @@ bedrock-runtime_InvokeModel_Ai21LabsJurassic2:
           excerpts:
             - description: Use the Invoke Model API to send a text message.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/models/ai21_labs_jurassic2/jurassic2.js
+                - javascriptv3/example_code/bedrock-runtime/models/ai21LabsJurassic2/invoke_model.js
     PHP:
       versions:
         - sdk_version: 3
@@ -493,7 +493,7 @@ bedrock-runtime_InvokeModel_TitanText:
           excerpts:
             - description: Use the Invoke Model API to send a text message.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/models/amazon_titan/titan_text.js
+                - javascriptv3/example_code/bedrock-runtime/models/amazonTitanText/invoke_model.js
     Go:
       versions:
         - sdk_version: 2
@@ -534,7 +534,7 @@ bedrock-runtime_InvokeModel_AnthropicClaude:
           excerpts:
             - description: Use the Invoke Model API to send a text message.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/models/anthropic_claude/claude_3.js
+                - javascriptv3/example_code/bedrock-runtime/models/anthropicClaude/invoke_claude_3.js
     Go:
       versions:
         - sdk_version: 2
@@ -765,7 +765,7 @@ bedrock-runtime_InvokeModel_MistralAi:
           excerpts:
             - description: Use the Invoke Model API to send a text message.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/models/mistral_ai/mistral_7b.js
+                - javascriptv3/example_code/bedrock-runtime/models/mistral/invoke_mistral_7b.js
   services:
     bedrock-runtime: {InvokeModel}
 
@@ -841,7 +841,7 @@ bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude:
           excerpts:
             - description: Use the Invoke Model API to send a text message and print the response stream.
               snippet_files:
-                - javascriptv3/example_code/bedrock-runtime/models/anthropic_claude/claude_3.js
+                - javascriptv3/example_code/bedrock-runtime/models/anthropicClaude/invoke_claude_3.js
   services:
     bedrock-runtime: {InvokeModelWithResponseStream}
 
