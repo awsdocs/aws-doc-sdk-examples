@@ -24,8 +24,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Actions\BedrockRuntimeActions.csproj" />
-  </ItemGroup>
-
 </Project>
