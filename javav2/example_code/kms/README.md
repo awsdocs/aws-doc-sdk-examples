@@ -60,7 +60,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Getting started with &kms-keys-long;](src/main/java/com/example/kms/scenario/KMSScenario.java)
+- [Learn &kms-keys-long; core operations](src/main/java/com/example/kms/scenario/KMSScenario.java)
 
 
 <!--custom.examples.start-->
@@ -81,7 +81,7 @@ This example shows you how to get started using KMS key.
 
 
 
-#### Getting started with &kms-keys-long;
+#### Learn &kms-keys-long; core operations
 
 This example shows you how to do the following:
 
