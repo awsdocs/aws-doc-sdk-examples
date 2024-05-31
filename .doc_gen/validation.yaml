@@ -46,6 +46,7 @@ allow_list:
   - "ListTagsForVaultExample/ListTagsForVault"
   - "ListVoiceConnectorTerminationCredentials"
   - "Models/AmazonTitanText/Converse/Converse"
+  - "Models/AnthropicClaude/Converse/Converse"
   - "ModifyReplicationGroupShardConfiguration"
   - "ModifyTrafficMirrorFilterNetworkServices"
   - "PutBucketIntelligentTieringConfiguration"
