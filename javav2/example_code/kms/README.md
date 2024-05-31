@@ -72,7 +72,6 @@ functions within the same service.
 
 
 <!--custom.instructions.start-->
-To find instructions for running the code example, see the [README](../../README.md#build-and-run-the-service-examples) in the `javav2` folder.
 <!--custom.instructions.end-->
 
 #### Hello KMS key
