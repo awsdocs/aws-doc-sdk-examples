@@ -28,15 +28,14 @@ namespace BedrockRuntimeTests
 
             while (directory != null && directory.Name != "Bedrock-runtime")
             {
+                if (directory.Parent == null)
+                {
+                    throw new Exception("Project root directory 'Bedrock-runtime' not found.");
+                }
                 directory = directory.Parent;
             }
 
-            if (directory != null)
-            {
-                return directory.FullName;
-            }
-
-            throw new Exception("Project root directory not found.");
+            return directory?.FullName ?? throw new Exception("Project root directory not found.");
         }
 
         protected string getTestFilePath(string model, string action, string? subDir = null)

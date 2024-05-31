@@ -8,8 +8,8 @@
         <Compile Include="InvokeModel.csx" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="AWSSDK.BedrockRuntime" Version="3.7.302.17" />
-      <PackageReference Include="AWSSDK.Core" Version="3.7.304.7" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AWSSDK.BedrockRuntime" Version="3.7.303" />
+		<PackageReference Include="AWSSDK.Core" Version="3.7.304.8" />
+	</ItemGroup>
 </Project>
