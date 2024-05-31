@@ -120,25 +120,9 @@ public class AmazonKMSTest {
     @DisplayName("A class used to get test values from test/kms (an AWS Secrets Manager secret)")
     class SecretValues {
         private String granteePrincipal;
-        private String keyDesc;
-        private String operation;
-
-        private String aliasName;
 
         public String getGranteePrincipal() {
             return granteePrincipal;
-        }
-
-        public String getKeyDesc() {
-            return keyDesc;
-        }
-
-        public String getOperation() {
-            return operation;
-        }
-
-        public String getAliasName() {
-            return aliasName;
         }
     }
 }
