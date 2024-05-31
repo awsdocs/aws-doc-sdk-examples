@@ -57,6 +57,7 @@ allow_list:
   - "UnsuccessfulInstanceCreditSpecifications"
   - "UpdateCustomRoutingAcceleratorAttributes"
   - "VectorEnrichmentJobDataSourceConfigInput"
+  - "abortIncompleteMultipartUploadsOlderThan"
   - "amazondynamodb/latest/developerguide/DAX"
   - "apigateway/latest/developerguide/welcome"
   - "aws/acm/model/DescribeCertificateRequest"
