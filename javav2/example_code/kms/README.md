@@ -29,21 +29,38 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello KMS key](src/main/java/com/example/kms/HelloKMS.java#L6) (`listKeysPaginator`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateAlias](src/main/java/com/example/kms/CreateAlias.java#L6)
-- [CreateGrant](src/main/java/com/example/kms/CreateGrant.java#L6)
-- [CreateKey](src/main/java/com/example/kms/CreateCustomerKey.java#L6)
-- [Decrypt](src/main/java/com/example/kms/EncryptDataKey.java#L78)
-- [DescribeKey](src/main/java/com/example/kms/DescribeKey.java#L6)
-- [DisableKey](src/main/java/com/example/kms/DisableCustomerKey.java#L6)
-- [EnableKey](src/main/java/com/example/kms/EnableCustomerKey.java#L6)
-- [Encrypt](src/main/java/com/example/kms/EncryptDataKey.java#L6)
-- [ListAliases](src/main/java/com/example/kms/ListAliases.java#L6)
-- [ListGrants](src/main/java/com/example/kms/ListGrants.java#L6)
-- [ListKeys](src/main/java/com/example/kms/ListKeys.java#L6)
+- [CreateAlias](src/main/java/com/example/kms/scenario/KMSScenario.java#L638)
+- [CreateGrant](src/main/java/com/example/kms/scenario/KMSScenario.java#L594)
+- [CreateKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L682)
+- [Decrypt](src/main/java/com/example/kms/scenario/KMSScenario.java#L531)
+- [DescribeKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L507)
+- [DisableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L324)
+- [EnableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L703)
+- [Encrypt](None)
+- [ListAliases](src/main/java/com/example/kms/scenario/KMSScenario.java#L304)
+- [ListGrants](src/main/java/com/example/kms/scenario/KMSScenario.java#L568)
+- [ListKeyPolicies](src/main/java/com/example/kms/scenario/KMSScenario.java#L401)
+- [ListKeys](src/main/java/com/example/kms/HelloKMS.java#L6)
+- [RevokeGrant](src/main/java/com/example/kms/scenario/KMSScenario.java#L550)
+- [ScheduleKeyDeletion](src/main/java/com/example/kms/scenario/KMSScenario.java#L473)
+- [Sign](src/main/java/com/example/kms/scenario/KMSScenario.java#L340)
+- [TagResource](src/main/java/com/example/kms/scenario/KMSScenario.java#L378)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Getting started with &kms-keys-long;](src/main/java/com/example/kms/scenario/KMSScenario.java)
 
 
 <!--custom.examples.start-->
@@ -55,9 +72,33 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.instructions.start-->
+To find instructions for running the code example, see the [README](../../README.md#build-and-run-the-service-examples) in the `javav2` folder.
 <!--custom.instructions.end-->
 
+#### Hello KMS key
 
+This example shows you how to get started using KMS key.
+
+
+
+#### Getting started with &kms-keys-long;
+
+This example shows you how to do the following:
+
+- Create a KMS key.
+- List KMS keys for your account and get details about them.
+- Enable and disable KMS keys.
+- Generate a symmetric data key that can be used for client-side encryption.
+- Generate an asymmetric key used to digitally sign data.
+- Tag keys.
+- Delete KMS keys.
+
+<!--custom.scenario_prereqs.kms_Scenario_KeyManagement.start-->
+<!--custom.scenario_prereqs.kms_Scenario_KeyManagement.end-->
+
+
+<!--custom.scenarios.kms_Scenario_KeyManagement.start-->
+<!--custom.scenarios.kms_Scenario_KeyManagement.end-->
 
 ### Tests
 

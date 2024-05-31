@@ -1,4 +1,47 @@
 # zexi 0.4.0
+kms_Hello:
+  title: Hello &kms-key;
+  title_abbrev: Hello &kms-key;
+  synopsis: get started using &kms-key;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_list_keys.main
+  services:
+    kms: {listKeysPaginator}
+kms_TagResource:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_tag.main
+  services:
+    kms: {TagResource}
+kms_Sign:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_sign.main
+  services:
+    kms: {Sign}
 kms_CreateKey:
   languages:
     Kotlin:
@@ -473,6 +516,15 @@ kms_EnableKey:
     kms: {EnableKey}
 kms_ScheduleKeyDeletion:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_delete_key.main
     Python:
       versions:
         - sdk_version: 3
@@ -609,6 +661,15 @@ kms_RetireGrant:
     kms: {RetireGrant}
 kms_RevokeGrant:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_revoke_grant.main
     Python:
       versions:
         - sdk_version: 3
@@ -623,6 +684,15 @@ kms_RevokeGrant:
     kms: {RevokeGrant}
 kms_ListKeyPolicies:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_get_policy.main
     Python:
       versions:
         - sdk_version: 3
@@ -684,16 +754,27 @@ kms_Scenario_KeyEncryption:
   services:
     kms: {Encrypt, Decrypt, ReEncrypt}
 kms_Scenario_KeyManagement:
-  title: Manage &kms-keys-long; using an &AWS; SDK
-  title_abbrev: Manage keys
+  title: Learn core operations for &kms-keys-long; using an &AWS; SDK
+  title_abbrev: Learn &kms-keys-long; core operations
   synopsis_list:
     - Create a &kms-key;.
     - List &kms-keys; for your account and get details about them.
     - Enable and disable &kms-keys;.
     - Generate a symmetric data key that can be used for client-side encryption.
+    - Generate an asymmetric key used to digitally sign data.
+    - Tag keys.
     - Delete &kms-keys;.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_scenario.main
     Python:
       versions:
         - sdk_version: 3
@@ -704,4 +785,4 @@ kms_Scenario_KeyManagement:
               snippet_tags:
                 - python.example_code.kms.Scenario_KeyManagement
   services:
-    kms: {CreateKey, ListKeys, DescribeKey, GenerateDataKey, EnableKey, DisableKey, ScheduleKeyDeletion}
+    kms: {CreateKey, ListKeys, DescribeKey, GenerateDataKey, EnableKey, Sign, DisableKey, ScheduleKeyDeletion}
