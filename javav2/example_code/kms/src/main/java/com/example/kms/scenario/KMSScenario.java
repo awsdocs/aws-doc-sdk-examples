@@ -656,6 +656,7 @@ public class KMSScenario {
     }
     // snippet-end:[kms.java2._create_alias.main]
 
+    // snippet-start:[kms.java2_encrypt_data.main]
     public static SdkBytes encryptData(KmsClient kmsClient, String keyId, String text) {
         try {
             SdkBytes myBytes = SdkBytes.fromUtf8String(text);
@@ -678,6 +679,7 @@ public class KMSScenario {
         }
         return null;
     }
+    // snippet-end:[kms.java2_encrypt_data.main]
 
     // snippet-start:[kms.java2_create_key.main]
     public static String createKey(KmsClient kmsClient, String keyDesc) {
