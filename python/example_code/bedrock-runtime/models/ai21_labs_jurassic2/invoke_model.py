@@ -41,4 +41,4 @@ model_response = json.loads(response["body"].read())
 response_text = model_response["completions"][0]["data"]["text"]
 print(response_text)
 
-# snippet-end:[python.example_code.bedrock-runtime.Ai21LabsJurassic2_InvokeModel]
+# snippet-end:[python.example_code.bedrock-runtime.InvokeModel_Ai21LabsJurassic2]
