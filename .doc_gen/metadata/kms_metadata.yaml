@@ -754,8 +754,8 @@ kms_Scenario_KeyEncryption:
   services:
     kms: {Encrypt, Decrypt, ReEncrypt}
 kms_Scenario_KeyManagement:
-  title: Learn core operations for &kms-keys-long; using an &AWS; SDK
-  title_abbrev: Learn &kms-keys-long; core operations
+  title: Learn core operations for &kms-key; using an &AWS; SDK
+  title_abbrev: Learn &kms-key; core operations
   synopsis_list:
     - Create a &kms-key;.
     - List &kms-keys; for your account and get details about them.
