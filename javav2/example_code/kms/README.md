@@ -60,7 +60,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Learn AWS KMS core operations](src/main/java/com/example/kms/scenario/KMSScenario.java)
+- [Learn &kms-keys-long; core operations](src/main/java/com/example/kms/scenario/KMSScenario.java)
 
 
 <!--custom.examples.start-->
