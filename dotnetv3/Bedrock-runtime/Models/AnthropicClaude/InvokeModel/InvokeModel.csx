@@ -33,7 +33,7 @@ var nativeRequest = JsonSerializer.Serialize(new
     }
 });
 
-// Create a request with the model ID, the user message, and an inference configuration.
+// Create a request with the model ID and the model's native request payload.
 var request = new InvokeModelRequest()
 {
     ModelId = modelId,

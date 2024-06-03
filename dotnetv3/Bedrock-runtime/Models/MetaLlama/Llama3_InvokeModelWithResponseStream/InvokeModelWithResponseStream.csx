@@ -39,7 +39,7 @@ var nativeRequest = JsonSerializer.Serialize(new
     temperature = 0.5
 });
 
-// Create a request with the model ID, the user message, and an inference configuration.
+// Create a request with the model ID and the model's native request payload.
 var request = new InvokeModelWithResponseStreamRequest()
 {
     ModelId = modelId,
