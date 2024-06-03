@@ -48,7 +48,7 @@ try:
         if "generation" in chunk:
             print(chunk["generation"], end="")
 
-except Exception as e:
+except (ClientError, Exception) as e:
     print(f"ERROR: Can't invoke '{model_id}'. Reason: {e}")
     exit(1)
 

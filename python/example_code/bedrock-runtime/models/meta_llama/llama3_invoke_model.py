@@ -39,7 +39,7 @@ try:
     # Invoke the model with the request.
     response = client.invoke_model(modelId=model_id, body=request)
 
-except Exception as e:
+except (ClientError, Exception) as e:
     print(f"ERROR: Can't invoke '{model_id}'. Reason: {e}")
     exit(1)
 

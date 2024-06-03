@@ -42,7 +42,7 @@ try:
         if "outputs" in chunk:
             print(chunk["outputs"][0].get("text"), end="")
 
-except Exception as e:
+except (ClientError, Exception) as e:
     print(f"ERROR: Can't invoke '{model_id}''. Reason: {e}")
     exit(1)
 
