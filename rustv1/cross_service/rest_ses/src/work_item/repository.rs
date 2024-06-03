@@ -82,7 +82,7 @@ pub async fn retrieve(id: String, client: &RdsClient) -> Result<WorkItem, WorkIt
     }
 
     // Last chance for something to go wrong!
-    let item = match items.get(0) {
+    let item = match items.first() {
         Some(item) => Ok(item),
         None => Err(WorkItemError::Other(
             "Somehow len() == 1 but get(0) is None".to_string(),
