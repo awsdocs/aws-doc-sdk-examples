@@ -46,10 +46,10 @@ try
     var response = await client.InvokeModelAsync(request);
 
     // Decode the response body.
-    var modelResponse = JsonNode.ParseAsync(response.Body);
+    var modelResponse = await JsonNode.ParseAsync(response.Body);
 
     // Extract and print the response text.
-    var responseText = modelResponse.Result?["outputs"]?[0]?["text"] ?? "";
+    var responseText = modelResponse["outputs"]?[0]?["text"] ?? "";
     Console.WriteLine(responseText);
 }
 catch (AmazonBedrockRuntimeException e)
