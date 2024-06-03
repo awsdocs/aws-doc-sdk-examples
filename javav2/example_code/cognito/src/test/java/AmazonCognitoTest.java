@@ -39,7 +39,6 @@ public class AmazonCognitoTest {
     private static String providerName = "";
     private static String existingPoolName = "";
     private static String clientId = "";
-    private static String secretkey = "";
     private static String password = "";
     private static String poolIdMVP = "";
     private static String clientIdMVP = "";
@@ -82,7 +81,6 @@ public class AmazonCognitoTest {
         providerName = values.getProviderName();
         existingPoolName = values.getExistingPoolName();
         clientId = values.getClientId();
-        secretkey = values.getSecretkey();
         password = values.getPassword();
         poolIdMVP = values.getPoolIdMVP();
         clientIdMVP = values.getClientIdMVP();
@@ -248,7 +246,7 @@ public class AmazonCognitoTest {
     @Order(14)
     public void SignUp() {
         assertDoesNotThrow(
-                () -> SignUpUser.signUp(cognitoIdentityProviderClient, clientId, secretkey, username, password, email));
+                () -> SignUpUser.signUp(cognitoIdentityProviderClient, clientId, username, password, email));
         System.out.println("Test 14 passed");
     }
 
@@ -298,7 +296,6 @@ public class AmazonCognitoTest {
         private String clientId;
 
         private String appId;
-        private String secretkey;
 
         private String password;
 
@@ -358,10 +355,6 @@ public class AmazonCognitoTest {
 
         public String getClientId() {
             return clientId;
-        }
-
-        public String getSecretkey() {
-            return secretkey;
         }
 
         public String getPassword() {

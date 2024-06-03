@@ -41,35 +41,32 @@ public class SignUpUser {
                     <clientId> <secretkey> <userName> <password> <email>
 
                 Where:
-                    clientId - The app client id value that you can obtain from the AWS Management Console.
-                    secretkey - The app client secret value that you can obtain from the AWS Management Console.
+                    clientId`: This is the unique identifier when you configure an app client.
                     userName - The user name of the user you wish to register.
                     password - The password for the user.
                     email - The email address for the user.
                 """;
 
-        if (args.length != 5) {
+        if (args.length != 4) {
             System.out.println(usage);
             System.exit(1);
         }
 
         String clientId = args[0];
-        String secretKey = args[1];
-        String userName = args[2];
-        String password = args[3];
-        String email = args[4];
+        String userName = args[1];
+        String password = args[2];
+        String email = args[3];
 
         CognitoIdentityProviderClient identityProviderClient = CognitoIdentityProviderClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
-        signUp(identityProviderClient, clientId, secretKey, userName, password, email);
+        signUp(identityProviderClient, clientId, userName, password, email);
         identityProviderClient.close();
     }
 
     public static void signUp(CognitoIdentityProviderClient identityProviderClient,
             String clientId,
-            String secretKey,
             String userName,
             String password,
             String email) {
@@ -82,13 +79,11 @@ public class SignUpUser {
         List<AttributeType> attrs = new ArrayList<>();
         attrs.add(attributeType);
         try {
-            String secretVal = calculateSecretHash(clientId, secretKey, userName);
             SignUpRequest signUpRequest = SignUpRequest.builder()
                     .userAttributes(attrs)
                     .username(userName)
                     .clientId(clientId)
                     .password(password)
-                    .secretHash(secretVal)
                     .build();
 
             identityProviderClient.signUp(signUpRequest);
@@ -97,10 +92,6 @@ public class SignUpUser {
         } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
         }
     }
 
