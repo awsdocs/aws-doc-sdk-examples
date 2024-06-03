@@ -15,6 +15,11 @@ import software.amazon.awssdk.services.cloudformation.model.CloudFormationExcept
 import software.amazon.awssdk.services.cloudformation.model.DescribeStacksRequest;
 import software.amazon.awssdk.services.cloudformation.model.DescribeStacksResponse;
 import software.amazon.awssdk.services.cloudformation.waiters.CloudFormationWaiter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 // snippet-end:[cf.java2.create_stack.import]
 
 /**
@@ -69,39 +74,28 @@ public class CreateStack {
                 .region(region)
                 .build();
 
-        createCFStack(cfClient, stackName, roleARN, location, key, value);
+        createCFStack(cfClient, stackName, roleARN, location);
         cfClient.close();
     }
 
     public static void createCFStack(CloudFormationClient cfClient,
-            String stackName,
-            String roleARN,
-            String location,
-            String key,
-            String value) {
+                                     String stackName,
+                                     String roleARN,
+                                     String location) {
         try {
-            CloudFormationWaiter waiter = cfClient.waiter();
-            Parameter myParameter = Parameter.builder()
-                    .parameterKey(key)
-                    .parameterValue(value)
-                    .build();
-
+            // Create the request to create the stack
             CreateStackRequest stackRequest = CreateStackRequest.builder()
-                    .stackName(stackName)
-                    .templateURL(location)
-                    .roleARN(roleARN)
-                    .onFailure(OnFailure.ROLLBACK)
-                    .parameters(myParameter)
-                    .build();
+                .stackName(stackName)
+                .templateURL(location)
+                .roleARN(roleARN)
+                .onFailure(OnFailure.ROLLBACK)
+                .build();
 
+            // Create the stack
             cfClient.createStack(stackRequest);
-            DescribeStacksRequest stacksRequest = DescribeStacksRequest.builder()
-                    .stackName(stackName)
-                    .build();
 
-            WaiterResponse<DescribeStacksResponse> waiterResponse = waiter.waitUntilStackCreateComplete(stacksRequest);
-            waiterResponse.matched().response().ifPresent(System.out::println);
-            System.out.println(stackName + " is ready");
+            // Print a confirmation message
+            System.out.println(stackName + " creation initiated");
 
         } catch (CloudFormationException e) {
             System.err.println(e.getMessage());

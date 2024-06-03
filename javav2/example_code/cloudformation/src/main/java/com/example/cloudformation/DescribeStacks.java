@@ -37,7 +37,6 @@ public class DescribeStacks {
             DescribeStacksResponse stacksResponse = cfClient.describeStacks();
             List<Stack> stacks = stacksResponse.stacks();
             for (Stack stack : stacks) {
-                System.out.println("The stack description is " + stack.description());
                 System.out.println("The stack Id is " + stack.stackId());
             }
 
