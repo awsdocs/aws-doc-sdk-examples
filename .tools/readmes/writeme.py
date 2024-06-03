@@ -86,7 +86,6 @@ def main():
                     scanner.set_example(language, int(version), service)
                     logging.debug("Rendering %s", id)
                     renderer = Renderer(scanner, int(version), args.safe)
-                    breakpoint()
                     result = renderer.render()
                     if result is None:
                         logging.info("Render returned empty for %s", id)
