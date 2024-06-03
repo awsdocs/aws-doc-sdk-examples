@@ -53,6 +53,7 @@ class FirehoseClient:
         self.region = config.region
         self.firehose = boto3.client("firehose", region_name=self.region)
         self.cloudwatch = boto3.client("cloudwatch", region_name=self.region)
+
     # snippet-end:[python.example_code.kinesis-firehose.init]
 
     # snippet-start:[python.example_code.kinesis-firehose.put_record]
@@ -78,6 +79,7 @@ class FirehoseClient:
         except Exception:
             logger.info(f"Fail record: {record}.")
             raise
+
     # snippet-end:[python.example_code.kinesis-firehose.put_record]
 
     # snippet-start:[python.example_code.kinesis-firehose.put_record_batch]
@@ -105,6 +107,7 @@ class FirehoseClient:
                 self._log_batch_response(response, len(batch))
             except Exception as e:
                 logger.info(f"Failed to send batch of {len(batch)} records. Error: {e}")
+
     # snippet-end:[python.example_code.kinesis-firehose.put_record_batch]
 
     # snippet-start:[python.example_code.kinesis-firehose.get_stream_metrics]
@@ -176,6 +179,7 @@ class FirehoseClient:
                     logger.info(f"{metric}: {round(total_sum)}")
             else:
                 logger.info(f"No data found for {metric} over the last 5 minutes")
+
     # snippet-end:[python.example_code.kinesis-firehose.get_stream_metrics]
 
     def _create_record_entry(self, record: dict) -> dict:
