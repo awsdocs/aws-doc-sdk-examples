@@ -1,13 +1,13 @@
-# Kinesis code examples for the SDK for Python
+# Kinesis Data Firehose code examples for the SDK for Python
 
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Kinesis.
+Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Kinesis Data Firehose.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Kinesis makes it easy to collect, process, and analyze video and data streams in real time._
+_Kinesis Data Firehose is a fully managed service for delivering real-time streaming data to AWS destinations and third-party HTTP endpoints._
 
 ## ⚠ Important
 
@@ -38,11 +38,15 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateStream](streams/kinesis_stream.py#L46)
-- [DeleteStream](streams/kinesis_stream.py#L90)
-- [DescribeStream](streams/kinesis_stream.py#L69)
-- [GetRecords](streams/kinesis_stream.py#L128)
-- [PutRecord](streams/kinesis_stream.py#L105)
+- [PutRecord](scenarios/firehose-put-actions/firehose.py#L31)
+- [PutRecordBatch](scenarios/firehose-put-actions/firehose.py#L31)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Put records to Kinesis Data Firehose](scenarios/firehose-put-actions/firehose.py)
 
 
 <!--custom.examples.start-->
@@ -54,17 +58,27 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.instructions.start-->
-The action examples in this section are demonstrated as part of an Amazon Managed Service 
-for Apache Flink scenario that reads data from an input stream, uses SQL code to transform 
-the data, and writes it to an output stream. Run the scenario at a command prompt in 
-the `kinesis-analytics-v2` folder with the following command:
-
-```
-python kinesisanalyticsv2_demo.py
-``` 
 <!--custom.instructions.end-->
 
 
+
+#### Put records to Kinesis Data Firehose
+
+This example shows you how to use Kinesis Data Firehose to process individual and batch records.
+
+
+<!--custom.scenario_prereqs.kinesis-firehose_Scenario_PutRecords.start-->
+<!--custom.scenario_prereqs.kinesis-firehose_Scenario_PutRecords.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenarios/firehose-put-actions/firehose.py
+```
+
+
+<!--custom.scenarios.kinesis-firehose_Scenario_PutRecords.start-->
+<!--custom.scenarios.kinesis-firehose_Scenario_PutRecords.end-->
 
 ### Tests
 
@@ -81,12 +95,11 @@ in the `python` folder.
 
 ## Additional resources
 
-- [Kinesis Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/introduction.html)
-- [Kinesis API Reference](https://docs.aws.amazon.com/kinesis/latest/APIReference/Welcome.html)
-- [SDK for Python Kinesis reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesisanalyticsv2.html)
+- [Kinesis Data Firehose User Guide](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)
+- [Kinesis Data Firehose API Reference](https://docs.aws.amazon.com/firehose/latest/APIReference/Welcome.html)
+- [SDK for Python Kinesis Data Firehose reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesis-firehose.html)
 
 <!--custom.resources.start-->
-* [SDK for Python Kinesis Data Analytics reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesisanalyticsv2.html)
 <!--custom.resources.end-->
 
 ---

@@ -1,5 +1,5 @@
 # zexi 0.4.0
-firehose_PutRecord:
+kinesis-firehose_PutRecord:
   languages:
     Python:
       versions:
@@ -11,8 +11,8 @@ firehose_PutRecord:
                 - python.example_code.kinesis-firehose.init
                 - python.example_code.kinesis-firehose.put_record
   services:
-    firehose: {PutRecord}
-firehose_PutRecordBatch:
+    kinesis-firehose: {PutRecord}
+kinesis-firehose_PutRecordBatch:
   languages:
     Rust:
       versions:
@@ -33,8 +33,8 @@ firehose_PutRecordBatch:
                 - python.example_code.kinesis-firehose.init
                 - python.example_code.kinesis-firehose.put_record_batch
   services:
-    firehose: {PutRecordBatch}
-firehose_Scenario_PutRecords:
+    kinesis-firehose: {PutRecordBatch}
+kinesis-firehose_Scenario_PutRecords:
   title: Use &FHlong; to process individual and batch records
   title_abbrev: Put records to &FH;
   synopsis: use &FH; to process individual and batch records.
@@ -52,4 +52,4 @@ firehose_Scenario_PutRecords:
               snippet_files:
                 - python/example_code/kinesis-firehose/scenarios/firehose-put-actions/config.py
   services:
-    firehose: {PutRecord, PutRecordBatch}
+    kinesis-firehose: {PutRecord, PutRecordBatch}

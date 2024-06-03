@@ -1254,7 +1254,7 @@ eventbridge:
   tags:
     product_categories: {'Application Integration'}
   version: eventbridge-2015-10-07
-firehose:
+kinesis-firehose:
   long: "&FHlong;"
   short: "&FH;"
   sort: Kinesis Data Firehose
