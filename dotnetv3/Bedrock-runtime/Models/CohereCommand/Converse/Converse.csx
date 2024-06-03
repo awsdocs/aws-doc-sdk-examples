@@ -42,15 +42,16 @@ var request = new ConverseRequest
 try
 {
     // Send the request to the Bedrock Runtime and wait for the result.
-    var result = client.ConverseAsync(request).Result;
+    var response = await client.ConverseAsync(request);
 
     // Extract and print the response text.
-    string responseText = result?.Output?.Message?.Content?[0]?.Text ?? "";
+    string responseText = response?.Output?.Message?.Content?[0]?.Text ?? "";
     Console.WriteLine(responseText);
-
-} catch (Exception e)
+}
+catch (AmazonBedrockRuntimeException e)
 {
     Console.WriteLine($"ERROR: Can't invoke '{modelId}'. Reason: {e.Message}");
+    Environment.Exit(1);
 }
 
 // snippet-end:[BedrockRuntime.dotnetv3.Converse_CohereCommand]

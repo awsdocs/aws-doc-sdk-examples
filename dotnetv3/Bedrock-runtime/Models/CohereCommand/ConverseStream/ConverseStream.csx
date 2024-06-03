@@ -44,20 +44,21 @@ var request = new ConverseStreamRequest
 try
 {
     // Send the request to the Bedrock Runtime and wait for the result.
-    var result = client.ConverseStreamAsync(request).Result;
+    var response = await client.ConverseStreamAsync(request);
 
     // Extract and print the streamed response text in real-time.
-    foreach (var chunk in result.Stream.AsEnumerable())
+    foreach (var chunk in response.Stream.AsEnumerable())
     {
         if (chunk is ContentBlockDeltaEvent)
         {
             Console.Write((chunk as ContentBlockDeltaEvent).Delta.Text);
         }
     }
-
-} catch (Exception e)
+}
+catch (AmazonBedrockRuntimeException e)
 {
     Console.WriteLine($"ERROR: Can't invoke '{modelId}'. Reason: {e.Message}");
+    Environment.Exit(1);
 }
 
 // snippet-end:[BedrockRuntime.dotnetv3.ConverseStream_CohereCommand]

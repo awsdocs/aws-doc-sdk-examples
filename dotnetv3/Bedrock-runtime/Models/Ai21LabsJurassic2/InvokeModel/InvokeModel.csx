@@ -49,9 +49,10 @@ try
     var responseText = modelResponse.Result?["completions"]?[0]?["data"]?["text"] ?? "";
     Console.WriteLine(responseText);
 }
-catch (Exception e)
+catch (AmazonBedrockRuntimeException e)
 {
     Console.WriteLine($"ERROR: Can't invoke '{modelId}'. Reason: {e.Message}");
+    Environment.Exit(1);
 }
 
 // snippet-end:[BedrockRuntime.dotnetv3.InvokeModel_Ai21LabsJurassic2]

@@ -49,9 +49,10 @@ try
     var responseText = modelResponse.Result?["generations"]?[0]?["text"] ?? "";
     Console.WriteLine(responseText);
 }
-catch (Exception e)
+catch (AmazonBedrockRuntimeException e)
 {
     Console.WriteLine($"ERROR: Can't invoke '{modelId}'. Reason: {e.Message}");
+    Environment.Exit(1);
 }
 
 // snippet-end:[BedrockRuntime.dotnetv3.InvokeModel_CohereCommand]
