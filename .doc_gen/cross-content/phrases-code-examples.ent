@@ -141,3 +141,6 @@
 <!ENTITY WMFlowlong '&WMlong; Message Flow'>
 <!ENTITY WMFlow '&WM; Message Flow'>
 
+<!-- CloudWatch Network Monitoring -->
+<!ENTITY cloudwatch-netmon-long '&CWlong; Network Monitoring'>
+<!ENTITY cloudwatch-netmon '&CW; Network Monitoring'>

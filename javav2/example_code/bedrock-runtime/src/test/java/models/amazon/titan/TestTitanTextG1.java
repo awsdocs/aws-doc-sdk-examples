@@ -3,13 +3,13 @@
 
 package models.amazon.titan;
 
-import com.example.bedrockruntime.models.amazon.titan.TextG1Quickstart;
+import com.example.bedrockruntime.models.amazon.titan.TextQuickstart;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import static com.example.bedrockruntime.models.amazon.titan.TextG1Scenarios.invokeWithConversation;
-import static com.example.bedrockruntime.models.amazon.titan.TextG1Scenarios.invokeWithSystemPrompt;
+import static com.example.bedrockruntime.models.amazon.titan.TextScenarios.invokeWithConversation;
+import static com.example.bedrockruntime.models.amazon.titan.TextScenarios.invokeWithSystemPrompt;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class TestTitanTextG1 {
     @Test
     void quickstart() {
-        assertDoesNotThrow(() -> TextG1Quickstart.main(null));
+        assertDoesNotThrow(() -> TextQuickstart.main(null));
     }
 
     @Test

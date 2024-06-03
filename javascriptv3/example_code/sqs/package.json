@@ -10,5 +10,8 @@
   "dependencies": {
     "@aws-doc-sdk-examples/lib": "^1.0.0",
     "@aws-sdk/client-sqs": "^3.332.0"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0"
   }
 }

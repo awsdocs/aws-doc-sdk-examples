@@ -961,6 +961,15 @@ s3_GetObjectLegalHoldConfiguration:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.GetObjectLegalHold
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/get-object-legal-hold.js
   services:
     s3: {GetObjectLegalHold}
 s3_GetObjectLockConfiguration:
@@ -983,6 +992,15 @@ s3_GetObjectLockConfiguration:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.GetBucketObjectLockConfiguration
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/get-object-lock-configuration.js
   services:
     s3: {GetObjectLockConfiguration}
 s3_GetObjectRetention:
@@ -1005,6 +1023,15 @@ s3_GetObjectRetention:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.GetObjectRetention
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/get-object-retention.js
   services:
     s3: {GetObjectRetention}
 s3_PutBucketLogging:
@@ -2069,6 +2096,15 @@ s3_PutObjectLegalHold:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.ModifyObjectLegalHold
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/put-object-legal-hold.js
   services:
     s3: {PutObjectLegalHold}
 s3_PutObjectLockConfiguration:
@@ -2097,6 +2133,18 @@ s3_PutObjectLockConfiguration:
             - description: Set the default retention period of a bucket.
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.ModifyBucketDefaultRetention
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Set the object lock configuration of a bucket.
+              snippet_files: 
+                - javascriptv3/example_code/s3/actions/put-object-lock-configuration.js
+            - description: Set the default retention period of a bucket.
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/put-default-object-lock-configuration.js
   services:
     s3: {PutObjectLockConfiguration}
 s3_PutObjectRetention:
@@ -2119,6 +2167,15 @@ s3_PutObjectRetention:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.ModifyObjectRetentionPeriod
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/s3/actions/put-object-retention.js
   services:
     s3: {PutObjectRetention}
 s3_UploadPart:
@@ -2984,6 +3041,29 @@ s3_Scenario_ObjectLock:
             - description: A wrapper class for S3 functions.
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.S3ActionsWrapper
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3/scenarios/object-locking
+          sdkguide:
+          excerpts:
+            - description: |
+                <noloc>index.js</noloc> - Entrypoint for the workflow. This orchestrates all of the steps.
+                Visit GitHub to see the implementation details for Scenario, ScenarioInput, ScenarioOutput, and ScenarioAction.
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/object-locking/index.js
+            - description: <noloc>welcome.steps.js</noloc> - Output welcome messages to the console.
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/object-locking/welcome.steps.js
+            - description: <noloc>setup.steps.js</noloc> - Deploy buckets, objects, and file settings.
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/object-locking/setup.steps.js
+            - description: <noloc>repl.steps.js</noloc> - View and delete files in the buckets.
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/object-locking/repl.steps.js
+            - description: <noloc>clean.steps.js</noloc> - Destroy all created resources.
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/object-locking/clean.steps.js
   services:
     s3: {PutObjectLockConfiguration, PutObjectRetention, GetObjectRetention, PutObjectLegalHold, GetObjectLegalHold, GetObjectLockConfiguration}
 s3_SelectObjectContent:
@@ -3022,3 +3102,35 @@ s3_Scenario_TrackUploadDownload:
                 - s3.tm.java2.trackdownloadfile.main
   services:
     s3: {PutObject, GetObject}
+s3_Scenario_AbortMultipartUpload:
+  title: Delete incomplete multipart uploads to &S3; using an &AWS; SDK
+  title_abbrev: Delete incomplete multipart uploads
+  synopsis: how to delete or stop incomplete &S3; multipart uploads.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: |
+                To stop multipart uploads that are in-progress or incomplete for any reason, you can get a list uploads and then delete them
+                as shown in the following example.
+              snippet_tags:
+                - s3.java2.abort_upload_from_list
+            - description: |
+                To delete incomplete multipart uploads that were initiated before or after a date, you can selectively
+                delete multipart uploads based on a point in time as shown in the following example.
+              snippet_tags:
+                - s3.java2.abort_upload_older_than
+            - description: If you have access to the upload ID after you begin a multipart upload, you can delete the in-progress upload by using the ID.
+              snippet_tags:
+                - s3.java2.abort_upload_using_upload_id
+            - description: |
+                To consistently delete incomplete multipart uploads older that a certain number of days, set up a bucket lifecycle configuration for the bucket.
+                The following example shows how to create a rule to delete incomplete uploads older than 7 days.
+              snippet_tags:
+                - s3.java2.abort_upload_using_lifecycle_config
+  services:
+    s3: {ListMultipartUploads, AbortMultipartUpload, PutBucketLifecycleConfiguration}

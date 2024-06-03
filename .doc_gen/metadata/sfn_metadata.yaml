@@ -61,7 +61,7 @@ sfn_CreateStateMachine:
           excerpts:
             - description:
               snippet_tags:
-                - stepfunctions.java2.create_machine.main
+                - stepfunctions.kotlin.create_machine.main
     Java:
       versions:
         - sdk_version: 2

@@ -28,10 +28,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
-### Invoke model examples
+### Anthropic Claude
 
-- [Anthropic Claude 2: Text generation](zcl_aws1_bdr_actions.clas.abap#L109)
-- [Stable Diffusion: Image generation](zcl_aws1_bdr_actions.clas.abap#L179)
+- [Generate text](zcl_aws1_bdr_actions.clas.abap#L109)
+
+### Stability AI Diffusion
+
+- [Generate images](zcl_aws1_bdr_actions.clas.abap#L179)
 
 
 <!--custom.examples.start-->

@@ -9,5 +9,8 @@
   "dependencies": {
     "@aws-sdk/client-sts": "^3.254.0"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "vitest": "^1.6.0"
+  }
 }

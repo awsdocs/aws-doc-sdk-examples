@@ -37,7 +37,7 @@ const { Scenario } = await import(
 );
 
 const { saveState } = await import(
-  "../scenarios/health-image-sets/state-steps.js"
+  "@aws-doc-sdk-examples/lib/scenario/steps-common.js"
 );
 
 const cloudFormationSend = vi.fn();

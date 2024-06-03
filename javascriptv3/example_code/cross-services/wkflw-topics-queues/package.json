@@ -14,5 +14,8 @@
     "@aws-sdk/client-sns": "^3.379.1",
     "@aws-sdk/client-sqs": "^3.379.1",
     "@inquirer/prompts": "^3.0.1"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0"
   }
 }

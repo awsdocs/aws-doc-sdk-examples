@@ -12,5 +12,8 @@
     "@aws-sdk/client-personalize": "^3.350.0",
     "@aws-sdk/client-personalize-events": "^3.350.0",
     "@aws-sdk/client-personalize-runtime": "^3.350.0"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0"
   }
 }

@@ -122,7 +122,7 @@ in the `javascriptv3` folder.
 
 ## Additional resources
 
-- [Elastic Load Balancing - Version 2 User Guide](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/Welcome.html)
+- [Elastic Load Balancing - Version 2 User Guide](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html)
 - [Elastic Load Balancing - Version 2 API Reference](https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/Welcome.html)
 - [SDK for JavaScript (v3) Elastic Load Balancing - Version 2 reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/elastic-load-balancing-v2)
 

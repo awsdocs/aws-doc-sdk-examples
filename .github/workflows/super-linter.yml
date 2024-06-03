@@ -16,7 +16,6 @@ jobs:
         with:
           sparse-checkout: |
             .github
-            php
             kotlin
       - name: Lint Code Base
         uses: github/super-linter@v4
@@ -24,5 +23,4 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_PHP_PHPCS: true
           VALIDATE_KOTLIN: true

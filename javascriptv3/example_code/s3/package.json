@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Examples demonstrating how to use the AWS SDK for JavaScript (v3) to interact with Amazon S3.",
   "scripts": {
-    "test": "vitest run **/*.unit.test.js",
-    "integration-test": "vitest run **/*.integration.test.js"
+    "test": "vitest run unit",
+    "integration-test": "vitest run integration"
   },
   "author": "corepyle@amazon.com",
   "license": "Apache-2.0",
@@ -22,6 +22,6 @@
     "libs": "*"
   },
   "devDependencies": {
-    "vitest": "^0.28.5"
+    "vitest": "^1.6.0"
   }
 }
