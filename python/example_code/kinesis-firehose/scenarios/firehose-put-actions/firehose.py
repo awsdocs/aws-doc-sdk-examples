@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 
 import backoff
 import boto3
-
 from config import get_config
 
 
