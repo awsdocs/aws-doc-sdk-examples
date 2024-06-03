@@ -38,7 +38,7 @@ public class SignUpUser {
         final String usage = """
 
                 Usage:
-                    <clientId> <secretkey> <userName> <password> <email>
+                    <clientId> <userName> <password> <email>
 
                 Where:
                     clientId`: This is the unique identifier when you configure an app client.
