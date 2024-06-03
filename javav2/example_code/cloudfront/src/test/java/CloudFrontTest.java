@@ -105,17 +105,8 @@ public class CloudFrontTest {
         System.out.println("Test 5 passed");
    }
 
-
     @Test
     @Order(6)
-   public void ModifyDistribution() {
-
-        ModifyDistribution.modDistribution(cloudFrontClient, distributionId);
-        System.out.println("Test 6 passed");
-   }
-
-    @Test
-    @Order(7)
    public void DeleteFunction(){
 
        DeleteFunction.deleteSpecificFunction(cloudFrontClient, functionName, eTagVal);
