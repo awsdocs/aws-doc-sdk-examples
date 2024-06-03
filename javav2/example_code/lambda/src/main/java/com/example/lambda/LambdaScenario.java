@@ -164,7 +164,7 @@ public class LambdaScenario {
                     .description("Created by the Lambda Java API")
                     .code(code)
                     .handler(handler)
-                    .runtime(Runtime.JAVA8)
+                    .runtime(Runtime.JAVA17)
                     .role(role)
                     .build();
 
