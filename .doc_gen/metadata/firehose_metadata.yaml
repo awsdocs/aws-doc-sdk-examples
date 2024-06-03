@@ -1,4 +1,17 @@
 # zexi 0.4.0
+firehose_PutRecord:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis-firehose
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis-firehose.init
+                - python.example_code.kinesis-firehose.put_record
+  services:
+    firehose: {PutRecord}
 firehose_PutRecordBatch:
   languages:
     Rust:
@@ -10,5 +23,33 @@ firehose_PutRecordBatch:
             - description:
               snippet_tags:
                 - firehose.rust.put_record_batch
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis-firehose
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kinesis-firehose.init
+                - python.example_code.kinesis-firehose.put_record_batch
   services:
     firehose: {PutRecordBatch}
+firehose_Scenario_PutRecords:
+  title: Use &FHlong; to process individual and batch records
+  title_abbrev: Put records to &FH;
+  synopsis: use &FH; to process individual and batch records.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kinesis-firehose/scenarios/firehose-put-actions
+          excerpts:
+            - description: This script puts individual and batch records to &FH;.
+              snippet_files:
+                - python/example_code/kinesis-firehose/scenarios/firehose-put-actions/firehose.py
+            - description: This file contains config for the above script.
+              snippet_files:
+                - python/example_code/kinesis-firehose/scenarios/firehose-put-actions/config.py
+  services:
+    firehose: {PutRecord, PutRecordBatch}

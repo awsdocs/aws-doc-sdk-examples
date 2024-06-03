@@ -1,0 +1,77 @@
+Resources:
+  MyFirehoseBucketF5EC6557:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Join
+        - ''
+        - - 'my-firehose-bucket-'
+          - !Select [2, !Split ['/', !Ref AWS::StackId]]
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: FirehoseStack/MyFirehoseBucket/Resource
+
+  MyFirehoseRole481C093D:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: firehose.amazonaws.com
+            Action: sts:AssumeRole
+    Metadata:
+      aws:cdk:path: FirehoseStack/MyFirehoseRole/Resource
+
+  MyFirehoseRoleDefaultPolicyC1DE8954:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: MyFirehoseRoleDefaultPolicyC1DE8954
+      Roles:
+        - !Ref MyFirehoseRole481C093D
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - s3:AbortMultipartUpload
+              - s3:GetBucketLocation
+              - s3:GetObject
+              - s3:ListBucket
+              - s3:ListBucketMultipartUploads
+              - s3:PutObject
+            Resource:
+              - !GetAtt MyFirehoseBucketF5EC6557.Arn
+              - !Sub '${MyFirehoseBucketF5EC6557.Arn}/*'
+    Metadata:
+      aws:cdk:path: FirehoseStack/MyFirehoseRole/DefaultPolicy/Resource
+
+  MyFirehoseDeliveryStream:
+    Type: AWS::KinesisFirehose::DeliveryStream
+    Properties:
+      DeliveryStreamType: DirectPut
+      S3DestinationConfiguration:
+        BucketARN: !GetAtt MyFirehoseBucketF5EC6557.Arn
+        RoleARN: !GetAtt MyFirehoseRole481C093D.Arn
+    Metadata:
+      aws:cdk:path: FirehoseStack/MyFirehoseDeliveryStream
+
+Outputs:
+  FirehoseStreamNameOutput:
+    Description: The name of the Kinesis Firehose delivery stream
+    Value: !Ref MyFirehoseDeliveryStream
+    Export:
+      Name: FirehoseStreamName
+
+  BucketNameOutput:
+    Description: The name of the S3 bucket for Firehose
+    Value: !Ref MyFirehoseBucketF5EC6557
+    Export:
+      Name: BucketName
+
+  RoleArnOutput:
+    Description: The ARN of the IAM role for Firehose
+    Value: !GetAtt MyFirehoseRole481C093D.Arn
+    Export:
+      Name: RoleArn
