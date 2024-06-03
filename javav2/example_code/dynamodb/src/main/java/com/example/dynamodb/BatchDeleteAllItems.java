@@ -1,6 +1,5 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-
 package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.batch.delete.items.main]
@@ -17,13 +16,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BatchDeleteItems {
+public class BatchDeleteAllItems {
 
     public static void main(String[] args){
         final String usage = """
 
                 Usage:
-                    <tableName> 
+                    <tableName>
 
                 Where:
                     tableName - The Amazon DynamoDB table (for example, Music).\s
