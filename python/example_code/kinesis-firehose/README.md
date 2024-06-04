@@ -38,8 +38,8 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [PutRecord](scenarios/firehose-put-actions/firehose.py#L31)
-- [PutRecordBatch](scenarios/firehose-put-actions/firehose.py#L31)
+- [PutRecord](scenarios/firehose-put-actions/firehose.py#L32)
+- [PutRecordBatch](scenarios/firehose-put-actions/firehose.py#L32)
 
 ### Scenarios
 
