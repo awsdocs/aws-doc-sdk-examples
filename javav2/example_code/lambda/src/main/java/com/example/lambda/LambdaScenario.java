@@ -64,17 +64,17 @@ public class LambdaScenario {
     public static void main(String[] args) throws InterruptedException {
         final String usage = """
 
-                Usage:
-                    <functionName> <filePath> <role> <handler> <bucketName> <key>\s
+            Usage:
+                <functionName> <s3Bucket> <s3Key> <role> <handler> <updatedKey>\s
 
-                Where:
-                    functionName - The name of the Lambda function.\s
-                    filePath - The path to the .zip or .jar where the code is located.\s
-                    role - The AWS Identity and Access Management (IAM) service role that has Lambda permissions.\s
-                    handler - The fully qualified method name (for example, example.Handler::handleRequest).\s
-                    bucketName - The Amazon Simple Storage Service (Amazon S3) bucket name that contains the .zip or .jar used to update the Lambda function's code.\s
-                    key - The Amazon S3 key name that represents the .zip or .jar (for example, LambdaHello-1.0-SNAPSHOT.jar).
-                    """;
+            Where:
+                functionName - The name of the Lambda function.\s
+                s3Bucket - The Amazon S3 bucket where the the ZIP or JAR is located.\s
+                s3Key - The Amazon S3 key name that represents the .zip or .jar (for example, LambdaHello-1.0-SNAPSHOT.jar).
+                role - The AWS Identity and Access Management (IAM) service role that has Lambda permissions.\s
+                handler - The fully qualified method name (for example, example.Handler::handleRequest).\s
+                updatedKey - The Amazon S3 updated key that contains updated logic (for example, LambdaHello2-1.0-SNAPSHOT.jar).
+                """;
 
         if (args.length != 6) {
             System.out.println(usage);
@@ -82,11 +82,11 @@ public class LambdaScenario {
         }
 
         String functionName = args[0];
-        String filePath = args[1];
-        String role = args[2];
-        String handler = args[3];
-        String bucketName = args[4];
-        String key = args[5];
+        String s3Bucket = args[1];
+        String s3Key = args[2];
+        String role = args[3];
+        String handler = args[4];
+        String updatedKey = args[5];
 
         Region region = Region.US_WEST_2;
         LambdaClient awsLambda = LambdaClient.builder()
@@ -99,7 +99,7 @@ public class LambdaScenario {
 
         System.out.println(DASHES);
         System.out.println("1. Create an AWS Lambda function.");
-        String funArn = createLambdaFunction(awsLambda, functionName, filePath, role, handler);
+        String funArn = createLambdaFunction(awsLambda, functionName, s3Bucket,s3Key, role, handler);
         System.out.println("The AWS Lambda ARN is " + funArn);
         System.out.println(DASHES);
 
@@ -122,7 +122,7 @@ public class LambdaScenario {
 
         System.out.println(DASHES);
         System.out.println("5. Update the Lambda function code and invoke it again.");
-        updateFunctionCode(awsLambda, functionName, bucketName, key);
+        updateFunctionCode(awsLambda, functionName, s3Bucket, updatedKey);
         System.out.println("*** Sleep for 1 min to get Lambda function ready.");
         Thread.sleep(60000);
         invokeFunction(awsLambda, functionName);
@@ -145,43 +145,43 @@ public class LambdaScenario {
     }
 
     public static String createLambdaFunction(LambdaClient awsLambda,
-            String functionName,
-            String filePath,
-            String role,
-            String handler) {
+                                            String functionName,
+                                            String s3BucketName,
+                                            String s3Key,
+                                            String role,
+                                            String handler) {
 
         try {
             LambdaWaiter waiter = awsLambda.waiter();
-            InputStream is = new FileInputStream(filePath);
-            SdkBytes fileToUpload = SdkBytes.fromInputStream(is);
 
             FunctionCode code = FunctionCode.builder()
-                    .zipFile(fileToUpload)
-                    .build();
+                .s3Bucket(s3BucketName)
+                .s3Key(s3Key)
+                .build();
 
             CreateFunctionRequest functionRequest = CreateFunctionRequest.builder()
-                    .functionName(functionName)
-                    .description("Created by the Lambda Java API")
-                    .code(code)
-                    .handler(handler)
-                    .runtime(Runtime.JAVA17)
-                    .role(role)
-                    .build();
+                .functionName(functionName)
+                .description("Created by the Lambda Java API")
+                .code(code)
+                .handler(handler)
+                .runtime(Runtime.JAVA17)
+                .role(role)
+                .build();
 
-            // Create a Lambda function using a waiter
+            // Create a Lambda function using a waiter.
             CreateFunctionResponse functionResponse = awsLambda.createFunction(functionRequest);
             GetFunctionRequest getFunctionRequest = GetFunctionRequest.builder()
-                    .functionName(functionName)
-                    .build();
+                .functionName(functionName)
+                .build();
             WaiterResponse<GetFunctionResponse> waiterResponse = waiter.waitUntilFunctionExists(getFunctionRequest);
             waiterResponse.matched().response().ifPresent(System.out::println);
             return functionResponse.functionArn();
 
-        } catch (LambdaException | FileNotFoundException e) {
+        } catch (LambdaException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        return "";
+        return "" ;
     }
 
     public static void getFunction(LambdaClient awsLambda, String functionName) {

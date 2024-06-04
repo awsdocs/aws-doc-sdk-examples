@@ -37,15 +37,17 @@ public class LambdaTest {
     private static LambdaClient awsLambda;
     private static String functionName = "";
     private static String functionNameSc = "";
-    private static String filePath = "";
+    private static String s3Bucket = "";
     private static String role = "";
     private static String handler = "";
     private static String bucketName = "";
     private static String key = "";
 
+    private static String updatedKey = "";
+
     @BeforeAll
     public static void setUp() {
-        Region region = Region.US_WEST_2;
+        Region region = Region.US_EAST_1;
         awsLambda = LambdaClient.builder()
                 .region(region)
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -56,11 +58,11 @@ public class LambdaTest {
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
         functionName = values.getFunctionNameSc() + java.util.UUID.randomUUID();
-        filePath = values.getFilePath();
+        s3Bucket = values.getBucketName();
         role = values.getRole();
         handler = values.getHandler();
         functionNameSc = values.getFunctionNameSc() + java.util.UUID.randomUUID();
-        bucketName = values.getBucketName();
+        updatedKey = values.getUpdatedKey();
         key = values.getKey();
 
         // Uncomment this code block if you prefer using a config.properties file to
@@ -95,7 +97,7 @@ public class LambdaTest {
     @Tag("IntegrationTest")
     @Order(1)
     public void CreateFunction() {
-        assertDoesNotThrow(() -> CreateFunction.createLambdaFunction(awsLambda, functionName, filePath, role, handler));
+        assertDoesNotThrow(() -> CreateFunction.createLambdaFunction(awsLambda, functionName, s3Bucket, key, role, handler));
         System.out.println("Test 1 passed");
     }
 
@@ -137,7 +139,7 @@ public class LambdaTest {
     @Tag("IntegrationTest")
     @Order(6)
     public void LambdaScenario() throws InterruptedException {
-        String funArn = LambdaScenario.createLambdaFunction(awsLambda, functionNameSc, filePath, role, handler);
+        String funArn = LambdaScenario.createLambdaFunction(awsLambda, functionNameSc, s3Bucket, key, role, handler);
         assertFalse(funArn.isEmpty());
         System.out.println("The function ARN is " + funArn);
 
@@ -150,16 +152,16 @@ public class LambdaTest {
         assertDoesNotThrow(() -> LambdaScenario.listFunctions(awsLambda));
 
         System.out.println("*** Invoke the Lambda function.");
-        System.out.println("*** Wait for 5 MIN so the resource is available");
-        TimeUnit.MINUTES.sleep(5);
+        System.out.println("*** Wait for 3 MIN so the resource is available");
+        TimeUnit.MINUTES.sleep(3);
         assertDoesNotThrow(() -> LambdaScenario.invokeFunction(awsLambda, functionNameSc));
 
         System.out.println("*** Update the Lambda function code.");
-        assertDoesNotThrow(() -> LambdaScenario.updateFunctionCode(awsLambda, functionNameSc, bucketName, key));
+        assertDoesNotThrow(() -> LambdaScenario.updateFunctionCode(awsLambda, functionNameSc, s3Bucket, updatedKey));
 
         System.out.println("*** Invoke the Lambda function again with the updated code.");
-        System.out.println("*** Wait for 5 MIN so the resource is available");
-        TimeUnit.MINUTES.sleep(5);
+        System.out.println("*** Wait for 3 MIN so the resource is available");
+        TimeUnit.MINUTES.sleep(3);
         assertDoesNotThrow(() -> LambdaScenario.invokeFunction(awsLambda, functionNameSc));
 
         System.out.println("Delete the AWS Lambda function.");
@@ -188,11 +190,15 @@ public class LambdaTest {
         private String role;
         private String handler;
 
+        private String s3Bucket;
+
         private String functionNameSc;
 
         private String bucketName;
 
         private String key;
+
+        private String updatedKey;
         private String functionName;
 
         public String getFilePath() {
@@ -222,6 +228,8 @@ public class LambdaTest {
         public String getFunctionName() {
             return functionName;
         }
+
+        public String getUpdatedKey() {return updatedKey;}
 
     }
 

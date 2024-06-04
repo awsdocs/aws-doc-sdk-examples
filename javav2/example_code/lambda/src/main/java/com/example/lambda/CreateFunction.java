@@ -46,63 +46,65 @@ public class CreateFunction {
 
                 Where:
                     functionName - The name of the Lambda function.\s
-                    filePath - The path to the ZIP or JAR where the code is located.\s
+                    s3Bucket - The Amazon S3 bucket where the the ZIP or JAR is located.\s
+                    s3Key - The name of the ZIP or JAR.
                     role - The role ARN that has Lambda permissions.\s
                     handler - The fully qualified method name (for example, example.Handler::handleRequest). \s
                 """;
 
-        if (args.length != 4) {
+        if (args.length != 5) {
             System.out.println(usage);
             System.exit(1);
         }
 
         String functionName = args[0];
-        String filePath = args[1];
-        String role = args[2];
-        String handler = args[3];
+        String s3Bucket = args[1];
+        String s3Key = args[2];
+        String role = args[3];
+        String handler =  args[4];
         Region region = Region.US_WEST_2;
         LambdaClient awsLambda = LambdaClient.builder()
                 .region(region)
                 .build();
 
-        createLambdaFunction(awsLambda, functionName, filePath, role, handler);
+        createLambdaFunction(awsLambda, functionName, s3Bucket, s3Key, role, handler);
         awsLambda.close();
     }
 
     public static void createLambdaFunction(LambdaClient awsLambda,
-            String functionName,
-            String filePath,
-            String role,
-            String handler) {
+                                            String functionName,
+                                            String s3BucketName,
+                                            String s3Key,
+                                            String role,
+                                            String handler) {
 
         try {
             LambdaWaiter waiter = awsLambda.waiter();
-            InputStream is = new FileInputStream(filePath);
-            SdkBytes fileToUpload = SdkBytes.fromInputStream(is);
 
             FunctionCode code = FunctionCode.builder()
-                    .zipFile(fileToUpload)
-                    .build();
+                .s3Bucket(s3BucketName)
+                .s3Key(s3Key)
+                .build();
 
             CreateFunctionRequest functionRequest = CreateFunctionRequest.builder()
-                    .functionName(functionName)
-                    .description("Created by the Lambda Java API")
-                    .code(code)
-                    .handler(handler)
-                    .runtime(Runtime.JAVA17)
-                    .role(role)
-                    .build();
+                .functionName(functionName)
+                .description("Created by the Lambda Java API")
+                .code(code)
+                .handler(handler)
+                .runtime(Runtime.JAVA17)
+                .role(role)
+                .build();
 
             // Create a Lambda function using a waiter.
             CreateFunctionResponse functionResponse = awsLambda.createFunction(functionRequest);
             GetFunctionRequest getFunctionRequest = GetFunctionRequest.builder()
-                    .functionName(functionName)
-                    .build();
+                .functionName(functionName)
+                .build();
             WaiterResponse<GetFunctionResponse> waiterResponse = waiter.waitUntilFunctionExists(getFunctionRequest);
             waiterResponse.matched().response().ifPresent(System.out::println);
             System.out.println("The function ARN is " + functionResponse.functionArn());
 
-        } catch (LambdaException | FileNotFoundException e) {
+        } catch (LambdaException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
