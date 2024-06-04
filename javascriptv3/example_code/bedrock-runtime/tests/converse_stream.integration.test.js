@@ -1,12 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { describe, expect, test } from "vitest";
-import { execSync } from "child_process";
+import { describe, expect, test, vi } from "vitest";
 import path from "path";
+import { Writable } from "stream";
 
 describe("ConverseStream with text generation models", () => {
-  const file = "converseStream.js";
+  const fileName = "converseStream.js";
+  const baseDirectory = path.join(__dirname, "..", "models");
 
   const subdirectories = [
     "amazonTitanText",
@@ -16,16 +17,29 @@ describe("ConverseStream with text generation models", () => {
     "mistral",
   ];
 
-  const baseDirectory = path.join(__dirname, "..", "models");
-
   test.each(subdirectories)(
     "should invoke the model and return text",
-    (subdirectory) => {
-      const script = path.join(baseDirectory, subdirectory, file);
-      const output = execSync(`node ${script}`, {
-        encoding: "utf-8",
+    async (subdirectory) => {
+      let output = "";
+      const outputStream = new Writable({
+        write(/** @type string */ chunk, encoding, callback) {
+          output += chunk.toString();
+          callback();
+        },
       });
-      expect(output).toMatch(/\S/);
+
+      const stdoutWriteSpy = vi
+        .spyOn(process.stdout, "write")
+        .mockImplementation(outputStream.write.bind(outputStream));
+
+      const script = path.join(baseDirectory, subdirectory, fileName);
+
+      try {
+        await import(script);
+        expect(output).toMatch(/\S/);
+      } finally {
+        stdoutWriteSpy.mockRestore();
+      }
     },
   );
 });
