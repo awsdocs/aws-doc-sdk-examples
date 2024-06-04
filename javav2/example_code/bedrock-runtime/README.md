@@ -40,39 +40,39 @@ functions within the same service.
 
 ### AI21 Labs Jurassic-2
 
-- [Generate text](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L208)
+- [InvokeModel API](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L208)
 
 ### Amazon Titan Image Generator
 
-- [Generate images](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L343)
+- [Generate images with the InvokeModel API](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L343)
 
 ### Amazon Titan Text
 
-- [Generate text](src/main/java/com/example/bedrockruntime/models/amazon/titan/TextQuickstart.java#L11)
+- [InvokeModel API](src/main/java/com/example/bedrockruntime/models/amazon/titan/TextQuickstart.java#L11)
 
 ### Amazon Titan Text Embeddings
 
-- [Generate text embeddings](src/main/java/com/example/bedrockruntime/models/amazon/titan/TextEmbeddingsQuickstart.java#L11)
+- [Generate text embeddings with the InvokeModel API](src/main/java/com/example/bedrockruntime/models/amazon/titan/TextEmbeddingsQuickstart.java#L11)
 
 ### Anthropic Claude
 
-- [Generate text](src/main/java/com/example/bedrockruntime/InvokeModel.java#L112)
-- [Generate text with a response stream](src/main/java/com/example/bedrockruntime/Claude2.java#L65)
+- [InvokeModel API](src/main/java/com/example/bedrockruntime/InvokeModel.java#L112)
+- [InvokeModel API with response stream](src/main/java/com/example/bedrockruntime/Claude2.java#L65)
 
 ### Meta Llama
 
-- [Llama 2: Generate text](src/main/java/com/example/bedrockruntime/models/meta/llama2/InvokeModelQuickstart.java#L11)
-- [Llama 2: Generate text with a response stream](src/main/java/com/example/bedrockruntime/models/meta/llama2/InvokeModelWithResponseStreamQuickstart.java#L12)
-- [Llama 3: Generate text](src/main/java/com/example/bedrockruntime/models/meta/llama3/InvokeModelQuickstart.java#L13)
-- [Llama 3: Generate text with a response stream](src/main/java/com/example/bedrockruntime/models/meta/llama3/InvokeModelWithResponseStreamQuickstart.java#L14)
+- [Llama 2: InvokeModel API](src/main/java/com/example/bedrockruntime/models/meta/llama2/InvokeModelQuickstart.java#L11)
+- [Llama 2: InvokeModel API with a response stream](src/main/java/com/example/bedrockruntime/models/meta/llama2/InvokeModelWithResponseStreamQuickstart.java#L12)
+- [Llama 3: InvokeModel API](src/main/java/com/example/bedrockruntime/models/meta/llama3/InvokeModelQuickstart.java#L13)
+- [Llama 3: InvokeModel API with a response stream](src/main/java/com/example/bedrockruntime/models/meta/llama3/InvokeModelWithResponseStreamQuickstart.java#L14)
 
 ### Mistral AI
 
-- [Generate text](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L33)
+- [InvokeModel API](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L33)
 
 ### Stability AI Diffusion
 
-- [Generate images](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L272)
+- [Generate images with the InvokeModel API](src/main/java/com/example/bedrockruntime/InvokeModelAsync.java#L272)
 
 
 <!--custom.examples.start-->

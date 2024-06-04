@@ -4,8 +4,8 @@
 import { describe, it } from "vitest";
 import { FoundationModels } from "../config/foundation_models.js";
 import { expectToBeANonEmptyString } from "./test_tools.js";
-import { invokeModel as invokeMistral } from "../models/mistral_ai/mistral_7b.js";
-import { invokeModel as invokeMixtral } from "../models/mistral_ai/mixtral_8x7b.js";
+import { invokeModel as invokeMistral } from "../models/mistral/invoke_mistral_7b.js";
+import { invokeModel as invokeMixtral } from "../models/mistral/invoke_mixtral_8x7b.js";
 
 const TEXT_PROMPT = "Hello, this is a test prompt";
 

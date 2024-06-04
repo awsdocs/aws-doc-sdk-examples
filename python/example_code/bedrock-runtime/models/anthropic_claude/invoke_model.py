@@ -7,6 +7,8 @@
 import boto3
 import json
 
+from botocore.Exceptions import ClientError
+
 # Create a Bedrock Runtime client in the AWS Region of your choice.
 client = boto3.client("bedrock-runtime", region_name="us-east-1")
 
@@ -32,8 +34,13 @@ native_request = {
 # Convert the native request to JSON.
 request = json.dumps(native_request)
 
-# Invoke the model with the request.
-response = client.invoke_model(modelId=model_id, body=request)
+try:
+    # Invoke the model with the request.
+    response = client.invoke_model(modelId=model_id, body=request)
+
+except (ClientError, Exception) as e:
+    print(f"ERROR: Can't invoke '{model_id}'. Reason: {e}")
+    exit(1)
 
 # Decode the response body.
 model_response = json.loads(response["body"].read())

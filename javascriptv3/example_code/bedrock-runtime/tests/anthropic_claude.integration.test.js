@@ -7,15 +7,15 @@ import { expectToBeANonEmptyString } from "./test_tools.js";
 import {
   invokeModel as invokeClaudeInstantMessagesApi,
   invokeTextCompletionsApi as invokeClaudeInstantTextCompletionsApi,
-} from "../models/anthropic_claude/claude_instant_1.js";
+} from "../models/anthropicClaude/invoke_claude_instant_1.js";
 import {
   invokeModel as invokeClaude2MessagesApi,
   invokeTextCompletionsApi as invokeClaude2TextCompletionsApi,
-} from "../models/anthropic_claude/claude_2.js";
+} from "../models/anthropicClaude/invoke_claude_2.js";
 import {
   invokeModel as invokeClaude3,
   invokeModelWithResponseStream as invokeClaude3WithResponseStream,
-} from "../models/anthropic_claude/claude_3.js";
+} from "../models/anthropicClaude/invoke_claude_3.js";
 
 const TEXT_PROMPT = "Hello, this is a test prompt";
 

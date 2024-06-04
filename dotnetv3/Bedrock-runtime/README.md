@@ -30,32 +30,47 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 <!--custom.prerequisites.end-->
 ### AI21 Labs Jurassic-2
 
-- [Generate text](Actions/InvokeModelAsync.cs#L164)
-
-### Amazon Titan Image Generator
-
-- [Generate images](Actions/InvokeModelAsync.cs#L450)
+- [Converse API](Models/Ai21LabsJurassic2/Converse/Converse.csx#L4)
+- [InvokeModel API](Models/Ai21LabsJurassic2/InvokeModel/InvokeModel.csx#L4)
 
 ### Amazon Titan Text
 
-- [Generate text](Actions/InvokeModelAsync.cs#L277)
+- [Converse API](Models/AmazonTitanText/Converse/Converse.csx#L4)
+- [Converse API with response stream](Models/AmazonTitanText/ConverseStream/ConverseStream.csx#L4)
+- [InvokeModel API](Models/AmazonTitanText/InvokeModel/InvokeModel.csx#L4)
+- [InvokeModel API with response stream](Models/AmazonTitanText/InvokeModelWithResponseStream/InvokeModelWithResponseStream.csx#L4)
 
 ### Anthropic Claude
 
-- [Generate text](Actions/InvokeModelAsync.cs#L18)
-- [Generate text with a response stream](Actions/InvokeModelAsync.cs#L76)
+- [Converse API](Models/AnthropicClaude/Converse/Converse.csx#L4)
+- [Converse API with response stream](Models/AnthropicClaude/ConverseStream/ConverseStream.csx#L4)
+- [InvokeModel API](Models/AnthropicClaude/InvokeModel/InvokeModel.csx#L4)
+- [InvokeModel API with response stream](Models/AnthropicClaude/InvokeModelWithResponseStream/InvokeModelWithResponseStream.csx#L4)
+
+### Cohere Command
+
+- [All models: Converse API](Models/CohereCommand/Converse/Converse.csx#L4)
+- [All models: Converse API with response stream](Models/CohereCommand/ConverseStream/ConverseStream.csx#L4)
+- [Command R and R+: InvokeModel API](Models/CohereCommand/Command_R_InvokeModel/InvokeModel.csx#L4)
+- [Command R and R+: InvokeModel API with response stream](Models/CohereCommand/Command_R_InvokeModelWithResponseStream/InvokeModelWithResponseStream.csx#L4)
+- [Command and Command Light: InvokeModel API](Models/CohereCommand/Command_InvokeModel/InvokeModel.csx#L4)
+- [Command and Command Light: InvokeModel API with response stream](Models/CohereCommand/Command_InvokeModelWithResponseStream/InvokeModelWithResponseStream.csx#L4)
 
 ### Meta Llama
 
-- [Llama 2: Generate text](Actions/InvokeModelAsync.cs#L221)
+- [All models: Converse API](Models/MetaLlama/Converse/Converse.csx#L4)
+- [All models: Converse API with response stream](Models/MetaLlama/ConverseStream/ConverseStream.csx#L4)
+- [Llama 2: InvokeModel API](Models/MetaLlama/Llama2_InvokeModel/InvokeModel.csx#L4)
+- [Llama 2: InvokeModel API with a response stream](Models/MetaLlama/Llama2_InvokeModelWithResponseStream/InvokeModelWithResponseStream.csx#L4)
+- [Llama 3: InvokeModel API](Models/MetaLlama/Llama3_InvokeModel/InvokeModel.csx#L4)
+- [Llama 3: InvokeModel API with a response stream](Models/MetaLlama/Llama3_InvokeModelWithResponseStream/InvokeModelWithResponseStream.csx#L4)
 
 ### Mistral AI
 
-- [Generate text](Actions/InvokeModelAsync.cs#L338)
-
-### Stability AI Diffusion
-
-- [Generate images](Actions/InvokeModelAsync.cs#L518)
+- [Converse API](Models/Mistral/Converse/Converse.csx#L4)
+- [Converse API with response stream](Models/Mistral/ConverseStream/ConverseStream.csx#L4)
+- [InvokeModel API](Models/Mistral/InvokeModel/InvokeModel.csx#L4)
+- [InvokeModel API with response stream](Models/Mistral/InvokeModelWithResponseStream/InvokeModelWithResponseStream.csx#L4)
 
 
 <!--custom.examples.start-->
