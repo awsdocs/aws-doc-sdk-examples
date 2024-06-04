@@ -28,7 +28,7 @@ The getting started scenario requires an IAM role for a grantee principal. Grant
 
 ## Implementations
 
-This example is implemented in the following languages:
+This example will be implemented in the following languages:
 
 - Java
 - Python
