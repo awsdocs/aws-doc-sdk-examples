@@ -57,7 +57,7 @@ try
 catch (AmazonBedrockRuntimeException e)
 {
     Console.WriteLine($"ERROR: Can't invoke '{modelId}'. Reason: {e.Message}");
-    Environment.Exit(1);
+    throw;
 }
 
 // snippet-end:[BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_Mistral]

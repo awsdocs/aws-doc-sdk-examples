@@ -1,16 +1,13 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier: Apache-2.0
 
+using FluentAssertions;
+
 namespace BedrockRuntimeTests;
 
 public class ActionTest_ConverseStream : ActionTest_Base
 {
-    protected string _action;
-
-    public ActionTest_ConverseStream()
-    {
-        _action = "ConverseStream";
-    }
+    private const string ACTION = "ConverseStream";
 
     [Theory]
     [InlineData("AmazonTitanText")]
@@ -19,12 +16,10 @@ public class ActionTest_ConverseStream : ActionTest_Base
     [InlineData("MetaLlama")]
     [InlineData("Mistral")]
     [Trait("Category", "Integration")]
-    public void RunTest(string model)
+    public async void RunTest(string model)
     {
-        var file = getTestFilePath(model, _action);
-        var (exitCode, standardOutput) = runTest(file);
-
-        Assert.Equal(0, exitCode);
-        Assert.NotEmpty(standardOutput);
+        var script = getPath(model, ACTION);
+        var output = await test(script);
+        output.Should().NotBeNullOrWhiteSpace("The output should contain text.");
     }
 }

@@ -1,69 +1,77 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier: Apache-2.0
 
-using System.Diagnostics;
+using System.Reflection;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
 
 namespace BedrockRuntimeTests
 {
     public abstract class ActionTest_Base
     {
-        protected string _projectRoot;
-        private readonly ProcessStartInfo _processStartInfo;
+        private readonly string baseDirectory;
 
         protected ActionTest_Base()
         {
-            _projectRoot = GetProjectRoot();
-            _processStartInfo = new ProcessStartInfo
+            baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        }
+
+        protected async Task<string> test(string filePath)
+        {
+            validateExtension(filePath);
+
+            var scriptCode = File.ReadAllText(filePath);
+            var scriptOptions = addAssemblies();
+
+            using (var outputWriter = new StringWriter())
             {
-                RedirectStandardOutput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
+                var originalOutput = Console.Out;
+                Console.SetOut(outputWriter);
+
+                try
+                {
+                    await CSharpScript.RunAsync(scriptCode, scriptOptions);
+                    return outputWriter.ToString();
+                }
+                finally
+                {
+                    Console.SetOut(originalOutput);
+                }
+            }
+        }
+
+        private ScriptOptions addAssemblies()
+        {
+            return ScriptOptions.Default
+                .WithImports("System")
+                .AddReferences([
+                    Assembly.LoadFrom(Path.Combine(baseDirectory, "AWSSDK.BedrockRuntime.dll")),
+                    Assembly.LoadFrom(Path.Combine(baseDirectory, "AWSSDK.Core.dll"))]);
+        }
+
+        private static void validateExtension(string filePath)
+        {
+            if (!Path.GetExtension(filePath).Equals(".csx", StringComparison.OrdinalIgnoreCase))
+                throw new ArgumentException("Invalid file extension. Only CSX files are allowed.");
+        }
+
+        protected string getPath(string model, string action, string? subDir = null)
+        {
+            string projectRoot = GetProjectRoot();
+            subDir = subDir != null ? $"{subDir}_{action}" : action;
+            string modelDirectory = Path.Combine(projectRoot, "Models", model, subDir);
+            return Path.Combine(modelDirectory, $"{action}.csx");
         }
 
         private string GetProjectRoot()
         {
-            string currentDirectory = Directory.GetCurrentDirectory();
-            DirectoryInfo directory = new DirectoryInfo(currentDirectory);
-
-            while (directory != null && directory.Name != "Bedrock-runtime")
+            string currentDirectory = baseDirectory;
+            while (!Directory.Exists(Path.Combine(currentDirectory, "Models")))
             {
-                if (directory.Parent == null)
-                {
-                    throw new Exception("Project root directory 'Bedrock-runtime' not found.");
-                }
-                directory = directory.Parent;
+                currentDirectory = Directory.GetParent(currentDirectory)?.FullName
+                    ?? throw new Exception("Script directory 'Models' not found.");
             }
-
-            return directory?.FullName ?? throw new Exception("Project root directory not found.");
-        }
-
-        protected string getTestFilePath(string model, string action, string? subDir = null)
-        {
-            var exeName = subDir != null ? subDir + "_" + action : action;
-            var exePath = Path.Combine("bin", "Debug", "net8.0", exeName + ".exe");
-            var modelPath = Path.Combine(_projectRoot, "Models", model);
-            var subDirPath = subDir != null ? subDir + "_" + action : action;
-            return Path.Combine(modelPath, subDirPath, exePath);
-        }
-
-        protected (int exitCode, string standardOutput) runTest(string executable)
-        {
-            _processStartInfo.FileName = executable;
-
-            using (var process = new Process())
-            {
-                process.StartInfo = _processStartInfo;
-                process.Start();
-
-                var standardOutput = process.StandardOutput.ReadToEnd();
-
-                process.WaitForExit();
-
-                var exitCode = process.ExitCode;
-
-                return (exitCode, standardOutput);
-            }
+            return currentDirectory;
         }
     }
 }
