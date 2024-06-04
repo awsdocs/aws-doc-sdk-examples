@@ -1,13 +1,13 @@
-# Kinesis Data Firehose code examples for the SDK for Python
+# Data Firehose code examples for the SDK for Python
 
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Kinesis Data Firehose.
+Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Data Firehose.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Kinesis Data Firehose is a fully managed service for delivering real-time streaming data to AWS destinations and third-party HTTP endpoints._
+_Data Firehose is a fully managed service for delivering real-time streaming data to AWS destinations and third-party HTTP endpoints._
 
 ## ⚠ Important
 
@@ -46,7 +46,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Put records to Kinesis Data Firehose](scenarios/firehose-put-actions/firehose.py)
+- [Put records to Data Firehose](scenarios/firehose-put-actions/firehose.py)
 
 
 <!--custom.examples.start-->
@@ -62,13 +62,13 @@ functions within the same service.
 
 
 
-#### Put records to Kinesis Data Firehose
+#### Put records to Data Firehose
 
-This example shows you how to use Kinesis Data Firehose to process individual and batch records.
+This example shows you how to use Data Firehose to process individual and batch records.
 
 
-<!--custom.scenario_prereqs.kinesis-firehose_Scenario_PutRecords.start-->
-<!--custom.scenario_prereqs.kinesis-firehose_Scenario_PutRecords.end-->
+<!--custom.scenario_prereqs.firehose_Scenario_PutRecords.start-->
+<!--custom.scenario_prereqs.firehose_Scenario_PutRecords.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -77,8 +77,8 @@ python scenarios/firehose-put-actions/firehose.py
 ```
 
 
-<!--custom.scenarios.kinesis-firehose_Scenario_PutRecords.start-->
-<!--custom.scenarios.kinesis-firehose_Scenario_PutRecords.end-->
+<!--custom.scenarios.firehose_Scenario_PutRecords.start-->
+<!--custom.scenarios.firehose_Scenario_PutRecords.end-->
 
 ### Tests
 
@@ -95,9 +95,9 @@ in the `python` folder.
 
 ## Additional resources
 
-- [Kinesis Data Firehose User Guide](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)
-- [Kinesis Data Firehose API Reference](https://docs.aws.amazon.com/firehose/latest/APIReference/Welcome.html)
-- [SDK for Python Kinesis Data Firehose reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesis-firehose.html)
+- [Data Firehose User Guide](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)
+- [Data Firehose API Reference](https://docs.aws.amazon.com/firehose/latest/APIReference/Welcome.html)
+- [SDK for Python Data Firehose reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesis-firehose.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

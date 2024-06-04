@@ -1,11 +1,11 @@
-# Amazon Kinesis Firehose Common Actions Workflow
+# Amazon Data Firehose Common Actions Workflow
 
 ## Overview
 
-This example demonstrates how to use AWS SDKs to work with Amazon Kinesis Data Firehose, focusing on putting individual records (`PutRecord`) and batches of records (`PutRecordBatch`) to a delivery stream. The workflow showcases creating, configuring, and utilizing a Kinesis Firehose Delivery Stream to handle data ingestion.
+This example demonstrates how to use AWS SDKs to work with Amazon Data Firehose, focusing on putting individual records (`PutRecord`) and batches of records (`PutRecordBatch`) to a delivery stream. The workflow showcases creating, configuring, and utilizing a Data Firehose Delivery Stream to handle data ingestion.
 
-### About Kinesis Firehose
-[Amazon Kinesis Data Firehose](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html) is the easiest way to reliably load streaming data into data lakes, data stores, and analytics services. It can capture, transform, and load streaming data into Amazon S3, Amazon Redshift, Amazon Elasticsearch Service, and Splunk, enabling near real-time analytics with existing business intelligence tools and dashboards.
+### About Data Firehose
+[Amazon Data Firehose](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html) is the easiest way to reliably load streaming data into data lakes, data stores, and analytics services. It can capture, transform, and load streaming data into Amazon S3, Amazon Redshift, Amazon Elasticsearch Service, and Splunk, enabling near real-time analytics with existing business intelligence tools and dashboards.
 
 ## Workflow components
 This workflow consists of three key user tasks:
@@ -26,7 +26,7 @@ This script is designed to be executed locally using your own AWS account with m
 
 ### Setup
 
-1. **Use the [CFN template](./resources/irehose-stack.yml) to create Kinesis Firehose Delivery Stream**:
+1. **Use the [CFN template](./resources/irehose-stack.yml) to create Data Firehose Delivery Stream**:
    - Run the following CLI command:
    ```
    aws cloudformation create-stack \
@@ -60,4 +60,4 @@ You can either implement this specification using your own skill and cunning, or
 
 ## Additional Reading
 
-- [Kinesis Data Firehose](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)
+- [Data Firehose](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)

@@ -1254,14 +1254,14 @@ eventbridge:
   tags:
     product_categories: {'Application Integration'}
   version: eventbridge-2015-10-07
-kinesis-firehose:
+firehose:
   long: "&FHlong;"
   short: "&FH;"
-  sort: Kinesis Data Firehose
+  sort: Data Firehose
   api_ref: firehose/latest/APIReference/Welcome.html
   expanded:
-    long: Amazon Kinesis Data Firehose
-    short: Kinesis Data Firehose
+    long: Amazon Data Firehose
+    short: Data Firehose
   blurb: "is a fully managed service for delivering real-time streaming data to &AWS; destinations and third-party HTTP endpoints."
   guide:
     subtitle: User Guide

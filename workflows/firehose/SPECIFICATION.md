@@ -1,6 +1,6 @@
-# Spec for Kinesis Firehose Common Actions Workflow 
+# Spec for Amazon Data Firehose Common Actions Workflow 
 
-Create a robust, production-grade script demonstrating how to use Amazon Kinesis Data Firehose to put individual records (`PutRecord`) and batches of records (`PutRecordBatch`) to a delivery stream.
+Create a robust, production-grade script demonstrating how to use Amazon Data Firehose to put individual records (`PutRecord`) and batches of records (`PutRecordBatch`) to a delivery stream.
 
 ## Pre-requisites
 1. **AWS Account**: Ensure you have an active AWS account.

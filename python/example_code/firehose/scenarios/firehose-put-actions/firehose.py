@@ -29,7 +29,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.kinesis-firehose.init]
+# snippet-start:[python.example_code.firehose.init]
 class FirehoseClient:
     """
     AWS Firehose client to send records and monitor metrics.
@@ -55,9 +55,9 @@ class FirehoseClient:
         self.firehose = boto3.client("firehose", region_name=self.region)
         self.cloudwatch = boto3.client("cloudwatch", region_name=self.region)
 
-    # snippet-end:[python.example_code.kinesis-firehose.init]
+    # snippet-end:[python.example_code.firehose.init]
 
-    # snippet-start:[python.example_code.kinesis-firehose.put_record]
+    # snippet-start:[python.example_code.firehose.put_record]
     @backoff.on_exception(
         backoff.expo, Exception, max_tries=5, jitter=backoff.full_jitter
     )
@@ -81,9 +81,9 @@ class FirehoseClient:
             logger.info(f"Fail record: {record}.")
             raise
 
-    # snippet-end:[python.example_code.kinesis-firehose.put_record]
+    # snippet-end:[python.example_code.firehose.put_record]
 
-    # snippet-start:[python.example_code.kinesis-firehose.put_record_batch]
+    # snippet-start:[python.example_code.firehose.put_record_batch]
     @backoff.on_exception(
         backoff.expo, Exception, max_tries=5, jitter=backoff.full_jitter
     )
@@ -109,9 +109,9 @@ class FirehoseClient:
             except Exception as e:
                 logger.info(f"Failed to send batch of {len(batch)} records. Error: {e}")
 
-    # snippet-end:[python.example_code.kinesis-firehose.put_record_batch]
+    # snippet-end:[python.example_code.firehose.put_record_batch]
 
-    # snippet-start:[python.example_code.kinesis-firehose.get_stream_metrics]
+    # snippet-start:[python.example_code.firehose.get_stream_metrics]
     def get_metric_statistics(
         self,
         metric_name: str,
@@ -181,7 +181,7 @@ class FirehoseClient:
             else:
                 logger.info(f"No data found for {metric} over the last 5 minutes")
 
-    # snippet-end:[python.example_code.kinesis-firehose.get_stream_metrics]
+    # snippet-end:[python.example_code.firehose.get_stream_metrics]
 
     def _create_record_entry(self, record: dict) -> dict:
         """
