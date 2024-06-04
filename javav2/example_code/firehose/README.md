@@ -1,13 +1,13 @@
-# Kinesis Data Firehose code examples for the SDK for Java 2.x
+# Data Firehose code examples for the SDK for Java 2.x
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 2.x to work with Amazon Kinesis Data Firehose.
+Shows how to use the AWS SDK for Java 2.x to work with Amazon Data Firehose.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Kinesis Data Firehose is a fully managed service for delivering real-time streaming data to AWS destinations and third-party HTTP endpoints._
+_Data Firehose is a fully managed service for delivering real-time streaming data to AWS destinations and third-party HTTP endpoints._
 
 ## ⚠ Important
 
@@ -57,9 +57,9 @@ in the `javav2` folder.
 
 ## Additional resources
 
-- [Kinesis Data Firehose User Guide](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)
-- [Kinesis Data Firehose API Reference](https://docs.aws.amazon.com/firehose/latest/APIReference/Welcome.html)
-- [SDK for Java 2.x Kinesis Data Firehose reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/firehose/package-summary.html)
+- [Data Firehose User Guide](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)
+- [Data Firehose API Reference](https://docs.aws.amazon.com/firehose/latest/APIReference/Welcome.html)
+- [SDK for Java 2.x Data Firehose reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/firehose/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
