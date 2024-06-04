@@ -14,6 +14,6 @@
   },
   "devDependencies": {
     "uuid": "^9.0.0",
-    "vitest": "^0.25.2"
+    "vitest": "^1.6.0"
   }
 }

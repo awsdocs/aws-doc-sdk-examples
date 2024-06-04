@@ -23,7 +23,7 @@ mediaconvert_CreateJob:
           github: dotnetv3/MediaConvert
           sdkguide:
           excerpts:
-            - description: Get the endpoint and set up the client.
+            - description: Set up the file locations, client, and wrapper.
               snippet_tags:
                 - MediaConvert.dotnetv3.Setup
             - description:
@@ -67,7 +67,7 @@ mediaconvert_ListJobs:
           github: dotnetv3/MediaConvert
           sdkguide:
           excerpts:
-            - description: Get the endpoint and set up the client.
+            - description: Set up the file locations, client, and wrapper.
               snippet_tags:
                 - MediaConvert.dotnetv3.Setup
             - description: List the jobs with a particular status.
@@ -111,7 +111,7 @@ mediaconvert_GetJob:
           github: dotnetv3/MediaConvert
           sdkguide:
           excerpts:
-            - description: Get the endpoint and set up the client.
+            - description: Set up the file locations, client, and wrapper.
               snippet_tags:
                 - MediaConvert.dotnetv3.Setup
             - description: Get a job by its ID.

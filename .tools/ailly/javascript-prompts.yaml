@@ -1,0 +1,1821 @@
+example_type:
+  workflow: |
+    <example_type>
+      A Workflow Example, as defined by the TCX Code Examples team, is an example
+      scenario that is targeted to a particular real-world user
+      story, use case, problem, or other common service integration. It may use one
+      or more than one service, and it does not necessarily target a specific set
+      of actions in a single service. Instead, it focuses directly on a specific task
+      or set of service iterations. It should still be a running example, at minimum
+      using command line interactions, and should focus on a specific task using AWS
+      services and features.
+
+      Workflows are interactive tutorials. They are meant to be educational. They
+      follow our tenet of "we are educators" first. Workflows should breakdown
+      a task into steps that allow the user to pause if they like or give additional
+      input when required.
+    </example_type>
+role:
+  tcx_code_example_engineer: |
+    <team_context>
+      TCX SDK Code Examples
+      The TCX SDK Code Examples team produces code examples that demonstrate how to
+      automate AWS services to accomplish key user stories for developers and
+      programmers. These code examples are quick and easy to find and use, are
+      continually tested, and demonstrate AWS and community coding best practices.
+
+      Mission
+      We provide code examples for builders integrating AWS services into their
+      applications and business workflows using the AWS Software Development Kits
+      (SDKs). These examples are educational by design, follow engineering best
+      practices, and target common customer use cases. Within AWS they can be
+      easily integrated into all AWS technical content portals to promote customer
+      discoverability.
+
+      Vision
+      We envision a best-in-class library of code examples for every AWS service
+      and in every actively maintained SDK language. The code example library is a
+      go-to resource for builders and is integrated into the builder experience
+      across AWS customer-facing content. Each example is high-quality, whether
+      hand-written or generated with AI assistance, and solves a specific problem
+      for an AWS customer.
+
+      Tenets
+      These are our tenets, in order of importance:
+
+      We are educators. Comprehension and learnability always take precedence. SDK
+      code must be front and center, and not abstracted into other files.
+
+      We are engineers. Our work and examples defer to industry best practices and
+      we automate whenever possible.
+
+      Our examples address common user challenges. They do not deliberately mirror
+      AWS service silos.
+      
+      Our examples are discoverable. We surface discreet solutions from within
+      larger examples and proactively work with content partners to ensure
+      builders find them.
+      
+      We are subject matter experts. We are the primary reference for code example
+      standards in TCX.
+    </team_context>
+code:
+  header: |
+    <header>
+      Every code file should start with the same header.
+      Here is the header:
+      // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+      // SPDX-License-Identifier: Apache-2.0
+    </header>
+  lint: |
+    <linting>
+      We're using ESLint for type checking javascript files. Here's the config.
+      Make sure code complies with this. Especially `no-unsafe-member-access`.
+      No property should be accessed on an unknown or any type. This means JSDoc
+      comments is sometimes necessary.
+
+      ```
+      {
+        "env": {
+          "es2021": true,
+          "node": true,
+          "browser": true
+        },
+        "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+        "parser": "@typescript-eslint/parser",
+        "plugins": ["import", "@typescript-eslint"],
+        "overrides": [],
+        "parserOptions": {
+          "ecmaVersion": "latest",
+          "sourceType": "module",
+          "project": ["./tsconfig.json"]
+        },
+        "settings": {
+          "import/resolver": { "typescript": {} }
+        },
+        "rules": {
+          "require-await": "error",
+          "import/no-unresolved": "error",
+          "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+              "argsIgnorePattern": "^_",
+              "varsIgnorePattern": "^_",
+              "caughtErrorsIgnorePattern": "^_"
+            }
+          ],
+          "@typescript-eslint/no-unsafe-member-access": "error"
+        }
+      }
+    </linting>
+  libs: |
+    <libs>
+      Here are the functions available in "@aws-doc-sdk-examples/lib"
+      <retry_function>
+        /**
+        * @template T
+        * @param {{ intervalInMs: number, maxRetries: number, swallowError?: boolean, quiet?: boolean }} config
+        * @param {() => Promise<T>} fn
+        * @returns {Promise<T>}
+        */
+        const retry = (config, fn) =>
+          new Promise((resolve, reject) => {
+            const { intervalInMs = 500, maxRetries = 10 } = config;
+            fn()
+              .then(resolve)
+              .catch((err) => {
+                if (!config.quiet) {
+                  console.warn(
+                    `Retrying after ${
+                      intervalInMs / 1000
+                    } seconds. ${maxRetries} retries left.`,
+                  );
+                  console.warn(err instanceof Error ? err.message : err);
+                }
+                if (maxRetries === 0) {
+                  config.swallowError ? resolve() : reject(err);
+                } else {
+                  setTimeout(() => {
+                    retry({ ...config, maxRetries: maxRetries - 1 }, fn).then(
+                      resolve,
+                      reject,
+                    );
+                  }, intervalInMs);
+                }
+              });
+          });
+
+        export { retry };
+      </retry_function>
+    </libs>
+  snippets: |
+    <snippets>
+      Here are some common snippets I use regularly.
+      <run_if>
+        // Call function if run directly
+        import { fileURLToPath } from "url";
+        if (process.argv[1] === fileURLToPath(import.meta.url)) {
+          main();
+        }
+      </run_if>
+    </snippets>
+  scenario: |
+    <scenario>
+      Use the scenario family of classes.
+      These classes are part of the `@aws-doc-sdk-examples/lib/scenario` package.
+      Below is the definition of these classes.
+      <scenario_classes>
+        <file name="@aws-doc-sdk-examples/lib/scenario/index.js">
+          import { Prompter } from "../prompter.js";
+          import { Logger } from "../logger.js";
+          import { SlowLogger } from "../slow-logger.js";
+
+          /**
+          * @typedef {{ confirmAll: boolean, verbose: boolean }} StepHandlerOptions
+          */
+
+          /**
+          * @typedef {{} & StepHandlerOptions} RunConfig
+          */
+
+          /**
+          * @typedef {{skipWhen: (state: Record<string, any>) => boolean}} StepOptions
+          */
+
+          /**
+          * @template O
+          */
+          export class Step {
+            /**
+            * @param {string} name
+            * @param {O & StepOptions} [stepOptions]
+            */
+            constructor(name, stepOptions) {
+              this.name = name;
+
+              /**
+              * @type {O & StepOptions}
+              */
+              this.stepOptions = {
+                skipWhen: () => false,
+                ...stepOptions,
+              };
+            }
+
+            /**
+            * @param {Record<string, any>} state,
+            * @param {StepHandlerOptions} [stepHandlerOptions]
+            */
+            handle(state, stepHandlerOptions) {
+              if (stepHandlerOptions?.verbose) {
+                console.log(
+                  `[DEBUG ${new Date().toISOString()}] Handling step: ${
+                    this.constructor.name
+                  }<${this.name}>`,
+                );
+                console.log(
+                  `[DEBUG ${new Date().toISOString()}] State: ${JSON.stringify(state)}`,
+                );
+              }
+            }
+          }
+
+          /**
+          * @typedef {{ slow: boolean, header: boolean, preformatted: boolean }} ScenarioOutputOptions
+          */
+
+          /**
+          * @extends {Step<ScenarioOutputOptions>}
+          */
+          export class ScenarioOutput extends Step {
+            /**
+            * @param {string} name
+            * @param {string | (state: Record<string, any>) => string | false} value
+            * @param {ScenarioOutputOptions} [scenarioOutputOptions]
+            */
+            constructor(name, value, scenarioOutputOptions = { slow: true }) {
+              super(name, scenarioOutputOptions);
+              this.value = value;
+              this.slowLogger = new SlowLogger(20);
+              this.logger = new Logger();
+            }
+
+            /**
+            * @param {Record<string, any>} state
+            * @param {StepHandlerOptions} [stepHandlerOptions]
+            */
+            async handle(state, stepHandlerOptions) {
+              if (this.stepOptions.skipWhen(state)) {
+                console.log(`Skipping step: ${this.name}`);
+                return;
+              }
+              super.handle(state, stepHandlerOptions);
+
+              const output =
+                typeof this.value === "function" ? this.value(state) : this.value;
+              if (!output) {
+                return;
+              }
+              const paddingTop = "\n";
+              const paddingBottom = "\n";
+              const logger =
+                this.stepOptions?.slow && !stepHandlerOptions?.confirmAll
+                  ? this.slowLogger
+                  : this.logger;
+              const message = paddingTop + output + paddingBottom;
+
+              if (this.stepOptions?.header) {
+                await this.logger.log(this.logger.box(message));
+              } else {
+                await logger.log(message, this.stepOptions?.preformatted);
+              }
+            }
+          }
+
+          /**
+          * @typedef {{
+          *   type: "confirm" | "input" | "multi-select" | "select",
+          *   choices: (string | { name: string, value: string })[] }
+          *   } ScenarioInputOptions
+          */
+
+          /**
+          * @extends {Step<ScenarioInputOptions>}
+          */
+          export class ScenarioInput extends Step {
+            /**
+            * @param {string} name
+            * @param {string | (c: Record<string, any>) => string | false } prompt
+            * @param {ScenarioInputOptions} [scenarioInputOptions]
+            */
+            constructor(name, prompt, scenarioInputOptions) {
+              super(name, scenarioInputOptions);
+              this.prompt = prompt;
+              this.prompter = new Prompter();
+            }
+
+            /**
+            * @param {Record<string, any>} state
+            * @param {StepHandlerOptions} [stepHandlerOptions]
+            */
+            async handle(state, stepHandlerOptions) {
+              if (this.stepOptions.skipWhen(state)) {
+                console.log(`Skipping step: ${this.name}`);
+                return;
+              }
+              super.handle(state, stepHandlerOptions);
+              const message =
+                typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
+              if (!message) {
+                return;
+              }
+
+              const choices =
+                this.stepOptions?.choices &&
+                typeof this.stepOptions?.choices[0] === "string"
+                  ? this.stepOptions?.choices.map((s) => ({ name: s, value: s }))
+                  : this.stepOptions?.choices;
+
+              if (this.stepOptions?.type === "multi-select") {
+                state[this.name] = await this.prompter.checkbox({
+                  message,
+                  choices,
+                });
+              } else if (this.stepOptions?.type === "select") {
+                state[this.name] = await this.prompter.select({
+                  message,
+                  choices,
+                });
+              } else if (this.stepOptions?.type === "input") {
+                state[this.name] = await this.prompter.input({ message });
+              } else if (this.stepOptions?.type === "confirm") {
+                if (stepHandlerOptions?.confirmAll) {
+                  state[this.name] = true;
+                  return true;
+                }
+
+                state[this.name] = await this.prompter.confirm({
+                  message,
+                });
+              } else {
+                throw new Error(
+                  `Error handling ScenarioInput, ${this.stepOptions?.type} is not supported.`,
+                );
+              }
+
+              return state[this.name];
+            }
+          }
+
+          /**
+          * @typedef {{ whileConfig: { whileFn: (state: Record<string, any>) => boolean, input: ScenarioInput, output: ScenarioOutput }}
+          *   } ScenarioActionOptions
+          */
+
+          /**
+          * @extends {Step<ScenarioActionOptions>}
+          */
+          export class ScenarioAction extends Step {
+            /**
+            * @param {string} name
+            * @param {(state: Record<string, any>, options) => Promise<void>} action
+            * @param {Step<ScenarioActionOptions>['stepOptions']} [scenarioActionOptions]
+            */
+            constructor(name, action, scenarioActionOptions) {
+              super(name, scenarioActionOptions);
+              this.action = action;
+            }
+
+            /**
+            * @param {Record<string, any>} state
+            * @param {StepHandlerOptions} [stepHandlerOptions]
+            */
+            async handle(state, stepHandlerOptions) {
+              if (this.stepOptions.skipWhen(state)) {
+                console.log(`Skipping step: ${this.name}`);
+                return;
+              }
+              const _handle = async () => {
+                super.handle(state, stepHandlerOptions);
+                await this.action(state, stepHandlerOptions);
+              };
+
+              if (!stepHandlerOptions?.confirmAll && this.stepOptions?.whileConfig) {
+                const whileFn = this.stepOptions.whileConfig.whileFn;
+                const output = this.stepOptions.whileConfig.output;
+                const input = this.stepOptions.whileConfig.input;
+                await input.handle(state, stepHandlerOptions);
+
+                let runAction = whileFn(state);
+                while (runAction) {
+                  await _handle();
+                  output &&
+                    (await this.stepOptions.whileConfig.output.handle(
+                      state,
+                      stepHandlerOptions,
+                    ));
+                  await input.handle(state, stepHandlerOptions);
+                  runAction = whileFn(state);
+                }
+              } else {
+                await _handle();
+              }
+            }
+          }
+
+          export class Scenario {
+            /**
+            * @type {Record<string, any>}
+            */
+            state = {};
+
+            /**
+            * @type {(ScenarioOutput | ScenarioInput | ScenarioAction | Scenario)[]}
+            */
+            stepsOrScenarios = [];
+
+            /**
+            * @param {string} name
+            * @param {(ScenarioOutput | ScenarioInput | ScenarioAction | null)[]} stepsOrScenarios
+            * @param {Record<string, any>} initialState
+            */
+            constructor(name, stepsOrScenarios = [], initialState = {}) {
+              this.name = name;
+              this.stepsOrScenarios = stepsOrScenarios.filter((s) => !!s);
+              this.state = { ...initialState, name };
+            }
+
+            /**
+            * @param {StepHandlerOptions} stepHandlerOptions
+            */
+            async run(stepHandlerOptions) {
+              for (const stepOrScenario of this.stepsOrScenarios) {
+                if (stepOrScenario instanceof Scenario) {
+                  await stepOrScenario.run(stepHandlerOptions);
+                } else {
+                  await stepOrScenario.handle(this.state, stepHandlerOptions);
+                }
+              }
+            }
+          }
+        </file>
+      </scenario_classes>
+      <basic_scenario_usage>
+        <file name="index.js">
+        import * as Scenarios from "@aws-doc-sdk-examples/lib/scenario/index.js";
+        import {
+          exitOnFalse,
+          loadState,
+          saveState,
+        } from "@aws-doc-sdk-examples/lib/scenario/steps-common.js";
+
+        import { welcome, welcomeContinue } from "./welcome.steps.js";
+        import {
+          confirmCreateBuckets,
+          confirmPopulateBuckets,
+          confirmSetLegalHoldFileEnabled,
+          confirmSetLegalHoldFileRetention,
+          confirmSetRetentionPeriodFileEnabled,
+          confirmSetRetentionPeriodFileRetention,
+          confirmUpdateLockPolicy,
+          confirmUpdateRetention,
+          createBuckets,
+          createBucketsAction,
+          populateBuckets,
+          populateBucketsAction,
+          setLegalHoldFileEnabledAction,
+          setLegalHoldFileRetentionAction,
+          setRetentionPeriodFileEnabledAction,
+          setRetentionPeriodFileRetentionAction,
+          updateLockPolicy,
+          updateLockPolicyAction,
+          updateRetention,
+          updateRetentionAction,
+        } from "./setup.steps.js";
+
+        /**
+        * @param {Scenarios} scenarios
+        * @param {Record<string, any>} initialState
+        */
+        export const getWorkflowStages = (scenarios, initialState = {}) => {
+          const client = new S3Client({});
+
+          return {
+            deploy: new scenarios.Scenario(
+              "S3 Object Locking - Deploy",
+              [
+                welcome(scenarios),
+                welcomeContinue(scenarios),
+                exitOnFalse(scenarios, "welcomeContinue"),
+                createBuckets(scenarios),
+                confirmCreateBuckets(scenarios),
+                exitOnFalse(scenarios, "confirmCreateBuckets"),
+                createBucketsAction(scenarios, client),
+                updateRetention(scenarios),
+                confirmUpdateRetention(scenarios),
+                exitOnFalse(scenarios, "confirmUpdateRetention"),
+                updateRetentionAction(scenarios, client),
+                populateBuckets(scenarios),
+                confirmPopulateBuckets(scenarios),
+                exitOnFalse(scenarios, "confirmPopulateBuckets"),
+                populateBucketsAction(scenarios, client),
+                updateLockPolicy(scenarios),
+                confirmUpdateLockPolicy(scenarios),
+                exitOnFalse(scenarios, "confirmUpdateLockPolicy"),
+                updateLockPolicyAction(scenarios, client),
+                confirmSetLegalHoldFileEnabled(scenarios),
+                setLegalHoldFileEnabledAction(scenarios, client),
+                confirmSetRetentionPeriodFileEnabled(scenarios),
+                setRetentionPeriodFileEnabledAction(scenarios, client),
+                confirmSetLegalHoldFileRetention(scenarios),
+                setLegalHoldFileRetentionAction(scenarios, client),
+                confirmSetRetentionPeriodFileRetention(scenarios),
+                setRetentionPeriodFileRetentionAction(scenarios, client),
+                saveState,
+              ],
+              initialState,
+            ),
+            demo: new scenarios.Scenario(
+              "S3 Object Locking - Demo",
+              [loadState, replAction(scenarios, client)],
+              initialState,
+            ),
+            clean: new scenarios.Scenario(
+              "S3 Object Locking - Destroy",
+              [
+                loadState,
+                confirmCleanup(scenarios),
+                exitOnFalse(scenarios, "confirmCleanup"),
+                cleanupAction(scenarios, client),
+              ],
+              initialState,
+            ),
+          };
+        };
+
+        // Call function if run directly
+        import { fileURLToPath } from "url";
+        import { S3Client } from "@aws-sdk/client-s3";
+        import { cleanupAction, confirmCleanup } from "./clean.steps.js";
+        import { replAction } from "./repl.steps.js";
+
+        if (process.argv[1] === fileURLToPath(import.meta.url)) {
+          const objectLockingScenarios = getWorkflowStages(Scenarios);
+          Scenarios.parseScenarioArgs(objectLockingScenarios);
+        }
+        </file>
+        <file name="repl.steps.js">
+        // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+        // SPDX-License-Identifier: Apache-2.0
+        import {
+          ChecksumAlgorithm,
+          DeleteObjectCommand,
+          GetObjectLegalHoldCommand,
+          GetObjectLockConfigurationCommand,
+          GetObjectRetentionCommand,
+          ListObjectVersionsCommand,
+          PutObjectCommand,
+        } from "@aws-sdk/client-s3";
+
+        /**
+        * @typedef {import("@aws-doc-sdk-examples/lib/scenario/index.js")} Scenarios
+        */
+
+        /**
+        * @typedef {import("@aws-sdk/client-s3").S3Client} S3Client
+        */
+
+        const choices = {
+          EXIT: 0,
+          LIST_ALL_FILES: 1,
+          DELETE_FILE: 2,
+          DELETE_FILE_WITH_RETENTION: 3,
+          OVERWRITE_FILE: 4,
+          VIEW_RETENTION_SETTINGS: 5,
+          VIEW_LEGAL_HOLD_SETTINGS: 6,
+        };
+
+        /**
+        * @param {Scenarios} scenarios
+        */
+        const replInput = (scenarios) =>
+          new scenarios.ScenarioInput(
+            "replChoice",
+            `Explore the S3 locking features by selecting one of the following choices`,
+            {
+              type: "select",
+              choices: [
+                { name: "List all files in buckets", value: choices.LIST_ALL_FILES },
+                { name: "Attempt to delete a file.", value: choices.DELETE_FILE },
+                {
+                  name: "Attempt to delete a file with retention period bypass.",
+                  value: choices.DELETE_FILE_WITH_RETENTION,
+                },
+                { name: "Attempt to overwrite a file.", value: choices.OVERWRITE_FILE },
+                {
+                  name: "View the object and bucket retention settings for a file.",
+                  value: choices.VIEW_RETENTION_SETTINGS,
+                },
+                {
+                  name: "View the legal hold settings for a file.",
+                  value: choices.VIEW_LEGAL_HOLD_SETTINGS,
+                },
+                { name: "Finish the workflow.", value: choices.EXIT },
+              ],
+            },
+          );
+
+        /**
+        * @param {S3Client} client
+        * @param {string[]} buckets
+        */
+        const getAllFiles = async (client, buckets) => {
+          /** @type {{bucket: string, key: string, version: string}[]} */
+          const files = [];
+          for (const bucket of buckets) {
+            const objectsResponse = await client.send(
+              new ListObjectVersionsCommand({ Bucket: bucket }),
+            );
+            for (const version of objectsResponse.Versions || []) {
+              const { Key, VersionId } = version;
+              files.push({ bucket, key: Key, version: VersionId });
+            }
+          }
+
+          return files;
+        };
+
+        /**
+        * @param {Scenarios} scenarios
+        * @param {S3Client} client
+        */
+        const replAction = (scenarios, client) =>
+          new scenarios.ScenarioAction(
+            "replAction",
+            async (state) => {
+              const files = await getAllFiles(client, [
+                state.noLockBucketName,
+                state.lockEnabledBucketName,
+                state.retentionBucketName,
+              ]);
+
+              const fileInput = new scenarios.ScenarioInput(
+                "selectedFile",
+                "Select a file:",
+                {
+                  type: "select",
+                  choices: files.map((file, index) => ({
+                    name: `${index + 1}: ${file.bucket}: ${file.key} (version: ${
+                      file.version
+                    })`,
+                    value: index,
+                  })),
+                },
+              );
+
+              const { replChoice } = state;
+
+              switch (replChoice) {
+                case choices.LIST_ALL_FILES: {
+                  const files = await getAllFiles(client, [
+                    state.noLockBucketName,
+                    state.lockEnabledBucketName,
+                    state.retentionBucketName,
+                  ]);
+                  state.replOutput = files
+                    .map(
+                      (file) =>
+                        `${file.bucket}: ${file.key} (version: ${file.version})`,
+                    )
+                    .join("\n");
+                  break;
+                }
+                case choices.DELETE_FILE: {
+                  /** @type {number} */
+                  const fileToDelete = await fileInput.handle(state);
+                  const selectedFile = files[fileToDelete];
+                  try {
+                    await client.send(
+                      new DeleteObjectCommand({
+                        Bucket: selectedFile.bucket,
+                        Key: selectedFile.key,
+                        VersionId: selectedFile.version,
+                      }),
+                    );
+                    state.replOutput = `Deleted ${selectedFile.key} in ${selectedFile.bucket}.`;
+                  } catch (err) {
+                    state.replOutput = `Unable to delete object ${selectedFile.key} in bucket ${selectedFile.bucket}: ${err.message}`;
+                  }
+                  break;
+                }
+                case choices.DELETE_FILE_WITH_RETENTION: {
+                  /** @type {number} */
+                  const fileToDelete = await fileInput.handle(state);
+                  const selectedFile = files[fileToDelete];
+                  try {
+                    await client.send(
+                      new DeleteObjectCommand({
+                        Bucket: selectedFile.bucket,
+                        Key: selectedFile.key,
+                        VersionId: selectedFile.version,
+                        BypassGovernanceRetention: true,
+                      }),
+                    );
+                    state.replOutput = `Deleted ${selectedFile.key} in ${selectedFile.bucket}.`;
+                  } catch (err) {
+                    state.replOutput = `Unable to delete object ${selectedFile.key} in bucket ${selectedFile.bucket}: ${err.message}`;
+                  }
+                  break;
+                }
+                case choices.OVERWRITE_FILE: {
+                  /** @type {number} */
+                  const fileToOverwrite = await fileInput.handle(state);
+                  const selectedFile = files[fileToOverwrite];
+                  try {
+                    await client.send(
+                      new PutObjectCommand({
+                        Bucket: selectedFile.bucket,
+                        Key: selectedFile.key,
+                        Body: "New content",
+                        ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
+                      }),
+                    );
+                    state.replOutput = `Overwrote ${selectedFile.key} in ${selectedFile.bucket}.`;
+                  } catch (err) {
+                    state.replOutput = `Unable to overwrite object ${selectedFile.key} in bucket ${selectedFile.bucket}: ${err.message}`;
+                  }
+                  break;
+                }
+                case choices.VIEW_RETENTION_SETTINGS: {
+                  /** @type {number} */
+                  const fileToView = await fileInput.handle(state);
+                  const selectedFile = files[fileToView];
+                  try {
+                    const retention = await client.send(
+                      new GetObjectRetentionCommand({
+                        Bucket: selectedFile.bucket,
+                        Key: selectedFile.key,
+                        VersionId: selectedFile.version,
+                      }),
+                    );
+                    const bucketConfig = await client.send(
+                      new GetObjectLockConfigurationCommand({
+                        Bucket: selectedFile.bucket,
+                      }),
+                    );
+                    state.replOutput = `Object retention for ${selectedFile.key} in ${selectedFile.bucket}: ${retention.Retention?.Mode} until ${retention.Retention?.RetainUntilDate?.toISOString()}.
+        Bucket object lock config for ${selectedFile.bucket} in ${selectedFile.bucket}:
+        Enabled: ${bucketConfig.ObjectLockConfiguration?.ObjectLockEnabled}
+        Rule: ${JSON.stringify(bucketConfig.ObjectLockConfiguration?.Rule?.DefaultRetention)}`;
+                  } catch (err) {
+                    state.replOutput = `Unable to fetch object lock retention: '${err.message}'`;
+                  }
+                  break;
+                }
+                case choices.VIEW_LEGAL_HOLD_SETTINGS: {
+                  /** @type {number} */
+                  const fileToView = await fileInput.handle(state);
+                  const selectedFile = files[fileToView];
+                  try {
+                    const legalHold = await client.send(
+                      new GetObjectLegalHoldCommand({
+                        Bucket: selectedFile.bucket,
+                        Key: selectedFile.key,
+                        VersionId: selectedFile.version,
+                      }),
+                    );
+                    state.replOutput = `Object legal hold for ${selectedFile.key} in ${selectedFile.bucket}: Status: ${legalHold.LegalHold?.Status}`;
+                  } catch (err) {
+                    state.replOutput = `Unable to fetch legal hold: '${err.message}'`;
+                  }
+                  break;
+                }
+                default:
+                  throw new Error(`Invalid replChoice: ${replChoice}`);
+              }
+            },
+            {
+              whileConfig: {
+                whileFn: ({ replChoice }) => replChoice !== choices.EXIT,
+                input: replInput(scenarios),
+                output: new scenarios.ScenarioOutput(
+                  "REPL output",
+                  (state) => state.replOutput,
+                  { preformatted: true },
+                ),
+              },
+            },
+          );
+
+        export { replInput, replAction, choices };
+        </file>
+      </basic_scenario_usage>
+      <basic_scenario_usage_test>
+        <file name="index.unit.test.js">
+          import { describe, it, expect, vi } from "vitest";
+
+          import * as Scenario from "@aws-doc-sdk-examples/lib/scenario/index.js";
+
+          vi.doMock("fs/promises", () => ({
+            default: {
+              readFile: () => Promise.resolve(""),
+              writeFile: () => Promise.resolve(),
+            },
+          }));
+
+          const { getWorkflowStages } = await import("./index.js");
+
+          describe("S3 Object Locking Workflow", () => {
+            /**
+            * @param {{}} state
+            */
+            const mockHandle = function () {
+              return Promise.resolve();
+            };
+
+            const initialState = {
+              welcomeContinue: true,
+              confirmCreateBuckets: true,
+              confirmUpdateRetention: true,
+              confirmPopulateBuckets: true,
+            };
+
+            const mockScenarios = {
+              ...Scenario,
+              ScenarioOutput: class ScenarioOutput {
+                handle() {
+                  return mockHandle();
+                }
+              },
+              ScenarioInput: class ScenarioInput {
+                handle() {
+                  return mockHandle();
+                }
+              },
+              ScenarioAction: class ScenarioAction {
+                /**
+                * @param {string} name
+                * @param {Function} fn
+                */
+                constructor(name, fn) {
+                  if (name.startsWith("exitOn")) {
+                    this.handle = (state) => fn(state);
+                  } else {
+                    this.handle = () => mockHandle();
+                  }
+                }
+              },
+            };
+
+            it("should exit if welcomeContinue step resolves to false", async () => {
+              const stages = getWorkflowStages(
+                {
+                  ...mockScenarios,
+                  ScenarioInput: class ScenarioInput {
+                    constructor(name) {
+                      this.name = name;
+                    }
+
+                    /**
+                    * @param {{}} state
+                    */
+                    handle(state) {
+                      if (this.name === "welcomeContinue") {
+                        state["welcomeContinue"] = false;
+                        return Promise.resolve(false);
+                      }
+                      return Promise.resolve(true);
+                    }
+                  },
+                },
+                initialState,
+              );
+
+              const spy = vi.spyOn(process, "exit").mockImplementation(vi.fn());
+
+              await stages.deploy.run({ verbose: true });
+
+              expect(spy).toHaveBeenCalledWith(0);
+            });
+
+            it("should exit if confirmCreateBuckets step resolves to false", async () => {
+              const stages = getWorkflowStages(
+                {
+                  ...mockScenarios,
+                  ScenarioInput: class ScenarioInput {
+                    constructor(name) {
+                      this.name = name;
+                    }
+
+                    /**
+                    * @param {{}} state
+                    */
+                    handle(state) {
+                      if (this.name === "confirmCreateBuckets") {
+                        state["confirmCreateBuckets"] = false;
+                        return Promise.resolve(false);
+                      }
+                      return Promise.resolve(true);
+                    }
+                  },
+                },
+                initialState,
+              );
+
+              const spy = vi.spyOn(process, "exit").mockImplementationOnce(vi.fn());
+
+              await stages.deploy.run({ verbose: true });
+
+              expect(spy).toHaveBeenCalledWith(0);
+            });
+
+            it("should exit if confirmUpdateRetention step resolves to false", async () => {
+              const stages = getWorkflowStages({
+                ...mockScenarios,
+                ScenarioInput: class ScenarioInput {
+                  constructor(name) {
+                    this.name = name;
+                  }
+
+                  /**
+                  * @param {{}} state
+                  */
+                  handle(state) {
+                    if (this.name === "confirmUpdateRetention") {
+                      state["confirmUpdateRetention"] = false;
+                      return Promise.resolve(false);
+                    }
+                    return Promise.resolve(true);
+                  }
+                },
+              });
+
+              const spy = vi.spyOn(process, "exit").mockImplementationOnce(vi.fn());
+
+              await stages.deploy.run({ verbose: true });
+
+              expect(spy).toHaveBeenCalledWith(0);
+            });
+
+            it("should exit if confirmPopulateBuckets step resolves to false", async () => {
+              const stages = getWorkflowStages(
+                {
+                  ...mockScenarios,
+                  ScenarioInput: class ScenarioInput {
+                    constructor(name) {
+                      this.name = name;
+                    }
+
+                    /**
+                    * @param {{}} state
+                    */
+                    handle(state) {
+                      if (this.name === "confirmPopulateBuckets") {
+                        state["confirmPopulateBuckets"] = false;
+                        return Promise.resolve(false);
+                      }
+                      return Promise.resolve(true);
+                    }
+                  },
+                },
+                initialState,
+              );
+
+              const spy = vi.spyOn(process, "exit").mockImplementationOnce(vi.fn());
+
+              await stages.deploy.run({ verbose: true });
+
+              expect(spy).toHaveBeenCalledWith(0);
+            });
+
+            it("should exit if confirmUpdateLockPolicy step resolves to false", async () => {
+              const stages = getWorkflowStages(
+                {
+                  ...mockScenarios,
+                  ScenarioInput: class ScenarioInput {
+                    constructor(name) {
+                      this.name = name;
+                    }
+
+                    /**
+                    * @param {{}} state
+                    */
+                    handle(state) {
+                      if (this.name === "confirmUpdateLockPolicy") {
+                        state["confirmUpdateLockPolicy"] = false;
+                        return Promise.resolve(false);
+                      }
+                      return Promise.resolve(true);
+                    }
+                  },
+                },
+                initialState,
+              );
+
+              const spy = vi.spyOn(process, "exit").mockImplementationOnce(vi.fn());
+
+              await stages.deploy.run({ verbose: true });
+
+              expect(spy).toHaveBeenCalledWith(0);
+            });
+
+            it("should have the correct step order in the deploy scenario", () => {
+              const stages = getWorkflowStages(Scenario);
+              const deploySteps = stages.deploy.stepsOrScenarios;
+
+              const expectedSteps = [
+                "welcome",
+                "welcomeContinue",
+                "exitOnwelcomeContinueFalse",
+                "createBuckets",
+                "confirmCreateBuckets",
+                "exitOnconfirmCreateBucketsFalse",
+                "createBucketsAction",
+                "updateRetention",
+                "confirmUpdateRetention",
+                "exitOnconfirmUpdateRetentionFalse",
+                "updateRetentionAction",
+                "populateBuckets",
+                "confirmPopulateBuckets",
+                "exitOnconfirmPopulateBucketsFalse",
+                "populateBucketsAction",
+                "updateLockPolicy",
+                "confirmUpdateLockPolicy",
+                "exitOnconfirmUpdateLockPolicyFalse",
+                "updateLockPolicyAction",
+                "confirmSetLegalHoldFileEnabled",
+                "setLegalHoldFileEnabledAction",
+                "confirmSetRetentionPeriodFileEnabled",
+                "setRetentionPeriodFileEnabledAction",
+                "confirmSetLegalHoldFileRetention",
+                "setLegalHoldFileRetentionAction",
+                "confirmSetRetentionPeriodFileRetention",
+                "setRetentionPeriodFileRetentionAction",
+                "saveState",
+              ];
+
+              const actualSteps = deploySteps.map((step) => step.name);
+
+              expect(actualSteps).toEqual(expectedSteps);
+            });
+          });
+        </file>
+        <file name="repl.steps.unit.test.js">
+          import { describe, it, expect, vi, beforeEach } from "vitest";
+          import * as Scenarios from "@aws-doc-sdk-examples/lib/scenario/index.js";
+          import { choices, replAction, replInput } from "./repl.steps.js";
+          import { ChecksumAlgorithm } from "@aws-sdk/client-s3";
+
+          describe("repl.steps.js", () => {
+            const mockClient = {
+              send: vi.fn(),
+            };
+
+            const state = {
+              noLockBucketName: "bucket-no-lock",
+              lockEnabledBucketName: "bucket-lock-enabled",
+              retentionBucketName: "bucket-retention",
+            };
+
+            describe("replInput", () => {
+              it("should create a ScenarioInput with the correct choices", () => {
+                const input = replInput(Scenarios);
+                expect(input).toBeInstanceOf(Scenarios.ScenarioInput);
+                expect(input.stepOptions.choices).toHaveLength(7);
+                expect(input.stepOptions.choices.map((c) => c.value)).toEqual([
+                  1, 2, 3, 4, 5, 6, 0,
+                ]);
+              });
+            });
+
+            describe("replAction", () => {
+              beforeEach(() => {
+                mockClient.send.mockReset();
+              });
+
+              it("should call ListObjectVersionsCommand for each bucket", async () => {
+                const handleMock = vi
+                  .fn()
+                  .mockImplementationOnce(
+                    (/** @type { Record<string, any> } */ state) => {
+                      state.replChoice = choices.LIST_ALL_FILES;
+                      return choices.LIST_ALL_FILES;
+                    },
+                  )
+                  .mockImplementation((/** @type { Record<string, any> } */ state) => {
+                    state.replChoice = choices.EXIT;
+                    return choices.EXIT;
+                  });
+
+                const scenarios = {
+                  ...Scenarios,
+                  ScenarioInput: function () {
+                    return {
+                      handle: handleMock,
+                    };
+                  },
+                };
+                const action = replAction(scenarios, mockClient);
+                mockClient.send.mockResolvedValue({ Versions: [] });
+
+                await action.handle(state);
+
+                expect(mockClient.send).toHaveBeenCalledTimes(6);
+                expect(mockClient.send).toHaveBeenNthCalledWith(
+                  1,
+                  expect.objectContaining({
+                    input: expect.objectContaining({ Bucket: state.noLockBucketName }),
+                  }),
+                );
+                expect(mockClient.send).toHaveBeenNthCalledWith(
+                  2,
+                  expect.objectContaining({
+                    input: expect.objectContaining({
+                      Bucket: state.lockEnabledBucketName,
+                    }),
+                  }),
+                );
+                expect(mockClient.send).toHaveBeenNthCalledWith(
+                  3,
+                  expect.objectContaining({
+                    input: expect.objectContaining({ Bucket: state.retentionBucketName }),
+                  }),
+                );
+              });
+
+              it("should call DeleteObjectCommand when replChoice is choices.DELETE_FILE", async () => {
+                const handleMock = vi
+                  .fn()
+                  .mockImplementationOnce(
+                    (/** @type { Record<string, any> } */ state) => {
+                      state.replChoice = choices.DELETE_FILE;
+                      return choices.DELETE_FILE;
+                    },
+                  )
+                  .mockImplementationOnce(
+                    (/** @type { Record<string, any> } */ state) => {
+                      state.selectedFile = 0;
+                      return state.selectedFile;
+                    },
+                  )
+                  .mockImplementation((/** @type { Record<string, any> } */ state) => {
+                    state.replChoice = 0;
+                    return 0;
+                  });
+
+                const scenarios = {
+                  ...Scenarios,
+                  ScenarioInput: function () {
+                    return {
+                      handle: handleMock,
+                    };
+                  },
+                };
+                const action = replAction(scenarios, mockClient);
+                mockClient.send
+                  .mockResolvedValueOnce({ Versions: [{ Key: "key", VersionId: "id" }] })
+                  .mockResolvedValueOnce({ Versions: [] })
+                  .mockResolvedValueOnce({ Versions: [] });
+
+                state.replChoice = choices.DELETE_FILE;
+                await action.handle(state);
+
+                expect(mockClient.send).toHaveBeenCalledWith(
+                  expect.objectContaining({
+                    input: expect.objectContaining({
+                      Bucket: state.noLockBucketName,
+                      Key: "key",
+                      VersionId: "id",
+                    }),
+                  }),
+                );
+              });
+
+              it("should call DeleteObjectCommand with BypassGovernanceRetention set to true when replChoice is choices.DELETE_FILE_WITH_RETENTION", async () => {
+                const handleMock = vi
+                  .fn()
+                  .mockImplementationOnce(
+                    (/** @type { Record<string, any> } */ state) => {
+                      state.replChoice = choices.DELETE_FILE_WITH_RETENTION;
+                      return choices.DELETE_FILE_WITH_RETENTION;
+                    },
+                  )
+                  .mockImplementationOnce(
+                    (/** @type { Record<string, any> } */ state) => {
+                      state.selectedFile = 0;
+                      return state.selectedFile;
+                    },
+                  )
+                  .mockImplementation((/** @type { Record<string, any> } */ state) => {
+                    state.replChoice = choices.EXIT;
+                    return choices.EXIT;
+                  });
+
+                const scenarios = {
+                  ...Scenarios,
+                  ScenarioInput: function () {
+                    return {
+                      handle: handleMock,
+                    };
+                  },
+                };
+
+                const action = replAction(scenarios, mockClient);
+                mockClient.send
+                  .mockResolvedValueOnce({ Versions: [{ Key: "key", VersionId: "id" }] })
+                  .mockResolvedValueOnce({ Versions: [{ Key: "key", VersionId: "id" }] })
+                  .mockResolvedValue({});
+
+                await action.handle(state);
+
+                expect(mockClient.send).toHaveBeenCalledWith(
+                  expect.objectContaining({
+                    input: expect.objectContaining({
+                      Bucket: state.noLockBucketName,
+                      Key: "key",
+                      VersionId: "id",
+                      BypassGovernanceRetention: true,
+                    }),
+                  }),
+                );
+              });
+
+              it("should handle replChoice choices.OVERWRITE_FILE", async () => {
+                const handleMock = vi
+                  .fn()
+                  .mockImplementationOnce(
+                    (/** @type { Record<string, any> } */ state) => {
+                      state.replChoice = choices.OVERWRITE_FILE;
+                      return choices.OVERWRITE_FILE;
+                    },
+                  )
+                  .mockImplementationOnce(
+                    (/** @type { Record<string, any> } */ state) => {
+                      state.selectedFile = 0;
+                      return state.selectedFile;
+                    },
+                  )
+                  .mockImplementation((/** @type { Record<string, any> } */ state) => {
+                    state.replChoice = choices.EXIT;
+                    return choices.EXIT;
+                  });
+
+                const scenarios = {
+                  ...Scenarios,
+                  ScenarioInput: function () {
+                    return {
+                      handle: handleMock,
+                    };
+                  },
+                };
+
+                const action = replAction(scenarios, mockClient);
+                mockClient.send
+                  .mockResolvedValueOnce({ Versions: [{ Key: "key", VersionId: "id" }] })
+                  .mockResolvedValueOnce({ Versions: [] })
+                  .mockResolvedValueOnce({ Versions: [] });
+
+                await action.handle(state);
+
+                expect(mockClient.send).toHaveBeenCalledWith(
+                  expect.objectContaining({
+                    input: expect.objectContaining({
+                      Bucket: state.noLockBucketName,
+                      Key: "key",
+                      Body: "New content",
+                      ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
+                    }),
+                  }),
+                );
+              });
+              it("should handle replChoice choices.VIEW_RETENTION_SETTINGS", async () => {
+                const handleMock = vi
+                  .fn()
+                  .mockImplementationOnce(
+                    (/** @type { Record<string, any> } */ state) => {
+                      state.replChoice = choices.VIEW_RETENTION_SETTINGS;
+                      return choices.VIEW_RETENTION_SETTINGS;
+                    },
+                  )
+                  .mockImplementationOnce(
+                    (/** @type { Record<string, any> } */ state) => {
+                      state.selectedFile = 0;
+                      return state.selectedFile;
+                    },
+                  )
+                  .mockImplementation((/** @type { Record<string, any> } */ state) => {
+                    state.replChoice = choices.EXIT;
+                    return choices.EXIT;
+                  });
+
+                const scenarios = {
+                  ...Scenarios,
+                  ScenarioInput: function () {
+                    return {
+                      handle: handleMock,
+                    };
+                  },
+                };
+
+                const action = replAction(scenarios, mockClient);
+                mockClient.send
+                  .mockResolvedValueOnce({ Versions: [{ Key: "key", VersionId: "id" }] })
+                  .mockResolvedValueOnce({ Versions: [] })
+                  .mockResolvedValueOnce({ Versions: [] })
+                  .mockResolvedValueOnce({
+                    Retention: {
+                      Mode: "GOVERNANCE",
+                      RetainUntilDate: new Date("2024-02-28T00:00:00Z"),
+                    },
+                  })
+                  .mockResolvedValueOnce({
+                    ObjectLockConfiguration: {
+                      ObjectLockEnabled: "Enabled",
+                      Rule: {
+                        DefaultRetention: {
+                          Mode: "GOVERNANCE",
+                          Years: 1,
+                        },
+                      },
+                    },
+                  })
+                  .mockResolvedValue({ Versions: [] });
+
+                await action.handle(state);
+
+                expect(state.replOutput).toContain(
+                  "Object retention for key in bucket-no-lock: GOVERNANCE until 2024-02-28",
+                );
+              });
+              it("should handle replChoice choices.VIEW_LEGAL_HOLD_SETTINGS", async () => {
+                const handleMock = vi
+                  .fn()
+                  .mockImplementationOnce(
+                    (/** @type { Record<string, any> } */ state) => {
+                      state.replChoice = choices.VIEW_LEGAL_HOLD_SETTINGS;
+                      return choices.VIEW_LEGAL_HOLD_SETTINGS;
+                    },
+                  )
+                  .mockImplementationOnce(
+                    (/** @type { Record<string, any> } */ state) => {
+                      state.selectedFile = 0;
+                      return state.selectedFile;
+                    },
+                  )
+                  .mockImplementation((/** @type { Record<string, any> } */ state) => {
+                    state.replChoice = choices.EXIT;
+                    return choices.EXIT;
+                  });
+
+                const scenarios = {
+                  ...Scenarios,
+                  ScenarioInput: function () {
+                    return {
+                      handle: handleMock,
+                    };
+                  },
+                };
+
+                const action = replAction(scenarios, mockClient);
+                mockClient.send
+                  .mockResolvedValueOnce({ Versions: [{ Key: "key", VersionId: "id" }] })
+                  .mockResolvedValueOnce({ Versions: [] })
+                  .mockResolvedValueOnce({ Versions: [] })
+                  .mockResolvedValueOnce({
+                    LegalHold: {
+                      Status: "ON",
+                    },
+                  })
+                  .mockResolvedValue({ Versions: [] });
+
+                await action.handle(state);
+
+                expect(state.replOutput).toContain(
+                  "Object legal hold for key in bucket-no-lock: Status: ON",
+                );
+              });
+            });
+          });
+
+        </file>
+      </basic_scenario_usage_test>
+    <scenario>
+  tests: |
+    <tests>
+      When implementing test behaviors, be very careful not to assume any additional behaviors. Only write
+      tests for the behaviors explicitly requested.
+      For writing unit tests remember that we are using Vitest. Do not import any mocking libraries other than those provided by vitest. Vitest requires that test methods (describe, it, expect, etc.) are explicitly imported. They are not added to the global environment. If you're not sure about the vitest API at any time, please let me know rather than making assumptions. Be sure to use the latest EcmaScript, not Typescript.
+      While vitest allows for globals, we must explicitly import any vitest functions.
+      
+      Be judicious in your mocking. For example, things like "path.join" probably don't need to be mocked
+      because it's a pure function with no i/o.
+
+      If you need to mock a js module that has a default import, make sure to include the default keyword.
+      <mocking_default_import>
+        import fs from "node:fs/promises";
+
+        vi.mock("node:fs/promises", () => ({
+        default: {
+            readFile: vi.fn(),
+            writeFile: vi.fn(),
+        },
+        }));
+
+        fs.readFile();
+      </mocking_default_import>
+
+      If you need to mock stdin or stdout, mock ScenarioInput or ScenarioOutput instead.
+
+      SDK Commands (e.g. CreateStackCommand) do not need to be mocked. We should only need to mock
+      the `send` method on SDK clients.
+
+      When testing that SDK Commands were called, be sure to test the inputs. We cannot compare
+      to instances of a command with same inputs because the test framework will compare by
+      reference instead of value.
+
+      Each test for a Scenario should run the scenario and verify outputs
+      and function calls when applicable.
+
+      <sample_unit_tests>
+        // Here is a sample unit test suite.
+        // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+        // SPDX-License-Identifier: Apache-2.0
+        import { describe, it, expect, vi, afterEach } from "vitest";
+        import { ChecksumAlgorithm } from "@aws-sdk/client-s3";
+        import * as Scenarios from "@aws-doc-sdk-examples/lib/scenario/index.js";
+        import {
+          createBucketsAction,
+          populateBucketsAction,
+          updateRetentionAction,
+          updateLockPolicyAction,
+        } from "./setup.steps.js";
+
+        describe("setup.steps.js", () => {
+          const mockClient = {
+            send: vi.fn(),
+          };
+
+          const state = {
+            noLockBucketName: "js-object-locking-no-lock",
+            lockEnabledBucketName: "js-object-locking-lock-enabled",
+            retentionBucketName: "js-object-locking-retention-after-creation",
+          };
+
+          afterEach(() => {
+            vi.resetAllMocks();
+          });
+
+          describe("createBucketsAction", () => {
+            it("should create three buckets with the correct configurations", async () => {
+              const action = createBucketsAction(Scenarios, mockClient);
+              await action.handle(state);
+
+              expect(mockClient.send).toHaveBeenCalledTimes(3);
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.noLockBucketName,
+                  },
+                }),
+              );
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.lockEnabledBucketName,
+                    ObjectLockEnabledForBucket: true,
+                  },
+                }),
+              );
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.retentionBucketName,
+                  },
+                }),
+              );
+            });
+          });
+
+          describe("populateBucketsAction", () => {
+            it("should upload six files to the three buckets", async () => {
+              const action = populateBucketsAction(Scenarios, mockClient);
+              await action.handle(state);
+
+              expect(mockClient.send).toHaveBeenCalledTimes(6);
+              for (const stateKey in state) {
+                ["file0.txt", "file1.txt"].forEach((fileName) => {
+                  expect(mockClient.send).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                      input: {
+                        Bucket: state[stateKey],
+                        Key: fileName,
+                        Body: "Content",
+                        ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
+                      },
+                    }),
+                  );
+                });
+              }
+            });
+          });
+
+          describe("updateRetentionAction", () => {
+            it("should enable versioning and set a retention period on the retention bucket", async () => {
+              const action = updateRetentionAction(Scenarios, mockClient);
+              await action.handle(state);
+
+              expect(mockClient.send).toHaveBeenCalledTimes(2);
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.retentionBucketName,
+                    VersioningConfiguration: {
+                      MFADelete: "Disabled",
+                      Status: "Enabled",
+                    },
+                  },
+                }),
+              );
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.retentionBucketName,
+                    ObjectLockConfiguration: {
+                      ObjectLockEnabled: "Enabled",
+                      Rule: {
+                        DefaultRetention: {
+                          Mode: "GOVERNANCE",
+                          Years: 1,
+                        },
+                      },
+                    },
+                  },
+                }),
+              );
+            });
+          });
+
+          describe("updateLockPolicyAction", () => {
+            it("should add an object lock policy to the lock-enabled bucket", async () => {
+              const action = updateLockPolicyAction(Scenarios, mockClient);
+              await action.handle(state);
+
+              expect(mockClient.send).toHaveBeenCalledTimes(1);
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.lockEnabledBucketName,
+                    ObjectLockConfiguration: {
+                      ObjectLockEnabled: "Enabled",
+                    },
+                  },
+                }),
+              );
+            });
+          });
+        });
+
+      </sample_unit_tests>
+      <sample_integration_test>
+      // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+      // SPDX-License-Identifier: Apache-2.0
+      import { describe, it, expect, afterAll } from "vitest";
+      import {
+        S3Client,
+        DeleteBucketCommand,
+        ListBucketsCommand,
+        GetBucketVersioningCommand,
+        GetObjectLockConfigurationCommand,
+        ListObjectsCommand,
+        GetObjectLegalHoldCommand,
+        GetObjectRetentionCommand,
+        ListObjectVersionsCommand,
+        PutObjectLegalHoldCommand,
+        DeleteObjectCommand,
+      } from "@aws-sdk/client-s3";
+      import {
+        createBucketsAction,
+        updateRetentionAction,
+        populateBucketsAction,
+        updateLockPolicyAction,
+        setLegalHoldFileEnabledAction,
+        setRetentionPeriodFileEnabledAction,
+        setLegalHoldFileRetentionAction,
+        setRetentionPeriodFileRetentionAction,
+      } from "./setup.steps.js";
+      import * as Scenarios from "@aws-doc-sdk-examples/lib/scenario/index.js";
+
+      const bucketPrefix = "js-object-locking";
+      const client = new S3Client({});
+
+      describe("S3 Object Locking Integration Tests", () => {
+        const state = {
+          noLockBucketName: `${bucketPrefix}-no-lock`,
+          lockEnabledBucketName: `${bucketPrefix}-lock-enabled`,
+          retentionBucketName: `${bucketPrefix}-retention-after-creation`,
+        };
+
+        afterAll(async () => {
+          // Clean up resources
+          for (const bucketName of [
+            state.noLockBucketName,
+            state.lockEnabledBucketName,
+            state.retentionBucketName,
+          ]) {
+            const objectsResponse = await client.send(
+              new ListObjectVersionsCommand({ Bucket: bucketName }),
+            );
+
+            for (const version of objectsResponse.Versions || []) {
+              const { Key, VersionId } = version;
+
+              try {
+                const legalHold = await client.send(
+                  new GetObjectLegalHoldCommand({
+                    Bucket: bucketName,
+                    Key,
+                    VersionId,
+                  }),
+                );
+                if (legalHold.LegalHold?.Status === "ON") {
+                  await client.send(
+                    new PutObjectLegalHoldCommand({
+                      Bucket: bucketName,
+                      Key,
+                      VersionId,
+                      LegalHold: {
+                        Status: "OFF",
+                      },
+                    }),
+                  );
+                }
+              } catch (err) {
+                console.log(
+                  `Unable to fetch legal hold for ${Key} in ${bucketName}: '${err.message}'`,
+                );
+              }
+
+              try {
+                const retention = await client.send(
+                  new GetObjectRetentionCommand({
+                    Bucket: bucketName,
+                    Key,
+                    VersionId,
+                  }),
+                );
+                if (retention.Retention?.Mode === "GOVERNANCE") {
+                  await client.send(
+                    new DeleteObjectCommand({
+                      Bucket: bucketName,
+                      Key,
+                      VersionId,
+                      BypassGovernanceRetention: true,
+                    }),
+                  );
+                }
+              } catch (err) {
+                console.log(
+                  `Unable to fetch object lock retention for ${Key} in ${bucketName}: '${err.message}'`,
+                );
+              }
+
+              await client.send(
+                new DeleteObjectCommand({ Bucket: bucketName, Key, VersionId }),
+              );
+            }
+
+            await client.send(new DeleteBucketCommand({ Bucket: bucketName }));
+            console.log(`Delete for ${bucketName} complete.`);
+          }
+        });
+
+        it("should create buckets with correct configurations", async () => {
+          const action = createBucketsAction(Scenarios, client);
+          await action.handle(state);
+
+          const bucketList = await client.send(new ListBucketsCommand({}));
+          expect(bucketList.Buckets?.map((bucket) => bucket.Name)).toContain(
+            state.noLockBucketName,
+          );
+          expect(bucketList.Buckets?.map((bucket) => bucket.Name)).toContain(
+            state.lockEnabledBucketName,
+          );
+          expect(bucketList.Buckets?.map((bucket) => bucket.Name)).toContain(
+            state.retentionBucketName,
+          );
+        });
+
+        it("should enable versioning and set retention period on retention bucket", async () => {
+          const action = updateRetentionAction(Scenarios, client);
+          await action.handle(state);
+
+          const versioningConfig = await client.send(
+            new GetBucketVersioningCommand({ Bucket: state.retentionBucketName }),
+          );
+          expect(versioningConfig.Status).toEqual("Enabled");
+
+          const lockConfig = await client.send(
+            new GetObjectLockConfigurationCommand({
+              Bucket: state.retentionBucketName,
+            }),
+          );
+          expect(lockConfig.ObjectLockConfiguration?.ObjectLockEnabled).toEqual(
+            "Enabled",
+          );
+          expect(
+            lockConfig.ObjectLockConfiguration?.Rule?.DefaultRetention?.Mode,
+          ).toEqual("GOVERNANCE");
+          expect(
+            lockConfig.ObjectLockConfiguration?.Rule?.DefaultRetention?.Years,
+          ).toEqual(1);
+        });
+
+        it("should upload files to buckets", async () => {
+          const action = populateBucketsAction(Scenarios, client);
+          await action.handle(state);
+
+          const noLockObjects = await client.send(
+            new ListObjectsCommand({ Bucket: state.noLockBucketName }),
+          );
+          expect(noLockObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file0.txt",
+          );
+          expect(noLockObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file1.txt",
+          );
+
+          const lockEnabledObjects = await client.send(
+            new ListObjectsCommand({ Bucket: state.lockEnabledBucketName }),
+          );
+          expect(lockEnabledObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file0.txt",
+          );
+          expect(lockEnabledObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file1.txt",
+          );
+
+          const retentionObjects = await client.send(
+            new ListObjectsCommand({ Bucket: state.retentionBucketName }),
+          );
+          expect(retentionObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file0.txt",
+          );
+          expect(retentionObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file1.txt",
+          );
+        });
+
+        it("should add object lock policy to lock-enabled bucket", async () => {
+          const action = updateLockPolicyAction(Scenarios, client);
+          await action.handle(state);
+
+          const lockConfig = await client.send(
+            new GetObjectLockConfigurationCommand({
+              Bucket: state.lockEnabledBucketName,
+            }),
+          );
+          expect(lockConfig.ObjectLockConfiguration?.ObjectLockEnabled).toEqual(
+            "Enabled",
+          );
+        });
+
+        it.skip("should set legal hold on enabled file", async () => {
+          const action = setLegalHoldFileEnabledAction(Scenarios, client);
+          state.confirmSetLegalHoldFileEnabled = true;
+          await action.handle(state);
+
+          const legalHold = await client.send(
+            new GetObjectLegalHoldCommand({
+              Bucket: state.lockEnabledBucketName,
+              Key: "file0.txt",
+            }),
+          );
+          expect(legalHold.LegalHold?.Status).toEqual("ON");
+        });
+
+        it("should set retention period on enabled file", async () => {
+          const action = setRetentionPeriodFileEnabledAction(Scenarios, client);
+          state.confirmSetRetentionPeriodFileEnabled = true;
+          await action.handle(state);
+
+          const retention = await client.send(
+            new GetObjectRetentionCommand({
+              Bucket: state.lockEnabledBucketName,
+              Key: "file1.txt",
+            }),
+          );
+          expect(retention.Retention?.Mode).toEqual("GOVERNANCE");
+          expect(retention.Retention?.RetainUntilDate).toBeDefined();
+        });
+
+        it("should set legal hold on retention file", async () => {
+          const action = setLegalHoldFileRetentionAction(Scenarios, client);
+          state.confirmSetLegalHoldFileRetention = true;
+          await action.handle(state);
+
+          const legalHold = await client.send(
+            new GetObjectLegalHoldCommand({
+              Bucket: state.retentionBucketName,
+              Key: "file0.txt",
+            }),
+          );
+          expect(legalHold.LegalHold?.Status).toEqual("ON");
+        });
+
+        it("should set retention period on retention file", async () => {
+          const action = setRetentionPeriodFileRetentionAction(Scenarios, client);
+          state.confirmSetRetentionPeriodFileRetention = true;
+          await action.handle(state);
+
+          const retention = await client.send(
+            new GetObjectRetentionCommand({
+              Bucket: state.retentionBucketName,
+              Key: "file1.txt",
+            }),
+          );
+          expect(retention.Retention?.Mode).toEqual("GOVERNANCE");
+          expect(retention.Retention?.RetainUntilDate).toBeDefined();
+        });
+      });
+      </sample_integration_test>
+    </tests>

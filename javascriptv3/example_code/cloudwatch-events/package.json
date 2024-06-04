@@ -14,6 +14,6 @@
     "integration-test": "vitest run **/*.integration.test.js"
   },
   "devDependencies": {
-    "vitest": "^0.25.7"
+    "vitest": "^1.6.0"
   }
 }

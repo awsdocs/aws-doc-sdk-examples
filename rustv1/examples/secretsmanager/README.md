@@ -34,9 +34,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `rustv1` 
 
 Code excerpts that show you how to call individual service functions.
 
-* [Create a secret](src/bin/create-secret.rs#L32) (`CreateSecret`)
 * [Get a secret value](src/bin/get-secret-value.rs#L28) (`GetSecretValue`)
-* [List secrets](src/bin/list-secrets.rs#L24) (`ListSecrets`)
 
 ## Run the examples
 

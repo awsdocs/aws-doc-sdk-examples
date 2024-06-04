@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@aws-sdk/client-iam": "^3.391.0",
-    "@aws-sdk/client-s3": "^3.391.0"
+    "@aws-sdk/client-s3": "^3.391.0",
+    "vitest": "^1.6.0"
   }
 }

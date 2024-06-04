@@ -5,6 +5,7 @@ allow_list:
   # Safe look-alikes, mostly tokens and paths that happen to be 40 characters.
   - "/AmazonEventBridgeServiceIntegrationTest"
   - "/ListOrganizationalUnitsForParentExample"
+  - "AmazonDataZoneBedrockPermissionsBoundary"
   - "AWSEC2/latest/APIReference/OperationList"
   - "AWSManagedDomainsBotnetCommandandControl"
   - "AllocatedProvisionedConcurrentExecutions"
@@ -44,6 +45,8 @@ allow_list:
   - "ListTagsExample/ListTagsExample/ListTags"
   - "ListTagsForVaultExample/ListTagsForVault"
   - "ListVoiceConnectorTerminationCredentials"
+  - "Models/AmazonTitanText/Converse/Converse"
+  - "Models/AnthropicClaude/Converse/Converse"
   - "ModifyReplicationGroupShardConfiguration"
   - "ModifyTrafficMirrorFilterNetworkServices"
   - "PutBucketIntelligentTieringConfiguration"
@@ -199,6 +202,7 @@ allow_list:
   - "https://docs.aws.amazon.com/ivs/latest/userguide//private-channels.html"
   - "CognitoEventUserPoolsMigrateUserResponse"
   - "v2/service/cognitoidentityprovider/types"
+  - "abortIncompleteMultipartUploadsOlderThan"
 sample_files:
   - "README.md"
   - "chat_sfn_state_machine.json"

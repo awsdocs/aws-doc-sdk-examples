@@ -40,14 +40,26 @@ functions within the same service.
 
 - [Invoke multiple foundation models on Amazon Bedrock](scenarios/scenario_invoke_models.go)
 
-### Invoke model examples
+### AI21 Labs Jurassic-2
 
-- [AI21 Labs Jurassic-2: Text generation](actions/invoke_model.go#L83)
-- [Amazon Titan Text G1](actions/invoke_model.go#L261)
-- [Amazon Titan: Image generation](actions/invoke_model.go#L191)
-- [Anthropic Claude 2: Real-time response stream processing](actions/invoke_model_with_response_stream.go#L30)
-- [Anthropic Claude 2: Text generation](actions/invoke_model.go#L27)
-- [Meta Llama 2: Text generation](actions/invoke_model.go#L140)
+- [InvokeModel API](actions/invoke_model.go#L83)
+
+### Amazon Titan Image Generator
+
+- [Generate images with the InvokeModel API](actions/invoke_model.go#L191)
+
+### Amazon Titan Text
+
+- [InvokeModel API](actions/invoke_model.go#L261)
+
+### Anthropic Claude
+
+- [InvokeModel API](actions/invoke_model.go#L27)
+- [InvokeModel API with response stream](actions/invoke_model_with_response_stream.go#L30)
+
+### Meta Llama
+
+- [Llama 2: InvokeModel API](actions/invoke_model.go#L140)
 
 
 <!--custom.examples.start-->

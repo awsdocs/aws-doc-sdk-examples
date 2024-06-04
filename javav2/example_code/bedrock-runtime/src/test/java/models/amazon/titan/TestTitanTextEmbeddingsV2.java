@@ -3,12 +3,12 @@
 
 package models.amazon.titan;
 
-import com.example.bedrockruntime.models.amazon.titan.TextEmbeddingsV2Quickstart;
+import com.example.bedrockruntime.models.amazon.titan.TextEmbeddingsQuickstart;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import static com.example.bedrockruntime.models.amazon.titan.TextEmbeddingsV2Scenarios.invokeModel;
+import static com.example.bedrockruntime.models.amazon.titan.TextEmbeddingsScenarios.invokeModel;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class TestTitanTextEmbeddingsV2 {
     @Test
     void Quickstart() {
-        assertDoesNotThrow(() -> TextEmbeddingsV2Quickstart.main(null));
+        assertDoesNotThrow(() -> TextEmbeddingsQuickstart.main(null));
     }
 
     @Test

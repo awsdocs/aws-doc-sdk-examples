@@ -11,7 +11,7 @@
     "@aws-sdk/client-bedrock-agent-runtime": "^3.501.0"
   },
   "devDependencies": {
-    "vitest": "^1.2.1",
+    "vitest": "^1.6.0",
     "zod": "^3.22.4"
   }
 }

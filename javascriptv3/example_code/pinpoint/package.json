@@ -8,5 +8,8 @@
   "dependencies": {
     "@aws-sdk/client-pinpoint": "^3.556.0"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "vitest": "^1.6.0"
+  }
 }

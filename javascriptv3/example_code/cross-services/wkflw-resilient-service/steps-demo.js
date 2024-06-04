@@ -112,7 +112,7 @@ const loadBalancerLoop = new ScenarioAction(
   getRecommendation.action,
   {
     whileConfig: {
-      inputEquals: true,
+      whileFn: ({ loadBalancerCheck }) => loadBalancerCheck,
       input: new ScenarioInput(
         "loadBalancerCheck",
         MESSAGES.demoLoadBalancerCheck,
@@ -130,7 +130,7 @@ const healthCheckLoop = new ScenarioAction(
   getHealthCheck.action,
   {
     whileConfig: {
-      inputEquals: true,
+      whileFn: ({ healthCheck }) => healthCheck,
       input: new ScenarioInput("healthCheck", MESSAGES.demoHealthCheck, {
         type: "confirm",
       }),

@@ -32,11 +32,12 @@ The table has two attributes:
 
 Creates a new item in a DynamoDB table.
 
-`go run CreateTableItem -d TABLE -y YEAR -t TITLE -r RATING`
+`go run CreateTableItem -d TABLE -y YEAR -t TITLE -p PLOT -r RATING`
 
 - _TABLE_ is the name of the table.
 - _YEAR_ is the year that the movie was released.
 - _TITLE_ is the title of the movie.
+- _PLOT_ is the plot of the movie.
 - _RATING_ is the rating, from 0.0 to 10.0, of the movie.
 
 The unit test accepts similar values in _config.json_.

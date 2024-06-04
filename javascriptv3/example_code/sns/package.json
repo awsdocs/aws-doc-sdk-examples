@@ -11,6 +11,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "@aws-sdk/client-sqs": "^3.382.0"
+    "@aws-sdk/client-sqs": "^3.382.0",
+    "vitest": "^1.6.0"
   }
 }

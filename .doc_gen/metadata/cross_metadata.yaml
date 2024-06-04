@@ -1,4 +1,18 @@
 # zexi 0.4.0
+cross_MessageProcessingFrameworkTutorial:
+  title: Use the &AWS; Message Processing Framework for .NET to publish and receive &SQS; messages
+  title_abbrev: Use the &AWS; Message Processing Framework for .NET with &SQS;
+  synopsis: create applications that publish and receive &SQS; messages using the &AWS; Message Processing Framework for .NET.
+  category: Cross-service examples
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/MessageProcessingFramework
+          block_content: cross_MessageProcessingFramework_Net_block.xml
+  service_main: sqs
+  services:
+    sqs:
 cross_FSA:
   title: Create an application that analyzes customer feedback and synthesizes audio
   title_abbrev: Create an application to analyze customer feedback

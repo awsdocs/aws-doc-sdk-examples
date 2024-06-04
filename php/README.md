@@ -46,6 +46,23 @@ To install dependencies, run `composer install` (https://getcomposer.org) before
 Many examples come with a `Runner.php` file to abstract the logic of the example from running the code.
 From any example directory with a `Runner.php` file, run the example with `php Runner.php`.
 
+
+## Linting and formatting
+We use [phpcs](https://github.com/PHPCSStandards/PHP_CodeSniffer/) to keep this code consistently formatted and styled.
+To contribute PHP code to this project, please refer to the following installation and usage steps.
+
+### Using PHPCS
+
+From the `/php` directory, make sure all dependencies are installed at that level with `composer install`. 
+
+Then, the linter can be run with
+`vendor/bin/phpcs --standard=../.github/linters/phpcs.xml --extensions=php --ignore=vendor /path/to/lint`
+
+Replace `/path/to/lint` with the directory you wish to check.
+
+Simple errors can be automatically fixed using phpcbf:
+`vendor/bin/phpcbf --standard=../.github/linters/phpcs.xml --extensions=php --ignore=vendor example_code/dynamodb/`
+
 ## Tests
 **Note**: Running the tests might result in charges to your AWS account.
 

@@ -15,6 +15,6 @@
     "test": "vitest run **/*.unit.test.js"
   },
   "devDependencies": {
-    "vitest": "^0.25.3"
+    "vitest": "^1.6.0"
   }
 }

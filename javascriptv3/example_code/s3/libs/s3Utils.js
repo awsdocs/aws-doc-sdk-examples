@@ -6,6 +6,11 @@ import {
   ListObjectsCommand,
   DeleteBucketCommand,
   DeleteObjectsCommand,
+  ListObjectVersionsCommand,
+  GetObjectLegalHoldCommand,
+  PutObjectLegalHoldCommand,
+  GetObjectRetentionCommand,
+  DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 import { client as s3Client } from "../client.js";
 
@@ -58,4 +63,73 @@ export function putBucketPolicyAllowPuts(bucketName, sid) {
   });
 
   return s3Client.send(putBucketPolicyCommand);
+}
+
+export async function legallyEmptyAndDeleteBuckets(bucketNames) {
+  for (const bucketName of bucketNames) {
+    const objectsResponse = await s3Client.send(
+      new ListObjectVersionsCommand({ Bucket: bucketName }),
+    );
+
+    for (const version of objectsResponse.Versions || []) {
+      const { Key, VersionId } = version;
+
+      try {
+        const legalHold = await s3Client.send(
+          new GetObjectLegalHoldCommand({
+            Bucket: bucketName,
+            Key,
+            VersionId,
+          }),
+        );
+        if (legalHold.LegalHold?.Status === "ON") {
+          await s3Client.send(
+            new PutObjectLegalHoldCommand({
+              Bucket: bucketName,
+              Key,
+              VersionId,
+              LegalHold: {
+                Status: "OFF",
+              },
+            }),
+          );
+        }
+      } catch (err) {
+        console.log(
+          `Unable to fetch legal hold for ${Key} in ${bucketName}: '${err.message}'`,
+        );
+      }
+
+      try {
+        const retention = await s3Client.send(
+          new GetObjectRetentionCommand({
+            Bucket: bucketName,
+            Key,
+            VersionId,
+          }),
+        );
+        if (retention.Retention?.Mode === "GOVERNANCE") {
+          await s3Client.send(
+            new DeleteObjectCommand({
+              Bucket: bucketName,
+              Key,
+              VersionId,
+              BypassGovernanceRetention: true,
+            }),
+          );
+        }
+      } catch (err) {
+        console.log(
+          `Unable to fetch object lock retention for ${Key} in ${bucketName}: '${err.message}'`,
+        );
+      }
+
+      await s3Client.send(
+        new DeleteObjectCommand({ Bucket: bucketName, Key, VersionId }),
+      );
+    }
+
+    await s3Client.send(new DeleteBucketCommand({ Bucket: bucketName }));
+    console.log(`Delete for ${bucketName} complete.`);
+  }
 }
