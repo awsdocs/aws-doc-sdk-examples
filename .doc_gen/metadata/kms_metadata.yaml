@@ -593,6 +593,15 @@ kms_UpdateAlias:
     kms: {UpdateAlias}
 kms_DeleteAlias:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - kms.java2_delete_alias.main
     Python:
       versions:
         - sdk_version: 3

@@ -27,7 +27,6 @@ import software.amazon.awssdk.services.kms.model.EncryptRequest;
 import software.amazon.awssdk.services.kms.model.EncryptResponse;
 import software.amazon.awssdk.services.kms.model.GetKeyPolicyRequest;
 import software.amazon.awssdk.services.kms.model.GetKeyPolicyResponse;
-import software.amazon.awssdk.services.kms.model.GrantListEntry;
 import software.amazon.awssdk.services.kms.model.GrantOperation;
 import software.amazon.awssdk.services.kms.model.KeySpec;
 import software.amazon.awssdk.services.kms.model.KeyState;
@@ -35,9 +34,7 @@ import software.amazon.awssdk.services.kms.model.KeyUsageType;
 import software.amazon.awssdk.services.kms.model.KmsException;
 import software.amazon.awssdk.services.kms.model.LimitExceededException;
 import software.amazon.awssdk.services.kms.model.ListAliasesRequest;
-import software.amazon.awssdk.services.kms.model.ListAliasesResponse;
 import software.amazon.awssdk.services.kms.model.ListGrantsRequest;
-import software.amazon.awssdk.services.kms.model.ListGrantsResponse;
 import software.amazon.awssdk.services.kms.model.ListKeyPoliciesRequest;
 import software.amazon.awssdk.services.kms.model.ListKeyPoliciesResponse;
 import software.amazon.awssdk.services.kms.model.OriginType;
@@ -51,10 +48,11 @@ import software.amazon.awssdk.services.kms.model.Tag;
 import software.amazon.awssdk.services.kms.model.TagResourceRequest;
 import software.amazon.awssdk.services.kms.model.VerifyRequest;
 import software.amazon.awssdk.services.kms.model.VerifyResponse;
+import software.amazon.awssdk.services.kms.paginators.ListAliasesIterable;
+import software.amazon.awssdk.services.kms.paginators.ListGrantsIterable;
 import software.amazon.awssdk.services.secretsmanager.model.ResourceExistsException;
 import software.amazon.awssdk.services.sts.StsClient;
 import software.amazon.awssdk.services.sts.model.GetCallerIdentityResponse;
-
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -308,11 +306,11 @@ public class KMSScenario {
                 .limit(15)
                 .build();
 
-            ListAliasesResponse aliasesResponse = kmsClient.listAliases(aliasesRequest);
-            List<AliasListEntry> aliases = aliasesResponse.aliases();
-            for (AliasListEntry alias : aliases) {
-                System.out.println("The alias name is: " + alias.aliasName());
-            }
+            ListAliasesIterable aliasesResponse = kmsClient.listAliasesPaginator(aliasesRequest);
+            aliasesResponse.stream()
+                .flatMap(r -> r.aliases().stream())
+                .forEach(alias -> System.out
+                    .println("The alias name is: " + alias.aliasName()));
 
         } catch (KmsException e) {
             System.err.println(e.getMessage());
@@ -573,17 +571,17 @@ public class KMSScenario {
                 .limit(15)
                 .build();
 
-            ListGrantsResponse response = kmsClient.listGrants(grantsRequest);
-            List<GrantListEntry> grants = response.grants();
-            for (GrantListEntry grant : grants) {
-                System.out.println("The grant Id is : " + grant.grantId());
-                System.out.println("and grants the following operations: ");
+            ListGrantsIterable response = kmsClient.listGrantsPaginator(grantsRequest);
+            response.stream()
+                .flatMap(r -> r.grants().stream())
+                .forEach(grant -> {
+                    System.out.println("The grant Id is : " + grant.grantId());
+                    List<GrantOperation> ops = grant.operations();
+                    for (GrantOperation op : ops) {
+                        System.out.println(op.name());
+                    }
+                });
 
-                List<GrantOperation> ops = grant.operations();
-                for (GrantOperation op : ops) {
-                    System.out.println(op.name());
-                }
-            }
         } catch (KmsException e) {
             System.err.println(e.getMessage());
             System.exit(1);

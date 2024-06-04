@@ -7,14 +7,14 @@ This SDK getting started scenario demonstrates how to interact with AWS Key Mana
 The only required resource for this SDK getting started scenario is the grantee principal. The `GranteePrincipal` is the AWS Identity and Access Management (IAM) entity (user, role, or service) that is granted permission to perform specific actions. 
 
 ## Hello AWS KSM
-This program is intended for users not familiar with the AWS KSM SDK to easily get up an running. The logic is to show use of `KmsClient.listKeysPaginator()`.
+This program is intended for users not familiar with the AWS KSM SDK to easily get up and running. The logic is to show use of `KmsClient.listKeysPaginator()`.
 
 ### Program execution
 The following shows the output of the program in the console. 
 
 ``` java 
-The key ARN is: arn:aws:kms:us-west-2:814548047983:key/0279e5fa-2a8f-42af-ac0a-9f7f83cfc871. The key Id is: 0279e5fa-2a8f-42af-ac0a-9f7f83cfc871
- The key ARN is: arn:aws:kms:us-west-2:814548047983:key/0448ed21-078e-4712-9e69-5aced6282fcf. The key Id is: 0448ed21-078e-4712-9e69-5aced6282fcf 
+The key ARN is: arn:aws:kms:us-west-2:123456789012:key/12345678-abcd-abcd-abcd-123456789012. The key Id is: 2345678-abcd-abcd-abcd-1234 
+
 ```
 
 ## Scenario Program Flow
@@ -68,7 +68,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Created a customer key with ARN arn:aws:kms:us-west-2:814548047983:key/70744202-eeda-4271-aedc-2466a0152e26
+Created a customer key with ARN arn:aws:kms:us-west-2:123456789012:key/11223344-aaaa-bbbb-cccc-111222233344
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -157,7 +157,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-You have enabled key rotation for key 70744202-eeda-4271-aedc-2466a0152e26
+You have enabled key rotation for key 11223344-aaaa-bbbb-cccc-111222233344
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -175,7 +175,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The grant id is 8ff5f9331aaae25633c65cedb5b211688e57bbc25caec22a1fe2fb25fb1a82f9
+The grant id is 1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -188,7 +188,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The grant Id is : 8ff5f9331aaae25633c65cedb5b211688e57bbc25caec22a1fe2fb25fb1a82f9
+The grant Id is: 8f1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -201,7 +201,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-8ff5f9331aaae25633c65cedb5b211688e57bbc25caec22a1fe2fb25fb1a82f9 was successfully revoked!
+1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef was successfully revoked!
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -267,7 +267,7 @@ The response is {
     "Sid" : "Enable IAM User Permissions",
     "Effect" : "Allow",
     "Principal" : {
-      "AWS" : "arn:aws:iam::814548047983:root"
+      "AWS" : "arn:aws:iam::123456789012:root"
     },
     "Action" : "kms:*",
     "Resource" : "*"
@@ -291,7 +291,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Created KMS key with ID: a1582f53-dc2f-4fb7-9b21-f50c5c757c8a
+Created KMS key with ID: 12345678-abcd-abcd-abcd-123456789012
 Signature verification result: true
 
 Enter 'c' followed by <ENTER> to continue:
@@ -350,14 +350,14 @@ The following table describes the metadata used in this SDK Getting Started Scen
 | `createKey  `                | kms_metadata.yaml            | kms_CreateKey                           |
 | `decrypt`                    | kms_metadata.yaml            | kms_Decrypt                             |
 | `encrypt`                    | kms_metadata.yaml            | kms_Encrypt                             |
-| `listAliases`                | kms_metadata.yaml            | kms_ListAliases                         |
+| `listAliasesPaginator`       | kms_metadata.yaml            | kms_ListAliases                         |
 | `createAlias`                | kms_metadata.yaml            | kms_CreateAlias                         |
 | `createGrant`                | kms_metadata.yaml            | kms_CreateGrant                         |
 | `describeKey`                | kms_metadata.yaml            | kms_DescribeKey                         |
 | `disableKey `                | kms_metadata.yaml            | kms_DisableKey                          |
 | `enableKey `                 | kms_metadata.yaml            | kms_EnableKey                           |
 | `listKeysPaginator `         | kms_metadata.yaml            | kms_Hello                               |
-| `listGrants `                | kms_metadata.yaml            | kms_ListGrants                          |
+| `listGrantsPaginator`        | kms_metadata.yaml            | kms_ListGrants                          |
 | `getKeyPolicy `              | kms_metadata.yaml            | kms_GetKeyPolicy                        |
 | `revokeGrant`                | kms_metadata.yaml            | kms_RevokeGrant                         |
 | `listGrants `                | kms_metadata.yaml            | kms_ListGrants                          |
