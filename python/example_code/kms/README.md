@@ -66,7 +66,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Encrypt and decrypt text](key_encryption.py)
-- [Learn KMS key core operations](key_management.py)
+- [Manage keys](key_management.py)
 
 
 <!--custom.examples.start-->
@@ -103,7 +103,7 @@ python key_encryption.py
 <!--custom.scenarios.kms_Scenario_KeyEncryption.start-->
 <!--custom.scenarios.kms_Scenario_KeyEncryption.end-->
 
-#### Learn KMS key core operations
+#### Manage keys
 
 This example shows you how to do the following:
 
@@ -111,8 +111,6 @@ This example shows you how to do the following:
 - List KMS keys for your account and get details about them.
 - Enable and disable KMS keys.
 - Generate a symmetric data key that can be used for client-side encryption.
-- Generate an asymmetric key used to digitally sign data.
-- Tag keys.
 - Delete KMS keys.
 
 <!--custom.scenario_prereqs.kms_Scenario_KeyManagement.start-->
