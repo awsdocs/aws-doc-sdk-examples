@@ -4,11 +4,9 @@
 
 
 import argparse
-import config
+from config import *
 import logging
-import os
 import sys
-from pathlib import Path
 from render import Renderer, MissingMetadataError
 from scanner import Scanner
 
@@ -39,7 +37,7 @@ def main():
     parser.add_argument(
         "--safe",
         action="store_true",
-        help=f"Save a copy of the original README as the 'saved_readme' value specified in config.py ({config.saved_readme}).",
+        help=f"Save a copy of the original README as the 'saved_readme' value specified in config.py ({saved_readme}).",
     )
     parser.add_argument(
         "--verbose",
@@ -51,7 +49,7 @@ def main():
         action="store_true",
         dest="dry_run",
         help="In dry run, compare current vs generated and exit with failure if they do not match.",
-        default=False,  # Change this to default false when we're ready to use this generally.
+        default=False,
     )
     parser.add_argument("--no-dry-run", dest="dry_run", action="store_false")
     parser.add_argument("--check", dest="dry_run", action="store_true")
