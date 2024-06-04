@@ -47,7 +47,6 @@ try
     // Extract and print the response text.
     string responseText = response?.Output?.Message?.Content?[0]?.Text ?? "";
     Console.WriteLine(responseText);
-
 }
 catch (AmazonBedrockRuntimeException e)
 {

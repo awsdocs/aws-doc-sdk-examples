@@ -42,12 +42,11 @@ var request = new ConverseRequest
 try
 {
     // Send the request to the Bedrock Runtime and wait for the result.
-    var response = client.ConverseAsync(request).Result;
+    var response = await client.ConverseAsync(request);
 
     // Extract and print the response text.
     string responseText = response?.Output?.Message?.Content?[0]?.Text ?? "";
     Console.WriteLine(responseText);
-
 }
 catch (AmazonBedrockRuntimeException e)
 {
