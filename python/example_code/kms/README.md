@@ -63,7 +63,7 @@ Code excerpts that show you how to call individual service functions.
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same AWS service.
+functions within the same service.
 
 - [Encrypt and decrypt text](key_encryption.py)
 - [Manage keys](key_management.py)
