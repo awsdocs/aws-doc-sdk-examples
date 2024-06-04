@@ -5,7 +5,7 @@ class Config:
         self.delivery_stream_name = "ENTER YOUR DELIVERY STREAM NAME HERE"
         self.region = "us-east-1"
         self.sample_data_file = (
-            "../../../../../workflows/kinesis-firehose/resources/sample_records.json"
+            "../../../../../workflows/firehose/resources/sample_records.json"
         )
 
 
