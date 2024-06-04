@@ -42,24 +42,24 @@ functions within the same service.
 
 ### AI21 Labs Jurassic-2
 
-- [InvokeModel API](actions/invoke_model.go#L83)
+- [InvokeModel](actions/invoke_model.go#L83)
 
 ### Amazon Titan Image Generator
 
-- [Generate images with the InvokeModel API](actions/invoke_model.go#L191)
+- [InvokeModel](actions/invoke_model.go#L191)
 
 ### Amazon Titan Text
 
-- [InvokeModel API](actions/invoke_model.go#L261)
+- [InvokeModel](actions/invoke_model.go#L261)
 
 ### Anthropic Claude
 
-- [InvokeModel API](actions/invoke_model.go#L27)
-- [InvokeModel API with response stream](actions/invoke_model_with_response_stream.go#L30)
+- [InvokeModel](actions/invoke_model.go#L27)
+- [InvokeModelWithResponseStream](actions/invoke_model_with_response_stream.go#L30)
 
 ### Meta Llama
 
-- [Llama 2: InvokeModel API](actions/invoke_model.go#L140)
+- [InvokeModel: Llama 2](actions/invoke_model.go#L140)
 
 
 <!--custom.examples.start-->
