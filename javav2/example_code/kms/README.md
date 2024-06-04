@@ -38,22 +38,23 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateAlias](src/main/java/com/example/kms/scenario/KMSScenario.java#L638)
-- [CreateGrant](src/main/java/com/example/kms/scenario/KMSScenario.java#L594)
-- [CreateKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L684)
-- [Decrypt](src/main/java/com/example/kms/scenario/KMSScenario.java#L531)
-- [DescribeKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L507)
-- [DisableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L324)
-- [EnableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L705)
-- [Encrypt](src/main/java/com/example/kms/scenario/KMSScenario.java#L659)
-- [ListAliases](src/main/java/com/example/kms/scenario/KMSScenario.java#L304)
-- [ListGrants](src/main/java/com/example/kms/scenario/KMSScenario.java#L568)
-- [ListKeyPolicies](src/main/java/com/example/kms/scenario/KMSScenario.java#L401)
+- [CreateAlias](src/main/java/com/example/kms/scenario/KMSScenario.java#L636)
+- [CreateGrant](src/main/java/com/example/kms/scenario/KMSScenario.java#L592)
+- [CreateKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L682)
+- [Decrypt](src/main/java/com/example/kms/scenario/KMSScenario.java#L529)
+- [DeleteAlias](src/main/java/com/example/kms/scenario/KMSScenario.java#L489)
+- [DescribeKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L505)
+- [DisableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L322)
+- [EnableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L703)
+- [Encrypt](src/main/java/com/example/kms/scenario/KMSScenario.java#L657)
+- [ListAliases](src/main/java/com/example/kms/scenario/KMSScenario.java#L302)
+- [ListGrants](src/main/java/com/example/kms/scenario/KMSScenario.java#L566)
+- [ListKeyPolicies](src/main/java/com/example/kms/scenario/KMSScenario.java#L399)
 - [ListKeys](src/main/java/com/example/kms/HelloKMS.java#L6)
-- [RevokeGrant](src/main/java/com/example/kms/scenario/KMSScenario.java#L550)
-- [ScheduleKeyDeletion](src/main/java/com/example/kms/scenario/KMSScenario.java#L473)
-- [Sign](src/main/java/com/example/kms/scenario/KMSScenario.java#L340)
-- [TagResource](src/main/java/com/example/kms/scenario/KMSScenario.java#L378)
+- [RevokeGrant](src/main/java/com/example/kms/scenario/KMSScenario.java#L548)
+- [ScheduleKeyDeletion](src/main/java/com/example/kms/scenario/KMSScenario.java#L471)
+- [Sign](src/main/java/com/example/kms/scenario/KMSScenario.java#L338)
+- [TagResource](src/main/java/com/example/kms/scenario/KMSScenario.java#L376)
 
 ### Scenarios
 
