@@ -4,7 +4,11 @@
 import { fileURLToPath } from "url";
 
 // snippet-start:[iam.JavaScript.createservicelinkedrolev3]
-import { CreateServiceLinkedRoleCommand, IAMClient } from "@aws-sdk/client-iam";
+import {
+  CreateServiceLinkedRoleCommand,
+  GetRoleCommand,
+  IAMClient,
+} from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
@@ -20,10 +24,26 @@ export const createServiceLinkedRole = async (serviceName) => {
     // For a list of AWS service endpoints, see https://docs.aws.amazon.com/general/latest/gr/aws-service-information.html.
     AWSServiceName: serviceName,
   });
-
-  const response = await client.send(command);
-  console.log(response);
-  return response;
+  try {
+    const response = await client.send(command);
+    console.log(response);
+    return response;
+  } catch (caught) {
+    if (
+      caught instanceof Error &&
+      caught.name === "InvalidInputException" &&
+      caught.message.includes(
+        "Service role name AWSServiceRoleForElasticBeanstalk has been taken in this account",
+      )
+    ) {
+      console.warn(caught.message);
+      return client.send(
+        new GetRoleCommand({ RoleName: "AWSServiceRoleForElasticBeanstalk" }),
+      );
+    } else {
+      throw caught;
+    }
+  }
 };
 // snippet-end:[iam.JavaScript.createservicelinkedrolev3]
 
