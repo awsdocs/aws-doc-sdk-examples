@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <keyId> <granteePrincipal> <operation>
@@ -43,7 +42,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[kms.kotlin_create_grant.main]
 suspend fun createNewGrant(keyIdVal: String?, granteePrincipalVal: String?, operation: String): String? {
-
     val operationOb = GrantOperation.fromValue(operation)
     val grantOperationList = ArrayList<GrantOperation>()
     grantOperationList.add(operationOb)

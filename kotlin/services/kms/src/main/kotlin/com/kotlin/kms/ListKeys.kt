@@ -21,7 +21,6 @@ suspend fun main() {
 
 // snippet-start:[kms.kotlin_list_keys.main]
 suspend fun listAllKeys() {
-
     val request = ListKeysRequest {
         limit = 15
     }

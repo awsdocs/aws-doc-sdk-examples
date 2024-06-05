@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <domainName> 
@@ -40,7 +39,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[route53.kotlin.create_hosted_zone.main]
 suspend fun createZone(domainName: String?): String? {
-
     // You must use a unique CallerReference string.
     val callerReferenceVal = UUID.randomUUID().toString()
     val zoneRequest = CreateHostedZoneRequest {

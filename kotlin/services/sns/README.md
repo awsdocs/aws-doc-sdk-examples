@@ -38,16 +38,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateTopic](src/main/kotlin/com/kotlin/sns/CreateTopic.kt#L40)
-- [DeleteTopic](src/main/kotlin/com/kotlin/sns/DeleteTopic.kt#L39)
-- [GetTopicAttributes](src/main/kotlin/com/kotlin/sns/GetTopicAttributes.kt#L39)
+- [CreateTopic](src/main/kotlin/com/kotlin/sns/CreateTopic.kt#L39)
+- [DeleteTopic](src/main/kotlin/com/kotlin/sns/DeleteTopic.kt#L38)
+- [GetTopicAttributes](src/main/kotlin/com/kotlin/sns/GetTopicAttributes.kt#L38)
 - [ListSubscriptions](src/main/kotlin/com/kotlin/sns/ListSubscriptions.kt#L22)
-- [ListTopics](src/main/kotlin/com/kotlin/sns/ListTopics.kt#L23)
-- [Publish](src/main/kotlin/com/kotlin/sns/PublishTopic.kt#L40)
-- [SetTopicAttributes](src/main/kotlin/com/kotlin/sns/SetTopicAttributes.kt#L42)
-- [Subscribe](src/main/kotlin/com/kotlin/sns/SubscribeEmail.kt#L41)
-- [TagResource](src/main/kotlin/com/kotlin/sns/AddTags.kt#L40)
-- [Unsubscribe](src/main/kotlin/com/kotlin/sns/Unsubscribe.kt#L38)
+- [ListTopics](src/main/kotlin/com/kotlin/sns/ListTopics.kt#L22)
+- [Publish](src/main/kotlin/com/kotlin/sns/PublishTopic.kt#L39)
+- [SetTopicAttributes](src/main/kotlin/com/kotlin/sns/SetTopicAttributes.kt#L41)
+- [Subscribe](src/main/kotlin/com/kotlin/sns/SubscribeEmail.kt#L40)
+- [TagResource](src/main/kotlin/com/kotlin/sns/AddTags.kt#L39)
+- [Unsubscribe](src/main/kotlin/com/kotlin/sns/Unsubscribe.kt#L37)
 
 ### Scenarios
 

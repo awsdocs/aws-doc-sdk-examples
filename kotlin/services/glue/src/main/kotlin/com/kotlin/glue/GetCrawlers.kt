@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[glue.kotlin.get_crawlers.main]
 suspend fun getAllCrawlers() {
-
     val request = GetCrawlersRequest {
         maxResults = 10
     }

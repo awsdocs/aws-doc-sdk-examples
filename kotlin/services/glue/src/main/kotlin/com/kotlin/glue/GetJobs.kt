@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[glue.kotlin.get_jobs.main]
 suspend fun getAllJobs() {
-
     val request = GetJobsRequest {
         maxResults = 10
     }

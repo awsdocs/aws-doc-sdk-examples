@@ -21,7 +21,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <clusterName> <serviceName> <securityGroups> <subnets> <taskDefinition>
@@ -54,9 +53,8 @@ suspend fun createNewService(
     serviceNameVal: String,
     securityGroupsVal: String,
     subnetsVal: String,
-    taskDefinitionVal: String
+    taskDefinitionVal: String,
 ): String? {
-
     val vpcConfiguration = AwsVpcConfiguration {
         securityGroups = listOf(securityGroupsVal)
         subnets = listOf(subnetsVal)

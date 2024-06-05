@@ -57,7 +57,7 @@ class SESTest {
         recipient = prop.getProperty("recipient")
         subject = prop.getProperty("subject")
         fileLocation = prop.getProperty("fileLocation")
-        */
+         */
     }
 
     @Test

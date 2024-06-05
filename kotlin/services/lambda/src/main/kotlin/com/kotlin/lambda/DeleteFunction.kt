@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: 
         <functionName>  
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[lambda.kotlin.delete.main]
 suspend fun delLambdaFunction(myFunctionName: String) {
-
     val request = DeleteFunctionRequest {
         functionName = myFunctionName
     }

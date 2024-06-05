@@ -51,7 +51,7 @@ class TranslateKotlinTest {
         s3UriOut = prop.getProperty("s3UriOut")
         jobName = prop.getProperty("jobName")
         dataAccessRoleArn = prop.getProperty("dataAccessRoleArn")
-        */
+         */
     }
 
     @Test

@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <policyARN> 
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[iam.kotlin.get_policy.main]
 suspend fun getIAMPolicy(policyArnVal: String?) {
-
     val request = GetPolicyRequest {
         policyArn = policyArnVal
     }

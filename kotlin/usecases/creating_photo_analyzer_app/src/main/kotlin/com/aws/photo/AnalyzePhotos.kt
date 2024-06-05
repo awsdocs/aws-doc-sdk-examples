@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component
 class AnalyzePhotos {
 
     suspend fun DetectLabels(bytesVal: ByteArray?, key: String?): MutableList<WorkItem>? {
-
         // Create an Image object for the source image.
         val souImage = Image {
             bytes = bytesVal

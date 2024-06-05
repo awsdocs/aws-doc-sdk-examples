@@ -121,7 +121,7 @@ class EC2Test {
         } catch (ex: IOException) {
             ex.printStackTrace()
         }
-        */
+         */
     }
 
     @Test

@@ -38,12 +38,12 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateQueue](src/main/kotlin/com/kotlin/sqs/CreateQueue.kt#L39)
-- [DeleteMessage](src/main/kotlin/com/kotlin/sqs/DeleteMessages.kt#L39)
-- [DeleteQueue](src/main/kotlin/com/kotlin/sqs/DeleteMessages.kt#L39)
+- [CreateQueue](src/main/kotlin/com/kotlin/sqs/CreateQueue.kt#L38)
+- [DeleteMessage](src/main/kotlin/com/kotlin/sqs/DeleteMessages.kt#L38)
+- [DeleteQueue](src/main/kotlin/com/kotlin/sqs/DeleteMessages.kt#L38)
 - [ListQueues](src/main/kotlin/com/kotlin/sqs/ListQueues.kt#L22)
-- [ReceiveMessage](src/main/kotlin/com/kotlin/sqs/ReceiveMessages.kt#L38)
-- [SendMessage](src/main/kotlin/com/kotlin/sqs/SendMessages.kt#L44)
+- [ReceiveMessage](src/main/kotlin/com/kotlin/sqs/ReceiveMessages.kt#L37)
+- [SendMessage](src/main/kotlin/com/kotlin/sqs/SendMessages.kt#L43)
 
 
 <!--custom.examples.start-->

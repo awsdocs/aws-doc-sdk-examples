@@ -21,7 +21,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <sourceDoc> 
@@ -41,7 +40,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[textract.kotlin._analyze_doc.main]
 suspend fun analyzeDoc(sourceDoc: String?) {
-
     val sourceStream = FileInputStream(File(sourceDoc))
     val sourceBytes = sourceStream.readBytes()
 

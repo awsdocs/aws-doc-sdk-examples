@@ -12,7 +12,6 @@ import kotlin.system.exitProcess
 // snippet-end:[cloudtrail.kotlin._selectors.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -33,7 +32,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudtrail.kotlin._selectors.main]
 suspend fun setSelector(trailNameVal: String?) {
-
     val selector = EventSelector {
         readWriteType = ReadWriteType.fromValue("All")
     }
@@ -43,7 +41,7 @@ suspend fun setSelector(trailNameVal: String?) {
             PutEventSelectorsRequest {
                 trailName = trailNameVal
                 eventSelectors = listOf(selector)
-            }
+            },
         )
     }
 }

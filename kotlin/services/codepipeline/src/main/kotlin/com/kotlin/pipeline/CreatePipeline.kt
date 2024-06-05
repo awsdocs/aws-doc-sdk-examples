@@ -20,7 +20,6 @@ import kotlin.system.exitProcess
 // snippet-end:[pipeline.kotlin.create_pipeline.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <name> <roleArn> <s3Bucket> <s3OuputBucket>
@@ -49,9 +48,8 @@ suspend fun createNewPipeline(
     nameVal: String,
     roleArnVal: String,
     s3Bucket: String,
-    s3OuputBucket: String
+    s3OuputBucket: String,
 ) {
-
     val actionTypeSource = ActionTypeId {
         category = ActionCategory.fromValue("Source")
         owner = ActionOwner.fromValue("AWS")

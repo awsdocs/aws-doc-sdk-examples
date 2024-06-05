@@ -17,13 +17,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
     listAllClusters()
 }
 
 // snippet-start:[erm.kotlin.list_cluster.main]
 suspend fun listAllClusters() {
-
     EmrClient { region = "us-west-2" }.use { emrClient ->
         val response = emrClient.listClusters(ListClustersRequest {})
         response.clusters?.forEach { cluster ->

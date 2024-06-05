@@ -11,7 +11,6 @@ import kotlin.system.exitProcess
 // snippet-end:[cloudtrail.kotlin.logging.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -34,7 +33,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudtrail.kotlin.logging.main]
 suspend fun stopLog(trailName: String) {
-
     val request = StopLoggingRequest {
         name = trailName
     }
@@ -45,7 +43,6 @@ suspend fun stopLog(trailName: String) {
 }
 
 suspend fun startLog(trailName: String) {
-
     val request = StartLoggingRequest {
         name = trailName
     }

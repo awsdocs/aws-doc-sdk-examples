@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         
         Usage:
@@ -40,7 +39,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[glue.kotlin.get_database.main]
 suspend fun getSpecificDatabase(databaseName: String?) {
-
     val request = GetDatabaseRequest {
         name = databaseName
     }

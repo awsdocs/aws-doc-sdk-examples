@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: <appId> <endpointId>
 
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pinpoint.kotlin.deleteendpoint.main]
 suspend fun deletePinEncpoint(appIdVal: String?, endpointIdVal: String?) {
-
     val deleteEndpointRequest = DeleteEndpointRequest {
         applicationId = appIdVal
         endpointId = endpointIdVal

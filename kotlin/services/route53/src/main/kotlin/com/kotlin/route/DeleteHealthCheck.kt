@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <id> 
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[route53.kotlin.delete_health_check.main]
 suspend fun delHealthCheck(id: String?) {
-
     val delRequest = DeleteHealthCheckRequest {
         healthCheckId = id
     }

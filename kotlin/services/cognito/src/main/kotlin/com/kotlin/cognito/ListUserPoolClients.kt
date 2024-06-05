@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: <userPoolId>
     
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cognito.kotlin.ListUserPoolClients.main]
 suspend fun listAllUserPoolClients(userPoolId: String) {
-
     val request = ListUserPoolClientsRequest {
         this.userPoolId = userPoolId
     }

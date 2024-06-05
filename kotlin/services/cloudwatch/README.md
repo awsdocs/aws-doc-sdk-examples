@@ -50,8 +50,8 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeAlarms](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L560)
 - [DescribeAlarmsForMetric](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L436)
 - [DescribeAnomalyDetectors](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L355)
-- [DisableAlarmActions](src/main/kotlin/com/kotlin/cloudwatch/DisableAlarmActions.kt#L40)
-- [EnableAlarmActions](src/main/kotlin/com/kotlin/cloudwatch/EnableAlarmActions.kt#L39)
+- [DisableAlarmActions](src/main/kotlin/com/kotlin/cloudwatch/DisableAlarmActions.kt#L39)
+- [EnableAlarmActions](src/main/kotlin/com/kotlin/cloudwatch/EnableAlarmActions.kt#L38)
 - [GetMetricData](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L506)
 - [GetMetricStatistics](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L739)
 - [GetMetricWidgetImage](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L320)
@@ -59,7 +59,7 @@ Code excerpts that show you how to call individual service functions.
 - [ListMetrics](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L769)
 - [PutAnomalyDetector](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L378)
 - [PutDashboard](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L674)
-- [PutMetricAlarm](src/main/kotlin/com/kotlin/cloudwatch/PutMetricAlarm.kt#L45)
+- [PutMetricAlarm](src/main/kotlin/com/kotlin/cloudwatch/PutMetricAlarm.kt#L44)
 - [PutMetricData](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L465)
 
 ### Scenarios

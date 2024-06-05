@@ -47,7 +47,7 @@ class MCTest {
         prop.load(input)
         mcRoleARN = prop.getProperty("mcRoleARN")
         fileInput = prop.getProperty("fileInput")
-        */
+         */
     }
 
     @Test

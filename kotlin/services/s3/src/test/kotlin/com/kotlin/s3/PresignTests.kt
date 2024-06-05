@@ -73,7 +73,7 @@ class PresignTests {
                 GetObjectRequest {
                     bucket = bucketName
                     key = keyName
-                }
+                },
             ) { resp ->
                 val respString = resp.body?.decodeToString()
                 respString

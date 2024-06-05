@@ -18,7 +18,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <envName> <appName>
@@ -41,7 +40,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[eb.kotlin.create_env.main]
 suspend fun createEBEnvironment(envName: String?, appName: String?): String {
-
     val setting1 = ConfigurationOptionSetting {
         namespace = "aws:autoscaling:launchconfiguration"
         optionName = "IamInstanceProfile"

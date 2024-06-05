@@ -51,7 +51,7 @@ class ComprehendKotlinTest {
         dataAccessRoleArn = prop.getProperty("dataAccessRoleArn")
         s3Uri = prop.getProperty("s3Uri")
         documentClassifierName = prop.getProperty("documentClassifier")
-        */
+         */
     }
 
     @Test

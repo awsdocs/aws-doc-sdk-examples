@@ -10,7 +10,6 @@ import kotlin.system.exitProcess
 // snippet-end:[cloudtrail.kotlin.get_event_selectors.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -32,7 +31,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudtrail.kotlin.get_event_selectors.main]
 suspend fun getSelectors(trailNameVal: String) {
-
     val request = GetEventSelectorsRequest {
         trailName = trailNameVal
     }

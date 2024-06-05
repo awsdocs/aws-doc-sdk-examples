@@ -85,7 +85,7 @@ class MrapExample {
                     },
                     Region {
                         bucket = bucketName2
-                    }
+                    },
                 )
             }
         }
@@ -101,7 +101,7 @@ class MrapExample {
             input = GetMultiRegionAccessPointRequest {
                 accountId = accountIdParam
                 name = mrapName
-            }
+            },
         )
         val mrapAlias = getMrapResponse.accessPoint?.alias
         return "arn:aws:s3::$accountIdParam:accesspoint/$mrapAlias"
@@ -117,7 +117,7 @@ class MrapExample {
                 details {
                     name = mrapName
                 }
-            }
+            },
         )
         val requestToken: String? = deleteMrapResponse.requestTokenArn
 
@@ -196,7 +196,7 @@ class MrapExample {
             s3.createBucket(
                 CreateBucketRequest {
                     bucket = bucketName1
-                }
+                },
             )
             s3.waitUntilBucketExists { bucket = bucketName1 }
             println("  Bucket [$bucketName1] created.")
@@ -211,7 +211,7 @@ class MrapExample {
                         createBucketConfiguration = CreateBucketConfiguration {
                             locationConstraint = BucketLocationConstraint.UsWest1
                         }
-                    }
+                    },
                 )
                 s3West.waitUntilBucketExists { bucket = bucketName2 }
                 println("  Bucket [$bucketName2] created.")
@@ -234,7 +234,7 @@ class MrapExample {
                 input = DescribeMultiRegionAccessPointOperationRequest {
                     accountId = accountIdParam
                     requestTokenArn = requestToken
-                }
+                },
             )
 
             var status: String? = describeResponse.asyncOperation?.requestStatus
@@ -244,7 +244,7 @@ class MrapExample {
                     input = DescribeMultiRegionAccessPointOperationRequest {
                         accountId = accountIdParam
                         requestTokenArn = requestToken
-                    }
+                    },
                 )
                 status = describeResponse.asyncOperation?.requestStatus
                 println(status)

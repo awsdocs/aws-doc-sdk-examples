@@ -10,7 +10,6 @@ import kotlin.system.exitProcess
 // snippet-end:[cloudtrail.kotlin.describe_trail.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -31,7 +30,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudtrail.kotlin.describe_trail.main]
 suspend fun describeSpecificTrails(trailName: String) {
-
     val request = DescribeTrailsRequest {
         trailNameList = listOf(trailName)
     }

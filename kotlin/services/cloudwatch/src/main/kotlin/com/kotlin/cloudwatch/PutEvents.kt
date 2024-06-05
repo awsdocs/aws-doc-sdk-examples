@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <resourceArn>
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudwatch.kotlin.put_events.main]
 suspend fun putCWEvents(resourceArn: String) {
-
     val eventDetails = "{ \"key1\": \"value1\", \"key2\": \"value2\" }"
     val requestEntry = PutEventsRequestEntry {
         detail = eventDetails

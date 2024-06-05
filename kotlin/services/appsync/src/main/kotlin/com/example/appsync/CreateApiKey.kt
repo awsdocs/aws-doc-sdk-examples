@@ -17,7 +17,6 @@ import kotlin.system.exitProcess
  * https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <apiId> 
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[appsync.kotlin.create_key.main]
 suspend fun createKey(apiIdVal: String): String? {
-
     val apiKeyRequest = CreateApiKeyRequest {
         apiId = apiIdVal
         description = "Created using the AWS SDK for Kotlin"

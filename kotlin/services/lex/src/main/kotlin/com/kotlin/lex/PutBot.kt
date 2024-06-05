@@ -24,7 +24,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
     Usage: 
@@ -52,9 +51,8 @@ suspend fun main(args: Array<String>) {
 suspend fun createBot(
     botNameVal: String?,
     intentNameVal: String?,
-    intentVersionVal: String?
+    intentVersionVal: String?,
 ) {
-
     // Create an Intent object for the bot.
     val weatherIntent = Intent {
         intentName = intentNameVal

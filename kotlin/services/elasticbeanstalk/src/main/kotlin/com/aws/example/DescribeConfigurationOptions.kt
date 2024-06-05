@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <envName> 
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[eb.kotlin.describe_config.main]
 suspend fun getOptions(envName: String) {
-
     val spec = OptionSpecification {
         namespace = "aws:ec2:instances"
     }
@@ -58,7 +56,6 @@ suspend fun getOptions(envName: String) {
             println("The name is $optionName")
             if (optionName != null) {
                 if (optionName.compareTo("InstanceTypes") == 0) {
-
                     val valueOptions = option.valueOptions
                     valueOptions?.forEach { value ->
                         println("The value is $value")

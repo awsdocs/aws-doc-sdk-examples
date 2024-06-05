@@ -21,7 +21,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
     Usage:
@@ -56,7 +55,7 @@ suspend fun send(
     sender: String?,
     recipient: String,
     subjectVal: String?,
-    bodyHTML: String?
+    bodyHTML: String?,
 ) {
     val destinationOb = Destination {
         toAddresses = listOf(recipient)

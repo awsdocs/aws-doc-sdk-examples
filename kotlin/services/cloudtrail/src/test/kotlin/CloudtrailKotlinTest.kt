@@ -46,7 +46,7 @@ class CloudtrailKotlinTest {
         prop.load(input)
         trailName = prop.getProperty("trailName")
         s3BucketName = prop.getProperty("s3BucketName")
-        */
+         */
     }
 
     @Test

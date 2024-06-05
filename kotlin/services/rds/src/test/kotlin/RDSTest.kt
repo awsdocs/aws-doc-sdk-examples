@@ -180,7 +180,7 @@ class RDSTest {
             dbInstanceIdentifierSc,
             dbNameSc,
             masterUsername,
-            masterUserPassword
+            masterUserPassword,
         )
         println("The ARN of the new database is $dbARN")
 

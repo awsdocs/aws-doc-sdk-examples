@@ -74,7 +74,7 @@ class Route53Test {
         firstNameSc = prop.getProperty("firstNameSc")
         lastNameSc = prop.getProperty("lastNameSc")
         citySc = prop.getProperty("citySc")
-        */
+         */
     }
 
     @Test

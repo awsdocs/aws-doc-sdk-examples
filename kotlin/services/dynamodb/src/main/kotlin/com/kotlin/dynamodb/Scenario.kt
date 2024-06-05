@@ -136,7 +136,7 @@ suspend fun putMovie(
     tableNameVal: String,
     year: Int,
     title: String,
-    info: String
+    info: String,
 ) {
     val itemValues = mutableMapOf<String, AttributeValue>()
     val strVal = year.toString()
@@ -193,7 +193,7 @@ suspend fun deletIssuesTable(tableNameVal: String) {
 suspend fun queryMovieTable(
     tableNameVal: String,
     partitionKeyName: String,
-    partitionAlias: String
+    partitionAlias: String,
 ): Int {
     val attrNameAlias = mutableMapOf<String, String>()
     attrNameAlias[partitionAlias] = "year"

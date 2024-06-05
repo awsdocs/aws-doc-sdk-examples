@@ -95,7 +95,7 @@ class DynamoDB {
         songTitle = prop.getProperty("SongTitle")
         songTitleVal = prop.getProperty("SongTitleVal")
         ModAwardVal = prop.getProperty("ModAwardVal")
-        */
+         */
     }
 
     @Test
@@ -124,7 +124,7 @@ class DynamoDB {
             awards,
             awardVal,
             songTitle,
-            songTitleVal
+            songTitleVal,
         )
         println("Test 3 passed")
     }

@@ -18,7 +18,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <domainName>
@@ -34,9 +33,9 @@ suspend fun main(args: Array<String>) {
     val domainName = args[0]
     updateSpecificDomain(domainName)
 }
+
 // snippet-start:[opensearch.kotlin.update_domain.main]
 suspend fun updateSpecificDomain(domainNameVal: String?) {
-
     val clusterConfigOb = ClusterConfig {
         instanceCount = 3
     }

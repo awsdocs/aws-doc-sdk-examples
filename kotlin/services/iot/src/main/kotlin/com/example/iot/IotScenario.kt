@@ -77,7 +77,7 @@ suspend fun main(args: Array<String>) {
             It utilizes the AWS SDK for Kotlin and incorporates functionality for creating and managing IoT things, certificates, rules, 
             shadows, and performing searches. The program aims to showcase AWS IoT capabilities and provides a comprehensive example for 
             developers working with AWS IoT in a Kotlin environment.
-        """.trimIndent()
+        """.trimIndent(),
     )
 
     print("Press Enter to continue...")
@@ -89,7 +89,7 @@ suspend fun main(args: Array<String>) {
     println(
         """
             An AWS IoT thing represents a virtual entity in the AWS IoT service that can be associated with a physical device.
-        """.trimIndent()
+        """.trimIndent(),
     )
     // Prompt the user for input.
     print("Enter thing name: ")
@@ -103,7 +103,7 @@ suspend fun main(args: Array<String>) {
     println(
         """
         A device certificate performs a role in securing the communication between devices (things) and the AWS IoT platform.
-        """.trimIndent()
+        """.trimIndent(),
     )
 
     print("Do you want to create a certificate for $thingName? (y/n)")
@@ -124,7 +124,7 @@ suspend fun main(args: Array<String>) {
         """
         IoT thing attributes, represented as key-value pairs, offer a pivotal advantage in facilitating efficient data 
         management and retrieval within the AWS IoT ecosystem. 
-        """.trimIndent()
+        """.trimIndent(),
     )
     print("Press Enter to continue...")
     scanner.nextLine()
@@ -136,7 +136,7 @@ suspend fun main(args: Array<String>) {
     println(
         """
         An IoT Endpoint refers to a specific URL or Uniform Resource Locator that serves as the entry point for communication between IoT devices and the AWS IoT service.
-        """.trimIndent()
+        """.trimIndent(),
     )
     print("Press Enter to continue...")
     scanner.nextLine()
@@ -162,7 +162,7 @@ suspend fun main(args: Array<String>) {
             of a physical device or thing. The thing shadow allows you to synchronize and control the state of a device between 
             the cloud and the device itself. and the AWS IoT service. For example, you can write and retrieve JSON data from a thing shadow. 
            
-        """.trimIndent()
+        """.trimIndent(),
     )
     print("Press Enter to continue...")
     scanner.nextLine()
@@ -182,7 +182,7 @@ suspend fun main(args: Array<String>) {
         """
         Creates a rule that is an administrator-level action. 
         Any user who has permission to create rules will be able to access data processed by the rule.
-        """.trimIndent()
+        """.trimIndent(),
     )
     print("Enter Rule name: ")
     val ruleName = scanner.nextLine()

@@ -24,7 +24,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: <message> <appId> <originationNumber> <destinationNumber>
 
@@ -53,9 +52,8 @@ suspend fun sendSMSMessage(
     message: String,
     appId: String,
     originationNumberVal: String,
-    destinationNumberVal: String
+    destinationNumberVal: String,
 ) {
-
     // The type of SMS message that you want to send. If you plan to send
     // time-sensitive content, specify TRANSACTIONAL. If you plan to send
     // marketing-related content, specify PROMOTIONAL.
@@ -97,7 +95,7 @@ suspend fun sendSMSMessage(
             SendMessagesRequest {
                 applicationId = appId
                 messageRequest = msgReq
-            }
+            },
         )
         println("The SMS message was successfully sent to $destinationNumberVal")
     }

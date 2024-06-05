@@ -76,7 +76,7 @@ class SageMakerTest {
         s3UriTransform = prop.getProperty("s3UriTransform")
         s3OutputPathTransform = prop.getProperty("s3OutputPathTransform")
         transformJobName = prop.getProperty("transformJobName")
-        */
+         */
     }
 
     @Test

@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <dbInstanceIdentifier> 
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[rds.kotlin.delete_instance.main]
 suspend fun deleteDatabaseInstance(dbInstanceIdentifierVal: String?) {
-
     val deleteDbInstanceRequest = DeleteDbInstanceRequest {
         dbInstanceIdentifier = dbInstanceIdentifierVal
         deleteAutomatedBackups = true

@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <username> <accessKey>
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[iam.kotlin.delete_access_key.main]
 suspend fun deleteKey(userNameVal: String, accessKey: String) {
-
     val request = DeleteAccessKeyRequest {
         accessKeyId = accessKey
         userName = userNameVal

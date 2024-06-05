@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[forecast.kotlin.list_forecasts.main]
 suspend fun listAllForeCasts() {
-
     val request = ListForecastsRequest {
         maxResults = 10
     }

@@ -21,7 +21,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <s3Uri> <s3UriOut> <jobName> <dataAccessRoleArn>
@@ -50,9 +49,8 @@ suspend fun translateDocuments(
     s3UriVal: String?,
     s3UriOutVal: String?,
     jobNameVal: String?,
-    dataAccessRoleArnVal: String?
+    dataAccessRoleArnVal: String?,
 ): String? {
-
     val sleepTime: Long = 5
     val dataConfig = InputDataConfig {
         s3Uri = s3UriVal
@@ -88,15 +86,14 @@ suspend fun translateDocuments(
         }
 
         while (!jobDone) {
-
             // Check status on each loop.
             val response = translateClient.describeTextTranslationJob(jobRequest)
             jobStatus = response.textTranslationJobProperties?.jobStatus.toString()
             println(jobStatus)
 
-            if (jobStatus.contains("COMPLETED"))
+            if (jobStatus.contains("COMPLETED")) {
                 break
-            else {
+            } else {
                 print(".")
 
                 delay(sleepTime * 1000)

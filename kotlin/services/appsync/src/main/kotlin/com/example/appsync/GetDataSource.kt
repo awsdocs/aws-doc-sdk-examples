@@ -18,7 +18,6 @@ import kotlin.system.exitProcess
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <apiId> <keyId>
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[appsync.kotlin.get_ds.main]
 suspend fun getDS(apiIdVal: String?, dsName: String?) {
-
     val request = GetDataSourceRequest {
         apiId = apiIdVal
         name = dsName

@@ -58,7 +58,7 @@ class APIGatewayTest {
         httpMethod = prop.getProperty("httpMethod")
         restApiName = prop.getProperty("restApiName")
         stageName = prop.getProperty("stageName")
-       */
+        */
     }
 
     @Test

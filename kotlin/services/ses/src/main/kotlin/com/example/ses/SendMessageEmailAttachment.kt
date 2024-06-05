@@ -32,7 +32,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -75,9 +74,8 @@ suspend fun sendemailAttachment(
     subject: String,
     bodyText: String,
     bodyHTML: String,
-    fileLocation: String
+    fileLocation: String,
 ) {
-
     val theFile = File(fileLocation)
     val fileContent = Files.readAllBytes(theFile.toPath())
     val session = Session.getDefaultInstance(Properties())

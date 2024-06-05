@@ -99,7 +99,7 @@ class RekognitionTest {
         modVid = prop.getProperty("modVid")
         textVid = prop.getProperty("textVid")
         celVid = prop.getProperty("celVid")
-        */
+         */
     }
 
     @Test

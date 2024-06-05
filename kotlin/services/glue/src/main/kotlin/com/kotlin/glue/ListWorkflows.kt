@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[glue.kotlin.list_wfs.main]
 suspend fun listAllWorkflows() {
-
     val request = ListWorkflowsRequest {
         maxResults = 10
     }

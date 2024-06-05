@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <appName> 
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[eb.kotlin.delete_app.main]
 suspend fun deleteApp(appName: String?) {
-
     val applicationRequest = DeleteApplicationRequest {
         applicationName = appName
         terminateEnvByForce = true

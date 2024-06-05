@@ -10,7 +10,6 @@ import kotlin.system.exitProcess
 // snippet-end:[cloudtrail.kotlin.delete_trail.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -31,7 +30,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudtrail.kotlin.delete_trail.main]
 suspend fun deleteSpecificTrail(trailName: String) {
-
     val request = DeleteTrailRequest {
         name = trailName
     }

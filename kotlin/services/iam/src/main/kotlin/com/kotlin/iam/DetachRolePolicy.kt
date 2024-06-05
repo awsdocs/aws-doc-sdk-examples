@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <roleName> <policyArn>
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[iam.kotlin.detach_role_policy.main]
 suspend fun detachPolicy(roleNameVal: String, policyArnVal: String) {
-
     val request = DetachRolePolicyRequest {
         roleName = roleNameVal
         policyArn = policyArnVal

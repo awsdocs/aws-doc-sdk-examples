@@ -31,7 +31,6 @@ suspend fun main() {
 
 // snippet-start:[erm.kotlin.create_fleet.main]
 suspend fun createFleet() {
-
     // Instance Types
     // M Family
     val m3xLarge = InstanceTypeConfig {

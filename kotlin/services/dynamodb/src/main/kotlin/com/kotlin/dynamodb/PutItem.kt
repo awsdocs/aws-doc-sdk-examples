@@ -63,7 +63,7 @@ suspend fun putItemInTable(
     awards: String,
     awardVal: String,
     songTitle: String,
-    songTitleVal: String
+    songTitleVal: String,
 ) {
     val itemValues = mutableMapOf<String, AttributeValue>()
 

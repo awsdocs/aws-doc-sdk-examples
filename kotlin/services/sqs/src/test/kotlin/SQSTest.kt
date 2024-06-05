@@ -53,7 +53,7 @@ class SQSTest {
         prop.load(input)
         queueName = prop.getProperty("QueueName")
         message = prop.getProperty("Message")
-        */
+         */
     }
 
     @Test

@@ -284,7 +284,7 @@ suspend fun deleteS3Bucket(bucketName: String?) {
                 toDelete.add(
                     ObjectIdentifier {
                         key = myValue.key
-                    }
+                    },
                 )
             }
         }

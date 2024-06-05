@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <keyId> 
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[kms.kotlin_disable_key.main]
 suspend fun disableKey(keyIdVal: String?) {
-
     val request = DisableKeyRequest {
         keyId = keyIdVal
     }

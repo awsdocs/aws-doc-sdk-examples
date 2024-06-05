@@ -82,7 +82,7 @@ import java.util.Date
    Usage:
      fileName - The name of the JSON file that contains movie data. (Get this file from the GitHub repo at resources/sample_file.)
      keyspaceName - The name of the keyspace to create.
-  */
+ */
 val DASHES: String = String(CharArray(80)).replace("\u0000", "-")
 suspend fun main() {
     val fileName = "<Replace with the JSON file that contains movie data>"
@@ -324,7 +324,7 @@ fun updateRecord(session: CqlSession, keySpace: String, titleUpdate: String?, ye
         preparedStatement.boundStatementBuilder()
             .setString("k0", titleUpdate)
             .setInt("k1", yearUpdate)
-            .build()
+            .build(),
     )
     val batchStatement = builder.build()
     session.execute(batchStatement)
@@ -399,7 +399,7 @@ fun loadData(session: CqlSession, fileName: String, keySpace: String) {
                 .setString("k0", title)
                 .setInt("k1", year)
                 .setString("k2", info)
-                .build()
+                .build(),
         )
 
         val batchStatement = builder.build()
@@ -420,7 +420,7 @@ suspend fun listTables(keyspaceNameVal: String?) {
             .collect { obj ->
                 println(
                     " ARN: " + obj.resourceArn.toString() +
-                        " Table name: " + obj.tableName
+                        " Table name: " + obj.tableName,
                 )
             }
     }

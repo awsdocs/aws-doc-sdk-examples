@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: <streamName>
 
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[kinesis.kotlin.AddDataShards.main]
 suspend fun addShards(name: String?, goalShards: Int) {
-
     val request = UpdateShardCountRequest {
         scalingType = ScalingType.fromValue("UNIFORM_SCALING")
         streamName = name

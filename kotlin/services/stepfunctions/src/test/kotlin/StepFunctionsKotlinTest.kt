@@ -64,7 +64,7 @@ class StepFunctionsKotlinTest {
         roleNameSC = prop.getProperty("roleNameSC")
         activityNameSC = prop.getProperty("activityNameSC")
         stateMachineNameSC = prop.getProperty("stateMachineNameSC")
-        */
+         */
     }
 
     @Test

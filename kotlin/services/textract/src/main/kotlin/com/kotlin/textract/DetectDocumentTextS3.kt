@@ -19,7 +19,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
        <bucketName> <docName> 
@@ -41,7 +40,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[textract.kotlin._detect_s3_text.main]
 suspend fun detectDocTextS3(bucketName: String?, docName: String?) {
-
     val s3ObjectOb = S3Object {
         bucket = bucketName
         name = docName

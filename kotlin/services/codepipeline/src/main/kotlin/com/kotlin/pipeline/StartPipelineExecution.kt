@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <name> 
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pipeline.kotlin.start_pipeline.main]
 suspend fun executePipeline(nameVal: String) {
-
     val request = StartPipelineExecutionRequest {
         name = nameVal
     }

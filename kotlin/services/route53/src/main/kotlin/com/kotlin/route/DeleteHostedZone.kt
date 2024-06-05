@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <hostedZoneId> 
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[route53.kotlin.delete_hosted_zone.main]
 suspend fun delHostedZone(hostedZoneId: String?) {
-
     val deleteHostedZoneRequestRequest = DeleteHostedZoneRequest {
         id = hostedZoneId
     }

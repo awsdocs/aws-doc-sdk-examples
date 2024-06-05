@@ -73,7 +73,11 @@ class StockTrade {
     override fun toString(): String {
         return String.format(
             "ID %d: %s %d shares of %s for $%.02f",
-            id, tradeType, quantity, tickerSymbol, price
+            id,
+            tradeType,
+            quantity,
+            tickerSymbol,
+            price,
         )
     }
 }

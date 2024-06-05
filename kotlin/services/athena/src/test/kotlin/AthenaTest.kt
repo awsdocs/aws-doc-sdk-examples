@@ -53,7 +53,7 @@ class AthenaTest {
         queryString = prop.getProperty("queryString")
         database = prop.getProperty("database")
         outputLocation = prop.getProperty("outputLocation")
-        */
+         */
     }
 
     @Test

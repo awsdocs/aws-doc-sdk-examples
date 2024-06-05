@@ -20,7 +20,6 @@ import kotlin.system.exitProcess
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <apiId> <dsName> <dsRole> <tableName>
@@ -47,7 +46,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[appsync.kotlin.create_ds.main]
 suspend fun createDS(dsName: String, dsRole: String, apiVal: String, tableNameVal: String): String? {
-
     val config = DynamodbDataSourceConfig {
         awsRegion = "us-east-1"
         tableName = tableNameVal

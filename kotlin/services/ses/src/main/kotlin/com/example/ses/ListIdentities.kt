@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[ses.kotlin.identities.main]
 suspend fun listSESIdentities() {
-
     SesClient { region = "us-east-1" }.use { sesClient ->
         val response = sesClient.listIdentities(ListIdentitiesRequest {})
         response.identities?.forEach { identity ->

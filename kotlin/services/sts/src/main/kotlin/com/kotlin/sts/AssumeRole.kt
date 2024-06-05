@@ -37,7 +37,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <roleArn> <roleSessionName> 
@@ -59,7 +58,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[sts.kotlin.assume_role.main]
 suspend fun assumeGivenRole(roleArnVal: String?, roleSessionNameVal: String?) {
-
     val roleRequest = AssumeRoleRequest {
         roleArn = roleArnVal
         roleSessionName = roleSessionNameVal

@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <user> 
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[iam.kotlin.create_access_key.main]
 suspend fun createIAMAccessKey(user: String?): String {
-
     val request = CreateAccessKeyRequest {
         userName = user
     }

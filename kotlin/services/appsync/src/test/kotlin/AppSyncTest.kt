@@ -51,7 +51,7 @@ class AppSyncTest {
         dsName = prop.getProperty("dsName")
         dsRole = prop.getProperty("dsRole")
         tableName = prop.getProperty("tableName")
-        */
+         */
     }
 
     @Test

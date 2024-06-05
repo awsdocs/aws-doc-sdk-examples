@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -41,7 +40,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudwatch.kotlin.delete_subscription_filter.main]
 suspend fun deleteSubFilter(filter: String?, logGroup: String?) {
-
     val request = DeleteSubscriptionFilterRequest {
         filterName = filter
         logGroupName = logGroup

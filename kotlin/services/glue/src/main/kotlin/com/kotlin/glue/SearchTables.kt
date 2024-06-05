@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <text>
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[glue.kotlin.search_table.main]
 suspend fun searchGlueTable(text: String?) {
-
     val request = SearchTablesRequest {
         searchText = text
         resourceShareType = ResourceShareType.fromValue("All")

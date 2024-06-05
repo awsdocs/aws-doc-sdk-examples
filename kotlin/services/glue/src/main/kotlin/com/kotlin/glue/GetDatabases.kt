@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[glue.kotlin.get_databases.main]
 suspend fun getAllDatabases() {
-
     val request = GetDatabasesRequest {
         maxResults = 10
     }

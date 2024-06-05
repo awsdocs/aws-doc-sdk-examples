@@ -22,7 +22,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <appId>
@@ -42,7 +41,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pinpoint.kotlin.add_endpoint.main]
 suspend fun updateEndpointsViaBatch(applicationIdVal: String?) {
-
     val myNames = mutableListOf<String>()
     myNames.add("Richard")
     myNames.add("Roe")
@@ -78,7 +76,7 @@ suspend fun updateEndpointsViaBatch(applicationIdVal: String?) {
             UpdateEndpointsBatchRequest {
                 applicationId = applicationIdVal
                 endpointBatchRequest = endpointList
-            }
+            },
         )
         println("Update endpoint result ${result.messageBody?.message}")
     }

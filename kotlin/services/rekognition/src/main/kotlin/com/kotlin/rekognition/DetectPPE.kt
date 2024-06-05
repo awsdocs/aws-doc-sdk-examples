@@ -23,7 +23,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <sourceImage> 
@@ -43,7 +42,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[rekognition.kotlin.detect_ppe.main]
 suspend fun displayGear(sourceImage: String) {
-
     val summarizationAttributesOb = ProtectiveEquipmentSummarizationAttributes {
         minConfidence = 80f
         this.requiredEquipmentTypes = listOf(ProtectiveEquipmentType.fromValue("FACE_COVER"), ProtectiveEquipmentType.fromValue("HEAD_COVER"))
@@ -67,26 +65,28 @@ suspend fun displayGear(sourceImage: String) {
             if (bodyParts != null) {
                 if (bodyParts.isEmpty()) {
                     println("\tNo body parts detected")
-                } else for (bodyPart: ProtectiveEquipmentBodyPart in bodyParts) {
-                    println("${bodyPart.name}  -  Confidence: ${bodyPart.confidence}")
+                } else {
+                    for (bodyPart: ProtectiveEquipmentBodyPart in bodyParts) {
+                        println("${bodyPart.name}  -  Confidence: ${bodyPart.confidence}")
 
-                    val equipmentDetections = bodyPart.equipmentDetections
-                    if (equipmentDetections != null) {
-                        if (equipmentDetections.isEmpty()) {
-                            println("No PPE Detected on ${bodyPart.name}")
-                        } else {
-                            for (item: EquipmentDetection in equipmentDetections) {
-                                println("Item ${item.type}  - confidence: ${item.confidence}")
-                                println("Covers body part:  ${item.coversBodyPart?.value}  - confidence is  ${item.coversBodyPart?.confidence}")
-                                println("\t\tBounding Box")
-                                val box = item.boundingBox
-                                if (box != null) {
-                                    println("Left: ${box.left}")
-                                    println("Top: ${box.top}")
-                                    println("Width: ${box.width}")
-                                    println("Height: ${box.height}")
-                                    println("Confidence: ${item.confidence}")
-                                    println()
+                        val equipmentDetections = bodyPart.equipmentDetections
+                        if (equipmentDetections != null) {
+                            if (equipmentDetections.isEmpty()) {
+                                println("No PPE Detected on ${bodyPart.name}")
+                            } else {
+                                for (item: EquipmentDetection in equipmentDetections) {
+                                    println("Item ${item.type}  - confidence: ${item.confidence}")
+                                    println("Covers body part:  ${item.coversBodyPart?.value}  - confidence is  ${item.coversBodyPart?.confidence}")
+                                    println("\t\tBounding Box")
+                                    val box = item.boundingBox
+                                    if (box != null) {
+                                        println("Left: ${box.left}")
+                                        println("Top: ${box.top}")
+                                        println("Width: ${box.width}")
+                                        println("Height: ${box.height}")
+                                        println("Confidence: ${item.confidence}")
+                                        println()
+                                    }
                                 }
                             }
                         }

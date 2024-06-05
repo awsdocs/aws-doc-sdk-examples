@@ -23,7 +23,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
        Usage:
             <clientId> <secretkey> <userName> <password> <email>
@@ -51,7 +50,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cognito.kotlin.signup.main]
 suspend fun signUp(clientIdVal: String, secretKey: String, userName: String, passwordVal: String, email: String) {
-
     val attributeType = AttributeType {
         this.name = "email"
         this.value = email
@@ -78,7 +76,7 @@ fun calculateSecretHash(userPoolClientId: String, userPoolClientSecret: String, 
     val macSha256Algorithm = "HmacSHA256"
     val signingKey = SecretKeySpec(
         userPoolClientSecret.toByteArray(StandardCharsets.UTF_8),
-        macSha256Algorithm
+        macSha256Algorithm,
     )
     try {
         val mac = Mac.getInstance(macSha256Algorithm)

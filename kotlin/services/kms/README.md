@@ -33,16 +33,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateAlias](src/main/kotlin/com/kotlin/kms/CreateAlias.kt#L40)
-- [CreateGrant](src/main/kotlin/com/kotlin/kms/CreateGrant.kt#L44)
-- [CreateKey](src/main/kotlin/com/kotlin/kms/CreateCustomerKey.kt#L28)
-- [Decrypt](src/main/kotlin/com/kotlin/kms/EncryptDataKey.kt#L43)
-- [DescribeKey](src/main/kotlin/com/kotlin/kms/DescribeKey.kt#L38)
-- [DisableKey](src/main/kotlin/com/kotlin/kms/DisableCustomerKey.kt#L38)
-- [EnableKey](src/main/kotlin/com/kotlin/kms/EnableCustomerKey.kt#L38)
-- [Encrypt](src/main/kotlin/com/kotlin/kms/EncryptDataKey.kt#L43)
+- [CreateAlias](src/main/kotlin/com/kotlin/kms/CreateAlias.kt#L39)
+- [CreateGrant](src/main/kotlin/com/kotlin/kms/CreateGrant.kt#L43)
+- [CreateKey](src/main/kotlin/com/kotlin/kms/CreateCustomerKey.kt#L27)
+- [Decrypt](src/main/kotlin/com/kotlin/kms/EncryptDataKey.kt#L42)
+- [DescribeKey](src/main/kotlin/com/kotlin/kms/DescribeKey.kt#L37)
+- [DisableKey](src/main/kotlin/com/kotlin/kms/DisableCustomerKey.kt#L37)
+- [EnableKey](src/main/kotlin/com/kotlin/kms/EnableCustomerKey.kt#L37)
+- [Encrypt](src/main/kotlin/com/kotlin/kms/EncryptDataKey.kt#L42)
 - [ListAliases](src/main/kotlin/com/kotlin/kms/ListAliases.kt#L23)
-- [ListGrants](src/main/kotlin/com/kotlin/kms/ListGrants.kt#L37)
+- [ListGrants](src/main/kotlin/com/kotlin/kms/ListGrants.kt#L36)
 - [ListKeys](src/main/kotlin/com/kotlin/kms/ListKeys.kt#L22)
 
 

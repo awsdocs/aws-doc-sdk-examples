@@ -24,7 +24,6 @@ suspend fun main() {
 
 // snippet-start:[cloudwatch.kotlin.get_metric_data.main]
 suspend fun getMetData() {
-
     val start = aws.smithy.kotlin.runtime.time.Instant.fromIso8601("2019-10-23T10:12:35Z")
     val endDate = aws.smithy.kotlin.runtime.time.Instant.now()
     val met = Metric {

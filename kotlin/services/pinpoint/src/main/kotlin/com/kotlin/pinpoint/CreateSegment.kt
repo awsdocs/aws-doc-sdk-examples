@@ -29,7 +29,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: <appId> 
 
@@ -48,7 +47,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pinpoint.kotlin.createsegment.main]
 suspend fun createPinpointSegment(applicationIdVal: String?): String? {
-
     val segmentAttributes = mutableMapOf<String, AttributeDimension>()
     val myList = mutableListOf<String>()
     myList.add("Lakers")
@@ -86,7 +84,7 @@ suspend fun createPinpointSegment(applicationIdVal: String?): String? {
             CreateSegmentRequest {
                 applicationId = applicationIdVal
                 writeSegmentRequest = writeSegmentRequestOb
-            }
+            },
         )
         println("Segment ID is ${createSegmentResult.segmentResponse?.id}")
         return createSegmentResult.segmentResponse?.id

@@ -15,7 +15,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: 
          <collectionId> <faceId> 
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[rekognition.kotlin.delete_faces_collection.main]
 suspend fun deleteFacesCollection(collectionIdVal: String?, faceIdVal: String) {
-
     val deleteFacesRequest = DeleteFacesRequest {
         collectionId = collectionIdVal
         faceIds = listOf(faceIdVal)

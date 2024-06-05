@@ -18,14 +18,12 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main() {
-
     val text = "Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle - based companies are Starbucks and Boeing."
     detectAllEntities(text)
 }
 
 // snippet-start:[comprehend.kotlin.detect_entities.main]
 suspend fun detectAllEntities(textVal: String) {
-
     val request = DetectEntitiesRequest {
         text = textVal
         languageCode = LanguageCode.fromValue("en")

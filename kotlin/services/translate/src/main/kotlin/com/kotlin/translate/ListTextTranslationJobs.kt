@@ -21,7 +21,6 @@ suspend fun main() {
 
 // snippet-start:[translate.kotlin._list_jobs.main]
 suspend fun getTranslationJobs() {
-
     val textTranslationJobsRequest = ListTextTranslationJobsRequest {
         maxResults = 10
     }

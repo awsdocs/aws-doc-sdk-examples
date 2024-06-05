@@ -21,7 +21,6 @@ suspend fun main() {
 
 // snippet-start:[sts.kotlin.get_session_token.main]
 suspend fun getToken() {
-
     val request = GetSessionTokenRequest {
         durationSeconds = 1500
     }

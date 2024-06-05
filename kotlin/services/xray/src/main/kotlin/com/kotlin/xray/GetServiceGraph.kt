@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         
         Usage: 
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[xray.kotlin_get_graph.main]
 suspend fun getGraph(groupNameVal: String?) {
-
     val time = aws.smithy.kotlin.runtime.time.Instant
     val getServiceGraphRequest = GetServiceGraphRequest {
         groupName = groupNameVal

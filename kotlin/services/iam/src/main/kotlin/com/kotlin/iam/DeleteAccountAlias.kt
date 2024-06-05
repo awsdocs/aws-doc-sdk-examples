@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <alias> 
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[iam.kotlin.delete_account_alias.main]
 suspend fun deleteIAMAccountAlias(alias: String) {
-
     val request = DeleteAccountAliasRequest {
         accountAlias = alias
     }

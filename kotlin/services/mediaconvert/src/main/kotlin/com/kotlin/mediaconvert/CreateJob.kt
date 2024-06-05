@@ -285,7 +285,7 @@ suspend fun createMediaJob(mcClient: MediaConvertClient, mcRoleARN: String, file
                             audioDescriptionBroadcasterMix = AacAudioDescriptionBroadcasterMix.Normal
                         }
                     }
-                }
+                },
             )
         }
 
@@ -338,7 +338,7 @@ suspend fun createMediaJob(mcClient: MediaConvertClient, mcRoleARN: String, file
                             }
                         }
                     }
-                }
+                },
             )
         }
 
@@ -366,7 +366,7 @@ suspend fun createMediaJob(mcClient: MediaConvertClient, mcRoleARN: String, file
                     fileInput = fileInputVal
 
                     outputGroups = listOf(appleHLS, thumbs, fileMp4)
-                }
+                },
             )
         }
 
@@ -391,7 +391,7 @@ fun createOutput(
     qvbrQualityLevelVal: Int,
     originWidth: Int,
     originHeight: Int,
-    targetWidth: Int
+    targetWidth: Int,
 ): Output? {
     val targetHeight = (
         (originHeight * targetWidth / originWidth).toFloat().roundToInt() -

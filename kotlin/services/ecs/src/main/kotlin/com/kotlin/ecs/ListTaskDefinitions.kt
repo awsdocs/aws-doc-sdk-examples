@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
     Usage:
@@ -41,7 +40,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ecs.kotlin.list_tasks.main]
 suspend fun getAllTasks(clusterArn: String, taskId: String) {
-
     val request = DescribeTasksRequest {
         cluster = clusterArn
         tasks = listOf(taskId)

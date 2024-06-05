@@ -21,7 +21,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -44,7 +43,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudwatch.kotlin.put_metric_alarm.main]
 suspend fun putMetricAlarm(alarmNameVal: String, instanceIdVal: String) {
-
     val dimensionOb = Dimension {
         name = "InstanceId"
         value = instanceIdVal

@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <indexId> 
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[kendra.kotlin.list.sync.main]
 suspend fun listSyncJobs(indexIdVal: String?, dataSourceId: String?) {
-
     val jobsRequest = ListDataSourceSyncJobsRequest {
         indexId = indexIdVal
         maxResults = 10

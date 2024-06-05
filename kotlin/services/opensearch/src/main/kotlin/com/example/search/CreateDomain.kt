@@ -23,7 +23,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <domainName>
@@ -42,7 +41,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[opensearch.kotlin.create_domain.main]
 suspend fun createNewDomain(domainNameVal: String?) {
-
     val clusterConfigOb = ClusterConfig {
         dedicatedMasterEnabled = true
         dedicatedMasterCount = 3

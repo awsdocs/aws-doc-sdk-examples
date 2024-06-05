@@ -65,7 +65,7 @@ class PersonalizeKotlinTest {
         campaignName = prop.getProperty("campaignName")
         campaignArn = prop.getProperty("campaignArn")
         userId = prop.getProperty("userId")
-        */
+         */
     }
 
     @Test

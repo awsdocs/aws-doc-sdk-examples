@@ -20,7 +20,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -43,7 +42,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudwatch.kotlin.put_log_events.main]
 suspend fun putCWLogEvents(logGroupNameVal: String, streamNameVal: String) {
-
     lateinit var describeLogStreamsResponse: DescribeLogStreamsResponse
     val request = DescribeLogStreamsRequest {
         logGroupName = logGroupNameVal

@@ -18,7 +18,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <queueName> <tagName>
@@ -40,7 +39,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[sqs.kotlin.remove_tag.main]
 suspend fun removeTag(queueNameVal: String, tagName: String) {
-
     val urlRequest = GetQueueUrlRequest {
         queueName = queueNameVal
     }

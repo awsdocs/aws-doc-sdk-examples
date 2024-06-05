@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <topicArn> <tagKey>
@@ -40,7 +39,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[sns.kotlin.delete_tags.main]
 suspend fun removeTag(topicArn: String, tagKey: String) {
-
     val resourceRequest = UntagResourceRequest {
         resourceArn = topicArn
         tagKeys = listOf(tagKey)

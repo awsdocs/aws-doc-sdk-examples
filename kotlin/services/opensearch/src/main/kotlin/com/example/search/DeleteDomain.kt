@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <domainName>
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[opensearch.kotlin.delete_domain.main]
 suspend fun deleteSpecificDomain(domainNameVal: String) {
-
     val request = DeleteDomainRequest {
         domainName = domainNameVal
     }

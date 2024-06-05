@@ -81,7 +81,7 @@ suspend fun main() {
 suspend fun executeStatementRequest(
     ddb: DynamoDbClient,
     statementVal: String,
-    parametersVal: List<AttributeValue>
+    parametersVal: List<AttributeValue>,
 ): ExecuteStatementResponse? {
     val request = ExecuteStatementRequest {
         statement = statementVal

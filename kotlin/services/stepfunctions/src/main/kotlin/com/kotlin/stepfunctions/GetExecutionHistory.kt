@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
       Usage:
          <exeARN> 
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[stepfunctions.kotlin.get_history.main]
 suspend fun getExeHistory(exeARN: String?) {
-
     val historyRequest = GetExecutionHistoryRequest {
         executionArn = exeARN
         maxResults = 10

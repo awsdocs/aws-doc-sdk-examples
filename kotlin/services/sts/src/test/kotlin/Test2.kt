@@ -45,7 +45,7 @@ class Test2 {
         roleArn = prop.getProperty("roleArn")
         accessKeyId = prop.getProperty("accessKeyId")
         roleSessionName = prop.getProperty("roleSessionName")
-        */
+         */
     }
 
     @Test

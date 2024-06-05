@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[kms.kotlin_list_aliases.main]
 suspend fun listAllAliases() {
-
     val request = ListAliasesRequest {
         limit = 15
     }

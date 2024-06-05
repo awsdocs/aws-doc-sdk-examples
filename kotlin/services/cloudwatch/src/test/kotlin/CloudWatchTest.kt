@@ -104,7 +104,7 @@ class CloudWatchTest {
         dashboardAddSc = prop.getProperty("dashboardAddSc")
         settingsSc = prop.getProperty("settingsSc")
         metricImageSc = prop.getProperty("metricImageSc")
-        */
+         */
     }
 
     @Test

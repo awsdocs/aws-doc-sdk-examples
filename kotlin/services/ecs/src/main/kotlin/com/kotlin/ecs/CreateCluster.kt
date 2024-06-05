@@ -21,7 +21,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
     Usage:
@@ -43,7 +42,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ecs.kotlin.create_cluster.main]
 suspend fun createGivenCluster(clusterNameVal: String?): String? {
-
     val commandConfiguration = ExecuteCommandConfiguration {
         logging = ExecuteCommandLogging.Default
     }

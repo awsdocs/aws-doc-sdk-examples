@@ -40,7 +40,6 @@ import kotlin.system.exitProcess
 
 // snippet-start:[lambda.kotlin.scenario.main]
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <functionName> <role> <handler> <bucketName> <updatedBucketName> <key> 
@@ -103,9 +102,8 @@ suspend fun createScFunction(
     s3BucketName: String,
     myS3Key: String,
     myHandler: String,
-    myRole: String
+    myRole: String,
 ): String {
-
     val functionCode = FunctionCode {
         s3Bucket = s3BucketName
         s3Key = myS3Key
@@ -131,7 +129,6 @@ suspend fun createScFunction(
 }
 
 suspend fun getFunction(functionNameVal: String) {
-
     val functionRequest = GetFunctionRequest {
         functionName = functionNameVal
     }
@@ -143,7 +140,6 @@ suspend fun getFunction(functionNameVal: String) {
 }
 
 suspend fun listFunctionsSc() {
-
     val request = ListFunctionsRequest {
         maxItems = 10
     }
@@ -157,7 +153,6 @@ suspend fun listFunctionsSc() {
 }
 
 suspend fun invokeFunctionSc(functionNameVal: String) {
-
     val json = """{"inputValue":"1000"}"""
     val byteArray = json.trimIndent().encodeToByteArray()
     val request = InvokeRequest {
@@ -173,7 +168,6 @@ suspend fun invokeFunctionSc(functionNameVal: String) {
 }
 
 suspend fun updateFunctionCode(functionNameVal: String?, bucketName: String?, key: String?) {
-
     val functionCodeRequest = UpdateFunctionCodeRequest {
         functionName = functionNameVal
         publish = true
@@ -191,7 +185,6 @@ suspend fun updateFunctionCode(functionNameVal: String?, bucketName: String?, ke
 }
 
 suspend fun UpdateFunctionConfiguration(functionNameVal: String?, handlerVal: String?) {
-
     val configurationRequest = UpdateFunctionConfigurationRequest {
         functionName = functionNameVal
         handler = handlerVal
@@ -204,7 +197,6 @@ suspend fun UpdateFunctionConfiguration(functionNameVal: String?, handlerVal: St
 }
 
 suspend fun delFunction(myFunctionName: String) {
-
     val request = DeleteFunctionRequest {
         functionName = myFunctionName
     }

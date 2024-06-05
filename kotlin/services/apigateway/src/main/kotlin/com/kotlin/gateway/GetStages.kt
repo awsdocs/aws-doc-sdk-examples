@@ -9,8 +9,7 @@ import aws.sdk.kotlin.services.apigateway.model.GetStagesRequest
 import kotlin.system.exitProcess
 // snippet-end:[apigateway.kotlin.get_stages.import]
 
-suspend fun main(args:Array<String>) {
-
+suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
             <restApiId> 
@@ -20,8 +19,8 @@ suspend fun main(args:Array<String>) {
         """
 
     if (args.size != 1) {
-          println(usage)
-          exitProcess(0)
+        println(usage)
+        exitProcess(0)
     }
 
     val restApiId = args[0]
@@ -30,7 +29,6 @@ suspend fun main(args:Array<String>) {
 
 // snippet-start:[apigateway.kotlin.get_stages.main]
 suspend fun getAllStages(restApiIdVal: String?) {
-
     val stagesRequest = GetStagesRequest {
         restApiId = restApiIdVal
     }

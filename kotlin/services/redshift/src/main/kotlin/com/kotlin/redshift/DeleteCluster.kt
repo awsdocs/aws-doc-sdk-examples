@@ -16,7 +16,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <clusterId>  
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[redshift.kotlin.delete_cluster.main]
 suspend fun deleteRedshiftCluster(clusterId: String?) {
-
     val request = DeleteClusterRequest {
         clusterIdentifier = clusterId
         skipFinalClusterSnapshot = true

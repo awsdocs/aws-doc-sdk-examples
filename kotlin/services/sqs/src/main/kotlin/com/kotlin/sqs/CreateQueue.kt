@@ -18,7 +18,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <queueName> 
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[sqs.kotlin.create_queue.main]
 suspend fun createQueue(queueNameVal: String): String {
-
     println("Create Queue")
     val createQueueRequest = CreateQueueRequest {
         queueName = queueNameVal

@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: <sourceImage> 
 
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[rekognition.kotlin.detect_mod_labels.main]
 suspend fun detectModLabels(sourceImage: String) {
-
     val myImage = Image {
         this.bytes = (File(sourceImage).readBytes())
     }

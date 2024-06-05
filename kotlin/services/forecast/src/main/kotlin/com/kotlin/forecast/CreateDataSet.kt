@@ -23,7 +23,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <name>  
@@ -44,7 +43,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[forecast.kotlin.create_forecast_dataset.main]
 suspend fun createForecastDataSet(name: String?): String? {
-
     val schemaOb = Schema {
         attributes = getSchema()
     }
@@ -65,7 +63,6 @@ suspend fun createForecastDataSet(name: String?): String? {
 
 // Create a SchemaAttribute list required to create a data set.
 private fun getSchema(): MutableList<SchemaAttribute> {
-
     val schemaList = mutableListOf<SchemaAttribute>()
 
     val att1 = SchemaAttribute {

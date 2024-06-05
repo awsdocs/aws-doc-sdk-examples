@@ -29,7 +29,6 @@ import kotlin.system.exitProcess
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <indexDescription> <indexName> <indexRoleArn> <dataSourceRoleArn> <dataSourceName> <dataSourceDescription> <s3BucketName>
@@ -62,9 +61,9 @@ suspend fun main(args: Array<String>) {
     val dsIdValue = createDataSource(s3BucketName, dataSourceName, dataSourceDescription, indexId, dataSourceRoleArn)
     startDataSource(indexId, dsIdValue)
 }
+
 // snippet-start:[kendra.kotlin.index.main]
 suspend fun createIndex(indexDescription: String, indexName: String, indexRoleArn: String): String {
-
     println("Creating an index named $indexName")
     val createIndexRequest = CreateIndexRequest {
         description = indexDescription
@@ -125,12 +124,12 @@ suspend fun createDataSource(s3BucketName: String?, dataSourceName: String?, dat
 
         var finished = false
         while (!finished) {
-
             val describeDataSourceResponse = kendra.describeDataSource(describeDataSourceRequest)
             val status = describeDataSourceResponse.status
             println("Status is $status")
-            if (status !== DataSourceStatus.Creating)
+            if (status !== DataSourceStatus.Creating) {
                 finished = true
+            }
             delay(30000)
         }
         return dataSourceId.toString()
@@ -140,7 +139,6 @@ suspend fun createDataSource(s3BucketName: String?, dataSourceName: String?, dat
 
 // snippet-start:[kendra.kotlin.start.datasource.main]
 suspend fun startDataSource(indexIdVal: String?, dataSourceId: String?) {
-
     println("Synchronize the data source $dataSourceId")
     val startDataSourceSyncJobRequest = StartDataSourceSyncJobRequest {
         indexId = indexIdVal

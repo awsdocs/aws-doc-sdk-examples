@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[stepfunctions.kotlin.list_activities.main]
 suspend fun listAllActivites() {
-
     val activitiesRequest = ListActivitiesRequest {
         maxResults = 10
     }

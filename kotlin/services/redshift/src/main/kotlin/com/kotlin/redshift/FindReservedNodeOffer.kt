@@ -18,14 +18,12 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
     listReservedNodes()
     findReservedNodeOffer()
 }
 
 // snippet-start:[redshift.kotlin._nodes.main]
 suspend fun listReservedNodes() {
-
     RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
         val reservedNodesResponse = redshiftClient.describeReservedNodes(DescribeReservedNodesRequest {})
         println("Listing nodes already purchased.")
@@ -36,7 +34,6 @@ suspend fun listReservedNodes() {
 }
 
 suspend fun findReservedNodeOffer() {
-
     val nodeTypeToPurchase = "dc2.large"
     val fixedPriceLimit = 10000.00
     val matchingNodes = mutableListOf<ReservedNodeOffering>()
@@ -75,7 +72,6 @@ private fun printReservedNodeDetails(node: ReservedNode) {
 }
 
 private fun printOfferingDetails(offering: ReservedNodeOffering) {
-
     println("Offering Match:")
     println("Id: ${offering.reservedNodeOfferingId}")
     println("Node Type: ${offering.nodeType}")

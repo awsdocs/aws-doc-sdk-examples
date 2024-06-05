@@ -20,7 +20,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <keyId> <path>
@@ -42,7 +41,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[kms.kotlin_encrypt_data.main]
 suspend fun encryptData(keyIdValue: String): ByteArray? {
-
     val text = "This is the text to encrypt by using the AWS KMS Service"
     val myBytes: ByteArray = text.toByteArray()
 
@@ -62,7 +60,6 @@ suspend fun encryptData(keyIdValue: String): ByteArray? {
 }
 
 suspend fun decryptData(encryptedDataVal: ByteArray?, keyIdVal: String?, path: String) {
-
     val decryptRequest = DecryptRequest {
         ciphertextBlob = encryptedDataVal
         keyId = keyIdVal

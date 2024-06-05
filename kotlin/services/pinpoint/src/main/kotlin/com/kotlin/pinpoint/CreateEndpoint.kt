@@ -28,7 +28,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: 
         <appId> 
@@ -44,13 +43,13 @@ suspend fun main(args: Array<String>) {
 
     val appId = args[0]
     val endId = createPinpointEndpoint(appId)
-    if (endId != null)
+    if (endId != null) {
         println("The Endpoint id is: $endId")
+    }
 }
 
 // snippet-start:[pinpoint.kotlin.createendpoint.main]
 suspend fun createPinpointEndpoint(applicationIdVal: String?): String? {
-
     val endpointIdVal = UUID.randomUUID().toString()
     println("Endpoint ID: $endpointIdVal")
 
@@ -85,7 +84,6 @@ suspend fun createPinpointEndpoint(applicationIdVal: String?): String? {
 }
 
 private fun createEndpointRequestData(): EndpointRequest? {
-
     val favoriteTeams = mutableListOf<String>()
     favoriteTeams.add("Lakers")
     favoriteTeams.add("Warriors")

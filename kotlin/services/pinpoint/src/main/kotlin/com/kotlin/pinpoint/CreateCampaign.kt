@@ -24,7 +24,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: <appId> <segmentId>
 
@@ -45,7 +44,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pinpoint.kotlin.createcampaign.main]
 suspend fun createPinCampaign(appId: String, segmentIdVal: String) {
-
     val scheduleOb = Schedule {
         startTime = "IMMEDIATE"
     }
@@ -73,7 +71,7 @@ suspend fun createPinCampaign(appId: String, segmentIdVal: String) {
             CreateCampaignRequest {
                 applicationId = appId
                 writeCampaignRequest = writeCampaign
-            }
+            },
         )
         println("Campaign ID is ${result.campaignResponse?.id}")
     }

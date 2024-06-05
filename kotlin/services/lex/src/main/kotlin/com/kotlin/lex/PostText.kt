@@ -21,7 +21,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
         Usage: 
@@ -46,7 +45,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[lex.kotlin.text.main]
 suspend fun getText(text: String, botNameVal: String, botAliasVal: String): String? {
-
     val userIdVal = "chatbot-demo"
     val sessionAttributesVal = mutableMapOf<String, String>()
 

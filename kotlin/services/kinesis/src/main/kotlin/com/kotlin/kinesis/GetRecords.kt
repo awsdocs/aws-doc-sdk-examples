@@ -23,7 +23,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: 
         <streamName>
@@ -43,7 +42,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[kinesis.kotlin.get_records.main]
 suspend fun getStockTrades(streamNameVal: String?) {
-
     val shardIteratorVal: String
     val shards = mutableListOf<Shard?>()
     var streamRes: DescribeStreamResponse
@@ -62,7 +60,7 @@ suspend fun getStockTrades(streamNameVal: String?) {
                 streamName = streamNameVal
                 shardIteratorType = ShardIteratorType.fromValue("TRIM_HORIZON")
                 shardId = id
-            }
+            },
         )
         shardIteratorVal = shardIteratorResult.shardIterator.toString()
 

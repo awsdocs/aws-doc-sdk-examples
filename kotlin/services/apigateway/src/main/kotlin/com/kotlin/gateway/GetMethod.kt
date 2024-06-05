@@ -9,9 +9,7 @@ import aws.sdk.kotlin.services.apigateway.model.GetMethodRequest
 import kotlin.system.exitProcess
 // snippet-end:[apigateway.kotlin.get_method.import]
 
-
-suspend fun main(args:Array<String>) {
-
+suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
         <restApiId> <resourceId> <httpMethod> 
@@ -34,13 +32,12 @@ suspend fun main(args:Array<String>) {
 }
 
 // snippet-start:[apigateway.kotlin.get_method.main]
-suspend fun getSpecificMethod(restApiIdVal: String?, resourceIdVal: String?, httpMethodVal: String? ) {
-
-     val methodRequest = GetMethodRequest {
-         httpMethod = httpMethodVal
-         restApiId = restApiIdVal
-         resourceId = resourceIdVal
-     }
+suspend fun getSpecificMethod(restApiIdVal: String?, resourceIdVal: String?, httpMethodVal: String?) {
+    val methodRequest = GetMethodRequest {
+        httpMethod = httpMethodVal
+        restApiId = restApiIdVal
+        resourceId = resourceIdVal
+    }
 
     ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
         val response = apiGateway.getMethod(methodRequest)

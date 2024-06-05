@@ -66,7 +66,7 @@ class LambdaTest {
         s3Key = prop.getProperty("s3Key")
         role = prop.getProperty("role")
         handler = prop.getProperty("handler")
-        */
+         */
     }
 
     @Test

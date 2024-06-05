@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <sourceImage> 
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[rekognition.kotlin.detect_text.main]
 suspend fun detectTextLabels(sourceImage: String?) {
-
     val souImage = Image {
         bytes = (File(sourceImage).readBytes())
     }

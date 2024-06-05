@@ -17,7 +17,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <collectionName> 
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[rekognition.kotlin.create_collection.main]
 suspend fun createMyCollection(collectionIdVal: String) {
-
     val request = CreateCollectionRequest {
         collectionId = collectionIdVal
     }

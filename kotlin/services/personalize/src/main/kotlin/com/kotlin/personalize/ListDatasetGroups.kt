@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[personalize.kotlin.list_dsgroups.main]
 suspend fun listDSGroups() {
-
     val request = ListDatasetGroupsRequest {
         maxResults = 15
     }

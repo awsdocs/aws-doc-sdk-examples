@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[eb.kotlin.describe_app.main]
 suspend fun describeApps() {
-
     ElasticBeanstalkClient { region = "us-east-1" }.use { beanstalkClient ->
         val response = beanstalkClient.describeApplications(DescribeApplicationsRequest {})
         response.applications?.forEach { app ->

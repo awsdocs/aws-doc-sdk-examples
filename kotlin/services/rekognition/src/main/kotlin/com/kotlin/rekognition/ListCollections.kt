@@ -15,13 +15,11 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
     listAllCollections()
 }
 
 // snippet-start:[rekognition.kotlin.list_collections.main]
 suspend fun listAllCollections() {
-
     val request = ListCollectionsRequest {
         maxResults = 10
     }

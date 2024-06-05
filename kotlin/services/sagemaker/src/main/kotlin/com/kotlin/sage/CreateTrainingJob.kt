@@ -29,7 +29,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <s3UriData> <s3Uri> <trainingJobName> <roleArn> <s3OutputPath> <channelName> <trainingImage>
@@ -67,9 +66,8 @@ suspend fun trainJob(
     roleArnVal: String?,
     s3OutputPathVal: String?,
     channelNameVal: String?,
-    trainingImageVal: String?
+    trainingImageVal: String?,
 ) {
-
     val s3DataSourceOb = S3DataSource {
         s3Uri = s3UriData
         s3DataType = S3DataType.S3Prefix

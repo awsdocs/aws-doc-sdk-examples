@@ -20,7 +20,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <roleName> <policyArn>
@@ -41,7 +40,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[iam.kotlin.attach_role_policy.main]
 suspend fun attachIAMRolePolicy(roleNameVal: String, policyArnVal: String) {
-
     val request = ListAttachedRolePoliciesRequest {
         roleName = roleNameVal
     }
@@ -54,8 +52,9 @@ suspend fun attachIAMRolePolicy(roleNameVal: String, policyArnVal: String) {
         val checkStatus: Int
         if (attachedPolicies != null) {
             checkStatus = checkList(attachedPolicies, policyArnVal)
-            if (checkStatus == -1)
+            if (checkStatus == -1) {
                 return
+            }
         }
 
         val policyRequest = AttachRolePolicyRequest {
@@ -68,7 +67,6 @@ suspend fun attachIAMRolePolicy(roleNameVal: String, policyArnVal: String) {
 }
 
 fun checkList(attachedPolicies: List<AttachedPolicy>, policyArnVal: String): Int {
-
     for (policy in attachedPolicies) {
         val polArn = policy.policyArn.toString()
 

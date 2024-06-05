@@ -73,7 +73,7 @@ class AutoScalingTest {
         } catch (ex:IOException) {
             ex.printStackTrace()
         }
-        */
+         */
     }
 
     @Test

@@ -16,13 +16,11 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
     listSNSTopics()
 }
 
 // snippet-start:[sns.kotlin.ListTopics.main]
 suspend fun listSNSTopics() {
-
     SnsClient { region = "us-east-1" }.use { snsClient ->
         val response = snsClient.listTopics(ListTopicsRequest { })
         response.topics?.forEach { topic ->

@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <keyId> 
@@ -36,7 +35,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[kms.kotlin_list_grant.main]
 suspend fun displayGrantIds(keyIdVal: String?) {
-
     val request = ListGrantsRequest {
         keyId = keyIdVal
         limit = 15

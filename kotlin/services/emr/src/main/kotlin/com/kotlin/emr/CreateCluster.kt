@@ -24,7 +24,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <jar> <myClass> <keys> <logUri> <name>
@@ -58,9 +57,8 @@ suspend fun createAppCluster(
     myClassVal: String?,
     keysVal: String?,
     logUriVal: String?,
-    nameVal: String?
+    nameVal: String?,
 ): String? {
-
     val jarStepConfig = HadoopJarStepConfig {
         jar = jarVal
         mainClass = myClassVal

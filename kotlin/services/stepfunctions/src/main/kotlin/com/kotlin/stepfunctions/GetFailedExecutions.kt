@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
       Usage:
          <stateMachineARN> 
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[stepfunctions.kotlin.get_failed_exes.main]
 suspend fun getFailedExes(stateMachineARN: String?) {
-
     val executionsRequest = ListExecutionsRequest {
         maxResults = 10
         stateMachineArn = stateMachineARN

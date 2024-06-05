@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: <appId> 
 
@@ -37,12 +36,11 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pinpoint.kotlin.deleteapp.main]
 suspend fun deletePinApp(appId: String?) {
-
     PinpointClient { region = "us-west-2" }.use { pinpoint ->
         val result = pinpoint.deleteApp(
             DeleteAppRequest {
                 applicationId = appId
-            }
+            },
         )
         val appName = result.applicationResponse?.name
         println("Application $appName has been deleted.")

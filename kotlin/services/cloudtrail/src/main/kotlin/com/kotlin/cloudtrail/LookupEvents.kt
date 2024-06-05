@@ -14,7 +14,6 @@ suspend fun main() {
 
 // snippet-start:[cloudtrail.kotlin.events.main]
 suspend fun lookupAllEvents() {
-
     val request = LookupEventsRequest {
         maxResults = 20
     }

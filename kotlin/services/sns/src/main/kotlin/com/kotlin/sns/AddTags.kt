@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <topicArn>
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[sns.kotlin.add_tags.main]
 suspend fun addTopicTags(topicArn: String) {
-
     val tag = Tag {
         key = "Team"
         value = "Development"

@@ -21,7 +21,6 @@ suspend fun main() {
 
 // snippet-start:[translate.kotlin._text.main]
 suspend fun textTranslate() {
-
     val textRequest = TranslateTextRequest {
         sourceLanguageCode = "en"
         targetLanguageCode = "fr"

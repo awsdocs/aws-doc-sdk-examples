@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[route53.kotlin.list_health_checks.main]
 suspend fun listAllHealthChecks() {
-
     val requestOb = ListHealthChecksRequest {
         this.maxItems = 10
     }

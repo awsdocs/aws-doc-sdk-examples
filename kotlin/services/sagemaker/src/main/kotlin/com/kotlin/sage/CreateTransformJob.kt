@@ -25,7 +25,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <s3Uri> <s3OutputPath> <modelName> <transformJobName>
@@ -54,9 +53,8 @@ suspend fun transformJob(
     s3UriVal: String?,
     s3OutputPathVal: String?,
     modelNameVal: String?,
-    transformJobNameVal: String?
+    transformJobNameVal: String?,
 ) {
-
     val s3DataSourceOb = TransformS3DataSource {
         s3DataType = S3DataType.S3Prefix
         s3Uri = s3UriVal

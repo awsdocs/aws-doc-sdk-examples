@@ -17,7 +17,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: 
         <streamName>
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[kinesis.kotlin.create.main]
 suspend fun createStream(streamNameVal: String?) {
-
     val request = CreateStreamRequest {
         streamName = streamNameVal
         shardCount = 1

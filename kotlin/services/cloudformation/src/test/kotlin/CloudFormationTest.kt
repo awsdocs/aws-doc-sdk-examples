@@ -49,7 +49,7 @@ class CloudFormationTest {
         location = prop.getProperty("location")
         key = prop.getProperty("key")
         value = prop.getProperty("value")
-        */
+         */
     }
 
     @Test

@@ -24,7 +24,6 @@ suspend fun main() {
 
 // snippet-start:[comprehend.kotlin.detect_keyphrases.main]
 suspend fun detectAllKeyPhrases(textVal: String) {
-
     val request = DetectKeyPhrasesRequest {
         text = textVal
         languageCode = LanguageCode.fromValue("en")

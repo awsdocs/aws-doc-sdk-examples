@@ -46,7 +46,7 @@ class TextractTest {
         sourceDoc = prop.getProperty("sourceDoc")
         bucketName = prop.getProperty("bucketName")
         docName = prop.getProperty("docName")
-        */
+         */
     }
 
     @Test

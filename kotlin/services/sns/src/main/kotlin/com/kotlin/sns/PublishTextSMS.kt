@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
         Usage: 
@@ -40,7 +39,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[sns.kotlin.PublishTextSMS.main]
 suspend fun pubTextSMS(messageVal: String?, phoneNumberVal: String?) {
-
     val request = PublishRequest {
         message = messageVal
         phoneNumber = phoneNumberVal

@@ -30,7 +30,6 @@ suspend fun main() {
 
 // snippet-start:[polly.kotlin.demo.main]
 suspend fun talkPolly() {
-
     val sample = "Congratulations. You have successfully built this working demo " +
         " of Amazon Polly in Kotlin. Have fun building voice enabled apps with Amazon Polly (that's me!), and always " +
         " look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS"
@@ -47,7 +46,7 @@ suspend fun talkPolly() {
                 text = sample
                 voiceId = voice?.id
                 outputFormat = OutputFormat.Mp3
-            }
+            },
         ) { resp ->
 
             // inside this block you can access `resp` and play the audio stream.

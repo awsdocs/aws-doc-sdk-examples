@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         DeleteService    <clusterName> <serviceArn> 
@@ -40,7 +39,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ecs.kotlin.update_service.main]
 suspend fun updateSpecificService(clusterName: String?, serviceArn: String?) {
-
     val request = UpdateServiceRequest {
         cluster = clusterName
         service = serviceArn

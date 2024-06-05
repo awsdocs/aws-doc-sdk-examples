@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <datasetGroupArn> <solutionName> <recipeArn>
@@ -43,7 +42,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[personalize.kotlin.create_solution.main]
 suspend fun createPersonalizeSolution(datasetGroupArnVal: String?, solutionName: String?, recipeArnVal: String?): String? {
-
     val request = CreateSolutionRequest {
         name = solutionName
         datasetGroupArn = datasetGroupArnVal

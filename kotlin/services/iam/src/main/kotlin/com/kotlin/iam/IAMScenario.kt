@@ -46,7 +46,6 @@ This example performs these operations:
 
 // snippet-start:[iam.kotlin.scenario.main]
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <username> <policyName> <roleName> <roleSessionName> <fileLocation> <bucketName> 
@@ -93,7 +92,6 @@ suspend fun main(args: Array<String>) {
 }
 
 suspend fun createUser(usernameVal: String?): String? {
-
     val request = CreateUserRequest {
         userName = usernameVal
     }
@@ -105,7 +103,6 @@ suspend fun createUser(usernameVal: String?): String? {
 }
 
 suspend fun createPolicy(policyNameVal: String?): String {
-
     val policyDocumentValue: String = "{" +
         "  \"Version\": \"2012-10-17\"," +
         "  \"Statement\": [" +
@@ -131,7 +128,6 @@ suspend fun createPolicy(policyNameVal: String?): String {
 }
 
 suspend fun createRole(rolenameVal: String?, fileLocation: String?): String? {
-
     val jsonObject = fileLocation?.let { readJsonSimpleDemo(it) } as JSONObject
 
     val request = CreateRoleRequest {
@@ -147,7 +143,6 @@ suspend fun createRole(rolenameVal: String?, fileLocation: String?): String? {
 }
 
 suspend fun attachRolePolicy(roleNameVal: String, policyArnVal: String) {
-
     val request = ListAttachedRolePoliciesRequest {
         roleName = roleNameVal
     }
@@ -160,8 +155,9 @@ suspend fun attachRolePolicy(roleNameVal: String, policyArnVal: String) {
         val checkStatus: Int
         if (attachedPolicies != null) {
             checkStatus = checkMyList(attachedPolicies, policyArnVal)
-            if (checkStatus == -1)
+            if (checkStatus == -1) {
                 return
+            }
         }
 
         val policyRequest = AttachRolePolicyRequest {
@@ -174,7 +170,6 @@ suspend fun attachRolePolicy(roleNameVal: String, policyArnVal: String) {
 }
 
 fun checkMyList(attachedPolicies: List<AttachedPolicy>, policyArnVal: String): Int {
-
     for (policy in attachedPolicies) {
         val polArn = policy.policyArn.toString()
 
@@ -187,7 +182,6 @@ fun checkMyList(attachedPolicies: List<AttachedPolicy>, policyArnVal: String): I
 }
 
 suspend fun assumeGivenRole(roleArnVal: String?, roleSessionNameVal: String?, bucketName: String) {
-
     val stsClient = StsClient {
         region = "us-east-1"
     }
@@ -230,7 +224,6 @@ suspend fun assumeGivenRole(roleArnVal: String?, roleSessionNameVal: String?, bu
 }
 
 suspend fun deleteRole(roleNameVal: String, polArn: String) {
-
     val iam = IamClient { region = "AWS_GLOBAL" }
 
     // First the policy needs to be detached.

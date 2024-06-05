@@ -517,7 +517,7 @@ suspend fun getCustomMetricData(fileName: String) {
     val minutes: Long = 30
     val date2 = nowDate.plus(hours, ChronoUnit.HOURS).plus(
         minutes,
-        ChronoUnit.MINUTES
+        ChronoUnit.MINUTES,
     )
 
     val met = Metric {

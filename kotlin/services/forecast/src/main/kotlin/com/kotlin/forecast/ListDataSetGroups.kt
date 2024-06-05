@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[forecast.kotlin.list_forecast_datasetgroups.main]
 suspend fun listDataGroups() {
-
     val request = ListDatasetGroupsRequest {
         maxResults = 10
     }

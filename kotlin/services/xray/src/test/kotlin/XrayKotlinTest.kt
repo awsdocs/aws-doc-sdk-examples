@@ -50,7 +50,7 @@ class XrayKotlinTest {
         groupName = prop.getProperty("groupName")
         newGroupName = prop.getProperty("newGroupName")
         ruleName = prop.getProperty("ruleName")
-        */
+         */
     }
 
     @Test

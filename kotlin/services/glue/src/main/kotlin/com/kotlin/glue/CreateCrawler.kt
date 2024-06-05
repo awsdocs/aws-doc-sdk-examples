@@ -20,7 +20,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <IAM> <s3Path> <cron> <dbName> <crawlerName>
@@ -52,7 +51,7 @@ suspend fun createGlueCrawler(
     s3Path: String?,
     cron: String?,
     dbName: String?,
-    crawlerName: String
+    crawlerName: String,
 ) {
     val s3Target = S3Target {
         path = s3Path

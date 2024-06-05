@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: <identityPoolName>
     
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cognito.kotlin.create_identity_pool.main]
 suspend fun createIdPool(identityPoolName: String?): String? {
-
     val request = CreateIdentityPoolRequest {
         this.allowUnauthenticatedIdentities = false
         this.identityPoolName = identityPoolName

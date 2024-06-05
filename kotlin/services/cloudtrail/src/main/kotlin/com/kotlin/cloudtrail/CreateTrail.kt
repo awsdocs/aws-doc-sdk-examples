@@ -10,7 +10,6 @@ import kotlin.system.exitProcess
 // snippet-end:[cloudtrail.kotlin.create_trail.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -32,7 +31,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudtrail.kotlin.create_trail.main]
 suspend fun createNewTrail(trailName: String, s3BucketNameVal: String) {
-
     val request = CreateTrailRequest {
         name = trailName
         s3BucketName = s3BucketNameVal

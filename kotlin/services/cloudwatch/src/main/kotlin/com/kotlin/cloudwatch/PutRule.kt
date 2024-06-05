@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <ruleName> <roleArn>
@@ -41,7 +40,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudwatch.kotlin.put_rule.main]
 suspend fun putCWRule(ruleNameVal: String, roleArnVal: String) {
-
     val request = PutRuleRequest {
         name = ruleNameVal
         roleArn = roleArnVal

@@ -68,7 +68,7 @@ class GlueTest {
         crawlerNameSc = prop.getProperty("crawlerNameSc")
         scriptLocationSc = prop.getProperty("scriptLocationSc")
         locationUri = prop.getProperty("locationUri")
-        */
+         */
     }
 
     @Test

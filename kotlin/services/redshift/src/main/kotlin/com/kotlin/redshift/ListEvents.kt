@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <clusterId> <eventSourceType> 
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[redshift.kotlin._events.main]
 suspend fun listRedShiftEvents(clusterId: String?, eventSourceType: String) {
-
     val request = DescribeEventsRequest {
         sourceIdentifier = clusterId
         sourceType = SourceType.fromValue(eventSourceType)

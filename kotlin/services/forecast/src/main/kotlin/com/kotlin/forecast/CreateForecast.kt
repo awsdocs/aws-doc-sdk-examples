@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <name> <predictorArn> 
@@ -41,7 +40,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[forecast.kotlin.create_forecast.main]
 suspend fun createNewForecast(name: String?, predictorArnVal: String?): String? {
-
     val request = CreateForecastRequest {
         forecastName = name
         predictorArn = predictorArnVal

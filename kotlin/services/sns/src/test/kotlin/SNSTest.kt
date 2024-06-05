@@ -70,7 +70,7 @@ class SNSTest {
         phone = prop.getProperty("phone")
         message = prop.getProperty("message")
         existingsubarn = prop.getProperty("existingsubarn")
-        */
+         */
     }
 
     @Test

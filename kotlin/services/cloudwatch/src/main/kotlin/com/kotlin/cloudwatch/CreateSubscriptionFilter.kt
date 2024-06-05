@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -44,7 +43,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudwatch.kotlin.create_filter.main]
 suspend fun putSubFilters(filter: String, pattern: String, logGroup: String, functionArn: String) {
-
     val request = PutSubscriptionFilterRequest {
         filterName = filter
         filterPattern = pattern

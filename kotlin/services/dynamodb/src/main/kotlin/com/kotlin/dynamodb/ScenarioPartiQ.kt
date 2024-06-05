@@ -194,7 +194,7 @@ suspend fun deleteTablePartiQL(tableNameVal: String) {
 suspend fun executeStatementPartiQL(
     ddb: DynamoDbClient,
     statementVal: String,
-    parametersVal: List<AttributeValue>
+    parametersVal: List<AttributeValue>,
 ): ExecuteStatementResponse {
     val request = ExecuteStatementRequest {
         statement = statementVal

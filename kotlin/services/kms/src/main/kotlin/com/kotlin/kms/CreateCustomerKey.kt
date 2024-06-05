@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main() {
-
     val keyDes = "Created by the AWS KMS Kotlin API"
     val keyId = createKey(keyDes)
     println("The key id is $keyId")
@@ -27,7 +26,6 @@ suspend fun main() {
 
 // snippet-start:[kms.kotlin_create_key.main]
 suspend fun createKey(keyDesc: String?): String? {
-
     val request = CreateKeyRequest {
         description = keyDesc
         customerMasterKeySpec = CustomerMasterKeySpec.SymmetricDefault

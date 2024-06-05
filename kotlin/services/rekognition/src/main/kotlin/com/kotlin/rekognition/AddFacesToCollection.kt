@@ -20,7 +20,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: 
         <collectionId> <sourceImage>
@@ -42,7 +41,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[rekognition.kotlin.add_faces_collection.main]
 suspend fun addToCollection(collectionIdVal: String?, sourceImage: String) {
-
     val souImage = Image {
         bytes = (File(sourceImage).readBytes())
     }

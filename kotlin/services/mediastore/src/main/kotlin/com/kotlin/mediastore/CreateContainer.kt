@@ -18,7 +18,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
         Usage: <containerName> 
@@ -38,7 +37,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[mediastore.kotlin.create_container.main]
 suspend fun createMediaContainer(containerNameVal: String?) {
-
     val sleepTime: Long = 10
     val request = CreateContainerRequest {
         containerName = containerNameVal

@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <accessId> 
@@ -37,7 +36,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[iam.kotlin.access_key_last_used.main]
 suspend fun getAccessKeyLastUsed(accessId: String?) {
-
     val request = GetAccessKeyLastUsedRequest {
         accessKeyId = accessId
     }

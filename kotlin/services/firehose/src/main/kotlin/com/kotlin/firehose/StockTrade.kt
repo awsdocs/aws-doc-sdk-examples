@@ -54,7 +54,11 @@ class StockTrade(tickerSymbol: String?, tradeType: TradeType?, price: Double, qu
     override fun toString(): String {
         return String.format(
             "ID %d: %s %d shares of %s for $%.02f",
-            id, tradeType, quantity, tickerSymbol, price
+            id,
+            tradeType,
+            quantity,
+            tickerSymbol,
+            price,
         )
     }
 }

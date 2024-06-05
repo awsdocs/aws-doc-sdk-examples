@@ -21,7 +21,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <streamName> 
@@ -40,7 +39,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[firehose.kotlin.put_batch_records.main]
 suspend fun addStockTradeData(streamName: String?) {
-
     try {
         val recordList = mutableListOf<Record> ()
 

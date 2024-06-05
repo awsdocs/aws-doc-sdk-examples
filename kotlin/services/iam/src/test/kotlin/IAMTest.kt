@@ -76,7 +76,7 @@ class IAMTest {
         roleSessionName = prop.getProperty("roleSessionName")
         fileLocationSc = prop.getProperty("fileLocationSc")
         bucketNameSc = prop.getProperty("bucketNameSc")
-        */
+         */
     }
 
     @Test
