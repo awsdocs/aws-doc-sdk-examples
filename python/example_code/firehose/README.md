@@ -68,6 +68,7 @@ This example shows you how to use Data Firehose to process individual and batch 
 
 
 <!--custom.scenario_prereqs.firehose_Scenario_PutRecords.start-->
+See required [resource and data setup instructions](../../../workflows/firehose/README.md).
 <!--custom.scenario_prereqs.firehose_Scenario_PutRecords.end-->
 
 Start the example by running the following at a command prompt:

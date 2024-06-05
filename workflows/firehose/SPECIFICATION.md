@@ -1,12 +1,9 @@
-# Spec for Amazon Data Firehose Common Actions Workflow 
+_# Spec for Amazon Data Firehose Common Actions Workflow 
 
 Create a robust, production-grade script demonstrating how to use Amazon Data Firehose to put individual records (`PutRecord`) and batches of records (`PutRecordBatch`) to a delivery stream.
 
 ## Pre-requisites
-1. **AWS Account**: Ensure you have an active AWS account.
-2. **AWS CLI Configured**: Configure AWS CLI with appropriate permissions to create resources with the CDK.
-3. **AWS CDK configured**: Configure the AWS Cloud Development Kit (CDK) to deploy required resources.
-4. **Python >=3.6 configured**: Install, plus run `pip install -r resources/requirements.txt`
+1. Complete setup outlined in the [README.md](README.md#setup).
 4. **OPTIONAL: Ailly Configured**: Configure [Ailly](https://github.com/davidsouther/ailly) to use the [start.sh](./start.sh) script to generate a new workflow using AI.
 
 ## Infra & Data Setup
@@ -46,4 +43,4 @@ Next, the script will implement a function to put a batch of records into the Fi
 
 ### 5. Monitoring Metrics
 - Check `IncomingBytes` and `IncomingRecords` metrics to ensure there is incoming traffic.
-- Monitor `FailedPutCount` for batch operations.
+- Monitor `FailedPutCount` for batch operations._
