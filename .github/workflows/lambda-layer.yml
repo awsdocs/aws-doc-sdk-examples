@@ -50,7 +50,6 @@ jobs:
           mkdir python
                     # assuming your requirements file is in 'requirements/prod.txt'
           pip install -r requirements/prod.txt -t python
-          pip install . -t  python
           echo building release $release_id
           # zip it up
           zip --quiet -r $release_id python
