@@ -51,6 +51,7 @@ jobs:
           cd zip
           mkdir python
           # zip it up
+          cd zip
           zip --quiet -r $release_id python
           
           # copy the file to S3 and install it in lambda layers
