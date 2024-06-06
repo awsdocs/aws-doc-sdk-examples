@@ -19,18 +19,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
       - name: Zip Folder
-        run: |
-          cd ../ # I added this
-          rm -rf aws-doc-sdk-examples.zip
-          zip -r aws-doc-sdk-examples.zip aws-doc-sdk-examples -x ".git/*" ".github/*"
-
-      - name: Upload to S3
         env:
           release_bucket: 'github-repo-numbers'
           release_bucket_uri: 's3://github-repo-numbers'
           release_id: ${{ format('aws-doc-sdk-examples.zip', github.head_ref )}}
           release_layer: ${{ format('aws-doc-sdk-examples', github.head_ref )}}
-        run: |      
+        run: |
+          cd ../ # I added this
+          rm -rf aws-doc-sdk-examples.zip
+          zip -r aws-doc-sdk-examples.zip aws-doc-sdk-examples -x ".git/*" ".github/*"    
           # copy the file to S3 and install it in lambda layers
           aws s3 cp $release_id $release_bucket_uri
           aws lambda publish-layer-version --layer-name $release_layer  --content S3Bucket=$release_bucket,S3Key=$release_id --compatible-runtimes python3.8
