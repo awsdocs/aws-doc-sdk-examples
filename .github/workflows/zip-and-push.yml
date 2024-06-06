@@ -1,5 +1,6 @@
 name: Zip repository and put on S3
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
 
 jobs:
   zip-n-push:
