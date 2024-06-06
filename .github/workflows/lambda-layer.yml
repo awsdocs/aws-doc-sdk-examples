@@ -35,11 +35,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
 
-      - name: Setup Python 3.8
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8
-
       - name: Zip it all up and upload to S3
         env:
           release_bucket: 'github-repo-numbers'
@@ -47,8 +42,8 @@ jobs:
           release_id: ${{ format('aws-doc-sdk-examples-{0}-dev.zip', github.head_ref )}}
           release_layer: ${{ format('aws-doc-sdk-examples-{0}-dev', github.head_ref )}}
         run: |
-          mkdir python
-                    # assuming your requirements file is in 'requirements/prod.txt'
+          mkdir zipped
+          # assuming your requirements file is in 'requirements/prod.txt'
           pip install -r requirements/prod.txt -t python
           echo building release $release_id
           # zip it up
