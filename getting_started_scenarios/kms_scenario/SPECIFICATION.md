@@ -56,22 +56,19 @@ and an asymmetric key used to digitally sign data.
 Let's get started...
 
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
 1. Create a symmetric KMS key
 First, we will create a symmetric KMS key that is used to encrypt and decrypt data by invoking createKey().
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 Created a customer key with ARN arn:aws:kms:us-west-2:123456789012:key/11223344-aaaa-bbbb-cccc-111222233344
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
@@ -80,15 +77,12 @@ Continuing with the program...
 By default when you create an AWS key, it is enabled. The code checks to
 determine if the key is enabled. If it is not enabled, the code enables it.
 
-
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 The key is enabled.
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
@@ -97,14 +91,12 @@ One of the main uses of symmetric keys is to encrypt and decrypt data.
 Next, you encrypt the string 'Hello, AWS KMS!' with the SYMMETRIC_DEFAULT encryption algorithm.
 
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 The encryption algorithm is SYMMETRIC_DEFAULT
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
@@ -115,15 +107,13 @@ For example, 'alias/myFirstKey'.
 
 alias/dev-encryption-key was successfully created.
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
 5. List all of your aliases.
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 The alias name is: alias/Scott
@@ -142,8 +132,7 @@ The alias name is: alias/aws/lex
 The alias name is: alias/aws/rds
 The alias name is: alias/aws/redshift
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
@@ -152,15 +141,12 @@ By default, when you enable automatic rotation of a KMS key,
 KMS rotates the key material of the KMS key one year (approximately 365 days) from the enable date and every year
 thereafter.
 
-
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 You have enabled key rotation for key 11223344-aaaa-bbbb-cccc-111222233344
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
@@ -170,41 +156,34 @@ A grant is a policy instrument that allows Amazon Web Services principals to use
 It also can allow them to view a KMS key (DescribeKey) and create and manage grants.
 When authorizing access to a KMS key, grants are considered along with key policies and IAM policies.
 
-
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 The grant id is 1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
 8. List grants for the KMS key.
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 The grant Id is: 8f1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
 9. Revoke the grant.
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef was successfully revoked!
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
@@ -213,14 +192,12 @@ Lets decrypt the data that was encrypted in an early step.
 We'll use the same key to decrypt the string that we encrypted earlier in the program.
 
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 Decrypted text is: Hello, AWS KMS!
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
@@ -241,23 +218,20 @@ We will set a key policy.
     }]
 
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 Policy Name: default
 The Key already has a policy.
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
 11. Get the key policy.
 Lets get the key policy to make sure it exists. 
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 The response is {
@@ -274,8 +248,7 @@ The response is {
   } ]
 }
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
@@ -287,15 +260,13 @@ Continuing with the program...
  of your organization.
 
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 Created KMS key with ID: 12345678-abcd-abcd-abcd-123456789012
 Signature verification result: true
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
@@ -305,14 +276,12 @@ KMS keys, making it easier to organize, track, and control access to your encryp
 your AWS environment
 
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 Tagged KMS key with key-value pair
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
@@ -329,8 +298,7 @@ Would you like to delete the Key Management resources? (y/n)
 y
 You selected to delete the AWS KMS resources.
 
-Enter 'c' followed by <ENTER> to continue:
-c
+Press <ENTER> to continue:
 Continuing with the program...
 
 The key will be deleted in 7 days.
