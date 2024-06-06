@@ -1,0 +1,55 @@
+# This workflow will install dependencies and create a build suitable
+# to be used in an AWS Lambda Layer.  The build will then be uploaded
+# to S3 and then can be accessed from any lambda that uses the layer.
+#
+# This build is only for dev builds.  Releases will be built from a
+# seperate action.
+#
+# A new version of the layer will be created for every branch when a
+# pull request is intitiated.  This allows us to test the layer in a
+# dev environment on AWS BEFORE the code is merged into master.
+
+
+name: Build Lambda Layer
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  deploy:
+    name: Upload Layer to AWS Lambda
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # For more info: https://github.com/aws-actions/configure-aws-credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: Setup Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: Zip it all up and upload to S3
+        env:
+          release_bucket: 'github-repo-numbers'
+          release_bucket_uri: 's3://github-repo-numbers'
+          release_id: ${{ format('aws-doc-sdk-examples-{0}-dev.zip', github.head_ref )}}
+          release_layer: ${{ format('aws-doc-sdk-examples-{0}-dev', github.head_ref )}}
+        run: |
+          mkdir python
+          # zip it up
+          zip --quiet -r $release_id python
+          
+          # copy the file to S3 and install it in lambda layers
+          aws s3 cp $release_id $release_bucket_uri
+          aws lambda publish-layer-version --layer-name $release_layer  --content S3Bucket=$release_bucket,S3Key=$release_id --compatible-runtimes python3.8
