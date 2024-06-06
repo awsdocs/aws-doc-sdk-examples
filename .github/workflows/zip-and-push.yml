@@ -28,8 +28,8 @@ jobs:
         env:
           release_bucket: 'github-repo-numbers'
           release_bucket_uri: 's3://github-repo-numbers'
-          release_id: ${{ format('aws-doc-sdk-examples-{0}-dev.zip', github.head_ref )}}
-          release_layer: ${{ format('aws-doc-sdk-examples-{0}-dev', github.head_ref )}}
+          release_id: ${{ format('aws-doc-sdk-examples.zip', github.head_ref )}}
+          release_layer: ${{ format('aws-doc-sdk-examples', github.head_ref )}}
         run: |      
           # copy the file to S3 and install it in lambda layers
           aws s3 cp $release_id $release_bucket_uri
