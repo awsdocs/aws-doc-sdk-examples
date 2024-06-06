@@ -1,5 +1,0 @@
-awscli>=1.27.81
-boto3>=1.26.81
-chalice<=1.27.2
-pytest>=7.2.1
-requests>=2.28.2

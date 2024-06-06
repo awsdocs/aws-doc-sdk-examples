@@ -47,11 +47,10 @@ jobs:
           release_id: ${{ format('aws-doc-sdk-examples-{0}-dev.zip', github.head_ref )}}
           release_layer: ${{ format('aws-doc-sdk-examples-{0}-dev', github.head_ref )}}
         run: |
-          mkdir zip
-          cd zip
           mkdir python
+          pip install . -t  python
+          echo building release $release_id
           # zip it up
-          cd python
           zip --quiet -r $release_id python
           
           # copy the file to S3 and install it in lambda layers

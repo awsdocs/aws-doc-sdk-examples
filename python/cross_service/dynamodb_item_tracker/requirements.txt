@@ -1,5 +1,0 @@
-boto3>=1.26.81
-flask>=2.2.0
-flask-cors>=3.0.10
-webargs>=8.2.0
-pytest>=7.2.1
