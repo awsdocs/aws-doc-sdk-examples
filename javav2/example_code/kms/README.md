@@ -93,12 +93,12 @@ This example shows you how to do the following:
 - Tag keys.
 - Delete KMS keys.
 
-<!--custom.scenario_prereqs.kms_Scenario_KeyManagement.start-->
-<!--custom.scenario_prereqs.kms_Scenario_KeyManagement.end-->
+<!--custom.scenario_prereqs.kms_Scenario_Basics.start-->
+<!--custom.scenario_prereqs.kms_Scenario_Basics.end-->
 
 
-<!--custom.scenarios.kms_Scenario_KeyManagement.start-->
-<!--custom.scenarios.kms_Scenario_KeyManagement.end-->
+<!--custom.scenarios.kms_Scenario_Basics.start-->
+<!--custom.scenarios.kms_Scenario_Basics.end-->
 
 ### Tests
 
