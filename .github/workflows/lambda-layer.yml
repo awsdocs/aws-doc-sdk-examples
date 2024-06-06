@@ -13,6 +13,7 @@
 name: Build Lambda Layer
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: [ master ]
 
