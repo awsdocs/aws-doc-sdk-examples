@@ -1,13 +1,13 @@
-# Kinesis Data Firehose code examples for the SDK for Kotlin
+# Data Firehose code examples for the SDK for Kotlin
 
 ## Overview
 
-Shows how to use the AWS SDK for Kotlin to work with Amazon Kinesis Data Firehose.
+Shows how to use the AWS SDK for Kotlin to work with Amazon Data Firehose.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Kinesis Data Firehose is a fully managed service for delivering real-time streaming data to AWS destinations and third-party HTTP endpoints._
+_Data Firehose is a fully managed service for delivering real-time streaming data to AWS destinations and third-party HTTP endpoints._
 
 ## ⚠ Important
 
@@ -65,9 +65,9 @@ in the `kotlin` folder.
 
 ## Additional resources
 
-- [Kinesis Data Firehose User Guide](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)
-- [Kinesis Data Firehose API Reference](https://docs.aws.amazon.com/firehose/latest/APIReference/Welcome.html)
-- [SDK for Kotlin Kinesis Data Firehose reference](https://sdk.amazonaws.com/kotlin/api/latest/firehose/index.html)
+- [Data Firehose User Guide](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)
+- [Data Firehose API Reference](https://docs.aws.amazon.com/firehose/latest/APIReference/Welcome.html)
+- [SDK for Kotlin Data Firehose reference](https://sdk.amazonaws.com/kotlin/api/latest/firehose/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
