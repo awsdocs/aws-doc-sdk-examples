@@ -55,7 +55,6 @@ This Getting Started scenario creates two key types. A symmetric encryption key 
 and an asymmetric key used to digitally sign data.
 Let's get started...
 
-
 Press <ENTER> to continue:
 Continuing with the program...
 
