@@ -34,7 +34,7 @@
 
 
 namespace AwsDoc::S3 {
-     constexpr char TEST_FILE_KEY[] = "CMakeLists.txt";
+    constexpr char TEST_FILE_KEY[] = "CMakeLists.txt";
     constexpr char TEST_FILE[] = SRC_DIR"/CMakeLists.txt";
     constexpr char MULTI_PART_TEST_FILE[] = LARGE_FILE_DIR"/s3-userguide.pdf";
     constexpr char TEST_BUCKET_PREFIX[] = "integrity-workflow-";
@@ -53,6 +53,22 @@ namespace AwsDoc::S3 {
     static const HASH_METHOD SHA1 = CRC32C + 1;
     static const HASH_METHOD SHA256 = SHA1 + 1;
 
+    //! A class that provides functionality for calculating hash values of data.
+    /*!
+       The `Hasher` class is responsible for calculating hash values of data using various hashing algorithms, such as MD5, CRC32, CRC32C, SHA1, and SHA256.
+       It provides methods to calculate the hash value of data stored in a `std::vector<unsigned char>` or an `Aws::IOStream`, and to retrieve the
+       hash value in different formats (base64, hex, and byte buffer).
+
+       The class maintains an internal `Aws::Utils::ByteBuffer` to store the calculated hash value. The `calculateObjectHash` methods update
+       this internal buffer with the calculated hash value.
+
+       The supported hashing algorithms are defined as static constants within the class:
+       - `MD5`: The default hashing algorithm.
+       - `CRC32`: The CRC32 hashing algorithm.
+       - `CRC32C`: The CRC32C hashing algorithm.
+       - `SHA1`: The SHA1 hashing algorithm.
+       - `SHA256`: The SHA256 hashing algorithm.
+    */
     class Hasher {
         Aws::Utils::ByteBuffer m_Hash;
 
@@ -80,7 +96,17 @@ namespace AwsDoc::S3 {
     bool s3ObjectIntegrityWorkflow(
             const Aws::Client::ClientConfiguration &clientConfiguration);
 
-
+    //! Routine which uploads an object to an S3 bucket and calculates a hash value for the object.
+    /*!
+       \param bucket: The name of the S3 bucket where the object will be uploaded.
+       \param key: The unique identifier (key) for the object within the S3 bucket.
+       \param hashData: The hash value that will be associated with the uploaded object.
+       \param hashMethod: The hashing algorithm to use when calculating the hash value.
+       \param body: The data content of the object being uploaded.
+       \param useDefaultHashMethod: A flag indicating whether to use the default hash method or the one specified in the hashMethod parameter.
+       \param client: The S3 client instance used to perform the upload operation.
+       \return bool: Function succeeded.
+    */
     bool putObjectWithHash(const Aws::String &bucket, const Aws::String &key,
                            const Aws::String &hashData,
                            AwsDoc::S3::HASH_METHOD hashMethod,
@@ -88,17 +114,44 @@ namespace AwsDoc::S3 {
                            bool useDefaultHashMethod,
                            const Aws::S3::S3Client &client);
 
+    //! Routine which retrieves the hash value of an object stored in an S3 bucket.
+    /*!
+       \param bucket: The name of the S3 bucket where the object is stored.
+       \param key: The unique identifier (key) of the object within the S3 bucket.
+       \param hashMethod: The hashing algorithm used to calculate the hash value of the object.
+       \param client: The S3 client instance used to retrieve the object.
+       \param[out] hashValue: The retrieved hash value of the object.
+       \return bool: Function succeeded.
+    */
     bool retrieveObjectHash(const Aws::String &bucket, const Aws::String &key,
                             AwsDoc::S3::HASH_METHOD hashMethod,
                             Aws::String &hashData,
                             std::vector<Aws::String> *partHashes,
                             const Aws::S3::S3Client &client);
 
+    //! Routine which uploads an object to an S3 bucket using the AWS C++ SDK's Transfer Manager.
+    /*!
+       \param bucket: The name of the S3 bucket where the object will be uploaded.
+       \param key: The unique identifier (key) for the object within the S3 bucket.
+       \param hashMethod: The hashing algorithm to use when calculating the hash value.
+       \param useDefaultHashMethod: A flag indicating whether to use the default hash method or the one specified in the hashMethod parameter.
+       \param client: The S3 client instance used to perform the upload operation.
+       \return bool: Function succeeded.
+    */
     bool doTransferManagerUpload(const Aws::String &bucket, const Aws::String &key,
                                  AwsDoc::S3::HASH_METHOD hashMethod,
                                  bool useDefaultHashMethod,
                                  const std::shared_ptr<Aws::S3::S3Client> &client);
 
+    //! Routine which calculates the hash values for each part of a file being uploaded to an S3 bucket.
+    /*!
+       \param hashMethod: The hashing algorithm to use when calculating the hash values.
+       \param fileName: The path to the file for which the part hashes will be calculated.
+       \param bufferSize: The size of the buffer to use when reading the file.
+       \param hashDataResult: The Hasher object that will store the concatenated hash value.
+       \param partHashes: The vector that will store the calculated hash values for each part of the file.
+       \return bool: Function succeeded.
+    */
     bool calculatePartHashesForFile(AwsDoc::S3::HASH_METHOD hashMethod,
                                     const Aws::String &fileName,
                                     size_t bufferSize,
