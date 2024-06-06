@@ -1,0 +1,71 @@
+Resources:
+  MyFirehoseBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Join
+        - ''
+        - - 'my-firehose-bucket-'
+          - !Select [2, !Split ['/', !Ref AWS::StackId]]
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+
+  MyFirehoseRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: firehose.amazonaws.com
+            Action: sts:AssumeRole
+
+  MyFirehoseRoleDefaultPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: MyFirehoseRoleDefaultPolicy
+      Roles:
+        - !Ref MyFirehoseRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - s3:AbortMultipartUpload
+              - s3:GetBucketLocation
+              - s3:GetObject
+              - s3:ListBucket
+              - s3:ListBucketMultipartUploads
+              - s3:PutObject
+            Resource:
+              - !GetAtt MyFirehoseBucket.Arn
+              - !Sub '${MyFirehoseBucket.Arn}/*'
+    Metadata:
+      aws:cdk:path: FirehoseStack/MyFirehoseRole/DefaultPolicy/Resource
+
+  MyFirehoseDeliveryStream:
+    Type: AWS::KinesisFirehose::DeliveryStream
+    Properties:
+      DeliveryStreamType: DirectPut
+      S3DestinationConfiguration:
+        BucketARN: !GetAtt MyFirehoseBucket.Arn
+        RoleARN: !GetAtt MyFirehoseRole.Arn
+
+Outputs:
+  FirehoseStreamNameOutput:
+    Description: The name of the Kinesis Firehose delivery stream
+    Value: !Ref MyFirehoseDeliveryStream
+    Export:
+      Name: FirehoseStreamName
+
+  BucketNameOutput:
+    Description: The name of the S3 bucket for Firehose
+    Value: !Ref MyFirehoseBucket
+    Export:
+      Name: BucketName
+
+  RoleArnOutput:
+    Description: The ARN of the IAM role for Firehose
+    Value: !GetAtt MyFirehoseRole.Arn
+    Export:
+      Name: RoleArn
