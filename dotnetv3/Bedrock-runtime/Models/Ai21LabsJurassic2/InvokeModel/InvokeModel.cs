@@ -1,22 +1,22 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[BedrockRuntime.dotnetv3.InvokeModel_AmazonTitanText]
-// Use the native inference API to send a text message to Amazon Titan Text.
+// snippet-start:[BedrockRuntime.dotnetv3.InvokeModel_Ai21LabsJurassic2]
+// Use the native inference API to send a text message to AI21 Labs Jurassic-2.
 
-using Amazon;
-using Amazon.BedrockRuntime;
-using Amazon.BedrockRuntime.Model;
 using System;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Amazon;
+using Amazon.BedrockRuntime;
+using Amazon.BedrockRuntime.Model;
 
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
 
-// Set the model ID, e.g., Titan Text Premier.
-var modelId = "amazon.titan-text-premier-v1:0";
+// Set the model ID, e.g., Jurassic-2 Mid.
+var modelId = "ai21.j2-mid-v1";
 
 // Define the user message.
 var userMessage = "Describe the purpose of a 'hello world' program in one line.";
@@ -24,12 +24,9 @@ var userMessage = "Describe the purpose of a 'hello world' program in one line."
 //Format the request payload using the model's native structure.
 var nativeRequest = JsonSerializer.Serialize(new
 {
-    inputText = userMessage,
-    textGenerationConfig = new
-    {
-        maxTokenCount = 512,
-        temperature = 0.5
-    }
+    prompt = userMessage,
+    maxTokens = 512,
+    temperature = 0.5
 });
 
 // Create a request with the model ID and the model's native request payload.
@@ -49,7 +46,7 @@ try
     var modelResponse = await JsonNode.ParseAsync(response.Body);
 
     // Extract and print the response text.
-    var responseText = modelResponse["results"]?[0]?["outputText"] ?? "";
+    var responseText = modelResponse["completions"]?[0]?["data"]?["text"] ?? "";
     Console.WriteLine(responseText);
 }
 catch (AmazonBedrockRuntimeException e)
@@ -58,4 +55,7 @@ catch (AmazonBedrockRuntimeException e)
     throw;
 }
 
-// snippet-end:[BedrockRuntime.dotnetv3.InvokeModel_AmazonTitanText]
+// snippet-end:[BedrockRuntime.dotnetv3.InvokeModel_Ai21LabsJurassic2]
+
+// Create a partial class to make the top-level script testable.
+namespace Ai21LabsJurassic2 { public partial class InvokeModel { } }

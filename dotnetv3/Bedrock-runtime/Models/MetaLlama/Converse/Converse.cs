@@ -4,11 +4,11 @@
 // snippet-start:[BedrockRuntime.dotnetv3.Converse_MetaLlama]
 // Use the Converse API to send a text message to Meta Llama.
 
+using System;
+using System.Collections.Generic;
 using Amazon;
 using Amazon.BedrockRuntime;
 using Amazon.BedrockRuntime.Model;
-using System;
-using System.Collections.Generic;
 
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
@@ -55,3 +55,6 @@ catch (AmazonBedrockRuntimeException e)
 }
 
 // snippet-end:[BedrockRuntime.dotnetv3.Converse_MetaLlama]
+
+// Create a partial class to make the top-level script testable.
+namespace MetaLlama { public partial class Converse { } }

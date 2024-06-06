@@ -1,22 +1,22 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[BedrockRuntime.dotnetv3.ConverseStream_CohereCommand]
-// Use the Converse API to send a text message to Cohere Command
+// snippet-start:[BedrockRuntime.dotnetv3.ConverseStream_Mistral]
+// Use the Converse API to send a text message to Mistral
 // and print the response stream.
 
-using Amazon;
-using Amazon.BedrockRuntime;
-using Amazon.BedrockRuntime.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Amazon;
+using Amazon.BedrockRuntime;
+using Amazon.BedrockRuntime.Model;
 
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
 
-// Set the model ID, e.g., Command R.
-var modelId = "cohere.command-r-v1:0";
+// Set the model ID, e.g., Mistral Large.
+var modelId = "mistral.mistral-large-2402-v1:0";
 
 // Define the user message.
 var userMessage = "Describe the purpose of a 'hello world' program in one line.";
@@ -61,4 +61,7 @@ catch (AmazonBedrockRuntimeException e)
     throw;
 }
 
-// snippet-end:[BedrockRuntime.dotnetv3.ConverseStream_CohereCommand]
+// snippet-end:[BedrockRuntime.dotnetv3.ConverseStream_Mistral]
+
+// Create a partial class to make the top-level script testable.
+namespace Mistral { public partial class ConverseStream { } }

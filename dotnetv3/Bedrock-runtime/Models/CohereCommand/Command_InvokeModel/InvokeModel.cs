@@ -4,13 +4,13 @@
 // snippet-start:[BedrockRuntime.dotnetv3.InvokeModel_CohereCommand]
 // Use the native inference API to send a text message to Cohere Command.
 
-using Amazon;
-using Amazon.BedrockRuntime;
-using Amazon.BedrockRuntime.Model;
 using System;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Amazon;
+using Amazon.BedrockRuntime;
+using Amazon.BedrockRuntime.Model;
 
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
@@ -56,3 +56,6 @@ catch (AmazonBedrockRuntimeException e)
 }
 
 // snippet-end:[BedrockRuntime.dotnetv3.InvokeModel_CohereCommand]
+
+// Create a partial class to make the top-level script testable.
+namespace CohereCommand { public partial class InvokeModel { } }

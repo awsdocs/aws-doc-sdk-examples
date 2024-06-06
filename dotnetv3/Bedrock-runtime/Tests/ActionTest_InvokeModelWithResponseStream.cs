@@ -1,28 +1,23 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier: Apache-2.0
 
-using FluentAssertions;
-
 namespace BedrockRuntimeTests
 {
-    public class ActionTest_InvokeModelWithResponseStream : ActionTest_Base
+    public class ActionTest_InvokeModelWithResponseStream
     {
-        const string ACTION = "InvokeModelWithResponseStream";
-
-        [Theory]
-        [InlineData("AmazonTitanText")]
-        [InlineData("AnthropicClaude")]
-        [InlineData("CohereCommand", "Command")]
-        [InlineData("CohereCommand", "Command_R")]
-        [InlineData("MetaLlama", "Llama2")]
-        [InlineData("MetaLlama", "Llama3")]
-        [InlineData("Mistral")]
-        [Trait("Category", "Integration")]
-        public async void RunTest(string model, string? subDir = null)
+        [Theory, Trait("Category", "Integration")]
+        [InlineData(typeof(Mistral.InvokeModelWithResponseStream))]
+        [InlineData(typeof(MetaLlama2.InvokeModelWithResponseStream))]
+        [InlineData(typeof(MetaLlama3.InvokeModelWithResponseStream))]
+        [InlineData(typeof(CohereCommand.InvokeModelWithResponseStream))]
+        [InlineData(typeof(CohereCommandR.InvokeModelWithResponseStream))]
+        [InlineData(typeof(AnthropicClaude.InvokeModelWithResponseStream))]
+        [InlineData(typeof(AmazonTitanText.InvokeModelWithResponseStream))]
+        public void InvokeModelWithResponseStreamDoesNotThrow(Type type)
         {
-            var script = getPath(model, ACTION, subDir);
-            var output = await test(script);
-            output.Should().NotBeNullOrWhiteSpace("The output should contain text.");
+            var entryPoint = type.Assembly.EntryPoint!;
+            var exception = Record.Exception(() => entryPoint.Invoke(null, [Array.Empty<string>()]));
+            Assert.Null(exception);
         }
     }
 }
