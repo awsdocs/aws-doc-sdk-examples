@@ -48,6 +48,9 @@ jobs:
           release_layer: ${{ format('aws-doc-sdk-examples-{0}-dev', github.head_ref )}}
         run: |
           mkdir python
+                    # assuming your requirements file is in 'requirements/prod.txt'
+          pip install -r requirements/prod.txt -t python
+          pip install . -t  python
           echo building release $release_id
           # zip it up
           zip --quiet -r $release_id python
