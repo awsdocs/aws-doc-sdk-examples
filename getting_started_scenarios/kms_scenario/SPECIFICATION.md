@@ -1,7 +1,7 @@
 # AWS Key Management Service Scenario Specification
 
 ## Overview
-This SDK getting started scenario demonstrates how to interact with AWS Key Management Service (AWS KMS) using the AWS SDK. It demonstrates various tasks such as creating AWS KMS Keys, encrypting data, digitally signing data, creating aliases, tagging keys, and so on.  Finally this scenario demonstrates how to clean up resources. Its purpose is to demonstrate how to get up and running with AWS KMS and the AWS SDK.
+This SDK getting started scenario demonstrates how to interact with AWS Key Management Service (AWS KMS) using the AWS SDK. It demonstrates various tasks such as creating AWS KMS Keys, encrypting data, digitally signing data, creating aliases, tagging keys, and so on.  Finally this scenario demonstrates how to clean up AWS resources. Its purpose is to demonstrate how to get up and running with AWS KMS and the AWS SDK.
 
 ## Resources and User Input
 The only required resource for this SDK getting started scenario is the grantee principal. The `GranteePrincipal` is the AWS Identity and Access Management (IAM) entity (user, role, or service) that is granted permission to perform specific actions. 
