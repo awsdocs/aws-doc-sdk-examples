@@ -16,8 +16,6 @@
 
 6. **Verify the image in the ECR repository**: The program verifies that the Docker image was successfully pushed to the ECR repository using the `verifyImage` method.
 
-These steps cover the core KMS operations, including creating and managing keys, encrypting and decrypting data, controlling access through grants and policies, and managing the key's lifecycle. 
-
 Note: These steps are not the complete program, but summarizes the 5-6 high-level steps. See the Eng Spec for a complete listing of ECR operations. 
 
 ### Resources
