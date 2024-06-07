@@ -4,10 +4,12 @@
 
 namespace S3;
 
+use Aws\CommandInterface;
 use Aws\Exception\AwsException;
 use Aws\Result;
 use Aws\S3\S3Client;
 use AwsUtilities\AWSServiceClass;
+use DateTimeInterface;
 
 class S3Service extends AWSServiceClass
 {
@@ -35,6 +37,16 @@ class S3Service extends AWSServiceClass
     public function isVerbose(): bool
     {
         return $this->verbose;
+    }
+
+    public function getClient(): S3Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(S3Client $client)
+    {
+        $this->client = $client;
     }
 
     // snippet-start:[php.example_code.s3.service.emptyAndDeleteBucket]
@@ -252,4 +264,21 @@ class S3Service extends AWSServiceClass
         return $buckets;
     }
     // snippet-end:[php.example_code.s3.service.listBuckets]
+
+    // snippet-start:[php.example_code.s3.service.preSignedUrl]
+    public function preSignedUrl(CommandInterface $command, DateTimeInterface|int|string $expires, array $options = [])
+    {
+        $request = $this->client->createPresignedRequest($command, $expires, $options);
+        try {
+            $presignedUrl = (string)$request->getUri();
+        } catch (AwsException $exception) {
+            if ($this->verbose) {
+                echo "Failed to create a presigned url: {$exception->getMessage()}\n";
+                echo "Please fix error with presigned urls before continuing.";
+            }
+            throw $exception;
+        }
+        return $presignedUrl;
+    }
+    // snippet-end:[php.example_code.s3.service.preSignedUrl]
 }
