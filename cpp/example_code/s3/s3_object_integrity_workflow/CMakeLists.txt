@@ -40,6 +40,7 @@ set(EXAMPLE_EXE run_${PROJECT_NAME})
 
 add_executable(${EXAMPLE_EXE}
         s3_object_integrity_workflow.cpp
+        main.cpp
         ../create_bucket.cpp
         ../delete_objects.cpp
         ../list_objects.cpp
@@ -48,7 +49,7 @@ add_executable(${EXAMPLE_EXE}
 
 target_compile_definitions(${EXAMPLE_EXE}
         PRIVATE
-        TESTING_BUILD=1
+        EXCLUDE_MAIN_FUNCTION
         SRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
         LARGE_FILE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/../../../../resources/sample_files/"
 )
@@ -56,7 +57,6 @@ target_compile_definitions(${EXAMPLE_EXE}
 target_include_directories(${EXAMPLE_EXE}
         PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/../include"
-        }
 )
 
 target_link_libraries(${EXAMPLE_EXE}

@@ -76,7 +76,7 @@ bool AwsDoc::S3::putWebsiteConfig(const Aws::String &bucketName,
  *
  */
 
-#ifndef TESTING_BUILD
+#ifndef EXCLUDE_MAIN_FUNCTION
 
 int main(int argc, char* argv[])
 {
@@ -112,4 +112,4 @@ Where:
     return 0;
 }
 
-#endif // TESTING_BUILD
+#endif // EXCLUDE_MAIN_FUNCTION
