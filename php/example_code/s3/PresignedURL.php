@@ -39,7 +39,9 @@ class PresignedURL
             'Key' => $key,
         ]);
         try {
+            // snippet-start:[s3.php.presigned_url.create_url
             $preSignedUrl = $s3Service->preSignedUrl($command, $expiration);
+            // snippet-end:[s3.php.presigned_url.create_url
             echo "Your preSignedUrl is \n$preSignedUrl\nand will be good for the next 20 minutes.\n";
             echo $linebreak;
             echo "Thanks for trying the Amazon S3 presigned URL demo.\n";
