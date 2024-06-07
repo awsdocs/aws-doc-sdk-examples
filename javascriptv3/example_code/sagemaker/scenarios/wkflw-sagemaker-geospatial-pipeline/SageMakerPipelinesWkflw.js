@@ -124,6 +124,7 @@ export class SageMakerPipelinesWkflw {
     } = await createSagemakerRole({
       iamClient: this.clients.IAM,
       name: this.names.SAGE_MAKER_EXECUTION_ROLE,
+      wait,
     });
     this.cleanUpFunctions.push(pipelineExecutionRoleCleanUp);
 
@@ -365,6 +366,7 @@ export class SageMakerPipelinesWkflw {
     await waitForPipelineComplete({
       arn: pipelineExecutionArn,
       sagemakerClient: this.clients.SageMaker,
+      wait,
     });
 
     this.logger.logSeparator();

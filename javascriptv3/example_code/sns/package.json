@@ -7,7 +7,7 @@
     "@aws-sdk/client-sns": "^3.370.0"
   },
   "scripts": {
-    "integration-test": "vitest run **/*.integration.test.js"
+    "integration-test": "vitest run **/*.integration.test.js --reporter=junit --outputFile=test_results/$npm_package_name.junit.xml"
   },
   "type": "module",
   "devDependencies": {

@@ -8,6 +8,7 @@ import {
   BillingMode,
   CreateTableCommand,
   DeleteTableCommand,
+  DescribeTableCommand,
   DynamoDBClient,
   waitUntilTableExists,
 } from "@aws-sdk/client-dynamodb";
@@ -15,6 +16,7 @@ import {
   DynamoDBDocumentClient,
   BatchExecuteStatementCommand,
 } from "@aws-sdk/lib-dynamodb";
+import { ScenarioInput } from "@aws-doc-sdk-examples/lib/scenario";
 
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
@@ -22,7 +24,39 @@ const docClient = DynamoDBDocumentClient.from(client);
 const log = (msg) => console.log(`[SCENARIO] ${msg}`);
 const tableName = "Cities";
 
-export const main = async () => {
+export const main = async (confirmAll = false) => {
+  /**
+   * Delete table if it exists.
+   */
+  try {
+    await client.send(new DescribeTableCommand({ TableName: tableName }));
+    // If no error was thrown, the table exists.
+    const input = new ScenarioInput(
+      "deleteTable",
+      `A table named ${tableName} already exists. If you choose not to delete
+this table, the scenario cannot continue. Delete it?`,
+      { confirmAll },
+    );
+    const deleteTable = await input.handle({});
+    if (deleteTable) {
+      await client.send(new DeleteTableCommand({ tableName }));
+    } else {
+      console.warn(
+        "Scenario could not run. Either delete ${tableName} or provide a unique table name.",
+      );
+      return;
+    }
+  } catch (caught) {
+    if (
+      caught instanceof Error &&
+      caught.name === "ResourceNotFoundException"
+    ) {
+      // Do nothing. This means the table is not there.
+    } else {
+      throw caught;
+    }
+  }
+
   /**
    * Create a table.
    */

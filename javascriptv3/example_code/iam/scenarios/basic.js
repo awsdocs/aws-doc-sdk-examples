@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 // snippet-start:[javascript.iam_scenarios.iam_basics]
 import {
   CreateUserCommand,
+  GetUserCommand,
   CreateAccessKeyCommand,
   CreatePolicyCommand,
   CreateRoleCommand,
@@ -20,6 +21,7 @@ import {
 import { ListBucketsCommand, S3Client } from "@aws-sdk/client-s3";
 import { AssumeRoleCommand, STSClient } from "@aws-sdk/client-sts";
 import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
+import { ScenarioInput } from "@aws-doc-sdk-examples/lib/scenario/index.js";
 
 // Set the parameters.
 const iamClient = new IAMClient({});
@@ -27,11 +29,49 @@ const userName = "test_name";
 const policyName = "test_policy";
 const roleName = "test_role";
 
-export const main = async () => {
+/**
+ * Create a new IAM user. If the user already exists, give
+ * the option to delete and re-create it.
+ * @param {string} name
+ */
+export const createUser = async (name, confirmAll = false) => {
+  try {
+    const { User } = await iamClient.send(
+      new GetUserCommand({ UserName: name }),
+    );
+    const input = new ScenarioInput(
+      "deleteUser",
+      "Do you want to delete and remake this user?",
+      { type: "confirm" },
+    );
+    const deleteUser = await input.handle({}, { confirmAll });
+    // If the user exists, and you want to delete it, delete the user
+    // and then create it again.
+    if (deleteUser) {
+      await iamClient.send(new DeleteUserCommand({ UserName: User.UserName }));
+      await iamClient.send(new CreateUserCommand({ UserName: name }));
+    } else {
+      console.warn(
+        `${name} already exists. The scenario may not work as expected.`,
+      );
+      return User;
+    }
+  } catch (caught) {
+    // If there is no user by that name, create one.
+    if (caught instanceof Error && caught.name === "NoSuchEntityException") {
+      const { User } = await iamClient.send(
+        new CreateUserCommand({ UserName: name }),
+      );
+      return User;
+    } else {
+      throw caught;
+    }
+  }
+};
+
+export const main = async (confirmAll = false) => {
   // Create a user. The user has no permissions by default.
-  const { User } = await iamClient.send(
-    new CreateUserCommand({ UserName: userName }),
-  );
+  const User = await createUser(userName, confirmAll);
 
   if (!User) {
     throw new Error("User not created");

@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "integration-test": "vitest run **/*.integration.test.js"
+    "test": "vitest run unit"
   },
   "dependencies": {
     "@aws-doc-sdk-examples/lib": "^1.0.0",
