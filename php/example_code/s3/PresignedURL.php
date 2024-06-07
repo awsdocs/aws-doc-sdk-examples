@@ -38,10 +38,12 @@ class PresignedURL
             'Bucket' => $bucket,
             'Key' => $key,
         ]);
+        // snippet-end:[s3.php.presigned_url.get_object]
+        // snippet-start:[s3.php.presigned_url.create_url]
         try {
-            // snippet-start:[s3.php.presigned_url.create_url
+            // snippet-start:[s3.php.presigned_url.get_url
             $preSignedUrl = $s3Service->preSignedUrl($command, $expiration);
-            // snippet-end:[s3.php.presigned_url.create_url
+            // snippet-end:[s3.php.presigned_url.get_url
             echo "Your preSignedUrl is \n$preSignedUrl\nand will be good for the next 20 minutes.\n";
             echo $linebreak;
             echo "Thanks for trying the Amazon S3 presigned URL demo.\n";
@@ -50,7 +52,7 @@ class PresignedURL
             echo "Something went wrong: $exception";
             die();
         }
-        // snippet-end:[s3.php.presigned_url.get_object]
+        // snippet-end:[s3.php.presigned_url.create_url]
         // snippet-end:[s3.php.presigned_url.main]
     }
 }
