@@ -33,6 +33,7 @@ class PresignedURL
         $bucket = $this->testable_readline("First, please enter the name of the S3 bucket to use: ");
         $key = $this->testable_readline("Next, provide the key of an object in the given bucket: ");
         echo $linebreak;
+        // snippet-start:[s3.php.presigned_url.get_object]
         $command = $s3Service->getClient()->getCommand('GetObject', [
             'Bucket' => $bucket,
             'Key' => $key,
@@ -47,6 +48,7 @@ class PresignedURL
             echo "Something went wrong: $exception";
             die();
         }
+        // snippet-end:[s3.php.presigned_url.get_object]
         // snippet-end:[s3.php.presigned_url.main]
     }
 }
