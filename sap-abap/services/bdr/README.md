@@ -30,11 +30,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 <!--custom.prerequisites.end-->
 ### Anthropic Claude
 
-- [InvokeModel API](zcl_aws1_bdr_actions.clas.abap#L109)
+- [InvokeModel](zcl_aws1_bdr_actions.clas.abap#L109)
 
-### Stability AI Diffusion
+### Stable Diffusion
 
-- [Generate images with the InvokeModel API](zcl_aws1_bdr_actions.clas.abap#L179)
+- [InvokeModel](zcl_aws1_bdr_actions.clas.abap#L179)
 
 
 <!--custom.examples.start-->
