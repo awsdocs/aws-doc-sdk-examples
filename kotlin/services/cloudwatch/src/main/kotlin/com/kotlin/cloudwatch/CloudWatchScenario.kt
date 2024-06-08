@@ -480,9 +480,7 @@ suspend fun checkForMetricAlarm(fileName: String?) {
             println(".")
         }
         if (!hasAlarm) {
-            println(
-                "No Alarm state found for $customMetricName after 10 retries.",
-            )
+            println("No Alarm state found for $customMetricName after 10 retries.")
         } else {
             println("Alarm state found for $customMetricName.")
         }
@@ -553,7 +551,7 @@ suspend fun getCustomMetricData(fileName: String) {
     val date2 =
         nowDate.plus(hours, ChronoUnit.HOURS).plus(
             minutes,
-            ChronoUnit.MINUTES,
+            ChronoUnit.MINUTES
         )
 
     val met =
