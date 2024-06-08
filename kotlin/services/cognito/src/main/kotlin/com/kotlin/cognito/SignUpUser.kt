@@ -83,13 +83,13 @@ suspend fun signUp(
 fun calculateSecretHash(
     userPoolClientId: String,
     userPoolClientSecret: String,
-    userName: String,
+    userName: String
 ): String {
     val macSha256Algorithm = "HmacSHA256"
     val signingKey =
         SecretKeySpec(
             userPoolClientSecret.toByteArray(StandardCharsets.UTF_8),
-            macSha256Algorithm,
+            macSha256Algorithm
         )
     try {
         val mac = Mac.getInstance(macSha256Algorithm)
