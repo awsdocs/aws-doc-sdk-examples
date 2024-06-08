@@ -69,7 +69,6 @@ suspend fun submitAthenaQuery(queryStringVal: String, databaseVal: String, outpu
 suspend fun waitForQueryToComplete(queryExecutionIdVal: String?) {
     var isQueryStillRunning = true
     while (isQueryStillRunning) {
-
         val request = GetQueryExecutionRequest {
             queryExecutionId = queryExecutionIdVal
         }

@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[appsync.kotlin.del_key.main]
 suspend fun deleteKey(
     keyIdVal: String?,
-    apiIdVal: String?,
+    apiIdVal: String?
 ) {
     val apiKeyRequest =
         DeleteApiKeyRequest {

@@ -49,7 +49,7 @@ suspend fun createDS(
     dsName: String,
     dsRole: String,
     apiVal: String,
-    tableNameVal: String,
+    tableNameVal: String
 ): String? {
     val config =
         DynamodbDataSourceConfig {
