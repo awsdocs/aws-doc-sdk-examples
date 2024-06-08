@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
           <fileName>
 
         Where:
-           fileName - The path to the moviedata.json you can download from the Amazon DynamoDB Developer Guide.
+           fileName - The path to the moviedata.json file You can download from the Amazon DynamoDB Developer Guide.
     """
 
     if (args.size != 1) {

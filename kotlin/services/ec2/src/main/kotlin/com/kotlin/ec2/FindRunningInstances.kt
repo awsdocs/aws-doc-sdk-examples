@@ -37,9 +37,7 @@ suspend fun findRunningEC2Instances() {
         val response = ec2.describeInstances(request)
         response.reservations?.forEach { reservation ->
             reservation.instances?.forEach { instance ->
-                println(
-                    "Found Reservation with id: ${instance.instanceId}, type: ${instance.instanceType} state: ${instance.state?.name} and monitoring state: ${instance.monitoring?.state}"
-                )
+                println("Found Reservation with id: ${instance.instanceId}, type: ${instance.instanceType} state: ${instance.state?.name} and monitoring state: ${instance.monitoring?.state}")
             }
         }
     }
