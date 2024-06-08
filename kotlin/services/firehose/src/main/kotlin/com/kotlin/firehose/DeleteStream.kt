@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
     Usage:
@@ -39,10 +38,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[firehose.kotlin.delete_stream.main]
 suspend fun delStream(streamName: String) {
-
-    val request = DeleteDeliveryStreamRequest {
-        deliveryStreamName = streamName
-    }
+    val request =
+        DeleteDeliveryStreamRequest {
+            deliveryStreamName = streamName
+        }
 
     FirehoseClient { region = "us-west-2" }.use { firehoseClient ->
         firehoseClient.deleteDeliveryStream(request)
