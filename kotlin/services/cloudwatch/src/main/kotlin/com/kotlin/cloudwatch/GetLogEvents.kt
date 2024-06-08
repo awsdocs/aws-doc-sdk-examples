@@ -40,7 +40,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[cloudwatch.kotlin.get_logs.main]
 suspend fun getCWLogEvents(
     logGroupNameVal: String,
-    logStreamNameVal: String,
+    logStreamNameVal: String
 ) {
     val request =
         GetLogEventsRequest {

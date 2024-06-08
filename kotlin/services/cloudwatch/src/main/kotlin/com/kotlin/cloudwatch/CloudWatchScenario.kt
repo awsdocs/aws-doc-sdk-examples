@@ -413,7 +413,7 @@ suspend fun addAnomalyDetector(fileName: String?) {
 // snippet-start:[cloudwatch.kotlin.scenario.get.alarm.history.main]
 suspend fun getAlarmHistory(
     fileName: String,
-    date: String,
+    date: String
 ) {
     // Read values from the JSON file.
     val parser = JsonFactory().createParser(File(fileName))
@@ -663,7 +663,7 @@ suspend fun createAlarm(fileName: String): String {
 // snippet-start:[cloudwatch.kotlin.scenario.add.metric.dashboard.main]
 suspend fun addMetricToDashboard(
     fileNameVal: String,
-    dashboardNameVal: String,
+    dashboardNameVal: String
 ) {
     val dashboardRequest =
         PutDashboardRequest {
@@ -730,7 +730,7 @@ suspend fun listDashboards() {
 // snippet-start:[cloudwatch.kotlin.scenario.create.dashboard.main]
 suspend fun createDashboardWithMetrics(
     dashboardNameVal: String,
-    fileNameVal: String,
+    fileNameVal: String
 ) {
     val dashboardRequest =
         PutDashboardRequest {
@@ -806,7 +806,7 @@ suspend fun getAndDisplayMetricStatistics(
     metVal: String,
     metricOption: String,
     date: String,
-    myDimension: Dimension,
+    myDimension: Dimension
 ) {
     val start = Instant.parse(date)
     val endDate = Instant.now()

@@ -45,8 +45,7 @@ suspend fun describeFilters(logGroup: String) {
         val response = cwlClient.describeSubscriptionFilters(request)
         response.subscriptionFilters?.forEach { filter ->
             println(
-                "Retrieved filter with name  ${filter.filterName} pattern ${filter.filterPattern} and destination ${filter.destinationArn}",
-            )
+                "Retrieved filter with name  ${filter.filterName} pattern ${filter.filterPattern} and destination ${filter.destinationArn}")
         }
     }
 }
