@@ -43,7 +43,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[ec2.kotlin.create_instance.main]
 suspend fun createEC2Instance(
     name: String,
-    amiId: String,
+    amiId: String
 ): String? {
     val request =
         RunInstancesRequest {

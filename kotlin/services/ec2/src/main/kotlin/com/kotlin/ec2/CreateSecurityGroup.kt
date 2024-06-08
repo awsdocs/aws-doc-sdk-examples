@@ -46,7 +46,7 @@ suspend fun main(args: Array<String>) {
 suspend fun createEC2SecurityGroup(
     groupNameVal: String?,
     groupDescVal: String?,
-    vpcIdVal: String?,
+    vpcIdVal: String?
 ): String? {
     val request =
         CreateSecurityGroupRequest {
