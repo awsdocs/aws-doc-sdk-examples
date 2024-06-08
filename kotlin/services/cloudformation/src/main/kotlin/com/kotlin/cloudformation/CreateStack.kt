@@ -38,13 +38,7 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[cf.kotlin.create_stack.main]
-suspend fun createCFStack(
-    stackNameVal: String,
-    roleARNVal: String?,
-    location: String?,
-    key: String?,
-    value: String?,
-) {
+suspend fun createCFStack(stackNameVal: String, roleARNVal: String?, location: String?, key: String?, value: String?) {
     val myParameter =
         Parameter {
             parameterKey = key
