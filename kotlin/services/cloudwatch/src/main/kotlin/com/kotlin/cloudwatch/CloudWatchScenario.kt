@@ -51,6 +51,7 @@ import java.util.Scanner
 import kotlin.system.exitProcess
 
 // snippet-start:[cloudwatch.kotlin.scenario.main]
+
 /**
  Before running this Kotlin code example, set up your development environment,
  including your credentials.
@@ -84,6 +85,7 @@ import kotlin.system.exitProcess
  */
 
 val DASHES: String? = String(CharArray(80)).replace("\u0000", "-")
+
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
@@ -275,15 +277,17 @@ suspend fun deleteAnomalyDetector(fileName: String) {
     val customMetricNamespace = rootNode.findValue("customMetricNamespace").asText()
     val customMetricName = rootNode.findValue("customMetricName").asText()
 
-    val singleMetricAnomalyDetectorVal = SingleMetricAnomalyDetector {
-        metricName = customMetricName
-        namespace = customMetricNamespace
-        stat = "Maximum"
-    }
+    val singleMetricAnomalyDetectorVal =
+        SingleMetricAnomalyDetector {
+            metricName = customMetricName
+            namespace = customMetricNamespace
+            stat = "Maximum"
+        }
 
-    val request = DeleteAnomalyDetectorRequest {
-        singleMetricAnomalyDetector = singleMetricAnomalyDetectorVal
-    }
+    val request =
+        DeleteAnomalyDetectorRequest {
+            singleMetricAnomalyDetector = singleMetricAnomalyDetectorVal
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.deleteAnomalyDetector(request)
@@ -294,9 +298,10 @@ suspend fun deleteAnomalyDetector(fileName: String) {
 
 // snippet-start:[cloudwatch.kotlin.scenario.del.alarm.main]
 suspend fun deleteAlarm(alarmNameVal: String) {
-    val request = DeleteAlarmsRequest {
-        alarmNames = listOf(alarmNameVal)
-    }
+    val request =
+        DeleteAlarmsRequest {
+            alarmNames = listOf(alarmNameVal)
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.deleteAlarms(request)
@@ -307,9 +312,10 @@ suspend fun deleteAlarm(alarmNameVal: String) {
 
 // snippet-start:[cloudwatch.kotlin.scenario.del.dashboard.main]
 suspend fun deleteDashboard(dashboardName: String) {
-    val dashboardsRequest = DeleteDashboardsRequest {
-        dashboardNames = listOf(dashboardName)
-    }
+    val dashboardsRequest =
+        DeleteDashboardsRequest {
+            dashboardNames = listOf(dashboardName)
+        }
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.deleteDashboards(dashboardsRequest)
         println("$dashboardName was successfully deleted.")
@@ -337,9 +343,10 @@ suspend fun getAndOpenMetricImage(fileName: String) {
         ]
         }"""
 
-    val imageRequest = GetMetricWidgetImageRequest {
-        metricWidget = myJSON
-    }
+    val imageRequest =
+        GetMetricWidgetImageRequest {
+            metricWidget = myJSON
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.getMetricWidgetImage(imageRequest)
@@ -360,11 +367,12 @@ suspend fun describeAnomalyDetectors(fileName: String) {
     val customMetricNamespace = rootNode.findValue("customMetricNamespace").asText()
     val customMetricName = rootNode.findValue("customMetricName").asText()
 
-    val detectorsRequest = DescribeAnomalyDetectorsRequest {
-        maxResults = 10
-        metricName = customMetricName
-        namespace = customMetricNamespace
-    }
+    val detectorsRequest =
+        DescribeAnomalyDetectorsRequest {
+            maxResults = 10
+            metricName = customMetricName
+            namespace = customMetricNamespace
+        }
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.describeAnomalyDetectors(detectorsRequest)
         response.anomalyDetectors?.forEach { detector ->
@@ -383,15 +391,17 @@ suspend fun addAnomalyDetector(fileName: String?) {
     val customMetricNamespace = rootNode.findValue("customMetricNamespace").asText()
     val customMetricName = rootNode.findValue("customMetricName").asText()
 
-    val singleMetricAnomalyDetectorVal = SingleMetricAnomalyDetector {
-        metricName = customMetricName
-        namespace = customMetricNamespace
-        stat = "Maximum"
-    }
+    val singleMetricAnomalyDetectorVal =
+        SingleMetricAnomalyDetector {
+            metricName = customMetricName
+            namespace = customMetricNamespace
+            stat = "Maximum"
+        }
 
-    val anomalyDetectorRequest = PutAnomalyDetectorRequest {
-        singleMetricAnomalyDetector = singleMetricAnomalyDetectorVal
-    }
+    val anomalyDetectorRequest =
+        PutAnomalyDetectorRequest {
+            singleMetricAnomalyDetector = singleMetricAnomalyDetectorVal
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.putAnomalyDetector(anomalyDetectorRequest)
@@ -401,7 +411,10 @@ suspend fun addAnomalyDetector(fileName: String?) {
 // snippet-end:[cloudwatch.kotlin.scenario.add.anomalydetector.main]
 
 // snippet-start:[cloudwatch.kotlin.scenario.get.alarm.history.main]
-suspend fun getAlarmHistory(fileName: String, date: String) {
+suspend fun getAlarmHistory(
+    fileName: String,
+    date: String,
+) {
     // Read values from the JSON file.
     val parser = JsonFactory().createParser(File(fileName))
     val rootNode = ObjectMapper().readTree<JsonNode>(parser)
@@ -409,14 +422,22 @@ suspend fun getAlarmHistory(fileName: String, date: String) {
     val start = Instant.parse(date)
     val endDateVal = Instant.now()
 
-    val historyRequest = DescribeAlarmHistoryRequest {
-        startDate = aws.smithy.kotlin.runtime.time.Instant(start)
-        endDate = aws.smithy.kotlin.runtime.time.Instant(endDateVal)
-        alarmName = alarmNameVal
-        historyItemType = HistoryItemType.Action
-    }
+    val historyRequest =
+        DescribeAlarmHistoryRequest {
+            startDate =
+                aws.smithy.kotlin.runtime.time
+                    .Instant(start)
+            endDate =
+                aws.smithy.kotlin.runtime.time
+                    .Instant(endDateVal)
+            alarmName = alarmNameVal
+            historyItemType = HistoryItemType.Action
+        }
 
-    CloudWatchClient { credentialsProvider = EnvironmentCredentialsProvider(); region = "us-east-1" }.use { cwClient ->
+    CloudWatchClient {
+        credentialsProvider = EnvironmentCredentialsProvider()
+        region = "us-east-1"
+    }.use { cwClient ->
         val response = cwClient.describeAlarmHistory(historyRequest)
         val historyItems = response.alarmHistoryItems
         if (historyItems != null) {
@@ -443,10 +464,11 @@ suspend fun checkForMetricAlarm(fileName: String?) {
     var hasAlarm = false
     var retries = 10
 
-    val metricRequest = DescribeAlarmsForMetricRequest {
-        metricName = customMetricName
-        namespace = customMetricNamespace
-    }
+    val metricRequest =
+        DescribeAlarmsForMetricRequest {
+            metricName = customMetricName
+            namespace = customMetricNamespace
+        }
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         while (!hasAlarm && retries > 0) {
             val response = cwClient.describeAlarmsForMetric(metricRequest)
@@ -457,7 +479,13 @@ suspend fun checkForMetricAlarm(fileName: String?) {
             delay(20000)
             println(".")
         }
-        if (!hasAlarm) println("No Alarm state found for $customMetricName after 10 retries.") else println("Alarm state found for $customMetricName.")
+        if (!hasAlarm) {
+            println(
+                "No Alarm state found for $customMetricName after 10 retries.",
+            )
+        } else {
+            println("Alarm state found for $customMetricName.")
+        }
     }
 }
 // snippet-end:[cloudwatch.kotlin.scenario.check.met.alarm.main]
@@ -473,28 +501,35 @@ suspend fun addMetricDataForAlarm(fileName: String?) {
     // Set an Instant object.
     val time = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
     val instant = Instant.parse(time)
-    val datum = MetricDatum {
-        metricName = customMetricName
-        unit = StandardUnit.None
-        value = 1001.00
-        timestamp = aws.smithy.kotlin.runtime.time.Instant(instant)
-    }
+    val datum =
+        MetricDatum {
+            metricName = customMetricName
+            unit = StandardUnit.None
+            value = 1001.00
+            timestamp =
+                aws.smithy.kotlin.runtime.time
+                    .Instant(instant)
+        }
 
-    val datum2 = MetricDatum {
-        metricName = customMetricName
-        unit = StandardUnit.None
-        value = 1002.00
-        timestamp = aws.smithy.kotlin.runtime.time.Instant(instant)
-    }
+    val datum2 =
+        MetricDatum {
+            metricName = customMetricName
+            unit = StandardUnit.None
+            value = 1002.00
+            timestamp =
+                aws.smithy.kotlin.runtime.time
+                    .Instant(instant)
+        }
 
     val metricDataList = ArrayList<MetricDatum>()
     metricDataList.add(datum)
     metricDataList.add(datum2)
 
-    val request = PutMetricDataRequest {
-        namespace = customMetricNamespace
-        metricData = metricDataList
-    }
+    val request =
+        PutMetricDataRequest {
+            namespace = customMetricNamespace
+            metricData = metricDataList
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.putMetricData(request)
@@ -515,37 +550,46 @@ suspend fun getCustomMetricData(fileName: String) {
     val nowDate = Instant.now()
     val hours: Long = 1
     val minutes: Long = 30
-    val date2 = nowDate.plus(hours, ChronoUnit.HOURS).plus(
-        minutes,
-        ChronoUnit.MINUTES
-    )
+    val date2 =
+        nowDate.plus(hours, ChronoUnit.HOURS).plus(
+            minutes,
+            ChronoUnit.MINUTES,
+        )
 
-    val met = Metric {
-        metricName = customMetricName
-        namespace = customMetricNamespace
-    }
+    val met =
+        Metric {
+            metricName = customMetricName
+            namespace = customMetricNamespace
+        }
 
-    val metStat = MetricStat {
-        stat = "Maximum"
-        period = 1
-        metric = met
-    }
+    val metStat =
+        MetricStat {
+            stat = "Maximum"
+            period = 1
+            metric = met
+        }
 
-    val dataQUery = MetricDataQuery {
-        metricStat = metStat
-        id = "foo2"
-        returnData = true
-    }
+    val dataQUery =
+        MetricDataQuery {
+            metricStat = metStat
+            id = "foo2"
+            returnData = true
+        }
 
     val dq = ArrayList<MetricDataQuery>()
     dq.add(dataQUery)
-    val getMetReq = GetMetricDataRequest {
-        maxDatapoints = 10
-        scanBy = ScanBy.TimestampDescending
-        startTime = aws.smithy.kotlin.runtime.time.Instant(nowDate)
-        endTime = aws.smithy.kotlin.runtime.time.Instant(date2)
-        metricDataQueries = dq
-    }
+    val getMetReq =
+        GetMetricDataRequest {
+            maxDatapoints = 10
+            scanBy = ScanBy.TimestampDescending
+            startTime =
+                aws.smithy.kotlin.runtime.time
+                    .Instant(nowDate)
+            endTime =
+                aws.smithy.kotlin.runtime.time
+                    .Instant(date2)
+            metricDataQueries = dq
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.getMetricData(getMetReq)
@@ -561,10 +605,11 @@ suspend fun getCustomMetricData(fileName: String) {
 suspend fun describeAlarms() {
     val typeList = ArrayList<AlarmType>()
     typeList.add(AlarmType.MetricAlarm)
-    val alarmsRequest = DescribeAlarmsRequest {
-        alarmTypes = typeList
-        maxRecords = 10
-    }
+    val alarmsRequest =
+        DescribeAlarmsRequest {
+            alarmTypes = typeList
+            maxRecords = 10
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.describeAlarms(alarmsRequest)
@@ -591,20 +636,21 @@ suspend fun createAlarm(fileName: String): String {
     // Create a List for alarm actions.
     val alarmActionObs: MutableList<String> = ArrayList()
     alarmActionObs.add("arn:aws:sns:$region2:$accountId:$emailTopic")
-    val alarmRequest = PutMetricAlarmRequest {
-        alarmActions = alarmActionObs
-        alarmDescription = "Example metric alarm"
-        alarmName = alarmNameVal
-        comparisonOperator = ComparisonOperator.GreaterThanOrEqualToThreshold
-        threshold = 100.00
-        metricName = customMetricName
-        namespace = customMetricNamespace
-        evaluationPeriods = 1
-        period = 10
-        statistic = Statistic.Maximum
-        datapointsToAlarm = 1
-        treatMissingData = "ignore"
-    }
+    val alarmRequest =
+        PutMetricAlarmRequest {
+            alarmActions = alarmActionObs
+            alarmDescription = "Example metric alarm"
+            alarmName = alarmNameVal
+            comparisonOperator = ComparisonOperator.GreaterThanOrEqualToThreshold
+            threshold = 100.00
+            metricName = customMetricName
+            namespace = customMetricNamespace
+            evaluationPeriods = 1
+            period = 10
+            statistic = Statistic.Maximum
+            datapointsToAlarm = 1
+            treatMissingData = "ignore"
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.putMetricAlarm(alarmRequest)
@@ -615,11 +661,15 @@ suspend fun createAlarm(fileName: String): String {
 // snippet-end:[cloudwatch.kotlin.scenario.create.alarm.main]
 
 // snippet-start:[cloudwatch.kotlin.scenario.add.metric.dashboard.main]
-suspend fun addMetricToDashboard(fileNameVal: String, dashboardNameVal: String) {
-    val dashboardRequest = PutDashboardRequest {
-        dashboardName = dashboardNameVal
-        dashboardBody = readFileAsString(fileNameVal)
-    }
+suspend fun addMetricToDashboard(
+    fileNameVal: String,
+    dashboardNameVal: String,
+) {
+    val dashboardRequest =
+        PutDashboardRequest {
+            dashboardName = dashboardNameVal
+            dashboardBody = readFileAsString(fileNameVal)
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.putDashboard(dashboardRequest)
@@ -630,26 +680,31 @@ suspend fun addMetricToDashboard(fileNameVal: String, dashboardNameVal: String) 
 
 // snippet-start:[cloudwatch.kotlin.scenario.create.metric.main]
 suspend fun createNewCustomMetric(dataPoint: Double) {
-    val dimension = Dimension {
-        name = "UNIQUE_PAGES"
-        value = "URLS"
-    }
+    val dimension =
+        Dimension {
+            name = "UNIQUE_PAGES"
+            value = "URLS"
+        }
 
     // Set an Instant object.
     val time = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
     val instant = Instant.parse(time)
-    val datum = MetricDatum {
-        metricName = "PAGES_VISITED"
-        unit = StandardUnit.None
-        value = dataPoint
-        timestamp = aws.smithy.kotlin.runtime.time.Instant(instant)
-        dimensions = listOf(dimension)
-    }
+    val datum =
+        MetricDatum {
+            metricName = "PAGES_VISITED"
+            unit = StandardUnit.None
+            value = dataPoint
+            timestamp =
+                aws.smithy.kotlin.runtime.time
+                    .Instant(instant)
+            dimensions = listOf(dimension)
+        }
 
-    val request = PutMetricDataRequest {
-        namespace = "SITE/TRAFFIC"
-        metricData = listOf(datum)
-    }
+    val request =
+        PutMetricDataRequest {
+            namespace = "SITE/TRAFFIC"
+            metricData = listOf(datum)
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.putMetricData(request)
@@ -661,7 +716,8 @@ suspend fun createNewCustomMetric(dataPoint: Double) {
 // snippet-start:[cloudwatch.kotlin.scenario.list.dashboard.main]
 suspend fun listDashboards() {
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
-        cwClient.listDashboardsPaginated({})
+        cwClient
+            .listDashboardsPaginated({})
             .transform { it.dashboardEntries?.forEach { obj -> emit(obj) } }
             .collect { obj ->
                 println("Name is ${obj.dashboardName}")
@@ -672,11 +728,15 @@ suspend fun listDashboards() {
 // snippet-end:[cloudwatch.kotlin.scenario.list.dashboard.main]
 
 // snippet-start:[cloudwatch.kotlin.scenario.create.dashboard.main]
-suspend fun createDashboardWithMetrics(dashboardNameVal: String, fileNameVal: String) {
-    val dashboardRequest = PutDashboardRequest {
-        dashboardName = dashboardNameVal
-        dashboardBody = readFileAsString(fileNameVal)
-    }
+suspend fun createDashboardWithMetrics(
+    dashboardNameVal: String,
+    fileNameVal: String,
+) {
+    val dashboardRequest =
+        PutDashboardRequest {
+            dashboardName = dashboardNameVal
+            dashboardBody = readFileAsString(fileNameVal)
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.putDashboard(dashboardRequest)
@@ -695,31 +755,35 @@ suspend fun createDashboardWithMetrics(dashboardNameVal: String, fileNameVal: St
 }
 // snippet-end:[cloudwatch.kotlin.scenario.create.dashboard.main]
 
-fun readFileAsString(file: String): String {
-    return String(Files.readAllBytes(Paths.get(file)))
-}
+fun readFileAsString(file: String): String = String(Files.readAllBytes(Paths.get(file)))
 
 // snippet-start:[cloudwatch.kotlin.scenario.get.metrics.main]
 suspend fun getMetricStatistics(costDateWeek: String?) {
     val start = Instant.parse(costDateWeek)
     val endDate = Instant.now()
-    val dimension = Dimension {
-        name = "Currency"
-        value = "USD"
-    }
+    val dimension =
+        Dimension {
+            name = "Currency"
+            value = "USD"
+        }
 
     val dimensionList: MutableList<Dimension> = ArrayList()
     dimensionList.add(dimension)
 
-    val statisticsRequest = GetMetricStatisticsRequest {
-        metricName = "EstimatedCharges"
-        namespace = "AWS/Billing"
-        dimensions = dimensionList
-        statistics = listOf(Statistic.Maximum)
-        startTime = aws.smithy.kotlin.runtime.time.Instant(start)
-        endTime = aws.smithy.kotlin.runtime.time.Instant(endDate)
-        period = 86400
-    }
+    val statisticsRequest =
+        GetMetricStatisticsRequest {
+            metricName = "EstimatedCharges"
+            namespace = "AWS/Billing"
+            dimensions = dimensionList
+            statistics = listOf(Statistic.Maximum)
+            startTime =
+                aws.smithy.kotlin.runtime.time
+                    .Instant(start)
+            endTime =
+                aws.smithy.kotlin.runtime.time
+                    .Instant(endDate)
+            period = 86400
+        }
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.getMetricStatistics(statisticsRequest)
         val data: List<Datapoint>? = response.datapoints
@@ -737,18 +801,29 @@ suspend fun getMetricStatistics(costDateWeek: String?) {
 // snippet-end:[cloudwatch.kotlin.scenario.get.metrics.main]
 
 // snippet-start:[cloudwatch.kotlin.scenario.display.metrics.main]
-suspend fun getAndDisplayMetricStatistics(nameSpaceVal: String, metVal: String, metricOption: String, date: String, myDimension: Dimension) {
+suspend fun getAndDisplayMetricStatistics(
+    nameSpaceVal: String,
+    metVal: String,
+    metricOption: String,
+    date: String,
+    myDimension: Dimension,
+) {
     val start = Instant.parse(date)
     val endDate = Instant.now()
-    val statisticsRequest = GetMetricStatisticsRequest {
-        endTime = aws.smithy.kotlin.runtime.time.Instant(endDate)
-        startTime = aws.smithy.kotlin.runtime.time.Instant(start)
-        dimensions = listOf(myDimension)
-        metricName = metVal
-        namespace = nameSpaceVal
-        period = 86400
-        statistics = listOf(Statistic.fromValue(metricOption))
-    }
+    val statisticsRequest =
+        GetMetricStatisticsRequest {
+            endTime =
+                aws.smithy.kotlin.runtime.time
+                    .Instant(endDate)
+            startTime =
+                aws.smithy.kotlin.runtime.time
+                    .Instant(start)
+            dimensions = listOf(myDimension)
+            metricName = metVal
+            namespace = nameSpaceVal
+            period = 86400
+            statistics = listOf(Statistic.fromValue(metricOption))
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.getMetricStatistics(statisticsRequest)
@@ -769,9 +844,10 @@ suspend fun getAndDisplayMetricStatistics(nameSpaceVal: String, metVal: String, 
 // snippet-start:[cloudwatch.kotlin.scenario.list.metrics.main]
 suspend fun listMets(namespaceVal: String?): ArrayList<String>? {
     val metList = ArrayList<String>()
-    val request = ListMetricsRequest {
-        namespace = namespaceVal
-    }
+    val request =
+        ListMetricsRequest {
+            namespace = namespaceVal
+        }
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         val reponse = cwClient.listMetrics(request)
         reponse.metrics?.forEach { metrics ->
@@ -786,9 +862,10 @@ suspend fun listMets(namespaceVal: String?): ArrayList<String>? {
 // snippet-end:[cloudwatch.kotlin.scenario.list.metrics.main]
 
 suspend fun getSpecificMet(namespaceVal: String?): Dimension? {
-    val request = ListMetricsRequest {
-        namespace = namespaceVal
-    }
+    val request =
+        ListMetricsRequest {
+            namespace = namespaceVal
+        }
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.listMetrics(request)
         val myList = response.metrics
