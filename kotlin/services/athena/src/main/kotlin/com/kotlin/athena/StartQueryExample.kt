@@ -17,7 +17,6 @@ import kotlin.system.exitProcess
 // snippet-end:[athena.kotlin.StartQueryExample.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <queryString> <database> <outputLocation>
@@ -44,7 +43,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[athena.kotlin.StartQueryExample.main]
 suspend fun submitAthenaQuery(queryStringVal: String, databaseVal: String, outputLocationVal: String): String? {
-
     // The QueryExecutionContext allows us to set the database.
     val queryExecutionContextOb = QueryExecutionContext {
         database = databaseVal
@@ -69,7 +67,6 @@ suspend fun submitAthenaQuery(queryStringVal: String, databaseVal: String, outpu
 
 // Wait for an Amazon Athena query to complete, fail or to be cancelled.
 suspend fun waitForQueryToComplete(queryExecutionIdVal: String?) {
-
     var isQueryStillRunning = true
     while (isQueryStillRunning) {
 
@@ -78,7 +75,6 @@ suspend fun waitForQueryToComplete(queryExecutionIdVal: String?) {
         }
 
         AthenaClient { region = "us-west-2" }.use { athenaClient ->
-
             val response = athenaClient.getQueryExecution(request)
             val queryState = response.queryExecution?.status?.state.toString()
             if (queryState == QueryExecutionState.Succeeded.toString()) {
@@ -94,7 +90,6 @@ suspend fun waitForQueryToComplete(queryExecutionIdVal: String?) {
 
 // This code retrieves the results of a query.
 suspend fun processResultRows(queryExecutionIdVal: String?) {
-
     val request = GetQueryResultsRequest {
         queryExecutionId = queryExecutionIdVal
     }
