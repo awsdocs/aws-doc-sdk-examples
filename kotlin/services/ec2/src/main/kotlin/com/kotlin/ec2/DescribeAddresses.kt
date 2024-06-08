@@ -25,7 +25,9 @@ suspend fun describeEC2Address() {
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeAddresses(DescribeAddressesRequest {})
         response.addresses?.forEach { address ->
-            println("Found address with public IP ${address.publicIp}, domain is ${address.domain}, allocation id ${address.allocationId} and NIC id: ${address.networkInterfaceId} ")
+            println(
+                "Found address with public IP ${address.publicIp}, domain is ${address.domain}, allocation id ${address.allocationId} and NIC id: ${address.networkInterfaceId} ",
+            )
         }
     }
 }

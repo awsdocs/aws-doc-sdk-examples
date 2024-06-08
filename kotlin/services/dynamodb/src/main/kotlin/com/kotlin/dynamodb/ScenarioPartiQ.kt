@@ -187,7 +187,6 @@ suspend fun updateTableItemPartiQL(ddb: DynamoDbClient) {
 // Query the table where the year is 2013.
 suspend fun queryTablePartiQL(ddb: DynamoDbClient) {
     val sqlStatement = "SELECT * FROM MoviesPartiQ where year = ?"
-
     val parameters: MutableList<AttributeValue> = java.util.ArrayList()
     parameters.add(AttributeValue.N("2013"))
     val response = executeStatementPartiQL(ddb, sqlStatement, parameters)

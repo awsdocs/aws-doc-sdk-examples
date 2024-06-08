@@ -43,37 +43,46 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[ec2.kotlin.create_security_group.main]
-suspend fun createEC2SecurityGroup(groupNameVal: String?, groupDescVal: String?, vpcIdVal: String?): String? {
-    val request = CreateSecurityGroupRequest {
-        groupName = groupNameVal
-        description = groupDescVal
-        vpcId = vpcIdVal
-    }
+suspend fun createEC2SecurityGroup(
+    groupNameVal: String?,
+    groupDescVal: String?,
+    vpcIdVal: String?,
+): String? {
+    val request =
+        CreateSecurityGroupRequest {
+            groupName = groupNameVal
+            description = groupDescVal
+            vpcId = vpcIdVal
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val resp = ec2.createSecurityGroup(request)
-        val ipRange = IpRange {
-            cidrIp = "0.0.0.0/0"
-        }
+        val ipRange =
+            IpRange {
+                cidrIp = "0.0.0.0/0"
+            }
 
-        val ipPerm = IpPermission {
-            ipProtocol = "tcp"
-            toPort = 80
-            fromPort = 80
-            ipRanges = listOf(ipRange)
-        }
+        val ipPerm =
+            IpPermission {
+                ipProtocol = "tcp"
+                toPort = 80
+                fromPort = 80
+                ipRanges = listOf(ipRange)
+            }
 
-        val ipPerm2 = IpPermission {
-            ipProtocol = "tcp"
-            toPort = 22
-            fromPort = 22
-            ipRanges = listOf(ipRange)
-        }
+        val ipPerm2 =
+            IpPermission {
+                ipProtocol = "tcp"
+                toPort = 22
+                fromPort = 22
+                ipRanges = listOf(ipRange)
+            }
 
-        val authRequest = AuthorizeSecurityGroupIngressRequest {
-            groupName = groupNameVal
-            ipPermissions = listOf(ipPerm, ipPerm2)
-        }
+        val authRequest =
+            AuthorizeSecurityGroupIngressRequest {
+                groupName = groupNameVal
+                ipPermissions = listOf(ipPerm, ipPerm2)
+            }
         ec2.authorizeSecurityGroupIngress(authRequest)
         println("Successfully added ingress policy to Security Group $groupNameVal")
         return resp.groupId

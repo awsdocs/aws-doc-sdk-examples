@@ -37,9 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.delete_key_pair.main]
 suspend fun deleteKeys(keyPair: String?) {
-    val request = DeleteKeyPairRequest {
-        keyName = keyPair
-    }
+    val request =
+        DeleteKeyPairRequest {
+            keyName = keyPair
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         ec2.deleteKeyPair(request)
