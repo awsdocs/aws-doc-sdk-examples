@@ -296,7 +296,7 @@ suspend fun deleteS3Bucket(bucketName: String?) {
                 toDelete.add(
                     ObjectIdentifier {
                         key = myValue.key
-                    },
+                    }
                 )
             }
         }
@@ -459,7 +459,7 @@ suspend fun updateToCustomRule(ruleName: String?) {
 // Update an Amazon S3 object created rule with a transform on the target.
 suspend fun updateSnsEventRule(
     topicArn: String?,
-    ruleName: String?,
+    ruleName: String?
 ) {
     val targetId = UUID.randomUUID().toString()
     val myMap = mutableMapOf<String, String>()
