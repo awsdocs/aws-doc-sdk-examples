@@ -41,14 +41,19 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[dynamodb.kotlin.get_item.main]
-suspend fun getSpecificItem(tableNameVal: String, keyName: String, keyVal: String) {
+suspend fun getSpecificItem(
+    tableNameVal: String,
+    keyName: String,
+    keyVal: String
+) {
     val keyToGet = mutableMapOf<String, AttributeValue>()
     keyToGet[keyName] = AttributeValue.S(keyVal)
 
-    val request = GetItemRequest {
-        key = keyToGet
-        tableName = tableNameVal
-    }
+    val request =
+        GetItemRequest {
+            key = keyToGet
+            tableName = tableNameVal
+        }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
         val returnedItem = ddb.getItem(request)

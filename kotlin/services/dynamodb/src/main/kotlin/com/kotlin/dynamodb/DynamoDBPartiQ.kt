@@ -35,22 +35,38 @@ suspend fun main() {
     }
 
     // Update an item in the Music table using the UPDATE PartiQL statement.
-    response = executeStatementRequest(ddb, "UPDATE Music SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]}  where Artist=? and SongTitle=?", parameters)
+    response =
+        executeStatementRequest(
+            ddb,
+            "UPDATE Music SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]}  where Artist=? and SongTitle=?",
+            parameters,
+        )
     if (response != null) {
         processResults(response)
     }
 
-    response = executeStatementRequest(ddb, "UPDATE Music SET AwardDetail.Grammys =LIST_APPEND(AwardDetail.Grammys,[2016])  where Artist=? and SongTitle=?", parameters)
+    response =
+        executeStatementRequest(
+            ddb,
+            "UPDATE Music SET AwardDetail.Grammys =LIST_APPEND(AwardDetail.Grammys,[2016])  where Artist=? and SongTitle=?",
+            parameters,
+        )
     if (response != null) {
         processResults(response)
     }
 
-    response = executeStatementRequest(ddb, "UPDATE Music SET BandMembers =<<'member1', 'member2'>> where Artist=? and SongTitle=?", parameters)
+    response =
+        executeStatementRequest(ddb, "UPDATE Music SET BandMembers =<<'member1', 'member2'>> where Artist=? and SongTitle=?", parameters)
     if (response != null) {
         processResults(response)
     }
 
-    response = executeStatementRequest(ddb, "UPDATE Music SET AwardDetail.Grammys =list_append(AwardDetail.Grammys,[2016])  where Artist=? and SongTitle=?", parameters)
+    response =
+        executeStatementRequest(
+            ddb,
+            "UPDATE Music SET AwardDetail.Grammys =list_append(AwardDetail.Grammys,[2016])  where Artist=? and SongTitle=?",
+            parameters,
+        )
     if (response != null) {
         processResults(response)
     }
@@ -65,12 +81,18 @@ suspend fun main() {
         processResults(response)
     }
 
-    response = executeStatementRequest(ddb, "UPDATE Music SET BandMembers =<<'member1', 'member2'>> where Artist=? and SongTitle=?", parameters)
+    response =
+        executeStatementRequest(ddb, "UPDATE Music SET BandMembers =<<'member1', 'member2'>> where Artist=? and SongTitle=?", parameters)
     if (response != null) {
         processResults(response)
     }
 
-    response = executeStatementRequest(ddb, "UPDATE Music SET BandMembers =set_add(BandMembers, <<'newmember'>>) where Artist=? and SongTitle=?", parameters)
+    response =
+        executeStatementRequest(
+            ddb,
+            "UPDATE Music SET BandMembers =set_add(BandMembers, <<'newmember'>>) where Artist=? and SongTitle=?",
+            parameters,
+        )
     if (response != null) {
         processResults(response)
     }
@@ -83,10 +105,11 @@ suspend fun executeStatementRequest(
     statementVal: String,
     parametersVal: List<AttributeValue>
 ): ExecuteStatementResponse? {
-    val request = ExecuteStatementRequest {
-        statement = statementVal
-        parameters = parametersVal
-    }
+    val request =
+        ExecuteStatementRequest {
+            statement = statementVal
+            parameters = parametersVal
+        }
 
     return ddb.executeStatement(request)
 }

@@ -46,34 +46,41 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[dynamodb.kotlin.create_table.main]
-suspend fun createNewTable(tableNameVal: String, key: String): String? {
-    val attDef = AttributeDefinition {
-        attributeName = key
-        attributeType = ScalarAttributeType.S
-    }
+suspend fun createNewTable(
+    tableNameVal: String,
+    key: String
+): String? {
+    val attDef =
+        AttributeDefinition {
+            attributeName = key
+            attributeType = ScalarAttributeType.S
+        }
 
-    val keySchemaVal = KeySchemaElement {
-        attributeName = key
-        keyType = KeyType.Hash
-    }
+    val keySchemaVal =
+        KeySchemaElement {
+            attributeName = key
+            keyType = KeyType.Hash
+        }
 
-    val provisionedVal = ProvisionedThroughput {
-        readCapacityUnits = 10
-        writeCapacityUnits = 10
-    }
+    val provisionedVal =
+        ProvisionedThroughput {
+            readCapacityUnits = 10
+            writeCapacityUnits = 10
+        }
 
-    val request = CreateTableRequest {
-        attributeDefinitions = listOf(attDef)
-        keySchema = listOf(keySchemaVal)
-        provisionedThroughput = provisionedVal
-        tableName = tableNameVal
-    }
+    val request =
+        CreateTableRequest {
+            attributeDefinitions = listOf(attDef)
+            keySchema = listOf(keySchemaVal)
+            provisionedThroughput = provisionedVal
+            tableName = tableNameVal
+        }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
-
         var tableArn: String
         val response = ddb.createTable(request)
-        ddb.waitUntilTableExists { // suspend call
+        ddb.waitUntilTableExists {
+            // suspend call
             tableName = tableNameVal
         }
         tableArn = response.tableDescription!!.tableArn.toString()

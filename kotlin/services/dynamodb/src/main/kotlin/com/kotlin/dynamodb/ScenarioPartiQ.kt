@@ -72,47 +72,61 @@ suspend fun main(args: Array<String>) {
     deleteTablePartiQL(tableName)
 }
 
-suspend fun createTablePartiQL(ddb: DynamoDbClient, tableNameVal: String, key: String) {
-    val attDef = AttributeDefinition {
-        attributeName = key
-        attributeType = ScalarAttributeType.N
-    }
+suspend fun createTablePartiQL(
+    ddb: DynamoDbClient,
+    tableNameVal: String,
+    key: String
+) {
+    val attDef =
+        AttributeDefinition {
+            attributeName = key
+            attributeType = ScalarAttributeType.N
+        }
 
-    val attDef1 = AttributeDefinition {
-        attributeName = "title"
-        attributeType = ScalarAttributeType.S
-    }
+    val attDef1 =
+        AttributeDefinition {
+            attributeName = "title"
+            attributeType = ScalarAttributeType.S
+        }
 
-    val keySchemaVal = KeySchemaElement {
-        attributeName = key
-        keyType = KeyType.Hash
-    }
+    val keySchemaVal =
+        KeySchemaElement {
+            attributeName = key
+            keyType = KeyType.Hash
+        }
 
-    val keySchemaVal1 = KeySchemaElement {
-        attributeName = "title"
-        keyType = KeyType.Range
-    }
+    val keySchemaVal1 =
+        KeySchemaElement {
+            attributeName = "title"
+            keyType = KeyType.Range
+        }
 
-    val provisionedVal = ProvisionedThroughput {
-        readCapacityUnits = 10
-        writeCapacityUnits = 10
-    }
+    val provisionedVal =
+        ProvisionedThroughput {
+            readCapacityUnits = 10
+            writeCapacityUnits = 10
+        }
 
-    val request = CreateTableRequest {
-        attributeDefinitions = listOf(attDef, attDef1)
-        keySchema = listOf(keySchemaVal, keySchemaVal1)
-        provisionedThroughput = provisionedVal
-        tableName = tableNameVal
-    }
+    val request =
+        CreateTableRequest {
+            attributeDefinitions = listOf(attDef, attDef1)
+            keySchema = listOf(keySchemaVal, keySchemaVal1)
+            provisionedThroughput = provisionedVal
+            tableName = tableNameVal
+        }
 
     val response = ddb.createTable(request)
-    ddb.waitUntilTableExists { // suspend call
+    ddb.waitUntilTableExists {
+        // suspend call
         tableName = tableNameVal
     }
     println("The table was successfully created ${response.tableDescription?.tableArn}")
 }
 
-suspend fun loadDataPartiQL(ddb: DynamoDbClient, fileName: String) {
+suspend fun loadDataPartiQL(
+    ddb: DynamoDbClient,
+    fileName: String
+) {
     val sqlStatement = "INSERT INTO MoviesPartiQ VALUE {'year':?, 'title' : ?, 'info' : ?}"
     val parser = JsonFactory().createParser(File(fileName))
     val rootNode = ObjectMapper().readTree<JsonNode>(parser)
@@ -181,9 +195,10 @@ suspend fun queryTablePartiQL(ddb: DynamoDbClient) {
 }
 
 suspend fun deleteTablePartiQL(tableNameVal: String) {
-    val request = DeleteTableRequest {
-        tableName = tableNameVal
-    }
+    val request =
+        DeleteTableRequest {
+            tableName = tableNameVal
+        }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
         ddb.deleteTable(request)
@@ -196,10 +211,11 @@ suspend fun executeStatementPartiQL(
     statementVal: String,
     parametersVal: List<AttributeValue>
 ): ExecuteStatementResponse {
-    val request = ExecuteStatementRequest {
-        statement = statementVal
-        parameters = parametersVal
-    }
+    val request =
+        ExecuteStatementRequest {
+            statement = statementVal
+            parameters = parametersVal
+        }
 
     return ddb.executeStatement(request)
 }

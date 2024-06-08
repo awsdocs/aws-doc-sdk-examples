@@ -73,10 +73,11 @@ suspend fun putItemInTable(
     itemValues[albumTitle] = AttributeValue.S(albumTitleValue)
     itemValues[awards] = AttributeValue.S(awardVal)
 
-    val request = PutItemRequest {
-        tableName = tableNameVal
-        item = itemValues
-    }
+    val request =
+        PutItemRequest {
+            tableName = tableNameVal
+            item = itemValues
+        }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
         ddb.putItem(request)
