@@ -32,7 +32,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[cloudtrail.kotlin.create_trail.main]
 suspend fun createNewTrail(
     trailName: String,
-    s3BucketNameVal: String,
+    s3BucketNameVal: String
 ) {
     val request =
         CreateTrailRequest {

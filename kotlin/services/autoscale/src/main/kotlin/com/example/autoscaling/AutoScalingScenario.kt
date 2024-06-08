@@ -206,7 +206,7 @@ suspend fun setDesiredCapacity(groupName: String) {
 suspend fun updateAutoScalingGroup(
     groupName: String,
     launchTemplateNameVal: String,
-    serviceLinkedRoleARNVal: String,
+    serviceLinkedRoleARNVal: String
 ) {
     val templateSpecification =
         LaunchTemplateSpecification {
@@ -239,7 +239,7 @@ suspend fun createAutoScalingGroup(
     groupName: String,
     launchTemplateNameVal: String,
     serviceLinkedRoleARNVal: String,
-    vpcZoneIdVal: String,
+    vpcZoneIdVal: String
 ) {
     val templateSpecification =
         LaunchTemplateSpecification {
