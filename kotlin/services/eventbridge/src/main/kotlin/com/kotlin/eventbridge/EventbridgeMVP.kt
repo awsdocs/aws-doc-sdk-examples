@@ -48,7 +48,9 @@ import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Scanner
+import java.util.UUID
 import kotlin.system.exitProcess
 
 // snippet-start:[eventbridge.kotlin.mvp.main]
@@ -81,6 +83,7 @@ import kotlin.system.exitProcess
  18. Cleans up resources.
 */
 val DASHES: String = String(CharArray(80)).replace("\u0000", "-")
+
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
@@ -92,16 +95,17 @@ suspend fun main(args: Array<String>) {
         topicName - The name of the Amazon Simple Notification Service (Amazon SNS) topic to create.
         eventRuleName - The Amazon EventBridge rule name to create.
     """
-    val polJSON = "{" +
-        "\"Version\": \"2012-10-17\"," +
-        "\"Statement\": [{" +
-        "\"Effect\": \"Allow\"," +
-        "\"Principal\": {" +
-        "\"Service\": \"events.amazonaws.com\"" +
-        "}," +
-        "\"Action\": \"sts:AssumeRole\"" +
-        "}]" +
-        "}"
+    val polJSON =
+        "{" +
+            "\"Version\": \"2012-10-17\"," +
+            "\"Statement\": [{" +
+            "\"Effect\": \"Allow\"," +
+            "\"Principal\": {" +
+            "\"Service\": \"events.amazonaws.com\"" +
+            "}," +
+            "\"Action\": \"sts:AssumeRole\"" +
+            "}]" +
+            "}"
 
     if (args.size != 4) {
         println(usage)
@@ -240,7 +244,12 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 }
 
-suspend fun cleanupResources(topicArn: String?, eventRuleName: String?, bucketName: String?, roleName: String?) {
+suspend fun cleanupResources(
+    topicArn: String?,
+    eventRuleName: String?,
+    bucketName: String?,
+    roleName: String?
+) {
     println("Removing all targets from the event rule.")
     deleteTargetsFromRule(eventRuleName)
     deleteRuleByName(eventRuleName)
@@ -251,18 +260,20 @@ suspend fun cleanupResources(topicArn: String?, eventRuleName: String?, bucketNa
 
 suspend fun deleteRole(roleNameVal: String?) {
     val policyArnVal = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess"
-    val policyRequest = DetachRolePolicyRequest {
-        policyArn = policyArnVal
-        roleName = roleNameVal
-    }
+    val policyRequest =
+        DetachRolePolicyRequest {
+            policyArn = policyArnVal
+            roleName = roleNameVal
+        }
     IamClient { region = "us-east-1" }.use { iam ->
         iam.detachRolePolicy(policyRequest)
         println("Successfully detached policy $policyArnVal from role $roleNameVal")
 
         // Delete the role.
-        val roleRequest = DeleteRoleRequest {
-            roleName = roleNameVal
-        }
+        val roleRequest =
+            DeleteRoleRequest {
+                roleName = roleNameVal
+            }
 
         iam.deleteRole(roleRequest)
         println("*** Successfully deleted $roleNameVal")
@@ -271,9 +282,10 @@ suspend fun deleteRole(roleNameVal: String?) {
 
 suspend fun deleteS3Bucket(bucketName: String?) {
     // Remove all the objects from the S3 bucket.
-    val listObjects = ListObjectsRequest {
-        bucket = bucketName
-    }
+    val listObjects =
+        ListObjectsRequest {
+            bucket = bucketName
+        }
     S3Client { region = "us-east-1" }.use { s3Client ->
         val res = s3Client.listObjects(listObjects)
         val myObjects = res.contents
@@ -284,25 +296,28 @@ suspend fun deleteS3Bucket(bucketName: String?) {
                 toDelete.add(
                     ObjectIdentifier {
                         key = myValue.key
-                    }
+                    },
                 )
             }
         }
 
-        val delOb = Delete {
-            objects = toDelete
-        }
+        val delOb =
+            Delete {
+                objects = toDelete
+            }
 
-        val dor = DeleteObjectsRequest {
-            bucket = bucketName
-            delete = delOb
-        }
+        val dor =
+            DeleteObjectsRequest {
+                bucket = bucketName
+                delete = delOb
+            }
         s3Client.deleteObjects(dor)
 
         // Delete the S3 bucket.
-        val deleteBucketRequest = DeleteBucketRequest {
-            bucket = bucketName
-        }
+        val deleteBucketRequest =
+            DeleteBucketRequest {
+                bucket = bucketName
+            }
         s3Client.deleteBucket(deleteBucketRequest)
         println("You have deleted the bucket and the objects")
     }
@@ -310,9 +325,10 @@ suspend fun deleteS3Bucket(bucketName: String?) {
 
 // Delete the SNS topic.
 suspend fun deleteSNSTopic(topicArnVal: String?) {
-    val request = DeleteTopicRequest {
-        topicArn = topicArnVal
-    }
+    val request =
+        DeleteTopicRequest {
+            topicArn = topicArnVal
+        }
 
     SnsClient { region = "us-east-1" }.use { snsClient ->
         snsClient.deleteTopic(request)
@@ -322,9 +338,10 @@ suspend fun deleteSNSTopic(topicArnVal: String?) {
 
 // snippet-start:[eventbridge.kotlin._delete_rule.main]
 suspend fun deleteRuleByName(ruleName: String?) {
-    val ruleRequest = DeleteRuleRequest {
-        name = ruleName
-    }
+    val ruleRequest =
+        DeleteRuleRequest {
+            name = ruleName
+        }
     EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
         eventBrClient.deleteRule(ruleRequest)
         println("Successfully deleted the rule")
@@ -335,9 +352,10 @@ suspend fun deleteRuleByName(ruleName: String?) {
 // snippet-start:[eventbridge.kotlin.delete.targets.main]
 suspend fun deleteTargetsFromRule(eventRuleName: String?) {
     // First, get all targets that will be deleted.
-    val request = ListTargetsByRuleRequest {
-        rule = eventRuleName
-    }
+    val request =
+        ListTargetsByRuleRequest {
+            rule = eventRuleName
+        }
 
     EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
         val response = eventBrClient.listTargetsByRule(request)
@@ -346,10 +364,11 @@ suspend fun deleteTargetsFromRule(eventRuleName: String?) {
         // Get all targets and delete them.
         if (allTargets != null) {
             for (myTarget in allTargets) {
-                val removeTargetsRequest = RemoveTargetsRequest {
-                    rule = eventRuleName
-                    ids = listOf(myTarget.id.toString())
-                }
+                val removeTargetsRequest =
+                    RemoveTargetsRequest {
+                        rule = eventRuleName
+                        ids = listOf(myTarget.id.toString())
+                    }
                 eventBrClient.removeTargets(removeTargetsRequest)
                 println("Successfully removed the target")
             }
@@ -360,21 +379,24 @@ suspend fun deleteTargetsFromRule(eventRuleName: String?) {
 
 // snippet-start:[eventbridge.kotlin._put_event.main]
 suspend fun triggerCustomRule(email: String) {
-    val json = "{" +
-        "\"UserEmail\": \"" + email + "\"," +
-        "\"Message\": \"This event was generated by example code.\"" +
-        "\"UtcTime\": \"Now.\"" +
-        "}"
+    val json =
+        "{" +
+            "\"UserEmail\": \"" + email + "\"," +
+            "\"Message\": \"This event was generated by example code.\"" +
+            "\"UtcTime\": \"Now.\"" +
+            "}"
 
-    val entry = PutEventsRequestEntry {
-        source = "ExampleSource"
-        detail = json
-        detailType = "ExampleType"
-    }
+    val entry =
+        PutEventsRequestEntry {
+            source = "ExampleSource"
+            detail = json
+            detailType = "ExampleType"
+        }
 
-    val eventsRequest = PutEventsRequest {
-        this.entries = listOf(entry)
-    }
+    val eventsRequest =
+        PutEventsRequest {
+            this.entries = listOf(entry)
+        }
 
     EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
         eventBrClient.putEvents(eventsRequest)
@@ -383,24 +405,30 @@ suspend fun triggerCustomRule(email: String) {
 // snippet-end:[eventbridge.kotlin._put_event.main]
 
 // snippet-start:[eventbridge.kotlin._put_target.custom.transform.main]
-suspend fun updateCustomRuleTargetWithTransform(topicArn: String?, ruleName: String?) {
+suspend fun updateCustomRuleTargetWithTransform(
+    topicArn: String?,
+    ruleName: String?
+) {
     val targetId = UUID.randomUUID().toString()
 
-    val inputTransformerOb = InputTransformer {
-        inputTemplate = "\"Notification: sample event was received.\""
-    }
+    val inputTransformerOb =
+        InputTransformer {
+            inputTemplate = "\"Notification: sample event was received.\""
+        }
 
-    val target = Target {
-        id = targetId
-        arn = topicArn
-        inputTransformer = inputTransformerOb
-    }
+    val target =
+        Target {
+            id = targetId
+            arn = topicArn
+            inputTransformer = inputTransformerOb
+        }
 
-    val targetsRequest = PutTargetsRequest {
-        rule = ruleName
-        targets = listOf(target)
-        eventBusName = null
-    }
+    val targetsRequest =
+        PutTargetsRequest {
+            rule = ruleName
+            targets = listOf(target)
+            eventBusName = null
+        }
 
     EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
         eventBrClient.putTargets(targetsRequest)
@@ -410,15 +438,17 @@ suspend fun updateCustomRuleTargetWithTransform(topicArn: String?, ruleName: Str
 
 // snippet-start:[eventbridge.kotlin.puttargetstransform.main]
 suspend fun updateToCustomRule(ruleName: String?) {
-    val customEventsPattern = "{" +
-        "\"source\": [\"ExampleSource\"]," +
-        "\"detail-type\": [\"ExampleType\"]" +
-        "}"
-    val request = PutRuleRequest {
-        name = ruleName
-        description = "Custom test rule"
-        eventPattern = customEventsPattern
-    }
+    val customEventsPattern =
+        "{" +
+            "\"source\": [\"ExampleSource\"]," +
+            "\"detail-type\": [\"ExampleType\"]" +
+            "}"
+    val request =
+        PutRuleRequest {
+            name = ruleName
+            description = "Custom test rule"
+            eventPattern = customEventsPattern
+        }
 
     EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
         eventBrClient.putRule(request)
@@ -427,27 +457,33 @@ suspend fun updateToCustomRule(ruleName: String?) {
 // snippet-end:[eventbridge.kotlin.puttargetstransform.main]
 
 // Update an Amazon S3 object created rule with a transform on the target.
-suspend fun updateSnsEventRule(topicArn: String?, ruleName: String?) {
+suspend fun updateSnsEventRule(
+    topicArn: String?,
+    ruleName: String?,
+) {
     val targetId = UUID.randomUUID().toString()
     val myMap = mutableMapOf<String, String>()
     myMap["bucket"] = "$.detail.bucket.name"
     myMap["time"] = "$.time"
 
-    val inputTransOb = InputTransformer {
-        inputTemplate = "\"Notification: an object was uploaded to bucket <bucket> at <time>.\""
-        inputPathsMap = myMap
-    }
-    val targetOb = Target {
-        id = targetId
-        arn = topicArn
-        inputTransformer = inputTransOb
-    }
+    val inputTransOb =
+        InputTransformer {
+            inputTemplate = "\"Notification: an object was uploaded to bucket <bucket> at <time>.\""
+            inputPathsMap = myMap
+        }
+    val targetOb =
+        Target {
+            id = targetId
+            arn = topicArn
+            inputTransformer = inputTransOb
+        }
 
-    val targetsRequest = PutTargetsRequest {
-        rule = ruleName
-        targets = listOf(targetOb)
-        eventBusName = null
-    }
+    val targetsRequest =
+        PutTargetsRequest {
+            rule = ruleName
+            targets = listOf(targetOb)
+            eventBusName = null
+        }
 
     EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
         eventBrClient.putTargets(targetsRequest)
@@ -456,9 +492,10 @@ suspend fun updateSnsEventRule(topicArn: String?, ruleName: String?) {
 
 // snippet-start:[eventbridge.kotlin._describe_rule.main]
 suspend fun checkRule(eventRuleName: String?) {
-    val ruleRequest = DescribeRuleRequest {
-        name = eventRuleName
-    }
+    val ruleRequest =
+        DescribeRuleRequest {
+            name = eventRuleName
+        }
 
     EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
         val response = eventBrClient.describeRule(ruleRequest)
@@ -468,20 +505,25 @@ suspend fun checkRule(eventRuleName: String?) {
 // snippet-end:[eventbridge.kotlin._describe_rule.main]
 
 // snippet-start:[eventbridge.kotlin.disable.rule.main]
-suspend fun changeRuleState(eventRuleName: String, isEnabled: Boolean?) {
+suspend fun changeRuleState(
+    eventRuleName: String,
+    isEnabled: Boolean?
+) {
     if (!isEnabled!!) {
         println("Disabling the rule: $eventRuleName")
-        val ruleRequest = DisableRuleRequest {
-            name = eventRuleName
-        }
+        val ruleRequest =
+            DisableRuleRequest {
+                name = eventRuleName
+            }
         EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
             eventBrClient.disableRule(ruleRequest)
         }
     } else {
         println("Enabling the rule: $eventRuleName")
-        val ruleRequest = EnableRuleRequest {
-            name = eventRuleName
-        }
+        val ruleRequest =
+            EnableRuleRequest {
+                name = eventRuleName
+            }
         EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
             eventBrClient.enableRule(ruleRequest)
         }
@@ -500,11 +542,12 @@ suspend fun uploadTextFiletoS3(bucketName: String?) {
     bw.write("This is a sample file for testing uploads.")
     bw.close()
 
-    val putOb = PutObjectRequest {
-        bucket = bucketName
-        key = fileName
-        body = myFile.asByteStream()
-    }
+    val putOb =
+        PutObjectRequest {
+            bucket = bucketName
+            key = fileName
+            body = myFile.asByteStream()
+        }
 
     S3Client { region = "us-east-1" }.use { s3Client ->
         s3Client.putObject(putOb)
@@ -513,9 +556,10 @@ suspend fun uploadTextFiletoS3(bucketName: String?) {
 
 // snippet-start:[eventbridge.kotlin.list.rules.target.main]
 suspend fun listTargetRules(topicArnVal: String?) {
-    val ruleNamesByTargetRequest = ListRuleNamesByTargetRequest {
-        targetArn = topicArnVal
-    }
+    val ruleNamesByTargetRequest =
+        ListRuleNamesByTargetRequest {
+            targetArn = topicArnVal
+        }
 
     EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
         val response = eventBrClient.listRuleNamesByTarget(ruleNamesByTargetRequest)
@@ -528,9 +572,10 @@ suspend fun listTargetRules(topicArnVal: String?) {
 
 // snippet-start:[eventbridge.kotlin.list.targets.main]
 suspend fun listTargets(ruleName: String?) {
-    val ruleRequest = ListTargetsByRuleRequest {
-        rule = ruleName
-    }
+    val ruleRequest =
+        ListTargetsByRuleRequest {
+            rule = ruleName
+        }
 
     EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
         val response = eventBrClient.listTargetsByRule(ruleRequest)
@@ -543,21 +588,29 @@ suspend fun listTargets(ruleName: String?) {
 
 // snippet-start:[eventBridge.kotlin.putSnsTarget.main]
 // Add a rule that triggers an SNS target when a file is uploaded to an S3 bucket.
-suspend fun addSnsEventRule(ruleName: String?, topicArn: String?, topicName: String, eventRuleName: String, bucketName: String) {
+suspend fun addSnsEventRule(
+    ruleName: String?,
+    topicArn: String?,
+    topicName: String,
+    eventRuleName: String,
+    bucketName: String
+) {
     val targetID = UUID.randomUUID().toString()
-    val myTarget = Target {
-        id = targetID
-        arn = topicArn
-    }
+    val myTarget =
+        Target {
+            id = targetID
+            arn = topicArn
+        }
 
     val targetsOb = mutableListOf<Target>()
     targetsOb.add(myTarget)
 
-    val request = PutTargetsRequest {
-        eventBusName = null
-        targets = targetsOb
-        rule = ruleName
-    }
+    val request =
+        PutTargetsRequest {
+            eventBusName = null
+            targets = targetsOb
+            rule = ruleName
+        }
 
     EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
         eventBrClient.putTargets(request)
@@ -566,13 +619,17 @@ suspend fun addSnsEventRule(ruleName: String?, topicArn: String?, topicName: Str
 }
 // snippet-end:[eventBridge.kotlin.putSnsTarget.main]
 
-suspend fun subEmail(topicArnVal: String?, email: String?) {
-    val request = SubscribeRequest {
-        protocol = "email"
-        endpoint = email
-        returnSubscriptionArn = true
-        topicArn = topicArnVal
-    }
+suspend fun subEmail(
+    topicArnVal: String?,
+    email: String?
+) {
+    val request =
+        SubscribeRequest {
+            protocol = "email"
+            endpoint = email
+            returnSubscriptionArn = true
+            topicArn = topicArnVal
+        }
 
     SnsClient { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.subscribe(request)
@@ -581,26 +638,28 @@ suspend fun subEmail(topicArnVal: String?, email: String?) {
 }
 
 suspend fun createSnsTopic(topicName: String): String? {
-    val topicPolicy = "{" +
-        "\"Version\": \"2012-10-17\"," +
-        "\"Statement\": [{" +
-        "\"Sid\": \"EventBridgePublishTopic\"," +
-        "\"Effect\": \"Allow\"," +
-        "\"Principal\": {" +
-        "\"Service\": \"events.amazonaws.com\"" +
-        "}," +
-        "\"Resource\": \"*\"," +
-        "\"Action\": \"sns:Publish\"" +
-        "}]" +
-        "}"
+    val topicPolicy =
+        "{" +
+            "\"Version\": \"2012-10-17\"," +
+            "\"Statement\": [{" +
+            "\"Sid\": \"EventBridgePublishTopic\"," +
+            "\"Effect\": \"Allow\"," +
+            "\"Principal\": {" +
+            "\"Service\": \"events.amazonaws.com\"" +
+            "}," +
+            "\"Resource\": \"*\"," +
+            "\"Action\": \"sns:Publish\"" +
+            "}]" +
+            "}"
 
     val topicAttributes = mutableMapOf<String, String>()
     topicAttributes["Policy"] = topicPolicy
 
-    val topicRequest = CreateTopicRequest {
-        name = topicName
-        attributes = topicAttributes
-    }
+    val topicRequest =
+        CreateTopicRequest {
+            name = topicName
+            attributes = topicAttributes
+        }
 
     SnsClient { region = "us-east-1" }.use { snsClient ->
         val response = snsClient.createTopic(topicRequest)
@@ -611,10 +670,11 @@ suspend fun createSnsTopic(topicName: String): String? {
 
 // snippet-start:[eventbridge.kotlin._list_rules.main]
 suspend fun listRules() {
-    val rulesRequest = ListRulesRequest {
-        eventBusName = "default"
-        limit = 10
-    }
+    val rulesRequest =
+        ListRulesRequest {
+            eventBusName = "default"
+            limit = 10
+        }
 
     EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
         val response = eventBrClient.listRules(rulesRequest)
@@ -628,7 +688,11 @@ suspend fun listRules() {
 
 // snippet-start:[eventbridge.kotlin._create_rule.main]
 // Create a new event rule that triggers when an Amazon S3 object is created in a bucket.
-suspend fun addEventRule(roleArnVal: String?, bucketName: String, eventRuleName: String?) {
+suspend fun addEventRule(
+    roleArnVal: String?,
+    bucketName: String,
+    eventRuleName: String?
+) {
     val pattern = """{
         "source": ["aws.s3"],
         "detail-type": ["Object Created"],
@@ -639,12 +703,13 @@ suspend fun addEventRule(roleArnVal: String?, bucketName: String, eventRuleName:
         }
     }"""
 
-    val ruleRequest = PutRuleRequest {
-        description = "Created by using the AWS SDK for Kotlin"
-        name = eventRuleName
-        eventPattern = pattern
-        roleArn = roleArnVal
-    }
+    val ruleRequest =
+        PutRuleRequest {
+            description = "Created by using the AWS SDK for Kotlin"
+            name = eventRuleName
+            eventPattern = pattern
+            roleArn = roleArnVal
+        }
 
     EventBridgeClient { region = "us-east-1" }.use { eventBrClient ->
         val ruleResponse = eventBrClient.putRule(ruleRequest)
@@ -655,18 +720,21 @@ suspend fun addEventRule(roleArnVal: String?, bucketName: String, eventRuleName:
 
 // Set the Amazon S3 bucket notification configuration.
 suspend fun setBucketNotification(bucketName: String) {
-    val eventBridgeConfig = EventBridgeConfiguration {
-    }
+    val eventBridgeConfig =
+        EventBridgeConfiguration {
+        }
 
-    val configuration = NotificationConfiguration {
-        eventBridgeConfiguration = eventBridgeConfig
-    }
+    val configuration =
+        NotificationConfiguration {
+            eventBridgeConfiguration = eventBridgeConfig
+        }
 
-    val configurationRequest = PutBucketNotificationConfigurationRequest {
-        bucket = bucketName
-        notificationConfiguration = configuration
-        skipDestinationValidation = true
-    }
+    val configurationRequest =
+        PutBucketNotificationConfigurationRequest {
+            bucket = bucketName
+            notificationConfiguration = configuration
+            skipDestinationValidation = true
+        }
 
     S3Client { region = "us-east-1" }.use { s3Client ->
         s3Client.putBucketNotificationConfiguration(configurationRequest)
@@ -676,9 +744,10 @@ suspend fun setBucketNotification(bucketName: String) {
 
 // Create an S3 bucket using a waiter.
 suspend fun createBucket(bucketName: String) {
-    val request = CreateBucketRequest {
-        bucket = bucketName
-    }
+    val request =
+        CreateBucketRequest {
+            bucket = bucketName
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.createBucket(request)
@@ -692,9 +761,10 @@ suspend fun createBucket(bucketName: String) {
 suspend fun checkBucket(bucketName: String?): Boolean {
     try {
         // Determine if the S3 bucket exists.
-        val headBucketRequest = HeadBucketRequest {
-            bucket = bucketName
-        }
+        val headBucketRequest =
+            HeadBucketRequest {
+                bucket = bucketName
+            }
 
         S3Client { region = "us-east-1" }.use { s3Client ->
             s3Client.headBucket(headBucketRequest)
@@ -706,17 +776,22 @@ suspend fun checkBucket(bucketName: String?): Boolean {
     return false
 }
 
-suspend fun createIAMRole(rolenameVal: String?, polJSON: String?): String? {
-    val request = CreateRoleRequest {
-        roleName = rolenameVal
-        assumeRolePolicyDocument = polJSON
-        description = "Created using the AWS SDK for Kotlin"
-    }
+suspend fun createIAMRole(
+    rolenameVal: String?,
+    polJSON: String?
+): String? {
+    val request =
+        CreateRoleRequest {
+            roleName = rolenameVal
+            assumeRolePolicyDocument = polJSON
+            description = "Created using the AWS SDK for Kotlin"
+        }
 
-    val rolePolicyRequest = AttachRolePolicyRequest {
-        roleName = rolenameVal
-        policyArn = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess"
-    }
+    val rolePolicyRequest =
+        AttachRolePolicyRequest {
+            roleName = rolenameVal
+            policyArn = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess"
+        }
 
     IamClient { region = "us-east-1" }.use { iam ->
         val response = iam.createRole(request)

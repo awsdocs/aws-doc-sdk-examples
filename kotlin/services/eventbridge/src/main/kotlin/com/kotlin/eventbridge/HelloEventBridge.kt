@@ -12,9 +12,10 @@ suspend fun main() {
 }
 
 suspend fun listBusesHello() {
-    val request = ListEventBusesRequest {
-        limit = 10
-    }
+    val request =
+        ListEventBusesRequest {
+            limit = 10
+        }
 
     EventBridgeClient { region = "us-west-2" }.use { eventBrClient ->
         val response: ListEventBusesResponse = eventBrClient.listEventBuses(request)
