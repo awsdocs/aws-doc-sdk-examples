@@ -46,7 +46,7 @@ suspend fun main(args: Array<String>) {
 suspend fun createDocumentClassifier(
     dataAccessRoleArnVal: String,
     s3UriVal: String,
-    documentClassifierNameVal: String,
+    documentClassifierNameVal: String
 ) {
     val config =
         DocumentClassifierInputDataConfig {
