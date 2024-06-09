@@ -13,9 +13,10 @@ suspend fun main() {
 }
 
 suspend fun listAllThings() {
-    val thingsRequest = ListThingsRequest {
-        maxResults = 10
-    }
+    val thingsRequest =
+        ListThingsRequest {
+            maxResults = 10
+        }
 
     IotClient { region = "us-east-1" }.use { iotClient ->
         val response = iotClient.listThings(thingsRequest)

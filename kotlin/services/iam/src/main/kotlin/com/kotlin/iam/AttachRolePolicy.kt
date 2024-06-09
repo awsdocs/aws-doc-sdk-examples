@@ -73,7 +73,7 @@ suspend fun attachIAMRolePolicy(
 
 fun checkList(
     attachedPolicies: List<AttachedPolicy>,
-    policyArnVal: String,
+    policyArnVal: String
 ): Int {
     for (policy in attachedPolicies) {
         val polArn = policy.policyArn.toString()
