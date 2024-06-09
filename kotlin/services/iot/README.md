@@ -38,18 +38,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachThingPrincipal](src/main/kotlin/com/example/iot/IotScenario.kt#L456)
+- [AttachThingPrincipal](src/main/kotlin/com/example/iot/IotScenario.kt#L477)
 - [CreateKeysAndCertificate](../../../javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java#L458)
-- [CreateThing](src/main/kotlin/com/example/iot/IotScenario.kt#L503)
-- [CreateTopicRule](src/main/kotlin/com/example/iot/IotScenario.kt#L322)
-- [DeleteCertificate](src/main/kotlin/com/example/iot/IotScenario.kt#L254)
-- [DeleteThing](src/main/kotlin/com/example/iot/IotScenario.kt#L241)
-- [DescribeEndpoint](src/main/kotlin/com/example/iot/IotScenario.kt#L379)
-- [DescribeThing](src/main/kotlin/com/example/iot/IotScenario.kt#L470)
-- [DetachThingPrincipal](src/main/kotlin/com/example/iot/IotScenario.kt#L273)
-- [ListCertificates](src/main/kotlin/com/example/iot/IotScenario.kt#L366)
-- [SearchIndex](src/main/kotlin/com/example/iot/IotScenario.kt#L287)
-- [UpdateThing](src/main/kotlin/com/example/iot/IotScenario.kt#L412)
+- [CreateThing](src/main/kotlin/com/example/iot/IotScenario.kt#L529)
+- [CreateTopicRule](src/main/kotlin/com/example/iot/IotScenario.kt#L331)
+- [DeleteCertificate](src/main/kotlin/com/example/iot/IotScenario.kt#L257)
+- [DeleteThing](src/main/kotlin/com/example/iot/IotScenario.kt#L243)
+- [DescribeEndpoint](src/main/kotlin/com/example/iot/IotScenario.kt#L397)
+- [DescribeThing](src/main/kotlin/com/example/iot/IotScenario.kt#L495)
+- [DetachThingPrincipal](src/main/kotlin/com/example/iot/IotScenario.kt#L277)
+- [ListCertificates](src/main/kotlin/com/example/iot/IotScenario.kt#L384)
+- [SearchIndex](src/main/kotlin/com/example/iot/IotScenario.kt#L295)
+- [UpdateThing](src/main/kotlin/com/example/iot/IotScenario.kt#L430)
 
 ### Scenarios
 
