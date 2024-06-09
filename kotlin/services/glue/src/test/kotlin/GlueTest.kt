@@ -35,25 +35,26 @@ class GlueTest {
     private var locationUri = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        crawlerNameSc = values.crawlerName.toString()
-        s3PathSc = values.s3Path.toString()
-        cron = values.cron.toString()
-        tableName = values.tableName.toString()
-        iam = values.iAM.toString()
-        text = values.text.toString()
-        jobNameSc = values.jobNameSc.toString() + UUID.randomUUID()
-        s3PathSc = values.s3PathSc.toString()
-        dbNameSc = values.dbNameSc.toString() + UUID.randomUUID()
-        crawlerNameSc = values.crawlerNameSc.toString() + UUID.randomUUID()
-        scriptLocationSc = values.scriptLocationSc.toString()
-        locationUri = values.locationUri.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            crawlerNameSc = values.crawlerName.toString()
+            s3PathSc = values.s3Path.toString()
+            cron = values.cron.toString()
+            tableName = values.tableName.toString()
+            iam = values.iAM.toString()
+            text = values.text.toString()
+            jobNameSc = values.jobNameSc.toString() + UUID.randomUUID()
+            s3PathSc = values.s3PathSc.toString()
+            dbNameSc = values.dbNameSc.toString() + UUID.randomUUID()
+            crawlerNameSc = values.crawlerNameSc.toString() + UUID.randomUUID()
+            scriptLocationSc = values.scriptLocationSc.toString()
+            locationUri = values.locationUri.toString()
 
-        // Uncomment the block below if using config.properties file
+            // Uncomment the block below if using config.properties file
         /*
         val input = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
@@ -68,43 +69,51 @@ class GlueTest {
         crawlerNameSc = prop.getProperty("crawlerNameSc")
         scriptLocationSc = prop.getProperty("scriptLocationSc")
         locationUri = prop.getProperty("locationUri")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(2)
-    fun getCrawlersTest() = runBlocking {
-        getAllCrawlers()
-        println("Test 2 passed")
-    }
+    fun getCrawlersTest() =
+        runBlocking {
+            getAllCrawlers()
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(4)
-    fun getDatabasesTest() = runBlocking {
-        getAllDatabases()
-        println("Test 4 passed")
-    }
+    fun getDatabasesTest() =
+        runBlocking {
+            getAllDatabases()
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun searchTablesTest() = runBlocking {
-        searchGlueTable(text)
-        println("Test 5 passed")
-    }
+    fun searchTablesTest() =
+        runBlocking {
+            searchGlueTable(text)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun listWorkflowsTest() = runBlocking {
-        listAllWorkflows()
-        println("Test 6 passed")
-    }
+    fun listWorkflowsTest() =
+        runBlocking {
+            listAllWorkflows()
+            println("Test 6 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/glue"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }
