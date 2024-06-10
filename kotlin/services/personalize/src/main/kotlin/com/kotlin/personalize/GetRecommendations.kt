@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[personalize.kotlin.get_recommendations.main]
 suspend fun getRecs(
     campaignArnVal: String?,
-    userIdVal: String?,
+    userIdVal: String?
 ) {
     val request =
         GetRecommendationsRequest {
