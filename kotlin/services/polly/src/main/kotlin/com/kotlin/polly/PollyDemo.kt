@@ -48,7 +48,7 @@ suspend fun talkPolly() {
                 text = sample
                 voiceId = voice?.id
                 outputFormat = OutputFormat.Mp3
-            },
+            }
         ) { resp ->
 
             // inside this block you can access `resp` and play the audio stream.

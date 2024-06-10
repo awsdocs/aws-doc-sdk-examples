@@ -28,7 +28,7 @@ suspend fun describeVoice() {
             polly.describeVoices(
                 DescribeVoicesRequest {
                     languageCode = LanguageCode.fromValue("en-US")
-                },
+                }
             )
         val voices = enUsVoicesResult.voices
         if (voices != null) {
