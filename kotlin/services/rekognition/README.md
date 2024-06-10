@@ -33,19 +33,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [CompareFaces](src/main/kotlin/com/kotlin/rekognition/CompareFaces.kt#L43)
-- [CreateCollection](src/main/kotlin/com/kotlin/rekognition/CreateCollection.kt#L38)
-- [DeleteCollection](src/main/kotlin/com/kotlin/rekognition/DeleteCollection.kt#L39)
-- [DeleteFaces](src/main/kotlin/com/kotlin/rekognition/DeleteFacesFromCollection.kt#L38)
-- [DescribeCollection](src/main/kotlin/com/kotlin/rekognition/DescribeCollection.kt#L39)
-- [DetectFaces](src/main/kotlin/com/kotlin/rekognition/DetectFaces.kt#L41)
-- [DetectLabels](src/main/kotlin/com/kotlin/rekognition/DetectLabels.kt#L40)
-- [DetectModerationLabels](src/main/kotlin/com/kotlin/rekognition/DetectModerationLabels.kt#L39)
-- [DetectText](src/main/kotlin/com/kotlin/rekognition/DetectText.kt#L40)
-- [IndexFaces](src/main/kotlin/com/kotlin/rekognition/AddFacesToCollection.kt#L43)
-- [ListCollections](src/main/kotlin/com/kotlin/rekognition/ListCollections.kt#L22)
-- [ListFaces](src/main/kotlin/com/kotlin/rekognition/ListFacesInCollection.kt#L37)
-- [RecognizeCelebrities](src/main/kotlin/com/kotlin/rekognition/RecognizeCelebrities.kt#L40)
+- [CompareFaces](src/main/kotlin/com/kotlin/rekognition/CompareFaces.kt#L42)
+- [CreateCollection](src/main/kotlin/com/kotlin/rekognition/CreateCollection.kt#L37)
+- [DeleteCollection](src/main/kotlin/com/kotlin/rekognition/DeleteCollection.kt#L38)
+- [DeleteFaces](src/main/kotlin/com/kotlin/rekognition/DeleteFacesFromCollection.kt#L37)
+- [DescribeCollection](src/main/kotlin/com/kotlin/rekognition/DescribeCollection.kt#L38)
+- [DetectFaces](src/main/kotlin/com/kotlin/rekognition/DetectFaces.kt#L40)
+- [DetectLabels](src/main/kotlin/com/kotlin/rekognition/DetectLabels.kt#L39)
+- [DetectModerationLabels](src/main/kotlin/com/kotlin/rekognition/DetectModerationLabels.kt#L38)
+- [DetectText](src/main/kotlin/com/kotlin/rekognition/DetectText.kt#L39)
+- [IndexFaces](src/main/kotlin/com/kotlin/rekognition/AddFacesToCollection.kt#L42)
+- [ListCollections](src/main/kotlin/com/kotlin/rekognition/ListCollections.kt#L21)
+- [ListFaces](src/main/kotlin/com/kotlin/rekognition/ListFacesInCollection.kt#L36)
+- [RecognizeCelebrities](src/main/kotlin/com/kotlin/rekognition/RecognizeCelebrities.kt#L39)
 
 ### Scenarios
 
