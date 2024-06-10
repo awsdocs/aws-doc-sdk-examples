@@ -43,6 +43,7 @@ import java.time.ZonedDateTime
 import java.util.Date
 
 // snippet-start:[keyspace.kotlin.scenario.main]
+
 /**
  Before running this Kotlin code example, set up your development environment, including your credentials.
 
@@ -82,8 +83,9 @@ import java.util.Date
    Usage:
      fileName - The name of the JSON file that contains movie data. (Get this file from the GitHub repo at resources/sample_file.)
      keyspaceName - The name of the keyspace to create.
-  */
+ */
 val DASHES: String = String(CharArray(80)).replace("\u0000", "-")
+
 suspend fun main() {
     val fileName = "<Replace with the JSON file that contains movie data>"
     val keyspaceName = "<Replace with the name of the keyspace to create>"
@@ -93,9 +95,11 @@ suspend fun main() {
     val tableNameRestore = "MovieRestore"
 
     val loader = DriverConfigLoader.fromClasspath("application.conf")
-    val session = CqlSession.builder()
-        .withConfigLoader(loader)
-        .build()
+    val session =
+        CqlSession
+            .builder()
+            .withConfigLoader(loader)
+            .build()
 
     println(DASHES)
     println("Welcome to the Amazon Keyspaces example scenario.")
@@ -207,9 +211,10 @@ suspend fun main() {
 
 // snippet-start:[keyspace.kotlin.scenario.delete.keyspace.main]
 suspend fun deleteKeyspace(keyspaceNameVal: String?) {
-    val deleteKeyspaceRequest = DeleteKeyspaceRequest {
-        keyspaceName = keyspaceNameVal
-    }
+    val deleteKeyspaceRequest =
+        DeleteKeyspaceRequest {
+            keyspaceName = keyspaceNameVal
+        }
 
     KeyspacesClient { region = "us-east-1" }.use { keyClient ->
         keyClient.deleteKeyspace(deleteKeyspaceRequest)
@@ -217,13 +222,17 @@ suspend fun deleteKeyspace(keyspaceNameVal: String?) {
 }
 // snippet-end:[keyspace.kotlin.scenario.delete.keyspace.main]
 
-suspend fun checkTableDelete(keyspaceNameVal: String?, tableNameVal: String?) {
+suspend fun checkTableDelete(
+    keyspaceNameVal: String?,
+    tableNameVal: String?
+) {
     var status: String
     var response: GetTableResponse
-    val tableRequest = GetTableRequest {
-        keyspaceName = keyspaceNameVal
-        tableName = tableNameVal
-    }
+    val tableRequest =
+        GetTableRequest {
+            keyspaceName = keyspaceNameVal
+            tableName = tableNameVal
+        }
 
     try {
         KeyspacesClient { region = "us-east-1" }.use { keyClient ->
@@ -242,11 +251,15 @@ suspend fun checkTableDelete(keyspaceNameVal: String?, tableNameVal: String?) {
 }
 
 // snippet-start:[keyspace.kotlin.scenario.delete.table.main]
-suspend fun deleteTable(keyspaceNameVal: String?, tableNameVal: String?) {
-    val tableRequest = DeleteTableRequest {
-        keyspaceName = keyspaceNameVal
-        tableName = tableNameVal
-    }
+suspend fun deleteTable(
+    keyspaceNameVal: String?,
+    tableNameVal: String?
+) {
+    val tableRequest =
+        DeleteTableRequest {
+            keyspaceName = keyspaceNameVal
+            tableName = tableNameVal
+        }
 
     KeyspacesClient { region = "us-east-1" }.use { keyClient ->
         keyClient.deleteTable(tableRequest)
@@ -254,15 +267,19 @@ suspend fun deleteTable(keyspaceNameVal: String?, tableNameVal: String?) {
 }
 // snippet-end:[keyspace.kotlin.scenario.delete.table.main]
 
-suspend fun checkRestoredTable(keyspaceNameVal: String?, tableNameVal: String?) {
+suspend fun checkRestoredTable(
+    keyspaceNameVal: String?,
+    tableNameVal: String?
+) {
     var tableStatus = false
     var status: String
     var response: GetTableResponse? = null
 
-    val tableRequest = GetTableRequest {
-        keyspaceName = keyspaceNameVal
-        tableName = tableNameVal
-    }
+    val tableRequest =
+        GetTableRequest {
+            keyspaceName = keyspaceNameVal
+            tableName = tableNameVal
+        }
 
     KeyspacesClient { region = "us-east-1" }.use { keyClient ->
         while (!tableStatus) {
@@ -287,16 +304,22 @@ suspend fun checkRestoredTable(keyspaceNameVal: String?, tableNameVal: String?) 
 }
 
 // snippet-start:[keyspace.kotlin.scenario.restore.table.main]
-suspend fun restoreTable(keyspaceName: String?, utc: ZonedDateTime) {
+suspend fun restoreTable(
+    keyspaceName: String?,
+    utc: ZonedDateTime
+) {
     // Create an aws.smithy.kotlin.runtime.time.Instant value.
-    val timeStamp = aws.smithy.kotlin.runtime.time.Instant(utc.toInstant())
-    val restoreTableRequest = RestoreTableRequest {
-        restoreTimestamp = timeStamp
-        sourceTableName = "MovieKotlin"
-        targetKeyspaceName = keyspaceName
-        targetTableName = "MovieRestore"
-        sourceKeyspaceName = keyspaceName
-    }
+    val timeStamp =
+        aws.smithy.kotlin.runtime.time
+            .Instant(utc.toInstant())
+    val restoreTableRequest =
+        RestoreTableRequest {
+            restoreTimestamp = timeStamp
+            sourceTableName = "MovieKotlin"
+            targetKeyspaceName = keyspaceName
+            targetTableName = "MovieRestore"
+            sourceKeyspaceName = keyspaceName
+        }
 
     KeyspacesClient { region = "us-east-1" }.use { keyClient ->
         val response = keyClient.restoreTable(restoreTableRequest)
@@ -305,7 +328,10 @@ suspend fun restoreTable(keyspaceName: String?, utc: ZonedDateTime) {
 }
 // snippet-end:[keyspace.kotlin.scenario.restore.table.main]
 
-fun getWatchedData(session: CqlSession, keyspaceName: String) {
+fun getWatchedData(
+    session: CqlSession,
+    keyspaceName: String
+) {
     val resultSet = session.execute("SELECT * FROM \"$keyspaceName\".\"MovieKotlin\" WHERE watched = true ALLOW FILTERING;")
     resultSet.forEach { item: Row ->
         println("The Movie title is ${item.getString("title")}")
@@ -314,34 +340,45 @@ fun getWatchedData(session: CqlSession, keyspaceName: String) {
     }
 }
 
-fun updateRecord(session: CqlSession, keySpace: String, titleUpdate: String?, yearUpdate: Int) {
+fun updateRecord(
+    session: CqlSession,
+    keySpace: String,
+    titleUpdate: String?,
+    yearUpdate: Int
+) {
     val sqlStatement =
         "UPDATE \"$keySpace\".\"MovieKotlin\" SET watched=true WHERE title = :k0 AND year = :k1;"
     val builder = BatchStatement.builder(DefaultBatchType.UNLOGGED)
     builder.setConsistencyLevel(ConsistencyLevel.LOCAL_QUORUM)
     val preparedStatement = session.prepare(sqlStatement)
     builder.addStatement(
-        preparedStatement.boundStatementBuilder()
+        preparedStatement
+            .boundStatementBuilder()
             .setString("k0", titleUpdate)
             .setInt("k1", yearUpdate)
-            .build()
+            .build(),
     )
     val batchStatement = builder.build()
     session.execute(batchStatement)
 }
 
 // snippet-start:[keyspace.kotlin.scenario.update.table.main]
-suspend fun updateTable(keySpace: String?, tableNameVal: String?) {
-    val def = ColumnDefinition {
-        name = "watched"
-        type = "boolean"
-    }
+suspend fun updateTable(
+    keySpace: String?,
+    tableNameVal: String?
+) {
+    val def =
+        ColumnDefinition {
+            name = "watched"
+            type = "boolean"
+        }
 
-    val tableRequest = UpdateTableRequest {
-        keyspaceName = keySpace
-        tableName = tableNameVal
-        addColumns = listOf(def)
-    }
+    val tableRequest =
+        UpdateTableRequest {
+            keyspaceName = keySpace
+            tableName = tableNameVal
+            addColumns = listOf(def)
+        }
 
     KeyspacesClient { region = "us-east-1" }.use { keyClient ->
         keyClient.updateTable(tableRequest)
@@ -349,7 +386,10 @@ suspend fun updateTable(keySpace: String?, tableNameVal: String?) {
 }
 // snippet-end:[keyspace.kotlin.scenario.update.table.main]
 
-fun getSpecificMovie(session: CqlSession, keyspaceName: String) {
+fun getSpecificMovie(
+    session: CqlSession,
+    keyspaceName: String
+) {
     val resultSet =
         session.execute("SELECT * FROM \"$keyspaceName\".\"MovieKotlin\" WHERE title = 'The Family' ALLOW FILTERING ;")
 
@@ -361,7 +401,10 @@ fun getSpecificMovie(session: CqlSession, keyspaceName: String) {
 }
 
 // Get records from the Movie table.
-fun getMovieData(session: CqlSession, keyspaceName: String) {
+fun getMovieData(
+    session: CqlSession,
+    keyspaceName: String
+) {
     val resultSet = session.execute("SELECT * FROM \"$keyspaceName\".\"MovieKotlin\";")
     resultSet.forEach { item: Row ->
         println("The Movie title is ${item.getString("title")}")
@@ -371,7 +414,11 @@ fun getMovieData(session: CqlSession, keyspaceName: String) {
 }
 
 // Load data into the table.
-fun loadData(session: CqlSession, fileName: String, keySpace: String) {
+fun loadData(
+    session: CqlSession,
+    fileName: String,
+    keySpace: String
+) {
     val sqlStatement =
         "INSERT INTO \"$keySpace\".\"MovieKotlin\" (title, year, plot) values (:k0, :k1, :k2)"
     val parser = JsonFactory().createParser(File(fileName))
@@ -395,11 +442,12 @@ fun loadData(session: CqlSession, fileName: String, keySpace: String) {
         builder.setConsistencyLevel(ConsistencyLevel.LOCAL_QUORUM)
         val preparedStatement: PreparedStatement = session.prepare(sqlStatement)
         builder.addStatement(
-            preparedStatement.boundStatementBuilder()
+            preparedStatement
+                .boundStatementBuilder()
                 .setString("k0", title)
                 .setInt("k1", year)
                 .setString("k2", info)
-                .build()
+                .build(),
         )
 
         val batchStatement = builder.build()
@@ -410,17 +458,19 @@ fun loadData(session: CqlSession, fileName: String, keySpace: String) {
 
 // snippet-start:[keyspace.kotlin.scenario.list.tables.main]
 suspend fun listTables(keyspaceNameVal: String?) {
-    val tablesRequest = ListTablesRequest {
-        keyspaceName = keyspaceNameVal
-    }
+    val tablesRequest =
+        ListTablesRequest {
+            keyspaceName = keyspaceNameVal
+        }
 
     KeyspacesClient { region = "us-east-1" }.use { keyClient ->
-        keyClient.listTablesPaginated(tablesRequest)
+        keyClient
+            .listTablesPaginated(tablesRequest)
             .transform { it.tables?.forEach { obj -> emit(obj) } }
             .collect { obj ->
                 println(
                     " ARN: " + obj.resourceArn.toString() +
-                        " Table name: " + obj.tableName
+                        " Table name: " + obj.tableName,
                 )
             }
     }
@@ -428,15 +478,19 @@ suspend fun listTables(keyspaceNameVal: String?) {
 // snippet-end:[keyspace.kotlin.scenario.list.tables.main]
 
 // snippet-start:[keyspace.kotlin.scenario.get.table.main]
-suspend fun checkTable(keyspaceNameVal: String?, tableNameVal: String?) {
+suspend fun checkTable(
+    keyspaceNameVal: String?,
+    tableNameVal: String?
+) {
     var tableStatus = false
     var status: String
     var response: GetTableResponse? = null
 
-    val tableRequest = GetTableRequest {
-        keyspaceName = keyspaceNameVal
-        tableName = tableNameVal
-    }
+    val tableRequest =
+        GetTableRequest {
+            keyspaceName = keyspaceNameVal
+            tableName = tableNameVal
+        }
     KeyspacesClient { region = "us-east-1" }.use { keyClient ->
         while (!tableStatus) {
             response = keyClient.getTable(tableRequest)
@@ -459,27 +513,34 @@ suspend fun checkTable(keyspaceNameVal: String?, tableNameVal: String?) {
 // snippet-end:[keyspace.kotlin.scenario.get.table.main]
 
 // snippet-start:[keyspace.kotlin.scenario.create.table.main]
-suspend fun createTable(keySpaceVal: String?, tableNameVal: String?) {
+suspend fun createTable(
+    keySpaceVal: String?,
+    tableNameVal: String?
+) {
     // Set the columns.
-    val defTitle = ColumnDefinition {
-        name = "title"
-        type = "text"
-    }
+    val defTitle =
+        ColumnDefinition {
+            name = "title"
+            type = "text"
+        }
 
-    val defYear = ColumnDefinition {
-        name = "year"
-        type = "int"
-    }
+    val defYear =
+        ColumnDefinition {
+            name = "year"
+            type = "int"
+        }
 
-    val defReleaseDate = ColumnDefinition {
-        name = "release_date"
-        type = "timestamp"
-    }
+    val defReleaseDate =
+        ColumnDefinition {
+            name = "release_date"
+            type = "timestamp"
+        }
 
-    val defPlot = ColumnDefinition {
-        name = "plot"
-        type = "text"
-    }
+    val defPlot =
+        ColumnDefinition {
+            name = "plot"
+            type = "text"
+        }
 
     val colList = ArrayList<ColumnDefinition>()
     colList.add(defTitle)
@@ -488,33 +549,38 @@ suspend fun createTable(keySpaceVal: String?, tableNameVal: String?) {
     colList.add(defPlot)
 
     // Set the keys.
-    val yearKey = PartitionKey {
-        name = "year"
-    }
+    val yearKey =
+        PartitionKey {
+            name = "year"
+        }
 
-    val titleKey = PartitionKey {
-        name = "title"
-    }
+    val titleKey =
+        PartitionKey {
+            name = "title"
+        }
 
     val keyList = ArrayList<PartitionKey>()
     keyList.add(yearKey)
     keyList.add(titleKey)
 
-    val schemaDefinitionOb = SchemaDefinition {
-        partitionKeys = keyList
-        allColumns = colList
-    }
+    val schemaDefinitionOb =
+        SchemaDefinition {
+            partitionKeys = keyList
+            allColumns = colList
+        }
 
-    val timeRecovery = PointInTimeRecovery {
-        status = PointInTimeRecoveryStatus.Enabled
-    }
+    val timeRecovery =
+        PointInTimeRecovery {
+            status = PointInTimeRecoveryStatus.Enabled
+        }
 
-    val tableRequest = CreateTableRequest {
-        keyspaceName = keySpaceVal
-        tableName = tableNameVal
-        schemaDefinition = schemaDefinitionOb
-        pointInTimeRecovery = timeRecovery
-    }
+    val tableRequest =
+        CreateTableRequest {
+            keyspaceName = keySpaceVal
+            tableName = tableNameVal
+            schemaDefinition = schemaDefinitionOb
+            pointInTimeRecovery = timeRecovery
+        }
 
     KeyspacesClient { region = "us-east-1" }.use { keyClient ->
         val response = keyClient.createTable(tableRequest)
@@ -526,7 +592,8 @@ suspend fun createTable(keySpaceVal: String?, tableNameVal: String?) {
 // snippet-start:[keyspace.kotlin.scenario.list.keyspaces.main]
 suspend fun listKeyspacesPaginator() {
     KeyspacesClient { region = "us-east-1" }.use { keyClient ->
-        keyClient.listKeyspacesPaginated(ListKeyspacesRequest {})
+        keyClient
+            .listKeyspacesPaginated(ListKeyspacesRequest {})
             .transform { it.keyspaces?.forEach { obj -> emit(obj) } }
             .collect { obj ->
                 println("Name: ${obj.keyspaceName}")
@@ -537,9 +604,10 @@ suspend fun listKeyspacesPaginator() {
 
 // snippet-start:[keyspace.kotlin.scenario.get.keyspace.main]
 suspend fun checkKeyspaceExistence(keyspaceNameVal: String?) {
-    val keyspaceRequest = GetKeyspaceRequest {
-        keyspaceName = keyspaceNameVal
-    }
+    val keyspaceRequest =
+        GetKeyspaceRequest {
+            keyspaceName = keyspaceNameVal
+        }
     KeyspacesClient { region = "us-east-1" }.use { keyClient ->
         val response: GetKeyspaceResponse = keyClient.getKeyspace(keyspaceRequest)
         val name = response.keyspaceName
@@ -550,9 +618,10 @@ suspend fun checkKeyspaceExistence(keyspaceNameVal: String?) {
 
 // snippet-start:[keyspace.kotlin.scenario.create.keyspace.main]
 suspend fun createKeySpace(keyspaceNameVal: String) {
-    val keyspaceRequest = CreateKeyspaceRequest {
-        keyspaceName = keyspaceNameVal
-    }
+    val keyspaceRequest =
+        CreateKeyspaceRequest {
+            keyspaceName = keyspaceNameVal
+        }
 
     KeyspacesClient { region = "us-east-1" }.use { keyClient ->
         val response = keyClient.createKeyspace(keyspaceRequest)

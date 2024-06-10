@@ -397,7 +397,6 @@ suspend fun listCertificates() {
 // snippet-start:[iot.kotlin.describe.endpoint.main]
 suspend fun describeEndpoint(): String? {
     val request = DescribeEndpointRequest {}
-
     IotClient { region = "us-east-1" }.use { iotClient ->
         val endpointResponse = iotClient.describeEndpoint(request)
         val endpointUrl: String? = endpointResponse.endpointAddress

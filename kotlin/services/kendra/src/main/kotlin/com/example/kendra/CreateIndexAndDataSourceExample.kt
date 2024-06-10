@@ -126,7 +126,6 @@ suspend fun createDataSource(
         }
 
     KendraClient { region = "us-east-1" }.use { kendra ->
-
         val createDataSourceResponse = kendra.createDataSource(createDataSourceRequest)
         println("Response of creating data source $createDataSourceResponse")
         val dataSourceId = createDataSourceResponse.id
@@ -156,7 +155,7 @@ suspend fun createDataSource(
 // snippet-start:[kendra.kotlin.start.datasource.main]
 suspend fun startDataSource(
     indexIdVal: String?,
-    dataSourceId: String?,
+    dataSourceId: String?
 ) {
     println("Synchronize the data source $dataSourceId")
     val startDataSourceSyncJobRequest =
