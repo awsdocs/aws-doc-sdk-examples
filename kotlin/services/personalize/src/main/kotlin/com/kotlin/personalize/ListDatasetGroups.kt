@@ -22,10 +22,10 @@ suspend fun main() {
 
 // snippet-start:[personalize.kotlin.list_dsgroups.main]
 suspend fun listDSGroups() {
-
-    val request = ListDatasetGroupsRequest {
-        maxResults = 15
-    }
+    val request =
+        ListDatasetGroupsRequest {
+            maxResults = 15
+        }
     PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
         val response = personalizeClient.listDatasetGroups(request)
         response.datasetGroups?.forEach { group ->
