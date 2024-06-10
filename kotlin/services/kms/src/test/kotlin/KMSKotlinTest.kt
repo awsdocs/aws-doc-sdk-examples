@@ -1,13 +1,36 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
+import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
+import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
+import com.google.gson.Gson
+import com.kotlin.kms.createCustomAlias
+import com.kotlin.kms.createKey
+import com.kotlin.kms.createNewGrant
+import com.kotlin.kms.decryptData
+import com.kotlin.kms.deleteSpecificAlias
+import com.kotlin.kms.describeSpecifcKey
+import com.kotlin.kms.disableKey
+import com.kotlin.kms.displayGrantIds
+import com.kotlin.kms.enableKey
+import com.kotlin.kms.encryptData
+import com.kotlin.kms.listAllAliases
+import com.kotlin.kms.listAllKeys
+import com.kotlin.kms.revokeKeyGrant
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.MethodOrderer
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.TestMethodOrder
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@TestMethodOrder(OrderAnnotation::class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class KMSKotlinTest {
     private var keyId = "" // gets set in test 2
     private var keyDesc = ""
