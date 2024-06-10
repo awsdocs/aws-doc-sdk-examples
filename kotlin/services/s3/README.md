@@ -35,7 +35,7 @@ Code excerpts that show you how to call individual service functions.
 
 - [CopyObject](src/main/kotlin/com/kotlin/s3/CopyObject.kt#L45)
 - [CreateBucket](src/main/kotlin/com/kotlin/s3/CreateBucket.kt#L36)
-- [CreateMultiRegionAccessPoint](src/main/kotlin/com/kotlin/s3/MrapExample.kt#L223)
+- [CreateMultiRegionAccessPoint](src/main/kotlin/com/kotlin/s3/MrapExample.kt#L216)
 - [DeleteBucketPolicy](src/main/kotlin/com/kotlin/s3/DeleteBucketPolicy.kt#L38)
 - [DeleteObjects](src/main/kotlin/com/kotlin/s3/DeleteObjects.kt#L41)
 - [GetBucketPolicy](src/main/kotlin/com/kotlin/s3/GetBucketPolicy.kt#L39)

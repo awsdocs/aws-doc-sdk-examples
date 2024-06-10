@@ -231,23 +231,31 @@ class MrapExample {
         ) {
             println("Create two buckets in different regions.")
             // The shared aws config file configures the default Region to be us-east-1.
-            s3.createBucket(CreateBucketRequest {
+            s3.createBucket(
+                CreateBucketRequest {
+                    bucket = bucketName1
+                }
+            )
+            s3.waitUntilBucketExists {
                 bucket = bucketName1
-            })
-            s3.waitUntilBucketExists { bucket = bucketName1 }
+            }
             println("  Bucket [$bucketName1] created.")
 
             // Override the S3Client to work with us-west-1 for the second bucket.
             s3.withConfig {
                 region = "us-west-1"
             }.use { s3West ->
-                s3.createBucket(CreateBucketRequest {
-                    bucket = bucketName2
-                    createBucketConfiguration = CreateBucketConfiguration {
-                        locationConstraint = BucketLocationConstraint.UsWest1
+                s3West.createBucket(
+                    CreateBucketRequest {
+                        bucket = bucketName2
+                        createBucketConfiguration = CreateBucketConfiguration {
+                            locationConstraint = BucketLocationConstraint.UsWest1
+                        }
                     }
-                })
-                s3West.waitUntilBucketExists { bucket = bucketName2 }
+                )
+                s3West.waitUntilBucketExists {
+                    bucket = bucketName2
+                }
                 println("  Bucket [$bucketName2] created.")
             }
         }
