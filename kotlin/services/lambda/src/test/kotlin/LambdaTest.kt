@@ -1,21 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
-import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
-import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
-import com.google.gson.Gson
-import com.kotlin.lambda.createNewFunction
-import com.kotlin.lambda.createScFunction
-import com.kotlin.lambda.delFunction
-import com.kotlin.lambda.delLambdaFunction
-import com.kotlin.lambda.getFunction
-import com.kotlin.lambda.getSettings
-import com.kotlin.lambda.invokeFunctionSc
-import com.kotlin.lambda.listFunctions
-import com.kotlin.lambda.listFunctionsSc
-import com.kotlin.lambda.updateFunctionCode
-import com.kotlin.lambda.updateFunctionConfiguration
 import java.util.UUID
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
@@ -27,6 +12,21 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import com.google.gson.Gson
+import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
+import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
+import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
+import com.kotlin.lambda.createNewFunction
+import com.kotlin.lambda.createScFunction
+import com.kotlin.lambda.delFunction
+import com.kotlin.lambda.delLambdaFunction
+import com.kotlin.lambda.getFunction
+import com.kotlin.lambda.getSettings
+import com.kotlin.lambda.invokeFunctionSc
+import com.kotlin.lambda.listFunctions
+import com.kotlin.lambda.listFunctionsSc
+import com.kotlin.lambda.updateFunctionCode
+import com.kotlin.lambda.updateFunctionConfiguration
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
