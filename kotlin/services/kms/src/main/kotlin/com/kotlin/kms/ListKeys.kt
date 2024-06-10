@@ -21,10 +21,10 @@ suspend fun main() {
 
 // snippet-start:[kms.kotlin_list_keys.main]
 suspend fun listAllKeys() {
-
-    val request = ListKeysRequest {
-        limit = 15
-    }
+    val request =
+        ListKeysRequest {
+            limit = 15
+        }
 
     KmsClient { region = "us-west-2" }.use { kmsClient ->
         val response = kmsClient.listKeys(request)
