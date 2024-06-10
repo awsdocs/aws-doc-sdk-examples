@@ -68,7 +68,7 @@ class RedshiftKotlinTest {
                     com.kotlin.redshift
                         .getSecretValues(secretName)
                         .toString(),
-                    User::class.java,
+                    User::class.java
                 )
             val username = user.username
             val userPassword = user.password
