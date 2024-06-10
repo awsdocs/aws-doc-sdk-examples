@@ -62,8 +62,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Cohere Command
 
-- [Converse: All models](src/main/java/com/example/bedrockruntime/models/cohereCommand/Converse.java#L6)
-- [ConverseStream: All models](src/main/java/com/example/bedrockruntime/models/cohereCommand/ConverseStream.java#L6)
+- [Converse](src/main/java/com/example/bedrockruntime/models/cohereCommand/Converse.java#L6)
+- [ConverseStream](src/main/java/com/example/bedrockruntime/models/cohereCommand/ConverseStream.java#L6)
 - [InvokeModel: Command R and R+](src/main/java/com/example/bedrockruntime/models/cohereCommand/Command_R_InvokeModel.java#L6)
 - [InvokeModel: Command and Command Light](src/main/java/com/example/bedrockruntime/models/cohereCommand/Command_InvokeModel.java#L6)
 - [InvokeModelWithResponseStream: Command R and R+](src/main/java/com/example/bedrockruntime/models/cohereCommand/Command_R_InvokeModelWithResponseStream.java#L6)
@@ -71,8 +71,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Meta Llama
 
-- [All models: Converse API](src/main/java/com/example/bedrockruntime/models/metaLlama/Converse.java#L6)
-- [ConverseStream: All models](src/main/java/com/example/bedrockruntime/models/metaLlama/ConverseStream.java#L6)
+- [Converse](src/main/java/com/example/bedrockruntime/models/metaLlama/Converse.java#L6)
+- [ConverseStream](src/main/java/com/example/bedrockruntime/models/metaLlama/ConverseStream.java#L6)
 - [InvokeModel: Llama 2](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama2_InvokeModel.java#L6)
 - [InvokeModel: Llama 3](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama3_InvokeModel.java#L6)
 - [InvokeModelWithResponseStream: Llama 2](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama2_InvokeModelWithResponseStream.java#L6)

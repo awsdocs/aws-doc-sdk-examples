@@ -159,7 +159,7 @@ bedrock-runtime_Converse_AnthropicClaude:
 
 bedrock-runtime_Converse_CohereCommand:
   title: Invoke Cohere Command on &BR; using Bedrock's Converse API
-  title_abbrev: "Converse: All models"
+  title_abbrev: "Converse"
   synopsis: send a text message to Cohere Command, using Bedrock's Converse API.
   category: Cohere Command
   languages:
@@ -203,7 +203,7 @@ bedrock-runtime_Converse_CohereCommand:
 
 bedrock-runtime_Converse_MetaLlama:
   title: Invoke Meta Llama on &BR; using Bedrock's Converse API
-  title_abbrev: "All models: Converse API"
+  title_abbrev: "Converse"
   synopsis: send a text message to Meta Llama, using Bedrock's Converse API.
   category: Meta Llama
   languages:
@@ -374,7 +374,7 @@ bedrock-runtime_ConverseStream_AnthropicClaude:
 
 bedrock-runtime_ConverseStream_CohereCommand:
   title: Invoke Cohere Command on &BR; using Bedrock's Converse API with a response stream
-  title_abbrev: "ConverseStream: All models"
+  title_abbrev: "ConverseStream"
   synopsis: send a text message to Cohere Command, using Bedrock's Converse API and process the response stream in real-time.
   category: Cohere Command
   languages:
@@ -415,7 +415,7 @@ bedrock-runtime_ConverseStream_CohereCommand:
 
 bedrock-runtime_ConverseStream_MetaLlama:
   title: Invoke Meta Llama on &BR; using Bedrock's Converse API with a response stream
-  title_abbrev: "ConverseStream: All models"
+  title_abbrev: "ConverseStream"
   synopsis: send a text message to Meta Llama, using Bedrock's Converse API and process the response stream in real-time.
   category: Meta Llama
   languages:
@@ -1259,6 +1259,23 @@ bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings:
     bedrock-runtime: {InvokeModel}
 
 # Scenarios
+bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude:
+  title: "A tool use demo illustrating how to connect a generative AI model on &BR;'s with a custom tool or API"
+  title_abbrev: "Scenario: Tool use with the Converse API"
+  synopsis: "The &BR; Tool Use Demo illustrates a typical interaction between a generative AI model, an application, and connected tools or APIs to solve a problem or achieve a specific goal. It uses the example of an external weatherAPI, interacting with the AI model to provide weather information based on user input."
+  category: Anthropic Claude
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: "A tool use demo illustrating how to connect a generative AI model on &BR;'s with a custom tool or API"
+              snippet_tags:
+                - python.example_code.bedrock-runtime.Scenario_ToolUseDemo_AnthropicClaude
+  services:
+    bedrock-runtime: {Converse}
+
 bedrock-runtime_Scenario_InvokeModels:
   title: Invoke multiple foundation models on &BR;
   title_abbrev: "Invoke multiple foundation models on &BR;"
