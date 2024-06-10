@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[lex.kotlin.get_bots.main]
 suspend fun getAllBots() {
-
     LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
         val response = lexClient.getBots(GetBotsRequest {})
         response.bots?.forEach { bot ->
