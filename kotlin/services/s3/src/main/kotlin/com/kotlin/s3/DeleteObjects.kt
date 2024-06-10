@@ -39,19 +39,25 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[s3.kotlin.delete_objects.main]
-suspend fun deleteBucketObjects(bucketName: String, objectName: String) {
-    val objectId = ObjectIdentifier {
-        key = objectName
-    }
+suspend fun deleteBucketObjects(
+    bucketName: String,
+    objectName: String
+) {
+    val objectId =
+        ObjectIdentifier {
+            key = objectName
+        }
 
-    val delOb = Delete {
-        objects = listOf(objectId)
-    }
+    val delOb =
+        Delete {
+            objects = listOf(objectId)
+        }
 
-    val request = DeleteObjectsRequest {
-        bucket = bucketName
-        delete = delOb
-    }
+    val request =
+        DeleteObjectsRequest {
+            bucket = bucketName
+            delete = delOb
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.deleteObjects(request)

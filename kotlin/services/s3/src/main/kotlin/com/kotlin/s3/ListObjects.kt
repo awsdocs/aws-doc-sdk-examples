@@ -36,12 +36,12 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[s3.kotlin.list_objects.main]
 suspend fun listBucketObjects(bucketName: String) {
-    val request = ListObjectsRequest {
-        bucket = bucketName
-    }
+    val request =
+        ListObjectsRequest {
+            bucket = bucketName
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
-
         val response = s3.listObjects(request)
         response.contents?.forEach { myObject ->
             println("The name of the key is ${myObject.key}")
@@ -51,7 +51,5 @@ suspend fun listBucketObjects(bucketName: String) {
     }
 }
 
-private fun calKb(intValue: Long): Long {
-    return intValue / 1024
-}
+private fun calKb(intValue: Long): Long = intValue / 1024
 // snippet-end:[s3.kotlin.list_objects.main]

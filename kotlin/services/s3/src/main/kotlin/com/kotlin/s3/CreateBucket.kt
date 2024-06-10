@@ -35,9 +35,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[s3.kotlin.create_bucket.main]
 suspend fun createNewBucket(bucketName: String) {
-    val request = CreateBucketRequest {
-        bucket = bucketName
-    }
+    val request =
+        CreateBucketRequest {
+            bucket = bucketName
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.createBucket(request)

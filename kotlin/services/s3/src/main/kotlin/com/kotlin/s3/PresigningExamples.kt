@@ -35,35 +35,41 @@ import kotlin.time.Duration.Companion.hours
  * Be sure that you have an active portal session using 'aws sso login'.
  * See https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup-basic-onetime-setup.html#setup-login-sso.
  */
-fun main(): Unit = runBlocking {
-    val s3 = S3Client.fromEnvironment()
-    val bucketName = UUID.randomUUID().toString()
-    val keyName = "bar"
+fun main(): Unit =
+    runBlocking {
+        val s3 = S3Client.fromEnvironment()
+        val bucketName = UUID.randomUUID().toString()
+        val keyName = "bar"
 
-    try {
-        setUp(s3, bucketName)
+        try {
+            setUp(s3, bucketName)
 
-        putObject(s3, bucketName, keyName, "body")
-        getObjectPresigned(s3, bucketName, keyName)
-        deleteObject(s3, bucketName, keyName)
+            putObject(s3, bucketName, keyName, "body")
+            getObjectPresigned(s3, bucketName, keyName)
+            deleteObject(s3, bucketName, keyName)
 
-        getObjectPresignedMoreOptions(s3, bucketName, keyName)
+            getObjectPresignedMoreOptions(s3, bucketName, keyName)
 
-        putObjectPresigned(s3, bucketName, keyName, "Hello World")
-        deleteObject(s3, bucketName, keyName)
-    } finally {
-        cleanup(s3, bucketName)
+            putObjectPresigned(s3, bucketName, keyName, "Hello World")
+            deleteObject(s3, bucketName, keyName)
+        } finally {
+            cleanup(s3, bucketName)
+        }
+        exitProcess(1)
     }
-    exitProcess(1)
-}
 
 // snippet-start:[s3.kotlin.presign_getObject.main]
-suspend fun getObjectPresigned(s3: S3Client, bucketName: String, keyName: String): String {
+suspend fun getObjectPresigned(
+    s3: S3Client,
+    bucketName: String,
+    keyName: String
+): String {
     // Create a GetObjectRequest.
-    val unsignedRequest = GetObjectRequest {
-        bucket = bucketName
-        key = keyName
-    }
+    val unsignedRequest =
+        GetObjectRequest {
+            bucket = bucketName
+            key = keyName
+        }
 
     // Presign the GetObject request.
     val presignedRequest = s3.presignGetObject(unsignedRequest, 24.hours)
@@ -76,28 +82,34 @@ suspend fun getObjectPresigned(s3: S3Client, bucketName: String, keyName: String
 // snippet-end:[s3.kotlin.presign_getObject.main]
 
 // snippet-start:[s3.kotlin.presign_putObject.main]
-suspend fun putObjectPresigned(s3: S3Client, bucketName: String, keyName: String, content: String) {
+suspend fun putObjectPresigned(
+    s3: S3Client,
+    bucketName: String,
+    keyName: String,
+    content: String,
+) {
     // Create a PutObjectRequest.
-    val unsignedRequest = PutObjectRequest {
-        bucket = bucketName
-        key = keyName
-    }
+    val unsignedRequest =
+        PutObjectRequest {
+            bucket = bucketName
+            key = keyName
+        }
 
     // Presign the request.
     val presignedRequest = s3.presignPutObject(unsignedRequest, 24.hours)
 
     // Use the URL and any headers from the presigned HttpRequest in a subsequent HTTP PUT request to retrieve the object.
     // Create a PUT request using the OKHttpClient API.
-    val putRequest = Request
-        .Builder()
-        .url(presignedRequest.url.toString())
-        .apply {
-            presignedRequest.headers.forEach { key, values ->
-                header(key, values.joinToString(", "))
-            }
-        }
-        .put(content.toRequestBody())
-        .build()
+    val putRequest =
+        Request
+            .Builder()
+            .url(presignedRequest.url.toString())
+            .apply {
+                presignedRequest.headers.forEach { key, values ->
+                    header(key, values.joinToString(", "))
+                }
+            }.put(content.toRequestBody())
+            .build()
 
     val response = OkHttpClient().newCall(putRequest).execute()
     assert(response.isSuccessful)
@@ -105,44 +117,60 @@ suspend fun putObjectPresigned(s3: S3Client, bucketName: String, keyName: String
 // snippet-end:[s3.kotlin.presign_putObject.main]
 
 // snippet-start:[s3.kotlin.presign_getObjectMoreOptions.main]
-suspend fun getObjectPresignedMoreOptions(s3: S3Client, bucketName: String, keyName: String): HttpRequest {
+suspend fun getObjectPresignedMoreOptions(
+    s3: S3Client,
+    bucketName: String,
+    keyName: String,
+): HttpRequest {
     // Create a GetObjectRequest.
-    val unsignedRequest = GetObjectRequest {
-        bucket = bucketName
-        key = keyName
-    }
+    val unsignedRequest =
+        GetObjectRequest {
+            bucket = bucketName
+            key = keyName
+        }
 
     // Presign the GetObject request.
-    val presignedRequest = s3.presignGetObject(unsignedRequest, signer = CrtAwsSigner) {
-        signingDate = Instant.now() + 12.hours // Presigned request can be used 12 hours from now.
-        algorithm = AwsSigningAlgorithm.SIGV4_ASYMMETRIC
-        signatureType = AwsSignatureType.HTTP_REQUEST_VIA_QUERY_PARAMS
-        expiresAfter = 8.hours // Presigned request expires 8 hours later.
-    }
+    val presignedRequest =
+        s3.presignGetObject(unsignedRequest, signer = CrtAwsSigner) {
+            signingDate = Instant.now() + 12.hours // Presigned request can be used 12 hours from now.
+            algorithm = AwsSigningAlgorithm.SIGV4_ASYMMETRIC
+            signatureType = AwsSignatureType.HTTP_REQUEST_VIA_QUERY_PARAMS
+            expiresAfter = 8.hours // Presigned request expires 8 hours later.
+        }
     return presignedRequest
 }
 // snippet-end:[s3.kotlin.presign_getObjectMoreOptions.main]
 
-suspend fun cleanup(s3: S3Client, bucketName: String) {
+suspend fun cleanup(
+    s3: S3Client,
+    bucketName: String,
+) {
     deleteBucket(s3, bucketName)
 }
 
-suspend fun deleteBucket(s3: S3Client, bucketName: String) {
+suspend fun deleteBucket(
+    s3: S3Client,
+    bucketName: String,
+) {
     s3.deleteBucket(
         DeleteBucketRequest {
             bucket = bucketName
-        }
+        },
     )
 
     s3.waitUntilBucketNotExists { bucket = bucketName }
 }
 
-suspend fun deleteObject(s3: S3Client, bucketName: String, keyName: String) {
+suspend fun deleteObject(
+    s3: S3Client,
+    bucketName: String,
+    keyName: String,
+) {
     s3.deleteObject(
         DeleteObjectRequest {
             bucket = bucketName
             key = keyName
-        }
+        },
     )
 
     s3.waitUntilObjectNotExists {
@@ -151,22 +179,30 @@ suspend fun deleteObject(s3: S3Client, bucketName: String, keyName: String) {
     }
 }
 
-suspend fun setUp(s3: S3Client, bucketName: String) {
+suspend fun setUp(
+    s3: S3Client,
+    bucketName: String,
+) {
     s3.createBucket(
         CreateBucketRequest {
             bucket = bucketName
-        }
+        },
     )
     s3.waitUntilBucketExists { bucket = bucketName }
 }
 
-suspend fun putObject(s3: S3Client, bucketName: String, keyName: String, contents: String) {
+suspend fun putObject(
+    s3: S3Client,
+    bucketName: String,
+    keyName: String,
+    contents: String,
+) {
     s3.putObject(
         PutObjectRequest {
             bucket = bucketName
             key = keyName
             body = ByteStream.fromString(contents)
-        }
+        },
     )
     s3.waitUntilObjectExists {
         bucket = bucketName
