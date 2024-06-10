@@ -18,9 +18,7 @@ including your credentials.
 For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
-
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: <appId> <endpoint>
 
@@ -40,22 +38,26 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[pinpoint.kotlin.lookup.main]
-suspend fun lookupPinpointEndpoint(appId: String?, endpoint: String?) {
-
+suspend fun lookupPinpointEndpoint(
+    appId: String?,
+    endpoint: String?
+) {
     PinpointClient { region = "us-west-2" }.use { pinpoint ->
-        val result = pinpoint.getEndpoint(
-            GetEndpointRequest {
-                applicationId = appId
-                endpointId = endpoint
-            }
-        )
+        val result =
+            pinpoint.getEndpoint(
+                GetEndpointRequest {
+                    applicationId = appId
+                    endpointId = endpoint
+                },
+            )
         val endResponse = result.endpointResponse
 
         // Uses the Google Gson library to pretty print the endpoint JSON.
-        val gson: com.google.gson.Gson = GsonBuilder()
-            .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-            .setPrettyPrinting()
-            .create()
+        val gson: com.google.gson.Gson =
+            GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .setPrettyPrinting()
+                .create()
 
         val endpointJson: String = gson.toJson(endResponse)
         println(endpointJson)
