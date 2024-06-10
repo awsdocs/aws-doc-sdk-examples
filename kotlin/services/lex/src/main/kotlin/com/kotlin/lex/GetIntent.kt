@@ -42,7 +42,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[lex.kotlin.get_intent.main]
 suspend fun getSpecificIntent(
     intentName: String?,
-    intentVersion: String?,
+    intentVersion: String?
 ) {
     val request =
         GetIntentRequest {

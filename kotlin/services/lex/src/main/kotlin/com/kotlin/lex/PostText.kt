@@ -47,7 +47,7 @@ suspend fun main(args: Array<String>) {
 suspend fun getText(
     text: String,
     botNameVal: String,
-    botAliasVal: String,
+    botAliasVal: String
 ): String? {
     val userIdVal = "chatbot-demo"
     val sessionAttributesVal = mutableMapOf<String, String>()
