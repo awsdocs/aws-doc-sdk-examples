@@ -20,7 +20,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: <functionName> 
 
@@ -39,14 +38,14 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[lambda.kotlin.invoke.main]
 suspend fun invokeFunction(functionNameVal: String) {
-
     val json = """{"inputValue":"1000"}"""
     val byteArray = json.trimIndent().encodeToByteArray()
-    val request = InvokeRequest {
-        functionName = functionNameVal
-        logType = LogType.Tail
-        payload = byteArray
-    }
+    val request =
+        InvokeRequest {
+            functionName = functionNameVal
+            logType = LogType.Tail
+            payload = byteArray
+        }
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val res = awsLambda.invoke(request)
