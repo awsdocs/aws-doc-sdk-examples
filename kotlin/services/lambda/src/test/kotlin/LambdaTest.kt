@@ -16,7 +16,6 @@ import com.kotlin.lambda.listFunctions
 import com.kotlin.lambda.listFunctionsSc
 import com.kotlin.lambda.updateFunctionCode
 import com.kotlin.lambda.updateFunctionConfiguration
-import java.util.UUID
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
@@ -27,6 +26,7 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
+import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
