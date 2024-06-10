@@ -28,6 +28,7 @@ struct Opt {
 // snippet-start:[ec2.rust.create-instance]
 // snippet-start:[ec2.rust.run-instance]
 // snippet-start:[ec2.rust.launch-instance]
+// snippet-start:[rust.waiters.ec2.create-instance]
 async fn create_instance(client: &Client, ami_id: &str) -> Result<(), Error> {
     let run_instances = client
         .run_instances()
@@ -96,6 +97,7 @@ async fn create_instance(client: &Client, ami_id: &str) -> Result<(), Error> {
 
     Ok(())
 }
+// snippet-end:[rust.waiters.ec2.create-instance]
 // snippet-end:[ec2.rust.launch-instance]
 // snippet-end:[ec2.rust.run-instance]
 // snippet-end:[ec2.rust.create-instance]

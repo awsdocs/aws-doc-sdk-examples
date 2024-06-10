@@ -1419,6 +1419,13 @@ ec2_DescribeImages:
             - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.DescribeImages
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - snippet_tags:
+              - ec2.rust.describe-images
   services:
     ec2: {DescribeImages}
 ec2_DescribeInstanceTypes:

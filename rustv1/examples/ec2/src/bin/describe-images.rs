@@ -1,9 +1,10 @@
-// Implements a describe-images file.
-// This file will follow conventions in this folder.
-// It will call the describe-images client method, using `self` and `amazon` for the owner, and print out a table of the ID, Owner, and Description 0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 use aws_sdk_ec2::{meta::PKG_VERSION, Client, Error};
 
+// snippet-start:[ec2.rust.describe-images]
+// A simple Rust program to list all Amazon images in the currently configured region.
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     let config = aws_config::load_from_env().await;
@@ -39,3 +40,4 @@ async fn main() -> Result<(), Error> {
 
     Ok(())
 }
+// snippet-end:[ec2.rust.describe-images]
