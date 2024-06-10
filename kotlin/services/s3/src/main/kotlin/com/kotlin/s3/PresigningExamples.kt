@@ -155,7 +155,7 @@ suspend fun deleteBucket(
     s3.deleteBucket(
         DeleteBucketRequest {
             bucket = bucketName
-        },
+        }
     )
 
     s3.waitUntilBucketNotExists { bucket = bucketName }
@@ -164,13 +164,13 @@ suspend fun deleteBucket(
 suspend fun deleteObject(
     s3: S3Client,
     bucketName: String,
-    keyName: String,
+    keyName: String
 ) {
     s3.deleteObject(
         DeleteObjectRequest {
             bucket = bucketName
             key = keyName
-        },
+        }
     )
 
     s3.waitUntilObjectNotExists {
@@ -186,7 +186,7 @@ suspend fun setUp(
     s3.createBucket(
         CreateBucketRequest {
             bucket = bucketName
-        },
+        }
     )
     s3.waitUntilBucketExists { bucket = bucketName }
 }
@@ -202,7 +202,7 @@ suspend fun putObject(
             bucket = bucketName
             key = keyName
             body = ByteStream.fromString(contents)
-        },
+        }
     )
     s3.waitUntilObjectExists {
         bucket = bucketName
