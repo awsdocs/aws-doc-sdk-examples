@@ -59,16 +59,18 @@ suspend fun updateTableItem(
     itemKey[keyName] = AttributeValue.S(keyVal)
 
     val updatedValues = mutableMapOf<String, AttributeValueUpdate>()
-    updatedValues[name] = AttributeValueUpdate {
-        value = AttributeValue.S(updateVal)
-        action = AttributeAction.Put
-    }
+    updatedValues[name] =
+        AttributeValueUpdate {
+            value = AttributeValue.S(updateVal)
+            action = AttributeAction.Put
+        }
 
-    val request = UpdateItemRequest {
-        tableName = tableNameVal
-        key = itemKey
-        attributeUpdates = updatedValues
-    }
+    val request =
+        UpdateItemRequest {
+            tableName = tableNameVal
+            key = itemKey
+            attributeUpdates = updatedValues
+        }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
         ddb.updateItem(request)

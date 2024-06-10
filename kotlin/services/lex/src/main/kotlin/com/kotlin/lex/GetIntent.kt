@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
     Usage: 
@@ -41,12 +40,15 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[lex.kotlin.get_intent.main]
-suspend fun getSpecificIntent(intentName: String?, intentVersion: String?) {
-
-    val request = GetIntentRequest {
-        name = intentName
-        version = intentVersion
-    }
+suspend fun getSpecificIntent(
+    intentName: String?,
+    intentVersion: String?
+) {
+    val request =
+        GetIntentRequest {
+            name = intentName
+            version = intentVersion
+        }
 
     LexModelBuildingClient { region = "us-west-2" }.use { lexClient ->
         val intentResponse = lexClient.getIntent(request)

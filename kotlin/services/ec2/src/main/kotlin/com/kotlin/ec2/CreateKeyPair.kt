@@ -37,9 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.create_key_pair.main]
 suspend fun createEC2KeyPair(keyNameVal: String) {
-    val request = CreateKeyPairRequest {
-        keyName = keyNameVal
-    }
+    val request =
+        CreateKeyPairRequest {
+            keyName = keyNameVal
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.createKeyPair(request)

@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <jobName> <runId>
@@ -39,12 +38,15 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[glue.kotlin.get_job.main]
-suspend fun getGlueJobRun(jobNameVal: String?, runIdVal: String?) {
-
-    val request = GetJobRunRequest {
-        jobName = jobNameVal
-        runId = runIdVal
-    }
+suspend fun getGlueJobRun(
+    jobNameVal: String?,
+    runIdVal: String?
+) {
+    val request =
+        GetJobRunRequest {
+            jobName = jobNameVal
+            runId = runIdVal
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         val runResponse = glueClient.getJobRun(request)

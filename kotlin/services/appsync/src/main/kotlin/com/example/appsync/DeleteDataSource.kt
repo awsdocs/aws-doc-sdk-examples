@@ -18,7 +18,6 @@ import kotlin.system.exitProcess
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <apiId> <keyId>
@@ -38,12 +37,15 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[appsync.kotlin.del_ds.main]
-suspend fun deleteDS(apiIdVal: String?, dsName: String?) {
-
-    val request = DeleteDataSourceRequest {
-        apiId = apiIdVal
-        name = dsName
-    }
+suspend fun deleteDS(
+    apiIdVal: String?,
+    dsName: String?
+) {
+    val request =
+        DeleteDataSourceRequest {
+            apiId = apiIdVal
+            name = dsName
+        }
 
     AppSyncClient { region = "us-east-1" }.use { appClient ->
         appClient.deleteDataSource(request)

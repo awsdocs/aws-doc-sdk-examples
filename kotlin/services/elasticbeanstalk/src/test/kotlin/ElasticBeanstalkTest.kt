@@ -47,47 +47,53 @@ class ElasticBeanstalkTest {
 
     @Test
     @Order(2)
-    fun CreateApp() = runBlocking {
-        appArn = createApp(appName)
-        assertTrue(!appArn.isEmpty())
-        println("Test 2 passed")
-    }
+    fun createApp() =
+        runBlocking {
+            appArn = createApp(appName)
+            assertTrue(!appArn.isEmpty())
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun CreateEnvironment() = runBlocking {
-        envArn = createEBEnvironment(envName, appName)
-        assertTrue(!envArn.isEmpty())
-        println("Test 3 passed")
-    }
+    fun createEnvironment() =
+        runBlocking {
+            envArn = createEBEnvironment(envName, appName)
+            assertTrue(!envArn.isEmpty())
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun DescribeApplications() = runBlocking {
-        describeApps()
-        println("Test 4 passed")
-    }
+    fun describeApplications() =
+        runBlocking {
+            describeApps()
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun DescribeEnvironment() = runBlocking {
-        describeEnv(appName)
-        println("Test 5 passed")
-    }
+    fun describeEnvironment() =
+        runBlocking {
+            describeEnv(appName)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun DescribeOptions() = runBlocking {
-        getOptions(envName)
-        println("Test 6 passed")
-    }
+    fun describeOptions() =
+        runBlocking {
+            getOptions(envName)
+            println("Test 6 passed")
+        }
 
     @Test
     @Order(7)
-    fun DeleteApplication() = runBlocking {
-        println("*** Wait for 5 MIN so the app can be deleted")
-        TimeUnit.MINUTES.sleep(5)
-        deleteApp(appName)
-        println("Test 7 passed")
-    }
+    fun deleteApplication() =
+        runBlocking {
+            println("*** Wait for 5 MIN so the app can be deleted")
+            TimeUnit.MINUTES.sleep(5)
+            deleteApp(appName)
+            println("Test 7 passed")
+        }
 }

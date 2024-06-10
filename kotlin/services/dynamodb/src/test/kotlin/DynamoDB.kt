@@ -56,25 +56,26 @@ class DynamoDB {
     var awardVal: String = ""
     var songTitle: String = ""
     var songTitleVal: String = ""
-    var ModAwardVal: String = ""
+    var modAwardVal: String = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values from AWS Secrets Manager.
-        val gson = Gson()
-        val json = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        tableName = values.tableName.toString()
-        fileName = values.fileName.toString()
-        key = values.key.toString()
-        keyValue = values.keyValue.toString()
-        albumTitle = values.albumTitle.toString()
-        albumTitleValue = values.albumTitleValue.toString()
-        awards = values.awards.toString()
-        awardVal = values.getAwardVal().toString()
-        songTitle = values.songTitleVal.toString()
-        songTitleVal = values.songTitleVal.toString()
-        tableName2 = "Movies"
+    fun setup() =
+        runBlocking {
+            // Get the values from AWS Secrets Manager.
+            val gson = Gson()
+            val json = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            tableName = values.tableName.toString()
+            fileName = values.fileName.toString()
+            key = values.key.toString()
+            keyValue = values.keyValue.toString()
+            albumTitle = values.albumTitle.toString()
+            albumTitleValue = values.albumTitleValue.toString()
+            awards = values.awards.toString()
+            awardVal = values.getAwardVal().toString()
+            songTitle = values.songTitleVal.toString()
+            songTitleVal = values.songTitleVal.toString()
+            tableName2 = "Movies"
 
         /*
         // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
@@ -89,141 +90,156 @@ class DynamoDB {
         key = prop.getProperty("key")
         keyValue = prop.getProperty("keyValue")
         albumTitle = prop.getProperty("albumTitle")
-        albumTitleValue = prop.getProperty("AlbumTitleValue")
-        awards = prop.getProperty("Awards")
-        awardVal = prop.getProperty("AwardVal")
-        songTitle = prop.getProperty("SongTitle")
-        songTitleVal = prop.getProperty("SongTitleVal")
-        ModAwardVal = prop.getProperty("ModAwardVal")
-        */
-    }
+        albumTitleValue = prop.getProperty("albumTitleValue")
+        awards = prop.getProperty("awards")
+        awardVal = prop.getProperty("awardVal")
+        songTitle = prop.getProperty("songTitle")
+        songTitleVal = prop.getProperty("songTitleVal")
+        modAwardVal = prop.getProperty("modAwardVal")
+         */
+        }
 
     @Test
     @Order(1)
-    fun createTableTest() = runBlocking {
-        createNewTable(tableName, key)
-        println("Test 1 passed")
-    }
+    fun createTableTest() =
+        runBlocking {
+            createNewTable(tableName, key)
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun describeTableTest() = runBlocking {
-        describeDymamoDBTable(tableName)
-        println("Test 2 passed")
-    }
+    fun describeTableTest() =
+        runBlocking {
+            describeDymamoDBTable(tableName)
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun putItemTest() = runBlocking {
-        putItemInTable(
-            tableName,
-            key,
-            keyValue,
-            albumTitle,
-            albumTitleValue,
-            awards,
-            awardVal,
-            songTitle,
-            songTitleVal
-        )
-        println("Test 3 passed")
-    }
+    fun putItemTest() =
+        runBlocking {
+            putItemInTable(
+                tableName,
+                key,
+                keyValue,
+                albumTitle,
+                albumTitleValue,
+                awards,
+                awardVal,
+                songTitle,
+                songTitleVal
+            )
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun listTablesTest() = runBlocking {
-        listAllTables()
-        println("Test 4 passed")
-    }
+    fun listTablesTest() =
+        runBlocking {
+            listAllTables()
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun updateItemTest() = runBlocking {
-        updateTableItem(tableName, key, keyValue, awards, ModAwardVal)
-        println("Test 5 passed")
-    }
+    fun updateItemTest() =
+        runBlocking {
+            updateTableItem(tableName, key, keyValue, awards, modAwardVal)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun getItemTest() = runBlocking {
-        getSpecificItem(tableName, key, keyValue)
-        println("Test 6 passed")
-    }
+    fun getItemTest() =
+        runBlocking {
+            getSpecificItem(tableName, key, keyValue)
+            println("Test 6 passed")
+        }
 
     @Test
     @Order(7)
-    fun queryTableTest() = runBlocking {
-        queryDynTable(tableName, key, keyValue, "#a")
-        println("Test 7 passed")
-    }
+    fun queryTableTest() =
+        runBlocking {
+            queryDynTable(tableName, key, keyValue, "#a")
+            println("Test 7 passed")
+        }
 
     @Test
     @Order(8)
-    fun dynamoDBScanTest() = runBlocking {
-        scanItems(tableName)
-        println("Test 8 passed")
-    }
+    fun dynamoDBScanTest() =
+        runBlocking {
+            scanItems(tableName)
+            println("Test 8 passed")
+        }
 
     @Test
     @Order(9)
-    fun deleteItemTest() = runBlocking {
-        com.kotlin.dynamodb.deleteDynamoDBItem(tableName, key, keyValue)
-        println("Test 9 passed")
-    }
+    fun deleteItemTest() =
+        runBlocking {
+            com.kotlin.dynamodb.deleteDynamoDBItem(tableName, key, keyValue)
+            println("Test 9 passed")
+        }
 
     @Test
     @Order(10)
-    fun deleteTableTest() = runBlocking {
-        deleteDynamoDBTable(tableName)
-        println("Test 10 passed")
-    }
+    fun deleteTableTest() =
+        runBlocking {
+            deleteDynamoDBTable(tableName)
+            println("Test 10 passed")
+        }
 
     @Test
     @Order(11)
-    fun TestScenario() = runBlocking {
-        createScenarioTable(tableName2, "year")
-        loadData(tableName2, fileName)
-        getMovie(tableName2, "year", "1933")
-        scanMovies(tableName2)
-        deletIssuesTable(tableName2)
-    }
+    fun testScenario() =
+        runBlocking {
+            createScenarioTable(tableName2, "year")
+            loadData(tableName2, fileName)
+            getMovie(tableName2, "year", "1933")
+            scanMovies(tableName2)
+            deletIssuesTable(tableName2)
+        }
 
     @Test
     @Order(12)
-    fun TestScenarioPartiQ() = runBlocking {
-        val tableNamePartiQ = "MoviesPartiQ"
-        val ddb = DynamoDbClient { region = "us-east-1" }
-        createTablePartiQL(ddb, tableNamePartiQ, "year")
-        loadDataPartiQL(ddb, fileName)
-        getMoviePartiQL(ddb)
-        putRecordPartiQL(ddb)
-        updateTableItemPartiQL(ddb)
-        queryTablePartiQL(ddb)
-        deleteTablePartiQL(tableNamePartiQ)
-    }
+    fun testScenarioPartiQ() =
+        runBlocking {
+            val tableNamePartiQ = "MoviesPartiQ"
+            val ddb = DynamoDbClient { region = "us-east-1" }
+            createTablePartiQL(ddb, tableNamePartiQ, "year")
+            loadDataPartiQL(ddb, fileName)
+            getMoviePartiQL(ddb)
+            putRecordPartiQL(ddb)
+            updateTableItemPartiQL(ddb)
+            queryTablePartiQL(ddb)
+            deleteTablePartiQL(tableNamePartiQ)
+        }
 
     @Test
     @Order(13)
-    fun TestScenarioPartiQBatch() = runBlocking {
-        val tableNamePartiQBatch = "MoviesPartiQBatch"
-        val ddb = DynamoDbClient { region = "us-east-1" }
-        println("Creating an Amazon DynamoDB table named $tableNamePartiQBatch with a key named id and a sort key named title.")
-        createTablePartiQLBatch(ddb, tableNamePartiQBatch, "year")
-        putRecordBatch(ddb)
-        updateTableItemBatchBatch(ddb)
-        deleteItemsBatch(ddb)
-        deleteTablePartiQLBatch(tableNamePartiQBatch)
-    }
+    fun testScenarioPartiQBatch() =
+        runBlocking {
+            val tableNamePartiQBatch = "MoviesPartiQBatch"
+            val ddb = DynamoDbClient { region = "us-east-1" }
+            println("Creating an Amazon DynamoDB table named $tableNamePartiQBatch with a key named id and a sort key named title.")
+            createTablePartiQLBatch(ddb, tableNamePartiQBatch, "year")
+            putRecordBatch(ddb)
+            updateTableItemBatchBatch(ddb)
+            deleteItemsBatch(ddb)
+            deleteTablePartiQLBatch(tableNamePartiQBatch)
+        }
 
     private suspend fun getSecretValues(): String {
-        val secretClient = SecretsManagerClient {
-            region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
-        }
+        val secretClient =
+            SecretsManagerClient {
+                region = "us-east-1"
+                credentialsProvider = EnvironmentCredentialsProvider()
+            }
         val secretName = "test/dynamodb"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
         val valueResponse = secretClient.getSecretValue(valueRequest)
         return valueResponse.secretString.toString()
     }
@@ -237,13 +253,11 @@ class DynamoDB {
         val albumTitle: String? = null
         val albumTitleValue: String? = null
         val awards: String? = null
-        private val AwardVal: String? = null
-        private val SongTitle: String? = null
+        private val awardVal: String? = null
+        private val songTitle: String? = null
         val songTitleVal: String? = null
         val fileName: String? = null
 
-        fun getAwardVal(): String? {
-            return SongTitle
-        }
+        fun getAwardVal(): String? = songTitle
     }
 }

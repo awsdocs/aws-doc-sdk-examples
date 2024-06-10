@@ -37,14 +37,16 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.describe_instances_tags.main]
 suspend fun describeEC2Tags(resourceIdVal: String) {
-    val filter = Filter {
-        name = "resource-id"
-        values = listOf(resourceIdVal)
-    }
+    val filter =
+        Filter {
+            name = "resource-id"
+            values = listOf(resourceIdVal)
+        }
 
-    val request = DescribeTagsRequest {
-        filters = listOf(filter)
-    }
+    val request =
+        DescribeTagsRequest {
+            filters = listOf(filter)
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeTags(request)

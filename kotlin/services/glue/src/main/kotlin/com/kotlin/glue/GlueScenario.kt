@@ -41,7 +41,6 @@ import kotlin.system.exitProcess
 
 // snippet-start:[glue.kotlin.scenario.main]
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <iam> <s3Path> <cron> <dbName> <crawlerName> <jobName> <scriptLocation> <locationUri>
@@ -89,17 +88,21 @@ suspend fun main(args: Array<String>) {
     deleteCrawler(crawlerName)
 }
 
-suspend fun createDatabase(dbName: String?, locationUriVal: String?) {
+suspend fun createDatabase(
+    dbName: String?,
+    locationUriVal: String?
+) {
+    val input =
+        DatabaseInput {
+            description = "Built with the AWS SDK for Kotlin"
+            name = dbName
+            locationUri = locationUriVal
+        }
 
-    val input = DatabaseInput {
-        description = "Built with the AWS SDK for Kotlin"
-        name = dbName
-        locationUri = locationUriVal
-    }
-
-    val request = CreateDatabaseRequest {
-        databaseInput = input
-    }
+    val request =
+        CreateDatabaseRequest {
+            databaseInput = input
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         glueClient.createDatabase(request)
@@ -107,27 +110,35 @@ suspend fun createDatabase(dbName: String?, locationUriVal: String?) {
     }
 }
 
-suspend fun createCrawler(iam: String?, s3Path: String?, cron: String?, dbName: String?, crawlerName: String) {
-
-    val s3Target = S3Target {
-        path = s3Path
-    }
+suspend fun createCrawler(
+    iam: String?,
+    s3Path: String?,
+    cron: String?,
+    dbName: String?,
+    crawlerName: String
+) {
+    val s3Target =
+        S3Target {
+            path = s3Path
+        }
 
     val targetList = ArrayList<S3Target>()
     targetList.add(s3Target)
 
-    val targetOb = CrawlerTargets {
-        s3Targets = targetList
-    }
+    val targetOb =
+        CrawlerTargets {
+            s3Targets = targetList
+        }
 
-    val crawlerRequest = CreateCrawlerRequest {
-        databaseName = dbName
-        name = crawlerName
-        description = "Created by the AWS Glue Java API"
-        targets = targetOb
-        role = iam
-        schedule = cron
-    }
+    val crawlerRequest =
+        CreateCrawlerRequest {
+            databaseName = dbName
+            name = crawlerName
+            description = "Created by the AWS Glue Java API"
+            targets = targetOb
+            role = iam
+            schedule = cron
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         glueClient.createCrawler(crawlerRequest)
@@ -136,10 +147,10 @@ suspend fun createCrawler(iam: String?, s3Path: String?, cron: String?, dbName: 
 }
 
 suspend fun getCrawler(crawlerName: String?) {
-
-    val request = GetCrawlerRequest {
-        name = crawlerName
-    }
+    val request =
+        GetCrawlerRequest {
+            name = crawlerName
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getCrawler(request)
@@ -149,10 +160,10 @@ suspend fun getCrawler(crawlerName: String?) {
 }
 
 suspend fun startCrawler(crawlerName: String) {
-
-    val crawlerRequest = StartCrawlerRequest {
-        name = crawlerName
-    }
+    val crawlerRequest =
+        StartCrawlerRequest {
+            name = crawlerName
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         glueClient.startCrawler(crawlerRequest)
@@ -161,10 +172,10 @@ suspend fun startCrawler(crawlerName: String) {
 }
 
 suspend fun getDatabase(databaseName: String?) {
-
-    val request = GetDatabaseRequest {
-        name = databaseName
-    }
+    val request =
+        GetDatabaseRequest {
+            name = databaseName
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getDatabase(request)
@@ -174,10 +185,10 @@ suspend fun getDatabase(databaseName: String?) {
 }
 
 suspend fun getGlueTables(dbName: String?) {
-
-    val tableRequest = GetTablesRequest {
-        databaseName = dbName
-    }
+    val tableRequest =
+        GetTablesRequest {
+            databaseName = dbName
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getTables(tableRequest)
@@ -188,12 +199,12 @@ suspend fun getGlueTables(dbName: String?) {
 }
 
 suspend fun startJob(jobNameVal: String?) {
-
-    val runRequest = StartJobRunRequest {
-        workerType = WorkerType.G1X
-        numberOfWorkers = 10
-        jobName = jobNameVal
-    }
+    val runRequest =
+        StartJobRunRequest {
+            workerType = WorkerType.G1X
+            numberOfWorkers = 10
+            jobName = jobNameVal
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.startJobRun(runRequest)
@@ -201,23 +212,28 @@ suspend fun startJob(jobNameVal: String?) {
     }
 }
 
-suspend fun createJob(jobName: String, iam: String?, scriptLocationVal: String?) {
+suspend fun createJob(
+    jobName: String,
+    iam: String?,
+    scriptLocationVal: String?
+) {
+    val commandOb =
+        JobCommand {
+            pythonVersion = "3"
+            name = "MyJob1"
+            scriptLocation = scriptLocationVal
+        }
 
-    val commandOb = JobCommand {
-        pythonVersion = "3"
-        name = "MyJob1"
-        scriptLocation = scriptLocationVal
-    }
-
-    val jobRequest = CreateJobRequest {
-        description = "A Job created by using the AWS SDK for Java V2"
-        glueVersion = "2.0"
-        workerType = WorkerType.G1X
-        numberOfWorkers = 10
-        name = jobName
-        role = iam
-        command = commandOb
-    }
+    val jobRequest =
+        CreateJobRequest {
+            description = "A Job created by using the AWS SDK for Java V2"
+            glueVersion = "2.0"
+            workerType = WorkerType.G1X
+            numberOfWorkers = 10
+            name = jobName
+            role = iam
+            command = commandOb
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         glueClient.createJob(jobRequest)
@@ -226,10 +242,10 @@ suspend fun createJob(jobName: String, iam: String?, scriptLocationVal: String?)
 }
 
 suspend fun getJobs() {
-
-    val request = GetJobsRequest {
-        maxResults = 10
-    }
+    val request =
+        GetJobsRequest {
+            maxResults = 10
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getJobs(request)
@@ -240,10 +256,10 @@ suspend fun getJobs() {
 }
 
 suspend fun getJobRuns(jobNameVal: String?) {
-
-    val request = GetJobRunsRequest {
-        jobName = jobNameVal
-    }
+    val request =
+        GetJobRunsRequest {
+            jobName = jobNameVal
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getJobRuns(request)
@@ -254,10 +270,10 @@ suspend fun getJobRuns(jobNameVal: String?) {
 }
 
 suspend fun deleteJob(jobNameVal: String) {
-
-    val jobRequest = DeleteJobRequest {
-        jobName = jobNameVal
-    }
+    val jobRequest =
+        DeleteJobRequest {
+            jobName = jobNameVal
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         glueClient.deleteJob(jobRequest)
@@ -266,10 +282,10 @@ suspend fun deleteJob(jobNameVal: String) {
 }
 
 suspend fun deleteMyDatabase(databaseName: String) {
-
-    val request = DeleteDatabaseRequest {
-        name = databaseName
-    }
+    val request =
+        DeleteDatabaseRequest {
+            name = databaseName
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         glueClient.deleteDatabase(request)
@@ -278,10 +294,10 @@ suspend fun deleteMyDatabase(databaseName: String) {
 }
 
 suspend fun deleteCrawler(crawlerName: String) {
-
-    val request = DeleteCrawlerRequest {
-        name = crawlerName
-    }
+    val request =
+        DeleteCrawlerRequest {
+            name = crawlerName
+        }
     GlueClient { region = "us-east-1" }.use { glueClient ->
         glueClient.deleteCrawler(request)
         println("$crawlerName was deleted")

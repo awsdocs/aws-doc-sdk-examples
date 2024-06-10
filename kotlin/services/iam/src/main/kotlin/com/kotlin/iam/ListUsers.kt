@@ -22,14 +22,14 @@ suspend fun main() {
 
 // snippet-start:[iam.kotlin.list_users.main]
 suspend fun listAllUsers() {
-
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.listUsers(ListUsersRequest { })
         response.users?.forEach { user ->
             println("Retrieved user ${user.userName}")
             val permissionsBoundary = user.permissionsBoundary
-            if (permissionsBoundary != null)
+            if (permissionsBoundary != null) {
                 println("Permissions boundary details ${permissionsBoundary.permissionsBoundaryType}")
+            }
         }
     }
 }

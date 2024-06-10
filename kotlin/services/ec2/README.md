@@ -39,21 +39,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 Code excerpts that show you how to call individual service functions.
 
 - [AllocateAddress](src/main/kotlin/com/kotlin/ec2/AllocateAddress.kt#L41)
-- [AssociateAddress](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L281)
-- [AuthorizeSecurityGroupIngress](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L465)
+- [AssociateAddress](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L289)
+- [AuthorizeSecurityGroupIngress](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L507)
 - [CreateKeyPair](src/main/kotlin/com/kotlin/ec2/CreateKeyPair.kt#L38)
 - [CreateSecurityGroup](src/main/kotlin/com/kotlin/ec2/CreateSecurityGroup.kt#L45)
 - [DeleteKeyPair](src/main/kotlin/com/kotlin/ec2/DeleteKeyPair.kt#L38)
 - [DeleteSecurityGroup](src/main/kotlin/com/kotlin/ec2/DeleteSecurityGroup.kt#L37)
-- [DescribeInstanceTypes](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L383)
+- [DescribeInstanceTypes](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L420)
 - [DescribeInstances](src/main/kotlin/com/kotlin/ec2/DescribeInstances.kt#L23)
 - [DescribeKeyPairs](src/main/kotlin/com/kotlin/ec2/DescribeKeyPairs.kt#L23)
 - [DescribeSecurityGroups](src/main/kotlin/com/kotlin/ec2/DescribeSecurityGroups.kt#L39)
-- [DisassociateAddress](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L269)
-- [ReleaseAddress](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L256)
+- [DisassociateAddress](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L276)
+- [ReleaseAddress](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L262)
 - [RunInstances](src/main/kotlin/com/kotlin/ec2/CreateInstance.kt#L43)
-- [StartInstances](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L305)
-- [StopInstances](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L322)
+- [StartInstances](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L318)
+- [StopInstances](src/main/kotlin/com/kotlin/ec2/EC2Scenario.kt#L337)
 - [TerminateInstances](src/main/kotlin/com/kotlin/ec2/TerminateInstance.kt#L38)
 
 ### Scenarios

@@ -35,16 +35,17 @@ class ForecastKotlinTest {
     private var myDataSetARN = "" // set in test 2
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val rand = Random()
-        val randomNum = rand.nextInt(10000 - 1 + 1) + 1
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        predictorARN = values.predARN.toString()
-        forecastName = values.forecastName.toString() + randomNum
-        dataSetName = values.dataSet.toString() + randomNum
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val rand = Random()
+            val randomNum = rand.nextInt(10000 - 1 + 1) + 1
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            predictorARN = values.predARN.toString()
+            forecastName = values.forecastName.toString() + randomNum
+            dataSetName = values.dataSet.toString() + randomNum
 
         /*
         // load the properties file.
@@ -55,75 +56,87 @@ class ForecastKotlinTest {
         dataSetName = prop.getProperty("dataSetName")
         predictorARN = prop.getProperty("predictorARN")
         existingforecastDelete = prop.getProperty("existingforecastDelete")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun createDataSet() = runBlocking {
-        myDataSetARN = createForecastDataSet(dataSetName).toString()
-        assertTrue(!myDataSetARN.isEmpty())
-        println("Test 1 passed")
-    }
+    fun createDataSet() =
+        runBlocking {
+            myDataSetARN = createForecastDataSet(dataSetName).toString()
+            assertTrue(!myDataSetARN.isEmpty())
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun createForecast() = runBlocking {
-        forecastArn = createNewForecast(forecastName, predictorARN).toString()
-        assertTrue(!forecastArn.isEmpty())
-        println("Test 2 passed")
-    }
+    fun createForecast() =
+        runBlocking {
+            forecastArn = createNewForecast(forecastName, predictorARN).toString()
+            assertTrue(!forecastArn.isEmpty())
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun listDataSets() = runBlocking {
-        listForecastDataSets()
-        println("Test 3 passed")
-    }
+    fun listDataSets() =
+        runBlocking {
+            listForecastDataSets()
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun listDataSetGroups() = runBlocking {
-        listDataGroups()
-        println("Test 4 passed")
-    }
+    fun listDataSetGroups() =
+        runBlocking {
+            listDataGroups()
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun listForecasts() = runBlocking {
-        listAllForeCasts()
-        println("Test 5 passed")
-    }
+    fun listForecasts() =
+        runBlocking {
+            listAllForeCasts()
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun describeForecast() = runBlocking {
-        describe(forecastArn)
-        println("Test 6 passed")
-    }
+    fun describeForecast() =
+        runBlocking {
+            describe(forecastArn)
+            println("Test 6 passed")
+        }
 
     @Test
     @Order(7)
-    fun deleteDataSet() = runBlocking {
-        deleteForecastDataSet(myDataSetARN)
-        println("Test 7 passed")
-    }
+    fun deleteDataSet() =
+        runBlocking {
+            deleteForecastDataSet(myDataSetARN)
+            println("Test 7 passed")
+        }
 
     @Test
     @Order(8)
-    fun deleteForecast() = runBlocking {
-        println("Wait 40 mins for resource to become available.")
-        TimeUnit.MINUTES.sleep(40)
-        delForecast(forecastArn)
-        println("Test 8 passed")
-    }
+    fun deleteForecast() =
+        runBlocking {
+            println("Wait 40 mins for resource to become available.")
+            TimeUnit.MINUTES.sleep(40)
+            delForecast(forecastArn)
+            println("Test 8 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/forecast"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

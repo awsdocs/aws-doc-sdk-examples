@@ -22,10 +22,10 @@ suspend fun main() {
 
 // snippet-start:[kms.kotlin_list_aliases.main]
 suspend fun listAllAliases() {
-
-    val request = ListAliasesRequest {
-        limit = 15
-    }
+    val request =
+        ListAliasesRequest {
+            limit = 15
+        }
 
     KmsClient { region = "us-west-2" }.use { kmsClient ->
         val response = kmsClient.listAliases(request)

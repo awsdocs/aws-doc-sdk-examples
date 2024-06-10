@@ -40,7 +40,6 @@ import kotlin.system.exitProcess
 
 // snippet-start:[lambda.kotlin.scenario.main]
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <functionName> <role> <handler> <bucketName> <updatedBucketName> <key> 
@@ -91,7 +90,7 @@ suspend fun main(args: Array<String>) {
 
     // Update the AWS Lambda function configuration.
     println("Update the run time of the function.")
-    UpdateFunctionConfiguration(functionName, handler)
+    updateFunctionConfiguration(functionName, handler)
 
     // Delete the AWS Lambda function.
     println("Delete the AWS Lambda function.")
@@ -105,20 +104,21 @@ suspend fun createScFunction(
     myHandler: String,
     myRole: String
 ): String {
+    val functionCode =
+        FunctionCode {
+            s3Bucket = s3BucketName
+            s3Key = myS3Key
+        }
 
-    val functionCode = FunctionCode {
-        s3Bucket = s3BucketName
-        s3Key = myS3Key
-    }
-
-    val request = CreateFunctionRequest {
-        functionName = myFunctionName
-        code = functionCode
-        description = "Created by the Lambda Kotlin API"
-        handler = myHandler
-        role = myRole
-        runtime = Runtime.Java8
-    }
+    val request =
+        CreateFunctionRequest {
+            functionName = myFunctionName
+            code = functionCode
+            description = "Created by the Lambda Kotlin API"
+            handler = myHandler
+            role = myRole
+            runtime = Runtime.Java8
+        }
 
     // Create a Lambda function using a waiter
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
@@ -131,10 +131,10 @@ suspend fun createScFunction(
 }
 
 suspend fun getFunction(functionNameVal: String) {
-
-    val functionRequest = GetFunctionRequest {
-        functionName = functionNameVal
-    }
+    val functionRequest =
+        GetFunctionRequest {
+            functionName = functionNameVal
+        }
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val response = awsLambda.getFunction(functionRequest)
@@ -143,10 +143,10 @@ suspend fun getFunction(functionNameVal: String) {
 }
 
 suspend fun listFunctionsSc() {
-
-    val request = ListFunctionsRequest {
-        maxItems = 10
-    }
+    val request =
+        ListFunctionsRequest {
+            maxItems = 10
+        }
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val response = awsLambda.listFunctions(request)
@@ -157,14 +157,14 @@ suspend fun listFunctionsSc() {
 }
 
 suspend fun invokeFunctionSc(functionNameVal: String) {
-
     val json = """{"inputValue":"1000"}"""
     val byteArray = json.trimIndent().encodeToByteArray()
-    val request = InvokeRequest {
-        functionName = functionNameVal
-        payload = byteArray
-        logType = LogType.Tail
-    }
+    val request =
+        InvokeRequest {
+            functionName = functionNameVal
+            payload = byteArray
+            logType = LogType.Tail
+        }
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val res = awsLambda.invoke(request)
@@ -172,14 +172,18 @@ suspend fun invokeFunctionSc(functionNameVal: String) {
     }
 }
 
-suspend fun updateFunctionCode(functionNameVal: String?, bucketName: String?, key: String?) {
-
-    val functionCodeRequest = UpdateFunctionCodeRequest {
-        functionName = functionNameVal
-        publish = true
-        s3Bucket = bucketName
-        s3Key = key
-    }
+suspend fun updateFunctionCode(
+    functionNameVal: String?,
+    bucketName: String?,
+    key: String?
+) {
+    val functionCodeRequest =
+        UpdateFunctionCodeRequest {
+            functionName = functionNameVal
+            publish = true
+            s3Bucket = bucketName
+            s3Key = key
+        }
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val response = awsLambda.updateFunctionCode(functionCodeRequest)
@@ -190,13 +194,16 @@ suspend fun updateFunctionCode(functionNameVal: String?, bucketName: String?, ke
     }
 }
 
-suspend fun UpdateFunctionConfiguration(functionNameVal: String?, handlerVal: String?) {
-
-    val configurationRequest = UpdateFunctionConfigurationRequest {
-        functionName = functionNameVal
-        handler = handlerVal
-        runtime = Runtime.Java11
-    }
+suspend fun updateFunctionConfiguration(
+    functionNameVal: String?,
+    handlerVal: String?
+) {
+    val configurationRequest =
+        UpdateFunctionConfigurationRequest {
+            functionName = functionNameVal
+            handler = handlerVal
+            runtime = Runtime.Java11
+        }
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         awsLambda.updateFunctionConfiguration(configurationRequest)
@@ -204,10 +211,10 @@ suspend fun UpdateFunctionConfiguration(functionNameVal: String?, handlerVal: St
 }
 
 suspend fun delFunction(myFunctionName: String) {
-
-    val request = DeleteFunctionRequest {
-        functionName = myFunctionName
-    }
+    val request =
+        DeleteFunctionRequest {
+            functionName = myFunctionName
+        }
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         awsLambda.deleteFunction(request)

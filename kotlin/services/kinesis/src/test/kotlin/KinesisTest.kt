@@ -30,36 +30,40 @@ class KinesisTest {
 
     @Test
     @Order(1)
-    fun createDataStreamTest() = runBlocking {
-        createStream(streamName)
-        println("Test 1 passed")
-    }
+    fun createDataStreamTest() =
+        runBlocking {
+            createStream(streamName)
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun describeLimitsTest() = runBlocking {
-        describeKinLimits()
-        println("Test 2 passed")
-    }
+    fun describeLimitsTest() =
+        runBlocking {
+            describeKinLimits()
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun listShardsTest() = runBlocking {
-        try {
-            // Wait 60 secs for table to complete
-            TimeUnit.SECONDS.sleep(60)
-            listKinShards(streamName)
-        } catch (e: InterruptedException) {
-            System.err.println(e.message)
-            exitProcess(1)
+    fun listShardsTest() =
+        runBlocking {
+            try {
+                // Wait 60 secs for table to complete
+                TimeUnit.SECONDS.sleep(60)
+                listKinShards(streamName)
+            } catch (e: InterruptedException) {
+                System.err.println(e.message)
+                exitProcess(1)
+            }
+            println("Test 4 passed")
         }
-        println("Test 4 passed")
-    }
 
     @Test
     @Order(5)
-    fun deleteDataStreamTest() = runBlocking {
-        deleteStream(streamName)
-        println("Test 7 passed")
-    }
+    fun deleteDataStreamTest() =
+        runBlocking {
+            deleteStream(streamName)
+            println("Test 7 passed")
+        }
 }

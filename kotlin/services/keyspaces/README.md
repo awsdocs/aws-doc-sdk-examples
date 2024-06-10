@@ -38,16 +38,16 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateKeyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L551)
-- [CreateTable](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L461)
-- [DeleteKeyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L208)
-- [DeleteTable](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L244)
-- [GetKeyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L538)
-- [GetTable](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L430)
-- [ListKeyspaces](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L526)
-- [ListTables](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L411)
-- [RestoreTable](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L289)
-- [UpdateTable](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L333)
+- [CreateKeyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L616)
+- [CreateTable](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L512)
+- [DeleteKeyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L212)
+- [DeleteTable](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L253)
+- [GetKeyspace](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L602)
+- [GetTable](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L477)
+- [ListKeyspaces](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L589)
+- [ListTables](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L459)
+- [RestoreTable](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L306)
+- [UpdateTable](src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt#L365)
 
 ### Scenarios
 

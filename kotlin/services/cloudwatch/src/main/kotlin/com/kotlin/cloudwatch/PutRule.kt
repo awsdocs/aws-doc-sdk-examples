@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <ruleName> <roleArn>
@@ -40,14 +39,17 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[cloudwatch.kotlin.put_rule.main]
-suspend fun putCWRule(ruleNameVal: String, roleArnVal: String) {
-
-    val request = PutRuleRequest {
-        name = ruleNameVal
-        roleArn = roleArnVal
-        scheduleExpression = "rate(5 minutes)"
-        state = RuleState.Enabled
-    }
+suspend fun putCWRule(
+    ruleNameVal: String,
+    roleArnVal: String
+) {
+    val request =
+        PutRuleRequest {
+            name = ruleNameVal
+            roleArn = roleArnVal
+            scheduleExpression = "rate(5 minutes)"
+            state = RuleState.Enabled
+        }
 
     CloudWatchEventsClient { region = "us-east-1" }.use { cwe ->
         val response = cwe.putRule(request)

@@ -37,9 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.terminate_instance.main]
 suspend fun terminateEC2(instanceID: String) {
-    val request = TerminateInstancesRequest {
-        instanceIds = listOf(instanceID)
-    }
+    val request =
+        TerminateInstancesRequest {
+            instanceIds = listOf(instanceID)
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.terminateInstances(request)

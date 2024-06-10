@@ -23,7 +23,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: 
         <streamName>
@@ -43,13 +42,13 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[kinesis.kotlin.get_records.main]
 suspend fun getStockTrades(streamNameVal: String?) {
-
     val shardIteratorVal: String
     val shards = mutableListOf<Shard?>()
     var streamRes: DescribeStreamResponse
-    val request = DescribeStreamRequest {
-        streamName = streamNameVal
-    }
+    val request =
+        DescribeStreamRequest {
+            streamName = streamNameVal
+        }
     KinesisClient { region = "us-east-1" }.use { kinesisClient ->
         do {
             streamRes = kinesisClient.describeStream(request)
@@ -57,19 +56,21 @@ suspend fun getStockTrades(streamNameVal: String?) {
         } while (streamRes.streamDescription?.hasMoreShards == true)
 
         val id = shards[0]?.shardId
-        val shardIteratorResult = kinesisClient.getShardIterator(
-            GetShardIteratorRequest {
-                streamName = streamNameVal
-                shardIteratorType = ShardIteratorType.fromValue("TRIM_HORIZON")
-                shardId = id
-            }
-        )
+        val shardIteratorResult =
+            kinesisClient.getShardIterator(
+                GetShardIteratorRequest {
+                    streamName = streamNameVal
+                    shardIteratorType = ShardIteratorType.fromValue("TRIM_HORIZON")
+                    shardId = id
+                }
+            )
         shardIteratorVal = shardIteratorResult.shardIterator.toString()
 
-        val recRequest = GetRecordsRequest {
-            shardIterator = shardIteratorVal
-            limit = 1000
-        }
+        val recRequest =
+            GetRecordsRequest {
+                shardIterator = shardIteratorVal
+                limit = 1000
+            }
 
         // Continuously read data records from shard.
         val result = kinesisClient.getRecords(recRequest)
