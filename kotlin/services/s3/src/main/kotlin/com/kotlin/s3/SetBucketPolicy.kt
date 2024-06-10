@@ -71,7 +71,7 @@ fun getBucketPolicyFromFile(policyFile: String): String {
         val lines =
             Files.readAllLines(
                 Paths.get(policyFile),
-                Charset.forName("UTF-8"),
+                Charset.forName("UTF-8")
             )
         for (line in lines) {
             fileText.append(line)

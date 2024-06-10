@@ -39,36 +39,35 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
-fun main(): Unit =
-    runBlocking {
-        val mrapExample = MrapExample()
-        val s3: S3Client = MrapExample.createS3Client()
-        val s3Control = MrapExample.createS3ControlClient()
-        val bucketName1 = "mrap-us-east-1-" + UUID.randomUUID().toString()
-        val bucketName2 = "mrap-us-west-1-" + UUID.randomUUID().toString()
-        val accountId = MrapExample.getAccountId()
-        val keyName = "my-key"
-        val mrapName = "mrap-test"
-        val stringToPut = "Hello World"
-        var mrapArn = ""
+fun main(): Unit = runBlocking {
+    val mrapExample = MrapExample()
+    val s3: S3Client = MrapExample.createS3Client()
+    val s3Control = MrapExample.createS3ControlClient()
+    val bucketName1 = "mrap-us-east-1-" + UUID.randomUUID().toString()
+    val bucketName2 = "mrap-us-west-1-" + UUID.randomUUID().toString()
+    val accountId = MrapExample.getAccountId()
+    val keyName = "my-key"
+    val mrapName = "mrap-test"
+    val stringToPut = "Hello World"
+    var mrapArn = ""
 
-        try {
-            MrapExample.setUpTwoBuckets(s3, bucketName1, bucketName2)
-            mrapArn = mrapExample.createMrap(s3Control, accountId, bucketName1, bucketName2, mrapName)
-            mrapExample.putObjectUsingMrap(s3, mrapArn, keyName, stringToPut)
-            val objectFromMrap = mrapExample.getObjectFromMrap(s3, mrapArn, keyName)
-            assert(objectFromMrap == stringToPut)
-        } catch (e: Exception) {
-            println(e)
-        } finally {
-            mrapExample.deleteObjectUsingMrap(s3, mrapArn, keyName)
-            mrapExample.deleteMrap(s3Control, accountId, mrapName)
-            MrapExample.cleanupBuckets(s3, bucketName1, bucketName2)
-        }
-        s3.close()
-        s3Control.close()
-        exitProcess(1)
+    try {
+        MrapExample.setUpTwoBuckets(s3, bucketName1, bucketName2)
+        mrapArn = mrapExample.createMrap(s3Control, accountId, bucketName1, bucketName2, mrapName)
+        mrapExample.putObjectUsingMrap(s3, mrapArn, keyName, stringToPut)
+        val objectFromMrap = mrapExample.getObjectFromMrap(s3, mrapArn, keyName)
+        assert(objectFromMrap == stringToPut)
+    } catch (e: Exception) {
+        println(e)
+    } finally {
+        mrapExample.deleteObjectUsingMrap(s3, mrapArn, keyName)
+        mrapExample.deleteMrap(s3Control, accountId, mrapName)
+        MrapExample.cleanupBuckets(s3, bucketName1, bucketName2)
     }
+    s3.close()
+    s3Control.close()
+    exitProcess(1)
+}
 
 class MrapExample {
     // snippet-start:[s3.kotlin.mrap.create]
@@ -86,16 +85,14 @@ class MrapExample {
                 clientToken = UUID.randomUUID().toString()
                 details {
                     name = mrapName
-
-                    regions =
-                        listOf(
-                            Region {
-                                bucket = bucketName1
-                            },
-                            Region {
-                                bucket = bucketName2
-                            }
-                        )
+                    regions = listOf(
+                        Region {
+                            bucket = bucketName1
+                        },
+                        Region {
+                            bucket = bucketName2
+                        }
+                    )
                 }
             }
         val requestToken: String? = createMrapResponse.requestTokenArn
@@ -108,11 +105,10 @@ class MrapExample {
 
         val getMrapResponse =
             s3Control.getMultiRegionAccessPoint(
-                input =
-                    GetMultiRegionAccessPointRequest {
-                        accountId = accountIdParam
-                        name = mrapName
-                    },
+                input = GetMultiRegionAccessPointRequest {
+                    accountId = accountIdParam
+                    name = mrapName
+                }
             )
         val mrapAlias = getMrapResponse.accessPoint?.alias
         return "arn:aws:s3::$accountIdParam:accesspoint/$mrapAlias"
@@ -128,13 +124,12 @@ class MrapExample {
         println("Deleting MRAP ...")
         val deleteMrapResponse: DeleteMultiRegionAccessPointResponse =
             s3Control.deleteMultiRegionAccessPoint(
-                input =
-                    DeleteMultiRegionAccessPointRequest {
-                        accountId = accountIdParam
-                        details {
-                            name = mrapName
-                        }
+                input = DeleteMultiRegionAccessPointRequest {
+                    accountId = accountIdParam
+                    details {
+                        name = mrapName
                     }
+                }
             )
         val requestToken: String? = deleteMrapResponse.requestTokenArn
 
@@ -172,11 +167,10 @@ class MrapExample {
         mrapArn: String,
         keyName: String
     ): String? {
-        val request =
-            GetObjectRequest {
-                bucket = mrapArn // Use the ARN instead of the bucket name for object operations.
-                key = keyName
-            }
+        val request = GetObjectRequest {
+            bucket = mrapArn // Use the ARN instead of the bucket name for object operations.
+            key = keyName
+        }
 
         var stringObj: String? = null
         s3.getObject(request) { resp ->
@@ -212,10 +206,9 @@ class MrapExample {
         suspend fun createS3Client(): S3Client {
             // Configure your S3Client to use the Asymmetric Sigv4 (Sigv4a) signing algorithm.
             val sigV4AScheme = SigV4AsymmetricAuthScheme(CrtAwsSigner)
-            val s3 =
-                S3Client.fromEnvironment {
-                    authSchemes = listOf(sigV4AScheme)
-                }
+            val s3 = S3Client.fromEnvironment {
+                authSchemes = listOf(sigV4AScheme)
+            }
             return s3
         }
         // snippet-end:[s3.kotlin.mrap.create-s3client]
@@ -223,10 +216,9 @@ class MrapExample {
         // snippet-start:[s3.kotlin.mrap.create-s3controlclient]
         suspend fun createS3ControlClient(): S3ControlClient {
             // Configure your S3ControlClient to send requests to US West (Oregon).
-            val s3Control =
-                S3ControlClient.fromEnvironment {
-                    region = "us-west-2"
-                }
+            val s3Control = S3ControlClient.fromEnvironment {
+                region = "us-west-2"
+            }
             return s3Control
         }
         // snippet-end:[s3.kotlin.mrap.create-s3controlclient]
@@ -239,41 +231,33 @@ class MrapExample {
         ) {
             println("Create two buckets in different regions.")
             // The shared aws config file configures the default Region to be us-east-1.
-            s3.createBucket(
-                CreateBucketRequest {
-                    bucket = bucketName1
-                },
-            )
+            s3.createBucket(CreateBucketRequest {
+                bucket = bucketName1
+            })
             s3.waitUntilBucketExists { bucket = bucketName1 }
             println("  Bucket [$bucketName1] created.")
 
             // Override the S3Client to work with us-west-1 for the second bucket.
-            s3
-                .withConfig {
-                    region = "us-west-1"
-                }.use { s3West ->
-                    s3.createBucket(
-                        CreateBucketRequest {
-                            bucket = bucketName2
-                            createBucketConfiguration =
-                                CreateBucketConfiguration {
-                                    locationConstraint = BucketLocationConstraint.UsWest1
-                                }
-                        }
-                    )
-                    s3West.waitUntilBucketExists { bucket = bucketName2 }
-                    println("  Bucket [$bucketName2] created.")
-                }
+            s3.withConfig {
+                region = "us-west-1"
+            }.use { s3West ->
+                s3.createBucket(CreateBucketRequest {
+                    bucket = bucketName2
+                    createBucketConfiguration = CreateBucketConfiguration {
+                        locationConstraint = BucketLocationConstraint.UsWest1
+                    }
+                })
+                s3West.waitUntilBucketExists { bucket = bucketName2 }
+                println("  Bucket [$bucketName2] created.")
+            }
         }
         // snippet-end:[s3.kotlin.mrap.create-buckets]
 
         suspend fun getAccountId(): String {
-            StsClient
-                .fromEnvironment()
-                .use { sts ->
-                    val callerIdentity = sts.getCallerIdentity { GetCallerIdentityRequest {} }
-                    return callerIdentity.account!!
-                }
+            StsClient.fromEnvironment().use { sts ->
+                val callerIdentity = sts.getCallerIdentity { GetCallerIdentityRequest {} }
+                return callerIdentity.account!!
+            }
         }
 
         // snippet-start:[s3.kotlin.mrap.check-operation-status]
@@ -284,26 +268,22 @@ class MrapExample {
             timeBetweenChecks: Duration = 1.minutes
         ) {
             var describeResponse: DescribeMultiRegionAccessPointOperationResponse
-            describeResponse =
-                s3Control.describeMultiRegionAccessPointOperation(
-                    input =
-                        DescribeMultiRegionAccessPointOperationRequest {
-                            accountId = accountIdParam
-                            requestTokenArn = requestToken
-                        }
-                )
+            describeResponse = s3Control.describeMultiRegionAccessPointOperation(
+                input = DescribeMultiRegionAccessPointOperationRequest {
+                    accountId = accountIdParam
+                    requestTokenArn = requestToken
+                }
+            )
 
             var status: String? = describeResponse.asyncOperation?.requestStatus
             while (status != "SUCCEEDED") {
                 delay(timeBetweenChecks)
-                describeResponse =
-                    s3Control.describeMultiRegionAccessPointOperation(
-                        input =
-                            DescribeMultiRegionAccessPointOperationRequest {
-                                accountId = accountIdParam
-                                requestTokenArn = requestToken
-                            }
-                    )
+                describeResponse = s3Control.describeMultiRegionAccessPointOperation(
+                    input = DescribeMultiRegionAccessPointOperationRequest {
+                        accountId = accountIdParam
+                        requestTokenArn = requestToken
+                    }
+                )
                 status = describeResponse.asyncOperation?.requestStatus
                 println(status)
             }

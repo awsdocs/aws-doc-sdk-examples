@@ -15,8 +15,9 @@ class SecretsManagerKotlinTest {
 
     @Test
     @Order(1)
-    fun getSecretValue() = runBlocking {
-        getValue(secretName)
-        println("Test 1 passed")
-    }
+    fun getSecretValue() =
+        runBlocking {
+            getValue(secretName)
+            println("Test 1 passed")
+        }
 }

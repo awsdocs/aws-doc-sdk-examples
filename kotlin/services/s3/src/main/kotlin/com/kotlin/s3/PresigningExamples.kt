@@ -86,7 +86,7 @@ suspend fun putObjectPresigned(
     s3: S3Client,
     bucketName: String,
     keyName: String,
-    content: String,
+    content: String
 ) {
     // Create a PutObjectRequest.
     val unsignedRequest =
@@ -120,7 +120,7 @@ suspend fun putObjectPresigned(
 suspend fun getObjectPresignedMoreOptions(
     s3: S3Client,
     bucketName: String,
-    keyName: String,
+    keyName: String
 ): HttpRequest {
     // Create a GetObjectRequest.
     val unsignedRequest =
@@ -143,14 +143,14 @@ suspend fun getObjectPresignedMoreOptions(
 
 suspend fun cleanup(
     s3: S3Client,
-    bucketName: String,
+    bucketName: String
 ) {
     deleteBucket(s3, bucketName)
 }
 
 suspend fun deleteBucket(
     s3: S3Client,
-    bucketName: String,
+    bucketName: String
 ) {
     s3.deleteBucket(
         DeleteBucketRequest {
@@ -181,7 +181,7 @@ suspend fun deleteObject(
 
 suspend fun setUp(
     s3: S3Client,
-    bucketName: String,
+    bucketName: String
 ) {
     s3.createBucket(
         CreateBucketRequest {
@@ -195,7 +195,7 @@ suspend fun putObject(
     s3: S3Client,
     bucketName: String,
     keyName: String,
-    contents: String,
+    contents: String
 ) {
     s3.putObject(
         PutObjectRequest {
