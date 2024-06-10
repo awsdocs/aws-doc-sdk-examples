@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[personalize.kotlin.create_campaign.main]
 suspend fun createPersonalCompaign(
     solutionVersionArnVal: String?,
-    campaignName: String?,
+    campaignName: String?
 ): String? {
     val request =
         CreateCampaignRequest {
