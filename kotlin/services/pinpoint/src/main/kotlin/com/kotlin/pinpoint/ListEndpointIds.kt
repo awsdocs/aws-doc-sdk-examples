@@ -47,7 +47,7 @@ suspend fun listAllEndpoints(
                 GetUserEndpointsRequest {
                     userId = userIdVal
                     applicationId = applicationIdVal
-                },
+                }
             )
         response.endpointsResponse?.item?.forEach { endpoint ->
             println("The channel type is ${endpoint.channelType}")

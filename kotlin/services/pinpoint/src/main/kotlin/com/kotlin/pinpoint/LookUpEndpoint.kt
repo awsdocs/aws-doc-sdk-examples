@@ -48,7 +48,7 @@ suspend fun lookupPinpointEndpoint(
                 GetEndpointRequest {
                     applicationId = appId
                     endpointId = endpoint
-                },
+                }
             )
         val endResponse = result.endpointResponse
 

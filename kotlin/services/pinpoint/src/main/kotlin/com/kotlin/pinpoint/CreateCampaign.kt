@@ -79,7 +79,7 @@ suspend fun createPinCampaign(
                 CreateCampaignRequest {
                     applicationId = appId
                     writeCampaignRequest = writeCampaign
-                },
+                }
             )
         println("Campaign ID is ${result.campaignResponse?.id}")
     }

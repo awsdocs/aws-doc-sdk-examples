@@ -99,7 +99,7 @@ suspend fun sendSMSMessage(
             SendMessagesRequest {
                 applicationId = appId
                 messageRequest = msgReq
-            },
+            }
         )
         println("The SMS message was successfully sent to $destinationNumberVal")
     }

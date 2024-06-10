@@ -41,7 +41,7 @@ suspend fun deletePinApp(appId: String?) {
             pinpoint.deleteApp(
                 DeleteAppRequest {
                     applicationId = appId
-                },
+                }
             )
         val appName = result.applicationResponse?.name
         println("Application $appName has been deleted.")

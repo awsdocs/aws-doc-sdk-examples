@@ -41,7 +41,7 @@ suspend fun listSegs(appId: String?) {
             pinpoint.getSegments(
                 GetSegmentsRequest {
                     applicationId = appId
-                },
+                }
             )
         response.segmentsResponse?.item?.forEach { segment ->
             println("Segement id is ${segment.id}")
