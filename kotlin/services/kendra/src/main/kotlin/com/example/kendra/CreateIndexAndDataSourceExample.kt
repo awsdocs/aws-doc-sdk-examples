@@ -167,7 +167,7 @@ suspend fun startDataSource(
     KendraClient { region = "us-east-1" }.use { kendra ->
         val startDataSourceSyncJobResponse = kendra.startDataSourceSyncJob(startDataSourceSyncJobRequest)
         println(
-            "Waiting for the data source to sync with the index $indexIdVal for execution ID ${startDataSourceSyncJobResponse.executionId}",
+            "Waiting for the data source to sync with the index $indexIdVal for execution ID ${startDataSourceSyncJobResponse.executionId}"
         )
     }
     println("Index setup is complete")
