@@ -356,7 +356,7 @@ fun updateRecord(
             .boundStatementBuilder()
             .setString("k0", titleUpdate)
             .setInt("k1", yearUpdate)
-            .build(),
+            .build()
     )
     val batchStatement = builder.build()
     session.execute(batchStatement)
@@ -447,7 +447,7 @@ fun loadData(
                 .setString("k0", title)
                 .setInt("k1", year)
                 .setString("k2", info)
-                .build(),
+                .build()
         )
 
         val batchStatement = builder.build()
@@ -468,10 +468,7 @@ suspend fun listTables(keyspaceNameVal: String?) {
             .listTablesPaginated(tablesRequest)
             .transform { it.tables?.forEach { obj -> emit(obj) } }
             .collect { obj ->
-                println(
-                    " ARN: " + obj.resourceArn.toString() +
-                        " Table name: " + obj.tableName,
-                )
+                println(" ARN: ${obj.resourceArn} Table name: ${obj.tableName}")
             }
     }
 }
