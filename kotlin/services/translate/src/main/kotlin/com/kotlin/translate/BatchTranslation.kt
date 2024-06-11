@@ -21,7 +21,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <s3Uri> <s3UriOut> <jobName> <dataAccessRoleArn>
@@ -52,28 +51,30 @@ suspend fun translateDocuments(
     jobNameVal: String?,
     dataAccessRoleArnVal: String?
 ): String? {
-
     val sleepTime: Long = 5
-    val dataConfig = InputDataConfig {
-        s3Uri = s3UriVal
-        contentType = "text/plain"
-    }
+    val dataConfig =
+        InputDataConfig {
+            s3Uri = s3UriVal
+            contentType = "text/plain"
+        }
 
-    val outputDataConfigVal = OutputDataConfig {
-        s3Uri = s3UriOutVal
-    }
+    val outputDataConfigVal =
+        OutputDataConfig {
+            s3Uri = s3UriOutVal
+        }
 
     val myList = mutableListOf<String>()
     myList.add("fr")
 
-    val textTranslationJobRequest = StartTextTranslationJobRequest {
-        jobName = jobNameVal
-        dataAccessRoleArn = dataAccessRoleArnVal
-        inputDataConfig = dataConfig
-        outputDataConfig = outputDataConfigVal
-        sourceLanguageCode = "en"
-        targetLanguageCodes = myList
-    }
+    val textTranslationJobRequest =
+        StartTextTranslationJobRequest {
+            jobName = jobNameVal
+            dataAccessRoleArn = dataAccessRoleArnVal
+            inputDataConfig = dataConfig
+            outputDataConfig = outputDataConfigVal
+            sourceLanguageCode = "en"
+            targetLanguageCodes = myList
+        }
 
     TranslateClient { region = "us-west-2" }.use { translateClient ->
         val textTranslationJobResponse = translateClient.startTextTranslationJob(textTranslationJobRequest)
@@ -83,20 +84,20 @@ suspend fun translateDocuments(
         var jobStatus: String
         val jobIdVal: String? = textTranslationJobResponse.jobId
 
-        val jobRequest = DescribeTextTranslationJobRequest {
-            jobId = jobIdVal
-        }
+        val jobRequest =
+            DescribeTextTranslationJobRequest {
+                jobId = jobIdVal
+            }
 
         while (!jobDone) {
-
             // Check status on each loop.
             val response = translateClient.describeTextTranslationJob(jobRequest)
             jobStatus = response.textTranslationJobProperties?.jobStatus.toString()
             println(jobStatus)
 
-            if (jobStatus.contains("COMPLETED"))
+            if (jobStatus.contains("COMPLETED")) {
                 break
-            else {
+            } else {
                 print(".")
 
                 delay(sleepTime * 1000)
