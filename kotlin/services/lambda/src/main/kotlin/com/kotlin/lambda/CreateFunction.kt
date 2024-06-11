@@ -21,7 +21,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: 
         <functionName> <s3BucketName> <s3Key> <role> <handler> 
@@ -56,20 +55,21 @@ suspend fun createNewFunction(
     myHandler: String,
     myRole: String
 ): String? {
+    val functionCode =
+        FunctionCode {
+            s3Bucket = s3BucketName
+            s3Key = myS3Key
+        }
 
-    val functionCode = FunctionCode {
-        s3Bucket = s3BucketName
-        s3Key = myS3Key
-    }
-
-    val request = CreateFunctionRequest {
-        functionName = myFunctionName
-        code = functionCode
-        description = "Created by the Lambda Kotlin API"
-        handler = myHandler
-        role = myRole
-        runtime = Runtime.Java8
-    }
+    val request =
+        CreateFunctionRequest {
+            functionName = myFunctionName
+            code = functionCode
+            description = "Created by the Lambda Kotlin API"
+            handler = myHandler
+            role = myRole
+            runtime = Runtime.Java8
+        }
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val functionResponse = awsLambda.createFunction(request)

@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <dataSourceId> <indexId> 
@@ -40,12 +39,15 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[kendra.kotlin.delete.datasource.main]
-suspend fun deleteSpecificDataSource(indexIdVal: String?, dataSourceId: String) {
-
-    val dataSourceRequest = DeleteDataSourceRequest {
-        id = dataSourceId
-        indexId = indexIdVal
-    }
+suspend fun deleteSpecificDataSource(
+    indexIdVal: String?,
+    dataSourceId: String
+) {
+    val dataSourceRequest =
+        DeleteDataSourceRequest {
+            id = dataSourceId
+            indexId = indexIdVal
+        }
 
     KendraClient { region = "us-east-1" }.use { kendra ->
         kendra.deleteDataSource(dataSourceRequest)

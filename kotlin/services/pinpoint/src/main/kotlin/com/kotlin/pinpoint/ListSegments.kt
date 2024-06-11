@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: <appId> 
 
@@ -37,14 +36,13 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pinpoint.kotlin.listsegments.main]
 suspend fun listSegs(appId: String?) {
-
     PinpointClient { region = "us-west-2" }.use { pinpoint ->
-
-        val response = pinpoint.getSegments(
-            GetSegmentsRequest {
-                applicationId = appId
-            }
-        )
+        val response =
+            pinpoint.getSegments(
+                GetSegmentsRequest {
+                    applicationId = appId
+                }
+            )
         response.segmentsResponse?.item?.forEach { segment ->
             println("Segement id is ${segment.id}")
         }

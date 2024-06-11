@@ -46,21 +46,22 @@ class IAMTest {
     private var bucketNameSc = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        userName = values.userName.toString()
-        policyName = values.policyName.toString()
-        roleName = values.roleName.toString()
-        accountAlias = values.accountAlias.toString()
-        usernameSc = values.usernameSc.toString()
-        policyNameSc = values.policyNameSc.toString()
-        roleNameSc = values.roleNameSc1.toString()
-        roleSessionName = values.roleName.toString()
-        fileLocationSc = values.fileLocationSc.toString()
-        bucketNameSc = values.bucketNameSc.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            userName = values.userName.toString()
+            policyName = values.policyName.toString()
+            roleName = values.roleName.toString()
+            accountAlias = values.accountAlias.toString()
+            usernameSc = values.usernameSc.toString()
+            policyNameSc = values.policyNameSc.toString()
+            roleNameSc = values.roleNameSc1.toString()
+            roleSessionName = values.roleName.toString()
+            fileLocationSc = values.fileLocationSc.toString()
+            bucketNameSc = values.bucketNameSc.toString()
 
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
@@ -76,111 +77,128 @@ class IAMTest {
         roleSessionName = prop.getProperty("roleSessionName")
         fileLocationSc = prop.getProperty("fileLocationSc")
         bucketNameSc = prop.getProperty("bucketNameSc")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun createUserTest() = runBlocking {
-        val result = createIAMUser(userName)
-        if (result != null) {
-            Assertions.assertTrue(!result.isEmpty())
+    fun createUserTest() =
+        runBlocking {
+            val result = createIAMUser(userName)
+            if (result != null) {
+                Assertions.assertTrue(!result.isEmpty())
+            }
+            println("Test 1 passed")
         }
-        println("Test 1 passed")
-    }
 
     @Test
     @Order(2)
-    fun createPolicyTest() = runBlocking {
-        policyARN = createIAMPolicy(policyName)
-        Assertions.assertTrue(!policyARN.isEmpty())
-        println("Test 2 passed")
-    }
+    fun createPolicyTest() =
+        runBlocking {
+            policyARN = createIAMPolicy(policyName)
+            Assertions.assertTrue(!policyARN.isEmpty())
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun createAccessKeyTest() = runBlocking {
-        keyId = createIAMAccessKey(userName)
-        Assertions.assertTrue(!keyId.isEmpty())
-        println("Test 3 passed")
-    }
+    fun createAccessKeyTest() =
+        runBlocking {
+            keyId = createIAMAccessKey(userName)
+            Assertions.assertTrue(!keyId.isEmpty())
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun attachRolePolicyTest() = runBlocking {
-        attachIAMRolePolicy(roleName, policyARN)
-        println("Test 4 passed")
-    }
+    fun attachRolePolicyTest() =
+        runBlocking {
+            attachIAMRolePolicy(roleName, policyARN)
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun detachRolePolicyTest() = runBlocking {
-        detachPolicy(roleName, policyARN)
-        println("Test 5 passed")
-    }
+    fun detachRolePolicyTest() =
+        runBlocking {
+            detachPolicy(roleName, policyARN)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun getPolicyTest() = runBlocking {
-        getIAMPolicy(policyARN)
-        println("Test 6 passed")
-    }
+    fun getPolicyTest() =
+        runBlocking {
+            getIAMPolicy(policyARN)
+            println("Test 6 passed")
+        }
 
     @Test
     @Order(7)
-    fun listAccessKeysTest() = runBlocking {
-        listKeys(userName)
-        println("Test 7 passed")
-    }
+    fun listAccessKeysTest() =
+        runBlocking {
+            listKeys(userName)
+            println("Test 7 passed")
+        }
 
     @Test
     @Order(8)
-    fun listUsersTest() = runBlocking {
-        listAllUsers()
-        println("Test 8 passed")
-    }
+    fun listUsersTest() =
+        runBlocking {
+            listAllUsers()
+            println("Test 8 passed")
+        }
 
     @Test
     @Order(9)
-    fun createAccountAliasTest() = runBlocking {
-        createIAMAccountAlias(accountAlias)
-        println("Test 9 passed")
-    }
+    fun createAccountAliasTest() =
+        runBlocking {
+            createIAMAccountAlias(accountAlias)
+            println("Test 9 passed")
+        }
 
     @Test
     @Order(10)
-    fun deleteAccountAliasTest() = runBlocking {
-        deleteIAMAccountAlias(accountAlias)
-        println("Test 10 passed")
-    }
+    fun deleteAccountAliasTest() =
+        runBlocking {
+            deleteIAMAccountAlias(accountAlias)
+            println("Test 10 passed")
+        }
 
     @Test
     @Order(11)
-    fun deletePolicyTest() = runBlocking {
-        deleteIAMPolicy(policyARN)
-        println("Test 11 passed")
-    }
+    fun deletePolicyTest() =
+        runBlocking {
+            deleteIAMPolicy(policyARN)
+            println("Test 11 passed")
+        }
 
     @Test
     @Order(12)
-    fun deleteAccessKeyTest() = runBlocking {
-        deleteKey(userName, keyId)
-        println("Test 12 passed")
-    }
+    fun deleteAccessKeyTest() =
+        runBlocking {
+            deleteKey(userName, keyId)
+            println("Test 12 passed")
+        }
 
     @Test
     @Order(13)
-    fun deleteUserTest() = runBlocking {
-        deleteIAMUser(userName)
-        println("Test 13 passed")
-    }
+    fun deleteUserTest() =
+        runBlocking {
+            deleteIAMUser(userName)
+            println("Test 13 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/iam"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }
@@ -200,8 +218,6 @@ class IAMTest {
         val fileLocationSc: String? = null
         val bucketNameSc: String? = null
 
-        fun getRoleNameSc(): String? {
-            return roleSessionName
-        }
+        fun getRoleNameSc(): String? = roleSessionName
     }
 }

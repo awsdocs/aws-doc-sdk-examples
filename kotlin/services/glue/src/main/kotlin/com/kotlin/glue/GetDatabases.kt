@@ -22,10 +22,10 @@ suspend fun main() {
 
 // snippet-start:[glue.kotlin.get_databases.main]
 suspend fun getAllDatabases() {
-
-    val request = GetDatabasesRequest {
-        maxResults = 10
-    }
+    val request =
+        GetDatabasesRequest {
+            maxResults = 10
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getDatabases(request)

@@ -81,9 +81,10 @@ suspend fun main(args: Array<String>) {
 }
 
 suspend fun createBucket(bucketName: String) {
-    val request = CreateBucketRequest {
-        bucket = bucketName
-    }
+    val request =
+        CreateBucketRequest {
+            bucket = bucketName
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.createBucket(request)
@@ -91,16 +92,21 @@ suspend fun createBucket(bucketName: String) {
     }
 }
 
-suspend fun putObject(bucketName: String, objectKey: String, objectPath: String) {
+suspend fun putObject(
+    bucketName: String,
+    objectKey: String,
+    objectPath: String
+) {
     val metadataVal = mutableMapOf<String, String>()
     metadataVal["myVal"] = "test"
 
-    val request = PutObjectRequest {
-        bucket = bucketName
-        key = objectKey
-        metadata = metadataVal
-        this.body = Paths.get(objectPath).asByteStream()
-    }
+    val request =
+        PutObjectRequest {
+            bucket = bucketName
+            key = objectKey
+            metadata = metadataVal
+            this.body = Paths.get(objectPath).asByteStream()
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         val response = s3.putObject(request)
@@ -108,11 +114,16 @@ suspend fun putObject(bucketName: String, objectKey: String, objectPath: String)
     }
 }
 
-suspend fun getObjectFromMrap(bucketName: String, keyName: String, path: String) {
-    val request = GetObjectRequest {
-        key = keyName
-        bucket = bucketName
-    }
+suspend fun getObjectFromMrap(
+    bucketName: String,
+    keyName: String,
+    path: String
+) {
+    val request =
+        GetObjectRequest {
+            key = keyName
+            bucket = bucketName
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.getObject(request) { resp ->
@@ -124,9 +135,10 @@ suspend fun getObjectFromMrap(bucketName: String, keyName: String, path: String)
 }
 
 suspend fun listBucketObs(bucketName: String) {
-    val request = ListObjectsRequest {
-        bucket = bucketName
-    }
+    val request =
+        ListObjectsRequest {
+            bucket = bucketName
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
 
@@ -138,7 +150,11 @@ suspend fun listBucketObs(bucketName: String) {
     }
 }
 
-suspend fun copyBucketOb(fromBucket: String, objectKey: String, toBucket: String) {
+suspend fun copyBucketOb(
+    fromBucket: String,
+    objectKey: String,
+    toBucket: String
+) {
     var encodedUrl = ""
     try {
         encodedUrl = URLEncoder.encode("$fromBucket/$objectKey", StandardCharsets.UTF_8.toString())
@@ -146,29 +162,36 @@ suspend fun copyBucketOb(fromBucket: String, objectKey: String, toBucket: String
         println("URL could not be encoded: " + e.message)
     }
 
-    val request = CopyObjectRequest {
-        copySource = encodedUrl
-        bucket = toBucket
-        key = objectKey
-    }
+    val request =
+        CopyObjectRequest {
+            copySource = encodedUrl
+            bucket = toBucket
+            key = objectKey
+        }
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.copyObject(request)
     }
 }
 
-suspend fun deleteBucketObs(bucketName: String, objectName: String) {
-    val objectId = ObjectIdentifier {
-        key = objectName
-    }
+suspend fun deleteBucketObs(
+    bucketName: String,
+    objectName: String
+) {
+    val objectId =
+        ObjectIdentifier {
+            key = objectName
+        }
 
-    val delOb = Delete {
-        objects = listOf(objectId)
-    }
+    val delOb =
+        Delete {
+            objects = listOf(objectId)
+        }
 
-    val request = DeleteObjectsRequest {
-        bucket = bucketName
-        delete = delOb
-    }
+    val request =
+        DeleteObjectsRequest {
+            bucket = bucketName
+            delete = delOb
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.deleteObjects(request)
@@ -177,9 +200,10 @@ suspend fun deleteBucketObs(bucketName: String, objectName: String) {
 }
 
 suspend fun deleteBucket(bucketName: String?) {
-    val request = DeleteBucketRequest {
-        bucket = bucketName
-    }
+    val request =
+        DeleteBucketRequest {
+            bucket = bucketName
+        }
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.deleteBucket(request)
         println("The $bucketName was successfully deleted!")

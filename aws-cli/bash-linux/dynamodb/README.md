@@ -33,18 +33,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `aws-c
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchGetItem](dynamodb_operations.sh#L910)
-- [BatchWriteItem](dynamodb_operations.sh#L842)
-- [CreateTable](dynamodb_operations.sh#L25)
-- [DeleteItem](dynamodb_operations.sh#L543)
-- [DeleteTable](dynamodb_operations.sh#L1006)
-- [DescribeTable](dynamodb_operations.sh#L191)
-- [GetItem](dynamodb_operations.sh#L447)
-- [ListTables](dynamodb_operations.sh#L977)
-- [PutItem](dynamodb_operations.sh#L265)
-- [Query](dynamodb_operations.sh#L622)
-- [Scan](dynamodb_operations.sh#L732)
-- [UpdateItem](dynamodb_operations.sh#L346)
+- [BatchGetItem](dynamodb_operations.sh#L902)
+- [BatchWriteItem](dynamodb_operations.sh#L834)
+- [CreateTable](dynamodb_operations.sh#L17)
+- [DeleteItem](dynamodb_operations.sh#L535)
+- [DeleteTable](dynamodb_operations.sh#L998)
+- [DescribeTable](dynamodb_operations.sh#L183)
+- [GetItem](dynamodb_operations.sh#L439)
+- [ListTables](dynamodb_operations.sh#L969)
+- [PutItem](dynamodb_operations.sh#L257)
+- [Query](dynamodb_operations.sh#L614)
+- [Scan](dynamodb_operations.sh#L724)
+- [UpdateItem](dynamodb_operations.sh#L338)
 
 ### Scenarios
 

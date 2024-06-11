@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[pipeline.kotlin.list_pipelines.main]
 suspend fun getAllPipelines() {
-
     CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
         val response = pipelineClient.listPipelines(ListPipelinesRequest {})
         response.pipelines?.forEach { pipeline ->

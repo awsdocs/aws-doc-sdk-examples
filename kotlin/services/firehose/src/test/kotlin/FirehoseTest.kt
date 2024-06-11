@@ -32,17 +32,19 @@ class FirehoseTest {
     private var delStream = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        bucketARN = values.bucketARN.toString()
-        roleARN = values.roleARN.toString()
-        newStream = values.newStream.toString() + UUID.randomUUID()
-        textValue = values.textValue.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            bucketARN = values.bucketARN.toString()
+            roleARN = values.roleARN.toString()
+            newStream = values.newStream.toString() + UUID.randomUUID()
+            textValue = values.textValue.toString()
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
@@ -53,53 +55,62 @@ class FirehoseTest {
         textValue = prop.getProperty("textValue")
         existingStream = prop.getProperty("existingStream")
         delStream = prop.getProperty("delStream")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(2)
-    fun createDeliveryStreamTest() = runBlocking {
-        createStream(bucketARN, roleARN, newStream)
-        println("Test 2 passed")
-    }
+    fun createDeliveryStreamTest() =
+        runBlocking {
+            createStream(bucketARN, roleARN, newStream)
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun putRecordsTest() = runBlocking {
-        // Wait for the resource to become available
-        println("Wait 15 mins for resource to become available.")
-        TimeUnit.MINUTES.sleep(15)
-        putSingleRecord(textValue, newStream)
-        println("Test 3 passed")
-    }
+    fun putRecordsTest() =
+        runBlocking {
+            // Wait for the resource to become available
+            println("Wait 15 mins for resource to become available.")
+            TimeUnit.MINUTES.sleep(15)
+            putSingleRecord(textValue, newStream)
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun putBatchRecordsTest() = runBlocking {
-        addStockTradeData(newStream)
-        println("Test 4 passed")
-    }
+    fun putBatchRecordsTest() =
+        runBlocking {
+            addStockTradeData(newStream)
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun listDeliveryStreamsTest() = runBlocking {
-        listStreams()
-        println("Test 5 passed")
-    }
+    fun listDeliveryStreamsTest() =
+        runBlocking {
+            listStreams()
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun deleteStreamTest() = runBlocking {
-        delStream(newStream)
-        println("Test 6 passed")
-    }
+    fun deleteStreamTest() =
+        runBlocking {
+            delStream(newStream)
+            println("Test 6 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/firehose"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

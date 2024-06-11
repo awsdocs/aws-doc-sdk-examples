@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `aws-c
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDatastore](medical_imaging_operations.sh#L24)
-- [DeleteDatastore](medical_imaging_operations.sh#L220)
-- [GetDatastore](medical_imaging_operations.sh#L149)
-- [ListDatastores](medical_imaging_operations.sh#L93)
+- [CreateDatastore](medical_imaging_operations.sh#L17)
+- [DeleteDatastore](medical_imaging_operations.sh#L213)
+- [GetDatastore](medical_imaging_operations.sh#L142)
+- [ListDatastores](medical_imaging_operations.sh#L86)
 
 
 <!--custom.examples.start-->

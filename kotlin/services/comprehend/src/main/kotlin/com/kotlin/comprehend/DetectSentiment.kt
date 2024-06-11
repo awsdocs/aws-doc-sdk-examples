@@ -17,18 +17,21 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
-    val text = "Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle - based companies are Starbucks and Boeing."
+    val text =
+"""
+Amazon.com, Inc. is located in Seattle, WA and was founded July 5th, 1994 by Jeff Bezos, allowing customers to buy everything from books to blenders. Seattle is north of Portland and south of Vancouver, BC.
+Other notable Seattle - based companies are Starbucks and Boeing.
+"""
     detectSentiments(text)
 }
 
 // snippet-start:[comprehend.kotlin.detect_sentiment.main]
 suspend fun detectSentiments(textVal: String) {
-
-    val request = DetectSentimentRequest {
-        text = textVal
-        languageCode = LanguageCode.fromValue("en")
-    }
+    val request =
+        DetectSentimentRequest {
+            text = textVal
+            languageCode = LanguageCode.fromValue("en")
+        }
 
     ComprehendClient { region = "us-east-1" }.use { comClient ->
         val resp = comClient.detectSentiment(request)

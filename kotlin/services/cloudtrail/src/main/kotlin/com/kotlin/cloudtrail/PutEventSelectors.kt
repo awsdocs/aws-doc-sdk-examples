@@ -12,7 +12,6 @@ import kotlin.system.exitProcess
 // snippet-end:[cloudtrail.kotlin._selectors.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -33,10 +32,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cloudtrail.kotlin._selectors.main]
 suspend fun setSelector(trailNameVal: String?) {
-
-    val selector = EventSelector {
-        readWriteType = ReadWriteType.fromValue("All")
-    }
+    val selector =
+        EventSelector {
+            readWriteType = ReadWriteType.fromValue("All")
+        }
 
     CloudTrailClient { region = "us-east-1" }.use { cloudTrail ->
         cloudTrail.putEventSelectors(

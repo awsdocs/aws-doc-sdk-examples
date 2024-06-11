@@ -3,8 +3,9 @@
   "private": true,
   "scripts": {
     "test": "npm run test --workspaces --if-present",
-    "integration-test": "npm run integration-test --workspaces --if-present -- --silent; npm run merge-test-results",
+    "integration-test": "npm run integration-test --workspaces --if-present -- --silent; npm run merge-test-results; npm run log-tests",
     "merge-test-results": "jrm test-results.xml \"**/test_results/**/*.junit.xml\"",
+    "log-tests": "cat test-results.xml",
     "lint": "lint-staged",
     "ci-lint": "eslint"
   },

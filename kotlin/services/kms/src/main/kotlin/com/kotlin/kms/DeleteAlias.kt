@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <aliasName>  
@@ -38,10 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[kms.kotlin_delete_alias.main]
 suspend fun deleteSpecificAlias(aliasNameVal: String?) {
-
-    val request = DeleteAliasRequest {
-        aliasName = aliasNameVal
-    }
+    val request =
+        DeleteAliasRequest {
+            aliasName = aliasNameVal
+        }
 
     KmsClient { region = "us-west-2" }.use { kmsClient ->
         kmsClient.deleteAlias(request)

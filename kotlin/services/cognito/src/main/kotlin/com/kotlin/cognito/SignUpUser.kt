@@ -23,7 +23,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
        Usage:
             <clientId> <secretkey> <userName> <password> <email>
@@ -50,36 +49,48 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[cognito.kotlin.signup.main]
-suspend fun signUp(clientIdVal: String, secretKey: String, userName: String, passwordVal: String, email: String) {
-
-    val attributeType = AttributeType {
-        this.name = "email"
-        this.value = email
-    }
+suspend fun signUp(
+    clientIdVal: String,
+    secretKey: String,
+    userName: String,
+    passwordVal: String,
+    email: String
+) {
+    val attributeType =
+        AttributeType {
+            this.name = "email"
+            this.value = email
+        }
 
     val attrs = mutableListOf<AttributeType>()
     attrs.add(attributeType)
     val secretVal = calculateSecretHash(clientIdVal, secretKey, userName)
 
-    val request = SignUpRequest {
-        userAttributes = attrs
-        username = userName
-        clientId = clientIdVal
-        password = passwordVal
-        secretHash = secretVal
-    }
+    val request =
+        SignUpRequest {
+            userAttributes = attrs
+            username = userName
+            clientId = clientIdVal
+            password = passwordVal
+            secretHash = secretVal
+        }
     CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
         identityProviderClient.signUp(request)
         println("User has been signed up")
     }
 }
 
-fun calculateSecretHash(userPoolClientId: String, userPoolClientSecret: String, userName: String): String {
+fun calculateSecretHash(
+    userPoolClientId: String,
+    userPoolClientSecret: String,
+    userName: String
+): String {
     val macSha256Algorithm = "HmacSHA256"
-    val signingKey = SecretKeySpec(
-        userPoolClientSecret.toByteArray(StandardCharsets.UTF_8),
-        macSha256Algorithm
-    )
+    val signingKey =
+        SecretKeySpec(
+            userPoolClientSecret.toByteArray(StandardCharsets.UTF_8),
+            macSha256Algorithm
+        )
     try {
         val mac = Mac.getInstance(macSha256Algorithm)
         mac.init(signingKey)

@@ -41,7 +41,10 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[s3.kotlin.set_bucket_policy.main]
-suspend fun setPolicy(bucketName: String, polText: String) {
+suspend fun setPolicy(
+    bucketName: String,
+    polText: String
+) {
     val policyText = getBucketPolicyFromFile(polText)
     println("Setting policy:")
     println("----")
@@ -49,10 +52,11 @@ suspend fun setPolicy(bucketName: String, polText: String) {
     println("----")
     println("On Amazon S3 bucket $bucketName")
 
-    val request = PutBucketPolicyRequest {
-        bucket = bucketName
-        policy = policyText
-    }
+    val request =
+        PutBucketPolicyRequest {
+            bucket = bucketName
+            policy = policyText
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.putBucketPolicy(request)
@@ -64,10 +68,11 @@ suspend fun setPolicy(bucketName: String, polText: String) {
 fun getBucketPolicyFromFile(policyFile: String): String {
     val fileText = StringBuilder()
     try {
-        val lines = Files.readAllLines(
-            Paths.get(policyFile),
-            Charset.forName("UTF-8")
-        )
+        val lines =
+            Files.readAllLines(
+                Paths.get(policyFile),
+                Charset.forName("UTF-8")
+            )
         for (line in lines) {
             fileText.append(line)
         }

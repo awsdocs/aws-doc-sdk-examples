@@ -22,7 +22,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <appId>
@@ -42,7 +41,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pinpoint.kotlin.add_endpoint.main]
 suspend fun updateEndpointsViaBatch(applicationIdVal: String?) {
-
     val myNames = mutableListOf<String>()
     myNames.add("Richard")
     myNames.add("Roe")
@@ -50,36 +48,40 @@ suspend fun updateEndpointsViaBatch(applicationIdVal: String?) {
     val myMapRichard = mutableMapOf<String, List<String>>()
     myMapRichard.put("name", myNames)
 
-    val richardRoe = EndpointUser {
-        userId = "example_user_1"
-        userAttributes = myMapRichard
-    }
+    val richardRoe =
+        EndpointUser {
+            userId = "example_user_1"
+            userAttributes = myMapRichard
+        }
 
     // Create an EndpointBatchItem object for Richard Roe.
-    val richardRoesEmailEndpoint = EndpointBatchItem {
-        channelType = ChannelType.Email
-        address = "richard_roe@example.com"
-        id = "example_endpoint_1"
-        attributes = myMapRichard
-        user = richardRoe
-    }
+    val richardRoesEmailEndpoint =
+        EndpointBatchItem {
+            channelType = ChannelType.Email
+            address = "richard_roe@example.com"
+            id = "example_endpoint_1"
+            attributes = myMapRichard
+            user = richardRoe
+        }
 
     val richardList: MutableList<EndpointBatchItem> = ArrayList()
     richardList.add(richardRoesEmailEndpoint)
 
     // Adds multiple endpoint definitions to a single request object.
-    val endpointList = EndpointBatchRequest {
-        item = richardList
-    }
+    val endpointList =
+        EndpointBatchRequest {
+            item = richardList
+        }
 
     //  Updates the endpoints with Amazon Pinpoint.
     PinpointClient { region = "us-west-2" }.use { pinpoint ->
-        val result = pinpoint.updateEndpointsBatch(
-            UpdateEndpointsBatchRequest {
-                applicationId = applicationIdVal
-                endpointBatchRequest = endpointList
-            }
-        )
+        val result =
+            pinpoint.updateEndpointsBatch(
+                UpdateEndpointsBatchRequest {
+                    applicationId = applicationIdVal
+                    endpointBatchRequest = endpointList
+                }
+            )
         println("Update endpoint result ${result.messageBody?.message}")
     }
 }

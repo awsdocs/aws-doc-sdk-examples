@@ -24,7 +24,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <jar> <myClass> <keys> <logUri> <name>
@@ -60,52 +59,58 @@ suspend fun createAppCluster(
     logUriVal: String?,
     nameVal: String?
 ): String? {
+    val jarStepConfig =
+        HadoopJarStepConfig {
+            jar = jarVal
+            mainClass = myClassVal
+        }
 
-    val jarStepConfig = HadoopJarStepConfig {
-        jar = jarVal
-        mainClass = myClassVal
-    }
+    val spark =
+        Application {
+            name = "Spark"
+        }
 
-    val spark = Application {
-        name = "Spark"
-    }
-
-    val hive = Application {
-        name = "Hive"
-    }
-    val zeppelin = Application {
-        name = "Zeppelin"
-    }
+    val hive =
+        Application {
+            name = "Hive"
+        }
+    val zeppelin =
+        Application {
+            name = "Zeppelin"
+        }
 
     val apps = mutableListOf<Application>()
     apps.add(spark)
     apps.add(hive)
     apps.add(zeppelin)
 
-    val enabledebugging = StepConfig {
-        name = "Enable debugging"
-        actionOnFailure = ActionOnFailure.fromValue("TERMINATE_JOB_FLOW")
-        hadoopJarStep = jarStepConfig
-    }
-    val instancesConfig = JobFlowInstancesConfig {
-        ec2SubnetId = "subnet-206a9c58"
-        ec2KeyName = keysVal
-        instanceCount = 3
-        keepJobFlowAliveWhenNoSteps = true
-        masterInstanceType = "m4.large"
-        slaveInstanceType = "m4.large"
-    }
+    val enabledebugging =
+        StepConfig {
+            name = "Enable debugging"
+            actionOnFailure = ActionOnFailure.fromValue("TERMINATE_JOB_FLOW")
+            hadoopJarStep = jarStepConfig
+        }
+    val instancesConfig =
+        JobFlowInstancesConfig {
+            ec2SubnetId = "subnet-206a9c58"
+            ec2KeyName = keysVal
+            instanceCount = 3
+            keepJobFlowAliveWhenNoSteps = true
+            masterInstanceType = "m4.large"
+            slaveInstanceType = "m4.large"
+        }
 
-    val request = RunJobFlowRequest {
-        name = nameVal
-        releaseLabel = "emr-5.20.0"
-        steps = listOf(enabledebugging)
-        applications = apps
-        logUri = logUriVal
-        serviceRole = "EMR_DefaultRole"
-        jobFlowRole = "EMR_EC2_DefaultRole"
-        instances = instancesConfig
-    }
+    val request =
+        RunJobFlowRequest {
+            name = nameVal
+            releaseLabel = "emr-5.20.0"
+            steps = listOf(enabledebugging)
+            applications = apps
+            logUri = logUriVal
+            serviceRole = "EMR_DefaultRole"
+            jobFlowRole = "EMR_EC2_DefaultRole"
+            instances = instancesConfig
+        }
 
     EmrClient { region = "us-west-2" }.use { emrClient ->
         val response: RunJobFlowResponse = emrClient.runJobFlow(request)

@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <username> 
@@ -37,10 +36,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[iam.kotlin.delete_user.main]
 suspend fun deleteIAMUser(userNameVal: String) {
-
-    val request = DeleteUserRequest {
-        userName = userNameVal
-    }
+    val request =
+        DeleteUserRequest {
+            userName = userNameVal
+        }
 
     // To delete a user, ensure that the user's access keys are deleted first.
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->

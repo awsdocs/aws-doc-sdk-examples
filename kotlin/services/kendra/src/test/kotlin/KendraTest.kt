@@ -41,19 +41,20 @@ class KendraTest {
     private var text = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        indexName = values.indexName.toString() + UUID.randomUUID()
-        indexRoleArn = values.indexRoleArn.toString()
-        indexDescription = values.indexDescription.toString()
-        s3BucketName = values.s3BucketName.toString()
-        dataSourceName = values.dataSourceName.toString()
-        dataSourceDescription = values.dataSourceDescription.toString()
-        dataSourceRoleArn = values.dataSourceRoleArn.toString()
-        text = values.text.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            indexName = values.indexName.toString() + UUID.randomUUID()
+            indexRoleArn = values.indexRoleArn.toString()
+            indexDescription = values.indexDescription.toString()
+            s3BucketName = values.s3BucketName.toString()
+            dataSourceName = values.dataSourceName.toString()
+            dataSourceDescription = values.dataSourceDescription.toString()
+            dataSourceRoleArn = values.dataSourceRoleArn.toString()
+            text = values.text.toString()
 
         /*
         try {
@@ -76,66 +77,77 @@ class KendraTest {
         } catch (ex: IOException) {
             ex.printStackTrace()
         }
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun CreateIndex() = runBlocking {
-        indexId = createIndex(indexDescription, indexName, indexRoleArn)
-        assertTrue(!indexId.isEmpty())
-        println("Test 1 passed")
-    }
+    fun createIndex() =
+        runBlocking {
+            indexId = createIndex(indexDescription, indexName, indexRoleArn)
+            assertTrue(!indexId.isEmpty())
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun CreateDataSource() = runBlocking {
-        dataSourceId = createDataSource(s3BucketName, dataSourceName, dataSourceDescription, indexId, dataSourceRoleArn)
-        assertTrue(!dataSourceId.isEmpty())
-        println("Test 2 passed")
-    }
+    fun createDataSource() =
+        runBlocking {
+            dataSourceId = createDataSource(s3BucketName, dataSourceName, dataSourceDescription, indexId, dataSourceRoleArn)
+            assertTrue(!dataSourceId.isEmpty())
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun SyncDataSource() = runBlocking {
-        startDataSource(indexId, dataSourceId)
-        println("Test 3 passed")
-    }
+    fun syncDataSource() =
+        runBlocking {
+            startDataSource(indexId, dataSourceId)
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun ListSyncJobs() = runBlocking {
-        listSyncJobs(indexId, dataSourceId)
-        println("Test 4 passed")
-    }
+    fun listSyncJobs() =
+        runBlocking {
+            listSyncJobs(indexId, dataSourceId)
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun QueryIndex() = runBlocking {
-        querySpecificIndex(indexId, text)
-        println("Test 5 passed")
-    }
+    fun queryIndex() =
+        runBlocking {
+            querySpecificIndex(indexId, text)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun DeleteDataSource() = runBlocking {
-        deleteSpecificDataSource(indexId, dataSourceId)
-        println("Test 6 passed")
-    }
+    fun deleteDataSource() =
+        runBlocking {
+            deleteSpecificDataSource(indexId, dataSourceId)
+            println("Test 6 passed")
+        }
 
     @Test
     @Order(7)
-    fun DeleteIndex() = runBlocking {
-        deleteSpecificIndex(indexId)
-        println("Test 7 passed")
-    }
+    fun deleteIndex() =
+        runBlocking {
+            deleteSpecificIndex(indexId)
+            println("Test 7 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/kendra"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

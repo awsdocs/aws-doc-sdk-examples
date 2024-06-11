@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[cloudwatch.kotlin.describe_alarms.main]
 suspend fun desCWAlarms() {
-
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.describeAlarms(DescribeAlarmsRequest {})
         response.metricAlarms?.forEach { alarm ->

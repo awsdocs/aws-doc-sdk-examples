@@ -14,25 +14,27 @@ import org.junit.jupiter.api.TestMethodOrder
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class PollyKotlinTest {
-
     @Test
     @Order(1)
-    fun pollyDemo() = runBlocking {
-        talkPolly()
-        println("Test 1 passed")
-    }
+    fun pollyDemo() =
+        runBlocking {
+            talkPolly()
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun describeVoicesSample() = runBlocking {
-        describeVoice()
-        println("Test 2 passed")
-    }
+    fun describeVoicesSample() =
+        runBlocking {
+            describeVoice()
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun listLexiconsTest() = runBlocking {
-        listLexicons()
-        println("Test 3 passed")
-    }
+    fun listLexiconsTest() =
+        runBlocking {
+            listLexicons()
+            println("Test 3 passed")
+        }
 }

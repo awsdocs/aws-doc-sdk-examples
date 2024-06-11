@@ -55,11 +55,12 @@ suspend fun copyBucketObject(
         println("URL could not be encoded: " + e.message)
     }
 
-    val request = CopyObjectRequest {
-        copySource = encodedUrl
-        bucket = toBucket
-        key = objectKey
-    }
+    val request =
+        CopyObjectRequest {
+            copySource = encodedUrl
+            bucket = toBucket
+            key = objectKey
+        }
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.copyObject(request)
     }

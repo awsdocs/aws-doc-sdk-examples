@@ -72,27 +72,29 @@ class EC2Test {
 
     @BeforeAll
     @Throws(IOException::class)
-    fun setUp() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val random = Random()
-        val randomNum: Int = random.nextInt(10000 - 1 + 1) + 1
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        ami = values.ami.toString()
-        instanceName = values.instanceName.toString()
-        keyName = values.keyNameSc.toString()
-        groupName = values.groupName.toString() + randomNum
-        groupDesc = values.groupDesc.toString()
-        vpcId = values.vpcId.toString()
-        keyNameSc = values.keyNameSc.toString() + randomNum
-        fileNameSc = values.fileNameSc.toString()
-        groupDescSc = values.groupDescSc.toString()
-        groupNameSc = values.groupNameSc.toString() + randomNum
-        vpcIdSc = values.vpcIdSc.toString()
-        myIpAddressSc = values.myIpAddressSc.toString()
+    fun setUp() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val random = Random()
+            val randomNum: Int = random.nextInt(10000 - 1 + 1) + 1
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            ami = values.ami.toString()
+            instanceName = values.instanceName.toString()
+            keyName = values.keyNameSc.toString()
+            groupName = values.groupName.toString() + randomNum
+            groupDesc = values.groupDesc.toString()
+            vpcId = values.vpcId.toString()
+            keyNameSc = values.keyNameSc.toString() + randomNum
+            fileNameSc = values.fileNameSc.toString()
+            groupDescSc = values.groupDescSc.toString()
+            groupNameSc = values.groupNameSc.toString() + randomNum
+            vpcIdSc = values.vpcIdSc.toString()
+            myIpAddressSc = values.myIpAddressSc.toString()
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+
         /*
         try {
             EC2Test::class.java.classLoader.getResourceAsStream("config.properties").use { input ->
@@ -121,232 +123,251 @@ class EC2Test {
         } catch (ex: IOException) {
             ex.printStackTrace()
         }
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun createInstanceTest() = runBlocking {
-        instanceId = createEC2Instance(instanceName, ami).toString()
-        assertTrue(instanceId.isNotEmpty())
-        println("Test 1 passed")
-    }
+    fun createInstanceTest() =
+        runBlocking {
+            instanceId = createEC2Instance(instanceName, ami).toString()
+            assertTrue(instanceId.isNotEmpty())
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun createKeyPairTest() = runBlocking {
-        createEC2KeyPair(keyName)
-        println("Test 2 passed")
-    }
+    fun createKeyPairTest() =
+        runBlocking {
+            createEC2KeyPair(keyName)
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun describeKeyPairTest() = runBlocking {
-        describeEC2Keys()
-        println("Test 3 passed")
-    }
+    fun describeKeyPairTest() =
+        runBlocking {
+            describeEC2Keys()
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun deleteKeyPairTest() = runBlocking {
-        deleteKeys(keyName)
-        println("Test 4 passed")
-    }
+    fun deleteKeyPairTest() =
+        runBlocking {
+            deleteKeys(keyName)
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun createSecurityGroupTest() = runBlocking {
-        groupId = createEC2SecurityGroup(groupName, groupDesc, vpcId).toString()
-        assertTrue(groupId.isNotEmpty())
-        println("Test 5 passed")
-    }
+    fun createSecurityGroupTest() =
+        runBlocking {
+            groupId = createEC2SecurityGroup(groupName, groupDesc, vpcId).toString()
+            assertTrue(groupId.isNotEmpty())
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun describeSecurityGroupTest() = runBlocking {
-        describeEC2SecurityGroups(groupId)
-        println("Test 6 passed")
-    }
+    fun describeSecurityGroupTest() =
+        runBlocking {
+            describeEC2SecurityGroups(groupId)
+            println("Test 6 passed")
+        }
 
     @Test
     @Order(7)
-    fun deleteSecurityGroupTest() = runBlocking {
-        deleteEC2SecGroup(groupId)
-        println("Test 7 passed")
-    }
+    fun deleteSecurityGroupTest() =
+        runBlocking {
+            deleteEC2SecGroup(groupId)
+            println("Test 7 passed")
+        }
 
     @Test
     @Order(8)
-    fun describeAccountTest() = runBlocking {
-        describeEC2Account()
-        println("Test 8 passed")
-    }
+    fun describeAccountTest() =
+        runBlocking {
+            describeEC2Account()
+            println("Test 8 passed")
+        }
 
     @Test
     @Order(9)
-    fun describeInstancesTest() = runBlocking {
-        describeEC2Instances()
-        println("Test 9 passed")
-    }
+    fun describeInstancesTest() =
+        runBlocking {
+            describeEC2Instances()
+            println("Test 9 passed")
+        }
 
     @Test
     @Order(10)
-    fun describeRegionsAndZonesTest() = runBlocking {
-        describeEC2RegionsAndZones()
-        println("Test 10 passed")
-    }
+    fun describeRegionsAndZonesTest() =
+        runBlocking {
+            describeEC2RegionsAndZones()
+            println("Test 10 passed")
+        }
 
     @Test
     @Order(11)
-    fun describeVPCsTest() = runBlocking {
-        describeEC2Vpcs(vpcId)
-        println("Test 11 passed")
-    }
+    fun describeVPCsTest() =
+        runBlocking {
+            describeEC2Vpcs(vpcId)
+            println("Test 11 passed")
+        }
 
     @Test
     @Order(12)
-    fun findRunningInstancesTest() = runBlocking {
-        findRunningEC2Instances()
-        println("Test 12 passed")
-    }
+    fun findRunningInstancesTest() =
+        runBlocking {
+            findRunningEC2Instances()
+            println("Test 12 passed")
+        }
 
     @Test
     @Order(13)
-    fun describeAddressesTest() = runBlocking {
-        describeEC2Address()
-        println("Test 13 passed")
-    }
+    fun describeAddressesTest() =
+        runBlocking {
+            describeEC2Address()
+            println("Test 13 passed")
+        }
 
     @Test
     @Order(14)
-    fun terminateInstanceTEst() = runBlocking {
-        terminateEC2(instanceId)
-        println("Test 14 passed")
-    }
+    fun terminateInstanceTest() =
+        runBlocking {
+            terminateEC2(instanceId)
+            println("Test 14 passed")
+        }
 
     @Test
     @Order(15)
-    fun TestEC2Scenario() = runBlocking {
-        var newInstanceId: String
-        println(DASHES)
-        println("1. Create an RSA key pair and save the private key material as a .pem file.")
-        createKeyPairSc(keyNameSc, fileNameSc)
-        println(DASHES)
+    fun fullEC2ScenarioTest() =
+        runBlocking {
+            var newInstanceId: String
+            println(DASHES)
+            println("1. Create an RSA key pair and save the private key material as a .pem file.")
+            createKeyPairSc(keyNameSc, fileNameSc)
+            println(DASHES)
 
-        println(DASHES)
-        println("2. List key pairs.")
-        describeEC2KeysSc()
-        println(DASHES)
+            println(DASHES)
+            println("2. List key pairs.")
+            describeEC2KeysSc()
+            println(DASHES)
 
-        println(DASHES)
-        println("3. Create a security group.")
-        val groupId = createEC2SecurityGroupSc(groupNameSc, groupDescSc, vpcIdSc, myIpAddressSc)
-        groupId?.let { assertTrue(it.isNotEmpty()) }
-        println(DASHES)
+            println(DASHES)
+            println("3. Create a security group.")
+            val groupId = createEC2SecurityGroupSc(groupNameSc, groupDescSc, vpcIdSc, myIpAddressSc)
+            groupId?.let { assertTrue(it.isNotEmpty()) }
+            println(DASHES)
 
-        println(DASHES)
-        println("4. Display security group info for the newly created security group.")
-        describeSecurityGroupsSc(groupId.toString())
-        println(DASHES)
+            println(DASHES)
+            println("4. Display security group info for the newly created security group.")
+            describeSecurityGroupsSc(groupId.toString())
+            println(DASHES)
 
-        println(DASHES)
-        println("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.")
-        val instanceId = getParaValuesSc()
-        instanceId?.let { assertTrue(it.isNotEmpty()) }
-        println("The instance ID is $instanceId")
-        println(DASHES)
+            println(DASHES)
+            println("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.")
+            val instanceId = getParaValuesSc()
+            instanceId?.let { assertTrue(it.isNotEmpty()) }
+            println("The instance ID is $instanceId")
+            println(DASHES)
 
-        println(DASHES)
-        println("6. Get more information about an amzn2 image and return the AMI value.")
-        val amiValue = instanceId?.let { describeImageSc(it) }
-        amiValue?.let { assertTrue(it.isNotEmpty()) }
-        println("The AMI value is $amiValue.")
-        println(DASHES)
+            println(DASHES)
+            println("6. Get more information about an amzn2 image and return the AMI value.")
+            val amiValue = instanceId?.let { describeImageSc(it) }
+            amiValue?.let { assertTrue(it.isNotEmpty()) }
+            println("The AMI value is $amiValue.")
+            println(DASHES)
 
-        println(DASHES)
-        println("7. Get a list of instance types.")
-        var instanceType = getInstanceTypesSc()
-        assertTrue(instanceType.isNotEmpty())
-        println(DASHES)
+            println(DASHES)
+            println("7. Get a list of instance types.")
+            var instanceType = getInstanceTypesSc()
+            assertTrue(instanceType.isNotEmpty())
+            println(DASHES)
 
-        println(DASHES)
-        println("8. Create an instance.")
-        instanceType = "m5.large"
-        println("Wait 1 min before creating the instance using $instanceType")
-        //   TimeUnit.MINUTES.sleep(1)
-        newInstanceId = runInstanceSc(instanceType, keyNameSc, groupNameSc, amiValue.toString())
-        assertTrue(newInstanceId.isNotEmpty())
-        println(DASHES)
+            println(DASHES)
+            println("8. Create an instance.")
+            instanceType = "m5.large"
+            println("Wait 1 min before creating the instance using $instanceType")
+            //   TimeUnit.MINUTES.sleep(1)
+            newInstanceId = runInstanceSc(instanceType, keyNameSc, groupNameSc, amiValue.toString())
+            assertTrue(newInstanceId.isNotEmpty())
+            println(DASHES)
 
-        println(DASHES)
-        println("9. Display information about the running instance.")
-        var ipAddress = describeEC2InstancesSc(newInstanceId)
-        assertTrue(ipAddress.isNotEmpty())
-        println("You can SSH to the instance using this command:")
-        println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
-        println(DASHES)
+            println(DASHES)
+            println("9. Display information about the running instance.")
+            var ipAddress = describeEC2InstancesSc(newInstanceId)
+            assertTrue(ipAddress.isNotEmpty())
+            println("You can SSH to the instance using this command:")
+            println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
+            println(DASHES)
 
-        println(DASHES)
-        println("10.  Stop the instance.")
-        stopInstanceSc(newInstanceId)
-        println(DASHES)
+            println(DASHES)
+            println("10.  Stop the instance.")
+            stopInstanceSc(newInstanceId)
+            println(DASHES)
 
-        println(DASHES)
-        println("11.  Start the instance.")
-        startInstanceSc(newInstanceId)
-        ipAddress = describeEC2InstancesSc(newInstanceId)
-        ipAddress.let { assertTrue(it.isNotEmpty()) }
-        println("You can SSH to the instance using this command:")
-        println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
-        println(DASHES)
+            println(DASHES)
+            println("11.  Start the instance.")
+            startInstanceSc(newInstanceId)
+            ipAddress = describeEC2InstancesSc(newInstanceId)
+            ipAddress.let { assertTrue(it.isNotEmpty()) }
+            println("You can SSH to the instance using this command:")
+            println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
+            println(DASHES)
 
-        println(DASHES)
-        println("12. Allocate an Elastic IP and associate it with the instance.")
-        val allocationId = allocateAddressSc()
-        allocationId?.let { assertTrue(it.isNotEmpty()) }
-        val associationId = associateAddressSc(newInstanceId, allocationId)
-        associationId?.let { assertTrue(it.isNotEmpty()) }
-        println("The associate Id value is $associationId")
-        println(DASHES)
+            println(DASHES)
+            println("12. Allocate an Elastic IP and associate it with the instance.")
+            val allocationId = allocateAddressSc()
+            allocationId?.let { assertTrue(it.isNotEmpty()) }
+            val associationId = associateAddressSc(newInstanceId, allocationId)
+            associationId?.let { assertTrue(it.isNotEmpty()) }
+            println("The associate Id value is $associationId")
+            println(DASHES)
 
-        println(DASHES)
-        println("13. Describe the instance again.")
-        ipAddress = describeEC2InstancesSc(newInstanceId)
-        ipAddress.let { assertTrue(it.isNotEmpty()) }
-        println("You can SSH to the instance using this command:")
-        println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
-        println(DASHES)
+            println(DASHES)
+            println("13. Describe the instance again.")
+            ipAddress = describeEC2InstancesSc(newInstanceId)
+            ipAddress.let { assertTrue(it.isNotEmpty()) }
+            println("You can SSH to the instance using this command:")
+            println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress)
+            println(DASHES)
 
-        println(DASHES)
-        println("14. Disassociate and release the Elastic IP address.")
-        disassociateAddressSc(associationId)
-        releaseEC2AddressSc(allocationId)
-        println(DASHES)
+            println(DASHES)
+            println("14. Disassociate and release the Elastic IP address.")
+            disassociateAddressSc(associationId)
+            releaseEC2AddressSc(allocationId)
+            println(DASHES)
 
-        println(DASHES)
-        println("15. Terminate the instance and use a waiter.")
-        terminateEC2Sc(newInstanceId)
-        println(DASHES)
+            println(DASHES)
+            println("15. Terminate the instance and use a waiter.")
+            terminateEC2Sc(newInstanceId)
+            println(DASHES)
 
-        println(DASHES)
-        println("16. Delete the security group.")
-        if (groupId != null) {
-            deleteEC2SecGroupSc(groupId)
+            println(DASHES)
+            println("16. Delete the security group.")
+            if (groupId != null) {
+                deleteEC2SecGroupSc(groupId)
+            }
+            println(DASHES)
+
+            println(DASHES)
+            println("17. Delete the key pair.")
+            deleteKeysSc(keyNameSc)
+            println(DASHES)
         }
-        println(DASHES)
-
-        println(DASHES)
-        println("17. Delete the key pair.")
-        deleteKeysSc(keyNameSc)
-        println(DASHES)
-    }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/ec2"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

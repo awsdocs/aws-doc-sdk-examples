@@ -19,7 +19,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: <appName> 
 
@@ -39,17 +38,18 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pinpoint.kotlin.createapp.main]
 suspend fun createApplication(applicationName: String?): String? {
-
-    val createApplicationRequestOb = CreateApplicationRequest {
-        name = applicationName
-    }
+    val createApplicationRequestOb =
+        CreateApplicationRequest {
+            name = applicationName
+        }
 
     PinpointClient { region = "us-west-2" }.use { pinpoint ->
-        val result = pinpoint.createApp(
-            CreateAppRequest {
-                createApplicationRequest = createApplicationRequestOb
-            }
-        )
+        val result =
+            pinpoint.createApp(
+                CreateAppRequest {
+                    createApplicationRequest = createApplicationRequestOb
+                }
+            )
         return result.applicationResponse?.id
     }
 }

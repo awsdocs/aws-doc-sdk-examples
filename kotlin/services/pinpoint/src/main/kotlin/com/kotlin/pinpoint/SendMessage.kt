@@ -24,7 +24,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: <message> <appId> <originationNumber> <destinationNumber>
 
@@ -55,7 +54,6 @@ suspend fun sendSMSMessage(
     originationNumberVal: String,
     destinationNumberVal: String
 ) {
-
     // The type of SMS message that you want to send. If you plan to send
     // time-sensitive content, specify TRANSACTIONAL. If you plan to send
     // marketing-related content, specify PROMOTIONAL.
@@ -70,27 +68,31 @@ suspend fun sendSMSMessage(
     val senderIdVal = "MySenderID"
 
     val addressMap = mutableMapOf<String, AddressConfiguration>()
-    val addConfig = AddressConfiguration {
-        channelType = ChannelType.Sms
-    }
+    val addConfig =
+        AddressConfiguration {
+            channelType = ChannelType.Sms
+        }
     addressMap[destinationNumberVal] = addConfig
 
-    val smsMessageOb = SmsMessage {
-        body = message
-        messageType = MessageType.fromValue(messageTypeVal)
-        originationNumber = originationNumberVal
-        senderId = senderIdVal
-        keyword = registeredKeyword
-    }
+    val smsMessageOb =
+        SmsMessage {
+            body = message
+            messageType = MessageType.fromValue(messageTypeVal)
+            originationNumber = originationNumberVal
+            senderId = senderIdVal
+            keyword = registeredKeyword
+        }
 
-    val directOb = DirectMessageConfiguration {
-        smsMessage = smsMessageOb
-    }
+    val directOb =
+        DirectMessageConfiguration {
+            smsMessage = smsMessageOb
+        }
 
-    val msgReq = MessageRequest {
-        addresses = addressMap
-        messageConfiguration = directOb
-    }
+    val msgReq =
+        MessageRequest {
+            addresses = addressMap
+            messageConfiguration = directOb
+        }
 
     PinpointClient { region = "us-west-2" }.use { pinpoint ->
         pinpoint.sendMessages(

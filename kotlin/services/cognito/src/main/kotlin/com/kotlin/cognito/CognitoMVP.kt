@@ -22,6 +22,7 @@ import kotlin.system.exitProcess
 // snippet-end:[cognito.kotlin.mvp.import]
 
 // snippet-start:[cognito.kotlin.mvp.main]
+
 /**
  Before running this Kotlin code example, set up your development environment, including your credentials.
 
@@ -108,17 +109,23 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[cognito.kotlin.initiateauth.main]
-suspend fun checkAuthMethod(clientIdVal: String, userNameVal: String, passwordVal: String, userPoolIdVal: String): AdminInitiateAuthResponse {
+suspend fun checkAuthMethod(
+    clientIdVal: String,
+    userNameVal: String,
+    passwordVal: String,
+    userPoolIdVal: String
+): AdminInitiateAuthResponse {
     val authParas = mutableMapOf<String, String>()
     authParas["USERNAME"] = userNameVal
     authParas["PASSWORD"] = passwordVal
 
-    val authRequest = AdminInitiateAuthRequest {
-        clientId = clientIdVal
-        userPoolId = userPoolIdVal
-        authParameters = authParas
-        authFlow = AuthFlowType.AdminUserPasswordAuth
-    }
+    val authRequest =
+        AdminInitiateAuthRequest {
+            clientId = clientIdVal
+            userPoolId = userPoolIdVal
+            authParameters = authParas
+            authFlow = AuthFlowType.AdminUserPasswordAuth
+        }
 
     CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
         val response = identityProviderClient.adminInitiateAuth(authRequest)
@@ -129,11 +136,15 @@ suspend fun checkAuthMethod(clientIdVal: String, userNameVal: String, passwordVa
 // snippet-end:[cognito.kotlin.initiateauth.main]
 
 // snippet-start:[cognito.kotlin.confirm.resend.mvp.main]
-suspend fun resendConfirmationCode(clientIdVal: String?, userNameVal: String?) {
-    val codeRequest = ResendConfirmationCodeRequest {
-        clientId = clientIdVal
-        username = userNameVal
-    }
+suspend fun resendConfirmationCode(
+    clientIdVal: String?,
+    userNameVal: String?
+) {
+    val codeRequest =
+        ResendConfirmationCodeRequest {
+            clientId = clientIdVal
+            username = userNameVal
+        }
 
     CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
         val response = identityProviderClient.resendConfirmationCode(codeRequest)
@@ -144,18 +155,24 @@ suspend fun resendConfirmationCode(clientIdVal: String?, userNameVal: String?) {
 
 // snippet-start:[cognito.kotlin.verify.main]
 // Respond to an authentication challenge.
-suspend fun adminRespondToAuthChallenge(userName: String, clientIdVal: String?, mfaCode: String, sessionVal: String?) {
+suspend fun adminRespondToAuthChallenge(
+    userName: String,
+    clientIdVal: String?,
+    mfaCode: String,
+    sessionVal: String?
+) {
     println("SOFTWARE_TOKEN_MFA challenge is generated")
     val challengeResponsesOb = mutableMapOf<String, String>()
     challengeResponsesOb["USERNAME"] = userName
     challengeResponsesOb["SOFTWARE_TOKEN_MFA_CODE"] = mfaCode
 
-    val adminRespondToAuthChallengeRequest = AdminRespondToAuthChallengeRequest {
-        challengeName = ChallengeNameType.SoftwareTokenMfa
-        clientId = clientIdVal
-        challengeResponses = challengeResponsesOb
-        session = sessionVal
-    }
+    val adminRespondToAuthChallengeRequest =
+        AdminRespondToAuthChallengeRequest {
+            challengeName = ChallengeNameType.SoftwareTokenMfa
+            clientId = clientIdVal
+            challengeResponses = challengeResponsesOb
+            session = sessionVal
+        }
 
     CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
         val respondToAuthChallengeResult = identityProviderClient.adminRespondToAuthChallenge(adminRespondToAuthChallengeRequest)
@@ -166,11 +183,15 @@ suspend fun adminRespondToAuthChallenge(userName: String, clientIdVal: String?, 
 
 // snippet-start:[cognito.kotlin.token.verify.main]
 // Verify the TOTP and register for MFA.
-suspend fun verifyTOTP(sessionVal: String?, codeVal: String?) {
-    val tokenRequest = VerifySoftwareTokenRequest {
-        userCode = codeVal
-        session = sessionVal
-    }
+suspend fun verifyTOTP(
+    sessionVal: String?,
+    codeVal: String?
+) {
+    val tokenRequest =
+        VerifySoftwareTokenRequest {
+            userCode = codeVal
+            session = sessionVal
+        }
 
     CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
         val verifyResponse = identityProviderClient.verifySoftwareToken(tokenRequest)
@@ -181,9 +202,10 @@ suspend fun verifyTOTP(sessionVal: String?, codeVal: String?) {
 
 // snippet-start:[cognito.kotlin.token.main]
 suspend fun getSecretForAppMFA(sessionVal: String?): String? {
-    val softwareTokenRequest = AssociateSoftwareTokenRequest {
-        session = sessionVal
-    }
+    val softwareTokenRequest =
+        AssociateSoftwareTokenRequest {
+            session = sessionVal
+        }
 
     CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
         val tokenResponse = identityProviderClient.associateSoftwareToken(softwareTokenRequest)
@@ -196,12 +218,17 @@ suspend fun getSecretForAppMFA(sessionVal: String?): String? {
 // snippet-end:[cognito.kotlin.token.main]
 
 // snippet-start:[cognito.kotlin.confirm.signup.mvp.main]
-suspend fun confirmSignUp(clientIdVal: String?, codeVal: String?, userNameVal: String?) {
-    val signUpRequest = ConfirmSignUpRequest {
-        clientId = clientIdVal
-        confirmationCode = codeVal
-        username = userNameVal
-    }
+suspend fun confirmSignUp(
+    clientIdVal: String?,
+    codeVal: String?,
+    userNameVal: String?
+) {
+    val signUpRequest =
+        ConfirmSignUpRequest {
+            clientId = clientIdVal
+            confirmationCode = codeVal
+            username = userNameVal
+        }
 
     CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
         identityProviderClient.confirmSignUp(signUpRequest)
@@ -211,11 +238,15 @@ suspend fun confirmSignUp(clientIdVal: String?, codeVal: String?, userNameVal: S
 // snippet-end:[cognito.kotlin.confirm.signup.mvp.main]
 
 // snippet-start:[cognito.kotlin.confirm.getuser.mvp.main]
-suspend fun getAdminUser(userNameVal: String?, poolIdVal: String?) {
-    val userRequest = AdminGetUserRequest {
-        username = userNameVal
-        userPoolId = poolIdVal
-    }
+suspend fun getAdminUser(
+    userNameVal: String?,
+    poolIdVal: String?
+) {
+    val userRequest =
+        AdminGetUserRequest {
+            username = userNameVal
+            userPoolId = poolIdVal
+        }
 
     CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
         val response = identityProviderClient.adminGetUser(userRequest)
@@ -225,20 +256,27 @@ suspend fun getAdminUser(userNameVal: String?, poolIdVal: String?) {
 // snippet-end:[cognito.kotlin.confirm.getuser.mvp.main]
 
 // snippet-start:[cognito.kotlin.signup.mvp.main]
-suspend fun signUp(clientIdVal: String?, userNameVal: String?, passwordVal: String?, emailVal: String?) {
-    val userAttrs = AttributeType {
-        name = "email"
-        value = emailVal
-    }
+suspend fun signUp(
+    clientIdVal: String?,
+    userNameVal: String?,
+    passwordVal: String?,
+    emailVal: String?
+) {
+    val userAttrs =
+        AttributeType {
+            name = "email"
+            value = emailVal
+        }
 
     val userAttrsList = mutableListOf<AttributeType>()
     userAttrsList.add(userAttrs)
-    val signUpRequest = SignUpRequest {
-        userAttributes = userAttrsList
-        username = userNameVal
-        clientId = clientIdVal
-        password = passwordVal
-    }
+    val signUpRequest =
+        SignUpRequest {
+            userAttributes = userAttrsList
+            username = userNameVal
+            clientId = clientIdVal
+            password = passwordVal
+        }
 
     CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
         identityProviderClient.signUp(signUpRequest)

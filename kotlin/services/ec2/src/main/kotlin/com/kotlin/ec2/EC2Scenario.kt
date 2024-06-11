@@ -36,6 +36,7 @@ import java.io.File
 import kotlin.system.exitProcess
 
 // snippet-start:[ec2.kotlin.scenario.main]
+
 /**
  Before running this Kotlin code example, set up your development environment,
  including your credentials.
@@ -65,6 +66,7 @@ import kotlin.system.exitProcess
  */
 
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
+
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
@@ -220,9 +222,10 @@ suspend fun main(args: Array<String>) {
 }
 
 suspend fun deleteKeysSc(keyPair: String) {
-    val request = DeleteKeyPairRequest {
-        keyName = keyPair
-    }
+    val request =
+        DeleteKeyPairRequest {
+            keyName = keyPair
+        }
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         ec2.deleteKeyPair(request)
         println("Successfully deleted key pair named $keyPair")
@@ -230,9 +233,10 @@ suspend fun deleteKeysSc(keyPair: String) {
 }
 
 suspend fun deleteEC2SecGroupSc(groupIdVal: String) {
-    val request = DeleteSecurityGroupRequest {
-        groupId = groupIdVal
-    }
+    val request =
+        DeleteSecurityGroupRequest {
+            groupId = groupIdVal
+        }
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         ec2.deleteSecurityGroup(request)
         println("Successfully deleted security group with Id $groupIdVal")
@@ -240,13 +244,15 @@ suspend fun deleteEC2SecGroupSc(groupIdVal: String) {
 }
 
 suspend fun terminateEC2Sc(instanceIdVal: String) {
-    val ti = TerminateInstancesRequest {
-        instanceIds = listOf(instanceIdVal)
-    }
+    val ti =
+        TerminateInstancesRequest {
+            instanceIds = listOf(instanceIdVal)
+        }
     println("Wait for the instance to terminate. This will take a few minutes.")
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         ec2.terminateInstances(ti)
-        ec2.waitUntilInstanceTerminated { // suspend call
+        ec2.waitUntilInstanceTerminated {
+            // suspend call
             instanceIds = listOf(instanceIdVal)
         }
         println("$instanceIdVal is terminated!")
@@ -255,9 +261,10 @@ suspend fun terminateEC2Sc(instanceIdVal: String) {
 
 // snippet-start:[ec2.kotlin.scenario.release.address.main]
 suspend fun releaseEC2AddressSc(allocId: String?) {
-    val request = ReleaseAddressRequest {
-        allocationId = allocId
-    }
+    val request =
+        ReleaseAddressRequest {
+            allocationId = allocId
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         ec2.releaseAddress(request)
@@ -268,9 +275,10 @@ suspend fun releaseEC2AddressSc(allocId: String?) {
 
 // snippet-start:[ec2.kotlin.scenario.disassociate_address.main]
 suspend fun disassociateAddressSc(associationIdVal: String?) {
-    val addressRequest = DisassociateAddressRequest {
-        associationId = associationIdVal
-    }
+    val addressRequest =
+        DisassociateAddressRequest {
+            associationId = associationIdVal
+        }
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         ec2.disassociateAddress(addressRequest)
         println("You successfully disassociated the address!")
@@ -279,11 +287,15 @@ suspend fun disassociateAddressSc(associationIdVal: String?) {
 // snippet-end:[ec2.kotlin.scenario.disassociate_address.main]
 
 // snippet-start:[ec2.kotlin.associate_address.main]
-suspend fun associateAddressSc(instanceIdVal: String?, allocationIdVal: String?): String? {
-    val associateRequest = AssociateAddressRequest {
-        instanceId = instanceIdVal
-        allocationId = allocationIdVal
-    }
+suspend fun associateAddressSc(
+    instanceIdVal: String?,
+    allocationIdVal: String?
+): String? {
+    val associateRequest =
+        AssociateAddressRequest {
+            instanceId = instanceIdVal
+            allocationId = allocationIdVal
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val associateResponse = ec2.associateAddress(associateRequest)
@@ -293,9 +305,10 @@ suspend fun associateAddressSc(instanceIdVal: String?, allocationIdVal: String?)
 // snippet-end:[ec2.kotlin.associate_address.main]
 
 suspend fun allocateAddressSc(): String? {
-    val allocateRequest = AllocateAddressRequest {
-        domain = DomainType.Vpc
-    }
+    val allocateRequest =
+        AllocateAddressRequest {
+            domain = DomainType.Vpc
+        }
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val allocateResponse = ec2.allocateAddress(allocateRequest)
         return allocateResponse.allocationId
@@ -304,14 +317,16 @@ suspend fun allocateAddressSc(): String? {
 
 // snippet-start:[ec2.kotlin.scenario.start_instance.main]
 suspend fun startInstanceSc(instanceId: String) {
-    val request = StartInstancesRequest {
-        instanceIds = listOf(instanceId)
-    }
+    val request =
+        StartInstancesRequest {
+            instanceIds = listOf(instanceId)
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         ec2.startInstances(request)
         println("Waiting until instance $instanceId starts. This will take a few minutes.")
-        ec2.waitUntilInstanceRunning { // suspend call
+        ec2.waitUntilInstanceRunning {
+            // suspend call
             instanceIds = listOf(instanceId)
         }
         println("Successfully started instance $instanceId")
@@ -321,14 +336,16 @@ suspend fun startInstanceSc(instanceId: String) {
 
 // snippet-start:[ec2.kotlin.scenario.stop_instance.main]
 suspend fun stopInstanceSc(instanceId: String) {
-    val request = StopInstancesRequest {
-        instanceIds = listOf(instanceId)
-    }
+    val request =
+        StopInstancesRequest {
+            instanceIds = listOf(instanceId)
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         ec2.stopInstances(request)
         println("Waiting until instance $instanceId stops. This will take a few minutes.")
-        ec2.waitUntilInstanceStopped { // suspend call
+        ec2.waitUntilInstanceStopped {
+            // suspend call
             instanceIds = listOf(instanceId)
         }
         println("Successfully stopped instance $instanceId")
@@ -339,20 +356,34 @@ suspend fun stopInstanceSc(instanceId: String) {
 suspend fun describeEC2InstancesSc(newInstanceId: String?): String {
     var pubAddress = ""
     var isRunning = false
-    val request = DescribeInstancesRequest {
-        instanceIds = listOf(newInstanceId.toString())
-    }
+    val request =
+        DescribeInstancesRequest {
+            instanceIds = listOf(newInstanceId.toString())
+        }
 
     while (!isRunning) {
         Ec2Client { region = "us-west-2" }.use { ec2 ->
             val response = ec2.describeInstances(request)
-            val state = response.reservations?.get(0)?.instances?.get(0)?.state?.name?. value
+            val state =
+                response.reservations
+                    ?.get(0)
+                    ?.instances
+                    ?.get(0)
+                    ?.state
+                    ?.name
+                    ?. value
             if (state != null) {
                 if (state.compareTo("running") == 0) {
                     println("Image id is ${response.reservations!!.get(0).instances?.get(0)?.imageId}")
                     println("Instance type is ${response.reservations!!.get(0).instances?.get(0)?.instanceType}")
                     println("Instance state is ${response.reservations!!.get(0).instances?.get(0)?.state}")
-                    pubAddress = response.reservations!!.get(0).instances?.get(0)?.publicIpAddress.toString()
+                    pubAddress =
+                        response.reservations!!
+                            .get(0)
+                            .instances
+                            ?.get(0)
+                            ?.publicIpAddress
+                            .toString()
                     println("Instance address is $pubAddress")
                     isRunning = true
                 }
@@ -362,15 +393,21 @@ suspend fun describeEC2InstancesSc(newInstanceId: String?): String {
     return pubAddress
 }
 
-suspend fun runInstanceSc(instanceTypeVal: String, keyNameVal: String, groupNameVal: String, amiIdVal: String): String {
-    val runRequest = RunInstancesRequest {
-        instanceType = InstanceType.fromValue(instanceTypeVal)
-        keyName = keyNameVal
-        securityGroups = listOf(groupNameVal)
-        maxCount = 1
-        minCount = 1
-        imageId = amiIdVal
-    }
+suspend fun runInstanceSc(
+    instanceTypeVal: String,
+    keyNameVal: String,
+    groupNameVal: String,
+    amiIdVal: String
+): String {
+    val runRequest =
+        RunInstancesRequest {
+            instanceType = InstanceType.fromValue(instanceTypeVal)
+            keyName = keyNameVal
+            securityGroups = listOf(groupNameVal)
+            maxCount = 1
+            minCount = 1
+            imageId = amiIdVal
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.runInstances(runRequest)
@@ -385,16 +422,18 @@ suspend fun runInstanceSc(instanceTypeVal: String, keyNameVal: String, groupName
 suspend fun getInstanceTypesSc(): String {
     var instanceType = ""
     val filterObs = ArrayList<Filter>()
-    val filter = Filter {
-        name = "processor-info.supported-architecture"
-        values = listOf("arm64")
-    }
+    val filter =
+        Filter {
+            name = "processor-info.supported-architecture"
+            values = listOf("arm64")
+        }
 
     filterObs.add(filter)
-    val typesRequest = DescribeInstanceTypesRequest {
-        filters = filterObs
-        maxResults = 10
-    }
+    val typesRequest =
+        DescribeInstanceTypesRequest {
+            filters = filterObs
+            maxResults = 10
+        }
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeInstanceTypes(typesRequest)
         response.instanceTypes?.forEach { type ->
@@ -409,9 +448,10 @@ suspend fun getInstanceTypesSc(): String {
 
 // Display the Description field that corresponds to the instance Id value.
 suspend fun describeImageSc(instanceId: String): String? {
-    val imagesRequest = DescribeImagesRequest {
-        imageIds = listOf(instanceId)
-    }
+    val imagesRequest =
+        DescribeImagesRequest {
+            imageIds = listOf(instanceId)
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeImages(imagesRequest)
@@ -425,9 +465,10 @@ suspend fun describeImageSc(instanceId: String): String? {
 
 // Get the Id value of an instance with amzn2 in the name.
 suspend fun getParaValuesSc(): String? {
-    val parameterRequest = GetParametersByPathRequest {
-        path = "/aws/service/ami-amazon-linux-latest"
-    }
+    val parameterRequest =
+        GetParametersByPathRequest {
+            path = "/aws/service/ami-amazon-linux-latest"
+        }
 
     SsmClient { region = "us-west-2" }.use { ssmClient ->
         val response = ssmClient.getParametersByPath(parameterRequest)
@@ -450,9 +491,10 @@ fun filterName(name: String): Boolean {
 }
 
 suspend fun describeSecurityGroupsSc(groupId: String) {
-    val request = DescribeSecurityGroupsRequest {
-        groupIds = listOf(groupId)
-    }
+    val request =
+        DescribeSecurityGroupsRequest {
+            groupIds = listOf(groupId)
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeSecurityGroups(request)
@@ -463,37 +505,47 @@ suspend fun describeSecurityGroupsSc(groupId: String) {
 }
 
 // snippet-start:[ec2.kotlin.scenario.inbound.rule.main]
-suspend fun createEC2SecurityGroupSc(groupNameVal: String?, groupDescVal: String?, vpcIdVal: String?, myIpAddress: String?): String? {
-    val request = CreateSecurityGroupRequest {
-        groupName = groupNameVal
-        description = groupDescVal
-        vpcId = vpcIdVal
-    }
+suspend fun createEC2SecurityGroupSc(
+    groupNameVal: String?,
+    groupDescVal: String?,
+    vpcIdVal: String?,
+    myIpAddress: String?
+): String? {
+    val request =
+        CreateSecurityGroupRequest {
+            groupName = groupNameVal
+            description = groupDescVal
+            vpcId = vpcIdVal
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val resp = ec2.createSecurityGroup(request)
-        val ipRange = IpRange {
-            cidrIp = "$myIpAddress/0"
-        }
+        val ipRange =
+            IpRange {
+                cidrIp = "$myIpAddress/0"
+            }
 
-        val ipPerm = IpPermission {
-            ipProtocol = "tcp"
-            toPort = 80
-            fromPort = 80
-            ipRanges = listOf(ipRange)
-        }
+        val ipPerm =
+            IpPermission {
+                ipProtocol = "tcp"
+                toPort = 80
+                fromPort = 80
+                ipRanges = listOf(ipRange)
+            }
 
-        val ipPerm2 = IpPermission {
-            ipProtocol = "tcp"
-            toPort = 22
-            fromPort = 22
-            ipRanges = listOf(ipRange)
-        }
+        val ipPerm2 =
+            IpPermission {
+                ipProtocol = "tcp"
+                toPort = 22
+                fromPort = 22
+                ipRanges = listOf(ipRange)
+            }
 
-        val authRequest = AuthorizeSecurityGroupIngressRequest {
-            groupName = groupNameVal
-            ipPermissions = listOf(ipPerm, ipPerm2)
-        }
+        val authRequest =
+            AuthorizeSecurityGroupIngressRequest {
+                groupName = groupNameVal
+                ipPermissions = listOf(ipPerm, ipPerm2)
+            }
         ec2.authorizeSecurityGroupIngress(authRequest)
         println("Successfully added ingress policy to Security Group $groupNameVal")
         return resp.groupId
@@ -510,10 +562,14 @@ suspend fun describeEC2KeysSc() {
     }
 }
 
-suspend fun createKeyPairSc(keyNameVal: String, fileNameVal: String) {
-    val request = CreateKeyPairRequest {
-        keyName = keyNameVal
-    }
+suspend fun createKeyPairSc(
+    keyNameVal: String,
+    fileNameVal: String
+) {
+    val request =
+        CreateKeyPairRequest {
+            keyName = keyNameVal
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.createKeyPair(request)

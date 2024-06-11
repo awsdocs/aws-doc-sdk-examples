@@ -30,14 +30,15 @@ suspend fun main() {
 
 // snippet-start:[polly.kotlin.demo.main]
 suspend fun talkPolly() {
+    val sample =
+        "Congratulations. You have successfully built this working demo " +
+            " of Amazon Polly in Kotlin. Have fun building voice enabled apps with Amazon Polly (that's me!), and always " +
+            " look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS"
 
-    val sample = "Congratulations. You have successfully built this working demo " +
-        " of Amazon Polly in Kotlin. Have fun building voice enabled apps with Amazon Polly (that's me!), and always " +
-        " look at the AWS website for tips and tricks on using Amazon Polly and other great services from AWS"
-
-    val describeVoiceRequest = DescribeVoicesRequest {
-        engine = Engine.Standard
-    }
+    val describeVoiceRequest =
+        DescribeVoicesRequest {
+            engine = Engine.Standard
+        }
 
     PollyClient { region = "us-west-2" }.use { polly ->
         val describeVoicesResult = polly.describeVoices(describeVoiceRequest)
@@ -54,16 +55,17 @@ suspend fun talkPolly() {
             val audioData = resp.audioStream?.toByteArray()
             val targetStream = ByteArrayInputStream(audioData)
             val player = AdvancedPlayer(targetStream, FactoryRegistry.systemRegistry().createAudioDevice())
-            player.playBackListener = object : PlaybackListener() {
-                override fun playbackStarted(evt: PlaybackEvent) {
-                    println("Playback started")
-                    println(sample)
-                }
+            player.playBackListener =
+                object : PlaybackListener() {
+                    override fun playbackStarted(evt: PlaybackEvent) {
+                        println("Playback started")
+                        println(sample)
+                    }
 
-                override fun playbackFinished(evt: PlaybackEvent) {
-                    println("Playback finished")
+                    override fun playbackFinished(evt: PlaybackEvent) {
+                        println("Playback finished")
+                    }
                 }
-            }
             // play it!
             player.play()
         }

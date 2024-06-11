@@ -29,7 +29,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: <appId> 
 
@@ -48,46 +47,51 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[pinpoint.kotlin.createsegment.main]
 suspend fun createPinpointSegment(applicationIdVal: String?): String? {
-
     val segmentAttributes = mutableMapOf<String, AttributeDimension>()
     val myList = mutableListOf<String>()
     myList.add("Lakers")
 
-    val atts = AttributeDimension {
-        attributeType = AttributeType.Inclusive
-        values = myList
-    }
+    val atts =
+        AttributeDimension {
+            attributeType = AttributeType.Inclusive
+            values = myList
+        }
 
     segmentAttributes["Team"] = atts
-    val recencyDimension = RecencyDimension {
-        duration = Duration.fromValue("DAY_30")
-        recencyType = RecencyType.fromValue("ACTIVE")
-    }
+    val recencyDimension =
+        RecencyDimension {
+            duration = Duration.fromValue("DAY_30")
+            recencyType = RecencyType.fromValue("ACTIVE")
+        }
 
-    val segmentBehaviors = SegmentBehaviors {
-        recency = recencyDimension
-    }
+    val segmentBehaviors =
+        SegmentBehaviors {
+            recency = recencyDimension
+        }
 
     val segmentLocation = SegmentLocation {}
-    val dimensionsOb = SegmentDimensions {
-        attributes = segmentAttributes
-        behavior = segmentBehaviors
-        demographic = SegmentDemographics {}
-        location = segmentLocation
-    }
+    val dimensionsOb =
+        SegmentDimensions {
+            attributes = segmentAttributes
+            behavior = segmentBehaviors
+            demographic = SegmentDemographics {}
+            location = segmentLocation
+        }
 
-    val writeSegmentRequestOb = WriteSegmentRequest {
-        name = "MySegment101"
-        dimensions = dimensionsOb
-    }
+    val writeSegmentRequestOb =
+        WriteSegmentRequest {
+            name = "MySegment101"
+            dimensions = dimensionsOb
+        }
 
     PinpointClient { region = "us-west-2" }.use { pinpoint ->
-        val createSegmentResult: CreateSegmentResponse = pinpoint.createSegment(
-            CreateSegmentRequest {
-                applicationId = applicationIdVal
-                writeSegmentRequest = writeSegmentRequestOb
-            }
-        )
+        val createSegmentResult: CreateSegmentResponse =
+            pinpoint.createSegment(
+                CreateSegmentRequest {
+                    applicationId = applicationIdVal
+                    writeSegmentRequest = writeSegmentRequestOb
+                }
+            )
         println("Segment ID is ${createSegmentResult.segmentResponse?.id}")
         return createSegmentResult.segmentResponse?.id
     }

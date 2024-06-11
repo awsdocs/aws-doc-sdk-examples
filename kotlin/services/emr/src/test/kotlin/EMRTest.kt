@@ -30,17 +30,18 @@ class EMRTest {
 
     @BeforeAll
     @Throws(IOException::class)
-    fun setUp() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        jar = values.jar.toString()
-        myClass = values.myClass.toString()
-        keys = values.keys.toString()
-        logUri = values.logUri.toString()
-        name = values.name.toString()
-        existingClusterId = values.existingClusterId.toString()
+    fun setUp() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            jar = values.jar.toString()
+            myClass = values.myClass.toString()
+            keys = values.keys.toString()
+            logUri = values.logUri.toString()
+            name = values.name.toString()
+            existingClusterId = values.existingClusterId.toString()
 
         /*
         try {
@@ -65,22 +66,27 @@ class EMRTest {
         } catch (ex: IOException) {
             ex.printStackTrace()
         }
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun listClustersTest() = runBlocking {
-        listAllClusters()
-        println("Test 3 passed")
-    }
+    fun listClustersTest() =
+        runBlocking {
+            listAllClusters()
+            println("Test 3 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "text/emr"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

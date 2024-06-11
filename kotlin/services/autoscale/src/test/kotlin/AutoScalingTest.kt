@@ -43,19 +43,20 @@ class AutoScalingTest {
 
     @BeforeAll
     @Throws(IOException::class)
-    fun setUp() = runBlocking {
-        val random = Random()
-        val randomNum = random.nextInt(10000 - 1 + 1) + 1
-        // Get the values from AWS Secrets Manager.
-        val gson = Gson()
-        val json = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        groupName = values.groupName.toString() + randomNum
-        launchTemplateName = values.launchTemplateName.toString()
-        vpcZoneId = values.vpcZoneId.toString()
-        serviceLinkedRoleARN = values.serviceLinkedRoleARN.toString()
-        groupNameSc = values.groupNameSc.toString() + randomNum
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+    fun setUp() =
+        runBlocking {
+            val random = Random()
+            val randomNum = random.nextInt(10000 - 1 + 1) + 1
+            // Get the values from AWS Secrets Manager.
+            val gson = Gson()
+            val json = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            groupName = values.groupName.toString() + randomNum
+            launchTemplateName = values.launchTemplateName.toString()
+            vpcZoneId = values.vpcZoneId.toString()
+            serviceLinkedRoleARN = values.serviceLinkedRoleARN.toString()
+            groupNameSc = values.groupNameSc.toString() + randomNum
+            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
         /*
         try {
             AutoScalingTest::class.java.getClassLoader().getResourceAsStream("config.properties").use { input ->
@@ -73,69 +74,74 @@ class AutoScalingTest {
         } catch (ex:IOException) {
             ex.printStackTrace()
         }
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun testScenario() = runBlocking {
-        println("**** Create an Auto Scaling group named $groupName")
-        createAutoScalingGroup(groupName, launchTemplateName, serviceLinkedRoleARN, vpcZoneId)
+    fun testScenario() =
+        runBlocking {
+            println("**** Create an Auto Scaling group named $groupName")
+            createAutoScalingGroup(groupName, launchTemplateName, serviceLinkedRoleARN, vpcZoneId)
 
-        println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned")
-        delay(60000)
+            println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned")
+            delay(60000)
 
-        val instanceId = getSpecificAutoScaling(groupName)
-        if (instanceId.compareTo("") == 0) {
-            println("Error - no instance Id value")
-            exitProcess(1)
-        } else {
-            println("The instance Id value is $instanceId")
+            val instanceId = getSpecificAutoScaling(groupName)
+            if (instanceId.compareTo("") == 0) {
+                println("Error - no instance Id value")
+                exitProcess(1)
+            } else {
+                println("The instance Id value is $instanceId")
+            }
+
+            println("**** Describe Auto Scaling with the Id value $instanceId")
+            describeAutoScalingInstance(instanceId)
+
+            println("**** Enable metrics collection $instanceId")
+            enableMetricsCollection(groupName)
+
+            println("**** Update an Auto Scaling group to update max size to 3")
+            updateAutoScalingGroup(groupName, launchTemplateName, serviceLinkedRoleARN)
+
+            println("**** Describe all Auto Scaling groups to show the current state of the groups")
+            describeAutoScalingGroups(groupName)
+
+            println("**** Describe account details")
+            describeAccountLimits()
+
+            println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned")
+            delay(60000)
+
+            println("**** Set desired capacity to 2")
+            setDesiredCapacity(groupName)
+
+            println("**** Get the two instance Id values and state")
+            getAutoScalingGroups(groupName)
+
+            println("**** List the scaling activities that have occurred for the group")
+            describeScalingActivities(groupName)
+
+            println("**** Terminate an instance in the Auto Scaling group")
+            terminateInstanceInAutoScalingGroup(instanceId)
+
+            println("**** Stop the metrics collection")
+            disableMetricsCollection(groupName)
+
+            println("**** Delete the Auto Scaling group")
+            deleteSpecificAutoScalingGroup(groupName)
         }
-
-        println("**** Describe Auto Scaling with the Id value $instanceId")
-        describeAutoScalingInstance(instanceId)
-
-        println("**** Enable metrics collection $instanceId")
-        enableMetricsCollection(groupName)
-
-        println("**** Update an Auto Scaling group to update max size to 3")
-        updateAutoScalingGroup(groupName, launchTemplateName, serviceLinkedRoleARN)
-
-        println("**** Describe all Auto Scaling groups to show the current state of the groups")
-        describeAutoScalingGroups(groupName)
-
-        println("**** Describe account details")
-        describeAccountLimits()
-
-        println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned")
-        delay(60000)
-
-        println("**** Set desired capacity to 2")
-        setDesiredCapacity(groupName)
-
-        println("**** Get the two instance Id values and state")
-        getAutoScalingGroups(groupName)
-
-        println("**** List the scaling activities that have occurred for the group")
-        describeScalingActivities(groupName)
-
-        println("**** Terminate an instance in the Auto Scaling group")
-        terminateInstanceInAutoScalingGroup(instanceId)
-
-        println("**** Stop the metrics collection")
-        disableMetricsCollection(groupName)
-
-        println("**** Delete the Auto Scaling group")
-        deleteSpecificAutoScalingGroup(groupName)
-    }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/autoscale"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }
