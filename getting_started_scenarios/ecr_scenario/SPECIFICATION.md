@@ -219,33 +219,30 @@ Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
-9. Interact with the image in Amazon ECR by using the CLI. Replace 123456789 with your account id, <repoName> with your repo name, 
-and <image name> with your image name. 
+9. As an optional step, you can interact with the image in Amazon ECR by using the CLI.
+Would you like to view instructions on how to use the CLI to run the image? (y/n)
+y
+    1. Authenticate with ECR - Before you can pull the image from ECR, you need to authenticate with the registry. You can do this using the AWS CLI:
 
-1. Authenticate with ECR - Before you can pull the image from ECR, you need to authenticate with the registry. You can do this using the AWS CLI:
+       aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 814548047983.dkr.ecr.us-east-1.amazonaws.com
 
-   aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 123456789.dkr.ecr.us-east-1.amazonaws.com
+    2. Describe the image using this command:
 
-2. Describe the image using this command
+       aws ecr describe-images --repository-name ecr1024 --image-ids imageTag=hello-world
 
-    aws ecr describe-images --repository-name <repoName> --image-ids imageTag=latest
+    3. Pull the Docker image - Once you're authenticated, you can pull the image from ECR using the Docker CLI:
 
-3. Pull the Docker image - Once you're authenticated, you can pull the image from ECR using the Docker CLI:
+       docker pull 814548047983.dkr.ecr.us-east-1.amazonaws.com/ecr1024:hello-world
 
-    docker pull 123456789.dkr.ecr.us-east-1.amazonaws.com/ecr221:<image name>
+   4. After the image is pulled, you can run the container using the `docker run` command, and view the output immediately:
 
-4. Run the Docker container -  After the image is pulled, you can run the container using the `docker run` command:
-
-    docker run -d 123456789.dkr.ecr.us-east-1.amazonaws.com/<repo name>:<image name>
-
-5. View the output - replace the string with the string returned from the --region us-east-1
-             run command.
-
-    docker logs e9a9d6a14bff8080a28c8ccd24482e367412f7d5cb8f2ae28579c1ea28dbd59c
-
+       docker run --rm 814548047983.dkr.ecr.us-east-1.amazonaws.com/ecr1024:hello-world
 
 
 Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
 --------------------------------------------------------------------------------
 10. Delete the ECR Repository.
 If the repository isn't empty, you must either delete the contents of the repository
