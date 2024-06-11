@@ -1476,14 +1476,6 @@ ec2_DescribeInstanceStatus:
     ec2: {DescribeInstanceStatus}
 ec2_MonitorInstances:
   languages:
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: rustv1/examples/ec2
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.rust.monitor-instance
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1611,6 +1603,13 @@ ec2_DescribeImages:
             - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.DescribeImages
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.describe-images
     Bash:
       versions:
         - sdk_version: 2

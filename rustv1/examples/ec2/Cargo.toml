@@ -17,3 +17,5 @@ aws-types = { version = "1.0.1" }
 tokio = { version = "1.20.1", features = ["full"] }
 clap = { version = "~4.4", features = ["derive"] }
 tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
+tracing = "0.1.40"
+aws-smithy-runtime-api = "1.6.2"
