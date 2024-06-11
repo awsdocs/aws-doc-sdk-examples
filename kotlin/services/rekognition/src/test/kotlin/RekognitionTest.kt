@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.util.*
+import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -55,27 +55,28 @@ class RekognitionTest {
     private var celVid = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        facesImage = values.facesImage.toString()
-        celebritiesImage = values.celebritiesImage.toString()
-        faceImage2 = values.faceImage2.toString()
-        celId = values.celId.toString()
-        moutainImage = values.moutainImage.toString()
-        collectionName = values.collectionName + UUID.randomUUID()
-        ppeImage = values.ppeImage.toString()
-        bucketName = values.bucketName.toString()
-        textImage = values.textImage.toString()
-        modImage = values.modImage.toString()
-        faceVid = values.faceVid.toString()
-        topicArn = values.topicArn.toString()
-        roleArn = values.roleArn.toString()
-        modVid = values.modVid.toString()
-        textVid = values.textVid.toString()
-        celVid = values.celVid.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            facesImage = values.facesImage.toString()
+            celebritiesImage = values.celebritiesImage.toString()
+            faceImage2 = values.faceImage2.toString()
+            celId = values.celId.toString()
+            moutainImage = values.moutainImage.toString()
+            collectionName = values.collectionName + UUID.randomUUID()
+            ppeImage = values.ppeImage.toString()
+            bucketName = values.bucketName.toString()
+            textImage = values.textImage.toString()
+            modImage = values.modImage.toString()
+            faceVid = values.faceVid.toString()
+            topicArn = values.topicArn.toString()
+            roleArn = values.roleArn.toString()
+            modVid = values.modVid.toString()
+            textVid = values.textVid.toString()
+            celVid = values.celVid.toString()
 
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
@@ -99,122 +100,141 @@ class RekognitionTest {
         modVid = prop.getProperty("modVid")
         textVid = prop.getProperty("textVid")
         celVid = prop.getProperty("celVid")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun detectFacesTest() = runBlocking {
-        detectFacesinImage(facesImage)
-        println("Test 1 passed")
-    }
+    fun detectFacesTest() =
+        runBlocking {
+            detectFacesinImage(facesImage)
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun recognizeCelebritiesTest() = runBlocking {
-        recognizeAllCelebrities(celebritiesImage)
-        println("Test 2 passed")
-    }
+    fun recognizeCelebritiesTest() =
+        runBlocking {
+            recognizeAllCelebrities(celebritiesImage)
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun compareFacesTest() = runBlocking {
-        compareTwoFaces(70f, facesImage, faceImage2)
-        println("Test 3 passed")
-    }
+    fun compareFacesTest() =
+        runBlocking {
+            compareTwoFaces(70f, facesImage, faceImage2)
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun celebrityInfoTest() = runBlocking {
-        getCelebrityInfo(celId)
-        println("Test 4 passed")
-    }
+    fun celebrityInfoTest() =
+        runBlocking {
+            getCelebrityInfo(celId)
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun detectLabelsTest() = runBlocking {
-        detectImageLabels(moutainImage)
-        println("Test 5 passed")
-    }
+    fun detectLabelsTest() =
+        runBlocking {
+            detectImageLabels(moutainImage)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun createCollectionTest() = runBlocking {
-        createMyCollection(collectionName)
-        println("Test 6 passed")
-    }
+    fun createCollectionTest() =
+        runBlocking {
+            createMyCollection(collectionName)
+            println("Test 6 passed")
+        }
 
     @Test
     @Order(7)
-    fun addFacesToCollectionTest() = runBlocking {
-        addToCollection(collectionName, facesImage)
-        println("Test 7 passed")
-    }
+    fun addFacesToCollectionTest() =
+        runBlocking {
+            addToCollection(collectionName, facesImage)
+            println("Test 7 passed")
+        }
 
     @Test
     @Order(8)
-    fun listFacesCollectionTest() = runBlocking {
-        listAllCollections()
-        println("Test 8 passed")
-    }
+    fun listFacesCollectionTest() =
+        runBlocking {
+            listAllCollections()
+            println("Test 8 passed")
+        }
 
     @Test
     @Order(9)
-    fun listCollectionsTest() = runBlocking {
-        listAllCollections()
-        println("Test 9 passed")
-    }
+    fun listCollectionsTest() =
+        runBlocking {
+            listAllCollections()
+            println("Test 9 passed")
+        }
 
     @Test
     @Order(10)
-    fun describeCollectionTest() = runBlocking {
-        describeColl(collectionName)
-        println("Test 10 passed")
-    }
+    fun describeCollectionTest() =
+        runBlocking {
+            describeColl(collectionName)
+            println("Test 10 passed")
+        }
 
     @Test
     @Order(11)
-    fun detectPPETest() = runBlocking {
-        displayGear(ppeImage)
-        println("Test 11 passed")
-    }
+    fun detectPPETest() =
+        runBlocking {
+            displayGear(ppeImage)
+            println("Test 11 passed")
+        }
 
     @Test
     @Order(12)
-    fun detectTextTest() = runBlocking {
-        detectTextLabels(textImage)
-        println("Test 12 passed")
-    }
+    fun detectTextTest() =
+        runBlocking {
+            detectTextLabels(textImage)
+            println("Test 12 passed")
+        }
 
     @Test
     @Order(13)
-    fun DetectModerationLabelsTest() = runBlocking {
-        detectModLabels(modImage)
-        println("Test 13 passed")
-    }
+    fun detectModerationLabelsTest() =
+        runBlocking {
+            detectModLabels(modImage)
+            println("Test 13 passed")
+        }
 
     @Test
     @Order(14)
-    fun VideoDetectFacesTest() = runBlocking {
-        startFaceDetection(channel, bucketName, celVid)
-        getFaceResults()
-        println("Test 14 passed")
-    }
+    fun videoDetectFacesTest() =
+        runBlocking {
+            startFaceDetection(channel, bucketName, celVid)
+            getFaceResults()
+            println("Test 14 passed")
+        }
 
     @Test
     @Order(15)
-    fun VideoDetectInappropriateTest() = runBlocking {
-        startModerationDetection(channel, bucketName, modVid)
-        getModResults()
-        println("Test 15 passed")
-    }
+    fun videoDetectInappropriateTest() =
+        runBlocking {
+            startModerationDetection(channel, bucketName, modVid)
+            getModResults()
+            println("Test 15 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/rekognition"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

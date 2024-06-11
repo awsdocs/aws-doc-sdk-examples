@@ -41,16 +41,21 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[s3.kotlin.s3_object_upload.main]
-suspend fun putS3Object(bucketName: String, objectKey: String, objectPath: String) {
+suspend fun putS3Object(
+    bucketName: String,
+    objectKey: String,
+    objectPath: String
+) {
     val metadataVal = mutableMapOf<String, String>()
     metadataVal["myVal"] = "test"
 
-    val request = PutObjectRequest {
-        bucket = bucketName
-        key = objectKey
-        metadata = metadataVal
-        body = File(objectPath).asByteStream()
-    }
+    val request =
+        PutObjectRequest {
+            bucket = bucketName
+            key = objectKey
+            metadata = metadataVal
+            body = File(objectPath).asByteStream()
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         val response = s3.putObject(request)

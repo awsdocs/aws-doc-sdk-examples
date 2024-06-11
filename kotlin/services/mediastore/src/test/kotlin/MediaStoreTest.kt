@@ -28,29 +28,33 @@ class MediaStoreTest {
 
     @Test
     @Order(1)
-    fun createContainerTest() = runBlocking {
-        println("Status is " + createMediaContainer(containerName))
-        println("Test 1 passed")
-    }
+    fun createContainerTest() =
+        runBlocking {
+            println("Status is " + createMediaContainer(containerName))
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun describeContainerTest() = runBlocking {
-        println("Status is " + checkContainer(containerName))
-        println("Test 2 passed")
-    }
+    fun describeContainerTest() =
+        runBlocking {
+            println("Status is " + checkContainer(containerName))
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun listContainersTest() = runBlocking {
-        listAllContainers()
-        println("Test 4 passed")
-    }
+    fun listContainersTest() =
+        runBlocking {
+            listAllContainers()
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(4)
-    fun deleteContainerTest() = runBlocking {
-        deleteMediaContainer(containerName)
-        println("Test 4 passed")
-    }
+    fun deleteContainerTest() =
+        runBlocking {
+            deleteMediaContainer(containerName)
+            println("Test 4 passed")
+        }
 }

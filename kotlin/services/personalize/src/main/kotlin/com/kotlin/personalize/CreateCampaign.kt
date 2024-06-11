@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <solutionVersionArn> <campaignName>
@@ -40,13 +39,16 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[personalize.kotlin.create_campaign.main]
-suspend fun createPersonalCompaign(solutionVersionArnVal: String?, campaignName: String?): String? {
-
-    val request = CreateCampaignRequest {
-        minProvisionedTps = 1
-        solutionVersionArn = solutionVersionArnVal
-        name = campaignName
-    }
+suspend fun createPersonalCompaign(
+    solutionVersionArnVal: String?,
+    campaignName: String?
+): String? {
+    val request =
+        CreateCampaignRequest {
+            minProvisionedTps = 1
+            solutionVersionArn = solutionVersionArnVal
+            name = campaignName
+        }
 
     PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
         val campaignResponse = personalizeClient.createCampaign(request)

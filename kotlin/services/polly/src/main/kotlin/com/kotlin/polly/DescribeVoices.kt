@@ -23,13 +23,13 @@ suspend fun main() {
 
 // snippet-start:[polly.kotlin.describe_voice.main]
 suspend fun describeVoice() {
-
     PollyClient { region = "us-west-2" }.use { polly ->
-        val enUsVoicesResult = polly.describeVoices(
-            DescribeVoicesRequest {
-                languageCode = LanguageCode.fromValue("en-US")
-            }
-        )
+        val enUsVoicesResult =
+            polly.describeVoices(
+                DescribeVoicesRequest {
+                    languageCode = LanguageCode.fromValue("en-US")
+                }
+            )
         val voices = enUsVoicesResult.voices
         if (voices != null) {
             for (voice in voices) {

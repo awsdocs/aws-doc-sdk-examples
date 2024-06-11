@@ -21,7 +21,6 @@ suspend fun main() {
 
 // snippet-start:[rds.kotlin.describe_instances.main]
 suspend fun describeInstances() {
-
     RdsClient { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.describeDbInstances(DescribeDbInstancesRequest {})
         response.dbInstances?.forEach { instance ->
