@@ -57,6 +57,7 @@ import kotlin.system.exitProcess
  */
 
 val DASHES: String = String(CharArray(80)).replace("\u0000", "-")
+
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
@@ -185,12 +186,14 @@ suspend fun main(args: Array<String>) {
 }
 
 suspend fun listStatemachinesPagnator() {
-    val machineRequest = ListStateMachinesRequest {
-        maxResults = 10
-    }
+    val machineRequest =
+        ListStateMachinesRequest {
+            maxResults = 10
+        }
 
     SfnClient { region = "us-east-1" }.use { sfnClient ->
-        sfnClient.listStateMachinesPaginated(machineRequest)
+        sfnClient
+            .listStateMachinesPaginated(machineRequest)
             .transform { it.stateMachines?.forEach { obj -> emit(obj) } }
             .collect { obj ->
                 println(" The state machine ARN is ${obj.stateMachineArn}")
@@ -199,12 +202,14 @@ suspend fun listStatemachinesPagnator() {
 }
 
 suspend fun listActivitesPagnator() {
-    val activitiesRequest = ListActivitiesRequest {
-        maxResults = 10
-    }
+    val activitiesRequest =
+        ListActivitiesRequest {
+            maxResults = 10
+        }
 
     SfnClient { region = "us-east-1" }.use { sfnClient ->
-        sfnClient.listActivitiesPaginated(activitiesRequest)
+        sfnClient
+            .listActivitiesPaginated(activitiesRequest)
             .transform { it.activities?.forEach { obj -> emit(obj) } }
             .collect { obj ->
                 println(" The activity ARN is ${obj.activityArn}")
@@ -214,9 +219,10 @@ suspend fun listActivitesPagnator() {
 
 // snippet-start:[stepfunctions.kotlin.delete_machine.main]
 suspend fun deleteMachine(stateMachineArnVal: String?) {
-    val deleteStateMachineRequest = DeleteStateMachineRequest {
-        stateMachineArn = stateMachineArnVal
-    }
+    val deleteStateMachineRequest =
+        DeleteStateMachineRequest {
+            stateMachineArn = stateMachineArnVal
+        }
 
     SfnClient { region = "us-east-1" }.use { sfnClient ->
         sfnClient.deleteStateMachine(deleteStateMachineRequest)
@@ -227,9 +233,10 @@ suspend fun deleteMachine(stateMachineArnVal: String?) {
 
 // snippet-start:[stepfunctions.kotlin.delete.activity.main]
 suspend fun deleteActivity(actArn: String?) {
-    val activityRequest = DeleteActivityRequest {
-        activityArn = actArn
-    }
+    val activityRequest =
+        DeleteActivityRequest {
+            activityArn = actArn
+        }
 
     SfnClient { region = "us-east-1" }.use { sfnClient ->
         sfnClient.deleteActivity(activityRequest)
@@ -240,9 +247,10 @@ suspend fun deleteActivity(actArn: String?) {
 
 // snippet-start:[stepfunctions.kotlin.describe_execution.main]
 suspend fun describeExe(executionArnVal: String?) {
-    val executionRequest = DescribeExecutionRequest {
-        executionArn = executionArnVal
-    }
+    val executionRequest =
+        DescribeExecutionRequest {
+            executionArn = executionArnVal
+        }
 
     var status = ""
     var hasSucceeded = false
@@ -266,11 +274,15 @@ suspend fun describeExe(executionArnVal: String?) {
 // snippet-end:[stepfunctions.kotlin.describe_execution.main]
 
 // snippet-start:[stepfunctions.kotlin.task_success.main]
-suspend fun sendTaskSuccess(token: String?, json: String?) {
-    val successRequest = SendTaskSuccessRequest {
-        taskToken = token
-        output = json
-    }
+suspend fun sendTaskSuccess(
+    token: String?,
+    json: String?
+) {
+    val successRequest =
+        SendTaskSuccessRequest {
+            taskToken = token
+            output = json
+        }
     SfnClient { region = "us-east-1" }.use { sfnClient ->
         sfnClient.sendTaskSuccess(successRequest)
     }
@@ -280,9 +292,10 @@ suspend fun sendTaskSuccess(token: String?, json: String?) {
 // snippet-start:[stepfunctions.kotlin.activity_task.main]
 suspend fun getActivityTask(actArn: String?): List<String> {
     val myList: MutableList<String> = ArrayList()
-    val getActivityTaskRequest = GetActivityTaskRequest {
-        activityArn = actArn
-    }
+    val getActivityTaskRequest =
+        GetActivityTaskRequest {
+            activityArn = actArn
+        }
     SfnClient { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.getActivityTask(getActivityTaskRequest)
         myList.add(response.taskToken.toString())
@@ -293,14 +306,18 @@ suspend fun getActivityTask(actArn: String?): List<String> {
 // snippet-end:[stepfunctions.kotlin.activity_task.main]
 
 // snippet-start:[stepfunctions.kotlin.start_execute.main]
-suspend fun startWorkflow(stateMachineArnVal: String?, jsonEx: String?): String? {
+suspend fun startWorkflow(
+    stateMachineArnVal: String?,
+    jsonEx: String?
+): String? {
     val uuid = UUID.randomUUID()
     val uuidValue = uuid.toString()
-    val executionRequest = StartExecutionRequest {
-        input = jsonEx
-        stateMachineArn = stateMachineArnVal
-        name = uuidValue
-    }
+    val executionRequest =
+        StartExecutionRequest {
+            input = jsonEx
+            stateMachineArn = stateMachineArnVal
+            name = uuidValue
+        }
     SfnClient { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.startExecution(executionRequest)
         return response.executionArn
@@ -310,9 +327,10 @@ suspend fun startWorkflow(stateMachineArnVal: String?, jsonEx: String?): String?
 
 // snippet-start:[stepfunctions.kotlin.describe_machine.main]
 suspend fun describeStateMachine(stateMachineArnVal: String?) {
-    val stateMachineRequest = DescribeStateMachineRequest {
-        stateMachineArn = stateMachineArnVal
-    }
+    val stateMachineRequest =
+        DescribeStateMachineRequest {
+            stateMachineArn = stateMachineArnVal
+        }
     SfnClient { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.describeStateMachine(stateMachineRequest)
         println("The name of the State machine is ${response.name}")
@@ -324,13 +342,18 @@ suspend fun describeStateMachine(stateMachineArnVal: String?) {
 // snippet-end:[stepfunctions.kotlin.describe_machine.main]
 
 // snippet-start:[stepfunctions.kotlin.create_machine.main]
-suspend fun createMachine(roleARNVal: String?, stateMachineName: String?, jsonVal: String?): String? {
-    val machineRequest = CreateStateMachineRequest {
-        definition = jsonVal
-        name = stateMachineName
-        roleArn = roleARNVal
-        type = StateMachineType.Standard
-    }
+suspend fun createMachine(
+    roleARNVal: String?,
+    stateMachineName: String?,
+    jsonVal: String?
+): String? {
+    val machineRequest =
+        CreateStateMachineRequest {
+            definition = jsonVal
+            name = stateMachineName
+            roleArn = roleARNVal
+            type = StateMachineType.Standard
+        }
 
     SfnClient { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.createStateMachine(machineRequest)
@@ -339,12 +362,16 @@ suspend fun createMachine(roleARNVal: String?, stateMachineName: String?, jsonVa
 }
 // snippet-end:[stepfunctions.kotlin.create_machine.main]
 
-suspend fun createIAMRole(roleNameVal: String?, polJSON: String?): String? {
-    val request = CreateRoleRequest {
-        roleName = roleNameVal
-        assumeRolePolicyDocument = polJSON
-        description = "Created using the AWS SDK for Kotlin"
-    }
+suspend fun createIAMRole(
+    roleNameVal: String?,
+    polJSON: String?
+): String? {
+    val request =
+        CreateRoleRequest {
+            roleName = roleNameVal
+            assumeRolePolicyDocument = polJSON
+            description = "Created using the AWS SDK for Kotlin"
+        }
 
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         val response = iamClient.createRole(request)
@@ -354,9 +381,10 @@ suspend fun createIAMRole(roleNameVal: String?, polJSON: String?): String? {
 
 // snippet-start:[stepfunctions.kotlin.create_activity.main]
 suspend fun createActivity(activityName: String): String? {
-    val activityRequest = CreateActivityRequest {
-        name = activityName
-    }
+    val activityRequest =
+        CreateActivityRequest {
+            name = activityName
+        }
 
     SfnClient { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.createActivity(activityRequest)
