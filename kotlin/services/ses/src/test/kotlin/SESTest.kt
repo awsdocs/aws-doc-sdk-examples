@@ -26,29 +26,32 @@ class SESTest {
     private var subject = ""
     private var fileLocation = ""
 
-    private val bodyText = """
+    private val bodyText =
+        """
         Hello,
         Please see the attached file for a list of customers to contact.
-    """.trimIndent()
+        """.trimIndent()
 
     // The HTML body of the email.
     private val bodyHTML = (
         "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>" +
             "<p>Please see the attached file for a " + "list of customers to contact.</p>" + "</body>" + "</html>"
-        )
+    )
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        sender = values.sender.toString()
-        recipient = values.recipient.toString()
-        subject = values.subject.toString()
-        fileLocation = values.fileLocation.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            sender = values.sender.toString()
+            recipient = values.recipient.toString()
+            subject = values.subject.toString()
+            fileLocation = values.fileLocation.toString()
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
@@ -57,36 +60,43 @@ class SESTest {
         recipient = prop.getProperty("recipient")
         subject = prop.getProperty("subject")
         fileLocation = prop.getProperty("fileLocation")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun sendMessageTest() = runBlocking {
-        send(sender, recipient, subject, bodyHTML)
-        println("Test 1 passed")
-    }
+    fun sendMessageTest() =
+        runBlocking {
+            send(sender, recipient, subject, bodyHTML)
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun sendMessageAttTest() = runBlocking {
-        sendemailAttachment(sender, recipient, subject, bodyText, bodyHTML, fileLocation)
-        println("Test 2 passed")
-    }
+    fun sendMessageAttTest() =
+        runBlocking {
+            sendemailAttachment(sender, recipient, subject, bodyText, bodyHTML, fileLocation)
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun listIdentitiesTest() = runBlocking {
-        listSESIdentities()
-        println("Test 3 passed")
-    }
+    fun listIdentitiesTest() =
+        runBlocking {
+            listSESIdentities()
+            println("Test 3 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/ses"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

@@ -21,7 +21,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
     Usage:
@@ -46,7 +45,7 @@ suspend fun main(args: Array<String>) {
     val bodyHTML = (
         "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>" +
             "<p> See the list of customers.</p>" + "</body>" + "</html>"
-        )
+    )
 
     send(sender, recipient, subject, bodyHTML)
 }
@@ -58,32 +57,38 @@ suspend fun send(
     subjectVal: String?,
     bodyHTML: String?
 ) {
-    val destinationOb = Destination {
-        toAddresses = listOf(recipient)
-    }
+    val destinationOb =
+        Destination {
+            toAddresses = listOf(recipient)
+        }
 
-    val contentOb = Content {
-        data = bodyHTML
-    }
+    val contentOb =
+        Content {
+            data = bodyHTML
+        }
 
-    val subOb = Content {
-        data = subjectVal
-    }
+    val subOb =
+        Content {
+            data = subjectVal
+        }
 
-    val bodyOb = Body {
-        html = contentOb
-    }
+    val bodyOb =
+        Body {
+            html = contentOb
+        }
 
-    val msgOb = Message {
-        subject = subOb
-        body = bodyOb
-    }
+    val msgOb =
+        Message {
+            subject = subOb
+            body = bodyOb
+        }
 
-    val emailRequest = SendEmailRequest {
-        destination = destinationOb
-        message = msgOb
-        source = sender
-    }
+    val emailRequest =
+        SendEmailRequest {
+            destination = destinationOb
+            message = msgOb
+            source = sender
+        }
 
     SesClient { region = "us-east-1" }.use { sesClient ->
         println("Attempting to send an email through Amazon SES using the AWS SDK for Kotlin...")

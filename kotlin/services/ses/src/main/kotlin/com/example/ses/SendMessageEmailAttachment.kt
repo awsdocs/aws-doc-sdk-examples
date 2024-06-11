@@ -32,7 +32,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -59,7 +58,7 @@ suspend fun main(args: Array<String>) {
     val bodyHTML = (
         "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>" +
             "<p> See the list of customers.</p>" + "</body>" + "</html>"
-        )
+    )
 
     try {
         sendemailAttachment(sender, recipient, subject, bodyHTML, bodyHTML, fileLocation)
@@ -77,7 +76,6 @@ suspend fun sendemailAttachment(
     bodyHTML: String,
     fileLocation: String
 ) {
-
     val theFile = File(fileLocation)
     val fileContent = Files.readAllBytes(theFile.toPath())
     val session = Session.getDefaultInstance(Properties())
@@ -137,13 +135,15 @@ suspend fun sendemailAttachment(
     val outputStream = ByteArrayOutputStream()
     message.writeTo(outputStream)
 
-    val rawMessageOb = RawMessage {
-        this.data = outputStream.toByteArray()
-    }
+    val rawMessageOb =
+        RawMessage {
+            this.data = outputStream.toByteArray()
+        }
 
-    val rawEmailRequest = SendRawEmailRequest {
-        rawMessage = rawMessageOb
-    }
+    val rawEmailRequest =
+        SendRawEmailRequest {
+            rawMessage = rawMessageOb
+        }
 
     SesClient { region = "us-east-1" }.use { sesClient ->
         sesClient.sendRawEmail(rawEmailRequest)
