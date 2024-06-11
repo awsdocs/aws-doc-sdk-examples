@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: <topicArn>
     
@@ -36,10 +35,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[sns.kotlin.list_tags.main]
 suspend fun listTopicTags(topicArn: String?) {
-
-    val tagsForResourceRequest = ListTagsForResourceRequest {
-        resourceArn = topicArn
-    }
+    val tagsForResourceRequest =
+        ListTagsForResourceRequest {
+            resourceArn = topicArn
+        }
 
     SnsClient { region = "us-east-1" }.use { snsClient ->
         val response = snsClient.listTagsForResource(tagsForResourceRequest)

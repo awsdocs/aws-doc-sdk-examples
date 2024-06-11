@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             SubscribeEmail  <topicArn> <email>
@@ -39,14 +38,17 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[sns.kotlin.SubscribeEmail.main]
-suspend fun subEmail(topicArnVal: String, email: String): String {
-
-    val request = SubscribeRequest {
-        protocol = "email"
-        endpoint = email
-        returnSubscriptionArn = true
-        topicArn = topicArnVal
-    }
+suspend fun subEmail(
+    topicArnVal: String,
+    email: String
+): String {
+    val request =
+        SubscribeRequest {
+            protocol = "email"
+            endpoint = email
+            returnSubscriptionArn = true
+            topicArn = topicArnVal
+        }
 
     SnsClient { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.subscribe(request)
