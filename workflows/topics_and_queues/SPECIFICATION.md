@@ -1,4 +1,4 @@
-# Amazon S3 Object Lock Workflow - Technical specification
+# Publish and Subscribe to Topics Workflow - Technical specification
 
 This document contains the technical specifications for _Topics and Queues Workflow_,
 a workflow scenario that showcases AWS services and SDKs. It is primarily intended for the AWS code

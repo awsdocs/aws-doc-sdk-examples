@@ -615,26 +615,6 @@ cross_LambdaForBrowser:
   services:
     lambda:
     dynamodb:
-cross_MessagesTopicsAndQueues:
-  title: Publish &SNS; messages to &SQS; queues using an &AWS; SDK
-  title_abbrev: Publish messages to queues
-  synopsis_list:
-    - Create topic (FIFO or non-FIFO).
-    - Subscribe several queues to the topic with an option to apply a filter.
-    - Publish messages to the topic.
-    - Poll the queues for messages received.
-  languages:
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          block_content: workflow_MessagesTopicsAndQueues_kotlin_block.xml
-    Java:
-      versions:
-        - sdk_version: 2
-          block_content: workflow_MessagesTopicsAndQueues_java_block.xml
-  services:
-    sns:
-    sqs:
 cross_ResilientService:
   title: Build and manage a resilient service using an &AWS; SDK
   title_abbrev: Build and manage a resilient service

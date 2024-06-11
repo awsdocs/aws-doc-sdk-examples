@@ -993,6 +993,23 @@ sqs_Scenario_TopicsAndQueues:
                 contains the bulk of the example.
               snippet_tags:
                 - javascript.v3.wkflw.topicsandqueues.wrapper
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/topics_and_queues
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.java2.scenario.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/usecases/topics_and_queues
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - sns.kotlin.workflow.main
   services:
     sns: {CreateTopic, Subscribe, Publish, Unsubscribe, DeleteTopic}
     sqs: {CreateQueue, GetQueueAttributes, SetQueueAttributes, ReceiveMessage, DeleteMessageBatch, DeleteQueue}

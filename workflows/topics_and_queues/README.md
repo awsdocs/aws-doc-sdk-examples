@@ -33,10 +33,12 @@ The following diagram shows the available options
 
 This example is implemented in the following languages:
 
-* [Cpp](../../cpp/example_code/cross-service/topics_and_queues)
+* [C++](../../cpp/example_code/cross-service/topics_and_queues)
 * [.NET](../../dotnetv3/cross-service/TopicsAndQueues)
 * [Go](../../gov2/workflows/topics_and_queues)
 * [JavaScript](../../javascriptv3/example_code/cross-services/wkflw-topics-queues)
+* [Java](../../javav2/usecases/topics_and_queues)
+* [Kotlin](../../kotlin/usecases/topics_and_queues)
 
 ## Additional reading
 
