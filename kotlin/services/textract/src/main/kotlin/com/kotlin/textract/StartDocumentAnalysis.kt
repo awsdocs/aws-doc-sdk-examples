@@ -79,7 +79,7 @@ suspend fun startDocAnalysisS3(
 
 private suspend fun getJobResults(
     textractClient: TextractClient,
-    jobIdVal: String?,
+    jobIdVal: String?
 ): String {
     var finished = false
     var index = 0
