@@ -36,15 +36,17 @@ The Amazon ECR SDK getting started scenario executes the following steps:
 
 8. **Set an ECR lifecycle policy**: The program sets an ECR lifecycle policy using the `setLifeCyclePolicy` method, which automatically removes old or unused Docker images from the repository.
 
-9. **Push a Docker image to the ECR repository**: The program pushes a local Docker image to the ECR repository using the `pushDockerImage` method, which includes calculating the image's SHA-256 hash, checking layer availability, and completing the image upload.
+9. **Push a Docker image to the ECR repository**: The program pushes a local Docker image to the ECR repository using the Docker Client (its not a recommended way to upload using ECRClient).
 
 10. **Verify the image in the ECR repository**: The program verifies that the Docker image was successfully pushed to the ECR repository using the `verifyImage` method.
 
-11. **Delete the ECR repository**: The program prompts the user to delete the ECR repository and its contents using the `deleteECRRepository` method.
+11. Provide optional steps on how a user can run the image in the ECR repo. 
+
+12. **Delete the ECR repository**: The program prompts the user to delete the ECR repository and its contents using the `deleteECRRepository` method.
 
 
 ### Program execution
-The following shows the output of the program in the console. 
+The following shows the output of the Amazon ECR program in the console. 
 
 ``` java
   The Amazon Elastic Container Registry (ECR) is a fully-managed Docker container registry
@@ -217,7 +219,35 @@ Press <ENTER> to continue:
 Continuing with the program...
 
 --------------------------------------------------------------------------------
-9. Delete the ECR Repository.
+9. Interact with the image in Amazon ECR by using the CLI. Replace 123456789 with your account id, <repoName> with your repo name, 
+and <image name> with your image name. 
+
+1. Authenticate with ECR - Before you can pull the image from ECR, you need to authenticate with the registry. You can do this using the AWS CLI:
+
+   aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 123456789.dkr.ecr.us-east-1.amazonaws.com
+
+2. Describe the image using this command
+
+    aws ecr describe-images --repository-name <repoName> --image-ids imageTag=latest
+
+3. Pull the Docker image - Once you're authenticated, you can pull the image from ECR using the Docker CLI:
+
+    docker pull 123456789.dkr.ecr.us-east-1.amazonaws.com/ecr221:<image name>
+
+4. Run the Docker container -  After the image is pulled, you can run the container using the `docker run` command:
+
+    docker run -d 123456789.dkr.ecr.us-east-1.amazonaws.com/<repo name>:<image name>
+
+5. View the output - replace the string with the string returned from the --region us-east-1
+             run command.
+
+    docker logs e9a9d6a14bff8080a28c8ccd24482e367412f7d5cb8f2ae28579c1ea28dbd59c
+
+
+
+Enter 'c' followed by <ENTER> to continue:
+--------------------------------------------------------------------------------
+10. Delete the ECR Repository.
 If the repository isn't empty, you must either delete the contents of the repository
 or use the force option (used in this scenario) to delete the repository and have Amazon ECR delete all of its contents
 on your behalf.
