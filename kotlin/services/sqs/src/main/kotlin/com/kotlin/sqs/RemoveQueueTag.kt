@@ -18,7 +18,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <queueName> <tagName>
@@ -39,20 +38,24 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[sqs.kotlin.remove_tag.main]
-suspend fun removeTag(queueNameVal: String, tagName: String) {
-
-    val urlRequest = GetQueueUrlRequest {
-        queueName = queueNameVal
-    }
+suspend fun removeTag(
+    queueNameVal: String,
+    tagName: String
+) {
+    val urlRequest =
+        GetQueueUrlRequest {
+            queueName = queueNameVal
+        }
 
     SqsClient { region = "us-east-1" }.use { sqsClient ->
         val getQueueUrlResponse = sqsClient.getQueueUrl(urlRequest)
         val queueUrlVal = getQueueUrlResponse.queueUrl
 
-        val untagQueueRequest = UntagQueueRequest {
-            queueUrl = queueUrlVal
-            tagKeys = listOf(tagName)
-        }
+        val untagQueueRequest =
+            UntagQueueRequest {
+                queueUrl = queueUrlVal
+                tagKeys = listOf(tagName)
+            }
 
         sqsClient.untagQueue(untagQueueRequest)
         println("The $tagName tag was removed from  $queueNameVal")

@@ -16,13 +16,11 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
     getRules()
 }
 
 // snippet-start:[xray.kotlin_get_rules.main]
 suspend fun getRules() {
-
     XRayClient { region = "us-east-1" }.use { xRayClient ->
         val response = xRayClient.getSamplingRules(GetSamplingRulesRequest {})
         response.samplingRuleRecords?.forEach { record ->

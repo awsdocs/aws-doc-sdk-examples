@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
       Usage: 
         <attribute> <topicArn> <value>
@@ -40,13 +39,17 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[sns.kotlin.SetTopicAttributes.main]
-suspend fun setTopAttr(attribute: String?, topicArnVal: String?, value: String?) {
-
-    val request = SetTopicAttributesRequest {
-        attributeName = attribute
-        attributeValue = value
-        topicArn = topicArnVal
-    }
+suspend fun setTopAttr(
+    attribute: String?,
+    topicArnVal: String?,
+    value: String?
+) {
+    val request =
+        SetTopicAttributesRequest {
+            attributeName = attribute
+            attributeValue = value
+            topicArn = topicArnVal
+        }
 
     SnsClient { region = "us-east-1" }.use { snsClient ->
         snsClient.setTopicAttributes(request)

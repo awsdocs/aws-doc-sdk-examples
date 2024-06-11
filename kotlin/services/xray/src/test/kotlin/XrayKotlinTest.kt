@@ -30,19 +30,21 @@ class XrayKotlinTest {
     private var ruleName = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        val random = Random()
-        val randomNum = random.nextInt((10000 - 1) + 1) + 1
+    fun setup() =
+        runBlocking {
+            val random = Random()
+            val randomNum = random.nextInt((10000 - 1) + 1) + 1
 
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        groupName = values.groupName.toString()
-        newGroupName = values.newGroupName.toString() + randomNum
-        ruleName = values.ruleName.toString() + randomNum
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            groupName = values.groupName.toString()
+            newGroupName = values.newGroupName.toString() + randomNum
+            ruleName = values.ruleName.toString() + randomNum
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
@@ -50,57 +52,67 @@ class XrayKotlinTest {
         groupName = prop.getProperty("groupName")
         newGroupName = prop.getProperty("newGroupName")
         ruleName = prop.getProperty("ruleName")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun createGroup() = runBlocking {
-        createNewGroup(newGroupName)
-        println("Test 1 passed")
-    }
+    fun createGroup() =
+        runBlocking {
+            createNewGroup(newGroupName)
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun createSamplingRule() = runBlocking {
-        createRule(ruleName)
-        println("Test 2 passed")
-    }
+    fun createSamplingRule() =
+        runBlocking {
+            createRule(ruleName)
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun getGroups() = runBlocking {
-        getAllGroups()
-        println("Test 3 passed")
-    }
+    fun getGroups() =
+        runBlocking {
+            getAllGroups()
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun getSamplingRules() = runBlocking {
-        getRules()
-        println("Test 4 passed")
-    }
+    fun getSamplingRules() =
+        runBlocking {
+            getRules()
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun DeleteSamplingRule() = runBlocking {
-        deleteRule(ruleName)
-        println("Test 5 passed")
-    }
+    fun deleteSamplingRule() =
+        runBlocking {
+            deleteRule(ruleName)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun DeleteGroup() = runBlocking {
-        deleteSpecificGroup(newGroupName)
-        println("Test 6 passed")
-    }
+    fun deleteGroup() =
+        runBlocking {
+            deleteSpecificGroup(newGroupName)
+            println("Test 6 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/xray"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

@@ -21,12 +21,12 @@ suspend fun main() {
 
 // snippet-start:[translate.kotlin._text.main]
 suspend fun textTranslate() {
-
-    val textRequest = TranslateTextRequest {
-        sourceLanguageCode = "en"
-        targetLanguageCode = "fr"
-        text = "Its a sunny day today"
-    }
+    val textRequest =
+        TranslateTextRequest {
+            sourceLanguageCode = "en"
+            targetLanguageCode = "fr"
+            text = "Its a sunny day today"
+        }
 
     TranslateClient { region = "us-west-2" }.use { translateClient ->
         val textResponse = translateClient.translateText(textRequest)

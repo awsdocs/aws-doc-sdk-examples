@@ -42,20 +42,21 @@ class SNSTest {
     private var message = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val random = Random()
-        val randomNum = random.nextInt(10000 - 1 + 1) + 1
-        val gson = Gson()
-        val json = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        topicName = values.topicName.toString() + randomNum
-        attributeName = values.attributeName.toString()
-        attributeValue = values.attributeValue.toString()
-        email = values.email.toString()
-        lambdaarn = values.lambdaarn.toString()
-        phone = values.phone.toString()
-        message = values.message.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val random = Random()
+            val randomNum = random.nextInt(10000 - 1 + 1) + 1
+            val gson = Gson()
+            val json = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            topicName = values.topicName.toString() + randomNum
+            attributeName = values.attributeName.toString()
+            attributeValue = values.attributeValue.toString()
+            email = values.email.toString()
+            lambdaarn = values.lambdaarn.toString()
+            phone = values.phone.toString()
+            message = values.message.toString()
 
         /*
         // load the properties file.
@@ -70,107 +71,124 @@ class SNSTest {
         phone = prop.getProperty("phone")
         message = prop.getProperty("message")
         existingsubarn = prop.getProperty("existingsubarn")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun createTopicTest() = runBlocking {
-        topicArn = createSNSTopic(topicName)
-        Assertions.assertTrue(!topicArn.isEmpty())
-        println("Test 1 passed")
-    }
+    fun createTopicTest() =
+        runBlocking {
+            topicArn = createSNSTopic(topicName)
+            Assertions.assertTrue(!topicArn.isEmpty())
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun listTopicsTest() = runBlocking {
-        listSNSTopics()
-        println("Test 2 passed")
-    }
+    fun listTopicsTest() =
+        runBlocking {
+            listSNSTopics()
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun setTopicAttributesTest() = runBlocking {
-        setTopAttr(attributeName, topicArn, attributeValue)
-        println("Test 3 passed")
-    }
+    fun setTopicAttributesTest() =
+        runBlocking {
+            setTopAttr(attributeName, topicArn, attributeValue)
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun subscribeEmailTest() = runBlocking {
-        subEmail(topicArn, email)
-        println("Test 4 passed")
-    }
+    fun subscribeEmailTest() =
+        runBlocking {
+            subEmail(topicArn, email)
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun subscribeLambdaTest() = runBlocking {
-        subLambda(topicArn, lambdaarn)
-        println("Test 5 passed")
-    }
+    fun subscribeLambdaTest() =
+        runBlocking {
+            subLambda(topicArn, lambdaarn)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun addTagsTest() = runBlocking {
-        addTopicTags(topicArn)
-        println("Test 6 passed")
-    }
+    fun addTagsTest() =
+        runBlocking {
+            addTopicTags(topicArn)
+            println("Test 6 passed")
+        }
 
     @Test
     @Order(7)
-    fun listTagsTest() = runBlocking {
-        listTopicTags(topicArn)
-        println("Test 7 passed")
-    }
+    fun listTagsTest() =
+        runBlocking {
+            listTopicTags(topicArn)
+            println("Test 7 passed")
+        }
 
     @Test
     @Order(8)
-    fun deleteTagTest() = runBlocking {
-        removeTag(topicArn, "Team")
-        println("Test 8 passed")
-    }
+    fun deleteTagTest() =
+        runBlocking {
+            removeTag(topicArn, "Team")
+            println("Test 8 passed")
+        }
 
     @Test
     @Order(10)
-    fun subEmailTest() = runBlocking {
-        subEmail(topicArn, email)
-        println("Test 10 passed")
-    }
+    fun subEmailTest() =
+        runBlocking {
+            subEmail(topicArn, email)
+            println("Test 10 passed")
+        }
 
     @Test
     @Order(11)
-    fun pubTopicTest() = runBlocking {
-        pubTopic(topicArn, message)
-        println("Test 11 passed")
-    }
+    fun pubTopicTest() =
+        runBlocking {
+            pubTopic(topicArn, message)
+            println("Test 11 passed")
+        }
 
     @Test
     @Order(12)
-    fun listSubsTest() = runBlocking {
-        listSNSSubscriptions()
-        println("Test 12 passed")
-    }
+    fun listSubsTest() =
+        runBlocking {
+            listSNSSubscriptions()
+            println("Test 12 passed")
+        }
 
     @Test
     @Order(13)
-    fun subscribeTextSMSTest() = runBlocking {
-        subTextSNS(topicArn, phone)
-        println("Test 14 passed")
-    }
+    fun subscribeTextSMSTest() =
+        runBlocking {
+            subTextSNS(topicArn, phone)
+            println("Test 14 passed")
+        }
 
     @Test
     @Order(15)
-    fun deleteTopicTest() = runBlocking {
-        deleteSNSTopic(topicArn)
-        println("Test 15 passed")
-    }
+    fun deleteTopicTest() =
+        runBlocking {
+            deleteSNSTopic(topicArn)
+            println("Test 15 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/sns"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }
