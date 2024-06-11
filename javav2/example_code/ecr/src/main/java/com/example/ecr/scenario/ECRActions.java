@@ -4,14 +4,16 @@
 package com.example.ecr.scenario;
 
 // snippet-start:[ecr.java2_scenario.main]
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import software.amazon.awssdk.core.SdkBytes;
+import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.model.AuthConfig;
+import com.github.dockerjava.core.DockerClientBuilder;
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
+import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
+import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecr.EcrAsyncClient;
 import software.amazon.awssdk.services.ecr.model.AuthorizationData;
-import software.amazon.awssdk.services.ecr.model.BatchCheckLayerAvailabilityRequest;
-import software.amazon.awssdk.services.ecr.model.CompleteLayerUploadRequest;
 import software.amazon.awssdk.services.ecr.model.CreateRepositoryRequest;
 import software.amazon.awssdk.services.ecr.model.CreateRepositoryResponse;
 import software.amazon.awssdk.services.ecr.model.DeleteRepositoryRequest;
@@ -21,31 +23,23 @@ import software.amazon.awssdk.services.ecr.model.DescribeImagesResponse;
 import software.amazon.awssdk.services.ecr.model.DescribeRepositoriesRequest;
 import software.amazon.awssdk.services.ecr.model.DescribeRepositoriesResponse;
 import software.amazon.awssdk.services.ecr.model.EcrException;
-import software.amazon.awssdk.services.ecr.model.GetAuthorizationTokenRequest;
 import software.amazon.awssdk.services.ecr.model.GetAuthorizationTokenResponse;
 import software.amazon.awssdk.services.ecr.model.GetRepositoryPolicyRequest;
 import software.amazon.awssdk.services.ecr.model.GetRepositoryPolicyResponse;
 import software.amazon.awssdk.services.ecr.model.ImageIdentifier;
-import software.amazon.awssdk.services.ecr.model.InitiateLayerUploadRequest;
 import software.amazon.awssdk.services.ecr.model.InvalidParameterException;
-import software.amazon.awssdk.services.ecr.model.PutImageRequest;
+import software.amazon.awssdk.services.ecr.model.Repository;
 import software.amazon.awssdk.services.ecr.model.RepositoryPolicyNotFoundException;
 import software.amazon.awssdk.services.ecr.model.SetRepositoryPolicyRequest;
 import software.amazon.awssdk.services.ecr.model.SetRepositoryPolicyResponse;
 import software.amazon.awssdk.services.ecr.model.StartLifecyclePolicyPreviewRequest;
 import software.amazon.awssdk.services.ecr.model.StartLifecyclePolicyPreviewResponse;
-import software.amazon.awssdk.services.ecr.model.UploadLayerPartRequest;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import com.github.dockerjava.api.command.DockerCmdExecFactory;
+import com.github.dockerjava.netty.NettyDockerCmdExecFactory;
+import java.time.Duration;
 import java.util.Base64;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
-import java.util.concurrent.ExecutionException;
 
 /*
 
@@ -57,14 +51,53 @@ import java.util.concurrent.ExecutionException;
 public class ECRActions {
     private static EcrAsyncClient ecrClient;
 
+    /**
+     * Retrieves an asynchronous Amazon Elastic Container Registry (ECR) client.
+     *
+     * <p>The returned client is configured with the following settings:
+     * <ul>
+     *   <li>Maximum concurrency: 50 (can be adjusted as needed)</li>
+     *   <li>Connection timeout: 60 seconds</li>
+     *   <li>Read timeout: 60 seconds</li>
+     *   <li>Write timeout: 60 seconds</li>
+     *   <li>API call timeout: 2 minutes</li>
+     *   <li>API call attempt timeout: 90 seconds</li>
+     *   <li>Region: US_EAST_1</li>
+     *   <li>Credentials provider: {@link DefaultCredentialsProvider#create()}</li>
+     * </ul>
+     *
+     * @return the configured ECR asynchronous client
+     */
     private static EcrAsyncClient getAsyncClient() {
+
+        /*
+         The `NettyNioAsyncHttpClient` class is part of the AWS SDK for Java, version 2,
+         and it is designed to provide a high-performance, asynchronous HTTP client for interacting with AWS services.
+         It uses the Netty framework to handle the underlying network communication and the Java NIO API to
+         provide a non-blocking, event-driven approach to HTTP requests and responses.
+         */
+        SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
+            .maxConcurrency(50)  // Adjust as needed.
+            .connectionTimeout(Duration.ofSeconds(60))  // Set the connection timeout.
+            .readTimeout(Duration.ofSeconds(60))  // Set the read timeout.
+            .writeTimeout(Duration.ofSeconds(60))  // Set the write timeout.
+            .build();
+
+        ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
+            .apiCallTimeout(Duration.ofMinutes(2))  // Set the overall API call timeout
+            .apiCallAttemptTimeout(Duration.ofSeconds(90))  // Set the individual call attempt timeout
+            .build();
+
         if (ecrClient == null) {
             ecrClient = EcrAsyncClient.builder()
                 .region(Region.US_EAST_1)
+                .httpClient(httpClient)
+                .overrideConfiguration(overrideConfig)
                 .build();
         }
         return ecrClient;
     }
+
 
     // snippet-start:[ecr.java2.delete.repo.main]
     /**
@@ -117,7 +150,7 @@ public class ECRActions {
      * @throws EcrException             if there is an error retrieving the image information from Amazon ECR.
      * @throws CompletionException      if the asynchronous operation completes exceptionally.
      */
-    public void verifyImage(String repositoryName, String imageTag) {
+    public static void verifyImage(String repositoryName, String imageTag) {
         if (repositoryName == null || repositoryName.isEmpty()) {
             throw new IllegalArgumentException("Repository name cannot be null or empty");
         }
@@ -157,7 +190,6 @@ public class ECRActions {
         // Wait for the CompletableFuture to complete
         response.join();
     }
-
     // snippet-end:[ecr.java2.verify.image.main]
 
     // snippet-start:[ecr.java2.set.policy.main]
@@ -216,11 +248,12 @@ public class ECRActions {
      * Retrieves the repository URI for the specified repository name.
      *
      * @param repoName the name of the repository to retrieve the URI for.
+     * @return the repository URI for the specified repository name.
      * @throws EcrException if there is an error retrieving the repository information.
      * @throws InterruptedException if the thread is interrupted while waiting for the asynchronous operation to complete.
      * @throws CompletionException if the asynchronous operation completes exceptionally.
      */
-    public void getRepositoryURI(String repoName) {
+    public String getRepositoryURI(String repoName) {
         if (repoName == null || repoName.isEmpty()) {
             throw new IllegalArgumentException("Repository name cannot be null or empty");
         }
@@ -233,28 +266,25 @@ public class ECRActions {
         CompletableFuture<DescribeRepositoriesResponse> response = getAsyncClient().describeRepositories(request);
 
         // Use whenComplete to handle the response or any exceptions.
-        response.whenComplete((describeRepositoriesResponse, ex) -> {
-            try {
-                if (describeRepositoriesResponse != null && !describeRepositoriesResponse.repositories().isEmpty()) {
-                    System.out.println("The repository URI is " + describeRepositoriesResponse.repositories().get(0).repositoryUri());
-                } else {
-                    // Handle the case where no repositories are returned.
-                    System.err.println("No repositories found for the given name.");
-                }
-            } catch (EcrException e) {
-                Throwable cause = ex.getCause();
-                if (cause instanceof InterruptedException) {
-                    System.err.println("Thread interrupted while waiting for asynchronous operation: " + cause.getMessage());
-                } else if (cause instanceof CompletionException) {
-                    System.err.println("Asynchronous operation completed exceptionally: " + cause.getCause().getMessage());
-                } else {
-                    System.err.println("Unexpected error: " + cause.getMessage());
-                }
+        try {
+            DescribeRepositoriesResponse describeRepositoriesResponse = response.join();
+            if (!describeRepositoriesResponse.repositories().isEmpty()) {
+                return describeRepositoriesResponse.repositories().get(0).repositoryUri();
+            } else {
+                // Handle the case where no repositories are returned.
+                System.out.println("No repositories found for the given name.");
             }
-        });
-
-        // Wait for the CompletableFuture to complete.
-        response.join();
+        } catch (Throwable ex) {
+            Throwable cause = ex.getCause();
+            if (cause instanceof InterruptedException) {
+                throw new RuntimeException("Thread interrupted while waiting for asynchronous operation: " + cause.getMessage(), cause);
+            } else if (cause instanceof CompletionException) {
+                throw new RuntimeException("Asynchronous operation completed exceptionally: " + cause.getCause().getMessage(), cause);
+            } else {
+                throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
+            }
+        }
+        return "";
     }
     // snippet-end:[ecr.java2.describe.policy.main]
 
@@ -445,163 +475,51 @@ public class ECRActions {
     /**
      * Pushes a Docker image to an Amazon Elastic Container Registry (ECR) repository.
      *
-     * @param repositoryName the name of the ECR repository to push the image to
+     * @param repoName the name of the ECR repository to push the image to
      * @param imageName the name of the Docker image to be pushed
-     * @throws ExecutionException if the asynchronous operation encounters an exception
-     * @throws InterruptedException if the current thread is interrupted while waiting for the asynchronous operation to complete
+     * @param imageTag the tag to apply to the Docker image
      */
-    public void pushDockerImage(String repositoryName, String imageName) throws ExecutionException, InterruptedException {
-        // Retrieve the authorization token for ECR.
-        GetAuthorizationTokenRequest authorizationTokenRequest = GetAuthorizationTokenRequest.builder().build();
-        CompletableFuture<GetAuthorizationTokenResponse> authorizationTokenResponseFuture = getAsyncClient().getAuthorizationToken(authorizationTokenRequest);
-        authorizationTokenResponseFuture.thenCompose(authorizationTokenResponse -> {
-            AuthorizationData authorizationData = authorizationTokenResponse.authorizationData().get(0);
-            String dockerLoginCommand = authorizationData.authorizationToken();
-            System.out.println("Docker login command: " + new String(Base64.getDecoder().decode(dockerLoginCommand)));
-            System.out.println("Pushing the image to the "+repositoryName +" repository may take a few secs...");
+    public void pushDockerImage(String repoName, String imageName, String imageTag) {
+        // Make sure Docker Desktop is running.
+        String dockerHost = "tcp://localhost:2375"; // Use the Docker Desktop default port
+        DockerCmdExecFactory dockerCmdExecFactory = new NettyDockerCmdExecFactory().withReadTimeout(20000).withConnectTimeout(20000);
+        DockerClient dockerClient = DockerClientBuilder.getInstance(dockerHost).withDockerCmdExecFactory(dockerCmdExecFactory).build();
+        System.out.println(dockerClient.infoCmd().exec());
 
-            // Get the Docker image bytes.
-            byte[] dockerFileBytes;
-            try {
-                dockerFileBytes = getDockerImageBytes(imageName);
-            } catch (IOException e) {
-                return CompletableFuture.failedFuture(e);
-            }
+        CompletableFuture<AuthConfig> authResponseFuture = getAsyncClient().getAuthorizationToken()
+            .thenApply(response -> {
+                String token = response.authorizationData().get(0).authorizationToken();
+                String decodedToken = new String(Base64.getDecoder().decode(token));
+                String password = decodedToken.substring(4);
 
-            // Calculate the digest of the Docker image.
-            List<byte[]> imageBytesList = List.of(dockerFileBytes);
+                DescribeRepositoriesResponse descrRepoResponse = getAsyncClient().describeRepositories(b -> b.repositoryNames(repoName)).join();
+                Repository repoData = descrRepoResponse.repositories().stream().filter(r -> r.repositoryName().equals(repoName)).findFirst().orElse(null);
+                String registryURL = repoData.repositoryUri().split("/")[0];
 
-            // Store layer digests.
-            JsonArray layers = new JsonArray();
-            CompletableFuture<Void> uploadFuture = CompletableFuture.completedFuture(null);
+                AuthConfig authConfig = new AuthConfig()
+                    .withUsername("AWS")
+                    .withPassword(password)
+                    .withRegistryAddress(registryURL);
+                return authConfig;
+            })
+            .thenCompose(authConfig -> {
+                DescribeRepositoriesResponse descrRepoResponse = getAsyncClient().describeRepositories(b -> b.repositoryNames(repoName)).join();
+                Repository repoData = descrRepoResponse.repositories().stream().filter(r -> r.repositoryName().equals(repoName)).findFirst().orElse(null);
 
-            for (byte[] imageBytes : imageBytesList) {
-                String layerDigest = sha256Hex(imageBytes);
-
-                // Check if the layer exists.
-                BatchCheckLayerAvailabilityRequest checkLayerRequest = BatchCheckLayerAvailabilityRequest.builder()
-                    .repositoryName(repositoryName)
-                    .layerDigests(List.of("sha256:" + layerDigest))
-                    .build();
-
-                uploadFuture = uploadFuture.thenCompose(v ->
-                    getAsyncClient().batchCheckLayerAvailability(checkLayerRequest)
-                        .thenCompose(checkLayerResponse -> {
-                            if (checkLayerResponse.failures().isEmpty()) {
-                                InitiateLayerUploadRequest initiateLayerUploadRequest = InitiateLayerUploadRequest.builder()
-                                    .repositoryName(repositoryName)
-                                    .build();
-
-                                return getAsyncClient().initiateLayerUpload(initiateLayerUploadRequest)
-                                    .thenCompose(initiateLayerUploadResponse -> {
-                                        String uploadId = initiateLayerUploadResponse.uploadId();
-
-                                        UploadLayerPartRequest uploadLayerPartRequest = UploadLayerPartRequest.builder()
-                                            .repositoryName(repositoryName)
-                                            .uploadId(uploadId)
-                                            .partFirstByte(0L)
-                                            .partLastByte((long) (imageBytes.length - 1))
-                                            .layerPartBlob(SdkBytes.fromByteBuffer(ByteBuffer.wrap(imageBytes)))
-                                            .build();
-
-                                        return getAsyncClient().uploadLayerPart(uploadLayerPartRequest)
-                                            .thenCompose(uploadLayerPartResponse -> {
-                                                CompleteLayerUploadRequest completeLayerUploadRequest = CompleteLayerUploadRequest.builder()
-                                                    .repositoryName(repositoryName)
-                                                    .uploadId(uploadId)
-                                                    .layerDigests(List.of("sha256:" + layerDigest))
-                                                    .build();
-                                                return getAsyncClient().completeLayerUpload(completeLayerUploadRequest);
-                                            }).thenApply(completeLayerUploadResponse -> {
-                                                // Add layer to manifest.
-                                                JsonObject layer = new JsonObject();
-                                                layer.addProperty("mediaType", "application/vnd.docker.image.rootfs.diff.tar.gzip");
-                                                layer.addProperty("size", imageBytes.length);
-                                                layer.addProperty("digest", "sha256:" + layerDigest);
-                                                layers.add(layer);
-                                                return null;
-                                            });
-                                    });
-                            } else {
-                                return CompletableFuture.completedFuture(null);
-                            }
-                        }));
-            }
-
-            return uploadFuture.thenCompose(v -> {
-                // Create a JSON document that represents the image manifest.
-                JsonObject manifestJson = new JsonObject();
-                manifestJson.addProperty("schemaVersion", 2);
-                manifestJson.addProperty("mediaType", "application/vnd.docker.distribution.manifest.v2+json");
-
-                // Add config.
-                JsonObject config = new JsonObject();
-                config.addProperty("mediaType", "application/vnd.docker.container.image.v1+json");
-                config.addProperty("size", dockerFileBytes.length);
-                config.addProperty("digest", "sha256:" + sha256Hex(dockerFileBytes));
-                manifestJson.add("config", config);
-
-                // Add layers to manifest.
-                manifestJson.add("layers", layers);
-                String imageManifest = manifestJson.toString();
-                PutImageRequest putImageRequest = PutImageRequest.builder()
-                    .repositoryName(repositoryName)
-                    .imageTag("latest")
-                    .imageManifest(imageManifest)
-                    .build();
-
-                // Put the image into the ECR repository.
-                return getAsyncClient().putImage(putImageRequest).thenApply(putImageResponse -> {
-                    System.out.println("Image pushed: " + putImageResponse.image().imageId().imageTag());
-                    return null;
-                });
+                //dockerClient.tagImageCmd("hello-world:latest", repoData.repositoryUri() + ":latest", imageName).exec();
+                dockerClient.tagImageCmd(imageName+":latest", repoData.repositoryUri() + ":latest", imageName).exec();
+                try {
+                   // dockerClient.pushImageCmd(repoData.repositoryUri()).withTag(imageName).withAuthConfig(authConfig).start().awaitCompletion();
+                    dockerClient.pushImageCmd(repoData.repositoryUri()).withTag("hello-world").withAuthConfig(authConfig).start().awaitCompletion();
+                    System.out.println("The "+imageName+" was pushed to ECR");
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                return CompletableFuture.completedFuture(authConfig);
             });
-        }).exceptionally(e -> {
-            e.printStackTrace();
-            return null;
-        }).join(); // Blocking to make sure the whole process completes before the method exits.
+
+        authResponseFuture.join();
     }
     // snippet-end:[ecr.java2.push.image.main]
-
-    // Method to calculate SHA-256 digest (use any suitable method/library).
-    private String sha256Hex(byte[] data) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(data);
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    // Method to get Docker image bytes.
-    private byte[] getDockerImageBytes(String imageName) throws IOException {
-        // Execute docker save command to save the image to a tar archive.
-        Process process = Runtime.getRuntime().exec("docker save " + imageName);
-
-        // Read the output of the process (image bytes).
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = process.getInputStream().read(buffer)) != -1) {
-            output.write(buffer, 0, bytesRead);
-        }
-
-        // Wait for the process to complete.
-        try {
-            process.waitFor();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // Return the image bytes.
-        return output.toByteArray();
-    }
 }
 // snippet-end:[ecr.java2_scenario.main]

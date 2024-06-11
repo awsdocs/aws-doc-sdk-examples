@@ -8,6 +8,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecr.EcrClient;
 import java.io.IOException;
 import java.util.Scanner;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -37,8 +38,10 @@ public class ECRScenario {
 
         ECRActions ecrActions = new ECRActions();
         String iamRole = "arn:aws:iam::814548047983:role/Admin" ; //args[0];
-        String localImageName = "hello-world-docker:latest" ; //args[1];
+        String localImageName = "hello-world" ; //args[1];
+        String accountId= "814548047983";
         String imageTag = "latest" ;
+        String registryURL = accountId+".dkr.ecr.<aws_region>.amazonaws.com" ;
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("""
@@ -135,7 +138,7 @@ public class ECRScenario {
         correct container image from the ECR repository.    
        """);
         waitForInputToContinue(scanner);
-        ecrActions.getRepositoryURI(repoName);
+        String repositoryURI = ecrActions.getRepositoryURI(repoName);
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -153,28 +156,58 @@ public class ECRScenario {
         System.out.println("""
             7. Push a docker image to the Amazon ECR Repository.
             
-            The `pushDockerImage` method demonstrates the process of pushing a Docker image to the ECR repository, 
-            including calculating the SHA-256 hash of the image, checking layer availability, 
-            and completing the image upload.
+            The `pushDockerImage()` method is responsible for pushing a Docker image to an Amazon Elastic Container 
+            Registry (ECR) repository. It first sets up the Docker client by connecting to the local Docker host 
+            using the default port. It then retrieves the authorization token for the ECR repository by making a 
+            call to the AWS SDK. 
             
-            When pushing a docker image to an ECR repository, you calculate the SHA-256 hash of a given byte array. 
-            This is used when uploading a Docker image to ECR because ECR requires the image digest 
-            (a unique identifier based on the image content) to be provided during the image push operation.
-                     
+            The method uses this authorization token to create an `AuthConfig` object, which is used to authenticate 
+            the Docker client when pushing the image. Finally, the method tags the Docker image with the specified 
+            repository name and image tag, and then pushes the image to the ECR repository using the Docker client. 
+            If the push operation is successful, the method prints a message indicating that the image was pushed to ECR.
+      
             """);
 
         waitForInputToContinue(scanner);
-        ecrActions.pushDockerImage(repoName, localImageName);
+        ecrActions.pushDockerImage(repoName, localImageName,imageTag);
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
         System.out.println("8. Verify if the image is in the ECR Repository.");
         waitForInputToContinue(scanner);
-        ecrActions.verifyImage(repoName, imageTag);
+        ecrActions.verifyImage(repoName, localImageName);
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
-        System.out.println("9. Delete the ECR Repository.");
+        System.out.println("9. As an optional step, you can interact with the image in Amazon ECR by using the CLI.");
+        System.out.println("Would you like to view instructions on how to use the CLI to run the image? (y/n)");
+        String ans = scanner.nextLine().trim();
+        if (ans.equalsIgnoreCase("y")) {
+            String instructions = """
+            1. Authenticate with ECR - Before you can pull the image from Amazon ECR, you need to authenticate with the registry. You can do this using the AWS CLI:
+                    
+                aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin %s.dkr.ecr.us-east-1.amazonaws.com
+           
+            2. Describe the image using this command:
+                   
+                aws ecr describe-images --repository-name %s --image-ids imageTag=%s
+        
+            3. Once you're authenticated, you can pull the image from Amazon ECR using this command:
+                   
+                docker pull %s.dkr.ecr.us-east-1.amazonaws.com/%s:%s
+        
+            4. Run the Docker container and view the output using this command:
+                   
+                docker run --rm %s.dkr.ecr.us-east-1.amazonaws.com/%s:%s
+           """;
+            instructions = String.format(instructions, accountId, repoName, localImageName, accountId, repoName, localImageName, accountId, repoName, localImageName);
+            System.out.println(instructions);
+        }
+
+        waitForInputToContinue(scanner);
+
+        System.out.println(DASHES);
+        System.out.println("10. Delete the ECR Repository.");
         System.out.println("""
         If the repository isn't empty, you must either delete the contents of the repository 
         or use the force option (used in this scenario) to delete the repository and have Amazon ECR delete all of its contents 

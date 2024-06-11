@@ -20,12 +20,12 @@ public class HelloECR {
                repositoryName - The name of the Amazon ECR repository. 
             """;
 
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+      //  if (args.length != 1) {
+       //     System.out.println(usage);
+     //       System.exit(1);
+     //   }
 
-        String repoName = args[0];
+        String repoName = "ecr221" ; //args[0];
         EcrClient ecrClient = EcrClient.builder()
             .region(Region.US_EAST_1)
             .build();
@@ -41,7 +41,7 @@ public class HelloECR {
            ListImagesIterable imagesIterable = ecrClient.listImagesPaginator(listImagesPaginator);
            imagesIterable.stream()
                .flatMap(r -> r.imageIds().stream())
-               .forEach(image -> System.out.println("The docker image tag is: " + image.imageTag()));
+               .forEach(image -> System.out.println("The docker image tag is: " +image.imageTag()));
 
        } catch (EcrException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
