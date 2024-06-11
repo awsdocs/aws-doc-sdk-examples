@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
         
         Usage: 
@@ -39,10 +38,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[xray.kotlin_delete_rule.main]
 suspend fun deleteRule(ruleNameVal: String?) {
-
-    val ruleRequest = DeleteSamplingRuleRequest {
-        ruleName = ruleNameVal
-    }
+    val ruleRequest =
+        DeleteSamplingRuleRequest {
+            ruleName = ruleNameVal
+        }
 
     XRayClient { region = "us-east-1" }.use { xRayClient ->
         xRayClient.deleteSamplingRule(ruleRequest)

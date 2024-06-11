@@ -5,13 +5,12 @@ import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
-import com.kotlin.xray.createNewGroup
-import com.kotlin.xray.createRule
-import com.kotlin.xray.deleteRule
-import com.kotlin.xray.deleteSpecificGroup
-import com.kotlin.xray.getAllGroups
-import com.kotlin.xray.getRules
+import com.kotlin.translate.describeTranslationJob
+import com.kotlin.translate.getTranslationJobs
+import com.kotlin.translate.textTranslate
+import com.kotlin.translate.translateDocuments
 import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
@@ -20,91 +19,77 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.util.Random
+import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
-class XrayKotlinTest {
-    private var groupName = ""
-    private var newGroupName = ""
-    private var ruleName = ""
+class TranslateKotlinTest {
+    private var s3Uri = ""
+    private var s3UriOut = ""
+    private var jobName = ""
+    private var dataAccessRoleArn = ""
+    private var jobId = ""
 
     @BeforeAll
     fun setup() =
         runBlocking {
-            val random = Random()
-            val randomNum = random.nextInt((10000 - 1) + 1) + 1
-
             // Get the values to run these tests from AWS Secrets Manager.
             val gson = Gson()
-            val json = getSecretValues()
+            val json: String = getSecretValues()
             val values = gson.fromJson(json, SecretValues::class.java)
-            groupName = values.groupName.toString()
-            newGroupName = values.newGroupName.toString() + randomNum
-            ruleName = values.ruleName.toString() + randomNum
-
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+            s3Uri = values.s3Uri.toString()
+            s3UriOut = values.s3UriOut.toString()
+            jobName = values.jobName.toString() + UUID.randomUUID()
+            dataAccessRoleArn = values.dataAccessRoleArn.toString()
 
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
         prop.load(input)
-        groupName = prop.getProperty("groupName")
-        newGroupName = prop.getProperty("newGroupName")
-        ruleName = prop.getProperty("ruleName")
+
+        // Populate the data members required for all tests.
+        s3Uri = prop.getProperty("s3Uri")
+        s3UriOut = prop.getProperty("s3UriOut")
+        jobName = prop.getProperty("jobName")
+        dataAccessRoleArn = prop.getProperty("dataAccessRoleArn")
          */
         }
 
     @Test
     @Order(1)
-    fun createGroup() =
+    fun translateTextTest() =
         runBlocking {
-            createNewGroup(newGroupName)
+            textTranslate()
             println("Test 1 passed")
         }
 
     @Test
     @Order(2)
-    fun createSamplingRule() =
+    fun batchTranslationTest() =
         runBlocking {
-            createRule(ruleName)
+            jobId = translateDocuments(s3Uri, s3UriOut, jobName, dataAccessRoleArn).toString()
+            Assertions.assertTrue(!jobId.isEmpty())
             println("Test 2 passed")
         }
 
     @Test
     @Order(3)
-    fun getGroups() =
+    fun listTextTranslationJobsTest() =
         runBlocking {
-            getAllGroups()
+            getTranslationJobs()
             println("Test 3 passed")
         }
 
     @Test
     @Order(4)
-    fun getSamplingRules() =
+    fun describeTextTranslationJobTest() =
         runBlocking {
-            getRules()
+            describeTranslationJob(jobId)
             println("Test 4 passed")
         }
 
-    @Test
-    @Order(5)
-    fun deleteSamplingRule() =
-        runBlocking {
-            deleteRule(ruleName)
-            println("Test 5 passed")
-        }
-
-    @Test
-    @Order(6)
-    fun deleteGroup() =
-        runBlocking {
-            deleteSpecificGroup(newGroupName)
-            println("Test 6 passed")
-        }
-
     private suspend fun getSecretValues(): String {
-        val secretName = "test/xray"
+        val secretName = "test/translate"
         val valueRequest =
             GetSecretValueRequest {
                 secretId = secretName
@@ -119,10 +104,11 @@ class XrayKotlinTest {
     }
 
     @Nested
-    @DisplayName("A class used to get test values from test/xray (an AWS Secrets Manager secret)")
+    @DisplayName("A class used to get test values from test/translate (an AWS Secrets Manager secret)")
     internal class SecretValues {
-        val groupName: String? = null
-        val newGroupName: String? = null
-        val ruleName: String? = null
+        val s3Uri: String? = null
+        val s3UriOut: String? = null
+        val jobName: String? = null
+        val dataAccessRoleArn: String? = null
     }
 }
