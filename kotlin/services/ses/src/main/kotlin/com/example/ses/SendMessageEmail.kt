@@ -45,7 +45,7 @@ suspend fun main(args: Array<String>) {
     val bodyHTML = (
         "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>" +
             "<p> See the list of customers.</p>" + "</body>" + "</html>"
-    )
+        )
 
     send(sender, recipient, subject, bodyHTML)
 }

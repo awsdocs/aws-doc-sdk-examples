@@ -58,7 +58,7 @@ suspend fun main(args: Array<String>) {
     val bodyHTML = (
         "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>" +
             "<p> See the list of customers.</p>" + "</body>" + "</html>"
-    )
+        )
 
     try {
         sendemailAttachment(sender, recipient, subject, bodyHTML, bodyHTML, fileLocation)

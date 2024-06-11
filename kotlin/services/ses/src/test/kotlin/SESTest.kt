@@ -32,11 +32,15 @@ class SESTest {
         Please see the attached file for a list of customers to contact.
         """.trimIndent()
 
-    // The HTML body of the email.
-    private val bodyHTML = (
-        "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>" +
-            "<p>Please see the attached file for a " + "list of customers to contact.</p>" + "</body>" + "</html>"
-    )
+    private val bodyHTML = """
+    <html>
+        <head></head>
+        <body>
+            <h1>Hello!</h1>
+            <p>Please see the attached file for a list of customers to contact.</p>
+        </body>
+    </html>
+    """.trimIndent()
 
     @BeforeAll
     fun setup() =
