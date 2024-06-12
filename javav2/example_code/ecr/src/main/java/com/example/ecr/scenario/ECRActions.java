@@ -84,8 +84,8 @@ public class ECRActions {
             .build();
 
         ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
-            .apiCallTimeout(Duration.ofMinutes(2))  // Set the overall API call timeout
-            .apiCallAttemptTimeout(Duration.ofSeconds(90))  // Set the individual call attempt timeout
+            .apiCallTimeout(Duration.ofMinutes(2))  // Set the overall API call timeout.
+            .apiCallAttemptTimeout(Duration.ofSeconds(90))  // Set the individual call attempt timeout.
             .build();
 
         if (ecrClient == null) {
@@ -97,7 +97,6 @@ public class ECRActions {
         }
         return ecrClient;
     }
-
 
     // snippet-start:[ecr.java2.delete.repo.main]
     /**

@@ -1,4 +1,21 @@
 # zexi 0.4.0
+ecr_Hello:
+  title: Hello &ECR;
+  title_abbrev: Hello &ECR;
+  synopsis: get started using &ECR;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2_hello.main
+  services:
+    ecr: {listImagesPaginator}
 ecr_DescribeRepositories:
   languages:
     Rust:
