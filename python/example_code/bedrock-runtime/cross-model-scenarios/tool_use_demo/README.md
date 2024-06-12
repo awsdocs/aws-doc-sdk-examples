@@ -46,7 +46,7 @@ to build a chatbot that provides real-time weather information based on user que
 
 ## Prerequisites
 
-For general prerequisites, see the [README](../../../../../../README.md#Prerequisites) in the `python` folder.
+For general prerequisites, see the [README](../../README.md#Prerequisites) in the `python` folder.
 
 > **Note:** You must request access to an AI model on Amazon Bedrock before you can use it. If you try to use the
 > model (with the API or console) before you have requested access to it, you will receive an error message. For more
