@@ -129,14 +129,15 @@ class Renderer:
             post_hello.append(action)
         return sorted(post_hello, key=itemgetter("title_abbrev"))
 
-
     def _transform_actions(self, pre_actions):
         post_actions = []
         for pre_id, pre in pre_actions.items():
             try:
                 api = next(iter(pre["services"][self.scanner.svc_name]))
             except:
-                raise MissingMetadataError(f"Action not found for example {pre_id} and service {self.scanner.svc_name}.")
+                raise MissingMetadataError(
+                    f"Action not found for example {pre_id} and service {self.scanner.svc_name}."
+                )
             action = {
                 "title_abbrev": api,
                 "file": self.scanner.snippet(
@@ -331,7 +332,8 @@ class Renderer:
                 self.readme_filename,
                 f'{self.lang_config["service_folder"]}/{config.saved_readme}',
             )
-        os.remove(self.readme_filename) #  Do this so that new files are always updated to the correct case (README.md).
+        # Do this so that new files are always updated to the correct case (README.md).
+        Path(self.readme_filename).unlink(missing_ok=False)
         with open(self.readme_filename, "w", encoding="utf-8") as f:
             f.write(self.readme_text)
         print(f"Updated {self.readme_filename}.")
