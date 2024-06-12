@@ -64,7 +64,7 @@ python -m pip install -r requirements.txt
 - [ConverseStream](models/anthropic_claude/converse_stream.py#L4)
 - [InvokeModel](models/anthropic_claude/invoke_model.py#L4)
 - [InvokeModelWithResponseStream](models/anthropic_claude/invoke_model_with_response_stream.py#L4)
-- [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo.py)
+- [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
 
 ### Cohere Command
 
