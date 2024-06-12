@@ -3,7 +3,7 @@
 
 package com.example.ecr.scenario;
 
-
+// snippet-start:[ecr.java2_scenario.parent.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ecr.EcrClient;
 import java.io.IOException;
@@ -243,3 +243,4 @@ public class ECRScenario {
        }
    }
 }
+// snippet-end:[ecr.java2_scenario.parent.main]

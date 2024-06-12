@@ -229,7 +229,7 @@ public class ECRActions {
             } else {
                 if (ex.getCause() instanceof EcrException) {
                     EcrException e = (EcrException) ex.getCause();
-                    System..mainerr.println("Error setting lifecycle policy for repository: " + repoName + " - " + e.awsErrorDetails().errorMessage());
+                    System.err.println("Error setting lifecycle policy for repository: " + repoName + " - " + e.awsErrorDetails().errorMessage());
                 } else {
                     System.err.println("Unexpected error occurred: " + ex.getMessage());
                 }
@@ -242,7 +242,7 @@ public class ECRActions {
 
     // snippet-end:[ecr.java2.set.policy.main]
 
-    // snippet-start:[ecr.java2.describe.policy]
+    // snippet-start:[ecr.java2.describe.policy.main]
     /**
      * Retrieves the repository URI for the specified repository name.
      *
