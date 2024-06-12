@@ -29,8 +29,7 @@
  */
 bool AwsDoc::Rekognition::detectLabels(const Aws::String &imageBucket,
                                        const Aws::String &imageKey,
-                                       const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::Rekognition::RekognitionClient rekognitionClient(clientConfiguration);
 
     Aws::Rekognition::Model::DetectLabelsRequest request;
@@ -49,14 +48,12 @@ bool AwsDoc::Rekognition::detectLabels(const Aws::String &imageBucket,
         const Aws::Vector<Aws::Rekognition::Model::Label> &labels = outcome.GetResult().GetLabels();
         if (labels.empty()) {
             std::cout << "No labels detected" << std::endl;
-        }
-        else {
+        } else {
             for (const Aws::Rekognition::Model::Label &label: labels) {
                 std::cout << label.GetName() << ": " << label.GetConfidence() << std::endl;
             }
         }
-    }
-    else {
+    } else {
         std::cerr << "Error while detecting labels: '"
                   << outcome.GetError().GetMessage()
                   << "'" << std::endl;
@@ -68,13 +65,11 @@ bool AwsDoc::Rekognition::detectLabels(const Aws::String &imageBucket,
 // snippet-end:[cpp.example_code.rekognition.DetectLabels]
 
 /*
- *
  *  main function
  *
  *  Usage: 'run_detect_labels <bucket> <image_key>'
  *
  *  Prerequisites: An S3 bucket with an image.
- *
  *
  */
 

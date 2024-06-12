@@ -3,8 +3,8 @@
 
 
 #pragma once
-#ifndef S3_EXAMPLES_S3_GTESTS_H
-#define S3_EXAMPLES_S3_GTESTS_H
+#ifndef REKOGNITION_EXAMPLES_REKOGNITION_GTESTS_H
+#define REKOGNITION_EXAMPLES_REKOGNITION_GTESTS_H
 
 #include <aws/core/Aws.h>
 #include <memory>
@@ -16,7 +16,7 @@ namespace AwsDocTest {
         int underflow() override;
     };
 
-    class S3_GTests : public testing::Test {
+    class Rekognition_GTests : public testing::Test {
     protected:
 
         void SetUp() override;
@@ -31,6 +31,15 @@ namespace AwsDocTest {
 
         void AddCommandLineResponses(const std::vector<std::string> &responses);
 
+        Aws::String uuidName(const Aws::String &prefix);
+
+        Aws::String getImageBucket();
+
+        Aws::String getImageFileName();
+
+        bool uploadImage(const Aws::String &bucketName, const Aws::String &imageFileName,
+                         const Aws::String &keyName);
+
         // s_clientConfig must be a pointer because the client config must be initialized
         // after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
@@ -39,6 +48,8 @@ namespace AwsDocTest {
 
         static bool suppressStdOut();
 
+        static void deleteBucket(const Aws::String &bucketName);
+
         static Aws::SDKOptions s_options;
 
         std::stringbuf m_coutBuffer;  // Used to silence cout.
@@ -46,7 +57,9 @@ namespace AwsDocTest {
 
         MyStringBuffer m_cinBuffer;
         std::streambuf *m_savedInBuffer = nullptr;
-    }; // S3_GTests
+
+        static Aws::String s_bucketName;
+    }; // Rekognition_GTests
 } // AwsDocTest
 
-#endif //S3_EXAMPLES_S3_GTESTS_H
+#endif //REKOGNITION_EXAMPLES_REKOGNITION_GTESTS_H

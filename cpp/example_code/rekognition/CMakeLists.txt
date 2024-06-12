@@ -17,7 +17,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(WINDOWS_BUILD ${MSVC})
 
 # Set the location of where Windows can find the installed libraries of the SDK.
-if (WINDOWS_BUILD )
+if (WINDOWS_BUILD)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
 endif ()
@@ -50,8 +50,7 @@ foreach (file ${AWSDOC_SOURCE})
     # Build the code example executables.
     set(EXAMPLE_EXE run_${EXAMPLE})
 
-    add_executable(${EXAMPLE_EXE} ${file}
-            hello_rekognition/hello_rekognition.cpp)
+    add_executable(${EXAMPLE_EXE} ${file})
 
     target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES}
             ${AWSSDK_PLATFORM_DEPS})
