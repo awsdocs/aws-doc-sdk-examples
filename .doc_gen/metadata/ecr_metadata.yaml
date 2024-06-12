@@ -16,6 +16,54 @@ ecr_Hello:
                 - ecr.java2_hello.main
   services:
     ecr: {listImagesPaginator}
+ecr_PushImageCmd:
+  title: Pushes a Docker image to an &ECR; repository 
+  title_abbrev: Pushes a Docker image
+  synopsis: pushes a Docker image to an &ECR; repository. 
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2.push.image.main
+  services:
+    ecr: {PushImageCmd}   
+ecr_SetRepositoryPolicy:
+  title: Sets the repository policy for the &ECR; repository 
+  title_abbrev: Sets the repository policy
+  synopsis: sets the repository policy for the &ECR; repository. 
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2.set.repo.policy.main
+  services:
+    ecr: {SetRepositoryPolicy}   
+ecr_GetRepositoryPolicy:
+  title: Retrieves the repository policy for the &ECR; repository 
+  title_abbrev: Retrieves the repository policy
+  synopsis: retrieves the repository policy for the &ECR; repository. 
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2.get.repo.policy.main
+  services:
+    ecr: {GetRepositoryPolicy}    
 ecr_GetAuthorizationToken:
   title: Retrieves the authorization token for an &ECR; repository 
   title_abbrev: Retrieves the authorization token

@@ -22,13 +22,14 @@ import java.util.concurrent.ExecutionException;
  */
 public class ECRScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-    public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
+    public static void main(String[] args) {
         final String usage = """
-                Usage: <iamRoleARN> <localImageName>
+                Usage: <iamRoleARN> <localImageName> <accountId>
 
                 Where:
                    iamRoleARN - The IAM role ARN that has the necessary permissions to access and manage the Amazon ECR repository.
                    localImageName - The local docker image to push into the ECR repository (ie, hello-world:latest). 
+                   accountId - Your AWS account number. 
                 """;
 
      //   if (args.length != 2) {

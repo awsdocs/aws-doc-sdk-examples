@@ -42,11 +42,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 /*
-
- In this code example, notice the use of Asynchronous Error Handling. This
- is designed for asynchronous error handling in CompletableFuture chains.
- When an exception occurs in any stage of the CompletableFuture pipeline,
- the exceptionally method allows you to handle the exception without blocking the thread.
+ In this code example, notice the use of Asynchronous Service client. The benefits of using this Async client include:
+ 1. Asynchronous error handling: The code uses the exceptionally method to handle exceptions without blocking the thread.
+ 2. Improved performance: The Async client uses the Netty framework and the Java NIO API to provide a non-blocking, event-driven approach to HTTP requests and responses, improving overall performance.
+ 3. Flexibility: The Async client allows for fine-tuning of parameters such as maximum concurrency, connection timeout, read timeout, write timeout, and more, to optimize the client for specific use cases.
  */
 public class ECRActions {
     private static EcrAsyncClient ecrClient;
@@ -120,7 +119,7 @@ public class ECRActions {
         // Execute the request asynchronously.
         CompletableFuture<DeleteRepositoryResponse> response = getAsyncClient().deleteRepository(repositoryRequest);
 
-        // Use whenComplete to handle the response or any exceptions
+        // Use whenComplete to handle the response or any exceptions.
         response.whenComplete((deleteRepositoryResponse, ex) -> {
             if (deleteRepositoryResponse != null) {
                 System.out.println("You have successfully deleted the " + repoName + " repository");
@@ -186,7 +185,7 @@ public class ECRActions {
             }
         });
 
-        // Wait for the CompletableFuture to complete
+        // Wait for the CompletableFuture to complete.
         response.join();
     }
     // snippet-end:[ecr.java2.verify.image.main]
@@ -342,10 +341,10 @@ public class ECRActions {
             .repositoryName(repoName)
             .build();
 
-        // Execute the request asynchronously and store the CompletableFuture
+        // Execute the request asynchronously and store the CompletableFuture.
         CompletableFuture<GetRepositoryPolicyResponse> response = getAsyncClient().getRepositoryPolicy(getRepositoryPolicyRequest);
 
-        // Use whenComplete to handle the response or any exceptions
+        // Use whenComplete to handle the response or any exceptions.
         response.whenComplete((resp, ex) -> {
             if (resp != null) {
                 System.out.println("Repository policy retrieved successfully.");
