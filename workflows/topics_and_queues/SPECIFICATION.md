@@ -21,8 +21,8 @@ For an introduction, see the [README.md](README.md).
 
 ## Resources and User Input
 
-- 	One Amazon Simple Notification Service (Amazon SNS) topic created in the scenario.
-  - Two Amazon Simple Queue Service (Amazon SQS) queues created in the scenario.
+- One Amazon Simple Notification Service (Amazon SNS) topic created in the scenario.
+- Two Amazon Simple Queue Service (Amazon SQS) queues created in the scenario.
 
 The sample code builds a command line application that asks you for input. This is implemented in multiple programming languages, and the interface can vary slightly between languages. The following shows the interface for the C++ implementation.
 

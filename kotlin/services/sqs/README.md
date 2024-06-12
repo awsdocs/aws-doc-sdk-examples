@@ -45,6 +45,13 @@ Code excerpts that show you how to call individual service functions.
 - [ReceiveMessage](src/main/kotlin/com/kotlin/sqs/ReceiveMessages.kt#L37)
 - [SendMessage](src/main/kotlin/com/kotlin/sqs/SendMessages.kt#L43)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Publish messages to queues](../../usecases/topics_and_queues/src/main/kotlin/com/example/sns/SNSWorkflow.kt)
+
 
 <!--custom.examples.start-->
 
@@ -68,6 +75,22 @@ Code excerpts that show you how to call individual service functions.
 This example shows you how to get started using Amazon SQS.
 
 
+
+#### Publish messages to queues
+
+This example shows you how to do the following:
+
+- Create topic (FIFO or non-FIFO).
+- Subscribe several queues to the topic with an option to apply a filter.
+- Publish messages to the topic.
+- Poll the queues for messages received.
+
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
 
 ### Tests
 
