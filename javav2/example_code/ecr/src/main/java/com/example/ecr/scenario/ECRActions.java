@@ -221,28 +221,28 @@ public class ECRActions {
         // Execute the request asynchronously.
         CompletableFuture<StartLifecyclePolicyPreviewResponse> response = getAsyncClient().startLifecyclePolicyPreview(lifecyclePolicyPreviewRequest);
 
-        // Use whenComplete to handle the response or any exceptions
+        // Use whenComplete to handle the response or any exceptions.
         response.whenComplete((lifecyclePolicyPreviewResponse, ex) -> {
             if (lifecyclePolicyPreviewResponse != null) {
                 System.out.println("Lifecycle policy preview started successfully.");
-                // Add any additional actions you want to perform upon completion
+                // Add any additional actions you want to perform upon completion.
             } else {
                 if (ex.getCause() instanceof EcrException) {
                     EcrException e = (EcrException) ex.getCause();
-                    System.err.println("Error setting lifecycle policy for repository: " + repoName + " - " + e.awsErrorDetails().errorMessage());
+                    System..mainerr.println("Error setting lifecycle policy for repository: " + repoName + " - " + e.awsErrorDetails().errorMessage());
                 } else {
                     System.err.println("Unexpected error occurred: " + ex.getMessage());
                 }
             }
         });
 
-        // Wait for the CompletableFuture to complete
+        // Wait for the CompletableFuture to complete.
         response.join();
     }
 
     // snippet-end:[ecr.java2.set.policy.main]
 
-    // snippet-start:[ecr.java2.describe.policy.main]
+    // snippet-start:[ecr.java2.describe.policy]
     /**
      * Retrieves the repository URI for the specified repository name.
      *
