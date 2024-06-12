@@ -460,7 +460,7 @@ public class ECRActions {
             }
         });
 
-        // Wait for the CompletableFuture to complete and return the result
+        // Wait for the CompletableFuture to complete and return the result.
         CreateRepositoryResponse result = response.join();
         if (result != null) {
             return result.repository().repositoryArn();

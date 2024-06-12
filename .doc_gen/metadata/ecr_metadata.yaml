@@ -16,13 +16,29 @@ ecr_Hello:
                 - ecr.java2_hello.main
   services:
     ecr: {listImagesPaginator}
+ecr_DeleteRepository:
+  title: Delete an &ECR; repository 
+  title_abbrev: Delete a repository
+  synopsis: delete an &ECR; repository.
+  languages:
+    Java:
+     versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2.delete.repo.main
+  services:
+    ecr: {DeleteRepository}
 ecr_CreateRepository:
   title: Create an &ECR; repository 
   title_abbrev: Create a repository
   synopsis: create an &ECR; repository.
   languages:
     Java:
-      versions:
+     versions:
         - sdk_version: 2
           github: javav2/example_code/ecr
           sdkguide:
@@ -67,3 +83,28 @@ ecr_ListImages:
                 - ecr.rust.list-images
   services:
     ecr: {ListImages}
+ecr_Scenario_RepositoryManagement:
+  title: Learn core operations for &ECR; using an &AWS; SDK
+  title_abbrev: Learn &ECR; core operations
+  synopsis_list:
+    - Create an &ECR; repository.
+    - List &ECR; repositories for your account and get details about them.
+    - Delete &ECR; repositories.
+    - Verify the existence of an image in an &ECR; repository.
+    - Set lifecycle policies for &ECR; repositories.
+    - Retrieve repository URIs.
+    - Get &ECR; authorization tokens.
+    - Set repository policies.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2_scenario.main
+  services:
+    ecr: {CreateRepository, DescribeRepositories, DeleteRepository, DescribeImages, StartLifecyclePolicyPreview, GetAuthorizationToken, GetRepositoryPolicy, SetRepositoryPolicy}
