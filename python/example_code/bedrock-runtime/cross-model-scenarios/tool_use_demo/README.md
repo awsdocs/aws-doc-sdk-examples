@@ -110,14 +110,6 @@ python tool_use_demo.py
   for latitude 40.71, longitude -74.01".
 - The assistant will fetch and display the current weather information using the Open-Meteo API.
 
-**2. Follow the prompt:**
-
-You will be prompted to enter a location name or coordinates. Here are some examples:
-
-- What's the weather like in New York?
-- Current weather for latitude 40.71, longitude=-74.01
-- Is it warmer in Rome or Barcelona today?
-
 > **Note:** You're not limited to single locations, or even to using English! Feel free to experiment with the app.
 
 ## Demo details
