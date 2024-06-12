@@ -1270,9 +1270,12 @@ bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude:
         - sdk_version: 3
           github: python/example_code/bedrock-runtime
           excerpts:
-            - description: "A tool use demo illustrating how to connect a generative AI model on &BR;'s with a custom tool or API"
-              snippet_tags:
-                - python.example_code.bedrock-runtime.Scenario_ToolUseDemo_AnthropicClaude
+            - description: "The primary execution script of the demo. This script orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              snippet_files:
+                - python/example_code/bedrock-runtime/cross-model-scenarios/tool_use_demo.py
+            - description: "The weather tool used by the demo. This script defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
+              snippet_files:
+                - python/example_code/bedrock-runtime/cross-model-scenarios/weather_tool.py
   services:
     bedrock-runtime: {Converse}
 

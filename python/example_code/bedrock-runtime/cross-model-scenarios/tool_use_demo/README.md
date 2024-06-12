@@ -2,7 +2,7 @@
 
 This project demonstrates a tool use scenario using Amazon Bedrock's
 [Converse API](https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html) and a weather tool.
-The script interacts with Anthropic Claude 3 (Sonnet) on Amazon Bedrock to provide weather information based on user
+The script interacts with a foundation model on Amazon Bedrock to provide weather information based on user
 input. It uses the [Open-Meteo API](https://open-meteo.com/) to retrieve current weather data for a given location.
 
 ## ⚠️ Important

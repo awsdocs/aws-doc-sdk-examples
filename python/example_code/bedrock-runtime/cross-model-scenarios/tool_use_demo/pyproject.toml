@@ -1,7 +1,7 @@
 [project]
 name = "Amazon Bedrock Tool Use Demo"
 version = "0.1.0"
-description = "A demonstration of Amazon Bedrock's tool use capabilities featuring a weather assistant bot that provides real-time weather information using Anthropic Claude 3 on Amazon Bedrock, the Bedrock Converse API, and the Open-Meteo API."
+description = "A demonstration of Amazon Bedrock's tool use capabilities featuring a weather assistant bot that provides real-time weather information using a foundation model on Amazon Bedrock, the Bedrock Converse API, and the Open-Meteo API."
 authors = [
     { name = "Dennis Traub", email = "dennis.traub@gmail.com" }
 ]

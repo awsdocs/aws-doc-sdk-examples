@@ -1,37 +1,50 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.bedrock-runtime.Scenario_ToolUseDemo_AnthropicClaude]
 """
 This demo illustrates a tool use scenario using Amazon Bedrock's Converse API and a weather tool.
-The script interacts with Anthropic Claude 3 (Sonnet) on Amazon Bedrock to provide weather information based on user
+The script interacts with a foundation model on Amazon Bedrock to provide weather information based on user
 input. It uses the Open-Meteo API (https://open-meteo.com) to retrieve current weather data for a given location.
 """
 
 import boto3
 import logging
+from enum import Enum
 
-import utils.tool_use_print_utils as print
+import utils.tool_use_print_utils as output
 import weather_tool
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 AWS_REGION = "us-east-1"
-MODEL_ID = "anthropic.claude-3-sonnet-20240229-v1:0"
+
+
+# For a list of models supported by the Converse API's tool use functionality, visit:
+# https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html
+class SupportedModels(Enum):
+    CLAUDE_OPUS = "anthropic.claude-3-opus-20240229-v1:0"
+    CLAUDE_SONNET = "anthropic.claude-3-sonnet-20240229-v1:0"
+    CLAUDE_HAIKU = "anthropic.claude-3-haiku-20240307-v1:0"
+
+
+# Set the model ID, e.g., Claude 3 Haiku.
+MODEL_ID = SupportedModels.CLAUDE_HAIKU.value
 
 SYSTEM_PROMPT = """
 You are a weather assistant that provides current weather data for user-specified locations using only
 the Weather_Tool, which expects latitude and longitude. Infer the coordinates from the location yourself.
-If the user provides coordinates, infer the approximate location and refer to it in your response. 
+If the user provides coordinates, infer the approximate location and refer to it in your response.
+To use the tool, you strictly apply the provided tool specification.
 
 - Explain your step-by-step process, and give brief updates before each step.
 - Only use the Weather_Tool for data. Never guess or make up information. 
-- Repeat the tool use for subsequent requests if necessary. 
+- Repeat the tool use for subsequent requests if necessary.
 - If the tool errors, apologize, explain weather is unavailable, and suggest other options.
 - Report temperatures in °C (°F) and wind in km/h (mph). Keep weather reports concise. Sparingly use
   emojis where appropriate.
 - Only respond to weather queries. Remind off-topic users of your purpose. 
 - Never claim to search online, access external data, or use tools besides Weather_Tool.
+- Complete the entire process until you have all required data before sending the complete response.
 """
 
 
@@ -57,7 +70,7 @@ class ToolUseDemo:
         Starts the conversation with the user and handles the interaction with Bedrock.
         """
         # Print the greeting and a short user guide
-        print.header()
+        output.header()
 
         # Start with an emtpy conversation
         conversation = []
@@ -82,7 +95,7 @@ class ToolUseDemo:
             # Repeat the loop until the user decides to exit the application
             user_input = self._get_user_input()
 
-        print.footer()
+        output.footer()
 
     def _send_conversation_to_bedrock(self, conversation):
         """
@@ -91,7 +104,7 @@ class ToolUseDemo:
         :param conversation: The conversation history including the next message to send.
         :return: The response from Amazon Bedrock.
         """
-        print.call_to_bedrock(conversation)
+        output.call_to_bedrock(conversation)
 
         # Send the conversation, system prompt, and tool configuration, and return the response
         return self.bedrockRuntimeClient.converse(
@@ -128,7 +141,7 @@ class ToolUseDemo:
 
         if model_response["stopReason"] == "end_turn":
             # If the stop reason is "end_turn", print the model's response text, and finish the process
-            print.model_response(message["content"][0]["text"])
+            output.model_response(message["content"][0]["text"])
             return
 
     def _handle_tool_use(self, model_response, conversation, max_recursion=5):
@@ -145,7 +158,7 @@ class ToolUseDemo:
         for content_block in model_response["content"]:
             if "text" in content_block:
                 # If the content block contains text, print it to the console
-                print.model_response(content_block["text"])
+                output.model_response(content_block["text"])
 
             if "toolUse" in content_block:
                 # If the content block is a tool use request, forward it to the tool
@@ -186,7 +199,7 @@ class ToolUseDemo:
 
         if tool_name == "Weather_Tool":
             input_data = payload["input"]
-            print.tool_use(tool_name, input_data)
+            output.tool_use(tool_name, input_data)
 
             # Invoke the weather tool with the input data provided by
             response = weather_tool.fetch_weather_data(input_data)
@@ -207,7 +220,7 @@ class ToolUseDemo:
         :param prompt: The prompt to display to the user.
         :return: The user's input or None if the user chooses to exit.
         """
-        print.separator()
+        output.separator()
         user_input = input(f"{prompt} (x to exit): ")
 
         if user_input == "":
@@ -224,5 +237,3 @@ class ToolUseDemo:
 if __name__ == "__main__":
     tool_use_demo = ToolUseDemo()
     tool_use_demo.run()
-
-# snippet-end:[python.example_code.bedrock-runtime.Scenario_ToolUseDemo_AnthropicClaude]
