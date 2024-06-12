@@ -111,7 +111,7 @@ ecr_StartLifecyclePolicyPreview:
               snippet_tags:
                 - ecr.java2.verify.image.main
   services:
-    ecr: {DescriStartLifecyclePolicyPreview}    
+    ecr: {StartLifecyclePolicyPreview}    
 ecr_DescribeImages:
   title: Describe an &ECR; image 
   title_abbrev: Describe an image
