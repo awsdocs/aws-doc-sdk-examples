@@ -60,7 +60,7 @@ To get started, you can choose one of the following options to set up the enviro
 **1. Create a virtual environment:**
 
 ```shell
-python -m venv venv
+python -m venv .venv
 ```
 
 A virtual environment is a self-contained directory that contains a Python installation and its associated packages,
@@ -70,12 +70,12 @@ ensuring that your project's dependencies are isolated from other projects.
 
 - On Linux/macOS
   ```shell
-  source venv/bin/activate
+  source .venv/bin/activate
   ```
 
 - On Windows
   ```shell
-  .\venv\Scripts\activate
+  .\.venv\Scripts\activate
   ```
 
 Activating the virtual environment ensures that the Python interpreter and packages used in your shell session are those
