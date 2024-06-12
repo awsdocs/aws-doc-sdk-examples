@@ -48,10 +48,14 @@ to build a chatbot that provides real-time weather information based on user que
 
 For general prerequisites, see the [README](../../../../../../README.md#Prerequisites) in the `python` folder.
 
-> Depending on your operating system and how you have Python installed, the commands to install and run might vary
-> slightly. For example, you may have to use `py` or `python3` in place of `python`.
+> **Note:** You must request access to an AI model on Amazon Bedrock before you can use it. If you try to use the
+> model (with the API or console) before you have requested access to it, you will receive an error message. For more
+> information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).
 
 ### Install dependencies
+
+> Depending on your operating system and how you have Python installed, the commands to install and run might vary
+> slightly. For example, you may have to use `py` or `python3` in place of `python`.
 
 To get started, you can choose one of the following options to set up the environment:
 
@@ -112,7 +116,7 @@ python tool_use_demo.py
 
 > **Note:** You're not limited to single locations, or even to using English! Feel free to experiment with the app.
 
-## Demo details
+## Step-by-step walkthrough of the process
 
 This demo illustrates a typical interaction between a generative AI model, an application, and connected tools or APIs
 to solve a problem or achieve a specific goal. The flow follows these steps:
