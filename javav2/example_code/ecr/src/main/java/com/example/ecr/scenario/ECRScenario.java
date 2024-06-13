@@ -154,7 +154,7 @@ public class ECRScenario {
             It sets up the Docker client by connecting to the local Docker host using the default port.
             It then retrieves the authorization token for the ECR repository by making a call to the AWS SDK.
             
-            The method uses this authorization token to create an `AuthConfig` object, which is used to authenticate
+            The method uses the authorization token to create an `AuthConfig` object, which is used to authenticate
             the Docker client when pushing the image. Finally, the method tags the Docker image with the specified
             repository name and image tag, and then pushes the image to the ECR repository using the Docker client.
             If the push operation is successful, the method prints a message indicating that the image was pushed to ECR.

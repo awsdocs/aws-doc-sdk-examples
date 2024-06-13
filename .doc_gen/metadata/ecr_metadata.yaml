@@ -17,9 +17,6 @@ ecr_Hello:
   services:
     ecr: {listImagesPaginator}
 ecr_PushImageCmd:
-  title: Pushes a Docker image to an &ECR; repository 
-  title_abbrev: Pushes a Docker image
-  synopsis: pushes a Docker image to an &ECR; repository. 
   languages:
     Java:
       versions:
@@ -33,9 +30,6 @@ ecr_PushImageCmd:
   services:
     ecr: {PushImageCmd}
 ecr_SetRepositoryPolicy:
-  title: Sets the repository policy for the &ECR; repository 
-  title_abbrev: Sets the repository policy
-  synopsis: sets the repository policy for the &ECR; repository. 
   languages:
     Java:
       versions:
@@ -49,9 +43,6 @@ ecr_SetRepositoryPolicy:
   services:
     ecr: {SetRepositoryPolicy}
 ecr_GetRepositoryPolicy:
-  title: Retrieves the repository policy for the &ECR; repository 
-  title_abbrev: Retrieves the repository policy
-  synopsis: retrieves the repository policy for the &ECR; repository. 
   languages:
     Java:
       versions:
@@ -65,9 +56,6 @@ ecr_GetRepositoryPolicy:
   services:
     ecr: {GetRepositoryPolicy}
 ecr_GetAuthorizationToken:
-  title: Retrieves the authorization token for an &ECR; repository 
-  title_abbrev: Retrieves the authorization token
-  synopsis: retrieves the authorization token for an &ECR; repository. 
   languages:
     Java:
       versions:
@@ -81,9 +69,6 @@ ecr_GetAuthorizationToken:
   services:
     ecr: {GetAuthorizationToken}
 ecr_StartLifecyclePolicyPreview:
-  title: Describe an &ECR; image 
-  title_abbrev: Describe an image
-  synopsis: describe an &ECR; image.
   languages:
     Java:
       versions:
@@ -97,9 +82,6 @@ ecr_StartLifecyclePolicyPreview:
   services:
     ecr: {StartLifecyclePolicyPreview}
 ecr_DescribeImages:
-  title: Describe an &ECR; image 
-  title_abbrev: Describe an image
-  synopsis: describe an &ECR; image.
   languages:
     Java:
       versions:
@@ -113,9 +95,6 @@ ecr_DescribeImages:
   services:
     ecr: {DescribeImages}
 ecr_DeleteRepository:
-  title: Delete an &ECR; repository 
-  title_abbrev: Delete a repository
-  synopsis: delete an &ECR; repository.
   languages:
     Java:
       versions:
@@ -129,9 +108,6 @@ ecr_DeleteRepository:
   services:
     ecr: {DeleteRepository}
 ecr_CreateRepository:
-  title: Create an &ECR; repository 
-  title_abbrev: Create a repository
-  synopsis: create an &ECR; repository.
   languages:
     Java:
       versions:
