@@ -468,12 +468,22 @@ public class ECRActions {
      *
      */
     public void pushDockerImage(String repoName, String imageName) {
-        // Make sure Docker Desktop is running.
-        String dockerHost = "tcp://localhost:2375"; // Use the Docker Desktop default port.
-        DockerCmdExecFactory dockerCmdExecFactory = new NettyDockerCmdExecFactory().withReadTimeout(20000).withConnectTimeout(20000);
-        DockerClient dockerClient = DockerClientBuilder.getInstance(dockerHost).withDockerCmdExecFactory(dockerCmdExecFactory).build();
-        System.out.println("Pushing "+imageName +" to "+repoName + "will take a few seconds");
+        // Check the OS
+        DockerClient dockerClient;
+        String osName = System.getProperty("os.name");
+        System.out.println("Operating System: " + osName);
 
+        if (osName.startsWith("Windows")) {
+            // Make sure Docker Desktop is running.
+            String dockerHost = "tcp://localhost:2375"; // Use the Docker Desktop default port.
+            DockerCmdExecFactory dockerCmdExecFactory = new NettyDockerCmdExecFactory().withReadTimeout(20000).withConnectTimeout(20000);
+            dockerClient = DockerClientBuilder.getInstance(dockerHost).withDockerCmdExecFactory(dockerCmdExecFactory).build();
+        } else if (osName.startsWith("Mac")) {
+            dockerClient = DockerClientBuilder.getInstance().build();
+        } else {
+            dockerClient = null;
+        }
+        System.out.println("Pushing "+imageName +" to "+repoName + "will take a few seconds");
         CompletableFuture<AuthConfig> authResponseFuture = getAsyncClient().getAuthorizationToken()
             .thenApply(response -> {
                 String token = response.authorizationData().get(0).authorizationToken();
