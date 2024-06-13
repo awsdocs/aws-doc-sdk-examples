@@ -59,13 +59,13 @@ public class ECRScenario {
         System.out.println(DASHES);
 
         System.out.println("""
-                                                    1. Create an ECR repository.
+        1. Create an ECR repository.
              
-            An ECR repository is a private Docker container registry provided by Amazon Web Services (AWS). 
-            It is a managed service that makes it easy to store, manage, and deploy Docker container images.\s
+        An ECR repository is a private Docker container registry provided by Amazon Web Services (AWS). 
+        It is a managed service that makes it easy to store, manage, and deploy Docker container images.\s
                        
-            Enter a repository name. For example, 'ecr1'.
-            """ );
+        Enter a repository name. For example, 'ecr1'.
+        """ );
         String repoName;
         while (true) {
             repoName = scanner.nextLine().trim();
@@ -148,17 +148,17 @@ public class ECRScenario {
 
         System.out.println(DASHES);
         System.out.println("""
-            7. Push a docker image to the Amazon ECR Repository.
+        7. Push a docker image to the Amazon ECR Repository.
             
-            The `pushDockerImage()` method pushes a local Docker image to an Amazon ECR repository.
-            It sets up the Docker client by connecting to the local Docker host using the default port.
-            It then retrieves the authorization token for the ECR repository by making a call to the AWS SDK.
+        The `pushDockerImage()` method pushes a local Docker image to an Amazon ECR repository.
+        It sets up the Docker client by connecting to the local Docker host using the default port.
+        It then retrieves the authorization token for the ECR repository by making a call to the AWS SDK.
             
-            The method uses the authorization token to create an `AuthConfig` object, which is used to authenticate
-            the Docker client when pushing the image. Finally, the method tags the Docker image with the specified
-            repository name and image tag, and then pushes the image to the ECR repository using the Docker client.
-            If the push operation is successful, the method prints a message indicating that the image was pushed to ECR.
-           """);
+        The method uses the authorization token to create an `AuthConfig` object, which is used to authenticate
+        the Docker client when pushing the image. Finally, the method tags the Docker image with the specified
+        repository name and image tag, and then pushes the image to the ECR repository using the Docker client.
+        If the push operation is successful, the method prints a message indicating that the image was pushed to ECR.
+        """);
 
         waitForInputToContinue(scanner);
         ecrActions.pushDockerImage(repoName, localImageName);
@@ -200,7 +200,8 @@ public class ECRScenario {
 
         System.out.println(DASHES);
         System.out.println("10. Delete the ECR Repository.");
-        System.out.println("""
+        System.out.println(
+        """
         If the repository isn't empty, you must either delete the contents of the repository 
         or use the force option (used in this scenario) to delete the repository and have Amazon ECR delete all of its contents 
         on your behalf.
