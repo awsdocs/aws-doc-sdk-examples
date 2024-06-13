@@ -7,7 +7,6 @@ package com.example.ecr.scenario;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.model.AuthConfig;
 import com.github.dockerjava.core.DockerClientBuilder;
-import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
@@ -53,19 +52,7 @@ public class ECRActions {
     /**
      * Retrieves an asynchronous Amazon Elastic Container Registry (ECR) client.
      *
-     * <p>The returned client is configured with the following settings:
-     * <ul>
-     *   <li>Maximum concurrency: 50 (can be adjusted as needed)</li>
-     *   <li>Connection timeout: 60 seconds</li>
-     *   <li>Read timeout: 60 seconds</li>
-     *   <li>Write timeout: 60 seconds</li>
-     *   <li>API call timeout: 2 minutes</li>
-     *   <li>API call attempt timeout: 90 seconds</li>
-     *   <li>Region: US_EAST_1</li>
-     *   <li>Credentials provider: {@link DefaultCredentialsProvider#create()}</li>
-     * </ul>
-     *
-     * @return the configured ECR asynchronous client
+     * @return the configured ECR asynchronous client.
      */
     private static EcrAsyncClient getAsyncClient() {
 
@@ -101,10 +88,10 @@ public class ECRActions {
     /**
      * Deletes an ECR (Elastic Container Registry) repository.
      *
-     * @param repoName the name of the repository to be deleted
-     * @throws IllegalArgumentException if the repository name is null or empty
-     * @throws EcrException if there is an error deleting the repository
-     * @throws RuntimeException if an unexpected error occurs during the deletion process
+     * @param repoName the name of the repository to delete.
+     * @throws IllegalArgumentException if the repository name is null or empty.
+     * @throws EcrException if there is an error deleting the repository.
+     * @throws RuntimeException if an unexpected error occurs during the deletion process.
      */
     public void deleteECRRepository(String repoName) {
         if (repoName == null || repoName.isEmpty()) {
@@ -167,21 +154,21 @@ public class ECRActions {
 
         // Use whenComplete to handle the response or any exceptions.
         response.whenComplete((describeImagesResponse, ex) -> {
-            try {
-                if (describeImagesResponse != null && !describeImagesResponse.imageDetails().isEmpty()) {
-                    System.out.println("Image is present in the repository.");
+            if (ex != null) {
+                if (ex instanceof CompletionException) {
+                    Throwable cause = ex.getCause();
+                    if (cause instanceof EcrException) {
+                        System.err.println("Error retrieving image information: " + cause.getMessage());
+                    } else {
+                        System.err.println("Unexpected error: " + cause.getMessage());
+                    }
                 } else {
-                    System.out.println("Image is not present in the repository.");
+                    System.err.println("Unexpected error: " + ex.getMessage());
                 }
-            } catch (Exception e) {
-                Throwable cause = ex.getCause();
-                if (cause instanceof EcrException) {
-                    System.err.println("Error retrieving image information: " + cause.getMessage());
-                } else if (cause instanceof CompletionException) {
-                    System.err.println("Asynchronous operation completed exceptionally: " + cause.getCause().getMessage());
-                } else {
-                    System.err.println("Unexpected error: " + cause.getMessage());
-                }
+            } else if (describeImagesResponse != null && !describeImagesResponse.imageDetails().isEmpty()) {
+                System.out.println("Image is present in the repository.");
+            } else {
+                System.out.println("Image is not present in the repository.");
             }
         });
 
@@ -191,6 +178,11 @@ public class ECRActions {
     // snippet-end:[ecr.java2.verify.image.main]
 
     // snippet-start:[ecr.java2.set.policy.main]
+    /**
+     * Sets the lifecycle policy for the specified repository.
+     *
+     * @param repoName the name of the repository for which to set the lifecycle policy.
+     */
     public void setLifeCyclePolicy(String repoName) {
         String polText = """
         {
@@ -263,7 +255,6 @@ public class ECRActions {
         // Retrieve the repository URI asynchronously.
         CompletableFuture<DescribeRepositoriesResponse> response = getAsyncClient().describeRepositories(request);
 
-        // Use whenComplete to handle the response or any exceptions.
         try {
             DescribeRepositoriesResponse describeRepositoriesResponse = response.join();
             if (!describeRepositoriesResponse.repositories().isEmpty()) {
@@ -272,18 +263,20 @@ public class ECRActions {
                 // Handle the case where no repositories are returned.
                 System.out.println("No repositories found for the given name.");
             }
-        } catch (Throwable ex) {
+        } catch (CompletionException ex) {
             Throwable cause = ex.getCause();
             if (cause instanceof InterruptedException) {
+                Thread.currentThread().interrupt();
                 throw new RuntimeException("Thread interrupted while waiting for asynchronous operation: " + cause.getMessage(), cause);
-            } else if (cause instanceof CompletionException) {
-                throw new RuntimeException("Asynchronous operation completed exceptionally: " + cause.getCause().getMessage(), cause);
+            } else if (cause instanceof EcrException) {
+                throw new RuntimeException("Error retrieving repository information: " + cause.getMessage(), cause);
             } else {
                 throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
             }
         }
         return "";
     }
+
     // snippet-end:[ecr.java2.describe.policy.main]
 
     // snippet-start:[ecr.java2.get.token.main]
@@ -293,8 +286,8 @@ public class ECRActions {
      * If the operation is successful, the method prints the token to the console.
      * If an exception occurs, the method handles the exception and prints the error message.
      *
-     * @throws EcrException if there is an error retrieving the authorization token from ECR
-     * @throws RuntimeException if there is an unexpected error during the operation
+     * @throws EcrException if there is an error retrieving the authorization token from ECR.
+     * @throws RuntimeException if there is an unexpected error during the operation.
      */
     public void getAuthToken() {
         // Retrieve the authorization token for ECR asynchronously.
@@ -372,11 +365,11 @@ public class ECRActions {
     /**
      * Sets the repository policy for the specified ECR repository.
      *
-     * @param repoName the name of the ECR repository
-     * @param iamRole the IAM role to be granted access to the repository
-     * @throws InvalidParameterException if the specified IAM role is invalid
-     * @throws RepositoryPolicyNotFoundException if the repository policy does not exist
-     * @throws EcrException if there is an unexpected error setting the repository policy
+     * @param repoName the name of the ECR repository.
+     * @param iamRole the IAM role to be granted access to the repository.
+     * @throws InvalidParameterException if the specified IAM role is invalid.
+     * @throws RepositoryPolicyNotFoundException if the repository policy does not exist.
+     * @throws EcrException if there is an unexpected error setting the repository policy.
      */
     public void setRepoPolicy(String repoName, String iamRole) {
         String policyDocumentTemplate = """
@@ -428,10 +421,10 @@ public class ECRActions {
     /**
      * Creates an Amazon Elastic Container Registry (Amazon ECR) repository.
      *
-     * @param repoName the name of the repository to create
-     * @return the Amazon Resource Name (ARN) of the created repository, or an empty string if the operation failed
-     * @throws IllegalArgumentException if the repository name is null or empty
-     * @throws RuntimeException         if an error occurs while creating the repository
+     * @param repoName the name of the repository to create.
+     * @return the Amazon Resource Name (ARN) of the created repository, or an empty string if the operation failed.
+     * @throws IllegalArgumentException if the repository name is null or empty.
+     * @throws EcrException         if an error occurs while creating the repository.
      */
     public String createECRRepository(String repoName) {
         if (repoName == null || repoName.isEmpty()) {
@@ -473,16 +466,17 @@ public class ECRActions {
     /**
      * Pushes a Docker image to an Amazon Elastic Container Registry (ECR) repository.
      *
-     * @param repoName the name of the ECR repository to push the image to
-     * @param imageName the name of the Docker image to be pushed
-     * @param imageTag the tag to apply to the Docker image
+     * @param repoName the name of the ECR repository to push the image to.
+     * @param imageName the name of the Docker image.
+     *
      */
-    public void pushDockerImage(String repoName, String imageName, String imageTag) {
+    public void pushDockerImage(String repoName, String imageName) {
         // Make sure Docker Desktop is running.
-        String dockerHost = "tcp://localhost:2375"; // Use the Docker Desktop default port
+        String dockerHost = "tcp://localhost:2375"; // Use the Docker Desktop default port.
         DockerCmdExecFactory dockerCmdExecFactory = new NettyDockerCmdExecFactory().withReadTimeout(20000).withConnectTimeout(20000);
         DockerClient dockerClient = DockerClientBuilder.getInstance(dockerHost).withDockerCmdExecFactory(dockerCmdExecFactory).build();
         System.out.println(dockerClient.infoCmd().exec());
+        System.out.println("Pushing the image will take a few seconds");
 
         CompletableFuture<AuthConfig> authResponseFuture = getAsyncClient().getAuthorizationToken()
             .thenApply(response -> {
@@ -492,6 +486,7 @@ public class ECRActions {
 
                 DescribeRepositoriesResponse descrRepoResponse = getAsyncClient().describeRepositories(b -> b.repositoryNames(repoName)).join();
                 Repository repoData = descrRepoResponse.repositories().stream().filter(r -> r.repositoryName().equals(repoName)).findFirst().orElse(null);
+                assert repoData != null;
                 String registryURL = repoData.repositoryUri().split("/")[0];
 
                 AuthConfig authConfig = new AuthConfig()
@@ -503,11 +498,8 @@ public class ECRActions {
             .thenCompose(authConfig -> {
                 DescribeRepositoriesResponse descrRepoResponse = getAsyncClient().describeRepositories(b -> b.repositoryNames(repoName)).join();
                 Repository repoData = descrRepoResponse.repositories().stream().filter(r -> r.repositoryName().equals(repoName)).findFirst().orElse(null);
-
-                //dockerClient.tagImageCmd("hello-world:latest", repoData.repositoryUri() + ":latest", imageName).exec();
                 dockerClient.tagImageCmd(imageName+":latest", repoData.repositoryUri() + ":latest", imageName).exec();
                 try {
-                   // dockerClient.pushImageCmd(repoData.repositoryUri()).withTag(imageName).withAuthConfig(authConfig).start().awaitCompletion();
                     dockerClient.pushImageCmd(repoData.repositoryUri()).withTag("hello-world").withAuthConfig(authConfig).start().awaitCompletion();
                     System.out.println("The "+imageName+" was pushed to ECR");
                 } catch (InterruptedException e) {

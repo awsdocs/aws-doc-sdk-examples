@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.ecr.HelloECR;
+import com.example.ecr.scenario.ECRActions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -23,10 +24,12 @@ public class ECRTest {
     private static EcrClient ecrClient;
     private static String repoName = "test61";
 
-    private static String newRepoName = "test101";
+    private static String newRepoName = "test1081";
     private String iamRole = "arn:aws:iam::814548047983:role/Admin" ;
-    private String localImageName = "hello-world-docker:latest";
+    private String localImageName = "hello-world";
     private String imageTag = "latest" ;
+
+    private static ECRActions ecrActions;
     @BeforeAll
     public static void setUp() {
         ecrClient = EcrClient.builder()
@@ -34,22 +37,25 @@ public class ECRTest {
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
+        ecrActions = new ECRActions();
+
+
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
     public void testScenario() {
-      //  assertDoesNotThrow(() -> ECRScenario.createECRRepository(ecrClient, newRepoName));
-      //  assertDoesNotThrow(() -> ECRScenario.setRepoPolicy(ecrClient, newRepoName, iamRole));
-      //  assertDoesNotThrow(() -> ECRScenario.getRepoPolicy(ecrClient, newRepoName));
-      //  assertDoesNotThrow(() -> ECRScenario.getAuthToken(ecrClient));
-      //  assertDoesNotThrow(() -> ECRScenario.getRepositoryURI(ecrClient, newRepoName));
-      //  assertDoesNotThrow(() -> ECRScenario.setLifeCyclePolicy(ecrClient, newRepoName));
-      //  assertDoesNotThrow(() -> ECRScenario.pushDockerImage(ecrClient,newRepoName, localImageName));
-      //  assertDoesNotThrow(() -> ECRScenario.verifyImage(ecrClient, newRepoName, imageTag));
-      //  assertDoesNotThrow(() -> ECRScenario.deleteECRRepository(ecrClient, newRepoName));
-      //  System.out.println("Test 1 passed");
+        assertDoesNotThrow(() -> ecrActions.createECRRepository(newRepoName));
+        assertDoesNotThrow(() -> ecrActions.setRepoPolicy(newRepoName, iamRole));
+        assertDoesNotThrow(() -> ecrActions.getRepoPolicy(newRepoName));
+        assertDoesNotThrow(() -> ecrActions.getAuthToken());
+        assertDoesNotThrow(() -> ecrActions.getRepositoryURI(newRepoName));
+        assertDoesNotThrow(() -> ecrActions.setLifeCyclePolicy(newRepoName));
+        assertDoesNotThrow(() -> ecrActions.pushDockerImage(newRepoName, localImageName));
+        assertDoesNotThrow(() -> ecrActions.verifyImage(newRepoName, localImageName));
+        assertDoesNotThrow(() -> ecrActions.deleteECRRepository(newRepoName));
+        System.out.println("Test 1 passed");
     }
 
     @Test

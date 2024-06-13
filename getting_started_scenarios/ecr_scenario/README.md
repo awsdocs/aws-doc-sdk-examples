@@ -22,7 +22,7 @@ Note: These steps are not the complete program, but summarizes the 5-6 high-leve
 
 The getting started scenario requires an IAM role that has Amazon ECR permissions. In addtion, this scenario requires a local Docker image created using Bash. To create a local "Hello World" Docker image using Bash:
 
-1. **Install Docker**: First, you'll need to install Docker on your system. You can download the appropriate Docker version for your operating system from the official Docker website (https://www.docker.com/get-started).
+1. **Install Docker**: First, you'll need to install Docker and Docker Desktop on your system. You can download the appropriate Docker version for your operating system from the official Docker website (https://www.docker.com/get-started).
 
 2. **Create a Dockerfile**: Create a new file named `Dockerfile` in your preferred directory. This file will contain the instructions for building your Docker image.
 
