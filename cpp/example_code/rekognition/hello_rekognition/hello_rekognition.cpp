@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
     Aws::SDKOptions options;
     //  Optional: change the log level for debugging.
     //  options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
-   Aws::InitAPI(options); // Should only be called once.
+    Aws::InitAPI(options); // Should only be called once.
     {
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
