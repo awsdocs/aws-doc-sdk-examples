@@ -135,7 +135,7 @@ public class ECRActions {
      * @throws EcrException             if there is an error retrieving the image information from Amazon ECR.
      * @throws CompletionException      if the asynchronous operation completes exceptionally.
      */
-    public static void verifyImage(String repositoryName, String imageTag) {
+    public void verifyImage(String repositoryName, String imageTag) {
         if (repositoryName == null || repositoryName.isEmpty()) {
             throw new IllegalArgumentException("Repository name cannot be null or empty");
         }
@@ -230,7 +230,6 @@ public class ECRActions {
         // Wait for the CompletableFuture to complete.
         response.join();
     }
-
     // snippet-end:[ecr.java2.set.policy.main]
 
     // snippet-start:[ecr.java2.describe.policy.main]
@@ -276,7 +275,6 @@ public class ECRActions {
         }
         return "";
     }
-
     // snippet-end:[ecr.java2.describe.policy.main]
 
     // snippet-start:[ecr.java2.get.token.main]

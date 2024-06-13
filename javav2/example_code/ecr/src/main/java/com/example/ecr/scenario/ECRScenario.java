@@ -132,16 +132,17 @@ public class ECRScenario {
        """);
         waitForInputToContinue(scanner);
         String repositoryURI = ecrActions.getRepositoryURI(repoName);
+        System.out.println("The repository URI is "+repositoryURI);
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
         System.out.println("""
         6. Set an ECR Lifecycle Policy.
                     
-       An ECR Lifecycle Policy is used to manage the lifecycle of Docker images stored in your ECR repositories. 
-       These policies allow you to automatically remove old or unused Docker images from your repositories, 
-       freeing up storage space and reducing costs.    
-       """);
+        An ECR Lifecycle Policy is used to manage the lifecycle of Docker images stored in your ECR repositories. 
+        These policies allow you to automatically remove old or unused Docker images from your repositories, 
+        freeing up storage space and reducing costs.    
+        """);
         waitForInputToContinue(scanner);
         ecrActions.setLifeCyclePolicy(repoName);
         waitForInputToContinue(scanner);
