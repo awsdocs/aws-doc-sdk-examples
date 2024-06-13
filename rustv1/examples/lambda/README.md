@@ -36,13 +36,13 @@ Additionally, to compile Lambda functions written in the Rust programming langua
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateFunction](src/actions.rs#L231)
-- [DeleteFunction](src/actions.rs#L469)
-- [GetFunction](src/actions.rs#L377)
-- [Invoke](src/actions.rs#L402)
-- [ListFunctions](src/actions.rs#L390)
-- [UpdateFunctionCode](src/actions.rs#L418)
-- [UpdateFunctionConfiguration](src/actions.rs#L444)
+- [CreateFunction](src/actions.rs#L232)
+- [DeleteFunction](src/actions.rs#L474)
+- [GetFunction](src/actions.rs#L382)
+- [Invoke](src/actions.rs#L407)
+- [ListFunctions](src/actions.rs#L395)
+- [UpdateFunctionCode](src/actions.rs#L423)
+- [UpdateFunctionConfiguration](src/actions.rs#L449)
 
 ### Scenarios
 
