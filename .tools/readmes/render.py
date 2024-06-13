@@ -333,7 +333,7 @@ class Renderer:
                 f'{self.lang_config["service_folder"]}/{config.saved_readme}',
             )
         # Do this so that new files are always updated to the correct case (README.md).
-        Path(self.readme_filename).unlink(missing_ok=False)
+        Path(self.readme_filename).unlink(missing_ok=True)
         with open(self.readme_filename, "w", encoding="utf-8") as f:
             f.write(self.readme_text)
         print(f"Updated {self.readme_filename}.")
