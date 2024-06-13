@@ -31,7 +31,7 @@ ecr_PushImageCmd:
               snippet_tags:
                 - ecr.java2.push.image.main
   services:
-    ecr: {PushImageCmd}   
+    ecr: {PushImageCmd}
 ecr_SetRepositoryPolicy:
   title: Sets the repository policy for the &ECR; repository 
   title_abbrev: Sets the repository policy
@@ -47,7 +47,7 @@ ecr_SetRepositoryPolicy:
               snippet_tags:
                 - ecr.java2.set.repo.policy.main
   services:
-    ecr: {SetRepositoryPolicy}   
+    ecr: {SetRepositoryPolicy}
 ecr_GetRepositoryPolicy:
   title: Retrieves the repository policy for the &ECR; repository 
   title_abbrev: Retrieves the repository policy
@@ -63,7 +63,7 @@ ecr_GetRepositoryPolicy:
               snippet_tags:
                 - ecr.java2.get.repo.policy.main
   services:
-    ecr: {GetRepositoryPolicy}    
+    ecr: {GetRepositoryPolicy}
 ecr_GetAuthorizationToken:
   title: Retrieves the authorization token for an &ECR; repository 
   title_abbrev: Retrieves the authorization token
@@ -102,7 +102,7 @@ ecr_StartLifecyclePolicyPreview:
   synopsis: describe an &ECR; image.
   languages:
     Java:
-     versions:
+      versions:
         - sdk_version: 2
           github: javav2/example_code/ecr
           sdkguide:
@@ -111,14 +111,14 @@ ecr_StartLifecyclePolicyPreview:
               snippet_tags:
                 - ecr.java2.verify.image.main
   services:
-    ecr: {StartLifecyclePolicyPreview}    
+    ecr: {StartLifecyclePolicyPreview}
 ecr_DescribeImages:
   title: Describe an &ECR; image 
   title_abbrev: Describe an image
   synopsis: describe an &ECR; image.
   languages:
     Java:
-     versions:
+      versions:
         - sdk_version: 2
           github: javav2/example_code/ecr
           sdkguide:
@@ -134,7 +134,7 @@ ecr_DeleteRepository:
   synopsis: delete an &ECR; repository.
   languages:
     Java:
-     versions:
+      versions:
         - sdk_version: 2
           github: javav2/example_code/ecr
           sdkguide:
@@ -150,7 +150,7 @@ ecr_CreateRepository:
   synopsis: create an &ECR; repository.
   languages:
     Java:
-     versions:
+      versions:
         - sdk_version: 2
           github: javav2/example_code/ecr
           sdkguide:
