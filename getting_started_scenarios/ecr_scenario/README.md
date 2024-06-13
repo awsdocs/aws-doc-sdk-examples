@@ -1,8 +1,8 @@
-# Amazon Elastic Container Registry Service Getting Started Scenario
+# Amazon Elastic Container Registry Service Basic Scenario
 
 ## Overview
 
- This Amazon Elastic Container Registry Service (Amazon ECR) getting started scenario demonstrates how to interact with the Amazon ECR service using an AWS SDK.  The scenario covers various operations such as creating an Amazon ECR repository, pushing images to the repository, setting an ECR repository policy, and so on. Here are the 6 top service operations this scenario will cover. 
+ This Amazon Elastic Container Registry Service (Amazon ECR) basic scenario demonstrates how to interact with the Amazon ECR service using an AWS SDK.  The scenario covers various operations such as creating an Amazon ECR repository, pushing images to the repository, setting an ECR repository policy, and so on. Here are the 6 top service operations this scenario will cover. 
 
 1. **Create an ECR repository**: The program prompts the user to enter a name for the ECR repository, then creates the repository using the `createECRRepository` method.
 
@@ -12,7 +12,7 @@
 
 4. **Get the ECR repository URI**: The program retrieves the URI of the ECR repository using the `getRepositoryURI` method.
 
-5. **Push a Docker image to the ECR repository**: The program pushes a local Docker image to the ECR repository using the `pushDockerImage` method, which includes calculating the image's SHA-256 hash, checking layer availability, and completing the image upload.
+5. **Push a Docker image to the ECR repository**: The program pushes a local Docker image to the ECR repository using a Docker client.
 
 6. **Verify the image in the ECR repository**: The program verifies that the Docker image was successfully pushed to the ECR repository using the `verifyImage` method.
 
@@ -20,7 +20,7 @@ Note: These steps are not the complete program, but summarizes the 5-6 high-leve
 
 ### Resources
 
-The getting started scenario requires an IAM role that has Amazon ECR permissions. In addtion, this scenario requires a local Docker image created using Bash. To create a local "Hello World" Docker image using Bash:
+The basic scenario requires an IAM role that has Amazon ECR permissions. In addtion, this scenario requires a local Docker image created using Bash. To create a local "Hello World" Docker image using Bash:
 
 1. **Install Docker**: First, you'll need to install Docker and Docker Desktop on your system. You can download the appropriate Docker version for your operating system from the official Docker website (https://www.docker.com/get-started).
 

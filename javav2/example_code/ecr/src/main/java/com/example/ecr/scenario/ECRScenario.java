@@ -26,15 +26,15 @@ public class ECRScenario {
                    accountId - Your AWS account number. 
                 """;
 
-        if (args.length != 3) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+       // if (args.length != 3) {
+       //     System.out.println(usage);
+       //     System.exit(1);
+       // }
 
         ECRActions ecrActions = new ECRActions();
-        String iamRole = args[0];
-        String localImageName = args[1];
-        String accountId = args[2];
+        String iamRole = "arn:aws:iam::814548047983:role/Admin" ; //args[0];
+        String localImageName = "hello-world" ; // args[1];
+        String accountId = "814548047983" ;// args[2];
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("""
@@ -59,14 +59,13 @@ public class ECRScenario {
         System.out.println(DASHES);
 
         System.out.println("""
-           1. Create an ECR repository.
-            
-           An ECR repository is a private Docker container registry provided by Amazon Web Services (AWS). 
-           It is a managed service that makes it easy to store, manage, and deploy Docker container images.\s
-           
-           Enter a repository name. 
-           For example, 'ecr1'
-           """ );
+                                                    1. Create an ECR repository.
+             
+            An ECR repository is a private Docker container registry provided by Amazon Web Services (AWS). 
+            It is a managed service that makes it easy to store, manage, and deploy Docker container images.\s
+                       
+            Enter a repository name. For example, 'ecr1'.
+            """ );
         String repoName;
         while (true) {
             repoName = scanner.nextLine().trim();
@@ -85,7 +84,7 @@ public class ECRScenario {
         System.out.println("""
         2. Set an ECR repository.
         
-        Setting an ECR repository policy using the `setRepositoryPolicy` function is crucial for maintaining 
+        Setting an ECR repository policy using the `setRepositoryPolicy` function is crucial for maintaining
         the security and integrity of your container images. The repository policy allows you to 
         define specific rules and restrictions for accessing and managing the images stored within your ECR 
         repository.    
@@ -98,7 +97,7 @@ public class ECRScenario {
         System.out.println("""
         3. Display ECR repository policy.
        
-        Now we will retrieve the ECR policy to ensure it was successfully set.    
+        Now we will retrieve the ECR policy to ensure it was successfully set.   
         """);
         waitForInputToContinue(scanner);
         String policyText = ecrActions.getRepoPolicy(repoName);
@@ -110,11 +109,11 @@ public class ECRScenario {
         System.out.println("""
         4. Retrieve an ECR authorization token.
        
-        The `getAuthorizationToken` operation of the `ecrClient` is crucial for securely accessing 
+        The `getAuthorizationToken` operation of the `EcrAsyncClient` is crucial for securely accessing
         and interacting with an Amazon ECR repository. This operation is responsible for obtaining a valid 
         authorization token, which is required to authenticate your requests to the ECR service. 
         Without a valid authorization token, you would not be able to perform any operations on the ECR repository,
-         such as pushing, pulling, or managing your Docker images.     
+        such as pushing, pulling, or managing your Docker images.     
         """);
         waitForInputToContinue(scanner);
         ecrActions.getAuthToken();
@@ -147,17 +146,17 @@ public class ECRScenario {
         ecrActions.setLifeCyclePolicy(repoName);
         waitForInputToContinue(scanner);
 
+        System.out.println(DASHES);
         System.out.println("""
             7. Push a docker image to the Amazon ECR Repository.
             
-            The `pushDockerImage()` method is responsible for pushing a Docker image to an Amazon Elastic Container 
-            Registry (ECR) repository. It first sets up the Docker client by connecting to the local Docker host 
-            using the default port. It then retrieves the authorization token for the ECR repository by making a 
-            call to the AWS SDK. 
+            The `pushDockerImage()` method pushes a local Docker image to an Amazon ECR repository.
+            It sets up the Docker client by connecting to the local Docker host using the default port.
+            It then retrieves the authorization token for the ECR repository by making a call to the AWS SDK.
             
-            The method uses this authorization token to create an `AuthConfig` object, which is used to authenticate 
-            the Docker client when pushing the image. Finally, the method tags the Docker image with the specified 
-            repository name and image tag, and then pushes the image to the ECR repository using the Docker client. 
+            The method uses this authorization token to create an `AuthConfig` object, which is used to authenticate
+            the Docker client when pushing the image. Finally, the method tags the Docker image with the specified
+            repository name and image tag, and then pushes the image to the ECR repository using the Docker client.
             If the push operation is successful, the method prints a message indicating that the image was pushed to ECR.
            """);
 

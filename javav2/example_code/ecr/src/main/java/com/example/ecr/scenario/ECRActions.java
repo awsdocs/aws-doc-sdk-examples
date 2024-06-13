@@ -239,7 +239,6 @@ public class ECRActions {
      * @param repoName the name of the repository to retrieve the URI for.
      * @return the repository URI for the specified repository name.
      * @throws EcrException if there is an error retrieving the repository information.
-     * @throws InterruptedException if the thread is interrupted while waiting for the asynchronous operation to complete.
      * @throws CompletionException if the asynchronous operation completes exceptionally.
      */
     public String getRepositoryURI(String repoName) {
@@ -439,7 +438,7 @@ public class ECRActions {
         // Use whenComplete to handle the response.
         response.whenComplete((createRepositoryResponse, ex) -> {
             if (createRepositoryResponse != null) {
-                System.out.println("Repository created successfully. ARN: " + createRepositoryResponse.repository().repositoryArn());
+                System.out.println("Repository created successfully.");
             } else {
                 if (ex.getCause() instanceof EcrException) {
                     EcrException e = (EcrException) ex.getCause();
@@ -473,8 +472,7 @@ public class ECRActions {
         String dockerHost = "tcp://localhost:2375"; // Use the Docker Desktop default port.
         DockerCmdExecFactory dockerCmdExecFactory = new NettyDockerCmdExecFactory().withReadTimeout(20000).withConnectTimeout(20000);
         DockerClient dockerClient = DockerClientBuilder.getInstance(dockerHost).withDockerCmdExecFactory(dockerCmdExecFactory).build();
-        System.out.println(dockerClient.infoCmd().exec());
-        System.out.println("Pushing the image will take a few seconds");
+        System.out.println("Pushing "+imageName +" to "+repoName + "will take a few seconds");
 
         CompletableFuture<AuthConfig> authResponseFuture = getAsyncClient().getAuthorizationToken()
             .thenApply(response -> {
