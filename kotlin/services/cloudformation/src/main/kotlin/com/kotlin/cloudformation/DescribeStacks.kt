@@ -15,7 +15,6 @@ suspend fun main() {
 
 // snippet-start:[cf.kotlin.get_stacks.main]
 suspend fun describeAllStacks() {
-
     CloudFormationClient { region = "us-east-1" }.use { cfClient ->
         val stacksResponse: DescribeStacksResponse = cfClient.describeStacks(DescribeStacksRequest {})
         stacksResponse.stacks?.forEach { stack ->

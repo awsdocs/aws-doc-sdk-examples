@@ -12,7 +12,6 @@ import kotlin.system.exitProcess
 // snippet-end:[cf.kotlin.create_stack.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <stackName> <roleARN> <location> <key> <value> 
@@ -44,20 +43,22 @@ suspend fun createCFStack(
     roleARNVal: String?,
     location: String?,
     key: String?,
-    value: String?
+    value: String?,
 ) {
-    val myParameter = Parameter {
-        parameterKey = key
-        parameterValue = value
-    }
+    val myParameter =
+        Parameter {
+            parameterKey = key
+            parameterValue = value
+        }
 
-    val request = CreateStackRequest {
-        stackName = stackNameVal
-        templateUrl = location
-        roleArn = roleARNVal
-        onFailure = OnFailure.Rollback
-        parameters = listOf(myParameter)
-    }
+    val request =
+        CreateStackRequest {
+            stackName = stackNameVal
+            templateUrl = location
+            roleArn = roleARNVal
+            onFailure = OnFailure.Rollback
+            parameters = listOf(myParameter)
+        }
 
     CloudFormationClient { region = "us-east-1" }.use { cfClient ->
         cfClient.createStack(request)
