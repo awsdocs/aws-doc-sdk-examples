@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.transform
 import kotlin.system.exitProcess
 
 // snippet-start:[cloudwatch.kotlin.hello.main]
+
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
@@ -34,9 +35,10 @@ suspend fun main(args: Array<String>) {
 }
 
 suspend fun listAllMets(namespaceVal: String?) {
-    val request = ListMetricsRequest {
-        namespace = namespaceVal
-    }
+    val request =
+        ListMetricsRequest {
+            namespace = namespaceVal
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.listMetricsPaginated(request)

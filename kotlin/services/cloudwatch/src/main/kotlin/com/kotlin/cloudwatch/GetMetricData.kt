@@ -24,35 +24,38 @@ suspend fun main() {
 
 // snippet-start:[cloudwatch.kotlin.get_metric_data.main]
 suspend fun getMetData() {
-
     val start = aws.smithy.kotlin.runtime.time.Instant.fromIso8601("2019-10-23T10:12:35Z")
     val endDate = aws.smithy.kotlin.runtime.time.Instant.now()
-    val met = Metric {
-        metricName = "DiskReadBytes"
-        namespace = "AWS/EC2"
-    }
+    val met =
+        Metric {
+            metricName = "DiskReadBytes"
+            namespace = "AWS/EC2"
+        }
 
-    val metStat = MetricStat {
-        stat = "Minimum"
-        period = 60
-        metric = met
-    }
+    val metStat =
+        MetricStat {
+            stat = "Minimum"
+            period = 60
+            metric = met
+        }
 
-    val dataQUery = MetricDataQuery {
-        metricStat = metStat
-        id = "foo2"
-        returnData = true
-    }
+    val dataQUery =
+        MetricDataQuery {
+            metricStat = metStat
+            id = "foo2"
+            returnData = true
+        }
 
     val dq = mutableListOf<MetricDataQuery>()
     dq.add(dataQUery)
 
-    val request = GetMetricDataRequest {
-        maxDatapoints = 100
-        startTime = start
-        endTime = endDate
-        metricDataQueries = dq
-    }
+    val request =
+        GetMetricDataRequest {
+            maxDatapoints = 100
+            startTime = start
+            endTime = endDate
+            metricDataQueries = dq
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         val response = cwClient.getMetricData(request)

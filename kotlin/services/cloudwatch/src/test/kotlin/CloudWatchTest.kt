@@ -53,157 +53,176 @@ class CloudWatchTest {
     private var metricImageSc = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        logGroup = values.logGroup.toString()
-        alarmName = values.alarmName.toString()
-        streamName = values.streamName.toString()
-        ruleResource = values.ruleResource.toString()
-        metricId = values.metricId.toString()
-        filterName = values.filterName.toString()
-        destinationArn = values.destinationArn.toString()
-        roleArn = values.roleArn.toString()
-        filterPattern = values.filterPattern.toString()
-        instanceId = values.instanceId.toString()
-        ruleName = values.ruleName.toString()
-        ruleArn = values.ruleArn.toString()
-        namespace = values.namespace.toString()
-        myDateSc = values.myDateSc.toString()
-        costDateWeekSc = values.costDateWeekSc.toString()
-        dashboardNameSc = values.dashboardNameSc.toString()
-        dashboardJsonSc = values.dashboardJsonSc.toString()
-        dashboardAddSc = values.dashboardAddSc.toString()
-        settingsSc = values.settingsSc.toString()
-        metricImageSc = values.metricImageSc.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            logGroup = values.logGroup.toString()
+            alarmName = values.alarmName.toString()
+            streamName = values.streamName.toString()
+            ruleResource = values.ruleResource.toString()
+            metricId = values.metricId.toString()
+            filterName = values.filterName.toString()
+            destinationArn = values.destinationArn.toString()
+            roleArn = values.roleArn.toString()
+            filterPattern = values.filterPattern.toString()
+            instanceId = values.instanceId.toString()
+            ruleName = values.ruleName.toString()
+            ruleArn = values.ruleArn.toString()
+            namespace = values.namespace.toString()
+            myDateSc = values.myDateSc.toString()
+            costDateWeekSc = values.costDateWeekSc.toString()
+            dashboardNameSc = values.dashboardNameSc.toString()
+            dashboardJsonSc = values.dashboardJsonSc.toString()
+            dashboardAddSc = values.dashboardAddSc.toString()
+            settingsSc = values.settingsSc.toString()
+            metricImageSc = values.metricImageSc.toString()
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-        /*
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
-        prop.load(input)
-        logGroup = prop.getProperty("logGroup")
-        alarmName = prop.getProperty("alarmName")
-        streamName = prop.getProperty("streamName")
-        ruleResource = prop.getProperty("ruleResource")
-        metricId = prop.getProperty("metricId")
-        filterName = prop.getProperty("filterName")
-        destinationArn = prop.getProperty("destinationArn")
-        roleArn = prop.getProperty("roleArn")
-        filterPattern = prop.getProperty("filterPattern")
-        instanceId = prop.getProperty("instanceId")
-        ruleName = prop.getProperty("ruleName")
-        ruleArn = prop.getProperty("ruleArn")
-        namespace = prop.getProperty("namespace")
-        myDateSc = prop.getProperty("myDateSc")
-        costDateWeekSc = prop.getProperty("costDateWeekSc")
-        dashboardNameSc = prop.getProperty("dashboardNameSc")
-        dashboardJsonSc = prop.getProperty("dashboardJsonSc")
-        dashboardAddSc = prop.getProperty("dashboardAddSc")
-        settingsSc = prop.getProperty("settingsSc")
-        metricImageSc = prop.getProperty("metricImageSc")
-        */
-    }
+            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+
+            /*
+            val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
+            val prop = Properties()
+            prop.load(input)
+            logGroup = prop.getProperty("logGroup")
+            alarmName = prop.getProperty("alarmName")
+            streamName = prop.getProperty("streamName")
+            ruleResource = prop.getProperty("ruleResource")
+            metricId = prop.getProperty("metricId")
+            filterName = prop.getProperty("filterName")
+            destinationArn = prop.getProperty("destinationArn")
+            roleArn = prop.getProperty("roleArn")
+            filterPattern = prop.getProperty("filterPattern")
+            instanceId = prop.getProperty("instanceId")
+            ruleName = prop.getProperty("ruleName")
+            ruleArn = prop.getProperty("ruleArn")
+            namespace = prop.getProperty("namespace")
+            myDateSc = prop.getProperty("myDateSc")
+            costDateWeekSc = prop.getProperty("costDateWeekSc")
+            dashboardNameSc = prop.getProperty("dashboardNameSc")
+            dashboardJsonSc = prop.getProperty("dashboardJsonSc")
+            dashboardAddSc = prop.getProperty("dashboardAddSc")
+            settingsSc = prop.getProperty("settingsSc")
+            metricImageSc = prop.getProperty("metricImageSc")
+             */
+        }
 
     @Test
     @Order(1)
-    fun createAlarmTest() = runBlocking {
-        putAlarm(alarmName, instanceId)
-        println("Test 1 passed")
-    }
+    fun createAlarmTest() =
+        runBlocking {
+            putAlarm(alarmName, instanceId)
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun describeAlarmsTest() = runBlocking {
-        desCWAlarms()
-        println("Test 2 passed")
-    }
+    fun describeAlarmsTest() =
+        runBlocking {
+            desCWAlarms()
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun createSubscriptionFiltersTest() = runBlocking {
-        putSubFilters(filterName, filterPattern, logGroup, destinationArn)
-        println("Test 3 passed")
-    }
+    fun createSubscriptionFiltersTest() =
+        runBlocking {
+            putSubFilters(filterName, filterPattern, logGroup, destinationArn)
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun describeSubscriptionFiltersTest() = runBlocking {
-        describeFilters(logGroup)
-        println("Test 4 passed")
-    }
+    fun describeSubscriptionFiltersTest() =
+        runBlocking {
+            describeFilters(logGroup)
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun disableAlarmActionsTest() = runBlocking {
-        disableActions(alarmName)
-        println("Test 5 passed")
-    }
+    fun disableAlarmActionsTest() =
+        runBlocking {
+            disableActions(alarmName)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun enableAlarmActionsTest() = runBlocking {
-        enableActions(alarmName)
-        println("Test 6 passed")
-    }
+    fun enableAlarmActionsTest() =
+        runBlocking {
+            enableActions(alarmName)
+            println("Test 6 passed")
+        }
 
     @Test
     @Order(7)
-    fun getLogEventsTest() = runBlocking {
-        getCWLogEvents(logGroup, streamName)
-        println("Test 7 passed")
-    }
+    fun getLogEventsTest() =
+        runBlocking {
+            getCWLogEvents(logGroup, streamName)
+            println("Test 7 passed")
+        }
 
     @Test
     @Order(8)
-    fun putCloudWatchEventTest() = runBlocking {
-        putCWEvents(ruleResource)
-        println("Test 8 passed")
-    }
+    fun putCloudWatchEventTest() =
+        runBlocking {
+            putCWEvents(ruleResource)
+            println("Test 8 passed")
+        }
 
     @Test
     @Order(9)
-    fun getMetricDataTest() = runBlocking {
-        getMetData()
-        println("Test 9 passed")
-    }
+    fun getMetricDataTest() =
+        runBlocking {
+            getMetData()
+            println("Test 9 passed")
+        }
 
     @Test
     @Order(10)
-    fun deleteSubscriptionFilterTest() = runBlocking {
-        deleteSubFilter(filterName, logGroup)
-        println("Test 10 passed")
-    }
+    fun deleteSubscriptionFilterTest() =
+        runBlocking {
+            deleteSubFilter(filterName, logGroup)
+            println("Test 10 passed")
+        }
 
     @Test
     @Order(11)
-    fun putRuleTest() = runBlocking {
-        putCWRule(ruleName, ruleArn)
-        println("Test 11 passed")
-    }
+    fun putRuleTest() =
+        runBlocking {
+            putCWRule(ruleName, ruleArn)
+            println("Test 11 passed")
+        }
 
     @Test
     @Order(12)
-    fun putLogEvents() = runBlocking {
-        putCWLogEvents(logGroup, streamName)
-        println("Test 12 passed")
-    }
+    fun putLogEvents() =
+        runBlocking {
+            putCWLogEvents(logGroup, streamName)
+            println("Test 12 passed")
+        }
 
     @Test
     @Order(13)
-    fun deleteCWAlarmTest() = runBlocking {
-        deleteCWAlarm(alarmName)
-        println("Test 13 passed")
-    }
+    fun deleteCWAlarmTest() =
+        runBlocking {
+            deleteCWAlarm(alarmName)
+            println("Test 13 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/cloudwatch"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }
