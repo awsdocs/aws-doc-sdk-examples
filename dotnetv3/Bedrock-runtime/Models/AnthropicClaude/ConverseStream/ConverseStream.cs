@@ -5,12 +5,12 @@
 // Use the Converse API to send a text message to Anthropic Claude
 // and print the response stream.
 
-using Amazon;
-using Amazon.BedrockRuntime;
-using Amazon.BedrockRuntime.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Amazon;
+using Amazon.BedrockRuntime;
+using Amazon.BedrockRuntime.Model;
 
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
@@ -62,3 +62,6 @@ catch (AmazonBedrockRuntimeException e)
 }
 
 // snippet-end:[BedrockRuntime.dotnetv3.ConverseStream_AnthropicClaude]
+
+// Create a partial class to make the top-level script testable.
+namespace AnthropicClaude { public partial class ConverseStream { } }

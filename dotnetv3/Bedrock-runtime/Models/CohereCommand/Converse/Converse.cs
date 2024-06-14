@@ -1,20 +1,20 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[BedrockRuntime.dotnetv3.Converse_AmazonTitanText]
-// Use the Converse API to send a text message to Amazon Titan Text.
+// snippet-start:[BedrockRuntime.dotnetv3.Converse_CohereCommand]
+// Use the Converse API to send a text message to Cohere Command.
 
+using System;
+using System.Collections.Generic;
 using Amazon;
 using Amazon.BedrockRuntime;
 using Amazon.BedrockRuntime.Model;
-using System;
-using System.Collections.Generic;
 
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
 
-// Set the model ID, e.g., Titan Text Premier.
-var modelId = "amazon.titan-text-premier-v1:0";
+// Set the model ID, e.g., Command R.
+var modelId = "cohere.command-r-v1:0";
 
 // Define the user message.
 var userMessage = "Describe the purpose of a 'hello world' program in one line.";
@@ -54,4 +54,7 @@ catch (AmazonBedrockRuntimeException e)
     throw;
 }
 
-// snippet-end:[BedrockRuntime.dotnetv3.Converse_AmazonTitanText]
+// snippet-end:[BedrockRuntime.dotnetv3.Converse_CohereCommand]
+
+// Create a partial class to make the top-level script testable.
+namespace CohereCommand { public partial class Converse { } }

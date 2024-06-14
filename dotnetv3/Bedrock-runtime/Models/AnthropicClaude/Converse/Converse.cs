@@ -1,20 +1,20 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[BedrockRuntime.dotnetv3.Converse_CohereCommand]
-// Use the Converse API to send a text message to Cohere Command.
+// snippet-start:[BedrockRuntime.dotnetv3.Converse_AnthropicClaude]
+// Use the Converse API to send a text message to Anthropic Claude.
 
+using System;
+using System.Collections.Generic;
 using Amazon;
 using Amazon.BedrockRuntime;
 using Amazon.BedrockRuntime.Model;
-using System;
-using System.Collections.Generic;
 
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
 
-// Set the model ID, e.g., Command R.
-var modelId = "cohere.command-r-v1:0";
+// Set the model ID, e.g., Claude 3 Haiku.
+var modelId = "anthropic.claude-3-haiku-20240307-v1:0";
 
 // Define the user message.
 var userMessage = "Describe the purpose of a 'hello world' program in one line.";
@@ -54,4 +54,10 @@ catch (AmazonBedrockRuntimeException e)
     throw;
 }
 
-// snippet-end:[BedrockRuntime.dotnetv3.Converse_CohereCommand]
+// snippet-end:[BedrockRuntime.dotnetv3.Converse_AnthropicClaude]
+
+// Create a partial class to make the top-level script testable.
+namespace AnthropicClaude { public partial class Converse { } }
+
+// Create a partial class to make the top-level script testable.
+namespace AnthropicClaude { public partial class Converse { } }

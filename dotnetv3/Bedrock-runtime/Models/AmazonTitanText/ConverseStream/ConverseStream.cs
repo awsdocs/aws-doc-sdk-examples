@@ -1,26 +1,28 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[BedrockRuntime.dotnetv3.Converse_Mistral]
-// Use the Converse API to send a text message to Mistral.
+// snippet-start:[BedrockRuntime.dotnetv3.ConverseStream_AmazonTitanText]
+// Use the Converse API to send a text message to Amazon Titan Text
+// and print the response stream.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Amazon;
 using Amazon.BedrockRuntime;
 using Amazon.BedrockRuntime.Model;
-using System;
-using System.Collections.Generic;
 
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
 
-// Set the model ID, e.g., Mistral Large.
-var modelId = "mistral.mistral-large-2402-v1:0";
+// Set the model ID, e.g., Titan Text Premier.
+var modelId = "amazon.titan-text-premier-v1:0";
 
 // Define the user message.
 var userMessage = "Describe the purpose of a 'hello world' program in one line.";
 
 // Create a request with the model ID, the user message, and an inference configuration.
-var request = new ConverseRequest
+var request = new ConverseStreamRequest
 {
     ModelId = modelId,
     Messages = new List<Message>
@@ -42,11 +44,16 @@ var request = new ConverseRequest
 try
 {
     // Send the request to the Bedrock Runtime and wait for the result.
-    var response = await client.ConverseAsync(request);
+    var response = await client.ConverseStreamAsync(request);
 
-    // Extract and print the response text.
-    string responseText = response?.Output?.Message?.Content?[0]?.Text ?? "";
-    Console.WriteLine(responseText);
+    // Extract and print the streamed response text in real-time.
+    foreach (var chunk in response.Stream.AsEnumerable())
+    {
+        if (chunk is ContentBlockDeltaEvent)
+        {
+            Console.Write((chunk as ContentBlockDeltaEvent).Delta.Text);
+        }
+    }
 }
 catch (AmazonBedrockRuntimeException e)
 {
@@ -54,4 +61,7 @@ catch (AmazonBedrockRuntimeException e)
     throw;
 }
 
-// snippet-end:[BedrockRuntime.dotnetv3.Converse_Mistral]
+// snippet-end:[BedrockRuntime.dotnetv3.ConverseStream_AmazonTitanText]
+
+// Create a partial class to make the top-level script testable.
+namespace AmazonTitanText { public partial class ConverseStream { } }
