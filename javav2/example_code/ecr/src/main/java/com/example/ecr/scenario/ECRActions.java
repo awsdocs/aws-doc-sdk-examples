@@ -468,7 +468,7 @@ public class ECRActions {
      *
      */
     public void pushDockerImage(String repoName, String imageName) {
-        // Check the OS
+        // Check the OS.
         DockerClient dockerClient;
         String osName = System.getProperty("os.name");
         System.out.println("Operating System: " + osName);
