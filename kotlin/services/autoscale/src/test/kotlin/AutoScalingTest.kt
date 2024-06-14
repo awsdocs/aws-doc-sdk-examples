@@ -56,6 +56,7 @@ class AutoScalingTest {
         serviceLinkedRoleARN = values.serviceLinkedRoleARN.toString()
         groupNameSc = values.groupNameSc.toString() + randomNum
         // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+
         /*
         try {
             AutoScalingTest::class.java.getClassLoader().getResourceAsStream("config.properties").use { input ->
