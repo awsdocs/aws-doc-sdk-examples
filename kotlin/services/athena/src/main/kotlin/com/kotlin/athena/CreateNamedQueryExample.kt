@@ -10,7 +10,6 @@ import kotlin.system.exitProcess
 // snippet-end:[athena.kotlin.CreateNamedQueryExample.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <queryString> <namedQuery> <database>
@@ -34,17 +33,21 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[athena.kotlin.CreateNamedQueryExample.main]
-suspend fun createNamedQuery(queryStringVal: String, namedQuery: String, databaseVal: String): String? {
-
+suspend fun createNamedQuery(
+    queryStringVal: String,
+    namedQuery: String,
+    databaseVal: String,
+): String? {
     AthenaClient { region = "us-west-2" }.use { athenaClient ->
-        val resp = athenaClient.createNamedQuery(
-            CreateNamedQueryRequest {
-                database = databaseVal
-                queryString = queryStringVal
-                description = "Created via the AWS SDK for Kotlin"
-                this.name = namedQuery
-            }
-        )
+        val resp =
+            athenaClient.createNamedQuery(
+                CreateNamedQueryRequest {
+                    database = databaseVal
+                    queryString = queryStringVal
+                    description = "Created via the AWS SDK for Kotlin"
+                    this.name = namedQuery
+                },
+            )
         return resp.namedQueryId
     }
 }

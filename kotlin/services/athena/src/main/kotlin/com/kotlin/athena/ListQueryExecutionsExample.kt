@@ -14,10 +14,10 @@ suspend fun main() {
 
 // snippet-start:[athena.kotlin.ListNamedQueryExecutionsExample.main]
 suspend fun listQueryIds() {
-
-    val request = ListQueryExecutionsRequest {
-        maxResults = 10
-    }
+    val request =
+        ListQueryExecutionsRequest {
+            maxResults = 10
+        }
 
     AthenaClient { region = "us-west-2" }.use { athenaClient ->
         val response = athenaClient.listQueryExecutions(request)
