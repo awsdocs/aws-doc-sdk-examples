@@ -1,32 +1,41 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_CohereCommandR]
-// Use the native inference API to send a text message to Cohere Command R
+// snippet-start:[BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_MetaLlama3]
+// Use the native inference API to send a text message to Meta Llama 3
 // and print the response stream.
 
-using Amazon;
-using Amazon.BedrockRuntime;
-using Amazon.BedrockRuntime.Model;
 using System;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Amazon;
+using Amazon.BedrockRuntime;
+using Amazon.BedrockRuntime.Model;
 
 // Create a Bedrock Runtime client in the AWS Region you want to use.
 var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
 
-// Set the model ID, e.g., Command R.
-var modelId = "cohere.command-r-v1:0";
+// Set the model ID, e.g., Llama 3 8b Instruct.
+var modelId = "meta.llama3-8b-instruct-v1:0";
 
-// Define the user message.
-var userMessage = "Describe the purpose of a 'hello world' program in one line.";
+// Define the prompt for the model.
+var prompt = "Describe the purpose of a 'hello world' program in one line.";
+
+// Embed the prompt in Llama 2's instruction format.
+var formattedPrompt = $@"
+<|begin_of_text|>
+<|start_header_id|>user<|end_header_id|>
+{prompt}
+<|eot_id|>
+<|start_header_id|>assistant<|end_header_id|>
+";
 
 //Format the request payload using the model's native structure.
 var nativeRequest = JsonSerializer.Serialize(new
 {
-    message = userMessage,
-    max_tokens = 512,
+    prompt = formattedPrompt,
+    max_gen_len = 512,
     temperature = 0.5
 });
 
@@ -47,7 +56,7 @@ try
     foreach (var item in streamingResponse.Body)
     {
         var chunk = JsonSerializer.Deserialize<JsonObject>((item as PayloadPart).Bytes);
-        var text = chunk["text"] ?? "";
+        var text = chunk["generation"] ?? "";
         Console.Write(text);
     }
 }
@@ -57,4 +66,7 @@ catch (AmazonBedrockRuntimeException e)
     throw;
 }
 
-// snippet-end:[BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_CohereCommandR]
+// snippet-end:[BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_MetaLlama3]
+
+// Create a partial class to make the top-level script testable.
+namespace MetaLlama3 { public partial class InvokeModelWithResponseStream { } }
