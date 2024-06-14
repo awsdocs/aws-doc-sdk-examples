@@ -1260,9 +1260,9 @@ bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings:
 
 # Scenarios
 bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude:
-  title: "A tool use demo illustrating how to connect a generative AI model on &BR;'s with a custom tool or API"
+  title: "A tool use demo illustrating how to connect AI models on &BR; with a custom tool or API"
   title_abbrev: "Scenario: Tool use with the Converse API"
-  synopsis: "The &BR; Tool Use Demo illustrates a typical interaction between a generative AI model, an application, and connected tools or APIs to solve a problem or achieve a specific goal. It uses the example of an external weatherAPI, interacting with the AI model to provide weather information based on user input."
+  synopsis: "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input."
   category: Anthropic Claude
   languages:
     Python:
