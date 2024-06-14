@@ -1,0 +1,14 @@
+name: Invoke runTheNumbers lambda function
+on:
+   workflow_dispatch:
+jobs:
+  build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Invoke runTheNumbers
+          uses: gagoar/invoke-aws-lambda@master
+          with:
+             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+             FunctionName: runTheNumbers
+             Payload: '{ "myParameter": false }'
