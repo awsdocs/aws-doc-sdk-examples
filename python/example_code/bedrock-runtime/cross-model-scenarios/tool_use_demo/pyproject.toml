@@ -1,0 +1,16 @@
+[project]
+name = "Amazon Bedrock Tool Use Demo"
+version = "0.1.0"
+description = "A demonstration of Amazon Bedrock's tool use capabilities featuring a weather assistant bot that provides real-time weather information using a foundation model on Amazon Bedrock, the Bedrock Converse API, and the Open-Meteo API."
+authors = [
+    { name = "Dennis Traub", email = "dennis.traub@gmail.com" }
+]
+
+[project.dependencies]
+python = "^3.12"
+boto3 = "^1.34.124"
+requests = "^2.32.3"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"

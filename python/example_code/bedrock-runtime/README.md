@@ -64,11 +64,12 @@ python -m pip install -r requirements.txt
 - [ConverseStream](models/anthropic_claude/converse_stream.py#L4)
 - [InvokeModel](models/anthropic_claude/invoke_model.py#L4)
 - [InvokeModelWithResponseStream](models/anthropic_claude/invoke_model_with_response_stream.py#L4)
+- [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
 
 ### Cohere Command
 
-- [Converse: All models](models/cohere_command/converse.py#L4)
-- [ConverseStream: All models](models/cohere_command/converse_stream.py#L4)
+- [Converse](models/cohere_command/converse.py#L4)
+- [ConverseStream](models/cohere_command/converse_stream.py#L4)
 - [InvokeModel: Command R and R+](models/cohere_command/command_r_invoke_model.py#L4)
 - [InvokeModel: Command and Command Light](models/cohere_command/command_invoke_model.py#L4)
 - [InvokeModelWithResponseStream: Command R and R+](models/cohere_command/command_r_invoke_model_with_response_stream.py#L4)
@@ -76,8 +77,8 @@ python -m pip install -r requirements.txt
 
 ### Meta Llama
 
-- [All models: Converse API](models/meta_llama/converse.py#L4)
-- [ConverseStream: All models](models/meta_llama/converse_stream.py#L4)
+- [Converse](models/meta_llama/converse.py#L4)
+- [ConverseStream](models/meta_llama/converse_stream.py#L4)
 - [InvokeModel: Llama 2](models/meta_llama/llama2_invoke_model.py#L4)
 - [InvokeModel: Llama 3](models/meta_llama/llama3_invoke_model.py#L4)
 - [InvokeModelWithResponseStream: Llama 2](models/meta_llama/llama2_invoke_model_with_response_stream.py#L4)
