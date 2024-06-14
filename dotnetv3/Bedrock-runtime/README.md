@@ -49,21 +49,21 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 ### Cohere Command
 
-- [Converse](Models/CohereCommand/Converse/Converse.csx#L4)
-- [ConverseStream](Models/CohereCommand/ConverseStream/ConverseStream.csx#L4)
-- [InvokeModel: Command R and R+](Models/CohereCommand/Command_R_InvokeModel/InvokeModel.csx#L4)
-- [InvokeModel: Command and Command Light](Models/CohereCommand/Command_InvokeModel/InvokeModel.csx#L4)
-- [InvokeModelWithResponseStream: Command R and R+](Models/CohereCommand/Command_R_InvokeModelWithResponseStream/InvokeModelWithResponseStream.csx#L4)
-- [InvokeModelWithResponseStream: Command and Command Light](Models/CohereCommand/Command_InvokeModelWithResponseStream/InvokeModelWithResponseStream.csx#L4)
+- [Converse](Models/CohereCommand/Converse/Converse.cs#L4)
+- [ConverseStream](Models/CohereCommand/ConverseStream/ConverseStream.cs#L4)
+- [InvokeModel: Command R and R+](Models/CohereCommand/Command_R_InvokeModel/InvokeModel.cs#L4)
+- [InvokeModel: Command and Command Light](Models/CohereCommand/Command_InvokeModel/InvokeModel.cs#L4)
+- [InvokeModelWithResponseStream: Command R and R+](Models/CohereCommand/Command_R_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
+- [InvokeModelWithResponseStream: Command and Command Light](Models/CohereCommand/Command_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 ### Meta Llama
 
-- [Converse](Models/MetaLlama/Converse/Converse.csx#L4)
-- [ConverseStream](Models/MetaLlama/ConverseStream/ConverseStream.csx#L4)
-- [InvokeModel: Llama 2](Models/MetaLlama/Llama2_InvokeModel/InvokeModel.csx#L4)
-- [InvokeModel: Llama 3](Models/MetaLlama/Llama3_InvokeModel/InvokeModel.csx#L4)
-- [InvokeModelWithResponseStream: Llama 2](Models/MetaLlama/Llama2_InvokeModelWithResponseStream/InvokeModelWithResponseStream.csx#L4)
-- [InvokeModelWithResponseStream: Llama 3](Models/MetaLlama/Llama3_InvokeModelWithResponseStream/InvokeModelWithResponseStream.csx#L4)
+- [Converse](Models/MetaLlama/Converse/Converse.cs#L4)
+- [ConverseStream](Models/MetaLlama/ConverseStream/ConverseStream.cs#L4)
+- [InvokeModel: Llama 2](Models/MetaLlama/Llama2_InvokeModel/InvokeModel.cs#L4)
+- [InvokeModel: Llama 3](Models/MetaLlama/Llama3_InvokeModel/InvokeModel.cs#L4)
+- [InvokeModelWithResponseStream: Llama 2](Models/MetaLlama/Llama2_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
+- [InvokeModelWithResponseStream: Llama 3](Models/MetaLlama/Llama3_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 ### Mistral AI
 
