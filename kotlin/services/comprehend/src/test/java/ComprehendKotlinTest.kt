@@ -44,8 +44,6 @@ Seattle is north of Portland and south of Vancouver, BC. Other notable Seattle -
             s3Uri = values.s3Uri.toString()
             documentClassifierName = values.documentClassifier.toString()
 
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
