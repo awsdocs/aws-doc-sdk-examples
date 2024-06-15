@@ -28,9 +28,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[athena.kotlin.DeleteNamedQueryExample.main]
 suspend fun deleteQueryName(sampleNamedQueryId: String?) {
-    val request = DeleteNamedQueryRequest {
-        namedQueryId = sampleNamedQueryId
-    }
+    val request =
+        DeleteNamedQueryRequest {
+            namedQueryId = sampleNamedQueryId
+        }
 
     AthenaClient { region = "us-west-2" }.use { athenaClient ->
         athenaClient.deleteNamedQuery(request)
