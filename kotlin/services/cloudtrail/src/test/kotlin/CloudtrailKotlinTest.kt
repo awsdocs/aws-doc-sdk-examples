@@ -38,7 +38,6 @@ class CloudtrailKotlinTest {
             trailName = values.trailName.toString()
             s3BucketName = values.s3BucketName.toString()
 
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
