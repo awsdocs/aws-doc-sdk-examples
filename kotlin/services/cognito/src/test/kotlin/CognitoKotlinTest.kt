@@ -79,7 +79,6 @@ class CognitoKotlinTest {
             passwordMVP = values.passwordMVP.toString()
             emailMVP = values.emailMVP.toString()
 
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
         /*
         // load the properties file.
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
