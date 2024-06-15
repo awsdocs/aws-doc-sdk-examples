@@ -3,6 +3,7 @@
 
 package com.example.autoscaling
 
+// snippet-start:[autoscale.kotlin.create_scaling_scenario.main
 // snippet-start:[autoscale.kotlin.create_scaling_scenario.import]
 import aws.sdk.kotlin.services.autoscaling.AutoScalingClient
 import aws.sdk.kotlin.services.autoscaling.model.CreateAutoScalingGroupRequest
@@ -44,7 +45,6 @@ import kotlin.system.exitProcess
  * 12. Deletes the Auto Scaling group.
  */
 
-// snippet-start:[autoscale.kotlin.create_scaling_scenario.main]
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
@@ -206,7 +206,7 @@ suspend fun setDesiredCapacity(groupName: String) {
 suspend fun updateAutoScalingGroup(
     groupName: String,
     launchTemplateNameVal: String,
-    serviceLinkedRoleARNVal: String
+    serviceLinkedRoleARNVal: String,
 ) {
     val templateSpecification =
         LaunchTemplateSpecification {
@@ -239,7 +239,7 @@ suspend fun createAutoScalingGroup(
     groupName: String,
     launchTemplateNameVal: String,
     serviceLinkedRoleARNVal: String,
-    vpcZoneIdVal: String
+    vpcZoneIdVal: String,
 ) {
     val templateSpecification =
         LaunchTemplateSpecification {
