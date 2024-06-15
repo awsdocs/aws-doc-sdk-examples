@@ -80,7 +80,6 @@ class CloudWatchTest {
             settingsSc = values.settingsSc.toString()
             metricImageSc = values.metricImageSc.toString()
 
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
