@@ -62,7 +62,7 @@ fun main(): Unit =
 suspend fun getObjectPresigned(
     s3: S3Client,
     bucketName: String,
-    keyName: String
+    keyName: String,
 ): String {
     // Create a GetObjectRequest.
     val unsignedRequest =
@@ -86,7 +86,7 @@ suspend fun putObjectPresigned(
     s3: S3Client,
     bucketName: String,
     keyName: String,
-    content: String
+    content: String,
 ) {
     // Create a PutObjectRequest.
     val unsignedRequest =
@@ -120,7 +120,7 @@ suspend fun putObjectPresigned(
 suspend fun getObjectPresignedMoreOptions(
     s3: S3Client,
     bucketName: String,
-    keyName: String
+    keyName: String,
 ): HttpRequest {
     // Create a GetObjectRequest.
     val unsignedRequest =
@@ -143,19 +143,19 @@ suspend fun getObjectPresignedMoreOptions(
 
 suspend fun cleanup(
     s3: S3Client,
-    bucketName: String
+    bucketName: String,
 ) {
     deleteBucket(s3, bucketName)
 }
 
 suspend fun deleteBucket(
     s3: S3Client,
-    bucketName: String
+    bucketName: String,
 ) {
     s3.deleteBucket(
         DeleteBucketRequest {
             bucket = bucketName
-        }
+        },
     )
 
     s3.waitUntilBucketNotExists { bucket = bucketName }
@@ -164,13 +164,13 @@ suspend fun deleteBucket(
 suspend fun deleteObject(
     s3: S3Client,
     bucketName: String,
-    keyName: String
+    keyName: String,
 ) {
     s3.deleteObject(
         DeleteObjectRequest {
             bucket = bucketName
             key = keyName
-        }
+        },
     )
 
     s3.waitUntilObjectNotExists {
@@ -181,12 +181,12 @@ suspend fun deleteObject(
 
 suspend fun setUp(
     s3: S3Client,
-    bucketName: String
+    bucketName: String,
 ) {
     s3.createBucket(
         CreateBucketRequest {
             bucket = bucketName
-        }
+        },
     )
     s3.waitUntilBucketExists { bucket = bucketName }
 }
@@ -195,14 +195,14 @@ suspend fun putObject(
     s3: S3Client,
     bucketName: String,
     keyName: String,
-    contents: String
+    contents: String,
 ) {
     s3.putObject(
         PutObjectRequest {
             bucket = bucketName
             key = keyName
             body = ByteStream.fromString(contents)
-        }
+        },
     )
     s3.waitUntilObjectExists {
         bucket = bucketName

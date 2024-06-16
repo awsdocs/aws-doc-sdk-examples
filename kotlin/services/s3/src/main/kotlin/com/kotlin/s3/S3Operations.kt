@@ -24,6 +24,8 @@ import java.nio.file.Paths
 import kotlin.system.exitProcess
 // snippet-end:[s3.kotlin.s3_operations.import]
 
+// snippet-start:[s3.kotlin.s3_operations.main]
+
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
@@ -32,7 +34,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-// snippet-start:[s3.kotlin.s3_operations.main]
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
@@ -95,7 +96,7 @@ suspend fun createBucket(bucketName: String) {
 suspend fun putObject(
     bucketName: String,
     objectKey: String,
-    objectPath: String
+    objectPath: String,
 ) {
     val metadataVal = mutableMapOf<String, String>()
     metadataVal["myVal"] = "test"
@@ -117,7 +118,7 @@ suspend fun putObject(
 suspend fun getObjectFromMrap(
     bucketName: String,
     keyName: String,
-    path: String
+    path: String,
 ) {
     val request =
         GetObjectRequest {
@@ -153,7 +154,7 @@ suspend fun listBucketObs(bucketName: String) {
 suspend fun copyBucketOb(
     fromBucket: String,
     objectKey: String,
-    toBucket: String
+    toBucket: String,
 ) {
     var encodedUrl = ""
     try {
@@ -175,7 +176,7 @@ suspend fun copyBucketOb(
 
 suspend fun deleteBucketObs(
     bucketName: String,
-    objectName: String
+    objectName: String,
 ) {
     val objectId =
         ObjectIdentifier {
