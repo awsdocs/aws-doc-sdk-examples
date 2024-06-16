@@ -90,7 +90,7 @@ suspend fun createPinpointSegment(applicationIdVal: String?): String? {
                 CreateSegmentRequest {
                     applicationId = applicationIdVal
                     writeSegmentRequest = writeSegmentRequestOb
-                }
+                },
             )
         println("Segment ID is ${createSegmentResult.segmentResponse?.id}")
         return createSegmentResult.segmentResponse?.id
