@@ -53,7 +53,7 @@ suspend fun transformJob(
     s3UriVal: String?,
     s3OutputPathVal: String?,
     modelNameVal: String?,
-    transformJobNameVal: String?
+    transformJobNameVal: String?,
 ) {
     val s3DataSourceOb =
         TransformS3DataSource {
