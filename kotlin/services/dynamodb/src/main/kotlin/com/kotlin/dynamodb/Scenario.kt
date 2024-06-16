@@ -26,6 +26,8 @@ import java.io.File
 import kotlin.system.exitProcess
 // snippet-end:[dynamodb.kotlin.scenario.import]
 
+// snippet-start:[dynamodb.kotlin.scenario.main]
+
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
@@ -34,7 +36,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
-// snippet-start:[dynamodb.kotlin.scenario.main]
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
@@ -67,7 +68,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[dynamodb.kotlin.scenario.create_table.main]
 suspend fun createScenarioTable(
     tableNameVal: String,
-    key: String
+    key: String,
 ) {
     val attDef =
         AttributeDefinition {
@@ -123,7 +124,7 @@ suspend fun createScenarioTable(
 // Load data into the table.
 suspend fun loadData(
     tableName: String,
-    fileName: String
+    fileName: String,
 ) {
     val parser = JsonFactory().createParser(File(fileName))
     val rootNode = ObjectMapper().readTree<JsonNode>(parser)
@@ -149,7 +150,7 @@ suspend fun putMovie(
     tableNameVal: String,
     year: Int,
     title: String,
-    info: String
+    info: String,
 ) {
     val itemValues = mutableMapOf<String, AttributeValue>()
     val strVal = year.toString()
@@ -175,7 +176,7 @@ suspend fun putMovie(
 suspend fun getMovie(
     tableNameVal: String,
     keyName: String,
-    keyVal: String
+    keyVal: String,
 ) {
     val keyToGet = mutableMapOf<String, AttributeValue>()
     keyToGet[keyName] = AttributeValue.N(keyVal)
@@ -213,7 +214,7 @@ suspend fun deletIssuesTable(tableNameVal: String) {
 suspend fun queryMovieTable(
     tableNameVal: String,
     partitionKeyName: String,
-    partitionAlias: String
+    partitionAlias: String,
 ): Int {
     val attrNameAlias = mutableMapOf<String, String>()
     attrNameAlias[partitionAlias] = "year"

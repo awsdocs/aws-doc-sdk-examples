@@ -3,6 +3,7 @@
 
 package com.kotlin.dynamodb
 
+// snippet-start:[dynamodb.kotlin.partiql.main]
 // snippet-start:[dynamodb.kotlin.partiql.import]
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
@@ -21,7 +22,6 @@ import aws.sdk.kotlin.services.dynamodb.model.ExecuteStatementResponse
  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-gettingstarted.html
  */
 
-// snippet-start:[dynamodb.kotlin.partiql.main]
 suspend fun main() {
     val ddb = DynamoDbClient { region = "us-east-1" }
     val parameters = mutableListOf<AttributeValue>()
@@ -39,7 +39,7 @@ suspend fun main() {
         executeStatementRequest(
             ddb,
             "UPDATE Music SET AwardsWon=1 SET AwardDetail={'Grammys':[2020, 2018]}  where Artist=? and SongTitle=?",
-            parameters
+            parameters,
         )
     if (response != null) {
         processResults(response)
@@ -49,7 +49,7 @@ suspend fun main() {
         executeStatementRequest(
             ddb,
             "UPDATE Music SET AwardDetail.Grammys =LIST_APPEND(AwardDetail.Grammys,[2016])  where Artist=? and SongTitle=?",
-            parameters
+            parameters,
         )
     if (response != null) {
         processResults(response)
@@ -65,7 +65,7 @@ suspend fun main() {
         executeStatementRequest(
             ddb,
             "UPDATE Music SET AwardDetail.Grammys =list_append(AwardDetail.Grammys,[2016])  where Artist=? and SongTitle=?",
-            parameters
+            parameters,
         )
     if (response != null) {
         processResults(response)
@@ -91,7 +91,7 @@ suspend fun main() {
         executeStatementRequest(
             ddb,
             "UPDATE Music SET BandMembers =set_add(BandMembers, <<'newmember'>>) where Artist=? and SongTitle=?",
-            parameters
+            parameters,
         )
     if (response != null) {
         processResults(response)
@@ -103,7 +103,7 @@ suspend fun main() {
 suspend fun executeStatementRequest(
     ddb: DynamoDbClient,
     statementVal: String,
-    parametersVal: List<AttributeValue>
+    parametersVal: List<AttributeValue>,
 ): ExecuteStatementResponse? {
     val request =
         ExecuteStatementRequest {

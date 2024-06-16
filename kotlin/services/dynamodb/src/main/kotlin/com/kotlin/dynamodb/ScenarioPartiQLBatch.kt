@@ -18,6 +18,8 @@ import aws.sdk.kotlin.services.dynamodb.model.ScalarAttributeType
 import aws.sdk.kotlin.services.dynamodb.waiters.waitUntilTableExists
 // snippet-end:[dynamodb.kotlin.scenario.partiql.batch.import]
 
+// snippet-start:[dynamodb.kotlin.scenario.partiql.batch.main]
+
 /**
  Before running this Kotlin code example, set up your development environment, including your credentials.
 
@@ -34,7 +36,6 @@ import aws.sdk.kotlin.services.dynamodb.waiters.waitUntilTableExists
  5. Deletes the table.
  */
 
-// snippet-start:[dynamodb.kotlin.scenario.partiql.batch.main]
 suspend fun main() {
     val ddb = DynamoDbClient { region = "us-east-1" }
     val tableName = "MoviesPartiQBatch"
@@ -49,7 +50,7 @@ suspend fun main() {
 suspend fun createTablePartiQLBatch(
     ddb: DynamoDbClient,
     tableNameVal: String,
-    key: String
+    key: String,
 ) {
     val attDef =
         AttributeDefinition {

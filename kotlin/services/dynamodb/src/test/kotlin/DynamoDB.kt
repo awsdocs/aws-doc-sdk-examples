@@ -78,7 +78,6 @@ class DynamoDB {
             tableName2 = "Movies"
 
         /*
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = java.util.Properties()
 
@@ -128,7 +127,7 @@ class DynamoDB {
                 awards,
                 awardVal,
                 songTitle,
-                songTitleVal
+                songTitleVal,
             )
             println("Test 3 passed")
         }
