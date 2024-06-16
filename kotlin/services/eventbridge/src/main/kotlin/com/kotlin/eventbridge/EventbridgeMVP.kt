@@ -3,6 +3,7 @@
 
 package com.kotlin.eventbridge
 
+// snippet-start:[eventbridge.kotlin.mvp.main]
 import aws.sdk.kotlin.services.eventbridge.EventBridgeClient
 import aws.sdk.kotlin.services.eventbridge.model.DeleteRuleRequest
 import aws.sdk.kotlin.services.eventbridge.model.DescribeRuleRequest
@@ -53,7 +54,6 @@ import java.util.Scanner
 import java.util.UUID
 import kotlin.system.exitProcess
 
-// snippet-start:[eventbridge.kotlin.mvp.main]
 /*
  Before running this Kotlin code example, set up your development environment,
  including your credentials.
@@ -248,7 +248,7 @@ suspend fun cleanupResources(
     topicArn: String?,
     eventRuleName: String?,
     bucketName: String?,
-    roleName: String?
+    roleName: String?,
 ) {
     println("Removing all targets from the event rule.")
     deleteTargetsFromRule(eventRuleName)
@@ -296,7 +296,7 @@ suspend fun deleteS3Bucket(bucketName: String?) {
                 toDelete.add(
                     ObjectIdentifier {
                         key = myValue.key
-                    }
+                    },
                 )
             }
         }
@@ -407,7 +407,7 @@ suspend fun triggerCustomRule(email: String) {
 // snippet-start:[eventbridge.kotlin._put_target.custom.transform.main]
 suspend fun updateCustomRuleTargetWithTransform(
     topicArn: String?,
-    ruleName: String?
+    ruleName: String?,
 ) {
     val targetId = UUID.randomUUID().toString()
 
@@ -459,7 +459,7 @@ suspend fun updateToCustomRule(ruleName: String?) {
 // Update an Amazon S3 object created rule with a transform on the target.
 suspend fun updateSnsEventRule(
     topicArn: String?,
-    ruleName: String?
+    ruleName: String?,
 ) {
     val targetId = UUID.randomUUID().toString()
     val myMap = mutableMapOf<String, String>()
@@ -507,7 +507,7 @@ suspend fun checkRule(eventRuleName: String?) {
 // snippet-start:[eventbridge.kotlin.disable.rule.main]
 suspend fun changeRuleState(
     eventRuleName: String,
-    isEnabled: Boolean?
+    isEnabled: Boolean?,
 ) {
     if (!isEnabled!!) {
         println("Disabling the rule: $eventRuleName")
@@ -593,7 +593,7 @@ suspend fun addSnsEventRule(
     topicArn: String?,
     topicName: String,
     eventRuleName: String,
-    bucketName: String
+    bucketName: String,
 ) {
     val targetID = UUID.randomUUID().toString()
     val myTarget =
@@ -621,7 +621,7 @@ suspend fun addSnsEventRule(
 
 suspend fun subEmail(
     topicArnVal: String?,
-    email: String?
+    email: String?,
 ) {
     val request =
         SubscribeRequest {
@@ -691,7 +691,7 @@ suspend fun listRules() {
 suspend fun addEventRule(
     roleArnVal: String?,
     bucketName: String,
-    eventRuleName: String?
+    eventRuleName: String?,
 ) {
     val pattern = """{
         "source": ["aws.s3"],
@@ -778,7 +778,7 @@ suspend fun checkBucket(bucketName: String?): Boolean {
 
 suspend fun createIAMRole(
     rolenameVal: String?,
-    polJSON: String?
+    polJSON: String?,
 ): String? {
     val request =
         CreateRoleRequest {
