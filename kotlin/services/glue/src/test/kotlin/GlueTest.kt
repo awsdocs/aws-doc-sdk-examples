@@ -54,7 +54,6 @@ class GlueTest {
             scriptLocationSc = values.scriptLocationSc.toString()
             locationUri = values.locationUri.toString()
 
-            // Uncomment the block below if using config.properties file
         /*
         val input = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()

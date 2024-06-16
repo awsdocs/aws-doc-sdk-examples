@@ -3,6 +3,7 @@
 
 package com.kotlin.glue
 
+// snippet-start:[glue.kotlin.scenario.main]
 // snippet-start:[glue.kotlin.scenario.import]
 import aws.sdk.kotlin.services.glue.GlueClient
 import aws.sdk.kotlin.services.glue.model.CrawlerTargets
@@ -39,7 +40,6 @@ import kotlin.system.exitProcess
  https://docs.aws.amazon.com/glue/latest/ug/tutorial-add-crawler.html
 */
 
-// snippet-start:[glue.kotlin.scenario.main]
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
@@ -90,7 +90,7 @@ suspend fun main(args: Array<String>) {
 
 suspend fun createDatabase(
     dbName: String?,
-    locationUriVal: String?
+    locationUriVal: String?,
 ) {
     val input =
         DatabaseInput {
@@ -115,7 +115,7 @@ suspend fun createCrawler(
     s3Path: String?,
     cron: String?,
     dbName: String?,
-    crawlerName: String
+    crawlerName: String,
 ) {
     val s3Target =
         S3Target {
@@ -215,7 +215,7 @@ suspend fun startJob(jobNameVal: String?) {
 suspend fun createJob(
     jobName: String,
     iam: String?,
-    scriptLocationVal: String?
+    scriptLocationVal: String?,
 ) {
     val commandOb =
         JobCommand {
