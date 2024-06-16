@@ -57,7 +57,7 @@ suspend fun main(args: Array<String>) {
 suspend fun createCluster(
     clusterId: String?,
     masterUsernameVal: String?,
-    masterUserPasswordVal: String?
+    masterUserPasswordVal: String?,
 ) {
     val clusterRequest =
         CreateClusterRequest {
@@ -120,7 +120,10 @@ suspend fun modifyCluster(clusterId: String?) {
     RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
         val clusterResponse = redshiftClient.modifyCluster(modifyClusterRequest)
         println(
-            "The modified cluster was successfully modified and has ${clusterResponse.cluster?.preferredMaintenanceWindow} as the maintenance window"
+            """
+                The modified cluster was successfully modified and has ${clusterResponse.cluster?.preferredMaintenanceWindow} 
+                as the maintenance window"
+            """,
         )
     }
 }

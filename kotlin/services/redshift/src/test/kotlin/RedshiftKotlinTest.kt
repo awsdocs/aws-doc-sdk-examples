@@ -47,15 +47,14 @@ class RedshiftKotlinTest {
             secretName = values.secretName.toString()
             eventSourceType = values.eventSourceType.toString()
 
-// Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-/*
+        /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
         prop.load(input)
         clusterId = prop.getProperty("clusterId")
         eventSourceType = prop.getProperty("eventSourceType")
         secretName  prop.getProperty("secretName")
- */
+         */
         }
 
     @Test
@@ -68,7 +67,7 @@ class RedshiftKotlinTest {
                     com.kotlin.redshift
                         .getSecretValues(secretName)
                         .toString(),
-                    User::class.java
+                    User::class.java,
                 )
             val username = user.username
             val userPassword = user.password
