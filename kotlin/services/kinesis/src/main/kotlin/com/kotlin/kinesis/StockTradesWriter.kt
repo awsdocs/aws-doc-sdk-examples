@@ -52,7 +52,7 @@ suspend fun setStockData(streamName: String) {
 
 private suspend fun sendStockTrade(
     trade: StockTrade,
-    streamNameVal: String
+    streamNameVal: String,
 ) {
     val bytes = trade.toJsonAsBytes()
 

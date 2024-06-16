@@ -82,6 +82,6 @@ class StockTradeGenerator {
 
     private class StockPrice constructor(
         var tickerSymbol: String,
-        var price: Double
+        var price: Double,
     )
 }
