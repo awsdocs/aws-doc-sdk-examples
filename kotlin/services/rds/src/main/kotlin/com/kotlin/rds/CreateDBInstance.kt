@@ -57,7 +57,7 @@ suspend fun createDatabaseInstance(
     dbInstanceIdentifierVal: String?,
     dbNamedbVal: String?,
     masterUsernameVal: String?,
-    masterUserPasswordVal: String?
+    masterUserPasswordVal: String?,
 ) {
     val instanceRequest =
         CreateDbInstanceRequest {

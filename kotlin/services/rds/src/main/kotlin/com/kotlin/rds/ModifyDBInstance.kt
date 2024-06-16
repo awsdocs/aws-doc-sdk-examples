@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[rds.kotlin.modify_instance.main]
 suspend fun updateIntance(
     dbInstanceIdentifierVal: String?,
-    masterUserPasswordVal: String?
+    masterUserPasswordVal: String?,
 ) {
     val request =
         ModifyDbInstanceRequest {
