@@ -172,7 +172,7 @@ suspend fun requestDomainRegistration(
     emailVal: String?,
     firstNameVal: String?,
     lastNameVal: String?,
-    cityVal: String?
+    cityVal: String?,
 ): String? {
     val contactDetail =
         ContactDetail {
