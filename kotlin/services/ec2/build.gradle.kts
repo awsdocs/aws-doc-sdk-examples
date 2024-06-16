@@ -18,7 +18,7 @@ buildscript {
         maven("https://plugins.gradle.org/m2/")
     }
     dependencies {
-        classpath("org.jlleitschuh.gradle:ktlint-gradle:11.3.1")
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:12.1.1")
     }
 }
 
@@ -37,7 +37,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
 }
 tasks.test {
