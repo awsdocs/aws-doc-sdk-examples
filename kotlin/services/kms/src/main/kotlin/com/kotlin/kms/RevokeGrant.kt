@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[kms.kotlin_revoke_grant.main]
 suspend fun revokeKeyGrant(
     keyIdVal: String?,
-    grantIdVal: String?
+    grantIdVal: String?,
 ) {
     val request =
         RevokeGrantRequest {
