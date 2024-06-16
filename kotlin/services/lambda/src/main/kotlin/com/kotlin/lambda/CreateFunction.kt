@@ -53,7 +53,7 @@ suspend fun createNewFunction(
     s3BucketName: String,
     myS3Key: String,
     myHandler: String,
-    myRole: String
+    myRole: String,
 ): String? {
     val functionCode =
         FunctionCode {
