@@ -79,14 +79,14 @@ import java.util.Date
  18. Delete the keyspace.
  */
 
-/*
-   Usage:
-     fileName - The name of the JSON file that contains movie data. (Get this file from the GitHub repo at resources/sample_file.)
-     keyspaceName - The name of the keyspace to create.
- */
 val DASHES: String = String(CharArray(80)).replace("\u0000", "-")
 
 suspend fun main() {
+    /*
+       Usage:
+         fileName - The name of the JSON file that contains movie data. (Get this file from the GitHub repo at resources/sample_file.)
+         keyspaceName - The name of the keyspace to create.
+     */
     val fileName = "<Replace with the JSON file that contains movie data>"
     val keyspaceName = "<Replace with the name of the keyspace to create>"
     val titleUpdate = "The Family"
@@ -224,7 +224,7 @@ suspend fun deleteKeyspace(keyspaceNameVal: String?) {
 
 suspend fun checkTableDelete(
     keyspaceNameVal: String?,
-    tableNameVal: String?
+    tableNameVal: String?,
 ) {
     var status: String
     var response: GetTableResponse
@@ -253,7 +253,7 @@ suspend fun checkTableDelete(
 // snippet-start:[keyspace.kotlin.scenario.delete.table.main]
 suspend fun deleteTable(
     keyspaceNameVal: String?,
-    tableNameVal: String?
+    tableNameVal: String?,
 ) {
     val tableRequest =
         DeleteTableRequest {
@@ -269,7 +269,7 @@ suspend fun deleteTable(
 
 suspend fun checkRestoredTable(
     keyspaceNameVal: String?,
-    tableNameVal: String?
+    tableNameVal: String?,
 ) {
     var tableStatus = false
     var status: String
@@ -306,7 +306,7 @@ suspend fun checkRestoredTable(
 // snippet-start:[keyspace.kotlin.scenario.restore.table.main]
 suspend fun restoreTable(
     keyspaceName: String?,
-    utc: ZonedDateTime
+    utc: ZonedDateTime,
 ) {
     // Create an aws.smithy.kotlin.runtime.time.Instant value.
     val timeStamp =
@@ -330,7 +330,7 @@ suspend fun restoreTable(
 
 fun getWatchedData(
     session: CqlSession,
-    keyspaceName: String
+    keyspaceName: String,
 ) {
     val resultSet = session.execute("SELECT * FROM \"$keyspaceName\".\"MovieKotlin\" WHERE watched = true ALLOW FILTERING;")
     resultSet.forEach { item: Row ->
@@ -344,7 +344,7 @@ fun updateRecord(
     session: CqlSession,
     keySpace: String,
     titleUpdate: String?,
-    yearUpdate: Int
+    yearUpdate: Int,
 ) {
     val sqlStatement =
         "UPDATE \"$keySpace\".\"MovieKotlin\" SET watched=true WHERE title = :k0 AND year = :k1;"
@@ -356,7 +356,7 @@ fun updateRecord(
             .boundStatementBuilder()
             .setString("k0", titleUpdate)
             .setInt("k1", yearUpdate)
-            .build()
+            .build(),
     )
     val batchStatement = builder.build()
     session.execute(batchStatement)
@@ -365,7 +365,7 @@ fun updateRecord(
 // snippet-start:[keyspace.kotlin.scenario.update.table.main]
 suspend fun updateTable(
     keySpace: String?,
-    tableNameVal: String?
+    tableNameVal: String?,
 ) {
     val def =
         ColumnDefinition {
@@ -388,7 +388,7 @@ suspend fun updateTable(
 
 fun getSpecificMovie(
     session: CqlSession,
-    keyspaceName: String
+    keyspaceName: String,
 ) {
     val resultSet =
         session.execute("SELECT * FROM \"$keyspaceName\".\"MovieKotlin\" WHERE title = 'The Family' ALLOW FILTERING ;")
@@ -403,7 +403,7 @@ fun getSpecificMovie(
 // Get records from the Movie table.
 fun getMovieData(
     session: CqlSession,
-    keyspaceName: String
+    keyspaceName: String,
 ) {
     val resultSet = session.execute("SELECT * FROM \"$keyspaceName\".\"MovieKotlin\";")
     resultSet.forEach { item: Row ->
@@ -417,7 +417,7 @@ fun getMovieData(
 fun loadData(
     session: CqlSession,
     fileName: String,
-    keySpace: String
+    keySpace: String,
 ) {
     val sqlStatement =
         "INSERT INTO \"$keySpace\".\"MovieKotlin\" (title, year, plot) values (:k0, :k1, :k2)"
@@ -447,7 +447,7 @@ fun loadData(
                 .setString("k0", title)
                 .setInt("k1", year)
                 .setString("k2", info)
-                .build()
+                .build(),
         )
 
         val batchStatement = builder.build()
@@ -477,7 +477,7 @@ suspend fun listTables(keyspaceNameVal: String?) {
 // snippet-start:[keyspace.kotlin.scenario.get.table.main]
 suspend fun checkTable(
     keyspaceNameVal: String?,
-    tableNameVal: String?
+    tableNameVal: String?,
 ) {
     var tableStatus = false
     var status: String
@@ -512,7 +512,7 @@ suspend fun checkTable(
 // snippet-start:[keyspace.kotlin.scenario.create.table.main]
 suspend fun createTable(
     keySpaceVal: String?,
-    tableNameVal: String?
+    tableNameVal: String?,
 ) {
     // Set the columns.
     val defTitle =
