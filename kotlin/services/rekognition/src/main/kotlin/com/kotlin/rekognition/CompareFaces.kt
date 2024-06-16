@@ -43,7 +43,7 @@ suspend fun main(args: Array<String>) {
 suspend fun compareTwoFaces(
     similarityThresholdVal: Float,
     sourceImageVal: String,
-    targetImageVal: String
+    targetImageVal: String,
 ) {
     val sourceBytes = (File(sourceImageVal).readBytes())
     val targetBytes = (File(targetImageVal).readBytes())

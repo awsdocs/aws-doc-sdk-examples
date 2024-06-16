@@ -81,7 +81,10 @@ suspend fun displayGear(sourceImage: String) {
                                 for (item: EquipmentDetection in equipmentDetections) {
                                     println("Item ${item.type}  - confidence: ${item.confidence}")
                                     println(
-                                        "Covers body part:  ${item.coversBodyPart?.value}  - confidence is  ${item.coversBodyPart?.confidence}"
+                                        """
+                                        Covers body part:  ${item.coversBodyPart?.value}  - 
+                                        confidence is  ${item.coversBodyPart?.confidence}
+                                        """,
                                     )
                                     println("\t\tBounding Box")
                                     val box = item.boundingBox

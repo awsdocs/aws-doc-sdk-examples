@@ -63,7 +63,7 @@ suspend fun main(args: Array<String>) {
 suspend fun startFaceDetection(
     channelVal: NotificationChannel?,
     bucketVal: String,
-    videoVal: String
+    videoVal: String,
 ) {
     val s3Obj =
         S3Object {

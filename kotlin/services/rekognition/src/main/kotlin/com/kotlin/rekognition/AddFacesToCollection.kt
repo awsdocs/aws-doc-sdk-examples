@@ -42,7 +42,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[rekognition.kotlin.add_faces_collection.main]
 suspend fun addToCollection(
     collectionIdVal: String?,
-    sourceImage: String
+    sourceImage: String,
 ) {
     val souImage =
         Image {
