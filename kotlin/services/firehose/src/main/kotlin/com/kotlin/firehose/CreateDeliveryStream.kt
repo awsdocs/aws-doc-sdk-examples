@@ -46,7 +46,7 @@ suspend fun main(args: Array<String>) {
 suspend fun createStream(
     bucketARNVal: String?,
     roleARNVal: String?,
-    streamName: String?
+    streamName: String?,
 ) {
     val destinationConfiguration =
         ExtendedS3DestinationConfiguration {

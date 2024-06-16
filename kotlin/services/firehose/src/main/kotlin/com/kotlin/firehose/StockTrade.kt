@@ -16,7 +16,7 @@ class StockTrade(
     tradeType: TradeType?,
     price: Double,
     quantity: Long,
-    id: Long
+    id: Long,
 ) {
     companion object {
         private val JSON = ObjectMapper()
@@ -31,7 +31,7 @@ class StockTrade(
      */
     enum class TradeType {
         BUY,
-        SELL
+        SELL,
     }
 
     var tickerSymbol: String? = tickerSymbol
@@ -63,6 +63,6 @@ class StockTrade(
             tradeType,
             quantity,
             tickerSymbol,
-            price
+            price,
         )
 }

@@ -43,8 +43,6 @@ class FirehoseTest {
             newStream = values.newStream.toString() + UUID.randomUUID()
             textValue = values.textValue.toString()
 
-            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
-
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
