@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[sns.kotlin.PublishTopic.main]
 suspend fun pubTopic(
     topicArnVal: String,
-    messageVal: String
+    messageVal: String,
 ) {
     val request =
         PublishRequest {

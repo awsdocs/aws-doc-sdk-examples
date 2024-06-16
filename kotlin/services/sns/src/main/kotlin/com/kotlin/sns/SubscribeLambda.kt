@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[sns.kotlin.SubscribeLambda.main]
 suspend fun subLambda(
     topicArnVal: String?,
-    lambdaArn: String?
+    lambdaArn: String?,
 ) {
     val request =
         SubscribeRequest {
