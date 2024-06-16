@@ -53,7 +53,7 @@ suspend fun createNewService(
     serviceNameVal: String,
     securityGroupsVal: String,
     subnetsVal: String,
-    taskDefinitionVal: String
+    taskDefinitionVal: String,
 ): String? {
     val vpcConfiguration =
         AwsVpcConfiguration {
