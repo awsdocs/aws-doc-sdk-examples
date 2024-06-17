@@ -9,8 +9,7 @@ import aws.sdk.kotlin.services.apigateway.model.CreateRestApiRequest
 import kotlin.system.exitProcess
 // snippet-end:[apigateway.kotlin.create_api.import]
 
-suspend fun main(args:Array<String>) {
-
+suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
         <restApiId> 
@@ -31,11 +30,11 @@ suspend fun main(args:Array<String>) {
 
 // snippet-start:[apigateway.kotlin.create_api.main]
 suspend fun createAPI(restApiName: String?): String? {
-
-    val request = CreateRestApiRequest {
-        description = "Created using the Gateway Kotlin API"
-        name = restApiName
-    }
+    val request =
+        CreateRestApiRequest {
+            description = "Created using the Gateway Kotlin API"
+            name = restApiName
+        }
 
     ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
         val response = apiGateway.createRestApi(request)

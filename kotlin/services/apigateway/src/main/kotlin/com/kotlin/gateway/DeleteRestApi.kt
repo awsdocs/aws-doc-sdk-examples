@@ -9,9 +9,7 @@ import aws.sdk.kotlin.services.apigateway.model.DeleteRestApiRequest
 import kotlin.system.exitProcess
 // snippet-end:[apigateway.kotlin.delete_api.import]
 
-
-suspend fun main(args:Array<String>) {
-
+suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
         <restApiId> 
@@ -31,10 +29,10 @@ suspend fun main(args:Array<String>) {
 
 // snippet-start:[apigateway.kotlin.delete_api.main]
 suspend fun deleteAPI(restApiIdVal: String?) {
-
-    val request = DeleteRestApiRequest {
-        restApiId = restApiIdVal
-    }
+    val request =
+        DeleteRestApiRequest {
+            restApiId = restApiIdVal
+        }
 
     ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
         apiGateway.deleteRestApi(request)

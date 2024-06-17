@@ -32,20 +32,19 @@ class APIGatewayTest {
     private var newApiId = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        apiGatewayClient = ApiGatewayClient { region = "us-east-1" }
-        // Get values from AWS Secrets Manager.
-        val random = Random()
-        val randomNum = random.nextInt(10000 - 1 + 1) + 1
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values: SecretValues = gson.fromJson(json, SecretValues::class.java)
-        restApiId = values.restApiId.toString()
-        httpMethod = values.httpMethod.toString()
-        restApiName = values.restApiName.toString() + randomNum
-        stageName = values.stageName.toString()
+    fun setup() =
+        runBlocking {
+            apiGatewayClient = ApiGatewayClient { region = "us-east-1" }
+            // Get values from AWS Secrets Manager.
+            val random = Random()
+            val randomNum = random.nextInt(10000 - 1 + 1) + 1
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values: SecretValues = gson.fromJson(json, SecretValues::class.java)
+            restApiId = values.restApiId.toString()
+            restApiName = values.restApiName.toString() + randomNum
 
-       /*
+            /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
 
@@ -58,43 +57,51 @@ class APIGatewayTest {
         httpMethod = prop.getProperty("httpMethod")
         restApiName = prop.getProperty("restApiName")
         stageName = prop.getProperty("stageName")
-       */
-    }
+             */
+        }
 
     @Test
     @Order(1)
-    fun createRestApiTest() = runBlocking {
-        newApiId = createAPI(restApiId).toString()
-        println("Test 2 passed")
-    }
+    fun createRestApiTest() =
+        runBlocking {
+            newApiId = createAPI(restApiId).toString()
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(2)
-    fun getDeploymentsTest() = runBlocking {
-        getAllDeployments(newApiId)
-        println("Test 4 passed")
-    }
+    fun getDeploymentsTest() =
+        runBlocking {
+            getAllDeployments(newApiId)
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(3)
-    fun getAllStagesTest() = runBlocking {
-        getAllStages(newApiId)
-        println("Test 5 passed")
-    }
+    fun getAllStagesTest() =
+        runBlocking {
+            getAllStages(newApiId)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(4)
-    fun DeleteRestApi() = runBlocking {
-        deleteAPI(newApiId)
-        println("Test 6 passed")
-    }
+    fun deleteRestApi() =
+        runBlocking {
+            deleteAPI(newApiId)
+            println("Test 6 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/apigateway"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }
@@ -105,7 +112,5 @@ class APIGatewayTest {
     internal class SecretValues {
         val restApiId: String? = null
         val restApiName: String? = null
-        val httpMethod: String? = null
-        val stageName: String? = null
     }
 }

@@ -9,8 +9,7 @@ import aws.sdk.kotlin.services.apigateway.model.CreateDeploymentRequest
 import kotlin.system.exitProcess
 // snippet-end:[apigateway.kotlin.create_deployment.import]
 
-suspend fun main(args:Array<String>) {
-
+suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
             <restApiId> <stageName>
@@ -20,7 +19,7 @@ suspend fun main(args:Array<String>) {
             stageName - The name of the stage. 
         """
 
-   if (args.size != 2) {
+    if (args.size != 2) {
         println(usage)
         exitProcess(0)
     }
@@ -31,18 +30,21 @@ suspend fun main(args:Array<String>) {
 }
 
 // snippet-start:[apigateway.kotlin.create_deployment.main]
-suspend fun createNewDeployment(restApiIdVal: String?, stageNameVal: String?): String? {
-
-        val request = CreateDeploymentRequest {
-             restApiId = restApiIdVal
-             description = "Created using the AWS API Gateway Kotlin API"
-             stageName = stageNameVal
+suspend fun createNewDeployment(
+    restApiIdVal: String?,
+    stageNameVal: String?,
+): String? {
+    val request =
+        CreateDeploymentRequest {
+            restApiId = restApiIdVal
+            description = "Created using the AWS API Gateway Kotlin API"
+            stageName = stageNameVal
         }
 
-        ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
-          val response = apiGateway.createDeployment(request)
-          println("The id of the deployment is " + response.id)
-          return response.id
-       }
- }
+    ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
+        val response = apiGateway.createDeployment(request)
+        println("The id of the deployment is " + response.id)
+        return response.id
+    }
+}
 // snippet-end:[apigateway.kotlin.create_deployment.main]

@@ -9,8 +9,7 @@ import aws.sdk.kotlin.services.apigateway.model.GetDeploymentsRequest
 import kotlin.system.exitProcess
 // snippet-end:[apigateway.kotlin.get_deployments.import]
 
-suspend fun main(args:Array<String>) {
-
+suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
         <restApiId> 
@@ -19,10 +18,10 @@ suspend fun main(args:Array<String>) {
         restApiId - The string identifier of an existing RestApi. (for example, xxxx99ewyg).
     """
 
-   if (args.size != 1) {
+    if (args.size != 1) {
         println(usage)
         exitProcess(1)
-   }
+    }
 
     val restApiId = args[0]
     getAllDeployments(restApiId)
@@ -30,10 +29,10 @@ suspend fun main(args:Array<String>) {
 
 // snippet-start:[apigateway.kotlin.get_deployments.main]
 suspend fun getAllDeployments(restApiIdVal: String?) {
-
-    val request = GetDeploymentsRequest {
-        restApiId = restApiIdVal
-    }
+    val request =
+        GetDeploymentsRequest {
+            restApiId = restApiIdVal
+        }
 
     ApiGatewayClient { region = "us-east-1" }.use { apiGateway ->
         val response = apiGateway.getDeployments(request)
