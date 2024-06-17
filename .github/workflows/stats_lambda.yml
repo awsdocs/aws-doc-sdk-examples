@@ -1,12 +1,15 @@
 name: Invoke runTheNumbers lambda function
 on:
    workflow_dispatch:
+env: 
+   COMMIT:  ${{github.event.pull_request.base.sha}}
+
 jobs:
   build:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
-        - run: echo "JSON_PAYLOAD={\"commit\":\"${{ github.event.pull_request.base.sha }}\"}" >> $GITHUB_ENV
+        - run: echo "JSON_PAYLOAD={\"commit\":\"${{ env.COMMIT }}\"}" >> $GITHUB_ENV
         - name: Invoke runTheNumbers
           uses: gagoar/invoke-aws-lambda@master
           with:
