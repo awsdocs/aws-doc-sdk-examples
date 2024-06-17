@@ -21,3 +21,4 @@ jobs:
              REGION: 'eu-west-1'
              FunctionName: runTheNumbers
              Payload: ${{ env.JSON_PAYLOAD }}
+             InvocationType: RequestResponse
