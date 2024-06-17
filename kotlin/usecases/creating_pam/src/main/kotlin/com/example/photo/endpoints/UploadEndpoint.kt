@@ -9,7 +9,10 @@ import com.example.photo.services.DynamoDBService
 import com.example.photo.services.S3Service
 
 class UploadEndpoint {
-    suspend fun upload(bytes: ByteArray, name: String) {
+    suspend fun upload(
+        bytes: ByteArray,
+        name: String,
+    ) {
         // Put the file into the bucket.
         val s3Service = S3Service()
         val analyzePhotos = AnalyzePhotos()

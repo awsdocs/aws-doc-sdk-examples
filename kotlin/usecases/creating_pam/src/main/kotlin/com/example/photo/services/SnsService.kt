@@ -9,10 +9,11 @@ import com.example.photo.PhotoApplicationResources
 
 class SnsService {
     suspend fun pubTopic(messageVal: String?) {
-        val request = PublishRequest {
-            message = messageVal
-            topicArn = PhotoApplicationResources.TOPIC_ARN
-        }
+        val request =
+            PublishRequest {
+                message = messageVal
+                topicArn = PhotoApplicationResources.TOPIC_ARN
+            }
         SnsClient { region = "us-east-1" }.use { snsClient ->
             snsClient.publish(request)
         }

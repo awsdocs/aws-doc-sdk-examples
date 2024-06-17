@@ -18,30 +18,35 @@ class RestoreHandler : RequestHandler<MutableMap<String, Any>, String> {
         return gson.toJson(src)
     }
 
-    override fun handleRequest(input: MutableMap<String, Any>?, context: Context?): String = runBlocking {
-        try {
-            if (context != null) {
-                context.getLogger().log("***** RestoreHandler handleRequest" + toJson(input))
-                val body = JSONObject(input)
-                context.logger.log(body.toString())
+    override fun handleRequest(
+        input: MutableMap<String, Any>?,
+        context: Context?,
+    ): String =
+        runBlocking {
+            try {
+                if (context != null) {
+                    context.getLogger().log("***** RestoreHandler handleRequest" + toJson(input))
+                    val body = JSONObject(input)
+                    context.logger.log(body.toString())
 
-                val labels = body.getJSONArray("labels")
-                    .toList()
-                    .stream()
-                    .filter { o: Any? -> String::class.java.isInstance(o) }
-                    .map { obj: Any? -> String::class.java.cast(obj) }
-                    .collect(Collectors.toList())
+                    val labels =
+                        body.getJSONArray("labels")
+                            .toList()
+                            .stream()
+                            .filter { o: Any? -> String::class.java.isInstance(o) }
+                            .map { obj: Any? -> String::class.java.cast(obj) }
+                            .collect(Collectors.toList())
 
-                context.logger.log("Restoring labels " + toJson(labels))
-                val downloadEndpoint = DownloadEndpoint()
-                val url: String = downloadEndpoint.downloadFiles(labels)
-                return@runBlocking "Labels archived to URL $url"
+                    context.logger.log("Restoring labels " + toJson(labels))
+                    val downloadEndpoint = DownloadEndpoint()
+                    val url: String = downloadEndpoint.downloadFiles(labels)
+                    return@runBlocking "Labels archived to URL $url"
+                }
+            } catch (e: JSONException) {
+                if (context != null) {
+                    context.logger.log(e.message)
+                }
             }
-        } catch (e: JSONException) {
-            if (context != null) {
-                context.logger.log(e.message)
-            }
+            return@runBlocking ""
         }
-        return@runBlocking ""
-    }
 }

@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.9.0"
-    id("com.github.johnrengelman.shadow") version "7.1.0"
     application
 }
 
@@ -18,22 +17,22 @@ buildscript {
     repositories {
         maven("https://plugins.gradle.org/m2/")
     }
+
     dependencies {
-        classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:12.1.1")
     }
 }
 
 repositories {
     mavenCentral()
-    gradlePluginPortal()
 }
 
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:dynamodb:1.0.0")
-    implementation("aws.sdk.kotlin:s3:1.0.0")
-    implementation("aws.sdk.kotlin:sns:1.0.0")
-    implementation("aws.sdk.kotlin:rekognition:1.0.0")
+    implementation("aws.sdk.kotlin:dynamodb:1.2.28")
+    implementation("aws.sdk.kotlin:s3:1.2.28")
+    implementation("aws.sdk.kotlin:sns:1.2.28")
+    implementation("aws.sdk.kotlin:rekognition:1.2.28")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
     implementation("org.springframework.boot:spring-boot-starter-web:2.7.5")
@@ -49,10 +48,6 @@ dependencies {
     implementation("org.json:json:20230227")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
-}
-
-application {
-    mainClassName = "com.example.photo.PhotoApplication"
 }
 
 tasks.withType<KotlinCompile> {

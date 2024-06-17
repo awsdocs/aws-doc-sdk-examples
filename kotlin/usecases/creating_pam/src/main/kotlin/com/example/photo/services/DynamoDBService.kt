@@ -27,7 +27,10 @@ class DynamoDBService {
         }
     }
 
-    suspend fun addSingleRecord(label: String, keyVal: String) {
+    suspend fun addSingleRecord(
+        label: String,
+        keyVal: String,
+    ) {
         // Check to see if the label exists in the Amazon DynamoDB table.
         val scanResult = scanLabelTable(PhotoApplicationResources.LABELS_TABLE)
         if (scanResult == 0) {
@@ -54,9 +57,10 @@ class DynamoDBService {
 
     // Scan table before looking for Labels.
     suspend fun scanLabelTable(tableNameVal: String): Int {
-        val request = ScanRequest {
-            tableName = tableNameVal
-        }
+        val request =
+            ScanRequest {
+                tableName = tableNameVal
+            }
 
         DynamoDbClient { region = "us-east-1" }.use { ddb ->
             val response = ddb.scan(request)
@@ -78,12 +82,13 @@ class DynamoDBService {
         val attrValues = mutableMapOf<String, AttributeValue>()
         attrValues[":$partitionKeyName"] = AttributeValue.S(partitionKeyVal)
 
-        val request = QueryRequest {
-            tableName = tableNameVal
-            keyConditionExpression = "$partitionAlias = :$partitionKeyName"
-            expressionAttributeNames = attrNameAlias
-            this.expressionAttributeValues = attrValues
-        }
+        val request =
+            QueryRequest {
+                tableName = tableNameVal
+                keyConditionExpression = "$partitionAlias = :$partitionKeyName"
+                expressionAttributeNames = attrNameAlias
+                this.expressionAttributeValues = attrValues
+            }
 
         var count: Int
         DynamoDbClient { region = "us-east-1" }.use { ddb ->
@@ -94,7 +99,10 @@ class DynamoDBService {
         return count
     }
 
-    suspend fun updateCount(tableNameVal: String, label: String) {
+    suspend fun updateCount(
+        tableNameVal: String,
+        label: String,
+    ) {
         // Specify the item key.
         val keyMap: MutableMap<String, AttributeValue> = HashMap()
         keyMap["Label"] = AttributeValue.S(label)
@@ -104,13 +112,14 @@ class DynamoDBService {
         expressionAttributeValuesMap[":countval"] = AttributeValue.N("1")
 
         // Specify the update item request with an expression.
-        val request = UpdateItemRequest {
-            tableName = tableNameVal
-            key = keyMap
-            updateExpression = "ADD #count :countval"
-            expressionAttributeNames = Collections.singletonMap("#count", "count")
-            expressionAttributeValues = expressionAttributeValuesMap
-        }
+        val request =
+            UpdateItemRequest {
+                tableName = tableNameVal
+                key = keyMap
+                updateExpression = "ADD #count :countval"
+                expressionAttributeNames = Collections.singletonMap("#count", "count")
+                expressionAttributeValues = expressionAttributeValuesMap
+            }
 
         // Update the item in the table.
         DynamoDbClient { region = "us-east-1" }.use { ddb ->
@@ -119,7 +128,11 @@ class DynamoDBService {
         }
     }
 
-    suspend fun updateTableList(tableNameVal: String, keyVal: String, updateVal: String) {
+    suspend fun updateTableList(
+        tableNameVal: String,
+        keyVal: String,
+        updateVal: String,
+    ) {
         // Build the item key for the DynamoDB update request.
         val itemKey: MutableMap<String, AttributeValue> = java.util.HashMap()
         itemKey["Label"] = AttributeValue.S(keyVal)
@@ -134,12 +147,13 @@ class DynamoDBService {
         expressionAttValues[":val"] = AttributeValue.L(myFileList)
 
         // Build the update request and execute it using the DynamoDB client.
-        val updateItemRequest = UpdateItemRequest {
-            tableName = tableNameVal
-            key = itemKey
-            updateExpression = "SET images = list_append(images, :val)"
-            expressionAttributeValues = expressionAttValues
-        }
+        val updateItemRequest =
+            UpdateItemRequest {
+                tableName = tableNameVal
+                key = itemKey
+                updateExpression = "SET images = list_append(images, :val)"
+                expressionAttributeValues = expressionAttValues
+            }
 
         DynamoDbClient { region = "us-east-1" }.use { ddb ->
             ddb.updateItem(updateItemRequest)
@@ -147,7 +161,10 @@ class DynamoDBService {
         }
     }
 
-    suspend fun addNewLabel(tableNameVal: String, keyName: String) {
+    suspend fun addNewLabel(
+        tableNameVal: String,
+        keyName: String,
+    ) {
         val itemValues = mutableMapOf<String, AttributeValue>()
 
         // Add all content to the table.
@@ -155,10 +172,11 @@ class DynamoDBService {
         itemValues["Label"] = AttributeValue.S(keyName)
         itemValues["images"] = AttributeValue.L(emptyList)
 
-        val request = PutItemRequest {
-            tableName = tableNameVal
-            item = itemValues
-        }
+        val request =
+            PutItemRequest {
+                tableName = tableNameVal
+                item = itemValues
+            }
 
         DynamoDbClient { region = "us-east-1" }.use { ddb ->
             ddb.putItem(request)
@@ -168,9 +186,10 @@ class DynamoDBService {
 
     suspend fun scanPhotoTable(): HashMap<String, WorkCount> {
         val myMap = HashMap<String, WorkCount>()
-        val request = ScanRequest {
-            tableName = PhotoApplicationResources.LABELS_TABLE
-        }
+        val request =
+            ScanRequest {
+                tableName = PhotoApplicationResources.LABELS_TABLE
+            }
 
         DynamoDbClient { region = "us-east-1" }.use { ddb ->
             val response = ddb.scan(request)
@@ -217,12 +236,13 @@ class DynamoDBService {
         val attrValues = mutableMapOf<String, AttributeValue>()
         attrValues[":$partitionKeyName"] = AttributeValue.S(partitionKeyVal)
 
-        val request = QueryRequest {
-            tableName = PhotoApplicationResources.LABELS_TABLE
-            keyConditionExpression = "$partitionAlias = :$partitionKeyName"
-            expressionAttributeNames = attrNameAlias
-            expressionAttributeValues = attrValues
-        }
+        val request =
+            QueryRequest {
+                tableName = PhotoApplicationResources.LABELS_TABLE
+                keyConditionExpression = "$partitionAlias = :$partitionKeyName"
+                expressionAttributeNames = attrNameAlias
+                expressionAttributeValues = attrValues
+            }
 
         DynamoDbClient { region = "us-east-1" }.use { ddb ->
             val response = ddb.query(request)

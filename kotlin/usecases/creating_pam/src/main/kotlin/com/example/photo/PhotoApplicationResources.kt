@@ -6,7 +6,6 @@ import com.google.gson.Gson
 import java.util.Map
 
 class PhotoApplicationResources {
-
     companion object {
         val LABELS_TABLE = "<Enter value>"
         val STORAGE_BUCKET = "<Enter value>"

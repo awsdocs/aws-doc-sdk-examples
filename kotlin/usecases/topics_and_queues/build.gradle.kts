@@ -30,7 +30,7 @@ repositories {
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
 dependencies {
-    implementation("aws.sdk.kotlin:sns:1.0.0")
+    implementation("aws.sdk.kotlin:sns:1.28.1")
     implementation("aws.sdk.kotlin:sqs:1.0.0")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
