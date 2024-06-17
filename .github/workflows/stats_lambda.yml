@@ -1,4 +1,4 @@
-name: Invoke runTheNumbers lambda function
+name: Invoke runTheNumbers lambda functions
 on:
    pull_request:
         branches: [main]
