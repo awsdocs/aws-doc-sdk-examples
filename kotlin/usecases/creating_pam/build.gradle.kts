@@ -22,7 +22,6 @@ buildscript {
         classpath("org.jlleitschuh.gradle:ktlint-gradle:12.1.1")
     }
 }
-
 repositories {
     mavenCentral()
 }
