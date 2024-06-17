@@ -18,8 +18,16 @@ class S3Handler : RequestHandler<S3Event, String> {
     ): String? =
         runBlocking {
             // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key from the Amazon S3 event.
-            val bucketName = event.records[0].s3.bucket.name
-            val objectKey = event.records[0].s3.getObject().key
+            val bucketName =
+                event.records[0]
+                    .s3
+                    .bucket
+                    .name
+
+            val objectKey =
+                event.records[0]
+                    .s3.getObject()
+                    .key
 
             // Log the S3 bucket and object key in the log file.
             context.logger.log("S3 object name: s3://$bucketName/$objectKey")

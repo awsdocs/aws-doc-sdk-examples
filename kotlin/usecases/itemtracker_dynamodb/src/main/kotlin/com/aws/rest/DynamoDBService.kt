@@ -28,7 +28,6 @@ Before running this code example, create an Amazon DynamoDB table named Work wit
 */
 @Component
 class DynamoDBService {
-
     // Archive an item.
     suspend fun archiveItemEC(id: String) {
         val tableNameVal = "Work"
@@ -36,16 +35,18 @@ class DynamoDBService {
         itemKey["id"] = AttributeValue.S(id)
 
         val updatedValues = mutableMapOf<String, AttributeValueUpdate>()
-        updatedValues["archive"] = AttributeValueUpdate {
-            value = AttributeValue.N("1")
-            action = AttributeAction.Put
-        }
+        updatedValues["archive"] =
+            AttributeValueUpdate {
+                value = AttributeValue.N("1")
+                action = AttributeAction.Put
+            }
 
-        val request = UpdateItemRequest {
-            tableName = tableNameVal
-            key = itemKey
-            attributeUpdates = updatedValues
-        }
+        val request =
+            UpdateItemRequest {
+                tableName = tableNameVal
+                key = itemKey
+                attributeUpdates = updatedValues
+            }
 
         DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
             dynamoDBClient.updateItem(request)
@@ -65,12 +66,13 @@ class DynamoDBService {
             myExMap[":val"] = AttributeValue.N("0")
         }
 
-        val scanRequest = ScanRequest {
-            expressionAttributeNames = myMap
-            expressionAttributeValues = myExMap
-            tableName = tableNameVal
-            filterExpression = "#archive2 = :val"
-        }
+        val scanRequest =
+            ScanRequest {
+                expressionAttributeNames = myMap
+                expressionAttributeValues = myExMap
+                tableName = tableNameVal
+                filterExpression = "#archive2 = :val"
+            }
 
         DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
             val response = dynamoDBClient.scan(scanRequest)
@@ -116,9 +118,10 @@ class DynamoDBService {
     suspend fun getAllItems(): MutableList<WorkItem> {
         val tableNameVal = "Work"
         val myList = mutableListOf<WorkItem>()
-        val scanRequest = ScanRequest {
-            tableName = tableNameVal
-        }
+        val scanRequest =
+            ScanRequest {
+                tableName = tableNameVal
+            }
 
         DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
             val response = dynamoDBClient.scan(scanRequest)
@@ -174,12 +177,13 @@ class DynamoDBService {
             myExMap.put(":val", AttributeValue.N("0"))
         }
 
-        val scanRequest = ScanRequest {
-            expressionAttributeNames = myMap
-            expressionAttributeValues = myExMap
-            tableName = tableNameVal
-            filterExpression = "#archive2 = :val"
-        }
+        val scanRequest =
+            ScanRequest {
+                expressionAttributeNames = myMap
+                expressionAttributeValues = myExMap
+                tableName = tableNameVal
+                filterExpression = "#archive2 = :val"
+            }
 
         DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
             val response = dynamoDBClient.scan(scanRequest)
@@ -247,10 +251,11 @@ class DynamoDBService {
         itemValues["guide"] = AttributeValue.S(guide.toString())
         itemValues["status"] = AttributeValue.S(status.toString())
 
-        val request = PutItemRequest {
-            tableName = tableNameVal
-            item = itemValues
-        }
+        val request =
+            PutItemRequest {
+                tableName = tableNameVal
+                item = itemValues
+            }
 
         DynamoDbClient { region = "us-east-1" }.use { dynamoDBClient ->
             dynamoDBClient.putItem(request)

@@ -12,21 +12,15 @@ class LabelCount {
         this.key = key
     }
 
-    fun getKey(): String? {
-        return key
-    }
+    fun getKey(): String? = key
 
     fun setName(name: String?) {
         this.name = name
     }
 
-    fun getName(): String? {
-        return name
-    }
+    fun getName(): String? = name
 
-    fun getCount(): Int {
-        return count
-    }
+    fun getCount(): Int = count
 
     fun setCount(count: Int) {
         this.count = count
