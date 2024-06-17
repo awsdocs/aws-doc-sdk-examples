@@ -6,7 +6,7 @@ on:
         branches: [main]
    workflow_dispatch:
 env: 
-   COMMIT:  ${{github.event.push.base.sha}}
+   COMMIT:  ${{github.sha}}
 jobs:
   build:
       runs-on: ubuntu-latest
