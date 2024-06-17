@@ -12,4 +12,4 @@ jobs:
              AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
              REGION: 'eu-west-1'
              FunctionName: runTheNumbers
-             Payload: '{ "commit": ""+ ${{ github.event.pull_request.head.sha }}+""}'
+             Payload: '{ "commit": ${{ github.event.pull_request.head.sha }}}'
