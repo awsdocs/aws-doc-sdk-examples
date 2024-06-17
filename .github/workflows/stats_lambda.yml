@@ -1,9 +1,12 @@
 name: Invoke runTheNumbers lambda function
 on:
    pull_request:
+        branches: [main]
+   push:
+        branches: [main]
    workflow_dispatch:
 env: 
-   COMMIT:  ${{github.event.pull_request.base.sha}}
+   COMMIT:  ${{github.event.push.base.sha}}
 jobs:
   build:
       runs-on: ubuntu-latest
