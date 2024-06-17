@@ -19,12 +19,14 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 AWS_REGION = "us-east-1"
 
 
-# For a list of models supported by the Converse API's tool use functionality, visit:
+# For the most recent list of models supported by the Converse API's tool use functionality, visit:
 # https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html
 class SupportedModels(Enum):
     CLAUDE_OPUS = "anthropic.claude-3-opus-20240229-v1:0"
     CLAUDE_SONNET = "anthropic.claude-3-sonnet-20240229-v1:0"
     CLAUDE_HAIKU = "anthropic.claude-3-haiku-20240307-v1:0"
+    COHERE_COMMAND_R = "cohere.command-r-v1:0"
+    COHERE_COMMAND_R_PLUS = "cohere.command-r-plus-v1:0"
 
 
 # Set the model ID, e.g., Claude 3 Haiku.
@@ -46,6 +48,10 @@ To use the tool, you strictly apply the provided tool specification.
 - Never claim to search online, access external data, or use tools besides Weather_Tool.
 - Complete the entire process until you have all required data before sending the complete response.
 """
+
+# The maximum number of recursive calls allowed in the tool_use_demo function.
+# This helps prevent infinite loops and potential performance issues.
+MAX_RECURSIONS = 5
 
 
 class ToolUseDemo:
@@ -89,7 +95,7 @@ class ToolUseDemo:
             # Recursively handle the model's response until the model has returned
             # its final response or the recursion counter has reached 0
             self._process_model_response(
-                bedrock_response, conversation, max_recursion=5
+                bedrock_response, conversation, max_recursion=MAX_RECURSIONS
             )
 
             # Repeat the loop until the user decides to exit the application
@@ -114,7 +120,9 @@ class ToolUseDemo:
             toolConfig=self.tool_config,
         )
 
-    def _process_model_response(self, model_response, conversation, max_recursion=5):
+    def _process_model_response(
+            self, model_response, conversation, max_recursion=MAX_RECURSIONS
+    ):
         """
         Processes the response received via Amazon Bedrock and performs the necessary actions
         based on the stop reason.
@@ -127,9 +135,9 @@ class ToolUseDemo:
         if max_recursion <= 0:
             # Stop the process, the number of recursive calls could indicate an infinite loop
             logging.warning(
-                "Something went wrong: Maximum number of recursions reached. Please try again."
+                "Warning: Maximum number of recursions reached. Please try again."
             )
-            return
+            exit(1)
 
         # Append the model's response to the ongoing conversation
         message = model_response["output"]["message"]
@@ -144,7 +152,9 @@ class ToolUseDemo:
             output.model_response(message["content"][0]["text"])
             return
 
-    def _handle_tool_use(self, model_response, conversation, max_recursion=5):
+    def _handle_tool_use(
+            self, model_response, conversation, max_recursion=MAX_RECURSIONS
+    ):
         """
         Handles the tool use case by invoking the specified tool and sending the tool's response back to Bedrock.
         The tool response is appended to the conversation, and the conversation is sent back to Amazon Bedrock for further processing.
@@ -153,6 +163,9 @@ class ToolUseDemo:
         :param conversation: The conversation history.
         :param max_recursion: The maximum number of recursive calls allowed.
         """
+
+        # Initialize an empty list of tool results
+        tool_results = []
 
         # The model's response can consist of multiple content blocks
         for content_block in model_response["content"]:
@@ -164,28 +177,28 @@ class ToolUseDemo:
                 # If the content block is a tool use request, forward it to the tool
                 tool_response = self._invoke_tool(content_block["toolUse"])
 
-                # Embed the tool use ID and the tool's response in a new user message
-                message = {
-                    "role": "user",
-                    "content": [
-                        {
-                            "toolResult": {
-                                "toolUseId": (tool_response["toolUseId"]),
-                                "content": [{"json": tool_response["content"]}],
-                            }
+                # Add the tool use ID and the tool's response to the list of results
+                tool_results.append(
+                    {
+                        "toolResult": {
+                            "toolUseId": (tool_response["toolUseId"]),
+                            "content": [{"json": tool_response["content"]}],
                         }
-                    ],
-                }
+                    }
+                )
 
-                # Append the new message to the ongoing conversation
-                conversation.append(message)
+        # Embed the tool results in a new user message
+        message = {"role": "user", "content": tool_results}
 
-                # Send the conversation to Amazon Bedrock
-                response = self._send_conversation_to_bedrock(conversation)
+        # Append the new message to the ongoing conversation
+        conversation.append(message)
 
-                # Recursively handle the model's response until the model has returned
-                # its final response or the recursion counter has reached 0
-                self._process_model_response(response, conversation, max_recursion - 1)
+        # Send the conversation to Amazon Bedrock
+        response = self._send_conversation_to_bedrock(conversation)
+
+        # Recursively handle the model's response until the model has returned
+        # its final response or the recursion counter has reached 0
+        self._process_model_response(response, conversation, max_recursion - 1)
 
     def _invoke_tool(self, payload):
         """

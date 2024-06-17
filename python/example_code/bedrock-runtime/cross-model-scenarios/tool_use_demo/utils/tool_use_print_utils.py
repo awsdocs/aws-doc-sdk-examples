@@ -53,7 +53,7 @@ def call_to_bedrock(conversation):
     :param conversation: The conversation history.
     """
     if "toolResult" in conversation[-1]["content"][0]:
-        print("\033[0;90mReturning the tool response to the model...\033[0m")
+        print("\033[0;90mReturning the tool response(s) to the model...\033[0m")
     else:
         print("\033[0;90mSending the query to the model...\033[0m")
 
