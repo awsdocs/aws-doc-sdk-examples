@@ -12,7 +12,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
-        - run: echo "JSON_PAYLOAD={\"commit\":\"${{ env.COMMIT }}\"}" >> $GITHUB_ENV
+        - run: echo "JSON_PAYLOAD={\"commit\" :\"${{ env.COMMIT }}\"}" >> $GITHUB_ENV
         - name: Invoke runTheNumbers
           uses: gagoar/invoke-aws-lambda@master
           with:
@@ -20,5 +20,6 @@ jobs:
              AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
              REGION: 'eu-west-1'
              FunctionName: runTheNumbers
-             Payload: ${{ env.JSON_PAYLOAD }}
+             Payload: ${{env.JSON_PAYLOAD}}
              InvocationType: RequestResponse
+             LogType: None
