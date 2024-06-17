@@ -1,0 +1,60 @@
+Parameters:
+  email:
+    Type: String
+    Default: 'scheduler_test@example.com'
+
+Resources:
+  SchedulerSnsTopic:
+    Type: AWS::SNS::Topic
+
+  MySubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Endpoint: !Ref email
+      Protocol: email
+      TopicArn: !Ref SchedulerSnsTopic
+
+  SchedulerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: sam_scheduler_role
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Service: 'scheduler.amazonaws.com'
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: 'Scheduler_SNS_policy'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - 'sns:Publish'
+                Resource: !Ref SchedulerSnsTopic
+
+  SchedulerEventBus: 
+    Type: AWS::Events::EventBus
+    Properties: 
+      Name: SchedulerExampleEventBus
+
+Outputs:
+  SNStopicName:
+    Description: SNS topic name
+    Value: !GetAtt SchedulerSnsTopic.TopicName
+
+  SNStopicARN:
+    Description: SNS topic ARN
+    Value: !Ref SchedulerSnsTopic
+
+  RoleARN:
+    Description: Scheduler role ARN
+    Value: !GetAtt SchedulerRole.Arn
+
+  EventBusARN:
+    Description: Event bus ARN
+    Value: !GetAtt SchedulerEventBus.Arn

@@ -1,0 +1,241 @@
+---
+combined: true
+overwrite: false
+---
+
+TCX SDK Code Examples
+The TCX SDK Code Examples team produces code examples that demonstrate how to automate AWS services to accomplish key user stories for developers and programmers. These code examples are quick and easy to find and use, are continually tested, and demonstrate AWS and community coding best practices.
+
+Mission
+
+We provide code examples for builders integrating AWS services into their applications and business workflows using the AWS Software Development Kits (SDKs). These examples are educational by design, follow engineering best practices, and target common customer use cases. Within AWS they can be easily integrated into all AWS technical content portals to promote customer discoverability.
+
+Vision
+
+We envision a best-in-class library of code examples for every AWS service and in every actively maintained SDK language. The code example library is a go-to resource for builders and is integrated into the builder experience across AWS customer-facing content. Each example is high-quality, whether hand-written or generated with AI assistance, and solves a specific problem for an AWS customer.
+
+Tenets
+
+These are our tenets, unless you know better ones:
+
+We are educators. Comprehension and learnability always take precedence.
+We are engineers. Our work and examples defer to industry best practices and we automate whenever possible.
+Our examples address common user challenges. They do not deliberately mirror AWS service silos.
+Our examples are discoverable. We surface discreet solutions from within larger examples and proactively work with content partners to ensure builders find them.
+We are subject matter experts. We are the primary reference for code example standards in TCX.
+
+A Workflow Example, as defined by the TCX Code Examples team, is an example scenario that is targeted to a particular real-world user story, use case, problem, or other common service integration. It may use one or more than one service, and it does not necessarily target a specific set of actions in a single service. Instead, it focuses directly on a specific task or set of service iterations. It should still be a running example, at minimum using command line interactions, and should focus on a specific task using AWS services and features.
+
+C# Coding Standards for Examples
+1. General Structure.
+    1. Service folders with examples should follow the common structure that uses folders for Actions, Scenarios, and Tests, with a top level solution file.
+    2. Scenarios should use .NET Dependency Injection with interfaces to set up AWS services. 
+    <example>
+    static async Task Main(string[] args)
+    {
+        // Set up dependency injection for the Amazon RDS service.
+        using var host = Host.CreateDefaultBuilder(args)
+            .ConfigureLogging(logging =>
+                logging.AddFilter("System", LogLevel.Debug)
+                    .AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Information)
+                    .AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Trace))
+            .ConfigureServices((_, services) =>
+                services.AddAWSService<IAmazonRDS>()
+                    .AddTransient<RDSWrapper>()
+            )
+            .Build();
+
+        logger = LoggerFactory.Create(builder =>
+        {
+            builder.AddConsole();
+        }).CreateLogger<RDSInstanceScenario>();
+
+        rdsWrapper = host.Services.GetRequiredService<RDSWrapper>();
+
+        Console.WriteLine(sepBar);
+        Console.WriteLine(
+            "Welcome to the Amazon Relational Database Service (Amazon RDS) DB instance scenario example.");
+        Console.WriteLine(sepBar);
+        await BeginScenario();
+    }
+    </example>
+    3. Scenarios should include a top-level comment block explaining the steps of the example.
+        <example>
+        /*
+        Before running this .NET code example, set up your development environment, including your credentials.
+    
+        This .NET example performs the following tasks:
+        1.  Returns a list of the available DB engine families using the DescribeDBEngineVersionsAsync method.
+        2.  Selects an engine family and creates a custom DB parameter group using the CreateDBParameterGroupAsync method.
+        3.  Gets the parameter groups using the DescribeDBParameterGroupsAsync method.
+        4.  Gets parameters in the group using the DescribeDBParameters method.
+        5.  Parses and displays parameters in the group.
+        6.  Modifies both the auto_increment_offset and auto_increment_increment parameters
+            using the ModifyDBParameterGroupAsync method.
+        7.  Gets and displays the updated parameters using the DescribeDBParameters method with a source of "user".
+        8.  Gets a list of allowed engine versions using the DescribeDBEngineVersionsAsync method.
+        9.  Displays and selects from a list of micro instance classes available for the selected engine and version.
+        10. Creates an RDS DB instance that contains a MySql database and uses the parameter group
+            using the CreateDBInstanceAsync method.
+        11. Waits for DB instance to be ready using the DescribeDBInstancesAsync method.
+        12. Prints out the connection endpoint string for the new DB instance.
+        13. Creates a snapshot of the DB instance using the CreateDBSnapshotAsync method.
+        14. Waits for DB snapshot to be ready using the DescribeDBSnapshots method.
+        15. Deletes the DB instance using the DeleteDBInstanceAsync method.
+        16. Waits for DB instance to be deleted using the DescribeDbInstances method.
+        17. Deletes the parameter group using the DeleteDBParameterGroupAsync.
+        */
+        </example>
+    4. Default configurations should use a settings.json file. Developer-specific configurations can be placed in a settings.local.json or settings.development.json file.
+    5. Wrapper methods should provide additional context when calling service actions. For example, specify certain parameters and return true or false. Do not use Request/Response classes directly as the parameter and response types, and do not include a cancellation token unless the user is able to cancel the action.
+        <example>
+        // snippet-start:[SESWorkflow.dotnetv3.SESv2Wrapper.CreateContactList]
+        /// <summary>
+        /// Creates a contact list with the specified name.
+        /// </summary>
+        /// <param name="contactListName">The name of the contact list.</param>
+        /// <returns>True if successful.</returns>
+        public async Task<bool> CreateContactListAsync(string contactListName)
+        {
+            var request = new CreateContactListRequest
+            {
+                ContactListName = contactListName
+            };
+    
+            try
+            {
+                var response = await _sesClient.CreateContactListAsync(request);
+                return response.HttpStatusCode == HttpStatusCode.OK;
+            }
+            catch (AlreadyExistsException ex)
+            {
+                Console.WriteLine($"Contact list with name {contactListName} already exists.");
+                Console.WriteLine(ex.Message);
+                return true;
+            }
+            catch (LimitExceededException ex)
+            {
+                Console.WriteLine("The limit for contact lists has been exceeded.");
+                Console.WriteLine(ex.Message);
+            }
+            catch (TooManyRequestsException ex)
+            {
+                Console.WriteLine("Too many requests were made. Please try again later.");
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while creating the contact list: {ex.Message}");
+            }
+            return false;
+        }
+        // snippet-end:[SESWorkflow.dotnetv3.SESv2Wrapper.CreateContactList]
+        </example>
+    6. All methods should include full XML doc tags for summary, parameters, and return types.
+    7. Use file-scoped namespaces to decrease indents, if possible.
+    8. When using top-level statements, add partial classes if necessary to facilitate testing.
+    9. When a service is added or updated, add the projects to the top-level solution so it will be included in the build/lint/format and Weathertop tests.
+
+
+2. Language Features.
+    1. Use async/await patterns if available. Do not use Task.Result for synchronizing an async method.
+    2. Prefer var for variable declarations, and common class names such as string over String, etc.
+    3. Use parameterized values for any query operations.
+    4. Using statements should be outside the namespace, include no unused imports, and be ordered alphabetically.
+    5. Prefer file-scoped namespaces to decrease indents in the published snippets.
+    6. Testing.
+        1. Use common naming for tests, such as:  VerifyAction_ExpectedResult.
+        2. Integration tests should be marked with [Trait("Category", "Integration")]
+        3. Use Moq framework for mocking.
+        4. Use XUnit with ordering for tests.
+        <example>
+        /// <summary>
+        /// Run the preparation step of the workflow. Should return successful.
+        /// </summary>
+        /// <returns>Async task.</returns>
+        [Fact]
+        [Order(1)]
+        [Trait("Category", "Unit")]
+        public async Task TestPrepareApplication()
+        {
+            // Arrange.
+            var mockSesV2Service = new Mock<IAmazonSimpleEmailServiceV2>();
+    
+            mockSesV2Service.Setup(client => client.CreateEmailIdentityAsync(
+                    It.IsAny<CreateEmailIdentityRequest>(),
+                    It.IsAny<CancellationToken>()))
+                .Returns((CreateEmailIdentityResponse r,
+                    CancellationToken token) =>
+                {
+                    return Task.FromResult(new CreateEmailIdentityResponse()
+                    {
+                        IdentityType = IdentityType.EMAIL_ADDRESS,
+                        HttpStatusCode = HttpStatusCode.OK,
+                    });
+                });
+    
+            mockSesV2Service.Setup(client => client.CreateContactListAsync(
+                    It.IsAny<CreateContactListRequest>(),
+                    It.IsAny<CancellationToken>()))
+                .Returns((CreateEmailIdentityResponse r,
+                    CancellationToken token) =>
+                {
+                    return Task.FromResult(new CreateContactListResponse()
+                    {
+                        HttpStatusCode = HttpStatusCode.OK,
+                    });
+                });
+    
+            mockSesV2Service.Setup(client => client.CreateEmailTemplateAsync(
+                    It.IsAny<CreateEmailTemplateRequest>(),
+                    It.IsAny<CancellationToken>()))
+                .Returns((CreateEmailTemplateResponse r,
+                    CancellationToken token) =>
+                {
+                    return Task.FromResult(new CreateEmailTemplateResponse()
+                    {
+                        HttpStatusCode = HttpStatusCode.OK,
+                    });
+                });
+    
+            var sESv2Wrapper = new SESv2Wrapper(mockSesV2Service.Object);
+    
+            NewsletterWorkflow._sesv2Wrapper = sESv2Wrapper;
+            NewsletterWorkflow._verifiedEmail = "test@example.com";
+    
+            // Act.
+            var verifiedEmail = await NewsletterWorkflow.PrepareApplication();
+    
+            // Assert.
+            Assert.Equal(NewsletterWorkflow._verifiedEmail, verifiedEmail);
+        }
+        </example>
+3. Metadata Snippet Contents
+    1. Metadata for Action examples should contain at minimum the following snippets.
+        1. A snippet to show the action itself within context.
+        2. If more than one variation of the Action is included, use descriptions in the metadata to explain the differences.
+    2. Metadata for Scenario examples can contain the entire wrapper and scenario code, but should include descriptions for both.
+
+
+What is Amazon EventBridge Scheduler?
+Amazon EventBridge Scheduler is a serverless scheduler that allows you to create, run, and manage tasks from one central, managed service.
+
+You are a TCX code examples software engineer building a Workflow for Amazon EventBridge Scheduler. The programming language is C#.
+
+When you respond, do not include analysis or explanation. Do not wrap markdown in backtick code fences. Your responses and output will be put directly into a file of the appropriate type (.md, .cs, or .sh).
+
+Workflow: EventBridge Scheduler.
+
+1. The builder will prepare the application. This application will deploy a CFN template to set up resources needed for EventBridge Scheduler.
+2. Create a schedule group for all workflow schedules.
+3. Create a one-time schedule using EventBridge Scheduler to send an initial event on the new EventBus. Use a Flexible Time Window and set the schedule to delete after completion. Print a URL for the user to view logs for the Event Bus. 
+4. Prompt the user for how many X times per Y hours a recurring event should be scheduled. Create the scheduled event for X times per hour for Y hours. Print a URL for the user to view logs for the Event Bus. Delete the schedule when the user is finished.
+5. Delete the schedule group.
+6. Prompt the user for y/n answer if they want to destroy the stack and clean up all resources. Destroy the Cloud Formation stack and wait until the stack has been removed.
+
+EventBridge Scheduler actions used:
+
+- CreateSchedule
+- CreateScheduleGroup
+- DeleteSchedule
+- DeleteScheduleGroup
