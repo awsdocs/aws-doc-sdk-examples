@@ -48,7 +48,7 @@ suspend fun createNewPipeline(
     nameVal: String,
     roleArnVal: String,
     s3Bucket: String,
-    s3OuputBucket: String
+    s3OuputBucket: String,
 ) {
     val actionTypeSource =
         ActionTypeId {

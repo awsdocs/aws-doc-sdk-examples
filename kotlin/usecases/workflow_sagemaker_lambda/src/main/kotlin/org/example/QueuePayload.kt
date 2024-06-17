@@ -21,36 +21,28 @@ class QueuePayload {
     fun QueuePayload() {}
 
     // Getter and Setter methods for token
-    fun getToken(): String? {
-        return token
-    }
+    fun getToken(): String? = token
 
     fun setToken(token: String?) {
         this.token = token
     }
 
     // Getter and Setter methods for pipelineExecutionArn
-    fun getPipelineExecutionArn(): String? {
-        return pipelineExecutionArn
-    }
+    fun getPipelineExecutionArn(): String? = pipelineExecutionArn
 
     fun setPipelineExecutionArn(pipelineExecutionArn: String?) {
         this.pipelineExecutionArn = pipelineExecutionArn
     }
 
     // Getter and Setter methods for status
-    fun getStatus(): String? {
-        return status
-    }
+    fun getStatus(): String? = status
 
     fun setStatus(status: String?) {
         this.status = status
     }
 
     // Getter and Setter methods for arguments
-    fun getArguments(): HashMap<String?, String?>? {
-        return arguments
-    }
+    fun getArguments(): HashMap<String?, String?>? = arguments
 
     fun setArguments(arguments: HashMap<String?, String?>?) {
         this.arguments = arguments

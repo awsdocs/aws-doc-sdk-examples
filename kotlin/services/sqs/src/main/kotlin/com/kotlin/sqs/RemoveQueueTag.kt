@@ -40,7 +40,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[sqs.kotlin.remove_tag.main]
 suspend fun removeTag(
     queueNameVal: String,
-    tagName: String
+    tagName: String,
 ) {
     val urlRequest =
         GetQueueUrlRequest {

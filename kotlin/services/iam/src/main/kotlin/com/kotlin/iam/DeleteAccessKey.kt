@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[iam.kotlin.delete_access_key.main]
 suspend fun deleteKey(
     userNameVal: String,
-    accessKey: String
+    accessKey: String,
 ) {
     val request =
         DeleteAccessKeyRequest {

@@ -43,7 +43,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[cloudwatch.kotlin.put_log_events.main]
 suspend fun putCWLogEvents(
     logGroupNameVal: String,
-    streamNameVal: String
+    streamNameVal: String,
 ) {
     lateinit var describeLogStreamsResponse: DescribeLogStreamsResponse
     val request =

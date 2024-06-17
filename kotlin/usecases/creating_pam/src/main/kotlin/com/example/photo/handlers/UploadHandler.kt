@@ -43,19 +43,15 @@ class UploadHandler : RequestHandler<APIGatewayProxyRequestEvent?, APIGatewayPro
         return@runBlocking makeResponse(data)
     }
 
-    fun makeResponse(src: Any?): APIGatewayProxyResponseEvent {
-        return APIGatewayProxyResponseEvent()
-            .withStatusCode(200)
-            .withHeaders(CORS_HEADER_MAP)
-            .withBody(toJson(src))
-            .withIsBase64Encoded(false)
-    }
+    fun makeResponse(src: Any?): APIGatewayProxyResponseEvent = APIGatewayProxyResponseEvent()
+        .withStatusCode(200)
+        .withHeaders(CORS_HEADER_MAP)
+        .withBody(toJson(src))
+        .withIsBase64Encoded(false)
 }
 
 internal class UploadResponse private constructor(val uRL: String) {
     companion object {
-        fun from(url: String): UploadResponse {
-            return UploadResponse(url)
-        }
+        fun from(url: String): UploadResponse = UploadResponse(url)
     }
 }

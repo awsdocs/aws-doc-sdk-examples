@@ -26,7 +26,7 @@ suspend fun getSettings() {
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val response = awsLambda.getAccountSettings(GetAccountSettingsRequest { })
         println(
-            "Total code size for your account is ${response.accountLimit?.totalCodeSize} bytes"
+            "Total code size for your account is ${response.accountLimit?.totalCodeSize} bytes",
         )
     }
 }

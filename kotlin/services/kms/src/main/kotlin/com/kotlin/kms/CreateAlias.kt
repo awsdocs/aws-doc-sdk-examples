@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[kms.kotlin_create_alias.main]
 suspend fun createCustomAlias(
     targetKeyIdVal: String?,
-    aliasNameVal: String?
+    aliasNameVal: String?,
 ) {
     val request =
         CreateAliasRequest {

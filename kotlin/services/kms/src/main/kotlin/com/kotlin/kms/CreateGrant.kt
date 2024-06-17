@@ -44,7 +44,7 @@ suspend fun main(args: Array<String>) {
 suspend fun createNewGrant(
     keyIdVal: String?,
     granteePrincipalVal: String?,
-    operation: String
+    operation: String,
 ): String? {
     val operationOb = GrantOperation.fromValue(operation)
     val grantOperationList = ArrayList<GrantOperation>()

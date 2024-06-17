@@ -46,7 +46,7 @@ suspend fun createNewUser(
     userPoolId: String,
     name: String,
     email: String,
-    password: String
+    password: String,
 ) {
     val attType =
         AttributeType {

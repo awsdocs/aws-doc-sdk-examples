@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[eb.kotlin.create_env.main]
 suspend fun createEBEnvironment(
     envName: String?,
-    appName: String?
+    appName: String?,
 ): String {
     val setting1 =
         ConfigurationOptionSetting {

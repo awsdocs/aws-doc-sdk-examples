@@ -52,7 +52,7 @@ suspend fun sendSMSMessage(
     message: String,
     appId: String,
     originationNumberVal: String,
-    destinationNumberVal: String
+    destinationNumberVal: String,
 ) {
     // The type of SMS message that you want to send. If you plan to send
     // time-sensitive content, specify TRANSACTIONAL. If you plan to send
@@ -99,7 +99,7 @@ suspend fun sendSMSMessage(
             SendMessagesRequest {
                 applicationId = appId
                 messageRequest = msgReq
-            }
+            },
         )
         println("The SMS message was successfully sent to $destinationNumberVal")
     }

@@ -3,14 +3,14 @@
 
 package com.example.awsapp
 
+import android.os.Bundle
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.sns.SnsClient
 import kotlinx.coroutines.runBlocking
-import android.os.Bundle
-import android.widget.EditText
-import android.widget.Toast
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,11 +19,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    fun submitData() = runBlocking{
-
-        val dollarField: EditText =  findViewById(R.id.dollarText)
-        val nameField: EditText =  findViewById(R.id.personName)
-        val emailField: EditText =  findViewById(R.id.emailAddress)
+    fun submitData() = runBlocking {
+        val dollarField: EditText = findViewById(R.id.dollarText)
+        val nameField: EditText = findViewById(R.id.personName)
+        val emailField: EditText = findViewById(R.id.emailAddress)
         val dateField: EditText = findViewById(R.id.editDate)
 
         val data = Database()
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             secretAccessKey = "<Enter your secret key>"
         }
 
-        val ddb = DynamoDbClient{
+        val ddb = DynamoDbClient {
             region = "us-east-1"
             credentialsProvider = staticCredentials
         }
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         showToast("Item added")
 
         // Notify user.
-        val snsClient = SnsClient{
+        val snsClient = SnsClient {
             region = "us-east-1"
             credentialsProvider = staticCredentials
         }
@@ -64,10 +63,10 @@ class MainActivity : AppCompatActivity() {
         val sendMSG = SendMessage()
         val mobileNum = "<ENTER MOBILE NUMBER>"
         val message = "Item $uuid was added!"
-        sendMSG.pubTextSMS( snsClient,message, mobileNum )
+        sendMSG.pubTextSMS(snsClient, message, mobileNum)
     }
 
-    fun showToast(value:String){
+    fun showToast(value: String) {
         val toast = Toast.makeText(applicationContext, value, Toast.LENGTH_SHORT)
         toast.setMargin(50f, 50f)
         toast.show()

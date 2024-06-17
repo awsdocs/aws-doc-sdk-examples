@@ -57,7 +57,7 @@ suspend fun main(args: Array<String>) {
 suspend fun sendEmail(
     subjectVal: String?,
     senderAddress: String,
-    toAddressVal: String
+    toAddressVal: String,
 ) {
     var content =
         Content {

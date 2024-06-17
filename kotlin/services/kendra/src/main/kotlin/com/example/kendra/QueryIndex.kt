@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[kendra.kotlin.query.index.main]
 suspend fun querySpecificIndex(
     indexIdVal: String?,
-    text: String?
+    text: String?,
 ) {
     val queryRequest =
         QueryRequest {

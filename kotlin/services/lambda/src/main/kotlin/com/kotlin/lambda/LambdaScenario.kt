@@ -102,7 +102,7 @@ suspend fun createScFunction(
     s3BucketName: String,
     myS3Key: String,
     myHandler: String,
-    myRole: String
+    myRole: String,
 ): String {
     val functionCode =
         FunctionCode {
@@ -175,7 +175,7 @@ suspend fun invokeFunctionSc(functionNameVal: String) {
 suspend fun updateFunctionCode(
     functionNameVal: String?,
     bucketName: String?,
-    key: String?
+    key: String?,
 ) {
     val functionCodeRequest =
         UpdateFunctionCodeRequest {
@@ -196,7 +196,7 @@ suspend fun updateFunctionCode(
 
 suspend fun updateFunctionConfiguration(
     functionNameVal: String?,
-    handlerVal: String?
+    handlerVal: String?,
 ) {
     val configurationRequest =
         UpdateFunctionConfigurationRequest {

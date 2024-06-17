@@ -40,7 +40,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[ecs.kotlin.update_service.main]
 suspend fun updateSpecificService(
     clusterName: String?,
-    serviceArn: String?
+    serviceArn: String?,
 ) {
     val request =
         UpdateServiceRequest {

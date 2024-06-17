@@ -138,7 +138,7 @@ suspend fun main(args: Array<String>) {
 suspend fun createMediaJob(
     mcClient: MediaConvertClient,
     mcRoleARN: String,
-    fileInputVal: String
+    fileInputVal: String,
 ): String? {
     val s3path = fileInputVal.substring(0, fileInputVal.lastIndexOf('/') + 1) + "javasdk/out/"
     val fileOutput = s3path + "index"
@@ -304,7 +304,7 @@ suspend fun createMediaJob(
                                             audioDescriptionBroadcasterMix = AacAudioDescriptionBroadcasterMix.Normal
                                         }
                                 }
-                        }
+                        },
                     )
             }
 
@@ -368,7 +368,7 @@ suspend fun createMediaJob(
                                                 }
                                         }
                                 }
-                        }
+                        },
                     )
             }
 
@@ -399,7 +399,7 @@ suspend fun createMediaJob(
                             fileInput = fileInputVal
 
                             outputGroups = listOf(appleHLS, thumbs, fileMp4)
-                        }
+                        },
                     )
             }
 
@@ -425,7 +425,7 @@ fun createOutput(
     qvbrQualityLevelVal: Int,
     originWidth: Int,
     originHeight: Int,
-    targetWidth: Int
+    targetWidth: Int,
 ): Output? {
     val targetHeight = (
         (originHeight * targetWidth / originWidth).toFloat().roundToInt() -

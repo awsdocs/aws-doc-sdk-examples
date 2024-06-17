@@ -43,19 +43,13 @@ class MessageResource {
     var excel: WriteExcel? = null
 
     @GetMapping("/process")
-    fun process(): String {
-        return "process"
-    }
+    fun process(): String = "process"
 
     @GetMapping("/photo")
-    fun photo(): String {
-        return "upload"
-    }
+    fun photo(): String = "upload"
 
     @GetMapping("/")
-    fun root(): String {
-        return "index"
-    }
+    fun root(): String = "index"
 
     @RequestMapping(value = ["/getimages"], method = [RequestMethod.GET])
     @ResponseBody

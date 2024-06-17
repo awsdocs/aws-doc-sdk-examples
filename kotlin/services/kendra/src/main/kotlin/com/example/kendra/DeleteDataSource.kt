@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[kendra.kotlin.delete.datasource.main]
 suspend fun deleteSpecificDataSource(
     indexIdVal: String?,
-    dataSourceId: String
+    dataSourceId: String,
 ) {
     val dataSourceRequest =
         DeleteDataSourceRequest {

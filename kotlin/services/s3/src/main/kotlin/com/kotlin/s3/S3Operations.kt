@@ -95,7 +95,7 @@ suspend fun createBucket(bucketName: String) {
 suspend fun putObject(
     bucketName: String,
     objectKey: String,
-    objectPath: String
+    objectPath: String,
 ) {
     val metadataVal = mutableMapOf<String, String>()
     metadataVal["myVal"] = "test"
@@ -117,7 +117,7 @@ suspend fun putObject(
 suspend fun getObjectFromMrap(
     bucketName: String,
     keyName: String,
-    path: String
+    path: String,
 ) {
     val request =
         GetObjectRequest {
@@ -153,7 +153,7 @@ suspend fun listBucketObs(bucketName: String) {
 suspend fun copyBucketOb(
     fromBucket: String,
     objectKey: String,
-    toBucket: String
+    toBucket: String,
 ) {
     var encodedUrl = ""
     try {
@@ -175,7 +175,7 @@ suspend fun copyBucketOb(
 
 suspend fun deleteBucketObs(
     bucketName: String,
-    objectName: String
+    objectName: String,
 ) {
     val objectId =
         ObjectIdentifier {

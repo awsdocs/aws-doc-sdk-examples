@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[cloudwatch.kotlin.delete_subscription_filter.main]
 suspend fun deleteSubFilter(
     filter: String?,
-    logGroup: String?
+    logGroup: String?,
 ) {
     val request =
         DeleteSubscriptionFilterRequest {

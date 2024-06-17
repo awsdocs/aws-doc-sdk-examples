@@ -76,7 +76,7 @@ class MrapExample {
         accountIdParam: String,
         bucketName1: String,
         bucketName2: String,
-        mrapName: String
+        mrapName: String,
     ): String {
         println("Creating MRAP ...")
         val createMrapResponse: CreateMultiRegionAccessPointResponse =
@@ -91,7 +91,7 @@ class MrapExample {
                         },
                         Region {
                             bucket = bucketName2
-                        }
+                        },
                     )
                 }
             }
@@ -108,7 +108,7 @@ class MrapExample {
                 input = GetMultiRegionAccessPointRequest {
                     accountId = accountIdParam
                     name = mrapName
-                }
+                },
             )
         val mrapAlias = getMrapResponse.accessPoint?.alias
         return "arn:aws:s3::$accountIdParam:accesspoint/$mrapAlias"
@@ -119,7 +119,7 @@ class MrapExample {
     suspend fun deleteMrap(
         s3Control: S3ControlClient,
         accountIdParam: String,
-        mrapName: String
+        mrapName: String,
     ) {
         println("Deleting MRAP ...")
         val deleteMrapResponse: DeleteMultiRegionAccessPointResponse =
@@ -129,7 +129,7 @@ class MrapExample {
                     details {
                         name = mrapName
                     }
-                }
+                },
             )
         val requestToken: String? = deleteMrapResponse.requestTokenArn
 
@@ -146,7 +146,7 @@ class MrapExample {
         s3: S3Client,
         mrapArn: String,
         keyName: String,
-        stringToPut: String
+        stringToPut: String,
     ) {
         s3.putObject {
             bucket = mrapArn
@@ -165,7 +165,7 @@ class MrapExample {
     suspend fun getObjectFromMrap(
         s3: S3Client,
         mrapArn: String,
-        keyName: String
+        keyName: String,
     ): String? {
         val request = GetObjectRequest {
             bucket = mrapArn // Use the ARN instead of the bucket name for object operations.
@@ -187,7 +187,7 @@ class MrapExample {
     suspend fun deleteObjectUsingMrap(
         s3: S3Client,
         mrapArn: String,
-        keyName: String
+        keyName: String,
     ) {
         s3.deleteObject {
             bucket = mrapArn
@@ -227,14 +227,14 @@ class MrapExample {
         suspend fun setUpTwoBuckets(
             s3: S3Client,
             bucketName1: String,
-            bucketName2: String
+            bucketName2: String,
         ) {
             println("Create two buckets in different regions.")
             // The shared aws config file configures the default Region to be us-east-1.
             s3.createBucket(
                 CreateBucketRequest {
                     bucket = bucketName1
-                }
+                },
             )
             s3.waitUntilBucketExists {
                 bucket = bucketName1
@@ -251,7 +251,7 @@ class MrapExample {
                         createBucketConfiguration = CreateBucketConfiguration {
                             locationConstraint = BucketLocationConstraint.UsWest1
                         }
-                    }
+                    },
                 )
                 s3West.waitUntilBucketExists {
                     bucket = bucketName2
@@ -273,14 +273,14 @@ class MrapExample {
             s3Control: S3ControlClient,
             requestToken: String,
             accountIdParam: String,
-            timeBetweenChecks: Duration = 1.minutes
+            timeBetweenChecks: Duration = 1.minutes,
         ) {
             var describeResponse: DescribeMultiRegionAccessPointOperationResponse
             describeResponse = s3Control.describeMultiRegionAccessPointOperation(
                 input = DescribeMultiRegionAccessPointOperationRequest {
                     accountId = accountIdParam
                     requestTokenArn = requestToken
-                }
+                },
             )
 
             var status: String? = describeResponse.asyncOperation?.requestStatus
@@ -290,7 +290,7 @@ class MrapExample {
                     input = DescribeMultiRegionAccessPointOperationRequest {
                         accountId = accountIdParam
                         requestTokenArn = requestToken
-                    }
+                    },
                 )
                 status = describeResponse.asyncOperation?.requestStatus
                 println(status)
@@ -301,7 +301,7 @@ class MrapExample {
         suspend fun cleanupBuckets(
             s3: S3Client,
             bucketName1: String,
-            bucketName2: String
+            bucketName2: String,
         ) {
             s3.deleteBucket { bucket = bucketName1 }
             s3.waitUntilBucketNotExists { bucket = bucketName1 }

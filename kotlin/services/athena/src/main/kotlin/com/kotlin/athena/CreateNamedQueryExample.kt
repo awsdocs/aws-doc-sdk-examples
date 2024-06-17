@@ -41,7 +41,7 @@ suspend fun createNamedQuery(queryStringVal: String, namedQuery: String, databas
                 queryString = queryStringVal
                 description = "Created via the AWS SDK for Kotlin"
                 this.name = namedQuery
-            }
+            },
         )
         return resp.namedQueryId
     }

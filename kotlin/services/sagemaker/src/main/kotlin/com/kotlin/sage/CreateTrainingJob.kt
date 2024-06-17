@@ -66,7 +66,7 @@ suspend fun trainJob(
     roleArnVal: String?,
     s3OutputPathVal: String?,
     channelNameVal: String?,
-    trainingImageVal: String?
+    trainingImageVal: String?,
 ) {
     val s3DataSourceOb =
         S3DataSource {

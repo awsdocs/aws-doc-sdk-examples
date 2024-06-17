@@ -19,7 +19,6 @@ class SendMessage {
 
             val result = snsClient.publish(request)
             println("${result.messageId} message sent.")
-
         } catch (e: SnsException) {
             println(e.message)
             snsClient.close()

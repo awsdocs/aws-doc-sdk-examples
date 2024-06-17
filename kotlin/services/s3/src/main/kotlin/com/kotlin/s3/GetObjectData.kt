@@ -44,7 +44,7 @@ suspend fun main(args: Array<String>) {
 suspend fun getObjectBytes(
     bucketName: String,
     keyName: String,
-    path: String
+    path: String,
 ) {
     val request =
         GetObjectRequest {

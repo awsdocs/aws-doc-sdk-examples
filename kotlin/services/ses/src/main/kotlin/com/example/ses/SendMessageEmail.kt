@@ -55,7 +55,7 @@ suspend fun send(
     sender: String?,
     recipient: String,
     subjectVal: String?,
-    bodyHTML: String?
+    bodyHTML: String?,
 ) {
     val destinationOb =
         Destination {

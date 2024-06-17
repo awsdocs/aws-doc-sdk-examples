@@ -42,7 +42,7 @@ suspend fun main(args: Array<String>) {
 suspend fun setTopAttr(
     attribute: String?,
     topicArnVal: String?,
-    value: String?
+    value: String?,
 ) {
     val request =
         SetTopicAttributesRequest {

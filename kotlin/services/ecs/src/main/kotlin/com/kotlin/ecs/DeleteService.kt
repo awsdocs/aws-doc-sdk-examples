@@ -40,7 +40,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[ecs.kotlin.delete_service.main]
 suspend fun deleteSpecificService(
     clusterName: String?,
-    serviceArn: String?
+    serviceArn: String?,
 ) {
     val request =
         DeleteServiceRequest {

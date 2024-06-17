@@ -31,11 +31,9 @@ class GetHandler : RequestHandler<APIGatewayProxyRequestEvent?, APIGatewayProxyR
         return@runBlocking makeResponse(data)
     }
 
-    fun makeResponse(src: Any?): APIGatewayProxyResponseEvent {
-        return APIGatewayProxyResponseEvent()
-            .withStatusCode(200)
-            .withHeaders(CORS_HEADER_MAP)
-            .withBody(toJson(src))
-            .withIsBase64Encoded(false)
-    }
+    fun makeResponse(src: Any?): APIGatewayProxyResponseEvent = APIGatewayProxyResponseEvent()
+        .withStatusCode(200)
+        .withHeaders(CORS_HEADER_MAP)
+        .withBody(toJson(src))
+        .withIsBase64Encoded(false)
 }

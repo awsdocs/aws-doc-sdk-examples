@@ -40,7 +40,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[pinpoint.kotlin.lookup.main]
 suspend fun lookupPinpointEndpoint(
     appId: String?,
-    endpoint: String?
+    endpoint: String?,
 ) {
     PinpointClient { region = "us-west-2" }.use { pinpoint ->
         val result =
@@ -48,7 +48,7 @@ suspend fun lookupPinpointEndpoint(
                 GetEndpointRequest {
                     applicationId = appId
                     endpointId = endpoint
-                }
+                },
             )
         val endResponse = result.endpointResponse
 

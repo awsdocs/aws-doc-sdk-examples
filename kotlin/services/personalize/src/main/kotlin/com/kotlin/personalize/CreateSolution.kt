@@ -44,7 +44,7 @@ suspend fun main(args: Array<String>) {
 suspend fun createPersonalizeSolution(
     datasetGroupArnVal: String?,
     solutionName: String?,
-    recipeArnVal: String?
+    recipeArnVal: String?,
 ): String? {
     val request =
         CreateSolutionRequest {

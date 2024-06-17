@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[mediaconvert.kotlin.get_job.main]
 suspend fun getSpecificJob(
     mcClient: MediaConvertClient,
-    jobId: String?
+    jobId: String?,
 ) {
     val describeEndpoints =
         DescribeEndpointsRequest {
