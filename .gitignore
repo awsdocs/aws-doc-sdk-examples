@@ -31,3 +31,4 @@ kotlin/services/**/build/
 kotlin/services/**/gradle/
 kotlin/services/**/gradlew
 kotlin/services/**/gradlew.bat
+/.doc_gen/metadata/batch_metadata.yaml
