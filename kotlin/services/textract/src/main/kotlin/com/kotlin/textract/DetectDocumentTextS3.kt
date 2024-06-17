@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[textract.kotlin._detect_s3_text.main]
 suspend fun detectDocTextS3(
     bucketName: String?,
-    docName: String?
+    docName: String?,
 ) {
     val s3ObjectOb =
         S3Object {
