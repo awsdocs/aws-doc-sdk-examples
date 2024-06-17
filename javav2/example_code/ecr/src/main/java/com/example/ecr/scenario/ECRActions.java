@@ -455,26 +455,34 @@ public class ECRActions {
         // Execute the request asynchronously.
         CompletableFuture<CreateRepositoryResponse> response = getAsyncClient().createRepository(request);
 
-        // Use whenComplete to handle the response.
-        response.whenComplete((createRepositoryResponse, ex) -> {
-            if (createRepositoryResponse != null) {
+        try {
+            // Wait for the CompletableFuture to complete and return the result.
+            CreateRepositoryResponse result = response.join();
+            if (result != null) {
                 System.out.println("Repository created successfully.");
+                return result.repository().repositoryArn();
             } else {
-                if (ex.getCause() instanceof EcrException) {
-                    EcrException e = (EcrException) ex.getCause();
-                    System.err.println("Error creating ECR repository: " + e.awsErrorDetails().errorMessage());
-                } else {
-                    System.err.println("Unexpected error occurred: " + ex.getMessage());
-                }
+                throw new RuntimeException("Unexpected response type");
             }
-        });
-
-        // Wait for the CompletableFuture to complete and return the result.
-        CreateRepositoryResponse result = response.join();
-        if (result != null) {
-            return result.repository().repositoryArn();
-        } else {
-            throw new RuntimeException("Unexpected response type");
+        } catch (CompletionException e) {
+            if (e.getCause() instanceof EcrException) {
+                EcrException ex = (EcrException) e.getCause();
+                if (ex.awsErrorDetails().errorCode().equals("RepositoryAlreadyExistsException")) {
+                    System.out.println("ECR repository already exists, moving on...");
+                    // Fetch the existing repository's ARN
+                    DescribeRepositoriesRequest describeRequest = DescribeRepositoriesRequest.builder()
+                        .repositoryNames(repoName)
+                        .build();
+                    DescribeRepositoriesResponse describeResponse = getAsyncClient().describeRepositories(describeRequest).join();
+                    return describeResponse.repositories().get(0).repositoryArn();
+                } else {
+                    System.err.println("Error creating ECR repository: " + ex.awsErrorDetails().errorMessage());
+                    throw new RuntimeException(ex);
+                }
+            } else {
+                System.err.println("Unexpected error occurred: " + e.getMessage());
+                throw new RuntimeException(e);
+            }
         }
     }
     // snippet-end:[ecr.java2.create.repo.main]
@@ -527,17 +535,29 @@ public class ECRActions {
     public boolean listLocalImages() {
         try {
             List<Image> images = getDockerClient().listImagesCmd().exec();
+            boolean helloWorldFound = false;
             for (Image image : images) {
-                String myImage = image.toString();
-                System.out.println(myImage);
-                if (myImage.contains("hello-world")) {
-                    return true;
+                String[] repoTags = image.getRepoTags();
+                if (repoTags != null) {
+                    for (String tag : repoTags) {
+                        if (tag.startsWith("hello-world")) {
+                            System.out.println(tag);
+                            helloWorldFound = true;
+                        }
+                    }
                 }
+            }
+            if (helloWorldFound) {
+                System.out.println("The local image named hello-world exists.");
+                return true;
+            } else {
+                System.out.println("The local image named hello-world does not exist.");
+                return false;
             }
         } catch (DockerClientException ex) {
             System.out.println("ERROR: " + ex.getMessage());
+            return false;
         }
-        return false;
     }
 }
 // snippet-end:[ecr.java2_scenario.main]
