@@ -8,9 +8,8 @@ jobs:
         - name: Invoke runTheNumbers
           uses: gagoar/invoke-aws-lambda@master
           with:
-             Qualifier: ${{ github.event.pull_request.head.sha }}
              AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
              AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
              REGION: 'eu-west-1'
              FunctionName: runTheNumbers
-             Payload: '{ "commit": Qualifier }'
+             Payload: '{ "commit": ""+ ${{ github.event.pull_request.head.sha }}+""}'
