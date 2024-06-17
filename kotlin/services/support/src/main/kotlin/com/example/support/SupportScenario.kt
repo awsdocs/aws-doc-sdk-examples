@@ -178,7 +178,7 @@ suspend fun listCommunications(caseIdVal: String?): String? {
 // snippet-start:[support.kotlin.add.attach.case.main]
 suspend fun addAttachSupportCase(
     caseIdVal: String?,
-    attachmentSetIdVal: String?
+    attachmentSetIdVal: String?,
 ) {
     val caseRequest =
         AddCommunicationToCaseRequest {
@@ -247,7 +247,7 @@ suspend fun getOpenCase() {
 // snippet-start:[support.kotlin.create.case.main]
 suspend fun createSupportCase(
     sevCatListVal: List<String>,
-    sevLevelVal: String
+    sevLevelVal: String,
 ): String? {
     val serCode = sevCatListVal[0]
     val caseCategory = sevCatListVal[1]
