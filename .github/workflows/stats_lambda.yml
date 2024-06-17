@@ -6,7 +6,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Create JSON Payload
-          run: echo "JSON_PAYLOAD={\"Name\":\"${{ github.event.pull_request.base.sha }}\"}" >> $GITHUB_ENV
+          run: echo "JSON_PAYLOAD={\"commit\":\"${{ github.event.pull_request.base.sha }}\"}" >> $GITHUB_ENV
         - name: Invoke runTheNumbers
           uses: gagoar/invoke-aws-lambda@master
           with:
