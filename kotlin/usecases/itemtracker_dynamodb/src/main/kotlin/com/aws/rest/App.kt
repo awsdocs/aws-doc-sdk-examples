@@ -35,7 +35,7 @@ class MessageResource {
     @Autowired
     private lateinit var sendMsg: SendMessage
 
-    // Add a new item to the Amazon DynamoDB database.
+    // Add an item to the Amazon DynamoDB database.
     @PostMapping("api/items")
     fun addItems(
         @RequestBody payLoad: Map<String, Any>,
