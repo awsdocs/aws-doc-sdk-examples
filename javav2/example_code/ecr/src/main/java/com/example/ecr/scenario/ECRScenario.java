@@ -13,6 +13,10 @@ import java.util.Scanner;
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ * In addition, create a local docker image named hello-world. For  more information. see:
+ *
+ * /getting_started_scenarios/ecr_scenario/README
  */
 public class ECRScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -22,19 +26,18 @@ public class ECRScenario {
 
                 Where:
                    iamRoleARN - The IAM role ARN that has the necessary permissions to access and manage the Amazon ECR repository.
-                   localImageName - The local docker image to push into the ECR repository (ie, hello-world:latest). 
                    accountId - Your AWS account number. 
                 """;
 
-        if (args.length != 3) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+        //if (args.length != 2) {
+        //    System.out.println(usage);
+        //    return;
+       // }
 
         ECRActions ecrActions = new ECRActions();
-        String iamRole = args[0];
-        String localImageName = args[1];
-        String accountId = args[2];
+        String iamRole =  "arn:aws:iam::814548047983:role/Admin"; // args[0];
+        String accountId = "814548047983" ; //args[1];
+        String localImageName;
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("""
@@ -59,21 +62,22 @@ public class ECRScenario {
         System.out.println(DASHES);
 
         System.out.println("""
-        1. Create an ECR repository.
-             
-        An ECR repository is a private Docker container registry provided by Amazon Web Services (AWS). 
-        It is a managed service that makes it easy to store, manage, and deploy Docker container images.\s
-                       
-        Enter a repository name. For example, 'ecr1'.
-        """ );
+           1. Create an ECR repository.
+            
+           An ECR repository is a private Docker container registry provided 
+           by Amazon Web Services (AWS). It is a managed service that makes it easy to store, manage, and deploy Docker container images.\s
+  
+           The first task is to ensure we have a local image named hello-world.
+           """ );
+
+        boolean doesExist = ecrActions.listLocalImages();
         String repoName;
-        while (true) {
-            repoName = scanner.nextLine().trim();
-            if (!repoName.isEmpty()) {
-                break;
-            } else {
-                System.out.println("Please enter a valid repository name:");
-            }
+        if (!doesExist){
+            System.out.println("The local image named hello-world does not exist");
+            return;
+        } else {
+            localImageName = "hello-world";
+            repoName = "hello-world";
         }
 
         String repoArn = String.valueOf(ecrActions.createECRRepository(repoName));

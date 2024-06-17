@@ -5,7 +5,9 @@ package com.example.ecr.scenario;
 
 // snippet-start:[ecr.java2_scenario.main]
 import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.exception.DockerClientException;
 import com.github.dockerjava.api.model.AuthConfig;
+import com.github.dockerjava.api.model.Image;
 import com.github.dockerjava.core.DockerClientBuilder;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
@@ -37,6 +39,7 @@ import com.github.dockerjava.api.command.DockerCmdExecFactory;
 import com.github.dockerjava.netty.NettyDockerCmdExecFactory;
 import java.time.Duration;
 import java.util.Base64;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
@@ -48,6 +51,23 @@ import java.util.concurrent.CompletionException;
  */
 public class ECRActions {
     private static EcrAsyncClient ecrClient;
+
+    private static DockerClient dockerClient;
+
+    private static DockerClient getDockerClient() {
+        String osName = System.getProperty("os.name");
+        System.out.println("Operating System: " + osName);
+
+        if (osName.startsWith("Windows")) {
+            // Make sure Docker Desktop is running.
+            String dockerHost = "tcp://localhost:2375"; // Use the Docker Desktop default port.
+            DockerCmdExecFactory dockerCmdExecFactory = new NettyDockerCmdExecFactory().withReadTimeout(20000).withConnectTimeout(20000);
+            dockerClient = DockerClientBuilder.getInstance(dockerHost).withDockerCmdExecFactory(dockerCmdExecFactory).build();
+        } else {
+            dockerClient = DockerClientBuilder.getInstance().build();
+        }
+        return dockerClient;
+    }
 
     /**
      * Retrieves an asynchronous Amazon Elastic Container Registry (ECR) client.
@@ -468,22 +488,7 @@ public class ECRActions {
      *
      */
     public void pushDockerImage(String repoName, String imageName) {
-        // Check the OS.
-        DockerClient dockerClient;
-        String osName = System.getProperty("os.name");
-        System.out.println("Operating System: " + osName);
-
-        if (osName.startsWith("Windows")) {
-            // Make sure Docker Desktop is running.
-            String dockerHost = "tcp://localhost:2375"; // Use the Docker Desktop default port.
-            DockerCmdExecFactory dockerCmdExecFactory = new NettyDockerCmdExecFactory().withReadTimeout(20000).withConnectTimeout(20000);
-            dockerClient = DockerClientBuilder.getInstance(dockerHost).withDockerCmdExecFactory(dockerCmdExecFactory).build();
-        } else if (osName.startsWith("Mac")) {
-            dockerClient = DockerClientBuilder.getInstance().build();
-        } else {
-            dockerClient = null;
-        }
-        System.out.println("Pushing "+imageName +" to "+repoName + "will take a few seconds");
+        System.out.println("Pushing "+imageName +" to "+repoName + " will take a few seconds");
         CompletableFuture<AuthConfig> authResponseFuture = getAsyncClient().getAuthorizationToken()
             .thenApply(response -> {
                 String token = response.authorizationData().get(0).authorizationToken();
@@ -504,9 +509,9 @@ public class ECRActions {
             .thenCompose(authConfig -> {
                 DescribeRepositoriesResponse descrRepoResponse = getAsyncClient().describeRepositories(b -> b.repositoryNames(repoName)).join();
                 Repository repoData = descrRepoResponse.repositories().stream().filter(r -> r.repositoryName().equals(repoName)).findFirst().orElse(null);
-                dockerClient.tagImageCmd(imageName+":latest", repoData.repositoryUri() + ":latest", imageName).exec();
+                getDockerClient().tagImageCmd(imageName+":latest", repoData.repositoryUri() + ":latest", imageName).exec();
                 try {
-                    dockerClient.pushImageCmd(repoData.repositoryUri()).withTag("hello-world").withAuthConfig(authConfig).start().awaitCompletion();
+                    getDockerClient().pushImageCmd(repoData.repositoryUri()).withTag("hello-world").withAuthConfig(authConfig).start().awaitCompletion();
                     System.out.println("The "+imageName+" was pushed to ECR");
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -517,5 +522,22 @@ public class ECRActions {
         authResponseFuture.join();
     }
     // snippet-end:[ecr.java2.push.image.main]
+
+    // Make sure local image hello-world exists.
+    public boolean listLocalImages() {
+        try {
+            List<Image> images = getDockerClient().listImagesCmd().exec();
+            for (Image image : images) {
+                String myImage = image.toString();
+                System.out.println(myImage);
+                if (myImage.contains("hello-world")) {
+                    return true;
+                }
+            }
+        } catch (DockerClientException ex) {
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return false;
+    }
 }
 // snippet-end:[ecr.java2_scenario.main]
