@@ -5,6 +5,8 @@ jobs:
   build:
       runs-on: ubuntu-latest
       steps:
+        - name: Create JSON Payload
+          run: echo "JSON_PAYLOAD={\"Name\":\"${{ env.github.event.pull_request.base.sha }}\"}" >> $GITHUB_ENV
         - name: Invoke runTheNumbers
           uses: gagoar/invoke-aws-lambda@master
           with:
@@ -13,4 +15,4 @@ jobs:
              AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
              REGION: 'eu-west-1'
              FunctionName: runTheNumbers
-             Payload: '{ "commit": ref}'
+             Payload: ${{ env.JSON_PAYLOAD }}
