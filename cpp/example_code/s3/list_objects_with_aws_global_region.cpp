@@ -12,7 +12,7 @@
 #include <aws/s3/model/ListObjectsV2Request.h>
 #include <aws/s3/model/DeleteBucketRequest.h>
 #include <aws/core/utils/UUID.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment,
@@ -59,8 +59,7 @@ static Aws::String CreateOneBucket(const Aws::S3::S3Client &s3Client) {
     if (createBucketOutcome.IsSuccess()) {
         std::cout << "Success. Created the bucket named '" << bucketName <<
                   "'." << std::endl;
-    }
-    else {
+    } else {
         std::cerr << "Error. Could not create the bucket: " <<
                   createBucketOutcome.GetError() << std::endl;
 
@@ -114,8 +113,7 @@ ListTheObjects(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName)
 
             objects.insert(objects.end(), contents.begin(), contents.end());
             continuationToken = listObjectOutcome.GetResult().GetNextContinuationToken();
-        }
-        else {
+        } else {
             std::cerr << "Error. Could not count the objects in the bucket: " <<
                       listObjectOutcome.GetError() << std::endl;
             return false;
@@ -143,8 +141,7 @@ bool DeleteABucket(const Aws::S3::S3Client &s3Client, const Aws::String &bucketN
     if (deleteBucketOutcome.IsSuccess()) {
         std::cout << "Success. Deleted the bucket named '" << bucketName <<
                   "'." << std::endl;
-    }
-    else {
+    } else {
         std::cerr << "Error. Could not delete the bucket: " <<
                   deleteBucketOutcome.GetError() << std::endl;
         std::cerr << "To clean up, you must delete the bucket named '" <<

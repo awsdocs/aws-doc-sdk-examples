@@ -12,11 +12,11 @@
 #include <aws/s3/model/AccessControlPolicy.h>
 #include <aws/s3/model/PutBucketAclRequest.h>
 #include <aws/s3/model/GetBucketAclRequest.h>
-#include <awsdoc/s3/s3_examples.h>
+#include "s3_examples.h"
 
-static Aws::S3::Model::Permission SetGranteePermission(const Aws::String &access);
+static Aws::S3::Model::Permission setGranteePermission(const Aws::String &access);
 
-static Aws::S3::Model::Type SetGranteeType(const Aws::String &type);
+static Aws::S3::Model::Type setGranteeType(const Aws::String &type);
 
 /**
 * Before running this C++ code example, set up your development environment, including your credentials.
@@ -33,7 +33,7 @@ static Aws::S3::Model::Type SetGranteeType(const Aws::String &type);
 
 //! Routine which demonstrates setting the ACL for an S3 bucket.
 /*!
-  \sa PutBucketAcl()
+  \sa putBucketAcl()
   \param bucketName Name of from bucket.
   \param ownerID The canonical ID of the bucket owner.
    For more information see https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html.
@@ -47,22 +47,18 @@ static Aws::S3::Model::Type SetGranteeType(const Aws::String &type);
 */
 
 // snippet-start:[s3.cpp.put_bucket_acl.code]
-bool AwsDoc::S3::PutBucketAcl(const Aws::String &bucketName,
-                              const Aws::String &ownerID,
+bool AwsDoc::S3::PutBucketAcl(const Aws::String &bucketName, const Aws::String &ownerID,
                               const Aws::String &granteePermission,
-                              const Aws::String &granteeType,
-                              const Aws::String &granteeID,
-                              const Aws::Client::ClientConfiguration &clientConfig,
-                              const Aws::String &granteeDisplayName,
+                              const Aws::String &granteeType, const Aws::String &granteeID,
                               const Aws::String &granteeEmailAddress,
-                              const Aws::String &granteeURI) {
+                              const Aws::String &granteeURI, const Aws::Client::ClientConfiguration &clientConfig) {
     Aws::S3::S3Client s3_client(clientConfig);
 
     Aws::S3::Model::Owner owner;
     owner.SetID(ownerID);
 
     Aws::S3::Model::Grantee grantee;
-    grantee.SetType(SetGranteeType(granteeType));
+    grantee.SetType(setGranteeType(granteeType));
 
     if (!granteeEmailAddress.empty()) {
         grantee.SetEmailAddress(granteeEmailAddress);
@@ -72,17 +68,13 @@ bool AwsDoc::S3::PutBucketAcl(const Aws::String &bucketName,
         grantee.SetID(granteeID);
     }
 
-    if (!granteeDisplayName.empty()) {
-        grantee.SetDisplayName(granteeDisplayName);
-    }
-
     if (!granteeURI.empty()) {
         grantee.SetURI(granteeURI);
     }
 
     Aws::S3::Model::Grant grant;
     grant.SetGrantee(grantee);
-    grant.SetPermission(SetGranteePermission(granteePermission));
+    grant.SetPermission(setGranteePermission(granteePermission));
 
     Aws::Vector<Aws::S3::Model::Grant> grants;
     grants.push_back(grant);
@@ -101,10 +93,9 @@ bool AwsDoc::S3::PutBucketAcl(const Aws::String &bucketName,
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &error = outcome.GetError();
 
-        std::cerr << "Error: PutBucketAcl: " << error.GetExceptionName()
+        std::cerr << "Error: putBucketAcl: " << error.GetExceptionName()
                   << " - " << error.GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully added an ACL to the bucket '" << bucketName
                   << "'." << std::endl;
     }
@@ -114,11 +105,11 @@ bool AwsDoc::S3::PutBucketAcl(const Aws::String &bucketName,
 
 //! Routine which converts a human-readable string to a built-in type enumeration.
 /*!
- \sa SetGranteePermission()
+ \sa setGranteePermission()
  \param access Human readable string.
 */
 
-Aws::S3::Model::Permission SetGranteePermission(const Aws::String &access) {
+Aws::S3::Model::Permission setGranteePermission(const Aws::String &access) {
     if (access == "FULL_CONTROL")
         return Aws::S3::Model::Permission::FULL_CONTROL;
     if (access == "WRITE")
@@ -134,11 +125,11 @@ Aws::S3::Model::Permission SetGranteePermission(const Aws::String &access) {
 
 //! Routine which converts a human-readable string to a built-in type enumeration.
 /*!
- \sa SetGranteeType()
+ \sa setGranteeType()
  \param type Human readable string.
 */
 
-Aws::S3::Model::Type SetGranteeType(const Aws::String &type) {
+Aws::S3::Model::Type setGranteeType(const Aws::String &type) {
     if (type == "Amazon customer by email")
         return Aws::S3::Model::Type::AmazonCustomerByEmail;
     if (type == "Canonical user")
@@ -215,7 +206,7 @@ int main() {
                                  ownerId,
                                  grantee_permission,
                                  grantee_type,
-                                 grantee_id,
+                                 grantee_id, "", "",
                                  clientConfig);
         // grantee_display_name,
         // grantee_email_address,

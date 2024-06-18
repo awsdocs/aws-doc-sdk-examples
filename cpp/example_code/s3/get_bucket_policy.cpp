@@ -7,7 +7,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/GetBucketPolicyRequest.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 /**
 * Before running this C++ code example, set up your development environment, including your credentials.
@@ -24,14 +24,14 @@
 
 //! Routine which demonstrates setting the ACL for an S3 bucket.
 /*!
-  \sa GetBucketPolicy()
+  \sa getBucketPolicy()
   \param bucketName Name of a bucket.
   \param clientConfig Aws client configuration.
 */
 
 // snippet-start:[s3.cpp.get_bucket_policy.code]
-bool AwsDoc::S3::GetBucketPolicy(const Aws::String &bucketName,
-                                 const Aws::Client::ClientConfiguration &clientConfig) {
+bool AwsDoc::S3::getBucketPolicy(const Aws::String &bucketName,
+                                 const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client s3_client(clientConfig);
 
     Aws::S3::Model::GetBucketPolicyRequest request;
@@ -42,10 +42,9 @@ bool AwsDoc::S3::GetBucketPolicy(const Aws::String &bucketName,
 
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();
-        std::cerr << "Error: GetBucketPolicy: "
+        std::cerr << "Error: getBucketPolicy: "
                   << err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-    }
-    else {
+    } else {
         Aws::StringStream policy_stream;
         Aws::String line;
 
@@ -63,29 +62,39 @@ bool AwsDoc::S3::GetBucketPolicy(const Aws::String &bucketName,
 /*
  *
  * main function
+ *
+ * usage: run_get_bucket_policy <bucket_name>
+ *
  * Prerequisites: Create an S3 bucket to get the bucket policy information about it.
  *
- * TODO(user): items: Set the following variables
- * - bucketName: The name of the bucket to get bucket policy information about.
- *
-*/
+ */
 
 #ifndef TESTING_BUILD
 
-int main() {
-    //TODO(user): Change bucket_name to the name of a bucket in your account.
-    const Aws::String bucket_name = "<Enter bucket name>";
-
+int main(int argc, char* argv[]) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
+
+    if (argc != 2) {
+        std::cout << R"(
+Usage:
+    run_get_bucket_policy <bucket_name>
+Where:
+    bucket_name - The name of the bucket to retrieve the policy for.
+)" << std::endl;
+        return 1;
+    }
+
+    Aws::String bucketName = argv[1];
+
     {
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::S3::GetBucketPolicy(bucket_name, clientConfig);
+        AwsDoc::S3::getBucketPolicy(bucketName, clientConfig);
     }
-    Aws::ShutdownAPI(options);
 
+    Aws::ShutdownAPI(options);
     return 0;
 }
 

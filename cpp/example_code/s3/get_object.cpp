@@ -7,7 +7,7 @@
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/GetObjectRequest.h>
 #include <fstream>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -24,16 +24,16 @@
 
 //! Routine which demonstrates getting an object in an S3 bucket.
 /*!
-  \sa GetObject()
+  \sa getObject()
   \param objectKey Name of an object in a bucket.
   \param toBucket: Name of a bucket.
   \param clientConfig: Aws client configuration.
 */
 
 // snippet-start:[s3.cpp.get_object.code]
-bool AwsDoc::S3::GetObject(const Aws::String &objectKey,
+bool AwsDoc::S3::getObject(const Aws::String &objectKey,
                            const Aws::String &fromBucket,
-                           const Aws::Client::ClientConfiguration &clientConfig) {
+                           const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
 
     Aws::S3::Model::GetObjectRequest request;
@@ -45,10 +45,9 @@ bool AwsDoc::S3::GetObject(const Aws::String &objectKey,
 
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();
-        std::cerr << "Error: GetObject: " <<
+        std::cerr << "Error: getObject: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully retrieved '" << objectKey << "' from '"
                   << fromBucket << "'." << std::endl;
     }
@@ -61,35 +60,45 @@ bool AwsDoc::S3::GetObject(const Aws::String &objectKey,
  *
  * main function
  *
+ * usage: run_get_object <object_name> <bucket_name>
+ *
+ * Where:
+ *  object_name - the name of an object in the bucket.
+ *  bucket_name - the name of a bucket.
+ *
  * Prerequisites: The bucket with an object to be retrieved.
  *
- * TODO(user): items: Set the following variable
- * - bucketName: The name of the bucket.
- * - objectName: The name of an object in the bucket.
-*
-*/
+ */
 
 #ifndef TESTING_BUILD
 
-int main() {
+int main(int argc, char* argv[]) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
+
+    if (argc != 3) {
+        std::cout << R"(
+Usage:
+    run_get_object <object_name> <bucket_name>
+Where:
+    object_name - The name of the object to retrieve.
+    bucket_name - The name of the bucket containing the object.
+)" << std::endl;
+        return 1;
+    }
+
+    Aws::String objectName = argv[1];
+    Aws::String bucketName = argv[2];
+
     {
-        //TODO(user): Change bucketName to the name of a bucket in your account.
-        const Aws::String bucketName = "<Enter bucket name>";
-
-        //TODO(user): Change objectName to the name of an object in the bucket.
-        //See create_bucket.cpp and put_object.cpp to create a bucket and load an object into that bucket.
-        const Aws::String objectName = "<Enter object name>";
-
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::S3::GetObject(objectName, bucketName, clientConfig);
+        AwsDoc::S3::getObject(objectName, bucketName, clientConfig);
     }
-    Aws::ShutdownAPI(options);
 
+    Aws::ShutdownAPI(options);
     return 0;
 }
 

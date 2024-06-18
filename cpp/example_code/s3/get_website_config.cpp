@@ -5,7 +5,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/GetBucketWebsiteRequest.h>
-#include <awsdoc/s3/s3_examples.h>
+#include "s3_examples.h"
 
 /**
 * Before running this C++ code example, set up your development environment, including your credentials.
@@ -43,8 +43,7 @@ bool AwsDoc::S3::GetWebsiteConfig(const Aws::String &bucketName,
 
         std::cerr << "Error: GetBucketWebsite: "
                   << err.GetMessage() << std::endl;
-    }
-    else {
+    } else {
         Aws::S3::Model::GetBucketWebsiteResult websiteResult = outcome.GetResult();
 
         std::cout << "Success: GetBucketWebsite: "

@@ -7,7 +7,7 @@
 #include <aws/s3/model/ErrorDocument.h>
 #include <aws/s3/model/WebsiteConfiguration.h>
 #include <aws/s3/model/PutBucketWebsiteRequest.h>
-#include <awsdoc/s3/s3_examples.h>
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -57,8 +57,7 @@ bool AwsDoc::S3::PutWebsiteConfig(const Aws::String &bucketName,
     if (!outcome.IsSuccess()) {
         std::cerr << "Error: PutBucketWebsite: "
                   << outcome.GetError().GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Success: Set website configuration for bucket '"
                   << bucketName << "'." << std::endl;
     }

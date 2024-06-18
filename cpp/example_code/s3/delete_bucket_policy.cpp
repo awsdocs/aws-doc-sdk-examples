@@ -5,7 +5,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/DeleteBucketPolicyRequest.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -22,14 +22,14 @@
 
 //! Routine which demonstrates deleting the policy in an S3 bucket.
 /*!
-  \sa DeleteBucketPolicy()
+  \sa deleteBucketPolicy()
   \param toBucket Name of a bucket with the policy to delete.
   \param clientConfig Aws client configuration.
 */
 
 // snippet-start:[s3.cpp.delete_bucket_policy.code]
-bool AwsDoc::S3::DeleteBucketPolicy(const Aws::String &bucketName,
-                                    const Aws::Client::ClientConfiguration &clientConfig) {
+bool AwsDoc::S3::deleteBucketPolicy(const Aws::String &bucketName,
+                                    const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
 
     Aws::S3::Model::DeleteBucketPolicyRequest request;
@@ -39,10 +39,9 @@ bool AwsDoc::S3::DeleteBucketPolicy(const Aws::String &bucketName,
 
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();
-        std::cerr << "Error: DeleteBucketPolicy: " <<
+        std::cerr << "Error: deleteBucketPolicy: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Policy was deleted from the bucket." << std::endl;
     }
 
@@ -55,30 +54,39 @@ bool AwsDoc::S3::DeleteBucketPolicy(const Aws::String &bucketName,
  *
  * main function
  *
- * Prerequisites: The bucket with a policy to be deleted.
+ * usage 'run_delete_bucket_policy <bucket_name>'
  *
- * TODO(user): items: Set the following variable
- * - bucketName: The name of the bucket with a policy to delete.
+ * Prerequisites: The bucket with a policy to be deleted.
  *
 */
 
 #ifndef TESTING_BUILD
 
-int main() {
-    //TODO(user): Change bucket_name to the name of a bucket in your account.
-    const Aws::String bucketName = "<Enter bucket name>";
-
+int main(int argc, char* argv[]) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
+    if (argc != 2) {
+        std::cout << R"(
+Usage:
+    run_delete_bucket_policy <bucket_name>
+Where:
+    bucket_name - The name of the bucket to delete the policy from.
+)" << std::endl;
+        return 1;
+    }
+
+    Aws::String bucketName = argv[1];
+
     {
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::S3::DeleteBucketPolicy(bucketName, clientConfig);
+        AwsDoc::S3::deleteBucketPolicy(bucketName, clientConfig);
     }
 
     ShutdownAPI(options);
+    return 0;
 }
 
 #endif // TESTING_BUILD

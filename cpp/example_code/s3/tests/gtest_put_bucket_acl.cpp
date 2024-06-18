@@ -11,7 +11,7 @@
 
 #include <gtest/gtest.h>
 #include <fstream>
-#include "awsdoc/s3/s3_examples.h"
+#include "../s3_examples.h"
 #include "S3_GTests.h"
 
 static const int BUCKETS_NEEDED = 1;
@@ -26,7 +26,7 @@ namespace AwsDocTest {
         ASSERT_TRUE(!canonicalUserID.empty()) << "Failed to meet precondition" << std::endl;
 
         bool result = AwsDoc::S3::PutBucketAcl(bucketNames[0], canonicalUserID, "READ", "Canonical user",
-                                               canonicalUserID, *s_clientConfig);
+                                               canonicalUserID, "", "", *s_clientConfig);
 
         ASSERT_TRUE(result);
     }

@@ -5,7 +5,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/Bucket.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -36,8 +36,7 @@ bool AwsDoc::S3::ListBuckets(const Aws::Client::ClientConfiguration &clientConfi
     if (!outcome.IsSuccess()) {
         std::cerr << "Failed with error: " << outcome.GetError() << std::endl;
         result = false;
-    }
-    else {
+    } else {
         std::cout << "Found " << outcome.GetResult().GetBuckets().size() << " buckets\n";
         for (auto &&b: outcome.GetResult().GetBuckets()) {
             std::cout << b.GetName() << std::endl;

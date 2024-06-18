@@ -6,7 +6,7 @@
 #include <aws/s3/model/PutObjectRequest.h>
 #include <iostream>
 #include <fstream>
-#include <awsdoc/s3/s3_examples.h>
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -52,8 +52,7 @@ bool AwsDoc::S3::PutObjectBuffer(const Aws::String &bucketName,
     if (!outcome.IsSuccess()) {
         std::cerr << "Error: PutObjectBuffer: " <<
                   outcome.GetError().GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Success: Object '" << objectName << "' with content '"
                   << objectContent << "' uploaded to bucket '" << bucketName << "'.";
     }

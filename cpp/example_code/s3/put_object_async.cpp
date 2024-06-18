@@ -10,7 +10,7 @@
 #include <iostream>
 #include <mutex>
 #include <sys/stat.h>
-#include <awsdoc/s3/s3_examples.h>
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -54,8 +54,7 @@ void PutObjectAsyncFinished(const Aws::S3::S3Client *s3Client,
     if (outcome.IsSuccess()) {
         std::cout << "Success: PutObjectAsyncFinished: Finished uploading '"
                   << context->GetUUID() << "'." << std::endl;
-    }
-    else {
+    } else {
         std::cerr << "Error: PutObjectAsyncFinished: " <<
                   outcome.GetError().GetMessage() << std::endl;
     }

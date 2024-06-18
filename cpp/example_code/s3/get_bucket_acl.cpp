@@ -8,7 +8,7 @@
 #include <aws/s3/model/GetObjectAclRequest.h>
 #include <aws/s3/model/Grant.h>
 #include <aws/s3/model/Permission.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -23,20 +23,20 @@
  *
  */
 
-static Aws::String GetGranteeTypeString(const Aws::S3::Model::Type &type);
+static Aws::String getGranteeTypeString(const Aws::S3::Model::Type &type);
 
-static Aws::String GetPermissionString(const Aws::S3::Model::Permission &permission);
+static Aws::String getPermissionString(const Aws::S3::Model::Permission &permission);
 
 //! Routine which demonstrates getting the ACL for an S3 bucket.
 /*!
-  \sa GetBucketAcl()
+  \sa getBucketAcl()
   \param bucketName Name of the S3 bucket.
   \param clientConfig Aws client configuration.
 */
 
 // snippet-start:[s3.cpp.get_acl_bucket.code]
-bool AwsDoc::S3::GetBucketAcl(const Aws::String &bucketName,
-                              const Aws::Client::ClientConfiguration &clientConfig) {
+bool AwsDoc::S3::getBucketAcl(const Aws::String &bucketName,
+                              const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client s3_client(clientConfig);
 
     Aws::S3::Model::GetBucketAclRequest request;
@@ -47,10 +47,9 @@ bool AwsDoc::S3::GetBucketAcl(const Aws::String &bucketName,
 
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();
-        std::cerr << "Error: GetBucketAcl: "
+        std::cerr << "Error: getBucketAcl: "
                   << err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-    }
-    else {
+    } else {
         Aws::Vector<Aws::S3::Model::Grant> grants =
                 outcome.GetResult().GetGrants();
 
@@ -63,7 +62,7 @@ bool AwsDoc::S3::GetBucketAcl(const Aws::String &bucketName,
 
             if (grantee.TypeHasBeenSet()) {
                 std::cout << "Type:          "
-                          << GetGranteeTypeString(grantee.GetType()) << std::endl;
+                          << getGranteeTypeString(grantee.GetType()) << std::endl;
             }
 
             if (grantee.DisplayNameHasBeenSet()) {
@@ -87,7 +86,7 @@ bool AwsDoc::S3::GetBucketAcl(const Aws::String &bucketName,
             }
 
             std::cout << "Permission:    " <<
-                      GetPermissionString(grant.GetPermission()) <<
+                      getPermissionString(grant.GetPermission()) <<
                       std::endl << std::endl;
         }
     }
@@ -97,11 +96,11 @@ bool AwsDoc::S3::GetBucketAcl(const Aws::String &bucketName,
 
 //! Routine which converts a built-in type enumeration to a human-readable string.
 /*!
- \sa GetGranteeTypeString()
+ \sa getGranteeTypeString()
  \param type Type enumeration.
 */
 
-Aws::String GetGranteeTypeString(const Aws::S3::Model::Type &type) {
+Aws::String getGranteeTypeString(const Aws::S3::Model::Type &type) {
     switch (type) {
         case Aws::S3::Model::Type::AmazonCustomerByEmail:
             return "Email address of an AWS account";
@@ -118,11 +117,11 @@ Aws::String GetGranteeTypeString(const Aws::S3::Model::Type &type) {
 
 //! Routine which converts a built-in type enumeration to a human-readable string.
 /*!
- \sa GetPermissionString()
+ \sa getPermissionString()
  \param permission Permission enumeration.
 */
 
-Aws::String GetPermissionString(const Aws::S3::Model::Permission &permission) {
+Aws::String getPermissionString(const Aws::S3::Model::Permission &permission) {
     switch (permission) {
         case Aws::S3::Model::Permission::FULL_CONTROL:
             return "Can list objects in this bucket, create/overwrite/delete "
@@ -151,29 +150,38 @@ Aws::String GetPermissionString(const Aws::S3::Model::Permission &permission) {
  *
  * main function
  *
- * Prerequisites: Create an S3 bucket to get the ACL information about it.
+ * usage: run_get_bucket_acl <bucket_name>
  *
- * TODO(user): items: Set the following variables
- * - bucketName: The name of the bucket to get the ACL information about.
+ * Prerequisites: Create an S3 bucket to get the ACL information about it.
  *
  */
 
 #ifndef TESTING_BUILD
 
-int main() {
-    //TODO(user): Name of your bucket.
-    Aws::String bucket_name = "<Enter bucket name>";
-
+int main(int argc, char* argv[]) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
+
+    if (argc != 2) {
+        std::cout << R"(
+Usage:
+    run_get_bucket_acl <bucket_name>
+Where:
+    bucket_name - The name of the bucket to retrieve the access control list (ACL) for.
+)" << std::endl;
+        return 1;
+    }
+
+    Aws::String bucketName = argv[1];
+
     {
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::S3::GetBucketAcl(bucket_name, clientConfig);
+        AwsDoc::S3::getBucketAcl(bucketName, clientConfig);
     }
-    Aws::ShutdownAPI(options);
 
+    Aws::ShutdownAPI(options);
     return 0;
 }
 

@@ -42,7 +42,8 @@ public:
                                         << R"("RoleArn":"arn:aws:iam::123456789012:role/MockRole",)"
                                         << R"("AccessKeyId":"ABCDEFGHIJK",)"
                                         << R"("SecretAccessKey":"ABCDEFGHIJK",)"
-                                        << R"(Token":"ABCDEFGHIJK==","Expiration":")" << expiration.ToGmtString(Aws::Utils::DateFormat::ISO_8601) << "\""
+                                        << R"(Token":"ABCDEFGHIJK==","Expiration":")"
+                                        << expiration.ToGmtString(Aws::Utils::DateFormat::ISO_8601) << "\""
                                         << "}";
         this->AddResponseToReturn(goodResponse);
 
@@ -59,8 +60,7 @@ public:
             std::cout << "CustomMockHTTPClient returning credentials request."
                       << std::endl;
             return mCredentialsResponse;
-        }
-        else {
+        } else {
             return MockHttpClient::MakeRequest(request, readLimiter, writeLimiter);;
         }
     }
@@ -108,8 +108,7 @@ Aws::String AwsDocTest::S3_GTests::GetTestFilePath() {
             myFile << "This file is part of unit testing";
             myFile.close();
             s_testFilePath = filePath;
-        }
-        else {
+        } else {
             std::cerr << "Error - S3_GTests::GetTestFilePath could not create file." << std::endl;
         }
     }
@@ -185,8 +184,7 @@ bool AwsDocTest::S3_GTests::DeleteAllObjectsInBucket(const Aws::String &bucketNa
                 result = false;
             }
         }
-    }
-    else {
+    } else {
         auto err = outcome.GetError();
         std::cerr << "Error - S3_GTests::DeleteAllObjectsInBucket " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
@@ -244,7 +242,7 @@ bool AwsDocTest::S3_GTests::CreateBucket(const Aws::String &bucketName) {
     bool result = true;
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();
-        std::cerr << "S3_GTests::getCachedS3Bucket Error: CreateBucket: " <<
+        std::cerr << "S3_GTests::getCachedS3Bucket Error: createBucket: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
         result = false;
     }
@@ -263,8 +261,7 @@ Aws::String AwsDocTest::S3_GTests::GetArnForUser() {
         if (!outcome.IsSuccess()) {
             std::cerr << "Error getting Iam user. " <<
                       outcome.GetError().GetMessage() << std::endl;
-        }
-        else {
+        } else {
             s_userArn = outcome.GetResult().GetUser().GetArn();
         }
     }
@@ -343,8 +340,7 @@ Aws::String AwsDocTest::S3_GTests::GetCanonicalUserID() {
         auto outcome = client.ListBuckets();
         if (outcome.IsSuccess()) {
             s_canonicalUserID = outcome.GetResult().GetOwner().GetID();
-        }
-        else {
+        } else {
             std::cout << "S3_GTests::GetCanonicalUserID Failed with error: " << outcome.GetError() << std::endl;
         }
     }

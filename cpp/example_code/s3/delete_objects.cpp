@@ -20,26 +20,25 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/DeleteObjectsRequest.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 //! Routine which demonstrates deleting multiple objects in an Amazon S3 bucket.
 /*!
-  \sa DeleteObjects()
+  \sa deleteObjects()
   \param objectKeys: Vector of object keys.
   \param fromBucket: Name of a bucket with an object to delete.
   \param clientConfig: AWS client configuration.
 */
 
 // snippet-start:[cpp.example_code.s3.delete_objects]
-bool AwsDoc::S3::DeleteObjects(const std::vector<Aws::String> &objectKeys,
+bool AwsDoc::S3::deleteObjects(const std::vector<Aws::String> &objectKeys,
                                const Aws::String &fromBucket,
-                               const Aws::Client::ClientConfiguration &clientConfig) {
+                               const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
     Aws::S3::Model::DeleteObjectsRequest request;
 
     Aws::S3::Model::Delete deleteObject;
-    for (const Aws::String& objectKey : objectKeys)
-    {
+    for (const Aws::String &objectKey: objectKeys) {
         deleteObject.AddObjects(Aws::S3::Model::ObjectIdentifier().WithKey(objectKey));
     }
 
@@ -53,14 +52,11 @@ bool AwsDoc::S3::DeleteObjects(const std::vector<Aws::String> &objectKeys,
         auto err = outcome.GetError();
         std::cerr << "Error deleting objects. " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully deleted the objects.";
-        for (size_t i = 0; i < objectKeys.size(); ++i)
-        {
+        for (size_t i = 0; i < objectKeys.size(); ++i) {
             std::cout << objectKeys[i];
-            if (i < objectKeys.size() - 1)
-            {
+            if (i < objectKeys.size() - 1) {
                 std::cout << ", ";
             }
         }
@@ -109,10 +105,10 @@ Where:
             objectKeys.push_back(Aws::String(argv[i]));
         }
 
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::S3::DeleteObjects(objectKeys, bucketName, clientConfig);
+        AwsDoc::S3::deleteObjects(objectKeys, bucketName, clientConfig);
     }
 
     ShutdownAPI(options);
