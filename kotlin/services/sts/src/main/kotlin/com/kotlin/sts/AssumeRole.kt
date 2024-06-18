@@ -56,7 +56,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[sts.kotlin.assume_role.main]
 suspend fun assumeGivenRole(
     roleArnVal: String?,
-    roleSessionNameVal: String?
+    roleSessionNameVal: String?,
 ) {
     val roleRequest =
         AssumeRoleRequest {

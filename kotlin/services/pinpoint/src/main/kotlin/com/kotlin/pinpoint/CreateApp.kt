@@ -48,7 +48,7 @@ suspend fun createApplication(applicationName: String?): String? {
             pinpoint.createApp(
                 CreateAppRequest {
                     createApplicationRequest = createApplicationRequestOb
-                }
+                },
             )
         return result.applicationResponse?.id
     }

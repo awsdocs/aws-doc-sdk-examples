@@ -40,7 +40,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[firehose.kotlin.put_record.main]
 suspend fun putSingleRecord(
     textValue: String,
-    streamName: String?
+    streamName: String?,
 ) {
     val bytes = textValue.toByteArray()
 

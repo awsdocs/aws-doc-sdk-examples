@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[cloudwatch.kotlin.put_rule.main]
 suspend fun putCWRule(
     ruleNameVal: String,
-    roleArnVal: String
+    roleArnVal: String,
 ) {
     val request =
         PutRuleRequest {

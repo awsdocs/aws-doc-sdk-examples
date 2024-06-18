@@ -43,7 +43,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[sqs.kotlin.send_messages.main]
 suspend fun sendMessages(
     queueUrlVal: String,
-    message: String
+    message: String,
 ) {
     println("Sending multiple messages")
     println("\nSend message")

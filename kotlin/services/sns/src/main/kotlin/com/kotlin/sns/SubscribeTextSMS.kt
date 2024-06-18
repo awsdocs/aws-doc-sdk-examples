@@ -40,7 +40,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[sns.kotlin.SubscribeTextSMS.main]
 suspend fun subTextSNS(
     topicArnVal: String?,
-    phoneNumber: String?
+    phoneNumber: String?,
 ) {
     val request =
         SubscribeRequest {

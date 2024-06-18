@@ -43,7 +43,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[s3.kotlin.set_bucket_policy.main]
 suspend fun setPolicy(
     bucketName: String,
-    polText: String
+    polText: String,
 ) {
     val policyText = getBucketPolicyFromFile(polText)
     println("Setting policy:")
@@ -71,7 +71,7 @@ fun getBucketPolicyFromFile(policyFile: String): String {
         val lines =
             Files.readAllLines(
                 Paths.get(policyFile),
-                Charset.forName("UTF-8")
+                Charset.forName("UTF-8"),
             )
         for (line in lines) {
             fileText.append(line)

@@ -38,7 +38,7 @@ suspend fun main(args: Array<String>) {
 
 suspend fun listAllEndpoints(
     applicationIdVal: String?,
-    userIdVal: String?
+    userIdVal: String?,
 ) {
     PinpointClient { region = "us-east-1" }.use { pinpoint ->
 
@@ -47,7 +47,7 @@ suspend fun listAllEndpoints(
                 GetUserEndpointsRequest {
                     userId = userIdVal
                     applicationId = applicationIdVal
-                }
+                },
             )
         response.endpointsResponse?.item?.forEach { endpoint ->
             println("The channel type is ${endpoint.channelType}")

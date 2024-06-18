@@ -113,7 +113,7 @@ suspend fun checkAuthMethod(
     clientIdVal: String,
     userNameVal: String,
     passwordVal: String,
-    userPoolIdVal: String
+    userPoolIdVal: String,
 ): AdminInitiateAuthResponse {
     val authParas = mutableMapOf<String, String>()
     authParas["USERNAME"] = userNameVal
@@ -138,7 +138,7 @@ suspend fun checkAuthMethod(
 // snippet-start:[cognito.kotlin.confirm.resend.mvp.main]
 suspend fun resendConfirmationCode(
     clientIdVal: String?,
-    userNameVal: String?
+    userNameVal: String?,
 ) {
     val codeRequest =
         ResendConfirmationCodeRequest {
@@ -159,7 +159,7 @@ suspend fun adminRespondToAuthChallenge(
     userName: String,
     clientIdVal: String?,
     mfaCode: String,
-    sessionVal: String?
+    sessionVal: String?,
 ) {
     println("SOFTWARE_TOKEN_MFA challenge is generated")
     val challengeResponsesOb = mutableMapOf<String, String>()
@@ -185,7 +185,7 @@ suspend fun adminRespondToAuthChallenge(
 // Verify the TOTP and register for MFA.
 suspend fun verifyTOTP(
     sessionVal: String?,
-    codeVal: String?
+    codeVal: String?,
 ) {
     val tokenRequest =
         VerifySoftwareTokenRequest {
@@ -221,7 +221,7 @@ suspend fun getSecretForAppMFA(sessionVal: String?): String? {
 suspend fun confirmSignUp(
     clientIdVal: String?,
     codeVal: String?,
-    userNameVal: String?
+    userNameVal: String?,
 ) {
     val signUpRequest =
         ConfirmSignUpRequest {
@@ -240,7 +240,7 @@ suspend fun confirmSignUp(
 // snippet-start:[cognito.kotlin.confirm.getuser.mvp.main]
 suspend fun getAdminUser(
     userNameVal: String?,
-    poolIdVal: String?
+    poolIdVal: String?,
 ) {
     val userRequest =
         AdminGetUserRequest {
@@ -260,7 +260,7 @@ suspend fun signUp(
     clientIdVal: String?,
     userNameVal: String?,
     passwordVal: String?,
-    emailVal: String?
+    emailVal: String?,
 ) {
     val userAttrs =
         AttributeType {

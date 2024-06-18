@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[s3.kotlin.delete_objects.main]
 suspend fun deleteBucketObjects(
     bucketName: String,
-    objectName: String
+    objectName: String,
 ) {
     val objectId =
         ObjectIdentifier {

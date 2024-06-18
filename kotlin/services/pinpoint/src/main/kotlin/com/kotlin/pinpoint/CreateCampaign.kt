@@ -45,7 +45,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[pinpoint.kotlin.createcampaign.main]
 suspend fun createPinCampaign(
     appId: String,
-    segmentIdVal: String
+    segmentIdVal: String,
 ) {
     val scheduleOb =
         Schedule {
@@ -79,7 +79,7 @@ suspend fun createPinCampaign(
                 CreateCampaignRequest {
                     applicationId = appId
                     writeCampaignRequest = writeCampaign
-                }
+                },
             )
         println("Campaign ID is ${result.campaignResponse?.id}")
     }

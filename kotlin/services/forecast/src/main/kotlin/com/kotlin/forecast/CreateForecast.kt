@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[forecast.kotlin.create_forecast.main]
 suspend fun createNewForecast(
     name: String?,
-    predictorArnVal: String?
+    predictorArnVal: String?,
 ): String? {
     val request =
         CreateForecastRequest {

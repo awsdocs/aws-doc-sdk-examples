@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[appsync.kotlin.del_ds.main]
 suspend fun deleteDS(
     apiIdVal: String?,
-    dsName: String?
+    dsName: String?,
 ) {
     val request =
         DeleteDataSourceRequest {

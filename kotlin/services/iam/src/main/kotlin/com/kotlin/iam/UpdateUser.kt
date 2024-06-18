@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[iam.kotlin.update_user.main]
 suspend fun updateIAMUser(
     curName: String?,
-    newName: String?
+    newName: String?,
 ) {
     val request =
         UpdateUserRequest {

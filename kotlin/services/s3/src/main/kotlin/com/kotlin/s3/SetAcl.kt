@@ -45,7 +45,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[s3.kotlin.set_acl.main]
 suspend fun setBucketAcl(
     bucketName: String,
-    idVal: String
+    idVal: String,
 ) {
     val myGrant =
         Grantee {

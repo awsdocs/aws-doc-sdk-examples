@@ -132,7 +132,7 @@ suspend fun createPolicy(policyNameVal: String?): String {
 
 suspend fun createRole(
     rolenameVal: String?,
-    fileLocation: String?
+    fileLocation: String?,
 ): String? {
     val jsonObject = fileLocation?.let { readJsonSimpleDemo(it) } as JSONObject
 
@@ -151,7 +151,7 @@ suspend fun createRole(
 
 suspend fun attachRolePolicy(
     roleNameVal: String,
-    policyArnVal: String
+    policyArnVal: String,
 ) {
     val request =
         ListAttachedRolePoliciesRequest {
@@ -183,7 +183,7 @@ suspend fun attachRolePolicy(
 
 fun checkMyList(
     attachedPolicies: List<AttachedPolicy>,
-    policyArnVal: String
+    policyArnVal: String,
 ): Int {
     for (policy in attachedPolicies) {
         val polArn = policy.policyArn.toString()
@@ -199,7 +199,7 @@ fun checkMyList(
 suspend fun assumeGivenRole(
     roleArnVal: String?,
     roleSessionNameVal: String?,
-    bucketName: String
+    bucketName: String,
 ) {
     val stsClient =
         StsClient {
@@ -249,7 +249,7 @@ suspend fun assumeGivenRole(
 
 suspend fun deleteRole(
     roleNameVal: String,
-    polArn: String
+    polArn: String,
 ) {
     val iam = IamClient { region = "AWS_GLOBAL" }
 

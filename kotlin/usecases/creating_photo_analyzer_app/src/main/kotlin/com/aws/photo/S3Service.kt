@@ -44,7 +44,7 @@ class S3Service {
     }
 
     // Returns the names of all images and data within an XML document.
-    suspend fun ListAllObjects(bucketName: String?): String? {
+    suspend fun listAllObjects(bucketName: String?): String? {
         var sizeLg: Long
         var dateIn: aws.smithy.kotlin.runtime.time.Instant?
         val bucketItems = mutableListOf<BucketItem>()
@@ -59,7 +59,7 @@ class S3Service {
                 val myItem = BucketItem()
                 myItem.key = myObject.key
                 myItem.owner = myObject.owner?.displayName.toString()
-                sizeLg = (myObject.size / 1024)
+                sizeLg = (myObject.size?.div(1024)!!)
                 myItem.size = (sizeLg.toString())
                 dateIn = myObject.lastModified
                 myItem.date = dateIn.toString()

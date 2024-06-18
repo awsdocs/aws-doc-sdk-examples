@@ -51,7 +51,7 @@ suspend fun createGlueCrawler(
     s3Path: String?,
     cron: String?,
     dbName: String?,
-    crawlerName: String
+    crawlerName: String,
 ) {
     val s3Target =
         S3Target {

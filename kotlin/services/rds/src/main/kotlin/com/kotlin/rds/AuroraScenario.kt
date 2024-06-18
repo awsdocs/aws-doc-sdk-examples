@@ -154,7 +154,7 @@ suspend fun main(args: Array<String>) {
 @Throws(InterruptedException::class)
 suspend fun deleteDBClusterGroup(
     dbClusterGroupName: String,
-    clusterDBARN: String
+    clusterDBARN: String,
 ) {
     var isDataDel = false
     var didFind: Boolean
@@ -230,7 +230,7 @@ suspend fun deleteDBInstance(dbInstanceIdentifierVal: String) {
 // snippet-start:[rds.kotlin.scenario.cluster.wait.snapshot.main]
 suspend fun waitSnapshotReady(
     dbSnapshotIdentifier: String?,
-    dbInstanceClusterIdentifier: String?
+    dbInstanceClusterIdentifier: String?,
 ) {
     var snapshotReady = false
     var snapshotReadyStr: String
@@ -266,7 +266,7 @@ suspend fun waitSnapshotReady(
 // snippet-start:[rds.kotlin.scenario.cluster.create.snapshot.main]
 suspend fun createDBClusterSnapshot(
     dbInstanceClusterIdentifier: String?,
-    dbSnapshotIdentifier: String?
+    dbSnapshotIdentifier: String?,
 ) {
     val snapshotRequest =
         CreateDbClusterSnapshotRequest {
@@ -315,7 +315,7 @@ suspend fun waitDBAuroraInstanceReady(dbInstanceIdentifierVal: String?) {
 suspend fun createDBInstanceCluster(
     dbInstanceIdentifierVal: String?,
     dbInstanceClusterIdentifierVal: String?,
-    instanceClassVal: String?
+    instanceClassVal: String?,
 ): String? {
     val instanceRequest =
         CreateDbInstanceRequest {
@@ -389,7 +389,7 @@ suspend fun createDBCluster(
     dbName: String?,
     dbClusterIdentifierVal: String?,
     userName: String?,
-    password: String?
+    password: String?,
 ): String? {
     val clusterRequest =
         CreateDbClusterRequest {
@@ -455,7 +455,7 @@ suspend fun modifyDBClusterParas(dClusterGroupName: String?) {
 // snippet-start:[rds.kotlin.scenario.des.params.main]
 suspend fun describeDbClusterParameters(
     dbCLusterGroupName: String?,
-    flag: Int
+    flag: Int,
 ) {
     val dbParameterGroupsRequest: DescribeDbClusterParametersRequest
     dbParameterGroupsRequest =
@@ -510,7 +510,7 @@ suspend fun describeDbClusterParameterGroups(dbClusterGroupName: String?) {
 // snippet-start:[rds.kotlin.scenario.create.params.groups.main]
 suspend fun createDBClusterParameterGroup(
     dbClusterGroupNameVal: String?,
-    dbParameterGroupFamilyVal: String?
+    dbParameterGroupFamilyVal: String?,
 ) {
     val groupRequest =
         CreateDbClusterParameterGroupRequest {

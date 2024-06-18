@@ -48,7 +48,7 @@ suspend fun createSagemakerModel(
     dataUrl: String,
     imageVal: String,
     modelNameVal: String,
-    executionRoleArnVal: String
+    executionRoleArnVal: String,
 ) {
     val containerDefinition =
         ContainerDefinition {

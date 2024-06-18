@@ -44,7 +44,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[textract.kotlin._start_doc_analysis.main]
 suspend fun startDocAnalysisS3(
     bucketName: String?,
-    docName: String?
+    docName: String?,
 ) {
     val myList = mutableListOf<FeatureType>()
     myList.add(FeatureType.Tables)
@@ -79,7 +79,7 @@ suspend fun startDocAnalysisS3(
 
 private suspend fun getJobResults(
     textractClient: TextractClient,
-    jobIdVal: String?
+    jobIdVal: String?,
 ): String {
     var finished = false
     var index = 0

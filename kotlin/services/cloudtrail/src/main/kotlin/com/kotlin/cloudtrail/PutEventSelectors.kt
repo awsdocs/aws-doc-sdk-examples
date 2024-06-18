@@ -42,7 +42,7 @@ suspend fun setSelector(trailNameVal: String?) {
             PutEventSelectorsRequest {
                 trailName = trailNameVal
                 eventSelectors = listOf(selector)
-            }
+            },
         )
     }
 }

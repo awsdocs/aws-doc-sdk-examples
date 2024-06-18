@@ -75,7 +75,7 @@ suspend fun main() {
                 In this workflow, you will create an SNS topic and subscribe an SQS queue to the topic.
                 You can select from several options for configuring the topic and the subscriptions for the queue.
                 You can then post to the topic and see the results in the queue.
-        """.trimIndent()
+        """.trimIndent(),
     )
     println(DASHES)
 
@@ -85,7 +85,7 @@ suspend fun main() {
                 SNS topics can be configured as FIFO (First-In-First-Out).
                 FIFO topics deliver messages in order and support deduplication and message filtering.
                 Would you like to work with FIFO topics? (y/n)
-        """.trimIndent()
+        """.trimIndent(),
     )
     useFIFO = input.nextLine()
     if (useFIFO.compareTo("y") == 0) {
@@ -96,7 +96,7 @@ suspend fun main() {
         Deduplication IDs are either set in the message or automatically generated from content using a hash function.
         If a message is successfully published to an SNS FIFO topic, any message published and determined to have the same deduplication ID,
         within the five-minute deduplication interval, is accepted but not delivered.
-        For more information about deduplication, see https://docs.aws.amazon.com/sns/latest/dg/fifo-message-dedup.html."""
+        For more information about deduplication, see https://docs.aws.amazon.com/sns/latest/dg/fifo-message-dedup.html.""",
         )
 
         println("Would you like to use content-based deduplication instead of entering a deduplication ID? (y/n)")
@@ -176,7 +176,7 @@ suspend fun main() {
         println(
             """If you add a filter to this subscription, then only the filtered messages will be received in the queue.
 For information about message filtering, see https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html
-For this example, you can filter messages by a "tone" attribute."""
+For this example, you can filter messages by a "tone" attribute.""",
         )
         println("Would you like to filter messages for $sqsQueueName's subscription to the topic $topicName?  (y/n)")
         val filterAns: String = input.nextLine()
@@ -368,7 +368,7 @@ suspend fun pubMessageFIFO(
     msgAttValue: String,
     duplication: String,
     groupIdVal: String?,
-    deduplicationID: String?
+    deduplicationID: String?,
 ) {
     // Means the user did not choose to use a message attribute.
     if (msgAttValue.isEmpty()) {
@@ -449,7 +449,7 @@ suspend fun subQueue(topicArnVal: String?, queueArnVal: String, filterList: List
             val result = snsClient.subscribe(request)
             println(
                 "The queue " + queueArnVal + " has been subscribed to the topic " + topicArnVal + "\n" +
-                    "with the subscription ARN " + result.subscriptionArn
+                    "with the subscription ARN " + result.subscriptionArn,
             )
             return result.subscriptionArn
         }

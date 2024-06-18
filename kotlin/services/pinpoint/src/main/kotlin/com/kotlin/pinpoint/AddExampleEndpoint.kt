@@ -80,7 +80,7 @@ suspend fun updateEndpointsViaBatch(applicationIdVal: String?) {
                 UpdateEndpointsBatchRequest {
                     applicationId = applicationIdVal
                     endpointBatchRequest = endpointList
-                }
+                },
             )
         println("Update endpoint result ${result.messageBody?.message}")
     }

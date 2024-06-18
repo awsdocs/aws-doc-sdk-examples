@@ -63,7 +63,7 @@ suspend fun main(args: Array<String>) {
 suspend fun startModerationDetection(
     channel: NotificationChannel?,
     bucketVal: String?,
-    videoVal: String?
+    videoVal: String?,
 ) {
     val s3Obj =
         S3Object {

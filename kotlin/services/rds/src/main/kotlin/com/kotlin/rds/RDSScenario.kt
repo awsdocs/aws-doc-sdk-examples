@@ -142,7 +142,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[rds.kotlin.scenario.del_paragroup.main]
 suspend fun deleteParaGroup(
     dbGroupName: String,
-    dbARN: String
+    dbARN: String,
 ) {
     var isDataDel = false
     var didFind: Boolean
@@ -204,7 +204,7 @@ suspend fun deleteDbInstance(dbInstanceIdentifierVal: String) {
 // Waits until the snapshot instance is available.
 suspend fun waitForSnapshotReady(
     dbInstanceIdentifierVal: String?,
-    dbSnapshotIdentifierVal: String?
+    dbSnapshotIdentifierVal: String?,
 ) {
     var snapshotReady = false
     var snapshotReadyStr: String
@@ -241,7 +241,7 @@ suspend fun waitForSnapshotReady(
 // Create an Amazon RDS snapshot.
 suspend fun createDbSnapshot(
     dbInstanceIdentifierVal: String?,
-    dbSnapshotIdentifierVal: String?
+    dbSnapshotIdentifierVal: String?,
 ) {
     val snapshotRequest =
         CreateDbSnapshotRequest {
@@ -297,7 +297,7 @@ suspend fun createDatabaseInstance(
     dbInstanceIdentifierVal: String?,
     dbNameVal: String?,
     masterUsernameVal: String?,
-    masterUserPasswordVal: String?
+    masterUserPasswordVal: String?,
 ): String? {
     val instanceRequest =
         CreateDbInstanceRequest {
@@ -391,7 +391,7 @@ suspend fun modifyDBParas(dbGroupName: String) {
 // Retrieve parameters in the group.
 suspend fun describeDbParameters(
     dbGroupName: String?,
-    flag: Int
+    flag: Int,
 ) {
     val dbParameterGroupsRequest: DescribeDbParametersRequest
     dbParameterGroupsRequest =
@@ -450,7 +450,7 @@ suspend fun describeDbParameterGroups(dbGroupName: String?) {
 // Create a parameter group.
 suspend fun createDBParameterGroup(
     dbGroupName: String?,
-    dbParameterGroupFamilyVal: String?
+    dbParameterGroupFamilyVal: String?,
 ) {
     val groupRequest =
         CreateDbParameterGroupRequest {

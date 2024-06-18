@@ -56,7 +56,7 @@ suspend fun createSparkCluster(
     myClass: String?,
     keysVal: String?,
     logUriVal: String?,
-    nameVal: String?
+    nameVal: String?,
 ): String? {
     val jarStepConfig =
         HadoopJarStepConfig {

@@ -39,7 +39,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
 }
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
 }
 

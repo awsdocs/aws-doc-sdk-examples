@@ -40,7 +40,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[glue.kotlin.get_job.main]
 suspend fun getGlueJobRun(
     jobNameVal: String?,
-    runIdVal: String?
+    runIdVal: String?,
 ) {
     val request =
         GetJobRunRequest {

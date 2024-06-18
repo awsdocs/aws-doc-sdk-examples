@@ -44,7 +44,7 @@ suspend fun main(args: Array<String>) {
 suspend fun putS3Object(
     bucketName: String,
     objectKey: String,
-    objectPath: String
+    objectPath: String,
 ) {
     val metadataVal = mutableMapOf<String, String>()
     metadataVal["myVal"] = "test"

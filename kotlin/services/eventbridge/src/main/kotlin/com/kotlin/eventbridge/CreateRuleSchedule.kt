@@ -49,7 +49,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[eventbridge.kotlin._create_schedule_rule.main]
 suspend fun createScRule(
     ruleName: String?,
-    cronExpression: String?
+    cronExpression: String?,
 ) {
     val ruleRequest =
         PutRuleRequest {
@@ -72,7 +72,7 @@ suspend fun putRuleTarget(
     ruleName: String?,
     lambdaARN: String,
     json: String?,
-    targetId: String
+    targetId: String,
 ) {
     val lambdaTarget =
         Target {

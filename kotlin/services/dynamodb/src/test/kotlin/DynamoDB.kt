@@ -128,7 +128,7 @@ class DynamoDB {
                 awards,
                 awardVal,
                 songTitle,
-                songTitleVal
+                songTitleVal,
             )
             println("Test 3 passed")
         }
