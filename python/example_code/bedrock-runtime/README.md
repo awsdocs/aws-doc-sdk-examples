@@ -74,6 +74,7 @@ python -m pip install -r requirements.txt
 - [InvokeModel: Command and Command Light](models/cohere_command/command_invoke_model.py#L4)
 - [InvokeModelWithResponseStream: Command R and R+](models/cohere_command/command_r_invoke_model_with_response_stream.py#L4)
 - [InvokeModelWithResponseStream: Command and Command Light](models/cohere_command/command_invoke_model_with_response_stream.py#L4)
+- [Scenario: Tool use with the Converse API](cross-model-scenarios/tool_use_demo/tool_use_demo.py)
 
 ### Meta Llama
 

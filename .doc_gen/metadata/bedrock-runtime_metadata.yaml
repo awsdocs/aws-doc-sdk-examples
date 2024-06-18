@@ -1258,7 +1258,7 @@ bedrock-runtime_InvokeModelWithResponseStream_TitanTextEmbeddings:
   services:
     bedrock-runtime: {InvokeModel}
 
-# Scenarios
+# Tool use scenarios
 bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude:
   title: "A tool use demo illustrating how to connect AI models on &BR; with a custom tool or API"
   title_abbrev: "Scenario: Tool use with the Converse API"
@@ -1279,6 +1279,27 @@ bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude:
   services:
     bedrock-runtime: {Converse}
 
+bedrock-runtime_Scenario_ToolUseDemo_CohereCommand:
+  title: "A tool use demo illustrating how to connect AI models on &BR; with a custom tool or API"
+  title_abbrev: "Scenario: Tool use with the Converse API"
+  synopsis: "build a typical interaction between an application, a generative AI model, and connected tools or APIs to mediate interactions between the AI and the outside world. It uses the example of connecting an external weather API to the AI model so it can provide real-time weather information based on user input."
+  category: Cohere Command
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/bedrock-runtime
+          excerpts:
+            - description: "The primary execution script of the demo. This script orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              snippet_files:
+                - python/example_code/bedrock-runtime/cross-model-scenarios/tool_use_demo/tool_use_demo.py
+            - description: "The weather tool used by the demo. This script defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
+              snippet_files:
+                - python/example_code/bedrock-runtime/cross-model-scenarios/tool_use_demo/weather_tool.py
+  services:
+    bedrock-runtime: {Converse}
+
+# Other scenarios
 bedrock-runtime_Scenario_InvokeModels:
   title: Invoke multiple foundation models on &BR;
   title_abbrev: "Invoke multiple foundation models on &BR;"
