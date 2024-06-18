@@ -9,7 +9,7 @@
 #include <aws/core/client/RetryStrategy.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/PutObjectRequest.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 // The libcurl must be installed to test the pre-signed URL returned in this example.
 // See, https://curl.se/libcurl/c/libcurl.html.
@@ -97,7 +97,7 @@ bool AwsDoc::S3::PutStringWithPresignedObjectURL(const Aws::String &presignedURL
     }
 
     result = curl_easy_setopt(curl, CURLOPT_INFILESIZE_LARGE,
-                     (curl_off_t)data.size());
+                              (curl_off_t) data.size());
 
     if (result != CURLE_OK) {
         std::cerr << "Failed to set CURLOPT_INFILESIZE_LARGE" << std::endl;
@@ -145,8 +145,7 @@ bool AwsDoc::S3::PutStringWithPresignedObjectURL(const Aws::String &presignedURL
     if (outString.empty()) {
         std::cout << "Successfully put object." << std::endl;
         return true;
-    }
-    else {
+    } else {
         std::cout << "A server error was encountered, output:\n" << outString
                   << std::endl;
         return false;

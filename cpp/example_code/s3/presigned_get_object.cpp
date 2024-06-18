@@ -9,7 +9,7 @@
 #include <aws/core/client/RetryStrategy.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/PutObjectRequest.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 // The libcurl must be installed to test the pre-signed URL returned in this example.
 // See, https://curl.se/libcurl/c/libcurl.html.
@@ -31,7 +31,7 @@
  *
  **/
 
-// snippet-start:[cpp.example_code.s3.presigned.GetObject]
+// snippet-start:[cpp.example_code.s3.presigned.getObject]
 //! Routine which demonstrates creating a pre-signed URL to download an object from an
 //! Amazon Simple Storage Service (Amazon S3) bucket.
 /*!
@@ -49,7 +49,7 @@ Aws::String AwsDoc::S3::GeneratePreSignedGetObjectURL(const Aws::String &bucketN
     return client.GeneratePresignedUrl(bucketName, key, Aws::Http::HttpMethod::HTTP_GET,
                                        expirationSeconds);
 }
-// snippet-end:[cpp.example_code.s3.presigned.GetObject]
+// snippet-end:[cpp.example_code.s3.presigned.getObject]
 
 #if HAS_CURL
 
@@ -63,7 +63,7 @@ static size_t myCurlWriteBack(char *buffer, size_t size, size_t nitems, void *us
     return size * nitems;
 }
 
-//! Utility routine to test GetObject with a pre-signed URL.
+//! Utility routine to test getObject with a pre-signed URL.
 /*!
   \param presignedURL: A pre-signed URL to get an object from a bucket.
   \param resultString: A string to hold the result.
@@ -106,8 +106,7 @@ bool AwsDoc::S3::GetObjectWithPresignedObjectURL(const Aws::String &presignedURL
 
     resultString = outWriteString.str();
 
-    if (resultString.find( "<?xml") == 0)
-    {
+    if (resultString.find("<?xml") == 0) {
         std::cerr << "Failed to get object, response:\n" << resultString << std::endl;
         return false;
     }

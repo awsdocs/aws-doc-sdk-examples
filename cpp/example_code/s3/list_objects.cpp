@@ -6,7 +6,7 @@
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/ListObjectsV2Request.h>
 #include <aws/s3/model/Object.h>
-#include <awsdoc/s3/s3_examples.h>
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -50,8 +50,7 @@ bool AwsDoc::S3::ListObjects(const Aws::String &bucketName,
             std::cerr << "Error: ListObjects: " <<
                       outcome.GetError().GetMessage() << std::endl;
             return false;
-        }
-        else {
+        } else {
             Aws::Vector<Aws::S3::Model::Object> objects =
                     outcome.GetResult().GetContents();
 

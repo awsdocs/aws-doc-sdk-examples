@@ -10,7 +10,7 @@
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/core/http/curl/CurlHttpClient.h>  //This example is for Linux only. See top.
 #include <aws/s3/S3Client.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 using namespace Aws;
 using namespace Aws::Http;
@@ -100,8 +100,7 @@ bool AwsDoc::S3::ListBucketDisablingDnsCache(const Aws::Client::ClientConfigurat
     if (!listBucketsOutcome.IsSuccess()) {
         std::cerr << "Failed to list buckets. Error details:" << std::endl;
         std::cerr << listBucketsOutcome.GetError() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Found " << listBucketsOutcome.GetResult().GetBuckets().size() << " buckets" << std::endl;
         for (auto &&bucket: listBucketsOutcome.GetResult().GetBuckets()) {
             std::cout << "  " << bucket.GetName() << std::endl;

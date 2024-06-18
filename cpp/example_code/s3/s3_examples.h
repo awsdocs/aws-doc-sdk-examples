@@ -11,43 +11,43 @@
 namespace AwsDoc {
     namespace S3 {
         bool
-        CopyObject(const Aws::String &objectKey, const Aws::String &fromBucket,
+        copyObject(const Aws::String &objectKey, const Aws::String &fromBucket,
                    const Aws::String &toBucket,
-                   const Aws::Client::ClientConfiguration &clientConfig);
+                   const Aws::S3::S3ClientConfiguration &clientConfig);
 
-        bool CreateBucket(const Aws::String &bucketName,
-                          const Aws::Client::ClientConfiguration &clientConfig);
+        bool createBucket(const Aws::String &bucketName,
+                          const Aws::S3::S3ClientConfiguration &clientConfig);
 
-        bool DeleteObjects(const std::vector<Aws::String> &objectKeys,
+        bool deleteObjects(const std::vector<Aws::String> &objectKeys,
                            const Aws::String &fromBucket,
-                           const Aws::Client::ClientConfiguration &clientConfig);
+                           const Aws::S3::S3ClientConfiguration &clientConfig);
 
-        bool DeleteBucket(const Aws::String &bucketName,
-                          const Aws::Client::ClientConfiguration &clientConfig);
+        bool deleteBucket(const Aws::String &bucketName,
+                          const Aws::S3::S3ClientConfiguration &clientConfig);
 
-        bool DeleteBucketPolicy(const Aws::String &bucketName,
-                                const Aws::Client::ClientConfiguration &clientConfig);
+        bool deleteBucketPolicy(const Aws::String &bucketName,
+                                const Aws::S3::S3ClientConfiguration &clientConfig);
 
-        bool DeleteObject(const Aws::String &objectKey,
+        bool deleteObject(const Aws::String &objectKey,
                           const Aws::String &fromBucket,
-                          const Aws::Client::ClientConfiguration &clientConfig);
+                          const Aws::S3::S3ClientConfiguration &clientConfig);
 
-        bool DeleteBucketWebsite(const Aws::String &bucketName,
-                                 const Aws::Client::ClientConfiguration &clientConfig);
+        bool deleteBucketWebsite(const Aws::String &bucketName,
+                                 const Aws::S3::S3ClientConfiguration &clientConfig);
 
-        bool GetBucketAcl(const Aws::String &bucketName,
-                          const Aws::Client::ClientConfiguration &clientConfig);
+        bool getBucketAcl(const Aws::String &bucketName,
+                          const Aws::S3::S3ClientConfiguration &clientConfig);
 
-        bool GetBucketPolicy(const Aws::String &bucketName,
-                             const Aws::Client::ClientConfiguration &clientConfig);
+        bool getBucketPolicy(const Aws::String &bucketName,
+                             const Aws::S3::S3ClientConfiguration &clientConfig);
 
         bool GetObjectAcl(const Aws::String &bucketName,
                           const Aws::String &objectKey,
                           const Aws::Client::ClientConfiguration &clientConfig);
 
-        bool GetObject(const Aws::String &objectKey,
+        bool getObject(const Aws::String &objectKey,
                        const Aws::String &fromBucket,
-                       const Aws::Client::ClientConfiguration &clientConfig);
+                       const Aws::S3::S3ClientConfiguration &clientConfig);
 
         bool GetWebsiteConfig(const Aws::String &bucketName,
                               const Aws::Client::ClientConfiguration &clientConfig);
@@ -73,15 +73,11 @@ namespace AwsDoc {
                                                   uint64_t expirationSeconds,
                                                   const Aws::Client::ClientConfiguration &clientConfig);
 
-        bool PutBucketAcl(const Aws::String &bucketName,
-                          const Aws::String &ownerID,
-                          const Aws::String &granteePermission,
-                          const Aws::String &granteeType,
-                          const Aws::String &granteeID,
-                          const Aws::Client::ClientConfiguration &clientConfig,
-                          const Aws::String &granteeDisplayName = "",
-                          const Aws::String &granteeEmailAddress = "",
-                          const Aws::String &granteeURI = "");
+        bool
+        PutBucketAcl(const Aws::String &bucketName, const Aws::String &ownerID, const Aws::String &granteePermission,
+                     const Aws::String &granteeType, const Aws::String &granteeID,
+                     const Aws::String &granteeEmailAddress,
+                     const Aws::String &granteeURI, const Aws::Client::ClientConfiguration &clientConfig);
 
         bool PutBucketPolicy(const Aws::String &bucketName,
                              const Aws::String &policyBody,
@@ -120,15 +116,14 @@ namespace AwsDoc {
                                        const Aws::String &saveFilePath,
                                        const Aws::Client::ClientConfiguration &clientConfig);
 
-        bool GetPutBucketAcl(const Aws::String &bucketName,
+        bool getPutBucketAcl(const Aws::String &bucketName,
                              const Aws::String &ownerID,
                              const Aws::String &granteePermission,
                              const Aws::String &granteeType,
                              const Aws::String &granteeID,
-                             const Aws::Client::ClientConfiguration &clientConfig,
-                             const Aws::String &granteeDisplayName = "",
-                             const Aws::String &granteeEmailAddress = "",
-                             const Aws::String &granteeURI = "");
+                             const Aws::String &granteeEmailAddress,
+                             const Aws::String &granteeURI,
+                             const Aws::S3::S3ClientConfiguration &clientConfig);
 
         extern std::mutex upload_mutex;
 

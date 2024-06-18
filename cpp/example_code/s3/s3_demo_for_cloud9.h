@@ -11,7 +11,7 @@ bool FindTheBucket(const Aws::S3::S3Client &s3Client,
 
 bool CreateTheBucket(const Aws::S3::S3Client &s3Client,
                      const Aws::String &bucketName,
-                     const Aws::String& region);
+                     const Aws::String &region);
 
 bool DeleteTheBucket(const Aws::S3::S3Client &s3Client,
                      const Aws::String &bucketName);

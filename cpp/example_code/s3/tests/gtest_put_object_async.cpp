@@ -12,7 +12,7 @@
 #include <gtest/gtest.h>
 #include <fstream>
 #include <aws/s3/S3Client.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "../s3_examples.h"
 #include "S3_GTests.h"
 
 static const int BUCKETS_NEEDED = 1;

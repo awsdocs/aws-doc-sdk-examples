@@ -8,7 +8,7 @@
 #include <aws/s3/model/PutBucketPolicyRequest.h>
 #include <aws/sts/STSClient.h>
 #include <aws/sts/model/GetCallerIdentityRequest.h>
-#include <awsdoc/s3/s3_examples.h>
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -55,8 +55,7 @@ bool AwsDoc::S3::PutBucketPolicy(const Aws::String &bucketName,
     if (!outcome.IsSuccess()) {
         std::cerr << "Error: PutBucketPolicy: "
                   << outcome.GetError().GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Set the following policy body for the bucket '" <<
                   bucketName << "':" << std::endl << std::endl;
         std::cout << policyBody << std::endl;
@@ -89,7 +88,7 @@ Aws::String GetPolicyString(const Aws::String &userArn,
             "               \"AWS\": \""
             + userArn +
             "\"\n""           },\n"
-            "           \"Action\": [ \"s3:GetObject\" ],\n"
+            "           \"Action\": [ \"s3:getObject\" ],\n"
             "           \"Resource\": [ \"arn:aws:s3:::"
             + bucketName +
             "/*\" ]\n"
@@ -129,7 +128,7 @@ int main() {
                     sts_client.GetCallerIdentity(request);
 
             if (!outcome.IsSuccess()) {
-                std::cout << "Error: GetBucketPolicy setup: Get identity information: "
+                std::cout << "Error: getBucketPolicy setup: Get identity information: "
                           << outcome.GetError().GetMessage() << std::endl;
 
                 return 1;

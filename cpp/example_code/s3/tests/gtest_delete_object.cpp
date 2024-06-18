@@ -11,7 +11,7 @@
 
 #include <gtest/gtest.h>
 #include <fstream>
-#include "awsdoc/s3/s3_examples.h"
+#include "../s3_examples.h"
 #include <aws/core/utils/UUID.h>
 #include "S3_GTests.h"
 
@@ -26,7 +26,7 @@ namespace AwsDocTest {
         Aws::String fileName = PutTestFileInBucket(bucketNames[0]);
         ASSERT_TRUE(!fileName.empty()) << "Failed to meet precondition" << std::endl;
 
-        bool result = AwsDoc::S3::DeleteObject(fileName, bucketNames[0], *s_clientConfig);
+        bool result = AwsDoc::S3::deleteObject(fileName, bucketNames[0], *s_clientConfig);
         ASSERT_TRUE(result);
     }
 } // namespace AwsDocTest

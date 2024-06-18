@@ -23,15 +23,15 @@
 #include <aws/s3/model/PutObjectAclRequest.h>
 #include <aws/s3/model/Grant.h>
 #include <aws/s3/model/Permission.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
-static Aws::String GetGranteeTypeString(const Aws::S3::Model::Type &type);
+static Aws::String getGranteeTypeString(const Aws::S3::Model::Type &type);
 
-static Aws::String GetPermissionString(const Aws::S3::Model::Permission &permission);
+static Aws::String getPermissionString(const Aws::S3::Model::Permission &permission);
 
-static Aws::S3::Model::Permission SetGranteePermission(const Aws::String &access);
+static Aws::S3::Model::Permission setGranteePermission(const Aws::String &access);
 
-static Aws::S3::Model::Type SetGranteeType(const Aws::String &type);
+static Aws::S3::Model::Type setGranteeType(const Aws::String &type);
 
 //! Routine which demonstrates getting the ACL for an object in an S3 bucket.
 /*!
@@ -58,8 +58,7 @@ bool AwsDoc::S3::GetObjectAcl(const Aws::String &bucketName,
         const Aws::S3::S3Error &err = outcome.GetError();
         std::cerr << "Error: GetObjectAcl: "
                   << err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-    }
-    else {
+    } else {
         Aws::Vector<Aws::S3::Model::Grant> grants =
                 outcome.GetResult().GetGrants();
 
@@ -72,7 +71,7 @@ bool AwsDoc::S3::GetObjectAcl(const Aws::String &bucketName,
 
             if (grantee.TypeHasBeenSet()) {
                 std::cout << "Type:          "
-                          << GetGranteeTypeString(grantee.GetType()) << std::endl;
+                          << getGranteeTypeString(grantee.GetType()) << std::endl;
             }
 
             if (grantee.DisplayNameHasBeenSet()) {
@@ -96,7 +95,7 @@ bool AwsDoc::S3::GetObjectAcl(const Aws::String &bucketName,
             }
 
             std::cout << "Permission:    " <<
-                      GetPermissionString(grant.GetPermission()) <<
+                      getPermissionString(grant.GetPermission()) <<
                       std::endl << std::endl;
         }
     }
@@ -106,11 +105,11 @@ bool AwsDoc::S3::GetObjectAcl(const Aws::String &bucketName,
 
 //! Routine which converts a built-in type enumeration to a human-readable string.
 /*!
- \fn GetGranteeTypeString()
+ \fn getGranteeTypeString()
  \param type Type enumeration.
 */
 
-Aws::String GetGranteeTypeString(const Aws::S3::Model::Type &type) {
+Aws::String getGranteeTypeString(const Aws::S3::Model::Type &type) {
     switch (type) {
         case Aws::S3::Model::Type::AmazonCustomerByEmail:
             return "Email address of an AWS account";
@@ -127,11 +126,11 @@ Aws::String GetGranteeTypeString(const Aws::S3::Model::Type &type) {
 
 //! Routine which converts a built-in type enumeration to a human-readable string.
 /*!
- \fn GetPermissionString()
+ \fn getPermissionString()
  \param permission Permission enumeration.
 */
 
-Aws::String GetPermissionString(const Aws::S3::Model::Permission &permission) {
+Aws::String getPermissionString(const Aws::S3::Model::Permission &permission) {
     switch (permission) {
         case Aws::S3::Model::Permission::FULL_CONTROL:
             return "Can read this object's data and its metadata, "
@@ -185,7 +184,7 @@ bool AwsDoc::S3::PutObjectAcl(const Aws::String &bucketName,
     owner.SetID(ownerID);
 
     Aws::S3::Model::Grantee grantee;
-    grantee.SetType(SetGranteeType(granteeType));
+    grantee.SetType(setGranteeType(granteeType));
 
     if (!granteeEmailAddress.empty()) {
         grantee.SetEmailAddress(granteeEmailAddress);
@@ -205,7 +204,7 @@ bool AwsDoc::S3::PutObjectAcl(const Aws::String &bucketName,
 
     Aws::S3::Model::Grant grant;
     grant.SetGrantee(grantee);
-    grant.SetPermission(SetGranteePermission(granteePermission));
+    grant.SetPermission(setGranteePermission(granteePermission));
 
     Aws::Vector<Aws::S3::Model::Grant> grants;
     grants.push_back(grant);
@@ -226,8 +225,7 @@ bool AwsDoc::S3::PutObjectAcl(const Aws::String &bucketName,
         auto error = outcome.GetError();
         std::cerr << "Error: PutObjectAcl: " << error.GetExceptionName()
                   << " - " << error.GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully added an ACL to the object '" << objectKey
                   << "' in the bucket '" << bucketName << "'." << std::endl;
     }
@@ -237,11 +235,11 @@ bool AwsDoc::S3::PutObjectAcl(const Aws::String &bucketName,
 
 //! Routine which converts a human-readable string to a built-in type enumeration.
 /*!
- \sa SetGranteePermission()
+ \sa setGranteePermission()
  \param access Human readable string.
 */
 
-Aws::S3::Model::Permission SetGranteePermission(const Aws::String &access) {
+Aws::S3::Model::Permission setGranteePermission(const Aws::String &access) {
     if (access == "FULL_CONTROL")
         return Aws::S3::Model::Permission::FULL_CONTROL;
     if (access == "WRITE")
@@ -257,11 +255,11 @@ Aws::S3::Model::Permission SetGranteePermission(const Aws::String &access) {
 
 //! Routine which converts a human-readable string to a built-in type enumeration.
 /*!
- \sa SetGranteeType()
+ \sa setGranteeType()
  \param type Human readable string.
 */
 
-Aws::S3::Model::Type SetGranteeType(const Aws::String &type) {
+Aws::S3::Model::Type setGranteeType(const Aws::String &type) {
     if (type == "Amazon customer by email")
         return Aws::S3::Model::Type::AmazonCustomerByEmail;
     if (type == "Canonical user")

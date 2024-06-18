@@ -5,7 +5,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/CopyObjectRequest.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -22,7 +22,7 @@
 
 //! Routine which demonstrates copying an object between two S3 buckets.
 /*!
-  \sa CopyObject()
+  \sa copyObject()
   \param objectKey Key of object in from bucket.
   \param fromBucket Name of from bucket.
   \param toBucket Name of to bucket.
@@ -30,8 +30,8 @@
 */
 
 // snippet-start:[s3.cpp.copy_objects.code]
-bool AwsDoc::S3::CopyObject(const Aws::String &objectKey, const Aws::String &fromBucket, const Aws::String &toBucket,
-                            const Aws::Client::ClientConfiguration &clientConfig) {
+bool AwsDoc::S3::copyObject(const Aws::String &objectKey, const Aws::String &fromBucket, const Aws::String &toBucket,
+                            const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
     Aws::S3::Model::CopyObjectRequest request;
 
@@ -42,11 +42,10 @@ bool AwsDoc::S3::CopyObject(const Aws::String &objectKey, const Aws::String &fro
     Aws::S3::Model::CopyObjectOutcome outcome = client.CopyObject(request);
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();
-        std::cerr << "Error: CopyObject: " <<
+        std::cerr << "Error: copyObject: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
 
-    }
-    else {
+    } else {
         std::cout << "Successfully copied " << objectKey << " from " << fromBucket <<
                   " to " << toBucket << "." << std::endl;
     }
@@ -59,37 +58,42 @@ bool AwsDoc::S3::CopyObject(const Aws::String &objectKey, const Aws::String &fro
  *
  *  main function
  *
+ *
+ *  Usage: 'run_copy_object <object_key> <from_bucket> <to_bucket>'
+ *
  * Prerequisites: Two buckets. One of the buckets must contain the object to
  * be copied to the other bucket.
- *
- * TODO(user): items: Set the following variables
- * - objectKey: The name of the object to copy.
- * - fromBucket: The name of the bucket to copy the object from.
- * - toBucket: The name of the bucket to copy the object to.
  *
  */
 
 #ifndef TESTING_BUILD
 
-int main() {
+int main(int argc, char* argv[]) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
 
-    //TODO(user): Name of object already in bucket.
-    Aws::String objectKey = "<enter object key>";
+    if (argc != 4) {
+        std::cout << R"(
+Usage:
+    run_copy_object <object_key> <from_bucket> <to_bucket>
+Where:
+    object_key - The name of the object to copy.
+    from_bucket - The name of the bucket containing the object.
+    to_bucket - The name of the bucket to copy the object to.
+)" << std::endl;
+        return 1;
+    }
 
-    //TODO(user): Change from_bucket to the name of your bucket that already contains "my-file.txt".
-    Aws::String fromBucket = "<Enter bucket name>";
-
-    //TODO(user): Change to the name of another bucket in your account.
-    Aws::String toBucket = "<Enter bucket name>";
+    Aws::String objectKey = argv[1];
+    Aws::String fromBucket = argv[2];
+    Aws::String toBucket = argv[3];
 
     {
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::S3::CopyObject(objectKey, fromBucket, toBucket, clientConfig);
+        AwsDoc::S3::copyObject(objectKey, fromBucket, toBucket, clientConfig);
     }
 
     ShutdownAPI(options);

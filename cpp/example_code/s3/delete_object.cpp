@@ -5,7 +5,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/DeleteObjectRequest.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -22,16 +22,16 @@
 
 //! Routine which demonstrates deleting an object in an S3 bucket.
 /*!
-  \sa DeleteObject()
+  \sa deleteObject()
   \param objectKey Name of an object.
   \param fromBucket Name of a bucket with an object to delete.
   \param clientConfig Aws client configuration.
 */
 
 // snippet-start:[s3.cpp.delete_object.code]
-bool AwsDoc::S3::DeleteObject(const Aws::String &objectKey,
+bool AwsDoc::S3::deleteObject(const Aws::String &objectKey,
                               const Aws::String &fromBucket,
-                              const Aws::Client::ClientConfiguration &clientConfig) {
+                              const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
     Aws::S3::Model::DeleteObjectRequest request;
 
@@ -43,10 +43,9 @@ bool AwsDoc::S3::DeleteObject(const Aws::String &objectKey,
 
     if (!outcome.IsSuccess()) {
         auto err = outcome.GetError();
-        std::cerr << "Error: DeleteObject: " <<
+        std::cerr << "Error: deleteObject: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully deleted the object." << std::endl;
     }
 
@@ -58,34 +57,40 @@ bool AwsDoc::S3::DeleteObject(const Aws::String &objectKey,
  *
  * main function
  *
- * Prerequisites: The bucket containing the object to delete.
+ * usage: 'run_delete_object <object_key> <from_bucket>'
  *
- * TODO(user): items: Set the following variable
- * - objectKey: The name of the object to delete.
- * - fromBucket: The name of the bucket to delete the object from.
+ * Prerequisites: The bucket containing the object to delete.
  *
  */
 
 #ifndef TESTING_BUILD
 
-int main() {
-    //TODO(user): The object_key is the unique identifier for the object in the bucket. In this example set,
-    //it is the filename you added in put_object.cpp.
-    Aws::String objectKey = "<Enter object key>";
-    //TODO(user): Change from_bucket to the name of a bucket in your account.
-    Aws::String fromBucket = "<Enter bucket name>";
-
+int main(int argc, char* argv[]) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
+
+    if (argc != 3) {
+        std::cout << R"(
+Usage:
+    run_delete_object <object_key> <from_bucket>
+Where:
+    object_key - The unique identifier for the object in the bucket.
+    from_bucket - The name of the bucket containing the object.
+)" << std::endl;
+        return 1;
+    }
+
+    Aws::String objectKey = argv[1];
+    Aws::String fromBucket = argv[2];
+
     {
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::S3::DeleteObject(objectKey, fromBucket, clientConfig);
+        AwsDoc::S3::deleteObject(objectKey, fromBucket, clientConfig);
     }
 
     ShutdownAPI(options);
-
     return 0;
 }
 

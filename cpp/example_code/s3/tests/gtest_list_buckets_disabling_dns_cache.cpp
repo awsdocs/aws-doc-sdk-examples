@@ -12,7 +12,7 @@
 #include <gtest/gtest.h>
 #include <fstream>
 #include <aws/core/http/HttpClientFactory.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "../s3_examples.h"
 #include "S3_GTests.h"
 
 namespace AwsDocTest {
