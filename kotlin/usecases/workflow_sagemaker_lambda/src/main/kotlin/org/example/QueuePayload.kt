@@ -16,5 +16,4 @@ class QueuePayload {
 
     // Getter and Setter methods for arguments
     fun getArguments(): HashMap<String?, String?>? = arguments
-
 }

@@ -84,7 +84,7 @@ class APIGatewayTest {
 
     @Test
     @Order(4)
-    fun DeleteRestApi() = runBlocking {
+    fun deleteRestApi() = runBlocking {
         deleteAPI(newApiId)
         println("Test 6 passed")
     }

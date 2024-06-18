@@ -54,7 +54,7 @@ class MessageResource {
     @RequestMapping(value = ["/getimages"], method = [RequestMethod.GET])
     @ResponseBody
     fun getImages(request: HttpServletRequest?, response: HttpServletResponse?): String? = runBlocking {
-        return@runBlocking s3Service?.ListAllObjects(bucketName)
+        return@runBlocking s3Service?.listAllObjects(bucketName)
     }
 
     // Generates a report that analyzes photos in a given bucket.
@@ -72,7 +72,7 @@ class MessageResource {
             val keyData = s3Service?.getObjectBytes(bucketName, key)
 
             // Analyze the photo.
-            val item = recService?.DetectLabels(keyData, key)
+            val item = recService?.detectLabels(keyData, key)
             if (item != null) {
                 myList.add(item)
             }
