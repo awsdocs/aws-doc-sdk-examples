@@ -4,11 +4,9 @@ package com.example.androidsubpub
 
 import android.os.Bundle
 import android.view.View
-import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import aws.sdk.kotlin.runtime.auth.credentials.StaticCredentialsProvider
 import aws.sdk.kotlin.services.sns.SnsClient
-import aws.sdk.kotlin.services.sns.model.*
 import aws.sdk.kotlin.services.sns.model.ListSubscriptionsByTopicRequest
 import aws.sdk.kotlin.services.sns.model.SnsException
 import aws.sdk.kotlin.services.translate.TranslateClient
@@ -245,7 +243,7 @@ class MainActivity :
 
     fun checkEmail(email: String?): Boolean = EMAIL_ADDRESS_PATTERN.matcher(email).matches()
 
-    val EMAIL_ADDRESS_PATTERN: Pattern = Pattern.compile(
+    val emailAddressPattern: Pattern = Pattern.compile(
         "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
             "\\@" +
             "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +

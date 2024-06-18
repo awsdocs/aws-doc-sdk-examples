@@ -14,7 +14,7 @@ import kotlinx.coroutines.runBlocking
 import java.util.TreeMap
 
 class GetHandler : RequestHandler<APIGatewayProxyRequestEvent?, APIGatewayProxyResponseEvent?> {
-    val CORS_HEADER_MAP: Map<String, String> = java.util.Map.of("Access-Control-Allow-Origin", "*")
+    val corsHeaderMap: Map<String, String> = java.util.Map.of("Access-Control-Allow-Origin", "*")
 
     fun toJson(src: Any?): String? {
         val gson = Gson()
@@ -33,7 +33,7 @@ class GetHandler : RequestHandler<APIGatewayProxyRequestEvent?, APIGatewayProxyR
 
     fun makeResponse(src: Any?): APIGatewayProxyResponseEvent = APIGatewayProxyResponseEvent()
         .withStatusCode(200)
-        .withHeaders(CORS_HEADER_MAP)
+        .withHeaders(corsHeaderMap)
         .withBody(toJson(src))
         .withIsBase64Encoded(false)
 }

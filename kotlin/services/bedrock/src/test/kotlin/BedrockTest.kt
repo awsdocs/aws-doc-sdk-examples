@@ -13,10 +13,9 @@ import org.junit.jupiter.api.TestMethodOrder
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class BedrockTest {
-
     @Test
     @Order(1)
-    fun ListFoundationModels() = runBlocking {
+    fun listFoundationModels() = runBlocking {
         val modelSummaries = listFoundationModels()
         assertFalse(modelSummaries!!.isEmpty())
     }
