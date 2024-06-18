@@ -4,7 +4,6 @@
 package com.aws.photo
 
 class BucketItem {
-
     var key: String? = null
     var owner: String? = null
     var date: String? = null

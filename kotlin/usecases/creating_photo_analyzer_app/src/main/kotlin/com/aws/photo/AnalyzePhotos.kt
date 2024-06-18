@@ -10,17 +10,21 @@ import org.springframework.stereotype.Component
 
 @Component
 class AnalyzePhotos {
-
-    suspend fun DetectLabels(bytesVal: ByteArray?, key: String?): MutableList<WorkItem>? {
+    suspend fun detectLabels(
+        bytesVal: ByteArray?,
+        key: String?,
+    ): MutableList<WorkItem>? {
         // Create an Image object for the source image.
-        val souImage = Image {
-            bytes = bytesVal
-        }
+        val souImage =
+            Image {
+                bytes = bytesVal
+            }
 
-        val detectLabelsRequest = DetectLabelsRequest {
-            image = souImage
-            maxLabels = 10
-        }
+        val detectLabelsRequest =
+            DetectLabelsRequest {
+                image = souImage
+                maxLabels = 10
+            }
 
         RekognitionClient { region = "us-west-2" }.use { rekClient ->
             val response = rekClient.detectLabels(detectLabelsRequest)

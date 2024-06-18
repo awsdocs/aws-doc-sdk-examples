@@ -29,9 +29,10 @@ class S3Service {
     suspend fun listBucketObjects(bucketName: String?): List<*>? {
         var keyName: String
         val keys = mutableListOf<String>()
-        val listObjects = ListObjectsRequest {
-            bucket = bucketName
-        }
+        val listObjects =
+            ListObjectsRequest {
+                bucket = bucketName
+            }
 
         S3Client { region = "us-west-2" }.use { s3Client ->
             val response = s3Client.listObjects(listObjects)
@@ -44,14 +45,15 @@ class S3Service {
     }
 
     // Returns the names of all images and data within an XML document.
-    suspend fun ListAllObjects(bucketName: String?): String? {
+    suspend fun listAllObjects(bucketName: String?): String? {
         var sizeLg: Long
         var dateIn: aws.smithy.kotlin.runtime.time.Instant?
         val bucketItems = mutableListOf<BucketItem>()
 
-        val listObjects = ListObjectsRequest {
-            bucket = bucketName
-        }
+        val listObjects =
+            ListObjectsRequest {
+                bucket = bucketName
+            }
 
         S3Client { region = "us-west-2" }.use { s3Client ->
             val res = s3Client.listObjects(listObjects)
@@ -59,7 +61,7 @@ class S3Service {
                 val myItem = BucketItem()
                 myItem.key = myObject.key
                 myItem.owner = myObject.owner?.displayName.toString()
-                sizeLg = (myObject.size / 1024)
+                sizeLg = (myObject.size?.div(1024)!!)
                 myItem.size = (sizeLg.toString())
                 dateIn = myObject.lastModified
                 myItem.date = dateIn.toString()
@@ -72,12 +74,17 @@ class S3Service {
     }
 
     // Places an image into an Amazon S3 bucket.
-    suspend fun putObject(data: ByteArray, bucketName: String?, objectKey: String?): String? {
-        val request = PutObjectRequest {
-            bucket = bucketName
-            key = objectKey
-            body = ByteStream.fromBytes(data)
-        }
+    suspend fun putObject(
+        data: ByteArray,
+        bucketName: String?,
+        objectKey: String?,
+    ): String? {
+        val request =
+            PutObjectRequest {
+                bucket = bucketName
+                key = objectKey
+                body = ByteStream.fromBytes(data)
+            }
 
         S3Client { region = "us-west-2" }.use { s3Client ->
             val response = s3Client.putObject(request)
@@ -86,11 +93,15 @@ class S3Service {
     }
 
     // Get the byte[] from this Amazon S3 object.
-    suspend fun getObjectBytes(bucketName: String?, keyName: String?): ByteArray? {
-        val objectRequest = GetObjectRequest {
-            key = keyName
-            bucket = bucketName
-        }
+    suspend fun getObjectBytes(
+        bucketName: String?,
+        keyName: String?,
+    ): ByteArray? {
+        val objectRequest =
+            GetObjectRequest {
+                key = keyName
+                bucket = bucketName
+            }
 
         S3Client { region = "us-west-2" }.use { s3Client ->
             s3Client.getObject(objectRequest) { resp ->
