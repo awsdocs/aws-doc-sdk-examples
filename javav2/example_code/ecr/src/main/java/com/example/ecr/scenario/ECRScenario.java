@@ -20,7 +20,7 @@ import java.util.Scanner;
  *
  * https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html
  *
- * This Java code example also requires a local docker image named hello-world. For more information. see:
+ * This Java scenario example requires a local docker image named echo-text. For more information. see:
  *
  * /getting_started_scenarios/ecr_scenario/README
  *
@@ -71,7 +71,7 @@ public class ECRScenario {
         System.out.println("""
            1. Create an ECR repository.
             
-           The first task is to ensure we have a local Docker image named hello-world. 
+           The first task is to ensure we have a local Docker image named echo-text. 
            If this image exists, then an Amazon ECR repository is created. 
            
            An ECR repository is a private Docker container repository provided 
@@ -79,15 +79,15 @@ public class ECRScenario {
            to store, manage, and deploy Docker container images.\s
            """ );
 
-        // Ensure that a local docker image named hello-world exists.
+        // Ensure that a local docker image named echo-text exists.
         boolean doesExist = ecrActions.listLocalImages();
         String repoName;
         if (!doesExist){
-            System.out.println("The local image named hello-world does not exist");
+            System.out.println("The local image named echo-text does not exist");
             return;
         } else {
-            localImageName = "hello-world";
-            repoName = "hello-world";
+            localImageName = "echo-text";
+            repoName = "echo-text";
         }
 
         String repoArn = String.valueOf(ecrActions.createECRRepository(repoName));
@@ -228,7 +228,7 @@ public class ECRScenario {
         }
 
         System.out.println(DASHES);
-        System.out.println("This concludes the Amazon ECR SDK Getting Started scenario");
+        System.out.println("This concludes the Amazon ECR SDK scenario");
         System.out.println(DASHES);
     }
 

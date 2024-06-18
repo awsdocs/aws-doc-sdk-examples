@@ -22,7 +22,7 @@ Note: These steps are not the complete program, but summarizes the 5-6 high-leve
 
 The basic scenario requires an IAM role that has Amazon ECR permissions. To create an IAM role, see [Creating IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html). 
 
-In addtion, this scenario requires a local Docker image created using Bash. To create a local "Hello World" Docker image using Bash:
+This scenario requires a local Docker image created using Bash. To create a local Docker image named "echo-text" using Bash, perform these steps:
 
 1. **Install Docker**: First, you'll need to install Docker and Docker Desktop on your system. You can download the appropriate Docker version for your operating system from the official Docker website (https://www.docker.com/get-started).
 
@@ -62,29 +62,29 @@ In addtion, this scenario requires a local Docker image created using Bash. To c
 
    ```bash
    #!/bin/sh
-   echo "Hello, World!"
+   echo "Hello There!"
    ```
 
-   This is a simple Bash script that prints "Hello, World!" to the console.
+   This is a simple Bash script that prints "Hello There!" to the console.
 
 5. **Build the Docker image**: In the same directory as the Dockerfile and `hello.sh` script, run the following command to build the Docker image:
 
    ```bash
-   docker build -t hello-world .
+   docker build -t echo-text .
    ```
 
-   This command builds a Docker image with the tag "hello-world" using the instructions in the Dockerfile.
+   This command builds a Docker image with the tag "echo-text" using the instructions in the Dockerfile.
 
-6. **Run the Docker container**: Once the image is built, you can run a container based on the "hello-world" image by executing the following command:
+6. **Run the Docker container**: Once the image is built, you can run a container based on the "echo-text" image by executing the following command:
 
    ```bash
-   docker run hello-world
+   docker run echo-text
    ```
 
 
 ## Implementations
 
-This example will be implemented in the following languages:
+This scenario example will be implemented in the following languages:
 
 - Java
 - Python

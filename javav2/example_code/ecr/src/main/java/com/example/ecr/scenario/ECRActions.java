@@ -519,7 +519,7 @@ public class ECRActions {
                 Repository repoData = descrRepoResponse.repositories().stream().filter(r -> r.repositoryName().equals(repoName)).findFirst().orElse(null);
                 getDockerClient().tagImageCmd(imageName+":latest", repoData.repositoryUri() + ":latest", imageName).exec();
                 try {
-                    getDockerClient().pushImageCmd(repoData.repositoryUri()).withTag("hello-world").withAuthConfig(authConfig).start().awaitCompletion();
+                    getDockerClient().pushImageCmd(repoData.repositoryUri()).withTag("echo-text").withAuthConfig(authConfig).start().awaitCompletion();
                     System.out.println("The "+imageName+" was pushed to ECR");
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -540,7 +540,7 @@ public class ECRActions {
                 String[] repoTags = image.getRepoTags();
                 if (repoTags != null) {
                     for (String tag : repoTags) {
-                        if (tag.startsWith("hello-world")) {
+                        if (tag.startsWith("echo-text")) {
                             System.out.println(tag);
                             helloWorldFound = true;
                         }
@@ -548,10 +548,10 @@ public class ECRActions {
                 }
             }
             if (helloWorldFound) {
-                System.out.println("The local image named hello-world exists.");
+                System.out.println("The local image named echo-text exists.");
                 return true;
             } else {
-                System.out.println("The local image named hello-world does not exist.");
+                System.out.println("The local image named echo-text does not exist.");
                 return false;
             }
         } catch (DockerClientException ex) {
