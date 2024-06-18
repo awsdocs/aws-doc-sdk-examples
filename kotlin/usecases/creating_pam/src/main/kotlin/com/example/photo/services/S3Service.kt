@@ -20,16 +20,12 @@ import kotlin.time.Duration.Companion.minutes
 
 class S3Service {
     // Place the upload image into an Amazon S3 bucket
-    suspend fun putObject(
-        data: ByteArray,
-        objectKey: String,
-    ) {
-        val request =
-            PutObjectRequest {
-                bucket = PhotoApplicationResources.STORAGE_BUCKET
-                key = objectKey
-                body = ByteStream.fromBytes(data)
-            }
+    suspend fun putObject(data: ByteArray, objectKey: String) {
+        val request = PutObjectRequest {
+            bucket = PhotoApplicationResources.STORAGE_BUCKET
+            key = objectKey
+            body = ByteStream.fromBytes(data)
+        }
 
         S3Client { region = "us-east-1" }.use { s3Client ->
             s3Client.putObject(request)
@@ -37,32 +33,24 @@ class S3Service {
     }
 
     // Place the upload image into an Amazon S3 bucket.
-    suspend fun putZIP(
-        data: ByteArray,
-        objectKey: String,
-    ) {
-        val request =
-            PutObjectRequest {
-                bucket = PhotoApplicationResources.WORKING_BUCKET
-                key = objectKey
-                body = ByteStream.fromBytes(data)
-            }
+    suspend fun putZIP(data: ByteArray, objectKey: String) {
+        val request = PutObjectRequest {
+            bucket = PhotoApplicationResources.WORKING_BUCKET
+            key = objectKey
+            body = ByteStream.fromBytes(data)
+        }
 
         S3Client { region = "us-east-1" }.use { s3Client ->
             s3Client.putObject(request)
         }
     }
 
-    suspend fun getObjectBytes(
-        bucketName: String?,
-        keyName: String?,
-    ): ByteArray? {
+    suspend fun getObjectBytes(bucketName: String?, keyName: String?): ByteArray? {
         var myBytes: ByteArray? = null
-        val objectRequest =
-            GetObjectRequest {
-                key = keyName
-                bucket = bucketName
-            }
+        val objectRequest = GetObjectRequest {
+            key = keyName
+            bucket = bucketName
+        }
 
         S3Client { region = "us-east-1" }.use { s3Client ->
             s3Client.getObject(objectRequest) { resp ->
@@ -91,11 +79,10 @@ class S3Service {
 
     suspend fun signObjectToDownload(keyName: String?): String? {
         S3Client { region = "us-east-1" }.use { s3Client ->
-            val unsignedRequest =
-                GetObjectRequest {
-                    bucket = PhotoApplicationResources.WORKING_BUCKET
-                    key = keyName
-                }
+            val unsignedRequest = GetObjectRequest {
+                bucket = PhotoApplicationResources.WORKING_BUCKET
+                key = keyName
+            }
 
             // Presign the GetObject request.
             val presignedRequest = s3Client.presignGetObject(unsignedRequest, 1.hours)
@@ -107,12 +94,11 @@ class S3Service {
 
     suspend fun signObjectToUpload(keyName: String?): String {
         S3Client { region = "us-east-1" }.use { s3Client ->
-            val presignedUrl =
-                PutObjectRequest {
-                    bucket = PhotoApplicationResources.WORKING_BUCKET
-                    key = keyName
-                    contentType = "image/jpeg"
-                }
+            val presignedUrl = PutObjectRequest {
+                bucket = PhotoApplicationResources.WORKING_BUCKET
+                key = keyName
+                contentType = "image/jpeg"
+            }
 
             val presignedRequest = s3Client.presignPutObject(presignedUrl, 5L.minutes)
             println(presignedRequest.url.toString())

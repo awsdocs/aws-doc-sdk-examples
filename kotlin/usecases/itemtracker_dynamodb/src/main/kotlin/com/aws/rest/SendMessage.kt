@@ -13,48 +13,40 @@ import org.springframework.stereotype.Component
 
 @Component
 class SendMessage {
-    suspend fun send(
-        recipient: String,
-        strValue: String?,
-    ) {
+
+    suspend fun send(recipient: String, strValue: String?) {
         // The HTML body of the email.
         val bodyHTML = (
             "<html>" + "<head></head>" + "<body>" + "<h1>Amazon DynamoDB Items!</h1>" +
                 "<textarea>$strValue</textarea>" + "</body>" + "</html>"
-        )
+            )
 
-        val destinationOb =
-            Destination {
-                toAddresses = listOf(recipient)
-            }
+        val destinationOb = Destination {
+            toAddresses = listOf(recipient)
+        }
 
-        val contentOb =
-            Content {
-                data = bodyHTML
-            }
+        val contentOb = Content {
+            data = bodyHTML
+        }
 
-        val subOb =
-            Content {
-                data = "Item Report"
-            }
+        val subOb = Content {
+            data = "Item Report"
+        }
 
-        val bodyOb =
-            Body {
-                html = contentOb
-            }
+        val bodyOb = Body {
+            html = contentOb
+        }
 
-        val msgOb =
-            Message {
-                subject = subOb
-                body = bodyOb
-            }
+        val msgOb = Message {
+            subject = subOb
+            body = bodyOb
+        }
 
-        val emailRequest =
-            SendEmailRequest {
-                destination = destinationOb
-                message = msgOb
-                source = "scmacdon@amazon.com"
-            }
+        val emailRequest = SendEmailRequest {
+            destination = destinationOb
+            message = msgOb
+            source = "scmacdon@amazon.com"
+        }
 
         SesClient { region = "us-east-1" }.use { sesClient ->
             println("Attempting to send an email through Amazon SES using the AWS SDK for Kotlin...")

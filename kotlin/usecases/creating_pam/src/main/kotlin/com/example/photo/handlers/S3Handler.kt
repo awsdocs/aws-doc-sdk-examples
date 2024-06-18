@@ -12,32 +12,21 @@ import com.example.photo.services.DynamoDBService
 import kotlinx.coroutines.runBlocking
 
 class S3Handler : RequestHandler<S3Event, String> {
-    override fun handleRequest(
-        event: S3Event,
-        context: Context,
-    ): String? =
-        runBlocking {
-            // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key from the Amazon S3 event.
-            val bucketName =
-                event.records[0]
-                    .s3
-                    .bucket
-                    .name
 
-            val objectKey =
-                event.records[0]
-                    .s3.getObject()
-                    .key
+    override fun handleRequest(event: S3Event, context: Context): String? = runBlocking {
+        // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key from the Amazon S3 event.
+        val bucketName = event.records[0].s3.bucket.name
+        val objectKey = event.records[0].s3.getObject().key
 
-            // Log the S3 bucket and object key in the log file.
-            context.logger.log("S3 object name: s3://$bucketName/$objectKey")
-            val photos = AnalyzePhotos()
-            val dbService = DynamoDBService()
+        // Log the S3 bucket and object key in the log file.
+        context.logger.log("S3 object name: s3://$bucketName/$objectKey")
+        val photos = AnalyzePhotos()
+        val dbService = DynamoDBService()
 
-            // Tag the file.
-            val labels = photos.detectLabels(PhotoApplicationResources.STORAGE_BUCKET, objectKey)
-            dbService.putRecord(labels)
-            context.logger.log("Tagged image")
-            return@runBlocking "OK"
-        }
+        // Tag the file.
+        val labels = photos.detectLabels(PhotoApplicationResources.STORAGE_BUCKET, objectKey)
+        dbService.putRecord(labels)
+        context.logger.log("Tagged image")
+        return@runBlocking "OK"
+    }
 }

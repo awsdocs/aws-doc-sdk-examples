@@ -19,6 +19,7 @@ import java.util.Properties
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class DynamoDBTest {
+
     private var email = ""
     private var idToFlip = ""
     private var nameVal = ""
@@ -43,50 +44,46 @@ class DynamoDBTest {
 
     @Test
     @Order(1)
-    fun getItems() =
-        runBlocking {
-            val dbService = DynamoDBService()
-            val list = dbService.getOpenItems(false)
-            Assertions.assertTrue(list.isNotEmpty())
-            println("Test 1 passed")
-        }
+    fun getItems() = runBlocking {
+        val dbService = DynamoDBService()
+        val list = dbService.getOpenItems(false)
+        Assertions.assertTrue(list.isNotEmpty())
+        println("Test 1 passed")
+    }
 
     @Test
     @Order(2)
-    fun flipItemTest() =
-        runBlocking {
-            val dbService = DynamoDBService()
-            dbService.archiveItemEC(idToFlip)
-            println("Test 2 passed")
-        }
+    fun flipItemTest() = runBlocking {
+        val dbService = DynamoDBService()
+        dbService.archiveItemEC(idToFlip)
+        println("Test 2 passed")
+    }
 
     @Test
     @Order(3)
-    fun reportTest() =
-        runBlocking {
-            val sendMessage = SendMessage()
-            val dbService = DynamoDBService()
-            val xml = dbService.getOpenReport(false)
-            try {
-                sendMessage.send(email, xml)
-            } catch (e: IOException) {
-                e.stackTrace
-            }
-            println("Test 3 passed")
+    fun reportTest() = runBlocking {
+        val sendMessage = SendMessage()
+        val dbService = DynamoDBService()
+        val xml = dbService.getOpenReport(false)
+        try {
+            sendMessage.send(email, xml)
+        } catch (e: IOException) {
+            e.stackTrace
         }
+        println("Test 3 passed")
+    }
 
     @Test
     @Order(4)
-    fun addTest() =
-        runBlocking {
-            val dbService = DynamoDBService()
-            val myWork = WorkItem()
-            myWork.guide = guideVal
-            myWork.description = descriptionVal
-            myWork.status = statusVal
-            myWork.name = nameVal
-            val id = dbService.putItemInTable(myWork)
-            Assertions.assertTrue(id.isNotEmpty())
-            println("Test 4 passed")
-        }
+    fun addTest() = runBlocking {
+        val dbService = DynamoDBService()
+        val myWork = WorkItem()
+        myWork.guide = guideVal
+        myWork.description = descriptionVal
+        myWork.status = statusVal
+        myWork.name = nameVal
+        val id = dbService.putItemInTable(myWork)
+        Assertions.assertTrue(id.isNotEmpty())
+        println("Test 4 passed")
+    }
 }

@@ -16,7 +16,7 @@ class SendMessage {
 
     suspend fun send(
         recipient: String,
-        strValue: String?
+        strValue: String?,
     ) {
         val sesClient = SesClient { region = "us-east-1" }
         // The HTML body of the email.

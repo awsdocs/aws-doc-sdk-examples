@@ -50,7 +50,6 @@ This Kotlin example performs the following tasks:
  */
 
 val DASHES: String = String(CharArray(80)).replace("\u0000", "-")
-
 suspend fun main() {
     val input = Scanner(System.`in`)
     val useFIFO: String
@@ -73,9 +72,9 @@ suspend fun main() {
     println("Welcome to the AWS SDK for Kotlin messaging with topics and queues.")
     println(
         """
-        In this workflow, you will create an SNS topic and subscribe an SQS queue to the topic.
-        You can select from several options for configuring the topic and the subscriptions for the queue.
-        You can then post to the topic and see the results in the queue.
+                In this workflow, you will create an SNS topic and subscribe an SQS queue to the topic.
+                You can select from several options for configuring the topic and the subscriptions for the queue.
+                You can then post to the topic and see the results in the queue.
         """.trimIndent(),
     )
     println(DASHES)
@@ -83,9 +82,9 @@ suspend fun main() {
     println(DASHES)
     println(
         """
-        SNS topics can be configured as FIFO (First-In-First-Out).
-        FIFO topics deliver messages in order and support deduplication and message filtering.
-        Would you like to work with FIFO topics? (y/n)
+                SNS topics can be configured as FIFO (First-In-First-Out).
+                FIFO topics deliver messages in order and support deduplication and message filtering.
+                Would you like to work with FIFO topics? (y/n)
         """.trimIndent(),
     )
     useFIFO = input.nextLine()
@@ -217,13 +216,12 @@ For this example, you can filter messages by a "tone" attribute.""",
             println("4. sincere")
             println("Select a number or choose 0 to end.")
             val ans: String = input.nextLine()
-            msgAttValue =
-                when (ans) {
-                    "1" -> "cheerful"
-                    "2" -> "funny"
-                    "3" -> "serious"
-                    else -> "sincere"
-                }
+            msgAttValue = when (ans) {
+                "1" -> "cheerful"
+                "2" -> "funny"
+                "3" -> "serious"
+                else -> "sincere"
+            }
             println("Selected value is $msgAttValue")
         }
         println("Enter a message.")
@@ -275,10 +273,9 @@ For this example, you can filter messages by a "tone" attribute.""",
 }
 
 suspend fun deleteSNSTopic(topicArnVal: String?) {
-    val request =
-        DeleteTopicRequest {
-            topicArn = topicArnVal
-        }
+    val request = DeleteTopicRequest {
+        topicArn = topicArnVal
+    }
 
     SnsClient { region = "us-east-1" }.use { snsClient ->
         snsClient.deleteTopic(request)
@@ -287,17 +284,15 @@ suspend fun deleteSNSTopic(topicArnVal: String?) {
 }
 
 suspend fun deleteSQSQueue(queueNameVal: String) {
-    val getQueueRequest =
-        GetQueueUrlRequest {
-            queueName = queueNameVal
-        }
+    val getQueueRequest = GetQueueUrlRequest {
+        queueName = queueNameVal
+    }
 
     SqsClient { region = "us-east-1" }.use { sqsClient ->
         val queueUrlVal = sqsClient.getQueueUrl(getQueueRequest).queueUrl
-        val deleteQueueRequest =
-            DeleteQueueRequest {
-                queueUrl = queueUrlVal
-            }
+        val deleteQueueRequest = DeleteQueueRequest {
+            queueUrl = queueUrlVal
+        }
 
         sqsClient.deleteQueue(deleteQueueRequest)
         println("$queueNameVal was successfully deleted.")
@@ -305,34 +300,28 @@ suspend fun deleteSQSQueue(queueNameVal: String) {
 }
 
 suspend fun unSub(subscripArn: String?) {
-    val request =
-        UnsubscribeRequest {
-            subscriptionArn = subscripArn
-        }
+    val request = UnsubscribeRequest {
+        subscriptionArn = subscripArn
+    }
     SnsClient { region = "us-east-1" }.use { snsClient ->
         snsClient.unsubscribe(request)
         println("Subscription was removed for $subscripArn")
     }
 }
 
-suspend fun deleteMessages(
-    queueUrlVal: String?,
-    messages: List<Message>,
-) {
+suspend fun deleteMessages(queueUrlVal: String?, messages: List<Message>) {
     val entriesVal: MutableList<DeleteMessageBatchRequestEntry> = mutableListOf()
     for (msg in messages) {
-        val entry =
-            DeleteMessageBatchRequestEntry {
-                id = msg.messageId
-            }
+        val entry = DeleteMessageBatchRequestEntry {
+            id = msg.messageId
+        }
         entriesVal.add(entry)
     }
 
-    val deleteMessageBatchRequest =
-        DeleteMessageBatchRequest {
-            queueUrl = queueUrlVal
-            entries = entriesVal
-        }
+    val deleteMessageBatchRequest = DeleteMessageBatchRequest {
+        queueUrl = queueUrlVal
+        entries = entriesVal
+    }
 
     SqsClient { region = "us-east-1" }.use { sqsClient ->
         sqsClient.deleteMessageBatch(deleteMessageBatchRequest)
@@ -340,41 +329,32 @@ suspend fun deleteMessages(
     }
 }
 
-suspend fun receiveMessages(
-    queueUrlVal: String?,
-    msgAttValue: String,
-): List<Message>? {
+suspend fun receiveMessages(queueUrlVal: String?, msgAttValue: String): List<Message>? {
     if (msgAttValue.isEmpty()) {
-        val request =
-            ReceiveMessageRequest {
-                queueUrl = queueUrlVal
-                maxNumberOfMessages = 5
-            }
+        val request = ReceiveMessageRequest {
+            queueUrl = queueUrlVal
+            maxNumberOfMessages = 5
+        }
         SqsClient { region = "us-east-1" }.use { sqsClient ->
             return sqsClient.receiveMessage(request).messages
         }
     } else {
-        val receiveRequest =
-            ReceiveMessageRequest {
-                queueUrl = queueUrlVal
-                waitTimeSeconds = 1
-                maxNumberOfMessages = 5
-            }
+        val receiveRequest = ReceiveMessageRequest {
+            queueUrl = queueUrlVal
+            waitTimeSeconds = 1
+            maxNumberOfMessages = 5
+        }
         SqsClient { region = "us-east-1" }.use { sqsClient ->
             return sqsClient.receiveMessage(receiveRequest).messages
         }
     }
 }
 
-suspend fun pubMessage(
-    messageVal: String?,
-    topicArnVal: String?,
-) {
-    val request =
-        PublishRequest {
-            message = messageVal
-            topicArn = topicArnVal
-        }
+suspend fun pubMessage(messageVal: String?, topicArnVal: String?) {
+    val request = PublishRequest {
+        message = messageVal
+        topicArn = topicArnVal
+    }
 
     SnsClient { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.publish(request)
@@ -393,25 +373,23 @@ suspend fun pubMessageFIFO(
     // Means the user did not choose to use a message attribute.
     if (msgAttValue.isEmpty()) {
         if (duplication.compareTo("y") == 0) {
-            val request =
-                PublishRequest {
-                    message = messageVal
-                    messageGroupId = groupIdVal
-                    topicArn = topicArnVal
-                }
+            val request = PublishRequest {
+                message = messageVal
+                messageGroupId = groupIdVal
+                topicArn = topicArnVal
+            }
 
             SnsClient { region = "us-east-1" }.use { snsClient ->
                 val result = snsClient.publish(request)
                 println(result.messageId.toString() + " Message sent.")
             }
         } else {
-            val request =
-                PublishRequest {
-                    message = messageVal
-                    messageDeduplicationId = deduplicationID
-                    messageGroupId = groupIdVal
-                    topicArn = topicArnVal
-                }
+            val request = PublishRequest {
+                message = messageVal
+                messageDeduplicationId = deduplicationID
+                messageGroupId = groupIdVal
+                topicArn = topicArnVal
+            }
 
             SnsClient { region = "us-east-1" }.use { snsClient ->
                 val result = snsClient.publish(request)
@@ -419,21 +397,19 @@ suspend fun pubMessageFIFO(
             }
         }
     } else {
-        val messAttr =
-            aws.sdk.kotlin.services.sns.model.MessageAttributeValue {
-                dataType = "String"
-                stringValue = "true"
-            }
+        val messAttr = aws.sdk.kotlin.services.sns.model.MessageAttributeValue {
+            dataType = "String"
+            stringValue = "true"
+        }
 
         val mapAtt: Map<String, aws.sdk.kotlin.services.sns.model.MessageAttributeValue> =
             mapOf(msgAttValue to messAttr)
         if (duplication.compareTo("y") == 0) {
-            val request =
-                PublishRequest {
-                    message = messageVal
-                    messageGroupId = groupIdVal
-                    topicArn = topicArnVal
-                }
+            val request = PublishRequest {
+                message = messageVal
+                messageGroupId = groupIdVal
+                topicArn = topicArnVal
+            }
 
             SnsClient { region = "us-east-1" }.use { snsClient ->
                 val result = snsClient.publish(request)
@@ -441,14 +417,13 @@ suspend fun pubMessageFIFO(
             }
         } else {
             // Create a publish request with the message and attributes.
-            val request =
-                PublishRequest {
-                    topicArn = topicArnVal
-                    message = messageVal
-                    messageDeduplicationId = deduplicationID
-                    messageGroupId = groupIdVal
-                    messageAttributes = mapAtt
-                }
+            val request = PublishRequest {
+                topicArn = topicArnVal
+                message = messageVal
+                messageDeduplicationId = deduplicationID
+                messageGroupId = groupIdVal
+                messageAttributes = mapAtt
+            }
 
             SnsClient { region = "us-east-1" }.use { snsClient ->
                 val result = snsClient.publish(request)
@@ -459,21 +434,16 @@ suspend fun pubMessageFIFO(
 }
 
 // Subscribe to the SQS queue.
-suspend fun subQueue(
-    topicArnVal: String?,
-    queueArnVal: String,
-    filterList: List<String?>,
-): String? {
+suspend fun subQueue(topicArnVal: String?, queueArnVal: String, filterList: List<String?>): String? {
     val request: SubscribeRequest
     if (filterList.isEmpty()) {
         // No filter subscription is added.
-        request =
-            SubscribeRequest {
-                protocol = "sqs"
-                endpoint = queueArnVal
-                returnSubscriptionArn = true
-                topicArn = topicArnVal
-            }
+        request = SubscribeRequest {
+            protocol = "sqs"
+            endpoint = queueArnVal
+            returnSubscriptionArn = true
+            topicArn = topicArnVal
+        }
 
         SnsClient { region = "us-east-1" }.use { snsClient ->
             val result = snsClient.subscribe(request)
@@ -484,19 +454,16 @@ suspend fun subQueue(
             return result.subscriptionArn
         }
     } else {
-        request =
-            SubscribeRequest {
-                protocol = "sqs"
-                endpoint = queueArnVal
-                returnSubscriptionArn = true
-                topicArn = topicArnVal
-            }
+        request = SubscribeRequest {
+            protocol = "sqs"
+            endpoint = queueArnVal
+            returnSubscriptionArn = true
+            topicArn = topicArnVal
+        }
 
         SnsClient { region = "us-east-1" }.use { snsClient ->
             val result = snsClient.subscribe(request)
-            println(
-                "The queue $queueArnVal has been subscribed to the topic $topicArnVal with the subscription ARN ${result.subscriptionArn}",
-            )
+            println("The queue $queueArnVal has been subscribed to the topic $topicArnVal with the subscription ARN ${result.subscriptionArn}")
 
             val attributeNameVal = "FilterPolicy"
             val gson = Gson()
@@ -509,12 +476,11 @@ suspend fun subQueue(
 
             val updatedJsonString: String = gson.toJson(jsonObject)
             println(updatedJsonString)
-            val attRequest =
-                SetSubscriptionAttributesRequest {
-                    subscriptionArn = result.subscriptionArn
-                    attributeName = attributeNameVal
-                    attributeValue = updatedJsonString
-                }
+            val attRequest = SetSubscriptionAttributesRequest {
+                subscriptionArn = result.subscriptionArn
+                attributeName = attributeNameVal
+                attributeValue = updatedJsonString
+            }
 
             snsClient.setSubscriptionAttributes(attRequest)
             return result.subscriptionArn
@@ -522,18 +488,14 @@ suspend fun subQueue(
     }
 }
 
-suspend fun setQueueAttr(
-    queueUrlVal: String?,
-    policy: String,
-) {
+suspend fun setQueueAttr(queueUrlVal: String?, policy: String) {
     val attrMap: MutableMap<String, String> = HashMap()
     attrMap[QueueAttributeName.Policy.toString()] = policy
 
-    val attributesRequest =
-        SetQueueAttributesRequest {
-            queueUrl = queueUrlVal
-            attributes = attrMap
-        }
+    val attributesRequest = SetQueueAttributesRequest {
+        queueUrl = queueUrlVal
+        attributes = attrMap
+    }
 
     SqsClient { region = "us-east-1" }.use { sqsClient ->
         sqsClient.setQueueAttributes(attributesRequest)
@@ -545,11 +507,10 @@ suspend fun getSQSQueueAttrs(queueUrlVal: String?): String {
     val atts: MutableList<QueueAttributeName> = ArrayList()
     atts.add(QueueAttributeName.QueueArn)
 
-    val attributesRequest =
-        GetQueueAttributesRequest {
-            queueUrl = queueUrlVal
-            attributeNames = atts
-        }
+    val attributesRequest = GetQueueAttributesRequest {
+        queueUrl = queueUrlVal
+        attributeNames = atts
+    }
     SqsClient { region = "us-east-1" }.use { sqsClient ->
         val response = sqsClient.getQueueAttributes(attributesRequest)
         val mapAtts = response.attributes
@@ -563,47 +524,40 @@ suspend fun getSQSQueueAttrs(queueUrlVal: String?): String {
     return ""
 }
 
-suspend fun createQueue(
-    queueNameVal: String?,
-    selectFIFO: Boolean,
-): String? {
+suspend fun createQueue(queueNameVal: String?, selectFIFO: Boolean): String? {
     println("\nCreate Queue")
     if (selectFIFO) {
         val attrs = mutableMapOf<String, String>()
         attrs[QueueAttributeName.FifoQueue.toString()] = "true"
 
-        val createQueueRequest =
-            CreateQueueRequest {
-                queueName = queueNameVal
-                attributes = attrs
-            }
+        val createQueueRequest = CreateQueueRequest {
+            queueName = queueNameVal
+            attributes = attrs
+        }
 
         SqsClient { region = "us-east-1" }.use { sqsClient ->
             sqsClient.createQueue(createQueueRequest)
             println("\nGet queue url")
 
-            val urlRequest =
-                GetQueueUrlRequest {
-                    queueName = queueNameVal
-                }
+            val urlRequest = GetQueueUrlRequest {
+                queueName = queueNameVal
+            }
 
             val getQueueUrlResponse = sqsClient.getQueueUrl(urlRequest)
             return getQueueUrlResponse.queueUrl
         }
     } else {
-        val createQueueRequest =
-            CreateQueueRequest {
-                queueName = queueNameVal
-            }
+        val createQueueRequest = CreateQueueRequest {
+            queueName = queueNameVal
+        }
 
         SqsClient { region = "us-east-1" }.use { sqsClient ->
             sqsClient.createQueue(createQueueRequest)
             println("Get queue url")
 
-            val urlRequest =
-                GetQueueUrlRequest {
-                    queueName = queueNameVal
-                }
+            val urlRequest = GetQueueUrlRequest {
+                queueName = queueNameVal
+            }
 
             val getQueueUrlResponse = sqsClient.getQueueUrl(urlRequest)
             return getQueueUrlResponse.queueUrl
@@ -612,10 +566,9 @@ suspend fun createQueue(
 }
 
 suspend fun createSNSTopic(topicName: String?): String? {
-    val request =
-        CreateTopicRequest {
-            name = topicName
-        }
+    val request = CreateTopicRequest {
+        name = topicName
+    }
 
     SnsClient { region = "us-east-1" }.use { snsClient ->
         val result = snsClient.createTopic(request)
@@ -623,10 +576,7 @@ suspend fun createSNSTopic(topicName: String?): String? {
     }
 }
 
-suspend fun createFIFO(
-    topicName: String?,
-    duplication: String,
-): String? {
+suspend fun createFIFO(topicName: String?, duplication: String): String? {
     val topicAttributes: MutableMap<String, String> = HashMap()
     if (duplication.compareTo("n") == 0) {
         topicAttributes["FifoTopic"] = "true"
@@ -636,11 +586,10 @@ suspend fun createFIFO(
         topicAttributes["ContentBasedDeduplication"] = "true"
     }
 
-    val topicRequest =
-        CreateTopicRequest {
-            name = topicName
-            attributes = topicAttributes
-        }
+    val topicRequest = CreateTopicRequest {
+        name = topicName
+        attributes = topicAttributes
+    }
     SnsClient { region = "us-east-1" }.use { snsClient ->
         val response = snsClient.createTopic(topicRequest)
         return response.topicArn

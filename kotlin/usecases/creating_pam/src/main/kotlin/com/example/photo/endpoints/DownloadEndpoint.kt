@@ -23,14 +23,13 @@ class DownloadEndpoint {
         val imageMap: HashMap<String, ByteArray> = HashMap()
 
         // Now that you have an image list, place the images into a ZIP and presign the ZIP.
-        val images =
-            labels.asFlow()
-                .flatMapConcat { label ->
-                    withContext(Dispatchers.IO) {
-                        dbService.getImagesByLabel(label)
-                    }.asFlow()
-                }
-                .toSet()
+        val images = labels.asFlow()
+            .flatMapConcat { label ->
+                withContext(Dispatchers.IO) {
+                    dbService.getImagesByLabel(label)
+                }.asFlow()
+            }
+            .toSet()
 
         val uuid = UUID.randomUUID().toString()
         val zipName = "$uuid.zip"

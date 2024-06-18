@@ -10,26 +10,20 @@ import aws.sdk.kotlin.services.rekognition.model.S3Object
 import com.example.photo.LabelCount
 
 class AnalyzePhotos {
-    suspend fun detectLabels(
-        bucketName: String?,
-        key: String?,
-    ): ArrayList<LabelCount> {
-        val s3Ob =
-            S3Object {
-                bucket = bucketName
-                name = key
-            }
+    suspend fun detectLabels(bucketName: String?, key: String?): ArrayList<LabelCount> {
+        val s3Ob = S3Object {
+            bucket = bucketName
+            name = key
+        }
 
-        val souImage =
-            Image {
-                s3Object = s3Ob
-            }
+        val souImage = Image {
+            s3Object = s3Ob
+        }
 
-        val detectLabelsRequest =
-            DetectLabelsRequest {
-                image = souImage
-                maxLabels = 10
-            }
+        val detectLabelsRequest = DetectLabelsRequest {
+            image = souImage
+            maxLabels = 10
+        }
 
         RekognitionClient { region = "us-east-1" }.use { rekClient ->
             val labelsResponse = rekClient.detectLabels(detectLabelsRequest)

@@ -29,65 +29,56 @@ fun main(args: Array<String>) {
 @CrossOrigin(origins = ["*"])
 @RestController
 class MessageResource {
+
     @Autowired
     private lateinit var dbService: DynamoDBService
 
     @Autowired
     private lateinit var sendMsg: SendMessage
 
-    // Add an item to the Amazon DynamoDB database.
+    // Add a new item to the Amazon DynamoDB database.
     @PostMapping("api/items")
-    fun addItems(
-        @RequestBody payLoad: Map<String, Any>,
-    ): String =
-        runBlocking {
-            val nameVal = "user"
-            val guideVal = payLoad.get("guide").toString()
-            val descriptionVal = payLoad.get("description").toString()
-            val statusVal = payLoad.get("status").toString()
+    fun addItems(@RequestBody payLoad: Map<String, Any>): String = runBlocking {
+        val nameVal = "user"
+        val guideVal = payLoad.get("guide").toString()
+        val descriptionVal = payLoad.get("description").toString()
+        val statusVal = payLoad.get("status").toString()
 
-            // Create a Work Item object.
-            val myWork = WorkItem()
-            myWork.guide = guideVal
-            myWork.description = descriptionVal
-            myWork.status = statusVal
-            myWork.name = nameVal
-            val id = dbService.putItemInTable(myWork)
-            return@runBlocking "Item $id added successfully!"
-        }
+        // Create a Work Item object.
+        val myWork = WorkItem()
+        myWork.guide = guideVal
+        myWork.description = descriptionVal
+        myWork.status = statusVal
+        myWork.name = nameVal
+        val id = dbService.putItemInTable(myWork)
+        return@runBlocking "Item $id added successfully!"
+    }
 
     // Retrieve items.
     @GetMapping("api/items")
-    fun getItems(
-        @RequestParam(required = false) archived: String?,
-    ): MutableList<WorkItem> =
-        runBlocking {
-            val list: MutableList<WorkItem>
-            if (archived == "false") {
-                list = dbService.getOpenItems(false)
-            } else if (archived == "true") {
-                list = dbService.getOpenItems(true)
-            } else {
-                list = dbService.getAllItems()
-            }
-            return@runBlocking list
+    fun getItems(@RequestParam(required = false) archived: String?): MutableList<WorkItem> = runBlocking {
+        val list: MutableList<WorkItem>
+        if (archived == "false") {
+            list = dbService.getOpenItems(false)
+        } else if (archived == "true") {
+            list = dbService.getOpenItems(true)
+        } else {
+            list = dbService.getAllItems()
         }
+        return@runBlocking list
+    }
 
     // Flip an item from Active to Archive.
     @PutMapping("api/items/{id}:archive")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    fun modUser(
-        @PathVariable id: String,
-    ) = runBlocking {
+    fun modUser(@PathVariable id: String) = runBlocking {
         dbService.archiveItemEC(id)
         return@runBlocking
     }
 
     @PostMapping("api/items:report")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    fun sendReport(
-        @RequestBody body: Map<String, String>,
-    ) = runBlocking {
+    fun sendReport(@RequestBody body: Map<String, String>) = runBlocking {
         val email = body.get("email")
         val xml = dbService.getOpenReport(false)
         try {

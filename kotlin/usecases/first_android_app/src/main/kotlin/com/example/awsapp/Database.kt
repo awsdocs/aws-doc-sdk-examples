@@ -5,8 +5,8 @@ package com.example.awsapp
 
 import aws.sdk.kotlin.services.dynamodb.DynamoDbClient
 import aws.sdk.kotlin.services.dynamodb.model.AttributeValue
-import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
 import aws.sdk.kotlin.services.dynamodb.model.DynamoDbException
+import aws.sdk.kotlin.services.dynamodb.model.PutItemRequest
 import kotlin.system.exitProcess
 
 class Database {
@@ -29,20 +29,19 @@ class Database {
 
         // Add all content to the table.
         itemValues[key] = AttributeValue.S(keyVal)
-        itemValues[moneyTotal] =  AttributeValue.S(moneyTotalValue)
+        itemValues[moneyTotal] = AttributeValue.S(moneyTotalValue)
         itemValues[name] = AttributeValue.S(nameValue)
         itemValues[email] = AttributeValue.S(emailVal)
         itemValues[date] = AttributeValue.S(dateVal)
 
         val request = PutItemRequest {
-            tableName=tableNameVal
+            tableName = tableNameVal
             item = itemValues
         }
 
         try {
             ddb.putItem(request)
             println(" A new item was placed into $tableNameVal.")
-
         } catch (ex: DynamoDbException) {
             println(ex.message)
             ddb.close()
