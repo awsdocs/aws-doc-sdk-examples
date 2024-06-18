@@ -154,7 +154,7 @@ public class ECRScenario {
         System.out.println("""
         7. Push a docker image to the Amazon ECR Repository.
             
-        The `pushDockerImage()` method pushes a local Docker image to an Amazon ECR repository.
+        The `pushImageCmd()` method pushes a local Docker image to an Amazon ECR repository.
         It sets up the Docker client by connecting to the local Docker host using the default port.
         It then retrieves the authorization token for the ECR repository by making a call to the AWS SDK.
             

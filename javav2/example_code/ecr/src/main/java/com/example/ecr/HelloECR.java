@@ -32,7 +32,7 @@ public class HelloECR {
 
         listImageTags(ecrClient, repoName);
     }
-    public static void listImageTags( EcrClient ecrClient, String repoName){
+    public static void listImageTags(EcrClient ecrClient, String repoName){
         ListImagesRequest listImagesPaginator = ListImagesRequest.builder()
             .repositoryName(repoName)
             .build();
@@ -45,9 +45,7 @@ public class HelloECR {
 
        } catch (EcrException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-        } finally {
-            ecrClient.close();
-        }
+       }
     }
 }
 // snippet-end:[ecr.java2_hello.main]

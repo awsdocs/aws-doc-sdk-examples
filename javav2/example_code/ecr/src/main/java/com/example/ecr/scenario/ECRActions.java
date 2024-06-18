@@ -315,8 +315,9 @@ public class ECRActions {
             if (authorizationTokenResponse != null) {
                 AuthorizationData authorizationData = authorizationTokenResponse.authorizationData().get(0);
                 String token = authorizationData.authorizationToken();
-                System.out.println("The token is:");
-                System.out.println(token);
+                if (!token.isEmpty()) {
+                    System.out.println("The token was successfully retrieved.");
+                }
             } else {
                 if (ex.getCause() instanceof EcrException) {
                     EcrException e = (EcrException) ex.getCause();
