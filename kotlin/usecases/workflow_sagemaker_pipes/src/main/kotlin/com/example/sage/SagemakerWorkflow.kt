@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 package com.example.sage
-
+// snippet-start:[sagemaker.kotlin.sc.main]
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.AttachRolePolicyRequest
 import aws.sdk.kotlin.services.iam.model.CreateRoleRequest
@@ -82,7 +82,7 @@ import kotlin.system.exitProcess
  * 5. View the output of the pipeline.
  * 6. Clean up resources.
  */
-// snippet-start:[sagemaker.kotlin.sc.main]
+
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
 private var eventSourceMapping = ""
 
@@ -125,11 +125,11 @@ suspend fun main(args: Array<String>) {
     println("Welcome to the Amazon SageMaker pipeline example scenario.")
     println(
         """
-         This example workflow will guide you through setting up and running an
-         Amazon SageMaker pipeline. The pipeline uses an AWS Lambda function and an
-         Amazon SQS Queue. It runs a vector enrichment reverse geocode job to
-         reverse geocode addresses in an input file and store the results in an export file.
-        """.trimIndent()
+        This example workflow will guide you through setting up and running an
+        Amazon SageMaker pipeline. The pipeline uses an AWS Lambda function and an
+        Amazon SQS Queue. It runs a vector enrichment reverse geocode job to
+        reverse geocode addresses in an input file and store the results in an export file.
+        """.trimIndent(),
     )
     println(DASHES)
 
@@ -165,16 +165,16 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
     println(
         """
-             The pipeline has completed. To view the pipeline and runs in SageMaker Studio, follow these instructions:
-             https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines-studio.html
-        """.trimIndent()
+        The pipeline has completed. To view the pipeline and runs in SageMaker Studio, follow these instructions:
+        https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines-studio.html
+        """.trimIndent(),
     )
     println(DASHES)
 
     println(DASHES)
     println("Do you want to delete the AWS resources used in this Workflow? (y/n)")
-    val `in` = Scanner(System.`in`)
-    val delResources = `in`.nextLine()
+    val scanner = Scanner(System.`in`)
+    val delResources = scanner.nextLine()
     if (delResources.compareTo("y") == 0) {
         println("Lets clean up the AWS resources. Wait 30 seconds")
         TimeUnit.SECONDS.sleep(30)
@@ -199,9 +199,10 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[sagemaker.kotlin.delete_pipeline.main]
 // Delete a SageMaker pipeline by name.
 suspend fun deletePipeline(pipelineNameVal: String) {
-    val pipelineRequest = DeletePipelineRequest {
-        pipelineName = pipelineNameVal
-    }
+    val pipelineRequest =
+        DeletePipelineRequest {
+            pipelineName = pipelineNameVal
+        }
 
     SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
         sageMakerClient.deletePipeline(pipelineRequest)
@@ -215,17 +216,19 @@ suspend fun deleteSagemakerRole(roleNameVal: String) {
     IamClient { region = "us-west-2" }.use { iam ->
         for (policy in sageMakerRolePolicies) {
             // First the policy needs to be detached.
-            val rolePolicyRequest = DetachRolePolicyRequest {
-                policyArn = policy
-                roleName = roleNameVal
-            }
+            val rolePolicyRequest =
+                DetachRolePolicyRequest {
+                    policyArn = policy
+                    roleName = roleNameVal
+                }
             iam.detachRolePolicy(rolePolicyRequest)
         }
 
         // Delete the role.
-        val roleRequest = DeleteRoleRequest {
-            roleName = roleNameVal
-        }
+        val roleRequest =
+            DeleteRoleRequest {
+                roleName = roleNameVal
+            }
         iam.deleteRole(roleRequest)
         println("*** Successfully deleted $roleNameVal")
     }
@@ -236,26 +239,29 @@ suspend fun deleteLambdaRole(roleNameVal: String) {
     IamClient { region = "us-west-2" }.use { iam ->
         for (policy in lambdaRolePolicies) {
             // First the policy needs to be detached.
-            val rolePolicyRequest = DetachRolePolicyRequest {
-                policyArn = policy
-                roleName = roleNameVal
-            }
+            val rolePolicyRequest =
+                DetachRolePolicyRequest {
+                    policyArn = policy
+                    roleName = roleNameVal
+                }
             iam.detachRolePolicy(rolePolicyRequest)
         }
 
         // Delete the role.
-        val roleRequest = DeleteRoleRequest {
-            roleName = roleNameVal
-        }
+        val roleRequest =
+            DeleteRoleRequest {
+                roleName = roleNameVal
+            }
         iam.deleteRole(roleRequest)
         println("*** Successfully deleted $roleNameVal")
     }
 }
 
 suspend fun delLambdaFunction(myFunctionName: String) {
-    val request = DeleteFunctionRequest {
-        functionName = myFunctionName
-    }
+    val request =
+        DeleteFunctionRequest {
+            functionName = myFunctionName
+        }
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         awsLambda.deleteFunction(request)
@@ -264,28 +270,35 @@ suspend fun delLambdaFunction(myFunctionName: String) {
 }
 
 suspend fun deleteBucket(bucketName: String?) {
-    val request = DeleteBucketRequest {
-        bucket = bucketName
-    }
+    val request =
+        DeleteBucketRequest {
+            bucket = bucketName
+        }
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.deleteBucket(request)
         println("The $bucketName was successfully deleted!")
     }
 }
 
-suspend fun deleteBucketObjects(bucketName: String, objectName: String?) {
+suspend fun deleteBucketObjects(
+    bucketName: String,
+    objectName: String?,
+) {
     val toDelete = ArrayList<ObjectIdentifier>()
-    val obId = ObjectIdentifier {
-        key = objectName
-    }
+    val obId =
+        ObjectIdentifier {
+            key = objectName
+        }
     toDelete.add(obId)
-    val delOb = Delete {
-        objects = toDelete
-    }
-    val dor = DeleteObjectsRequest {
-        bucket = bucketName
-        delete = delOb
-    }
+    val delOb =
+        Delete {
+            objects = toDelete
+        }
+    val dor =
+        DeleteObjectsRequest {
+            bucket = bucketName
+            delete = delOb
+        }
 
     S3Client { region = "us-east-1" }.use { s3Client ->
         s3Client.deleteObjects(dor)
@@ -294,9 +307,10 @@ suspend fun deleteBucketObjects(bucketName: String, objectName: String?) {
 }
 
 suspend fun listBucketObjects(bucketNameVal: String) {
-    val listObjects = ListObjectsRequest {
-        bucket = bucketNameVal
-    }
+    val listObjects =
+        ListObjectsRequest {
+            bucket = bucketNameVal
+        }
 
     S3Client { region = "us-east-1" }.use { s3Client ->
         val res = s3Client.listObjects(listObjects)
@@ -312,15 +326,17 @@ suspend fun listBucketObjects(bucketNameVal: String) {
 
 // Delete the specific Amazon SQS queue.
 suspend fun deleteSQSQueue(queueNameVal: String?) {
-    val getQueueRequest = GetQueueUrlRequest {
-        queueName = queueNameVal
-    }
+    val getQueueRequest =
+        GetQueueUrlRequest {
+            queueName = queueNameVal
+        }
 
     SqsClient { region = "us-west-2" }.use { sqsClient ->
         val urlVal = sqsClient.getQueueUrl(getQueueRequest).queueUrl
-        val deleteQueueRequest = DeleteQueueRequest {
-            queueUrl = urlVal
-        }
+        val deleteQueueRequest =
+            DeleteQueueRequest {
+                queueUrl = urlVal
+            }
         sqsClient.deleteQueue(deleteQueueRequest)
     }
 }
@@ -329,9 +345,10 @@ suspend fun deleteSQSQueue(queueNameVal: String?) {
 suspend fun deleteEventSourceMapping(functionNameVal: String) {
     if (eventSourceMapping.compareTo("") == 0) {
         LambdaClient { region = "us-west-2" }.use { lambdaClient ->
-            val request = ListEventSourceMappingsRequest {
-                functionName = functionNameVal
-            }
+            val request =
+                ListEventSourceMappingsRequest {
+                    functionName = functionNameVal
+                }
             val response = lambdaClient.listEventSourceMappings(request)
             val eventList = response.eventSourceMappings
             if (eventList != null) {
@@ -342,9 +359,10 @@ suspend fun deleteEventSourceMapping(functionNameVal: String) {
         }
     }
 
-    val eventSourceMappingRequest = DeleteEventSourceMappingRequest {
-        uuid = eventSourceMapping
-    }
+    val eventSourceMappingRequest =
+        DeleteEventSourceMappingRequest {
+            uuid = eventSourceMapping
+        }
     LambdaClient { region = "us-west-2" }.use { lambdaClient ->
         lambdaClient.deleteEventSourceMapping(eventSourceMappingRequest)
         println("The event mapping is deleted!")
@@ -352,12 +370,16 @@ suspend fun deleteEventSourceMapping(functionNameVal: String) {
 }
 
 // Reads the objects in the S3 bucket and displays the values.
-private suspend fun readObject(bucketName: String, keyVal: String?) {
+private suspend fun readObject(
+    bucketName: String,
+    keyVal: String?,
+) {
     println("Output file contents: \n")
-    val objectRequest = GetObjectRequest {
-        bucket = bucketName
-        key = keyVal
-    }
+    val objectRequest =
+        GetObjectRequest {
+            bucket = bucketName
+            key = keyVal
+        }
     S3Client { region = "us-east-1" }.use { s3Client ->
         s3Client.getObject(objectRequest) { resp ->
             val byteArray = resp.body?.toByteArray()
@@ -370,10 +392,11 @@ private suspend fun readObject(bucketName: String, keyVal: String?) {
 // Display the results from the output directory.
 suspend fun getOutputResults(bucketName: String?) {
     println("Getting output results $bucketName.")
-    val listObjectsRequest = ListObjectsRequest {
-        bucket = bucketName
-        prefix = "outputfiles/"
-    }
+    val listObjectsRequest =
+        ListObjectsRequest {
+            bucket = bucketName
+            prefix = "outputfiles/"
+        }
     S3Client { region = "us-east-1" }.use { s3Client ->
         val response = s3Client.listObjects(listObjectsRequest)
         val s3Objects: List<Object>? = response.contents
@@ -392,9 +415,10 @@ suspend fun waitForPipelineExecution(executionArn: String?) {
     var status: String
     var index = 0
     do {
-        val pipelineExecutionRequest = DescribePipelineExecutionRequest {
-            pipelineExecutionArn = executionArn
-        }
+        val pipelineExecutionRequest =
+            DescribePipelineExecutionRequest {
+                pipelineExecutionArn = executionArn
+            }
 
         SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
             val response = sageMakerClient.describePipelineExecution(pipelineExecutionRequest)
@@ -410,27 +434,35 @@ suspend fun waitForPipelineExecution(executionArn: String?) {
 
 // snippet-start:[sagemaker.kotlin.execute_pipeline.main]
 // Start a pipeline run with job configurations.
-suspend fun executePipeline(bucketName: String, queueUrl: String?, roleArn: String?, pipelineNameVal: String): String? {
+suspend fun executePipeline(
+    bucketName: String,
+    queueUrl: String?,
+    roleArn: String?,
+    pipelineNameVal: String,
+): String? {
     println("Starting pipeline execution.")
     val inputBucketLocation = "s3://$bucketName/samplefiles/latlongtest.csv"
     val output = "s3://$bucketName/outputfiles/"
 
-    val gson = GsonBuilder()
-        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-        .setPrettyPrinting()
-        .create()
+    val gson =
+        GsonBuilder()
+            .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+            .setPrettyPrinting()
+            .create()
 
     // Set up all parameters required to start the pipeline.
     val parameters: MutableList<Parameter> = java.util.ArrayList<Parameter>()
 
-    val para1 = Parameter {
-        name = "parameter_execution_role"
-        value = roleArn
-    }
-    val para2 = Parameter {
-        name = "parameter_queue_url"
-        value = queueUrl
-    }
+    val para1 =
+        Parameter {
+            name = "parameter_execution_role"
+            value = roleArn
+        }
+    val para2 =
+        Parameter {
+            name = "parameter_queue_url"
+            value = queueUrl
+        }
 
     val inputJSON = """{
         "DataSourceConfig": {
@@ -442,34 +474,39 @@ suspend fun executePipeline(bucketName: String, queueUrl: String?, roleArn: Stri
         "DocumentType": "CSV"
     }"""
     println(inputJSON)
-    val para3 = Parameter {
-        name = "parameter_vej_input_config"
-        value = inputJSON
-    }
+    val para3 =
+        Parameter {
+            name = "parameter_vej_input_config"
+            value = inputJSON
+        }
 
     // Create an ExportVectorEnrichmentJobOutputConfig object.
-    val jobS3Data = VectorEnrichmentJobS3Data {
-        s3Uri = output
-    }
+    val jobS3Data =
+        VectorEnrichmentJobS3Data {
+            s3Uri = output
+        }
 
-    val outputConfig = ExportVectorEnrichmentJobOutputConfig {
-        s3Data = jobS3Data
-    }
+    val outputConfig =
+        ExportVectorEnrichmentJobOutputConfig {
+            s3Data = jobS3Data
+        }
 
     val gson4: String = gson.toJson(outputConfig)
-    val para4: Parameter = Parameter {
-        name = "parameter_vej_export_config"
-        value = gson4
-    }
+    val para4: Parameter =
+        Parameter {
+            name = "parameter_vej_export_config"
+            value = gson4
+        }
     println("parameter_vej_export_config:" + gson.toJson(outputConfig))
 
     val para5JSON =
         "{\"MapMatchingConfig\":null,\"ReverseGeocodingConfig\":{\"XAttributeName\":\"Longitude\",\"YAttributeName\":\"Latitude\"}}"
 
-    val para5: Parameter = Parameter {
-        name = "parameter_step_1_vej_config"
-        value = para5JSON
-    }
+    val para5: Parameter =
+        Parameter {
+            name = "parameter_step_1_vej_config"
+            value = para5JSON
+        }
 
     parameters.add(para1)
     parameters.add(para2)
@@ -477,12 +514,13 @@ suspend fun executePipeline(bucketName: String, queueUrl: String?, roleArn: Stri
     parameters.add(para4)
     parameters.add(para5)
 
-    val pipelineExecutionRequest = StartPipelineExecutionRequest {
-        pipelineExecutionDescription = "Created using Kotlin SDK"
-        pipelineExecutionDisplayName = "$pipelineName-example-execution"
-        pipelineParameters = parameters
-        pipelineName = pipelineNameVal
-    }
+    val pipelineExecutionRequest =
+        StartPipelineExecutionRequest {
+            pipelineExecutionDescription = "Created using Kotlin SDK"
+            pipelineExecutionDisplayName = "$pipelineName-example-execution"
+            pipelineParameters = parameters
+            pipelineName = pipelineNameVal
+        }
 
     SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
         val response = sageMakerClient.startPipelineExecution(pipelineExecutionRequest)
@@ -493,7 +531,12 @@ suspend fun executePipeline(bucketName: String, queueUrl: String?, roleArn: Stri
 
 // snippet-start:[sagemaker.kotlin.create_pipeline.main]
 // Create a pipeline from the example pipeline JSON.
-suspend fun setupPipeline(filePath: String?, roleArnVal: String?, functionArnVal: String?, pipelineNameVal: String?) {
+suspend fun setupPipeline(
+    filePath: String?,
+    roleArnVal: String?,
+    functionArnVal: String?,
+    pipelineNameVal: String?,
+) {
     println("Setting up the pipeline.")
     val parser = JSONParser()
 
@@ -511,12 +554,13 @@ suspend fun setupPipeline(filePath: String?, roleArnVal: String?, functionArnVal
         println(jsonObject)
 
         // Create the pipeline.
-        val pipelineRequest = CreatePipelineRequest {
-            pipelineDescription = "Kotlin SDK example pipeline"
-            roleArn = roleArnVal
-            pipelineName = pipelineNameVal
-            pipelineDefinition = jsonObject.toString()
-        }
+        val pipelineRequest =
+            CreatePipelineRequest {
+                pipelineDescription = "Kotlin SDK example pipeline"
+                roleArn = roleArnVal
+                pipelineName = pipelineNameVal
+                pipelineDefinition = jsonObject.toString()
+            }
 
         SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
             sageMakerClient.createPipeline(pipelineRequest)
@@ -525,12 +569,17 @@ suspend fun setupPipeline(filePath: String?, roleArnVal: String?, functionArnVal
 }
 // snippet-end:[sagemaker.kotlin.create_pipeline.main]
 
-suspend fun putS3Object(bucketName: String, objectKey: String, objectPath: String) {
-    val request = PutObjectRequest {
-        bucket = bucketName
-        key = objectKey
-        body = File(objectPath).asByteStream()
-    }
+suspend fun putS3Object(
+    bucketName: String,
+    objectKey: String,
+    objectPath: String,
+) {
+    val request =
+        PutObjectRequest {
+            bucket = bucketName
+            key = objectKey
+            body = File(objectPath).asByteStream()
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.putObject(request)
@@ -539,9 +588,10 @@ suspend fun putS3Object(bucketName: String, objectKey: String, objectPath: Strin
 }
 
 suspend fun setupBucket(bucketName: String) {
-    val request = CreateBucketRequest {
-        bucket = bucketName
-    }
+    val request =
+        CreateBucketRequest {
+            bucket = bucketName
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.createBucket(request)
@@ -551,9 +601,10 @@ suspend fun setupBucket(bucketName: String) {
 
 suspend fun checkBucket(bucketName: String): Boolean {
     try {
-        val headBucketRequest = HeadBucketRequest {
-            bucket = bucketName
-        }
+        val headBucketRequest =
+            HeadBucketRequest {
+                bucket = bucketName
+            }
         S3Client { region = "us-east-1" }.use { s3Client ->
             s3Client.headBucket(headBucketRequest)
             println("$bucketName exists")
@@ -566,17 +617,21 @@ suspend fun checkBucket(bucketName: String): Boolean {
 }
 
 // Connect the queue to the Lambda function as an event source.
-suspend fun connectLambda(queueUrlVal: String?, lambdaNameVal: String?) {
+suspend fun connectLambda(
+    queueUrlVal: String?,
+    lambdaNameVal: String?,
+) {
     println("Connecting the Lambda function and queue for the pipeline.")
     var queueArn = ""
 
     // Specify the attributes to retrieve.
     val atts: MutableList<QueueAttributeName> = ArrayList()
     atts.add(QueueAttributeName.QueueArn)
-    val attributesRequest = GetQueueAttributesRequest {
-        queueUrl = queueUrlVal
-        attributeNames = atts
-    }
+    val attributesRequest =
+        GetQueueAttributesRequest {
+            queueUrl = queueUrlVal
+            attributeNames = atts
+        }
 
     SqsClient { region = "us-west-2" }.use { sqsClient ->
         val response = sqsClient.getQueueAttributes(attributesRequest)
@@ -588,10 +643,11 @@ suspend fun connectLambda(queueUrlVal: String?, lambdaNameVal: String?) {
             }
         }
     }
-    val eventSourceMappingRequest = CreateEventSourceMappingRequest {
-        eventSourceArn = queueArn
-        functionName = lambdaNameVal
-    }
+    val eventSourceMappingRequest =
+        CreateEventSourceMappingRequest {
+            eventSourceArn = queueArn
+            functionName = lambdaNameVal
+        }
     LambdaClient { region = "us-west-2" }.use { lambdaClient ->
         val response1 = lambdaClient.createEventSourceMapping(eventSourceMappingRequest)
         eventSourceMapping = response1.uuid.toString()
@@ -600,17 +656,21 @@ suspend fun connectLambda(queueUrlVal: String?, lambdaNameVal: String?) {
 }
 
 // Set up the SQS queue to use with the pipeline.
-suspend fun setupQueue(queueNameVal: String, lambdaNameVal: String): String {
+suspend fun setupQueue(
+    queueNameVal: String,
+    lambdaNameVal: String,
+): String {
     println("Setting up queue named $queueNameVal")
     val queueAtt: MutableMap<String, String> = HashMap()
     queueAtt.put("DelaySeconds", "5")
     queueAtt.put("ReceiveMessageWaitTimeSeconds", "5")
     queueAtt.put("VisibilityTimeout", "300")
 
-    val createQueueRequest = CreateQueueRequest {
-        queueName = queueNameVal
-        attributes = queueAtt
-    }
+    val createQueueRequest =
+        CreateQueueRequest {
+            queueName = queueNameVal
+            attributes = queueAtt
+        }
 
     SqsClient { region = "us-west-2" }.use { sqsClient ->
         sqsClient.createQueue(createQueueRequest)
@@ -625,13 +685,17 @@ suspend fun setupQueue(queueNameVal: String, lambdaNameVal: String): String {
 
 // Checks to see if the Amazon SQS queue exists. If not, this method creates a new queue
 // and returns the ARN value.
-suspend fun checkQueue(queueNameVal: String, lambdaNameVal: String): String? {
+suspend fun checkQueue(
+    queueNameVal: String,
+    lambdaNameVal: String,
+): String? {
     println("Checking to see if the queue exists. If not, a new queue will be created for use in this workflow.")
     var queueUrl: String
     try {
-        val request = GetQueueUrlRequest {
-            queueName = queueNameVal
-        }
+        val request =
+            GetQueueUrlRequest {
+                queueName = queueNameVal
+            }
 
         SqsClient { region = "us-west-2" }.use { sqsClient ->
             val response = sqsClient.getQueueUrl(request)
@@ -645,22 +709,30 @@ suspend fun checkQueue(queueNameVal: String, lambdaNameVal: String): String? {
     return queueUrl
 }
 
-suspend fun createNewFunction(myFunctionName: String, s3BucketName: String, myS3Key: String, myHandler: String, myRole: String): String {
-    val functionCode = FunctionCode {
-        s3Bucket = s3BucketName
-        s3Key = myS3Key
-    }
+suspend fun createNewFunction(
+    myFunctionName: String,
+    s3BucketName: String,
+    myS3Key: String,
+    myHandler: String,
+    myRole: String,
+): String {
+    val functionCode =
+        FunctionCode {
+            s3Bucket = s3BucketName
+            s3Key = myS3Key
+        }
 
-    val request = CreateFunctionRequest {
-        functionName = myFunctionName
-        code = functionCode
-        description = "Created by the Lambda Kotlin API"
-        handler = myHandler
-        role = myRole
-        runtime = Runtime.Java11
-        memorySize = 1024
-        timeout = 200
-    }
+    val request =
+        CreateFunctionRequest {
+            functionName = myFunctionName
+            code = functionCode
+            description = "Created by the Lambda Kotlin API"
+            handler = myHandler
+            role = myRole
+            runtime = Runtime.Java11
+            memorySize = 1024
+            timeout = 200
+        }
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val functionResponse = awsLambda.createFunction(request)
@@ -672,14 +744,21 @@ suspend fun createNewFunction(myFunctionName: String, s3BucketName: String, myS3
     }
 }
 
-suspend fun checkFunction(myFunctionName: String, s3BucketName: String, myS3Key: String, myHandler: String, myRole: String): String {
+suspend fun checkFunction(
+    myFunctionName: String,
+    s3BucketName: String,
+    myS3Key: String,
+    myHandler: String,
+    myRole: String,
+): String {
     println("Checking to see if the function exists. If not, a new AWS Lambda function will be created for use in this workflow.")
     var functionArn: String
     try {
         // Does this function already exist.
-        val functionRequest = GetFunctionRequest {
-            functionName = myFunctionName
-        }
+        val functionRequest =
+            GetFunctionRequest {
+                functionName = myFunctionName
+            }
         LambdaClient { region = "us-west-2" }.use { lambdaClient ->
             val response = lambdaClient.getFunction(functionRequest)
             functionArn = response.configuration?.functionArn.toString()
@@ -697,9 +776,10 @@ suspend fun checkSageMakerRole(roleNameVal: String): String {
     println("Checking to see if the role exists. If not, a new role will be created for AWS SageMaker to use.")
     var roleArn: String
     try {
-        val roleRequest = GetRoleRequest {
-            roleName = roleNameVal
-        }
+        val roleRequest =
+            GetRoleRequest {
+                roleName = roleNameVal
+            }
         IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
             val response = iamClient.getRole(roleRequest)
             roleArn = response.role?.arn.toString()
@@ -715,36 +795,39 @@ suspend fun checkSageMakerRole(roleNameVal: String): String {
 suspend fun createSageMakerRole(roleNameVal: String): String {
     val sageMakerRolePolicies = getSageMakerRolePolicies()
     println("Creating a role to use with SageMaker.")
-    val assumeRolePolicy = "{" +
-        "\"Version\": \"2012-10-17\"," +
-        "\"Statement\": [{" +
-        "\"Effect\": \"Allow\"," +
-        "\"Principal\": {" +
-        "\"Service\": [" +
-        "\"sagemaker.amazonaws.com\"," +
-        "\"sagemaker-geospatial.amazonaws.com\"," +
-        "\"lambda.amazonaws.com\"," +
-        "\"s3.amazonaws.com\"" +
-        "]" +
-        "}," +
-        "\"Action\": \"sts:AssumeRole\"" +
-        "}]" +
-        "}"
+    val assumeRolePolicy =
+        "{" +
+            "\"Version\": \"2012-10-17\"," +
+            "\"Statement\": [{" +
+            "\"Effect\": \"Allow\"," +
+            "\"Principal\": {" +
+            "\"Service\": [" +
+            "\"sagemaker.amazonaws.com\"," +
+            "\"sagemaker-geospatial.amazonaws.com\"," +
+            "\"lambda.amazonaws.com\"," +
+            "\"s3.amazonaws.com\"" +
+            "]" +
+            "}," +
+            "\"Action\": \"sts:AssumeRole\"" +
+            "}]" +
+            "}"
 
-    val request = CreateRoleRequest {
-        roleName = roleNameVal
-        assumeRolePolicyDocument = assumeRolePolicy
-        description = "Created using the AWS SDK for Kotlin"
-    }
+    val request =
+        CreateRoleRequest {
+            roleName = roleNameVal
+            assumeRolePolicyDocument = assumeRolePolicy
+            description = "Created using the AWS SDK for Kotlin"
+        }
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         val roleResult = iamClient.createRole(request)
 
         // Attach the policies to the role.
         for (policy in sageMakerRolePolicies) {
-            val attachRequest = AttachRolePolicyRequest {
-                roleName = roleNameVal
-                policyArn = policy
-            }
+            val attachRequest =
+                AttachRolePolicyRequest {
+                    roleName = roleNameVal
+                    policyArn = policy
+                }
             iamClient.attachRolePolicy(attachRequest)
         }
 
@@ -759,9 +842,10 @@ suspend fun createSageMakerRole(roleNameVal: String): String {
 suspend fun checkLambdaRole(roleNameVal: String): String {
     println("Checking to see if the role exists. If not, a new role will be created for AWS Lambda to use.")
     var roleArn: String
-    val roleRequest = GetRoleRequest {
-        roleName = roleNameVal
-    }
+    val roleRequest =
+        GetRoleRequest {
+            roleName = roleNameVal
+        }
 
     try {
         IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
@@ -779,37 +863,40 @@ suspend fun checkLambdaRole(roleNameVal: String): String {
 
 private suspend fun createLambdaRole(roleNameVal: String): String {
     val lambdaRolePolicies = getLambdaRolePolicies()
-    val assumeRolePolicy = "{" +
-        "\"Version\": \"2012-10-17\"," +
-        "\"Statement\": [{" +
-        "\"Effect\": \"Allow\"," +
-        "\"Principal\": {" +
-        "\"Service\": [" +
-        "\"sagemaker.amazonaws.com\"," +
-        "\"sagemaker-geospatial.amazonaws.com\"," +
-        "\"lambda.amazonaws.com\"," +
-        "\"s3.amazonaws.com\"" +
-        "]" +
-        "}," +
-        "\"Action\": \"sts:AssumeRole\"" +
-        "}]" +
-        "}"
+    val assumeRolePolicy =
+        "{" +
+            "\"Version\": \"2012-10-17\"," +
+            "\"Statement\": [{" +
+            "\"Effect\": \"Allow\"," +
+            "\"Principal\": {" +
+            "\"Service\": [" +
+            "\"sagemaker.amazonaws.com\"," +
+            "\"sagemaker-geospatial.amazonaws.com\"," +
+            "\"lambda.amazonaws.com\"," +
+            "\"s3.amazonaws.com\"" +
+            "]" +
+            "}," +
+            "\"Action\": \"sts:AssumeRole\"" +
+            "}]" +
+            "}"
 
-    val request = CreateRoleRequest {
-        roleName = roleNameVal
-        assumeRolePolicyDocument = assumeRolePolicy
-        description = "Created using the AWS SDK for Kotlin"
-    }
+    val request =
+        CreateRoleRequest {
+            roleName = roleNameVal
+            assumeRolePolicyDocument = assumeRolePolicy
+            description = "Created using the AWS SDK for Kotlin"
+        }
 
     IamClient { region = "AWS_GLOBAL" }.use { iamClient ->
         val roleResult = iamClient.createRole(request)
 
         // Attach the policies to the role.
         for (policy in lambdaRolePolicies) {
-            val attachRequest = AttachRolePolicyRequest {
-                roleName = roleNameVal
-                policyArn = policy
-            }
+            val attachRequest =
+                AttachRolePolicyRequest {
+                    roleName = roleNameVal
+                    policyArn = policy
+                }
             iamClient.attachRolePolicy(attachRequest)
         }
 
