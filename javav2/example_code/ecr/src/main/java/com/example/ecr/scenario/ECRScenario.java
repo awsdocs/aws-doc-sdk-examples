@@ -18,7 +18,7 @@ import java.util.Scanner;
  *
  * To create an IAM role, see:
  *
- * https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_c
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html
  *
  * This Java code example also requires a local docker image named hello-world. For more information. see:
  *
