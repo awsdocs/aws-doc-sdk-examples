@@ -56,8 +56,6 @@ public class ECRActions {
 
     private static DockerClient getDockerClient() {
         String osName = System.getProperty("os.name");
-        System.out.println("Operating System: " + osName);
-
         if (osName.startsWith("Windows")) {
             // Make sure Docker Desktop is running.
             String dockerHost = "tcp://localhost:2375"; // Use the Docker Desktop default port.
@@ -460,11 +458,12 @@ public class ECRActions {
             // Wait for the CompletableFuture to complete and return the result.
             CreateRepositoryResponse result = response.join();
             if (result != null) {
-                System.out.println("Repository created successfully.");
+                System.out.println("The "+ repoName +" repository was created successfully.");
                 return result.repository().repositoryArn();
             } else {
                 throw new RuntimeException("Unexpected response type");
             }
+
         } catch (CompletionException e) {
             if (e.getCause() instanceof EcrException) {
                 EcrException ex = (EcrException) e.getCause();

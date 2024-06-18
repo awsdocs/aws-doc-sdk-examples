@@ -14,9 +14,16 @@ import java.util.Scanner;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
- * In addition, create a local docker image named hello-world. For  more information. see:
+ * This Java code example requires an IAM Role that has permissions to interact with the Amazon ECR service.
+ *
+ * To create an IAM role, see:
+ *
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_c
+ *
+ * This Java code example also requires a local docker image named hello-world. For more information. see:
  *
  * /getting_started_scenarios/ecr_scenario/README
+ *
  */
 public class ECRScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -47,7 +54,7 @@ public class ECRScenario {
             ECR provides a simple and scalable way to manage container images throughout their lifecycle, 
             from building and testing to production deployment.\s
                         
-            The `EcrAsyncClient` interface in the AWS SDK provides a set of methods to 
+            The `EcrAsyncClient` interface in the AWS SDK for Java 2.x provides a set of methods to 
             programmatically interact with the Amazon ECR service. This allows developers to 
             automate the storage, retrieval, and management of container images as part of their application 
             deployment pipelines. With ECR, teams can focus on building and deploying their 
@@ -64,12 +71,15 @@ public class ECRScenario {
         System.out.println("""
            1. Create an ECR repository.
             
-           An ECR repository is a private Docker container registry provided 
-           by Amazon Web Services (AWS). It is a managed service that makes it easy to store, manage, and deploy Docker container images.\s
-  
-           The first task is to ensure we have a local image named hello-world.
+           The first task is to ensure we have a local Docker image named hello-world. 
+           If this image exists, then an Amazon ECR repository is created. 
+           
+           An ECR repository is a private Docker container repository provided 
+           by Amazon Web Services (AWS). It is a managed service that makes it easy 
+           to store, manage, and deploy Docker container images.\s
            """ );
 
+        // Ensure that a local docker image named hello-world exists.
         boolean doesExist = ecrActions.listLocalImages();
         String repoName;
         if (!doesExist){
@@ -86,7 +96,7 @@ public class ECRScenario {
 
         System.out.println(DASHES);
         System.out.println("""
-        2. Set an ECR repository.
+        2. Set an ECR repository policy.
         
         Setting an ECR repository policy using the `setRepositoryPolicy` function is crucial for maintaining
         the security and integrity of your container images. The repository policy allows you to 
@@ -113,11 +123,13 @@ public class ECRScenario {
         System.out.println("""
         4. Retrieve an ECR authorization token.
        
-        The `getAuthorizationToken` operation of the `EcrAsyncClient` is crucial for securely accessing
-        and interacting with an Amazon ECR repository. This operation is responsible for obtaining a valid 
-        authorization token, which is required to authenticate your requests to the ECR service. 
-        Without a valid authorization token, you would not be able to perform any operations on the ECR repository,
-        such as pushing, pulling, or managing your Docker images.     
+        You need an authorization token to securely access and interact with the Amazon ECR registry. 
+        The `getAuthorizationToken` method of the `EcrAsyncClient` is responsible for securely accessing 
+        and interacting with an Amazon ECR repository. This operation is responsible for obtaining a 
+        valid authorization token, which is required to authenticate your requests to the ECR service. 
+        
+        Without a valid authorization token, you would not be able to perform any operations on the 
+        ECR repository, such as pushing, pulling, or managing your Docker images.    
         """);
         waitForInputToContinue(scanner);
         ecrActions.getAuthToken();
@@ -181,22 +193,19 @@ public class ECRScenario {
         if (ans.equalsIgnoreCase("y")) {
             String instructions = """
             1. Authenticate with ECR - Before you can pull the image from Amazon ECR, you need to authenticate with the registry. You can do this using the AWS CLI:
-                    
+
                 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin %s.dkr.ecr.us-east-1.amazonaws.com
-           
+
             2. Describe the image using this command:
-                   
-                aws ecr describe-images --repository-name %s --image-ids imageTag=%s
-        
-            3. Once you're authenticated, you can pull the image from Amazon ECR using this command:
-                   
-                docker pull %s.dkr.ecr.us-east-1.amazonaws.com/%s:%s
-        
-            4. Run the Docker container and view the output using this command:
-                   
-                docker run --rm %s.dkr.ecr.us-east-1.amazonaws.com/%s:%s
-           """;
-            instructions = String.format(instructions, accountId, repoName, localImageName, accountId, repoName, localImageName, accountId, repoName, localImageName);
+
+               aws ecr describe-images --repository-name %s --image-ids imageTag=%s
+
+            3. Run the Docker container and view the output using this command:
+
+               docker run --rm %s.dkr.ecr.us-east-1.amazonaws.com/%s:%s
+            """;
+
+            instructions = String.format(instructions, accountId, repoName, localImageName, accountId, repoName, localImageName);
             System.out.println(instructions);
         }
 

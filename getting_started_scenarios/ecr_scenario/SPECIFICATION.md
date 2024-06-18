@@ -4,11 +4,11 @@
 This SDK getting started scenario demonstrates how to interact with Amazon Elastic Container Registry Service (Amazon ECR) using the AWS SDK. It demonstrates various tasks such as creating a repository, setting an ECR repository policy, obtaining an authorization token, pushing a docker image to the repository, and so on.  Finally this scenario demonstrates how to clean up resources. Its purpose is to demonstrate how to get up and running with Amazon ECR and the AWS SDK.
 
 ## Resources and User Input
-The required resources for this SDK scenario is an IAM role and a local docker image. The IAM role must have permission to interact with the Amazon ECR service. To creare an IAM role, see [Creating IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html). 
+The required resources for this SDK scenario are an IAM role and a local Docker image. The IAM role must have permission to interact with the Amazon ECR service. To create an IAM role, see [Creating IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html). 
 
 To see the instructions to create a local docker image, see [README.md](README.md).
 
-This scenario uses the Docker client API for a specific programming language. For more information, see[Develop with Docker Engine SDKs](https://docs.docker.com/engine/api/sdk/)
+This scenario uses the Docker client API for a specific programming language. For more information, see [Develop with Docker Engine SDKs](https://docs.docker.com/engine/api/sdk/)
 
 ## Hello Amazon ECR
 This program is intended for users not familiar with the Amazon ECR SDK to easily get up and running. The logic is to show use of `ecrClient.listImagesPaginator()`.
@@ -61,7 +61,7 @@ The following shows the output of the Amazon ECR program in the console.
   ECR provides a simple and scalable way to manage container images throughout their lifecycle,
   from building and testing to production deployment. 
 
-  The `EcrAsyncClient` interface in the AWS SDK provides a set of methods to
+  The `EcrAsyncClient` interface in the AWS SDK for Java 2.x provides a set of methods to
   programmatically interact with the Amazon ECR service. This allows developers to
   automate the storage, retrieval, and management of container images as part of their application
   deployment pipelines. With ECR, teams can focus on building and deploying their
@@ -79,23 +79,24 @@ Continuing with the program...
 --------------------------------------------------------------------------------
 1. Create an ECR repository.
 
-An ECR repository is a private Docker container registry provided
-by Amazon Web Services (AWS). It is a managed service that makes it easy to store, manage, and deploy Docker container images. 
+The first task is to ensure we have a local Docker image named hello-world.
+If this image exists, then an Amazon ECR repository is created.
 
-The first task is to ensure we have a local image named hello-world.
+An ECR repository is a private Docker container repository provided
+by Amazon Web Services (AWS). It is a managed service that makes it easy
+to store, manage, and deploy Docker container images. 
 
-Operating System: Windows 10
 hello-world:latest
 The local image named hello-world exists.
-Repository created successfully.
-The ARN of the ECR repository is arn:aws:ecr:us-east-1:814548047983:repository/hello-world
+ECR repository already exists, moving on...
+The ARN of the ECR repository is arn:aws:ecr:us-east-1:1234567890:repository/hello-world
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
 --------------------------------------------------------------------------------
-2. Set an ECR repository.
+2. Set an ECR repository policy.
 
 Setting an ECR repository policy using the `setRepositoryPolicy` function is crucial for maintaining
 the security and integrity of your container images. The repository policy allows you to
@@ -144,18 +145,20 @@ Continuing with the program...
 --------------------------------------------------------------------------------
 4. Retrieve an ECR authorization token.
 
-The `getAuthorizationToken` operation of the `EcrAsyncClient` is crucial for securely accessing
-and interacting with an Amazon ECR repository. This operation is responsible for obtaining a valid
-authorization token, which is required to authenticate your requests to the ECR service.
-Without a valid authorization token, you would not be able to perform any operations on the ECR repository,
-such as pushing, pulling, or managing your Docker images.
+You need an authorization token to securely access and interact with the Amazon ECR registry.
+The `getAuthorizationToken` method of the `EcrAsyncClient` is responsible for securely accessing
+and interacting with an Amazon ECR repository. This operation is responsible for obtaining a
+valid authorization token, which is required to authenticate your requests to the ECR service.
+
+Without a valid authorization token, you would not be able to perform any operations on the
+ECR repository, such as pushing, pulling, or managing your Docker images.
 
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The token was successfully retrieved. 
+The token was successfully retrieved.
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -175,7 +178,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The repository URI is 1234567890.dkr.ecr.us-east-1.amazonaws.com/hello-world
+The repository URI is 814548047983.dkr.ecr.us-east-1.amazonaws.com/hello-world
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -217,7 +220,6 @@ c
 Continuing with the program...
 
 Pushing hello-world to hello-world will take a few seconds
-Operating System: Windows 10
 The hello-world was pushed to ECR
 
 Enter 'c' followed by <ENTER> to continue:
@@ -241,21 +243,17 @@ Continuing with the program...
 9. As an optional step, you can interact with the image in Amazon ECR by using the CLI.
 Would you like to view instructions on how to use the CLI to run the image? (y/n)
 y
- 1. Authenticate with ECR - Before you can pull the image from Amazon ECR, you need to authenticate with the registry. You can do this using the AWS CLI:
+1. Authenticate with ECR - Before you can pull the image from Amazon ECR, you need to authenticate with the registry. You can do this using the AWS CLI:
 
-     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 1234567890.dkr.ecr.us-east-1.amazonaws.com
+    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 1234567890.dkr.ecr.us-east-1.amazonaws.com
 
- 2. Describe the image using this command:
+2. Describe the image using this command:
 
-     aws ecr describe-images --repository-name hello-world --image-ids imageTag=hello-world
+   aws ecr describe-images --repository-name hello-world --image-ids imageTag=hello-world
 
- 3. Once you're authenticated, you can pull the image from Amazon ECR using this command:
+3. Run the Docker container and view the output using this command:
 
-     docker pull 1234567890.dkr.ecr.us-east-1.amazonaws.com/hello-world:hello-world
-
- 4. Run the Docker container and view the output using this command:
-
-     docker run --rm 1234567890.dkr.ecr.us-east-1.amazonaws.com/hello-world:hello-world
+   docker run --rm 1234567890.dkr.ecr.us-east-1.amazonaws.com/hello-world:hello-world
 
 
 Enter 'c' followed by <ENTER> to continue:
@@ -280,7 +278,6 @@ You have successfully deleted the hello-world repository
 --------------------------------------------------------------------------------
 This concludes the Amazon ECR SDK Getting Started scenario
 --------------------------------------------------------------------------------
-
 ```
 
 ## SOS Tags
