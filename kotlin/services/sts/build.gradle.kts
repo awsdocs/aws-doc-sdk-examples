@@ -50,3 +50,16 @@ tasks.test {
     testClassesDirs += files("build/classes/kotlin/test")
     classpath += files("build/classes/kotlin/main", "build/resources/main")
 }
+ktlint {
+    version.set("0.48.1")
+    android.set(false)
+    outputToConsole.set(true)
+    coloredOutput.set(true)
+    reporters {
+        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
+        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
+        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.JSON)
+    }
+    ignoreFailures.set(false)
+    enableExperimentalRules.set(true) // Enable experimental rules
+}
