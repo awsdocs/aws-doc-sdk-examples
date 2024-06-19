@@ -29,11 +29,10 @@ static Aws::String getPermissionString(const Aws::S3::Model::Permission &permiss
 
 //! Routine which demonstrates getting the ACL for an S3 bucket.
 /*!
-  \sa getBucketAcl()
   \param bucketName Name of the S3 bucket.
   \param clientConfig Aws client configuration.
+  \return bool: Function succeeded.
 */
-
 // snippet-start:[s3.cpp.get_acl_bucket.code]
 bool AwsDoc::S3::getBucketAcl(const Aws::String &bucketName,
                               const Aws::S3::S3ClientConfiguration &clientConfig) {
@@ -96,8 +95,8 @@ bool AwsDoc::S3::getBucketAcl(const Aws::String &bucketName,
 
 //! Routine which converts a built-in type enumeration to a human-readable string.
 /*!
- \sa getGranteeTypeString()
  \param type Type enumeration.
+ \return String: Human-readable string.
 */
 
 Aws::String getGranteeTypeString(const Aws::S3::Model::Type &type) {
@@ -117,8 +116,8 @@ Aws::String getGranteeTypeString(const Aws::S3::Model::Type &type) {
 
 //! Routine which converts a built-in type enumeration to a human-readable string.
 /*!
- \sa getPermissionString()
  \param permission Permission enumeration.
+ \return String: Human-readable string.
 */
 
 Aws::String getPermissionString(const Aws::S3::Model::Permission &permission) {

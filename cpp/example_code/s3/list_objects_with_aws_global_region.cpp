@@ -37,12 +37,12 @@
 
 //! Helper routine to create a unique S3 bucket in us-west-2 Region.
 /*!
-  \fn CreateOneBucket()
+  \fn createOneBucket()
   \param s3Client An Aws S3 client.
 */
 static const int MAX_TIMEOUT_RETRIES = 20;
 
-static Aws::String CreateOneBucket(const Aws::S3::S3Client &s3Client) {
+static Aws::String createOneBucket(const Aws::S3::S3Client &s3Client) {
     // Create an S3 bucket within the us-west-2 AWS Region.
     Aws::String uuid = Aws::Utils::UUID::RandomUUID();
     Aws::String bucketName = "doc-example-bucket-" +
@@ -85,13 +85,13 @@ static Aws::String CreateOneBucket(const Aws::S3::S3Client &s3Client) {
 
 //! Helper routine to list objects in a bucket using aws-global.
 /*!
-  \fn ListTheObjects()
+  \fn listTheObjects()
   \param s3Client An S3 client.
   \param bucketName An S3 bucket name.
 */
 
 static bool
-ListTheObjects(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName) {
+listTheObjects(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName) {
     // An S3 API client set to the aws-global AWS Region should be able to get 
     // access to a bucket in any AWS Region.
     Aws::S3::Model::ListObjectsV2Request listObjectsRequest;
@@ -128,12 +128,12 @@ ListTheObjects(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName)
 }
 //! Helper routine to delete a bucket.
 /*!
-  \fn DeleteABucket()
+  \fn deleteABucket()
   \param s3Client An Aws S3 client.
   \param bucketName A bucket to delete.
 */
 
-bool DeleteABucket(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName) {
+bool deleteABucket(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName) {
     Aws::S3::Model::DeleteBucketRequest deleteBucketRequest;
     deleteBucketRequest.SetBucket(bucketName);
     auto deleteBucketOutcome = s3Client.DeleteBucket(deleteBucketRequest);
@@ -153,27 +153,27 @@ bool DeleteABucket(const Aws::S3::S3Client &s3Client, const Aws::String &bucketN
 
 //! Routine which demonstrates listing the objects in a bucket using aws-global.
 /*!
-  \fn ListObjectsWithAWSGlobalRegion()
+  \fn listObjectsWithAwsGlobalRegion()
  \param clientConfig Aws client configuration.
 */
 
-bool AwsDoc::S3::ListObjectsWithAWSGlobalRegion(
-        const Aws::Client::ClientConfiguration &clientConfig) {
-    Aws::Client::ClientConfiguration config(clientConfig);
+bool AwsDoc::S3::listObjectsWithAwsGlobalRegion(
+        const Aws::S3::S3ClientConfiguration &clientConfig) {
+    Aws::S3::S3ClientConfiguration config(clientConfig);
     config.region = Aws::Region::AWS_GLOBAL;
 
     Aws::S3::S3Client s3Client(config);
 
-    Aws::String bucketName = CreateOneBucket(s3Client);
+    Aws::String bucketName = createOneBucket(s3Client);
     if (bucketName.empty()) {
         return false;
     }
 
-    if (!ListTheObjects(s3Client, bucketName)) {
+    if (!listTheObjects(s3Client, bucketName)) {
         return false;
     }
 
-    if (!DeleteABucket(s3Client, bucketName)) {
+    if (!deleteABucket(s3Client, bucketName)) {
         return false;
     }
 
@@ -193,8 +193,8 @@ int main() {
 
     InitAPI(options);
     {
-        Aws::Client::ClientConfiguration config;
-        AwsDoc::S3::ListObjectsWithAWSGlobalRegion(config);
+        Aws::S3::S3ClientConfiguration config;
+        AwsDoc::S3::listObjectsWithAwsGlobalRegion(config);
     }
     ShutdownAPI(options);
 

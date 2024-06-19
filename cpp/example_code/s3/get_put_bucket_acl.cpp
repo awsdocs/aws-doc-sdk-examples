@@ -52,7 +52,6 @@ Aws::S3::Model::Type setGranteeType(const Aws::String &type);
 
 //! Routine which demonstrates setting the ACL for an S3 bucket.
 /*!
-  \sa getPutBucketAcl()
   \param bucketName Name of a bucket.
   \param ownerID The canonical ID of the bucket owner.
    See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.
@@ -62,6 +61,7 @@ Aws::S3::Model::Type setGranteeType(const Aws::String &type);
   \param granteeEmailAddress The email address associated with the grantee's AWS account.
   \param granteeURI The URI of a built-in access group.
   \param clientConfig Aws client configuration.
+  \return bool: Function succeeded.
 */
 
 bool AwsDoc::S3::getPutBucketAcl(const Aws::String &bucketName,
@@ -86,7 +86,6 @@ bool AwsDoc::S3::getPutBucketAcl(const Aws::String &bucketName,
 
 //! Routine which demonstrates setting the ACL for an S3 bucket.
 /*!
-  \sa putBucketAcl()
   \param bucketName Name of from bucket.
   \param ownerID The canonical ID of the bucket owner.
    See https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html for more information.
@@ -96,6 +95,7 @@ bool AwsDoc::S3::getPutBucketAcl(const Aws::String &bucketName,
   \param granteeEmailAddress The email address associated with the grantee's AWS account.
   \param granteeURI The URI of a built-in access group.
   \param clientConfig Aws client configuration.
+  \return bool: Function succeeded.
 */
 
 bool putBucketAcl(const Aws::String &bucketName,
@@ -159,11 +159,10 @@ bool putBucketAcl(const Aws::String &bucketName,
 
 //! Routine which demonstrates getting the ACL for an S3 bucket.
 /*!
-  \sa getBucketAcl()
   \param bucketName Name of the s3 bucket.
   \param clientConfig Aws client configuration.
+  \return bool: Function succeeded.
 */
-
 bool getBucketAcl(const Aws::String &bucketName,
                   const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client s3_client(clientConfig);
@@ -224,8 +223,8 @@ bool getBucketAcl(const Aws::String &bucketName,
 
 //! Routine which converts a built-in type enumeration to a human-readable string.
 /*!
- \sa getPermissionString()
  \param permission Permission enumeration.
+ \return String: Human-readable string.
 */
 
 Aws::String getPermissionString(const Aws::S3::Model::Permission &permission) {
@@ -251,10 +250,9 @@ Aws::String getPermissionString(const Aws::S3::Model::Permission &permission) {
 
 //! Routine which converts a human-readable string to a built-in type enumeration
 /*!
- \sa setGranteePermission()
  \param access Human readable string.
+ \return Permission: Permission enumeration.
 */
-
 Aws::S3::Model::Permission setGranteePermission(const Aws::String &access) {
     if (access == "FULL_CONTROL")
         return Aws::S3::Model::Permission::FULL_CONTROL;
@@ -271,10 +269,9 @@ Aws::S3::Model::Permission setGranteePermission(const Aws::String &access) {
 
 //! Routine which converts a built-in type enumeration to a human-readable string.
 /*!
- \sa getGranteeTypeString()
  \param type Type enumeration.
+ \return bool: Human-readable string.
 */
-
 Aws::String getGranteeTypeString(const Aws::S3::Model::Type &type) {
     switch (type) {
         case Aws::S3::Model::Type::AmazonCustomerByEmail:
@@ -342,7 +339,6 @@ Where:
 
 int main(int argc, char* argv[]) {
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
 
 
@@ -356,7 +352,7 @@ int main(int argc, char* argv[]) {
     Aws::String granteePermission = argv[3];
     Aws::String granteeType = argv[4];
     Aws::String granteeID;  // Used for grantee type canonical user.
-    Aws::String granteeEmailAddress = "topplop@gmail.com"; // Used for grantee type Amazon customer by email.
+    Aws::String granteeEmailAddress; //  = "topplop@gmail.com"; // Used for grantee type Amazon customer by email.
     Aws::String granteeURI; // Used for grantee type group.
 
     if (granteeType == "Canonical user") {

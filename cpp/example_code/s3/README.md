@@ -39,7 +39,7 @@ Next, for information on code example structures and how to build and run the ex
 
 ### Get started
 
-- [Hello Amazon S3](hello_s3/CMakeLists.txt#L4) (`ListBuckets`)
+- [Hello Amazon S3](hello_s3/CMakeLists.txt#L4) (`listBuckets`)
 
 
 ### Single actions
@@ -57,14 +57,14 @@ Code excerpts that show you how to call individual service functions.
 - [getBucketPolicy](get_bucket_policy.cpp#L32)
 - [GetBucketWebsite](get_website_config.cpp#L30)
 - [getObject](get_object.cpp#L33)
-- [GetObjectAcl](get_put_object_acl.cpp#L44)
-- [ListBuckets](list_buckets.cpp#L29)
+- [getObjectAcl](get_put_object_acl.cpp#L44)
+- [listBuckets](list_buckets.cpp#L29)
 - [ListObjectsV2](list_objects.cpp#L31)
 - [putBucketAcl](put_bucket_acl.cpp#L49)
-- [PutBucketPolicy](put_bucket_policy.cpp#L38)
+- [putBucketPolicy](put_bucket_policy.cpp#L38)
 - [PutBucketWebsite](put_website_config.cpp#L34)
-- [PutObject](put_object.cpp#L33)
-- [PutObjectAcl](get_put_object_acl.cpp#L171)
+- [putObject](put_object.cpp#L33)
+- [putObjectAcl](get_put_object_acl.cpp#L171)
 
 ### Scenarios
 

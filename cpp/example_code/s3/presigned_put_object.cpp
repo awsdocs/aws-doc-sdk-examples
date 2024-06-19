@@ -31,7 +31,7 @@
  *
  **/
 
-// snippet-start:[cpp.example_code.s3.presigned.PutObject]
+// snippet-start:[cpp.example_code.s3.presigned.putObject]
 //! Routine which demonstrates creating a pre-signed URL to upload an object to an
 //! Amazon Simple Storage Service (Amazon S3) bucket.
 /*!
@@ -40,15 +40,15 @@
   \param clientConfig: Aws client configuration.
   \return Aws::String: A pre-signed URL.
 */
-Aws::String AwsDoc::S3::GeneratePreSignedPutObjectURL(const Aws::String &bucketName,
+Aws::String AwsDoc::S3::generatePreSignedPutObjectUrl(const Aws::String &bucketName,
                                                       const Aws::String &key,
                                                       uint64_t expirationSeconds,
-                                                      const Aws::Client::ClientConfiguration &clientConfig) {
+                                                      const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
     return client.GeneratePresignedUrl(bucketName, key, Aws::Http::HttpMethod::HTTP_PUT,
                                        expirationSeconds);
 }
-// snippet-end:[cpp.example_code.s3.presigned.PutObject]
+// snippet-end:[cpp.example_code.s3.presigned.putObject]
 
 #if HAS_CURL
 
@@ -70,10 +70,10 @@ static size_t myCurlWriteBack(char *buffer, size_t size, size_t nitems, void *us
     return size * nitems;
 }
 
-//! Utility routine to test PutObject with a pre-signed URL.
+//! Utility routine to test putObject with a pre-signed URL.
 /*!
   \param presignedURL: A pre-signed URL to put an object in a bucket.
-  \param data: Body of the PutObject request.
+  \param data: Body of the putObject request.
   \return bool: Function succeeded.
 */
 bool AwsDoc::S3::PutStringWithPresignedObjectURL(const Aws::String &presignedURL,
@@ -187,9 +187,9 @@ Where:
         Aws::String objectKey(argv[2]);
         uint64_t presignedSecondsTimeout = 10 * 60;
 
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // clientConfig.region = "us-east-1";
-        Aws::String presignedUrl = AwsDoc::S3::GeneratePreSignedPutObjectURL(bucketName,
+        Aws::String presignedUrl = AwsDoc::S3::generatePreSignedPutObjectUrl(bucketName,
                                                                              objectKey,
                                                                              presignedSecondsTimeout,
                                                                              clientConfig);

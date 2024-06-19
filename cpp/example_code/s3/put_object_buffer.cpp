@@ -23,7 +23,6 @@
 
 //! Routine which demonstrates putting a string as an object in an S3 bucket.
 /*!
-  \fn PutObject()
   \param bucketName Name of the bucket.
   \param objectName Name for the object in the bucket.
   \param objectContent String as content for object.
@@ -31,10 +30,10 @@
 */
 
 // snippet-start:[s3.cpp.objects.put_string_into_object_bucket]
-bool AwsDoc::S3::PutObjectBuffer(const Aws::String &bucketName,
+bool AwsDoc::S3::putObjectBuffer(const Aws::String &bucketName,
                                  const Aws::String &objectName,
                                  const std::string &objectContent,
-                                 const Aws::Client::ClientConfiguration &clientConfig) {
+                                 const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client s3_client(clientConfig);
 
     Aws::S3::Model::PutObjectRequest request;
@@ -50,7 +49,7 @@ bool AwsDoc::S3::PutObjectBuffer(const Aws::String &bucketName,
     Aws::S3::Model::PutObjectOutcome outcome = s3_client.PutObject(request);
 
     if (!outcome.IsSuccess()) {
-        std::cerr << "Error: PutObjectBuffer: " <<
+        std::cerr << "Error: putObjectBuffer: " <<
                   outcome.GetError().GetMessage() << std::endl;
     } else {
         std::cout << "Success: Object '" << objectName << "' with content '"
@@ -62,30 +61,43 @@ bool AwsDoc::S3::PutObjectBuffer(const Aws::String &bucketName,
 // snippet-end:[s3.cpp.objects.put_string_into_object_bucket]
 
 /**
-*
-* main function
-*
-* TODO(user): items: Set the following variables:
-* - bucketName: The name of the bucket.
-*
-*/
+ *
+ * main function
+ *
+ *  Prerequisites: S3 bucket for the object.
+ *
+ * usage: run_put_object_buffer <object_name> <bucket_name>
+ * 
+ */
 
 #ifndef TESTING_BUILD
 
-int main() {
+int main(int argc, char* argv[])
+{
+    if (argc != 3)
+    {
+        std::cout << R"(
+Usage:
+    run_put_object_buffer <object_name> <bucket_name>
+Where:
+    object_name - The name of the object to upload.
+    bucket_name - The name of the bucket to upload the object to.
+)" << std::endl;
+        return 1;
+    }
+
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        // TODO(user): Change bucketName to the name of a bucket in your account.
-        const Aws::String bucketName = "<Enter bucket Name>";
-        const Aws::String objectName = "sample_text.txt";
+        const Aws::String objectName = argv[1];
+        const Aws::String bucketName = argv[2];
         const std::string objectContent = "This is my sample text content.";
 
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration client_config;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
-        // clientConfig.region = "us-east-1";
+        // client_config.region = "us-east-1";
 
-        AwsDoc::S3::PutObjectBuffer(bucketName, objectName, objectContent, clientConfig);
+        AwsDoc::S3::putObjectBuffer(bucketName, objectName, objectContent, client_config);
     }
 
     Aws::ShutdownAPI(options);

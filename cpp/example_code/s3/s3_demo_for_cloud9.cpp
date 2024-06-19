@@ -51,7 +51,7 @@ bool FindTheBucket(const Aws::S3::S3Client &s3Client,
 
         std::cout << "Could not find the bucket." << std::endl << std::endl;
     } else {
-        std::cerr << "ListBuckets error: "
+        std::cerr << "listBuckets error: "
                   << outcome.GetError().GetMessage() << std::endl;
     }
 
@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::String bucket_name = argv[1];
+        Aws::String bucketName = argv[1];
         Aws::String region = argv[2];
 
         Aws::Client::ClientConfiguration config;
@@ -137,23 +137,23 @@ int main(int argc, char *argv[]) {
 
         Aws::S3::S3Client s3_client(config);
 
-        if (!FindTheBucket(s3_client, bucket_name)) {
+        if (!FindTheBucket(s3_client, bucketName)) {
             return 1;
         }
 
-        if (!CreateTheBucket(s3_client, bucket_name, region)) {
+        if (!CreateTheBucket(s3_client, bucketName, region)) {
             return 1;
         }
 
-        if (!FindTheBucket(s3_client, bucket_name)) {
+        if (!FindTheBucket(s3_client, bucketName)) {
             return 1;
         }
 
-        if (!DeleteTheBucket(s3_client, bucket_name)) {
+        if (!DeleteTheBucket(s3_client, bucketName)) {
             return 1;
         }
 
-        if (!FindTheBucket(s3_client, bucket_name)) {
+        if (!FindTheBucket(s3_client, bucketName)) {
             return 1;
         }
     }

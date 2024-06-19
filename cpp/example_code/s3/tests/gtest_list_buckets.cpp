@@ -18,7 +18,7 @@ namespace AwsDocTest {
 // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(S3_GTests, list_buckets_2_) {
 
-        bool result = AwsDoc::S3::ListBuckets(*s_clientConfig);
+        bool result = AwsDoc::S3::listBuckets(*s_clientConfig);
         EXPECT_TRUE(result);
     }
 } // namespace AwsDocTest

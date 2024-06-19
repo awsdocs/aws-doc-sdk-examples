@@ -25,7 +25,7 @@ namespace AwsDocTest {
         Aws::String canonicalUserID = GetCanonicalUserID();
         ASSERT_TRUE(!canonicalUserID.empty()) << "Failed to meet precondition" << std::endl;
 
-        bool result = AwsDoc::S3::PutBucketAcl(bucketNames[0], canonicalUserID, "READ", "Canonical user",
+        bool result = AwsDoc::S3::putBucketAcl(bucketNames[0], canonicalUserID, "READ", "Canonical user",
                                                canonicalUserID, "", "", *s_clientConfig);
 
         ASSERT_TRUE(result);

@@ -88,11 +88,10 @@ class MyHttpClientFactory : public Aws::Http::HttpClientFactory {
 
 //! Routine which demonstrates configuring a website for an S3 bucket.
 /*!
-  \sa ListBucketDisablingDnsCache()
   \param clientConfig Aws client configuration.
+  \return bool: Function succeeded.
 */
-
-bool AwsDoc::S3::ListBucketDisablingDnsCache(const Aws::Client::ClientConfiguration &clientConfig) {
+bool AwsDoc::S3::listBucketDisablingDnsCache(const Aws::S3::S3ClientConfiguration &clientConfig) {
     SetHttpClientFactory(Aws::MakeShared<MyHttpClientFactory>(ALLOCATION_TAG));
 
     Aws::S3::S3Client s3Client(clientConfig);
@@ -125,7 +124,7 @@ int main(int argc, char *argv[]) {
     InitAPI(options);
 
     {
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
 #ifdef _WIN32
@@ -138,7 +137,7 @@ int main(int argc, char *argv[]) {
         clientConfig.caFile = "C:/curl/bin/cacert.pem";
 #endif
 
-        AwsDoc::S3::ListBucketDisablingDnsCache(clientConfig);
+        AwsDoc::S3::listBucketDisablingDnsCache(clientConfig);
     }
 
     ShutdownAPI(options);

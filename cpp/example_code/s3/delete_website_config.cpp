@@ -22,9 +22,9 @@
 
 //! Routine which demonstrates deleting the website configuration for an S3 bucket.
 /*!
-  \sa deleteBucketWebsite()
   \param bucketName Name of the bucket containing a website configuration.
   \param clientConfig Aws client configuration.
+  \return bool: Function succeeded.
 */
 
 // snippet-start:[s3.cpp.delete_website_config.code]
