@@ -531,7 +531,7 @@ public class ECRActions {
     }
     // snippet-end:[ecr.java2.push.image.main]
 
-    // Make sure local image hello-world exists.
+    // Make sure local image echo-text exists.
     public boolean listLocalImages() {
         try {
             List<Image> images = getDockerClient().listImagesCmd().exec();

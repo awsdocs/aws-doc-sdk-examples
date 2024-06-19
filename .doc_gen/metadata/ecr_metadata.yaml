@@ -130,7 +130,7 @@ ecr_DescribeRepositories:
           excerpts:
             - description:
               snippet_tags:
-                - ecr.java2_hello.main
+                - ecr.java2.describe.policy.main
     Rust:
       versions:
         - sdk_version: 1

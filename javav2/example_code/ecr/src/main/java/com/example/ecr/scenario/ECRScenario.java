@@ -20,7 +20,9 @@ import java.util.Scanner;
  *
  * https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html
  *
- * This Java scenario example requires a local docker image named echo-text. For more information. see:
+ * This Java scenario example requires a local docker image named echo-text. Without a local image,
+ * this Java program will not successfully run. For more information including how to create the local
+ * image, see:
  *
  * /getting_started_scenarios/ecr_scenario/README
  *
@@ -29,7 +31,7 @@ public class ECRScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) {
         final String usage = """
-                Usage: <iamRoleARN> <localImageName> <accountId>
+                Usage: <iamRoleARN> <accountId>
 
                 Where:
                    iamRoleARN - The IAM role ARN that has the necessary permissions to access and manage the Amazon ECR repository.
