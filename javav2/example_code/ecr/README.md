@@ -31,22 +31,22 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Amazon ECR](src/main/java/com/example/ecr/HelloECR.java#L6) (`listImagesPaginator`)
+- [Hello Amazon ECR](src/main/java/com/example/ecr/HelloECR.java#L6) (`listImages`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateRepository](src/main/java/com/example/ecr/scenario/ECRActions.java#L417)
-- [DeleteRepository](src/main/java/com/example/ecr/scenario/ECRActions.java#L87)
-- [DescribeImages](src/main/java/com/example/ecr/scenario/ECRActions.java#L128)
-- [DescribeRepositories](src/main/java/com/example/ecr/HelloECR.java#L6)
-- [GetAuthorizationToken](src/main/java/com/example/ecr/scenario/ECRActions.java#L279)
-- [GetRepositoryPolicy](src/main/java/com/example/ecr/scenario/ECRActions.java#L317)
-- [PushImageCmd](src/main/java/com/example/ecr/scenario/ECRActions.java#L462)
-- [SetRepositoryPolicy](src/main/java/com/example/ecr/scenario/ECRActions.java#L361)
-- [StartLifecyclePolicyPreview](src/main/java/com/example/ecr/scenario/ECRActions.java#L128)
+- [CreateRepository](src/main/java/com/example/ecr/scenario/ECRActions.java#L436)
+- [DeleteRepository](src/main/java/com/example/ecr/scenario/ECRActions.java#L105)
+- [DescribeImages](src/main/java/com/example/ecr/scenario/ECRActions.java#L146)
+- [DescribeRepositories](src/main/java/com/example/ecr/scenario/ECRActions.java#L253)
+- [GetAuthorizationToken](src/main/java/com/example/ecr/scenario/ECRActions.java#L297)
+- [GetRepositoryPolicy](src/main/java/com/example/ecr/scenario/ECRActions.java#L336)
+- [PushImageCmd](src/main/java/com/example/ecr/scenario/ECRActions.java#L490)
+- [SetRepositoryPolicy](src/main/java/com/example/ecr/scenario/ECRActions.java#L380)
+- [StartLifecyclePolicyPreview](src/main/java/com/example/ecr/scenario/ECRActions.java#L146)
 
 ### Scenarios
 
@@ -78,13 +78,14 @@ This example shows you how to get started using Amazon ECR.
 This example shows you how to do the following:
 
 - Create an Amazon ECR repository.
-- List Amazon ECR repositories for your account and get details about them.
-- Delete Amazon ECR repositories.
-- Verify the existence of an image in an Amazon ECR repository.
-- Set lifecycle policies for Amazon ECR repositories.
+- Set repository policies.
 - Retrieve repository URIs.
 - Get Amazon ECR authorization tokens.
-- Set repository policies.
+- Set lifecycle policies for Amazon ECR repositories.
+- Push a Docker image to an Amazon ECR repository.
+- Verify the existence of an image in an Amazon ECR repository.
+- List Amazon ECR repositories for your account and get details about them.
+- Delete Amazon ECR repositories.
 
 <!--custom.scenario_prereqs.ecr_Scenario_RepositoryManagement.start-->
 <!--custom.scenario_prereqs.ecr_Scenario_RepositoryManagement.end-->
