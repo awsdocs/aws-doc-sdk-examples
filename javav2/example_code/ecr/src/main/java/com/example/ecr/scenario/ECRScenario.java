@@ -38,14 +38,14 @@ public class ECRScenario {
                    accountId - Your AWS account number. 
                 """;
 
-        //if (args.length != 2) {
-        //    System.out.println(usage);
-        //    return;
-       // }
+        if (args.length != 2) {
+            System.out.println(usage);
+            return;
+        }
 
         ECRActions ecrActions = new ECRActions();
-        String iamRole =  "arn:aws:iam::814548047983:role/Admin"; // args[0];
-        String accountId = "814548047983" ; //args[1];
+        String iamRole =  args[0];
+        String accountId = args[1];
         String localImageName;
 
         Scanner scanner = new Scanner(System.in);
