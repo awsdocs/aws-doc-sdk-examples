@@ -26,48 +26,9 @@ This scenario requires a local Docker image created using Bash. To create a loca
 
 1. **Install Docker**: First, you'll need to install Docker and Docker Desktop on your system. You can download the appropriate Docker version for your operating system from the official Docker website (https://www.docker.com/get-started).
 
-2. **Create a Dockerfile**: Create a new file named `Dockerfile` in your preferred directory. This file will contain the instructions for building your Docker image.
+2. **Go to the resource folder**: Go to the resource sub folder and notice the two files: `Dockerfile` and `hello.sh`.
 
-   ```bash
-   touch Dockerfile
-   ```
-
-3. **Open the Dockerfile**: Open the `Dockerfile` in a text editor and add the following contents:
-
-   ```docker
-   # Use the official Alpine Linux image as the base image
-   FROM alpine:latest
-
-   # Set the working directory to /app
-   WORKDIR /app
-
-   # Copy the "hello.sh" script into the container
-   COPY hello.sh .
-
-   # Make the "hello.sh" script executable
-   RUN chmod +x hello.sh
-
-   # Define the command to run the "hello.sh" script
-   CMD ["./hello.sh"]
-   ```
-
-   In this Dockerfile, we:
-   - Use the official Alpine Linux image as the base image.
-   - Set the working directory to `/app`.
-   - Copy the `hello.sh` script into the container.
-   - Make the `hello.sh` script executable.
-   - Define the command to run the `hello.sh` script when the container starts.
-
-4. **Create the "hello.sh" script**: Create a new file named `hello.sh` in the same directory as the Dockerfile and add the following content:
-
-   ```bash
-   #!/bin/sh
-   echo "Hello There!"
-   ```
-
-   This is a simple Bash script that prints "Hello There!" to the console.
-
-5. **Build the Docker image**: In the same directory as the Dockerfile and `hello.sh` script, run the following command to build the Docker image:
+3. **Build the Docker image**: In the resource folder that contains `Dockerfile` and `hello.sh`, run the following command to build the Docker image:
 
    ```bash
    docker build -t echo-text .
@@ -75,7 +36,7 @@ This scenario requires a local Docker image created using Bash. To create a loca
 
    This command builds a Docker image with the tag "echo-text" using the instructions in the Dockerfile.
 
-6. **Run the Docker container**: Once the image is built, you can run a container based on the "echo-text" image by executing the following command:
+4. **Run the Docker container**: Once the image is built, you can run a container based on the "echo-text" image by executing the following command:
 
    ```bash
    docker run echo-text
