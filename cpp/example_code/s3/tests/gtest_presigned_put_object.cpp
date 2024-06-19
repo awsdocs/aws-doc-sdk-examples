@@ -25,7 +25,7 @@ namespace AwsDocTest {
         ASSERT_GE(bucketNames.size(), BUCKETS_NEEDED) << "Failed to meet precondition" << std::endl;
 
         Aws::String key = "presigned_put.txt";
-        Aws::String presignedURL = AwsDoc::S3::GeneratePreSignedPutObjectURL(bucketNames[0], key, 10 * 60,
+        Aws::String presignedURL = AwsDoc::S3::generatePreSignedPutObjectUrl(bucketNames[0], key, 10 * 60,
                                                                              *s_clientConfig);
 
         EXPECT_TRUE(!presignedURL.empty());

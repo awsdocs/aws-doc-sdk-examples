@@ -24,17 +24,16 @@
 
 //! Routine which demonstrates configuring a website for an S3 bucket.
 /*!
-  \sa PutWebsiteConfig()
   \param bucketName Name of S3 bucket.
   \param indexPage Name of index page.
   \param errorPage Name of error page.
   \param clientConfig Aws client configuration.
+  \return bool: Function succeeded.
 */
-
 // snippet-start:[s3.cpp.put_website_config.code]
-bool AwsDoc::S3::PutWebsiteConfig(const Aws::String &bucketName,
+bool AwsDoc::S3::putWebsiteConfig(const Aws::String &bucketName,
                                   const Aws::String &indexPage, const Aws::String &errorPage,
-                                  const Aws::Client::ClientConfiguration &clientConfig) {
+                                  const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
 
     Aws::S3::Model::IndexDocument indexDocument;
@@ -72,32 +71,40 @@ bool AwsDoc::S3::PutWebsiteConfig(const Aws::String &bucketName,
  *
  * Prerequisites: Create one S3 bucket that contains an index page and an error page.
  *
- * TODO(user): items: Set the following variables:
- * - bucketName: Change bucketName to the name of a bucket in your account.
- * - indexPage: Upload file to bucket for the index page.
- * - errorPage: Upload file to bucket for the error page.
+ * Usage:
+ *   run_put_website_config <bucket_name> <index_page> <error_page>
  *
  */
 
 #ifndef TESTING_BUILD
 
-int main() {
+int main(int argc, char* argv[])
+{
+    if (argc != 4)
+    {
+        std::cout << R"(
+Usage:
+    run_put_website_config <bucket_name> <index_page> <error_page>
+Where:
+    bucket_name - The name of the bucket to configure as a website.
+    index_page - Upload file to bucket for the index page.
+    error_page - Upload file to bucket for the error page.
+)" << std::endl;
+        return 1;
+    }
+
     Aws::SDKOptions options;
     Aws::InitAPI(options);
-
-    //TODO(user): Change bucketName to the name of a bucket in your account.
-    const Aws::String bucketName = "<Enter bucket name>";
-
-    //TODO(user): Create these two files to serve as your website.
-    const Aws::String indexPage = "index.html";
-    const Aws::String errorPage = "404.html";
-
     {
-        Aws::Client::ClientConfiguration clientConfig;
-        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
-        // clientConfig.region = "us-east-1";
+        const Aws::String bucket_name = argv[1];
+        const Aws::String index_page = argv[2];
+        const Aws::String error_page = argv[3];
 
-        AwsDoc::S3::PutWebsiteConfig(bucketName, indexPage, errorPage, clientConfig);
+        Aws::S3::S3ClientConfiguration client_config;
+        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // client_config.region = "us-east-1";
+
+        AwsDoc::S3::putWebsiteConfig(bucket_name, index_page, error_page, client_config);
     }
 
     Aws::ShutdownAPI(options);

@@ -25,7 +25,7 @@ namespace AwsDocTest {
 
         Aws::String objectKey = "unit_test_text.txt";
 
-        bool result = AwsDoc::S3::PutObjectBuffer(bucketNames[0], objectKey, "some text", *s_clientConfig);
+        bool result = AwsDoc::S3::putObjectBuffer(bucketNames[0], objectKey, "some text", *s_clientConfig);
 
         EXPECT_TRUE(result);
 

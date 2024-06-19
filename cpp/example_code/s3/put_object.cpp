@@ -24,16 +24,16 @@
 
 //! Routine which demonstrates putting an object in an S3 bucket.
 /*!
-  \fn PutObject()
+  \fn putObject()
   \param bucketName Name of the bucket.
   \param fileName Name of the file to put in the bucket.
   \param clientConfig Aws client configuration.
 */
 
 // snippet-start:[s3.cpp.put_object.code]
-bool AwsDoc::S3::PutObject(const Aws::String &bucketName,
+bool AwsDoc::S3::putObject(const Aws::String &bucketName,
                            const Aws::String &fileName,
-                           const Aws::Client::ClientConfiguration &clientConfig) {
+                           const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client s3_client(clientConfig);
 
     Aws::S3::Model::PutObjectRequest request;
@@ -58,7 +58,7 @@ bool AwsDoc::S3::PutObject(const Aws::String &bucketName,
             s3_client.PutObject(request);
 
     if (!outcome.IsSuccess()) {
-        std::cerr << "Error: PutObject: " <<
+        std::cerr << "Error: putObject: " <<
                   outcome.GetError().GetMessage() << std::endl;
     } else {
         std::cout << "Added object '" << fileName << "' to bucket '"
@@ -69,32 +69,43 @@ bool AwsDoc::S3::PutObject(const Aws::String &bucketName,
 }
 // snippet-end:[s3.cpp.put_object.code]
 
-/**
+/*
  *
  * main function
  *
- * TODO(user): items: Set the following variables:
- * - bucketName: The name of the bucket.
- * - fileName: The name of the file to add.
+ *  Prerequisites: S3 bucket for the object.
  *
-*/
+ * usage: run_put_object <object_name> <bucket_name>
+ *
+ */
 
 #ifndef TESTING_BUILD
 
-int main() {
+int main(int argc, char* argv[])
+{
+    if (argc != 3)
+    {
+        std::cout << R"(
+Usage:
+    run_put_object <object_name> <bucket_name>
+Where:
+    object_name - The name of the object to upload.
+    bucket_name - The name of the bucket to upload the object to.
+)" << std::endl;
+        return 1;
+    }
+
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO(user): Change bucket_name to the name of a bucket in your account.
-        const Aws::String bucket_name = "<Enter bucket name>";
-        //TODO(user): Create a file called "my-file.txt" in the local folder where your executables are built to.
-        const Aws::String object_name = "<Enter file>";
+        const Aws::String objectName = argv[1];
+        const Aws::String bucketName = argv[2];
 
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::S3::PutObject(bucket_name, object_name, clientConfig);
+        AwsDoc::S3::putObject(bucketName, objectName, clientConfig);
     }
 
     Aws::ShutdownAPI(options);

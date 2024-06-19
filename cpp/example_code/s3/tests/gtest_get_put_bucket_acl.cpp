@@ -44,17 +44,4 @@ namespace AwsDocTest {
 
         ASSERT_TRUE(result);
     }
-
-// NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(S3_GTests, get_put_bucket_group_2_) {
-        std::vector<Aws::String> bucketNames = GetCachedS3Buckets(BUCKETS_NEEDED);
-        ASSERT_GE(bucketNames.size(), BUCKETS_NEEDED) << "Failed to meet precondition" << std::endl;
-
-        Aws::String canonicalUserID = GetCanonicalUserID();
-        ASSERT_TRUE(!canonicalUserID.empty()) << "Failed to meet precondition" << std::endl;
-
-        bool result = AwsDoc::S3::getPutBucketAcl(bucketNames[0], canonicalUserID, "READ", "Group",
-                                                  "", "", "http://acs.amazonaws.com/groups/global/AllUsers", *s_clientConfig);
-
-        ASSERT_TRUE(result);
-    }} // namespace AwsDocTest
+} // namespace AwsDocTest

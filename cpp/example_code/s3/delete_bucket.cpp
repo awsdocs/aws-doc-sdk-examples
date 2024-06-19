@@ -22,9 +22,9 @@
 
 //! Routine which demonstrates deleting an S3 bucket.
 /*!
-  \sa deleteBucket()
   \param bucketName Name of the bucket to delete.
   \param clientConfig Aws client configuration.
+  \return bool: Function succeeded.
 */
 
 // snippet-start:[s3.cpp.delete_bucket.code]

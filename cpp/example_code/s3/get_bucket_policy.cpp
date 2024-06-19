@@ -24,9 +24,9 @@
 
 //! Routine which demonstrates setting the ACL for an S3 bucket.
 /*!
-  \sa getBucketPolicy()
   \param bucketName Name of a bucket.
   \param clientConfig Aws client configuration.
+  \return bool: Function succeeded.
 */
 
 // snippet-start:[s3.cpp.get_bucket_policy.code]

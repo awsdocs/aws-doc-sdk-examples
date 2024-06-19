@@ -38,7 +38,6 @@
 #include <aws/core/utils/UUID.h>
 #include <aws/core/utils/StringUtils.h>
 #include <aws/core/utils/memory/stl/AWSAllocator.h>
-#include <aws/core/utils/memory/stl/AWSStreamFwd.h>
 #include <fstream>
 #include "s3_examples.h"
 
@@ -47,21 +46,22 @@ namespace AwsDoc {
 
         //! Delete an S3 bucket.
         /*!
-          \sa deleteBucket()
           \param bucketName The S3 bucket's name.
           \param client An S3 client.
+          \return bool: Function succeeded.
         */
         static bool
-        DeleteBucket(const Aws::String &bucketName, Aws::S3::S3Client &client);
+        deleteBucket(const Aws::String &bucketName, Aws::S3::S3Client &client);
 
         //! Delete an object in an S3 bucket.
-        /*!          \sa DeleteObjectFromBucket()
+        /*!
           \param bucketName The S3 bucket's name.
           \param key The key for the object in the S3 bucket.
           \param client An S3 client.
+          \return bool: Function succeeded.
          */
         static bool
-        DeleteObjectFromBucket(const Aws::String &bucketName, const Aws::String &key,
+        deleteObjectFromBucket(const Aws::String &bucketName, const Aws::String &key,
                                Aws::S3::S3Client &client);
     }
 }
@@ -69,10 +69,10 @@ namespace AwsDoc {
 
 //! Scenario to create, copy, and delete S3 buckets and objects.
 /*!
-  \sa S3_GettingStartedScenario()
   \param uploadFilePath Path to file to upload to an Amazon S3 bucket.
   \param saveFilePath Path for saving a downloaded S3 object.
   \param clientConfig Aws client configuration.
+  \return bool: Function succeeded.
  */
 bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath,
                                            const Aws::String &saveFilePath,
@@ -128,7 +128,7 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath,
         if (!input_data->is_open()) {
             std::cerr << "Error: unable to open file, '" << uploadFilePath << "'."
                       << std::endl;
-            AwsDoc::S3::DeleteBucket(bucketName, client);
+            AwsDoc::S3::deleteBucket(bucketName, client);
             return false;
         }
 
@@ -138,10 +138,10 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath,
                 client.PutObject(request);
 
         if (!outcome.IsSuccess()) {
-            std::cerr << "Error: PutObject: " <<
+            std::cerr << "Error: putObject: " <<
                       outcome.GetError().GetMessage() << std::endl;
-            AwsDoc::S3::DeleteObjectFromBucket(bucketName, key, client);
-            AwsDoc::S3::DeleteBucket(bucketName, client);
+            AwsDoc::S3::deleteObjectFromBucket(bucketName, key, client);
+            AwsDoc::S3::deleteBucket(bucketName, client);
             return false;
         } else {
             std::cout << "Added the object with the key, '" << key
@@ -240,14 +240,14 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath,
 
     // 6. Delete all objects in the bucket.
     // All objects in the bucket must be deleted before deleting the bucket.
-    AwsDoc::S3::DeleteObjectFromBucket(bucketName, copiedToKey, client);
-    AwsDoc::S3::DeleteObjectFromBucket(bucketName, key, client);
+    AwsDoc::S3::deleteObjectFromBucket(bucketName, copiedToKey, client);
+    AwsDoc::S3::deleteObjectFromBucket(bucketName, key, client);
 
     // 7. Delete the bucket.
-    return AwsDoc::S3::DeleteBucket(bucketName, client);
+    return AwsDoc::S3::deleteBucket(bucketName, client);
 }
 
-bool AwsDoc::S3::DeleteObjectFromBucket(const Aws::String &bucketName,
+bool AwsDoc::S3::deleteObjectFromBucket(const Aws::String &bucketName,
                                         const Aws::String &key,
                                         Aws::S3::S3Client &client) {
     Aws::S3::Model::DeleteObjectRequest request;
@@ -270,7 +270,7 @@ bool AwsDoc::S3::DeleteObjectFromBucket(const Aws::String &bucketName,
 }
 
 bool
-AwsDoc::S3::DeleteBucket(const Aws::String &bucketName, Aws::S3::S3Client &client) {
+AwsDoc::S3::deleteBucket(const Aws::String &bucketName, Aws::S3::S3Client &client) {
     Aws::S3::Model::DeleteBucketRequest request;
     request.SetBucket(bucketName);
 

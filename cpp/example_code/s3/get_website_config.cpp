@@ -22,14 +22,13 @@
 
 //! Routine which demonstrates getting the website configuration for an S3 bucket.
 /*!
-  \sa GetWebsiteConfig()
   \param bucketName Name of to bucket containing a website configuration.
   \param clientConfig Aws client configuration.
+  \return bool: Function succeeded.
 */
-
 // snippet-start:[s3.cpp.get_website_config.code]
-bool AwsDoc::S3::GetWebsiteConfig(const Aws::String &bucketName,
-                                  const Aws::Client::ClientConfiguration &clientConfig) {
+bool AwsDoc::S3::getWebsiteConfig(const Aws::String &bucketName,
+                                  const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client s3_client(clientConfig);
 
     Aws::S3::Model::GetBucketWebsiteRequest request;
@@ -68,29 +67,42 @@ bool AwsDoc::S3::GetWebsiteConfig(const Aws::String &bucketName,
  *
  * Prerequisites: The bucket containing the website configuration.
  *
- * TODO(user): items: Set the following variables.
- * - bucketName: The name of the bucket that contains the website configuration.
+ * usage: run_get_website_config <bucket_name>
+ *
+ * Where:
+ * - bucket_name: The name of the bucket containing the website configuration.
  *
  */
 
 #ifndef TESTING_BUILD
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc != 2)
+    {
+        std::cout << R"(
+Usage:
+    run_get_website_config <bucket_name>
+Where:
+    bucket_name - The name of the bucket that contains the website configuration.
+)" << std::endl;
+        return 1;
+    }
+
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO: Change bucket_name to the name of a bucket in your account.
-        const Aws::String bucket_name = "<Enter bucket name>";
+        const Aws::String bucketName = argv[1];
 
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::S3::GetWebsiteConfig(bucket_name, clientConfig);
+        AwsDoc::S3::getWebsiteConfig(bucketName, clientConfig);
     }
     Aws::ShutdownAPI(options);
 
     return 0;
 }
+
 #endif // TESTING_BUILD
 

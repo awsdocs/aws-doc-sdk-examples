@@ -22,9 +22,9 @@
 
 //! Routine which demonstrates creating an S3 bucket.
 /*!
-  \sa createBucket()
   \param bucketName Name of bucket to create.
   \param clientConfig Aws client configuration.
+  \return bool: Function succeeded.
 */
 
 // snippet-start:[s3.cpp.create_bucket.code]
@@ -33,7 +33,6 @@ bool AwsDoc::S3::createBucket(const Aws::String &bucketName,
     Aws::S3::S3Client client(clientConfig);
     Aws::S3::Model::CreateBucketRequest request;
     request.SetBucket(bucketName);
-    request.SetObjectOwnership(Aws::S3::Model::ObjectOwnership::BucketOwnerPreferred);
 
     if (clientConfig.region != "us-east-1") {
         Aws::S3::Model::CreateBucketConfiguration createBucketConfig;

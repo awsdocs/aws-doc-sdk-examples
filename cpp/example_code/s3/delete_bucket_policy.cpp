@@ -22,9 +22,9 @@
 
 //! Routine which demonstrates deleting the policy in an S3 bucket.
 /*!
-  \sa deleteBucketPolicy()
   \param toBucket Name of a bucket with the policy to delete.
   \param clientConfig Aws client configuration.
+  \return bool: Function succeeded.
 */
 
 // snippet-start:[s3.cpp.delete_bucket_policy.code]

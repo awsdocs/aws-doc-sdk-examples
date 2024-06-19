@@ -24,10 +24,10 @@
 
 //! Routine which demonstrates getting an object in an S3 bucket.
 /*!
-  \sa getObject()
   \param objectKey Name of an object in a bucket.
   \param toBucket: Name of a bucket.
   \param clientConfig: Aws client configuration.
+  \return bool: Function succeeded.
 */
 
 // snippet-start:[s3.cpp.get_object.code]

@@ -22,12 +22,12 @@
 
 //! Routine which demonstrates listing the buckets in the current account.
 /*!
-  \fn ListBuckets()
+  \fn listBuckets()
   \param clientConfig Aws client configuration.
 */
 
 // snippet-start:[s3.cpp.list_buckets.code]
-bool AwsDoc::S3::ListBuckets(const Aws::Client::ClientConfiguration &clientConfig) {
+bool AwsDoc::S3::listBuckets(const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
 
     auto outcome = client.ListBuckets();
@@ -65,11 +65,11 @@ int main() {
     InitAPI(options);
 
     {
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::S3::ListBuckets(clientConfig);
+        AwsDoc::S3::listBuckets(clientConfig);
     }
 
     //Before the application terminates, the SDK must be shut down. 

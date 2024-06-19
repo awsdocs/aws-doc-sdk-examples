@@ -19,7 +19,7 @@ namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(S3_GTests, list_objects_with_aws_global_region_2_) {
 
-        bool result = AwsDoc::S3::ListObjectsWithAWSGlobalRegion(*s_clientConfig);
+        bool result = AwsDoc::S3::listObjectsWithAwsGlobalRegion(*s_clientConfig);
         EXPECT_TRUE(result);
     }
 } // namespace AwsDocTest

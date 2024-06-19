@@ -23,22 +23,21 @@
  *
  */
 
-static Aws::String GetPolicyString(const Aws::String &userArn,
+static Aws::String getPolicyString(const Aws::String &userArn,
                                    const Aws::String &bucketName);
 
 
 //! Routine which demonstrates setting a policy on an S3 bucket.
 /*!
-  \sa PutBucketPolicy()
   \param bucketName: Name of a bucket.
   \param  policyBody: The bucket policy to add.
   \param clientConfig: Aws client configuration.
 */
 
 // snippet-start:[s3.cpp.put_bucket_policy02.code]
-bool AwsDoc::S3::PutBucketPolicy(const Aws::String &bucketName,
+bool AwsDoc::S3::putBucketPolicy(const Aws::String &bucketName,
                                  const Aws::String &policyBody,
-                                 const Aws::Client::ClientConfiguration &clientConfig) {
+                                 const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client s3_client(clientConfig);
 
     std::shared_ptr<Aws::StringStream> request_body =
@@ -53,7 +52,7 @@ bool AwsDoc::S3::PutBucketPolicy(const Aws::String &bucketName,
             s3_client.PutBucketPolicy(request);
 
     if (!outcome.IsSuccess()) {
-        std::cerr << "Error: PutBucketPolicy: "
+        std::cerr << "Error: putBucketPolicy: "
                   << outcome.GetError().GetMessage() << std::endl;
     } else {
         std::cout << "Set the following policy body for the bucket '" <<
@@ -69,13 +68,13 @@ bool AwsDoc::S3::PutBucketPolicy(const Aws::String &bucketName,
 // snippet-start:[s3.cpp.put_bucket_policy01.code]
 //! Build a policy JSON string.
 /*!
-  \sa GetPolicyString()
   \param userArn Aws user Amazon Resource Name (ARN).
       For more information, see https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns.
   \param bucketName Name of a bucket.
+  \return String: Policy as JSON string.
 */
 
-Aws::String GetPolicyString(const Aws::String &userArn,
+Aws::String getPolicyString(const Aws::String &userArn,
                             const Aws::String &bucketName) {
     return
             "{\n"
@@ -101,36 +100,51 @@ Aws::String GetPolicyString(const Aws::String &userArn,
 /*
  *
  * main function
+ *
  * Prerequisites: Create an S3 bucket to set a bucket policy on it
  *
- * TODO(user): items: Set the following variables:
- * - bucketName: The name of the bucket to put the bucket policy information in.
+ * usage: Usage: run_put_bucket_policy <bucket_name>
+ * where:
+ *   bucket_name   - the name of the bucket
  *
-*/
+b*/
 
 #ifndef TESTING_BUILD
 
-int main() {
+int main(int argc, char* argv[])
+{
+    if (argc != 2)
+    {
+        std::cout << R"(
+Usage:
+    run_put_bucket_policy <bucket_name>
+Where:
+    bucket_name - The name of the bucket to put the policy.
+)" << std::endl;
+        return 1;
+    }
+
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO(user): Change bucket_name to the name of a bucket in your account.
-        const Aws::String bucket_name = "<Enter bucket name>";
+        const Aws::String bucketName = argv[1];
 
         Aws::String userArn;
         // Get the caller's AWS ARN to be used in the bucket policy.
         {
-            Aws::Client::ClientConfiguration clientConfig;
-            clientConfig.region = "us-east-1";  // ensure valid IAM region
-            Aws::STS::STSClient sts_client(clientConfig);
+            Aws::STS::STSClientConfiguration stsClientConfiguration;
+            // Optional: Set to the AWS Region (overrides config file).
+            // stsClientConfiguration.region = "us-east-1"
+
+            Aws::STS::STSClient sts_client(stsClientConfiguration);
             Aws::STS::Model::GetCallerIdentityRequest request;
             Aws::STS::Model::GetCallerIdentityOutcome outcome =
                     sts_client.GetCallerIdentity(request);
 
-            if (!outcome.IsSuccess()) {
+            if (!outcome.IsSuccess())
+            {
                 std::cout << "Error: getBucketPolicy setup: Get identity information: "
                           << outcome.GetError().GetMessage() << std::endl;
-
                 return 1;
             }
 
@@ -138,13 +152,13 @@ int main() {
         }
 
         // Use the account ID and bucket name to form the bucket policy to be added.
-        Aws::String policy_string = GetPolicyString(userArn, bucket_name);
+        Aws::String policy_string = getPolicyString(userArn, bucketName);
 
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration s3ClientConfiguration;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
-        // clientConfig.region = "us-east-1";
+        // s3ClientConfiguration.region = "us-east-1";
 
-        AwsDoc::S3::PutBucketPolicy(bucket_name, policy_string, clientConfig);
+        AwsDoc::S3::putBucketPolicy(bucketName, policy_string, s3ClientConfiguration);
     }
     Aws::ShutdownAPI(options);
 

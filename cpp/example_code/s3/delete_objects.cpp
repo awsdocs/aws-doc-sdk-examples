@@ -24,10 +24,10 @@
 
 //! Routine which demonstrates deleting multiple objects in an Amazon S3 bucket.
 /*!
-  \sa deleteObjects()
   \param objectKeys: Vector of object keys.
   \param fromBucket: Name of a bucket with an object to delete.
   \param clientConfig: AWS client configuration.
+  \return bool: Function succeeded.
 */
 
 // snippet-start:[cpp.example_code.s3.delete_objects]
