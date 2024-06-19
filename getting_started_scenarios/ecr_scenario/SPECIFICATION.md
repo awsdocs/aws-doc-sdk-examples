@@ -178,7 +178,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The repository URI is 814548047983.dkr.ecr.us-east-1.amazonaws.com/hello-world
+The repository URI is 1234567890.dkr.ecr.us-east-1.amazonaws.com/hello-world
 
 Enter 'c' followed by <ENTER> to continue:
 c
