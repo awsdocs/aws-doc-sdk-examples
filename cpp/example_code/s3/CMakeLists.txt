@@ -10,14 +10,8 @@ set(SERVICE_COMPONENTS iam s3 sts)
 # Set this project's name.
 project("${SERVICE_NAME}-examples")
 
-# Build shared libraries by default.
-set(BUILD_SHARED_LIBS ON)
-
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 11)
-
-# Build shared libraries by default.
-set(BUILD_SHARED_LIBS ON)
 
 # Use the MSVC variable to determine if this is a Windows build.
 set(WINDOWS_BUILD ${MSVC})
