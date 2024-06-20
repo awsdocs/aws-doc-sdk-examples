@@ -113,7 +113,7 @@ bool AwsDoc::S3::putObjectAsync(const Aws::S3::S3Client &s3Client,
  *
  * Prerequisites: The bucket and the object to get the ACL information about:
  *
- * Usage: run_put_object_async <object_name> <bucket_name>
+ * Usage: run_put_object_async <file_name> <bucket_name>
  *
  */
 
@@ -126,9 +126,9 @@ int main(int argc, char* argv[])
     {
         std::cout << R"(
 Usage:
-    run_put_object_async <object_name> <bucket_name>
+    run_put_object_async <file_name> <bucket_name>
 Where:
-    object_name - The name of the object to upload.
+    file_name - The name of the file to upload.
     bucket_name - The name of the bucket to upload the object to.
 )" << std::endl;
         return 1;
@@ -137,7 +137,7 @@ Where:
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        const Aws::String objectName = argv[1];
+        const Aws::String fileName = argv[1];
         const Aws::String bucketName = argv[2];
 
         // A unique_lock is a general-purpose mutex ownership wrapper allowing
@@ -155,7 +155,7 @@ Where:
 
         Aws::S3::S3Client s3_client(config);
 
-        AwsDoc::S3::putObjectAsync(s3_client, bucketName, objectName);
+        AwsDoc::S3::putObjectAsync(s3_client, bucketName, fileName);
 
         std::cout << "main: Waiting for file upload attempt..." <<
                   std::endl << std::endl;

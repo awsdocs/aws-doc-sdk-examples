@@ -39,32 +39,32 @@ Next, for information on code example structures and how to build and run the ex
 
 ### Get started
 
-- [Hello Amazon S3](hello_s3/CMakeLists.txt#L4) (`listBuckets`)
+- [Hello Amazon S3](hello_s3/CMakeLists.txt#L4) (`ListBuckets`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [copyObject](copy_object.cpp#L32)
-- [createBucket](create_bucket.cpp#L33)
-- [deleteBucket](delete_bucket.cpp#L30)
-- [deleteBucketPolicy](delete_bucket_policy.cpp#L30)
-- [deleteBucketWebsite](delete_website_config.cpp#L30)
-- [deleteObject](delete_object.cpp#L31)
-- [deleteObjects](delete_objects.cpp#L33)
-- [getBucketAcl](get_bucket_acl.cpp#L37)
-- [getBucketPolicy](get_bucket_policy.cpp#L32)
-- [GetBucketWebsite](get_website_config.cpp#L30)
-- [getObject](get_object.cpp#L33)
-- [getObjectAcl](get_put_object_acl.cpp#L44)
-- [listBuckets](list_buckets.cpp#L29)
+- [CopyObject](copy_object.cpp#L32)
+- [CreateBucket](create_bucket.cpp#L30)
+- [DeleteBucket](delete_bucket.cpp#L30)
+- [DeleteBucketPolicy](delete_bucket_policy.cpp#L30)
+- [DeleteBucketWebsite](delete_website_config.cpp#L30)
+- [DeleteObject](delete_object.cpp#L31)
+- [DeleteObjects](delete_objects.cpp#L33)
+- [GetBucketAcl](get_bucket_acl.cpp#L36)
+- [GetBucketPolicy](get_bucket_policy.cpp#L32)
+- [GetBucketWebsite](get_website_config.cpp#L29)
+- [GetObject](get_object.cpp#L33)
+- [GetObjectAcl](get_put_object_acl.cpp#L43)
+- [ListBuckets](list_buckets.cpp#L29)
 - [ListObjectsV2](list_objects.cpp#L31)
-- [putBucketAcl](put_bucket_acl.cpp#L49)
-- [putBucketPolicy](put_bucket_policy.cpp#L38)
-- [PutBucketWebsite](put_website_config.cpp#L34)
-- [putObject](put_object.cpp#L33)
-- [putObjectAcl](get_put_object_acl.cpp#L171)
+- [PutBucketAcl](put_bucket_acl.cpp#L47)
+- [PutBucketPolicy](put_bucket_policy.cpp#L37)
+- [PutBucketWebsite](put_website_config.cpp#L33)
+- [PutObject](put_object.cpp#L33)
+- [PutObjectAcl](get_put_object_acl.cpp#L165)
 
 ### Scenarios
 

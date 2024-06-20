@@ -28,7 +28,6 @@
   \param objectContent String as content for object.
   \param clientConfig Aws client configuration.
 */
-
 // snippet-start:[s3.cpp.objects.put_string_into_object_bucket]
 bool AwsDoc::S3::putObjectBuffer(const Aws::String &bucketName,
                                  const Aws::String &objectName,
@@ -67,7 +66,7 @@ bool AwsDoc::S3::putObjectBuffer(const Aws::String &bucketName,
  *  Prerequisites: S3 bucket for the object.
  *
  * usage: run_put_object_buffer <object_name> <bucket_name>
- * 
+ *
  */
 
 #ifndef TESTING_BUILD
@@ -80,7 +79,7 @@ int main(int argc, char* argv[])
 Usage:
     run_put_object_buffer <object_name> <bucket_name>
 Where:
-    object_name - The name of the object to upload.
+    object_name - The name for the uploaded buffer.
     bucket_name - The name of the bucket to upload the object to.
 )" << std::endl;
         return 1;
