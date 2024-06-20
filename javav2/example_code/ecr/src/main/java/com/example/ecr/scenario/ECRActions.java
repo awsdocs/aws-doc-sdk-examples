@@ -43,12 +43,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-/*
- In this code example, notice the use of Asynchronous Service client. The benefits of using this Async client include:
- 1. Asynchronous error handling: The code uses the exceptionally method to handle exceptions without blocking the thread.
- 2. Improved performance: The Async client uses the Netty framework and the Java NIO API to provide a non-blocking, event-driven approach to HTTP requests and responses, improving overall performance.
- 3. Flexibility: The Async client allows for fine-tuning of parameters such as maximum concurrency, connection timeout, read timeout, write timeout, and more, to optimize the client for specific use cases.
- */
 public class ECRActions {
     private static EcrAsyncClient ecrClient;
 
@@ -103,6 +97,7 @@ public class ECRActions {
     }
 
     // snippet-start:[ecr.java2.delete.repo.main]
+
     /**
      * Deletes an ECR (Elastic Container Registry) repository.
      *
@@ -144,6 +139,7 @@ public class ECRActions {
     // snippet-end:[ecr.java2.delete.repo.main]
 
     // snippet-start:[ecr.java2.verify.image.main]
+
     /**
      * Verifies the existence of an image in an Amazon Elastic Container Registry (Amazon ECR) repository asynchronously.
      *
@@ -196,6 +192,7 @@ public class ECRActions {
     // snippet-end:[ecr.java2.verify.image.main]
 
     // snippet-start:[ecr.java2.set.policy.main]
+
     /**
      * Sets the lifecycle policy for the specified repository.
      *
@@ -203,24 +200,24 @@ public class ECRActions {
      */
     public void setLifeCyclePolicy(String repoName) {
         String polText = """
-        {
-        "rules": [
-            {
-                "rulePriority": 1,
-                "description": "Expire images older than 14 days",
-                "selection": {
-                    "tagStatus": "any",
-                    "countType": "sinceImagePushed",
-                    "countUnit": "days",
-                    "countNumber": 14
-                },
-                "action": {
-                    "type": "expire"
-                }
+             {
+             "rules": [
+                 {
+                     "rulePriority": 1,
+                     "description": "Expire images older than 14 days",
+                     "selection": {
+                         "tagStatus": "any",
+                         "countType": "sinceImagePushed",
+                         "countUnit": "days",
+                         "countNumber": 14
+                     },
+                     "action": {
+                         "type": "expire"
+                     }
+                 }
+            ]
             }
-       ]
-       }
-       """;
+            """;
 
         StartLifecyclePolicyPreviewRequest lifecyclePolicyPreviewRequest = StartLifecyclePolicyPreviewRequest.builder()
             .lifecyclePolicyText(polText)
@@ -251,12 +248,13 @@ public class ECRActions {
     // snippet-end:[ecr.java2.set.policy.main]
 
     // snippet-start:[ecr.java2.describe.policy.main]
+
     /**
      * Retrieves the repository URI for the specified repository name.
      *
      * @param repoName the name of the repository to retrieve the URI for.
      * @return the repository URI for the specified repository name.
-     * @throws EcrException if there is an error retrieving the repository information.
+     * @throws EcrException        if there is an error retrieving the repository information.
      * @throws CompletionException if the asynchronous operation completes exceptionally.
      */
     public String getRepositoryURI(String repoName) {
@@ -295,13 +293,14 @@ public class ECRActions {
     // snippet-end:[ecr.java2.describe.policy.main]
 
     // snippet-start:[ecr.java2.get.token.main]
+
     /**
      * Retrieves the authorization token for Amazon Elastic Container Registry (ECR).
      * This method makes an asynchronous call to the ECR client to retrieve the authorization token.
      * If the operation is successful, the method prints the token to the console.
      * If an exception occurs, the method handles the exception and prints the error message.
      *
-     * @throws EcrException if there is an error retrieving the authorization token from ECR.
+     * @throws EcrException     if there is an error retrieving the authorization token from ECR.
      * @throws RuntimeException if there is an unexpected error during the operation.
      */
     public void getAuthToken() {
@@ -334,6 +333,7 @@ public class ECRActions {
     // snippet-end:[ecr.java2.get.token.main]
 
     // snippet-start:[ecr.java2.get.repo.policy.main]
+
     /**
      * Gets the repository policy for the specified repository.
      *
@@ -378,14 +378,15 @@ public class ECRActions {
     // snippet-end:[ecr.java2.get.repo.policy.main]
 
     // snippet-start:[ecr.java2.set.repo.policy.main]
+
     /**
      * Sets the repository policy for the specified ECR repository.
      *
      * @param repoName the name of the ECR repository.
-     * @param iamRole the IAM role to be granted access to the repository.
-     * @throws InvalidParameterException if the specified IAM role is invalid.
+     * @param iamRole  the IAM role to be granted access to the repository.
+     * @throws InvalidParameterException         if the specified IAM role is invalid.
      * @throws RepositoryPolicyNotFoundException if the repository policy does not exist.
-     * @throws EcrException if there is an unexpected error setting the repository policy.
+     * @throws EcrException                      if there is an unexpected error setting the repository policy.
      */
     public void setRepoPolicy(String repoName, String iamRole) {
         String policyDocumentTemplate = """
@@ -434,13 +435,14 @@ public class ECRActions {
     // snippet-end:[ecr.java2.set.repo.policy.main]
 
     // snippet-start:[ecr.java2.create.repo.main]
+
     /**
      * Creates an Amazon Elastic Container Registry (Amazon ECR) repository.
      *
      * @param repoName the name of the repository to create.
      * @return the Amazon Resource Name (ARN) of the created repository, or an empty string if the operation failed.
      * @throws IllegalArgumentException if the repository name is null or empty.
-     * @throws EcrException         if an error occurs while creating the repository.
+     * @throws EcrException             if an error occurs while creating the repository.
      */
     public String createECRRepository(String repoName) {
         if (repoName == null || repoName.isEmpty()) {
@@ -458,7 +460,7 @@ public class ECRActions {
             // Wait for the CompletableFuture to complete and return the result.
             CreateRepositoryResponse result = response.join();
             if (result != null) {
-                System.out.println("The "+ repoName +" repository was created successfully.");
+                System.out.println("The " + repoName + " repository was created successfully.");
                 return result.repository().repositoryArn();
             } else {
                 throw new RuntimeException("Unexpected response type");
@@ -488,15 +490,15 @@ public class ECRActions {
     // snippet-end:[ecr.java2.create.repo.main]
 
     // snippet-start:[ecr.java2.push.image.main]
+
     /**
      * Pushes a Docker image to an Amazon Elastic Container Registry (ECR) repository.
      *
-     * @param repoName the name of the ECR repository to push the image to.
+     * @param repoName  the name of the ECR repository to push the image to.
      * @param imageName the name of the Docker image.
-     *
      */
     public void pushDockerImage(String repoName, String imageName) {
-        System.out.println("Pushing "+imageName +" to "+repoName + " will take a few seconds");
+        System.out.println("Pushing " + imageName + " to " + repoName + " will take a few seconds");
         CompletableFuture<AuthConfig> authResponseFuture = getAsyncClient().getAuthorizationToken()
             .thenApply(response -> {
                 String token = response.authorizationData().get(0).authorizationToken();
@@ -517,10 +519,10 @@ public class ECRActions {
             .thenCompose(authConfig -> {
                 DescribeRepositoriesResponse descrRepoResponse = getAsyncClient().describeRepositories(b -> b.repositoryNames(repoName)).join();
                 Repository repoData = descrRepoResponse.repositories().stream().filter(r -> r.repositoryName().equals(repoName)).findFirst().orElse(null);
-                getDockerClient().tagImageCmd(imageName+":latest", repoData.repositoryUri() + ":latest", imageName).exec();
+                getDockerClient().tagImageCmd(imageName + ":latest", repoData.repositoryUri() + ":latest", imageName).exec();
                 try {
                     getDockerClient().pushImageCmd(repoData.repositoryUri()).withTag("echo-text").withAuthConfig(authConfig).start().awaitCompletion();
-                    System.out.println("The "+imageName+" was pushed to ECR");
+                    System.out.println("The " + imageName + " was pushed to ECR");
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
