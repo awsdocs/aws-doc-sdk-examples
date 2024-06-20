@@ -1,6 +1,6 @@
 name: Pull Request Stats
 
-on:
+on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
 
 jobs:
