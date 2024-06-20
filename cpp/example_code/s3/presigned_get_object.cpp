@@ -31,7 +31,7 @@
  *
  **/
 
-// snippet-start:[cpp.example_code.s3.presigned.getObject]
+// snippet-start:[cpp.example_code.s3.presigned.GetObject]
 //! Routine which demonstrates creating a pre-signed URL to download an object from an
 //! Amazon Simple Storage Service (Amazon S3) bucket.
 /*!
@@ -49,7 +49,7 @@ Aws::String AwsDoc::S3::generatePreSignedGetObjectUrl(const Aws::String &bucketN
     return client.GeneratePresignedUrl(bucketName, key, Aws::Http::HttpMethod::HTTP_GET,
                                        expirationSeconds);
 }
-// snippet-end:[cpp.example_code.s3.presigned.getObject]
+// snippet-end:[cpp.example_code.s3.presigned.GetObject]
 
 #if HAS_CURL
 

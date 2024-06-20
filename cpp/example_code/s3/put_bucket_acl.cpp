@@ -194,9 +194,9 @@ int main(int argc, char* argv[]) {
     Aws::String granteeEmailAddress; //  = "topplop@gmail.com"; // Used for grantee type Amazon customer by email.
     Aws::String granteeURI; // Used for grantee type group.
 
-    if (granteeType == "Canonical user") {
+   if (granteeType == "Canonical user") {
         granteeID = argv[5];
-    }
+     }
     else if (granteeType == "Amazon customer by email") {
         granteeEmailAddress = argv[5];
     }

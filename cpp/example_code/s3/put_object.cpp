@@ -73,7 +73,7 @@ bool AwsDoc::S3::putObject(const Aws::String &bucketName,
  *
  * main function
  *
- *  Prerequisites: S3 bucket for the object.
+ * Prerequisites: S3 bucket for the object.
  *
  * usage: run_put_object <object_name> <bucket_name>
  *
@@ -87,9 +87,9 @@ int main(int argc, char* argv[])
     {
         std::cout << R"(
 Usage:
-    run_put_object <object_name> <bucket_name>
+    run_put_object <file_name> <bucket_name>
 Where:
-    object_name - The name of the object to upload.
+    file_name - The name of the file to upload.
     bucket_name - The name of the bucket to upload the object to.
 )" << std::endl;
         return 1;
@@ -98,14 +98,14 @@ Where:
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        const Aws::String objectName = argv[1];
+        const Aws::String fileName = argv[1];
         const Aws::String bucketName = argv[2];
 
         Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::S3::putObject(bucketName, objectName, clientConfig);
+        AwsDoc::S3::putObject(bucketName, fileName, clientConfig);
     }
 
     Aws::ShutdownAPI(options);

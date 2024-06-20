@@ -31,7 +31,7 @@
  *
  **/
 
-// snippet-start:[cpp.example_code.s3.presigned.putObject]
+// snippet-start:[cpp.example_code.s3.presigned.PutObject]
 //! Routine which demonstrates creating a pre-signed URL to upload an object to an
 //! Amazon Simple Storage Service (Amazon S3) bucket.
 /*!
@@ -48,7 +48,7 @@ Aws::String AwsDoc::S3::generatePreSignedPutObjectUrl(const Aws::String &bucketN
     return client.GeneratePresignedUrl(bucketName, key, Aws::Http::HttpMethod::HTTP_PUT,
                                        expirationSeconds);
 }
-// snippet-end:[cpp.example_code.s3.presigned.putObject]
+// snippet-end:[cpp.example_code.s3.presigned.PutObject]
 
 #if HAS_CURL
 
