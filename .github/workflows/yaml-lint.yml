@@ -1,4 +1,4 @@
-name: Lint Metadata Yaml
+name: Lint Yaml
 
 on:  # yamllint disable-line rule:truthy
   pull_request:
