@@ -135,25 +135,25 @@ int main(int argc, char *argv[]) {
 
         config.region = region;
 
-        Aws::S3::S3Client s3_client(config);
+        Aws::S3::S3Client s3Client(config);
 
-        if (!FindTheBucket(s3_client, bucketName)) {
+        if (!FindTheBucket(s3Client, bucketName)) {
             return 1;
         }
 
-        if (!CreateTheBucket(s3_client, bucketName, region)) {
+        if (!CreateTheBucket(s3Client, bucketName, region)) {
             return 1;
         }
 
-        if (!FindTheBucket(s3_client, bucketName)) {
+        if (!FindTheBucket(s3Client, bucketName)) {
             return 1;
         }
 
-        if (!DeleteTheBucket(s3_client, bucketName)) {
+        if (!DeleteTheBucket(s3Client, bucketName)) {
             return 1;
         }
 
-        if (!FindTheBucket(s3_client, bucketName)) {
+        if (!FindTheBucket(s3Client, bucketName)) {
             return 1;
         }
     }

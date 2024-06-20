@@ -106,7 +106,7 @@ bool putBucketAcl(const Aws::String &bucketName,
                   const Aws::String &granteeEmailAddress,
                   const Aws::String &granteeURI,
                   const Aws::S3::S3ClientConfiguration &clientConfig) {
-    Aws::S3::S3Client s3_client(clientConfig);
+    Aws::S3::S3Client s3Client(clientConfig);
 
     Aws::S3::Model::Owner owner;
     owner.SetID(ownerID);
@@ -142,7 +142,7 @@ bool putBucketAcl(const Aws::String &bucketName,
     request.SetBucket(bucketName);
 
     Aws::S3::Model::PutBucketAclOutcome outcome =
-            s3_client.PutBucketAcl(request);
+            s3Client.PutBucketAcl(request);
 
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &error = outcome.GetError();
@@ -165,13 +165,13 @@ bool putBucketAcl(const Aws::String &bucketName,
 */
 bool getBucketAcl(const Aws::String &bucketName,
                   const Aws::S3::S3ClientConfiguration &clientConfig) {
-    Aws::S3::S3Client s3_client(clientConfig);
+    Aws::S3::S3Client s3Client(clientConfig);
 
     Aws::S3::Model::GetBucketAclRequest request;
     request.SetBucket(bucketName);
 
     Aws::S3::Model::GetBucketAclOutcome outcome =
-            s3_client.GetBucketAcl(request);
+            s3Client.GetBucketAcl(request);
 
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();

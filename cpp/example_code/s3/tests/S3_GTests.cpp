@@ -303,7 +303,7 @@ bool AwsDocTest::S3_GTests::AddPolicyToBucket(const Aws::String &bucketName) {
 
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
 bool AwsDocTest::S3_GTests::PutWebsiteConfig(const Aws::String &bucketName) {
-    Aws::S3::S3Client s3_client(*s_clientConfig);
+    Aws::S3::S3Client s3Client(*s_clientConfig);
 
     Aws::S3::Model::IndexDocument indexDocument;
     indexDocument.SetSuffix("index.html");
@@ -320,7 +320,7 @@ bool AwsDocTest::S3_GTests::PutWebsiteConfig(const Aws::String &bucketName) {
     request.SetWebsiteConfiguration(websiteConfiguration);
 
     Aws::S3::Model::PutBucketWebsiteOutcome outcome =
-            s3_client.PutBucketWebsite(request);
+            s3Client.PutBucketWebsite(request);
 
     bool result = true;
     if (!outcome.IsSuccess()) {

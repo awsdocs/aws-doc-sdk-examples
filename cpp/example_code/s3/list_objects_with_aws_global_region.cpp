@@ -37,8 +37,8 @@
 
 //! Helper routine to create a unique S3 bucket in us-west-2 Region.
 /*!
-  \fn createOneBucket()
   \param s3Client An Aws S3 client.
+  \return String: The name of the created bucket.
 */
 static const int MAX_TIMEOUT_RETRIES = 20;
 
@@ -85,9 +85,9 @@ static Aws::String createOneBucket(const Aws::S3::S3Client &s3Client) {
 
 //! Helper routine to list objects in a bucket using aws-global.
 /*!
-  \fn listTheObjects()
   \param s3Client An S3 client.
   \param bucketName An S3 bucket name.
+  \return bool: Function succeeded.
 */
 
 static bool
@@ -128,9 +128,9 @@ listTheObjects(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName)
 }
 //! Helper routine to delete a bucket.
 /*!
-  \fn deleteABucket()
   \param s3Client An Aws S3 client.
   \param bucketName A bucket to delete.
+  \return bool: Function succeeded.
 */
 
 bool deleteABucket(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName) {
@@ -153,8 +153,8 @@ bool deleteABucket(const Aws::S3::S3Client &s3Client, const Aws::String &bucketN
 
 //! Routine which demonstrates listing the objects in a bucket using aws-global.
 /*!
-  \fn listObjectsWithAwsGlobalRegion()
  \param clientConfig Aws client configuration.
+ \return bool: Function succeeded.
 */
 
 bool AwsDoc::S3::listObjectsWithAwsGlobalRegion(

@@ -34,7 +34,7 @@
 bool AwsDoc::S3::putObject(const Aws::String &bucketName,
                            const Aws::String &fileName,
                            const Aws::S3::S3ClientConfiguration &clientConfig) {
-    Aws::S3::S3Client s3_client(clientConfig);
+    Aws::S3::S3Client s3Client(clientConfig);
 
     Aws::S3::Model::PutObjectRequest request;
     request.SetBucket(bucketName);
@@ -55,7 +55,7 @@ bool AwsDoc::S3::putObject(const Aws::String &bucketName,
     request.SetBody(inputData);
 
     Aws::S3::Model::PutObjectOutcome outcome =
-            s3_client.PutObject(request);
+            s3Client.PutObject(request);
 
     if (!outcome.IsSuccess()) {
         std::cerr << "Error: putObject: " <<

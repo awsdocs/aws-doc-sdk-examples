@@ -100,11 +100,11 @@ Where:
         const Aws::String index_page = argv[2];
         const Aws::String error_page = argv[3];
 
-        Aws::S3::S3ClientConfiguration client_config;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
-        // client_config.region = "us-east-1";
+        // clientConfig.region = "us-east-1";
 
-        AwsDoc::S3::putWebsiteConfig(bucket_name, index_page, error_page, client_config);
+        AwsDoc::S3::putWebsiteConfig(bucket_name, index_page, error_page, clientConfig);
     }
 
     Aws::ShutdownAPI(options);
