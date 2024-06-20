@@ -2,8 +2,8 @@
 
 name: Lint Bash
 
-on:
-  pull_request:  # yamllint disable-line rule:truthy
+on:  # yamllint disable-line rule:truthy
+  pull_request:
   workflow_dispatch:
 
 jobs:
