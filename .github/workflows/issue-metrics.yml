@@ -6,7 +6,7 @@
 # https://github.com/marketplace/actions/issue-metrics
 
 name: Monthly issue metrics
-on:
+on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
   schedule:
     - cron: '3 2 1 * *'
@@ -20,27 +20,27 @@ jobs:
     name: Issue metrics
     runs-on: ubuntu-latest
     steps:
-    - name: Get dates for last month
-      shell: bash
-      run: |
-        # Calculate the first day of the previous month
-        first_day=$(date -d "last month" +%Y-%m-01)
+      - name: Get dates for last month
+        shell: bash
+        run: |
+          # Calculate the first day of the previous month
+          first_day=$(date -d "last month" +%Y-%m-01)
 
-        # Calculate the last day of the previous month
-        last_day=$(date -d "$first_day +1 month -1 day" +%Y-%m-%d)
+          # Calculate the last day of the previous month
+          last_day=$(date -d "$first_day +1 month -1 day" +%Y-%m-%d)
 
-        #Set an environment variable with the date range
-        echo "last_month=$first_day..$last_day" >> "$GITHUB_ENV"
+          # Set an environment variable with the date range
+          echo "last_month=$first_day..$last_day" >> "$GITHUB_ENV"
 
-    - name: Run issue-metrics tool
-      uses: github/issue-metrics@v2
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SEARCH_QUERY: 'repo:awsdocs/aws-doc-sdk-examples is:issue created:${{ env.last_month }} -reason:"not planned"'
+      - name: Run issue-metrics tool
+        uses: github/issue-metrics@v2
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEARCH_QUERY: 'repo:awsdocs/aws-doc-sdk-examples is:issue created:${{ env.last_month }} -reason:"not planned"'
 
-    - name: Create issue
-      uses: peter-evans/create-issue-from-file@v5
-      with:
-        title: Monthly issue metrics report  ${{ env.last_month }}
-        token: ${{ secrets.GITHUB_TOKEN }}
-        content-filepath: ./issue_metrics.md
+      - name: Create issue
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: Monthly issue metrics report  ${{ env.last_month }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          content-filepath: ./issue_metrics.md
