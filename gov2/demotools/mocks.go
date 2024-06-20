@@ -47,7 +47,7 @@ func (mock *MockQuestioner) AskFloat64(question string, validators ...IAnswerVal
 
 func (mock *MockQuestioner) AskChoice(question string, choices []string) int {
 	answerInt, _ := strconv.Atoi(mock.Next(question))
-	return answerInt
+	return answerInt - 1
 }
 
 func (mock *MockQuestioner) AskPassword(question string, minLength int) string {
