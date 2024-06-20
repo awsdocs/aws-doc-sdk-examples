@@ -29,13 +29,13 @@
 // snippet-start:[s3.cpp.get_website_config.code]
 bool AwsDoc::S3::getWebsiteConfig(const Aws::String &bucketName,
                                   const Aws::S3::S3ClientConfiguration &clientConfig) {
-    Aws::S3::S3Client s3_client(clientConfig);
+    Aws::S3::S3Client s3Client(clientConfig);
 
     Aws::S3::Model::GetBucketWebsiteRequest request;
     request.SetBucket(bucketName);
 
     Aws::S3::Model::GetBucketWebsiteOutcome outcome =
-            s3_client.GetBucketWebsite(request);
+            s3Client.GetBucketWebsite(request);
 
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();

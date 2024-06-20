@@ -33,7 +33,7 @@ bool AwsDoc::S3::putObjectBuffer(const Aws::String &bucketName,
                                  const Aws::String &objectName,
                                  const std::string &objectContent,
                                  const Aws::S3::S3ClientConfiguration &clientConfig) {
-    Aws::S3::S3Client s3_client(clientConfig);
+    Aws::S3::S3Client s3Client(clientConfig);
 
     Aws::S3::Model::PutObjectRequest request;
     request.SetBucket(bucketName);
@@ -45,7 +45,7 @@ bool AwsDoc::S3::putObjectBuffer(const Aws::String &bucketName,
 
     request.SetBody(inputData);
 
-    Aws::S3::Model::PutObjectOutcome outcome = s3_client.PutObject(request);
+    Aws::S3::Model::PutObjectOutcome outcome = s3Client.PutObject(request);
 
     if (!outcome.IsSuccess()) {
         std::cerr << "Error: putObjectBuffer: " <<
@@ -92,11 +92,11 @@ Where:
         const Aws::String bucketName = argv[2];
         const std::string objectContent = "This is my sample text content.";
 
-        Aws::S3::S3ClientConfiguration client_config;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
-        // client_config.region = "us-east-1";
+        // clientConfig.region = "us-east-1";
 
-        AwsDoc::S3::putObjectBuffer(bucketName, objectName, objectContent, client_config);
+        AwsDoc::S3::putObjectBuffer(bucketName, objectName, objectContent, clientConfig);
     }
 
     Aws::ShutdownAPI(options);

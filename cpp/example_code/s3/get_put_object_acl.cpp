@@ -44,14 +44,14 @@ static Aws::S3::Model::Type setGranteeType(const Aws::String &type);
 bool AwsDoc::S3::getObjectAcl(const Aws::String &bucketName,
                               const Aws::String &objectKey,
                               const Aws::S3::S3ClientConfiguration &clientConfig) {
-    Aws::S3::S3Client s3_client(clientConfig);
+    Aws::S3::S3Client s3Client(clientConfig);
 
     Aws::S3::Model::GetObjectAclRequest request;
     request.SetBucket(bucketName);
     request.SetKey(objectKey);
 
     Aws::S3::Model::GetObjectAclOutcome outcome =
-            s3_client.GetObjectAcl(request);
+            s3Client.GetObjectAcl(request);
 
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();
@@ -167,7 +167,7 @@ bool AwsDoc::S3::putObjectAcl(const Aws::String &bucketName, const Aws::String &
                               const Aws::String &granteePermission, const Aws::String &granteeType,
                               const Aws::String &granteeID, const Aws::String &granteeEmailAddress,
                               const Aws::String &granteeURI, const Aws::S3::S3ClientConfiguration &clientConfig) {
-    Aws::S3::S3Client s3_client(clientConfig);
+    Aws::S3::S3Client s3Client(clientConfig);
 
     Aws::S3::Model::Owner owner;
     owner.SetID(ownerID);
@@ -204,7 +204,7 @@ bool AwsDoc::S3::putObjectAcl(const Aws::String &bucketName, const Aws::String &
     request.SetKey(objectKey);
 
     Aws::S3::Model::PutObjectAclOutcome outcome =
-            s3_client.PutObjectAcl(request);
+            s3Client.PutObjectAcl(request);
 
     if (!outcome.IsSuccess()) {
         auto error = outcome.GetError();

@@ -23,15 +23,15 @@
 
 //! Routine which demonstrates listing the objects in an S3 bucket.
 /*!
-  \fn ListObjects()
+  \fn listObjects()
   \param bucketName Name of the S3 bucket.
   \param clientConfig Aws client configuration.
  */
 
 // snippet-start:[s3.cpp.list_objects.code]
-bool AwsDoc::S3::ListObjects(const Aws::String &bucketName,
+bool AwsDoc::S3::listObjects(const Aws::String &bucketName,
                              const Aws::S3::S3ClientConfiguration &clientConfig) {
-    Aws::S3::S3Client s3_client(clientConfig);
+    Aws::S3::S3Client s3Client(clientConfig);
 
     Aws::S3::Model::ListObjectsV2Request request;
     request.WithBucket(bucketName);
@@ -44,10 +44,10 @@ bool AwsDoc::S3::ListObjects(const Aws::String &bucketName,
             request.SetContinuationToken(continuationToken);
         }
 
-        auto outcome = s3_client.ListObjectsV2(request);
+        auto outcome = s3Client.ListObjectsV2(request);
 
         if (!outcome.IsSuccess()) {
-            std::cerr << "Error: ListObjects: " <<
+            std::cerr << "Error: listObjects: " <<
                       outcome.GetError().GetMessage() << std::endl;
             return false;
         } else {
@@ -105,7 +105,7 @@ Where:
         Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::S3::ListObjects(bucketName, clientConfig);
+        AwsDoc::S3::listObjects(bucketName, clientConfig);
     }
     Aws::ShutdownAPI(options);
 

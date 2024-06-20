@@ -38,7 +38,7 @@ static Aws::String getPolicyString(const Aws::String &userArn,
 bool AwsDoc::S3::putBucketPolicy(const Aws::String &bucketName,
                                  const Aws::String &policyBody,
                                  const Aws::S3::S3ClientConfiguration &clientConfig) {
-    Aws::S3::S3Client s3_client(clientConfig);
+    Aws::S3::S3Client s3Client(clientConfig);
 
     std::shared_ptr<Aws::StringStream> request_body =
             Aws::MakeShared<Aws::StringStream>("");
@@ -49,7 +49,7 @@ bool AwsDoc::S3::putBucketPolicy(const Aws::String &bucketName,
     request.SetBody(request_body);
 
     Aws::S3::Model::PutBucketPolicyOutcome outcome =
-            s3_client.PutBucketPolicy(request);
+            s3Client.PutBucketPolicy(request);
 
     if (!outcome.IsSuccess()) {
         std::cerr << "Error: putBucketPolicy: "

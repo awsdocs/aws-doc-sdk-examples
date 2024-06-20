@@ -36,13 +36,13 @@ static Aws::String getPermissionString(const Aws::S3::Model::Permission &permiss
 // snippet-start:[s3.cpp.get_acl_bucket.code]
 bool AwsDoc::S3::getBucketAcl(const Aws::String &bucketName,
                               const Aws::S3::S3ClientConfiguration &clientConfig) {
-    Aws::S3::S3Client s3_client(clientConfig);
+    Aws::S3::S3Client s3Client(clientConfig);
 
     Aws::S3::Model::GetBucketAclRequest request;
     request.SetBucket(bucketName);
 
     Aws::S3::Model::GetBucketAclOutcome outcome =
-            s3_client.GetBucketAcl(request);
+            s3Client.GetBucketAcl(request);
 
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();

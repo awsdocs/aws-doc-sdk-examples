@@ -153,9 +153,9 @@ Where:
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // config.region = "us-east-1";
 
-        Aws::S3::S3Client s3_client(config);
+        Aws::S3::S3Client s3Client(config);
 
-        AwsDoc::S3::putObjectAsync(s3_client, bucketName, fileName);
+        AwsDoc::S3::putObjectAsync(s3Client, bucketName, fileName);
 
         std::cout << "main: Waiting for file upload attempt..." <<
                   std::endl << std::endl;
