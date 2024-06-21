@@ -12,7 +12,6 @@ on: # yamllint disable-line rule:truthy
   workflow_dispatch:
 env:
   COMMIT: ${{github.event.pull_request.head.sha}}
-  PR_AUTHOR: ${{ github.event.pull_request.user.login }}
 jobs:
   if_merged: 
     name: Generate Repo Statistics
