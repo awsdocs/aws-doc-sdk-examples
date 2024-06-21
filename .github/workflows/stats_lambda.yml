@@ -1,4 +1,4 @@
-# This workflow executes a Lamdba function that recording metrics for each successfully merged PR.
+# This workflow executes a Lamdba function that recording metrics for each merged PR.
 #
 # You can adjust the behavior by modifying this file.
 # For more information, see:
