@@ -13,10 +13,10 @@ env:
    COMMIT: ${{github.event.pull_request.head.sha}}
    AUTHOR: ${{ github.event.pull_request.user.login }}
 jobs:
-    if_merged:
-     if: github.event.pull_request.merged == true
-     runs-on: ubuntu-latest
-     steps:
+   if_merged:
+       if: github.event.pull_request.merged == true
+       runs-on: ubuntu-latest
+       steps:
         - uses: actions/checkout@v2
         - run: echo "JSON_PAYLOAD={\"commit\" :\"${{ env.COMMIT }}\"},{\"author\" :\"${{ env.AUTHOR }}\"} " >> $GITHUB_ENV
         - name: Invoke runTheNumbers
