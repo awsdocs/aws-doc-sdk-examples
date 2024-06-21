@@ -6,7 +6,7 @@
 name: Invoke Lambda function for GitHub example/snippet metrics
 
 on: # yamllint disable-line rule:truthy
-  pull_request_target:
+  pull_request:
     types:
       - closed
   workflow_dispatch:
