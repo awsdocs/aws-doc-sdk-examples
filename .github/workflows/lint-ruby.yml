@@ -1,12 +1,12 @@
-name: Lint Python
+name: Ruby Linting
 
-on:
+on:  # yamllint disable-line rule:truthy
   pull_request:
   workflow_dispatch:
 
 jobs:
-  black:
-    name: Flake8 Linting & Black Formatting
+  rubocop:
+    name: RuboCop
     runs-on: ubuntu-latest
 
     steps:
@@ -17,20 +17,19 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v41
         with:
-          files: "**.py"
+          files: "ruby/**/*.rb"
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          python-version: 3.9
+          ruby-version: 3.0
 
       - name: Install dependencies
         run: |
-          pip install black pylint
+          gem install rubocop
 
-      - name: Run Black & Pylint
+      - name: Run RuboCop
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           changed_files=(${{steps.changed-files.outputs.all_changed_files}})
-          black "${changed_files[@]}"
-          pylint --rcfile .github/linters/.python-lint "${changed_files[@]}"
+          rubocop --config .github/linters/.ruby-lint.yml "${changed_files[@]}"     

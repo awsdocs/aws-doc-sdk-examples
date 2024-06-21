@@ -1,5 +1,6 @@
-name: golangci-lint
-on:
+name: Lint GoLang
+
+on:  # yamllint disable-line rule:truthy
   pull_request:
   workflow_dispatch:
 permissions:
@@ -29,7 +30,6 @@ jobs:
         run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.47.3
       - name: run golangci-lint
         if: steps.changed-files.outputs.any_changed == 'true'
-          # If you get a linting error of "File is not `goimports`-ed", the solution is to run "gofmt -w ./<folder>".
-        run: |
+        run: |  # If you get a linting error of "File is not `goimports`-ed", the solution is to run "gofmt -w ./<folder>".
           cd gov2
           ./lint_all_go.sh

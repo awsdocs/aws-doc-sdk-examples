@@ -5,7 +5,7 @@ permissions:
   contents: read
   id-token: write
 
-on:
+on:  # yamllint disable-line rule:truthy
   pull_request_target:
     types:
       - closed
@@ -30,7 +30,7 @@ jobs:
       ##################################################
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@master # More information on this action can be found below in the 'AWS Credentials' section
+        uses: aws-actions/configure-aws-credentials@master  # More information on this action can be found below in the 'AWS Credentials' section
         with:
           role-to-assume: arn:aws:iam::808326389482:role/automation
           aws-region: us-east-1
