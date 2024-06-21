@@ -1,4 +1,4 @@
-# This workflow executes a Lamdba function that records metrics for each merged PR.
+# This workflow executes a Lamdba function that records metrics for each successfully merged PR.
 #
 # For more information, see:
 # https://github.com/marketplace/actions/invoke-aws-lambda
