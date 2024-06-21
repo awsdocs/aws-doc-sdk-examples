@@ -4,6 +4,7 @@
 # https://github.com/marketplace/actions/invoke-aws-lambda
 
 name: Invoke Lambda function for GitHub example/snippet metrics
+
 on:
   pull_request:
     types:
@@ -21,11 +22,11 @@ jobs:
       - run: echo "JSON_PAYLOAD={\"commit\" :\"${{ env.COMMIT }}\"}" >> $GITHUB_ENV
       - name: Invoke runTheNumbers
         uses: gagoar/invoke-aws-lambda@master
-          with:
-            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            REGION: 'eu-west-1'
-            FunctionName: runTheNumbers
-            Payload: ${{env.JSON_PAYLOAD}}
-            InvocationType: RequestResponse
-            LogType: None
+        with:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          REGION: 'eu-west-1'
+          FunctionName: runTheNumbers
+          Payload: ${{env.JSON_PAYLOAD}}
+          InvocationType: RequestResponse
+          LogType: None
