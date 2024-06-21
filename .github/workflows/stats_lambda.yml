@@ -1,4 +1,4 @@
-# This workflow executes a Lamdba function that records metrics for each merged PR.
+# This workflow executes a Lamdba function that records metrics for each successfully merged PR.
 #
 # For more information, see:
 # https://github.com/marketplace/actions/invoke-aws-lambda
@@ -19,9 +19,10 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
+      - name: Convert event Payload
       - uses: actions/checkout@v2
       - run: echo "JSON_PAYLOAD={\"commit\" :\"${{ env.COMMIT }}\"}, {\"author\" :\"${{ env.PR_AUTHOR }}\"}" >> $GITHUB_ENV
-      - name: Invoke runTheNumbers
+      - name: Invoke 'runTheNumbers' Lambda function
         uses: gagoar/invoke-aws-lambda@master
         with:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
