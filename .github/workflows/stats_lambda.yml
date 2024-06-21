@@ -1,4 +1,4 @@
-# This workflow executes a Lamdba function that records metrics for each merged PR.
+# This workflow executes a Lamdba function that records metrics for each successfully merged PR.
 #
 # For more information, see:
 # https://github.com/marketplace/actions/invoke-aws-lambda
@@ -6,7 +6,7 @@
 name: Invoke Lambda function for GitHub example/snippet metrics
 
 on: # yamllint disable-line rule:truthy
-  pull_request:
+  pull_request_target:
     types:
       - closed
   workflow_dispatch:
