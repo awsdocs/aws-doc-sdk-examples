@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Convert event Payload
-        run: echo "JSON_PAYLOAD={\"commit\" :\"${{ env.COMMIT }}\"}, {\"author\" :\"${{ env.PR_AUTHOR }}\"}" >> $GITHUB_ENV
+        run: echo "JSON_PAYLOAD={\"commit\" :\"${{ env.COMMIT }}\"}" >> $GITHUB_ENV
       - name: Invoke 'runTheNumbers' Lambda function
         uses: gagoar/invoke-aws-lambda@master
         with:
