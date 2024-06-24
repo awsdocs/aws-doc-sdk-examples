@@ -93,8 +93,8 @@ s3_CreateBucket:
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.CreateBucket
-            - description:
-              snippet_tags: Create a bucket with object locking and wait for it to exist.
+            - description: Create a bucket with object locking and wait for it to exist.
+              snippet_tags:
                 - gov2.workflows.s3.ObjectLock.S3Actions.struct
                 - gov2.workflows.s3.ObjectLock.CreateBucket
     Kotlin:
