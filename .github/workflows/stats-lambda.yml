@@ -23,8 +23,8 @@ jobs:
       - name: Invoke Lambda
         uses: gagoar/invoke-aws-lambda@master
         with:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_SECRET_KEY_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           REGION: 'eu-west-1'
           FunctionName: runTheNumbers
           Payload: ${{env.JSON_PAYLOAD}}
