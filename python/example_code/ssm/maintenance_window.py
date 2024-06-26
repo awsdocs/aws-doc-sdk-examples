@@ -4,7 +4,7 @@
 import logging
 
 import boto3
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError, ParamValidationError
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +52,13 @@ class MaintenanceWindowWrapper:
             self.window_id = response["WindowId"]
             self.name = name
             logger.info("Created maintenance window %s.", self.window_id)
+        except ParamValidationError as error:
+            logger.error(
+                "Parameter validation error when trying to create maintenance window %s. Here's why: %s",
+                self.window_id,
+                error,
+            )
+            raise
         except ClientError as err:
             logger.error(
                 "Couldn't create maintenance window %s. Here's why: %s: %s",
@@ -113,6 +120,13 @@ class MaintenanceWindowWrapper:
             )
             self.name = name
             logger.info("Updated maintenance window %s.", self.window_id)
+        except ParamValidationError as error:
+            logger.error(
+                "Parameter validation error when trying to update maintenance window %s. Here's why: %s",
+                self.window_id,
+                error,
+            )
+            raise
         except ClientError as err:
             logger.error(
                 "Couldn't update maintenance window %s. Here's why: %s: %s",

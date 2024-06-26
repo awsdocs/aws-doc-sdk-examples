@@ -46,14 +46,14 @@ Code excerpts that show you how to call individual service functions.
 - [CreateDocument](document.py#L32)
 - [CreateMaintenanceWindow](maintenance_window.py#L32)
 - [CreateOpsItem](ops_item.py#L34)
-- [DeleteDocument](document.py#L56)
-- [DeleteMaintenanceWindow](maintenance_window.py#L66)
-- [DeleteOpsItem](ops_item.py#L65)
+- [DeleteDocument](document.py#L59)
+- [DeleteMaintenanceWindow](maintenance_window.py#L73)
+- [DeleteOpsItem](ops_item.py#L73)
 - [DescribeOpsItems](ops_item.py#L13)
-- [ListCommands](document.py#L155)
-- [SendCommand](document.py#L78)
-- [UpdateMaintenanceWindow](maintenance_window.py#L89)
-- [UpdateOpsItem](ops_item.py#L117)
+- [ListCommands](document.py#L158)
+- [SendCommand](document.py#L81)
+- [UpdateMaintenanceWindow](maintenance_window.py#L96)
+- [UpdateOpsItem](ops_item.py#L125)
 
 ### Scenarios
 

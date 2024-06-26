@@ -5,14 +5,26 @@
 Unit tests for maintenance_window.py functions.
 """
 
+import logging
+import queue
+from logging.handlers import QueueHandler
+
 import boto3
 import pytest
 from botocore.exceptions import ClientError
 
 from ops_item import OpsItemWrapper
 
+log_queue = queue.LifoQueue()
 
-@pytest.mark.parametrize("error_code", [None, "TestException"])
+queue_handler = QueueHandler(log_queue)
+document_logger = logging.getLogger("ops_item")
+document_logger.addHandler(queue_handler)
+
+
+@pytest.mark.parametrize(
+    "error_code", [None, "OpsItemLimitExceededException", "TestException"]
+)
 def test_create_ops_item(make_stubber, error_code):
     ssm_client = boto3.client("ssm")
     ssm_stubber = make_stubber(ssm_client)
@@ -38,6 +50,14 @@ def test_create_ops_item(make_stubber, error_code):
     if error_code is None:
         ops_item_wrapper.create(title, source, category, severity, description)
         assert ops_item_wrapper.id == ops_item_id
+    elif error_code == "OpsItemLimitExceededException":
+        with pytest.raises(ClientError):
+            ops_item_wrapper.create(title, source, category, severity, description)
+        assert (
+            log_queue.qsize() > 0
+            and "exceeded your open OpsItem" in log_queue.get().getMessage()
+        )
+
     else:
         with pytest.raises(ClientError) as exc_info:
             ops_item_wrapper.create(title, source, category, severity, description)

@@ -3,6 +3,7 @@
 
 # snippet-start:[python.example_code.ssm.Hello]
 import boto3
+from botocore.exceptions import ClientError
 
 
 def hello_systems_manager(ssm_client):
@@ -25,5 +26,10 @@ def hello_systems_manager(ssm_client):
 
 
 if __name__ == "__main__":
-    hello_systems_manager(boto3.client("ssm"))
+    try:
+        hello_systems_manager(boto3.client("ssm"))
+    except ClientError as err:
+        print("Hello systems manager had an error.")
+        print(err.response["Error"]["Code"])
+        print(err.response["Error"]["Message"])
 # snippet-end:[python.example_code.ssm.Hello]

@@ -52,6 +52,14 @@ class OpsItemWrapper:
                 Description=description,
             )
             self.id = response["OpsItemId"]
+        except self.ssm_client.exceptions.OpsItemLimitExceededException as err:
+            logger.error(
+                "Couldn't create ops item because you have exceeded your open OpsItem limit. "
+                "Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
+            raise
         except ClientError as err:
             logger.error(
                 "Couldn't create ops item %s. Here's why: %s: %s",
