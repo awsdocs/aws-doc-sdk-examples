@@ -21,7 +21,7 @@ jobs:
       - name: Create payload
         run: echo "JSON_PAYLOAD={\"commit\" :\"${{ env.COMMIT }}\",\"author\" :\"${{ env.PR_AUTHOR }}\"}" >> $GITHUB_ENV
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@master  # More information on this action can be found below in the 'AWS Credentials' section
+        uses: aws-actions/configure-aws-credentials@master 
         with:
           role-to-assume: arn:aws:iam::959731285276:role/run-the-numbers-lambda
           aws-region: eu-west-1
