@@ -26,8 +26,6 @@ jobs:
     steps:
       - name: Create payload
         run: echo "JSON_PAYLOAD={\"commit\" :\"${{ env.COMMIT }}\",\"author\" :\"${{ env.PR_AUTHOR }}\"}" >> $GITHUB_ENV
-      - name: Checkout Repository
-        uses: actions/checkout@v2
       - name: Invoke Lambda
         uses: y5347M/invoke-aws-lambda-oidc@v1
         with:
