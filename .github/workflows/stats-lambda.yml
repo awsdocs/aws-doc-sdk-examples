@@ -35,6 +35,9 @@ jobs:
       - name: Invoke Lambda
         uses: gagoar/invoke-aws-lambda@master
         with:
+          role-to-assume: arn:aws:iam::959731285276:role/run-the-numbers-lambda
+          role-session-name: Run_the_numbers
+          aws-region: ${{env.AWS_REGION}}
           FunctionName: runTheNumbers
           Payload: ${{env.JSON_PAYLOAD}}
           InvocationType: RequestResponse
