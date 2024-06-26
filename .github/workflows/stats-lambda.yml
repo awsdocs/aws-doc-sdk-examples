@@ -4,6 +4,11 @@
 # https://github.com/marketplace/actions/invoke-aws-lambda
 
 name: Trigger Lambda to capture metrics
+
+permissions:
+  contents: read
+  id-token: write
+  
 on:   # yamllint disable-line rule:truthy
   pull_request:
     types:
@@ -12,6 +17,7 @@ on:   # yamllint disable-line rule:truthy
 env:
   COMMIT: ${{github.event.pull_request.head.sha}}
   PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+  AWS_REGION: "eu-west-1"
 jobs:
   if_merged:
     if: github.event.pull_request.merged == true
@@ -24,7 +30,8 @@ jobs:
         uses: aws-actions/configure-aws-credentials@master 
         with:
           role-to-assume: arn:aws:iam::959731285276:role/run-the-numbers-lambda
-          aws-region: eu-west-1
+          role-session-name: Run_the_numbers
+          aws-region: ${{env.AWS_REGION}}
       - name: Invoke Lambda
         uses: gagoar/invoke-aws-lambda@master
         with:
