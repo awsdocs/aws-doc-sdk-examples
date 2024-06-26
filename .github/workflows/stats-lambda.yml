@@ -33,12 +33,9 @@ jobs:
           role-session-name: Run_the_numbers
           aws-region: ${{env.AWS_REGION}}
       - name: Invoke Lambda
-        uses: gagoar/invoke-aws-lambda@master
+        uses: y5347M/invoke-aws-lambda-oidc@v1
         with:
-          role-to-assume: arn:aws:iam::959731285276:role/run-the-numbers-lambda
-          role-session-name: Run_the_numbers
           aws-region: ${{env.AWS_REGION}}
-          FunctionName: runTheNumbers
-          Payload: ${{env.JSON_PAYLOAD}}
-          InvocationType: RequestResponse
-          LogType: None
+          role-to-assume: 'arn:aws:iam::959731285276:role/run-the-numbers-lambda'
+          function-name: 'runTheNumbers'
+          payload: ${{env.JSON_PAYLOAD}}
