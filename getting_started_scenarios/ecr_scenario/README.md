@@ -2,7 +2,9 @@
 
 ## Overview
 
- This Amazon Elastic Container Registry Service (Amazon ECR) basic scenario demonstrates how to interact with the Amazon ECR service using an AWS SDK.  The scenario covers various operations such as creating an Amazon ECR repository, pushing images to the repository, setting an ECR repository policy, and so on. Here are the 6 top service operations this scenario will cover. 
+ This Amazon Elastic Container Registry Service (Amazon ECR) basic scenario demonstrates how to interact with the Amazon ECR service using an AWS SDK.  The scenario covers various operations such as creating an Amazon ECR repository, pushing images to the repository, setting an ECR repository policy, and so on. 
+ 
+ Here are the top six service operations this scenario covers. 
 
 1. **Create an ECR repository**: The program creates an Amazon ECR repository. 
 

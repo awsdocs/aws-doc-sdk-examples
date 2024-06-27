@@ -65,7 +65,7 @@ The following shows the output of the Amazon ECR program in the console.
   ECR provides a simple and scalable way to manage container images throughout their lifecycle,
   from building and testing to production deployment. 
 
-  The `EcrAsyncClient` interface in the AWS SDK for Java 2.x provides a set of methods to
+  The `EcrAsyncClient` interface in the AWS SDK provides a set of methods to
   programmatically interact with the Amazon ECR service. This allows developers to
   automate the storage, retrieval, and management of container images as part of their application
   deployment pipelines. With ECR, teams can focus on building and deploying their
@@ -150,7 +150,7 @@ Continuing with the program...
 4. Retrieve an ECR authorization token.
 
 You need an authorization token to securely access and interact with the Amazon ECR registry.
-The `getAuthorizationToken` method of the `EcrAsyncClient` is responsible for securely accessing
+The `getAuthorizationToken` method is responsible for securely accessing
 and interacting with an Amazon ECR repository. This operation is responsible for obtaining a
 valid authorization token, which is required to authenticate your requests to the ECR service.
 
