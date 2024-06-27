@@ -28,7 +28,9 @@ dynamodb_Hello:
           github: javascriptv3/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description:
+            - description: >-
+                For more details on working with &DDB; in &JSBlong;, 
+                see <ulink url="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/programming-with-javascript.html">Programming &DDB; with JavaScript</ulink>.
               snippet_tags:
                 - javascript.v3.dynamodb.hello
     C++:
