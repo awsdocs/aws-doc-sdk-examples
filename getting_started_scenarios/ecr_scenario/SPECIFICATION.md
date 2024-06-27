@@ -32,7 +32,7 @@ The Amazon ECR SDK getting started scenario executes the following steps:
 
 2. **Introduce Amazon ECR**: The program provides a brief introduction to Amazon ECR.
 
-3. **Checks the local machine for a docker image**: The program checks the local mahcine for a docker image named hello-world. If it's not located, the program ends. 
+3. **Checks the local machine for a docker image**: The program checks the local mahcine for a docker image named echo-text. If it's not located, the program ends. 
 
 3. **Create an ECR repository**: The program creates the repository using the `createECRRepository` method.
 
@@ -90,10 +90,10 @@ An ECR repository is a private Docker container repository provided
 by Amazon Web Services (AWS). It is a managed service that makes it easy
 to store, manage, and deploy Docker container images. 
 
-hello-world:latest
-The local image named hello-world exists.
+echo-text:latest
+The local image named echo-text exists.
 ECR repository already exists, moving on...
-The ARN of the ECR repository is arn:aws:ecr:us-east-1:1234567890:repository/hello-world
+The ARN of the ECR repository is arn:aws:ecr:us-east-1:1234567890:repository/echo-text
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -182,7 +182,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The repository URI is 1234567890.dkr.ecr.us-east-1.amazonaws.com/hello-world
+The repository URI is 1234567890.dkr.ecr.us-east-1.amazonaws.com/echo-text
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -223,8 +223,8 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Pushing hello-world to hello-world will take a few seconds
-The hello-world was pushed to ECR
+Pushing echo-text will take a few seconds
+The echo-text image was pushed to ECR
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -253,11 +253,11 @@ y
 
 2. Describe the image using this command:
 
-   aws ecr describe-images --repository-name hello-world --image-ids imageTag=hello-world
+   aws ecr describe-images --repository-name echo-text --image-ids imageTag=echo-text
 
 3. Run the Docker container and view the output using this command:
 
-   docker run --rm 1234567890.dkr.ecr.us-east-1.amazonaws.com/hello-world:hello-world
+   docker run --rm 1234567890.dkr.ecr.us-east-1.amazonaws.com/echo-text
 
 
 Enter 'c' followed by <ENTER> to continue:
@@ -278,7 +278,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-You have successfully deleted the hello-world repository
+You have successfully deleted the repository
 --------------------------------------------------------------------------------
 This concludes the Amazon ECR SDK Getting Started scenario
 --------------------------------------------------------------------------------
