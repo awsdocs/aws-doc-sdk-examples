@@ -197,7 +197,6 @@ public class ECRActions {
          *  by automatically removing older and potentially unused images,
          *  ensuring that the storage is optimized and the registry remains up-to-date.
          */
-
         String polText = """
              {
              "rules": [
@@ -373,6 +372,11 @@ public class ECRActions {
      * @throws EcrException                      if there is an unexpected error setting the repository policy.
      */
     public void setRepoPolicy(String repoName, String iamRole) {
+        /**
+         * This example policy document grants the specified AWS principal the permission to perform the
+         * `ecr:BatchGetImage` action. This policy is designed to allow the specified principal
+         * to retrieve Docker images from the ECR repository.
+         */
         String policyDocumentTemplate = """
              {
               "Version" : "2012-10-17",
@@ -398,14 +402,15 @@ public class ECRActions {
             if (resp != null) {
                 System.out.println("Repository policy set successfully.");
             } else {
-                if (ex.getCause() instanceof InvalidParameterException) {
-                    InvalidParameterException e = (InvalidParameterException) ex.getCause();
+                Throwable cause = ex.getCause();
+                if (cause instanceof InvalidParameterException) {
+                    InvalidParameterException e = (InvalidParameterException) cause;
                     System.out.format("Error setting repository policy for repository: %s. The IAM role '%s' is invalid. %s", repoName, iamRole, e.getMessage());
-                } else if (ex.getCause() instanceof RepositoryPolicyNotFoundException) {
-                    RepositoryPolicyNotFoundException e = (RepositoryPolicyNotFoundException) ex.getCause();
+                } else if (cause instanceof RepositoryPolicyNotFoundException) {
+                    RepositoryPolicyNotFoundException e = (RepositoryPolicyNotFoundException) cause;
                     System.out.format("Error setting repository policy for repository: %s. The repository policy does not exist. %s", repoName, e.getMessage());
-                } else if (ex.getCause() instanceof EcrException) {
-                    EcrException e = (EcrException) ex.getCause();
+                } else if (cause instanceof EcrException) {
+                    EcrException e = (EcrException) cause;
                     System.out.format("Unexpected error setting repository policy for repository: %s. %s", repoName, e.getMessage());
                 } else {
                     System.err.println("Unexpected error occurred: " + ex.getMessage());
@@ -512,7 +517,7 @@ public class ECRActions {
     // snippet-end:[ecr.java2.push.image.main]
 
     // Make sure local image echo-text exists.
-    public boolean listLocalImages() {
+    public boolean isEchoTextImagePresent() {
         try {
             List<Image> images = getDockerClient().listImagesCmd().exec();
             boolean helloWorldFound = false;

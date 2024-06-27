@@ -82,7 +82,7 @@ public class ECRScenario {
            """ );
 
         // Ensure that a local docker image named echo-text exists.
-        boolean doesExist = ecrActions.listLocalImages();
+        boolean doesExist = ecrActions.isEchoTextImagePresent();
         String repoName;
         if (!doesExist){
             System.out.println("The local image named echo-text does not exist");
