@@ -24,6 +24,8 @@ Note: These steps are not the complete program, but summarizes the 5-6 high-leve
 
 The basic scenario requires an IAM role that has Amazon ECR permissions. To create an IAM role, see [Creating IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html). 
 
+For more information about using permissions with ECR (for example, how to create Amazon ECR Identity-based policies), see [How Amazon Elastic Container Registry works with IAM](https://docs.aws.amazon.com/AmazonECR/latest/userguide/security_iam_service-with-iam.html).
+
 This scenario requires a local Docker image created using Bash. To create a local Docker image named "echo-text" using Bash, perform these steps:
 
 1. **Install Docker**: First, you'll need to install Docker and Docker Desktop on your system. You can download the appropriate Docker version for your operating system from the official Docker website (https://www.docker.com/get-started).

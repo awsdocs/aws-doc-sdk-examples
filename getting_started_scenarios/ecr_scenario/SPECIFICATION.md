@@ -30,7 +30,7 @@ The Amazon ECR SDK getting started scenario executes the following steps:
 
 1. **Parse command-line arguments**: The program checks if the correct number of arguments (2) are provided, which are the IAM role and the account number.
 
-2. **Introduce Amazon ECR**: The program provides a brief introduction to Amazon ECR and the AWS SDK's `EcrClient` interface.
+2. **Introduce Amazon ECR**: The program provides a brief introduction to Amazon ECR.
 
 3. **Checks the local machine for a docker image**: The program checks the local mahcine for a docker image named hello-world. If it's not located, the program ends. 
 
