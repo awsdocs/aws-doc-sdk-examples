@@ -37,15 +37,10 @@ public class HelloECR {
             .repositoryName(repoName)
             .build();
 
-       try {
-           ListImagesIterable imagesIterable = ecrClient.listImagesPaginator(listImagesPaginator);
-           imagesIterable.stream()
-               .flatMap(r -> r.imageIds().stream())
-               .forEach(image -> System.out.println("The docker image tag is: " +image.imageTag()));
-
-       } catch (EcrException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-       }
+        ListImagesIterable imagesIterable = ecrClient.listImagesPaginator(listImagesPaginator);
+        imagesIterable.stream()
+            .flatMap(r -> r.imageIds().stream())
+            .forEach(image -> System.out.println("The docker image tag is: " +image.imageTag()));
     }
 }
 // snippet-end:[ecr.java2_hello.main]

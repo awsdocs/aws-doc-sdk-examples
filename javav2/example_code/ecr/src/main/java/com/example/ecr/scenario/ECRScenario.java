@@ -4,6 +4,8 @@
 package com.example.ecr.scenario;
 
 // snippet-start:[ecr.java2_scenario.parent.main]
+import software.amazon.awssdk.services.ecr.model.EcrException;
+
 import java.util.Scanner;
 
 /**
@@ -44,7 +46,7 @@ public class ECRScenario {
         }
 
         ECRActions ecrActions = new ECRActions();
-        String iamRole =  args[0];
+        String iamRole = args[0];
         String accountId = args[1];
         String localImageName;
 
@@ -92,8 +94,19 @@ public class ECRScenario {
             repoName = "echo-text";
         }
 
-        String repoArn = String.valueOf(ecrActions.createECRRepository(repoName));
-        System.out.println("The ARN of the ECR repository is " +repoArn);
+        try {
+            String repoArn = ecrActions.createECRRepository(repoName);
+            System.out.println("The ARN of the ECR repository is " + repoArn);
+
+        } catch (IllegalArgumentException e) {
+            System.err.println("Invalid repository name: " + e.getMessage());
+            e.printStackTrace();
+            return; // End the program.
+        } catch (RuntimeException e) {
+            System.err.println("An error occurred while creating the ECR repository: " + e.getMessage());
+            e.printStackTrace();
+            return; // End the program.
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -106,7 +119,18 @@ public class ECRScenario {
         repository.    
         """);
         waitForInputToContinue(scanner);
-        ecrActions.setRepoPolicy(repoName, iamRole);
+        try {
+            ecrActions.setRepoPolicy(repoName, iamRole);
+
+        } catch (IllegalArgumentException e) {
+            System.err.println("Invalid repository name: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        } catch (RuntimeException e) {
+            System.err.println("An error occurred while creating the ECR repository: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -116,9 +140,22 @@ public class ECRScenario {
         Now we will retrieve the ECR policy to ensure it was successfully set.   
         """);
         waitForInputToContinue(scanner);
-        String policyText = ecrActions.getRepoPolicy(repoName);
-        System.out.println("Policy Text:");
-        System.out.println(policyText);
+        try {
+            String policyText = ecrActions.getRepoPolicy(repoName);
+            System.out.println("Policy Text:");
+            System.out.println(policyText);
+
+        } catch (IllegalArgumentException e) {
+            System.err.println("Invalid repository name: " + e.getMessage());
+            e.printStackTrace();
+            return;
+
+        } catch (RuntimeException e) {
+            System.err.println("An error occurred while creating the ECR repository: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
+
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -134,7 +171,14 @@ public class ECRScenario {
         ECR repository, such as pushing, pulling, or managing your Docker images.    
         """);
         waitForInputToContinue(scanner);
-        ecrActions.getAuthToken();
+        try {
+             ecrActions.getAuthToken();
+
+        } catch (RuntimeException e) {
+            System.err.println("An error occurred while retrieving the authorization token: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -148,20 +192,39 @@ public class ECRScenario {
         correct container image from the ECR repository.    
        """);
         waitForInputToContinue(scanner);
-        String repositoryURI = ecrActions.getRepositoryURI(repoName);
-        System.out.println("The repository URI is "+repositoryURI);
+
+        try {
+            String repositoryURI = ecrActions.getRepositoryURI(repoName);
+            System.out.println("The repository URI is "+repositoryURI);
+
+        } catch (RuntimeException e) {
+            System.err.println("An error occurred while retrieving the URI " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
         System.out.println("""
-        6. Set an ECR Lifecycle Policy.
+            6. Set an ECR Lifecycle Policy.
+                        
+            An ECR Lifecycle Policy is used to manage the lifecycle of Docker images stored in your ECR repositories. 
+            These policies allow you to automatically remove old or unused Docker images from your repositories, 
+            freeing up storage space and reducing costs.    
                     
-        An ECR Lifecycle Policy is used to manage the lifecycle of Docker images stored in your ECR repositories. 
-        These policies allow you to automatically remove old or unused Docker images from your repositories, 
-        freeing up storage space and reducing costs.    
-        """);
+            This example policy helps to maintain the size and efficiency of the container registry
+            by automatically removing older and potentially unused images, ensuring that the 
+            storage is optimized and the registry remains up-to-date.
+            """);
         waitForInputToContinue(scanner);
-        ecrActions.setLifeCyclePolicy(repoName);
+        try {
+            ecrActions.setLifeCyclePolicy(repoName);
+
+        } catch (RuntimeException e) {
+            System.err.println("An error occurred while setting the lifecycle policy: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -178,13 +241,27 @@ public class ECRScenario {
         If the push operation is successful, the method prints a message indicating that the image was pushed to ECR.
         """);
         waitForInputToContinue(scanner);
-        ecrActions.pushDockerImage(repoName, localImageName);
+
+        try {
+            ecrActions.pushDockerImage(repoName, localImageName);
+
+        } catch (RuntimeException e) {
+            System.err.println("An error occurred while pushing a local Docker image to Amazon ECR: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
         System.out.println("8. Verify if the image is in the ECR Repository.");
         waitForInputToContinue(scanner);
-        ecrActions.verifyImage(repoName, localImageName);
+        try {
+            ecrActions.verifyImage(repoName, localImageName);
+        } catch (RuntimeException e) {
+            System.err.println("An error occurred while pushing a local Docker image to Amazon ECR: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -223,8 +300,14 @@ public class ECRScenario {
         String delAns = scanner.nextLine().trim();
         if (delAns.equalsIgnoreCase("y")) {
             System.out.println("You selected to delete the AWS ECR resources.");
-            waitForInputToContinue(scanner);
-            ecrActions.deleteECRRepository(repoName);
+
+            try {
+                ecrActions.deleteECRRepository(repoName);
+            } catch (RuntimeException e) {
+                System.err.println("An error occurred while deleting the Docker image: " + e.getMessage());
+                e.printStackTrace();
+                return;
+            }
         }
 
         System.out.println(DASHES);

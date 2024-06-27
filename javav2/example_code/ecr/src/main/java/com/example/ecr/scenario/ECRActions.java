@@ -125,6 +125,7 @@ public class ECRActions {
                     System.err.println("Error deleting repository: " + ((EcrException) cause).awsErrorDetails().errorMessage());
                 } else {
                     System.err.println("Unexpected error: " + cause.getMessage());
+                    throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
                 }
             }
         });
@@ -168,6 +169,7 @@ public class ECRActions {
                         System.err.println("Error retrieving image information: " + cause.getMessage());
                     } else {
                         System.err.println("Unexpected error: " + cause.getMessage());
+                        throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
                     }
                 } else {
                     System.err.println("Unexpected error: " + ex.getMessage());
@@ -230,13 +232,14 @@ public class ECRActions {
             } else {
                 if (ex.getCause() instanceof EcrException) {
                     EcrException e = (EcrException) ex.getCause();
-                    System.err.println("Error setting lifecycle policy for repository: " + repoName + " - " + e.awsErrorDetails().errorMessage());
+                    String errorMessage = "Error setting lifecycle policy for repository: " + repoName + " - " + e.awsErrorDetails().errorMessage();
+                    throw new RuntimeException(errorMessage, e); // Rethrow the exception
                 } else {
-                    System.err.println("Unexpected error occurred: " + ex.getMessage());
+                    String errorMessage = "Unexpected error occurred: " + ex.getMessage();
+                    throw new RuntimeException(errorMessage, ex); // Rethrow the exception
                 }
             }
         });
-
         // Wait for the CompletableFuture to complete.
         response.join();
     }
@@ -308,11 +311,13 @@ public class ECRActions {
             } else {
                 if (ex.getCause() instanceof EcrException) {
                     EcrException e = (EcrException) ex.getCause();
-                    System.err.println("Error retrieving authorization token: " + e.awsErrorDetails().errorMessage());
-                    e.printStackTrace();
+                    String errorMessage = "Error retrieving authorization token: " + e.awsErrorDetails().errorMessage();
+                    System.err.println(errorMessage);
+                    throw new RuntimeException(errorMessage, e); // Rethrow the exception
                 } else {
-                    System.err.println("Unexpected error occurred: " + ex.getMessage());
-                    ex.printStackTrace();
+                    String errorMessage = "Unexpected error occurred: " + ex.getMessage();
+                    System.err.println(errorMessage);
+                    throw new RuntimeException(errorMessage, ex); // Rethrow the exception
                 }
             }
         });
@@ -348,10 +353,12 @@ public class ECRActions {
                     String errorMessage = "Error getting repository policy for repository: " + repoName + " - " + e.awsErrorDetails().errorMessage();
                     System.err.println(errorMessage);
                     e.printStackTrace();
+                    throw new RuntimeException(errorMessage, e); // Rethrow the exception
                 } else {
                     String errorMessage = "Unexpected error occurred: " + ex.getMessage();
                     System.err.println(errorMessage);
                     ex.printStackTrace();
+                    throw new RuntimeException(errorMessage, ex); // Rethrow the exception
                 }
             }
         });
@@ -481,7 +488,7 @@ public class ECRActions {
      * @param imageName the name of the Docker image.
      */
     public void pushDockerImage(String repoName, String imageName) {
-        System.out.println("Pushing " + imageName + " to " + repoName + " will take a few seconds");
+        System.out.println("Pushing " + imageName + " to Amazon ECR will take a few seconds.");
         CompletableFuture<AuthConfig> authResponseFuture = getAsyncClient().getAuthorizationToken()
             .thenApply(response -> {
                 String token = response.authorizationData().get(0).authorizationToken();

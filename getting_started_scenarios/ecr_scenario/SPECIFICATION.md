@@ -58,7 +58,7 @@ The Amazon ECR SDK getting started scenario executes the following steps:
 ### Program execution
 The following shows the output of the Amazon ECR program in the console. 
 
-```java
+```
   The Amazon Elastic Container Registry (ECR) is a fully-managed Docker container registry
   service provided by AWS. It allows developers and organizations to securely
   store, manage, and deploy Docker container images.
