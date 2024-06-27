@@ -4,17 +4,17 @@
 
  This Amazon Elastic Container Registry Service (Amazon ECR) basic scenario demonstrates how to interact with the Amazon ECR service using an AWS SDK.  The scenario covers various operations such as creating an Amazon ECR repository, pushing images to the repository, setting an ECR repository policy, and so on. Here are the 6 top service operations this scenario will cover. 
 
-1. **Create an ECR repository**: The program prompts the user to enter a name for the ECR repository, then creates the repository using the `createECRRepository` method.
+1. **Create an ECR repository**: The program creates an Amazon ECR repository. 
 
-2. **Set an ECR repository policy**: The program sets an ECR repository policy using the `setRepoPolicy` method, which grants the specified IAM role the necessary permissions to access the repository.
+2. **Set an ECR repository policy**: The program sets an ECR repository policy, which grants the specified IAM role the necessary permissions to access the repository.
 
-3. **Retrieve an ECR authorization token**: The program retrieves an ECR authorization token using the `getAuthToken` method, which is required for subsequent operations.
+3. **Retrieve an ECR authorization token**: The program retrieves an ECR authorization token which is required for subsequent operations.
 
-4. **Get the ECR repository URI**: The program retrieves the URI of the ECR repository using the `getRepositoryURI` method.
+4. **Get the ECR repository URI**: The program retrieves the URI of the ECR repository.
 
 5. **Push a Docker image to the ECR repository**: The program pushes a local Docker image to the ECR repository using a Docker client.
 
-6. **Verify the image in the ECR repository**: The program verifies that the Docker image was successfully pushed to the ECR repository using the `verifyImage` method.
+6. **Verify the image in the ECR repository**: The program verifies that the Docker image was successfully pushed to the ECR repository.
 
 Note: These steps are not the complete program, but summarizes the 5-6 high-level steps. See the Eng Spec for a complete listing of ECR operations. 
 

@@ -177,7 +177,6 @@ public class ECRScenario {
         repository name and image tag, and then pushes the image to the ECR repository using the Docker client.
         If the push operation is successful, the method prints a message indicating that the image was pushed to ECR.
         """);
-
         waitForInputToContinue(scanner);
         ecrActions.pushDockerImage(repoName, localImageName);
         waitForInputToContinue(scanner);
@@ -210,7 +209,6 @@ public class ECRScenario {
             instructions = String.format(instructions, accountId, repoName, localImageName, accountId, repoName, localImageName);
             System.out.println(instructions);
         }
-
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);

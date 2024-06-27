@@ -97,7 +97,6 @@ public class ECRActions {
     }
 
     // snippet-start:[ecr.java2.delete.repo.main]
-
     /**
      * Deletes an ECR (Elastic Container Registry) repository.
      *
@@ -116,10 +115,7 @@ public class ECRActions {
             .repositoryName(repoName)
             .build();
 
-        // Execute the request asynchronously.
         CompletableFuture<DeleteRepositoryResponse> response = getAsyncClient().deleteRepository(repositoryRequest);
-
-        // Use whenComplete to handle the response or any exceptions.
         response.whenComplete((deleteRepositoryResponse, ex) -> {
             if (deleteRepositoryResponse != null) {
                 System.out.println("You have successfully deleted the " + repoName + " repository");
@@ -163,10 +159,7 @@ public class ECRActions {
             .imageIds(ImageIdentifier.builder().imageTag(imageTag).build())
             .build();
 
-        // Retrieve the image details asynchronously.
         CompletableFuture<DescribeImagesResponse> response = getAsyncClient().describeImages(request);
-
-        // Use whenComplete to handle the response or any exceptions.
         response.whenComplete((describeImagesResponse, ex) -> {
             if (ex != null) {
                 if (ex instanceof CompletionException) {
@@ -224,10 +217,7 @@ public class ECRActions {
             .repositoryName(repoName)
             .build();
 
-        // Execute the request asynchronously.
         CompletableFuture<StartLifecyclePolicyPreviewResponse> response = getAsyncClient().startLifecyclePolicyPreview(lifecyclePolicyPreviewRequest);
-
-        // Use whenComplete to handle the response or any exceptions.
         response.whenComplete((lifecyclePolicyPreviewResponse, ex) -> {
             if (lifecyclePolicyPreviewResponse != null) {
                 System.out.println("Lifecycle policy preview started successfully.");
@@ -266,7 +256,6 @@ public class ECRActions {
             .repositoryNames(repoName)
             .build();
 
-        // Retrieve the repository URI asynchronously.
         CompletableFuture<DescribeRepositoriesResponse> response = getAsyncClient().describeRepositories(request);
 
         try {
@@ -293,7 +282,6 @@ public class ECRActions {
     // snippet-end:[ecr.java2.describe.policy.main]
 
     // snippet-start:[ecr.java2.get.token.main]
-
     /**
      * Retrieves the authorization token for Amazon Elastic Container Registry (ECR).
      * This method makes an asynchronous call to the ECR client to retrieve the authorization token.
@@ -304,10 +292,7 @@ public class ECRActions {
      * @throws RuntimeException if there is an unexpected error during the operation.
      */
     public void getAuthToken() {
-        // Retrieve the authorization token for ECR asynchronously.
         CompletableFuture<GetAuthorizationTokenResponse> response = getAsyncClient().getAuthorizationToken();
-
-        // Use whenComplete to handle the response or any exceptions
         response.whenComplete((authorizationTokenResponse, ex) -> {
             if (authorizationTokenResponse != null) {
                 AuthorizationData authorizationData = authorizationTokenResponse.authorizationData().get(0);
@@ -333,7 +318,6 @@ public class ECRActions {
     // snippet-end:[ecr.java2.get.token.main]
 
     // snippet-start:[ecr.java2.get.repo.policy.main]
-
     /**
      * Gets the repository policy for the specified repository.
      *
@@ -345,15 +329,11 @@ public class ECRActions {
             throw new IllegalArgumentException("Repository name cannot be null or empty");
         }
 
-        // Create the request
         GetRepositoryPolicyRequest getRepositoryPolicyRequest = GetRepositoryPolicyRequest.builder()
             .repositoryName(repoName)
             .build();
 
-        // Execute the request asynchronously and store the CompletableFuture.
         CompletableFuture<GetRepositoryPolicyResponse> response = getAsyncClient().getRepositoryPolicy(getRepositoryPolicyRequest);
-
-        // Use whenComplete to handle the response or any exceptions.
         response.whenComplete((resp, ex) -> {
             if (resp != null) {
                 System.out.println("Repository policy retrieved successfully.");
@@ -371,14 +351,12 @@ public class ECRActions {
             }
         });
 
-        // Wait for the CompletableFuture to complete and return the result.
         GetRepositoryPolicyResponse result = response.join();
         return result != null ? result.policyText() : null;
     }
     // snippet-end:[ecr.java2.get.repo.policy.main]
 
     // snippet-start:[ecr.java2.set.repo.policy.main]
-
     /**
      * Sets the repository policy for the specified ECR repository.
      *
@@ -435,7 +413,6 @@ public class ECRActions {
     // snippet-end:[ecr.java2.set.repo.policy.main]
 
     // snippet-start:[ecr.java2.create.repo.main]
-
     /**
      * Creates an Amazon Elastic Container Registry (Amazon ECR) repository.
      *
@@ -453,11 +430,8 @@ public class ECRActions {
             .repositoryName(repoName)
             .build();
 
-        // Execute the request asynchronously.
         CompletableFuture<CreateRepositoryResponse> response = getAsyncClient().createRepository(request);
-
         try {
-            // Wait for the CompletableFuture to complete and return the result.
             CreateRepositoryResponse result = response.join();
             if (result != null) {
                 System.out.println("The " + repoName + " repository was created successfully.");
@@ -471,7 +445,6 @@ public class ECRActions {
                 EcrException ex = (EcrException) e.getCause();
                 if (ex.awsErrorDetails().errorCode().equals("RepositoryAlreadyExistsException")) {
                     System.out.println("ECR repository already exists, moving on...");
-                    // Fetch the existing repository's ARN
                     DescribeRepositoriesRequest describeRequest = DescribeRepositoriesRequest.builder()
                         .repositoryNames(repoName)
                         .build();
@@ -490,7 +463,6 @@ public class ECRActions {
     // snippet-end:[ecr.java2.create.repo.main]
 
     // snippet-start:[ecr.java2.push.image.main]
-
     /**
      * Pushes a Docker image to an Amazon Elastic Container Registry (ECR) repository.
      *

@@ -77,7 +77,6 @@ public class ECRTest {
         System.out.println("Test 2 passed");
     }
 
-
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
@@ -108,7 +107,7 @@ public class ECRTest {
         }
 
         public String getRepoName() {
-            return repoName ;
+            return repoName;
         }
 
         public String getIamRole() {

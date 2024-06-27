@@ -3,8 +3,12 @@
 ## Overview
 This SDK getting started scenario demonstrates how to interact with Amazon Elastic Container Registry Service (Amazon ECR) using the AWS SDK. It demonstrates various tasks such as creating a repository, setting an ECR repository policy, obtaining an authorization token, pushing a docker image to the repository, and so on.  Finally this scenario demonstrates how to clean up resources. Its purpose is to demonstrate how to get up and running with Amazon ECR and the AWS SDK.
 
-## Resources and User Input
-The required resources for this SDK scenario are an IAM role and a local Docker image. The IAM role must have permission to interact with the Amazon ECR service. To create an IAM role, see [Creating IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html). 
+## Resources
+The required resources for this SDK scenario are an IAM role and a local Docker image. The IAM role must have permission to interact with the Amazon ECR service (for example, ecr:PutImage). 
+
+To create an IAM role, see [Creating IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html). 
+
+For more information about using permissions with ECR (for example, how to create Amazon ECR Identity-based policies), see [How Amazon Elastic Container Registry works with IAM](https://docs.aws.amazon.com/AmazonECR/latest/userguide/security_iam_service-with-iam.html).
 
 To see the instructions to create a local docker image, see [README.md](README.md).
 
