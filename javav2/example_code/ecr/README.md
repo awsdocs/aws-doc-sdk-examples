@@ -38,15 +38,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateRepository](src/main/java/com/example/ecr/scenario/ECRActions.java#L426)
+- [CreateRepository](src/main/java/com/example/ecr/scenario/ECRActions.java#L433)
 - [DeleteRepository](src/main/java/com/example/ecr/scenario/ECRActions.java#L99)
-- [DescribeImages](src/main/java/com/example/ecr/scenario/ECRActions.java#L137)
-- [DescribeRepositories](src/main/java/com/example/ecr/scenario/ECRActions.java#L245)
-- [GetAuthorizationToken](src/main/java/com/example/ecr/scenario/ECRActions.java#L289)
-- [GetRepositoryPolicy](src/main/java/com/example/ecr/scenario/ECRActions.java#L325)
-- [PushImageCmd](src/main/java/com/example/ecr/scenario/ECRActions.java#L476)
-- [SetRepositoryPolicy](src/main/java/com/example/ecr/scenario/ECRActions.java#L364)
-- [StartLifecyclePolicyPreview](src/main/java/com/example/ecr/scenario/ECRActions.java#L137)
+- [DescribeImages](src/main/java/com/example/ecr/scenario/ECRActions.java#L138)
+- [DescribeRepositories](src/main/java/com/example/ecr/scenario/ECRActions.java#L248)
+- [GetAuthorizationToken](src/main/java/com/example/ecr/scenario/ECRActions.java#L292)
+- [GetRepositoryPolicy](src/main/java/com/example/ecr/scenario/ECRActions.java#L330)
+- [PushImageCmd](src/main/java/com/example/ecr/scenario/ECRActions.java#L483)
+- [SetRepositoryPolicy](src/main/java/com/example/ecr/scenario/ECRActions.java#L371)
+- [StartLifecyclePolicyPreview](src/main/java/com/example/ecr/scenario/ECRActions.java#L138)
 
 ### Scenarios
 
