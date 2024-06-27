@@ -20,7 +20,7 @@ This program is intended for users not familiar with the Amazon ECR SDK to easil
 ### Program execution
 The following shows the output of the program in the console. 
 
-``` java 
+```java 
 The docker image tag is latest 
 
 ```
@@ -83,7 +83,7 @@ Continuing with the program...
 --------------------------------------------------------------------------------
 1. Create an ECR repository.
 
-The first task is to ensure we have a local Docker image named hello-world.
+The first task is to ensure we have a local Docker image named echo-text.
 If this image exists, then an Amazon ECR repository is created.
 
 An ECR repository is a private Docker container repository provided

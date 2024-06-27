@@ -192,10 +192,10 @@ public class ECRActions {
      * @param repoName the name of the repository for which to set the lifecycle policy.
      */
     public void setLifeCyclePolicy(String repoName) {
-        /**
-         *  This policy helps to maintain the size and efficiency of the container registry
-         *  by automatically removing older and potentially unused images,
-         *  ensuring that the storage is optimized and the registry remains up-to-date.
+        /*
+           This policy helps to maintain the size and efficiency of the container registry
+           by automatically removing older and potentially unused images,
+           ensuring that the storage is optimized and the registry remains up-to-date.
          */
         String polText = """
              {
@@ -372,10 +372,10 @@ public class ECRActions {
      * @throws EcrException                      if there is an unexpected error setting the repository policy.
      */
     public void setRepoPolicy(String repoName, String iamRole) {
-        /**
-         * This example policy document grants the specified AWS principal the permission to perform the
-         * `ecr:BatchGetImage` action. This policy is designed to allow the specified principal
-         * to retrieve Docker images from the ECR repository.
+        /*
+          This example policy document grants the specified AWS principal the permission to perform the
+          `ecr:BatchGetImage` action. This policy is designed to allow the specified principal
+          to retrieve Docker images from the ECR repository.
          */
         String policyDocumentTemplate = """
              {
