@@ -57,16 +57,26 @@ public class ECRTest {
     @Tag("IntegrationTest")
     @Order(1)
     public void testScenario() {
-        assertDoesNotThrow(() -> ecrActions.createECRRepository(newRepoName));
-        assertDoesNotThrow(() -> ecrActions.setRepoPolicy(newRepoName, iamRole));
-        assertDoesNotThrow(() -> ecrActions.getRepoPolicy(newRepoName));
-        assertDoesNotThrow(() -> ecrActions.getAuthToken());
-        assertDoesNotThrow(() -> ecrActions.getRepositoryURI(newRepoName));
-        assertDoesNotThrow(() -> ecrActions.setLifeCyclePolicy(newRepoName));
-        assertDoesNotThrow(() -> ecrActions.pushDockerImage(newRepoName, newRepoName));
-        assertDoesNotThrow(() -> ecrActions.verifyImage(newRepoName, newRepoName));
-        assertDoesNotThrow(() -> ecrActions.deleteECRRepository(newRepoName));
-        System.out.println("Test 1 passed");
+        try {
+            assertDoesNotThrow(() -> ecrActions.createECRRepository(newRepoName));
+            assertDoesNotThrow(() -> ecrActions.setRepoPolicy(newRepoName, iamRole));
+            assertDoesNotThrow(() -> ecrActions.getRepoPolicy(newRepoName));
+            assertDoesNotThrow(() -> ecrActions.getAuthToken());
+            assertDoesNotThrow(() -> ecrActions.getRepositoryURI(newRepoName));
+            assertDoesNotThrow(() -> ecrActions.setLifeCyclePolicy(newRepoName));
+            assertDoesNotThrow(() -> ecrActions.pushDockerImage(newRepoName, newRepoName));
+            assertDoesNotThrow(() -> ecrActions.verifyImage(newRepoName, newRepoName));
+            System.out.println("Test 1 passed");
+        } catch (AssertionError e) {
+            System.err.println("Test failed: " + e.getMessage());
+            try {
+                ecrActions.deleteECRRepository(newRepoName);
+                System.out.println("ECR repository deleted successfully.");
+            } catch (Exception ex) {
+                System.err.println("Failed to delete ECR repository: " + ex.getMessage());
+            }
+            throw e; // Re-throw the exception to fail the test.
+        }
     }
 
     @Test

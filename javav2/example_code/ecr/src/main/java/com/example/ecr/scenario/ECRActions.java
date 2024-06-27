@@ -192,6 +192,12 @@ public class ECRActions {
      * @param repoName the name of the repository for which to set the lifecycle policy.
      */
     public void setLifeCyclePolicy(String repoName) {
+        /**
+         *  This policy helps to maintain the size and efficiency of the container registry
+         *  by automatically removing older and potentially unused images,
+         *  ensuring that the storage is optimized and the registry remains up-to-date.
+         */
+
         String polText = """
              {
              "rules": [
