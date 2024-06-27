@@ -29,6 +29,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello AWS Glue](hello/hello_glue.rb#L4) (`ListJobs`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -67,6 +72,13 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello AWS Glue
+
+This example shows you how to get started using AWS Glue.
+
+```
+ruby 
+```
 
 
 #### Get started with crawlers and jobs

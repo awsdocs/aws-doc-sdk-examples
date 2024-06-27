@@ -41,6 +41,22 @@ cognito-identity-provider_Hello:
             - description:
               snippet_tags:
                 - javascript.v3.cognito.hello
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.cognito-idp.HelloCognito
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.hello_cognito.list_user_pools
   services:
     cognito-identity-provider: {ListUserPools}
 cognito-identity-provider_ListUserPools:

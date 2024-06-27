@@ -29,6 +29,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello DynamoDB](hello/hello_dynamodb.rb#L4) (`ListTables`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -68,6 +73,13 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello DynamoDB
+
+This example shows you how to get started using DynamoDB.
+
+```
+ruby 
+```
 
 
 #### Get started with tables, items, and queries

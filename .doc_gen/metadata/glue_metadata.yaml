@@ -51,6 +51,22 @@ glue_Hello:
             - description:
               snippet_tags:
                 - javascript.v3.glue.hello
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example.hello_glue
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.glue.HelloGlue
   services:
     glue: {ListJobs}
 glue_GetCrawler:

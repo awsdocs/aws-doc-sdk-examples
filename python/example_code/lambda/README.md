@@ -34,6 +34,11 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Lambda](hello/hello_lambda.py#L4) (`ListFunctions`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -76,6 +81,13 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Lambda
+
+This example shows you how to get started using Lambda.
+
+```
+python 
+```
 
 
 #### Get started with functions

@@ -29,6 +29,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Lambda](hello/hello_lambda.rb#L4) (`ListFunctions`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -61,6 +66,13 @@ functions within the same service.
 The quickest way to interact with this example code is to invoke a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
 <!--custom.instructions.end-->
 
+#### Hello Lambda
+
+This example shows you how to get started using Lambda.
+
+```
+ruby 
+```
 
 
 #### Get started with functions
