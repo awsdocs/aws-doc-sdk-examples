@@ -141,7 +141,11 @@
             <artifactId>url-connection-client</artifactId>
             <version>2.18.13</version>
         </dependency>
-        <!-- AWS SDK HTTP client Apache dependency -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>apache-client</artifactId>

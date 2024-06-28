@@ -5,6 +5,7 @@ package com.example.ecr.scenario;
 
 // snippet-start:[ecr.java2_scenario.parent.main]
 import software.amazon.awssdk.services.ecr.model.EcrException;
+import software.amazon.awssdk.services.ecr.model.RepositoryPolicyNotFoundException;
 
 import java.util.Scanner;
 
@@ -122,13 +123,14 @@ public class ECRScenario {
         try {
             ecrActions.setRepoPolicy(repoName, iamRole);
 
-        } catch (IllegalArgumentException e) {
+        } catch (RepositoryPolicyNotFoundException e) {
             System.err.println("Invalid repository name: " + e.getMessage());
-            e.printStackTrace();
+            return;
+        } catch (EcrException e) {
+            System.err.println("An ECR exception occurred: " + e.getMessage());
             return;
         } catch (RuntimeException e) {
             System.err.println("An error occurred while creating the ECR repository: " + e.getMessage());
-            e.printStackTrace();
             return;
         }
         waitForInputToContinue(scanner);
@@ -145,14 +147,11 @@ public class ECRScenario {
             System.out.println("Policy Text:");
             System.out.println(policyText);
 
-        } catch (IllegalArgumentException e) {
-            System.err.println("Invalid repository name: " + e.getMessage());
-            e.printStackTrace();
+        } catch (EcrException e) {
+            System.err.println("An ECR exception occurred: " + e.getMessage());
             return;
-
         } catch (RuntimeException e) {
             System.err.println("An error occurred while creating the ECR repository: " + e.getMessage());
-            e.printStackTrace();
             return;
         }
 
@@ -174,9 +173,11 @@ public class ECRScenario {
         try {
              ecrActions.getAuthToken();
 
+        } catch (EcrException e) {
+            System.err.println("An ECR exception occurred: " + e.getMessage());
+            return;
         } catch (RuntimeException e) {
             System.err.println("An error occurred while retrieving the authorization token: " + e.getMessage());
-            e.printStackTrace();
             return;
         }
         waitForInputToContinue(scanner);
@@ -195,11 +196,14 @@ public class ECRScenario {
 
         try {
             String repositoryURI = ecrActions.getRepositoryURI(repoName);
-            System.out.println("The repository URI is "+repositoryURI);
+            System.out.println("The repository URI is " + repositoryURI);
+
+        } catch (EcrException e) {
+            System.err.println("An ECR exception occurred: " + e.getMessage());
+            return;
 
         } catch (RuntimeException e) {
-            System.err.println("An error occurred while retrieving the URI " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("An error occurred while retrieving the URI: " + e.getMessage());
             return;
         }
         waitForInputToContinue(scanner);
@@ -257,8 +261,12 @@ public class ECRScenario {
         waitForInputToContinue(scanner);
         try {
             ecrActions.verifyImage(repoName, localImageName);
+
+        } catch (EcrException e) {
+            System.err.println("An ECR exception occurred: " + e.getMessage());
+            return;
         } catch (RuntimeException e) {
-            System.err.println("An error occurred while pushing a local Docker image to Amazon ECR: " + e.getMessage());
+            System.err.println("An error occurred " + e.getMessage());
             e.printStackTrace();
             return;
         }
@@ -303,6 +311,10 @@ public class ECRScenario {
 
             try {
                 ecrActions.deleteECRRepository(repoName);
+
+            } catch (EcrException e) {
+                System.err.println("An ECR exception occurred: " + e.getMessage());
+                return;
             } catch (RuntimeException e) {
                 System.err.println("An error occurred while deleting the Docker image: " + e.getMessage());
                 e.printStackTrace();

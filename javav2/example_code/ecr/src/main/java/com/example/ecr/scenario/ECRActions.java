@@ -9,6 +9,8 @@ import com.github.dockerjava.api.exception.DockerClientException;
 import com.github.dockerjava.api.model.AuthConfig;
 import com.github.dockerjava.api.model.Image;
 import com.github.dockerjava.core.DockerClientBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
@@ -47,6 +49,8 @@ public class ECRActions {
     private static EcrAsyncClient ecrClient;
 
     private static DockerClient dockerClient;
+
+    private static Logger logger = LoggerFactory.getLogger(ECRActions.class);
 
     private static DockerClient getDockerClient() {
         String osName = System.getProperty("os.name");
@@ -122,9 +126,8 @@ public class ECRActions {
             } else {
                 Throwable cause = ex.getCause();
                 if (cause instanceof EcrException) {
-                    System.err.println("Error deleting repository: " + ((EcrException) cause).awsErrorDetails().errorMessage());
+                    throw (EcrException) cause;
                 } else {
-                    System.err.println("Unexpected error: " + cause.getMessage());
                     throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
                 }
             }
@@ -142,19 +145,10 @@ public class ECRActions {
      *
      * @param repositoryName The name of the Amazon ECR repository.
      * @param imageTag       The tag of the image to verify.
-     * @throws IllegalArgumentException if the repository name or image tag is null or empty.
      * @throws EcrException             if there is an error retrieving the image information from Amazon ECR.
      * @throws CompletionException      if the asynchronous operation completes exceptionally.
      */
     public void verifyImage(String repositoryName, String imageTag) {
-        if (repositoryName == null || repositoryName.isEmpty()) {
-            throw new IllegalArgumentException("Repository name cannot be null or empty");
-        }
-
-        if (imageTag == null || imageTag.isEmpty()) {
-            throw new IllegalArgumentException("Image tag cannot be null or empty");
-        }
-
         DescribeImagesRequest request = DescribeImagesRequest.builder()
             .repositoryName(repositoryName)
             .imageIds(ImageIdentifier.builder().imageTag(imageTag).build())
@@ -166,13 +160,12 @@ public class ECRActions {
                 if (ex instanceof CompletionException) {
                     Throwable cause = ex.getCause();
                     if (cause instanceof EcrException) {
-                        System.err.println("Error retrieving image information: " + cause.getMessage());
+                        throw (EcrException) cause;
                     } else {
-                        System.err.println("Unexpected error: " + cause.getMessage());
                         throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
                     }
                 } else {
-                    System.err.println("Unexpected error: " + ex.getMessage());
+                    throw new RuntimeException("Unexpected error: " + ex.getCause());
                 }
             } else if (describeImagesResponse != null && !describeImagesResponse.imageDetails().isEmpty()) {
                 System.out.println("Image is present in the repository.");
@@ -228,15 +221,12 @@ public class ECRActions {
         response.whenComplete((lifecyclePolicyPreviewResponse, ex) -> {
             if (lifecyclePolicyPreviewResponse != null) {
                 System.out.println("Lifecycle policy preview started successfully.");
-                // Add any additional actions you want to perform upon completion.
             } else {
                 if (ex.getCause() instanceof EcrException) {
-                    EcrException e = (EcrException) ex.getCause();
-                    String errorMessage = "Error setting lifecycle policy for repository: " + repoName + " - " + e.awsErrorDetails().errorMessage();
-                    throw new RuntimeException(errorMessage, e); // Rethrow the exception
+                    throw (EcrException) ex.getCause();
                 } else {
                     String errorMessage = "Unexpected error occurred: " + ex.getMessage();
-                    throw new RuntimeException(errorMessage, ex); // Rethrow the exception
+                    throw new RuntimeException(errorMessage, ex);
                 }
             }
         });
@@ -246,7 +236,6 @@ public class ECRActions {
     // snippet-end:[ecr.java2.set.policy.main]
 
     // snippet-start:[ecr.java2.describe.policy.main]
-
     /**
      * Retrieves the repository URI for the specified repository name.
      *
@@ -256,10 +245,6 @@ public class ECRActions {
      * @throws CompletionException if the asynchronous operation completes exceptionally.
      */
     public String getRepositoryURI(String repoName) {
-        if (repoName == null || repoName.isEmpty()) {
-            throw new IllegalArgumentException("Repository name cannot be null or empty");
-        }
-
         DescribeRepositoriesRequest request = DescribeRepositoriesRequest.builder()
             .repositoryNames(repoName)
             .build();
@@ -271,7 +256,6 @@ public class ECRActions {
             if (!describeRepositoriesResponse.repositories().isEmpty()) {
                 return describeRepositoriesResponse.repositories().get(0).repositoryUri();
             } else {
-                // Handle the case where no repositories are returned.
                 System.out.println("No repositories found for the given name.");
             }
         } catch (CompletionException ex) {
@@ -280,9 +264,10 @@ public class ECRActions {
                 Thread.currentThread().interrupt();
                 throw new RuntimeException("Thread interrupted while waiting for asynchronous operation: " + cause.getMessage(), cause);
             } else if (cause instanceof EcrException) {
-                throw new RuntimeException("Error retrieving repository information: " + cause.getMessage(), cause);
+                throw (EcrException) cause;
             } else {
-                throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
+                String errorMessage = "Unexpected error: " + cause.getMessage();
+                throw new RuntimeException(errorMessage, cause);
             }
         }
         return "";
@@ -310,13 +295,9 @@ public class ECRActions {
                 }
             } else {
                 if (ex.getCause() instanceof EcrException) {
-                    EcrException e = (EcrException) ex.getCause();
-                    String errorMessage = "Error retrieving authorization token: " + e.awsErrorDetails().errorMessage();
-                    System.err.println(errorMessage);
-                    throw new RuntimeException(errorMessage, e); // Rethrow the exception
+                    throw (EcrException) ex.getCause();
                 } else {
                     String errorMessage = "Unexpected error occurred: " + ex.getMessage();
-                    System.err.println(errorMessage);
                     throw new RuntimeException(errorMessage, ex); // Rethrow the exception
                 }
             }
@@ -349,16 +330,10 @@ public class ECRActions {
                 System.out.println("Repository policy retrieved successfully.");
             } else {
                 if (ex.getCause() instanceof EcrException) {
-                    EcrException e = (EcrException) ex.getCause();
-                    String errorMessage = "Error getting repository policy for repository: " + repoName + " - " + e.awsErrorDetails().errorMessage();
-                    System.err.println(errorMessage);
-                    e.printStackTrace();
-                    throw new RuntimeException(errorMessage, e); // Rethrow the exception
+                    throw (EcrException) ex.getCause();
                 } else {
                     String errorMessage = "Unexpected error occurred: " + ex.getMessage();
-                    System.err.println(errorMessage);
-                    ex.printStackTrace();
-                    throw new RuntimeException(errorMessage, ex); // Rethrow the exception
+                    throw new RuntimeException(errorMessage, ex);
                 }
             }
         });
@@ -374,7 +349,6 @@ public class ECRActions {
      *
      * @param repoName the name of the ECR repository.
      * @param iamRole  the IAM role to be granted access to the repository.
-     * @throws InvalidParameterException         if the specified IAM role is invalid.
      * @throws RepositoryPolicyNotFoundException if the repository policy does not exist.
      * @throws EcrException                      if there is an unexpected error setting the repository policy.
      */
@@ -410,17 +384,13 @@ public class ECRActions {
                 System.out.println("Repository policy set successfully.");
             } else {
                 Throwable cause = ex.getCause();
-                if (cause instanceof InvalidParameterException) {
-                    InvalidParameterException e = (InvalidParameterException) cause;
-                    System.out.format("Error setting repository policy for repository: %s. The IAM role '%s' is invalid. %s", repoName, iamRole, e.getMessage());
-                } else if (cause instanceof RepositoryPolicyNotFoundException) {
-                    RepositoryPolicyNotFoundException e = (RepositoryPolicyNotFoundException) cause;
-                    System.out.format("Error setting repository policy for repository: %s. The repository policy does not exist. %s", repoName, e.getMessage());
+                if (cause instanceof RepositoryPolicyNotFoundException) {
+                    throw (RepositoryPolicyNotFoundException) cause;
                 } else if (cause instanceof EcrException) {
-                    EcrException e = (EcrException) cause;
-                    System.out.format("Unexpected error setting repository policy for repository: %s. %s", repoName, e.getMessage());
+                    throw (EcrException) cause;
                 } else {
-                    System.err.println("Unexpected error occurred: " + ex.getMessage());
+                    String errorMessage = "Unexpected error: " + cause.getMessage();
+                    throw new RuntimeException(errorMessage, cause);
                 }
             }
         });
@@ -436,8 +406,8 @@ public class ECRActions {
      *
      * @param repoName the name of the repository to create.
      * @return the Amazon Resource Name (ARN) of the created repository, or an empty string if the operation failed.
-     * @throws IllegalArgumentException if the repository name is null or empty.
-     * @throws EcrException             if an error occurs while creating the repository.
+     * @throws IllegalArgumentException     If repository name is invalid.
+     * @throws RuntimeException             if an error occurs while creating the repository.
      */
     public String createECRRepository(String repoName) {
         if (repoName == null || repoName.isEmpty()) {
@@ -457,23 +427,21 @@ public class ECRActions {
             } else {
                 throw new RuntimeException("Unexpected response type");
             }
-
         } catch (CompletionException e) {
-            if (e.getCause() instanceof EcrException) {
-                EcrException ex = (EcrException) e.getCause();
-                if (ex.awsErrorDetails().errorCode().equals("RepositoryAlreadyExistsException")) {
-                    System.out.println("ECR repository already exists, moving on...");
+            Throwable cause = e.getCause();
+            if (cause instanceof EcrException ex) {
+                if ("RepositoryAlreadyExistsException".equals(ex.awsErrorDetails().errorCode())) {
+                    System.out.println("The Amazon ECR repository already exists, moving on...");
                     DescribeRepositoriesRequest describeRequest = DescribeRepositoriesRequest.builder()
                         .repositoryNames(repoName)
                         .build();
                     DescribeRepositoriesResponse describeResponse = getAsyncClient().describeRepositories(describeRequest).join();
                     return describeResponse.repositories().get(0).repositoryArn();
                 } else {
-                    System.err.println("Error creating ECR repository: " + ex.awsErrorDetails().errorMessage());
                     throw new RuntimeException(ex);
                 }
             } else {
-                System.err.println("Unexpected error occurred: " + e.getMessage());
+                logger.error("Unexpected error occurred: {}", e.getMessage(), e);
                 throw new RuntimeException(e);
             }
         }
@@ -513,6 +481,7 @@ public class ECRActions {
                 try {
                     getDockerClient().pushImageCmd(repoData.repositoryUri()).withTag("echo-text").withAuthConfig(authConfig).start().awaitCompletion();
                     System.out.println("The " + imageName + " was pushed to ECR");
+
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -547,7 +516,7 @@ public class ECRActions {
                 return false;
             }
         } catch (DockerClientException ex) {
-            System.out.println("ERROR: " + ex.getMessage());
+            logger.error("ERROR: " + ex.getMessage());
             return false;
         }
     }
