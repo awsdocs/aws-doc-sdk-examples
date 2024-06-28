@@ -79,16 +79,40 @@ namespace AwsDoc::S3 {
     public:
         Hasher() = default;
 
+        //! Calculate the object hash for vector input.
+        /*!
+           \param data: A vector of unsigned bytes.
+           \param hashMethod: The hash method to use.
+           \return bool: Function succeeded.
+        */
         bool calculateObjectHash(std::vector<unsigned char> &data,
                                  HASH_METHOD hashMethod);
 
+        //! Calculate the object hash for stream input.
+        /*!
+           \param data: An IOStream for input.
+           \param hashMethod: The hash method to use.
+           \return bool: Function succeeded.
+        */
         bool calculateObjectHash(Aws::IOStream &data,
                                  HASH_METHOD hashMethod);
 
+        //! Retrieve the stored hash as a Base64 string.
+        /*!
+           \return String: Hash as Base64 string.
+        */
         [[nodiscard]] Aws::String getBase64HashString() const;
 
+        //! Retrieve the stored hash as a hexadecimal string.
+        /*!
+           \return String: Hash as hexadecimal string.
+        */
         [[nodiscard]] Aws::String getHexHashString() const;
 
+        //! Retrieve the stored hash as a ByteBuffer.
+        /*!
+           \return String: Hash as ByteBuffer.
+        */
         [[nodiscard]] Aws::Utils::ByteBuffer getByteBufferHash() const;
     };
 
@@ -125,6 +149,20 @@ namespace AwsDoc::S3 {
                             std::vector<Aws::String> *partHashes,
                             const Aws::S3::S3Client &client);
 
+    //! Verifies the hashing results between the retrieved and local hashes.
+    /*!
+     \param retrievedHash The hash value retrieved from the remote source.
+     \param localHash The hash value calculated locally.
+     \param uploadtype The type of upload (e.g., "multipart", "single-part").
+     \param hashMethod The hashing method used (e.g., MD5, SHA-256).
+     \param retrievedPartHashes (Optional) The list of hashes for the individual parts retrieved from the remote source.
+     \param localPartHashes (Optional) The list of hashes for the individual parts calculated locally.
+     */
+    void verifyHashingResults(const Aws::String &retrievedHash, const Hasher &localHash,
+                              const Aws::String &uploadtype, HASH_METHOD hashMethod,
+                              const std::vector<Aws::String> &retrievedPartHashes = std::vector<Aws::String>(),
+                              const std::vector<Aws::String> &localPartHashes = std::vector<Aws::String>());
+
     //! Routine which uploads an object to an S3 bucket using the AWS C++ SDK's Transfer Manager.
     /*!
        \param bucket: The name of the S3 bucket where the object will be uploaded.
@@ -144,8 +182,8 @@ namespace AwsDoc::S3 {
        \param hashMethod: The hashing algorithm to use when calculating the hash values.
        \param fileName: The path to the file for which the part hashes will be calculated.
        \param bufferSize: The size of the buffer to use when reading the file.
-       \param hashDataResult: The Hasher object that will store the concatenated hash value.
-       \param partHashes: The vector that will store the calculated hash values for each part of the file.
+       \param[out] hashDataResult: The Hasher object that will store the concatenated hash value.
+       \param[out] partHashes: The vector that will store the calculated hash values for each part of the file.
        \return bool: Function succeeded.
     */
     bool calculatePartHashesForFile(AwsDoc::S3::HASH_METHOD hashMethod,
@@ -161,8 +199,8 @@ namespace AwsDoc::S3 {
         \param hashMethod: The hashing algorithm to use when calculating the hash value.
         \param ioStream: An IOStream for the data to be uploaded.
         \param useDefaultHashMethod: A flag indicating whether to use the default hash method or the one specified in the hashMethod parameter.
-        \param hashDataResult: The Hasher object that will store the concatenated hash value.
-        \param partHashes: The vector that will store the calculated hash values for each part of the file.
+        \param[out] hashDataResult: The Hasher object that will store the concatenated hash value.
+        \param[out] partHashes: The vector that will store the calculated hash values for each part of the file.
         \param client: The S3 client instance used to perform the upload operation.
         \return bool: Function succeeded.
     */
@@ -199,38 +237,41 @@ namespace AwsDoc::S3 {
     bool cleanUp(const Aws::String &bucket,
                  const Aws::Client::ClientConfiguration &clientConfiguration);
 
-//! Console interaction introducing the workflow.
-/*!
-  \param bucketName: The name of the S3 bucket to use.
-*/
+    //! Console interaction introducing the workflow.
+    /*!
+      \param bucketName: The name of the S3 bucket to use.
+    */
     void introductoryExplanations(const Aws::String &bucketName);
 
-//! Console interaction which explains the PutObject results.
-/*!
-*/
+    //! Console interaction which explains the PutObject results.
+    /*!
+    */
     void explainPutObjectResults();
 
-//! Console interaction explaining transfer manager uploads.
-/*!
-  \param objectKey: The key for the object being uploaded.
-*/
+    //! Console interaction explaining transfer manager uploads.
+    /*!
+      \param objectKey: The key for the object being uploaded.
+    */
     void introductoryTransferManagerUploadExplanations(const Aws::String &objectKey);
 
+    //! Console interaction explaining multi-part uploads.
+    /*!
+      \param objectKey: The key for the object being uploaded.
+      \param chosenHashMethod: The hash method selected by the user.
+    */
     void multiPartUploadExplanations(const Aws::String &objectKey,
                                      HASH_METHOD chosenHashMethod);
 
-    void verifyHashingResults(const Aws::String &retrievedHash, const Hasher &localHash,
-                              const Aws::String &uploadtype, HASH_METHOD hashMethod,
-                              const std::vector<Aws::String> &retrievedPartHashes = std::vector<Aws::String>(),
-                              const std::vector<Aws::String> &localPartHashes = std::vector<Aws::String>());
-
+    //! Create a large file for doing multi-part uploads.
+    /*!
+    */
     bool createLargeFileIfNotExists();
 
-//! Test routine passed as argument to askQuestion routine.
-/*!
- \param string: A string to test.
- \return bool: True if empty.
- */
+    //! Test routine passed as argument to askQuestion routine.
+    /*!
+     \param string: A string to test.
+     \return bool: True if empty.
+     */
     static bool testForEmptyString(const Aws::String &string);
 
     //! Command line prompt/response utility function.
@@ -278,11 +319,8 @@ namespace AwsDoc::S3 {
 
     void pressEnterToContinue() {
         askQuestion("Press Enter to continue...", alwaysTrueTest);
-    }
-
-
-    static bool DEBUGGING = false;
-} // namespace AwsDoc::S3
+    }  // namespace S3
+} // namespace AwsDoc
 
 //! Routine which runs the HealthImaging workflow.
 /*!
@@ -368,7 +406,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
     Hasher hasher;
     HASH_METHOD putObjectHashMethod = chosenHashMethod;
     if (putObjectHashMethod == DEFAULT) {
-        putObjectHashMethod = MD5;
+        putObjectHashMethod = MD5; // MD5 is the default hash method for PutObject.
 
         std::cout << "The default checksum algorithm for PutObject is "
                   << stringForHashMethod(putObjectHashMethod)
@@ -421,7 +459,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
 
     HASH_METHOD transferManagerHashMethod = chosenHashMethod;
     if (transferManagerHashMethod == DEFAULT) {
-        transferManagerHashMethod = CRC32;
+        transferManagerHashMethod = CRC32;  // The default hash method for the TransferManager is CRC32.
 
         std::cout << "The default checksum algorithm for TransferManager is "
                   << stringForHashMethod(transferManagerHashMethod)
@@ -491,7 +529,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
 
     HASH_METHOD multipartUploadHashMethod = chosenHashMethod;
     if (multipartUploadHashMethod == DEFAULT) {
-        multipartUploadHashMethod = MD5;
+        multipartUploadHashMethod = MD5;  // The default hash method for multi-part uploads is MD5.
 
         std::cout << "The default checksum algorithm for multipart upload is "
                   << stringForHashMethod(putObjectHashMethod)
@@ -537,118 +575,17 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
     return cleanUp(bucketName, clientConfiguration);
 }
 
-//! Test routine passed as argument to askQuestion routine.
+//! Routine which uploads an object to an S3 bucket and calculates a hash value for the object.
 /*!
-\param string: A string to test.
-\return bool: True if empty.
+   \param bucket: The name of the S3 bucket where the object will be uploaded.
+   \param key: The unique identifier (key) for the object within the S3 bucket.
+   \param hashData: The hash value that will be associated with the uploaded object.
+   \param hashMethod: The hashing algorithm to use when calculating the hash value.
+   \param body: The data content of the object being uploaded.
+   \param useDefaultHashMethod: A flag indicating whether to use the default hash method or the one specified in the hashMethod parameter.
+   \param client: The S3 client instance used to perform the upload operation.
+   \return bool: Function succeeded.
 */
-bool AwsDoc::S3::testForEmptyString(const Aws::String &string) {
-    if (string.empty()) {
-        std::cout << "Enter some text." << std::endl;
-        return false;
-    }
-
-    return true;
-}
-
-//! Command line prompt/response utility function.
-/*!
- \param string: A question prompt.
- \param test: Test function for response.
- \return Aws::String: User's response.
- */
-Aws::String AwsDoc::S3::askQuestion(const Aws::String &string,
-                                    const std::function<bool(
-                                            Aws::String)> &test) {
-    Aws::String result;
-    do {
-        std::cout << string;
-        std::getline(std::cin, result);
-    } while (!test(result));
-
-    return result;
-}
-
-//! Command line prompt/response for yes/no question.
-/*!
- \param string: A question prompt expecting a 'y' or 'n' response.
- \return bool: True if yes.
- */
-bool AwsDoc::S3::askYesNoQuestion(const Aws::String &string) {
-    Aws::String resultString = askQuestion(string, [](
-            const Aws::String &string1) -> bool {
-        bool result = false;
-        if (string1.length() == 1) {
-            int answer = std::tolower(string1[0]);
-            result = (answer == 'y') || (answer == 'n');
-        }
-
-        if (!result) {
-            std::cout << "Answer 'y' or 'n'." << std::endl;
-        }
-
-        return result;
-    });
-
-    return std::tolower(resultString[0]) == 'y';
-}
-
-//! Command line prompt/response utility function for an int result confined to
-//! a range.
-/*!
- \param string: A question prompt.
- \param low: Low inclusive.
- \param high: High inclusive.
- \return int: User's response.
- */
-int
-AwsDoc::S3::askQuestionForIntRange(const Aws::String &string, int low,
-                                   int high) {
-    Aws::String resultString = askQuestion(string, [low, high](
-            const Aws::String &string1) -> bool {
-        try {
-            int number = std::stoi(string1);
-            bool result = number >= low && number <= high;
-            if (!result) {
-                std::cerr << "\nThe number is out of range." << std::endl;
-            }
-            return result;
-        }
-        catch (const std::invalid_argument &) {
-            std::cerr << "\nNot a valid number." << std::endl;
-            return false;
-        }
-    });
-
-    int result = 0;
-    try {
-        result = std::stoi(resultString);
-    }
-    catch (const std::invalid_argument &) {
-        std::cerr << "askQuestionForFloatRange string not an int "
-                  << resultString << std::endl;
-    }
-
-    return result;
-}
-
-bool AwsDoc::S3::cleanUp(const Aws::String &bucketName,
-                         const Aws::Client::ClientConfiguration &clientConfiguration) {
-
-    Aws::Vector<Aws::String> keysResult;
-    bool result = true;
-    if (AwsDoc::S3::ListObjects(bucketName, keysResult, clientConfiguration)) {
-        if (!keysResult.empty()) {
-            result = AwsDoc::S3::DeleteObjects(keysResult, bucketName,
-                                               clientConfiguration);
-        }
-    } else {
-        result = false;
-    }
-
-    return result && AwsDoc::S3::DeleteBucket(bucketName, clientConfiguration);
-}
-
 bool AwsDoc::S3::putObjectWithHash(const Aws::String &bucket, const Aws::String &key,
                                    const Aws::String &hashData,
                                    AwsDoc::S3::HASH_METHOD hashMethod,
@@ -698,6 +635,17 @@ bool AwsDoc::S3::putObjectWithHash(const Aws::String &bucket, const Aws::String 
     return outcome.IsSuccess();
 }
 
+
+//! Routine which retrieves the hash value of an object stored in an S3 bucket.
+/*!
+   \param bucket: The name of the S3 bucket where the object is stored.
+   \param key: The unique identifier (key) of the object within the S3 bucket.
+   \param hashMethod: The hashing algorithm used to calculate the hash value of the object.
+   \param[out] hashData: The retrieved hash.
+   \param[out] partHashes: The part hashes if available.
+   \param client: The S3 client instance used to retrieve the object.
+   \return bool: Function succeeded.
+*/
 bool AwsDoc::S3::retrieveObjectHash(const Aws::String &bucket, const Aws::String &key,
                                     AwsDoc::S3::HASH_METHOD hashMethod,
                                     Aws::String &hashData,
@@ -802,25 +750,184 @@ bool AwsDoc::S3::retrieveObjectHash(const Aws::String &bucket, const Aws::String
     return true;
 }
 
-Aws::String AwsDoc::S3::stringForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod) {
-    switch (hashMethod) {
-        case AwsDoc::S3::DEFAULT:
-            return "Default";
-        case AwsDoc::S3::MD5:
-            return "MD5";
-        case AwsDoc::S3::SHA1:
-            return "SHA1";
-        case AwsDoc::S3::SHA256:
-            return "SHA256";
-        case AwsDoc::S3::CRC32:
-            return "CRC32";
-        case AwsDoc::S3::CRC32C:
-            return "CRC32C";
-        default:
-            return "Unknown";
+//! Verifies the hashing results between the retrieved and local hashes.
+/*!
+ \param retrievedHash The hash value retrieved from the remote source.
+ \param localHash The hash value calculated locally.
+ \param uploadtype The type of upload (e.g., "multipart", "single-part").
+ \param hashMethod The hashing method used (e.g., MD5, SHA-256).
+ \param retrievedPartHashes (Optional) The list of hashes for the individual parts retrieved from the remote source.
+ \param localPartHashes (Optional) The list of hashes for the individual parts calculated locally.
+ */
+void AwsDoc::S3::verifyHashingResults(const Aws::String &retrievedHash,
+                                      const Hasher &localHash,
+                                      const Aws::String &uploadtype,
+                                      HASH_METHOD hashMethod,
+                                      const std::vector<Aws::String> &retrievedPartHashes,
+                                      const std::vector<Aws::String> &localPartHashes) {
+    std::cout << "For " << uploadtype << " retrieved hash is " << retrievedHash << std::endl;
+    if (!retrievedPartHashes.empty()) {
+        std::cout << retrievedPartHashes.size() << " part hash(es) were also retrieved."
+                  << std::endl;
+        for (auto &retrievedPartHash: retrievedPartHashes) {
+            std::cout << "  Part hash " << retrievedPartHash << std::endl;
+        }
     }
+    Aws::String hashString;
+    if (hashMethod == MD5) {
+        hashString = localHash.getHexHashString();
+        if (!localPartHashes.empty()) {
+            hashString += "-" + std::to_string(localPartHashes.size());
+        }
+    } else {
+        hashString = localHash.getBase64HashString();
+    }
+
+    bool allMatch = true;
+    if (hashString != retrievedHash) {
+        std::cerr << "For " << uploadtype << ", the main hashes do not match" << std::endl;
+        std::cerr << "Local hash- '" << hashString << "'" << std::endl;
+        std::cerr << "Remote hash - '" << retrievedHash << "'" << std::endl;
+        allMatch = false;
+    }
+
+    if (hashMethod != MD5) {
+        if (localPartHashes.size() != retrievedPartHashes.size()) {
+            std::cerr << "For " << uploadtype << ", the number of part hashes do not match" << std::endl;
+            std::cerr << "Local number of hashes- '" << localPartHashes.size() << "'"
+                      << std::endl;
+            std::cerr << "Remote number of hashes - '"
+                      << retrievedPartHashes.size()
+                      << "'" << std::endl;
+        }
+
+        for (int i = 0; i < localPartHashes.size(); ++i) {
+            if (localPartHashes[i] != retrievedPartHashes[i]) {
+                std::cerr << "For " << uploadtype << ", the part hashes do not match for part " << i + 1
+                          << "." << std::endl;
+                std::cerr << "Local hash- '" << localPartHashes[i] << "'"
+                          << std::endl;
+                std::cerr << "Remote hash - '" << retrievedPartHashes[i] << "'"
+                          << std::endl;
+                allMatch = false;
+            }
+        }
+    }
+
+    if (allMatch) {
+        std::cout << "For " << uploadtype << ", locally and remotely calculated hashes all match!" << std::endl;
+    }
+
 }
 
+
+//! Routine which uploads an object to an S3 bucket using the AWS C++ SDK's Transfer Manager.
+/*!
+   \param bucket: The name of the S3 bucket where the object will be uploaded.
+   \param key: The unique identifier (key) for the object within the S3 bucket.
+   \param hashMethod: The hashing algorithm to use when calculating the hash value.
+   \param useDefaultHashMethod: A flag indicating whether to use the default hash method or the one specified in the hashMethod parameter.
+   \param client: The S3 client instance used to perform the upload operation.
+   \return bool: Function succeeded.
+*/
+bool
+AwsDoc::S3::doTransferManagerUpload(const Aws::String &bucket, const Aws::String &key,
+                                    AwsDoc::S3::HASH_METHOD hashMethod,
+                                    bool useDefaultHashMethod,
+                                    const std::shared_ptr<Aws::S3::S3Client> &client) {
+    auto executor = Aws::MakeShared<Aws::Utils::Threading::PooledThreadExecutor>(
+            "executor", 25);
+    Aws::Transfer::TransferManagerConfiguration transfer_config(executor.get());
+    transfer_config.s3Client = client;
+    transfer_config.bufferSize = UPLOAD_BUFFER_SIZE;
+    if (!useDefaultHashMethod) {
+        if (hashMethod == MD5) {
+            transfer_config.computeContentMD5 = true;
+        } else {
+            transfer_config.checksumAlgorithm = getChecksumAlgorithmForHashMethod(
+                    hashMethod);
+        }
+    }
+
+    auto transfer_manager = Aws::Transfer::TransferManager::Create(transfer_config);
+
+    std::cout << "Uploading the file..." << std::endl;
+    auto uploadHandle = transfer_manager->UploadFile(MULTI_PART_TEST_FILE, bucket, key,
+                                                     "text/plain",
+                                                     Aws::Map<Aws::String, Aws::String>());
+    uploadHandle->WaitUntilFinished();
+    bool success =
+            uploadHandle->GetStatus() == Aws::Transfer::TransferStatus::COMPLETED;
+    if (!success) {
+        auto err = uploadHandle->GetLastError();
+        std::cout << "File upload failed:  " << err.GetMessage() << std::endl;
+    }
+
+    return success;
+}
+
+//! Routine which calculates the hash values for each part of a file being uploaded to an S3 bucket.
+/*!
+   \param hashMethod: The hashing algorithm to use when calculating the hash values.
+   \param fileName: The path to the file for which the part hashes will be calculated.
+   \param bufferSize: The size of the buffer to use when reading the file.
+   \param[out] hashDataResult: The Hasher object that will store the concatenated hash value.
+   \param[out] partHashes: The vector that will store the calculated hash values for each part of the file.
+   \return bool: Function succeeded.
+*/
+bool AwsDoc::S3::calculatePartHashesForFile(AwsDoc::S3::HASH_METHOD hashMethod,
+                                            const Aws::String &fileName,
+                                            size_t bufferSize,
+                                            AwsDoc::S3::Hasher &hashDataResult,
+                                            std::vector<Aws::String> &partHashes) {
+    std::ifstream fileStream(fileName.c_str(), std::ifstream::binary);
+    fileStream.seekg(0, std::ifstream::end);
+    size_t objectSize = fileStream.tellg();
+    fileStream.seekg(0, std::ifstream::beg);
+    std::vector<unsigned char> totalHashBuffer;
+    size_t uploadedBytes = 0;
+
+
+    while (uploadedBytes < objectSize) {
+        std::vector<unsigned char> buffer(bufferSize);
+        std::streamsize bytesToRead = static_cast<std::streamsize>(std::min(buffer.size(), objectSize - uploadedBytes));
+        fileStream.read((char *) buffer.data(), bytesToRead);
+        Aws::Utils::Stream::PreallocatedStreamBuf preallocatedStreamBuf(buffer.data(),
+                                                                        bytesToRead);
+        std::shared_ptr<Aws::IOStream> body =
+                Aws::MakeShared<Aws::IOStream>("SampleAllocationTag",
+                                               &preallocatedStreamBuf);
+        Hasher hasher;
+        if (!hasher.calculateObjectHash(*body, hashMethod)) {
+            std::cerr << "Error calculating hash." << std::endl;
+            return false;
+        }
+        Aws::String base64HashString = hasher.getBase64HashString();
+        partHashes.push_back(base64HashString);
+
+        Aws::Utils::ByteBuffer hashBuffer = hasher.getByteBufferHash();
+
+        totalHashBuffer.insert(totalHashBuffer.end(), hashBuffer.GetUnderlyingData(),
+                               hashBuffer.GetUnderlyingData() + hashBuffer.GetLength());
+
+        uploadedBytes += bytesToRead;
+    }
+
+    return hashDataResult.calculateObjectHash(totalHashBuffer, hashMethod);
+}
+
+//! Routine which performs a multi-part upload and checks the hash.
+/*!
+    \param bucket: The name of the S3 bucket where the object will be uploaded.
+    \param key: The unique identifier (key) for the object within the S3 bucket.
+    \param hashMethod: The hashing algorithm to use when calculating the hash value.
+    \param ioStream: An IOStream for the data to be uploaded.
+    \param useDefaultHashMethod: A flag indicating whether to use the default hash method or the one specified in the hashMethod parameter.
+    \param[out] hashDataResult: The Hasher object that will store the concatenated hash value.
+    \param[out] partHashes: The vector that will store the calculated hash values for each part of the file.
+    \param client: The S3 client instance used to perform the upload operation.
+    \return bool: Function succeeded.
+*/
 bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
                                                const Aws::String &key,
                                                AwsDoc::S3::HASH_METHOD hashMethod,
@@ -1002,6 +1109,35 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
     }
 }
 
+//! Routine which retrieves the string for a HASH_METHOD constant.
+/*!
+    \param: hashMethod: A HASH_METHOD constant.
+    \return: String: A string description of the hash method.
+*/
+Aws::String AwsDoc::S3::stringForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod) {
+    switch (hashMethod) {
+        case AwsDoc::S3::DEFAULT:
+            return "Default";
+        case AwsDoc::S3::MD5:
+            return "MD5";
+        case AwsDoc::S3::SHA1:
+            return "SHA1";
+        case AwsDoc::S3::SHA256:
+            return "SHA256";
+        case AwsDoc::S3::CRC32:
+            return "CRC32";
+        case AwsDoc::S3::CRC32C:
+            return "CRC32C";
+        default:
+            return "Unknown";
+    }
+}
+
+//! Routine whi returns the ChecksumAlgorithm for a HASH_METHOD constant.
+/*!
+    \param: hashMethod: A HASH_METHOD constant.
+    \return: ChecksumAlgorithm: The ChecksumAlgorithm enum.
+*/
 Aws::S3::Model::ChecksumAlgorithm
 AwsDoc::S3::getChecksumAlgorithmForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod) {
     Aws::S3::Model::ChecksumAlgorithm result = Aws::S3::Model::ChecksumAlgorithm::NOT_SET;
@@ -1032,83 +1168,33 @@ AwsDoc::S3::getChecksumAlgorithmForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod
     return result;
 }
 
-bool
-AwsDoc::S3::doTransferManagerUpload(const Aws::String &bucket, const Aws::String &key,
-                                    AwsDoc::S3::HASH_METHOD hashMethod,
-                                    bool useDefaultHashMethod,
-                                    const std::shared_ptr<Aws::S3::S3Client> &client) {
-    auto executor = Aws::MakeShared<Aws::Utils::Threading::PooledThreadExecutor>(
-            "executor", 25);
-    Aws::Transfer::TransferManagerConfiguration transfer_config(executor.get());
-    transfer_config.s3Client = client;
-    transfer_config.bufferSize = UPLOAD_BUFFER_SIZE;
-    if (!useDefaultHashMethod) {
-        if (hashMethod == MD5) {
-            transfer_config.computeContentMD5 = true;
-        } else {
-            transfer_config.checksumAlgorithm = getChecksumAlgorithmForHashMethod(
-                    hashMethod);
+//! Routine which cleans up after the example is complete.
+/*!
+    \param bucket: The name of the S3 bucket where the object was uploaded.
+    \param clientConfiguration: The client configuration for the S3 client.
+    \return bool: Function succeeded.
+*/
+bool AwsDoc::S3::cleanUp(const Aws::String &bucketName,
+                         const Aws::Client::ClientConfiguration &clientConfiguration) {
+
+    Aws::Vector<Aws::String> keysResult;
+    bool result = true;
+    if (AwsDoc::S3::ListObjects(bucketName, keysResult, clientConfiguration)) {
+        if (!keysResult.empty()) {
+            result = AwsDoc::S3::DeleteObjects(keysResult, bucketName,
+                                               clientConfiguration);
         }
+    } else {
+        result = false;
     }
 
-    auto transfer_manager = Aws::Transfer::TransferManager::Create(transfer_config);
-
-    std::cout << "Uploading the file..." << std::endl;
-    auto uploadHandle = transfer_manager->UploadFile(MULTI_PART_TEST_FILE, bucket, key,
-                                                     "text/plain",
-                                                     Aws::Map<Aws::String, Aws::String>());
-    uploadHandle->WaitUntilFinished();
-    bool success =
-            uploadHandle->GetStatus() == Aws::Transfer::TransferStatus::COMPLETED;
-    if (!success) {
-        auto err = uploadHandle->GetLastError();
-        std::cout << "File upload failed:  " << err.GetMessage() << std::endl;
-    }
-
-    return success;
+    return result && AwsDoc::S3::DeleteBucket(bucketName, clientConfiguration);
 }
 
-bool AwsDoc::S3::calculatePartHashesForFile(AwsDoc::S3::HASH_METHOD hashMethod,
-                                            const Aws::String &fileName,
-                                            size_t bufferSize,
-                                            AwsDoc::S3::Hasher &hashDataResult,
-                                            std::vector<Aws::String> &partHashes) {
-    std::ifstream fileStream(fileName.c_str(), std::ifstream::binary);
-    fileStream.seekg(0, std::ifstream::end);
-    size_t objectSize = fileStream.tellg();
-    fileStream.seekg(0, std::ifstream::beg);
-    std::vector<unsigned char> totalHashBuffer;
-    size_t uploadedBytes = 0;
-
-
-    while (uploadedBytes < objectSize) {
-        std::vector<unsigned char> buffer(bufferSize);
-        std::streamsize bytesToRead = static_cast<std::streamsize>(std::min(buffer.size(), objectSize - uploadedBytes));
-        fileStream.read((char *) buffer.data(), bytesToRead);
-        Aws::Utils::Stream::PreallocatedStreamBuf preallocatedStreamBuf(buffer.data(),
-                                                                        bytesToRead);
-        std::shared_ptr<Aws::IOStream> body =
-                Aws::MakeShared<Aws::IOStream>("SampleAllocationTag",
-                                               &preallocatedStreamBuf);
-        Hasher hasher;
-        if (!hasher.calculateObjectHash(*body, hashMethod)) {
-            std::cerr << "Error calculating hash." << std::endl;
-            return false;
-        }
-        Aws::String base64HashString = hasher.getBase64HashString();
-        partHashes.push_back(base64HashString);
-
-        Aws::Utils::ByteBuffer hashBuffer = hasher.getByteBufferHash();
-
-        totalHashBuffer.insert(totalHashBuffer.end(), hashBuffer.GetUnderlyingData(),
-                               hashBuffer.GetUnderlyingData() + hashBuffer.GetLength());
-
-        uploadedBytes += bytesToRead;
-    }
-
-    return hashDataResult.calculateObjectHash(totalHashBuffer, hashMethod);
-}
-
+//! Console interaction introducing the workflow.
+/*!
+  \param bucketName: The name of the S3 bucket to use.
+*/
 void AwsDoc::S3::introductoryExplanations(const Aws::String &bucketName) {
 
     std::cout
@@ -1142,6 +1228,9 @@ void AwsDoc::S3::introductoryExplanations(const Aws::String &bucketName) {
     std::cout << "A bucket named '" << bucketName << "' will be created for the object uploads." << std::endl;
 }
 
+//! Console interaction which explains the PutObject results.
+/*!
+*/
 void AwsDoc::S3::explainPutObjectResults() {
 
     std::cout << "The upload was successful.\n";
@@ -1155,6 +1244,10 @@ void AwsDoc::S3::explainPutObjectResults() {
             << std::endl;
 }
 
+//! Console interaction explaining transfer manager uploads.
+/*!
+  \param objectKey: The key for the object being uploaded.
+*/
 void AwsDoc::S3::introductoryTransferManagerUploadExplanations(
         const Aws::String &objectKey) {
     std::cout
@@ -1179,6 +1272,11 @@ void AwsDoc::S3::introductoryTransferManagerUploadExplanations(
     printAsterisksLine();
 }
 
+//! Console interaction explaining multi-part uploads.
+/*!
+  \param objectKey: The key for the object being uploaded.
+  \param chosenHashMethod: The hash method selected by the user.
+*/
 void AwsDoc::S3::multiPartUploadExplanations(const Aws::String &objectKey,
                                              HASH_METHOD chosenHashMethod) {
     std::cout
@@ -1203,67 +1301,9 @@ void AwsDoc::S3::multiPartUploadExplanations(const Aws::String &objectKey,
 
 }
 
-void AwsDoc::S3::verifyHashingResults(const Aws::String &retrievedHash,
-                                      const Hasher &localHash,
-                                      const Aws::String &uploadtype,
-                                      HASH_METHOD hashMethod,
-                                      const std::vector<Aws::String> &retrievedPartHashes,
-                                      const std::vector<Aws::String> &localPartHashes) {
-    std::cout << "For " << uploadtype << " retrieved hash is " << retrievedHash << std::endl;
-    if (!retrievedPartHashes.empty()) {
-        std::cout << retrievedPartHashes.size() << " part hash(es) were also retrieved."
-                  << std::endl;
-        for (auto &retrievedPartHash: retrievedPartHashes) {
-            std::cout << "  Part hash " << retrievedPartHash << std::endl;
-        }
-    }
-    Aws::String hashString;
-    if (hashMethod == MD5) {
-        hashString = localHash.getHexHashString();
-        if (!localPartHashes.empty()) {
-            hashString += "-" + std::to_string(localPartHashes.size());
-        }
-    } else {
-        hashString = localHash.getBase64HashString();
-    }
-
-    bool allMatch = true;
-    if (hashString != retrievedHash) {
-        std::cerr << "For " << uploadtype << ", the main hashes do not match" << std::endl;
-        std::cerr << "Local hash- '" << hashString << "'" << std::endl;
-        std::cerr << "Remote hash - '" << retrievedHash << "'" << std::endl;
-        allMatch = false;
-    }
-
-    if (hashMethod != MD5) {
-        if (localPartHashes.size() != retrievedPartHashes.size()) {
-            std::cerr << "For " << uploadtype << ", the number of part hashes do not match" << std::endl;
-            std::cerr << "Local number of hashes- '" << localPartHashes.size() << "'"
-                      << std::endl;
-            std::cerr << "Remote number of hashes - '"
-                      << retrievedPartHashes.size()
-                      << "'" << std::endl;
-        }
-
-        for (int i = 0; i < localPartHashes.size(); ++i) {
-            if (localPartHashes[i] != retrievedPartHashes[i]) {
-                std::cerr << "For " << uploadtype << ", the part hashes do not match for part " << i + 1
-                          << "." << std::endl;
-                std::cerr << "Local hash- '" << localPartHashes[i] << "'"
-                          << std::endl;
-                std::cerr << "Remote hash - '" << retrievedPartHashes[i] << "'"
-                          << std::endl;
-                allMatch = false;
-            }
-        }
-    }
-
-    if (allMatch) {
-        std::cout << "For " << uploadtype << ", locally and remotely calculated hashes all match!" << std::endl;
-    }
-
-}
-
+//! Create a large file for doing multi-part uploads.
+/*!
+*/
 bool AwsDoc::S3::createLargeFileIfNotExists() {
     // Generate a large file by writing this source file multiple times to a new file.
     if (std::filesystem::exists(MULTI_PART_TEST_FILE)) {
@@ -1303,7 +1343,12 @@ bool AwsDoc::S3::createLargeFileIfNotExists() {
     return true;
 }
 
-
+//! Calculate the object hash for vector input.
+/*!
+   \param data: A vector of unsigned bytes.
+   \param hashMethod: The hash method to use.
+   \return bool: Function succeeded.
+*/
 bool AwsDoc::S3::Hasher::calculateObjectHash(std::vector<unsigned char> &data,
                                              AwsDoc::S3::HASH_METHOD hashMethod) {
     Aws::Utils::Stream::PreallocatedStreamBuf preallocatedStreamBuf(data.data(),
@@ -1314,6 +1359,12 @@ bool AwsDoc::S3::Hasher::calculateObjectHash(std::vector<unsigned char> &data,
     return calculateObjectHash(*body, hashMethod);
 }
 
+//! Calculate the object hash for stream input.
+/*!
+   \param data: An IOStream for input.
+   \param hashMethod: The hash method to use.
+   \return bool: Function succeeded.
+*/
 bool AwsDoc::S3::Hasher::calculateObjectHash(Aws::IOStream &data,
                                              AwsDoc::S3::HASH_METHOD hashMethod) {
     switch (hashMethod) {
@@ -1343,10 +1394,18 @@ bool AwsDoc::S3::Hasher::calculateObjectHash(Aws::IOStream &data,
     return true;
 }
 
+//! Retrieve the stored hash as a Base64 string.
+/*!
+   \return String: Hash as Base64 string.
+*/
 Aws::String AwsDoc::S3::Hasher::getBase64HashString() const {
     return Aws::Utils::HashingUtils::Base64Encode(m_Hash);
 }
 
+//! Retrieve the stored hash as a hexadecimal string.
+/*!
+   \return String: Hash as hexadecimal string.
+*/
 Aws::String AwsDoc::S3::Hasher::getHexHashString() const {
     std::stringstream stringstream;
     stringstream << std::hex << std::setfill('0');
@@ -1357,8 +1416,107 @@ Aws::String AwsDoc::S3::Hasher::getHexHashString() const {
     return stringstream.str();
 }
 
+//! Retrieve the stored hash as a ByteBuffer.
+/*!
+   \return String: Hash as ByteBuffer.
+*/
 Aws::Utils::ByteBuffer AwsDoc::S3::Hasher::getByteBufferHash() const {
     return m_Hash;
+}
+
+//! Test routine passed as argument to askQuestion routine.
+/*!
+\param string: A string to test.
+\return bool: True if empty.
+*/
+bool AwsDoc::S3::testForEmptyString(const Aws::String &string) {
+    if (string.empty()) {
+        std::cout << "Enter some text." << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+//! Command line prompt/response utility function.
+/*!
+ \param string: A question prompt.
+ \param test: Test function for response.
+ \return Aws::String: User's response.
+ */
+Aws::String AwsDoc::S3::askQuestion(const Aws::String &string,
+                                    const std::function<bool(
+                                            Aws::String)> &test) {
+    Aws::String result;
+    do {
+        std::cout << string;
+        std::getline(std::cin, result);
+    } while (!test(result));
+
+    return result;
+}
+
+//! Command line prompt/response for yes/no question.
+/*!
+ \param string: A question prompt expecting a 'y' or 'n' response.
+ \return bool: True if yes.
+ */
+bool AwsDoc::S3::askYesNoQuestion(const Aws::String &string) {
+    Aws::String resultString = askQuestion(string, [](
+            const Aws::String &string1) -> bool {
+        bool result = false;
+        if (string1.length() == 1) {
+            int answer = std::tolower(string1[0]);
+            result = (answer == 'y') || (answer == 'n');
+        }
+
+        if (!result) {
+            std::cout << "Answer 'y' or 'n'." << std::endl;
+        }
+
+        return result;
+    });
+
+    return std::tolower(resultString[0]) == 'y';
+}
+
+//! Command line prompt/response utility function for an int result confined to
+//! a range.
+/*!
+ \param string: A question prompt.
+ \param low: Low inclusive.
+ \param high: High inclusive.
+ \return int: User's response.
+ */
+int
+AwsDoc::S3::askQuestionForIntRange(const Aws::String &string, int low,
+                                   int high) {
+    Aws::String resultString = askQuestion(string, [low, high](
+            const Aws::String &string1) -> bool {
+        try {
+            int number = std::stoi(string1);
+            bool result = number >= low && number <= high;
+            if (!result) {
+                std::cerr << "\nThe number is out of range." << std::endl;
+            }
+            return result;
+        }
+        catch (const std::invalid_argument &) {
+            std::cerr << "\nNot a valid number." << std::endl;
+            return false;
+        }
+    });
+
+    int result = 0;
+    try {
+        result = std::stoi(resultString);
+    }
+    catch (const std::invalid_argument &) {
+        std::cerr << "askQuestionForFloatRange string not an int "
+                  << resultString << std::endl;
+    }
+
+    return result;
 }
 
 
