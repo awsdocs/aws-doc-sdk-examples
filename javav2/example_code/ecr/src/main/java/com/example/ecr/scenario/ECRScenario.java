@@ -41,10 +41,10 @@ public class ECRScenario {
                accountId - Your AWS account number. 
             """;
 
-         if (args.length != 2) {
-             System.out.println(usage);
-             return;
-         }
+        if (args.length != 2) {
+            System.out.println(usage);
+            return;
+        }
 
         ECRActions ecrActions = new ECRActions();
         String iamRole = args[0];
@@ -215,8 +215,7 @@ public class ECRScenario {
         waitForInputToContinue(scanner);
 
         try {
-            String repositoryURI = ecrActions.getRepositoryURI(repoName);
-            System.out.println("The repository URI is " + repositoryURI);
+            ecrActions.getRepositoryURI(repoName);
 
         } catch (EcrException e) {
             System.err.println("An ECR exception occurred: " + e.getMessage());

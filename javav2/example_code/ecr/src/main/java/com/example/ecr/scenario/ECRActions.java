@@ -187,10 +187,6 @@ public class ECRActions {
         return ecrClient;
     }
 
-
-    // snippet-start:[ecr.java2.verify.image.main]
-
-
     // snippet-start:[ecr.java2.set.policy.main]
     /**
      * Sets the lifecycle policy for the specified repository.
@@ -246,6 +242,7 @@ public class ECRActions {
     }
     // snippet-end:[ecr.java2.set.policy.main]
 
+    // snippet-end:[ecr.java2.verify.image.main]
     /**
      * Verifies the existence of an image in an Amazon Elastic Container Registry (Amazon ECR) repository asynchronously.
      *
@@ -294,7 +291,7 @@ public class ECRActions {
      * @throws EcrException        if there is an error retrieving the repository information.
      * @throws CompletionException if the asynchronous operation completes exceptionally.
      */
-    public String getRepositoryURI(String repoName) {
+    public void getRepositoryURI(String repoName) {
         DescribeRepositoriesRequest request = DescribeRepositoriesRequest.builder()
             .repositoryNames(repoName)
             .build();
@@ -326,12 +323,8 @@ public class ECRActions {
                 }
             }
         });
-
-        // Ensure CompletableFuture completes before returning
         response.join();
-        return "";
     }
-
     // snippet-end:[ecr.java2.describe.policy.main]
 
     // snippet-start:[ecr.java2.get.token.main]
@@ -362,8 +355,6 @@ public class ECRActions {
                 }
             }
         });
-
-        // Wait for the CompletableFuture to complete
         response.join();
     }
     // snippet-end:[ecr.java2.get.token.main]
@@ -454,12 +445,9 @@ public class ECRActions {
                 }
             }
         });
-
-        // Wait for the CompletableFuture to complete
         response.join();
     }
     // snippet-end:[ecr.java2.set.repo.policy.main]
-
 
     // snippet-start:[ecr.java2.push.image.main]
     /**
