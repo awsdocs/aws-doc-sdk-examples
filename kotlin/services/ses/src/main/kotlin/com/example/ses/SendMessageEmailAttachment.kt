@@ -74,7 +74,7 @@ suspend fun sendemailAttachment(
     subject: String,
     bodyText: String,
     bodyHTML: String,
-    fileLocation: String
+    fileLocation: String,
 ) {
     val theFile = File(fileLocation)
     val fileContent = Files.readAllBytes(theFile.toPath())

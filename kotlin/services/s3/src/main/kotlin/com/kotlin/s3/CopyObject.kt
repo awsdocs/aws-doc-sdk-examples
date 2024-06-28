@@ -46,7 +46,7 @@ suspend fun main(args: Array<String>) {
 suspend fun copyBucketObject(
     fromBucket: String,
     objectKey: String,
-    toBucket: String
+    toBucket: String,
 ) {
     var encodedUrl = ""
     try {

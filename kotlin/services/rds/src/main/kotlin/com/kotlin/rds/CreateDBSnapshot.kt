@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[rds.kotlin.create_snap.main]
 suspend fun createSnapshot(
     dbInstanceIdentifierVal: String?,
-    dbSnapshotIdentifierVal: String?
+    dbSnapshotIdentifierVal: String?,
 ) {
     val snapshotRequest =
         CreateDbSnapshotRequest {

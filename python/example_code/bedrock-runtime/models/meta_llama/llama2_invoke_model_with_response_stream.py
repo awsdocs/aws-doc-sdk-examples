@@ -8,7 +8,7 @@
 import boto3
 import json
 
-from botocore.Exceptions import ClientError
+from botocore.exceptions import ClientError
 
 # Create a Bedrock Runtime client in the AWS Region of your choice.
 client = boto3.client("bedrock-runtime", region_name="us-east-1")

@@ -45,7 +45,7 @@ suspend fun main(args: Array<String>) {
 suspend fun addNewStep(
     jobFlowIdVal: String?,
     jarVal: String?,
-    myClass: String?
+    myClass: String?,
 ) {
     val jarStepConfig =
         HadoopJarStepConfig {

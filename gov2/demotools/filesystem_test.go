@@ -20,12 +20,13 @@ func TestNewStandardFileSystemGwd(t *testing.T) {
 func TestNewStandardFileSystemFileIO(t *testing.T) {
 	filesystem := NewStandardFileSystem()
 	filename := "test.txt"
-	os.Create(filename)
-	file, err := filesystem.OpenFile(filename)
+	file, err := os.Create(filename)
+	fsFile, err := filesystem.OpenFile(filename)
 	if err != nil {
 		t.Errorf("NewStandardFileSystemFileInteraction(): error opening file: %v", err)
 	}
-	filesystem.CloseFile(file)
+	filesystem.CloseFile(fsFile)
+	file.Close()
 	err = os.Remove(filename)
 	if err != nil {
 		t.Errorf("NewStandardFileSystemFileInteraction(): error removing file: %v", err)
@@ -48,6 +49,7 @@ func TestNewMockFileSystem(t *testing.T) {
 		t.Errorf("NewMockFileSystem(): error opening file: %v", fErr)
 	}
 	filesystem.CloseFile(mockFile)
+	file.Close()
 	err = os.Remove(filename)
 	if err != nil {
 		t.Errorf("NewMockFileSystem(): error removing file: %v", err)

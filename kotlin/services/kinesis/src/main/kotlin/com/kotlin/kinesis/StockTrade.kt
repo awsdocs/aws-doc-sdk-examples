@@ -32,7 +32,7 @@ class StockTrade {
      */
     enum class TradeType {
         BUY,
-        SELL
+        SELL,
     }
 
     var tickerSymbol: String? = null
@@ -75,6 +75,6 @@ class StockTrade {
             tradeType,
             quantity,
             tickerSymbol,
-            price
+            price,
         )
 }

@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[ecs.kotlin.list_tasks.main]
 suspend fun getAllTasks(
     clusterArn: String,
-    taskId: String
+    taskId: String,
 ) {
     val request =
         DescribeTasksRequest {

@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[redshift.kotlin._events.main]
 suspend fun listRedShiftEvents(
     clusterId: String?,
-    eventSourceType: String
+    eventSourceType: String,
 ) {
     val request =
         DescribeEventsRequest {

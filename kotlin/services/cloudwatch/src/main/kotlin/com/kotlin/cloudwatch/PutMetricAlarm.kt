@@ -44,7 +44,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[cloudwatch.kotlin.put_metric_alarm.main]
 suspend fun putMetricAlarm(
     alarmNameVal: String,
-    instanceIdVal: String
+    instanceIdVal: String,
 ) {
     val dimensionOb =
         Dimension {

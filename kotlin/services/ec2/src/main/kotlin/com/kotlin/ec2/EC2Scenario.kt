@@ -289,7 +289,7 @@ suspend fun disassociateAddressSc(associationIdVal: String?) {
 // snippet-start:[ec2.kotlin.associate_address.main]
 suspend fun associateAddressSc(
     instanceIdVal: String?,
-    allocationIdVal: String?
+    allocationIdVal: String?,
 ): String? {
     val associateRequest =
         AssociateAddressRequest {
@@ -397,7 +397,7 @@ suspend fun runInstanceSc(
     instanceTypeVal: String,
     keyNameVal: String,
     groupNameVal: String,
-    amiIdVal: String
+    amiIdVal: String,
 ): String {
     val runRequest =
         RunInstancesRequest {
@@ -509,7 +509,7 @@ suspend fun createEC2SecurityGroupSc(
     groupNameVal: String?,
     groupDescVal: String?,
     vpcIdVal: String?,
-    myIpAddress: String?
+    myIpAddress: String?,
 ): String? {
     val request =
         CreateSecurityGroupRequest {
@@ -564,7 +564,7 @@ suspend fun describeEC2KeysSc() {
 
 suspend fun createKeyPairSc(
     keyNameVal: String,
-    fileNameVal: String
+    fileNameVal: String,
 ) {
     val request =
         CreateKeyPairRequest {

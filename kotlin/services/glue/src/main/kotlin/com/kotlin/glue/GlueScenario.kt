@@ -90,7 +90,7 @@ suspend fun main(args: Array<String>) {
 
 suspend fun createDatabase(
     dbName: String?,
-    locationUriVal: String?
+    locationUriVal: String?,
 ) {
     val input =
         DatabaseInput {
@@ -115,7 +115,7 @@ suspend fun createCrawler(
     s3Path: String?,
     cron: String?,
     dbName: String?,
-    crawlerName: String
+    crawlerName: String,
 ) {
     val s3Target =
         S3Target {
@@ -215,7 +215,7 @@ suspend fun startJob(jobNameVal: String?) {
 suspend fun createJob(
     jobName: String,
     iam: String?,
-    scriptLocationVal: String?
+    scriptLocationVal: String?,
 ) {
     val commandOb =
         JobCommand {

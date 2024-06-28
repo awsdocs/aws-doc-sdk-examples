@@ -66,7 +66,7 @@ suspend fun main(args: Array<String>) {
 suspend fun createIndex(
     indexDescription: String,
     indexName: String,
-    indexRoleArn: String
+    indexRoleArn: String,
 ): String {
     println("Creating an index named $indexName")
     val createIndexRequest =
@@ -105,7 +105,7 @@ suspend fun createDataSource(
     dataSourceName: String?,
     dataSourceDescription: String?,
     indexIdVal: String?,
-    dataSourceRoleArn: String?
+    dataSourceRoleArn: String?,
 ): String {
     println("Creating an S3 data source")
 
@@ -155,7 +155,7 @@ suspend fun createDataSource(
 // snippet-start:[kendra.kotlin.start.datasource.main]
 suspend fun startDataSource(
     indexIdVal: String?,
-    dataSourceId: String?
+    dataSourceId: String?,
 ) {
     println("Synchronize the data source $dataSourceId")
     val startDataSourceSyncJobRequest =
@@ -167,7 +167,7 @@ suspend fun startDataSource(
     KendraClient { region = "us-east-1" }.use { kendra ->
         val startDataSourceSyncJobResponse = kendra.startDataSourceSyncJob(startDataSourceSyncJobRequest)
         println(
-            "Waiting for the data source to sync with the index $indexIdVal for execution ID ${startDataSourceSyncJobResponse.executionId}"
+            "Waiting for the data source to sync with the index $indexIdVal for execution ID ${startDataSourceSyncJobResponse.executionId}",
         )
     }
     println("Index setup is complete")

@@ -49,7 +49,7 @@ suspend fun translateDocuments(
     s3UriVal: String?,
     s3UriOutVal: String?,
     jobNameVal: String?,
-    dataAccessRoleArnVal: String?
+    dataAccessRoleArnVal: String?,
 ): String? {
     val sleepTime: Long = 5
     val dataConfig =

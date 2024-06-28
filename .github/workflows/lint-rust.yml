@@ -1,5 +1,6 @@
-name: Rust
-on:
+name: Lint - Test - Format Rust
+
+on:  # yamllint disable-line rule:truthy
   pull_request:
   workflow_dispatch:
 permissions:

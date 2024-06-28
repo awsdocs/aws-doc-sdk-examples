@@ -40,7 +40,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[sns.kotlin.SubscribeEmail.main]
 suspend fun subEmail(
     topicArnVal: String,
-    email: String
+    email: String,
 ): String {
     val request =
         SubscribeRequest {

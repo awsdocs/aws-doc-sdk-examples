@@ -40,7 +40,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[sns.kotlin.delete_tags.main]
 suspend fun removeTag(
     topicArn: String,
-    tagKey: String
+    tagKey: String,
 ) {
     val resourceRequest =
         UntagResourceRequest {

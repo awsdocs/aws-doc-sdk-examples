@@ -63,7 +63,7 @@ suspend fun encryptData(keyIdValue: String): ByteArray? {
 suspend fun decryptData(
     encryptedDataVal: ByteArray?,
     keyIdVal: String?,
-    path: String
+    path: String,
 ) {
     val decryptRequest =
         DecryptRequest {

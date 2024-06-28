@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[iam.kotlin.detach_role_policy.main]
 suspend fun detachPolicy(
     roleNameVal: String,
-    policyArnVal: String
+    policyArnVal: String,
 ) {
     val request =
         DetachRolePolicyRequest {

@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[iam.kotlin.attach_role_policy.main]
 suspend fun attachIAMRolePolicy(
     roleNameVal: String,
-    policyArnVal: String
+    policyArnVal: String,
 ) {
     val request =
         ListAttachedRolePoliciesRequest {
@@ -73,7 +73,7 @@ suspend fun attachIAMRolePolicy(
 
 fun checkList(
     attachedPolicies: List<AttachedPolicy>,
-    policyArnVal: String
+    policyArnVal: String,
 ): Int {
     for (policy in attachedPolicies) {
         val polArn = policy.policyArn.toString()

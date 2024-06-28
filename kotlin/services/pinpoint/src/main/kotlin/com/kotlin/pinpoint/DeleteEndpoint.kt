@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[pinpoint.kotlin.deleteendpoint.main]
 suspend fun deletePinEncpoint(
     appIdVal: String?,
-    endpointIdVal: String?
+    endpointIdVal: String?,
 ) {
     val deleteEndpointRequest =
         DeleteEndpointRequest {

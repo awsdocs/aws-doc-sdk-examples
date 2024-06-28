@@ -82,7 +82,7 @@ class WriteExcel {
             10,
             WritableFont.BOLD,
             false,
-            UnderlineStyle.SINGLE
+            UnderlineStyle.SINGLE,
         )
         timesBoldUnderline = WritableCellFormat(times10ptBoldUnderline)
         timesBoldUnderline!!.wrap = true
@@ -133,7 +133,7 @@ class WriteExcel {
         sheet: WritableSheet,
         column: Int,
         row: Int,
-        integer: Int
+        integer: Int,
     ) {
         val number: Number
         number = Number(column, row, integer.toDouble(), times)

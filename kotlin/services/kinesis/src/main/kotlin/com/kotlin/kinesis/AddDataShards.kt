@@ -39,7 +39,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[kinesis.kotlin.AddDataShards.main]
 suspend fun addShards(
     name: String?,
-    goalShards: Int
+    goalShards: Int,
 ) {
     val request =
         UpdateShardCountRequest {

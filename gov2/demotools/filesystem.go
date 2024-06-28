@@ -42,7 +42,7 @@ func (filesystem FileSystem) OpenFile(filename string) (io.ReadWriteCloser, erro
 
 // CloseFile closes the provided file.
 func (filesystem FileSystem) CloseFile(file io.ReadWriteCloser) {
-	defer file.Close()
+	file.Close()
 }
 
 // MockFileSystem is a mock version of IFileSystem for testing.
@@ -69,5 +69,5 @@ func (filesystem MockFileSystem) OpenFile(_ string) (io.ReadWriteCloser, error) 
 
 // CloseFile closes the io.ReadWriteCloser provided on object creation.
 func (filesystem MockFileSystem) CloseFile(_ io.ReadWriteCloser) {
-	defer filesystem.mockfile.Close()
+	filesystem.mockfile.Close()
 }

@@ -40,7 +40,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[sns.kotlin.PublishTextSMS.main]
 suspend fun pubTextSMS(
     messageVal: String?,
-    phoneNumberVal: String?
+    phoneNumberVal: String?,
 ) {
     val request =
         PublishRequest {

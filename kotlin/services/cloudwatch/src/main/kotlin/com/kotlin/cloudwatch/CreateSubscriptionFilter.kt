@@ -46,7 +46,7 @@ suspend fun putSubFilters(
     filter: String,
     pattern: String,
     logGroup: String,
-    functionArn: String
+    functionArn: String,
 ) {
     val request =
         PutSubscriptionFilterRequest {

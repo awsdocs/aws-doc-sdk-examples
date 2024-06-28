@@ -62,7 +62,7 @@ suspend fun getStockTrades(streamNameVal: String?) {
                     streamName = streamNameVal
                     shardIteratorType = ShardIteratorType.fromValue("TRIM_HORIZON")
                     shardId = id
-                }
+                },
             )
         shardIteratorVal = shardIteratorResult.shardIterator.toString()
 

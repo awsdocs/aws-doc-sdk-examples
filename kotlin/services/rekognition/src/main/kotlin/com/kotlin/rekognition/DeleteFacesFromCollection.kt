@@ -37,7 +37,7 @@ suspend fun main(args: Array<String>) {
 // snippet-start:[rekognition.kotlin.delete_faces_collection.main]
 suspend fun deleteFacesCollection(
     collectionIdVal: String?,
-    faceIdVal: String
+    faceIdVal: String,
 ) {
     val deleteFacesRequest =
         DeleteFacesRequest {
