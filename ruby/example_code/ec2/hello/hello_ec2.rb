@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[ec2.ruby.describe_instances.rb]
+# snippet-start:[ec2.ruby.hello_ec2]
 require 'aws-sdk-ec2'
 
 # Creates an EC2 resource
@@ -21,4 +21,4 @@ else
     puts "\n"
   end
 end
-# snippet-end:[ec2.ruby.describe_instances.rb]
+# snippet-end:[ec2.ruby.hello_ec2]
