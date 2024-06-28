@@ -94,6 +94,7 @@ s3_CreateBucket:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.CreateBucket
             - description: Create a bucket with object locking and wait for it to exist.
+              genai: some
               snippet_tags:
                 - gov2.workflows.s3.ObjectLock.S3Actions.struct
                 - gov2.workflows.s3.ObjectLock.CreateBucket
@@ -409,6 +410,7 @@ s3_DeleteObject:
           github: gov2/workflows/s3_object_lock
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - gov2.workflows.s3.ObjectLock.S3Actions.struct
                 - gov2.workflows.s3.ObjectLock.DeleteObject
@@ -508,6 +510,7 @@ s3_DeleteObjects:
           github: gov2/workflows/s3_object_lock
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - gov2.workflows.s3.ObjectLock.S3Actions.struct
                 - gov2.workflows.s3.ObjectLock.DeleteObjects
@@ -954,6 +957,7 @@ s3_GetObjectLegalHold:
           github: gov2/workflows/s3_object_lock
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - gov2.workflows.s3.ObjectLock.S3Actions.struct
                 - gov2.workflows.s3.ObjectLock.GetObjectLegalHold
@@ -1020,6 +1024,7 @@ s3_GetObjectLockConfiguration:
           github: gov2/workflows/s3_object_lock
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - gov2.workflows.s3.ObjectLock.S3Actions.struct
                 - gov2.workflows.s3.ObjectLock.GetObjectLockConfiguration
@@ -1060,6 +1065,7 @@ s3_GetObjectRetention:
           github: gov2/workflows/s3_object_lock
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - gov2.workflows.s3.ObjectLock.S3Actions.struct
                 - gov2.workflows.s3.ObjectLock.GetObjectRetention
@@ -1332,6 +1338,7 @@ s3_ListObjectVersions:
           github: gov2/workflows/s3_object_lock
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - gov2.workflows.s3.ObjectLock.S3Actions.struct
                 - gov2.workflows.s3.ObjectLock.ListObjectVersions
@@ -1378,6 +1385,7 @@ s3_PutObject:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.PutObject
             - description: Upload an object to a bucket by using a transfer manager.
+              genai: some
               snippet_tags:
                 - gov2.workflows.s3.ObjectLock.S3Actions.struct
                 - gov2.workflows.s3.ObjectLock.UploadObject
@@ -2155,6 +2163,7 @@ s3_PutObjectLegalHold:
           github: gov2/workflows/s3_object_lock
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - gov2.workflows.s3.ObjectLock.S3Actions.struct
                 - gov2.workflows.s3.ObjectLock.PutObjectLegalHold
@@ -2201,10 +2210,12 @@ s3_PutObjectLockConfiguration:
           github: gov2/workflows/s3_object_lock
           excerpts:
             - description: Set the object lock configuration of a bucket.
+              genai: some
               snippet_tags:
                 - gov2.workflows.s3.ObjectLock.S3Actions.struct
                 - gov2.workflows.s3.ObjectLock.PubObjectLockConfiguration.EnableObjectLockOnBucket
             - description: Set the default retention period of a bucket.
+              genai: some
               snippet_tags:
                 - gov2.workflows.s3.ObjectLock.S3Actions.struct
                 - gov2.workflows.s3.ObjectLock.PutObjectLockConfiguration.ModifyDefaultBucketRetention
@@ -2248,6 +2259,7 @@ s3_PutObjectRetention:
           github: gov2/workflows/s3_object_lock
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - gov2.workflows.s3.ObjectLock.S3Actions.struct
                 - gov2.workflows.s3.ObjectLock.PutObjectRetention
