@@ -102,6 +102,8 @@ Go:
           ivs-realtime: ivsrealtime
           kinesis-analytics-v2: kinesisanalyticsv2
           license-manager: licensemanager
+          marketplace-agreement: marketplaceagreement
+          marketplace-catalog: marketplacecatalog
           mediapackage-vod: mediapackagevod
           mediastore-data: mediastoredata
           medical-imaging: medicalimaging
