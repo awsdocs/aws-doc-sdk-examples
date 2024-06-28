@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example.iam.ListPolicies]
+# snippet-start:[python.example.iam.hello_iam]
 
 import boto3
 
@@ -28,4 +28,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# snippet-end:[python.example.iam.ListPolicies]
+# snippet-end:[python.example.iam.hello_iam]

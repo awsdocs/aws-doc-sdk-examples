@@ -137,6 +137,9 @@ language = {
             "base_folder": "ruby",
             "service_folder": 'ruby/example_code/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/{{service["name"] | capitalize}}.html',
+            "service_folder_overrides": {
+                "cognito-identity-provider": "ruby/example_code/cognito",
+            },
         }
     },
     "Rust": {

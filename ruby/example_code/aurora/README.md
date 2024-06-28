@@ -1,13 +1,13 @@
-# Amazon RDS code examples for the SDK for Ruby
+# Aurora code examples for the SDK for Ruby
 
 ## Overview
 
-Shows how to use the AWS SDK for Ruby to work with Amazon Relational Database Service (Amazon RDS).
+Shows how to use the AWS SDK for Ruby to work with Amazon Aurora.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon RDS is a web service that makes it easier to set up, operate, and scale a relational database in the cloud._
+_Aurora is a fully managed relational database engine that's built for the cloud and compatible with MySQL and PostgreSQL. Amazon Aurora is part of Amazon Relational Database Service (Amazon RDS)._
 
 ## ⚠ Important
 
@@ -31,18 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 ### Get started
 
-- [Hello Amazon RDS](hello/hello_rds.rb#L4) (`DescribeDBInstances`)
-
-
-### Single actions
-
-Code excerpts that show you how to call individual service functions.
-
-- [CreateDBSnapshot](create_snapshot.rb#L4)
-- [DescribeDBInstances](list_instances.rb#L4)
-- [DescribeDBParameterGroups](list_parameter_groups.rb#L4)
-- [DescribeDBParameters](list_parameter_groups.rb#L4)
-- [DescribeDBSnapshots](list_instance_snapshots.rb#L6)
+- [Hello Aurora](hello/hello_aurora.rb#L4) (`DescribeDBClusters`)
 
 
 <!--custom.examples.start-->
@@ -54,12 +43,11 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.instructions.start-->
-The quickest way to interact with this example code is to invoke a [Single Action](#single-actions) from your command line. For example, `ruby some_example.rb` will invoke `some_example.rb`.
 <!--custom.instructions.end-->
 
-#### Hello Amazon RDS
+#### Hello Aurora
 
-This example shows you how to get started using Amazon RDS.
+This example shows you how to get started using Aurora.
 
 
 
@@ -74,18 +62,13 @@ in the `ruby` folder.
 
 
 <!--custom.tests.start-->
-
-## Contribute
-Code examples thrive on community contribution.
-
-To learn more about the contributing process, see [CONTRIBUTING.md](../../../CONTRIBUTING.md).
 <!--custom.tests.end-->
 
 ## Additional resources
 
-- [Amazon RDS User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html)
-- [Amazon RDS API Reference](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/Welcome.html)
-- [SDK for Ruby Amazon RDS reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Rds.html)
+- [Aurora User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+- [Aurora API Reference](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/Welcome.html)
+- [SDK for Ruby Aurora reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Aurora.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

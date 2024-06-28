@@ -36,7 +36,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Auto Scaling](hello.py#L4) (`DescribeAutoScalingGroups`)
+- [Hello Auto Scaling](hello/hello_autoscaling.py#L4) (`DescribeAutoScalingGroups`)
 
 
 ### Single actions

@@ -29,6 +29,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon EC2](hello/hello_ec2.rb#L4) (`DescribeSecurityGroups`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -60,6 +65,10 @@ Code excerpts that show you how to call individual service functions.
 The quickest way to interact with this example code is to invoke a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
 
 <!--custom.instructions.end-->
+
+#### Hello Amazon EC2
+
+This example shows you how to get started using Amazon EC2.
 
 
 
