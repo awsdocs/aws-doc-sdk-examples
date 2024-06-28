@@ -5,7 +5,7 @@
 
 # snippet-start:[auto-scaling.ruby.hello]
 
-require "aws-sdk-autoscaling"
+require 'aws-sdk-autoscaling'
 
 # Creates an Amazon AutoScaling client for the AWS Region
 # specified in the environment variables or AWS credentials file.
@@ -16,7 +16,7 @@ groups = autoscaling.describe_auto_scaling_groups.auto_scaling_groups
 
 # If the account has no Auto Scaling groups, print a message.
 if groups.count.zero?
-  puts "No Auto Scaling groups found for this account."
+  puts 'No Auto Scaling groups found for this account.'
 # Otherwise, print information about each Auto Scaling group.
 else
   groups.each do |group|
@@ -28,4 +28,3 @@ else
 end
 
 # snippet-end:[auto-scaling.ruby.hello]
-

@@ -30,8 +30,6 @@ def list_lambda_functions
   puts "Total functions: #{functions.count}"
 end
 
-if __FILE__ == $PROGRAM_NAME
-  list_lambda_functions
-end
+list_lambda_functions if __FILE__ == $PROGRAM_NAME
 
 # snippet-end:[ruby.lambda.Hello]

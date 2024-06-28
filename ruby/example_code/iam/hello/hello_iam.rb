@@ -14,12 +14,13 @@ params = {}
 loop do
   resp = iam.list_policies(params)
   policies.concat(resp.policies)
-  break if !resp.is_truncated
+  break unless resp.is_truncated
+
   params[:marker] = resp.marker
 end
 
 # Print the policy names
-puts "Here are the IAM policies in your account:"
+puts 'Here are the IAM policies in your account:'
 policies.each do |policy|
   puts "- #{policy.policy_name}"
 end

@@ -26,7 +26,7 @@ def hello_glue
   if jobs.empty?
     puts "You don't have any Glue jobs."
   else
-    puts "Here are the Glue jobs in your account:"
+    puts 'Here are the Glue jobs in your account:'
     jobs.each do |job|
       puts "- #{job.name}"
     end

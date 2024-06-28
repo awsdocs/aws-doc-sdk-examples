@@ -9,7 +9,7 @@ require 'aws-sdk-dynamodb'
 dynamodb = Aws::DynamoDB::Client.new
 
 # List the tables in the current AWS account
-puts "Here are the DynamoDB tables in your account:"
+puts 'Here are the DynamoDB tables in your account:'
 
 # Use pagination to list all tables, limiting the number of results per page
 table_names = []
@@ -25,11 +25,9 @@ loop do
     table_names << table_name
   end
 
-  if list_tables_response.last_evaluated_table_name
-    last_table_name = list_tables_response.last_evaluated_table_name
-  else
-    break
-  end
+  break unless list_tables_response.last_evaluated_table_name
+
+  last_table_name = list_tables_response.last_evaluated_table_name
 end
 
 if table_names.empty?

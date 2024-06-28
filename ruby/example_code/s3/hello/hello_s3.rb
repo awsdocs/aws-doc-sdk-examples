@@ -11,18 +11,15 @@ s3 = Aws::S3::Client.new
 begin
   # List the S3 buckets in your account
   response = s3.list_buckets
-  
+
   # Print the name of each bucket
-  puts "Here are the buckets in your account:"
+  puts 'Here are the buckets in your account:'
   response.buckets.each do |bucket|
     puts "- #{bucket.name}"
   end
-  
+
   # If there are no buckets, let the user know
-  if response.buckets.empty?
-    puts "You don't have any S3 buckets yet."
-  end
-  
+  puts "You don't have any S3 buckets yet." if response.buckets.empty?
 rescue Aws::Errors::ServiceError => e
   puts "Encountered an error while listing buckets: #{e.message}"
 end

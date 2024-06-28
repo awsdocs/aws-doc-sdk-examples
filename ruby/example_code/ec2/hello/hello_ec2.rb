@@ -22,4 +22,3 @@ else
   end
 end
 # snippet-end:[ec2.ruby.describe_instances.rb]
-
