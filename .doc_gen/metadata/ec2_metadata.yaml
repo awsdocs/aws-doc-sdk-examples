@@ -63,11 +63,11 @@ ec2_Hello:
     Ruby:
       versions:
         - sdk_version: 3
-          github: ruby/example_code/ #
+          github: ruby/example_code/ec2
           excerpts:
             - description:
               snippet_tags:
-                #
+                - ec2.ruby.hello_ec2
   services:
     ec2: {DescribeSecurityGroups}
 ec2_CreateKeyPair:
