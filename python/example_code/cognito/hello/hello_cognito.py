@@ -6,17 +6,19 @@
 import boto3
 
 # Create a Cognito Identity Provider client
-cognitoidp = boto3.client('cognito-idp')
+cognitoidp = boto3.client("cognito-idp")
 
 # Initialize variables for pagination
 user_pools = []
 response = cognitoidp.list_user_pools(MaxResults=10)
-user_pools.extend(response.get('UserPools', []))
+user_pools.extend(response.get("UserPools", []))
 
 # Handle pagination
-while 'NextToken' in response:
-    response = cognitoidp.list_user_pools(MaxResults=10, NextToken=response['NextToken'])
-    user_pools.extend(response.get('UserPools', []))
+while "NextToken" in response:
+    response = cognitoidp.list_user_pools(
+        MaxResults=10, NextToken=response["NextToken"]
+    )
+    user_pools.extend(response.get("UserPools", []))
 
 # Print the list of user pools
 print("User Pools for the account:")

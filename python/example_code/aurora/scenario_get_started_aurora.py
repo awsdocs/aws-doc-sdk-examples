@@ -127,7 +127,9 @@ class AuroraClusterScenario:
             engine_versions = self.aurora_wrapper.get_engine_versions(
                 db_engine, parameter_group["DBParameterGroupFamily"]
             )
-            engine_choices = [ver["EngineVersionDescription"] for ver in engine_versions]
+            engine_choices = [
+                ver["EngineVersionDescription"] for ver in engine_versions
+            ]
             print("The available engines for your parameter group are:")
             engine_index = q.choose("Which engine do you want to use? ", engine_choices)
             print(
@@ -173,7 +175,12 @@ class AuroraClusterScenario:
             inst_opts = self.aurora_wrapper.get_orderable_instances(
                 cluster["Engine"], cluster["EngineVersion"]
             )
-            inst_choices = list({opt["DBInstanceClass"] + ", storage type: " + opt["StorageType"] for opt in inst_opts})
+            inst_choices = list(
+                {
+                    opt["DBInstanceClass"] + ", storage type: " + opt["StorageType"]
+                    for opt in inst_opts
+                }
+            )
             inst_index = q.choose(
                 "Which DB instance class do you want to use? ", inst_choices
             )
@@ -181,7 +188,10 @@ class AuroraClusterScenario:
                 f"Creating a database instance. This typically takes several minutes."
             )
             db_inst = self.aurora_wrapper.create_instance_in_cluster(
-                cluster_name, cluster_name, cluster["Engine"], inst_opts[inst_index]["DBInstanceClass"]
+                cluster_name,
+                cluster_name,
+                cluster["Engine"],
+                inst_opts[inst_index]["DBInstanceClass"],
             )
             while db_inst.get("DBInstanceStatus") != "available":
                 wait(30)

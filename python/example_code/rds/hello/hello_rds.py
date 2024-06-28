@@ -13,17 +13,17 @@ import boto3
 from botocore.exceptions import ClientError
 
 # Create an RDS client
-rds_client = boto3.client('rds')
+rds_client = boto3.client("rds")
 
 try:
     # Get a list of DB instances
     response = rds_client.describe_db_instances()
 
     # Check if any instances are returned and print the appropriate message
-    if 'DBInstances' in response and response['DBInstances']:
+    if "DBInstances" in response and response["DBInstances"]:
         print("Your RDS instances are:")
-        for db in response['DBInstances']:
-            print(db['DBInstanceIdentifier'])
+        for db in response["DBInstances"]:
+            print(db["DBInstanceIdentifier"])
     else:
         print("No RDS instances found!")
 
