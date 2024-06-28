@@ -242,7 +242,7 @@ public class ECRActions {
     }
     // snippet-end:[ecr.java2.set.policy.main]
 
-    // snippet-end:[ecr.java2.verify.image.main]
+    // snippet-start:[ecr.java2.verify.image.main]
     /**
      * Verifies the existence of an image in an Amazon Elastic Container Registry (Amazon ECR) repository asynchronously.
      *
