@@ -1,0 +1,664 @@
+code:
+  standards: |
+    <standards>
+      Use the following general structure guidelines.
+        
+        Service folders with examples should follow the common structure that uses folders for Actions, Scenarios, and Tests, with a top level solution file.
+        
+        Scenarios should use .NET Dependency Injection with interfaces to set up AWS services. 
+          
+          '''
+          static async Task Main(string[] args)
+          {
+              // Set up dependency injection for the Amazon RDS service.
+              using var host = Host.CreateDefaultBuilder(args)
+                  .ConfigureLogging(logging =>
+                      logging.AddFilter("System", LogLevel.Debug)
+                          .AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Information)
+                          .AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Trace))
+                  .ConfigureServices((_, services) =>
+                      services.AddAWSService<IAmazonRDS>()
+                          .AddTransient<RDSWrapper>()
+                  )
+                  .Build();
+
+              logger = LoggerFactory.Create(builder =>
+              {
+                  builder.AddConsole();
+              }).CreateLogger<RDSInstanceScenario>();
+
+              rdsWrapper = host.Services.GetRequiredService<RDSWrapper>();
+
+              Console.WriteLine(sepBar);
+              Console.WriteLine(
+                  "Welcome to the Amazon Relational Database Service (Amazon RDS) DB instance scenario example.");
+              Console.WriteLine(sepBar);
+              await BeginScenario();
+          }
+          '''
+        
+        Scenarios should include a top-level comment block explaining the steps of the example.
+          
+          '''
+          /*
+          Before running this .NET code example, set up your development environment, including your credentials.
+      
+          This .NET example performs the following tasks:
+          1.  Returns a list of the available DB engine families using the DescribeDBEngineVersionsAsync method.
+          2.  Selects an engine family and creates a custom DB parameter group using the CreateDBParameterGroupAsync method.
+          3.  Gets the parameter groups using the DescribeDBParameterGroupsAsync method.
+          4.  Gets parameters in the group using the DescribeDBParameters method.
+          5.  Parses and displays parameters in the group.
+          6.  Modifies both the auto_increment_offset and auto_increment_increment parameters
+              using the ModifyDBParameterGroupAsync method.
+          7.  Gets and displays the updated parameters using the DescribeDBParameters method with a source of "user".
+          8.  Gets a list of allowed engine versions using the DescribeDBEngineVersionsAsync method.
+          9.  Displays and selects from a list of micro instance classes available for the selected engine and version.
+          10. Creates an RDS DB instance that contains a MySql database and uses the parameter group
+              using the CreateDBInstanceAsync method.
+          11. Waits for DB instance to be ready using the DescribeDBInstancesAsync method.
+          12. Prints out the connection endpoint string for the new DB instance.
+          13. Creates a snapshot of the DB instance using the CreateDBSnapshotAsync method.
+          14. Waits for DB snapshot to be ready using the DescribeDBSnapshots method.
+          15. Deletes the DB instance using the DeleteDBInstanceAsync method.
+          16. Waits for DB instance to be deleted using the DescribeDbInstances method.
+          17. Deletes the parameter group using the DeleteDBParameterGroupAsync.
+          */
+          '''
+        
+        Default configurations should use a settings.json file. Developer-specific configurations can be placed in a settings.local.json or settings.development.json file.
+        
+        Wrapper methods should provide additional context when calling service actions. For example, specify certain parameters and return true or false. Do not use Request/Response classes directly as the parameter and response types, and do not include a cancellation token unless the user is able to cancel the action.
+              
+              '''
+              // snippet-start:[SESWorkflow.dotnetv3.SESv2Wrapper.CreateContactList]
+              /// <summary>
+              /// Creates a contact list with the specified name.
+              /// </summary>
+              /// <param name="contactListName">The name of the contact list.</param>
+              /// <returns>True if successful.</returns>
+              public async Task<bool> CreateContactListAsync(string contactListName)
+              {
+                  var request = new CreateContactListRequest
+                  {
+                      ContactListName = contactListName
+                  };
+          
+                  try
+                  {
+                      var response = await _sesClient.CreateContactListAsync(request);
+                      return response.HttpStatusCode == HttpStatusCode.OK;
+                  }
+                  catch (AlreadyExistsException ex)
+                  {
+                      Console.WriteLine($"Contact list with name {contactListName} already exists.");
+                      Console.WriteLine(ex.Message);
+                      return true;
+                  }
+                  catch (LimitExceededException ex)
+                  {
+                      Console.WriteLine("The limit for contact lists has been exceeded.");
+                      Console.WriteLine(ex.Message);
+                  }
+                  catch (TooManyRequestsException ex)
+                  {
+                      Console.WriteLine("Too many requests were made. Please try again later.");
+                      Console.WriteLine(ex.Message);
+                  }
+                  catch (Exception ex)
+                  {
+                      Console.WriteLine($"An error occurred while creating the contact list: {ex.Message}");
+                  }
+                  return false;
+              }
+              // snippet-end:[SESWorkflow.dotnetv3.SESv2Wrapper.CreateContactList]
+              '''
+          
+          All methods should include full XML doc tags for summary, parameters, and return types.
+            
+            '''
+              /// <summary>
+              /// Creates a contact list with the specified name.
+              /// </summary>
+              /// <param name="contactListName">The name of the contact list.</param>
+              /// <returns>True if successful.</returns>
+            '''
+
+          Use file-scoped namespaces to decrease indents, instead of namespace declarations with curly braces.
+          
+          When using top-level statements, add partial classes if necessary to facilitate testing.
+          
+          When a service is added or updated, add the projects to the top-level solution so it will be included in the build/lint/format and Weathertop tests.
+      Use the following Language Features.
+          
+          Use async/await patterns if available. Do not use Task.Result for synchronizing an async method.
+          
+          Prefer var for variable declarations, and common class names such as string over String, etc.
+          
+          Use parameterized values for any query operations.
+          
+          Using statements should be outside the namespace, include no unused imports, and be ordered alphabetically.
+          
+          Prefer file-scoped namespaces to decrease indents in the published snippets.
+          
+      Use the following test guidelines.
+          
+          Use common naming for tests, such as:  VerifyAction_ExpectedResult.
+          
+          Integration tests should be marked with [Trait("Category", "Integration")]
+          
+          Use Moq framework for mocking.
+          
+          Use XUnit with ordering for tests. Following is an example test.
+              
+              '''
+              /// <summary>
+              /// Run the preparation step of the workflow. Should return successful.
+              /// </summary>
+              /// <returns>Async task.</returns>
+              [Fact]
+              [Order(1)]
+              [Trait("Category", "Unit")]
+              public async Task TestPrepareApplication()
+              {
+                  // Arrange.
+                  var mockSesV2Service = new Mock<IAmazonSimpleEmailServiceV2>();
+          
+                  mockSesV2Service.Setup(client => client.CreateEmailIdentityAsync(
+                          It.IsAny<CreateEmailIdentityRequest>(),
+                          It.IsAny<CancellationToken>()))
+                      .Returns((CreateEmailIdentityResponse r,
+                          CancellationToken token) =>
+                      {
+                          return Task.FromResult(new CreateEmailIdentityResponse()
+                          {
+                              IdentityType = IdentityType.EMAIL_ADDRESS,
+                              HttpStatusCode = HttpStatusCode.OK,
+                          });
+                      });
+          
+                  mockSesV2Service.Setup(client => client.CreateContactListAsync(
+                          It.IsAny<CreateContactListRequest>(),
+                          It.IsAny<CancellationToken>()))
+                      .Returns((CreateEmailIdentityResponse r,
+                          CancellationToken token) =>
+                      {
+                          return Task.FromResult(new CreateContactListResponse()
+                          {
+                              HttpStatusCode = HttpStatusCode.OK,
+                          });
+                      });
+          
+                  mockSesV2Service.Setup(client => client.CreateEmailTemplateAsync(
+                          It.IsAny<CreateEmailTemplateRequest>(),
+                          It.IsAny<CancellationToken>()))
+                      .Returns((CreateEmailTemplateResponse r,
+                          CancellationToken token) =>
+                      {
+                          return Task.FromResult(new CreateEmailTemplateResponse()
+                          {
+                              HttpStatusCode = HttpStatusCode.OK,
+                          });
+                      });
+          
+                  var sESv2Wrapper = new SESv2Wrapper(mockSesV2Service.Object);
+          
+                  NewsletterWorkflow._sesv2Wrapper = sESv2Wrapper;
+                  NewsletterWorkflow._verifiedEmail = "test@example.com";
+          
+                  // Act.
+                  var verifiedEmail = await NewsletterWorkflow.PrepareApplication();
+          
+                  // Assert.
+                  Assert.Equal(NewsletterWorkflow._verifiedEmail, verifiedEmail);
+              }
+              '''
+
+      Use the following Metadata Snippet Contents guidelines.
+        
+        Metadata for Action examples should contain at minimum the following snippets.
+            
+            A snippet to show the action itself within context.
+            
+            If more than one variation of the Action is included, use descriptions in the metadata to explain the differences.
+        
+        Metadata for Scenario examples can contain the entire wrapper and scenario code, but should include descriptions for both.
+    </standards>
+    <tests>
+      When implementing test behaviors, be very careful not to assume any additional behaviors. Only write
+      tests for the behaviors explicitly requested.
+      For writing unit tests remember that we are using Vitest. Do not import any mocking libraries other than those provided by vitest. Vitest requires that test methods (describe, it, expect, etc.) are explicitly imported. They are not added to the global environment. If you're not sure about the vitest API at any time, please let me know rather than making assumptions. Be sure to use the latest EcmaScript, not Typescript.
+      While vitest allows for globals, we must explicitly import any vitest functions.
+      
+      Be judicious in your mocking. For example, things like "path.join" probably don't need to be mocked
+      because it's a pure function with no i/o.
+
+      If you need to mock a js module that has a default import, make sure to include the default keyword.
+      <mocking_default_import>
+        import fs from "node:fs/promises";
+
+        vi.mock("node:fs/promises", () => ({
+        default: {
+            readFile: vi.fn(),
+            writeFile: vi.fn(),
+        },
+        }));
+
+        fs.readFile();
+      </mocking_default_import>
+
+      If you need to mock stdin or stdout, mock ScenarioInput or ScenarioOutput instead.
+
+      SDK Commands (e.g. CreateStackCommand) do not need to be mocked. We should only need to mock
+      the `send` method on SDK clients.
+
+      When testing that SDK Commands were called, be sure to test the inputs. We cannot compare
+      to instances of a command with same inputs because the test framework will compare by
+      reference instead of value.
+
+      Each test for a Scenario should run the scenario and verify outputs
+      and function calls when applicable.
+
+      <sample_unit_tests>
+        // Here is a sample unit test suite.
+        // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+        // SPDX-License-Identifier: Apache-2.0
+        import { describe, it, expect, vi, afterEach } from "vitest";
+        import { ChecksumAlgorithm } from "@aws-sdk/client-s3";
+        import * as Scenarios from "@aws-doc-sdk-examples/lib/scenario/index.js";
+        import {
+          createBucketsAction,
+          populateBucketsAction,
+          updateRetentionAction,
+          updateLockPolicyAction,
+        } from "./setup.steps.js";
+
+        describe("setup.steps.js", () => {
+          const mockClient = {
+            send: vi.fn(),
+          };
+
+          const state = {
+            noLockBucketName: "js-object-locking-no-lock",
+            lockEnabledBucketName: "js-object-locking-lock-enabled",
+            retentionBucketName: "js-object-locking-retention-after-creation",
+          };
+
+          afterEach(() => {
+            vi.resetAllMocks();
+          });
+
+          describe("createBucketsAction", () => {
+            it("should create three buckets with the correct configurations", async () => {
+              const action = createBucketsAction(Scenarios, mockClient);
+              await action.handle(state);
+
+              expect(mockClient.send).toHaveBeenCalledTimes(3);
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.noLockBucketName,
+                  },
+                }),
+              );
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.lockEnabledBucketName,
+                    ObjectLockEnabledForBucket: true,
+                  },
+                }),
+              );
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.retentionBucketName,
+                  },
+                }),
+              );
+            });
+          });
+
+          describe("populateBucketsAction", () => {
+            it("should upload six files to the three buckets", async () => {
+              const action = populateBucketsAction(Scenarios, mockClient);
+              await action.handle(state);
+
+              expect(mockClient.send).toHaveBeenCalledTimes(6);
+              for (const stateKey in state) {
+                ["file0.txt", "file1.txt"].forEach((fileName) => {
+                  expect(mockClient.send).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                      input: {
+                        Bucket: state[stateKey],
+                        Key: fileName,
+                        Body: "Content",
+                        ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
+                      },
+                    }),
+                  );
+                });
+              }
+            });
+          });
+
+          describe("updateRetentionAction", () => {
+            it("should enable versioning and set a retention period on the retention bucket", async () => {
+              const action = updateRetentionAction(Scenarios, mockClient);
+              await action.handle(state);
+
+              expect(mockClient.send).toHaveBeenCalledTimes(2);
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.retentionBucketName,
+                    VersioningConfiguration: {
+                      MFADelete: "Disabled",
+                      Status: "Enabled",
+                    },
+                  },
+                }),
+              );
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.retentionBucketName,
+                    ObjectLockConfiguration: {
+                      ObjectLockEnabled: "Enabled",
+                      Rule: {
+                        DefaultRetention: {
+                          Mode: "GOVERNANCE",
+                          Years: 1,
+                        },
+                      },
+                    },
+                  },
+                }),
+              );
+            });
+          });
+
+          describe("updateLockPolicyAction", () => {
+            it("should add an object lock policy to the lock-enabled bucket", async () => {
+              const action = updateLockPolicyAction(Scenarios, mockClient);
+              await action.handle(state);
+
+              expect(mockClient.send).toHaveBeenCalledTimes(1);
+              expect(mockClient.send).toHaveBeenCalledWith(
+                expect.objectContaining({
+                  input: {
+                    Bucket: state.lockEnabledBucketName,
+                    ObjectLockConfiguration: {
+                      ObjectLockEnabled: "Enabled",
+                    },
+                  },
+                }),
+              );
+            });
+          });
+        });
+
+      </sample_unit_tests>
+      <sample_integration_test>
+      // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+      // SPDX-License-Identifier: Apache-2.0
+      import { describe, it, expect, afterAll } from "vitest";
+      import {
+        S3Client,
+        DeleteBucketCommand,
+        ListBucketsCommand,
+        GetBucketVersioningCommand,
+        GetObjectLockConfigurationCommand,
+        ListObjectsCommand,
+        GetObjectLegalHoldCommand,
+        GetObjectRetentionCommand,
+        ListObjectVersionsCommand,
+        PutObjectLegalHoldCommand,
+        DeleteObjectCommand,
+      } from "@aws-sdk/client-s3";
+      import {
+        createBucketsAction,
+        updateRetentionAction,
+        populateBucketsAction,
+        updateLockPolicyAction,
+        setLegalHoldFileEnabledAction,
+        setRetentionPeriodFileEnabledAction,
+        setLegalHoldFileRetentionAction,
+        setRetentionPeriodFileRetentionAction,
+      } from "./setup.steps.js";
+      import * as Scenarios from "@aws-doc-sdk-examples/lib/scenario/index.js";
+
+      const bucketPrefix = "js-object-locking";
+      const client = new S3Client({});
+
+      describe("S3 Object Locking Integration Tests", () => {
+        const state = {
+          noLockBucketName: `${bucketPrefix}-no-lock`,
+          lockEnabledBucketName: `${bucketPrefix}-lock-enabled`,
+          retentionBucketName: `${bucketPrefix}-retention-after-creation`,
+        };
+
+        afterAll(async () => {
+          // Clean up resources
+          for (const bucketName of [
+            state.noLockBucketName,
+            state.lockEnabledBucketName,
+            state.retentionBucketName,
+          ]) {
+            const objectsResponse = await client.send(
+              new ListObjectVersionsCommand({ Bucket: bucketName }),
+            );
+
+            for (const version of objectsResponse.Versions || []) {
+              const { Key, VersionId } = version;
+
+              try {
+                const legalHold = await client.send(
+                  new GetObjectLegalHoldCommand({
+                    Bucket: bucketName,
+                    Key,
+                    VersionId,
+                  }),
+                );
+                if (legalHold.LegalHold?.Status === "ON") {
+                  await client.send(
+                    new PutObjectLegalHoldCommand({
+                      Bucket: bucketName,
+                      Key,
+                      VersionId,
+                      LegalHold: {
+                        Status: "OFF",
+                      },
+                    }),
+                  );
+                }
+              } catch (err) {
+                console.log(
+                  `Unable to fetch legal hold for ${Key} in ${bucketName}: '${err.message}'`,
+                );
+              }
+
+              try {
+                const retention = await client.send(
+                  new GetObjectRetentionCommand({
+                    Bucket: bucketName,
+                    Key,
+                    VersionId,
+                  }),
+                );
+                if (retention.Retention?.Mode === "GOVERNANCE") {
+                  await client.send(
+                    new DeleteObjectCommand({
+                      Bucket: bucketName,
+                      Key,
+                      VersionId,
+                      BypassGovernanceRetention: true,
+                    }),
+                  );
+                }
+              } catch (err) {
+                console.log(
+                  `Unable to fetch object lock retention for ${Key} in ${bucketName}: '${err.message}'`,
+                );
+              }
+
+              await client.send(
+                new DeleteObjectCommand({ Bucket: bucketName, Key, VersionId }),
+              );
+            }
+
+            await client.send(new DeleteBucketCommand({ Bucket: bucketName }));
+            console.log(`Delete for ${bucketName} complete.`);
+          }
+        });
+
+        it("should create buckets with correct configurations", async () => {
+          const action = createBucketsAction(Scenarios, client);
+          await action.handle(state);
+
+          const bucketList = await client.send(new ListBucketsCommand({}));
+          expect(bucketList.Buckets?.map((bucket) => bucket.Name)).toContain(
+            state.noLockBucketName,
+          );
+          expect(bucketList.Buckets?.map((bucket) => bucket.Name)).toContain(
+            state.lockEnabledBucketName,
+          );
+          expect(bucketList.Buckets?.map((bucket) => bucket.Name)).toContain(
+            state.retentionBucketName,
+          );
+        });
+
+        it("should enable versioning and set retention period on retention bucket", async () => {
+          const action = updateRetentionAction(Scenarios, client);
+          await action.handle(state);
+
+          const versioningConfig = await client.send(
+            new GetBucketVersioningCommand({ Bucket: state.retentionBucketName }),
+          );
+          expect(versioningConfig.Status).toEqual("Enabled");
+
+          const lockConfig = await client.send(
+            new GetObjectLockConfigurationCommand({
+              Bucket: state.retentionBucketName,
+            }),
+          );
+          expect(lockConfig.ObjectLockConfiguration?.ObjectLockEnabled).toEqual(
+            "Enabled",
+          );
+          expect(
+            lockConfig.ObjectLockConfiguration?.Rule?.DefaultRetention?.Mode,
+          ).toEqual("GOVERNANCE");
+          expect(
+            lockConfig.ObjectLockConfiguration?.Rule?.DefaultRetention?.Years,
+          ).toEqual(1);
+        });
+
+        it("should upload files to buckets", async () => {
+          const action = populateBucketsAction(Scenarios, client);
+          await action.handle(state);
+
+          const noLockObjects = await client.send(
+            new ListObjectsCommand({ Bucket: state.noLockBucketName }),
+          );
+          expect(noLockObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file0.txt",
+          );
+          expect(noLockObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file1.txt",
+          );
+
+          const lockEnabledObjects = await client.send(
+            new ListObjectsCommand({ Bucket: state.lockEnabledBucketName }),
+          );
+          expect(lockEnabledObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file0.txt",
+          );
+          expect(lockEnabledObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file1.txt",
+          );
+
+          const retentionObjects = await client.send(
+            new ListObjectsCommand({ Bucket: state.retentionBucketName }),
+          );
+          expect(retentionObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file0.txt",
+          );
+          expect(retentionObjects.Contents?.map((obj) => obj.Key)).toContain(
+            "file1.txt",
+          );
+        });
+
+        it("should add object lock policy to lock-enabled bucket", async () => {
+          const action = updateLockPolicyAction(Scenarios, client);
+          await action.handle(state);
+
+          const lockConfig = await client.send(
+            new GetObjectLockConfigurationCommand({
+              Bucket: state.lockEnabledBucketName,
+            }),
+          );
+          expect(lockConfig.ObjectLockConfiguration?.ObjectLockEnabled).toEqual(
+            "Enabled",
+          );
+        });
+
+        it.skip("should set legal hold on enabled file", async () => {
+          const action = setLegalHoldFileEnabledAction(Scenarios, client);
+          state.confirmSetLegalHoldFileEnabled = true;
+          await action.handle(state);
+
+          const legalHold = await client.send(
+            new GetObjectLegalHoldCommand({
+              Bucket: state.lockEnabledBucketName,
+              Key: "file0.txt",
+            }),
+          );
+          expect(legalHold.LegalHold?.Status).toEqual("ON");
+        });
+
+        it("should set retention period on enabled file", async () => {
+          const action = setRetentionPeriodFileEnabledAction(Scenarios, client);
+          state.confirmSetRetentionPeriodFileEnabled = true;
+          await action.handle(state);
+
+          const retention = await client.send(
+            new GetObjectRetentionCommand({
+              Bucket: state.lockEnabledBucketName,
+              Key: "file1.txt",
+            }),
+          );
+          expect(retention.Retention?.Mode).toEqual("GOVERNANCE");
+          expect(retention.Retention?.RetainUntilDate).toBeDefined();
+        });
+
+        it("should set legal hold on retention file", async () => {
+          const action = setLegalHoldFileRetentionAction(Scenarios, client);
+          state.confirmSetLegalHoldFileRetention = true;
+          await action.handle(state);
+
+          const legalHold = await client.send(
+            new GetObjectLegalHoldCommand({
+              Bucket: state.retentionBucketName,
+              Key: "file0.txt",
+            }),
+          );
+          expect(legalHold.LegalHold?.Status).toEqual("ON");
+        });
+
+        it("should set retention period on retention file", async () => {
+          const action = setRetentionPeriodFileRetentionAction(Scenarios, client);
+          state.confirmSetRetentionPeriodFileRetention = true;
+          await action.handle(state);
+
+          const retention = await client.send(
+            new GetObjectRetentionCommand({
+              Bucket: state.retentionBucketName,
+              Key: "file1.txt",
+            }),
+          );
+          expect(retention.Retention?.Mode).toEqual("GOVERNANCE");
+          expect(retention.Retention?.RetainUntilDate).toBeDefined();
+        });
+      });
+      </sample_integration_test>
+    </tests>

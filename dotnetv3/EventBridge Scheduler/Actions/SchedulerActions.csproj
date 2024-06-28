@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.CloudFormation" Version="3.7.308.12" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.2" />
     <PackageReference Include="AWSSDK.Scheduler" Version="3.7.300.98" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />

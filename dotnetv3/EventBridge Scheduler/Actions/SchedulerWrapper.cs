@@ -71,7 +71,8 @@ public class SchedulerWrapper
         catch (ServiceQuotaExceededException ex)
         {
             _logger.LogError($"Failed to create schedule '{name}' " +
-                             $"in schedule group '{scheduleGroupName}' due to service quota exceeded: {ex.Message}");
+                             $"in schedule group '{scheduleGroupName}' due to service quota exceeded. " +
+                             $"Please try again later: {ex.Message}.");
             return false;
         }
         catch (Exception ex)

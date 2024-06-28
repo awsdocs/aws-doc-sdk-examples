@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5455D423
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchedulerActions", "Actions\SchedulerActions.csproj", "{796910FA-6E94-460B-8CB4-97DF01B9ADC8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceScenario", "Scenarios\ServiceScenario.csproj", "{B1731AE1-381F-4044-BEBE-269FF7E24B1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchedulerScenario", "Scenarios\SchedulerScenario.csproj", "{B1731AE1-381F-4044-BEBE-269FF7E24B1F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTests", "Tests\ServiceTests.csproj", "{6046A2FC-6A39-4C2D-8DD9-AA3740B17B88}"
 EndProject
