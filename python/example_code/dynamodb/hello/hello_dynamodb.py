@@ -33,6 +33,6 @@ while True:
 if not table_names:
     print("You don't have any DynamoDB tables in your account.")
 else:
-    print(f"\nFound {table_names.length} tables.")
+    print(f"\nFound {len(table_names)} tables.")
 
 # snippet-end:[python.dynamodb.hello_dynamodb]
