@@ -34,17 +34,17 @@ public class ECRScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) {
         final String usage = """
-                Usage: <iamRoleARN> <accountId>
+            Usage: <iamRoleARN> <accountId>
 
-                Where:
-                   iamRoleARN - The IAM role ARN that has the necessary permissions to access and manage the Amazon ECR repository.
-                   accountId - Your AWS account number. 
-                """;
+            Where:
+               iamRoleARN - The IAM role ARN that has the necessary permissions to access and manage the Amazon ECR repository.
+               accountId - Your AWS account number. 
+            """;
 
-        if (args.length != 2) {
-            System.out.println(usage);
-            return;
-        }
+         if (args.length != 2) {
+             System.out.println(usage);
+             return;
+         }
 
         ECRActions ecrActions = new ECRActions();
         String iamRole = args[0];
@@ -53,22 +53,43 @@ public class ECRScenario {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("""
-            The Amazon Elastic Container Registry (ECR) is a fully-managed Docker container registry 
-            service provided by AWS. It allows developers and organizations to securely 
-            store, manage, and deploy Docker container images. 
-            ECR provides a simple and scalable way to manage container images throughout their lifecycle, 
-            from building and testing to production deployment.\s
-                        
-            The `EcrAsyncClient` interface in the AWS SDK for Java 2.x provides a set of methods to 
-            programmatically interact with the Amazon ECR service. This allows developers to 
-            automate the storage, retrieval, and management of container images as part of their application 
-            deployment pipelines. With ECR, teams can focus on building and deploying their 
-            applications without having to worry about the underlying infrastructure required to 
-            host and manage a container registry.
-            
-           This scenario walks you through how to perform key operations for this service.  
-           Let's get started...
-          """);
+             The Amazon Elastic Container Registry (ECR) is a fully-managed Docker container registry 
+             service provided by AWS. It allows developers and organizations to securely 
+             store, manage, and deploy Docker container images. 
+             ECR provides a simple and scalable way to manage container images throughout their lifecycle, 
+             from building and testing to production deployment.\s
+                         
+             The `EcrAsyncClient` interface in the AWS SDK for Java 2.x provides a set of methods to 
+             programmatically interact with the Amazon ECR service. This allows developers to 
+             automate the storage, retrieval, and management of container images as part of their application 
+             deployment pipelines. With ECR, teams can focus on building and deploying their 
+             applications without having to worry about the underlying infrastructure required to 
+             host and manage a container registry.
+             
+            This scenario walks you through how to perform key operations for this service.  
+            Let's get started...
+                       
+            You have two choices:
+            1 - Run the entire program.
+            2 - Delete an existing Amazon ECR repository named echo-text (created from a previous execution of 
+            this program that did not complete).
+            """);
+
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.trim().equalsIgnoreCase("1")) {
+                System.out.println("Continuing with the program...");
+                System.out.println("");
+                break;
+            } else if (input.trim().equalsIgnoreCase("2")) {
+                String repoName = "echo-text";
+                ecrActions.deleteECRRepository(repoName);
+                return;
+            } else {
+                // Handle invalid input.
+                System.out.println("Invalid input. Please try again.");
+            }
+        }
 
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -101,12 +122,11 @@ public class ECRScenario {
 
         } catch (IllegalArgumentException e) {
             System.err.println("Invalid repository name: " + e.getMessage());
-            e.printStackTrace();
-            return; // End the program.
+            return;
         } catch (RuntimeException e) {
             System.err.println("An error occurred while creating the ECR repository: " + e.getMessage());
             e.printStackTrace();
-            return; // End the program.
+            return;
         }
         waitForInputToContinue(scanner);
 

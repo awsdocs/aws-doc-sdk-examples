@@ -52,6 +52,93 @@ public class ECRActions {
 
     private static Logger logger = LoggerFactory.getLogger(ECRActions.class);
 
+    // snippet-start:[ecr.java2.create.repo.main]
+    /**
+     * Creates an Amazon Elastic Container Registry (Amazon ECR) repository.
+     *
+     * @param repoName the name of the repository to create.
+     * @return the Amazon Resource Name (ARN) of the created repository, or an empty string if the operation failed.
+     * @throws IllegalArgumentException     If repository name is invalid.
+     * @throws RuntimeException             if an error occurs while creating the repository.
+     */
+    public String createECRRepository(String repoName) {
+        if (repoName == null || repoName.isEmpty()) {
+            throw new IllegalArgumentException("Repository name cannot be null or empty");
+        }
+
+        CreateRepositoryRequest request = CreateRepositoryRequest.builder()
+            .repositoryName(repoName)
+            .build();
+
+        CompletableFuture<CreateRepositoryResponse> response = getAsyncClient().createRepository(request);
+        try {
+            CreateRepositoryResponse result = response.join();
+            if (result != null) {
+                System.out.println("The " + repoName + " repository was created successfully.");
+                return result.repository().repositoryArn();
+            } else {
+                throw new RuntimeException("Unexpected response type");
+            }
+        } catch (CompletionException e) {
+            Throwable cause = e.getCause();
+            if (cause instanceof EcrException ex) {
+                if ("RepositoryAlreadyExistsException".equals(ex.awsErrorDetails().errorCode())) {
+                    System.out.println("The Amazon ECR repository already exists, moving on...");
+                    DescribeRepositoriesRequest describeRequest = DescribeRepositoriesRequest.builder()
+                        .repositoryNames(repoName)
+                        .build();
+                    DescribeRepositoriesResponse describeResponse = getAsyncClient().describeRepositories(describeRequest).join();
+                    return describeResponse.repositories().get(0).repositoryArn();
+                } else {
+                    throw new RuntimeException(ex);
+                }
+            } else {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    // snippet-end:[ecr.java2.create.repo.main]
+
+    // snippet-start:[ecr.java2.delete.repo.main]
+    /**
+     * Deletes an ECR (Elastic Container Registry) repository.
+     *
+     * @param repoName the name of the repository to delete.
+     * @throws IllegalArgumentException if the repository name is null or empty.
+     * @throws EcrException if there is an error deleting the repository.
+     * @throws RuntimeException if an unexpected error occurs during the deletion process.
+     */
+    public void deleteECRRepository(String repoName) {
+        if (repoName == null || repoName.isEmpty()) {
+            throw new IllegalArgumentException("Repository name cannot be null or empty");
+        }
+
+        DeleteRepositoryRequest repositoryRequest = DeleteRepositoryRequest.builder()
+            .force(true)
+            .repositoryName(repoName)
+            .build();
+
+        CompletableFuture<DeleteRepositoryResponse> response = getAsyncClient().deleteRepository(repositoryRequest);
+        response.whenComplete((deleteRepositoryResponse, ex) -> {
+            if (deleteRepositoryResponse != null) {
+                System.out.println("You have successfully deleted the " + repoName + " repository");
+            } else {
+                Throwable cause = ex.getCause();
+                if (cause instanceof EcrException) {
+                    throw (EcrException) cause;
+                } else {
+                    throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
+                }
+            }
+        });
+
+        // Wait for the CompletableFuture to complete
+        response.join();
+    }
+    // snippet-end:[ecr.java2.delete.repo.main]
+
+
+
     private static DockerClient getDockerClient() {
         String osName = System.getProperty("os.name");
         if (osName.startsWith("Windows")) {
@@ -100,87 +187,11 @@ public class ECRActions {
         return ecrClient;
     }
 
-    // snippet-start:[ecr.java2.delete.repo.main]
-    /**
-     * Deletes an ECR (Elastic Container Registry) repository.
-     *
-     * @param repoName the name of the repository to delete.
-     * @throws IllegalArgumentException if the repository name is null or empty.
-     * @throws EcrException if there is an error deleting the repository.
-     * @throws RuntimeException if an unexpected error occurs during the deletion process.
-     */
-    public void deleteECRRepository(String repoName) {
-        if (repoName == null || repoName.isEmpty()) {
-            throw new IllegalArgumentException("Repository name cannot be null or empty");
-        }
-
-        DeleteRepositoryRequest repositoryRequest = DeleteRepositoryRequest.builder()
-            .force(true)
-            .repositoryName(repoName)
-            .build();
-
-        CompletableFuture<DeleteRepositoryResponse> response = getAsyncClient().deleteRepository(repositoryRequest);
-        response.whenComplete((deleteRepositoryResponse, ex) -> {
-            if (deleteRepositoryResponse != null) {
-                System.out.println("You have successfully deleted the " + repoName + " repository");
-            } else {
-                Throwable cause = ex.getCause();
-                if (cause instanceof EcrException) {
-                    throw (EcrException) cause;
-                } else {
-                    throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
-                }
-            }
-        });
-
-        // Wait for the CompletableFuture to complete
-        response.join();
-    }
-    // snippet-end:[ecr.java2.delete.repo.main]
 
     // snippet-start:[ecr.java2.verify.image.main]
 
-    /**
-     * Verifies the existence of an image in an Amazon Elastic Container Registry (Amazon ECR) repository asynchronously.
-     *
-     * @param repositoryName The name of the Amazon ECR repository.
-     * @param imageTag       The tag of the image to verify.
-     * @throws EcrException             if there is an error retrieving the image information from Amazon ECR.
-     * @throws CompletionException      if the asynchronous operation completes exceptionally.
-     */
-    public void verifyImage(String repositoryName, String imageTag) {
-        DescribeImagesRequest request = DescribeImagesRequest.builder()
-            .repositoryName(repositoryName)
-            .imageIds(ImageIdentifier.builder().imageTag(imageTag).build())
-            .build();
-
-        CompletableFuture<DescribeImagesResponse> response = getAsyncClient().describeImages(request);
-        response.whenComplete((describeImagesResponse, ex) -> {
-            if (ex != null) {
-                if (ex instanceof CompletionException) {
-                    Throwable cause = ex.getCause();
-                    if (cause instanceof EcrException) {
-                        throw (EcrException) cause;
-                    } else {
-                        throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
-                    }
-                } else {
-                    throw new RuntimeException("Unexpected error: " + ex.getCause());
-                }
-            } else if (describeImagesResponse != null && !describeImagesResponse.imageDetails().isEmpty()) {
-                System.out.println("Image is present in the repository.");
-            } else {
-                System.out.println("Image is not present in the repository.");
-            }
-        });
-
-        // Wait for the CompletableFuture to complete.
-        response.join();
-    }
-    // snippet-end:[ecr.java2.verify.image.main]
 
     // snippet-start:[ecr.java2.set.policy.main]
-
     /**
      * Sets the lifecycle policy for the specified repository.
      *
@@ -235,6 +246,45 @@ public class ECRActions {
     }
     // snippet-end:[ecr.java2.set.policy.main]
 
+    /**
+     * Verifies the existence of an image in an Amazon Elastic Container Registry (Amazon ECR) repository asynchronously.
+     *
+     * @param repositoryName The name of the Amazon ECR repository.
+     * @param imageTag       The tag of the image to verify.
+     * @throws EcrException             if there is an error retrieving the image information from Amazon ECR.
+     * @throws CompletionException      if the asynchronous operation completes exceptionally.
+     */
+    public void verifyImage(String repositoryName, String imageTag) {
+        DescribeImagesRequest request = DescribeImagesRequest.builder()
+            .repositoryName(repositoryName)
+            .imageIds(ImageIdentifier.builder().imageTag(imageTag).build())
+            .build();
+
+        CompletableFuture<DescribeImagesResponse> response = getAsyncClient().describeImages(request);
+        response.whenComplete((describeImagesResponse, ex) -> {
+            if (ex != null) {
+                if (ex instanceof CompletionException) {
+                    Throwable cause = ex.getCause();
+                    if (cause instanceof EcrException) {
+                        throw (EcrException) cause;
+                    } else {
+                        throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
+                    }
+                } else {
+                    throw new RuntimeException("Unexpected error: " + ex.getCause());
+                }
+            } else if (describeImagesResponse != null && !describeImagesResponse.imageDetails().isEmpty()) {
+                System.out.println("Image is present in the repository.");
+            } else {
+                System.out.println("Image is not present in the repository.");
+            }
+        });
+
+        // Wait for the CompletableFuture to complete.
+        response.join();
+    }
+    // snippet-end:[ecr.java2.verify.image.main]
+
     // snippet-start:[ecr.java2.describe.policy.main]
     /**
      * Retrieves the repository URI for the specified repository name.
@@ -250,28 +300,38 @@ public class ECRActions {
             .build();
 
         CompletableFuture<DescribeRepositoriesResponse> response = getAsyncClient().describeRepositories(request);
+        response.whenComplete((describeRepositoriesResponse, ex) -> {
+            if (ex != null) {
+                Throwable cause = ex.getCause();
+                if (cause instanceof InterruptedException) {
+                    Thread.currentThread().interrupt();
+                    String errorMessage = "Thread interrupted while waiting for asynchronous operation: " + cause.getMessage();
+                    throw new RuntimeException(errorMessage, cause);
+                } else if (cause instanceof EcrException) {
+                    throw (EcrException) cause;
+                } else {
+                    String errorMessage = "Unexpected error: " + cause.getMessage();
+                    throw new RuntimeException(errorMessage, cause);
+                }
+            } else {
+                if (describeRepositoriesResponse != null) {
+                    if (!describeRepositoriesResponse.repositories().isEmpty()) {
+                        String repositoryUri = describeRepositoriesResponse.repositories().get(0).repositoryUri();
+                        System.out.println("Repository URI found: " + repositoryUri);
+                    } else {
+                        System.out.println("No repositories found for the given name.");
+                    }
+                } else {
+                    System.err.println("No response received from describeRepositories.");
+                }
+            }
+        });
 
-        try {
-            DescribeRepositoriesResponse describeRepositoriesResponse = response.join();
-            if (!describeRepositoriesResponse.repositories().isEmpty()) {
-                return describeRepositoriesResponse.repositories().get(0).repositoryUri();
-            } else {
-                System.out.println("No repositories found for the given name.");
-            }
-        } catch (CompletionException ex) {
-            Throwable cause = ex.getCause();
-            if (cause instanceof InterruptedException) {
-                Thread.currentThread().interrupt();
-                throw new RuntimeException("Thread interrupted while waiting for asynchronous operation: " + cause.getMessage(), cause);
-            } else if (cause instanceof EcrException) {
-                throw (EcrException) cause;
-            } else {
-                String errorMessage = "Unexpected error: " + cause.getMessage();
-                throw new RuntimeException(errorMessage, cause);
-            }
-        }
+        // Ensure CompletableFuture completes before returning
+        response.join();
         return "";
     }
+
     // snippet-end:[ecr.java2.describe.policy.main]
 
     // snippet-start:[ecr.java2.get.token.main]
@@ -400,53 +460,6 @@ public class ECRActions {
     }
     // snippet-end:[ecr.java2.set.repo.policy.main]
 
-    // snippet-start:[ecr.java2.create.repo.main]
-    /**
-     * Creates an Amazon Elastic Container Registry (Amazon ECR) repository.
-     *
-     * @param repoName the name of the repository to create.
-     * @return the Amazon Resource Name (ARN) of the created repository, or an empty string if the operation failed.
-     * @throws IllegalArgumentException     If repository name is invalid.
-     * @throws RuntimeException             if an error occurs while creating the repository.
-     */
-    public String createECRRepository(String repoName) {
-        if (repoName == null || repoName.isEmpty()) {
-            throw new IllegalArgumentException("Repository name cannot be null or empty");
-        }
-
-        CreateRepositoryRequest request = CreateRepositoryRequest.builder()
-            .repositoryName(repoName)
-            .build();
-
-        CompletableFuture<CreateRepositoryResponse> response = getAsyncClient().createRepository(request);
-        try {
-            CreateRepositoryResponse result = response.join();
-            if (result != null) {
-                System.out.println("The " + repoName + " repository was created successfully.");
-                return result.repository().repositoryArn();
-            } else {
-                throw new RuntimeException("Unexpected response type");
-            }
-        } catch (CompletionException e) {
-            Throwable cause = e.getCause();
-            if (cause instanceof EcrException ex) {
-                if ("RepositoryAlreadyExistsException".equals(ex.awsErrorDetails().errorCode())) {
-                    System.out.println("The Amazon ECR repository already exists, moving on...");
-                    DescribeRepositoriesRequest describeRequest = DescribeRepositoriesRequest.builder()
-                        .repositoryNames(repoName)
-                        .build();
-                    DescribeRepositoriesResponse describeResponse = getAsyncClient().describeRepositories(describeRequest).join();
-                    return describeResponse.repositories().get(0).repositoryArn();
-                } else {
-                    throw new RuntimeException(ex);
-                }
-            } else {
-                logger.error("Unexpected error occurred: {}", e.getMessage(), e);
-                throw new RuntimeException(e);
-            }
-        }
-    }
-    // snippet-end:[ecr.java2.create.repo.main]
 
     // snippet-start:[ecr.java2.push.image.main]
     /**
@@ -483,7 +496,7 @@ public class ECRActions {
                     System.out.println("The " + imageName + " was pushed to ECR");
 
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    throw (RuntimeException) e.getCause();
                 }
                 return CompletableFuture.completedFuture(authConfig);
             });
