@@ -30,7 +30,6 @@ import software.amazon.awssdk.services.ecr.model.GetAuthorizationTokenResponse;
 import software.amazon.awssdk.services.ecr.model.GetRepositoryPolicyRequest;
 import software.amazon.awssdk.services.ecr.model.GetRepositoryPolicyResponse;
 import software.amazon.awssdk.services.ecr.model.ImageIdentifier;
-import software.amazon.awssdk.services.ecr.model.InvalidParameterException;
 import software.amazon.awssdk.services.ecr.model.Repository;
 import software.amazon.awssdk.services.ecr.model.RepositoryPolicyNotFoundException;
 import software.amazon.awssdk.services.ecr.model.SetRepositoryPolicyRequest;
