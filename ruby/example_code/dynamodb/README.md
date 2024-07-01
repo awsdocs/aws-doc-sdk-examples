@@ -77,6 +77,9 @@ functions within the same service.
 
 This example shows you how to get started using DynamoDB.
 
+```
+ruby hello/hello_dynamodb.rb
+```
 
 
 #### Get started with tables, items, and queries

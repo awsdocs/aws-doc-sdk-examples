@@ -70,6 +70,9 @@ The quickest way to interact with this example code is to invoke a [Scenario](#S
 
 This example shows you how to get started using Lambda.
 
+```
+ruby hello/hello_lambda.rb
+```
 
 
 #### Get started with functions

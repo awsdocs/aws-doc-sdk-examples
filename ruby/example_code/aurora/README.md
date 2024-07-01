@@ -49,6 +49,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 This example shows you how to get started using Aurora.
 
+```
+ruby hello/hello_aurora.rb
+```
 
 
 ### Tests
