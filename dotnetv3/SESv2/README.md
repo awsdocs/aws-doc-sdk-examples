@@ -33,22 +33,22 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateContact](../SESv2/NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L30)
-- [CreateContactList](../SESv2/NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L74)
-- [CreateEmailIdentity](../SESv2/NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L116)
-- [CreateEmailTemplate](../SESv2/NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L172)
-- [DeleteContactList](../SESv2/NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L223)
-- [DeleteEmailIdentity](../SESv2/NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L265)
-- [DeleteEmailTemplate](../SESv2/NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L307)
-- [ListContacts](../SESv2/NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L344)
-- [SendEmail](../SESv2/NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L381)
+- [CreateContact](NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L30)
+- [CreateContactList](NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L74)
+- [CreateEmailIdentity](NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L116)
+- [CreateEmailTemplate](NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L172)
+- [DeleteContactList](NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L223)
+- [DeleteEmailIdentity](NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L265)
+- [DeleteEmailTemplate](NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L307)
+- [ListContacts](NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L344)
+- [SendEmail](NewsLetterWorkflow/Sesv2Scenario/SESv2Wrapper.cs#L381)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Newsletter workflow](../SESv2/NewsLetterWorkflow/Sesv2Scenario/NewsletterWorkflow.cs)
+- [Newsletter workflow](NewsLetterWorkflow/Sesv2Scenario/NewsletterWorkflow.cs)
 
 
 <!--custom.examples.start-->
