@@ -13,6 +13,15 @@ ssm_Hello:
             - description:
               snippet_tags:
                 - ssm.java2.hello.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.Hello
   services:
     ssm: {listThings}
 ssm_DescribeParameters:
@@ -68,6 +77,16 @@ ssm_CreateOpsItem:
             - description:
               snippet_tags:
                 - ssm.java2.create_ops.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.OpsItemWrapper.decl
+                - python.example_code.ssm.CreateOpsItem
   services:
     ssm: {CreateOpsItem}
 ssm_UpdateMaintenanceWindow:
@@ -81,6 +100,16 @@ ssm_UpdateMaintenanceWindow:
             - description:
               snippet_tags:
                 - ssm.java2.update_window.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.MaintenanceWindowWrapper.decl
+                - python.example_code.ssm.UpdateMaintenanceWindow
   services:
     ssm: {UpdateMaintenanceWindow}
 ssm_CreateMaintenanceWindow:
@@ -94,6 +123,16 @@ ssm_CreateMaintenanceWindow:
             - description:
               snippet_tags:
                 - ssm.java2.create_window.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.MaintenanceWindowWrapper.decl
+                - python.example_code.ssm.CreateMaintenanceWindow
   services:
     ssm: {CreateMaintenanceWindow}
 ssm_SendCommand:
@@ -107,8 +146,32 @@ ssm_SendCommand:
             - description:
               snippet_tags:
                 - ssm.Java2.send_command.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.DocumentWrapper.decl
+                - python.example_code.ssm.SendCommand
   services:
     ssm: {SendCommand}
+ssm_ListCommandInvocations:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.DocumentWrapper.decl
+                - python.example_code.ssm.ListCommandInvocations
+  services:
+    ssm: {ListCommandInvocations}
 ssm_CreateDocument:
   languages:
     Java:
@@ -120,6 +183,16 @@ ssm_CreateDocument:
             - description:
               snippet_tags:
                 - ssm.java2.create_doc.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.DocumentWrapper.decl
+                - python.example_code.ssm.CreateDocument
   services:
     ssm: {CreateDocument}
 ssm_DescribeOpsItems:
@@ -133,8 +206,32 @@ ssm_DescribeOpsItems:
             - description:
               snippet_tags:
                 - ssm.java2.describe_ops.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.OpsItemWrapper.decl
+                - python.example_code.ssm.DescribeOpsItem
   services:
     ssm: {DescribeOpsItems}
+ssm_DeleteOpsItem:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.OpsItemWrapper.decl
+                - python.example_code.ssm.DeleteOpsItem
+  services:
+    ssm: {DeleteOpsItem}
 ssm_DeleteMaintenanceWindow:
   languages:
     Java:
@@ -146,6 +243,16 @@ ssm_DeleteMaintenanceWindow:
             - description:
               snippet_tags:
                 - ssm.java2.delete_window.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.MaintenanceWindowWrapper.decl
+                - python.example_code.ssm.DeleteMaintenanceWindow
   services:
     ssm: {DeleteMaintenanceWindow}
 ssm_DeleteDocument:
@@ -159,6 +266,16 @@ ssm_DeleteDocument:
             - description:
               snippet_tags:
                 - ssm.Java2.delete_doc.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.DocumentWrapper.decl
+                - python.example_code.ssm.DeleteDocument
   services:
     ssm: {DeleteDocument}
 ssm_UpdateOpsItem:
@@ -172,6 +289,16 @@ ssm_UpdateOpsItem:
             - description:
               snippet_tags:
                 - ssm.Java2.resolve_ops.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ssm.OpsItemWrapper.decl
+                - python.example_code.ssm.UpdateOpsItem
   services:
     ssm: {UpdateOpsItem}
 ssm_Scenario:
@@ -189,6 +316,24 @@ ssm_Scenario:
             - description:
               snippet_tags:
                 - ssm.java2.scenario.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.ssm.Scenario_GetStartedSSM
+            - description: Define a class that wraps document and command actions.
+              snippet_tags:
+                - python.example_code.ssm.DocumentWrapper.class
+            - description: Define a class that wraps ops item actions.
+              snippet_tags:
+                - python.example_code.ssm.OpsItemWrapper.class
+            - description: Define a class that wraps maintenance window actions.
+              snippet_tags:
+                - python.example_code.ssm.MaintenanceWindowWrapper.class
   services:
     ssm: {CreateOpsItem, CreateMaintenanceWindow, CreateDocument, SendCommand, CommandInvocations, DeleteMaintenanceWindow,
           UpdateOpsItem}
