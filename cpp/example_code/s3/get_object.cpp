@@ -24,7 +24,7 @@
 
 //! Routine which demonstrates getting an object in an S3 bucket.
 /*!
-  \param objectKey Name of an object in a bucket.
+  \param objectKey: Name of an object in a bucket.
   \param toBucket: Name of a bucket.
   \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.

@@ -40,10 +40,10 @@ std::condition_variable AwsDoc::S3::upload_variable;
 //! Routine which implements an async task finished callback.
 /*!
   \fn putObjectAsyncFinished()
-  \param s3Client Instance of the caller's Amazon S3 client object.
-  \param request Instance of the caller's put object request.
-  \param outcome Instance of the caller's put object outcome.
-  \param context Instance of the caller's put object call context.
+  \param s3Client: Instance of the caller's Amazon S3 client object.
+  \param request: Instance of the caller's put object request.
+  \param outcome: Instance of the caller's put object outcome.
+  \param context: Instance of the caller's put object call context.
 */
 
 // snippet-start:[s3.cpp.put_object_async_finished.code]
@@ -67,9 +67,10 @@ void putObjectAsyncFinished(const Aws::S3::S3Client *s3Client,
 
 //! Routine which demonstrates adding an object to an Amazon S3 bucket, asynchronously.
 /*!
-  \param s3Client Instance of the S3 Client.
-  \param bucketName Name of the bucket.
-  \param fileName Name of the file to put in the bucket.
+  \param s3Client: Instance of the S3 Client.
+  \param bucketName: Name of the bucket.
+  \param fileName: Name of the file to put in the bucket.
+  \return bool: Function succeeded.
 */
 
 // snippet-start:[s3.cpp.put_object_async.code]

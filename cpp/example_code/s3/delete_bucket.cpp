@@ -22,8 +22,8 @@
 
 //! Routine which demonstrates deleting an S3 bucket.
 /*!
-  \param bucketName Name of the bucket to delete.
-  \param clientConfig Aws client configuration.
+  \param bucketName: Name of the bucket to delete.
+  \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.
 */
 
