@@ -81,6 +81,7 @@ class MaintenanceWindowWrapper:
         try:
             self.ssm_client.delete_maintenance_window(WindowId=self.window_id)
             logger.info("Deleted maintenance window %s.", self.window_id)
+            print(f"Deleted maintenance window {self.name}")
             self.window_id = None
         except ClientError as err:
             logger.error(

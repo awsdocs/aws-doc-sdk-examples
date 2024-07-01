@@ -79,6 +79,7 @@ class OpsItemWrapper:
             return
         try:
             self.ssm_client.delete_ops_item(OpsItemId=self.id)
+            print(f"Deleted ops item with id {self.id}")
             self.id = None
         except ClientError as err:
             logger.error(
@@ -106,11 +107,11 @@ class OpsItemWrapper:
             ):
                 ops_items.extend(page["OpsItemSummaries"])
 
-            print(f"{len(ops_items)} ops item(s) found.")
             for item in ops_items:
                 print(
                     f"The item title is {item['Title']} and the status is {item['Status']}"
                 )
+            return len(ops_items) > 0
         except ClientError as err:
             logger.error(
                 "Couldn't describe ops item %s. Here's why: %s: %s",

@@ -66,6 +66,7 @@ class DocumentWrapper:
 
         try:
             self.ssm_client.delete_document(Name=self.name)
+            print(f"Deleted document {self.name}.")
             self.name = None
         except ClientError as err:
             logger.error(
@@ -155,8 +156,8 @@ class DocumentWrapper:
         waiter = self.ssm_client.get_waiter("command_executed")
         waiter.wait(CommandId=command_id, InstanceId=instance_id)
 
-    # snippet-start:[python.example_code.ssm.ListCommands]
-    def list_commands(self, instance_id):
+    # snippet-start:[python.example_code.ssm.ListCommandInvocations]
+    def list_command_invocations(self, instance_id):
         """
         Lists the commands for an instance.
 
@@ -164,18 +165,20 @@ class DocumentWrapper:
         :return: The list of commands.
         """
         try:
-            paginator = self.ssm_client.get_paginator("list_commands")
-            commands = []
+            paginator = self.ssm_client.get_paginator("list_command_invocations")
+            command_invocations = []
             for page in paginator.paginate(InstanceId=instance_id):
-                commands.extend(page["Commands"])
-            num_of_commands = len(commands)
-            print(f"{num_of_commands} command(s) found for instance {instance_id}.")
+                command_invocations.extend(page["CommandInvocations"])
+            num_of_commands = len(command_invocations)
+            print(
+                f"{num_of_commands} command invocation(s) found for instance {instance_id}."
+            )
 
             if num_of_commands > 10:
                 print("Displaying the first 10 commands:")
                 num_of_commands = 10
             date_format = "%A, %d %B %Y %I:%M%p"
-            for command in commands[:num_of_commands]:
+            for command in command_invocations[:num_of_commands]:
                 print(
                     f"   The time of command invocation is {command['RequestedDateTime'].strftime(date_format)}"
                 )
@@ -188,7 +191,7 @@ class DocumentWrapper:
             )
             raise
 
-    # snippet-end:[python.example_code.ssm.ListCommands]
+    # snippet-end:[python.example_code.ssm.ListCommandInvocations]
 
 
 # snippet-end:[python.example_code.ssm.DocumentWrapper.class]

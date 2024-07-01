@@ -56,7 +56,7 @@ class SsmStubber(ExampleStubber):
             "send_command", expected_parameters, response, error_code=error_code
         )
 
-    def stub_list_commands(self, command_id=None, instance_id=None, status_details=None,
+    def stub_list_command_invocations(self, command_id=None, instance_id=None, status_details=None,
                            error_code=None):
         expected_parameters = {}
         if instance_id is not None:
@@ -73,13 +73,13 @@ class SsmStubber(ExampleStubber):
             command_response["CommandId"] = command_id
 
         if instance_id is not None:
-            command_response["InstanceIds"] = [instance_id]
+            command_response["InstanceId"] = instance_id
 
         response = {
-            "Commands": [command_response]
+            "CommandInvocations": [command_response]
         }
         self._stub_bifurcator(
-            "list_commands", expected_parameters, response, error_code=error_code
+            "list_command_invocations", expected_parameters, response, error_code=error_code
         )
 
     def stub_get_parameters_by_path(self, names, values, path=ANY, error_code=None):

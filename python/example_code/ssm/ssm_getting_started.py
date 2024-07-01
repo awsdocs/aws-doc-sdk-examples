@@ -18,6 +18,7 @@ Shows how to use the AWS SDK for Python (Boto3) with AWS Systems Manager to do t
 
 import logging
 import sys
+import time
 
 from document import DocumentWrapper
 from maintenance_window import MaintenanceWindowWrapper
@@ -64,8 +65,9 @@ Let's get started..."""
             print("Create a Systems Manager maintenance window.")
             maintenance_window_name = q.ask(
                 "Please enter the maintenance window name (default is ssm-maintenance-window):",
-                q.non_empty,
             )
+            if not maintenance_window_name:
+                maintenance_window_name = "ssm-maintenance-window"
 
             self.maintenance_window_wrapper.create(
                 name=maintenance_window_name,
@@ -93,8 +95,11 @@ Let's get started..."""
                 "Create a document that defines the actions that Systems Manager performs on your EC2 instance."
             )
             document_name = q.ask(
-                "Please enter the document name (default is ssmdocument):", q.non_empty
+                "Please enter the document name (default is ssmdocument):"
             )
+
+            if not document_name:
+                document_name = "ssmdocument"
 
             self.document_wrapper.create(
                 name=document_name,
@@ -122,9 +127,10 @@ Let's get started..."""
             print(
                 """
 Now you have the option of running a command on an EC2 instance that echoes 'Hello, world!'.
-In order to run this command, you must provide the instance ID of a Linux EC2 instance. In other
-words, an instance that can run a shell script containing the echo command. For information about creating an EC2 
-instance, see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-instance-wizard.html.
+In order to run this command, you must provide the instance ID of a Linux EC2 instance. If you do
+not already have a running Linux EC2 instance in your account, you can create one using the AWS console.
+For information about creating an EC2 instance, see 
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-instance-wizard.html.
             """
             )
 
@@ -149,7 +155,7 @@ instance, see https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-ins
                 )
                 q.ask("Please hit Enter")
 
-                self.document_wrapper.list_commands(instance_id=instance_id)
+                self.document_wrapper.list_command_invocations(instance_id=instance_id)
 
             print("-" * 88)
             print("-" * 88)
@@ -190,7 +196,11 @@ or an anomaly in your infrastructure.
             )
             q.ask("Please hit Enter")
 
-            self.ops_item_wrapper.describe()
+            # It may take a second for the ops item to be available
+            counter = 0
+            while not self.ops_item_wrapper.describe() and counter < 5:
+                counter += 1
+                time.sleep(1)
 
             print(f"Now we will resolve the OpsItem {self.ops_item_wrapper.id}")
             q.ask("Please hit Enter")

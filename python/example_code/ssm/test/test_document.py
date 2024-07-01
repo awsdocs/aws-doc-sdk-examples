@@ -111,22 +111,22 @@ def test_describe_document(make_stubber, error_code):
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])
-def test_list_commands(make_stubber, error_code):
+def test_list_command_invocations(make_stubber, error_code):
     ssm_client = boto3.client("ssm")
     ssm_stubber = make_stubber(ssm_client)
     document_wrapper = DocumentWrapper(ssm_client)
     instance_id = "XXXXXXXXXXXX"
 
-    ssm_stubber.stub_list_commands(
+    ssm_stubber.stub_list_command_invocations(
         instance_id=instance_id,
         error_code=error_code,
     )
 
     if error_code is None:
-        document_wrapper.list_commands(instance_id)
+        document_wrapper.list_command_invocations(instance_id)
     else:
         with pytest.raises(ClientError) as exc_info:
-            document_wrapper.list_commands(instance_id)
+            document_wrapper.list_command_invocations(instance_id)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
