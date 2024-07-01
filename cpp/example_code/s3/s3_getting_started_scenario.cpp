@@ -46,8 +46,8 @@ namespace AwsDoc {
 
         //! Delete an S3 bucket.
         /*!
-          \param bucketName The S3 bucket's name.
-          \param client An S3 client.
+          \param bucketName: The S3 bucket's name.
+          \param client: An S3 client.
           \return bool: Function succeeded.
         */
         static bool
@@ -55,9 +55,9 @@ namespace AwsDoc {
 
         //! Delete an object in an S3 bucket.
         /*!
-          \param bucketName The S3 bucket's name.
-          \param key The key for the object in the S3 bucket.
-          \param client An S3 client.
+          \param bucketName: The S3 bucket's name.
+          \param key: The key for the object in the S3 bucket.
+          \param client: An S3 client.
           \return bool: Function succeeded.
          */
         static bool
@@ -69,9 +69,9 @@ namespace AwsDoc {
 
 //! Scenario to create, copy, and delete S3 buckets and objects.
 /*!
-  \param uploadFilePath Path to file to upload to an Amazon S3 bucket.
-  \param saveFilePath Path for saving a downloaded S3 object.
-  \param clientConfig Aws client configuration.
+  \param uploadFilePath: Path to file to upload to an Amazon S3 bucket.
+  \param saveFilePath: Path for saving a downloaded S3 object.
+  \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.
  */
 bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath,

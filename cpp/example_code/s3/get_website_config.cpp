@@ -22,8 +22,8 @@
 
 //! Routine which demonstrates getting the website configuration for an S3 bucket.
 /*!
-  \param bucketName Name of to bucket containing a website configuration.
-  \param clientConfig Aws client configuration.
+  \param bucketName: Name of to bucket containing a website configuration.
+  \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.
 */
 // snippet-start:[s3.cpp.get_website_config.code]

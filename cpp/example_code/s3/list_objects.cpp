@@ -23,9 +23,9 @@
 
 //! Routine which demonstrates listing the objects in an S3 bucket.
 /*!
-  \fn listObjects()
-  \param bucketName Name of the S3 bucket.
-  \param clientConfig Aws client configuration.
+  \param bucketName: Name of the S3 bucket.
+  \param clientConfig: Aws client configuration.
+  \return bool: Function succeeded.
  */
 
 // snippet-start:[s3.cpp.list_objects.code]

@@ -68,9 +68,9 @@ bool AwsDoc::S3::putBucketPolicy(const Aws::String &bucketName,
 // snippet-start:[s3.cpp.put_bucket_policy01.code]
 //! Build a policy JSON string.
 /*!
-  \param userArn Aws user Amazon Resource Name (ARN).
+  \param userArn: Aws user Amazon Resource Name (ARN).
       For more information, see https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-arns.
-  \param bucketName Name of a bucket.
+  \param bucketName: Name of a bucket.
   \return String: Policy as JSON string.
 */
 

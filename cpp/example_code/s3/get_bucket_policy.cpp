@@ -24,8 +24,8 @@
 
 //! Routine which demonstrates setting the ACL for an S3 bucket.
 /*!
-  \param bucketName Name of a bucket.
-  \param clientConfig Aws client configuration.
+  \param bucketName: Name of a bucket.
+  \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.
 */
 

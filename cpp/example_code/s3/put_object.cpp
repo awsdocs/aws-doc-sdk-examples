@@ -24,10 +24,10 @@
 
 //! Routine which demonstrates putting an object in an S3 bucket.
 /*!
-  \fn putObject()
-  \param bucketName Name of the bucket.
-  \param fileName Name of the file to put in the bucket.
-  \param clientConfig Aws client configuration.
+  \param bucketName: Name of the bucket.
+  \param fileName: Name of the file to put in the bucket.
+  \param clientConfig: Aws client configuration.
+  \return bool: Function succeeded.
 */
 
 // snippet-start:[s3.cpp.put_object.code]

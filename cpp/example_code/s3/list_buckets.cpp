@@ -22,8 +22,8 @@
 
 //! Routine which demonstrates listing the buckets in the current account.
 /*!
-  \fn listBuckets()
-  \param clientConfig Aws client configuration.
+  \param clientConfig: Aws client configuration.
+  \return bool: Function succeeded.
 */
 
 // snippet-start:[s3.cpp.list_buckets.code]

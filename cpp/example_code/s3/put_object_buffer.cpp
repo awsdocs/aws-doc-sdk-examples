@@ -23,10 +23,11 @@
 
 //! Routine which demonstrates putting a string as an object in an S3 bucket.
 /*!
-  \param bucketName Name of the bucket.
-  \param objectName Name for the object in the bucket.
-  \param objectContent String as content for object.
-  \param clientConfig Aws client configuration.
+  \param bucketName: Name of the bucket.
+  \param objectName: Name for the object in the bucket.
+  \param objectContent: String as content for object.
+  \param clientConfig: Aws client configuration.
+  \return bool: Function succeeded.
 */
 // snippet-start:[s3.cpp.objects.put_string_into_object_bucket]
 bool AwsDoc::S3::putObjectBuffer(const Aws::String &bucketName,

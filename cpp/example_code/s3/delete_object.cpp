@@ -22,9 +22,9 @@
 
 //! Routine which demonstrates deleting an object in an S3 bucket.
 /*!
-  \param objectKey Name of an object.
-  \param fromBucket Name of a bucket with an object to delete.
-  \param clientConfig Aws client configuration.
+  \param objectKey: Name of an object.
+  \param fromBucket: Name of a bucket with an object to delete.
+  \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.
 */
 

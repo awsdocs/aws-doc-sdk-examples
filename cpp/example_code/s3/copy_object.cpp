@@ -22,10 +22,10 @@
 
 //! Routine which demonstrates copying an object between two S3 buckets.
 /*!
-  \param objectKey Key of object in from bucket.
-  \param fromBucket Name of from bucket.
-  \param toBucket Name of to bucket.
-  \param clientConfig Aws client configuration.
+  \param objectKey: Key of object in from bucket.
+  \param fromBucket: Name of from bucket.
+  \param toBucket: Name of to bucket.
+  \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.
 */
 

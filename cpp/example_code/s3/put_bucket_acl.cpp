@@ -33,15 +33,15 @@ static Aws::S3::Model::Type setGranteeType(const Aws::String &type);
 
 //! Routine which demonstrates setting the ACL for an S3 bucket.
 /*!
-  \param bucketName Name of from bucket.
-  \param ownerID The canonical ID of the bucket owner.
+  \param bucketName: Name of from bucket.
+  \param ownerID: The canonical ID of the bucket owner.
    For more information see https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html.
-  \param granteePermission The access level to enable for the grantee.
-  \param granteeType The type of grantee.
-  \param granteeID The canonical ID of the grantee.
-  \param granteeEmailAddress The email address associated with the grantee's AWS account.
-  \param granteeURI The URI of a built-in access group.
-  \param clientConfig Aws client configuration.
+  \param granteePermission: The access level to enable for the grantee.
+  \param granteeType: The type of grantee.
+  \param granteeID: The canonical ID of the grantee.
+  \param granteeEmailAddress: The email address associated with the grantee's AWS account.
+  \param granteeURI: The URI of a built-in access group.
+  \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.
 */
 // snippet-start:[s3.cpp.put_bucket_acl.code]
@@ -103,7 +103,8 @@ bool AwsDoc::S3::putBucketAcl(const Aws::String &bucketName, const Aws::String &
 
 //! Routine which converts a human-readable string to a built-in type enumeration.
 /*!
- \param access Human readable string.
+ \param access: Human readable string.
+ \return Permission: A Permission enum.
 */
 
 Aws::S3::Model::Permission setGranteePermission(const Aws::String &access) {
@@ -122,7 +123,7 @@ Aws::S3::Model::Permission setGranteePermission(const Aws::String &access) {
 
 //! Routine which converts a human-readable string to a built-in type enumeration.
 /*!
- \param type Human readable string.
+ \param type: Human readable string.
  \return Type: Type enumeration
 */
 

@@ -88,7 +88,7 @@ class MyHttpClientFactory : public Aws::Http::HttpClientFactory {
 
 //! Routine which demonstrates configuring a website for an S3 bucket.
 /*!
-  \param clientConfig Aws client configuration.
+  \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.
 */
 bool AwsDoc::S3::listBucketDisablingDnsCache(const Aws::S3::S3ClientConfiguration &clientConfig) {
