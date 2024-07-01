@@ -1,6 +1,6 @@
-# Amazon S3 Object Lock Workflow - Technical specification
+# Amazon S3 Object Integrity Workflow - Technical specification
 
-This document contains the technical specifications for _Amazon S3 Object Lock Workflow_,
+This document contains the technical specifications for _Amazon S3 Integrity Lock Workflow_,
 a workflow scenario that showcases AWS services and SDKs. It is primarily intended for the AWS code
 examples team to use while developing this example in additional languages.
 
@@ -22,455 +22,143 @@ For an introduction, see the [README.md](README.md).
 ## Resources and User Input
 
 - Amazon Simple Storage Service (Amazon S3) Buckets and objects (created in the scenario)
-  - One bucket with no locking features enabled.
-  - One bucket with object lock enabled on creation.
-  - One bucket with object lock enabled after creation.
-  - One bucket with a default retention period.
+  - One bucket to upload files to.
 
+A file that is at least 10 MB is needed to demonstrate multi-part uploads.
+This file is create by writing the workspace source file repeated to a new
+file in the working directory.
 Example:
 ```
-S3 buckets can be created either with or without object lock enabled.
-        Creating bucket dotnet-s3-lock-example0-no-lock with object lock False.
-        Creating bucket dotnet-s3-lock-example0-lock-enabled with object lock True.
-        Creating bucket dotnet-s3-lock-example0-retention-after-creation with object lock False.
-Press Enter to continue.
+This workflow demonstrates how Amazon S3 uses checksum values to verify the integrity of data
+uploaded to Amazon S3 buckets
+The AWS SDK for C++ automatically handles checksums.
+By default it calculates a checksum that is uploaded with an object.
+The default checksum algorithm for PutObject and MultiPart upload is an MD5 hash.
+The default checksum algorithm for TransferManager uploads is a CRC32 checksum.
+You can override the default behavior, requiring one of the following checksums,
+MD5, CRC32, CRC32C, SHA-1 or SHA-256.
+You can also set the checksum hash value, instead of letting the SDK calculate the value.
+For more information, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html.
+This workflow will locally compute checksums for files uploaded to an Amazon S3 bucket,
+even when the SDK also computes the checksum.
+This is done to provide demonstration code for how the checksums are calculated.
+A bucket named 'integrity-workflow-92e7e370-b096-4b7f-bf24-7d3496a19772' will be created for the object uploads.
+Created bucket integrity-workflow-92e7e370-b096-4b7f-bf24-7d3496a19772 in the specified AWS Region.
 
-
-A bucket can be configured to use object locking with a default retention period.
-        Added a default retention to bucket dotnet-s3-lock-example0-retention-after-creation.
-Press Enter to continue.
-
-
-Object lock policies can also be added to existing buckets.
-        Added an object lock policy to bucket dotnet-s3-lock-example0-lock-enabled.
-Press Enter to continue.
 
 ```
-- Amazon S3 objects created in the scenario:
-  - Two files in each bucket, so that different settings can be applied.
-  - For Object Lock and Retention Period settings, the user should be given the option to add these settings.
-    - For Retention Period, only Governance mode should be used, since Compliance mode cannot be removed even by the root user.
-    
+The user chooses the hash method. They also choose whether to let the SDK calculate hashes
+or to use a hash calculated by this app.
 Example:
 
 ```
-Now let's add some test files:
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-no-lock.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example0-no-lock.
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-lock-enabled.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example0-lock-enabled.
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-retention-after-creation.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example0-retention-after-creation.
-Press Enter to continue.
-
-
-Now we can set some object lock policies on individual files:
-
-Would you like to add a legal hold to dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled? (y/n)
-y
-        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled.
-
-Would you like to add a 1 day Governance retention period to dotnet-example-file1.txt in dotnet-s3-lock-example0-lock-enabled? (y/n)
-Reminder: Only a user with the s3:BypassGovernanceRetention permission will be able to delete this file or its bucket until the retention period has expired.
-y
+Choose from one of the following checksum algorithms.
+  1 - Default
+  2 - MD5
+  3 - CRC32
+  4 - CRC32C
+  5 - SHA1
+  6 - SHA256
+Enter an index: 3
+Let the SDK calculate the checksum for you? (y/n) n
 ```
 
-- Locking Options
-  - In order to cover all the example topics in the S3 guide section, the workflow covers attempting to delete, overwrite, and view object lock and retention settings for a file. This section should provide a menu of options to the user so they can observe the results on the locked and unlocked files.
-
+The workflow demonstrates object integrity for PutObject. The hash
+is always calculated in the app, providing the user with example code
+demonstrating hash calculation. Hashes are downloaded from the server
+and compared to locally calculated hashes.
 Example
 ```
-Explore the S3 locking features by selecting one of the following choices:
-        1. List all files in buckets.
-        2. Attempt to delete a file.
-        3. Attempt to delete a file with retention period bypass.
-        4. Attempt to overwrite a file.
-        5. View the object and bucket retention settings for a file.
-        6. View the legal hold settings for a file.
-        7. Finish the workflow.
-        
-6
---------------------------------------------------------------------------------
+The workflow will now upload a file using PutObject.
+Object integrity will be verified using the CRC32 algorithm.
+A checksum computed by this workflow will be used for object integrity verification,
+except for the TransferManager upload.
+Press Enter to continue...
 
-Current buckets and objects:
+***************************************************************************************
 
-1: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-2: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-3: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
-4: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
-5: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-retention-after-creation
-        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
-6: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-retention-after-creation
-        Version: 5aHizC1XBao6nnTyLnbiaOEmKAVSIy6R
-
-Enter the number of the object to view:
-3
-        Object legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled:
-        Status: ON
---------------------------------------------------------------------------------
+Object successfully uploaded.
+The upload was successful.
+If the checksums had not matched, the upload would have failed.
+The checksums calculated by the server have been retrieved using the GetObjectAttributes.
+The locally calculated checksums have been verified against the retrieved checksums.
+For PutObject upload retrieved hash is AP39dw==
+For PutObject upload, locally and remotely calculated hashes all match!
 ```
-- Cleanup
-  - The workflow should get the full list of objects, and remove all locks before deleting the objects and buckets.
-    - Object locks should be removed.
-    - Governance Retention periods should be bypassed using the BypassGovernanceRetention header.
-    - All versions should be deleted.
-    - The user should be notified if the delete operation cannot occur.
-
+The workflow repeats this process with the TransferManager, uploading the 
+large file using the multi-part upload APIs. In the case of the TransferManager,
+SDK calculated APIs are always used, because of difficulties using locally calculated
+hashes.
 Example:
 
 ```
---------------------------------------------------------------------------------
-Welcome to the Amazon Simple Storage Service (S3) Object Locking Workflow Scenario.
---------------------------------------------------------------------------------
+Now the workflow will demonstrate object integrity for TransferManager multi-part uploads.
+The AWS C++ SDK has a TransferManager class which simplifies multipart uploads.
+The following code lets the TransferManager handle much of the checksum configuration.
+An object with the key 'tr_CRC32_large_test_file.cpp will be uploaded by the TransferManager using a 5 MB buffer.
+For TransferManager uploads, this demo always lets the SDK calculate the hash value.
+Press Enter to continue...
 
-For this workflow, we will use the AWS SDK for .NET to create several S3
-buckets and files to demonstrate working with S3 locking features.
+***************************************************************************************
 
---------------------------------------------------------------------------------
-Press Enter when you are ready to start.
-
-
-S3 buckets can be created either with or without object lock enabled.
-        Creating bucket dotnet-s3-lock-example0-no-lock with object lock False.
-        Creating bucket dotnet-s3-lock-example0-lock-enabled with object lock True.
-        Creating bucket dotnet-s3-lock-example0-retention-after-creation with object lock False.
-Press Enter to continue.
-
-
-A bucket can be configured to use object locking with a default retention period.
-        Added a default retention to bucket dotnet-s3-lock-example0-retention-after-creation.
-Press Enter to continue.
-
-
-Object lock policies can also be added to existing buckets.
-        Added an object lock policy to bucket dotnet-s3-lock-example0-lock-enabled.
-Press Enter to continue.
-
-
-Now let's add some test files:
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-no-lock.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example0-no-lock.
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-lock-enabled.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example0-lock-enabled.
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-retention-after-creation.
-        Successfully uploaded dotnet-example-file1.txt to dotnet-s3-lock-example0-retention-after-creation.
-Press Enter to continue.
-
-
-Now we can set some object lock policies on individual files:
-
-Would you like to add a legal hold to dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled? (y/n)
-y
-        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled.
-
-Would you like to add a 1 day Governance retention period to dotnet-example-file1.txt in dotnet-s3-lock-example0-lock-enabled? (y/n)
-Reminder: Only a user with the s3:BypassGovernanceRetention permission will be able to delete this file or its bucket until the retention period has expired.
-y
-        Set retention for dotnet-example-file1.txt in dotnet-s3-lock-example0-lock-enabled until 2/28/2024.
-
-Would you like to add a legal hold to dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation? (y/n)
-y
-        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation.
-
-Would you like to add a 1 day Governance retention period to dotnet-example-file1.txt in dotnet-s3-lock-example0-retention-after-creation? (y/n)
-Reminder: Only a user with the s3:BypassGovernanceRetention permission will be able to delete this file or its bucket until the retention period has expired.
-y
-        Set retention for dotnet-example-file1.txt in dotnet-s3-lock-example0-retention-after-creation until 2/28/2024.
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-
-Explore the S3 locking features by selecting one of the following choices:
-        1. List all files in buckets.
-        2. Attempt to delete a file.
-        3. Attempt to delete a file with retention period bypass.
-        4. Attempt to overwrite a file.
-        5. View the object and bucket retention settings for a file.
-        6. View the legal hold settings for a file.
-        7. Finish the workflow.
-1
---------------------------------------------------------------------------------
-
-Current buckets and objects:
-
-1: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-2: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-3: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
-4: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
-5: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-retention-after-creation
-        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
-6: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-retention-after-creation
-        Version: 5aHizC1XBao6nnTyLnbiaOEmKAVSIy6R
---------------------------------------------------------------------------------
-
-Explore the S3 locking features by selecting one of the following choices:
-        1. List all files in buckets.
-        2. Attempt to delete a file.
-        3. Attempt to delete a file with retention period bypass.
-        4. Attempt to overwrite a file.
-        5. View the object and bucket retention settings for a file.
-        6. View the legal hold settings for a file.
-        7. Finish the workflow.
-2
---------------------------------------------------------------------------------
-
-Enter the number of the object to delete:
-
-Current buckets and objects:
-
-1: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-2: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-3: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
-4: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
-5: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-retention-after-creation
-        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
-6: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-retention-after-creation
-        Version: 5aHizC1XBao6nnTyLnbiaOEmKAVSIy6R
-6
-        Unable to delete object dotnet-example-file1.txt in bucket dotnet-s3-lock-example0-retention-after-creation: Access Denied
---------------------------------------------------------------------------------
-
-Explore the S3 locking features by selecting one of the following choices:
-        1. List all files in buckets.
-        2. Attempt to delete a file.
-        3. Attempt to delete a file with retention period bypass.
-        4. Attempt to overwrite a file.
-        5. View the object and bucket retention settings for a file.
-        6. View the legal hold settings for a file.
-        7. Finish the workflow.
-3
---------------------------------------------------------------------------------
-
-Enter the number of the object to delete:
-
-Current buckets and objects:
-
-1: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-2: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-3: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
-4: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
-5: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-retention-after-creation
-        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
-6: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-retention-after-creation
-        Version: 5aHizC1XBao6nnTyLnbiaOEmKAVSIy6R
-6
-Deleted dotnet-example-file1.txt in dotnet-s3-lock-example0-retention-after-creation.
---------------------------------------------------------------------------------
-
-Explore the S3 locking features by selecting one of the following choices:
-        1. List all files in buckets.
-        2. Attempt to delete a file.
-        3. Attempt to delete a file with retention period bypass.
-        4. Attempt to overwrite a file.
-        5. View the object and bucket retention settings for a file.
-        6. View the legal hold settings for a file.
-        7. Finish the workflow.
-4
---------------------------------------------------------------------------------
-
-Current buckets and objects:
-
-1: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-2: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-3: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
-4: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
-5: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-retention-after-creation
-        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
-
-Enter the number of the object to overwrite:
-5
-        Successfully uploaded dotnet-example-file0.txt to dotnet-s3-lock-example0-retention-after-creation.
---------------------------------------------------------------------------------
-
-Explore the S3 locking features by selecting one of the following choices:
-        1. List all files in buckets.
-        2. Attempt to delete a file.
-        3. Attempt to delete a file with retention period bypass.
-        4. Attempt to overwrite a file.
-        5. View the object and bucket retention settings for a file.
-        6. View the legal hold settings for a file.
-        7. Finish the workflow.
-5
---------------------------------------------------------------------------------
-
-Current buckets and objects:
-
-1: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-2: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-3: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
-4: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
-5: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-retention-after-creation
-        Version: xTlwkuQ_l9uKZoksfHKCHRjNNXLuEqCi
-6: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-retention-after-creation
-        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
-
-Enter the number of the object and bucket to view:
-5
-        Object retention for dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation:
-        GOVERNANCE until 2/28/2024.
-        Bucket object lock config for dotnet-s3-lock-example0-retention-after-creation in dotnet-s3-lock-example0-retention-after-creation:
-        Enabled: Enabled
-        Rule: Amazon.S3.Model.DefaultRetention
---------------------------------------------------------------------------------
-
-Explore the S3 locking features by selecting one of the following choices:
-        1. List all files in buckets.
-        2. Attempt to delete a file.
-        3. Attempt to delete a file with retention period bypass.
-        4. Attempt to overwrite a file.
-        5. View the object and bucket retention settings for a file.
-        6. View the legal hold settings for a file.
-        7. Finish the workflow.
-6
---------------------------------------------------------------------------------
-
-Current buckets and objects:
-
-1: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-2: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-no-lock
-        Version: null
-3: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: GY4S9LbwYsglEhq3FY5I0tvc85peaplB
-4: dotnet-example-file1.txt
-        Bucket: dotnet-s3-lock-example0-lock-enabled
-        Version: h4BEwfBUtanzdrDFbnqLfqxJflYQ2_9g
-5: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-retention-after-creation
-        Version: xTlwkuQ_l9uKZoksfHKCHRjNNXLuEqCi
-6: dotnet-example-file0.txt
-        Bucket: dotnet-s3-lock-example0-retention-after-creation
-        Version: X22KoUqO4DRfrHgNnS_4ZDf7bpR4eKc6
-
-Enter the number of the object to view:
-3
-        Object legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled:
-        Status: ON
---------------------------------------------------------------------------------
-
-Explore the S3 locking features by selecting one of the following choices:
-        1. List all files in buckets.
-        2. Attempt to delete a file.
-        3. Attempt to delete a file with retention period bypass.
-        4. Attempt to overwrite a file.
-        5. View the object and bucket retention settings for a file.
-        6. View the legal hold settings for a file.
-        7. Finish the workflow.
-7
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-Cleaning up resources.
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-Do you want to clean up all files and buckets? (y/n)
-y
-        Unable to fetch legal hold: 'Bucket is missing Object Lock Configuration'
-        Unable to fetch object lock retention: 'Bucket is missing Object Lock Configuration'
-Deleted dotnet-example-file0.txt in dotnet-s3-lock-example0-no-lock.
-        Unable to fetch legal hold: 'Bucket is missing Object Lock Configuration'
-        Unable to fetch object lock retention: 'Bucket is missing Object Lock Configuration'
-Deleted dotnet-example-file1.txt in dotnet-s3-lock-example0-no-lock.
-        Object legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled:
-        Status: ON
-        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled.
-        Unable to fetch object lock retention: 'The specified object does not have a ObjectLock configuration'
-Deleted dotnet-example-file0.txt in dotnet-s3-lock-example0-lock-enabled.
-        Unable to fetch legal hold: 'The specified object does not have a ObjectLock configuration'
-        Object retention for dotnet-example-file1.txt in dotnet-s3-lock-example0-lock-enabled:
-        GOVERNANCE until 2/28/2024.
-Deleted dotnet-example-file1.txt in dotnet-s3-lock-example0-lock-enabled.
-        Unable to fetch legal hold: 'The specified object does not have a ObjectLock configuration'
-        Object retention for dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation:
-        GOVERNANCE until 2/28/2024.
-Deleted dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation.
-        Object legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation:
-        Status: ON
-        Modified legal hold for dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation.
-        Object retention for dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation:
-        GOVERNANCE until 2/28/2024.
-Deleted dotnet-example-file0.txt in dotnet-s3-lock-example0-retention-after-creation.
-        Delete for dotnet-s3-lock-example0-no-lock complete.
-        Delete for dotnet-s3-lock-example0-lock-enabled complete.
-        Delete for dotnet-s3-lock-example0-retention-after-creation complete.
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-Amazon S3 Object Locking Workflow is complete.
---------------------------------------------------------------------------------
+Uploading the file...
+For TransferManager upload retrieved hash is 7YCXxg==
+6 part hash(es) were also retrieved.
+  Part hash rCTaNA==
+  Part hash yOLe+Q==
+  Part hash I60aeg==
+  Part hash boj9Ew==
+  Part hash 0tmIfQ==
+  Part hash 6/tRKA==
+For TransferManager upload, locally and remotely calculated hashes all match!
 ```
 
----
+The workflow demonstrates hashing using the multi-part upload APIs. In this case,
+locally calculated hashes are used if the user selected that option.
+
+```
+Now we will provide an in-depth demonstration of multi-part uploading by calling the multi-part upload APIs directly.
+These are the same APIs used by the TransferManager when uploading large files.
+In the following code, the checksums are also calculated locally and then compared.
+For multi-part uploads, a checksum is uploaded with each part. The final checksum is a concatenation of
+the checksums for each part.
+This is explained in the user guide, https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html," in the section "Using part-level checksums for multipart uploads".
+Starting multipart upload of with hash method CRC32 uploading to with object key
+'mp_CRC32_large_test_file.cpp',
+Press Enter to continue...
+
+Uploading part 1.
+Uploading part 2.
+Uploading part 3.
+Uploading part 4.
+Uploading part 5.
+Uploading part 6.
+Multipart upload completed.
+Finished multipart upload of with hash method CRC32
+Now we will retrieve the checksums from the server.
+For MultiPart upload retrieved hash is 7YCXxg==
+6 part hash(es) were also retrieved.
+  Part hash rCTaNA==
+  Part hash yOLe+Q==
+  Part hash I60aeg==
+  Part hash boj9Ew==
+  Part hash 0tmIfQ==
+  Part hash 6/tRKA==
+For MultiPart upload, locally and remotely calculated hashes all match!
+```
+
+The user is given the option to delete the resources created by this workflow.
 
 ## Metadata
 
 | action / scenario            | metadata file    | metadata key                      |
 |------------------------------|------------------| --------------------------------- |
-| `GetObjectLegalHold`         | s3_metadata.yaml | s3_GetObjectLegalHoldConfiguration   |
-| `GetObjectLockConfiguration` | s3_metadata.yaml | s3_GetObjectLockConfiguration   |
-| `GetObjectRetention`         | s3_metadata.yaml | s3_GetObjectRetention   |
-| `PutObjectLegalHold`         | s3_metadata.yaml | s3_PutObjectLegalHold   |
-| `PutObjectLockConfiguration` | s3_metadata.yaml | s3_PutObjectLockConfiguration   |
-| `PutObjectRetention`         | s3_metadata.yaml | s3_PutObjectRetention   |
-| `PutObjectLockConfiguration` | s3_metadata.yaml | s3_PutDefaultObjectLockConfiguration  |
+| `AbortMultipartUpload`         | s3_metadata.yaml | s3_GetObjectLegalHoldConfiguration   |
+| `CreateMultipartUpload` | s3_metadata.yaml | s3_GetObjectLockConfiguration   |
+| `DeleteObject`         | s3_metadata.yaml | s3_GetObjectRetention   |
+| `GetObjectAttributes`         | s3_metadata.yaml | s3_PutObjectLegalHold   |
+| `PutObjectRequest` | s3_metadata.yaml | s3_PutObjectLockConfiguration   |
+| `UploadPartRequest`         | s3_metadata.yaml | s3_PutObjectRetention   |
+| `CompleteMultipartUpload` | s3_metadata.yaml | s3_PutDefaultObjectLockConfiguration  |
 | `S3 Object Lock Scenario`    | s3_metadata.yaml | s3_Scenario_ObjectLock   |
 

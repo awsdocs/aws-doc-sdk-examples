@@ -3,7 +3,7 @@
 ## Overview
 
 - The workflow demonstrates how to use the AWS SDK for C++ to verify the integrity of objects uploaded to Amazon S3.
-- It shows how object integrity is verified for different upload methods: PutObject, Transfer Manager, and Multipart Upload.
+- It shows how object integrity is verified for different upload methods: PutObject, TransferManager, and multipart upload.
 - The workflow demonstrates the use of all 5 hash algorithms supported by S3 for object verification: MD5, CRC32, CRC32C, SHA1, and SHA256.
 - This workflow demonstrates the different options provided by the SDK for hashing.
 - To demonstrate how the hashes are calculated, the workflow calculates the hashes in the code and compares the results with the hashes calculated automatically by the SDK.

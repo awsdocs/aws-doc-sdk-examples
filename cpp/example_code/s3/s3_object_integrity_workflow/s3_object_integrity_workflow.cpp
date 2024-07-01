@@ -571,8 +571,14 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
 
     printAsterisksLine();
 
-
-    return cleanUp(bucketName, clientConfiguration);
+    if (askYesNoQuestion("Would you like to delete the resources created in this workflow? (y/n)"))
+    {
+        return cleanUp(bucketName, clientConfiguration);
+    }
+    else {
+        std::cout << "The bucket " << bucketName << " was not deleted." << std::endl;
+        return true;
+    }
 }
 
 //! Routine which uploads an object to an S3 bucket and calculates a hash value for the object.
