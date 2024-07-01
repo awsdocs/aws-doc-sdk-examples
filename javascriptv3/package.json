@@ -2,8 +2,10 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "npm run test --workspaces --if-present -- --reporter verbose",
-    "integration-test": "npm run integration-test --workspaces --if-present -- --reporter verbose",
+    "test": "npm run test --workspaces --if-present",
+    "integration-test": "npm run integration-test --workspaces --if-present -- --silent; npm run merge-test-results; npm run log-tests",
+    "merge-test-results": "jrm test-results.xml \"**/test_results/**/*.junit.xml\"",
+    "log-tests": "cat test-results.xml",
     "lint": "lint-staged",
     "ci-lint": "eslint"
   },
@@ -73,6 +75,7 @@
     "eslint": "^8.49.0",
     "eslint-import-resolver-typescript": "^3.6.0",
     "eslint-plugin-import": "^2.28.1",
+    "junit-report-merger": "^7.0.0",
     "lint-staged": "^14.0.1",
     "prettier": "^3.2.5",
     "typescript": "^5.2.2",

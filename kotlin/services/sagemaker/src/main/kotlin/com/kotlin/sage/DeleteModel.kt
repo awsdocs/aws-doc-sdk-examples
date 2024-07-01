@@ -17,7 +17,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <modelName>
@@ -37,10 +36,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[sagemaker.kotlin.delete_model.main]
 suspend fun deleteSagemakerModel(modelNameVal: String?) {
-
-    val request = DeleteModelRequest {
-        modelName = modelNameVal
-    }
+    val request =
+        DeleteModelRequest {
+            modelName = modelNameVal
+        }
 
     SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
         sageMakerClient.deleteModel(request)

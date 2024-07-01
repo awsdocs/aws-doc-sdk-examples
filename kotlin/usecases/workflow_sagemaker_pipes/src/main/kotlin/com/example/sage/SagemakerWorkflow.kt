@@ -129,7 +129,7 @@ suspend fun main(args: Array<String>) {
          Amazon SageMaker pipeline. The pipeline uses an AWS Lambda function and an
          Amazon SQS Queue. It runs a vector enrichment reverse geocode job to
          reverse geocode addresses in an input file and store the results in an export file.
-        """.trimIndent()
+        """.trimIndent(),
     )
     println(DASHES)
 
@@ -167,7 +167,7 @@ suspend fun main(args: Array<String>) {
         """
              The pipeline has completed. To view the pipeline and runs in SageMaker Studio, follow these instructions:
              https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines-studio.html
-        """.trimIndent()
+        """.trimIndent(),
     )
     println(DASHES)
 

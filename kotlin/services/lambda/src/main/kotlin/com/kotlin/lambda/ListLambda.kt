@@ -16,17 +16,16 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main() {
-
     println("List your AWS Lambda functions")
     listFunctions()
 }
 
 // snippet-start:[lambda.kotlin.list.main]
 suspend fun listFunctions() {
-
-    val request = ListFunctionsRequest {
-        maxItems = 10
-    }
+    val request =
+        ListFunctionsRequest {
+            maxItems = 10
+        }
 
     LambdaClient { region = "us-west-2" }.use { awsLambda ->
         val response = awsLambda.listFunctions(request)

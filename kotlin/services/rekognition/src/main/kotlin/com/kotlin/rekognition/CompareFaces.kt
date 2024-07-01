@@ -20,7 +20,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: <pathSource> <pathTarget>
 
@@ -41,25 +40,31 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[rekognition.kotlin.compare_faces.main]
-suspend fun compareTwoFaces(similarityThresholdVal: Float, sourceImageVal: String, targetImageVal: String) {
-
+suspend fun compareTwoFaces(
+    similarityThresholdVal: Float,
+    sourceImageVal: String,
+    targetImageVal: String,
+) {
     val sourceBytes = (File(sourceImageVal).readBytes())
     val targetBytes = (File(targetImageVal).readBytes())
 
     // Create an Image object for the source image.
-    val souImage = Image {
-        bytes = sourceBytes
-    }
+    val souImage =
+        Image {
+            bytes = sourceBytes
+        }
 
-    val tarImage = Image {
-        bytes = targetBytes
-    }
+    val tarImage =
+        Image {
+            bytes = targetBytes
+        }
 
-    val facesRequest = CompareFacesRequest {
-        sourceImage = souImage
-        targetImage = tarImage
-        similarityThreshold = similarityThresholdVal
-    }
+    val facesRequest =
+        CompareFacesRequest {
+            sourceImage = souImage
+            targetImage = tarImage
+            similarityThreshold = similarityThresholdVal
+        }
 
     RekognitionClient { region = "us-east-1" }.use { rekClient ->
 
@@ -70,14 +75,16 @@ suspend fun compareTwoFaces(similarityThresholdVal: Float, sourceImageVal: Strin
             for (match: CompareFacesMatch in faceDetails) {
                 val face = match.face
                 val position = face?.boundingBox
-                if (position != null)
+                if (position != null) {
                     println("Face at ${position.left} ${position.top} matches with ${face.confidence} % confidence.")
+                }
             }
         }
 
         val uncompared = compareFacesResult.unmatchedFaces
-        if (uncompared != null)
+        if (uncompared != null) {
             println("There was ${uncompared.size} face(s) that did not match")
+        }
 
         println("Source image rotation: ${compareFacesResult.sourceImageOrientationCorrection}")
         println("target image rotation: ${compareFacesResult.targetImageOrientationCorrection}")

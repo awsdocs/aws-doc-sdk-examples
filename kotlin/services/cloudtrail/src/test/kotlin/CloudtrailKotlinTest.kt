@@ -30,14 +30,15 @@ class CloudtrailKotlinTest {
     private var s3BucketName = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values: SecretValues = gson.fromJson<SecretValues>(json, SecretValues::class.java)
-        trailName = values.trailName.toString()
-        s3BucketName = values.s3BucketName.toString()
+    fun setup() =
+        runBlocking {
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values: SecretValues = gson.fromJson<SecretValues>(json, SecretValues::class.java)
+            trailName = values.trailName.toString()
+            s3BucketName = values.s3BucketName.toString()
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
@@ -46,65 +47,76 @@ class CloudtrailKotlinTest {
         prop.load(input)
         trailName = prop.getProperty("trailName")
         s3BucketName = prop.getProperty("s3BucketName")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun createTrail() = runBlocking {
-        createNewTrail(trailName, s3BucketName)
-        println("Test 1 passed")
-    }
+    fun createTrail() =
+        runBlocking {
+            createNewTrail(trailName, s3BucketName)
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun putEventSelectors() = runBlocking {
-        setSelector(trailName)
-        println("Test 2 passed")
-    }
+    fun putEventSelectors() =
+        runBlocking {
+            setSelector(trailName)
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun getEventSelectors() = runBlocking {
-        getSelectors(trailName)
-        println("Test 3 passed")
-    }
+    fun getEventSelectors() =
+        runBlocking {
+            getSelectors(trailName)
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun lookupEvents() = runBlocking {
-        lookupAllEvents()
-        println("Test 4 passed")
-    }
+    fun lookupEvents() =
+        runBlocking {
+            lookupAllEvents()
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun describeTrails() = runBlocking {
-        describeSpecificTrails(trailName)
-        println("Test 5 passed")
-    }
+    fun describeTrails() =
+        runBlocking {
+            describeSpecificTrails(trailName)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun startLogging() = runBlocking {
-        startLog(trailName)
-        stopLog(trailName)
-        println("Test 6 passed")
-    }
+    fun startLogging() =
+        runBlocking {
+            startLog(trailName)
+            stopLog(trailName)
+            println("Test 6 passed")
+        }
 
     @Test
     @Order(7)
-    fun deleteTrail() = runBlocking {
-        deleteSpecificTrail(trailName)
-        println("Test 7 passed")
-    }
+    fun deleteTrail() =
+        runBlocking {
+            deleteSpecificTrail(trailName)
+            println("Test 7 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/cloudtrail"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

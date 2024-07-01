@@ -33,10 +33,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateCrawler](src/main/kotlin/com/kotlin/glue/CreateCrawler.kt#L49)
-- [GetCrawler](src/main/kotlin/com/kotlin/glue/GetCrawler.kt#L39)
-- [GetDatabase](src/main/kotlin/com/kotlin/glue/GetDatabase.kt#L41)
-- [StartCrawler](src/main/kotlin/com/kotlin/glue/StartCrawler.kt#L39)
+- [CreateCrawler](src/main/kotlin/com/kotlin/glue/CreateCrawler.kt#L48)
+- [GetCrawler](src/main/kotlin/com/kotlin/glue/GetCrawler.kt#L38)
+- [GetDatabase](src/main/kotlin/com/kotlin/glue/GetDatabase.kt#L40)
+- [StartCrawler](src/main/kotlin/com/kotlin/glue/StartCrawler.kt#L38)
 
 ### Scenarios
 

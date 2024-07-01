@@ -22,6 +22,7 @@ import java.util.Locale
 import kotlin.system.exitProcess
 
 // snippet-start:[support.kotlin.scenario.main]
+
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
@@ -107,12 +108,13 @@ suspend fun getResolvedCase() {
     val now = Instant.now()
     LocalDate.now()
     val yesterday = now.minus(1, ChronoUnit.DAYS)
-    val describeCasesRequest = DescribeCasesRequest {
-        maxResults = 30
-        afterTime = yesterday.toString()
-        beforeTime = now.toString()
-        includeResolvedCases = true
-    }
+    val describeCasesRequest =
+        DescribeCasesRequest {
+            maxResults = 30
+            afterTime = yesterday.toString()
+            beforeTime = now.toString()
+            includeResolvedCases = true
+        }
 
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeCases(describeCasesRequest)
@@ -127,9 +129,10 @@ suspend fun getResolvedCase() {
 
 // snippet-start:[support.kotlin.resolve.main]
 suspend fun resolveSupportCase(caseIdVal: String) {
-    val caseRequest = ResolveCaseRequest {
-        caseId = caseIdVal
-    }
+    val caseRequest =
+        ResolveCaseRequest {
+            caseId = caseIdVal
+        }
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.resolveCase(caseRequest)
         println("The status of case $caseIdVal is ${response.finalCaseStatus}")
@@ -139,9 +142,10 @@ suspend fun resolveSupportCase(caseIdVal: String) {
 
 // snippet-start:[support.kotlin.des.attachment.main]
 suspend fun describeAttachment(attachId: String?) {
-    val attachmentRequest = DescribeAttachmentRequest {
-        attachmentId = attachId
-    }
+    val attachmentRequest =
+        DescribeAttachmentRequest {
+            attachmentId = attachId
+        }
 
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeAttachment(attachmentRequest)
@@ -152,10 +156,11 @@ suspend fun describeAttachment(attachId: String?) {
 
 // snippet-start:[support.kotlin.list.comms.main]
 suspend fun listCommunications(caseIdVal: String?): String? {
-    val communicationsRequest = DescribeCommunicationsRequest {
-        caseId = caseIdVal
-        maxResults = 10
-    }
+    val communicationsRequest =
+        DescribeCommunicationsRequest {
+            caseId = caseIdVal
+            maxResults = 10
+        }
 
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeCommunications(communicationsRequest)
@@ -171,12 +176,16 @@ suspend fun listCommunications(caseIdVal: String?): String? {
 // snippet-end:[support.kotlin.list.comms.main]
 
 // snippet-start:[support.kotlin.add.attach.case.main]
-suspend fun addAttachSupportCase(caseIdVal: String?, attachmentSetIdVal: String?) {
-    val caseRequest = AddCommunicationToCaseRequest {
-        caseId = caseIdVal
-        attachmentSetId = attachmentSetIdVal
-        communicationBody = "Please refer to attachment for details."
-    }
+suspend fun addAttachSupportCase(
+    caseIdVal: String?,
+    attachmentSetIdVal: String?,
+) {
+    val caseRequest =
+        AddCommunicationToCaseRequest {
+            caseId = caseIdVal
+            attachmentSetId = attachmentSetIdVal
+            communicationBody = "Please refer to attachment for details."
+        }
 
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.addCommunicationToCase(caseRequest)
@@ -193,14 +202,16 @@ suspend fun addAttachSupportCase(caseIdVal: String?, attachmentSetIdVal: String?
 suspend fun addAttachment(fileAttachment: String): String? {
     val myFile = File(fileAttachment)
     val sourceBytes = (File(fileAttachment).readBytes())
-    val attachmentVal = Attachment {
-        fileName = myFile.name
-        data = sourceBytes
-    }
+    val attachmentVal =
+        Attachment {
+            fileName = myFile.name
+            data = sourceBytes
+        }
 
-    val setRequest = AddAttachmentsToSetRequest {
-        attachments = listOf(attachmentVal)
-    }
+    val setRequest =
+        AddAttachmentsToSetRequest {
+            attachments = listOf(attachmentVal)
+        }
 
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.addAttachmentsToSet(setRequest)
@@ -215,11 +226,12 @@ suspend fun getOpenCase() {
     val now = Instant.now()
     LocalDate.now()
     val yesterday = now.minus(1, ChronoUnit.DAYS)
-    val describeCasesRequest = DescribeCasesRequest {
-        maxResults = 20
-        afterTime = yesterday.toString()
-        beforeTime = now.toString()
-    }
+    val describeCasesRequest =
+        DescribeCasesRequest {
+            maxResults = 20
+            afterTime = yesterday.toString()
+            beforeTime = now.toString()
+        }
 
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeCases(describeCasesRequest)
@@ -233,18 +245,22 @@ suspend fun getOpenCase() {
 // snippet-end:[support.kotlin.get.open.cases.main]
 
 // snippet-start:[support.kotlin.create.case.main]
-suspend fun createSupportCase(sevCatListVal: List<String>, sevLevelVal: String): String? {
+suspend fun createSupportCase(
+    sevCatListVal: List<String>,
+    sevLevelVal: String,
+): String? {
     val serCode = sevCatListVal[0]
     val caseCategory = sevCatListVal[1]
-    val caseRequest = CreateCaseRequest {
-        categoryCode = caseCategory.lowercase(Locale.getDefault())
-        serviceCode = serCode.lowercase(Locale.getDefault())
-        severityCode = sevLevelVal.lowercase(Locale.getDefault())
-        communicationBody = "Test issue with ${serCode.lowercase(Locale.getDefault())}"
-        subject = "Test case, please ignore"
-        language = "en"
-        issueType = "technical"
-    }
+    val caseRequest =
+        CreateCaseRequest {
+            categoryCode = caseCategory.lowercase(Locale.getDefault())
+            serviceCode = serCode.lowercase(Locale.getDefault())
+            severityCode = sevLevelVal.lowercase(Locale.getDefault())
+            communicationBody = "Test issue with ${serCode.lowercase(Locale.getDefault())}"
+            subject = "Test case, please ignore"
+            language = "en"
+            issueType = "technical"
+        }
 
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.createCase(caseRequest)
@@ -256,9 +272,10 @@ suspend fun createSupportCase(sevCatListVal: List<String>, sevLevelVal: String):
 // snippet-start:[support.kotlin.display.sev.main]
 suspend fun displaySevLevels(): String {
     var levelName = ""
-    val severityLevelsRequest = DescribeSeverityLevelsRequest {
-        language = "en"
-    }
+    val severityLevelsRequest =
+        DescribeSeverityLevelsRequest {
+            language = "en"
+        }
 
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeSeverityLevels(severityLevelsRequest)
@@ -279,9 +296,10 @@ suspend fun displayServices(): List<String> {
     var serviceCode = ""
     var catName = ""
     val sevCatList = mutableListOf<String>()
-    val servicesRequest = DescribeServicesRequest {
-        language = "en"
-    }
+    val servicesRequest =
+        DescribeServicesRequest {
+            language = "en"
+        }
 
     SupportClient { region = "us-west-2" }.use { supportClient ->
         val response = supportClient.describeServices(servicesRequest)

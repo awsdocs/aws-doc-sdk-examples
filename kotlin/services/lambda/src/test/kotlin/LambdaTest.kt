@@ -5,7 +5,6 @@ import aws.sdk.kotlin.runtime.auth.credentials.EnvironmentCredentialsProvider
 import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
 import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
-import com.kotlin.lambda.UpdateFunctionConfiguration
 import com.kotlin.lambda.createNewFunction
 import com.kotlin.lambda.createScFunction
 import com.kotlin.lambda.delFunction
@@ -16,6 +15,7 @@ import com.kotlin.lambda.invokeFunctionSc
 import com.kotlin.lambda.listFunctions
 import com.kotlin.lambda.listFunctionsSc
 import com.kotlin.lambda.updateFunctionCode
+import com.kotlin.lambda.updateFunctionConfiguration
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.util.*
+import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -41,19 +41,20 @@ class LambdaTest {
     var handler: String = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        functionName = values.functionName.toString() + UUID.randomUUID()
-        functionNameSc = values.functionNameSc.toString() + UUID.randomUUID()
-        role = values.role.toString()
-        handler = values.handler.toString()
-        functionNameSc = values.functionNameSc.toString() + UUID.randomUUID()
-        s3BucketName = values.bucketName.toString()
-        updatedBucketName = values.bucketName2.toString()
-        s3Key = values.key.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            functionName = values.functionName.toString() + UUID.randomUUID()
+            functionNameSc = values.functionNameSc.toString() + UUID.randomUUID()
+            role = values.role.toString()
+            handler = values.handler.toString()
+            functionNameSc = values.functionNameSc.toString() + UUID.randomUUID()
+            s3BucketName = values.bucketName.toString()
+            updatedBucketName = values.bucketName2.toString()
+            s3Key = values.key.toString()
 
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
@@ -66,79 +67,88 @@ class LambdaTest {
         s3Key = prop.getProperty("s3Key")
         role = prop.getProperty("role")
         handler = prop.getProperty("handler")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(1)
-    fun createFunctionTest() = runBlocking {
-        functionARN = createNewFunction(functionName, s3BucketName, s3Key, handler, role).toString()
-        Assertions.assertTrue(!functionARN.isEmpty())
-        println("Test 1 passed")
-    }
+    fun createFunctionTest() =
+        runBlocking {
+            functionARN = createNewFunction(functionName, s3BucketName, s3Key, handler, role).toString()
+            Assertions.assertTrue(!functionARN.isEmpty())
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun listLambdaTest() = runBlocking {
-        listFunctions()
-        println("Test 2 passed")
-    }
+    fun listLambdaTest() =
+        runBlocking {
+            listFunctions()
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun getAccountSettings() = runBlocking {
-        getSettings()
-        println("Test 3 passed")
-    }
+    fun getAccountSettings() =
+        runBlocking {
+            getSettings()
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun deleteFunctionTest() = runBlocking {
-        delLambdaFunction(functionName)
-        println("Test 4 passed")
-    }
+    fun deleteFunctionTest() =
+        runBlocking {
+            delLambdaFunction(functionName)
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun testLambdaScenario() = runBlocking {
-        println("Creating a Lambda function named $functionNameSc.")
-        val funArn = createScFunction(functionNameSc, s3BucketName, s3Key, handler, role)
-        println("The AWS Lambda ARN is $funArn")
+    fun testLambdaScenario() =
+        runBlocking {
+            println("Creating a Lambda function named $functionNameSc.")
+            val funArn = createScFunction(functionNameSc, s3BucketName, s3Key, handler, role)
+            println("The AWS Lambda ARN is $funArn")
 
-        // Get a specific Lambda function.
-        println("Getting the $functionNameSc AWS Lambda function.")
-        getFunction(functionNameSc)
+            // Get a specific Lambda function.
+            println("Getting the $functionNameSc AWS Lambda function.")
+            getFunction(functionNameSc)
 
-        // List the Lambda functions.
-        println("Listing all AWS Lambda functions.")
-        listFunctionsSc()
+            // List the Lambda functions.
+            println("Listing all AWS Lambda functions.")
+            listFunctionsSc()
 
-        // Invoke the Lambda function.
-        println("*** Invoke the Lambda function.")
-        invokeFunctionSc(functionNameSc)
+            // Invoke the Lambda function.
+            println("*** Invoke the Lambda function.")
+            invokeFunctionSc(functionNameSc)
 
-        // Update the AWS Lambda function code.
-        println("*** Update the Lambda function code.")
-        updateFunctionCode(functionNameSc, updatedBucketName, s3Key)
+            // Update the AWS Lambda function code.
+            println("*** Update the Lambda function code.")
+            updateFunctionCode(functionNameSc, updatedBucketName, s3Key)
 
-        // println("*** Invoke the function again after updating the code.")
-        invokeFunctionSc(functionNameSc)
+            // println("*** Invoke the function again after updating the code.")
+            invokeFunctionSc(functionNameSc)
 
-        // Update the AWS Lambda function configuration.
-        println("Update the run time of the function.")
-        UpdateFunctionConfiguration(functionNameSc, handler)
+            // Update the AWS Lambda function configuration.
+            println("Update the run time of the function.")
+            updateFunctionConfiguration(functionNameSc, handler)
 
-        // Delete the AWS Lambda function.
-        println("Delete the AWS Lambda function.")
-        delFunction(functionNameSc)
-    }
+            // Delete the AWS Lambda function.
+            println("Delete the AWS Lambda function.")
+            delFunction(functionNameSc)
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/lambda"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

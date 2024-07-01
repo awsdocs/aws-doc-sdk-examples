@@ -6,7 +6,7 @@
   "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache-2.0",
   "scripts": {
-    "integration-test": "vitest run **/*.integration.test.js"
+    "integration-test": "vitest run **/*.integration.test.js --reporter=junit --outputFile=test_results/$npm_package_name.junit.xml"
   },
   "dependencies": {
     "@aws-sdk/client-auto-scaling": "^3.438.0",

@@ -22,10 +22,10 @@ suspend fun main() {
 
 // snippet-start:[glue.kotlin.get_jobs.main]
 suspend fun getAllJobs() {
-
-    val request = GetJobsRequest {
-        maxResults = 10
-    }
+    val request =
+        GetJobsRequest {
+            maxResults = 10
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.getJobs(request)

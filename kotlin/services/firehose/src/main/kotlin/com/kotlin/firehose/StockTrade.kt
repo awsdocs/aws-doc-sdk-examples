@@ -11,8 +11,13 @@ import java.io.IOException
  * number of shares, the type of the trade (buy or sell), and an id uniquely identifying
  * the trade.
  */
-class StockTrade(tickerSymbol: String?, tradeType: TradeType?, price: Double, quantity: Long, id: Long) {
-
+class StockTrade(
+    tickerSymbol: String?,
+    tradeType: TradeType?,
+    price: Double,
+    quantity: Long,
+    id: Long,
+) {
     companion object {
         private val JSON = ObjectMapper()
 
@@ -25,7 +30,8 @@ class StockTrade(tickerSymbol: String?, tradeType: TradeType?, price: Double, qu
      * Represents the type of the stock trade, e.g. buy or sell.
      */
     enum class TradeType {
-        BUY, SELL
+        BUY,
+        SELL,
     }
 
     var tickerSymbol: String? = tickerSymbol
@@ -43,18 +49,20 @@ class StockTrade(tickerSymbol: String?, tradeType: TradeType?, price: Double, qu
     var id: Long = id
         private set
 
-    fun toJsonAsBytes(): ByteArray? {
-        return try {
+    fun toJsonAsBytes(): ByteArray? =
+        try {
             JSON.writeValueAsBytes(this)
         } catch (e: IOException) {
             null
         }
-    }
 
-    override fun toString(): String {
-        return String.format(
+    override fun toString(): String =
+        String.format(
             "ID %d: %s %d shares of %s for $%.02f",
-            id, tradeType, quantity, tickerSymbol, price
+            id,
+            tradeType,
+            quantity,
+            tickerSymbol,
+            price,
         )
-    }
 }

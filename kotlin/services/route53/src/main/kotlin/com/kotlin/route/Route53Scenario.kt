@@ -28,6 +28,7 @@ import java.util.Date
 import kotlin.system.exitProcess
 
 // snippet-start:[route.kotlin.scenario.main]
+
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
@@ -50,6 +51,7 @@ This Kotlin code example performs the following operations:
  */
 
 val DASHES: String = String(CharArray(80)).replace("\u0000", "-")
+
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
@@ -137,9 +139,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[route.kotlin.domaindetails.main]
 suspend fun getDomainDetails(domainSuggestion: String?) {
-    val detailRequest = GetDomainDetailRequest {
-        domainName = domainSuggestion
-    }
+    val detailRequest =
+        GetDomainDetailRequest {
+            domainName = domainSuggestion
+        }
     Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
         val response = route53DomainsClient.getDomainDetail(detailRequest)
         println("The contact first name is ${response.registrantContact?.firstName}")
@@ -151,9 +154,10 @@ suspend fun getDomainDetails(domainSuggestion: String?) {
 
 // snippet-start:[route.kotlin.domainoperations.main]
 suspend fun getOperationalDetail(opId: String?) {
-    val detailRequest = GetOperationDetailRequest {
-        operationId = opId
-    }
+    val detailRequest =
+        GetOperationDetailRequest {
+            operationId = opId
+        }
     Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
         val response = route53DomainsClient.getOperationDetail(detailRequest)
         println("Operation detail message is ${response.message}")
@@ -162,29 +166,38 @@ suspend fun getOperationalDetail(opId: String?) {
 // snippet-end:[route.kotlin.domainoperations.main]
 
 // snippet-start:[route.kotlin.domainreg.main]
-suspend fun requestDomainRegistration(domainSuggestion: String?, phoneNumberVal: String?, emailVal: String?, firstNameVal: String?, lastNameVal: String?, cityVal: String?): String? {
-    val contactDetail = ContactDetail {
-        contactType = ContactType.Company
-        state = "LA"
-        countryCode = CountryCode.In
-        email = emailVal
-        firstName = firstNameVal
-        lastName = lastNameVal
-        city = cityVal
-        phoneNumber = phoneNumberVal
-        organizationName = "My Org"
-        addressLine1 = "My Address"
-        zipCode = "123 123"
-    }
+suspend fun requestDomainRegistration(
+    domainSuggestion: String?,
+    phoneNumberVal: String?,
+    emailVal: String?,
+    firstNameVal: String?,
+    lastNameVal: String?,
+    cityVal: String?,
+): String? {
+    val contactDetail =
+        ContactDetail {
+            contactType = ContactType.Company
+            state = "LA"
+            countryCode = CountryCode.In
+            email = emailVal
+            firstName = firstNameVal
+            lastName = lastNameVal
+            city = cityVal
+            phoneNumber = phoneNumberVal
+            organizationName = "My Org"
+            addressLine1 = "My Address"
+            zipCode = "123 123"
+        }
 
-    val domainRequest = RegisterDomainRequest {
-        adminContact = contactDetail
-        registrantContact = contactDetail
-        techContact = contactDetail
-        domainName = domainSuggestion
-        autoRenew = true
-        durationInYears = 1
-    }
+    val domainRequest =
+        RegisterDomainRequest {
+            adminContact = contactDetail
+            registrantContact = contactDetail
+            techContact = contactDetail
+            domainName = domainSuggestion
+            autoRenew = true
+            durationInYears = 1
+        }
 
     Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
         val response = route53DomainsClient.registerDomain(domainRequest)
@@ -196,9 +209,10 @@ suspend fun requestDomainRegistration(domainSuggestion: String?, phoneNumberVal:
 
 // snippet-start:[route.kotlin.checkdomaintransfer.main]
 suspend fun checkDomainTransferability(domainSuggestion: String?) {
-    val transferabilityRequest = CheckDomainTransferabilityRequest {
-        domainName = domainSuggestion
-    }
+    val transferabilityRequest =
+        CheckDomainTransferabilityRequest {
+            domainName = domainSuggestion
+        }
     Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
         val response = route53DomainsClient.checkDomainTransferability(transferabilityRequest)
         println("Transferability: ${response.transferability?.transferable}")
@@ -208,9 +222,10 @@ suspend fun checkDomainTransferability(domainSuggestion: String?) {
 
 // snippet-start:[route.kotlin.checkdomainavailability.main]
 suspend fun checkDomainAvailability(domainSuggestion: String) {
-    val availabilityRequest = CheckDomainAvailabilityRequest {
-        domainName = domainSuggestion
-    }
+    val availabilityRequest =
+        CheckDomainAvailabilityRequest {
+            domainName = domainSuggestion
+        }
     Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
         val response = route53DomainsClient.checkDomainAvailability(availabilityRequest)
         println("$domainSuggestion is ${response.availability}")
@@ -220,11 +235,12 @@ suspend fun checkDomainAvailability(domainSuggestion: String) {
 
 // snippet-start:[route.kotlin.domainsuggestions.main]
 suspend fun listDomainSuggestions(domainSuggestion: String?) {
-    val suggestionsRequest = GetDomainSuggestionsRequest {
-        domainName = domainSuggestion
-        suggestionCount = 5
-        onlyAvailable = true
-    }
+    val suggestionsRequest =
+        GetDomainSuggestionsRequest {
+            domainName = domainSuggestion
+            suggestionCount = 5
+            onlyAvailable = true
+        }
     Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
         val response = route53DomainsClient.getDomainSuggestions(suggestionsRequest)
         response.suggestionsList?.forEach { suggestion ->
@@ -238,12 +254,14 @@ suspend fun listDomainSuggestions(domainSuggestion: String?) {
 
 // snippet-start:[route.kotlin.domainprices.main]
 suspend fun listAllPrices(domainType: String?) {
-    val pricesRequest = ListPricesRequest {
-        tld = domainType
-    }
+    val pricesRequest =
+        ListPricesRequest {
+            tld = domainType
+        }
 
     Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
-        route53DomainsClient.listPricesPaginated(pricesRequest)
+        route53DomainsClient
+            .listPricesPaginated(pricesRequest)
             .transform { it.prices?.forEach { obj -> emit(obj) } }
             .collect { pr ->
                 println("Registration: ${pr.registrationPrice} ${pr.registrationPrice?.currency}")
@@ -266,13 +284,15 @@ suspend fun listBillingRecords() {
     val timeStart: Instant? = myStartTime?.let { Instant(it) }
     val timeEnd: Instant? = myEndTime?.let { Instant(it) }
 
-    val viewBillingRequest = ViewBillingRequest {
-        start = timeStart
-        end = timeEnd
-    }
+    val viewBillingRequest =
+        ViewBillingRequest {
+            start = timeStart
+            end = timeEnd
+        }
 
     Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
-        route53DomainsClient.viewBillingPaginated(viewBillingRequest)
+        route53DomainsClient
+            .viewBillingPaginated(viewBillingRequest)
             .transform { it.billingRecords?.forEach { obj -> emit(obj) } }
             .collect { billing ->
                 println("Bill Date: ${billing.billDate}")
@@ -291,12 +311,14 @@ suspend fun listOperations() {
     localDateTime = localDateTime.minusYears(1)
     val myTime: java.time.Instant? = localDateTime.toInstant(zoneOffset)
     val time2: Instant? = myTime?.let { Instant(it) }
-    val operationsRequest = ListOperationsRequest {
-        submittedSince = time2
-    }
+    val operationsRequest =
+        ListOperationsRequest {
+            submittedSince = time2
+        }
 
     Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
-        route53DomainsClient.listOperationsPaginated(operationsRequest)
+        route53DomainsClient
+            .listOperationsPaginated(operationsRequest)
             .transform { it.operations?.forEach { obj -> emit(obj) } }
             .collect { content ->
                 println("Operation Id: ${content.operationId}")
@@ -310,7 +332,8 @@ suspend fun listOperations() {
 // snippet-start:[route.kotlin.domainlist.main]
 suspend fun listDomains() {
     Route53DomainsClient { region = "us-east-1" }.use { route53DomainsClient ->
-        route53DomainsClient.listDomainsPaginated(ListDomainsRequest {})
+        route53DomainsClient
+            .listDomainsPaginated(ListDomainsRequest {})
             .transform { it.domains?.forEach { obj -> emit(obj) } }
             .collect { content ->
                 println("The domain name is ${content.domainName}")

@@ -2,3 +2,4 @@
 source-path=SCRIPTDIR
 source-path=SCRIPTDIR/..
 source-path=aws-cli/bash-linux/s3/bucket-lifecycle-operations
+external-sources=true

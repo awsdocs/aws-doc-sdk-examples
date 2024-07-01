@@ -1,6 +1,5 @@
----
 name: Label Checker
-on:
+on:  # yamllint disable-line rule:truthy
   pull_request:
     branches:
       - main
@@ -12,7 +11,6 @@ on:
       - unlabeled
 
 jobs:
-
   check_oncall_labels:
     name: Check On Call Review labels
     runs-on: ubuntu-latest

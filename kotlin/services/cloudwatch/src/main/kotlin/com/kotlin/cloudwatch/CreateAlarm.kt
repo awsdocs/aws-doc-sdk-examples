@@ -22,7 +22,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
 
     Usage:
@@ -44,27 +43,31 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[cloudwatch.kotlin.create_alarm.main]
-suspend fun putAlarm(alarmNameVal: String, instanceIdVal: String) {
+suspend fun putAlarm(
+    alarmNameVal: String,
+    instanceIdVal: String,
+) {
+    val dimension =
+        Dimension {
+            name = "InstanceId"
+            value = instanceIdVal
+        }
 
-    val dimension = Dimension {
-        name = "InstanceId"
-        value = instanceIdVal
-    }
-
-    val request = PutMetricAlarmRequest {
-        alarmName = alarmNameVal
-        comparisonOperator = ComparisonOperator.GreaterThanThreshold
-        evaluationPeriods = 1
-        metricName = "CPUUtilization"
-        namespace = "AWS/EC2"
-        period = 60
-        statistic = Statistic.fromValue("Average")
-        threshold = 70.0
-        actionsEnabled = false
-        alarmDescription = "An Alarm created by the Kotlin SDK when server CPU utilization exceeds 70%"
-        unit = StandardUnit.fromValue("Seconds")
-        dimensions = listOf(dimension)
-    }
+    val request =
+        PutMetricAlarmRequest {
+            alarmName = alarmNameVal
+            comparisonOperator = ComparisonOperator.GreaterThanThreshold
+            evaluationPeriods = 1
+            metricName = "CPUUtilization"
+            namespace = "AWS/EC2"
+            period = 60
+            statistic = Statistic.fromValue("Average")
+            threshold = 70.0
+            actionsEnabled = false
+            alarmDescription = "An Alarm created by the Kotlin SDK when server CPU utilization exceeds 70%"
+            unit = StandardUnit.fromValue("Seconds")
+            dimensions = listOf(dimension)
+        }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
         cwClient.putMetricAlarm(request)

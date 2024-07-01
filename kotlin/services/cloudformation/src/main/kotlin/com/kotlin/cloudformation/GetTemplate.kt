@@ -10,7 +10,6 @@ import kotlin.system.exitProcess
 // snippet-end:[cf.kotlin._template.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <stackName> 
@@ -30,10 +29,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cf.kotlin._template.main]
 suspend fun getSpecificTemplate(stackNameVal: String) {
-
-    val request = GetTemplateRequest {
-        stackName = stackNameVal
-    }
+    val request =
+        GetTemplateRequest {
+            stackName = stackNameVal
+        }
 
     CloudFormationClient { region = "us-east-1" }.use { cfClient ->
         val response = cfClient.getTemplate(request)

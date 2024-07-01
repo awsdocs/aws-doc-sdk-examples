@@ -22,10 +22,10 @@ suspend fun main() {
 
 // snippet-start:[glue.kotlin.list_wfs.main]
 suspend fun listAllWorkflows() {
-
-    val request = ListWorkflowsRequest {
-        maxResults = 10
-    }
+    val request =
+        ListWorkflowsRequest {
+            maxResults = 10
+        }
 
     GlueClient { region = "us-east-1" }.use { glueClient ->
         val response = glueClient.listWorkflows(request)

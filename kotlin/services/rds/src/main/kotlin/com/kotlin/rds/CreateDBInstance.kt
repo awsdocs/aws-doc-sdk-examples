@@ -57,19 +57,20 @@ suspend fun createDatabaseInstance(
     dbInstanceIdentifierVal: String?,
     dbNamedbVal: String?,
     masterUsernameVal: String?,
-    masterUserPasswordVal: String?
+    masterUserPasswordVal: String?,
 ) {
-    val instanceRequest = CreateDbInstanceRequest {
-        dbInstanceIdentifier = dbInstanceIdentifierVal
-        allocatedStorage = 100
-        dbName = dbNamedbVal
-        engine = "mysql"
-        dbInstanceClass = "db.m4.large"
-        engineVersion = "8.0"
-        storageType = "standard"
-        masterUsername = masterUsernameVal
-        masterUserPassword = masterUserPasswordVal
-    }
+    val instanceRequest =
+        CreateDbInstanceRequest {
+            dbInstanceIdentifier = dbInstanceIdentifierVal
+            allocatedStorage = 100
+            dbName = dbNamedbVal
+            engine = "mysql"
+            dbInstanceClass = "db.m4.large"
+            engineVersion = "8.0"
+            storageType = "standard"
+            masterUsername = masterUsernameVal
+            masterUserPassword = masterUserPasswordVal
+        }
 
     RdsClient { region = "us-west-2" }.use { rdsClient ->
         val response = rdsClient.createDbInstance(instanceRequest)
@@ -81,12 +82,13 @@ suspend fun createDatabaseInstance(
 suspend fun waitForInstanceReady(dbInstanceIdentifierVal: String?) {
     val sleepTime: Long = 20
     var instanceReady = false
-    var instanceReadyStr = ""
+    var instanceReadyStr: String
     println("Waiting for instance to become available.")
 
-    val instanceRequest = DescribeDbInstancesRequest {
-        dbInstanceIdentifier = dbInstanceIdentifierVal
-    }
+    val instanceRequest =
+        DescribeDbInstancesRequest {
+            dbInstanceIdentifier = dbInstanceIdentifierVal
+        }
 
     RdsClient { region = "us-west-2" }.use { rdsClient ->
         while (!instanceReady) {

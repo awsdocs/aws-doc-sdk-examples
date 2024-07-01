@@ -41,11 +41,16 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[s3.kotlin.getobjectdata.main]
-suspend fun getObjectBytes(bucketName: String, keyName: String, path: String) {
-    val request = GetObjectRequest {
-        key = keyName
-        bucket = bucketName
-    }
+suspend fun getObjectBytes(
+    bucketName: String,
+    keyName: String,
+    path: String,
+) {
+    val request =
+        GetObjectRequest {
+            key = keyName
+            bucket = bucketName
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.getObject(request) { resp ->

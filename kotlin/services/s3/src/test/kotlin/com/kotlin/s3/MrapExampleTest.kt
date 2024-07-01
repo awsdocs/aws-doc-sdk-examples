@@ -9,15 +9,15 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
-import java.util.*
+import java.util.UUID
 
 class MrapExampleTest {
-
     @Test
-    fun testGetObjectUsingMrap(): Unit = runBlocking {
-        val objectFromMrap = mrapExample.getObjectFromMrap(s3, mrapArn, keyName)
-        Assertions.assertEquals(stringToPut, objectFromMrap)
-    }
+    fun testGetObjectUsingMrap(): Unit =
+        runBlocking {
+            val objectFromMrap = mrapExample.getObjectFromMrap(s3, mrapArn, keyName)
+            Assertions.assertEquals(stringToPut, objectFromMrap)
+        }
 
     companion object {
         val mrapExample = MrapExample()
@@ -33,21 +33,23 @@ class MrapExampleTest {
 
         @BeforeAll
         @JvmStatic
-        internal fun beforeAll(): Unit = runBlocking {
-            s3 = MrapExample.createS3Client()
-            s3Control = MrapExample.createS3ControlClient()
-            accountId = MrapExample.getAccountId()
-            MrapExample.setUpTwoBuckets(s3, bucketName1, bucketName2)
-            mrapArn = mrapExample.createMrap(s3Control, accountId, bucketName1, bucketName2, mrapName)
-            mrapExample.putObjectUsingMrap(s3, mrapArn, keyName, stringToPut)
-        }
+        internal fun beforeAll(): Unit =
+            runBlocking {
+                s3 = MrapExample.createS3Client()
+                s3Control = MrapExample.createS3ControlClient()
+                accountId = MrapExample.getAccountId()
+                MrapExample.setUpTwoBuckets(s3, bucketName1, bucketName2)
+                mrapArn = mrapExample.createMrap(s3Control, accountId, bucketName1, bucketName2, mrapName)
+                mrapExample.putObjectUsingMrap(s3, mrapArn, keyName, stringToPut)
+            }
 
         @AfterAll
         @JvmStatic
-        internal fun afterAll(): Unit = runBlocking {
-            mrapExample.deleteObjectUsingMrap(s3, mrapArn, keyName)
-            mrapExample.deleteMrap(s3Control, accountId, mrapName)
-            MrapExample.cleanupBuckets(s3, bucketName1, bucketName2)
-        }
+        internal fun afterAll(): Unit =
+            runBlocking {
+                mrapExample.deleteObjectUsingMrap(s3, mrapArn, keyName)
+                mrapExample.deleteMrap(s3Control, accountId, mrapName)
+                MrapExample.cleanupBuckets(s3, bucketName1, bucketName2)
+            }
     }
 }

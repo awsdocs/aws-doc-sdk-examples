@@ -10,7 +10,6 @@ import kotlin.system.exitProcess
 // snippet-end:[cf.kotlin.delete_stack.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <stackName>
@@ -30,10 +29,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cf.kotlin.delete_stack.main]
 suspend fun deleteSpecificTemplate(stackNameVal: String?) {
-
-    val request = DeleteStackRequest {
-        stackName = stackNameVal
-    }
+    val request =
+        DeleteStackRequest {
+            stackName = stackNameVal
+        }
 
     CloudFormationClient { region = "us-east-1" }.use { cfClient ->
         cfClient.deleteStack(request)

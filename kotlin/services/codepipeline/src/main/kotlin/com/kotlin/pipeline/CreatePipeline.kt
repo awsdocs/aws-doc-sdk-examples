@@ -20,7 +20,6 @@ import kotlin.system.exitProcess
 // snippet-end:[pipeline.kotlin.create_pipeline.import]
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage: 
             <name> <roleArn> <s3Bucket> <s3OuputBucket>
@@ -49,15 +48,15 @@ suspend fun createNewPipeline(
     nameVal: String,
     roleArnVal: String,
     s3Bucket: String,
-    s3OuputBucket: String
+    s3OuputBucket: String,
 ) {
-
-    val actionTypeSource = ActionTypeId {
-        category = ActionCategory.fromValue("Source")
-        owner = ActionOwner.fromValue("AWS")
-        provider = "S3"
-        version = "1"
-    }
+    val actionTypeSource =
+        ActionTypeId {
+            category = ActionCategory.fromValue("Source")
+            owner = ActionOwner.fromValue("AWS")
+            provider = "S3"
+            version = "1"
+        }
 
     // Set Config information.
     val mapConfig: MutableMap<String, String> = HashMap()
@@ -65,18 +64,20 @@ suspend fun createNewPipeline(
     mapConfig["S3Bucket"] = s3Bucket
     mapConfig["S3ObjectKey"] = "SampleApp_Windows.zip"
 
-    val outputArtifact = OutputArtifact {
-        name = "SourceArtifact"
-    }
+    val outputArtifact =
+        OutputArtifact {
+            name = "SourceArtifact"
+        }
 
-    val actionDeclarationSource = ActionDeclaration {
-        actionTypeId = actionTypeSource
-        region = "us-east-1"
-        configuration = mapConfig
-        runOrder = 1
-        outputArtifacts = listOf(outputArtifact)
-        name = "Source"
-    }
+    val actionDeclarationSource =
+        ActionDeclaration {
+            actionTypeId = actionTypeSource
+            region = "us-east-1"
+            configuration = mapConfig
+            runOrder = 1
+            outputArtifacts = listOf(outputArtifact)
+            name = "Source"
+        }
 
     // Set Config information.
     val mapConfig1: MutableMap<String, String> = HashMap()
@@ -84,55 +85,63 @@ suspend fun createNewPipeline(
     mapConfig1["ObjectKey"] = "SampleApp.zip"
     mapConfig1["Extract"] = "false"
 
-    val actionTypeDeploy = ActionTypeId {
-        category = ActionCategory.fromValue("Deploy")
-        owner = ActionOwner.fromValue("AWS")
-        provider = "S3"
-        version = "1"
-    }
+    val actionTypeDeploy =
+        ActionTypeId {
+            category = ActionCategory.fromValue("Deploy")
+            owner = ActionOwner.fromValue("AWS")
+            provider = "S3"
+            version = "1"
+        }
 
-    val inArtifact = InputArtifact {
-        name = "SourceArtifact"
-    }
+    val inArtifact =
+        InputArtifact {
+            name = "SourceArtifact"
+        }
 
-    val actionDeclarationDeploy = ActionDeclaration {
-        actionTypeId = actionTypeDeploy
-        region = "us-east-1"
-        configuration = mapConfig1
-        inputArtifacts = listOf(inArtifact)
-        runOrder = 1
-        name = "Deploy"
-    }
+    val actionDeclarationDeploy =
+        ActionDeclaration {
+            actionTypeId = actionTypeDeploy
+            region = "us-east-1"
+            configuration = mapConfig1
+            inputArtifacts = listOf(inArtifact)
+            runOrder = 1
+            name = "Deploy"
+        }
 
-    val declaration = StageDeclaration {
-        actions = listOf(actionDeclarationSource)
-        name = "Stage"
-    }
+    val declaration =
+        StageDeclaration {
+            actions = listOf(actionDeclarationSource)
+            name = "Stage"
+        }
 
-    val deploy = StageDeclaration {
-        actions = listOf(actionDeclarationDeploy)
-        name = "Deploy"
-    }
+    val deploy =
+        StageDeclaration {
+            actions = listOf(actionDeclarationDeploy)
+            name = "Deploy"
+        }
 
     val stagesOb = mutableListOf<StageDeclaration>()
     stagesOb.add(declaration)
     stagesOb.add(deploy)
 
-    val store = ArtifactStore {
-        location = s3Bucket
-        type = ArtifactStoreType.fromValue("S3")
-    }
+    val store =
+        ArtifactStore {
+            location = s3Bucket
+            type = ArtifactStoreType.fromValue("S3")
+        }
 
-    val pipelineDeclaration = PipelineDeclaration {
-        name = nameVal
-        artifactStore = store
-        roleArn = roleArnVal
-        stages = stagesOb
-    }
+    val pipelineDeclaration =
+        PipelineDeclaration {
+            name = nameVal
+            artifactStore = store
+            roleArn = roleArnVal
+            stages = stagesOb
+        }
 
-    val request = CreatePipelineRequest {
-        pipeline = pipelineDeclaration
-    }
+    val request =
+        CreatePipelineRequest {
+            pipeline = pipelineDeclaration
+        }
 
     CodePipelineClient { region = "us-east-1" }.use { pipelineClient ->
         val response = pipelineClient.createPipeline(request)

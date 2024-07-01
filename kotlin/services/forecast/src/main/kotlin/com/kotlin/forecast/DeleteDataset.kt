@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <dataSetARN>  
@@ -38,10 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[forecast.kotlin.delete_forecast_dataset.main]
 suspend fun deleteForecastDataSet(myDataSetARN: String?) {
-
-    val request = DeleteDatasetRequest {
-        datasetArn = myDataSetARN
-    }
+    val request =
+        DeleteDatasetRequest {
+            datasetArn = myDataSetARN
+        }
 
     ForecastClient { region = "us-west-2" }.use { forecast ->
         forecast.deleteDataset(request)

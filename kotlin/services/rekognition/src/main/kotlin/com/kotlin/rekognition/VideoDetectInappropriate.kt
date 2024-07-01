@@ -23,8 +23,8 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 private var startJobId = ""
-suspend fun main(args: Array<String>) {
 
+suspend fun main(args: Array<String>) {
     val usage = """
         
         Usage: 
@@ -48,30 +48,38 @@ suspend fun main(args: Array<String>) {
     val roleArnVal = args[3]
     val rekClient = RekognitionClient { region = "us-east-1" }
 
-    val channel = NotificationChannel {
-        snsTopicArn = topicArn
-        roleArn = roleArnVal
-    }
+    val channel =
+        NotificationChannel {
+            snsTopicArn = topicArn
+            roleArn = roleArnVal
+        }
 
     startModerationDetection(channel, bucket, video)
     getModResults()
     rekClient.close()
 }
-// snippet-start:[rekognition.kotlin.recognize_video_moderation.main]
-suspend fun startModerationDetection(channel: NotificationChannel?, bucketVal: String?, videoVal: String?) {
 
-    val s3Obj = S3Object {
-        bucket = bucketVal
-        name = videoVal
-    }
-    val vidOb = Video {
-        s3Object = s3Obj
-    }
-    val request = StartContentModerationRequest {
-        jobTag = "Moderation"
-        notificationChannel = channel
-        video = vidOb
-    }
+// snippet-start:[rekognition.kotlin.recognize_video_moderation.main]
+suspend fun startModerationDetection(
+    channel: NotificationChannel?,
+    bucketVal: String?,
+    videoVal: String?,
+) {
+    val s3Obj =
+        S3Object {
+            bucket = bucketVal
+            name = videoVal
+        }
+    val vidOb =
+        Video {
+            s3Object = s3Obj
+        }
+    val request =
+        StartContentModerationRequest {
+            jobTag = "Moderation"
+            notificationChannel = channel
+            video = vidOb
+        }
 
     RekognitionClient { region = "us-east-1" }.use { rekClient ->
         val startModDetectionResult = rekClient.startContentModeration(request)
@@ -86,18 +94,19 @@ suspend fun getModResults() {
     RekognitionClient { region = "us-east-1" }.use { rekClient ->
         var modDetectionResponse: GetContentModerationResponse? = null
 
-        val modRequest = GetContentModerationRequest {
-            jobId = startJobId
-            maxResults = 10
-        }
+        val modRequest =
+            GetContentModerationRequest {
+                jobId = startJobId
+                maxResults = 10
+            }
 
         // Wait until the job succeeds.
         while (!finished) {
             modDetectionResponse = rekClient.getContentModeration(modRequest)
             status = modDetectionResponse.jobStatus.toString()
-            if (status.compareTo("SUCCEEDED") == 0)
+            if (status.compareTo("SUCCEEDED") == 0) {
                 finished = true
-            else {
+            } else {
                 println("$yy status is: $status")
                 delay(1000)
             }

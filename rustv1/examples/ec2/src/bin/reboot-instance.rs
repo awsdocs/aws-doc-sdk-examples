@@ -3,8 +3,10 @@
 
 #![allow(clippy::result_large_err)]
 
+use std::time::Duration;
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_ec2::{config::Region, meta::PKG_VERSION, Client, Error};
+use aws_sdk_ec2::{client::Waiters, config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
 
 #[derive(Debug, Parser)]
@@ -25,9 +27,26 @@ struct Opt {
 // Reboots an instance.
 // snippet-start:[ec2.rust.reboot-instance]
 async fn reboot_instance(client: &Client, id: &str) -> Result<(), Error> {
+    println!("Rebooting instance.");
+
     client.reboot_instances().instance_ids(id).send().await?;
 
-    println!("Rebooted instance.");
+    client
+        .wait_until_instance_stopped()
+        .instance_ids(id)
+        .wait(Duration::from_secs(60))
+        .await?;
+    let wait_status_ok = client
+        .wait_until_instance_status_ok()
+        .instance_ids(id)
+        .wait(Duration::from_secs(60))
+        .await;
+
+    match wait_status_ok {
+        Ok(_) => println!("Rebooted instance {id}, it is started with status OK."),
+        Err(err) => return Err(err.into()),
+    }
+
     Ok(())
 }
 // snippet-end:[ec2.rust.reboot-instance]

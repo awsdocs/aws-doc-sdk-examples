@@ -20,7 +20,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <sourceDoc> 
@@ -40,18 +39,19 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[textract.kotlin._detect_doc_text.main]
 suspend fun detectDocText(sourceDoc: String) {
-
     val sourceStream = FileInputStream(File(sourceDoc))
     val sourceBytes = sourceStream.readBytes()
 
     // Get the input Document object as bytes.
-    val myDoc = Document {
-        bytes = sourceBytes
-    }
+    val myDoc =
+        Document {
+            bytes = sourceBytes
+        }
 
-    val detectDocumentTextRequest = DetectDocumentTextRequest {
-        document = myDoc
-    }
+    val detectDocumentTextRequest =
+        DetectDocumentTextRequest {
+            document = myDoc
+        }
 
     TextractClient { region = "us-east-1" }.use { textractClient ->
         val response = textractClient.detectDocumentText(detectDocumentTextRequest)

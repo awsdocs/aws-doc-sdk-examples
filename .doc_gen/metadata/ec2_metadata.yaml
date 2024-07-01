@@ -135,6 +135,18 @@ ec2_CreateKeyPair:
             - description:
               snippet_tags:
                 - ec2.cpp.create_key_pair.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.CreateKeyPair
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {CreateKeyPair}
 ec2_DescribeKeyPairs:
@@ -201,6 +213,18 @@ ec2_DescribeKeyPairs:
             - description:
               snippet_tags:
                 - ec2.cpp.describe_key_pairs.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.DescribeKeyPairs
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {DescribeKeyPairs}
 
@@ -279,6 +303,18 @@ ec2_CreateSecurityGroup:
               snippet_tags:
                 - cpp.example_code.ec2.create_security_group.client
                 - cpp.example_code.ec2.CreateSecurityGroup
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.CreateSecurityGroup
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {CreateSecurityGroup}
 ec2_RunInstances:
@@ -347,6 +383,18 @@ ec2_RunInstances:
               snippet_tags:
                 - cpp.example_code.ec2.create_instance.client
                 - cpp.example_code.ec2.RunInstances
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.RunInstances
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {RunInstances}
 ec2_StartInstances:
@@ -430,6 +478,18 @@ ec2_StartInstances:
             - description:
               snippet_tags:
                 - ec2.cpp.start_instance.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.StartInstances
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {StartInstances}
 ec2_StopInstances:
@@ -513,6 +573,18 @@ ec2_StopInstances:
             - description:
               snippet_tags:
                 - ec2.cpp.stop_instance.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.StopInstances
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {StopInstances}
 ec2_AllocateAddress:
@@ -589,6 +661,18 @@ ec2_AllocateAddress:
               snippet_tags:
                 - cpp.example_code.ec2.allocate_address.client
                 - cpp.example_code.ec2.AllocateAddress
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.AllocateAddress
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {AllocateAddress}
 ec2_AssociateAddress:
@@ -665,6 +749,18 @@ ec2_AssociateAddress:
               snippet_tags:
                 - cpp.example_code.ec2.allocate_address.client
                 - cpp.example_code.ec2.AssociateAddress
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.AssociateAddress
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {AssociateAddress}
 ec2_DisassociateAddress:
@@ -715,6 +811,18 @@ ec2_DisassociateAddress:
             - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.DisassociateAddress
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.DisassociateAddress
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {DisassociateAddress}
 ec2_ReleaseAddress:
@@ -790,6 +898,18 @@ ec2_ReleaseAddress:
             - description:
               snippet_tags:
                 - ec2.cpp.release_address.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.ReleaseAddress
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {ReleaseAddress}
 ec2_AuthorizeSecurityGroupIngress:
@@ -850,6 +970,18 @@ ec2_AuthorizeSecurityGroupIngress:
             - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.AuthorizeSecurityGroupIngress
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.AuthorizeSecurityGroupIngress
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {AuthorizeSecurityGroupIngress}
 ec2_DeleteKeyPair:
@@ -916,6 +1048,18 @@ ec2_DeleteKeyPair:
             - description:
               snippet_tags:
                 - ec2.cpp.delete_key_pair.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.DeleteKeyPair
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {DeleteKeyPair}
 ec2_DescribeSecurityGroups:
@@ -982,6 +1126,18 @@ ec2_DescribeSecurityGroups:
             - description:
               snippet_tags:
                 - ec2.cpp.describe_security_groups.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.DescribeSecurityGroups
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {DescribeSecurityGroups}
 ec2_DeleteSecurityGroup:
@@ -1048,6 +1204,18 @@ ec2_DeleteSecurityGroup:
             - description:
               snippet_tags:
                 - ec2.cpp.delete_security_group.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.DeleteSecurityGroup
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {DeleteSecurityGroup}
 ec2_DeleteSnapshot:
@@ -1142,6 +1310,18 @@ ec2_TerminateInstances:
             - description:
               snippet_tags:
                 - javascript.v2.ec2.actions.TerminateInstances
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.TerminateInstances
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {TerminateInstances}
 ec2_DescribeInstances:
@@ -1222,6 +1402,18 @@ ec2_DescribeInstances:
             - description:
               snippet_tags:
                 - ec2.cpp.describe_instances.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.DescribeInstances
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {DescribeInstances}
 ec2_DescribeRegions:
@@ -1284,14 +1476,6 @@ ec2_DescribeInstanceStatus:
     ec2: {DescribeInstanceStatus}
 ec2_MonitorInstances:
   languages:
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: rustv1/examples/ec2
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.rust.monitor-instance
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1419,6 +1603,25 @@ ec2_DescribeImages:
             - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.DescribeImages
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.describe-images
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.DescribeImages
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {DescribeImages}
 ec2_DescribeInstanceTypes:
@@ -1469,6 +1672,18 @@ ec2_DescribeInstanceTypes:
             - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.DescribeInstanceTypes
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.DescribeInstanceTypes
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {DescribeInstanceTypes}
 ec2_DescribeAddresses:
@@ -1850,6 +2065,38 @@ ec2_Scenario_GetStartedInstances:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - javascript.v3.ec2.scenarios.basic
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/ec2
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.get_started_with_ec2_instances
+            - description: The &DDB; functions used in this scenario.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.CreateKeyPair
+                - aws-cli.bash-linux.ec2.DescribeKeyPairs
+                - aws-cli.bash-linux.ec2.CreateSecurityGroup
+                - aws-cli.bash-linux.ec2.DescribeSecurityGroups
+                - aws-cli.bash-linux.ec2.AuthorizeSecurityGroupIngress
+                - aws-cli.bash-linux.ec2.DescribeImages
+                - aws-cli.bash-linux.ec2.DescribeInstanceTypes
+                - aws-cli.bash-linux.ec2.RunInstances
+                - aws-cli.bash-linux.ec2.DescribeInstances
+                - aws-cli.bash-linux.ec2.StopInstances
+                - aws-cli.bash-linux.ec2.StartInstances
+                - aws-cli.bash-linux.ec2.AllocateAddress
+                - aws-cli.bash-linux.ec2.AssociateAddress
+                - aws-cli.bash-linux.ec2.DisassociateAddress
+                - aws-cli.bash-linux.ec2.ReleaseAddress
+                - aws-cli.bash-linux.ec2.TerminateInstances
+                - aws-cli.bash-linux.ec2.DeleteSecurityGroup
+                - aws-cli.bash-linux.ec2.DeleteKeyPair
+            - description: The utility functions used in this scenario.
+              snippet_tags:
+                - aws-cli.bash-linux.ec2.errecho
+                - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {AllocateAddress, AssociateAddress, AuthorizeSecurityGroupIngress, CreateKeyPair, CreateSecurityGroup, DeleteKeyPair,
           DeleteSecurityGroup, DescribeImages, DescribeInstanceTypes, DescribeInstances, DescribeKeyPairs, DescribeSecurityGroups,

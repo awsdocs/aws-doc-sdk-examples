@@ -27,7 +27,7 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:keyspaces:1.0.30")
+    implementation("aws.sdk.kotlin:keyspaces:1.2.28")
     implementation("com.datastax.oss:java-driver-core:4.15.0")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
@@ -37,7 +37,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.14.2")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
 }
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
 }
 tasks.test {

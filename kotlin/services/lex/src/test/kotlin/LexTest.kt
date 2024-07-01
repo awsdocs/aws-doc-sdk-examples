@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -30,71 +29,82 @@ class LexTest {
     private var intentVersion = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        botName = values.botName.toString()
-        intentName = values.intentName.toString()
-        intentVersion = values.intentVersion.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            botName = values.botName.toString()
+            intentName = values.intentName.toString()
+            intentVersion = values.intentVersion.toString()
 
-        // val input = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        // val prop = Properties()
-        // prop.load(input)
-        // botName = prop.getProperty("botName")
-        // intentName = prop.getProperty("intentName")
-        // intentVersion = prop.getProperty("intentVersion")
-    }
+            // val input = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
+            // val prop = Properties()
+            // prop.load(input)
+            // botName = prop.getProperty("botName")
+            // intentName = prop.getProperty("intentName")
+            // intentVersion = prop.getProperty("intentVersion")
+        }
 
     @Test
     @Order(1)
-    fun putBotTest() = runBlocking {
-        createBot(botName, intentName, intentVersion)
-        println("Test 1 passed")
-    }
+    fun putBotTest() =
+        runBlocking {
+            createBot(botName, intentName, intentVersion)
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun getBotsTest() = runBlocking {
-        getAllBots()
-        println("Test 2 passed")
-    }
+    fun getBotsTest() =
+        runBlocking {
+            getAllBots()
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun getIntentTest() = runBlocking {
-        getSpecificIntent(intentName, intentVersion)
-        println("Test 3 passed")
-    }
+    fun getIntentTest() =
+        runBlocking {
+            getSpecificIntent(intentName, intentVersion)
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun getSlotTypesTest() = runBlocking {
-        getSlotsInfo()
-        println("Test 4 passed")
-    }
+    fun getSlotTypesTest() =
+        runBlocking {
+            getSlotsInfo()
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun getBotStatusTest() = runBlocking {
-        getStatus(botName)
-        println("Test 5 passed")
-    }
+    fun getBotStatusTest() =
+        runBlocking {
+            getStatus(botName)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun DeleteBotTest() = runBlocking {
-        deleteSpecificBot(botName)
-        println("Test 6 passed")
-    }
+    fun deleteBotTest() =
+        runBlocking {
+            deleteSpecificBot(botName)
+            println("Test 6 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/lex"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

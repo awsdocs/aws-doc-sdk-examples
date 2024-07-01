@@ -21,7 +21,6 @@ suspend fun main() {
 
 // snippet-start:[redshift.kotlin.describe_cluster.main]
 suspend fun describeRedshiftClusters() {
-
     RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
         val clusterResponse = redshiftClient.describeClusters(DescribeClustersRequest {})
         val clusterList = clusterResponse.clusters

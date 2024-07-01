@@ -44,15 +44,16 @@ class StepFunctionsKotlinTest {
     private var jsonFile = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        roleNameSC = values.roleNameSC.toString() + UUID.randomUUID()
-        activityNameSC = values.activityNameSC.toString() + UUID.randomUUID()
-        stateMachineNameSC = values.stateMachineNameSC.toString() + UUID.randomUUID()
-        jsonFile = values.machineFile.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            roleNameSC = values.roleNameSC.toString() + UUID.randomUUID()
+            activityNameSC = values.activityNameSC.toString() + UUID.randomUUID()
+            stateMachineNameSC = values.stateMachineNameSC.toString() + UUID.randomUUID()
+            jsonFile = values.machineFile.toString()
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties") as InputStream
         val prop = Properties()
@@ -64,23 +65,25 @@ class StepFunctionsKotlinTest {
         roleNameSC = prop.getProperty("roleNameSC")
         activityNameSC = prop.getProperty("activityNameSC")
         stateMachineNameSC = prop.getProperty("stateMachineNameSC")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(2)
-    fun listStateMachines() = runBlocking {
-        listMachines()
-        println("Test 4 passed")
-    }
+    fun listStateMachines() =
+        runBlocking {
+            listMachines()
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(2)
-    fun testMVP() = runBlocking {
-        val sc = Scanner(System.`in`)
-        var action = false
+    fun testMVP() =
+        runBlocking {
+            val sc = Scanner(System.`in`)
+            var action = false
 
-        val polJSON = """{
+            val polJSON = """{
         "Version": "2012-10-17",
         "Statement": [
          {
@@ -94,93 +97,97 @@ class StepFunctionsKotlinTest {
         ]
         }"""
 
-        println(DASHES)
-        println("List activities using a Paginator.")
-        listActivitesPagnator()
-        println("Create an activity.")
-        val activityArn = createActivity(activityNameSC)
-        println("The ARN of the Activity is $activityArn")
+            println(DASHES)
+            println("List activities using a Paginator.")
+            listActivitesPagnator()
+            println("Create an activity.")
+            val activityArn = createActivity(activityNameSC)
+            println("The ARN of the Activity is $activityArn")
 
-        println("List state machines using a paginator.")
-        listStatemachinesPagnator()
-        println(DASHES)
+            println("List state machines using a paginator.")
+            listStatemachinesPagnator()
+            println(DASHES)
 
-        // Get JSON to use for the state machine and place the activityArn value into it.
-        val stream = GetStream()
-        val jsonString = stream.getStream()
+            // Get JSON to use for the state machine and place the activityArn value into it.
+            val stream = GetStream()
+            val jsonString = stream.getStream()
 
-        // Modify the Resource node.
-        val objectMapper = ObjectMapper()
-        val root: JsonNode = objectMapper.readTree(jsonString)
-        (root.path("States").path("GetInput") as ObjectNode).put("Resource", activityArn)
+            // Modify the Resource node.
+            val objectMapper = ObjectMapper()
+            val root: JsonNode = objectMapper.readTree(jsonString)
+            (root.path("States").path("GetInput") as ObjectNode).put("Resource", activityArn)
 
-        // Convert the modified Java object back to a JSON string.
-        val stateDefinition = objectMapper.writeValueAsString(root)
-        println(stateDefinition)
+            // Convert the modified Java object back to a JSON string.
+            val stateDefinition = objectMapper.writeValueAsString(root)
+            println(stateDefinition)
 
-        println(DASHES)
-        println("Create a state machine.")
-        val roleARN = createIAMRole(roleNameSC, polJSON)
-        val stateMachineArn = createMachine(roleARN, stateMachineNameSC, stateDefinition)
-        println("The ARN of the state machine is $stateMachineArn")
-        println("The ARN of the state machine is")
-        println(DASHES)
+            println(DASHES)
+            println("Create a state machine.")
+            val roleARN = createIAMRole(roleNameSC, polJSON)
+            val stateMachineArn = createMachine(roleARN, stateMachineNameSC, stateDefinition)
+            println("The ARN of the state machine is $stateMachineArn")
+            println("The ARN of the state machine is")
+            println(DASHES)
 
-        println(DASHES)
-        println("Describe the state machine.")
-        describeStateMachine(stateMachineArn)
-        println("What should ChatSFN call you?")
-        val userName = "foo"
-        println("Hello $userName")
-        println(DASHES)
+            println(DASHES)
+            println("Describe the state machine.")
+            describeStateMachine(stateMachineArn)
+            println("What should ChatSFN call you?")
+            val userName = "foo"
+            println("Hello $userName")
+            println(DASHES)
 
-        println(DASHES)
-        // The JSON to pass to the StartExecution call.
-        val executionJson = "{ \"name\" : \"$userName\" }"
-        println(executionJson)
-        println("Start execution of the state machine and interact with it.")
-        val runArn = startWorkflow(stateMachineArn, executionJson)
-        println("The ARN of the state machine execution is $runArn")
-        var myList: List<String>
-        while (!action) {
-            myList = getActivityTask(activityArn)
-            println("ChatSFN: " + myList[1])
-            println("$userName please specify a value.")
-            val myAction = "done"
-            action = true
-            val taskJson = "{ \"action\" : \"$myAction\" }"
-            println(taskJson)
-            sendTaskSuccess(myList[0], taskJson)
+            println(DASHES)
+            // The JSON to pass to the StartExecution call.
+            val executionJson = "{ \"name\" : \"$userName\" }"
+            println(executionJson)
+            println("Start execution of the state machine and interact with it.")
+            val runArn = startWorkflow(stateMachineArn, executionJson)
+            println("The ARN of the state machine execution is $runArn")
+            var myList: List<String>
+            while (!action) {
+                myList = getActivityTask(activityArn)
+                println("ChatSFN: " + myList[1])
+                println("$userName please specify a value.")
+                val myAction = "done"
+                action = true
+                val taskJson = "{ \"action\" : \"$myAction\" }"
+                println(taskJson)
+                sendTaskSuccess(myList[0], taskJson)
+            }
+            println(DASHES)
+
+            println(DASHES)
+            println("Describe the execution.")
+            describeExe(runArn)
+            println(DASHES)
+
+            println(DASHES)
+            println("Delete the activity.")
+            deleteActivity(activityArn)
+            println(DASHES)
+
+            println(DASHES)
+            println("Delete the state machines.")
+            deleteMachine(stateMachineArn)
+            println(DASHES)
+
+            println(DASHES)
+            println("The AWS Step Functions example scenario is complete.")
+            println(DASHES)
+            println("Test 4 passed")
         }
-        println(DASHES)
-
-        println(DASHES)
-        println("Describe the execution.")
-        describeExe(runArn)
-        println(DASHES)
-
-        println(DASHES)
-        println("Delete the activity.")
-        deleteActivity(activityArn)
-        println(DASHES)
-
-        println(DASHES)
-        println("Delete the state machines.")
-        deleteMachine(stateMachineArn)
-        println(DASHES)
-
-        println(DASHES)
-        println("The AWS Step Functions example scenario is complete.")
-        println(DASHES)
-        println("Test 4 passed")
-    }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/stepfunctions"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

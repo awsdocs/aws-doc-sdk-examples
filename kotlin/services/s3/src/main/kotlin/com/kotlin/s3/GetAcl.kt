@@ -37,11 +37,15 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[s3.kotlin.get_acl.main]
-suspend fun getBucketACL(objectKey: String, bucketName: String) {
-    val request = GetObjectAclRequest {
-        bucket = bucketName
-        key = objectKey
-    }
+suspend fun getBucketACL(
+    objectKey: String,
+    bucketName: String,
+) {
+    val request =
+        GetObjectAclRequest {
+            bucket = bucketName
+            key = objectKey
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         val response = s3.getObjectAcl(request)

@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
         Usage: 
@@ -39,10 +38,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[mediastore.kotlin.describe_container.main]
 suspend fun checkContainer(containerNameVal: String?): String? {
-
-    val request = DescribeContainerRequest {
-        containerName = containerNameVal
-    }
+    val request =
+        DescribeContainerRequest {
+            containerName = containerNameVal
+        }
 
     MediaStoreClient { region = "us-west-2" }.use { mediaStoreClient ->
         val containerResponse = mediaStoreClient.describeContainer(request)
