@@ -36,7 +36,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Amazon S3](hello/hello_s3.py#L4) (`ListBuckets`)
+- [Hello Amazon S3](s3_basics/hello.py#L4) (`ListBuckets`)
 
 
 ### Single actions
