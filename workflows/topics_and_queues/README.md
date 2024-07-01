@@ -42,7 +42,7 @@ This example is implemented in the following languages:
 
 ## Additional reading
 
-* [Community.aws: Coding 'Publish and Subscribe' Using SNS, SQS, and the AWS SDKs](https://community.aws/posts/topics_and_queues_workflow_with_sdks)
+* [Community.aws: Coding 'Publish and Subscribe' Using SNS, SQS, and the AWS SDKs](https://community.aws/content/2duRHzEUPyZbYm0oIeiyCzUhVJA/topics_and_queues_workflow_with_sdks)
 
 ---
 

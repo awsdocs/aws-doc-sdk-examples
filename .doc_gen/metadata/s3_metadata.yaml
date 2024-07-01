@@ -89,10 +89,15 @@ s3_CreateBucket:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:
+            - description: Create a bucket with default configuration.
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.CreateBucket
+            - description: Create a bucket with object locking and wait for it to exist.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.CreateBucket
     Kotlin:
       versions:
         - sdk_version: 1
@@ -399,6 +404,16 @@ s3_DeleteObject:
             - description:
               snippet_tags:
                 - s3.cpp.delete_object.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.DeleteObject
     Python:
       versions:
         - sdk_version: 3
@@ -492,12 +507,13 @@ s3_DeleteObjects:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/s3
+          github: gov2/workflows/s3_object_lock
           excerpts:
             - description:
+              genai: some
               snippet_tags:
-                - gov2.s3.BucketBasics.struct
-                - gov2.s3.DeleteObjects
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.DeleteObjects
     Java:
       versions:
         - sdk_version: 2
@@ -935,6 +951,16 @@ s3_GetObjectLegalHold:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.GetObjectLegalHold
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.GetObjectLegalHold
   services:
     s3: {GetObjectLegalHold}
 s3_GetObjectLegalHoldConfiguration:
@@ -992,6 +1018,16 @@ s3_GetObjectLockConfiguration:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.GetBucketObjectLockConfiguration
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.GetObjectLockConfiguration
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1023,6 +1059,16 @@ s3_GetObjectRetention:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.GetObjectRetention
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.GetObjectRetention
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1286,6 +1332,16 @@ s3_ListObjectVersions:
             - description:
               snippet_tags:
                 - S3.dotnetv3.ListObjectVersionsExample
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.ListObjectVersions
     Rust:
       versions:
         - sdk_version: 1
@@ -1324,10 +1380,15 @@ s3_PutObject:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:
+            - description: Put an object in a bucket by using the low-level API.
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.PutObject
+            - description: Upload an object to a bucket by using a transfer manager.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.UploadObject
     Kotlin:
       versions:
         - sdk_version: 1
@@ -2096,6 +2157,16 @@ s3_PutObjectLegalHold:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.ModifyObjectLegalHold
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.PutObjectLegalHold
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2133,6 +2204,21 @@ s3_PutObjectLockConfiguration:
             - description: Set the default retention period of a bucket.
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.ModifyBucketDefaultRetention
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description: Set the object lock configuration of a bucket.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.PubObjectLockConfiguration.EnableObjectLockOnBucket
+            - description: Set the default retention period of a bucket.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.PutObjectLockConfiguration.ModifyDefaultBucketRetention
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2167,6 +2253,16 @@ s3_PutObjectRetention:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.ModifyObjectRetentionPeriod
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.PutObjectRetention
     JavaScript:
       versions:
         - sdk_version: 3
@@ -3048,6 +3144,23 @@ s3_Scenario_ObjectLock:
             - description: A wrapper class for S3 functions.
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.S3ActionsWrapper
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description: Run an interactive scenario demonstrating &S3; object lock features.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.scenario.complete
+            - description: Define a struct that wraps S3 actions used in this example.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.complete
+            - description: Clean up resources.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.Resources.complete
     JavaScript:
       versions:
         - sdk_version: 3

@@ -114,7 +114,7 @@ The following table describes the metadata used in this SDK Getting Started Scen
 | `UpdateMaintenanceWindow`    | ssm_metadata.yaml            | ssm_UpdateMainWindow                    |
 | `CreateDocument`             | ssm_metadata.yaml            | ssm_CreateDocument                      |
 | `SendCommand `               | ssm_metadata.yaml            | ssm_SendCommand                         |
-| `CommandInvocations`         | ssm_metadata.yaml            | ssm_DescribeInvocation                  |
+| `ListCommandInvocations`     | ssm_metadata.yaml            | ssm_ListCommandInfocations              |
 | `UpdateOpsItem`              | ssm_metadata.yaml            | ssm_UpdateOpsItem                       |
 | `DeleteMaintenanceWindow `   | ssm_metadata.yaml            | ssm_DeleteMainWindow                    |
 | `DeleteDocument`             | ssm_metadata.yaml            | ssm_DeleteMainWindow                    |

@@ -1,6 +1,136 @@
 # zexi 0.4.0
+ecr_Hello:
+  title: Hello &ECR;
+  title_abbrev: Hello &ECR;
+  synopsis: get started using &ECR;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2_hello.main
+  services:
+    ecr: {listImages}
+ecr_PushImageCmd:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2.push.image.main
+  services:
+    ecr: {PushImageCmd}
+ecr_SetRepositoryPolicy:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2.set.repo.policy.main
+  services:
+    ecr: {SetRepositoryPolicy}
+ecr_GetRepositoryPolicy:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2.get.repo.policy.main
+  services:
+    ecr: {GetRepositoryPolicy}
+ecr_GetAuthorizationToken:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2.get.token.main
+  services:
+    ecr: {GetAuthorizationToken}
+ecr_StartLifecyclePolicyPreview:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2.verify.image.main
+  services:
+    ecr: {StartLifecyclePolicyPreview}
+ecr_DescribeImages:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2.verify.image.main
+  services:
+    ecr: {DescribeImages}
+ecr_DeleteRepository:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2.delete.repo.main
+  services:
+    ecr: {DeleteRepository}
+ecr_CreateRepository:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2.create.repo.main
+  services:
+    ecr: {CreateRepository}
 ecr_DescribeRepositories:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.java2.describe.policy.main
     Rust:
       versions:
         - sdk_version: 1
@@ -25,3 +155,32 @@ ecr_ListImages:
                 - ecr.rust.list-images
   services:
     ecr: {ListImages}
+ecr_Scenario_RepositoryManagement:
+  title: Learn core operations for &ECR; using an &AWS; SDK
+  title_abbrev: Learn &ECR; core operations
+  synopsis_list:
+    - Create an &ECR; repository.
+    - Set repository policies.
+    - Retrieve repository URIs.
+    - Get &ECR; authorization tokens.
+    - Set lifecycle policies for &ECR; repositories.
+    - Push a Docker image to an &ECR; repository.
+    - Verify the existence of an image in an &ECR; repository.
+    - List &ECR; repositories for your account and get details about them.
+    - Delete &ECR; repositories.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/kms
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &ECR; features.
+              snippet_tags:
+                - ecr.java2_scenario.parent.main
+            - description: A wrapper class for &ECR; SDK methods.
+              snippet_tags:
+                - ecr.java2_scenario.main
+  services:
+    ecr: {CreateRepository, DescribeRepositories, DeleteRepository, DescribeImages, StartLifecyclePolicyPreview, GetAuthorizationToken, GetRepositoryPolicy, SetRepositoryPolicy}
