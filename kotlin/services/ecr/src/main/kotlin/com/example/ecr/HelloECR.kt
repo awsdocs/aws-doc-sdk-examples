@@ -6,9 +6,23 @@ package com.example.ecr
 // snippet-start:[ecr.kotlin_hello.main]
 import aws.sdk.kotlin.services.ecr.EcrClient
 import aws.sdk.kotlin.services.ecr.model.ListImagesRequest
+import kotlin.system.exitProcess
 
 suspend fun main(args: Array<String>) {
-    val repoName = "test61"
+    val usage = """
+            Usage:    <repositoryName> 
+
+            Where:
+               repositoryName - The name of the Amazon ECR repository. 
+            
+            """.trimIndent()
+
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(1)
+    }
+
+    val repoName = args[0]
     listImageTags(repoName)
 }
 
