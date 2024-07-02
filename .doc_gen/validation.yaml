@@ -204,6 +204,7 @@ allow_list:
   - "v2/service/cognitoidentityprovider/types"
   - "abortIncompleteMultipartUploadsOlderThan"
   - "com/pinterest/ktlint/releases/download/1"
+  - "src/main/kotlin/com/example/ecr/HelloECR"
 sample_files:
   - "README.md"
   - "chat_sfn_state_machine.json"
