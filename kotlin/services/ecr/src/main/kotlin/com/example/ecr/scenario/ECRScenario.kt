@@ -3,6 +3,7 @@
 
 package com.example.ecr.scenario
 
+// snippet-start:[ecr.kotlin_scenario.parent.main]
 import java.util.Scanner
 
 /**
@@ -293,3 +294,4 @@ private fun waitForInputToContinue(scanner: Scanner) {
         }
     }
 }
+// snippet-end:[ecr.kotlin_scenario.parent.main]

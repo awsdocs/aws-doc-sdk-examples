@@ -27,6 +27,15 @@ ecr_Hello:
     ecr: {listImages}
 ecr_PushImageCmd:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.kotlin.push.image.main
     Java:
       versions:
         - sdk_version: 2
@@ -40,6 +49,15 @@ ecr_PushImageCmd:
     ecr: {PushImageCmd}
 ecr_SetRepositoryPolicy:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eecr.kotlin.set.repo.policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -53,6 +71,15 @@ ecr_SetRepositoryPolicy:
     ecr: {SetRepositoryPolicy}
 ecr_GetRepositoryPolicy:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.kotlin.get.repo.policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -66,6 +93,15 @@ ecr_GetRepositoryPolicy:
     ecr: {GetRepositoryPolicy}
 ecr_GetAuthorizationToken:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.kotlin.get.token.main
     Java:
       versions:
         - sdk_version: 2
@@ -79,6 +115,15 @@ ecr_GetAuthorizationToken:
     ecr: {GetAuthorizationToken}
 ecr_StartLifecyclePolicyPreview:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.kotlin.verify.image.main
     Java:
       versions:
         - sdk_version: 2
@@ -92,6 +137,15 @@ ecr_StartLifecyclePolicyPreview:
     ecr: {StartLifecyclePolicyPreview}
 ecr_DescribeImages:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.kotlin.verify.image.main
     Java:
       versions:
         - sdk_version: 2
@@ -105,6 +159,15 @@ ecr_DescribeImages:
     ecr: {DescribeImages}
 ecr_DeleteRepository:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.kotlin.delete.repo.main
     Java:
       versions:
         - sdk_version: 2
@@ -118,6 +181,15 @@ ecr_DeleteRepository:
     ecr: {DeleteRepository}
 ecr_CreateRepository:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.kotlin.create.repo.main
     Java:
       versions:
         - sdk_version: 2
@@ -131,6 +203,15 @@ ecr_CreateRepository:
     ecr: {CreateRepository}
 ecr_DescribeRepositories:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/ecr
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecr.kotlin.describe.policy.main
     Java:
       versions:
         - sdk_version: 2
@@ -179,10 +260,22 @@ ecr_Scenario_RepositoryManagement:
     - Delete &ECR; repositories.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 2
+          github: kotlin/services/ecr
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &ECR; features.
+              snippet_tags:
+                - ecr.kotlin_scenario.parent.main
+            - description: A wrapper class for &ECR; SDK methods.
+              snippet_tags:
+                - ecr.kotlin_scenario.main
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/kms
+          github: javav2/example_code/ecr
           sdkguide:
           excerpts:
             - description: Run an interactive scenario demonstrating &ECR; features.
