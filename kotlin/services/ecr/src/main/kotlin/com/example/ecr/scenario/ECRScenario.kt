@@ -3,7 +3,7 @@
 
 package com.example.ecr.scenario
 
-import java.util.Scanner
+import java.util.*
 
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
@@ -67,9 +67,30 @@ suspend fun main(args: Array<String>) {
             
         This scenario walks you through how to perform key operations for this service.  
         Let's get started...
+        
+         You have two choices:
+            1 - Run the entire program.
+            2 - Delete an existing Amazon ECR repository named echo-text (created from a previous execution of 
+            this program that did not complete).
           
         """.trimIndent(),
     )
+
+    while (true) {
+        val input = scanner.nextLine()
+        if (input.trim { it <= ' ' }.equals("1", ignoreCase = true)) {
+            println("Continuing with the program...")
+            println("")
+            break
+        } else if (input.trim { it <= ' ' }.equals("2", ignoreCase = true)) {
+            val repoName = "echo-text"
+            ecrActions.deleteECRRepository(repoName)
+            return
+        } else {
+            // Handle invalid input.
+            println("Invalid input. Please try again.")
+        }
+    }
 
     waitForInputToContinue(scanner)
     println(DASHES)
