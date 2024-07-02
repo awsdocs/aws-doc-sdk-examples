@@ -262,7 +262,7 @@ ecr_Scenario_RepositoryManagement:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 2
+        - sdk_version: 1
           github: kotlin/services/ecr
           sdkguide:
           excerpts:
