@@ -3,7 +3,7 @@
 
 package com.example.ecr.scenario
 
-import java.util.*
+import java.util.Scanner
 
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
