@@ -3,6 +3,7 @@
 
 package com.example.ecr.scenario
 
+// snippet-start:[ecr.kotlin_scenario.main]
 import aws.sdk.kotlin.services.ecr.EcrClient
 import aws.sdk.kotlin.services.ecr.model.CreateRepositoryRequest
 import aws.sdk.kotlin.services.ecr.model.DeleteRepositoryRequest
@@ -382,3 +383,4 @@ class ECRActions {
         }
     }
 }
+// snippet-end:[ecr.kotlin_scenario.main]
