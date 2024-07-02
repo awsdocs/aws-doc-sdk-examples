@@ -57,7 +57,7 @@ ecr_SetRepositoryPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - eecr.kotlin.set.repo.policy.main
+                - ecr.kotlin.set.repo.policy.main
     Java:
       versions:
         - sdk_version: 2
