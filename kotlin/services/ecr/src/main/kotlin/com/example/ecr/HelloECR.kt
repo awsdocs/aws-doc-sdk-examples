@@ -15,7 +15,7 @@ suspend fun main(args: Array<String>) {
             Where:
                repositoryName - The name of the Amazon ECR repository. 
             
-            """.trimIndent()
+    """.trimIndent()
 
     if (args.size != 1) {
         println(usage)
