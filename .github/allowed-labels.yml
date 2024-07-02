@@ -15,6 +15,9 @@
 - name: Workflow
   color: f5f7f9
   description: "A simple code example to show how certain tasks can be accomplished using several services and SDKs."
+- name: Basics
+  color: f5f7f9
+  description: "A basic code example showing the core actions for a particular service."
 - name: Application
   color: f5f7f9
   description: "An example with multiple AWS Services and SDKs to show how to build a complete, working application."
