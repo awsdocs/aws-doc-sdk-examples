@@ -16,9 +16,7 @@ import aws.sdk.kotlin.services.ecr.model.SetRepositoryPolicyRequest
 import aws.sdk.kotlin.services.ecr.model.StartLifecyclePolicyPreviewRequest
 import com.github.dockerjava.api.DockerClient
 import com.github.dockerjava.api.command.DockerCmdExecFactory
-import com.github.dockerjava.api.exception.DockerClientException
 import com.github.dockerjava.api.model.AuthConfig
-import com.github.dockerjava.api.model.Image
 import com.github.dockerjava.core.DockerClientBuilder
 import com.github.dockerjava.netty.NettyDockerCmdExecFactory
 import java.io.IOException
@@ -238,33 +236,14 @@ class ECRActions {
         }
     }
 
-    // snippet-end:[ecr.java2.push.image.main]
     fun listLocalImages(): Boolean {
         return try {
-            val images: MutableList<Image>? = getDockerClient()?.listImagesCmd()?.exec()
-            var helloWorldFound = false
-            if (images != null) {
-                for (image in images) {
-                    val repoTags = image.repoTags
-                    if (repoTags != null) {
-                        for (tag in repoTags) {
-                            if (tag.startsWith("echo-text")) {
-                                println(tag)
-                                helloWorldFound = true
-                            }
-                        }
-                    }
-                }
-            }
-            if (helloWorldFound) {
-                println("The local image named echo-text exists.")
-                true
-            } else {
-                println("The local image named echo-text does not exist.")
-                false
-            }
-        } catch (ex: DockerClientException) {
-            println("ERROR: " + ex.message)
+            val images = getDockerClient()?.listImagesCmd()?.exec()
+            images?.any { image ->
+                image.repoTags?.any { tag -> tag.startsWith("echo-text") } ?: false
+            } ?: false
+        } catch (ex: Exception) {
+            println("ERROR: ${ex.message}")
             false
         }
     }
