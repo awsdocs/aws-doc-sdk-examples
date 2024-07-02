@@ -10,7 +10,7 @@ import kotlin.system.exitProcess
 
 suspend fun main(args: Array<String>) {
     val usage = """
-            Usage:    <repositoryName> 
+            Usage: <repositoryName> 
 
             Where:
                repositoryName - The name of the Amazon ECR repository. 
