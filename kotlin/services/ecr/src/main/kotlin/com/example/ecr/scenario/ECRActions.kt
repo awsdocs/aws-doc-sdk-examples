@@ -236,16 +236,14 @@ class ECRActions {
         }
     }
 
-    fun listLocalImages(): Boolean {
-        return try {
-            val images = getDockerClient()?.listImagesCmd()?.exec()
-            images?.any { image ->
-                image.repoTags?.any { tag -> tag.startsWith("echo-text") } ?: false
-            } ?: false
-        } catch (ex: Exception) {
-            println("ERROR: ${ex.message}")
-            false
-        }
+    fun listLocalImages(): Boolean = try {
+        val images = getDockerClient()?.listImagesCmd()?.exec()
+        images?.any { image ->
+            image.repoTags?.any { tag -> tag.startsWith("echo-text") } ?: false
+        } ?: false
+    } catch (ex: Exception) {
+        println("ERROR: ${ex.message}")
+        false
     }
 
     // snippet-start:[ecr.kotlin.push.image.main]
