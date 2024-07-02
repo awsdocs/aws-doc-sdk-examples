@@ -5,7 +5,7 @@ ecr_Hello:
   synopsis: get started using &ECR;.
   category: Hello
   languages:
-    Java:
+    Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/ecr
