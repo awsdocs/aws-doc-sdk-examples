@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-#
-# swiftbuild
-#
-# A simple tool to build (or test) one or more Swift projects using a single
-# command.
 
 import argparse
 import os
