@@ -16,11 +16,36 @@ logger = logging.getLogger(__name__)
 
 
 class MissingMetadataError(Exception):
+    """Custom exception to be raised when required metadata is missing."""
     pass
 
 
 class Renderer:
+    """
+    A class for rendering service READMEs using Jinja2 templates.
+
+    Attributes:
+        scanner (object): An instance of a Scanner class used to scan code examples.
+        sdk_ver (int): The version of the SDK being used.
+        safe (bool): A flag indicating whether to keep the existing README file.
+        svc_folder (str, optional): The service folder path.
+        template (jinja2.environment.Template): The Jinja2 template for rendering the README.
+        lang_config (dict): The language configuration for the specified SDK version.
+        readme_filename (str): The path to the README file.
+        readme_text (str): The rendered README text.
+        readme_updated (bool): A flag indicating whether the README file was updated.
+    """
+
     def __init__(self, scanner, sdk_ver, safe, svc_folder=None):
+        """
+        Initialize the Renderer class.
+
+        Args:
+            scanner (object): An instance of a Scanner class used to scan code examples.
+            sdk_ver (int): The version of the SDK being used.
+            safe (bool): A flag indicating whether to keep the existing README file.
+            svc_folder (str, optional): The service folder path.
+        """
         env = Environment(
             autoescape=select_autoescape(
                 disabled_extensions=("jinja2",), default_for_string=True
@@ -68,9 +93,24 @@ class Renderer:
 
     @staticmethod
     def _doc_link(url):
+        """
+        Constructs a documentation link from the given URL.
+
+        Args:
+            url (str): The URL to be converted into a documentation link.
+
+        Returns:
+            str: The constructed documentation link.
+        """
         return url if url.startswith("http") else f"{config.doc_base_url}/{url}"
 
     def _transform_sdk(self):
+        """
+        Transforms the SDK information from the SDK metadata.
+
+        Returns:
+            dict: A dictionary containing the transformed SDK information.
+        """
         pre_sdk = self.scanner.sdk()["sdk"][self.sdk_ver]
         if "expanded" not in pre_sdk or "guide" not in pre_sdk:
             logger.error(
@@ -88,6 +128,12 @@ class Renderer:
         return post_sdk
 
     def _transform_service(self):
+        """
+        Transforms the service information from the service metadata.
+
+        Returns:
+            dict: A dictionary containing the transformed service information.
+        """
         pre_svc = self.scanner.service()
         if (
             "expanded" not in pre_svc
@@ -112,6 +158,15 @@ class Renderer:
         return post_svc
 
     def _transform_hello(self, pre_hello):
+        """
+        Transforms the "hello" examples from the metadata.
+
+        Args:
+            pre_hello (dict): The pre-transformed "hello" examples from the metadata.
+
+        Returns:
+            list: A list of transformed "hello" examples.
+        """
         post_hello = []
         for _, pre in pre_hello.items():
             try:
@@ -124,12 +179,24 @@ class Renderer:
                 "file": self.scanner.snippet(
                     pre, self.sdk_ver, self.lang_config["service_folder"], api
                 ),
+                "run_file": self.scanner.snippet(
+                    pre, self.sdk_ver, self.lang_config["service_folder"], ''
+                ),
                 "api": api,
             }
             post_hello.append(action)
         return sorted(post_hello, key=itemgetter("title_abbrev"))
 
     def _transform_actions(self, pre_actions):
+        """
+        Transforms the action examples from the metadata.
+
+        Args:
+            pre_actions (dict): The pre-transformed action examples from the metadata.
+
+        Returns:
+            list: A list of transformed action examples.
+        """
         post_actions = []
         for pre_id, pre in pre_actions.items():
             try:
@@ -139,206 +206,4 @@ class Renderer:
                     f"Action not found for example {pre_id} and service {self.scanner.svc_name}."
                 )
             action = {
-                "title_abbrev": api,
-                "file": self.scanner.snippet(
-                    pre, self.sdk_ver, self.lang_config["service_folder"], api
-                ),
-            }
-            post_actions.append(action)
-        return sorted(post_actions, key=itemgetter("title_abbrev"))
-
-    def _transform_scenarios(self):
-        pre_scenarios = self.scanner.scenarios()
-        _, cross_scenarios = self.scanner.crosses()
-        pre_scenarios.update(cross_scenarios)
-        post_scenarios = []
-        for pre_id, pre in pre_scenarios.items():
-            scenario = {
-                "id": pre_id,
-                "title_abbrev": pre["title_abbrev"],
-                "synopsis": pre.get("synopsis"),
-                "synopsis_list": pre.get("synopsis_list", []),
-                "file": self.scanner.snippet(
-                    pre, self.sdk_ver, self.lang_config["service_folder"], ""
-                ),
-            }
-            if scenario["file"] is None:
-                logger.warning(
-                    "Couldn't find file for scenario: %s.", scenario["title_abbrev"]
-                )
-            else:
-                post_scenarios.append(scenario)
-        return sorted(post_scenarios, key=itemgetter("title_abbrev"))
-
-    def _transform_custom_categories(self):
-        pre_cats = self.scanner.custom_categories()
-        post_cats = defaultdict(list)
-        for pre_id, pre in pre_cats.items():
-            api = ""
-            if len(pre["services"][self.scanner.svc_name]) == 1:
-                try:
-                    api = next(iter(pre["services"][self.scanner.svc_name]))
-                except:
-                    api = ""
-            cat = {
-                "id": pre_id,
-                "title_abbrev": pre["title_abbrev"],
-                "synopsis": pre.get("synopsis"),
-                "synopsis_list": pre.get("synopsis_list", []),
-                "file": self.scanner.snippet(
-                    pre, self.sdk_ver, self.lang_config["service_folder"], api
-                ),
-            }
-            if cat["file"] is None:
-                logger.warning(
-                    "Couldn't find file for scenario: %s.", cat["title_abbrev"]
-                )
-            else:
-                post_cats[pre.get("category")].append(cat)
-        sorted_cats = {}
-        for key in sorted(post_cats.keys()):
-            sorted_cats[key] = sorted(post_cats[key], key=itemgetter("title_abbrev"))
-        return sorted_cats
-
-    def _transform_crosses(self):
-        pre_crosses, _ = self.scanner.crosses()
-        post_crosses = []
-        for _, pre in pre_crosses.items():
-            github = None
-            for ver in pre["languages"][self.scanner.lang_name]["versions"]:
-                if ver["sdk_version"] == self.sdk_ver:
-                    github = ver.get("github")
-                    break
-            if github is None:
-                logger.info(
-                    "GitHub path not specified for cross-service example: %s %s.",
-                    self.scanner.lang_name,
-                    pre["title_abbrev"],
-                )
-            else:
-                base_folder = f"{config.language[self.scanner.lang_name][self.sdk_ver]['base_folder']}/"
-                if base_folder in github:
-                    github = (
-                        self._lang_level_double_dots() + github.split(base_folder, 1)[1]
-                    )
-                cross = {
-                    "title_abbrev": pre["title_abbrev"],
-                    "file": github,
-                }
-                post_crosses.append(cross)
-        return sorted(post_crosses, key=itemgetter("title_abbrev"))
-
-    def _expand_entities(self, readme_text):
-        entities = set(re.findall(r"&[\dA-Za-z-_]+;", readme_text))
-        for entity in entities:
-            expanded = self.scanner.expand_entity(entity)
-            if expanded is not None:
-                readme_text = readme_text.replace(entity, expanded)
-            else:
-                logger.warning("Entity found with no expansion defined: %s", entity)
-        return readme_text
-
-    def _lang_level_double_dots(self):
-        return "../" * self.lang_config["service_folder"].count("/")
-
-    def _scrape_customs(self, readme_filename, sdk_short):
-        customs = {}
-        section = None
-        subsection = None
-        with open(readme_filename, "r", encoding="utf-8") as readme:
-            for line in readme.readlines():
-                if line.lstrip().startswith("<!--custom") and line.rstrip().endswith(
-                    "start-->"
-                ):
-                    tag_parts = line.split(".")
-                    section = tag_parts[1]
-                    if len(tag_parts) > 3:
-                        subsection = tag_parts[2]
-                        if section not in customs:
-                            customs[section] = {subsection: ""}
-                        else:
-                            customs[section][subsection] = ""
-                    else:
-                        customs[section] = ""
-                elif line.lstrip().startswith("<!--custom") and line.rstrip().endswith(
-                    "end-->"
-                ):
-                    end_section = line.split(".")[1]
-                    if end_section != section:
-                        logger.warning(
-                            "Start section '%s' with non-matching end section '%s'.",
-                            section,
-                            end_section,
-                        )
-                    section = None
-                    subsection = None
-                elif section is not None:
-                    if subsection is None:
-                        customs[section] += line
-                    else:
-                        customs[section][subsection] += line
-                else:
-                    link_re = r"^\s*[-*] \[([^\]]+)\]\(([^)]+)\)\s*$"
-                    link_match = re.match(link_re, line)
-                    if link_match:
-                        link, href = link_match.groups()
-                        if link.startswith(sdk_short):
-                            self.lang_config["sdk_api_ref"] = href
-        return customs
-
-    def render(self):
-        if self.lang_config is None:
-            return None
-        sdk = self._transform_sdk()
-        svc = self._transform_service()
-        hello = self._transform_hello(self.scanner.hello())
-        actions = self._transform_actions(self.scanner.actions())
-        scenarios = self._transform_scenarios()
-        custom_cats = self._transform_custom_categories()
-        crosses = self._transform_crosses()
-        self.lang_config["name"] = self.scanner.lang_name
-        self.lang_config["sdk_ver"] = self.sdk_ver
-        self.lang_config["readme"] = f"{self._lang_level_double_dots()}README.md"
-        unsupported = self.lang_config.get("unsupported", False)
-
-        self.readme_filename = f'{self.lang_config["service_folder"]}/{config.readme}'
-        readme_exists = os.path.exists(self.readme_filename)
-        customs = (
-            self._scrape_customs(self.readme_filename, sdk["short"])
-            if readme_exists
-            else {}
-        )
-        if "examples" not in customs:
-            customs["examples"] = ""
-
-        self.readme_text = self.template.render(
-            lang_config=self.lang_config,
-            sdk=sdk,
-            service=svc,
-            hello=hello,
-            actions=actions,
-            scenarios=scenarios,
-            custom_cats=custom_cats,
-            crosses=crosses,
-            customs=customs,
-            unsupported=unsupported,
-        )
-        self.readme_text = self._expand_entities(self.readme_text)
-        return self
-
-    def write(self):
-        if self.safe and Path(self.readme_filename).exists():
-            os.rename(
-                self.readme_filename,
-                f'{self.lang_config["service_folder"]}/{config.saved_readme}',
-            )
-        # Do this so that new files are always updated to the correct case (README.md).
-        Path(self.readme_filename).unlink(missing_ok=True)
-        with open(self.readme_filename, "w", encoding="utf-8") as f:
-            f.write(self.readme_text)
-        print(f"Updated {self.readme_filename}.")
-
-    def check(self):
-        with open(self.readme_filename, "r", encoding="utf-8") as f:
-            readme_current = f.read()
-            return readme_current == self.readme_text
+                "title
