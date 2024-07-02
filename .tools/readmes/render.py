@@ -68,12 +68,10 @@ class Renderer:
 
     @staticmethod
     def _doc_link(url_like: str) -> str:
-        """Ensures `url_like` is a complete URL; either itself an http(s) URL, or prefixed with `doc_base_url`."""
-        return (
-            url_like
-            if url_like.startswith("http")
-            else f"{config.doc_base_url}/{url_like}"
-        )
+        """Ensures `url_like` is a complete URL; either itself a http(s) URL, or prefixed with `doc_base_url`."""
+        if url_like.startswith("http"):
+            return url_like
+        return f"{config.doc_base_url}/{url_like}"
 
     def _transform_sdk(self):
         pre_sdk = self.scanner.sdk()["sdk"][self.sdk_ver]
