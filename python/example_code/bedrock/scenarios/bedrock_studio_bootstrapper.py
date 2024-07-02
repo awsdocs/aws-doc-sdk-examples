@@ -163,7 +163,9 @@ class BedrockStudioBootstrapper:
 
         self._kms_key_arn = None
         self._iam_client = self._session.client("iam")
-        self._permission_boundary_policy_name = "AmazonDataZoneBedrockPermissionsBoundary"
+        self._permission_boundary_policy_name = (
+            "AmazonDataZoneBedrockPermissionsBoundary"
+        )
 
     def run(self):
         logger.info("=" * 80)
@@ -334,16 +336,20 @@ class BedrockStudioBootstrapper:
         logger.info("Step 3: Create Permission Boundary.")
         logger.info("-" * 80)
 
-        logger.info(f"Creating permission boundary: '{self._permission_boundary_policy_name}'...")
+        logger.info(
+            f"Creating permission boundary: '{self._permission_boundary_policy_name}'..."
+        )
 
         try:
             self._iam_client.create_policy(
                 PolicyName=self._permission_boundary_policy_name,
-                PolicyDocument=self._get_permission_boundary()
+                PolicyDocument=self._get_permission_boundary(),
             )
             logger.info(f"Permission boundary policy created.")
         except self._iam_client.exceptions.EntityAlreadyExistsException:
-            logger.warning(f"Policy with name '{self._permission_boundary_policy_name}' already exists.")
+            logger.warning(
+                f"Policy with name '{self._permission_boundary_policy_name}' already exists."
+            )
 
     def _create_kms_key(self):
         logger.info("=" * 80)

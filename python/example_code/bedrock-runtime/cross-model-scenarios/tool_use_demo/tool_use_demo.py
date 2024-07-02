@@ -121,7 +121,7 @@ class ToolUseDemo:
         )
 
     def _process_model_response(
-            self, model_response, conversation, max_recursion=MAX_RECURSIONS
+        self, model_response, conversation, max_recursion=MAX_RECURSIONS
     ):
         """
         Processes the response received via Amazon Bedrock and performs the necessary actions
@@ -153,7 +153,7 @@ class ToolUseDemo:
             return
 
     def _handle_tool_use(
-            self, model_response, conversation, max_recursion=MAX_RECURSIONS
+        self, model_response, conversation, max_recursion=MAX_RECURSIONS
     ):
         """
         Handles the tool use case by invoking the specified tool and sending the tool's response back to Bedrock.

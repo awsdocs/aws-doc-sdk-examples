@@ -36,8 +36,13 @@ class SsmStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_send_command(
-            self, instance_ids, commands=None, document_name="AWS-RunShellScript", command_id=None, timeout=3600,
-            error_code=None
+        self,
+        instance_ids,
+        commands=None,
+        document_name="AWS-RunShellScript",
+        command_id=None,
+        timeout=3600,
+        error_code=None,
     ):
         expected_parameters = {
             "InstanceIds": instance_ids,
@@ -56,8 +61,9 @@ class SsmStubber(ExampleStubber):
             "send_command", expected_parameters, response, error_code=error_code
         )
 
-    def stub_list_command_invocations(self, command_id=None, instance_id=None, status_details=None,
-                           error_code=None):
+    def stub_list_command_invocations(
+        self, command_id=None, instance_id=None, status_details=None, error_code=None
+    ):
         expected_parameters = {}
         if instance_id is not None:
             expected_parameters["InstanceId"] = instance_id
@@ -75,11 +81,12 @@ class SsmStubber(ExampleStubber):
         if instance_id is not None:
             command_response["InstanceId"] = instance_id
 
-        response = {
-            "CommandInvocations": [command_response]
-        }
+        response = {"CommandInvocations": [command_response]}
         self._stub_bifurcator(
-            "list_command_invocations", expected_parameters, response, error_code=error_code
+            "list_command_invocations",
+            expected_parameters,
+            response,
+            error_code=error_code,
         )
 
     def stub_get_parameters_by_path(self, names, values, path=ANY, error_code=None):
@@ -108,10 +115,7 @@ class SsmStubber(ExampleStubber):
         )
 
     def stub_create_document(self, content, name, error_code=None):
-        expected_params = {"Name": name,
-                           "Content": content,
-                           'DocumentType': 'Command'
-                           }
+        expected_params = {"Name": name, "Content": content, "DocumentType": "Command"}
         response = {}
         self._stub_bifurcator(
             "create_document",
@@ -121,21 +125,14 @@ class SsmStubber(ExampleStubber):
         )
 
     def stub_delete_document(self, name, error_code=None):
-        expected_params = {
-            "Name": name
-        }
+        expected_params = {"Name": name}
         response = {}
         self._stub_bifurcator(
-            "delete_document",
-            expected_params,
-            response,
-            error_code=error_code
+            "delete_document", expected_params, response, error_code=error_code
         )
 
     def stub_describe_document(self, name, error_code=None):
-        expected_params = {
-            "Name": name
-        }
+        expected_params = {"Name": name}
 
         response = {
             "Document": {
@@ -144,37 +141,38 @@ class SsmStubber(ExampleStubber):
         }
 
         self._stub_bifurcator(
-            "describe_document",
-            expected_params,
-            response,
-            error_code=error_code
+            "describe_document", expected_params, response, error_code=error_code
         )
 
-    def stub_create_maintenance_window(self, name, window_id, allow_unassociated_targets=False, cutoff=2, duration=2,
-                                       schedule="cron(0 0 ? * MON *)", error_code=None):
+    def stub_create_maintenance_window(
+        self,
+        name,
+        window_id,
+        allow_unassociated_targets=False,
+        cutoff=2,
+        duration=2,
+        schedule="cron(0 0 ? * MON *)",
+        error_code=None,
+    ):
         expected_params = {
             "Name": name,
             "AllowUnassociatedTargets": allow_unassociated_targets,
             "Cutoff": cutoff,
             "Duration": duration,
-            "Schedule": schedule
+            "Schedule": schedule,
         }
 
-        response = {
-            "WindowId": window_id
-        }
+        response = {"WindowId": window_id}
 
         self._stub_bifurcator(
             "create_maintenance_window",
             expected_params,
             response,
-            error_code=error_code
+            error_code=error_code,
         )
 
     def stub_delete_maintenance_window(self, window_id, error_code=None):
-        expected_params = {
-            "WindowId": window_id
-        }
+        expected_params = {"WindowId": window_id}
 
         response = {}
 
@@ -182,14 +180,21 @@ class SsmStubber(ExampleStubber):
             "delete_maintenance_window",
             expected_params,
             response,
-            error_code=error_code
+            error_code=error_code,
         )
 
-    def stub_update_maintenance_window(self, window_id, name=None, allow_unassociated_targets=None, cutoff=None,
-                                       duration=None, enabled=None, schedule=None, error_code=None):
-        expected_params = {
-            "WindowId": window_id
-        }
+    def stub_update_maintenance_window(
+        self,
+        window_id,
+        name=None,
+        allow_unassociated_targets=None,
+        cutoff=None,
+        duration=None,
+        enabled=None,
+        schedule=None,
+        error_code=None,
+    ):
+        expected_params = {"WindowId": window_id}
 
         if name is not None:
             expected_params["Name"] = name
@@ -204,49 +209,46 @@ class SsmStubber(ExampleStubber):
         if schedule is not None:
             expected_params["Schedule"] = schedule
 
-        response = {
-            "WindowId": window_id
-        }
+        response = {"WindowId": window_id}
 
         self._stub_bifurcator(
             "update_maintenance_window",
             expected_params,
             response,
-            error_code=error_code
+            error_code=error_code,
         )
 
-    def stub_create_ops_item(self, title, source, category, severity, description, ops_item_id, error_code=None):
+    def stub_create_ops_item(
+        self,
+        title,
+        source,
+        category,
+        severity,
+        description,
+        ops_item_id,
+        error_code=None,
+    ):
         expected_params = {
             "Title": title,
             "Source": source,
             "Category": category,
             "Severity": severity,
-            "Description": description
+            "Description": description,
         }
 
-        response = {
-            "OpsItemId": ops_item_id
-        }
+        response = {"OpsItemId": ops_item_id}
 
         self._stub_bifurcator(
-            "create_ops_item",
-            expected_params,
-            response,
-            error_code=error_code
+            "create_ops_item", expected_params, response, error_code=error_code
         )
 
     def stub_delete_ops_item(self, ops_item_id, error_code=None):
-        expected_params = {
-            "OpsItemId": ops_item_id
-        }
+        expected_params = {"OpsItemId": ops_item_id}
 
         response = {}
 
         self._stub_bifurcator(
-            "delete_ops_item",
-            expected_params,
-            response,
-            error_code=error_code
+            "delete_ops_item", expected_params, response, error_code=error_code
         )
 
     def stub_describe_ops_items(self, filters, error_code=None):
@@ -263,23 +265,28 @@ class SsmStubber(ExampleStubber):
                     "LastModifiedTime": datetime.now(),
                     "Status": "Open",
                     "Severity": "High",
-                    "Category": "Availability"
+                    "Category": "Availability",
                 }
             ]
         }
 
         self._stub_bifurcator(
-            "describe_ops_items",
-            expected_params,
-            response,
-            error_code=error_code
+            "describe_ops_items", expected_params, response, error_code=error_code
         )
 
-    def stub_update_ops_item(self, ops_item_id, title=None, description=None, source=None, severity=None,
-                             status=None, category=None, notifications=None, error_code=None):
-        expected_params = {
-            "OpsItemId": ops_item_id
-        }
+    def stub_update_ops_item(
+        self,
+        ops_item_id,
+        title=None,
+        description=None,
+        source=None,
+        severity=None,
+        status=None,
+        category=None,
+        notifications=None,
+        error_code=None,
+    ):
+        expected_params = {"OpsItemId": ops_item_id}
 
         if title is not None:
             expected_params["Title"] = title
@@ -299,8 +306,5 @@ class SsmStubber(ExampleStubber):
         response = {}
 
         self._stub_bifurcator(
-            "update_ops_item",
-            expected_params,
-            response,
-            error_code=error_code
+            "update_ops_item", expected_params, response, error_code=error_code
         )
