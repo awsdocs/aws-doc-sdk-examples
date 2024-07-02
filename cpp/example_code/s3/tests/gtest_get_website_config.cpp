@@ -11,7 +11,7 @@
 
 #include <gtest/gtest.h>
 #include <fstream>
-#include "awsdoc/s3/s3_examples.h"
+#include "../s3_examples.h"
 #include "S3_GTests.h"
 
 static const int BUCKETS_NEEDED = 1;
@@ -25,7 +25,7 @@ namespace AwsDocTest {
         bool result = PutWebsiteConfig(bucketNames[0]);
         ASSERT_TRUE(result) << "Failed to meet precondition" << std::endl;
 
-        result = AwsDoc::S3::GetWebsiteConfig(bucketNames[0], *s_clientConfig);
+        result = AwsDoc::S3::getWebsiteConfig(bucketNames[0], *s_clientConfig);
         ASSERT_TRUE(result);
     }
 } // namespace AwsDocTest

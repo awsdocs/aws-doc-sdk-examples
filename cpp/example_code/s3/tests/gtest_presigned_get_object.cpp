@@ -12,7 +12,7 @@
 
 #include <gtest/gtest.h>
 #include <fstream>
-#include "awsdoc/s3/s3_examples.h"
+#include "../s3_examples.h"
 #include "S3_GTests.h"
 
 static const int BUCKETS_NEEDED = 1;
@@ -27,13 +27,14 @@ namespace AwsDocTest {
         Aws::String fileName = PutTestFileInBucket(bucketNames[0]);
         ASSERT_TRUE(!fileName.empty()) << "Failed to meet precondition" << std::endl;
 
-        Aws::String presignedURL = AwsDoc::S3::GeneratePreSignedGetObjectURL(bucketNames[0], fileName, 10 * 60, *s_clientConfig);
+        Aws::String presignedURL = AwsDoc::S3::generatePreSignedGetObjectUrl(bucketNames[0], fileName, 10 * 60,
+                                                                             *s_clientConfig);
 
         EXPECT_TRUE(!presignedURL.empty());
 
 #if HAS_CURL
         Aws::String stringResult;
-        bool result = AwsDoc::S3::GetObjectWithPresignedObjectURL(presignedURL, stringResult);
+        bool result = AwsDoc::S3::getObjectWithPresignedObjectUrl(presignedURL, stringResult);
         EXPECT_TRUE(result);
 
         DeleteObjectInBucket(bucketNames[0], stringResult);

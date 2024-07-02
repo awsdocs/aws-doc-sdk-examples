@@ -17,7 +17,7 @@
  *
  */
 
-#include "awsdoc/s3/s3_demo_for_cloud9.h"
+#include "s3_demo_for_cloud9.h"
 // snippet-start:[s3.cpp.bucket_operations.list_create_delete]
 #include <iostream>
 #include <aws/core/Aws.h>
@@ -50,9 +50,8 @@ bool FindTheBucket(const Aws::S3::S3Client &s3Client,
         }
 
         std::cout << "Could not find the bucket." << std::endl << std::endl;
-    }
-    else {
-        std::cerr << "ListBuckets error: "
+    } else {
+        std::cerr << "listBuckets error: "
                   << outcome.GetError().GetMessage() << std::endl;
     }
 
@@ -62,7 +61,7 @@ bool FindTheBucket(const Aws::S3::S3Client &s3Client,
 // Create an Amazon S3 bucket.
 bool CreateTheBucket(const Aws::S3::S3Client &s3Client,
                      const Aws::String &bucketName,
-                     const Aws::String& region) {
+                     const Aws::String &region) {
 
     std::cout << "Creating a bucket named '"
               << bucketName << "'..." << std::endl << std::endl;
@@ -70,7 +69,7 @@ bool CreateTheBucket(const Aws::S3::S3Client &s3Client,
     Aws::S3::Model::CreateBucketRequest request;
     request.SetBucket(bucketName);
 
-     if (region != "us-east-1") {
+    if (region != "us-east-1") {
         Aws::S3::Model::CreateBucketConfiguration createBucketConfig;
         createBucketConfig.SetLocationConstraint(
                 Aws::S3::Model::BucketLocationConstraintMapper::GetBucketLocationConstraintForName(
@@ -83,9 +82,8 @@ bool CreateTheBucket(const Aws::S3::S3Client &s3Client,
 
     if (outcome.IsSuccess()) {
         std::cout << "Bucket created." << std::endl << std::endl;
-    }
-    else {
-        std::cerr << "CreateBucket error: "
+    } else {
+        std::cerr << "createBucket error: "
                   << outcome.GetError().GetMessage() << std::endl;
     }
 
@@ -107,9 +105,8 @@ bool DeleteTheBucket(const Aws::S3::S3Client &s3Client,
 
     if (outcome.IsSuccess()) {
         std::cout << "Bucket deleted." << std::endl << std::endl;
-    }
-    else {
-        std::cerr << "DeleteBucket error: "
+    } else {
+        std::cerr << "deleteBucket error: "
                   << outcome.GetError().GetMessage() << std::endl;
     }
 
@@ -131,32 +128,32 @@ int main(int argc, char *argv[]) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::String bucket_name = argv[1];
+        Aws::String bucketName = argv[1];
         Aws::String region = argv[2];
 
         Aws::Client::ClientConfiguration config;
 
         config.region = region;
 
-        Aws::S3::S3Client s3_client(config);
+        Aws::S3::S3Client s3Client(config);
 
-        if (!FindTheBucket(s3_client, bucket_name)) {
+        if (!FindTheBucket(s3Client, bucketName)) {
             return 1;
         }
 
-        if (!CreateTheBucket(s3_client, bucket_name, region)) {
+        if (!CreateTheBucket(s3Client, bucketName, region)) {
             return 1;
         }
 
-        if (!FindTheBucket(s3_client, bucket_name)) {
+        if (!FindTheBucket(s3Client, bucketName)) {
             return 1;
         }
 
-        if (!DeleteTheBucket(s3_client, bucket_name)) {
+        if (!DeleteTheBucket(s3Client, bucketName)) {
             return 1;
         }
 
-        if (!FindTheBucket(s3_client, bucket_name)) {
+        if (!FindTheBucket(s3Client, bucketName)) {
             return 1;
         }
     }

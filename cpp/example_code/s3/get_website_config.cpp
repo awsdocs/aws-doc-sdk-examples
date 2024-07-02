@@ -5,7 +5,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/GetBucketWebsiteRequest.h>
-#include <awsdoc/s3/s3_examples.h>
+#include "s3_examples.h"
 
 /**
 * Before running this C++ code example, set up your development environment, including your credentials.
@@ -22,29 +22,27 @@
 
 //! Routine which demonstrates getting the website configuration for an S3 bucket.
 /*!
-  \sa GetWebsiteConfig()
-  \param bucketName Name of to bucket containing a website configuration.
-  \param clientConfig Aws client configuration.
+  \param bucketName: Name of to bucket containing a website configuration.
+  \param clientConfig: Aws client configuration.
+  \return bool: Function succeeded.
 */
-
 // snippet-start:[s3.cpp.get_website_config.code]
-bool AwsDoc::S3::GetWebsiteConfig(const Aws::String &bucketName,
-                                  const Aws::Client::ClientConfiguration &clientConfig) {
-    Aws::S3::S3Client s3_client(clientConfig);
+bool AwsDoc::S3::getWebsiteConfig(const Aws::String &bucketName,
+                                  const Aws::S3::S3ClientConfiguration &clientConfig) {
+    Aws::S3::S3Client s3Client(clientConfig);
 
     Aws::S3::Model::GetBucketWebsiteRequest request;
     request.SetBucket(bucketName);
 
     Aws::S3::Model::GetBucketWebsiteOutcome outcome =
-            s3_client.GetBucketWebsite(request);
+            s3Client.GetBucketWebsite(request);
 
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();
 
         std::cerr << "Error: GetBucketWebsite: "
                   << err.GetMessage() << std::endl;
-    }
-    else {
+    } else {
         Aws::S3::Model::GetBucketWebsiteResult websiteResult = outcome.GetResult();
 
         std::cout << "Success: GetBucketWebsite: "
@@ -69,29 +67,42 @@ bool AwsDoc::S3::GetWebsiteConfig(const Aws::String &bucketName,
  *
  * Prerequisites: The bucket containing the website configuration.
  *
- * TODO(user): items: Set the following variables.
- * - bucketName: The name of the bucket that contains the website configuration.
+ * usage: run_get_website_config <bucket_name>
+ *
+ * Where:
+ * - bucket_name: The name of the bucket containing the website configuration.
  *
  */
 
 #ifndef TESTING_BUILD
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc != 2)
+    {
+        std::cout << R"(
+Usage:
+    run_get_website_config <bucket_name>
+Where:
+    bucket_name - The name of the bucket that contains the website configuration.
+)" << std::endl;
+        return 1;
+    }
+
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO: Change bucket_name to the name of a bucket in your account.
-        const Aws::String bucket_name = "<Enter bucket name>";
+        const Aws::String bucketName = argv[1];
 
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::S3::GetWebsiteConfig(bucket_name, clientConfig);
+        AwsDoc::S3::getWebsiteConfig(bucketName, clientConfig);
     }
     Aws::ShutdownAPI(options);
 
     return 0;
 }
+
 #endif // TESTING_BUILD
 

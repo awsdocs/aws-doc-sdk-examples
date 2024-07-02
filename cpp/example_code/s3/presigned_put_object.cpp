@@ -9,7 +9,7 @@
 #include <aws/core/client/RetryStrategy.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/PutObjectRequest.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 // The libcurl must be installed to test the pre-signed URL returned in this example.
 // See, https://curl.se/libcurl/c/libcurl.html.
@@ -40,10 +40,10 @@
   \param clientConfig: Aws client configuration.
   \return Aws::String: A pre-signed URL.
 */
-Aws::String AwsDoc::S3::GeneratePreSignedPutObjectURL(const Aws::String &bucketName,
+Aws::String AwsDoc::S3::generatePreSignedPutObjectUrl(const Aws::String &bucketName,
                                                       const Aws::String &key,
                                                       uint64_t expirationSeconds,
-                                                      const Aws::Client::ClientConfiguration &clientConfig) {
+                                                      const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
     return client.GeneratePresignedUrl(bucketName, key, Aws::Http::HttpMethod::HTTP_PUT,
                                        expirationSeconds);
@@ -70,10 +70,10 @@ static size_t myCurlWriteBack(char *buffer, size_t size, size_t nitems, void *us
     return size * nitems;
 }
 
-//! Utility routine to test PutObject with a pre-signed URL.
+//! Utility routine to test putObject with a pre-signed URL.
 /*!
   \param presignedURL: A pre-signed URL to put an object in a bucket.
-  \param data: Body of the PutObject request.
+  \param data: Body of the putObject request.
   \return bool: Function succeeded.
 */
 bool AwsDoc::S3::PutStringWithPresignedObjectURL(const Aws::String &presignedURL,
@@ -97,7 +97,7 @@ bool AwsDoc::S3::PutStringWithPresignedObjectURL(const Aws::String &presignedURL
     }
 
     result = curl_easy_setopt(curl, CURLOPT_INFILESIZE_LARGE,
-                     (curl_off_t)data.size());
+                              (curl_off_t) data.size());
 
     if (result != CURLE_OK) {
         std::cerr << "Failed to set CURLOPT_INFILESIZE_LARGE" << std::endl;
@@ -145,8 +145,7 @@ bool AwsDoc::S3::PutStringWithPresignedObjectURL(const Aws::String &presignedURL
     if (outString.empty()) {
         std::cout << "Successfully put object." << std::endl;
         return true;
-    }
-    else {
+    } else {
         std::cout << "A server error was encountered, output:\n" << outString
                   << std::endl;
         return false;
@@ -188,9 +187,9 @@ Where:
         Aws::String objectKey(argv[2]);
         uint64_t presignedSecondsTimeout = 10 * 60;
 
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // clientConfig.region = "us-east-1";
-        Aws::String presignedUrl = AwsDoc::S3::GeneratePreSignedPutObjectURL(bucketName,
+        Aws::String presignedUrl = AwsDoc::S3::generatePreSignedPutObjectUrl(bucketName,
                                                                              objectKey,
                                                                              presignedSecondsTimeout,
                                                                              clientConfig);

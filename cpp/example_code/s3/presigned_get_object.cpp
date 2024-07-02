@@ -9,7 +9,7 @@
 #include <aws/core/client/RetryStrategy.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/PutObjectRequest.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 // The libcurl must be installed to test the pre-signed URL returned in this example.
 // See, https://curl.se/libcurl/c/libcurl.html.
@@ -41,10 +41,10 @@
   \param clientConfig: Aws client configuration.
   \return Aws::String: A pre-signed URL.
 */
-Aws::String AwsDoc::S3::GeneratePreSignedGetObjectURL(const Aws::String &bucketName,
+Aws::String AwsDoc::S3::generatePreSignedGetObjectUrl(const Aws::String &bucketName,
                                                       const Aws::String &key,
                                                       uint64_t expirationSeconds,
-                                                      const Aws::Client::ClientConfiguration &clientConfig) {
+                                                      const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client client(clientConfig);
     return client.GeneratePresignedUrl(bucketName, key, Aws::Http::HttpMethod::HTTP_GET,
                                        expirationSeconds);
@@ -63,13 +63,13 @@ static size_t myCurlWriteBack(char *buffer, size_t size, size_t nitems, void *us
     return size * nitems;
 }
 
-//! Utility routine to test GetObject with a pre-signed URL.
+//! Utility routine to test getObject with a pre-signed URL.
 /*!
   \param presignedURL: A pre-signed URL to get an object from a bucket.
   \param resultString: A string to hold the result.
   \return bool: Function succeeded.
 */
-bool AwsDoc::S3::GetObjectWithPresignedObjectURL(const Aws::String &presignedURL,
+bool AwsDoc::S3::getObjectWithPresignedObjectUrl(const Aws::String &presignedURL,
                                                  Aws::String &resultString) {
     CURL *curl = curl_easy_init();
     CURLcode result;
@@ -106,8 +106,7 @@ bool AwsDoc::S3::GetObjectWithPresignedObjectURL(const Aws::String &presignedURL
 
     resultString = outWriteString.str();
 
-    if (resultString.find( "<?xml") == 0)
-    {
+    if (resultString.find("<?xml") == 0) {
         std::cerr << "Failed to get object, response:\n" << resultString << std::endl;
         return false;
     }
@@ -116,7 +115,8 @@ bool AwsDoc::S3::GetObjectWithPresignedObjectURL(const Aws::String &presignedURL
 }
 // snippet-end:[cpp.example_code.s3.presigned.GetObjectDownload]
 
-#endif
+#endif // HAS_CURL
+
 /*
  *
  * main function
@@ -143,16 +143,14 @@ Where:
         return 1;
     }
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
     {
         Aws::String bucketName(argv[1]);
         Aws::String objectKey(argv[2]);
         uint64_t presignedSecondsTimeout = 10 * 60;
 
-        Aws::Client::ClientConfiguration clientConfig;
-        // clientConfig.region = "us-east-1";
-        Aws::String presignedUrl = AwsDoc::S3::GeneratePreSignedGetObjectURL(bucketName,
+        Aws::S3::S3ClientConfiguration clientConfig;
+        Aws::String presignedUrl = AwsDoc::S3::generatePreSignedGetObjectUrl(bucketName,
                                                                              objectKey,
                                                                              presignedSecondsTimeout,
                                                                              clientConfig);
@@ -160,10 +158,10 @@ Where:
         std::cout << "Presigned URL:\n" << presignedUrl << std::endl;
 #if HAS_CURL
         Aws::String resultString;
-        AwsDoc::S3::GetObjectWithPresignedObjectURL(presignedUrl, resultString);
+        AwsDoc::S3::getObjectWithPresignedObjectUrl(presignedUrl, resultString);
 
         std::cout << "Result:\n" << resultString << std::endl;
-#endif
+#endif // HAS_CURL
     }
 
     ShutdownAPI(options);

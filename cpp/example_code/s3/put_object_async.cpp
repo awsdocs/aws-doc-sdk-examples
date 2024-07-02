@@ -10,7 +10,7 @@
 #include <iostream>
 #include <mutex>
 #include <sys/stat.h>
-#include <awsdoc/s3/s3_examples.h>
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -39,24 +39,23 @@ std::condition_variable AwsDoc::S3::upload_variable;
 
 //! Routine which implements an async task finished callback.
 /*!
-  \fn PutObjectAsyncFinished()
-  \param s3Client Instance of the caller's Amazon S3 client object.
-  \param request Instance of the caller's put object request.
-  \param outcome Instance of the caller's put object outcome.
-  \param context Instance of the caller's put object call context.
+  \fn putObjectAsyncFinished()
+  \param s3Client: Instance of the caller's Amazon S3 client object.
+  \param request: Instance of the caller's put object request.
+  \param outcome: Instance of the caller's put object outcome.
+  \param context: Instance of the caller's put object call context.
 */
 
 // snippet-start:[s3.cpp.put_object_async_finished.code]
-void PutObjectAsyncFinished(const Aws::S3::S3Client *s3Client,
+void putObjectAsyncFinished(const Aws::S3::S3Client *s3Client,
                             const Aws::S3::Model::PutObjectRequest &request,
                             const Aws::S3::Model::PutObjectOutcome &outcome,
                             const std::shared_ptr<const Aws::Client::AsyncCallerContext> &context) {
     if (outcome.IsSuccess()) {
-        std::cout << "Success: PutObjectAsyncFinished: Finished uploading '"
+        std::cout << "Success: putObjectAsyncFinished: Finished uploading '"
                   << context->GetUUID() << "'." << std::endl;
-    }
-    else {
-        std::cerr << "Error: PutObjectAsyncFinished: " <<
+    } else {
+        std::cerr << "Error: putObjectAsyncFinished: " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
 
@@ -68,14 +67,14 @@ void PutObjectAsyncFinished(const Aws::S3::S3Client *s3Client,
 
 //! Routine which demonstrates adding an object to an Amazon S3 bucket, asynchronously.
 /*!
-  \fn GetObjectAcl()
-  \param s3Client Instance of the S3 Client.
-  \param bucketName Name of the bucket.
-  \param fileName Name of the file to put in the bucket.
+  \param s3Client: Instance of the S3 Client.
+  \param bucketName: Name of the bucket.
+  \param fileName: Name of the file to put in the bucket.
+  \return bool: Function succeeded.
 */
 
 // snippet-start:[s3.cpp.put_object_async.code]
-bool AwsDoc::S3::PutObjectAsync(const Aws::S3::S3Client &s3Client,
+bool AwsDoc::S3::putObjectAsync(const Aws::S3::S3Client &s3Client,
                                 const Aws::String &bucketName,
                                 const Aws::String &fileName) {
     // Create and configure the asynchronous put object request.
@@ -101,9 +100,9 @@ bool AwsDoc::S3::PutObjectAsync(const Aws::S3::S3Client &s3Client,
     context->SetUUID(fileName);
 
     // Make the asynchronous put object call. Queue the request into a 
-    // thread executor and call the PutObjectAsyncFinished function when the 
+    // thread executor and call the putObjectAsyncFinished function when the
     // operation has finished. 
-    s3Client.PutObjectAsync(request, PutObjectAsyncFinished, context);
+    s3Client.PutObjectAsync(request, putObjectAsyncFinished, context);
 
     return true;
 }
@@ -115,23 +114,32 @@ bool AwsDoc::S3::PutObjectAsync(const Aws::S3::S3Client &s3Client,
  *
  * Prerequisites: The bucket and the object to get the ACL information about:
  *
- * TODO(user): items: Set the following variables
- * - bucketName: The name of the bucket to get the ACL information about.
- * - object_name: Name of object already in bucket.
+ * Usage: run_put_object_async <file_name> <bucket_name>
  *
  */
 
 #ifndef TESTING_BUILD
 
 // snippet-start:[s3.cpp.put_object_async.invoke.code]
-int main() {
+int main(int argc, char* argv[])
+{
+    if (argc != 3)
+    {
+        std::cout << R"(
+Usage:
+    run_put_object_async <file_name> <bucket_name>
+Where:
+    file_name - The name of the file to upload.
+    bucket_name - The name of the bucket to upload the object to.
+)" << std::endl;
+        return 1;
+    }
+
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        // TODO(user): Change bucket_name to the name of a bucket in your account.
-        const Aws::String bucket_name = "<Enter a bucket name>";
-        //TODO(user): Create a file called "my-file.txt" in the local folder where your executables are built to.
-        const Aws::String object_name = "my-file.txt";
+        const Aws::String fileName = argv[1];
+        const Aws::String bucketName = argv[2];
 
         // A unique_lock is a general-purpose mutex ownership wrapper allowing
         // deferred locking, time-constrained attempts at locking, recursive
@@ -140,15 +148,15 @@ int main() {
         std::unique_lock<std::mutex> lock(AwsDoc::S3::upload_mutex);
 
         // Create and configure the Amazon S3 client.
-        // This client must be declared here, as this client must exist 
+        // This client must be declared here, as this client must exist
         // until the put object operation finishes.
-        Aws::Client::ClientConfiguration config;
+        Aws::S3::S3ClientConfiguration config;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // config.region = "us-east-1";
 
-        Aws::S3::S3Client s3_client(config);
+        Aws::S3::S3Client s3Client(config);
 
-        AwsDoc::S3::PutObjectAsync(s3_client, bucket_name, object_name);
+        AwsDoc::S3::putObjectAsync(s3Client, bucketName, fileName);
 
         std::cout << "main: Waiting for file upload attempt..." <<
                   std::endl << std::endl;
@@ -166,6 +174,7 @@ int main() {
 
     return 0;
 }
+
 // snippet-end:[s3.cpp.put_object_async.invoke.code]
 
 #endif  // TESTING_BUILD

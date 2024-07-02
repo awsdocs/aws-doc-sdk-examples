@@ -47,24 +47,24 @@ Next, for information on code example structures and how to build and run the ex
 Code excerpts that show you how to call individual service functions.
 
 - [CopyObject](copy_object.cpp#L32)
-- [CreateBucket](create_bucket.cpp#L33)
+- [CreateBucket](create_bucket.cpp#L30)
 - [DeleteBucket](delete_bucket.cpp#L30)
 - [DeleteBucketPolicy](delete_bucket_policy.cpp#L30)
 - [DeleteBucketWebsite](delete_website_config.cpp#L30)
 - [DeleteObject](delete_object.cpp#L31)
 - [DeleteObjects](delete_objects.cpp#L33)
-- [GetBucketAcl](get_bucket_acl.cpp#L37)
+- [GetBucketAcl](get_bucket_acl.cpp#L36)
 - [GetBucketPolicy](get_bucket_policy.cpp#L32)
-- [GetBucketWebsite](get_website_config.cpp#L30)
+- [GetBucketWebsite](get_website_config.cpp#L29)
 - [GetObject](get_object.cpp#L33)
-- [GetObjectAcl](get_put_object_acl.cpp#L44)
+- [GetObjectAcl](get_put_object_acl.cpp#L43)
 - [ListBuckets](list_buckets.cpp#L29)
 - [ListObjectsV2](list_objects.cpp#L31)
-- [PutBucketAcl](put_bucket_acl.cpp#L49)
-- [PutBucketPolicy](put_bucket_policy.cpp#L38)
-- [PutBucketWebsite](put_website_config.cpp#L34)
+- [PutBucketAcl](put_bucket_acl.cpp#L47)
+- [PutBucketPolicy](put_bucket_policy.cpp#L37)
+- [PutBucketWebsite](put_website_config.cpp#L33)
 - [PutObject](put_object.cpp#L33)
-- [PutObjectAcl](get_put_object_acl.cpp#L171)
+- [PutObjectAcl](get_put_object_acl.cpp#L165)
 
 ### Scenarios
 

@@ -225,7 +225,7 @@ def run_special_case_tests(service):
 
     if len(cmake_files) == 0:
         print("No special tests found.")
-        return [1, 0, 0]
+        return [0, 0, 0]
 
     print("-" * 88)
     print(f"Running special tests for {service}.")
