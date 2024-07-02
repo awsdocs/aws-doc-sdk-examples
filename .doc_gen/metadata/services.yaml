@@ -1988,7 +1988,7 @@ marketplace-catalog:
   guide:
     subtitle: Seller Guide
     url: marketplace/latest/userguide/what-is-marketplace.html
-  long: '&MkTCAPIlong;'
+  long: '&MKTCAPIlong;'
   short: '&MKTCAPI;'
   sort: Marketplace Catalog API
   tags:
