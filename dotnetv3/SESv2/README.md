@@ -83,7 +83,7 @@ Alternatively, you can run the example from within your IDE.
 
 #### Newsletter workflow
 
-This example shows you how to run the Amazon SES v2 API newsletter workflow.
+This example shows you how to Amazon SES v2 API newsletter workflow.
 
 
 <!--custom.scenario_prereqs.sesv2_NewsletterWorkflow.start-->

@@ -79,12 +79,17 @@ go run ./hello
 {% endif %}
 {% if lang_config['name'] == 'Python' and lang_config['sdk_ver'] == 3 %}
 ```
-python hello.py
+python {{ hello_ex['run_file'] }}
 ```
 {% endif %}
 {% if lang_config['name'] == 'JavaScript' and lang_config['sdk_ver'] == 3 %}
 ```bash
 node ./hello.js
+```
+{% endif %}
+{% if lang_config['name'] == 'Ruby' and lang_config['sdk_ver'] == 3 %}
+```
+ruby {{ hello_ex['run_file'] }}
 ```
 {% endif %}
 {% endfor %}
