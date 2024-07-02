@@ -89,10 +89,9 @@ class Scanner:
         self._load_examples()
         hello = {}
         for example_name, example in self.example_meta.items():
-            if (
-                example.get("category", "") == config.categories["hello"]
-                and self._contains_language_version(example)
-            ):
+            if example.get("category", "") == config.categories[
+                "hello"
+            ] and self._contains_language_version(example):
                 hello[example_name] = example
         return hello
 
@@ -108,10 +107,9 @@ class Scanner:
         self._load_examples()
         scenarios = {}
         for example_name, example in self.example_meta.items():
-            if (
-                example.get("category", "") == config.categories["scenarios"]
-                and self._contains_language_version(example)
-            ):
+            if example.get("category", "") == config.categories[
+                "scenarios"
+            ] and self._contains_language_version(example):
                 scenarios[example_name] = example
         return scenarios
 
@@ -120,8 +118,9 @@ class Scanner:
         custom_cats = {}
         for example_name, example in self.example_meta.items():
             if (
-                example.get("category", "") and
-                example.get("category", "") not in {config.categories["scenarios"], config.categories["hello"]}
+                example.get("category", "")
+                and example.get("category", "")
+                not in {config.categories["scenarios"], config.categories["hello"]}
                 and self._contains_language_version(example)
             ):
                 custom_cats[example_name] = example
