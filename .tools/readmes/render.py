@@ -125,9 +125,6 @@ class Renderer:
                 "file": self.scanner.snippet(
                     pre, self.sdk_ver, self.lang_config["service_folder"], api
                 ),
-                "run_file": self.scanner.snippet(
-                    pre, self.sdk_ver, self.lang_config["service_folder"], ''
-                ),
                 "api": api,
             }
             post_hello.append(action)
