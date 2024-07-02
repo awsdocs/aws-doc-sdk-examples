@@ -67,8 +67,9 @@ class Renderer:
         self.safe = safe
 
     @staticmethod
-    def _doc_link(url):
-        return url if url.startswith("http") else f"{config.doc_base_url}/{url}"
+    def _doc_link(url_like: str) -> str:
+        """Ensures `url_like` is a complete URL; either itself an http(s) URL, or prefixed with `doc_base_url`."""
+        return url_like if url_like.startswith("http") else f"{config.doc_base_url}/{url_like}"
 
     def _transform_sdk(self):
         pre_sdk = self.scanner.sdk()["sdk"][self.sdk_ver]
@@ -291,7 +292,7 @@ class Renderer:
 
     def render(self):
         if self.lang_config is None:
-            return None
+            return None, False  # Return False to indicate no update
         sdk = self._transform_sdk()
         svc = self._transform_service()
         hello = self._transform_hello(self.scanner.hello())
@@ -327,7 +328,14 @@ class Renderer:
             unsupported=unsupported,
         )
         self.readme_text = self._expand_entities(self.readme_text)
-        return self
+
+        # Check if the rendered text is different from the existing file
+        readme_updated = not self.check()
+
+        # Assign the boolean value to the Renderer instance
+        self.readme_updated = readme_updated
+
+        return self, readme_updated
 
     def write(self):
         if self.safe and Path(self.readme_filename).exists():
@@ -339,7 +347,10 @@ class Renderer:
         Path(self.readme_filename).unlink(missing_ok=True)
         with open(self.readme_filename, "w", encoding="utf-8") as f:
             f.write(self.readme_text)
-        print(f"Updated {self.readme_filename}.")
+        if self.readme_updated:
+            print(f"Updated {self.readme_filename}.")
+        else:
+            print(f"No updates required for {self.readme_filename}.")
 
     def check(self):
         with open(self.readme_filename, "r", encoding="utf-8") as f:
