@@ -75,7 +75,7 @@ To run the Newsletter example, copy the files from workflows/sesv2_weekly_mailer
 
 #### Newsletter workflow
 
-This example shows you how to Amazon SES v2 API newsletter workflow.
+This example shows you how to run the Amazon SES v2 API newsletter workflow.
 
 
 <!--custom.scenario_prereqs.sesv2_NewsletterWorkflow.start-->

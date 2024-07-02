@@ -38,6 +38,14 @@ auto-scaling_Hello:
             - description:
               snippet_tags:
                 - python.example_code.auto-scaling.Hello
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - auto-scaling.ruby.hello
     Rust:
       versions:
         - sdk_version: 1

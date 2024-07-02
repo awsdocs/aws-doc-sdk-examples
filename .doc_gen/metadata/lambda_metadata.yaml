@@ -51,6 +51,22 @@ lambda_Hello:
             - description:
               snippet_tags:
                 - javascript.v3.lambda.hello
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example.hello_lambda
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.lambda.Hello
   services:
     lambda: {ListFunctions}
 lambda_CreateFunction:

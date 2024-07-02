@@ -29,6 +29,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon RDS](hello/hello_rds.rb#L4) (`DescribeDBInstances`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -52,6 +57,13 @@ Code excerpts that show you how to call individual service functions.
 The quickest way to interact with this example code is to invoke a [Single Action](#single-actions) from your command line. For example, `ruby some_example.rb` will invoke `some_example.rb`.
 <!--custom.instructions.end-->
 
+#### Hello Amazon RDS
+
+This example shows you how to get started using Amazon RDS.
+
+```
+ruby hello/hello_rds.rb
+```
 
 
 ### Tests

@@ -387,7 +387,7 @@ sesv2_DeleteEmailTemplate:
 sesv2_NewsletterWorkflow:
   title: A complete &SESv2; Newsletter workflow using an &AWS; SDK
   title_abbrev: Newsletter workflow
-  synopsis: '&SESv2; newsletter workflow.'
+  synopsis: run the &SESv2; newsletter workflow.
   category: Scenarios
   languages:
     .NET:

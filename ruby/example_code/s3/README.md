@@ -29,6 +29,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon S3](hello/hello_s3.rb#L4) (`ListBuckets`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -71,6 +76,13 @@ functions within the same service.
 The quickest way to interact with this example code is to invoke a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
 <!--custom.instructions.end-->
 
+#### Hello Amazon S3
+
+This example shows you how to get started using Amazon S3.
+
+```
+ruby hello/hello_s3.rb
+```
 
 
 #### Create a presigned URL

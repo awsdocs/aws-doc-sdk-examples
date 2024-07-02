@@ -68,4 +68,5 @@ class BedrockAgentRuntimeWrapper:
 
     # snippet-end:[python.example_code.bedrock-agent-runtime.InvokeAgent]
 
+
 # snippet-end:[python.example_code.bedrock-agent-runtime.BedrockAgentsRuntimeWrapper.class]

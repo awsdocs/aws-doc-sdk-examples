@@ -36,7 +36,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Amazon EC2](hello.py#L4) (`DescribeSecurityGroups`)
+- [Hello Amazon EC2](hello/hello_ec2.py#L4) (`DescribeSecurityGroups`)
 
 
 ### Single actions
@@ -95,7 +95,7 @@ functions within the same service.
 This example shows you how to get started using Amazon EC2.
 
 ```
-python hello.py
+python hello/hello_ec2.py
 ```
 
 

@@ -50,6 +50,22 @@ aurora_Hello:
           excerpts:
             - snippet_files:
                 - rustv1/examples/aurora/src/bin/hello-world.rs
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.rds.HelloRDSAurora
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.hello_aurora
   services:
     aurora: {DescribeDBClusters}
 aurora_DescribeDBClusterParameterGroups:

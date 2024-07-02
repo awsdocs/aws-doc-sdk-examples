@@ -59,6 +59,14 @@ s3_Hello:
             - description:
               snippet_tags:
                 - php.example_code.s3.basics.helloService
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.hello_s3
   services:
     s3: {ListBuckets}
 s3_CreateBucket:

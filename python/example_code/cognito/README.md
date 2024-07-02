@@ -34,6 +34,11 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon Cognito](hello/hello_cognito.py#L4) (`ListUserPools`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -70,6 +75,13 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Amazon Cognito
+
+This example shows you how to get started using Amazon Cognito.
+
+```
+python hello/hello_cognito.py
+```
 
 
 #### Sign up a user with a user pool that requires MFA
