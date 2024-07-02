@@ -124,9 +124,6 @@ class Renderer:
                 "file": self.scanner.snippet(
                     pre, self.sdk_ver, self.lang_config["service_folder"], api
                 ),
-                "run_file": self.scanner.snippet(
-                    pre, self.sdk_ver, self.lang_config["service_folder"], ''
-                ),
                 "api": api,
             }
             post_hello.append(action)
@@ -291,7 +288,7 @@ class Renderer:
 
     def render(self):
         if self.lang_config is None:
-            return None, False  # Return False to indicate no update
+            return None
         sdk = self._transform_sdk()
         svc = self._transform_service()
         hello = self._transform_hello(self.scanner.hello())
@@ -327,14 +324,7 @@ class Renderer:
             unsupported=unsupported,
         )
         self.readme_text = self._expand_entities(self.readme_text)
-
-        # Check if the rendered text is different from the existing file
-        readme_updated = not self.check()
-
-        # Assign the boolean value to the Renderer instance
-        self.readme_updated = readme_updated
-
-        return self, readme_updated
+        return self
 
     def write(self):
         if self.safe and Path(self.readme_filename).exists():
@@ -346,10 +336,7 @@ class Renderer:
         Path(self.readme_filename).unlink(missing_ok=True)
         with open(self.readme_filename, "w", encoding="utf-8") as f:
             f.write(self.readme_text)
-        if self.readme_updated:
-            print(f"Updated {self.readme_filename}.")
-        else:
-            print(f"No updates required for {self.readme_filename}.")
+        print(f"Updated {self.readme_filename}.")
 
     def check(self):
         with open(self.readme_filename, "r", encoding="utf-8") as f:
