@@ -3,6 +3,7 @@
 
 package com.example.ecr
 
+// snippet-start:[ecr.kotlin_hello.main]
 import aws.sdk.kotlin.services.ecr.EcrClient
 import aws.sdk.kotlin.services.ecr.model.ListImagesRequest
 
@@ -24,3 +25,4 @@ suspend fun listImageTags(repoName: String?) {
         }
     }
 }
+// snippet-end:[ecr.kotlin_hello.main]
