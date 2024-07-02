@@ -15,16 +15,29 @@ from botocore.exceptions import ClientError
 # Create an RDS client
 rds_client = boto3.client("rds")
 
-try:
-    # Get a list of DB instances
-    response = rds_client.describe_db_instances()
+# Create a paginator for the describe_db_instances operation
+paginator = rds_client.get_paginator("describe_db_instances")
 
-    # Check if any instances are returned and print the appropriate message
-    if "DBInstances" in response and response["DBInstances"]:
-        print("Your RDS instances are:")
-        for db in response["DBInstances"]:
-            print(db["DBInstanceIdentifier"])
-    else:
+try:
+    # Use the paginator to get a list of DB instances
+    response_iterator = paginator.paginate(
+        PaginationConfig={
+            'MaxItems': 123,
+            'PageSize': 50,  # Adjust PageSize as needed
+            'StartingToken': None
+        }
+    )
+
+    # Iterate through the pages of the response
+    instances_found = False
+    for page in response_iterator:
+        if "DBInstances" in page and page["DBInstances"]:
+            instances_found = True
+            print("Your RDS instances are:")
+            for db in page["DBInstances"]:
+                print(db["DBInstanceIdentifier"])
+    
+    if not instances_found:
         print("No RDS instances found!")
 
 except ClientError as e:
