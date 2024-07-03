@@ -11,7 +11,7 @@
 
 #include <gtest/gtest.h>
 #include <fstream>
-#include "awsdoc/s3/s3_examples.h"
+#include "../s3_examples.h"
 #include <aws/core/utils/UUID.h>
 #include "S3_GTests.h"
 
@@ -31,7 +31,7 @@ namespace AwsDocTest {
         ASSERT_TRUE(result) << "Unable to add policy to bucket as precondition for test"
                             << std::endl;
 
-        result = AwsDoc::S3::DeleteBucketPolicy(bucketNames[0], *s_clientConfig);
+        result = AwsDoc::S3::deleteBucketPolicy(bucketNames[0], *s_clientConfig);
         ASSERT_TRUE(result);
     }
 
@@ -41,7 +41,7 @@ namespace AwsDocTest {
         bool result = mockHttp.addResponseWithBody("mock_input/DeleteBucketPolicy.xml");
         ASSERT_TRUE(result) << preconditionError() << std::endl;
 
-        result = AwsDoc::S3::DeleteBucketPolicy("test_bucket", *s_clientConfig);
+        result = AwsDoc::S3::deleteBucketPolicy("test_bucket", *s_clientConfig);
         ASSERT_TRUE(result);
     }
 

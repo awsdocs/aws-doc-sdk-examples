@@ -11,7 +11,7 @@
 
 #include <gtest/gtest.h>
 #include <fstream>
-#include "awsdoc/s3/s3_examples.h"
+#include "../s3_examples.h"
 #include <aws/core/utils/UUID.h>
 #include "S3_GTests.h"
 
@@ -26,7 +26,7 @@ namespace AwsDocTest {
         bool result = CreateBucket(bucketName);
         ASSERT_TRUE(result) << "Unable to create bucket as precondition for test" << std::endl;
 
-        result = AwsDoc::S3::DeleteBucket(bucketName, *s_clientConfig);
+        result = AwsDoc::S3::deleteBucket(bucketName, *s_clientConfig);
         ASSERT_TRUE(result);
     }
 } // namespace AwsDocTest

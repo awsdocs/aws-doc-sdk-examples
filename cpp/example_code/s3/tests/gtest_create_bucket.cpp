@@ -11,7 +11,7 @@
 
 #include <gtest/gtest.h>
 #include <fstream>
-#include "awsdoc/s3/s3_examples.h"
+#include "../s3_examples.h"
 #include <aws/core/utils/UUID.h>
 #include "S3_GTests.h"
 
@@ -22,7 +22,7 @@ namespace AwsDocTest {
         Aws::String bucketName = "doc-example-bucket-" +
                                  Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
-        bool result = AwsDoc::S3::CreateBucket(bucketName, *s_clientConfig);
+        bool result = AwsDoc::S3::createBucket(bucketName, *s_clientConfig);
         if (result) {
             DeleteBucket(bucketName);
         }

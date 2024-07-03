@@ -11,7 +11,7 @@
 
 #include <gtest/gtest.h>
 #include <fstream>
-#include "awsdoc/s3/s3_examples.h"
+#include "../s3_examples.h"
 #include "S3_GTests.h"
 
 static const int BUCKETS_NEEDED = 1;
@@ -28,7 +28,7 @@ namespace AwsDocTest {
         Aws::String policyString = GetBucketPolicy(bucketNames[0]);
         ASSERT_TRUE(!policyString.empty()) << "Unable to add policy to bucket as precondition for test" << std::endl;
 
-        bool result = AwsDoc::S3::PutBucketPolicy(bucketNames[0], policyString, *s_clientConfig);
+        bool result = AwsDoc::S3::putBucketPolicy(bucketNames[0], policyString, *s_clientConfig);
         ASSERT_TRUE(result);
     }
 
@@ -52,7 +52,7 @@ namespace AwsDocTest {
   ]
 })";
 
-        result = AwsDoc::S3::PutBucketPolicy("doc-example-bucket", policyString, *s_clientConfig);
+        result = AwsDoc::S3::putBucketPolicy("doc-example-bucket", policyString, *s_clientConfig);
         ASSERT_TRUE(result);
     }
 } // namespace AwsDocTest

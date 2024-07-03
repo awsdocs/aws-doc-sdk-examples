@@ -9,18 +9,14 @@ set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
 set(CURRENT_TARGET_AWS_DEPENDENCIES s3 sts iam)
 
 # Set this project's name.
-project("${EXAMPLE_SERVICE_NAME}-examples-gtests" )
+project("${EXAMPLE_SERVICE_NAME}-examples-gtests")
 
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 14)
 
-# Build shared libraries by default.
-set(BUILD_SHARED_LIBS ON)
-
 find_package(GTest)
 
-
-if(NOT GTest_FOUND)
+if (NOT GTest_FOUND)
     include(FetchContent)
     FetchContent_Declare(
             googletest
@@ -31,25 +27,25 @@ if(NOT GTest_FOUND)
     # For Windows: Prevent overriding the parent project's compiler/linker settings.
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
     FetchContent_MakeAvailable(googletest)
-endif()
+endif ()
 
 # CURL package is optional to test pre-signed url code.
 find_package(CURL)
-if (NOT CURL_FOUND) 
-    unset(CURL_INCLUDE_DIRS) 
-    unset(CURL_LIBRARIES) 
+if (NOT CURL_FOUND)
+    unset(CURL_INCLUDE_DIRS)
+    unset(CURL_LIBRARIES)
     unset(CURL_LIBRARY)
-endif()
+endif ()
 
 
 # Use the MSVC variable to determine if this is a Windows build.
 set(WINDOWS_BUILD ${MSVC})
 
 # Set the location for Windows to find the installed libraries of the SDK.
-if(WINDOWS_BUILD)
+if (WINDOWS_BUILD)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
-endif()
+endif ()
 
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${CURRENT_TARGET_AWS_DEPENDENCIES})
@@ -58,25 +54,13 @@ add_executable(
         ${CURRENT_TARGET}
 )
 
-if (WINDOWS_BUILD)
+if (WINDOWS_BUILD AND AWSSDK_INSTALL_AS_SHARED_LIBS)
     # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this
     # and set the proper subdirectory to the executables' location.
-
-    if (AWSSDK_INSTALL_AS_SHARED_LIBS)
-        # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-        AWSSDK_CPY_DYN_LIBS(
-                CURRENT_TARGET_AWS_DEPENDENCIES
-                ""
-                ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
-        )
-    endif ()
-
-    add_custom_command(
-            TARGET
-            ${CURRENT_TARGET}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}${BIN_SUB_DIR}/gtest.dll
+    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
+    AWSSDK_CPY_DYN_LIBS(
+            CURRENT_TARGET_AWS_DEPENDENCIES
+            ""
             ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR}
     )
 endif ()
@@ -89,33 +73,33 @@ if (NOT DEFINED GTEST_SOURCE_FILES)
             GTEST_SOURCE_FILES
             "gtest_*.cpp"
     )
-endif()
+endif ()
 
 # Handle special case of list_buckets_disabling_dns_cache.cpp on Windows.
-if(WINDOWS_BUILD)
+if (WINDOWS_BUILD)
     list(FIND AWSSDK_CLIENT_LIBS "curl" CONTAINS_CURL)
     if (CONTAINS_CURL EQUAL -1)
-            # remove list_buckets_disabling_dns_cache.cpp libs not using curl
+        # remove list_buckets_disabling_dns_cache.cpp libs not using curl
         list(FILTER GTEST_SOURCE_FILES EXCLUDE REGEX "/gtest_list_buckets_disabling_dns_cache.cpp$") # Not supported in windows without curl, see file for details
-    else()
+    else ()
         if (NOT CURL_FOUND) # find_package did not set these.
             set(CURL_INCLUDE_DIRS "c:/curl/include") # Update this with correct curl install location.
             set(CURL_LIBRARIES "c:/curl/lib") # Update this with correct  curl install location.
-        endif()
-    endif()
-endif()
+        endif ()
+    endif ()
+endif ()
 
 enable_testing()
 
 
-foreach(TEST_FILE ${GTEST_SOURCE_FILES})
+foreach (TEST_FILE ${GTEST_SOURCE_FILES})
     string(REPLACE "gtest_" "../" SOURCE_FILE ${TEST_FILE})
-     if (EXISTS ${SOURCE_FILE})
+    if (EXISTS ${SOURCE_FILE})
         list(APPEND GTEST_SOURCE ${SOURCE_FILE} ${TEST_FILE})
-    else()
+    else ()
         message("Error: no associated source file found for ${TEST_FILE}")
-    endif()
-endforeach()
+    endif ()
+endforeach ()
 
 target_sources(
         ${CURRENT_TARGET}
@@ -145,11 +129,11 @@ target_compile_definitions(
         SRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
-if(CURL_FOUND)
+if (CURL_FOUND)
     target_compile_definitions(${CURRENT_TARGET}
             PUBLIC
             HAS_CURL=1)
-endif()
+endif ()
 
 target_link_libraries(
         ${CURRENT_TARGET}
@@ -159,9 +143,9 @@ target_link_libraries(
         ${CURL_LIBRARIES}
 )
 
-target_link_directories(${CURRENT_TARGET} 
-    PUBLIC 
-    ${CURL_LIBRARIES})
+target_link_directories(${CURRENT_TARGET}
+        PUBLIC
+        ${CURL_LIBRARIES})
 
 include(GoogleTest)
 gtest_add_tests(
