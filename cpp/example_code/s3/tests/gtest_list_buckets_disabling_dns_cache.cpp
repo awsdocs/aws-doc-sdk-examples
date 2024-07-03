@@ -12,7 +12,7 @@
 #include <gtest/gtest.h>
 #include <fstream>
 #include <aws/core/http/HttpClientFactory.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "../s3_examples.h"
 #include "S3_GTests.h"
 
 namespace AwsDocTest {
@@ -20,7 +20,7 @@ namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(S3_GTests, list_buckets_disabling_dns_cache_2D_) {
 
-        bool result = AwsDoc::S3::ListBucketDisablingDnsCache(*s_clientConfig);
+        bool result = AwsDoc::S3::listBucketDisablingDnsCache(*s_clientConfig);
         EXPECT_TRUE(result);
 
         // Reset the http client factory.
