@@ -4,10 +4,9 @@
 import config
 import logging
 import os
-import re
 import yaml
 
-from snippets import Snippet, scan_for_snippets
+from snippets import scan_for_snippets
 
 logger = logging.getLogger(__name__)
 
@@ -53,6 +52,12 @@ class Scanner:
                     return True
         return False
 
+    def _custom_categories_set(self):
+        return {
+            config.categories["scenarios"],
+            config.categories["hello"],
+        }
+
     def set_example(self, language, sdk_ver, service):
         self.lang_name = language
         self.sdk_ver = sdk_ver
@@ -88,58 +93,61 @@ class Scanner:
     def hello(self):
         self._load_examples()
         hello = {}
-        for example_name, example in self.example_meta.items():
+        for name, example in self.example_meta.items():
             if (
-                example.get("category", "") == config.categories["hello"]
-                and self._contains_language_version(example)
+                self._contains_language_version(example)
+                and example.get("category", "") == config.categories["hello"]
             ):
-                hello[example_name] = example
+                hello[name] = example
         return hello
 
     def actions(self):
         self._load_examples()
         actions = {}
-        for example_name, example in self.example_meta.items():
-            if not example.get("category") and self._contains_language_version(example):
-                actions[example_name] = example
+        for name, example in self.example_meta.items():
+            if (
+                self._contains_language_version(example)
+                and example.get("category", None) is None
+            ):
+                actions[name] = example
         return actions
 
     def scenarios(self):
         self._load_examples()
         scenarios = {}
-        for example_name, example in self.example_meta.items():
+        for name, example in self.example_meta.items():
             if (
-                example.get("category", "") == config.categories["scenarios"]
-                and self._contains_language_version(example)
+                self._contains_language_version(example)
+                and example.get("category", "") == config.categories["scenarios"]
             ):
-                scenarios[example_name] = example
+                scenarios[name] = example
         return scenarios
 
     def custom_categories(self):
         self._load_examples()
         custom_cats = {}
-        for example_name, example in self.example_meta.items():
+        for name, example in self.example_meta.items():
+            category = example.get("category", "")
             if (
-                example.get("category", "") and
-                example.get("category", "") not in {config.categories["scenarios"], config.categories["hello"]}
-                and self._contains_language_version(example)
+                self._contains_language_version(example)
+                and category not in self._custom_categories_set()
             ):
-                custom_cats[example_name] = example
+                custom_cats[name] = example
         return custom_cats
 
     def crosses(self):
         self._load_cross()
         crosses = {}
         scenarios = {}
-        for example_name, example in self.cross_meta.items():
+        for name, example in self.cross_meta.items():
             if (
                 self._contains_language_version(example)
                 and self.svc_name in example["services"]
             ):
                 if example.get("category", "") == config.categories["scenarios"]:
-                    scenarios[example_name] = example
+                    scenarios[name] = example
                 else:
-                    crosses[example_name] = example
+                    crosses[name] = example
         return crosses, scenarios
 
     def snippet(self, example, sdk_ver, readme_folder, api_name):
