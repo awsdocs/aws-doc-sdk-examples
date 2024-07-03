@@ -79,7 +79,7 @@ functions within the same service.
 This example shows you how to get started using Elastic Load Balancing.
 
 ```
-python 
+python hello.py
 ```
 
 
