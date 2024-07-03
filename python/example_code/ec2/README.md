@@ -95,7 +95,7 @@ functions within the same service.
 This example shows you how to get started using Amazon EC2.
 
 ```
-python hello.py
+python 
 ```
 
 

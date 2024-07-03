@@ -195,7 +195,7 @@ python export_datasets.py <project> <destination>
 This example shows you how to get started using Lookout for Vision.
 
 ```
-python hello.py
+python 
 ```
 
 

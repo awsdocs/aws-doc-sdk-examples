@@ -86,7 +86,7 @@ def main():
                     logging.debug("Rendering %s", id)
                     renderer = Renderer(scanner, int(version), args.safe)
 
-                    result = renderer.render()
+                    result, _readme_updated = renderer.render()
                     if result is None:
                         logging.info("Render returned empty for %s", id)
                         skipped.append(id)

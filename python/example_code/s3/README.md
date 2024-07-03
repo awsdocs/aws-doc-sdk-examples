@@ -103,7 +103,7 @@ Sample applications that work across multiple AWS services.
 This example shows you how to get started using Amazon S3.
 
 ```
-python s3_basics/hello.py
+python 
 ```
 
 
