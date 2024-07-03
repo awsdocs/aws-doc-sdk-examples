@@ -56,11 +56,11 @@ target_compile_definitions(${EXAMPLE_EXE}
 
 target_include_directories(${EXAMPLE_EXE}
         PRIVATE
-        "${CMAKE_CURRENT_SOURCE_DIR}/../include"
+        "${CMAKE_CURRENT_SOURCE_DIR}/.."
 )
 
 target_link_libraries(${EXAMPLE_EXE}
         PRIVATE
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
-        )
+)

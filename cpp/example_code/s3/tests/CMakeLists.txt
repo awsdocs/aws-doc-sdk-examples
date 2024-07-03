@@ -103,9 +103,9 @@ foreach (TEST_FILE ${GTEST_SOURCE_FILES})
         string(FIND ${SOURCE_FILE} ${OBJECT_INTEGRITY_WORKFLOW_SOURCE} POS)
         if (POS EQUAL -1)
             message("Error: no associated source file found for ${TEST_FILE}")
-        else()
+        else ()
             list(APPEND GTEST_SOURCE ../s3_object_integrity_workflow/${OBJECT_INTEGRITY_WORKFLOW_SOURCE} ${TEST_FILE})
-        endif()
+        endif ()
     endif ()
 endforeach ()
 
@@ -120,15 +120,15 @@ target_sources(
 target_include_directories(
         ${CURRENT_TARGET}
         PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
-        $<INSTALL_INTERFACE:../include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
+        $<INSTALL_INTERFACE:..>
         ${CURL_INCLUDE_DIRS}
 )
 
 target_compile_definitions(
         ${CURRENT_TARGET}
         PUBLIC
-        TESTING_BUILD
+        EXCLUDE_MAIN_FUNCTION
         SRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
 )
 

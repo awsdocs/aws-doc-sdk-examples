@@ -151,14 +151,14 @@ The user is given the option to delete the resources created by this workflow.
 
 ## Metadata
 
-| action / scenario            | metadata file    | metadata key                      |
-|------------------------------|------------------| --------------------------------- |
-| `AbortMultipartUpload`         | s3_metadata.yaml | s3_GetObjectLegalHoldConfiguration   |
-| `CreateMultipartUpload` | s3_metadata.yaml | s3_GetObjectLockConfiguration   |
-| `DeleteObject`         | s3_metadata.yaml | s3_GetObjectRetention   |
-| `GetObjectAttributes`         | s3_metadata.yaml | s3_PutObjectLegalHold   |
-| `PutObjectRequest` | s3_metadata.yaml | s3_PutObjectLockConfiguration   |
-| `UploadPartRequest`         | s3_metadata.yaml | s3_PutObjectRetention   |
-| `CompleteMultipartUpload` | s3_metadata.yaml | s3_PutDefaultObjectLockConfiguration  |
-| `S3 Object Lock Scenario`    | s3_metadata.yaml | s3_Scenario_ObjectLock   |
+| action / scenario              | metadata file    | metadata key                |
+|--------------------------------|------------------|-----------------------------|
+| `AbortMultipartUpload`         | s3_metadata.yaml | s3_AbortMultipartUpload     |
+| `CreateMultipartUpload`        | s3_metadata.yaml | s3_CreateMultipartUpload    |
+| `DeleteObject`                 | s3_metadata.yaml | s3_DeleteObject             |
+| `GetObjectAttributes`          | s3_metadata.yaml | s3_GetObjectAttributes      |
+| `PutObject`                    | s3_metadata.yaml | s3_PutObject                |
+| `UploadPart`                   | s3_metadata.yaml | s3_UploadPart               |
+| `CompleteMultipartUpload`      | s3_metadata.yaml | s3_CompleteMultipartUpload  |
+| `S3 Object Integrity Scenario` | s3_metadata.yaml | s3_Scenario_ObjectIntegrity |
 

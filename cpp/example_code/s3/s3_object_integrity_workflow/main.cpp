@@ -14,7 +14,7 @@
  **/
 
 #include <aws/core/Aws.h>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 /*
  *
@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
     options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
     {
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
 

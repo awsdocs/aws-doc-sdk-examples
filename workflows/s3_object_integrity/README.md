@@ -2,32 +2,28 @@
 
 ## Overview
 
-This example shows how to use AWS SDKs to check the object integrity of data uploaded to Amazon Simple Storage Service (Amazon S3) buckets.
+- The workflow demonstrates how to use AWS SDKs to verify the integrity of objects uploaded to Amazon S3.
+- It shows how object integrity is verified for different upload methods: PutObject, TransferManager, and multipart upload.
+- The workflow demonstrates the use of all 5 hash algorithms supported by S3 for object verification: MD5, CRC32, CRC32C, SHA1, and SHA256.
+- This workflow demonstrates the different options provided by the SDK for hashing.
+- To demonstrate how the hashes are calculated, the workflow calculates the hashes in the code and compares the results with the hashes calculated automatically by the SDK.
 
-[Amazon S3 Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html) can help prevent Amazon S3 objects from being deleted or overwritten for a fixed amount of time or indefinitely. Object Lock can help meet regulatory requirements or protect against object changes or deletion.
 
-
-This workflow demonstrates the following steps and tasks:
-1. Add object lock settings to both new and existing S3 buckets.
-   1. Add objects to buckets with optional object lock or retention period settings.
-2. Attempt to delete or overwrite locked objects.
-3. Retrieve and view the object lock and retention period settings of buckets and objects.
-4. Delete the objects and buckets.
-   1. Remove any object locks and use the BypassGovernanceRetention setting.
+The workflow runs as a command-line application that prompts the user for input.
 
 ### Resources
 
-The workflow scenario steps create the buckets and objects needed for the example. No additional resources are required.
+The workflow scenario steps create the bucket and objects needed for the example. No additional resources are required.
 
 ## Implementations
 
 This example is implemented in the following languages:
 
-- [.NET](../../dotnetv3/S3/scenarios/S3ObjectLockScenario/README.md)
+- [C++](../../cpp/example_code/s3/s3_object_integrity_workflow/README.md)
 
 ## Additional reading
 
-- [S3 Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html)
+- [Checking Object Integrity](https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html)
 
 ---
 

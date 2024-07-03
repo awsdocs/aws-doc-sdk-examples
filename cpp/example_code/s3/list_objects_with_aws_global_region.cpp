@@ -94,7 +94,7 @@ static bool
 listTheObjects(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName) {
     // An S3 API client set to the aws-global AWS Region should be able to get 
     // access to a bucket in any AWS Region.
-<<<<<<< HEAD
+
     Aws::S3::Model::ListObjectsV2Request listObjectsRequest;
     listObjectsRequest.SetBucket(bucketName);
 
@@ -115,42 +115,17 @@ listTheObjects(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName)
             objects.insert(objects.end(), contents.begin(), contents.end());
             continuationToken = listObjectOutcome.GetResult().GetNextContinuationToken();
         } else {
-=======
 
-    Aws::String continuationToken; // Used for paginated results.
-
-    do {
-        Aws::S3::Model::ListObjectsV2Request listObjectsRequest;
-        listObjectsRequest.SetBucket(bucketName);
-        if (!continuationToken.empty()) {
-            listObjectsRequest.SetContinuationToken(continuationToken);
-        }
-        auto listObjectOutcome = s3Client.ListObjectsV2(listObjectsRequest);
-
-        if (listObjectOutcome.IsSuccess()) {
-            std::cout << "Success. Number of objects in the bucket named '" <<
-                      bucketName << "' is " <<
-                      listObjectOutcome.GetResult().GetContents().size() << "." <<
-                      std::endl;
-            continuationToken = listObjectOutcome.GetResult().GetNextContinuationToken();
-        }
-        else {
->>>>>>> ad856adea (S3 Object Integrity Workflow)
             std::cerr << "Error. Could not count the objects in the bucket: " <<
                       listObjectOutcome.GetError() << std::endl;
             return false;
         }
-<<<<<<< HEAD
 
     } while (!continuationToken.empty());
 
     std::cout << "Success. Found " << objects.size() << " objects in the bucket." <<
               std::endl;
 
-=======
-    } while (!continuationToken.empty());
-
->>>>>>> ad856adea (S3 Object Integrity Workflow)
     return true;
 }
 //! Helper routine to delete a bucket.

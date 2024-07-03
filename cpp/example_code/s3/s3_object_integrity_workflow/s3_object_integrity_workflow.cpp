@@ -30,7 +30,7 @@
 #include <fstream>
 #include <vector>
 #include <filesystem>
-#include "awsdoc/s3/s3_examples.h"
+#include "s3_examples.h"
 
 
 #pragma clang diagnostic push
@@ -235,7 +235,7 @@ namespace AwsDoc::S3 {
         \return bool: Function succeeded.
     */
     bool cleanUp(const Aws::String &bucket,
-                 const Aws::Client::ClientConfiguration &clientConfiguration);
+                 const Aws::S3::S3ClientConfiguration &clientConfiguration);
 
     //! Console interaction introducing the workflow.
     /*!
@@ -322,16 +322,17 @@ namespace AwsDoc::S3 {
     }  // namespace S3
 } // namespace AwsDoc
 
+// snippet-start:[cpp.example_code.s3.Scenario_ObjectIntegrity]
 //! Routine which runs the HealthImaging workflow.
 /*!
    \param clientConfig: Aws client configuration.
    \return bool: Function succeeded.
 */
 bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
-        const Aws::Client::ClientConfiguration &clientConfiguration) {
+        const Aws::S3::S3ClientConfiguration &clientConfiguration) {
 
     /*
-     * Create a large file to be used for multi-part uploads.
+     * Create a large file to be used for multipart uploads.
      */
     if (!createLargeFileIfNotExists()) {
         std::cerr << "Workflow exiting because large file creation failed." << std::endl;
@@ -346,7 +347,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
 
     introductoryExplanations(bucketName);
 
-    if (!AwsDoc::S3::CreateBucket(bucketName, clientConfiguration)) {
+    if (!AwsDoc::S3::createBucket(bucketName, clientConfiguration)) {
         std::cerr << "Workflow exiting because bucket creation failed." << std::endl;
         return false;
     }
@@ -529,7 +530,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
 
     HASH_METHOD multipartUploadHashMethod = chosenHashMethod;
     if (multipartUploadHashMethod == DEFAULT) {
-        multipartUploadHashMethod = MD5;  // The default hash method for multi-part uploads is MD5.
+        multipartUploadHashMethod = MD5;  // The default hash method for multipart uploads is MD5.
 
         std::cout << "The default checksum algorithm for multipart upload is "
                   << stringForHashMethod(putObjectHashMethod)
@@ -571,11 +572,9 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
 
     printAsterisksLine();
 
-    if (askYesNoQuestion("Would you like to delete the resources created in this workflow? (y/n)"))
-    {
+    if (askYesNoQuestion("Would you like to delete the resources created in this workflow? (y/n)")) {
         return cleanUp(bucketName, clientConfiguration);
-    }
-    else {
+    } else {
         std::cout << "The bucket " << bucketName << " was not deleted." << std::endl;
         return true;
     }
@@ -642,7 +641,8 @@ bool AwsDoc::S3::putObjectWithHash(const Aws::String &bucket, const Aws::String 
 }
 
 
-//! Routine which retrieves the hash value of an object stored in an S3 bucket.
+// snippet-start:[cpp.example_code.s3.GetObjectAttributes]
+// ! Routine which retrieves the hash value of an object stored in an S3 bucket.
 /*!
    \param bucket: The name of the S3 bucket where the object is stored.
    \param key: The unique identifier (key) of the object within the S3 bucket.
@@ -714,6 +714,7 @@ bool AwsDoc::S3::retrieveObjectHash(const Aws::String &bucket, const Aws::String
                       outcome.GetError().GetMessage() << std::endl;
             return false;
         }
+
         if (nullptr != partHashes) {
             attributes.clear();
             attributes.push_back(Aws::S3::Model::ObjectAttributes::ObjectParts);
@@ -755,6 +756,7 @@ bool AwsDoc::S3::retrieveObjectHash(const Aws::String &bucket, const Aws::String
 
     return true;
 }
+// snippet-end:[cpp.example_code.s3.GetObjectAttributes]
 
 //! Verifies the hashing results between the retrieved and local hashes.
 /*!
@@ -841,7 +843,7 @@ AwsDoc::S3::doTransferManagerUpload(const Aws::String &bucket, const Aws::String
                                     AwsDoc::S3::HASH_METHOD hashMethod,
                                     bool useDefaultHashMethod,
                                     const std::shared_ptr<Aws::S3::S3Client> &client) {
-    auto executor = Aws::MakeShared<Aws::Utils::Threading::PooledThreadExecutor>(
+    std::shared_ptr<Aws::Utils::Threading::PooledThreadExecutor> executor = Aws::MakeShared<Aws::Utils::Threading::PooledThreadExecutor>(
             "executor", 25);
     Aws::Transfer::TransferManagerConfiguration transfer_config(executor.get());
     transfer_config.s3Client = client;
@@ -855,17 +857,19 @@ AwsDoc::S3::doTransferManagerUpload(const Aws::String &bucket, const Aws::String
         }
     }
 
-    auto transfer_manager = Aws::Transfer::TransferManager::Create(transfer_config);
+    std::shared_ptr<Aws::Transfer::TransferManager> transfer_manager = Aws::Transfer::TransferManager::Create(
+            transfer_config);
 
     std::cout << "Uploading the file..." << std::endl;
-    auto uploadHandle = transfer_manager->UploadFile(MULTI_PART_TEST_FILE, bucket, key,
-                                                     "text/plain",
-                                                     Aws::Map<Aws::String, Aws::String>());
+    std::shared_ptr<Aws::Transfer::TransferHandle> uploadHandle = transfer_manager->UploadFile(MULTI_PART_TEST_FILE,
+                                                                                               bucket, key,
+                                                                                               "text/plain",
+                                                                                               Aws::Map<Aws::String, Aws::String>());
     uploadHandle->WaitUntilFinished();
     bool success =
             uploadHandle->GetStatus() == Aws::Transfer::TransferStatus::COMPLETED;
     if (!success) {
-        auto err = uploadHandle->GetLastError();
+        Aws::Client::AWSError<Aws::S3::S3Errors> err = uploadHandle->GetLastError();
         std::cout << "File upload failed:  " << err.GetMessage() << std::endl;
     }
 
@@ -1102,12 +1106,13 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
         // snippet-end:[cpp.example_code.s3.AbortMultipartUpload]
         return false;
     } else {
+        // snippet-start:[cpp.example_code.s3.CompleteMultipartUpload]
         Aws::S3::Model::CompleteMultipartUploadRequest completeMultipartUploadRequest;
         completeMultipartUploadRequest.SetBucket(bucket);
         completeMultipartUploadRequest.SetKey(key);
         completeMultipartUploadRequest.SetUploadId(uploadID);
         completeMultipartUploadRequest.SetMultipartUpload(completedMultipartUpload);
-        auto completeMultipartUploadOutcome = client.CompleteMultipartUpload(
+        Aws::S3::Model::CompleteMultipartUploadOutcome completeMultipartUploadOutcome = client.CompleteMultipartUpload(
                 completeMultipartUploadRequest);
 
         if (completeMultipartUploadOutcome.IsSuccess()) {
@@ -1121,6 +1126,7 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
                       completeMultipartUploadOutcome.GetError().GetMessage()
                       << std::endl;
         }
+        // snippet-end:[cpp.example_code.s3.CompleteMultipartUpload]
 
         return completeMultipartUploadOutcome.IsSuccess();
     }
@@ -1192,20 +1198,20 @@ AwsDoc::S3::getChecksumAlgorithmForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod
     \return bool: Function succeeded.
 */
 bool AwsDoc::S3::cleanUp(const Aws::String &bucketName,
-                         const Aws::Client::ClientConfiguration &clientConfiguration) {
+                         const Aws::S3::S3ClientConfiguration &clientConfiguration) {
 
     Aws::Vector<Aws::String> keysResult;
     bool result = true;
-    if (AwsDoc::S3::ListObjects(bucketName, keysResult, clientConfiguration)) {
+    if (AwsDoc::S3::listObjects(bucketName, keysResult, clientConfiguration)) {
         if (!keysResult.empty()) {
-            result = AwsDoc::S3::DeleteObjects(keysResult, bucketName,
+            result = AwsDoc::S3::deleteObjects(keysResult, bucketName,
                                                clientConfiguration);
         }
     } else {
         result = false;
     }
 
-    return result && AwsDoc::S3::DeleteBucket(bucketName, clientConfiguration);
+    return result && AwsDoc::S3::deleteBucket(bucketName, clientConfiguration);
 }
 
 //! Console interaction introducing the workflow.
@@ -1359,7 +1365,7 @@ bool AwsDoc::S3::createLargeFileIfNotExists() {
 
     return true;
 }
-
+// snippet-end:[cpp.example_code.s3.Scenario_ObjectIntegrity]
 //! Calculate the object hash for vector input.
 /*!
    \param data: A vector of unsigned bytes.
