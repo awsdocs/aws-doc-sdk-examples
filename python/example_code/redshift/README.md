@@ -75,7 +75,7 @@ functions within the same service.
 This example shows you how to get started using Amazon Redshift.
 
 ```
-python 
+python hello.py
 ```
 
 
