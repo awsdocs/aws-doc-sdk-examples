@@ -947,9 +947,11 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
     size_t objectSize = ioStream->tellg();
     ioStream->seekg(0, ioStream->beg);
 
+    // snippet-start:[cpp.example_code.s3.CreateMultipartUpload]
     Aws::S3::Model::CreateMultipartUploadRequest createMultipartUploadRequest;
     createMultipartUploadRequest.SetBucket(bucket);
     createMultipartUploadRequest.SetKey(key);
+    // snippet-end:[cpp.example_code.s3.CreateMultipartUpload]
     if (!useDefaultHashMethod) {
         if (hashMethod != MD5) {
             createMultipartUploadRequest.SetChecksumAlgorithm(
@@ -957,7 +959,8 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
         }
     }
 
-    auto createMultipartUploadOutcome = client.CreateMultipartUpload(
+    // snippet-start:[cpp.example_code.s3.CreateMultipartUpload2]
+    Aws::S3::Model::CreateMultipartUploadOutcome createMultipartUploadOutcome = client.CreateMultipartUpload(
             createMultipartUploadRequest);
 
     Aws::String uploadID;
@@ -968,7 +971,7 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
                   createMultipartUploadOutcome.GetError().GetMessage() << std::endl;
         return false;
     }
-
+    // snippet-end:[cpp.example_code.s3.CreateMultipartUpload2]
     std::vector<unsigned char> totalHashBuffer;
     bool uploadSucceeded = true;
     std::streamsize uploadedBytes = 0;
@@ -977,11 +980,13 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
     while (uploadedBytes < objectSize) {
         std::cout << "Uploading part " << partNumber << "." << std::endl;
 
+        // snippet-start:[cpp.example_code.s3.UploadPart]
         Aws::S3::Model::UploadPartRequest uploadPartRequest;
         uploadPartRequest.SetBucket(bucket);
         uploadPartRequest.SetKey(key);
         uploadPartRequest.SetUploadId(uploadID);
         uploadPartRequest.SetPartNumber(partNumber++);
+        // snippet-end:[cpp.example_code.s3.UploadPart]
         if (!useDefaultHashMethod) {
             if (hashMethod != MD5) {
                 uploadPartRequest.SetChecksumAlgorithm(
@@ -989,6 +994,7 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
             }
         }
 
+        // snippet-start:[cpp.example_code.s3.UploadPart2]
         std::vector<unsigned char> buffer(UPLOAD_BUFFER_SIZE);
         std::streamsize bytesToRead = static_cast<std::streamsize>(std::min(buffer.size(), objectSize - uploadedBytes));
         ioStream->read((char *) buffer.data(), bytesToRead);
@@ -997,6 +1003,7 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
         std::shared_ptr<Aws::IOStream> body =
                 Aws::MakeShared<Aws::IOStream>("SampleAllocationTag",
                                                &preallocatedStreamBuf);
+        // snippet-end:[cpp.example_code.s3.UploadPart2]
         Hasher hasher;
         if (!hasher.calculateObjectHash(*body, hashMethod)) {
             std::cerr << "Error calculating hash." << std::endl;
@@ -1040,9 +1047,10 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
         totalHashBuffer.insert(totalHashBuffer.end(), hashBuffer.GetUnderlyingData(),
                                hashBuffer.GetUnderlyingData() + hashBuffer.GetLength());
 
+        // snippet-start:[cpp.example_code.s3.UploadPart3]
         uploadPartRequest.SetBody(body);
 
-        auto uploadPartOutcome = client.UploadPart(uploadPartRequest);
+        Aws::S3::Model::UploadPartOutcome uploadPartOutcome = client.UploadPart(uploadPartRequest);
         if (uploadPartOutcome.IsSuccess()) {
             const Aws::S3::Model::UploadPartResult &uploadPartResult = uploadPartOutcome.GetResult();
             completedPart.SetETag(uploadPartResult.GetETag());
@@ -1074,21 +1082,24 @@ bool AwsDoc::S3::doMultipartUploadAndCheckHash(const Aws::String &bucket,
             uploadSucceeded = false;
             break;
         }
+        // snippet-end:[cpp.example_code.s3.UploadPart3]
 
         uploadedBytes += bytesToRead;
     }
 
     if (!uploadSucceeded) {
+        // snippet-start:[cpp.example_code.s3.AbortMultipartUpload]
         Aws::S3::Model::AbortMultipartUploadRequest abortMultipartUploadRequest;
         abortMultipartUploadRequest.SetBucket(bucket);
         abortMultipartUploadRequest.SetKey(key);
         abortMultipartUploadRequest.SetUploadId(uploadID);
-        auto abortMultipartUploadOutcome = client.AbortMultipartUpload(
+        Aws::S3::Model::AbortMultipartUploadOutcome abortMultipartUploadOutcome = client.AbortMultipartUpload(
                 abortMultipartUploadRequest);
         if (!abortMultipartUploadOutcome.IsSuccess()) {
             std::cerr << "Error aborting multipart upload." <<
                       abortMultipartUploadOutcome.GetError().GetMessage() << std::endl;
         }
+        // snippet-end:[cpp.example_code.s3.AbortMultipartUpload]
         return false;
     } else {
         Aws::S3::Model::CompleteMultipartUploadRequest completeMultipartUploadRequest;
