@@ -5,32 +5,39 @@
 import argparse
 import config
 import logging
-import os
 import sys
 from pathlib import Path
 from render import Renderer, MissingMetadataError
+
 from scanner import Scanner
 
 
-def main():
-    scanner = Scanner(".doc_gen/metadata")
-    sdks = scanner.sdks()
-    lang_vers = []
-    for sdk in sdks:
-        for v in sdks[sdk]["sdk"]:
-            lang_vers.append(f"{sdk}:{v}")
+from aws_doc_sdk_examples_tools.doc_gen import DocGen
 
+
+def main():
+    doc_gen = DocGen.from_root(Path(__file__).parent.parent.parent)
+    doc_gen.collect_snippets()
+    doc_gen.validate()
+    if doc_gen.errors:
+        logging.error("There were errors loading metadata")
+        logging.info(doc_gen.errors)
+        return -1
+    scanner = Scanner(doc_gen)
+
+    languages = doc_gen.languages()
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--languages",
-        choices=lang_vers + ["all"],
+        choices=[*languages] + ["all"],
         nargs="+",
         help="The languages of the SDK. Choose from: %(choices)s.",
         default=["all"],
     )
+
     parser.add_argument(
         "--services",
-        choices={**scanner.services(), "all": {}},
+        choices=[*doc_gen.services.keys()] + ["all"],
         nargs="+",
         help="The targeted service. Choose from: %(choices)s.",
         default=["all"],
@@ -57,10 +64,10 @@ def main():
     args = parser.parse_args()
 
     if "all" in args.languages:
-        args.languages = lang_vers
+        args.languages = [*languages]
 
     if "all" in args.services:
-        args.services = [*scanner.services().keys()]
+        args.services = [*doc_gen.services.keys()]
 
     if args.verbose:
         logging.basicConfig(level=logging.DEBUG)
@@ -75,10 +82,10 @@ def main():
     written = []
 
     for language_and_version in args.languages:
-        (language, version) = language_and_version.split(":")
-        if int(version) not in sdks[language]["sdk"]:
-            logging.debug(f"Skipping {language}:{version}")
+        if language_and_version not in languages:
+            logging.debug(f"Skipping {language_and_version}")
         else:
+            (language, version) = language_and_version.split(":")
             for service in args.services:
                 id = f"{language}:{version}:{service}"
                 try:

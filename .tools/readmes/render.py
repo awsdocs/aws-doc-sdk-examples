@@ -6,11 +6,15 @@ import datetime
 import logging
 import os
 import re
+from dataclasses import asdict
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from operator import itemgetter
 from pathlib import Path
 
+from aws_doc_sdk_examples_tools.metadata import Example
+
 import config
+from scanner import Scanner
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +24,7 @@ class MissingMetadataError(Exception):
 
 
 class Renderer:
-    def __init__(self, scanner, sdk_ver, safe, svc_folder=None):
+    def __init__(self, scanner: Scanner, sdk_ver, safe, svc_folder=None):
         env = Environment(
             autoescape=select_autoescape(
                 disabled_extensions=("jinja2",), default_for_string=True
@@ -41,7 +45,7 @@ class Renderer:
         self.lang_config = self.lang_config.copy()
         service_info = {
             "name": self.scanner.svc_name,
-            "sort": self.scanner.service()["sort"].replace(" ", ""),
+            "sort": self.scanner.service().sort.replace(" ", ""),
         }
         if svc_folder is not None:
             self.lang_config["service_folder"] = svc_folder
@@ -74,56 +78,41 @@ class Renderer:
         return f"{config.doc_base_url}/{url_like}"
 
     def _transform_sdk(self):
-        pre_sdk = self.scanner.sdk()["sdk"][self.sdk_ver]
-        if "expanded" not in pre_sdk or "guide" not in pre_sdk:
-            logger.error(
-                "%s %s entry in sdks.yaml does not have required entity expansions or guide URL defined.",
-                self.scanner.lang_name,
-                self.sdk_ver,
-            )
-            raise MissingMetadataError
-        else:
-            post_sdk = {
-                "long": pre_sdk["expanded"]["long"],
-                "short": pre_sdk["expanded"]["short"],
-                "guide": pre_sdk["guide"],
-            }
+        sdk = self.scanner.sdk()
+        pre_sdk = None
+        for version in sdk.versions:
+            if version.version == self.sdk_ver:
+                pre_sdk = version
+
+        post_sdk = {
+            "long": pre_sdk.expanded.long,
+            "short": pre_sdk.expanded.short,
+            "guide": pre_sdk.guide,
+        }
         return post_sdk
 
     def _transform_service(self):
         pre_svc = self.scanner.service()
-        if (
-            "expanded" not in pre_svc
-            or "blurb" not in pre_svc
-            or "guide" not in pre_svc
-        ):
-            logger.error(
-                "%s entry in services.yaml does not have required entity expansions, blurb, or guide "
-                "info defined.",
-                self.scanner.svc_name,
-            )
-            raise MissingMetadataError
-        else:
-            post_svc = {
-                "long": pre_svc["expanded"]["long"],
-                "short": pre_svc["expanded"]["short"],
-                "blurb": pre_svc["blurb"],
-                "guide": pre_svc["guide"],
-                "api_ref": self._doc_link(pre_svc["api_ref"]),
-            }
-            post_svc["guide"]["url"] = self._doc_link(post_svc["guide"]["url"])
+        post_svc = {
+            "long": pre_svc.expanded.long,
+            "short": pre_svc.expanded.short,
+            "blurb": pre_svc.blurb,
+            "guide": asdict(pre_svc.guide),
+            "api_ref": self._doc_link(pre_svc.api_ref),
+        }
+        post_svc["guide"]["url"] = self._doc_link(post_svc["guide"]["url"])
         return post_svc
 
-    def _transform_hello(self, pre_hello):
+    def _transform_hello(self, pre_hello: dict[str, Example]):
         post_hello = []
         for _, pre in pre_hello.items():
             try:
-                api = next(iter(pre["services"][self.scanner.svc_name]))
-            except:
+                api = next(iter(pre.services[self.scanner.svc_name]))
+            except Exception:
                 api = ""
             action = {
-                "title_abbrev": pre["title_abbrev"],
-                "synopsis": pre["synopsis"],
+                "title_abbrev": pre.title_abbrev,
+                "synopsis": pre.synopsis,
                 "file": self.scanner.snippet(
                     pre, self.sdk_ver, self.lang_config["service_folder"], api
                 ),
@@ -139,8 +128,8 @@ class Renderer:
         post_actions = []
         for pre_id, pre in pre_actions.items():
             try:
-                api = next(iter(pre["services"][self.scanner.svc_name]))
-            except:
+                api = next(iter(pre.services[self.scanner.svc_name]))
+            except Exception:
                 raise MissingMetadataError(
                     f"Action not found for example {pre_id} and service {self.scanner.svc_name}."
                 )
@@ -161,9 +150,9 @@ class Renderer:
         for pre_id, pre in pre_scenarios.items():
             scenario = {
                 "id": pre_id,
-                "title_abbrev": pre["title_abbrev"],
-                "synopsis": pre.get("synopsis"),
-                "synopsis_list": pre.get("synopsis_list", []),
+                "title_abbrev": pre.title_abbrev,
+                "synopsis": pre.synopsis,
+                "synopsis_list": pre.synopsis_list,
                 "file": self.scanner.snippet(
                     pre, self.sdk_ver, self.lang_config["service_folder"], ""
                 ),
@@ -181,16 +170,16 @@ class Renderer:
         post_cats = defaultdict(list)
         for pre_id, pre in pre_cats.items():
             api = ""
-            if len(pre["services"][self.scanner.svc_name]) == 1:
+            if len(pre.services[self.scanner.svc_name]) == 1:
                 try:
-                    api = next(iter(pre["services"][self.scanner.svc_name]))
-                except:
+                    api = next(iter(pre.services[self.scanner.svc_name]))
+                except Exception:
                     api = ""
             cat = {
                 "id": pre_id,
-                "title_abbrev": pre["title_abbrev"],
-                "synopsis": pre.get("synopsis"),
-                "synopsis_list": pre.get("synopsis_list", []),
+                "title_abbrev": pre.title_abbrev,
+                "synopsis": pre.synopsis,
+                "synopsis_list": pre.synopsis_list,
                 "file": self.scanner.snippet(
                     pre, self.sdk_ver, self.lang_config["service_folder"], api
                 ),
@@ -200,7 +189,7 @@ class Renderer:
                     "Couldn't find file for scenario: %s.", cat["title_abbrev"]
                 )
             else:
-                post_cats[pre.get("category")].append(cat)
+                post_cats[pre.category].append(cat)
         sorted_cats = {}
         for key in sorted(post_cats.keys()):
             sorted_cats[key] = sorted(post_cats[key], key=itemgetter("title_abbrev"))
@@ -307,7 +296,11 @@ class Renderer:
         self.lang_config["readme"] = f"{self._lang_level_double_dots()}README.md"
         unsupported = self.lang_config.get("unsupported", False)
 
-        self.readme_filename = f'{self.lang_config["service_folder"]}/{config.readme}'
+        self.readme_filename = (
+            Path(__file__).parent.parent.parent
+            / self.lang_config["service_folder"]
+            / config.readme
+        )
         readme_exists = os.path.exists(self.readme_filename)
         customs = (
             self._scrape_customs(self.readme_filename, sdk["short"])

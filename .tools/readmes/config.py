@@ -7,6 +7,8 @@ doc_base_url = "https://docs.aws.amazon.com"
 categories = {
     "hello": "Hello",
     "scenarios": "Scenarios",
+    "actions": "Api",
+    "cross": "Cross",
 }
 entities = {
     "&AWS;": "AWS",
