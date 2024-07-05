@@ -64,7 +64,7 @@ suspend fun createCluster(
             clusterIdentifier = clusterId
             masterUsername = masterUsernameVal
             masterUserPassword = masterUserPasswordVal
-            nodeType = "ds2.xlarge"
+            nodeType = "ra3.4xlarge"
             publiclyAccessible = true
             numberOfNodes = 2
         }
