@@ -62,7 +62,7 @@ The quickest way to interact with this example code is to invoke a [Single Actio
 This example shows you how to get started using Amazon RDS.
 
 ```
-ruby 
+ruby hello/hello_rds.rb
 ```
 
 

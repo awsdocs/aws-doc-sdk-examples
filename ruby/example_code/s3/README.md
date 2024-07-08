@@ -81,7 +81,7 @@ The quickest way to interact with this example code is to invoke a [Scenario](#S
 This example shows you how to get started using Amazon S3.
 
 ```
-ruby 
+ruby hello/hello_s3.rb
 ```
 
 

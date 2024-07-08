@@ -77,7 +77,7 @@ functions within the same service.
 This example shows you how to get started using AWS Glue.
 
 ```
-ruby 
+ruby hello/hello_glue.rb
 ```
 
 

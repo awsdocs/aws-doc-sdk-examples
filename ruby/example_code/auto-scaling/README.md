@@ -50,7 +50,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 This example shows you how to get started using Auto Scaling.
 
 ```
-ruby 
+ruby hello/hello_autoscaling.rb
 ```
 
 
