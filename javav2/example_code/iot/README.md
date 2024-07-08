@@ -38,18 +38,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachThingPrincipal](src/main/java/com/example/iot/scenario/IotActions.java#L193)
-- [CreateKeysAndCertificate](src/main/java/com/example/iot/scenario/IotActions.java#L121)
-- [CreateThing](src/main/java/com/example/iot/scenario/IotActions.java#L160)
-- [CreateTopicRule](src/main/java/com/example/iot/scenario/IotActions.java#L443)
-- [DeleteCertificate](src/main/java/com/example/iot/scenario/IotActions.java#L642)
-- [DeleteThing](src/main/java/com/example/iot/scenario/IotActions.java#L644)
-- [DescribeEndpoint](src/main/java/com/example/iot/scenario/IotActions.java#L310)
-- [DescribeThing](src/main/java/com/example/iot/scenario/IotActions.java#L234)
-- [DetachThingPrincipal](src/main/java/com/example/iot/scenario/IotActions.java#L576)
-- [ListCertificates](src/main/java/com/example/iot/scenario/IotActions.java#L372)
-- [SearchIndex](src/main/java/com/example/iot/scenario/IotActions.java#L535)
-- [UpdateThing](None)
+- [AttachThingPrincipal](src/main/java/com/example/iot/scenario/IotActions.java#L192)
+- [CreateKeysAndCertificate](src/main/java/com/example/iot/scenario/IotActions.java#L120)
+- [CreateThing](src/main/java/com/example/iot/scenario/IotActions.java#L159)
+- [CreateTopicRule](src/main/java/com/example/iot/scenario/IotActions.java#L442)
+- [DeleteCertificate](src/main/java/com/example/iot/scenario/IotActions.java#L610)
+- [DeleteThing](src/main/java/com/example/iot/scenario/IotActions.java#L643)
+- [DescribeEndpoint](src/main/java/com/example/iot/scenario/IotActions.java#L309)
+- [DescribeThing](src/main/java/com/example/iot/scenario/IotActions.java#L233)
+- [DetachThingPrincipal](src/main/java/com/example/iot/scenario/IotActions.java#L575)
+- [ListCertificates](src/main/java/com/example/iot/scenario/IotActions.java#L371)
+- [SearchIndex](src/main/java/com/example/iot/scenario/IotActions.java#L534)
+- [UpdateThing](src/main/java/com/example/iot/scenario/IotActions.java#L270)
 
 ### Scenarios
 

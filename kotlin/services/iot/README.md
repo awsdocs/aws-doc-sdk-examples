@@ -39,7 +39,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 Code excerpts that show you how to call individual service functions.
 
 - [AttachThingPrincipal](src/main/kotlin/com/example/iot/IotScenario.kt#L476)
-- [CreateKeysAndCertificate](../../../javav2/example_code/iot/src/main/java/com/example/iot/IotScenario.java#L458)
+- [CreateKeysAndCertificate](../../../javav2/example_code/iot/src/main/java/com/example/iot/scenario/IotActions.java#L120)
 - [CreateThing](src/main/kotlin/com/example/iot/IotScenario.kt#L528)
 - [CreateTopicRule](src/main/kotlin/com/example/iot/IotScenario.kt#L331)
 - [DeleteCertificate](src/main/kotlin/com/example/iot/IotScenario.kt#L257)
