@@ -639,7 +639,7 @@ public class IotActions {
 
         future.join();
     }
-    // snippet-start:[iot.java2.delete.cert.main]
+    // snippet-end:[iot.java2.delete.cert.main]
 
     // snippet-start:[iot.java2.delete.thing.main]
     /**
