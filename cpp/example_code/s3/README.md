@@ -78,6 +78,7 @@ functions within the same service.
 
 - [Create a presigned URL](presigned_get_object.cpp)
 - [Get started with buckets and objects](s3_getting_started_scenario.cpp)
+- [Work with Amazon S3 object integrity](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp)
 
 ### Cross-service examples
 
@@ -143,6 +144,18 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.s3_Scenario_GettingStarted.start-->
 <!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+
+#### Work with Amazon S3 object integrity
+
+This example shows you how to work with S3 object integrity features.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_ObjectIntegrity.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ObjectIntegrity.end-->
+
+
+<!--custom.scenarios.s3_Scenario_ObjectIntegrity.start-->
+<!--custom.scenarios.s3_Scenario_ObjectIntegrity.end-->
 
 ### Tests
 

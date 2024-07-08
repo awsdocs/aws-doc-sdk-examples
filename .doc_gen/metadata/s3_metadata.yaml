@@ -3248,15 +3248,15 @@ s3_Scenario_ObjectIntegrity:
   synopsis: work with S3 object integrity features.
   category: Scenarios
   languages:
-    .NET:
+    C++:
       versions:
-        - sdk_version: 3
-          github: dotnetv3/S3/scenarios/S3ObjectLockScenario
+        - sdk_version: 1
+          github: cpp/example_code/s3/s3_object_integrity_workflow
           sdkguide:
           excerpts:
             - description: Run an interactive scenario demonstrating &S3; object integrity features.
               snippet_tags:
-                - S3LockWorkflow.dotnetv3.ObjectLockWorkflow
+                - cpp.example_code.s3.Scenario_ObjectIntegrity
   services:
     s3: {AbortMultipartUpload, CreateMultipartUpload, DeleteObject, GetObjectAttributes, PutObject, UploadPart, CompleteMultipartUpload}
 s3_SelectObjectContent:
