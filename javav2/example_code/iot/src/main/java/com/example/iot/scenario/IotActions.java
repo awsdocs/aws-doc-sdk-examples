@@ -38,7 +38,6 @@ import software.amazon.awssdk.services.iot.model.ListTopicRulesResponse;
 import software.amazon.awssdk.services.iot.model.SearchIndexRequest;
 import software.amazon.awssdk.services.iot.model.SearchIndexResponse;
 import software.amazon.awssdk.services.iot.model.TopicRuleListItem;
-
 import software.amazon.awssdk.services.iot.model.SnsAction;
 import software.amazon.awssdk.services.iot.model.TopicRulePayload;
 import software.amazon.awssdk.services.iotdataplane.IotDataPlaneAsyncClient;

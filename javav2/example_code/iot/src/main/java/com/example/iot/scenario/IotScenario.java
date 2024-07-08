@@ -42,16 +42,16 @@ public class IotScenario {
                     snsAction  - An ARN of an SNS topic.
                 """;
 
-      // if (args.length != 2) {
-      //     System.out.println(usage);
-      //     System.exit(1);
-      // }
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         IotActions iotActions = new IotActions();
         String thingName;
         String ruleName;
-        String roleARN = "arn:aws:iam::814548047983:role/AssumeRoleSNS" ; //args[0];
-        String snsAction = "arn:aws:sns:us-east-1:814548047983:scott1111" ; // args[1];
+        String roleARN = args[0];
+        String snsAction = args[1];
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(DASHES);
