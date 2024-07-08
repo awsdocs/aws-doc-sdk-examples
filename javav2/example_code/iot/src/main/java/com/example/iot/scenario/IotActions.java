@@ -46,7 +46,6 @@ import software.amazon.awssdk.services.iotdataplane.model.GetThingShadowRequest;
 import software.amazon.awssdk.services.iotdataplane.model.GetThingShadowResponse;
 import software.amazon.awssdk.services.iotdataplane.model.UpdateThingShadowRequest;
 import software.amazon.awssdk.services.iotdataplane.model.UpdateThingShadowResponse;
-
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.List;

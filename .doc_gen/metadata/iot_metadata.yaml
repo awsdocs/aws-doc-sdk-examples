@@ -347,7 +347,7 @@ iot_UpdateThing:
           excerpts:
             - description:
               snippet_tags:
-                - iot.java2.update.thing.main
+                - iot.java2.update.shadow.thing.main
     C++:
       versions:
         - sdk_version: 1
