@@ -86,7 +86,7 @@ Sample applications that work across multiple AWS services.
 This example shows you how to get started using Amazon RDS.
 
 ```
-python 
+python hello/hello_rds.py
 ```
 
 

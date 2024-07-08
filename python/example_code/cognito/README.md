@@ -80,7 +80,7 @@ functions within the same service.
 This example shows you how to get started using Amazon Cognito.
 
 ```
-python 
+python hello/hello_cognito.py
 ```
 
 

@@ -113,7 +113,7 @@ functions within the same service.
 This example shows you how to get started using IAM.
 
 ```
-python 
+python hello/hello_iam.py
 ```
 
 

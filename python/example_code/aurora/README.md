@@ -90,7 +90,7 @@ Sample applications that work across multiple AWS services.
 This example shows you how to get started using Aurora.
 
 ```
-python 
+python hello/hello_aurora.py
 ```
 
 
