@@ -3,8 +3,9 @@
 
 import config
 import logging
-import os
+from os.path import relpath
 from pathlib import Path
+from typing import Dict, List
 
 from aws_doc_sdk_examples_tools.doc_gen import DocGen
 from aws_doc_sdk_examples_tools.metadata import Example
@@ -21,7 +22,7 @@ class Scanner:
         self.sdk_ver = None
         self.svc_name = None
         self.example_meta = None
-        self.cross_meta = {}
+        self.cross_meta: Dict[None, None] = {}
         self.snippets = None
 
     def _contains_language_version(self, example):
@@ -40,16 +41,16 @@ class Scanner:
     def sdk(self) -> Sdk:
         return self.doc_gen.sdks[self.lang_name]
 
-    def sdks(self) -> dict[str, Sdk]:
+    def sdks(self) -> Dict[str, Sdk]:
         return self.doc_gen.sdks
 
     def service(self) -> Service:
         return self.doc_gen.services[self.svc_name]
 
-    def services(self) -> dict[str, Service]:
+    def services(self) -> Dict[str, Service]:
         return self.doc_gen.services
 
-    def examples(self) -> list[Example]:
+    def examples(self) -> List[Example]:
         return [
             example
             for example in self.doc_gen.examples.values()
@@ -65,7 +66,7 @@ class Scanner:
             elif entity in config.entities:
                 return config.entities[entity]
 
-    def hello(self) -> dict[str, Example]:
+    def hello(self) -> Dict[str, Example]:
         return {
             example.id: example
             for example in self.examples()
@@ -73,7 +74,7 @@ class Scanner:
             and self.lang_name in example.languages
         }
 
-    def actions(self) -> dict[str, Example]:
+    def actions(self) -> Dict[str, Example]:
         return {
             example.id: example
             for example in self.examples()
@@ -81,7 +82,7 @@ class Scanner:
             and self.lang_name in example.languages
         }
 
-    def scenarios(self) -> dict[str, Example]:
+    def scenarios(self) -> Dict[str, Example]:
         return {
             example.id: example
             for example in self.examples()
@@ -138,12 +139,13 @@ class Scanner:
                                     tag_path = "../cross-services/" + tag_path
                         elif ex_ver.block_content:
                             tag_path = github
-        if github is not None and tag_path is None:
+        if tag and github is not None and tag_path is None:
             snippet = self.doc_gen.snippets[tag]
             if snippet is not None:
-                snippet_path = Path(snippet.file)
+                snippet_path = self.doc_gen.root / Path(snippet.file)
                 readme_path = Path(__file__).parent.parent.parent / readme_folder
-                tag_path = snippet_path.relative_to(readme_path)
+                # tag_path = snippet_path.relative_to(readme_path)  # Must be subpaths, no ..
+                tag_path = relpath(snippet_path, readme_path)
                 tag_path = str(tag_path).replace("\\", "/")
                 if api_name != "":
                     tag_path += f"#L{snippet.line_start + 1}"

@@ -10,6 +10,7 @@ from dataclasses import asdict
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from operator import itemgetter
 from pathlib import Path
+from typing import Dict
 
 from aws_doc_sdk_examples_tools.metadata import Example
 
@@ -103,7 +104,7 @@ class Renderer:
         post_svc["guide"]["url"] = self._doc_link(post_svc["guide"]["url"])
         return post_svc
 
-    def _transform_hello(self, pre_hello: dict[str, Example]):
+    def _transform_hello(self, pre_hello: Dict[str, Example]):
         post_hello = []
         for _, pre in pre_hello.items():
             try:
