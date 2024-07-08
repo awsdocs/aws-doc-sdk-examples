@@ -1,6 +1,6 @@
 boto3==1.34.98
 botocore==1.34.98
-certifi==2023.11.17
+certifi==2024.7.4
 charset-normalizer==3.3.2
 colorama==0.4.6
 idna==3.6
