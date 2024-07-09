@@ -9,7 +9,6 @@ setup(
     entry_points={
         "console_scripts": ["writeme=writeme:main"],
     },
-    python_requires=">=3.8,<3.9",
     build_requires=[
         "setuptools>=40.8.0",
         "wheel",
