@@ -24,11 +24,14 @@ class Scanner:
         self.example_meta = None
         self.cross_meta: Dict[str, Example] = {}
         self.snippets = None
-        self.entities: Dict[str, str] = {e: en for e, en in config.entities.items()}
+        self.entities: Dict[str, str] = {}
         for svc in self.services().values():
             if svc.expanded:
                 self.entities[svc.long] = svc.expanded.long
                 self.entities[svc.short] = svc.expanded.short
+        # config entities override
+        for entity, expanded in config.entities.items():
+            self.entities[entity] = expanded
 
     def load_crosses(self):
         self.doc_gen.process_metadata(

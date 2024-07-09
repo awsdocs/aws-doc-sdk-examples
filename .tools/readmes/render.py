@@ -10,7 +10,7 @@ from dataclasses import asdict
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from operator import itemgetter
 from pathlib import Path
-from typing import Dict
+from typing import Dict, List, Optional, Tuple
 
 from aws_doc_sdk_examples_tools.metadata import Example
 from aws_doc_sdk_examples_tools.sdks import Sdk
@@ -27,7 +27,7 @@ class MissingMetadataError(Exception):
 
 
 class Renderer:
-    def __init__(self, scanner: Scanner, sdk_ver, safe, svc_folder=None):
+    def __init__(self, scanner: Scanner, sdk_ver, safe):
         env = Environment(
             autoescape=select_autoescape(
                 disabled_extensions=("jinja2",), default_for_string=True
@@ -50,43 +50,86 @@ class Renderer:
             "name": self.scanner.svc_name,
             "sort": self.scanner.service().sort.replace(" ", ""),
         }
-        if svc_folder is not None:
-            self.lang_config["service_folder"] = svc_folder
-        else:
-            if (
-                "service_folder_overrides" in self.lang_config
-                and scanner.svc_name in self.lang_config["service_folder_overrides"]
-            ):
-                overrides = self.lang_config["service_folder_overrides"]
-                self.lang_config["service_folder"] = overrides[scanner.svc_name]
-            elif "service_folder" in self.lang_config:
-                svc_folder_tmpl = env.from_string(self.lang_config["service_folder"])
-                self.lang_config["service_folder"] = svc_folder_tmpl.render(
-                    service=service_info
-                )
-            else:
-                raise MissingMetadataError(
-                    "Service folder not found. You must either specify a service_folder template in config.py or\n"
-                    "as a command line --svc_folder argument."
-                )
+
+        self._extract_service_folder(scanner, env, service_info)
         sdk_api_ref_tmpl = env.from_string(self.lang_config.get("sdk_api_ref", ""))
         self.lang_config["sdk_api_ref"] = sdk_api_ref_tmpl.render(service=service_info)
         self.safe = safe
 
-    def _transform_sdk(self):
-        return _transform_sdk(self.scanner.sdk(), self.sdk_ver)
+    def _extract_service_folder(self, scanner, env, service_info):
+        if (
+            "service_folder_overrides" in self.lang_config
+            and scanner.svc_name in self.lang_config["service_folder_overrides"]
+        ):
+            overrides = self.lang_config["service_folder_overrides"]
+            self.lang_config["service_folder"] = overrides[scanner.svc_name]
+        elif "service_folder" in self.lang_config:
+            svc_folder_tmpl = env.from_string(self.lang_config["service_folder"])
+            self.lang_config["service_folder"] = svc_folder_tmpl.render(
+                service=service_info
+            )
+        else:
+            raise MissingMetadataError(
+                "Service folder not found. You must specify a service_folder template in config.py"
+            )
 
     def _transform_service(self):
         return _transform_service(self.scanner.service())
 
-    def _transform_hello(self, pre_hello: Dict[str, Example]):
-        post_hello = []
-        for _, pre in pre_hello.items():
+    def _transform_examples(
+        self, pre_examples: Dict[str, Example], sort_key="title_abbrev", github=False
+    ) -> List[Dict[str, str]]:
+        post_examples: List[Dict[str, str]] = []
+        for pre in pre_examples.values():
             try:
                 api = next(iter(pre.services[self.scanner.svc_name]))
             except Exception:
                 api = ""
 
+            file, run_file = self._find_files(github, pre, api)
+
+            if not file:
+                if github:
+                    logger.info(
+                        "GitHub path not specified for cross-service example: %s %s.",
+                        self.scanner.lang_name,
+                        pre.title_abbrev,
+                    )
+                else:
+                    logger.warning(
+                        "Couldn't find file for example: %s.", pre.title_abbrev
+                    )
+                continue
+
+            action = {
+                "id": pre.id,
+                "title_abbrev": pre.title_abbrev,
+                "synopsis": pre.synopsis,
+                "synopsis_list": pre.synopsis_list,
+                "file": file,
+                "run_file": run_file,
+                "api": api,
+                "category": pre.category,
+            }
+            post_examples.append(action)
+        return sorted(post_examples, key=itemgetter(sort_key))
+
+    def _find_files(self, github, pre, api):
+        file = None
+        run_file = None
+        if github:
+            file = next(
+                ver.github
+                for ver in pre.languages[self.scanner.lang_name].versions
+                if ver.sdk_version == self.sdk_ver
+            )
+            if file:
+                base_folder = f"{config.language[self.scanner.lang_name][self.sdk_ver]['base_folder']}/"
+                if base_folder in file:
+                    file = (
+                        self._lang_level_double_dots() + file.split(base_folder, 1)[1]
+                    )
+        else:
             file = self.scanner.snippet(
                 pre, self.sdk_ver, self.lang_config["service_folder"], api
             )
@@ -95,124 +138,46 @@ class Renderer:
                 pre, self.sdk_ver, self.lang_config["service_folder"], ""
             )
 
-            if not file:
-                continue
+        return file, run_file
 
-            action = {
-                "title_abbrev": pre.title_abbrev,
-                "synopsis": pre.synopsis,
-                "file": file,
-                "run_file": run_file,
-                "api": api,
-            }
-            post_hello.append(action)
-        return sorted(post_hello, key=itemgetter("title_abbrev"))
+    def _transform_hellos(self):
+        examples = self._transform_examples(self.scanner.hello())
+        return examples
 
-    def _transform_actions(self, pre_actions):
-        post_actions = []
-        for pre_id, pre in pre_actions.items():
-            try:
-                api = next(iter(pre.services[self.scanner.svc_name]))
-            except Exception:
-                raise MissingMetadataError(
-                    f"Action not found for example {pre_id} and service {self.scanner.svc_name}."
-                )
+    def _transform_actions(self):
+        examples = self._transform_examples(self.scanner.actions(), sort_key="api")
+        for example in examples:
+            example["title_abbrev"] = example["api"]
+            del example["api"]
+        return examples
 
-            file = self.scanner.snippet(
-                pre, self.sdk_ver, self.lang_config["service_folder"], api
-            )
-
-            if not file:
-                continue
-
-            action = {
-                "title_abbrev": api,
-                "file": file,
-            }
-            if action["file"]:
-                post_actions.append(action)
-        return sorted(post_actions, key=itemgetter("title_abbrev"))
-
-    def _transform_scenarios(self):
-        pre_scenarios = self.scanner.scenarios()
-        _, cross_scenarios = self.scanner.crosses()
-        pre_scenarios.update(cross_scenarios)
-        post_scenarios = []
-        for pre_id, pre in pre_scenarios.items():
-            scenario = {
-                "id": pre_id,
-                "title_abbrev": pre.title_abbrev,
-                "synopsis": pre.synopsis,
-                "synopsis_list": pre.synopsis_list,
-                "file": self.scanner.snippet(
-                    pre, self.sdk_ver, self.lang_config["service_folder"], ""
-                ),
-            }
-            if scenario["file"] is None:
-                logger.warning(
-                    "Couldn't find file for scenario: %s.", scenario["title_abbrev"]
-                )
-            else:
-                post_scenarios.append(scenario)
-        return sorted(post_scenarios, key=itemgetter("title_abbrev"))
+    def _transform_scenarios_and_crosses(self):
+        pure_crosses, cross_scenarios = self.scanner.crosses()
+        scenarios = self._transform_examples(
+            {**self.scanner.scenarios(), **cross_scenarios}
+        )
+        for scenario in scenarios:
+            scenario["file"] = scenario["run_file"]
+            del scenario["run_file"]
+            del scenario["api"]
+        crosses = self._transform_examples(pure_crosses, github=True)
+        return scenarios, crosses
 
     def _transform_custom_categories(self):
         pre_cats = self.scanner.custom_categories()
+        examples = self._transform_examples(pre_cats)
+
         post_cats = defaultdict(list)
-        for pre_id, pre in pre_cats.items():
-            api = ""
-            if len(pre.services[self.scanner.svc_name]) == 1:
-                try:
-                    api = next(iter(pre.services[self.scanner.svc_name]))
-                except Exception:
-                    api = ""
-            cat = {
-                "id": pre_id,
-                "title_abbrev": pre.title_abbrev,
-                "synopsis": pre.synopsis,
-                "synopsis_list": pre.synopsis_list,
-                "file": self.scanner.snippet(
-                    pre, self.sdk_ver, self.lang_config["service_folder"], api
-                ),
-            }
-            if cat["file"] is None:
-                logger.warning(
-                    "Couldn't find file for scenario: %s.", cat["title_abbrev"]
-                )
-            else:
-                post_cats[pre.category].append(cat)
+        for example in examples:
+            del example["api"]
+            post_cats[example["category"]].append(example)
+
         sorted_cats = {}
         for key in sorted(post_cats.keys()):
-            sorted_cats[key] = sorted(post_cats[key], key=itemgetter("title_abbrev"))
+            # sorted_cats[key] = sorted(post_cats[key], key=itemgetter("title_abbrev"))
+            sorted_cats[key] = post_cats[key]
         return sorted_cats
-
-    def _transform_crosses(self):
-        pre_crosses, _ = self.scanner.crosses()
-        post_crosses = []
-        for _, pre in pre_crosses.items():
-            github = next(
-                ver.github
-                for ver in pre.languages[self.scanner.lang_name].versions
-                if ver.sdk_version == self.sdk_ver
-            )
-            if github is None:
-                logger.info(
-                    "GitHub path not specified for cross-service example: %s %s.",
-                    self.scanner.lang_name,
-                    pre.title_abbrev,
-                )
-            else:
-                base_folder = f"{config.language[self.scanner.lang_name][self.sdk_ver]['base_folder']}/"
-                if base_folder in github:
-                    github = (
-                        self._lang_level_double_dots() + github.split(base_folder, 1)[1]
-                    )
-                cross = {
-                    "title_abbrev": pre.title_abbrev,
-                    "file": github,
-                }
-                post_crosses.append(cross)
-        return sorted(post_crosses, key=itemgetter("title_abbrev"))
+        # return post_cats
 
     def _expand_entities(self, readme_text):
         entities = set(re.findall(r"&[\dA-Za-z-_]+;", readme_text))
@@ -272,16 +237,17 @@ class Renderer:
                             self.lang_config["sdk_api_ref"] = href
         return customs
 
-    def render(self):
+    def render(self) -> Tuple[Optional["Renderer"], bool]:
         if self.lang_config is None:
             return None, False  # Return False to indicate no update
-        sdk = self._transform_sdk()
-        svc = self._transform_service()
-        hello = self._transform_hello(self.scanner.hello())
-        actions = self._transform_actions(self.scanner.actions())
-        scenarios = self._transform_scenarios()
+
+        sdk = _transform_sdk(self.scanner.sdk(), self.sdk_ver)
+        svc = _transform_service(self.scanner.service())
+
+        hello = self._transform_hellos()
+        actions = self._transform_actions()
+        scenarios, crosses = self._transform_scenarios_and_crosses()
         custom_cats = self._transform_custom_categories()
-        crosses = self._transform_crosses()
 
         if (
             len(hello) + len(actions) + len(scenarios) + len(custom_cats) + len(crosses)
