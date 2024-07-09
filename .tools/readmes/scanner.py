@@ -3,9 +3,10 @@
 
 import config
 import logging
+from collections import defaultdict
 from os.path import relpath
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 from aws_doc_sdk_examples_tools.doc_gen import DocGen
 from aws_doc_sdk_examples_tools.metadata import Example
@@ -21,10 +22,18 @@ class Scanner:
         self.lang_name: str = ""
         self.sdk_ver: int = -1
         self.svc_name: str = ""
-        self.example_meta = None
-        self.cross_meta: Dict[str, Example] = {}
         self.snippets = None
         self.entities: Dict[str, str] = {}
+        self._prepare_entities()
+        self.examples: Dict[str, List[Example]] = {}
+        self.hellos: Dict[str, Example] = {}
+        self.actions: Dict[str, Example] = {}
+        self.scenarios: Dict[str, Example] = {}
+        self.customs: Dict[str, Example] = {}
+        self.crosses: Dict[str, Example] = {}
+        self.cross_scenarios: Dict[str, Example] = {}
+
+    def _prepare_entities(self):
         for svc in self.services().values():
             if svc.expanded:
                 self.entities[svc.long] = svc.expanded.long
@@ -37,23 +46,56 @@ class Scanner:
         self.doc_gen.process_metadata(
             self.doc_gen.root / ".doc_gen" / "metadata" / "cross_metadata.yaml"
         )
-        self.cross_meta = {
-            id: ex
-            for id, ex in self.doc_gen.examples.items()
-            if id.startswith("cross_")
-        }
 
-    def set_example(self, language, sdk_ver, service):
-        self.lang_name = language
-        self.sdk_ver = sdk_ver
+    def set_service(self, service):
+        self.svc_name = service
         self.doc_gen.process_metadata(
             Path(__file__).parent.parent.parent
             / ".doc_gen"
             / "metadata"
             / f"{service}_metadata.yaml"
         )
-        self.svc_name = service
-        self.example_meta = None
+
+        # Kinda sucks to rebuild this every round. Should building it get moved into DocGen?
+        self.examples: Dict[str, List[Example]] = defaultdict(list)
+        for example in self.doc_gen.examples.values():
+            for lang_name, language in example.languages.items():
+                for sdk_version in language.versions:
+                    for svc_name in example.services:
+                        self.examples[
+                            f"{lang_name}:{sdk_version.sdk_version}:{svc_name}"
+                        ].append(example)
+
+    def _example_key(self):
+        return f"{self.lang_name}:{self.sdk_ver}:{self.svc_name}"
+
+    def set_example(self, language, sdk_ver):
+        self.lang_name = language
+        self.sdk_ver = sdk_ver
+
+        self.hellos.clear()
+        self.actions.clear()
+        self.scenarios.clear()
+        self.customs.clear()
+        self.cross_scenarios.clear()
+        self.crosses.clear()
+
+        key = self._example_key()
+        examples = self.examples[key]
+        for example in examples:
+            if example.id.startswith("cross_"):
+                if example.category == config.categories["scenarios"]:
+                    self.cross_scenarios[example.id] = example
+                else:
+                    self.crosses[example.id] = example
+            elif example.category == config.categories["hello"]:
+                self.hellos[example.id] = example
+            elif example.category == config.categories["actions"]:
+                self.actions[example.id] = example
+            elif example.category == config.categories["scenarios"]:
+                self.scenarios[example.id] = example
+            elif example.category not in config.categories.values():
+                self.customs[example.id] = example
 
     def sdk(self) -> Sdk:
         return self.doc_gen.sdks[self.lang_name]
@@ -67,61 +109,8 @@ class Scanner:
     def services(self) -> Dict[str, Service]:
         return self.doc_gen.services
 
-    def examples(self) -> List[Example]:
-        return [
-            example
-            for example in self.doc_gen.examples.values()
-            if self.svc_name in example.services
-        ]
-
     def expand_entity(self, entity):
         return self.entities[entity]
-
-    def hello(self) -> Dict[str, Example]:
-        return {
-            example.id: example
-            for example in self.examples()
-            if example.category == config.categories["hello"]
-            and _contains_language_version(example, self.lang_name, self.sdk_ver)
-        }
-
-    def actions(self) -> Dict[str, Example]:
-        return {
-            example.id: example
-            for example in self.examples()
-            if example.category == config.categories["actions"]
-            and _contains_language_version(example, self.lang_name, self.sdk_ver)
-        }
-
-    def scenarios(self) -> Dict[str, Example]:
-        return {
-            example.id: example
-            for example in self.examples()
-            if example.category == config.categories["scenarios"]
-            and _contains_language_version(example, self.lang_name, self.sdk_ver)
-        }
-
-    def custom_categories(self):
-        return {
-            example.id: example
-            for example in self.examples()
-            if example.category not in config.categories.values()
-            and _contains_language_version(example, self.lang_name, self.sdk_ver)
-        }
-
-    def crosses(self) -> Tuple[Dict[str, Example], Dict[str, Example]]:
-        crosses = {}
-        scenarios = {}
-        for name, example in self.cross_meta.items():
-            if (
-                _contains_language_version(example, self.lang_name, self.sdk_ver)
-                and self.svc_name in example.services
-            ):
-                if example.category == config.categories["scenarios"]:
-                    scenarios[name] = example
-                else:
-                    crosses[name] = example
-        return crosses, scenarios
 
     def snippet(self, example: Example, sdk_ver, readme_folder, api_name: str):
         github = None

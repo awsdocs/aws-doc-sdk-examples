@@ -88,6 +88,10 @@ def main():
     scanner.load_crosses()
 
     for service in args.services:
+        try:
+            scanner.set_service(service)
+        except FileNotFoundError:
+            continue
         for language_and_version in args.languages:
             if language_and_version not in languages:
                 logging.debug(f"Skipping {language_and_version}")
@@ -96,7 +100,7 @@ def main():
             (language, version) = language_and_version.split(":")
             id = f"{language}:{version}:{service}"
             try:
-                scanner.set_example(language, int(version), service)
+                scanner.set_example(language, int(version))
                 logging.debug("Rendering %s", id)
                 renderer = Renderer(scanner, int(version), args.safe)
                 result, _readme_updated = renderer.render()
