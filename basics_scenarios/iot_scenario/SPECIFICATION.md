@@ -198,8 +198,7 @@ Deleted Thing foo5543
 --------------------------------------------------------------------------------
 The AWS IoT workflow has successfully completed.
 --------------------------------------------------------------------------------
-
-Process finished with exit code 0
+```
 
 ## SOS Tags
 
