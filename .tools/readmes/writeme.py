@@ -19,7 +19,8 @@ from aws_doc_sdk_examples_tools.doc_gen import DocGen
 
 
 def main():
-    doc_gen = DocGen.from_root(Path(__file__).parent.parent.parent, incremental=True)
+    # Load all examples immediately for cross references. Trades correctness for speed
+    doc_gen = DocGen.from_root(Path(__file__).parent.parent.parent, incremental=False)
     doc_gen.collect_snippets()
     doc_gen.validate()
     if doc_gen.errors:

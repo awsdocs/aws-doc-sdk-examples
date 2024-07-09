@@ -26,6 +26,7 @@ class Scanner:
         self.entities: Dict[str, str] = {}
         self._prepare_entities()
         self.examples: Dict[str, List[Example]] = {}
+        self._build_examples()
         self.hellos: Dict[str, Example] = {}
         self.actions: Dict[str, Example] = {}
         self.scenarios: Dict[str, Example] = {}
@@ -49,15 +50,10 @@ class Scanner:
 
     def set_service(self, service):
         self.svc_name = service
-        self.doc_gen.process_metadata(
-            Path(__file__).parent.parent.parent
-            / ".doc_gen"
-            / "metadata"
-            / f"{service}_metadata.yaml"
-        )
 
+    def _build_examples(self):
         # Kinda sucks to rebuild this every round. Should building it get moved into DocGen?
-        self.examples: Dict[str, List[Example]] = defaultdict(list)
+        self.examples = defaultdict(list)
         for example in self.doc_gen.examples.values():
             for lang_name, language in example.languages.items():
                 for sdk_version in language.versions:
