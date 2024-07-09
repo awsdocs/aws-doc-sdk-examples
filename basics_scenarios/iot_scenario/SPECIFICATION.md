@@ -13,7 +13,7 @@ This program requires these AWS resources.
 
 ## Hello AWS IoT
 
-This program is intended for users not familiar with the Amazon ECR SDK to easily get up and running. The logic is to show use of `listThingsPaginator`.
+This program is intended for users not familiar with the Amazon IoT SDK to easily get up and running. The logic is to show use of `listThingsPaginator`.
 
 ## Scenario Program Flow
 
