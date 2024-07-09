@@ -52,7 +52,6 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create and publish to a FIFO topic](../sns/src/main/java/com/example/sns/PriceUpdateExample.java)
 - [Publish messages to queues](../../usecases/topics_and_queues/src/main/java/com/example/sns/SNSWorkflow.java)
 
 
@@ -72,18 +71,6 @@ functions within the same service.
 This example shows you how to get started using Amazon SQS.
 
 
-
-#### Create and publish to a FIFO topic
-
-This example shows you how to create and publish to a FIFO Amazon SNS topic.
-
-
-<!--custom.scenario_prereqs.sns_PublishFifoTopic.start-->
-<!--custom.scenario_prereqs.sns_PublishFifoTopic.end-->
-
-
-<!--custom.scenarios.sns_PublishFifoTopic.start-->
-<!--custom.scenarios.sns_PublishFifoTopic.end-->
 
 #### Publish messages to queues
 

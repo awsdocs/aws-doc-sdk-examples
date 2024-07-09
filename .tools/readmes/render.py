@@ -174,10 +174,11 @@ class Renderer:
 
         sorted_cats = {}
         for key in sorted(post_cats.keys()):
-            # sorted_cats[key] = sorted(post_cats[key], key=itemgetter("title_abbrev"))
-            sorted_cats[key] = post_cats[key]
+            if len(post_cats[key]) == 0:
+                del sorted_cats[key]
+            else:
+                sorted_cats[key] = post_cats[key]
         return sorted_cats
-        # return post_cats
 
     def _expand_entities(self, readme_text):
         entities = set(re.findall(r"&[\dA-Za-z-_]+;", readme_text))
