@@ -1166,7 +1166,6 @@ s3_AbortMultipartUpload:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
@@ -1187,7 +1186,6 @@ s3_CompleteMultipartUpload:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
@@ -1208,12 +1206,10 @@ s3_CreateMultipartUpload:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
                 - cpp.example_code.s3.CreateMultipartUpload
-                - cpp.example_code.s3.CreateMultipartUpload2
   services:
     s3: {CreateMultipartUpload}
 s3_ListMultipartUploads:
@@ -2321,13 +2317,10 @@ s3_UploadPart:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
                 - cpp.example_code.s3.UploadPart
-                - cpp.example_code.s3.UploadPart2
-                - cpp.example_code.s3.UploadPart3
   services:
     s3: {UploadPart}
 s3_PutBucketNotificationConfiguration:
@@ -2371,7 +2364,6 @@ s3_GetObjectAttributes:
       versions:
         - sdk_version: 1
           github: cpp/example_code/s3
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
