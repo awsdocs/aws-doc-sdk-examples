@@ -28,7 +28,7 @@ jobs:
     name: GitHub Statistics
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Configure AWS Credentials
         id: creds
         uses: aws-actions/configure-aws-credentials@v4
