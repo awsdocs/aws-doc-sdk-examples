@@ -199,7 +199,7 @@ public class IotActions {
      * If the request is successful, it prints a confirmation message and additional information about the Thing.
      * If an exception occurs, it prints the error message.
      */
-    public static void attachCertificateToThing(String thingName, String certificateArn) {
+    public void attachCertificateToThing(String thingName, String certificateArn) {
         AttachThingPrincipalRequest principalRequest = AttachThingPrincipalRequest.builder()
             .thingName(thingName)
             .principal(certificateArn)
@@ -239,7 +239,7 @@ public class IotActions {
      * If the request is successful, it prints the Thing details.
      * If an exception occurs, it prints the error message.
      */
-    private static void describeThing(String thingName) {
+    private void describeThing(String thingName) {
         DescribeThingRequest thingRequest = DescribeThingRequest.builder()
             .thingName(thingName)
             .build();
@@ -410,7 +410,7 @@ public class IotActions {
      * If the request is successful, it prints the shadow data.
      * If an exception occurs, it prints the error message.
      */
-    public static void getPayload(String thingName) {
+    public void getPayload(String thingName) {
         GetThingShadowRequest getThingShadowRequest = GetThingShadowRequest.builder()
             .thingName(thingName)
             .build();
@@ -450,7 +450,7 @@ public class IotActions {
      * If the request is successful, it prints a confirmation message.
      * If an exception occurs, it prints the error message.
      */
-    public static void createIoTRule(String roleARN, String ruleName, String action) {
+    public void createIoTRule(String roleARN, String ruleName, String action) {
         String sql = "SELECT * FROM '" + TOPIC + "'";
         SnsAction action1 = SnsAction.builder()
             .targetArn(action)
@@ -502,7 +502,7 @@ public class IotActions {
      * If the request is successful, it prints the names and ARNs of the rules.
      * If an exception occurs, it prints the error message.
      */
-    public static void listIoTRules() {
+    public void listIoTRules() {
         ListTopicRulesRequest listTopicRulesRequest = ListTopicRulesRequest.builder().build();
         CompletableFuture<ListTopicRulesResponse> future = getAsyncClient().listTopicRules(listTopicRulesRequest);
         future.whenComplete((listTopicRulesResponse, ex) -> {
@@ -541,7 +541,7 @@ public class IotActions {
      * If no Things are found, it prints a message indicating so.
      * If an exception occurs, it prints the error message.
      */
-    public static void searchThings(String queryString) {
+    public void searchThings(String queryString) {
         SearchIndexRequest searchIndexRequest = SearchIndexRequest.builder()
             .queryString(queryString)
             .build();
@@ -582,7 +582,7 @@ public class IotActions {
      * If the detachment is successful, it prints a confirmation message.
      * If an exception occurs, it prints the error message.
      */
-    public static void detachThingPrincipal(String thingName, String certificateArn) {
+    public void detachThingPrincipal(String thingName, String certificateArn) {
         DetachThingPrincipalRequest thingPrincipalRequest = DetachThingPrincipalRequest.builder()
             .principal(certificateArn)
             .thingName(thingName)
@@ -616,7 +616,7 @@ public class IotActions {
      * If the deletion is successful, it prints a confirmation message.
      * If an exception occurs, it prints the error message.
      */
-    public static void deleteCertificate(String certificateArn) {
+    public void deleteCertificate(String certificateArn) {
         DeleteCertificateRequest certificateProviderRequest = DeleteCertificateRequest.builder()
             .certificateId(extractCertificateId(certificateArn))
             .build();
@@ -649,7 +649,7 @@ public class IotActions {
      * If the deletion is successful, it prints a confirmation message.
      * If an exception occurs, it prints the error message.
      */
-    public static void deleteIoTThing(String thingName) {
+    public void deleteIoTThing(String thingName) {
         DeleteThingRequest deleteThingRequest = DeleteThingRequest.builder()
             .thingName(thingName)
             .build();
@@ -673,7 +673,7 @@ public class IotActions {
     // snippet-end:[iot.java2.delete.thing.main]
 
     // Get the cert Id  from the Cert ARN value.
-    private static String extractCertificateId(String certificateArn) {
+    private String extractCertificateId(String certificateArn) {
         // Example ARN: arn:aws:iot:region:account-id:cert/certificate-id.
         String[] arnParts = certificateArn.split(":");
         String certificateIdPart = arnParts[arnParts.length - 1];
