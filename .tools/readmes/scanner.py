@@ -24,6 +24,11 @@ class Scanner:
         self.example_meta = None
         self.cross_meta: Dict[str, Example] = {}
         self.snippets = None
+        self.entities: Dict[str, str] = {e: en for e, en in config.entities.items()}
+        for svc in self.services().values():
+            if svc.expanded:
+                self.entities[svc.long] = svc.expanded.long
+                self.entities[svc.short] = svc.expanded.short
 
     def load_crosses(self):
         self.doc_gen.process_metadata(
@@ -67,13 +72,7 @@ class Scanner:
         ]
 
     def expand_entity(self, entity):
-        for svc in self.services().values():
-            if svc.long == entity:
-                return svc.expanded.long
-            elif svc.short == entity:
-                return svc.expanded.short
-            elif entity in config.entities:
-                return config.entities[entity]
+        return self.entities[entity]
 
     def hello(self) -> Dict[str, Example]:
         return {
