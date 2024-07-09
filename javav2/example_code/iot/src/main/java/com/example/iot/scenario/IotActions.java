@@ -3,7 +3,7 @@
 
 package com.example.iot.scenario;
 
-// snippet-start:[iot.java2.scenario.main]
+// snippet-start:[iot.java2.scenario.actions.main]
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
@@ -680,4 +680,4 @@ public class IotActions {
         return certificateIdPart.substring(certificateIdPart.lastIndexOf("/") + 1);
     }
 }
-// snippet-end:[iot.java2.scenario.main]
+// snippet-end:[iot.java2.scenario.actions.main]
