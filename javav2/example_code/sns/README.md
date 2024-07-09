@@ -51,7 +51,6 @@ Code excerpts that show you how to call individual service functions.
 - [SetSMSAttributes](src/main/java/com/example/sns/SetSMSAttributes.java#L6)
 - [SetSubscriptionAttributes](src/main/java/com/example/sns/UseMessageFilterPolicy.java#L6)
 - [SetTopicAttributes](src/main/java/com/example/sns/SetTopicAttributes.java#L6)
-- [Subscribe](None)
 - [TagResource](src/main/java/com/example/sns/AddTags.java#L6)
 - [Unsubscribe](src/main/java/com/example/sns/Unsubscribe.java#L6)
 

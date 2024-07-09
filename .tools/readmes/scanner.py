@@ -5,7 +5,7 @@ import config
 import logging
 from os.path import relpath
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 from aws_doc_sdk_examples_tools.doc_gen import DocGen
 from aws_doc_sdk_examples_tools.metadata import Example
@@ -18,23 +18,32 @@ logger = logging.getLogger(__name__)
 class Scanner:
     def __init__(self, doc_gen: DocGen):
         self.doc_gen = doc_gen
-        self.lang_name = None
-        self.sdk_ver = None
-        self.svc_name = None
+        self.lang_name: str = ""
+        self.sdk_ver: int = -1
+        self.svc_name: str = ""
         self.example_meta = None
-        self.cross_meta: Dict[None, None] = {}
+        self.cross_meta: Dict[str, Example] = {}
         self.snippets = None
 
-    def _contains_language_version(self, example):
-        if self.lang_name in example["languages"]:
-            for version in example["languages"][self.lang_name]["versions"]:
-                if version["sdk_version"] == self.sdk_ver:
-                    return True
-        return False
+    def load_crosses(self):
+        self.doc_gen.process_metadata(
+            self.doc_gen.root / ".doc_gen" / "metadata" / "cross_metadata.yaml"
+        )
+        self.cross_meta = {
+            id: ex
+            for id, ex in self.doc_gen.examples.items()
+            if id.startswith("cross_")
+        }
 
     def set_example(self, language, sdk_ver, service):
         self.lang_name = language
         self.sdk_ver = sdk_ver
+        self.doc_gen.process_metadata(
+            Path(__file__).parent.parent.parent
+            / ".doc_gen"
+            / "metadata"
+            / f"{service}_metadata.yaml"
+        )
         self.svc_name = service
         self.example_meta = None
 
@@ -71,7 +80,7 @@ class Scanner:
             example.id: example
             for example in self.examples()
             if example.category == config.categories["hello"]
-            and self.lang_name in example.languages
+            and _contains_language_version(example, self.lang_name, self.sdk_ver)
         }
 
     def actions(self) -> Dict[str, Example]:
@@ -79,7 +88,7 @@ class Scanner:
             example.id: example
             for example in self.examples()
             if example.category == config.categories["actions"]
-            and self.lang_name in example.languages
+            and _contains_language_version(example, self.lang_name, self.sdk_ver)
         }
 
     def scenarios(self) -> Dict[str, Example]:
@@ -87,26 +96,26 @@ class Scanner:
             example.id: example
             for example in self.examples()
             if example.category == config.categories["scenarios"]
-            and self.lang_name in example.languages
+            and _contains_language_version(example, self.lang_name, self.sdk_ver)
         }
 
     def custom_categories(self):
         return {
             example.id: example
             for example in self.examples()
-            if example.category == config.categories["cross"]
-            and self.lang_name in example.languages
+            if example.category not in config.categories.values()
+            and _contains_language_version(example, self.lang_name, self.sdk_ver)
         }
 
-    def crosses(self):
+    def crosses(self) -> Tuple[Dict[str, Example], Dict[str, Example]]:
         crosses = {}
         scenarios = {}
         for name, example in self.cross_meta.items():
             if (
-                self._contains_language_version(example)
-                and self.svc_name in example["services"]
+                _contains_language_version(example, self.lang_name, self.sdk_ver)
+                and self.svc_name in example.services
             ):
-                if example.get("category", "") == config.categories["scenarios"]:
+                if example.category == config.categories["scenarios"]:
                     scenarios[name] = example
                 else:
                     crosses[name] = example
@@ -150,3 +159,13 @@ class Scanner:
                 if api_name != "":
                     tag_path += f"#L{snippet.line_start + 1}"
         return tag_path
+
+
+def _contains_language_version(example: Example, lang_name: str, sdk_ver: int):
+    return (
+        lang_name in example.languages
+        and next(
+            v.sdk_version == sdk_ver for v in example.languages[lang_name].versions
+        )
+        is not None
+    )

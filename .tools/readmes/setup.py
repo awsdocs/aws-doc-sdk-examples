@@ -17,6 +17,7 @@ setup(
     install_requires=[
         "jinja2>=3.1.4",
         "pyyaml>=5.3.1",
-        "aws-doc-sdk-examples-tools @ git+https://github.com/awsdocs/aws-doc-sdk-examples-tools",
+        # "aws-doc-sdk-examples-tools @ git+https://github.com/awsdocs/aws-doc-sdk-examples-tools",
+        "aws-doc-sdk-examples-tools @ file:///Users/dpsouth/devel/aws/aws-doc-sdk-examples-tools",
     ],
 )

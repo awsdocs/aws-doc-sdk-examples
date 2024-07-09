@@ -13,6 +13,8 @@ from pathlib import Path
 from typing import Dict
 
 from aws_doc_sdk_examples_tools.metadata import Example
+from aws_doc_sdk_examples_tools.sdks import Sdk
+from aws_doc_sdk_examples_tools.services import Service
 
 import config
 from scanner import Scanner
@@ -39,7 +41,7 @@ class Renderer:
         self.scanner = scanner
         self.sdk_ver = int(sdk_ver)
         self.lang_config = config.language.get(self.scanner.lang_name, {}).get(
-            self.sdk_ver, None
+            sdk_ver, None
         )
         if self.lang_config is None:
             return
@@ -71,38 +73,11 @@ class Renderer:
         self.lang_config["sdk_api_ref"] = sdk_api_ref_tmpl.render(service=service_info)
         self.safe = safe
 
-    @staticmethod
-    def _doc_link(url_like: str) -> str:
-        """Ensures `url_like` is a complete URL; either itself a http(s) URL, or prefixed with `doc_base_url`."""
-        if url_like.startswith("http"):
-            return url_like
-        return f"{config.doc_base_url}/{url_like}"
-
     def _transform_sdk(self):
-        sdk = self.scanner.sdk()
-        pre_sdk = None
-        for version in sdk.versions:
-            if version.version == self.sdk_ver:
-                pre_sdk = version
-
-        post_sdk = {
-            "long": pre_sdk.expanded.long,
-            "short": pre_sdk.expanded.short,
-            "guide": pre_sdk.guide,
-        }
-        return post_sdk
+        return _transform_sdk(self.scanner.sdk(), self.sdk_ver)
 
     def _transform_service(self):
-        pre_svc = self.scanner.service()
-        post_svc = {
-            "long": pre_svc.expanded.long,
-            "short": pre_svc.expanded.short,
-            "blurb": pre_svc.blurb,
-            "guide": asdict(pre_svc.guide),
-            "api_ref": self._doc_link(pre_svc.api_ref),
-        }
-        post_svc["guide"]["url"] = self._doc_link(post_svc["guide"]["url"])
-        return post_svc
+        return _transform_service(self.scanner.service())
 
     def _transform_hello(self, pre_hello: Dict[str, Example]):
         post_hello = []
@@ -111,15 +86,23 @@ class Renderer:
                 api = next(iter(pre.services[self.scanner.svc_name]))
             except Exception:
                 api = ""
+
+            file = self.scanner.snippet(
+                pre, self.sdk_ver, self.lang_config["service_folder"], api
+            )
+
+            run_file = self.scanner.snippet(
+                pre, self.sdk_ver, self.lang_config["service_folder"], ""
+            )
+
+            if not file:
+                continue
+
             action = {
                 "title_abbrev": pre.title_abbrev,
                 "synopsis": pre.synopsis,
-                "file": self.scanner.snippet(
-                    pre, self.sdk_ver, self.lang_config["service_folder"], api
-                ),
-                "run_file": self.scanner.snippet(
-                    pre, self.sdk_ver, self.lang_config["service_folder"], ""
-                ),
+                "file": file,
+                "run_file": run_file,
                 "api": api,
             }
             post_hello.append(action)
@@ -134,13 +117,20 @@ class Renderer:
                 raise MissingMetadataError(
                     f"Action not found for example {pre_id} and service {self.scanner.svc_name}."
                 )
+
+            file = self.scanner.snippet(
+                pre, self.sdk_ver, self.lang_config["service_folder"], api
+            )
+
+            if not file:
+                continue
+
             action = {
                 "title_abbrev": api,
-                "file": self.scanner.snippet(
-                    pre, self.sdk_ver, self.lang_config["service_folder"], api
-                ),
+                "file": file,
             }
-            post_actions.append(action)
+            if action["file"]:
+                post_actions.append(action)
         return sorted(post_actions, key=itemgetter("title_abbrev"))
 
     def _transform_scenarios(self):
@@ -200,16 +190,16 @@ class Renderer:
         pre_crosses, _ = self.scanner.crosses()
         post_crosses = []
         for _, pre in pre_crosses.items():
-            github = None
-            for ver in pre["languages"][self.scanner.lang_name]["versions"]:
-                if ver["sdk_version"] == self.sdk_ver:
-                    github = ver.get("github")
-                    break
+            github = next(
+                ver.github
+                for ver in pre.languages[self.scanner.lang_name].versions
+                if ver.sdk_version == self.sdk_ver
+            )
             if github is None:
                 logger.info(
                     "GitHub path not specified for cross-service example: %s %s.",
                     self.scanner.lang_name,
-                    pre["title_abbrev"],
+                    pre.title_abbrev,
                 )
             else:
                 base_folder = f"{config.language[self.scanner.lang_name][self.sdk_ver]['base_folder']}/"
@@ -218,7 +208,7 @@ class Renderer:
                         self._lang_level_double_dots() + github.split(base_folder, 1)[1]
                     )
                 cross = {
-                    "title_abbrev": pre["title_abbrev"],
+                    "title_abbrev": pre.title_abbrev,
                     "file": github,
                 }
                 post_crosses.append(cross)
@@ -292,6 +282,13 @@ class Renderer:
         scenarios = self._transform_scenarios()
         custom_cats = self._transform_custom_categories()
         crosses = self._transform_crosses()
+
+        if (
+            len(hello) + len(actions) + len(scenarios) + len(custom_cats) + len(crosses)
+            == 0
+        ):
+            return None, False
+
         self.lang_config["name"] = self.scanner.lang_name
         self.lang_config["sdk_ver"] = self.sdk_ver
         self.lang_config["readme"] = f"{self._lang_level_double_dots()}README.md"
@@ -352,3 +349,39 @@ class Renderer:
         with open(self.readme_filename, "r", encoding="utf-8") as f:
             readme_current = f.read()
             return readme_current == self.readme_text
+
+
+def _transform_sdk(sdk: Sdk, sdk_ver):
+    pre_sdk = next(v for v in sdk.versions if v.version == sdk_ver)
+
+    if not pre_sdk:
+        raise ValueError(
+            f"Failed to find {sdk_ver} in {[v.version for v in sdk.versions]}"
+        )
+
+    post_sdk = {
+        "long": pre_sdk.expanded.long,
+        "short": pre_sdk.expanded.short,
+        "guide": pre_sdk.guide,
+    }
+
+    return post_sdk
+
+
+def _transform_service(pre_svc: Service):
+    post_svc = {
+        "long": pre_svc.expanded.long,
+        "short": pre_svc.expanded.short,
+        "blurb": pre_svc.blurb,
+        "guide": asdict(pre_svc.guide),
+        "api_ref": _doc_link(pre_svc.api_ref),
+    }
+    post_svc["guide"]["url"] = _doc_link(post_svc["guide"]["url"])
+    return post_svc
+
+
+def _doc_link(url_like: str) -> str:
+    """Ensures `url_like` is a complete URL; either itself a http(s) URL, or prefixed with `doc_base_url`."""
+    if url_like.startswith("http"):
+        return url_like
+    return f"{config.doc_base_url}/{url_like}"

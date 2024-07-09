@@ -1,5 +1,9 @@
 from pathlib import Path
-from subprocess import check_call
+from subprocess import run
 from sys import executable
 
-check_call([executable, "-m", "pip", "install", "-e", Path(__file__).parent])
+run(
+    [executable, "-m", "pip", "install", "-e", Path(__file__).parent],
+    check=True,
+    capture_output=False,
+)
