@@ -8,11 +8,14 @@ import update
 import argparse
 import config
 import logging
+import os
 import sys
 from pathlib import Path
 from render import Renderer, MissingMetadataError
 
 from scanner import Scanner
+
+logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO").upper())
 
 
 from aws_doc_sdk_examples_tools.doc_gen import DocGen
@@ -84,6 +87,8 @@ def main():
     skipped = []
     failed = []
     written = []
+    non_writeme = []
+    unchanged = []
 
     # Preload cross-content examples
     scanner.load_crosses()
@@ -94,25 +99,27 @@ def main():
         except FileNotFoundError:
             continue
         for language_and_version in args.languages:
-            if language_and_version not in languages:
-                logging.debug(f"Skipping {language_and_version}")
-                continue
-
             (language, version) = language_and_version.split(":")
             id = f"{language}:{version}:{service}"
             try:
                 scanner.set_example(language, int(version))
                 logging.debug("Rendering %s", id)
                 renderer = Renderer(scanner, int(version), args.safe)
-                result, _readme_updated = renderer.render()
+                if renderer.lang_config is None:
+                    continue
+
+                result, updated = renderer.render()
 
                 if result is None:
-                    logging.info("Render returned empty for %s", id)
-                    skipped.append(id)
-                    continue
-                if args.dry_run:
+                    if renderer.readme_filename.exists():
+                        non_writeme.append(id)
+                    else:
+                        skipped.append(id)
+                elif args.dry_run:
                     if not renderer.check():
                         failed.append(id)
+                elif not updated:
+                    unchanged.append(id)
                 else:
                     renderer.write()
                     written.append(id)
@@ -125,13 +132,18 @@ def main():
                 logging.exception("Exception rendering %s", id)
                 failed.append(id)
 
-    done_list = "\n\t".join(written)
-    skip_list = "\n\t".join(skipped)
-    logging.info(f"Run complete.\nWrote: {done_list}\nSkipped: {skip_list}")
+    done_list = "\n\t".join(sorted(written))
+    skip_list = "\n\t".join(sorted(skipped))
+    non_writeme_list = "\n\t".join(sorted(non_writeme))
+    unchanged_list = "\n\t".join(sorted(unchanged))
+    logging.debug(f"Skipped:\n\t{skip_list}")
+    logging.info(f"Wrote:\n\t{done_list}\nUnchanged:\n\t{unchanged_list}")
+    logging.warning(f"Non-WRITEME READMES:\n\t{non_writeme_list}")
     if len(failed) > 0:
         failed_list = "\n\t".join(failed)
         logging.error(f"READMEs with incorrect formatting:\n\t{failed_list}")
         logging.error("Rerun writeme.py to update README links and sections.")
+    logging.info("Run complete.")
     return len(failed)
 
 

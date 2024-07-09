@@ -31,7 +31,6 @@ class Renderer:
         self.scanner = scanner
         self.sdk_ver = int(sdk_ver)
         self.safe = safe
-
         self.lang_config = config.language.get(self.scanner.lang_name, {}).get(
             sdk_ver, None
         )
@@ -58,6 +57,12 @@ class Renderer:
         self._extract_service_folder(scanner, env, service_info)
         sdk_api_ref_tmpl = env.from_string(self.lang_config.get("sdk_api_ref", ""))
         self.lang_config["sdk_api_ref"] = sdk_api_ref_tmpl.render(service=service_info)
+
+        self.readme_filename = (
+            Path(__file__).parent.parent.parent
+            / self.lang_config["service_folder"]
+            / config.readme
+        )
 
     def _extract_service_folder(self, scanner, env, service_info):
         if (
@@ -90,7 +95,7 @@ class Renderer:
 
             if not file:
                 if github:
-                    logger.info(
+                    logger.debug(
                         "GitHub path not specified for cross-service example: %s %s.",
                         self.scanner.lang_name,
                         pre.title_abbrev,
@@ -261,15 +266,9 @@ class Renderer:
         self.lang_config["readme"] = f"{self._lang_level_double_dots()}README.md"
         unsupported = self.lang_config.get("unsupported", False)
 
-        self.readme_filename = (
-            Path(__file__).parent.parent.parent
-            / self.lang_config["service_folder"]
-            / config.readme
-        )
-        readme_exists = os.path.exists(self.readme_filename)
         customs = (
             self._scrape_customs(self.readme_filename, sdk["short"])
-            if readme_exists
+            if self.readme_filename.exists()
             else {}
         )
         if "examples" not in customs:
@@ -291,29 +290,25 @@ class Renderer:
 
         # Check if the rendered text is different from the existing file
         readme_updated = not self.check()
-
-        # Assign the boolean value to the Renderer instance
-        self.readme_updated = readme_updated
-
         return self, readme_updated
 
+        # return self, True
+
     def write(self):
-        if self.safe and Path(self.readme_filename).exists():
-            os.rename(
-                self.readme_filename,
-                f'{self.lang_config["service_folder"]}/{config.saved_readme}',
-            )
-        # Do this so that new files are always updated to the correct case (README.md).
-        Path(self.readme_filename).unlink(missing_ok=True)
-        with open(self.readme_filename, "w", encoding="utf-8") as f:
+        if self.readme_filename.exists():
+            if self.safe:
+                self.readme_filename.rename(
+                    self.readme_filename.parent / config.saved_readme
+                )
+
+            # Do this so that new files are always updated to the correct case (README.md).
+            self.readme_filename.unlink(missing_ok=True)
+
+        with self.readme_filename.open("w", encoding="utf-8") as f:
             f.write(self.readme_text)
-        if self.readme_updated:
-            print(f"Updated {self.readme_filename}.")
-        else:
-            print(f"No updates required for {self.readme_filename}.")
 
     def check(self):
-        with open(self.readme_filename, "r", encoding="utf-8") as f:
+        with self.readme_filename.open("r", encoding="utf-8") as f:
             readme_current = f.read()
             return readme_current == self.readme_text
 

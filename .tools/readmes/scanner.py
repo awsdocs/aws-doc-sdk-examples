@@ -52,7 +52,6 @@ class Scanner:
         self.svc_name = service
 
     def _build_examples(self):
-        # Kinda sucks to rebuild this every round. Should building it get moved into DocGen?
         self.examples = defaultdict(list)
         for example in self.doc_gen.examples.values():
             for lang_name, language in example.languages.items():
@@ -146,13 +145,3 @@ class Scanner:
                 if api_name != "":
                     tag_path += f"#L{snippet.line_start + 1}"
         return tag_path
-
-
-def _contains_language_version(example: Example, lang_name: str, sdk_ver: int):
-    return (
-        lang_name in example.languages
-        and next(
-            v.sdk_version == sdk_ver for v in example.languages[lang_name].versions
-        )
-        is not None
-    )
