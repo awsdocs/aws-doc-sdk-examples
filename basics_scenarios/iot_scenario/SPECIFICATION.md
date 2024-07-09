@@ -1,4 +1,4 @@
-# Performing device management use cases using the AWS Iot SDK technical specification
+# AWS Iot SDK Basic Scenario Technical Specification
 
 ## Overview
 This example shows how to use AWS SDKs to perform device management use cases using the AWS Iot SDK.
