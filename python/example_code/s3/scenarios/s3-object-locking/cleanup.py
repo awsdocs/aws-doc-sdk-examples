@@ -2,48 +2,127 @@ import boto3
 import logging
 import coloredlogs
 from prettytable import PrettyTable
+from datetime import datetime, timedelta
 
 # Configure logging
 logger = logging.getLogger(__name__)
 coloredlogs.install(level='DEBUG', logger=logger, fmt='%(asctime)s [%(levelname)s] %(message)s')
 
-
-def remove_object_locks(s3_client, bucket, key, version_id):
+def is_object_lock_enabled(s3_client, bucket):
     try:
-        logger.debug("Removing retention for %s in bucket %s, version %s", key, bucket, version_id)
-        s3_client.put_object_retention(
-            Bucket=bucket,
-            Key=key,
-            VersionId=version_id,
-            Retention={
-                'Mode': 'NONE'
-            },
-            BypassGovernanceRetention=True
-        )
+        response = s3_client.get_object_lock_configuration(Bucket=bucket)
+        return 'ObjectLockConfiguration' in response and response['ObjectLockConfiguration']['ObjectLockEnabled'] == 'Enabled'
+    except s3_client.exceptions.ClientError as e:
+        if e.response['Error']['Code'] == 'ObjectLockConfigurationNotFoundError':
+            return False
+        else:
+            raise
+
+def set_retention_for_deletion(s3_client, bucket, key, version_id):
+    """Set a future retention date to allow deletion if Object Lock is enabled."""
+    try:
+        logger.debug("Checking if object lock is enabled for bucket: %s", bucket)
+        object_lock_enabled = is_object_lock_enabled(s3_client, bucket)
+        if object_lock_enabled:
+            logger.info("Setting retention to a far future date for %s in bucket %s, version %s", key, bucket, version_id)
+            far_future_date = (datetime.now() + timedelta(days=365)).strftime('%Y-%m-%dT%H:%M:%SZ')
+            s3_client.put_object_retention(
+                Bucket=bucket,
+                Key=key,
+                VersionId=version_id,
+                Retention={
+                    'Mode': 'GOVERNANCE',
+                    'RetainUntilDate': far_future_date
+                },
+                BypassGovernanceRetention=True
+            )
     except Exception as e:
-        logger.error("Error removing retention for %s in %s: %s", key, bucket, str(e))
-        return f"Error removing retention: {str(e)}"
+        logger.error("Error setting retention for %s in %s: %s", key, bucket, str(e))
+        return f"Error setting retention: {str(e)}"
+    return "Success"
+
+def remove_object_locks_and_delete(s3_client, bucket, key, version_id):
+    """Remove object locks and delete the object."""
+    result = set_retention_for_deletion(s3_client, bucket, key, version_id)
+    if result != "Success":
+        return result
 
     try:
-        logger.debug("Removing legal hold for %s in bucket %s, version %s", key, bucket, version_id)
-        s3_client.put_object_legal_hold(
-            Bucket=bucket,
-            Key=key,
-            VersionId=version_id,
-            LegalHold={
-                'Status': 'OFF'
-            }
-        )
+        logger.debug("Checking if object lock is enabled for bucket: %s", bucket)
+        object_lock_enabled = is_object_lock_enabled(s3_client, bucket)
+
+        if object_lock_enabled:
+            logger.info("Removing legal hold for %s in bucket %s, version %s", key, bucket, version_id)
+            s3_client.put_object_legal_hold(
+                Bucket=bucket,
+                Key=key,
+                VersionId=version_id,
+                LegalHold={
+                    'Status': 'OFF'
+                }
+            )
     except Exception as e:
         logger.error("Error removing legal hold for %s in %s: %s", key, bucket, str(e))
         return f"Error removing legal hold: {str(e)}"
 
+    try:
+        logger.info("Deleting object %s in bucket %s, version %s", key, bucket, version_id)
+        if object_lock_enabled:
+            s3_client.delete_object(
+                Bucket=bucket,
+                Key=key,
+                VersionId=version_id,
+                BypassGovernanceRetention=True
+            )
+        else:
+            s3_client.delete_object(
+                Bucket=bucket,
+                Key=key,
+                VersionId=version_id
+            )
+    except Exception as e:
+        logger.error("Error deleting object %s in %s: %s", key, bucket, str(e))
+        return f"Error deleting object: {str(e)}"
+
     return "Success"
 
+def enable_versioning(s3_client, bucket):
+    """Enable versioning for the bucket."""
+    try:
+        s3_client.put_bucket_versioning(
+            Bucket=bucket,
+            VersioningConfiguration={'Status': 'Enabled'}
+        )
+    except Exception as e:
+        logger.error("Error enabling versioning for bucket %s: %s", bucket, str(e))
+        return f"Error enabling versioning: {str(e)}"
+    return "Success"
+
+def disable_bucket_object_lock_configuration(s3_client, bucket):
+    """Disable the object lock configuration for the bucket."""
+    try:
+        logger.debug("Checking if object lock is enabled for bucket: %s", bucket)
+        if not is_object_lock_enabled(s3_client, bucket):
+            logger.debug("Object lock is not enabled for bucket: %s, skipping", bucket)
+            return "Object lock not enabled"
+
+        logger.info("Disabling object lock configuration for bucket: %s", bucket)
+        enable_versioning(s3_client, bucket)  # Ensure versioning is enabled
+
+        s3_client.put_object_lock_configuration(
+            Bucket=bucket,
+            ObjectLockConfiguration={
+                'ObjectLockEnabled': 'Disabled',
+                'Rule': {}
+            }
+        )
+    except Exception:
+        logger.debug("Unable to disable object lock configuration for bucket %s", bucket)
+        return f"Unable to disable object lock configuration after bucket creation."
+    return "Success"
 
 def clean_s3_object_locking():
     s3_client = boto3.client('s3')
-    bucket_prefix = "py-object-locking"
 
     # Read bucket names from file
     buckets = []
@@ -60,34 +139,42 @@ def clean_s3_object_locking():
     summary_table.field_names = ["Bucket", "Object", "Version ID", "Action", "Status"]
 
     error_table = PrettyTable()
-    error_table.field_names = ["Bucket", "Object", "Version ID", "Error"]
+    error_table.field_names = ["Bucket", "Object", "Version ID", "Action", "Error"]
 
     logger.info("Starting S3 Object Locking Cleanup")
 
     for bucket in buckets:
         try:
-            logger.debug("Cleaning bucket: %s", bucket)
+            print("\nCleaning bucket: %s", bucket)
             objects = s3_client.list_object_versions(Bucket=bucket)
             for obj in objects.get('Versions', []):
-                result = remove_object_locks(s3_client, bucket, obj['Key'], obj['VersionId'])
+                result = remove_object_locks_and_delete(s3_client, bucket, obj['Key'], obj['VersionId'])
                 if result == "Success":
-                    s3_client.delete_object(Bucket=bucket, Key=obj['Key'], VersionId=obj['VersionId'])
                     summary_table.add_row([bucket, obj['Key'], obj['VersionId'], "Delete Object", "Success"])
                 else:
-                    error_table.add_row([bucket, obj['Key'], obj['VersionId'], result])
+                    error_table.add_row([bucket, obj['Key'], obj['VersionId'], "Delete Bucket", result])
             for obj in objects.get('DeleteMarkers', []):
                 try:
                     s3_client.delete_object(Bucket=bucket, Key=obj['Key'], VersionId=obj['VersionId'])
                     summary_table.add_row([bucket, obj['Key'], obj['VersionId'], "Delete Marker", "Success"])
                 except Exception as e:
                     error_table.add_row([bucket, obj['Key'], obj['VersionId'], f"Error deleting marker: {str(e)}"])
+            result = disable_bucket_object_lock_configuration(s3_client, bucket)
+            if result != "Success" and result != "Object lock not enabled":
+                error_table.add_row([bucket, "-", "-", "Delete Bucket", result])
+            else:
+                try:
+                    logger.debug("Deleting bucket: %s", bucket)
+                    s3_client.delete_bucket(Bucket=bucket)
+                    logger.info("Deleted bucket: %s", bucket)
+                    summary_table.add_row([bucket, "-", "-", "Delete Bucket", "Success"])
+                except Exception as e:
+                    logger.error("Error deleting bucket %s: %s", bucket, str(e))
+                    error_table.add_row([bucket, "-", "-", "Delete Bucket", f"Error: {str(e)}"])
 
-            s3_client.delete_bucket(Bucket=bucket)
-            logger.info("Deleted bucket: %s", bucket)
-            summary_table.add_row([bucket, "-", "-", "Delete Bucket", "Success"])
         except Exception as e:
             logger.error("Error cleaning bucket %s: %s", bucket, str(e))
-            error_table.add_row([bucket, "-", "-", f"Error: {str(e)}"])
+            error_table.add_row([bucket, "-", "-", "Delete Bucket", f"Error: {str(e)}"])
 
     logger.info("Cleanup completed successfully!")
     print("\nSummary of Cleanup Actions:")
@@ -95,7 +182,6 @@ def clean_s3_object_locking():
     if len(error_table.rows) > 0:
         print("\nErrors Encountered During Cleanup:")
         print(error_table)
-
 
 if __name__ == "__main__":
     clean_s3_object_locking()

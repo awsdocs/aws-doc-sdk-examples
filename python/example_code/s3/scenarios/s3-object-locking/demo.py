@@ -26,32 +26,24 @@ def demo_s3_object_locking():
 
     logger.info("Starting S3 Object Locking Demo")
 
-    # Set legal hold on an object in the lock-enabled bucket
-    logger.info("Setting legal hold on file0.txt in bucket: %s", lock_enabled_bucket)
-    set_legal_hold(s3_client, lock_enabled_bucket, "file0.txt")
-    logger.info("Legal hold set on file0.txt in %s.", lock_enabled_bucket)
-
-    # Set retention period on an object in the lock-enabled bucket
-    logger.info("Setting retention period on file1.txt in bucket: %s for 1 day", lock_enabled_bucket)
-    set_retention(s3_client, lock_enabled_bucket, "file1.txt", 1)
-    logger.info("Retention period set on file1.txt in %s for 1 day.", lock_enabled_bucket)
-
-    # Set legal hold on an object in the retention bucket
-    logger.info("Setting legal hold on file0.txt in bucket: %s", retention_bucket)
-    set_legal_hold(s3_client, retention_bucket, "file0.txt")
-    logger.info("Legal hold set on file0.txt in %s.", retention_bucket)
-
-    # Set retention period on an object in the retention bucket
-    logger.info("Setting retention period on file1.txt in bucket: %s for 1 day", retention_bucket)
-    set_retention(s3_client, retention_bucket, "file1.txt", 1)
-    logger.info("Retention period set on file1.txt in %s for 1 day.", retention_bucket)
-
     # Create and print summary table
     summary_table = PrettyTable()
     summary_table.field_names = ["Bucket", "File Name", "Action", "Details"]
+
+    # Set legal hold on an object in the lock-enabled bucket
+    set_legal_hold(s3_client, lock_enabled_bucket, "file0.txt")
     summary_table.add_row([lock_enabled_bucket, "file0.txt", "Legal Hold", "Status: ON"])
+
+    # Set retention period on an object in the lock-enabled bucket
+    set_retention(s3_client, lock_enabled_bucket, "file1.txt", 1)
     summary_table.add_row([lock_enabled_bucket, "file1.txt", "Retention", "Days: 1"])
+
+    # Set legal hold on an object in the retention bucket
+    set_legal_hold(s3_client, retention_bucket, "file0.txt")
     summary_table.add_row([retention_bucket, "file0.txt", "Legal Hold", "Status: ON"])
+
+    # Set retention period on an object in the retention bucket
+    set_retention(s3_client, retention_bucket, "file1.txt", 1)
     summary_table.add_row([retention_bucket, "file1.txt", "Retention", "Days: 1"])
 
     print("\nSummary of Actions:")
