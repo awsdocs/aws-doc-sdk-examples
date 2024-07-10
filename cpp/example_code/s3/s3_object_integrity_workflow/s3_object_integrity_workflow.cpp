@@ -533,7 +533,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
     // Upload the large file using the transfer manager.
     if (!doTransferManagerUpload(bucketName, key, transferManagerHashMethod, chosenHashMethod == DEFAULT,
                                  client)) {
-        std::cerr << "Exiting because of an error" << std::endl;
+        std::cerr << "Exiting because of an error in doTransferManagerUpload." << std::endl;
         cleanUp(bucketName, clientConfiguration);
         return false;
     }
@@ -546,7 +546,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
                             transferManagerHashMethod,
                             retrievedTransferManagerFinalHash,
                             &retrievedTransferManagerPartHashes, *client)) {
-        std::cerr << "Exiting because of an error" << std::endl;
+        std::cerr << "Exiting because of an error in retrieveObjectHash for TransferManager." << std::endl;
         cleanUp(bucketName, clientConfiguration);
         return false;
     }
@@ -559,7 +559,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
                                     UPLOAD_BUFFER_SIZE,
                                     locallyCalculatedFinalHash,
                                     locallyCalculatedPartHashes)) {
-        std::cerr << "Exiting because of an error" << std::endl;
+        std::cerr << "Exiting because of an error in calculatePartHashesForFile." << std::endl;
         cleanUp(bucketName, clientConfiguration);
         return false;
     }
@@ -609,7 +609,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
                            hashData,
                            partHashes,
                            *client)) {
-        std::cerr << "Exiting because of an error" << std::endl;
+        std::cerr << "Exiting because of an error in doMultipartUpload." << std::endl;
         cleanUp(bucketName, clientConfiguration);
         return false;
     }
@@ -624,7 +624,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
     if (!retrieveObjectHash(bucketName, key,
                             multipartUploadHashMethod,
                             retrievedHash, &retrievedPartHashes, *client)) {
-        std::cerr << "Exiting because of an error" << std::endl;
+        std::cerr << "Exiting because of an error in retrieveObjectHash for multipart." << std::endl;
         cleanUp(bucketName, clientConfiguration);
         return false;
     }
@@ -933,7 +933,7 @@ AwsDoc::S3::doTransferManagerUpload(const Aws::String &bucket, const Aws::String
             uploadHandle->GetStatus() == Aws::Transfer::TransferStatus::COMPLETED;
     if (!success) {
         Aws::Client::AWSError<Aws::S3::S3Errors> err = uploadHandle->GetLastError();
-        std::cout << "File upload failed:  " << err.GetMessage() << std::endl;
+        std::cerr << "File upload failed:  " << err.GetMessage() << std::endl;
     }
 
     return success;
@@ -1569,6 +1569,7 @@ bool AwsDoc::S3::Hasher::calculateObjectHash(Aws::IOStream &data,
             std::cerr << "Unknown hash method." << std::endl;
             return false;
     }
+    data.clear();
     data.seekg(0, std::ifstream::beg);
     return true;
 }
