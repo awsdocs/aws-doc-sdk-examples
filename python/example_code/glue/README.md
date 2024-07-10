@@ -34,6 +34,11 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello AWS Glue](hello/hello_glue.py#L4) (`ListJobs`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -72,6 +77,13 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello AWS Glue
+
+This example shows you how to get started using AWS Glue.
+
+```
+python hello/hello_glue.py
+```
 
 
 #### Get started with crawlers and jobs

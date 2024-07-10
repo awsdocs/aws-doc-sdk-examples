@@ -34,6 +34,11 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon RDS](hello/hello_rds.py#L4) (`DescribeDBInstances`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -76,6 +81,13 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Amazon RDS
+
+This example shows you how to get started using Amazon RDS.
+
+```
+python hello/hello_rds.py
+```
 
 
 #### Get started with DB instances
