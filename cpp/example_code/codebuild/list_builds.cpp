@@ -47,35 +47,45 @@ bool AwsDoc::CodeBuild::listBuilds(Aws::CodeBuild::Model::SortOrderType sortType
                 listBuildsRequest);
 
         if (listBuildsOutcome.IsSuccess()) {
-            std::cout << "Information about each build:" << std::endl;
-            Aws::CodeBuild::Model::BatchGetBuildsRequest getBuildsRequest;
-            getBuildsRequest.SetIds(listBuildsOutcome.GetResult().GetIds());
-            Aws::CodeBuild::Model::BatchGetBuildsOutcome getBuildsOutcome = codeBuildClient.BatchGetBuilds(
-                    getBuildsRequest);
+            const Aws::Vector<Aws::String> &ids = listBuildsOutcome.GetResult().GetIds();
+            if (!ids.empty()) {
 
-            if (getBuildsOutcome.IsSuccess()) {
-                const Aws::Vector<Aws::CodeBuild::Model::Build> &builds = getBuildsOutcome.GetResult().GetBuilds();
-                std::cout << builds.size() << " build(s) found." << std::endl;
-                for (auto val: builds) {
-                    std::cout << val.GetId() << std::endl;
+                std::cout << "Information about each build:" << std::endl;
+                Aws::CodeBuild::Model::BatchGetBuildsRequest getBuildsRequest;
+                getBuildsRequest.SetIds(listBuildsOutcome.GetResult().GetIds());
+                Aws::CodeBuild::Model::BatchGetBuildsOutcome getBuildsOutcome = codeBuildClient.BatchGetBuilds(
+                        getBuildsRequest);
+
+                if (getBuildsOutcome.IsSuccess()) {
+                    const Aws::Vector<Aws::CodeBuild::Model::Build> &builds = getBuildsOutcome.GetResult().GetBuilds();
+                    std::cout << builds.size() << " build(s) found." << std::endl;
+                    for (auto val: builds) {
+                        std::cout << val.GetId() << std::endl;
+                    }
+                } else {
+                    std::cerr << "Error getting builds"
+                              << getBuildsOutcome.GetError().GetMessage() << std::endl;
+                    return false;
                 }
+            } else {
+                std::cout << "No builds found." << std::endl;
             }
-            else {
-                std::cout << "Error getting builds"
-                          << getBuildsOutcome.GetError().GetMessage() << std::endl;
-                return false;
-            }
-            nextToken = listBuildsOutcome.GetResult().GetNextToken();
-        }
 
-        else {
+            // Get the next token for pagination.
+
+            nextToken = listBuildsOutcome.GetResult().GetNextToken();
+        } else {
             std::cerr << "Error listing builds"
                       << listBuildsOutcome.GetError().GetMessage()
                       << std::endl;
             return false;
         }
 
-    } while (!nextToken.empty());
+    } while (!nextToken.
+
+            empty()
+
+            );
 
     return true;
 }
@@ -105,11 +115,9 @@ int main(int argc, char **argv) {
         Aws::CodeBuild::Model::SortOrderType sortType = Aws::CodeBuild::Model::SortOrderType::NOT_SET;
         if (Aws::Utils::StringUtils::CaselessCompare(argv[1], "ASCENDING")) {
             sortType = Aws::CodeBuild::Model::SortOrderType::ASCENDING;
-        }
-        else if (Aws::Utils::StringUtils::CaselessCompare(argv[1], "DESCENDING")) {
+        } else if (Aws::Utils::StringUtils::CaselessCompare(argv[1], "DESCENDING")) {
             sortType = Aws::CodeBuild::Model::SortOrderType::DESCENDING;
-        }
-        else {
+        } else {
             std::cout << "Invalid sort order type." << std::endl;
         }
         Aws::Client::ClientConfiguration clientConfig;
