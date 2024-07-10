@@ -1,0 +1,3 @@
+no_lock=py-object-locking-no-lock-235
+lock_enabled=py-object-locking-lock-enabled-235
+retention=py-object-locking-retention-after-creation-235

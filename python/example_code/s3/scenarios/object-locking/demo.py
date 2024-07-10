@@ -1,23 +1,31 @@
-import boto3
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 import logging
+
+import boto3
 import coloredlogs
 from prettytable import PrettyTable
+
 from setup import set_legal_hold, set_retention
 
 # Configure logging
 logger = logging.getLogger(__name__)
-coloredlogs.install(level='DEBUG', logger=logger, fmt='%(asctime)s [%(levelname)s] %(message)s')
+coloredlogs.install(
+    level="DEBUG", logger=logger, fmt="%(asctime)s [%(levelname)s] %(message)s"
+)
+
 
 def read_bucket_names():
     buckets = {}
-    with open('buckets.txt', 'r') as f:
+    with open("buckets.txt", "r") as f:
         for line in f:
-            name, bucket = line.strip().split('=')
+            name, bucket = line.strip().split("=")
             buckets[name] = bucket
     return buckets
 
+
 def demo_s3_object_locking():
-    s3_client = boto3.client('s3')
+    s3_client = boto3.client("s3")
 
     # Read bucket names from file
     buckets = read_bucket_names()
@@ -32,7 +40,9 @@ def demo_s3_object_locking():
 
     # Set legal hold on an object in the lock-enabled bucket
     set_legal_hold(s3_client, lock_enabled_bucket, "file0.txt")
-    summary_table.add_row([lock_enabled_bucket, "file0.txt", "Legal Hold", "Status: ON"])
+    summary_table.add_row(
+        [lock_enabled_bucket, "file0.txt", "Legal Hold", "Status: ON"]
+    )
 
     # Set retention period on an object in the lock-enabled bucket
     set_retention(s3_client, lock_enabled_bucket, "file1.txt", 1)
@@ -48,6 +58,7 @@ def demo_s3_object_locking():
 
     print("\nSummary of Actions:")
     print(summary_table)
+
 
 if __name__ == "__main__":
     demo_s3_object_locking()
