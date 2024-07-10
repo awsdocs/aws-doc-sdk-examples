@@ -120,8 +120,7 @@ target_sources(
 target_include_directories(
         ${CURRENT_TARGET}
         PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
-        $<INSTALL_INTERFACE:..>
+        ${CMAKE_CURRENT_SOURCE_DIR}/..
         ${CURL_INCLUDE_DIRS}
 )
 
@@ -151,6 +150,7 @@ target_link_directories(${CURRENT_TARGET}
         ${CURL_LIBRARIES})
 
 include(GoogleTest)
+
 gtest_add_tests(
         TARGET
         ${CURRENT_TARGET}

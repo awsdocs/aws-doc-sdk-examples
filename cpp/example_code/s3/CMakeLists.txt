@@ -80,12 +80,6 @@ foreach (file ${AWSDOC_S3_SOURCE})
 
     add_executable(${EXAMPLE_EXE} ${AWSDOC_S3_HEADERS} ${file})
 
-    target_include_directories(${EXAMPLE_EXE} PUBLIC
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-            $<INSTALL_INTERFACE:include>
-    )
-
-
     target_include_directories(${EXAMPLE_EXE} SYSTEM PUBLIC
             ${CURL_INCLUDE_DIRS})
 
