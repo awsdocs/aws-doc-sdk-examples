@@ -48,9 +48,6 @@ class Scanner:
             self.doc_gen.root / ".doc_gen" / "metadata" / "cross_metadata.yaml"
         )
 
-    def set_service(self, service):
-        self.svc_name = service
-
     def _build_examples(self):
         self.examples = defaultdict(list)
         for example in self.doc_gen.examples.values():
@@ -64,7 +61,8 @@ class Scanner:
     def _example_key(self):
         return f"{self.lang_name}:{self.sdk_ver}:{self.svc_name}"
 
-    def set_example(self, language, sdk_ver):
+    def set_example(self, svc_name: str, language: str, sdk_ver: int):
+        self.svc_name = svc_name
         self.lang_name = language
         self.sdk_ver = sdk_ver
 
@@ -107,13 +105,13 @@ class Scanner:
     def expand_entity(self, entity):
         return self.entities[entity]
 
-    def snippet(self, example: Example, sdk_ver, readme_folder, api_name: str):
+    def snippet(self, example: Example, readme_folder, api_name: str):
         github = None
         tag = None
         tag_path = None
         if self.lang_name in example.languages:
             for ex_ver in example.languages[self.lang_name].versions:
-                if ex_ver.sdk_version == sdk_ver:
+                if ex_ver.sdk_version == self.sdk_ver:
                     github = ex_ver.github
                     if github is not None:
                         if ex_ver.excerpts:

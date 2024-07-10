@@ -93,22 +93,27 @@ def main():
     # Preload cross-content examples
     scanner.load_crosses()
 
+    renderer = Renderer(scanner)
     for service in args.services:
-        scanner.set_service(service)
         for language_and_version in args.languages:
             (language, version) = language_and_version.split(":")
             id = f"{language}:{version}:{service}"
             try:
-                scanner.set_example(language, int(version))
-                logging.debug("Rendering %s", id)
-                renderer = Renderer(scanner, int(version), args.safe)
+                renderer.set_example(service, language, int(version), args.safe)
                 if renderer.lang_config is None:
                     continue
 
+                logging.debug("Rendering %s", id)
                 result, updated = renderer.render()
 
                 if result is None:
-                    if renderer.readme_filename.exists():
+                    if (
+                        renderer.lang_config["service_folder"]
+                        not in renderer.lang_config.get(
+                            "service_folder_overrides", {}
+                        ).values()
+                        and renderer.readme_filename.exists()
+                    ):
                         non_writeme.append(id)
                     else:
                         skipped.append(id)

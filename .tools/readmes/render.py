@@ -27,12 +27,14 @@ class MissingMetadataError(Exception):
 
 
 class Renderer:
-    def __init__(self, scanner: Scanner, sdk_ver, safe):
+    def __init__(self, scanner: Scanner):
         self.scanner = scanner
-        self.sdk_ver = int(sdk_ver)
+
+    def set_example(self, service: str, language: str, version: int, safe: bool):
+        self.scanner.set_example(service, language, version)
         self.safe = safe
         self.lang_config = config.language.get(self.scanner.lang_name, {}).get(
-            sdk_ver, None
+            self.scanner.sdk_ver, None
         )
         if self.lang_config is None:
             return
@@ -54,7 +56,7 @@ class Renderer:
             "sort": self.scanner.service().sort.replace(" ", ""),
         }
 
-        self._extract_service_folder(scanner, env, service_info)
+        self._extract_service_folder(self.scanner, env, service_info)
         sdk_api_ref_tmpl = env.from_string(self.lang_config.get("sdk_api_ref", ""))
         self.lang_config["sdk_api_ref"] = sdk_api_ref_tmpl.render(service=service_info)
 
@@ -126,22 +128,18 @@ class Renderer:
             file = next(
                 ver.github
                 for ver in example.languages[self.scanner.lang_name].versions
-                if ver.sdk_version == self.sdk_ver
+                if ver.sdk_version == self.scanner.sdk_ver
             )
             if file:
-                base_folder = f"{config.language[self.scanner.lang_name][self.sdk_ver]['base_folder']}/"
+                base_folder = f"{config.language[self.scanner.lang_name][self.scanner.sdk_ver]['base_folder']}/"
                 if base_folder in file:
                     file = (
                         self._lang_level_double_dots() + file.split(base_folder, 1)[1]
                     )
         else:
-            file = self.scanner.snippet(
-                example, self.sdk_ver, self.lang_config["service_folder"], api
-            )
-
-            run_file = self.scanner.snippet(
-                example, self.sdk_ver, self.lang_config["service_folder"], ""
-            )
+            lang_config = self.lang_config["service_folder"]
+            file = self.scanner.snippet(example, lang_config, api)
+            run_file = self.scanner.snippet(example, lang_config, "")
 
         return file, run_file
 
@@ -247,7 +245,7 @@ class Renderer:
         if self.lang_config is None:
             return None, False  # Return False to indicate no update
 
-        sdk = _transform_sdk(self.scanner.sdk(), self.sdk_ver)
+        sdk = _transform_sdk(self.scanner.sdk(), self.scanner.sdk_ver)
         svc = _transform_service(self.scanner.service())
 
         hello = self._transform_hellos()
@@ -262,7 +260,7 @@ class Renderer:
             return None, False
 
         self.lang_config["name"] = self.scanner.lang_name
-        self.lang_config["sdk_ver"] = self.sdk_ver
+        self.lang_config["sdk_ver"] = self.scanner.sdk_ver
         self.lang_config["readme"] = f"{self._lang_level_double_dots()}README.md"
         unsupported = self.lang_config.get("unsupported", False)
 
