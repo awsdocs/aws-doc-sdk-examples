@@ -3,7 +3,7 @@ cross_MessageProcessingFrameworkTutorial:
   title: Use the &AWS; Message Processing Framework for .NET to publish and receive &SQS; messages
   title_abbrev: Use the &AWS; Message Processing Framework for .NET with &SQS;
   synopsis: create applications that publish and receive &SQS; messages using the &AWS; Message Processing Framework for .NET.
-  category: Cross
+  category: Cross-service examples
   languages:
     .NET:
       versions:
@@ -521,7 +521,7 @@ cross_RekognitionVideoDetection:
   title: Detect people and objects in a video with &REK; using an &AWS; SDK
   title_abbrev: Detect people and objects in a video
   synopsis: detect people and objects in a video with &REK;.
-  category: Cross
+  category: Cross-service examples
   languages:
     Java:
       versions:
@@ -780,7 +780,7 @@ cross_ServerlessS3DataTransformation:
   title: Transform data for your application with S3 Object Lambda
   title_abbrev: Transform data with S3 Object Lambda
   synopsis: transform data for your application with S3 Object Lambda.
-  category: Cross
+  category: Cross-service examples
   languages:
     .NET:
       versions:

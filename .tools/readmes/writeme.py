@@ -94,10 +94,7 @@ def main():
     scanner.load_crosses()
 
     for service in args.services:
-        try:
-            scanner.set_service(service)
-        except FileNotFoundError:
-            continue
+        scanner.set_service(service)
         for language_and_version in args.languages:
             (language, version) = language_and_version.split(":")
             id = f"{language}:{version}:{service}"

@@ -8,7 +8,7 @@ categories = {
     "hello": "Hello",
     "scenarios": "Scenarios",
     "actions": "Api",
-    "cross": "Cross",
+    "cross": "Cross-service examples",
 }
 entities = {
     "&AWS;": "AWS",

@@ -87,7 +87,7 @@ class Renderer:
         post_examples: List[Dict[str, str]] = []
         for pre in pre_examples.values():
             try:
-                api = next(iter(pre.services[self.scanner.svc_name]))
+                api = sorted(pre.services[self.scanner.svc_name])[0]
             except Exception:
                 api = ""
 
