@@ -193,30 +193,30 @@ namespace AwsDoc::S3 {
                                     std::vector<Aws::String> &partHashes);
 
     //! Create a multipart upload.
-/*!
-    \param bucket: The name of the S3 bucket where the object will be uploaded.
-    \param key: The unique identifier (key) for the object within the S3 bucket.
-     \param client: The S3 client instance used to perform the upload operation.
-    \return Aws::String: Upload ID or empty string if failed.
-*/
+    /*!
+        \param bucket: The name of the S3 bucket where the object will be uploaded.
+        \param key: The unique identifier (key) for the object within the S3 bucket.
+         \param client: The S3 client instance used to perform the upload operation.
+        \return Aws::String: Upload ID or empty string if failed.
+    */
     Aws::String
     createMultipartUpload(const Aws::String &bucket, const Aws::String &key,
                           Aws::S3::Model::ChecksumAlgorithm checksumAlgorithm,
                           const Aws::S3::S3Client &client);
 
-//! Upload a part to an S3 bucket.
-/*!
-    \param bucket: The name of the S3 bucket where the object will be uploaded.
-    \param key: The unique identifier (key) for the object within the S3 bucket.
-    \param uploadID: An upload ID string.
-    \param partNumber:
-    \param checksumAlgorithm: Checksum algorithm, ignored when NOT_SET.
-    \param calculatedHash: A data integrity hash to set, depending on the checksum algorithm,
-                            ignored when it is an empty string.
-    \param body: An shared_ptr IOStream of the data to be uploaded.
-    \param client: The S3 client instance used to perform the upload operation.
-    \return UploadPartOutcome: The outcome.
-*/
+    //! Upload a part to an S3 bucket.
+    /*!
+        \param bucket: The name of the S3 bucket where the object will be uploaded.
+        \param key: The unique identifier (key) for the object within the S3 bucket.
+        \param uploadID: An upload ID string.
+        \param partNumber:
+        \param checksumAlgorithm: Checksum algorithm, ignored when NOT_SET.
+        \param calculatedHash: A data integrity hash to set, depending on the checksum algorithm,
+                                ignored when it is an empty string.
+        \param body: An shared_ptr IOStream of the data to be uploaded.
+        \param client: The S3 client instance used to perform the upload operation.
+        \return UploadPartOutcome: The outcome.
+    */
     Aws::S3::Model::UploadPartOutcome uploadPart(const Aws::String &bucket,
                                                  const Aws::String &key,
                                                  const Aws::String &uploadID,
@@ -227,12 +227,12 @@ namespace AwsDoc::S3 {
                                                  const Aws::S3::S3Client &client);
 
     //! Abort a multipart upload to an S3 bucket.
-/*!
-    \param bucket: The name of the S3 bucket where the object will be uploaded.
-    \param key: The unique identifier (key) for the object within the S3 bucket.
-    \param uploadID: An upload ID string.
-    \param client: The S3 client instance used to perform the upload operation.
-    \return bool: Function succeeded.
+    /*!
+        \param bucket: The name of the S3 bucket where the object will be uploaded.
+        \param key: The unique identifier (key) for the object within the S3 bucket.
+        \param uploadID: An upload ID string.
+        \param client: The S3 client instance used to perform the upload operation.
+        \return bool: Function succeeded.
     */
 
     bool abortMultipartUpload(const Aws::String &bucket,
@@ -241,13 +241,13 @@ namespace AwsDoc::S3 {
                               const Aws::S3::S3Client &client);
 
     //! Complete a multipart upload to an S3 bucket.
-/*!
-    \param bucket: The name of the S3 bucket where the object will be uploaded.
-    \param key: The unique identifier (key) for the object within the S3 bucket.
-    \param uploadID: An upload ID string.
-    \param parts: A vector of CompleteParts.
-    \param client: The S3 client instance used to perform the upload operation.
-    \return CompleteMultipartUploadOutcome: The request outcome.
+    /*!
+        \param bucket: The name of the S3 bucket where the object will be uploaded.
+        \param key: The unique identifier (key) for the object within the S3 bucket.
+        \param uploadID: An upload ID string.
+        \param parts: A vector of CompleteParts.
+        \param client: The S3 client instance used to perform the upload operation.
+        \return CompleteMultipartUploadOutcome: The request outcome.
     */
     Aws::S3::Model::CompleteMultipartUploadOutcome completeMultipartUpload(const Aws::String &bucket,
                                                                            const Aws::String &key,
@@ -283,7 +283,7 @@ namespace AwsDoc::S3 {
     */
     Aws::String stringForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod);
 
-    //! Routine whi returns the ChecksumAlgorithm for a HASH_METHOD constant.
+    //! Routine which returns the ChecksumAlgorithm for a HASH_METHOD constant.
     /*!
         \param: hashMethod: A HASH_METHOD constant.
         \return: ChecksumAlgorithm: The ChecksumAlgorithm enum.
@@ -891,6 +891,18 @@ void AwsDoc::S3::verifyHashingResults(const Aws::String &retrievedHash,
 
 }
 
+static void transferManagerErrorCallback(const Aws::Transfer::TransferManager *,
+                                         const std::shared_ptr<const Aws::Transfer::TransferHandle> &,
+                                         const Aws::Client::AWSError<Aws::S3::S3Errors> &err) {
+    std::cerr << "Error during transfer: '" << err.GetMessage() << "'" << std::endl;
+}
+
+static void transferManagerStatusCallback(const Aws::Transfer::TransferManager *,
+                                          const std::shared_ptr<const Aws::Transfer::TransferHandle> &handle) {
+    if (handle->GetStatus() == Aws::Transfer::TransferStatus::IN_PROGRESS) {
+        std::cout << "Bytes transferred: " << handle->GetBytesTransferred() << std::endl;
+    }
+}
 
 //! Routine which uploads an object to an S3 bucket using the AWS C++ SDK's Transfer Manager.
 /*!
@@ -919,6 +931,8 @@ AwsDoc::S3::doTransferManagerUpload(const Aws::String &bucket, const Aws::String
                     hashMethod);
         }
     }
+    transfer_config.errorCallback = transferManagerErrorCallback;
+    transfer_config.transferStatusUpdatedCallback = transferManagerStatusCallback;
 
     std::shared_ptr<Aws::Transfer::TransferManager> transfer_manager = Aws::Transfer::TransferManager::Create(
             transfer_config);
@@ -1088,7 +1102,7 @@ Aws::S3::Model::UploadPartOutcome AwsDoc::S3::uploadPart(const Aws::String &buck
     \param uploadID: An upload ID string.
     \param client: The S3 client instance used to perform the upload operation.
     \return bool: Function succeeded.
-    */
+*/
 
 bool AwsDoc::S3::abortMultipartUpload(const Aws::String &bucket,
                                       const Aws::String &key,
@@ -1121,7 +1135,7 @@ bool AwsDoc::S3::abortMultipartUpload(const Aws::String &bucket,
     \param parts: A vector of CompleteParts.
     \param client: The S3 client instance used to perform the upload operation.
     \return CompleteMultipartUploadOutcome: The request outcome.
-    */
+*/
 Aws::S3::Model::CompleteMultipartUploadOutcome AwsDoc::S3::completeMultipartUpload(const Aws::String &bucket,
                                                                                    const Aws::String &key,
                                                                                    const Aws::String &uploadID,
@@ -1522,6 +1536,7 @@ bool AwsDoc::S3::createLargeFileIfNotExists() {
     return true;
 }
 // snippet-end:[cpp.example_code.s3.Scenario_ObjectIntegrity]
+
 //! Calculate the object hash for vector input.
 /*!
    \param data: A vector of unsigned bytes.
