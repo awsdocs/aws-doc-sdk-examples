@@ -23,7 +23,7 @@ env:
   AWS_REGION: "eu-west-1"
 jobs:
   if_merged:
-    if: github.event.pull_request.merged == true
+    if: (github.event.pull_request.merged == true) && (contains(github.event.pull_request.labels.*.name, 'On Call Review complete'))
     runs-on: ubuntu-latest
     name: GitHub Statistics
     steps:
