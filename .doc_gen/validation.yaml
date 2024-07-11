@@ -2,6 +2,7 @@ allow_list:
   # Git commits
   - "cd5e746ec203c8c3c61647e0886a8df8c1e78e41"
   - "725feb26d6f73bc1d83dbbe075ae8ea991efb245"
+  - "b073b39524bccd65e3482046dbb116c1fc83d1da"
   # Safe look-alikes, mostly tokens and paths that happen to be 40 characters.
   - "/AmazonEventBridgeServiceIntegrationTest"
   - "/ListOrganizationalUnitsForParentExample"
