@@ -146,5 +146,5 @@
 <!ENTITY cloudwatch-netmon '&CW; Network Monitoring'>
 
 <!-- Marketplace Agreement Service -->
-<!ENTITY MKAgreementlong '&MKTlong; Agreement Service'>
-<!ENTITY MKAgreement '&MKT; Agreement Service'>
+<!ENTITY MKTAgreementlong '&MKTlong; Agreement Service'>
+<!ENTITY MKTAgreement '&MKT; Agreement Service'>
