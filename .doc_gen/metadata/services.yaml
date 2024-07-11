@@ -1964,6 +1964,36 @@ macie2:
   tags:
     product_categories: {}
   version: '2020-01-01'
+marketplace-agreement:
+  api_ref: marketplace-agreements/latest/api-reference/welcome.html
+  blurb: provides an API interface that helps AWS Marketplace sellers manage their agreements, including listing, filtering, and viewing details about their agreements.
+  expanded:
+    long: AWS Marketplace Agreement Service
+    short: AWS Marketplace Agreement Service
+  guide:
+    subtitle: Seller Guide
+    url: marketplace/latest/userguide/what-is-marketplace.html
+  long: '&MKTAgreementlong;'
+  short: '&MKTAgreement;'
+  sort: Marketplace Agreement Service
+  tags:
+    product_categories: {'Marketplace'}
+  version: marketplace-agreement-2020-03-01
+marketplace-catalog:
+  api_ref: marketplace-catalog/latest/api-reference/welcome.html
+  blurb: provides an API interface for approved providers to programmatically manage their products.
+  expanded:
+    long: AWS Marketplace Catalog API
+    short: AWS Marketplace Catalog API
+  guide:
+    subtitle: Seller Guide
+    url: marketplace/latest/userguide/what-is-marketplace.html
+  long: '&MKTCAPIlong;'
+  short: '&MKTCAPI;'
+  sort: Marketplace Catalog API
+  tags:
+    product_categories: {'Marketplace'}
+  version: marketplace-catalog-2018-09-17
 mediaconnect:
   api_ref: mediaconnect/latest/APIReference/Welcome.html
   blurb: ''
