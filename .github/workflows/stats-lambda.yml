@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 on:   # yamllint disable-line rule:truthy
-  pull_request:
+  pull_request_target:
     types:
       - closed
     branches:
@@ -34,7 +34,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: ${{env.AWS_REGION}}
-          role-to-assume: arn:aws:iam::959731285276:role/run-the-numbers-lambda
+          role-to-assume: ${{ secrets.ROLE_ID }}
           output-credentials: true
       - name: Create payload
         run: echo "JSON_PAYLOAD={\"commit\" :\"${{ env.COMMIT }}\",\"author\" :\"${{ env.PR_AUTHOR }}\"}" >> $GITHUB_ENV
