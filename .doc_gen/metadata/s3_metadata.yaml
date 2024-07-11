@@ -1060,7 +1060,7 @@ s3_GetObjectLockConfiguration:
           excerpts:
             - description: Get the object lock configuration.
               snippet_tags:
-                - python.example_code.s3.GetObjectLockConfiguration
+                - python.s3-object-locking.s3_GetObjectLockConfiguration
   services:
     s3: {GetObjectLockConfiguration}
 s3_GetObjectRetention:
@@ -2270,7 +2270,7 @@ s3_PutObjectLockConfiguration:
           excerpts:
             - description: Put object lock configuration.
               snippet_tags:
-                - python.example_code.s3.PutObjectLockConfiguration
+                - python.s3-object-locking.s3_PutObjectLockConfiguration
   services:
     s3: {PutObjectLockConfiguration}
 s3_PutObjectRetention:
