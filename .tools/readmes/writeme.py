@@ -11,8 +11,9 @@ import logging
 import os
 import sys
 from pathlib import Path
-from render import Renderer, MissingMetadataError
+from typing import Optional
 
+from render import Renderer, MissingMetadataError
 from scanner import Scanner
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO").upper())
@@ -21,16 +22,26 @@ logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO").upper())
 from aws_doc_sdk_examples_tools.doc_gen import DocGen
 
 
-def main():
-    # Load all examples immediately for cross references. Trades correctness for speed
-    doc_gen = DocGen.from_root(Path(__file__).parent.parent.parent, incremental=False)
+def prepare_scanner(doc_gen: DocGen) -> Optional[Scanner]:
+    for path in (doc_gen.root / ".doc_gen/metadata").glob("*_metadata.yaml"):
+        doc_gen.process_metadata(path)
     doc_gen.collect_snippets()
     doc_gen.validate()
     if doc_gen.errors:
         logging.error("There were errors loading metadata")
         logging.info(doc_gen.errors)
-        return -1
+        return None
     scanner = Scanner(doc_gen)
+
+    # Preload cross-content examples
+    scanner.load_crosses()
+
+    return scanner
+
+
+def main():
+    # Load all examples immediately for cross references. Trades correctness for speed
+    doc_gen = DocGen.from_root(Path(__file__).parent.parent.parent, incremental=True)
 
     languages = doc_gen.languages()
     parser = argparse.ArgumentParser()
@@ -90,8 +101,9 @@ def main():
     non_writeme = []
     unchanged = []
 
-    # Preload cross-content examples
-    scanner.load_crosses()
+    scanner = prepare_scanner(doc_gen)
+    if scanner is None:
+        return -1
 
     renderer = Renderer(scanner)
     for service in args.services:
