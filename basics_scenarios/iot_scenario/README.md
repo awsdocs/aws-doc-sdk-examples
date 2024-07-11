@@ -17,7 +17,7 @@ Throughout the workflow, the program provides detailed explanations and prompts 
 
 ## Implementations
 
-This scenario example will be implemented in the following languages:
+This scenario example is implemented in the following languages:
 
 - Java
 - C++
