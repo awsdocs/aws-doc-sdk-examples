@@ -1,8 +1,7 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
 import logging
 import random
 from datetime import datetime, timedelta
+from typing import Dict
 
 import boto3
 import coloredlogs
@@ -19,8 +18,16 @@ logger = logging.getLogger(__name__)
 coloredlogs.install(level="DEBUG", logger=logger, fmt=LOG_FORMAT)
 
 
-def create_buckets(s3_client):
-    """Create S3 buckets with different configurations and save their names to a file."""
+def create_buckets(s3_client) -> Dict[str, str]:
+    """
+    Create S3 buckets with different configurations and save their names to a file.
+
+    Args:
+        s3_client: Boto3 S3 client.
+
+    Returns:
+        A dictionary containing the names of the created buckets.
+    """
     buckets = {
         "no_lock": f"{BUCKET_PREFIX}-no-lock-{RANDOM_SUFFIX}",
         "lock_enabled": f"{BUCKET_PREFIX}-lock-enabled-{RANDOM_SUFFIX}",
@@ -73,15 +80,25 @@ def create_buckets(s3_client):
     return buckets
 
 
-def _save_bucket_names_to_file(buckets):
-    """Save the bucket names to a file."""
+def _save_bucket_names_to_file(buckets: Dict[str, str]) -> None:
+    """
+    Save the bucket names to a file.
+
+    Args:
+        buckets: A dictionary containing the names of the created buckets.
+    """
     with open("buckets.txt", "w") as f:
         for name, bucket in buckets.items():
             f.write(f"{name}={bucket}\n")
 
 
-def _print_bucket_summary(buckets):
-    """Print a summary table of the created buckets."""
+def _print_bucket_summary(buckets: Dict[str, str]) -> None:
+    """
+    Print a summary table of the created buckets.
+
+    Args:
+        buckets: A dictionary containing the names of the created buckets.
+    """
     summary_table = PrettyTable()
     summary_table.field_names = [
         "Bucket Name",
@@ -98,8 +115,14 @@ def _print_bucket_summary(buckets):
     print(summary_table)
 
 
-def populate_buckets(s3_client, buckets):
-    """Upload test files to each bucket."""
+def populate_buckets(s3_client, buckets: Dict[str, str]) -> None:
+    """
+    Upload test files to each bucket.
+
+    Args:
+        s3_client: Boto3 S3 client.
+        buckets: A dictionary containing the names of the created buckets.
+    """
     logger.info("Starting to populate buckets with test files.")
     for bucket in buckets.values():
         file_table = PrettyTable()
@@ -137,8 +160,14 @@ def populate_buckets(s3_client, buckets):
         print()
 
 
-def update_retention_policy(s3_client, bucket):
-    """Update the retention policy for a specific bucket."""
+def update_retention_policy(s3_client, bucket: str) -> None:
+    """
+    Update the retention policy for a specific bucket.
+
+    Args:
+        s3_client: Boto3 S3 client.
+        bucket: The name of the bucket to update the retention policy for.
+    """
     logger.info("Updating retention policy for bucket: %s", bucket)
     try:
         s3_client.put_object_lock_configuration(
@@ -158,8 +187,49 @@ def update_retention_policy(s3_client, bucket):
         logger.error("Failed to update retention policy for bucket [%s]: %s", bucket, e)
 
 
-def set_legal_hold(s3_client, bucket, key):
-    """Set a legal hold on a specific file in a bucket."""
+# snippet-start:[python.example_code.s3.GetObjectLegalHold]
+def get_legal_hold(s3_client, bucket: str, key: str) -> None:
+    """
+    Get the legal hold status of a specific file in a bucket.
+
+    Args:
+        s3_client: Boto3 S3 client.
+        bucket: The name of the bucket containing the file.
+        key: The key of the file to get the legal hold status of.
+    """
+    print()
+    logger.info("Getting legal hold status of file [%s] in bucket [%s]", key, bucket)
+    try:
+        response = s3_client.get_object_legal_hold(Bucket=bucket, Key=key)
+        legal_hold_status = response["LegalHold"]["Status"]
+        logger.debug(
+            "Legal hold status of file [%s] in bucket [%s] is [%s]",
+            key,
+            bucket,
+            legal_hold_status,
+        )
+    except Exception as e:
+        logger.error(
+            "Failed to get legal hold status of file [%s] in bucket [%s]: %s",
+            key,
+            bucket,
+            e,
+        )
+
+
+# snippet-end:[python.example_code.s3.GetObjectLegalHold]
+
+
+# snippet-start:[python.example_code.s3.PutObjectLegalHold]
+def set_legal_hold(s3_client, bucket: str, key: str) -> None:
+    """
+    Set a legal hold on a specific file in a bucket.
+
+    Args:
+        s3_client: Boto3 S3 client.
+        bucket: The name of the bucket containing the file.
+        key: The key of the file to set the legal hold on.
+    """
     print()
     logger.info("Setting legal hold on file [%s] in bucket [%s]", key, bucket)
     try:
@@ -178,8 +248,19 @@ def set_legal_hold(s3_client, bucket, key):
         )
 
 
-def set_retention(s3_client, bucket, key, days):
-    """Set a retention policy on a specific file in a bucket."""
+# snippet-end:[python.example_code.s3.PutObjectLegalHold]
+
+
+def set_retention(s3_client, bucket: str, key: str, days: int) -> None:
+    """
+    Set a retention policy on a specific file in a bucket.
+
+    Args:
+        s3_client: Boto3 S3 client.
+        bucket: The name of the bucket containing the file.
+        key: The key of the file to set the retention policy on.
+        days: The number of days for the retention policy.
+    """
     retain_until = (datetime.now() + timedelta(days=days)).strftime(
         "%Y-%m-%dT%H:%M:%SZ"
     )
@@ -212,8 +293,18 @@ def set_retention(s3_client, bucket, key, days):
         )
 
 
-def _print_retention_policy_update(bucket, key, before_retention, after_retention):
-    """Print a summary table of the retention policy updates."""
+def _print_retention_policy_update(
+    bucket: str, key: str, before_retention: str, after_retention: str
+) -> None:
+    """
+    Print a summary table of the retention policy updates.
+
+    Args:
+        bucket: The name of the bucket.
+        key: The key of the file.
+        before_retention: The retention status before the update.
+        after_retention: The retention status after the update.
+    """
     retention_table = PrettyTable()
     retention_table.field_names = [
         "Bucket",
@@ -234,8 +325,18 @@ def _print_retention_policy_update(bucket, key, before_retention, after_retentio
     print(retention_table)
 
 
-def _print_legal_hold_update(bucket, key, before_status, after_status):
-    """Print a summary table of the legal hold updates."""
+def _print_legal_hold_update(
+    bucket: str, key: str, before_status: str, after_status: str
+) -> None:
+    """
+    Print a summary table of the legal hold updates.
+
+    Args:
+        bucket: The name of the bucket.
+        key: The key of the file.
+        before_status: The legal hold status before the update.
+        after_status: The legal hold status after the update.
+    """
     legal_hold_table = PrettyTable()
     legal_hold_table.field_names = [
         "Bucket",
@@ -252,8 +353,13 @@ def _print_legal_hold_update(bucket, key, before_status, after_status):
     print(legal_hold_table)
 
 
-def print_bucket_details(buckets):
-    """Print details of the created buckets."""
+def print_bucket_details(buckets: Dict[str, str]) -> None:
+    """
+    Print details of the created buckets.
+
+    Args:
+        buckets: A dictionary containing the names of the created buckets.
+    """
     bucket_table = PrettyTable()
     bucket_table.field_names = ["Bucket Name", "Configuration"]
     bucket_table.align = "l"
@@ -261,14 +367,3 @@ def print_bucket_details(buckets):
     bucket_table.add_row([buckets["lock_enabled"], "Lock Enabled"])
     bucket_table.add_row([buckets["retention"], "Retention After Creation"])
     print(bucket_table)
-
-
-# Example usage
-if __name__ == "__main__":
-    s3_client = boto3.client("s3")
-    buckets = create_buckets(s3_client)
-    print_bucket_details(buckets)
-    populate_buckets(s3_client, buckets)
-    update_retention_policy(s3_client, buckets["retention"])
-    set_legal_hold(s3_client, buckets["lock_enabled"], "file0.txt")
-    set_retention(s3_client, buckets["lock_enabled"], "file1.txt", 30)

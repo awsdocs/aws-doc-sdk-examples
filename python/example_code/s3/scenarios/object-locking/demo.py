@@ -1,6 +1,5 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
 import logging
+from typing import Dict
 
 import boto3
 import coloredlogs
@@ -15,7 +14,13 @@ coloredlogs.install(
 )
 
 
-def read_bucket_names():
+def read_bucket_names() -> Dict[str, str]:
+    """
+    Read bucket names from the buckets.txt file.
+
+    Returns:
+        A dictionary containing the bucket names.
+    """
     buckets = {}
     with open("buckets.txt", "r") as f:
         for line in f:
@@ -24,7 +29,10 @@ def read_bucket_names():
     return buckets
 
 
-def demo_s3_object_locking():
+def demo_s3_object_locking() -> None:
+    """
+    Demonstrate S3 object locking by setting legal holds and retention policies on objects.
+    """
     s3_client = boto3.client("s3")
 
     # Read bucket names from file
@@ -58,7 +66,3 @@ def demo_s3_object_locking():
 
     print("\nSummary of Actions:")
     print(summary_table)
-
-
-if __name__ == "__main__":
-    demo_s3_object_locking()

@@ -1,7 +1,6 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
 import logging
 from datetime import datetime, timedelta
+from typing import Optional
 
 import boto3
 import coloredlogs
@@ -14,7 +13,18 @@ coloredlogs.install(
 )
 
 
-def is_object_lock_enabled(s3_client, bucket):
+# snippet-start:[python.s3-object-locking.s3_GetObjectLockConfiguration]
+def is_object_lock_enabled(s3_client, bucket: str) -> bool:
+    """
+    Check if object lock is enabled for a bucket.
+
+    Args:
+        s3_client: Boto3 S3 client.
+        bucket: The name of the bucket to check.
+
+    Returns:
+        True if object lock is enabled, False otherwise.
+    """
     try:
         response = s3_client.get_object_lock_configuration(Bucket=bucket)
         return (
@@ -28,8 +38,24 @@ def is_object_lock_enabled(s3_client, bucket):
             raise
 
 
-def set_retention_for_deletion(s3_client, bucket, key, version_id):
-    """Set a future retention date to allow deletion if Object Lock is enabled."""
+# snippet-end:[python.s3-object-locking.s3_GetObjectLockConfiguration]
+
+
+def set_retention_for_deletion(
+    s3_client, bucket: str, key: str, version_id: str
+) -> str:
+    """
+    Set a future retention date to allow deletion if Object Lock is enabled.
+
+    Args:
+        s3_client: Boto3 S3 client.
+        bucket: The name of the bucket containing the object.
+        key: The key of the object to set the retention policy for.
+        version_id: The version ID of the object.
+
+    Returns:
+        "Success" if the operation is successful, otherwise an error message.
+    """
     try:
         logger.debug("Checking if object lock is enabled for bucket: %s", bucket)
         object_lock_enabled = is_object_lock_enabled(s3_client, bucket)
@@ -43,6 +69,7 @@ def set_retention_for_deletion(s3_client, bucket, key, version_id):
             far_future_date = (datetime.now() + timedelta(days=365)).strftime(
                 "%Y-%m-%dT%H:%M:%SZ"
             )
+            # snippet-start:[python.s3-object-locking.s3_PutObjectRetention]
             s3_client.put_object_retention(
                 Bucket=bucket,
                 Key=key,
@@ -50,14 +77,28 @@ def set_retention_for_deletion(s3_client, bucket, key, version_id):
                 Retention={"Mode": "GOVERNANCE", "RetainUntilDate": far_future_date},
                 BypassGovernanceRetention=True,
             )
+            # snippet-end:[python.s3-object-locking.s3_PutObjectRetention]
     except Exception as e:
         logger.error("Error setting retention for %s in %s: %s", key, bucket, str(e))
         return f"Error setting retention: {str(e)}"
     return "Success"
 
 
-def remove_object_locks_and_delete(s3_client, bucket, key, version_id):
-    """Remove object locks and delete the object."""
+def remove_object_locks_and_delete(
+    s3_client, bucket: str, key: str, version_id: str
+) -> str:
+    """
+    Remove object locks and delete the object.
+
+    Args:
+        s3_client: Boto3 S3 client.
+        bucket: The name of the bucket containing the object.
+        key: The key of the object to remove locks and delete.
+        version_id: The version ID of the object.
+
+    Returns:
+        "Success" if the operation is successful, otherwise an error message.
+    """
     result = set_retention_for_deletion(s3_client, bucket, key, version_id)
     if result != "Success":
         return result
@@ -73,12 +114,14 @@ def remove_object_locks_and_delete(s3_client, bucket, key, version_id):
                 bucket,
                 version_id,
             )
+            # snippet-start:[python.s3-object-locking.s3_PutObjectLegalHold]
             s3_client.put_object_legal_hold(
                 Bucket=bucket,
                 Key=key,
                 VersionId=version_id,
                 LegalHold={"Status": "OFF"},
             )
+            # snippet-end:[python.s3-object-locking.s3_PutObjectLegalHold]
     except Exception as e:
         logger.error("Error removing legal hold for %s in %s: %s", key, bucket, str(e))
         return f"Error removing legal hold: {str(e)}"
@@ -88,12 +131,14 @@ def remove_object_locks_and_delete(s3_client, bucket, key, version_id):
             "Deleting object %s in bucket %s, version %s", key, bucket, version_id
         )
         if object_lock_enabled:
+            # snippet-start:[python.s3-object-locking.s3_Scenario_ObjectLock]
             s3_client.delete_object(
                 Bucket=bucket,
                 Key=key,
                 VersionId=version_id,
                 BypassGovernanceRetention=True,
             )
+            # snippet-end:[python.s3-object-locking.s3_Scenario_ObjectLock]
         else:
             s3_client.delete_object(Bucket=bucket, Key=key, VersionId=version_id)
     except Exception as e:
@@ -103,8 +148,17 @@ def remove_object_locks_and_delete(s3_client, bucket, key, version_id):
     return "Success"
 
 
-def enable_versioning(s3_client, bucket):
-    """Enable versioning for the bucket."""
+def enable_versioning(s3_client, bucket: str) -> str:
+    """
+    Enable versioning for the bucket.
+
+    Args:
+        s3_client: Boto3 S3 client.
+        bucket: The name of the bucket to enable versioning for.
+
+    Returns:
+        "Success" if the operation is successful, otherwise an error message.
+    """
     try:
         s3_client.put_bucket_versioning(
             Bucket=bucket, VersioningConfiguration={"Status": "Enabled"}
@@ -115,8 +169,17 @@ def enable_versioning(s3_client, bucket):
     return "Success"
 
 
-def disable_bucket_object_lock_configuration(s3_client, bucket):
-    """Disable the object lock configuration for the bucket."""
+def disable_bucket_object_lock_configuration(s3_client, bucket: str) -> str:
+    """
+    Disable the object lock configuration for the bucket.
+
+    Args:
+        s3_client: Boto3 S3 client.
+        bucket: The name of the bucket to disable the object lock configuration for.
+
+    Returns:
+        "Success" if the operation is successful, otherwise an error message.
+    """
     try:
         logger.debug("Checking if object lock is enabled for bucket: %s", bucket)
         if not is_object_lock_enabled(s3_client, bucket):
@@ -126,10 +189,12 @@ def disable_bucket_object_lock_configuration(s3_client, bucket):
         logger.info("Disabling object lock configuration for bucket: %s", bucket)
         enable_versioning(s3_client, bucket)  # Ensure versioning is enabled
 
+        # snippet-start:[python.s3-object-locking.s3_PutObjectLockConfiguration]
         s3_client.put_object_lock_configuration(
             Bucket=bucket,
             ObjectLockConfiguration={"ObjectLockEnabled": "Disabled", "Rule": {}},
         )
+        # snippet-end:[python.s3-object-locking.s3_PutObjectLockConfiguration]
     except Exception:
         logger.debug(
             "Unable to disable object lock configuration for bucket %s", bucket
@@ -138,7 +203,10 @@ def disable_bucket_object_lock_configuration(s3_client, bucket):
     return "Success"
 
 
-def clean_s3_object_locking():
+def clean_s3_object_locking() -> None:
+    """
+    Clean up S3 object locking by removing locks and deleting objects and buckets.
+    """
     s3_client = boto3.client("s3")
 
     # Read bucket names from file
@@ -232,7 +300,3 @@ def clean_s3_object_locking():
     if len(error_table.rows) > 0:
         print("\nErrors Encountered During Cleanup:")
         print(error_table)
-
-
-if __name__ == "__main__":
-    clean_s3_object_locking()
