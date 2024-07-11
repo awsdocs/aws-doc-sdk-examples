@@ -114,7 +114,7 @@ iot_ListCertificates:
                 - cpp.example_code.iot.ListCertificates
   services:
     iot: {ListCertificates}
-iot_CreateKeysAndCertificate:
+iot_CreateCertificate:
   languages:
     Kotlin:
       versions:
@@ -124,7 +124,7 @@ iot_CreateKeysAndCertificate:
           excerpts:
             - description:
               snippet_tags:
-                - iot.java2.create.cert.main
+                - iot.kotlin.create.cert.main
     Java:
       versions:
         - sdk_version: 2
