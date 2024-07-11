@@ -71,7 +71,7 @@ def set_retention_for_deletion(
             far_future_date = (datetime.now() + timedelta(days=365)).strftime(
                 "%Y-%m-%dT%H:%M:%SZ"
             )
-            # snippet-start:[python.s3-object-locking.s3_PutObjectRetention]
+            # snippet-start:[python.example_code.s3.PutObjectRetention]
             s3_client.put_object_retention(
                 Bucket=bucket,
                 Key=key,
@@ -79,7 +79,7 @@ def set_retention_for_deletion(
                 Retention={"Mode": "GOVERNANCE", "RetainUntilDate": far_future_date},
                 BypassGovernanceRetention=True,
             )
-            # snippet-end:[python.s3-object-locking.s3_PutObjectRetention]
+            # snippet-end:[python.example_code.s3.PutObjectRetention]
     except Exception as e:
         logger.error("Error setting retention for %s in %s: %s", key, bucket, str(e))
         return f"Error setting retention: {str(e)}"
