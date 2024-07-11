@@ -51,7 +51,6 @@ Code excerpts that show you how to call individual service functions.
 - [SetSMSAttributes](src/main/java/com/example/sns/SetSMSAttributes.java#L6)
 - [SetSubscriptionAttributes](src/main/java/com/example/sns/UseMessageFilterPolicy.java#L6)
 - [SetTopicAttributes](src/main/java/com/example/sns/SetTopicAttributes.java#L6)
-- [Subscribe](None)
 - [TagResource](src/main/java/com/example/sns/AddTags.java#L6)
 - [Unsubscribe](src/main/java/com/example/sns/Unsubscribe.java#L6)
 
@@ -64,6 +63,7 @@ functions within the same service.
 - [Create and publish to a FIFO topic](src/main/java/com/example/sns/PriceUpdateExample.java)
 - [Publish SMS messages to a topic](src/main/java/com/example/sns/CreateTopic.java)
 - [Publish an SMS text message](src/main/java/com/example/sns/PublishTextSMS.java)
+- [Publish messages to queues](../../usecases/topics_and_queues/src/main/java/com/example/sns/SNSWorkflow.java)
 
 
 <!--custom.examples.start-->
@@ -133,6 +133,22 @@ This example shows you how to publish SMS messages using Amazon SNS.
 
 <!--custom.scenarios.sns_PublishTextSMS.start-->
 <!--custom.scenarios.sns_PublishTextSMS.end-->
+
+#### Publish messages to queues
+
+This example shows you how to do the following:
+
+- Create topic (FIFO or non-FIFO).
+- Subscribe several queues to the topic with an option to apply a filter.
+- Publish messages to the topic.
+- Poll the queues for messages received.
+
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
 
 ### Tests
 

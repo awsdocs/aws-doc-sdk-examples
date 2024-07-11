@@ -34,7 +34,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Agents for Amazon Bedrock](hello.js) (`ListAgents`)
+- [Hello Agents for Amazon Bedrock](hello.js) (`GetAgent`)
 
 
 ### Single actions

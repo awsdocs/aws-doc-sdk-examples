@@ -52,6 +52,13 @@ Code excerpts that show you how to call individual service functions.
 - [Subscribe](libs/snsClient.js#L4)
 - [Unsubscribe](libs/snsClient.js#L4)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Publish messages to queues](../cross-services/wkflw-topics-queues/index.js)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -86,6 +93,22 @@ This example shows you how to get started using Amazon SNS.
 node ./hello.js
 ```
 
+
+#### Publish messages to queues
+
+This example shows you how to do the following:
+
+- Create topic (FIFO or non-FIFO).
+- Subscribe several queues to the topic with an option to apply a filter.
+- Publish messages to the topic.
+- Poll the queues for messages received.
+
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
 
 ### Tests
 

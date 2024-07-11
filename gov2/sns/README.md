@@ -44,6 +44,13 @@ Code excerpts that show you how to call individual service functions.
 - [Publish](../workflows/topics_and_queues/actions/sns_actions.go#L105)
 - [Subscribe](../workflows/topics_and_queues/actions/sns_actions.go#L70)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Publish messages to queues](../workflows/topics_and_queues/workflows/scenario_topics_and_queues.go)
+
 
 <!--custom.examples.start-->
 ### Workflows
@@ -87,6 +94,22 @@ and to get help for running a scenario, use the following command:
 ```
 go run ./cmd -h
 ```
+
+#### Publish messages to queues
+
+This example shows you how to do the following:
+
+- Create topic (FIFO or non-FIFO).
+- Subscribe several queues to the topic with an option to apply a filter.
+- Publish messages to the topic.
+- Poll the queues for messages received.
+
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
 
 ### Tests
 

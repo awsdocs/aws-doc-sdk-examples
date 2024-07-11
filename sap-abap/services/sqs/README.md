@@ -40,6 +40,13 @@ Code excerpts that show you how to call individual service functions.
 - [ReceiveMessage](zcl_aws1_sqs_actions.clas.abap#L179)
 - [SendMessage](zcl_aws1_sqs_actions.clas.abap#L197)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Create and publish to a FIFO topic](../sns/zcl_aws1_sns_scenario.clas.abap)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -53,6 +60,18 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.end-->
 
 
+
+#### Create and publish to a FIFO topic
+
+This example shows you how to create and publish to a FIFO Amazon SNS topic.
+
+
+<!--custom.scenario_prereqs.sns_PublishFifoTopic.start-->
+<!--custom.scenario_prereqs.sns_PublishFifoTopic.end-->
+
+
+<!--custom.scenarios.sns_PublishFifoTopic.start-->
+<!--custom.scenarios.sns_PublishFifoTopic.end-->
 
 ### Tests
 
