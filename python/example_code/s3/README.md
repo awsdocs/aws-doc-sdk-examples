@@ -70,7 +70,7 @@ Code excerpts that show you how to call individual service functions.
 - [PutObjectAcl](s3_basics/object_wrapper.py#L237)
 - [PutObjectLegalHold](scenarios/object-locking/setup.py#L225)
 - [PutObjectLockConfiguration](scenarios/object-locking/cleanup.py#L194)
-- [PutObjectRetention](None)
+- [PutObjectRetention](scenarios/object-locking/cleanup.py#L74)
 
 ### Scenarios
 
