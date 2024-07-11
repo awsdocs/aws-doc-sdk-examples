@@ -11,6 +11,7 @@ import Foundation
 import AWSS3
 import ClientRuntime
 import AWSClientRuntime
+import Smithy
 // snippet-end:[s3.swift.basics.handler.imports]
 
 /// A class containing all the code that interacts with the AWS SDK for Swift.
@@ -71,7 +72,7 @@ public class ServiceHandler {
     public func uploadFile(bucket: String, key: String, file: String) async throws {
         let fileUrl = URL(fileURLWithPath: file)
         let fileData = try Data(contentsOf: fileUrl)
-        let dataStream = ByteStream.from(data: fileData)
+        let dataStream = ByteStream.data(fileData)
 
         let input = PutObjectInput(
             body: dataStream,
@@ -91,7 +92,7 @@ public class ServiceHandler {
     ///   - data: A `Data` object to write into the new file.
     // snippet-start:[s3.swift.basics.handler.createfile]
     public func createFile(bucket: String, key: String, withData data: Data) async throws {
-        let dataStream = ByteStream.from(data: data)
+        let dataStream = ByteStream.data(data)
 
         let input = PutObjectInput(
             body: dataStream,
