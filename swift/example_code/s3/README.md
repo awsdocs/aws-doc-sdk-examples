@@ -33,15 +33,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 Code excerpts that show you how to call individual service functions.
 
-- [CopyObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L164)
-- [CreateBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L41)
-- [DeleteBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L56)
-- [DeleteObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L183)
+- [CopyObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L165)
+- [CreateBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L42)
+- [DeleteBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L57)
+- [DeleteObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L184)
 - [DeleteObjects](DeleteObjects/Sources/ServiceHandler/ServiceHandler.swift#L54)
-- [GetObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L112)
+- [GetObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L113)
 - [ListBuckets](ListBuckets/Sources/ListBuckets/S3Session.swift#L70)
-- [ListObjectsV2](basics/Sources/ServiceHandler/ServiceHandler.swift#L204)
-- [PutObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L70)
+- [ListObjectsV2](basics/Sources/ServiceHandler/ServiceHandler.swift#L205)
+- [PutObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L71)
 
 ### Scenarios
 
