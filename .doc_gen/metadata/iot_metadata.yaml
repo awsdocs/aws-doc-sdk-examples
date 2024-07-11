@@ -114,7 +114,7 @@ iot_ListCertificates:
                 - cpp.example_code.iot.ListCertificates
   services:
     iot: {ListCertificates}
-iot_CreateCertificate:
+iot_CreateKeysAndCertificate:
   languages:
     Kotlin:
       versions:
