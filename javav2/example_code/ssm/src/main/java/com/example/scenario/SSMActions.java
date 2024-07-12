@@ -58,7 +58,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-
+// snippet-start:[ssm.java2.actions.main]
 public class SSMActions {
 
     private static SsmAsyncClient ssmAsyncClient;
@@ -150,7 +150,7 @@ public class SSMActions {
                 return null;
             });
 
-        future.join();  // Block until the CompletableFuture completes
+        future.join();
     }
     // snippet-end:[ssm.java2.delete_window.main]
 
@@ -181,7 +181,7 @@ public class SSMActions {
                         System.err.println("Unexpected error: " + cause.getMessage());
                     }
                 }
-                return null;  // CompletableFuture<Void> requires a return value, but not needed for void return type
+                return null;
             });
 
         try {
@@ -235,8 +235,7 @@ public class SSMActions {
                 }
                 return null;
             });
-
-        future.join();  // Block until the CompletableFuture completes
+        future.join();
     }
     // snippet-end:[ssm.java2.describe_ops.main]
 
@@ -279,7 +278,7 @@ public class SSMActions {
             return null;
         });
 
-        future.join();  // Block until the CompletableFuture completes
+        future.join();
     }
 
     private static CompletableFuture<OpsItem> getOpsItem(String opsItemId) {
@@ -361,7 +360,6 @@ public class SSMActions {
     }
     // snippet-end:[ssm.java2.describe_command.main]
 
-
     // snippet-start:[ssm.Java2.send_command.main]
     /**
      * Sends a SSM command to a managed node asynchronously.
@@ -390,8 +388,7 @@ public class SSMActions {
                 } else {
                     System.out.println("The SSM document is not active. Status: " + documentStatus);
                     try {
-                        // Add a delay to avoid making too many requests
-                        Thread.sleep(5000); // Wait for 5 seconds before checking again
+                         Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -457,8 +454,7 @@ public class SSMActions {
 
         return commandId[0];
     }
-// snippet-end:[ssm.Java2.send_command.main]
-
+    // snippet-end:[ssm.Java2.send_command.main]
 
     // snippet-start:[ssm.java2.create_doc.main]
     /**
@@ -623,5 +619,5 @@ public class SSMActions {
         return windowId[0];
     }
 // snippet-end:[ssm.java2.create_window.main]
-
 }
+// snippet-end:[ssm.java2.actions.main]
