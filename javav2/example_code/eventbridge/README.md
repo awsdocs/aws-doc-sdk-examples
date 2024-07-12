@@ -56,6 +56,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Get started with rules and targets](src/main/java/com/example/eventbridge/EventbridgeMVP.java)
+- [Send event notifications to EventBridge](../s3/src/main/java/com/example/s3/PutBucketS3EventNotificationEventBridge.java)
 
 
 <!--custom.examples.start-->
@@ -90,6 +91,18 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.eventbridge_Scenario_GettingStarted.start-->
 <!--custom.scenarios.eventbridge_Scenario_GettingStarted.end-->
+
+#### Send event notifications to EventBridge
+
+This example shows you how to enable a bucket to send S3 event notifications to EventBridge and route notifications to an Amazon SNS topic and Amazon SQS queue.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_PutBucketNotificationConfiguration.start-->
+<!--custom.scenario_prereqs.s3_Scenario_PutBucketNotificationConfiguration.end-->
+
+
+<!--custom.scenarios.s3_Scenario_PutBucketNotificationConfiguration.start-->
+<!--custom.scenarios.s3_Scenario_PutBucketNotificationConfiguration.end-->
 
 ### Tests
 
