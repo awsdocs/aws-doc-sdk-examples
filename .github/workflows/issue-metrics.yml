@@ -28,20 +28,20 @@ jobs:
         shell: bash
         run: |
           # Calculate the first day of the previous month
-          first_day=${{ inputs.report_date_start }}
+          first_day=${{ inputs.report_date_start }} >> "$GITHUB_ENV"
 
           # Calculate the last day of the previous month
-          last_day=${{ inputs.report_date_end }}
+          last_day=${{ inputs.report_date_end }} >> "$GITHUB_ENV"
 
       - name: Run issue-metrics tool
         uses: github/issue-metrics@v2
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SEARCH_QUERY: 'repo:awsdocs/aws-doc-sdk-examples is:issue created:${{ env.last_month }} -reason:"not planned"'
+          SEARCH_QUERY: 'repo:awsdocs/aws-doc-sdk-examples created:${{ env.first_day }}..${{ env.last_day }}'
 
       - name: Create issue
         uses: peter-evans/create-issue-from-file@v5
         with:
-          title: Monthly issue metrics report  ${{ env.last_month }}
+          title: Monthly issue metrics report ${{ env.first_day }} to ${{ env.last_day }}
           token: ${{ secrets.GITHUB_TOKEN }}
           content-filepath: ./issue_metrics.md
