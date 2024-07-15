@@ -165,7 +165,6 @@ public class SSMActions {
             throw ex.getCause() instanceof RuntimeException ? (RuntimeException) ex.getCause() : ex;
         }
     }
-
     // snippet-end:[ssm.java2.delete_window.main]
 
     // snippet-start:[ssm.Java2.resolve_ops.main]
