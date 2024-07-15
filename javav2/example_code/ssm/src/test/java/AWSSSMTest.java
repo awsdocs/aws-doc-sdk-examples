@@ -102,26 +102,32 @@ public class AWSSSMTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void InvokeScenario() throws InterruptedException {
+    public void InvokeScenario() {
         SSMActions actions = new SSMActions();
         String currentDateTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String maintenanceWindowName = "windowmain_" + currentDateTime;
-        String title = "Disk Space Alert" ;
+        String title = "Disk Space Alert";
         String documentName = "doc_" + currentDateTime;
+
+        // Assuming the createMaintenanceWindow method exists and is implemented correctly in SSMActions
         String maintenanceWindowId = assertDoesNotThrow(() -> actions.createMaintenanceWindow(maintenanceWindowName));
         assertDoesNotThrow(() -> actions.updateSSMMaintenanceWindow(maintenanceWindowId, maintenanceWindowName));
         assertDoesNotThrow(() -> actions.createSSMDoc(documentName));
-        String commandId = assertDoesNotThrow(() -> actions.sendSSMCommand(documentName, instance));
 
+        // Assuming 'instance' is defined and accessible
+        String commandId = assertDoesNotThrow(() -> actions.sendSSMCommand(documentName, instance));
         assertDoesNotThrow(() -> actions.displayCommands(commandId));
+
+        // Assuming 'source', 'category', and 'severity' are defined and accessible
         String opsItemId = assertDoesNotThrow(() -> actions.createSSMOpsItem(title, source, category, severity));
-        String description = "An update to "+opsItemId ;
+        String description = "An update to " + opsItemId;
         assertDoesNotThrow(() -> actions.updateOpsItem(opsItemId, title, description));
         assertDoesNotThrow(() -> actions.describeOpsItems(opsItemId));
         assertDoesNotThrow(() -> actions.resolveOpsItem(opsItemId));
         assertDoesNotThrow(() -> actions.deleteDoc(documentName));
         assertDoesNotThrow(() -> actions.deleteMaintenanceWindow(maintenanceWindowId));
-        System.out.println("Test 3 passed");
+
+        System.out.println("Test passed");
     }
 
    private static String getSecretValues() {
