@@ -589,7 +589,6 @@ public class SSMActions {
 
         CompletableFuture<CreateMaintenanceWindowResponse> future = getAsyncClient().createMaintenanceWindow(request);
         final String[] windowId = {null};
-
         future.whenComplete((response, ex) -> {
             if (response != null) {
                 String maintenanceWindowId = response.windowId();
