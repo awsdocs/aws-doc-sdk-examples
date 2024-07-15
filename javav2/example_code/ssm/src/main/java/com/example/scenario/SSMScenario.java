@@ -4,20 +4,40 @@
 package com.example.scenario;
 
 // snippet-start:[ssm.java2.scenario.main]
+import software.amazon.awssdk.services.ssm.model.DocumentAlreadyExistsException;
+import software.amazon.awssdk.services.ssm.model.SsmException;
+
 import java.util.Scanner;
 public class SSMScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
+        String usage = """
+            Usage:
+              <instanceId> <title> <source> <category> <severity>
+      
+            Where:
+                instanceId - The Amazon EC2 Linux/UNIX instance Id that AWS Systems Manager uses (ie, i-0149338494ed95f06). 
+                title - The title of the parameter (default is Disk Space Alert).
+                source - The source of the parameter (default is EC2).
+                category - The category of the parameter. Valid values are 'Availability', 'Cost', 'Performance', 'Recovery', 'Security' (default is Performance).
+                severity - The severity of the parameter. Severity should be a number from 1 to 4 (default is 2).
+        """;
+
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
+
         Scanner scanner = new Scanner(System.in);
         SSMActions actions = new SSMActions();
         String documentName;
         String windowName;
-        String instanceId = "i-0fecb1fdbc2a1ecbd";
-        String title = "Disk Space Alert" ; //args[0];
-        String source = "EC2";
-        String category = "Performance" ; //args[2];
-        String severity = "2" ; // args[3];
+        String instanceId = args[0];
+        String title = args[1];
+        String source = args[2];
+        String category = args[3];
+        String severity = args[4];
 
         System.out.println(DASHES);
         System.out.println("""
@@ -37,13 +57,38 @@ public class SSMScenario {
         System.out.println("Please enter the maintenance window name (default is ssm-maintenance-window):");
         String win = scanner.nextLine();
         windowName = win.isEmpty() ? "ssm-maintenance-window" : win;
-        String winId = String.valueOf(actions.createMaintenanceWindow(windowName));
+        String winId = null;
+        try {
+            winId = actions.createMaintenanceWindow(windowName);
+            waitForInputToContinue(scanner);
+            System.out.println("The maintenance window ID is: " + winId);
+        } catch (DocumentAlreadyExistsException e) {
+            System.err.println("The SSM maintenance window already exists. Retrieving existing window ID...");
+            String existingWinId = actions.createMaintenanceWindow(windowName);
+            System.out.println("Existing window ID: " + existingWinId);
+        } catch (SsmException e) {
+            System.err.println("SSM error: " + e.getMessage());
+            return;
+        } catch (RuntimeException e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            return;
+        }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
         System.out.println("2. Modify the maintenance window by changing the schedule");
         waitForInputToContinue(scanner);
-        actions.updateSSMMaintenanceWindow(winId, windowName);
+        try {
+            actions.updateSSMMaintenanceWindow(winId, windowName);
+            waitForInputToContinue(scanner);
+            System.out.println("The SSM maintenance window was successfully updated");
+        } catch (SsmException e) {
+            System.err.println("SSM error: " + e.getMessage());
+            return;
+        } catch (RuntimeException e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            return;
+        }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
@@ -51,18 +96,50 @@ public class SSMScenario {
         System.out.println("Please enter the document name (default is ssmdocument):");
         String doc = scanner.nextLine();
         documentName = doc.isEmpty() ? "ssmdocument" : doc;
-        actions.createSSMDoc(documentName);
+        try {
+            actions.createSSMDoc(documentName);
+            waitForInputToContinue(scanner);
+            System.out.println("The SSM document was successfully created");
+        } catch (DocumentAlreadyExistsException e) {
+            System.err.println("The SSM document already exists. Moving on");
+        } catch (SsmException e) {
+            System.err.println("SSM error: " + e.getMessage());
+            return;
+        } catch (RuntimeException e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+        }
         waitForInputToContinue(scanner);
+        System.out.println(DASHES);
 
         System.out.println("4. Now we are going to run a command on an EC2 instance");
         waitForInputToContinue(scanner);
-        String commandId = actions.sendSSMCommand(documentName, instanceId);
+        String commandId="";
+        try {
+            commandId = actions.sendSSMCommand(documentName, instanceId);
+            waitForInputToContinue(scanner);
+            System.out.println("The command was successfully sent. Command ID: " + commandId);
+        } catch (SsmException e) {
+            System.err.println("SSM error: " + e.getMessage());
+        } catch (InterruptedException e) {
+            System.err.println("Thread was interrupted: " + e.getMessage());
+        } catch (RuntimeException e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+        }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
         System.out.println("5. Lets get the time when the specific command was sent to the specific managed node");
         waitForInputToContinue(scanner);
-        actions.displayCommands(commandId);
+        try {
+            actions.displayCommands(commandId);
+            System.out.println("The command invocations were successfully displayed.");
+        } catch (SsmException e) {
+            System.err.println("SSM error: " + e.getMessage());
+            return;
+        } catch (RuntimeException e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            return;
+        }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
@@ -79,26 +156,59 @@ public class SSMScenario {
             """);
 
         waitForInputToContinue(scanner);
-        String opsItemId = String.valueOf(actions.createSSMOpsItem(title, source, category, severity));
-        System.out.println(opsItemId + " was created");
+        String opsItemId;
+        try {
+            opsItemId = actions.createSSMOpsItem(title, source, category, severity);
+            System.out.println(opsItemId + " was created");
+        } catch (SsmException e) {
+            System.err.println("SSM error: " + e.getMessage());
+            return;
+        } catch (RuntimeException e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            return;
+        }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("7. Now we will update SSM OpsItem "+opsItemId);
+        System.out.println("7. Now we will update the SSM OpsItem "+opsItemId);
         waitForInputToContinue(scanner);
         String description = "An update to "+opsItemId ;
-        actions.updateOpsItem(opsItemId, title, description);
+        try {
+            actions.updateOpsItem(opsItemId, title, description);
+        } catch (SsmException e) {
+            System.err.println("SSM error: " + e.getMessage());
+            return;
+        } catch (RuntimeException e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            return;
+        }
 
         System.out.println(DASHES);
-        System.out.println("8. Now we will get the status of SSM OpsItem "+opsItemId);
+        System.out.println("8. Now we will get the status of the SSM OpsItem "+opsItemId);
         waitForInputToContinue(scanner);
-        actions.describeOpsItems(opsItemId);
+        try {
+            actions.describeOpsItems(opsItemId);
+        } catch (SsmException e) {
+            System.err.println("SSM error: " + e.getMessage());
+            return;
+        } catch (RuntimeException e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            return;
+        }
 
         System.out.println(DASHES);
         System.out.println("9. Now we will resolve the SSM OpsItem "+opsItemId);
         waitForInputToContinue(scanner);
-        actions.resolveOpsItem(opsItemId);
+        try {
+            actions.resolveOpsItem(opsItemId);
+        } catch (SsmException e) {
+            System.err.println("SSM error: " + e.getMessage());
+            return;
+        } catch (RuntimeException e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            return;
+        }
 
         System.out.println(DASHES);
         System.out.println("10. Would you like to delete the AWS Systems Manager resources? (y/n)");
@@ -106,8 +216,16 @@ public class SSMScenario {
         if (delAns.equalsIgnoreCase("y")) {
             System.out.println("You selected to delete the resources.");
             waitForInputToContinue(scanner);
-            actions.deleteMaintenanceWindow(winId);
-            actions.deleteDoc(documentName);
+            try {
+                actions.deleteMaintenanceWindow(winId);
+                actions.deleteDoc(documentName);
+            } catch (SsmException e) {
+                System.err.println("SSM error: " + e.getMessage());
+                return;
+            } catch (RuntimeException e) {
+                System.err.println("Unexpected error: " + e.getMessage());
+                return;
+            }
         } else {
             System.out.println("The AWS Systems Manager resources will not be deleted");
         }

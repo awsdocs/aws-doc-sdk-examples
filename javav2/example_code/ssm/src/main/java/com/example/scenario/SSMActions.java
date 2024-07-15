@@ -56,7 +56,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 // snippet-start:[ssm.java2.actions.main]
 public class SSMActions {
@@ -64,22 +63,22 @@ public class SSMActions {
     private static SsmAsyncClient ssmAsyncClient;
 
     private static SsmAsyncClient getAsyncClient() {
-        SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
-            .maxConcurrency(100)
-            .connectionTimeout(Duration.ofSeconds(60))
-            .readTimeout(Duration.ofSeconds(60))
-            .writeTimeout(Duration.ofSeconds(60))
-            .build();
-
-        ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
-            .apiCallTimeout(Duration.ofMinutes(2))
-            .apiCallAttemptTimeout(Duration.ofSeconds(90))
-            .retryPolicy(RetryPolicy.builder()
-                .numRetries(3)
-                .build())
-            .build();
-
         if (ssmAsyncClient == null) {
+            SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
+                .maxConcurrency(100)
+                .connectionTimeout(Duration.ofSeconds(60))
+                .readTimeout(Duration.ofSeconds(60))
+                .writeTimeout(Duration.ofSeconds(60))
+                .build();
+
+            ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
+                .apiCallTimeout(Duration.ofMinutes(2))
+                .apiCallAttemptTimeout(Duration.ofSeconds(90))
+                .retryPolicy(RetryPolicy.builder()
+                    .numRetries(3)
+                    .build())
+                .build();
+
             ssmAsyncClient = SsmAsyncClient.builder()
                 .region(Region.US_EAST_1)
                 .httpClient(httpClient)
@@ -104,21 +103,28 @@ public class SSMActions {
             .name(documentName)
             .build();
 
-        CompletableFuture<Void> future = getAsyncClient().deleteDocument(documentRequest)
-            .thenAccept(response -> {
-                System.out.println("The SSM document was successfully deleted.");
-            })
-            .exceptionally(ex -> {
-                Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
-                if (cause instanceof SsmException) {
-                    System.err.println("SSM error: " + cause.getMessage());
-                } else {
-                    System.err.println("Unexpected error: " + cause.getMessage());
-                }
-                return null;
-            });
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            getAsyncClient().deleteDocument(documentRequest)
+                .thenAccept(response -> {
+                    System.out.println("The SSM document was successfully deleted.");
+                })
+                .exceptionally(ex -> {
+                    throw new CompletionException(ex);
+                }).join();
+        }).exceptionally(ex -> {
+            Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
+            if (cause instanceof SsmException) {
+                throw new RuntimeException("SSM error: " + cause.getMessage(), cause);
+            } else {
+                throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
+            }
+        });
 
-        future.join();  // Block until the CompletableFuture completes
+        try {
+            future.join();
+        } catch (CompletionException ex) {
+            throw ex.getCause() instanceof RuntimeException ? (RuntimeException) ex.getCause() : ex;
+        }
     }
     // snippet-end:[ssm.Java2.delete_doc.main]
 
@@ -136,22 +142,30 @@ public class SSMActions {
             .windowId(winId)
             .build();
 
-        CompletableFuture<Void> future = getAsyncClient().deleteMaintenanceWindow(windowRequest)
-            .thenAccept(response -> {
-                System.out.println("The maintenance window was successfully deleted.");
-            })
-            .exceptionally(ex -> {
-                Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
-                if (cause instanceof SsmException) {
-                    System.err.println("SSM error: " + cause.getMessage());
-                } else {
-                    System.err.println("Unexpected error: " + cause.getMessage());
-                }
-                return null;
-            });
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            getAsyncClient().deleteMaintenanceWindow(windowRequest)
+                .thenAccept(response -> {
+                    System.out.println("The maintenance window was successfully deleted.");
+                })
+                .exceptionally(ex -> {
+                    throw new CompletionException(ex);
+                }).join();
+        }).exceptionally(ex -> {
+            Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
+            if (cause instanceof SsmException) {
+                throw new RuntimeException("SSM error: " + cause.getMessage(), cause);
+            } else {
+                throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
+            }
+        });
 
-        future.join();
+        try {
+            future.join();
+        } catch (CompletionException ex) {
+            throw ex.getCause() instanceof RuntimeException ? (RuntimeException) ex.getCause() : ex;
+        }
     }
+
     // snippet-end:[ssm.java2.delete_window.main]
 
     // snippet-start:[ssm.Java2.resolve_ops.main]
@@ -169,30 +183,27 @@ public class SSMActions {
             .status(OpsItemStatus.RESOLVED)
             .build();
 
-        CompletableFuture<Void> updateFuture = getAsyncClient().updateOpsItem(opsItemRequest)
-            .handle((response, ex) -> {
-                if (ex == null) {
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            getAsyncClient().updateOpsItem(opsItemRequest)
+                .thenAccept(response -> {
                     System.out.println("OpsItem resolved successfully.");
-                } else {
-                    Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
-                    if (cause instanceof SsmException) {
-                        System.err.println("SSM error: " + cause.getMessage());
-                    } else {
-                        System.err.println("Unexpected error: " + cause.getMessage());
-                    }
-                }
-                return null;
-            });
+                })
+                .exceptionally(ex -> {
+                    throw new CompletionException(ex);
+                }).join();
+        }).exceptionally(ex -> {
+            Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
+            if (cause instanceof SsmException) {
+                throw new RuntimeException("SSM error: " + cause.getMessage(), cause);
+            } else {
+                throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
+            }
+        });
 
         try {
-            updateFuture.join();
-        } catch (CompletionException e) {
-            Throwable cause = e.getCause();
-            if (cause instanceof SsmException) {
-                System.err.println("SSM error: " + cause.getMessage());
-            } else {
-                System.err.println("Unexpected error: " + cause.getMessage());
-            }
+            future.join();
+        } catch (CompletionException ex) {
+            throw ex.getCause() instanceof RuntimeException ? (RuntimeException) ex.getCause() : ex;
         }
     }
     // snippet-end:[ssm.Java2.resolve_ops.main]
@@ -219,23 +230,31 @@ public class SSMActions {
             .opsItemFilters(filter)
             .build();
 
-        CompletableFuture<Void> future = getAsyncClient().describeOpsItems(itemsRequest)
-            .thenAccept(itemsResponse -> {
-                List<OpsItemSummary> items = itemsResponse.opsItemSummaries();
-                for (OpsItemSummary item : items) {
-                    System.out.println("The item title is " + item.title() + " and the status is " + item.status().toString());
-                }
-            })
-            .exceptionally(ex -> {
-                Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
-                if (cause instanceof SsmException) {
-                    System.err.println("SSM error: " + cause.getMessage());
-                } else {
-                    System.err.println("Unexpected error: " + cause.getMessage());
-                }
-                return null;
-            });
-        future.join();
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            getAsyncClient().describeOpsItems(itemsRequest)
+                .thenAccept(itemsResponse -> {
+                    List<OpsItemSummary> items = itemsResponse.opsItemSummaries();
+                    for (OpsItemSummary item : items) {
+                        System.out.println("The item title is " + item.title() + " and the status is " + item.status().toString());
+                    }
+                })
+                .exceptionally(ex -> {
+                    throw new CompletionException(ex);
+                }).join();
+        }).exceptionally(ex -> {
+            Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
+            if (cause instanceof SsmException) {
+                throw new RuntimeException("SSM error: " + cause.getMessage(), cause);
+            } else {
+                throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
+            }
+        });
+
+        try {
+            future.join();
+        } catch (CompletionException ex) {
+            throw ex.getCause() instanceof RuntimeException ? (RuntimeException) ex.getCause() : ex;
+        }
     }
     // snippet-end:[ssm.java2.describe_ops.main]
 
@@ -266,27 +285,32 @@ public class SSMActions {
                 .build();
 
             return getAsyncClient().updateOpsItem(request).thenAccept(response -> {
-                System.out.println(opsItemId +" updated successfully.");
+                System.out.println(opsItemId + " updated successfully.");
+            }).exceptionally(ex -> {
+                throw new CompletionException(ex);
             });
         }).exceptionally(ex -> {
             Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
             if (cause instanceof SsmException) {
-                System.err.println("SSM error: " + cause.getMessage());
+                throw new RuntimeException("SSM error: " + cause.getMessage(), cause);
             } else {
-                System.err.println("Unexpected error: " + cause.getMessage());
+                throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
             }
-            return null;
         });
 
-        future.join();
+        try {
+            future.join();
+        } catch (CompletionException ex) {
+            throw ex.getCause() instanceof RuntimeException ? (RuntimeException) ex.getCause() : ex;
+        }
     }
+
 
     private static CompletableFuture<OpsItem> getOpsItem(String opsItemId) {
         GetOpsItemRequest request = GetOpsItemRequest.builder().opsItemId(opsItemId).build();
         return getAsyncClient().getOpsItem(request).thenApply(GetOpsItemResponse::opsItem);
     }
     // snippet-end:[ssm.java2.update_ops.main]
-
 
     // snippet-start:[ssm.java2.create_ops.main]
     /**
@@ -311,28 +335,28 @@ public class SSMActions {
             .severity(severity)
             .build();
 
+        CompletableFuture<CreateOpsItemResponse> future = getAsyncClient().createOpsItem(opsItemRequest);
+
         try {
-            CreateOpsItemResponse response = getAsyncClient().createOpsItem(opsItemRequest).get();
+            CreateOpsItemResponse response = future.join();
             return response.opsItemId();
-        } catch (InterruptedException | ExecutionException e) {
-            Throwable cause = (e instanceof ExecutionException) ? e.getCause() : e;
+        } catch (CompletionException e) {
+            Throwable cause = e.getCause();
             if (cause instanceof SsmException) {
-                System.err.println("SSM error: " + cause.getMessage());
+                throw (SsmException) cause;
             } else {
-                System.err.println("Unexpected error: " + cause.getMessage());
+                throw new RuntimeException(cause);
             }
-            return null;
         }
     }
     // snippet-end:[ssm.java2.create_ops.main]
 
-
     // snippet-start:[ssm.java2.describe_command.main]
     /**
-     * Displays the date and time when the specific command was invoked asynchronously.
+     * Displays the date and time when the specific command was invoked.
      *
      * @param commandId The ID of the command to describe.
-     *
+     * <p>
      * This method initiates an asynchronous request to list command invocations and prints the date and time of each command invocation.
      * If an exception occurs, it handles the error appropriately.
      */
@@ -351,11 +375,10 @@ public class SSMActions {
         }).exceptionally(ex -> {
             Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
             if (cause instanceof SsmException) {
-                System.err.println("SSM error: " + cause.getMessage());
+                throw (SsmException) cause;
             } else {
-                System.err.println("Unexpected error: " + cause.getMessage());
+                throw new RuntimeException(cause);
             }
-            return null;
         }).join();
     }
     // snippet-end:[ssm.java2.describe_command.main]
@@ -371,7 +394,7 @@ public class SSMActions {
      * This method initiates asynchronous requests to send a SSM command to a managed node.
      * It waits until the document is active, sends the command, and checks the command execution status.
      */
-    public String sendSSMCommand(String documentName, String instanceId) throws InterruptedException {
+    public String sendSSMCommand(String documentName, String instanceId) throws InterruptedException, SsmException {
         // Before we use Document to send a command - make sure it is active.
         CompletableFuture<Void> documentActiveFuture = CompletableFuture.runAsync(() -> {
             boolean isDocumentActive = false;
@@ -388,9 +411,9 @@ public class SSMActions {
                 } else {
                     System.out.println("The SSM document is not active. Status: " + documentStatus);
                     try {
-                         Thread.sleep(5000);
+                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        throw new RuntimeException(e);
                     }
                 }
             }
@@ -436,18 +459,18 @@ public class SSMActions {
                             }
                         } else {
                             Throwable invocationCause = (invocationEx instanceof CompletionException) ? invocationEx.getCause() : invocationEx;
-                            System.err.println("Error during command invocation: " + invocationCause.getMessage());
+                            throw new CompletionException(invocationCause);
                         }
                     }).join();
                 } catch (InterruptedException e) {
-                    System.err.println("Thread was interrupted: " + e.getMessage());
+                    throw new RuntimeException(e);
                 }
             } else {
                 Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
                 if (cause instanceof SsmException) {
-                    System.err.println("SSM error: " + cause.getMessage());
+                    throw (SsmException) cause;
                 } else {
-                    System.err.println("Unexpected error: " + cause.getMessage());
+                    throw new RuntimeException(cause);
                 }
             }
         }).join();
@@ -466,9 +489,9 @@ public class SSMActions {
      * If the request is successful, it prints the document status.
      * If an exception occurs, it handles the error appropriately.
      */
-    public void createSSMDoc(String docName) {
+    public void createSSMDoc(String docName) throws SsmException {
         String jsonData = """
-    {
+        {
         "schemaVersion": "2.2",
         "description": "Run a simple shell command",
         "mainSteps": [
@@ -483,7 +506,7 @@ public class SSMActions {
               }
             ]
         }
-    """;
+        """;
 
         CreateDocumentRequest request = CreateDocumentRequest.builder()
             .content(jsonData)
@@ -492,23 +515,20 @@ public class SSMActions {
             .build();
 
         CompletableFuture<CreateDocumentResponse> future = getAsyncClient().createDocument(request);
-
         future.thenAccept(response -> {
             System.out.println("The status of the SSM document is " + response.documentDescription().status());
         }).exceptionally(ex -> {
             Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
             if (cause instanceof DocumentAlreadyExistsException) {
-                System.err.println("The SSM document already exists. Moving on");
+                throw new CompletionException(cause);
             } else if (cause instanceof SsmException) {
-                System.err.println("SSM error: " + cause.getMessage());
+                throw new CompletionException(cause);
             } else {
-                System.err.println("Unexpected error: " + cause.getMessage());
+                throw new RuntimeException(cause);
             }
-            return null;
         }).join();
     }
-// snippet-end:[ssm.java2.create_doc.main]
-
+    // snippet-end:[ssm.java2.create_doc.main]
 
     // snippet-start:[ssm.java2.update_window.main]
     /**
@@ -521,7 +541,7 @@ public class SSMActions {
      * If the request is successful, it prints a success message.
      * If an exception occurs, it handles the error appropriately.
      */
-    public void updateSSMMaintenanceWindow(String id, String name) {
+    public void updateSSMMaintenanceWindow(String id, String name) throws SsmException {
         UpdateMaintenanceWindowRequest updateRequest = UpdateMaintenanceWindowRequest.builder()
             .windowId(id)
             .allowUnassociatedTargets(true)
@@ -538,9 +558,9 @@ public class SSMActions {
             } else {
                 Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
                 if (cause instanceof SsmException) {
-                    System.err.println("SSM error: " + cause.getMessage());
+                    throw new CompletionException(cause);
                 } else {
-                    System.err.println("Unexpected error: " + cause.getMessage());
+                    throw new RuntimeException(cause);
                 }
             }
         }).join();
@@ -558,7 +578,7 @@ public class SSMActions {
      * If the request is successful, it prints the maintenance window ID.
      * If an exception occurs, it handles the error appropriately.
      */
-    public String createMaintenanceWindow(String winName) {
+    public String createMaintenanceWindow(String winName) throws SsmException, DocumentAlreadyExistsException {
         CreateMaintenanceWindowRequest request = CreateMaintenanceWindowRequest.builder()
             .name(winName)
             .description("This is my maintenance window")
@@ -579,45 +599,45 @@ public class SSMActions {
             } else {
                 Throwable cause = (ex instanceof CompletionException) ? ex.getCause() : ex;
                 if (cause instanceof DocumentAlreadyExistsException) {
-                    System.err.println("The SSM maintenance window already exists. Moving on");
-
-                    // Get the existing window id.
-                    MaintenanceWindowFilter filter = MaintenanceWindowFilter.builder()
-                        .key("name")
-                        .values(winName)
-                        .build();
-
-                    DescribeMaintenanceWindowsRequest winRequest = DescribeMaintenanceWindowsRequest.builder()
-                        .filters(filter)
-                        .build();
-
-                    CompletableFuture<DescribeMaintenanceWindowsResponse> describeFuture = getAsyncClient().describeMaintenanceWindows(winRequest);
-
-                    describeFuture.whenComplete((describeResponse, describeEx) -> {
-                        if (describeResponse != null) {
-                            List<MaintenanceWindowIdentity> windows = describeResponse.windowIdentities();
-                            if (!windows.isEmpty()) {
-                                windowId[0] = windows.get(0).windowId();
-                                System.out.println("Window ID: " + windowId[0]);
-                            } else {
-                                System.out.println("Window not found.");
-                                windowId[0] = "";
-                            }
-                        } else {
-                            Throwable describeCause = (describeEx instanceof CompletionException) ? describeEx.getCause() : describeEx;
-                            System.err.println("Error describing maintenance windows: " + describeCause.getMessage());
-                        }
-                    }).join();
+                    throw new CompletionException(cause);
                 } else if (cause instanceof SsmException) {
-                    System.err.println("SSM error: " + cause.getMessage());
+                    throw new CompletionException(cause);
                 } else {
-                    System.err.println("Unexpected error: " + cause.getMessage());
+                    throw new RuntimeException(cause);
                 }
             }
         }).join();
 
+        if (windowId[0] == null) {
+            MaintenanceWindowFilter filter = MaintenanceWindowFilter.builder()
+                .key("name")
+                .values(winName)
+                .build();
+
+            DescribeMaintenanceWindowsRequest winRequest = DescribeMaintenanceWindowsRequest.builder()
+                .filters(filter)
+                .build();
+
+            CompletableFuture<DescribeMaintenanceWindowsResponse> describeFuture = getAsyncClient().describeMaintenanceWindows(winRequest);
+            describeFuture.whenComplete((describeResponse, describeEx) -> {
+                if (describeResponse != null) {
+                    List<MaintenanceWindowIdentity> windows = describeResponse.windowIdentities();
+                    if (!windows.isEmpty()) {
+                        windowId[0] = windows.get(0).windowId();
+                        System.out.println("Window ID: " + windowId[0]);
+                    } else {
+                        System.out.println("Window not found.");
+                        windowId[0] = "";
+                    }
+                } else {
+                    Throwable describeCause = (describeEx instanceof CompletionException) ? describeEx.getCause() : describeEx;
+                    throw new RuntimeException("Error describing maintenance windows: " + describeCause.getMessage(), describeCause);
+                }
+            }).join();
+        }
+
         return windowId[0];
     }
-// snippet-end:[ssm.java2.create_window.main]
+    // snippet-end:[ssm.java2.create_window.main]
 }
 // snippet-end:[ssm.java2.actions.main]
