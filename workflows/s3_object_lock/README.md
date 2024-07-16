@@ -27,6 +27,7 @@ This example is implemented in the following languages:
 - [.NET](../../dotnetv3/S3/scenarios/S3ObjectLockScenario/README.md)
 - [Go (v2)](../../gov2/workflows/s3_object_lock/README.md)
 - [JavaScript (v3)](../../javascriptv3/example_code/s3/scenarios/object-locking/README.md)
+- [Python](../../python/example_code/s3/scenarios/object-locking/README.md)
 
 ## Additional reading
 
