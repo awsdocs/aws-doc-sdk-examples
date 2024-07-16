@@ -299,7 +299,7 @@ Swift:
   guide: "&guide-swift-dev;"
 CLI:
   property: cli
-  syntax: none
+  syntax: cli 
   sdk:
     2:
       long: "&CLIlong;"
