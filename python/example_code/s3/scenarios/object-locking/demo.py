@@ -7,7 +7,7 @@ import boto3
 import coloredlogs
 from prettytable import PrettyTable
 
-from setup import set_legal_hold, set_retention
+from s3_operations import set_legal_hold, set_retention
 
 # Configure logging
 logger = logging.getLogger(__name__)

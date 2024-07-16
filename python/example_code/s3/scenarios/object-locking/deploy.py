@@ -4,7 +4,7 @@ from typing import Dict
 
 import boto3
 
-from setup import create_buckets, populate_buckets, update_retention_policy
+from s3_operations import create_buckets, populate_buckets, update_retention_policy
 
 
 def deploy_s3_object_locking() -> Dict[str, str]:

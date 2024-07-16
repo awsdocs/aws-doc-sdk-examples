@@ -21,10 +21,7 @@ This example demonstrates how to use the AWS SDK for Python (boto3) to work with
 To run these examples, you need:
 
 - Python 3.x installed.
-- \`boto3\` and \`prettytable\` libraries. You can install them using pip:
-  \`\`\`bash
-  pip install boto3 prettytable coloredlogs
-  \`\`\`
+- Run `python pip install -r requirements.txt`
 - AWS credentials configured. For more information, see [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
 
 ### Scenarios

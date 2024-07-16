@@ -5,7 +5,6 @@ import random
 from datetime import datetime, timedelta
 from typing import Dict
 
-import boto3
 import coloredlogs
 from prettytable import PrettyTable
 

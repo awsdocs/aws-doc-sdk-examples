@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: Apache-2.0
 import logging
 from datetime import datetime, timedelta
-from typing import Optional
 
 import boto3
 import coloredlogs
@@ -300,5 +299,5 @@ def clean_s3_object_locking() -> None:
     print("\nSummary of Cleanup Actions:")
     print(summary_table)
     if len(error_table.rows) > 0:
-        print("\nErrors Encountered During Cleanup:")
+        print("\nErrors Encountered During Cleanup (require manual cleanup):")
         print(error_table)
