@@ -14,6 +14,7 @@ sesv2_CreateContactList:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - ses.rust.create-contact-list
     Java:
@@ -22,6 +23,7 @@ sesv2_CreateContactList:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.CreateContactList
     Python:
@@ -30,6 +32,7 @@ sesv2_CreateContactList:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -60,6 +63,7 @@ sesv2_CreateContact:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.CreateContact
     Python:
@@ -68,6 +72,7 @@ sesv2_CreateContact:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -122,6 +127,7 @@ sesv2_ListContacts:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.ListContacts
     Python:
@@ -130,6 +136,7 @@ sesv2_ListContacts:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -183,11 +190,13 @@ sesv2_SendEmail:
           github: python/example_code/sesv2
           excerpts:
             - description: Sends a message to all members of the contact list.
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.SendEmail.simple
             - description: Sends a message to all members of the contact list using a template.
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -210,6 +219,7 @@ sesv2_CreateEmailIdentity:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.CreateEmailIdentity
     Python:
@@ -218,6 +228,7 @@ sesv2_CreateEmailIdentity:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -228,6 +239,7 @@ sesv2_CreateEmailIdentity:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.rust.create-email-identity
   services:
@@ -248,6 +260,7 @@ sesv2_CreateEmailTemplate:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.CreateEmailTemplate
     Python:
@@ -256,6 +269,7 @@ sesv2_CreateEmailTemplate:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -266,6 +280,7 @@ sesv2_CreateEmailTemplate:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.rust.create-email-template
   services:
@@ -286,6 +301,7 @@ sesv2_DeleteContactList:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.DeleteContactList
     Python:
@@ -294,6 +310,7 @@ sesv2_DeleteContactList:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -304,6 +321,7 @@ sesv2_DeleteContactList:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.rust.delete-contact-list
   services:
@@ -324,6 +342,7 @@ sesv2_DeleteEmailIdentity:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.DeleteEmailIdentity
     Python:
@@ -332,6 +351,7 @@ sesv2_DeleteEmailIdentity:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -342,6 +362,7 @@ sesv2_DeleteEmailIdentity:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.rust.delete-email-identity
   services:
@@ -362,6 +383,7 @@ sesv2_DeleteEmailTemplate:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.DeleteEmailTemplate
     Python:
@@ -370,6 +392,7 @@ sesv2_DeleteEmailTemplate:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -380,6 +403,7 @@ sesv2_DeleteEmailTemplate:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.rust.delete-email-template
   services:
@@ -407,6 +431,7 @@ sesv2_NewsletterWorkflow:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.CreateContactList
                 - sesv2.java2.newsletter.CreateContact
@@ -423,6 +448,7 @@ sesv2_NewsletterWorkflow:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -442,6 +468,7 @@ sesv2_NewsletterWorkflow:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.rust.create-contact-list
                 - sesv2.rust.create-contact
