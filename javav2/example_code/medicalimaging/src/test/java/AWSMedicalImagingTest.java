@@ -182,10 +182,13 @@ public class AWSMedicalImagingTest {
                                 .build())
                 .build());
 
+        SearchCriteria searchCriteria = SearchCriteria.builder()
+                .filters(searchFilters)
+                .build();
         @SuppressWarnings("rawtypes")
         final List[] searchResults = { null };
         assertDoesNotThrow(() -> searchResults[0] = SearchImageSets.searchMedicalImagingImageSets(medicalImagingClient,
-                workingDatastoreId, searchFilters));
+                workingDatastoreId, searchCriteria));
         assertNotNull(searchResults[0]);
 
         System.out.println("Test 6 passed");
