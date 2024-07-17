@@ -46,11 +46,11 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [AbortMultipartUpload](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp#L1083)
-- [CompleteMultipartUpload](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp#L1115)
+- [AbortMultipartUpload](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp#L1097)
+- [CompleteMultipartUpload](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp#L1129)
 - [CopyObject](copy_object.cpp#L32)
 - [CreateBucket](create_bucket.cpp#L30)
-- [CreateMultipartUpload](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp#L992)
+- [CreateMultipartUpload](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp#L1006)
 - [DeleteBucket](delete_bucket.cpp#L30)
 - [DeleteBucketPolicy](delete_bucket_policy.cpp#L30)
 - [DeleteBucketWebsite](delete_website_config.cpp#L30)
@@ -69,7 +69,7 @@ Code excerpts that show you how to call individual service functions.
 - [PutBucketWebsite](put_website_config.cpp#L33)
 - [PutObject](put_object.cpp#L33)
 - [PutObjectAcl](get_put_object_acl.cpp#L165)
-- [UploadPart](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp#L1026)
+- [UploadPart](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp#L1040)
 
 ### Scenarios
 
