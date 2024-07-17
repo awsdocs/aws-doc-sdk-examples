@@ -764,6 +764,9 @@ medical-imaging_CopyImageSet:
             - description:
               snippet_tags:
                 - medicalimaging.java2.copy_imageset.main
+            - description: Utility function to create copiable attributes.
+              snippet_tags:
+                - medicalimaging.java2.copy_imageset.copiable_attributes
   services:
     medical-imaging: {CopyImageSet}
 medical-imaging_DeleteImageSet:
