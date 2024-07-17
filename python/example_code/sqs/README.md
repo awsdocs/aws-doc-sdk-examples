@@ -53,6 +53,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Create and publish to a FIFO topic](../sns/sns_fifo_topic.py)
 - [Send and receive batches of messages](message_wrapper.py)
 
 ### Cross-service examples
@@ -75,6 +76,24 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.end-->
 
 
+
+#### Create and publish to a FIFO topic
+
+This example shows you how to create and publish to a FIFO Amazon SNS topic.
+
+
+<!--custom.scenario_prereqs.sns_PublishFifoTopic.start-->
+<!--custom.scenario_prereqs.sns_PublishFifoTopic.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python ../sns/sns_fifo_topic.py
+```
+
+
+<!--custom.scenarios.sns_PublishFifoTopic.start-->
+<!--custom.scenarios.sns_PublishFifoTopic.end-->
 
 #### Send and receive batches of messages
 

@@ -11,6 +11,7 @@ import AWSS3
 import AWSClientRuntime
 import ClientRuntime
 import SwiftUtilities
+import Smithy
 @testable import ServiceHandler
 
 public extension ServiceHandler {
@@ -47,7 +48,7 @@ public extension ServiceHandler {
     ///   - key: Name of the file to create.
     ///   - data: A `Data` object to write into the new file.
     func createFile(bucket: String, key: String, withData data: Data) async throws {
-        let dataStream = ByteStream.from(data: data)
+        let dataStream = ByteStream.data(data)
 
         let input = PutObjectInput(
             body: dataStream,

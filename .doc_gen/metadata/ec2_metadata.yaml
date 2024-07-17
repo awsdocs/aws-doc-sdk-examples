@@ -1616,7 +1616,8 @@ ec2_DescribeImages:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-            - snippet_tags:
+            - genai: some
+              snippet_tags:
                 - ec2.rust.describe-images
     Bash:
       versions:

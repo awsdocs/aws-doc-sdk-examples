@@ -14,8 +14,9 @@
 #include "rekognition_gtests.h"
 
 namespace AwsDocTest {
+    // Designated _2R_ because it requires resources.
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(Rekognition_GTests, detect_labels_2_) {
+    TEST_F(Rekognition_GTests, detect_labels_2R_) {
         Aws::String bucketName = getImageBucket();
         ASSERT_FALSE(bucketName.empty()) << preconditionError() << std::endl;
         Aws::String fileName = getImageFileName();

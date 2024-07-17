@@ -1,0 +1,5 @@
+boto3
+coloredlogs
+prettytable
+pytest
+pytest-mock
