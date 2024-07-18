@@ -53,7 +53,7 @@
                 {{- end}}
                 {{- if .SnippetTags}}
                 <!-- The following line break must be preserved and left-justified exactly as-is, to keep snippets looking good. -->
-                <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="text" href="{{$include_base}}snippets/{{.}}.txt"/>
+                <programlisting language="{{.Syntax}}">{{range .SnippetTags}}<xi:include parse="{{- if hasSuffix . ".xml"}}xml{{- else}}text{{- end}}" href="{{$include_base}}snippets/{{.}}.txt"/>
 {{end}}</programlisting>
                 {{- end}}
             </block>
