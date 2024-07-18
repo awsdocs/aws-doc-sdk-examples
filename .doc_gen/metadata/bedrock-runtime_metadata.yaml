@@ -154,6 +154,14 @@ bedrock-runtime_Converse_AnthropicClaude:
             - description: Send a text message to Anthropic Claude, using Bedrock's Converse API.
               snippet_tags:
                 - javascript.v3.bedrock-runtime.Converse_AnthropicClaude
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Anthropic Claude, using Bedrock's Converse API.
+              snippet_tags:
+                - rust.bedrock-runtime.Converse_AnthropicClaude
   services:
     bedrock-runtime: {Converse}
 
