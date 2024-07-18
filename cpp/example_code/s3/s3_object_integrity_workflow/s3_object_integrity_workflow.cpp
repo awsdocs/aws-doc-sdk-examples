@@ -116,7 +116,7 @@ namespace AwsDoc::S3 {
         [[nodiscard]] Aws::Utils::ByteBuffer getByteBufferHash() const;
     };
 
-    //! Routine which uploads an object to an S3 bucket and calculates a hash value for the object.
+    //! Routine which uploads an object to an S3 bucket with different object integrity hashing methods.
     /*!
        \param bucket: The name of the S3 bucket where the object will be uploaded.
        \param key: The unique identifier (key) for the object within the S3 bucket.
@@ -386,7 +386,7 @@ namespace AwsDoc::S3 {
 } // namespace AwsDoc
 
 // snippet-start:[cpp.example_code.s3.Scenario_ObjectIntegrity]
-//! Routine which runs the HealthImaging workflow.
+//! Routine which runs the S3 object integrity workflow.
 /*!
    \param clientConfig: Aws client configuration.
    \return bool: Function succeeded.
@@ -643,7 +643,7 @@ bool AwsDoc::S3::s3ObjectIntegrityWorkflow(
     }
 }
 
-//! Routine which uploads an object to an S3 bucket and calculates a hash value for the object.
+//! Routine which uploads an object to an S3 bucket with different object integrity hashing methods.
 /*!
    \param bucket: The name of the S3 bucket where the object will be uploaded.
    \param key: The unique identifier (key) for the object within the S3 bucket.
