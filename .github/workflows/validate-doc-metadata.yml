@@ -16,7 +16,7 @@ jobs:
       - name: checkout repo content
         uses: actions/checkout@v4
       - name: validate metadata
-        uses: awsdocs/aws-doc-sdk-examples-tools@9e8dd5c2225ae43d6c0f7fb7c46caf8b3a5311c2
+        uses: awsdocs/aws-doc-sdk-examples-tools@2024-07-19-B
         with:
           doc_gen_only: "False"
           strict_titles: "True"
