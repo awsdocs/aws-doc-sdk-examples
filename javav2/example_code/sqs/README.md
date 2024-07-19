@@ -53,6 +53,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create and publish to a FIFO topic](../sns/src/main/java/com/example/sns/PriceUpdateExample.java)
+- [Process S3 event notifications](../s3/src/main/java/com/example/s3/ProcessS3EventNotification.java)
 - [Publish messages to queues](../../usecases/topics_and_queues/src/main/java/com/example/sns/SNSWorkflow.java)
 
 
@@ -84,6 +85,18 @@ This example shows you how to create and publish to a FIFO Amazon SNS topic.
 
 <!--custom.scenarios.sns_PublishFifoTopic.start-->
 <!--custom.scenarios.sns_PublishFifoTopic.end-->
+
+#### Process S3 event notifications
+
+This example shows you how to work with S3 event notifications in an object-oriented way.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_ProcessS3EventNotification.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ProcessS3EventNotification.end-->
+
+
+<!--custom.scenarios.s3_Scenario_ProcessS3EventNotification.start-->
+<!--custom.scenarios.s3_Scenario_ProcessS3EventNotification.end-->
 
 #### Publish messages to queues
 
