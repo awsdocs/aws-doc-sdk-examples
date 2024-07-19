@@ -26,14 +26,13 @@
 //! Allocate an Elastic IP address and associate it with an Amazon Elastic Compute Cloud
 //! (Amazon EC2) instance.
 /*!
-  \sa AllocateAndAssociateAddress()
   \param instanceID: An EC2 instance ID.
-  \param allocationId: String to return the allocation ID of the address.
+  \param publicIPAddress[out]: String to return the public IP address.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
 bool AwsDoc::EC2::AllocateAndAssociateAddress(const Aws::String &instanceId,
-                                              Aws::String &allocationId,
+                                              Aws::String &publicIPAddress,
                                               const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.allocate_address.code]
     // snippet-start:[cpp.example_code.ec2.allocate_address.client]
@@ -51,8 +50,10 @@ bool AwsDoc::EC2::AllocateAndAssociateAddress(const Aws::String &instanceId,
                   outcome.GetError().GetMessage() << std::endl;
         return false;
     }
+    const Aws::EC2::Model::AllocateAddressResponse &response = outcome.GetResult();
+    const Aws::String& allocationId = response.GetAllocationId();
+    publicIPAddress = response.GetPublicIp();
 
-    allocationId = outcome.GetResult().GetAllocationId();
     // snippet-end:[cpp.example_code.ec2.AllocateAddress]
 
     // snippet-start:[cpp.example_code.ec2.AssociateAddress]
@@ -102,8 +103,8 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
         Aws::String instanceID = argv[1];
-        Aws::String allocationID;
-        AwsDoc::EC2::AllocateAndAssociateAddress(instanceID, allocationID,
+        Aws::String publicIPAddress;
+        AwsDoc::EC2::AllocateAndAssociateAddress(instanceID, publicIPAddress,
                                                  clientConfig);
     }
     Aws::ShutdownAPI(options);

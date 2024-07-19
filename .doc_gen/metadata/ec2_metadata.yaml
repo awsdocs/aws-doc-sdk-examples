@@ -398,11 +398,9 @@ ec2_RunInstances:
       versions:
         - sdk_version: 1
           github: cpp/example_code/ec2
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.create_instance.client
                 - cpp.example_code.ec2.RunInstances
     Bash:
       versions:
@@ -1781,11 +1779,9 @@ ec2_CreateTags:
       versions:
         - sdk_version: 1
           github: cpp/example_code/ec2
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.create_instance.client
                 - cpp.example_code.ec2.CreateTags
   services:
     ec2: {CreateTags}

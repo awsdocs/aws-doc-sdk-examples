@@ -13,9 +13,8 @@ namespace AwsDoc {
         //! Allocate an Elastic IP address and associate it with an Amazon Elastic Compute Cloud
         //! (Amazon EC2) instance.
         /*!
-          \sa AllocateAndAssociateAddress()
           \param instanceID: An EC2 instance ID.
-          \param allocationId: String to return the allocation ID of the address.
+          \param publicIPAddress[out]: String to return the public IP address.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
@@ -48,6 +47,17 @@ namespace AwsDoc {
                                  const Aws::String &vpcID,
                                  Aws::String &groupIDResult,
                                  const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Add or overwrite only the specified tags for the specified Amazon Elastic Compute Cloud (Amazon EC2) resource or resources.
+        /*!
+          \param resources: The resources for the tags.
+          \param tags: Map of tag keys and values.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool createTags(const Aws::Vector<Aws::String> &resources,
+                        const Aws::Vector<Aws::EC2::Model::Tag> &tags,
+                        const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Delete an Amazon EC2 key pair.
         /*!

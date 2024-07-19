@@ -15,33 +15,27 @@
 // snippet-start:[ec2.cpp.create_instance.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
-#include <aws/ec2/model/CreateTagsRequest.h>
 #include <aws/ec2/model/RunInstancesRequest.h>
-#include <aws/ec2/model/RunInstancesResponse.h>
 #include <iostream>
 // snippet-end:[ec2.cpp.create_instance.inc]
 #include "ec2_samples.h"
 
+// snippet-start:[cpp.example_code.ec2.RunInstances]
 //! Launch an Amazon Elastic Compute Cloud (Amazon EC2) instance.
 /*!
-  \sa RunInstance()
   \param instanceName: A name for the EC2 instance.
   \param amiId: An Amazon Machine Image (AMI) identifier.
   \param instanceID: String to return the instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-
 bool AwsDoc::EC2::RunInstance(const Aws::String &instanceName,
                               const Aws::String &amiId,
                               Aws::String &instanceID,
                               const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.create_instance.code]
-    // snippet-start:[cpp.example_code.ec2.create_instance.client]
-    Aws::EC2::EC2Client ec2Client(clientConfiguration);
-    // snippet-end:[cpp.example_code.ec2.create_instance.client]
+     Aws::EC2::EC2Client ec2Client(clientConfiguration);
 
-    // snippet-start:[cpp.example_code.ec2.RunInstances]
     Aws::EC2::Model::RunInstancesRequest runRequest;
     runRequest.SetImageId(amiId);
     runRequest.SetInstanceType(Aws::EC2::Model::InstanceType::t1_micro);
@@ -64,41 +58,20 @@ bool AwsDoc::EC2::RunInstance(const Aws::String &instanceName,
                   runOutcome.GetError().GetMessage() << std::endl;
         return false;
     }
-     // snippet-end:[ec2.cpp.create_instance.code]
+    // snippet-end:[ec2.cpp.create_instance.code]
 
     instanceID = instances[0].GetInstanceId();
-    // snippet-end:[cpp.example_code.ec2.RunInstances]
 
-    // snippet-start:[cpp.example_code.ec2.CreateTags]
-    Aws::EC2::Model::Tag nameTag;
-    nameTag.SetKey("Name");
-    nameTag.SetValue(instanceName);
-
-    Aws::EC2::Model::CreateTagsRequest createRequest;
-    createRequest.AddResources(instanceID);
-    createRequest.AddTags(nameTag);
-
-    Aws::EC2::Model::CreateTagsOutcome createOutcome = ec2Client.CreateTags(
-            createRequest);
-    if (!createOutcome.IsSuccess()) {
-        std::cerr << "Failed to tag ec2 instance " << instanceID <<
-                  " with name " << instanceName << ":" <<
-                  createOutcome.GetError().GetMessage() << std::endl;
-        return false;
-    }
-    // snippet-end:[cpp.example_code.ec2.CreateTags]
-
-    std::cout << "Successfully launched ec2 instance " << instanceName <<
-              " based on ami " << amiId << std::endl;
     return true;
 }
+// snippet-end:[cpp.example_code.ec2.RunInstances]
 
 
 /*
  *
  *  main function
  *
- *  Usage: 'run_create_instance <instance_name> <ami_image_id>'
+ *  Usage: 'run_run_instances <instance_name> <ami_image_id>'
  *
  */
 
@@ -106,7 +79,7 @@ bool AwsDoc::EC2::RunInstance(const Aws::String &instanceName,
 
 int main(int argc, char **argv) {
     if (argc != 3) {
-        std::cout << "Usage: run_create_instance <instance_name> <ami_image_id>"
+        std::cout << "Usage: run_run_instances <instance_name> <ami_image_id>"
                   << std::endl;
         return 1;
     }
