@@ -19,6 +19,8 @@
         <logger name="TransferManagerTest" level="INFO"/>
         <logger name="S3TestWatcher" level="INFO"/>
         <logger name="com.example.s3" level="INFO"/>
+        <Logger name="io.netty.handler.logging" level="INFO" />
+        <Logger name="io.netty.handler.codec.http2.Http2FrameLogger" level="INFO" />
         <logger name="com.example.s3.ParseUri">
             <AppenderRef ref="MemoryLog4jAppender"/>
         </logger>

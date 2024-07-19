@@ -57,7 +57,6 @@ Code excerpts that show you how to call individual service functions.
 - [PutBucketAcl](src/main/java/com/example/s3/SetAcl.java#L6)
 - [PutBucketCors](src/main/java/com/example/s3/S3Cors.java#L6)
 - [PutBucketLifecycleConfiguration](src/main/java/com/example/s3/LifecycleConfiguration.java#L6)
-- [PutBucketNotificationConfiguration](src/main/java/com/example/s3/SetBucketEventBridgeNotification.java#L6)
 - [PutBucketPolicy](src/main/java/com/example/s3/SetBucketPolicy.java#L6)
 - [PutBucketWebsite](src/main/java/com/example/s3/SetWebsiteConfiguration.java#L6)
 - [PutObject](src/main/java/com/example/s3/PutObject.java#L6)
@@ -79,6 +78,8 @@ functions within the same service.
 - [Lock Amazon S3 objects](src/main/java/com/example/s3/lockscenario/S3ObjectLockWorkflow.java)
 - [Parse URIs](src/main/java/com/example/s3/ParseUri.java)
 - [Perform a multipart upload](src/main/java/com/example/s3/PerformMultiPartUpload.java)
+- [Process S3 event notifications](src/main/java/com/example/s3/ProcessS3EventNotification.java)
+- [Send event notifications to EventBridge](src/main/java/com/example/s3/PutBucketS3EventNotificationEventBridge.java)
 - [Track uploads and downloads](src/main/java/com/example/s3/transfermanager/UploadFile.java)
 - [Upload directory to a bucket](src/main/java/com/example/s3/transfermanager/UploadADirectory.java)
 - [Upload or download large files](src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java)
@@ -193,6 +194,30 @@ This example shows you how to perform a multipart upload to an Amazon S3 object.
 
 <!--custom.scenarios.s3_Scenario_MultipartUpload.start-->
 <!--custom.scenarios.s3_Scenario_MultipartUpload.end-->
+
+#### Process S3 event notifications
+
+This example shows you how to work with S3 event notifications in an object-oriented way.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_ProcessS3EventNotification.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ProcessS3EventNotification.end-->
+
+
+<!--custom.scenarios.s3_Scenario_ProcessS3EventNotification.start-->
+<!--custom.scenarios.s3_Scenario_ProcessS3EventNotification.end-->
+
+#### Send event notifications to EventBridge
+
+This example shows you how to enable a bucket to send S3 event notifications to EventBridge and route notifications to an Amazon SNS topic and Amazon SQS queue.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_PutBucketNotificationConfiguration.start-->
+<!--custom.scenario_prereqs.s3_Scenario_PutBucketNotificationConfiguration.end-->
+
+
+<!--custom.scenarios.s3_Scenario_PutBucketNotificationConfiguration.start-->
+<!--custom.scenarios.s3_Scenario_PutBucketNotificationConfiguration.end-->
 
 #### Track uploads and downloads
 

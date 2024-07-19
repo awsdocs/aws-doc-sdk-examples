@@ -2382,6 +2382,14 @@ s3_PutBucketNotificationConfiguration:
             - description:
               snippet_tags:
                 - S3.dotnetv3.EnableNotificationsExample
+  services:
+    s3: {PutBucketNotificationConfiguration}
+s3_Scenario_PutBucketNotificationConfiguration:
+  title: Send S3 event notifications to &EVlong; using an &AWS; SDK
+  title_abbrev: Send event notifications to &EV;
+  synopsis: enable a bucket to send S3 event notifications to &EV; and route notifications to an &SNS; topic and &SQS; queue.
+  category: Scenarios
+  languages:
     Java:
       versions:
         - sdk_version: 2
@@ -2390,9 +2398,10 @@ s3_PutBucketNotificationConfiguration:
           excerpts:
             - description:
               snippet_tags:
-                - s3.java2.s3_enable_notifications.main
+                - s3.java2.s3_enable_notifications_to_eventbridge
   services:
     s3: {PutBucketNotificationConfiguration}
+    eventbridge: {PutRule, PutTargets}
 s3_PutBucketAccelerateConfiguration:
   languages:
     .NET:
@@ -3367,3 +3376,21 @@ s3_Scenario_AbortMultipartUpload:
                 - s3.java2.abort_upload_using_lifecycle_config
   services:
     s3: {ListMultipartUploads, AbortMultipartUpload, PutBucketLifecycleConfiguration}
+s3_Scenario_ProcessS3EventNotification:
+  title: Receive and process &S3; event notifications by using an &AWS; SDK.
+  title_abbrev: Process S3 event notifications
+  synopsis: work with S3 event notifications in an object-oriented way.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: This example show how to process S3 notification event by using &SQS;.
+              snippet_tags:
+                - s3.java2.process_s3_event_notifications
+  services:
+    s3: {PutBucketNotificationConfiguration}
+    sqs: {ReceiveMessage, GetQueueAttributes, DeleteMessageBatch}
