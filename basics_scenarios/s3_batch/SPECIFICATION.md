@@ -13,23 +13,24 @@ The Amazon S3 Batch basic scenario executes the following steps:
 
 1. **Introduce Amazon S3 Batch**: The program provides a brief introduction to Amazon S3 Batch functionality.
 
-2. **Stands up the resources**: Uses the Amazon CloudFormation to standup the resouce.  
+2. **Stand up the resources**: Uses Amazon CloudFormation to create the resources.
 
-3. **Create Batch Job**:*: The program creates an S3 Batch job. 
+3. **Create Batch Job**: The program creates an S3 Batch job.
 
-3. **Cancel the S3 Batch job**: The program cancels the S3 Batch job if the user requests that action.
+4. **Cancel the S3 Batch job**: The program cancels the S3 Batch job if the user requests that action.
 
-4. **Describe the job**: The program describes the job that was just created. Details such as the status and the job priority are displayed.
+5. **Describe the job**: The program describes the job that was just created. Details such as the status and the job priority are displayed.
 
-5. **Describe the tags**: The program describe the tags associated with the job.
+6. **Describe the tags**: The program describes the tags associated with the job.
 
-6. **Update Batch Job Tags**: The program adds additional tags to the job.
+7. **Update Batch Job Tags**: The program adds additional tags to the job.
 
-7. **List Batch Jobs"**: The program lists all batch jobs under the account.
+8. **List Batch Jobs**: The program lists all batch jobs under the account.
 
-8. **Delete the Amazon S3 Batch job tagging**: The program deletes the job tagging.
+9. **Delete the Amazon S3 Batch job tagging**: The program deletes the job tagging.
 
-9. **Deletes the resources**: The program deletes the CloudFormation stack and the S3 bucket used in the scenario.
+10. **Delete the resources**: The program deletes the CloudFormation stack and the S3 bucket used in the scenario.
+
 
 
 
