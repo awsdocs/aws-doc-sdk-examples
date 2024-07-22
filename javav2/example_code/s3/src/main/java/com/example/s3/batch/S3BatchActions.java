@@ -437,7 +437,7 @@ public class S3BatchActions {
                 return jobId;
             });
     }
-    // snippet-end:[s3control.java2.create_job.main]
+    // snippet-end:[s3control.java2.create_job.async.main]
 
     /**
      * Retrieves the ETag (Entity Tag) for an object stored in an Amazon S3 bucket.
