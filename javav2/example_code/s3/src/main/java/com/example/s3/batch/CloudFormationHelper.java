@@ -37,10 +37,7 @@ public class CloudFormationHelper {
         boolean doesExist = describeStack(stackName);
         if (!doesExist) {
             try {
-                // URL fileUrl = CloudFormationHelper.class.getClassLoader().getResource("cfn_template.yaml");
                 Path filePath = Paths.get("template.yaml").toAbsolutePath();
-
-                // Reading the file content as a string
                 templateBody = Files.readString(filePath);
             } catch (IOException e) {
                 throw new RuntimeException(e);

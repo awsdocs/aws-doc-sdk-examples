@@ -1,0 +1,33 @@
+s3-control_CreateJob:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.create_job.async.main
+  services:
+    s3-control: {CreateJob}    
+s3-control_Basics:
+  title: Learn core operations for'&S3Control;' using an &AWS; SDK
+  title_abbrev: Learn core operations
+  synopsis: learn core operations for'&S3Control;'.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Learn core operations.
+              snippet_tags:
+                - s3.java2.job.scenario.main
+            - description: An action class that wraps operations.
+              snippet_tags:
+                - s3.java2.job.actions.main
+  services:
+    s3: {CreateJob, UpdateJobStatus}         

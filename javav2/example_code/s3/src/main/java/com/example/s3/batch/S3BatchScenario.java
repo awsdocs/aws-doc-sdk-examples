@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[s3.java2.job.scenario.main]
 package com.example.s3.batch;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import java.io.IOException;
@@ -27,8 +28,6 @@ public class S3BatchScenario {
         //      System.out.println(usage);
         //      System.exit(1);
         //  }
-
-        //S3BatchRoleArn
 
         String accountId = "814548047983"; //args[0];
         String uuid = java.util.UUID.randomUUID().toString();
@@ -273,3 +272,4 @@ public class S3BatchScenario {
         System.out.println("All files have been deleted from the bucket " + bucketName);
     }
 }
+// snippet-end:[s3.java2.job.scenario.main]

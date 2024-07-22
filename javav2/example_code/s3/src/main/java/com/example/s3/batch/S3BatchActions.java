@@ -330,7 +330,7 @@ public class S3BatchActions {
     }
     // snippet-end:[s3.java2.describe_job.main]
 
-    // snippet-start:[s3.java2.create_job.main]
+    // snippet-start:[s3.java2.create_job.async.main]
     /**
      * Creates an asynchronous S3 job using the AWS Java SDK.
      *
