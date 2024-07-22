@@ -32,8 +32,6 @@ The Amazon S3 Batch basic scenario executes the following steps:
 10. **Delete the resources**: The program deletes the CloudFormation stack and the S3 bucket used in the scenario.
 
 
-
-
 ### Program execution
 The following shows the output of the Amazon S3 Batch program in the console. 
 
@@ -140,7 +138,7 @@ Continuing with the program...
 Job ID: 391171f8-d831-4931-a7eb-d56c43610e4b
 Description: Job created using the AWS Java SDK
 Status: Active
-Role ARN: arn:aws:iam::814548047983:role/MyS3Stack-S3BatchRole8238262D-Vi5aVsQaZ776
+Role ARN: arn:aws:iam::1234567890983:role/MyS3Stack-S3BatchRole8238262D-Vi5aVsQaZ776
 Priority: 60
 Progress Summary: JobProgressSummary(TotalNumberOfTasks=4, NumberOfTasksSucceeded=0, NumberOfTasksFailed=0, Timers=JobTimers(ElapsedTimeInActiveSeconds=5))
 Manifest Location: arn:aws:s3:::x-fc084273-7496-4528-bd74-172a6141ae02/job-manifest.csv

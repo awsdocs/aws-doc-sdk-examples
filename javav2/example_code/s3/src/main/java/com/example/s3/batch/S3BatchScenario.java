@@ -24,12 +24,12 @@ public class S3BatchScenario {
                 accountId - The account id value that owns the Amazon S3 bucket.
             """;
 
-        //  if (args.length != 1) {
-        //      System.out.println(usage);
-        //      System.exit(1);
-        //  }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String accountId = "814548047983"; //args[0];
+        String accountId = args[0];
         String uuid = java.util.UUID.randomUUID().toString();
         Scanner scanner = new Scanner(System.in);
         S3BatchActions actions = new S3BatchActions();
@@ -74,7 +74,7 @@ public class S3BatchScenario {
         String manifestLocation = "arn:aws:s3:::"+bucketName+"/job-manifest.csv";
         System.out.println("Populate the bucket with the required files.");
         String[] fileNames = {"job-manifest.csv", "object-key-1.txt", "object-key-2.txt", "object-key-3.txt", "object-key-4.txt"};
-        uploadFilesToBucket(bucketName, fileNames, actions);
+        actions.uploadFilesToBucket(bucketName, fileNames, actions);
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
@@ -229,7 +229,7 @@ public class S3BatchScenario {
         System.out.print("Do you want to delete the AWS resources used in this scenario? (y/n)");
         String delResAns = scanner.nextLine();
         if (delResAns != null && delResAns.trim().equalsIgnoreCase("y")) {
-            deleteFilesFromBucket(bucketName, fileNames, actions);
+            actions.deleteFilesFromBucket(bucketName, fileNames, actions);
             actions. deleteBucketFolder(bucketName);
             actions.deleteBucket(bucketName);
             CloudFormationHelper.destroyCloudFormationStack(STACK_NAME);
@@ -257,19 +257,6 @@ public class S3BatchScenario {
         }
     }
 
-    public static void uploadFilesToBucket(String bucketName, String[] fileNames, S3BatchActions actions) throws IOException {
-        actions.updateCSV(bucketName);
-        for (String fileName : fileNames) {
-            actions.populateBucket(bucketName, fileName);
-        }
-        System.out.println("All files are placed in bucket " + bucketName);
-    }
 
-    public static void deleteFilesFromBucket(String bucketName, String[] fileNames, S3BatchActions actions) throws IOException {
-        for (String fileName : fileNames) {
-            actions.deleteBucketObjects(bucketName, fileName);
-        }
-        System.out.println("All files have been deleted from the bucket " + bucketName);
-    }
 }
 // snippet-end:[s3control.java2.job.scenario.main]

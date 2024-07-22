@@ -85,7 +85,7 @@ public class CloudFormationHelper {
         }
         return false;
     }
-    static void destroyCloudFormationStack(String stackName) {
+    public static void destroyCloudFormationStack(String stackName) {
         getCloudFormationClient().deleteStack(b -> b.stackName(stackName))
             .whenComplete((dsr, t) -> {
                 if (dsr != null) {

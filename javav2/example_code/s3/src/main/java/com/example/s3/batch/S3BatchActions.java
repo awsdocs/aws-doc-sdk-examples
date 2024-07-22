@@ -634,5 +634,20 @@ public class S3BatchActions {
         s3Client.deleteBucket(r->r.bucket(bucketName));
         System.out.println(bucketName +" was deleted");
     }
+
+    public static void uploadFilesToBucket(String bucketName, String[] fileNames, S3BatchActions actions) throws IOException {
+        actions.updateCSV(bucketName);
+        for (String fileName : fileNames) {
+            actions.populateBucket(bucketName, fileName);
+        }
+        System.out.println("All files are placed in bucket " + bucketName);
+    }
+
+    public static void deleteFilesFromBucket(String bucketName, String[] fileNames, S3BatchActions actions) throws IOException {
+        for (String fileName : fileNames) {
+            actions.deleteBucketObjects(bucketName, fileName);
+        }
+        System.out.println("All files have been deleted from the bucket " + bucketName);
+    }
 }
 // snippet-end:[s3control.java2.job.actions.main]
