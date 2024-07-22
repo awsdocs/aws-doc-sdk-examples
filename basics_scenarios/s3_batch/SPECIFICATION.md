@@ -209,20 +209,18 @@ The Amazon S3 Batch scenario has successfully completed.
 
 ## SOS Tags
 
-The following table describes the metadata used in this SDK Getting Started Scenario.
+The following table describes the metadata used in this Basics Scenario.
 
 
 | action                       | metadata file                | metadata key                            |
 |------------------------------|------------------------------|---------------------------------------- |
-| `deleteRepository`           | ecr_metadata.yaml            | ecr_DeleteRepository                    |
-| `describeImages              | ecr_metadata.yaml            | ecr_DescribeImages                      |
-| `startLifecyclePolicyPreview`| ecr_metadata.yaml            | ecr_LifecyclePolicyPreview              |
-| `describeRepositories`       | ecr_metadata.yaml            | ecr_DescribeRepositories                |
-| `getAuthorizationToken`      | ecr_metadata.yaml            | ecr_GetAuthorizationToken               |
-| `getRepositoryPolicy`        | ecr_metadata.yaml            | ecr_GetRepositoryPolicy                 |
-| `setRepositoryPolicy`        | ecr_metadata.yaml            | ecr_SetRepositoryPolicy                 |
-| `createRepository `          | ecr_metadata.yaml            | ecr_CreateRepository                    |
-| `PutImage `                  | ecr_metadata.yaml            | ecr_PutImage                            |
-| `listImagesPaginator `       | ecr_metadata.yaml            | ecr_Hello                               |
-| `scenario                    | ecr_metadata.yaml            | ecr_Scenario                            |
+| `createjob`                  | s3-control_metadata.yaml     | s3-control_CreateJob                    |
+| `updateJobPriority`          | s3-control_metadata.yaml     | s3-control_UpdateJobPriority            |
+| `updateJobStatus`            | s3-control_metadata.yaml     | s3-control_UpdateJobStatus              |
+| `listJobs`                   | s3-control_metadata.yaml     | s3-control_ListJobs                     |
+| `getJobTagging`              | s3-control_metadata.yaml     | s3-control_GetJobTagging                |
+| `deleteJobTagging`           | s3-control_metadata.yaml     | s3-control_DeleteJobTagging             |
+| `describeJob`                | s3-control_metadata.yaml     | s3-control_DescribeJob                  |
+| `putJobTagging`              | s3-control_metadata.yaml     | s3-control_PutJobTagging                |
+| `scenario                    | s3-control_metadata.yaml     | s3-control_Basics                           |
 

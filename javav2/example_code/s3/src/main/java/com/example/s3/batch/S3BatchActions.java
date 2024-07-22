@@ -63,7 +63,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.stream.Collectors;
 
-// snippet-start:[s3.java2.job.actions.main]
+// snippet-start:[s3control.java2.job.actions.main]
 public class S3BatchActions {
 
     private static S3ControlAsyncClient asyncClient;
@@ -143,6 +143,7 @@ public class S3BatchActions {
     }
 
 
+    // snippet-start:[s3control.java2.cancel_job.main]
     /**
      * Cancels a job asynchronously.
      *
@@ -167,7 +168,9 @@ public class S3BatchActions {
                 throw new RuntimeException(ex); // Propagate the exception
             });
     }
+    // snippet-end:[s3control.java2.cancel_job.main]
 
+    // snippet-start:[s3control.java2.update_job.main]
     /**
      * Updates the priority of a job asynchronously.
      *
@@ -196,7 +199,9 @@ public class S3BatchActions {
 
         return future;
     }
+    // snippet-end:[s3control.java2.update_job.main]
 
+    // snippet-start:[s3control.java2.list_jobs.main]
     /**
      * Asynchronously lists batch jobs that have completed for the specified account.
      *
@@ -223,7 +228,9 @@ public class S3BatchActions {
                 throw new RuntimeException(ex); // Propagate the exception
             });
     }
+    // snippet-end:[s3control.java2.list_jobs.main]
 
+    // snippet-start:[s3control.java2.get_job_tagging.main]
     /**
      * Asynchronously retrieves the tags associated with a specific job in an AWS account.
      *
@@ -255,7 +262,9 @@ public class S3BatchActions {
                 throw new RuntimeException(ex); // Propagate the exception
             });
     }
+    // snippet-end:[s3control.java2.get_job_tagging.main]
 
+    // snippet-start:[s3control.java2.del_job_tagging.main]
     /**
      * Asynchronously deletes the tags associated with a specific batch job.
      *
@@ -278,8 +287,9 @@ public class S3BatchActions {
                 throw new RuntimeException(ex);
             });
     }
+    // snippet-end:[s3control.java2.del_job_tagging.main]
 
-    // snippet-start:[s3.java2.describe_job.main]
+    // snippet-start:[s3control.java2.describe_job.main]
     /**
      * Asynchronously describes the specified job.
      *
@@ -328,9 +338,9 @@ public class S3BatchActions {
                 throw new RuntimeException(ex); // Propagate the exception
             });
     }
-    // snippet-end:[s3.java2.describe_job.main]
+    // snippet-end:[s3control.java2.describe_job.main]
 
-    // snippet-start:[s3.java2.create_job.async.main]
+    // snippet-start:[s3control.java2.create_job.async.main]
     /**
      * Creates an asynchronous S3 job using the AWS Java SDK.
      *
@@ -427,7 +437,7 @@ public class S3BatchActions {
                 return jobId;
             });
     }
-    // snippet-end:[s3.java2.create_job.main]
+    // snippet-end:[s3control.java2.create_job.main]
 
     /**
      * Retrieves the ETag (Entity Tag) for an object stored in an Amazon S3 bucket.
@@ -450,7 +460,7 @@ public class S3BatchActions {
         return headObjectResponse.eTag();
     }
 
-    // snippet-start:[s3.java2.job.put.tags.main]
+    // snippet-start:[s3control.java2.job.put.tags.main]
     /**
      * Asynchronously adds tags to a job in the system.
      *
@@ -484,7 +494,7 @@ public class S3BatchActions {
                 throw new RuntimeException(ex); // Propagate the exception
             });
     }
-    // snippet-end:[s3.java2.job.put.tags.main]
+    // snippet-end:[s3control.java2.job.put.tags.main]
 
     // Setup the S3 bucket required for this scenario
     public void createBucket(String bucketName) {
@@ -625,4 +635,4 @@ public class S3BatchActions {
         System.out.println(bucketName +" was deleted");
     }
 }
-// snippet-end:[s3.java2.job.actions.main]
+// snippet-end:[s3control.java2.job.actions.main]

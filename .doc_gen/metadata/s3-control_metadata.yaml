@@ -8,9 +8,100 @@ s3-control_CreateJob:
           excerpts:
             - description:
               snippet_tags:
-                - s3.java2.create_job.async.main
+                - s3control.java2.create_job.async.main
   services:
     s3-control: {CreateJob}    
+s3-control_PutJobTagging:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3control.java2.job.put.tags.main
+  services:
+    s3-control: {PutJobTagging}  
+s3-control_DescribeJob:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3control.java2.describe_job.main
+  services:
+    s3-control: {DescribeJob}  
+s3-control_DeleteJobTagging:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3control.java2.del_job_tagging.main
+  services:
+    s3-control: {DeleteJobTagging}  
+s3-control_GetJobTagging:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3control.java2.get_job_tagging.main
+  services:
+    s3-control: {GetJobTagging}   
+s3-control_ListJobs:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3control.java2.list_jobs.main
+  services:
+    s3-control: {ListJobs}   
+s3-control_UpdateJobStatus:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3control.java2.cancel_job.main
+  services:
+    s3-control: {UpdateJobStatus}   
+s3-control_UpdateJobPriority:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3control.java2.update_job.main
+  services:
+    s3-control: {UpdateJobPriority}   
 s3-control_Basics:
   title: Learn core operations for'&S3Control;' using an &AWS; SDK
   title_abbrev: Learn core operations
@@ -25,9 +116,9 @@ s3-control_Basics:
           excerpts:
             - description: Learn core operations.
               snippet_tags:
-                - s3.java2.job.scenario.main
+                - s3control.java2.job.scenario.main
             - description: An action class that wraps operations.
               snippet_tags:
-                - s3.java2.job.actions.main
+                - s3control.java2.job.actions.main
   services:
     s3: {CreateJob, UpdateJobStatus}         
