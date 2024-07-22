@@ -28,7 +28,6 @@ namespace AwsDoc {
     namespace EC2 {
         //! Build a sample ingress rule.
         /*!
-          \sa BuildSampleIngressRule()
           \param authorize_request: An 'AuthorizeSecurityGroupIngressRequest' instance.
           \return void:
          */
@@ -37,9 +36,9 @@ namespace AwsDoc {
     } // EC2 {
 } // AwsDoc
 
+// snippet-start:[cpp.example_code.ec2.CreateSecurityGroup]
 //! Create a security group.
 /*!
-  \sa CreateSecurityGroup()
   \param groupName: A security group name.
   \param description: A description.
   \param vpcID: A virtual private cloud (VPC) ID.
@@ -56,7 +55,6 @@ bool AwsDoc::EC2::CreateSecurityGroup(const Aws::String &groupName,
     // snippet-start:[cpp.example_code.ec2.create_security_group.client]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
     // snippet-end:[cpp.example_code.ec2.create_security_group.client]
-    // snippet-start:[cpp.example_code.ec2.CreateSecurityGroup]
     Aws::EC2::Model::CreateSecurityGroupRequest request;
 
     request.SetGroupName(groupName);
@@ -102,20 +100,22 @@ bool AwsDoc::EC2::CreateSecurityGroup(const Aws::String &groupName,
               groupName << std::endl;
     // snippet-end:[ec2.cpp.configure_security_group03.code]
 
+    // snippet-start:[cpp.example_code.ec2.CreateSecurityGroup2]
     return true;
 }
+// snippet-end:[cpp.example_code.ec2.CreateSecurityGroup2]
 
 //! Build a sample ingress rule.
 /*!
-  \sa BuildSampleIngressRule()
   \param authorize_request: An 'AuthorizeSecurityGroupIngressRequest' instance.
   \return void:
  */
 void AwsDoc::EC2::BuildSampleIngressRule(
         Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest &authorize_request) {
     // snippet-start:[ec2.cpp.configure_security_group02.code]
+    Aws::String ingressIPRange = "203.0.113.0/24";  // Configure this for your allowed IP range.
     Aws::EC2::Model::IpRange ip_range;
-    ip_range.SetCidrIp("0.0.0.0/0");
+    ip_range.SetCidrIp(ingressIPRange);
 
     Aws::EC2::Model::IpPermission permission1;
     permission1.SetIpProtocol("tcp");

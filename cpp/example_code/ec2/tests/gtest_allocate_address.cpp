@@ -21,8 +21,9 @@ namespace AwsDocTest {
         ASSERT_FALSE(instanceID.empty()) << preconditionError() << std::endl;
 
         Aws::String allocationID;
+        Aws::String publicIpAddress;
         auto result = AwsDoc::EC2::AllocateAndAssociateAddress(instanceID,
-                                                               allocationID,
+                                                               publicIpAddress, allocationID,
                                                                *s_clientConfig);
         ASSERT_TRUE(result);
 

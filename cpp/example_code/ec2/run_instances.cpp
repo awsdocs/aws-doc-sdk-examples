@@ -25,7 +25,7 @@
 /*!
   \param instanceName: A name for the EC2 instance.
   \param amiId: An Amazon Machine Image (AMI) identifier.
-  \param instanceID: String to return the instance ID.
+  \param[out] instanceID: String to return the instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */

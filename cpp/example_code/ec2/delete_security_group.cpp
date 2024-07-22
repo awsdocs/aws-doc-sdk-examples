@@ -20,9 +20,9 @@
 // snippet-end:[ec2.cpp.delete_security_group.inc]
 #include "ec2_samples.h"
 
+// snippet-start:[cpp.example_code.ec2.DeleteSecurityGroup]
 //! Delete a security group.
 /*!
-  \sa DeleteSecurityGroup()
   \param securityGroupID: A security group ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
@@ -48,6 +48,7 @@ bool AwsDoc::EC2::DeleteSecurityGroup(const Aws::String &securityGroupID,
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.ec2.DeleteSecurityGroup]
 
 /*
  *  main function

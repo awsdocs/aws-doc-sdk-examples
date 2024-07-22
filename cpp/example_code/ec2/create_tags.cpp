@@ -18,6 +18,7 @@
 #include <iostream>
 #include "ec2_samples.h"
 
+// snippet-start:[cpp.example_code.ec2.CreateTags]
 //! Add or overwrite only the specified tags for the specified Amazon Elastic Compute Cloud (Amazon EC2) resource or resources.
 /*!
   \param resources: The resources for the tags.

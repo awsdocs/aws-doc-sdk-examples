@@ -20,9 +20,9 @@
 // snippet-end:[ec2.cpp.reboot_instance.inc]
 #include "ec2_samples.h"
 
+// snippet-start:[cpp.example_code.ec2.RebootInstances]
 //! Reboot an Amazon Elastic Compute Cloud (Amazon EC2) instance.
 /*!
-  \sa RebootInstance()
   \param instanceID: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
@@ -65,6 +65,7 @@ bool AwsDoc::EC2::RebootInstance(const Aws::String &instanceId,
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.ec2.RebootInstances]
 
 /*
  *

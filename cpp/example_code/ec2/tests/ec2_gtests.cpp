@@ -101,7 +101,7 @@ bool AwsDocTest::EC2_GTests::releaseIPAddress(const Aws::String &allocationID) {
 
     auto outcome = ec2Client.ReleaseAddress(request);
     if (!outcome.IsSuccess()) {
-        std::cerr << "Failed to release Elastic IP address " <<
+        std::cerr << "AwsDocTest::EC2_GTests Failed to release Elastic IP address " <<
                   allocationID << ":" << outcome.GetError().GetMessage() <<
                   std::endl;
     }

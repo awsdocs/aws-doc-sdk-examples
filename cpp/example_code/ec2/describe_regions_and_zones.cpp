@@ -26,9 +26,9 @@
 #include <iostream>
 #include "ec2_samples.h"
 
-//! Describe all Amazon Elastic Compute Cloud (Amazon EC2) Regions and Availability Zones.
+// snippet-start:[cpp.example_code.ec2.DescribeRegions]
+// ! Describe all Amazon Elastic Compute Cloud (Amazon EC2) Regions and Availability Zones.
 /*!
-  \sa DescribeRegionsAndZones()
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -38,7 +38,7 @@ bool AwsDoc::EC2::DescribeRegionsAndZones(
     // snippet-start:[cpp.example_code.ec2.describe_regions.client]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
     // snippet-end:[cpp.example_code.ec2.describe_regions.client]
-    // snippet-start:[cpp.example_code.ec2.DescribeRegions]
+
     Aws::EC2::Model::DescribeRegionsRequest request;
     auto outcome = ec2Client.DescribeRegions(request);
     bool result = true;
@@ -93,10 +93,11 @@ bool AwsDoc::EC2::DescribeRegionsAndZones(
         result = false;
     }
     // snippet-end:[ec2.cpp.describe_zones.code]
-
+// snippet-start:[cpp.example_code.ec2.DescribeRegions2]
     return result;
 
 }
+// snippet-end:[cpp.example_code.ec2.DescribeRegions2]
 
 /*
  *

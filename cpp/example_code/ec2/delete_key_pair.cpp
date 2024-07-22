@@ -20,10 +20,9 @@
 // snippet-end:[ec2.cpp.delete_key_pair.inc]
 #include "ec2_samples.h"
 
-
+// snippet-start:[cpp.example_code.ec2.DeleteKeyPair]
 //! Delete an Amazon Elastic Compute Cloud (Amazon EC2) instance key pair.
 /*!
-  \sa DeleteKeyPair()
   \param keyPairName: A name for a key pair.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
@@ -51,6 +50,7 @@ bool AwsDoc::EC2::DeleteKeyPair(const Aws::String &keyPairName,
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.ec2.DeleteKeyPair]
 
 /*
  *  main function

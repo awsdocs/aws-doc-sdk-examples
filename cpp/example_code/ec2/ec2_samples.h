@@ -6,6 +6,7 @@
 #define EC2_EXAMPLES_EC2_SAMPLES_H
 
 #include <aws/core/Aws.h>
+#include <aws/ec2/model/Tag.h>
 
 
 namespace AwsDoc {
@@ -15,26 +16,26 @@ namespace AwsDoc {
         /*!
           \param instanceID: An EC2 instance ID.
           \param publicIPAddress[out]: String to return the public IP address.
+          \param[out] allocationID: String to return the allocation ID.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool AllocateAndAssociateAddress(const Aws::String &instanceId,
-                                         Aws::String &allocationId,
+        bool AllocateAndAssociateAddress(const Aws::String &instanceId, Aws::String &allocationId,
+                                         Aws::String &allocationID,
                                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Create an EC2 instance key pair.
         /*!
-          \sa CreateKeyPair()
           \param keyPairName: A name for a key pair.
+          \param keyFilePath: File path where the credentials are stored, Ignored if it is an empty string;
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool CreateKeyPair(const Aws::String &keyPairName,
+        bool CreateKeyPair(const Aws::String &keyPairName, const Aws::String &keyFilePath,
                            const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Create a security group.
         /*!
-          \sa CreateSecurityGroup()
           \param groupName: A security group name.
           \param description: A description.
           \param vpcID: A virtual private cloud (VPC) ID.
@@ -61,7 +62,6 @@ namespace AwsDoc {
 
         //! Delete an Amazon EC2 key pair.
         /*!
-          \sa DeleteKeyPair()
           \param keyPairName: A name for a key pair.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
@@ -71,7 +71,6 @@ namespace AwsDoc {
 
         //! Delete a security group.
         /*!
-          \sa DeleteSecurityGroup()
           \param securityGroupID: A security group ID.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
@@ -81,7 +80,6 @@ namespace AwsDoc {
 
         //! Describe all Elastic IP addresses.
         /*!
-          \sa DescribeAddresses()
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
@@ -90,7 +88,6 @@ namespace AwsDoc {
 
         //! Describe all EC2 instances associated with an account.
         /*!
-          \sa DescribeInstances()
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
@@ -99,7 +96,6 @@ namespace AwsDoc {
 
         //! Describe all EC2 instance key pairs.
         /*!
-          \sa DescribeKeyPairs()
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
@@ -108,7 +104,6 @@ namespace AwsDoc {
 
         //! Describe all EC2 Regions and Availability Zones.
         /*!
-          \sa DescribeRegionsAndZones()
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
@@ -117,7 +112,6 @@ namespace AwsDoc {
 
         //! Describe all EC2 security groups, or a specific group.
         /*!
-          \sa DescribeSecurityGroups()
           \param groupID: A group name, ignored if empty.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
@@ -127,7 +121,6 @@ namespace AwsDoc {
 
         //! Enable detailed monitoring for an EC2 instance.
         /*!
-          \sa EnableMonitoring()
           \param instanceId: An EC2 instance ID.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
@@ -137,7 +130,6 @@ namespace AwsDoc {
 
         //! Disable monitoring for an EC2 instance.
         /*!
-          \sa DisableMonitoring()
           \param instanceId: An EC2 instance ID.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
@@ -147,7 +139,6 @@ namespace AwsDoc {
 
         //! Reboot an EC2 instance.
         /*!
-          \sa RebootInstance()
           \param instanceID: An EC2 instance ID.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
@@ -157,7 +148,6 @@ namespace AwsDoc {
 
         //! Release an Elastic IP address.
         /*!
-          \sa ReleaseAddress()
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
@@ -166,10 +156,9 @@ namespace AwsDoc {
 
         //! Launch an EC2 instance.
         /*!
-          \sa RunInstance()
           \param instanceName: A name for the EC2 instance.
           \param amiId: An Amazon Machine Image (AMI) identifier.
-          \param instanceID: String to return the instance ID.
+          \param[out] instanceID: String to return the instance ID.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
@@ -180,7 +169,6 @@ namespace AwsDoc {
 
         //! Start an EC2 instance.
         /*!
-          \sa StartInstance()
           \param instanceID: An EC2 instance ID.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
@@ -190,7 +178,6 @@ namespace AwsDoc {
 
         //! Stop an EC2 instance.
         /*!
-          \sa StopInstance()
           \param instanceID: An EC2 instance ID.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
@@ -200,7 +187,6 @@ namespace AwsDoc {
 
         //! Terminate an EC2 instance.
         /*!
-          \sa TerminateInstances()
           \param instanceID: An EC2 instance ID.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.

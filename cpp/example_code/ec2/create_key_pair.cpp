@@ -16,19 +16,20 @@
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/CreateKeyPairRequest.h>
-#include <aws/ec2/model/CreateKeyPairResponse.h>
 #include <iostream>
+#include <fstream>
 // snippet-end:[ec2.cpp.create_key_pair.inc]
 #include "ec2_samples.h"
 
+// snippet-start:[cpp.example_code.ec2,CreateKeyPair]
 //! Create an Amazon Elastic Compute Cloud (Amazon EC2) instance key pair.
 /*!
-  \sa CreateKeyPair()
   \param keyPairName: A name for a key pair.
+  \param keyFilePath: File path where the credentials are stored, Ignored if it is an empty string;
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::CreateKeyPair(const Aws::String &keyPairName,
+bool AwsDoc::EC2::CreateKeyPair(const Aws::String &keyPairName, const Aws::String &keyFilePath,
                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.create_key_pair.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
@@ -43,12 +44,21 @@ bool AwsDoc::EC2::CreateKeyPair(const Aws::String &keyPairName,
     else {
         std::cout << "Successfully created key pair named " <<
                   keyPairName << std::endl;
+        if (!keyFilePath.empty()) {
+            std::ofstream keyFile(keyFilePath.c_str());
+            keyFile << outcome.GetResult().GetKeyMaterial();
+            keyFile.close();
+            std::cout << "Keys written to the file " <<
+                      keyFilePath << std::endl;
+        }
+
     }
     // snippet-end:[ec2.cpp.create_key_pair.code]
 
     return outcome.IsSuccess();
 
 }
+// snippet-end:[cpp.example_code.ec2,CreateKeyPair]
 
 /*
 *  main function
@@ -73,7 +83,9 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
         Aws::String keyPairName = argv[1];
-        AwsDoc::EC2::CreateKeyPair(keyPairName, clientConfig);
+        Aws::String keyFilePath;  // Optional: Specify a secure file path to store the credentials.
+
+        AwsDoc::EC2::CreateKeyPair(keyPairName, keyFilePath, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

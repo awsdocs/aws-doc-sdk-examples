@@ -22,10 +22,9 @@
 // snippet-end:[ec2.cpp.monitor_instance.inc]
 #include "ec2_samples.h"
 
-
+// snippet-start:[cpp.example_code.ec2.MonitorInstances]
 //! Enable detailed monitoring for an Amazon Elastic Compute Cloud (Amazon EC2) instance.
 /*!
-  \sa EnableMonitoring()
   \param instanceId: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
@@ -69,10 +68,12 @@ bool AwsDoc::EC2::EnableMonitoring(const Aws::String &instanceId,
 
     return monitorInstancesOutcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.ec2.MonitorInstances]
 
+
+// snippet-start:[cpp.example_code.ec2.UnmonitorInstances]
 //! Disable monitoring for an EC2 instance.
 /*!
-  \sa DisableMonitoring()
   \param instanceId: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
@@ -116,6 +117,7 @@ bool AwsDoc::EC2::DisableMonitoring(const Aws::String &instanceId,
 
     return unmonitorInstancesOutcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.ec2.UnmonitorInstances]
 
 /*
  *

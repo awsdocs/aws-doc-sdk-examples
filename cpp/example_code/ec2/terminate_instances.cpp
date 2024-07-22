@@ -18,16 +18,15 @@
 #include <iostream>
 #include "ec2_samples.h"
 
+// snippet-start:[cpp.example_code.ec2.TerminateInstances]
 //! Terminate an Amazon Elastic Compute Cloud (Amazon EC2) instance.
 /*!
-  \sa TerminateInstances()
   \param instanceID: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
 bool AwsDoc::EC2::TerminateInstances(const Aws::String &instanceID,
                                      const Aws::Client::ClientConfiguration &clientConfiguration) {
-// snippet-start:[cpp.example_code.ec2.TerminateInstances]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
 
     Aws::EC2::Model::TerminateInstancesRequest request;
@@ -45,10 +44,10 @@ bool AwsDoc::EC2::TerminateInstances(const Aws::String &instanceID,
                   outcome.GetError().GetMessage() << std::endl;
         return false;
     }
-// snippet-end:[cpp.example_code.ec2.TerminateInstances]
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.ec2.TerminateInstances]
 
 /*
  *

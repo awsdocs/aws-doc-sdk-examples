@@ -26,9 +26,9 @@
 #include <iostream>
 #include "ec2_samples.h"
 
+// snippet-start:[cpp.example_code.ec2.StartInstances]
 //! Start an Amazon Elastic Compute Cloud (Amazon EC2) instance.
 /*!
-  \sa StartInstance()
   \param instanceID: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
@@ -71,10 +71,11 @@ bool AwsDoc::EC2::StartInstance(const Aws::String &instanceId,
 
     return start_instancesOutcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.ec2.StartInstances]
 
+// snippet-start:[cpp.example_code.ec2.StopInstances]
 //! Stop an EC2 instance.
 /*!
-  \sa StopInstance()
   \param instanceID: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
@@ -120,6 +121,7 @@ void PrintUsage() {
     std::cout << "Usage: run_start_stop_instance <instance_id> <start|stop>" <<
               std::endl;
 }
+// snippet-end:[cpp.example_code.ec2.StopInstances]
 
 /*
  *
