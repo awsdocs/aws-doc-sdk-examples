@@ -309,7 +309,18 @@ class BedrockStudioBootstrapper:
             self._get_service_role_policy(),
         )
 
+    def _create_permission_boundary(self):
+        logger.info("=" * 80)
+        logger.info("Step 3: Create Permission Boundary Policy.")
+        logger.info("-" * 80)
+
+        self._create_policy(
+            self._permission_boundary_policy_name, self._get_permission_boundary()
+        )
+
     def _create_role(self, role_name, trust_policy, role_policy):
+        inline_policy_name = "InlinePolicy"
+
         logger.info(f"Creating role: '{role_name}'...")
         try:
             response = self._iam_client.create_role(
@@ -319,31 +330,41 @@ class BedrockStudioBootstrapper:
             logger.info(f"Role created: {role_arn}")
         except self._iam_client.exceptions.EntityAlreadyExistsException:
             logger.warning(f"Role with name '{role_name}' already exists.")
+            try:
+                self._iam_client.get_role_policy(
+                    RoleName=role_name,
+                    PolicyName=inline_policy_name,
+                )
+                confirm_input = input(
+                    f"Proceed to replace the existing inline policy named '{inline_policy_name}'?"
+                    " (yes/no, default: yes) "
+                ).lower()
+                if not (confirm_input in ["", "y" "yes"]):
+                    logger.warning(f"Not updating existing '{role_name}' role.")
+                    return
+            except self._iam_client.exceptions.NoSuchEntityException:
+                pass
 
         logger.info(f"Attaching inline policy to '{role_name}'...")
         self._iam_client.put_role_policy(
             RoleName=role_name,
-            PolicyName="InlinePolicy",
+            PolicyName=inline_policy_name,
             PolicyDocument=role_policy,
         )
-        logger.info(f"Inline policy successfully attached.")
+        logger.info(f"Successfully attached inline policy to '{role_name}'.")
 
-    def _create_permission_boundary(self):
-        policy_name = self._permission_boundary_policy_name
+    def _create_policy(self, policy_name, policy_document):
         policy_arn = f"arn:aws:iam::{self._account_id}:policy/{self._permission_boundary_policy_name}"
 
-        logger.info("=" * 80)
-        logger.info("Step 3: Create Permission Boundary.")
-        logger.info("-" * 80)
-
-        logger.info(f"Creating permission boundary: '{policy_name}'...")
+        logger.info(f"Creating policy: '{policy_name}'...")
         try:
             self._iam_client.create_policy(
                 PolicyName=policy_name,
-                PolicyDocument=self._get_permission_boundary(),
+                PolicyDocument=policy_document,
             )
+            logger.info(f"Policy created: {policy_arn}")
         except self._iam_client.exceptions.EntityAlreadyExistsException:
-            logger.warning(f"Policy with name '{policy_name}' already exists.")
+            logger.info(f"Policy with name '{policy_name}' already exists.")
 
             policy_versions = self._iam_client.list_policy_versions(
                 PolicyArn=policy_arn
@@ -358,25 +379,31 @@ class BedrockStudioBootstrapper:
                 oldest_non_default_version_id = next(
                     filter(lambda x: not x["IsDefaultVersion"], sorted_policy_versions)
                 )["VersionId"]
-                logger.info(
-                    f"Deleting oldest non-default version '{oldest_non_default_version_id}'"
-                    f" of '{policy_name}' policy..."
-                )
-                self._iam_client.delete_policy_version(
-                    PolicyArn=policy_arn,
-                    VersionId=oldest_non_default_version_id,
-                )
+                confirm_input = input(
+                    f"Proceed to delete the oldest non-default version '{oldest_non_default_version_id}'?"
+                    " (yes/no, default: yes) "
+                ).lower()
+                if confirm_input in ["", "y" "yes"]:
+                    logger.info(
+                        f"Deleting '{oldest_non_default_version_id}' version of '{policy_name}' policy..."
+                    )
+                    self._iam_client.delete_policy_version(
+                        PolicyArn=policy_arn,
+                        VersionId=oldest_non_default_version_id,
+                    )
+                else:
+                    logger.warning(f"Not updating existing '{policy_name}' policy.")
+                    return
 
             logger.info(
                 f"Creating new default version of existing '{policy_name}' policy..."
             )
             self._iam_client.create_policy_version(
                 PolicyArn=policy_arn,
-                PolicyDocument=self._get_permission_boundary(),
+                PolicyDocument=policy_document,
                 SetAsDefault=True,
             )
-
-        logger.info(f"Permission boundary policy created.")
+            logger.info(f"Successfully updated '{policy_name}' policy.")
 
     def _create_kms_key(self):
         logger.info("=" * 80)
