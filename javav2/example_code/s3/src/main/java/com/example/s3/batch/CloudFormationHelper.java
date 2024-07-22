@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package com.example.s3.batch;
 
 import software.amazon.awssdk.regions.Region;
@@ -10,10 +13,7 @@ import software.amazon.awssdk.services.cloudformation.model.DescribeStacksRespon
 import software.amazon.awssdk.services.cloudformation.model.Stack;
 import software.amazon.awssdk.services.cloudformation.model.Output;
 import software.amazon.awssdk.services.cloudformation.waiters.CloudFormationAsyncWaiter;
-
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;

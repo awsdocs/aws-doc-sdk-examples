@@ -1,13 +1,14 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 import com.example.s3.batch.CloudFormationHelper;
 import com.example.s3.batch.S3BatchActions;
 import org.junit.jupiter.api.*;
-
 import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletionException;
 import software.amazon.awssdk.services.s3.model.S3Exception;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
