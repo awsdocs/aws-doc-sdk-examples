@@ -392,7 +392,7 @@ public class S3BatchActions {
                     .build();
 
                 JobManifestSpec manifestSpec = JobManifestSpec.builder()
-                    .fieldsWithStrings("Bucket", "Key")  // Simplified method call
+                    .fieldsWithStrings("Bucket", "Key")
                     .format("S3BatchOperations_CSV_20180820")
                     .build();
 
