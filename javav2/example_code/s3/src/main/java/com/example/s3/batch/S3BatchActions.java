@@ -496,7 +496,7 @@ public class S3BatchActions {
     }
     // snippet-end:[s3control.java2.job.put.tags.main]
 
-    // Setup the S3 bucket required for this scenario
+    // Setup the S3 bucket required for this scenario.
     public void createBucket(String bucketName) {
         try {
             S3Client s3Client = S3Client.builder()
