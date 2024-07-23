@@ -33,6 +33,7 @@ medical-imaging_Hello:
           github_note_at_bottom: true
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.medical-imaging.Hello
   services:
@@ -1162,31 +1163,38 @@ medical-imaging_Scenario_ImageSetsAndFrames:
           github_note_at_bottom: true
           excerpts:
             - description: Create an &CFN; stack with the necessary resources.
+              genai: some
               snippet_tags:
                 - python.example_code.medical-imaging.workflow.deploy
             - description: Copy DICOM files to the &S3; import bucket.
+              genai: some
               snippet_tags:
                 - python.example_code.medical-imaging.workflow.copy
             - description: Import the DICOM files to the &S3; data store.
+              genai: some
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
                 - python.example_code.medical-imaging.workflow.StartDICOMImportJob
             - description: Get image sets created by the DICOM import job.
+              genai: some
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
                 - python.example_code.medical-imaging.workflow.GetImageSetsForImportJob
                 - python.example_code.medical-imaging.workflow.GetImageSet
             - description: Get image frame information for image sets.
+              genai: some
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
                 - python.example_code.medical-imaging.workflow.GetImageFrames
                 - python.example_code.medical-imaging.workflow.GetImageSetMetadata
             - description: Download, decode and verify image frames.
+              genai: some
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
                 - python.example_code.medical-imaging.workflow.GetPixelData
                 - python.example_code.medical-imaging.workflow.downloadAndCheck
             - description: Clean up resources.
+              genai: some
               snippet_tags:
                 - python.example_code.medical-imaging.workflow.destroy
                 - python.example_code.medical-imaging.MedicalImagingWorkflowWrapper.decl
