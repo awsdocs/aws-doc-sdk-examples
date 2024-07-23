@@ -638,7 +638,10 @@ class BedrockStudioBootstrapper:
                         "Sid": "PassRoleToBedrockService",
                         "Effect": "Allow",
                         "Action": "iam:PassRole",
-                        "Resource": "arn:aws:iam::*:role/AmazonBedrockExecution*",
+                        "Resource": [
+                            "arn:aws:iam::*:role/AmazonBedrockExecution*",
+                            "arn:aws:iam::*:role/BedrockStudio*",
+                        ],
                         "Condition": {
                             "StringEquals": {
                                 "iam:PassedToService": "bedrock.amazonaws.com"
@@ -819,13 +822,24 @@ class BedrockStudioBootstrapper:
                         },
                     },
                     {
-                        "Sid": "TagBedrockResources",
+                        "Sid": "TagBedrockAgentAliases",
                         "Effect": "Allow",
                         "Action": "bedrock:TagResource",
                         "Resource": "arn:aws:bedrock:*:*:agent-alias/*",
                         "Condition": {
                             "StringEquals": {
                                 "aws:RequestTag/AmazonBedrockManaged": "true"
+                            }
+                        },
+                    },
+                    {
+                        "Sid": "TagBedrockFlowAliases",
+                        "Effect": "Allow",
+                        "Action": "bedrock:TagResource",
+                        "Resource": "arn:aws:bedrock:*:*:flow/*/alias/*",
+                        "Condition": {
+                            "Null": {
+                                "aws:RequestTag/AmazonDataZoneEnvironment": "false"
                             }
                         },
                     },
@@ -1263,6 +1277,20 @@ class BedrockStudioBootstrapper:
                                 "aws:ResourceTag/AmazonBedrockManaged": "true",
                             },
                             "Null": {"aws:ResourceTag/AmazonDataZoneProject": "false"},
+                        },
+                    },
+                    {
+                        "Sid": "InvokeBedrockFlows",
+                        "Effect": "Allow",
+                        "Action": "bedrock:InvokeFlow",
+                        "Resource": "arn:aws:bedrock:*:*:flow/*/alias/*",
+                        "Condition": {
+                            "StringEquals": {
+                                "aws:ResourceAccount": "${aws:PrincipalAccount}",
+                            },
+                            "Null": {
+                                "aws:ResourceTag/AmazonDataZoneProject": "false",
+                            },
                         },
                     },
                     {
