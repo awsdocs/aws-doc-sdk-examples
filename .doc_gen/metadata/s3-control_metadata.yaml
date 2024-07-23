@@ -123,3 +123,4 @@ s3-control_Basics:
   services:
     s3-control: {CreateJob, DeleteJobTagging, DescribeJob, GetJobTagging, ListJobs, PutJobTagging, UpdateJobPriority, UpdateJobStatus}
     
+    
