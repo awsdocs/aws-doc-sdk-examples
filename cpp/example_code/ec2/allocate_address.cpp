@@ -13,12 +13,9 @@
  **/
 
 // snippet-start:[ec2.cpp.allocate_address.inc]
-#include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/AllocateAddressRequest.h>
-#include <aws/ec2/model/AllocateAddressResponse.h>
 #include <aws/ec2/model/AssociateAddressRequest.h>
-#include <aws/ec2/model/AssociateAddressResponse.h>
 #include <iostream>
 // snippet-end:[ec2.cpp.allocate_address.inc]
 #include "ec2_samples.h"
@@ -33,7 +30,7 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::AllocateAndAssociateAddress(const Aws::String &instanceId, Aws::String &publicIPAddress,
+bool AwsDoc::EC2::allocateAndAssociateAddress(const Aws::String &instanceId, Aws::String &publicIPAddress,
                                               Aws::String &allocationID,
                                               const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.allocate_address.code]
@@ -57,7 +54,7 @@ bool AwsDoc::EC2::AllocateAndAssociateAddress(const Aws::String &instanceId, Aws
 
     // snippet-end:[cpp.example_code.ec2.AllocateAddress]
 
-    // snippet-start:[cpp.example_code.ec2.AssociateAddress]
+    // snippet-start:[cpp.example_code.ec2.associateAddress]
     Aws::EC2::Model::AssociateAddressRequest associate_request;
     associate_request.SetInstanceId(instanceId);
     associate_request.SetAllocationId(allocationID);
@@ -73,7 +70,7 @@ bool AwsDoc::EC2::AllocateAndAssociateAddress(const Aws::String &instanceId, Aws
 
     std::cout << "Successfully associated Elastic IP address " << allocationID
               << " with instance " << instanceId << std::endl;
-    // snippet-end:[cpp.example_code.ec2.AssociateAddress]
+    // snippet-end:[cpp.example_code.ec2.associateAddress]
     // snippet-end:[ec2.cpp.allocate_address.code]
 // snippet-start:[cpp.example_code.ec2.AllocateAddress2]
     return true;
@@ -106,7 +103,8 @@ int main(int argc, char **argv) {
         // clientConfig.region = "us-east-1";
         Aws::String instanceID = argv[1];
         Aws::String publicIPAddress;
-        AwsDoc::EC2::AllocateAndAssociateAddress(instanceID, publicIPAddress,
+        Aws::String allocationID;
+        AwsDoc::EC2::allocateAndAssociateAddress(instanceID, publicIPAddress, allocationID,
                                                  clientConfig);
     }
     Aws::ShutdownAPI(options);

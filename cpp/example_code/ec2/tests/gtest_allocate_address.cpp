@@ -22,7 +22,7 @@ namespace AwsDocTest {
 
         Aws::String allocationID;
         Aws::String publicIpAddress;
-        auto result = AwsDoc::EC2::AllocateAndAssociateAddress(instanceID,
+        auto result = AwsDoc::EC2::allocateAndAssociateAddress(instanceID,
                                                                publicIpAddress, allocationID,
                                                                *s_clientConfig);
         ASSERT_TRUE(result);

@@ -13,21 +13,20 @@
  **/
 
 // snippet-start:[ec2.cpp.delete_security_group.inc]
-#include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DeleteSecurityGroupRequest.h>
 #include <iostream>
 // snippet-end:[ec2.cpp.delete_security_group.inc]
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2.DeleteSecurityGroup]
+// snippet-start:[cpp.example_code.ec2.deleteSecurityGroup]
 //! Delete a security group.
 /*!
   \param securityGroupID: A security group ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::DeleteSecurityGroup(const Aws::String &securityGroupID,
+bool AwsDoc::EC2::deleteSecurityGroup(const Aws::String &securityGroupID,
                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.delete_security_group.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
@@ -39,8 +38,7 @@ bool AwsDoc::EC2::DeleteSecurityGroup(const Aws::String &securityGroupID,
     if (!outcome.IsSuccess()) {
         std::cerr << "Failed to delete security group " << securityGroupID <<
                   ":" << outcome.GetError().GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully deleted security group " << securityGroupID <<
                   std::endl;
     }
@@ -48,7 +46,7 @@ bool AwsDoc::EC2::DeleteSecurityGroup(const Aws::String &securityGroupID,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.ec2.DeleteSecurityGroup]
+// snippet-end:[cpp.example_code.ec2.deleteSecurityGroup]
 
 /*
  *  main function
@@ -75,7 +73,7 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
         Aws::String groupID = argv[1];
-        AwsDoc::EC2::DeleteSecurityGroup(groupID, clientConfig);
+        AwsDoc::EC2::deleteSecurityGroup(groupID, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

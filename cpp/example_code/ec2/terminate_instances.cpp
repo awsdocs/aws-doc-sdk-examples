@@ -12,20 +12,19 @@
  *
  **/
 
-#include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/TerminateInstancesRequest.h>
 #include <iostream>
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2.TerminateInstances]
+// snippet-start:[cpp.example_code.ec2.terminateInstances]
 //! Terminate an Amazon Elastic Compute Cloud (Amazon EC2) instance.
 /*!
   \param instanceID: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::TerminateInstances(const Aws::String &instanceID,
+bool AwsDoc::EC2::terminateInstances(const Aws::String &instanceID,
                                      const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
 
@@ -37,8 +36,7 @@ bool AwsDoc::EC2::TerminateInstances(const Aws::String &instanceID,
     if (outcome.IsSuccess()) {
         std::cout << "Ec2 instance '" << instanceID <<
                   "' was terminated." << std::endl;
-    }
-    else {
+    } else {
         std::cerr << "Failed to terminate ec2 instance " << instanceID <<
                   ", " <<
                   outcome.GetError().GetMessage() << std::endl;
@@ -47,7 +45,7 @@ bool AwsDoc::EC2::TerminateInstances(const Aws::String &instanceID,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.ec2.TerminateInstances]
+// snippet-end:[cpp.example_code.ec2.terminateInstances]
 
 /*
  *
@@ -75,7 +73,7 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
         Aws::String instanceID = argv[1];
-        AwsDoc::EC2::TerminateInstances(instanceID, clientConfig);
+        AwsDoc::EC2::terminateInstances(instanceID, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

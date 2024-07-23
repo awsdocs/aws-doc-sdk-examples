@@ -13,7 +13,6 @@
  **/
 
 // snippet-start:[ec2.cpp.describe_addresses.inc]
-#include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeAddressesRequest.h>
 #include <aws/ec2/model/DescribeAddressesResponse.h>
@@ -22,13 +21,13 @@
 // snippet-end:[ec2.cpp.describe_addresses.inc]
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2.DescribeAddresses]
+// snippet-start:[cpp.example_code.ec2.describeAddresses]
 //! Describe all Elastic IP addresses.
 /*!
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::DescribeAddresses(
+bool AwsDoc::EC2::describeAddresses(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.describe_addresses.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
@@ -52,8 +51,7 @@ bool AwsDoc::EC2::DescribeAddresses(
                       std::setw(30) << address.GetAllocationId() << std::setw(25)
                       << address.GetNetworkInterfaceId() << std::endl;
         }
-    }
-    else {
+    } else {
         std::cerr << "Failed to describe Elastic IP addresses:" <<
                   outcome.GetError().GetMessage() << std::endl;
     }
@@ -61,7 +59,7 @@ bool AwsDoc::EC2::DescribeAddresses(
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.ec2.DescribeAddresses]
+// snippet-end:[cpp.example_code.ec2.describeAddresses]
 
 /*
  *
@@ -83,7 +81,7 @@ int main(int argc, char **argv) {
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::EC2::DescribeAddresses(clientConfig);
+        AwsDoc::EC2::describeAddresses(clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

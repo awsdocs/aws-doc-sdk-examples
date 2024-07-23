@@ -766,7 +766,6 @@ ec2_AssociateAddress:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.allocate_address.client
                 - cpp.example_code.ec2.AssociateAddress
     Bash:
       versions:

@@ -39,7 +39,7 @@ Next, for information on code example structures and how to build and run the ex
 
 ### Get started
 
-- [Hello Amazon EC2](hello_ec2/CMakeLists.txt#L4) (`DescribeSecurityGroups`)
+- [Hello Amazon EC2](hello_ec2/CMakeLists.txt#L4) (`describeSecurityGroups`)
 
 
 ### Single actions
@@ -47,26 +47,26 @@ Next, for information on code example structures and how to build and run the ex
 Code excerpts that show you how to call individual service functions.
 
 - [AllocateAddress](allocate_address.cpp#L43)
-- [AssociateAddress](allocate_address.cpp#L58)
+- [associateAddress](allocate_address.cpp#L58)
 - [AuthorizeSecurityGroupIngress](allocate_address.cpp#L39)
-- [CreateKeyPair](create_key_pair.cpp#L33)
-- [CreateSecurityGroup](create_security_group.cpp#L59)
+- [createKeyPair](create_key_pair.cpp#L33)
+- [createSecurityGroup](create_security_group.cpp#L59)
 - [CreateTags](run_instances.cpp#L72)
-- [DeleteKeyPair](delete_key_pair.cpp#L34)
-- [DeleteSecurityGroup](delete_security_group.cpp#L32)
-- [DescribeAddresses](describe_addresses.cpp#L33)
+- [deleteKeyPair](delete_key_pair.cpp#L34)
+- [deleteSecurityGroup](delete_security_group.cpp#L32)
+- [describeAddresses](describe_addresses.cpp#L33)
 - [DescribeAvailabilityZones](describe_regions_and_zones.cpp#L38)
-- [DescribeInstances](describe_instances.cpp#L33)
-- [DescribeKeyPairs](describe_key_pairs.cpp#L33)
+- [describeInstances](describe_instances.cpp#L33)
+- [describeKeyPairs](describe_key_pairs.cpp#L33)
 - [DescribeRegions](describe_regions_and_zones.cpp#L41)
-- [DescribeSecurityGroups](describe_security_groups.cpp#L34)
+- [describeSecurityGroups](describe_security_groups.cpp#L34)
 - [MonitorInstances](monitor_instance.cpp#L35)
 - [RebootInstances](reboot_instance.cpp#L32)
-- [ReleaseAddress](release_address.cpp#L31)
+- [releaseAddress](release_address.cpp#L31)
 - [RunInstances](run_instances.cpp#L44)
 - [StartInstances](start_stop_instance.cpp#L38)
 - [StopInstances](start_stop_instance.cpp#L84)
-- [TerminateInstances](terminate_instances.cpp#L30)
+- [terminateInstances](terminate_instances.cpp#L30)
 - [UnmonitorInstances](monitor_instance.cpp#L82)
 
 

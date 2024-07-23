@@ -20,7 +20,7 @@ namespace AwsDocTest {
         bool result = createKeyPair(keyPairName);
         ASSERT_TRUE(result) << preconditionError() << std::endl;
 
-        result = AwsDoc::EC2::DeleteKeyPair(keyPairName, *s_clientConfig);
+        result = AwsDoc::EC2::deleteKeyPair(keyPairName, *s_clientConfig);
         ASSERT_TRUE(result);
     }
 

@@ -14,14 +14,12 @@
  **/
 
 // snippet-start:[ec2.cpp.start_instance.inc]
-#include <aws/core/Aws.h>
+
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/StartInstancesRequest.h>
-#include <aws/ec2/model/StartInstancesResponse.h>
 // snippet-end:[ec2.cpp.start_instance.inc]
 // snippet-start:[ec2.cpp.stop_instance.inc]
 #include <aws/ec2/model/StopInstancesRequest.h>
-#include <aws/ec2/model/StopInstancesResponse.h>
 // snippet-end:[ec2.cpp.stop_instance.inc]
 #include <iostream>
 #include "ec2_samples.h"
@@ -33,7 +31,7 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::StartInstance(const Aws::String &instanceId,
+bool AwsDoc::EC2::startInstance(const Aws::String &instanceId,
                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.start_instance.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
@@ -48,9 +46,8 @@ bool AwsDoc::EC2::StartInstance(const Aws::String &instanceId,
                 << "Failed dry run to start instance. A dry run should trigger an error."
                 << std::endl;
         return false;
-    }
-    else if (dry_run_outcome.GetError().GetErrorType() !=
-             Aws::EC2::EC2Errors::DRY_RUN_OPERATION) {
+    } else if (dry_run_outcome.GetError().GetErrorType() !=
+               Aws::EC2::EC2Errors::DRY_RUN_OPERATION) {
         std::cout << "Failed dry run to start instance " << instanceId << ": "
                   << dry_run_outcome.GetError().GetMessage() << std::endl;
         return false;
@@ -62,8 +59,7 @@ bool AwsDoc::EC2::StartInstance(const Aws::String &instanceId,
     if (!start_instancesOutcome.IsSuccess()) {
         std::cout << "Failed to start instance " << instanceId << ": " <<
                   start_instancesOutcome.GetError().GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully started instance " << instanceId <<
                   std::endl;
     }
@@ -80,7 +76,7 @@ bool AwsDoc::EC2::StartInstance(const Aws::String &instanceId,
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::StopInstance(const Aws::String &instanceId,
+bool AwsDoc::EC2::stopInstance(const Aws::String &instanceId,
                                const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.stop_instance.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
@@ -94,9 +90,8 @@ bool AwsDoc::EC2::StopInstance(const Aws::String &instanceId,
                 << "Failed dry run to stop instance. A dry run should trigger an error."
                 << std::endl;
         return false;
-    }
-    else if (dry_run_outcome.GetError().GetErrorType() !=
-             Aws::EC2::EC2Errors::DRY_RUN_OPERATION) {
+    } else if (dry_run_outcome.GetError().GetErrorType() !=
+               Aws::EC2::EC2Errors::DRY_RUN_OPERATION) {
         std::cout << "Failed dry run to stop instance " << instanceId << ": "
                   << dry_run_outcome.GetError().GetMessage() << std::endl;
         return false;
@@ -107,8 +102,7 @@ bool AwsDoc::EC2::StopInstance(const Aws::String &instanceId,
     if (!outcome.IsSuccess()) {
         std::cout << "Failed to stop instance " << instanceId << ": " <<
                   outcome.GetError().GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully stopped instance " << instanceId <<
                   std::endl;
     }
@@ -162,10 +156,10 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
         if (start_instance) {
-            AwsDoc::EC2::StartInstance(instance_id, clientConfig);
+            AwsDoc::EC2::startInstance(instance_id, clientConfig);
         }
         else {
-            AwsDoc::EC2::StopInstance(instance_id, clientConfig);
+            AwsDoc::EC2::stopInstance(instance_id, clientConfig);
         }
     }
     Aws::ShutdownAPI(options);

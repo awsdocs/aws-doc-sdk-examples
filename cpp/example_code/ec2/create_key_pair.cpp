@@ -13,7 +13,6 @@
  **/
 
 // snippet-start:[ec2.cpp.create_key_pair.inc]
-#include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/CreateKeyPairRequest.h>
 #include <iostream>
@@ -21,7 +20,7 @@
 // snippet-end:[ec2.cpp.create_key_pair.inc]
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2,CreateKeyPair]
+// snippet-start:[cpp.example_code.ec2,createKeyPair]
 //! Create an Amazon Elastic Compute Cloud (Amazon EC2) instance key pair.
 /*!
   \param keyPairName: A name for a key pair.
@@ -29,7 +28,7 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::CreateKeyPair(const Aws::String &keyPairName, const Aws::String &keyFilePath,
+bool AwsDoc::EC2::createKeyPair(const Aws::String &keyPairName, const Aws::String &keyFilePath,
                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.create_key_pair.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
@@ -40,8 +39,7 @@ bool AwsDoc::EC2::CreateKeyPair(const Aws::String &keyPairName, const Aws::Strin
     if (!outcome.IsSuccess()) {
         std::cerr << "Failed to create key pair:" <<
                   outcome.GetError().GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully created key pair named " <<
                   keyPairName << std::endl;
         if (!keyFilePath.empty()) {
@@ -58,7 +56,7 @@ bool AwsDoc::EC2::CreateKeyPair(const Aws::String &keyPairName, const Aws::Strin
     return outcome.IsSuccess();
 
 }
-// snippet-end:[cpp.example_code.ec2,CreateKeyPair]
+// snippet-end:[cpp.example_code.ec2,createKeyPair]
 
 /*
 *  main function
@@ -85,7 +83,7 @@ int main(int argc, char **argv) {
         Aws::String keyPairName = argv[1];
         Aws::String keyFilePath;  // Optional: Specify a secure file path to store the credentials.
 
-        AwsDoc::EC2::CreateKeyPair(keyPairName, keyFilePath, clientConfig);
+        AwsDoc::EC2::createKeyPair(keyPairName, keyFilePath, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

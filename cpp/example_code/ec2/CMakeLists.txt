@@ -47,7 +47,7 @@ endif ()
 if (NOT DEFINED AWSDOC_SOURCE)
     file(GLOB AWSDOC_SOURCE
             "*.cpp"
-            )
+    )
 endif ()
 
 foreach (file ${AWSDOC_SOURCE})

@@ -20,9 +20,19 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool AllocateAndAssociateAddress(const Aws::String &instanceId, Aws::String &allocationId,
+        bool allocateAndAssociateAddress(const Aws::String &instanceId, Aws::String &publicIPAddress,
                                          Aws::String &allocationID,
                                          const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Associate an Elastic IP address with an EC2 instance.
+        /*!
+          \param instanceId: An EC2 instance ID.
+          \param allocationId: An Elastic IP allocation ID.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: True if the address was associated with the instance; otherwise, false.
+         */
+        bool associateAddress(const Aws::String& instanceId, const Aws::String& allocationId, const Aws::Client::ClientConfiguration& clientConfiguration);
+
 
         //! Create an EC2 instance key pair.
         /*!
@@ -31,7 +41,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool CreateKeyPair(const Aws::String &keyPairName, const Aws::String &keyFilePath,
+        bool createKeyPair(const Aws::String &keyPairName, const Aws::String &keyFilePath,
                            const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Create a security group.
@@ -43,7 +53,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool CreateSecurityGroup(const Aws::String &groupName,
+        bool createSecurityGroup(const Aws::String &groupName,
                                  const Aws::String &description,
                                  const Aws::String &vpcID,
                                  Aws::String &groupIDResult,
@@ -66,7 +76,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool DeleteKeyPair(const Aws::String &keyPairName,
+        bool deleteKeyPair(const Aws::String &keyPairName,
                            const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Delete a security group.
@@ -75,7 +85,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool DeleteSecurityGroup(const Aws::String &securityGroupID,
+        bool deleteSecurityGroup(const Aws::String &securityGroupID,
                                  const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Describe all Elastic IP addresses.
@@ -84,7 +94,7 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool
-        DescribeAddresses(const Aws::Client::ClientConfiguration &clientConfiguration);
+        describeAddresses(const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Describe all EC2 instances associated with an account.
         /*!
@@ -92,7 +102,7 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool
-        DescribeInstances(const Aws::Client::ClientConfiguration &clientConfiguration);
+        describeInstances(const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Describe all EC2 instance key pairs.
         /*!
@@ -100,14 +110,14 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool
-        DescribeKeyPairs(const Aws::Client::ClientConfiguration &clientConfiguration);
+        describeKeyPairs(const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Describe all EC2 Regions and Availability Zones.
         /*!
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool DescribeRegionsAndZones(
+        bool describeRegionsAndZones(
                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Describe all EC2 security groups, or a specific group.
@@ -116,7 +126,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool DescribeSecurityGroups(const Aws::String &groupID,
+        bool describeSecurityGroups(const Aws::String &groupID,
                                     const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Enable detailed monitoring for an EC2 instance.
@@ -125,7 +135,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool EnableMonitoring(const Aws::String &instanceId,
+        bool enableMonitoring(const Aws::String &instanceId,
                               const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Disable monitoring for an EC2 instance.
@@ -134,7 +144,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool DisableMonitoring(const Aws::String &instanceId,
+        bool disableMonitoring(const Aws::String &instanceId,
                                const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Reboot an EC2 instance.
@@ -143,7 +153,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool RebootInstance(const Aws::String &instanceId,
+        bool rebootInstance(const Aws::String &instanceId,
                             const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Release an Elastic IP address.
@@ -151,7 +161,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool ReleaseAddress(const Aws::String &allocationID,
+        bool releaseAddress(const Aws::String &allocationID,
                             const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Launch an EC2 instance.
@@ -162,7 +172,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool RunInstance(const Aws::String &instanceName,
+        bool runInstance(const Aws::String &instanceName,
                          const Aws::String &amiId,
                          Aws::String &instanceID,
                          const Aws::Client::ClientConfiguration &clientConfiguration);
@@ -173,7 +183,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool StartInstance(const Aws::String &instanceId,
+        bool startInstance(const Aws::String &instanceId,
                            const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Stop an EC2 instance.
@@ -182,7 +192,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool StopInstance(const Aws::String &instanceId,
+        bool stopInstance(const Aws::String &instanceId,
                           const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Terminate an EC2 instance.
@@ -191,8 +201,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-
-        bool TerminateInstances(const Aws::String &instanceID,
+        bool terminateInstances(const Aws::String &instanceID,
                                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
     } // EC2

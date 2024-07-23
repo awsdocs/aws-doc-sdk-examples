@@ -27,9 +27,8 @@
   \return bool: Function succeeded.
  */
 bool AwsDoc::EC2::createTags(const Aws::Vector<Aws::String> &resources,
-                const Aws::Vector<Aws::EC2::Model::Tag> &tags,
-                const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+                             const Aws::Vector<Aws::EC2::Model::Tag> &tags,
+                             const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
 
     Aws::EC2::Model::CreateTagsRequest createTagsRequest;
@@ -38,12 +37,9 @@ bool AwsDoc::EC2::createTags(const Aws::Vector<Aws::String> &resources,
 
     Aws::EC2::Model::CreateTagsOutcome outcome = ec2Client.CreateTags(createTagsRequest);
 
-    if  (outcome.IsSuccess())
-    {
+    if (outcome.IsSuccess()) {
         std::cout << "Successfully created tags for resources" << std::endl;
-    }
-    else
-    {
+    } else {
         std::cerr << "Failed to create tags for resources, " << outcome.GetError().GetMessage() << std::endl;
     }
 
@@ -61,10 +57,8 @@ bool AwsDoc::EC2::createTags(const Aws::Vector<Aws::String> &resources,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char **argv)
-{
-    if (argc != 3)
-    {
+int main(int argc, char **argv) {
+    if (argc != 3) {
         std::cout << "Usage: run_create_tags <instance_id> <name_tag>" << std::endl;
         return 1;
     }

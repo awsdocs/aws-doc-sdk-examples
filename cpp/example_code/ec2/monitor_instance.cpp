@@ -13,11 +13,9 @@
  **/
 
 // snippet-start:[ec2.cpp.monitor_instance.inc]
-#include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/MonitorInstancesRequest.h>
 #include <aws/ec2/model/UnmonitorInstancesRequest.h>
-#include <aws/ec2/model/UnmonitorInstancesResponse.h>
 #include <iostream>
 // snippet-end:[ec2.cpp.monitor_instance.inc]
 #include "ec2_samples.h"
@@ -29,7 +27,7 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::EnableMonitoring(const Aws::String &instanceId,
+bool AwsDoc::EC2::enableMonitoring(const Aws::String &instanceId,
                                    const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.enable_monitor_instance.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
@@ -44,9 +42,8 @@ bool AwsDoc::EC2::EnableMonitoring(const Aws::String &instanceId,
                 <<
                 std::endl;
         return false;
-    }
-    else if (dry_run_outcome.GetError().GetErrorType()
-             != Aws::EC2::EC2Errors::DRY_RUN_OPERATION) {
+    } else if (dry_run_outcome.GetError().GetErrorType()
+               != Aws::EC2::EC2Errors::DRY_RUN_OPERATION) {
         std::cerr << "Failed dry run to enable monitoring on instance " <<
                   instanceId << ": " << dry_run_outcome.GetError().GetMessage() <<
                   std::endl;
@@ -59,8 +56,7 @@ bool AwsDoc::EC2::EnableMonitoring(const Aws::String &instanceId,
         std::cerr << "Failed to enable monitoring on instance " <<
                   instanceId << ": " <<
                   monitorInstancesOutcome.GetError().GetMessage() << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully enabled monitoring on instance " <<
                   instanceId << std::endl;
     }
@@ -78,7 +74,7 @@ bool AwsDoc::EC2::EnableMonitoring(const Aws::String &instanceId,
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::DisableMonitoring(const Aws::String &instanceId,
+bool AwsDoc::EC2::disableMonitoring(const Aws::String &instanceId,
                                     const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.disable_monitor_instance.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
@@ -93,9 +89,8 @@ bool AwsDoc::EC2::DisableMonitoring(const Aws::String &instanceId,
                 <<
                 std::endl;
         return false;
-    }
-    else if (undryRunOutcome.GetError().GetErrorType() !=
-             Aws::EC2::EC2Errors::DRY_RUN_OPERATION) {
+    } else if (undryRunOutcome.GetError().GetErrorType() !=
+               Aws::EC2::EC2Errors::DRY_RUN_OPERATION) {
         std::cout << "Failed dry run to disable monitoring on instance " <<
                   instanceId << ": " << undryRunOutcome.GetError().GetMessage() <<
                   std::endl;
@@ -108,8 +103,7 @@ bool AwsDoc::EC2::DisableMonitoring(const Aws::String &instanceId,
         std::cout << "Failed to disable monitoring on instance " << instanceId
                   << ": " << unmonitorInstancesOutcome.GetError().GetMessage() <<
                   std::endl;
-    }
-    else {
+    } else {
         std::cout << "Successfully disable monitoring on instance " <<
                   instanceId << std::endl;
     }
@@ -152,10 +146,10 @@ int main(int argc, char **argv) {
         // clientConfig.region = "us-east-1";
 
         if (enableMonitoring) {
-            AwsDoc::EC2::EnableMonitoring(instance_id, clientConfig);
+            AwsDoc::EC2::enableMonitoring(instance_id, clientConfig);
         }
         else {
-            AwsDoc::EC2::DisableMonitoring(instance_id, clientConfig);
+            AwsDoc::EC2::disableMonitoring(instance_id, clientConfig);
         }
     }
     Aws::ShutdownAPI(options);

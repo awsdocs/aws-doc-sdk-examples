@@ -27,6 +27,9 @@
  */
 
 int main(int argc, char **argv) {
+    (void)argc;
+    (void)argv;
+
     Aws::SDKOptions options;
     // Optionally change the log level for debugging.
 //   options.loggingOptions.logLevel = Utils::Logging::LogLevel::Debug;

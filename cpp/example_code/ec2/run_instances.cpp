@@ -29,12 +29,12 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::RunInstance(const Aws::String &instanceName,
+bool AwsDoc::EC2::runInstance(const Aws::String &instanceName,
                               const Aws::String &amiId,
                               Aws::String &instanceID,
                               const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.create_instance.code]
-     Aws::EC2::EC2Client ec2Client(clientConfiguration);
+    Aws::EC2::EC2Client ec2Client(clientConfiguration);
 
     Aws::EC2::Model::RunInstancesRequest runRequest;
     runRequest.SetImageId(amiId);
@@ -93,7 +93,7 @@ int main(int argc, char **argv) {
         Aws::String instanceName = argv[1];
         Aws::String amiId = argv[2];
         Aws::String instanceID;
-        AwsDoc::EC2::RunInstance(instanceName, amiId, instanceID, clientConfig);
+        AwsDoc::EC2::runInstance(instanceName, amiId, instanceID, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
