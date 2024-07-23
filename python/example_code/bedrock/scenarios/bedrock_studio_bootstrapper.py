@@ -309,7 +309,18 @@ class BedrockStudioBootstrapper:
             self._get_service_role_policy(),
         )
 
+    def _create_permission_boundary(self):
+        logger.info("=" * 80)
+        logger.info("Step 3: Create Permission Boundary Policy.")
+        logger.info("-" * 80)
+
+        self._create_policy(
+            self._permission_boundary_policy_name, self._get_permission_boundary()
+        )
+
     def _create_role(self, role_name, trust_policy, role_policy):
+        inline_policy_name = "InlinePolicy"
+
         logger.info(f"Creating role: '{role_name}'...")
         try:
             response = self._iam_client.create_role(
@@ -319,37 +330,80 @@ class BedrockStudioBootstrapper:
             logger.info(f"Role created: {role_arn}")
         except self._iam_client.exceptions.EntityAlreadyExistsException:
             logger.warning(f"Role with name '{role_name}' already exists.")
+            try:
+                self._iam_client.get_role_policy(
+                    RoleName=role_name,
+                    PolicyName=inline_policy_name,
+                )
+                confirm_input = input(
+                    f"Proceed to replace the existing inline policy named '{inline_policy_name}'?"
+                    " (yes/no, default: yes) "
+                ).lower()
+                if not (confirm_input in ["", "y" "yes"]):
+                    logger.warning(f"Not updating existing '{role_name}' role.")
+                    return
+            except self._iam_client.exceptions.NoSuchEntityException:
+                pass
 
         logger.info(f"Attaching inline policy to '{role_name}'...")
-        try:
-            self._iam_client.put_role_policy(
-                RoleName=role_name,
-                PolicyName="InlinePolicy",
-                PolicyDocument=role_policy,
-            )
-            logger.info(f"Inline policy successfully attached.")
-        except self._iam_client.exceptions.EntityAlreadyExistsException:
-            logger.warning("Inline policy already exists.")
-
-    def _create_permission_boundary(self):
-        logger.info("=" * 80)
-        logger.info("Step 3: Create Permission Boundary.")
-        logger.info("-" * 80)
-
-        logger.info(
-            f"Creating permission boundary: '{self._permission_boundary_policy_name}'..."
+        self._iam_client.put_role_policy(
+            RoleName=role_name,
+            PolicyName=inline_policy_name,
+            PolicyDocument=role_policy,
         )
+        logger.info(f"Successfully attached inline policy to '{role_name}'.")
 
+    def _create_policy(self, policy_name, policy_document):
+        policy_arn = f"arn:aws:iam::{self._account_id}:policy/{self._permission_boundary_policy_name}"
+
+        logger.info(f"Creating policy: '{policy_name}'...")
         try:
             self._iam_client.create_policy(
-                PolicyName=self._permission_boundary_policy_name,
-                PolicyDocument=self._get_permission_boundary(),
+                PolicyName=policy_name,
+                PolicyDocument=policy_document,
             )
-            logger.info(f"Permission boundary policy created.")
+            logger.info(f"Policy created: {policy_arn}")
         except self._iam_client.exceptions.EntityAlreadyExistsException:
-            logger.warning(
-                f"Policy with name '{self._permission_boundary_policy_name}' already exists."
+            logger.info(f"Policy with name '{policy_name}' already exists.")
+
+            policy_versions = self._iam_client.list_policy_versions(
+                PolicyArn=policy_arn
+            )["Versions"]
+            if len(policy_versions) >= 5:
+                logger.warning(
+                    f"Cannot create more than 5 versions of '{policy_name}' policy."
+                )
+                sorted_policy_versions = sorted(
+                    policy_versions, key=lambda x: x["CreateDate"]
+                )
+                oldest_non_default_version_id = next(
+                    filter(lambda x: not x["IsDefaultVersion"], sorted_policy_versions)
+                )["VersionId"]
+                confirm_input = input(
+                    f"Proceed to delete the oldest non-default version '{oldest_non_default_version_id}'?"
+                    " (yes/no, default: yes) "
+                ).lower()
+                if confirm_input in ["", "y" "yes"]:
+                    logger.info(
+                        f"Deleting '{oldest_non_default_version_id}' version of '{policy_name}' policy..."
+                    )
+                    self._iam_client.delete_policy_version(
+                        PolicyArn=policy_arn,
+                        VersionId=oldest_non_default_version_id,
+                    )
+                else:
+                    logger.warning(f"Not updating existing '{policy_name}' policy.")
+                    return
+
+            logger.info(
+                f"Creating new default version of existing '{policy_name}' policy..."
             )
+            self._iam_client.create_policy_version(
+                PolicyArn=policy_arn,
+                PolicyDocument=policy_document,
+                SetAsDefault=True,
+            )
+            logger.info(f"Successfully updated '{policy_name}' policy.")
 
     def _create_kms_key(self):
         logger.info("=" * 80)
@@ -444,8 +498,8 @@ class BedrockStudioBootstrapper:
                 "Statement": [
                     {
                         "Effect": "Allow",
-                        "Principal": {"Service": ["datazone.amazonaws.com"]},
-                        "Action": ["sts:AssumeRole"],
+                        "Principal": {"Service": "datazone.amazonaws.com"},
+                        "Action": "sts:AssumeRole",
                         "Condition": {
                             "StringEquals": {"aws:SourceAccount": self._account_id}
                         },
@@ -455,113 +509,20 @@ class BedrockStudioBootstrapper:
         )
 
     def _get_provisioning_role_policy(self):
-        account_id = self._account_id
-        region = self._region
         return json.dumps(
             {
                 "Version": "2012-10-17",
                 "Statement": [
                     {
-                        "Sid": "AmazonDataZonePermissionsToCreateEnvironmentRole",
-                        "Effect": "Allow",
-                        "Action": [
-                            "iam:CreateRole",
-                            "iam:GetRolePolicy",
-                            "iam:DetachRolePolicy",
-                            "iam:AttachRolePolicy",
-                            "iam:UpdateAssumeRolePolicy",
-                        ],
-                        "Resource": "arn:aws:iam::*:role/DataZoneBedrockProjectRole*",
-                        "Condition": {
-                            "StringEquals": {
-                                "iam:PermissionsBoundary": f"arn:aws:iam::{account_id}:policy/{self._permission_boundary_policy_name}",
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"],
-                            },
-                            "Null": {
-                                "aws:ResourceTag/AmazonDataZoneEnvironment": "false"
-                            },
-                        },
-                    },
-                    {
-                        "Sid": "AmazonDataZonePermissionsToServiceRole",
-                        "Effect": "Allow",
-                        "Action": [
-                            "iam:CreateRole",
-                            "iam:GetRolePolicy",
-                            "iam:DetachRolePolicy",
-                            "iam:AttachRolePolicy",
-                            "iam:UpdateAssumeRolePolicy",
-                        ],
-                        "Resource": [
-                            "arn:aws:iam::*:role/BedrockStudio*",
-                            "arn:aws:iam::*:role/AmazonBedrockExecution*",
-                        ],
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            },
-                            "Null": {
-                                "aws:ResourceTag/AmazonDataZoneEnvironment": "false"
-                            },
-                        },
-                    },
-                    {
-                        "Sid": "IamPassRolePermissionsForBedrock",
-                        "Effect": "Allow",
-                        "Action": ["iam:PassRole"],
-                        "Resource": "arn:aws:iam::*:role/AmazonBedrockExecution*",
-                        "Condition": {
-                            "StringEquals": {
-                                "iam:PassedToService": ["bedrock.amazonaws.com"],
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"],
-                            }
-                        },
-                    },
-                    {
-                        "Sid": "IamPassRolePermissionsForLambda",
-                        "Effect": "Allow",
-                        "Action": ["iam:PassRole"],
-                        "Resource": ["arn:aws:iam::*:role/BedrockStudio*"],
-                        "Condition": {
-                            "StringEquals": {
-                                "iam:PassedToService": ["lambda.amazonaws.com"],
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"],
-                            }
-                        },
-                    },
-                    {
-                        "Sid": "AmazonDataZonePermissionsToManageCreatedEnvironmentRole",
-                        "Effect": "Allow",
-                        "Action": [
-                            "iam:DeleteRole",
-                            "iam:GetRole",
-                            "iam:DetachRolePolicy",
-                            "iam:GetPolicy",
-                            "iam:DeleteRolePolicy",
-                            "iam:PutRolePolicy",
-                        ],
-                        "Resource": [
-                            "arn:aws:iam::*:role/DataZoneBedrockProjectRole*",
-                            "arn:aws:iam::*:role/AmazonBedrock*",
-                            "arn:aws:iam::*:role/BedrockStudio*",
-                        ],
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            }
-                        },
-                    },
-                    {
-                        "Sid": "AmazonDataZoneCFStackCreationForEnvironments",
+                        "Sid": "CreateStacks",
                         "Effect": "Allow",
                         "Action": [
                             "cloudformation:CreateStack",
-                            "cloudformation:UpdateStack",
                             "cloudformation:TagResource",
                         ],
-                        "Resource": ["arn:aws:cloudformation:*:*:stack/DataZone*"],
+                        "Resource": "arn:aws:cloudformation:*:*:stack/DataZone*",
                         "Condition": {
-                            "ForAnyValue:StringLike": {
+                            "ForAnyValue:StringEquals": {
                                 "aws:TagKeys": "AmazonDataZoneEnvironment"
                             },
                             "Null": {
@@ -570,369 +531,415 @@ class BedrockStudioBootstrapper:
                         },
                     },
                     {
-                        "Sid": "AmazonDataZoneCFStackManagementForEnvironments",
+                        "Sid": "ManageStacks",
                         "Effect": "Allow",
                         "Action": [
-                            "cloudformation:DeleteStack",
                             "cloudformation:DescribeStacks",
                             "cloudformation:DescribeStackEvents",
+                            "cloudformation:UpdateStack",
+                            "cloudformation:DeleteStack",
                         ],
-                        "Resource": ["arn:aws:cloudformation:*:*:stack/DataZone*"],
+                        "Resource": "arn:aws:cloudformation:*:*:stack/DataZone*",
                     },
                     {
-                        "Sid": "AmazonDataZoneEnvironmentBedrockGetViaCloudformation",
-                        "Effect": "Allow",
-                        "Action": [
-                            "bedrock:GetAgent",
-                            "bedrock:GetAgentActionGroup",
-                            "bedrock:GetAgentAlias",
-                            "bedrock:GetAgentKnowledgeBase",
-                            "bedrock:GetKnowledgeBase",
-                            "bedrock:GetDataSource",
-                            "bedrock:GetGuardrail",
-                            "bedrock:DeleteGuardrail",
+                        "Sid": "DenyOtherActionsNotViaCloudFormation",
+                        "Effect": "Deny",
+                        "NotAction": [
+                            "cloudformation:DescribeStacks",
+                            "cloudformation:DescribeStackEvents",
+                            "cloudformation:CreateStack",
+                            "cloudformation:UpdateStack",
+                            "cloudformation:DeleteStack",
+                            "cloudformation:TagResource",
                         ],
                         "Resource": "*",
                         "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
+                            "StringNotEqualsIfExists": {
+                                "aws:CalledViaFirst": "cloudformation.amazonaws.com"
                             }
                         },
                     },
                     {
-                        "Sid": "AmazonDataZoneEnvironmentBedrockAgentPermissions",
+                        "Sid": "ListResources",
+                        "Effect": "Allow",
+                        "Action": [
+                            "iam:ListRoles",
+                            "s3:ListAllMyBuckets",
+                            "aoss:ListCollections",
+                            "aoss:BatchGetCollection",
+                            "aoss:ListAccessPolicies",
+                            "aoss:ListSecurityPolicies",
+                            "aoss:ListTagsForResource",
+                            "bedrock:ListAgents",
+                            "bedrock:ListKnowledgeBases",
+                            "bedrock:ListGuardrails",
+                            "bedrock:ListPrompts",
+                            "bedrock:ListFlows",
+                            "bedrock:ListTagsForResource",
+                            "lambda:ListFunctions",
+                            "logs:DescribeLogGroups",
+                            "secretsmanager:ListSecrets",
+                        ],
+                        "Resource": "*",
+                    },
+                    {
+                        "Sid": "GetRoles",
+                        "Effect": "Allow",
+                        "Action": "iam:GetRole",
+                        "Resource": [
+                            "arn:aws:iam::*:role/DataZoneBedrockProject*",
+                            "arn:aws:iam::*:role/AmazonBedrockExecution*",
+                            "arn:aws:iam::*:role/BedrockStudio*",
+                        ],
+                    },
+                    {
+                        "Sid": "CreateRoles",
+                        "Effect": "Allow",
+                        "Action": [
+                            "iam:CreateRole",
+                            "iam:PutRolePolicy",
+                            "iam:AttachRolePolicy",
+                            "iam:DeleteRolePolicy",
+                            "iam:DetachRolePolicy",
+                        ],
+                        "Resource": [
+                            "arn:aws:iam::*:role/DataZoneBedrockProject*",
+                            "arn:aws:iam::*:role/AmazonBedrockExecution*",
+                            "arn:aws:iam::*:role/BedrockStudio*",
+                        ],
+                        "Condition": {
+                            "StringEquals": {
+                                "aws:ResourceTag/AmazonBedrockManaged": "true"
+                            }
+                        },
+                    },
+                    {
+                        "Sid": "ManageRoles",
+                        "Effect": "Allow",
+                        "Action": [
+                            "iam:UpdateRole",
+                            "iam:DeleteRole",
+                            "iam:ListRolePolicies",
+                            "iam:GetRolePolicy",
+                            "iam:ListAttachedRolePolicies",
+                        ],
+                        "Resource": [
+                            "arn:aws:iam::*:role/DataZoneBedrockProject*",
+                            "arn:aws:iam::*:role/AmazonBedrockExecution*",
+                            "arn:aws:iam::*:role/BedrockStudio*",
+                        ],
+                        "Condition": {
+                            "StringEquals": {
+                                "aws:ResourceTag/AmazonBedrockManaged": "true"
+                            }
+                        },
+                    },
+                    {
+                        "Sid": "PassRoleToBedrockService",
+                        "Effect": "Allow",
+                        "Action": "iam:PassRole",
+                        "Resource": [
+                            "arn:aws:iam::*:role/AmazonBedrockExecution*",
+                            "arn:aws:iam::*:role/BedrockStudio*",
+                        ],
+                        "Condition": {
+                            "StringEquals": {
+                                "iam:PassedToService": "bedrock.amazonaws.com"
+                            }
+                        },
+                    },
+                    {
+                        "Sid": "PassRoleToLambdaService",
+                        "Effect": "Allow",
+                        "Action": "iam:PassRole",
+                        "Resource": "arn:aws:iam::*:role/BedrockStudio*",
+                        "Condition": {
+                            "StringEquals": {
+                                "iam:PassedToService": "lambda.amazonaws.com"
+                            }
+                        },
+                    },
+                    {
+                        "Sid": "CreateRoleForOpenSearchServerless",
+                        "Effect": "Allow",
+                        "Action": "iam:CreateServiceLinkedRole",
+                        "Resource": "*",
+                        "Condition": {
+                            "StringEquals": {
+                                "iam:AWSServiceName": "observability.aoss.amazonaws.com"
+                            }
+                        },
+                    },
+                    {
+                        "Sid": "GetDataZoneBlueprintCfnTemplates",
+                        "Effect": "Allow",
+                        "Action": "s3:GetObject",
+                        "Resource": "*",
+                        "Condition": {
+                            "StringNotEquals": {
+                                "s3:ResourceAccount": "${aws:PrincipalAccount}"
+                            }
+                        },
+                    },
+                    {
+                        "Sid": "CreateAndAccessS3Buckets",
+                        "Effect": "Allow",
+                        "Action": [
+                            "s3:CreateBucket",
+                            "s3:DeleteBucket",
+                            "s3:GetBucketPolicy",
+                            "s3:PutBucketPolicy",
+                            "s3:DeleteBucketPolicy",
+                            "s3:PutBucketTagging",
+                            "s3:PutBucketCORS",
+                            "s3:PutBucketLogging",
+                            "s3:PutBucketVersioning",
+                            "s3:PutBucketPublicAccessBlock",
+                            "s3:PutEncryptionConfiguration",
+                            "s3:PutLifecycleConfiguration",
+                            "s3:GetObject",
+                            "s3:GetObjectVersion",
+                        ],
+                        "Resource": "arn:aws:s3:::br-studio-*",
+                    },
+                    {
+                        "Sid": "ManageOssAccessPolicies",
+                        "Effect": "Allow",
+                        "Action": [
+                            "aoss:GetAccessPolicy",
+                            "aoss:CreateAccessPolicy",
+                            "aoss:DeleteAccessPolicy",
+                            "aoss:UpdateAccessPolicy",
+                        ],
+                        "Resource": "*",
+                        "Condition": {
+                            "StringLikeIfExists": {
+                                "aoss:collection": "br-studio-*",
+                                "aoss:index": "br-studio-*",
+                            }
+                        },
+                    },
+                    {
+                        "Sid": "ManageOssSecurityPolicies",
+                        "Effect": "Allow",
+                        "Action": [
+                            "aoss:GetSecurityPolicy",
+                            "aoss:CreateSecurityPolicy",
+                            "aoss:DeleteSecurityPolicy",
+                            "aoss:UpdateSecurityPolicy",
+                        ],
+                        "Resource": "*",
+                        "Condition": {
+                            "StringLikeIfExists": {"aoss:collection": "br-studio-*"}
+                        },
+                    },
+                    {
+                        "Sid": "ManageOssCollections",
+                        "Effect": "Allow",
+                        "Action": [
+                            "aoss:CreateCollection",
+                            "aoss:UpdateCollection",
+                            "aoss:DeleteCollection",
+                        ],
+                        "Resource": "*",
+                        "Condition": {
+                            "StringEquals": {
+                                "aws:ResourceTag/AmazonBedrockManaged": "true"
+                            }
+                        },
+                    },
+                    {
+                        "Sid": "GetBedrockResources",
+                        "Effect": "Allow",
+                        "Action": [
+                            "bedrock:GetAgent",
+                            "bedrock:GetKnowledgeBase",
+                            "bedrock:GetGuardrail",
+                            "bedrock:GetPrompt",
+                            "bedrock:GetFlow",
+                            "bedrock:GetFlowAlias",
+                        ],
+                        "Resource": "*",
+                    },
+                    {
+                        "Sid": "ManageBedrockResources",
                         "Effect": "Allow",
                         "Action": [
                             "bedrock:CreateAgent",
                             "bedrock:UpdateAgent",
+                            "bedrock:PrepareAgent",
                             "bedrock:DeleteAgent",
-                            "bedrock:ListAgents",
-                            "bedrock:CreateAgentActionGroup",
-                            "bedrock:UpdateAgentActionGroup",
-                            "bedrock:DeleteAgentActionGroup",
-                            "bedrock:ListAgentActionGroups",
+                            "bedrock:ListAgentAliases",
+                            "bedrock:GetAgentAlias",
                             "bedrock:CreateAgentAlias",
                             "bedrock:UpdateAgentAlias",
                             "bedrock:DeleteAgentAlias",
-                            "bedrock:ListAgentAliases",
+                            "bedrock:ListAgentActionGroups",
+                            "bedrock:GetAgentActionGroup",
+                            "bedrock:CreateAgentActionGroup",
+                            "bedrock:UpdateAgentActionGroup",
+                            "bedrock:DeleteAgentActionGroup",
+                            "bedrock:ListAgentKnowledgeBases",
+                            "bedrock:GetAgentKnowledgeBase",
                             "bedrock:AssociateAgentKnowledgeBase",
                             "bedrock:DisassociateAgentKnowledgeBase",
                             "bedrock:UpdateAgentKnowledgeBase",
-                            "bedrock:ListAgentKnowledgeBases",
-                            "bedrock:PrepareAgent",
-                        ],
-                        "Resource": "*",
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            },
-                            "Null": {"aws:ResourceTag/AmazonDataZoneProject": "false"},
-                        },
-                    },
-                    {
-                        "Sid": "AmazonDataZoneEnvironmentOpenSearch",
-                        "Effect": "Allow",
-                        "Action": [
-                            "aoss:CreateAccessPolicy",
-                            "aoss:DeleteAccessPolicy",
-                            "aoss:UpdateAccessPolicy",
-                            "aoss:GetAccessPolicy",
-                            "aoss:ListAccessPolicies",
-                            "aoss:CreateSecurityPolicy",
-                            "aoss:DeleteSecurityPolicy",
-                            "aoss:UpdateSecurityPolicy",
-                            "aoss:GetSecurityPolicy",
-                            "aoss:ListSecurityPolicies",
-                        ],
-                        "Resource": "*",
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            }
-                        },
-                    },
-                    {
-                        "Sid": "AmazonDataZoneEnvironmentOpenSearchPermissions",
-                        "Effect": "Allow",
-                        "Action": [
-                            "aoss:UpdateCollection",
-                            "aoss:DeleteCollection",
-                            "aoss:BatchGetCollection",
-                            "aoss:ListCollections",
-                            "aoss:CreateCollection",
-                        ],
-                        "Resource": "*",
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            },
-                            "Null": {"aws:ResourceTag/AmazonDataZoneProject": "false"},
-                        },
-                    },
-                    {
-                        "Sid": "AmazonDataZoneEnvironmentBedrockKnowledgeBasePermissions",
-                        "Effect": "Allow",
-                        "Action": [
                             "bedrock:CreateKnowledgeBase",
                             "bedrock:UpdateKnowledgeBase",
                             "bedrock:DeleteKnowledgeBase",
+                            "bedrock:ListDataSources",
+                            "bedrock:GetDataSource",
                             "bedrock:CreateDataSource",
                             "bedrock:UpdateDataSource",
                             "bedrock:DeleteDataSource",
-                            "bedrock:ListKnowledgeBases",
-                            "bedrock:ListDataSources",
-                        ],
-                        "Resource": "*",
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            },
-                            "Null": {"aws:ResourceTag/AmazonDataZoneProject": "false"},
-                        },
-                    },
-                    {
-                        "Sid": "AmazonDataZoneEnvironmentBedrockGuardrailPermissions",
-                        "Effect": "Allow",
-                        "Action": [
                             "bedrock:CreateGuardrail",
-                            "bedrock:CreateGuardrailVersion",
-                            "bedrock:DeleteGuardrail",
-                            "bedrock:ListGuardrails",
-                            "bedrock:ListTagsForResource",
-                            "bedrock:TagResource",
-                            "bedrock:UntagResource",
                             "bedrock:UpdateGuardrail",
+                            "bedrock:DeleteGuardrail",
+                            "bedrock:CreateGuardrailVersion",
+                            "bedrock:CreatePrompt",
+                            "bedrock:UpdatePrompt",
+                            "bedrock:DeletePrompt",
+                            "bedrock:CreatePromptVersion",
+                            "bedrock:CreateFlow",
+                            "bedrock:UpdateFlow",
+                            "bedrock:PrepareFlow",
+                            "bedrock:DeleteFlow",
+                            "bedrock:ListFlowAliases",
+                            "bedrock:GetFlowAlias",
+                            "bedrock:CreateFlowAlias",
+                            "bedrock:UpdateFlowAlias",
+                            "bedrock:DeleteFlowAlias",
+                            "bedrock:ListFlowVersions",
+                            "bedrock:GetFlowVersion",
+                            "bedrock:CreateFlowVersion",
+                            "bedrock:DeleteFlowVersion",
                         ],
                         "Resource": "*",
                         "Condition": {
                             "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            },
-                            "Null": {"aws:ResourceTag/AmazonDataZoneProject": "false"},
+                                "aws:ResourceTag/AmazonBedrockManaged": "true"
+                            }
                         },
                     },
                     {
-                        "Sid": "AmazonDataZoneEnvironmentLambdaPermissions",
+                        "Sid": "TagBedrockAgentAliases",
                         "Effect": "Allow",
-                        "Action": [
-                            "lambda:AddPermission",
-                            "lambda:CreateFunction",
-                            "lambda:ListFunctions",
-                            "lambda:UpdateFunctionCode",
-                            "lambda:UpdateFunctionConfiguration",
-                            "lambda:InvokeFunction",
-                            "lambda:ListVersionsByFunction",
-                            "lambda:PublishVersion",
-                        ],
-                        "Resource": [
-                            f"arn:aws:lambda:{region}:{account_id}:function:br-studio*",
-                            f"arn:aws:lambda:{region}:{account_id}:function:OpensearchIndexLambda*",
-                            f"arn:aws:lambda:{region}:{account_id}:function:IngestionTriggerLambda*",
-                        ],
+                        "Action": "bedrock:TagResource",
+                        "Resource": "arn:aws:bedrock:*:*:agent-alias/*",
                         "Condition": {
                             "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            },
-                            "Null": {
-                                "aws:ResourceTag/AmazonDataZoneEnvironment": "false"
-                            },
+                                "aws:RequestTag/AmazonBedrockManaged": "true"
+                            }
                         },
                     },
                     {
-                        "Sid": "AmazonDataZoneEnvironmentLambdaManagePermissions",
+                        "Sid": "TagBedrockFlowAliases",
+                        "Effect": "Allow",
+                        "Action": "bedrock:TagResource",
+                        "Resource": "arn:aws:bedrock:*:*:flow/*/alias/*",
+                        "Condition": {
+                            "Null": {
+                                "aws:RequestTag/AmazonDataZoneEnvironment": "false"
+                            }
+                        },
+                    },
+                    {
+                        "Sid": "CreateFunctions",
                         "Effect": "Allow",
                         "Action": [
                             "lambda:GetFunction",
+                            "lambda:CreateFunction",
+                            "lambda:InvokeFunction",
                             "lambda:DeleteFunction",
+                            "lambda:UpdateFunctionCode",
+                            "lambda:GetFunctionConfiguration",
+                            "lambda:UpdateFunctionConfiguration",
+                            "lambda:ListVersionsByFunction",
+                            "lambda:PublishVersion",
+                            "lambda:GetPolicy",
+                            "lambda:AddPermission",
                             "lambda:RemovePermission",
+                            "lambda:ListTags",
                         ],
-                        "Resource": [
-                            f"arn:aws:lambda:{region}:{account_id}:function:br-studio*",
-                            f"arn:aws:lambda:{region}:{account_id}:function:OpensearchIndexLambda*",
-                            f"arn:aws:lambda:{region}:{account_id}:function:IngestionTriggerLambda*",
-                        ],
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            }
-                        },
+                        "Resource": "arn:aws:lambda:*:*:function:br-studio-*",
                     },
                     {
                         "Sid": "ManageLogGroups",
                         "Effect": "Allow",
                         "Action": [
                             "logs:CreateLogGroup",
-                            "logs:PutRetentionPolicy",
                             "logs:DeleteLogGroup",
+                            "logs:PutRetentionPolicy",
+                            "logs:DeleteRetentionPolicy",
+                            "logs:GetDataProtectionPolicy",
+                            "logs:PutDataProtectionPolicy",
+                            "logs:DeleteDataProtectionPolicy",
+                            "logs:AssociateKmsKey",
+                            "logs:DisassociateKmsKey",
+                            "logs:ListTagsLogGroup",
+                            "logs:ListTagsForResource",
                         ],
-                        "Resource": [
-                            "arn:aws:logs:*:*:log-group:/aws/lambda/br-studio-*",
-                            "arn:aws:logs:*:*:log-group:datazone-*",
-                        ],
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-                            }
-                        },
+                        "Resource": "arn:aws:logs:*:*:log-group:/aws/lambda/br-studio-*",
                     },
                     {
-                        "Sid": "ListTags",
+                        "Sid": "GetRandomPasswordForSecret",
                         "Effect": "Allow",
-                        "Action": [
-                            "bedrock:ListTagsForResource",
-                            "aoss:ListTagsForResource",
-                            "lambda:ListTags",
-                            "iam:ListRoleTags",
-                            "iam:ListPolicyTags",
-                        ],
+                        "Action": "secretsmanager:GetRandomPassword",
                         "Resource": "*",
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": "cloudformation.amazonaws.com"
-                            }
-                        },
                     },
                     {
-                        "Sid": "AmazonDataZoneEnvironmentTagsCreationPermissions",
-                        "Effect": "Allow",
-                        "Action": [
-                            "iam:TagRole",
-                            "iam:TagPolicy",
-                            "iam:UntagRole",
-                            "iam:UntagPolicy",
-                            "logs:TagLogGroup",
-                            "bedrock:TagResource",
-                            "bedrock:UntagResource",
-                            "bedrock:ListTagsForResource",
-                            "aoss:TagResource",
-                            "aoss:UnTagResource",
-                            "aoss:ListTagsForResource",
-                            "lambda:TagResource",
-                            "lambda:UnTagResource",
-                            "lambda:ListTags",
-                        ],
-                        "Resource": "*",
-                        "Condition": {
-                            "ForAnyValue:StringLike": {
-                                "aws:TagKeys": "AmazonDataZoneEnvironment"
-                            },
-                            "Null": {
-                                "aws:ResourceTag/AmazonDataZoneEnvironment": "false"
-                            },
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            },
-                        },
-                    },
-                    {
-                        "Sid": "AmazonDataZoneEnvironmentBedrockTagResource",
-                        "Effect": "Allow",
-                        "Action": ["bedrock:TagResource"],
-                        "Resource": f"arn:aws:bedrock:{region}:{account_id}:agent-alias/*",
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            },
-                            "ForAnyValue:StringLike": {
-                                "aws:TagKeys": "AmazonDataZoneEnvironment"
-                            },
-                        },
-                    },
-                    {
-                        "Sid": "AmazonDataZoneEnvironmentKMSPermissions",
-                        "Effect": "Allow",
-                        "Action": [
-                            "kms:GenerateDataKey",
-                            "kms:Decrypt",
-                            "kms:DescribeKey",
-                            "kms:CreateGrant",
-                            "kms:Encrypt",
-                        ],
-                        "Resource": "*",
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:ResourceTag/EnableBedrock": "true",
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"],
-                            }
-                        },
-                    },
-                    {
-                        "Sid": "PermissionsToGetAmazonDataZoneEnvironmentBlueprintTemplates",
-                        "Effect": "Allow",
-                        "Action": "s3:GetObject",
-                        "Resource": "*",
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            },
-                            "StringNotEquals": {
-                                "aws:ResourceAccount": "${aws:PrincipalAccount}"
-                            },
-                        },
-                    },
-                    {
-                        "Sid": "PermissionsToManageSecrets",
-                        "Effect": "Allow",
-                        "Action": ["secretsmanager:GetRandomPassword"],
-                        "Resource": "*",
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            }
-                        },
-                    },
-                    {
-                        "Sid": "PermissionsToStoreSecrets",
+                        "Sid": "ManageSecrets",
                         "Effect": "Allow",
                         "Action": [
                             "secretsmanager:CreateSecret",
-                            "secretsmanager:TagResource",
-                            "secretsmanager:UntagResource",
+                            "secretsmanager:DescribeSecret",
+                            "secretsmanager:UpdateSecret",
+                            "secretsmanager:DeleteSecret",
+                            "secretsmanager:GetResourcePolicy",
                             "secretsmanager:PutResourcePolicy",
                             "secretsmanager:DeleteResourcePolicy",
-                            "secretsmanager:DeleteSecret",
                         ],
-                        "Resource": "*",
-                        "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            },
-                            "Null": {
-                                "aws:ResourceTag/AmazonDataZoneEnvironment": "false"
-                            },
-                        },
+                        "Resource": "arn:aws:secretsmanager:*:*:secret:br-studio/*",
                     },
                     {
-                        "Sid": "AmazonDataZoneManageProjectBuckets",
+                        "Sid": "UseCustomerManagedKmsKey",
                         "Effect": "Allow",
                         "Action": [
-                            "s3:CreateBucket",
-                            "s3:DeleteBucket",
-                            "s3:PutBucketTagging",
-                            "s3:PutEncryptionConfiguration",
-                            "s3:PutBucketVersioning",
-                            "s3:PutBucketCORS",
-                            "s3:PutBucketPublicAccessBlock",
-                            "s3:PutBucketPolicy",
-                            "s3:PutLifecycleConfiguration",
-                            "s3:DeleteBucketPolicy",
+                            "kms:DescribeKey",
+                            "kms:Encrypt",
+                            "kms:Decrypt",
+                            "kms:GenerateDataKey",
+                            "kms:CreateGrant",
+                            "kms:RetireGrant",
                         ],
-                        "Resource": "arn:aws:s3:::br-studio-*",
+                        "Resource": "*",
                         "Condition": {
-                            "StringEquals": {
-                                "aws:CalledViaFirst": ["cloudformation.amazonaws.com"]
-                            }
+                            "StringEquals": {"aws:ResourceTag/EnableBedrock": "true"}
                         },
                     },
                     {
-                        "Sid": "CreateServiceLinkedRoleForOpenSearchServerless",
+                        "Sid": "TagResources",
                         "Effect": "Allow",
-                        "Action": "iam:CreateServiceLinkedRole",
+                        "Action": [
+                            "iam:TagRole",
+                            "iam:UntagRole",
+                            "aoss:TagResource",
+                            "aoss:UntagResource",
+                            "bedrock:TagResource",
+                            "bedrock:UntagResource",
+                            "lambda:TagResource",
+                            "lambda:UntagResource",
+                            "logs:TagLogGroup",
+                            "logs:UntagLogGroup",
+                            "logs:TagResource",
+                            "logs:UntagResource",
+                            "secretsmanager:TagResource",
+                            "secretsmanager:UntagResource",
+                        ],
                         "Resource": "*",
                         "Condition": {
                             "StringEquals": {
-                                "iam:AWSServiceName": "observability.aoss.amazonaws.com",
-                                "aws:CalledViaFirst": "cloudformation.amazonaws.com",
+                                "aws:ResourceTag/AmazonBedrockManaged": "true"
                             }
                         },
                     },
@@ -947,7 +954,7 @@ class BedrockStudioBootstrapper:
                 "Statement": [
                     {
                         "Effect": "Allow",
-                        "Principal": {"Service": ["datazone.amazonaws.com"]},
+                        "Principal": {"Service": "datazone.amazonaws.com"},
                         "Action": ["sts:AssumeRole", "sts:TagSession"],
                         "Condition": {
                             "StringEquals": {"aws:SourceAccount": self._account_id},
@@ -964,10 +971,20 @@ class BedrockStudioBootstrapper:
                 "Version": "2012-10-17",
                 "Statement": [
                     {
-                        "Sid": "DomainExecutionRoleStatement",
+                        "Sid": "GetDataZoneDomain",
+                        "Effect": "Allow",
+                        "Action": "datazone:GetDomain",
+                        "Resource": "*",
+                        "Condition": {
+                            "StringEquals": {
+                                "aws:ResourceTag/AmazonBedrockManaged": "true"
+                            }
+                        },
+                    },
+                    {
+                        "Sid": "ManageDataZoneResources",
                         "Effect": "Allow",
                         "Action": [
-                            "datazone:GetDomain",
                             "datazone:ListProjects",
                             "datazone:GetProject",
                             "datazone:CreateProject",
@@ -983,17 +1000,13 @@ class BedrockStudioBootstrapper:
                             "datazone:DeleteEnvironment",
                             "datazone:ListEnvironmentBlueprints",
                             "datazone:GetEnvironmentBlueprint",
-                            "datazone:CreateEnvironmentBlueprint",
-                            "datazone:UpdateEnvironmentBlueprint",
-                            "datazone:DeleteEnvironmentBlueprint",
                             "datazone:ListEnvironmentBlueprintConfigurations",
-                            "datazone:ListEnvironmentBlueprintConfigurationSummaries",
+                            "datazone:GetEnvironmentBlueprintConfiguration",
                             "datazone:ListEnvironmentProfiles",
                             "datazone:GetEnvironmentProfile",
                             "datazone:CreateEnvironmentProfile",
                             "datazone:UpdateEnvironmentProfile",
                             "datazone:DeleteEnvironmentProfile",
-                            "datazone:UpdateEnvironmentDeploymentStatus",
                             "datazone:GetEnvironmentCredentials",
                             "datazone:ListGroupsForUser",
                             "datazone:SearchUserProfiles",
@@ -1004,21 +1017,23 @@ class BedrockStudioBootstrapper:
                         "Resource": "*",
                     },
                     {
-                        "Sid": "RAMResourceShareStatement",
+                        "Sid": "GetResourceShareAssociations",
                         "Effect": "Allow",
                         "Action": "ram:GetResourceShareAssociations",
                         "Resource": "*",
                     },
                     {
+                        "Sid": "InvokeBedrockModels",
                         "Effect": "Allow",
                         "Action": [
+                            "bedrock:GetFoundationModelAvailability",
                             "bedrock:InvokeModel",
                             "bedrock:InvokeModelWithResponseStream",
-                            "bedrock:GetFoundationModelAvailability",
                         ],
                         "Resource": "*",
                     },
                     {
+                        "Sid": "UseCustomerManagedKmsKey",
                         "Effect": "Allow",
                         "Action": [
                             "kms:DescribeKey",
@@ -1026,6 +1041,9 @@ class BedrockStudioBootstrapper:
                             "kms:Decrypt",
                         ],
                         "Resource": "*",
+                        "Condition": {
+                            "StringEquals": {"aws:ResourceTag/EnableBedrock": "true"}
+                        },
                     },
                 ],
             }
@@ -1193,25 +1211,37 @@ class BedrockStudioBootstrapper:
                 "Version": "2012-10-17",
                 "Statement": [
                     {
-                        "Sid": "BedrockEnvironmentRoleKMSDecryptPermissions",
+                        "Sid": "AccessS3Buckets",
                         "Effect": "Allow",
-                        "Action": ["kms:Decrypt", "kms:GenerateDataKey"],
-                        "Resource": "*",
+                        "Action": [
+                            "s3:ListBucket",
+                            "s3:ListBucketVersions",
+                            "s3:GetObject",
+                            "s3:PutObject",
+                            "s3:DeleteObject",
+                            "s3:GetObjectVersion",
+                            "s3:DeleteObjectVersion",
+                        ],
+                        "Resource": "arn:aws:s3:::br-studio-${aws:PrincipalAccount}-*",
                         "Condition": {
-                            "StringEquals": {"aws:ResourceTag/EnableBedrock": "true"}
+                            "StringEquals": {
+                                "s3:ResourceAccount": "${aws:PrincipalAccount}"
+                            }
                         },
                     },
                     {
-                        "Sid": "BedrockRuntimeAgentPermissions",
+                        "Sid": "AccessOssCollections",
                         "Effect": "Allow",
-                        "Action": ["bedrock:InvokeAgent"],
+                        "Action": "aoss:APIAccessAll",
                         "Resource": "*",
                         "Condition": {
-                            "Null": {"aws:ResourceTag/AmazonDataZoneProject": "false"}
+                            "StringEquals": {
+                                "aws:ResourceAccount": "${aws:PrincipalAccount}"
+                            }
                         },
                     },
                     {
-                        "Sid": "BedrockRuntimeModelsAndJobsRole",
+                        "Sid": "InvokeBedrockModels",
                         "Effect": "Allow",
                         "Action": [
                             "bedrock:InvokeModel",
@@ -1221,50 +1251,106 @@ class BedrockStudioBootstrapper:
                         "Resource": "*",
                     },
                     {
-                        "Sid": "BedrockApplyGuardrails",
-                        "Effect": "Allow",
-                        "Action": ["bedrock:ApplyGuardrail"],
-                        "Resource": "*",
-                        "Condition": {
-                            "Null": {"aws:ResourceTag/AmazonDataZoneProject": "false"}
-                        },
-                    },
-                    {
-                        "Sid": "BedrockRuntimePermissions",
+                        "Sid": "AccessBedrockResources",
                         "Effect": "Allow",
                         "Action": [
+                            "bedrock:InvokeAgent",
                             "bedrock:Retrieve",
                             "bedrock:StartIngestionJob",
                             "bedrock:GetIngestionJob",
                             "bedrock:ListIngestionJobs",
+                            "bedrock:ApplyGuardrail",
+                            "bedrock:ListPrompts",
+                            "bedrock:GetPrompt",
+                            "bedrock:CreatePrompt",
+                            "bedrock:DeletePrompt",
+                            "bedrock:CreatePromptVersion",
+                            "bedrock:InvokeFlow",
+                            "bedrock:ListTagsForResource",
+                            "bedrock:TagResource",
+                            "bedrock:UntagResource",
                         ],
                         "Resource": "*",
                         "Condition": {
-                            "Null": {"aws:ResourceTag/AmazonDataZoneProject": "false"}
+                            "StringEquals": {
+                                "aws:ResourceAccount": "${aws:PrincipalAccount}",
+                                "aws:ResourceTag/AmazonBedrockManaged": "true",
+                            },
+                            "Null": {"aws:ResourceTag/AmazonDataZoneProject": "false"},
                         },
                     },
                     {
-                        "Sid": "BedrockFunctionsPermissions",
-                        "Action": ["secretsmanager:PutSecretValue"],
-                        "Resource": "arn:aws:secretsmanager:*:*:secret:br-studio/*",
+                        "Sid": "InvokeBedrockFlows",
                         "Effect": "Allow",
+                        "Action": "bedrock:InvokeFlow",
+                        "Resource": "arn:aws:bedrock:*:*:flow/*/alias/*",
                         "Condition": {
-                            "Null": {"aws:ResourceTag/AmazonDataZoneProject": "false"}
+                            "StringEquals": {
+                                "aws:ResourceAccount": "${aws:PrincipalAccount}",
+                            },
+                            "Null": {
+                                "aws:ResourceTag/AmazonDataZoneProject": "false",
+                            },
                         },
                     },
                     {
-                        "Sid": "BedrockS3ObjectsHandlingPermissions",
-                        "Action": [
-                            "s3:GetObject",
-                            "s3:PutObject",
-                            "s3:GetObjectVersion",
-                            "s3:ListBucketVersions",
-                            "s3:DeleteObject",
-                            "s3:DeleteObjectVersion",
-                            "s3:ListBucket",
-                        ],
-                        "Resource": [f"arn:aws:s3:::br-studio-{self._account_id}-*"],
+                        "Sid": "WriteLogs",
                         "Effect": "Allow",
+                        "Action": [
+                            "logs:CreateLogGroup",
+                            "logs:CreateLogStream",
+                            "logs:PutLogEvents",
+                        ],
+                        "Resource": "*",
+                        "Condition": {
+                            "StringEquals": {
+                                "aws:ResourceAccount": "${aws:PrincipalAccount}",
+                                "aws:ResourceTag/AmazonBedrockManaged": "true",
+                            },
+                            "Null": {"aws:ResourceTag/AmazonDataZoneProject": "false"},
+                        },
+                    },
+                    {
+                        "Sid": "InvokeLambdaFunctions",
+                        "Effect": "Allow",
+                        "Action": "lambda:InvokeFunction",
+                        "Resource": "arn:aws:lambda:*:*:function:br-studio-*",
+                        "Condition": {
+                            "StringEquals": {
+                                "aws:ResourceAccount": "${aws:PrincipalAccount}",
+                                "aws:ResourceTag/AmazonBedrockManaged": "true",
+                            },
+                            "Null": {"aws:ResourceTag/AmazonDataZoneProject": "false"},
+                        },
+                    },
+                    {
+                        "Sid": "AccessSecretsManagerSecrets",
+                        "Effect": "Allow",
+                        "Action": [
+                            "secretsmanager:DescribeSecret",
+                            "secretsmanager:GetSecretValue",
+                            "secretsmanager:PutSecretValue",
+                        ],
+                        "Resource": "arn:aws:secretsmanager:*:*:secret:br-studio/*",
+                        "Condition": {
+                            "StringEquals": {
+                                "aws:ResourceAccount": "${aws:PrincipalAccount}",
+                                "aws:ResourceTag/AmazonBedrockManaged": "true",
+                            },
+                            "Null": {"aws:ResourceTag/AmazonDataZoneProject": "false"},
+                        },
+                    },
+                    {
+                        "Sid": "UseCustomerManagedKmsKey",
+                        "Effect": "Allow",
+                        "Action": ["kms:Decrypt", "kms:GenerateDataKey"],
+                        "Resource": "*",
+                        "Condition": {
+                            "StringEquals": {
+                                "aws:ResourceAccount": "${aws:PrincipalAccount}",
+                                "aws:ResourceTag/EnableBedrock": "true",
+                            }
+                        },
                     },
                 ],
             }
