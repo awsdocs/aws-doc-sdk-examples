@@ -122,5 +122,4 @@ s3-control_Basics:
                 - s3control.java2.job.actions.main
   services:
     s3-control: {CreateJob, DeleteJobTagging, DescribeJob, GetJobTagging, ListJobs, PutJobTagging, UpdateJobPriority, UpdateJobStatus}
-    
-    
+     
