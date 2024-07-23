@@ -4,7 +4,7 @@
 This Amazon S3 Batch Basics scenario demonstrates how to interact with Amazon S3 batch functionality using an AWS SDK. The scenario covers various operations such as creating a job, modifying the job, adding additional tags to the job, and so on. 
 
 ## Setting up Resources
-To successfully run this basics scenario, the program requires an IAM Role. However, the program makes it easy for the user because the IAM Role is created using an AWS Cloudformation script. There is nothing the user needs to do in order to create this IAM role. 
+To successfully run this basic scenario, the program requires an IAM (Identity and Access Management) role. However, the program makes it easy for the user because the IAM role is created using an AWS CloudFormation template. The user does not need to take any additional steps to create this IAM role.
 
 ## Service Operations Invoked
 The program performs the following tasks:

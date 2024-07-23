@@ -18,7 +18,7 @@ public class S3BatchScenario {
         final String usage = """
 
             Usage:
-                <accountId> <iamRoleArn> <manifestLocation> <reportBucketName>>
+                <accountId>
 
             Where:
                 accountId - The account id value that owns the Amazon S3 bucket.
