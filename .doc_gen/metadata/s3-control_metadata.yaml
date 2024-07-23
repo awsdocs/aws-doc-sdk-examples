@@ -121,4 +121,5 @@ s3-control_Basics:
               snippet_tags:
                 - s3control.java2.job.actions.main
   services:
-    s3-control: {CreateJob, DeleteJobTagging, DescribeJob, GetJobTagging, ListJobs, PutJobTagging, UpdateJobPriority, UpdateJobStatus}         
+    s3-control: {CreateJob, DeleteJobTagging, DescribeJob, GetJobTagging, ListJobs, PutJobTagging, UpdateJobPriority, UpdateJobStatus}
+    

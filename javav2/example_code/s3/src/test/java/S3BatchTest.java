@@ -3,12 +3,20 @@
 
 import com.example.s3.batch.CloudFormationHelper;
 import com.example.s3.batch.S3BatchActions;
+import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletionException;
+
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -16,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class S3BatchTest {
 
-    private static final String accountId = "814548047983";
+    private static String accountId = "";
     private static final String STACK_NAME = "MyS3Stack";
     private static String bucketName;
     private static String reportBucketName;
@@ -28,6 +36,12 @@ public class S3BatchTest {
 
     @BeforeAll
     public static void setUp() throws IOException {
+        // Get the values to run these tests from AWS Secrets Manager.
+        Gson gson = new Gson();
+        String json = getSecretValues();
+        AmazonS3Test.SecretValues values = gson.fromJson(json, AmazonS3Test.SecretValues.class);
+        accountId = values.getAccountId();
+
         actions = new S3BatchActions();
         CloudFormationHelper.deployCloudFormationStack(STACK_NAME);
         Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputs(STACK_NAME);
@@ -162,5 +176,31 @@ public class S3BatchTest {
         } catch (CompletionException ex) {
             fail("Failed to delete batch job tags: " + ex.getMessage());
         }
+    }
+
+    private static String getSecretValues() {
+         SecretsManagerClient secretClient = SecretsManagerClient.builder()
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
+        String secretName = "test/s3";
+
+        GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
+            .secretId(secretName)
+            .build();
+
+        GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
+        return valueResponse.secretString();
+    }
+
+    @Nested
+    @DisplayName("A class used to get test values from test/s3 (an AWS Secrets Manager secret)")
+    class SecretValues {
+        private String accountId;
+        public String getAccountId() {
+            return accountId;
+        }
+
+
     }
 }
