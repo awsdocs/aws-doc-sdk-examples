@@ -15,12 +15,6 @@ const CLAUDE_REGION: &str = "us-east-1";
 
 // Start a conversation with the user message.
 const USER_MESSAGE: &str = "Describe the purpose of a 'hello world' program in one line.";
-// conversation = [
-//     {
-//         "role": "user",
-//         "content": [{"text": user_message}],
-//     }
-// ]
 
 #[tokio::main]
 async fn main() -> Result<(), BedrockConverseError> {
@@ -50,19 +44,10 @@ async fn main() -> Result<(), BedrockConverseError> {
             println!("{}", text);
             Ok(())
         }
-        Err(e) => Err(BedrockConverseError(
-            MODEL_ID.to_string(),
-            e.as_service_error()
-                .map(|e| {
-                    match e {
-                        ConverseError::ModelTimeoutException(_) => "Model took too long",
-                        ConverseError::ModelNotReadyException(_) => "Model is not ready",
-                        _ => "Unknown",
-                    }
-                    .to_string()
-                })
-                .unwrap_or(String::from("Unknown")),
-        )),
+        Err(e) => Err(e
+            .as_service_error()
+            .map(BedrockConverseError::from)
+            .unwrap_or_else(|| BedrockConverseError("Unknown service error".into()))),
     }
 }
 
@@ -82,16 +67,25 @@ fn get_converse_output_text(output: ConverseOutput) -> Result<String, BedrockCon
 }
 
 #[derive(Debug)]
-struct BedrockConverseError(String, String);
+struct BedrockConverseError(String);
 impl std::fmt::Display for BedrockConverseError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Can't invoke '{}'. Reason: {}", self.0, self.1)
+        write!(f, "Can't invoke '{}'. Reason: {}", MODEL_ID, self.0)
     }
 }
 impl std::error::Error for BedrockConverseError {}
 impl From<&str> for BedrockConverseError {
     fn from(value: &str) -> Self {
-        BedrockConverseError(MODEL_ID.to_string(), value.to_string())
+        BedrockConverseError(value.to_string())
+    }
+}
+impl From<&ConverseError> for BedrockConverseError {
+    fn from(value: &ConverseError) -> Self {
+        BedrockConverseError::from(match value {
+            ConverseError::ModelTimeoutException(_) => "Model took too long",
+            ConverseError::ModelNotReadyException(_) => "Model is not ready",
+            _ => "Unknown",
+        })
     }
 }
 // snippet-end:[rust.bedrock-runtime.Converse_AnthropicClaude]
