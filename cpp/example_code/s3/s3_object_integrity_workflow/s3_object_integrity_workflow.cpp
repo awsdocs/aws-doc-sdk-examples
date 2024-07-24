@@ -283,7 +283,7 @@ namespace AwsDoc::S3 {
     */
     Aws::String stringForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod);
 
-    //! Routine which returns the ChecksumAlgorithm for a HASH_METHOD constant.
+    //! Routine that returns the ChecksumAlgorithm for a HASH_METHOD constant.
     /*!
         \param: hashMethod: A HASH_METHOD constant.
         \return: ChecksumAlgorithm: The ChecksumAlgorithm enum.
@@ -1324,7 +1324,7 @@ Aws::String AwsDoc::S3::stringForHashMethod(AwsDoc::S3::HASH_METHOD hashMethod) 
     }
 }
 
-//! Routine whi returns the ChecksumAlgorithm for a HASH_METHOD constant.
+//! Routine that returns the ChecksumAlgorithm for a HASH_METHOD constant.
 /*!
     \param: hashMethod: A HASH_METHOD constant.
     \return: ChecksumAlgorithm: The ChecksumAlgorithm enum.
