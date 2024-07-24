@@ -104,34 +104,6 @@
             {{- end}}
             {{- end}}
             {{- end}}
-            {{- if $service.CuratedExampleSets}}
-            <section id="{{$section_id}}_curated" role="topic">
-                <info>
-                    <title id="{{$section_id}}_curated.title">Curated code examples for {{$service.ServiceEntity.Short}}</title>
-                    <titleabbrev id="{{$section_id}}_curated.titleabbrev">Curated examples</titleabbrev>
-                    <abstract>
-                        <para>The following curated code examples show a variety of ways to use {{$service.ServiceEntity.Short}}.</para>
-                    </abstract>
-                </info>
-                <para>The following curated code examples show a variety of ways to use {{$service.ServiceEntity.Short}}.</para>
-                <para role="topiclist-abbrev">Example sources</para>
-                {{- range $curated_set := $service.CuratedExampleSets}}
-                <section id="{{$curated_set.Source.Key}}_section" role="topic">
-                    <info>
-                        <title id="{{$curated_set.Source.Key}}_section.title">{{$curated_set.Source.Name}}</title>
-                        <titleabbrev id="{{$curated_set.Source.Key}}_section.titleabbrev">{{$curated_set.Source.Name}}</titleabbrev>
-                        <abstract>
-                            <para>The following code examples show how to use {{$service.ServiceEntity.Short}} with {{$curated_set.Source.Name}}.</para>
-                        </abstract>
-                    </info>
-                    <para>{{$curated_set.Source.Description}}</para>
-                    <para>The following curated code examples from <ulink url="{{$curated_set.Source.Url}}">{{$curated_set.Source.Name}}</ulink>
-                        show how to use {{$service.ServiceEntity.Short}}.</para>
-                    {{- template "curated_examples" $curated_set}}
-                </section>
-                {{- end}}
-            </section>
-            {{- end}}
         </section>
     {{- end}}
 </chapter>
