@@ -1,11 +1,18 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
+
 package com.example.ec2;
 
 // snippet-start:[ec2.java2.get_password.main]
+import software.amazon.awssdk.core.exception.SdkClientException;
+import software.amazon.awssdk.core.exception.SdkServiceException;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
-import software.amazon.awssdk.services.ec2.model.*;
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+import software.amazon.awssdk.services.ec2.model.GetPasswordDataRequest;
+import software.amazon.awssdk.services.ec2.model.GetPasswordDataResponse;
+import software.amazon.awssdk.services.secretsmanager.model.ResourceNotFoundException;
 
 /**
  * Before running this Java V2 code example, set up your development
@@ -31,6 +38,7 @@ public class GetPasswordData {
             System.out.println(usage);
             System.exit(1);
         }
+
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
             .region(region)
@@ -41,12 +49,13 @@ public class GetPasswordData {
 
     }
     /**
-     * Retrieves the encrypted administrator password for a Windows-based Amazon EC2 instance.
+     * Retrieves and prints the encrypted administrator password data for a specified EC2 instance.
      *
-     * @param ec2 The Ec2Client instance used to interact with the Amazon EC2 service.
-     * @param instanceId The ID of the Amazon EC2 instance from which to retrieve the encrypted password data.
+     * <p>The password data is encrypted using the key pair that was specified when the instance was launched.
+     * To decrypt the password data, you can use the private key of the key pair.</p>
      *
-     * @throws Ec2Exception If an error occurs while retrieving the password data.
+     * @param ec2       The {@link Ec2Client} to use for making the request.
+     * @param instanceId The ID of the instance for which to get the encrypted password data.
      */
      public static void getPasswordData(Ec2Client ec2,String instanceId) {
         GetPasswordDataRequest getPasswordDataRequest = GetPasswordDataRequest.builder()
@@ -59,7 +68,15 @@ public class GetPasswordData {
             System.out.println("Encrypted Password Data: " + encryptedPasswordData);
 
         } catch (Ec2Exception e) {
-           System.err.println(e.awsErrorDetails().errorMessage());
+            System.err.println("EC2 service exception: " + e.awsErrorDetails().errorMessage());
+        } catch (SdkClientException e) {
+            System.err.println("SDK client exception: " + e.getMessage());
+        } catch (SdkServiceException e) {
+            System.err.println("SDK service exception: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Illegal argument exception: " + e.getMessage());
+        } catch (RuntimeException e) {
+            System.err.println("Runtime exception: " + e.getMessage());
         }
     }
  }
