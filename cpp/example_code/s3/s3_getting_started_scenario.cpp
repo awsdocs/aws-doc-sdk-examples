@@ -288,7 +288,7 @@ AwsDoc::S3::deleteBucket(const Aws::String &bucketName, Aws::S3::S3Client &clien
 }
 // snippet-end:[cpp.example_code.s3.Scenario_GettingStarted]
 
-#ifndef TESTING_BUILD
+#ifndef EXCLUDE_MAIN_FUNCTION
 
 int main(int argc, const char *argv[]) {
 
@@ -319,6 +319,6 @@ int main(int argc, const char *argv[]) {
     return 0;
 }
 
-#endif // TESTING_BUILD
+#endif // EXCLUDE_MAIN_FUNCTION
 
 

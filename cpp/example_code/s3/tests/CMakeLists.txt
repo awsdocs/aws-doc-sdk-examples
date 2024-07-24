@@ -6,13 +6,13 @@ cmake_minimum_required(VERSION 3.14)
 
 set(EXAMPLE_SERVICE_NAME "s3")
 set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
-set(CURRENT_TARGET_AWS_DEPENDENCIES s3 sts iam)
+set(CURRENT_TARGET_AWS_DEPENDENCIES s3 sts iam transfer)
 
 # Set this project's name.
 project("${EXAMPLE_SERVICE_NAME}-examples-gtests")
 
 # Set the C++ standard to use to build this target.
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 find_package(GTest)
 
@@ -91,13 +91,21 @@ endif ()
 
 enable_testing()
 
+# The Object Integrity Workflow is a special case and is handled differently.
+set(OBJECT_INTEGRITY_WORKFLOW_SOURCE s3_object_integrity_workflow.cpp)
 
 foreach (TEST_FILE ${GTEST_SOURCE_FILES})
     string(REPLACE "gtest_" "../" SOURCE_FILE ${TEST_FILE})
     if (EXISTS ${SOURCE_FILE})
         list(APPEND GTEST_SOURCE ${SOURCE_FILE} ${TEST_FILE})
+
     else ()
-        message("Error: no associated source file found for ${TEST_FILE}")
+        string(FIND ${SOURCE_FILE} ${OBJECT_INTEGRITY_WORKFLOW_SOURCE} POS)
+        if (POS EQUAL -1)
+            message("Error: no associated source file found for ${TEST_FILE}")
+        else ()
+            list(APPEND GTEST_SOURCE ../s3_object_integrity_workflow/${OBJECT_INTEGRITY_WORKFLOW_SOURCE} ${TEST_FILE})
+        endif ()
     endif ()
 endforeach ()
 
@@ -112,20 +120,14 @@ target_sources(
 target_include_directories(
         ${CURRENT_TARGET}
         PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
-        $<INSTALL_INTERFACE:../include>
-)
-
-target_include_directories(
-        ${CURRENT_TARGET}
-        SYSTEM PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/..
         ${CURL_INCLUDE_DIRS}
 )
 
 target_compile_definitions(
         ${CURRENT_TARGET}
         PUBLIC
-        TESTING_BUILD
+        EXCLUDE_MAIN_FUNCTION
         SRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
@@ -148,6 +150,7 @@ target_link_directories(${CURRENT_TARGET}
         ${CURL_LIBRARIES})
 
 include(GoogleTest)
+
 gtest_add_tests(
         TARGET
         ${CURRENT_TARGET}

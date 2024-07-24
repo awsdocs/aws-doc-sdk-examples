@@ -25,11 +25,13 @@
 /*!
   \param bucketName: Name of the S3 bucket.
   \param clientConfig: Aws client configuration.
+  \param[out] keysResult: Vector to receive the keys.
   \return bool: Function succeeded.
  */
 
 // snippet-start:[s3.cpp.list_objects.code]
 bool AwsDoc::S3::listObjects(const Aws::String &bucketName,
+                             Aws::Vector<Aws::String> &keysResult,
                              const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3Client s3Client(clientConfig);
 
@@ -63,6 +65,7 @@ bool AwsDoc::S3::listObjects(const Aws::String &bucketName,
 
     for (const auto &object: allObjects) {
         std::cout << "  " << object.GetKey() << std::endl;
+        keysResult.push_back(object.GetKey());
     }
 
     return true;
@@ -82,7 +85,7 @@ bool AwsDoc::S3::listObjects(const Aws::String &bucketName,
  *.
  */
 
-#ifndef TESTING_BUILD
+#ifndef EXCLUDE_MAIN_FUNCTION
 
 int main(int argc, char* argv[])
 {
@@ -105,12 +108,13 @@ Where:
         Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::S3::listObjects(bucketName, clientConfig);
+        Aws::Vector<Aws::String> keysResult;
+        AwsDoc::S3::listObjects(bucketName, keysResult, clientConfig);
     }
     Aws::ShutdownAPI(options);
 
     return 0;
 }
 
-#endif  // TESTING_BUILD
+#endif  // EXCLUDE_MAIN_FUNCTION
 

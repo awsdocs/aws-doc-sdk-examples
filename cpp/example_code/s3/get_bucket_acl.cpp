@@ -155,7 +155,7 @@ Aws::String getPermissionString(const Aws::S3::Model::Permission &permission) {
  *
  */
 
-#ifndef TESTING_BUILD
+#ifndef EXCLUDE_MAIN_FUNCTION
 
 int main(int argc, char* argv[]) {
     Aws::SDKOptions options;
@@ -184,5 +184,5 @@ Where:
     return 0;
 }
 
-#endif // TESTING_BUILD
+#endif // EXCLUDE_MAIN_FUNCTION
 

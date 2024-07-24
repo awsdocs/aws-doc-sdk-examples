@@ -117,7 +117,7 @@ bool AwsDoc::S3::listBucketDisablingDnsCache(const Aws::S3::S3ClientConfiguratio
  *
 */
 
-#ifndef TESTING_BUILD
+#ifndef EXCLUDE_MAIN_FUNCTION
 
 int main(int argc, char *argv[]) {
     SDKOptions options;
@@ -144,4 +144,4 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-#endif // TESTING_BUILD
+#endif // EXCLUDE_MAIN_FUNCTION

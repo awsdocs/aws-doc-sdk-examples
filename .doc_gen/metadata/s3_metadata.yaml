@@ -1184,6 +1184,18 @@ s3_AbortMultipartUploads:
                 - S3.dotnetv3.AbortMPUExample
   services:
     s3: {AbortMultipartUploads}
+s3_AbortMultipartUpload:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.s3.AbortMultipartUpload
+  services:
+    s3: {AbortMultipartUpload}
 s3_CompleteMultipartUpload:
   languages:
     Rust:
@@ -1194,6 +1206,14 @@ s3_CompleteMultipartUpload:
             - description:
               snippet_tags:
                 - rust.example_code.s3.complete_multipart_upload
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.s3.CompleteMultipartUpload
   services:
     s3: {CompleteMultipartUpload}
 s3_CreateMultipartUpload:
@@ -1206,6 +1226,14 @@ s3_CreateMultipartUpload:
             - description:
               snippet_tags:
                 - rust.example_code.s3.create_multipart_upload
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.s3.CreateMultipartUpload
   services:
     s3: {CreateMultipartUpload}
 s3_ListMultipartUploads:
@@ -2333,6 +2361,14 @@ s3_UploadPart:
               snippet_tags:
                 - rust.example_code.s3.upload_part
                 - rust.example_code.s3.upload_part.CompletedMultipartUpload
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.s3.UploadPart
   services:
     s3: {UploadPart}
 s3_PutBucketNotificationConfiguration:
@@ -2379,6 +2415,18 @@ s3_PutBucketAccelerateConfiguration:
                 - S3.dotnetv3.TransferAccelerationExample
   services:
     s3: {PutBucketAccelerateConfiguration}
+s3_GetObjectAttributes:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.s3.GetObjectAttributes
+  services:
+    s3: {GetObjectAttributes}
 s3_DownloadBucketToDirectory:
   title: Download all objects in an &S3long; (&S3;) bucket to a local directory
   title_abbrev: Download objects to a local directory
@@ -3243,6 +3291,23 @@ s3_Scenario_ObjectLock:
                 - javascriptv3/example_code/s3/scenarios/object-locking/clean.steps.js
   services:
     s3: {PutObjectLockConfiguration, PutObjectRetention, GetObjectRetention, PutObjectLegalHold, GetObjectLegalHold, GetObjectLockConfiguration}
+s3_Scenario_ObjectIntegrity:
+  title: Work with &S3; object integrity features using an &AWS; SDK
+  title_abbrev: Work with &S3; object integrity
+  synopsis: work with S3 object integrity features.
+  category: Scenarios
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3/s3_object_integrity_workflow
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &S3; object integrity features.
+              snippet_tags:
+                - cpp.example_code.s3.Scenario_ObjectIntegrity
+  services:
+    s3: {AbortMultipartUpload, CreateMultipartUpload, DeleteObject, GetObjectAttributes, PutObject, UploadPart, CompleteMultipartUpload}
 s3_SelectObjectContent:
   languages:
     Java:

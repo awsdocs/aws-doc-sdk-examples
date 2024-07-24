@@ -58,6 +58,7 @@ namespace AwsDoc {
                 const Aws::S3::S3ClientConfiguration &clientConfig);
 
         bool listObjects(const Aws::String &bucketName,
+                         Aws::Vector<Aws::String> &keysResult,
                          const Aws::S3::S3ClientConfiguration &clientConfig);
 
         bool listObjectsWithAwsGlobalRegion(
@@ -128,5 +129,8 @@ namespace AwsDoc {
 
         bool getObjectWithPresignedObjectUrl(const Aws::String &presignedURL,
                                              Aws::String &resultString);
+
+        bool s3ObjectIntegrityWorkflow(
+                const Aws::S3::S3ClientConfiguration &clientConfiguration);
     } // namespace S3
 } // namespace AwsDoc

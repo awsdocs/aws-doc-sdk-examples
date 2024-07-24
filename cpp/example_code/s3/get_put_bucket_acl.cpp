@@ -318,7 +318,7 @@ Aws::S3::Model::Type setGranteeType(const Aws::String &type) {
  *
  */
 
-#ifndef TESTING_BUILD
+#ifndef EXCLUDE_MAIN_FUNCTION
 
 static void usage() {
     std::cout << R"(
@@ -385,4 +385,4 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-#endif // TESTING_BUILD
+#endif // EXCLUDE_MAIN_FUNCTION

@@ -94,6 +94,7 @@ static bool
 listTheObjects(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName) {
     // An S3 API client set to the aws-global AWS Region should be able to get 
     // access to a bucket in any AWS Region.
+
     Aws::S3::Model::ListObjectsV2Request listObjectsRequest;
     listObjectsRequest.SetBucket(bucketName);
 
@@ -114,6 +115,7 @@ listTheObjects(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName)
             objects.insert(objects.end(), contents.begin(), contents.end());
             continuationToken = listObjectOutcome.GetResult().GetNextContinuationToken();
         } else {
+
             std::cerr << "Error. Could not count the objects in the bucket: " <<
                       listObjectOutcome.GetError() << std::endl;
             return false;
@@ -186,7 +188,7 @@ bool AwsDoc::S3::listObjectsWithAwsGlobalRegion(
  *
  */
 
-#ifndef TESTING_BUILD
+#ifndef EXCLUDE_MAIN_FUNCTION
 
 int main() {
     Aws::SDKOptions options;
@@ -201,4 +203,4 @@ int main() {
     return 0;
 }
 
-#endif  // TESTING_BUILD
+#endif  // EXCLUDE_MAIN_FUNCTION
