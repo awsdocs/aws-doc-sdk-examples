@@ -31,7 +31,7 @@ public class GetPasswordData {
                    <instanceId> 
 
                 Where:
-                   instanceId - An instance id value that you can obtain from the AWS Management Console.\s
+                   instanceId - An instance id from which the password is obtained.\s
              """;
 
         if (args.length != 1) {
@@ -69,14 +69,6 @@ public class GetPasswordData {
 
         } catch (Ec2Exception e) {
             System.err.println("EC2 service exception: " + e.awsErrorDetails().errorMessage());
-        } catch (SdkClientException e) {
-            System.err.println("SDK client exception: " + e.getMessage());
-        } catch (SdkServiceException e) {
-            System.err.println("SDK service exception: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            System.err.println("Illegal argument exception: " + e.getMessage());
-        } catch (RuntimeException e) {
-            System.err.println("Runtime exception: " + e.getMessage());
         }
     }
  }
