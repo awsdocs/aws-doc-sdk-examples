@@ -6,6 +6,7 @@ sesv2_CreateContactList:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.CreateContactList
     Rust:
@@ -47,6 +48,7 @@ sesv2_CreateContact:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.CreateContact
     Rust:
@@ -111,6 +113,7 @@ sesv2_ListContacts:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.ListContacts
     Rust:
@@ -151,6 +154,7 @@ sesv2_SendEmail:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.SendEmail
     Java:
@@ -211,6 +215,7 @@ sesv2_CreateEmailIdentity:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.CreateEmailIdentity
     Java:
@@ -252,6 +257,7 @@ sesv2_CreateEmailTemplate:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.CreateEmailTemplate
     Java:
@@ -293,6 +299,7 @@ sesv2_DeleteContactList:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.DeleteContactList
     Java:
@@ -334,6 +341,7 @@ sesv2_DeleteEmailIdentity:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.DeleteEmailIdentity
     Java:
@@ -375,6 +383,7 @@ sesv2_DeleteEmailTemplate:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.DeleteEmailTemplate
     Java:
@@ -420,9 +429,11 @@ sesv2_NewsletterWorkflow:
           github: dotnetv3/SESv2
           excerpts:
             - description: Run the workflow.
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.NewsletterWorkflow
             - description: Wrapper for service operations.
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper
     Java:
