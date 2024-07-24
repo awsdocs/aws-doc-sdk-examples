@@ -323,7 +323,6 @@ ec2_CreateSecurityGroup:
             - description:
               snippet_tags:
                 - cpp.example_code.ec2.CreateSecurityGroup
-                - cpp.example_code.ec2.CreateSecurityGroup2
     Bash:
       versions:
         - sdk_version: 2
@@ -976,9 +975,10 @@ ec2_AuthorizeSecurityGroupIngress:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.create_security_group.client
-                - ec2.cpp.configure_security_group02.code
-                - ec2.cpp.configure_security_group03.code
+                - cpp.example_code.ec2.AuthorizeSecurityGroupIngress
+            - description: Utility function to build an ingress rule.
+              snippet_tags:
+                - cpp.example_code.ec2.BuildSampleIngressRule
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1476,8 +1476,7 @@ ec2_DescribeRegions:
           excerpts:
             - description:
               snippet_tags:
-                 - cpp.example_code.ec2.DescribeRegions
-                 - cpp.example_code.ec2.DescribeRegions2
+                - cpp.example_code.ec2.DescribeRegions
   services:
     ec2: {DescribeRegions}
 ec2_DescribeInstanceStatus:
@@ -1759,8 +1758,7 @@ ec2_DescribeAvailabilityZones:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.describe_regions.client
-                - ec2.cpp.describe_zones.code
+                - cpp.example_code.ec2.DescribeAddresses
     Python:
       versions:
         - sdk_version: 3

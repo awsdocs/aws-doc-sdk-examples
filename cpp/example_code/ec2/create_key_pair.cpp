@@ -20,7 +20,7 @@
 // snippet-end:[ec2.cpp.create_key_pair.inc]
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2,createKeyPair]
+// snippet-start:[cpp.example_code.ec2,CreateKeyPair]
 //! Create an Amazon Elastic Compute Cloud (Amazon EC2) instance key pair.
 /*!
   \param keyPairName: A name for a key pair.
@@ -56,7 +56,7 @@ bool AwsDoc::EC2::createKeyPair(const Aws::String &keyPairName, const Aws::Strin
     return outcome.IsSuccess();
 
 }
-// snippet-end:[cpp.example_code.ec2,createKeyPair]
+// snippet-end:[cpp.example_code.ec2,CreateKeyPair]
 
 /*
 *  main function

@@ -28,11 +28,23 @@ namespace AwsDoc {
         /*!
           \param instanceId: An EC2 instance ID.
           \param allocationId: An Elastic IP allocation ID.
+          \param[out] associationID: String to receive the association ID.
           \param clientConfiguration: AWS client configuration.
           \return bool: True if the address was associated with the instance; otherwise, false.
          */
-        bool associateAddress(const Aws::String& instanceId, const Aws::String& allocationId, const Aws::Client::ClientConfiguration& clientConfiguration);
+        bool
+        associateAddress(const Aws::String &instanceId, const Aws::String &allocationId, Aws::String &associationID,
+                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
+        //! Authorize ingress to an Amazon Elastic Compute Cloud (Amazon EC2) group.
+        /*!
+          \param groupID: The EC2 group ID.
+          \param clientConfiguration: The ClientConfiguration object.
+          \return bool: True if the operation was successful, false otherwise.
+         */
+        bool
+        authorizeSecurityGroupIngress(const Aws::String &groupID,
+                                      const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Create an EC2 instance key pair.
         /*!
@@ -96,6 +108,13 @@ namespace AwsDoc {
         bool
         describeAddresses(const Aws::Client::ClientConfiguration &clientConfiguration);
 
+        //! DescribeAvailabilityZones
+        /*!
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+        */
+        int describeAvailabilityZones(const Aws::Client::ClientConfiguration &clientConfiguration);
+
         //! Describe all EC2 instances associated with an account.
         /*!
           \param clientConfiguration: AWS client configuration.
@@ -117,7 +136,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool describeRegionsAndZones(
+        bool describeRegions(
                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Describe all EC2 security groups, or a specific group.

@@ -21,7 +21,7 @@
 // snippet-end:[ec2.cpp.describe_instances.inc]
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2.describeInstances]
+// snippet-start:[cpp.example_code.ec2.DescribeInstances]
 //! Describe all Amazon Elastic Compute Cloud (Amazon EC2) instances associated with an account.
 /*!
   \param clientConfiguration: AWS client configuration.
@@ -101,7 +101,7 @@ bool AwsDoc::EC2::describeInstances(
 
     return true;
 }
-// snippet-end:[cpp.example_code.ec2.describeInstances]
+// snippet-end:[cpp.example_code.ec2.DescribeInstances]
 
 /*
  *

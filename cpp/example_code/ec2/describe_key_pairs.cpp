@@ -21,7 +21,7 @@
 // snippet-end:[ec2.cpp.describe_key_pairs.inc]
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2.describeKeyPairs]
+// snippet-start:[cpp.example_code.ec2.DescribeKeyPairs]
 //! Describe all Amazon Elastic Compute Cloud (Amazon EC2) instance key pairs.
 /*!
   \param clientConfiguration: AWS client configuration.
@@ -54,7 +54,7 @@ bool AwsDoc::EC2::describeKeyPairs(
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.ec2.describeKeyPairs]
+// snippet-end:[cpp.example_code.ec2.DescribeKeyPairs]
 
 /*
  *

@@ -15,10 +15,15 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(EC2_GTests, describe_regions_and_zones_2_) {
+    TEST_F(EC2_GTests, create_tags_2_) {
+        Aws::String instanceID = getCachedInstanceID();
+        ASSERT_FALSE(instanceID.empty()) << preconditionError() << std::endl;
+        Aws::Vector<Aws::String> resources;
+        resources.push_back(instanceID);
 
-        auto result = AwsDoc::EC2::describeRegionsAndZones(*s_clientConfig);
+        Aws::Vector<Aws::EC2::Model::Tag> tags;
+        tags.push_back(Aws::EC2::Model::Tag().WithKey("Name").WithValue("Test"));
+        bool result = AwsDoc::EC2::createTags(resources, tags, *s_clientConfig);
         ASSERT_TRUE(result);
     }
-
 } // namespace AwsDocTest

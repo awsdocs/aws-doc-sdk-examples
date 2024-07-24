@@ -21,7 +21,7 @@
 // snippet-end:[ec2.cpp.describe_addresses.inc]
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2.describeAddresses]
+// snippet-start:[cpp.example_code.ec2.DescribeAddresses]
 //! Describe all Elastic IP addresses.
 /*!
   \param clientConfiguration: AWS client configuration.
@@ -59,7 +59,7 @@ bool AwsDoc::EC2::describeAddresses(
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.ec2.describeAddresses]
+// snippet-end:[cpp.example_code.ec2.DescribeAddresses]
 
 /*
  *

@@ -60,7 +60,11 @@ namespace AwsDocTest {
 
         static bool deleteSecurityGroup(const Aws::String &groupID);
 
+        static bool dissociateAddress(const Aws::String &associationID);
+
         static Aws::String getVpcID();
+
+        static Aws::String getCachedSecurityGroupID();
 
         // s_clientConfig must be a pointer because the client config must be initialized
         // after InitAPI.
@@ -80,6 +84,7 @@ namespace AwsDocTest {
 
         static Aws::String s_instanceID;
         static Aws::String s_vpcID;
+        static Aws::String s_securityGroupID;
     }; // EC2_GTests
 } // AwsDocTest
 

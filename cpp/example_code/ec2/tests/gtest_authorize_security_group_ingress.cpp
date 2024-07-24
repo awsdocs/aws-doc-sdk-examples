@@ -10,17 +10,16 @@
  */
 
 #include <gtest/gtest.h>
-#include "rekognition_samples.h"
-#include "rekognition_gtests.h"
+#include "ec2_samples.h"
+#include "ec2_gtests.h"
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(ec2_GTests, detect_labels_3_) {
-        MockHTTP mockHttp;
-        bool result = mockHttp.addResponseWithBody("mock_input/DetectLabels.json");
-        ASSERT_TRUE(result) << preconditionError() << std::endl;
+    TEST_F(EC2_GTests, authorize_security_group_ingress_2_) {
+        Aws::String groupID = getCachedSecurityGroupID();
+        ASSERT_FALSE(groupID.empty()) << preconditionError() << std::endl;
 
-    result = AwsDoc::ec2::detectLabels(*s_clientConfig);
-    ASSERT_TRUE(result);
-}
+        bool result = AwsDoc::EC2::authorizeSecurityGroupIngress(groupID, *s_clientConfig);
+        ASSERT_TRUE(result);
+    }
 } // namespace AwsDocTest

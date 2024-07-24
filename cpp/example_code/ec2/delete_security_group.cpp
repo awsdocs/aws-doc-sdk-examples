@@ -19,7 +19,7 @@
 // snippet-end:[ec2.cpp.delete_security_group.inc]
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2.deleteSecurityGroup]
+// snippet-start:[cpp.example_code.ec2.DeleteSecurityGroup]
 //! Delete a security group.
 /*!
   \param securityGroupID: A security group ID.
@@ -46,7 +46,7 @@ bool AwsDoc::EC2::deleteSecurityGroup(const Aws::String &securityGroupID,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.ec2.deleteSecurityGroup]
+// snippet-end:[cpp.example_code.ec2.DeleteSecurityGroup]
 
 /*
  *  main function

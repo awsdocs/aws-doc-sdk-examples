@@ -20,22 +20,17 @@
 #include <iostream>
 #include "ec2_samples.h"
 
-Todo:rename file and routine.
-Add tests.
-Check changes in SDK guide
 
 // snippet-start:[cpp.example_code.ec2.DescribeRegions]
-// ! Describe all Amazon Elastic Compute Cloud (Amazon EC2) Regions.
+//! Describe all Amazon Elastic Compute Cloud (Amazon EC2) Regions.
 /*!
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::describeRegionsAndZones(
+bool AwsDoc::EC2::describeRegions(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.describe_regions.code]
-    // snippet-start:[cpp.example_code.ec2.describe_regions.client]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
-    // snippet-end:[cpp.example_code.ec2.describe_regions.client]
 
     Aws::EC2::Model::DescribeRegionsRequest request;
     auto outcome = ec2Client.DescribeRegions(request);
@@ -85,7 +80,7 @@ int main(int argc, char **argv) {
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::EC2::describeRegionsAndZones(clientConfig);
+        AwsDoc::EC2::describeRegions(clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

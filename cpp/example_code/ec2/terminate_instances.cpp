@@ -17,7 +17,7 @@
 #include <iostream>
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2.terminateInstances]
+// snippet-start:[cpp.example_code.ec2.TerminateInstances]
 //! Terminate an Amazon Elastic Compute Cloud (Amazon EC2) instance.
 /*!
   \param instanceID: An EC2 instance ID.
@@ -45,7 +45,7 @@ bool AwsDoc::EC2::terminateInstances(const Aws::String &instanceID,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.ec2.terminateInstances]
+// snippet-end:[cpp.example_code.ec2.TerminateInstances]
 
 /*
  *

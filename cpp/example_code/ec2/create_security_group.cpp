@@ -19,7 +19,7 @@
 #include <iostream>
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2.createSecurityGroup]
+// snippet-start:[cpp.example_code.ec2.CreateSecurityGroup]
 //! Create a security group.
 /*!
   \param groupName: A security group name.
@@ -35,9 +35,8 @@ bool AwsDoc::EC2::createSecurityGroup(const Aws::String &groupName,
                                       Aws::String &groupIDResult,
                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.create_security_group.code]
-    // snippet-start:[cpp.example_code.ec2.create_security_group.client]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
-    // snippet-end:[cpp.example_code.ec2.create_security_group.client]
+
     Aws::EC2::Model::CreateSecurityGroupRequest request;
 
     request.SetGroupName(groupName);
@@ -56,13 +55,13 @@ bool AwsDoc::EC2::createSecurityGroup(const Aws::String &groupName,
     std::cout << "Successfully created security group named " << groupName <<
               std::endl;
     // snippet-end:[ec2.cpp.create_security_group.code]
-    // snippet-end:[cpp.example_code.ec2.createSecurityGroup]
+
 
     groupIDResult = outcome.GetResult().GetGroupId();
 
     return true;
 }
-// snippet-end:[cpp.example_code.ec2.CreateSecurityGroup2]
+// snippet-end:[cpp.example_code.ec2.CreateSecurityGroup]
 
 
 

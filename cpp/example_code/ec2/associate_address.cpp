@@ -22,11 +22,13 @@
 /*!
   \param instanceId: An EC2 instance ID.
   \param allocationId: An Elastic IP allocation ID.
+  \param[out] associationID: String to receive the association ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: True if the address was associated with the instance; otherwise, false.
  */
-bool associateAddress(const Aws::String& instanceId, const Aws::String& allocationId, const Aws::Client::ClientConfiguration& clientConfiguration)
-{
+bool AwsDoc::EC2::associateAddress(const Aws::String &instanceId, const Aws::String &allocationId,
+                                   Aws::String &associationID,
+                                   const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
 
     Aws::EC2::Model::AssociateAddressRequest request;
@@ -35,16 +37,14 @@ bool associateAddress(const Aws::String& instanceId, const Aws::String& allocati
 
     Aws::EC2::Model::AssociateAddressOutcome outcome = ec2Client.AssociateAddress(request);
 
-    if (!outcome.IsSuccess())
-    {
+    if (!outcome.IsSuccess()) {
         std::cerr << "Failed to associate address " << allocationId <<
-            " with instance " << instanceId << ": " <<
-            outcome.GetError().GetMessage() << std::endl;
-    }
-    else
-    {
+                  " with instance " << instanceId << ": " <<
+                  outcome.GetError().GetMessage() << std::endl;
+    } else {
         std::cout << "Successfully associated address " << allocationId <<
-            " with instance " << instanceId << std::endl;
+                  " with instance " << instanceId << std::endl;
+        associationID = outcome.GetResult().GetAssociationId();
     }
 
     return outcome.IsSuccess();
@@ -61,10 +61,8 @@ bool associateAddress(const Aws::String& instanceId, const Aws::String& allocati
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
-    if (argc != 3)
-    {
+int main(int argc, char **argv) {
+    if (argc != 3) {
         std::cout << "Usage: run_associate_address <instance ID> <allocation ID>" << std::endl;
         return 1;
     }
@@ -76,10 +74,11 @@ int main(int argc, char** argv)
         Aws::String allocationId = argv[2];
 
         Aws::Client::ClientConfiguration clientConfig;
-       // Optional: Set to the AWS Region (overrides config file).
+        // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        associateAddress(instanceId, allocationId, clientConfig);
+        Aws::String associationID;
+        AwsDoc::EC2::associateAddress(instanceId, allocationId, associationID, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

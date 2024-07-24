@@ -18,6 +18,7 @@
 #include <aws/ec2/model/AuthorizeSecurityGroupIngressRequest.h>
 // snippet-end:[ec2.cpp.configure_security_group.inc]
 #include <iostream>
+#include "ec2_samples.h"
 
 static void BuildSampleIngressRule(
         Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest &authorize_request);
@@ -29,9 +30,9 @@ static void BuildSampleIngressRule(
   \param clientConfiguration: The ClientConfiguration object.
   \return bool: True if the operation was successful, false otherwise.
  */
-bool authorizeSecurityGroupIngress(const Aws::String& groupID,
-                                  const Aws::Vector<Aws::EC2::Model::IpPermission>& ipPermissions,
-                                  const Aws::Client::ClientConfiguration& clientConfiguration) {
+bool
+AwsDoc::EC2::authorizeSecurityGroupIngress(const Aws::String &groupID,
+                                           const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
     // snippet-start:[ec2.cpp.configure_security_group01.code]'
     Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest authorizeSecurityGroupIngressRequest;
@@ -41,7 +42,7 @@ bool authorizeSecurityGroupIngress(const Aws::String& groupID,
 
     // snippet-start:[ec2.cpp.configure_security_group03.code]
     Aws::EC2::Model::AuthorizeSecurityGroupIngressOutcome authorizeSecurityGroupIngressOutcome =
-        ec2Client.AuthorizeSecurityGroupIngress(authorizeSecurityGroupIngressRequest);
+            ec2Client.AuthorizeSecurityGroupIngress(authorizeSecurityGroupIngressRequest);
 
     if (authorizeSecurityGroupIngressOutcome.IsSuccess()) {
         std::cout << "Successfully authorized security group ingress." << std::endl;
@@ -54,7 +55,7 @@ bool authorizeSecurityGroupIngress(const Aws::String& groupID,
     return authorizeSecurityGroupIngressOutcome.IsSuccess();
 }
 // snippet-end:[cpp.example_code.ec2.AuthorizeSecurityGroupIngress]
-
+// snippet-start:[cpp.example_code.ec2.BuildSampleIngressRule]
 //! Build a sample ingress rule.
 /*!
   \param authorize_request: An 'AuthorizeSecurityGroupIngressRequest' instance.
@@ -84,17 +85,21 @@ void BuildSampleIngressRule(
     authorize_request.AddIpPermissions(permission2);
     // snippet-end:[ec2.cpp.configure_security_group02.code]
 }
+// snippet-end:[cpp.example_code.ec2.BuildSampleIngressRule]
 
 /*
  *
  *  main function
  *
- * Usage: authorize_security_group_ingress <group_id>
+ * Usage: run_authorize_security_group_ingress <group_id>
  *
  */
+
+#ifndef TESTING_BUILD
+
 int main(int argc, char **argv) {
     if (argc != 2) {
-        std::cout << "Usage: authorize_security_group_ingress <group_id>" << std::endl;
+        std::cout << "Usage: run_authorize_security_group_ingress <group_id>" << std::endl;
         return 1;
     }
 
@@ -106,12 +111,10 @@ int main(int argc, char **argv) {
         // Optional: Set to the region where your resources reside.
         clientConfig.region = "us-east-1";
 
-        Aws::Vector<Aws::EC2::Model::IpPermission> ipPermissions;
-        bool authorized = authorizeSecurityGroupIngress(groupID, ipPermissions, clientConfig);
-        if (!authorized) {
-            return 1;
-        }
+        AwsDoc::EC2::authorizeSecurityGroupIngress(groupID, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
+
+#endif //  TESTING_BUILD

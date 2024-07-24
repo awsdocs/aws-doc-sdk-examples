@@ -14,6 +14,7 @@
 #include <aws/ec2/model/DeleteSecurityGroupRequest.h>
 #include <aws/ec2/model/DescribeInstancesRequest.h>
 #include <aws/ec2/model/DescribeSecurityGroupsRequest.h>
+#include <aws/ec2/model/DisassociateAddressRequest.h>
 #include <aws/ec2/model/ReleaseAddressRequest.h>
 #include <aws/ec2/model/RunInstancesRequest.h>
 #include <aws/ec2/model/TerminateInstancesRequest.h>
@@ -23,6 +24,7 @@ Aws::SDKOptions AwsDocTest::EC2_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::EC2_GTests::s_clientConfig;
 Aws::String AwsDocTest::EC2_GTests::s_instanceID;
 Aws::String AwsDocTest::EC2_GTests::s_vpcID;
+Aws::String AwsDocTest::EC2_GTests::s_securityGroupID;
 
 
 void AwsDocTest::EC2_GTests::SetUpTestSuite() {
@@ -37,6 +39,11 @@ void AwsDocTest::EC2_GTests::TearDownTestSuite() {
     if (!s_instanceID.empty()) {
         terminateInstance(s_instanceID);
         s_instanceID.clear();
+    }
+
+    if (!s_securityGroupID.empty()) {
+        deleteSecurityGroup(s_securityGroupID);
+        s_securityGroupID.clear();
     }
 
     ShutdownAPI(s_options);
@@ -359,6 +366,28 @@ Aws::String AwsDocTest::EC2_GTests::allocateIPAddress() {
     }
 
     return allocationID;
+}
+
+Aws::String AwsDocTest::EC2_GTests::getCachedSecurityGroupID() {
+    if (s_securityGroupID.empty()) {
+        s_securityGroupID = createSecurityGroup("cpp-test-group");
+    }
+
+    return s_securityGroupID;
+}
+
+bool AwsDocTest::EC2_GTests::dissociateAddress(const Aws::String &associationID) {
+    Aws::EC2::EC2Client ec2Client(*s_clientConfig);
+    Aws::EC2::Model::DisassociateAddressRequest request;
+    request.SetAssociationId(associationID);
+    const Aws::EC2::Model::DisassociateAddressOutcome outcome =
+            ec2Client.DisassociateAddress(request);
+    if (!outcome.IsSuccess()) {
+        std::cerr << "EC2_GTests::dissociateAddress error: " <<
+                  outcome.GetError().GetMessage() << std::endl;
+    }
+
+    return outcome.IsSuccess();
 }
 
 int AwsDocTest::MyStringBuffer::underflow() {

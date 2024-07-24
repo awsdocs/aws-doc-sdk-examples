@@ -21,7 +21,7 @@
 // snippet-end:[ec2.cpp.describe_security_groups.inc]
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2.describeSecurityGroups]
+// snippet-start:[cpp.example_code.ec2.DescribeSecurityGroups]
 //! Describe all Amazon Elastic Compute Cloud (Amazon EC2) security groups, or a specific group.
 /*!
   \param groupID: A group ID, ignored if empty.
@@ -75,7 +75,7 @@ bool AwsDoc::EC2::describeSecurityGroups(const Aws::String &groupID,
 
     return true;
 }
-// snippet-end:[cpp.example_code.ec2.describeSecurityGroups]
+// snippet-end:[cpp.example_code.ec2.DescribeSecurityGroups]
 
 /*
  *

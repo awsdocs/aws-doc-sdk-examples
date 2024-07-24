@@ -24,18 +24,16 @@
 
 //! DescribeAvailabilityZones
 /*!
-  \brief DescribeAvailabilityZones retrieves the availability zones in the specified region.
-  \sa describeAvailabilityZones()
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
 */
-int describeAvailabilityZones(const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+int AwsDoc::EC2::describeAvailabilityZones(const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
     // snippet-start:[ec2.cpp.describe_zones.code]
     Aws::EC2::Model::DescribeAvailabilityZonesRequest request;
     Aws::EC2::Model::DescribeAvailabilityZonesOutcome outcome = ec2Client.DescribeAvailabilityZones(request);
 
-    if (outcome.IsSuccess())
-    {
+    if (outcome.IsSuccess()) {
         std::cout << std::left <<
                   std::setw(32) << "ZoneName" <<
                   std::setw(20) << "State" <<
@@ -53,11 +51,9 @@ int describeAvailabilityZones(const Aws::Client::ClientConfiguration &clientConf
                       std::setw(20) << stateString <<
                       std::setw(32) << zone.GetRegionName() << std::endl;
         }
-    }
-    else
-    {
+    } else {
         std::cerr << "Failed to describe availability zones:" <<
-            outcome.GetError().GetMessage() << std::endl;
+                  outcome.GetError().GetMessage() << std::endl;
 
     }
     // snippet-end:[ec2.cpp.describe_zones.code]
@@ -75,16 +71,15 @@ int describeAvailabilityZones(const Aws::Client::ClientConfiguration &clientConf
 
 #ifndef TESTING_BUILD
 
-int main()
-{
+int main() {
     Aws::SDKOptions options;
     InitAPI(options);
 
     {
-       Aws::Client::ClientConfiguration clientConfig;
+        Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        describeAvailabilityZones(clientConfig);
+        AwsDoc::EC2::describeAvailabilityZones(clientConfig);
     }
 
     ShutdownAPI(options);
