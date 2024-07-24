@@ -36,7 +36,7 @@ public class GetPasswordData {
 
         if (args.length != 1) {
             System.out.println(usage);
-            System.exit(1);
+            return;
         }
 
         Region region = Region.US_EAST_1;
@@ -46,8 +46,8 @@ public class GetPasswordData {
 
         String instanceId = args[0];
         getPasswordData(ec2,instanceId);
-
     }
+
     /**
      * Retrieves and prints the encrypted administrator password data for a specified EC2 instance.
      *
