@@ -19,7 +19,7 @@
 // snippet-end:[ec2.cpp.release_address.inc]
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2.releaseAddress]
+// snippet-start:[cpp.example_code.ec2.ReleaseAddress]
 //! Release an Elastic IP address.
 /*!
   \param clientConfiguration: AWS client configuration.
@@ -46,7 +46,7 @@ bool AwsDoc::EC2::releaseAddress(const Aws::String &allocationID,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.ec2.releaseAddress]
+// snippet-end:[cpp.example_code.ec2.ReleaseAddress]
 
 /*
  *

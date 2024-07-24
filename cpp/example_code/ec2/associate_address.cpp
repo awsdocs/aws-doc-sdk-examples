@@ -17,7 +17,7 @@
 #include <iostream>
 #include "ec2_samples.h"
 
-// snippet-start:[cpp.example_code.ec2.associateAddress]
+// snippet-start:[cpp.example_code.ec2.AssociateAddress]
 //! Associate an Elastic IP address with an EC2 instance.
 /*!
   \param instanceId: An EC2 instance ID.
@@ -49,7 +49,7 @@ bool AwsDoc::EC2::associateAddress(const Aws::String &instanceId, const Aws::Str
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.ec2.associateAddress]
+// snippet-end:[cpp.example_code.ec2.AssociateAddress]
 
 /*
  *  main function

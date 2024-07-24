@@ -39,35 +39,35 @@ Next, for information on code example structures and how to build and run the ex
 
 ### Get started
 
-- [Hello Amazon EC2](hello_ec2/CMakeLists.txt#L4) (`describeSecurityGroups`)
+- [Hello Amazon EC2](hello_ec2/CMakeLists.txt#L4) (`DescribeSecurityGroups`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [AllocateAddress](allocate_address.cpp#L43)
-- [associateAddress](allocate_address.cpp#L58)
-- [AuthorizeSecurityGroupIngress](allocate_address.cpp#L39)
-- [createKeyPair](create_key_pair.cpp#L33)
-- [createSecurityGroup](create_security_group.cpp#L59)
-- [CreateTags](run_instances.cpp#L72)
-- [deleteKeyPair](delete_key_pair.cpp#L34)
-- [deleteSecurityGroup](delete_security_group.cpp#L32)
-- [describeAddresses](describe_addresses.cpp#L33)
-- [DescribeAvailabilityZones](describe_regions.cpp#L38)
-- [describeInstances](describe_instances.cpp#L33)
-- [describeKeyPairs](describe_key_pairs.cpp#L33)
-- [DescribeRegions](describe_regions.cpp#L41)
-- [describeSecurityGroups](describe_security_groups.cpp#L34)
-- [MonitorInstances](monitor_instance.cpp#L35)
-- [RebootInstances](reboot_instance.cpp#L32)
-- [releaseAddress](release_address.cpp#L31)
-- [RunInstances](run_instances.cpp#L44)
-- [StartInstances](start_stop_instance.cpp#L38)
-- [StopInstances](start_stop_instance.cpp#L84)
-- [terminateInstances](terminate_instances.cpp#L30)
-- [UnmonitorInstances](monitor_instance.cpp#L82)
+- [AllocateAddress](allocate_address.cpp#L75)
+- [AssociateAddress](associate_address.cpp#L20)
+- [AuthorizeSecurityGroupIngress](authorize_security_group_ingress.cpp#L26)
+- [CreateKeyPair](create_key_pair.cpp#L23)
+- [CreateSecurityGroup](create_security_group.cpp#L22)
+- [CreateTags](create_tags.cpp#L21)
+- [DeleteKeyPair](delete_key_pair.cpp#L22)
+- [DeleteSecurityGroup](delete_security_group.cpp#L22)
+- [DescribeAddresses](describe_addresses.cpp#L24)
+- [DescribeAvailabilityZones](describe_addresses.cpp#L24)
+- [DescribeInstances](describe_instances.cpp#L24)
+- [DescribeKeyPairs](describe_key_pairs.cpp#L24)
+- [DescribeRegions](describe_regions.cpp#L24)
+- [DescribeSecurityGroups](describe_security_groups.cpp#L24)
+- [MonitorInstances](monitor_instance.cpp#L23)
+- [RebootInstances](reboot_instance.cpp#L22)
+- [ReleaseAddress](release_address.cpp#L22)
+- [RunInstances](run_instances.cpp#L23)
+- [StartInstances](start_stop_instance.cpp#L27)
+- [StopInstances](start_stop_instance.cpp#L72)
+- [TerminateInstances](terminate_instances.cpp#L20)
+- [UnmonitorInstances](monitor_instance.cpp#L70)
 
 
 <!--custom.examples.start-->
