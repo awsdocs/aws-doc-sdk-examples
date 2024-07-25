@@ -279,7 +279,8 @@ Rust:
       api_ref:
         uid: "SdkForRustV1"
         name: "&guide-rust-api;"
-        link_template: "https://docs.rs/releases/search?query=aws-sdk"
+        # https://docs.rs/aws-sdk-apigateway/latest/aws_sdk_apigateway/client/struct.Client.html#method.get_rest_apis
+        link_template: "https://docs.rs/aws-sdk-{{.ServiceCollapsed}}/latest/aws_sdk_{{.ServiceCollapsed}}/client/struct.Client.html#method.{{.ActionSnake}}"
   guide: "&guide-rust-dev;"
 Swift:
   property: swift
