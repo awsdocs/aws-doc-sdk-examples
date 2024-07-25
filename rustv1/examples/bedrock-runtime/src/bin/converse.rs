@@ -40,7 +40,6 @@ impl From<&ConverseError> for BedrockConverseError {
 }
 // snippet-end:[rust.bedrock-runtime.Converse_AnthropicClaude.supporting]
 
-
 // snippet-start:[rust.bedrock-runtime.Converse_AnthropicClaude]
 #[tokio::main]
 async fn main() -> Result<(), BedrockConverseError> {

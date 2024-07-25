@@ -131,7 +131,6 @@ fn print_model_response(block: &ContentBlock) -> Result<(), ToolUseScenarioError
 }
 // snippet-end:[rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.user-interface]
 
-
 async fn get_input() -> Result<Option<String>, ToolUseScenarioError> {
     let mut line = String::new();
     let mut first = true;
@@ -149,7 +148,7 @@ async fn get_input() -> Result<Option<String>, ToolUseScenarioError> {
             .read_line(&mut line)
             .map_err(|e| ToolUseScenarioError(format!("Failed to read line from stdin: {e:?}")))?;
 
-        if line.trim().to_ascii_lowercase().starts_with("x") {
+        if line.trim().to_ascii_lowercase().starts_with('x') {
             return Ok(None);
         }
     }
@@ -398,8 +397,6 @@ impl ToolUseScenario {
         }
     }
 }
-
-
 
 #[tokio::main]
 async fn main() {
