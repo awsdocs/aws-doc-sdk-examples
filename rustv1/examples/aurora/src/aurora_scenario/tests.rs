@@ -205,12 +205,19 @@ async fn test_scenario_get_instance_classes() {
             Ok(vec![
                 OrderableDbInstanceOption::builder()
                     .db_instance_class("t1")
+                    .storage_type("aurora")
+                    .build(),
+                OrderableDbInstanceOption::builder()
+                    .db_instance_class("t1")
+                    .storage_type("aurora-iopt1")
                     .build(),
                 OrderableDbInstanceOption::builder()
                     .db_instance_class("t2")
+                    .storage_type("aurora")
                     .build(),
                 OrderableDbInstanceOption::builder()
                     .db_instance_class("t3")
+                    .storage_type("aurora")
                     .build(),
             ])
         });
