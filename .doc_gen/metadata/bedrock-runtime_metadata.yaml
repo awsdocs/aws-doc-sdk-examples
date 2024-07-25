@@ -154,6 +154,17 @@ bedrock-runtime_Converse_AnthropicClaude:
             - description: Send a text message to Anthropic Claude, using Bedrock's Converse API.
               snippet_tags:
                 - javascript.v3.bedrock-runtime.Converse_AnthropicClaude
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Anthropic Claude, using Bedrock's Converse API.
+              snippet_tags:
+                - rust.bedrock-runtime.Converse_AnthropicClaude
+            - description: Use statements, Error utility, and constants.
+              snippet_tags:
+                - rust.bedrock-runtime.Converse_AnthropicClaude.supporting
   services:
     bedrock-runtime: {Converse}
 
@@ -369,6 +380,17 @@ bedrock-runtime_ConverseStream_AnthropicClaude:
             - description: Send a text message to Anthropic Claude, using Bedrock's Converse API and process the response stream in real-time.
               snippet_tags:
                 - javascript.v3.bedrock-runtime.ConverseStream_AnthropicClaude
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/bedrock-runtime
+          excerpts:
+            - description: Send a text message to Anthropic Claude and stream reply tokens, using Bedrock's ConverseStream API.
+              snippet_tags:
+                - rust.bedrock-runtime.ConverseStream_AnthropicClaude
+            - description: Use statements, Error utility, and constants.
+              snippet_tags:
+                - rust.bedrock-runtime.ConverseStream_AnthropicClaude.supporting
   services:
     bedrock-runtime: {ConverseStream}
 
@@ -1276,6 +1298,24 @@ bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude:
             - description: "The weather tool used by the demo. This script defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
               snippet_files:
                 - python/example_code/bedrock-runtime/cross-model-scenarios/tool_use_demo/weather_tool.py
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/bedrock-runtime
+          excerpts:
+            - description: "The primary scenario and logic for the demo. This orchestrates the conversation between the user, the &BR; Converse API, and a weather tool."
+              snippet_tags:
+                - rust.bedrock-runtime.Converse_AnthropicClaude.tool-use
+            - description: "The weather tool used by the demo. This script defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
+              snippet_tags:
+                - rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.weather-tool
+            - description: "Utilities to print the Message Content Blocks"
+              snippet_tags:
+                - rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.user-interface
+            - description: "Use statements, Error utility, and constants."
+              snippet_tags:
+                - rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.supporting
+
   services:
     bedrock-runtime: {Converse}
 
