@@ -20,7 +20,7 @@ use aws_smithy_types::Document;
 use tracing::debug;
 
 /// This demo illustrates a tool use scenario using Amazon Bedrock's Converse API and a weather tool.
-/// The script interacts with a foundation model on Amazon Bedrock to provide weather debugrmation based on user
+/// The script interacts with a foundation model on Amazon Bedrock to provide weather information based on user
 /// input. It uses the Open-Meteo API (https://open-meteo.com) to retrieve current weather data for a given location.
 
 // Set the model ID, e.g., Claude 3 Haiku.
@@ -33,7 +33,7 @@ If the user provides coordinates, infer the approximate location and refer to it
 To use the tool, you strictly apply the provided tool specification.
 
 - Explain your step-by-step process, and give brief updates before each step.
-- Only use the Weather_Tool for data. Never guess or make up debugrmation. 
+- Only use the Weather_Tool for data. Never guess or make up information. 
 - Repeat the tool use for subsequent requests if necessary.
 - If the tool errors, apologize, explain weather is unavailable, and suggest other options.
 - Report temperatures in °C (°F) and wind in km/h (mph). Keep weather reports concise. Sparingly use
@@ -136,11 +136,9 @@ async fn get_input() -> Result<Option<String>, ToolUseScenarioError> {
     let mut first = true;
     while line.is_empty() {
         if first {
-            println!("Your weather debug request (x to exit):")
+            println!("Your weather request (x to exit):")
         } else {
-            println!(
-                "Please enter your weather debug request, e.g. the name of a city (x to exit):"
-            )
+            println!("Please enter your weather request, e.g. the name of a city (x to exit):")
         }
         first = false;
 
@@ -160,7 +158,7 @@ fn header() {
         "================================================================================
 Welcome to the Amazon Bedrock Tool Use demo!
 ================================================================================
-This assistant provides current weather debugrmation for user-specified locations.
+This assistant provides current weather information for user-specified locations.
 You can ask for weather details by providing the location name or coordinates.
 
 Example queries:
