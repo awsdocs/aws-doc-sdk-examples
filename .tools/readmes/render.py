@@ -306,9 +306,12 @@ class Renderer:
             f.write(self.readme_text)
 
     def check(self):
-        with self.readme_filename.open("r", encoding="utf-8") as f:
-            readme_current = f.read()
-            return readme_current == self.readme_text
+        try:
+            with self.readme_filename.open("r", encoding="utf-8") as f:
+                readme_current = f.read()
+                return readme_current == self.readme_text
+        except FileNotFoundError:
+            return False
 
 
 def _transform_sdk(sdk: Sdk, sdk_ver):
