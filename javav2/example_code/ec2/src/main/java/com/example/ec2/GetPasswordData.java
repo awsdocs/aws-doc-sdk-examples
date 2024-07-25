@@ -68,14 +68,14 @@ public class GetPasswordData {
             System.out.println("Encrypted Password Data: " + encryptedPasswordData);
 
         } catch (Ec2Exception e) {
-            String errorCode  = e.awsErrorDetails().errorCode();
-            if (errorCode.matches("InvalidInstanceID.NotFound")) {
-                System.err.println("An exception was thrown: details: " + errorCode );
-            } else {
-                System.err.println("This EC2 request is invalid. Details:");
-                e.printStackTrace();
-            }
+        String errorCode  = e.awsErrorDetails().errorCode();
+        if (errorCode.matches("InvalidInstanceID.NotFound")) {
+            System.err.println("Instance ID not found, unable to retrieve password data.");
+        } else {
+            System.err.println("There was a problem retrieving password data. Details:");
+            e.printStackTrace();
         }
+    }
     }
  }
 // snippet-end:[ec2.java2.get_password.main]
