@@ -1,24 +1,25 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-use std::collections::HashMap;
+use std::{collections::HashMap, io::stdin};
 
 use aws_config::BehaviorVersion;
 use aws_sdk_bedrockruntime::{
     error::{BuildError, SdkError},
     operation::converse::{ConverseError, ConverseOutput},
     types::{
-        ContentBlock, ConversationRole::User, DocumentBlock, Message, StopReason,
-        SystemContentBlock, Tool, ToolConfiguration, ToolInputSchema, ToolSpecification,
-        ToolUseBlock,
+        ContentBlock, ConversationRole::User, Message, StopReason, SystemContentBlock, Tool,
+        ToolConfiguration, ToolInputSchema, ToolResultBlock, ToolResultContentBlock,
+        ToolSpecification, ToolUseBlock,
     },
     Client,
 };
 use aws_smithy_runtime_api::http::Response;
 use aws_smithy_types::Document;
+use tracing::debug;
 
 /// This demo illustrates a tool use scenario using Amazon Bedrock's Converse API and a weather tool.
-/// The script interacts with a foundation model on Amazon Bedrock to provide weather information based on user
+/// The script interacts with a foundation model on Amazon Bedrock to provide weather debugrmation based on user
 /// input. It uses the Open-Meteo API (https://open-meteo.com) to retrieve current weather data for a given location.
 
 // Set the model ID, e.g., Claude 3 Haiku.
@@ -31,7 +32,7 @@ If the user provides coordinates, infer the approximate location and refer to it
 To use the tool, you strictly apply the provided tool specification.
 
 - Explain your step-by-step process, and give brief updates before each step.
-- Only use the Weather_Tool for data. Never guess or make up information. 
+- Only use the Weather_Tool for data. Never guess or make up debugrmation. 
 - Repeat the tool use for subsequent requests if necessary.
 - If the tool errors, apologize, explain weather is unavailable, and suggest other options.
 - Report temperatures in °C (°F) and wind in km/h (mph). Keep weather reports concise. Sparingly use
@@ -120,28 +121,28 @@ impl ToolUseScenario {
 
     async fn run(&mut self) -> Result<(), ToolUseScenarioError> {
         loop {
-            let input = get_input().await;
-            if input.is_empty() {
+            let input = get_input().await?;
+            if input.is_none() {
                 break;
             }
 
             let message = Message::builder()
                 .role(User)
-                .content(ContentBlock::Text(input))
+                .content(ContentBlock::Text(input.unwrap()))
                 .build()
                 .map_err(ToolUseScenarioError::from)?;
             self.conversation.push(message);
 
             let response = self.send_to_bedrock().await?;
 
-            self.process_model_response(response, MAX_RECURSIONS)
-                .await?;
+            self.process_model_response(response).await?;
         }
 
         Ok(())
     }
 
     async fn send_to_bedrock(&mut self) -> Result<ConverseOutput, ToolUseScenarioError> {
+        debug!("Sending conversation to bedrock");
         self.client
             .converse()
             .model_id(MODEL_ID)
@@ -155,54 +156,55 @@ impl ToolUseScenario {
 
     async fn process_model_response(
         &mut self,
-        response: ConverseOutput,
-        max_recursion: i8,
+        mut response: ConverseOutput,
     ) -> Result<(), ToolUseScenarioError> {
-        if max_recursion <= 0 {
-            return Err(ToolUseScenarioError(
-                "Too many recursions when performing tool use".into(),
-            ));
-        }
+        let mut iteration = 0;
 
-        let message = if let Some(output) = response.output {
-            if output.is_message() {
-                Ok(output.as_message().unwrap().clone())
+        while iteration < MAX_RECURSIONS {
+            iteration += 1;
+            let message = if let Some(ref output) = response.output {
+                if output.is_message() {
+                    Ok(output.as_message().unwrap().clone())
+                } else {
+                    Err(ToolUseScenarioError(
+                        "Converse Output is not a message".into(),
+                    ))
+                }
             } else {
-                Err(ToolUseScenarioError(
-                    "Converse Output is not a message".into(),
-                ))
+                Err(ToolUseScenarioError("Missing Converse Output".into()))
+            }?;
+
+            self.conversation.push(message.clone());
+
+            match response.stop_reason {
+                StopReason::ToolUse => {
+                    response = self.handle_tool_use(&message).await?;
+                }
+                StopReason::EndTurn => {
+                    print_model_response(&message.content[0])?;
+                    return Ok(());
+                }
+                _ => (),
             }
-        } else {
-            Err(ToolUseScenarioError("Missing Converse Output".into()))
-        }?;
-
-        self.conversation.push(message.clone());
-
-        match response.stop_reason {
-            StopReason::ToolUse => self.handle_tool_use(&message, max_recursion).await,
-            StopReason::EndTurn => print_model_response(&message.content[0]),
-            _ => Ok(()),
         }
+
+        Err(ToolUseScenarioError(
+            "Exceeded MAX_ITERATIONS when calling tools".into(),
+        ))
     }
 
     async fn handle_tool_use(
         &mut self,
         message: &Message,
-        max_recursion: i8,
-    ) -> Result<(), ToolUseScenarioError> {
-        let mut tool_results: String = String::new();
+    ) -> Result<ConverseOutput, ToolUseScenarioError> {
+        let mut tool_results: Vec<ContentBlock> = vec![];
 
         for block in &message.content {
             match block {
                 ContentBlock::Text(_) => print_model_response(block)?,
                 ContentBlock::ToolUse(tool) => {
-                    let tool_response = self.invoke_tool(tool).await;
-                    match tool_response {
-                        Ok(results) => {
-                            tool_results = format!("{tool_results}\n{}", results.1);
-                        }
-                        Err(_) => todo!(),
-                    }
+                    let tool_response = self.invoke_tool(tool).await?;
+                    tool_results.push(ContentBlock::ToolResult(tool_response.1));
                 }
                 _ => (),
             };
@@ -210,13 +212,11 @@ impl ToolUseScenario {
 
         let message = Message::builder()
             .role(User)
-            .content(ContentBlock::Text(tool_results))
+            .set_content(Some(tool_results))
             .build()?;
         self.conversation.push(message);
 
-        let response = self.send_to_bedrock().await?;
-        self.process_model_response(response, max_recursion - 1)
-            .await
+        self.send_to_bedrock().await
     }
 
     async fn invoke_tool(
@@ -225,8 +225,15 @@ impl ToolUseScenario {
     ) -> Result<InvokeToolResult, ToolUseScenarioError> {
         match tool.name() {
             TOOL_NAME => {
-                println!("Calling {TOOL_NAME} with {:?}", tool.input());
-                let content = fetch_weather_data(tool.input()).await?;
+                println!(
+                    "\x1b[0;90mExecuting tool: {TOOL_NAME} with input: {:?}...\x1b[0m",
+                    tool.input()
+                );
+                let content = fetch_weather_data(tool).await?;
+                println!(
+                    "\x1b[0;90mTool responded with {:?}\x1b[0m",
+                    content.content()
+                );
                 Ok(InvokeToolResult(tool.tool_use_id.clone(), content))
             }
             _ => Err(ToolUseScenarioError(format!(
@@ -237,20 +244,11 @@ impl ToolUseScenario {
     }
 }
 
-fn print_model_response(block: &ContentBlock) -> Result<(), ToolUseScenarioError> {
-    if block.is_text() {
-        let text = block.as_text().unwrap();
-        println!("{text}");
-        Ok(())
-    } else {
-        Err(ToolUseScenarioError(format!(
-            "Content block is not text ({block:?})"
-        )))
-    }
-}
-
 const ENDPOINT: &str = "https://api.open-meteo.com/v1/forecast";
-async fn fetch_weather_data(input: &Document) -> Result<String, ToolUseScenarioError> {
+async fn fetch_weather_data(
+    tool_use: &ToolUseBlock,
+) -> Result<ToolResultBlock, ToolUseScenarioError> {
+    let input = tool_use.input();
     let latitude = input
         .as_object()
         .unwrap()
@@ -265,28 +263,40 @@ async fn fetch_weather_data(input: &Document) -> Result<String, ToolUseScenarioE
         .unwrap()
         .as_string()
         .unwrap();
-    let params =
-        format!(r#"{{"latitude":"{latitude}","longitude":"{longitude}","current_weather":true}}"#);
+    let params = [
+        ("latitude", latitude),
+        ("longitude", longitude),
+        ("current_weather", "true"),
+    ];
+
+    debug!("Calling {ENDPOINT} with {params:?}");
 
     let response = reqwest::Client::new()
         .get(ENDPOINT)
-        .body(params)
+        .query(&params)
         .send()
         .await
         .map_err(|e| ToolUseScenarioError(format!("Error requesting weather: {e:?}")))?
         .error_for_status()
         .map_err(|e| ToolUseScenarioError(format!("Failed to request weather: {e:?}")))?;
 
+    debug!("Response: {response:?}");
+
     let bytes = response
         .bytes()
         .await
         .map_err(|e| ToolUseScenarioError(format!("Error reading response: {e:?}")))?;
 
-    String::from_utf8(bytes.to_vec())
-        .map_err(|_| ToolUseScenarioError("Response was not utf8".into()))
+    let result = String::from_utf8(bytes.to_vec())
+        .map_err(|_| ToolUseScenarioError("Response was not utf8".into()))?;
+
+    Ok(ToolResultBlock::builder()
+        .tool_use_id(tool_use.tool_use_id())
+        .content(ToolResultContentBlock::Text(result))
+        .build()?)
 }
 
-struct InvokeToolResult(String, String);
+struct InvokeToolResult(String, ToolResultBlock);
 
 #[derive(Debug)]
 struct ToolUseScenarioError(String);
@@ -314,12 +324,76 @@ impl From<SdkError<ConverseError, Response>> for ToolUseScenarioError {
     }
 }
 
-async fn get_input() -> String {
-    return "".into();
+async fn get_input() -> Result<Option<String>, ToolUseScenarioError> {
+    let mut line = String::new();
+    let mut first = true;
+    while line.is_empty() {
+        if first {
+            println!("Your weather debug request (x to exit):")
+        } else {
+            println!(
+                "Please enter your weather debug request, e.g. the name of a city (x to exit):"
+            )
+        }
+        first = false;
+
+        stdin()
+            .read_line(&mut line)
+            .map_err(|e| ToolUseScenarioError(format!("Failed to read line from stdin: {e:?}")))?;
+
+        if line.trim().to_ascii_lowercase().starts_with("x") {
+            return Ok(None);
+        }
+    }
+    Ok(Some(line))
+}
+
+fn print_model_response(block: &ContentBlock) -> Result<(), ToolUseScenarioError> {
+    if block.is_text() {
+        let text = block.as_text().unwrap();
+        println!("\x1b[0;90mThe model's response:\x1b[0m\n{text}");
+        Ok(())
+    } else {
+        Err(ToolUseScenarioError(format!(
+            "Content block is not text ({block:?})"
+        )))
+    }
+}
+
+fn header() {
+    println!(
+        "================================================================================
+Welcome to the Amazon Bedrock Tool Use demo!
+================================================================================
+This assistant provides current weather debugrmation for user-specified locations.
+You can ask for weather details by providing the location name or coordinates.
+
+Example queries:
+- What's the weather like in New York?
+- Current weather for latitude 40.70, longitude -74.01
+- Is it warmer in Rome or Barcelona today?
+
+To exit the program, simply type 'x' and press Enter.
+
+P.S.: You're not limited to single locations, or even to using English!
+Have fun and experiment with the app!"
+    );
+}
+
+fn footer() {
+    println!(
+        "================================================================================
+Thank you for checking out the Amazon Bedrock Tool Use demo. We hope you
+learned something new, or got some inspiration for your own apps today!
+
+For more Bedrock examples in different programming languages, have a look at:
+https://docs.aws.amazon.com/bedrock/latest/userguide/service_code_examples.html
+================================================================================"
+    );
 }
 
 #[tokio::main]
-async fn main() -> Result<(), ToolUseScenarioError> {
+async fn main() {
     tracing_subscriber::fmt::init();
     let sdk_config = aws_config::defaults(BehaviorVersion::latest())
         .region(CLAUDE_REGION)
@@ -329,5 +403,9 @@ async fn main() -> Result<(), ToolUseScenarioError> {
 
     let mut scenario = ToolUseScenario::new(client);
 
-    scenario.run().await
+    header();
+    if let Err(err) = scenario.run().await {
+        println!("There was an error running the scenario! {}", err.0)
+    }
+    footer();
 }

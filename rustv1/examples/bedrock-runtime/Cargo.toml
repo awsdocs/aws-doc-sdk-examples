@@ -14,4 +14,5 @@ reqwest = "0.12.5"
 serde = "1.0.204"
 serde_json = "1.0.120"
 tokio = { version = "1.38.1", features = ["full"] }
+tracing = "0.1.40"
 tracing-subscriber = "0.3.18"
