@@ -32,7 +32,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 - [Converse](src/bin/converse.rs#L43)
 - [ConverseStream](src/bin/converse-stream.rs#L70)
-- [Scenario: Tool use with the Converse API](src/bin/tool-use.rs#L244)
+- [Scenario: Tool use with the Converse API](src/bin/tool-use.rs#L242)
 
 
 <!--custom.examples.start-->
