@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.supporting]
 use std::{collections::HashMap, io::stdin};
 
 use aws_config::BehaviorVersion;
@@ -89,6 +90,160 @@ fn make_tool_schema() -> Document {
     ]))
 }
 
+#[derive(Debug)]
+struct ToolUseScenarioError(String);
+impl std::fmt::Display for ToolUseScenarioError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Tool use error with '{}'. Reason: {}", MODEL_ID, self.0)
+    }
+}
+impl From<&str> for ToolUseScenarioError {
+    fn from(value: &str) -> Self {
+        ToolUseScenarioError(value.into())
+    }
+}
+impl From<BuildError> for ToolUseScenarioError {
+    fn from(value: BuildError) -> Self {
+        ToolUseScenarioError(value.to_string().clone())
+    }
+}
+impl From<SdkError<ConverseError, Response>> for ToolUseScenarioError {
+    fn from(value: SdkError<ConverseError, Response>) -> Self {
+        ToolUseScenarioError(match value.as_service_error() {
+            Some(value) => value.meta().message().unwrap_or("Unknown").into(),
+            None => "Unknown".into(),
+        })
+    }
+}
+// snippet-end:[rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.supporting]
+
+// snippet-start:[rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.user-interface]
+fn print_model_response(block: &ContentBlock) -> Result<(), ToolUseScenarioError> {
+    if block.is_text() {
+        let text = block.as_text().unwrap();
+        println!("\x1b[0;90mThe model's response:\x1b[0m\n{text}");
+        Ok(())
+    } else {
+        Err(ToolUseScenarioError(format!(
+            "Content block is not text ({block:?})"
+        )))
+    }
+}
+// snippet-end:[rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.user-interface]
+
+
+async fn get_input() -> Result<Option<String>, ToolUseScenarioError> {
+    let mut line = String::new();
+    let mut first = true;
+    while line.is_empty() {
+        if first {
+            println!("Your weather debug request (x to exit):")
+        } else {
+            println!(
+                "Please enter your weather debug request, e.g. the name of a city (x to exit):"
+            )
+        }
+        first = false;
+
+        stdin()
+            .read_line(&mut line)
+            .map_err(|e| ToolUseScenarioError(format!("Failed to read line from stdin: {e:?}")))?;
+
+        if line.trim().to_ascii_lowercase().starts_with("x") {
+            return Ok(None);
+        }
+    }
+    Ok(Some(line))
+}
+
+fn header() {
+    println!(
+        "================================================================================
+Welcome to the Amazon Bedrock Tool Use demo!
+================================================================================
+This assistant provides current weather debugrmation for user-specified locations.
+You can ask for weather details by providing the location name or coordinates.
+
+Example queries:
+- What's the weather like in New York?
+- Current weather for latitude 40.70, longitude -74.01
+- Is it warmer in Rome or Barcelona today?
+
+To exit the program, simply type 'x' and press Enter.
+
+P.S.: You're not limited to single locations, or even to using English!
+Have fun and experiment with the app!"
+    );
+}
+
+fn footer() {
+    println!(
+        "================================================================================
+Thank you for checking out the Amazon Bedrock Tool Use demo. We hope you
+learned something new, or got some inspiration for your own apps today!
+
+For more Bedrock examples in different programming languages, have a look at:
+https://docs.aws.amazon.com/bedrock/latest/userguide/service_code_examples.html
+================================================================================"
+    );
+}
+
+// snippet-start:[rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.weather-tool]
+const ENDPOINT: &str = "https://api.open-meteo.com/v1/forecast";
+async fn fetch_weather_data(
+    tool_use: &ToolUseBlock,
+) -> Result<ToolResultBlock, ToolUseScenarioError> {
+    let input = tool_use.input();
+    let latitude = input
+        .as_object()
+        .unwrap()
+        .get("latitude")
+        .unwrap()
+        .as_string()
+        .unwrap();
+    let longitude = input
+        .as_object()
+        .unwrap()
+        .get("longitude")
+        .unwrap()
+        .as_string()
+        .unwrap();
+    let params = [
+        ("latitude", latitude),
+        ("longitude", longitude),
+        ("current_weather", "true"),
+    ];
+
+    debug!("Calling {ENDPOINT} with {params:?}");
+
+    let response = reqwest::Client::new()
+        .get(ENDPOINT)
+        .query(&params)
+        .send()
+        .await
+        .map_err(|e| ToolUseScenarioError(format!("Error requesting weather: {e:?}")))?
+        .error_for_status()
+        .map_err(|e| ToolUseScenarioError(format!("Failed to request weather: {e:?}")))?;
+
+    debug!("Response: {response:?}");
+
+    let bytes = response
+        .bytes()
+        .await
+        .map_err(|e| ToolUseScenarioError(format!("Error reading response: {e:?}")))?;
+
+    let result = String::from_utf8(bytes.to_vec())
+        .map_err(|_| ToolUseScenarioError("Response was not utf8".into()))?;
+
+    Ok(ToolResultBlock::builder()
+        .tool_use_id(tool_use.tool_use_id())
+        .content(ToolResultContentBlock::Text(result))
+        .build()?)
+}
+// snippet-end:[rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.weather-tool]
+
+// snippet-start:[rust.bedrock-runtime.Converse_AnthropicClaude.tool-use]
+struct InvokeToolResult(String, ToolResultBlock);
 struct ToolUseScenario {
     client: Client,
     conversation: Vec<Message>,
@@ -244,153 +399,7 @@ impl ToolUseScenario {
     }
 }
 
-const ENDPOINT: &str = "https://api.open-meteo.com/v1/forecast";
-async fn fetch_weather_data(
-    tool_use: &ToolUseBlock,
-) -> Result<ToolResultBlock, ToolUseScenarioError> {
-    let input = tool_use.input();
-    let latitude = input
-        .as_object()
-        .unwrap()
-        .get("latitude")
-        .unwrap()
-        .as_string()
-        .unwrap();
-    let longitude = input
-        .as_object()
-        .unwrap()
-        .get("longitude")
-        .unwrap()
-        .as_string()
-        .unwrap();
-    let params = [
-        ("latitude", latitude),
-        ("longitude", longitude),
-        ("current_weather", "true"),
-    ];
 
-    debug!("Calling {ENDPOINT} with {params:?}");
-
-    let response = reqwest::Client::new()
-        .get(ENDPOINT)
-        .query(&params)
-        .send()
-        .await
-        .map_err(|e| ToolUseScenarioError(format!("Error requesting weather: {e:?}")))?
-        .error_for_status()
-        .map_err(|e| ToolUseScenarioError(format!("Failed to request weather: {e:?}")))?;
-
-    debug!("Response: {response:?}");
-
-    let bytes = response
-        .bytes()
-        .await
-        .map_err(|e| ToolUseScenarioError(format!("Error reading response: {e:?}")))?;
-
-    let result = String::from_utf8(bytes.to_vec())
-        .map_err(|_| ToolUseScenarioError("Response was not utf8".into()))?;
-
-    Ok(ToolResultBlock::builder()
-        .tool_use_id(tool_use.tool_use_id())
-        .content(ToolResultContentBlock::Text(result))
-        .build()?)
-}
-
-struct InvokeToolResult(String, ToolResultBlock);
-
-#[derive(Debug)]
-struct ToolUseScenarioError(String);
-impl std::fmt::Display for ToolUseScenarioError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Tool use error with '{}'. Reason: {}", MODEL_ID, self.0)
-    }
-}
-impl From<&str> for ToolUseScenarioError {
-    fn from(value: &str) -> Self {
-        ToolUseScenarioError(value.into())
-    }
-}
-impl From<BuildError> for ToolUseScenarioError {
-    fn from(value: BuildError) -> Self {
-        ToolUseScenarioError(value.to_string().clone())
-    }
-}
-impl From<SdkError<ConverseError, Response>> for ToolUseScenarioError {
-    fn from(value: SdkError<ConverseError, Response>) -> Self {
-        ToolUseScenarioError(match value.as_service_error() {
-            Some(value) => value.meta().message().unwrap_or("Unknown").into(),
-            None => "Unknown".into(),
-        })
-    }
-}
-
-async fn get_input() -> Result<Option<String>, ToolUseScenarioError> {
-    let mut line = String::new();
-    let mut first = true;
-    while line.is_empty() {
-        if first {
-            println!("Your weather debug request (x to exit):")
-        } else {
-            println!(
-                "Please enter your weather debug request, e.g. the name of a city (x to exit):"
-            )
-        }
-        first = false;
-
-        stdin()
-            .read_line(&mut line)
-            .map_err(|e| ToolUseScenarioError(format!("Failed to read line from stdin: {e:?}")))?;
-
-        if line.trim().to_ascii_lowercase().starts_with("x") {
-            return Ok(None);
-        }
-    }
-    Ok(Some(line))
-}
-
-fn print_model_response(block: &ContentBlock) -> Result<(), ToolUseScenarioError> {
-    if block.is_text() {
-        let text = block.as_text().unwrap();
-        println!("\x1b[0;90mThe model's response:\x1b[0m\n{text}");
-        Ok(())
-    } else {
-        Err(ToolUseScenarioError(format!(
-            "Content block is not text ({block:?})"
-        )))
-    }
-}
-
-fn header() {
-    println!(
-        "================================================================================
-Welcome to the Amazon Bedrock Tool Use demo!
-================================================================================
-This assistant provides current weather debugrmation for user-specified locations.
-You can ask for weather details by providing the location name or coordinates.
-
-Example queries:
-- What's the weather like in New York?
-- Current weather for latitude 40.70, longitude -74.01
-- Is it warmer in Rome or Barcelona today?
-
-To exit the program, simply type 'x' and press Enter.
-
-P.S.: You're not limited to single locations, or even to using English!
-Have fun and experiment with the app!"
-    );
-}
-
-fn footer() {
-    println!(
-        "================================================================================
-Thank you for checking out the Amazon Bedrock Tool Use demo. We hope you
-learned something new, or got some inspiration for your own apps today!
-
-For more Bedrock examples in different programming languages, have a look at:
-https://docs.aws.amazon.com/bedrock/latest/userguide/service_code_examples.html
-================================================================================"
-    );
-}
 
 #[tokio::main]
 async fn main() {
@@ -409,3 +418,4 @@ async fn main() {
     }
     footer();
 }
+// snippet-end:[rust.bedrock-runtime.Converse_AnthropicClaude.tool-use]

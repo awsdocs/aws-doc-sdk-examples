@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[rust.bedrock-runtime.ConverseStream_AnthropicClaude]
+// snippet-start:[rust.bedrock-runtime.ConverseStream_AnthropicClaude.supporting]
 use aws_config::BehaviorVersion;
 use aws_sdk_bedrockruntime::{
     error::ProvideErrorMetadata,
@@ -20,6 +20,54 @@ const CLAUDE_REGION: &str = "us-east-1";
 // Start a conversation with the user message.
 const USER_MESSAGE: &str = "Describe the purpose of a 'hello world' program in one line.";
 
+#[derive(Debug)]
+struct BedrockConverseStreamError(String);
+impl std::fmt::Display for BedrockConverseStreamError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Can't invoke '{}'. Reason: {}", MODEL_ID, self.0)
+    }
+}
+impl std::error::Error for BedrockConverseStreamError {}
+impl From<&str> for BedrockConverseStreamError {
+    fn from(value: &str) -> Self {
+        BedrockConverseStreamError(value.into())
+    }
+}
+
+impl From<&ConverseStreamError> for BedrockConverseStreamError {
+    fn from(value: &ConverseStreamError) -> Self {
+        BedrockConverseStreamError(
+            match value {
+                ConverseStreamError::ModelTimeoutException(_) => "Model took too long",
+                ConverseStreamError::ModelNotReadyException(_) => "Model is not ready",
+                _ => "Unknown",
+            }
+            .into(),
+        )
+    }
+}
+
+impl From<&ConverseStreamOutputError> for BedrockConverseStreamError {
+    fn from(value: &ConverseStreamOutputError) -> Self {
+        match value {
+            ConverseStreamOutputError::ValidationException(ve) => BedrockConverseStreamError(
+                ve.message().unwrap_or("Unknown ValidationException").into(),
+            ),
+            ConverseStreamOutputError::ThrottlingException(te) => BedrockConverseStreamError(
+                te.message().unwrap_or("Unknown ThrottlingException").into(),
+            ),
+            value => BedrockConverseStreamError(
+                value
+                    .message()
+                    .unwrap_or("Unknown StreamOutput exception")
+                    .into(),
+            ),
+        }
+    }
+}
+// snippet-end:[rust.bedrock-runtime.ConverseStream_AnthropicClaude.supporting]
+
+// snippet-start:[rust.bedrock-runtime.ConverseStream_AnthropicClaude]
 #[tokio::main]
 async fn main() -> Result<(), BedrockConverseStreamError> {
     tracing_subscriber::fmt::init();
@@ -87,49 +135,4 @@ fn get_converse_output_text(
     })
 }
 
-#[derive(Debug)]
-struct BedrockConverseStreamError(String);
-impl std::fmt::Display for BedrockConverseStreamError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Can't invoke '{}'. Reason: {}", MODEL_ID, self.0)
-    }
-}
-impl std::error::Error for BedrockConverseStreamError {}
-impl From<&str> for BedrockConverseStreamError {
-    fn from(value: &str) -> Self {
-        BedrockConverseStreamError(value.into())
-    }
-}
-
-impl From<&ConverseStreamError> for BedrockConverseStreamError {
-    fn from(value: &ConverseStreamError) -> Self {
-        BedrockConverseStreamError(
-            match value {
-                ConverseStreamError::ModelTimeoutException(_) => "Model took too long",
-                ConverseStreamError::ModelNotReadyException(_) => "Model is not ready",
-                _ => "Unknown",
-            }
-            .into(),
-        )
-    }
-}
-
-impl From<&ConverseStreamOutputError> for BedrockConverseStreamError {
-    fn from(value: &ConverseStreamOutputError) -> Self {
-        match value {
-            ConverseStreamOutputError::ValidationException(ve) => BedrockConverseStreamError(
-                ve.message().unwrap_or("Unknown ValidationException").into(),
-            ),
-            ConverseStreamOutputError::ThrottlingException(te) => BedrockConverseStreamError(
-                te.message().unwrap_or("Unknown ThrottlingException").into(),
-            ),
-            value => BedrockConverseStreamError(
-                value
-                    .message()
-                    .unwrap_or("Unknown StreamOutput exception")
-                    .into(),
-            ),
-        }
-    }
-}
 // snippet-end:[rust.bedrock-runtime.ConverseStream_AnthropicClaude]
