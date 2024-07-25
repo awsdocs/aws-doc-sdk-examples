@@ -34,17 +34,17 @@ public class GetPasswordData {
                    instanceId - An instance id from which the password is obtained.\s
              """;
 
-     //   if (args.length != 1) {
-     //       System.out.println(usage);
-     //       return;
-     //   }
+        if (args.length != 1) {
+            System.out.println(usage);
+            return;
+        }
 
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()
             .region(region)
             .build();
 
-        String instanceId = "i-034067459d5673228" ; //args[0];
+        String instanceId = args[0];
         getPasswordData(ec2,instanceId);
     }
 
@@ -68,11 +68,11 @@ public class GetPasswordData {
             System.out.println("Encrypted Password Data: " + encryptedPasswordData);
 
         } catch (Ec2Exception e) {
-            String errorMessage = e.getMessage();
-            if (errorMessage.matches("InvalidInstanceID.NotFound")) {
-                System.err.println("TError: " + errorMessage);
+            String errorCode  = e.awsErrorDetails().errorCode();
+            if (errorCode.matches("InvalidInstanceID.NotFound")) {
+                System.err.println("An exception was thrown: details: " + errorCode );
             } else {
-                System.err.println("This EC2 request is invalid: " + e.fillInStackTrace());
+                System.err.println("This EC2 request is invalid. Details:");
                 e.printStackTrace();
             }
         }
