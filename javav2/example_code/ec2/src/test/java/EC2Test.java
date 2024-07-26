@@ -26,6 +26,8 @@ import software.amazon.awssdk.services.ssm.SsmClient;
 public class EC2Test {
 
     private static Ec2Client ec2;
+
+    private static Ec2Client ec2East;
     private static SsmClient ssmClient;
 
     // Define the data members required for the tests.
@@ -44,6 +46,8 @@ public class EC2Test {
     private static String vpcIdSc = "";
     private static String myIpAddressSc = "";
 
+    private static String winServer = "";
+
     @BeforeAll
     public static void setUp() throws IOException {
         Region region = Region.US_WEST_2;
@@ -51,6 +55,12 @@ public class EC2Test {
                 .region(region)
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
+
+        Region regionEast = Region.US_EAST_1;
+        ec2East = Ec2Client.builder()
+            .region(regionEast)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
 
         ssmClient = SsmClient.builder()
                 .region(region)
@@ -73,6 +83,7 @@ public class EC2Test {
         groupNameSc = values.getGroupDescSc() + java.util.UUID.randomUUID();
         vpcIdSc = values.getVpcIdSc();
         myIpAddressSc = values.getMyIpAddressSc();
+        winServer = values.getWinServer();
 
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
@@ -221,7 +232,15 @@ public class EC2Test {
     @Test
     @Tag("IntegrationTest")
     @Order(15)
-    public void TestEC2Scenario() throws InterruptedException {
+    public void testGetPassword() {
+        GetPasswordData.getPasswordData(ec2East, winServer);
+        System.out.println(EC2Scenario.DASHES);
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(16)
+    public void TestEC2Scenario() {
         System.out.println(EC2Scenario.DASHES);
         System.out.println("1. Create an RSA key pair and save the private key material as a .pem file.");
         EC2Scenario.createKeyPair(ec2, keyNameSc, fileNameSc);
@@ -314,6 +333,7 @@ public class EC2Test {
         EC2Scenario.releaseEC2Address(ec2, allocationId);
         System.out.println(EC2Scenario.DASHES);
 
+
         System.out.println(EC2Scenario.DASHES);
         System.out.println("15. Terminate the instance.");
         EC2Scenario.terminateEC2(ec2, newInstanceId);
@@ -370,6 +390,8 @@ public class EC2Test {
 
         private String myIpAddressSc;
 
+        private String winServer;
+
         public String getAmi() {
             return ami;
         }
@@ -417,5 +439,7 @@ public class EC2Test {
         public String getMyIpAddressSc() {
             return myIpAddressSc;
         }
+
+        public String getWinServer(){return winServer;}
     }
 }

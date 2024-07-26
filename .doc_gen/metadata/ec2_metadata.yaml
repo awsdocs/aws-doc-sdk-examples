@@ -70,6 +70,19 @@ ec2_Hello:
                 - ec2.ruby.hello_ec2
   services:
     ec2: {DescribeSecurityGroups}
+ec2_GetPasswordData:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.java2.get_password.main
+  services:
+    ec2: {GetPasswordData}
 ec2_CreateKeyPair:
   languages:
     .NET:
