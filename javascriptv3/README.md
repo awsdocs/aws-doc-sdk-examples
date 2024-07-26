@@ -78,60 +78,7 @@ This example is available in a container image hosted on [Amazon Elastic Contain
 
 ## Contribute
 
-Contributions are welcome. To increase the likelihood of your contribution
-being accepted, adhere to the following guidelines.
-
-### Maintain directory structure
-
-- `javascriptv3` is considered the project root.
-- All examples exist under `example_code`.
-- Each directory under `example_code` corresponds to an AWS service.
-- Directory names should be lowercase with underscores.
-- File names should be lowercase with dashes.
-- `cross-services` is a special directory for examples that use multiple services.
-- A service directory has the following structure:
-  - ```
-    actions/
-      {action-name}.js
-    scenarios/
-      web/
-        {web-scenario-name}/
-      {scenario-name}.js
-    tests/
-      {integ-test-name}.integration.test.js
-      {unit-test-name}.unit.test.js
-    client.js
-    package.json
-    README.md
-    vite.config.js
-    ```
-
-### Create runnable actions and scenarios
-
-Place the following code at the bottom of each example
-to make it runnable from the command line.
-
-```
-// Invoke main function if this file was run directly.
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  functionName();
-}
-```
-
-### Create testable actions and scenarios
-
-Export one primary function from each example. Do not create examples
-that require input or cannot run without human intervention.
-
-Create function names that match the action name. `CreateUserCommand` becomes
-`createUser`.
-
-```
-export const createUser = (name) => {
-  const command = new CreateUserCommand({ UserName: name });
-  return client.send(command);
-};
-```
+Contributions are welcome. To increase the likelihood of your contribution being accepted, please adhere to the [JavaScript standards](https://github.com/awsdocs/aws-doc-sdk-examples/wiki/JavaScript-code-example-standards)
 
 ### Create tests
 
