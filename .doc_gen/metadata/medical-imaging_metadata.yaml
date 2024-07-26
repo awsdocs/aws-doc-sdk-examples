@@ -686,13 +686,16 @@ medical-imaging_UpdateImageSetMetadata:
             - description:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3
-            - description: 'Use case #1: Insert or update an attribute.'
+            - description: 'Use case #1: Insert or update an attribute and force the update.'
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.insert_or_update_attributes
             - description: 'Use case #2: Remove an attribute.'
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_attributes
             - description: 'Use case #3: Remove an instance.'
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_instance
+            - description: 'Use case #4: Revert to an earlier version.'
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_instance
     Java:
@@ -713,6 +716,9 @@ medical-imaging_UpdateImageSetMetadata:
             - description: 'Use case #3: Remove an instance.'
               snippet_tags:
                 - medicalimaging.java2.update_image_set_metadata.remove_instance
+            - description: 'Use case #4: Revert to a previous version.'
+              snippet_tags:
+                - medicalimaging.java2.update_image_set_metadata.revert
   services:
     medical-imaging: {UpdateImageSetMetadata}
 medical-imaging_CopyImageSet:
@@ -755,6 +761,9 @@ medical-imaging_CopyImageSet:
             - description: Copy an image set with a destination.
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.copyImageSetV3.with_destination
+            - description: Copy a subset of an image set with a destination and force the copy.
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.copyImageSetV3.with_destination_and_subsets
     Java:
       versions:
         - sdk_version: 2

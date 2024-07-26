@@ -116,13 +116,30 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
         await copyImageSet(
             "12345678901234567890123456789012",
             "12345678901234567890123456789012",
-            "4",
+            "1",
             "12345678901234567890123456789012",
             "1",
-            false
+            false,
         );
     } catch (err) {
         console.error(err);
     }
     // snippet-end:[medical-imaging.JavaScript.imageset.copyImageSetV3.with_destination]
+
+    // snippet-start:[medical-imaging.JavaScript.imageset.copyImageSetV3.with_destination_and_subsets]
+    try {
+        await copyImageSet(
+            "12345678901234567890123456789012",
+            "12345678901234567890123456789012",
+            "1",
+            "12345678901234567890123456789012",
+            "1",
+            true,
+            ["12345678901234567890123456789012", "11223344556677889900112233445566"]
+        );
+    } catch (err) {
+        console.error(err);
+    }
+    // snippet-end:[medical-imaging.JavaScript.imageset.copyImageSetV3.with_destination_and_subsets]
+
 }

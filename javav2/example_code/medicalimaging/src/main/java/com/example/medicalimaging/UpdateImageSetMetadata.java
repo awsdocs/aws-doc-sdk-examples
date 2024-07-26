@@ -143,7 +143,7 @@ public class UpdateImageSetMetadata {
                         versionid, metadataRemoveUpdates, force);
                 // snippet-end:[medicalimaging.java2.update_image_set_metadata.remove_instance]
             } else if (updateType.equals("revert")) {
-                // snippet-start:[medicalimaging.java2.update_image_set_metadata.remove_instance]
+                // snippet-start:[medicalimaging.java2.update_image_set_metadata.revert]
                 // In this case, revert to previous version.
                 String revertVersionId = Integer.toString(Integer.parseInt(versionid) - 1);
                 MetadataUpdates metadataRemoveUpdates = MetadataUpdates.builder()
@@ -151,7 +151,7 @@ public class UpdateImageSetMetadata {
                         .build();
                 updateMedicalImageSetMetadata(medicalImagingClient, datastoreId, imagesetId,
                         versionid, metadataRemoveUpdates, force);
-                // snippet-end:[medicalimaging.java2.update_image_set_metadata.remove_instance]
+                // snippet-end:[medicalimaging.java2.update_image_set_metadata.revert]
             }
         } catch (MedicalImagingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
