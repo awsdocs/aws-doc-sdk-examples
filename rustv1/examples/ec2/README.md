@@ -29,19 +29,46 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon EC2](src/bin/ec2-helloworld.rs#L22) (`DescribeSecurityGroups`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
+- [AllocateAddress](src/ec2.rs#L443)
+- [AssociateAddress](src/ec2.rs#L465)
+- [AuthorizeSecurityGroupIngress](src/ec2.rs#L136)
+- [CreateKeyPair](src/ec2.rs#L41)
+- [CreateSecurityGroup](src/ec2.rs#L77)
+- [CreateTags](src/ec2.rs#L233)
+- [DeleteKeyPair](src/getting_started/key_pair.rs#L75)
+- [DeleteSecurityGroup](src/ec2.rs#L167)
 - [DeleteSnapshot](../ebs/src/bin/delete-snapshot.rs#L26)
-- [DescribeImages](src/bin/describe-images.rs#L6)
+- [DescribeImages](src/ec2.rs#L179)
 - [DescribeInstanceStatus](src/bin/list-all-instance-events.rs#L22)
-- [DescribeInstances](src/bin/describe-instance.rs#L26)
-- [DescribeRegions](src/bin/ec2-helloworld.rs#L22)
+- [DescribeInstanceTypes](src/ec2.rs#L198)
+- [DescribeInstances](src/ec2.rs#L317)
+- [DescribeKeyPairs](src/ec2.rs#L57)
+- [DescribeRegions](src/bin/describe-regions.rs#L22)
+- [DescribeSecurityGroups](src/bin/ec2-helloworld.rs#L22)
 - [DescribeSnapshots](../ebs/src/bin/get-snapshot-state.rs#L27)
-- [RebootInstances](src/bin/reboot-instance.rs#L28)
-- [StartInstances](src/bin/start-instance.rs#L29)
-- [StopInstances](src/bin/stop-instance.rs#L29)
+- [DisassociateAddress](src/ec2.rs#L482)
+- [RebootInstances](src/getting_started/instance.rs#L86)
+- [ReleaseAddress](src/ec2.rs#L454)
+- [RunInstances](src/ec2.rs#L233)
+- [StartInstances](src/ec2.rs#L340)
+- [StopInstances](src/ec2.rs#L356)
+- [TerminateInstances](src/ec2.rs#L410)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Get started with instances](src/getting_started/scenario.rs)
 
 
 <!--custom.examples.start-->
@@ -55,7 +82,28 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello Amazon EC2
 
+This example shows you how to get started using Amazon EC2.
+
+
+
+#### Get started with instances
+
+This example shows you how to do the following:
+
+- Create a key pair and security group.
+- Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
+- Stop and restart the instance.
+- Associate an Elastic IP address with your instance.
+- Connect to your instance with SSH, then clean up resources.
+
+<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.end-->
+
+
+<!--custom.scenarios.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.scenarios.ec2_Scenario_GetStartedInstances.end-->
 
 ### Tests
 

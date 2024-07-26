@@ -34,6 +34,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 Code excerpts that show you how to call individual service functions.
 
 - [DescribeParameters](src/bin/describe-parameters.rs#L22)
+- [GetParameter](../ec2/src/ssm.rs#L19)
 - [PutParameter](src/bin/create-parameter.rs#L35)
 
 

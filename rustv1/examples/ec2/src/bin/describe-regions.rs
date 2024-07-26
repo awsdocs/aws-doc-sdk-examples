@@ -19,36 +19,18 @@ struct Opt {
 }
 
 // Describes the regions.
-// snippet-start:[ec2.rust.ec2-helloworld]
-async fn show_security_groups(client: &aws_sdk_ec2::Client, group_ids: Vec<String>) {
-    let response = client
-        .describe_security_groups()
-        .set_group_ids(Some(group_ids))
-        .send()
-        .await;
+// snippet-start:[ec2.rust.describe-regions]
+async fn show_regions(client: &Client) -> Result<(), Error> {
+    let rsp = client.describe_regions().send().await?;
 
-    match response {
-        Ok(output) => {
-            for group in output.security_groups() {
-                println!(
-                    "Found Security Group {} ({}), vpc id {} and description {}",
-                    group.group_name().unwrap_or("unknown"),
-                    group.group_id().unwrap_or("id-unknown"),
-                    group.vpc_id().unwrap_or("vpcid-unknown"),
-                    group.description().unwrap_or("(none)")
-                );
-            }
-        }
-        Err(err) => {
-            let err = err.into_service_error();
-            let meta = err.meta();
-            let message = meta.message().unwrap_or("unknown");
-            let code = meta.code().unwrap_or("unknown");
-            eprintln!("Error listing EC2 Security Groups: ({code}) {message}");
-        }
+    println!("Regions:");
+    for region in rsp.regions() {
+        println!("  {}", region.region_name().unwrap());
     }
+
+    Ok(())
 }
-// snippet-end:[ec2.rust.ec2-helloworld]
+// snippet-end:[ec2.rust.describe-regions]
 
 /// Describes the AWS Regions that are enabled for your account.
 /// # Arguments
@@ -79,7 +61,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    show_security_groups(&client, vec![]).await;
-
-    Ok(())
+    show_regions(&client).await
 }
