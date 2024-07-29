@@ -23,19 +23,29 @@ describe("delete-security-group", () => {
 
     send.mockResolvedValueOnce({});
 
-    await main();
+    await main({ groupId: "abc" });
 
     expect(logSpy).toHaveBeenCalledWith("Security group deleted successfully.");
   });
 
-  it("should log the error message", async () => {
-    const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to delete security group"));
+  it("should log InvalidGroupId.Malformed errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("InvalidGroupId.Malformed");
+    error.name = "InvalidGroupId.Malformed";
 
-    await main();
+    send.mockRejectedValueOnce(error);
 
-    expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to delete security group"),
+    await main({ groupId: "abc" });
+
+    expect(logSpy).toBeCalledWith(
+      "InvalidGroupId.Malformed. Please provide a valid GroupId.",
     );
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Unknown");
+    send.mockRejectedValueOnce(error);
+
+    await expect(() => main({ groupId: "abc" })).rejects.toBe(error);
   });
 });

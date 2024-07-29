@@ -23,19 +23,26 @@ describe("disassociate-address", () => {
 
     send.mockResolvedValueOnce({});
 
-    await main();
+    await main({ associationId: "123" });
 
     expect(logSpy).toHaveBeenCalledWith("Successfully disassociated address");
   });
 
-  it("should log the error message", async () => {
-    const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to disassociate address"));
+  it("should log InvalidAssociationID.NotFound errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("Failed to disassociate address");
+    error.name = "InvalidAssociationID.NotFound";
+    send.mockRejectedValueOnce(error);
 
-    await main();
+    await main({ associationId: "123" });
 
-    expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to disassociate address"),
-    );
+    expect(logSpy).toHaveBeenCalledWith("Failed to disassociate address.");
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Unknown error");
+    send.mockRejectedValueOnce(error);
+
+    await expect(() => main({})).rejects.toBe(error);
   });
 });

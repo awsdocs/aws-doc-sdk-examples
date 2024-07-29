@@ -47,8 +47,8 @@ ec2_Hello:
           sdkguide:
           excerpts:
             - description:
-              snippet_tags:
-                - javascript.v3.ec2.scenarios.Hello
+              snippet_files:
+                - javascriptv3/example_code/ec2/hello.js
     C++:
       versions:
         - sdk_version: 1
@@ -704,8 +704,8 @@ ec2_AllocateAddress:
           sdkguide:
           excerpts:
             - description:
-              snippet_tags:
-                - ec2.JavaScript.Addresses.allocateAddressV3
+              snippet_files:
+                - javascriptv3/example_code/ec2/actions/allocate-address.js
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -2215,9 +2215,9 @@ ec2_Scenario_GetStartedInstances:
           github: javascriptv3/example_code/ec2
           sdkguide:
           excerpts:
-            - description: Run an interactive scenario at a command prompt.
-              snippet_tags:
-                - javascript.v3.ec2.scenarios.basic
+            - description: This file contains logic to run the example as a whole.
+              snippet_files:
+                - javascriptv3/example_code/ec2/scenarios/steps.js 
     Bash:
       versions:
         - sdk_version: 2

@@ -1,17 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
-
 // snippet-start:[javascript.v3.ec2.actions.StopInstances]
-import { StopInstancesCommand } from "@aws-sdk/client-ec2";
+import { EC2Client, StopInstancesCommand } from "@aws-sdk/client-ec2";
+import { fileURLToPath } from "url";
+import { parseArgs } from "util";
 
-import { client } from "../libs/client.js";
-
-export const main = async () => {
+/**
+ * Stop one or more EC2 instances.
+ * @param {{ instanceIds: string[] }} options
+ */
+export const main = async ({ instanceIds }) => {
+  const client = new EC2Client({});
   const command = new StopInstancesCommand({
-    // Use DescribeInstancesCommand to find InstanceIds
-    InstanceIds: ["INSTANCE_ID"],
+    InstanceIds: instanceIds,
   });
 
   try {
@@ -21,13 +23,28 @@ export const main = async () => {
     );
     console.log("Stopping instances:");
     console.log(instanceIdList.join("\n"));
-  } catch (err) {
-    console.error(err);
+  } catch (caught) {
+    if (
+      caught instanceof Error &&
+      caught.name === "InvalidInstanceID.NotFound"
+    ) {
+      console.warn(`${caught.message}`);
+    } else {
+      throw caught;
+    }
   }
 };
 // snippet-end:[javascript.v3.ec2.actions.StopInstances]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  const options = {
+    instanceIds: {
+      type: "string",
+      multiple: true,
+    },
+  };
+
+  const { values } = parseArgs({ options });
+  main(values);
 }

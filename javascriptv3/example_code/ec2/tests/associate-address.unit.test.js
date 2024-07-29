@@ -23,7 +23,7 @@ describe("associate-address", () => {
 
     send.mockResolvedValueOnce({ AssociationId: "foo" });
 
-    await main();
+    await main({ allocationId: "ALLOCATION_ID", instanceId: "INSTANCE_ID" });
 
     expect(logSpy).toHaveBeenCalledWith(
       "Address with allocation ID ALLOCATION_ID is now associated with instance INSTANCE_ID.",
@@ -31,14 +31,23 @@ describe("associate-address", () => {
     );
   });
 
-  it("should log the error message", async () => {
-    const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to associate address"));
+  it("should log InvalidAllocationID.NotFound error", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("Invalid id");
+    error.name = "InvalidAllocationID.NotFound";
+    send.mockRejectedValueOnce(error);
 
-    await main();
+    await main({});
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to associate address"),
+      "Invalid id. Did you provide the ID of a valid Elastic IP address AllocationId?",
     );
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error();
+    send.mockRejectedValueOnce(error);
+
+    await expect(() => main({})).rejects.toBe(error);
   });
 });

@@ -29,20 +29,29 @@ describe("describe-addresses", () => {
       ],
     });
 
-    await main();
+    await main({ allocationId: "123" });
 
     expect(logSpy).toHaveBeenNthCalledWith(1, "Elastic IP addresses:");
     expect(logSpy).toHaveBeenNthCalledWith(2, " • foo");
   });
 
-  it("should log the error message", async () => {
-    const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to describe addresses"));
+  it("should log InvalidAllocationID.NotFound errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("AllocationId not found");
+    error.name = "InvalidAllocationID.NotFound";
+    send.mockRejectedValueOnce(error);
 
-    await main();
+    await main({ allocationId: "123" });
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to describe addresses"),
+      "AllocationId not found. Please provide a valid AllocationId.",
     );
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Unknown error");
+    send.mockRejectedValueOnce(error);
+
+    await expect(() => main({ keyName: "name" })).rejects.toBe(error);
   });
 });
