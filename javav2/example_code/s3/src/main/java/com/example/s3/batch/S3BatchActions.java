@@ -48,6 +48,8 @@ import software.amazon.awssdk.services.s3control.model.S3SetObjectTaggingOperati
 import software.amazon.awssdk.services.s3control.model.S3Tag;
 import software.amazon.awssdk.services.s3control.model.UpdateJobPriorityRequest;
 import software.amazon.awssdk.services.s3control.model.UpdateJobStatusRequest;
+import software.amazon.awssdk.services.sts.StsClient;
+import software.amazon.awssdk.services.sts.model.GetCallerIdentityResponse;
 
 import java.io.File;
 import java.io.IOException;
@@ -547,7 +549,6 @@ public class S3BatchActions {
     // Update the bucketName in CSV.
     public void updateCSV(String newValue) {
         Path csvFilePath = Paths.get("src/main/resources/batch/job-manifest.csv").toAbsolutePath();
-
         try {
             // Read all lines from the CSV file.
             List<String> lines = Files.readAllLines(csvFilePath);
@@ -637,10 +638,11 @@ public class S3BatchActions {
 
     public static void uploadFilesToBucket(String bucketName, String[] fileNames, S3BatchActions actions) throws IOException {
         actions.updateCSV(bucketName);
+        createTextFiles(fileNames);
         for (String fileName : fileNames) {
             actions.populateBucket(bucketName, fileName);
         }
-        System.out.println("All files are placed in bucket " + bucketName);
+        System.out.println("All files are placed in the S3 bucket " + bucketName);
     }
 
     public static void deleteFilesFromBucket(String bucketName, String[] fileNames, S3BatchActions actions) throws IOException {
@@ -648,6 +650,57 @@ public class S3BatchActions {
             actions.deleteBucketObjects(bucketName, fileName);
         }
         System.out.println("All files have been deleted from the bucket " + bucketName);
+    }
+
+    public static void createTextFiles(String[] fileNames) {
+        // Get the current directory using Java
+        String currentDirectory = System.getProperty("user.dir");
+        String directoryPath = currentDirectory + "\\src\\main\\resources\\batch";
+        Path path = Paths.get(directoryPath);
+
+        try {
+            // Create the directory if it doesn't exist
+            if (Files.notExists(path)) {
+                Files.createDirectories(path);
+                System.out.println("Created directory: " + path.toString());
+            } else {
+                System.out.println("Directory already exists: " + path.toString());
+            }
+
+            for (String fileName : fileNames) {
+                // Check if the file is a .txt file
+                if (fileName.endsWith(".txt")) {
+                    // Define the path for the new file
+                    Path filePath = path.resolve(fileName);
+                    System.out.println("Attempting to create file: " + filePath.toString());
+
+                    // Create and write content to the new file
+                    Files.write(filePath, "This is a test".getBytes());
+
+                    // Verify the file was created
+                    if (Files.exists(filePath)) {
+                        System.out.println("Successfully created file: " + filePath.toString());
+                    } else {
+                        System.out.println("Failed to create file: " + filePath.toString());
+                    }
+                }
+            }
+        } catch (IOException e) {
+            // Handle exceptions
+            System.err.println("An error occurred: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
+    public String getAccountId() {
+        StsClient stsClient = StsClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
+
+        GetCallerIdentityResponse callerIdentityResponse = stsClient.getCallerIdentity();
+        String accountId = callerIdentityResponse.account();
+        return accountId;
     }
 }
 // snippet-end:[s3control.java2.job.actions.main]

@@ -1,10 +1,10 @@
 # Amazon S3 Batch Basics Scenario
 
 ## Introduction
-This Amazon S3 Batch Basics scenario demonstrates how to interact with Amazon S3 batch functionality using an AWS SDK. The scenario covers various operations such as creating a job, modifying the job, adding additional tags to the job, and so on. 
+This scenario demonstrates how to use the AWS SDK to interact with Amazon Simple Storage Service (S3) using AWS Batch. The scenario covers various operations such as creating a batch job, modifying the job, and adding additional tags to the job.
 
 ## Setting up Resources
-To successfully run this basic scenario, the program requires an IAM (Identity and Access Management) role. However, the program makes it easy for the user because the IAM role is created using an AWS CloudFormation template. The user does not need to take any additional steps to create this IAM role.
+To successfully run this basic scenario, the program requires an IAM (Identity and Access Management) role. However, the program creates the IAM role by using an AWS CloudFormation template. 
 
 ## Service Operations Invoked
 The program performs the following tasks:
@@ -37,12 +37,7 @@ The program performs the following tasks:
 ## Usage
 1. Clone the repository or download the source code.
 2. Open the code in your preferred IDE.
-3. This scenario requires the following variable:
-   - `accountId` - The account id value that owns the Amazon S3 bucket.
-  
-4. Run the `S3BatchScenario` class.
-
-The program will guide you through the scenario, including setting up the resources using the AWS CloudFormation template. The program will also display the progress and results of the various operations.
+3. Invoke the main method in the `S3BatchScenario` class.
 
 ## Code Explanation
 The provided code demonstrates the following key features of the AWS SDK and the S3 Batch functionality:
@@ -70,5 +65,3 @@ The provided code demonstrates the following key features of the AWS SDK and the
 11. **Delete Job Tags**: Provides the option to delete the tags associated with the S3 Batch job.
 
 12. **Cleanup Resources**: Provides the option to delete the created S3 bucket, its contents, and the CloudFormation stack to clean up resources used in the scenario.
-
-Overall, this Amazon S3 batch code example is a resource for developers new to S3 batch functionality and the AWS SDK. 

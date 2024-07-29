@@ -2,11 +2,11 @@
 
 ## Overview
 
-This document outlines the technical specifications for the _Amazon S3 Batch Basic Scenario_, a scenario designed to demonstrate Amazon S3 Batch functionality and SDKs. It is primarily intended for the AWS code examples team to use while developing this example in additional languages.
+This document outlines the technical specifications for the _Amazon S3 Batch Basic Scenario_, a scenario designed to demonstrate Amazon S3 Batch opertions functionality and SDKs. It is primarily intended for the AWS code examples team to use while developing this example in additional languages.
 
 
 ## Resources
-The required resources for this basic scenario include an IAM role and an S3 bucket. The IAM role is created using an AWS CloudFormation template, and the S3 bucket is created and populated with files using the AWS SDK. The scenario automatically deploys the CloudFormation stack, so the user running the program does not need to take any action.
+The required resources is an IAM role that is automatically created using an AWS CloudFormation template.
 
 ## Scenario Program Flow
 The Amazon S3 Batch basic scenario executes the following steps:

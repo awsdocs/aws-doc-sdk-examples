@@ -15,24 +15,10 @@ public class S3BatchScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     private static final String STACK_NAME = "MyS3Stack";
     public static void main(String[] args) throws IOException {
-        final String usage = """
-
-            Usage:
-                <accountId>
-
-            Where:
-                accountId - The account id value that owns the Amazon S3 bucket.
-            """;
-
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
-
-        String accountId = args[0];
+        S3BatchActions actions = new S3BatchActions();
+        String accountId = actions.getAccountId();
         String uuid = java.util.UUID.randomUUID().toString();
         Scanner scanner = new Scanner(System.in);
-        S3BatchActions actions = new S3BatchActions();
 
         System.out.println(DASHES);
         System.out.println("Welcome to the Amazon S3 Batch basics scenario.");
