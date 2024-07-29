@@ -422,8 +422,8 @@ class MedicalImagingWrapper:
         version_id,
         destination_image_set_id=None,
         destination_version_id=None,
-            force=False,
-            subsets = []
+        force=False,
+        subsets=[],
     ):
         """
         Copy an image set.
@@ -452,13 +452,7 @@ class MedicalImagingWrapper:
             if len(subsets) > 0:
                 copySubsetsJson = {
                     "SchemaVersion": "1.1",
-                    "Study": {
-                        "Series": {
-                            "imageSetId": {
-                                "Instances": {}
-                            }
-                        }
-                    }
+                    "Study": {"Series": {"imageSetId": {"Instances": {}}}},
                 }
 
                 for subset in subsets:
@@ -466,7 +460,9 @@ class MedicalImagingWrapper:
                         subset
                     ] = {}
 
-                copy_image_set_information["sourceImageSet"]["DICOMCopies"] = {"copiableAttributes" : json.dumps(copySubsetsJson)}
+                copy_image_set_information["sourceImageSet"]["DICOMCopies"] = {
+                    "copiableAttributes": json.dumps(copySubsetsJson)
+                }
             # snippet-end:[python.example_code.medical-imaging.CopyImageSet3]
             # snippet-start:[python.example_code.medical-imaging.CopyImageSet4]
             copy_results = self.health_imaging_client.copy_image_set(
