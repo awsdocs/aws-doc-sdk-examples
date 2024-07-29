@@ -4,6 +4,7 @@
 package com.example.batch.scenario;
 
 import java.util.Scanner;
+import java.util.concurrent.CompletionException;
 
 public class BatchScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -13,29 +14,34 @@ public class BatchScenario {
         Scanner scanner = new Scanner(System.in);
 
         String iamRole = "arn:aws:iam::814548047983:role/batch-service-role";
+        String executionRoleARN = "arn:aws:iam::814548047983:role/batchecr";
         String computeEnvironmentName = "my-compute-environment" ;
-        String jobQueueName = "MyJobQueue";
-        String jobDefinitionName = "MyJobDefinition";
-        String jobName = "MyFirstJob";
-        String executionRoleARN = "arn:aws:iam::814548047983:role/ConsumerStack-javav2-BatchExecutionRolejavav2745AFB-7HtPedDwyPLm";
+        String jobQueueName = "my-job-queue";
+        String jobDefinitionName = "my-job-definition";
+        String dockerImage = "dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text";
+
+        // Get an AWS Account id used to retrieve the docker image from Amazon ECR.
+        String accId = batchActions.getAccountId();
+        dockerImage = accId+"."+dockerImage; // Get the account Id into docker image.
 
         System.out.println("""
-            Amazon Batch is a fully-managed batch processing service that enables developers, 
-            scientists, and engineers to run batch computing workloads of any scale. Amazon Batch 
-            dynamically provisions the optimal quantity and type of compute resources (e.g., CPU or 
-            memory-optimized instances) based on the volume and specific resource requirements of the 
-            batch jobs submitted.
-            
-            The Java V2 SDK to interact with various AWS services programmatically. The `BatchAsyncClient`
-            interface in the Java V2 SDK allows developers to automate the submission, monitoring, and 
-            management of batch jobs on the Amazon Batch service.
-            
-            In this scenario, we'll explore how to use the Java V2 SDK to interact with the Amazon Batch 
-            service and perform key operations such as submitting jobs, monitoring their status, and 
-            managing the compute environment. 
-            
+            Amazon Batch is a fully managed batch processing service that enables developers, scientists, and engineers to run batch 
+            computing workloads of any scale. It dynamically provisions the optimal quantity and type of compute resources 
+            (e.g., CPU or memory-optimized instances) based on the volume and specific resource requirements of the batch jobs submitted.
+                        
+            The Java V2 SDK allows you to interact with various AWS services programmatically. The `BatchAsyncClient` interface 
+            in the Java V2 SDK enables developers to automate the submission, monitoring, and management of batch jobs on the Amazon Batch service.
+                        
+            In this scenario, we'll explore how to use the Java V2 SDK to interact with the Amazon Batch service, including:
+                        
+            1. **Create an AWS Batch Job Definition**: Define a job definition that is used to run your Docker container on Fargate. This job definition will include the Docker image location (ECR repository), the container properties, and the execution role that grants the necessary permissions.
+                        
+            2. **Submit an AWS Batch Job**: Submit a job to AWS Batch, specifying the job definition you created in the previous step. This will trigger the process of pulling the Docker image from ECR and launching the container on Fargate.
+                        
+            3. **Monitor the Job Execution**: AWS Batch will handle the execution of the job on Fargate, including pulling the Docker image from ECR, starting the container, and monitoring its execution.
+                        
             Let's get started...
-            
+                        
             You have two choices:
             1 - Run the entire program.
             2 - Delete an existing Compute Environment (created from a previous execution of 
@@ -49,7 +55,6 @@ public class BatchScenario {
                 System.out.println("");
                 break;
             } else if (input.trim().equalsIgnoreCase("2")) {
-                // Locate job queue ARN
                 String jobQueueARN = batchActions.describeJobQueue(computeEnvironmentName);
                 if (!jobQueueARN.isEmpty()) {
                     batchActions.disableJobQueue(jobQueueARN);
@@ -60,8 +65,6 @@ public class BatchScenario {
                 batchActions.disableComputeEnvironment( computeEnvironmentName);
                 countdown(2);
                 batchActions.deleteComputeEnvironment(computeEnvironmentName);
-
-
                 return;
             } else {
                 // Handle invalid input.
@@ -127,13 +130,26 @@ public class BatchScenario {
             """);
 
         waitForInputToContinue(scanner);
-        String jobARN = batchActions.registerJobDefinition(jobDefinitionName, executionRoleARN);
+        String[] jobARN = new String[1];
+        try {
+            jobARN[0] = batchActions.registerJobDefinitionAsync(jobDefinitionName, executionRoleARN, dockerImage)
+                .exceptionally(ex -> {
+                    System.err.println("Register job definition failed: " + ex.getMessage());
+                    return null;
+                })
+                .join();
+            if (jobARN[0] != null) {
+                System.out.println("Job ARN: " + jobARN[0]);
+            }
+        } catch (CompletionException ex) {
+            System.err.println("Failed to register job definition: " + ex.getMessage());
+        }
         System.out.println(DASHES);
 
         System.out.println(DASHES);
         System.out.println("5. Submit an AWS Batch job from a job definition.");
         waitForInputToContinue(scanner);
-        String myJob = batchActions.submitJob(jobDefinitionName, jobQueueName, jobARN);
+        String myJob = batchActions.submitJob(jobDefinitionName, jobQueueName, jobARN[0]);
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
@@ -146,13 +162,13 @@ public class BatchScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("7. Check the status of the job.");
+        System.out.println("7. Check the status of job "+myJob);
         waitForInputToContinue(scanner);
         batchActions.describeJob(myJob);
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
-        System.out.println("8 Delete a Batch compute environment");
+        System.out.println("8. Delete a Batch compute environment");
         System.out.println(
             """
             WHen deleting an AWS Batch compute environment, it does not happen instantaneously. 
@@ -171,7 +187,7 @@ public class BatchScenario {
             waitForInputToContinue(scanner);
             batchActions.disableJobQueue(jobQueueArn);
 
-            // Wait until the job queue is disabled
+            // Wait until the job queue is disabled.
             batchActions.waitForJobQueueToBeDisabled(jobQueueArn);
             waitForInputToContinue(scanner);
             batchActions.deleteJobQueue(jobQueueArn);
