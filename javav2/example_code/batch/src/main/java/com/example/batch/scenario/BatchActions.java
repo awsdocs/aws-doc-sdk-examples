@@ -33,6 +33,8 @@ import java.util.concurrent.CompletableFuture;
 
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.batch.model.*;
+import software.amazon.awssdk.services.sts.StsClient;
+import software.amazon.awssdk.services.sts.model.GetCallerIdentityResponse;
 
 public class BatchActions {
     private static BatchAsyncClient batchClient;
@@ -178,63 +180,12 @@ public class BatchActions {
         return future;
     }
 
-    public String submitFargateJob(String jobName, String jobQueueName, String jobDefinitionName, String executionRoleArn) {
-        BatchClient client = BatchClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
-
-        // Define container properties
-        ContainerProperties containerProperties = ContainerProperties.builder()
-            .image("814548047983.dkr.ecr.us-east-1.amazonaws.com/echo-text:latest")
-            .vcpus(1)
-            .memory(512)
-            .command("echo", "Executing Batch job with input data: ${inputData}")
-            .executionRoleArn(executionRoleArn)
-            .fargatePlatformConfiguration(FargatePlatformConfiguration.builder()
-                .platformVersion("LATEST")
-                .build())
-            .build();
-
-        // Create job definition request
-        RegisterJobDefinitionRequest jobDefinitionRequest = RegisterJobDefinitionRequest.builder()
-            .jobDefinitionName(jobDefinitionName)
-            .type(JobDefinitionType.CONTAINER)
-            .containerProperties(containerProperties)
-            .build();
-
-        // Register job definition
-        RegisterJobDefinitionResponse jobDefinitionResponse = client.registerJobDefinition(jobDefinitionRequest);
-        String jobDefinitionArn = jobDefinitionResponse.jobDefinitionArn();
-        System.out.println("Job definition created: " + jobDefinitionArn);
-
-        // Create container overrides
-        ContainerOverrides containerOverrides = ContainerOverrides.builder()
-            .command("echo", "Executing Batch job with input data: ${inputData}")
-            .build();
-
-        // Submit job request
-        SubmitJobRequest submitJobRequest = SubmitJobRequest.builder()
-            .jobName(jobName)
-            .jobQueue(jobQueueName)
-            .jobDefinition(jobDefinitionArn)
-            .containerOverrides(containerOverrides)
-            .build();
-
-        SubmitJobResponse submitJobResponse = client.submitJob(submitJobRequest);
-        String jobId = submitJobResponse.jobId();
-        System.out.println("Job submitted with ID: " + jobId);
-        return jobId;
-    }
-
     public void ListJobs(String jobDefinitionName, String jobQueueName){
         BatchClient client = BatchClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
-
-        // Describe the job definitions
         ListJobsRequest jobRequest = ListJobsRequest.builder()
             .jobQueue(jobQueueName)
             .jobStatus("STARTING")
@@ -249,14 +200,29 @@ public class BatchActions {
         }
     }
 
-    public String registerJobDefinition(String jobDefinitionName, String executionRoleARN) {
-        BatchClient client = BatchClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+    /**
+     * Registers a new job definition asynchronously in AWS Batch.
+     * <p>
+     * When using Fargate as the compute environment, it is crucial to set the
+     * {@link NetworkConfiguration} with {@link AssignPublicIp#ENABLED} to
+     * ensure proper networking configuration for the Fargate tasks. This
+     * allows the tasks to communicate with external services, access the
+     * internet, or communicate within a VPC.
+     *
+     * @param jobDefinitionName the name of the job definition to be registered
+     * @param executionRoleARN the ARN (Amazon Resource Name) of the execution role
+     *                         that provides permissions for the containers in the job
+     * @return a {@link CompletableFuture} that completes with the ARN of the registered
+     *         job definition upon successful execution, or completes exceptionally with
+     *         an error if the registration fails
+     */
+    public CompletableFuture<String> registerJobDefinitionAsync(String jobDefinitionName, String executionRoleARN, String image) {
+        NetworkConfiguration networkConfiguration = NetworkConfiguration.builder()
+            .assignPublicIp(AssignPublicIp.ENABLED)
             .build();
 
         ContainerProperties containerProperties = ContainerProperties.builder()
-            .image("814548047983.dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text")
+            .image(image)
             .executionRoleArn(executionRoleARN)
             .command(Arrays.asList("echo", "Hello World"))
             .resourceRequirements(
@@ -271,8 +237,8 @@ public class BatchActions {
                         .build()
                 )
             )
+            .networkConfiguration(networkConfiguration)
             .build();
-
 
         RegisterJobDefinitionRequest request = RegisterJobDefinitionRequest.builder()
             .jobDefinitionName(jobDefinitionName)
@@ -281,10 +247,20 @@ public class BatchActions {
             .platformCapabilities(PlatformCapability.FARGATE)
             .build();
 
-        RegisterJobDefinitionResponse response = client.registerJobDefinition(request);
-        String jobDefinitionArn = response.jobDefinitionArn();
-        System.out.println("Job definition registered: " + jobDefinitionArn);
-        return jobDefinitionArn;
+        CompletableFuture<String> future = new CompletableFuture<>();
+        getAsyncClient().registerJobDefinition(request)
+            .thenAccept(response -> {
+                String jobDefinitionArn = response.jobDefinitionArn();
+                System.out.println("Job definition registered: " + jobDefinitionArn);
+                future.complete(jobDefinitionArn); // Complete the CompletableFuture on successful execution
+            })
+            .exceptionally(ex -> {
+                System.err.println("Failed to register job definition: " + ex.getMessage());
+                future.completeExceptionally(ex); // Complete the CompletableFuture exceptionally on error
+                return null; // Return null to handle the exception
+            });
+
+        return future;
     }
 
     public void deregisterJobDefinition(String jobDefinition) {
@@ -307,7 +283,7 @@ public class BatchActions {
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
-        // Disable the job queue
+        // Disable the job queue.
         UpdateJobQueueRequest updateRequest = UpdateJobQueueRequest.builder()
             .jobQueue(jobQueueArn)
             .state(JQState.DISABLED)
@@ -396,7 +372,7 @@ public class BatchActions {
         return jobId;
     }
 
-    public void describeJob(String jobId) throws InterruptedException {
+    public void describeJob(String jobId){
         BatchClient client = BatchClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -406,32 +382,15 @@ public class BatchActions {
             .jobs(jobId)
             .build();
 
-       // while (true) {
-            DescribeJobsResponse describeJobsResult = client.describeJobs(describeJobsRequest);
+        DescribeJobsResponse describeJobsResult = client.describeJobs(describeJobsRequest);
+        JobDetail jobDetail = describeJobsResult.jobs().get(0);
 
-            // Get the job details
-            JobDetail jobDetail = describeJobsResult.jobs().get(0);
-
-            // Check the job status
-            String jobStatus = String.valueOf(jobDetail.status());
-            System.out.println("Job status: " + jobStatus);
-
-            /*
-            // Check if the job was successful
-            if (jobStatus.equals("SUCCEEDED")) {
-                System.out.println("Job was successful!");
-                break;
-            } else {
-                Thread.sleep(1000);
-            }
-             */
-
-
-       // }
+        // Check the job status
+        String jobStatus = String.valueOf(jobDetail.status());
+        System.out.println("Job status: " + jobStatus);
     }
 
     public String describeJobQueue(String computeEnvironmentName) {
-        // Create a Batch client
         BatchClient batchClient = BatchClient.builder()
             .region(Region.US_EAST_1)
             .build();
@@ -443,18 +402,13 @@ public class BatchActions {
         // Describe the job queues
         DescribeJobQueuesResponse describeJobQueuesResponse = batchClient.describeJobQueues(describeJobQueuesRequest);
         String jobQueueARN = "";
-        // Iterate through the job queues and find the one associated with the compute environment
-
         for (JobQueueDetail jobQueueDetail : describeJobQueuesResponse.jobQueues()) {
             for (ComputeEnvironmentOrder computeEnvironmentOrder : jobQueueDetail.computeEnvironmentOrder()) {
                 String computeEnvironment = computeEnvironmentOrder.computeEnvironment();
                 String name = getComputeEnvironmentName(computeEnvironment);
                 if (name.equals(computeEnvironmentName)) {
-                    // Found the job queue associated with the compute environment
                     jobQueueARN = jobQueueDetail.jobQueueArn();
                     System.out.println("Job queue ARN associated with the compute environment: " + jobQueueARN);
-                    // You can now delete the job queue before deleting the compute environment
-                    // ...
                 }
             }
        }
@@ -467,6 +421,16 @@ public class BatchActions {
             return parts[1];
         }
         return null;
+    }
+
+    public String getAccountId() {
+        StsClient stsClient = StsClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
+
+        GetCallerIdentityResponse callerIdentityResponse = stsClient.getCallerIdentity();
+        String accountId = callerIdentityResponse.account();
+        return accountId;
     }
 }
 
