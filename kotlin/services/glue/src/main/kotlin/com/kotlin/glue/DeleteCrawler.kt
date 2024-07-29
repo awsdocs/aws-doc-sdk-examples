@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <crawlerName>
@@ -38,10 +37,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[glue.kotlin.delete_crawler.main]
 suspend fun deleteSpecificCrawler(crawlerName: String) {
-
-    val request = DeleteCrawlerRequest {
-        name = crawlerName
-    }
+    val request =
+        DeleteCrawlerRequest {
+            name = crawlerName
+        }
     GlueClient { region = "us-east-1" }.use { glueClient ->
         glueClient.deleteCrawler(request)
         println("$crawlerName was deleted")

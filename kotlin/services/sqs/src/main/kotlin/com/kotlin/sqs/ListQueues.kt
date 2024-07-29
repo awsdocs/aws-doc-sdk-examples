@@ -24,9 +24,10 @@ suspend fun listQueues() {
     println("\nList Queues")
 
     val prefix = "que"
-    val listQueuesRequest = ListQueuesRequest {
-        queueNamePrefix = prefix
-    }
+    val listQueuesRequest =
+        ListQueuesRequest {
+            queueNamePrefix = prefix
+        }
 
     SqsClient { region = "us-east-1" }.use { sqsClient ->
         val response = sqsClient.listQueues(listQueuesRequest)

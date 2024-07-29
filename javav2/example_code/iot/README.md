@@ -38,25 +38,25 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachThingPrincipal](src/main/java/com/example/iot/IotScenario.java#L481)
-- [CreateKeysAndCertificate](src/main/java/com/example/iot/IotScenario.java#L458)
-- [CreateThing](src/main/java/com/example/iot/IotScenario.java#L541)
-- [CreateTopicRule](src/main/java/com/example/iot/IotScenario.java#L289)
-- [DeleteCertificate](src/main/java/com/example/iot/IotScenario.java#L439)
-- [DeleteThing](src/main/java/com/example/iot/IotScenario.java#L524)
-- [DescribeEndpoint](src/main/java/com/example/iot/IotScenario.java#L400)
-- [DescribeThing](src/main/java/com/example/iot/IotScenario.java#L504)
-- [DetachThingPrincipal](src/main/java/com/example/iot/IotScenario.java#L421)
-- [ListCertificates](src/main/java/com/example/iot/IotScenario.java#L258)
-- [SearchIndex](src/main/java/com/example/iot/IotScenario.java#L577)
-- [UpdateThing](src/main/java/com/example/iot/IotScenario.java#L369)
+- [AttachThingPrincipal](src/main/java/com/example/iot/scenario/IotActions.java#L191)
+- [CreateKeysAndCertificate](src/main/java/com/example/iot/scenario/IotActions.java#L119)
+- [CreateThing](src/main/java/com/example/iot/scenario/IotActions.java#L158)
+- [CreateTopicRule](src/main/java/com/example/iot/scenario/IotActions.java#L441)
+- [DeleteCertificate](src/main/java/com/example/iot/scenario/IotActions.java#L609)
+- [DeleteThing](src/main/java/com/example/iot/scenario/IotActions.java#L642)
+- [DescribeEndpoint](src/main/java/com/example/iot/scenario/IotActions.java#L308)
+- [DescribeThing](src/main/java/com/example/iot/scenario/IotActions.java#L232)
+- [DetachThingPrincipal](src/main/java/com/example/iot/scenario/IotActions.java#L574)
+- [ListCertificates](src/main/java/com/example/iot/scenario/IotActions.java#L370)
+- [SearchIndex](src/main/java/com/example/iot/scenario/IotActions.java#L533)
+- [UpdateThing](src/main/java/com/example/iot/scenario/IotActions.java#L269)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Work with device management use cases](src/main/java/com/example/iot/IotScenario.java)
+- [Work with device management use cases](src/main/java/com/example/iot/scenario/IotScenario.java)
 
 
 <!--custom.examples.start-->

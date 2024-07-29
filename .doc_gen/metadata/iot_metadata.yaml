@@ -124,7 +124,7 @@ iot_CreateKeysAndCertificate:
           excerpts:
             - description:
               snippet_tags:
-                - iot.java2.create.cert.main
+                - iot.kotlin.create.cert.main
     Java:
       versions:
         - sdk_version: 2
@@ -347,7 +347,7 @@ iot_UpdateThing:
           excerpts:
             - description:
               snippet_tags:
-                - iot.java2.update.thing.main
+                - iot.java2.update.shadow.thing.main
     C++:
       versions:
         - sdk_version: 1
@@ -449,9 +449,12 @@ iot_Scenario:
           github: javav2/example_code/iot
           sdkguide:
           excerpts:
-            - description:
+            - description: Run an interactive scenario demonstrating &IoT; features.
               snippet_tags:
                 - iot.java2.scenario.main
+            - description: A wrapper class for &IoT; SDK methods.
+              snippet_tags:
+                - iot.java2.scenario.actions.main   
     C++:
       versions:
         - sdk_version: 1

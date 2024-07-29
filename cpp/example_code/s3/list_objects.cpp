@@ -6,7 +6,7 @@
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/ListObjectsV2Request.h>
 #include <aws/s3/model/Object.h>
-#include <awsdoc/s3/s3_examples.h>
+#include "s3_examples.h"
 
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
@@ -23,15 +23,17 @@
 
 //! Routine which demonstrates listing the objects in an S3 bucket.
 /*!
-  \fn ListObjects()
-  \param bucketName Name of the S3 bucket.
-  \param clientConfig Aws client configuration.
+  \param bucketName: Name of the S3 bucket.
+  \param clientConfig: Aws client configuration.
+  \param[out] keysResult: Vector to receive the keys.
+  \return bool: Function succeeded.
  */
 
 // snippet-start:[s3.cpp.list_objects.code]
-bool AwsDoc::S3::ListObjects(const Aws::String &bucketName,
-                             const Aws::Client::ClientConfiguration &clientConfig) {
-    Aws::S3::S3Client s3_client(clientConfig);
+bool AwsDoc::S3::listObjects(const Aws::String &bucketName,
+                             Aws::Vector<Aws::String> &keysResult,
+                             const Aws::S3::S3ClientConfiguration &clientConfig) {
+    Aws::S3::S3Client s3Client(clientConfig);
 
     Aws::S3::Model::ListObjectsV2Request request;
     request.WithBucket(bucketName);
@@ -44,14 +46,13 @@ bool AwsDoc::S3::ListObjects(const Aws::String &bucketName,
             request.SetContinuationToken(continuationToken);
         }
 
-        auto outcome = s3_client.ListObjectsV2(request);
+        auto outcome = s3Client.ListObjectsV2(request);
 
         if (!outcome.IsSuccess()) {
-            std::cerr << "Error: ListObjects: " <<
+            std::cerr << "Error: listObjects: " <<
                       outcome.GetError().GetMessage() << std::endl;
             return false;
-        }
-        else {
+        } else {
             Aws::Vector<Aws::S3::Model::Object> objects =
                     outcome.GetResult().GetContents();
 
@@ -64,6 +65,7 @@ bool AwsDoc::S3::ListObjects(const Aws::String &bucketName,
 
     for (const auto &object: allObjects) {
         std::cout << "  " << object.GetKey() << std::endl;
+        keysResult.push_back(object.GetKey());
     }
 
     return true;
@@ -76,31 +78,43 @@ bool AwsDoc::S3::ListObjects(const Aws::String &bucketName,
  *
  * Prerequisites: Create a bucket containing at least one object.
  *
- * TODO(user): items: Set the following variables.
- * - bucketName: The name of the bucket containing the objects.
+ * usage: run_list_objects <bucket_name>
  *
+ * Where:
+ *   bucket_name - The name of the bucket that contains the objects.
+ *.
  */
 
-#ifndef TESTING_BUILD
+#ifndef EXCLUDE_MAIN_FUNCTION
 
-int main() {
+int main(int argc, char* argv[])
+{
+    if (argc != 2)
+    {
+        std::cout << R"(
+Usage:
+    run_list_objects <bucket_name>
+Where:
+    bucket_name - The name of the bucket that contains the objects.
+)" << std::endl;
+        return 1;
+    }
+
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        //TODO(user): Name of a bucket in your account.
-        //The bucket must have at least one object in it.  One way to achieve
-        //this is to configure and run put_object.cpp's executable first.
-        const Aws::String bucket_name = "<enter_bucket_name>";
+        const Aws::String bucketName = argv[1];
 
-        Aws::Client::ClientConfiguration clientConfig;
+        Aws::S3::S3ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::S3::ListObjects(bucket_name, clientConfig);
+        Aws::Vector<Aws::String> keysResult;
+        AwsDoc::S3::listObjects(bucketName, keysResult, clientConfig);
     }
     Aws::ShutdownAPI(options);
 
     return 0;
 }
 
-#endif  // TESTING_BUILD
+#endif  // EXCLUDE_MAIN_FUNCTION
 

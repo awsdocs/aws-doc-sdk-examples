@@ -17,7 +17,6 @@ import kotlin.system.exitProcess
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         Usage:
             <apiId> 
@@ -37,10 +36,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[appsync.kotlin.get_keys.main]
 suspend fun getKeys(apiIdVal: String?) {
-
-    val request = ListApiKeysRequest {
-        apiId = apiIdVal
-    }
+    val request =
+        ListApiKeysRequest {
+            apiId = apiIdVal
+        }
 
     AppSyncClient { region = "us-east-1" }.use { appClient ->
         val response = appClient.listApiKeys(request)

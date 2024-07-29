@@ -1,0 +1,18 @@
+[package]
+name = "bedrock-runtime"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aws-config = "1.5.4"
+aws-sdk-bedrockruntime = "1.40.0"
+aws-smithy-runtime-api = "1.7.1"
+aws-smithy-types = "1.2.0"
+reqwest = "0.12.5"
+serde = "1.0.204"
+serde_json = "1.0.120"
+tokio = { version = "1.38.1", features = ["full"] }
+tracing = "0.1.40"
+tracing-subscriber = "0.3.18"

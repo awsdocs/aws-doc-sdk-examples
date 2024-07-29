@@ -43,33 +43,41 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[s3.kotlin.set_acl.main]
-suspend fun setBucketAcl(bucketName: String, idVal: String) {
-    val myGrant = Grantee {
-        id = idVal
-        type = Type.CanonicalUser
-    }
+suspend fun setBucketAcl(
+    bucketName: String,
+    idVal: String,
+) {
+    val myGrant =
+        Grantee {
+            id = idVal
+            type = Type.CanonicalUser
+        }
 
-    val ownerGrant = Grant {
-        grantee = myGrant
-        permission = Permission.FullControl
-    }
+    val ownerGrant =
+        Grant {
+            grantee = myGrant
+            permission = Permission.FullControl
+        }
 
     val grantList = mutableListOf<Grant>()
     grantList.add(ownerGrant)
 
-    val ownerOb = Owner {
-        id = idVal
-    }
+    val ownerOb =
+        Owner {
+            id = idVal
+        }
 
-    val acl = AccessControlPolicy {
-        owner = ownerOb
-        grants = grantList
-    }
+    val acl =
+        AccessControlPolicy {
+            owner = ownerOb
+            grants = grantList
+        }
 
-    val request = PutBucketAclRequest {
-        bucket = bucketName
-        accessControlPolicy = acl
-    }
+    val request =
+        PutBucketAclRequest {
+            bucket = bucketName
+            accessControlPolicy = acl
+        }
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.putBucketAcl(request)

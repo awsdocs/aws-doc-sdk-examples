@@ -22,7 +22,6 @@ suspend fun main() {
 
 // snippet-start:[route.kotlin.list_zones.main]
 suspend fun listZones() {
-
     Route53Client { region = "AWS_GLOBAL" }.use { route53Client ->
         val response = route53Client.listHostedZones(ListHostedZonesRequest {})
         response.hostedZones?.forEach { check ->

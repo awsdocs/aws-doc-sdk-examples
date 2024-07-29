@@ -3,8 +3,11 @@
 
 #![allow(clippy::result_large_err)]
 
+use std::time::Duration;
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_ec2::{config::Region, meta::PKG_VERSION, Client, Error};
+use aws_sdk_ec2::{client::Waiters, config::Region, meta::PKG_VERSION, Client, Error};
+use aws_smithy_runtime_api::client::waiters::error::WaiterError;
 use clap::Parser;
 
 #[derive(Debug, Parser)]
@@ -27,8 +30,29 @@ struct Opt {
 async fn stop_instance(client: &Client, id: &str) -> Result<(), Error> {
     client.stop_instances().instance_ids(id).send().await?;
 
-    println!("Stopped instance.");
+    println!("Stopping instance...");
 
+    let wait = client
+        .wait_until_instance_stopped()
+        .instance_ids(id)
+        .wait(Duration::from_secs(60))
+        .await;
+
+    match wait {
+        Ok(_) => {
+            println!("Stopped instance.");
+        }
+        Err(err) => match err {
+            WaiterError::ExceededMaxWait(exceeded) => {
+                println!(
+                    "Exceeded max time waiting for instance to stop. Exceeded {}s by {}s",
+                    exceeded.max_wait().as_secs(),
+                    (exceeded.elapsed() - exceeded.max_wait()).as_secs()
+                )
+            }
+            _ => return Err(err.into()),
+        },
+    };
     Ok(())
 }
 // snippet-end:[ec2.rust.stop-instance]

@@ -22,14 +22,16 @@ suspend fun main() {
 
 // snippet-start:[ec2.kotlin.running_instances.main]
 suspend fun findRunningEC2Instances() {
-    val filter = Filter {
-        name = "instance-state-name"
-        values = listOf("running")
-    }
+    val filter =
+        Filter {
+            name = "instance-state-name"
+            values = listOf("running")
+        }
 
-    val request = DescribeInstancesRequest {
-        filters = listOf(filter)
-    }
+    val request =
+        DescribeInstancesRequest {
+            filters = listOf(filter)
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
         val response = ec2.describeInstances(request)

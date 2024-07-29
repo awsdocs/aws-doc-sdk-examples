@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use anyhow::anyhow;
-use aws_sdk_iam::operation::delete_role::DeleteRoleOutput;
+use aws_sdk_iam::operation::{create_role::CreateRoleError, delete_role::DeleteRoleOutput};
 use aws_sdk_lambda::{
     operation::{
         delete_function::DeleteFunctionOutput, get_function::GetFunctionOutput,
@@ -14,6 +14,7 @@ use aws_sdk_lambda::{
     types::{Environment, FunctionCode, LastUpdateStatus, State},
 };
 use aws_sdk_s3::{
+    error::ErrorMetadata,
     operation::{delete_bucket::DeleteBucketOutput, delete_object::DeleteObjectOutput},
     types::CreateBucketConfiguration,
 };
@@ -237,15 +238,7 @@ impl LambdaManager {
 
         let key = code.s3_key().unwrap().to_string();
 
-        self.create_role().await;
-
-        let role = self
-            .iam_client
-            .create_role()
-            .role_name(self.role_name.clone())
-            .assume_role_policy_document(ROLE_POLICY_DOCUMENT)
-            .send()
-            .await?;
+        let role = self.create_role().await.map_err(|e| anyhow!(e))?;
 
         info!("Created iam role, waiting 15s for it to become active");
         tokio::time::sleep(Duration::from_secs(15)).await;
@@ -256,7 +249,7 @@ impl LambdaManager {
             .create_function()
             .function_name(self.lambda_name.clone())
             .code(code)
-            .role(role.role().map(|r| r.arn()).unwrap_or_default())
+            .role(role.arn())
             .runtime(aws_sdk_lambda::types::Runtime::Providedal2)
             .handler("_unused")
             .send()
@@ -277,28 +270,40 @@ impl LambdaManager {
 
     /**
      * Create an IAM execution role for the managed Lambda function.
+     * If the role already exists, use that instead.
      */
-    async fn create_role(&self) {
+    async fn create_role(&self) -> Result<aws_sdk_iam::types::Role, CreateRoleError> {
         info!("Creating execution role for function");
-        if let Ok(_response) = self
+        let get_role = self
             .iam_client
             .get_role()
             .role_name(self.role_name.clone())
             .send()
-            .await
-        {
-            let delete_response = self
-                .iam_client
-                .delete_role()
-                .role_name(self.role_name.clone())
-                .send()
-                .await;
-            match delete_response {
-                Ok(_) => debug!("Deleted role first"),
-                Err(_) => {
-                    warn!("Failed to delete role, will probably fail to create the new role")
-                }
+            .await;
+        if let Ok(get_role) = get_role {
+            if let Some(role) = get_role.role {
+                return Ok(role);
             }
+        }
+
+        let create_role = self
+            .iam_client
+            .create_role()
+            .role_name(self.role_name.clone())
+            .assume_role_policy_document(ROLE_POLICY_DOCUMENT)
+            .send()
+            .await;
+
+        match create_role {
+            Ok(create_role) => match create_role.role {
+                Some(role) => Ok(role),
+                None => Err(CreateRoleError::generic(
+                    ErrorMetadata::builder()
+                        .message("CreateRole returned empty success")
+                        .build(),
+                )),
+            },
+            Err(err) => Err(err.into_service_error()),
         }
     }
 

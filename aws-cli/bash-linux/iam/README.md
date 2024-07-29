@@ -33,19 +33,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `aws-c
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachRolePolicy](iam_operations.sh#L503)
-- [CreateAccessKey](iam_operations.sh#L199)
-- [CreatePolicy](iam_operations.sh#L428)
-- [CreateRole](iam_operations.sh#L349)
-- [CreateUser](iam_operations.sh#L120)
-- [DeleteAccessKey](iam_operations.sh#L794)
-- [DeletePolicy](iam_operations.sh#L653)
-- [DeleteRole](iam_operations.sh#L723)
-- [DeleteUser](iam_operations.sh#L875)
-- [DetachRolePolicy](iam_operations.sh#L578)
-- [GetUser](iam_operations.sh#L24)
-- [ListAccessKeys](iam_operations.sh#L280)
-- [ListUsers](iam_operations.sh#L63)
+- [AttachRolePolicy](iam_operations.sh#L496)
+- [CreateAccessKey](iam_operations.sh#L192)
+- [CreatePolicy](iam_operations.sh#L421)
+- [CreateRole](iam_operations.sh#L342)
+- [CreateUser](iam_operations.sh#L113)
+- [DeleteAccessKey](iam_operations.sh#L787)
+- [DeletePolicy](iam_operations.sh#L646)
+- [DeleteRole](iam_operations.sh#L716)
+- [DeleteUser](iam_operations.sh#L868)
+- [DetachRolePolicy](iam_operations.sh#L571)
+- [GetUser](iam_operations.sh#L17)
+- [ListAccessKeys](iam_operations.sh#L273)
+- [ListUsers](iam_operations.sh#L56)
 
 ### Scenarios
 

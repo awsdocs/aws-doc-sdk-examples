@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDomain](src/main/kotlin/com/example/search/CreateDomain.kt#L43)
-- [DeleteDomain](src/main/kotlin/com/example/search/DeleteDomain.kt#L39)
+- [CreateDomain](src/main/kotlin/com/example/search/CreateDomain.kt#L42)
+- [DeleteDomain](src/main/kotlin/com/example/search/DeleteDomain.kt#L38)
 - [ListDomainNames](src/main/kotlin/com/example/search/ListDomainNames.kt#L23)
 - [UpdateDomainConfig](src/main/kotlin/com/example/search/UpdateDomain.kt#L37)
 

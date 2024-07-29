@@ -27,14 +27,14 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:polly:1.0.30")
+    implementation("aws.sdk.kotlin:polly:1.2.28")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("com.googlecode.soundlibs:jlayer:1.0.1.4")
 }
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
 }
 tasks.test {

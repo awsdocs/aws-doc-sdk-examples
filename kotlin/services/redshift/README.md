@@ -34,9 +34,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 Code excerpts that show you how to call individual service functions.
 
 - [CreateCluster](src/main/kotlin/com/kotlin/redshift/CreateAndModifyCluster.kt#L56)
-- [DeleteCluster](src/main/kotlin/com/kotlin/redshift/DeleteCluster.kt#L39)
+- [DeleteCluster](src/main/kotlin/com/kotlin/redshift/DeleteCluster.kt#L38)
 - [DescribeClusters](src/main/kotlin/com/kotlin/redshift/DescribeClusters.kt#L22)
-- [ModifyCluster](src/main/kotlin/com/kotlin/redshift/CreateAndModifyCluster.kt#L106)
+- [ModifyCluster](src/main/kotlin/com/kotlin/redshift/CreateAndModifyCluster.kt#L112)
 
 
 <!--custom.examples.start-->

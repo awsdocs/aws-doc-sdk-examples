@@ -25,7 +25,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <s3Uri> <s3OutputPath> <modelName> <transformJobName>
@@ -54,40 +53,45 @@ suspend fun transformJob(
     s3UriVal: String?,
     s3OutputPathVal: String?,
     modelNameVal: String?,
-    transformJobNameVal: String?
+    transformJobNameVal: String?,
 ) {
+    val s3DataSourceOb =
+        TransformS3DataSource {
+            s3DataType = S3DataType.S3Prefix
+            s3Uri = s3UriVal
+        }
 
-    val s3DataSourceOb = TransformS3DataSource {
-        s3DataType = S3DataType.S3Prefix
-        s3Uri = s3UriVal
-    }
+    val dataSourceOb =
+        TransformDataSource {
+            s3DataSource = s3DataSourceOb
+        }
 
-    val dataSourceOb = TransformDataSource {
-        s3DataSource = s3DataSourceOb
-    }
+    val input =
+        TransformInput {
+            dataSource = dataSourceOb
+            contentType = "text/csv"
+            splitType = SplitType.Line
+        }
 
-    val input = TransformInput {
-        dataSource = dataSourceOb
-        contentType = "text/csv"
-        splitType = SplitType.Line
-    }
+    val output =
+        TransformOutput {
+            s3OutputPath = s3OutputPathVal
+        }
 
-    val output = TransformOutput {
-        s3OutputPath = s3OutputPathVal
-    }
+    val resources =
+        TransformResources {
+            instanceCount = 1
+            instanceType = TransformInstanceType.MlC4_4_Xlarge
+        }
 
-    val resources = TransformResources {
-        instanceCount = 1
-        instanceType = TransformInstanceType.MlC4_4_Xlarge
-    }
-
-    val request = CreateTransformJobRequest {
-        transformJobName = transformJobNameVal
-        modelName = modelNameVal
-        transformInput = input
-        transformOutput = output
-        transformResources = resources
-    }
+    val request =
+        CreateTransformJobRequest {
+            transformJobName = transformJobNameVal
+            modelName = modelNameVal
+            transformInput = input
+            transformOutput = output
+            transformResources = resources
+        }
 
     SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
         val jobResponse = sageMakerClient.createTransformJob(request)

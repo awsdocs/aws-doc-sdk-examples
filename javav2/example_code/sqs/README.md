@@ -47,6 +47,15 @@ Code excerpts that show you how to call individual service functions.
 - [SendMessage](src/main/java/com/example/sqs/SendMessages.java#L7)
 - [SendMessageBatch](src/main/java/com/example/sqs/SQSExample.java#L132)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Create and publish to a FIFO topic](../sns/src/main/java/com/example/sns/PriceUpdateExample.java)
+- [Process S3 event notifications](../s3/src/main/java/com/example/s3/ProcessS3EventNotification.java)
+- [Publish messages to queues](../../usecases/topics_and_queues/src/main/java/com/example/sns/SNSWorkflow.java)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -64,6 +73,46 @@ Code excerpts that show you how to call individual service functions.
 This example shows you how to get started using Amazon SQS.
 
 
+
+#### Create and publish to a FIFO topic
+
+This example shows you how to create and publish to a FIFO Amazon SNS topic.
+
+
+<!--custom.scenario_prereqs.sns_PublishFifoTopic.start-->
+<!--custom.scenario_prereqs.sns_PublishFifoTopic.end-->
+
+
+<!--custom.scenarios.sns_PublishFifoTopic.start-->
+<!--custom.scenarios.sns_PublishFifoTopic.end-->
+
+#### Process S3 event notifications
+
+This example shows you how to work with S3 event notifications in an object-oriented way.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_ProcessS3EventNotification.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ProcessS3EventNotification.end-->
+
+
+<!--custom.scenarios.s3_Scenario_ProcessS3EventNotification.start-->
+<!--custom.scenarios.s3_Scenario_ProcessS3EventNotification.end-->
+
+#### Publish messages to queues
+
+This example shows you how to do the following:
+
+- Create topic (FIFO or non-FIFO).
+- Subscribe several queues to the topic with an option to apply a filter.
+- Publish messages to the topic.
+- Poll the queues for messages received.
+
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
 
 ### Tests
 

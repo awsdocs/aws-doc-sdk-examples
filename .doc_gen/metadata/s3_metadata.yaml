@@ -59,6 +59,14 @@ s3_Hello:
             - description:
               snippet_tags:
                 - php.example_code.s3.basics.helloService
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.hello_s3
   services:
     s3: {ListBuckets}
 s3_CreateBucket:
@@ -89,10 +97,15 @@ s3_CreateBucket:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:
+            - description: Create a bucket with default configuration.
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.CreateBucket
+            - description: Create a bucket with object locking and wait for it to exist.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.CreateBucket
     Kotlin:
       versions:
         - sdk_version: 1
@@ -399,6 +412,16 @@ s3_DeleteObject:
             - description:
               snippet_tags:
                 - s3.cpp.delete_object.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.DeleteObject
     Python:
       versions:
         - sdk_version: 3
@@ -492,12 +515,13 @@ s3_DeleteObjects:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/s3
+          github: gov2/workflows/s3_object_lock
           excerpts:
             - description:
+              genai: some
               snippet_tags:
-                - gov2.s3.BucketBasics.struct
-                - gov2.s3.DeleteObjects
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.DeleteObjects
     Java:
       versions:
         - sdk_version: 2
@@ -935,6 +959,24 @@ s3_GetObjectLegalHold:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.GetObjectLegalHold
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.GetObjectLegalHold
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/object-locking
+          excerpts:
+            - description: Put an object legal hold.
+              snippet_tags:
+                - python.example_code.s3.GetObjectLegalHold
   services:
     s3: {GetObjectLegalHold}
 s3_GetObjectLegalHoldConfiguration:
@@ -992,6 +1034,16 @@ s3_GetObjectLockConfiguration:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.GetBucketObjectLockConfiguration
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.GetObjectLockConfiguration
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1001,6 +1053,14 @@ s3_GetObjectLockConfiguration:
             - description:
               snippet_files:
                 - javascriptv3/example_code/s3/actions/get-object-lock-configuration.js
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/object-locking
+          excerpts:
+            - description: Get the object lock configuration.
+              snippet_tags:
+                - python.s3-object-locking.s3_GetObjectLockConfiguration
   services:
     s3: {GetObjectLockConfiguration}
 s3_GetObjectRetention:
@@ -1023,6 +1083,16 @@ s3_GetObjectRetention:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.GetObjectRetention
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.GetObjectRetention
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1114,6 +1184,18 @@ s3_AbortMultipartUploads:
                 - S3.dotnetv3.AbortMPUExample
   services:
     s3: {AbortMultipartUploads}
+s3_AbortMultipartUpload:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.s3.AbortMultipartUpload
+  services:
+    s3: {AbortMultipartUpload}
 s3_CompleteMultipartUpload:
   languages:
     Rust:
@@ -1124,6 +1206,14 @@ s3_CompleteMultipartUpload:
             - description:
               snippet_tags:
                 - rust.example_code.s3.complete_multipart_upload
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.s3.CompleteMultipartUpload
   services:
     s3: {CompleteMultipartUpload}
 s3_CreateMultipartUpload:
@@ -1136,6 +1226,14 @@ s3_CreateMultipartUpload:
             - description:
               snippet_tags:
                 - rust.example_code.s3.create_multipart_upload
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.s3.CreateMultipartUpload
   services:
     s3: {CreateMultipartUpload}
 s3_ListMultipartUploads:
@@ -1286,6 +1384,16 @@ s3_ListObjectVersions:
             - description:
               snippet_tags:
                 - S3.dotnetv3.ListObjectVersionsExample
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.ListObjectVersions
     Rust:
       versions:
         - sdk_version: 1
@@ -1324,10 +1432,15 @@ s3_PutObject:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:
+            - description: Put an object in a bucket by using the low-level API.
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.PutObject
+            - description: Upload an object to a bucket by using a transfer manager.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.UploadObject
     Kotlin:
       versions:
         - sdk_version: 1
@@ -2096,6 +2209,16 @@ s3_PutObjectLegalHold:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.ModifyObjectLegalHold
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.PutObjectLegalHold
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2105,6 +2228,14 @@ s3_PutObjectLegalHold:
             - description:
               snippet_files:
                 - javascriptv3/example_code/s3/actions/put-object-legal-hold.js
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/object-locking
+          excerpts:
+            - description: Put an object legal hold.
+              snippet_tags:
+                - python.example_code.s3.PutObjectLegalHold
   services:
     s3: {PutObjectLegalHold}
 s3_PutObjectLockConfiguration:
@@ -2133,6 +2264,21 @@ s3_PutObjectLockConfiguration:
             - description: Set the default retention period of a bucket.
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.ModifyBucketDefaultRetention
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description: Set the object lock configuration of a bucket.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.PubObjectLockConfiguration.EnableObjectLockOnBucket
+            - description: Set the default retention period of a bucket.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.PutObjectLockConfiguration.ModifyDefaultBucketRetention
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2145,6 +2291,14 @@ s3_PutObjectLockConfiguration:
             - description: Set the default retention period of a bucket.
               snippet_files:
                 - javascriptv3/example_code/s3/actions/put-default-object-lock-configuration.js
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/object-locking
+          excerpts:
+            - description: Put object lock configuration.
+              snippet_tags:
+                - python.s3-object-locking.s3_PutObjectLockConfiguration
   services:
     s3: {PutObjectLockConfiguration}
 s3_PutObjectRetention:
@@ -2167,6 +2321,16 @@ s3_PutObjectRetention:
             - description:
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.ModifyObjectRetentionPeriod
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.struct
+                - gov2.workflows.s3.ObjectLock.PutObjectRetention
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2176,6 +2340,14 @@ s3_PutObjectRetention:
             - description:
               snippet_files:
                 - javascriptv3/example_code/s3/actions/put-object-retention.js
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/object-locking
+          excerpts:
+            - description: Put an object retention.
+              snippet_tags:
+                - python.example_code.s3.PutObjectRetention
   services:
     s3: {PutObjectRetention}
 s3_UploadPart:
@@ -2189,6 +2361,14 @@ s3_UploadPart:
               snippet_tags:
                 - rust.example_code.s3.upload_part
                 - rust.example_code.s3.upload_part.CompletedMultipartUpload
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.s3.UploadPart
   services:
     s3: {UploadPart}
 s3_PutBucketNotificationConfiguration:
@@ -2202,6 +2382,14 @@ s3_PutBucketNotificationConfiguration:
             - description:
               snippet_tags:
                 - S3.dotnetv3.EnableNotificationsExample
+  services:
+    s3: {PutBucketNotificationConfiguration}
+s3_Scenario_PutBucketNotificationConfiguration:
+  title: Send S3 event notifications to &EVlong; using an &AWS; SDK
+  title_abbrev: Send event notifications to &EV;
+  synopsis: enable a bucket to send S3 event notifications to &EV; and route notifications to an &SNS; topic and &SQS; queue.
+  category: Scenarios
+  languages:
     Java:
       versions:
         - sdk_version: 2
@@ -2210,9 +2398,10 @@ s3_PutBucketNotificationConfiguration:
           excerpts:
             - description:
               snippet_tags:
-                - s3.java2.s3_enable_notifications.main
+                - s3.java2.s3_enable_notifications_to_eventbridge
   services:
     s3: {PutBucketNotificationConfiguration}
+    eventbridge: {PutRule, PutTargets}
 s3_PutBucketAccelerateConfiguration:
   languages:
     .NET:
@@ -2226,6 +2415,18 @@ s3_PutBucketAccelerateConfiguration:
                 - S3.dotnetv3.TransferAccelerationExample
   services:
     s3: {PutBucketAccelerateConfiguration}
+s3_GetObjectAttributes:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.s3.GetObjectAttributes
+  services:
+    s3: {GetObjectAttributes}
 s3_DownloadBucketToDirectory:
   title: Download all objects in an &S3long; (&S3;) bucket to a local directory
   title_abbrev: Download objects to a local directory
@@ -2534,6 +2735,13 @@ s3_Scenario_PresignedUrl:
             - description: Upload using libcurl.
               snippet_tags:
                 - cpp.example_code.s3.presigned.PutObjectUpload
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/s3
+          excerpts:
+            - snippet_tags:
+                - s3.php.presigned_url.complete
   services:
     s3: {}
 s3_Scenario_ObjectVersioningUsage:
@@ -3041,6 +3249,23 @@ s3_Scenario_ObjectLock:
             - description: A wrapper class for S3 functions.
               snippet_tags:
                 - S3LockWorkflow.dotnetv3.S3ActionsWrapper
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/workflows/s3_object_lock
+          excerpts:
+            - description: Run an interactive scenario demonstrating &S3; object lock features.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.scenario.complete
+            - description: Define a struct that wraps S3 actions used in this example.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.S3Actions.complete
+            - description: Clean up resources.
+              genai: some
+              snippet_tags:
+                - gov2.workflows.s3.ObjectLock.Resources.complete
     JavaScript:
       versions:
         - sdk_version: 3
@@ -3066,6 +3291,23 @@ s3_Scenario_ObjectLock:
                 - javascriptv3/example_code/s3/scenarios/object-locking/clean.steps.js
   services:
     s3: {PutObjectLockConfiguration, PutObjectRetention, GetObjectRetention, PutObjectLegalHold, GetObjectLegalHold, GetObjectLockConfiguration}
+s3_Scenario_ObjectIntegrity:
+  title: Work with &S3; object integrity features using an &AWS; SDK
+  title_abbrev: Work with &S3; object integrity
+  synopsis: work with S3 object integrity features.
+  category: Scenarios
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3/s3_object_integrity_workflow
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &S3; object integrity features.
+              snippet_tags:
+                - cpp.example_code.s3.Scenario_ObjectIntegrity
+  services:
+    s3: {AbortMultipartUpload, CreateMultipartUpload, DeleteObject, GetObjectAttributes, PutObject, UploadPart, CompleteMultipartUpload}
 s3_SelectObjectContent:
   languages:
     Java:
@@ -3134,3 +3376,21 @@ s3_Scenario_AbortMultipartUpload:
                 - s3.java2.abort_upload_using_lifecycle_config
   services:
     s3: {ListMultipartUploads, AbortMultipartUpload, PutBucketLifecycleConfiguration}
+s3_Scenario_ProcessS3EventNotification:
+  title: Receive and process &S3; event notifications by using an &AWS; SDK.
+  title_abbrev: Process S3 event notifications
+  synopsis: work with S3 event notifications in an object-oriented way.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: This example show how to process S3 notification event by using &SQS;.
+              snippet_tags:
+                - s3.java2.process_s3_event_notifications
+  services:
+    s3: {PutBucketNotificationConfiguration}
+    sqs: {ReceiveMessage, GetQueueAttributes, DeleteMessageBatch}

@@ -21,7 +21,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     
         Usage: 
@@ -45,18 +44,22 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[lex.kotlin.text.main]
-suspend fun getText(text: String, botNameVal: String, botAliasVal: String): String? {
-
+suspend fun getText(
+    text: String,
+    botNameVal: String,
+    botAliasVal: String,
+): String? {
     val userIdVal = "chatbot-demo"
     val sessionAttributesVal = mutableMapOf<String, String>()
 
-    val request = PostTextRequest {
-        botName = botNameVal
-        botAlias = botAliasVal
-        inputText = text
-        userId = userIdVal
-        sessionAttributes = sessionAttributesVal
-    }
+    val request =
+        PostTextRequest {
+            botName = botNameVal
+            botAlias = botAliasVal
+            inputText = text
+            userId = userIdVal
+            sessionAttributes = sessionAttributesVal
+        }
 
     LexRuntimeClient { region = "us-west-2" }.use { lexClient ->
         val textResponse = lexClient.postText(request)

@@ -51,6 +51,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Create a presigned URL](PresignedURL.php)
 - [Get started with buckets and objects](GettingStartedWithS3.php)
 
 ### Cross-service examples
@@ -76,6 +77,18 @@ Sample applications that work across multiple AWS services.
 This example shows you how to get started using Amazon S3.
 
 
+
+#### Create a presigned URL
+
+This example shows you how to create a presigned URL for Amazon S3 and upload an object.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenario_prereqs.s3_Scenario_PresignedUrl.end-->
+
+
+<!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
+<!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
 
 #### Get started with buckets and objects
 

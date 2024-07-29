@@ -38,17 +38,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [DeleteRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L323)
-- [DescribeRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L457)
-- [DisableRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L470)
-- [EnableRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L470)
-- [ListRuleNamesByTarget](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L514)
-- [ListRules](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L612)
-- [ListTargetsByRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L529)
-- [PutEvents](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L361)
+- [DeleteRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L339)
+- [DescribeRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L493)
+- [DisableRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L507)
+- [EnableRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L507)
+- [ListRuleNamesByTarget](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L557)
+- [ListRules](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L671)
+- [ListTargetsByRule](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L573)
+- [PutEvents](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L380)
 - [PutRule](src/main/kotlin/com/kotlin/eventbridge/CreateRuleSchedule.kt#L49)
-- [PutTargets](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L544)
-- [RemoveTargets](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L335)
+- [PutTargets](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L589)
+- [RemoveTargets](src/main/kotlin/com/kotlin/eventbridge/EventbridgeMVP.kt#L352)
 
 ### Scenarios
 

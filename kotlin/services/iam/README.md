@@ -33,21 +33,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachRolePolicy](src/main/kotlin/com/kotlin/iam/AttachRolePolicy.kt#L42)
-- [CreateAccessKey](src/main/kotlin/com/kotlin/iam/CreateAccessKey.kt#L40)
-- [CreateAccountAlias](src/main/kotlin/com/kotlin/iam/CreateAccountAlias.kt#L39)
-- [CreatePolicy](src/main/kotlin/com/kotlin/iam/CreatePolicy.kt#L39)
-- [CreateUser](src/main/kotlin/com/kotlin/iam/CreateUser.kt#L39)
-- [DeleteAccessKey](src/main/kotlin/com/kotlin/iam/DeleteAccessKey.kt#L40)
-- [DeleteAccountAlias](src/main/kotlin/com/kotlin/iam/DeleteAccountAlias.kt#L38)
-- [DeletePolicy](src/main/kotlin/com/kotlin/iam/DeletePolicy.kt#L38)
-- [DeleteUser](src/main/kotlin/com/kotlin/iam/DeleteUser.kt#L38)
-- [DetachRolePolicy](src/main/kotlin/com/kotlin/iam/DetachRolePolicy.kt#L40)
-- [GetPolicy](src/main/kotlin/com/kotlin/iam/GetPolicy.kt#L38)
-- [ListAccessKeys](src/main/kotlin/com/kotlin/iam/ListAccessKeys.kt#L38)
+- [AttachRolePolicy](src/main/kotlin/com/kotlin/iam/AttachRolePolicy.kt#L41)
+- [CreateAccessKey](src/main/kotlin/com/kotlin/iam/CreateAccessKey.kt#L39)
+- [CreateAccountAlias](src/main/kotlin/com/kotlin/iam/CreateAccountAlias.kt#L38)
+- [CreatePolicy](src/main/kotlin/com/kotlin/iam/CreatePolicy.kt#L38)
+- [CreateUser](src/main/kotlin/com/kotlin/iam/CreateUser.kt#L38)
+- [DeleteAccessKey](src/main/kotlin/com/kotlin/iam/DeleteAccessKey.kt#L39)
+- [DeleteAccountAlias](src/main/kotlin/com/kotlin/iam/DeleteAccountAlias.kt#L37)
+- [DeletePolicy](src/main/kotlin/com/kotlin/iam/DeletePolicy.kt#L37)
+- [DeleteUser](src/main/kotlin/com/kotlin/iam/DeleteUser.kt#L37)
+- [DetachRolePolicy](src/main/kotlin/com/kotlin/iam/DetachRolePolicy.kt#L39)
+- [GetPolicy](src/main/kotlin/com/kotlin/iam/GetPolicy.kt#L37)
+- [ListAccessKeys](src/main/kotlin/com/kotlin/iam/ListAccessKeys.kt#L37)
 - [ListAccountAliases](src/main/kotlin/com/kotlin/iam/ListAccountAliases.kt#L23)
 - [ListUsers](src/main/kotlin/com/kotlin/iam/ListUsers.kt#L23)
-- [UpdateUser](src/main/kotlin/com/kotlin/iam/UpdateUser.kt#L40)
+- [UpdateUser](src/main/kotlin/com/kotlin/iam/UpdateUser.kt#L39)
 
 ### Scenarios
 

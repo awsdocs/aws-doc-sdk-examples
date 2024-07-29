@@ -763,6 +763,28 @@ kms_Scenario_KeyEncryption:
   services:
     kms: {Encrypt, Decrypt, ReEncrypt}
 kms_Scenario_KeyManagement:
+  title: Manage &kms-keys-long; using an &AWS; SDK
+  title_abbrev: Manage keys
+  synopsis_list:
+    - Create a &kms-key;.
+    - List &kms-keys; for your account and get details about them.
+    - Enable and disable &kms-keys;.
+    - Generate a symmetric data key that can be used for client-side encryption.
+    - Delete &kms-keys;.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.Scenario_KeyManagement
+  services:
+    kms: {CreateKey, ListKeys, DescribeKey, GenerateDataKey, EnableKey, DisableKey, ScheduleKeyDeletion}
+kms_Scenario_Basics:
   title: Learn core operations for &kms-key; using an &AWS; SDK
   title_abbrev: Learn &kms-key; core operations
   synopsis_list:
@@ -784,14 +806,6 @@ kms_Scenario_KeyManagement:
             - description:
               snippet_tags:
                 - kms.java2_scenario.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/kms
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.kms.Scenario_KeyManagement
   services:
     kms: {CreateKey, ListKeys, DescribeKey, GenerateDataKey, EnableKey, Sign, DisableKey, ScheduleKeyDeletion}
+    

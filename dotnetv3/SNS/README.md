@@ -54,6 +54,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Publish an SMS text message](SNSMessageExample/SNSMessageExample/SNSMessage.cs)
+- [Publish messages to queues](../cross-service/TopicsAndQueues/Scenarios/TopicsAndQueuesScenario/TopicsAndQueues.cs)
 
 ### Cross-service examples
 
@@ -108,6 +109,22 @@ This example shows you how to publish SMS messages using Amazon SNS.
 
 <!--custom.scenarios.sns_PublishTextSMS.start-->
 <!--custom.scenarios.sns_PublishTextSMS.end-->
+
+#### Publish messages to queues
+
+This example shows you how to do the following:
+
+- Create topic (FIFO or non-FIFO).
+- Subscribe several queues to the topic with an option to apply a filter.
+- Publish messages to the topic.
+- Poll the queues for messages received.
+
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenario_prereqs.sqs_Scenario_TopicsAndQueues.end-->
+
+
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
+<!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
 
 ### Tests
 

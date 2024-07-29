@@ -36,9 +36,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[secretsmanager.kotlin.get_secret.main]
 suspend fun getValue(secretName: String?) {
-    val valueRequest = GetSecretValueRequest {
-        secretId = secretName
-    }
+    val valueRequest =
+        GetSecretValueRequest {
+            secretId = secretName
+        }
 
     SecretsManagerClient { region = "us-east-1" }.use { secretsClient ->
         val response = secretsClient.getSecretValue(valueRequest)

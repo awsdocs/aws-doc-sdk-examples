@@ -18,7 +18,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <datasetGroupArn>
@@ -38,11 +37,11 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[personalize.kotlin.list_solutions.main]
 suspend fun listAllSolutions(datasetGroupArnValue: String?) {
-
-    val request = ListSolutionsRequest {
-        maxResults = 10
-        datasetGroupArn = datasetGroupArnValue
-    }
+    val request =
+        ListSolutionsRequest {
+            maxResults = 10
+            datasetGroupArn = datasetGroupArnValue
+        }
     PersonalizeClient { region = "us-east-1" }.use { personalizeClient ->
         val response = personalizeClient.listSolutions(request)
         response.solutions?.forEach { solution ->

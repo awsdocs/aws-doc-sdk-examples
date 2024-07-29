@@ -27,9 +27,9 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:pinpoint:1.0.30")
-    implementation("aws.sdk.kotlin:pinpointemail:1.0.30")
-    implementation("aws.sdk.kotlin:secretsmanager:1.0.30")
+    implementation("aws.sdk.kotlin:pinpoint:1.2.28")
+    implementation("aws.sdk.kotlin:pinpointemail:1.2.28")
+    implementation("aws.sdk.kotlin:secretsmanager:1.2.28")
     implementation("aws.smithy.kotlin:http-client-engine-okhttp:0.30.0")
     implementation("aws.smithy.kotlin:http-client-engine-crt:0.30.0")
     implementation("com.google.code.gson:gson:2.10")
@@ -37,7 +37,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("com.google.code.gson:gson:2.10.1")
 }
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
 }
 tasks.test {

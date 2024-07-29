@@ -54,31 +54,32 @@ class CognitoKotlinTest {
     private var emailMVP = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        val gson = Gson()
-        val json = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        userPoolName = values.userPoolName.toString()
-        username = values.username + "_" + UUID.randomUUID()
-        email = values.email.toString()
-        clientName = values.clientName.toString()
-        identityPoolName = values.identityPoolName.toString()
-        identityId = values.identityId.toString()
-        appId = values.appId.toString()
-        existingUserPoolId = values.existingUserPoolId.toString()
-        existingIdentityPoolId = values.existingIdentityPoolId.toString()
-        providerName = values.providerName.toString()
-        existingPoolName = values.existingPoolName.toString()
-        clientId = values.clientId.toString()
-        secretkey = values.secretkey.toString()
-        password = values.password.toString()
-        poolIdMVP = values.poolIdMVP.toString()
-        clientIdMVP = values.clientIdMVP.toString()
-        userNameMVP = values.userNameMVP.toString()
-        passwordMVP = values.passwordMVP.toString()
-        emailMVP = values.emailMVP.toString()
+    fun setup() =
+        runBlocking {
+            val gson = Gson()
+            val json = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            userPoolName = values.userPoolName.toString()
+            username = values.username + "_" + UUID.randomUUID()
+            email = values.email.toString()
+            clientName = values.clientName.toString()
+            identityPoolName = values.identityPoolName.toString()
+            identityId = values.identityId.toString()
+            appId = values.appId.toString()
+            existingUserPoolId = values.existingUserPoolId.toString()
+            existingIdentityPoolId = values.existingIdentityPoolId.toString()
+            providerName = values.providerName.toString()
+            existingPoolName = values.existingPoolName.toString()
+            clientId = values.clientId.toString()
+            secretkey = values.secretkey.toString()
+            password = values.password.toString()
+            poolIdMVP = values.poolIdMVP.toString()
+            clientIdMVP = values.clientIdMVP.toString()
+            userNameMVP = values.userNameMVP.toString()
+            passwordMVP = values.passwordMVP.toString()
+            emailMVP = values.emailMVP.toString()
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+            // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
         /*
         // load the properties file.
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
@@ -105,103 +106,117 @@ class CognitoKotlinTest {
         emailMVP = prop.getProperty("emailMVP")
 
          */
-    }
+        }
 
     @Test
     @Order(1)
-    fun createUserPoolTest() = runBlocking {
-        userPoolId = createPool(userPoolName).toString()
-        Assertions.assertTrue(!userPoolId.isEmpty())
-        println("Test 1 passed")
-    }
+    fun createUserPoolTest() =
+        runBlocking {
+            userPoolId = createPool(userPoolName).toString()
+            Assertions.assertTrue(!userPoolId.isEmpty())
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun createAdminUserTest() = runBlocking {
-        createNewUser(userPoolId, username, email, password)
-        println("Test 2 passed")
-    }
+    fun createAdminUserTest() =
+        runBlocking {
+            createNewUser(userPoolId, username, email, password)
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun signUpUserTest() = runBlocking {
-        signUp(clientId, secretkey, username, password, email)
-        println("Test 3 passed")
-    }
+    fun signUpUserTest() =
+        runBlocking {
+            signUp(clientId, secretkey, username, password, email)
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun listUserPoolsTest() = runBlocking {
-        getAllPools()
-        println("Test 4 passed")
-    }
+    fun listUserPoolsTest() =
+        runBlocking {
+            getAllPools()
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun listUserPoolClientsTest() = runBlocking {
-        listAllUserPoolClients(existingUserPoolId)
-        println("Test 5 passed")
-    }
+    fun listUserPoolClientsTest() =
+        runBlocking {
+            listAllUserPoolClients(existingUserPoolId)
+            println("Test 5 passed")
+        }
 
     @Test
     @Order(6)
-    fun listUsersTest() = runBlocking {
-        listAllUserPoolClients(existingUserPoolId)
-        println("Test 6 passed")
-    }
+    fun listUsersTest() =
+        runBlocking {
+            listAllUserPoolClients(existingUserPoolId)
+            println("Test 6 passed")
+        }
 
     @Test
     @Order(7)
-    fun describeUserPoolTest() = runBlocking {
-        describePool(existingUserPoolId)
-        println("Test 7 passed")
-    }
+    fun describeUserPoolTest() =
+        runBlocking {
+            describePool(existingUserPoolId)
+            println("Test 7 passed")
+        }
 
     @Test
     @Order(8)
-    fun deleteUserPool() = runBlocking {
-        delPool(userPoolId)
-        println("Test 8 passed")
-    }
+    fun deleteUserPool() =
+        runBlocking {
+            delPool(userPoolId)
+            println("Test 8 passed")
+        }
 
     @Test
     @Order(9)
-    fun createIdentityPoolTest() = runBlocking {
-        identityPoolId = createIdPool(identityPoolName).toString()
-        Assertions.assertTrue(!identityPoolId.isEmpty())
-        println("Test 9 passed")
-    }
+    fun createIdentityPoolTest() =
+        runBlocking {
+            identityPoolId = createIdPool(identityPoolName).toString()
+            Assertions.assertTrue(!identityPoolId.isEmpty())
+            println("Test 9 passed")
+        }
 
     @Test
     @Order(10)
-    fun listIdentityProvidersTest() = runBlocking {
-        getPools()
-        println("Test 10 passed")
-    }
+    fun listIdentityProvidersTest() =
+        runBlocking {
+            getPools()
+            println("Test 10 passed")
+        }
 
     @Test
     @Order(11)
-    fun listIdentitiesTest() = runBlocking {
-        listPoolIdentities(identityPoolId)
-        println("Test 11 passed")
-    }
+    fun listIdentitiesTest() =
+        runBlocking {
+            listPoolIdentities(identityPoolId)
+            println("Test 11 passed")
+        }
 
     @Test
     @Order(12)
-    fun deleteIdentityPool() = runBlocking {
-        deleteIdPool(identityPoolId)
-        println("Test 12 passed")
-    }
+    fun deleteIdentityPool() =
+        runBlocking {
+            deleteIdPool(identityPoolId)
+            println("Test 12 passed")
+        }
 
     private suspend fun getSecretValues(): String {
-        val secretClient = SecretsManagerClient {
-            region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
-        }
+        val secretClient =
+            SecretsManagerClient {
+                region = "us-east-1"
+                credentialsProvider = EnvironmentCredentialsProvider()
+            }
         val secretName = "test/cognito"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
         val valueResponse = secretClient.getSecretValue(valueRequest)
         return valueResponse.secretString.toString()
     }

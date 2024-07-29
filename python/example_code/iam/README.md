@@ -34,6 +34,11 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello IAM](hello/hello_iam.py#L4) (`ListPolicies`)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -103,6 +108,13 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello IAM
+
+This example shows you how to get started using IAM.
+
+```
+python hello/hello_iam.py
+```
 
 
 #### Build and manage a resilient service

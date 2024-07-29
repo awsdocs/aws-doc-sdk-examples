@@ -3,180 +3,143 @@
 
 import config
 import logging
-import os
-import re
-import yaml
+from collections import defaultdict
+from os.path import relpath
+from pathlib import Path
+from typing import Dict, List
 
-from snippets import Snippet, scan_for_snippets
+from aws_doc_sdk_examples_tools.doc_gen import DocGen
+from aws_doc_sdk_examples_tools.metadata import Example
+from aws_doc_sdk_examples_tools.sdks import Sdk
+from aws_doc_sdk_examples_tools.services import Service
 
 logger = logging.getLogger(__name__)
 
 
 class Scanner:
-    def __init__(self, meta_folder):
-        self.meta_folder = meta_folder
-        self.lang_name = None
-        self.sdk_ver = None
-        self.svc_name = None
-        self.sdk_meta = None
-        self.svc_meta = None
-        self.example_meta = None
-        self.cross_meta = None
+    def __init__(self, doc_gen: DocGen):
+        self.doc_gen = doc_gen
+        self.lang_name: str = ""
+        self.sdk_ver: int = -1
+        self.svc_name: str = ""
         self.snippets = None
+        self.entities: Dict[str, str] = {}
+        self._prepare_entities()
+        self.examples: Dict[str, List[Example]] = {}
+        self._build_examples()
+        self.hellos: Dict[str, Example] = {}
+        self.actions: Dict[str, Example] = {}
+        self.scenarios: Dict[str, Example] = {}
+        self.customs: Dict[str, Example] = {}
+        self.crosses: Dict[str, Example] = {}
+        self.cross_scenarios: Dict[str, Example] = {}
 
-    def _load_meta(self, file_name, field):
-        if field is not None:
-            return field
-        sdk_file_name = f"{self.meta_folder}/{file_name}"
-        with open(sdk_file_name, encoding="utf-8") as sdk_file:
-            meta = yaml.safe_load(sdk_file)
-        return meta
+    def _prepare_entities(self):
+        for svc in self.services().values():
+            if svc.expanded:
+                self.entities[svc.long] = svc.expanded.long
+                self.entities[svc.short] = svc.expanded.short
+        # config entities override
+        for entity, expanded in config.entities.items():
+            self.entities[entity] = expanded
 
-    def _load_sdks(self):
-        self.sdk_meta = self._load_meta("sdks.yaml", self.sdk_meta)
-
-    def _load_services(self):
-        self.svc_meta = self._load_meta("services.yaml", self.svc_meta)
-
-    def _load_cross(self):
-        self.cross_meta = self._load_meta("cross_metadata.yaml", self.cross_meta)
-
-    def _load_examples(self):
-        self.example_meta = self._load_meta(
-            f"{self.svc_name}_metadata.yaml", self.example_meta
+    def load_crosses(self):
+        self.doc_gen.process_metadata(
+            self.doc_gen.root / ".doc_gen" / "metadata" / "cross_metadata.yaml"
         )
 
-    def _contains_language_version(self, example):
-        if self.lang_name in example["languages"]:
-            for version in example["languages"][self.lang_name]["versions"]:
-                if version["sdk_version"] == self.sdk_ver:
-                    return True
-        return False
+    def _build_examples(self):
+        self.examples = defaultdict(list)
+        for example in self.doc_gen.examples.values():
+            for lang_name, language in example.languages.items():
+                for sdk_version in language.versions:
+                    for svc_name in example.services:
+                        self.examples[
+                            f"{lang_name}:{sdk_version.sdk_version}:{svc_name}"
+                        ].append(example)
 
-    def set_example(self, language, sdk_ver, service):
+    def _example_key(self):
+        return f"{self.lang_name}:{self.sdk_ver}:{self.svc_name}"
+
+    def set_example(self, svc_name: str, language: str, sdk_ver: int):
+        self.svc_name = svc_name
         self.lang_name = language
         self.sdk_ver = sdk_ver
-        self.svc_name = service
-        self.example_meta = None
 
-    def sdk(self):
-        self._load_sdks()
-        return self.sdk_meta[self.lang_name]
+        self.hellos.clear()
+        self.actions.clear()
+        self.scenarios.clear()
+        self.customs.clear()
+        self.cross_scenarios.clear()
+        self.crosses.clear()
 
-    def sdks(self):
-        self._load_sdks()
-        return self.sdk_meta
+        key = self._example_key()
+        examples = self.examples[key]
+        for example in examples:
+            if example.id.startswith("cross_"):
+                if example.category == config.categories["scenarios"]:
+                    self.cross_scenarios[example.id] = example
+                else:
+                    self.crosses[example.id] = example
+            elif example.category == config.categories["hello"]:
+                self.hellos[example.id] = example
+            elif example.category == config.categories["actions"]:
+                self.actions[example.id] = example
+            elif example.category == config.categories["scenarios"]:
+                self.scenarios[example.id] = example
+            elif example.category not in config.categories.values():
+                self.customs[example.id] = example
 
-    def service(self):
-        self._load_services()
-        return self.svc_meta[self.svc_name]
+    def sdk(self) -> Sdk:
+        return self.doc_gen.sdks[self.lang_name]
 
-    def services(self):
-        self._load_services()
-        return self.svc_meta
+    def sdks(self) -> Dict[str, Sdk]:
+        return self.doc_gen.sdks
+
+    def service(self) -> Service:
+        return self.doc_gen.services[self.svc_name]
+
+    def services(self) -> Dict[str, Service]:
+        return self.doc_gen.services
 
     def expand_entity(self, entity):
-        self._load_services()
-        for _, svc in self.svc_meta.items():
-            if svc["long"] == entity:
-                return svc.get("expanded", {}).get("long")
-            elif svc["short"] == entity:
-                return svc.get("expanded", {}).get("short")
-            elif entity in config.entities:
-                return config.entities[entity]
+        return self.entities[entity]
 
-    def hello(self):
-        self._load_examples()
-        hello = {}
-        for example_name, example in self.example_meta.items():
-            if (
-                example.get("category", "") == config.categories["hello"]
-                and self._contains_language_version(example)
-            ):
-                hello[example_name] = example
-        return hello
-
-    def actions(self):
-        self._load_examples()
-        actions = {}
-        for example_name, example in self.example_meta.items():
-            if not example.get("category") and self._contains_language_version(example):
-                actions[example_name] = example
-        return actions
-
-    def scenarios(self):
-        self._load_examples()
-        scenarios = {}
-        for example_name, example in self.example_meta.items():
-            if (
-                example.get("category", "") == config.categories["scenarios"]
-                and self._contains_language_version(example)
-            ):
-                scenarios[example_name] = example
-        return scenarios
-
-    def custom_categories(self):
-        self._load_examples()
-        custom_cats = {}
-        for example_name, example in self.example_meta.items():
-            if (
-                example.get("category", "") and
-                example.get("category", "") not in {config.categories["scenarios"], config.categories["hello"]}
-                and self._contains_language_version(example)
-            ):
-                custom_cats[example_name] = example
-        return custom_cats
-
-    def crosses(self):
-        self._load_cross()
-        crosses = {}
-        scenarios = {}
-        for example_name, example in self.cross_meta.items():
-            if (
-                self._contains_language_version(example)
-                and self.svc_name in example["services"]
-            ):
-                if example.get("category", "") == config.categories["scenarios"]:
-                    scenarios[example_name] = example
-                else:
-                    crosses[example_name] = example
-        return crosses, scenarios
-
-    def snippet(self, example, sdk_ver, readme_folder, api_name):
-        if self.snippets is None:
-            self.snippets = scan_for_snippets(".")
-
+    def snippet(self, example: Example, readme_folder, api_name: str):
         github = None
         tag = None
         tag_path = None
-        for ex_ver in example["languages"][self.lang_name]["versions"]:
-            if ex_ver["sdk_version"] == sdk_ver:
-                github = ex_ver.get("github")
-                if github is not None:
-                    if "excerpts" in ex_ver:
-                        excerpt = ex_ver["excerpts"][0]
-                        if "snippet_tags" in excerpt:
-                            tags = excerpt.get("snippet_tags", [])
-                            for t in tags:
-                                if api_name in t:
-                                    tag = t
-                            if tag is None:
-                                tag = next(iter(tags), None)
-                        elif "snippet_files" in excerpt:
-                            snippet_files = excerpt["snippet_files"]
-                            # TODO: Find the best (or all?) snippet files, not the first.
-                            full_path = snippet_files[0]
-                            tag_path = "/".join(full_path.split("/")[3:])
-                            if "cross-services" in full_path:
-                                tag_path = "../cross-services/" + tag_path
-                    elif "block_content" in ex_ver:
-                        tag_path = github
-        if github is not None and tag_path is None:
-            snippet = self.snippets.get(tag, None)
+        if self.lang_name in example.languages:
+            for ex_ver in example.languages[self.lang_name].versions:
+                if ex_ver.sdk_version == self.sdk_ver:
+                    github = ex_ver.github
+                    if github is not None:
+                        if ex_ver.excerpts:
+                            excerpt = ex_ver.excerpts[0]
+                            if excerpt.snippet_tags:
+                                tags = excerpt.snippet_tags
+                                for t in tags:
+                                    if api_name in t:
+                                        tag = t
+                                if tag is None:
+                                    tag = tags[0]
+                            elif excerpt.snippet_files:
+                                snippet_files = excerpt.snippet_files
+                                # TODO: Find the best (or all?) snippet files, not the first.
+                                full_path = snippet_files[0]
+                                tag_path = "/".join(full_path.split("/")[3:])
+                                if "cross-services" in full_path:
+                                    tag_path = "../cross-services/" + tag_path
+                        elif ex_ver.block_content:
+                            tag_path = github
+        if tag and github is not None and tag_path is None:
+            snippet = self.doc_gen.snippets[tag]
             if snippet is not None:
-                tag_path = os.path.relpath(snippet.path, readme_folder).replace(
-                    "\\", "/"
-                )
+                snippet_path = self.doc_gen.root / Path(snippet.file)
+                readme_path = Path(__file__).parent.parent.parent / readme_folder
+                # tag_path = snippet_path.relative_to(readme_path)  # Must be subpaths, no ..
+                tag_path = relpath(snippet_path, readme_path)
+                tag_path = str(tag_path).replace("\\", "/")
                 if api_name != "":
-                    tag_path += f"#L{snippet.line}"
+                    tag_path += f"#L{snippet.line_start + 1}"
         return tag_path

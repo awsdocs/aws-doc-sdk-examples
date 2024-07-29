@@ -45,12 +45,13 @@ suspend fun scanItemsUsingFilter(tableNameVal: String) {
     val myExMap = HashMap<String, AttributeValue>()
     myExMap.put(":val", AttributeValue.S("Open"))
 
-    val request = ScanRequest {
-        this.expressionAttributeNames = myMap
-        this.expressionAttributeValues = myExMap
-        tableName = tableNameVal
-        filterExpression = "#archive2 = :val"
-    }
+    val request =
+        ScanRequest {
+            this.expressionAttributeNames = myMap
+            this.expressionAttributeValues = myExMap
+            tableName = tableNameVal
+            filterExpression = "#archive2 = :val"
+        }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
         val response = ddb.scan(request)

@@ -27,14 +27,15 @@ class Test2 {
     private var roleSessionName = ""
 
     @BeforeAll
-    fun setup() = runBlocking {
-        // Get the values to run these tests from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        roleArn = values.roleArn.toString()
-        accessKeyId = values.accessKeyId.toString()
-        roleSessionName = values.roleSessionName.toString()
+    fun setup() =
+        runBlocking {
+            // Get the values to run these tests from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            roleArn = values.roleArn.toString()
+            accessKeyId = values.accessKeyId.toString()
+            roleSessionName = values.roleSessionName.toString()
 
         /*
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
@@ -45,43 +46,51 @@ class Test2 {
         roleArn = prop.getProperty("roleArn")
         accessKeyId = prop.getProperty("accessKeyId")
         roleSessionName = prop.getProperty("roleSessionName")
-        */
-    }
+         */
+        }
 
     @Test
     @Order(2)
-    fun assumeRoleTest() = runBlocking {
-        assumeGivenRole(roleArn, roleSessionName)
-        println("Test 2 passed")
-    }
+    fun assumeRoleTest() =
+        runBlocking {
+            assumeGivenRole(roleArn, roleSessionName)
+            println("Test 2 passed")
+        }
 
     @Test
     @Order(3)
-    fun getSessionTokenTest() = runBlocking {
-        getToken()
-        println("Test 3 passed")
-    }
+    fun getSessionTokenTest() =
+        runBlocking {
+            getToken()
+            println("Test 3 passed")
+        }
 
     @Test
     @Order(4)
-    fun getCallerIdentityTest() = runBlocking {
-        getCallerId()
-        println("Test 4 passed")
-    }
+    fun getCallerIdentityTest() =
+        runBlocking {
+            getCallerId()
+            println("Test 4 passed")
+        }
 
     @Test
     @Order(5)
-    fun getAccessKeyInfoTest() = runBlocking {
-        getKeyInfo(accessKeyId)
-        println("Test 5 passed")
-    }
+    fun getAccessKeyInfoTest() =
+        runBlocking {
+            getKeyInfo(accessKeyId)
+            println("Test 5 passed")
+        }
 
     private suspend fun getSecretValues(): String {
         val secretName = "test/sts"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
-        SecretsManagerClient { region = "us-east-1"; credentialsProvider = EnvironmentCredentialsProvider() }.use { secretClient ->
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
+        SecretsManagerClient {
+            region = "us-east-1"
+            credentialsProvider = EnvironmentCredentialsProvider()
+        }.use { secretClient ->
             val valueResponse = secretClient.getSecretValue(valueRequest)
             return valueResponse.secretString.toString()
         }

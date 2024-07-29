@@ -38,19 +38,19 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDBCluster](src/aurora_scenario/mod.rs#L352)
-- [CreateDBClusterParameterGroup](src/aurora_scenario/mod.rs#L203)
-- [CreateDBClusterSnapshot](src/aurora_scenario/mod.rs#L352)
-- [CreateDBInstance](src/aurora_scenario/mod.rs#L352)
-- [DeleteDBCluster](src/aurora_scenario/mod.rs#L512)
-- [DeleteDBClusterParameterGroup](src/aurora_scenario/mod.rs#L512)
-- [DeleteDBInstance](src/aurora_scenario/mod.rs#L512)
-- [DescribeDBClusterParameters](src/aurora_scenario/mod.rs#L286)
-- [DescribeDBClusters](src/aurora_scenario/mod.rs#L352)
+- [CreateDBCluster](src/aurora_scenario/mod.rs#L353)
+- [CreateDBClusterParameterGroup](src/aurora_scenario/mod.rs#L204)
+- [CreateDBClusterSnapshot](src/aurora_scenario/mod.rs#L353)
+- [CreateDBInstance](src/aurora_scenario/mod.rs#L353)
+- [DeleteDBCluster](src/aurora_scenario/mod.rs#L513)
+- [DeleteDBClusterParameterGroup](src/aurora_scenario/mod.rs#L513)
+- [DeleteDBInstance](src/aurora_scenario/mod.rs#L513)
+- [DescribeDBClusterParameters](src/aurora_scenario/mod.rs#L287)
+- [DescribeDBClusters](src/aurora_scenario/mod.rs#L353)
 - [DescribeDBEngineVersions](src/aurora_scenario/mod.rs#L142)
-- [DescribeDBInstances](src/aurora_scenario/mod.rs#L512)
+- [DescribeDBInstances](src/aurora_scenario/mod.rs#L513)
 - [DescribeOrderableDBInstanceOptions](src/aurora_scenario/mod.rs#L179)
-- [ModifyDBClusterParameterGroup](src/aurora_scenario/mod.rs#L315)
+- [ModifyDBClusterParameterGroup](src/aurora_scenario/mod.rs#L316)
 
 ### Scenarios
 

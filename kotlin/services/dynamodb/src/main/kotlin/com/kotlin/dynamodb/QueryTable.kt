@@ -49,7 +49,7 @@ suspend fun queryDynTable(
     tableNameVal: String,
     partitionKeyName: String,
     partitionKeyVal: String,
-    partitionAlias: String
+    partitionAlias: String,
 ): Int {
     val attrNameAlias = mutableMapOf<String, String>()
     attrNameAlias[partitionAlias] = partitionKeyName
@@ -58,12 +58,13 @@ suspend fun queryDynTable(
     val attrValues = mutableMapOf<String, AttributeValue>()
     attrValues[":$partitionKeyName"] = AttributeValue.S(partitionKeyVal)
 
-    val request = QueryRequest {
-        tableName = tableNameVal
-        keyConditionExpression = "$partitionAlias = :$partitionKeyName"
-        expressionAttributeNames = attrNameAlias
-        this.expressionAttributeValues = attrValues
-    }
+    val request =
+        QueryRequest {
+            tableName = tableNameVal
+            keyConditionExpression = "$partitionAlias = :$partitionKeyName"
+            expressionAttributeNames = attrNameAlias
+            this.expressionAttributeValues = attrValues
+        }
 
     DynamoDbClient { region = "us-east-1" }.use { ddb ->
         val response = ddb.query(request)

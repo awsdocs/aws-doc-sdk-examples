@@ -29,7 +29,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <s3UriData> <s3Uri> <trainingJobName> <roleArn> <s3OutputPath> <channelName> <trainingImage>
@@ -67,50 +66,57 @@ suspend fun trainJob(
     roleArnVal: String?,
     s3OutputPathVal: String?,
     channelNameVal: String?,
-    trainingImageVal: String?
+    trainingImageVal: String?,
 ) {
+    val s3DataSourceOb =
+        S3DataSource {
+            s3Uri = s3UriData
+            s3DataType = S3DataType.S3Prefix
+            s3DataDistributionType = S3DataDistribution.FullyReplicated
+        }
 
-    val s3DataSourceOb = S3DataSource {
-        s3Uri = s3UriData
-        s3DataType = S3DataType.S3Prefix
-        s3DataDistributionType = S3DataDistribution.FullyReplicated
-    }
+    val dataSourceOb =
+        DataSource {
+            s3DataSource = s3DataSourceOb
+        }
 
-    val dataSourceOb = DataSource {
-        s3DataSource = s3DataSourceOb
-    }
-
-    val channel = Channel {
-        channelName = channelNameVal
-        contentType = "csv"
-        dataSource = dataSourceOb
-    }
+    val channel =
+        Channel {
+            channelName = channelNameVal
+            contentType = "csv"
+            dataSource = dataSourceOb
+        }
 
     val myChannel = mutableListOf<Any>()
     myChannel.add(channel)
 
-    val resourceConfigOb = ResourceConfig {
-        instanceType = TrainingInstanceType.MlC5_2_Xlarge
-        instanceCount = 10
-        volumeSizeInGb = 1
-    }
+    val resourceConfigOb =
+        ResourceConfig {
+            instanceType = TrainingInstanceType.MlC5_2_Xlarge
+            instanceCount = 10
+            volumeSizeInGb = 1
+        }
 
-    val checkpointConfigOb = CheckpointConfig {
-        s3Uri = s3UriVal
-    }
+    val checkpointConfigOb =
+        CheckpointConfig {
+            s3Uri = s3UriVal
+        }
 
-    val outputDataConfigOb = OutputDataConfig {
-        s3OutputPath = s3OutputPathVal
-    }
+    val outputDataConfigOb =
+        OutputDataConfig {
+            s3OutputPath = s3OutputPathVal
+        }
 
-    val stoppingConditionOb = StoppingCondition {
-        maxRuntimeInSeconds = 1200
-    }
+    val stoppingConditionOb =
+        StoppingCondition {
+            maxRuntimeInSeconds = 1200
+        }
 
-    val algorithmSpecificationOb = AlgorithmSpecification {
-        trainingImage = trainingImageVal
-        trainingInputMode = TrainingInputMode.File
-    }
+    val algorithmSpecificationOb =
+        AlgorithmSpecification {
+            trainingImage = trainingImageVal
+            trainingInputMode = TrainingInputMode.File
+        }
 
     // Set hyper parameters
     val hyperParametersOb = mutableMapOf<String, String>()
@@ -123,17 +129,18 @@ suspend fun trainJob(
     hyperParametersOb["silent"] = "0"
     hyperParametersOb["subsample"] = "0.8"
 
-    val request = CreateTrainingJobRequest {
-        trainingJobName = trainingJobNameVal
-        algorithmSpecification = algorithmSpecificationOb
-        roleArn = roleArnVal
-        resourceConfig = resourceConfigOb
-        checkpointConfig = checkpointConfigOb
-        inputDataConfig = listOf(channel)
-        outputDataConfig = outputDataConfigOb
-        stoppingCondition = stoppingConditionOb
-        hyperParameters = hyperParametersOb
-    }
+    val request =
+        CreateTrainingJobRequest {
+            trainingJobName = trainingJobNameVal
+            algorithmSpecification = algorithmSpecificationOb
+            roleArn = roleArnVal
+            resourceConfig = resourceConfigOb
+            checkpointConfig = checkpointConfigOb
+            inputDataConfig = listOf(channel)
+            outputDataConfig = outputDataConfigOb
+            stoppingCondition = stoppingConditionOb
+            hyperParameters = hyperParametersOb
+        }
 
     SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
         val response = sageMakerClient.createTrainingJob(request)

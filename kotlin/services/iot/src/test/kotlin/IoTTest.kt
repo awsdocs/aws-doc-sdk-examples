@@ -42,62 +42,67 @@ class IoTTest {
     private var ruleName = "rule"
 
     @BeforeAll
-    fun setup() = runBlocking {
-        val random = Random()
-        val randomNumber = random.nextInt(1001)
-        thingName = thingName + randomNumber
-        queryString = queryString + thingName
-        ruleName = ruleName + randomNumber
+    fun setup() =
+        runBlocking {
+            val random = Random()
+            val randomNumber = random.nextInt(1001)
+            thingName = thingName + randomNumber
+            queryString = queryString + thingName
+            ruleName = ruleName + randomNumber
 
-        // Get the values from AWS Secrets Manager.
-        val gson = Gson()
-        val json: String = getSecretValues()
-        val values = gson.fromJson(json, SecretValues::class.java)
-        roleARN = values.roleARN.toString()
-        snsAction = values.snsAction.toString()
-    }
+            // Get the values from AWS Secrets Manager.
+            val gson = Gson()
+            val json: String = getSecretValues()
+            val values = gson.fromJson(json, SecretValues::class.java)
+            roleARN = values.roleARN.toString()
+            snsAction = values.snsAction.toString()
+        }
 
     @Test
     @Order(1)
-    fun helloIoTTest() = runBlocking {
-        listAllThings()
-        println("Test 1 passed")
-    }
+    fun helloIoTTest() =
+        runBlocking {
+            listAllThings()
+            println("Test 1 passed")
+        }
 
     @Test
     @Order(2)
-    fun testScenario() = runBlocking {
-        createIoTThing(thingName)
-        describeThing(thingName)
-        val certificateArn = createCertificate()
-        attachCertificateToThing(thingName, certificateArn)
-        updateThing(thingName)
-        describeEndpoint()
-        listCertificates()
-        updateShawdowThing(thingName)
-        getPayload(thingName)
-        createIoTRule(roleARN, ruleName, snsAction)
-        listIoTRules()
-        searchThings(queryString)
-        if (certificateArn != null) {
-            detachThingPrincipal(thingName, certificateArn)
+    fun testScenario() =
+        runBlocking {
+            createIoTThing(thingName)
+            describeThing(thingName)
+            val certificateArn = createCertificate()
+            attachCertificateToThing(thingName, certificateArn)
+            updateThing(thingName)
+            describeEndpoint()
+            listCertificates()
+            updateShawdowThing(thingName)
+            getPayload(thingName)
+            createIoTRule(roleARN, ruleName, snsAction)
+            listIoTRules()
+            searchThings(queryString)
+            if (certificateArn != null) {
+                detachThingPrincipal(thingName, certificateArn)
+            }
+            if (certificateArn != null) {
+                deleteCertificate(certificateArn)
+            }
+            deleteIoTThing(thingName)
+            println("Test 2 passed")
         }
-        if (certificateArn != null) {
-            deleteCertificate(certificateArn)
-        }
-        deleteIoTThing(thingName)
-        println("Test 2 passed")
-    }
 
     private suspend fun getSecretValues(): String {
-        val secretClient = SecretsManagerClient {
-            region = "us-east-1"
-            credentialsProvider = EnvironmentCredentialsProvider()
-        }
+        val secretClient =
+            SecretsManagerClient {
+                region = "us-east-1"
+                credentialsProvider = EnvironmentCredentialsProvider()
+            }
         val secretName = "test/iot"
-        val valueRequest = GetSecretValueRequest {
-            secretId = secretName
-        }
+        val valueRequest =
+            GetSecretValueRequest {
+                secretId = secretName
+            }
         val valueResponse = secretClient.getSecretValue(valueRequest)
         return valueResponse.secretString.toString()
     }

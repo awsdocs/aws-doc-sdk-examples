@@ -54,15 +54,20 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[redshift.kotlin.create_cluster.main]
-suspend fun createCluster(clusterId: String?, masterUsernameVal: String?, masterUserPasswordVal: String?) {
-    val clusterRequest = CreateClusterRequest {
-        clusterIdentifier = clusterId
-        masterUsername = masterUsernameVal
-        masterUserPassword = masterUserPasswordVal
-        nodeType = "ds2.xlarge"
-        publiclyAccessible = true
-        numberOfNodes = 2
-    }
+suspend fun createCluster(
+    clusterId: String?,
+    masterUsernameVal: String?,
+    masterUserPasswordVal: String?,
+) {
+    val clusterRequest =
+        CreateClusterRequest {
+            clusterIdentifier = clusterId
+            masterUsername = masterUsernameVal
+            masterUserPassword = masterUserPasswordVal
+            nodeType = "ra3.4xlarge"
+            publiclyAccessible = true
+            numberOfNodes = 2
+        }
 
     RedshiftClient { region = "us-east-1" }.use { redshiftClient ->
         val clusterResponse = redshiftClient.createCluster(clusterRequest)
@@ -78,9 +83,10 @@ suspend fun waitForClusterReady(clusterId: String?) {
     val sleepTime: Long = 20
     println("Waiting for the cluster to become available.")
 
-    val clustersRequest = DescribeClustersRequest {
-        clusterIdentifier = clusterId
-    }
+    val clustersRequest =
+        DescribeClustersRequest {
+            clusterIdentifier = clusterId
+        }
     RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
         // Loop until the cluster is ready.
         while (!clusterReady) {
@@ -105,22 +111,26 @@ suspend fun waitForClusterReady(clusterId: String?) {
 
 // snippet-start:[redshift.kotlin.mod_cluster.main]
 suspend fun modifyCluster(clusterId: String?) {
-    val modifyClusterRequest = ModifyClusterRequest {
-        clusterIdentifier = clusterId
-        preferredMaintenanceWindow = "wed:07:30-wed:08:00"
-    }
+    val modifyClusterRequest =
+        ModifyClusterRequest {
+            clusterIdentifier = clusterId
+            preferredMaintenanceWindow = "wed:07:30-wed:08:00"
+        }
 
     RedshiftClient { region = "us-west-2" }.use { redshiftClient ->
         val clusterResponse = redshiftClient.modifyCluster(modifyClusterRequest)
-        println("The modified cluster was successfully modified and has ${clusterResponse.cluster?.preferredMaintenanceWindow} as the maintenance window")
+        println(
+            "The modified cluster was successfully modified and has ${clusterResponse.cluster?.preferredMaintenanceWindow} as the maintenance window",
+        )
     }
 }
 // snippet-end:[redshift.kotlin.mod_cluster.main]
 
 suspend fun getSecretValues(secretName: String?): String? {
-    val valueRequest = GetSecretValueRequest {
-        secretId = secretName
-    }
+    val valueRequest =
+        GetSecretValueRequest {
+            secretId = secretName
+        }
 
     SecretsManagerClient { region = "us-west-2" }.use { secretsClient ->
         val valueResponse = secretsClient.getSecretValue(valueRequest)

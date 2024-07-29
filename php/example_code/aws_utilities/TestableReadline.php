@@ -24,3 +24,14 @@ function testable_readline($prompt)
     }
     return readline($prompt);
 }
+
+trait TestableReadline {
+    function testable_readline($prompt)
+    {
+        global $LINES;
+        if ($LINES && count($LINES) > 0) {
+            return array_shift($LINES);
+        }
+        return readline($prompt);
+    }
+}

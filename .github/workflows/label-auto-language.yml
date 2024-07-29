@@ -1,6 +1,6 @@
 name: "Auto Labeler"
 
-on:
+on:  # yamllint disable-line rule:truthy
   pull_request_target:
     branches:
       - main
@@ -12,9 +12,8 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       # The Add Labels workflow adds a label to pull requests
       # based on the files included in the proposed change.
@@ -24,9 +23,8 @@ jobs:
       #
       # For more information, see:
       # https://github.com/actions/labeler
-      -
-       name: Add Labels
-       uses: actions/labeler@v4
-       with:
-         repo-token: "${{ secrets.GITHUB_TOKEN }}"
-         configuration-path: .github/label-ruleset.yml
+      - name: Add Labels
+        uses: actions/labeler@v4
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: .github/label-ruleset.yml

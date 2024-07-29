@@ -42,7 +42,8 @@ public:
                                         << R"("RoleArn":"arn:aws:iam::123456789012:role/MockRole",)"
                                         << R"("AccessKeyId":"ABCDEFGHIJK",)"
                                         << R"("SecretAccessKey":"ABCDEFGHIJK",)"
-                                        << R"(Token":"ABCDEFGHIJK==","Expiration":")" << expiration.ToGmtString(Aws::Utils::DateFormat::ISO_8601) << "\""
+                                        << R"(Token":"ABCDEFGHIJK==","Expiration":")"
+                                        << expiration.ToGmtString(Aws::Utils::DateFormat::ISO_8601) << "\""
                                         << "}";
         this->AddResponseToReturn(goodResponse);
 
@@ -59,8 +60,7 @@ public:
             std::cout << "CustomMockHTTPClient returning credentials request."
                       << std::endl;
             return mCredentialsResponse;
-        }
-        else {
+        } else {
             return MockHttpClient::MakeRequest(request, readLimiter, writeLimiter);;
         }
     }
@@ -108,8 +108,7 @@ Aws::String AwsDocTest::S3_GTests::GetTestFilePath() {
             myFile << "This file is part of unit testing";
             myFile.close();
             s_testFilePath = filePath;
-        }
-        else {
+        } else {
             std::cerr << "Error - S3_GTests::GetTestFilePath could not create file." << std::endl;
         }
     }
@@ -185,8 +184,7 @@ bool AwsDocTest::S3_GTests::DeleteAllObjectsInBucket(const Aws::String &bucketNa
                 result = false;
             }
         }
-    }
-    else {
+    } else {
         auto err = outcome.GetError();
         std::cerr << "Error - S3_GTests::DeleteAllObjectsInBucket " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
@@ -244,7 +242,7 @@ bool AwsDocTest::S3_GTests::CreateBucket(const Aws::String &bucketName) {
     bool result = true;
     if (!outcome.IsSuccess()) {
         const Aws::S3::S3Error &err = outcome.GetError();
-        std::cerr << "S3_GTests::getCachedS3Bucket Error: CreateBucket: " <<
+        std::cerr << "S3_GTests::getCachedS3Bucket Error: createBucket: " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
         result = false;
     }
@@ -263,8 +261,7 @@ Aws::String AwsDocTest::S3_GTests::GetArnForUser() {
         if (!outcome.IsSuccess()) {
             std::cerr << "Error getting Iam user. " <<
                       outcome.GetError().GetMessage() << std::endl;
-        }
-        else {
+        } else {
             s_userArn = outcome.GetResult().GetUser().GetArn();
         }
     }
@@ -306,7 +303,7 @@ bool AwsDocTest::S3_GTests::AddPolicyToBucket(const Aws::String &bucketName) {
 
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
 bool AwsDocTest::S3_GTests::PutWebsiteConfig(const Aws::String &bucketName) {
-    Aws::S3::S3Client s3_client(*s_clientConfig);
+    Aws::S3::S3Client s3Client(*s_clientConfig);
 
     Aws::S3::Model::IndexDocument indexDocument;
     indexDocument.SetSuffix("index.html");
@@ -323,7 +320,7 @@ bool AwsDocTest::S3_GTests::PutWebsiteConfig(const Aws::String &bucketName) {
     request.SetWebsiteConfiguration(websiteConfiguration);
 
     Aws::S3::Model::PutBucketWebsiteOutcome outcome =
-            s3_client.PutBucketWebsite(request);
+            s3Client.PutBucketWebsite(request);
 
     bool result = true;
     if (!outcome.IsSuccess()) {
@@ -343,8 +340,7 @@ Aws::String AwsDocTest::S3_GTests::GetCanonicalUserID() {
         auto outcome = client.ListBuckets();
         if (outcome.IsSuccess()) {
             s_canonicalUserID = outcome.GetResult().GetOwner().GetID();
-        }
-        else {
+        } else {
             std::cout << "S3_GTests::GetCanonicalUserID Failed with error: " << outcome.GetError() << std::endl;
         }
     }
@@ -384,6 +380,13 @@ void AwsDocTest::S3_GTests::SetUp() {
         m_savedBuffer = std::cout.rdbuf();
         std::cout.rdbuf(&m_coutBuffer);
     }
+
+    m_savedInBuffer = std::cin.rdbuf();
+    std::cin.rdbuf(&m_cinBuffer);
+
+    // The following code is needed for the AwsDocTest::MyStringBuffer::underflow exception.
+    // Otherwise, we get an infinite loop when the buffer is empty.
+    std::cin.exceptions(std::ios_base::badbit);
 }
 
 void AwsDocTest::S3_GTests::TearDown() {
@@ -391,8 +394,13 @@ void AwsDocTest::S3_GTests::TearDown() {
         std::cout.rdbuf(m_savedBuffer);
         m_savedBuffer = nullptr;
     }
-}
 
+    if (m_savedInBuffer != nullptr) {
+        std::cin.rdbuf(m_savedInBuffer);
+        std::cin.exceptions(std::ios_base::goodbit);
+        m_savedInBuffer = nullptr;
+    }
+}
 
 Aws::String AwsDocTest::S3_GTests::preconditionError() {
     return "Failed to meet precondition.";
@@ -400,6 +408,16 @@ Aws::String AwsDocTest::S3_GTests::preconditionError() {
 
 bool AwsDocTest::S3_GTests::suppressStdOut() {
     return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
+}
+
+void AwsDocTest::S3_GTests::AddCommandLineResponses(
+        const std::vector<std::string> &responses) {
+
+    std::stringstream stringStream;
+    for (auto &response: responses) {
+        stringStream << response << "\n";
+    }
+    m_cinBuffer.str(stringStream.str());
 }
 
 AwsDocTest::MockHTTP::MockHTTP() {
@@ -440,5 +458,12 @@ bool AwsDocTest::MockHTTP::addResponseWithBody(const std::string &fileName,
     return false;
 }
 
+int AwsDocTest::MyStringBuffer::underflow() {
+    int result = basic_stringbuf::underflow();
+    if (result == EOF) {
+        std::cerr << "Error AwsDocTest::MyStringBuffer::underflow." << std::endl;
+        throw std::underflow_error("AwsDocTest::MyStringBuffer::underflow");
+    }
 
-
+    return result;
+}

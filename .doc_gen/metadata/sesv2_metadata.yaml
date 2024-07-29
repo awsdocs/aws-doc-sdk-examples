@@ -6,6 +6,7 @@ sesv2_CreateContactList:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.CreateContactList
     Rust:
@@ -14,6 +15,7 @@ sesv2_CreateContactList:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - ses.rust.create-contact-list
     Java:
@@ -22,6 +24,7 @@ sesv2_CreateContactList:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.CreateContactList
     Python:
@@ -30,6 +33,7 @@ sesv2_CreateContactList:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -44,6 +48,7 @@ sesv2_CreateContact:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.CreateContact
     Rust:
@@ -60,6 +65,7 @@ sesv2_CreateContact:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.CreateContact
     Python:
@@ -68,6 +74,7 @@ sesv2_CreateContact:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -106,6 +113,7 @@ sesv2_ListContacts:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.ListContacts
     Rust:
@@ -122,6 +130,7 @@ sesv2_ListContacts:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.ListContacts
     Python:
@@ -130,6 +139,7 @@ sesv2_ListContacts:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -144,6 +154,7 @@ sesv2_SendEmail:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.SendEmail
     Java:
@@ -183,11 +194,13 @@ sesv2_SendEmail:
           github: python/example_code/sesv2
           excerpts:
             - description: Sends a message to all members of the contact list.
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
                 - python.example_code.sesv2.SendEmail.simple
             - description: Sends a message to all members of the contact list using a template.
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -202,6 +215,7 @@ sesv2_CreateEmailIdentity:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.CreateEmailIdentity
     Java:
@@ -210,6 +224,7 @@ sesv2_CreateEmailIdentity:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.CreateEmailIdentity
     Python:
@@ -218,6 +233,7 @@ sesv2_CreateEmailIdentity:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -228,6 +244,7 @@ sesv2_CreateEmailIdentity:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.rust.create-email-identity
   services:
@@ -240,6 +257,7 @@ sesv2_CreateEmailTemplate:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.CreateEmailTemplate
     Java:
@@ -248,6 +266,7 @@ sesv2_CreateEmailTemplate:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.CreateEmailTemplate
     Python:
@@ -256,6 +275,7 @@ sesv2_CreateEmailTemplate:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -266,6 +286,7 @@ sesv2_CreateEmailTemplate:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.rust.create-email-template
   services:
@@ -278,6 +299,7 @@ sesv2_DeleteContactList:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.DeleteContactList
     Java:
@@ -286,6 +308,7 @@ sesv2_DeleteContactList:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.DeleteContactList
     Python:
@@ -294,6 +317,7 @@ sesv2_DeleteContactList:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -304,6 +328,7 @@ sesv2_DeleteContactList:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.rust.delete-contact-list
   services:
@@ -316,6 +341,7 @@ sesv2_DeleteEmailIdentity:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.DeleteEmailIdentity
     Java:
@@ -324,6 +350,7 @@ sesv2_DeleteEmailIdentity:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.DeleteEmailIdentity
     Python:
@@ -332,6 +359,7 @@ sesv2_DeleteEmailIdentity:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -342,6 +370,7 @@ sesv2_DeleteEmailIdentity:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.rust.delete-email-identity
   services:
@@ -354,6 +383,7 @@ sesv2_DeleteEmailTemplate:
           github: dotnetv3/SESv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper.DeleteEmailTemplate
     Java:
@@ -362,6 +392,7 @@ sesv2_DeleteEmailTemplate:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.DeleteEmailTemplate
     Python:
@@ -370,6 +401,7 @@ sesv2_DeleteEmailTemplate:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -380,6 +412,7 @@ sesv2_DeleteEmailTemplate:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.rust.delete-email-template
   services:
@@ -387,7 +420,7 @@ sesv2_DeleteEmailTemplate:
 sesv2_NewsletterWorkflow:
   title: A complete &SESv2; Newsletter workflow using an &AWS; SDK
   title_abbrev: Newsletter workflow
-  synopsis: '&SESv2; newsletter workflow.'
+  synopsis: run the &SESv2; newsletter workflow.
   category: Scenarios
   languages:
     .NET:
@@ -396,9 +429,11 @@ sesv2_NewsletterWorkflow:
           github: dotnetv3/SESv2
           excerpts:
             - description: Run the workflow.
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.NewsletterWorkflow
             - description: Wrapper for service operations.
+              genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.SESv2Wrapper
     Java:
@@ -407,6 +442,7 @@ sesv2_NewsletterWorkflow:
           github: javav2/example_code/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.java2.newsletter.CreateContactList
                 - sesv2.java2.newsletter.CreateContact
@@ -423,6 +459,7 @@ sesv2_NewsletterWorkflow:
           github: python/example_code/sesv2
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - python.example_code.sesv2.SESv2Workflow.main
                 - python.example_code.sesv2.SESv2Workflow.decl
@@ -442,6 +479,7 @@ sesv2_NewsletterWorkflow:
           github: rustv1/examples/ses
           excerpts:
             - description:
+              genai: most
               snippet_tags:
                 - sesv2.rust.create-contact-list
                 - sesv2.rust.create-contact

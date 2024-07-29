@@ -36,7 +36,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Auto Scaling](hello.py#L4) (`DescribeAutoScalingGroups`)
+- [Hello Auto Scaling](hello/hello_autoscaling.py#L4) (`DescribeAutoScalingGroups`)
 
 
 ### Single actions
@@ -80,7 +80,7 @@ functions within the same service.
 This example shows you how to get started using Auto Scaling.
 
 ```
-python hello.py
+python hello/hello_autoscaling.py
 ```
 
 

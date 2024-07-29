@@ -47,14 +47,18 @@ suspend fun main(args: Array<String>) {
 }
 
 // snippet-start:[eventbridge.kotlin._create_schedule_rule.main]
-suspend fun createScRule(ruleName: String?, cronExpression: String?) {
-    val ruleRequest = PutRuleRequest {
-        name = ruleName
-        eventBusName = "default"
-        scheduleExpression = cronExpression
-        state = RuleState.Enabled
-        description = "A test rule that runs on a schedule created by the Kotlin API"
-    }
+suspend fun createScRule(
+    ruleName: String?,
+    cronExpression: String?,
+) {
+    val ruleRequest =
+        PutRuleRequest {
+            name = ruleName
+            eventBusName = "default"
+            scheduleExpression = cronExpression
+            state = RuleState.Enabled
+            description = "A test rule that runs on a schedule created by the Kotlin API"
+        }
 
     EventBridgeClient { region = "us-west-2" }.use { eventBrClient ->
         val ruleResponse = eventBrClient.putRule(ruleRequest)
@@ -64,18 +68,25 @@ suspend fun createScRule(ruleName: String?, cronExpression: String?) {
 // snippet-end:[eventbridge.kotlin._create_schedule_rule.main]
 
 // snippet-start:[eventbridge.kotlin._create_schedule_rule_target.main]
-suspend fun putRuleTarget(ruleName: String?, lambdaARN: String, json: String?, targetId: String) {
-    val lambdaTarget = Target {
-        arn = lambdaARN
-        id = targetId
-        input = json
-    }
+suspend fun putRuleTarget(
+    ruleName: String?,
+    lambdaARN: String,
+    json: String?,
+    targetId: String,
+) {
+    val lambdaTarget =
+        Target {
+            arn = lambdaARN
+            id = targetId
+            input = json
+        }
 
-    val targetsRequest = PutTargetsRequest {
-        eventBusName = "default"
-        rule = ruleName
-        targets = listOf(lambdaTarget)
-    }
+    val targetsRequest =
+        PutTargetsRequest {
+            eventBusName = "default"
+            rule = ruleName
+            targets = listOf(lambdaTarget)
+        }
 
     EventBridgeClient { region = "us-west-2" }.use { eventBrClient ->
         eventBrClient.putTargets(targetsRequest)

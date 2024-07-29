@@ -33,13 +33,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateApp](src/main/kotlin/com/kotlin/pinpoint/CreateApp.kt#L40)
-- [CreateCampaign](src/main/kotlin/com/kotlin/pinpoint/CreateCampaign.kt#L46)
-- [CreateSegment](src/main/kotlin/com/kotlin/pinpoint/CreateSegment.kt#L49)
-- [DeleteApp](src/main/kotlin/com/kotlin/pinpoint/DeleteApp.kt#L38)
-- [DeleteEndpoint](src/main/kotlin/com/kotlin/pinpoint/DeleteEndpoint.kt#L40)
-- [GetEndpoint](src/main/kotlin/com/kotlin/pinpoint/LookUpEndpoint.kt#L42)
-- [GetSegments](src/main/kotlin/com/kotlin/pinpoint/ListSegments.kt#L38)
+- [CreateApp](src/main/kotlin/com/kotlin/pinpoint/CreateApp.kt#L39)
+- [CreateCampaign](src/main/kotlin/com/kotlin/pinpoint/CreateCampaign.kt#L45)
+- [CreateSegment](src/main/kotlin/com/kotlin/pinpoint/CreateSegment.kt#L48)
+- [DeleteApp](src/main/kotlin/com/kotlin/pinpoint/DeleteApp.kt#L37)
+- [DeleteEndpoint](src/main/kotlin/com/kotlin/pinpoint/DeleteEndpoint.kt#L39)
+- [GetEndpoint](src/main/kotlin/com/kotlin/pinpoint/LookUpEndpoint.kt#L40)
+- [GetSegments](src/main/kotlin/com/kotlin/pinpoint/ListSegments.kt#L37)
 - [SendMessages](src/main/kotlin/com/kotlin/pinpoint/SendEmailMessage.kt#L17)
 
 

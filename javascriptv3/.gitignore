@@ -2,3 +2,5 @@ node_modules/
 *_test.log
 *.pem
 package-lock.json
+test_results/
+test-results.xml

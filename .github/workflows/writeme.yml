@@ -1,7 +1,7 @@
 name: Validate WRITEMEs
 
 # Controls when the action will run.
-on:
+on:  # yamllint disable-line rule:truthy
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [main]
@@ -21,12 +21,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: checkout repo content
-        uses: actions/checkout@v3 # checkout the repository content to github runner.
-      - name: setup python
+      - name: Checkout repo content
+        uses: actions/checkout@v4  # checkout the repository content to github runner.
+      - name: Setup Python
         uses: actions/setup-python@v3
         with:
-          python-version: 3.11 #install the python needed
+          python-version: 3.11  # install the python needed
       - name: Install dependencies
         run: >-
           python3 -m pip install -r .tools/readmes/requirements.txt

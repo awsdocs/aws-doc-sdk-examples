@@ -15,6 +15,7 @@ import kotlin.system.exitProcess
 // snippet-end:[pinpoint.kotlin.send_email.import]
 
 // snippet-start:[pinpoint.kotlin.send_email.main]
+
 /**
 Before running this Kotlin code example, set up your development environment,
 including your credentials.
@@ -23,12 +24,13 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 
-val body: String = """
-        Amazon Pinpoint test (AWS SDK for Kotlin)
-                
-        This email was sent through the Amazon Pinpoint Email API using the AWS SDK for Kotlin.
-                                
-""".trimIndent()
+val body: String =
+    """
+    Amazon Pinpoint test (AWS SDK for Kotlin)
+            
+    This email was sent through the Amazon Pinpoint Email API using the AWS SDK for Kotlin.
+                            
+    """.trimIndent()
 
 suspend fun main(args: Array<String>) {
     val usage = """
@@ -52,37 +54,48 @@ suspend fun main(args: Array<String>) {
     sendEmail(subject, senderAddress, toAddress)
 }
 
-suspend fun sendEmail(subjectVal: String?, senderAddress: String, toAddressVal: String) {
-    var content = Content {
-        data = body
-    }
+suspend fun sendEmail(
+    subjectVal: String?,
+    senderAddress: String,
+    toAddressVal: String,
+) {
+    var content =
+        Content {
+            data = body
+        }
 
-    val messageBody = Body {
-        text = content
-    }
+    val messageBody =
+        Body {
+            text = content
+        }
 
-    val subContent = Content {
-        data = subjectVal
-    }
+    val subContent =
+        Content {
+            data = subjectVal
+        }
 
-    val message = Message {
-        body = messageBody
-        subject = subContent
-    }
+    val message =
+        Message {
+            body = messageBody
+            subject = subContent
+        }
 
-    val destinationOb = Destination {
-        toAddresses = listOf(toAddressVal)
-    }
+    val destinationOb =
+        Destination {
+            toAddresses = listOf(toAddressVal)
+        }
 
-    val emailContent = EmailContent {
-        simple = message
-    }
+    val emailContent =
+        EmailContent {
+            simple = message
+        }
 
-    val sendEmailRequest = SendEmailRequest {
-        fromEmailAddress = senderAddress
-        destination = destinationOb
-        this.content = emailContent
-    }
+    val sendEmailRequest =
+        SendEmailRequest {
+            fromEmailAddress = senderAddress
+            destination = destinationOb
+            this.content = emailContent
+        }
 
     PinpointEmailClient { region = "us-east-1" }.use { pinpointemail ->
         pinpointemail.sendEmail(sendEmailRequest)

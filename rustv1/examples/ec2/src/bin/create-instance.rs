@@ -3,8 +3,10 @@
 
 #![allow(clippy::result_large_err)]
 
+use std::time::Duration;
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_ec2::{config::Region, meta::PKG_VERSION, types::Tag, Client, Error};
+use aws_sdk_ec2::{client::Waiters, config::Region, meta::PKG_VERSION, types::Tag, Client, Error};
 use clap::Parser;
 
 #[derive(Debug, Parser)]
@@ -26,6 +28,7 @@ struct Opt {
 // snippet-start:[ec2.rust.create-instance]
 // snippet-start:[ec2.rust.run-instance]
 // snippet-start:[ec2.rust.launch-instance]
+// snippet-start:[rust.waiters.ec2.create-instance]
 async fn create_instance(client: &Client, ami_id: &str) -> Result<(), Error> {
     let run_instances = client
         .run_instances()
@@ -34,16 +37,20 @@ async fn create_instance(client: &Client, ami_id: &str) -> Result<(), Error> {
         .min_count(1)
         .max_count(1)
         .send()
-        .await?;
+        .await;
+
+    let run_instances = match run_instances {
+        Ok(run_instances) => run_instances,
+        Err(err) => return Err(err.into()),
+    };
 
     if run_instances.instances().is_empty() {
-        panic!("No instances created.");
+        println!("No instances created.");
+        return Ok(());
     }
 
-    println!("Created instance.");
-
     let instance_id = run_instances.instances()[0].instance_id().unwrap();
-    client
+    let response = client
         .create_tags()
         .resources(instance_id)
         .tags(
@@ -53,12 +60,44 @@ async fn create_instance(client: &Client, ami_id: &str) -> Result<(), Error> {
                 .build(),
         )
         .send()
-        .await?;
+        .await;
 
-    println!("Created {instance_id} and applied tags.",);
+    match response {
+        Ok(_) => println!("Created {instance_id} and applied tags."),
+        Err(err) => {
+            println!("Error applying tags to {instance_id}: {err:?}");
+            return Err(err.into());
+        }
+    }
+
+    println!("Created instance.");
+
+    let wait_for_created = client
+        .wait_until_instance_exists()
+        .set_instance_ids(
+            run_instances
+                .instances()
+                .iter()
+                .map(|i| i.instance_id.clone())
+                .filter(Option::is_some)
+                .collect(),
+        )
+        .wait(Duration::from_secs(6))
+        .await;
+
+    match wait_for_created {
+        Ok(_) => {
+            println!("Instance is created.")
+        }
+        Err(err) => {
+            println!("Timed out waiting for instance to be created.");
+            return Err(err.into());
+        }
+    };
 
     Ok(())
 }
+// snippet-end:[rust.waiters.ec2.create-instance]
 // snippet-end:[ec2.rust.launch-instance]
 // snippet-end:[ec2.rust.run-instance]
 // snippet-end:[ec2.rust.create-instance]

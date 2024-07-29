@@ -22,10 +22,10 @@ suspend fun main() {
 
 // snippet-start:[stepfunctions.kotlin.list_activities.main]
 suspend fun listAllActivites() {
-
-    val activitiesRequest = ListActivitiesRequest {
-        maxResults = 10
-    }
+    val activitiesRequest =
+        ListActivitiesRequest {
+            maxResults = 10
+        }
 
     SfnClient { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.listActivities(activitiesRequest)

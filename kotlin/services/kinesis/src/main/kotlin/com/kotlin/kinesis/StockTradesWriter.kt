@@ -19,7 +19,6 @@ For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage: <streamName>
 
@@ -39,7 +38,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[kinesis.kotlin.putrecord.main]
 suspend fun setStockData(streamName: String) {
-
     // Repeatedly send stock trades with a 100 milliseconds wait in between.
     val stockTradeGenerator = StockTradeGenerator()
 
@@ -52,8 +50,10 @@ suspend fun setStockData(streamName: String) {
     }
 }
 
-private suspend fun sendStockTrade(trade: StockTrade, streamNameVal: String) {
-
+private suspend fun sendStockTrade(
+    trade: StockTrade,
+    streamNameVal: String,
+) {
     val bytes = trade.toJsonAsBytes()
 
     // The bytes could be null if there is an issue with the JSON serialization by the Jackson JSON library.
@@ -62,11 +62,13 @@ private suspend fun sendStockTrade(trade: StockTrade, streamNameVal: String) {
         return
     }
     println("Putting trade: $trade")
-    val request = PutRecordRequest {
-        partitionKey = trade.getTheTickerSymbol() // We use the ticker symbol as the partition key, explained in the Supplemental Information section below.
-        streamName = streamNameVal
-        data = bytes
-    }
+    val request =
+        PutRecordRequest {
+            // We use the ticker symbol as the partition key, explained in the Supplemental Information section below.
+            partitionKey = trade.getTheTickerSymbol()
+            streamName = streamNameVal
+            data = bytes
+        }
 
     KinesisClient { region = "us-east-1" }.use { kinesisClient ->
         kinesisClient.putRecord(request)
@@ -74,10 +76,10 @@ private suspend fun sendStockTrade(trade: StockTrade, streamNameVal: String) {
 }
 
 suspend fun validateStream(streamNameVal: String) {
-
-    val request = DescribeStreamRequest {
-        streamName = streamNameVal
-    }
+    val request =
+        DescribeStreamRequest {
+            streamName = streamNameVal
+        }
 
     KinesisClient { region = "us-east-1" }.use { kinesisClient ->
         val describeStreamResponse = kinesisClient.describeStream(request)

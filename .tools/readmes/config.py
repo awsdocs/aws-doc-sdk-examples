@@ -7,6 +7,8 @@ doc_base_url = "https://docs.aws.amazon.com"
 categories = {
     "hello": "Hello",
     "scenarios": "Scenarios",
+    "actions": "Api",
+    "cross": "Cross-service examples",
 }
 entities = {
     "&AWS;": "AWS",
@@ -76,6 +78,7 @@ language = {
                 "acm": "dotnetv3/ACM",
                 "aurora": "dotnetv3/Aurora",
                 "auto-scaling": "dotnetv3/AutoScaling",
+                "cloudformation": "dotnetv3/CloudFormation",
                 "cloudwatch": "dotnetv3/CloudWatch",
                 "cloudwatch-logs": "dotnetv3/CloudWatchLogs",
                 "cognito-identity-provider": "dotnetv3/Cognito",
@@ -101,6 +104,7 @@ language = {
                 "sagemaker": "dotnetv3/SageMaker",
                 "secrets-manager": "dotnetv3/SecretsManager",
                 "ses": "dotnetv3/SES",
+                "sesv2": "dotnetv3/SESv2",
                 "sns": "dotnetv3/SNS",
                 "sqs": "dotnetv3/SQS",
                 "sfn": "dotnetv3/StepFunctions",
@@ -137,6 +141,9 @@ language = {
             "base_folder": "ruby",
             "service_folder": 'ruby/example_code/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/{{service["name"] | capitalize}}.html',
+            "service_folder_overrides": {
+                "cognito-identity-provider": "ruby/example_code/cognito",
+            },
         }
     },
     "Rust": {

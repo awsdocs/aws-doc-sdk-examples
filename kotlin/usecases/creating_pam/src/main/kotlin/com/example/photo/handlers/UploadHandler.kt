@@ -13,7 +13,7 @@ import kotlinx.coroutines.runBlocking
 import java.util.UUID
 
 class UploadHandler : RequestHandler<APIGatewayProxyRequestEvent?, APIGatewayProxyResponseEvent?> {
-    val CORS_HEADER_MAP: Map<String, String> = java.util.Map.of("Access-Control-Allow-Origin", "*")
+    val corsHeaderMap: Map<String, String> = java.util.Map.of("Access-Control-Allow-Origin", "*")
 
     fun toJson(src: Any?): String? {
         val gson = Gson()
@@ -30,7 +30,7 @@ class UploadHandler : RequestHandler<APIGatewayProxyRequestEvent?, APIGatewayPro
         if (fileName == null || fileName == "") {
             return@runBlocking APIGatewayProxyResponseEvent()
                 .withStatusCode(400)
-                .withHeaders(CORS_HEADER_MAP)
+                .withHeaders(corsHeaderMap)
                 .withBody("{\"error\":\"Missing filename\"}")
                 .withIsBase64Encoded(false)
         }
@@ -43,19 +43,15 @@ class UploadHandler : RequestHandler<APIGatewayProxyRequestEvent?, APIGatewayPro
         return@runBlocking makeResponse(data)
     }
 
-    fun makeResponse(src: Any?): APIGatewayProxyResponseEvent {
-        return APIGatewayProxyResponseEvent()
-            .withStatusCode(200)
-            .withHeaders(CORS_HEADER_MAP)
-            .withBody(toJson(src))
-            .withIsBase64Encoded(false)
-    }
+    fun makeResponse(src: Any?): APIGatewayProxyResponseEvent = APIGatewayProxyResponseEvent()
+        .withStatusCode(200)
+        .withHeaders(corsHeaderMap)
+        .withBody(toJson(src))
+        .withIsBase64Encoded(false)
 }
 
 internal class UploadResponse private constructor(val uRL: String) {
     companion object {
-        fun from(url: String): UploadResponse {
-            return UploadResponse(url)
-        }
+        fun from(url: String): UploadResponse = UploadResponse(url)
     }
 }

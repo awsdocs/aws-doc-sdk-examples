@@ -38,9 +38,10 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[ec2.kotlin.describe_security_groups.main]
 suspend fun describeEC2SecurityGroups(groupId: String) {
-    val request = DescribeSecurityGroupsRequest {
-        groupIds = listOf(groupId)
-    }
+    val request =
+        DescribeSecurityGroupsRequest {
+            groupIds = listOf(groupId)
+        }
 
     Ec2Client { region = "us-west-2" }.use { ec2 ->
 
