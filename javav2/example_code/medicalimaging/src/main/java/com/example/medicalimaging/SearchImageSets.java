@@ -50,7 +50,7 @@ public class SearchImageSets {
         String patientId = args[1];
         String seriesInstanceUID = args[2];
 
-        Region region = Region.US_EAST_1;
+        Region region = Region.US_WEST_2;
         MedicalImagingClient medicalImagingClient = MedicalImagingClient.builder()
                 .region(region)
                 .credentialsProvider(ProfileCredentialsProvider.create())

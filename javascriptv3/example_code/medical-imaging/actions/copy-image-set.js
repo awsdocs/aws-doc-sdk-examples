@@ -13,6 +13,8 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
  * @param {string} sourceVersionId - The source version ID.
  * @param {string} destinationImageSetId - The optional ID of the destination image set.
  * @param {string} destinationVersionId - The optional version ID of the destination image set.
+ * @param {boolean} force - Force the copy action.
+ * @param {[string]} copySubsets - A subset if instance IDs to copy.
  */
 export const copyImageSet = async (
     datastoreId = "xxxxxxxxxxx",

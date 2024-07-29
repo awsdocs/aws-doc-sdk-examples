@@ -433,6 +433,8 @@ class MedicalImagingWrapper:
         :param version_id: The ID of the image set version.
         :param destination_image_set_id: The ID of the optional destination image set.
         :param destination_version_id: The ID of the optional destination image set version.
+        :param force: Force the copy.
+        :param subsets: The optional subsets to copy. For example: ["12345678901234567890123456789012"].
         :return: The copied image set ID.
         """
         try:

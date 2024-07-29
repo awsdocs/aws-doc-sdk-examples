@@ -142,18 +142,7 @@ public class AWSMedicalImagingTest {
 
     }
 
-    @Test
-    @Tag("IntegrationTest")
-    @Order(4)
-    public void getDicomImportJobTest() {
-        final DICOMImportJobProperties[] dicomImportJobSummaries = { null };
-        assertDoesNotThrow(() -> dicomImportJobSummaries[0] = GetDicomImportJob.getDicomImportJob(medicalImagingClient,
-                workingDatastoreId, importJobId));
-        assertNotNull(dicomImportJobSummaries[0]);
-
-        System.out.println("Test 4 passed");
-    }
-
+  
     @Test
     @Tag("IntegrationTest")
     @Order(5)

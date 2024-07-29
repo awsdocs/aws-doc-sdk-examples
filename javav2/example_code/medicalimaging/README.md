@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [CopyImageSet](src/main/java/com/example/medicalimaging/CopyImageSet.java#L126)
+- [CopyImageSet](src/main/java/com/example/medicalimaging/CopyImageSet.java#L132)
 - [CreateDatastore](src/main/java/com/example/medicalimaging/CreateDatastore.java#L52)
 - [DeleteDatastore](src/main/java/com/example/medicalimaging/DeleteDatastore.java#L50)
 - [DeleteImageSet](src/main/java/com/example/medicalimaging/DeleteImageSet.java#L53)

@@ -2,14 +2,20 @@
 // SPDX-License-Identifier: Apache-2.0
 
 package com.example.medicalimaging;
+import org.apache.commons.cli.*;
 
 // snippet-start:[medicalimaging.java2.copy_imageset.import]
 
-import org.apache.commons.cli.*;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.medicalimaging.MedicalImagingClient;
-import software.amazon.awssdk.services.medicalimaging.model.*;
+import software.amazon.awssdk.services.medicalimaging.model.CopyDestinationImageSet;
+import software.amazon.awssdk.services.medicalimaging.model.CopyImageSetInformation;
+import software.amazon.awssdk.services.medicalimaging.model.CopyImageSetRequest;
+import software.amazon.awssdk.services.medicalimaging.model.CopyImageSetResponse;
+import software.amazon.awssdk.services.medicalimaging.model.CopySourceImageSetInformation;
+import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingException;
+import software.amazon.awssdk.services.medicalimaging.model.MetadataCopies;
 
 import java.util.Collections;
 import java.util.Vector;
@@ -107,7 +113,7 @@ public class CopyImageSet {
             System.exit(1);
         }
 
-        Region region = Region.US_EAST_1;
+        Region region = Region.US_WEST_2;
         MedicalImagingClient medicalImagingClient = MedicalImagingClient.builder()
                 .region(region)
                 .credentialsProvider(ProfileCredentialsProvider.create())
@@ -198,18 +204,24 @@ public class CopyImageSet {
      * @return A JSON string of copiable image instances.
      */
     private static String getCopiableAttributesJSON(String imageSetId, Vector<String> subsets) {
-        StringBuilder subsetInstanceToCopy = new StringBuilder("""
-                {
-                  "SchemaVersion": 1.1,
-                  "Study": {
-                    "Series": {
-                        "
-                         """);
+        StringBuilder subsetInstanceToCopy = new StringBuilder(
+                """
+                        {
+                          "SchemaVersion": 1.1,
+                          "Study": {
+                            "Series": {
+                                "
+                                 """
+        );
+
         subsetInstanceToCopy.append(imageSetId);
-        subsetInstanceToCopy.append("""
-                        ": {
-                        "Instances": {
-                """);
+
+        subsetInstanceToCopy.append(
+                """
+                                ": {
+                                "Instances": {
+                        """
+        );
 
         for (String subset : subsets) {
             subsetInstanceToCopy.append('"' + subset + "\": {},");

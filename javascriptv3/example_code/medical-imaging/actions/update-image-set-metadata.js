@@ -16,6 +16,7 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
  * @param {string} imageSetId - The ID of the HealthImaging image set.
  * @param {string} latestVersionId - The ID of the HealthImaging image set version.
  * @param {{}} updateMetadata - The metadata to update.
+ * @param {boolean} force - Force the update.
  */
 export const updateImageSetMetadata = async (datastoreId = "xxxxxxxxxx",
                                              imageSetId = "xxxxxxxxxx",

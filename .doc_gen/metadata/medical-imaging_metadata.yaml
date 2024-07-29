@@ -702,7 +702,7 @@ medical-imaging_UpdateImageSetMetadata:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_instance
             - description: 'Use case #4: Revert to an earlier version.'
               snippet_tags:
-                - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_instance
+                - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.revert
     Java:
       versions:
         - sdk_version: 2

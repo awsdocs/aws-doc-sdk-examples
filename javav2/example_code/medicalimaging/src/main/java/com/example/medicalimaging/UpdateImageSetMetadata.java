@@ -59,7 +59,7 @@ public class UpdateImageSetMetadata {
             System.exit(1);
         }
 
-        Region region = Region.US_EAST_1;
+        Region region = Region.US_WEST_2;
         MedicalImagingClient medicalImagingClient = MedicalImagingClient.builder()
                 .region(region)
                 .credentialsProvider(ProfileCredentialsProvider.create())
@@ -74,7 +74,7 @@ public class UpdateImageSetMetadata {
                           "SchemaVersion": 1.1,
                           "Study": {
                             "DICOM": {
-                              "StudyID": "40934"
+                              "StudyDescription": "CT CHEST"
                             }
                           }
                         }
