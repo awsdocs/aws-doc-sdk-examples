@@ -23,10 +23,9 @@ public class S3BatchScenario {
         System.out.println(DASHES);
         System.out.println("Welcome to the Amazon S3 Batch basics scenario.");
         System.out.println("""
-            S3 Batch is a powerful service provided by AWS that enables efficient and 
-            cost-effective processing of large-scale data stored in Amazon S3. 
-            It automatically scales resources to handle varying workloads without the need for manual 
-            intervention. 
+            S3 Batch operations enables efficient and cost-effective processing of large-scale 
+            data stored in Amazon S3. It automatically scales resources to handle varying workloads 
+            without the need for manual intervention. 
                         
             One of the key features of S3 Batch is its ability to perform tagging operations on objects stored in 
             S3 buckets. Users can leverage S3 Batch to apply, update, or remove tags on thousands or millions of 

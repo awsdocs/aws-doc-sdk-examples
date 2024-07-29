@@ -659,7 +659,7 @@ public class S3BatchActions {
         Path path = Paths.get(directoryPath);
 
         try {
-            // Create the directory if it doesn't exist
+            // Create the directory if it doesn't exist.
             if (Files.notExists(path)) {
                 Files.createDirectories(path);
                 System.out.println("Created directory: " + path.toString());
@@ -668,16 +668,16 @@ public class S3BatchActions {
             }
 
             for (String fileName : fileNames) {
-                // Check if the file is a .txt file
+                // Check if the file is a .txt file.
                 if (fileName.endsWith(".txt")) {
-                    // Define the path for the new file
+                    // Define the path for the new file.
                     Path filePath = path.resolve(fileName);
                     System.out.println("Attempting to create file: " + filePath.toString());
 
-                    // Create and write content to the new file
+                    // Create and write content to the new file.
                     Files.write(filePath, "This is a test".getBytes());
 
-                    // Verify the file was created
+                    // Verify the file was created.
                     if (Files.exists(filePath)) {
                         System.out.println("Successfully created file: " + filePath.toString());
                     } else {
@@ -691,7 +691,6 @@ public class S3BatchActions {
             e.printStackTrace();
         }
     }
-
 
     public String getAccountId() {
         StsClient stsClient = StsClient.builder()
