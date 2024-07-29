@@ -142,8 +142,8 @@ public class CopyImageSet {
      * @param destinationVersionId  - The optional destination version ID, ignored if null.
      * @param force                 - The force flag.
      * @param subsets               - The optional subsets to copy, ignored if null.
-     * @return The image set ID of the copy.
-     * @throws MedicalImagingException - Base exception for all service exceptions thrown by AWS Health Imaging.
+     * @return                      - The image set ID of the copy.
+     * @throws MedicalImagingException - Base exception for all service exceptions thrown by AWS HealthImaging.
      */
     public static String copyMedicalImageSet(MedicalImagingClient medicalImagingClient,
                                              String datastoreId,

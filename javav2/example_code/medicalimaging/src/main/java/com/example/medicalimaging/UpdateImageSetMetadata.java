@@ -171,7 +171,7 @@ public class UpdateImageSetMetadata {
      * @param versionId            - The version ID.
      * @param metadataUpdates      - A MetadataUpdates object containing the updates.
      * @param force                - The force flag.
-     * @throws MedicalImagingException - Base exception for all service exceptions thrown by AWS Health Imaging.
+     * @throws MedicalImagingException - Base exception for all service exceptions thrown by AWS HealthImaging.
      */
     public static void updateMedicalImageSetMetadata(MedicalImagingClient medicalImagingClient,
                                                      String datastoreId,
