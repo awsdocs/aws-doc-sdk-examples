@@ -150,15 +150,19 @@ func (stubber *AwsmStubber) Next() *Stub {
 // Clear removes all stubs from the stubber.
 func (stubber *AwsmStubber) Clear() {
 	stubber.stubs = nil
+	stubber.callIndex = 0	
 }
 
 // VerifyAllStubsCalled returns an error if there are stubs in the slice that were not
 // called. In this way, you can verify that your test made all the calls that you expected.
+// Also reset callIndex so that next() call when stubs is lesser then existing call will not fail
 func (stubber *AwsmStubber) VerifyAllStubsCalled() error {
 	var err error
 	next := stubber.Next()
 	if next != nil {
 		err = fmt.Errorf("Remaining stub %v was never called.", next.OperationName)
+	}else{
+	stubber.callIndex = 0	
 	}
 	return err
 }
