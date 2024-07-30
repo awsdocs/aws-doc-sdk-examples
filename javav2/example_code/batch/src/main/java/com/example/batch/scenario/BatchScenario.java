@@ -3,22 +3,26 @@
 
 package com.example.batch.scenario;
 
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.CompletionException;
 
 public class BatchScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-    public static void main(String[] args) throws InterruptedException {
 
+    // Define two stacks used in this Basics Scenario.
+    private static final String STACK_NAME = "BatchStack4";
+
+    private static final String STACK_ECR = "EcsStack";
+    public static void main(String[] args) throws InterruptedException {
         BatchActions batchActions = new BatchActions();
         Scanner scanner = new Scanner(System.in);
-
-        String iamRole = "arn:aws:iam::814548047983:role/batch-service-role";
-        String executionRoleARN = "arn:aws:iam::814548047983:role/batchecr";
         String computeEnvironmentName = "my-compute-environment" ;
         String jobQueueName = "my-job-queue";
         String jobDefinitionName = "my-job-definition";
         String dockerImage = "dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text";
+        String subnet = "subnet-ef28c6b0" ;
+        String secGroup = "sg-0d2f3836b8750d1bf" ;
 
         // Get an AWS Account id used to retrieve the docker image from Amazon ECR.
         String accId = batchActions.getAccountId();
@@ -57,14 +61,23 @@ public class BatchScenario {
             } else if (input.trim().equalsIgnoreCase("2")) {
                 String jobQueueARN = batchActions.describeJobQueue(computeEnvironmentName);
                 if (!jobQueueARN.isEmpty()) {
-                    batchActions.disableJobQueue(jobQueueARN);
+                    batchActions.disableJobQueueAsync(jobQueueARN);
                     countdown(1);
-                    batchActions.deleteJobQueue(jobQueueARN);
+                    batchActions.deleteJobQueueAsync(jobQueueARN);
                 }
 
-                batchActions.disableComputeEnvironment( computeEnvironmentName);
+                try {
+                    batchActions.disableComputeEnvironmentAsync(computeEnvironmentName)
+                        .exceptionally(ex -> {
+                            System.err.println("Disable compute environment failed: " + ex.getMessage());
+                            return null;
+                        })
+                        .join();
+                } catch (CompletionException ex) {
+                    System.err.println("Failed to disable compute environment: " + ex.getMessage());
+                }
                 countdown(2);
-                batchActions.deleteComputeEnvironment(computeEnvironmentName);
+                batchActions.deleteComputeEnvironmentAsync(computeEnvironmentName);
                 return;
             } else {
                 // Handle invalid input.
@@ -72,6 +85,20 @@ public class BatchScenario {
             }
         }
         System.out.println(DASHES);
+
+        waitForInputToContinue(scanner);
+        System.out.println("Use CloudFormation to create two IAM roles that are required for this scenario.");
+        CloudFormationHelper.deployCloudFormationStack(STACK_NAME);
+        CloudFormationHelper.deployCloudFormationStack(STACK_ECR);
+
+        Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputs(STACK_NAME);
+        Map<String, String> stackOutputECR = CloudFormationHelper.getStackOutputs(STACK_ECR);
+        String iamRole = stackOutputs.get("BatchRoleArn");
+        String executionRoleARN = stackOutputECR.get("EcsRoleArn");
+
+        System.out.println("The IAM role needed to interact wit AWS Batch is "+iamRole);
+        System.out.println("The second IAM role needed to interact wit AWS ECR is "+executionRoleARN);
+        waitForInputToContinue(scanner);
 
         System.out.println("1. Create a Batch compute Environment");
         System.out.println("""
@@ -88,7 +115,7 @@ public class BatchScenario {
             """);
 
         waitForInputToContinue(scanner);
-        batchActions.createComputeEnvironment(computeEnvironmentName, iamRole);
+        batchActions.createComputeEnvironment(computeEnvironmentName, iamRole, subnet, secGroup);
         System.out.println(DASHES);
 
         System.out.println("2. Check the status of the "+computeEnvironmentName +" Compute Environment.");
@@ -149,7 +176,20 @@ public class BatchScenario {
         System.out.println(DASHES);
         System.out.println("5. Submit an AWS Batch job from a job definition.");
         waitForInputToContinue(scanner);
-        String myJob = batchActions.submitJob(jobDefinitionName, jobQueueName, jobARN[0]);
+        String[] jobId = new String[1];
+        try {
+            jobId[0] = batchActions.submitJobAsync(jobDefinitionName, jobQueueName, jobARN[0])
+                .exceptionally(ex -> {
+                    System.err.println("Submit job failed: " + ex.getMessage());
+                    return null;
+                })
+                .join();
+
+            System.out.println("The job id is "+jobId[0]);
+
+        } catch (CompletionException ex) {
+            System.err.println("Failed to submit job: " + ex.getMessage());
+        }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
@@ -157,18 +197,38 @@ public class BatchScenario {
         System.out.println("6. Get a list of jobs applicable to the job queue.");
 
         waitForInputToContinue(scanner);
-        batchActions.ListJobs(jobDefinitionName, jobQueueName);
+        try {
+            batchActions.listJobsAsync(jobDefinitionName, jobQueueName);
+
+        } catch (CompletionException ex) {
+            System.err.println("Failed to list jobs: " + ex.getMessage());
+        }
+
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("7. Check the status of job "+myJob);
+        System.out.println("7. Check the status of job "+jobId[0]);
         waitForInputToContinue(scanner);
-        batchActions.describeJob(myJob);
+        try {
+            String jobStatus = batchActions.describeJobAsync(jobId[0])
+                .exceptionally(ex -> {
+                    System.err.println("Describe job failed: " + ex.getMessage());
+                    return null;
+                })
+                .join();
+
+            if (jobStatus != null) {
+                System.out.println("Job status: " + jobStatus);
+            }
+
+        } catch (CompletionException ex) {
+            System.err.println("Failed to describe job: " + ex.getMessage());
+        }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
-        System.out.println("8. Delete a Batch compute environment");
+        System.out.println("8. Delete Batch resources");
         System.out.println(
             """
             WHen deleting an AWS Batch compute environment, it does not happen instantaneously. 
@@ -181,23 +241,50 @@ public class BatchScenario {
             System.out.println("You selected to delete the AWS ECR resources.");
             System.out.println("First, we will deregister the Job Definition.");
             waitForInputToContinue(scanner);
-            batchActions.deregisterJobDefinition(jobDefinitionName);
+            try {
+                batchActions.deregisterJobDefinitionAsync(jobARN[0])
+                    .exceptionally(ex -> {
+                        System.err.println("Deregister job definition failed: " + ex.getMessage());
+                        return null;
+                    })
+                    .join();
+            } catch (CompletionException ex) {
+                System.err.println("Failed to deregister job definition: " + ex.getMessage());
+            }
 
             System.out.println("Second, we will disable and then delete the Job Queue.");
             waitForInputToContinue(scanner);
-            batchActions.disableJobQueue(jobQueueArn);
+            try {
+                batchActions.disableJobQueueAsync(jobQueueArn)
+                    .exceptionally(ex -> {
+                        System.err.println("Disable job queue failed: " + ex.getMessage());
+                        return null;
+                    })
+                    .join();
+            } catch (CompletionException ex) {
+                System.err.println("Failed to disable job queue: " + ex.getMessage());
+            }
 
             // Wait until the job queue is disabled.
             batchActions.waitForJobQueueToBeDisabled(jobQueueArn);
             waitForInputToContinue(scanner);
-            batchActions.deleteJobQueue(jobQueueArn);
+            batchActions.deleteJobQueueAsync(jobQueueArn);
             System.out.println("Lets wait 2 mins for the job queue to be deleted");
             countdown(2);
             waitForInputToContinue(scanner);
 
             System.out.println("Third, we will delete the Compute Environment.");
             waitForInputToContinue(scanner);
-            batchActions.disableComputeEnvironment( computeEnvironmentName);
+            try {
+                batchActions.disableComputeEnvironmentAsync(computeEnvironmentName)
+                    .exceptionally(ex -> {
+                        System.err.println("Disable compute environment failed: " + ex.getMessage());
+                        return null;
+                    })
+                    .join();
+            } catch (CompletionException ex) {
+                System.err.println("Failed to disable compute environment: " + ex.getMessage());
+            }
 
             batchActions.checkComputeEnvironmentsStatus(computeEnvironmentName).thenAccept(state -> {
                 System.out.println("Current State: " + state);
@@ -206,8 +293,19 @@ public class BatchScenario {
             System.out.println("Lets wait 1 min for the compute environment to be deleted");
             countdown(1);
 
-            batchActions.deleteComputeEnvironment(computeEnvironmentName);
+            try {
+                batchActions.deleteComputeEnvironmentAsync(computeEnvironmentName)
+                    .exceptionally(ex -> {
+                        System.err.println("Delete compute environment failed: " + ex.getMessage());
+                        return null;
+                    })
+                    .join();
+            } catch (CompletionException ex) {
+                System.err.println("Failed to delete compute environment: " + ex.getMessage());
+            }
             waitForInputToContinue(scanner);
+            CloudFormationHelper.destroyCloudFormationStack(STACK_NAME);
+            CloudFormationHelper.destroyCloudFormationStack(STACK_ECR);
         }
 
         System.out.println(DASHES);
