@@ -54,7 +54,6 @@ bool AwsDoc::EC2::allocateAndAssociateAddress(const Aws::String &instanceId, Aws
 
     // snippet-end:[cpp.example_code.ec2.AllocateAddress]
 
-    // snippet-start:[cpp.example_code.ec2.associateAddress]
     Aws::EC2::Model::AssociateAddressRequest associate_request;
     associate_request.SetInstanceId(instanceId);
     associate_request.SetAllocationId(allocationID);
@@ -70,7 +69,6 @@ bool AwsDoc::EC2::allocateAndAssociateAddress(const Aws::String &instanceId, Aws
 
     std::cout << "Successfully associated Elastic IP address " << allocationID
               << " with instance " << instanceId << std::endl;
-    // snippet-end:[cpp.example_code.ec2.associateAddress]
     // snippet-end:[ec2.cpp.allocate_address.code]
 // snippet-start:[cpp.example_code.ec2.AllocateAddress2]
     return true;

@@ -14,13 +14,18 @@
 #include "rekognition_gtests.h"
 
 namespace AwsDocTest {
+    // Designated _2R_ because it requires resources.
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(ec2_GTests, detect_labels_3_) {
-        MockHTTP mockHttp;
-        bool result = mockHttp.addResponseWithBody("mock_input/DetectLabels.json");
+    TEST_F(Rekognition_GTests, detect_labels_2R_) {
+        Aws::String bucketName = getImageBucket();
+        ASSERT_FALSE(bucketName.empty()) << preconditionError() << std::endl;
+        Aws::String fileName = getImageFileName();
+        Aws::String imageKey = "test_rekognition_cpp.jpg";
+
+        bool result = uploadImage(bucketName, fileName, imageKey);
         ASSERT_TRUE(result) << preconditionError() << std::endl;
 
-    result = AwsDoc::ec2::detectLabels(*s_clientConfig);
-    ASSERT_TRUE(result);
-}
+        result = AwsDoc::Rekognition::detectLabels(bucketName, imageKey, *s_clientConfig);
+        ASSERT_TRUE(result);
+    }
 } // namespace AwsDocTest
