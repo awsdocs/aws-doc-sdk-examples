@@ -46,7 +46,7 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [AllocateAddress](allocate_address.cpp#L75)
+- [AllocateAddress](allocate_address.cpp#L73)
 - [AssociateAddress](associate_address.cpp#L20)
 - [AuthorizeSecurityGroupIngress](authorize_security_group_ingress.cpp#L26)
 - [CreateKeyPair](create_key_pair.cpp#L23)
