@@ -25,7 +25,7 @@
   \param groupName: A security group name.
   \param description: A description.
   \param vpcID: A virtual private cloud (VPC) ID.
-  \param groupIDResult: A string to receive the group ID.
+  \param[out] groupIDResult: A string to receive the group ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */

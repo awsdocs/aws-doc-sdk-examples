@@ -32,14 +32,14 @@ bool AwsDoc::EC2::describeAddresses(
     // snippet-start:[ec2.cpp.describe_addresses.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
     Aws::EC2::Model::DescribeAddressesRequest request;
-    auto outcome = ec2Client.DescribeAddresses(request);
+    Aws::EC2::Model::DescribeAddressesOutcome outcome = ec2Client.DescribeAddresses(request);
     if (outcome.IsSuccess()) {
         std::cout << std::left << std::setw(20) << "InstanceId" <<
                   std::setw(15) << "Public IP" << std::setw(10) << "Domain" <<
                   std::setw(30) << "Allocation ID" << std::setw(25) <<
                   "NIC ID" << std::endl;
 
-        const auto &addresses = outcome.GetResult().GetAddresses();
+        const Aws::Vector<Aws::EC2::Model::Address> &addresses = outcome.GetResult().GetAddresses();
         for (const auto &address: addresses) {
             Aws::String domainString =
                     Aws::EC2::Model::DomainTypeMapper::GetNameForDomainType(

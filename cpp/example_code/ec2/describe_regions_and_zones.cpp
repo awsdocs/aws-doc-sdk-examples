@@ -33,8 +33,7 @@ bool AwsDoc::EC2::describeRegions(
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
 
     Aws::EC2::Model::DescribeRegionsRequest request;
-    auto outcome = ec2Client.DescribeRegions(request);
-    bool result = true;
+    Aws::EC2::Model::DescribeRegionsOutcome outcome = ec2Client.DescribeRegions(request);
     if (outcome.IsSuccess()) {
         std::cout << std::left <<
                   std::setw(32) << "RegionName" <<
@@ -49,13 +48,12 @@ bool AwsDoc::EC2::describeRegions(
     } else {
         std::cerr << "Failed to describe regions:" <<
                   outcome.GetError().GetMessage() << std::endl;
-        result = false;
     }
     // snippet-end:[ec2.cpp.describe_regions.code]
 
     std::cout << std::endl;
 
-    return result;
+    return outcome.IsSuccess();
 
 }
 // snippet-end:[cpp.example_code.ec2.DescribeRegions]

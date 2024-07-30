@@ -35,7 +35,7 @@ bool AwsDoc::EC2::rebootInstance(const Aws::String &instanceId,
     request.AddInstanceIds(instanceId);
     request.SetDryRun(true);
 
-    auto dry_run_outcome = ec2Client.RebootInstances(request);
+    Aws::EC2::Model::RebootInstancesOutcome dry_run_outcome = ec2Client.RebootInstances(request);
     if (dry_run_outcome.IsSuccess()) {
         std::cerr
                 << "Failed dry run to reboot on instance. A dry run should trigger an error."
@@ -50,7 +50,7 @@ bool AwsDoc::EC2::rebootInstance(const Aws::String &instanceId,
     }
 
     request.SetDryRun(false);
-    auto outcome = ec2Client.RebootInstances(request);
+    Aws::EC2::Model::RebootInstancesOutcome outcome = ec2Client.RebootInstances(request);
     if (!outcome.IsSuccess()) {
         std::cout << "Failed to reboot instance " << instanceId << ": " <<
                   outcome.GetError().GetMessage() << std::endl;

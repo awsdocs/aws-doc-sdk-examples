@@ -20,7 +20,7 @@
 #include <iostream>
 #include "ec2_samples.h"
 
-static void BuildSampleIngressRule(
+static void buildSampleIngressRule(
         Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest &authorize_request);
 
 // snippet-start:[cpp.example_code.ec2.AuthorizeSecurityGroupIngress]
@@ -38,7 +38,7 @@ AwsDoc::EC2::authorizeSecurityGroupIngress(const Aws::String &groupID,
     Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest authorizeSecurityGroupIngressRequest;
     authorizeSecurityGroupIngressRequest.SetGroupId(groupID);
     // snippet-end:[ec2.cpp.configure_security_group01.code]
-    BuildSampleIngressRule(authorizeSecurityGroupIngressRequest);
+    buildSampleIngressRule(authorizeSecurityGroupIngressRequest);
 
     // snippet-start:[ec2.cpp.configure_security_group03.code]
     Aws::EC2::Model::AuthorizeSecurityGroupIngressOutcome authorizeSecurityGroupIngressOutcome =
@@ -61,7 +61,7 @@ AwsDoc::EC2::authorizeSecurityGroupIngress(const Aws::String &groupID,
   \param authorize_request: An 'AuthorizeSecurityGroupIngressRequest' instance.
   \return void:
  */
-void BuildSampleIngressRule(
+void buildSampleIngressRule(
         Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest &authorize_request) {
     // snippet-start:[ec2.cpp.configure_security_group02.code]
     Aws::String ingressIPRange = "203.0.113.0/24";  // Configure this for your allowed IP range.

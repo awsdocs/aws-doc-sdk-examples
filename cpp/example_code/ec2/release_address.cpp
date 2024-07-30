@@ -33,7 +33,7 @@ bool AwsDoc::EC2::releaseAddress(const Aws::String &allocationID,
     Aws::EC2::Model::ReleaseAddressRequest request;
     request.SetAllocationId(allocationID);
 
-    auto outcome = ec2.ReleaseAddress(request);
+    Aws::EC2::Model::ReleaseAddressOutcome outcome = ec2.ReleaseAddress(request);
     if (!outcome.IsSuccess()) {
         std::cerr << "Failed to release Elastic IP address " <<
                   allocationID << ":" << outcome.GetError().GetMessage() <<

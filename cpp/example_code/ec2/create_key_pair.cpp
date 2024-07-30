@@ -24,7 +24,7 @@
 //! Create an Amazon Elastic Compute Cloud (Amazon EC2) instance key pair.
 /*!
   \param keyPairName: A name for a key pair.
-  \param keyFilePath: File path where the credentials are stored, Ignored if it is an empty string;
+  \param keyFilePath: File path where the credentials are stored. Ignored if it is an empty string;
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -37,7 +37,7 @@ bool AwsDoc::EC2::createKeyPair(const Aws::String &keyPairName, const Aws::Strin
 
     Aws::EC2::Model::CreateKeyPairOutcome outcome = ec2Client.CreateKeyPair(request);
     if (!outcome.IsSuccess()) {
-        std::cerr << "Failed to create key pair:" <<
+        std::cerr << "Failed to create key pair - "  << keyPairName << ". " <<
                   outcome.GetError().GetMessage() << std::endl;
     } else {
         std::cout << "Successfully created key pair named " <<
@@ -61,15 +61,15 @@ bool AwsDoc::EC2::createKeyPair(const Aws::String &keyPairName, const Aws::Strin
 /*
 *  main function
 *
-*  Usage: 'run_create_key_pair <key_pair_name>'
+*  Usage: 'run_create_key_pair <key_pair_name> [key_file_path]'
 *
 */
 
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    if (argc != 2) {
-        std::cout << "run_create_key_pair <key_pair_name>"
+    if (argc < 2) {
+        std::cout << "Usage: 'run_create_key_pair <key_pair_name> [key_file_path]"
                   << std::endl;
         return 1;
     }
@@ -81,7 +81,10 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
         Aws::String keyPairName = argv[1];
-        Aws::String keyFilePath;  // Optional: Specify a secure file path to store the credentials.
+        Aws::String keyFilePath;
+        if (argc > 2) {
+            keyFilePath = argv[2];
+        }
 
         AwsDoc::EC2::createKeyPair(keyPairName, keyFilePath, clientConfig);
     }

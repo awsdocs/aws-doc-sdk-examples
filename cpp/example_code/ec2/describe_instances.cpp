@@ -35,7 +35,7 @@ bool AwsDoc::EC2::describeInstances(
     bool header = false;
     bool done = false;
     while (!done) {
-        auto outcome = ec2Client.DescribeInstances(request);
+        Aws::EC2::Model::DescribeInstancesOutcome outcome = ec2Client.DescribeInstances(request);
         if (outcome.IsSuccess()) {
             if (!header) {
                 std::cout << std::left <<

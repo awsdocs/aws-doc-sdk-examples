@@ -33,7 +33,7 @@ bool AwsDoc::EC2::deleteSecurityGroup(const Aws::String &securityGroupID,
     Aws::EC2::Model::DeleteSecurityGroupRequest request;
 
     request.SetGroupId(securityGroupID);
-    auto outcome = ec2Client.DeleteSecurityGroup(request);
+    Aws::EC2::Model::DeleteSecurityGroupOutcome outcome = ec2Client.DeleteSecurityGroup(request);
 
     if (!outcome.IsSuccess()) {
         std::cerr << "Failed to delete security group " << securityGroupID <<

@@ -44,7 +44,7 @@ bool AwsDoc::EC2::describeSecurityGroups(const Aws::String &groupID,
             request.SetNextToken(nextToken);
         }
 
-        auto outcome = ec2Client.DescribeSecurityGroups(request);
+        Aws::EC2::Model::DescribeSecurityGroupsOutcome outcome = ec2Client.DescribeSecurityGroups(request);
         if (outcome.IsSuccess()) {
             std::cout << std::left <<
                       std::setw(32) << "Name" <<

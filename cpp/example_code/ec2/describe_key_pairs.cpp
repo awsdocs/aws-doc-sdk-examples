@@ -33,7 +33,7 @@ bool AwsDoc::EC2::describeKeyPairs(
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
     Aws::EC2::Model::DescribeKeyPairsRequest request;
 
-    auto outcome = ec2Client.DescribeKeyPairs(request);
+    Aws::EC2::Model::DescribeKeyPairsOutcome outcome = ec2Client.DescribeKeyPairs(request);
     if (outcome.IsSuccess()) {
         std::cout << std::left <<
                   std::setw(32) << "Name" <<

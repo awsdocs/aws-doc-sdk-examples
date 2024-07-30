@@ -49,7 +49,7 @@ namespace AwsDoc {
         //! Create an EC2 instance key pair.
         /*!
           \param keyPairName: A name for a key pair.
-          \param keyFilePath: File path where the credentials are stored, Ignored if it is an empty string;
+          \param keyFilePath: File path where the credentials are stored. Ignored if it is an empty string;
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
@@ -61,7 +61,7 @@ namespace AwsDoc {
           \param groupName: A security group name.
           \param description: A description.
           \param vpcID: A virtual private cloud (VPC) ID.
-          \param groupIDResult: A string to receive the group ID.
+          \param[out] groupIDResult: A string to receive the group ID.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */

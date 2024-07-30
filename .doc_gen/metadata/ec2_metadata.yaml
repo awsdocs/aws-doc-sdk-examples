@@ -1758,7 +1758,7 @@ ec2_DescribeAvailabilityZones:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.DescribeAddresses
+                - cpp.example_code.ec2.DescribeAvailabilityZones
     Python:
       versions:
         - sdk_version: 3
