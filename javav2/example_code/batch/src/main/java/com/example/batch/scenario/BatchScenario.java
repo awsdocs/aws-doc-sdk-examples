@@ -36,7 +36,7 @@ public class BatchScenario {
 
         System.out.println("""
             AWS Batch is a fully managed batch processing service that dynamically provisions the required compute 
-            resources for batch computing workloads. The Java V2 SDK's `BatchAsyncClient` interface allows 
+            resources for batch computing workloads. The Java V2 `BatchAsyncClient` allows 
             developers to automate the submission, monitoring, and management of batch jobs.
                         
             This scenario provides an example of setting up a compute environment, job queue and job definition, 
