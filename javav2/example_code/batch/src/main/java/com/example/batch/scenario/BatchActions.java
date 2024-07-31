@@ -24,6 +24,7 @@ import software.amazon.awssdk.services.batch.model.ResourceRequirement;
 import software.amazon.awssdk.services.batch.model.SubmitJobRequest;
 import software.amazon.awssdk.services.batch.model.CreateJobQueueResponse;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +32,7 @@ import java.util.concurrent.CompletableFuture;
 
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.batch.model.*;
+import software.amazon.awssdk.services.batch.paginators.ListJobsPublisher;
 import software.amazon.awssdk.services.sts.StsClient;
 import software.amazon.awssdk.services.sts.model.GetCallerIdentityResponse;
 
@@ -65,7 +67,20 @@ public class BatchActions {
     }
 
     // snippet-start:[batch.java2.create_compute.main]
-    public void createComputeEnvironment(String computeEnvironmentName, String batchIAMRole, String subnet, String secGroup) {
+    /**
+     * Asynchronously creates a new compute environment in AWS Batch.
+     *
+     * @param computeEnvironmentName the name of the compute environment to create
+     * @param batchIAMRole the IAM role to be used by the compute environment
+     * @param subnet the subnet ID to be used for the compute environment
+     * @param secGroup the security group ID to be used for the compute environment
+     * @return a {@link CompletableFuture} representing the asynchronous operation, which will complete with the
+     *         {@link CreateComputeEnvironmentResponse} when the compute environment has been created
+     * @throws BatchException if there is an error creating the compute environment
+     * @throws RuntimeException if there is an unexpected error during the operation
+     */
+    public CompletableFuture<CreateComputeEnvironmentResponse> createComputeEnvironmentAsync(
+        String computeEnvironmentName, String batchIAMRole, String subnet, String secGroup) {
         CreateComputeEnvironmentRequest environmentRequest = CreateComputeEnvironmentRequest.builder()
             .computeEnvironmentName(computeEnvironmentName)
             .type(CEType.MANAGED)
@@ -79,21 +94,21 @@ public class BatchActions {
             .serviceRole(batchIAMRole)
             .build();
 
-        CompletableFuture<CreateComputeEnvironmentResponse> future = getAsyncClient().createComputeEnvironment(environmentRequest);
-        future.whenComplete((createComputeEnvironmentResponse, ex) -> {
-            if (createComputeEnvironmentResponse != null) {
-                System.out.println("Compute environment created: " + createComputeEnvironmentResponse.computeEnvironmentArn());
+        CompletableFuture<CreateComputeEnvironmentResponse> response = getAsyncClient().createComputeEnvironment(environmentRequest);
+        response.whenComplete((resp, ex) -> {
+            if (resp != null) {
+                System.out.println("Compute environment created successfully.");
             } else {
-                Throwable cause = ex.getCause();
-                if (cause instanceof BatchException) {
-                    throw (BatchException) cause;
+                if (ex.getCause() instanceof BatchException) {
+                    throw (BatchException) ex.getCause();
                 } else {
-                    throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
+                    String errorMessage = "Unexpected error occurred: " + ex.getMessage();
+                    throw new RuntimeException(errorMessage, ex);
                 }
             }
         });
 
-        future.join();
+        return response;
     }
     // snippet-end:[batch.java2.create_compute.main]
 
@@ -128,34 +143,49 @@ public class BatchActions {
      * @param computeEnvironmentName the name of the compute environment to check
      * @return a CompletableFuture containing the status of the compute environment, or "ERROR" if an exception occurs
      */
-    public static CompletableFuture<String> checkComputeEnvironmentsStatus(String computeEnvironmentName) {
+    public CompletableFuture<String> checkComputeEnvironmentsStatus(String computeEnvironmentName) {
+        if (computeEnvironmentName == null || computeEnvironmentName.isEmpty()) {
+            throw new IllegalArgumentException("Compute environment name cannot be null or empty");
+        }
+
         DescribeComputeEnvironmentsRequest environmentsRequest = DescribeComputeEnvironmentsRequest.builder()
             .computeEnvironments(computeEnvironmentName)
             .build();
 
-        return getAsyncClient().describeComputeEnvironments(environmentsRequest)
-            .thenApply(response -> {
-                String status = response.computeEnvironments().stream()
-                    .map(env -> env.statusAsString())
-                    .findFirst()
-                    .orElse("UNKNOWN");
+        CompletableFuture<DescribeComputeEnvironmentsResponse> response = getAsyncClient().describeComputeEnvironments(environmentsRequest);
+        response.whenComplete((resp, ex) -> {
+            if (resp != null) {
+                System.out.println("Compute environment status retrieved successfully.");
+            } else {
+                if (ex.getCause() instanceof BatchException) {
+                    throw (BatchException) ex.getCause();
+                } else {
+                    String errorMessage = "Unexpected error occurred: " + ex.getMessage();
+                    throw new RuntimeException(errorMessage, ex);
+                }
+            }
+        });
 
-                return status;
-            })
-            .exceptionally(ex -> {
-                ex.printStackTrace();
-                return "ERROR";
-            });
+        return response.thenApply(resp -> resp.computeEnvironments().stream()
+            .map(env -> env.statusAsString())
+            .findFirst()
+            .orElse("UNKNOWN"));
     }
-
     /**
      * Creates a job queue asynchronously.
      *
      * @param jobQueueName the name of the job queue to create
      * @param computeEnvironmentName the name of the compute environment to associate with the job queue
-     * @return a CompletableFuture that completes with the Amazon Resource Name (ARN) of the created job queue
+     * @return a CompletableFuture that completes with the Amazon Resource Name (ARN) of the job queue
      */
     public CompletableFuture<String> createJobQueueAsync(String jobQueueName, String computeEnvironmentName) {
+        if (jobQueueName == null || jobQueueName.isEmpty()) {
+            throw new IllegalArgumentException("Job queue name cannot be null or empty");
+        }
+        if (computeEnvironmentName == null || computeEnvironmentName.isEmpty()) {
+            throw new IllegalArgumentException("Compute environment name cannot be null or empty");
+        }
+
         CreateJobQueueRequest request = CreateJobQueueRequest.builder()
             .jobQueueName(jobQueueName)
             .priority(1)
@@ -165,44 +195,47 @@ public class BatchActions {
                 .build())
             .build();
 
-        CompletableFuture<String> future = getAsyncClient().createJobQueue(request)
-            .thenApply(CreateJobQueueResponse::jobQueueArn)
-            .thenApply(jobQueueArn -> {
-                return jobQueueArn;
-            });
+        CompletableFuture<CreateJobQueueResponse> response = getAsyncClient().createJobQueue(request);
+        response.whenComplete((resp, ex) -> {
+            if (resp != null) {
+                System.out.println("Job queue created successfully.");
+            } else {
+                if (ex.getCause() instanceof BatchException) {
+                    throw (BatchException) ex.getCause();
+                } else {
+                    String errorMessage = "Unexpected error occurred: " + ex.getMessage();
+                    throw new RuntimeException(errorMessage, ex);
+                }
+            }
+        });
 
-        future.join();
-        return future;
+        return response.thenApply(CreateJobQueueResponse::jobQueueArn);
     }
 
     /**
      * Asynchronously lists the jobs in the specified job queue with the given job status.
      *
-     * @param jobQueueName the name of the job queue to list jobs from
-     * @param jobStatus the status of the jobs to list (e.g., "RUNNING", "SUCCEEDED", "FAILED")
-     * @return a CompletableFuture that completes when the job listing is complete
+     * @param jobQueue the name of the job queue to list jobs from
+     * @return a List<JobSummary> that contains the jobs that succeeded
      */
-    public static CompletableFuture<Void> listJobsAsync(String jobQueueName, String jobStatus) {
-        ListJobsRequest jobRequest = ListJobsRequest.builder()
-            .jobQueue(jobQueueName)
-            .jobStatus("STARTING")
+    public List<JobSummary> listJobsAsync(String jobQueue) {
+        if (jobQueue == null || jobQueue.isEmpty()) {
+            throw new IllegalArgumentException("Job queue cannot be null or empty");
+        }
+
+        ListJobsRequest listJobsRequest = ListJobsRequest.builder()
+            .jobQueue(jobQueue)
+            .jobStatus(JobStatus.SUCCEEDED)  // Filter jobs by status
             .build();
 
-        return getAsyncClient().listJobs(jobRequest)
-            .thenAccept(result -> {
-                List<JobSummary> jobs = result.jobSummaryList();
-                System.out.println("Batch jobs applicable to the job queue: " + jobQueueName);
-                for (JobSummary jobSummary : jobs) {
-                    System.out.println("Job Definition Name: " + jobSummary.jobName());
-                    System.out.println("Job Id: " + jobSummary.jobId());
-                }
-            })
-            .exceptionally(ex -> {
-                ex.printStackTrace();
-                return null;
-            });
+        List<JobSummary> jobSummaries = new ArrayList<>();
+        ListJobsPublisher listJobsPaginator = getAsyncClient().listJobsPaginator(listJobsRequest);
+        CompletableFuture<Void> future = listJobsPaginator.subscribe(response -> {
+            jobSummaries.addAll(response.jobSummaryList());
+        });
+        future.join();
+        return jobSummaries;
     }
-
     /**
      * Registers a new job definition asynchronously in AWS Batch.
      * <p>
@@ -252,20 +285,17 @@ public class BatchActions {
 
         CompletableFuture<String> future = new CompletableFuture<>();
         getAsyncClient().registerJobDefinition(request)
-            .thenAccept(response -> {
-                String jobDefinitionArn = response.jobDefinitionArn();
-                System.out.println("Job definition registered: " + jobDefinitionArn);
-                future.complete(jobDefinitionArn);
-            })
-            .exceptionally(ex -> {
-                System.err.println("Failed to register job definition: " + ex.getMessage());
-                future.completeExceptionally(ex);
-                return null;
+            .thenApply(RegisterJobDefinitionResponse::jobDefinitionArn)
+            .whenComplete((result, ex) -> {
+                if (ex != null) {
+                    future.completeExceptionally(ex);
+                } else {
+                    future.complete(result);
+                }
             });
 
         return future;
     }
-
     /**
      * Deregisters a job definition asynchronously.
      *
@@ -331,7 +361,7 @@ public class BatchActions {
      *         If successful, the future will be completed with a {@code Void} value.
      *         If an error occurs, the future will be completed exceptionally with the thrown exception.
      */
-    public static CompletableFuture<Void> deleteJobQueueAsync(String jobQueueArn) {
+    public CompletableFuture<Void> deleteJobQueueAsync(String jobQueueArn) {
         DeleteJobQueueRequest deleteRequest = DeleteJobQueueRequest.builder()
             .jobQueue(jobQueueArn)
             .build();
@@ -414,20 +444,19 @@ public class BatchActions {
             .jobQueue(jobQueueName)
             .build();
 
-        CompletableFuture<String> future = new CompletableFuture<>();
-        getAsyncClient().submitJob(jobRequest)
-            .thenAccept(response -> {
-                String jobId = response.jobId();
-                System.out.println("Submitted job with ID: " + jobId);
-                future.complete(jobId); // Complete the CompletableFuture on successful execution
-            })
-            .exceptionally(ex -> {
-                System.err.println("Failed to submit job: " + ex.getMessage());
-                future.completeExceptionally(ex); // Complete the CompletableFuture exceptionally on error.
-                return null;
-            });
-
-        return future;
+        CompletableFuture<SubmitJobResponse> responseFuture = getAsyncClient().submitJob(jobRequest);
+        return responseFuture.thenApply(response -> {
+            String jobId = response.jobId();
+            System.out.println("Job submitted successfully. Job ID: " + jobId);
+            return jobId;
+        }).exceptionally(ex -> {
+            if (ex.getCause() instanceof BatchException) {
+                throw (BatchException) ex.getCause();
+            } else {
+                String errorMessage = "Unexpected error occurred: " + ex.getMessage();
+                throw new RuntimeException(errorMessage, ex);
+            }
+        });
     }
 
     /**
@@ -441,17 +470,26 @@ public class BatchActions {
             .jobs(jobId)
             .build();
 
+        // Create a new CompletableFuture to return
         CompletableFuture<String> future = new CompletableFuture<>();
+
         getAsyncClient().describeJobs(describeJobsRequest)
-            .thenAccept(response -> {
-                JobDetail jobDetail = response.jobs().get(0);
-                String jobStatus = String.valueOf(jobDetail.status());
-                future.complete(jobStatus);
-            })
-            .exceptionally(ex -> {
-                System.err.println("Failed to describe job: " + ex.getMessage());
-                future.completeExceptionally(ex); // Complete the CompletableFuture exceptionally on error
-                return null;
+            .whenComplete((response, ex) -> {
+                if (response != null) {
+                    // Extract the job status from the response
+                    JobDetail jobDetail = response.jobs().get(0);
+                    String jobStatus = String.valueOf(jobDetail.status());
+                    System.out.println("Job status retrieved successfully. Status: " + jobStatus);
+                    future.complete(jobStatus);
+                } else {
+                    // Handle the exception
+                    if (ex.getCause() instanceof BatchException) {
+                        future.completeExceptionally((BatchException) ex.getCause());
+                    } else {
+                        String errorMessage = "Unexpected error occurred: " + ex.getMessage();
+                        future.completeExceptionally(new RuntimeException(errorMessage, ex));
+                    }
+                }
             });
 
         return future;
@@ -475,7 +513,7 @@ public class BatchActions {
                         }
                     }
                 }
-                return jobQueueARN; // If no match is found, return the empty ARN
+                return jobQueueARN;
             })
             .exceptionally(ex -> {
                 ex.printStackTrace();
@@ -506,7 +544,7 @@ public class BatchActions {
             if (!isDisabled) {
                 try {
                     System.out.println("Waiting for job queue to be disabled...");
-                    Thread.sleep(5000); // Wait for 5 seconds before checking again
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     throw new RuntimeException("Thread interrupted while waiting for job queue to be disabled", e);
@@ -530,8 +568,7 @@ public class BatchActions {
             .build();
 
         GetCallerIdentityResponse callerIdentityResponse = stsClient.getCallerIdentity();
-        String accountId = callerIdentityResponse.account();
-        return accountId;
+        return callerIdentityResponse.account();
     }
 }
 

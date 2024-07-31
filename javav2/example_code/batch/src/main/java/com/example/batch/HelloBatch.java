@@ -9,11 +9,10 @@ import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.batch.BatchAsyncClient;
+import software.amazon.awssdk.services.batch.model.JobStatus;
 import software.amazon.awssdk.services.batch.model.JobSummary;
-import software.amazon.awssdk.services.batch.model.KeyValuesPair;
 import software.amazon.awssdk.services.batch.model.ListJobsRequest;
-import software.amazon.awssdk.services.batch.model.ListJobsResponse;
-
+import software.amazon.awssdk.services.batch.paginators.ListJobsPublisher;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,28 +22,33 @@ public class HelloBatch {
     private static BatchAsyncClient batchClient;
 
     public static void main(String[] args) {
-        listJobs();
+        List<JobSummary> jobs = listJobs("my-job-queue");
+        jobs.forEach(job ->
+            System.out.printf("Job ID: %s, Job Name: %s, Job Status: %s%n",
+                job.jobId(), job.jobName(), job.status())
+        );
 
     }
 
-    public static void listJobs() {
+    public static List<JobSummary> listJobs(String jobQueue) {
+        if (jobQueue == null || jobQueue.isEmpty()) {
+            throw new IllegalArgumentException("Job queue cannot be null or empty");
+        }
+
         ListJobsRequest listJobsRequest = ListJobsRequest.builder()
-            .jobQueue("JobQueuejavav2923E863E-Z0RmiyCBqGbvApUJ")
-            .jobStatus("RUNNING")  // Filter jobs by status
+            .jobQueue(jobQueue)
+            .jobStatus(JobStatus.SUCCEEDED)  // Filter jobs by status
             .build();
 
-        CompletableFuture<ListJobsResponse> listJobsResponseFuture = getAsyncClient().listJobs(listJobsRequest);
-        listJobsResponseFuture.thenAccept(response -> {
-            List<JobSummary> jobs = response.jobSummaryList();
-            if (jobs.isEmpty()) {
-                System.out.println("There are no running jobs.");
-            } else {
-                for (JobSummary job : jobs) {
-                    System.out.printf("Job ID: %s, Job Name: %s, Job Status: %s%n",
-                        job.jobId(), job.jobName(), job.status());
-                }
-            }
-        }).join();
+        List<JobSummary> jobSummaries = new ArrayList<>();
+        ListJobsPublisher listJobsPaginator = getAsyncClient().listJobsPaginator(listJobsRequest);
+        CompletableFuture<Void> future = listJobsPaginator.subscribe(response -> {
+            jobSummaries.addAll(response.jobSummaryList());
+        });
+
+        // Wait for the future to complete
+        future.join();
+        return jobSummaries;
     }
 
     private static BatchAsyncClient getAsyncClient() {
