@@ -1093,14 +1093,12 @@ aurora_DeleteDBInstance:
   services:
     aurora: {DeleteDBInstance}
 aurora_Scenario_GetStartedClusters:
-  title: Get started with &AUR; DB clusters using an &AWS; SDK
-  title_abbrev: Get started with DB clusters
   synopsis_list:
     - Create a custom &AUR; DB cluster parameter group and set parameter values.
     - Create a DB cluster that uses the parameter group.
     - Create a DB instance that contains a database.
     - Take a snapshot of the DB cluster, then clean up resources.
-  category: Scenarios
+  category: Basics
   languages:
     .NET:
       versions:

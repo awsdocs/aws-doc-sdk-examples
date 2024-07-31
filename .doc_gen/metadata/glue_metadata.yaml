@@ -1120,15 +1120,13 @@ glue_GetJob:
   services:
     glue: {GetJob}
 glue_Scenario_GetStartedCrawlersJobs:
-  title: Get started running &GLU; crawlers and jobs using an &AWS; SDK
-  title_abbrev: Get started with crawlers and jobs
   synopsis_list:
     - Create a crawler that crawls a public &S3; bucket and generates a database of CSV-formatted metadata.
     - List information about databases and tables in your &GLUDCLong;.
     - Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another
       S3 bucket.
     - List information about job runs, view transformed data, and clean up resources.
-  category: Scenarios
+  category: Basics
   guide_topic:
     title: 'Tutorial: Getting started with &GLU; Studio'
     url: glue/latest/ug/tutorial-create-job.html

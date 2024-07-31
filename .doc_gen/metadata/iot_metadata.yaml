@@ -429,10 +429,8 @@ iot_CreateThing:
   services:
     iot: {CreateThing}
 iot_Scenario:
-  title: Work with &IoT; devices, things, and shadows using &IoT; SDK
-  title_abbrev: Work with device management use cases
-  synopsis: work with &IoT; device management use cases using &IoT; SDK
-  category: Scenarios
+  synopsis: work with &IoT; device management.
+  category: Basics
   languages:
     Kotlin:
       versions:

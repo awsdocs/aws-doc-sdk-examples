@@ -1804,8 +1804,6 @@ dynamodb_Usage_DaxDemo:
   services:
     dynamodb: {CreateTable, PutItem, GetItem, Query, Scan, DeleteTable}
 dynamodb_Scenario_GettingStartedMovies:
-  title: Get started with &DDB; tables, items, and queries using an &AWS; SDK
-  title_abbrev: Get started with tables, items, and queries
   synopsis_list:
     - Create a table that can hold movie data.
     - Put, get, and update a single movie in the table.
@@ -1813,7 +1811,7 @@ dynamodb_Scenario_GettingStartedMovies:
     - Query for movies that were released in a given year.
     - Scan for movies that were released in a range of years.
     - Delete a movie from the table, then delete the table.
-  category: Scenarios
+  category: Basics
   languages:
     .NET:
       versions:

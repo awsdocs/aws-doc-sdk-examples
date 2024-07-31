@@ -1026,8 +1026,6 @@ cloudwatch_PutMetricData:
   services:
     cloudwatch: {PutMetricData}
 cloudwatch_GetStartedMetricsDashboardsAlarms:
-  title: Get started with &CW; metrics, dashboards, and alarms using an &AWS; SDK
-  title_abbrev: Get started with metrics, dashboards, and alarms
   synopsis_list:
     - List &CW; namespaces and metrics.
     - Get statistics for a metric and for estimated billing.
@@ -1036,7 +1034,7 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
     - Create and trigger an alarm, then view alarm history.
     - Add an anomaly detector.
     - Get a metric image, then clean up resources.
-  category: Scenarios
+  category: Basics
   languages:
     Kotlin:
       versions:
