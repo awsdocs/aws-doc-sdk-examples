@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 package com.example.s3.batch;
-
+// snippet-start:[s3control.java2.list_jobs.main]
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.core.retry.RetryPolicy;
@@ -83,7 +83,7 @@ public class HelloS3Batch {
         return asyncClient;
     }
 
-    // snippet-start:[s3control.java2.list_jobs.main]
+
     /**
      * Asynchronously lists batch jobs that have completed for the specified account.
      *

@@ -1,3 +1,21 @@
+s3-control_Hello:
+  title: Hello &S3Control;
+  title_abbrev: Hello '&S3Control;'
+  synopsis: get started using '&S3Control;'
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3control.java2.list_jobs.main
+  services:
+    s3-control: {ListJobsPaginator}
+
 s3-control_CreateJob:
   languages:
     Java:
@@ -63,19 +81,6 @@ s3-control_GetJobTagging:
                 - s3control.java2.get_job_tagging.main
   services:
     s3-control: {GetJobTagging}   
-s3-control_ListJobs:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/s3
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - s3control.java2.list_jobs.main
-  services:
-    s3-control: {ListJobs}   
 s3-control_UpdateJobStatus:
   languages:
     Java:
