@@ -3,6 +3,7 @@
 
 // snippet-start:[s3control.java2.job.scenario.main]
 package com.example.s3.batch;
+
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import java.io.IOException;
 import java.util.Map;
@@ -176,22 +177,7 @@ public class S3BatchScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("7. List Batch Jobs");
-        waitForInputToContinue(scanner);
-        try {
-            actions.listBatchJobsAsync(accountId)
-                .exceptionally(ex -> {
-                    System.err.println("List batch jobs failed: " + ex.getMessage());
-                    return null;
-                })
-                .join(); // Wait for completion
-        } catch (CompletionException ex) {
-            System.err.println("Failed to list batch jobs: " + ex.getMessage());
-        }
-        System.out.println(DASHES);
-
-        System.out.println(DASHES);
-        System.out.println("8. Delete the Amazon S3 Batch job tagging.");
+        System.out.println("7. Delete the Amazon S3 Batch job tagging.");
         System.out.print("Do you want to delete Batch job tagging? (y/n)");
         String delAns = scanner.nextLine();
         if (delAns != null && delAns.trim().equalsIgnoreCase("y")) {
@@ -215,8 +201,13 @@ public class S3BatchScenario {
         String delResAns = scanner.nextLine();
         if (delResAns != null && delResAns.trim().equalsIgnoreCase("y")) {
             actions.deleteFilesFromBucket(bucketName, fileNames, actions);
-            actions. deleteBucketFolder(bucketName);
-            actions.deleteBucket(bucketName);
+            actions.deleteBucketFolderAsync(bucketName);
+            actions.deleteBucket(bucketName)
+                .thenRun(() -> System.out.println("Bucket deletion completed"))
+                .exceptionally(ex -> {
+                    System.err.println("Error occurred: " + ex.getMessage());
+                    return null;
+                });
             CloudFormationHelper.destroyCloudFormationStack(STACK_NAME);
         } else {
             System.out.println("The AWS resources were not deleted.");

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.s3.batch.CloudFormationHelper;
+import com.example.s3.batch.HelloS3Batch;
 import com.example.s3.batch.S3BatchActions;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
@@ -61,7 +62,7 @@ public class S3BatchTest {
         if (actions != null) {
             String[] fileNames = {"job-manifest.csv", "object-key-1.txt", "object-key-2.txt", "object-key-3.txt", "object-key-4.txt"};
             actions.deleteFilesFromBucket(bucketName, fileNames, actions);
-            actions.deleteBucketFolder(bucketName);
+            actions.deleteBucketFolderAsync(bucketName);
             actions.deleteBucket(bucketName);
             CloudFormationHelper.destroyCloudFormationStack(STACK_NAME);
         }
@@ -151,7 +152,7 @@ public class S3BatchTest {
     @Order(4)
     public void testListBatchJobs() {
         try {
-            actions.listBatchJobsAsync(accountId)
+            HelloS3Batch.listBatchJobsAsync(accountId)
                 .exceptionally(ex -> {
                     fail("List batch jobs failed: " + ex.getMessage());
                     return null;

@@ -14,7 +14,9 @@ import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
 import software.amazon.awssdk.services.s3.model.Delete;
+import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.DeleteObjectResponse;
 import software.amazon.awssdk.services.s3.model.DeleteObjectsRequest;
 import software.amazon.awssdk.services.s3.model.HeadBucketRequest;
 import software.amazon.awssdk.services.s3.model.HeadBucketResponse;
@@ -26,7 +28,6 @@ import software.amazon.awssdk.services.s3.model.ObjectIdentifier;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
-import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.services.s3.waiters.S3Waiter;
 import software.amazon.awssdk.services.s3control.S3ControlAsyncClient;
 import software.amazon.awssdk.services.s3control.model.CreateJobRequest;
@@ -34,14 +35,12 @@ import software.amazon.awssdk.services.s3control.model.CreateJobResponse;
 import software.amazon.awssdk.services.s3control.model.DeleteJobTaggingRequest;
 import software.amazon.awssdk.services.s3control.model.DescribeJobRequest;
 import software.amazon.awssdk.services.s3control.model.GetJobTaggingRequest;
-import software.amazon.awssdk.services.s3control.model.JobListDescriptor;
 import software.amazon.awssdk.services.s3control.model.JobManifest;
 import software.amazon.awssdk.services.s3control.model.JobManifestLocation;
 import software.amazon.awssdk.services.s3control.model.JobManifestSpec;
 import software.amazon.awssdk.services.s3control.model.JobOperation;
 import software.amazon.awssdk.services.s3control.model.JobReport;
 import software.amazon.awssdk.services.s3control.model.JobStatus;
-import software.amazon.awssdk.services.s3control.model.ListJobsRequest;
 import software.amazon.awssdk.services.s3control.model.PutJobTaggingRequest;
 import software.amazon.awssdk.services.s3control.model.S3ControlException;
 import software.amazon.awssdk.services.s3control.model.S3SetObjectTaggingOperation;
@@ -50,17 +49,13 @@ import software.amazon.awssdk.services.s3control.model.UpdateJobPriorityRequest;
 import software.amazon.awssdk.services.s3control.model.UpdateJobStatusRequest;
 import software.amazon.awssdk.services.sts.StsClient;
 import software.amazon.awssdk.services.sts.model.GetCallerIdentityResponse;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.stream.Collectors;
@@ -203,35 +198,6 @@ public class S3BatchActions {
     }
     // snippet-end:[s3control.java2.update_job.main]
 
-    // snippet-start:[s3control.java2.list_jobs.main]
-    /**
-     * Asynchronously lists batch jobs that have completed for the specified account.
-     *
-     * @param accountId the ID of the account to list jobs for
-     * @return a CompletableFuture that completes when the job listing operation is finished
-     */
-    public CompletableFuture<Void> listBatchJobsAsync(String accountId) {
-        ListJobsRequest jobsRequest = ListJobsRequest.builder()
-            .jobStatuses(JobStatus.COMPLETE)
-            .accountId(accountId)
-            .maxResults(10)
-            .build();
-
-        return asyncClient.listJobs(jobsRequest)
-            .thenAccept(response -> {
-                List<JobListDescriptor> jobs = response.jobs();
-                for (JobListDescriptor job : jobs) {
-                    System.out.println("The job id is " + job.jobId());
-                    System.out.println("The job priority is " + job.priority());
-                }
-            })
-            .exceptionally(ex -> {
-                System.err.println("Failed to list batch jobs: " + ex.getMessage());
-                throw new RuntimeException(ex); // Propagate the exception
-            });
-    }
-    // snippet-end:[s3control.java2.list_jobs.main]
-
     // snippet-start:[s3control.java2.get_job_tagging.main]
     /**
      * Asynchronously retrieves the tags associated with a specific job in an AWS account.
@@ -306,7 +272,7 @@ public class S3BatchActions {
             .accountId(accountId)
             .build();
 
-        return asyncClient.describeJob(jobRequest)
+        return getAsyncClient().describeJob(jobRequest)
             .thenAccept(response -> {
                 System.out.println("Job ID: " + response.job().jobId());
                 System.out.println("Description: " + response.job().description());
@@ -337,7 +303,7 @@ public class S3BatchActions {
             })
             .exceptionally(ex -> {
                 System.err.println("Failed to describe job: " + ex.getMessage());
-                throw new RuntimeException(ex); // Propagate the exception
+                throw new RuntimeException(ex);
             });
     }
     // snippet-end:[s3control.java2.describe_job.main]
@@ -499,6 +465,12 @@ public class S3BatchActions {
     // snippet-end:[s3control.java2.job.put.tags.main]
 
     // Setup the S3 bucket required for this scenario.
+    /**
+     * Creates an Amazon S3 bucket with the specified name.
+     *
+     * @param bucketName the name of the S3 bucket to create
+     * @throws S3Exception if there is an error creating the bucket
+     */
     public void createBucket(String bucketName) {
         try {
             S3Client s3Client = S3Client.builder()
@@ -527,6 +499,13 @@ public class S3BatchActions {
         }
     }
 
+    /**
+     * Uploads a file to an Amazon S3 bucket asynchronously.
+     *
+     * @param bucketName the name of the S3 bucket to upload the file to
+     * @param fileName the name of the file to be uploaded
+     * @throws RuntimeException if an error occurs during the file upload
+     */
     public void populateBucket(String bucketName, String fileName) {
         // Define the path to the directory.
         Path filePath = Paths.get("src/main/resources/batch/", fileName).toAbsolutePath();
@@ -570,7 +549,15 @@ public class S3BatchActions {
         }
     }
 
-    public static void deleteBucketObjects(String bucketName, String objectName) {
+    /**
+     * Deletes an object from an Amazon S3 bucket asynchronously.
+     *
+     * @param bucketName The name of the S3 bucket where the object is stored.
+     * @param objectName The name of the object to be deleted.
+     * @return A {@link CompletableFuture} that completes when the object has been deleted,
+     *         or throws a {@link RuntimeException} if an error occurs during the deletion.
+     */
+    public CompletableFuture<Void> deleteBucketObjects(String bucketName, String objectName) {
         ArrayList<ObjectIdentifier> toDelete = new ArrayList<>();
         toDelete.add(ObjectIdentifier.builder()
             .key(objectName)
@@ -582,60 +569,90 @@ public class S3BatchActions {
                 .objects(toDelete).build())
             .build();
 
-        getS3AsyncClient().deleteObjects(dor)
+        return getS3AsyncClient().deleteObjects(dor)
             .thenAccept(result -> {
                 System.out.println("The object was deleted!");
             })
             .exceptionally(ex -> {
-                System.err.println("Error deleting object: " + ex.getMessage());
-                return null;
+                throw new RuntimeException("Error deleting object: " + ex.getMessage(), ex);
             });
     }
 
-    public void deleteBucketFolder(String bucketName){
-        S3Client s3Client = S3Client.builder()
-            .region(Region.US_EAST_1)
-            .build();
-
+    /**
+     * Deletes a folder and all its contents asynchronously from an Amazon S3 bucket.
+     *
+     * @param bucketName the name of the S3 bucket containing the folder to be deleted
+     * @return a {@link CompletableFuture} that completes when the folder and its contents have been deleted
+     * @throws RuntimeException if any error occurs during the deletion process
+     */
+    public void deleteBucketFolderAsync(String bucketName) {
         String folderName = "reports/";
-
-        // List all objects in the folder
         ListObjectsV2Request request = ListObjectsV2Request.builder()
             .bucket(bucketName)
             .prefix(folderName)
             .build();
 
-        ListObjectsV2Response response = s3Client.listObjectsV2(request);
-        List<S3Object> objects = response.contents();
+        CompletableFuture<ListObjectsV2Response> listObjectsFuture = getS3AsyncClient().listObjectsV2(request);
+        listObjectsFuture.thenCompose(response -> {
+            List<CompletableFuture<DeleteObjectResponse>> deleteFutures = response.contents().stream()
+                .map(obj -> {
+                    DeleteObjectRequest deleteRequest = DeleteObjectRequest.builder()
+                        .bucket(bucketName)
+                        .key(obj.key())
+                        .build();
+                    return getS3AsyncClient().deleteObject(deleteRequest)
+                        .thenApply(deleteResponse -> {
+                            System.out.println("Deleted object: " + obj.key());
+                            return deleteResponse;
+                        });
+                })
+                .collect(Collectors.toList());
 
-        // Delete all objects in the folder
-        for (S3Object obj : objects) {
-            DeleteObjectRequest deleteRequest = DeleteObjectRequest.builder()
+            return CompletableFuture.allOf(deleteFutures.toArray(new CompletableFuture[0]))
+                .thenCompose(v -> {
+                    // Delete the folder.
+                    DeleteObjectRequest deleteRequest = DeleteObjectRequest.builder()
+                        .bucket(bucketName)
+                        .key(folderName)
+                        .build();
+                    return getS3AsyncClient().deleteObject(deleteRequest)
+                        .thenApply(deleteResponse -> {
+                            System.out.println("Deleted folder: " + folderName);
+                            return deleteResponse;
+                        });
+                });
+        }).join();
+    }
+
+    /**
+     * Deletes an Amazon S3 bucket.
+     *
+     * @param bucketName the name of the bucket to delete
+     * @return a {@link CompletableFuture} that completes when the bucket has been deleted, or exceptionally if there is an error
+     * @throws RuntimeException if there is an error deleting the bucket
+     */
+    public CompletableFuture<Void> deleteBucket(String bucketName) {
+        S3AsyncClient s3Client = getS3AsyncClient();
+        return s3Client.deleteBucket(DeleteBucketRequest.builder()
                 .bucket(bucketName)
-                .key(obj.key())
-                .build();
-            s3Client.deleteObject(deleteRequest);
-            System.out.println("Deleted object: " + obj.key());
-        }
-
-        // Delete the folder
-        DeleteObjectRequest deleteRequest = DeleteObjectRequest.builder()
-            .bucket(bucketName)
-            .key(folderName)
-            .build();
-        s3Client.deleteObject(deleteRequest);
-        System.out.println("Deleted folder: " + folderName);
+                .build())
+            .thenAccept(deleteBucketResponse -> {
+                System.out.println(bucketName + " was deleted");
+            })
+            .exceptionally(ex -> {
+                // Handle the exception or rethrow it.
+                throw new RuntimeException("Failed to delete bucket: " + bucketName, ex);
+            });
     }
 
-    public void deleteBucket(String bucketName){
-        S3Client s3Client = S3Client.builder()
-            .region(Region.US_EAST_1)
-            .build();
-
-        s3Client.deleteBucket(r->r.bucket(bucketName));
-        System.out.println(bucketName +" was deleted");
-    }
-
+    /**
+     * Uploads a set of files to an Amazon S3 bucket.
+     *
+     * @param bucketName the name of the S3 bucket to upload the files to
+     * @param fileNames an array of file names to be uploaded
+     * @param actions an instance of {@link S3BatchActions} that provides the implementation for the necessary S3 operations
+     * @throws IOException if there's an error creating the text files or uploading the files to the S3 bucket
+     */
     public static void uploadFilesToBucket(String bucketName, String[] fileNames, S3BatchActions actions) throws IOException {
         actions.updateCSV(bucketName);
         createTextFiles(fileNames);
@@ -645,15 +662,27 @@ public class S3BatchActions {
         System.out.println("All files are placed in the S3 bucket " + bucketName);
     }
 
-    public static void deleteFilesFromBucket(String bucketName, String[] fileNames, S3BatchActions actions) throws IOException {
+    /**
+     * Deletes the specified files from the given S3 bucket.
+     *
+     * @param bucketName the name of the S3 bucket
+     * @param fileNames an array of file names to be deleted from the bucket
+     * @param actions the S3BatchActions instance to be used for the file deletion
+     * @throws IOException if an I/O error occurs during the file deletion
+     */
+    public void deleteFilesFromBucket(String bucketName, String[] fileNames, S3BatchActions actions) throws IOException {
         for (String fileName : fileNames) {
-            actions.deleteBucketObjects(bucketName, fileName);
+                   actions.deleteBucketObjects(bucketName, fileName)
+                  .thenRun(() -> System.out.println("Object deletion completed"))
+                  .exceptionally(ex -> {
+                      System.err.println("Error occurred: " + ex.getMessage());
+                      return null;
+                  });
         }
         System.out.println("All files have been deleted from the bucket " + bucketName);
     }
 
     public static void createTextFiles(String[] fileNames) {
-        // Get the current directory using Java
         String currentDirectory = System.getProperty("user.dir");
         String directoryPath = currentDirectory + "\\src\\main\\resources\\batch";
         Path path = Paths.get(directoryPath);
@@ -685,8 +714,8 @@ public class S3BatchActions {
                     }
                 }
             }
+
         } catch (IOException e) {
-            // Handle exceptions
             System.err.println("An error occurred: " + e.getMessage());
             e.printStackTrace();
         }
@@ -698,8 +727,7 @@ public class S3BatchActions {
             .build();
 
         GetCallerIdentityResponse callerIdentityResponse = stsClient.getCallerIdentity();
-        String accountId = callerIdentityResponse.account();
-        return accountId;
+        return callerIdentityResponse.account();
     }
 }
 // snippet-end:[s3control.java2.job.actions.main]
