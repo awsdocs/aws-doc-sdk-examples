@@ -6,14 +6,14 @@ This document outlines the technical specifications for the _Amazon S3 Batch Bas
 
 
 ## Resources
-The required resources is an IAM role that is automatically created using an AWS CloudFormation template.
+The required resource is an IAM role that is automatically created using an AWS CloudFormation template.
 
 ## Scenario Program Flow
 The Amazon S3 Batch basic scenario executes the following steps:
 
 1. **Introduce Amazon S3 Batch**: The program provides a brief introduction to Amazon S3 Batch functionality.
 
-2. **Stand up the resources**: Uses Amazon CloudFormation to create the resources.
+2. **Create resources**: Uses Amazon CloudFormation to create the resources.
 
 3. **Create Batch Job**: The program creates an S3 Batch job.
 
