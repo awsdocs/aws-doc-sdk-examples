@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import com.example.scenario.SSMActions;
+import com.example.scenario.SSMScenario;
 import com.example.ssm.*;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
@@ -100,25 +102,32 @@ public class AWSSSMTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void InvokeScenario() throws InterruptedException {
+    public void InvokeScenario() {
+        SSMActions actions = new SSMActions();
         String currentDateTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String maintenanceWindowName = "windowmain_" + currentDateTime;
-        String title = "Disk Space Alert" ;
+        String title = "Disk Space Alert";
         String documentName = "doc_" + currentDateTime;
-        String maintenanceWindowId = assertDoesNotThrow(() -> com.example.scenario.SSMScenario.createMaintenanceWindow(ssmClient, maintenanceWindowName));
-        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.updateSSMMaintenanceWindow(ssmClient, maintenanceWindowId, maintenanceWindowName));
-        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.createSSMDoc(ssmClient, documentName));
-        String commandId = assertDoesNotThrow(() ->  com.example.scenario.SSMScenario.sendSSMCommand(ssmClient, documentName, instance));
 
-        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.displayCommands(ssmClient, commandId));
-        String opsItemId = assertDoesNotThrow(() ->com.example.scenario.SSMScenario.createSSMOpsItem(ssmClient, title, source, category, severity));
-        String description = "An update to "+opsItemId ;
-        assertDoesNotThrow(() ->com.example.scenario.SSMScenario.updateOpsItem(ssmClient, opsItemId, title, description));
-        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.describeOpsItems(ssmClient, opsItemId));
-        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.resolveOpsItem(ssmClient, opsItemId));
-        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.deleteDoc(ssmClient, documentName));
-        assertDoesNotThrow(() -> com.example.scenario.SSMScenario.deleteMaintenanceWindow(ssmClient, maintenanceWindowId));
-        System.out.println("Test 3 passed");
+        // Assuming the createMaintenanceWindow method exists and is implemented correctly in SSMActions
+        String maintenanceWindowId = assertDoesNotThrow(() -> actions.createMaintenanceWindow(maintenanceWindowName));
+        assertDoesNotThrow(() -> actions.updateSSMMaintenanceWindow(maintenanceWindowId, maintenanceWindowName));
+        assertDoesNotThrow(() -> actions.createSSMDoc(documentName));
+
+        // Assuming 'instance' is defined and accessible
+        String commandId = assertDoesNotThrow(() -> actions.sendSSMCommand(documentName, instance));
+        assertDoesNotThrow(() -> actions.displayCommands(commandId));
+
+        // Assuming 'source', 'category', and 'severity' are defined and accessible
+        String opsItemId = assertDoesNotThrow(() -> actions.createSSMOpsItem(title, source, category, severity));
+        String description = "An update to " + opsItemId;
+        assertDoesNotThrow(() -> actions.updateOpsItem(opsItemId, title, description));
+        assertDoesNotThrow(() -> actions.describeOpsItems(opsItemId));
+        assertDoesNotThrow(() -> actions.resolveOpsItem(opsItemId));
+        assertDoesNotThrow(() -> actions.deleteDoc(documentName));
+        assertDoesNotThrow(() -> actions.deleteMaintenanceWindow(maintenanceWindowId));
+
+        System.out.println("Test passed");
     }
 
    private static String getSecretValues() {
