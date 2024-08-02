@@ -17,6 +17,7 @@ CLASS ltc_zcl_aws1_bdr_actions DEFINITION FOR TESTING DURATION LONG RISK LEVEL H
     METHODS test_stable_diffusion FOR TESTING RAISING /aws1/cx_rt_generic.
 
     METHODS test_l2_claude_v2 FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS test_l2_claude_v3 FOR TESTING RAISING /aws1/cx_rt_generic.
     METHODS test_l2_stable_diffusion FOR TESTING RAISING /aws1/cx_rt_generic.
 
     METHODS setup RAISING /aws1/cx_rt_generic.
@@ -42,6 +43,12 @@ CLASS ltc_zcl_aws1_bdr_actions IMPLEMENTATION.
   ENDMETHOD.
   METHOD test_l2_claude_v2.
     DATA(lv_joke) = ao_bdr_actions->l2_prompt_claude_v2(
+      'Tell me a joke about ABAP programmers and Java programmers walking into a bar' ).
+    cl_abap_unit_assert=>assert_not_initial( act = lv_joke ).
+  ENDMETHOD.
+
+  METHOD test_l2_claude_v3.
+    DATA(lv_joke) = ao_bdr_actions->l2_prompt_claude_v3(
       'Tell me a joke about ABAP programmers and Java programmers walking into a bar' ).
     cl_abap_unit_assert=>assert_not_initial( act = lv_joke ).
   ENDMETHOD.
