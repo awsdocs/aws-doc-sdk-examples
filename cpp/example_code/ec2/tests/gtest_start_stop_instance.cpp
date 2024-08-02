@@ -19,12 +19,12 @@ namespace AwsDocTest {
         auto instanceID = getCachedInstanceID();
         ASSERT_FALSE(instanceID.empty()) << preconditionError << std::endl;
 
-        auto result = AwsDoc::EC2::StopInstance(instanceID, *s_clientConfig);
+        auto result = AwsDoc::EC2::stopInstance(instanceID, *s_clientConfig);
         ASSERT_TRUE(result);
         waitWhileInstanceInState(instanceID,
                                  Aws::EC2::Model::InstanceStateName::stopping);
 
-        result = AwsDoc::EC2::StartInstance(instanceID, *s_clientConfig);
+        result = AwsDoc::EC2::startInstance(instanceID, *s_clientConfig);
         ASSERT_TRUE(result);
 
         waitWhileInstanceInState(instanceID,

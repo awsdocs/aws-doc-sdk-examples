@@ -17,7 +17,7 @@ namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(EC2_GTests, describe_security_groups_2_) {
 
-        auto result = AwsDoc::EC2::DescribeSecurityGroups("", *s_clientConfig);
+        auto result = AwsDoc::EC2::describeSecurityGroups("", *s_clientConfig);
         ASSERT_TRUE(result);
     }
 

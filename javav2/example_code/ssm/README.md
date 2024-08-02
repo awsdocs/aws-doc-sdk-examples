@@ -38,17 +38,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDocument](src/main/java/com/example/scenario/SSMScenario.java#L475)
-- [CreateMaintenanceWindow](src/main/java/com/example/scenario/SSMScenario.java#L429)
-- [CreateOpsItem](src/main/java/com/example/scenario/SSMScenario.java#L227)
-- [DeleteDocument](src/main/java/com/example/scenario/SSMScenario.java#L371)
-- [DeleteMaintenanceWindow](src/main/java/com/example/scenario/SSMScenario.java#L389)
-- [DescribeOpsItems](src/main/java/com/example/scenario/SSMScenario.java#L517)
+- [CreateDocument](src/main/java/com/example/scenario/SSMActions.java#L481)
+- [CreateMaintenanceWindow](src/main/java/com/example/scenario/SSMActions.java#L569)
+- [CreateOpsItem](src/main/java/com/example/scenario/SSMActions.java#L314)
+- [DeleteDocument](src/main/java/com/example/scenario/SSMActions.java#L92)
+- [DeleteMaintenanceWindow](src/main/java/com/example/scenario/SSMActions.java#L131)
+- [DescribeOpsItems](src/main/java/com/example/scenario/SSMActions.java#L210)
 - [DescribeParameters](src/main/java/com/example/ssm/GetParameter.java#L6)
 - [PutParameter](src/main/java/com/example/ssm/PutParameter.java#L6)
-- [SendCommand](src/main/java/com/example/scenario/SSMScenario.java#L311)
-- [UpdateMaintenanceWindow](src/main/java/com/example/scenario/SSMScenario.java#L406)
-- [UpdateOpsItem](src/main/java/com/example/scenario/SSMScenario.java#L275)
+- [SendCommand](src/main/java/com/example/scenario/SSMActions.java#L385)
+- [UpdateMaintenanceWindow](src/main/java/com/example/scenario/SSMActions.java#L532)
+- [UpdateOpsItem](src/main/java/com/example/scenario/SSMActions.java#L170)
 
 ### Scenarios
 

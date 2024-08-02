@@ -21,7 +21,7 @@ namespace AwsDocTest {
         auto groupName = uuidName("test-create");
 
         Aws::String groupID;
-        auto result = AwsDoc::EC2::CreateSecurityGroup(groupName, "description",
+        auto result = AwsDoc::EC2::createSecurityGroup(groupName, "description",
                                                        vpcID, groupID, *s_clientConfig);
         EXPECT_TRUE(result);
 

@@ -17,7 +17,7 @@ namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(EC2_GTests, describe_Addresses_2_) {
 
-        auto result = AwsDoc::EC2::DescribeAddresses(*s_clientConfig);
+        auto result = AwsDoc::EC2::describeAddresses(*s_clientConfig);
         ASSERT_TRUE(result);
     }
 

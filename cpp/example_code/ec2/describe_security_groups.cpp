@@ -13,7 +13,6 @@
  **/
 
 // snippet-start:[ec2.cpp.describe_security_groups.inc]
-#include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
 #include <aws/ec2/model/DescribeSecurityGroupsRequest.h>
 #include <aws/ec2/model/DescribeSecurityGroupsResponse.h>
@@ -22,14 +21,14 @@
 // snippet-end:[ec2.cpp.describe_security_groups.inc]
 #include "ec2_samples.h"
 
+// snippet-start:[cpp.example_code.ec2.DescribeSecurityGroups]
 //! Describe all Amazon Elastic Compute Cloud (Amazon EC2) security groups, or a specific group.
 /*!
-  \sa DescribeSecurityGroups()
   \param groupID: A group ID, ignored if empty.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::DescribeSecurityGroups(const Aws::String &groupID,
+bool AwsDoc::EC2::describeSecurityGroups(const Aws::String &groupID,
                                          const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.describe_security_groups.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
@@ -45,7 +44,7 @@ bool AwsDoc::EC2::DescribeSecurityGroups(const Aws::String &groupID,
             request.SetNextToken(nextToken);
         }
 
-        auto outcome = ec2Client.DescribeSecurityGroups(request);
+        Aws::EC2::Model::DescribeSecurityGroupsOutcome outcome = ec2Client.DescribeSecurityGroups(request);
         if (outcome.IsSuccess()) {
             std::cout << std::left <<
                       std::setw(32) << "Name" <<
@@ -64,8 +63,7 @@ bool AwsDoc::EC2::DescribeSecurityGroups(const Aws::String &groupID,
                           std::setw(64) << securityGroup.GetDescription() <<
                           std::endl;
             }
-        }
-        else {
+        } else {
             std::cerr << "Failed to describe security groups:" <<
                       outcome.GetError().GetMessage() << std::endl;
             return false;
@@ -77,6 +75,7 @@ bool AwsDoc::EC2::DescribeSecurityGroups(const Aws::String &groupID,
 
     return true;
 }
+// snippet-end:[cpp.example_code.ec2.DescribeSecurityGroups]
 
 /*
  *
@@ -105,7 +104,7 @@ int main(int argc, char **argv) {
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::EC2::DescribeSecurityGroups(groupID, clientConfig);
+        AwsDoc::EC2::describeSecurityGroups(groupID, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

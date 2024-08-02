@@ -155,7 +155,7 @@ ec2_CreateKeyPair:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.cpp.create_key_pair.code
+                - cpp.example_code.ec2,CreateKeyPair
     Bash:
       versions:
         - sdk_version: 2
@@ -233,7 +233,7 @@ ec2_DescribeKeyPairs:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.cpp.describe_key_pairs.code
+                - cpp.example_code.ec2.DescribeKeyPairs
     Bash:
       versions:
         - sdk_version: 2
@@ -322,7 +322,6 @@ ec2_CreateSecurityGroup:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.create_security_group.client
                 - cpp.example_code.ec2.CreateSecurityGroup
     Bash:
       versions:
@@ -398,11 +397,9 @@ ec2_RunInstances:
       versions:
         - sdk_version: 1
           github: cpp/example_code/ec2
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.create_instance.client
                 - cpp.example_code.ec2.RunInstances
     Bash:
       versions:
@@ -498,7 +495,7 @@ ec2_StartInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.cpp.start_instance.code
+                - cpp.example_code.ec2.StartInstances
     Bash:
       versions:
         - sdk_version: 2
@@ -593,7 +590,7 @@ ec2_StopInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.cpp.stop_instance.code
+                - cpp.example_code.ec2.StopInstances
     Bash:
       versions:
         - sdk_version: 2
@@ -680,8 +677,8 @@ ec2_AllocateAddress:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.allocate_address.client
                 - cpp.example_code.ec2.AllocateAddress
+                - cpp.example_code.ec2.AllocateAddress2
     Bash:
       versions:
         - sdk_version: 2
@@ -768,7 +765,6 @@ ec2_AssociateAddress:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.allocate_address.client
                 - cpp.example_code.ec2.AssociateAddress
     Bash:
       versions:
@@ -918,7 +914,7 @@ ec2_ReleaseAddress:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.cpp.release_address.code
+                - cpp.example_code.ec2.ReleaseAddress
     Bash:
       versions:
         - sdk_version: 2
@@ -979,9 +975,10 @@ ec2_AuthorizeSecurityGroupIngress:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.allocate_address.client
-                - ec2.cpp.configure_security_group02.code
-                - ec2.cpp.configure_security_group03.code
+                - cpp.example_code.ec2.AuthorizeSecurityGroupIngress
+            - description: Utility function to build an ingress rule.
+              snippet_tags:
+                - cpp.example_code.ec2.BuildSampleIngressRule
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1068,7 +1065,7 @@ ec2_DeleteKeyPair:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.cpp.delete_key_pair.code
+                - cpp.example_code.ec2.DeleteKeyPair
     Bash:
       versions:
         - sdk_version: 2
@@ -1146,7 +1143,7 @@ ec2_DescribeSecurityGroups:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.cpp.describe_security_groups.code
+                - cpp.example_code.ec2.DescribeSecurityGroups
     Bash:
       versions:
         - sdk_version: 2
@@ -1224,7 +1221,7 @@ ec2_DeleteSecurityGroup:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.cpp.delete_security_group.code
+                - cpp.example_code.ec2.DeleteSecurityGroup
     Bash:
       versions:
         - sdk_version: 2
@@ -1422,7 +1419,7 @@ ec2_DescribeInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.cpp.describe_instances.code
+                - cpp.example_code.ec2.DescribeInstances
     Bash:
       versions:
         - sdk_version: 2
@@ -1479,7 +1476,6 @@ ec2_DescribeRegions:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.describe_regions.client
                 - cpp.example_code.ec2.DescribeRegions
   services:
     ec2: {DescribeRegions}
@@ -1521,7 +1517,7 @@ ec2_MonitorInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.cpp.enable_monitor_instance.code
+                - cpp.example_code.ec2.MonitorInstances
   services:
     ec2: {MonitorInstances}
 ec2_UnmonitorInstances:
@@ -1533,7 +1529,7 @@ ec2_UnmonitorInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.cpp.disable_monitor_instance.code
+                - cpp.example_code.ec2.UnmonitorInstances
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1591,7 +1587,7 @@ ec2_RebootInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.cpp.reboot_instance.code
+                - cpp.example_code.ec2.RebootInstances
     Python:
       versions:
         - sdk_version: 3
@@ -1734,7 +1730,7 @@ ec2_DescribeAddresses:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.cpp.describe_addresses.code
+                - cpp.example_code.ec2.DescribeAddresses
   services:
     ec2: {DescribeAddresses}
 ec2_DescribeAvailabilityZones:
@@ -1762,8 +1758,7 @@ ec2_DescribeAvailabilityZones:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.describe_regions.client
-                - ec2.cpp.describe_zones.code
+                - cpp.example_code.ec2.DescribeAvailabilityZones
     Python:
       versions:
         - sdk_version: 3
@@ -1781,11 +1776,9 @@ ec2_CreateTags:
       versions:
         - sdk_version: 1
           github: cpp/example_code/ec2
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - cpp.example_code.ec2.create_instance.client
                 - cpp.example_code.ec2.CreateTags
   services:
     ec2: {CreateTags}

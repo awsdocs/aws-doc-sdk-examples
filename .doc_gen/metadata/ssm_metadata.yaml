@@ -316,6 +316,9 @@ ssm_Scenario:
             - description:
               snippet_tags:
                 - ssm.java2.scenario.main
+            - description: A wrapper class for &SYS; SDK methods.
+              snippet_tags:
+                - ssm.java2.actions.main    
     Python:
       versions:
         - sdk_version: 3
