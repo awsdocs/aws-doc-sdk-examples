@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [CopyImageSet](src/main/java/com/example/medicalimaging/CopyImageSet.java#L65)
+- [CopyImageSet](src/main/java/com/example/medicalimaging/CopyImageSet.java#L132)
 - [CreateDatastore](src/main/java/com/example/medicalimaging/CreateDatastore.java#L52)
 - [DeleteDatastore](src/main/java/com/example/medicalimaging/DeleteDatastore.java#L50)
 - [DeleteImageSet](src/main/java/com/example/medicalimaging/DeleteImageSet.java#L53)
@@ -50,7 +50,7 @@ Code excerpts that show you how to call individual service functions.
 - [StartDICOMImportJob](src/main/java/com/example/medicalimaging/StartDicomImportJob.java#L65)
 - [TagResource](src/main/java/com/example/medicalimaging/TagResource.java#L54)
 - [UntagResource](src/main/java/com/example/medicalimaging/UntagResource.java#L54)
-- [UpdateImageSetMetadata](src/main/java/com/example/medicalimaging/UpdateImageSetMetadata.java#L144)
+- [UpdateImageSetMetadata](src/main/java/com/example/medicalimaging/UpdateImageSetMetadata.java#L163)
 
 ### Scenarios
 

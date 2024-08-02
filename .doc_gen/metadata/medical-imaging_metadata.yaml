@@ -661,6 +661,7 @@ medical-imaging_UpdateImageSetMetadata:
           github_note_at_bottom: true
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.UpdateImageSetMetadata
@@ -677,6 +678,9 @@ medical-imaging_UpdateImageSetMetadata:
             - description: 'Use case #3: Remove an instance.'
               snippet_tags:
                 - python.example_code.medical-imaging.UpdateImageSetMetadata.remove_instance
+            - description: 'Use case #4: Revert to an earlier version.'
+              snippet_tags:
+                - python.example_code.medical-imaging.UpdateImageSetMetadata.revert
     JavaScript:
       versions:
         - sdk_version: 3
@@ -684,9 +688,10 @@ medical-imaging_UpdateImageSetMetadata:
           github_note_at_bottom: true
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3
-            - description: 'Use case #1: Insert or update an attribute.'
+            - description: 'Use case #1: Insert or update an attribute and force the update.'
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.insert_or_update_attributes
             - description: 'Use case #2: Remove an attribute.'
@@ -695,6 +700,9 @@ medical-imaging_UpdateImageSetMetadata:
             - description: 'Use case #3: Remove an instance.'
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_instance
+            - description: 'Use case #4: Revert to an earlier version.'
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.revert
     Java:
       versions:
         - sdk_version: 2
@@ -702,6 +710,7 @@ medical-imaging_UpdateImageSetMetadata:
           github_note_at_bottom: true
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - medicalimaging.java2.update_image_set_metadata.main
             - description: 'Use case #1: Insert or update an attribute.'
@@ -713,6 +722,9 @@ medical-imaging_UpdateImageSetMetadata:
             - description: 'Use case #3: Remove an instance.'
               snippet_tags:
                 - medicalimaging.java2.update_image_set_metadata.remove_instance
+            - description: 'Use case #4: Revert to a previous version.'
+              snippet_tags:
+                - medicalimaging.java2.update_image_set_metadata.revert
   services:
     medical-imaging: {UpdateImageSetMetadata}
 medical-imaging_CopyImageSet:
@@ -724,18 +736,24 @@ medical-imaging_CopyImageSet:
           github_note_at_bottom: true
           excerpts:
             - description: Utility function to copy an image set.
+              genai: some
               snippet_tags:
                 - python.example_code.medical-imaging.MedicalImagingWrapper
                 - python.example_code.medical-imaging.CopyImageSet
             - description: Copy an image set without a destination.
               snippet_tags:
                 - python.example_code.medical-imaging.CopyImageSet1
-                - python.example_code.medical-imaging.CopyImageSet3
+                - python.example_code.medical-imaging.CopyImageSet4
             - description: Copy an image set with a destination.
               snippet_tags:
                 - python.example_code.medical-imaging.CopyImageSet1
                 - python.example_code.medical-imaging.CopyImageSet2
+                - python.example_code.medical-imaging.CopyImageSet4
+            - description: Copy a subset of an image set.
+              snippet_tags:
+                - python.example_code.medical-imaging.CopyImageSet1
                 - python.example_code.medical-imaging.CopyImageSet3
+                - python.example_code.medical-imaging.CopyImageSet4
             - description: >
                 The following code instantiates the MedicalImagingWrapper object.
               snippet_tags:
@@ -747,6 +765,7 @@ medical-imaging_CopyImageSet:
           github_note_at_bottom: true
           excerpts:
             - description: Utility function to copy an image set.
+              genai: some
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.copyImageSetV3
             - description: Copy an image set without a destination.
@@ -755,6 +774,9 @@ medical-imaging_CopyImageSet:
             - description: Copy an image set with a destination.
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.copyImageSetV3.with_destination
+            - description: Copy a subset of an image set with a destination and force the copy.
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.copyImageSetV3.with_destination_and_subsets
     Java:
       versions:
         - sdk_version: 2
@@ -762,8 +784,12 @@ medical-imaging_CopyImageSet:
           github_note_at_bottom: true
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - medicalimaging.java2.copy_imageset.main
+            - description: Utility function to create copiable attributes.
+              snippet_tags:
+                - medicalimaging.java2.copy_imageset.copiable_attributes
   services:
     medical-imaging: {CopyImageSet}
 medical-imaging_DeleteImageSet:
