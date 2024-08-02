@@ -7,64 +7,64 @@ CLASS zcl_aws1_bdr_actions DEFINITION
 
   PUBLIC SECTION.
   PROTECTED SECTION.
-private section.
+  PRIVATE SECTION.
 
-  methods PROMPT_CLAUDE_V2
-    importing
-      !IV_PROMPT type STRING
-    returning
-      value(OV_ANSWER) type STRING
-    raising
-      /AWS1/CX_BDRSERVEREXC
-      /AWS1/CX_BDRCLIENTEXC
-      /AWS1/CX_RT_TECHNICAL_GENERIC
-      /AWS1/CX_RT_SERVICE_GENERIC
-      /AWS1/CX_RT_NO_AUTH_GENERIC .
-  methods PROMPT_STABLE_DIFFUSION
-    importing
-      !IV_PROMPT type STRING
-    returning
-      value(OV_IMAGE) type XSTRING
-    raising
-      /AWS1/CX_BDRSERVEREXC
-      /AWS1/CX_BDRCLIENTEXC
-      /AWS1/CX_RT_TECHNICAL_GENERIC
-      /AWS1/CX_RT_SERVICE_GENERIC
-      /AWS1/CX_RT_NO_AUTH_GENERIC .
-  methods L2_PROMPT_CLAUDE_V2
-    importing
-      !IV_PROMPT type STRING
-    returning
-      value(OV_ANSWER) type STRING
-    raising
-      /AWS1/CX_BDRSERVEREXC
-      /AWS1/CX_BDRCLIENTEXC
-      /AWS1/CX_RT_TECHNICAL_GENERIC
-      /AWS1/CX_RT_SERVICE_GENERIC
-      /AWS1/CX_RT_NO_AUTH_GENERIC .
-  methods L2_PROMPT_STABLE_DIFFUSION
-    importing
-      !IV_PROMPT type STRING
-    returning
-      value(OV_IMAGE) type XSTRING
-    raising
-      /AWS1/CX_BDRSERVEREXC
-      /AWS1/CX_BDRCLIENTEXC
-      /AWS1/CX_RT_TECHNICAL_GENERIC
-      /AWS1/CX_RT_SERVICE_GENERIC
-      /AWS1/CX_RT_NO_AUTH_GENERIC .
-  methods L2_PROMPT_CLAUDE_V3
-    importing
-      !IV_PROMPT type STRING
-    returning
-      value(OV_ANSWER) type STRING
-    raising
-      /AWS1/CX_BDRSERVEREXC
-      /AWS1/CX_BDRCLIENTEXC
-      /AWS1/CX_RT_TECHNICAL_GENERIC
-      /AWS1/CX_RT_SERVICE_GENERIC
-      /AWS1/CX_RT_NO_AUTH_GENERIC
-      /AWS1/CX_BDR_L2_GENERIC .
+    METHODS prompt_claude_v2
+      IMPORTING
+        !iv_prompt       TYPE string
+      RETURNING
+        VALUE(ov_answer) TYPE string
+      RAISING
+        /aws1/cx_bdrserverexc
+        /aws1/cx_bdrclientexc
+        /aws1/cx_rt_technical_generic
+        /aws1/cx_rt_service_generic
+        /aws1/cx_rt_no_auth_generic .
+    METHODS prompt_stable_diffusion
+      IMPORTING
+        !iv_prompt      TYPE string
+      RETURNING
+        VALUE(ov_image) TYPE xstring
+      RAISING
+        /aws1/cx_bdrserverexc
+        /aws1/cx_bdrclientexc
+        /aws1/cx_rt_technical_generic
+        /aws1/cx_rt_service_generic
+        /aws1/cx_rt_no_auth_generic .
+    METHODS l2_prompt_claude_v2
+      IMPORTING
+        !iv_prompt       TYPE string
+      RETURNING
+        VALUE(ov_answer) TYPE string
+      RAISING
+        /aws1/cx_bdrserverexc
+        /aws1/cx_bdrclientexc
+        /aws1/cx_rt_technical_generic
+        /aws1/cx_rt_service_generic
+        /aws1/cx_rt_no_auth_generic .
+    METHODS l2_prompt_stable_diffusion
+      IMPORTING
+        !iv_prompt      TYPE string
+      RETURNING
+        VALUE(ov_image) TYPE xstring
+      RAISING
+        /aws1/cx_bdrserverexc
+        /aws1/cx_bdrclientexc
+        /aws1/cx_rt_technical_generic
+        /aws1/cx_rt_service_generic
+        /aws1/cx_rt_no_auth_generic .
+    METHODS l2_prompt_claude_v3
+      IMPORTING
+        !iv_prompt       TYPE string
+      RETURNING
+        VALUE(ov_answer) TYPE string
+      RAISING
+        /aws1/cx_bdrserverexc
+        /aws1/cx_bdrclientexc
+        /aws1/cx_rt_technical_generic
+        /aws1/cx_rt_service_generic
+        /aws1/cx_rt_no_auth_generic
+        /aws1/cx_bdr_l2_generic .
 ENDCLASS.
 
 
@@ -92,7 +92,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD L2_PROMPT_CLAUDE_V3.
+  METHOD l2_prompt_claude_v3.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
@@ -127,8 +127,8 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
     DATA(lo_bdr) = /aws1/cl_bdr_factory=>create( lo_session ).
     "snippet-start:[bdr.abapv1.invokemodel_l2_stable_diffusion]
     TRY.
-        DATA(lo_bdr_l2_sd) = /aws1/cl_bdr_l2_factory=>CREATE_STABLE_DIFFUSION_XL_1( lo_bdr ).
-      " iv_prompt contains a prompt like 'Show me a picture of a unicorn reading an enterprise financial report'.
+        DATA(lo_bdr_l2_sd) = /aws1/cl_bdr_l2_factory=>create_stable_diffusion_xl_1( lo_bdr ).
+        " iv_prompt contains a prompt like 'Show me a picture of a unicorn reading an enterprise financial report'.
         DATA(lv_image) = lo_bdr_l2_sd->text_to_image( iv_prompt ).
       CATCH /aws1/cx_bdraccessdeniedex INTO DATA(lo_ex).
         WRITE / lo_ex->get_text( ).
