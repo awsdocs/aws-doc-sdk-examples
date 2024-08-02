@@ -15,10 +15,10 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(EC2_GTests, describe_key_pairs_2_) {
+    TEST_F(EC2_GTests, describe_availability_zones_2_) {
 
-        auto result = AwsDoc::EC2::describeKeyPairs(*s_clientConfig);
+
+        bool result = AwsDoc::EC2::describeAvailabilityZones(*s_clientConfig);
         ASSERT_TRUE(result);
     }
-
 } // namespace AwsDocTest

@@ -15,10 +15,11 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(EC2_GTests, describe_key_pairs_2_) {
+    TEST_F(EC2_GTests, authorize_security_group_ingress_2_) {
+        Aws::String groupID = getCachedSecurityGroupID();
+        ASSERT_FALSE(groupID.empty()) << preconditionError() << std::endl;
 
-        auto result = AwsDoc::EC2::describeKeyPairs(*s_clientConfig);
+        bool result = AwsDoc::EC2::authorizeSecurityGroupIngress(groupID, *s_clientConfig);
         ASSERT_TRUE(result);
     }
-
 } // namespace AwsDocTest

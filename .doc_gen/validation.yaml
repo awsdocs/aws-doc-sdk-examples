@@ -206,6 +206,7 @@ allow_list:
   - "com/pinterest/ktlint/releases/download/1"
   - "aws/s3/model/AbortMultipartUploadRequest"
   - "src/main/kotlin/com/example/ecr/HelloECR"
+  - "aws/ec2/model/DisassociateAddressRequest"
 sample_files:
   - "README.md"
   - "chat_sfn_state_machine.json"

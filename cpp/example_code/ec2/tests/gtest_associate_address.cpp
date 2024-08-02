@@ -15,12 +15,24 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(EC2_GTests, release_address_2_) {
+    TEST_F(EC2_GTests, associate_address_2_) {
         Aws::String allocationID = allocateIPAddress();
         ASSERT_FALSE(allocationID.empty()) << preconditionError() << std::endl;
 
-        auto result = AwsDoc::EC2::releaseAddress(allocationID, *s_clientConfig);
-        ASSERT_TRUE(result);
-    }
+        Aws::String instanceID = getCachedInstanceID();
+        ASSERT_FALSE(instanceID.empty()) << preconditionError() << std::endl;
 
+        Aws::String associationID;
+
+        bool result = AwsDoc::EC2::associateAddress(instanceID, allocationID, associationID, *s_clientConfig);
+        EXPECT_TRUE(result);
+
+        if (result) {
+            result = dissociateAddress(associationID);
+            EXPECT_TRUE(result);
+        }
+
+        result = releaseIPAddress(allocationID);
+        EXPECT_TRUE(result);
+    }
 } // namespace AwsDocTest
