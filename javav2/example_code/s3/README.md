@@ -88,8 +88,8 @@ functions within the same service.
 
 
 <!--custom.examples.start-->
-- [Create a presigned URL for download](s3/src/main/java/com/example/s3/GeneratePresignedGetUrlAndRetrieve.java)
-- [Create a presigned URL for upload](s3/src/main/java/com/example/s3/GeneratePresignedUrlAndPutFileWithMetadata.java)
+- [Create a presigned URL for download](src/main/java/com/example/s3/GeneratePresignedGetUrlAndRetrieve.java)
+- [Create a presigned URL for upload](src/main/java/com/example/s3/GeneratePresignedUrlAndPutFileWithMetadata.java)
 <!--custom.examples.end-->
 
 ## Run the examples
