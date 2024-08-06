@@ -1,6 +1,38 @@
 # zexi 0.4.0
+batch_DeleteComputeEnvironment:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.delete_compute.main
+  services:
+    batch: {DeleteComputeEnvironment}
+batch_CreateComputeEnvironment:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.create_compute.main
+  services:
+    batch: {CreateComputeEnvironment}
 batch_DescribeComputeEnvironments:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.check.status.main
     Rust:
       versions:
         - sdk_version: 1
@@ -15,14 +47,14 @@ batch_Scenario:
   title: Learn core operations for'&BATCHlong; using an &AWS; SDK
   title_abbrev: Learn &BATCH; core operations
   synopsis_list:
-    - Create a &BATCH; compute environment.
+    - Create an &BATCH; compute environment.
     - Check the status of the compute environment.
-    - Set up a &BATCH; job queue and job definition.
+    - Set up an &BATCH; job queue and job definition.
     - Register a job definition.
-    - Submit a Batch Job.
+    - Submit an &BATCH; Job.
     - Get a list of jobs applicable to the job queue.
     - Check the status of job.
-    - Delete &BATCH; repositories.
+    - Delete &BATCH; resources.
   category: Scenarios
   languages:
     Java:

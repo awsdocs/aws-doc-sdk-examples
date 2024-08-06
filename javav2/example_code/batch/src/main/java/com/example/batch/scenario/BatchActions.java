@@ -111,6 +111,7 @@ public class BatchActions {
     }
     // snippet-end:[batch.java2.create_compute.main]
 
+    // snippet-start:[batch.java2.delete_compute.main]
     public void deleteComputeEnvironmentAsync(String computeEnvironmentName) {
         DeleteComputeEnvironmentRequest deleteComputeEnvironment = DeleteComputeEnvironmentRequest.builder()
             .computeEnvironment(computeEnvironmentName)
@@ -131,6 +132,7 @@ public class BatchActions {
             })
             .join();
     }
+    // snippet-end:[batch.java2.delete_compute.main]
 
     // snippet-start:[batch.java2.check.status.main]
     /**
