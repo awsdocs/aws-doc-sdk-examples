@@ -214,6 +214,7 @@ public class BatchActions {
     }
     // snippet-end:[batch.java2.create.job.queue.main]
 
+    // snippet-start:[batch.java2.create.list.jobs.main]
     /**
      * Asynchronously lists the jobs in the specified job queue with the given job status.
      *
@@ -238,6 +239,7 @@ public class BatchActions {
         future.join();
         return jobSummaries;
     }
+    // snippet-end:[batch.java2.create.list.jobs.main]
 
     // snippet-start:[batch.java2.register.job.main]
     /**

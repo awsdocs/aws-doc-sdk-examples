@@ -1,4 +1,148 @@
 # zexi 0.4.0
+batch_DescribeJobs:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.retrieve.job.main
+  services:
+    batch: {batch_DescribeJobs}
+batch_SubmitJob:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.submit.job.main
+  services:
+    batch: {SubmitJob}
+batch_UpdateComputeEnvironment:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.disable.compute.environment.main
+  services:
+    batch: {UpdateComputeEnvironment}
+batch_DescribeJobQueues:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.describe.job.queue.main
+  services:
+    batch: {DescribeJobQueues}
+batch_DeleteJobQueue:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.delete.job.queue.main
+  services:
+    batch: {DeleteJobQueue}
+batch_UpdateJobQueue:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.disable.job.queue.main
+  services:
+    batch: {UpdateJobQueue}
+batch_UpdateJobQueue:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.disable.job.queue.main
+  services:
+    batch: {UpdateJobQueue}
+batch_DeregisterJobDefinition:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.deregister.job.main
+  services:
+    batch: {DeregisterJobDefinition}
+batch_RegisterJobDefinition:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.register.job.main
+  services:
+    batch: {RegisterJobDefinition}
+batch_ListJobsPaginator:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.create.list.jobs.main
+  services:
+    batch: {ListJobsPaginator}
+batch_CreateJobQueue:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.create.job.queue.main
+  services:
+    batch: {CreateJobQueue}
+batch_DescribeComputeEnvironments:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.check.status.main
+  services:
+    batch: {DescribeComputeEnvironments}
 batch_DeleteComputeEnvironment:
   languages:
     Java:
