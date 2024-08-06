@@ -3,10 +3,10 @@
 
 package com.example.batch.scenario;
 
+// snippet-start:[batch.java2.scenario.main]
 import software.amazon.awssdk.services.batch.model.BatchException;
 import software.amazon.awssdk.services.batch.model.CreateComputeEnvironmentResponse;
 import software.amazon.awssdk.services.batch.model.JobSummary;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -257,7 +257,7 @@ public class BatchScenario {
         System.out.println("8. Delete Batch resources");
         System.out.println(
             """
-            WHen deleting an AWS Batch compute environment, it does not happen instantaneously. 
+            When deleting an AWS Batch compute environment, it does not happen instantaneously. 
             There is typically a delay, similar to some other AWS resources. 
             AWS Batch starts the deletion process.
             """);
@@ -320,12 +320,8 @@ public class BatchScenario {
             countdown(1);
 
             try {
-                batchActions.deleteComputeEnvironmentAsync(computeEnvironmentName)
-                    .exceptionally(ex -> {
-                        System.err.println("Delete compute environment failed: " + ex.getMessage());
-                        return null;
-                    })
-                    .join();
+                batchActions.deleteComputeEnvironmentAsync(computeEnvironmentName);
+
             } catch (CompletionException ex) {
                 System.err.println("Failed to delete compute environment: " + ex.getMessage());
             }
@@ -367,4 +363,4 @@ public class BatchScenario {
         System.out.println("Countdown complete!");
     }
 }
-
+// snippet-end:[batch.java2.scenario.main]

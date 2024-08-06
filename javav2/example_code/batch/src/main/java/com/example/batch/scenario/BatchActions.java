@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 package com.example.batch.scenario;
-
+// snippet-start:[batch.java2.actions.main]
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.core.retry.RetryPolicy;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
@@ -29,7 +29,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.batch.model.*;
 import software.amazon.awssdk.services.batch.paginators.ListJobsPublisher;
@@ -112,31 +111,28 @@ public class BatchActions {
     }
     // snippet-end:[batch.java2.create_compute.main]
 
-    public CompletableFuture<Void> deleteComputeEnvironmentAsync(String computeEnvironmentName) {
+    public void deleteComputeEnvironmentAsync(String computeEnvironmentName) {
         DeleteComputeEnvironmentRequest deleteComputeEnvironment = DeleteComputeEnvironmentRequest.builder()
             .computeEnvironment(computeEnvironmentName)
             .build();
 
-        CompletableFuture<Void> future = new CompletableFuture<>();
         getAsyncClient().deleteComputeEnvironment(deleteComputeEnvironment)
-            .thenAccept(response -> {
-                System.out.println("Compute environment was successfully deleted");
-                future.complete(null);
-            })
-            .exceptionally(ex -> {
-                Throwable cause = ex.getCause();
-                if (cause instanceof BatchException) {
-                    future.completeExceptionally(cause);
-                    throw (BatchException) cause;
+            .whenComplete((response, ex) -> {
+                if (ex == null) {
+                    System.out.println("Compute environment was successfully deleted");
                 } else {
-                    RuntimeException runtimeException = new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
-                    future.completeExceptionally(runtimeException); // Complete the CompletableFuture exceptionally on unexpected error
-                    throw runtimeException;
+                    Throwable cause = ex.getCause();
+                    if (cause instanceof BatchException) {
+                        throw new RuntimeException(cause);
+                    } else {
+                        throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
+                    }
                 }
-            });
-
-        return future;
+            })
+            .join();
     }
+
+    // snippet-start:[batch.java2.check.status.main]
     /**
      * Checks the status of the specified compute environment.
      *
@@ -171,6 +167,9 @@ public class BatchActions {
             .findFirst()
             .orElse("UNKNOWN"));
     }
+    // snippet-end:[batch.java2.check.status.main]
+
+    // snippet-start:[batch.java2.create.job.queue.main]
     /**
      * Creates a job queue asynchronously.
      *
@@ -211,6 +210,7 @@ public class BatchActions {
 
         return response.thenApply(CreateJobQueueResponse::jobQueueArn);
     }
+    // snippet-end:[batch.java2.create.job.queue.main]
 
     /**
      * Asynchronously lists the jobs in the specified job queue with the given job status.
@@ -236,6 +236,8 @@ public class BatchActions {
         future.join();
         return jobSummaries;
     }
+
+    // snippet-start:[batch.java2.register.job.main]
     /**
      * Registers a new job definition asynchronously in AWS Batch.
      * <p>
@@ -296,6 +298,9 @@ public class BatchActions {
 
         return future;
     }
+    // snippet-end:[batch.java2.register.job.main]
+
+    // snippet-start:[batch.java2.deregister.job.main]
     /**
      * Deregisters a job definition asynchronously.
      *
@@ -322,7 +327,9 @@ public class BatchActions {
 
         return future;
     }
+    // snippet-start:[batch.java2.deregister.job.main]
 
+    // snippet-start:[batch.java2.disable.job.queue.main]
     /**
      * Disables the specified job queue asynchronously.
      *
@@ -350,8 +357,9 @@ public class BatchActions {
 
         return future;
     }
+    // snippet-end:[batch.java2.disable.job.queue.main]
 
-
+    // snippet-start:[batch.java2.delete.job.queue.main]
     /**
      * Deletes a Batch job queue asynchronously.
      *
@@ -375,7 +383,9 @@ public class BatchActions {
                 return null;
             });
     }
+    // snippet-end:[batch.java2.delete.job.queue.main]
 
+    // snippet-start:[batch.java2.describe.job.queue.main]
     public String describeJobQueue(String computeEnvironmentName) {
         BatchClient batchClient = BatchClient.builder()
             .region(Region.US_EAST_1)
@@ -400,7 +410,9 @@ public class BatchActions {
         }
         return jobQueueARN;
     }
+    // snippet-end:[batch.java2.describe.job.queue.main]
 
+    // snippet-start:[batch.java2.disable.compute.environment.main]
     /**
      * Disables the specified compute environment asynchronously.
      *
@@ -428,7 +440,9 @@ public class BatchActions {
 
         return future;
     }
+    // snippet-end:[batch.java2.describe.job.queue.main]
 
+    // snippet-start:[batch.java2.submit.job.main]
     /**
      * Submits a job asynchronously to the AWS Batch service.
      *
@@ -458,7 +472,9 @@ public class BatchActions {
             }
         });
     }
+    // snippet-end:[batch.java2.submit.job.main]
 
+    // snippet-start:[batch.java2.retrieve.job.main]
     /**
      * Asynchronously retrieves the status of a specific job.
      *
@@ -470,13 +486,10 @@ public class BatchActions {
             .jobs(jobId)
             .build();
 
-        // Create a new CompletableFuture to return
         CompletableFuture<String> future = new CompletableFuture<>();
-
         getAsyncClient().describeJobs(describeJobsRequest)
             .whenComplete((response, ex) -> {
                 if (response != null) {
-                    // Extract the job status from the response
                     JobDetail jobDetail = response.jobs().get(0);
                     String jobStatus = String.valueOf(jobDetail.status());
                     System.out.println("Job status retrieved successfully. Status: " + jobStatus);
@@ -494,32 +507,7 @@ public class BatchActions {
 
         return future;
     }
-
-    public CompletableFuture<String> describeJobQueueAsync(String computeEnvironmentName) {
-        DescribeJobQueuesRequest describeJobQueuesRequest = DescribeJobQueuesRequest.builder().build();
-
-        return getAsyncClient().describeJobQueues(describeJobQueuesRequest)
-            .thenApply(describeJobQueuesResponse -> {
-                String jobQueueARN = "";
-                for (JobQueueDetail jobQueueDetail : describeJobQueuesResponse.jobQueues()) {
-                    for (ComputeEnvironmentOrder computeEnvironmentOrder : jobQueueDetail.computeEnvironmentOrder()) {
-                        String computeEnvironment = computeEnvironmentOrder.computeEnvironment();
-                        String name = getComputeEnvironmentName(computeEnvironment);
-                        if (name.equals(computeEnvironmentName)) {
-                            jobQueueARN = jobQueueDetail.jobQueueArn();
-                            System.out.println("Job queue ARN associated with the compute environment: " + jobQueueARN);
-                            // No need to continue checking other job queues once a match is found
-                            return jobQueueARN;
-                        }
-                    }
-                }
-                return jobQueueARN;
-            })
-            .exceptionally(ex -> {
-                ex.printStackTrace();
-                return "";
-            });
-    }
+    // snippet-start:[batch.java2.retrieve.job.main]
 
     public void waitForJobQueueToBeDisabled(String jobQueueArn) {
         BatchClient client = BatchClient.builder()
@@ -571,7 +559,7 @@ public class BatchActions {
         return callerIdentityResponse.account();
     }
 }
-
+// snippet-end:[batch.java2.actions.main]
 
 
 

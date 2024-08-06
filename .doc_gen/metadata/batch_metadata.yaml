@@ -11,3 +11,31 @@ batch_DescribeComputeEnvironments:
                 - batch.rust.batch-helloworld
   services:
     batch: {DescribeComputeEnvironments}
+batch_Scenario:
+  title: Learn core operations for'&BATCHlong; using an &AWS; SDK
+  title_abbrev: Learn &BATCH; core operations
+  synopsis_list:
+    - Create a &BATCH; compute environment.
+    - Check the status of the compute environment.
+    - Set up a &BATCH; job queue and job definition.
+    - Register a job definition.
+    - Submit a Batch Job.
+    - Get a list of jobs applicable to the job queue.
+    - Check the status of job.
+    - Delete &BATCH; repositories.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &BATCH; features.
+              snippet_tags:
+                - batch.java2.scenario.main
+            - description: A wrapper class for &BATCH; SDK methods.
+              snippet_tags:
+                - batch.java2.actions.main
+  services:
+    batch: {CreateComputeEnvironment, DeleteComputeEnvironment, DescribeComputeEnvironments, CreateJobQueue, ListJobsPaginator, DescribeJobs, SubmitJob, UpdateComputeEnvironment, RegisterJobDefinition, DescribeJobQueues, DeleteJobQueue, DeregisterJobDefinition, UpdateJobQueue}
