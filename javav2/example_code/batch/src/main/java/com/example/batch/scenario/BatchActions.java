@@ -327,7 +327,7 @@ public class BatchActions {
 
         return future;
     }
-    // snippet-start:[batch.java2.deregister.job.main]
+    // snippet-end:[batch.java2.deregister.job.main]
 
     // snippet-start:[batch.java2.disable.job.queue.main]
     /**
@@ -440,7 +440,7 @@ public class BatchActions {
 
         return future;
     }
-    // snippet-end:[batch.java2.describe.job.queue.main]
+    // snippet-end:[batch.java2.disable.compute.environment.main
 
     // snippet-start:[batch.java2.submit.job.main]
     /**
