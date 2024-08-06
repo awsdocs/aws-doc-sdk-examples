@@ -507,7 +507,7 @@ public class BatchActions {
 
         return future;
     }
-    // snippet-start:[batch.java2.retrieve.job.main]
+    // snippet-end:[batch.java2.retrieve.job.main]
 
     public void waitForJobQueueToBeDisabled(String jobQueueArn) {
         BatchClient client = BatchClient.builder()
