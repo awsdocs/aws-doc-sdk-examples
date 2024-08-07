@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 //! IO Utilities wrapper to allow automock for requests and user input prompts.
 
 use std::{fmt::Display, io::Write, path::PathBuf};

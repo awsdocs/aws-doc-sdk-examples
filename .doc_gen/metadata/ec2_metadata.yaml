@@ -69,7 +69,7 @@ ec2_Hello:
               snippet_tags:
                 - ec2.ruby.hello_ec2
     Rust:
-        versions:
+      versions:
         - sdk_version: 1
           github: rust/examples/ec2
           excerpts:
@@ -519,7 +519,7 @@ ec2_StartInstances:
             - description: Start an EC2 Instance by instance ID.
               snippet_tags:
                 - ec2.rust.start_instance.impl
-            - description:  Wait for an instance to be in the ready and status ok states, using the Waiters API. Using the Waiters API requires `use aws_sdk_ec2::client::Waiters` in the rust file.
+            - description: Wait for an instance to be in the ready and status ok states, using the Waiters API. Using the Waiters API requires `use aws_sdk_ec2::client::Waiters` in the rust file.
               snippet_tags:
                 - ec2.rust.wait_for_instance_ready.impl
     SAP ABAP:
@@ -1247,7 +1247,7 @@ ec2_DescribeSecurityGroups:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
     Rust:
-        versions:
+      versions:
         - sdk_version: 1
           github: rust/examples/ec2
           excerpts:
@@ -1332,12 +1332,12 @@ ec2_DeleteSecurityGroup:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
     Rust:
-        versions:
+      versions:
         - sdk_version: 1
           github: rust/examples/ec2
           excerpts:
             - snippet_tags:
-              - ec2.rust.delete_security_group.impl
+                - ec2.rust.delete_security_group.impl
   services:
     ec2: {DeleteSecurityGroup}
 ec2_DeleteSnapshot:
@@ -1445,15 +1445,15 @@ ec2_TerminateInstances:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
     Rust:
-        versions:
+      versions:
         - sdk_version: 1
           github: rust/examples/ec2
           excerpts:
             - snippet_tags:
-              - ec2.rust.delete_instance.impl
+                - ec2.rust.delete_instance.impl
             - description: Wait for an instance to be in the terminted state, using the Waiters API. Using the Waiters API requires `use aws_sdk_ec2::client::Waiters` in the rust file.
               snippet_tags:
-              - ec2.rust.wait_for_instance_terminated.impl
+                - ec2.rust.wait_for_instance_terminated.impl
   services:
     ec2: {TerminateInstances}
 ec2_DescribeInstances:
@@ -1747,10 +1747,10 @@ ec2_DescribeImages:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-              - snippet_tags:
+            - snippet_tags:
                 - ec2.rust.list_images.impl
-              - description: Using the list_images function with &SSM; to limit based on your environment. For more details on SSM, see https://docs.aws.amazon.com/systems-manager/latest/userguide/example_ssm_GetParameters_section.html.
-                snippet_tags:
+            - description: Using the list_images function with &SSM; to limit based on your environment. For more details on SSM, see https://docs.aws.amazon.com/systems-manager/latest/userguide/example_ssm_GetParameters_section.html.
+              snippet_tags:
                 - ec2.rust.find_image.scenario
     Bash:
       versions:
@@ -1831,7 +1831,7 @@ ec2_DescribeInstanceTypes:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-              - snippet_tags:
+            - snippet_tags:
                 - ec2.rust.list_instance_types.impl
   services:
     ec2: {DescribeInstanceTypes}
@@ -1918,7 +1918,7 @@ ec2_CreateTags:
           excerpts:
             - description: This example applies the Name tag After creating an instance.
               snippet_tags:
-              - ec2.rust.create_instance.impl
+                - ec2.rust.create_instance.impl
   services:
     ec2: {CreateTags}
 ec2_CreateRouteTable:

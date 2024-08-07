@@ -53,7 +53,7 @@ ssm_GetParameter:
           github: rustv1/example_code/ssm
           excerpts:
             - snippet_tags:
-              - ec2.rust.ssm_list_path.impl
+                - ec2.rust.ssm_list_path.impl
   services:
     ssm: {GetParameter}
 ssm_PutParameter:

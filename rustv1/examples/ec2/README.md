@@ -44,7 +44,7 @@ Code excerpts that show you how to call individual service functions.
 - [CreateKeyPair](src/ec2.rs#L41)
 - [CreateSecurityGroup](src/ec2.rs#L77)
 - [CreateTags](src/ec2.rs#L233)
-- [DeleteKeyPair](src/getting_started/key_pair.rs#L75)
+- [DeleteKeyPair](src/getting_started/key_pair.rs#L66)
 - [DeleteSecurityGroup](src/ec2.rs#L167)
 - [DeleteSnapshot](../ebs/src/bin/delete-snapshot.rs#L26)
 - [DescribeImages](src/ec2.rs#L179)
