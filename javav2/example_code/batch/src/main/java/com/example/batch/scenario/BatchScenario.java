@@ -22,6 +22,12 @@ import java.util.concurrent.CompletionException;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
+ * NOTE
+ * This scenario submits a job that pulls a Docker image named echo-text from Amazon ECR to Amazon Fargate.
+ *
+ * To place this Docker image on Amazon ECR, run the follow Basics scenario.
+ *
+ * https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/ecr
  *
  */
 public class BatchScenario {
@@ -39,13 +45,15 @@ public class BatchScenario {
         String computeEnvironmentName = "my-compute-environment" ;
         String jobQueueName = "my-job-queue";
         String jobDefinitionName = "my-job-definition";
+
+        // See the NOTE in this Java code example (at start).
         String dockerImage = "dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text";
         String subnet = "subnet-ef28c6b0" ;
         String secGroup = "sg-0d2f3836b8750d1bf" ;
 
         // Get an AWS Account id used to retrieve the docker image from Amazon ECR.
         String accId = batchActions.getAccountId();
-        dockerImage = accId+"."+dockerImage; // Get the account Id into docker image.
+        dockerImage = accId+"."+dockerImage;
 
         System.out.println("""
             AWS Batch is a fully managed batch processing service that dynamically provisions the required compute 

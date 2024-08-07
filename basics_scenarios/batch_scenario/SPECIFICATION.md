@@ -4,15 +4,9 @@
 This SDK Basics scenario demonstrates how to interact with AWS Batch using the AWS SDK. It demonstrates various tasks such as creating a compute environment, setting up a job queue, defining a job definition, submitting a job, and so on.  Finally this scenario demonstrates how to clean up resources. Its purpose is to demonstrate how to get up and running with AWS Batch and the AWS SDK.
 
 ## Resources
-The required resources for this SDK scenario are an IAM role and a local Docker image. The IAM role must have permission to interact with the Amazon ECR service (for example, ecr:PutImage). 
+The required resources for this Basics scenario are two IAM roles. The IAM roles must have permission to interact with the AWS Batch service. This Basics scenario uses a CloudFormation template to create the IAM roles and delete the IAM roles at the end of the program.
 
-To create an IAM role, see [Creating IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html). 
-
-For more information about using permissions with ECR (for example, how to create Amazon ECR Identity-based policies), see [How Amazon Elastic Container Registry works with IAM](https://docs.aws.amazon.com/AmazonECR/latest/userguide/security_iam_service-with-iam.html).
-
-To see the instructions to create a local docker image, see [README.md](README.md).
-
-This scenario uses the Docker client API for a specific programming language. For more information, see [Develop with Docker Engine SDKs](https://docs.docker.com/engine/api/sdk/)
+This scenario submits a job that pulls a Docker image from Amazon ECR to Amazon Fargate. To place a Docker image on Amazon ECR, run the follow Basics scenario. See [Amazon ECR code examples for the SDK for Java 2.x](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/ecr)
 
 ## Hello Amazon ECR
 This program is intended for users not familiar with the Amazon ECR SDK to easily get up and running. The logic is to show use of `ecrClient.listImagesPaginator()`.
@@ -26,56 +20,65 @@ The docker image tag is latest
 ```
 
 ## Scenario Program Flow
-The Amazon ECR SDK getting started scenario executes the following steps:
+The AWS Batch Basics scenatio executes the following operations:
 
-1. **Parse command-line arguments**: The program checks if the correct number of arguments (2) are provided, which are the IAM role and the account number.
+**Creates two IAM roles using a CloudFormation template**
 
-2. **Introduce Amazon ECR**: The program provides a brief introduction to Amazon ECR.
+This operation uses AWS CloudFormation to create two IAM roles that are required for AWS Batch operations. The first role is for the compute environment and grants the necessary permissions for the instances to perform tasks such as reading from Amazon S3 or writing logs to CloudWatch. The second role is for the AWS Batch service to interact with other AWS services.
 
-3. **Checks the local machine for a docker image**: The program checks the local mahcine for a docker image named echo-text. If it's not located, the program ends. 
+**Creates a Batch compute environment**
 
-3. **Create an ECR repository**: The program creates the repository using the `createECRRepository` method.
+This operation sets up a compute environment where AWS Batch jobs will be executed. The compute environment is essentially a collection of EC2 instances or ECS containers that AWS Batch can scale based on job requirements.
 
-4. **Set an ECR repository policy**: The program sets an ECR repository policy using the `setRepoPolicy` method, which grants the specified IAM role the necessary permissions to access the repository.
 
-5. **Display the ECR repository policy**: The program retrieves and displays the repository policy using the `getRepoPolicy` method.
+**Checks the status of the compute Environment**
 
-6. **Retrieve an ECR authorization token**: The program retrieves an ECR authorization token using the `getAuthToken` method, which is required for subsequent operations.
+This operation retrieves the current status of the compute environment to ensure it is active and ready to accept jobs.
 
-7. **Get the ECR repository URI**: The program retrieves the URI of the ECR repository using the `getRepositoryURI` method.
+**Sets up a job queue and job definition**
 
-8. **Set an ECR lifecycle policy**: The program sets an ECR lifecycle policy using the `setLifeCyclePolicy` method, which automatically removes old or unused Docker images from the repository.
+This operation involves creating a job queue that will manage the submission of jobs and a job definition that specifies how the jobs should be executed.
 
-9. **Push a Docker image to the ECR repository**: The program pushes a local Docker image to the ECR repository using the Docker Client (its not a recommended way to upload using ECRClient).
+**Registers a Job Definition**
 
-10. **Verify the image in the ECR repository**: The program verifies that the Docker image was successfully pushed to the ECR repository using the `verifyImage` method.
+This operation registers a new job definition with AWS Batch, making it available for job submissions.
 
-11. Provide optional steps on how a user can run the image in the ECR repo. 
+**Submits a Batch Job**
 
-12. **Delete the ECR repository**: The program prompts the user to delete the ECR repository and its contents using the `deleteECRRepository` method.
+This operation submits a job to the AWS Batch job queue for execution.
+
+**Describes a Job**
+This operation retrieves detailed information about a specific job, including its status and execution details.
+
+**Deregisters the Job Definition**
+his operation removes a job definition from AWS Batch, making it unavailable for future job submissions.
+
+**Describes the Job Queue**
+
+This operation retrieves information about a specific job queue, including its status and associated compute environments.
+
+**Disables and deletes the Job Queue**
+This operation disables a job queue to stop it from accepting new jobs and then deletes it from AWS Batch.
+
+**Disables and deletes the Compute Environment**
+This operation disables a compute environment to prevent it from executing new jobs and then deletes it from AWS Batch.
 
 
 ### Program execution
-The following shows the output of the Amazon ECR program in the console. 
+The following shows the output of the AWS Batch program in the console. 
 
 ```
-  Amazon Batch is a fully-managed batch processing service that enables developers,
-scientists, and engineers to run batch computing workloads of any scale. Amazon Batch
-dynamically provisions the optimal quantity and type of compute resources (e.g., CPU or
-memory-optimized instances) based on the volume and specific resource requirements of the
-batch jobs submitted.
+AWS Batch is a fully managed batch processing service that dynamically provisions the required compute
+resources for batch computing workloads. The Java V2 `BatchAsyncClient` allows
+developers to automate the submission, monitoring, and management of batch jobs.
 
-The Java V2 SDK to interact with various AWS services programmatically. The `BatchAsyncClient`
-interface in the Java V2 SDK allows developers to automate the submission, monitoring, and
-management of batch jobs on the Amazon Batch service.
-
-In this scenario, we'll explore how to use the Java V2 SDK to interact with the Amazon Batch
-service and perform key operations such as submitting jobs, monitoring their status, and
-managing the compute environment.
+This scenario provides an example of setting up a compute environment, job queue and job definition,
+and then submitting a job.
 
 Let's get started...
 
 You have two choices:
+
 1 - Run the entire program.
 2 - Delete an existing Compute Environment (created from a previous execution of
 this program that did not complete).
@@ -84,11 +87,28 @@ this program that did not complete).
 Continuing with the program...
 
 --------------------------------------------------------------------------------
-1. Create a Batch compute Environment
-An Amazon Batch compute environment is a resource where you can run your batch jobs.
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+Use AWS CloudFormation to create two IAM roles that are required for this scenario.
+Stack creation requested, ARN is arn:aws:cloudformation:us-east-1:814548047983:stack/BatchStack4/a3f75c50-54d1-11ef-b797-0e1c1efd9fe3
+Stack created successfully
+Stack creation requested, ARN is arn:aws:cloudformation:us-east-1:814548047983:stack/EcsStack/c8f19bb0-54d1-11ef-8454-0eebf7f4997f
+Stack created successfully
+The IAM role needed to interact wit AWS Batch is arn:aws:iam::814548047983:role/BatchStack4-RoleBatch15CD9C03-KWhgI3rvSIbY
+The second IAM role needed to interact wit AWS ECR is arn:aws:iam::814548047983:role/EcsStack-RoleEcsB0CD5AAE-RaUPyHZuoa1L
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+--------------------------------------------------------------------------------
+1. Create a Batch compute environment
+A compute environment is a resource where you can run your batch jobs.
 After creating a compute environment, you can define job queues and job definitions to submit jobs for
-execution. Here’s an overview of what you can do with your compute environment and the types of jobs
-you can create:
+execution.
 
 The benefit of creating a compute environment is it allows you to easily configure and manage the compute
 resources that will be used to run your Batch jobs. By separating the compute environment from the job definitions,
@@ -101,7 +121,14 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Compute environment created: arn:aws:batch:us-east-1:814548047983:compute-environment/my-compute-environment
+Compute environment created successfully.
+Compute Environment ARN: arn:aws:batch:us-east-1:814548047983:compute-environment/my-compute-environment
+
+Enter 'c' followed by <ENTER> to continue:
+c
+Continuing with the program...
+
+--------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 2. Check the status of the my-compute-environment Compute Environment.
 
@@ -109,32 +136,27 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Current Status: VALID
+Compute environment status retrieved successfully.
+Compute Environment Status: VALID
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
 --------------------------------------------------------------------------------
-3. What You Can Do with a Compute Environment?
-Submit Jobs: You can submit batch jobs to the compute environment for execution. Jobs can be containerized applications or scripts.
-Manage Job Queues: Define job queues to prioritize and manage jobs. Jobs submitted to a queue are evaluated by the scheduler to determine when, where, and how they run.
-Define Job Definitions: Create job definitions that specify how jobs are to be run, including parameters, environment variables, and resource requirements.
-Types of Jobs
-Batch Processing Jobs: Process large volumes of data, such as ETL (Extract, Transform, Load) operations, image processing, and video transcoding.
-Machine Learning Jobs: Train machine learning models or run inference tasks using frameworks like TensorFlow, PyTorch, or scikit-learn.
-Compute-Intensive Jobs: Perform simulations, modeling, and other CPU/GPU-intensive tasks.
-Data Analysis Jobs: Analyze large datasets, run statistical analyses, or perform data mining.
-Setting Up Job Queues and Job Definitions.
-
-This scenario provides an example of setting up a job queue and job definition, and then submitting a job.
+--------------------------------------------------------------------------------
+3. Create a job queue
+A job queue is an essential component that helps manage the execution of your batch jobs.
+It acts as a buffer, where jobs are placed and then scheduled for execution based on their
+priority and the available resources in the compute environment.
 
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Job Queue ARN returned: arn:aws:batch:us-east-1:814548047983:job-queue/MyJobQueue
+Job queue created successfully.
+Job Queue ARN: arn:aws:batch:us-east-1:814548047983:job-queue/my-job-queue
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -146,15 +168,14 @@ Registering a job in AWS Batch using the Fargate launch type ensures that all
 necessary parameters, such as the execution role, command to run, and so on
 are specified and reused across multiple job submissions.
 
-This promotes a standardized and efficient approach to managing containerized workloads
-in the cloud.
+ The job definition pulls a Docker image from Amazon ECR and executes the Docker image.
 
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Job definition registered: arn:aws:batch:us-east-1:814548047983:job-definition/MyJobDefinition:35
+Job ARN: arn:aws:batch:us-east-1:814548047983:job-definition/my-job-definition:63
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 5. Submit an AWS Batch job from a job definition.
@@ -163,7 +184,8 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Submitted job with ID: cf22904d-9f56-4d70-b050-5d3ff3065a8e
+Job submitted successfully. Job ID: 5a7af03d-2659-4e96-a714-94beaacce600
+The job id is 5a7af03d-2659-4e96-a714-94beaacce600
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -177,7 +199,32 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Batch jobs applicable to the job queue: MyJobQueue
+Job ID: e3a2b1de-01b6-4330-8a2e-f1f921a87acb, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: e7618984-49a0-44b8-85e3-e331e0cdca9a, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: b3c19bb0-65db-4097-8871-c95544a4efdb, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 611b04a3-6c1e-415d-a733-83798c8b9d40, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: c81941d3-b3ba-4b2a-8bf2-470ff8f467aa, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 353e105d-ca38-43cc-b4f8-52bd75418b5b, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 77571838-dd64-454f-8b34-73fcb41ffa7c, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 2b80159f-46d5-4d8c-ac73-6a94f19a7c74, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: fad2a2e6-a66a-4b93-ab7b-e81b833d2f6f, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 358747fe-2c50-4d85-a965-dccd221791b7, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 6eb60b65-5039-4da4-ae74-c5fa1d2ac633, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 87e8798f-1104-4d8b-b9dc-fee65413bc64, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: c834a6dc-133d-47ef-80f8-f1b3b0f35408, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 45ed52c7-4caf-462f-b713-378892b7ec77, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 5983149a-a735-4b17-8fc3-addc7f7dee1f, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 480c1331-af47-4485-9162-c60c241873e7, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: bb04c5b1-0913-408e-b09b-f6dbdd731d12, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: b41d72d8-f241-4335-88cc-0adf531670e8, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 4782196d-1749-483c-b367-86281cbaf310, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 10d617d7-b769-476e-a1be-16a68f11ee83, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: dd9b05d0-755c-4f9b-a4e4-d92bbc85b415, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: a67cd644-8d9f-4847-8192-78e9e018e020, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: aea93597-cbb3-447c-8174-c83307847b58, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 0f4c6dce-0498-4c7d-85a0-31517634bd7f, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 7173bf10-4c58-4d05-8028-620d71a89ff8, Job Name: my-job-definition, Job Status: SUCCEEDED
+Job ID: 40354da2-7f7d-42df-9e84-888b1e4e5007, Job Name: my-job-definition, Job Status: SUCCEEDED
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -185,21 +232,22 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-7. Check the status of the job.
+7. Check the status of job 5a7af03d-2659-4e96-a714-94beaacce600
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Job status: STARTING
+Job status retrieved successfully. Status: STARTING
+Job Status: STARTING
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
 --------------------------------------------------------------------------------
-8 Delete a Batch compute environment
-WHen deleting an AWS Batch compute environment, it does not happen instantaneously.
+8. Delete Batch resources
+When deleting an AWS Batch compute environment, it does not happen instantaneously.
 There is typically a delay, similar to some other AWS resources.
 AWS Batch starts the deletion process.
 
@@ -212,21 +260,22 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-MyJobDefinition was successfully deregistered
+arn:aws:batch:us-east-1:814548047983:job-definition/my-job-definition:63 was successfully deregistered
 Second, we will disable and then delete the Job Queue.
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Job queue update initiated: UpdateJobQueueResponse(JobQueueName=MyJobQueue, JobQueueArn=arn:aws:batch:us-east-1:814548047983:job-queue/MyJobQueue)
+Job queue update initiated: UpdateJobQueueResponse(JobQueueName=my-job-queue, JobQueueArn=arn:aws:batch:us-east-1:814548047983:job-queue/my-job-queue)
+Job queue is now disabled.
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Job queue deleted: DeleteJobQueueResponse()
 Lets wait 2 mins for the job queue to be deleted
+02:00Job queue deleted: DeleteJobQueueResponse()
 00:00Countdown complete!
 
 Enter 'c' followed by <ENTER> to continue:
@@ -240,6 +289,7 @@ c
 Continuing with the program...
 
 Compute environment disabled: my-compute-environment
+Compute environment status retrieved successfully.
 Current State: UPDATING
 Lets wait 1 min for the compute environment to be deleted
 00:00Countdown complete!
@@ -249,8 +299,12 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
+Delete stack requested ....
+Stack deleted successfully.
+Delete stack requested ....
+Stack deleted successfully.
 --------------------------------------------------------------------------------
-This concludes the Amazon Batch SDK scenario
+This concludes the AWS Batch SDK scenario
 --------------------------------------------------------------------------------
 
 ```
