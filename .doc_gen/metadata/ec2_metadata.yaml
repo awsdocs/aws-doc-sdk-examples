@@ -68,6 +68,13 @@ ec2_Hello:
             - description:
               snippet_tags:
                 - ec2.ruby.hello_ec2
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.ec2-helloworld
   services:
     ec2: {DescribeSecurityGroups}
 ec2_GetPasswordData:
@@ -168,6 +175,17 @@ ec2_CreateKeyPair:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - description: Rust implementation that calls the EC2 Client's create_key_pair and extracts the returned material.
+              snippet_tags:
+                - ec2.rust.create_key.impl
+            - description: A function that calls the create_key impl and securely saves the PEM private key.
+              snippet_tags:
+                - ec2.rust.create_key.wrapper
   services:
     ec2: {CreateKeyPair}
 ec2_DescribeKeyPairs:
@@ -246,6 +264,13 @@ ec2_DescribeKeyPairs:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.list_keys.impl
   services:
     ec2: {DescribeKeyPairs}
 
@@ -297,7 +322,6 @@ ec2_CreateSecurityGroup:
             - description:
               snippet_tags:
                 - ec2.Ruby.exampleSecurityGroup
-
     JavaScript:
       versions:
         - sdk_version: 3
@@ -335,6 +359,13 @@ ec2_CreateSecurityGroup:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.create_security_group.impl
   services:
     ec2: {CreateSecurityGroup}
 ec2_RunInstances:
@@ -397,6 +428,7 @@ ec2_RunInstances:
       versions:
         - sdk_version: 1
           github: cpp/example_code/ec2
+          sdkguide:
           excerpts:
             - description:
               snippet_tags:
@@ -413,6 +445,13 @@ ec2_RunInstances:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.create_instance.impl
   services:
     ec2: {RunInstances}
 ec2_StartInstances:
@@ -477,9 +516,12 @@ ec2_StartInstances:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-            - description:
+            - description: Start an EC2 Instance by instance ID.
               snippet_tags:
-                - ec2.rust.start-instance
+                - ec2.rust.start_instance.impl
+            - description: Wait for an instance to be in the ready and status ok states, using the Waiters API. Using the Waiters API requires `use aws_sdk_ec2::client::Waiters` in the rust file.
+              snippet_tags:
+                - ec2.rust.wait_for_instance_ready.impl
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -572,9 +614,11 @@ ec2_StopInstances:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-            - description:
+            - snippet_tags:
+                - ec2.rust.stop_instance.impl
+            - description: Wait for an instance to be in the stopped state, using the Waiters API. Using the Waiters API requires `use aws_sdk_ec2::client::Waiters` in the rust file.
               snippet_tags:
-                - ec2.rust.stop-instance
+                - ec2.rust.stop_instance.impl
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -691,6 +735,13 @@ ec2_AllocateAddress:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.allocate_address.impl
   services:
     ec2: {AllocateAddress}
 ec2_AssociateAddress:
@@ -765,6 +816,7 @@ ec2_AssociateAddress:
           excerpts:
             - description:
               snippet_tags:
+                - cpp.example_code.ec2.allocate_address.client
                 - cpp.example_code.ec2.AssociateAddress
     Bash:
       versions:
@@ -778,6 +830,13 @@ ec2_AssociateAddress:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.associate_address.impl
   services:
     ec2: {AssociateAddress}
 ec2_DisassociateAddress:
@@ -840,6 +899,13 @@ ec2_DisassociateAddress:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.disassociate_address.impl
   services:
     ec2: {DisassociateAddress}
 ec2_ReleaseAddress:
@@ -927,6 +993,13 @@ ec2_ReleaseAddress:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.deallocate_address.impl
   services:
     ec2: {ReleaseAddress}
 ec2_AuthorizeSecurityGroupIngress:
@@ -1000,6 +1073,13 @@ ec2_AuthorizeSecurityGroupIngress:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.authorize_security_group_ssh_ingress.impl
   services:
     ec2: {AuthorizeSecurityGroupIngress}
 ec2_DeleteKeyPair:
@@ -1078,6 +1158,16 @@ ec2_DeleteKeyPair:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - description: Wrapper around delete_key that also removes the backing private PEM key.
+              snippet_tags:
+                - ec2.rust.delete_key.wrapper
+            - snippet_tags:
+                - ec2.rust.delete_key.impl
   services:
     ec2: {DeleteKeyPair}
 ec2_DescribeSecurityGroups:
@@ -1156,6 +1246,13 @@ ec2_DescribeSecurityGroups:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.ec2-helloworld
   services:
     ec2: {DescribeSecurityGroups}
 ec2_DeleteSecurityGroup:
@@ -1234,6 +1331,13 @@ ec2_DeleteSecurityGroup:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.delete_security_group.impl
   services:
     ec2: {DeleteSecurityGroup}
 ec2_DeleteSnapshot:
@@ -1340,6 +1444,16 @@ ec2_TerminateInstances:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.delete_instance.impl
+            - description: Wait for an instance to be in the terminted state, using the Waiters API. Using the Waiters API requires `use aws_sdk_ec2::client::Waiters` in the rust file.
+              snippet_tags:
+                - ec2.rust.wait_for_instance_terminated.impl
   services:
     ec2: {TerminateInstances}
 ec2_DescribeInstances:
@@ -1401,9 +1515,12 @@ ec2_DescribeInstances:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-            - description:
+            - description: Retrieve details for an EC2 Instance.
               snippet_tags:
-                - ec2.rust.describe-instances
+                - ec2.rust.describe_instance.impl
+            - description: After creating an EC2 instance, retrieve and store its details.
+              snippet_tags:
+                - ec2.rust.create_instance.wrapper
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -1443,7 +1560,7 @@ ec2_DescribeRegions:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.rust.ec2-helloworld
+                - ec2.rust.describe-regions
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1560,9 +1677,14 @@ ec2_RebootInstances:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-            - description:
+            - snippet_tags:
+                - ec2.rust.reboot_instance.wrapper
+            - snippet_tags:
+                - ec2.rust.reboot_instance.impl
+            - description: Waiters for instance to be in the stopped and ready states, using the Waiters API. Using the Waiters API requires `use aws_sdk_ec2::client::Waiters` in the rust file.
               snippet_tags:
-                - ec2.rust.reboot-instance
+                - ec2.rust.wait_for_instance_ready.impl
+                - ec2.rust.wait_for_instance_stopped.impl
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1625,9 +1747,11 @@ ec2_DescribeImages:
         - sdk_version: 1
           github: rustv1/examples/ec2
           excerpts:
-            - genai: some
+            - snippet_tags:
+                - ec2.rust.list_images.impl
+            - description: Using the list_images function with &SSM; to limit based on your environment. For more details on SSM, see https://docs.aws.amazon.com/systems-manager/latest/userguide/example_ssm_GetParameters_section.html.
               snippet_tags:
-                - ec2.rust.describe-images
+                - ec2.rust.find_image.scenario
     Bash:
       versions:
         - sdk_version: 2
@@ -1702,6 +1826,13 @@ ec2_DescribeInstanceTypes:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.list_instance_types.impl
   services:
     ec2: {DescribeInstanceTypes}
 ec2_DescribeAddresses:
@@ -1780,6 +1911,14 @@ ec2_CreateTags:
             - description:
               snippet_tags:
                 - cpp.example_code.ec2.CreateTags
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - description: This example applies the Name tag After creating an instance.
+              snippet_tags:
+                - ec2.rust.create_instance.impl
   services:
     ec2: {CreateTags}
 ec2_CreateRouteTable:
@@ -1868,7 +2007,8 @@ ec2_ReplaceIamInstanceProfileAssociation:
           github: python/example_code/ec2
           sdkguide:
           excerpts:
-            - description: This example replaces the instance profile of a running instance, reboots the instance, and sends
+            - description:
+                This example replaces the instance profile of a running instance, reboots the instance, and sends
                 a command to the instance after it starts.
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
@@ -2112,7 +2252,49 @@ ec2_Scenario_GetStartedInstances:
               snippet_tags:
                 - aws-cli.bash-linux.ec2.errecho
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ec2
+          excerpts:
+            - description: The EC2InstanceScenario implementation contains logic to run the example as a whole.
+              snippet_files:
+                - rustv1/examples/ec2/src/getting_started/scenario.rs
+            - description: The EC2Impl struct serves as a an automock point for testing, and its functions wrap the EC2 SDK calls.
+              snippet_files:
+                - rustv1/examples/ec2/src/ec2.rs
+            - description: The SSM struct serves as a an automock point for testing, and its functions wraps SSM SDK calls.
+              snippet_files:
+                - rustv1/examples/ec2/src/ssm.rs
+            - description: The scenario uses several "Manager"-style structs to handle access to resources that are created and deleted throughout the scenario.
+              snippet_files:
+                - rustv1/examples/ec2/src/getting_started/elastic_ip.rs
+                - rustv1/examples/ec2/src/getting_started/instance.rs
+                - rustv1/examples/ec2/src/getting_started/key_pair.rs
+                - rustv1/examples/ec2/src/getting_started/security_group.rs
+            - description: The main entry point for the scenario.
+              snippet_files:
+                - rustv1/examples/ec2/src/bin/getting-started.rs
   services:
-    ec2: {AllocateAddress, AssociateAddress, AuthorizeSecurityGroupIngress, CreateKeyPair, CreateSecurityGroup, DeleteKeyPair,
-          DeleteSecurityGroup, DescribeImages, DescribeInstanceTypes, DescribeInstances, DescribeKeyPairs, DescribeSecurityGroups,
-          DisassociateAddress, ReleaseAddress, RunInstances, StartInstances, StopInstances, TerminateInstances, UnmonitorInstances}
+    ec2:
+      {
+        AllocateAddress,
+        AssociateAddress,
+        AuthorizeSecurityGroupIngress,
+        CreateKeyPair,
+        CreateSecurityGroup,
+        DeleteKeyPair,
+        DeleteSecurityGroup,
+        DescribeImages,
+        DescribeInstanceTypes,
+        DescribeInstances,
+        DescribeKeyPairs,
+        DescribeSecurityGroups,
+        DisassociateAddress,
+        ReleaseAddress,
+        RunInstances,
+        StartInstances,
+        StopInstances,
+        TerminateInstances,
+        UnmonitorInstances,
+      }

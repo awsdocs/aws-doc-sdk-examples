@@ -45,6 +45,17 @@ ssm_DescribeParameters:
                 - ssm.rust.describe-parameters
   services:
     ssm: {DescribeParameters}
+ssm_GetParameter:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/example_code/ssm
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.ssm_list_path.impl
+  services:
+    ssm: {GetParameter}
 ssm_PutParameter:
   languages:
     Java:
