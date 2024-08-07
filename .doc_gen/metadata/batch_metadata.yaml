@@ -1,4 +1,22 @@
 # zexi 0.4.0
+batch_Hello:
+  title: Hello &BATCH;
+  title_abbrev: Hello &BATCH;
+  synopsis: get started using &BATCH;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/batch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - batch.java2.hello.main
+  services:
+    batch: {listJobsPaginator}
+
 batch_DescribeJobs:
   languages:
     Java:
@@ -167,26 +185,6 @@ batch_CreateComputeEnvironment:
                 - batch.java2.create_compute.main
   services:
     batch: {CreateComputeEnvironment}
-batch_DescribeComputeEnvironments:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/batch
-          excerpts:
-            - description:
-              snippet_tags:
-                - batch.java2.check.status.main
-    Rust:
-      versions:
-        - sdk_version: 1
-          github: rustv1/examples/batch
-          excerpts:
-            - description:
-              snippet_tags:
-                - batch.rust.batch-helloworld
-  services:
-    batch: {DescribeComputeEnvironments}
 batch_Scenario:
   title: Learn core operations for'&BATCHlong; using an &AWS; SDK
   title_abbrev: Learn &BATCH; core operations
