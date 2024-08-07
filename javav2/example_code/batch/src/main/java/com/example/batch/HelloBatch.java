@@ -3,6 +3,7 @@
 
 package com.example.batch;
 
+// snippet-start:[batch.java2.hello.main]
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.core.retry.RetryPolicy;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
@@ -27,7 +28,6 @@ public class HelloBatch {
             System.out.printf("Job ID: %s, Job Name: %s, Job Status: %s%n",
                 job.jobId(), job.jobName(), job.status())
         );
-
     }
 
     public static List<JobSummary> listJobs(String jobQueue) {
@@ -37,7 +37,7 @@ public class HelloBatch {
 
         ListJobsRequest listJobsRequest = ListJobsRequest.builder()
             .jobQueue(jobQueue)
-            .jobStatus(JobStatus.SUCCEEDED)  // Filter jobs by status
+            .jobStatus(JobStatus.SUCCEEDED)
             .build();
 
         List<JobSummary> jobSummaries = new ArrayList<>();
@@ -52,13 +52,6 @@ public class HelloBatch {
     }
 
     private static BatchAsyncClient getAsyncClient() {
-
-        /*
-         The `NettyNioAsyncHttpClient` class is part of the AWS SDK for Java, version 2,
-         and it is designed to provide a high-performance, asynchronous HTTP client for interacting with AWS services.
-         It uses the Netty framework to handle the underlying network communication and the Java NIO API to
-         provide a non-blocking, event-driven approach to HTTP requests and responses.
-         */
         SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
             .maxConcurrency(100)  // Increase max concurrency to handle more simultaneous connections.
             .connectionTimeout(Duration.ofSeconds(60))  // Set the connection timeout.
@@ -74,7 +67,6 @@ public class HelloBatch {
                 .build())
             .build();
 
-
         if (batchClient == null) {
             batchClient = BatchAsyncClient.builder()
                 .region(Region.US_EAST_1)
@@ -84,5 +76,5 @@ public class HelloBatch {
         }
         return batchClient;
     }
-
 }
+// snippet-end:[batch.java2.hello.main]

@@ -8,19 +8,11 @@ The required resources for this Basics scenario are two IAM roles. The IAM roles
 
 This scenario submits a job that pulls a Docker image from Amazon ECR to Amazon Fargate. To place a Docker image on Amazon ECR, run the follow Basics scenario. See [Amazon ECR code examples for the SDK for Java 2.x](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/ecr)
 
-## Hello Amazon ECR
-This program is intended for users not familiar with the Amazon ECR SDK to easily get up and running. The logic is to show use of `ecrClient.listImagesPaginator()`.
-
-### Program execution
-The following shows the output of the program in the console. 
-
-```java 
-The docker image tag is latest 
-
-```
+## Hello AWS  Batch
+This program is intended for users not familiar with the AWS Batch SDK to easily get up and running. The logic is to show use of `listJobsPaginator()`.
 
 ## Scenario Program Flow
-The AWS Batch Basics scenatio executes the following operations:
+The AWS Batch Basics scenario executes the following operations.
 
 **Creates two IAM roles using a CloudFormation template**
 
