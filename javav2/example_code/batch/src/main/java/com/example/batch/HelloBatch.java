@@ -46,7 +46,6 @@ public class HelloBatch {
             jobSummaries.addAll(response.jobSummaryList());
         });
 
-        // Wait for the future to complete
         future.join();
         return jobSummaries;
     }
