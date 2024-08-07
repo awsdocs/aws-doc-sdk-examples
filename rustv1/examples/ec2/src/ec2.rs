@@ -77,14 +77,14 @@ impl EC2Impl {
     // snippet-start:[ec2.rust.create_security_group.impl]
     pub async fn create_security_group(
         &self,
-        name: String,
-        description: String,
+        name: &str,
+        description: &str,
     ) -> Result<SecurityGroup, EC2Error> {
         tracing::info!("Creating security group {name}");
         let create_output = self
             .client
             .create_security_group()
-            .group_name(&name)
+            .group_name(name)
             .description(description)
             .send()
             .await
@@ -138,7 +138,7 @@ impl EC2Impl {
     /// as {ip}/32 over TCP port 22.
     pub async fn authorize_security_group_ssh_ingress(
         &self,
-        group_id: String,
+        group_id: &str,
         ingress_ips: Vec<Ipv4Addr>,
     ) -> Result<(), EC2Error> {
         tracing::info!("Authorizing ingress for security group {group_id}");
@@ -165,7 +165,7 @@ impl EC2Impl {
     // snippet-end:[ec2.rust.authorize_security_group_ssh_ingress.impl]
 
     // snippet-start:[ec2.rust.delete_security_group.impl]
-    pub async fn delete_security_group(&self, group_id: String) -> Result<(), EC2Error> {
+    pub async fn delete_security_group(&self, group_id: &str) -> Result<(), EC2Error> {
         tracing::info!("Deleting security group {group_id}");
         self.client
             .delete_security_group()

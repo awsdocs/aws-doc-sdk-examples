@@ -1,11 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-use std::{env, fs::OpenOptions, io::Write, path::PathBuf};
+use std::{env, path::PathBuf};
 
 use aws_sdk_ec2::types::KeyPairInfo;
 
 use crate::ec2::{EC2Error, EC2};
+
+use super::util::Util;
 
 /// KeyPairManager tracks a KeyPairInfo and the path the private key has been
 /// written to, if it's been created.
@@ -39,7 +41,12 @@ impl KeyPairManager {
     /// again. The private key data is stored as a .pem file.
     ///
     /// :param key_name: The name of the key pair to create.
-    pub async fn create(&mut self, ec2: &EC2, key_name: String) -> Result<KeyPairInfo, EC2Error> {
+    pub async fn create(
+        &mut self,
+        ec2: &EC2,
+        util: &Util,
+        key_name: String,
+    ) -> Result<KeyPairInfo, EC2Error> {
         let (key_pair, material) = ec2
             .create_key_pair(key_name.clone())
             .await
@@ -47,23 +54,7 @@ impl KeyPairManager {
 
         let path = self.key_file_dir.join(format!("{key_name}.pem"));
 
-        #[cfg(unix)]
-        let mut file = {
-            use std::os::unix::fs::OpenOptionsExt;
-            OpenOptions::new()
-                .mode(0o600)
-                .open(path.clone())
-                .map_err(|e| EC2Error::new(format!("Failed to create {path:?} ({e:?})")))?
-        };
-        #[cfg(not(unix))]
-        let mut file = {
-            fs::File::create(path.clone())
-                .map_err(|e| EC2Error::new(format!("Failed to create {path:?} ({e:?})")))?
-        };
-
-        file.write(material.as_bytes()).map_err(|e| {
-            EC2Error::new(format!("Failed to write {key_name} to {path:?} ({e:?})"))
-        })?;
+        util.write_secure(&key_name, &path, material)?;
 
         self.key_file_path = Some(path);
         self.key_pair = key_pair.clone();
@@ -73,11 +64,11 @@ impl KeyPairManager {
     // snippet-end:[ec2.rust.create_key.wrapper]
 
     // snippet-start:[ec2.rust.delete_key.wrapper]
-    pub async fn delete(self, ec2: &EC2) -> Result<(), EC2Error> {
+    pub async fn delete(self, ec2: &EC2, util: &Util) -> Result<(), EC2Error> {
         if let Some(key_pair_id) = self.key_pair.key_pair_id() {
             ec2.delete_key_pair(key_pair_id).await?;
             if let Some(key_path) = self.key_file_path() {
-                if let Err(err) = std::fs::remove_file(key_path) {
+                if let Err(err) = util.remove(key_path) {
                     eprintln!("Failed to remove {key_path:?} ({err:?})");
                 }
             }

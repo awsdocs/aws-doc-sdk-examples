@@ -6,3 +6,6 @@ pub mod instance;
 pub mod key_pair;
 pub mod scenario;
 pub mod security_group;
+
+pub mod tests;
+pub mod util;

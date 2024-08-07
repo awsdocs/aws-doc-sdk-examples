@@ -17,24 +17,24 @@
 //!   address.
 //! * Clean up all of the resources created by this example.
 
-use std::{fmt::Display, net::Ipv4Addr};
+use std::net::Ipv4Addr;
 
 use crate::{
     ec2::{EC2Error, EC2},
-    getting_started::key_pair::KeyPairManager,
+    getting_started::{key_pair::KeyPairManager, util::Util},
     ssm::SSM,
 };
-use aws_sdk_ec2::types::Image;
 use aws_sdk_ssm::types::Parameter;
-use inquire::{validator::ValueRequiredValidator, InquireError};
 
 use super::{
     elastic_ip::ElasticIpManager, instance::InstanceManager, security_group::SecurityGroupManager,
+    util::ScenarioImage,
 };
 
 pub struct Ec2InstanceScenario {
     ec2: EC2,
     ssm: SSM,
+    util: Util,
     key_pair_manager: KeyPairManager,
     security_group_manager: SecurityGroupManager,
     instance_manager: InstanceManager,
@@ -42,10 +42,11 @@ pub struct Ec2InstanceScenario {
 }
 
 impl Ec2InstanceScenario {
-    pub fn new(ec2: EC2, ssm: SSM) -> Self {
+    pub fn new(ec2: EC2, ssm: SSM, util: Util) -> Self {
         Ec2InstanceScenario {
             ec2,
             ssm,
+            util,
             key_pair_manager: Default::default(),
             security_group_manager: Default::default(),
             instance_manager: Default::default(),
@@ -69,13 +70,11 @@ impl Ec2InstanceScenario {
     pub async fn create_and_list_key_pairs(&mut self) -> Result<(), EC2Error> {
         println!( "Let's create an RSA key pair that you can be use to securely connect to your EC2 instance.");
 
-        let key_name = inquire::Text::new("Enter a unique name for your key: ")
-            .with_validator(ValueRequiredValidator::default())
-            .with_default("my_key")
-            .prompt()
-            .map_err(|e| EC2Error::new(format!("Failed to get name for key pair. {e:?}")))?;
+        let key_name = self.util.prompt_key_name()?;
 
-        self.key_pair_manager.create(&self.ec2, key_name).await?;
+        self.key_pair_manager
+            .create(&self.ec2, &self.util, key_name)
+            .await?;
 
         println!(
             "Created a key pair {} and saved the private key to {:?}.",
@@ -88,12 +87,7 @@ impl Ec2InstanceScenario {
                 .ok_or_else(|| EC2Error::new("No key file after creating key"))?
         );
 
-        if inquire::Confirm::new("Do you want to list some of your key pairs?")
-            .with_default(false)
-            .prompt()
-            .or(Ok(false))
-            .map_err(|e: InquireError| EC2Error::new(format!("Failed to ask question. {e:?}")))?
-        {
+        if self.util.should_list_key_pairs()? {
             for pair in self.key_pair_manager.list(&self.ec2).await? {
                 println!(
                     "Found {:?} key {} with fingerprint:\t{:?}",
@@ -119,16 +113,12 @@ impl Ec2InstanceScenario {
     /// the AWS Management Console.
     pub async fn create_security_group(&mut self) -> Result<(), EC2Error> {
         println!("Let's create a security group to manage access to your instance.");
-        let group_name = inquire::Text::new("Enter a unique name for your security group: ")
-            .with_validator(ValueRequiredValidator::default())
-            .with_default("my_group")
-            .prompt()
-            .map_err(|e| EC2Error::new(format!("Failed to get name for security group! {e:?}")))?;
+        let group_name = self.util.prompt_security_group_name()?;
 
         self.security_group_manager
             .create(
                 &self.ec2,
-                group_name,
+                &group_name,
                 "Security group for example: get started with instances.",
             )
             .await?;
@@ -141,7 +131,7 @@ impl Ec2InstanceScenario {
                 .unwrap_or("(unknown vpc)")
         );
 
-        let check_ip = do_get("https://checkip.amazonaws.com").await?;
+        let check_ip = self.util.do_get("https://checkip.amazonaws.com").await?;
         let current_ip_address: Ipv4Addr = check_ip.trim().parse().map_err(|e| {
             EC2Error::new(format!(
                 "Failed to convert response {} to IP Address: {e:?}",
@@ -150,11 +140,7 @@ impl Ec2InstanceScenario {
         })?;
 
         println!("Your public IP address seems to be {current_ip_address}");
-        if inquire::Confirm::new("Add this rule to your security group?")
-            .with_default(true)
-            .prompt()
-            .unwrap_or(true)
-        {
+        if self.util.should_add_to_security_group() {
             match self
                 .security_group_manager
                 .authorize_ingress(&self.ec2, current_ip_address)
@@ -193,14 +179,7 @@ impl Ec2InstanceScenario {
                 .as_ref()
                 .ok_or_else(|| EC2Error::new(format!("Missing architecture in {:?}", ami.0)))?
         );
-        let instance_type =
-            inquire::Select::new("Select an instance type for this instance:", instance_types)
-                .prompt()
-                .map_err(|e| {
-                    EC2Error::new(format!(
-                        "Could not determine the desired instance type ({e:?})"
-                    ))
-                })?;
+        let instance_type = self.util.select_instance_type(instance_types)?;
 
         println!("Creating your instance and waiting for it to start...");
         self.instance_manager
@@ -225,12 +204,8 @@ impl Ec2InstanceScenario {
             .await
         {
             println!("{err}");
-            if !inquire::Confirm::new("Continue waiting?")
-                .with_default(true)
-                .prompt()
-                .map_err(|_| err)?
-            {
-                break;
+            if !self.util.should_continue_waiting() {
+                return Err(err);
             }
         }
 
@@ -261,12 +236,7 @@ impl Ec2InstanceScenario {
             .map(ScenarioImage::from)
             .collect();
         println!("We will now create an instance from an Amazon Linux 2 AMI");
-        let ami = inquire::Select::new(
-            "Select an Amazon Linux 2 AMI for this instance",
-            amzn2_images,
-        )
-        .prompt()
-        .map_err(|e| EC2Error::new(format!("Could not determine desired AMI ({e:?})")))?;
+        let ami = self.util.select_scenario_image(amzn2_images)?;
         Ok(ami)
     }
     // snippet-end:[ec2.rust.find_image.scenario]
@@ -325,7 +295,7 @@ impl Ec2InstanceScenario {
         let key_file_path = self.key_pair_manager.key_file_path().unwrap();
         println!("To connect, open another command prompt and run the following command:");
         println!("\nssh -i {} ec2-user@{ip_addr}\n", key_file_path.display());
-        let _ = inquire::Text::new("Press Enter when you're ready to continue the demo.").prompt();
+        let _ = self.util.enter_to_continue();
     }
 
     /// 1. Disassociate and delete the previously created Elastic IP.
@@ -349,11 +319,7 @@ impl Ec2InstanceScenario {
             "\tInstance: {}",
             self.instance_manager.instance_display_name()
         );
-        if inquire::Confirm::new("Clean up resources?")
-            .with_default(true)
-            .prompt()
-            .unwrap_or(false)
-        {
+        if self.util.should_clean_resources() {
             if let Err(err) = self.elastic_ip_manager.remove(&self.ec2).await {
                 eprintln!("{err}")
             }
@@ -363,7 +329,7 @@ impl Ec2InstanceScenario {
             if let Err(err) = self.security_group_manager.delete(&self.ec2).await {
                 eprintln!("{err}");
             }
-            if let Err(err) = self.key_pair_manager.delete(&self.ec2).await {
+            if let Err(err) = self.key_pair_manager.delete(&self.ec2, &self.util).await {
                 eprintln!("{err}");
             }
         } else {
@@ -372,33 +338,21 @@ impl Ec2InstanceScenario {
     }
 }
 
-/// Utility to perform a GET request and return the body as UTF-8, or an appropriate EC2Error.
-async fn do_get(url: &str) -> Result<String, EC2Error> {
-    reqwest::get(url)
-        .await
-        .map_err(|e| EC2Error::new(format!("Could not request ip from {url}: {e:?}")))?
-        .error_for_status()
-        .map_err(|e| EC2Error::new(format!("Failure status from {url}: {e:?}")))?
-        .text_with_charset("utf-8")
-        .await
-        .map_err(|e| EC2Error::new(format!("Failed to read response from {url}: {e:?}")))
-}
+pub async fn run(mut scenario: Ec2InstanceScenario) {
+    println!("--------------------------------------------------------------------------------");
+    println!(
+        "Welcome to the Amazon Elastic Compute Cloud (Amazon EC2) get started with instances demo."
+    );
+    println!("--------------------------------------------------------------------------------");
 
-/// Image doesn't impl Display, which is necessary for inquire to use it in a Select.
-/// This wraps Image and provides a Display impl.
-struct ScenarioImage(Image);
-impl From<Image> for ScenarioImage {
-    fn from(value: Image) -> Self {
-        ScenarioImage(value)
+    if let Err(err) = scenario.run().await {
+        eprintln!("There was an error running the scenario: {err}")
     }
-}
-impl Display for ScenarioImage {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{}: {}",
-            self.0.name().unwrap_or("(unknown)"),
-            self.0.description().unwrap_or("unknown")
-        )
-    }
+
+    println!("--------------------------------------------------------------------------------");
+
+    scenario.clean_up().await;
+
+    println!("Thanks for running!");
+    println!("--------------------------------------------------------------------------------");
 }

@@ -20,14 +20,14 @@ impl SecurityGroupManager {
     pub async fn create(
         &mut self,
         ec2: &EC2,
-        group_name: impl Into<String>,
-        group_description: impl Into<String>,
+        group_name: &str,
+        group_description: &str,
     ) -> Result<(), EC2Error> {
         self.group_name = group_name.into();
         self.group_description = group_description.into();
 
         self.security_group = Some(
-            ec2.create_security_group(self.group_name.clone(), self.group_description.clone())
+            ec2.create_security_group(group_name, group_description)
                 .await
                 .map_err(|e| e.add_message("Couldn't create security group"))?,
         );
@@ -39,8 +39,7 @@ impl SecurityGroupManager {
         if let Some(sg) = &self.security_group {
             ec2.authorize_security_group_ssh_ingress(
                 sg.group_id()
-                    .ok_or_else(|| EC2Error::new("Missing security group ID"))?
-                    .to_string(),
+                    .ok_or_else(|| EC2Error::new("Missing security group ID"))?,
                 vec![ip_address],
             )
             .await?;
@@ -53,8 +52,7 @@ impl SecurityGroupManager {
         if let Some(sg) = &self.security_group {
             ec2.delete_security_group(
                 sg.group_id()
-                    .ok_or_else(|| EC2Error::new("Missing security group ID"))?
-                    .to_string(),
+                    .ok_or_else(|| EC2Error::new("Missing security group ID"))?,
             )
             .await?;
         };
