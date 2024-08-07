@@ -348,7 +348,6 @@ public class BatchActions {
             }
         }).thenApply(updateResponse -> null);
     }
-
     // snippet-end:[batch.java2.disable.job.queue.main]
 
     // snippet-start:[batch.java2.delete.job.queue.main]
