@@ -257,20 +257,22 @@ This concludes the Amazon Batch SDK scenario
 
 ## SOS Tags
 
-The following table describes the metadata used in this SDK Getting Started Scenario.
+The following table describes the metadata used in this Basics Scenario.
 
 
 | action                       | metadata file                | metadata key                            |
 |------------------------------|------------------------------|---------------------------------------- |
-| `deleteRepository`           | ecr_metadata.yaml            | ecr_DeleteRepository                    |
-| `describeImages              | ecr_metadata.yaml            | ecr_DescribeImages                      |
-| `startLifecyclePolicyPreview`| ecr_metadata.yaml            | ecr_LifecyclePolicyPreview              |
-| `describeRepositories`       | ecr_metadata.yaml            | ecr_DescribeRepositories                |
-| `getAuthorizationToken`      | ecr_metadata.yaml            | ecr_GetAuthorizationToken               |
-| `getRepositoryPolicy`        | ecr_metadata.yaml            | ecr_GetRepositoryPolicy                 |
-| `setRepositoryPolicy`        | ecr_metadata.yaml            | ecr_SetRepositoryPolicy                 |
-| `createRepository `          | ecr_metadata.yaml            | ecr_CreateRepository                    |
-| `PutImage `                  | ecr_metadata.yaml            | ecr_PutImage                            |
-| `listImagesPaginator `       | ecr_metadata.yaml            | ecr_Hello                               |
-| `scenario                    | ecr_metadata.yaml            | ecr_Scenario                            |
+| `describeJobs`               | batch_metadata.yaml          | batch_DescribeJobs                      |
+| `updateComputeEnvironment`   | batch_metadata.yaml          | batch_UpdateComputeEnvironment          |
+| `describeJobQueues`          | batch_metadata.yaml          | batch_DescribeJobQueues                 |
+| `DeleteJobQueue`             | batch_metadata.yaml          | batch_DeleteJobQueue                    |
+| `updateJobQueue`             | batch_metadata.yaml          | batch_UpdateJobQueue                    |
+| `deregisterJobDefinition`    | batch_metadata.yaml          | batch_DeregisterJobDefinition           |
+| `registerJobDefinition`      | batch_metadata.yaml          | batch_RegisterJobDefinition             |
+| `listJobsPaginator`          | batch_metadata.yaml          | batch_ListJobsPaginator                 |
+| `createJobQueue`             | batch_metadata.yaml          | batch_CreateJobQueue                    |
+| `DescribeComputeEnvironments`| batch_metadata.yaml          | batch_DescribeComputeEnvironments       |
+| `deleteComputeEnvironment`   | batch_metadata.yaml          | batch_DeleteComputeEnvironment          |
+| `CreateComputeEnvironment`   | batch_metadata.yaml          | batch_CreateComputeEnvironment          |
+| `scenario                    | batch_metadata.yaml          | batch_Scenario                          |
 

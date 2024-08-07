@@ -29,6 +29,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.batch.model.*;
 import software.amazon.awssdk.services.batch.paginators.ListJobsPublisher;
@@ -98,12 +100,8 @@ public class BatchActions {
             if (resp != null) {
                 System.out.println("Compute environment created successfully.");
             } else {
-                if (ex.getCause() instanceof BatchException) {
-                    throw (BatchException) ex.getCause();
-                } else {
-                    String errorMessage = "Unexpected error occurred: " + ex.getMessage();
-                    throw new RuntimeException(errorMessage, ex);
-                }
+               String errorMessage = "Unexpected error occurred: " + ex.getMessage();
+               throw new RuntimeException(errorMessage, ex);
             }
         });
 
@@ -155,12 +153,8 @@ public class BatchActions {
             if (resp != null) {
                 System.out.println("Compute environment status retrieved successfully.");
             } else {
-                if (ex.getCause() instanceof BatchException) {
-                    throw (BatchException) ex.getCause();
-                } else {
-                    String errorMessage = "Unexpected error occurred: " + ex.getMessage();
-                    throw new RuntimeException(errorMessage, ex);
-                }
+                String errorMessage = "Unexpected error occurred: " + ex.getMessage();
+                throw new RuntimeException(errorMessage, ex);
             }
         });
 
@@ -228,7 +222,7 @@ public class BatchActions {
 
         ListJobsRequest listJobsRequest = ListJobsRequest.builder()
             .jobQueue(jobQueue)
-            .jobStatus(JobStatus.SUCCEEDED)  // Filter jobs by status
+            .jobStatus(JobStatus.SUCCEEDED)  // Filter jobs by status.
             .build();
 
         List<JobSummary> jobSummaries = new ArrayList<>();
@@ -310,27 +304,25 @@ public class BatchActions {
      *
      * @param jobDefinition the name of the job definition to be deregistered
      * @return a CompletableFuture that completes when the job definition has been deregistered
-     *         or an exception has occurred
+     * or an exception has occurred
      */
-    public CompletableFuture<Void> deregisterJobDefinitionAsync(String jobDefinition) {
+    public CompletableFuture<DeregisterJobDefinitionResponse> deregisterJobDefinitionAsync(String jobDefinition) {
         DeregisterJobDefinitionRequest jobDefinitionRequest = DeregisterJobDefinitionRequest.builder()
             .jobDefinition(jobDefinition)
             .build();
 
-        CompletableFuture<Void> future = new CompletableFuture<>();
-        getAsyncClient().deregisterJobDefinition(jobDefinitionRequest)
-            .thenAccept(response -> {
+        CompletableFuture<DeregisterJobDefinitionResponse> responseFuture = getAsyncClient().deregisterJobDefinition(jobDefinitionRequest);
+        responseFuture.whenComplete((response, ex) -> {
+            if (ex != null) {
+                throw new RuntimeException("Unexpected error occurred: " + ex.getMessage(), ex);
+            } else {
                 System.out.println(jobDefinition + " was successfully deregistered");
-                future.complete(null);
-            })
-            .exceptionally(ex -> {
-                System.err.println("Failed to deregister job definition: " + ex.getMessage());
-                future.completeExceptionally(ex);
-                return null;
-            });
+            }
+        });
 
-        return future;
+        return responseFuture;
     }
+
     // snippet-end:[batch.java2.deregister.job.main]
 
     // snippet-start:[batch.java2.disable.job.queue.main]
@@ -347,20 +339,16 @@ public class BatchActions {
             .state(JQState.DISABLED)
             .build();
 
-        CompletableFuture<Void> future = new CompletableFuture<>();
-        getAsyncClient().updateJobQueue(updateRequest)
-            .thenAccept(updateResponse -> {
+        CompletableFuture<UpdateJobQueueResponse> responseFuture = getAsyncClient().updateJobQueue(updateRequest);
+        return responseFuture.whenComplete((updateResponse, ex) -> {
+            if (updateResponse != null) {
                 System.out.println("Job queue update initiated: " + updateResponse);
-                future.complete(null); // Complete the CompletableFuture on successful execution
-            })
-            .exceptionally(ex -> {
-                System.err.println("Failed to update job queue: " + ex.getMessage());
-                future.completeExceptionally(ex); // Complete the CompletableFuture exceptionally on error
-                return null;
-            });
-
-        return future;
+            } else {
+                throw new RuntimeException("Failed to update job queue: " + ex.getMessage(), ex);
+            }
+        }).thenApply(updateResponse -> null);
     }
+
     // snippet-end:[batch.java2.disable.job.queue.main]
 
     // snippet-start:[batch.java2.delete.job.queue.main]
@@ -378,41 +366,59 @@ public class BatchActions {
             .jobQueue(jobQueueArn)
             .build();
 
-        return getAsyncClient().deleteJobQueue(deleteRequest)
-            .thenAccept(deleteResponse -> {
+        CompletableFuture<DeleteJobQueueResponse> responseFuture = getAsyncClient().deleteJobQueue(deleteRequest);
+        return responseFuture.whenComplete((deleteResponse, ex) -> {
+            if (deleteResponse != null) {
                 System.out.println("Job queue deleted: " + deleteResponse);
-            })
-            .exceptionally(ex -> {
-                ex.printStackTrace();
-                return null;
-            });
+            } else {
+                throw new RuntimeException("Failed to delete job queue: " + ex.getMessage(), ex);
+            }
+        }).thenApply(deleteResponse -> null);
     }
     // snippet-end:[batch.java2.delete.job.queue.main]
 
     // snippet-start:[batch.java2.describe.job.queue.main]
-    public String describeJobQueue(String computeEnvironmentName) {
-        BatchClient batchClient = BatchClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
-
-        // Create a DescribeJobQueuesRequest.
+    /**
+     * Asynchronously describes the job queue associated with the specified compute environment.
+     *
+     * @param computeEnvironmentName the name of the compute environment to find the associated job queue for
+     * @return a {@link CompletableFuture} that, when completed, contains the job queue ARN associated with the specified compute environment
+     * @throws RuntimeException if the job queue description fails
+     */
+    public CompletableFuture<String> describeJobQueueAsync(String computeEnvironmentName) {
         DescribeJobQueuesRequest describeJobQueuesRequest = DescribeJobQueuesRequest.builder()
             .build();
 
-        // Describe the job queues
-        DescribeJobQueuesResponse describeJobQueuesResponse = batchClient.describeJobQueues(describeJobQueuesRequest);
-        String jobQueueARN = "";
-        for (JobQueueDetail jobQueueDetail : describeJobQueuesResponse.jobQueues()) {
-            for (ComputeEnvironmentOrder computeEnvironmentOrder : jobQueueDetail.computeEnvironmentOrder()) {
-                String computeEnvironment = computeEnvironmentOrder.computeEnvironment();
-                String name = getComputeEnvironmentName(computeEnvironment);
-                if (name.equals(computeEnvironmentName)) {
-                    jobQueueARN = jobQueueDetail.jobQueueArn();
-                    System.out.println("Job queue ARN associated with the compute environment: " + jobQueueARN);
+        CompletableFuture<DescribeJobQueuesResponse> responseFuture = getAsyncClient().describeJobQueues(describeJobQueuesRequest);
+        return responseFuture.whenComplete((describeJobQueuesResponse, ex) -> {
+            if (describeJobQueuesResponse != null) {
+                String jobQueueARN;
+                for (JobQueueDetail jobQueueDetail : describeJobQueuesResponse.jobQueues()) {
+                    for (ComputeEnvironmentOrder computeEnvironmentOrder : jobQueueDetail.computeEnvironmentOrder()) {
+                        String computeEnvironment = computeEnvironmentOrder.computeEnvironment();
+                        String name = getComputeEnvironmentName(computeEnvironment);
+                        if (name.equals(computeEnvironmentName)) {
+                            jobQueueARN = jobQueueDetail.jobQueueArn();
+                            System.out.println("Job queue ARN associated with the compute environment: " + jobQueueARN);
+                        }
+                    }
+                }
+            } else {
+                throw new RuntimeException("Failed to describe job queue: " + ex.getMessage(), ex);
+            }
+        }).thenApply(describeJobQueuesResponse -> {
+            String jobQueueARN = "";
+            for (JobQueueDetail jobQueueDetail : describeJobQueuesResponse.jobQueues()) {
+                for (ComputeEnvironmentOrder computeEnvironmentOrder : jobQueueDetail.computeEnvironmentOrder()) {
+                    String computeEnvironment = computeEnvironmentOrder.computeEnvironment();
+                    String name = getComputeEnvironmentName(computeEnvironment);
+                    if (name.equals(computeEnvironmentName)) {
+                        jobQueueARN = jobQueueDetail.jobQueueArn();
+                    }
                 }
             }
-        }
-        return jobQueueARN;
+            return jobQueueARN;
+        });
     }
     // snippet-end:[batch.java2.describe.job.queue.main]
 
@@ -463,18 +469,15 @@ public class BatchActions {
             .build();
 
         CompletableFuture<SubmitJobResponse> responseFuture = getAsyncClient().submitJob(jobRequest);
-        return responseFuture.thenApply(response -> {
-            String jobId = response.jobId();
-            System.out.println("Job submitted successfully. Job ID: " + jobId);
-            return jobId;
-        }).exceptionally(ex -> {
-            if (ex.getCause() instanceof BatchException) {
-                throw (BatchException) ex.getCause();
+        responseFuture.whenComplete((response, ex) -> {
+            if (response != null) {
+                System.out.println("Job submitted successfully. Job ID: " + response.jobId());
             } else {
-                String errorMessage = "Unexpected error occurred: " + ex.getMessage();
-                throw new RuntimeException(errorMessage, ex);
+                throw new RuntimeException("Unexpected error occurred: " + ex.getMessage(), ex);
             }
         });
+
+        return responseFuture.thenApply(SubmitJobResponse::jobId);
     }
     // snippet-end:[batch.java2.submit.job.main]
 
@@ -490,61 +493,63 @@ public class BatchActions {
             .jobs(jobId)
             .build();
 
-        CompletableFuture<String> future = new CompletableFuture<>();
-        getAsyncClient().describeJobs(describeJobsRequest)
-            .whenComplete((response, ex) -> {
-                if (response != null) {
-                    JobDetail jobDetail = response.jobs().get(0);
-                    String jobStatus = String.valueOf(jobDetail.status());
-                    System.out.println("Job status retrieved successfully. Status: " + jobStatus);
-                    future.complete(jobStatus);
-                } else {
-                    // Handle the exception
-                    if (ex.getCause() instanceof BatchException) {
-                        future.completeExceptionally((BatchException) ex.getCause());
-                    } else {
-                        String errorMessage = "Unexpected error occurred: " + ex.getMessage();
-                        future.completeExceptionally(new RuntimeException(errorMessage, ex));
-                    }
-                }
-            });
-
-        return future;
+        CompletableFuture<DescribeJobsResponse> responseFuture = getAsyncClient().describeJobs(describeJobsRequest);
+        return responseFuture.whenComplete((response, ex) -> {
+            if (response != null) {
+                JobDetail jobDetail = response.jobs().get(0);
+                String jobStatus = String.valueOf(jobDetail.status());
+                System.out.println("Job status retrieved successfully. Status: " + jobStatus);
+            } else {
+                throw new RuntimeException("Unexpected error occurred: " + ex.getMessage(), ex);
+            }
+        }).thenApply(response -> response.jobs().get(0).status().toString());
     }
     // snippet-end:[batch.java2.retrieve.job.main]
 
-    public void waitForJobQueueToBeDisabled(String jobQueueArn) {
-        BatchClient client = BatchClient.builder()
-            .region(Region.US_EAST_1)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+    /**
+     * Disables the specific job queue using the asynchronous Java client.
+     *
+     * @param jobQueueArn the Amazon Resource Name (ARN) of the job queue to wait for
+     * @return a {@link CompletableFuture} that completes when the job queue is disabled
+     */
+    public CompletableFuture<Void> waitForJobQueueToBeDisabledAsync(String jobQueueArn) {
+        AtomicBoolean isDisabled = new AtomicBoolean(false);
+        return CompletableFuture.runAsync(() -> {
+            while (!isDisabled.get()) {
+                DescribeJobQueuesRequest describeRequest = DescribeJobQueuesRequest.builder()
+                    .jobQueues(jobQueueArn)
+                    .build();
 
-        boolean isDisabled = false;
-        while (!isDisabled) {
-            DescribeJobQueuesRequest describeRequest = DescribeJobQueuesRequest.builder()
-                .jobQueues(jobQueueArn)
-                .build();
+                CompletableFuture<DescribeJobQueuesResponse> responseFuture = getAsyncClient().describeJobQueues(describeRequest);
+                responseFuture.whenComplete((describeResponse, ex) -> {
+                    if (describeResponse != null) {
+                        for (JobQueueDetail jobQueue : describeResponse.jobQueues()) {
+                            if (jobQueue.jobQueueArn().equals(jobQueueArn) && jobQueue.state() == JQState.DISABLED) {
+                                isDisabled.set(true);
+                                break;
+                            }
+                        }
+                    } else {
+                        throw new RuntimeException("Error describing job queues", ex);
+                    }
+                }).join();
 
-            DescribeJobQueuesResponse describeResponse = client.describeJobQueues(describeRequest);
-            for (JobQueueDetail jobQueue : describeResponse.jobQueues()) {
-                if (jobQueue.jobQueueArn().equals(jobQueueArn) && jobQueue.state() == JQState.DISABLED) {
-                    isDisabled = true;
-                    break;
+                if (!isDisabled.get()) {
+                    try {
+                        System.out.println("Waiting for job queue to be disabled...");
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        throw new RuntimeException("Thread interrupted while waiting for job queue to be disabled", e);
+                    }
                 }
             }
-
-            if (!isDisabled) {
-                try {
-                    System.out.println("Waiting for job queue to be disabled...");
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    throw new RuntimeException("Thread interrupted while waiting for job queue to be disabled", e);
-                }
+        }).whenComplete((result, throwable) -> {
+            if (throwable != null) {
+                throw new RuntimeException("Error while waiting for job queue to be disabled", throwable);
             }
-        }
+        });
     }
-
 
     private static String getComputeEnvironmentName(String computeEnvironment) {
         String[] parts = computeEnvironment.split("/");
