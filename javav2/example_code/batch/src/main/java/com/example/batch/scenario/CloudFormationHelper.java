@@ -12,6 +12,7 @@ import software.amazon.awssdk.services.cloudformation.model.Stack;
 import software.amazon.awssdk.services.cloudformation.waiters.CloudFormationAsyncWaiter;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -35,14 +36,19 @@ public class CloudFormationHelper {
         boolean doesExist = describeStack(stackName);
         if (!doesExist) {
             try {
-                Path filePath ;
-                if (stackName.compareTo("BatchStack4") ==0 )
-                    filePath = Paths.get("BatchStack-template.yaml").toAbsolutePath();
-                else
-                    filePath = Paths.get("EcsStack-template.yaml").toAbsolutePath();
-
+                String resourcePath;
+                if (stackName.compareTo("BatchStack4") == 0) {
+                    resourcePath = "BatchStack-template.yaml";
+                } else {
+                    resourcePath = "EcsStack-template.yaml";
+                }
+                // Load the resource as a stream and read its contents
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                Path filePath = Paths.get(classLoader.getResource(resourcePath).toURI());
                 templateBody = Files.readString(filePath);
             } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             }
 

@@ -9,18 +9,41 @@ import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.batch.BatchAsyncClient;
-import software.amazon.awssdk.services.batch.BatchClient;
+import software.amazon.awssdk.services.batch.model.AssignPublicIp;
 import software.amazon.awssdk.services.batch.model.BatchException;
+import software.amazon.awssdk.services.batch.model.CEState;
+import software.amazon.awssdk.services.batch.model.CEType;
+import software.amazon.awssdk.services.batch.model.CRType;
+import software.amazon.awssdk.services.batch.model.ComputeEnvironmentOrder;
 import software.amazon.awssdk.services.batch.model.ComputeResource;
 import software.amazon.awssdk.services.batch.model.ContainerProperties;
 import software.amazon.awssdk.services.batch.model.CreateComputeEnvironmentRequest;
 import software.amazon.awssdk.services.batch.model.CreateComputeEnvironmentResponse;
 import software.amazon.awssdk.services.batch.model.CreateJobQueueRequest;
 import software.amazon.awssdk.services.batch.model.DeleteComputeEnvironmentRequest;
+import software.amazon.awssdk.services.batch.model.DeleteJobQueueRequest;
+import software.amazon.awssdk.services.batch.model.DeleteJobQueueResponse;
+import software.amazon.awssdk.services.batch.model.DeregisterJobDefinitionRequest;
+import software.amazon.awssdk.services.batch.model.DeregisterJobDefinitionResponse;
 import software.amazon.awssdk.services.batch.model.DescribeComputeEnvironmentsRequest;
+import software.amazon.awssdk.services.batch.model.DescribeComputeEnvironmentsResponse;
+import software.amazon.awssdk.services.batch.model.DescribeJobQueuesRequest;
+import software.amazon.awssdk.services.batch.model.DescribeJobQueuesResponse;
+import software.amazon.awssdk.services.batch.model.DescribeJobsRequest;
+import software.amazon.awssdk.services.batch.model.DescribeJobsResponse;
+import software.amazon.awssdk.services.batch.model.JQState;
 import software.amazon.awssdk.services.batch.model.JobDefinitionType;
+import software.amazon.awssdk.services.batch.model.JobDetail;
+import software.amazon.awssdk.services.batch.model.JobQueueDetail;
+import software.amazon.awssdk.services.batch.model.JobStatus;
+import software.amazon.awssdk.services.batch.model.JobSummary;
+import software.amazon.awssdk.services.batch.model.ListJobsRequest;
+import software.amazon.awssdk.services.batch.model.RegisterJobDefinitionResponse;
+import software.amazon.awssdk.services.batch.model.NetworkConfiguration;
+import software.amazon.awssdk.services.batch.model.PlatformCapability;
 import software.amazon.awssdk.services.batch.model.RegisterJobDefinitionRequest;
 import software.amazon.awssdk.services.batch.model.ResourceRequirement;
+import software.amazon.awssdk.services.batch.model.ResourceType;
 import software.amazon.awssdk.services.batch.model.SubmitJobRequest;
 import software.amazon.awssdk.services.batch.model.CreateJobQueueResponse;
 import java.time.Duration;
@@ -30,33 +53,35 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.services.batch.model.*;
+import software.amazon.awssdk.services.batch.model.SubmitJobResponse;
+import software.amazon.awssdk.services.batch.model.UpdateComputeEnvironmentRequest;
+import software.amazon.awssdk.services.batch.model.UpdateJobQueueRequest;
+import software.amazon.awssdk.services.batch.model.UpdateJobQueueResponse;
 import software.amazon.awssdk.services.batch.paginators.ListJobsPublisher;
-import software.amazon.awssdk.services.sts.StsClient;
+import software.amazon.awssdk.services.sts.StsAsyncClient;
 import software.amazon.awssdk.services.sts.model.GetCallerIdentityResponse;
 
 public class BatchActions {
     private static BatchAsyncClient batchClient;
 
     private static BatchAsyncClient getAsyncClient() {
-        SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
-            .maxConcurrency(100)
-            .connectionTimeout(Duration.ofSeconds(60))
-            .readTimeout(Duration.ofSeconds(60))
-            .writeTimeout(Duration.ofSeconds(60))
-            .build();
-
-        ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
-            .apiCallTimeout(Duration.ofMinutes(2))
-            .apiCallAttemptTimeout(Duration.ofSeconds(90))
-            .retryPolicy(RetryPolicy.builder()
-                .numRetries(3)
-                .build())
-            .build();
-
         if (batchClient == null) {
+            SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
+                .maxConcurrency(100)
+                .connectionTimeout(Duration.ofSeconds(60))
+                .readTimeout(Duration.ofSeconds(60))
+                .writeTimeout(Duration.ofSeconds(60))
+                .build();
+
+            ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
+                .apiCallTimeout(Duration.ofMinutes(2))
+                .apiCallAttemptTimeout(Duration.ofSeconds(90))
+                .retryPolicy(RetryPolicy.builder()
+                    .numRetries(3)
+                    .build())
+                .build();
+
             batchClient = BatchAsyncClient.builder()
                 .region(Region.US_EAST_1)
                 .httpClient(httpClient)
@@ -195,12 +220,8 @@ public class BatchActions {
             if (resp != null) {
                 System.out.println("Job queue created successfully.");
             } else {
-                if (ex.getCause() instanceof BatchException) {
-                    throw (BatchException) ex.getCause();
-                } else {
-                    String errorMessage = "Unexpected error occurred: " + ex.getMessage();
-                    throw new RuntimeException(errorMessage, ex);
-                }
+                String errorMessage = "Unexpected error occurred: " + ex.getMessage();
+                throw new RuntimeException(errorMessage, ex);
             }
         });
 
@@ -427,7 +448,6 @@ public class BatchActions {
      *
      * @param computeEnvironmentName the name of the compute environment to disable
      * @return a CompletableFuture that completes when the compute environment is disabled
-     * @throws Exception if an error occurs while disabling the compute environment
      */
     public CompletableFuture<Void> disableComputeEnvironmentAsync(String computeEnvironmentName) {
         UpdateComputeEnvironmentRequest updateRequest = UpdateComputeEnvironmentRequest.builder()
@@ -558,13 +578,13 @@ public class BatchActions {
         return null;
     }
 
-    public String getAccountId() {
-        StsClient stsClient = StsClient.builder()
+    public CompletableFuture<String> getAccountId() {
+        StsAsyncClient stsAsyncClient = StsAsyncClient.builder()
             .region(Region.US_EAST_1)
             .build();
 
-        GetCallerIdentityResponse callerIdentityResponse = stsClient.getCallerIdentity();
-        return callerIdentityResponse.account();
+        return stsAsyncClient.getCallerIdentity()
+            .thenApply(GetCallerIdentityResponse::account);
     }
 }
 // snippet-end:[batch.java2.actions.main]
