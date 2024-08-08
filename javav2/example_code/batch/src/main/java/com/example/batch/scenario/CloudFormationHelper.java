@@ -41,7 +41,6 @@ public class CloudFormationHelper {
                 else
                     filePath = Paths.get("EcsStack-template.yaml").toAbsolutePath();
 
-                // Reading the file content as a string
                 templateBody = Files.readString(filePath);
             } catch (IOException e) {
                 throw new RuntimeException(e);
