@@ -2,15 +2,24 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.batch.scenario.BatchActions;
+import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.batch.model.CreateComputeEnvironmentResponse;
 import software.amazon.awssdk.services.batch.model.JobSummary;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -23,8 +32,8 @@ public class BatchTest {
     private static String jobQueueName = "my-job-queue";
     private static String jobDefinitionName = "my-job-definition";
     private static String dockerImage = "dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text";
-    private static String subnet = "subnet-ef28c6b0" ;
-    private static String secGroup = "sg-0d2f3836b8750d1bf" ;
+    private static String subnet = "" ;
+    private static String secGroup = "" ;
     private static BatchActions batchActions = new BatchActions();
 
     private static String batchIAMRole = "";
@@ -35,12 +44,26 @@ public class BatchTest {
     static String jobQueueArn ="";
 
     static String jobARN = "";
+
     @BeforeAll
     public static void setUp() {
-        String accId = batchActions.getAccountId();
-        dockerImage = accId+"."+dockerImage;
-        batchIAMRole = "arn:aws:iam::814548047983:role/batch-service-role";
-        executionRoleARN = "arn:aws:iam::814548047983:role/batchecr" ;
+        String[] accId = new String[1];
+        CompletableFuture<String> accountIdFuture = batchActions.getAccountId();
+        accountIdFuture.thenAccept(accountId -> {
+            System.out.println("Account ID: " + accountId);
+            accId[0] =  accountId;
+        });
+
+        dockerImage = accId[0]+"."+dockerImage;
+
+        // Get the values to run these tests from AWS Secrets Manager.
+        Gson gson = new Gson();
+        String json = getSecretValues();
+        SecretValues values = gson.fromJson(json, SecretValues.class);
+        subnet = values.getSubnet();
+        secGroup = values.getSecGroup();
+        batchIAMRole = values.getBatchIAMRole();
+        executionRoleARN = values.getExecutionRoleARN();
     }
 
     @Test
@@ -178,5 +201,46 @@ public class BatchTest {
         }
         batchActions.deleteComputeEnvironmentAsync(computeEnvironmentName);
         System.out.println("Test 10 passed");
+    }
+
+    private static String getSecretValues() {
+        SecretsManagerClient secretClient = SecretsManagerClient.builder()
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
+        String secretName = "test/batch";
+
+        GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
+            .secretId(secretName)
+            .build();
+
+        GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
+        return valueResponse.secretString();
+    }
+
+    @Nested
+    @DisplayName("A class used to get test values from test/batch (an AWS Secrets Manager secret)")
+    class SecretValues {
+        private String subnet;
+        private String secGroup;
+        private String batchIAMRole;
+
+        private String executionRoleARN;
+
+        public String getSubnet() {
+            return subnet;
+        }
+
+        public String getSecGroup() {
+            return secGroup;
+        }
+
+        public String getBatchIAMRole() {
+            return batchIAMRole;
+        }
+
+        public String getExecutionRoleARN() {
+            return executionRoleARN;
+        }
     }
 }

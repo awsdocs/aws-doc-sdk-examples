@@ -25,7 +25,7 @@ import java.util.concurrent.CompletionException;
  * NOTE
  * This scenario submits a job that pulls a Docker image named echo-text from Amazon ECR to Amazon Fargate.
  *
- * To place this Docker image on Amazon ECR, run the follow Basics scenario.
+ * To place this Docker image on Amazon ECR, run the following Basics scenario.
  *
  * https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/ecr
  *
@@ -36,24 +36,35 @@ public class BatchScenario {
     // Define two stacks used in this Basics Scenario.
     private static final String STACK_NAME = "BatchStack4";
 
+    private static final String STACK_ECR = "EcsStack";
+
     private static final Logger logger = LoggerFactory.getLogger(BatchScenario.class);
 
-    private static final String STACK_ECR = "EcsStack";
     public static void main(String[] args) throws InterruptedException {
+        final String usage = """
+                Usage:
+                    <subnet> <secGroup> 
+
+                Where:
+                    subnet - The name of the subnet.
+                    secGroup - The name of the security group.
+                """;
+
+        if (args.length != 2) {
+            System.out.println(usage);
+            System.exit(1);
+        }
+
         BatchActions batchActions = new BatchActions();
         Scanner scanner = new Scanner(System.in);
         String computeEnvironmentName = "my-compute-environment" ;
         String jobQueueName = "my-job-queue";
         String jobDefinitionName = "my-job-definition";
+        String subnet = args[0] ;
+        String secGroup = args[1];
 
         // See the NOTE in this Java code example (at start).
         String dockerImage = "dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text";
-        String subnet = "subnet-ef28c6b0" ;
-        String secGroup = "sg-0d2f3836b8750d1bf" ;
-
-        // Get an AWS Account id used to retrieve the docker image from Amazon ECR.
-        String accId = batchActions.getAccountId();
-        dockerImage = accId+"."+dockerImage;
 
         System.out.println("""
             AWS Batch is a fully managed batch processing service that dynamically provisions the required compute 
@@ -107,6 +118,17 @@ public class BatchScenario {
         System.out.println(DASHES);
 
         waitForInputToContinue(scanner);
+        // Get an AWS Account id used to retrieve the docker image from Amazon ECR.
+        // Create a single-element array to store the `accountId` value.
+        String[] accId = new String[1];
+        CompletableFuture<String> accountIdFuture = batchActions.getAccountId();
+        accountIdFuture.thenAccept(accountId -> {
+            System.out.println("Account ID: " + accountId);
+            accId[0] = accountId;
+        });
+
+        dockerImage = accId[0]+"."+dockerImage;
+
         System.out.println("Use AWS CloudFormation to create two IAM roles that are required for this scenario.");
         CloudFormationHelper.deployCloudFormationStack(STACK_NAME);
         CloudFormationHelper.deployCloudFormationStack(STACK_ECR);
@@ -236,7 +258,7 @@ public class BatchScenario {
 
         waitForInputToContinue(scanner);
         try {
-            List<JobSummary> jobs =  batchActions.listJobsAsync(jobQueueName);
+            List<JobSummary> jobs = batchActions.listJobsAsync(jobQueueName);
             jobs.forEach(job ->
                 System.out.printf("Job ID: %s, Job Name: %s, Job Status: %s%n",
                     job.jobId(), job.jobName(), job.status())
