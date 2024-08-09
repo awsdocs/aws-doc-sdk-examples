@@ -69,6 +69,7 @@ export const doVerify = new ScenarioInput(
   "Do you want to verify the imported images?",
   {
     type: "confirm",
+    default: true,
   },
 );
 

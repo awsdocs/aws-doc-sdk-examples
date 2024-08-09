@@ -44,3 +44,21 @@ export const exitOnFalse = (scenarios, stateKey) =>
       process.exit(0);
     }
   });
+
+/**
+ * @param {Scenarios} scenarios
+ */
+export const confirm = (scenarios) =>
+  new scenarios.ScenarioInput("confirmContinue", "Continue?", {
+    type: "confirm",
+    default: true,
+  });
+
+/**
+ * @param {Scenarios} scenarios
+ */
+export const confirmOrExit = (scenarios) =>
+  new scenarios.Scenario("confirmOrExit", [
+    confirm(scenarios),
+    exitOnFalse(scenarios, "confirmContinue"),
+  ]);
