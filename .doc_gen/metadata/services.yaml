@@ -2325,6 +2325,7 @@ payment-cryptography-data:
     product_categories: {}
   version: '2022-02-03'
 personalize:
+  bundle: personalize
   long: "&PERSlong;"
   short: "&PERS;"
   sort: Personalize
@@ -2340,6 +2341,7 @@ personalize:
     product_categories: {'Machine Learning &amp; AI'}
   version: personalize-2018-05-22
 personalize-runtime:
+  bundle: personalize
   long: "&PERSRlong;"
   short: "&PERSR;"
   sort: Personalize Runtime
@@ -2355,6 +2357,7 @@ personalize-runtime:
     product_categories: {'Machine Learning &amp; AI'}
   version: personalize-runtime-2018-05-22
 personalize-events:
+  bundle: personalize
   long: "&PERSElong;"
   short: "&PERSE;"
   sort: Personalize Events
