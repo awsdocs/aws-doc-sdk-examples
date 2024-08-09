@@ -1,34 +1,12 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
-
-"""
-Purpose
-
-Shows how to use the AWS SDK for Python (Boto3) with Amazon Elastic Compute Cloud
-(Amazon EC2) to do the following:
-
-* Create a key pair that is used to secure SSH communication between your computer and
-  an EC2 instance.
-* Create a security group that acts as a virtual firewall for your EC2 instances to
-  control incoming and outgoing traffic.
-* Find an Amazon Machine Image (AMI) and a compatible instance type.
-* Create an instance that is created from the instance type and AMI you select, and
-  is configured to use the security group and key pair created in this example.
-* Stop and restart the instance.
-* Create an Elastic IP address and associate it as a consistent IP address for your instance.
-* Connect to your instance with SSH, using both its public IP address and your Elastic IP
-  address.
-* Clean up all of the resources created by this example.
-"""
-
 import logging
 import urllib.request
 import sys
 
 import boto3
+from botocore.exceptions import ClientError
 
 from elastic_ip import ElasticIpWrapper
-from instance import InstanceWrapper
+from instance import EC2InstanceWrapper
 from key_pair import KeyPairWrapper
 from security_group import SecurityGroupWrapper
 
@@ -83,7 +61,7 @@ class Ec2InstanceScenario:
         """
         1. Creates a security group for the default VPC.
         2. Adds an inbound rule to allow SSH. The SSH rule allows only
-           inbound traffic from the current computer’s public IPv4 address.
+           inbound traffic from the current computer's public IPv4 address.
         3. Displays information about the security group.
 
         This function uses 'http://checkip.amazonaws.com' to get the current public IP
@@ -126,6 +104,7 @@ class Ec2InstanceScenario:
            and the selected AMI and instance type.
         5. Waits for the instance to be running and then displays its information.
         """
+        # Use the client interface to get the latest Amazon Linux 2 AMIs
         ami_paginator = self.ssm_client.get_paginator("get_parameters_by_path")
         ami_options = []
         for page in ami_paginator.paginate(Path="/aws/service/ami-amazon-linux-latest"):
@@ -285,13 +264,18 @@ class Ec2InstanceScenario:
 if __name__ == "__main__":
     try:
         scenario = Ec2InstanceScenario(
-            InstanceWrapper.from_resource(),
-            KeyPairWrapper.from_resource(),
-            SecurityGroupWrapper.from_resource(),
-            ElasticIpWrapper.from_resource(),
+            EC2InstanceWrapper.from_client(),
+            KeyPairWrapper.from_client(),
+            SecurityGroupWrapper.from_client(),
+            ElasticIpWrapper.from_client(),
             boto3.client("ssm"),
         )
         scenario.run_scenario()
+    except ClientError as err:
+        logger.error(
+            "Couldn't complete the scenario. Here's why: %s: %s",
+            err.response["Error"]["Code"], err.response["Error"]["Message"]
+        )
     except Exception:
         logging.exception("Something went wrong with the demo.")
 # snippet-end:[python.example_code.ec2.Scenario_GetStartedInstances]

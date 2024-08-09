@@ -1,6 +1,3 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
-
 import logging
 import os
 import tempfile
@@ -15,25 +12,24 @@ logger = logging.getLogger(__name__)
 class KeyPairWrapper:
     """Encapsulates Amazon Elastic Compute Cloud (Amazon EC2) key pair actions."""
 
-    def __init__(self, ec2_resource, key_file_dir, key_pair=None):
+    def __init__(self, ec2_client, key_file_dir, key_pair=None):
         """
-        :param ec2_resource: A Boto3 Amazon EC2 resource. This high-level resource
-                             is used to create additional high-level objects
-                             that wrap low-level Amazon EC2 service actions.
+        :param ec2_client: A Boto3 Amazon EC2 client. This client provides low-level 
+                           access to AWS EC2 services.
         :param key_file_dir: The folder where the private key information is stored.
                              This should be a secure folder.
         :param key_pair: A Boto3 KeyPair object. This is a high-level object that
                          wraps key pair actions.
         """
-        self.ec2_resource = ec2_resource
+        self.ec2_client = ec2_client
         self.key_pair = key_pair
         self.key_file_path = None
         self.key_file_dir = key_file_dir
 
     @classmethod
-    def from_resource(cls):
-        ec2_resource = boto3.resource("ec2")
-        return cls(ec2_resource, tempfile.TemporaryDirectory())
+    def from_client(cls):
+        ec2_client = boto3.client("ec2")
+        return cls(ec2_client, tempfile.TemporaryDirectory())
 
     # snippet-end:[python.example_code.ec2.KeyPairWrapper.decl]
 
@@ -48,19 +44,28 @@ class KeyPairWrapper:
         :return: A Boto3 KeyPair object that represents the newly created key pair.
         """
         try:
-            self.key_pair = self.ec2_resource.create_key_pair(KeyName=key_name)
+            response = self.ec2_client.create_key_pair(KeyName=key_name)
+            self.key_pair = response
             self.key_file_path = os.path.join(
-                self.key_file_dir.name, f"{self.key_pair.name}.pem"
+                self.key_file_dir.name, f"{self.key_pair['KeyName']}.pem"
             )
             with open(self.key_file_path, "w") as key_file:
-                key_file.write(self.key_pair.key_material)
+                key_file.write(self.key_pair["KeyMaterial"])
         except ClientError as err:
-            logger.error(
-                "Couldn't create key %s. Here's why: %s: %s",
-                key_name,
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
-            )
+            # Improved error handling to catch the specific error InvalidKeyPair.Duplicate,
+            # providing a more informative error message for this case.
+            if err.response["Error"]["Code"] == "InvalidKeyPair.Duplicate":
+                logger.error(
+                    "Couldn't create key %s. A key pair with that name already exists.",
+                    key_name,
+                )
+            else:
+                logger.error(
+                    "Couldn't create key %s. Here's why: %s: %s",
+                    key_name,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
             raise
         else:
             return self.key_pair
@@ -68,16 +73,27 @@ class KeyPairWrapper:
     # snippet-end:[python.example_code.ec2.CreateKeyPair]
 
     # snippet-start:[python.example_code.ec2.DescribeKeyPairs]
-    def list(self, limit):
+    def list(self, limit=None):
         """
         Displays a list of key pairs for the current account.
 
-        :param limit: The maximum number of key pairs to list.
+        :param limit: The maximum number of key pairs to list. If not specified,
+                      all key pairs will be listed.
         """
         try:
-            for kp in self.ec2_resource.key_pairs.limit(limit):
-                print(f"Found {kp.key_type} key {kp.name} with fingerprint:")
-                print(f"\t{kp.key_fingerprint}")
+            # Use pagination to list key pairs, if a limit is specified
+            if limit:
+                paginator = self.ec2_client.get_paginator('describe_key_pairs')
+                page_iterator = paginator.paginate(PaginationConfig={'MaxItems': limit})
+                for page in page_iterator:
+                    for key_pair in page['KeyPairs']:
+                        print(f"Found {key_pair['KeyType']} key {key_pair['KeyName']} with fingerprint:")
+                        print(f"\t{key_pair['KeyFingerprint']}")
+            else:
+                response = self.ec2_client.describe_key_pairs()
+                for key_pair in response['KeyPairs']:
+                    print(f"Found {key_pair['KeyType']} key {key_pair['KeyName']} with fingerprint:")
+                    print(f"\t{key_pair['KeyFingerprint']}")
         except ClientError as err:
             logger.error(
                 "Couldn't list key pairs. Here's why: %s: %s",
@@ -89,25 +105,30 @@ class KeyPairWrapper:
     # snippet-end:[python.example_code.ec2.DescribeKeyPairs]
 
     # snippet-start:[python.example_code.ec2.DeleteKeyPair]
-    def delete(self):
+    def delete(self, key_name):
         """
         Deletes a key pair.
-        """
-        if self.key_pair is None:
-            logger.info("No key pair to delete.")
-            return
 
-        key_name = self.key_pair.name
+        :param key_name: The name of the key pair to delete.
+        """
         try:
-            self.key_pair.delete()
+            self.ec2_client.delete_key_pair(KeyName=key_name)
             self.key_pair = None
         except ClientError as err:
-            logger.error(
-                "Couldn't delete key %s. Here's why: %s : %s",
-                key_name,
-                err.response["Error"]["Code"],
-                err.response["Error"]["Message"],
-            )
+            # Improved error handling to catch the specific error InvalidKeyPair.NotFound,
+            # providing a more informative error message for this case.
+            if err.response["Error"]["Code"] == "InvalidKeyPair.NotFound":
+                logger.error(
+                    "Couldn't delete key %s. The key pair does not exist.",
+                    key_name,
+                )
+            else:
+                logger.error(
+                    "Couldn't delete key %s. Here's why: %s : %s",
+                    key_name,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
             raise
 
     # snippet-end:[python.example_code.ec2.DeleteKeyPair]
