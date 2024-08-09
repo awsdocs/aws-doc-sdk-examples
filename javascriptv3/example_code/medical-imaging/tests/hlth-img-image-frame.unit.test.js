@@ -25,6 +25,7 @@ const { getImageSetMetadata, outputImageFrameIds } = await import(
 
 describe("image-frame-steps", () => {
   const mockState = {
+    earlyExit: false,
     stackOutputs: {
       BucketName: "input-bucket",
       DatastoreID: "datastore-123",

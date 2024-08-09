@@ -26,6 +26,7 @@ export const doImport = new ScenarioInput(
   "Do you want to import DICOM images into your datastore?",
   {
     type: "confirm",
+    default: true,
   },
 );
 

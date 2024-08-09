@@ -22,6 +22,7 @@ const { doVerify, decodeAndVerifyImages } = await import(
 
 describe("verifySteps", () => {
   const mockState = {
+    earlyExit: false,
     stackOutputs: {
       BucketName: "input-bucket",
       DatastoreID: "datastore-123",
