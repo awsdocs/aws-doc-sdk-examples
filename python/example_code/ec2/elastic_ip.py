@@ -1,8 +1,10 @@
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
+
 
 # snippet-start:[python.example_code.ec2.ElasticIpWrapper.class]
 # snippet-start:[python.example_code.ec2.ElasticIpWrapper.decl]
@@ -11,7 +13,7 @@ class ElasticIpWrapper:
 
     def __init__(self, ec2_client, allocation_id=None):
         """
-        :param ec2_client: A Boto3 Amazon EC2 client. This client provides low-level 
+        :param ec2_client: A Boto3 Amazon EC2 client. This client provides low-level
                            access to AWS EC2 services.
         :param allocation_id: The allocation ID of an Elastic IP address.
         """
@@ -38,17 +40,9 @@ class ElasticIpWrapper:
             response = self.ec2_client.allocate_address(Domain="vpc")
             self.allocation_id = response["AllocationId"]
         except ClientError as err:
-            # Improved error handling to catch specific errors like InvalidAddress.Unavailable and InvalidInput,
-            # providing more informative error messages for these cases.
-            if err.response["Error"]["Code"] in ["InvalidAddress.Unavailable", "InvalidInput"]:
+            if err.response["Error"]["Code"] in "AddressLimitExceeded":
                 logger.error(
-                    "Couldn't allocate Elastic IP. The requested IP address is not available or the input is invalid."
-                )
-            else:
-                logger.error(
-                    "Couldn't allocate Elastic IP. Here's why: %s: %s",
-                    err.response["Error"]["Code"],
-                    err.response["Error"]["Message"],
+                    "Max IP's reached. Release unused addresses or contact AWS Support for an increase."
                 )
             raise err
         else:
@@ -71,25 +65,20 @@ class ElasticIpWrapper:
             return
 
         try:
-            response = self.ec2_client.associate_address(AllocationId=self.allocation_id, InstanceId=instance_id)
+            response = self.ec2_client.associate_address(
+                AllocationId=self.allocation_id, InstanceId=instance_id
+            )
         except ClientError as err:
-            # Improved error handling to catch specific errors like InvalidAssociationID.NotFound
-            # and InvalidInstanceID.NotFound, providing more informative error messages for these cases.
-            if err.response["Error"]["Code"] in ["InvalidAssociationID.NotFound", "InvalidInstanceID.NotFound"]:
+            if err.response["Error"]["Code"] in "InvalidInstanceID.NotFound":
                 logger.error(
-                    "Couldn't associate Elastic IP %s with instance %s. The Elastic IP or instance does not exist.",
-                    self.allocation_id,
-                    instance_id,
+                    f"""
+                    Failed to associate Elastic IP {self.allocation_id} with {instance_id}
+                    because the specified instance ID does not exist or has not propagated fully.
+                    Verify the instance ID and try again, or wait a few moments
+                    before attempting to associate the Elastic IP address.
+                """
                 )
-            else:
-                logger.error(
-                    "Couldn't associate Elastic IP %s with instance %s. Here's why: %s: %s",
-                    self.allocation_id,
-                    instance_id,
-                    err.response["Error"]["Code"],
-                    err.response["Error"]["Message"],
-                )
-            raise err
+                raise
         return response
 
     # snippet-end:[python.example_code.ec2.AssociateAddress]
@@ -102,28 +91,19 @@ class ElasticIpWrapper:
 
         :param association_id: The ID of the association to disassociate.
         """
-        if association_id is None:
-            logger.info("No association ID provided for disassociation.")
-            return
-
         try:
             self.ec2_client.disassociate_address(AssociationId=association_id)
         except ClientError as err:
-            # Improved error handling to catch the specific error InvalidAssociationID.NotFound,
-            # providing a more informative error message for this case.
             if err.response["Error"]["Code"] == "InvalidAssociationID.NotFound":
                 logger.error(
-                    "Couldn't disassociate Elastic IP %s from its instance. The association does not exist.",
-                    association_id,
+                    """
+                    Failed to disassociate Elastic IP {self.allocation_id} with {instance_id}
+                    because the specified association ID for the Elastic IP address was not found.
+                    Verify the association ID and ensure the Elastic IP is currently
+                    associated with a resource before attempting to dissociate it.
+                """
                 )
-            else:
-                logger.error(
-                    "Couldn't disassociate Elastic IP %s from its instance. Here's why: %s: %s",
-                    association_id,
-                    err.response["Error"]["Code"],
-                    err.response["Error"]["Message"],
-                )
-            raise err
+            raise
 
     # snippet-end:[python.example_code.ec2.DisassociateAddress]
 
@@ -140,22 +120,18 @@ class ElasticIpWrapper:
         try:
             self.ec2_client.release_address(AllocationId=self.allocation_id)
         except ClientError as err:
-            # Improved error handling to catch the specific error InvalidAllocationID.NotFound,
-            # providing a more informative error message for this case.
-            if err.response["Error"]["Code"] == "InvalidAllocationID.NotFound":
+            if err.response["Error"]["Code"] == "InvalidAddress.NotFound":
                 logger.error(
-                    "Couldn't release Elastic IP address %s. The Elastic IP does not exist.",
-                    self.allocation_id,
+                    f"""
+                    Failed to release Elastic IP address {self.allocation_id}
+                    because it could not be found. Verify the Elastic IP address
+                    and ensure it is allocated to your account in the correct region
+                    before attempting to release it."
+                """
                 )
-            else:
-                logger.error(
-                    "Couldn't release Elastic IP address %s. Here's why: %s: %s",
-                    self.allocation_id,
-                    err.response["Error"]["Code"],
-                    err.response["Error"]["Message"],
-                )
-            raise err
+            raise
 
     # snippet-end:[python.example_code.ec2.ReleaseAddress]
+
 
 # snippet-end:[python.example_code.ec2.ElasticIpWrapper.class]
