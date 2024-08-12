@@ -578,7 +578,7 @@ iam_CreateAccessKey:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description:
+            - description: ```import AWSIAM```
               snippet_tags:
                 - iam.swift.basics.iam.createaccesskey
     Bash:
