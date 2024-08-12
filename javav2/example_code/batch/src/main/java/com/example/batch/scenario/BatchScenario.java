@@ -50,18 +50,18 @@ public class BatchScenario {
                     secGroup - The name of the security group.
                 """;
 
-        if (args.length != 2) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+      //  if (args.length != 2) {
+      //      System.out.println(usage);
+      //      System.exit(1);
+      //  }
 
         BatchActions batchActions = new BatchActions();
         Scanner scanner = new Scanner(System.in);
         String computeEnvironmentName = "my-compute-environment" ;
         String jobQueueName = "my-job-queue";
         String jobDefinitionName = "my-job-definition";
-        String subnet = args[0] ;
-        String secGroup = args[1];
+        String subnet = "subnet-ef28c6b0" ; //args[0] ;
+        String secGroup = "sg-0d2f3836b8750d1bf" ; //args[1];
 
         // See the NOTE in this Java code example (at start).
         String dockerImage = "dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text";
