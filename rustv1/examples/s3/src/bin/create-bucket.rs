@@ -25,24 +25,28 @@ struct Opt {
     verbose: bool,
 }
 
-// Creates a bucket.
 // snippet-start:[s3.rust.create-bucket]
+/// Creates a bucket.
 async fn make_bucket(
     client: &Client,
     bucket: &str,
     region: &str,
-) -> Result<CreateBucketOutput, SdkError<CreateBucketError>> {
+) -> Result<CreateBucketOutput, S3ExampleError> {
     let constraint = BucketLocationConstraint::from(region);
     let cfg = CreateBucketConfiguration::builder()
         .location_constraint(constraint)
         .build();
 
-    client
+    let response = client
         .create_bucket()
         .create_bucket_configuration(cfg)
         .bucket(bucket)
         .send()
-        .await
+        .await?;
+
+    println!("Created bucket at {}", response.location);
+
+    Ok(())
 }
 // snippet-end:[s3.rust.create-bucket]
 

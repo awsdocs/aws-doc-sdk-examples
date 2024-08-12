@@ -122,7 +122,7 @@ async fn main() -> Result<(), Error> {
     // `SdkError::ServiceError`.
 
     // snippet-start:[s3.rust.if-modified-since.result-handler]
-    let (last_modified, e_tag_2): (Result<DateTime, SdkError<HeadObjectError>>, String) =
+    let (last_modified, e_tag_2): (Result<DateTime, S3ExampleError, String) =
         match head_object_output {
             Ok(head_object) => (
                 Ok(head_object.last_modified().cloned().unwrap()),

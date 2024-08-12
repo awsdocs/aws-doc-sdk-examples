@@ -19,7 +19,7 @@ use aws_sdk_s3::{config::Region, Client as S3Client};
 use aws_smithy_types::byte_stream::{ByteStream, Length};
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
-use s3_service::error::Error;
+use s3_service::error::S3ExampleError;
 use std::process;
 use uuid::Uuid;
 
@@ -35,7 +35,7 @@ pub async fn main() {
     }
 }
 
-async fn run_example() -> Result<(), Error> {
+async fn run_example() -> Result<(), S3ExampleError> {
     let shared_config = aws_config::load_from_env().await;
     let client = S3Client::new(&shared_config);
 
@@ -157,7 +157,7 @@ async fn run_example() -> Result<(), Error> {
         println!("The data was not the same size!");
     }
 
-    s3_service::delete_objects(&client, &bucket_name)
+    s3_service::clear_bucket(&client, &bucket_name)
         .await
         .expect("Error emptying bucket.");
     s3_service::delete_bucket(&client, &bucket_name)

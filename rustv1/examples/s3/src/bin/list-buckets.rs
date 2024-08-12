@@ -3,9 +3,12 @@
 
 #![allow(clippy::result_large_err)]
 
+use std::error::Error;
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
+use aws_sdk_s3::{config::Region, meta::PKG_VERSION, types::BucketLocationConstraint, Client};
 use clap::Parser;
+use s3_service::error::S3ExampleError;
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -24,7 +27,11 @@ struct Opt {
 
 // Shows your buckets, or those just in the region.
 // snippet-start:[s3.rust.list-buckets]
-async fn show_buckets(strict: bool, client: &Client, region: &str) -> Result<(), Error> {
+async fn show_buckets(
+    strict: bool,
+    client: &Client,
+    region: BucketLocationConstraint,
+) -> Result<(), S3ExampleError> {
     let resp = client.list_buckets().send().await?;
     let buckets = resp.buckets();
     let num_buckets = buckets.len();
@@ -39,7 +46,7 @@ async fn show_buckets(strict: bool, client: &Client, region: &str) -> Result<(),
                 .send()
                 .await?;
 
-            if r.location_constraint().unwrap().as_ref() == region {
+            if r.location_constraint() == Some(&region) {
                 println!("{}", bucket.name().unwrap_or_default());
                 in_region += 1;
             }
@@ -108,5 +115,8 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    show_buckets(strict, &client, &region_str).await
+    let region = BucketLocationConstraint::try_parse(&region_str)
+        .map_err(|e| S3ExampleError::new(format!("{e:?}")))?;
+
+    show_buckets(strict, &client, region).await
 }

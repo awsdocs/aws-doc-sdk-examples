@@ -7,6 +7,8 @@ use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::types::{Delete, ObjectIdentifier};
 use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
+use s3_service::error::S3ExampleError;
+use s3_service::remove_objects;
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -27,37 +29,6 @@ struct Opt {
     verbose: bool,
 }
 
-// Deletes objects from a bucket.
-// snippet-start:[s3.rust.delete-objects]
-async fn remove_objects(client: &Client, bucket: &str, objects: Vec<String>) -> Result<(), Error> {
-    let mut delete_objects: Vec<ObjectIdentifier> = vec![];
-
-    for obj in objects {
-        let obj_id = ObjectIdentifier::builder()
-            .set_key(Some(obj))
-            .build()
-            .expect("building ObjectIdentifier");
-        delete_objects.push(obj_id);
-    }
-
-    let delete = Delete::builder()
-        .set_objects(Some(delete_objects))
-        .build()
-        .expect("building Delete");
-
-    client
-        .delete_objects()
-        .bucket(bucket)
-        .delete(delete)
-        .send()
-        .await?;
-
-    println!("Objects deleted.");
-
-    Ok(())
-}
-// snippet-end:[s3.rust.delete-objects]
-
 /// Removes objects from an Amazon S3 bucket.
 /// # Arguments
 ///
@@ -68,7 +39,7 @@ async fn remove_objects(client: &Client, bucket: &str, objects: Vec<String>) -> 
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() -> Result<(), S3ExampleError> {
     tracing_subscriber::fmt::init();
 
     let Opt {
@@ -98,5 +69,9 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    remove_objects(&client, &bucket, objects).await
+    let removed = remove_objects(&client, &bucket, objects).await?;
+
+    println!("{} objects deleted", removed);
+
+    Ok(())
 }

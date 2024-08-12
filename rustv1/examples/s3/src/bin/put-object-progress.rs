@@ -132,7 +132,7 @@ where
 // Uploads a local file to a bucket using a ProgressBody wrapper. ProgressBody
 // overrides SdkBody::poll_data to print additional debug information while
 // uploading the object.
-async fn put_object(client: &Client, opts: &Opt) -> Result<(), anyhow::Error> {
+async fn put_object(client: &Client, opts: &Opt) -> Result<(), S3ExampleError> {
     debug!("bucket: {}", opts.bucket);
     debug!("object: {}", opts.object);
     debug!("source: {}", opts.source.display());

@@ -6,6 +6,7 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
+use s3_service::error::S3ExampleError;
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -28,7 +29,7 @@ struct Opt {
 
 // Delete an object from a bucket.
 // snippet-start:[s3.rust.delete-object]
-async fn remove_object(client: &Client, bucket: &str, key: &str) -> Result<(), Error> {
+async fn remove_object(client: &Client, bucket: &str, key: &str) -> Result<(), S3ExampleError> {
     client
         .delete_object()
         .bucket(bucket)

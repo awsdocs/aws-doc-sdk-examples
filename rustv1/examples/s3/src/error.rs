@@ -1,42 +1,41 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-use std::error::Error as StdError;
+use aws_sdk_s3::error::ProvideErrorMetadata;
 
-use aws_smithy_types::error::operation::BuildError;
+/// S3ExampleError provides a
+#[derive(Debug)]
+pub struct S3ExampleError(String);
+impl S3ExampleError {
+    pub fn new(value: impl Into<String>) -> Self {
+        S3ExampleError(value.into())
+    }
 
-#[derive(thiserror::Error, Debug)]
-#[error("unhandled error")]
-pub struct Error {
-    #[from]
-    source: Box<dyn StdError + Send + Sync + 'static>,
-}
-
-impl Error {
-    pub fn unhandled(source: impl Into<Box<dyn StdError + Send + Sync + 'static>>) -> Self {
-        Self {
-            source: source.into(),
-        }
+    pub fn add_message(self, message: impl Into<String>) -> Self {
+        S3ExampleError(format!("{}: {}", message.into(), self.0))
     }
 }
 
-impl From<aws_sdk_s3::Error> for Error {
-    fn from(source: aws_sdk_s3::Error) -> Self {
-        Self::unhandled(source)
+impl<T: ProvideErrorMetadata> From<T> for S3ExampleError {
+    fn from(value: T) -> Self {
+        S3ExampleError(format!(
+            "{}: {}",
+            value
+                .code()
+                .map(String::from)
+                .unwrap_or("unknown code".into()),
+            value
+                .message()
+                .map(String::from)
+                .unwrap_or("missing reason".into()),
+        ))
     }
 }
 
-impl From<BuildError> for Error {
-    fn from(source: BuildError) -> Self {
-        Self::unhandled(source)
-    }
-}
+impl std::error::Error for S3ExampleError {}
 
-impl<T> From<aws_sdk_s3::error::SdkError<T>> for Error
-where
-    T: StdError + Send + Sync + 'static,
-{
-    fn from(source: aws_sdk_s3::error::SdkError<T>) -> Self {
-        Self::unhandled(source)
+impl std::fmt::Display for S3ExampleError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.0)
     }
 }

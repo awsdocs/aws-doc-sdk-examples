@@ -3,15 +3,12 @@
 
 #![allow(clippy::result_large_err)]
 
+use std::error::Error;
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::{
-    config::Region,
-    error::SdkError,
-    meta::PKG_VERSION,
-    operation::copy_object::{CopyObjectError, CopyObjectOutput},
-    Client, Error,
-};
+use aws_sdk_s3::{config::Region, meta::PKG_VERSION, types::CopyObjectResult, Client};
 use clap::Parser;
+use s3_service::error::S3ExampleError;
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -40,59 +37,6 @@ struct Opt {
     verbose: bool,
 }
 
-// Copy an object from one bucket to another.
-// snippet-start:[bin.rust.copy-object]
-async fn cp_object(
-    client: &Client,
-    source_bucket: &str,
-    destination_bucket: &str,
-    source_object: &str,
-    destination_object: &str,
-) -> Result<CopyObjectOutput, SdkError<CopyObjectError>> {
-    // Create source of object:
-    //   source-bucket-name/source-object-name
-    let mut source_bucket_and_object: String = "".to_owned();
-    source_bucket_and_object.push_str(source_bucket);
-    source_bucket_and_object.push('/');
-    source_bucket_and_object.push_str(source_object);
-
-    client
-        .copy_object()
-        .copy_source(source_bucket_and_object)
-        .bucket(destination_bucket)
-        .key(destination_object)
-        .send()
-        .await
-}
-// snippet-end:[bin.rust.copy-object]
-
-#[cfg(test)]
-mod test_cp_object {
-    use sdk_examples_test_utils::single_shot_client;
-
-    use crate::cp_object;
-
-    #[tokio::test]
-    async fn test_cp_object() {
-        let client = single_shot_client! {
-            sdk: aws_sdk_s3,
-            status: 200,
-            response: r#""#
-        };
-
-        let response = cp_object(
-            &client,
-            "source_bucket",
-            "destination_bucket",
-            "source_object",
-            "destination_object",
-        )
-        .await;
-
-        assert!(response.is_ok(), "{response:?}");
-    }
-}
-
 /// Copies an object from one Amazon S3 bucket to another.
 /// # Arguments
 ///
@@ -106,7 +50,7 @@ mod test_cp_object {
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() -> Result<(), S3ExampleError> {
     tracing_subscriber::fmt::init();
 
     let Opt {
@@ -142,9 +86,36 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    cp_object(&client, &source, &destination, &key, &new_name).await?;
+    copy_object(&client, &source, &destination, &key, &new_name).await?;
 
     println!("Object copied.");
 
     Ok(())
+}
+
+#[cfg(test)]
+mod test_cp_object {
+    use sdk_examples_test_utils::single_shot_client;
+
+    use crate::copy_object;
+
+    #[tokio::test]
+    async fn test_cp_object() {
+        let client = single_shot_client! {
+            sdk: aws_sdk_s3,
+            status: 200,
+            response: r#""#
+        };
+
+        let response = copy_object(
+            &client,
+            "source_bucket",
+            "destination_bucket",
+            "source_object",
+            "destination_object",
+        )
+        .await;
+
+        assert!(response.is_ok(), "{response:?}");
+    }
 }

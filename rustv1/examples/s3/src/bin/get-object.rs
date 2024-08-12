@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 use aws_config::meta::region::RegionProviderChain;
+use s3_service::error::S3ExampleError;
 use std::{fs::File, io::Write, path::PathBuf, process::exit};
 
 use aws_sdk_s3::Client;
@@ -18,7 +19,7 @@ struct Opt {
 }
 
 // snippet-start:[s3.rust.get_object]
-async fn get_object(client: Client, opt: Opt) -> Result<usize, anyhow::Error> {
+async fn get_object(client: Client, opt: Opt) -> Result<usize, S3ExampleError> {
     trace!("bucket:      {}", opt.bucket);
     trace!("object:      {}", opt.object);
     trace!("destination: {}", opt.destination.display());
