@@ -338,7 +338,6 @@ public class EC2Actions {
     }
     // snippet-end:[ec2.java2.start_stop_instance.start]
 
-    // snippet-start:[ec2.java2.describe_instances.main]
     /**
      * Waits asynchronously until the specified instance is in the "running" state.
      *
@@ -368,7 +367,6 @@ public class EC2Actions {
             return response;
         });
     }
-    // snippet-end:[ec2.java2.describe_instances.main]
 
     // snippet-start:[ec2.java2.start_stop_instance.stop]
     /**
@@ -405,6 +403,7 @@ public class EC2Actions {
 
         return resultFuture;
     }
+    // snippet-end:[ec2.java2.start_stop_instance.stop]
 
     private CompletableFuture<DescribeInstancesResponse> waitUntilInstanceStoppedAsync(Ec2AsyncClient ec2, DescribeInstancesRequest describeRequest) {
         return CompletableFuture.supplyAsync(() -> {
@@ -429,7 +428,6 @@ public class EC2Actions {
             return response;
         });
     }
-    // snippet-start:[ec2.java2.start_stop_instance.stop]
 
 
     // snippet-start:[ec2.java2.scenario.describe_instance.main]

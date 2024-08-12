@@ -5,6 +5,7 @@ package com.example.ec2;
 
 // snippet-start:[ec2.java2.describe_region_and_zones.complete]
 // snippet-start:[ec2.java2.describe_region_and_zones.main]
+// snippet-start:[ec2.java2.describe_region_and_zones.region]
 // snippet-start:[ec2.java2.describe_region_and_zones.import]
 // snippet-start:[ec2.java2.describe_region_and_zones.avail_zone]
 import software.amazon.awssdk.regions.Region;
