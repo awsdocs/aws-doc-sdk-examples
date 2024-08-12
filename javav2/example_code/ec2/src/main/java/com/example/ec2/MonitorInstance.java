@@ -3,12 +3,14 @@
 
 package com.example.ec2;
 
-// snippet-start:[ec2.java2.monitor_instance.main]
 // snippet-start:[ec2.java2.monitor_instance.import]
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.MonitorInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.UnmonitorInstancesRequest;
+
+import java.util.concurrent.CompletableFuture;
 // snippet-end:[ec2.java2.monitor_instance.import]
 
 /**
@@ -39,36 +41,59 @@ public class MonitorInstance {
         String instanceId = args[0];
         boolean monitor = Boolean.parseBoolean(args[1]);
         Region region = Region.US_EAST_1;
-        Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .build();
+        Ec2AsyncClient ec2AsyncClient = Ec2AsyncClient.builder()
+            .region(region)
+            .build();
 
+        CompletableFuture<Void> future;
         if (monitor) {
-            monitorInstance(ec2, instanceId);
+            future = monitorInstanceAsync(ec2AsyncClient, instanceId);
         } else {
-            unmonitorInstance(ec2, instanceId);
+            future = unmonitorInstanceAsync(ec2AsyncClient, instanceId);
         }
-        ec2.close();
+
+        future.join(); // Wait for the async operation to complete.
     }
 
-    public static void monitorInstance(Ec2Client ec2, String instanceId) {
+    // snippet-start:[ec2.java2.monitor_instance.main]
+    public static CompletableFuture<Void> monitorInstanceAsync(Ec2AsyncClient ec2AsyncClient, String instanceId) {
         MonitorInstancesRequest request = MonitorInstancesRequest.builder()
-                .instanceIds(instanceId)
-                .build();
+            .instanceIds(instanceId)
+            .build();
 
-        ec2.monitorInstances(request);
-        System.out.printf("Successfully enabled monitoring for instance %s", instanceId);
+        // Monitor instances asynchronously
+        CompletableFuture<Void> response = ec2AsyncClient.monitorInstances(request)
+            .whenComplete((result, ex) -> {
+                if (result != null) {
+                    System.out.printf("Successfully enabled monitoring for instance %s%n", instanceId);
+                } else {
+                    throw new RuntimeException("Failed to enable monitoring for instance: " + instanceId, ex);
+                }
+            })
+            .thenApply(result -> null);
+
+        return response;
     }
     // snippet-end:[ec2.java2.monitor_instance.main]
 
     // snippet-start:[ec2.java2.monitor_instance.stop]
-    public static void unmonitorInstance(Ec2Client ec2, String instanceId) {
+    public static CompletableFuture<Void> unmonitorInstanceAsync(Ec2AsyncClient ec2AsyncClient, String instanceId) {
         UnmonitorInstancesRequest request = UnmonitorInstancesRequest.builder()
-                .instanceIds(instanceId)
-                .build();
+            .instanceIds(instanceId)
+            .build();
 
-        ec2.unmonitorInstances(request);
-        System.out.printf("Successfully disabled monitoring for instance %s", instanceId);
+        // Unmonitor instances asynchronously
+        CompletableFuture<Void> response = ec2AsyncClient.unmonitorInstances(request)
+            .whenComplete((result, ex) -> {
+                if (result != null) {
+                    System.out.printf("Successfully disabled monitoring for instance %s%n", instanceId);
+                } else {
+                    throw new RuntimeException("Failed to disable monitoring for instance: " + instanceId, ex);
+                }
+            })
+            .thenApply(result -> null);
+
+        return response;
     }
     // snippet-end:[ec2.java2.monitor_instance.stop]
 }

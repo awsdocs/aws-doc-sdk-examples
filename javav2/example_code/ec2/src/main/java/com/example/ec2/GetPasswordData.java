@@ -1,18 +1,11 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
-
-
 package com.example.ec2;
 
-// snippet-start:[ec2.java2.get_password.main]
-import software.amazon.awssdk.core.exception.SdkClientException;
-import software.amazon.awssdk.core.exception.SdkServiceException;
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
 import software.amazon.awssdk.services.ec2.Ec2Client;
-import software.amazon.awssdk.services.ec2.model.Ec2Exception;
-import software.amazon.awssdk.services.ec2.model.GetPasswordDataRequest;
-import software.amazon.awssdk.services.ec2.model.GetPasswordDataResponse;
-import software.amazon.awssdk.services.secretsmanager.model.ResourceNotFoundException;
+import software.amazon.awssdk.services.ec2.model.*;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Before running this Java V2 code example, set up your development
@@ -31,51 +24,45 @@ public class GetPasswordData {
                    <instanceId> 
 
                 Where:
-                   instanceId - An instance id from which the password is obtained.\s
+                   instanceId - An instance id value that you can obtain from the AWS Management Console.\s
              """;
 
         if (args.length != 1) {
             System.out.println(usage);
-            return;
+            System.exit(1);
         }
-
-        Region region = Region.US_EAST_1;
-        Ec2Client ec2 = Ec2Client.builder()
-            .region(region)
+        String instanceId = args[0];
+        Ec2AsyncClient ec2AsyncClient = Ec2AsyncClient.builder()
+            .region(Region.US_EAST_1)
             .build();
 
-        String instanceId = args[0];
-        getPasswordData(ec2,instanceId);
-    }
+        try {
+            CompletableFuture<Void> future = getPasswordDataAsync(ec2AsyncClient, instanceId);
+            future.join(); // Wait for the async operation to complete.
+            System.out.println("Password data retrieved successfully.");
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+        }
 
-    /**
-     * Retrieves and prints the encrypted administrator password data for a specified EC2 instance.
-     *
-     * <p>The password data is encrypted using the key pair that was specified when the instance was launched.
-     * To decrypt the password data, you can use the private key of the key pair.</p>
-     *
-     * @param ec2       The {@link Ec2Client} to use for making the request.
-     * @param instanceId The ID of the instance for which to get the encrypted password data.
-     */
-     public static void getPasswordData(Ec2Client ec2,String instanceId) {
+    }
+    public static CompletableFuture<Void> getPasswordDataAsync(Ec2AsyncClient ec2AsyncClient, String instanceId) {
         GetPasswordDataRequest getPasswordDataRequest = GetPasswordDataRequest.builder()
             .instanceId(instanceId)
             .build();
 
-        try {
-            GetPasswordDataResponse getPasswordDataResponse = ec2.getPasswordData(getPasswordDataRequest);
-            String encryptedPasswordData = getPasswordDataResponse.passwordData();
-            System.out.println("Encrypted Password Data: " + encryptedPasswordData);
+        // Fetch password data asynchronously.
+        CompletableFuture<GetPasswordDataResponse> response = ec2AsyncClient.getPasswordData(getPasswordDataRequest);
+        response.whenComplete((getPasswordDataResponse, ex) -> {
+            if (getPasswordDataResponse != null) {
+                String encryptedPasswordData = getPasswordDataResponse.passwordData();
+                System.out.println("Encrypted Password Data: " + encryptedPasswordData);
+            } else {
+                throw new RuntimeException("Failed to get password data for instance: " + instanceId, ex);
+            }
+        });
 
-        } catch (Ec2Exception e) {
-        String errorCode  = e.awsErrorDetails().errorCode();
-        if (errorCode.matches("InvalidInstanceID.NotFound")) {
-            System.err.println("Instance ID not found, unable to retrieve password data.");
-        } else {
-            System.err.println("There was a problem retrieving password data. Details:");
-            e.printStackTrace();
-        }
+        // Return CompletableFuture<Void> to signify the async operation's completion.
+        return response.thenApply(resp -> null);
     }
-    }
- }
-// snippet-end:[ec2.java2.get_password.main]
+
+}

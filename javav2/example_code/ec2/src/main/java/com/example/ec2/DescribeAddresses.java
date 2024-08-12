@@ -6,10 +6,11 @@ package com.example.ec2;
 // snippet-start:[ec2.java2.describe_addresses.main]
 // snippet-start:[ec2.java2.describe_addresses.import]
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.Address;
 import software.amazon.awssdk.services.ec2.model.DescribeAddressesResponse;
-import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+import java.util.concurrent.CompletableFuture;
 // snippet-end:[ec2.java2.describe_addresses.import]
 
 /**
@@ -22,33 +23,40 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
  */
 public class DescribeAddresses {
     public static void main(String[] args) {
-        Region region = Region.US_EAST_1;
-        Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .build();
+        Ec2AsyncClient ec2AsyncClient = Ec2AsyncClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
 
-        describeEC2Address(ec2);
-        ec2.close();
+        try {
+            CompletableFuture<DescribeAddressesResponse> future = describeEC2AddressAsync(ec2AsyncClient);
+            future.join(); // Get the value.
+            System.out.println("EC2 Addresses described successfully.");
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+        }
     }
 
-    public static void describeEC2Address(Ec2Client ec2) {
-        try {
-            DescribeAddressesResponse response = ec2.describeAddresses();
-            for (Address address : response.addresses()) {
-                System.out.printf(
+    public static CompletableFuture<DescribeAddressesResponse> describeEC2AddressAsync(Ec2AsyncClient ec2AsyncClient) {
+        CompletableFuture<DescribeAddressesResponse> response = ec2AsyncClient.describeAddresses();
+        response.whenComplete((addressesResponse, ex) -> {
+            if (addressesResponse != null) {
+                for (Address address : addressesResponse.addresses()) {
+                    System.out.printf(
                         "Found address with public IP %s, " +
-                                "domain %s, " +
-                                "allocation id %s " +
-                                "and NIC id %s",
+                            "domain %s, " +
+                            "allocation id %s " +
+                            "and NIC id %s%n",
                         address.publicIp(),
                         address.domain(),
                         address.allocationId(),
                         address.networkInterfaceId());
+                }
+            } else {
+                throw new RuntimeException("Failed to describe EC2 addresses.", ex);
             }
-        } catch (Ec2Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        });
+
+        return response;
     }
 }
 // snippet-end:[ec2.java2.describe_addresses.main]

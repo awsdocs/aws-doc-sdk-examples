@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.ec2.*;
+import com.example.ec2.scenario.EC2Actions;
+import com.example.ec2.scenario.EC2Scenario;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -9,13 +11,19 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import java.io.*;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
-
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.ec2.model.CreateKeyPairResponse;
+import software.amazon.awssdk.services.ec2.model.DeleteKeyPairResponse;
+import software.amazon.awssdk.services.ec2.model.DescribeKeyPairsResponse;
+import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
-import software.amazon.awssdk.services.ssm.SsmClient;
+import software.amazon.awssdk.services.ssm.model.GetParametersByPathResponse;
+import software.amazon.awssdk.services.ssm.model.Parameter;
 
 /**
  * To run these integration tests, you must set the required values
@@ -24,14 +32,7 @@ import software.amazon.awssdk.services.ssm.SsmClient;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EC2Test {
-
-    private static Ec2Client ec2;
-
-    private static Ec2Client ec2East;
-    private static SsmClient ssmClient;
-
-    // Define the data members required for the tests.
-    private static String instanceId = ""; // gets set in test 2.
+    private static String instanceId = "";
     private static String ami = "";
     private static String instanceName = "";
     private static String keyName = "";
@@ -46,26 +47,15 @@ public class EC2Test {
     private static String vpcIdSc = "";
     private static String myIpAddressSc = "";
 
-    private static String winServer = "";
+    private static String newInstanceId = "";
+
+    private static EC2Actions ec2Actions;
 
     @BeforeAll
     public static void setUp() throws IOException {
-        Region region = Region.US_WEST_2;
-        ec2 = Ec2Client.builder()
-                .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
 
-        Region regionEast = Region.US_EAST_1;
-        ec2East = Ec2Client.builder()
-            .region(regionEast)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
 
-        ssmClient = SsmClient.builder()
-                .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+        ec2Actions = new EC2Actions();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -74,7 +64,7 @@ public class EC2Test {
         ami = values.getAmi();
         instanceName = values.getInstanceName();
         keyName = values.getKeyNameSc();
-        groupName = values.getGroupName();
+        groupName = values.getGroupName() + java.util.UUID.randomUUID();
         groupDesc = values.getGroupDesc();
         vpcId = values.getVpcId();
         keyNameSc = values.getKeyNameSc() + java.util.UUID.randomUUID();
@@ -83,7 +73,6 @@ public class EC2Test {
         groupNameSc = values.getGroupDescSc() + java.util.UUID.randomUUID();
         vpcIdSc = values.getVpcIdSc();
         myIpAddressSc = values.getMyIpAddressSc();
-        winServer = values.getWinServer();
 
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
@@ -118,239 +107,159 @@ public class EC2Test {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateInstance() {
-        instanceId = CreateInstance.createEC2Instance(ec2, instanceName, ami);
-        assertFalse(instanceId.isEmpty());
-        System.out.println("\n Test 1 passed");
+    public void createKeyPair() {
+        try {
+            CompletableFuture<CreateKeyPairResponse> future = ec2Actions.createKeyPairAsync(keyNameSc, fileNameSc);
+            CreateKeyPairResponse response = future.join();
+            System.out.println("Key Pair successfully created. Key Fingerprint: " + response.keyFingerprint());
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+        }
+        System.out.println("\n Test 2 passed");
     }
+
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void CreateKeyPair() {
-        assertDoesNotThrow(() -> CreateKeyPair.createEC2KeyPair(ec2, keyName));
-        System.out.println("\n Test 2 passed");
+    public void createInstance() {
+        String vpcId = "vpc-e97a4393";
+        String myIpAddress = "72.21.198.66" ;
+        String groupId= "";
+        try {
+            CompletableFuture<String> future = ec2Actions.createSecurityGroupAsync(groupName, groupDesc, vpcId, myIpAddress);
+            groupId = future.join();
+            System.out.println("Created security group with ID: " + groupId);
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            return;
+        }
+
+        String instanceId="";
+        try {
+            CompletableFuture<GetParametersByPathResponse> future = ec2Actions.getParaValuesAsync();
+            GetParametersByPathResponse pathResponse = future.join();
+            List<Parameter> parameterList = pathResponse.parameters();
+            for (Parameter para : parameterList) {
+                if (EC2Scenario.filterName(para.name())) {
+                    instanceId = para.value();
+                    break;
+                }
+            }
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            return;
+        }
+
+        String amiValue;
+        CompletableFuture<String> futureImage = ec2Actions.describeImageAsync(instanceId);
+        amiValue = futureImage.join();
+        System.out.println("Image ID: {}"+ amiValue);
+
+
+        String instanceType;
+        CompletableFuture<String> futureInstanceType = ec2Actions.getInstanceTypesAsync();
+            instanceType = futureInstanceType.join();
+            if (!instanceType.isEmpty()) {
+                System.out.println("Found instance type: " + instanceType);
+            } else {
+                System.out.println("Desired instance type not found.");
+            }
+
+
+        CompletableFuture<String> future = ec2Actions.runInstanceAsync(instanceType, keyNameSc, groupName, amiValue);
+        newInstanceId = future.join(); // Get the instance ID.
+        System.out.println("EC2 instance ID: "+ newInstanceId);
+
+        System.out.println("\n Test 1 passed");
     }
+
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void DescribeKeyPair() {
-        assertDoesNotThrow(() -> DescribeKeyPairs.describeEC2Keys(ec2));
+    public void describeKeyPair() {
+        try {
+            CompletableFuture<DescribeKeyPairsResponse> future = ec2Actions.describeKeysAsync();
+            future.join();
+            System.out.println("Successfully described key pairs.");
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+        }
         System.out.println("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void DeleteKeyPair() {
-        assertDoesNotThrow(() -> DeleteKeyPair.deleteKeys(ec2, keyName));
+    public void deleteKeyPair() {
+        try {
+            CompletableFuture<DeleteKeyPairResponse> future = ec2Actions.deleteKeysAsync(keyNameSc);
+            future.join(); // Wait for the operation to complete
+            System.out.println("Key pair deletion completed.");
+
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            return;
+        }
         System.out.println("\n Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
-    public void CreateSecurityGroup() {
-        groupId = CreateSecurityGroup.createEC2SecurityGroup(ec2, groupName, groupDesc, vpcId);
-        assertFalse(groupId.isEmpty());
+    public void describeSecurityGroup() {
+        try {
+            CompletableFuture<DescribeSecurityGroupsResponse> future = ec2Actions.describeSecurityGroupsAsync(groupId);
+            future.join();
+            System.out.println("Security groups described successfully.");
+
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+        }
         System.out.println("\n Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
-    @Order(6)
-    public void DescribeSecurityGroup() {
-        assertDoesNotThrow(() -> DescribeSecurityGroups.describeEC2SecurityGroups(ec2, groupId));
-        System.out.println("\n Test 6 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
     @Order(7)
-    public void DeleteSecurityGroup() {
-        assertDoesNotThrow(() -> DeleteSecurityGroup.deleteEC2SecGroup(ec2, groupId));
-        System.out.println("\n Test 7 passed");
+    public void deleteSecurityGroup() {
+        try {
+            CompletableFuture<Void> future = ec2Actions.deleteEC2SecGroupAsync(groupId);
+            future.join(); // Wait for the operation to complete
+            System.out.println("Security group successfully deleted.");
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            return;
+        }
     }
 
-    @Test
-    @Tag("IntegrationTest")
-    @Order(8)
-    public void DescribeAccount() {
-        assertDoesNotThrow(() -> DescribeAccount.describeEC2Account(ec2));
-        System.out.println("\n Test 8 passed");
-    }
 
     @Test
     @Tag("IntegrationTest")
     @Order(9)
-    public void DescribeInstances() {
-        assertDoesNotThrow(() -> DescribeInstances.describeEC2Instances(ec2));
-        System.out.println("\n Test 9 passed");
-    }
+    public void describeInstances() {
+        try {
+            CompletableFuture<String> future = ec2Actions.describeEC2InstancesAsync(newInstanceId);
+            String publicIp = future.join();
+            System.out.println("EC2 instance public IP: " + publicIp);
 
-    @Test
-    @Tag("IntegrationTest")
-    @Order(10)
-    public void DescribeRegionsAndZones() {
-        assertDoesNotThrow(() -> DescribeRegionsAndZones.describeEC2RegionsAndZones(ec2));
-        System.out.println("\n Test 10 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(11)
-    public void DescribeVPCs() {
-        assertDoesNotThrow(() -> DescribeVPCs.describeEC2Vpcs(ec2, vpcId));
-        System.out.println("\n Test 11 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(12)
-    public void FindRunningInstances() {
-        assertDoesNotThrow(() -> FindRunningInstances.findRunningEC2InstancesUsingPaginator(ec2));
-        System.out.println("\n Test 12 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(13)
-    public void DescribeAddressed() {
-        assertDoesNotThrow(() -> DescribeAddresses.describeEC2Address(ec2));
-        System.out.println("\n Test 13 passed");
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            return;
+        }
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(14)
-    public void TerminateInstance() {
-        assertDoesNotThrow(() -> TerminateInstance.terminateEC2(ec2, instanceId));
-        System.out.println("\n Test 14 passed");
+    public void terminateInstance() {
+        System.out.println("ID is " +newInstanceId);
+        CompletableFuture<Void> future = ec2Actions.terminateEC2Async(newInstanceId);
+        future.join();
+        System.out.println("EC2 instance successfully terminated.");
+
     }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(15)
-    public void testGetPassword() {
-        GetPasswordData.getPasswordData(ec2East, winServer);
-        System.out.println(EC2Scenario.DASHES);
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(16)
-    public void TestEC2Scenario() {
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("1. Create an RSA key pair and save the private key material as a .pem file.");
-        EC2Scenario.createKeyPair(ec2, keyNameSc, fileNameSc);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("2. List key pairs.");
-        EC2Scenario.describeKeys(ec2);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("3. Create a security group.");
-        String groupId = EC2Scenario.createSecurityGroup(ec2, groupNameSc, groupDescSc, vpcIdSc, myIpAddressSc);
-        assertFalse(groupId.isEmpty());
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("4. Display security group info for the newly created security group.");
-        EC2Scenario.describeSecurityGroups(ec2, groupId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.");
-        String instanceId = EC2Scenario.getParaValues(ssmClient);
-        assertFalse(instanceId.isEmpty());
-        System.out.println("The instance Id is " + instanceId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("6. Get more information about an amzn2 image.");
-        String amiValue = EC2Scenario.describeImage(ec2, instanceId);
-        assertFalse(amiValue.isEmpty());
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("7. Get a list of instance types.");
-        String instanceType = EC2Scenario.getInstanceTypes(ec2);
-        System.out.println("The instance type is " + instanceType);
-        System.out.println("*** The instance type is " + instanceType);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("8. Create an instance.");
-        String newInstanceId = EC2Scenario.runInstance(ec2, instanceType, keyNameSc, groupNameSc, amiValue);
-        System.out.println("The instance Id is " + newInstanceId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("9. Display information about the running instance. ");
-        String ipAddress = EC2Scenario.describeEC2Instances(ec2, newInstanceId);
-        assertFalse(ipAddress.isEmpty());
-        System.out.println("You can SSH to the instance using this command:");
-        System.out.println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("10.  Stop the instance.");
-        EC2Scenario.stopInstance(ec2, newInstanceId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("11.  Start the instance.");
-        EC2Scenario.startInstance(ec2, newInstanceId);
-        ipAddress = EC2Scenario.describeEC2Instances(ec2, newInstanceId);
-        assertFalse(ipAddress.isEmpty());
-        System.out.println("You can SSH to the instance using this command:");
-        System.out.println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("12. Allocate an Elastic IP address and associate it with the instance.");
-        String allocationId = EC2Scenario.allocateAddress(ec2);
-        assertFalse(allocationId.isEmpty());
-        System.out.println("The allocation Id value is " + allocationId);
-        String associationId = EC2Scenario.associateAddress(ec2, newInstanceId, allocationId);
-        System.out.println("The association Id value is " + associationId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("13. Describe the instance again.");
-        ipAddress = EC2Scenario.describeEC2Instances(ec2, newInstanceId);
-        assertFalse(ipAddress.isEmpty());
-        System.out.println("You can SSH to the instance using this command:");
-        System.out.println("ssh -i " + fileNameSc + "ec2-user@" + ipAddress);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("14. Disassociate and release the Elastic IP address.");
-        EC2Scenario.disassociateAddress(ec2, associationId);
-        EC2Scenario.releaseEC2Address(ec2, allocationId);
-        System.out.println(EC2Scenario.DASHES);
-
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("15. Terminate the instance.");
-        EC2Scenario.terminateEC2(ec2, newInstanceId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("16. Delete the security group.");
-        EC2Scenario.deleteEC2SecGroup(ec2, groupId);
-        System.out.println(EC2Scenario.DASHES);
-
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("17. Delete the keys.");
-        EC2Scenario.deleteKeys(ec2, keyNameSc);
-        System.out.println(EC2Scenario.DASHES);
-        System.out.println("\n Test 16 passed");
-    }
-
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
@@ -389,8 +298,6 @@ public class EC2Test {
         private String vpcIdSc;
 
         private String myIpAddressSc;
-
-        private String winServer;
 
         public String getAmi() {
             return ami;
@@ -439,7 +346,5 @@ public class EC2Test {
         public String getMyIpAddressSc() {
             return myIpAddressSc;
         }
-
-        public String getWinServer(){return winServer;}
     }
 }

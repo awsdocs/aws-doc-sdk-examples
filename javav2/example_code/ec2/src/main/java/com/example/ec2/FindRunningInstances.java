@@ -6,9 +6,10 @@ package com.example.ec2;
 // snippet-start:[ec2.java2.running_instances.main]
 // snippet-start:[ec2.java2.running_instances.import]
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.ec2.Ec2Client;
+import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesRequest;
-import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+import software.amazon.awssdk.services.ec2.model.DescribeInstancesResponse;
+import java.util.concurrent.CompletableFuture;
 // snippet-end:[ec2.java2.running_instances.import]
 
 /**
@@ -21,32 +22,38 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
  */
 public class FindRunningInstances {
     public static void main(String[] args) {
-        Region region = Region.US_EAST_1;
-        Ec2Client ec2 = Ec2Client.builder()
-            .region(region)
+        Ec2AsyncClient ec2AsyncClient = Ec2AsyncClient.builder()
+            .region(Region.US_EAST_1)
             .build();
-
-        findRunningEC2InstancesUsingPaginator(ec2);
-        ec2.close();
+        try {
+            CompletableFuture<Void> future = findRunningEC2InstancesUsingPaginatorAsync(ec2AsyncClient);
+            future.join(); // Wait for the async operation to complete.
+            System.out.println("Running EC2 Instances described successfully.");
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+        }
     }
 
-    public static void findRunningEC2InstancesUsingPaginator(Ec2Client ec2) {
-        try {
-            // Create a DescribeInstancesRequest to filter running instances.
-            DescribeInstancesRequest describeInstancesRequest = DescribeInstancesRequest.builder()
-                .filters(f -> f.name("instance-state-name").values("running"))
-                .build();
+    public static CompletableFuture<Void> findRunningEC2InstancesUsingPaginatorAsync(Ec2AsyncClient ec2AsyncClient) {
+        // Create a DescribeInstancesRequest to filter running instances.
+        DescribeInstancesRequest describeInstancesRequest = DescribeInstancesRequest.builder()
+            .filters(f -> f.name("instance-state-name").values("running"))
+            .build();
 
-            // Use the describeInstancesPaginator to paginate through the results.
-            ec2.describeInstancesPaginator(describeInstancesRequest).stream()
-                .flatMap(response -> response.reservations().stream())
-                .flatMap(reservation -> reservation.instances().stream())
-                .forEach(instance -> System.out.println("Instance ID: " + instance.instanceId() + ", State: " + instance.state().name()));
+        // Fetch instances asynchronously.
+        CompletableFuture<DescribeInstancesResponse> response = ec2AsyncClient.describeInstances(describeInstancesRequest);
+        response.whenComplete((instancesResponse, ex) -> {
+            if (instancesResponse != null) {
+                instancesResponse.reservations().stream()
+                    .flatMap(reservation -> reservation.instances().stream())
+                    .forEach(instance -> System.out.println("Instance ID: " + instance.instanceId() + ", State: " + instance.state().name()));
+            } else {
+                throw new RuntimeException("Failed to describe running EC2 instances.", ex);
+            }
+        });
 
-        } catch (Ec2Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        // Return CompletableFuture<Void> to signify the async operation's completion.
+        return response.thenApply(resp -> null);
     }
 }
 // snippet-end:[ec2.java2.running_instances.main]

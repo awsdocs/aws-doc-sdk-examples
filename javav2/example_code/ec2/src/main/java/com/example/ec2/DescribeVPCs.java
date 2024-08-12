@@ -6,12 +6,10 @@ package com.example.ec2;
 // snippet-start:[ec2.java2.describe_vpc.main]
 // snippet-start:[ec2.java2.describe_vpc.import]
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.ec2.Ec2Client;
+import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
 import software.amazon.awssdk.services.ec2.model.DescribeVpcsRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeVpcsResponse;
-import software.amazon.awssdk.services.ec2.model.Vpc;
-import software.amazon.awssdk.services.ec2.model.Ec2Exception;
-import software.amazon.awssdk.services.ec2.paginators.DescribeVpcsIterable;
+import java.util.concurrent.CompletableFuture;
 // snippet-end:[ec2.java2.describe_vpc.import]
 
 /**
@@ -35,43 +33,47 @@ public class DescribeVPCs {
 
         if (args.length != 1) {
             System.out.println(usage);
-            System.exit(1);
+            return;
         }
 
         String vpcId = args[0];
-        Region region = Region.US_EAST_1;
-        Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .build();
+        Ec2AsyncClient ec2AsyncClient = Ec2AsyncClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
 
-        describeEC2Vpcs(ec2, vpcId);
-        ec2.close();
+        try {
+            CompletableFuture<Void> future = describeEC2VpcsAsync(ec2AsyncClient, vpcId);
+            future.join();
+            System.out.println("VPCs described successfully.");
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+        }
     }
 
-    public static void describeEC2Vpcs(Ec2Client ec2, String vpcId) {
-        try {
-            DescribeVpcsRequest request = DescribeVpcsRequest.builder()
-                    .vpcIds(vpcId)
-                    .build();
+    public static CompletableFuture<Void> describeEC2VpcsAsync(Ec2AsyncClient ec2AsyncClient, String vpcId) {
+        DescribeVpcsRequest request = DescribeVpcsRequest.builder()
+            .vpcIds(vpcId)
+            .build();
 
-            DescribeVpcsIterable vpcsIterable = ec2.describeVpcsPaginator(request);
-            vpcsIterable.stream()
-                .flatMap(r -> r.vpcs().stream())
-                .forEach(vpc -> System.out
-                    .printf(
-                        "Found VPC with id %s, " +
-                            "vpc state %s " +
-                            "and tenancy %s%n",
-                        vpc.vpcId(),
-                        vpc.stateAsString(),
-                        vpc.instanceTenancyAsString()
-                    )
-                );
+        // Fetch VPCs asynchronously.
+        CompletableFuture<DescribeVpcsResponse> response = ec2AsyncClient.describeVpcs(request);
+        response.whenComplete((vpcsResponse, ex) -> {
+            if (vpcsResponse != null) {
+                vpcsResponse.vpcs().forEach(vpc -> System.out.printf(
+                    "Found VPC with id %s, " +
+                        "vpc state %s " +
+                        "and tenancy %s%n",
+                    vpc.vpcId(),
+                    vpc.stateAsString(),
+                    vpc.instanceTenancyAsString()
+                ));
+            } else {
+                throw new RuntimeException("Failed to describe EC2 VPCs.", ex);
+            }
+        });
 
-        } catch (Ec2Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        // Return CompletableFuture<Void> to signify the async operation's completion.
+        return response.thenApply(resp -> null);
     }
 }
 // snippet-end:[ec2.java2.describe_vpc.main]

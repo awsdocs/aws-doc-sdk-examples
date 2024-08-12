@@ -6,12 +6,15 @@ package com.example.ec2;
 // snippet-start:[ec2.java2.describe_tags.main]
 // snippet-start:[ec2.java2.describe_tags.import]
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.Filter;
 import software.amazon.awssdk.services.ec2.model.DescribeTagsResponse;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.DescribeTagsRequest;
 import software.amazon.awssdk.services.ec2.paginators.DescribeTagsIterable;
+
+import java.util.concurrent.CompletableFuture;
 // snippet-end:[ec2.java2.describe_tags.import]
 
 /**
@@ -35,36 +38,41 @@ public class DescribeInstanceTags {
 
         if (args.length != 1) {
             System.out.println(usage);
-            System.exit(1);
+            return;
         }
 
         String resourceId = args[0];
-        Region region = Region.US_EAST_1;
-        Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .build();
+        Ec2AsyncClient ec2AsyncClient = Ec2AsyncClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
 
-        describeEC2Tags(ec2, resourceId);
-        ec2.close();
+        try {
+            CompletableFuture<Void> future = describeEC2TagsAsync(ec2AsyncClient, resourceId);
+            future.join(); // Wait for the async process to complete.
+            System.out.println("EC2 Tags described successfully.");
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+        }
     }
 
-    public static void describeEC2Tags(Ec2Client ec2, String resourceId) {
-        try {
-            Filter filter = Filter.builder()
-                    .name("resource-id")
-                    .values(resourceId)
-                    .build();
+    public static CompletableFuture<Void> describeEC2TagsAsync(Ec2AsyncClient ec2AsyncClient, String resourceId) {
+        Filter filter = Filter.builder()
+            .name("resource-id")
+            .values(resourceId)
+            .build();
 
-            DescribeTagsIterable response = ec2.describeTagsPaginator(DescribeTagsRequest.builder().filters(filter).build());
-            response.stream()
-                .flatMap(r -> r.tags().stream())
-                .forEach(tag -> System.out
-                    .println("Tag key is: " + tag.key() + " Tag value is: " + tag.value()));
+        CompletableFuture<DescribeTagsResponse> response = ec2AsyncClient.describeTags(
+            DescribeTagsRequest.builder().filters(filter).build());
+        response.whenComplete((tagsResponse, ex) -> {
+            if (tagsResponse != null) {
+                tagsResponse.tags().forEach(tag ->
+                    System.out.println("Tag key is: " + tag.key() + " Tag value is: " + tag.value()));
+            } else {
+                throw new RuntimeException("Failed to describe EC2 tags.", ex);
+            }
+        });
 
-        } catch (Ec2Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+       return response.thenApply(resp -> null);
     }
 }
 // snippet-end:[ec2.java2.describe_tags.main]
