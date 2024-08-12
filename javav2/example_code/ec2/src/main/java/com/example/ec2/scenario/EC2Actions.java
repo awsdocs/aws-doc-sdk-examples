@@ -655,7 +655,7 @@ public class EC2Actions {
 
         return responseFuture;
     }
-    // snippet-start:[ec2.java2.scenario.describe_securitygroup.main]
+    // snippet-end:[ec2.java2.scenario.describe_securitygroup.main]
     // snippet-end:[ec2.java2.describe_security_groups.main]
 
     // snippet-start:[ec2.java2.create_security_group.main]
