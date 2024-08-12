@@ -20,6 +20,7 @@ const { getManifestFile, parseManifestFile, outputImageSetIds } = await import(
 
 describe("image-set-steps", () => {
   const mockState = {
+    earlyExit: false,
     stackOutputs: {
       BucketName: "input-bucket",
       DatastoreID: "datastore-123",
