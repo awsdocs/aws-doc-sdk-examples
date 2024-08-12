@@ -50,7 +50,7 @@ ssm_GetParameter:
     Rust:
       versions:
         - sdk_version: 1
-          github: rustv1/example_code/ssm
+          github: rustv1/examples/ssm
           excerpts:
             - snippet_tags:
                 - ec2.rust.ssm_list_path.impl
