@@ -39,6 +39,15 @@ public class DescribeReservedInstances {
         }
     }
 
+    /**
+     * Describes the Reserved EC2 Instances asynchronously using the given {@link Ec2AsyncClient}.
+     * <p>
+     * This method uses the {@link Ec2AsyncClient#describeReservedInstances()} method to fetch the
+     * details of the Reserved EC2 Instances and prints the information about each instance to the console.
+     *
+     * @param ec2AsyncClient the {@link Ec2AsyncClient} instance to be used for the asynchronous operation
+     * @return a {@link CompletableFuture<Void>} that completes when the asynchronous operation is finished
+     */
     public static CompletableFuture<Void> describeReservedEC2InstancesAsync(Ec2AsyncClient ec2AsyncClient) {
         CompletableFuture<DescribeReservedInstancesResponse> response = ec2AsyncClient.describeReservedInstances();
         response.whenComplete((reservedInstancesResponse, ex) -> {

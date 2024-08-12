@@ -34,6 +34,12 @@ public class DescribeAccount {
         }
     }
 
+    /**
+     * Describes the EC2 account attributes asynchronously.
+     *
+     * @param ec2AsyncClient the EC2 asynchronous client to use for the operation
+     * @return a {@link CompletableFuture} containing the {@link DescribeAccountAttributesResponse} with the account attributes
+     */
     public static CompletableFuture<DescribeAccountAttributesResponse> describeEC2AccountAsync(Ec2AsyncClient ec2AsyncClient) {
         CompletableFuture<DescribeAccountAttributesResponse> response = ec2AsyncClient.describeAccountAttributes();
 

@@ -50,6 +50,13 @@ public class DescribeVPCs {
         }
     }
 
+    /**
+     * Describes EC2 VPCs asynchronously.
+     *
+     * @param ec2AsyncClient the EC2 async client to use for the operation
+     * @param vpcId the ID of the VPC to describe
+     * @return a {@link CompletableFuture} that completes when the VPC description is complete
+     */
     public static CompletableFuture<Void> describeEC2VpcsAsync(Ec2AsyncClient ec2AsyncClient, String vpcId) {
         DescribeVpcsRequest request = DescribeVpcsRequest.builder()
             .vpcIds(vpcId)

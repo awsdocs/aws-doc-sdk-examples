@@ -56,6 +56,13 @@ public class MonitorInstance {
     }
 
     // snippet-start:[ec2.java2.monitor_instance.main]
+    /**
+     * Monitors an EC2 instance asynchronously.
+     *
+     * @param ec2AsyncClient the EC2 asynchronous client used to perform the operation
+     * @param instanceId the ID of the EC2 instance to be monitored
+     * @return a {@link CompletableFuture} representing the asynchronous operation of enabling monitoring for the specified instance
+     */
     public static CompletableFuture<Void> monitorInstanceAsync(Ec2AsyncClient ec2AsyncClient, String instanceId) {
         MonitorInstancesRequest request = MonitorInstancesRequest.builder()
             .instanceIds(instanceId)

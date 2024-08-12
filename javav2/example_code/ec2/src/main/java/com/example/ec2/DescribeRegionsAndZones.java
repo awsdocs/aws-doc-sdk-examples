@@ -40,6 +40,12 @@ public class DescribeRegionsAndZones {
         }
     }
 
+    /**
+     * Asynchronously describes the EC2 regions and availability zones.
+     *
+     * @param ec2AsyncClient the EC2 async client used to make the API calls
+     * @return a {@link CompletableFuture} that completes when both the region and availability zone descriptions are complete
+     */
     public static CompletableFuture<Void> describeEC2RegionsAndZonesAsync(Ec2AsyncClient ec2AsyncClient) {
         CompletableFuture<DescribeRegionsResponse> regionsResponse = ec2AsyncClient.describeRegions();
         CompletableFuture<DescribeRegionsResponse> regionsFuture = regionsResponse.whenComplete((regionsResp, ex) -> {

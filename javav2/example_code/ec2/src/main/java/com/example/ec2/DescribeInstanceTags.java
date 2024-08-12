@@ -55,6 +55,13 @@ public class DescribeInstanceTags {
         }
     }
 
+    /**
+     * Asynchronously describes the tags associated with the specified Amazon EC2 resource.
+     *
+     * @param ec2AsyncClient the Amazon EC2 asynchronous client
+     * @param resourceId the ID of the Amazon EC2 resource
+     * @return a {@link CompletableFuture} that completes when the tags have been described, or with an exception if the operation fails
+     */
     public static CompletableFuture<Void> describeEC2TagsAsync(Ec2AsyncClient ec2AsyncClient, String resourceId) {
         Filter filter = Filter.builder()
             .name("resource-id")

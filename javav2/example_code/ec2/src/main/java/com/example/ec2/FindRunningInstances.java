@@ -34,6 +34,12 @@ public class FindRunningInstances {
         }
     }
 
+    /**
+     * Finds all running EC2 instances asynchronously.
+     *
+     * @param ec2AsyncClient the EC2 asynchronous client to use for the operation
+     * @return a {@link CompletableFuture} that completes when the asynchronous operation is finished
+     */
     public static CompletableFuture<Void> findRunningEC2InstancesUsingPaginatorAsync(Ec2AsyncClient ec2AsyncClient) {
         // Create a DescribeInstancesRequest to filter running instances.
         DescribeInstancesRequest describeInstancesRequest = DescribeInstancesRequest.builder()

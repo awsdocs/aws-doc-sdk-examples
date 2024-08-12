@@ -45,6 +45,14 @@ public class GetPasswordData {
         }
 
     }
+    /**
+     * Fetches the password data for the specified EC2 instance asynchronously.
+     *
+     * @param ec2AsyncClient the EC2 asynchronous client to use for the request
+     * @param instanceId the ID of the EC2 instance to fetch the password data for
+     * @return a {@link CompletableFuture} that completes when the password data has been fetched
+     * @throws RuntimeException if there was a failure in fetching the password data
+     */
     public static CompletableFuture<Void> getPasswordDataAsync(Ec2AsyncClient ec2AsyncClient, String instanceId) {
         GetPasswordDataRequest getPasswordDataRequest = GetPasswordDataRequest.builder()
             .instanceId(instanceId)

@@ -36,6 +36,14 @@ public class DescribeAddresses {
         }
     }
 
+    /**
+     * Asynchronously describes the Elastic Compute Cloud (EC2) addresses associated with the provided
+     * {@code Ec2AsyncClient}.
+     *
+     * @param ec2AsyncClient the EC2 asynchronous client to use for the request
+     * @return a {@link CompletableFuture} containing the {@link DescribeAddressesResponse} with the
+     *     details of the described addresses
+     */
     public static CompletableFuture<DescribeAddressesResponse> describeEC2AddressAsync(Ec2AsyncClient ec2AsyncClient) {
         CompletableFuture<DescribeAddressesResponse> response = ec2AsyncClient.describeAddresses();
         response.whenComplete((addressesResponse, ex) -> {
