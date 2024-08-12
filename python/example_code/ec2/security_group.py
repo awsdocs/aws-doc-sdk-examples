@@ -59,6 +59,7 @@ class SecurityGroupWrapper:
             raise
         else:
             return self.security_group
+
     # snippet-end:[python.example_code.ec2.CreateSecurityGroup]
 
     # snippet-start:[python.example_code.ec2.AuthorizeSecurityGroupIngress]
@@ -90,12 +91,15 @@ class SecurityGroupWrapper:
             )
         except ClientError as err:
             if err.response["Error"]["Code"] == "InvalidPermission.Duplicate":
-                logger.error(f"""
+                logger.error(
+                    f"""
                     The SSH ingress rule for IP {ssh_ingress_ip} already exists in security group '{self.security_group}'."
-                """)
+                """
+                )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.ec2.AuthorizeSecurityGroupIngress]
 
     # snippet-start:[python.example_code.ec2.DescribeSecurityGroups]
@@ -108,11 +112,11 @@ class SecurityGroupWrapper:
             return
 
         try:
-            paginator = self.ec2_client.get_paginator('describe_security_groups')
+            paginator = self.ec2_client.get_paginator("describe_security_groups")
             page_iterator = paginator.paginate(GroupIds=[self.security_group])
 
             for page in page_iterator:
-                for security_group in page['SecurityGroups']:
+                for security_group in page["SecurityGroups"]:
                     print(f"Security group: {security_group['GroupName']}")
                     print(f"\tID: {security_group['GroupId']}")
                     print(f"\tVPC: {security_group['VpcId']}")
@@ -121,10 +125,13 @@ class SecurityGroupWrapper:
                         pp(security_group["IpPermissions"])
         except ClientError as err:
             if err.response["Error"]["Code"] == "InvalidGroup.NotFound":
-                logger.error(f"""
+                logger.error(
+                    f"""
                     Security group {self.security_group} does not exist because specified security group ID was not found.
-                """)
+                """
+                )
             raise
+
     # snippet-end:[python.example_code.ec2.DescribeSecurityGroups]
 
     # snippet-start:[python.example_code.ec2.DeleteSecurityGroup]
@@ -141,6 +148,7 @@ class SecurityGroupWrapper:
             waiter.wait(GroupIds=[self.security_group])
             logger.info(f"Successfully deleted security group '{self.security_group}'")
         except ClientError as err:
+            logger.error(f"Deletion failed for security group '{self.security_group}'")
             if err.response["Error"]["Code"] == "InvalidGroup.NotFound":
                 logger.error(
                     f"Security group cannot be deleted because it does not exist."
@@ -153,7 +161,9 @@ class SecurityGroupWrapper:
                     "\t- Removed from references in other groups"
                     "\t- Removed from VPC's as a default group"
                 )
-            logger.error(f"Deletion failed for security group '{self.security_group}'")
             raise
+
     # snippet-end:[python.example_code.ec2.DeleteSecurityGroup]
+
+
 # snippet-end:[python.example_code.ec2.SecurityGroupWrapper.class]
