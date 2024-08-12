@@ -1,8 +1,8 @@
 package com.example.ec2;
 
+// snippet-start:[ec2.java2.get_password.main]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
-import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.*;
 
 import java.util.concurrent.CompletableFuture;
@@ -64,5 +64,5 @@ public class GetPasswordData {
         // Return CompletableFuture<Void> to signify the async operation's completion.
         return response.thenApply(resp -> null);
     }
-
 }
+// snippet-end:[ec2.java2.get_password.main]
