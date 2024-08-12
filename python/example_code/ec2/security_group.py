@@ -92,9 +92,8 @@ class SecurityGroupWrapper:
         except ClientError as err:
             if err.response["Error"]["Code"] == "InvalidPermission.Duplicate":
                 logger.error(
-                    f"""
-                    The SSH ingress rule for IP {ssh_ingress_ip} already exists in security group '{self.security_group}'."
-                """
+                    f"The SSH ingress rule for IP {ssh_ingress_ip} already exists"
+                    f"in security group '{self.security_group}'."
                 )
             raise
         else:
@@ -126,9 +125,8 @@ class SecurityGroupWrapper:
         except ClientError as err:
             if err.response["Error"]["Code"] == "InvalidGroup.NotFound":
                 logger.error(
-                    f"""
-                    Security group {self.security_group} does not exist because specified security group ID was not found.
-                """
+                    f"Security group {self.security_group} does not exist "
+                    f"because specified security group ID was not found."
                 )
             raise
 

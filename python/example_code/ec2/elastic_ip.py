@@ -71,12 +71,10 @@ class ElasticIpWrapper:
         except ClientError as err:
             if err.response["Error"]["Code"] in "InvalidInstanceID.NotFound":
                 logger.error(
-                    f"""
-                    Failed to associate Elastic IP {self.allocation_id} with {instance_id}
-                    because the specified instance ID does not exist or has not propagated fully.
-                    Verify the instance ID and try again, or wait a few moments
-                    before attempting to associate the Elastic IP address.
-                """
+                    f"Failed to associate Elastic IP {self.allocation_id} with {instance_id} "
+                    "because the specified instance ID does not exist or has not propagated fully. "
+                    "Verify the instance ID and try again, or wait a few moments before attempting to "
+                    "associate the Elastic IP address."
                 )
                 raise
         return response
@@ -96,12 +94,10 @@ class ElasticIpWrapper:
         except ClientError as err:
             if err.response["Error"]["Code"] == "InvalidAssociationID.NotFound":
                 logger.error(
-                    """
-                    Failed to disassociate Elastic IP {self.allocation_id} with {instance_id}
-                    because the specified association ID for the Elastic IP address was not found.
-                    Verify the association ID and ensure the Elastic IP is currently
-                    associated with a resource before attempting to dissociate it.
-                """
+                    f"Failed to disassociate Elastic IP {self.allocation_id} with {self.instance} "
+                    "because the specified association ID for the Elastic IP address was not found. "
+                    "Verify the association ID and ensure the Elastic IP is currently associated with a "
+                    "resource before attempting to dissociate it."
                 )
             raise
 
@@ -122,12 +118,10 @@ class ElasticIpWrapper:
         except ClientError as err:
             if err.response["Error"]["Code"] == "InvalidAddress.NotFound":
                 logger.error(
-                    f"""
-                    Failed to release Elastic IP address {self.allocation_id}
-                    because it could not be found. Verify the Elastic IP address
-                    and ensure it is allocated to your account in the correct region
-                    before attempting to release it."
-                """
+                    f"Failed to release Elastic IP address {self.allocation_id} "
+                    "because it could not be found. Verify the Elastic IP address "
+                    "and ensure it is allocated to your account in the correct region "
+                    "before attempting to release it."
                 )
             raise
 

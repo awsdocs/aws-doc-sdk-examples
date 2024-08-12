@@ -55,8 +55,8 @@ class KeyPairWrapper:
         except ClientError as err:
             if err.response["Error"]["Code"] == "InvalidKeyPair.Duplicate":
                 logger.error(
-                    f"A key pair called {key_name} already exists."
-                    "Please choose a different name for your key pair"
+                    f"A key pair called {key_name} already exists. "
+                    "Please choose a different name for your key pair "
                     "or delete the existing key pair before creating."
                 )
             raise
@@ -102,7 +102,7 @@ class KeyPairWrapper:
             error_code = err.response["Error"]["Code"]
             if error_code == "InvalidKeyPair.NotFound":
                 logger.error(
-                    f"The key pair '{key_name}' does not exist and cannot be deleted."
+                    f"The key pair '{key_name}' does not exist and cannot be deleted. "
                     "Please verify the key pair name and try again."
                 )
                 return False
