@@ -39,8 +39,19 @@ export const loadState = new Scenarios.ScenarioAction(
  * @param {string} stateKey
  */
 export const exitOnFalse = (scenarios, stateKey) =>
-  new scenarios.ScenarioAction(`exitOn${stateKey}False`, (state) => {
-    if (!state[stateKey]) {
-      process.exit(0);
-    }
+  new scenarios.ScenarioAction(
+    `exitOn${stateKey}False`,
+    (/** @type { { earlyExit: boolean } & Record<string, any>} */ state) => {
+      if (!state[stateKey]) {
+        state.earlyExit = true;
+      }
+    },
+  );
+
+/**
+ * @param {Scenarios} scenarios
+ */
+export const confirm = (scenarios) =>
+  new scenarios.ScenarioInput("confirmContinue", "Continue?", {
+    type: "confirm",
   });

@@ -14,6 +14,7 @@
 #include <aws/ec2/model/DeleteSecurityGroupRequest.h>
 #include <aws/ec2/model/DescribeInstancesRequest.h>
 #include <aws/ec2/model/DescribeSecurityGroupsRequest.h>
+#include <aws/ec2/model/DisassociateAddressRequest.h>
 #include <aws/ec2/model/ReleaseAddressRequest.h>
 #include <aws/ec2/model/RunInstancesRequest.h>
 #include <aws/ec2/model/TerminateInstancesRequest.h>
@@ -23,6 +24,7 @@ Aws::SDKOptions AwsDocTest::EC2_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::EC2_GTests::s_clientConfig;
 Aws::String AwsDocTest::EC2_GTests::s_instanceID;
 Aws::String AwsDocTest::EC2_GTests::s_vpcID;
+Aws::String AwsDocTest::EC2_GTests::s_securityGroupID;
 
 
 void AwsDocTest::EC2_GTests::SetUpTestSuite() {
@@ -37,6 +39,11 @@ void AwsDocTest::EC2_GTests::TearDownTestSuite() {
     if (!s_instanceID.empty()) {
         terminateInstance(s_instanceID);
         s_instanceID.clear();
+    }
+
+    if (!s_securityGroupID.empty()) {
+        deleteSecurityGroup(s_securityGroupID);
+        s_securityGroupID.clear();
     }
 
     ShutdownAPI(s_options);
@@ -101,7 +108,7 @@ bool AwsDocTest::EC2_GTests::releaseIPAddress(const Aws::String &allocationID) {
 
     auto outcome = ec2Client.ReleaseAddress(request);
     if (!outcome.IsSuccess()) {
-        std::cerr << "Failed to release Elastic IP address " <<
+        std::cerr << "AwsDocTest::EC2_GTests Failed to release Elastic IP address " <<
                   allocationID << ":" << outcome.GetError().GetMessage() <<
                   std::endl;
     }
@@ -131,8 +138,7 @@ Aws::String AwsDocTest::EC2_GTests::getAmiID() {
 
     if (s_clientConfig->region == "us-east-1") {
         result = "ami-0dfcb1ef8550277af";
-    }
-    else {
+    } else {
         std::cerr << "EC2_GTests::getAmiID no amiID specified for the region "
                   << s_clientConfig->region << std::endl;
     }
@@ -155,15 +161,13 @@ Aws::String AwsDocTest::EC2_GTests::createInstance() {
     if (!runOutcome.IsSuccess()) {
         std::cerr << "Failed to launch ec2 instance  based on ami " << amiID
                   << ":" << runOutcome.GetError().GetMessage() << std::endl;
-    }
-    else {
+    } else {
         const Aws::Vector<Aws::EC2::Model::Instance> &instances = runOutcome.GetResult().GetInstances();
         if (instances.empty()) {
             std::cerr << "Failed to launch ec2 instance  based on ami " <<
                       amiID << ":" <<
                       runOutcome.GetError().GetMessage() << std::endl;
-        }
-        else {
+        } else {
             instanceID = instances[0].GetInstanceId();
         }
     }
@@ -181,8 +185,7 @@ Aws::String AwsDocTest::EC2_GTests::getCachedInstanceID() {
 
         if (instanceStateName == Aws::EC2::Model::InstanceStateName::running) {
             s_instanceID = instanceID;
-        }
-        else {
+        } else {
             std::cerr << "Error starting instance, instanceStateName '"
                       << Aws::EC2::Model::InstanceStateNameMapper::GetNameForInstanceStateName(
                               instanceStateName)
@@ -222,13 +225,11 @@ AwsDocTest::EC2_GTests::getInstanceState(const Aws::String &instanceID) {
         if (!outcome.GetResult().GetReservations().empty() &&
             !outcome.GetResult().GetReservations()[0].GetInstances().empty()) {
             instanceState = outcome.GetResult().GetReservations()[0].GetInstances()[0].GetState().GetName();
-        }
-        else {
+        } else {
             std::cerr << "EC2_GTests::getInstanceState no instance returned."
                       << std::endl;
         }
-    }
-    else {
+    } else {
         std::cerr << "EC2_GTests::getInstanceState error "
                   << outcome.GetError().GetMessage()
                   << std::endl;
@@ -283,8 +284,7 @@ Aws::String AwsDocTest::EC2_GTests::createSecurityGroup(const Aws::String &group
     if (!outcome.IsSuccess()) {
         std::cerr << "Failed to create security group:" <<
                   outcome.GetError().GetMessage() << std::endl;
-    }
-    else {
+    } else {
         groupID = outcome.GetResult().GetGroupId();
     }
 
@@ -333,8 +333,7 @@ Aws::String AwsDocTest::EC2_GTests::getVpcID() {
                         break;
                     }
                 }
-            }
-            else {
+            } else {
                 std::cerr << "Failed to describe security groups:" <<
                           outcome.GetError().GetMessage() << std::endl;
                 done = true;
@@ -362,12 +361,33 @@ Aws::String AwsDocTest::EC2_GTests::allocateIPAddress() {
         std::cerr
                 << "EC2_GTests::allocateIPAddress: failed to allocate Elastic IP address:"
                 << outcome.GetError().GetMessage() << std::endl;
-    }
-    else {
+    } else {
         allocationID = outcome.GetResult().GetAllocationId();
     }
 
     return allocationID;
+}
+
+Aws::String AwsDocTest::EC2_GTests::getCachedSecurityGroupID() {
+    if (s_securityGroupID.empty()) {
+        s_securityGroupID = createSecurityGroup("cpp-test-group");
+    }
+
+    return s_securityGroupID;
+}
+
+bool AwsDocTest::EC2_GTests::dissociateAddress(const Aws::String &associationID) {
+    Aws::EC2::EC2Client ec2Client(*s_clientConfig);
+    Aws::EC2::Model::DisassociateAddressRequest request;
+    request.SetAssociationId(associationID);
+    const Aws::EC2::Model::DisassociateAddressOutcome outcome =
+            ec2Client.DisassociateAddress(request);
+    if (!outcome.IsSuccess()) {
+        std::cerr << "EC2_GTests::dissociateAddress error: " <<
+                  outcome.GetError().GetMessage() << std::endl;
+    }
+
+    return outcome.IsSuccess();
 }
 
 int AwsDocTest::MyStringBuffer::underflow() {

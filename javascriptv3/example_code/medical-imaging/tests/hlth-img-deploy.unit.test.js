@@ -242,6 +242,7 @@ describe("deploy-steps", () => {
       stateFilePath,
       JSON.stringify({
         name: deploySteps.name,
+        earlyExit: false,
         deployStack: true,
         getStackName: stackName,
         getDatastoreName: datastoreName,

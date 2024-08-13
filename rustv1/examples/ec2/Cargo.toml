@@ -19,3 +19,8 @@ clap = { version = "~4.4", features = ["derive"] }
 tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
 tracing = "0.1.40"
 aws-smithy-runtime-api = "1.6.2"
+mockall = "0.13.0"
+inquire = "0.7.5"
+reqwest = "0.12.5"
+aws-sdk-ssm = "1.40.0"
+aws-smithy-async = "1.2.1"

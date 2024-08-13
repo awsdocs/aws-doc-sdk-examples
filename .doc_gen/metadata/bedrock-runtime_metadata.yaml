@@ -690,6 +690,9 @@ bedrock-runtime_InvokeModel_AnthropicClaude:
             - description: Invoke the Anthropic Claude 2 foundation model to generate text using L2 high level client.
               snippet_tags:
                 - bdr.abapv1.invokemodel_l2_claude_v2
+            - description: Invoke the Anthropic Claude 3 foundation model to generate text using L2 high level client.
+              snippet_tags:
+                - bdr.abapv1.invokemodel_l2_claude_v3
   services:
     bedrock-runtime: {InvokeModel}
 

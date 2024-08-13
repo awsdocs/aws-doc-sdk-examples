@@ -22,7 +22,7 @@ namespace AwsDocTest {
         auto instanceName = uuidName("test-create");
 
         Aws::String instanceID;
-        auto result = AwsDoc::EC2::RunInstance(instanceName, amiID,
+        auto result = AwsDoc::EC2::runInstance(instanceName, amiID,
                                                instanceID, *s_clientConfig);
         ASSERT_TRUE(result);
 

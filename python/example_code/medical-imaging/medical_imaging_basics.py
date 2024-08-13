@@ -380,7 +380,7 @@ class MedicalImagingWrapper:
 
     # snippet-start:[python.example_code.medical-imaging.UpdateImageSetMetadata]
     def update_image_set_metadata(
-        self, datastore_id, image_set_id, version_id, metadata
+        self, datastore_id, image_set_id, version_id, metadata, force=False
     ):
         """
         Update the metadata of an image set.
@@ -391,6 +391,7 @@ class MedicalImagingWrapper:
         :param metadata: The image set metadata as a dictionary.
             For example {"DICOMUpdates": {"updatableAttributes":
             "{\"SchemaVersion\":1.1,\"Patient\":{\"DICOM\":{\"PatientName\":\"Garcia^Gloria\"}}}"}}
+        :param: force: Force the update.
         :return: The updated image set metadata.
         """
         try:
@@ -399,6 +400,7 @@ class MedicalImagingWrapper:
                 datastoreId=datastore_id,
                 latestVersionId=version_id,
                 updateImageSetMetadataUpdates=metadata,
+                force=force,
             )
         except ClientError as err:
             logger.error(
@@ -420,6 +422,8 @@ class MedicalImagingWrapper:
         version_id,
         destination_image_set_id=None,
         destination_version_id=None,
+        force=False,
+        subsets=[],
     ):
         """
         Copy an image set.
@@ -429,6 +433,8 @@ class MedicalImagingWrapper:
         :param version_id: The ID of the image set version.
         :param destination_image_set_id: The ID of the optional destination image set.
         :param destination_version_id: The ID of the optional destination image set version.
+        :param force: Force the copy.
+        :param subsets: The optional subsets to copy. For example: ["12345678901234567890123456789012"].
         :return: The copied image set ID.
         """
         try:
@@ -445,12 +451,29 @@ class MedicalImagingWrapper:
                 }
             # snippet-end:[python.example_code.medical-imaging.CopyImageSet2]
             # snippet-start:[python.example_code.medical-imaging.CopyImageSet3]
+            if len(subsets) > 0:
+                copySubsetsJson = {
+                    "SchemaVersion": "1.1",
+                    "Study": {"Series": {"imageSetId": {"Instances": {}}}},
+                }
+
+                for subset in subsets:
+                    copySubsetsJson["Study"]["Series"]["imageSetId"]["Instances"][
+                        subset
+                    ] = {}
+
+                copy_image_set_information["sourceImageSet"]["DICOMCopies"] = {
+                    "copiableAttributes": json.dumps(copySubsetsJson)
+                }
+            # snippet-end:[python.example_code.medical-imaging.CopyImageSet3]
+            # snippet-start:[python.example_code.medical-imaging.CopyImageSet4]
             copy_results = self.health_imaging_client.copy_image_set(
                 datastoreId=datastore_id,
                 sourceImageSetId=image_set_id,
                 copyImageSetInformation=copy_image_set_information,
+                force=force,
             )
-            # snippet-end:[python.example_code.medical-imaging.CopyImageSet3]
+            # snippet-end:[python.example_code.medical-imaging.CopyImageSet4]
         except ClientError as err:
             logger.error(
                 "Couldn't copy image set. Here's why: %s: %s",
@@ -833,7 +856,8 @@ class MedicalImagingWrapper:
         data_store_id = "12345678901234567890123456789012"
         image_set_id = "12345678901234567890123456789012"
         version_id = "1"
-        update_type = "insert"  # or "remove-attribute" or "remove_instance"
+        force = False
+        update_type = "insert"  # or "remove-attribute" or "remove_instance" or "revert"
         if update_type == "insert":
             # Insert or update an attribute.
             # snippet-start:[python.example_code.medical-imaging.UpdateImageSetMetadata.insert_or_update_attributes]
@@ -848,7 +872,7 @@ class MedicalImagingWrapper:
             metadata = {"DICOMUpdates": {"updatableAttributes": attributes}}
 
             self.update_image_set_metadata(
-                data_store_id, image_set_id, version_id, metadata
+                data_store_id, image_set_id, version_id, metadata, force
             )
             # snippet-end:[python.example_code.medical-imaging.UpdateImageSetMetadata.insert_or_update_attributes]
         elif update_type == "remove-attribute":
@@ -866,7 +890,7 @@ class MedicalImagingWrapper:
             metadata = {"DICOMUpdates": {"removableAttributes": attributes}}
 
             self.update_image_set_metadata(
-                data_store_id, image_set_id, version_id, metadata
+                data_store_id, image_set_id, version_id, metadata, force
             )
             # snippet-end:[python.example_code.medical-imaging.UpdateImageSetMetadata.remove_attributes]
         elif update_type == "remove_instance":
@@ -887,10 +911,20 @@ class MedicalImagingWrapper:
             metadata = {"DICOMUpdates": {"removableAttributes": attributes}}
 
             self.update_image_set_metadata(
-                data_store_id, image_set_id, version_id, metadata
+                data_store_id, image_set_id, version_id, metadata, force
             )
 
             # snippet-end:[python.example_code.medical-imaging.UpdateImageSetMetadata.remove_instance]
+        elif update_type == "revert":
+            # Revert to a previous version.
+            # snippet-start:[python.example_code.medical-imaging.UpdateImageSetMetadata.revert]
+            metadata = {"revertToVersionId": "1"}
+
+            self.update_image_set_metadata(
+                data_store_id, image_set_id, version_id, metadata, force
+            )
+
+            # snippet-end:[python.example_code.medical-imaging.UpdateImageSetMetadata.revert]
         print(f"Updated with update type {update_type}")
 
 

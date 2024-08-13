@@ -16,38 +16,45 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
  * @param {string} imageSetId - The ID of the HealthImaging image set.
  * @param {string} latestVersionId - The ID of the HealthImaging image set version.
  * @param {{}} updateMetadata - The metadata to update.
+ * @param {boolean} force - Force the update.
  */
 export const updateImageSetMetadata = async (datastoreId = "xxxxxxxxxx",
                                              imageSetId = "xxxxxxxxxx",
                                              latestVersionId = "1",
-                                             updateMetadata = '{}') => {
-    const response = await medicalImagingClient.send(
-        new UpdateImageSetMetadataCommand({
-            datastoreId: datastoreId,
-            imageSetId: imageSetId,
-            latestVersionId: latestVersionId,
-            updateImageSetMetadataUpdates: updateMetadata
-        })
-    );
-    console.log(response);
-    // {
-    //     '$metadata': {
-    //     httpStatusCode: 200,
-    //         requestId: '7966e869-e311-4bff-92ec-56a61d3003ea',
-    //         extendedRequestId: undefined,
-    //         cfId: undefined,
-    //         attempts: 1,
-    //         totalRetryDelay: 0
-    // },
-    //     createdAt: 2023-09-22T14:49:26.427Z,
-    //     datastoreId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    //     imageSetId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    //     imageSetState: 'LOCKED',
-    //     imageSetWorkflowStatus: 'UPDATING',
-    //     latestVersionId: '4',
-    //     updatedAt: 2023-09-27T19:41:43.494Z
-    // }
-    return response;
+                                             updateMetadata = '{}',
+                                             force = false) => {
+    try {
+        const response = await medicalImagingClient.send(
+            new UpdateImageSetMetadataCommand({
+                datastoreId: datastoreId,
+                imageSetId: imageSetId,
+                latestVersionId: latestVersionId,
+                updateImageSetMetadataUpdates: updateMetadata,
+                force: force,
+            })
+        );
+        console.log(response);
+        // {
+        //     '$metadata': {
+        //     httpStatusCode: 200,
+        //         requestId: '7966e869-e311-4bff-92ec-56a61d3003ea',
+        //         extendedRequestId: undefined,
+        //         cfId: undefined,
+        //         attempts: 1,
+        //         totalRetryDelay: 0
+        // },
+        //     createdAt: 2023-09-22T14:49:26.427Z,
+        //     datastoreId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        //     imageSetId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+        //     imageSetState: 'LOCKED',
+        //     imageSetWorkflowStatus: 'UPDATING',
+        //     latestVersionId: '4',
+        //     updatedAt: 2023-09-27T19:41:43.494Z
+        // }
+        return response;
+    } catch (err) {
+        console.error(err);
+    }
 };
 // snippet-end:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3]
 
@@ -58,7 +65,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     const imageSetID = "12345678901234567890123456789012";
     const versionID = "1";
     const updateType = "insert"; // or "remove-attribute" or "remove_instance".
-    if (updateType == "insert") {
+    if (updateType === "insert") {
         // Insert or update an attribute.
 // snippet-start:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.insert_or_update_attributes]
         const insertAttributes =
@@ -79,9 +86,9 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
         };
 
         await updateImageSetMetadata(datastoreID, imageSetID,
-            versionID, updateMetadata);
+            versionID, updateMetadata, true);
 // snippet-end:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.insert_or_update_attributes]
-    } else if (updateType == "remove_attribute") {
+    } else if (updateType === "remove_attribute") {
         // Remove an existing attribute.
 // snippet-start:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_attributes]
         // Attribute key and value must match the existing attribute.
@@ -105,7 +112,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
         await updateImageSetMetadata(datastoreID, imageSetID,
             versionID, updateMetadata);
 // snippet-end:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_attributes]
-    } else if (updateType == "remove_instance") {
+    } else if (updateType === "remove_instance") {
         // Remove an existing instance.
 // snippet-start:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_instance]
         const remove_instance =
@@ -132,6 +139,16 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
         await updateImageSetMetadata(datastoreID, imageSetID,
             versionID, updateMetadata);
 // snippet-end:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.remove_instance]
-    }
+    } else if (updateType === "revert") {
+    // Remove an existing instance.
+// snippet-start:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.revert]
+    const updateMetadata = {
+        "revertToVersionId": "1"
+    };
+
+    await updateImageSetMetadata(datastoreID, imageSetID,
+        versionID, updateMetadata);
+// snippet-end:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.revert]
+}
 }
 

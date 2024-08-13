@@ -45,6 +45,17 @@ ssm_DescribeParameters:
                 - ssm.rust.describe-parameters
   services:
     ssm: {DescribeParameters}
+ssm_GetParameter:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/ssm
+          excerpts:
+            - snippet_tags:
+                - ec2.rust.ssm_list_path.impl
+  services:
+    ssm: {GetParameter}
 ssm_PutParameter:
   languages:
     Java:
@@ -316,6 +327,9 @@ ssm_Scenario:
             - description:
               snippet_tags:
                 - ssm.java2.scenario.main
+            - description: A wrapper class for &SYS; SDK methods.
+              snippet_tags:
+                - ssm.java2.actions.main    
     Python:
       versions:
         - sdk_version: 3

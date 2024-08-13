@@ -30,6 +30,7 @@ const {
 describe("importSteps", () => {
   const mockState = {
     name: "import-steps",
+    earlyExit: false,
     stackOutputs: {
       BucketName: "input-bucket",
       DatastoreID: "datastore-123",
