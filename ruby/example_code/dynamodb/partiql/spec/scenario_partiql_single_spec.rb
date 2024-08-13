@@ -8,8 +8,8 @@ require 'rspec'
 require_relative('../partiql_single')
 require_relative('../../scaffold')
 
-describe PartiQLSingle do
-  context 'PartiQLWrapper' do
+describe DynamoDBPartiQLSingle do
+  context 'DynamoDBPartiQLWrapper' do
     table_name = "doc-example-table-movies-partiql-#{rand(10**4)}"
     scaffold = Scaffold.new(table_name)
     sdk = DynamoDBPartiQLSingle.new(table_name)
