@@ -28,8 +28,20 @@ def prepare_scanner(doc_gen: DocGen) -> Optional[Scanner]:
     doc_gen.collect_snippets()
     doc_gen.validate()
     if doc_gen.errors:
-        logging.error("There were errors loading metadata")
-        logging.info(doc_gen.errors)
+        logging.error("----------------- DOC_GEN ERRORS START ----------------- ")
+        for error in doc_gen.errors:
+            error_type = type(error).__name__
+            file_path = str(error.file)
+            error_id = error.id if error.id is not None else "N/A"
+            line = getattr(error, 'line', "N/A")
+            tag = error.tag
+            logging.error(f"{error_type}:")
+            logging.error(f"  File: {file_path}")
+            logging.error(f"  ID: {error_id}")
+            logging.error(f"  Line: {line}")
+            logging.error(f"  Tag: {tag}")
+            logging.error("-" * 40)
+        logging.error("----------------- DOC_GEN ERRORS END ----------------- ")
         return None
     scanner = Scanner(doc_gen)
 
@@ -37,7 +49,6 @@ def prepare_scanner(doc_gen: DocGen) -> Optional[Scanner]:
     scanner.load_crosses()
 
     return scanner
-
 
 def main():
     # Load all examples immediately for cross references. Trades correctness for speed
