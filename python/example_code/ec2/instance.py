@@ -12,9 +12,7 @@ logger = logging.getLogger(__name__)
 class EC2InstanceWrapper:
     """Encapsulates Amazon Elastic Compute Cloud (Amazon EC2) instance actions using the client interface."""
 
-    def __init__(
-        self, ec2_client: boto3.client, instances: Optional[List[Dict[str, Any]]] = None
-    ):
+    def __init__(self, ec2_client, instances: Optional[List[Dict[str, Any]]] = None):
         """
         Initializes the EC2InstanceWrapper with an EC2 client and optional instances.
 
@@ -41,35 +39,31 @@ class EC2InstanceWrapper:
     # snippet-start:[python.example_code.ec2.RunInstances]
     def create(
         self,
-        image: boto3.resources.factory.ec2.Image,
+        image_id: str,
         instance_type: str,
-        key_pair: boto3.resources.factory.ec2.KeyPair,
-        security_groups: Optional[
-            List[boto3.resources.factory.ec2.SecurityGroup]
-        ] = None,
+        key_pair_name: str,
+        security_group_ids: Optional[List[str]] = None,
     ) -> List[Dict[str, Any]]:
         """
         Creates a new EC2 instance in the default VPC of the current account.
 
         The instance starts immediately after it is created.
 
-        :param image: A Boto3 Image object representing the Amazon Machine Image (AMI)
-                      that defines the attributes of the instance.
+        :param image_id: The ID of the Amazon Machine Image (AMI) to use for the instance.
         :param instance_type: The type of instance to create, such as 't2.micro'.
-        :param key_pair: A Boto3 KeyPair or KeyPairInfo object representing the key pair used for SSH access.
-        :param security_groups: A list of Boto3 SecurityGroup objects representing the
-                                security groups to associate with the instance. If not specified,
-                                the default security group of the VPC is used.
+        :param key_pair_name: The name of the key pair to use for SSH access.
+        :param security_group_ids: A list of security group IDs to associate with the instance.
+                                   If not specified, the default security group of the VPC is used.
         :return: A list of dictionaries representing Boto3 Instance objects representing the newly created instances.
         """
         try:
             instance_params = {
-                "ImageId": image.id,
+                "ImageId": image_id,
                 "InstanceType": instance_type,
-                "KeyName": key_pair.name,
+                "KeyName": key_pair_name,
             }
-            if security_groups is not None:
-                instance_params["SecurityGroupIds"] = [sg.id for sg in security_groups]
+            if security_group_ids is not None:
+                instance_params["SecurityGroupIds"] = security_group_ids
 
             response = self.ec2_client.run_instances(
                 **instance_params, MinCount=1, MaxCount=1
@@ -206,6 +200,7 @@ class EC2InstanceWrapper:
             start_response = self.ec2_client.start_instances(InstanceIds=instance_ids)
             waiter = self.ec2_client.get_waiter("instance_running")
             waiter.wait(InstanceIds=instance_ids)
+            return start_response
         except ClientError as err:
             logger.error(
                 f"Failed to start instance(s): {','.join(map(str, instance_ids))}"
@@ -217,8 +212,6 @@ class EC2InstanceWrapper:
                     "Ensure the instances are in a stopped state before starting them."
                 )
             raise
-        else:
-            return start_response
 
     # snippet-end:[python.example_code.ec2.StartInstances]
 

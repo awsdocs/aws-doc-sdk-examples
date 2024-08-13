@@ -53,6 +53,7 @@ class KeyPairWrapper:
             with open(self.key_file_path, "w") as key_file:
                 key_file.write(self.key_pair["KeyMaterial"])
         except ClientError as err:
+            breakpoint()
             if err.response["Error"]["Code"] == "InvalidKeyPair.Duplicate":
                 logger.error(
                     f"A key pair called {key_name} already exists. "
@@ -69,18 +70,27 @@ class KeyPairWrapper:
         """
         Displays a list of key pairs for the current account.
 
+        WARNING: Results are not paginated.
+
         :param limit: The maximum number of key pairs to list. If not specified,
                       all key pairs will be listed.
         """
-        paginator = self.ec2_client.get_paginator("describe_key_pairs")
-        pagination_config = {"MaxItems": limit} if limit else {}
-        page_iterator = paginator.paginate(PaginationConfig=pagination_config)
-        for page in page_iterator:
-            for key_pair in page["KeyPairs"]:
+        try:
+            response = self.ec2_client.describe_key_pairs()
+            key_pairs = response.get("KeyPairs", [])
+
+            if limit:
+                key_pairs = key_pairs[:limit]
+
+            for key_pair in key_pairs:
                 logger.info(
                     f"Found {key_pair['KeyType']} key '{key_pair['KeyName']}' with fingerprint:"
                 )
                 logger.info(f"\t{key_pair['KeyFingerprint']}")
+
+        except ClientError as err:
+            logger.error(f"Failed to list key pairs: {str(err)}")
+            raise
 
     # snippet-end:[python.example_code.ec2.DescribeKeyPairs]
 

@@ -142,8 +142,6 @@ class SecurityGroupWrapper:
             return
         try:
             self.ec2_client.delete_security_group(GroupId=self.security_group)
-            waiter = self.ec2_client.get_waiter("security_group_not_exists")
-            waiter.wait(GroupIds=[self.security_group])
             logger.info(f"Successfully deleted security group '{self.security_group}'")
         except ClientError as err:
             logger.error(f"Deletion failed for security group '{self.security_group}'")
