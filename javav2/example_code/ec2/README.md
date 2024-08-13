@@ -50,7 +50,7 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeKeyPairs](src/main/java/com/example/ec2/scenario/EC2Actions.java#L716)
 - [DescribeSecurityGroups](src/main/java/com/example/ec2/scenario/EC2Actions.java#L629)
 - [DisassociateAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L227)
-- [GetPasswordData](src/main/java/com/example/ec2/GetPasswordData.java#L3)
+- [GetPasswordData](src/main/java/com/example/ec2/GetPasswordData.java#L6)
 - [ReleaseAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L197)
 - [RunInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L483)
 - [StartInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L306)
