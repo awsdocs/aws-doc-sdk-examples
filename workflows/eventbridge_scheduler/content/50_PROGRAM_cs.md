@@ -435,7 +435,6 @@ prompt: |
             return choiceNumber - 1;
         }
     }
-    // snippet-end:[S3LockWorkflow.dotnetv3.ObjectLockWorkflow]
   </example>
 
   Do not provide any implementation, include a stub for each necessary method. Use async methods that will call wrapper methods. The method stubs provided should include PrepareApplication to create the email identity and contact list, GatherSubscriberEmailAddresses to get a base email and create variants using ++ses-weekly-newsletter and send a welcome email to each address, SendCouponNewsletter to send the coupon newsletter to the subscribers, MonitorAndReview to provide instructions for monitoring sending activity, and Cleanup to delete the contact list email template, and email identity. Also include the main function which will execute the workflow in order.

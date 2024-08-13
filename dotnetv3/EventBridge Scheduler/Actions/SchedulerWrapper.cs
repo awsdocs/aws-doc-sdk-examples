@@ -141,7 +141,7 @@ public class SchedulerWrapper
             return false;
         }
     }
-    // snippet-start:[Scheduler.dotnetv3.CreateScheduleGroup]
+    // snippet-end:[Scheduler.dotnetv3.CreateScheduleGroup]
 
     // snippet-start:[Scheduler.dotnetv3.DeleteSchedule]
     /// <summary>
@@ -225,6 +225,6 @@ public class SchedulerWrapper
             return false;
         }
     }
-    // snippet-end:[Scheduler.dotnetv3.DeleteSchedule]
+    // snippet-end:[Scheduler.dotnetv3.DeleteScheduleGroup]
 }
 // snippet-end:[Scheduler.dotnetv3.SchedulerWrapper]
