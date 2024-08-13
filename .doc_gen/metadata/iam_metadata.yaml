@@ -578,7 +578,9 @@ iam_CreateAccessKey:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: ```import AWSIAM```
+            - description: >-
+                To use &IAM functions in Swift, import the &IAM; module: 
+                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
               snippet_tags:
                 - iam.swift.basics.iam.createaccesskey
     Bash:
