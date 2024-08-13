@@ -71,7 +71,7 @@ ec2_Hello:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust/examples/ec2
+          github: rustv1/examples/ec2
           excerpts:
             - snippet_tags:
                 - ec2.rust.ec2-helloworld
@@ -1249,7 +1249,7 @@ ec2_DescribeSecurityGroups:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust/examples/ec2
+          github: rustv1/examples/ec2
           excerpts:
             - snippet_tags:
                 - ec2.rust.ec2-helloworld
@@ -1334,7 +1334,7 @@ ec2_DeleteSecurityGroup:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust/examples/ec2
+          github: rustv1/examples/ec2
           excerpts:
             - snippet_tags:
                 - ec2.rust.delete_security_group.impl
@@ -1447,7 +1447,7 @@ ec2_TerminateInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust/examples/ec2
+          github: rustv1/examples/ec2
           excerpts:
             - snippet_tags:
                 - ec2.rust.delete_instance.impl
