@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Logging.Debug;
 using SchedulerActions;
+using Exception = System.Exception;
 
 namespace SchedulerScenario;
 
@@ -46,16 +47,15 @@ public class SchedulerWorkflow
        - Destroy the Cloud Formation stack and wait until the stack has been removed.
     */
 
-    private static ILogger<SchedulerWorkflow> _logger;
-    private static SchedulerWrapper _schedulerWrapper;
-    private static IAmazonCloudFormation _amazonCloudFormation;
+    public static ILogger<SchedulerWorkflow> _logger = null!;
+    public static SchedulerWrapper _schedulerWrapper = null!;
+    public static IAmazonCloudFormation _amazonCloudFormation = null!;
 
-    private static string _roleArn;
-    private static string _snsTopicArn;
-    private static string _stackEmail;
+    private static string _roleArn = null!;
+    private static string _snsTopicArn = null!;
 
-    private static bool _interactive = true;
-    private static string _stackName = "default-stack-name";
+    public static bool _interactive = true;
+    private static string _stackName = "default-scheduler-workflow-stack-name";
     private static string _scheduleGroupName = "workflow-schedules-group";
     private static string _stackResourcePath = "../../../../../../workflows/eventbridge_scheduler/resources/cfn_template.yaml";
 
@@ -73,11 +73,14 @@ public class SchedulerWorkflow
             )
             .Build();
 
-        _logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
-            .CreateLogger<SchedulerWorkflow>();
+        if (_interactive)
+        {
+            _logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
+                .CreateLogger<SchedulerWorkflow>();
 
-        _schedulerWrapper = host.Services.GetRequiredService<SchedulerWrapper>();
-        _amazonCloudFormation = host.Services.GetRequiredService<IAmazonCloudFormation>();
+            _schedulerWrapper = host.Services.GetRequiredService<SchedulerWrapper>();
+            _amazonCloudFormation = host.Services.GetRequiredService<IAmazonCloudFormation>();
+        }
 
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Welcome to the Amazon EventBridge Scheduler Workflow.");
@@ -104,13 +107,12 @@ public class SchedulerWorkflow
             await Cleanup();
             Console.WriteLine(new string('-', 80));
         }
-        catch
+        catch (Exception ex)
         {
-            Console.WriteLine("There was a problem with the workflow, initiating cleanup...");
+            _logger.LogError(ex, "There was a problem with the workflow, initiating cleanup...");
             _interactive = false;
             await Cleanup();
         }
-
 
         Console.WriteLine("Amazon EventBridge Scheduler workflow completed.");
     }
@@ -170,16 +172,17 @@ public class SchedulerWorkflow
             {
                 StackName = stackName,
                 TemplateBody = await File.ReadAllTextAsync(_stackResourcePath),
-                Parameters = new List<Parameter>()
-                {
-                    new Parameter
-                    {
-                        ParameterKey = "email",
-                        ParameterValue = email
-                    }
-                },
                 Capabilities = { Capability.CAPABILITY_NAMED_IAM }
             };
+
+            // If an email is provided, set the parameter.
+            if (!string.IsNullOrWhiteSpace(email))
+            {
+                request.Parameters = new List<Parameter>()
+                {
+                    new() { ParameterKey = "email", ParameterValue = email }
+                };
+            }
 
             var response = await _amazonCloudFormation.CreateStackAsync(request);
 
@@ -560,7 +563,7 @@ public class SchedulerWorkflow
             return email;
         }
         // Used when running without user prompts.
-        return _stackEmail;
+        return "";
     }
 
     /// <summary>

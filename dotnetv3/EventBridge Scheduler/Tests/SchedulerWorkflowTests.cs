@@ -1,31 +1,81 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using Microsoft.Extensions.Configuration;
+using Amazon.CloudFormation;
+using Amazon.Scheduler;
+using Microsoft.Extensions.Logging;
+using Moq;
+using SchedulerActions;
+using SchedulerScenario;
 
-namespace SupportTests
+namespace SchedulerTests;
+
+/// <summary>
+/// Test class.
+/// </summary>
+public class SchedulerWorkflowTests
 {
-    public class ServiceTests
+    private SchedulerWrapper _schedulerWrapper = null!;
+
+    /// <summary>
+    /// Verifies the workflow with an integration test. No errors should be logged.
+    /// </summary>
+    /// <returns>Async task.</returns>
+    [Fact]
+    [Order(1)]
+    [Trait("Category", "Integration")]
+    public async Task TestWorkflow()
     {
-        private readonly IConfiguration _configuration;
+        // Arrange.
+        SchedulerWorkflow._interactive = false;
+        var loggerWorkflowMock = new Mock<ILogger<SchedulerWorkflow>>();
+        var loggerWrapperMock = new Mock<ILogger<SchedulerWrapper>>();
 
-        /// <summary>
-        /// Constructor for the test class.
-        /// </summary>
-        public ServiceTests()
-        {
-            _configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("testsettings.json") // Load test settings from .json file.
-                .AddJsonFile("testsettings.local.json",
-                    true) // Optionally load local settings.
-                .Build();
-        }
+        _schedulerWrapper = new SchedulerWrapper(
+            new AmazonSchedulerClient(),
+            loggerWrapperMock.Object);
 
-        [Fact]
-        public void Test1()
-        {
+        SchedulerWorkflow._schedulerWrapper = _schedulerWrapper;
+        SchedulerWorkflow._amazonCloudFormation = new AmazonCloudFormationClient();
+        SchedulerWorkflow._logger = loggerWorkflowMock.Object;
 
-        }
+        loggerWorkflowMock.Setup(logger => logger.Log(
+            It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
+            It.IsAny<EventId>(),
+            It.Is<It.IsAnyType>((@object, @type) => true),
+            It.IsAny<Exception>(),
+            It.IsAny<Func<It.IsAnyType, Exception?, string>>()
+        ));
+
+        loggerWrapperMock.Setup(logger => logger.Log(
+            It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
+            It.IsAny<EventId>(),
+            It.Is<It.IsAnyType>((@object, @type) => true),
+            It.IsAny<Exception>(),
+            It.IsAny<Func<It.IsAnyType, Exception?, string>>()
+        ));
+
+        // Act.
+        await SchedulerWorkflow.Main(new string[] { "" });
+
+        // Assert no exceptions or errors logged.
+        loggerWorkflowMock.Verify(
+            logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((@object, @type) => true),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Never);
+
+        loggerWrapperMock.Verify(
+            logger => logger.Log(
+                It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((@object, @type) => true),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
+            Times.Never);
     }
+
 }
