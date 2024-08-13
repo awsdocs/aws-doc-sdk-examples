@@ -38,7 +38,7 @@ describe DynamoDBPartiQLSingle do
       sdk.update_rating_by_title(title, year, rating)
       response = sdk.select_item_by_title(title)
       updated_item = response.items.find { |item| item["year"] == year }
-      expect(updated_item["info"]["rating"].to_f).to eq(rating)
+      expect(updated_item["info"]["rating"]["N"].to_f).to eq(rating)
     end
 
     it "should delete the item with the given title and year", integ: true do
