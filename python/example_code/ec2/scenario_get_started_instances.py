@@ -1,3 +1,5 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 import logging
 import time
 import urllib.request
@@ -14,6 +16,8 @@ from security_group import SecurityGroupWrapper
 
 logger = logging.getLogger(__name__)
 console = Console()
+
+# snippet-start:[python.example_code.ec2.Scenario_GetStartedInstances]
 
 
 class EC2InstanceScenario:
@@ -350,3 +354,4 @@ if __name__ == "__main__":
         scenario.run_scenario()
     except Exception:
         logging.exception("Something went wrong with the demo.")
+# snippet-end:[python.example_code.ec2.Scenario_GetStartedInstances]

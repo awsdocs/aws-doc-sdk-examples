@@ -1,3 +1,5 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 import logging
 import os
 import tempfile
@@ -66,6 +68,7 @@ class KeyPairWrapper:
 
     # snippet-end:[python.example_code.ec2.CreateKeyPair]
 
+    # snippet-start:[python.example_code.ec2.DescribeKeyPairs]
     def list(self, limit=None):
         """
         Displays a list of key pairs for the current account.
