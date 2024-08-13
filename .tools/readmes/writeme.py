@@ -28,8 +28,9 @@ def prepare_scanner(doc_gen: DocGen) -> Optional[Scanner]:
     doc_gen.collect_snippets()
     doc_gen.validate()
     if doc_gen.errors:
-        logging.error("There were errors loading metadata")
-        logging.info(doc_gen.errors)
+        error_strings = [str(error) for error in doc_gen.errors]
+        failed_list = "\n\t".join(error_strings)
+        logging.error(f"Metadata errors encountered:\n\t{failed_list}")
         return None
     scanner = Scanner(doc_gen)
 
