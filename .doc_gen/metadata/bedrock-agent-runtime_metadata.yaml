@@ -18,5 +18,6 @@ bedrock-agent-runtime_InvokeAgent:
             - description:
               snippet_files:
                 - javascriptv3/example_code/bedrock-agent-runtime/actions/invoke-agent.js
+                - javascriptv3/example_code/bedrock-agent-runtime/actions/invoke-flow.js
   services:
     bedrock-agent-runtime: {InvokeAgent}
