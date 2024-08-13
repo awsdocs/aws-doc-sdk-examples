@@ -30,14 +30,14 @@ public class SchedulerWorkflow
        - Create a schedule group for all workflow schedules.
 
     2. Create one-time Schedule:
-       - Create a one-time schedule to send an initial event on the new Event Bus.
+       - Create a one-time schedule to send an initial event.
        - Use a Flexible Time Window and set the schedule to delete after completion.
-       - Print a URL for the user to view logs for the Event Bus.
+       - Wait for the user to receive the event email from SNS.
 
     3. Create a time-based schedule:
        - Prompt the user for how many X times per Y hours a recurring event should be scheduled.
        - Create the scheduled event for X times per hour for Y hours.
-       - Print a URL for the user to view logs for the Event Bus.
+       - Wait for the user to receive the event email from SNS.
        - Delete the schedule when the user is finished.
 
     4. Clean up:
@@ -50,7 +50,6 @@ public class SchedulerWorkflow
     private static SchedulerWrapper _schedulerWrapper;
     private static IAmazonCloudFormation _amazonCloudFormation;
 
-    private static string _eventBusArn;
     private static string _roleArn;
     private static string _snsTopicArn;
     private static string _stackEmail;
@@ -284,7 +283,6 @@ public class SchedulerWorkflow
             if (describeStacksResponse.Stacks.Count > 0)
             {
                 var stack = describeStacksResponse.Stacks[0];
-                _eventBusArn = GetStackOutputValue(stack, "EventBusARN");
                 _roleArn = GetStackOutputValue(stack, "RoleARN");
                 _snsTopicArn = GetStackOutputValue(stack, "SNStopicARN");
                 return true;
@@ -318,7 +316,7 @@ public class SchedulerWorkflow
     }
 
     /// <summary>
-    /// Creates a one-time schedule to send an initial event on the new EventBus.
+    /// Creates a one-time schedule to send an initial event.
     /// </summary>
     /// <returns>True if the one-time schedule was created successfully.</returns>
     public static async Task<bool> CreateOneTimeSchedule()
@@ -353,7 +351,7 @@ public class SchedulerWorkflow
         }
         catch (ResourceNotFoundException ex)
         {
-            _logger.LogError(ex, $"The EventBridge Bus with ARN '{_eventBusArn}' was not found.");
+            _logger.LogError(ex, $"The target with ARN '{_snsTopicArn}' was not found.");
             return false;
         }
         catch (Exception ex)
@@ -404,7 +402,7 @@ public class SchedulerWorkflow
         }
         catch (ResourceNotFoundException ex)
         {
-            _logger.LogError(ex, $"The EventBridge Bus with ARN '{_eventBusArn}' was not found.");
+            _logger.LogError(ex, $"The target with ARN '{_snsTopicArn}' was not found.");
             return false;
         }
         catch (Exception ex)

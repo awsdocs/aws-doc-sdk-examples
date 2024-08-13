@@ -36,14 +36,14 @@ public class SchedulerWrapper
     /// <param name="scheduleGroupName">The name of the schedule group to which the schedule should be added.</param>
     /// <param name="deleteAfterCompletion">Indicates whether to delete the schedule after completion.</param>
     ///  <param name="useFlexibleTimeWindow">Indicates whether to use a flexible time window for the schedule.</param>
-    ///  <param name="eventBusArn">ARN of the Event Bus for event target.</param>
+    ///  <param name="targetArn">ARN of the event target.</param>
     ///  <param name="roleArn">Execution Role ARN.</param>
     /// <returns>True if the schedule was created successfully, false otherwise.</returns>
     public async Task<bool> CreateScheduleAsync(
             string name,
             string scheduleExpression,
             string scheduleGroupName,
-            string eventBusArn,
+            string targetArn,
             string roleArn,
             string input,
             bool deleteAfterCompletion = false,
@@ -56,7 +56,7 @@ public class SchedulerWrapper
                 Name = name,
                 ScheduleExpression = scheduleExpression,
                 GroupName = scheduleGroupName,
-                Target = new Target{ Arn = eventBusArn, RoleArn = roleArn, Input = input},
+                Target = new Target{ Arn = targetArn, RoleArn = roleArn, Input = input},
                 ActionAfterCompletion = deleteAfterCompletion
                 ? ActionAfterCompletion.DELETE : ActionAfterCompletion.NONE,
                 StartDate = DateTime.UtcNow, // Ignored for one-time schedules.
