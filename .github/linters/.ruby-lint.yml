@@ -4,6 +4,8 @@
 #######################
 Metrics/MethodLength:
   Max: 25
+Metrics/BlockLength:
+  Max: 75
 Metrics/AbcSize:
   Max: 20
 Style/FrozenStringLiteralComment:
