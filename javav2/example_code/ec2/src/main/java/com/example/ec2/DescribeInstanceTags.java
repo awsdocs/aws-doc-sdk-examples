@@ -7,13 +7,9 @@ package com.example.ec2;
 // snippet-start:[ec2.java2.describe_tags.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
-import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.Filter;
 import software.amazon.awssdk.services.ec2.model.DescribeTagsResponse;
-import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.DescribeTagsRequest;
-import software.amazon.awssdk.services.ec2.paginators.DescribeTagsIterable;
-
 import java.util.concurrent.CompletableFuture;
 // snippet-end:[ec2.java2.describe_tags.import]
 

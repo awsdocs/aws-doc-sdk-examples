@@ -42,7 +42,6 @@ public class DescribeAccount {
      */
     public static CompletableFuture<DescribeAccountAttributesResponse> describeEC2AccountAsync(Ec2AsyncClient ec2AsyncClient) {
         CompletableFuture<DescribeAccountAttributesResponse> response = ec2AsyncClient.describeAccountAttributes();
-
         response.whenComplete((accountResults, ex) -> {
             if (accountResults != null) {
                 accountResults.accountAttributes().forEach(attribute -> {

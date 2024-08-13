@@ -67,17 +67,17 @@ public class EC2Scenario {
 
             """;
 
-      //  if (args.length != 6) {
-      //      System.out.println(usage);
-      //      System.exit(1);
-      //  }
+        if (args.length != 6) {
+            System.out.println(usage);
+            return;
+        }
 
-        String keyName = "TestKeyPair15" ; //args[0];
-        String fileName = "ec2Key.pem"; //args[1];
-        String groupName = "TestSecGroup15" ; // args[2];
-        String groupDesc = "Test Group" ; //args[3];
-        String vpcId = "vpc-e97a4393" ; //args[4];
-        String myIpAddress = "72.21.198.66" ; // args[5];
+        String keyName = args[0];
+        String fileName = args[1];
+        String groupName = args[2];
+        String groupDesc = args[3];
+        String vpcId = args[4];
+        String myIpAddress = args[5];
         Scanner scanner = new Scanner(System.in);
         EC2Actions ec2Actions = new EC2Actions();
 

@@ -7,7 +7,6 @@ package com.example.ec2;
 // snippet-start:[ec2.java2.describe_addresses.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
-import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.Address;
 import software.amazon.awssdk.services.ec2.model.DescribeAddressesResponse;
 import java.util.concurrent.CompletableFuture;

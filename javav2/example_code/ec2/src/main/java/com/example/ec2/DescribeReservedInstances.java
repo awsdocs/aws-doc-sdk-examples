@@ -7,12 +7,7 @@ package com.example.ec2;
 // snippet-start:[ec2.java2.describe_reserved_instances.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
-import software.amazon.awssdk.services.ec2.Ec2Client;
-import software.amazon.awssdk.services.ec2.model.DescribeReservedInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeReservedInstancesResponse;
-import software.amazon.awssdk.services.ec2.model.ReservedInstances;
-import software.amazon.awssdk.services.ec2.model.Ec2Exception;
-
 import java.util.concurrent.CompletableFuture;
 // snippet-end:[ec2.java2.describe_reserved_instances.import]
 

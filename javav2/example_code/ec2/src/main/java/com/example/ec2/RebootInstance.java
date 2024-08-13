@@ -52,6 +52,13 @@ public class RebootInstance {
         }
     }
 
+    /**
+     * Reboots an Amazon EC2 instance asynchronously.
+     *
+     * @param ec2AsyncClient the EC2 async client to use for the operation
+     * @param instanceId the ID of the EC2 instance to reboot
+     * @return a {@link CompletableFuture} that completes when the reboot operation is finished
+     */
     public static CompletableFuture<Void> rebootEC2InstanceAsync(Ec2AsyncClient ec2AsyncClient, String instanceId) {
         RebootInstancesRequest request = RebootInstancesRequest.builder()
             .instanceIds(instanceId)
