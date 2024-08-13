@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[Scheduler.dotnetv3.SchedulerWrapper]
 using Amazon.Scheduler;
 using Amazon.Scheduler.Model;
 using Microsoft.Extensions.Logging;
@@ -26,15 +27,27 @@ public class SchedulerWrapper
         _logger = logger;
     }
 
+    // snippet-start:[Scheduler.dotnetv3.CreateSchedule]
     /// <summary>
     /// Creates a new schedule in Amazon EventBridge Scheduler.
     /// </summary>
     /// <param name="name">The name of the schedule.</param>
     /// <param name="scheduleExpression">The schedule expression that defines when the schedule should run.</param>
     /// <param name="scheduleGroupName">The name of the schedule group to which the schedule should be added.</param>
-    /// <param name="useFlexibleTimeWindow">Indicates whether to use a flexible time window for the schedule.</param>
+    /// <param name="deleteAfterCompletion">Indicates whether to delete the schedule after completion.</param>
+    ///  <param name="useFlexibleTimeWindow">Indicates whether to use a flexible time window for the schedule.</param>
+    ///  <param name="eventBusArn">ARN of the Event Bus for event target.</param>
+    ///  <param name="roleArn">Execution Role ARN.</param>
     /// <returns>True if the schedule was created successfully, false otherwise.</returns>
-    public async Task<bool> CreateScheduleAsync(string name, string scheduleExpression, string scheduleGroupName, bool useFlexibleTimeWindow = false)
+    public async Task<bool> CreateScheduleAsync(
+            string name,
+            string scheduleExpression,
+            string scheduleGroupName,
+            string eventBusArn,
+            string roleArn,
+            string input,
+            bool deleteAfterCompletion = false,
+            bool useFlexibleTimeWindow = false)
     {
         try
         {
@@ -42,22 +55,25 @@ public class SchedulerWrapper
             {
                 Name = name,
                 ScheduleExpression = scheduleExpression,
-                GroupName = scheduleGroupName
+                GroupName = scheduleGroupName,
+                Target = new Target{ Arn = eventBusArn, RoleArn = roleArn, Input = input},
+                ActionAfterCompletion = deleteAfterCompletion
+                ? ActionAfterCompletion.DELETE : ActionAfterCompletion.NONE,
+                StartDate = DateTime.UtcNow, // Ignored for one-time schedules.
+                EndDate = DateTime.UtcNow.AddHours(1) // Ignored for one-time schedules.
             };
-
-            if (useFlexibleTimeWindow)
+            // Allow a flexible time window if the caller specifies it.
+            request.FlexibleTimeWindow = new FlexibleTimeWindow
             {
-                request.FlexibleTimeWindow = new FlexibleTimeWindow
-                {
-                    Mode = FlexibleTimeWindowMode.FLEXIBLE
-                };
-            }
+                Mode = useFlexibleTimeWindow ? FlexibleTimeWindowMode.FLEXIBLE : FlexibleTimeWindowMode.OFF,
+                MaximumWindowInMinutes = useFlexibleTimeWindow ? 5 : null
+            };
 
             var response = await _amazonScheduler.CreateScheduleAsync(request);
 
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
-                _logger.LogInformation($"Successfully created schedule '{name}' " +
+                Console.WriteLine($"Successfully created schedule '{name}' " +
                                        $"in schedule group '{scheduleGroupName}'.");
                 return true;
             }
@@ -82,7 +98,9 @@ public class SchedulerWrapper
             return false;
         }
     }
+    // snippet-end:[Scheduler.dotnetv3.CreateSchedule]
 
+    // snippet-start:[Scheduler.dotnetv3.CreateScheduleGroup]
     /// <summary>
     /// Creates a new schedule group in Amazon EventBridge Scheduler.
     /// </summary>
@@ -101,7 +119,7 @@ public class SchedulerWrapper
 
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
-                _logger.LogInformation($"Successfully created schedule group '{name}'.");
+                Console.WriteLine($"Successfully created schedule group '{name}'.");
                 return true;
             }
             else
@@ -110,9 +128,11 @@ public class SchedulerWrapper
                 return false;
             }
         }
-        catch (ConflictException ex)
+        catch (ServiceQuotaExceededException ex)
         {
-            _logger.LogError($"Failed to create schedule group '{name}' due to a conflict: {ex.Message}");
+            _logger.LogError($"Failed to create schedule group '{name}' " +
+                             $" due to service quota exceeded. " +
+                             $"Please try again later: {ex.Message}.");
             return false;
         }
         catch (Exception ex)
@@ -121,27 +141,30 @@ public class SchedulerWrapper
             return false;
         }
     }
+    // snippet-start:[Scheduler.dotnetv3.CreateScheduleGroup]
 
-
+    // snippet-start:[Scheduler.dotnetv3.DeleteSchedule]
     /// <summary>
     /// Deletes an existing schedule from Amazon EventBridge Scheduler.
     /// </summary>
     /// <param name="name">The name of the schedule to delete.</param>
+    /// <param name="groupName">The group name of the schedule to delete.</param>
     /// <returns>True if the schedule was deleted successfully, false otherwise.</returns>
-    public async Task<bool> DeleteScheduleAsync(string name)
+    public async Task<bool> DeleteScheduleAsync(string name, string groupName)
     {
         try
         {
             var request = new DeleteScheduleRequest
             {
-                Name = name
+                Name = name,
+                GroupName = groupName
             };
 
             var response = await _amazonScheduler.DeleteScheduleAsync(request);
 
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
-                _logger.LogInformation($"Successfully deleted schedule with name '{name}'.");
+                Console.WriteLine($"Successfully deleted schedule with name '{name}'.");
                 return true;
             }
             else
@@ -161,8 +184,9 @@ public class SchedulerWrapper
             return false;
         }
     }
+    // snippet-end:[Scheduler.dotnetv3.DeleteSchedule]
 
-
+    // snippet-start:[Scheduler.dotnetv3.DeleteScheduleGroup]
     /// <summary>
     /// Deletes an existing schedule group from Amazon EventBridge Scheduler.
     /// </summary>
@@ -178,7 +202,7 @@ public class SchedulerWrapper
 
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
             {
-                _logger.LogInformation($"Successfully deleted schedule group '{name}'.");
+                Console.WriteLine($"Successfully deleted schedule group '{name}'.");
                 return true;
             }
             else
@@ -201,4 +225,6 @@ public class SchedulerWrapper
             return false;
         }
     }
+    // snippet-end:[Scheduler.dotnetv3.DeleteSchedule]
 }
+// snippet-end:[Scheduler.dotnetv3.SchedulerWrapper]

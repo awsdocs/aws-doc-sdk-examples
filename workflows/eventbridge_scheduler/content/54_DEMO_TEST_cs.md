@@ -1,22 +1,7 @@
 ---
 combined: true
-debug:
-  engine: bedrock
-  finish: end_turn
-  id: msg_bdrk_01YUDrRPy2rFgFfjjFGR2GiV
-  lastRun: 2024-06-28T19:13:07.024Z
-  model: claude-3-haiku-20240307
-  statistics:
-    firstByteLatency: 3667
-    inputTokenCount: 57327
-    invocationLatency: 9161
-    outputTokenCount: 725
 prompt: |
-  Provide a .NET implementation for the CreateOneTimeSchedule method in the SchedulerWorkflow class given below. Use the service wrapper methods in SchedulerWrapper for the service calls. Create the schedule that is set to delete after completion. Prompt the user for the schedule name.
-
-  Each method, even helper methods, should include xmldoc comment blocks for summary, parameters, and outputs.
-
-  Use the following instructions for .NET coding standards: {{code.standards}} 
+  Provide a .NET implementation for the CreateOneTimeSchedule method in the SchedulerWorkflow class given below. Use the service wrapper methods in SchedulerWrapper for the service calls. Create a schedule that is set to delete after completion.
 
   <example>
       public class SchedulerWorkflow
@@ -144,17 +129,18 @@ namespace Scenarios
                 string scheduleName = Console.ReadLine();
 
                 // Create a one-time schedule with a flexible time window
-                await _schedulerWrapper.CreateOneTimeScheduleAsync(
+                await _schedulerWrapper.CreateScheduleAsync(
                     scheduleName,
                     "rate(1 minute)",
                     _eventBusArn,
+                    true,
                     true);
 
                 // Set the schedule to delete after completion
                 await _schedulerWrapper.DeleteScheduleAfterCompletionAsync(scheduleName);
 
                 // Print the URL for the user to view logs
-                string eventBusLogUrl = $"https://console.aws.amazon.com/events/home?region={Environment.GetEnvironmentVariable("AWS_REGION")}#/eventbus";
+                string eventBusLogUrl = $"https://console.aws.amazon.com/events/eventbus";
                 _logger.LogInformation($"You can view the logs for the initial event at: {eventBusLogUrl}");
 
                 _logger.LogInformation("One-time schedule created successfully.");
@@ -173,9 +159,9 @@ namespace Scenarios
 Here's a breakdown of the changes:
 
 1. The `CreateOneTimeSchedule` method prompts the user for a name for the one-time schedule.
-2. It then calls the `CreateOneTimeScheduleAsync` method of the `SchedulerWrapper` class, passing the schedule name, schedule expression (to run the schedule once a minute), the EventBridge Bus ARN, and a flag to indicate a flexible time window.
-3. After creating the schedule, it calls the `DeleteScheduleAfterCompletionAsync` method to set the schedule to delete after completion.
+2. It then calls the `CreateScheduleAsync` method of the `SchedulerWrapper` class, passing the schedule name, schedule expression (to run the schedule once a minute), the EventBridge Bus ARN, a flag to indicate a flexible time window, and a flag to set the schedule to delete after completion.
+3. After creating the schedule, it calls the `DeleteScheduleAfterCompletionAsync` method to ensure the schedule is deleted after it runs.
 4. The method then prints the URL for the user to view the logs for the initial event on the EventBridge Bus.
 5. The method includes appropriate error handling and logging using the `_logger` object.
 
-The `SchedulerWrapper` class should provide the necessary methods for creating and managing schedules, including `CreateOneTimeScheduleAsync` and `DeleteScheduleAfterCompletionAsync`.
+The `SchedulerWrapper` class should provide the necessary methods for creating and managing schedules, including `CreateScheduleAsync` and `DeleteScheduleAfterCompletionAsync`.

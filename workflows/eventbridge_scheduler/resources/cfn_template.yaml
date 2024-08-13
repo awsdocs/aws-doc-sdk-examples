@@ -7,6 +7,11 @@ Resources:
   SchedulerSnsTopic:
     Type: AWS::SNS::Topic
 
+  SchedulerEventBus: 
+    Type: AWS::Events::EventBus
+    Properties: 
+      Name: SchedulerExampleEventBus2
+
   MySubscription:
     Type: AWS::SNS::Subscription
     Properties:
@@ -37,10 +42,32 @@ Resources:
                   - 'sns:Publish'
                 Resource: !Ref SchedulerSnsTopic
 
-  SchedulerEventBus: 
-    Type: AWS::Events::EventBus
+   # Define the event rule to filter for events
+  EventRule: 
+    Type: AWS::Events::Rule
     Properties: 
-      Name: SchedulerExampleEventBus
+      Description: "SchedulerEventRule"
+      EventBusName: SchedulerExampleEventBus
+      EventPattern: 
+        source: 
+          - aws.events
+      Targets: 
+        - Arn: !Ref SchedulerSnsTopic
+          Id: "SchedulerSnsTopic"
+
+  # Allow EventBridge to invoke SNS
+  EventBridgeToToSnsPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties: 
+      PolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: events.amazonaws.com
+          Action: sns:Publish
+          Resource: !Ref SchedulerSnsTopic
+      Topics: 
+        - !Ref SchedulerSnsTopic      
 
 Outputs:
   SNStopicName:

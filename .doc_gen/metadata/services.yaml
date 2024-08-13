@@ -2736,6 +2736,21 @@ sagemaker:
   tags:
     product_categories: {'Machine Learning &amp; AI'}
   version: sagemaker-2017-07-24
+scheduler:
+  long: '&EVSlong;'
+  short: '&EVS;'
+  sort: EventBridge Scheduler
+  expanded:
+    long: Amazon EventBridge Scheduler
+    short: EventBridge Scheduler
+  blurb: allows you to create, run, and manage tasks on a schedule from one central, managed service.
+  guide:
+    subtitle: User Guide
+    url: scheduler/latest/userguide/intro.html
+  api_ref: scheduler/latest/apireference/Welcome.html
+  tags:
+    product_categories: {'Management &amp; Governance'}
+  version: '2021-06-30'
 secrets-manager:
   long: '&ASMlong;'
   short: '&ASM;'

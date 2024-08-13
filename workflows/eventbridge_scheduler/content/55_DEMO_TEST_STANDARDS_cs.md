@@ -1,18 +1,7 @@
 ---
 combined: true
-debug:
-  engine: bedrock
-  finish: end_turn
-  id: msg_bdrk_01YUDrRPy2rFgFfjjFGR2GiV
-  lastRun: 2024-06-28T19:13:07.024Z
-  model: claude-3-haiku-20240307
-  statistics:
-    firstByteLatency: 3667
-    inputTokenCount: 57327
-    invocationLatency: 9161
-    outputTokenCount: 725
 prompt: |
-  Provide a .NET implementation for the CreateOneTimeSchedule method in the SchedulerWorkflow class given below. Use the service wrapper methods in SchedulerWrapper for the service calls. Create the schedule that is set to delete after completion. Prompt the user for the schedule name.
+  Provide a .NET implementation for the CreateOneTimeSchedule method in the SchedulerWorkflow class given below. Use the service wrapper methods in SchedulerWrapper for the service calls. Create a schedule that is set to delete after completion. Prompt the user for the schedule name. The event bus arn and schedule name should be input parameters. Catch a ResourceNotFoundException if the eventBus is not found.
 
   Each method, even helper methods, should include xmldoc comment blocks for summary, parameters, and outputs.
 
@@ -132,37 +121,40 @@ namespace Scenarios
         /// <summary>
         /// Creates a one-time schedule to send an initial event on the new EventBus.
         /// </summary>
+        /// <param name="eventBusArn">The ARN of the EventBridge Bus.</param>
+        /// <param name="scheduleName">The name of the one-time schedule.</param>
         /// <returns>True if the one-time schedule was created successfully.</returns>
-        public static async Task<bool> CreateOneTimeSchedule()
+        public static async Task<bool> CreateOneTimeSchedule(string eventBusArn, string scheduleName)
         {
-            _logger.LogInformation("Creating a one-time schedule to send an initial event...");
+            _logger.LogInformation($"Creating a one-time schedule named '{scheduleName}' to send an initial event...");
 
             try
             {
-                // Prompt the user for a schedule name
-                Console.Write("Enter a name for the one-time schedule: ");
-                string scheduleName = Console.ReadLine();
-
-                // Create a one-time schedule with a flexible time window
-                await _schedulerWrapper.CreateOneTimeScheduleAsync(
+                // Create a one-time schedule with a flexible time window.
+                await _schedulerWrapper.CreateScheduleAsync(
                     scheduleName,
                     "rate(1 minute)",
-                    _eventBusArn,
+                    eventBusArn,
                     true);
 
-                // Set the schedule to delete after completion
+                // Set the schedule to delete after completion.
                 await _schedulerWrapper.DeleteScheduleAfterCompletionAsync(scheduleName);
 
-                // Print the URL for the user to view logs
+                // Print the URL for the user to view logs.
                 string eventBusLogUrl = $"https://console.aws.amazon.com/events/home?region={Environment.GetEnvironmentVariable("AWS_REGION")}#/eventbus";
                 _logger.LogInformation($"You can view the logs for the initial event at: {eventBusLogUrl}");
 
-                _logger.LogInformation("One-time schedule created successfully.");
+                _logger.LogInformation($"One-time schedule '{scheduleName}' created successfully.");
                 return true;
+            }
+            catch (ResourceNotFoundException ex)
+            {
+                _logger.LogError(ex, $"The EventBridge Bus with ARN '{eventBusArn}' was not found.");
+                return false;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while creating the one-time schedule.");
+                _logger.LogError(ex, $"An error occurred while creating the one-time schedule '{scheduleName}'.");
                 return false;
             }
         }
@@ -172,10 +164,11 @@ namespace Scenarios
 
 Here's a breakdown of the changes:
 
-1. The `CreateOneTimeSchedule` method prompts the user for a name for the one-time schedule.
-2. It then calls the `CreateOneTimeScheduleAsync` method of the `SchedulerWrapper` class, passing the schedule name, schedule expression (to run the schedule once a minute), the EventBridge Bus ARN, and a flag to indicate a flexible time window.
+1. The `CreateOneTimeSchedule` method now takes two parameters: `eventBusArn` and `scheduleName`.
+2. It calls the `CreateScheduleAsync` method of the `SchedulerWrapper` class, passing the schedule name, schedule expression (to run the schedule once a minute), the EventBridge Bus ARN, and a flag to indicate a flexible time window.
 3. After creating the schedule, it calls the `DeleteScheduleAfterCompletionAsync` method to set the schedule to delete after completion.
 4. The method then prints the URL for the user to view the logs for the initial event on the EventBridge Bus.
-5. The method includes appropriate error handling and logging using the `_logger` object.
+5. The method includes error handling for a `ResourceNotFoundException` exception, which is thrown if the EventBridge Bus with the specified ARN is not found.
+6. Any other exceptions are caught, and the method logs an error message.
 
-The `SchedulerWrapper` class should provide the necessary methods for creating and managing schedules, including `CreateOneTimeScheduleAsync` and `DeleteScheduleAfterCompletionAsync`.
+The `SchedulerWrapper` class should provide the necessary methods for creating and managing schedules, including `CreateScheduleAsync` and `DeleteScheduleAfterCompletionAsync`.

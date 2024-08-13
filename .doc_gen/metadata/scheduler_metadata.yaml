@@ -1,0 +1,88 @@
+scheduler_hello:
+  synopsis: get started using &EVS;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - Scheduler.dotnetv3.HelloScheduler
+  services:
+    scheduler: {ListSchedules}
+scheduler_CreateSchedule:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.CreateSchedule
+  services:
+    scheduler: {CreateSchedule}
+scheduler_CreateScheduleGroup:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.CreateScheduleGroup
+  services:
+    scheduler: {CreateScheduleGroup}
+scheduler_DeleteSchedule:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.DeleteSchedule
+  services:
+    scheduler: {DeleteSchedule}
+scheduler_DeleteScheduleGroup:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.DeleteScheduleGroup
+  services:
+    scheduler: {DeleteScheduleGroup}
+scheduler_ScheduledEventsWorkflow:
+  title: A complete &EVS; Scheduled Events workflow using an &AWS; SDK
+  title_abbrev: Scheduled Events workflow
+  synopsis: run the &EVS; scheduled events workflow.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description: Run the workflow.
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.SchedulerWorkflow
+            - description: Wrapper for service operations.
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.SchedulerWrapper
+  services:
+    scheduler: {CreateSchedule, CreateScheduleGroup, DeleteSchedule, DeleteScheduleGroups}
