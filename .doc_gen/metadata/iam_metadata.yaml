@@ -579,7 +579,7 @@ iam_CreateAccessKey:
           github: swift/example_code/iam
           excerpts:
             - description: >-
-                To use &IAM; functions in Swift, import the &IAM; module: 
+                Import the &IAM; module: 
                 <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
               snippet_tags:
                 - iam.swift.basics.iam.createaccesskey
