@@ -16,7 +16,7 @@ from typing import Optional
 from render import Renderer, MissingMetadataError
 from scanner import Scanner
 
-logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO").upper())
+logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO").upper(), force=True)
 
 
 from aws_doc_sdk_examples_tools.doc_gen import DocGen
@@ -138,7 +138,10 @@ def main():
                 else:
                     renderer.write()
                     written.append(id)
-            except FileNotFoundError:
+            except FileNotFoundError as e:
+                from traceback import print_exception
+
+                print_exception(e)
                 skipped.append(id)
             except MissingMetadataError as mme:
                 logging.error(mme)
@@ -147,18 +150,21 @@ def main():
                 logging.exception("Exception rendering %s", id)
                 failed.append(id)
 
-    done_list = "\n\t".join(sorted(written))
-    skip_list = "\n\t".join(sorted(skipped))
-    non_writeme_list = "\n\t".join(sorted(non_writeme))
-    unchanged_list = "\n\t".join(sorted(unchanged))
-    logging.debug(f"Skipped:\n\t{skip_list}")
-    logging.info(f"Wrote:\n\t{done_list}\nUnchanged:\n\t{unchanged_list}")
-    logging.warning(f"Non-WRITEME READMES:\n\t{non_writeme_list}")
-    if len(failed) > 0:
+    done_list = "\n".join(f"Wrote {f}" for f in sorted(written))
+    skip_list = "\n".join(f"Skipped {f}" for f in sorted(skipped))
+    print(skip_list or "(None Skipped)")
+    print(done_list or "(None Written)")
+    if unchanged:
+        unchanged_list = "\n".join(f"Unchanged {f}" for f in sorted(unchanged))
+        print(unchanged_list)
+    if non_writeme:
+        non_writeme_list = "\n\t".join(sorted(non_writeme))
+        print(f"Non-WRITEME READMES:\n\t{non_writeme_list}")
+    if failed:
         failed_list = "\n\t".join(failed)
-        logging.error(f"READMEs with incorrect formatting:\n\t{failed_list}")
-        logging.error("Rerun writeme.py to update README links and sections.")
-    logging.info("Run complete.")
+        print(f"READMEs with incorrect formatting:\n\t{failed_list}")
+        print("Rerun writeme.py to update README links and sections.")
+    print("WRITEME Run completed.")
     return len(failed)
 
 
