@@ -29,8 +29,8 @@ def prepare_scanner(doc_gen: DocGen) -> Optional[Scanner]:
     doc_gen.validate()
     if doc_gen.errors:
         error_strings = [str(error) for error in doc_gen.errors]
-        failed_list = "\n\t".join(error_strings)
-        logging.error(f"Metadata errors encountered:\n\t{failed_list}")
+        failed_list = "\n".join(f"DocGen Error: {e}" for e in error_strings)
+        print(f"Metadata errors encountered:\n\t{failed_list}")
         return None
     scanner = Scanner(doc_gen)
 
@@ -155,11 +155,15 @@ def main():
         unchanged_list = "\n".join(f"Unchanged {f}" for f in sorted(unchanged))
         print(unchanged_list)
     if non_writeme:
-        non_writeme_list = "\n\t".join(sorted(non_writeme))
-        print(f"Non-WRITEME READMES:\n\t{non_writeme_list}")
+        non_writeme_list = "\n".join(
+            f"Non-WRITEME README: {f}" for f in sorted(non_writeme)
+        )
+        print(non_writeme_list)
     if failed:
-        failed_list = "\n\t".join(failed)
-        print(f"READMEs with incorrect formatting:\n\t{failed_list}")
+        failed_list = "\n".join(
+            f"README with incorrect formatting: {f}" for f in sorted(non_writeme)
+        )
+        print(failed_list)
         print("Rerun writeme.py to update README links and sections.")
     print("WRITEME Run completed.")
     return len(failed)
