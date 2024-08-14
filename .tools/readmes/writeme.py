@@ -138,10 +138,7 @@ def main():
                 else:
                     renderer.write()
                     written.append(id)
-            except FileNotFoundError as e:
-                from traceback import print_exception
-
-                print_exception(e)
+            except FileNotFoundError:
                 skipped.append(id)
             except MissingMetadataError as mme:
                 logging.error(mme)
