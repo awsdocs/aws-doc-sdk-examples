@@ -1,5 +1,5 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[Scheduler.dotnetv3.SchedulerWorkflow]
 using System.Text.RegularExpressions;
@@ -233,7 +233,7 @@ public class SchedulerWorkflow
     private static async Task<bool> WaitForStackCompletion(string stackId)
     {
         int retryCount = 0;
-        const int maxRetries = 10; 
+        const int maxRetries = 10;
         const int retryDelay = 30000; // 30 seconds.
 
         while (retryCount < maxRetries)
@@ -298,7 +298,7 @@ public class SchedulerWorkflow
         catch (Exception ex)
         {
             _logger.LogError(
-                ex ,$"Failed to retrieve CloudFormation stack outputs: {stackId}");
+                ex, $"Failed to retrieve CloudFormation stack outputs: {stackId}");
             return false;
         }
     }
@@ -333,7 +333,7 @@ public class SchedulerWorkflow
             // window set to delete after completion.
             // You may also set a timezone instead of using UTC.
             var scheduledTime = DateTime.UtcNow.AddMinutes(1).ToString("s");
-            
+
             await _schedulerWrapper.CreateScheduleAsync(
                 scheduleName,
                 $"at({scheduledTime})",
@@ -342,7 +342,7 @@ public class SchedulerWorkflow
                 _roleArn,
                 $"One time scheduled event test from schedule {scheduleName}.",
                 true,
-                useFlexibleTimeWindow:true);
+                useFlexibleTimeWindow: true);
 
             Console.WriteLine($"Subscription email will receive an email from this event.");
             Console.WriteLine($"You must confirm your subscription to receive event emails.");
@@ -431,7 +431,7 @@ public class SchedulerWorkflow
                 var groupDeleteSuccess = await _schedulerWrapper.DeleteScheduleGroupAsync(_scheduleGroupName);
 
                 // Destroy the CloudFormation stack and wait for it to be removed.
-                var stackDeleteSuccess =await DeleteCloudFormationStack(_stackName, false);
+                var stackDeleteSuccess = await DeleteCloudFormationStack(_stackName, false);
 
                 return groupDeleteSuccess && stackDeleteSuccess;
             }

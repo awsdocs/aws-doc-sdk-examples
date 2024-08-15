@@ -1,5 +1,5 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier:  Apache-2.0
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[Scheduler.dotnetv3.SchedulerWrapper]
 using Amazon.Scheduler;
@@ -146,7 +146,8 @@ public class SchedulerWrapper
         {
             var request = new DeleteScheduleRequest
             {
-                Name = name, GroupName = groupName
+                Name = name,
+                GroupName = groupName
             };
 
             await _amazonScheduler.DeleteScheduleAsync(request);
