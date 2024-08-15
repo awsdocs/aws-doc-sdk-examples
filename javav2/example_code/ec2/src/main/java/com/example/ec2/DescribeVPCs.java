@@ -61,7 +61,6 @@ public class DescribeVPCs {
             .vpcIds(vpcId)
             .build();
 
-
         CompletableFuture<DescribeVpcsResponse> response = ec2AsyncClient.describeVpcs(request);
         response.whenComplete((vpcsResponse, ex) -> {
             if (ex != null) {

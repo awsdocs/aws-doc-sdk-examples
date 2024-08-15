@@ -13,8 +13,6 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressResponse;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathResponse;
 import software.amazon.awssdk.services.ssm.model.Parameter;
-
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
@@ -237,7 +235,6 @@ public class EC2Scenario {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception) {
                 Ec2Exception ec2Ex = (Ec2Exception) cause;
-                // Handle EC2 exceptions.
                 System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
@@ -289,7 +286,6 @@ public class EC2Scenario {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception) {
                 Ec2Exception ec2Ex = (Ec2Exception) cause;
-                // Handle EC2 exceptions.
                 System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
@@ -315,19 +311,15 @@ public class EC2Scenario {
                 switch (ec2Ex.awsErrorDetails().errorCode()) {
                     case "InvalidParameterValue":
                         // Handle invalid parameter value.
-                        System.err.printf("Invalid parameter value: %s%n", ec2Ex.getMessage());
+                        System.err.printf("Invalid parameter value: %s%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                         break;
                     case "InsufficientInstanceCapacity":
                         // Handle insufficient instance capacity.
-                        System.err.printf("Insufficient instance capacity: %s%n", ec2Ex.getMessage());
-                        break;
-                    case "InstanceLimitExceeded":
-                        // Handle instance limit exceeded.
-                        System.err.printf("Instance limit exceeded: %s%n", ec2Ex.getMessage());
+                        System.err.printf("Insufficient instance capacity: %s%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                         break;
                     case "InvalidGroup.NotFound":
                         // Handle security group not found.
-                        System.err.printf("Security group not found: %s%n", ec2Ex.getMessage());
+                        System.err.printf("Security group not found: %s%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                         break;
                     default:
                         // Handle other EC2 exceptions.
@@ -370,7 +362,7 @@ public class EC2Scenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("10. Stop the instance and use a waiter.");
+        System.out.println("10. Stop the instance.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = ec2Actions.stopInstanceAsync(newInstanceId);
@@ -391,7 +383,7 @@ public class EC2Scenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("11. Start the instance and use a waiter.");
+        System.out.println("11. Start the instance.");
         try {
             CompletableFuture<Void> future = ec2Actions.startInstanceAsync(newInstanceId);
             future.join();

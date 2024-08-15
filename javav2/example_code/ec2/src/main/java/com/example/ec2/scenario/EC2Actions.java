@@ -10,7 +10,9 @@ import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
 import software.amazon.awssdk.services.ec2.model.AllocateAddressRequest;
+import software.amazon.awssdk.services.ec2.model.AllocateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.AssociateAddressRequest;
+import software.amazon.awssdk.services.ec2.model.AssociateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.AuthorizeSecurityGroupIngressRequest;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairRequest;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairResponse;
@@ -47,7 +49,6 @@ import software.amazon.awssdk.services.ssm.SsmAsyncClient;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathRequest;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathResponse;
 import software.amazon.awssdk.services.ec2.model.TerminateInstancesResponse;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -65,26 +66,26 @@ public class EC2Actions {
      * @return the configured ECR asynchronous client.
      */
     private static Ec2AsyncClient getAsyncClient() {
-
-        /*
-         The `NettyNioAsyncHttpClient` class is part of the AWS SDK for Java, version 2,
-         and it is designed to provide a high-performance, asynchronous HTTP client for interacting with AWS services.
-         It uses the Netty framework to handle the underlying network communication and the Java NIO API to
-         provide a non-blocking, event-driven approach to HTTP requests and responses.
-         */
-        SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
-            .maxConcurrency(50)  // Adjust as needed.
-            .connectionTimeout(Duration.ofSeconds(60))  // Set the connection timeout.
-            .readTimeout(Duration.ofSeconds(60))  // Set the read timeout.
-            .writeTimeout(Duration.ofSeconds(60))  // Set the write timeout.
-            .build();
-
-        ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
-            .apiCallTimeout(Duration.ofMinutes(2))  // Set the overall API call timeout.
-            .apiCallAttemptTimeout(Duration.ofSeconds(90))  // Set the individual call attempt timeout.
-            .build();
-
         if (ec2AsyncClient == null) {
+            /*
+            The `NettyNioAsyncHttpClient` class is part of the AWS SDK for Java, version 2,
+            and it is designed to provide a high-performance, asynchronous HTTP client for interacting with AWS services.
+             It uses the Netty framework to handle the underlying network communication and the Java NIO API to
+             provide a non-blocking, event-driven approach to HTTP requests and responses.
+             */
+
+            SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
+                .maxConcurrency(50)  // Adjust as needed.
+                .connectionTimeout(Duration.ofSeconds(60))  // Set the connection timeout.
+                .readTimeout(Duration.ofSeconds(60))  // Set the read timeout.
+                .writeTimeout(Duration.ofSeconds(60))  // Set the write timeout.
+                .build();
+
+            ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
+               .apiCallTimeout(Duration.ofMinutes(2))  // Set the overall API call timeout.
+                .apiCallAttemptTimeout(Duration.ofSeconds(90))  // Set the individual call attempt timeout.
+                .build();
+
             ec2AsyncClient = Ec2AsyncClient.builder()
                 .region(Region.US_EAST_1)
                 .httpClient(httpClient)
@@ -132,7 +133,6 @@ public class EC2Actions {
      * @return a CompletableFuture that completes when the security group is deleted
      */
     public CompletableFuture<Void> deleteEC2SecGroupAsync(String groupId) {
-        // Build the request for deleting the security group.
         DeleteSecurityGroupRequest request = DeleteSecurityGroupRequest.builder()
             .groupId(groupId)
             .build();
@@ -145,7 +145,6 @@ public class EC2Actions {
             } else if (resp == null) {
                 throw new RuntimeException("No response received for deleting security group with Id " + groupId);
             } else {
-                // Process the response if no exception occurred.
                 System.out.println("Successfully deleted security group with Id " + groupId);
             }
         }).thenApply(resp -> null);
@@ -195,10 +194,9 @@ public class EC2Actions {
                 if ("terminated".equalsIgnoreCase(state)) {
                     return CompletableFuture.completedFuture(describeResponse);
                 } else {
-                    // Wait and poll again if the instance is not yet terminated
                     return CompletableFuture.supplyAsync(() -> {
                         try {
-                            Thread.sleep(5000); // Wait for 5 seconds before polling again
+                            Thread.sleep(5000);
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
@@ -208,7 +206,6 @@ public class EC2Actions {
             });
     }
 
-
     // snippet-start:[ec2.java2.release_instance.main]
     /**
      * Releases an Elastic IP address asynchronously.
@@ -217,16 +214,13 @@ public class EC2Actions {
      * @return a {@link CompletableFuture} representing the asynchronous operation of releasing the Elastic IP address
      */
     public CompletableFuture<ReleaseAddressResponse> releaseEC2AddressAsync(String allocId) {
-        Ec2AsyncClient ec2 = getAsyncClient(); // Assuming getAsyncClient() returns an Ec2AsyncClient
-
         ReleaseAddressRequest request = ReleaseAddressRequest.builder()
             .allocationId(allocId)
             .build();
 
-        CompletableFuture<ReleaseAddressResponse> response = ec2.releaseAddress(request);
+        CompletableFuture<ReleaseAddressResponse> response = getAsyncClient().releaseAddress(request);
         response.whenComplete((resp, ex) -> {
             if (ex != null) {
-                System.err.println("Failed to release Elastic IP address: " + ex.getMessage());
                 throw new RuntimeException("Failed to release Elastic IP address", ex);
             } else {
                 System.out.println("Successfully released Elastic IP address " + allocId);
@@ -238,18 +232,26 @@ public class EC2Actions {
     // snippet-end:[ec2.java2.release_instance.main]
 
     // snippet-start:[ec2.java2.scenario.disassociate_address.main]
+    /**
+     * Disassociates an Elastic IP address from an instance asynchronously.
+     *
+     * @param associationId The ID of the association you want to disassociate.
+     * @return a {@link CompletableFuture} representing the asynchronous operation of disassociating the address. The
+     *         {@link CompletableFuture} will complete with a {@link DisassociateAddressResponse} when the operation is
+     *         finished.
+     * @throws RuntimeException if the disassociation of the address fails.
+     */
     public CompletableFuture<DisassociateAddressResponse> disassociateAddressAsync(String associationId) {
         Ec2AsyncClient ec2 = getAsyncClient();
         DisassociateAddressRequest addressRequest = DisassociateAddressRequest.builder()
             .associationId(associationId)
             .build();
 
-        // Disassociate the address asynchronously
+        // Disassociate the address asynchronously.
         CompletableFuture<DisassociateAddressResponse> response = ec2.disassociateAddress(addressRequest);
         response.whenComplete((resp, ex) -> {
             if (ex != null) {
-                System.err.println("Failed to disassociate address: " + ex.getMessage());
-                throw new RuntimeException("Failed to disassociate address", ex);
+               throw new RuntimeException("Failed to disassociate address", ex);
             } else {
                 System.out.println("Successfully disassociated the address!");
             }
@@ -257,7 +259,6 @@ public class EC2Actions {
 
         return response;
     }
-
     // snippet-end:[ec2.java2.scenario.disassociate_address.main]
 
     // snippet-start:[ec2.java2.associate_address.main]
@@ -275,20 +276,20 @@ public class EC2Actions {
             .allocationId(allocationId)
             .build();
 
-        return getAsyncClient().associateAddress(associateRequest)
-            .thenApply(response -> {
-                if (response.associationId() != null) {
-                    System.out.printf("Successfully associated address with allocation ID %s to instance %s. Association ID: %s%n",
-                       allocationId, instanceId, response.associationId());
-                    return response.associationId();
-                } else {
-                    throw new RuntimeException("Association ID is null after associating address.");
-                }
-            })
-            .exceptionally(throwable -> {
-                System.err.println("Failed to associate address: " + throwable.getMessage());
-                throw new RuntimeException("Failed to associate address", throwable);
-            });
+        CompletableFuture<AssociateAddressResponse> responseFuture = getAsyncClient().associateAddress(associateRequest);
+        return responseFuture.thenApply(response -> {
+            if (response.associationId() != null) {
+                System.out.printf("Successfully associated address with allocation ID %s to instance %s. Association ID: %s%n",
+                    allocationId, instanceId, response.associationId());
+                return response.associationId();
+            } else {
+                throw new RuntimeException("Association ID is null after associating address.");
+            }
+        }).whenComplete((result, ex) -> {
+            if (ex != null) {
+                throw new RuntimeException("Failed to associate address", ex);
+            }
+        });
     }
     // snippet-end:[ec2.java2.associate_address.main]
 
@@ -304,14 +305,14 @@ public class EC2Actions {
             .build();
 
         // Allocate the address asynchronously.
-        return getAsyncClient().allocateAddress(allocateRequest)
-            .thenApply(response -> {
-                return response.allocationId();
-            })
-            .exceptionally(throwable -> {
-                System.err.println("Failed to allocate address: " + throwable.getMessage());
-                throw new RuntimeException("Failed to allocate address", throwable);
-            });
+        CompletableFuture<AllocateAddressResponse> responseFuture = getAsyncClient().allocateAddress(allocateRequest);
+        return responseFuture.thenApply(AllocateAddressResponse::allocationId).whenComplete((result, ex) -> {
+            if (ex != null) {
+                throw new RuntimeException("Failed to allocate address", ex);
+            } else {
+                System.out.printf("Successfully allocated address with allocation ID: %s%n", result);
+            }
+        });
     }
     // snippet-end:[ec2.java2.allocate_address.main]
 
@@ -331,22 +332,18 @@ public class EC2Actions {
             .instanceIds(instanceId)
             .build();
 
-        // Create a CompletableFuture to handle the entire process.
-        CompletableFuture<Void> resultFuture = new CompletableFuture<>();
         System.out.println("Starting instance " + instanceId + " and waiting for it to run.");
-
-        getAsyncClient().startInstances(startRequest)
-            .thenCompose(response -> waitUntilInstanceRunningAsync(describeRequest)) // Wait until the instance is running.
-            .thenAccept(response -> {
-                System.out.println("Successfully started instance " + instanceId);
-                resultFuture.complete(null); // Complete the future successfully.
-            })
-            .exceptionally(throwable -> {
-                resultFuture.completeExceptionally(new RuntimeException("Failed to start instance: " + throwable.getMessage(), throwable));
-                return null;
-            });
-
-        return resultFuture;
+        return getAsyncClient().startInstances(startRequest)
+            .thenCompose(response -> waitUntilInstanceRunningAsync(describeRequest))
+            .whenComplete((response, ex) -> {
+                if (ex != null) {
+                    throw new RuntimeException("Failed to start instance: " + instanceId, ex);
+                } else if (response == null) {
+                    throw new RuntimeException("No response received for starting instance: " + instanceId);
+                } else {
+                    System.out.println("Successfully started instance " + instanceId);
+                }
+            }).thenApply(resp -> null);
     }
     // snippet-end:[ec2.java2.start_stop_instance.start]
 
@@ -360,8 +357,6 @@ public class EC2Actions {
         return CompletableFuture.supplyAsync(() -> {
             boolean isRunning = false;
             DescribeInstancesResponse response = null;
-
-            // Use a loop to check the instance status until it's running
             while (!isRunning) {
                 try {
                     Thread.sleep(5000); // Wait for 5 seconds between checks
@@ -388,8 +383,7 @@ public class EC2Actions {
      * @return a {@link CompletableFuture} that completes when the instance has been stopped, or exceptionally if an error occurs
      */
     public CompletableFuture<Void> stopInstanceAsync(String instanceId) {
-        Ec2AsyncClient ec2 = getAsyncClient();
-        StopInstancesRequest stopRequest = StopInstancesRequest.builder()
+       StopInstancesRequest stopRequest = StopInstancesRequest.builder()
             .instanceIds(instanceId)
             .build();
 
@@ -397,13 +391,10 @@ public class EC2Actions {
             .instanceIds(instanceId)
             .build();
 
-        // Create a CompletableFuture to handle the entire process.
         CompletableFuture<Void> resultFuture = new CompletableFuture<>();
         System.out.println("Stopping instance " + instanceId + " and waiting for it to stop.");
-
-        // Stop the instance asynchronously.
-        ec2.stopInstances(stopRequest)
-            .thenCompose(response -> waitUntilInstanceStoppedAsync(ec2, describeRequest)) // Wait until the instance is stopped
+        getAsyncClient().stopInstances(stopRequest)
+            .thenCompose(response -> waitUntilInstanceStoppedAsync(getAsyncClient(), describeRequest)) // Wait until the instance is stopped
             .thenAccept(response -> {
                 System.out.println("Successfully stopped instance " + instanceId);
                 resultFuture.complete(null); // Complete the future successfully
@@ -421,8 +412,6 @@ public class EC2Actions {
         return CompletableFuture.supplyAsync(() -> {
             boolean isStopped = false;
             DescribeInstancesResponse response = null;
-
-            // Use a loop to check the instance status until it's stopped.
             while (!isStopped) {
                 try {
                     Thread.sleep(5000);
@@ -440,7 +429,6 @@ public class EC2Actions {
             return response;
         });
     }
-
 
     // snippet-start:[ec2.java2.scenario.describe_instance.main]
     /**
@@ -595,7 +583,6 @@ public class EC2Actions {
     }
     // snippet-end:[ec2.java2.scenario.describe_instance.type.main]
 
-
     // snippet-start:[ec2.java2.describe_instances.main]
     /**
      * Asynchronously describes an AWS EC2 image with the specified image ID.
@@ -742,7 +729,6 @@ public class EC2Actions {
     }
     // snippet-end:[ec2.java2.create_security_group.main]
 
-
     // snippet-start:[ec2.java2.describe_key_pairs.main]
     /**
      * Asynchronously describes the key pairs associated with the current AWS account.
@@ -785,7 +771,6 @@ public class EC2Actions {
         responseFuture.whenComplete((response, exception) -> {
             if (response != null) {
                 try {
-                    // Write the key material to a file.
                     BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
                     writer.write(response.keyMaterial());
                     writer.close();

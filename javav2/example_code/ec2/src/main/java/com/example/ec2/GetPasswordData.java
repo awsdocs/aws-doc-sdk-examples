@@ -50,7 +50,7 @@ public class GetPasswordData {
      * Fetches the password data for the specified EC2 instance asynchronously.
      *
      * @param ec2AsyncClient the EC2 asynchronous client to use for the request
-     * @param instanceId the ID of the EC2 instance to fetch the password data for
+     * @param instanceId instanceId the ID of the EC2 instance for which you want to fetch the password data
      * @return a {@link CompletableFuture} that completes when the password data has been fetched
      * @throws RuntimeException if there was a failure in fetching the password data
      */
