@@ -233,7 +233,7 @@ public class SchedulerWorkflow
     private static async Task<bool> WaitForStackCompletion(string stackId)
     {
         int retryCount = 0;
-        const int maxRetries = 10;
+        const int maxRetries = 10; 
         const int retryDelay = 30000; // 30 seconds.
 
         while (retryCount < maxRetries)
@@ -249,24 +249,23 @@ public class SchedulerWorkflow
             {
                 if (describeStacksResponse.Stacks[0].StackStatus == StackStatus.CREATE_COMPLETE)
                 {
-                    Console.WriteLine(
-                        $"CloudFormation stack creation complete.");
+                    Console.WriteLine("CloudFormation stack creation complete.");
                     return true;
                 }
                 if (describeStacksResponse.Stacks[0].StackStatus == StackStatus.CREATE_FAILED ||
                          describeStacksResponse.Stacks[0].StackStatus == StackStatus.ROLLBACK_COMPLETE)
                 {
-                    Console.WriteLine($"CloudFormation stack creation failed.");
+                    Console.WriteLine("CloudFormation stack creation failed.");
                     return false;
                 }
             }
 
-            Console.WriteLine($"Waiting for CloudFormation stack creation to complete...");
+            Console.WriteLine("Waiting for CloudFormation stack creation to complete...");
             await Task.Delay(retryDelay);
             retryCount++;
         }
 
-        _logger.LogError($"Timed out waiting for CloudFormation stack creation to complete.");
+        _logger.LogError("Timed out waiting for CloudFormation stack creation to complete.");
         return false;
     }
 

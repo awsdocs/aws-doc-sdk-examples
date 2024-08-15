@@ -17,7 +17,7 @@ Resources:
   SchedulerRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: sam_scheduler_role
+      RoleName: example_scheduler_role
       Path: /
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
@@ -37,25 +37,7 @@ Resources:
                   - 'sns:Publish'
                 Resource: !Ref SchedulerSnsTopic
 
-
-  # Allow EventBridge to invoke SNS
-  EventBridgeToToSnsPolicy:
-    Type: AWS::SNS::TopicPolicy
-    Properties: 
-      PolicyDocument:
-        Statement:
-        - Effect: Allow
-          Principal:
-            Service: events.amazonaws.com
-          Action: sns:Publish
-          Resource: !Ref SchedulerSnsTopic
-      Topics: 
-        - !Ref SchedulerSnsTopic      
-
 Outputs:
-  SNStopicName:
-    Description: SNS topic name
-    Value: !GetAtt SchedulerSnsTopic.TopicName
 
   SNStopicARN:
     Description: SNS topic ARN

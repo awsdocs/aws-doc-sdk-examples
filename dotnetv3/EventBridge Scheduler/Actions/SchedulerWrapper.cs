@@ -51,44 +51,44 @@ public class SchedulerWrapper
     {
         try
         {
+            int hoursToRun = 1;
+            int flexibleTimeWindowMinutes = 10;
+
             var request = new CreateScheduleRequest
             {
                 Name = name,
                 ScheduleExpression = scheduleExpression,
                 GroupName = scheduleGroupName,
-                Target = new Target{ Arn = targetArn, RoleArn = roleArn, Input = input},
+                Target = new Target { Arn = targetArn, RoleArn = roleArn, Input = input },
                 ActionAfterCompletion = deleteAfterCompletion
-                ? ActionAfterCompletion.DELETE : ActionAfterCompletion.NONE,
+                    ? ActionAfterCompletion.DELETE
+                    : ActionAfterCompletion.NONE,
                 StartDate = DateTime.UtcNow, // Ignored for one-time schedules.
-                EndDate = DateTime.UtcNow.AddHours(1) // Ignored for one-time schedules.
+                EndDate =
+                    DateTime.UtcNow
+                        .AddHours(hoursToRun) // Ignored for one-time schedules.
             };
             // Allow a flexible time window if the caller specifies it.
             request.FlexibleTimeWindow = new FlexibleTimeWindow
             {
-                Mode = useFlexibleTimeWindow ? FlexibleTimeWindowMode.FLEXIBLE : FlexibleTimeWindowMode.OFF,
-                MaximumWindowInMinutes = useFlexibleTimeWindow ? 5 : null
+                Mode = useFlexibleTimeWindow
+                    ? FlexibleTimeWindowMode.FLEXIBLE
+                    : FlexibleTimeWindowMode.OFF,
+                MaximumWindowInMinutes = useFlexibleTimeWindow
+                    ? flexibleTimeWindowMinutes
+                    : null
             };
 
             var response = await _amazonScheduler.CreateScheduleAsync(request);
 
-            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
-            {
-                Console.WriteLine($"Successfully created schedule '{name}' " +
-                                       $"in schedule group '{scheduleGroupName}'.");
-                return true;
-            }
-            else
-            {
-                _logger.LogError($"Failed to create schedule '{name}' " +
-                                 $"in schedule group '{scheduleGroupName}'. HTTP status code: {response.HttpStatusCode}");
-                return false;
-            }
+            Console.WriteLine($"Successfully created schedule '{name}' " +
+                              $"in schedule group '{scheduleGroupName}': {response.ScheduleArn}.");
+            return true;
         }
-        catch (ServiceQuotaExceededException ex)
+        catch (ConflictException ex)
         {
-            _logger.LogError($"Failed to create schedule '{name}' " +
-                             $"in schedule group '{scheduleGroupName}' due to service quota exceeded. " +
-                             $"Please try again later: {ex.Message}.");
+            // If the name is not unique, a ConflictException will be thrown.
+            _logger.LogError($"Failed to create schedule '{name}' due to a conflict. {ex.Message}");
             return false;
         }
         catch (Exception ex)
@@ -110,34 +110,24 @@ public class SchedulerWrapper
     {
         try
         {
-            var request = new CreateScheduleGroupRequest
-            {
-                Name = name
-            };
+            var request = new CreateScheduleGroupRequest { Name = name };
 
             var response = await _amazonScheduler.CreateScheduleGroupAsync(request);
 
-            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
-            {
-                Console.WriteLine($"Successfully created schedule group '{name}'.");
-                return true;
-            }
-            else
-            {
-                _logger.LogError($"Failed to create schedule group '{name}'. HTTP status code: {response.HttpStatusCode}");
-                return false;
-            }
+            Console.WriteLine($"Successfully created schedule group '{name}': {response.ScheduleGroupArn}.");
+            return true;
+
         }
-        catch (ServiceQuotaExceededException ex)
+        catch (ConflictException ex)
         {
-            _logger.LogError($"Failed to create schedule group '{name}' " +
-                             $" due to service quota exceeded. " +
-                             $"Please try again later: {ex.Message}.");
+            // If the name is not unique, a ConflictException will be thrown.
+            _logger.LogError($"Failed to create schedule group '{name}' due to a conflict. {ex.Message}");
             return false;
         }
         catch (Exception ex)
         {
-            _logger.LogError($"An error occurred while creating schedule group '{name}': {ex.Message}");
+            _logger.LogError(
+                $"An error occurred while creating schedule group '{name}': {ex.Message}");
             return false;
         }
     }
@@ -156,31 +146,25 @@ public class SchedulerWrapper
         {
             var request = new DeleteScheduleRequest
             {
-                Name = name,
-                GroupName = groupName
+                Name = name, GroupName = groupName
             };
 
-            var response = await _amazonScheduler.DeleteScheduleAsync(request);
+            await _amazonScheduler.DeleteScheduleAsync(request);
 
-            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
-            {
-                Console.WriteLine($"Successfully deleted schedule with name '{name}'.");
-                return true;
-            }
-            else
-            {
-                _logger.LogError($"Failed to delete schedule with name '{name}'. HTTP status code: {response.HttpStatusCode}");
-                return false;
-            }
+            Console.WriteLine($"Successfully deleted schedule with name '{name}'.");
+            return true;
+
         }
         catch (ResourceNotFoundException ex)
         {
-            _logger.LogError($"Failed to delete schedule with ID '{name}' because the resource was not found: {ex.Message}");
-            return false;
+            _logger.LogError(
+                $"Failed to delete schedule with ID '{name}' because the resource was not found: {ex.Message}");
+            return true;
         }
         catch (Exception ex)
         {
-            _logger.LogError($"An error occurred while deleting schedule with ID '{name}': {ex.Message}");
+            _logger.LogError(
+                $"An error occurred while deleting schedule with ID '{name}': {ex.Message}");
             return false;
         }
     }
@@ -198,25 +182,17 @@ public class SchedulerWrapper
         {
             var request = new DeleteScheduleGroupRequest { Name = name };
 
-            var response = await _amazonScheduler.DeleteScheduleGroupAsync(request);
+            await _amazonScheduler.DeleteScheduleGroupAsync(request);
 
-            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
-            {
-                Console.WriteLine($"Successfully deleted schedule group '{name}'.");
-                return true;
-            }
-            else
-            {
-                _logger.LogError(
-                    $"Failed to delete schedule group '{name}'. HTTP status code: {response.HttpStatusCode}");
-                return false;
-            }
+            Console.WriteLine($"Successfully deleted schedule group '{name}'.");
+            return true;
+
         }
         catch (ResourceNotFoundException ex)
         {
             _logger.LogError(
                 $"Failed to delete schedule group '{name}' because the resource was not found: {ex.Message}");
-            return false;
+            return true;
         }
         catch (Exception ex)
         {

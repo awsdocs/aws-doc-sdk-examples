@@ -1,4 +1,6 @@
 scheduler_hello:
+  title: Hello &EVS;
+  title_abbrev: Hello &EVS;
   synopsis: get started using &EVS;.
   category: Hello
   languages:
@@ -68,7 +70,13 @@ scheduler_DeleteScheduleGroup:
 scheduler_ScheduledEventsWorkflow:
   title: A complete &EVS; Scheduled Events workflow using an &AWS; SDK
   title_abbrev: Scheduled Events workflow
-  synopsis: run the &EVS; scheduled events workflow.
+  synopsis_list:
+    - Deploy a &CFN; stack with required resources.
+    - Create a &EVS; schedule group.
+    - Create a one-time &EVS; schedule with a flexible time window.
+    - Create a recurring &EVS; schedule with a specified rate.
+    - Delete &EVS; the schedule and schedule group.
+    - Clean up resources and delete the stack.
   category: Scenarios
   languages:
     .NET:

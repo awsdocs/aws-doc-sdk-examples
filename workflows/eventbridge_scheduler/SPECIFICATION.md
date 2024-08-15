@@ -1,138 +1,165 @@
+# EventBridge Scheduler Workflow - Technical Specification
 
+This document contains the technical specifications for _Amazon Eventbridge Scheduler Workflow_,
+a workflow scenario that showcases AWS services and SDKs. It is primarily intended for the AWS code
+examples team to use while developing this example in additional languages.
 
-# SES v2 Coupon Newsletter Workflow Specification
+This document explains the following:
 
-Use the Amazon Simple Email Service (SES) v2 API to manage a subscription list for a weekly newsletter.
+- Architecture and features of the example workflow.
+- Sample reference output.
+- Suggested error handling.
+- Metadata information for the scenario.
 
-## Prepare the Application
-
-1. Create an email identity.
-   - Request a `verified email` address from the user. This will be used as the `from` address, and the user will need to click a verification link in their email before continuing to part 3.
-   - Operation: **CreateEmailIdentity**
-     - Parameters:
-       - `EmailIdentity`: Value of the `verified email` given by the user.
-     - Errors:
-       - `AlreadyExistsException`: If the identity already exists, skip this step and proceed with the next operation. This error can be safely ignored.
-       - `NotFoundException`: If the identity does not exist, fail the workflow and inform the user that the provided email address is not verified.
-       - `LimitExceededException`: If the limit for email identities is exceeded, fail the workflow and inform the user that they have reached the limit for email identities.
-2. Create a contact list with the name `weekly-coupons-newsletter`.
-   - Operation: **CreateContactList**
-     - Parameters:
-       - `ContactListName`: `weekly-coupons-newsletter`
-     - Errors:
-       - `AlreadyExistsException`: If the contact list already exists, skip this step and proceed with the next operation. This error can be safely ignored.
-       - `LimitExceededException`: If the limit for contact lists is exceeded, fail the workflow and inform the user that they have reached the limit for contact lists.
-3. Create an email template named `weekly-coupons` with the following content:
-   - Subject: `Weekly Coupons Newsletter`
-   - HTML Content: Available in the `coupon-newsletter.html` file.
-   - Text Content: Available in the `coupon-newsletter.txt` file.
-   - The emails should include an [Unsubscribe](#) link, using the url `{{amazonSESUnsubscribeUrl}}`.
-   - Operation: **CreateEmailTemplate**
-     - Parameters:
-       - `TemplateName`: `weekly-coupons`
-       - `TemplateContent`:
-         - `Subject`: `Weekly Coupons Newsletter`
-         - `Html`: Read from the `coupon-newsletter.html` file
-         - `Text`: Read from the `coupon-newsletter.txt` file
-     - Errors:
-       - `AlreadyExistsException`: If the template already exists, skip this step and proceed with the next operation. This error can be safely ignored.
-       - `LimitExceededException`: If the limit for email templates is exceeded, fail the workflow and inform the user that they have reached the limit for email templates.
-
-## Gather Subscriber Email Addresses
-
-1. Prompt the user to enter a base email address for subscribing to the newsletter.
-   - For testing purposes, this workflow uses a single email address with [subaddress extensions](https://www.rfc-editor.org/rfc/rfc5233.html) (e.g., `user+ses-weekly-newsletter-1@example.com`, `user+ses-weekly-newsletter-2@example.com`, etc., also known as [plus addressing](https://en.wikipedia.org/wiki/Email_address#:~:text=For%20example%2C%20the%20address%20joeuser,sorting%2C%20and%20for%20spam%20control.)).
-   - Create 3 variants of this email address as `{user email}+ses-weekly-newsletter-{i}@{user domain}`.
-   - `{user-email}` is the portion up to the first `@` (0x40, dec 64). The `{user domain}` is everything after the first `@`.
-2. For each email address created:
-   1. Create a new contact with the provided email address in the `weekly-coupons-newsletter` contact list.
-      - Operation: **CreateContact**
-        - Parameters:
-          - `ContactListName`: `weekly-coupons-newsletter`
-          - `EmailAddress`: The email address provided by the user.
-        - Errors:
-          - `AlreadyExistsException`: If the contact already exists, skip this step for that contact and proceed with the next contact. This error can be safely ignored.
-   2. Send a welcome email to the new contact using the content from the `welcome.html` file.
-      - Operation: **SendEmail**
-        - Parameters:
-          - `FromEmailAddress`: Use the `verified_email` address provided in Prepare the Application.
-          - `Destination.ToAddresses`: The generated email address variant.
-          - `Content.Simple.Subject.Data`: "Welcome to the Weekly Coupons Newsletter"
-          - `Content.Simple.Body.Text.Data`: Read the content from the `welcome.txt` file.
-          - `Content.Simple.Body.Html.Data`: Read the content from the `welcome.html` file.
-        - Errors:
-          - See Errors in `SendEmail` for "Send the Coupon Newsletter"
-   - Timing:
-     - Because the account is likely in sandbox, wait 2 seconds between sending emails.
-
-## Send the Coupon Newsletter
-
-2. Retrieve the list of contacts from the `weekly-coupons-newsletter` contact list.
-   - Operation: **ListContacts**
-     - Parameters:
-       - `ContactListName`: `weekly-coupons-newsletter`
-     - Errors:
-       - `NotFoundException`: If the contact list does not exist, fail the workflow and inform the user that the contact list is missing.
-3. Send an email using the `weekly-coupons` template to each contact in the list.
-   - The email should include the following coupon items:
-     1. 20% off on all electronics
-     2. Buy one, get one free on books
-     3. 15% off on home appliances
-     4. Free shipping on orders over $50
-     5. 25% off on outdoor gear
-     6. 10% off on groceries
-   - Operation: **SendEmail**
-     - Parameters:
-       - `Destination`:
-         - `ToAddresses`: One email address from the `ListContacts` response (each email address must get a unique `SendEmail` call for tracking and unsubscribe purposes).
-       - `Content`:
-         - `Template`:
-           - `TemplateName`: `weekly-coupons`
-           - `TemplateData`: JSON string representing an object with one key, `coupons`, which is an array of coupon items. Each coupon entry in the array should have one key, `details`, with the details of the coupon. See `sample_coupons.json`.
-       - `FromEmailAddress`: (Use the verified email address from step 1)
-       - `ListManagementOptions`:
-         - `ContactListName`: `weekly-coupons-newsletter` to correctly populate Unsubscribe headers and the `{{amazonSESUnsubscribeUrl}}` value.
-     - Errors:
-       - `AccountSuspendedException`: If the account is suspended, fail the workflow and inform the user that their account is suspended.
-       - `MailFromDomainNotVerifiedException`: If the sending domain is not verified, fail the workflow and inform the user that the sending domain is not verified.
-       - `MessageRejected`: If the message is rejected due to invalid content, fail the workflow and inform the user that the message content is invalid.
-       - `SendingPausedException`: If sending is paused, fail the workflow and inform the user that sending is currently paused for their account.
-     - Timing:
-       - Because the account is likely in sandbox, wait 2 seconds between sending emails.
-
-For more information on using templates with SES v2, refer to the [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/send-personalized-email-api.html).
-
-## Monitor and Review
-
-1. [Monitor your sending activity](https://docs.aws.amazon.com/ses/latest/dg/monitor-sending-activity.html) using the [SES Homepage](https://console.aws.amazon.com/ses/home#/account) in the AWS console.
-2. Wait for the user to press a key before continuing.
-
-## Clean up
-
-1. Delete the contact list. This operation also deletes all contacts in the list, without needing separate calls.
-   - Operation: **DeleteContactList**
-     - Parameters:
-       - `ContactListName`: `weekly-coupons-newsletter`
-       - `NotFoundException`: If the contact list does not exist, skip this step and proceed with the next operation. This error can be safely ignored.
-     - Errors:
-
-- `NotFoundException`: If the contact list does not exist, skip this step and proceed with the next operation. This error can be safely ignored.
-
-2. Delete the template.
-   - Operation: **DeleteEmailTemplate**
-     - Parameters:
-       - `TemplateName`: `weekly-coupons`
-       - `NotFoundException`: If the email template does not exist, skip this step and proceed with the next operation. This error can be safely ignored.
-     - Errors:
-       - `NotFoundException`: If the email template does not exist, skip this step and proceed with the next operation. This error can be safely ignored.
-3. Delete the email identity (optional). Ask the user before performing this step, as they may not want to re-verify the email identity.
-   - Operation: **DeleteEmailIdentity**
-     - Parameters:
-       - `EmailIdentity`: Value of the `verified email` given by the user in part 1.
-     - Errors:
-       - `NotFoundException`: If the email identity does not exist, skip this step and proceed with the next operation. This error can be safely ignored.
+For an introduction, see the [README.md](README.md).
 
 ---
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+### Table of contents
+
+- [Resources and User Input](#resources-and-user-input)
+- [Errors](#errors)
+- [Metadata](#metadata)
+
+## Resources and User Input
+
+- The workflow deploys an AWS CloudFormation stack with the following resources:
+    - An Amazon Simple Notification Service (Amazon SNS) topic.
+    - An email subscription to the topic. The user must confirm their subscription to receive email notifications for the scheduled events.
+    - An AWS Identity and Access Management (IAM) Role with permission for the scheduler service to assume the role and publish to SNS.
+- The workflow should prompt the user for a stack name.
+- The workflow should check that the stack name does not already exist.
+- The workflow should wait for the stack CREATE_COMPLETE status.
+  - After a successful deploy, the workflow should retrieve and print the output values for `RoleARN` and `SNStopicARN`, which will be used for the EventBridge Scheduler operations.
+- If the stack has any failed status, notify the user and end the workflow.
+ 
+Example:
+```
+--------------------------------------------------------------------------------
+Welcome to the Amazon EventBridge Scheduler Workflow.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Preparing the application...
+
+This example creates resources in a CloudFormation stack, including an SNS topic
+that will be subscribed to the EventBridge Scheduler events.
+
+You will need to confirm the subscription in order to receive event emails.
+Enter an email address to use for event subscriptions:
+test@example.com
+Enter a name for the AWS Cloud Formation Stack:
+teststack10
+
+Deploying CloudFormation stack: teststack10
+Enter a name for the AWS Cloud Formation Stack:
+warn: SchedulerScenario.SchedulerWorkflow[0]
+      CloudFormation stack 'teststack10' already exists. Please provide a unique name.
+stackAB
+
+Deploying CloudFormation stack: stackAB
+CloudFormation stack creation started: stackAB
+Waiting for CloudFormation stack creation to complete...
+CloudFormation stack creation complete.
+Stack output RoleARN: arn:aws:iam::123456789123:role/example_scheduler_role
+Stack output SNStopicARN: arn:aws:sns:us-east-1:123456789123:stackAB-SchedulerSnsTopic-UORtMkZypo3x
+--------------------------------------------------------------------------------
+
+```
+- The workflow creates the following EventBridge Scheduler resources:
+    - A Schedule Group, for organizing schedules.
+      - The group can use a default name, but should be unique. If the user enters and invalid name, they should be prompted again.
+    - A One-Time Schedule, with a flexible time window that will delete after completion.
+      - The user should be prompted for the schedule name, which will appear in notification emails.
+      - The schedule should use a flexible time window (for example, 5 minutes) and be set to delete after completion.
+    - A Recurring Schedule, which will run for one hour at a specified rate.
+      - The schedule should start at the current time and run for one hour.
+      - The user should be prompted for the schedule name, which will appear in notification emails.
+      - The program should wait to allow time for the schedule to run, and then prompt the user to delete the schedule.
+
+Example:
+
+```
+Successfully created schedule group 'workflow-schedules-group'.
+Application preparation complete.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Enter a name for the one-time schedule:
+one-time-test
+Creating a one-time schedule named 'one-time-test' to send an initial event in 1 minute...
+Successfully created schedule 'one-time-test' in schedule group 'workflow-schedules-group'.
+Subscription email will receive an email from this event.
+Be sure to confirm your subscription to receive event emails.
+One-time schedule 'one-time-test' created successfully.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Creating a recurring schedule to send events for one hour...
+Enter a name for the recurring schedule:
+recurring-test
+Enter the desired schedule rate (in minutes):
+2
+Successfully created schedule 'recurring-test' in schedule group 'workflow-schedules-group'.
+Subscription email will receive an email from this event.
+Be sure to confirm your subscription to receive event emails.
+Are you ready to delete the 'recurring-test' schedule? (y/n)
+y
+```
+
+- Subscription Emails
+    - After confirming their subscription, the user should receive one email from the one-time schedule, and a recurring email from the recurring schedule. 
+    - The email text should contain the user's custom name for each schedule.
+
+Example
+
+![Emails](/resources/emails.png)
+
+- Cleanup
+    - The workflow should prompt the user for cleanup:
+      - Delete the schedule and schedule group.
+      - Delete the CloudFormation stack.
+        - If the stack fails to delete, it should be force-deleted.
+    - The cleanup operation should attempt to run if there are any errors in the workflow.
+        - The user should be notified if the delete operation cannot occur.
+
+Example:
+
+```
+Are you ready to delete the 'recurring-test' schedule? (y/n)
+y
+Successfully deleted schedule with name 'recurring-test'.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Do you want to delete all resources created by this workflow? (y/n)
+y
+Successfully deleted schedule group 'workflow-schedules-group'.
+CloudFormation stack 'teststack10' is being deleted. This may take a few minutes.
+Waiting for CloudFormation stack 'teststack10' to be deleted...
+Waiting for CloudFormation stack 'teststack10' to be deleted...
+CloudFormation stack 'teststack10' has been deleted.
+--------------------------------------------------------------------------------
+Amazon EventBridge Scheduler workflow completed.
+```
+
+---
+## Errors
+
+| action                       | Error                     | Handling                                         |
+|------------------------------|---------------------------|--------------------------------------------------|
+| `ListSchedules`              | none                      | Not required for Hello Service                   |
+| `CreateSchedule`             | ConflictException         | Notify the user to use a unique name.            |
+| `CreateScheduleGroup`        | ConflictException         | Notify the user to use a unique name.            |
+| `DeleteSchedule`             | ResourceNotFoundException | Notify the user the schedule is already deleted. |
+| `DeleteScheduleGroup`        | ResourceNotFoundException | Notify the user the group is already deleted.    |
+
+---
+
+## Metadata
+
+| action / scenario                | metadata file           | metadata key                      |
+|----------------------------------|-------------------------| --------------------------------- |
+| `ListSchedules`                  | scheduler_metadata.yaml | scheduler_hello   |
+| `CreateSchedule`                 | scheduler_metadata.yaml | scheduler_CreateSchedule   |
+| `CreateScheduleGroup`            | scheduler_metadata.yaml | scheduler_CreateScheduleGroup   |
+| `DeleteSchedule`                 | scheduler_metadata.yaml | scheduler_DeleteSchedule   |
+| `DeleteScheduleGroup`            | scheduler_metadata.yaml | scheduler_DeleteScheduleGroup   |
+| `EventBridge Scheduler Workflow` | scheduler_metadata.yaml | scheduler_ScheduledEventsWorkflow   |
+

@@ -5,7 +5,7 @@ This example shows how to use AWS SDKs to work with Amazon EventBridge Scheduler
 
 The target SNS topic and the AWS Identity and Access Management (IAM) role used with the schedules are created as part of an AWS CloudFormation stack that is deployed at the start of the workflow, and deleted when the workflow is complete.
 
-![Object Lock Features](resources/scheduler-workflow.png)
+![Object Lock Features](../../../workflows/eventbridge_scheduler/resources/scheduler-workflow.png)
 
 This workflow demonstrates the following steps and tasks:
 
@@ -39,13 +39,22 @@ This workflow demonstrates the following steps and tasks:
    - Deletes the schedule group.
    - Destroys the Cloud Formation stack and wait until the stack has been removed.
 
-## Prerequisites
+## ⚠ Important
+
+* Running this code might result in charges to your AWS account.
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+## Scenario
+
+### Prerequisites
 
 Before running this workflow, ensure you have:
 
 - An AWS account with proper permissions to use Amazon EventBridge Scheduler and Amazon EventBridge.
 
-## AWS Services Used
+### AWS Services Used
 
 This workflow uses the following AWS services:
 
@@ -58,6 +67,19 @@ This workflow uses the following AWS services:
 
 The workflow scenario deploys the AWS CloudFormation stack with the required resources.
 
+### Instructions
+
+After the example compiles, you can run it from the command line. To do so, navigate to
+the folder that contains the .sln file and run the following command:
+
+```
+dotnet run
+```
+
+Alternatively, you can run the example from within your IDE.
+
+This starts an interactive scenario that walks you through creating different types of schedules.
+
 ## Amazon EventBridge Scheduler Actions
 
 The workflow covers the following EventBridge Scheduler API actions:
@@ -66,12 +88,6 @@ The workflow covers the following EventBridge Scheduler API actions:
 - [`CreateScheduleGroup`](https://docs.aws.amazon.com/scheduler/latest/APIReference/API_CreateScheduleGroup.html)
 - [`DeleteSchedule`](https://docs.aws.amazon.com/scheduler/latest/APIReference/API_DeleteSchedule.html)
 - [`DeleteScheduleGroup`](https://docs.aws.amazon.com/scheduler/latest/APIReference/API_DeleteScheduleGroup.html)
-
-## Implementations
-
-This example is implemented in the following languages:
-
-- [.NET](../../dotnetv3/EventBridge Scheduler/README.md)
 
 ## Additional resources
 

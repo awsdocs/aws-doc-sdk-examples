@@ -31,7 +31,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 ### Get started
 
-- [](Actions/HelloScheduler.cs#L11) (`ListSchedules`)
+- [Hello EventBridge Scheduler](Actions/HelloScheduler.cs#L11) (`ListSchedules`)
 
 
 ### Single actions
@@ -40,8 +40,8 @@ Code excerpts that show you how to call individual service functions.
 
 - [CreateSchedule](Actions/SchedulerWrapper.cs#L30)
 - [CreateScheduleGroup](Actions/SchedulerWrapper.cs#L103)
-- [DeleteSchedule](Actions/SchedulerWrapper.cs#L146)
-- [DeleteScheduleGroup](Actions/SchedulerWrapper.cs#L189)
+- [DeleteSchedule](Actions/SchedulerWrapper.cs#L136)
+- [DeleteScheduleGroup](Actions/SchedulerWrapper.cs#L173)
 
 ### Scenarios
 
@@ -79,7 +79,7 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### 
+#### Hello EventBridge Scheduler
 
 This example shows you how to get started using EventBridge Scheduler.
 
@@ -87,8 +87,14 @@ This example shows you how to get started using EventBridge Scheduler.
 
 #### Scheduled Events workflow
 
-This example shows you how to run the EventBridge Scheduler scheduled events workflow.
+This example shows you how to do the following:
 
+- Deploy a CloudFormation stack with required resources.
+- Create a EventBridge Scheduler schedule group.
+- Create a one-time EventBridge Scheduler schedule with a flexible time window.
+- Create a recurring EventBridge Scheduler schedule with a specified rate.
+- Delete EventBridge Scheduler the schedule and schedule group.
+- Clean up resources and delete the stack.
 
 <!--custom.scenario_prereqs.scheduler_ScheduledEventsWorkflow.start-->
 <!--custom.scenario_prereqs.scheduler_ScheduledEventsWorkflow.end-->
