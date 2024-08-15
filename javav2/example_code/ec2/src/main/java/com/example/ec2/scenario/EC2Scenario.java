@@ -9,12 +9,16 @@ import software.amazon.awssdk.services.ec2.model.DeleteKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeKeyPairsResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
 import software.amazon.awssdk.services.ec2.model.DisassociateAddressResponse;
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressResponse;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathResponse;
 import software.amazon.awssdk.services.ssm.model.Parameter;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * Before running this Java (v2) code example, set up your development
@@ -67,17 +71,17 @@ public class EC2Scenario {
 
             """;
 
-        if (args.length != 6) {
-            System.out.println(usage);
-            return;
-        }
+     //   if (args.length != 6) {
+     //       System.out.println(usage);
+     //       return;
+     //   }
 
-        String keyName = args[0];
-        String fileName = args[1];
-        String groupName = args[2];
-        String groupDesc = args[3];
-        String vpcId = args[4];
-        String myIpAddress = args[5];
+        String keyName = "TestKeyPair18" ; //args[0];
+        String fileName = "ec2Key.pem"; //args[1];
+        String groupName = "ScottSecurityGroup18" ; // args[2];
+        String groupDesc = "Test Group" ; //args[3];
+        String vpcId = "vpc-e97a4393" ; //args[4];
+        String myIpAddress = "72.21.198.66" ; // args[5];
         Scanner scanner = new Scanner(System.in);
         EC2Actions ec2Actions = new EC2Actions();
 
@@ -117,9 +121,21 @@ public class EC2Scenario {
             CompletableFuture<CreateKeyPairResponse> future = ec2Actions.createKeyPairAsync(keyName, fileName);
             CreateKeyPairResponse response = future.join();
             System.out.println("Key Pair successfully created. Key Fingerprint: " + response.keyFingerprint());
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                if ("InvalidKeyPair.Duplicate".equals(ec2Ex.awsErrorDetails().errorCode())) {
+                    // Key pair already exists.
+                    System.out.println("The key pair '" + keyName + "' already exists. Moving on...");
+                } else {
+                    // Handle other EC2 exceptions.
+                    System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                    return;
+                }
+            } else {
+                System.err.println("An unexpected error occurred: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+                return; // End the execution
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -129,10 +145,17 @@ public class EC2Scenario {
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<DescribeKeyPairsResponse> future = ec2Actions.describeKeysAsync();
-            future.join();
-            System.out.println("Successfully described key pairs.");
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            future.join(); // Ensure the future completes and any exceptions are handled
+
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         System.out.println(DASHES);
 
@@ -150,8 +173,21 @@ public class EC2Scenario {
             CompletableFuture<String> future = ec2Actions.createSecurityGroupAsync(groupName, groupDesc, vpcId, myIpAddress);
             groupId = future.join();
             System.out.println("Created security group with ID: " + groupId);
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                // Handle other unexpected errors.
+                if (cause.getMessage().contains("already exists")) {
+                    System.err.println("The Security Group already exists. Moving on... ");
+                } else {
+                    System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                    return;
+                }
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -163,8 +199,17 @@ public class EC2Scenario {
             CompletableFuture<DescribeSecurityGroupsResponse> future = ec2Actions.describeSecurityGroupsAsync(groupId);
             future.join();
             System.out.println("Security groups described successfully.");
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -188,8 +233,17 @@ public class EC2Scenario {
                     break;
                 }
             }
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception) {
+                Ec2Exception ec2Ex = (Ec2Exception) cause;
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         System.out.println("The instance Id containing amzn2 is " + instanceId);
         waitForInputToContinue(scanner);
@@ -204,9 +258,17 @@ public class EC2Scenario {
             amiValue = future.join();
             System.out.println("Image ID: {}"+ amiValue);
             waitForInputToContinue(scanner);
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception) {
+                Ec2Exception ec2Ex = (Ec2Exception) cause;
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -223,9 +285,17 @@ public class EC2Scenario {
             } else {
                 System.out.println("Desired instance type not found.");
             }
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception) {
+                Ec2Exception ec2Ex = (Ec2Exception) cause;
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -238,9 +308,38 @@ public class EC2Scenario {
             CompletableFuture<String> future = ec2Actions.runInstanceAsync(instanceType, keyName, groupName, amiValue);
             newInstanceId = future.join(); // Get the instance ID.
             System.out.println("EC2 instance ID: "+ newInstanceId);
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception) {
+                Ec2Exception ec2Ex = (Ec2Exception) cause;
+                switch (ec2Ex.awsErrorDetails().errorCode()) {
+                    case "InvalidParameterValue":
+                        // Handle invalid parameter value.
+                        System.err.printf("Invalid parameter value: %s%n", ec2Ex.getMessage());
+                        break;
+                    case "InsufficientInstanceCapacity":
+                        // Handle insufficient instance capacity.
+                        System.err.printf("Insufficient instance capacity: %s%n", ec2Ex.getMessage());
+                        break;
+                    case "InstanceLimitExceeded":
+                        // Handle instance limit exceeded.
+                        System.err.printf("Instance limit exceeded: %s%n", ec2Ex.getMessage());
+                        break;
+                    case "InvalidGroup.NotFound":
+                        // Handle security group not found.
+                        System.err.printf("Security group not found: %s%n", ec2Ex.getMessage());
+                        break;
+                    default:
+                        // Handle other EC2 exceptions.
+                        System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                        break;
+                }
+                return;
+            } else {
+                // Handle other unexpected exceptions.
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         System.out.println("The instance Id is " + newInstanceId);
         waitForInputToContinue(scanner);
@@ -254,9 +353,16 @@ public class EC2Scenario {
             CompletableFuture<String> future = ec2Actions.describeEC2InstancesAsync(newInstanceId);
             publicIp = future.join(); // Get the public IP address.
             System.out.println("EC2 instance public IP: " + publicIp);
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         System.out.println("You can SSH to the instance using this command:");
         System.out.println("ssh -i " + fileName + "ec2-user@" + publicIp);
@@ -270,9 +376,16 @@ public class EC2Scenario {
             CompletableFuture<Void> future = ec2Actions.stopInstanceAsync(newInstanceId);
             future.join();
             System.out.println("Instance "+newInstanceId +" stopped successfully.");
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -283,9 +396,16 @@ public class EC2Scenario {
             CompletableFuture<Void> future = ec2Actions.startInstanceAsync(newInstanceId);
             future.join();
             System.out.println("Instance started successfully.");
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         waitForInputToContinue(scanner);
         String ipAddress = "";
@@ -295,9 +415,16 @@ public class EC2Scenario {
             System.out.println("EC2 instance public IP: " + publicIp);
             System.out.println("You can SSH to the instance using this command:");
             System.out.println("ssh -i " + fileName + "ec2-user@" + publicIp);
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -310,9 +437,16 @@ public class EC2Scenario {
             CompletableFuture<String> future = ec2Actions.allocateAddressAsync();
             allocationId = future.join();
             System.out.println("Successfully allocated address with ID: " +allocationId);
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         System.out.println("The allocation Id value is " + allocationId);
         waitForInputToContinue(scanner);
@@ -321,9 +455,16 @@ public class EC2Scenario {
             CompletableFuture<String> future = ec2Actions.associateAddressAsync(newInstanceId, allocationId);
             associationId = future.join(); // Wait for the result and get the association ID
             System.out.println("Successfully associated address with ID: " +associationId);
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         System.out.println("The associate Id value is " + associationId);
         waitForInputToContinue(scanner);
@@ -339,9 +480,16 @@ public class EC2Scenario {
             System.out.println("EC2 instance public IP: " + publicIp);
             System.out.println("You can SSH to the instance using this command:");
             System.out.println("ssh -i " + fileName + "ec2-user@" + publicIp);
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -353,9 +501,16 @@ public class EC2Scenario {
             CompletableFuture<DisassociateAddressResponse> future = ec2Actions.disassociateAddressAsync(associationId);
             future.join(); // Wait for the operation to complete
             System.out.println("Address successfully disassociated.");
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         waitForInputToContinue(scanner);
         try {
@@ -376,9 +531,16 @@ public class EC2Scenario {
             CompletableFuture<Void> future = ec2Actions.terminateEC2Async(newInstanceId);
             future.join();
             System.out.println("EC2 instance successfully terminated.");
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         System.out.println(DASHES);
 
@@ -389,9 +551,16 @@ public class EC2Scenario {
             CompletableFuture<Void> future = ec2Actions.deleteEC2SecGroupAsync(groupId);
             future.join(); // Wait for the operation to complete
             System.out.println("Security group successfully deleted.");
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -402,9 +571,16 @@ public class EC2Scenario {
         try {
             CompletableFuture<DeleteKeyPairResponse> future = ec2Actions.deleteKeysAsync(keyName);
             future.join();
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof Ec2Exception ec2Ex) {
+                // Handle EC2 exceptions.
+                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                return;
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -418,7 +594,6 @@ public class EC2Scenario {
         String myValue = parts[4];
         return myValue.contains("amzn2");
     }
-
 
     private static void waitForInputToContinue(Scanner scanner) {
         while (true) {

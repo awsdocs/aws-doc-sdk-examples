@@ -103,18 +103,16 @@ public class EC2Test {
             Assertions.fail("Test failed due to an unexpected exception while creating security group: " + rte.getMessage());
         }
 
-
          String instanceId ="";
         try {
             CompletableFuture<GetParametersByPathResponse> future = ec2Actions.getParaValuesAsync();
             GetParametersByPathResponse pathResponse = future.join();
 
-            // Assert that the pathResponse is not null
+            // Assert that the pathResponse is not null.
             Assertions.assertNotNull(pathResponse, "The response from getParaValuesAsync should not be null");
 
             List<Parameter> parameterList = pathResponse.parameters();
             Assertions.assertFalse(parameterList.isEmpty(), "Parameter list should not be empty");
-
             for (Parameter para : parameterList) {
                 if (EC2Scenario.filterName(para.name())) {
                     instanceId = para.value();
