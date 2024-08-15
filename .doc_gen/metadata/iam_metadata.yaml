@@ -579,7 +579,6 @@ iam_CreateAccessKey:
           github: swift/example_code/iam
           excerpts:
             - description: >-
-                Import the &IAM; module: 
                 <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
               snippet_tags:
                 - iam.swift.basics.iam.createaccesskey
