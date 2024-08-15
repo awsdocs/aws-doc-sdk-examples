@@ -10,10 +10,11 @@ import config
 import logging
 import os
 import sys
+from difflib import unified_diff
 from pathlib import Path
 from typing import Optional
 
-from render import Renderer, MissingMetadataError
+from render import Renderer, MissingMetadataError, RenderStatus
 from scanner import Scanner
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO").upper(), force=True)
@@ -80,6 +81,7 @@ def main():
     )
     parser.add_argument("--no-dry-run", dest="dry_run", action="store_false")
     parser.add_argument("--check", dest="dry_run", action="store_true")
+    parser.add_argument("--diff", action="store_true", default=False)
     args = parser.parse_args()
 
     if "all" in args.languages:
@@ -94,13 +96,14 @@ def main():
     logging.debug(f"Args configuration: {args}")
 
     if args.dry_run:
-        logging.info("Dry run, no changes will be made.")
+        print("Dry run, no changes will be made.")
 
     skipped = []
     failed = []
     written = []
     non_writeme = []
     unchanged = []
+    no_folder = []
 
     scanner = prepare_scanner(doc_gen)
     if scanner is None:
@@ -113,60 +116,66 @@ def main():
             id = f"{language}:{version}:{service}"
             try:
                 renderer.set_example(service, language, int(version), args.safe)
-                if renderer.lang_config is None:
-                    continue
 
                 logging.debug("Rendering %s", id)
-                result, updated = renderer.render()
+                render_status = renderer.render()
+                logging.debug("Status %s", render_status)
 
-                if result is None:
-                    if (
-                        renderer.lang_config["service_folder"]
-                        not in renderer.lang_config.get(
-                            "service_folder_overrides", {}
-                        ).values()
-                        and renderer.readme_filename.exists()
-                    ):
-                        non_writeme.append(id)
-                    else:
-                        skipped.append(id)
-                elif args.dry_run:
-                    if not renderer.check():
+                if render_status == RenderStatus.UPDATED:
+                    if args.dry_run:
                         failed.append(id)
-                elif not updated:
+                        if args.diff:
+                            print_diff(renderer, id)
+                    else:
+                        renderer.write()
+                        written.append(id)
+                elif render_status == RenderStatus.UNCHANGED:
                     unchanged.append(id)
-                else:
-                    renderer.write()
-                    written.append(id)
-            except FileNotFoundError:
+                elif render_status == RenderStatus.UNMANAGED:
+                    non_writeme.append(id)
+                elif render_status == RenderStatus.NO_EXAMPLES:
+                    skipped.append(id)
+                elif render_status == RenderStatus.NO_FOLDER:
+                    no_folder.append(id)
+                elif render_status == RenderStatus.UNIMPLEMENTED:
+                    pass
+            except FileNotFoundError as fnfe:
+                logging.debug(fnfe, exc_info=True)
                 skipped.append(id)
             except MissingMetadataError as mme:
-                logging.error(mme)
+                logging.debug(mme, exc_info=True)
                 failed.append(id)
-            except Exception:
-                logging.exception("Exception rendering %s", id)
+            except Exception as e:
+                logging.error(e, exc_info=True)
                 failed.append(id)
 
-    done_list = "\n".join(f"Wrote {f}" for f in sorted(written))
     skip_list = "\n".join(f"Skipped {f}" for f in sorted(skipped))
-    print(skip_list or "(None Skipped)")
-    print(done_list or "(None Written)")
+    logging.debug(skip_list or "(None Skipped)")
     if unchanged:
         unchanged_list = "\n".join(f"Unchanged {f}" for f in sorted(unchanged))
         print(unchanged_list)
     if non_writeme:
-        non_writeme_list = "\n".join(
-            f"Non-WRITEME README: {f}" for f in sorted(non_writeme)
-        )
+        non_writeme_list = "\n".join(f"Non-WRITEME: {f}" for f in sorted(non_writeme))
         print(non_writeme_list)
+    if no_folder:
+        no_folder_list = "\n".join(f"No folder: {f}" for f in sorted(no_folder))
+        print(no_folder_list)
+    if not args.dry_run:
+        done_list = "\n".join(f"Wrote {f}" for f in sorted(written))
+        print(done_list or "(None Written)")
     if failed:
-        failed_list = "\n".join(
-            f"README with incorrect formatting: {f}" for f in sorted(non_writeme)
-        )
+        failed_list = "\n".join(f"Incorrect: {f}" for f in sorted(failed))
         print(failed_list)
         print("Rerun writeme.py to update README links and sections.")
     print("WRITEME Run completed.")
     return len(failed)
+
+
+def print_diff(renderer, id):
+    current = renderer.read_current().split("\n")
+    expected = renderer.readme_text.split("\n")
+    diff = unified_diff(current, expected, f"{id}/current", f"{id}/expected")
+    print("\n".join(diff))
 
 
 if __name__ == "__main__":
