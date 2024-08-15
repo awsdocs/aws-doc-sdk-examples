@@ -9,6 +9,7 @@ import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.batch.BatchAsyncClient;
+import software.amazon.awssdk.services.batch.BatchClient;
 import software.amazon.awssdk.services.batch.model.AssignPublicIp;
 import software.amazon.awssdk.services.batch.model.BatchException;
 import software.amazon.awssdk.services.batch.model.CEState;
@@ -175,11 +176,11 @@ public class BatchActions {
 
         CompletableFuture<DescribeComputeEnvironmentsResponse> response = getAsyncClient().describeComputeEnvironments(environmentsRequest);
         response.whenComplete((resp, ex) -> {
-            if (resp != null) {
-                System.out.println("Compute environment status retrieved successfully.");
-            } else {
+            if (ex != null) {
                 String errorMessage = "Unexpected error occurred: " + ex.getMessage();
                 throw new RuntimeException(errorMessage, ex);
+            } else {
+                System.out.println("Compute environment status retrieved successfully.");
             }
         });
 
@@ -269,6 +270,7 @@ public class BatchActions {
      * @param jobDefinitionName the name of the job definition to be registered
      * @param executionRoleARN the ARN (Amazon Resource Name) of the execution role
      *                         that provides permissions for the containers in the job
+     * @param cpuArch a value of either X86_64 or ARM64 required for the service call
      * @return a CompletableFuture that completes with the ARN of the registered
      *         job definition upon successful execution, or completes exceptionally with
      *         an error if the registration fails
@@ -298,7 +300,6 @@ public class BatchActions {
                         .cpuArchitecture(cpuArch)
                         .operatingSystemFamily("LINUX"))
                 .build();
-
 
         RegisterJobDefinitionRequest request = RegisterJobDefinitionRequest.builder()
                 .jobDefinitionName(jobDefinitionName)
@@ -346,7 +347,6 @@ public class BatchActions {
 
         return responseFuture;
     }
-
     // snippet-end:[batch.java2.deregister.job.main]
 
     // snippet-start:[batch.java2.disable.job.queue.main]
@@ -571,6 +571,20 @@ public class BatchActions {
                 throw new RuntimeException("Error while waiting for job queue to be disabled", throwable);
             }
         });
+    }
+
+    public String getJobQueue(String name){
+
+        BatchClient batchClient1 = BatchClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
+
+        DescribeJobQueuesRequest describeJobQueuesRequest = DescribeJobQueuesRequest.builder()
+            .jobQueues(name)
+            .build();
+
+        DescribeJobQueuesResponse describeJobQueuesResponse = batchClient1.describeJobQueues(describeJobQueuesRequest);
+        return describeJobQueuesResponse.jobQueues().get(0).jobQueueArn();
     }
 
     private static String getComputeEnvironmentName(String computeEnvironment) {

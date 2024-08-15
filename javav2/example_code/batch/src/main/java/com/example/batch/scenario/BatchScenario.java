@@ -6,6 +6,8 @@ package com.example.batch.scenario;
 // snippet-start:[batch.java2.scenario.main]
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.services.batch.model.BatchException;
+import software.amazon.awssdk.services.batch.model.ClientException;
 import software.amazon.awssdk.services.batch.model.CreateComputeEnvironmentResponse;
 import software.amazon.awssdk.services.batch.model.JobSummary;
 import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
@@ -71,6 +73,12 @@ public class BatchScenario {
                         
             This scenario provides an example of setting up a compute environment, job queue and job definition, 
             and then submitting a job.
+            
+            This scenario submits a job that pulls a Docker image named echo-text from Amazon ECR to Amazon Fargate.
+            
+            To place this Docker image on Amazon ECR, run the following Basics scenario.
+            
+            https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/ecr
             
             Let's get started...
                         
@@ -160,8 +168,19 @@ public class BatchScenario {
             CreateComputeEnvironmentResponse response = future.join();
             System.out.println("Compute Environment ARN: " + response.computeEnvironmentArn());
         } catch (RuntimeException rte) {
-            logger.error("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
-            return;
+            Throwable cause = rte.getCause();
+            if (cause instanceof ClientException batchExceptionEx) {
+                String myErrorCode = batchExceptionEx.awsErrorDetails().errorMessage();
+                if ("Object already exists".contains(myErrorCode)) {
+                    System.out.println("The compute environment '" + computeEnvironmentName + "' already exists. Moving on...");
+                } else {
+                    System.err.printf("Batch error occurred: %s (Code: %s)%n", batchExceptionEx.getMessage(), batchExceptionEx.awsErrorDetails().errorCode());
+                    return;
+                }
+            } else {
+                System.err.println("An unexpected error occurred: " + (cause != null ? cause.getMessage() : rte.getMessage()));
+                return; // End the execution
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -175,8 +194,14 @@ public class BatchScenario {
             System.out.println("Compute Environment Status: " + status);
 
         } catch (RuntimeException rte) {
-            logger.error("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
-            return;
+            Throwable cause = rte.getCause();
+            if (cause instanceof ClientException batchExceptionEx) {
+                System.err.printf("Batch error occurred: %s (Code: %s)%n", batchExceptionEx.getMessage(), batchExceptionEx.awsErrorDetails().errorCode());
+                return;
+            } else {
+                System.err.println("An unexpected error occurred: " + (cause != null ? cause.getMessage() : rte.getMessage()));
+                return;
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -190,15 +215,28 @@ public class BatchScenario {
              """);
         waitForInputToContinue(scanner);
 
-        String jobQueueArn;
+        String jobQueueArn = null;
         try {
             CompletableFuture<String> jobQueueFuture = batchActions.createJobQueueAsync(jobQueueName, computeEnvironmentName);
             jobQueueArn = jobQueueFuture.join();
             System.out.println("Job Queue ARN: " + jobQueueArn);
 
         } catch (RuntimeException rte) {
-            logger.error("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
-            return;
+            Throwable cause = rte.getCause();
+            if (cause instanceof ClientException batchExceptionEx) {
+                String myErrorCode = batchExceptionEx.awsErrorDetails().errorMessage();
+                if ("Object already exists".contains(myErrorCode)) {
+                    System.out.println("The job queue '" + jobQueueName + "' already exists. Moving on...");
+                    // Retrieve the ARN of the job queue.
+                    jobQueueArn = batchActions.getJobQueue(jobQueueName);
+                } else {
+                    System.err.printf("Batch error occurred: %s (Code: %s)%n", batchExceptionEx.getMessage(), batchExceptionEx.awsErrorDetails().errorCode());
+                    return;
+                }
+            } else {
+                System.err.println("An unexpected error occurred: " + (cause != null ? cause.getMessage() : rte.getMessage()));
+                return; // End the execution
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -215,7 +253,30 @@ public class BatchScenario {
         waitForInputToContinue(scanner);
         String jobARN;
         try {
-            jobARN = batchActions.registerJobDefinitionAsync(jobDefinitionName, executionRoleARN, dockerImage, "X86_64")
+            String platform = "";
+
+            while (true) {
+                System.out.println("""
+                    What platform did you build the Docker image on:
+                    1. Windows 
+                    2. Linux
+                                
+                    Please select 1 or 2.
+                    """);
+                String platAns = scanner.nextLine().trim();
+
+                if (platAns.equals("1")) {
+                    platform = "X86_64";
+                    break; // Exit loop since a valid option is selected
+                } else if (platAns.equals("2")) {
+                    platform = "ARM64";
+                    break; // Exit loop since a valid option is selected
+                } else {
+                    System.out.println("Invalid input. Please select either 1 or 2.");
+                }
+            }
+
+            jobARN = batchActions.registerJobDefinitionAsync(jobDefinitionName, executionRoleARN, dockerImage, platform)
                 .exceptionally(ex -> {
                     System.err.println("Register job definition failed: " + ex.getMessage());
                     return null;
@@ -243,6 +304,8 @@ public class BatchScenario {
                 .join();
 
             System.out.println("The job id is "+jobId);
+            System.out.println("Let's wait 2 minutes for the job to complete");
+            countdown(2);
 
         } catch (RuntimeException rte) {
             logger.error("A Batch exception occurred while submitting the job: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
