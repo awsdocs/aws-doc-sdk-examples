@@ -52,14 +52,9 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Create an Amazon Textract explorer application](python/cross_service/textract_explorer)
 - [Create and publish to a FIFO topic](sns_fifo_topic.py)
 - [Publish an SMS text message](sns_basics.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
 
 
 <!--custom.examples.start-->
@@ -79,6 +74,18 @@ python sns_basics.py
 <!--custom.instructions.end-->
 
 
+
+#### Create an Amazon Textract explorer application
+
+This example shows you how to explore Amazon Textract output through an interactive application.
+
+
+<!--custom.scenario_prereqs.cross_TextractExplorer.start-->
+<!--custom.scenario_prereqs.cross_TextractExplorer.end-->
+
+
+<!--custom.scenarios.cross_TextractExplorer.start-->
+<!--custom.scenarios.cross_TextractExplorer.end-->
 
 #### Create and publish to a FIFO topic
 

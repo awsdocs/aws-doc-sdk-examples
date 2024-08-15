@@ -39,6 +39,13 @@ python -m pip install -r requirements.txt
 - [Hello Auto Scaling](hello/hello_autoscaling.py#L4) (`DescribeAutoScalingGroups`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_groups_and_instances.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -61,7 +68,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Build and manage a resilient service](../../cross_service/resilient_service/runner.py)
-- [Manage groups and instances](scenario_groups_and_instances.py)
 
 
 <!--custom.examples.start-->
@@ -82,6 +88,30 @@ This example shows you how to get started using Auto Scaling.
 ```
 python hello/hello_autoscaling.py
 ```
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create an Amazon EC2 Auto Scaling group with a launch template and Availability Zones, and get information about running instances.
+- Enable Amazon CloudWatch metrics collection.
+- Update the group's desired capacity and wait for an instance to start.
+- Terminate an instance in the group.
+- List scaling activities that occur in response to user requests and capacity changes.
+- Get statistics for CloudWatch metrics, then clean up resources.
+
+<!--custom.basic_prereqs.auto-scaling_Scenario_GroupsAndInstances.start-->
+<!--custom.basic_prereqs.auto-scaling_Scenario_GroupsAndInstances.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenario_groups_and_instances.py
+```
+
+
+<!--custom.basics.auto-scaling_Scenario_GroupsAndInstances.start-->
+<!--custom.basics.auto-scaling_Scenario_GroupsAndInstances.end-->
 
 
 #### Build and manage a resilient service
@@ -109,30 +139,6 @@ python ../../cross_service/resilient_service/runner.py
 Complete details and instructions on how to run this example can be found in the
 [README](../../cross_service/resilient_service/README.md) for the example.
 <!--custom.scenarios.cross_ResilientService.end-->
-
-#### Manage groups and instances
-
-This example shows you how to do the following:
-
-- Create an Amazon EC2 Auto Scaling group with a launch template and Availability Zones, and get information about running instances.
-- Enable Amazon CloudWatch metrics collection.
-- Update the group's desired capacity and wait for an instance to start.
-- Terminate an instance in the group.
-- List scaling activities that occur in response to user requests and capacity changes.
-- Get statistics for CloudWatch metrics, then clean up resources.
-
-<!--custom.scenario_prereqs.auto-scaling_Scenario_GroupsAndInstances.start-->
-<!--custom.scenario_prereqs.auto-scaling_Scenario_GroupsAndInstances.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-python scenario_groups_and_instances.py
-```
-
-
-<!--custom.scenarios.auto-scaling_Scenario_GroupsAndInstances.start-->
-<!--custom.scenarios.auto-scaling_Scenario_GroupsAndInstances.end-->
 
 ### Tests
 

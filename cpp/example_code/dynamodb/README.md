@@ -42,6 +42,13 @@ Next, for information on code example structures and how to build and run the ex
 - [Hello DynamoDB](hello_dynamodb/CMakeLists.txt#L4) (`ListTables`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](dynamodb_utils.cpp)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -66,15 +73,9 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with tables, items, and queries](dynamodb_utils.cpp)
+- [Create a serverless application to manage photos](cpp/example_code/cross-service/photo_asset_manager)
 - [Query a table by using batches of PartiQL statements](dynamodb_utils.cpp)
 - [Query a table using PartiQL](dynamodb_utils.cpp)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create a serverless application to manage photos](../../example_code/cross-service/photo_asset_manager)
 
 
 <!--custom.examples.start-->
@@ -105,8 +106,7 @@ folder.
 This example shows you how to get started using DynamoDB.
 
 
-
-#### Get started with tables, items, and queries
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -117,12 +117,25 @@ This example shows you how to do the following:
 - Scan for movies that were released in a range of years.
 - Delete a movie from the table, then delete the table.
 
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
 
 
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.end-->
+
+
+#### Create a serverless application to manage photos
+
+This example shows you how to create a serverless application that lets users manage photos using labels.
+
+
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
 
 #### Query a table by using batches of PartiQL statements
 

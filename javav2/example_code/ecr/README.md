@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 - [Hello Amazon ECR](src/main/java/com/example/ecr/HelloECR.java#L6) (`listImages`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/java/com/example/ecr/scenario/ECRScenario.java)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -47,13 +54,6 @@ Code excerpts that show you how to call individual service functions.
 - [PushImageCmd](src/main/java/com/example/ecr/scenario/ECRActions.java#L451)
 - [SetRepositoryPolicy](src/main/java/com/example/ecr/scenario/ECRActions.java#L396)
 - [StartLifecyclePolicyPreview](src/main/java/com/example/ecr/scenario/ECRActions.java#L244)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Learn Amazon ECR core operations](src/main/java/com/example/ecr/scenario/ECRScenario.java)
 
 
 <!--custom.examples.start-->
@@ -72,8 +72,7 @@ functions within the same service.
 This example shows you how to get started using Amazon ECR.
 
 
-
-#### Learn Amazon ECR core operations
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -87,12 +86,13 @@ This example shows you how to do the following:
 - List Amazon ECR repositories for your account and get details about them.
 - Delete Amazon ECR repositories.
 
-<!--custom.scenario_prereqs.ecr_Scenario_RepositoryManagement.start-->
-<!--custom.scenario_prereqs.ecr_Scenario_RepositoryManagement.end-->
+<!--custom.basic_prereqs.ecr_Scenario_RepositoryManagement.start-->
+<!--custom.basic_prereqs.ecr_Scenario_RepositoryManagement.end-->
 
 
-<!--custom.scenarios.ecr_Scenario_RepositoryManagement.start-->
-<!--custom.scenarios.ecr_Scenario_RepositoryManagement.end-->
+<!--custom.basics.ecr_Scenario_RepositoryManagement.start-->
+<!--custom.basics.ecr_Scenario_RepositoryManagement.end-->
+
 
 ### Tests
 

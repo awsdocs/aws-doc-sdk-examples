@@ -34,6 +34,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 - [Hello Step Functions](Actions/HelloStepFunctions.cs#L4) (`ListStateMachines`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/UIMethods.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -50,13 +57,6 @@ Code excerpts that show you how to call individual service functions.
 - [ListStateMachines](Actions/StepFunctionsWrapper.cs#L204)
 - [SendTaskSuccess](Actions/StepFunctionsWrapper.cs#L225)
 - [StartExecution](Actions/StepFunctionsWrapper.cs#L243)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with state machines](Scenarios/UIMethods.cs)
 
 
 <!--custom.examples.start-->
@@ -92,8 +92,7 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using Step Functions.
 
 
-
-#### Get started with state machines
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -102,12 +101,13 @@ This example shows you how to do the following:
 - Run the state machine and respond to the activity with user input.
 - Get the final status and output after the run completes, then clean up resources.
 
-<!--custom.scenario_prereqs.sfn_Scenario_GetStartedStateMachines.start-->
-<!--custom.scenario_prereqs.sfn_Scenario_GetStartedStateMachines.end-->
+<!--custom.basic_prereqs.sfn_Scenario_GetStartedStateMachines.start-->
+<!--custom.basic_prereqs.sfn_Scenario_GetStartedStateMachines.end-->
 
 
-<!--custom.scenarios.sfn_Scenario_GetStartedStateMachines.start-->
-<!--custom.scenarios.sfn_Scenario_GetStartedStateMachines.end-->
+<!--custom.basics.sfn_Scenario_GetStartedStateMachines.start-->
+<!--custom.basics.sfn_Scenario_GetStartedStateMachines.end-->
+
 
 ### Tests
 

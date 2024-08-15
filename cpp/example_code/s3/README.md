@@ -42,6 +42,13 @@ Next, for information on code example structures and how to build and run the ex
 - [Hello Amazon S3](hello_s3/CMakeLists.txt#L4) (`ListBuckets`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](s3_getting_started_scenario.cpp)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -77,14 +84,8 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a presigned URL](presigned_get_object.cpp)
-- [Get started with buckets and objects](s3_getting_started_scenario.cpp)
+- [Create a serverless application to manage photos](cpp/example_code/cross-service/photo_asset_manager)
 - [Work with Amazon S3 object integrity](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create a serverless application to manage photos](../../example_code/cross-service/photo_asset_manager)
 
 
 <!--custom.examples.start-->
@@ -115,6 +116,23 @@ folder.
 This example shows you how to get started using Amazon S3.
 
 
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
 
 #### Create a presigned URL
 
@@ -128,22 +146,17 @@ This example shows you how to create a presigned URL for Amazon S3 and upload an
 <!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
 <!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
 
-#### Get started with buckets and objects
+#### Create a serverless application to manage photos
 
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+This example shows you how to create a serverless application that lets users manage photos using labels.
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
 
 #### Work with Amazon S3 object integrity
 

@@ -29,6 +29,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `aws-c
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](get_started_with_ec2_instances.sh)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -52,13 +59,6 @@ Code excerpts that show you how to call individual service functions.
 - [StopInstances](ec2_operations.sh#L815)
 - [TerminateInstances](ec2_operations.sh#L1252)
 
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with instances](get_started_with_ec2_instances.sh)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -72,8 +72,7 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Get started with instances
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -83,12 +82,13 @@ This example shows you how to do the following:
 - Associate an Elastic IP address with your instance.
 - Connect to your instance with SSH, then clean up resources.
 
-<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.end-->
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.end-->
 
 
-<!--custom.scenarios.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.scenarios.ec2_Scenario_GetStartedInstances.end-->
+<!--custom.basics.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basics.ec2_Scenario_GetStartedInstances.end-->
+
 
 ### Tests
 

@@ -51,15 +51,10 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Create a serverless application to manage photos](dotnetv3/cross-service/PhotoAssetManager)
+- [Create an application to analyze customer feedback](dotnetv3/cross-service/FeedbackSentimentAnalyzer)
 - [Get started with functions](Actions/LambdaWrapper.cs)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
-- [Create an application to analyze customer feedback](../cross-service/FeedbackSentimentAnalyzer)
-- [Transform data with S3 Object Lambda](../cross-service/S3ObjectLambdaFunction)
+- [Transform data with S3 Object Lambda](dotnetv3/cross-service/S3ObjectLambdaFunction)
 
 
 <!--custom.examples.start-->
@@ -96,6 +91,30 @@ This example shows you how to get started using Lambda.
 
 
 
+#### Create a serverless application to manage photos
+
+This example shows you how to create a serverless application that lets users manage photos using labels.
+
+
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
+
+#### Create an application to analyze customer feedback
+
+This example shows you how to create an application that analyzes customer comment cards, translates them from their original language, determines their sentiment, and generates an audio file from the translated text.
+
+
+<!--custom.scenario_prereqs.cross_FSA.start-->
+<!--custom.scenario_prereqs.cross_FSA.end-->
+
+
+<!--custom.scenarios.cross_FSA.start-->
+<!--custom.scenarios.cross_FSA.end-->
+
 #### Get started with functions
 
 This example shows you how to do the following:
@@ -131,6 +150,18 @@ The scenario includes the following settings in `settings.json`:
  * `RoleName` - The name of the IAM role that gives the scenario permissions to access Lambda.
  * `PolicyArn` - The Amazon Resource Name (ARN) of a policy giving the IAM role permissions to access Lambda.
 <!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+
+#### Transform data with S3 Object Lambda
+
+This example shows you how to transform data for your application with S3 Object Lambda.
+
+
+<!--custom.scenario_prereqs.cross_ServerlessS3DataTransformation.start-->
+<!--custom.scenario_prereqs.cross_ServerlessS3DataTransformation.end-->
+
+
+<!--custom.scenarios.cross_ServerlessS3DataTransformation.start-->
+<!--custom.scenarios.cross_ServerlessS3DataTransformation.end-->
 
 ### Tests
 

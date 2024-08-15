@@ -29,6 +29,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](zcl_aws1_s3_scenario.clas.abap)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -40,13 +47,6 @@ Code excerpts that show you how to call individual service functions.
 - [GetObject](zcl_aws1_s3_actions.clas.abap#L148)
 - [ListObjectsV2](zcl_aws1_s3_actions.clas.abap#L191)
 - [PutObject](zcl_aws1_s3_actions.clas.abap#L211)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with buckets and objects](zcl_aws1_s3_scenario.clas.abap)
 
 
 <!--custom.examples.start-->
@@ -61,8 +61,7 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Get started with buckets and objects
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -72,12 +71,13 @@ This example shows you how to do the following:
 - List the objects in a bucket.
 - Delete the bucket objects and the bucket.
 
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
 
 ### Tests
 

@@ -41,6 +41,13 @@ plan, the SubscriptionRequiredException error message appears. For information a
 - [Hello Support](Actions/HelloSupport.cs#L6) (`DescribeServices`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/SupportCaseScenario.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -54,13 +61,6 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeServices](Actions/SupportWrapper.cs#L23)
 - [DescribeSeverityLevels](Actions/SupportWrapper.cs#L43)
 - [ResolveCase](Actions/SupportWrapper.cs#L241)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with cases](Scenarios/SupportCaseScenario.cs)
 
 
 <!--custom.examples.start-->
@@ -96,8 +96,7 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using Support.
 
 
-
-#### Get started with cases
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -109,12 +108,13 @@ This example shows you how to do the following:
 - Resolve the case.
 - Get and display a list of resolved cases for the current day.
 
-<!--custom.scenario_prereqs.support_Scenario_GetStartedSupportCases.start-->
-<!--custom.scenario_prereqs.support_Scenario_GetStartedSupportCases.end-->
+<!--custom.basic_prereqs.support_Scenario_GetStartedSupportCases.start-->
+<!--custom.basic_prereqs.support_Scenario_GetStartedSupportCases.end-->
 
 
-<!--custom.scenarios.support_Scenario_GetStartedSupportCases.start-->
-<!--custom.scenarios.support_Scenario_GetStartedSupportCases.end-->
+<!--custom.basics.support_Scenario_GetStartedSupportCases.start-->
+<!--custom.basics.support_Scenario_GetStartedSupportCases.end-->
+
 
 ### Tests
 

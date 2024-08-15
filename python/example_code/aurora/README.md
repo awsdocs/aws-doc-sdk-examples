@@ -39,6 +39,13 @@ python -m pip install -r requirements.txt
 - [Hello Aurora](hello/hello_aurora.py#L4) (`DescribeDBClusters`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_get_started_aurora.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -64,14 +71,8 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with DB clusters](scenario_get_started_aurora.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create a lending library REST API](../../cross_service/aurora_rest_lending_library)
-- [Create an Aurora Serverless work item tracker](../../cross_service/aurora_item_tracker)
+- [Create a lending library REST API](python/cross_service/aurora_rest_lending_library)
+- [Create an Aurora Serverless work item tracker](python/cross_service/aurora_item_tracker)
 
 
 <!--custom.examples.start-->
@@ -93,8 +94,7 @@ This example shows you how to get started using Aurora.
 python hello/hello_aurora.py
 ```
 
-
-#### Get started with DB clusters
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -103,8 +103,8 @@ This example shows you how to do the following:
 - Create a DB instance that contains a database.
 - Take a snapshot of the DB cluster, then clean up resources.
 
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -113,8 +113,33 @@ python scenario_get_started_aurora.py
 ```
 
 
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.end-->
+
+
+#### Create a lending library REST API
+
+This example shows you how to create a lending library where patrons can borrow and return books by using a REST API backed by an Amazon Aurora database.
+
+
+<!--custom.scenario_prereqs.cross_AuroraRestLendingLibrary.start-->
+<!--custom.scenario_prereqs.cross_AuroraRestLendingLibrary.end-->
+
+
+<!--custom.scenarios.cross_AuroraRestLendingLibrary.start-->
+<!--custom.scenarios.cross_AuroraRestLendingLibrary.end-->
+
+#### Create an Aurora Serverless work item tracker
+
+This example shows you how to create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_RDSDataTracker.start-->
+<!--custom.scenario_prereqs.cross_RDSDataTracker.end-->
+
+
+<!--custom.scenarios.cross_RDSDataTracker.start-->
+<!--custom.scenarios.cross_RDSDataTracker.end-->
 
 ### Tests
 

@@ -39,6 +39,13 @@ python -m pip install -r requirements.txt
 - [Hello Amazon RDS](hello/hello_rds.py#L4) (`DescribeDBInstances`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_get_started_instances.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -61,13 +68,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with DB instances](scenario_get_started_instances.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create an Aurora Serverless work item tracker](../../cross_service/aurora_item_tracker)
+- [Create an Aurora Serverless work item tracker](python/cross_service/aurora_item_tracker)
 
 
 <!--custom.examples.start-->
@@ -89,8 +90,7 @@ This example shows you how to get started using Amazon RDS.
 python hello/hello_rds.py
 ```
 
-
-#### Get started with DB instances
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -99,8 +99,8 @@ This example shows you how to do the following:
 - Take a snapshot of the instance.
 - Delete the instance and parameter group.
 
-<!--custom.scenario_prereqs.rds_Scenario_GetStartedInstances.start-->
-<!--custom.scenario_prereqs.rds_Scenario_GetStartedInstances.end-->
+<!--custom.basic_prereqs.rds_Scenario_GetStartedInstances.start-->
+<!--custom.basic_prereqs.rds_Scenario_GetStartedInstances.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -109,8 +109,21 @@ python scenario_get_started_instances.py
 ```
 
 
-<!--custom.scenarios.rds_Scenario_GetStartedInstances.start-->
-<!--custom.scenarios.rds_Scenario_GetStartedInstances.end-->
+<!--custom.basics.rds_Scenario_GetStartedInstances.start-->
+<!--custom.basics.rds_Scenario_GetStartedInstances.end-->
+
+
+#### Create an Aurora Serverless work item tracker
+
+This example shows you how to create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_RDSDataTracker.start-->
+<!--custom.scenario_prereqs.cross_RDSDataTracker.end-->
+
+
+<!--custom.scenarios.cross_RDSDataTracker.start-->
+<!--custom.scenarios.cross_RDSDataTracker.end-->
 
 ### Tests
 

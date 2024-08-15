@@ -39,6 +39,13 @@ To run these examples, you must have the following three JSON files: jsonWidgets
 - [Hello CloudWatch](src/main/kotlin/com/kotlin/cloudwatch/HelloService.kt#L11) (`ListMetrics`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -62,13 +69,6 @@ Code excerpts that show you how to call individual service functions.
 - [PutMetricAlarm](src/main/kotlin/com/kotlin/cloudwatch/PutMetricAlarm.kt#L44)
 - [PutMetricData](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt#L491)
 
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with metrics, dashboards, and alarms](src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -86,8 +86,7 @@ functions within the same service.
 This example shows you how to get started using CloudWatch.
 
 
-
-#### Get started with metrics, dashboards, and alarms
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -99,12 +98,13 @@ This example shows you how to do the following:
 - Add an anomaly detector.
 - Get a metric image, then clean up resources.
 
-<!--custom.scenario_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
-<!--custom.scenario_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
+<!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
+<!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
 
 
-<!--custom.scenarios.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
-<!--custom.scenarios.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
+<!--custom.basics.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
+<!--custom.basics.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
+
 
 ### Tests
 

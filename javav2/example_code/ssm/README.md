@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 - [Hello Systems Manager](src/main/java/com/example/ssm/HelloSSM.java#L6) (`listThings`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/java/com/example/scenario/SSMScenario.java)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -49,13 +56,6 @@ Code excerpts that show you how to call individual service functions.
 - [SendCommand](src/main/java/com/example/scenario/SSMActions.java#L385)
 - [UpdateMaintenanceWindow](src/main/java/com/example/scenario/SSMActions.java#L532)
 - [UpdateOpsItem](src/main/java/com/example/scenario/SSMActions.java#L170)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with Systems Manager](src/main/java/com/example/scenario/SSMScenario.java)
 
 
 <!--custom.examples.start-->
@@ -87,18 +87,18 @@ Define these values to successfully run the JUnit tests:
 This example shows you how to get started using Systems Manager.
 
 
-
-#### Get started with Systems Manager
+#### Learn the basics
 
 This example shows you how to work with Systems Manager maintenance windows, documents, and OpsItems.
 
 
-<!--custom.scenario_prereqs.ssm_Scenario.start-->
-<!--custom.scenario_prereqs.ssm_Scenario.end-->
+<!--custom.basic_prereqs.ssm_Scenario.start-->
+<!--custom.basic_prereqs.ssm_Scenario.end-->
 
 
-<!--custom.scenarios.ssm_Scenario.start-->
-<!--custom.scenarios.ssm_Scenario.end-->
+<!--custom.basics.ssm_Scenario.start-->
+<!--custom.basics.ssm_Scenario.end-->
+
 
 ### Tests
 

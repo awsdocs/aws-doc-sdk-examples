@@ -29,6 +29,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/kotlin/com/kotlin/s3/S3Operations.kt)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -52,7 +59,6 @@ functions within the same service.
 
 - [Create a presigned URL](src/main/kotlin/com/kotlin/s3/PresigningExamples.kt)
 - [Get an object from a Multi-Region Access Point](src/main/kotlin/com/kotlin/s3/MrapExample.kt)
-- [Get started with buckets and objects](src/main/kotlin/com/kotlin/s3/S3Operations.kt)
 
 
 <!--custom.examples.start-->
@@ -71,6 +77,23 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
 
 
 #### Create a presigned URL
@@ -96,23 +119,6 @@ This example shows you how to get an object from a Multi-Region Access Point.
 
 <!--custom.scenarios.s3_GetObject_MRAP.start-->
 <!--custom.scenarios.s3_GetObject_MRAP.end-->
-
-#### Get started with buckets and objects
-
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
-
-
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
 
 ### Tests
 

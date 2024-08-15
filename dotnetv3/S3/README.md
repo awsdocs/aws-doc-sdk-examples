@@ -29,6 +29,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](S3_Basics/S3_Basics.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -71,22 +78,16 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a presigned URL](GenPresignedURLExample/GenPresignedUrl.cs)
-- [Get started with buckets and objects](S3_Basics/S3_Basics.cs)
+- [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
+- [Detect objects in images](../cross-service/PhotoAnalyzerApp)
 - [Get started with encryption](SSEClientEncryptionExample/SSEClientEncryption.cs)
 - [Get started with tags](ObjectTagExample/ObjectTag.cs)
 - [Get the legal hold configuration of an object](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ActionsWrapper.cs)
 - [Lock Amazon S3 objects](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ObjectLockWorkflow.cs)
 - [Manage access control lists (ACLs)](ManageACLsExample/ManageACLs.cs)
 - [Perform a multipart copy](MPUapiCopyObjExample/MPUapiCopyObj.cs)
-- [Upload or download large files](scenarios/TransferUtilityBasics/TransferUtilityBasics/TransferBasics.cs)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
-- [Detect objects in images](../cross-service/PhotoAnalyzerApp)
 - [Transform data with S3 Object Lambda](../cross-service/S3ObjectLambdaFunction)
+- [Upload or download large files](scenarios/TransferUtilityBasics/TransferUtilityBasics/TransferBasics.cs)
 
 
 <!--custom.examples.start-->
@@ -118,6 +119,23 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.end-->
 
 
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
 
 #### Create a presigned URL
 
@@ -131,22 +149,29 @@ This example shows you how to create a presigned URL for Amazon S3 and upload an
 <!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
 <!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
 
-#### Get started with buckets and objects
+#### Create a serverless application to manage photos
 
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+This example shows you how to create a serverless application that lets users manage photos using labels.
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
+
+#### Detect objects in images
+
+This example shows you how to build an app that uses Amazon Rekognition to detect objects by category in images.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.end-->
+
+
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.end-->
 
 #### Get started with encryption
 
@@ -219,6 +244,18 @@ This example shows you how to perform a multipart copy of an Amazon S3 object.
 
 <!--custom.scenarios.s3_MultipartCopy.start-->
 <!--custom.scenarios.s3_MultipartCopy.end-->
+
+#### Transform data with S3 Object Lambda
+
+This example shows you how to transform data for your application with S3 Object Lambda.
+
+
+<!--custom.scenario_prereqs.cross_ServerlessS3DataTransformation.start-->
+<!--custom.scenario_prereqs.cross_ServerlessS3DataTransformation.end-->
+
+
+<!--custom.scenarios.cross_ServerlessS3DataTransformation.start-->
+<!--custom.scenarios.cross_ServerlessS3DataTransformation.end-->
 
 #### Upload or download large files
 
