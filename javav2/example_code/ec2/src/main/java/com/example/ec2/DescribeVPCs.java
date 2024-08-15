@@ -31,12 +31,12 @@ public class DescribeVPCs {
                    vpcId - A  VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f).\s
                 """;
 
-        if (args.length != 1) {
-            System.out.println(usage);
-            return;
-        }
+        //if (args.length != 1) {
+        //    System.out.println(usage);
+        //    return;
+       // }
 
-        String vpcId = args[0];
+        String vpcId = "vpc-e97a4393" ; //args[0];
         Ec2AsyncClient ec2AsyncClient = Ec2AsyncClient.builder()
             .region(Region.US_EAST_1)
             .build();
@@ -44,7 +44,6 @@ public class DescribeVPCs {
         try {
             CompletableFuture<Void> future = describeEC2VpcsAsync(ec2AsyncClient, vpcId);
             future.join();
-            System.out.println("VPCs described successfully.");
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
         }
@@ -62,24 +61,27 @@ public class DescribeVPCs {
             .vpcIds(vpcId)
             .build();
 
-        // Fetch VPCs asynchronously.
+
         CompletableFuture<DescribeVpcsResponse> response = ec2AsyncClient.describeVpcs(request);
         response.whenComplete((vpcsResponse, ex) -> {
-            if (vpcsResponse != null) {
+            if (ex != null) {
+                throw new RuntimeException("Failed to describe EC2 VPCs.", ex);
+            } else if (vpcsResponse == null || vpcsResponse.vpcs().isEmpty()) {
+                throw new RuntimeException("No EC2 VPCs found.");
+            } else {
+                // Process the response if no exception occurred and the result is not empty
                 vpcsResponse.vpcs().forEach(vpc -> System.out.printf(
                     "Found VPC with id %s, " +
-                        "vpc state %s " +
+                        "vpc state %s, " +
                         "and tenancy %s%n",
                     vpc.vpcId(),
                     vpc.stateAsString(),
                     vpc.instanceTenancyAsString()
                 ));
-            } else {
-                throw new RuntimeException("Failed to describe EC2 VPCs.", ex);
             }
         });
 
-        // Return CompletableFuture<Void> to signify the async operation's completion.
+        // Return CompletableFuture<Void> to signify the async operation's completion
         return response.thenApply(resp -> null);
     }
 }

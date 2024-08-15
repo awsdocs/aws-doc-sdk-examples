@@ -28,7 +28,6 @@ public class DescribeReservedInstances {
         try {
             CompletableFuture<Void> future = describeReservedEC2InstancesAsync(ec2AsyncClient);
             future.join(); // Wait for the async operation to complete.
-            System.out.println("Reserved EC2 Instances described successfully.");
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
         }
@@ -45,8 +44,17 @@ public class DescribeReservedInstances {
      */
     public static CompletableFuture<Void> describeReservedEC2InstancesAsync(Ec2AsyncClient ec2AsyncClient) {
         CompletableFuture<DescribeReservedInstancesResponse> response = ec2AsyncClient.describeReservedInstances();
+
+        // Handle the response or exception.
         response.whenComplete((reservedInstancesResponse, ex) -> {
-            if (reservedInstancesResponse != null) {
+            if (ex != null) {
+                // Handle the exception by throwing a RuntimeException
+                throw new RuntimeException("Failed to describe EC2 reserved instances.", ex);
+            } else if (reservedInstancesResponse == null || reservedInstancesResponse.reservedInstances().isEmpty()) {
+                // Throw an exception if the response is null or the result is empty
+                throw new RuntimeException("No EC2 reserved instances found.");
+            } else {
+                // Process the response if no exception occurred and the result is not empty
                 reservedInstancesResponse.reservedInstances().forEach(instance -> {
                     System.out.printf(
                         "Found a Reserved Instance with id %s, " +
@@ -58,12 +66,10 @@ public class DescribeReservedInstances {
                         instance.instanceType(),
                         instance.state().name());
                 });
-            } else {
-                throw new RuntimeException("Failed to describe EC2 reserved instances.", ex);
             }
         });
 
-        // Return CompletableFuture<Void> to signify the async operation's completion.
+        // Return CompletableFuture<Void> to signify the async operation's completion
         return response.thenApply(resp -> null);
     }
 

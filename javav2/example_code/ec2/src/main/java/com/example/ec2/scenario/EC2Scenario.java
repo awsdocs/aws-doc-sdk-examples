@@ -401,8 +401,7 @@ public class EC2Scenario {
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<DeleteKeyPairResponse> future = ec2Actions.deleteKeysAsync(keyName);
-            future.join(); // Wait for the operation to complete
-            System.out.println("Key pair deletion completed.");
+            future.join();
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
             return;

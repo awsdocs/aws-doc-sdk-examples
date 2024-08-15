@@ -7,7 +7,6 @@ package com.example.ec2;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
 import software.amazon.awssdk.services.ec2.model.*;
-
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -41,13 +40,12 @@ public class GetPasswordData {
 
         try {
             CompletableFuture<Void> future = getPasswordDataAsync(ec2AsyncClient, instanceId);
-            future.join(); // Wait for the async operation to complete.
-            System.out.println("Password data retrieved successfully.");
+            future.join();
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
         }
-
     }
+
     /**
      * Fetches the password data for the specified EC2 instance asynchronously.
      *
@@ -61,14 +59,19 @@ public class GetPasswordData {
             .instanceId(instanceId)
             .build();
 
-        // Fetch password data asynchronously.
+
         CompletableFuture<GetPasswordDataResponse> response = ec2AsyncClient.getPasswordData(getPasswordDataRequest);
         response.whenComplete((getPasswordDataResponse, ex) -> {
-            if (getPasswordDataResponse != null) {
+            if (ex != null) {
+                // Handle the exception by throwing a RuntimeException.
+                throw new RuntimeException("Failed to get password data for instance: " + instanceId, ex);
+            } else if (getPasswordDataResponse == null || getPasswordDataResponse.passwordData().isEmpty()) {
+                // Throw an exception if the response is null or no password data is returned.
+                throw new RuntimeException("No password data found for instance: " + instanceId);
+            } else {
+                // Process the response if no exception occurred and password data is not empty.
                 String encryptedPasswordData = getPasswordDataResponse.passwordData();
                 System.out.println("Encrypted Password Data: " + encryptedPasswordData);
-            } else {
-                throw new RuntimeException("Failed to get password data for instance: " + instanceId, ex);
             }
         });
 

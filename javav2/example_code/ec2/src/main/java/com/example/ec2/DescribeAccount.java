@@ -27,7 +27,7 @@ public class DescribeAccount {
 
         try {
             CompletableFuture<DescribeAccountAttributesResponse> future = describeEC2AccountAsync(ec2AsyncClient);
-            future.join(); // Get the value.
+            future.join();
             System.out.println("EC2 Account attributes described successfully.");
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
@@ -42,19 +42,22 @@ public class DescribeAccount {
      */
     public static CompletableFuture<DescribeAccountAttributesResponse> describeEC2AccountAsync(Ec2AsyncClient ec2AsyncClient) {
         CompletableFuture<DescribeAccountAttributesResponse> response = ec2AsyncClient.describeAccountAttributes();
-        response.whenComplete((accountResults, ex) -> {
-            if (accountResults != null) {
-                accountResults.accountAttributes().forEach(attribute -> {
-                    System.out.print("\n The name of the attribute is " + attribute.attributeName());
-                    attribute.attributeValues().forEach(
-                        myValue -> System.out.print("\n The value of the attribute is " + myValue.attributeValue()));
-                });
-            } else {
+        return response.whenComplete((accountResults, ex) -> {
+            if (ex != null) {
+                // Handle the exception by throwing a RuntimeException.
                 throw new RuntimeException("Failed to describe EC2 account attributes.", ex);
+            } else if (accountResults == null || accountResults.accountAttributes().isEmpty()) {
+                // Throw an exception if the response is null or no account attributes are found.
+                throw new RuntimeException("No account attributes found.");
+            } else {
+                // Process the response if no exception occurred.
+                accountResults.accountAttributes().forEach(attribute -> {
+                    System.out.println("\nThe name of the attribute is " + attribute.attributeName());
+                    attribute.attributeValues().forEach(
+                        myValue -> System.out.println("The value of the attribute is " + myValue.attributeValue()));
+                });
             }
         });
-
-        return response;
     }
 }
 // snippet-end:[ec2.java2.describe_account.main]

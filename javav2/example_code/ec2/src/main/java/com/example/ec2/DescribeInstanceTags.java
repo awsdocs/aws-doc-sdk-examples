@@ -32,20 +32,19 @@ public class DescribeInstanceTags {
                    resourceId - The instance ID value that you can obtain from the AWS Management Console (for example, i-xxxxxx0913e05f482).\s
                 """;
 
-        if (args.length != 1) {
-            System.out.println(usage);
-            return;
-        }
+        //if (args.length != 1) {
+        //    System.out.println(usage);
+        //    return;
+        //}
 
-        String resourceId = args[0];
+        String resourceId = "i-02b5d8780ff01f37a" ; //args[0];
         Ec2AsyncClient ec2AsyncClient = Ec2AsyncClient.builder()
             .region(Region.US_EAST_1)
             .build();
 
         try {
-            CompletableFuture<Void> future = describeEC2TagsAsync(ec2AsyncClient, resourceId);
-            future.join(); // Wait for the async process to complete.
-            System.out.println("EC2 Tags described successfully.");
+            CompletableFuture<DescribeTagsResponse> future = describeEC2TagsAsync(ec2AsyncClient, resourceId);
+            future.join();
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
         }
@@ -55,10 +54,10 @@ public class DescribeInstanceTags {
      * Asynchronously describes the tags associated with the specified Amazon EC2 resource.
      *
      * @param ec2AsyncClient the Amazon EC2 asynchronous client
-     * @param resourceId the ID of the Amazon EC2 resource
+     * @param resourceId     the ID of the Amazon EC2 resource
      * @return a {@link CompletableFuture} that completes when the tags have been described, or with an exception if the operation fails
      */
-    public static CompletableFuture<Void> describeEC2TagsAsync(Ec2AsyncClient ec2AsyncClient, String resourceId) {
+    public static  CompletableFuture<DescribeTagsResponse> describeEC2TagsAsync(Ec2AsyncClient ec2AsyncClient, String resourceId) {
         Filter filter = Filter.builder()
             .name("resource-id")
             .values(resourceId)
@@ -66,16 +65,27 @@ public class DescribeInstanceTags {
 
         CompletableFuture<DescribeTagsResponse> response = ec2AsyncClient.describeTags(
             DescribeTagsRequest.builder().filters(filter).build());
+
+        // Handle the response or exception
         response.whenComplete((tagsResponse, ex) -> {
-            if (tagsResponse != null) {
-                tagsResponse.tags().forEach(tag ->
-                    System.out.println("Tag key is: " + tag.key() + " Tag value is: " + tag.value()));
-            } else {
+            if (ex != null) {
+                // Handle the exception by throwing a RuntimeException.
                 throw new RuntimeException("Failed to describe EC2 tags.", ex);
+            } else if (tagsResponse == null || tagsResponse.tags().isEmpty()) {
+                // Throw an exception if the response is null or the result is empty (no tags found).
+                throw new RuntimeException("No EC2 tags found for the resource.");
+            } else {
+                // Process the response if no exception occurred and the result is not empty.
+                tagsResponse.tags().forEach(tag -> {
+                    System.out.printf(
+                        "Tag key is: %s, Tag value is: %s%n",
+                        tag.key(),
+                        tag.value());
+                });
             }
         });
 
-       return response.thenApply(resp -> null);
+        return response;
     }
 }
 // snippet-end:[ec2.java2.describe_tags.main]

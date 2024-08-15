@@ -19,6 +19,7 @@ import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairRequest;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupRequest;
+import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeImagesRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeImagesResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeInstanceTypesRequest;
@@ -45,6 +46,8 @@ import software.amazon.awssdk.services.ec2.model.TerminateInstancesRequest;
 import software.amazon.awssdk.services.ssm.SsmAsyncClient;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathRequest;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathResponse;
+import software.amazon.awssdk.services.ec2.model.TerminateInstancesResponse;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -105,16 +108,18 @@ public class EC2Actions {
             .keyName(keyPair)
             .build();
 
+        // Initiate the asynchronous request to delete the key pair.
         CompletableFuture<DeleteKeyPairResponse> response = getAsyncClient().deleteKeyPair(request);
-        response.whenComplete((resp, ex) -> {
-            if (resp != null) {
-                System.out.println("Successfully deleted key pair named " + keyPair);
+        return response.whenComplete((resp, ex) -> {
+            if (ex != null) {
+                throw new RuntimeException("Failed to delete key pair: " + keyPair, ex);
+            } else if (resp == null) {
+                throw new RuntimeException("No response received for deleting key pair: " + keyPair);
             } else {
-                throw new RuntimeException("Failed to delete key pair: " + ex.getMessage(), ex);
+                // Process the response if no exception occurred.
+                System.out.println("Successfully deleted key pair named " + keyPair);
             }
         });
-
-        return response;
     }
     // snippet-end:[ec2.java2.delete_key_pair.main]
 
@@ -127,18 +132,23 @@ public class EC2Actions {
      * @return a CompletableFuture that completes when the security group is deleted
      */
     public CompletableFuture<Void> deleteEC2SecGroupAsync(String groupId) {
+        // Build the request for deleting the security group.
         DeleteSecurityGroupRequest request = DeleteSecurityGroupRequest.builder()
             .groupId(groupId)
             .build();
 
-        return getAsyncClient().deleteSecurityGroup(request)
-            .thenAccept(response -> {
+        // Initiate the asynchronous request to delete the security group.
+        CompletableFuture<DeleteSecurityGroupResponse> response = getAsyncClient().deleteSecurityGroup(request);
+        return response.whenComplete((resp, ex) -> {
+            if (ex != null) {
+                throw new RuntimeException("Failed to delete security group with Id " + groupId, ex);
+            } else if (resp == null) {
+                throw new RuntimeException("No response received for deleting security group with Id " + groupId);
+            } else {
+                // Process the response if no exception occurred.
                 System.out.println("Successfully deleted security group with Id " + groupId);
-            })
-            .exceptionally(ex -> {
-                System.err.println("Failed to delete security group: " + ex.getMessage());
-                throw new RuntimeException("Failed to delete security group", ex);
-            });
+            }
+        }).thenApply(resp -> null);
     }
     // snippet-end:[ec2.java2.delete_security_group.main]
 
@@ -154,18 +164,23 @@ public class EC2Actions {
             .instanceIds(instanceId)
             .build();
 
-        return getAsyncClient().terminateInstances(terminateRequest)
+        CompletableFuture<TerminateInstancesResponse> response = getAsyncClient().terminateInstances(terminateRequest);
+        return response
             .thenCompose(terminateResponse -> {
+                if (terminateResponse == null) {
+                    throw new RuntimeException("No response received for terminating instance " + instanceId);
+                }
                 return pollInstanceTerminationStatus(instanceId);
             })
-            .thenAccept(response -> {
-                System.out.println("Successfully terminated instance " + instanceId);
-                System.out.println(response);
+            .whenComplete((pollResponse, ex) -> {
+                if (ex != null) {
+                    throw new RuntimeException("Failed to terminate instance: " + instanceId, ex);
+                } else {
+                    System.out.println("Successfully terminated instance " + instanceId);
+                    System.out.println(pollResponse);
+                }
             })
-            .exceptionally(ex -> {
-                System.err.println("Failed to terminate instance: " + ex.getMessage());
-                throw new RuntimeException("Failed to terminate instance", ex);
-            });
+            .thenApply(resp -> null);
     }
     // snippet-end:[ec2.java2.terminate_instance]
 
@@ -211,11 +226,9 @@ public class EC2Actions {
         CompletableFuture<ReleaseAddressResponse> response = ec2.releaseAddress(request);
         response.whenComplete((resp, ex) -> {
             if (ex != null) {
-                // Handle exceptions
                 System.err.println("Failed to release Elastic IP address: " + ex.getMessage());
                 throw new RuntimeException("Failed to release Elastic IP address", ex);
             } else {
-                // Log success
                 System.out.println("Successfully released Elastic IP address " + allocId);
             }
         });
@@ -226,8 +239,7 @@ public class EC2Actions {
 
     // snippet-start:[ec2.java2.scenario.disassociate_address.main]
     public CompletableFuture<DisassociateAddressResponse> disassociateAddressAsync(String associationId) {
-        Ec2AsyncClient ec2 = getAsyncClient(); // Assuming getAsyncClient() returns an Ec2AsyncClient
-
+        Ec2AsyncClient ec2 = getAsyncClient();
         DisassociateAddressRequest addressRequest = DisassociateAddressRequest.builder()
             .associationId(associationId)
             .build();
@@ -236,11 +248,9 @@ public class EC2Actions {
         CompletableFuture<DisassociateAddressResponse> response = ec2.disassociateAddress(addressRequest);
         response.whenComplete((resp, ex) -> {
             if (ex != null) {
-                // Handle exceptions
                 System.err.println("Failed to disassociate address: " + ex.getMessage());
                 throw new RuntimeException("Failed to disassociate address", ex);
             } else {
-                // Log success
                 System.out.println("Successfully disassociated the address!");
             }
         });
@@ -265,14 +275,17 @@ public class EC2Actions {
             .allocationId(allocationId)
             .build();
 
-        // Associate the address asynchronously.
         return getAsyncClient().associateAddress(associateRequest)
             .thenApply(response -> {
-                // Return the association ID from the response/
-                return response.associationId();
+                if (response.associationId() != null) {
+                    System.out.printf("Successfully associated address with allocation ID %s to instance %s. Association ID: %s%n",
+                       allocationId, instanceId, response.associationId());
+                    return response.associationId();
+                } else {
+                    throw new RuntimeException("Association ID is null after associating address.");
+                }
             })
             .exceptionally(throwable -> {
-                // Handle exceptions
                 System.err.println("Failed to associate address: " + throwable.getMessage());
                 throw new RuntimeException("Failed to associate address", throwable);
             });
@@ -293,7 +306,6 @@ public class EC2Actions {
         // Allocate the address asynchronously.
         return getAsyncClient().allocateAddress(allocateRequest)
             .thenApply(response -> {
-                // Return the allocation ID from the response.
                 return response.allocationId();
             })
             .exceptionally(throwable -> {
@@ -442,9 +454,27 @@ public class EC2Actions {
             .instanceIds(newInstanceId)
             .build();
 
-        CompletableFuture<String> resultFuture = new CompletableFuture<>();
-        checkInstanceState(request, resultFuture);
-        return resultFuture;
+        return getAsyncClient().describeInstances(request)
+            .thenApply(response -> {
+                if (response == null || response.reservations().isEmpty()) {
+                    throw new RuntimeException("No instances found for the given instance ID: " + newInstanceId);
+                }
+
+                return response.reservations().stream()
+                    .flatMap(reservation -> reservation.instances().stream())
+                    .filter(instance -> instance.instanceId().equals(newInstanceId))
+                    .findFirst()
+                    .map(instance -> {
+                        // Return instance details or any other necessary information.
+                        return instance.instanceId();
+                    })
+                    .orElseThrow(() -> new RuntimeException("Instance with ID " + newInstanceId + " not found."));
+            })
+            .exceptionally(ex -> {
+                // Log the error and rethrow it as a RuntimeException.
+                System.err.println("Failed to describe instances: " + ex.getMessage());
+                throw new RuntimeException("Failed to describe instances", ex);
+            });
     }
 
     /**

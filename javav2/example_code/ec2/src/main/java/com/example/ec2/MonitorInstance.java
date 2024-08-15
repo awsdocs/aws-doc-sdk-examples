@@ -8,7 +8,9 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
 import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.MonitorInstancesRequest;
+import software.amazon.awssdk.services.ec2.model.MonitorInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.UnmonitorInstancesRequest;
+import software.amazon.awssdk.services.ec2.model.UnmonitorInstancesResponse;
 
 import java.util.concurrent.CompletableFuture;
 // snippet-end:[ec2.java2.monitor_instance.import]
@@ -64,43 +66,53 @@ public class MonitorInstance {
      * @return a {@link CompletableFuture} representing the asynchronous operation of enabling monitoring for the specified instance
      */
     public static CompletableFuture<Void> monitorInstanceAsync(Ec2AsyncClient ec2AsyncClient, String instanceId) {
+        // Create the MonitorInstancesRequest with the specified instance ID.
         MonitorInstancesRequest request = MonitorInstancesRequest.builder()
             .instanceIds(instanceId)
             .build();
 
-        // Monitor instances asynchronously
-        CompletableFuture<Void> response = ec2AsyncClient.monitorInstances(request)
-            .whenComplete((result, ex) -> {
-                if (result != null) {
-                    System.out.printf("Successfully enabled monitoring for instance %s%n", instanceId);
-                } else {
-                    throw new RuntimeException("Failed to enable monitoring for instance: " + instanceId, ex);
-                }
-            })
-            .thenApply(result -> null);
+        // Initiate the asynchronous request to monitor the instance.
+        CompletableFuture<MonitorInstancesResponse> response = ec2AsyncClient.monitorInstances(request);
+        response.whenComplete((result, ex) -> {
+            if (ex != null) {
+                // Handle the exception by throwing a RuntimeException.
+                throw new RuntimeException("Failed to enable monitoring for instance: " + instanceId, ex);
+            } else if (result == null || result.instanceMonitorings().isEmpty()) {
+                // Throw an exception if the response is null or monitoring was not enabled.
+                throw new RuntimeException("No monitoring information returned for instance: " + instanceId);
+            } else {
+                // Process the response if no exception occurred and monitoring information is available.
+                System.out.printf("Successfully enabled monitoring for instance %s%n", instanceId);
+            }
+        });
 
-        return response;
+        // Return CompletableFuture<Void> to signify the async operation's completion.
+        return response.thenApply(result -> null);
     }
     // snippet-end:[ec2.java2.monitor_instance.main]
 
     // snippet-start:[ec2.java2.monitor_instance.stop]
     public static CompletableFuture<Void> unmonitorInstanceAsync(Ec2AsyncClient ec2AsyncClient, String instanceId) {
+        // Create the UnmonitorInstancesRequest with the specified instance ID.
         UnmonitorInstancesRequest request = UnmonitorInstancesRequest.builder()
             .instanceIds(instanceId)
             .build();
 
-        // Unmonitor instances asynchronously
-        CompletableFuture<Void> response = ec2AsyncClient.unmonitorInstances(request)
-            .whenComplete((result, ex) -> {
-                if (result != null) {
-                    System.out.printf("Successfully disabled monitoring for instance %s%n", instanceId);
-                } else {
-                    throw new RuntimeException("Failed to disable monitoring for instance: " + instanceId, ex);
-                }
-            })
-            .thenApply(result -> null);
+        CompletableFuture<UnmonitorInstancesResponse> response = ec2AsyncClient.unmonitorInstances(request);
+        response.whenComplete((result, ex) -> {
+            if (ex != null) {
+                throw new RuntimeException("Failed to disable monitoring for instance: " + instanceId, ex);
+            } else if (result == null || result.instanceMonitorings().isEmpty()) {
+                // Throw an exception if the response is null or monitoring was not disabled.
+                throw new RuntimeException("No monitoring information returned for instance: " + instanceId);
+            } else {
+                // Process the response if no exception occurred and monitoring information is available.
+                System.out.printf("Successfully disabled monitoring for instance %s%n", instanceId);
+            }
+        });
 
-        return response;
+        // Return CompletableFuture<Void> to signify the async operation's completion.
+        return response.thenApply(result -> null);
     }
     // snippet-end:[ec2.java2.monitor_instance.stop]
 }

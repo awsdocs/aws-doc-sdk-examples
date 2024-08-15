@@ -7,10 +7,8 @@ package com.example.ec2;
 // snippet-start:[ec2.java2.reboot_instance.import]
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
-import software.amazon.awssdk.services.ec2.Ec2Client;
 import software.amazon.awssdk.services.ec2.model.RebootInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.RebootInstancesRequest;
-
 import java.util.concurrent.CompletableFuture;
 // snippet-end:[ec2.java2.reboot_instance.import]
 
@@ -64,18 +62,18 @@ public class RebootInstance {
             .instanceIds(instanceId)
             .build();
 
-        // Reboot instance asynchronously
+        // Initiate the asynchronous request to reboot the instance.
         CompletableFuture<RebootInstancesResponse> response = ec2AsyncClient.rebootInstances(request);
-        response.whenComplete((result, ex) -> {
-            if (result != null) {
-                System.out.printf("Successfully rebooted instance %s%n", instanceId);
-            } else {
+        return response.whenComplete((result, ex) -> {
+            if (ex != null) {
                 throw new RuntimeException("Failed to reboot instance: " + instanceId, ex);
+            } else if (result == null) {
+                throw new RuntimeException("No response received for rebooting instance: " + instanceId);
+            } else {
+                // Process the response if no exception occurred.
+                System.out.printf("Successfully rebooted instance %s%n", instanceId);
             }
-        });
-
-        // Return CompletableFuture<Void> to signify the async operation's completion.
-        return response.thenApply(resp -> null);
+        }).thenApply(result -> null); // Return CompletableFuture<Void> to signify completion.
     }
 }
 // snippet-end:[ec2.java2.reboot_instance.main]

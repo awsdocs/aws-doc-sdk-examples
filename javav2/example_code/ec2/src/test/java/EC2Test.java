@@ -1,24 +1,21 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import com.example.ec2.*;
 import com.example.ec2.scenario.EC2Actions;
 import com.example.ec2.scenario.EC2Scenario;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.services.ec2.Ec2Client;
 import java.io.*;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeKeyPairsResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
+import software.amazon.awssdk.services.ec2.model.KeyPairInfo;
+import software.amazon.awssdk.services.ec2.model.SecurityGroup;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
@@ -32,18 +29,13 @@ import software.amazon.awssdk.services.ssm.model.Parameter;
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EC2Test {
-    private static String instanceId = "";
-    private static String ami = "";
-    private static String instanceName = "";
+
     private static String keyName = "";
     private static String groupName = "";
     private static String groupDesc = "";
     private static String groupId = "";
-    private static String vpcId = "";
     private static String keyNameSc = "";
     private static String fileNameSc = "";
-    private static String groupDescSc = "";
-    private static String groupNameSc = "";
     private static String vpcIdSc = "";
     private static String myIpAddressSc = "";
 
@@ -52,56 +44,20 @@ public class EC2Test {
     private static EC2Actions ec2Actions;
 
     @BeforeAll
-    public static void setUp() throws IOException {
-
-
+    public static void setUp() {
         ec2Actions = new EC2Actions();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        ami = values.getAmi();
-        instanceName = values.getInstanceName();
-        keyName = values.getKeyNameSc();
+         keyName = values.getKeyNameSc();
         groupName = values.getGroupName() + java.util.UUID.randomUUID();
         groupDesc = values.getGroupDesc();
-        vpcId = values.getVpcId();
         keyNameSc = values.getKeyNameSc() + java.util.UUID.randomUUID();
         fileNameSc = values.getFileNameSc();
-        groupDescSc = values.getGroupDescSc();
-        groupNameSc = values.getGroupDescSc() + java.util.UUID.randomUUID();
         vpcIdSc = values.getVpcIdSc();
         myIpAddressSc = values.getMyIpAddressSc();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * try (InputStream input =
-         * EC2Test.class.getClassLoader().getResourceAsStream("config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * prop.load(input);
-         * ami = prop.getProperty("ami");
-         * instanceName = prop.getProperty("instanceName");
-         * keyName = prop.getProperty("keyPair")+ java.util.UUID.randomUUID();
-         * groupName= prop.getProperty("groupName")+ java.util.UUID.randomUUID();;
-         * groupDesc= prop.getProperty("groupDesc");
-         * vpcId= prop.getProperty("vpcId");
-         * keyNameSc= prop.getProperty("keyNameSc")+ java.util.UUID.randomUUID();
-         * fileNameSc= prop.getProperty("fileNameSc");
-         * groupDescSc= prop.getProperty("groupDescSc");
-         * groupNameSc= prop.getProperty("groupNameSc")+ java.util.UUID.randomUUID();;
-         * vpcIdSc= prop.getProperty("vpcIdSc");
-         * myIpAddressSc= prop.getProperty("myIpAddressSc");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
@@ -111,11 +67,21 @@ public class EC2Test {
         try {
             CompletableFuture<CreateKeyPairResponse> future = ec2Actions.createKeyPairAsync(keyNameSc, fileNameSc);
             CreateKeyPairResponse response = future.join();
+
+            // Assert that the response is not null.
+            Assertions.assertNotNull(response, "The response should not be null");
+
+            // Assert specific properties of the response
+            Assertions.assertNotNull(response.keyFingerprint(), "The key fingerprint should not be null");
+            Assertions.assertFalse(response.keyFingerprint().isEmpty(), "The key fingerprint should not be empty");
             System.out.println("Key Pair successfully created. Key Fingerprint: " + response.keyFingerprint());
+
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            Assertions.fail("Test failed due to an unexpected exception: " + rte.getMessage());
         }
-        System.out.println("\n Test 2 passed");
+
+        System.out.println("Test 1 passed");
     }
 
 
@@ -123,55 +89,94 @@ public class EC2Test {
     @Tag("IntegrationTest")
     @Order(2)
     public void createInstance() {
-        String vpcId = "vpc-e97a4393";
-        String myIpAddress = "72.21.198.66" ;
-        String groupId= "";
         try {
-            CompletableFuture<String> future = ec2Actions.createSecurityGroupAsync(groupName, groupDesc, vpcId, myIpAddress);
+            CompletableFuture<String> future = ec2Actions.createSecurityGroupAsync(groupName, groupDesc, vpcIdSc, myIpAddressSc);
             groupId = future.join();
+
+            // Assert that the security group ID is not null or empty
+            Assertions.assertNotNull(groupId, "The security group ID should not be null");
+            Assertions.assertFalse(groupId.isEmpty(), "The security group ID should not be empty");
+
             System.out.println("Created security group with ID: " + groupId);
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+            Assertions.fail("Test failed due to an unexpected exception while creating security group: " + rte.getMessage());
         }
 
-        String instanceId="";
+
+         String instanceId ="";
         try {
             CompletableFuture<GetParametersByPathResponse> future = ec2Actions.getParaValuesAsync();
             GetParametersByPathResponse pathResponse = future.join();
+
+            // Assert that the pathResponse is not null
+            Assertions.assertNotNull(pathResponse, "The response from getParaValuesAsync should not be null");
+
             List<Parameter> parameterList = pathResponse.parameters();
+            Assertions.assertFalse(parameterList.isEmpty(), "Parameter list should not be empty");
+
             for (Parameter para : parameterList) {
                 if (EC2Scenario.filterName(para.name())) {
                     instanceId = para.value();
                     break;
                 }
             }
+
+            // Assert that instanceId is found and not empty
+            Assertions.assertNotNull(instanceId, "The instance ID should not be null");
+            Assertions.assertFalse(instanceId.isEmpty(), "The instance ID should not be empty");
+
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+            Assertions.fail("Test failed due to an unexpected exception while retrieving parameters: " + rte.getMessage());
         }
 
-        String amiValue;
-        CompletableFuture<String> futureImage = ec2Actions.describeImageAsync(instanceId);
-        amiValue = futureImage.join();
-        System.out.println("Image ID: {}"+ amiValue);
 
+        String amiValue="";
+        try {
+            CompletableFuture<String> futureImage = ec2Actions.describeImageAsync(instanceId);
+            amiValue = futureImage.join();
 
-        String instanceType;
-        CompletableFuture<String> futureInstanceType = ec2Actions.getInstanceTypesAsync();
+            // Assert that the AMI value is not null or empty
+            Assertions.assertNotNull(amiValue, "The AMI value should not be null");
+            Assertions.assertFalse(amiValue.isEmpty(), "The AMI value should not be empty");
+
+            System.out.println("Image ID: " + amiValue);
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            Assertions.fail("Test failed due to an unexpected exception while describing image: " + rte.getMessage());
+        }
+
+        String instanceType="";
+        try {
+            CompletableFuture<String> futureInstanceType = ec2Actions.getInstanceTypesAsync();
             instanceType = futureInstanceType.join();
-            if (!instanceType.isEmpty()) {
-                System.out.println("Found instance type: " + instanceType);
-            } else {
-                System.out.println("Desired instance type not found.");
-            }
 
+            // Assert that the instance type is not null or empty
+            Assertions.assertNotNull(instanceType, "The instance type should not be null");
+            Assertions.assertFalse(instanceType.isEmpty(), "The instance type should not be empty");
 
-        CompletableFuture<String> future = ec2Actions.runInstanceAsync(instanceType, keyNameSc, groupName, amiValue);
-        newInstanceId = future.join(); // Get the instance ID.
-        System.out.println("EC2 instance ID: "+ newInstanceId);
+            System.out.println("Found instance type: " + instanceType);
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            Assertions.fail("Test failed due to an unexpected exception while getting instance type: " + rte.getMessage());
+        }
 
-        System.out.println("\n Test 1 passed");
+        try {
+            CompletableFuture<String> future = ec2Actions.runInstanceAsync(instanceType, keyName, groupName, amiValue);
+            newInstanceId = future.join(); // Get the instance ID.
+
+            // Assert that the new instance ID is not null or empty
+            Assertions.assertNotNull(newInstanceId, "The new instance ID should not be null");
+            Assertions.assertFalse(newInstanceId.isEmpty(), "The new instance ID should not be empty");
+
+            System.out.println("EC2 instance ID: " + newInstanceId);
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            Assertions.fail("Test failed due to an unexpected exception while running instance: " + rte.getMessage());
+        }
+
+        System.out.println("\n Test 2 passed");
     }
 
 
@@ -181,11 +186,28 @@ public class EC2Test {
     public void describeKeyPair() {
         try {
             CompletableFuture<DescribeKeyPairsResponse> future = ec2Actions.describeKeysAsync();
-            future.join();
+            DescribeKeyPairsResponse response = future.join();
+
+            // Assert that the response is not null
+            Assertions.assertNotNull(response, "The response from describeKeysAsync should not be null");
+
+            // Assert that the key pairs list is not null or empty
+            List<KeyPairInfo> keyPairs = response.keyPairs();
+            Assertions.assertNotNull(keyPairs, "The key pairs list should not be null");
+            Assertions.assertFalse(keyPairs.isEmpty(), "The key pairs list should not be empty");
+
+            // Optionally, you can print out the details of each key pair
+            keyPairs.forEach(keyPair ->
+                System.out.println("Key Pair Name: " + keyPair.keyName() + ", Key Fingerprint: " + keyPair.keyFingerprint())
+            );
+
             System.out.println("Successfully described key pairs.");
+
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            Assertions.fail("Test failed due to an unexpected exception while describing key pairs: " + rte.getMessage());
         }
+
         System.out.println("Test 3 passed");
     }
 
@@ -195,13 +217,17 @@ public class EC2Test {
     public void deleteKeyPair() {
         try {
             CompletableFuture<DeleteKeyPairResponse> future = ec2Actions.deleteKeysAsync(keyNameSc);
-            future.join(); // Wait for the operation to complete
+            DeleteKeyPairResponse response = future.join();
+
+            // Assert that the response is not null.
+            Assertions.assertNotNull(response, "The response from deleteKeysAsync should not be null");
             System.out.println("Key pair deletion completed.");
 
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+            Assertions.fail("Test failed due to an unexpected exception while deleting key pair: " + rte.getMessage());
         }
+
         System.out.println("\n Test 4 passed");
     }
 
@@ -211,55 +237,67 @@ public class EC2Test {
     public void describeSecurityGroup() {
         try {
             CompletableFuture<DescribeSecurityGroupsResponse> future = ec2Actions.describeSecurityGroupsAsync(groupId);
-            future.join();
-            System.out.println("Security groups described successfully.");
+            DescribeSecurityGroupsResponse response = future.join(); // Wait for the operation to complete
+
+            // Assert that the response is not null
+            Assertions.assertNotNull(response, "The response from describeSecurityGroupsAsync should not be null");
+
+            // Assert that the security groups list is not null or empty
+            List<SecurityGroup> securityGroups = response.securityGroups();
+            Assertions.assertNotNull(securityGroups, "The security groups list should not be null");
+            Assertions.assertFalse(securityGroups.isEmpty(), "The security groups list should not be empty");
 
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            Assertions.fail("Test failed due to an unexpected exception while describing security groups: " + rte.getMessage());
         }
+
         System.out.println("\n Test 5 passed");
     }
 
-    @Test
-    @Tag("IntegrationTest")
-    @Order(7)
-    public void deleteSecurityGroup() {
-        try {
-            CompletableFuture<Void> future = ec2Actions.deleteEC2SecGroupAsync(groupId);
-            future.join(); // Wait for the operation to complete
-            System.out.println("Security group successfully deleted.");
-        } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
-        }
-    }
-
 
     @Test
     @Tag("IntegrationTest")
-    @Order(9)
+    @Order(6)
     public void describeInstances() {
         try {
             CompletableFuture<String> future = ec2Actions.describeEC2InstancesAsync(newInstanceId);
             String publicIp = future.join();
+
+            // Assert that the public IP is not null or empty.
+            Assertions.assertNotNull(publicIp, "The public IP should not be null");
+            Assertions.assertFalse(publicIp.isEmpty(), "The public IP should not be empty");
             System.out.println("EC2 instance public IP: " + publicIp);
 
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
-            return;
+            Assertions.fail("Test failed due to an unexpected exception while describing EC2 instances: " + rte.getMessage());
         }
+        System.out.println("\n Test 6 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
-    @Order(14)
+    @Order(8)
     public void terminateInstance() {
-        System.out.println("ID is " +newInstanceId);
-        CompletableFuture<Void> future = ec2Actions.terminateEC2Async(newInstanceId);
-        future.join();
-        System.out.println("EC2 instance successfully terminated.");
+        try {
+            System.out.println("Instance ID is: " + newInstanceId);
+            CompletableFuture<Void> future = ec2Actions.terminateEC2Async(newInstanceId);
+            future.join(); // Wait for the operation to complete
 
+            // Since the operation returns void, reaching this point indicates success.
+            System.out.println("EC2 instance successfully terminated.");
+
+        } catch (RuntimeException rte) {
+            // Handle any runtime exceptions and fail the test if one occurs
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            Assertions.fail("Test failed due to an unexpected exception while terminating the EC2 instance: " + rte.getMessage());
+        }
+
+        // Confirm that the test passed
+        System.out.println("\n Test 8 passed");
     }
+
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
