@@ -118,8 +118,7 @@ class KeyPairWrapper:
                     f"The key pair '{key_name}' does not exist and cannot be deleted. "
                     "Please verify the key pair name and try again."
                 )
-                return False
-        raise
+                raise
 
     # snippet-end:[python.example_code.ec2.DeleteKeyPair]
 
