@@ -1,0 +1,96 @@
+scheduler_hello:
+  title: Hello &EVS;
+  title_abbrev: Hello &EVS;
+  synopsis: get started using &EVS;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: some
+              snippet_tags:
+                - Scheduler.dotnetv3.HelloScheduler
+  services:
+    scheduler: {ListSchedules}
+scheduler_CreateSchedule:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.CreateSchedule
+  services:
+    scheduler: {CreateSchedule}
+scheduler_CreateScheduleGroup:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.CreateScheduleGroup
+  services:
+    scheduler: {CreateScheduleGroup}
+scheduler_DeleteSchedule:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.DeleteSchedule
+  services:
+    scheduler: {DeleteSchedule}
+scheduler_DeleteScheduleGroup:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description:
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.DeleteScheduleGroup
+  services:
+    scheduler: {DeleteScheduleGroup}
+scheduler_ScheduledEventsWorkflow:
+  title: A complete &EVS; Scheduled Events workflow using an &AWS; SDK
+  title_abbrev: Scheduled Events workflow
+  synopsis_list:
+    - Deploy a &CFN; stack with required resources.
+    - Create a &EVS; schedule group.
+    - Create a one-time &EVS; schedule with a flexible time window.
+    - Create a recurring &EVS; schedule with a specified rate.
+    - Delete &EVS; the schedule and schedule group.
+    - Clean up resources and delete the stack.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge Scheduler
+          excerpts:
+            - description: Run the workflow.
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.SchedulerWorkflow
+            - description: Wrapper for service operations.
+              genai: most
+              snippet_tags:
+                - Scheduler.dotnetv3.SchedulerWrapper
+  services:
+    scheduler: {CreateSchedule, CreateScheduleGroup, DeleteSchedule, DeleteScheduleGroups}
