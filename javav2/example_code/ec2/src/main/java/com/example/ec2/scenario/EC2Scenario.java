@@ -119,8 +119,9 @@ public class EC2Scenario {
             CompletableFuture<CreateKeyPairResponse> future = ec2Actions.createKeyPairAsync(keyName, fileName);
             CreateKeyPairResponse response = future.join();
             System.out.println("Key Pair successfully created. Key Fingerprint: " + response.keyFingerprint());
-        } catch (CompletionException ce) {
-            Throwable cause = ce.getCause();
+
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 if ("InvalidKeyPair.Duplicate".equals(ec2Ex.awsErrorDetails().errorCode())) {
                     // Key pair already exists.
@@ -171,7 +172,7 @@ public class EC2Scenario {
             CompletableFuture<String> future = ec2Actions.createSecurityGroupAsync(groupName, groupDesc, vpcId, myIpAddress);
             groupId = future.join();
             System.out.println("Created security group with ID: " + groupId);
-        } catch (CompletionException ce) {
+        } catch (RuntimeException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
