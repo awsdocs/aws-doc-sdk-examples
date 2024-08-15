@@ -31,31 +31,31 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Amazon EC2](src/main/java/com/example/ec2/scenario/EC2Actions.java#L628) (`DescribeSecurityGroups`)
+- [Hello Amazon EC2](src/main/java/com/example/ec2/scenario/EC2Actions.java#L658) (`DescribeSecurityGroups`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [AllocateAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L282)
-- [AssociateAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L253)
-- [AuthorizeSecurityGroupIngress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L661)
-- [CreateKeyPair](src/main/java/com/example/ec2/scenario/EC2Actions.java#L740)
-- [CreateSecurityGroup](src/main/java/com/example/ec2/scenario/EC2Actions.java#L661)
-- [DeleteKeyPair](src/main/java/com/example/ec2/scenario/EC2Actions.java#L94)
-- [DeleteSecurityGroup](src/main/java/com/example/ec2/scenario/EC2Actions.java#L122)
-- [DescribeInstanceTypes](src/main/java/com/example/ec2/scenario/EC2Actions.java#L522)
-- [DescribeInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L569)
-- [DescribeKeyPairs](src/main/java/com/example/ec2/scenario/EC2Actions.java#L716)
-- [DescribeSecurityGroups](src/main/java/com/example/ec2/scenario/EC2Actions.java#L629)
-- [DisassociateAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L227)
+- [AllocateAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L295)
+- [AssociateAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L263)
+- [AuthorizeSecurityGroupIngress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L691)
+- [CreateKeyPair](src/main/java/com/example/ec2/scenario/EC2Actions.java#L770)
+- [CreateSecurityGroup](src/main/java/com/example/ec2/scenario/EC2Actions.java#L691)
+- [DeleteKeyPair](src/main/java/com/example/ec2/scenario/EC2Actions.java#L97)
+- [DeleteSecurityGroup](src/main/java/com/example/ec2/scenario/EC2Actions.java#L127)
+- [DescribeInstanceTypes](src/main/java/com/example/ec2/scenario/EC2Actions.java#L552)
+- [DescribeInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L599)
+- [DescribeKeyPairs](src/main/java/com/example/ec2/scenario/EC2Actions.java#L746)
+- [DescribeSecurityGroups](src/main/java/com/example/ec2/scenario/EC2Actions.java#L659)
+- [DisassociateAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L240)
 - [GetPasswordData](src/main/java/com/example/ec2/GetPasswordData.java#L6)
-- [ReleaseAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L197)
-- [RunInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L483)
-- [StartInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L306)
-- [StopInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L371)
-- [TerminateInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L145)
+- [ReleaseAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L212)
+- [RunInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L513)
+- [StartInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L318)
+- [StopInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L383)
+- [TerminateInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L155)
 
 ### Scenarios
 
