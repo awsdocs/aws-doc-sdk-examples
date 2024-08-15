@@ -8,9 +8,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.batch.model.CreateComputeEnvironmentResponse;
 import software.amazon.awssdk.services.batch.model.JobSummary;
+import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
+import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsRequest;
+import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
+import software.amazon.awssdk.services.ec2.model.DescribeSubnetsRequest;
+import software.amazon.awssdk.services.ec2.model.DescribeSubnetsResponse;
+import software.amazon.awssdk.services.ec2.model.DescribeVpcsRequest;
+import software.amazon.awssdk.services.ec2.model.Filter;
+import software.amazon.awssdk.services.ec2.model.SecurityGroup;
+import software.amazon.awssdk.services.ec2.model.Subnet;
+import software.amazon.awssdk.services.ec2.model.Vpc;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
@@ -34,34 +46,22 @@ public class BatchScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
 
     // Define two stacks used in this Basics Scenario.
-    private static final String STACK_NAME = "BatchStack4";
+    private static final String ROLES_STACK = "RolesStack";
+    private static String defaultSubnet;
+    private static String defaultSecurityGroup;
 
-    private static final String STACK_ECR = "EcsStack";
+ //   private static final String STACK_ECR = "EcsStack";
 
     private static final Logger logger = LoggerFactory.getLogger(BatchScenario.class);
 
     public static void main(String[] args) throws InterruptedException {
-        final String usage = """
-                Usage:
-                    <subnet> <secGroup> 
-
-                Where:
-                    subnet - The name of the subnet.
-                    secGroup - The name of the security group.
-                """;
-
-      //  if (args.length != 2) {
-      //      System.out.println(usage);
-      //      System.exit(1);
-      //  }
 
         BatchActions batchActions = new BatchActions();
         Scanner scanner = new Scanner(System.in);
-        String computeEnvironmentName = "my-compute-environment" ;
+        String computeEnvironmentName = "my-compute-environment-" + UUID.randomUUID();
         String jobQueueName = "my-job-queue";
         String jobDefinitionName = "my-job-definition";
-        String subnet = "subnet-ef28c6b0" ; //args[0] ;
-        String secGroup = "sg-0d2f3836b8750d1bf" ; //args[1];
+
 
         // See the NOTE in this Java code example (at start).
         String dockerImage = "dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text";
@@ -108,7 +108,7 @@ public class BatchScenario {
                     System.err.println("Failed to disable compute environment: " + ex.getMessage());
                 }
                 countdown(2);
-                batchActions.deleteComputeEnvironmentAsync(computeEnvironmentName);
+                batchActions.deleteComputeEnvironmentAsync(computeEnvironmentName).join();
                 return;
             } else {
                 // Handle invalid input.
@@ -125,21 +125,21 @@ public class BatchScenario {
         accountIdFuture.thenAccept(accountId -> {
             System.out.println("Account ID: " + accountId);
             accId[0] = accountId;
-        });
+        }).join();
 
         dockerImage = accId[0]+"."+dockerImage;
 
+        // Get a default subnet and default security associated with the default VPC
+        getSubnetSecurityGroup();
+
         System.out.println("Use AWS CloudFormation to create two IAM roles that are required for this scenario.");
-        CloudFormationHelper.deployCloudFormationStack(STACK_NAME);
-        CloudFormationHelper.deployCloudFormationStack(STACK_ECR);
+        CloudFormationHelper.deployCloudFormationStack(ROLES_STACK);
 
-        Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputs(STACK_NAME);
-        Map<String, String> stackOutputECR = CloudFormationHelper.getStackOutputs(STACK_ECR);
+        Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputs(ROLES_STACK);
         String batchIAMRole = stackOutputs.get("BatchRoleArn");
-        String executionRoleARN = stackOutputECR.get("EcsRoleArn");
+        String executionRoleARN = stackOutputs.get("EcsRoleArn");
 
-        System.out.println("The IAM role needed to interact wit AWS Batch is "+batchIAMRole);
-        System.out.println("The second IAM role needed to interact wit AWS ECR is "+executionRoleARN);
+        System.out.println("The IAM role needed to interact with AWS Batch is "+batchIAMRole);
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -158,7 +158,7 @@ public class BatchScenario {
 
         waitForInputToContinue(scanner);
         try {
-            CompletableFuture<CreateComputeEnvironmentResponse> future = batchActions.createComputeEnvironmentAsync(computeEnvironmentName, batchIAMRole, subnet, secGroup);
+            CompletableFuture<CreateComputeEnvironmentResponse> future = batchActions.createComputeEnvironmentAsync(computeEnvironmentName, batchIAMRole, defaultSubnet, defaultSecurityGroup);
             CreateComputeEnvironmentResponse response = future.join();
             System.out.println("Compute Environment ARN: " + response.computeEnvironmentArn());
         } catch (RuntimeException rte) {
@@ -344,7 +344,7 @@ public class BatchScenario {
                 logger.error("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
                 return;
             }
-            System.out.println("Lets wait 2 mins for the job queue to be deleted");
+            System.out.println("Let's wait 2 minutes for the job queue to be deleted");
             countdown(2);
             waitForInputToContinue(scanner);
 
@@ -370,15 +370,14 @@ public class BatchScenario {
             countdown(1);
 
             try {
-                batchActions.deleteComputeEnvironmentAsync(computeEnvironmentName);
+                batchActions.deleteComputeEnvironmentAsync(computeEnvironmentName).join();
 
             } catch (RuntimeException rte) {
                 logger.error("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
                 return;
             }
             waitForInputToContinue(scanner);
-            CloudFormationHelper.destroyCloudFormationStack(STACK_NAME);
-            CloudFormationHelper.destroyCloudFormationStack(STACK_ECR);
+            CloudFormationHelper.destroyCloudFormationStack(ROLES_STACK);
         }
 
         System.out.println(DASHES);
@@ -412,6 +411,57 @@ public class BatchScenario {
             Thread.sleep(1000); // Wait for 1 second
         }
         System.out.println("Countdown complete!");
+    }
+
+    private static void getSubnetSecurityGroup() {
+        try (Ec2AsyncClient ec2Client = Ec2AsyncClient.create()) {
+            CompletableFuture<Vpc> defaultVpcFuture = ec2Client.describeVpcs(DescribeVpcsRequest.builder()
+                            .filters(Filter.builder()
+                                    .name("is-default")
+                                    .values("true")
+                                    .build())
+                            .build())
+                    .thenApply(response -> response.vpcs().stream()
+                            .findFirst()
+                            .orElseThrow(() -> new RuntimeException("Default VPC not found")));
+
+            CompletableFuture<String> defaultSubnetFuture = defaultVpcFuture
+                    .thenCompose(vpc -> ec2Client.describeSubnets(DescribeSubnetsRequest.builder()
+                                    .filters(Filter.builder()
+                                                    .name("vpc-id")
+                                                    .values(vpc.vpcId())
+                                                    .build(),
+                                            Filter.builder()
+                                                    .name("default-for-az")
+                                                    .values("true")
+                                                    .build())
+                                    .build())
+                            .thenApply(DescribeSubnetsResponse::subnets)
+                            .thenApply(subnets -> subnets.stream()
+                                    .findFirst()
+                                    .map(Subnet::subnetId)
+                                    .orElseThrow(() -> new RuntimeException("No default subnet found"))));
+
+            CompletableFuture<String> defaultSecurityGroupFuture = defaultVpcFuture
+                    .thenCompose(vpc -> ec2Client.describeSecurityGroups(DescribeSecurityGroupsRequest.builder()
+                                    .filters(Filter.builder()
+                                                    .name("group-name")
+                                                    .values("default")
+                                                    .build(),
+                                            Filter.builder()
+                                                    .name("vpc-id")
+                                                    .values(vpc.vpcId())
+                                                    .build())
+                                    .build())
+                            .thenApply(DescribeSecurityGroupsResponse::securityGroups)
+                            .thenApply(securityGroups -> securityGroups.stream()
+                                    .findFirst()
+                                    .map(SecurityGroup::groupId)
+                                    .orElseThrow(() -> new RuntimeException("No default security group found"))));
+
+            defaultSubnet = defaultSubnetFuture.join();
+            defaultSecurityGroup = defaultSecurityGroupFuture.join();
+        }
     }
 }
 // snippet-end:[batch.java2.scenario.main]

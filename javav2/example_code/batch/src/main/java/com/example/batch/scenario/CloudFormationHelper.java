@@ -1,5 +1,7 @@
 package com.example.batch.scenario;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudformation.CloudFormationAsyncClient;
 import software.amazon.awssdk.services.cloudformation.CloudFormationClient;
@@ -22,6 +24,8 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class CloudFormationHelper {
+    private static final String CFN_TEMPLATE = "BatchRoles-template.yaml";
+    private static final Logger logger = LoggerFactory.getLogger(CloudFormationHelper.class);
 
     private static CloudFormationAsyncClient getCloudFormationClient() {
         CloudFormationAsyncClient cfClient = CloudFormationAsyncClient.builder()
@@ -36,19 +40,10 @@ public class CloudFormationHelper {
         boolean doesExist = describeStack(stackName);
         if (!doesExist) {
             try {
-                String resourcePath;
-                if (stackName.compareTo("BatchStack4") == 0) {
-                    resourcePath = "BatchStack-template.yaml";
-                } else {
-                    resourcePath = "EcsStack-template.yaml";
-                }
-                // Load the resource as a stream and read its contents
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                Path filePath = Paths.get(classLoader.getResource(resourcePath).toURI());
+                Path filePath = Paths.get(classLoader.getResource(CFN_TEMPLATE).toURI());
                 templateBody = Files.readString(filePath);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (URISyntaxException e) {
+            } catch (IOException | URISyntaxException e) {
                 throw new RuntimeException(e);
             }
 
@@ -74,6 +69,8 @@ public class CloudFormationHelper {
                         throw new RuntimeException(t.getCause().getMessage(), t);
                     }
                 }).join();
+        } else {
+            logger.info("{} stack already exists", CFN_TEMPLATE);
         }
     }
 

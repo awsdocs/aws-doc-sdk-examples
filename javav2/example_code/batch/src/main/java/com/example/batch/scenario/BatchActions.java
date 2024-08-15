@@ -21,6 +21,7 @@ import software.amazon.awssdk.services.batch.model.CreateComputeEnvironmentReque
 import software.amazon.awssdk.services.batch.model.CreateComputeEnvironmentResponse;
 import software.amazon.awssdk.services.batch.model.CreateJobQueueRequest;
 import software.amazon.awssdk.services.batch.model.DeleteComputeEnvironmentRequest;
+import software.amazon.awssdk.services.batch.model.DeleteComputeEnvironmentResponse;
 import software.amazon.awssdk.services.batch.model.DeleteJobQueueRequest;
 import software.amazon.awssdk.services.batch.model.DeleteJobQueueResponse;
 import software.amazon.awssdk.services.batch.model.DeregisterJobDefinitionRequest;
@@ -44,6 +45,7 @@ import software.amazon.awssdk.services.batch.model.PlatformCapability;
 import software.amazon.awssdk.services.batch.model.RegisterJobDefinitionRequest;
 import software.amazon.awssdk.services.batch.model.ResourceRequirement;
 import software.amazon.awssdk.services.batch.model.ResourceType;
+import software.amazon.awssdk.services.batch.model.RuntimePlatform;
 import software.amazon.awssdk.services.batch.model.SubmitJobRequest;
 import software.amazon.awssdk.services.batch.model.CreateJobQueueResponse;
 import java.time.Duration;
@@ -86,7 +88,6 @@ public class BatchActions {
                 .region(Region.US_EAST_1)
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         }
         return batchClient;
@@ -135,12 +136,12 @@ public class BatchActions {
     // snippet-end:[batch.java2.create_compute.main]
 
     // snippet-start:[batch.java2.delete_compute.main]
-    public void deleteComputeEnvironmentAsync(String computeEnvironmentName) {
+    public CompletableFuture<DeleteComputeEnvironmentResponse> deleteComputeEnvironmentAsync(String computeEnvironmentName) {
         DeleteComputeEnvironmentRequest deleteComputeEnvironment = DeleteComputeEnvironmentRequest.builder()
             .computeEnvironment(computeEnvironmentName)
             .build();
 
-        getAsyncClient().deleteComputeEnvironment(deleteComputeEnvironment)
+        return getAsyncClient().deleteComputeEnvironment(deleteComputeEnvironment)
             .whenComplete((response, ex) -> {
                 if (ex == null) {
                     System.out.println("Compute environment was successfully deleted");
@@ -152,8 +153,7 @@ public class BatchActions {
                         throw new RuntimeException("Unexpected error: " + cause.getMessage(), cause);
                     }
                 }
-            })
-            .join();
+            });
     }
     // snippet-end:[batch.java2.delete_compute.main]
 
@@ -275,45 +275,48 @@ public class BatchActions {
      */
     public CompletableFuture<String> registerJobDefinitionAsync(String jobDefinitionName, String executionRoleARN, String image) {
         NetworkConfiguration networkConfiguration = NetworkConfiguration.builder()
-            .assignPublicIp(AssignPublicIp.ENABLED)
-            .build();
+                .assignPublicIp(AssignPublicIp.ENABLED)
+                .build();
 
         ContainerProperties containerProperties = ContainerProperties.builder()
-            .image(image)
-            .executionRoleArn(executionRoleARN)
-            .command(Arrays.asList("echo", "Hello World"))
-            .resourceRequirements(
-                Arrays.asList(
-                    ResourceRequirement.builder()
-                        .type(ResourceType.VCPU)
-                        .value("1")
-                        .build(),
-                    ResourceRequirement.builder()
-                        .type(ResourceType.MEMORY)
-                        .value("2048")
-                        .build()
+                .image(image)
+                .executionRoleArn(executionRoleARN)
+                .resourceRequirements(
+                        Arrays.asList(
+                                ResourceRequirement.builder()
+                                        .type(ResourceType.VCPU)
+                                        .value("1")
+                                        .build(),
+                                ResourceRequirement.builder()
+                                        .type(ResourceType.MEMORY)
+                                        .value("2048")
+                                        .build()
+                        )
                 )
-            )
-            .networkConfiguration(networkConfiguration)
-            .build();
+                .networkConfiguration(networkConfiguration)
+                .runtimePlatform(b -> b
+                        .cpuArchitecture("ARM64")
+                        .operatingSystemFamily("LINUX"))
+                .build();
+
 
         RegisterJobDefinitionRequest request = RegisterJobDefinitionRequest.builder()
-            .jobDefinitionName(jobDefinitionName)
-            .type(JobDefinitionType.CONTAINER)
-            .containerProperties(containerProperties)
-            .platformCapabilities(PlatformCapability.FARGATE)
-            .build();
+                .jobDefinitionName(jobDefinitionName)
+                .type(JobDefinitionType.CONTAINER)
+                .containerProperties(containerProperties)
+                .platformCapabilities(PlatformCapability.FARGATE)
+                .build();
 
         CompletableFuture<String> future = new CompletableFuture<>();
         getAsyncClient().registerJobDefinition(request)
-            .thenApply(RegisterJobDefinitionResponse::jobDefinitionArn)
-            .whenComplete((result, ex) -> {
-                if (ex != null) {
-                    future.completeExceptionally(ex);
-                } else {
-                    future.complete(result);
-                }
-            });
+                .thenApply(RegisterJobDefinitionResponse::jobDefinitionArn)
+                .whenComplete((result, ex) -> {
+                    if (ex != null) {
+                        future.completeExceptionally(ex);
+                    } else {
+                        future.complete(result);
+                    }
+                });
 
         return future;
     }
@@ -389,7 +392,7 @@ public class BatchActions {
         CompletableFuture<DeleteJobQueueResponse> responseFuture = getAsyncClient().deleteJobQueue(deleteRequest);
         return responseFuture.whenComplete((deleteResponse, ex) -> {
             if (deleteResponse != null) {
-                System.out.println("Job queue deleted: " + deleteResponse);
+                System.out.println("Job queue deleted");
             } else {
                 throw new RuntimeException("Failed to delete job queue: " + ex.getMessage(), ex);
             }
