@@ -345,7 +345,7 @@ public class SchedulerWorkflow
                 useFlexibleTimeWindow:true);
 
             Console.WriteLine($"Subscription email will receive an email from this event.");
-            Console.WriteLine($"Be sure to confirm your subscription to receive event emails.");
+            Console.WriteLine($"You must confirm your subscription to receive event emails.");
             // Pause for email.
             Thread.Sleep(5000);
             Console.WriteLine($"One-time schedule '{scheduleName}' created successfully.");
@@ -391,7 +391,7 @@ public class SchedulerWorkflow
                 $"Recurrent event test from schedule {scheduleName}.");
 
             Console.WriteLine($"Subscription email will receive an email from this event.");
-            Console.WriteLine($"Be sure to confirm your subscription to receive event emails.");
+            Console.WriteLine($"You must confirm your subscription to receive event emails.");
             // Pause for email.
             Thread.Sleep(5000);
             // Delete the schedule when the user is finished.
@@ -599,9 +599,10 @@ public class SchedulerWorkflow
         {
             Console.WriteLine(prompt);
             string resourceName = Console.ReadLine()!;
-            if (string.IsNullOrWhiteSpace(resourceName))
+            var regex = "[0-9a-zA-Z-_.]+";
+            if (!Regex.IsMatch(resourceName, regex))
             {
-                Console.WriteLine($"Invalid resource name. ");
+                Console.WriteLine($"Invalid resource name. Please use a name that matches the pattern {regex}.");
                 return PromptUserForResourceName(prompt);
             }
             return resourceName!;

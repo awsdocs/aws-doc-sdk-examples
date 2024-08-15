@@ -88,7 +88,7 @@ one-time-test
 Creating a one-time schedule named 'one-time-test' to send an initial event in 1 minute...
 Successfully created schedule 'one-time-test' in schedule group 'workflow-schedules-group'.
 Subscription email will receive an email from this event.
-Be sure to confirm your subscription to receive event emails.
+You must confirm your subscription to receive event emails.
 One-time schedule 'one-time-test' created successfully.
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -99,7 +99,7 @@ Enter the desired schedule rate (in minutes):
 2
 Successfully created schedule 'recurring-test' in schedule group 'workflow-schedules-group'.
 Subscription email will receive an email from this event.
-Be sure to confirm your subscription to receive event emails.
+You must confirm your subscription to receive event emails.
 Are you ready to delete the 'recurring-test' schedule? (y/n)
 y
 ```
