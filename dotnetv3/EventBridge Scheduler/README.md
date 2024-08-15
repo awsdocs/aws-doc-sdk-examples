@@ -41,7 +41,7 @@ Code excerpts that show you how to call individual service functions.
 - [CreateSchedule](Actions/SchedulerWrapper.cs#L30)
 - [CreateScheduleGroup](Actions/SchedulerWrapper.cs#L103)
 - [DeleteSchedule](Actions/SchedulerWrapper.cs#L136)
-- [DeleteScheduleGroup](Actions/SchedulerWrapper.cs#L173)
+- [DeleteScheduleGroup](Actions/SchedulerWrapper.cs#L174)
 
 ### Scenarios
 
