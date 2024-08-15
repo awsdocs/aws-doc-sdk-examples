@@ -29,6 +29,7 @@ class Scanner:
         self._build_examples()
         self.hellos: Dict[str, Example] = {}
         self.actions: Dict[str, Example] = {}
+        self.basics: Dict[str, Example] = {}
         self.scenarios: Dict[str, Example] = {}
         self.customs: Dict[str, Example] = {}
         self.crosses: Dict[str, Example] = {}
@@ -68,6 +69,7 @@ class Scanner:
 
         self.hellos.clear()
         self.actions.clear()
+        self.basics.clear()
         self.scenarios.clear()
         self.customs.clear()
         self.cross_scenarios.clear()
@@ -85,6 +87,8 @@ class Scanner:
                 self.hellos[example.id] = example
             elif example.category == config.categories["actions"]:
                 self.actions[example.id] = example
+            elif example.category == config.categories["basics"]:
+                self.basics[example.id] = example
             elif example.category == config.categories["scenarios"]:
                 self.scenarios[example.id] = example
             elif example.category not in config.categories.values():

@@ -105,6 +105,37 @@ go run ./cmd -h
 ```
 {% endif %}
 
+{% for basic in basics %}
+#### {{basic['title_abbrev']}}
+
+{% if basic['synopsis'] %}
+This example shows you how to {{basic['synopsis']}}
+
+{% else %}
+This example shows you how to do the following:
+
+{% endif %}
+{% for syn in basic['synopsis_list'] %}
+- {{syn}}
+{% endfor %}
+
+{% if lang_config['name'] == 'Python' and lang_config['sdk_ver'] == 3 and basic["file"].endswith(".py") %}
+Start the example by running the following at a command prompt:
+
+```
+python {{basic['file']}}
+```
+
+{% elif lang_config['name'] == 'Ruby' and lang_config['sdk_ver'] == 3 %}
+Start the example by running the following at a command prompt:
+
+```
+ruby {{basic['file']}}
+```
+{% endif %}
+
+{% endfor %}
+
 {% for scenario in scenarios %}
 #### {{scenario['title_abbrev']}}
 
