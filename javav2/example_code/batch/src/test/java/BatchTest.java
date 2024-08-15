@@ -106,7 +106,7 @@ public class BatchTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void testRegisterJobDefinition() {
-        jobARN = batchActions.registerJobDefinitionAsync(jobDefinitionName, executionRoleARN, dockerImage).join();
+        jobARN = batchActions.registerJobDefinitionAsync(jobDefinitionName, executionRoleARN, dockerImage, "X86_64").join();
         assertNotNull(jobARN, "Job ARN should not be null");
         System.out.println("Job ARN: " + jobARN);
         System.out.println("Test 4 passed");

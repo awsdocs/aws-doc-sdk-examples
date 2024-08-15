@@ -273,7 +273,7 @@ public class BatchActions {
      *         job definition upon successful execution, or completes exceptionally with
      *         an error if the registration fails
      */
-    public CompletableFuture<String> registerJobDefinitionAsync(String jobDefinitionName, String executionRoleARN, String image) {
+    public CompletableFuture<String> registerJobDefinitionAsync(String jobDefinitionName, String executionRoleARN, String image, String cpuArch) {
         NetworkConfiguration networkConfiguration = NetworkConfiguration.builder()
                 .assignPublicIp(AssignPublicIp.ENABLED)
                 .build();
@@ -294,8 +294,8 @@ public class BatchActions {
                         )
                 )
                 .networkConfiguration(networkConfiguration)
-                .runtimePlatform(b -> b
-                        .cpuArchitecture("ARM64")
+               .runtimePlatform(b -> b
+                        .cpuArchitecture(cpuArch)
                         .operatingSystemFamily("LINUX"))
                 .build();
 

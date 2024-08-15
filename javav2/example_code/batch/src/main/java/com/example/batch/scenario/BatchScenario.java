@@ -50,15 +50,13 @@ public class BatchScenario {
     private static String defaultSubnet;
     private static String defaultSecurityGroup;
 
- //   private static final String STACK_ECR = "EcsStack";
-
     private static final Logger logger = LoggerFactory.getLogger(BatchScenario.class);
 
     public static void main(String[] args) throws InterruptedException {
 
         BatchActions batchActions = new BatchActions();
         Scanner scanner = new Scanner(System.in);
-        String computeEnvironmentName = "my-compute-environment-" + UUID.randomUUID();
+        String computeEnvironmentName = "my-compute-environment";
         String jobQueueName = "my-job-queue";
         String jobDefinitionName = "my-job-definition";
 
@@ -217,7 +215,7 @@ public class BatchScenario {
         waitForInputToContinue(scanner);
         String jobARN;
         try {
-            jobARN = batchActions.registerJobDefinitionAsync(jobDefinitionName, executionRoleARN, dockerImage)
+            jobARN = batchActions.registerJobDefinitionAsync(jobDefinitionName, executionRoleARN, dockerImage, "X86_64")
                 .exceptionally(ex -> {
                     System.err.println("Register job definition failed: " + ex.getMessage());
                     return null;
