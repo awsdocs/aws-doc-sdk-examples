@@ -310,6 +310,13 @@ class Renderer:
             readme_current = f.read()
             return readme_current == self.readme_text
 
+    def read_current(self):
+            try:
+                with self.readme_filename.open("r", encoding="utf-8") as f:
+                    return f.read()
+            except FileNotFoundError:
+                return ""
+
 
 def _transform_sdk(sdk: Sdk, sdk_ver):
     pre_sdk = next(v for v in sdk.versions if v.version == sdk_ver)

@@ -10,6 +10,7 @@ import config
 import logging
 import os
 import sys
+from difflib import unified_diff
 from pathlib import Path
 from typing import Optional
 
@@ -133,6 +134,7 @@ def main():
                 elif args.dry_run:
                     if not renderer.check():
                         failed.append(id)
+                        print_diff(renderer, id)
                 elif not updated:
                     unchanged.append(id)
                 else:
@@ -160,6 +162,12 @@ def main():
         logging.error("Rerun writeme.py to update README links and sections.")
     logging.info("Run complete.")
     return len(failed)
+
+def print_diff(renderer, id):
+    current = renderer.read_current().split("\n")
+    expected = renderer.readme_text.split("\n")
+    diff = unified_diff(current, expected, f"{id}/current", f"{id}/expected")
+    print("\n".join(diff))
 
 
 if __name__ == "__main__":
