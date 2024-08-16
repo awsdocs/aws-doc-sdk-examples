@@ -20,7 +20,8 @@ import software.amazon.awssdk.services.ec2.model.Filter;
 import software.amazon.awssdk.services.ec2.model.SecurityGroup;
 import software.amazon.awssdk.services.ec2.model.Subnet;
 import software.amazon.awssdk.services.ec2.model.Vpc;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -66,7 +67,7 @@ public class BatchScenario {
         // See the NOTE in this Java code example (at start).
         String dockerImage = "dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text";
 
-        System.out.println("""
+        logger.info("""
             AWS Batch is a fully managed batch processing service that dynamically provisions the required compute 
             resources for batch computing workloads. The Java V2 `BatchAsyncClient` allows 
             developers to automate the submission, monitoring, and management of batch jobs.
@@ -92,8 +93,8 @@ public class BatchScenario {
         while (true) {
             String input = scanner.nextLine();
             if (input.trim().equalsIgnoreCase("1")) {
-                System.out.println("Continuing with the program...");
-                System.out.println("");
+                logger.info("Continuing with the program...");
+               // logger.info("");
                 break;
             } else if (input.trim().equalsIgnoreCase("2")) {
                 String jobQueueARN = String.valueOf(batchActions. describeJobQueueAsync(computeEnvironmentName));
@@ -106,19 +107,19 @@ public class BatchScenario {
                 try {
                     batchActions.disableComputeEnvironmentAsync(computeEnvironmentName)
                         .exceptionally(ex -> {
-                            System.err.println("Disable compute environment failed: " + ex.getMessage());
+                            logger.info("Disable compute environment failed: " + ex.getMessage());
                             return null;
                         })
                         .join();
                 } catch (CompletionException ex) {
-                    System.err.println("Failed to disable compute environment: " + ex.getMessage());
+                    logger.info("Failed to disable compute environment: " + ex.getMessage());
                 }
                 countdown(2);
                 batchActions.deleteComputeEnvironmentAsync(computeEnvironmentName).join();
                 return;
             } else {
                 // Handle invalid input.
-                System.out.println("Invalid input. Please try again.");
+                logger.info("Invalid input. Please try again.");
             }
         }
         System.out.println(DASHES);
@@ -129,28 +130,28 @@ public class BatchScenario {
         String[] accId = new String[1];
         CompletableFuture<String> accountIdFuture = batchActions.getAccountId();
         accountIdFuture.thenAccept(accountId -> {
-            System.out.println("Account ID: " + accountId);
+            logger.info("Account ID: " + accountId);
             accId[0] = accountId;
         }).join();
 
         dockerImage = accId[0]+"."+dockerImage;
 
-        // Get a default subnet and default security associated with the default VPC
+        // Get a default subnet and default security associated with the default VPC.
         getSubnetSecurityGroup();
 
-        System.out.println("Use AWS CloudFormation to create two IAM roles that are required for this scenario.");
+        logger.info("Use AWS CloudFormation to create two IAM roles that are required for this scenario.");
         CloudFormationHelper.deployCloudFormationStack(ROLES_STACK);
 
         Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputs(ROLES_STACK);
         String batchIAMRole = stackOutputs.get("BatchRoleArn");
         String executionRoleARN = stackOutputs.get("EcsRoleArn");
 
-        System.out.println("The IAM role needed to interact with AWS Batch is "+batchIAMRole);
+        logger.info("The IAM role needed to interact with AWS Batch is "+batchIAMRole);
         waitForInputToContinue(scanner);
 
-        System.out.println(DASHES);
-        System.out.println("1. Create a Batch compute environment");
-        System.out.println("""
+        logger.info(DASHES);
+        logger.info("1. Create a Batch compute environment");
+        logger.info("""
             A compute environment is a resource where you can run your batch jobs. 
             After creating a compute environment, you can define job queues and job definitions to submit jobs for 
             execution. 
@@ -166,49 +167,48 @@ public class BatchScenario {
         try {
             CompletableFuture<CreateComputeEnvironmentResponse> future = batchActions.createComputeEnvironmentAsync(computeEnvironmentName, batchIAMRole, defaultSubnet, defaultSecurityGroup);
             CreateComputeEnvironmentResponse response = future.join();
-            System.out.println("Compute Environment ARN: " + response.computeEnvironmentArn());
+            logger.info("Compute Environment ARN: " + response.computeEnvironmentArn());
         } catch (RuntimeException rte) {
             Throwable cause = rte.getCause();
             if (cause instanceof ClientException batchExceptionEx) {
                 String myErrorCode = batchExceptionEx.awsErrorDetails().errorMessage();
                 if ("Object already exists".contains(myErrorCode)) {
-                    System.out.println("The compute environment '" + computeEnvironmentName + "' already exists. Moving on...");
+                    logger.info("The compute environment '" + computeEnvironmentName + "' already exists. Moving on...");
                 } else {
-                    System.err.printf("Batch error occurred: %s (Code: %s)%n", batchExceptionEx.getMessage(), batchExceptionEx.awsErrorDetails().errorCode());
+                    logger.info("Batch error occurred: {} (Code: {})", batchExceptionEx.getMessage(), batchExceptionEx.awsErrorDetails().errorCode());
                     return;
                 }
             } else {
-                System.err.println("An unexpected error occurred: " + (cause != null ? cause.getMessage() : rte.getMessage()));
-                return; // End the execution
+                    logger.info("An unexpected error occurred: {}", (cause != null ? cause.getMessage() : rte.getMessage()));
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("2. Check the status of the "+computeEnvironmentName +" Compute Environment.");
+        logger.info(DASHES);
+        logger.info("2. Check the status of the "+computeEnvironmentName +" Compute Environment.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<String> future = batchActions.checkComputeEnvironmentsStatus(computeEnvironmentName);
             String status = future.join();
-            System.out.println("Compute Environment Status: " + status);
+            logger.info("Compute Environment Status: " + status);
 
         } catch (RuntimeException rte) {
             Throwable cause = rte.getCause();
             if (cause instanceof ClientException batchExceptionEx) {
-                System.err.printf("Batch error occurred: %s (Code: %s)%n", batchExceptionEx.getMessage(), batchExceptionEx.awsErrorDetails().errorCode());
+                logger.info("Batch error occurred: {} (Code: {})", batchExceptionEx.getMessage(), batchExceptionEx.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.println("An unexpected error occurred: " + (cause != null ? cause.getMessage() : rte.getMessage()));
+                logger.info("An unexpected error occurred: " + (cause != null ? cause.getMessage() : rte.getMessage()));
                 return;
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("3. Create a job queue");
-        System.out.println("""
+        logger.info(DASHES);
+        logger.info("3. Create a job queue");
+        logger.info("""
              A job queue is an essential component that helps manage the execution of your batch jobs. 
              It acts as a buffer, where jobs are placed and then scheduled for execution based on their 
              priority and the available resources in the compute environment. 
@@ -219,30 +219,32 @@ public class BatchScenario {
         try {
             CompletableFuture<String> jobQueueFuture = batchActions.createJobQueueAsync(jobQueueName, computeEnvironmentName);
             jobQueueArn = jobQueueFuture.join();
-            System.out.println("Job Queue ARN: " + jobQueueArn);
+            logger.info("Job Queue ARN: " + jobQueueArn);
 
         } catch (RuntimeException rte) {
             Throwable cause = rte.getCause();
-            if (cause instanceof ClientException batchExceptionEx) {
+            if (cause instanceof BatchException batchExceptionEx) {
                 String myErrorCode = batchExceptionEx.awsErrorDetails().errorMessage();
                 if ("Object already exists".contains(myErrorCode)) {
-                    System.out.println("The job queue '" + jobQueueName + "' already exists. Moving on...");
+                    logger.info("The job queue '" + jobQueueName + "' already exists. Moving on...");
                     // Retrieve the ARN of the job queue.
-                    jobQueueArn = batchActions.getJobQueue(jobQueueName);
+                    CompletableFuture<String> jobQueueArnFuture = batchActions.getJobQueueARN(jobQueueName);
+                    jobQueueArn = jobQueueArnFuture.join();
+                    logger.info("Job Queue ARN: " + jobQueueArn);
                 } else {
-                    System.err.printf("Batch error occurred: %s (Code: %s)%n", batchExceptionEx.getMessage(), batchExceptionEx.awsErrorDetails().errorCode());
+                    logger.info("Batch error occurred: {} (Code: {})", batchExceptionEx.getMessage(), batchExceptionEx.awsErrorDetails().errorCode());
                     return;
                 }
             } else {
-                System.err.println("An unexpected error occurred: " + (cause != null ? cause.getMessage() : rte.getMessage()));
+                logger.info("An unexpected error occurred: " + (cause != null ? cause.getMessage() : rte.getMessage()));
                 return; // End the execution
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println("4. Register a Job Definition.");
-        System.out.println("""
+        logger.info("4. Register a Job Definition.");
+        logger.info("""
             Registering a job in AWS Batch using the Fargate launch type ensures that all
             necessary parameters, such as the execution role, command to run, and so on
             are specified and reused across multiple job submissions.
@@ -254,22 +256,24 @@ public class BatchScenario {
         String jobARN;
         try {
             String platform = "";
-
             while (true) {
-                System.out.println("""
-                    What platform did you build the Docker image on:
-                    1. Windows 
-                    2. Linux
+                logger.info("""
+                    What platform/CPU Arch did you build the Docker image on:
+                    1. Windows /X86_64 
+                    2. Linux or MAC/ARM64 
+                    3. Linux or MAC/X86_64
                                 
                     Please select 1 or 2.
                     """);
                 String platAns = scanner.nextLine().trim();
-
                 if (platAns.equals("1")) {
                     platform = "X86_64";
                     break; // Exit loop since a valid option is selected
                 } else if (platAns.equals("2")) {
                     platform = "ARM64";
+                    break; // Exit loop since a valid option is selected
+                } else if (platAns.equals("3")) {
+                    platform = "X86_64";
                     break; // Exit loop since a valid option is selected
                 } else {
                     System.out.println("Invalid input. Please select either 1 or 2.");
@@ -283,16 +287,16 @@ public class BatchScenario {
                 })
                 .join();
             if (jobARN != null) {
-                System.out.println("Job ARN: " + jobARN);
+                logger.info("Job ARN: " + jobARN);
             }
         } catch (RuntimeException rte) {
             logger.error("A Batch exception occurred while registering the job: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
             return;
         }
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("5. Submit an AWS Batch job from a job definition.");
+        logger.info(DASHES);
+        logger.info("5. Submit an AWS Batch job from a job definition.");
         waitForInputToContinue(scanner);
         String jobId;
         try {
@@ -303,8 +307,8 @@ public class BatchScenario {
                 })
                 .join();
 
-            System.out.println("The job id is "+jobId);
-            System.out.println("Let's wait 2 minutes for the job to complete");
+            logger.info("The job id is "+jobId);
+            logger.info("Let's wait 2 minutes for the job to complete");
             countdown(2);
 
         } catch (RuntimeException rte) {
@@ -314,77 +318,77 @@ public class BatchScenario {
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("6. Get a list of jobs applicable to the job queue.");
+        logger.info(DASHES);
+        logger.info("6. Get a list of jobs applicable to the job queue.");
 
         waitForInputToContinue(scanner);
         try {
             List<JobSummary> jobs = batchActions.listJobsAsync(jobQueueName);
             jobs.forEach(job ->
-                System.out.printf("Job ID: %s, Job Name: %s, Job Status: %s%n",
-                    job.jobId(), job.jobName(), job.status())
-            );
+                logger.info("Job ID: {}, Job Name: {}, Job Status: {}", job.jobId(), job.jobName(), job.status()));
 
         } catch (RuntimeException rte) {
-            logger.error("A Batch exception occurred while submitting the job: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+            logger.info("A Batch exception occurred while submitting the job: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
             return;
         }
 
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("7. Check the status of job "+jobId);
+        logger.info(DASHES);
+        logger.info("7. Check the status of job "+jobId);
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<String> future = batchActions.describeJobAsync(jobId);
             String jobStatus = future.join();
-            System.out.println("Job Status: " + jobStatus);
+            logger.info("Job Status: " + jobStatus);
 
         } catch (RuntimeException rte) {
-            logger.error("A Batch exception occurred while submitting the job: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+            logger.info("A Batch exception occurred while submitting the job: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
             return;
         }
 
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
-        System.out.println("8. Delete Batch resources");
-        System.out.println(
+        logger.info("8. Delete Batch resources");
+        logger.info(
             """
             When deleting an AWS Batch compute environment, it does not happen instantaneously. 
             There is typically a delay, similar to some other AWS resources. 
             AWS Batch starts the deletion process.
             """);
-        System.out.println("Would you like to delete the AWS Batch resources such as the compute environment? (y/n)");
+        logger.info("Would you like to delete the AWS Batch resources such as the compute environment? (y/n)");
         String delAns = scanner.nextLine().trim();
         if (delAns.equalsIgnoreCase("y")) {
-            System.out.println("You selected to delete the AWS ECR resources.");
-            System.out.println("First, we will deregister the Job Definition.");
+            logger.info("You selected to delete the AWS ECR resources.");
+            logger.info("First, we will deregister the Job Definition.");
             waitForInputToContinue(scanner);
             try {
                 batchActions.deregisterJobDefinitionAsync(jobARN)
                     .exceptionally(ex -> {
-                        System.err.println("Deregister job definition failed: " + ex.getMessage());
+                        logger.info("Deregister job definition failed: " + ex.getMessage());
                         return null;
                     })
                     .join();
+                logger.info(jobARN + " was deregistered");
             } catch (RuntimeException rte) {
                 logger.error("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
                 return;
             }
 
-            System.out.println("Second, we will disable and then delete the Job Queue.");
+            logger.info("Second, we will disable and then delete the Job Queue.");
             waitForInputToContinue(scanner);
             try {
                 batchActions.disableJobQueueAsync(jobQueueArn)
                     .exceptionally(ex -> {
-                        System.err.println("Disable job queue failed: " + ex.getMessage());
+                        logger.info("Disable job queue failed: " + ex.getMessage());
                         return null;
                     })
                     .join();
+                logger.info(jobQueueArn + " was disabled");
             } catch (RuntimeException rte) {
-                logger.error("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+                logger.info("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
                 return;
             }
 
@@ -392,24 +396,25 @@ public class BatchScenario {
             try {
                 CompletableFuture<Void> future = batchActions.waitForJobQueueToBeDisabledAsync(jobQueueArn);
                 future.join();
-                System.out.println("Job queue is now disabled.");
+                logger.info("Job queue is now disabled.");
             } catch (RuntimeException rte) {
-                logger.error("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+                logger.info("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
                 return;
             }
 
             waitForInputToContinue(scanner);
             try {
                 batchActions.deleteJobQueueAsync(jobQueueArn);
+                logger.info(jobQueueArn +" was deleted");
             } catch (RuntimeException rte) {
-                logger.error("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+                logger.info("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
                 return;
             }
-            System.out.println("Let's wait 2 minutes for the job queue to be deleted");
+            logger.info("Let's wait 2 minutes for the job queue to be deleted");
             countdown(2);
             waitForInputToContinue(scanner);
 
-            System.out.println("Third, we will delete the Compute Environment.");
+            logger.info("Third, we will delete the Compute Environment.");
             waitForInputToContinue(scanner);
             try {
                 batchActions.disableComputeEnvironmentAsync(computeEnvironmentName)
@@ -418,47 +423,49 @@ public class BatchScenario {
                         return null;
                     })
                     .join();
+                logger.info("Compute environment disabled") ;
             } catch (RuntimeException rte) {
-                logger.error("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+                logger.info("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
                 return;
             }
 
             batchActions.checkComputeEnvironmentsStatus(computeEnvironmentName).thenAccept(state -> {
-                System.out.println("Current State: " + state);
+                logger.info("Current State: " + state);
             }).join();
 
-            System.out.println("Lets wait 1 min for the compute environment to be deleted");
+            logger.info("Lets wait 1 min for the compute environment to be deleted");
             countdown(1);
 
             try {
                 batchActions.deleteComputeEnvironmentAsync(computeEnvironmentName).join();
+                logger.info(computeEnvironmentName +" was deleted.");
 
             } catch (RuntimeException rte) {
-                logger.error("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+                logger.info("A Batch exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
                 return;
             }
             waitForInputToContinue(scanner);
             CloudFormationHelper.destroyCloudFormationStack(ROLES_STACK);
         }
 
-        System.out.println(DASHES);
-        System.out.println("This concludes the AWS Batch SDK scenario");
-        System.out.println(DASHES);
+        logger.info(DASHES);
+        logger.info("This concludes the AWS Batch SDK scenario");
+        logger.info(DASHES);
     }
 
     private static void waitForInputToContinue(Scanner scanner) {
         while (true) {
-            System.out.println("");
-            System.out.println("Enter 'c' followed by <ENTER> to continue:");
+            logger.info("");
+            logger.info("Enter 'c' followed by <ENTER> to continue:");
             String input = scanner.nextLine();
 
             if (input.trim().equalsIgnoreCase("c")) {
-                System.out.println("Continuing with the program...");
-                System.out.println("");
+                logger.info("Continuing with the program...");
+                logger.info("");
                 break;
             } else {
                 // Handle invalid input.
-                System.out.println("Invalid input. Please try again.");
+                logger.info("Invalid input. Please try again.");
             }
         }
     }
@@ -471,7 +478,7 @@ public class BatchScenario {
             System.out.print(String.format("\r%02d:%02d", displayMinutes, displaySeconds));
             Thread.sleep(1000); // Wait for 1 second
         }
-        System.out.println("Countdown complete!");
+        logger.info("Countdown complete!");
     }
 
     private static void getSubnetSecurityGroup() {
