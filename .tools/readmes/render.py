@@ -7,10 +7,11 @@ import logging
 import os
 import re
 from dataclasses import asdict
+from enum import Enum
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from operator import itemgetter
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 
 from aws_doc_sdk_examples_tools.metadata import Example
 from aws_doc_sdk_examples_tools.sdks import Sdk
@@ -20,6 +21,15 @@ import config
 from scanner import Scanner
 
 logger = logging.getLogger(__name__)
+
+
+class RenderStatus(Enum):
+    UNCHANGED = 0
+    NO_EXAMPLES = 1
+    UNIMPLEMENTED = 2
+    UPDATED = 3
+    UNMANAGED = 4
+    NO_FOLDER = 5
 
 
 class MissingMetadataError(Exception):
@@ -241,9 +251,9 @@ class Renderer:
                             self.lang_config["sdk_api_ref"] = href
         return customs
 
-    def render(self) -> Tuple[Optional["Renderer"], bool]:
+    def render(self) -> RenderStatus:
         if self.lang_config is None:
-            return None, False  # Return False to indicate no update
+            return RenderStatus.UNIMPLEMENTED
 
         sdk = _transform_sdk(self.scanner.sdk(), self.scanner.sdk_ver)
         svc = _transform_service(self.scanner.service())
@@ -257,7 +267,10 @@ class Renderer:
             len(hello) + len(actions) + len(scenarios) + len(custom_cats) + len(crosses)
             == 0
         ):
-            return None, False
+            return RenderStatus.NO_EXAMPLES
+
+        if not self.readme_filename.parent.exists():
+            return RenderStatus.NO_FOLDER
 
         self.lang_config["name"] = self.scanner.lang_name
         self.lang_config["sdk_ver"] = self.scanner.sdk_ver
@@ -287,10 +300,17 @@ class Renderer:
         self.readme_text = self._expand_entities(self.readme_text)
 
         # Check if the rendered text is different from the existing file
-        readme_updated = not self.check()
-        return self, readme_updated
-
-        # return self, True
+        if self.read_current() == self.readme_text:
+            return RenderStatus.UNCHANGED
+        else:
+            if (
+                self.lang_config["service_folder"]
+                not in self.lang_config.get("service_folder_overrides", {}).values()
+                and self.readme_filename.exists()
+            ):
+                return RenderStatus.UNMANAGED
+            else:
+                return RenderStatus.UPDATED
 
     def write(self):
         if self.readme_filename.exists():
@@ -298,17 +318,20 @@ class Renderer:
                 self.readme_filename.rename(
                     self.readme_filename.parent / config.saved_readme
                 )
-
+            logging.debug("Removing existing file %s", self.readme_filename)
             # Do this so that new files are always updated to the correct case (README.md).
             self.readme_filename.unlink(missing_ok=True)
 
         with self.readme_filename.open("w", encoding="utf-8") as f:
+            logging.debug("Writing file %s", self.readme_filename)
             f.write(self.readme_text)
 
-    def check(self):
-        with self.readme_filename.open("r", encoding="utf-8") as f:
-            readme_current = f.read()
-            return readme_current == self.readme_text
+    def read_current(self):
+        try:
+            with self.readme_filename.open("r", encoding="utf-8") as f:
+                return f.read()
+        except FileNotFoundError:
+            return ""
 
 
 def _transform_sdk(sdk: Sdk, sdk_ver):
