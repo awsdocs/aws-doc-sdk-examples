@@ -326,7 +326,8 @@ public class SchedulerWorkflow
         var scheduleName =
             PromptUserForResourceName("Enter a name for the one-time schedule:");
 
-        Console.WriteLine($"Creating a one-time schedule named '{scheduleName}' to send an initial event in 1 minute...");
+        Console.WriteLine($"Creating a one-time schedule named '{scheduleName}' " +
+                          $"\nto send an initial event in 1 minute with a flexible time window...");
         try
         {
             // Create a one-time schedule with a flexible time
@@ -334,7 +335,7 @@ public class SchedulerWorkflow
             // You may also set a timezone instead of using UTC.
             var scheduledTime = DateTime.UtcNow.AddMinutes(1).ToString("s");
 
-            await _schedulerWrapper.CreateScheduleAsync(
+            var createSuccess = await _schedulerWrapper.CreateScheduleAsync(
                 scheduleName,
                 $"at({scheduledTime})",
                 _scheduleGroupName,
@@ -346,10 +347,9 @@ public class SchedulerWorkflow
 
             Console.WriteLine($"Subscription email will receive an email from this event.");
             Console.WriteLine($"You must confirm your subscription to receive event emails.");
-            // Pause for email.
-            Thread.Sleep(5000);
+
             Console.WriteLine($"One-time schedule '{scheduleName}' created successfully.");
-            return true;
+            return createSuccess;
         }
         catch (ResourceNotFoundException ex)
         {
@@ -382,7 +382,7 @@ public class SchedulerWorkflow
                 PromptUserForInteger("Enter the desired schedule rate (in minutes): ");
 
             // Create the recurring schedule.
-            await _schedulerWrapper.CreateScheduleAsync(
+            var createSuccess = await _schedulerWrapper.CreateScheduleAsync(
                 scheduleName,
                 $"rate({scheduleRateInMinutes} minutes)",
                 _scheduleGroupName,
@@ -392,15 +392,14 @@ public class SchedulerWorkflow
 
             Console.WriteLine($"Subscription email will receive an email from this event.");
             Console.WriteLine($"You must confirm your subscription to receive event emails.");
-            // Pause for email.
-            Thread.Sleep(5000);
+
             // Delete the schedule when the user is finished.
             if (!_interactive || GetYesNoResponse($"Are you ready to delete the '{scheduleName}' schedule? (y/n)"))
             {
                 await _schedulerWrapper.DeleteScheduleAsync(scheduleName, _scheduleGroupName);
             }
 
-            return true;
+            return createSuccess;
         }
         catch (ResourceNotFoundException ex)
         {
