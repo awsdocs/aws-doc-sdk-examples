@@ -130,7 +130,7 @@ cross_RDSDataTracker:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/cross_service/AuroraItemTracker
+          github: dotnetv3/cross-service/AuroraItemTracker
           block_content: cross_RDSDataTracker_Net_block.xml
     Java:
       versions:
@@ -176,7 +176,7 @@ cross_SnsPublishSubscription:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/cross_service/SubscribePublishTranslate
+          github: dotnetv3/cross-service/SubscribePublishTranslate
           block_content: cross_SNSSubPub_Net_block.xml
     Java:
       versions:
@@ -216,7 +216,7 @@ cross_DynamoDBDataTracker:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/cross_service/DynamoDbItemTracker
+          github: dotnetv3/cross-service/DynamoDbItemTracker
           block_content: cross_DynamoDBDataTracker_Net_block.xml
     Kotlin:
       versions:
