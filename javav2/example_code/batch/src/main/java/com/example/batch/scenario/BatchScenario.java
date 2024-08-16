@@ -258,12 +258,12 @@ public class BatchScenario {
             String platform = "";
             while (true) {
                 logger.info("""
-                    What platform/CPU Arch did you build the Docker image on:
-                    1. Windows /X86_64 
-                    2. Linux or MAC/ARM64 
-                    3. Linux or MAC/X86_64
+                    On which platform/CPU architecture combination did you build the Docker image?:
+                    1. Windows       X86_64
+                    2. Mac or Linux  ARM64
+                    3. Mac or Linux  X86_64
                                 
-                    Please select 1 or 2.
+                    Please select 1, 2, or 3.
                     """);
                 String platAns = scanner.nextLine().trim();
                 if (platAns.equals("1")) {
