@@ -234,16 +234,11 @@ public class EC2Test {
     @Order(5)
     public void describeSecurityGroup() {
         try {
-            CompletableFuture<DescribeSecurityGroupsResponse> future = ec2Actions.describeSecurityGroupsAsync(groupId);
-            DescribeSecurityGroupsResponse response = future.join(); // Wait for the operation to complete
-
+            CompletableFuture<String> future = ec2Actions.describeSecurityGroupArnByNameAsync(groupName);
+            groupId = future.join();
             // Assert that the response is not null
-            Assertions.assertNotNull(response, "The response from describeSecurityGroupsAsync should not be null");
+            Assertions.assertNotNull(groupId, "The response from describeSecurityGroupsAsync should not be null");
 
-            // Assert that the security groups list is not null or empty
-            List<SecurityGroup> securityGroups = response.securityGroups();
-            Assertions.assertNotNull(securityGroups, "The security groups list should not be null");
-            Assertions.assertFalse(securityGroups.isEmpty(), "The security groups list should not be empty");
 
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));

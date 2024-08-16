@@ -13,6 +13,7 @@ import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
 import software.amazon.awssdk.services.ec2.model.DisassociateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressResponse;
+import software.amazon.awssdk.services.ec2.model.SecurityGroup;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathResponse;
 import software.amazon.awssdk.services.ssm.model.Parameter;
 import java.util.List;
@@ -76,9 +77,9 @@ public class EC2Scenario {
      //       return;
      //   }
 
-        String keyName = "TestKeyPair18" ; //args[0];
+        String keyName = "TestKeyPair20" ; //args[0];
         String fileName = "ec2Key.pem"; //args[1];
-        String groupName = "ScottSecurityGroup18" ; // args[2];
+        String groupName = "ScottSecurityGroup20" ; // args[2];
         String groupDesc = "Test Group" ; //args[3];
         String vpcId = "vpc-e97a4393" ; //args[4];
         String myIpAddress = "72.21.198.66" ; // args[5];
@@ -146,7 +147,11 @@ public class EC2Scenario {
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<DescribeKeyPairsResponse> future = ec2Actions.describeKeysAsync();
-            future.join();
+            DescribeKeyPairsResponse keyPairsResponse = future.join();
+            keyPairsResponse.keyPairs().forEach(keyPair -> logger.info(
+                "Found key pair with name {} and fingerprint {}",
+                keyPair.keyName(),
+                keyPair.keyFingerprint()));
 
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
@@ -158,6 +163,7 @@ public class EC2Scenario {
                 return;
             }
         }
+        waitForInputToContinue(scanner);
         logger.info(DASHES);
 
         logger.info(DASHES);
@@ -172,22 +178,21 @@ public class EC2Scenario {
         String groupId= "";
         try {
             CompletableFuture<String> future = ec2Actions.createSecurityGroupAsync(groupName, groupDesc, vpcId, myIpAddress);
-            groupId = future.join();
-            logger.info("Created security group with ID: " + groupId);
-        } catch (RuntimeException ce) {
+            future.join();
+            logger.info("Created security group") ;
+
+        } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
-                // Handle EC2 exceptions.
-                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
-                return;
-            } else {
-                // Handle other unexpected errors.
-                if (cause.getMessage().contains("already exists")) {
-                    System.err.println("The Security Group already exists. Moving on... ");
+                if (ec2Ex.awsErrorDetails().errorMessage().contains("already exists")) {
+                    logger.info("The Security Group already exists. Moving on...");
                 } else {
-                    logger.info("An unexpected error occurred: {}", cause.getMessage());
+                    logger.error("An unexpected error occurred: {}", ec2Ex.awsErrorDetails().errorMessage());
                     return;
                 }
+            } else {
+                logger.error("An unexpected error occurred: {}", cause.getMessage());
+                return;
             }
         }
         waitForInputToContinue(scanner);
@@ -197,9 +202,9 @@ public class EC2Scenario {
         logger.info("4. Display security group info for the newly created security group.");
         waitForInputToContinue(scanner);
         try {
-            CompletableFuture<DescribeSecurityGroupsResponse> future = ec2Actions.describeSecurityGroupsAsync(groupId);
-            future.join();
-            logger.info("Security groups described successfully.");
+            CompletableFuture<String> future = ec2Actions.describeSecurityGroupArnByNameAsync(groupName);
+            groupId = future.join();
+            logger.info("The security group Id is "+groupId);
 
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
@@ -287,8 +292,7 @@ public class EC2Scenario {
             }
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
-            if (cause instanceof Ec2Exception) {
-                Ec2Exception ec2Ex = (Ec2Exception) cause;
+            if (cause instanceof Ec2Exception ec2Ex) {
                 logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
@@ -566,6 +570,7 @@ public class EC2Scenario {
         try {
             CompletableFuture<DeleteKeyPairResponse> future = ec2Actions.deleteKeysAsync(keyName);
             future.join();
+            logger.info("Successfully deleted key pair named " + keyName);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {

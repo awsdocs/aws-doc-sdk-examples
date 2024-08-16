@@ -34,6 +34,7 @@ import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
 import software.amazon.awssdk.services.ec2.model.DisassociateAddressRequest;
 import software.amazon.awssdk.services.ec2.model.DisassociateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.DomainType;
+import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.InstanceTypeInfo;
 import software.amazon.awssdk.services.ec2.model.IpPermission;
 import software.amazon.awssdk.services.ec2.model.IpRange;
@@ -55,6 +56,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 public class EC2Actions {
 
@@ -116,9 +118,6 @@ public class EC2Actions {
                 throw new RuntimeException("Failed to delete key pair: " + keyPair, ex);
             } else if (resp == null) {
                 throw new RuntimeException("No response received for deleting key pair: " + keyPair);
-            } else {
-                // Process the response if no exception occurred.
-                System.out.println("Successfully deleted key pair named " + keyPair);
             }
         });
     }
@@ -144,8 +143,6 @@ public class EC2Actions {
                 throw new RuntimeException("Failed to delete security group with Id " + groupId, ex);
             } else if (resp == null) {
                 throw new RuntimeException("No response received for deleting security group with Id " + groupId);
-            } else {
-                System.out.println("Successfully deleted security group with Id " + groupId);
             }
         }).thenApply(resp -> null);
     }
@@ -648,29 +645,32 @@ public class EC2Actions {
     /**
      * Asynchronously describes the security groups for the specified group ID.
      *
-     * @param groupId the ID of the security group to describe
+     * @param groupName the name of the security group to describe
      * @return a {@link CompletableFuture} that represents the asynchronous operation
      *         of describing the security groups. The future will complete with a
      *         {@link DescribeSecurityGroupsResponse} object that contains the
      *         security group information.
      */
-    public CompletableFuture<DescribeSecurityGroupsResponse> describeSecurityGroupsAsync(String groupId) {
+    public CompletableFuture<String> describeSecurityGroupArnByNameAsync(String groupName) {
         DescribeSecurityGroupsRequest request = DescribeSecurityGroupsRequest.builder()
-            .groupIds(groupId)
+            .groupNames(groupName)  // Use groupNames instead of groupIds
             .build();
 
         CompletableFuture<DescribeSecurityGroupsResponse> responseFuture = getAsyncClient().describeSecurityGroups(request);
-        responseFuture.whenComplete((response, exception) -> {
-            if (response != null) {
-                for (SecurityGroup group : response.securityGroups()) {
-                    System.out.println("Found Security Group with Id " + group.groupId() + " and group VPC " + group.vpcId());
-                }
-            } else {
-                throw new RuntimeException("Failed to describe security groups: " + exception.getMessage(), exception);
+
+        // Process the response to extract the ARN and handle any exceptions
+        return responseFuture.thenApply(response -> {
+            if (response.securityGroups().isEmpty()) {
+                throw new RuntimeException("No security group found with the name: " + groupName);
+            }
+
+            // Assuming that group names are unique and we get only one result
+            return response.securityGroups().get(0).groupId();
+        }).whenComplete((arn, exception) -> {
+            if (exception != null) {
+                throw new RuntimeException("Failed to describe security group: " + exception.getMessage(), exception);
             }
         });
-
-        return responseFuture;
     }
     // snippet-end:[ec2.java2.scenario.describe_securitygroup.main]
     // snippet-end:[ec2.java2.describe_security_groups.main]
@@ -695,38 +695,48 @@ public class EC2Actions {
             .vpcId(vpcId)
             .build();
 
-        CompletableFuture<CreateSecurityGroupResponse> responseFuture = getAsyncClient().createSecurityGroup(createRequest);
-        return responseFuture.thenCompose(resp -> {
-            IpRange ipRange = IpRange.builder()
-                .cidrIp(myIpAddress + "/0")
-                .build();
+        // Create the security group asynchronously
+        return getAsyncClient().createSecurityGroup(createRequest)
+            .thenCompose(createResponse -> {
+                // If the security group is created successfully, proceed with adding rules
+                IpRange ipRange = IpRange.builder()
+                    .cidrIp(myIpAddress + "/32")  // Corrected CIDR notation for a single IP
+                    .build();
 
-            IpPermission ipPerm = IpPermission.builder()
-                .ipProtocol("tcp")
-                .toPort(80)
-                .fromPort(80)
-                .ipRanges(ipRange)
-                .build();
+                IpPermission ipPerm = IpPermission.builder()
+                    .ipProtocol("tcp")
+                    .toPort(80)
+                    .fromPort(80)
+                    .ipRanges(ipRange)
+                    .build();
 
-            IpPermission ipPerm2 = IpPermission.builder()
-                .ipProtocol("tcp")
-                .toPort(22)
-                .fromPort(22)
-                .ipRanges(ipRange)
-                .build();
+                IpPermission ipPerm2 = IpPermission.builder()
+                    .ipProtocol("tcp")
+                    .toPort(22)
+                    .fromPort(22)
+                    .ipRanges(ipRange)
+                    .build();
 
-            AuthorizeSecurityGroupIngressRequest authRequest = AuthorizeSecurityGroupIngressRequest.builder()
-                .groupName(groupName)
-                .ipPermissions(ipPerm, ipPerm2)
-                .build();
+                AuthorizeSecurityGroupIngressRequest authRequest = AuthorizeSecurityGroupIngressRequest.builder()
+                    .groupName(groupName)
+                    .ipPermissions(ipPerm, ipPerm2)
+                    .build();
 
-            return getAsyncClient().authorizeSecurityGroupIngress(authRequest).thenApply(authResponse -> {
-                 return resp.groupId();
+                return getAsyncClient().authorizeSecurityGroupIngress(authRequest)
+                    .thenApply(authResponse -> createResponse.groupId());
+            })
+            .whenComplete((result, exception) -> {
+                if (exception != null) {
+                    // Rethrow the exception so it can be handled in the calling code
+                    if (exception instanceof CompletionException && exception.getCause() instanceof Ec2Exception) {
+                        throw (Ec2Exception) exception.getCause();
+                    } else {
+                        throw new RuntimeException("Failed to create security group: " + exception.getMessage(), exception);
+                    }
+                }
             });
-        }).exceptionally(ex -> {
-            throw new RuntimeException("Failed to create security group: " + ex.getMessage(), ex);
-        });
     }
+
     // snippet-end:[ec2.java2.create_security_group.main]
 
     // snippet-start:[ec2.java2.describe_key_pairs.main]
@@ -739,13 +749,8 @@ public class EC2Actions {
     public CompletableFuture<DescribeKeyPairsResponse> describeKeysAsync() {
         CompletableFuture<DescribeKeyPairsResponse> responseFuture = getAsyncClient().describeKeyPairs();
         responseFuture.whenComplete((response, exception) -> {
-            if (response != null) {
-                response.keyPairs().forEach(keyPair -> System.out.printf(
-                    "Found key pair with name %s and fingerprint %s%n",
-                    keyPair.keyName(),
-                    keyPair.keyFingerprint()));
-            } else {
-                throw new RuntimeException("Failed to describe key pairs: " + exception.getMessage(), exception);
+            if (exception != null) {
+              throw new RuntimeException("Failed to describe key pairs: " + exception.getMessage(), exception);
             }
         });
 
