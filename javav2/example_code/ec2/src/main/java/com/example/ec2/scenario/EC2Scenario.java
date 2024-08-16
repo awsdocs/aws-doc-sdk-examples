@@ -4,6 +4,8 @@
 package com.example.ec2.scenario;
 
 // snippet-start:[ec2.java2.scenario.main]
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeKeyPairsResponse;
@@ -51,7 +53,7 @@ import java.util.concurrent.CompletionException;
 public class EC2Scenario {
 
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-
+    private static final Logger logger = LoggerFactory.getLogger(EC2Scenario.class);
     public static void main(String[] args) throws InterruptedException {
 
         final String usage = """
@@ -83,7 +85,7 @@ public class EC2Scenario {
         Scanner scanner = new Scanner(System.in);
         EC2Actions ec2Actions = new EC2Actions();
 
-        System.out.println("""
+        logger.info("""
             Amazon Elastic Compute Cloud (EC2) is a web service that provides secure, resizable compute 
             capacity in the cloud. It allows developers and organizations to easily launch and manage 
             virtual server instances, known as EC2 instances, to run their applications.
@@ -105,11 +107,11 @@ public class EC2Scenario {
             """);
 
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("1. Create an RSA key pair and save the private key material as a .pem file.");
-        System.out.println("""
+        logger.info(DASHES);
+        logger.info("1. Create an RSA key pair and save the private key material as a .pem file.");
+        logger.info("""
             An RSA key pair for Amazon EC2 is a security mechanism used to authenticate and secure 
             access to your EC2 instances. It consists of a public key and a private key, 
             which are generated as a pair.
@@ -118,49 +120,49 @@ public class EC2Scenario {
         try {
             CompletableFuture<CreateKeyPairResponse> future = ec2Actions.createKeyPairAsync(keyName, fileName);
             CreateKeyPairResponse response = future.join();
-            System.out.println("Key Pair successfully created. Key Fingerprint: " + response.keyFingerprint());
+            logger.info("Key Pair successfully created. Key Fingerprint: " + response.keyFingerprint());
 
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 if ("InvalidKeyPair.Duplicate".equals(ec2Ex.awsErrorDetails().errorCode())) {
                     // Key pair already exists.
-                    System.out.println("The key pair '" + keyName + "' already exists. Moving on...");
+                    logger.info("The key pair '" + keyName + "' already exists. Moving on...");
                 } else {
                     // Handle other EC2 exceptions.
-                    System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                    logger.info("EC2 error occurred: Error message: {}, Error code {}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                     return;
                 }
             } else {
-                System.err.println("An unexpected error occurred: " + (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: " + (cause.getMessage()));
                 return; // End the execution
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("2. List key pairs.");
+        logger.info(DASHES);
+        logger.info("2. List key pairs.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<DescribeKeyPairsResponse> future = ec2Actions.describeKeysAsync();
-            future.join(); // Ensure the future completes and any exceptions are handled
+            future.join();
 
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Error message: {}, Error code {}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", (cause != null ? cause.getMessage() : ce.getMessage()));
                 return;
             }
         }
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("3. Create a security group.");
-        System.out.println("""
+        logger.info(DASHES);
+        logger.info("3. Create a security group.");
+        logger.info("""
             An AWS EC2 Security Group is a virtual firewall that controls the 
             inbound and outbound traffic to an EC2 instance. It acts as a first line 
             of defense for your EC2 instances, allowing you to specify the rules that 
@@ -171,51 +173,51 @@ public class EC2Scenario {
         try {
             CompletableFuture<String> future = ec2Actions.createSecurityGroupAsync(groupName, groupDesc, vpcId, myIpAddress);
             groupId = future.join();
-            System.out.println("Created security group with ID: " + groupId);
+            logger.info("Created security group with ID: " + groupId);
         } catch (RuntimeException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
                 // Handle other unexpected errors.
                 if (cause.getMessage().contains("already exists")) {
                     System.err.println("The Security Group already exists. Moving on... ");
                 } else {
-                    System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                    logger.info("An unexpected error occurred: {}", cause.getMessage());
                     return;
                 }
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("4. Display security group info for the newly created security group.");
+        logger.info(DASHES);
+        logger.info("4. Display security group info for the newly created security group.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<DescribeSecurityGroupsResponse> future = ec2Actions.describeSecurityGroupsAsync(groupId);
             future.join();
-            System.out.println("Security groups described successfully.");
+            logger.info("Security groups described successfully.");
 
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("5. Get a list of Amazon Linux 2 AMIs and selects one with amzn2 in the name.");
-        System.out.println("""
+        logger.info(DASHES);
+        logger.info("5. Get a list of Amazon Linux 2 AMIs and selects one with amzn2 in the name.");
+        logger.info("""
             An Amazon EC2 AMI (Amazon Machine Image) is a pre-configured virtual machine image that 
             serves as a template for launching EC2 instances. It contains all the necessary software and 
             configurations required to run an application or operating system on an EC2 instance.
@@ -236,75 +238,75 @@ public class EC2Scenario {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception) {
                 Ec2Exception ec2Ex = (Ec2Exception) cause;
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
-        System.out.println("The instance Id containing amzn2 is " + instanceId);
+        logger.info("The instance Id containing amzn2 is " + instanceId);
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("6. Get more information about an amzn2 image.");
+        logger.info(DASHES);
+        logger.info("6. Get more information about an amzn2 image.");
         waitForInputToContinue(scanner);
         String amiValue = "";
         try {
             CompletableFuture<String> future = ec2Actions.describeImageAsync(instanceId);
             amiValue = future.join();
-            System.out.println("Image ID: {}"+ amiValue);
+            logger.info("Image ID: {}"+ amiValue);
             waitForInputToContinue(scanner);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception) {
                 Ec2Exception ec2Ex = (Ec2Exception) cause;
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("7. Get a list of instance types.");
+        logger.info(DASHES);
+        logger.info("7. Get a list of instance types.");
         waitForInputToContinue(scanner);
         String instanceType;
         try {
             CompletableFuture<String> future = ec2Actions.getInstanceTypesAsync();
             instanceType = future.join();
             if (!instanceType.isEmpty()) {
-                System.out.println("Found instance type: " + instanceType);
+                logger.info("Found instance type: " + instanceType);
             } else {
-                System.out.println("Desired instance type not found.");
+                logger.info("Desired instance type not found.");
             }
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception) {
                 Ec2Exception ec2Ex = (Ec2Exception) cause;
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("8. Create a new Amazon EC2 instance.");
+        logger.info(DASHES);
+        logger.info("8. Create a new Amazon EC2 instance.");
         waitForInputToContinue(scanner);
         String newInstanceId;
         try {
             CompletableFuture<String> future = ec2Actions.runInstanceAsync(instanceType, keyName, groupName, amiValue);
             newInstanceId = future.join(); // Get the instance ID.
-            System.out.println("EC2 instance ID: "+ newInstanceId);
+            logger.info("EC2 instance ID: "+ newInstanceId);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception) {
@@ -312,34 +314,34 @@ public class EC2Scenario {
                 switch (ec2Ex.awsErrorDetails().errorCode()) {
                     case "InvalidParameterValue":
                         // Handle invalid parameter value.
-                        System.err.printf("Invalid parameter value: %s%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                        logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                         break;
                     case "InsufficientInstanceCapacity":
                         // Handle insufficient instance capacity.
-                        System.err.printf("Insufficient instance capacity: %s%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                        logger.info("Insufficient instance capacity: {}, {}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                         break;
                     case "InvalidGroup.NotFound":
                         // Handle security group not found.
-                        System.err.printf("Security group not found: %s%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                        logger.info("Security group not found: {},{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                         break;
                     default:
                         // Handle other EC2 exceptions.
-                        System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                        logger.info("EC2 error occurred: {} (Code: {}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                         break;
                 }
                 return;
             } else {
                 // Handle other unexpected exceptions.
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", (cause != null ? cause.getMessage() : ce.getMessage()));
                 return;
             }
         }
-        System.out.println("The instance Id is " + newInstanceId);
+        logger.info("The instance Id is " + newInstanceId);
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("9. Display information about the running instance. ");
+        logger.info(DASHES);
+        logger.info("9. Display information about the running instance. ");
         waitForInputToContinue(scanner);
         String publicIp = "";
         try {
@@ -350,53 +352,53 @@ public class EC2Scenario {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
-        System.out.println("You can SSH to the instance using this command:");
-        System.out.println("ssh -i " + fileName + "ec2-user@" + publicIp);
+        logger.info("You can SSH to the instance using this command:");
+        logger.info("ssh -i " + fileName + "ec2-user@" + publicIp);
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("10. Stop the instance.");
+        logger.info(DASHES);
+        logger.info("10. Stop the instance.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = ec2Actions.stopInstanceAsync(newInstanceId);
             future.join();
-            System.out.println("Instance "+newInstanceId +" stopped successfully.");
+            logger.info("Instance "+newInstanceId +" stopped successfully.");
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("11. Start the instance.");
+        logger.info(DASHES);
+        logger.info("11. Start the instance.");
         try {
             CompletableFuture<Void> future = ec2Actions.startInstanceAsync(newInstanceId);
             future.join();
-            System.out.println("Instance started successfully.");
+            logger.info("Instance started successfully.");
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
@@ -405,103 +407,103 @@ public class EC2Scenario {
         try {
             CompletableFuture<String> future = ec2Actions.describeEC2InstancesAsync(newInstanceId);
             publicIp = future.join();
-            System.out.println("EC2 instance public IP: " + publicIp);
-            System.out.println("You can SSH to the instance using this command:");
-            System.out.println("ssh -i " + fileName + "ec2-user@" + publicIp);
+            logger.info("EC2 instance public IP: " + publicIp);
+            logger.info("You can SSH to the instance using this command:");
+            logger.info("ssh -i " + fileName + "ec2-user@" + publicIp);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("12. Allocate an Elastic IP address and associate it with the instance.");
+        logger.info(DASHES);
+        logger.info("12. Allocate an Elastic IP address and associate it with the instance.");
         waitForInputToContinue(scanner);
         String allocationId = "";
         try {
             CompletableFuture<String> future = ec2Actions.allocateAddressAsync();
             allocationId = future.join();
-            System.out.println("Successfully allocated address with ID: " +allocationId);
+            logger.info("Successfully allocated address with ID: " +allocationId);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
-        System.out.println("The allocation Id value is " + allocationId);
+        logger.info("The allocation Id value is " + allocationId);
         waitForInputToContinue(scanner);
         String associationId = "";
         try {
             CompletableFuture<String> future = ec2Actions.associateAddressAsync(newInstanceId, allocationId);
             associationId = future.join(); // Wait for the result and get the association ID
-            System.out.println("Successfully associated address with ID: " +associationId);
+            logger.info("Successfully associated address with ID: " +associationId);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
+
                 return;
             }
         }
-        System.out.println("The associate Id value is " + associationId);
+        logger.info("The associate Id value is " + associationId);
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-
-        System.out.println(DASHES);
-        System.out.println("13. Describe the instance again.");
+        logger.info(DASHES);
+        logger.info("13. Describe the instance again.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<String> future = ec2Actions.describeEC2InstancesAsync(newInstanceId);
             publicIp = future.join();
-            System.out.println("EC2 instance public IP: " + publicIp);
-            System.out.println("You can SSH to the instance using this command:");
-            System.out.println("ssh -i " + fileName + "ec2-user@" + publicIp);
+            logger.info("EC2 instance public IP: " + publicIp);
+            logger.info("You can SSH to the instance using this command:");
+            logger.info("ssh -i " + fileName + "ec2-user@" + publicIp);
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("14. Disassociate and release the Elastic IP address.");
+        logger.info(DASHES);
+        logger.info("14. Disassociate and release the Elastic IP address.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<DisassociateAddressResponse> future = ec2Actions.disassociateAddressAsync(associationId);
-            future.join(); // Wait for the operation to complete
-            System.out.println("Address successfully disassociated.");
+            future.join();
+            logger.info("Address successfully disassociated.");
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
@@ -509,57 +511,57 @@ public class EC2Scenario {
         try {
             CompletableFuture<ReleaseAddressResponse> future = ec2Actions.releaseEC2AddressAsync(allocationId);
             future.join(); // Wait for the operation to complete
-            System.out.println("Elastic IP address successfully released.");
+            logger.info("Elastic IP address successfully released.");
         } catch (RuntimeException rte) {
-            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+            logger.info("An unexpected error occurred: {}", rte.getMessage());
             return;
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("15. Terminate the instance.");
+        logger.info(DASHES);
+        logger.info("15. Terminate the instance.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = ec2Actions.terminateEC2Async(newInstanceId);
             future.join();
-            System.out.println("EC2 instance successfully terminated.");
+            logger.info("EC2 instance successfully terminated.");
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("16. Delete the security group.");
+        logger.info(DASHES);
+        logger.info("16. Delete the security group.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = ec2Actions.deleteEC2SecGroupAsync(groupId);
             future.join(); // Wait for the operation to complete
-            System.out.println("Security group successfully deleted.");
+            logger.info("Security group successfully deleted.");
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("17. Delete the key.");
+        logger.info(DASHES);
+        logger.info("17. Delete the key.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<DeleteKeyPairResponse> future = ec2Actions.deleteKeysAsync(keyName);
@@ -568,19 +570,19 @@ public class EC2Scenario {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
                 // Handle EC2 exceptions.
-                System.err.printf("EC2 error occurred: %s (Code: %s)%n", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
+                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
-                System.err.printf("An unexpected error occurred: %s%n", (cause != null ? cause.getMessage() : ce.getMessage()));
+                logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("You successfully completed the Amazon EC2 scenario.");
-        System.out.println(DASHES);
+        logger.info(DASHES);
+        logger.info("You successfully completed the Amazon EC2 scenario.");
+        logger.info(DASHES);
     }
     public static boolean filterName(String name) {
         String[] parts = name.split("/");
@@ -590,17 +592,17 @@ public class EC2Scenario {
 
     private static void waitForInputToContinue(Scanner scanner) {
         while (true) {
-            System.out.println("");
-            System.out.println("Enter 'c' followed by <ENTER> to continue:");
+            logger.info("");
+            logger.info("Enter 'c' followed by <ENTER> to continue:");
             String input = scanner.nextLine();
 
             if (input.trim().equalsIgnoreCase("c")) {
-                System.out.println("Continuing with the program...");
-                System.out.println("");
+                logger.info("Continuing with the program...");
+                logger.info("");
                 break;
             } else {
                 // Handle invalid input.
-                System.out.println("Invalid input. Please try again.");
+                logger.info("Invalid input. Please try again.");
             }
         }
     }
