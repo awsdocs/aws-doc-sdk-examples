@@ -1,54 +1,78 @@
-# AWS SDK for Rust code examples for Application Auto Scaling
+# Application Auto Scaling code examples for the SDK for Rust
 
-## Purpose
+## Overview
 
-These examples demonstrate how to perform several AWS Application Auto Scaling (Application Auto Scaling) operations using the AWS SDK for Rust.
+Shows how to use the AWS SDK for Rust to work with AWS Application Auto Scaling.
 
-Application Auto Scaling enables auto scaling for resources beyond just EC2, either with scaling policies or with scheduled scaling.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-## Code examples
-
-- [Lists your Application Auto Scaling policies](src/bin/describe-scaling-policies.rs) (DescribeScalingPolicies)
+_Application Auto Scaling configures auto scaling for resources beyond just EC2, either with scaling policies or with scheduled scaling._
 
 ## ⚠ Important
 
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-## Running the code examples
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
 
 ### Prerequisites
 
-You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv1` folder.
 
-### describe-scaling-policies
 
-This example lists your Application Auto Scaling policies in the Region.
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-`cargo run --bin describe-scaling-policies -- [-r REGION] [-v]`
+### Single actions
 
-- _REGION_ is name of the Region where the stacks are located.
-  If not supplied, uses the value of the **AWS_REGION** environment variable.
-  If the environment variable is not set, defaults to **us-west-2**.
-- **-v** displays additional information.
+Code excerpts that show you how to call individual service functions.
 
-## Resources
+- [DescribeScalingPolicies](src/bin/describe-scaling-policies.rs#L23)
 
-- [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
-- [AWS SDK for Rust API Reference for Application Auto Scaling](https://docs.rs/aws-sdk-applicationautoscaling)
-- [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
 
-## Contributing
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-To propose a new code example to the AWS documentation team,
-see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md).
-The team prefers to create code examples that show broad scenarios rather than individual API calls.
+## Run the examples
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `rustv1` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Application Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html)
+- [Application Auto Scaling API Reference](https://docs.aws.amazon.com/autoscaling/application/APIReference/Welcome.html)
+- [SDK for Rust Application Auto Scaling reference](https://docs.rs/aws-sdk-application-auto-scaling/latest/aws_sdk_application-auto-scaling/)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
