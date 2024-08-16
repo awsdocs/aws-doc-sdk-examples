@@ -71,7 +71,6 @@ code:
         Wrapper methods should provide additional context when calling service actions. For example, specify certain parameters and return true or false. Do not use Request/Response classes directly as the parameter and response types, and do not include a cancellation token unless the user is able to cancel the action.
               
               '''
-              // snippet-start:[SESWorkflow.dotnetv3.SESv2Wrapper.CreateContactList]
               /// <summary>
               /// Creates a contact list with the specified name.
               /// </summary>
@@ -111,7 +110,6 @@ code:
                   }
                   return false;
               }
-              // snippet-end:[SESWorkflow.dotnetv3.SESv2Wrapper.CreateContactList]
               '''
           
           All methods should include full XML doc tags for summary, parameters, and return types.
