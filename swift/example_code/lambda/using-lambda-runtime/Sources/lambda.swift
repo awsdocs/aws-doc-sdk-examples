@@ -10,6 +10,7 @@ import protocol AWSClientRuntime.AWSServiceError
 import enum Smithy.ByteStream
 // snippet-end:[lambda.swift.function.imports]
 
+// snippet-start:[lambda.swift.function.types]
 // snippet-start:[lambda.swift.function.struct.request]
 /// Represents the contents of the requests being received from the client.
 /// This structure must be `Decodable` to indicate that its initializer
@@ -41,6 +42,7 @@ enum S3ExampleLambdaErrors: Error {
     case noS3Client
 }
 // snippet-end:[lambda.swift.function.errors]
+// snippet-end:[lambda.swift.function.types]
 
 // snippet-start:[lambda.swift.function.handler]
 /// A Swift AWS Lambda Runtime `LambdaHandler` lets you both perform needed
