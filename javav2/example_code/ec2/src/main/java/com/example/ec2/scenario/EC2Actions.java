@@ -4,6 +4,8 @@
 package com.example.ec2.scenario;
 
 // snippet-start:[ec2.java2.actions.main]
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
@@ -59,7 +61,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 public class EC2Actions {
-
+    private static final Logger logger = LoggerFactory.getLogger(EC2Actions.class);
     private static Ec2AsyncClient ec2AsyncClient;
 
     /**
@@ -171,9 +173,6 @@ public class EC2Actions {
             .whenComplete((pollResponse, ex) -> {
                 if (ex != null) {
                     throw new RuntimeException("Failed to terminate instance: " + instanceId, ex);
-                } else {
-                    System.out.println("Successfully terminated instance " + instanceId);
-                    System.out.println(pollResponse);
                 }
             })
             .thenApply(resp -> null);
@@ -219,8 +218,6 @@ public class EC2Actions {
         response.whenComplete((resp, ex) -> {
             if (ex != null) {
                 throw new RuntimeException("Failed to release Elastic IP address", ex);
-            } else {
-                System.out.println("Successfully released Elastic IP address " + allocId);
             }
         });
 
@@ -249,8 +246,6 @@ public class EC2Actions {
         response.whenComplete((resp, ex) -> {
             if (ex != null) {
                throw new RuntimeException("Failed to disassociate address", ex);
-            } else {
-                System.out.println("Successfully disassociated the address!");
             }
         });
 
@@ -276,8 +271,6 @@ public class EC2Actions {
         CompletableFuture<AssociateAddressResponse> responseFuture = getAsyncClient().associateAddress(associateRequest);
         return responseFuture.thenApply(response -> {
             if (response.associationId() != null) {
-                System.out.printf("Successfully associated address with allocation ID %s to instance %s. Association ID: %s%n",
-                    allocationId, instanceId, response.associationId());
                 return response.associationId();
             } else {
                 throw new RuntimeException("Association ID is null after associating address.");
@@ -306,8 +299,6 @@ public class EC2Actions {
         return responseFuture.thenApply(AllocateAddressResponse::allocationId).whenComplete((result, ex) -> {
             if (ex != null) {
                 throw new RuntimeException("Failed to allocate address", ex);
-            } else {
-                System.out.printf("Successfully allocated address with allocation ID: %s%n", result);
             }
         });
     }
@@ -329,7 +320,7 @@ public class EC2Actions {
             .instanceIds(instanceId)
             .build();
 
-        System.out.println("Starting instance " + instanceId + " and waiting for it to run.");
+        logger.info("Starting instance " + instanceId + " and waiting for it to run.");
         return getAsyncClient().startInstances(startRequest)
             .thenCompose(response -> waitUntilInstanceRunningAsync(describeRequest))
             .whenComplete((response, ex) -> {
@@ -389,11 +380,11 @@ public class EC2Actions {
             .build();
 
         CompletableFuture<Void> resultFuture = new CompletableFuture<>();
-        System.out.println("Stopping instance " + instanceId + " and waiting for it to stop.");
+        logger.info("Stopping instance " + instanceId + " and waiting for it to stop.");
         getAsyncClient().stopInstances(stopRequest)
             .thenCompose(response -> waitUntilInstanceStoppedAsync(getAsyncClient(), describeRequest)) // Wait until the instance is stopped
             .thenAccept(response -> {
-                System.out.println("Successfully stopped instance " + instanceId);
+                logger.info("Successfully stopped instance " + instanceId);
                 resultFuture.complete(null); // Complete the future successfully
             })
             .exceptionally(throwable -> {
@@ -457,7 +448,7 @@ public class EC2Actions {
             })
             .exceptionally(ex -> {
                 // Log the error and rethrow it as a RuntimeException.
-                System.err.println("Failed to describe instances: " + ex.getMessage());
+                logger.info("Failed to describe instances: " + ex.getMessage());
                 throw new RuntimeException("Failed to describe instances", ex);
             });
     }
@@ -473,11 +464,11 @@ public class EC2Actions {
             .thenAccept(response -> {
                 String state = response.reservations().get(0).instances().get(0).state().name().name();
                 if ("RUNNING".equals(state)) {
-                    System.out.println("Image id is " + response.reservations().get(0).instances().get(0).imageId());
-                    System.out.println("Instance type is " + response.reservations().get(0).instances().get(0).instanceType());
-                    System.out.println("Instance state is " + response.reservations().get(0).instances().get(0).state().name());
+                    logger.info("Image id is " + response.reservations().get(0).instances().get(0).imageId());
+                    logger.info("Instance type is " + response.reservations().get(0).instances().get(0).instanceType());
+                    logger.info("Instance state is " + response.reservations().get(0).instances().get(0).state().name());
                     String pubAddress = response.reservations().get(0).instances().get(0).publicIpAddress();
-                    System.out.println("Instance address is " + pubAddress);
+                    logger.info("Instance address is " + pubAddress);
                     resultFuture.complete(pubAddress);
                 } else {
                     try {
@@ -524,7 +515,7 @@ public class EC2Actions {
             return getAsyncClient().waiter()
                 .waitUntilInstanceRunning(r -> r.instanceIds(instanceIdVal))
                 .thenApply(waitResponse -> {
-                    System.out.println("Successfully started EC2 instance " + instanceIdVal + " based on AMI " + amiId);
+                    logger.info("Successfully started EC2 instance " + instanceIdVal + " based on AMI " + amiId);
                     return instanceIdVal;
                 });
         }).exceptionally(throwable -> {
@@ -559,9 +550,9 @@ public class EC2Actions {
             if (resp != null) {
                 List<InstanceTypeInfo> instanceTypes = resp.instanceTypes();
                 for (InstanceTypeInfo type : instanceTypes) {
-                    System.out.println("The memory information of this type is " + type.memoryInfo().sizeInMiB());
-                    System.out.println("Network information is " + type.networkInfo().toString());
-                    System.out.println("Instance type is " + type.instanceType().toString());
+                    logger.info("The memory information of this type is " + type.memoryInfo().sizeInMiB());
+                    logger.info("Network information is " + type.networkInfo().toString());
+                    logger.info("Instance type is " + type.instanceType().toString());
                 }
             } else {
                 throw (RuntimeException) ex;
@@ -599,8 +590,8 @@ public class EC2Actions {
                 if (resp.images().isEmpty()) {
                     throw new RuntimeException("No images found with the provided image ID.");
                 }
-                System.out.println("The description of the first image is " + resp.images().get(0).description());
-                System.out.println("The name of the first image is " + resp.images().get(0).name());
+                logger.info("The description of the first image is " + resp.images().get(0).description());
+                logger.info("The name of the first image is " + resp.images().get(0).name());
             } else {
                 throw (RuntimeException) ex;
             }
@@ -631,7 +622,7 @@ public class EC2Actions {
                 if (exception != null) {
                     responseFuture.completeExceptionally(new RuntimeException("Failed to get parameters by path", exception));
                 } else {
-                    System.out.println("Parameters retrieved successfully.");
+                    logger.info("Parameters retrieved successfully.");
                     responseFuture.complete(response);
                 }
             });
