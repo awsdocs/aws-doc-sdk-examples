@@ -28,7 +28,7 @@ batch_DescribeJobs:
               snippet_tags:
                 - batch.java2.retrieve.job.main
   services:
-    batch: {batch_DescribeJobs}
+    batch: {DescribeJobs}
 batch_SubmitJob:
   languages:
     Java:
