@@ -89,18 +89,6 @@ batch_UpdateJobQueue:
                 - batch.java2.disable.job.queue.main
   services:
     batch: {UpdateJobQueue}
-batch_UpdateJobQueue:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/batch
-          excerpts:
-            - description:
-              snippet_tags:
-                - batch.java2.disable.job.queue.main
-  services:
-    batch: {UpdateJobQueue}
 batch_DeregisterJobDefinition:
   languages:
     Java:
