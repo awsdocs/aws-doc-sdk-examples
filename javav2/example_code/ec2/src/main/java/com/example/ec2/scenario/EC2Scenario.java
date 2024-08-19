@@ -73,9 +73,9 @@ public class EC2Scenario {
         Scanner scanner = new Scanner(System.in);
         EC2Actions ec2Actions = new EC2Actions();
 
-        String keyName = "TestKeyPair" ;
+        String keyName = "TestKeyPair2" ;
         String fileName = "ec2Key.pem";
-        String groupName = "TestSecGroup" ;
+        String groupName = "TestSecGroup2" ;
         String groupDesc = "Test Group" ;
         String vpcId = ec2Actions.describeFirstEC2VpcAsync().join().vpcId();
         InetAddress localAddress = InetAddress.getLocalHost();

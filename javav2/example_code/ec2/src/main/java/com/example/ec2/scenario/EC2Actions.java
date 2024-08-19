@@ -57,6 +57,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -686,34 +687,36 @@ public class EC2Actions {
             .vpcId(vpcId)
             .build();
 
-        // Create the security group asynchronously
         return getAsyncClient().createSecurityGroup(createRequest)
             .thenCompose(createResponse -> {
-                IpRange ipRange = IpRange.builder()
-                    .cidrIp(myIpAddress + "/32")
-                    .build();
+                // Wait for a short time to allow the security group to propagate
+                return delay(5, TimeUnit.SECONDS).thenCompose(v -> {
+                    IpRange ipRange = IpRange.builder()
+                        .cidrIp(myIpAddress + "/32")
+                        .build();
 
-                IpPermission ipPerm = IpPermission.builder()
-                    .ipProtocol("tcp")
-                    .toPort(80)
-                    .fromPort(80)
-                    .ipRanges(ipRange)
-                    .build();
+                    IpPermission ipPerm = IpPermission.builder()
+                        .ipProtocol("tcp")
+                        .toPort(80)
+                        .fromPort(80)
+                        .ipRanges(ipRange)
+                        .build();
 
-                IpPermission ipPerm2 = IpPermission.builder()
-                    .ipProtocol("tcp")
-                    .toPort(22)
-                    .fromPort(22)
-                    .ipRanges(ipRange)
-                    .build();
+                    IpPermission ipPerm2 = IpPermission.builder()
+                        .ipProtocol("tcp")
+                        .toPort(22)
+                        .fromPort(22)
+                        .ipRanges(ipRange)
+                        .build();
 
-                AuthorizeSecurityGroupIngressRequest authRequest = AuthorizeSecurityGroupIngressRequest.builder()
-                    .groupName(groupName)
-                    .ipPermissions(ipPerm, ipPerm2)
-                    .build();
+                    AuthorizeSecurityGroupIngressRequest authRequest = AuthorizeSecurityGroupIngressRequest.builder()
+                        .groupName(groupName)
+                        .ipPermissions(ipPerm, ipPerm2)
+                        .build();
 
-                return getAsyncClient().authorizeSecurityGroupIngress(authRequest)
-                    .thenApply(authResponse -> createResponse.groupId());
+                    return getAsyncClient().authorizeSecurityGroupIngress(authRequest)
+                        .thenApply(authResponse -> createResponse.groupId());
+                });
             })
             .whenComplete((result, exception) -> {
                 if (exception != null) {
@@ -726,7 +729,16 @@ public class EC2Actions {
             });
     }
     // snippet-end:[ec2.java2.create_security_group.main]
-
+    private CompletableFuture<Void> delay(long duration, TimeUnit unit) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                unit.sleep(duration);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return null;
+        });
+    }
     // snippet-start:[ec2.java2.describe_key_pairs.main]
     /**
      * Asynchronously describes the key pairs associated with the current AWS account.
