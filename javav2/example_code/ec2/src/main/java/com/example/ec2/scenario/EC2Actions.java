@@ -7,6 +7,7 @@ package com.example.ec2.scenario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
@@ -49,6 +50,8 @@ import software.amazon.awssdk.services.ec2.model.StopInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.StartInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.TerminateInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.Vpc;
+import software.amazon.awssdk.services.ec2.waiters.Ec2AsyncWaiter;
+import software.amazon.awssdk.services.ec2.waiters.Ec2Waiter;
 import software.amazon.awssdk.services.ssm.SsmAsyncClient;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathRequest;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathResponse;
@@ -689,8 +692,18 @@ public class EC2Actions {
 
         return getAsyncClient().createSecurityGroup(createRequest)
             .thenCompose(createResponse -> {
-                // Wait for a short time to allow the security group to propagate
-                return delay(5, TimeUnit.SECONDS).thenCompose(v -> {
+                String groupId = createResponse.groupId();
+
+                // Waiter to wait until the security group exists
+                Ec2AsyncWaiter waiter = getAsyncClient().waiter();
+                DescribeSecurityGroupsRequest describeRequest = DescribeSecurityGroupsRequest.builder()
+                    .groupIds(groupId)
+                    .build();
+
+                CompletableFuture<WaiterResponse<DescribeSecurityGroupsResponse>> waiterFuture =
+                    waiter.waitUntilSecurityGroupExists(describeRequest);
+
+                return waiterFuture.thenCompose(waiterResponse -> {
                     IpRange ipRange = IpRange.builder()
                         .cidrIp(myIpAddress + "/32")
                         .build();
@@ -715,7 +728,7 @@ public class EC2Actions {
                         .build();
 
                     return getAsyncClient().authorizeSecurityGroupIngress(authRequest)
-                        .thenApply(authResponse -> createResponse.groupId());
+                        .thenApply(authResponse -> groupId);
                 });
             })
             .whenComplete((result, exception) -> {
@@ -729,16 +742,7 @@ public class EC2Actions {
             });
     }
     // snippet-end:[ec2.java2.create_security_group.main]
-    private CompletableFuture<Void> delay(long duration, TimeUnit unit) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                unit.sleep(duration);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            return null;
-        });
-    }
+
     // snippet-start:[ec2.java2.describe_key_pairs.main]
     /**
      * Asynchronously describes the key pairs associated with the current AWS account.
