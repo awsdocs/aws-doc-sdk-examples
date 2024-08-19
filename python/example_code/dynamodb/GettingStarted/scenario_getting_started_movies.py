@@ -34,7 +34,27 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.dynamodb.helper.Movies.class_full]
 # snippet-start:[python.example_code.dynamodb.helper.Movies.class_decl]
 class Movies:
-    """Encapsulates an Amazon DynamoDB table of movie data."""
+    """Encapsulates an Amazon DynamoDB table of movie data.
+
+    Example data structure for a movie record in this table:
+        {
+            "year": 1999,
+            "title": "For Love of the Game",
+            "info": {
+                "directors": ["Sam Raimi"],
+                "release_date": "1999-09-15T00:00:00Z",
+                "rating": 6.3,
+                "plot": "A washed up pitcher flashes through his career.",
+                "rank": 4987,
+                "running_time_secs": 8220,
+                "actors": [
+                    "Kevin Costner",
+                    "Kelly Preston",
+                    "John C. Reilly"
+                ]
+            }
+        }
+    """
 
     def __init__(self, dyn_resource):
         """
