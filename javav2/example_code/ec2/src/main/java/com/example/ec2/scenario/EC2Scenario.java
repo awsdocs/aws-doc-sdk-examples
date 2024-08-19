@@ -14,6 +14,9 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressResponse;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathResponse;
 import software.amazon.awssdk.services.ssm.model.Parameter;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
@@ -53,36 +56,31 @@ public class EC2Scenario {
 
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     private static final Logger logger = LoggerFactory.getLogger(EC2Scenario.class);
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, UnknownHostException {
 
         final String usage = """
 
             Usage:
-               <keyName> <fileName> <groupName> <groupDesc> <vpcId>
+               <keyName> <fileName> <groupName> <groupDesc> 
 
             Where:
                keyName -  A key pair name (for example, TestKeyPair).\s
                fileName -  A file name where the key information is written to.\s
                groupName - The name of the security group.\s
                groupDesc - The description of the security group.\s
-               vpcId - A VPC Id value. You can get this value from the AWS Management Console.\s
-               myIpAddress - The IP address of your development machine.\s
-
             """;
 
-        if (args.length != 6) {
-            System.out.println(usage);
-            return;
-        }
-
-        String keyName = args[0];
-        String fileName = args[1];
-        String groupName = args[2];
-        String groupDesc = args[3];
-        String vpcId = args[4];
-        String myIpAddress = args[5];
         Scanner scanner = new Scanner(System.in);
         EC2Actions ec2Actions = new EC2Actions();
+
+        String keyName = "TestKeyPair" ;
+        String fileName = "ec2Key.pem";
+        String groupName = "TestSecGroup" ;
+        String groupDesc = "Test Group" ;
+        String vpcId = ec2Actions.describeFirstEC2VpcAsync().join().vpcId();
+        InetAddress localAddress = InetAddress.getLocalHost();
+        String myIpAddress = localAddress.getHostAddress();
+
 
         logger.info("""
             Amazon Elastic Compute Cloud (EC2) is a web service that provides secure, resizable compute 

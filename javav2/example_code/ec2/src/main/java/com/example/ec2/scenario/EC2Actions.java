@@ -32,6 +32,8 @@ import software.amazon.awssdk.services.ec2.model.DescribeInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeKeyPairsResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
+import software.amazon.awssdk.services.ec2.model.DescribeVpcsRequest;
+import software.amazon.awssdk.services.ec2.model.DescribeVpcsResponse;
 import software.amazon.awssdk.services.ec2.model.DisassociateAddressRequest;
 import software.amazon.awssdk.services.ec2.model.DisassociateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.DomainType;
@@ -46,6 +48,7 @@ import software.amazon.awssdk.services.ec2.model.RunInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.StopInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.StartInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.TerminateInstancesRequest;
+import software.amazon.awssdk.services.ec2.model.Vpc;
 import software.amazon.awssdk.services.ssm.SsmAsyncClient;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathRequest;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathResponse;
@@ -775,5 +778,24 @@ public class EC2Actions {
         return responseFuture;
     }
    // snippet-end:[ec2.java2.create_key_pair.main]
+
+    // snippet-start:[ec2.java2.describe_vpc.main]
+    public CompletableFuture<Vpc> describeFirstEC2VpcAsync() {
+        DescribeVpcsRequest request = DescribeVpcsRequest.builder()
+            .build();
+
+        CompletableFuture<DescribeVpcsResponse> response = getAsyncClient().describeVpcs(request);
+        CompletableFuture<Vpc> firstVpc = response.thenApply(vpcsResponse -> {
+            if (vpcsResponse == null || vpcsResponse.vpcs().isEmpty()) {
+                throw new RuntimeException("No EC2 VPCs found.");
+            } else {
+                // Get the first VPC and return it
+                return vpcsResponse.vpcs().get(0);
+            }
+        });
+
+        return firstVpc;
+    }
+    // snippet-end:[ec2.java2.describe_vpc.main]
 }
 // snippet-end:[ec2.java2.actions.main]
