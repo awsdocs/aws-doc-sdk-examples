@@ -48,8 +48,8 @@ Code excerpts that show you how to call individual service functions.
 
 Sample applications that work across multiple AWS services.
 
-- [Create a web application to track DynamoDB data](../cross_service/DynamoDbItemTracker)
-- [Create an Aurora Serverless work item tracker](../cross_service/AuroraItemTracker)
+- [Create a web application to track DynamoDB data](../cross-service/DynamoDbItemTracker)
+- [Create an Aurora Serverless work item tracker](../cross-service/AuroraItemTracker)
 - [Detect objects in images](../cross-service/PhotoAnalyzerApp)
 
 

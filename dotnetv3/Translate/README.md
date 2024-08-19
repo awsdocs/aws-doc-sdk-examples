@@ -43,7 +43,7 @@ Code excerpts that show you how to call individual service functions.
 
 Sample applications that work across multiple AWS services.
 
-- [Building an Amazon SNS application](../cross_service/SubscribePublishTranslate)
+- [Building an Amazon SNS application](../cross-service/SubscribePublishTranslate)
 - [Create an application to analyze customer feedback](../cross-service/FeedbackSentimentAnalyzer)
 
 

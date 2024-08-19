@@ -60,7 +60,7 @@ functions within the same service.
 
 Sample applications that work across multiple AWS services.
 
-- [Building an Amazon SNS application](../cross_service/SubscribePublishTranslate)
+- [Building an Amazon SNS application](../cross-service/SubscribePublishTranslate)
 - [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
 
 

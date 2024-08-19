@@ -62,7 +62,7 @@ functions within the same service.
 
 Sample applications that work across multiple AWS services.
 
-- [Create an Aurora Serverless work item tracker](../cross_service/AuroraItemTracker)
+- [Create an Aurora Serverless work item tracker](../cross-service/AuroraItemTracker)
 
 
 <!--custom.examples.start-->
