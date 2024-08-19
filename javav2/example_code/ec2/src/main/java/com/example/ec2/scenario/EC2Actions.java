@@ -644,7 +644,7 @@ public class EC2Actions {
      */
     public CompletableFuture<String> describeSecurityGroupArnByNameAsync(String groupName) {
         DescribeSecurityGroupsRequest request = DescribeSecurityGroupsRequest.builder()
-            .groupNames(groupName)  // Use groupNames instead of groupIds
+            .groupNames(groupName)
             .build();
 
         CompletableFuture<DescribeSecurityGroupsResponse> responseFuture = getAsyncClient().describeSecurityGroups(request);
@@ -689,9 +689,8 @@ public class EC2Actions {
         // Create the security group asynchronously
         return getAsyncClient().createSecurityGroup(createRequest)
             .thenCompose(createResponse -> {
-                // If the security group is created successfully, proceed with adding rules
                 IpRange ipRange = IpRange.builder()
-                    .cidrIp(myIpAddress + "/32")  // Corrected CIDR notation for a single IP
+                    .cidrIp(myIpAddress + "/32")
                     .build();
 
                 IpPermission ipPerm = IpPermission.builder()
@@ -718,7 +717,6 @@ public class EC2Actions {
             })
             .whenComplete((result, exception) -> {
                 if (exception != null) {
-                    // Rethrow the exception so it can be handled in the calling code
                     if (exception instanceof CompletionException && exception.getCause() instanceof Ec2Exception) {
                         throw (Ec2Exception) exception.getCause();
                     } else {
@@ -727,7 +725,6 @@ public class EC2Actions {
                 }
             });
     }
-
     // snippet-end:[ec2.java2.create_security_group.main]
 
     // snippet-start:[ec2.java2.describe_key_pairs.main]
