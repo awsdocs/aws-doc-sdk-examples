@@ -122,7 +122,7 @@ public class EC2Scenario {
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
-                if ("InvalidKeyPair.Duplicate".equals(ec2Ex.awsErrorDetails().errorCode())) {
+                if (ec2Ex.getMessage().contains("already exists")) {
                     // Key pair already exists.
                     logger.info("The key pair '" + keyName + "' already exists. Moving on...");
                 } else {
@@ -131,7 +131,7 @@ public class EC2Scenario {
                     return;
                 }
             } else {
-                logger.info("An unexpected error occurred: " + (cause.getMessage()));
+                logger.info("An unexpected error occurred: " + (rt.getMessage()));
                 return;
             }
         }
