@@ -19,7 +19,6 @@ import software.amazon.awssdk.services.ec2.model.AuthorizeSecurityGroupIngressRe
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairRequest;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupRequest;
-import software.amazon.awssdk.services.ec2.model.CreateSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairRequest;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupRequest;
@@ -44,7 +43,6 @@ import software.amazon.awssdk.services.ec2.model.ReleaseAddressRequest;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressResponse;
 import software.amazon.awssdk.services.ec2.model.RunInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.RunInstancesResponse;
-import software.amazon.awssdk.services.ec2.model.SecurityGroup;
 import software.amazon.awssdk.services.ec2.model.StopInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.StartInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.TerminateInstancesRequest;
@@ -294,7 +292,6 @@ public class EC2Actions {
             .domain(DomainType.VPC)
             .build();
 
-        // Allocate the address asynchronously.
         CompletableFuture<AllocateAddressResponse> responseFuture = getAsyncClient().allocateAddress(allocateRequest);
         return responseFuture.thenApply(AllocateAddressResponse::allocationId).whenComplete((result, ex) -> {
             if (ex != null) {

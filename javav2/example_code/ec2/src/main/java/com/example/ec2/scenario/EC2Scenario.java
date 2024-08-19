@@ -9,11 +9,9 @@ import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeKeyPairsResponse;
-import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
 import software.amazon.awssdk.services.ec2.model.DisassociateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.ReleaseAddressResponse;
-import software.amazon.awssdk.services.ec2.model.SecurityGroup;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathResponse;
 import software.amazon.awssdk.services.ssm.model.Parameter;
 import java.util.List;
@@ -72,17 +70,17 @@ public class EC2Scenario {
 
             """;
 
-     //   if (args.length != 6) {
-     //       System.out.println(usage);
-     //       return;
-     //   }
+        if (args.length != 6) {
+            System.out.println(usage);
+            return;
+        }
 
-        String keyName = "TestKeyPair20" ; //args[0];
-        String fileName = "ec2Key.pem"; //args[1];
-        String groupName = "ScottSecurityGroup20" ; // args[2];
-        String groupDesc = "Test Group" ; //args[3];
-        String vpcId = "vpc-e97a4393" ; //args[4];
-        String myIpAddress = "72.21.198.66" ; // args[5];
+        String keyName = args[0];
+        String fileName = args[1];
+        String groupName = args[2];
+        String groupDesc = args[3];
+        String vpcId = args[4];
+        String myIpAddress = args[5];
         Scanner scanner = new Scanner(System.in);
         EC2Actions ec2Actions = new EC2Actions();
 
@@ -209,7 +207,6 @@ public class EC2Scenario {
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
-                // Handle EC2 exceptions.
                 logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
@@ -267,7 +264,6 @@ public class EC2Scenario {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception) {
                 Ec2Exception ec2Ex = (Ec2Exception) cause;
-                // Handle EC2 exceptions.
                 logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
@@ -539,7 +535,7 @@ public class EC2Scenario {
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = ec2Actions.deleteEC2SecGroupAsync(groupId);
-            future.join(); // Wait for the operation to complete
+            future.join();
             logger.info("Security group successfully deleted.");
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
