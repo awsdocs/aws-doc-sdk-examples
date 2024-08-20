@@ -69,7 +69,7 @@ functions within the same service.
 Sample applications that work across multiple AWS services.
 
 - [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
-- [Create a web application to track DynamoDB data](../cross_service/DynamoDbItemTracker)
+- [Create a web application to track DynamoDB data](../cross-service/DynamoDbItemTracker)
 
 
 <!--custom.examples.start-->
