@@ -5,71 +5,71 @@
 
 // snippet-start:[localstack.rust.use-localstack]
 use aws_config::BehaviorVersion;
-use std::error::Error;
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn Error>> {
+async fn main() {
     tracing_subscriber::fmt::init();
 
+    // This creates a ConfigLoader with the default settings, and optionally overrides the
+    // endpoint_url for any client created with this config. The overridden endpoint_url
+    // can be used to make requests against a running localstack environment.
     let mut shared_config = aws_config::defaults(BehaviorVersion::latest());
-    if use_localstack() {
-        shared_config = shared_config.endpoint_url(LOCALSTACK_ENDPOINT);
+    if let Some(url) = localstack_endpoint() {
+        shared_config = shared_config.endpoint_url(url).test_credentials();
     };
     let shared_config = shared_config.load().await;
 
-    let sqs_client = sqs_client(&shared_config);
-    let s3_client = s3_client(&shared_config);
+    // With the loaded configuration, create two clients to show simple operations-
+    // list SQS queues and S3 buckets. Take note of the different crate names for the Client
+    // and config::Builder items.
+    let sqs_client =
+        aws_sdk_sqs::Client::from_conf(aws_sdk_sqs::config::Builder::from(&shared_config).build());
+    let s3_client =
+        aws_sdk_s3::Client::from_conf(aws_sdk_s3::config::Builder::from(&shared_config).build());
 
-    let resp = s3_client.list_buckets().send().await?;
-    let buckets = resp.buckets();
-    let num_buckets = buckets.len();
-
-    println!("Buckets:");
-    for bucket in buckets {
-        println!("  {}", bucket.name().unwrap_or_default());
+    let list_buckets_response = s3_client.list_buckets().send().await;
+    match list_buckets_response {
+        Ok(response) => {
+            let buckets = response.buckets();
+            println!("{} Buckets:", buckets.len());
+            for bucket in buckets {
+                println!("  {}", bucket.name().unwrap_or_default());
+            }
+        }
+        Err(err) => eprintln!("Failed to list S3 buckets: {err:?}"),
     }
 
-    println!();
-    println!("Found {} buckets.", num_buckets);
-    println!();
-
-    let repl = sqs_client.list_queues().send().await?;
-    let queues = repl.queue_urls();
-    let num_queues = queues.len();
-
-    println!("Queue URLs:");
-    for queue in queues {
-        println!("  {}", queue);
+    let list_queues_response = sqs_client.list_queues().send().await;
+    match list_queues_response {
+        Ok(response) => {
+            let queues = response.queue_urls();
+            println!("{} Queue URLs:", queues.len());
+            for queue in queues {
+                println!("  {}", queue);
+            }
+        }
+        Err(err) => eprintln!("Failed to list SQS queues: {err:?}"),
     }
 
-    println!();
-    println!("Found {} queues.", num_queues);
-    println!();
-
-    if use_localstack() {
-        println!("Using the local stack.");
-    }
-
-    Ok(())
+    println!(
+        "Results came from {}",
+        shared_config.endpoint_url().unwrap_or("(unknown endpoint)")
+    );
 }
 
-/// If LOCALSTACK environment variable is true, use LocalStack endpoints.
-/// You can use your own method for determining whether to use LocalStack endpoints.
-fn use_localstack() -> bool {
-    std::env::var("LOCALSTACK").unwrap_or_default() == "true"
+/// If the LOCALSTACK environment variable is 'true' or a URL, use LocalStack endpoints.
+/// Attempt to use the default localstack port 4566 if the variable is "true", or
+/// if it's not empty, use that directly as the endpoint URL.
+fn localstack_endpoint() -> Option<String> {
+    let env_localstack = std::env::var("LOCALSTACK")
+        .unwrap_or_default()
+        .to_ascii_lowercase();
+    match env_localstack.as_str() {
+        "" => None,
+        "true" => Some(LOCALSTACK_ENDPOINT.into()),
+        _ => Some(env_localstack),
+    }
 }
 
 const LOCALSTACK_ENDPOINT: &str = "http://localhost:4566/";
-
-fn sqs_client(conf: &aws_config::SdkConfig) -> aws_sdk_sqs::Client {
-    // Copy config from aws_config::SdkConfig to aws_sdk_sqs::Config
-    let sqs_config_builder = aws_sdk_sqs::config::Builder::from(conf);
-    aws_sdk_sqs::Client::from_conf(sqs_config_builder.build())
-}
-
-fn s3_client(conf: &aws_config::SdkConfig) -> aws_sdk_s3::Client {
-    // Copy config from aws_config::SdkConfig to aws_sdk_s3::Config
-    let s3_config_builder = aws_sdk_s3::config::Builder::from(conf);
-    aws_sdk_s3::Client::from_conf(s3_config_builder.build())
-}
 // snippet-end:[localstack.rust.use-localstack]

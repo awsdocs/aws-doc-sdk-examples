@@ -46,6 +46,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [](src/bin/list-tables-local.rs)
 - [Query a table using PartiQL](src/bin/partiql.rs)
 
 
@@ -61,6 +62,18 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
+
+#### 
+
+This example shows you how to Override the endpoint URL to connect to a local development deployment of DynamoDB and an AWS SDK.
+
+
+<!--custom.scenario_prereqs.dynamodb_local.start-->
+<!--custom.scenario_prereqs.dynamodb_local.end-->
+
+
+<!--custom.scenarios.dynamodb_local.start-->
+<!--custom.scenarios.dynamodb_local.end-->
 
 #### Query a table using PartiQL
 
