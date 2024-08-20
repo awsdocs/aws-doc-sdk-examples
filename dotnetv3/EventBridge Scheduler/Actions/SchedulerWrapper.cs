@@ -35,9 +35,9 @@ public class SchedulerWrapper
     /// <param name="scheduleExpression">The schedule expression that defines when the schedule should run.</param>
     /// <param name="scheduleGroupName">The name of the schedule group to which the schedule should be added.</param>
     /// <param name="deleteAfterCompletion">Indicates whether to delete the schedule after completion.</param>
-    ///  <param name="useFlexibleTimeWindow">Indicates whether to use a flexible time window for the schedule.</param>
-    ///  <param name="targetArn">ARN of the event target.</param>
-    ///  <param name="roleArn">Execution Role ARN.</param>
+    /// <param name="useFlexibleTimeWindow">Indicates whether to use a flexible time window for the schedule.</param>
+    /// <param name="targetArn">ARN of the event target.</param>
+    /// <param name="roleArn">Execution Role ARN.</param>
     /// <returns>True if the schedule was created successfully, false otherwise.</returns>
     public async Task<bool> CreateScheduleAsync(
             string name,
