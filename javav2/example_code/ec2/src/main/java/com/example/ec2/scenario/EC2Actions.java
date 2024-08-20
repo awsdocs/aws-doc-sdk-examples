@@ -805,7 +805,6 @@ public class EC2Actions {
             if (vpcsResponse == null || vpcsResponse.vpcs().isEmpty()) {
                 throw new RuntimeException("No EC2 VPCs found.");
             } else {
-                // Get the first VPC and return it
                 return vpcsResponse.vpcs().get(0);
             }
         });
