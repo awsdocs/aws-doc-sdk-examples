@@ -124,7 +124,7 @@ public class S3Actions {
             }
         });
     }
-    // snippet-start:[s3.java2.create_bucket_waiters.main]
+    // snippet-end:[s3.java2.create_bucket_waiters.main]
 
     // snippet-start:[s3.java2.s3_object_upload.main]
     /**
@@ -149,7 +149,6 @@ public class S3Actions {
         });
     }
     // snippet-end:[s3.java2.s3_object_upload.main]
-
 
     // snippet-start:[s3.java2.getobjectdata.main]
     /**

@@ -4,16 +4,13 @@
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import com.example.s3.CopyObject;
 import com.example.s3.CreateAccessPoint;
 import com.example.s3.DeleteBucketPolicy;
 import com.example.s3.DeleteMultiObjects;
 import com.example.s3.GetObjectPresignedUrl;
 import com.example.s3.GetObjectRestoreStatus;
 import com.example.s3.LifecycleConfiguration;
-import com.example.s3.RestoreObject;
 import com.example.s3.S3Cors;
-import com.example.s3.S3ZipExample;
 import com.example.s3.scenario.S3Actions;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.AfterAll;
