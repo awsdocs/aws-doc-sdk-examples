@@ -22,7 +22,7 @@
     <para>The following code examples show you how to perform actions and implement common scenarios by using
         the {{$examples.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
     {{- template "note_example_types" makeSlice 0 $basics.Examples $actions.Examples $scenarios.Examples}}
-    <para>Each example includes a link to GitHub, where you can find
+    <para>Each example includes a link to the complete source code, where you can find
         instructions on how to set up and run the code in context.</para>
     {{- template "hello" makeSlice $svc_examples.CategorizedExampleSets $examples.Language $examples.LanguageSlug}}
     {{- if or $basics.Examples (or $actions.Examples (or $scenarios.Examples $svc_examples.CustomCategoriesSorted))}}
