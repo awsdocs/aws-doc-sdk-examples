@@ -79,7 +79,7 @@ functions within the same service.
 
 - [Create a presigned URL](s3_basics/presigned_url.py)
 - [Get started with buckets and objects](s3_basics/scenario_getting_started.py)
-- [Manage versioned objects in batches with a Lambda function](python/code_examples/s3_versioning)
+- [Manage versioned objects in batches with a Lambda function](python/example_code/s3/s3_versioning)
 - [Upload or download large files](file_transfer/file_transfer.py)
 - [Work with versioned objects](s3_versioning/versioning.py)
 
