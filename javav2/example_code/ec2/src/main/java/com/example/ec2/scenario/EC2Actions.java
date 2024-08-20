@@ -39,6 +39,7 @@ import software.amazon.awssdk.services.ec2.model.DisassociateAddressRequest;
 import software.amazon.awssdk.services.ec2.model.DisassociateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.DomainType;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+import software.amazon.awssdk.services.ec2.model.Filter;
 import software.amazon.awssdk.services.ec2.model.InstanceTypeInfo;
 import software.amazon.awssdk.services.ec2.model.IpPermission;
 import software.amazon.awssdk.services.ec2.model.IpRange;
@@ -797,19 +798,18 @@ public class EC2Actions {
 
     // snippet-start:[ec2.java2.describe_vpc.main]
     public CompletableFuture<Vpc> describeFirstEC2VpcAsync() {
-        DescribeVpcsRequest request = DescribeVpcsRequest.builder()
+        Filter myFilter = Filter.builder()
+            .name("is-default") // Correct filter name
+            .values("true")
             .build();
 
-        CompletableFuture<DescribeVpcsResponse> response = getAsyncClient().describeVpcs(request);
-        CompletableFuture<Vpc> firstVpc = response.thenApply(vpcsResponse -> {
-            if (vpcsResponse == null || vpcsResponse.vpcs().isEmpty()) {
-                throw new RuntimeException("No EC2 VPCs found.");
-            } else {
-                return vpcsResponse.vpcs().get(0);
-            }
-        });
-
-        return firstVpc;
+        return getAsyncClient()
+            .describeVpcs(DescribeVpcsRequest.builder()
+                .filters(myFilter)
+                .build())
+            .thenApply(response -> response.vpcs().stream()
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Default VPC not found")));
     }
     // snippet-end:[ec2.java2.describe_vpc.main]
 }
