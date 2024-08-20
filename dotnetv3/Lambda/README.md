@@ -51,10 +51,10 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a serverless application to manage photos](dotnetv3/cross-service/PhotoAssetManager)
-- [Create an application to analyze customer feedback](dotnetv3/cross-service/FeedbackSentimentAnalyzer)
+- [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
+- [Create an application to analyze customer feedback](../cross-service/FeedbackSentimentAnalyzer)
 - [Get started with functions](Actions/LambdaWrapper.cs)
-- [Transform data with S3 Object Lambda](dotnetv3/cross-service/S3ObjectLambdaFunction)
+- [Transform data with S3 Object Lambda](../cross-service/S3ObjectLambdaFunction)
 
 
 <!--custom.examples.start-->

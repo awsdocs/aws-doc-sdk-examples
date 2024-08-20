@@ -46,7 +46,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a lending library REST API](python/cross_service/aurora_rest_lending_library)
+- [Create a lending library REST API](../../cross_service/aurora_rest_lending_library)
 
 
 <!--custom.examples.start-->

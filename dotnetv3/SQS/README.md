@@ -54,7 +54,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Publish messages to queues](../cross-service/TopicsAndQueues/Scenarios/TopicsAndQueuesScenario/TopicsAndQueues.cs)
-- [Use the AWS Message Processing Framework for .NET with Amazon SQS](dotnetv3/cross-service/MessageProcessingFramework)
+- [Use the AWS Message Processing Framework for .NET with Amazon SQS](../cross-service/MessageProcessingFramework)
 
 
 <!--custom.examples.start-->

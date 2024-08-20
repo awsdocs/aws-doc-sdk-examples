@@ -45,7 +45,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create an application to analyze customer feedback](dotnetv3/cross-service/FeedbackSentimentAnalyzer)
+- [Create an application to analyze customer feedback](../cross-service/FeedbackSentimentAnalyzer)
 
 
 <!--custom.examples.start-->

@@ -55,8 +55,8 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a serverless application to manage photos](dotnetv3/cross-service/PhotoAssetManager)
-- [Detect objects in images](dotnetv3/cross-service/PhotoAnalyzerApp)
+- [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
+- [Detect objects in images](../cross-service/PhotoAnalyzerApp)
 
 
 <!--custom.examples.start-->
