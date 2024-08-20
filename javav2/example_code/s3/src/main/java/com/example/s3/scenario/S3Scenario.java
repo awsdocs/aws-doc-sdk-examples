@@ -119,7 +119,7 @@ public class S3Scenario {
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = s3Actions.getObjectBytesAsync(bucketName, key, savePath);
-            future.join(); // Wait for the operation to complete.
+            future.join();
             logger.info("Successfully obtained bytes from S3 object and wrote to file {}", savePath);
         } catch (RuntimeException rte) {
             logger.error("An S3 exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());

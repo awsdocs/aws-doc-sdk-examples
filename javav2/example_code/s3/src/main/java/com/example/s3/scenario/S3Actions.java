@@ -240,6 +240,15 @@ public class S3Actions {
     }
 
     // snippet-start:[s3.java2.copy_object.main]
+    /**
+     * Asynchronously copies an object from one S3 bucket to another.
+     *
+     * @param fromBucket the name of the source S3 bucket
+     * @param objectKey the key (name) of the object to be copied
+     * @param toBucket the name of the destination S3 bucket
+     * @return a {@link CompletableFuture} that completes with the copy result as a {@link String}
+     * @throws RuntimeException if the URL could not be encoded or an S3 exception occurred during the copy
+     */
     public CompletableFuture<String> copyBucketObjectAsync(String fromBucket, String objectKey, String toBucket) {
         String encodedUrl;
         try {
@@ -268,6 +277,13 @@ public class S3Actions {
     }
     // snippet-end:[s3.java2.copy_object.main]
 
+    /**
+     * Performs a multipart upload to an Amazon S3 bucket.
+     *
+     * @param bucketName the name of the S3 bucket to upload the file to
+     * @param key the key (name) of the file to be uploaded
+     * @return a {@link CompletableFuture} that completes when the multipart upload is successful
+     */
     public CompletableFuture<Void> multipartUpload(String bucketName, String key) {
         int mB = 1024 * 1024;
 
@@ -343,6 +359,13 @@ public class S3Actions {
     }
 
     // snippet-start:[s3.java2.delete_objects.main]
+    /**
+     * Deletes an object from an S3 bucket asynchronously.
+     *
+     * @param bucketName the name of the S3 bucket
+     * @param key the key (file name) of the object to be deleted
+     * @return a {@link CompletableFuture} that completes when the object has been deleted
+     */
     public CompletableFuture<Void> deleteObjectFromBucketAsync(String bucketName, String key) {
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
             .bucket(bucketName)
@@ -363,6 +386,13 @@ public class S3Actions {
     // snippet-end:[s3.java2.delete_objects.main]
 
     // snippet-start:[s3.java2.bucket_deletion.main]
+    /**
+     * Deletes an S3 bucket asynchronously.
+     *
+     * @param bucket the name of the bucket to be deleted
+     * @return a {@link CompletableFuture} that completes when the bucket deletion is successful, or throws a {@link RuntimeException}
+     *         if an error occurs during the deletion process
+     */
     public CompletableFuture<Void> deleteBucketAsync(String bucket) {
         DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder()
             .bucket(bucket)
