@@ -2,16 +2,22 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # snippet-start:[python.example_code.bedrock-runtime.async.Converse_AnthropicClaude]
-# Use the Conversation API to send a text message to Anthropic Claude. Streaming the
-# responses allows running the requests in parallel, speeding overall throughput for
-# several requests.
+"""
+Use the Conversation API to send a text message to Anthropic Claude. Streaming the
+responses allows running the requests in parallel, speeding overall throughput for
+several requests.
+"""
 
 import asyncio
+import logging
 import time
 from collections.abc import AsyncIterator
+from os import environ
 
 import boto3
 from botocore.exceptions import ClientError
+
+logging.basicConfig(level=environ.get("LOG_LEVEL", "WARN").upper(), force=True)
 
 # Create a Bedrock Runtime client in the AWS Region you want to use.
 client = boto3.client("bedrock-runtime", region_name="us-east-1")
@@ -73,8 +79,8 @@ async def main():
     sequential_results = [await gather_stream(task) for task in make_tasks()]
     end_sequential = time.time()
 
-    # print(f"Parallel results:\n{'\n'.join(parallel_results)}")
-    # print(f"Sequential results:\n{'\n'.join(sequential_results)}")
+    logging.info("Parallel results: \n%s", parallel_results)
+    logging.info("Sequential results:\n%s", sequential_results)
 
     print(f"Parallel took {end_parallel - start_parallel}s")  # EG 2.7 seconds
     print(f"Sequential took {end_sequential - start_sequential}s")  # EG 5.6 seconds
@@ -85,7 +91,7 @@ async def main():
         'The first should intermix "Count to 20", "Count to 30", etc. The second set should not mix,\n'
         'and be "Count to 20", "Count to 20", ... "Count to 90", " Count to 90".\n'
         "\n"
-        "This should the parallel nature of the first set of requests, and the sequential nature of the second set."
+        "This shows the parallel nature of the first set of requests, and the sequential nature of the second set."
     )
 
 
