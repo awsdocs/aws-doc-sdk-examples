@@ -184,6 +184,12 @@ public class S3Actions {
     // snippet-end:[s3.java2.getobjectdata.main]
 
     // snippet-start:[s3.java2.list_objects.main]
+    /**
+     * Asynchronously lists all objects in the specified S3 bucket.
+     *
+     * @param bucketName the name of the S3 bucket to list objects for
+     * @return a {@link CompletableFuture} that completes when all objects have been listed
+     */
     public CompletableFuture<Void> listAllObjectsAsync(String bucketName) {
         ListObjectsV2Request initialRequest = ListObjectsV2Request.builder()
             .bucket(bucketName)
@@ -216,28 +222,6 @@ public class S3Actions {
             });
     }
     // snippet-end:[s3.java2.list_objects.main]
-
-    public static void anotherListExample(S3Client s3, String bucketName) {
-        ListObjectsV2Request listReq = ListObjectsV2Request.builder()
-            .bucket(bucketName)
-            .maxKeys(1)
-            .build();
-
-        ListObjectsV2Iterable listRes = s3.listObjectsV2Paginator(listReq);
-
-        // Process response pages.
-        listRes.stream()
-            .flatMap(r -> r.contents().stream())
-            .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
-
-        // Helper method to work with paginated collection of items directly.
-        listRes.contents().stream()
-            .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
-
-        for (S3Object content : listRes.contents()) {
-            logger.info(" Key: " + content.key() + " size = " + content.size());
-        }
-    }
 
     // snippet-start:[s3.java2.copy_object.main]
     /**
