@@ -6,10 +6,12 @@ saved_readme = "README.old.md"
 doc_base_url = "https://docs.aws.amazon.com"
 categories = {
     "hello": "Hello",
+    "basics": "Basics",
     "scenarios": "Scenarios",
     "actions": "Api",
     "cross": "Cross-service examples",
 }
+basics_title_abbrev = "Learn the basics"
 entities = {
     "&AWS;": "AWS",
     "&aws_sec_sdk_use-federation-warning;": "",
@@ -102,6 +104,7 @@ language = {
                 "route-53": "dotnetv3/Route53",
                 "s3": "dotnetv3/S3",
                 "sagemaker": "dotnetv3/SageMaker",
+                "scheduler": "dotnetv3/EventBridge Scheduler",
                 "secrets-manager": "dotnetv3/SecretsManager",
                 "ses": "dotnetv3/SES",
                 "sesv2": "dotnetv3/SESv2",

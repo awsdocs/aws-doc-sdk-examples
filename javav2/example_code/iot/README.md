@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 - [Hello AWS IoT](src/main/java/com/example/iot/HelloIoT.java#L6) (`listThings`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/java/com/example/iot/scenario/IotScenario.java)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -50,13 +57,6 @@ Code excerpts that show you how to call individual service functions.
 - [ListCertificates](src/main/java/com/example/iot/scenario/IotActions.java#L370)
 - [SearchIndex](src/main/java/com/example/iot/scenario/IotActions.java#L533)
 - [UpdateThing](src/main/java/com/example/iot/scenario/IotActions.java#L269)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Work with device management use cases](src/main/java/com/example/iot/scenario/IotScenario.java)
 
 
 <!--custom.examples.start-->
@@ -75,18 +75,18 @@ functions within the same service.
 This example shows you how to get started using AWS IoT.
 
 
+#### Learn the basics
 
-#### Work with device management use cases
-
-This example shows you how to work with AWS IoT device management use cases using AWS IoT SDK
-
-
-<!--custom.scenario_prereqs.iot_Scenario.start-->
-<!--custom.scenario_prereqs.iot_Scenario.end-->
+This example shows you how to work with AWS IoT device management.
 
 
-<!--custom.scenarios.iot_Scenario.start-->
-<!--custom.scenarios.iot_Scenario.end-->
+<!--custom.basic_prereqs.iot_Scenario.start-->
+<!--custom.basic_prereqs.iot_Scenario.end-->
+
+
+<!--custom.basics.iot_Scenario.start-->
+<!--custom.basics.iot_Scenario.end-->
+
 
 ### Tests
 

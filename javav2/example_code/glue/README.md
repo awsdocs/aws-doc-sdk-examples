@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 - [Hello AWS Glue](src/main/java/com/example/glue/HelloGlue.java#L4) (`ListJobs`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/java/com/example/glue/GlueScenario.java)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -43,13 +50,6 @@ Code excerpts that show you how to call individual service functions.
 - [GetDatabase](src/main/java/com/example/glue/GetDatabase.java#L6)
 - [GetTables](src/main/java/com/example/glue/GetTable.java#L6)
 - [StartCrawler](src/main/java/com/example/glue/StartCrawler.java#L6)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with crawlers and jobs](src/main/java/com/example/glue/GlueScenario.java)
 
 
 <!--custom.examples.start-->
@@ -68,8 +68,7 @@ functions within the same service.
 This example shows you how to get started using AWS Glue.
 
 
-
-#### Get started with crawlers and jobs
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -78,12 +77,13 @@ This example shows you how to do the following:
 - Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another S3 bucket.
 - List information about job runs, view transformed data, and clean up resources.
 
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
 
 
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.start-->
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.end-->
+
 
 ### Tests
 

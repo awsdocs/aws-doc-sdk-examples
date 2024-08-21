@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 - [Hello EventBridge](src/main/java/com/example/eventbridge/HelloEventBridge.java#L16) (`ListEventBuses`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/java/com/example/eventbridge/EventbridgeMVP.java)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -55,7 +62,6 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with rules and targets](src/main/java/com/example/eventbridge/EventbridgeMVP.java)
 - [Send event notifications to EventBridge](../s3/src/main/java/com/example/s3/PutBucketS3EventNotificationEventBridge.java)
 
 
@@ -75,8 +81,7 @@ functions within the same service.
 This example shows you how to get started using EventBridge.
 
 
-
-#### Get started with rules and targets
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -85,12 +90,13 @@ This example shows you how to do the following:
 - List and update rules and targets.
 - Send events, then clean up resources.
 
-<!--custom.scenario_prereqs.eventbridge_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.eventbridge_Scenario_GettingStarted.end-->
+<!--custom.basic_prereqs.eventbridge_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.eventbridge_Scenario_GettingStarted.end-->
 
 
-<!--custom.scenarios.eventbridge_Scenario_GettingStarted.start-->
-<!--custom.scenarios.eventbridge_Scenario_GettingStarted.end-->
+<!--custom.basics.eventbridge_Scenario_GettingStarted.start-->
+<!--custom.basics.eventbridge_Scenario_GettingStarted.end-->
+
 
 #### Send event notifications to EventBridge
 

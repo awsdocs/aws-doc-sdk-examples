@@ -31,7 +31,14 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello KMS key](src/main/java/com/example/kms/HelloKMS.java#L6) (`listKeysPaginator`)
+- [Hello AWS KMS](src/main/java/com/example/kms/HelloKMS.java#L6) (`listKeysPaginator`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/java/com/example/kms/scenario/KMSScenario.java)
 
 
 ### Single actions
@@ -56,13 +63,6 @@ Code excerpts that show you how to call individual service functions.
 - [Sign](src/main/java/com/example/kms/scenario/KMSScenario.java#L338)
 - [TagResource](src/main/java/com/example/kms/scenario/KMSScenario.java#L376)
 
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Learn KMS key core operations](src/main/java/com/example/kms/scenario/KMSScenario.java)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -75,13 +75,12 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello KMS key
+#### Hello AWS KMS
 
-This example shows you how to get started using KMS key.
+This example shows you how to get started using AWS KMS.
 
 
-
-#### Learn KMS key core operations
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -93,12 +92,13 @@ This example shows you how to do the following:
 - Tag keys.
 - Delete KMS keys.
 
-<!--custom.scenario_prereqs.kms_Scenario_Basics.start-->
-<!--custom.scenario_prereqs.kms_Scenario_Basics.end-->
+<!--custom.basic_prereqs.kms_Scenario_Basics.start-->
+<!--custom.basic_prereqs.kms_Scenario_Basics.end-->
 
 
-<!--custom.scenarios.kms_Scenario_Basics.start-->
-<!--custom.scenarios.kms_Scenario_Basics.end-->
+<!--custom.basics.kms_Scenario_Basics.start-->
+<!--custom.basics.kms_Scenario_Basics.end-->
+
 
 ### Tests
 

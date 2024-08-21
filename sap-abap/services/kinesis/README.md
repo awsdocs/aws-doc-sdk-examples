@@ -29,6 +29,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `sap-a
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](zcl_aws1_kns_scenario.clas.abap)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -40,13 +47,6 @@ Code excerpts that show you how to call individual service functions.
 - [ListStreams](zcl_aws1_kns_actions.clas.abap#L177)
 - [PutRecord](zcl_aws1_kns_actions.clas.abap#L200)
 - [RegisterStreamConsumer](zcl_aws1_kns_actions.clas.abap#L238)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with data streams](zcl_aws1_kns_scenario.clas.abap)
 
 
 <!--custom.examples.start-->
@@ -61,8 +61,7 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Get started with data streams
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -70,12 +69,13 @@ This example shows you how to do the following:
 - Create a shard iterator.
 - Read the record, then clean up resources.
 
-<!--custom.scenario_prereqs.kinesis_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.kinesis_Scenario_GettingStarted.end-->
+<!--custom.basic_prereqs.kinesis_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.kinesis_Scenario_GettingStarted.end-->
 
 
-<!--custom.scenarios.kinesis_Scenario_GettingStarted.start-->
-<!--custom.scenarios.kinesis_Scenario_GettingStarted.end-->
+<!--custom.basics.kinesis_Scenario_GettingStarted.start-->
+<!--custom.basics.kinesis_Scenario_GettingStarted.end-->
+
 
 ### Tests
 

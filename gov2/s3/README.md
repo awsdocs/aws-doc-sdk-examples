@@ -34,6 +34,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 - [Hello Amazon S3](hello/hello.go#L4) (`ListBuckets`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](actions/bucket_basics.go)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -62,7 +69,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a presigned URL](actions/presigner.go)
-- [Get started with buckets and objects](actions/bucket_basics.go)
 - [Lock Amazon S3 objects](../workflows/s3_object_lock/workflows/s3_object_lock.go)
 - [Upload or download large files](actions/bucket_basics.go)
 
@@ -111,6 +117,23 @@ and to get help for running a scenario, use the following command:
 ```
 go run ./cmd -h
 ```
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
 
 #### Create a presigned URL
 
@@ -126,26 +149,6 @@ This example shows you how to create a presigned URL for Amazon S3 and upload an
 go run ./cmd -scenario presigning
 ```
 <!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
-
-#### Get started with buckets and objects
-
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
-
-
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-```
-go run ./cmd -scenario getstarted
-```
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
 
 #### Lock Amazon S3 objects
 

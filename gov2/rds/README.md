@@ -34,6 +34,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 - [Hello Amazon RDS](hello/hello.go#L4) (`DescribeDBInstances`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/get_started_instances.go)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -50,13 +57,6 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeDBSnapshots](actions/instances.go#L157)
 - [DescribeOrderableDBInstanceOptions](actions/instances.go#L269)
 - [ModifyDBParameterGroup](actions/instances.go#L119)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with DB instances](scenarios/get_started_instances.go)
 
 
 <!--custom.examples.start-->
@@ -86,8 +86,7 @@ and to get help for running a scenario, use the following command:
 ```
 go run ./cmd -h
 ```
-
-#### Get started with DB instances
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -96,12 +95,13 @@ This example shows you how to do the following:
 - Take a snapshot of the instance.
 - Delete the instance and parameter group.
 
-<!--custom.scenario_prereqs.rds_Scenario_GetStartedInstances.start-->
-<!--custom.scenario_prereqs.rds_Scenario_GetStartedInstances.end-->
+<!--custom.basic_prereqs.rds_Scenario_GetStartedInstances.start-->
+<!--custom.basic_prereqs.rds_Scenario_GetStartedInstances.end-->
 
 
-<!--custom.scenarios.rds_Scenario_GetStartedInstances.start-->
-<!--custom.scenarios.rds_Scenario_GetStartedInstances.end-->
+<!--custom.basics.rds_Scenario_GetStartedInstances.start-->
+<!--custom.basics.rds_Scenario_GetStartedInstances.end-->
+
 
 ### Tests
 

@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 - [Hello Support](hello.js#L6) (`DescribeServices`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/basic.js)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -46,13 +53,6 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeCommunications](actions/describe-communications.js#L6)
 - [DescribeSeverityLevels](actions/describe-severity-levels.js#L6)
 - [ResolveCase](actions/resolve-case.js#L6)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with cases](scenarios/basic.js)
 
 
 <!--custom.examples.start-->
@@ -88,8 +88,7 @@ This example shows you how to get started using Support.
 node ./hello.js
 ```
 
-
-#### Get started with cases
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -101,12 +100,13 @@ This example shows you how to do the following:
 - Resolve the case.
 - Get and display a list of resolved cases for the current day.
 
-<!--custom.scenario_prereqs.support_Scenario_GetStartedSupportCases.start-->
-<!--custom.scenario_prereqs.support_Scenario_GetStartedSupportCases.end-->
+<!--custom.basic_prereqs.support_Scenario_GetStartedSupportCases.start-->
+<!--custom.basic_prereqs.support_Scenario_GetStartedSupportCases.end-->
 
 
-<!--custom.scenarios.support_Scenario_GetStartedSupportCases.start-->
-<!--custom.scenarios.support_Scenario_GetStartedSupportCases.end-->
+<!--custom.basics.support_Scenario_GetStartedSupportCases.start-->
+<!--custom.basics.support_Scenario_GetStartedSupportCases.end-->
+
 
 ### Tests
 

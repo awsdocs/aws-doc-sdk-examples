@@ -17,7 +17,7 @@
     <para>The following code examples show you how to use &AWS-services; with an &AWS; software
         development kit (SDK). This section is organized by SDK language.
     </para>
-    {{- template "note_example_types" makeSlice 1 1 1}}
+    {{- template "note_example_types" makeSlice 1 1 1 1}}
     <itemizedlist>
         <title>More resources</title>
         <listitem>
@@ -64,7 +64,7 @@
             </abstract>
         </info>
         <para>The following code examples show you how to use the {{$sdk_examples.SdkEntity.Long}} with &AWS;.</para>
-        {{- template "note_example_types" makeSlice 1 1 1}}
+        {{- template "note_example_types" makeSlice 1 1 1 1}}
         <itemizedlist>
             <title>More resources</title>
             <listitem>
@@ -97,9 +97,7 @@
             </para>
         </listitem>
     </itemizedlist>
-    <para role="topiclist-abbrev">Examples</para>
-        {{- template "sdk_api_examples" makeSlice $sdk_examples $sdk_ver}}
-        {{- template "sdk_cross_examples" makeSlice $sdk_examples $sdk_ver}}
+    {{- template "sdk_api_examples" makeSlice $sdk_examples $sdk_ver}}
     </section>
     {{- end}}
     {{- end}}

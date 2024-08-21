@@ -59,13 +59,8 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Create a serverless application to manage photos](cpp/example_code/cross-service/photo_asset_manager)
 - [Get started with functions](get_started_with_functions_scenario.cpp)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create a serverless application to manage photos](../../example_code/cross-service/photo_asset_manager)
 
 
 <!--custom.examples.start-->
@@ -96,6 +91,18 @@ folder.
 This example shows you how to get started using Lambda.
 
 
+
+#### Create a serverless application to manage photos
+
+This example shows you how to create a serverless application that lets users manage photos using labels.
+
+
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
 
 #### Get started with functions
 

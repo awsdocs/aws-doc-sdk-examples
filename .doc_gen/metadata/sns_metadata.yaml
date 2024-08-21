@@ -680,7 +680,7 @@ sns_Publish:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/secretsmanager
+          github: kotlin/services/sns
           sdkguide:
           excerpts:
             - description:
@@ -876,7 +876,7 @@ sns_SetTopicAttributes:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/secretsmanager
+          github: kotlin/services/sns
           sdkguide:
           excerpts:
             - description:
@@ -981,7 +981,7 @@ sns_Subscribe:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/secretsmanager
+          github: kotlin/services/sns
           sdkguide:
           excerpts:
             - description: Subscribe an email address to a topic.
@@ -1098,7 +1098,7 @@ sns_Unsubscribe:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/services/secretsmanager
+          github: kotlin/services/sns
           sdkguide:
           excerpts:
             - description:

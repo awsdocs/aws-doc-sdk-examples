@@ -40,6 +40,13 @@ python -m pip install -r requirements.txt
 - [Hello Support](hello.py#L4) (`DescribeServices`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](get_started_support_cases.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -53,13 +60,6 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeServices](support_wrapper.py#L39)
 - [DescribeSeverityLevels](support_wrapper.py#L71)
 - [ResolveCase](support_wrapper.py#L274)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with cases](get_started_support_cases.py)
 
 
 <!--custom.examples.start-->
@@ -81,8 +81,7 @@ This example shows you how to get started using Support.
 python hello.py
 ```
 
-
-#### Get started with cases
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -94,8 +93,8 @@ This example shows you how to do the following:
 - Resolve the case.
 - Get and display a list of resolved cases for the current day.
 
-<!--custom.scenario_prereqs.support_Scenario_GetStartedSupportCases.start-->
-<!--custom.scenario_prereqs.support_Scenario_GetStartedSupportCases.end-->
+<!--custom.basic_prereqs.support_Scenario_GetStartedSupportCases.start-->
+<!--custom.basic_prereqs.support_Scenario_GetStartedSupportCases.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -104,8 +103,9 @@ python get_started_support_cases.py
 ```
 
 
-<!--custom.scenarios.support_Scenario_GetStartedSupportCases.start-->
-<!--custom.scenarios.support_Scenario_GetStartedSupportCases.end-->
+<!--custom.basics.support_Scenario_GetStartedSupportCases.start-->
+<!--custom.basics.support_Scenario_GetStartedSupportCases.end-->
+
 
 ### Tests
 

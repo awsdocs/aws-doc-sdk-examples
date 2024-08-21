@@ -52,12 +52,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Get started with functions](../iam/actions/attach-role-policy.js)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Use Step Functions to invoke Lambda functions](../../example_code/cross-services/lambda-step-functions)
+- [Use Step Functions to invoke Lambda functions](javascriptv3/example_code/cross-services/lambda-step-functions)
 
 
 <!--custom.examples.start-->
@@ -110,6 +105,18 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
 <!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+
+#### Use Step Functions to invoke Lambda functions
+
+This example shows you how to create an AWS Step Functions state machine that invokes AWS Lambda functions in sequence.
+
+
+<!--custom.scenario_prereqs.cross_ServerlessWorkflows.start-->
+<!--custom.scenario_prereqs.cross_ServerlessWorkflows.end-->
+
+
+<!--custom.scenarios.cross_ServerlessWorkflows.start-->
+<!--custom.scenarios.cross_ServerlessWorkflows.end-->
 
 ### Tests
 

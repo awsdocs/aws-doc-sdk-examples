@@ -29,6 +29,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/bin/s3-getting-started.rs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -55,7 +62,6 @@ functions within the same service.
 
 - [Create a presigned URL](src/bin/put-object-presigned.rs)
 - [Get an object from a bucket if it has been modified](src/bin/if-modified-since.rs)
-- [Get started with buckets and objects](src/bin/s3-getting-started.rs)
 - [Unit and integration test with an SDK](Cargo.toml)
 - [Upload or download large files](src/bin/s3-multipart-upload.rs)
 
@@ -71,6 +77,23 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
 
 
 #### Create a presigned URL
@@ -96,23 +119,6 @@ This example shows you how to read data from an object in an S3 bucket, but only
 
 <!--custom.scenarios.s3_GetObject_IfModifiedSince.start-->
 <!--custom.scenarios.s3_GetObject_IfModifiedSince.end-->
-
-#### Get started with buckets and objects
-
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
-
-
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
 
 #### Unit and integration test with an SDK
 

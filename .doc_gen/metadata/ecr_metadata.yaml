@@ -246,8 +246,6 @@ ecr_ListImages:
   services:
     ecr: {ListImages}
 ecr_Scenario_RepositoryManagement:
-  title: Learn core operations for &ECR; using an &AWS; SDK
-  title_abbrev: Learn &ECR; core operations
   synopsis_list:
     - Create an &ECR; repository.
     - Set repository policies.
@@ -258,7 +256,7 @@ ecr_Scenario_RepositoryManagement:
     - Verify the existence of an image in an &ECR; repository.
     - List &ECR; repositories for your account and get details about them.
     - Delete &ECR; repositories.
-  category: Scenarios
+  category: Basics
   languages:
     Kotlin:
       versions:

@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 - [Hello Amazon EC2](hello.js#L6) (`DescribeSecurityGroups`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/basic.js)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -74,7 +81,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Build and manage a resilient service](../cross-services/wkflw-resilient-service/index.js)
-- [Get started with instances](scenarios/basic.js)
 
 
 <!--custom.examples.start-->
@@ -110,6 +116,23 @@ This example shows you how to get started using Amazon EC2.
 node ./hello.js
 ```
 
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a key pair and security group.
+- Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
+- Stop and restart the instance.
+- Associate an Elastic IP address with your instance.
+- Connect to your instance with SSH, then clean up resources.
+
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.end-->
+
+
+<!--custom.basics.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basics.ec2_Scenario_GetStartedInstances.end-->
+
 
 #### Build and manage a resilient service
 
@@ -128,23 +151,6 @@ This example shows you how to create a load-balanced web service that returns bo
 
 <!--custom.scenarios.cross_ResilientService.start-->
 <!--custom.scenarios.cross_ResilientService.end-->
-
-#### Get started with instances
-
-This example shows you how to do the following:
-
-- Create a key pair and security group.
-- Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
-- Stop and restart the instance.
-- Associate an Elastic IP address with your instance.
-- Connect to your instance with SSH, then clean up resources.
-
-<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.end-->
-
-
-<!--custom.scenarios.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.scenarios.ec2_Scenario_GetStartedInstances.end-->
 
 ### Tests
 

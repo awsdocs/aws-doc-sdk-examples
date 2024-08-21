@@ -2150,15 +2150,13 @@ ec2_DescribeSubnets:
   services:
     ec2: {DescribeSubnets}
 ec2_Scenario_GetStartedInstances:
-  title: Get started with &EC2; instances using an &AWS; SDK
-  title_abbrev: Get started with instances
   synopsis_list:
     - Create a key pair and security group.
     - Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
     - Stop and restart the instance.
     - Associate an Elastic IP address with your instance.
     - Connect to your instance with SSH, then clean up resources.
-  category: Scenarios
+  category: Basics
   languages:
     .NET:
       versions:

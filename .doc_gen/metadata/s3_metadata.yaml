@@ -2582,7 +2582,7 @@ s3_Scenario_BatchObjectVersioning:
     Python:
       versions:
         - sdk_version: 3
-          github: python/code_examples/s3_versioning
+          github: python/example_code/s3/s3_versioning
           block_content: scenario_S3BatchObjectVersioning_Python_block.xml
   services:
     s3: {}
@@ -2785,15 +2785,13 @@ s3_GetBucketLocation:
   services:
     s3: {GetBucketLocation}
 s3_Scenario_GettingStarted:
-  title: Get started with &S3; buckets and objects using an &AWS; SDK
-  title_abbrev: Get started with buckets and objects
   synopsis_list:
     - Create a bucket and upload a file to it.
     - Download an object from a bucket.
     - Copy an object to a subfolder in a bucket.
     - List the objects in a bucket.
     - Delete the bucket objects and the bucket.
-  category: Scenarios
+  category: Basics
   languages:
     .NET:
       versions:

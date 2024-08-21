@@ -39,6 +39,13 @@ python -m pip install -r requirements.txt
 - [Hello Amazon EC2](hello/hello_ec2.py#L4) (`DescribeSecurityGroups`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_get_started_instances.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -76,7 +83,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Build and manage a resilient service](../../cross_service/resilient_service/runner.py)
-- [Get started with instances](scenario_get_started_instances.py)
 
 
 <!--custom.examples.start-->
@@ -97,6 +103,29 @@ This example shows you how to get started using Amazon EC2.
 ```
 python hello/hello_ec2.py
 ```
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a key pair and security group.
+- Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
+- Stop and restart the instance.
+- Associate an Elastic IP address with your instance.
+- Connect to your instance with SSH, then clean up resources.
+
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenario_get_started_instances.py
+```
+
+
+<!--custom.basics.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basics.ec2_Scenario_GetStartedInstances.end-->
 
 
 #### Build and manage a resilient service
@@ -124,29 +153,6 @@ python ../../cross_service/resilient_service/runner.py
 Complete details and instructions on how to run this example can be found in the
 [README](../../cross_service/resilient_service/README.md) for the example.
 <!--custom.scenarios.cross_ResilientService.end-->
-
-#### Get started with instances
-
-This example shows you how to do the following:
-
-- Create a key pair and security group.
-- Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
-- Stop and restart the instance.
-- Associate an Elastic IP address with your instance.
-- Connect to your instance with SSH, then clean up resources.
-
-<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-python scenario_get_started_instances.py
-```
-
-
-<!--custom.scenarios.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.scenarios.ec2_Scenario_GetStartedInstances.end-->
 
 ### Tests
 

@@ -164,6 +164,16 @@ class Renderer:
             del example["api"]
         return examples
 
+    def _transform_basics(self) -> List[Dict[str, str]]:
+        examples = self._transform_examples(self.scanner.basics)
+        for example in examples:
+            if not example["title_abbrev"]:
+                example["title_abbrev"] = config.basics_title_abbrev
+            example["file"] = example["run_file"]
+            del example["run_file"]
+            del example["api"]
+        return examples
+
     def _transform_scenarios_and_crosses(
         self,
     ) -> Tuple[List[Dict[str, str]], List[Dict[str, str]]]:
@@ -260,11 +270,12 @@ class Renderer:
 
         hello = self._transform_hellos()
         actions = self._transform_actions()
+        basics = self._transform_basics()
         scenarios, crosses = self._transform_scenarios_and_crosses()
         custom_cats = self._transform_custom_categories()
 
         if (
-            len(hello) + len(actions) + len(scenarios) + len(custom_cats) + len(crosses)
+            len(hello) + len(actions) + len(basics) + len(scenarios) + len(custom_cats) + len(crosses)
             == 0
         ):
             return RenderStatus.NO_EXAMPLES
@@ -291,6 +302,7 @@ class Renderer:
             service=svc,
             hello=hello,
             actions=actions,
+            basics=basics,
             scenarios=scenarios,
             custom_cats=custom_cats,
             crosses=crosses,
