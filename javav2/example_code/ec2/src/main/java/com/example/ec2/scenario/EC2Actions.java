@@ -694,17 +694,6 @@ public class EC2Actions {
         return getAsyncClient().createSecurityGroup(createRequest)
             .thenCompose(createResponse -> {
                 String groupId = createResponse.groupId();
-
-                DescribeSecurityGroupsRequest describeRequest = DescribeSecurityGroupsRequest.builder()
-                    .groupIds(groupId)
-                    .build();
-
-                CompletableFuture<Void> securityGroupCreation = getAsyncClient().describeSecurityGroups(describeRequest)
-                    .thenApply(describeResponse -> {
-                        // Wait for the security group to be created
-                        return null;
-                    });
-
                 IpRange ipRange = IpRange.builder()
                     .cidrIp(myIpAddress + "/32")
                     .build();
@@ -728,15 +717,8 @@ public class EC2Actions {
                     .ipPermissions(ipPerm, ipPerm2)
                     .build();
 
-                CompletableFuture<Void> securityGroupIngress = getAsyncClient().authorizeSecurityGroupIngress(authRequest)
-                    .thenApply(authResponse -> {
-                        // Wait for the security group ingress to be authorized
-                        return null;
-                    });
-
-                // Wait for both the security group creation and ingress authorization to complete
-                return CompletableFuture.allOf(securityGroupCreation, securityGroupIngress)
-                    .thenApply(v -> groupId);
+                return getAsyncClient().authorizeSecurityGroupIngress(authRequest)
+                    .thenApply(authResponse -> groupId);
             })
             .whenComplete((result, exception) -> {
                 if (exception != null) {
