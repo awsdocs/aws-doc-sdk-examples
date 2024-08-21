@@ -45,12 +45,10 @@ public class S3ActionsTest {
     static void setup() throws Exception {
         s3Actions = new S3Actions();
 
-
-
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
         String json = getSecretValues();
-        AmazonS3Test.SecretValues values = gson.fromJson(json, AmazonS3Test.SecretValues.class);
+        SecretValues values = gson.fromJson(json, SecretValues.class);
         objectPath = values.getObjectPath();
         objectKey = values.getKeySc();
         path = values.getPath();

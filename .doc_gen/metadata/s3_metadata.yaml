@@ -2822,6 +2822,9 @@ s3_Scenario_GettingStarted:
             - description:
               snippet_tags:
                 - s3.java2.s3_scenario.main
+            - description: An action class that wraps operations.
+              snippet_tags:
+                - s3.java2.s3_actions.main   
     JavaScript:
       versions:
         - sdk_version: 3

@@ -42,27 +42,25 @@ public class S3Scenario {
         final String usage = """
 
             Usage:
-                <bucketName> <key> <objectPath> <savePath> <toBucket>
+               <key> <objectPath> <savePath> <toBucket>
 
             Where:
-                bucketName - The Amazon S3 bucket to create.
                 key - The key to use.
                 objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).
                 savePath - The path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf).
                 toBucket - An Amazon S3 bucket to where an object is copied to (for example, C:/AWS/book2.pdf).\s
                 """;
 
-      //  if (args.length != 5) {
-      //      System.out.println(usage);
-      //      return;
-      //  }
+       if (args.length != 4) {
+           logger.info(usage);
+            return;
+       }
 
         String bucketName = "scenario-" + UUID.randomUUID();
-        String key = "book.pdf"; //args[1];
-        String objectPath = "C:/AWS/book2.pdf" ; //args[2];
-        String savePath = "C:\\AWS\\foo\\book.pdf"; // args[3];
-        String toBucket = "scottbucket1001";  //args[4];
-
+        String key = args[0];
+        String objectPath = args[1];
+        String savePath = args[2];
+        String toBucket = args[3];
         Scanner scanner = new Scanner(System.in);
         S3Actions s3Actions = new S3Actions();
 
