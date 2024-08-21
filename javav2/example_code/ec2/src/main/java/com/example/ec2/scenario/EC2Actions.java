@@ -446,8 +446,7 @@ public class EC2Actions {
                     .filter(instance -> instance.instanceId().equals(newInstanceId))
                     .findFirst()
                     .map(instance -> {
-                        // Return instance details or any other necessary information.
-                        return instance.instanceId();
+                        return response.reservations().get(0).instances().get(0).publicIpAddress();
                     })
                     .orElseThrow(() -> new RuntimeException("Instance with ID " + newInstanceId + " not found."));
             })
@@ -520,7 +519,6 @@ public class EC2Actions {
             return getAsyncClient().waiter()
                 .waitUntilInstanceRunning(r -> r.instanceIds(instanceIdVal))
                 .thenApply(waitResponse -> {
-                    logger.info("Successfully started EC2 instance " + instanceIdVal + " based on AMI " + amiId);
                     return instanceIdVal;
                 });
         }).exceptionally(throwable -> {

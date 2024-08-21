@@ -249,14 +249,21 @@ public class EC2Scenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("6. Get more information about an amzn2 image.");
+        logger.info("6. Get the (Amazon Machine Image) AMI value from the amzn2 image.");
+        logger.info("""
+           An AMI value represents a specific version of a virtual machine (VM) or server image.   
+           It uniquely identifies a particular version of an EC2 instance, including its operating system, 
+           pre-installed software, and any custom configurations. This allows you to consistently deploy the same 
+           VM image across your infrastructure.
+                        
+            """);
         waitForInputToContinue(scanner);
-        String amiValue = "";
+        String amiValue;
         try {
             CompletableFuture<String> future = ec2Actions.describeImageAsync(instanceId);
             amiValue = future.join();
-            logger.info("Image ID: {}"+ amiValue);
-            waitForInputToContinue(scanner);
+            logger.info("The AMI value is "+ amiValue);
+
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
             if (cause instanceof Ec2Exception) {
@@ -273,6 +280,13 @@ public class EC2Scenario {
 
         logger.info(DASHES);
         logger.info("7. Get a list of instance types.");
+        logger.info("""
+          An instance type refers to the different hardware configurations available for virtual servers 
+          (EC2 instances). Each instance type has its own combination of CPU, memory, storage, and 
+          networking capabilities, and is designed to meet different computing needs.
+          
+          This step retrieves an instance type used to create an EC2 instance during a upcoming step.
+            """);
         waitForInputToContinue(scanner);
         String instanceType;
         try {
@@ -297,13 +311,13 @@ public class EC2Scenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("8. Create a new Amazon EC2 instance.");
+        logger.info("8. Create an Amazon EC2 instance using the key pair, the instance type, the security group, and the EC2 AMI value.");
+        logger.info("Once the EC2 instance is created, it is placed into a running state.");
         waitForInputToContinue(scanner);
         String newInstanceId;
         try {
             CompletableFuture<String> future = ec2Actions.runInstanceAsync(instanceType, keyName, groupName, amiValue);
-            newInstanceId = future.join(); // Get the instance ID.
-            logger.info("EC2 instance ID: "+ newInstanceId);
+            newInstanceId = future.join();
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof Ec2Exception) {
@@ -336,6 +350,7 @@ public class EC2Scenario {
 
         logger.info(DASHES);
         logger.info("9. Display information about the running instance. ");
+
         waitForInputToContinue(scanner);
         String publicIp = "";
         try {
@@ -360,6 +375,7 @@ public class EC2Scenario {
 
         logger.info(DASHES);
         logger.info("10. Stop the instance.");
+        // Remove the 2nd one
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = ec2Actions.stopInstanceAsync(newInstanceId);
@@ -418,6 +434,8 @@ public class EC2Scenario {
 
         logger.info(DASHES);
         logger.info("12. Allocate an Elastic IP address and associate it with the instance.");
+        // Explain why an we want to Allocate an Elastic IP
+        // Eplain what an allocation id is
         waitForInputToContinue(scanner);
         String allocationId = "";
         try {
@@ -438,8 +456,11 @@ public class EC2Scenario {
         waitForInputToContinue(scanner);
         String associationId = "";
         try {
+            // Explan why we want to do this
             CompletableFuture<String> future = ec2Actions.associateAddressAsync(newInstanceId, allocationId);
             associationId = future.join(); // Wait for the result and get the association ID
+
+            // Fix this message
             logger.info("Successfully associated address with ID: " +associationId);
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
