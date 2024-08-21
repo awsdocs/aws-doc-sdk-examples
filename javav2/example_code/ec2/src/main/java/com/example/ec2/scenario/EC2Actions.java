@@ -333,8 +333,6 @@ public class EC2Actions {
                     throw new RuntimeException("Failed to start instance: " + instanceId, ex);
                 } else if (response == null) {
                     throw new RuntimeException("No response received for starting instance: " + instanceId);
-                } else {
-                    System.out.println("Successfully started instance " + instanceId);
                 }
             }).thenApply(resp -> null);
     }
@@ -514,13 +512,12 @@ public class EC2Actions {
         CompletableFuture<RunInstancesResponse> responseFuture = getAsyncClient().runInstances(runRequest);
         return responseFuture.thenCompose(response -> {
             String instanceIdVal = response.instances().get(0).instanceId();
-            System.out.println("Going to start an EC2 instance");
-
+            System.out.println("Going to start an EC2 instance and use a waiter to wait for it to be in running state");
             return getAsyncClient().waiter()
-                .waitUntilInstanceRunning(r -> r.instanceIds(instanceIdVal))
-                .thenApply(waitResponse -> {
-                    return instanceIdVal;
-                });
+                .waitUntilInstanceExists(r -> r.instanceIds(instanceIdVal))
+                .thenCompose(waitResponse -> getAsyncClient().waiter()
+                    .waitUntilInstanceRunning(r -> r.instanceIds(instanceIdVal))
+                    .thenApply(runningResponse -> instanceIdVal));
         }).exceptionally(throwable -> {
             // Handle any exceptions that occurred during the async call
             throw new RuntimeException("Failed to run EC2 instance: " + throwable.getMessage(), throwable);
@@ -625,7 +622,6 @@ public class EC2Actions {
                 if (exception != null) {
                     responseFuture.completeExceptionally(new RuntimeException("Failed to get parameters by path", exception));
                 } else {
-                    logger.info("Parameters retrieved successfully.");
                     responseFuture.complete(response);
                 }
             });

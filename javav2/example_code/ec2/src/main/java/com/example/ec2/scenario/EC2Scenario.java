@@ -73,9 +73,9 @@ public class EC2Scenario {
         Scanner scanner = new Scanner(System.in);
         EC2Actions ec2Actions = new EC2Actions();
 
-        String keyName = "TestKeyPair4" ;
+        String keyName = "TestKeyPair6" ;
         String fileName = "ec2Key.pem";
-        String groupName = "TestSecGroup4" ;
+        String groupName = "TestSecGroup6" ;
         String groupDesc = "Test Group" ;
         String vpcId = ec2Actions.describeFirstEC2VpcAsync().join().vpcId();
         InetAddress localAddress = InetAddress.getLocalHost();
@@ -125,7 +125,6 @@ public class EC2Scenario {
                     // Key pair already exists.
                     logger.info("The key pair '" + keyName + "' already exists. Moving on...");
                 } else {
-                    // Handle other EC2 exceptions.
                     logger.info("EC2 error occurred: Error message: {}, Error code {}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                     return;
                 }
@@ -194,7 +193,7 @@ public class EC2Scenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("4. Display security group info for the newly created security group.");
+        logger.info("4. Display security group information for the new security group.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<String> future = ec2Actions.describeSecurityGroupArnByNameAsync(groupName);
@@ -215,21 +214,21 @@ public class EC2Scenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("5. Get a list of Amazon Linux 2 AMIs and selects one with amzn2 in the name.");
+        logger.info("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.");
         logger.info("""
             An Amazon EC2 AMI (Amazon Machine Image) is a pre-configured virtual machine image that 
             serves as a template for launching EC2 instances. It contains all the necessary software and 
             configurations required to run an application or operating system on an EC2 instance.
             """);
         waitForInputToContinue(scanner);
-        String instanceId="";
+        String instanceAMI="";
         try {
             CompletableFuture<GetParametersByPathResponse> future = ec2Actions.getParaValuesAsync();
             GetParametersByPathResponse pathResponse = future.join();
             List<Parameter> parameterList = pathResponse.parameters();
             for (Parameter para : parameterList) {
                 if (filterName(para.name())) {
-                    instanceId = para.value();
+                    instanceAMI = para.value();
                     break;
                 }
             }
@@ -244,7 +243,7 @@ public class EC2Scenario {
                 return;
             }
         }
-        logger.info("The instance Id containing amzn2 is " + instanceId);
+        logger.info("The AMI value with amzn2 is: {}", instanceAMI);
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -260,9 +259,8 @@ public class EC2Scenario {
         waitForInputToContinue(scanner);
         String amiValue;
         try {
-            CompletableFuture<String> future = ec2Actions.describeImageAsync(instanceId);
+            CompletableFuture<String> future = ec2Actions.describeImageAsync(instanceAMI);
             amiValue = future.join();
-            logger.info("The AMI value is "+ amiValue);
 
         } catch (CompletionException ce) {
             Throwable cause = ce.getCause();
@@ -279,14 +277,7 @@ public class EC2Scenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("7. Get a list of instance types.");
-        logger.info("""
-          An instance type refers to the different hardware configurations available for virtual servers 
-          (EC2 instances). Each instance type has its own combination of CPU, memory, storage, and 
-          networking capabilities, and is designed to meet different computing needs.
-          
-          This step retrieves an instance type used to create an EC2 instance during a upcoming step.
-            """);
+        logger.info("7. Retrieves an instance type available in the current AWS region.");
         waitForInputToContinue(scanner);
         String instanceType;
         try {
@@ -412,32 +403,27 @@ public class EC2Scenario {
             }
         }
         waitForInputToContinue(scanner);
-        String ipAddress = "";
-        try {
-            CompletableFuture<String> future = ec2Actions.describeEC2InstancesAsync(newInstanceId);
-            publicIp = future.join();
-            logger.info("EC2 instance public IP: " + publicIp);
-            logger.info("You can SSH to the instance using this command:");
-            logger.info("ssh -i " + fileName + "ec2-user@" + publicIp);
-        } catch (RuntimeException rt) {
-            Throwable cause = rt.getCause();
-            if (cause instanceof Ec2Exception ec2Ex) {
-                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
-                return;
-            } else {
-                logger.info("An unexpected error occurred: {}", cause.getMessage());
-                return;
-            }
-        }
-        waitForInputToContinue(scanner);
         logger.info(DASHES);
 
         logger.info(DASHES);
         logger.info("12. Allocate an Elastic IP address and associate it with the instance.");
-        // Explain why an we want to Allocate an Elastic IP
-        // Eplain what an allocation id is
+        logger.info("""
+            An Elastic IP address is a static public IP address that you can associate with your EC2 instance.
+            This allows you to have a fixed, predictable IP address that remains the same even if your instance 
+            is stopped, terminated, or replaced. 
+            This is particularly useful for applications or services that need to be accessed consistently from a 
+            known IP address.
+                        
+            An EC2 Allocation ID (also known as a Reserved Instance Allocation ID) is a unique identifier associated with a Reserved Instance (RI) that you have purchased in AWS.
+                       
+            When you purchase a Reserved Instance, AWS assigns a unique Allocation ID to it. 
+            This Allocation ID is used to track and identify the specific RI you have purchased, 
+            and it is important for managing and monitoring your Reserved Instances.
+                        
+            """);
+
         waitForInputToContinue(scanner);
-        String allocationId = "";
+        String allocationId;
         try {
             CompletableFuture<String> future = ec2Actions.allocateAddressAsync();
             allocationId = future.join();
@@ -454,13 +440,10 @@ public class EC2Scenario {
         }
         logger.info("The allocation Id value is " + allocationId);
         waitForInputToContinue(scanner);
-        String associationId = "";
+        String associationId;
         try {
-            // Explan why we want to do this
             CompletableFuture<String> future = ec2Actions.associateAddressAsync(newInstanceId, allocationId);
-            associationId = future.join(); // Wait for the result and get the association ID
-
-            // Fix this message
+            associationId = future.join();
             logger.info("Successfully associated address with ID: " +associationId);
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
@@ -472,19 +455,18 @@ public class EC2Scenario {
                 return;
             }
         }
-        logger.info("The associate Id value is " + associationId);
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("13. Describe the instance again.");
+        logger.info("13. Describe the instance again. Note that the public IP address has changed");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<String> future = ec2Actions.describeEC2InstancesAsync(newInstanceId);
             publicIp = future.join();
             logger.info("EC2 instance public IP: " + publicIp);
             logger.info("You can SSH to the instance using this command:");
-            logger.info("ssh -i " + fileName + "ec2-user@" + publicIp);
+            logger.info("ssh -i " + fileName + " ec2-user@" + publicIp);
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
