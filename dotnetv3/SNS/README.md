@@ -53,15 +53,10 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Publish an SMS text message](SNSMessageExample/SNSMessageExample/SNSMessage.cs)
-- [Publish messages to queues](../cross-service/TopicsAndQueues/Scenarios/TopicsAndQueuesScenario/TopicsAndQueues.cs)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
 - [Building an Amazon SNS application](../cross-service/SubscribePublishTranslate)
 - [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
+- [Publish an SMS text message](SNSMessageExample/SNSMessageExample/SNSMessage.cs)
+- [Publish messages to queues](../cross-service/TopicsAndQueues/Scenarios/TopicsAndQueuesScenario/TopicsAndQueues.cs)
 
 
 <!--custom.examples.start-->
@@ -97,6 +92,30 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using Amazon SNS.
 
 
+
+#### Building an Amazon SNS application
+
+This example shows you how to create an application that has subscription and publish functionality and translates messages.
+
+
+<!--custom.scenario_prereqs.cross_SnsPublishSubscription.start-->
+<!--custom.scenario_prereqs.cross_SnsPublishSubscription.end-->
+
+
+<!--custom.scenarios.cross_SnsPublishSubscription.start-->
+<!--custom.scenarios.cross_SnsPublishSubscription.end-->
+
+#### Create a serverless application to manage photos
+
+This example shows you how to create a serverless application that lets users manage photos using labels.
+
+
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
 
 #### Publish an SMS text message
 

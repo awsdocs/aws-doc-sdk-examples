@@ -29,6 +29,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](basics/Sources/ServiceHandler/ServiceHandler.swift)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -42,13 +49,6 @@ Code excerpts that show you how to call individual service functions.
 - [ListBuckets](ListBuckets/Sources/ListBuckets/S3Session.swift#L70)
 - [ListObjectsV2](basics/Sources/ServiceHandler/ServiceHandler.swift#L205)
 - [PutObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L71)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with buckets and objects](basics/Sources/ServiceHandler/ServiceHandler.swift)
 
 
 <!--custom.examples.start-->
@@ -74,8 +74,7 @@ and run commands.
 <!--custom.instructions.end-->
 
 
-
-#### Get started with buckets and objects
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -85,12 +84,13 @@ This example shows you how to do the following:
 - List the objects in a bucket.
 - Delete the bucket objects and the bucket.
 
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
 
 ### Tests
 

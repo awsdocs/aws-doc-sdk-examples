@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 - [Hello DynamoDB](hello/hello_dynamodb.rb#L4) (`ListTables`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scaffold.rb)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -57,7 +64,6 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with tables, items, and queries](scaffold.rb)
 - [Query a table by using batches of PartiQL statements](partiql/scenario_partiql_batch.rb)
 - [Query a table using PartiQL](partiql/scenario_partiql_single.rb)
 
@@ -81,8 +87,7 @@ This example shows you how to get started using DynamoDB.
 ruby hello/hello_dynamodb.rb
 ```
 
-
-#### Get started with tables, items, and queries
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -93,8 +98,8 @@ This example shows you how to do the following:
 - Scan for movies that were released in a range of years.
 - Delete a movie from the table, then delete the table.
 
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -102,8 +107,9 @@ Start the example by running the following at a command prompt:
 ruby scaffold.rb
 ```
 
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.end-->
+
 
 #### Query a table by using batches of PartiQL statements
 

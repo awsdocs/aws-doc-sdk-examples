@@ -41,9 +41,10 @@ Code excerpts that show you how to call individual service functions.
 - [BatchGetSecretValue](batch_get_secret_value.py#L17)
 - [GetSecretValue](get_secret_value.py#L16)
 
-### Cross-service examples
+### Scenarios
 
-Sample applications that work across multiple AWS services.
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
 - [Create a lending library REST API](../../cross_service/aurora_rest_lending_library)
 
@@ -65,6 +66,18 @@ Next, after pulling AWS credentials, run one of the following commands:
 <!--custom.instructions.end-->
 
 
+
+#### Create a lending library REST API
+
+This example shows you how to create a lending library where patrons can borrow and return books by using a REST API backed by an Amazon Aurora database.
+
+
+<!--custom.scenario_prereqs.cross_AuroraRestLendingLibrary.start-->
+<!--custom.scenario_prereqs.cross_AuroraRestLendingLibrary.end-->
+
+
+<!--custom.scenarios.cross_AuroraRestLendingLibrary.start-->
+<!--custom.scenarios.cross_AuroraRestLendingLibrary.end-->
 
 ### Tests
 

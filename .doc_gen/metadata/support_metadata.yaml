@@ -482,8 +482,6 @@ support_ResolveCase:
   services:
     support: {ResolveCase}
 support_Scenario_GetStartedSupportCases:
-  title: Get started with &SUP; cases using an &AWS; SDK
-  title_abbrev: Get started with cases
   synopsis_list:
     - Get and display available services and severity levels for cases.
     - Create a support case using a selected service, category, and severity level.
@@ -492,7 +490,7 @@ support_Scenario_GetStartedSupportCases:
     - Describe the new attachment and communication for the case.
     - Resolve the case.
     - Get and display a list of resolved cases for the current day.
-  category: Scenarios
+  category: Basics
   languages:
     Kotlin:
       versions:

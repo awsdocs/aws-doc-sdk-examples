@@ -65,16 +65,11 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Copy email and domain identities across Regions](ses_replicate_identities.py)
+- [Create a web application to track DynamoDB data](python/cross_service/dynamodb_item_tracker)
+- [Create an Aurora Serverless work item tracker](python/cross_service/aurora_item_tracker)
+- [Detect objects in images](python/cross_service/photo_analyzer)
 - [Generate credentials to connect to an SMTP endpoint](ses_generate_smtp_credentials.py)
 - [Verify an email identity and send messages](ses_email.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create a web application to track DynamoDB data](../../cross_service/dynamodb_item_tracker)
-- [Create an Aurora Serverless work item tracker](../../cross_service/aurora_item_tracker)
-- [Detect objects in images](../../cross_service/photo_analyzer)
 
 
 <!--custom.examples.start-->
@@ -107,6 +102,42 @@ python ses_replicate_identities.py
 
 <!--custom.scenarios.ses_Scenario_ReplicateIdentities.start-->
 <!--custom.scenarios.ses_Scenario_ReplicateIdentities.end-->
+
+#### Create a web application to track DynamoDB data
+
+This example shows you how to create a web application that tracks work items in an Amazon DynamoDB table and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_DynamoDBDataTracker.start-->
+<!--custom.scenario_prereqs.cross_DynamoDBDataTracker.end-->
+
+
+<!--custom.scenarios.cross_DynamoDBDataTracker.start-->
+<!--custom.scenarios.cross_DynamoDBDataTracker.end-->
+
+#### Create an Aurora Serverless work item tracker
+
+This example shows you how to create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_RDSDataTracker.start-->
+<!--custom.scenario_prereqs.cross_RDSDataTracker.end-->
+
+
+<!--custom.scenarios.cross_RDSDataTracker.start-->
+<!--custom.scenarios.cross_RDSDataTracker.end-->
+
+#### Detect objects in images
+
+This example shows you how to build an app that uses Amazon Rekognition to detect objects by category in images.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.end-->
+
+
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.end-->
 
 #### Generate credentials to connect to an SMTP endpoint
 

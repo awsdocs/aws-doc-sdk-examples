@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 - [Hello Amazon EC2](src/bin/ec2-helloworld.rs#L22) (`DescribeSecurityGroups`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/getting_started/scenario.rs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -63,13 +70,6 @@ Code excerpts that show you how to call individual service functions.
 - [StopInstances](src/ec2.rs#L356)
 - [TerminateInstances](src/ec2.rs#L410)
 
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with instances](src/getting_started/scenario.rs)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -87,8 +87,7 @@ functions within the same service.
 This example shows you how to get started using Amazon EC2.
 
 
-
-#### Get started with instances
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -98,12 +97,13 @@ This example shows you how to do the following:
 - Associate an Elastic IP address with your instance.
 - Connect to your instance with SSH, then clean up resources.
 
-<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.scenario_prereqs.ec2_Scenario_GetStartedInstances.end-->
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.end-->
 
 
-<!--custom.scenarios.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.scenarios.ec2_Scenario_GetStartedInstances.end-->
+<!--custom.basics.ec2_Scenario_GetStartedInstances.start-->
+<!--custom.basics.ec2_Scenario_GetStartedInstances.end-->
+
 
 ### Tests
 

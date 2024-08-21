@@ -34,6 +34,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 - [Hello DynamoDB](scenarios/DynamoDB_Basics/DynamoDB_Actions/HelloDynamoDB.cs#L4) (`ListTables`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/DynamoDB_Basics/DynamoDB_Basics_Scenario/DynamoDB_Basics.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -58,18 +65,12 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with tables, items, and queries](scenarios/DynamoDB_Basics/DynamoDB_Basics_Scenario/DynamoDB_Basics.cs)
+- [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
+- [Create a web application to track DynamoDB data](../cross-service/DynamoDbItemTracker)
 - [Query a table by using batches of PartiQL statements](scenarios/PartiQL_Batch_Scenario/PartiQL_Batch_Scenario/PartiQLBatchMethods.cs)
 - [Query a table using PartiQL](scenarios/PartiQL_Basics_Scenario/PartiQL_Basics_Scenario/PartiQLMethods.cs)
 - [Use a document model](mid-level-api/MidlevelItemCRUDExample/MidlevelItemCRUDExample/MidlevelItemCRUD.cs)
 - [Use a high-level object persistence model](high-level-api/HighLevelItemCRUDExample/HighLevelItemCRUDExample/HighLevelItemCRUD.cs)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
-- [Create a web application to track DynamoDB data](../cross-service/DynamoDbItemTracker)
 
 
 <!--custom.examples.start-->
@@ -114,8 +115,7 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using DynamoDB.
 
 
-
-#### Get started with tables, items, and queries
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -126,12 +126,37 @@ This example shows you how to do the following:
 - Scan for movies that were released in a range of years.
 - Delete a movie from the table, then delete the table.
 
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
 
 
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.end-->
+
+
+#### Create a serverless application to manage photos
+
+This example shows you how to create a serverless application that lets users manage photos using labels.
+
+
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
+
+#### Create a web application to track DynamoDB data
+
+This example shows you how to create a web application that tracks work items in an Amazon DynamoDB table and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
+
+
+<!--custom.scenario_prereqs.cross_DynamoDBDataTracker.start-->
+<!--custom.scenario_prereqs.cross_DynamoDBDataTracker.end-->
+
+
+<!--custom.scenarios.cross_DynamoDBDataTracker.start-->
+<!--custom.scenarios.cross_DynamoDBDataTracker.end-->
 
 #### Query a table by using batches of PartiQL statements
 

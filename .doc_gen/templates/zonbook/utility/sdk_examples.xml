@@ -1,0 +1,29 @@
+{{- define "sdk_examples"}}
+{{- $cat_examples := index . 0}}
+{{- $sdk_prefix := index . 1}}
+{{- $include_docs := index . 2}}
+{{- $examples := index . 3}}
+{{- if $cat_examples.Examples}}
+<section id="{{makeId $cat_examples.CategoryName}}">
+    <info>
+        <title>{{$cat_examples.CategoryName}}</title>
+        <titleabbrev>{{$cat_examples.CategoryName}}</titleabbrev>
+    </info>
+    <collapsible expand-section="_collapse_all_">
+    {{- range $cat_examples.Examples}}
+    <section id="{{.ExampleId}}_{{$sdk_prefix}}_topic">
+        <info>
+            <title id="{{.ExampleId}}_{{$sdk_prefix}}_topic.title">{{.TitleAbbrev}}</title>
+            <titleabbrev id="{{.ExampleId}}_{{$sdk_prefix}}_topic.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+        </info>
+        {{- template "sdk_synopsis" .}}
+        {{- if .GuideTopic.Url}}
+        <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
+        {{- end}}
+        <xi:include href="{{$include_docs}}{{.ExampleId}}_{{$examples.Language}}.xml"></xi:include>
+    </section>
+    {{- end}}
+    </collapsible>
+</section>
+{{- end}}
+{{- end}}

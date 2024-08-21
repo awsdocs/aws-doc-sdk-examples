@@ -62,14 +62,9 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Create a serverless application to manage photos](cpp/example_code/cross-service/photo_asset_manager)
 - [Publish an SMS text message](publish_sms.cpp)
 - [Publish messages to queues](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create a serverless application to manage photos](../../example_code/cross-service/photo_asset_manager)
 
 
 <!--custom.examples.start-->
@@ -100,6 +95,18 @@ folder.
 This example shows you how to get started using Amazon SNS.
 
 
+
+#### Create a serverless application to manage photos
+
+This example shows you how to create a serverless application that lets users manage photos using labels.
+
+
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
 
 #### Publish an SMS text message
 

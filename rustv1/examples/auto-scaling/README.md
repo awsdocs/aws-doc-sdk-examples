@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 - [Hello Auto Scaling](src/bin/list-autoscaling-groups.rs#L22) (`DescribeAutoScalingGroups`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Cargo.toml)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -48,13 +55,6 @@ Code excerpts that show you how to call individual service functions.
 - [SetDesiredCapacity](src/scenario.rs#L595)
 - [TerminateInstanceInAutoScalingGroup](src/scenario.rs#L654)
 - [UpdateAutoScalingGroup](src/bin/update-autoscaling-group.rs#L30)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Manage groups and instances](Cargo.toml)
 
 
 <!--custom.examples.start-->
@@ -73,8 +73,7 @@ functions within the same service.
 This example shows you how to get started using Auto Scaling.
 
 
-
-#### Manage groups and instances
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -85,12 +84,13 @@ This example shows you how to do the following:
 - List scaling activities that occur in response to user requests and capacity changes.
 - Get statistics for CloudWatch metrics, then clean up resources.
 
-<!--custom.scenario_prereqs.auto-scaling_Scenario_GroupsAndInstances.start-->
-<!--custom.scenario_prereqs.auto-scaling_Scenario_GroupsAndInstances.end-->
+<!--custom.basic_prereqs.auto-scaling_Scenario_GroupsAndInstances.start-->
+<!--custom.basic_prereqs.auto-scaling_Scenario_GroupsAndInstances.end-->
 
 
-<!--custom.scenarios.auto-scaling_Scenario_GroupsAndInstances.start-->
-<!--custom.scenarios.auto-scaling_Scenario_GroupsAndInstances.end-->
+<!--custom.basics.auto-scaling_Scenario_GroupsAndInstances.start-->
+<!--custom.basics.auto-scaling_Scenario_GroupsAndInstances.end-->
+
 
 ### Tests
 

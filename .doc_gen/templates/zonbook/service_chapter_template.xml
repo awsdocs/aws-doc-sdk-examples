@@ -1,5 +1,9 @@
 {{- template "prologue"}}
 {{- $doc_id := "service_code_examples"}}
+{{- $hello := index .CategorizedExampleSets "Hello"}}
+{{- $basics := index .CategorizedExampleSets "Basics"}}
+{{- $actions := index .CategorizedExampleSets "Actions"}}
+{{- $scenarios := index .CategorizedExampleSets "Scenarios"}}
 {{- $title := printf "Code examples for %s using &AWS; SDKs" .ServiceEntity.Short }}
 {{- if .ChapterOverrideTitle }}
     {{- $title = .ChapterOverrideTitle }}
@@ -8,9 +12,6 @@
 {{- if .ChapterOverrideTitleAbbrev }}
     {{- $title_abbrev = .ChapterOverrideTitleAbbrev }}
 {{- end }}
-{{- $cross_service := index .CategorizedExampleSets "Cross-service examples"}}
-{{- $scenarios :=  index .CategorizedExampleSets "Scenarios"}}
-{{- $actions := index .CategorizedExampleSets "Actions"}}
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
 {{- if isSnapshot}}
     {{- $include_docs = ""}}
@@ -31,56 +32,13 @@
     </info>
     <para>The following code examples show how to use {{.ServiceEntity.Short}} with an &AWS; software development kit (SDK).
         {{.ServiceEntity.Caveat}}</para>
-    {{- template "note_example_types" makeSlice $actions.Examples $scenarios.Examples $cross_service.Examples}}
+    {{- template "note_example_types" makeSlice $hello.Examples $basics.Examples $actions.Examples $scenarios.Examples}}
     {{- template "note_complete_list"}}
     {{- template "hello" makeSlice .CategorizedExampleSets "" 0}}
     <para role="contents-abbrev">Code examples</para>
-    {{- range $category := .CategoryNamesSorted}}
-    {{- if ne $category "Hello"}}
-    {{- with $cat_examples := index $.CategorizedExampleSets $category}}
-    <section id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}" role="topic">
-        <info>
-            <title id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}.title">{{$cat_examples.CategoryName}} for {{$.ServiceEntity.Short}} using &AWS; SDKs</title>
-            <titleabbrev id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}.titleabbrev">{{$cat_examples.CategoryName}}</titleabbrev>
-            <abstract>
-                <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
-            </abstract>
-        </info>
-        {{- if eq $cat_examples.CategoryName "Cross-service examples"}}
-        <para>The following sample applications use &AWS; SDKs to combine {{$.ServiceEntity.Short}}
-            with other &AWS-services;. Each example includes a link to GitHub, where you can find
-            instructions on how to set up and run the application.</para>
-        {{- else if eq $cat_examples.CategoryName "Scenarios"}}
-        <para>The following code examples show you how to implement common scenarios in {{$.ServiceEntity.Short}}
-            with &AWS; SDKs. These scenarios show you how to accomplish specific tasks by calling multiple functions
-            within {{$.ServiceEntity.Short}}. Each scenario includes a link to GitHub, where you can find instructions
-            on how to set up and run the code.</para>
-        {{- else if eq $cat_examples.CategoryName "Actions"}}
-        <para>The following code examples demonstrate how to perform individual {{$.ServiceEntity.Short}}
-            actions with &AWS; SDKs. These excerpts call the {{$.ServiceEntity.Short}} API and
-            are code excerpts from larger programs that must be run in context. Each example includes
-            a link to GitHub, where you can find instructions for setting up and running the code.</para>
-        <para>
-            The following examples include only the most commonly used actions.
-            For a complete list, see the
-            {{- if $.ApiRef}}
-            <ulink type="documentation" url="{{$.ApiRef}}">{{$.ServiceEntity.Long}} API Reference</ulink>.
-            {{- else }}
-            <emphasis>{{$.ServiceEntity.Long}} API Reference</emphasis>.
-            {{- end}}
-            </para>
-        {{- else}}
-        <para>The following code examples show how to use {{$.ServiceEntity.Short}} with &AWS; SDKs.</para>
-        {{- end}}
-        {{- $bundle_prefix := ""}}
-        {{- if $.Bundle}}
-            {{$bundle_prefix = $}}
-        {{- end}}
-        {{- template "service_examples" makeSlice $cat_examples $bundle_prefix 0}}
-    </section>
-    {{- end}}
-    {{- end}}
-    {{- end}}
+    {{- template "basics" makeSlice . $doc_id 0}}
+    {{- template "scenarios" makeSlice . $doc_id 0}}
+    {{- template "customs" makeSlice . $doc_id 0}}
 {{- if .Bundle}}
 </section>
 {{- else}}

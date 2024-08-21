@@ -5,69 +5,37 @@
 {{- if isSnapshot}}
     {{- $include_docs = ""}}
 {{- end}}
-{{- if $examples.ApiExamples}}
-<section id="{{$sdk_prefix}}_code_examples_categorized" role="topic">
+<para role="topiclist-abbrev">Services</para>
+{{- range $service, $svc_examples := $examples.ApiExamples}}
+{{- if $svc_examples.ServiceEntity.Short}}
+{{- $basics := index $svc_examples.CategorizedExampleSets "Basics"}}
+{{- $actions := index $svc_examples.CategorizedExampleSets "Actions"}}
+{{- $scenarios := index $svc_examples.CategorizedExampleSets "Scenarios"}}
+<section id="{{$sdk_prefix}}_{{$svc_examples.ServiceSlug}}_code_examples" role="topic">
     <info>
-        <title id="{{$sdk_prefix}}_code_examples_categorized.title">Actions and scenarios using {{$examples.SdkEntity.Short}}</title>
-        <titleabbrev id="{{$sdk_prefix}}_code_examples_categorized.titleabbrev">Actions and scenarios</titleabbrev>
+        <title id="{{$sdk_prefix}}_{{$svc_examples.ServiceSlug}}_code_examples.title">{{$svc_examples.ServiceEntity.Short}} examples using {{$examples.SdkEntity.Short}}</title>
+        <titleabbrev id="{{$sdk_prefix}}_{{$svc_examples.ServiceSlug}}_code_examples.titleabbrev">{{$svc_examples.ServiceEntity.Short}}</titleabbrev>
         <abstract>
-            <para>The following code examples show how to implement common scenarios and perform individual service actions by using
-                {{$examples.SdkEntity.Short}} with &AWS-services;.</para>
+            <para>Code examples that show how to use {{$examples.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
         </abstract>
     </info>
-    <para>The following code examples show how to perform actions and implement common scenarios by using
-        the {{$examples.SdkEntity.Long}} with &AWS-services;.</para>
-    {{- template "note_example_types" makeSlice 1 1 0}}
-    <para role="topiclist-abbrev">Services</para>
-    {{- end}}
-    {{- range $service, $svc_examples := $examples.ApiExamples}}
-    {{- if $svc_examples.ServiceEntity.Short}}
-    <section id="{{$sdk_prefix}}_{{$svc_examples.ServiceSlug}}_code_examples" role="topic">
-        <info>
-            <title id="{{$sdk_prefix}}_{{$svc_examples.ServiceSlug}}_code_examples.title">{{$svc_examples.ServiceEntity.Short}} examples using {{$examples.SdkEntity.Short}}</title>
-            <titleabbrev id="{{$sdk_prefix}}_{{$svc_examples.ServiceSlug}}_code_examples.titleabbrev">{{$svc_examples.ServiceEntity.Short}}</titleabbrev>
-            <abstract>
-                <para>Code examples that show how to use {{$examples.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
-            </abstract>
-        </info>
-        <para>The following code examples show you how to perform actions and implement common scenarios by using
-            the {{$examples.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
-        {{- template "note_example_types" makeSlice 1 1 0}}
-        <para>Each example includes a link to GitHub, where you can find
-            instructions on how to set up and run the code in context.</para>
-        {{- template "hello" makeSlice $svc_examples.CategorizedExampleSets $examples.Language $examples.LanguageSlug}}
-        <para role="topiclist-abbrev"/>
-        {{- range $category := $svc_examples.CategoryNamesSorted}}
-        {{- if ne $category "Hello"}}
-        {{- with $cat_examples := index $svc_examples.CategorizedExampleSets $category}}
-        <section id="{{makeId $cat_examples.CategoryName}}">
-            <info>
-                <title>{{$cat_examples.CategoryName}}</title>
-                <titleabbrev>{{$cat_examples.CategoryName}}</titleabbrev>
-            </info>
-            <collapsible expand-section="_collapse_all_">
-                {{- range $cat_examples.Examples}}
-                <section id="{{.ExampleId}}_{{$sdk_prefix}}_topic">
-                    <info>
-                        <title id="{{.ExampleId}}_{{$sdk_prefix}}_topic.title">{{.TitleAbbrev}}</title>
-                        <titleabbrev id="{{.ExampleId}}_{{$sdk_prefix}}_topic.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
-                    </info>
-                    {{- template "sdk_synopsis" .}}
-                    {{- if .GuideTopic.Url}}
-                    <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
-                    {{- end}}
-                    <xi:include href="{{$include_docs}}{{.ExampleId}}_{{$examples.Language}}.xml"></xi:include>
-                </section>
-                {{- end}}
-            </collapsible>
-        </section>
-        {{- end}}
-        {{- end}}
-        {{- end}}
-    </section>
+    <para>The following code examples show you how to perform actions and implement common scenarios by using
+        the {{$examples.SdkEntity.Long}} with {{$svc_examples.ServiceEntity.Short}}.</para>
+    {{- template "note_example_types" makeSlice 0 $basics.Examples $actions.Examples $scenarios.Examples}}
+    <para>Each example includes a link to the complete source code, where you can find
+        instructions on how to set up and run the code in context.</para>
+    {{- template "hello" makeSlice $svc_examples.CategorizedExampleSets $examples.Language $examples.LanguageSlug}}
+    {{- if or $basics.Examples (or $actions.Examples (or $scenarios.Examples $svc_examples.CustomCategoriesSorted))}}
+    <para role="topiclist-abbrev"/>
+    {{- template "sdk_examples" makeSlice $basics $sdk_prefix $include_docs $examples}}
+    {{- template "sdk_examples" makeSlice $actions $sdk_prefix $include_docs $examples}}
+    {{- template "sdk_examples" makeSlice $scenarios $sdk_prefix $include_docs $examples}}
+    {{- range $category := $svc_examples.CustomCategoriesSorted}}
+        {{- $cat_examples := index $svc_examples.CategorizedExampleSets $category}}
+        {{- template "sdk_examples" makeSlice $cat_examples $sdk_prefix $include_docs $examples}}
     {{- end}}
     {{- end}}
-    {{- if $examples.ApiExamples}}
 </section>
+{{- end}}
 {{- end}}
 {{- end}}

@@ -24,10 +24,8 @@
         </abstract>
     </info>
     <para>The code examples in this topic show you how to use the {{.SdkEntity.Long}} with &AWS;.</para>
-    {{- template "note_example_types" makeSlice 1 1 1}}
-    <para role="topiclist-abbrev">Examples</para>
+    {{- template "note_example_types" makeSlice 1 1 1 1}}
     {{- template "sdk_api_examples" makeSlice . .LanguageSlug}}
-    {{- template "sdk_cross_examples" makeSlice . .LanguageSlug}}
 {{- if eq .OutputType "section" }}
 </section>
 {{- else }}

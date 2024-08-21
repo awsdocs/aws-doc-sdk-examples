@@ -34,6 +34,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 - [Hello Aurora](hello/hello.go#L4) (`DescribeDBClusters`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/get_started_clusters.go)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -53,13 +60,6 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeDBInstances](actions/clusters.go#L265)
 - [DescribeOrderableDBInstanceOptions](actions/clusters.go#L330)
 - [ModifyDBClusterParameterGroup](actions/clusters.go#L117)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with DB clusters](scenarios/get_started_clusters.go)
 
 
 <!--custom.examples.start-->
@@ -89,8 +89,7 @@ and to get help for running a scenario, use the following command:
 ```
 go run ./cmd -h
 ```
-
-#### Get started with DB clusters
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -99,12 +98,13 @@ This example shows you how to do the following:
 - Create a DB instance that contains a database.
 - Take a snapshot of the DB cluster, then clean up resources.
 
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.end-->
 
 
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.end-->
+
 
 ### Tests
 

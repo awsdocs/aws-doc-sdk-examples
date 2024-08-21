@@ -50,9 +50,10 @@ Code excerpts that show you how to call individual service functions.
 - [SearchFaces](SearchFacesMatchingIdExample/SearchFacesMatchingId.cs#L6)
 - [SearchFacesByImage](SearchFacesMatchingImageExample/SearchFacesMatchingImage.cs#L6)
 
-### Cross-service examples
+### Scenarios
 
-Sample applications that work across multiple AWS services.
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
 
 - [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
 - [Detect objects in images](../cross-service/PhotoAnalyzerApp)
@@ -87,6 +88,30 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.end-->
 
 
+
+#### Create a serverless application to manage photos
+
+This example shows you how to create a serverless application that lets users manage photos using labels.
+
+
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
+
+#### Detect objects in images
+
+This example shows you how to build an app that uses Amazon Rekognition to detect objects by category in images.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.end-->
+
+
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.end-->
 
 ### Tests
 

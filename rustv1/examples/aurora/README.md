@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 - [Hello Aurora](src/bin/hello-world.rs) (`DescribeDBClusters`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/aurora_scenario/mod.rs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -52,13 +59,6 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeOrderableDBInstanceOptions](src/aurora_scenario/mod.rs#L179)
 - [ModifyDBClusterParameterGroup](src/aurora_scenario/mod.rs#L316)
 
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with DB clusters](src/aurora_scenario/mod.rs)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -76,8 +76,7 @@ functions within the same service.
 This example shows you how to get started using Aurora.
 
 
-
-#### Get started with DB clusters
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -86,12 +85,13 @@ This example shows you how to do the following:
 - Create a DB instance that contains a database.
 - Take a snapshot of the DB cluster, then clean up resources.
 
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenario_prereqs.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basic_prereqs.aurora_Scenario_GetStartedClusters.end-->
 
 
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.start-->
-<!--custom.scenarios.aurora_Scenario_GetStartedClusters.end-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.start-->
+<!--custom.basics.aurora_Scenario_GetStartedClusters.end-->
+
 
 ### Tests
 

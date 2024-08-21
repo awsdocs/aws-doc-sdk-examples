@@ -478,14 +478,12 @@ eventbridge_RemoveTargets:
   services:
     eventbridge: {RemoveTargets}
 eventbridge_Scenario_GettingStarted:
-  title: Get started with &EV; rules and targets using an &AWS; SDK
-  title_abbrev: Get started with rules and targets
   synopsis_list:
     - Create a rule and add a target to it.
     - Enable and disable rules.
     - List and update rules and targets.
     - Send events, then clean up resources.
-  category: Scenarios
+  category: Basics
   languages:
     Kotlin:
       versions:

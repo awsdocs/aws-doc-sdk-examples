@@ -19,7 +19,7 @@
 <block>
     <collapsible expand-section="_collapse_all_">
         {{- range $hello.Examples}}
-        <section id="{{$example_prefix}}example_{{.ExampleId}}_section">
+        <section>
             <info>
                 <title id="{{$example_prefix}}example_{{.ExampleId}}_section.title">{{.Title}}</title>
                 <titleabbrev id="{{$example_prefix}}example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>

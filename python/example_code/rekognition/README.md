@@ -63,13 +63,8 @@ functions within the same service.
 
 - [Build a collection and find faces in it](rekognition_objects.py)
 - [Detect and display elements in images](rekognition_image_detection.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Detect objects in images](../../cross_service/photo_analyzer)
-- [Detect people and objects in a video](../../example_code/rekognition)
+- [Detect objects in images](python/cross_service/photo_analyzer)
+- [Detect people and objects in a video](python/example_code/rekognition)
 
 
 <!--custom.examples.start-->
@@ -126,6 +121,30 @@ python rekognition_image_detection.py
 
 <!--custom.scenarios.rekognition_Usage_DetectAndDisplayImage.start-->
 <!--custom.scenarios.rekognition_Usage_DetectAndDisplayImage.end-->
+
+#### Detect objects in images
+
+This example shows you how to build an app that uses Amazon Rekognition to detect objects by category in images.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.end-->
+
+
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.end-->
+
+#### Detect people and objects in a video
+
+This example shows you how to detect people and objects in a video with Amazon Rekognition.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionVideoDetection.start-->
+<!--custom.scenario_prereqs.cross_RekognitionVideoDetection.end-->
+
+
+<!--custom.scenarios.cross_RekognitionVideoDetection.start-->
+<!--custom.scenarios.cross_RekognitionVideoDetection.end-->
 
 ### Tests
 

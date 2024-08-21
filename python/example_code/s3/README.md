@@ -39,6 +39,13 @@ python -m pip install -r requirements.txt
 - [Hello Amazon S3](s3_basics/hello.py#L4) (`ListBuckets`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](s3_basics/scenario_getting_started.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -78,18 +85,17 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a presigned URL](s3_basics/presigned_url.py)
+<<<<<<< HEAD
 - [Get started with buckets and objects](s3_basics/scenario_getting_started.py)
 - [Manage versioned objects in batches with a Lambda function](python/example_code/s3/s3_versioning)
+=======
+- [Create an Amazon Textract explorer application](python/cross_service/textract_explorer)
+- [Detect entities in text extracted from an image](python/cross_service/textract_comprehend_notebook)
+- [Detect objects in images](python/cross_service/photo_analyzer)
+- [Manage versioned objects in batches with a Lambda function](python/code_examples/s3_versioning)
+>>>>>>> 80a2ce34d (Run WRITEME for recategorization.)
 - [Upload or download large files](file_transfer/file_transfer.py)
 - [Work with versioned objects](s3_versioning/versioning.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
-- [Detect entities in text extracted from an image](../../cross_service/textract_comprehend_notebook)
-- [Detect objects in images](../../cross_service/photo_analyzer)
 
 
 <!--custom.examples.start-->
@@ -111,6 +117,29 @@ This example shows you how to get started using Amazon S3.
 python s3_basics/hello.py
 ```
 
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python s3_basics/scenario_getting_started.py
+```
+
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
 
 #### Create a presigned URL
 
@@ -130,28 +159,41 @@ python s3_basics/presigned_url.py
 <!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
 <!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
 
-#### Get started with buckets and objects
+#### Create an Amazon Textract explorer application
 
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-python s3_basics/scenario_getting_started.py
-```
+This example shows you how to explore Amazon Textract output through an interactive application.
 
 
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
+<!--custom.scenario_prereqs.cross_TextractExplorer.start-->
+<!--custom.scenario_prereqs.cross_TextractExplorer.end-->
+
+
+<!--custom.scenarios.cross_TextractExplorer.start-->
+<!--custom.scenarios.cross_TextractExplorer.end-->
+
+#### Detect entities in text extracted from an image
+
+This example shows you how to use Amazon Comprehend to detect entities in text extracted by Amazon Textract from an image that is stored in Amazon S3.
+
+
+<!--custom.scenario_prereqs.cross_TextractComprehendDetectEntities.start-->
+<!--custom.scenario_prereqs.cross_TextractComprehendDetectEntities.end-->
+
+
+<!--custom.scenarios.cross_TextractComprehendDetectEntities.start-->
+<!--custom.scenarios.cross_TextractComprehendDetectEntities.end-->
+
+#### Detect objects in images
+
+This example shows you how to build an app that uses Amazon Rekognition to detect objects by category in images.
+
+
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenario_prereqs.cross_RekognitionPhotoAnalyzer.end-->
+
+
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.start-->
+<!--custom.scenarios.cross_RekognitionPhotoAnalyzer.end-->
 
 #### Manage versioned objects in batches with a Lambda function
 

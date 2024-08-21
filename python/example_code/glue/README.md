@@ -39,6 +39,13 @@ python -m pip install -r requirements.txt
 - [Hello AWS Glue](hello/hello_glue.py#L4) (`ListJobs`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](glue_wrapper.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -57,13 +64,6 @@ Code excerpts that show you how to call individual service functions.
 - [ListJobs](glue_wrapper.py#L235)
 - [StartCrawler](glue_wrapper.py#L92)
 - [StartJobRun](glue_wrapper.py#L196)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with crawlers and jobs](glue_wrapper.py)
 
 
 <!--custom.examples.start-->
@@ -85,8 +85,7 @@ This example shows you how to get started using AWS Glue.
 python hello/hello_glue.py
 ```
 
-
-#### Get started with crawlers and jobs
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -95,7 +94,7 @@ This example shows you how to do the following:
 - Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another S3 bucket.
 - List information about job runs, view transformed data, and clean up resources.
 
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
 This example requires the following scaffold resources that are defined in the
 accompanying AWS CloudFormation script `setup_scenario_getting_started.yaml`.
 
@@ -122,7 +121,7 @@ Outputs:
 If you prefer, you can deploy and destroy scaffold resources by using the AWS Cloud
 Development Kit (AWS CDK). To do this, run `cdk deploy` or `cdk destroy` in the
 [/resources/cdk/glue_role_bucket](/resources/cdk/glue_role_bucket) folder.
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -131,13 +130,14 @@ python glue_wrapper.py
 ```
 
 
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.start-->
 After the example is done, destroy scaffold resources at a command prompt.
 
 ```
 python scaffold.py destroy
 ```
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.end-->
+
 
 ### Tests
 
