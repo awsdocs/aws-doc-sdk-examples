@@ -71,10 +71,10 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Accelerate reads with DynamoDB Accelerator](TryDax/01-create-table.py)
-- [Create a REST API to track COVID-19 data](python/cross_service/apigateway_covid-19_tracker)
-- [Create a messenger application](python/cross_service/stepfunctions_messenger)
-- [Create a web application to track DynamoDB data](python/cross_service/dynamodb_item_tracker)
-- [Create a websocket chat application](python/cross_service/apigateway_websocket_chat)
+- [Create a REST API to track COVID-19 data](../../cross_service/apigateway_covid-19_tracker)
+- [Create a messenger application](../../cross_service/stepfunctions_messenger)
+- [Create a web application to track DynamoDB data](../../cross_service/dynamodb_item_tracker)
+- [Create a websocket chat application](../../cross_service/apigateway_websocket_chat)
 - [Query a table by using batches of PartiQL statements](partiql/scenario_partiql_batch.py)
 - [Query a table using PartiQL](partiql/scenario_partiql_single.py)
 
