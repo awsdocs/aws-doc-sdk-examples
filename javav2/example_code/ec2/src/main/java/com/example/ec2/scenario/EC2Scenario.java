@@ -81,7 +81,6 @@ public class EC2Scenario {
         InetAddress localAddress = InetAddress.getLocalHost();
         String myIpAddress = localAddress.getHostAddress();
 
-
         logger.info("""
             Amazon Elastic Compute Cloud (EC2) is a web service that provides secure, resizable compute 
             capacity in the cloud. It allows developers and organizations to easily launch and manage 

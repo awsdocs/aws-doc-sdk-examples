@@ -695,42 +695,48 @@ public class EC2Actions {
             .thenCompose(createResponse -> {
                 String groupId = createResponse.groupId();
 
-                // Waiter to wait until the security group exists
-                Ec2AsyncWaiter waiter = getAsyncClient().waiter();
                 DescribeSecurityGroupsRequest describeRequest = DescribeSecurityGroupsRequest.builder()
                     .groupIds(groupId)
                     .build();
 
-                CompletableFuture<WaiterResponse<DescribeSecurityGroupsResponse>> waiterFuture =
-                    waiter.waitUntilSecurityGroupExists(describeRequest);
+                CompletableFuture<Void> securityGroupCreation = getAsyncClient().describeSecurityGroups(describeRequest)
+                    .thenApply(describeResponse -> {
+                        // Wait for the security group to be created
+                        return null;
+                    });
 
-                return waiterFuture.thenCompose(waiterResponse -> {
-                    IpRange ipRange = IpRange.builder()
-                        .cidrIp(myIpAddress + "/32")
-                        .build();
+                IpRange ipRange = IpRange.builder()
+                    .cidrIp(myIpAddress + "/32")
+                    .build();
 
-                    IpPermission ipPerm = IpPermission.builder()
-                        .ipProtocol("tcp")
-                        .toPort(80)
-                        .fromPort(80)
-                        .ipRanges(ipRange)
-                        .build();
+                IpPermission ipPerm = IpPermission.builder()
+                    .ipProtocol("tcp")
+                    .toPort(80)
+                    .fromPort(80)
+                    .ipRanges(ipRange)
+                    .build();
 
-                    IpPermission ipPerm2 = IpPermission.builder()
-                        .ipProtocol("tcp")
-                        .toPort(22)
-                        .fromPort(22)
-                        .ipRanges(ipRange)
-                        .build();
+                IpPermission ipPerm2 = IpPermission.builder()
+                    .ipProtocol("tcp")
+                    .toPort(22)
+                    .fromPort(22)
+                    .ipRanges(ipRange)
+                    .build();
 
-                    AuthorizeSecurityGroupIngressRequest authRequest = AuthorizeSecurityGroupIngressRequest.builder()
-                        .groupName(groupName)
-                        .ipPermissions(ipPerm, ipPerm2)
-                        .build();
+                AuthorizeSecurityGroupIngressRequest authRequest = AuthorizeSecurityGroupIngressRequest.builder()
+                    .groupName(groupName)
+                    .ipPermissions(ipPerm, ipPerm2)
+                    .build();
 
-                    return getAsyncClient().authorizeSecurityGroupIngress(authRequest)
-                        .thenApply(authResponse -> groupId);
-                });
+                CompletableFuture<Void> securityGroupIngress = getAsyncClient().authorizeSecurityGroupIngress(authRequest)
+                    .thenApply(authResponse -> {
+                        // Wait for the security group ingress to be authorized
+                        return null;
+                    });
+
+                // Wait for both the security group creation and ingress authorization to complete
+                return CompletableFuture.allOf(securityGroupCreation, securityGroupIngress)
+                    .thenApply(v -> groupId);
             })
             .whenComplete((result, exception) -> {
                 if (exception != null) {
