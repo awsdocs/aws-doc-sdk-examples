@@ -316,7 +316,7 @@ public class IotActions {
      * If an exception occurs, it prints the error message.
      */
     public String describeEndpoint() {
-        CompletableFuture<DescribeEndpointResponse> future = getAsyncClient().describeEndpoint(DescribeEndpointRequest.builder().build());
+        CompletableFuture<DescribeEndpointResponse> future = getAsyncClient().describeEndpoint(DescribeEndpointRequest.builder().endpointType("iot:Data-ATS").build());
         final String[] result = {null};
 
         future.whenComplete((endpointResponse, ex) -> {
