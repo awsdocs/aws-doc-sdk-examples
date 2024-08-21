@@ -403,6 +403,15 @@ s3_DeleteObject:
             - description: Delete an object in a versioned S3 bucket.
               snippet_tags:
                 - S3.dotnetv3.DeleteObjectVersionExample
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.delete_objects.main
     C++:
       versions:
         - sdk_version: 1
@@ -1616,7 +1625,7 @@ s3_DeleteBucket:
           excerpts:
             - description:
               snippet_tags:
-                - s3.java2.s3_bucket_ops.delete_bucket
+                - s3.java2.bucket_deletion.main
     PHP:
       versions:
         - sdk_version: 3
