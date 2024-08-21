@@ -27,11 +27,10 @@ The basic scenario requires an IAM role that has AWS Batch permissions. A CloudF
 
 ## Implementations
 
-This scenario example will be implemented in the following languages:
+This scenario example is implemented in the following language:
 
 - Java
-- Python
-- JavaScript
+
 
 ## Additional reading
 
