@@ -13,6 +13,7 @@ from scenario_get_started_instances import EC2InstanceScenario
 from security_group import SecurityGroupWrapper
 
 
+@pytest.mark.integ
 def test_scenario_happy_path(capsys):
     # Instantiate the wrappers
     inst_wrapper = EC2InstanceWrapper.from_client()
@@ -27,6 +28,7 @@ def test_scenario_happy_path(capsys):
         sg_wrapper=sg_wrapper,
         eip_wrapper=eip_wrapper,
         ssm_client=boto3.client("ssm"),
+        remote_exec=True,
     )
 
     # Run the scenario, exit 1 with error

@@ -1,5 +1,6 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
+
 import logging
 import time
 import urllib.request
@@ -17,20 +18,47 @@ from security_group import SecurityGroupWrapper
 logger = logging.getLogger(__name__)
 console = Console()
 
+
 # snippet-start:[python.example_code.ec2.Scenario_GetStartedInstances]
-
-
 class EC2InstanceScenario:
-    """Runs a scenario that shows how to get started using EC2 instances."""
+    """
+    A scenario that demonstrates how to use Boto3 to manage Amazon EC2 resources.
+    Covers creating a key pair, security group, launching an instance, associating
+    an Elastic IP, and cleaning up resources.
+    """
 
-    def __init__(self, inst_wrapper, key_wrapper, sg_wrapper, eip_wrapper, ssm_client):
+    def __init__(
+        self,
+        inst_wrapper: EC2InstanceWrapper,
+        key_wrapper: KeyPairWrapper,
+        sg_wrapper: SecurityGroupWrapper,
+        eip_wrapper: ElasticIpWrapper,
+        ssm_client: boto3.client,
+        remote_exec: bool = False,
+    ):
+        """
+        Initializes the EC2InstanceScenario with the necessary AWS service wrappers.
+
+        :param inst_wrapper: Wrapper for EC2 instance operations.
+        :param key_wrapper: Wrapper for key pair operations.
+        :param sg_wrapper: Wrapper for security group operations.
+        :param eip_wrapper: Wrapper for Elastic IP operations.
+        :param ssm_client: Boto3 client for accessing SSM to retrieve AMIs.
+        :param remote_exec: Flag to indicate if the scenario is running in a remote execution
+                            environment. Defaults to False. If True, the script won't prompt
+                            for user interaction.
+        """
         self.inst_wrapper = inst_wrapper
         self.key_wrapper = key_wrapper
         self.sg_wrapper = sg_wrapper
         self.eip_wrapper = eip_wrapper
         self.ssm_client = ssm_client
+        self.remote_exec = remote_exec
 
-    def create_and_list_key_pairs(self):
+    def create_and_list_key_pairs(self) -> None:
+        """
+        Creates an RSA key pair for SSH access to the EC2 instance and lists available key pairs.
+        """
         console.print("**Step 1: Create a Secure Key Pair**", style="bold cyan")
         console.print(
             "Let's create a secure RSA key pair for connecting to your EC2 instance."
@@ -38,16 +66,18 @@ class EC2InstanceScenario:
         key_name = f"MyUniqueKeyPair-{uuid.uuid4().hex[:8]}"
         console.print(f"- **Key Pair Name**: {key_name}")
 
+        # Create the key pair and simulate the process with a progress bar.
         with alive_bar(1, title="Creating Key Pair") as bar:
             self.key_wrapper.create(key_name)
-            time.sleep(0.4)  # Simulated time estimation
+            time.sleep(0.4)  # Simulate the delay in key creation
             bar()
 
         console.print(f"- **Private Key Saved to**: {self.key_wrapper.key_file_path}\n")
 
-        simulate_list_keys = True
-        if simulate_list_keys:
-            console.print("- **Simulated input**: Listing your key pairs...")
+        # List key pairs (simulated) and show a progress bar.
+        list_keys = True
+        if list_keys:
+            console.print("- Listing your key pairs...")
             start_time = time.time()
             with alive_bar(100, title="Listing Key Pairs") as bar:
                 while time.time() - start_time < 2:
@@ -60,7 +90,11 @@ class EC2InstanceScenario:
                         style="bold yellow",
                     )
 
-    def create_security_group(self):
+    def create_security_group(self) -> None:
+        """
+        Creates a security group that controls access to the EC2 instance and adds a rule
+        to allow SSH access from the user's current public IP address.
+        """
         console.print("**Step 2: Create a Security Group**", style="bold cyan")
         console.print(
             "Security groups manage access to your instance. Let's create one."
@@ -68,6 +102,7 @@ class EC2InstanceScenario:
         sg_name = f"MySecurityGroup-{uuid.uuid4().hex[:8]}"
         console.print(f"- **Security Group Name**: {sg_name}")
 
+        # Create the security group and simulate the process with a progress bar.
         with alive_bar(1, title="Creating Security Group") as bar:
             self.sg_wrapper.create(
                 sg_name, "Security group for example: get started with instances."
@@ -77,14 +112,16 @@ class EC2InstanceScenario:
 
         console.print(f"- **Security Group ID**: {self.sg_wrapper.security_group}\n")
 
+        # Get the current public IP to set up SSH access.
         ip_response = urllib.request.urlopen("http://checkip.amazonaws.com")
         current_ip_address = ip_response.read().decode("utf-8").strip()
         console.print(
             "Let's add a rule to allow SSH only from your current IP address."
         )
         console.print(f"- **Your Public IP Address**: {current_ip_address}")
-        console.print("- **Simulated input**: Automatically adding SSH rule...")
+        console.print("- Automatically adding SSH rule...")
 
+        # Update security group rules to allow SSH and simulate with a progress bar.
         with alive_bar(1, title="Updating Security Group Rules") as bar:
             response = self.sg_wrapper.authorize_ingress(current_ip_address)
             time.sleep(0.4)
@@ -97,9 +134,14 @@ class EC2InstanceScenario:
                 )
             bar()
 
-        self.sg_wrapper.describe()
+        self.sg_wrapper.describe(self.sg_wrapper.security_group)
 
-    def create_instance(self):
+    def create_instance(self) -> None:
+        """
+        Launches an EC2 instance using an Amazon Linux 2 AMI and the created key pair
+        and security group. Displays instance details and SSH connection information.
+        """
+        # Retrieve Amazon Linux 2 AMIs from SSM.
         ami_paginator = self.ssm_client.get_paginator("get_parameters_by_path")
         ami_options = []
         for page in ami_paginator.paginate(Path="/aws/service/ami-amazon-linux-latest"):
@@ -112,20 +154,15 @@ class EC2InstanceScenario:
             "Let's create an instance from an Amazon Linux 2 AMI. Here are some options:"
         )
         image_choice = 0
-        console.print(
-            f"- **Simulated input**: Chose AMI: {amzn2_images[image_choice]['ImageId']}\n"
-        )
+        console.print(f"- Selected AMI: {amzn2_images[image_choice]['ImageId']}\n")
 
-        console.print(
-            f"Here are some instance types that support the "
-            f"{amzn2_images[image_choice]['Architecture']} architecture of the image:"
-        )
+        # Display instance types compatible with the selected AMI
         inst_types = self.inst_wrapper.get_instance_types(
             amzn2_images[image_choice]["Architecture"]
         )
         inst_type_choice = 0
         console.print(
-            f"- **Simulated input**: Chose instance type: {inst_types[inst_type_choice]['InstanceType']}\n"
+            f"- Selected instance type: {inst_types[inst_type_choice]['InstanceType']}\n"
         )
 
         console.print("Creating your instance and waiting for it to start...")
@@ -142,22 +179,22 @@ class EC2InstanceScenario:
         console.print(f"**Success! Your instance is ready:**\n", style="bold green")
         self.inst_wrapper.display()
 
-        console.print("You can use SSH to connect to your instance.")
         console.print(
+            "You can use SSH to connect to your instance. "
             "If the connection attempt times out, you might have to manually update "
             "the SSH ingress rule for your IP address in the AWS Management Console."
         )
         self._display_ssh_info()
 
-    def _display_ssh_info(self):
-        console.print(
-            "\nTo connect, open another command prompt and run the following command:",
-            style="bold cyan",
-        )
+    def _display_ssh_info(self) -> None:
+        """
+        Displays SSH connection information for the user to connect to the EC2 instance.
+        Handles the case where the instance does or does not have an associated public IP address.
+        """
 
         if (
             not self.eip_wrapper.elastic_ips
-            or self.eip_wrapper.elastic_ips[0].allocation_id is None
+            or not self.eip_wrapper.elastic_ips[0].allocation_id
         ):
             if self.inst_wrapper.instances:
                 instance = self.inst_wrapper.instances[0]
@@ -181,6 +218,10 @@ class EC2InstanceScenario:
                 public_ip = instance.get("PublicIpAddress")
                 if public_ip:
                     console.print(
+                        "\nTo connect via SSH, open another command prompt and run the following command:",
+                        style="bold cyan",
+                    )
+                    console.print(
                         f"\tssh -i {self.key_wrapper.key_file_path} ec2-user@{public_ip}"
                     )
                 else:
@@ -195,15 +236,20 @@ class EC2InstanceScenario:
                 )
         else:
             elastic_ip = self.eip_wrapper.elastic_ips[0]
-            response = self.eip_wrapper.ec2_client.describe_addresses(
-                AllocationIds=[elastic_ip.allocation_id]
-            )
-            elastic_ip_address = response["Addresses"][0]["PublicIp"]
+            elastic_ip_address = elastic_ip.public_ip
             console.print(
                 f"\tssh -i {self.key_wrapper.key_file_path} ec2-user@{elastic_ip_address}"
             )
 
-    def associate_elastic_ip(self):
+        if not self.remote_exec:
+            console.print("\nOpen a new terminal tab to try the above SSH command.")
+            input("Press Enter to continue...")
+
+    def associate_elastic_ip(self) -> None:
+        """
+        Allocates an Elastic IP address and associates it with the EC2 instance.
+        Displays the Elastic IP address and SSH connection information.
+        """
         console.print("\n**Step 4: Allocate an Elastic IP Address**", style="bold cyan")
         console.print(
             "You can allocate an Elastic IP address and associate it with your instance\n"
@@ -232,7 +278,12 @@ class EC2InstanceScenario:
         )
         self._display_ssh_info()
 
-    def stop_and_start_instance(self):
+    def stop_and_start_instance(self) -> None:
+        """
+        Stops and restarts the EC2 instance. Displays instance state and explains
+        changes that occur when the instance is restarted, such as the potential change
+        in the public IP address unless an Elastic IP is associated.
+        """
         console.print("\n**Step 5: Stop and Start Your Instance**", style="bold cyan")
         console.print("Let's stop and start your instance to see what changes.")
         console.print("- **Stopping your instance and waiting until it's stopped...**")
@@ -261,18 +312,19 @@ class EC2InstanceScenario:
                 "- **Note**: Every time your instance is restarted, its public IP address changes."
             )
         else:
-            response = self.eip_wrapper.ec2_client.describe_addresses(
-                AllocationIds=[elastic_ip.allocation_id]
-            )
-            elastic_ip_address = response["Addresses"][0]["PublicIp"]
             console.print(
                 f"Because you have associated an Elastic IP with your instance, you can \n"
-                f"connect by using a consistent IP address after the instance restarts: {elastic_ip_address}"
+                f"connect by using a consistent IP address after the instance restarts: {elastic_ip.public_ip}"
             )
 
         self._display_ssh_info()
 
-    def cleanup(self):
+    def cleanup(self) -> None:
+        """
+        Cleans up all the resources created during the scenario, including disassociating
+        and releasing the Elastic IP, terminating the instance, deleting the security
+        group, and deleting the key pair.
+        """
         console.print("\n**Step 6: Clean Up Resources**", style="bold cyan")
         console.print("Cleaning up resources:")
 
@@ -305,7 +357,7 @@ class EC2InstanceScenario:
         console.print(f"- **Security Group**: {self.sg_wrapper.security_group}")
 
         with alive_bar(1, title="Deleting Security Group") as bar:
-            self.sg_wrapper.delete()
+            self.sg_wrapper.delete(self.sg_wrapper.security_group)
             time.sleep(1)
             bar()
 
@@ -320,7 +372,11 @@ class EC2InstanceScenario:
 
         console.print("\t- **Deleted Key Pair**")
 
-    def run_scenario(self):
+    def run_scenario(self) -> None:
+        """
+        Executes the entire EC2 instance scenario: creates key pairs, security groups,
+        launches an instance, associates an Elastic IP, and cleans up all resources.
+        """
         logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
         console.print("-" * 88)

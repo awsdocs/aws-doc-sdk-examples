@@ -55,7 +55,6 @@ class KeyPairWrapper:
             with open(self.key_file_path, "w") as key_file:
                 key_file.write(self.key_pair["KeyMaterial"])
         except ClientError as err:
-            breakpoint()
             if err.response["Error"]["Code"] == "InvalidKeyPair.Duplicate":
                 logger.error(
                     f"A key pair called {key_name} already exists. "

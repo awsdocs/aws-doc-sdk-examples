@@ -14,7 +14,9 @@ logger = logging.getLogger(__name__)
 class EC2InstanceWrapper:
     """Encapsulates Amazon Elastic Compute Cloud (Amazon EC2) instance actions using the client interface."""
 
-    def __init__(self, ec2_client, instances: Optional[List[Dict[str, Any]]] = None):
+    def __init__(
+        self, ec2_client: Any, instances: Optional[List[Dict[str, Any]]] = None
+    ) -> None:
         """
         Initializes the EC2InstanceWrapper with an EC2 client and optional instances.
 
@@ -75,14 +77,13 @@ class EC2InstanceWrapper:
             waiter = self.ec2_client.get_waiter("instance_running")
             waiter.wait(InstanceIds=[instance["InstanceId"]])
         except ClientError as err:
-            error_code = err.response["Error"]["Code"]
             params_str = "\n\t".join(
                 f"{key}: {value}" for key, value in instance_params.items()
             )
             logger.error(
                 f"Failed to complete instance creation request.\nRequest details:{params_str}"
             )
-
+            error_code = err.response["Error"]["Code"]
             if error_code == "InstanceLimitExceeded":
                 logger.error(
                     (
@@ -141,13 +142,13 @@ class EC2InstanceWrapper:
                         print(instance_info)
 
         except ClientError as err:
-            error_code = err.response["Error"]["Code"]
             logger.error(
-                f"Here are the items in the list: {' '.join(map(str, instance_ids))}"
+                f"Failed to display instance(s). : {' '.join(map(str, instance_ids))}"
             )
+            error_code = err.response["Error"]["Code"]
             if error_code == "InvalidInstanceID.NotFound":
                 logger.error(
-                    "Couldn't display instance(s). One or more instance IDs do not exist. "
+                    "One or more instance IDs do not exist. "
                     "Please verify the instance IDs and try again."
                 )
                 raise
@@ -179,7 +180,7 @@ class EC2InstanceWrapper:
             error_code = err.response["Error"]["Code"]
             if error_code == "InvalidInstanceID.NotFound":
                 logger.error(
-                    "Couldn't terminate instance(s). One or more instance IDs do not exist. "
+                    "One or more instance IDs do not exist. "
                     "Please verify the instance IDs and try again."
                 )
             raise
@@ -264,10 +265,7 @@ class EC2InstanceWrapper:
             logger.error(f"Failed to stop AMI(s): {','.join(map(str, image_ids))}")
             error_code = err.response["Error"]["Code"]
             if error_code == "InvalidAMIID.NotFound":
-                logger.error(
-                    "Couldn't get information about the requested AMIs because "
-                    "one or more of the AMI IDs does not exist."
-                )
+                logger.error("One or more of the AMI IDs does not exist.")
             raise
         return images
 
@@ -284,7 +282,7 @@ class EC2InstanceWrapper:
 
         :param architecture: The architecture supported by instance types. Default: 'x86_64'.
         :param sizes: The size of instance types. Default: '*.micro', '*.small',
-        :return: A list of dictionaries representing instance types that support the specified architecture and size
+        :return: A list of dictionaries representing instance types that support the specified architecture and size.
         """
         try:
             inst_types = []
@@ -300,13 +298,13 @@ class EC2InstanceWrapper:
             ):
                 inst_types += page["InstanceTypes"]
         except ClientError as err:
-            error_code = err.response["Error"]["Code"]
             logger.error(
                 f"Failed to get instance types: {architecture}, {','.join(map(str, sizes))}"
             )
+            error_code = err.response["Error"]["Code"]
             if error_code == "InvalidParameterValue":
                 logger.error(
-                    "Couldn't get instance types because the parameters are invalid. "
+                    "Parameters are invalid. "
                     "Ensure architecture and size strings conform to DescribeInstanceTypes API reference."
                 )
             raise

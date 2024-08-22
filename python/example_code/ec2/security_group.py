@@ -104,17 +104,23 @@ class SecurityGroupWrapper:
     # snippet-end:[python.example_code.ec2.AuthorizeSecurityGroupIngress]
 
     # snippet-start:[python.example_code.ec2.DescribeSecurityGroups]
-    def describe(self) -> None:
+    def describe(self, security_group_id: Optional[str] = None) -> bool:
         """
-        Displays information about the security group.
-        """
-        if self.security_group is None:
-            logger.info("No security group to describe.")
-            return
+        Displays information about the specified security group or all security groups if no ID is provided.
 
+        :param security_group_id: The ID of the security group to describe.
+                                  If None, an open search is performed to describe all security groups.
+        :returns: True if the description is successful.
+        :raises ClientError: If there is an error describing the security group(s), such as an invalid security group ID.
+        """
         try:
             paginator = self.ec2_client.get_paginator("describe_security_groups")
-            page_iterator = paginator.paginate(GroupIds=[self.security_group])
+
+            if security_group_id is None:
+                # If no ID is provided, return all security groups.
+                page_iterator = paginator.paginate()
+            else:
+                page_iterator = paginator.paginate(GroupIds=[security_group_id])
 
             for page in page_iterator:
                 for security_group in page["SecurityGroups"]:
@@ -122,42 +128,50 @@ class SecurityGroupWrapper:
                     print(f"\tID: {security_group['GroupId']}")
                     print(f"\tVPC: {security_group['VpcId']}")
                     if security_group["IpPermissions"]:
-                        print(f"Inbound permissions:")
+                        print("Inbound permissions:")
                         pp(security_group["IpPermissions"])
+
+            return True
         except ClientError as err:
+            logger.error("Failed to describe security group(s).")
             if err.response["Error"]["Code"] == "InvalidGroup.NotFound":
                 logger.error(
-                    f"Security group {self.security_group} does not exist "
-                    f"because specified security group ID was not found."
+                    f"Security group {security_group_id} does not exist "
+                    f"because the specified security group ID was not found."
                 )
             raise
 
     # snippet-end:[python.example_code.ec2.DescribeSecurityGroups]
 
     # snippet-start:[python.example_code.ec2.DeleteSecurityGroup]
-    def delete(self) -> None:
+    def delete(self, security_group_id: str) -> bool:
         """
-        Deletes the security group.
+        Deletes the specified security group.
+
+        :param security_group_id: The ID of the security group to delete. Required.
+
+        :returns: True if the deletion is successful.
+        :raises ClientError: If the security group cannot be deleted due to an AWS service error.
         """
-        if self.security_group is None:
-            logger.info("No security group to delete.")
-            return
         try:
-            self.ec2_client.delete_security_group(GroupId=self.security_group)
-            logger.info(f"Successfully deleted security group '{self.security_group}'")
+            self.ec2_client.delete_security_group(GroupId=security_group_id)
+            logger.info(f"Successfully deleted security group '{security_group_id}'")
+            return True
         except ClientError as err:
-            logger.error(f"Deletion failed for security group '{self.security_group}'")
-            if err.response["Error"]["Code"] == "InvalidGroup.NotFound":
+            logger.error(f"Deletion failed for security group '{security_group_id}'")
+            error_code = err.response["Error"]["Code"]
+
+            if error_code == "InvalidGroup.NotFound":
                 logger.error(
-                    f"Security group cannot be deleted because it does not exist."
+                    f"Security group '{security_group_id}' cannot be deleted because it does not exist."
                 )
-            if err.response["Error"]["Code"] == "DependencyViolation":
+            elif error_code == "DependencyViolation":
                 logger.error(
-                    "Security group cannot be deleted because it is still in use."
-                    "Verify it is:"
-                    "\t- Detached from resources"
-                    "\t- Removed from references in other groups"
-                    "\t- Removed from VPC's as a default group"
+                    f"Security group '{security_group_id}' cannot be deleted because it is still in use."
+                    " Verify that it is:"
+                    "\n\t- Detached from resources"
+                    "\n\t- Removed from references in other groups"
+                    "\n\t- Removed from VPC's as a default group"
                 )
             raise
 
