@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 - [Hello Amazon S3](src/main/java/com/example/s3/HelloS3.java#L6) (`ListBuckets`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/java/com/example/s3/S3Scenario.java)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -73,7 +80,6 @@ functions within the same service.
 
 - [Delete incomplete multipart uploads](src/main/java/com/example/s3/AbortMultipartUploadExamples.java)
 - [Download objects to a local directory](src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java)
-- [Get started with buckets and objects](src/main/java/com/example/s3/S3Scenario.java)
 - [Get the legal hold configuration of an object](src/main/java/com/example/s3/lockscenario/S3LockActions.java)
 - [Lock Amazon S3 objects](src/main/java/com/example/s3/lockscenario/S3ObjectLockWorkflow.java)
 - [Parse URIs](src/main/java/com/example/s3/ParseUri.java)
@@ -105,6 +111,23 @@ functions within the same service.
 This example shows you how to get started using Amazon S3.
 
 
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
 
 #### Delete incomplete multipart uploads
 
@@ -129,23 +152,6 @@ This example shows you how to download all objects in an Amazon Simple Storage S
 
 <!--custom.scenarios.s3_DownloadBucketToDirectory.start-->
 <!--custom.scenarios.s3_DownloadBucketToDirectory.end-->
-
-#### Get started with buckets and objects
-
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
-
-
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
 
 #### Get the legal hold configuration of an object
 

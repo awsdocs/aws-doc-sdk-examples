@@ -53,15 +53,10 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Create a messenger application](python/cross_service/stepfunctions_messenger)
+- [Create an Amazon Textract explorer application](python/cross_service/textract_explorer)
 - [Create and publish to a FIFO topic](../sns/sns_fifo_topic.py)
 - [Send and receive batches of messages](message_wrapper.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create a messenger application](../../cross_service/stepfunctions_messenger)
-- [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
 
 
 <!--custom.examples.start-->
@@ -76,6 +71,30 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.end-->
 
 
+
+#### Create a messenger application
+
+This example shows you how to create an AWS Step Functions messenger application that retrieves message records from a database table.
+
+
+<!--custom.scenario_prereqs.cross_StepFunctionsMessenger.start-->
+<!--custom.scenario_prereqs.cross_StepFunctionsMessenger.end-->
+
+
+<!--custom.scenarios.cross_StepFunctionsMessenger.start-->
+<!--custom.scenarios.cross_StepFunctionsMessenger.end-->
+
+#### Create an Amazon Textract explorer application
+
+This example shows you how to explore Amazon Textract output through an interactive application.
+
+
+<!--custom.scenario_prereqs.cross_TextractExplorer.start-->
+<!--custom.scenario_prereqs.cross_TextractExplorer.end-->
+
+
+<!--custom.scenarios.cross_TextractExplorer.start-->
+<!--custom.scenarios.cross_TextractExplorer.end-->
 
 #### Create and publish to a FIFO topic
 

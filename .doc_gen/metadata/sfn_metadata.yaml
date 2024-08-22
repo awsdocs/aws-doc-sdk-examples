@@ -533,14 +533,12 @@ sfn_DeleteActivity:
   services:
     sfn: {DeleteActivity}
 sfn_Scenario_GetStartedStateMachines:
-  title: Get started with &SFN; state machines using an &AWS; SDK
-  title_abbrev: Get started with state machines
   synopsis_list:
     - Create an activity.
     - Create a state machine from an &SLN; definition that contains the previously created activity as a step.
     - Run the state machine and respond to the activity with user input.
     - Get the final status and output after the run completes, then clean up resources.
-  category: Scenarios
+  category: Basics
   languages:
     Kotlin:
       versions:

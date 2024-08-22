@@ -53,13 +53,8 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Create a serverless application to manage photos](php/applications/photo_asset_manager)
 - [Publish an SMS text message](PublishTextSMS.php)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Create a serverless application to manage photos](../../applications/photo_asset_manager)
 
 
 <!--custom.examples.start-->
@@ -74,6 +69,18 @@ Sample applications that work across multiple AWS services.
 <!--custom.instructions.end-->
 
 
+
+#### Create a serverless application to manage photos
+
+This example shows you how to create a serverless application that lets users manage photos using labels.
+
+
+<!--custom.scenario_prereqs.cross_PAM.start-->
+<!--custom.scenario_prereqs.cross_PAM.end-->
+
+
+<!--custom.scenarios.cross_PAM.start-->
+<!--custom.scenarios.cross_PAM.end-->
 
 #### Publish an SMS text message
 

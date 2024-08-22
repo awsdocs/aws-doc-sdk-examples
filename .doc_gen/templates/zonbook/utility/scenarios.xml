@@ -1,0 +1,28 @@
+{{- define "scenarios"}}
+{{- $service := index . 0}}
+{{- $scenarios := index $service.CategorizedExampleSets "Scenarios"}}
+{{- $doc_id := index . 1}}
+{{- $is_library := index . 2}}
+{{- if $scenarios.Examples}}
+<section id="{{$doc_id}}_scenarios" role="topic">
+    <info>
+        <title id="{{$doc_id}}_scenarios.title">Scenarios for
+            {{$service.ServiceEntity.Short}} using &AWS; SDKs
+        </title>
+        <titleabbrev id="{{$doc_id}}_scenarios.titleabbrev">Scenarios</titleabbrev>
+        <abstract>
+            <para>The following code examples show how to use {{$service.ServiceEntity.Short}} with &AWS; SDKs.
+            </para>
+        </abstract>
+    </info>
+    <para>The following code examples show you how to implement common scenarios in {{$service.ServiceEntity.Short}}
+        with &AWS; SDKs. These scenarios show you how to accomplish specific tasks by calling multiple functions
+        within {{$service.ServiceEntity.Short}} or combined with other &AWS-services;.
+        Each scenario includes a link to the complete source code, where you can find instructions on how to set up and run the code.
+    </para>
+    <para>Scenarios target an intermediate level of experience to help you understand service actions in context.</para>
+<para role="topiclist-abbrev">Examples</para>
+{{- template "service_examples" makeSlice $scenarios $service $is_library}}
+</section>
+{{- end}}
+{{- end}}

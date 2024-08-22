@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 - [Hello AWS Glue](hello/hello_glue.rb#L4) (`ListJobs`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](glue_wrapper.rb)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -52,13 +59,6 @@ Code excerpts that show you how to call individual service functions.
 - [ListJobs](glue_wrapper.rb#L168)
 - [StartCrawler](glue_wrapper.rb#L64)
 - [StartJobRun](glue_wrapper.rb#L144)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with crawlers and jobs](glue_wrapper.rb)
 
 
 <!--custom.examples.start-->
@@ -80,8 +80,7 @@ This example shows you how to get started using AWS Glue.
 ruby hello/hello_glue.rb
 ```
 
-
-#### Get started with crawlers and jobs
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -90,8 +89,8 @@ This example shows you how to do the following:
 - Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another S3 bucket.
 - List information about job runs, view transformed data, and clean up resources.
 
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -99,9 +98,9 @@ Start the example by running the following at a command prompt:
 ruby glue_wrapper.rb
 ```
 
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.end-->
 
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.end-->
 
 ### Tests
 

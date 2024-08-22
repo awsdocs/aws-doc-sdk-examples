@@ -29,6 +29,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/kotlin/com/kotlin/rds/RDSScenario.kt)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -38,13 +45,6 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeAccountAttributes](src/main/kotlin/com/kotlin/rds/DescribeAccountAttributes.kt#L22)
 - [DescribeDBInstances](src/main/kotlin/com/kotlin/rds/DescribeDBInstances.kt#L22)
 - [ModifyDBInstance](src/main/kotlin/com/kotlin/rds/ModifyDBInstance.kt#L39)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with DB instances](src/main/kotlin/com/kotlin/rds/RDSScenario.kt)
 
 
 <!--custom.examples.start-->
@@ -63,8 +63,7 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Get started with DB instances
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -73,12 +72,13 @@ This example shows you how to do the following:
 - Take a snapshot of the instance.
 - Delete the instance and parameter group.
 
-<!--custom.scenario_prereqs.rds_Scenario_GetStartedInstances.start-->
-<!--custom.scenario_prereqs.rds_Scenario_GetStartedInstances.end-->
+<!--custom.basic_prereqs.rds_Scenario_GetStartedInstances.start-->
+<!--custom.basic_prereqs.rds_Scenario_GetStartedInstances.end-->
 
 
-<!--custom.scenarios.rds_Scenario_GetStartedInstances.start-->
-<!--custom.scenarios.rds_Scenario_GetStartedInstances.end-->
+<!--custom.basics.rds_Scenario_GetStartedInstances.start-->
+<!--custom.basics.rds_Scenario_GetStartedInstances.end-->
+
 
 ### Tests
 

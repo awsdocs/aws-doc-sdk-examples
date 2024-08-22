@@ -36,6 +36,13 @@ To enable billing metrics and statistics for these examples, make sure to
 - [Hello CloudWatch](Actions/HelloCloudWatch.cs#L4) (`ListMetrics`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/CloudWatchScenario.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -59,13 +66,6 @@ Code excerpts that show you how to call individual service functions.
 - [PutDashboard](Actions/CloudWatchWrapper.cs#L91)
 - [PutMetricAlarm](Actions/CloudWatchWrapper.cs#L265)
 - [PutMetricData](Actions/CloudWatchWrapper.cs#L154)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with metrics, dashboards, and alarms](Scenarios/CloudWatchScenario.cs)
 
 
 <!--custom.examples.start-->
@@ -101,8 +101,7 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using CloudWatch.
 
 
-
-#### Get started with metrics, dashboards, and alarms
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -114,12 +113,13 @@ This example shows you how to do the following:
 - Add an anomaly detector.
 - Get a metric image, then clean up resources.
 
-<!--custom.scenario_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
-<!--custom.scenario_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
+<!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
+<!--custom.basic_prereqs.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
 
 
-<!--custom.scenarios.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
-<!--custom.scenarios.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
+<!--custom.basics.cloudwatch_GetStartedMetricsDashboardsAlarms.start-->
+<!--custom.basics.cloudwatch_GetStartedMetricsDashboardsAlarms.end-->
+
 
 ### Tests
 

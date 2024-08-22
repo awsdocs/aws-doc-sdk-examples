@@ -264,14 +264,12 @@ acm_UpdateCertificateOptions:
   services:
     acm: {UpdateCertificateOptions}
 acm_Usage_ImportListRemove:
-  title: Manage &ACM; certificates using an &AWS; SDK
-  title_abbrev: Manage certificates
   synopsis_list:
     - Request a certificate from &ACM;.
     - Import a self-signed certificate.
     - List and describe certificates.
     - Remove certificates.
-  category: Scenarios
+  category: Basics
   languages:
     Python:
       versions:

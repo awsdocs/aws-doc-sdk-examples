@@ -29,6 +29,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/scenario_movie_table.go)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -52,7 +59,6 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Get started with tables, items, and queries](scenarios/scenario_movie_table.go)
 - [Query a table by using batches of PartiQL statements](scenarios/scenario_partiql_batch.go)
 - [Query a table using PartiQL](scenarios/scenario_partiql_single.go)
 
@@ -77,8 +83,7 @@ and to get help for running a scenario, use the following command:
 ```
 go run ./cmd -h
 ```
-
-#### Get started with tables, items, and queries
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -89,12 +94,13 @@ This example shows you how to do the following:
 - Scan for movies that were released in a range of years.
 - Delete a movie from the table, then delete the table.
 
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenario_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
 
 
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.start-->
-<!--custom.scenarios.dynamodb_Scenario_GettingStartedMovies.end-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.end-->
+
 
 #### Query a table by using batches of PartiQL statements
 

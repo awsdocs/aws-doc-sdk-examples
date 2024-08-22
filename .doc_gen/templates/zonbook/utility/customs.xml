@@ -1,0 +1,22 @@
+{{- define "customs"}}
+{{- $service := index . 0}}
+{{- $doc_id := index . 1}}
+{{- $is_library := index . 2}}
+{{- range $category := $service.CustomCategoriesSorted}}
+{{- $cat_examples := index $service.CategorizedExampleSets $category}}
+<section id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}" role="topic">
+    <info>
+        <title id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}.title">{{$cat_examples.CategoryName}} for {{$service.ServiceEntity.Short}} using &AWS; SDKs
+        </title>
+        <titleabbrev id="{{$doc_id}}_{{$cat_examples.CategoryIdSuffix}}.titleabbrev">{{$cat_examples.CategoryName}}
+        </titleabbrev>
+        <abstract>
+            <para>The following code examples show how to use {{$service.ServiceEntity.Short}} with &AWS; SDKs.</para>
+        </abstract>
+    </info>
+    <para>The following code examples show how to use {{$service.ServiceEntity.Short}} with &AWS; SDKs.</para>
+    <para role="topiclist-abbrev">Examples</para>
+    {{- template "service_examples" makeSlice $cat_examples $service $is_library}}
+</section>
+{{- end}}
+{{- end}}

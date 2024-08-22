@@ -61,14 +61,9 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Detect document elements](comprehend_detect.py)
+- [Detect entities in text extracted from an image](python/cross_service/textract_comprehend_notebook)
 - [Run a topic modeling job on sample data](comprehend_topic_modeler.py)
 - [Train a custom classifier and classify documents](comprehend_classifier.py)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
-- [Detect entities in text extracted from an image](../../cross_service/textract_comprehend_notebook)
 
 
 <!--custom.examples.start-->
@@ -105,6 +100,18 @@ python comprehend_detect.py
 
 <!--custom.scenarios.comprehend_Usage_DetectApis.start-->
 <!--custom.scenarios.comprehend_Usage_DetectApis.end-->
+
+#### Detect entities in text extracted from an image
+
+This example shows you how to use Amazon Comprehend to detect entities in text extracted by Amazon Textract from an image that is stored in Amazon S3.
+
+
+<!--custom.scenario_prereqs.cross_TextractComprehendDetectEntities.start-->
+<!--custom.scenario_prereqs.cross_TextractComprehendDetectEntities.end-->
+
+
+<!--custom.scenarios.cross_TextractComprehendDetectEntities.start-->
+<!--custom.scenarios.cross_TextractComprehendDetectEntities.end-->
 
 #### Run a topic modeling job on sample data
 

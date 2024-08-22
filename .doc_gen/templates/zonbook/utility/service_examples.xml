@@ -3,14 +3,13 @@
 {{- $service := index . 1}}
 {{- $is_library := index . 2}}
 {{- $svc_prefix := ""}}
-{{- if $service}}
+{{- if or $is_library $service.Bundle}}
     {{- $svc_prefix = printf "%s_" $service.Model}}
 {{- end}}
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
 {{- if isSnapshot}}
     {{- $include_docs = ""}}
 {{- end}}
-<para role="topiclist-abbrev">Examples</para>
 {{- range $examples.Examples}}
 {{- $addSvc := ""}}
 {{- if .AddService}}

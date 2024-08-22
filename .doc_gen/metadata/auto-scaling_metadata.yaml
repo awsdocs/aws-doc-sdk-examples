@@ -756,8 +756,6 @@ auto-scaling_AttachLoadBalancerTargetGroups:
   services:
     auto-scaling: {AttachLoadBalancerTargetGroups}
 auto-scaling_Scenario_GroupsAndInstances:
-  title: Manage &AS; groups and instances using an &AWS; SDK
-  title_abbrev: Manage groups and instances
   synopsis_list:
     - Create an &ASlong; group with a launch template and Availability Zones, and get information about running instances.
     - Enable &CWlong; metrics collection.
@@ -765,7 +763,7 @@ auto-scaling_Scenario_GroupsAndInstances:
     - Terminate an instance in the group.
     - List scaling activities that occur in response to user requests and capacity changes.
     - Get statistics for &CW; metrics, then clean up resources.
-  category: Scenarios
+  category: Basics
   languages:
     .NET:
       versions:

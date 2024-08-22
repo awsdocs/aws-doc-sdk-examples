@@ -34,6 +34,13 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](certificate_basics.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -49,13 +56,6 @@ Code excerpts that show you how to call individual service functions.
 - [RequestCertificate](certificate_basics.py#L242)
 - [ResendValidationEmail](certificate_basics.py#L293)
 
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Manage certificates](certificate_basics.py)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -69,8 +69,7 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Manage certificates
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -79,8 +78,8 @@ This example shows you how to do the following:
 - List and describe certificates.
 - Remove certificates.
 
-<!--custom.scenario_prereqs.acm_Usage_ImportListRemove.start-->
-<!--custom.scenario_prereqs.acm_Usage_ImportListRemove.end-->
+<!--custom.basic_prereqs.acm_Usage_ImportListRemove.start-->
+<!--custom.basic_prereqs.acm_Usage_ImportListRemove.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -89,8 +88,9 @@ python certificate_basics.py
 ```
 
 
-<!--custom.scenarios.acm_Usage_ImportListRemove.start-->
-<!--custom.scenarios.acm_Usage_ImportListRemove.end-->
+<!--custom.basics.acm_Usage_ImportListRemove.start-->
+<!--custom.basics.acm_Usage_ImportListRemove.end-->
+
 
 ### Tests
 

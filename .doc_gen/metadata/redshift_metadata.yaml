@@ -320,10 +320,8 @@ redshift_CreateTable:
   services:
     redshift: {CreateTable}
 redshift_Scenario:
-  title: Get started with &RS; tables, items, and queries
-  title_abbrev: Get started with &RS;
   synopsis: work with &RS; tables, items, and queries.
-  category: Scenarios
+  category: Basics
   languages:
     Java:
       versions:

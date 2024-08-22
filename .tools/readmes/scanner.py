@@ -29,6 +29,7 @@ class Scanner:
         self._build_examples()
         self.hellos: Dict[str, Example] = {}
         self.actions: Dict[str, Example] = {}
+        self.basics: Dict[str, Example] = {}
         self.scenarios: Dict[str, Example] = {}
         self.customs: Dict[str, Example] = {}
         self.crosses: Dict[str, Example] = {}
@@ -68,6 +69,7 @@ class Scanner:
 
         self.hellos.clear()
         self.actions.clear()
+        self.basics.clear()
         self.scenarios.clear()
         self.customs.clear()
         self.cross_scenarios.clear()
@@ -85,6 +87,8 @@ class Scanner:
                 self.hellos[example.id] = example
             elif example.category == config.categories["actions"]:
                 self.actions[example.id] = example
+            elif example.category == config.categories["basics"]:
+                self.basics[example.id] = example
             elif example.category == config.categories["scenarios"]:
                 self.scenarios[example.id] = example
             elif example.category not in config.categories.values():
@@ -131,7 +135,13 @@ class Scanner:
                                 if "cross-services" in full_path:
                                     tag_path = "../cross-services/" + tag_path
                         elif ex_ver.block_content:
-                            tag_path = github
+                            base_folder = f"{config.language[self.lang_name][self.sdk_ver]['base_folder']}/"
+                            if base_folder in github:
+                                tag_path = (
+                                    self._lang_level_double_dots() + github.split(base_folder, 1)[1]
+                                )
+                            else:
+                                tag_path = github
         if tag and github is not None and tag_path is None:
             snippet = self.doc_gen.snippets[tag]
             if snippet is not None:
@@ -143,3 +153,7 @@ class Scanner:
                 if api_name != "":
                     tag_path += f"#L{snippet.line_start + 1}"
         return tag_path
+
+    def _lang_level_double_dots(self) -> str:
+        lang_config = config.language.get(self.lang_name, {}).get(self.sdk_ver, None)
+        return "../" * lang_config["service_folder"].count("/")

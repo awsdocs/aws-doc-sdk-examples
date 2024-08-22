@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 - [Hello Amazon Keyspaces](src/main/java/com/example/keyspace/HelloKeyspaces.java#L6) (`ListKeyspaces`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/java/com/example/keyspace/ScenarioKeyspaces.java)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -48,13 +55,6 @@ Code excerpts that show you how to call individual service functions.
 - [ListTables](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L449)
 - [RestoreTable](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L322)
 - [UpdateTable](src/main/java/com/example/keyspace/ScenarioKeyspaces.java#L369)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with keyspaces and tables](src/main/java/com/example/keyspace/ScenarioKeyspaces.java)
 
 
 <!--custom.examples.start-->
@@ -73,8 +73,7 @@ functions within the same service.
 This example shows you how to get started using Amazon Keyspaces.
 
 
-
-#### Get started with keyspaces and tables
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -84,12 +83,13 @@ This example shows you how to do the following:
 - Update the table. Add a column to track watched movies.
 - Restore the table to its previous state and clean up resources.
 
-<!--custom.scenario_prereqs.keyspaces_Scenario_GetStartedKeyspaces.start-->
-<!--custom.scenario_prereqs.keyspaces_Scenario_GetStartedKeyspaces.end-->
+<!--custom.basic_prereqs.keyspaces_Scenario_GetStartedKeyspaces.start-->
+<!--custom.basic_prereqs.keyspaces_Scenario_GetStartedKeyspaces.end-->
 
 
-<!--custom.scenarios.keyspaces_Scenario_GetStartedKeyspaces.start-->
-<!--custom.scenarios.keyspaces_Scenario_GetStartedKeyspaces.end-->
+<!--custom.basics.keyspaces_Scenario_GetStartedKeyspaces.start-->
+<!--custom.basics.keyspaces_Scenario_GetStartedKeyspaces.end-->
+
 
 ### Tests
 

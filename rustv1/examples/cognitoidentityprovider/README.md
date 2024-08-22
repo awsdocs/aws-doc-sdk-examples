@@ -1,54 +1,78 @@
-# AWS SDK for Rust code examples for Amazon Cognito user pools
+# Amazon Cognito Identity Provider code examples for the SDK for Rust
 
-## Purpose
+## Overview
 
-This code example demonstrate how to perform an Amazon Cognito user pool operation using the AWS SDK for Rust.
+Shows how to use the AWS SDK for Rust to work with Amazon Cognito Identity Provider.
 
-Amazon Cognito user pools enable you to sign in to your web or mobile app through Amazon Cognito.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-## Code examples
-
-- [List user pools](src/bin/list-user-pools.rs) (ListUserPools)
+_Amazon Cognito Identity Provider handles user authentication and authorization for your web and mobile apps._
 
 ## ⚠ Important
 
-- We recommend that you grant this code least privilege,
-  or at most the minimum permissions required to perform the task.
-  For more information, see
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
-  in the AWS Identity and Access Management User Guide.
-- This code has not been tested in all AWS Regions.
-  Some AWS services are available only in specific
-  [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-- Running this code might result in charges to your AWS account.
+* Running this code might result in charges to your AWS account. For more details, see [AWS Pricing](https://aws.amazon.com/pricing/) and [Free Tier](https://aws.amazon.com/free/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-## Running the code examples
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
 
 ### Prerequisites
 
-You must have an AWS account, and have configured your default credentials and AWS Region as described in [https://github.com/awslabs/aws-sdk-rust](https://github.com/awslabs/aws-sdk-rust).
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv1` folder.
 
-### list-user-pools
 
-This example lists your Amazon Cognito user pools in the Region.
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
 
-`cargo run --bin list-user-pools -- [-r REGION] [-v]`
+### Single actions
 
-- _DEFAULT-REGION_ is name of the Region in which the client is created.
-  If not supplied, uses the value of the **AWS_REGION** environment variable.
-  If the environment variable is not set, defaults to **us-west-2**.
-- **-v** displays additional information.
+Code excerpts that show you how to call individual service functions.
 
-## Resources
+- [ListUserPools](src/bin/list-user-pools.rs#L26)
 
-- [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
-- [AWS SDK for Rust API Reference for Amazon Cognito User Pools](https://docs.rs/aws-sdk-cognitoidentityprovider)
-- [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
 
-## Contributing
+<!--custom.examples.start-->
+<!--custom.examples.end-->
 
-To propose a new code example to the AWS documentation team,
-see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md).
-The team prefers to create code examples that show broad scenarios rather than individual API calls.
+## Run the examples
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+### Instructions
+
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+
+
+### Tests
+
+⚠ Running tests might result in charges to your AWS account.
+
+
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `rustv1` folder.
+
+
+
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+- [Amazon Cognito Identity Provider Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
+- [Amazon Cognito Identity Provider API Reference](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html)
+- [SDK for Rust Amazon Cognito Identity Provider reference](https://docs.rs/aws-sdk-cognito-identity-provider/latest/aws_sdk_cognito-identity-provider/)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

@@ -3,7 +3,7 @@ cross_MessageProcessingFrameworkTutorial:
   title: Use the &AWS; Message Processing Framework for .NET to publish and receive &SQS; messages
   title_abbrev: Use the &AWS; Message Processing Framework for .NET with &SQS;
   synopsis: create applications that publish and receive &SQS; messages using the &AWS; Message Processing Framework for .NET.
-  category: Cross-service examples
+  category: Scenarios
   languages:
     .NET:
       versions:
@@ -18,6 +18,7 @@ cross_FSA:
   title_abbrev: Create an application to analyze customer feedback
   synopsis: create an application that analyzes customer comment cards, translates them from their original language, determines
     their sentiment, and generates an audio file from the translated text.
+  category: Scenarios
   languages:
     .NET:
       versions:
@@ -47,6 +48,7 @@ cross_PAM:
   title: Create a photo asset management application that lets users manage photos using labels
   title_abbrev: Create a serverless application to manage photos
   synopsis: create a serverless application that lets users manage photos using labels.
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -91,6 +93,7 @@ cross_RedshiftDataTracker:
   title: Create an &RSlong; item tracker
   title_abbrev: Create a web application to track &RS; data
   synopsis: create a web application that tracks and reports on work items using an &RSlong; database.
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -108,6 +111,7 @@ cross_SQSMessageApp:
   title: Create a web application that sends and retrieves messages by using &SQS;
   title_abbrev: Create a messaging application
   synopsis: create a messaging application by using &SQS;.
+  category: Scenarios
   languages:
     Kotlin:
       versions:
@@ -126,6 +130,7 @@ cross_RDSDataTracker:
   title_abbrev: Create an &AUR; Serverless work item tracker
   synopsis: create a web application that tracks work items in an &AURlong; Serverless database and uses &SESlong; (&SES;)
     to send reports.
+  category: Scenarios
   languages:
     .NET:
       versions:
@@ -168,6 +173,7 @@ cross_SnsPublishSubscription:
   title: Build a publish and subscription application that translates messages
   title_abbrev: Building an &SNS; application
   synopsis: create an application that has subscription and publish functionality and translates messages.
+  category: Scenarios
   languages:
     Kotlin:
       versions:
@@ -190,6 +196,7 @@ cross_LexChatbotLanguages:
   title: Create an &LEX2; chatbot to engage your website visitors
   title_abbrev: Building an &LEX2; chatbot
   synopsis: create a chatbot to engage your website visitors.
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -208,6 +215,7 @@ cross_DynamoDBDataTracker:
   title: Create a web application to track &DDB; data
   title_abbrev: Create a web application to track &DDB; data
   synopsis: create a web application that tracks work items in an &DDBlong; table and uses &SESlong; (&SES;) to send reports.
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -240,6 +248,7 @@ cross_ApiGatewayDataTracker:
   title_abbrev: Create a REST API to track COVID-19 data
   synopsis: create a REST API that simulates a system to track daily cases of COVID-19 in the United States, using fictional
     data.
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -256,6 +265,7 @@ cross_ApiGatewayWebsocketChat:
   title: Create a websocket chat application with &ABP;
   title_abbrev: Create a websocket chat application
   synopsis: create a chat application that is served by a websocket API built on &ABPlong;.
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -272,6 +282,7 @@ cross_AuroraRestLendingLibrary:
   title_abbrev: Create a lending library REST API
   synopsis: create a lending library where patrons can borrow and return books by using a REST API backed by an &AURlong;
     database.
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -288,6 +299,7 @@ cross_StepFunctionsMessenger:
   title: Create a messenger application with &SFN;
   title_abbrev: Create a messenger application
   synopsis: create an &SFNlong; messenger application that retrieves message records from a database table.
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -304,6 +316,7 @@ cross_TextractExplorer:
   title: Create an &TEXTRACT; explorer application
   title_abbrev: Create an &TEXTRACT; explorer application
   synopsis: explore &TEXTRACTlong; output through an interactive application.
+  category: Scenarios
   languages:
     JavaScript:
       versions:
@@ -326,7 +339,7 @@ cross_TextractComprehendDetectEntities:
   title: Detect entities in text extracted from an image using an &AWS; SDK
   title_abbrev: Detect entities in text extracted from an image
   synopsis: use &CMP; to detect entities in text extracted by &TEXTRACT; from an image that is stored in &S3;.
-  category:
+  category: Scenarios
   languages:
     Python:
       versions:
@@ -342,6 +355,7 @@ cross_SubmitDataApp:
   title: Build an application to submit data to a &DDB; table
   title_abbrev: Build an app to submit data to a &DDB; table
   synopsis: build an application that submits data to an &DDBlong; table and notifies you when a user updates the table.
+  category: Scenarios
   languages:
     Kotlin:
       versions:
@@ -363,6 +377,7 @@ cross_LambdaAPIGateway:
   title: Use &ABP; to invoke a &LAM; function
   title_abbrev: Use &ABP; to invoke a &LAM; function
   synopsis: create an &LAMlong; function invoked by &ABPlong;.
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -391,6 +406,7 @@ cross_LambdaScheduledEvents:
   title: Use scheduled events to invoke a &LAM; function
   title_abbrev: Use scheduled events to invoke a &LAM; function
   synopsis: create an &LAMlong; function invoked by an &EVlong; scheduled event.
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -421,6 +437,7 @@ cross_ServerlessWorkflows:
   title: Use &SFN; to invoke &LAM; functions
   title_abbrev: Use &SFN; to invoke &LAM; functions
   synopsis: create an &SFNlong; state machine that invokes &LAMlong; functions in sequence.
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -436,6 +453,7 @@ cross_TranscriptionStreamingApp:
   title: Build an &TSC; streaming app
   title_abbrev: Build an &TSC; streaming app
   synopsis: build an app that records, transcribes, and translates live audio in real-time, and emails the results.
+  category: Scenarios
   languages:
     JavaScript:
       versions:
@@ -451,6 +469,7 @@ cross_RekognitionPhotoAnalyzerPPE:
   title: Detect PPE in images with &REK; using an &AWS; SDK
   title_abbrev: Detect PPE in images
   synopsis: build an app that uses &REK; to detect Personal Protective Equipment (PPE) in images.
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -470,6 +489,7 @@ cross_RekognitionPhotoAnalyzer:
   title: Detect objects in images with &REK; using an &AWS; SDK
   title_abbrev: Detect objects in images
   synopsis: build an app that uses &REK; to detect objects by category in images.
+  category: Scenarios
   languages:
     Kotlin:
       versions:
@@ -502,7 +522,7 @@ cross_RekognitionVideoDetection:
   title: Detect people and objects in a video with &REK; using an &AWS; SDK
   title_abbrev: Detect people and objects in a video
   synopsis: detect people and objects in a video with &REK;.
-  category: Cross-service examples
+  category: Scenarios
   languages:
     Java:
       versions:
@@ -536,6 +556,7 @@ cross_DetectFaces:
     - Save an image in an &S3; bucket.
     - Use &REKlong; to detect facial details, such as age range, gender, and emotion (such as smiling).
     - Display those details.
+  category: Scenarios
   languages:
     Rust:
       versions:
@@ -553,6 +574,7 @@ cross_DetectLabels:
     - Upload the image file to an &S3; bucket.
     - Use &REKlong; to identify the three top attributes (labels) in the file.
     - Add the EXIF and label information to an &DDBlong; table in the Region.
+  category: Scenarios
   languages:
     Rust:
       versions:
@@ -571,6 +593,7 @@ cross_Telephone:
     - Upload the audio file to an &S3; bucket.
     - Use &TSClong; to convert the audio file to text.
     - Display the text.
+  category: Scenarios
   languages:
     Rust:
       versions:
@@ -585,6 +608,7 @@ cross_LambdaForBrowser:
   title: Invoke a &LAM; function from a browser
   title_abbrev: Invoke a &LAM; function from a browser
   synopsis: invoke an &LAMlong; function from a browser.
+  category: Scenarios
   languages:
     JavaScript:
       versions:
@@ -761,7 +785,7 @@ cross_ServerlessS3DataTransformation:
   title: Transform data for your application with S3 Object Lambda
   title_abbrev: Transform data with S3 Object Lambda
   synopsis: transform data for your application with S3 Object Lambda.
-  category: Cross-service examples
+  category: Scenarios
   languages:
     .NET:
       versions:
@@ -910,6 +934,7 @@ cross_MonitorDynamoDB:
   title: Monitor performance of &DDBlong; using an &AWS; SDK
   title_abbrev: Monitor &DDB; performance
   synopsis: configure an application's use of &DDB; to monitor performance.
+  category: Scenarios
   languages:
     Java:
       versions:

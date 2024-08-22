@@ -344,8 +344,6 @@ route-53-domains_ViewBilling:
   services:
     route-53-domains: {ViewBilling}
 route-53-domains_Scenario_GetStartedRoute53Domains:
-  title: Get started with &R53DR; using an &AWS; SDK
-  title_abbrev: Get started with domains
   synopsis_list:
     - List current domains, and list operations in the past year.
     - View billing for the past year, and view prices for domain types.
@@ -354,7 +352,7 @@ route-53-domains_Scenario_GetStartedRoute53Domains:
     - Optionally, request a domain registration.
     - Get an operation detail.
     - Optionally, get a domain detail.
-  category: Scenarios
+  category: Basics
   languages:
     Kotlin:
       versions:

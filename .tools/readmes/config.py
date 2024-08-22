@@ -6,10 +6,12 @@ saved_readme = "README.old.md"
 doc_base_url = "https://docs.aws.amazon.com"
 categories = {
     "hello": "Hello",
+    "basics": "Basics",
     "scenarios": "Scenarios",
     "actions": "Api",
     "cross": "Cross-service examples",
 }
+basics_title_abbrev = "Learn the basics"
 entities = {
     "&AWS;": "AWS",
     "&aws_sec_sdk_use-federation-warning;": "",
@@ -134,6 +136,7 @@ language = {
                 "device-farm": "python/example_code/devicefarm",
                 "elastic-load-balancing-v2": "python/example_code/elastic-load-balancing",
                 "secrets-manager": "python/example_code/secretsmanager",
+                "dynamodb": "python/example_code/dynamodb"
             },
         }
     },
@@ -153,6 +156,14 @@ language = {
             "service_folder": 'rustv1/examples/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.rs/aws-sdk-{{service["name"]}}/latest/aws_sdk_{{service["name"]}}/',
             "service_folder_overrides": {
+                "api-gateway": "rustv1/examples/apigateway",
+                "apigatewaymanagementapi": "rustv1/examples/apigatewaymanagement",
+                "application-auto-scaling": "rustv1/examples/applicationautoscaling",
+                "cognito-identity-provider": "rustv1/examples/cognitoidentityprovider",
+                "cognito-sync": "rustv1/examples/cognitosync",
+                "rds-data": "rustv1/examples/rdsdata",
+                "route-53": "rustv1/examples/route53",
+                "secrets-manager": "rustv1/examples/secretsmanager",
                 "sesv2": "rustv1/examples/ses",
                 "ses": "rustv1/examples/_NONE_",
             },

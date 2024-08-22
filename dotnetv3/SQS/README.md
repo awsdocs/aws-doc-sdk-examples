@@ -54,11 +54,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Publish messages to queues](../cross-service/TopicsAndQueues/Scenarios/TopicsAndQueuesScenario/TopicsAndQueues.cs)
-
-### Cross-service examples
-
-Sample applications that work across multiple AWS services.
-
 - [Use the AWS Message Processing Framework for .NET with Amazon SQS](../cross-service/MessageProcessingFramework)
 
 
@@ -111,6 +106,18 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.sqs_Scenario_TopicsAndQueues.start-->
 <!--custom.scenarios.sqs_Scenario_TopicsAndQueues.end-->
+
+#### Use the AWS Message Processing Framework for .NET with Amazon SQS
+
+This example shows you how to create applications that publish and receive Amazon SQS messages using the AWS Message Processing Framework for .NET.
+
+
+<!--custom.scenario_prereqs.cross_MessageProcessingFrameworkTutorial.start-->
+<!--custom.scenario_prereqs.cross_MessageProcessingFrameworkTutorial.end-->
+
+
+<!--custom.scenarios.cross_MessageProcessingFrameworkTutorial.start-->
+<!--custom.scenarios.cross_MessageProcessingFrameworkTutorial.end-->
 
 ### Tests
 

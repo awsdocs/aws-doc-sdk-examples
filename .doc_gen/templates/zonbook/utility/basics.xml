@@ -1,0 +1,68 @@
+{{- define "basics"}}
+{{- $service := index . 0}}
+{{- $hello := index $service.CategorizedExampleSets "Hello"}}
+{{- $basics := index $service.CategorizedExampleSets "Basics"}}
+{{- $actions := index $service.CategorizedExampleSets "Actions"}}
+{{- $scenarios := index $service.CategorizedExampleSets "Scenarios"}}
+{{- $doc_id := index . 1}}
+{{- $is_library := index . 2}}
+{{- if or $hello.Examples (or $basics.Examples $actions.Examples) }}
+<section id="{{$doc_id}}_basics" role="topic">
+<info>
+    <title id="{{$doc_id}}_basics.title">Basic examples for
+        {{$service.ServiceEntity.Short}} using &AWS; SDKs
+    </title>
+    <titleabbrev id="{{$doc_id}}_basics.titleabbrev">Basics</titleabbrev>
+    <abstract>
+        <para>The following code examples show how to use the basics of {{$service.ServiceEntity.Short}}
+            with &AWS; SDKs.
+        </para>
+    </abstract>
+</info>
+<para>The following code examples show how to use the basics of {{$service.ServiceEntity.Long}} with &AWS;
+    SDKs.
+</para>
+<para role="contents-abbrev">Examples</para>
+{{- if $hello.Examples}}{{- template "service_examples" makeSlice $hello $service $is_library}}{{- end}}
+{{- if $basics.Examples}}{{- template "service_examples" makeSlice $basics $service $is_library}}{{- end}}
+{{- if $actions.Examples}}
+<section id="{{$doc_id}}_actions" role="topic">
+    <info>
+        <title id="{{$doc_id}}_actions.title">Actions for {{$service.ServiceEntity.Short}} using &AWS; SDKs
+        </title>
+        <titleabbrev id="{{$doc_id}}_actions.titleabbrev">Actions</titleabbrev>
+        <abstract>
+            <para>The following code examples show how to use {{$service.ServiceEntity.Short}} with &AWS; SDKs.
+            </para>
+        </abstract>
+    </info>
+    <para>The following code examples demonstrate how to perform individual {{$service.ServiceEntity.Short}}
+        actions with &AWS; SDKs. Each example includes
+        a link to GitHub, where you can find instructions for setting up and running the code.
+    </para>
+    {{- $cat_scenarios := index $service.CategorizedExampleSets "Scenarios"}}
+    {{- $cat_id_suffix := $cat_scenarios.CategoryIdSuffix}}
+    {{- if $cat_id_suffix}}
+    <para>These excerpts call the {{$service.ServiceEntity.Short}} API and
+        are code excerpts from larger programs that must be run in context.
+        You can see actions in context in
+        <xref linkend="{{$doc_id}}_{{$cat_id_suffix}}"
+              endterm="{{$doc_id}}_{{$cat_id_suffix}}.title"/>.
+    </para>
+    {{- end}}
+    <para>
+        The following examples include only the most commonly used actions.
+        For a complete list, see the
+        {{- if $service.ApiRef}}
+        <ulink type="documentation" url="{{$service.ApiRef}}">{{$service.ServiceEntity.Long}} API Reference</ulink>.
+        {{- else }}
+        <emphasis>{{$service.ServiceEntity.Long}} API Reference</emphasis>.
+        {{- end}}
+    </para>
+    <para role="topiclist-abbrev">Examples</para>
+    {{- template "service_examples" makeSlice $actions $service $is_library}}
+</section>
+{{- end}}
+</section>
+{{- end}}
+{{- end}}

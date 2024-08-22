@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 - [Hello Amazon S3](hello/hello_s3.rb#L4) (`ListBuckets`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_getting_started.rb)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -61,7 +68,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a presigned URL](object_presigned_url_upload.rb)
-- [Get started with buckets and objects](scenario_getting_started.rb)
 
 
 <!--custom.examples.start-->
@@ -84,6 +90,28 @@ This example shows you how to get started using Amazon S3.
 ruby hello/hello_s3.rb
 ```
 
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a bucket and upload a file to it.
+- Download an object from a bucket.
+- Copy an object to a subfolder in a bucket.
+- List the objects in a bucket.
+- Delete the bucket objects and the bucket.
+
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.start-->
+<!--custom.basic_prereqs.s3_Scenario_GettingStarted.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+ruby scenario_getting_started.rb
+```
+
+<!--custom.basics.s3_Scenario_GettingStarted.start-->
+<!--custom.basics.s3_Scenario_GettingStarted.end-->
+
 
 #### Create a presigned URL
 
@@ -101,28 +129,6 @@ ruby object_presigned_url_upload.rb
 
 <!--custom.scenarios.s3_Scenario_PresignedUrl.start-->
 <!--custom.scenarios.s3_Scenario_PresignedUrl.end-->
-
-#### Get started with buckets and objects
-
-This example shows you how to do the following:
-
-- Create a bucket and upload a file to it.
-- Download an object from a bucket.
-- Copy an object to a subfolder in a bucket.
-- List the objects in a bucket.
-- Delete the bucket objects and the bucket.
-
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.start-->
-<!--custom.scenario_prereqs.s3_Scenario_GettingStarted.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-ruby scenario_getting_started.rb
-```
-
-<!--custom.scenarios.s3_Scenario_GettingStarted.start-->
-<!--custom.scenarios.s3_Scenario_GettingStarted.end-->
 
 ### Tests
 

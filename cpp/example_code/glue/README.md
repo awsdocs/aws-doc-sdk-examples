@@ -43,6 +43,13 @@ Next, for information on code example structures and how to build and run the ex
 - [Hello AWS Glue](hello_glue/CMakeLists.txt#L4) (`ListJobs`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](glue_getting_started_scenario.cpp)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -60,13 +67,6 @@ Code excerpts that show you how to call individual service functions.
 - [ListJobs](glue_getting_started_scenario.cpp#L547)
 - [StartCrawler](glue_getting_started_scenario.cpp#L235)
 - [StartJobRun](glue_getting_started_scenario.cpp#L403)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with crawlers and jobs](glue_getting_started_scenario.cpp)
 
 
 <!--custom.examples.start-->
@@ -97,8 +97,7 @@ folder.
 This example shows you how to get started using AWS Glue.
 
 
-
-#### Get started with crawlers and jobs
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -107,36 +106,13 @@ This example shows you how to do the following:
 - Create a job to extract CSV data from the S3 bucket, transform the data, and load JSON-formatted output into another S3 bucket.
 - List information about job runs, view transformed data, and clean up resources.
 
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
-
-You can create the resources needed for the example using the CDK script [resources/cdk/glue_role_bucket](../../../resources/cdk/glue_role_bucket).
-
-Note: The AWS CDK and npm must be installed to use the script.
-
-From the [resources/cdk/glue_role_bucket](../../../resources/cdk/glue_role_bucket) folder, run the commands:
-```bash
-npm install
-cdk deploy
-```
-
-Use the following outputs in the example.
-
-```bash
-doc-example-glue-scenario-stack.BucketName = doc-example-glue-scenario-s-docexampleglue1234567-890abcdef
-doc-example-glue-scenario-stack.RoleName = AWSGlueServiceRole-DocExample
-
-```
-
-The resources can be deleted with the following command:
-```bash
-cdk destroy
-```
-
-<!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basic_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
 
 
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.start-->
-<!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.end-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.start-->
+<!--custom.basics.glue_Scenario_GetStartedCrawlersJobs.end-->
+
 
 ### Tests
 
