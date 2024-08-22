@@ -52,18 +52,18 @@ Code excerpts that show you how to call individual service functions.
 
 - [BatchExecuteStatement](partiql/scenario_partiql_batch.py#L44)
 - [BatchGetItem](batching/dynamo_batching.py#L64)
-- [BatchWriteItem](GettingStarted/scenario_getting_started_movies.py#L144)
-- [CreateTable](GettingStarted/scenario_getting_started_movies.py#L80)
-- [DeleteItem](GettingStarted/scenario_getting_started_movies.py#L322)
-- [DeleteTable](GettingStarted/scenario_getting_started_movies.py#L343)
-- [DescribeTable](GettingStarted/scenario_getting_started_movies.py#L50)
+- [BatchWriteItem](GettingStarted/scenario_getting_started_movies.py#L164)
+- [CreateTable](GettingStarted/scenario_getting_started_movies.py#L100)
+- [DeleteItem](GettingStarted/scenario_getting_started_movies.py#L342)
+- [DeleteTable](GettingStarted/scenario_getting_started_movies.py#L363)
+- [DescribeTable](GettingStarted/scenario_getting_started_movies.py#L70)
 - [ExecuteStatement](partiql/scenario_partiql_single.py#L43)
-- [GetItem](GettingStarted/scenario_getting_started_movies.py#L203)
-- [ListTables](GettingStarted/scenario_getting_started_movies.py#L120)
-- [PutItem](GettingStarted/scenario_getting_started_movies.py#L173)
-- [Query](GettingStarted/scenario_getting_started_movies.py#L260)
-- [Scan](GettingStarted/scenario_getting_started_movies.py#L283)
-- [UpdateItem](GettingStarted/scenario_getting_started_movies.py#L228)
+- [GetItem](GettingStarted/scenario_getting_started_movies.py#L223)
+- [ListTables](GettingStarted/scenario_getting_started_movies.py#L140)
+- [PutItem](GettingStarted/scenario_getting_started_movies.py#L193)
+- [Query](GettingStarted/scenario_getting_started_movies.py#L280)
+- [Scan](GettingStarted/scenario_getting_started_movies.py#L303)
+- [UpdateItem](GettingStarted/scenario_getting_started_movies.py#L248)
 
 ### Scenarios
 
@@ -71,10 +71,10 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Accelerate reads with DynamoDB Accelerator](TryDax/01-create-table.py)
-- [Create a REST API to track COVID-19 data](python/cross_service/apigateway_covid-19_tracker)
-- [Create a messenger application](python/cross_service/stepfunctions_messenger)
-- [Create a web application to track DynamoDB data](python/cross_service/dynamodb_item_tracker)
-- [Create a websocket chat application](python/cross_service/apigateway_websocket_chat)
+- [Create a REST API to track COVID-19 data](../../cross_service/apigateway_covid-19_tracker)
+- [Create a messenger application](../../cross_service/stepfunctions_messenger)
+- [Create a web application to track DynamoDB data](../../cross_service/dynamodb_item_tracker)
+- [Create a websocket chat application](../../cross_service/apigateway_websocket_chat)
 - [Query a table by using batches of PartiQL statements](partiql/scenario_partiql_batch.py)
 - [Query a table using PartiQL](partiql/scenario_partiql_single.py)
 
