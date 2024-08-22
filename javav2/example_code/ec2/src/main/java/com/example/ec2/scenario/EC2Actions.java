@@ -7,7 +7,6 @@ package com.example.ec2.scenario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
-import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
@@ -29,12 +28,10 @@ import software.amazon.awssdk.services.ec2.model.DescribeImagesResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeInstanceTypesRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeInstanceTypesResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesRequest;
-import software.amazon.awssdk.services.ec2.model.DescribeInstancesResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeKeyPairsResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeVpcsRequest;
-import software.amazon.awssdk.services.ec2.model.DescribeVpcsResponse;
 import software.amazon.awssdk.services.ec2.model.DisassociateAddressRequest;
 import software.amazon.awssdk.services.ec2.model.DisassociateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.DomainType;
@@ -52,7 +49,6 @@ import software.amazon.awssdk.services.ec2.model.StartInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.TerminateInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.Vpc;
 import software.amazon.awssdk.services.ec2.waiters.Ec2AsyncWaiter;
-import software.amazon.awssdk.services.ec2.waiters.Ec2Waiter;
 import software.amazon.awssdk.services.ssm.SsmAsyncClient;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathRequest;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathResponse;
@@ -61,7 +57,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -83,7 +78,6 @@ public class EC2Actions {
              It uses the Netty framework to handle the underlying network communication and the Java NIO API to
              provide a non-blocking, event-driven approach to HTTP requests and responses.
              */
-
             SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
                 .maxConcurrency(50)  // Adjust as needed.
                 .connectionTimeout(Duration.ofSeconds(60))  // Set the connection timeout.
@@ -131,7 +125,6 @@ public class EC2Actions {
     }
     // snippet-end:[ec2.java2.delete_key_pair.main]
 
-
      // snippet-start:[ec2.java2.delete_security_group.main]
     /**
      * Deletes an EC2 security group asynchronously.
@@ -144,7 +137,6 @@ public class EC2Actions {
             .groupId(groupId)
             .build();
 
-        // Initiate the asynchronous request to delete the security group.
         CompletableFuture<DeleteSecurityGroupResponse> response = getAsyncClient().deleteSecurityGroup(request);
         return response.whenComplete((resp, ex) -> {
             if (ex != null) {
@@ -158,55 +150,32 @@ public class EC2Actions {
 
     // snippet-start:[ec2.java2.terminate_instance]
     /**
-     * Terminates an EC2 instance asynchronously.
+     * Terminates an EC2 instance asynchronously and waits for it to reach the terminated state.
      *
      * @param instanceId the ID of the EC2 instance to terminate
-     * @return a {@link CompletableFuture} that completes when the instance has been successfully terminated
+     * @return a {@link CompletableFuture} that completes when the instance has been terminated
+     * @throws RuntimeException if there is no response from the AWS SDK or if there is a failure during the termination process
      */
-    public CompletableFuture<Void> terminateEC2Async(String instanceId) {
+    public CompletableFuture<Object> terminateEC2Async(String instanceId) {
         TerminateInstancesRequest terminateRequest = TerminateInstancesRequest.builder()
             .instanceIds(instanceId)
             .build();
 
-        CompletableFuture<TerminateInstancesResponse> response = getAsyncClient().terminateInstances(terminateRequest);
-        return response
-            .thenCompose(terminateResponse -> {
-                if (terminateResponse == null) {
-                    throw new RuntimeException("No response received for terminating instance " + instanceId);
-                }
-                return pollInstanceTerminationStatus(instanceId);
-            })
-            .whenComplete((pollResponse, ex) -> {
-                if (ex != null) {
-                    throw new RuntimeException("Failed to terminate instance: " + instanceId, ex);
-                }
-            })
-            .thenApply(resp -> null);
+        CompletableFuture<TerminateInstancesResponse> responseFuture = getAsyncClient().terminateInstances(terminateRequest);
+        return responseFuture.thenCompose(terminateResponse -> {
+            if (terminateResponse == null) {
+                throw new RuntimeException("No response received for terminating instance " + instanceId);
+            }
+            System.out.println("Going to terminate an EC2 instance and use a waiter to wait for it to be in terminated state");
+            return getAsyncClient().waiter()
+                .waitUntilInstanceTerminated(r -> r.instanceIds(instanceId))
+                .thenApply(waiterResponse -> null);
+        }).exceptionally(throwable -> {
+            // Handle any exceptions that occurred during the async call
+            throw new RuntimeException("Failed to terminate EC2 instance: " + throwable.getMessage(), throwable);
+        });
     }
     // snippet-end:[ec2.java2.terminate_instance]
-
-    private CompletableFuture<DescribeInstancesResponse> pollInstanceTerminationStatus(String instanceId) {
-        DescribeInstancesRequest describeRequest = DescribeInstancesRequest.builder()
-            .instanceIds(instanceId)
-            .build();
-
-        return getAsyncClient().describeInstances(describeRequest)
-            .thenCompose(describeResponse -> {
-                String state = describeResponse.reservations().get(0).instances().get(0).state().name().toString();
-                if ("terminated".equalsIgnoreCase(state)) {
-                    return CompletableFuture.completedFuture(describeResponse);
-                } else {
-                    return CompletableFuture.supplyAsync(() -> {
-                        try {
-                            Thread.sleep(5000);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                        return pollInstanceTerminationStatus(instanceId).join();
-                    });
-                }
-            });
-    }
 
     // snippet-start:[ec2.java2.release_instance.main]
     /**
@@ -309,118 +278,6 @@ public class EC2Actions {
     }
     // snippet-end:[ec2.java2.allocate_address.main]
 
-    // snippet-start:[ec2.java2.start_stop_instance.start]
-    /**
-     * Starts an Amazon EC2 instance asynchronously and waits until it is in the "running" state.
-     *
-     * @param instanceId the ID of the instance to start
-     * @return a {@link CompletableFuture} that completes when the instance has been started and is in the "running" state, or exceptionally if an error occurs
-     */
-    public CompletableFuture<Void> startInstanceAsync(String instanceId) {
-        StartInstancesRequest startRequest = StartInstancesRequest.builder()
-            .instanceIds(instanceId)
-            .build();
-
-        DescribeInstancesRequest describeRequest = DescribeInstancesRequest.builder()
-            .instanceIds(instanceId)
-            .build();
-
-        logger.info("Starting instance " + instanceId + " and waiting for it to run.");
-        return getAsyncClient().startInstances(startRequest)
-            .thenCompose(response -> waitUntilInstanceRunningAsync(describeRequest))
-            .whenComplete((response, ex) -> {
-                if (ex != null) {
-                    throw new RuntimeException("Failed to start instance: " + instanceId, ex);
-                } else if (response == null) {
-                    throw new RuntimeException("No response received for starting instance: " + instanceId);
-                }
-            }).thenApply(resp -> null);
-    }
-    // snippet-end:[ec2.java2.start_stop_instance.start]
-
-    /**
-     * Waits asynchronously until the specified instance is in the "running" state.
-     *
-     * @param describeRequest the DescribeInstancesRequest containing the instance ID to check
-     * @return a CompletableFuture that completes with the DescribeInstancesResponse once the instance is in the "running" state
-     */
-    private CompletableFuture<DescribeInstancesResponse> waitUntilInstanceRunningAsync(DescribeInstancesRequest describeRequest) {
-        return CompletableFuture.supplyAsync(() -> {
-            boolean isRunning = false;
-            DescribeInstancesResponse response = null;
-            while (!isRunning) {
-                try {
-                    Thread.sleep(5000); // Wait for 5 seconds between checks
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-                response = getAsyncClient().describeInstances(describeRequest).join();
-                String state = response.reservations().get(0).instances().get(0).state().name().toString();
-                if ("running".equalsIgnoreCase(state)) {
-                    isRunning = true;
-                }
-            }
-
-            return response;
-        });
-    }
-
-    // snippet-start:[ec2.java2.start_stop_instance.stop]
-    /**
-     * Stops the EC2 instance with the specified ID asynchronously and waits for the instance to stop.
-     *
-     * @param instanceId the ID of the EC2 instance to stop
-     * @return a {@link CompletableFuture} that completes when the instance has been stopped, or exceptionally if an error occurs
-     */
-    public CompletableFuture<Void> stopInstanceAsync(String instanceId) {
-       StopInstancesRequest stopRequest = StopInstancesRequest.builder()
-            .instanceIds(instanceId)
-            .build();
-
-        DescribeInstancesRequest describeRequest = DescribeInstancesRequest.builder()
-            .instanceIds(instanceId)
-            .build();
-
-        CompletableFuture<Void> resultFuture = new CompletableFuture<>();
-        logger.info("Stopping instance " + instanceId + " and waiting for it to stop.");
-        getAsyncClient().stopInstances(stopRequest)
-            .thenCompose(response -> waitUntilInstanceStoppedAsync(getAsyncClient(), describeRequest)) // Wait until the instance is stopped
-            .thenAccept(response -> {
-                logger.info("Successfully stopped instance " + instanceId);
-                resultFuture.complete(null); // Complete the future successfully
-            })
-            .exceptionally(throwable -> {
-                resultFuture.completeExceptionally(new RuntimeException("Failed to stop instance: " + throwable.getMessage(), throwable));
-                return null;
-            });
-
-        return resultFuture;
-    }
-    // snippet-end:[ec2.java2.start_stop_instance.stop]
-
-    private CompletableFuture<DescribeInstancesResponse> waitUntilInstanceStoppedAsync(Ec2AsyncClient ec2, DescribeInstancesRequest describeRequest) {
-        return CompletableFuture.supplyAsync(() -> {
-            boolean isStopped = false;
-            DescribeInstancesResponse response = null;
-            while (!isStopped) {
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-
-                response = ec2.describeInstances(describeRequest).join();
-                String state = response.reservations().get(0).instances().get(0).state().name().toString();
-                if ("stopped".equalsIgnoreCase(state)) {
-                    isStopped = true;
-                }
-            }
-
-            return response;
-        });
-    }
-
     // snippet-start:[ec2.java2.scenario.describe_instance.main]
     /**
      * Asynchronously describes the state of an EC2 instance.
@@ -449,43 +306,11 @@ public class EC2Actions {
                     .orElseThrow(() -> new RuntimeException("Instance with ID " + newInstanceId + " not found."));
             })
             .exceptionally(ex -> {
-                // Log the error and rethrow it as a RuntimeException.
                 logger.info("Failed to describe instances: " + ex.getMessage());
                 throw new RuntimeException("Failed to describe instances", ex);
             });
     }
 
-    /**
-     * Checks the state of an EC2 instance and retrieves its details if the instance is in the "RUNNING" state.
-     *
-     * @param request the {@link DescribeInstancesRequest} containing the details of the EC2 instance to check
-     * @param resultFuture the {@link CompletableFuture} that will hold the public IP address of the instance when it's available
-     */
-    private void checkInstanceState(DescribeInstancesRequest request, CompletableFuture<String> resultFuture) {
-        getAsyncClient().describeInstances(request)
-            .thenAccept(response -> {
-                String state = response.reservations().get(0).instances().get(0).state().name().name();
-                if ("RUNNING".equals(state)) {
-                    logger.info("Image id is " + response.reservations().get(0).instances().get(0).imageId());
-                    logger.info("Instance type is " + response.reservations().get(0).instances().get(0).instanceType());
-                    logger.info("Instance state is " + response.reservations().get(0).instances().get(0).state().name());
-                    String pubAddress = response.reservations().get(0).instances().get(0).publicIpAddress();
-                    logger.info("Instance address is " + pubAddress);
-                    resultFuture.complete(pubAddress);
-                } else {
-                    try {
-                        Thread.sleep(5000); // Wait for 5 seconds before checking again
-                        checkInstanceState(request, resultFuture);
-                    } catch (InterruptedException e) {
-                        resultFuture.completeExceptionally(e);
-                    }
-                }
-            })
-            .exceptionally(throwable -> {
-                resultFuture.completeExceptionally(new RuntimeException("Failed to describe EC2 instance: " + throwable.getMessage(), throwable));
-                return null;
-            });
-    }
     // snippet-end:[ec2.java2.scenario.describe_instance.main]
 
     // snippet-start:[ec2.java2.create_instance.main]
@@ -794,5 +619,88 @@ public class EC2Actions {
                 .orElseThrow(() -> new RuntimeException("Default VPC not found")));
     }
     // snippet-end:[ec2.java2.describe_vpc.main]
+
+    // snippet-start:[ec2.java2.stop.instance.main]
+    /**
+     * Stops the EC2 instance with the specified ID asynchronously and waits for the instance to stop.
+     *
+     * @param instanceId the ID of the EC2 instance to stop
+     * @return a {@link CompletableFuture} that completes when the instance has been stopped, or exceptionally if an error occurs
+     */
+    public CompletableFuture<Void> stopInstanceAsync(String instanceId) {
+        StopInstancesRequest stopRequest = StopInstancesRequest.builder()
+            .instanceIds(instanceId)
+            .build();
+
+        DescribeInstancesRequest describeRequest = DescribeInstancesRequest.builder()
+            .instanceIds(instanceId)
+            .build();
+
+        Ec2AsyncWaiter ec2Waiter = Ec2AsyncWaiter.builder()
+            .client(getAsyncClient())
+            .build();
+
+        CompletableFuture<Void> resultFuture = new CompletableFuture<>();
+        logger.info("Stopping instance " + instanceId + " and waiting for it to stop.");
+        getAsyncClient().stopInstances(stopRequest)
+            .thenCompose(response -> {
+                // Check the result of the stop request before proceeding to wait
+                if (response.stoppingInstances().isEmpty()) {
+                    return CompletableFuture.failedFuture(new RuntimeException("No instances were stopped. Please check the instance ID: " + instanceId));
+                }
+                // Wait for the instance to be in a 'stopped' state
+                return ec2Waiter.waitUntilInstanceStopped(describeRequest);
+            })
+            .thenAccept(waiterResponse -> {
+                logger.info("Successfully stopped instance " + instanceId);
+                resultFuture.complete(null); // Complete the future successfully
+            })
+            .exceptionally(throwable -> {
+                logger.error("Failed to stop instance " + instanceId + ": " + throwable.getMessage(), throwable);
+                resultFuture.completeExceptionally(new RuntimeException("Failed to stop instance: " + throwable.getMessage(), throwable));
+                return null;
+            });
+
+        return resultFuture;
+    }
+    // snippet-start:[ec2.java2.stop.instance.main]
+
+    // snippet-start:[ec2.java2.start_instance.main]
+    /**
+     * Starts an Amazon EC2 instance asynchronously and waits until it is in the "running" state.
+     *
+     * @param instanceId the ID of the instance to start
+     * @return a {@link CompletableFuture} that completes when the instance has been started and is in the "running" state, or exceptionally if an error occurs
+     */
+    public CompletableFuture<Void> startInstanceAsync(String instanceId) {
+        StartInstancesRequest startRequest = StartInstancesRequest.builder()
+            .instanceIds(instanceId)
+            .build();
+
+        Ec2AsyncWaiter ec2Waiter = Ec2AsyncWaiter.builder()
+            .client(getAsyncClient())
+            .build();
+
+        DescribeInstancesRequest describeRequest = DescribeInstancesRequest.builder()
+            .instanceIds(instanceId)
+            .build();
+
+        logger.info("Starting instance " + instanceId + " and waiting for it to run.");
+        CompletableFuture<Void> resultFuture = new CompletableFuture<>();
+        return getAsyncClient().startInstances(startRequest)
+            .thenCompose(response ->
+                ec2Waiter.waitUntilInstanceRunning(describeRequest)
+            ) // Wait until the instance is running
+            .thenAccept(waiterResponse -> {
+                logger.info("Successfully started instance " + instanceId);
+                resultFuture.complete(null);
+            })
+            .exceptionally(throwable -> {
+                resultFuture.completeExceptionally(new RuntimeException("Failed to start instance: " + throwable.getMessage(), throwable));
+                return null;
+            });
+    }
+    // snippet-end:[ec2.java2.start_instance.main]
+
 }
 // snippet-end:[ec2.java2.actions.main]

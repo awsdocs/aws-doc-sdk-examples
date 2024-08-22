@@ -73,9 +73,9 @@ public class EC2Scenario {
         Scanner scanner = new Scanner(System.in);
         EC2Actions ec2Actions = new EC2Actions();
 
-        String keyName = "TestKeyPair6" ;
+        String keyName = "TestKeyPair7" ;
         String fileName = "ec2Key.pem";
-        String groupName = "TestSecGroup6" ;
+        String groupName = "TestSecGroup7" ;
         String groupDesc = "Test Group" ;
         String vpcId = ec2Actions.describeFirstEC2VpcAsync().join().vpcId();
         InetAddress localAddress = InetAddress.getLocalHost();
@@ -360,18 +360,18 @@ public class EC2Scenario {
             }
         }
         logger.info("You can SSH to the instance using this command:");
-        logger.info("ssh -i " + fileName + "ec2-user@" + publicIp);
+        logger.info("ssh -i " + fileName + " ec2-user@" + publicIp);
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("10. Stop the instance.");
+        logger.info("10. Stop the instance using a waiter (this may take a few mins).");
         // Remove the 2nd one
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = ec2Actions.stopInstanceAsync(newInstanceId);
             future.join();
-            logger.info("Instance "+newInstanceId +" stopped successfully.");
+
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
@@ -386,11 +386,11 @@ public class EC2Scenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("11. Start the instance.");
+        logger.info("11. Start the instance using a waiter (this may take a few mins).");
         try {
             CompletableFuture<Void> future = ec2Actions.startInstanceAsync(newInstanceId);
             future.join();
-            logger.info("Instance started successfully.");
+
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
@@ -511,10 +511,10 @@ public class EC2Scenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("15. Terminate the instance.");
+        logger.info("15. Terminate the instance and use a waiter (this may take a few mins).");
         waitForInputToContinue(scanner);
         try {
-            CompletableFuture<Void> future = ec2Actions.terminateEC2Async(newInstanceId);
+            CompletableFuture<Object> future = ec2Actions.terminateEC2Async(newInstanceId);
             future.join();
             logger.info("EC2 instance successfully terminated.");
         } catch (RuntimeException rt) {

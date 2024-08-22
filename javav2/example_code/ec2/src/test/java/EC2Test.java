@@ -6,16 +6,13 @@ import com.example.ec2.scenario.EC2Scenario;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import java.io.*;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.model.CreateKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.DeleteKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeKeyPairsResponse;
-import software.amazon.awssdk.services.ec2.model.DescribeSecurityGroupsResponse;
 import software.amazon.awssdk.services.ec2.model.KeyPairInfo;
-import software.amazon.awssdk.services.ec2.model.SecurityGroup;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
@@ -275,7 +272,7 @@ public class EC2Test {
     public void terminateInstance() {
         try {
             System.out.println("Instance ID is: " + newInstanceId);
-            CompletableFuture<Void> future = ec2Actions.terminateEC2Async(newInstanceId);
+            CompletableFuture<Object> future = ec2Actions.terminateEC2Async(newInstanceId);
             future.join(); // Wait for the operation to complete
 
             // Since the operation returns void, reaching this point indicates success.
