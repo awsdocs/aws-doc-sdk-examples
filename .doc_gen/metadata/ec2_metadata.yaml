@@ -2158,7 +2158,7 @@ ec2_Scenario_GetStartedInstances:
     - Stop and restart the instance.
     - Associate an Elastic IP address with your instance.
     - Connect to your instance with SSH, then clean up resources.
-  category: Scenarios
+  category: Basics
   languages:
     .NET:
       versions:
