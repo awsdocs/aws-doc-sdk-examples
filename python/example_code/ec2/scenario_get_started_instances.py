@@ -191,7 +191,6 @@ class EC2InstanceScenario:
         Displays SSH connection information for the user to connect to the EC2 instance.
         Handles the case where the instance does or does not have an associated public IP address.
         """
-
         if (
             not self.eip_wrapper.elastic_ips
             or not self.eip_wrapper.elastic_ips[0].allocation_id

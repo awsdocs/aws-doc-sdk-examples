@@ -19,7 +19,12 @@ class KeyPairWrapper:
     This class provides methods to create, list, and delete EC2 key pairs.
     """
 
-    def __init__(self, ec2_client: boto3.client, key_file_dir: Union[tempfile.TemporaryDirectory, str], key_pair: Optional[dict] = None):
+    def __init__(
+        self,
+        ec2_client: boto3.client,
+        key_file_dir: Union[tempfile.TemporaryDirectory, str],
+        key_pair: Optional[dict] = None,
+    ):
         """
         Initializes the KeyPairWrapper with the specified EC2 client, key file directory,
         and an optional key pair.
@@ -37,7 +42,7 @@ class KeyPairWrapper:
         self.key_file_dir = key_file_dir
 
     @classmethod
-    def from_client(cls) -> 'KeyPairWrapper':
+    def from_client(cls) -> "KeyPairWrapper":
         """
         Class method to create an instance of KeyPairWrapper using a new EC2 client
         and a temporary directory for storing key files.

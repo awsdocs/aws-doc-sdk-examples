@@ -47,6 +47,7 @@ class SecurityGroupWrapper:
         :param group_name: The name of the security group to create.
         :param group_description: The description of the security group to create.
         :return: The ID of the newly created security group.
+        :raise Handles AWS SDK service-level ClientError, with special handling for ResourceAlreadyExists
         """
         try:
             response = self.ec2_client.create_security_group(
@@ -73,6 +74,7 @@ class SecurityGroupWrapper:
                                to port 22 over TCP, used for SSH.
         :return: The response to the authorization request. The 'Return' field of the
                  response indicates whether the request succeeded or failed, or None if no security group is set.
+        :raise Handles AWS SDK service-level ClientError, with special handling for ResourceAlreadyExists
         """
         if self.security_group is None:
             logger.info("No security group to update.")
