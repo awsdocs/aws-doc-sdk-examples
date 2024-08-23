@@ -443,32 +443,12 @@ cross_ServerlessWorkflows:
       versions:
         - sdk_version: 2
           block_content: cross_ServerlessWorkflows_Java_block.xml
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/cross-services/lambda-step-functions
-          block_content: cross_ServerlessWorkflows_JavaScript_block.xml
   service_main: sfn
   services:
     dynamodb:
     lambda:
     ses:
     sfn:
-cross_TranscriptionApp:
-  title: Build an &TSC; app
-  title_abbrev: Build an &TSC; app
-  synopsis: use &TSClong; to transcribe and display voice recordings in the browser.
-  category: Scenarios
-  languages:
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          block_content: cross_TranscriptionApp_JavaScript_block.xml
-  service_main: transcribe
-  services:
-    cognito-identity:
-    s3:
-    transcribe:
 cross_TranscriptionStreamingApp:
   title: Build an &TSC; streaming app
   title_abbrev: Build an &TSC; streaming app
