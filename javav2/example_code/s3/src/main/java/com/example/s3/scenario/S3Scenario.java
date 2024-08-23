@@ -161,7 +161,7 @@ public class S3Scenario {
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<String> future = s3Actions.copyBucketObjectAsync(bucketName, key, toBucket);
-            String result = future.join(); 
+            String result = future.join();
             logger.info("Copy operation result: {}", result);
         } catch (RuntimeException rte) {
             logger.error("An S3 exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());

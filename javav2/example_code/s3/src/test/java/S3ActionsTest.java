@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
 import com.example.s3.scenario.S3Actions;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.AfterAll;
@@ -50,7 +49,7 @@ public class S3ActionsTest {
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
         objectPath = values.getObjectPath();
-        objectKey = values.getKeySc();
+        objectKey = values.getObjectKey();
         path = values.getPath();
 
         // Create a test file to upload
@@ -145,70 +144,16 @@ public class S3ActionsTest {
     @Nested
     @DisplayName("A class used to get test values from test/s3 (an AWS Secrets Manager secret)")
     class SecretValues {
-
-        private String bucketNamePolicy;
-        private String presignBucket;
-
         private String objectKey;
 
-        private String presignKey;
         private String path;
 
         private String objectPath;
-
-        private String toBucket;
-        private String policyText;
-
-        private String id;
-
-        private String accountId;
-
-        private String accessPointName;
-
-        private String encryptObjectName;
-
-        private String encryptObjectPath;
-
-        private String encryptOutPath;
-
-        private String keyId;
-
-        private String restoreImagePath;
-
-        private String restoreBucket;
-
-        private String restoreImageName;
-
-        private String bucketNameSc;
-
-        private String keySc;
-
-        private String objectPathSc;
-
-        private String savePathSc;
-
-        private String toBucketSc;
-
-        private String bucketNameZip;
-
-        private String images;
-
-
-        public String getBucketNamePolicy() {
-            return bucketNamePolicy;
-        }
-
-        public String getPresignBucket() {
-            return presignBucket;
-        }
 
         public String getObjectKey() {
             return objectKey;
         }
 
-        public String getPresignKey() {
-            return presignKey;
-        }
 
         public String getPath() {
             return path;
@@ -218,80 +163,5 @@ public class S3ActionsTest {
             return objectPath;
         }
 
-        public String getToBucket() {
-            return toBucket;
-        }
-
-        public String getPolicyText() {
-            return policyText;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public String getAccountId() {
-            return accountId;
-        }
-
-        public String getAccessPointName() {
-            return accessPointName;
-        }
-
-        public String getEncryptObjectName() {
-            return encryptObjectName;
-        }
-
-        public String getEncryptObjectPath() {
-            return encryptObjectPath;
-        }
-
-        public String getEncryptOutPath() {
-            return encryptOutPath;
-        }
-
-        public String getKeyId() {
-            return keyId;
-        }
-
-        public String getRestoreImagePath() {
-            return restoreImagePath;
-        }
-
-        public String getRestoreBucket() {
-            return restoreBucket;
-        }
-
-        public String getRestoreImageName() {
-            return restoreImageName;
-        }
-
-        public String getBucketNameSc() {
-            return bucketNameSc;
-        }
-
-        public String getKeySc() {
-            return keySc;
-        }
-
-        public String getObjectPathSc() {
-            return objectPathSc;
-        }
-
-        public String getSavePathSc() {
-            return savePathSc;
-        }
-
-        public String getToBucketSc() {
-            return toBucketSc;
-        }
-
-        public String getBucketNameZip() {
-            return bucketNameZip;
-        }
-
-        public String getImages() {
-            return images;
-        }
     }
 }
