@@ -17,7 +17,7 @@ ssm_Hello:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          sdkguide:
+          genai: some
           excerpts:
             - description:
               snippet_tags:
@@ -92,7 +92,7 @@ ssm_CreateOpsItem:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          sdkguide:
+          genai: some
           excerpts:
             - description:
               snippet_tags:
@@ -115,7 +115,7 @@ ssm_UpdateMaintenanceWindow:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          sdkguide:
+          genai: some
           excerpts:
             - description:
               snippet_tags:
@@ -138,7 +138,7 @@ ssm_CreateMaintenanceWindow:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          sdkguide:
+          genai: some
           excerpts:
             - description:
               snippet_tags:
@@ -161,7 +161,7 @@ ssm_SendCommand:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          sdkguide:
+          genai: some
           excerpts:
             - description:
               snippet_tags:
@@ -175,7 +175,7 @@ ssm_ListCommandInvocations:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          sdkguide:
+          genai: some
           excerpts:
             - description:
               snippet_tags:
@@ -198,7 +198,7 @@ ssm_CreateDocument:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          sdkguide:
+          genai: some
           excerpts:
             - description:
               snippet_tags:
@@ -221,7 +221,7 @@ ssm_DescribeOpsItems:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          sdkguide:
+          genai: some
           excerpts:
             - description:
               snippet_tags:
@@ -235,7 +235,7 @@ ssm_DeleteOpsItem:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          sdkguide:
+          genai: some
           excerpts:
             - description:
               snippet_tags:
@@ -258,7 +258,7 @@ ssm_DeleteMaintenanceWindow:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          sdkguide:
+          genai: some
           excerpts:
             - description:
               snippet_tags:
@@ -281,7 +281,7 @@ ssm_DeleteDocument:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          sdkguide:
+          genai: some
           excerpts:
             - description:
               snippet_tags:
@@ -304,7 +304,7 @@ ssm_UpdateOpsItem:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          sdkguide:
+          genai: some
           excerpts:
             - description:
               snippet_tags:
@@ -332,7 +332,7 @@ ssm_Scenario:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          sdkguide:
+          genai: some
           excerpts:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
