@@ -661,7 +661,7 @@ public class EC2Actions {
 
         return resultFuture;
     }
-    // snippet-start:[ec2.java2.stop.instance.main]
+    // snippet-end:[ec2.java2.stop.instance.main]
 
     // snippet-start:[ec2.java2.start_instance.main]
     /**
