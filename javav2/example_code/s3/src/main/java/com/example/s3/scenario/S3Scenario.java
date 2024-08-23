@@ -98,7 +98,7 @@ public class S3Scenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("2. Update a local file to the Amazon S3 bucket.");
+        logger.info("2. Upload a local file to the Amazon S3 bucket.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<PutObjectResponse> future = s3Actions.uploadLocalFileAsync(bucketName, key, objectPath);
@@ -161,7 +161,7 @@ public class S3Scenario {
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<String> future = s3Actions.copyBucketObjectAsync(bucketName, key, toBucket);
-            String result = future.join(); // Wait for the operation to complete.
+            String result = future.join(); 
             logger.info("Copy operation result: {}", result);
         } catch (RuntimeException rte) {
             logger.error("An S3 exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
