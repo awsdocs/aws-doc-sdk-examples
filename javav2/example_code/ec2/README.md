@@ -43,7 +43,7 @@ Code examples that show you how to perform the essential operations within a ser
 
 ### Single actions
 
-Code excerpts that show you how to invoke individual service functions.
+Code excerpts that show you how to invoke individual Amazon EC2 functions.
 
 - [AllocateAddress](src/main/java/com/example/ec2/EC2Scenario.java#L350)
 - [AssociateAddress](src/main/java/com/example/ec2/EC2Scenario.java#L331)
