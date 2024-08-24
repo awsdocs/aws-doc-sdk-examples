@@ -482,7 +482,7 @@ ec2_StartInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.scenario.start_instance.main
+                - ec2.java2.start_instance.main
     Python:
       versions:
         - sdk_version: 3
@@ -580,7 +580,7 @@ ec2_StopInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.scenario.stop_instance.main
+                - ec2.java2.stop.instance.main
     Python:
       versions:
         - sdk_version: 3
