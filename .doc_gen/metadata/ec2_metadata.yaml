@@ -118,7 +118,7 @@ ec2_CreateKeyPair:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.scenario.create_key_pair.main
+                - ec2.java2.create_key_pair.main
     Python:
       versions:
         - sdk_version: 3
