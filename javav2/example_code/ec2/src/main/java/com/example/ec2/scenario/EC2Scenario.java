@@ -58,8 +58,7 @@ public class EC2Scenario {
     private static final Logger logger = LoggerFactory.getLogger(EC2Scenario.class);
     public static void main(String[] args) throws InterruptedException, UnknownHostException {
 
-        final String usage = """
-
+        logger.info("""
             Usage:
                <keyName> <fileName> <groupName> <groupDesc> 
 
@@ -68,7 +67,7 @@ public class EC2Scenario {
                fileName -  A file name where the key information is written to.\s
                groupName - The name of the security group.\s
                groupDesc - The description of the security group.\s
-            """;
+            """);
 
         Scanner scanner = new Scanner(System.in);
         EC2Actions ec2Actions = new EC2Actions();
@@ -169,7 +168,7 @@ public class EC2Scenario {
             govern the network traffic entering and leaving your instances.
            """);
         waitForInputToContinue(scanner);
-        String groupId;
+        String groupId = "";
         try {
             CompletableFuture<String> future = ec2Actions.createSecurityGroupAsync(groupName, groupDesc, vpcId, myIpAddress);
             future.join();
@@ -203,11 +202,14 @@ public class EC2Scenario {
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
-                logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
-                return;
+                String errorCode = ec2Ex.awsErrorDetails().errorCode();
+                if ("InvalidGroup.NotFound".equals(errorCode)) {
+                    logger.info("Security group '{}' does not exist. Error Code: {}", groupName, errorCode);
+                } else {
+                    logger.info("EC2 error occurred: Message {}, Error Code: {}", ec2Ex.getMessage(), errorCode);
+                }
             } else {
                 logger.info("An unexpected error occurred: {}", cause.getMessage());
-                return;
             }
         }
         waitForInputToContinue(scanner);
@@ -234,8 +236,7 @@ public class EC2Scenario {
             }
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            if (cause instanceof Ec2Exception) {
-                Ec2Exception ec2Ex = (Ec2Exception) cause;
+            if (cause instanceof Ec2Exception ec2Ex) {
                 logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
@@ -343,21 +344,21 @@ public class EC2Scenario {
         logger.info("9. Display information about the running instance. ");
 
         waitForInputToContinue(scanner);
-        String publicIp = "";
+        String publicIp;
         try {
             CompletableFuture<String> future = ec2Actions.describeEC2InstancesAsync(newInstanceId);
-            publicIp = future.join(); // Get the public IP address.
-            System.out.println("EC2 instance public IP: " + publicIp);
+            publicIp = future.join();
+            logger.info("EC2 instance public IP {}", publicIp);
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof Ec2Exception ec2Ex) {
-                // Handle EC2 exceptions.
                 logger.info("EC2 error occurred: Message {}, Error Code:{}", ec2Ex.getMessage(), ec2Ex.awsErrorDetails().errorCode());
                 return;
             } else {
                 logger.info("An unexpected error occurred: {}", cause.getMessage());
                 return;
             }
+
         }
         logger.info("You can SSH to the instance using this command:");
         logger.info("ssh -i " + fileName + " ec2-user@" + publicIp);
