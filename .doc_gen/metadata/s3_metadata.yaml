@@ -2427,6 +2427,30 @@ s3_GetObjectAttributes:
                 - cpp.example_code.s3.GetObjectAttributes
   services:
     s3: {GetObjectAttributes}
+s3_PutBucketEncryption:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/PutBucketEncryption
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.PutBucketServerSideEncryption
+  services:
+    s3: {PutBucketEncryption}
+s3_GetBucketEncryption:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/PutBucketEncryption
+          excerpts:
+            - description:
+              snippet_tags:
+                - S3.dotnetv3.GetBucketServerSideEncryption
+  services:
+    s3: {GetBucketEncryption}
 s3_DownloadBucketToDirectory:
   title: Download all objects in an &S3long; (&S3;) bucket to a local directory
   title_abbrev: Download objects to a local directory
