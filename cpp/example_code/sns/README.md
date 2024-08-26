@@ -62,7 +62,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a serverless application to manage photos](cpp/example_code/cross-service/photo_asset_manager)
+- [Create a serverless application to manage photos](../../example_code/cross-service/photo_asset_manager)
 - [Publish an SMS text message](publish_sms.cpp)
 - [Publish messages to queues](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp)
 

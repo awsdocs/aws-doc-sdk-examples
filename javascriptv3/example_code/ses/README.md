@@ -54,13 +54,6 @@ Code excerpts that show you how to call individual service functions.
 - [VerifyDomainIdentity](src/ses_verifydomainidentity.js#L15)
 - [VerifyEmailIdentity](src/ses_verifyemailidentity.js#L16)
 
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Use Step Functions to invoke Lambda functions](javascriptv3/example_code/cross-services/lambda-step-functions)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -88,18 +81,6 @@ node ./scenarios/<fileName>
 <!--custom.instructions.end-->
 
 
-
-#### Use Step Functions to invoke Lambda functions
-
-This example shows you how to create an AWS Step Functions state machine that invokes AWS Lambda functions in sequence.
-
-
-<!--custom.scenario_prereqs.cross_ServerlessWorkflows.start-->
-<!--custom.scenario_prereqs.cross_ServerlessWorkflows.end-->
-
-
-<!--custom.scenarios.cross_ServerlessWorkflows.start-->
-<!--custom.scenarios.cross_ServerlessWorkflows.end-->
 
 ### Tests
 

@@ -38,7 +38,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](scenarios/basic.js)
+- [Learn the basics](scenarios/steps.js)
 
 
 ### Single actions

@@ -84,7 +84,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a presigned URL](presigned_get_object.cpp)
-- [Create a serverless application to manage photos](cpp/example_code/cross-service/photo_asset_manager)
+- [Create a serverless application to manage photos](../../example_code/cross-service/photo_asset_manager)
 - [Work with Amazon S3 object integrity](s3_object_integrity_workflow/s3_object_integrity_workflow.cpp)
 
 
