@@ -12,26 +12,50 @@ more resilient when failures occur.
 
 import argparse
 import logging
-from pprint import pp
 import sys
+from pprint import pp
 
+import boto3
+import coloredlogs
 import requests
 
-from auto_scaler import AutoScaler
-from load_balancer import LoadBalancer
+from auto_scaler import AutoScalingWrapper
+from load_balancer import ElasticLoadBalancerWrapper
 from parameters import ParameterHelper
 from recommendation_service import RecommendationService
 
-# Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
+import demo_tools.question as q  # noqa
+
+# Configure coloredlogs
+coloredlogs.install(
+    level="INFO", fmt="%(asctime)s %(levelname)s: %(message)s", datefmt="%H:%M:%S"
+)
 
 
 # snippet-start:[python.example_code.workflow.ResilientService_Runner]
 class Runner:
+    """
+    Manages the deployment, demonstration, and destruction of resources for the resilient service.
+    """
+
     def __init__(
-        self, resource_path, recommendation, autoscaler, loadbalancer, param_helper
+        self,
+        resource_path: str,
+        recommendation: RecommendationService,
+        autoscaler: AutoScalingWrapper,
+        loadbalancer: ElasticLoadBalancerWrapper,
+        param_helper: ParameterHelper,
     ):
+        """
+        Initializes the Runner class with the necessary parameters.
+
+        :param resource_path: The path to resource files used by this example, such as IAM policies and instance scripts.
+        :param recommendation: An instance of the RecommendationService class.
+        :param autoscaler: An instance of the AutoScaler class.
+        :param loadbalancer: An instance of the LoadBalancer class.
+        :param param_helper: An instance of the ParameterHelper class.
+        """
         self.resource_path = resource_path
         self.recommendation = recommendation
         self.autoscaler = autoscaler
@@ -41,93 +65,65 @@ class Runner:
         self.port = 80
         self.ssh_port = 22
 
-    def deploy(self):
+        prefix = "doc-example-resilience"
+        self.target_group_name = f"{prefix}-tg"
+        self.load_balancer_name = f"{prefix}-lb"
+
+    def deploy(self) -> None:
+        """
+        Deploys the resources required for the resilient service, including the DynamoDB table,
+        EC2 instances, Auto Scaling group, and load balancer.
+        """
         recommendations_path = f"{self.resource_path}/recommendations.json"
         startup_script = f"{self.resource_path}/server_startup_script.sh"
         instance_policy = f"{self.resource_path}/instance_policy.json"
 
-        print(
-            "\nFor this demo, we'll use the AWS SDK for Python (Boto3) to create several AWS resources\n"
-            "to set up a load-balanced web service endpoint and explore some ways to make it resilient\n"
-            "against various kinds of failures.\n\n"
-            "Some of the resources create by this demo are:\n"
-        )
-        print(
-            "\t* A DynamoDB table that the web service depends on to provide book, movie, and song recommendations."
-        )
-        print(
-            "\t* An EC2 launch template that defines EC2 instances that each contain a Python web server."
-        )
-        print(
-            "\t* An EC2 Auto Scaling group that manages EC2 instances across several Availability Zones."
-        )
-        print(
-            "\t* An Elastic Load Balancing (ELB) load balancer that targets the Auto Scaling group to distribute requests."
-        )
-        print("-" * 88)
-        q.ask("Press Enter when you're ready to start deploying resources.")
+        logging.info("Starting deployment of resources for the resilient service.")
 
-        print(
-            f"Creating and populating a DynamoDB table named '{self.recommendation.table_name}'."
+        logging.info(
+            "Creating and populating DynamoDB table '%s'.",
+            self.recommendation.table_name,
         )
         self.recommendation.create()
         self.recommendation.populate(recommendations_path)
-        print("-" * 88)
 
-        print(
-            f"Creating an EC2 launch template that runs '{startup_script}' when an instance starts.\n"
-            f"This script starts a Python web server defined in the `server.py` script. The web server\n"
-            f"listens to HTTP requests on port 80 and responds to requests to '/' and to '/healthcheck'.\n"
-            f"For demo purposes, this server is run as the root user. In production, the best practice is to\n"
-            f"run a web server, such as Apache, with least-privileged credentials.\n"
-        )
-        print(
-            f"The template also defines an IAM policy that each instance uses to assume a role that grants\n"
-            f"permissions to access the DynamoDB recommendation table and Systems Manager parameters\n"
-            f"that control the flow of the demo.\n"
+        logging.info(
+            "Creating an EC2 launch template with the startup script '%s'.",
+            startup_script,
         )
         self.autoscaler.create_template(startup_script, instance_policy)
-        print("-" * 88)
 
-        print(
-            f"Creating an EC2 Auto Scaling group that maintains three EC2 instances, each in a different\n"
-            f"Availability Zone."
+        logging.info(
+            "Creating an EC2 Auto Scaling group across multiple Availability Zones."
         )
-        zones = self.autoscaler.create_group(3)
-        print("-" * 88)
-        print(
-            "At this point, you have EC2 instances created. Once each instance starts, it listens for\n"
-            "HTTP requests. You can see these instances in the console or continue with the demo."
-        )
-        print("-" * 88)
-        q.ask("Press Enter when you're ready to continue.")
+        zones = self.autoscaler.create_autoscaling_group(3)
 
-        print(f"Creating variables that control the flow of the demo.\n")
+        logging.info("Creating variables that control the flow of the demo.")
         self.param_helper.reset()
 
-        print(
-            "\nCreating an Elastic Load Balancing target group and load balancer. The target group\n"
-            "defines how the load balancer connects to instances. The load balancer provides a\n"
-            "single endpoint where clients connect and dispatches requests to instances in the group.\n"
-        )
+        logging.info("Creating Elastic Load Balancing target group and load balancer.")
+
         vpc = self.autoscaler.get_default_vpc()
         subnets = self.autoscaler.get_subnets(vpc["VpcId"], zones)
         target_group = self.loadbalancer.create_target_group(
-            self.protocol, self.port, vpc["VpcId"]
+            self.target_group_name, self.protocol, self.port, vpc["VpcId"]
         )
         self.loadbalancer.create_load_balancer(
-            [subnet["SubnetId"] for subnet in subnets], target_group
+            self.load_balancer_name, [subnet["SubnetId"] for subnet in subnets]
         )
+        self.loadbalancer.create_listener(self.load_balancer_name, target_group)
+
         self.autoscaler.attach_load_balancer_target_group(target_group)
-        print(f"Verifying access to the load balancer endpoint...")
-        lb_success = self.loadbalancer.verify_load_balancer_endpoint()
+
+        logging.info("Verifying access to the load balancer endpoint.")
+        endpoint = self.loadbalancer.get_endpoint(self.load_balancer_name)
+        lb_success = self.loadbalancer.verify_load_balancer_endpoint(endpoint)
+        current_ip_address = requests.get("http://checkip.amazonaws.com").text.strip()
+
         if not lb_success:
-            print(
-                "Couldn't connect to the load balancer, verifying that the port is open..."
+            logging.warning(
+                "Couldn't connect to the load balancer. Verifying that the port is open..."
             )
-            current_ip_address = requests.get(
-                "http://checkip.amazonaws.com"
-            ).text.strip()
             sec_group, port_is_open = self.autoscaler.verify_inbound_port(
                 vpc, self.port, current_ip_address
             )
@@ -135,10 +131,8 @@ class Runner:
                 vpc, self.ssh_port, current_ip_address
             )
             if not port_is_open:
-                print(
-                    "For this example to work, the default security group for your default VPC must\n"
-                    "allows access from this computer. You can either add it automatically from this\n"
-                    "example or add it yourself using the AWS Management Console.\n"
+                logging.warning(
+                    "The default security group for your VPC must allow access from this computer."
                 )
                 if q.ask(
                     f"Do you want to add a rule to security group {sec_group['GroupId']} to allow\n"
@@ -157,21 +151,22 @@ class Runner:
                     self.autoscaler.open_inbound_port(
                         sec_group["GroupId"], self.ssh_port, current_ip_address
                     )
-            lb_success = self.loadbalancer.verify_load_balancer_endpoint()
-        if lb_success:
-            print("Your load balancer is ready. You can access it by browsing to:\n")
-            print(f"\thttp://{self.loadbalancer.endpoint()}\n")
-        else:
-            print(
-                "Couldn't get a successful response from the load balancer endpoint. Troubleshoot by\n"
-                "manually verifying that your VPC and security group are configured correctly and that\n"
-                "you can successfully make a GET request to the load balancer endpoint:\n"
-            )
-            print(f"\thttp://{self.loadbalancer.endpoint()}\n")
-        print("-" * 88)
-        q.ask("Press Enter when you're ready to continue with the demo.")
+            lb_success = self.loadbalancer.verify_load_balancer_endpoint(endpoint)
 
-    def demo_choices(self):
+        if lb_success:
+            logging.info(
+                "Load balancer is ready. Access it at: http://%s", current_ip_address
+            )
+        else:
+            logging.error(
+                "Couldn't get a successful response from the load balancer endpoint. Please verify your VPC and security group settings."
+            )
+
+    def demo_choices(self) -> None:
+        """
+        Presents choices for interacting with the deployed service, such as sending requests to
+        the load balancer or checking the health of the targets.
+        """
         actions = [
             "Send a GET request to the load balancer endpoint.",
             "Check the health of load balancer targets.",
@@ -179,86 +174,71 @@ class Runner:
         ]
         choice = 0
         while choice != 2:
-            print("-" * 88)
-            print(
-                "\nSee the current state of the service by selecting one of the following choices:\n"
-            )
-            choice = q.choose("\nWhich action would you like to take? ", actions)
-            print("-" * 88)
+            logging.info("Choose an action to interact with the service.")
+            choice = q.choose("Which action would you like to take? ", actions)
             if choice == 0:
-                print("Request:\n")
-                print(f"GET http://{self.loadbalancer.endpoint()}")
-                response = requests.get(f"http://{self.loadbalancer.endpoint()}")
-                print("\nResponse:\n")
-                print(f"{response.status_code}")
+                logging.info("Sending a GET request to the load balancer endpoint.")
+                endpoint = self.loadbalancer.get_endpoint(self.load_balancer_name)
+                logging.info("GET http://%s", endpoint)
+                response = requests.get(f"http://{endpoint}")
+                logging.info("Response: %s", response.status_code)
                 if response.headers.get("content-type") == "application/json":
                     pp(response.json())
             elif choice == 1:
-                print("\nChecking the health of load balancer targets:\n")
-                health = self.loadbalancer.check_target_health()
+                logging.info("Checking the health of load balancer targets.")
+                health = self.loadbalancer.check_target_health(self.target_group_name)
                 for target in health:
                     state = target["TargetHealth"]["State"]
-                    print(
-                        f"\tTarget {target['Target']['Id']} on port {target['Target']['Port']} is {state}"
+                    logging.info(
+                        "Target %s on port %d is %s",
+                        target["Target"]["Id"],
+                        target["Target"]["Port"],
+                        state,
                     )
                     if state != "healthy":
-                        print(
-                            f"\t\t{target['TargetHealth']['Reason']}: {target['TargetHealth']['Description']}\n"
+                        logging.warning(
+                            "%s: %s",
+                            target["TargetHealth"]["Reason"],
+                            target["TargetHealth"]["Description"],
                         )
-                print(
-                    f"\nNote that it can take a minute or two for the health check to update\n"
-                    f"after changes are made.\n"
+                logging.info(
+                    "Note that it can take a minute or two for the health check to update."
                 )
             elif choice == 2:
-                print("\nOkay, let's move on.")
-                print("-" * 88)
+                logging.info("Proceeding to the next part of the demo.")
 
-    def demo(self):
+    def demo(self) -> None:
+        """
+        Runs the demonstration, showing how the service responds to different failure scenarios
+        and how a resilient architecture can keep the service running.
+        """
         ssm_only_policy = f"{self.resource_path}/ssm_only_policy.json"
 
-        print("\nResetting parameters to starting values for demo.\n")
+        logging.info("Resetting parameters to starting values for the demo.")
         self.param_helper.reset()
 
-        print(
-            "\nThis part of the demonstration shows how to toggle different parts of the system\n"
-            "to create situations where the web service fails, and shows how using a resilient\n"
-            "architecture can keep the web service running in spite of these failures."
-        )
-        print("-" * 88)
-
-        print(
-            "At the start, the load balancer endpoint returns recommendations and reports that all targets are healthy."
+        logging.info(
+            "Starting demonstration of the service's resilience under various failure conditions."
         )
         self.demo_choices()
 
-        print(
-            f"The web service running on the EC2 instances gets recommendations by querying a DynamoDB table.\n"
-            f"The table name is contained in a Systems Manager parameter named '{self.param_helper.table}'.\n"
-            f"To simulate a failure of the recommendation service, let's set this parameter to name a non-existent table.\n"
+        logging.info(
+            "Simulating failure by changing the Systems Manager parameter to a non-existent table."
         )
         self.param_helper.put(self.param_helper.table, "this-is-not-a-table")
-        print(
-            "\nNow, sending a GET request to the load balancer endpoint returns a failure code. But, the service reports as\n"
-            "healthy to the load balancer because shallow health checks don't check for failure of the recommendation service."
-        )
+        logging.info("Sending GET requests will now return failure codes.")
         self.demo_choices()
 
-        print(
-            f"Instead of failing when the recommendation service fails, the web service can return a static response.\n"
-            f"While this is not a perfect solution, it presents the customer with a somewhat better experience than failure.\n"
-        )
+        logging.info("Switching to static response mode to mitigate failure.")
         self.param_helper.put(self.param_helper.failure_response, "static")
-        print(
-            f"\nNow, sending a GET request to the load balancer endpoint returns a static response.\n"
-            f"The service still reports as healthy because health checks are still shallow.\n"
-        )
+        logging.info("Sending GET requests will now return static responses.")
         self.demo_choices()
 
-        print("Let's reinstate the recommendation service.\n")
+        logging.info("Restoring normal operation of the recommendation service.")
         self.param_helper.put(self.param_helper.table, self.recommendation.table_name)
-        print(
-            "\nLet's also substitute bad credentials for one of the instances in the target group so that it can't\n"
-            "access the DynamoDB recommendation table.\n"
+
+        logging.info(
+            "Introducing a failure by assigning bad credentials to one of the instances."
         )
         self.autoscaler.create_instance_profile(
             ssm_only_policy,
@@ -270,93 +250,71 @@ class Runner:
         instances = self.autoscaler.get_instances()
         bad_instance_id = instances[0]
         instance_profile = self.autoscaler.get_instance_profile(bad_instance_id)
-        print(
-            f"\nReplacing the profile for instance {bad_instance_id} with a profile that contains\n"
-            f"bad credentials...\n"
+        logging.info(
+            "Replacing instance profile with bad credentials for instance %s.",
+            bad_instance_id,
         )
         self.autoscaler.replace_instance_profile(
             bad_instance_id,
             self.autoscaler.bad_creds_profile_name,
             instance_profile["AssociationId"],
         )
-        print(
-            "Now, sending a GET request to the load balancer endpoint returns either a recommendation or a static response,\n"
-            "depending on which instance is selected by the load balancer.\n"
+        logging.info(
+            "Sending GET requests may return either a valid recommendation or a static response."
         )
         self.demo_choices()
 
-        print(
-            "\nLet's implement a deep health check. For this demo, a deep health check tests whether\n"
-            "the web service can access the DynamoDB table that it depends on for recommendations. Note that\n"
-            "the deep health check is only for ELB routing and not for Auto Scaling instance health.\n"
-            "This kind of deep health check is not recommended for Auto Scaling instance health, because it\n"
-            "risks accidental termination of all instances in the Auto Scaling group when a dependent service fails.\n"
-        )
-        print(
-            "By implementing deep health checks, the load balancer can detect when one of the instances is failing\n"
-            "and take that instance out of rotation.\n"
-        )
+        logging.info("Implementing deep health checks to detect unhealthy instances.")
         self.param_helper.put(self.param_helper.health_check, "deep")
-        print(
-            f"\nNow, checking target health indicates that the instance with bad credentials ({bad_instance_id})\n"
-            f"is unhealthy. Note that it might take a minute or two for the load balancer to detect the unhealthy \n"
-            f"instance. Sending a GET request to the load balancer endpoint always returns a recommendation, because\n"
-            "the load balancer takes unhealthy instances out of its rotation.\n"
-        )
+        logging.info("Checking the health of the load balancer targets.")
         self.demo_choices()
 
-        print(
-            "\nBecause the instances in this demo are controlled by an auto scaler, the simplest way to fix an unhealthy\n"
-            "instance is to terminate it and let the auto scaler start a new instance to replace it.\n"
+        logging.info(
+            "Terminating the unhealthy instance to let the auto scaler replace it."
         )
         self.autoscaler.terminate_instance(bad_instance_id)
-        print(
-            "\nEven while the instance is terminating and the new instance is starting, sending a GET\n"
-            "request to the web service continues to get a successful recommendation response because\n"
-            "the load balancer routes requests to the healthy instances. After the replacement instance\n"
-            "starts and reports as healthy, it is included in the load balancing rotation.\n"
-            "\nNote that terminating and replacing an instance typically takes several minutes, during which time you\n"
-            "can see the changing health check status until the new instance is running and healthy.\n"
-        )
+        logging.info("The service remains resilient during instance replacement.")
         self.demo_choices()
 
-        print(
-            "\nIf the recommendation service fails now, deep health checks mean all instances report as unhealthy.\n"
-        )
+        logging.info("Simulating a complete failure of the recommendation service.")
         self.param_helper.put(self.param_helper.table, "this-is-not-a-table")
-        print(
-            "\nWhen all instances are unhealthy, the load balancer continues to route requests even to\n"
-            "unhealthy instances, allowing them to fail open and return a static response rather than fail\n"
-            "closed and report failure to the customer."
+        logging.info(
+            "All instances will report as unhealthy, but the service will still return static responses."
         )
         self.demo_choices()
         self.param_helper.reset()
 
-    def destroy(self):
-        print(
-            "This concludes the demo of how to build and manage a resilient service.\n"
-            "To keep things tidy and to avoid unwanted charges on your account, we can clean up all AWS resources\n"
-            "that were created for this demo."
+    def destroy(self) -> None:
+        """
+        Destroys all resources created for the demo, including the load balancer, Auto Scaling group,
+        EC2 instances, and DynamoDB table.
+        """
+        logging.info(
+            "This concludes the demo. Preparing to clean up all AWS resources created during the demo."
         )
         if q.ask("Do you want to clean up all demo resources? (y/n) ", q.is_yesno):
-            self.loadbalancer.delete_load_balancer()
-            self.loadbalancer.delete_target_group()
-            self.autoscaler.delete_group()
+            logging.info("Deleting load balancer and related resources.")
+            self.loadbalancer.delete_load_balancer(self.load_balancer_name)
+            self.loadbalancer.delete_target_group(self.target_group_name)
+            self.autoscaler.delete_autoscaling_group(self.autoscaler.group_name)
             self.autoscaler.delete_key_pair()
             self.autoscaler.delete_template()
             self.autoscaler.delete_instance_profile(
                 self.autoscaler.bad_creds_profile_name,
                 self.autoscaler.bad_creds_role_name,
             )
+            logging.info("Deleting DynamoDB table and other resources.")
             self.recommendation.destroy()
         else:
-            print(
-                "Okay, we'll leave the resources intact.\n"
-                "Don't forget to delete them when you're done with them or you might incur unexpected charges."
+            logging.warning(
+                "Resources have not been deleted. Ensure you clean them up manually to avoid unexpected charges."
             )
 
 
-def main():
+def main() -> None:
+    """
+    Main function to parse arguments and run the appropriate actions for the demo.
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--action",
@@ -373,21 +331,41 @@ def main():
     )
     args = parser.parse_args()
 
-    print("-" * 88)
-    print(
-        "Welcome to the demonstration of How to Build and Manage a Resilient Service!"
-    )
-    print("-" * 88)
+    logging.info("Starting the Resilient Service demo.")
 
     prefix = "doc-example-resilience"
-    recommendation = RecommendationService.from_client(
-        "doc-example-recommendation-service"
+
+    # Service Clients
+    ddb_client = boto3.client("dynamodb")
+    elb_client = boto3.client("elbv2")
+    autoscaling_client = boto3.client("autoscaling")
+    ec2_client = boto3.client("ec2")
+    ssm_client = boto3.client("ssm")
+    iam_client = boto3.client("iam")
+
+    # Wrapper instantiations
+    recommendation = RecommendationService(
+        "doc-example-recommendation-service", ddb_client
     )
-    autoscaler = AutoScaler.from_client(prefix)
-    loadbalancer = LoadBalancer.from_client(prefix)
-    param_helper = ParameterHelper.from_client(recommendation.table_name)
+    autoscaling_wrapper = AutoScalingWrapper(
+        prefix,
+        "t3.micro",
+        "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2",
+        autoscaling_client,
+        ec2_client,
+        ssm_client,
+        iam_client,
+    )
+    elb_wrapper = ElasticLoadBalancerWrapper(elb_client)
+    param_helper = ParameterHelper(recommendation.table_name, ssm_client)
+
+    # Demo invocation
     runner = Runner(
-        args.resource_path, recommendation, autoscaler, loadbalancer, param_helper
+        args.resource_path,
+        recommendation,
+        autoscaling_wrapper,
+        elb_wrapper,
+        param_helper,
     )
     actions = [args.action] if args.action != "all" else ["deploy", "demo", "destroy"]
     for action in actions:
@@ -398,9 +376,7 @@ def main():
         elif action == "destroy":
             runner.destroy()
 
-    print("-" * 88)
-    print("Thanks for watching!")
-    print("-" * 88)
+    logging.info("Demo completed successfully.")
 
 
 if __name__ == "__main__":
