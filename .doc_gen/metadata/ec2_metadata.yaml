@@ -30,7 +30,7 @@ ec2_Hello:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.describe_security_groups.main
+                - ec2.java2.scenario.describe_securitygroup.main
     Python:
       versions:
         - sdk_version: 3
@@ -118,7 +118,7 @@ ec2_CreateKeyPair:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.create_key_pair.main
+                - ec2.java2.scenario.create_key_pair.main
     Python:
       versions:
         - sdk_version: 3
@@ -216,7 +216,7 @@ ec2_DescribeKeyPairs:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.describe_key_pairs.main
+                - ec2.java.scenario_describe_keys.main
     Python:
       versions:
         - sdk_version: 3
@@ -2185,12 +2185,9 @@ ec2_Scenario_GetStartedInstances:
           github: javav2/example_code/ec2
           sdkguide:
           excerpts:
-            - description: Run a scenario at a command prompt.
+            - description:
               snippet_tags:
                 - ec2.java2.scenario.main
-            - description: Define a class that wraps EC2 actions.
-              snippet_tags:
-                - ec2.java2.actions.main  
     Python:
       versions:
         - sdk_version: 3
