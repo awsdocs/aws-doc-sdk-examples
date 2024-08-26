@@ -37,6 +37,7 @@ import software.amazon.awssdk.services.ec2.model.DisassociateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.DomainType;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.Filter;
+import software.amazon.awssdk.services.ec2.model.Image;
 import software.amazon.awssdk.services.ec2.model.InstanceTypeInfo;
 import software.amazon.awssdk.services.ec2.model.IpPermission;
 import software.amazon.awssdk.services.ec2.model.IpRange;
@@ -48,6 +49,9 @@ import software.amazon.awssdk.services.ec2.model.StopInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.StartInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.TerminateInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.Vpc;
+import software.amazon.awssdk.services.ec2.paginators.DescribeInstancesPublisher;
+import software.amazon.awssdk.services.ec2.paginators.DescribeSecurityGroupsPublisher;
+import software.amazon.awssdk.services.ec2.paginators.DescribeVpcsPublisher;
 import software.amazon.awssdk.services.ec2.waiters.Ec2AsyncWaiter;
 import software.amazon.awssdk.services.ssm.SsmAsyncClient;
 import software.amazon.awssdk.services.ssm.model.GetParametersByPathRequest;
@@ -60,6 +64,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class EC2Actions {
     private static final Logger logger = LoggerFactory.getLogger(EC2Actions.class);
@@ -281,6 +286,7 @@ public class EC2Actions {
     // snippet-start:[ec2.java2.scenario.describe_instance.main]
     /**
      * Asynchronously describes the state of an EC2 instance.
+     * The paginator helps you iterate over multiple pages of results.
      *
      * @param newInstanceId the ID of the EC2 instance to describe
      * @return a {@link CompletableFuture} that, when completed, contains a string describing the state of the EC2 instance
@@ -290,27 +296,25 @@ public class EC2Actions {
             .instanceIds(newInstanceId)
             .build();
 
-        return getAsyncClient().describeInstances(request)
-            .thenApply(response -> {
-                if (response == null || response.reservations().isEmpty()) {
-                    throw new RuntimeException("No instances found for the given instance ID: " + newInstanceId);
-                }
-
-                return response.reservations().stream()
-                    .flatMap(reservation -> reservation.instances().stream())
-                    .filter(instance -> instance.instanceId().equals(newInstanceId))
-                    .findFirst()
-                    .map(instance -> {
-                        return response.reservations().get(0).instances().get(0).publicIpAddress();
-                    })
-                    .orElseThrow(() -> new RuntimeException("Instance with ID " + newInstanceId + " not found."));
-            })
-            .exceptionally(ex -> {
-                logger.info("Failed to describe instances: " + ex.getMessage());
-                throw new RuntimeException("Failed to describe instances", ex);
-            });
+        DescribeInstancesPublisher paginator = getAsyncClient().describeInstancesPaginator(request);
+        AtomicReference<String> publicIpAddressRef = new AtomicReference<>();
+        return paginator.subscribe(response -> {
+            response.reservations().stream()
+                .flatMap(reservation -> reservation.instances().stream())
+                .filter(instance -> instance.instanceId().equals(newInstanceId))
+                .findFirst()
+                .ifPresent(instance -> publicIpAddressRef.set(instance.publicIpAddress()));
+        }).thenApply(v -> {
+            String publicIpAddress = publicIpAddressRef.get();
+            if (publicIpAddress == null) {
+                throw new RuntimeException("Instance with ID " + newInstanceId + " not found.");
+            }
+            return publicIpAddress;
+        }).exceptionally(ex -> {
+            logger.info("Failed to describe instances: " + ex.getMessage());
+            throw new RuntimeException("Failed to describe instances", ex);
+        });
     }
-
     // snippet-end:[ec2.java2.scenario.describe_instance.main]
 
     // snippet-start:[ec2.java2.create_instance.main]
@@ -409,20 +413,32 @@ public class EC2Actions {
             .imageIds(imageId)
             .build();
 
-        CompletableFuture<DescribeImagesResponse> response = getAsyncClient().describeImages(imagesRequest);
-        response.whenComplete((resp, ex) -> {
+        AtomicReference<String> imageIdRef = new AtomicReference<>();
+        CompletableFuture<DescribeImagesResponse> responseFuture = getAsyncClient().describeImages(imagesRequest);
+        responseFuture.whenComplete((resp, ex) -> {
             if (resp != null) {
                 if (resp.images().isEmpty()) {
                     throw new RuntimeException("No images found with the provided image ID.");
                 }
-                logger.info("The description of the first image is " + resp.images().get(0).description());
-                logger.info("The name of the first image is " + resp.images().get(0).name());
+                Image image = resp.images().get(0);
+                logger.info("The description of the first image is " + image.description());
+                logger.info("The name of the first image is " + image.name());
+                imageIdRef.set(image.imageId());
             } else {
-                throw (RuntimeException) ex;
+                throw new RuntimeException("Failed to describe images", ex);
             }
         });
 
-        return response.thenApply(resp -> resp.images().get(0).imageId());
+        return responseFuture.thenApply(resp -> {
+            String id = imageIdRef.get();
+            if (id == null) {
+                throw new RuntimeException("No images found with the provided image ID.");
+            }
+            return id;
+        }).exceptionally(ex -> {
+            logger.info("Failed to describe image: " + ex.getMessage());
+            throw new RuntimeException("Failed to describe image", ex);
+        });
     }
     // snippet-end:[ec2.java2.describe_instances.main]
 
@@ -471,20 +487,23 @@ public class EC2Actions {
             .groupNames(groupName)
             .build();
 
-        CompletableFuture<DescribeSecurityGroupsResponse> responseFuture = getAsyncClient().describeSecurityGroups(request);
+        DescribeSecurityGroupsPublisher paginator = getAsyncClient().describeSecurityGroupsPaginator(request);
+        AtomicReference<String> groupIdRef = new AtomicReference<>();
 
-        // Process the response to extract the ARN and handle any exceptions
-        return responseFuture.thenApply(response -> {
-            if (response.securityGroups().isEmpty()) {
+        return paginator.subscribe(response -> {
+            response.securityGroups().stream()
+                .filter(securityGroup -> securityGroup.groupName().equals(groupName))
+                .findFirst()
+                .ifPresent(securityGroup -> groupIdRef.set(securityGroup.groupId()));
+        }).thenApply(v -> {
+            String groupId = groupIdRef.get();
+            if (groupId == null) {
                 throw new RuntimeException("No security group found with the name: " + groupName);
             }
-
-            // Assuming that group names are unique and we get only one result
-            return response.securityGroups().get(0).groupId();
-        }).whenComplete((arn, exception) -> {
-            if (exception != null) {
-                throw new RuntimeException("Failed to describe security group: " + exception.getMessage(), exception);
-            }
+            return groupId;
+        }).exceptionally(ex -> {
+            logger.info("Failed to describe security group: " + ex.getMessage());
+            throw new RuntimeException("Failed to describe security group", ex);
         });
     }
     // snippet-end:[ec2.java2.scenario.describe_securitygroup.main]
@@ -604,19 +623,37 @@ public class EC2Actions {
    // snippet-end:[ec2.java2.create_key_pair.main]
 
     // snippet-start:[ec2.java2.describe_vpc.main]
+    /**
+     * Describes the first default VPC asynchronously and using a paginator.
+     *
+     * @return a {@link CompletableFuture} that, when completed, contains the first default VPC found.\
+     */
     public CompletableFuture<Vpc> describeFirstEC2VpcAsync() {
         Filter myFilter = Filter.builder()
-            .name("is-default") // Correct filter name
+            .name("is-default")
             .values("true")
             .build();
 
-        return getAsyncClient()
-            .describeVpcs(DescribeVpcsRequest.builder()
-                .filters(myFilter)
-                .build())
-            .thenApply(response -> response.vpcs().stream()
+        DescribeVpcsRequest request = DescribeVpcsRequest.builder()
+            .filters(myFilter)
+            .build();
+
+        DescribeVpcsPublisher paginator = getAsyncClient().describeVpcsPaginator(request);
+        AtomicReference<Vpc> vpcRef = new AtomicReference<>();
+        return paginator.subscribe(response -> {
+            response.vpcs().stream()
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Default VPC not found")));
+                .ifPresent(vpcRef::set);
+        }).thenApply(v -> {
+            Vpc vpc = vpcRef.get();
+            if (vpc == null) {
+                throw new RuntimeException("Default VPC not found");
+            }
+            return vpc;
+        }).exceptionally(ex -> {
+            logger.info("Failed to describe VPCs: " + ex.getMessage());
+            throw new RuntimeException("Failed to describe VPCs", ex);
+        });
     }
     // snippet-end:[ec2.java2.describe_vpc.main]
 
