@@ -67,6 +67,13 @@ s3_Hello:
             - description:
               snippet_tags:
                 - ruby.hello_s3
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/s3
+          excerpts:
+            - snippet_tags:
+                - s3.rust.s3-helloworld
   services:
     s3: {ListBuckets}
 s3_CreateBucket:

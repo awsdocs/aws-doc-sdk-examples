@@ -3,16 +3,17 @@
 
 // snippet-start:[rust.example_code.s3.scenario_getting_started.lib]
 
-use aws_sdk_s3::operation::{
-    copy_object::{CopyObjectError, CopyObjectOutput},
-    create_bucket::{CreateBucketError, CreateBucketOutput},
-    get_object::{GetObjectError, GetObjectOutput},
-    put_object::{PutObjectError, PutObjectOutput},
-};
-use aws_sdk_s3::types::{
-    BucketLocationConstraint, CreateBucketConfiguration, Delete, ObjectIdentifier,
-};
+use aws_config::Region;
+use aws_sdk_s3::types::{BucketLocationConstraint, CreateBucketConfiguration};
 use aws_sdk_s3::{error::SdkError, primitives::ByteStream, Client};
+use aws_sdk_s3::{
+    operation::{
+        create_bucket::CreateBucketError,
+        get_object::{GetObjectError, GetObjectOutput},
+        put_object::PutObjectOutput,
+    },
+    types::CopyObjectResult,
+};
 use error::S3ExampleError;
 use std::path::Path;
 use std::str;
@@ -21,7 +22,7 @@ pub mod error;
 
 // snippet-start:[rust.copy-object]
 /// Copy an object from one bucket to another.
-async fn copy_object(
+pub async fn copy_object(
     client: &Client,
     source_bucket: &str,
     destination_bucket: &str,
@@ -79,7 +80,7 @@ pub async fn upload_object(
     bucket_name: &str,
     file_name: &str,
     key: &str,
-) -> Result<PutObjectOutput, SdkError<PutObjectError>> {
+) -> Result<PutObjectOutput, S3ExampleError> {
     let body = ByteStream::from_path(Path::new(file_name)).await;
     client
         .put_object()
@@ -88,6 +89,7 @@ pub async fn upload_object(
         .body(body.unwrap())
         .send()
         .await
+        .map_err(S3ExampleError::from)
 }
 // snippet-end:[rust.example_code.s3.basics.put_object]
 // snippet-end:[rust.example_code.s3.basics.upload_object]
@@ -96,18 +98,39 @@ pub async fn upload_object(
 pub async fn create_bucket(
     client: &Client,
     bucket_name: &str,
-    region: &str,
-) -> Result<CreateBucketOutput, SdkError<CreateBucketError>> {
-    let constraint = BucketLocationConstraint::from(region);
+    region: &Region,
+) -> Result<(), S3ExampleError> {
+    let constraint = BucketLocationConstraint::from(region.to_string().as_str());
     let cfg = CreateBucketConfiguration::builder()
         .location_constraint(constraint)
         .build();
-    client
+    let create = client
         .create_bucket()
         .create_bucket_configuration(cfg)
         .bucket(bucket_name)
         .send()
-        .await
+        .await;
+
+    // BucketAlreadyExists and BucketAlreadyOwnedByYou are not problems for this task.
+    create.and_then(|_| Ok(())).or_else(|err| {
+        if err
+            .as_service_error()
+            .map(|service_err| {
+                matches!(
+                    service_err,
+                    CreateBucketError::BucketAlreadyExists(_)
+                        | CreateBucketError::BucketAlreadyOwnedByYou(_)
+                )
+            })
+            .unwrap_or_default()
+        {
+            Ok(())
+        } else {
+            Err(err)
+        }
+    })?;
+
+    Ok(())
 }
 // snippet-end:[rust.example_code.s3.basics.create_bucket]
 // snippet-end:[rust.example_code.s3.scenario_getting_started.lib]
@@ -121,10 +144,7 @@ mod test {
     use tokio::{fs::File, io::AsyncWriteExt};
     use uuid::Uuid;
 
-    use crate::{
-        clear_bucket, copy_object, create_bucket, delete_bucket, download_object, list_objects,
-        upload_object,
-    };
+    use crate::{copy_object, create_bucket, delete_bucket, download_object, upload_object};
 
     #[tokio::test]
     async fn test_delete_bucket() {
