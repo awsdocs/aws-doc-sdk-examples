@@ -30,7 +30,7 @@ ec2_Hello:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.describe_security_groups.main
+                - ec2.java2.scenario.describe_securitygroup.main
     Python:
       versions:
         - sdk_version: 3
@@ -71,7 +71,7 @@ ec2_Hello:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust/examples/ec2
+          github: rustv1/examples/ec2
           excerpts:
             - snippet_tags:
                 - ec2.rust.ec2-helloworld
@@ -118,7 +118,7 @@ ec2_CreateKeyPair:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.create_key_pair.main
+                - ec2.java2.scenario.create_key_pair.main
     Python:
       versions:
         - sdk_version: 3
@@ -216,7 +216,7 @@ ec2_DescribeKeyPairs:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.describe_key_pairs.main
+                - ec2.java.scenario_describe_keys.main
     Python:
       versions:
         - sdk_version: 3
@@ -1249,7 +1249,7 @@ ec2_DescribeSecurityGroups:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust/examples/ec2
+          github: rustv1/examples/ec2
           excerpts:
             - snippet_tags:
                 - ec2.rust.ec2-helloworld
@@ -1334,7 +1334,7 @@ ec2_DeleteSecurityGroup:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust/examples/ec2
+          github: rustv1/examples/ec2
           excerpts:
             - snippet_tags:
                 - ec2.rust.delete_security_group.impl
@@ -1447,7 +1447,7 @@ ec2_TerminateInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust/examples/ec2
+          github: rustv1/examples/ec2
           excerpts:
             - snippet_tags:
                 - ec2.rust.delete_instance.impl
@@ -2150,8 +2150,6 @@ ec2_DescribeSubnets:
   services:
     ec2: {DescribeSubnets}
 ec2_Scenario_GetStartedInstances:
-  title: Get started with &EC2; instances using an &AWS; SDK
-  title_abbrev: Get started with instances
   synopsis_list:
     - Create a key pair and security group.
     - Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
@@ -2187,12 +2185,9 @@ ec2_Scenario_GetStartedInstances:
           github: javav2/example_code/ec2
           sdkguide:
           excerpts:
-            - description: Run a scenario at a command prompt.
+            - description:
               snippet_tags:
                 - ec2.java2.scenario.main
-            - description: Define a class that wraps EC2 actions.
-              snippet_tags:
-                - ec2.java2.actions.main  
     Python:
       versions:
         - sdk_version: 3
