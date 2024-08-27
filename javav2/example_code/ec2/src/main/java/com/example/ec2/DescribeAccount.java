@@ -23,7 +23,7 @@ public class DescribeAccount {
     public static void main(String[] args) {
         Ec2AsyncClient ec2AsyncClient = Ec2AsyncClient.builder()
             .region(Region.US_EAST_1)
-             .build();
+            .build();
 
         try {
             CompletableFuture<DescribeAccountAttributesResponse> future = describeEC2AccountAsync(ec2AsyncClient);
