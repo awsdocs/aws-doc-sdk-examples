@@ -34,6 +34,7 @@ SMTP_REGIONS = [
     "eu-north-1",  # Europe (Stockholm)
     "sa-east-1",  # South America (Sao Paulo)
     "us-gov-west-1",  # AWS GovCloud (US)
+    "us-gov-east-1",  # AWS GovCloud (US)
 ]
 
 # These values are required to calculate the signature. Do not change them.
