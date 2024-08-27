@@ -43,7 +43,7 @@ public class RebootInstance {
 
         try {
             CompletableFuture<Void> future = rebootEC2InstanceAsync(ec2AsyncClient, instanceId);
-            future.join(); // Wait for the async operation to complete.
+            future.join();
             System.out.println("Instance rebooted successfully.");
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
@@ -62,7 +62,6 @@ public class RebootInstance {
             .instanceIds(instanceId)
             .build();
 
-        // Initiate the asynchronous request to reboot the instance.
         CompletableFuture<RebootInstancesResponse> response = ec2AsyncClient.rebootInstances(request);
         return response.whenComplete((result, ex) -> {
             if (ex != null) {
@@ -70,10 +69,9 @@ public class RebootInstance {
             } else if (result == null) {
                 throw new RuntimeException("No response received for rebooting instance: " + instanceId);
             } else {
-                // Process the response if no exception occurred.
                 System.out.printf("Successfully rebooted instance %s%n", instanceId);
             }
-        }).thenApply(result -> null); // Return CompletableFuture<Void> to signify completion.
+        }).thenApply(result -> null);
     }
 }
 // snippet-end:[ec2.java2.reboot_instance.main]

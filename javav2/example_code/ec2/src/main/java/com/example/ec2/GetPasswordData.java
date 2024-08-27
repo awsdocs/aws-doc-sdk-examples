@@ -63,19 +63,15 @@ public class GetPasswordData {
         CompletableFuture<GetPasswordDataResponse> response = ec2AsyncClient.getPasswordData(getPasswordDataRequest);
         response.whenComplete((getPasswordDataResponse, ex) -> {
             if (ex != null) {
-                // Handle the exception by throwing a RuntimeException.
                 throw new RuntimeException("Failed to get password data for instance: " + instanceId, ex);
             } else if (getPasswordDataResponse == null || getPasswordDataResponse.passwordData().isEmpty()) {
-                // Throw an exception if the response is null or no password data is returned.
                 throw new RuntimeException("No password data found for instance: " + instanceId);
             } else {
-                // Process the response if no exception occurred and password data is not empty.
                 String encryptedPasswordData = getPasswordDataResponse.passwordData();
                 System.out.println("Encrypted Password Data: " + encryptedPasswordData);
             }
         });
 
-        // Return CompletableFuture<Void> to signify the async operation's completion.
         return response.thenApply(resp -> null);
     }
 }
