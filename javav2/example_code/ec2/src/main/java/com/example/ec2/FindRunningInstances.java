@@ -27,7 +27,7 @@ public class FindRunningInstances {
             .build();
         try {
             CompletableFuture<Void> future = findRunningEC2InstancesUsingPaginatorAsync(ec2AsyncClient);
-            future.join(); // Wait for the async operation to complete.
+            future.join();
         } catch (RuntimeException rte) {
             System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
         }
@@ -44,7 +44,6 @@ public class FindRunningInstances {
             .filters(f -> f.name("instance-state-name").values("running"))
             .build();
 
-        // Initiate the asynchronous request to describe running instances.
         CompletableFuture<DescribeInstancesResponse> response = ec2AsyncClient.describeInstances(describeInstancesRequest);
         response.whenComplete((instancesResponse, ex) -> {
             if (ex != null) {
@@ -52,14 +51,12 @@ public class FindRunningInstances {
             } else if (instancesResponse == null || instancesResponse.reservations().isEmpty()) {
                 throw new RuntimeException("No running EC2 instances found.");
             } else {
-                // Process the response if no exception occurred and the result is not empty.
                 instancesResponse.reservations().stream()
                     .flatMap(reservation -> reservation.instances().stream())
                     .forEach(instance -> System.out.println("Instance ID: " + instance.instanceId() + ", State: " + instance.state().name()));
             }
         });
 
-        // Return CompletableFuture<Void> to signify the async operation's completion.
         return response.thenApply(resp -> null);
     }
 }

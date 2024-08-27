@@ -68,19 +68,13 @@ public class DescribeRegionsAndZones {
             }
         });
 
-        // Initiate the asynchronous request to describe availability zones
         CompletableFuture<DescribeAvailabilityZonesResponse> zonesResponse = ec2AsyncClient.describeAvailabilityZones();
-
-        // Handle the response or exception for availability zones
         CompletableFuture<DescribeAvailabilityZonesResponse> zonesFuture = zonesResponse.whenComplete((zonesResp, ex) -> {
             if (ex != null) {
-                // Handle the exception by throwing a RuntimeException
                 throw new RuntimeException("Failed to describe EC2 availability zones.", ex);
             } else if (zonesResp == null || zonesResp.availabilityZones().isEmpty()) {
-                // Throw an exception if the response is null or the result is empty
                 throw new RuntimeException("No EC2 availability zones found.");
             } else {
-                // Process the response if no exception occurred and the result is not empty
                 zonesResp.availabilityZones().forEach(zone -> {
                     System.out.printf(
                         "Found Availability Zone %s with status %s in region %s%n",
@@ -92,7 +86,6 @@ public class DescribeRegionsAndZones {
             }
         });
 
-        // Combine both CompletableFuture<Void> into a single CompletableFuture<Void>
         return CompletableFuture.allOf(regionsFuture, zonesFuture);
     }
 }
