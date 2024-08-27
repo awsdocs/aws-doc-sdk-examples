@@ -2185,9 +2185,12 @@ ec2_Scenario_GetStartedInstances:
           github: javav2/example_code/ec2
           sdkguide:
           excerpts:
-            - description:
+            - description: Run a scenario at a command prompt.
               snippet_tags:
                 - ec2.java2.scenario.main
+            - description: Define a class that wraps EC2 actions.
+              snippet_tags:
+                - ec2.java2.actions.main    
     Python:
       versions:
         - sdk_version: 3
