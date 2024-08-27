@@ -196,7 +196,8 @@ s3_CreateBucket:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
               snippet_tags:
                 - s3.swift.basics.handler.createbucket
     Bash:
@@ -325,7 +326,8 @@ s3_CopyObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
               snippet_tags:
                 - s3.swift.basics.handler.copyfile
     Bash:
@@ -490,7 +492,8 @@ s3_DeleteObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
               snippet_tags:
                 - s3.swift.basics.handler.deletefile
     Bash:
@@ -604,7 +607,8 @@ s3_DeleteObjects:
         - sdk_version: 1
           github: swift/example_code/s3/DeleteObjects
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
               snippet_tags:
                 - s3.swift.deleteobjects.handler.deleteobjects
     C++:
@@ -900,10 +904,14 @@ s3_GetObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: Download an object from a bucket to a local file.
+            - description: >-
+                <para>Download an object from a bucket to a local file.</para>
+                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
               snippet_tags:
                 - s3.swift.basics.handler.downloadfile
-            - description: Read an object into a Swift Data object.
+            - description: >-
+                <para>Read an object into a Swift Data object.</para>
+                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
               snippet_tags:
                 - s3.swift.basics.handler.readfile
     Bash:
@@ -1383,7 +1391,8 @@ s3_ListObjectsV2:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
               snippet_tags:
                 - s3.swift.basics.handler.listbucketfiles
     Bash:
@@ -1564,10 +1573,15 @@ s3_PutObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: Upload a file from local storage to a bucket.
+            - description: >-
+                <para>Upload a file from local storage to a bucket.</para>
+                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
               snippet_tags:
                 - s3.swift.basics.handler.uploadfile
-            - description: Upload the contents of a Swift Data object to a bucket.
+            - description: >-
+                <para>Upload the contents of a Swift Data object to a
+                bucket.</para>
+                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
               snippet_tags:
                 - s3.swift.basics.handler.createfile
     Bash:
@@ -1698,7 +1712,8 @@ s3_DeleteBucket:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
               snippet_tags:
                 - s3.swift.basics.handler.deletebucket
     Bash:
@@ -2186,7 +2201,8 @@ s3_ListBuckets:
         - sdk_version: 1
           github: swift/example_code/s3
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
               snippet_tags:
                 - s3.swift.listbuckets.getallbuckets
   services:
@@ -2995,10 +3011,14 @@ s3_Scenario_GettingStarted:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: A Swift class that handles calls to the SDK for Swift.
+            - description: >-
+                <para>A Swift class that handles calls to the SDK for Swift.</para>
+                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
               snippet_tags:
                 - s3.swift.basics.handler
-            - description: A Swift command-line program to manage the SDK calls.
+            - description: >-
+                <para>A Swift command-line program to manage the SDK calls.</para>
+                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
               snippet_tags:
                 - s3.swift.basics.example
     Bash:
