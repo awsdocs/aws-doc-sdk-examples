@@ -163,8 +163,18 @@ class KeyManager:
         """
         Deletes a list of keys.
 
+        Warning:
+        Deleting a KMS key is a destructive and potentially dangerous operation. When a KMS key is deleted,
+        all data that was encrypted under the KMS key is unrecoverable.
+
         :param keys: The list of keys to delete.
         """
+        print("""
+        Warning:
+            Deleting a KMS key is a destructive and potentially dangerous operation. When a KMS key is deleted,
+            all data that was encrypted under the KMS key is unrecoverable.
+            """)
+
         answer = input("Do you want to delete these keys (y/n)? ")
         if answer.lower() == "y":
             window = 7
