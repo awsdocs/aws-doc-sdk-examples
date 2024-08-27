@@ -24,19 +24,29 @@ describe("create-security-group", () => {
       GroupId: "foo",
     });
 
-    await main();
+    await main({ groupName: "name", description: "description" });
 
     expect(logSpy).toHaveBeenCalledWith("foo");
   });
 
-  it("should log the error message", async () => {
-    const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to create security group"));
+  it("should log InvalidParameterValue errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("InvalidParameterValue");
+    error.name = "InvalidParameterValue";
 
-    await main();
+    send.mockRejectedValueOnce(error);
 
-    expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to create security group"),
-    );
+    await main({ groupName: "sg-1" });
+
+    expect(logSpy).toBeCalledWith("InvalidParameterValue.");
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Failed to create security group");
+    send.mockRejectedValueOnce(error);
+
+    await expect(() =>
+      main({ groupName: "name", description: "description" }),
+    ).rejects.toBe(error);
   });
 });

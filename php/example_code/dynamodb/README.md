@@ -58,7 +58,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a serverless application to manage photos](php/applications/photo_asset_manager)
+- [Create a serverless application to manage photos](../../applications/photo_asset_manager)
 - [Query a table by using batches of PartiQL statements](DynamoDBService.php)
 - [Query a table using PartiQL](DynamoDBService.php)
 

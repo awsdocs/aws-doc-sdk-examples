@@ -1,14 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
-
 // snippet-start:[ec2.JavaScript.Addresses.allocateAddressV3]
-import { AllocateAddressCommand } from "@aws-sdk/client-ec2";
+import { AllocateAddressCommand, EC2Client } from "@aws-sdk/client-ec2";
 
-import { client } from "../libs/client.js";
-
+/**
+ * Allocates an Elastic IP address to your AWS account.
+ */
 export const main = async () => {
+  const client = new EC2Client({});
   const command = new AllocateAddressCommand({});
 
   try {
@@ -18,13 +18,17 @@ export const main = async () => {
     console.log(
       "You can view your IP addresses in the AWS Management Console for Amazon EC2. Look under Network & Security > Elastic IPs",
     );
-  } catch (err) {
-    console.error(err);
+  } catch (caught) {
+    if (caught instanceof Error && caught.name === "MissingParameter") {
+      console.warn(`${caught.message}. Did you provide these values?`);
+    } else {
+      throw caught;
+    }
   }
 };
 // snippet-end:[ec2.JavaScript.Addresses.allocateAddressV3]
-
-// Invoke main function if this file was run directly.
+import { fileURLToPath } from "url";
+// Call function if run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   main();
 }

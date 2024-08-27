@@ -61,7 +61,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Detect document elements](comprehend_detect.py)
-- [Detect entities in text extracted from an image](python/cross_service/textract_comprehend_notebook)
+- [Detect entities in text extracted from an image](../../cross_service/textract_comprehend_notebook)
 - [Run a topic modeling job on sample data](comprehend_topic_modeler.py)
 - [Train a custom classifier and classify documents](comprehend_classifier.py)
 

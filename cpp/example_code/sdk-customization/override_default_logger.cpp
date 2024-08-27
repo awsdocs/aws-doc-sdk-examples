@@ -20,44 +20,45 @@
 #include <aws/core/utils/logging/DefaultLogSystem.h>
 #include <aws/core/utils/stream/SimpleStreamBuf.h>
 
+
 /*
  * This class overrides the default log system and allows temporary logging to a
  * 'SimpleStreamBuf'.
  */
-
+// snippet-start:[cpp.example_code.sdk_customization.override_logger.LogSystem]
 class LogSystemOverride : public Aws::Utils::Logging::DefaultLogSystem {
 public:
     explicit LogSystemOverride(Aws::Utils::Logging::LogLevel logLevel,
                                const Aws::String &logPrefix)
-            : DefaultLogSystem(logLevel, logPrefix), m_OverrideLog(false) {}
+            : DefaultLogSystem(logLevel, logPrefix), mLogToStreamBuf(false) {}
 
     const Aws::Utils::Stream::SimpleStreamBuf &GetStreamBuf() const {
-        return m_StreamBuf;
+        return mStreamBuf;
     }
 
-    void setOverrideLog(bool overrideLog) {
-        m_OverrideLog = overrideLog;
+    void setLogToStreamBuf(bool logToStreamBuf) {
+        mLogToStreamBuf = logToStreamBuf;
     }
 
 protected:
 
-    virtual void ProcessFormattedStatement(Aws::String &&statement) override {
-        if (m_OverrideLog) {
-            std::lock_guard<std::mutex> lock(m_StreamMutex);
-            m_StreamBuf.sputn(statement.c_str(), statement.length());
+    void ProcessFormattedStatement(Aws::String &&statement) override {
+        if (mLogToStreamBuf) {
+            std::lock_guard<std::mutex> lock(mStreamMutex);
+            mStreamBuf.sputn(statement.c_str(), statement.length());
         }
-        else {
-            DefaultLogSystem::ProcessFormattedStatement(std::move(statement));
-        }
+
+        DefaultLogSystem::ProcessFormattedStatement(std::move(statement));
     }
 
 private:
-    Aws::Utils::Stream::SimpleStreamBuf m_StreamBuf;
+    Aws::Utils::Stream::SimpleStreamBuf mStreamBuf;
     // Use a mutex when writing to the buffer because
     // ProcessFormattedStatement can be called from multiple threads.
-    std::mutex m_StreamMutex;
-    std::atomic<bool> m_OverrideLog;
+    std::mutex mStreamMutex;
+    std::atomic<bool> mLogToStreamBuf;
 };
+// snippet-end:[cpp.example_code.sdk_customization.override_logger.LogSystem]
 
 /*
  *
@@ -66,19 +67,18 @@ private:
  *  Usage: 'run_override_default_logger'
  *
  */
-
+// snippet-start:[cpp.example_code..sdk_customization.override_logger.Use]
 int main(int argc, char **argv) {
-
     Aws::SDKOptions options;
     options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Trace;
     auto logSystemOverride = Aws::MakeShared<LogSystemOverride>("AllocationTag",
                                                                 options.loggingOptions.logLevel,
                                                                 options.loggingOptions.defaultLogPrefix);
     options.loggingOptions.logger_create_fn = [logSystemOverride]() {
-            return logSystemOverride;
+        return logSystemOverride;
     };
 
-    Aws::InitAPI(options);
+    Aws::InitAPI(options);  // Call Aws::InitAPI only once in an application.
     {
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
@@ -86,12 +86,15 @@ int main(int argc, char **argv) {
 
         Aws::S3::S3Client s3Client(clientConfig);
 
-        logSystemOverride->setOverrideLog(true);
+        logSystemOverride->setLogToStreamBuf(true);
         auto outcome = s3Client.ListBuckets();
-        if (outcome.IsSuccess()) {
-            std::cout << "ListBuckets succeeded:" << std::endl;
+        if (!outcome.IsSuccess()) {
+            std::cerr << "ListBuckets error: " <<
+                      outcome.GetError().GetExceptionName() << " " <<
+                      outcome.GetError().GetMessage() << std::endl;
         }
-        logSystemOverride->setOverrideLog(false);
+
+        logSystemOverride->setLogToStreamBuf(false);
 
         std::cout << "Log for ListBuckets" << std::endl;
         std::cout << logSystemOverride->GetStreamBuf().str() << std::endl;
@@ -101,3 +104,4 @@ int main(int argc, char **argv) {
 
     return 0;
 }
+// snippet-end:[cpp.example_code..sdk_customization.override_logger.Use]

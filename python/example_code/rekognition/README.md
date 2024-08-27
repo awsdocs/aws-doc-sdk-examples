@@ -63,8 +63,8 @@ functions within the same service.
 
 - [Build a collection and find faces in it](rekognition_objects.py)
 - [Detect and display elements in images](rekognition_image_detection.py)
-- [Detect objects in images](python/cross_service/photo_analyzer)
-- [Detect people and objects in a video](python/example_code/rekognition)
+- [Detect objects in images](../../cross_service/photo_analyzer)
+- [Detect people and objects in a video](../../example_code/rekognition)
 
 
 <!--custom.examples.start-->

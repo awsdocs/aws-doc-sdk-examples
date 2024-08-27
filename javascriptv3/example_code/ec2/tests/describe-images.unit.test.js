@@ -24,34 +24,46 @@ describe("describe-images", () => {
           {
             ImageId: "12345",
             Architecture: "arm64",
+            Name: "Fake image",
           },
         ],
       };
     });
 
-    await main();
+    await main({ architecture: "arm64", pageSize: 100 });
 
-    expect(logSpy).toHaveBeenCalledWith([
-      {
-        ImageId: "12345",
-        Architecture: "arm64",
-      },
-    ]);
+    expect(logSpy).toHaveBeenCalledWith("Found 1 images:\n\nFake image\n");
   });
 
-  it("should log an error if retrieval fails", async () => {
-    const logSpy = vi.spyOn(console, "log");
-    const errorSpy = vi.spyOn(console, "error");
+  it("should log InvalidParameter errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("Retrieval failed");
+    error.name = "InvalidParameterValue";
+
     paginateDescribeImages.mockReturnValueOnce(
       // eslint-disable-next-line require-yield
       (async function* () {
-        throw new Error("Retrieval failed");
+        throw error;
       })(),
     );
 
-    await main();
+    await main({ architecture: "arm64", pageSize: "100" });
 
-    expect(logSpy).not.toHaveBeenCalled();
-    expect(errorSpy).toHaveBeenCalledWith(new Error("Retrieval failed"));
+    expect(logSpy).toHaveBeenCalledWith(error.message);
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Retrieval failed");
+
+    paginateDescribeImages.mockReturnValueOnce(
+      // eslint-disable-next-line require-yield
+      (async function* () {
+        throw error;
+      })(),
+    );
+
+    await expect(() =>
+      main({ architecture: "arm64", pageSize: "100" }),
+    ).rejects.toBe(error);
   });
 });
