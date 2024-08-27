@@ -37,7 +37,7 @@ import java.util.concurrent.CompletionException;
  * 3. Creates a security group for the default VPC.
  * 4. Displays security group information.
  * 5. Gets a list of Amazon Linux 2 AMIs and selects one.
- * 6. Gets more information about the image.
+ * 6. Gets additional information about the image.
  * 7. Gets a list of instance types that are compatible with the selected AMI’s
  * architecture.
  * 8. Creates an instance with the key pair, security group, AMI, and an
