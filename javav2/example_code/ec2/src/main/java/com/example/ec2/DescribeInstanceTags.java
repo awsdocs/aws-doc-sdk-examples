@@ -32,12 +32,12 @@ public class DescribeInstanceTags {
                    resourceId - The instance ID value that you can obtain from the AWS Management Console (for example, i-xxxxxx0913e05f482).\s
                 """;
 
-        //if (args.length != 1) {
-        //    System.out.println(usage);
-        //    return;
-        //}
+        if (args.length != 1) {
+            System.out.println(usage);
+            return;
+        }
 
-        String resourceId = "i-02b5d8780ff01f37a" ; //args[0];
+        String resourceId = args[0];
         Ec2AsyncClient ec2AsyncClient = Ec2AsyncClient.builder()
             .region(Region.US_EAST_1)
             .build();
