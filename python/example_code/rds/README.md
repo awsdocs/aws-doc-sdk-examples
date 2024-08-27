@@ -68,7 +68,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create an Aurora Serverless work item tracker](python/cross_service/aurora_item_tracker)
+- [Create an Aurora Serverless work item tracker](../../cross_service/aurora_item_tracker)
 
 
 <!--custom.examples.start-->

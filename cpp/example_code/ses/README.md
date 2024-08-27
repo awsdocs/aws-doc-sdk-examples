@@ -63,7 +63,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create an Aurora Serverless work item tracker](cpp/example_code/cross-service/serverless-aurora)
+- [Create an Aurora Serverless work item tracker](../../example_code/cross-service/serverless-aurora)
 
 
 <!--custom.examples.start-->

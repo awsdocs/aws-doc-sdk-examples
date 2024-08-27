@@ -49,8 +49,8 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create an Amazon Textract explorer application](python/cross_service/textract_explorer)
-- [Detect entities in text extracted from an image](python/cross_service/textract_comprehend_notebook)
+- [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
+- [Detect entities in text extracted from an image](../../cross_service/textract_comprehend_notebook)
 
 
 <!--custom.examples.start-->

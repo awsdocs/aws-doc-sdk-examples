@@ -50,7 +50,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a short-lived Amazon EMR cluster and run a step](python/example_code/emr)
+- [Create a short-lived Amazon EMR cluster and run a step](../../example_code/emr)
 - [Run a shell script to install libraries](install_libraries.py)
 
 
