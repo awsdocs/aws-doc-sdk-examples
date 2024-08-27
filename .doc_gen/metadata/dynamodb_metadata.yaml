@@ -175,7 +175,8 @@ dynamodb_CreateTable:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
               snippet_tags:
                 - ddb.swift.basics.createtable
     Bash:
@@ -257,7 +258,8 @@ dynamodb_BatchGetItem:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
               snippet_tags:
                 - ddb.swift.batchgetitem.batchget
     Bash:
@@ -459,7 +461,8 @@ dynamodb_BatchWriteItem:
         - sdk_version: 1
           github: swift/example_code/ddb/
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
               snippet_tags:
                 - ddb.swift.basics.populate
     Bash:
@@ -587,7 +590,8 @@ dynamodb_DeleteTable:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
               snippet_tags:
                 - ddb.swift.basics.deletetable
     Bash:
@@ -722,7 +726,8 @@ dynamodb_PutItem:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
               snippet_tags:
                 - ddb.swift.basics.add-movie
                 - ddb.swift.basics.movie.getasitem
@@ -848,7 +853,8 @@ dynamodb_GetItem:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
               snippet_tags:
                 - ddb.swift.basics.get
     Bash:
@@ -971,7 +977,8 @@ dynamodb_UpdateItem:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
               snippet_tags:
                 - ddb.swift.basics.update
     Bash:
@@ -1112,7 +1119,8 @@ dynamodb_DeleteItem:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
               snippet_tags:
                 - ddb.swift.basics.delete
     Bash:
@@ -1244,7 +1252,8 @@ dynamodb_ListTables:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
               snippet_tags:
                 - ddb.swift.databasemanager.gettablelist
     Bash:
@@ -1382,7 +1391,8 @@ dynamodb_Query:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
               snippet_tags:
                 - ddb.swift.basics.getMovies-year
     Bash:
@@ -1512,7 +1522,8 @@ dynamodb_Scan:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
               snippet_tags:
                 - ddb.swift.basics.getmovies-range
     Bash:
