@@ -24,7 +24,6 @@ import software.amazon.awssdk.services.ec2.model.DeleteKeyPairResponse;
 import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupRequest;
 import software.amazon.awssdk.services.ec2.model.DeleteSecurityGroupResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeImagesRequest;
-import software.amazon.awssdk.services.ec2.model.DescribeImagesResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeInstanceTypesRequest;
 import software.amazon.awssdk.services.ec2.model.DescribeInstanceTypesResponse;
 import software.amazon.awssdk.services.ec2.model.DescribeInstancesRequest;
@@ -37,7 +36,6 @@ import software.amazon.awssdk.services.ec2.model.DisassociateAddressResponse;
 import software.amazon.awssdk.services.ec2.model.DomainType;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
 import software.amazon.awssdk.services.ec2.model.Filter;
-import software.amazon.awssdk.services.ec2.model.Image;
 import software.amazon.awssdk.services.ec2.model.InstanceTypeInfo;
 import software.amazon.awssdk.services.ec2.model.IpPermission;
 import software.amazon.awssdk.services.ec2.model.IpRange;
@@ -49,6 +47,7 @@ import software.amazon.awssdk.services.ec2.model.StopInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.StartInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.TerminateInstancesRequest;
 import software.amazon.awssdk.services.ec2.model.Vpc;
+import software.amazon.awssdk.services.ec2.paginators.DescribeImagesPublisher;
 import software.amazon.awssdk.services.ec2.paginators.DescribeInstancesPublisher;
 import software.amazon.awssdk.services.ec2.paginators.DescribeSecurityGroupsPublisher;
 import software.amazon.awssdk.services.ec2.paginators.DescribeVpcsPublisher;
@@ -414,22 +413,17 @@ public class EC2Actions {
             .build();
 
         AtomicReference<String> imageIdRef = new AtomicReference<>();
-        CompletableFuture<DescribeImagesResponse> responseFuture = getAsyncClient().describeImages(imagesRequest);
-        responseFuture.whenComplete((resp, ex) -> {
-            if (resp != null) {
-                if (resp.images().isEmpty()) {
-                    throw new RuntimeException("No images found with the provided image ID.");
-                }
-                Image image = resp.images().get(0);
-                logger.info("The description of the first image is " + image.description());
-                logger.info("The name of the first image is " + image.name());
-                imageIdRef.set(image.imageId());
-            } else {
-                throw new RuntimeException("Failed to describe images", ex);
-            }
-        });
-
-        return responseFuture.thenApply(resp -> {
+        DescribeImagesPublisher paginator = getAsyncClient().describeImagesPaginator(imagesRequest);
+        return paginator.subscribe(response -> {
+            response.images().stream()
+                .filter(image -> image.imageId().equals(imageId))
+                .findFirst()
+                .ifPresent(image -> {
+                    logger.info("The description of the image is " + image.description());
+                    logger.info("The name of the image is " + image.name());
+                    imageIdRef.set(image.imageId());
+                });
+        }).thenApply(v -> {
             String id = imageIdRef.get();
             if (id == null) {
                 throw new RuntimeException("No images found with the provided image ID.");
@@ -489,7 +483,6 @@ public class EC2Actions {
 
         DescribeSecurityGroupsPublisher paginator = getAsyncClient().describeSecurityGroupsPaginator(request);
         AtomicReference<String> groupIdRef = new AtomicReference<>();
-
         return paginator.subscribe(response -> {
             response.securityGroups().stream()
                 .filter(securityGroup -> securityGroup.groupName().equals(groupName))
