@@ -1,47 +1,83 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
-
 // snippet-start:[javascript.v3.ec2.actions.DescribeImages]
-import { paginateDescribeImages } from "@aws-sdk/client-ec2";
+import { EC2Client, paginateDescribeImages } from "@aws-sdk/client-ec2";
 
-import { client } from "../libs/client.js";
+/**
+ * Describes the specified images (AMIs, AKIs, and ARIs) available to you or all of the images available to you.
+ * @param {{ architecture: string, pageSize: number }} options
+ */
+export const main = async ({ architecture, pageSize }) => {
+  pageSize = parseInt(pageSize);
+  const client = new EC2Client({});
 
-// List at least the first i386 image available for EC2 instances.
-export const main = async () => {
   // The paginate function is a wrapper around the base command.
   const paginator = paginateDescribeImages(
     // Without limiting the page size, this call can take a long time. pageSize is just sugar for
     // the MaxResults property in the base command.
-    { client, pageSize: 25 },
+    { client, pageSize },
     {
       // There are almost 70,000 images available. Be specific with your filtering
       // to increase efficiency.
       // See https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ec2/interfaces/describeimagescommandinput.html#filters
-      Filters: [{ Name: "architecture", Values: ["x86_64"] }],
+      Filters: [{ Name: "architecture", Values: [architecture] }],
     },
   );
 
+  /**
+   * @type {import('@aws-sdk/client-ec2').Image[]}
+   */
+  const images = [];
+  let recordsScanned = 0;
+
   try {
-    const arm64Images = [];
     for await (const page of paginator) {
+      recordsScanned += pageSize;
       if (page.Images.length) {
-        arm64Images.push(...page.Images);
-        // Once we have at least 1 result, we can stop.
-        if (arm64Images.length >= 1) {
-          break;
-        }
+        images.push(...page.Images);
+        break;
+      } else {
+        console.log(
+          `No matching image found yet. Searched ${recordsScanned} records.`,
+        );
       }
     }
-    console.log(arm64Images);
-  } catch (err) {
-    console.error(err);
+
+    if (images.length) {
+      console.log(
+        `Found ${images.length} images:\n\n${images.map((image) => image.Name).join("\n")}\n`,
+      );
+    } else {
+      console.log(
+        `No matching images found. Searched ${recordsScanned} records.\n`,
+      );
+    }
+
+    return images;
+  } catch (caught) {
+    if (caught instanceof Error && caught.name === "InvalidParameterValue") {
+      console.warn(`${caught.message}`);
+      return [];
+    }
+    throw caught;
   }
 };
 // snippet-end:[javascript.v3.ec2.actions.DescribeImages]
 
 // Invoke main function if this file was run directly.
+import { fileURLToPath } from "node:url";
+import { parseArgs } from "node:util";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  const options = {
+    architecture: {
+      type: "string",
+    },
+    pageSize: {
+      type: "string",
+    },
+  };
+
+  const { values } = parseArgs({ options });
+  main(values);
 }

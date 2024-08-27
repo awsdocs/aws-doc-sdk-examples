@@ -27,7 +27,7 @@ describe("monitor-instances", () => {
       ],
     });
 
-    await main();
+    await main({ instanceIds: [] });
 
     expect(logSpy).toHaveBeenNthCalledWith(1, "Monitoring status:");
     expect(logSpy).toHaveBeenNthCalledWith(
@@ -36,12 +36,21 @@ describe("monitor-instances", () => {
     );
   });
 
-  it("should log the error message", async () => {
-    const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed"));
+  it("should log InvalidParameterValue errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("Failed");
+    error.name = "InvalidParameterValue";
+    send.mockRejectedValueOnce(error);
 
-    await main();
+    await main({ instanceIds: ["123"] });
 
-    expect(logSpy).toHaveBeenCalledWith(new Error("Failed"));
+    expect(logSpy).toHaveBeenCalledWith("Failed");
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Unknown error");
+    send.mockRejectedValueOnce(error);
+
+    await expect(() => main({})).rejects.toBe(error);
   });
 });

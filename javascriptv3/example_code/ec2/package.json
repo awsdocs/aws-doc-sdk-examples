@@ -9,10 +9,10 @@
   },
   "dependencies": {
     "@aws-doc-sdk-examples/lib": "^1.0.0",
-    "@aws-sdk/client-ec2": "^3.266.1",
-    "@aws-sdk/client-ssm": "^3.271.0"
+    "@aws-sdk/client-ec2": "^3.624.0",
+    "@aws-sdk/client-ssm": "^3.624.0"
   },
   "devDependencies": {
-    "vitest": "^1.6.0"
+    "vitest": "^2.0.5"
   }
 }

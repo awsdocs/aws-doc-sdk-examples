@@ -32,14 +32,24 @@ describe("allocate-address", () => {
     expect(logSpy).toHaveBeenNthCalledWith(2, `ID: bar Public IP: foo`);
   });
 
-  it("should log the error message", async () => {
-    const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to allocate address"));
+  it("should log MissingParameter errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("Missing param");
+    error.name = "MissingParameter";
+
+    send.mockRejectedValueOnce(error);
 
     await main();
 
-    expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to allocate address"),
+    expect(logSpy).toBeCalledWith(
+      "Missing param. Did you provide these values?",
     );
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Failed to allocate address");
+    send.mockRejectedValueOnce(error);
+
+    await expect(main()).rejects.toBe(error);
   });
 });

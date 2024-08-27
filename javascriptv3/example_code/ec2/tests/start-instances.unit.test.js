@@ -22,7 +22,7 @@ describe("start-instances", () => {
     const logSpy = vi.spyOn(console, "log");
     const instances = [
       {
-        InstanceId: "bar",
+        InstanceId: "i-123",
       },
     ];
 
@@ -30,18 +30,27 @@ describe("start-instances", () => {
       StartingInstances: instances,
     });
 
-    await main();
+    await main({ instanceIds: ["i-123"] });
 
     expect(logSpy).toHaveBeenNthCalledWith(1, "Starting instances:");
-    expect(logSpy).toHaveBeenNthCalledWith(2, " • bar");
+    expect(logSpy).toHaveBeenNthCalledWith(2, " • i-123");
   });
 
-  it("should log the error message", async () => {
-    const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to start instances"));
+  it("should log InvalidInstanceID.NotFound errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("Failed to start instances");
+    error.name = "InvalidInstanceID.NotFound";
+    send.mockRejectedValueOnce(error);
 
-    await main();
+    await main({ instanceIds: ["i-123"] });
 
-    expect(logSpy).toHaveBeenCalledWith(new Error("Failed to start instances"));
+    expect(logSpy).toHaveBeenCalledWith("Failed to start instances");
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Unknown error");
+    send.mockRejectedValueOnce(error);
+
+    await expect(() => main({})).rejects.toBe(error);
   });
 });

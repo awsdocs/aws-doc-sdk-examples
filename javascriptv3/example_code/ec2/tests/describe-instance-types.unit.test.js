@@ -23,33 +23,48 @@ describe("describe-instance-types", () => {
         InstanceTypes: [
           {
             InstanceType: "t2.micro",
+            MemoryInfo: { SizeInMiB: "1024" },
           },
         ],
       };
     });
 
-    await main();
+    await main({ pageSize: "25", freeTier: true, supportedArch: ["arm64"] });
 
-    expect(logSpy).toHaveBeenCalledWith([
-      {
-        InstanceType: "t2.micro",
-      },
-    ]);
+    expect(logSpy).toHaveBeenCalledWith(
+      "Memory size in MiB for matching instance types:\n\nt2.micro: 1024 MiB",
+    );
   });
 
-  it("should log an error if retrieval fails", async () => {
-    const logSpy = vi.spyOn(console, "log");
-    const errorSpy = vi.spyOn(console, "error");
+  it("should log InvalidParameter errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("Retrieval failed");
+    error.name = "InvalidParameterValue";
+
     paginateDescribeInstanceTypes.mockReturnValueOnce(
       // eslint-disable-next-line require-yield
       (async function* () {
-        throw new Error("Retrieval failed");
+        throw error;
       })(),
     );
 
-    await main();
+    await main({ architecture: "arm64", pageSize: "100" });
 
-    expect(logSpy).not.toHaveBeenCalled();
-    expect(errorSpy).toHaveBeenCalledWith(new Error("Retrieval failed"));
+    expect(logSpy).toHaveBeenCalledWith(error.message);
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Retrieval failed");
+
+    paginateDescribeInstanceTypes.mockReturnValueOnce(
+      // eslint-disable-next-line require-yield
+      (async function* () {
+        throw error;
+      })(),
+    );
+
+    await expect(() =>
+      main({ architecture: "arm64", pageSize: "100" }),
+    ).rejects.toBe(error);
   });
 });
