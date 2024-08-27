@@ -24,7 +24,7 @@ export const main = async () => {
   }
 };
 
-// Call function if run directly
+// Call function if run directly.
 import { fileURLToPath } from "url";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   main();

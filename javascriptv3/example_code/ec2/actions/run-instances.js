@@ -30,7 +30,7 @@ export const main = async ({
     KeyName: keyName,
     // Your security group.
     SecurityGroupIds: securityGroupIds,
-    // An Amazon Machine Image (AMI). There are multiple ways to search for AMIs. For more information see:
+    // An Amazon Machine Image (AMI). There are multiple ways to search for AMIs. For more information, see:
     // https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html
     ImageId: imageId,
     // An instance type describing the resources provided to your instance. There are multiple

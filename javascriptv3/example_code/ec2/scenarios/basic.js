@@ -126,7 +126,7 @@ export const main = async ({ confirmAll, verbose }) => {
   await ec2Scenario.run({ confirmAll, verbose });
 };
 
-// Call function if run directly
+// Call function if run directly.
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

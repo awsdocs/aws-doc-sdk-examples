@@ -29,7 +29,7 @@ export const main = async ({ keyName }) => {
 };
 // snippet-end:[ec2.JavaScript.keypairs.createKeyPairV3]
 
-// Call function if run directly
+// Call function if run directly.
 import { fileURLToPath } from "url";
 import { parseArgs } from "util";
 

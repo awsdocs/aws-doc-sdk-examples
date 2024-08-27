@@ -43,7 +43,7 @@ export const main = async ({ groupId, ipAddress }) => {
 };
 // snippet-end:[javascript.v3.ec2.actions.AuthorizeSecurityGroupIngress]
 
-// Call function if run directly
+// Call function if run directly.
 import { fileURLToPath } from "url";
 import { parseArgs } from "util";
 
