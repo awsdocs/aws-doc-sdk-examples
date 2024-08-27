@@ -65,17 +65,12 @@ public class DescribeInstanceTags {
 
         CompletableFuture<DescribeTagsResponse> response = ec2AsyncClient.describeTags(
             DescribeTagsRequest.builder().filters(filter).build());
-
-        // Handle the response or exception
         response.whenComplete((tagsResponse, ex) -> {
             if (ex != null) {
-                // Handle the exception by throwing a RuntimeException.
                 throw new RuntimeException("Failed to describe EC2 tags.", ex);
             } else if (tagsResponse == null || tagsResponse.tags().isEmpty()) {
-                // Throw an exception if the response is null or the result is empty (no tags found).
                 throw new RuntimeException("No EC2 tags found for the resource.");
             } else {
-                // Process the response if no exception occurred and the result is not empty.
                 tagsResponse.tags().forEach(tag -> {
                     System.out.printf(
                         "Tag key is: %s, Tag value is: %s%n",
