@@ -68,7 +68,8 @@ sts_AssumeRole:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description:
+            - description: >-
+                <programlisting language="swift" linenumbering="unnumbered">import AWSSTS</programlisting>
               snippet_tags:
                 - iam.swift.basics.sts.assumerole
 
