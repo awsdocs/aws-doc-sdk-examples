@@ -7,58 +7,16 @@ package com.example.kms.scenario;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
-import software.amazon.awssdk.services.kms.model.AliasListEntry;
-import software.amazon.awssdk.services.kms.model.AlreadyExistsException;
-import software.amazon.awssdk.services.kms.model.CreateAliasRequest;
-import software.amazon.awssdk.services.kms.model.CreateGrantRequest;
-import software.amazon.awssdk.services.kms.model.CreateGrantResponse;
-import software.amazon.awssdk.services.kms.model.CreateKeyRequest;
-import software.amazon.awssdk.services.kms.model.CreateKeyResponse;
-import software.amazon.awssdk.services.kms.model.CustomerMasterKeySpec;
-import software.amazon.awssdk.services.kms.model.DecryptRequest;
-import software.amazon.awssdk.services.kms.model.DecryptResponse;
-import software.amazon.awssdk.services.kms.model.DeleteAliasRequest;
-import software.amazon.awssdk.services.kms.model.DescribeKeyRequest;
-import software.amazon.awssdk.services.kms.model.DescribeKeyResponse;
-import software.amazon.awssdk.services.kms.model.DisableKeyRequest;
-import software.amazon.awssdk.services.kms.model.EnableKeyRequest;
-import software.amazon.awssdk.services.kms.model.EnableKeyRotationRequest;
-import software.amazon.awssdk.services.kms.model.EncryptRequest;
-import software.amazon.awssdk.services.kms.model.EncryptResponse;
-import software.amazon.awssdk.services.kms.model.GetKeyPolicyRequest;
-import software.amazon.awssdk.services.kms.model.GetKeyPolicyResponse;
-import software.amazon.awssdk.services.kms.model.GrantOperation;
-import software.amazon.awssdk.services.kms.model.KeySpec;
-import software.amazon.awssdk.services.kms.model.KeyState;
-import software.amazon.awssdk.services.kms.model.KeyUsageType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.kms.model.KmsException;
-import software.amazon.awssdk.services.kms.model.LimitExceededException;
-import software.amazon.awssdk.services.kms.model.ListAliasesRequest;
-import software.amazon.awssdk.services.kms.model.ListGrantsRequest;
 import software.amazon.awssdk.services.kms.model.ListKeyPoliciesRequest;
 import software.amazon.awssdk.services.kms.model.ListKeyPoliciesResponse;
-import software.amazon.awssdk.services.kms.model.OriginType;
-import software.amazon.awssdk.services.kms.model.PutKeyPolicyRequest;
-import software.amazon.awssdk.services.kms.model.RevokeGrantRequest;
-import software.amazon.awssdk.services.kms.model.ScheduleKeyDeletionRequest;
-import software.amazon.awssdk.services.kms.model.SignRequest;
-import software.amazon.awssdk.services.kms.model.SignResponse;
-import software.amazon.awssdk.services.kms.model.SigningAlgorithmSpec;
-import software.amazon.awssdk.services.kms.model.Tag;
-import software.amazon.awssdk.services.kms.model.TagResourceRequest;
-import software.amazon.awssdk.services.kms.model.VerifyRequest;
-import software.amazon.awssdk.services.kms.model.VerifyResponse;
-import software.amazon.awssdk.services.kms.paginators.ListAliasesIterable;
-import software.amazon.awssdk.services.kms.paginators.ListGrantsIterable;
-import software.amazon.awssdk.services.secretsmanager.model.ResourceExistsException;
-import software.amazon.awssdk.services.sts.StsClient;
-import software.amazon.awssdk.services.sts.model.GetCallerIdentityResponse;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import software.amazon.awssdk.services.kms.model.RevokeGrantResponse;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * Before running this Java V2 code example, set up your development
@@ -71,7 +29,9 @@ import java.util.Scanner;
 
 public class KMSScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-    private static final String accountId = getAccountId();
+    private static String accountId = "";
+
+    private static final Logger logger = LoggerFactory.getLogger(KMSScenario.class);
 
     public static void main(String[] args) {
         final String usage = """
@@ -81,13 +41,15 @@ public class KMSScenario {
                    granteePrincipal - The principal (user, service account, or group) to whom the grant or permission is being given. 
                 """;
 
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
-        String granteePrincipal = args[0];
+       // if (args.length != 1) {
+       //     logger.info(usage);
+       //     return;
+       // }
+        String granteePrincipal = "arn:aws:iam::814548047983:user/kmsuser" ; //args[0];
         String policyName = "default";
 
+        KMSActions kmsActions = new KMSActions();
+        accountId = kmsActions.getAccountId();
         Scanner scanner = new Scanner(System.in);
         String keyDesc = "Created by the AWS KMS API";
 
@@ -97,7 +59,7 @@ public class KMSScenario {
             .build();
 
         System.out.println(DASHES);
-        System.out.println("""
+        logger.info("""
             Welcome to the AWS Key Management SDK Getting Started scenario.
             
             This program demonstrates how to interact with AWS Key Management using the AWS SDK for Java (v2).
@@ -113,10 +75,19 @@ public class KMSScenario {
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
-        System.out.println("1. Create a symmetric KMS key\n");
-        System.out.println("First, the program will creates a symmetric KMS key that you can used to encrypt and decrypt data.");
+        logger.info("1. Create a symmetric KMS key\n");
+        logger.info("First, the program will creates a symmetric KMS key that you can used to encrypt and decrypt data.");
         waitForInputToContinue(scanner);
-        String targetKeyId = createKey(kmsClient, keyDesc);
+        String targetKeyId;
+        try {
+            CompletableFuture<String> futureKeyId = kmsActions.createKeyAsync(keyDesc);
+            targetKeyId = futureKeyId.join();
+            logger.info("A symmetric key was successfully created "+targetKeyId);
+
+        } catch (RuntimeException rte) {
+            logger.error("A KMS exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+            return;
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -127,40 +98,86 @@ public class KMSScenario {
             determine if the key is enabled. If it is not enabled, the code enables it. 
              """);
         waitForInputToContinue(scanner);
-        boolean isEnabled = isKeyEnabled(kmsClient, targetKeyId);
+        boolean isEnabled;
+        try {
+            CompletableFuture<Boolean> futureIsKeyEnabled = kmsActions.isKeyEnabledAsync(targetKeyId);
+            isEnabled = futureIsKeyEnabled.join();
+            logger.info("Is the key enabled? {}", isEnabled);
+
+        } catch (RuntimeException rte) {
+            logger.error("A KMS exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+            return;
+        }
+
         if (!isEnabled)
-            enableKey(kmsClient, targetKeyId);
+            try {
+                CompletableFuture<Void> future = kmsActions.enableKeyAsync(targetKeyId);
+                future.join();
+
+            } catch (CompletionException ce) {
+                Throwable cause = ce.getCause();
+                logger.error("A KMS exception occurred: {}", cause != null ? cause.getMessage() : ce.getMessage());
+                return;
+            }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
         System.out.println("3. Encrypt data using the symmetric KMS key");
         String plaintext = "Hello, AWS KMS!";
         System.out.printf("""
-                        
                 One of the main uses of symmetric keys is to encrypt and decrypt data.
                 Next, the code encrypts the string '%s' with the SYMMETRIC_DEFAULT encryption algorithm.
                 %n""", plaintext);
         waitForInputToContinue(scanner);
-        SdkBytes ciphertext = encryptData(kmsClient, targetKeyId, plaintext);
+        SdkBytes encryptedData = null;
+        try {
+            CompletableFuture<SdkBytes> future = kmsActions.encryptDataAsync(targetKeyId, plaintext);
+            encryptedData = future.join();
+
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            logger.error("A KMS exception occurred: {}", cause != null ? cause.getMessage() : ce.getMessage());
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
         System.out.println("4. Create an alias");
         System.out.println("""
             
-            Enter an alias name for the key. The name should be prefixed with 'alias/'. 
-            For example, 'alias/myFirstKey'.
+           Enter an alias name for the key. The name should be prefixed with 'alias/'. 
+           The default, 'alias/dev-encryption-key'.
             """);
+        waitForInputToContinue(scanner);
+        String aliasName = "alias/dev-encryption-key";
+        try {
+            CompletableFuture<Void> future = kmsActions.createCustomAliasAsync(targetKeyId, aliasName);
+            future.join();
 
-        String aliasName = scanner.nextLine();
-        String fullAliasName = aliasName.isEmpty() ? "alias/dev-encryption-key" : aliasName;
-        createCustomAlias(kmsClient, targetKeyId, fullAliasName);
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                if (kmsEx.getMessage().contains("already exists")) {
+                   logger.info("The alias '" + aliasName + "' already exists. Moving on...");
+                } else {
+                    logger.error("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+                }
+            } else {
+                logger.error("An unexpected error occurred: " + rt.getMessage(), rt);
+            }
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
         System.out.println("5. List all of your aliases");
         waitForInputToContinue(scanner);
-        listAllAliases(kmsClient);
+        try {
+            CompletableFuture<Object> future = kmsActions.listAllAliasesAsync();
+            future.join();
+
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            logger.error("A KMS exception occurred: {}", cause != null ? cause.getMessage() : ce.getMessage());
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -172,7 +189,14 @@ public class KMSScenario {
             thereafter. 
             """);
         waitForInputToContinue(scanner);
-        enableKeyRotation(kmsClient, targetKeyId);
+        try {
+            CompletableFuture<Void> future = kmsActions.enableKeyRotationAsync(targetKeyId);
+            future.join();
+
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            logger.error("A KMS exception occurred: {}", cause != null ? cause.getMessage() : ce.getMessage());
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -185,32 +209,67 @@ public class KMSScenario {
             """);
 
         waitForInputToContinue(scanner);
-        String grantId = grantKey(kmsClient, targetKeyId, granteePrincipal);
-        System.out.println("The code granted principal with ARN [" + granteePrincipal + "] ");
-        System.out.println("use of the symmetric key. The grant ID is [" + grantId + "]");
+        String grantId = null;
+        try {
+            CompletableFuture<String> futureGrantId = kmsActions.grantKeyAsync(targetKeyId, granteePrincipal);
+            grantId = futureGrantId.join();
+
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            logger.error("A KMS exception occurred: {}", cause != null ? cause.getMessage() : ce.getMessage());
+        }
+        waitForInputToContinue(scanner);
+        System.out.println(DASHES);
+
+        logger.info(DASHES);
+        logger.info("8. List grants for the KMS key");
+        waitForInputToContinue(scanner);
+        try {
+            CompletableFuture<Object> future = kmsActions.displayGrantIdsAsync(targetKeyId);
+            future.join();
+
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            logger.info("A KMS exception occurred: {}", cause != null ? cause.getMessage() : ce.getMessage());
+        }
         waitForInputToContinue(scanner);
 
-        System.out.println(DASHES);
-        System.out.println("8. List grants for the KMS key");
+        logger.info(DASHES);
+        logger.info("9. Revoke the grant");
+        logger.info("""
+            The revocation of a grant immediately removes the permissions and access that the grant had provided. 
+            This means that any principal (user, role, or service) that was granted access to perform specific 
+            KMS operations on a KMS key will no longer be able to perform those operations.
+            """);
         waitForInputToContinue(scanner);
-        displayGrantIds(kmsClient, targetKeyId);
+        try {
+            CompletableFuture<RevokeGrantResponse> future = kmsActions.revokeKeyGrantAsync(targetKeyId, grantId);
+            future.join();
+
+        } catch (RuntimeException rte) {
+            logger.error("A KMS exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+        } finally {
+            kmsClient.close();
+        }
         waitForInputToContinue(scanner);
 
-        System.out.println(DASHES);
-        System.out.println("9. Revoke the grant");
-        waitForInputToContinue(scanner);
-        revokeKeyGrant(kmsClient, targetKeyId, grantId);
-        waitForInputToContinue(scanner);
-
-        System.out.println(DASHES);
-        System.out.println("10. Decrypt the data\n");
-        System.out.println("""
+        logger.info(DASHES);
+        logger.info("10. Decrypt the data\n");
+        logger.info("""
             Lets decrypt the data that was encrypted in an early step.
             The code uses the same key to decrypt the string that we encrypted earlier in the program.
             """);
         waitForInputToContinue(scanner);
-        String decryptText = decryptData(kmsClient, ciphertext, targetKeyId);
-        System.out.println("Decrypted text is: " + decryptText);
+        String decryptedData = "";
+        try {
+            CompletableFuture<String> future = kmsActions.decryptDataAsync(encryptedData, targetKeyId);
+            decryptedData = future.join();
+            logger.info("Decrypted data: " + decryptedData);
+
+        } catch (RuntimeException rte) {
+            logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+        }
+        logger.info("Decrypted text is: " + decryptedData);
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -237,14 +296,34 @@ public class KMSScenario {
             """);
 
         waitForInputToContinue(scanner);
-        boolean polAdded = replacePolicy(kmsClient, targetKeyId, policyName);
+        try {
+            CompletableFuture<Boolean> future = kmsActions.replacePolicyAsync(targetKeyId, policyName, accountId);
+            boolean success = future.join();
+            if (success) {
+                logger.info("Key policy replacement succeeded.");
+            } else {
+                logger.error("Key policy replacement failed.");
+            }
+
+        } catch (RuntimeException rte) {
+            logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
         System.out.println("12. Get the key policy\n");
         System.out.println("The next bit of code that runs gets the key policy to make sure it exists.");
         waitForInputToContinue(scanner);
-        getKeyPolicy(kmsClient, targetKeyId, policyName);
+        try {
+            CompletableFuture<String> future = kmsActions.getKeyPolicyAsync(targetKeyId, policyName);
+            String policy = future.join();
+            if (!policy.isEmpty()) {
+                logger.info("Retrieved policy: " + policy);
+            }
+
+        } catch (RuntimeException rte) {
+            logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -257,7 +336,18 @@ public class KMSScenario {
             of your organization.
            """);
         waitForInputToContinue(scanner);
-        signVerifyData(kmsClient);
+        try {
+            CompletableFuture<Boolean> future = kmsActions.signVerifyDataAsync();
+            boolean success = future.join(); // Wait for the operation to complete
+            if (success) {
+                logger.info("Sign and verify data operation succeeded.");
+            } else {
+                logger.error("Sign and verify data operation failed.");
+            }
+
+        } catch (RuntimeException rte) {
+            logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -268,7 +358,13 @@ public class KMSScenario {
             your AWS environment
             """);
         waitForInputToContinue(scanner);
-        tagKMSKey(kmsClient, targetKeyId);
+        try {
+            CompletableFuture<Void> future = kmsActions.tagKMSKeyAsync(targetKeyId);
+            future.join();
+
+        } catch (RuntimeException rte) {
+            logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+        }
         waitForInputToContinue(scanner);
 
         System.out.println(DASHES);
@@ -287,435 +383,39 @@ public class KMSScenario {
         if (delAns.equalsIgnoreCase("y")) {
             System.out.println("You selected to delete the AWS KMS resources.");
             waitForInputToContinue(scanner);
-            deleteSpecificAlias(kmsClient, fullAliasName);
-            disableKey(kmsClient, targetKeyId);
-            deleteKey(kmsClient, targetKeyId);
+            try {
+                CompletableFuture<Void> future = kmsActions.deleteSpecificAliasAsync(aliasName);
+                future.join();
+
+            } catch (RuntimeException rte) {
+                logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+            }
+            waitForInputToContinue(scanner);
+            try {
+                CompletableFuture<Void> future = kmsActions.disableKeyAsync(targetKeyId);
+                future.join();
+
+            } catch (RuntimeException rte) {
+                logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+            }
+
+            try {
+                CompletableFuture<Void> future = kmsActions.deleteKeyAsync(targetKeyId);
+                future.join();
+
+            } catch (RuntimeException rte) {
+                logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+            }
 
         } else {
             System.out.println("The Key Management resources will not be deleted");
         }
 
         System.out.println(DASHES);
-        System.out.println("This concludes the AWS Key Management SDK Getting Started scenario");
+        System.out.println("This concludes the AWS Key Management SDK scenario");
         System.out.println(DASHES);
     }
-    // snippet-start:[kms.java2_list_aliases.main]
-    public static void listAllAliases(KmsClient kmsClient) {
-        try {
-            ListAliasesRequest aliasesRequest = ListAliasesRequest.builder()
-                .limit(15)
-                .build();
 
-            ListAliasesIterable aliasesResponse = kmsClient.listAliasesPaginator(aliasesRequest);
-            aliasesResponse.stream()
-                .flatMap(r -> r.aliases().stream())
-                .forEach(alias -> System.out
-                    .println("The alias name is: " + alias.aliasName()));
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-    // snippet-end:[kms.java2_list_aliases.main]
-
-    // snippet-start:[kms.java2_disable_key.main]
-    public static void disableKey(KmsClient kmsClient, String keyId) {
-        try {
-            DisableKeyRequest keyRequest = DisableKeyRequest.builder()
-                .keyId(keyId)
-                .build();
-
-            kmsClient.disableKey(keyRequest);
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-    // snippet-end:[kms.java2_disable_key.main]
-
-    // snippet-start:[kms.java2_sign.main]
-    public static void signVerifyData(KmsClient kmsClient) {
-        String signMessage = "Here is the message that will be digitally signed";
-
-        // Create an AWS KMS key used to digitally sign data.
-        CreateKeyRequest request = CreateKeyRequest.builder()
-            .keySpec(KeySpec.RSA_2048) // Specify key spec
-            .keyUsage(KeyUsageType.SIGN_VERIFY) // Specify key usage
-            .origin(OriginType.AWS_KMS) // Specify key origin
-            .build();
-
-        CreateKeyResponse response = kmsClient.createKey(request);
-        String keyId2 = response.keyMetadata().keyId();
-        System.out.println("Created KMS key with ID: " + keyId2);
-
-        SdkBytes bytes = SdkBytes.fromString(signMessage, Charset.defaultCharset());
-        SignRequest signRequest = SignRequest.builder()
-            .keyId(keyId2)
-            .message(bytes)
-            .signingAlgorithm(SigningAlgorithmSpec.RSASSA_PSS_SHA_256)
-            .build();
-
-        SignResponse signResponse = kmsClient.sign(signRequest);
-        byte[] signedBytes = signResponse.signature().asByteArray();
-
-        // Verify the digital signature.
-        VerifyRequest verifyRequest = VerifyRequest.builder()
-            .keyId(keyId2)
-            .message(SdkBytes.fromByteArray(signMessage.getBytes(Charset.defaultCharset())))
-            .signature(SdkBytes.fromByteBuffer(ByteBuffer.wrap(signedBytes)))
-            .signingAlgorithm(SigningAlgorithmSpec.RSASSA_PSS_SHA_256)
-            .build();
-
-        VerifyResponse verifyResponse = kmsClient.verify(verifyRequest);
-        System.out.println("Signature verification result: " + verifyResponse.signatureValid());
-    }
-    // snippet-end:[kms.java2_sign.main]
-
-    // snippet-start:[kms.java2_tag.main]
-    public static void tagKMSKey(KmsClient kmsClient, String keyId) {
-        try {
-            Tag tag = Tag.builder()
-                .tagKey("Environment")
-                .tagValue("Production")
-                .build();
-
-            TagResourceRequest tagResourceRequest = TagResourceRequest.builder()
-                .keyId(keyId)
-                .tags(tag)
-                .build();
-
-            kmsClient.tagResource(tagResourceRequest);
-            System.out.println("The key has been tagged.");
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-    // snippet-end:[kms.java2_tag.main]
-
-    // snippet-start:[kms.java2_get_policy.main]
-    public static void getKeyPolicy(KmsClient kmsClient, String keyId, String policyName) {
-        try {
-            GetKeyPolicyRequest policyRequest = GetKeyPolicyRequest.builder()
-                .keyId(keyId)
-                .policyName(policyName)
-                .build();
-
-            GetKeyPolicyResponse response = kmsClient.getKeyPolicy(policyRequest);
-            System.out.println("The response is "+response.policy());
-        } catch (KmsException e) {
-            if (e.getMessage().contains("No such policy exists")) {
-                System.out.println("The policy cannot be found. Error message: " + e.getMessage());
-            } else {
-                throw e;
-            }
-        }
-    }
-    // snippet-end:[kms.java2_get_policy.main]
-
-    // snippet-start:[kms.java2_set_policy.main]
-    public static boolean replacePolicy(KmsClient kmsClient, String keyId, String policyName) {
-        // Change the principle in the below JSON.
-        String policy = """
-            {
-              "Version": "2012-10-17",
-              "Statement": [{
-                "Effect": "Allow",
-                "Principal": {"AWS": "arn:aws:iam::%s:root"},
-                "Action": "kms:*",
-                "Resource": "*"
-              }]
-            }
-            """.formatted(accountId);
-
-        try {
-            PutKeyPolicyRequest keyPolicyRequest = PutKeyPolicyRequest.builder()
-                .keyId(keyId)
-                .policyName(policyName)
-                .policy(policy)
-                .build();
-            kmsClient.putKeyPolicy(keyPolicyRequest);
-            System.out.println("The key policy has been replaced.");
-        } catch (LimitExceededException e) {
-            System.out.println("Policy limit reached. Unable to create the policy.");
-            return false;
-        } catch (AlreadyExistsException e) {
-            System.out.println("Only one policy per key is supported. Unable to create the policy.");
-            return false;
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-
-        return true;
-    }
-    // snippet-end:[kms.java2_set_policy.main]
-
-    public static boolean doesKeyHavePolicy(KmsClient kmsClient, String keyId, String policyName){
-        ListKeyPoliciesRequest policiesRequest = ListKeyPoliciesRequest.builder()
-            .keyId(keyId)
-            .build();
-
-        boolean hasPolicy = false;
-        ListKeyPoliciesResponse response = kmsClient.listKeyPolicies(policiesRequest);
-        List<String>policyNames = response.policyNames();
-        for (String pol : policyNames) {
-            hasPolicy = true;
-        }
-        return hasPolicy;
-    }
-
-    // snippet-start:[kms.java2_delete_key.main]
-    public static void deleteKey(KmsClient kmsClient, String keyId) {
-        try {
-            ScheduleKeyDeletionRequest deletionRequest = ScheduleKeyDeletionRequest.builder()
-                .keyId(keyId)
-                .pendingWindowInDays(7)
-                .build();
-
-            kmsClient.scheduleKeyDeletion(deletionRequest);
-            System.out.println("The key will be deleted in 7 days.");
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-    // snippet-end:[kms.java2_delete_key.main]
-
-    // snippet-start:[kms.java2_delete_alias.main]
-    public static void deleteSpecificAlias(KmsClient kmsClient, String aliasName) {
-        try {
-            DeleteAliasRequest deleteAliasRequest = DeleteAliasRequest.builder()
-                .aliasName(aliasName)
-                .build();
-
-            kmsClient.deleteAlias(deleteAliasRequest);
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-    // snippet-end:[kms.java2_delete_alias.main]
-
-    // snippet-start:[kms.java2_describe_key.main]
-    public static boolean isKeyEnabled(KmsClient kmsClient, String keyId) {
-        try {
-            DescribeKeyRequest keyRequest = DescribeKeyRequest.builder()
-                .keyId(keyId)
-                .build();
-
-            DescribeKeyResponse response = kmsClient.describeKey(keyRequest);
-            KeyState keyState = response.keyMetadata().keyState();
-            if (keyState == KeyState.ENABLED) {
-                System.out.println("The key is enabled.");
-                return true;
-            } else {
-                System.out.println("The key is not enabled. Key state: " + keyState);
-            }
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        return false;
-    }
-    // snippet-end:[kms.java2_describe_key.main]
-
-    // snippet-start:[kms.java2_decrypt_data.main]
-    public static String decryptData(KmsClient kmsClient, SdkBytes encryptedData, String keyId) {
-        try {
-            DecryptRequest decryptRequest = DecryptRequest.builder()
-                .ciphertextBlob(encryptedData)
-                .keyId(keyId)
-                .build();
-
-            DecryptResponse decryptResponse = kmsClient.decrypt(decryptRequest);
-            return decryptResponse.plaintext().asString(StandardCharsets.UTF_8);
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        return "";
-    }
-    // snippet-end:[kms.java2_decrypt_data.main]
-
-    // snippet-start:[kms.java2_revoke_grant.main]
-    public static void revokeKeyGrant(KmsClient kmsClient, String keyId, String grantId) {
-        try {
-            RevokeGrantRequest grantRequest = RevokeGrantRequest.builder()
-                .keyId(keyId)
-                .grantId(grantId)
-                .build();
-
-            kmsClient.revokeGrant(grantRequest);
-            System.out.println("Grant ID: [" + grantId +"] was successfully revoked!");
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-    // snippet-end:[kms.java2_revoke_grant.main]
-
-    // snippet-start:[kms.java2_list_grant.main]
-    public static void displayGrantIds(KmsClient kmsClient, String keyId) {
-        try {
-            ListGrantsRequest grantsRequest = ListGrantsRequest.builder()
-                .keyId(keyId)
-                .limit(15)
-                .build();
-
-            ListGrantsIterable response = kmsClient.listGrantsPaginator(grantsRequest);
-            response.stream()
-                .flatMap(r -> r.grants().stream())
-                .forEach(grant -> {
-                    System.out.println("The grant Id is : " + grant.grantId());
-                    List<GrantOperation> ops = grant.operations();
-                    for (GrantOperation op : ops) {
-                        System.out.println(op.name());
-                    }
-                });
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-    // snippet-end:[kms.java2_list_grant.main]
-
-    // snippet-start:[kms.java2_create_grant.main]
-    public static String grantKey(KmsClient kmsClient, String keyId, String granteePrincipal)  {
-        try {
-            // Add the desired KMS Grant permissions.
-            List<GrantOperation> grantPermissions = new ArrayList<>();
-            grantPermissions.add(GrantOperation.ENCRYPT);
-            grantPermissions.add(GrantOperation.DECRYPT);
-            grantPermissions.add(GrantOperation.DESCRIBE_KEY);
-
-            CreateGrantRequest grantRequest = CreateGrantRequest.builder()
-                .keyId(keyId)
-                .name("grant1")
-                .granteePrincipal(granteePrincipal)
-                .operations(grantPermissions)
-                .build();
-
-            CreateGrantResponse response = kmsClient.createGrant(grantRequest);
-            return response.grantId();
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        return "";
-    }
-    // snippet-end:[kms.java2_create_grant.main]
-
-    // snippet-start:[kms.java2._key_rotation.main]
-    public static void enableKeyRotation(KmsClient kmsClient, String keyId) {
-        try {
-            EnableKeyRotationRequest enableKeyRotationRequest = EnableKeyRotationRequest.builder()
-                .keyId(keyId)
-                .build();
-
-            kmsClient.enableKeyRotation(enableKeyRotationRequest);
-            System.out.println("Key rotation has been enabled for key with id [" + keyId + "]");
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-    // snippet-end:[kms.java2._key_rotation.main]
-
-    // snippet-start:[kms.java2._create_alias.main]
-    public static void createCustomAlias(KmsClient kmsClient, String targetKeyId, String aliasName) {
-        try {
-            CreateAliasRequest aliasRequest = CreateAliasRequest.builder()
-                .aliasName(aliasName)
-                .targetKeyId(targetKeyId)
-                .build();
-
-            kmsClient.createAlias(aliasRequest);
-            System.out.println(aliasName + " was successfully created.");
-
-        } catch (ResourceExistsException e) {
-            System.err.println("Alias already exists: " + e.getMessage());
-            System.err.println("Moving on...");
-        } catch (Exception e) {
-            System.err.println("An unexpected error occurred: " + e.getMessage());
-            System.err.println("Moving on...");
-        }
-    }
-    // snippet-end:[kms.java2._create_alias.main]
-
-    // snippet-start:[kms.java2_encrypt_data.main]
-    public static SdkBytes encryptData(KmsClient kmsClient, String keyId, String text) {
-        try {
-            SdkBytes myBytes = SdkBytes.fromUtf8String(text);
-            EncryptRequest encryptRequest = EncryptRequest.builder()
-                .keyId(keyId)
-                .plaintext(myBytes)
-                .build();
-
-            EncryptResponse response = kmsClient.encrypt(encryptRequest);
-            String algorithm = response.encryptionAlgorithm().toString();
-            System.out.println("The string was encrypted with algorithm " + algorithm + ".");
-
-            // Get the encrypted data.
-            SdkBytes encryptedData = response.ciphertextBlob();
-            return encryptedData;
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        return null;
-    }
-    // snippet-end:[kms.java2_encrypt_data.main]
-
-    // snippet-start:[kms.java2_create_key.main]
-    public static String createKey(KmsClient kmsClient, String keyDesc) {
-        try {
-            CreateKeyRequest keyRequest = CreateKeyRequest.builder()
-                .description(keyDesc)
-                .customerMasterKeySpec(CustomerMasterKeySpec.SYMMETRIC_DEFAULT)
-                .keyUsage("ENCRYPT_DECRYPT")
-                .build();
-
-            CreateKeyResponse result = kmsClient.createKey(keyRequest);
-            System.out.println("Symmetric key with ARN [" + result.keyMetadata().arn() + "] has been created.");
-            return result.keyMetadata().keyId();
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        return "";
-    }
-    // snippet-end:[kms.java2_create_key.main]
-
-    // snippet-start:[kms.java2_enable_key.main]
-    // Enable the KMS key.
-    public static void enableKey(KmsClient kmsClient, String keyId) {
-        try {
-            EnableKeyRequest enableKeyRequest = EnableKeyRequest.builder()
-                .keyId(keyId)
-                .build();
-
-            kmsClient.enableKey(enableKeyRequest);
-
-        } catch (KmsException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-    // snippet-end:[kms.java2_enable_key.main]
     private static void waitForInputToContinue(Scanner scanner) {
         while (true) {
             System.out.println("");
@@ -730,12 +430,6 @@ public class KMSScenario {
                 // Handle invalid input.
                 System.out.println("Invalid input. Please try again.");
             }
-        }
-    }
-    private static String getAccountId(){
-        try (StsClient stsClient = StsClient.create()){
-            GetCallerIdentityResponse callerIdentity = stsClient.getCallerIdentity();
-            return callerIdentity.account();
         }
     }
 }
