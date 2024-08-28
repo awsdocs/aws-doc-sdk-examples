@@ -60,7 +60,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-
+// snippet-start:[kms.java2_actions.main]
 public class KMSActions {
     private static final Logger logger = LoggerFactory.getLogger(KMSActions.class);
     private static KmsAsyncClient kmsAsyncClient;
@@ -649,3 +649,4 @@ public class KMSActions {
         }
     }
 }
+// snippet-end:[kms.java2_actions.main]
