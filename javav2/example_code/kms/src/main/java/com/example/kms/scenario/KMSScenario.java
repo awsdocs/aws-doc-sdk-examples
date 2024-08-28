@@ -74,15 +74,19 @@ public class KMSScenario {
         logger.info("1. Create a symmetric KMS key\n");
         logger.info("First, the program will creates a symmetric KMS key that you can used to encrypt and decrypt data.");
         waitForInputToContinue(scanner);
-        String targetKeyId;
+        String targetKeyId = null;
         try {
             CompletableFuture<String> futureKeyId = kmsActions.createKeyAsync(keyDesc);
             targetKeyId = futureKeyId.join();
             logger.info("A symmetric key was successfully created "+targetKeyId);
 
-        } catch (RuntimeException rte) {
-            logger.error("A KMS exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
-            return;
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
         }
         waitForInputToContinue(scanner);
 
@@ -94,15 +98,19 @@ public class KMSScenario {
             determine if the key is enabled. If it is not enabled, the code enables it. 
              """);
         waitForInputToContinue(scanner);
-        boolean isEnabled;
+        boolean isEnabled = false;
         try {
             CompletableFuture<Boolean> futureIsKeyEnabled = kmsActions.isKeyEnabledAsync(targetKeyId);
             isEnabled = futureIsKeyEnabled.join();
             logger.info("Is the key enabled? {}", isEnabled);
 
-        } catch (RuntimeException rte) {
-            logger.error("A KMS exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
-            return;
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
         }
 
         if (!isEnabled)
