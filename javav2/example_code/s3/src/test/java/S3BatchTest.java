@@ -40,7 +40,7 @@ public class S3BatchTest {
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
         String json = getSecretValues();
-        AmazonS3Test.SecretValues values = gson.fromJson(json, AmazonS3Test.SecretValues.class);
+        SecretValues values = gson.fromJson(json, SecretValues.class);
         accountId = values.getAccountId();
 
         actions = new S3BatchActions();
@@ -201,6 +201,7 @@ public class S3BatchTest {
         public String getAccountId() {
             return accountId;
         }
+
 
 
     }

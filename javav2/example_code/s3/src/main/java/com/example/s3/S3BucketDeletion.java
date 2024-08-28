@@ -3,7 +3,6 @@
 
 package com.example.s3;
 
-// snippet-start:[s3.java2.bucket_deletion.main]
 // snippet-start:[s3.java2.s3_bucket_deletion.delete_objects]
 // snippet-start:[s3.java2.bucket_deletion.import]
 // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket.import]
@@ -80,4 +79,4 @@ public class S3BucketDeletion {
     }
 }
 // snippet-end:[s3.java2.s3_bucket_deletion.delete_objects]
-// snippet-end:[s3.java2.bucket_deletion.main]
+
