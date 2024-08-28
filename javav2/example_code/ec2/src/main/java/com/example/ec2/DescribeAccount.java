@@ -6,9 +6,9 @@ package com.example.ec2;
 // snippet-start:[ec2.java2.describe_account.main]
 // snippet-start:[ec2.java2.describe_account.import]
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.ec2.Ec2Client;
+import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
 import software.amazon.awssdk.services.ec2.model.DescribeAccountAttributesResponse;
-import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+import java.util.concurrent.CompletableFuture;
 // snippet-end:[ec2.java2.describe_account.import]
 
 /**
@@ -21,29 +21,43 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
  */
 public class DescribeAccount {
     public static void main(String[] args) {
-        Region region = Region.US_EAST_1;
-        Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .build();
+        Ec2AsyncClient ec2AsyncClient = Ec2AsyncClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
 
-        describeEC2Account(ec2);
-        System.out.print("Done");
-        ec2.close();
+        try {
+            CompletableFuture<DescribeAccountAttributesResponse> future = describeEC2AccountAsync(ec2AsyncClient);
+            future.join();
+            System.out.println("EC2 Account attributes described successfully.");
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+        }
     }
 
-    public static void describeEC2Account(Ec2Client ec2) {
-        try {
-            DescribeAccountAttributesResponse accountResults = ec2.describeAccountAttributes();
-            accountResults.accountAttributes().forEach(attribute -> {
-                System.out.print("\n The name of the attribute is " + attribute.attributeName());
-                attribute.attributeValues().forEach(
-                        myValue -> System.out.print("\n The value of the attribute is " + myValue.attributeValue()));
-            });
-
-        } catch (Ec2Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+    /**
+     * Describes the EC2 account attributes asynchronously.
+     *
+     * @param ec2AsyncClient the EC2 asynchronous client to use for the operation
+     * @return a {@link CompletableFuture} containing the {@link DescribeAccountAttributesResponse} with the account attributes
+     */
+    public static CompletableFuture<DescribeAccountAttributesResponse> describeEC2AccountAsync(Ec2AsyncClient ec2AsyncClient) {
+        CompletableFuture<DescribeAccountAttributesResponse> response = ec2AsyncClient.describeAccountAttributes();
+        return response.whenComplete((accountResults, ex) -> {
+            if (ex != null) {
+                // Handle the exception by throwing a RuntimeException.
+                throw new RuntimeException("Failed to describe EC2 account attributes.", ex);
+            } else if (accountResults == null || accountResults.accountAttributes().isEmpty()) {
+                // Throw an exception if the response is null or no account attributes are found.
+                throw new RuntimeException("No account attributes found.");
+            } else {
+                // Process the response if no exception occurred.
+                accountResults.accountAttributes().forEach(attribute -> {
+                    System.out.println("\nThe name of the attribute is " + attribute.attributeName());
+                    attribute.attributeValues().forEach(
+                        myValue -> System.out.println("The value of the attribute is " + myValue.attributeValue()));
+                });
+            }
+        });
     }
 }
 // snippet-end:[ec2.java2.describe_account.main]

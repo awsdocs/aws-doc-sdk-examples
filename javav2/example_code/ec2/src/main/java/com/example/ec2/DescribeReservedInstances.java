@@ -6,11 +6,9 @@ package com.example.ec2;
 // snippet-start:[ec2.java2.describe_reserved_instances.main]
 // snippet-start:[ec2.java2.describe_reserved_instances.import]
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.ec2.Ec2Client;
-import software.amazon.awssdk.services.ec2.model.DescribeReservedInstancesRequest;
+import software.amazon.awssdk.services.ec2.Ec2AsyncClient;
 import software.amazon.awssdk.services.ec2.model.DescribeReservedInstancesResponse;
-import software.amazon.awssdk.services.ec2.model.ReservedInstances;
-import software.amazon.awssdk.services.ec2.model.Ec2Exception;
+import java.util.concurrent.CompletableFuture;
 // snippet-end:[ec2.java2.describe_reserved_instances.import]
 
 /**
@@ -23,35 +21,50 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
  */
 public class DescribeReservedInstances {
     public static void main(String[] args) {
-        Region region = Region.US_EAST_1;
-        Ec2Client ec2 = Ec2Client.builder()
-                .region(region)
-                .build();
+        Ec2AsyncClient ec2AsyncClient = Ec2AsyncClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
 
-        describeReservedEC2Instances(ec2);
-        ec2.close();
+        try {
+            CompletableFuture<Void> future = describeReservedEC2InstancesAsync(ec2AsyncClient);
+            future.join(); // Wait for the async operation to complete.
+        } catch (RuntimeException rte) {
+            System.err.println("An exception occurred: " + (rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage()));
+        }
     }
 
-    public static void describeReservedEC2Instances(Ec2Client ec2) {
-        try {
-            DescribeReservedInstancesResponse response = ec2.describeReservedInstances();
-            response.reservedInstances().forEach(instance -> {
-                System.out.printf(
-                    "Found a Reserved Instance with id %s, " +
-                        "in AZ %s, " +
-                        "type %s, " +
-                        "state %s " +
-                        "and monitoring state %s%n",
-                    instance.reservedInstancesId(),
-                    instance.availabilityZone(),
-                    instance.instanceType(),
-                    instance.state().name());
-            });
+    /**
+     * Describes the Reserved EC2 Instances asynchronously using the given {@link Ec2AsyncClient}.
+     * <p>
+     * This method uses the {@link Ec2AsyncClient#describeReservedInstances()} method to fetch the
+     * details of the Reserved EC2 Instances and prints the information about each instance to the console.
+     *
+     * @param ec2AsyncClient the {@link Ec2AsyncClient} instance to be used for the asynchronous operation
+     * @return a {@link CompletableFuture<Void>} that completes when the asynchronous operation is finished
+     */
+    public static CompletableFuture<Void> describeReservedEC2InstancesAsync(Ec2AsyncClient ec2AsyncClient) {
+        CompletableFuture<DescribeReservedInstancesResponse> response = ec2AsyncClient.describeReservedInstances();
+        response.whenComplete((reservedInstancesResponse, ex) -> {
+            if (ex != null) {
+                throw new RuntimeException("Failed to describe EC2 reserved instances.", ex);
+            } else if (reservedInstancesResponse == null || reservedInstancesResponse.reservedInstances().isEmpty()) {
+                throw new RuntimeException("No EC2 reserved instances found.");
+            } else {
+                reservedInstancesResponse.reservedInstances().forEach(instance -> {
+                    System.out.printf(
+                        "Found a Reserved Instance with id %s, " +
+                            "in AZ %s, " +
+                            "type %s, " +
+                            "state %s%n",
+                        instance.reservedInstancesId(),
+                        instance.availabilityZone(),
+                        instance.instanceType(),
+                        instance.state().name());
+                });
+            }
+        });
 
-        } catch (Ec2Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        return response.thenApply(resp -> null);
     }
 }
 // snippet-end:[ec2.java2.describe_reserved_instances.main]
