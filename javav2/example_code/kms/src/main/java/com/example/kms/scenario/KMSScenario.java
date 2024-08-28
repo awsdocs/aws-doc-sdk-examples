@@ -6,12 +6,10 @@ package com.example.kms.scenario;
 // snippet-start:[kms.java2_scenario.main]
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.kms.KmsClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.services.kms.model.EnableKeyRotationResponse;
 import software.amazon.awssdk.services.kms.model.KmsException;
-import software.amazon.awssdk.services.kms.model.ListKeyPoliciesRequest;
-import software.amazon.awssdk.services.kms.model.ListKeyPoliciesResponse;
 import software.amazon.awssdk.services.kms.model.RevokeGrantResponse;
 import java.util.List;
 import java.util.Scanner;
@@ -53,14 +51,9 @@ public class KMSScenario {
         Scanner scanner = new Scanner(System.in);
         String keyDesc = "Created by the AWS KMS API";
 
-        Region region = Region.US_WEST_2;
-        KmsClient kmsClient = KmsClient.builder()
-            .region(region)
-            .build();
-
         System.out.println(DASHES);
         logger.info("""
-            Welcome to the AWS Key Management SDK Getting Started scenario.
+            Welcome to the AWS Key Management SDK Basics scenario.
             
             This program demonstrates how to interact with AWS Key Management using the AWS SDK for Java (v2).
             The AWS Key Management Service (KMS) is a secure and highly available service that allows you to create 
@@ -68,8 +61,11 @@ public class KMSScenario {
             KMS provides a centralized and unified approach to managing encryption keys, making it easier to meet your 
             data protection and regulatory compliance requirements.
                         
-            This Getting Started scenario creates two key types. A symmetric encryption key is used to encrypt and decrypt data, 
-            and an asymmetric key used to digitally sign data. 
+            This Basics scenario creates two key types:
+            
+            - A symmetric encryption key is used to encrypt and decrypt data.
+            - An asymmetric key used to digitally sign data. 
+            
             Let's get started...
             """);
         waitForInputToContinue(scanner);
@@ -114,10 +110,13 @@ public class KMSScenario {
                 CompletableFuture<Void> future = kmsActions.enableKeyAsync(targetKeyId);
                 future.join();
 
-            } catch (CompletionException ce) {
-                Throwable cause = ce.getCause();
-                logger.error("A KMS exception occurred: {}", cause != null ? cause.getMessage() : ce.getMessage());
-                return;
+            } catch (RuntimeException rt) {
+                Throwable cause = rt.getCause();
+                if (cause instanceof KmsException kmsEx) {
+                    logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+                } else {
+                    logger.info("An unexpected error occurred: " + rt.getMessage());
+                }
             }
         waitForInputToContinue(scanner);
 
@@ -134,9 +133,13 @@ public class KMSScenario {
             CompletableFuture<SdkBytes> future = kmsActions.encryptDataAsync(targetKeyId, plaintext);
             encryptedData = future.join();
 
-        } catch (CompletionException ce) {
-            Throwable cause = ce.getCause();
-            logger.error("A KMS exception occurred: {}", cause != null ? cause.getMessage() : ce.getMessage());
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
         }
         waitForInputToContinue(scanner);
 
@@ -174,9 +177,13 @@ public class KMSScenario {
             CompletableFuture<Object> future = kmsActions.listAllAliasesAsync();
             future.join();
 
-        } catch (CompletionException ce) {
-            Throwable cause = ce.getCause();
-            logger.error("A KMS exception occurred: {}", cause != null ? cause.getMessage() : ce.getMessage());
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
         }
         waitForInputToContinue(scanner);
 
@@ -190,12 +197,16 @@ public class KMSScenario {
             """);
         waitForInputToContinue(scanner);
         try {
-            CompletableFuture<Void> future = kmsActions.enableKeyRotationAsync(targetKeyId);
+            CompletableFuture<EnableKeyRotationResponse> future = kmsActions.enableKeyRotationAsync(targetKeyId);
             future.join();
 
-        } catch (CompletionException ce) {
-            Throwable cause = ce.getCause();
-            logger.error("A KMS exception occurred: {}", cause != null ? cause.getMessage() : ce.getMessage());
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
         }
         waitForInputToContinue(scanner);
 
@@ -214,9 +225,13 @@ public class KMSScenario {
             CompletableFuture<String> futureGrantId = kmsActions.grantKeyAsync(targetKeyId, granteePrincipal);
             grantId = futureGrantId.join();
 
-        } catch (CompletionException ce) {
-            Throwable cause = ce.getCause();
-            logger.error("A KMS exception occurred: {}", cause != null ? cause.getMessage() : ce.getMessage());
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
         }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -228,9 +243,13 @@ public class KMSScenario {
             CompletableFuture<Object> future = kmsActions.displayGrantIdsAsync(targetKeyId);
             future.join();
 
-        } catch (CompletionException ce) {
-            Throwable cause = ce.getCause();
-            logger.info("A KMS exception occurred: {}", cause != null ? cause.getMessage() : ce.getMessage());
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
         }
         waitForInputToContinue(scanner);
 
@@ -246,10 +265,17 @@ public class KMSScenario {
             CompletableFuture<RevokeGrantResponse> future = kmsActions.revokeKeyGrantAsync(targetKeyId, grantId);
             future.join();
 
-        } catch (RuntimeException rte) {
-            logger.error("A KMS exception occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
-        } finally {
-            kmsClient.close();
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                if (kmsEx.getMessage().contains("Grant does not exist")) {
+                    logger.info("The grant ID '" + grantId + "' does not exist. Moving on...");
+                } else {
+                    logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+                }
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
         }
         waitForInputToContinue(scanner);
 
@@ -266,8 +292,13 @@ public class KMSScenario {
             decryptedData = future.join();
             logger.info("Decrypted data: " + decryptedData);
 
-        } catch (RuntimeException rte) {
-            logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
         }
         logger.info("Decrypted text is: " + decryptedData);
         waitForInputToContinue(scanner);
@@ -305,8 +336,13 @@ public class KMSScenario {
                 logger.error("Key policy replacement failed.");
             }
 
-        } catch (RuntimeException rte) {
-            logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
         }
         waitForInputToContinue(scanner);
 
@@ -321,8 +357,13 @@ public class KMSScenario {
                 logger.info("Retrieved policy: " + policy);
             }
 
-        } catch (RuntimeException rte) {
-            logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
         }
         waitForInputToContinue(scanner);
 
@@ -345,8 +386,13 @@ public class KMSScenario {
                 logger.error("Sign and verify data operation failed.");
             }
 
-        } catch (RuntimeException rte) {
-            logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
         }
         waitForInputToContinue(scanner);
 
@@ -362,8 +408,13 @@ public class KMSScenario {
             CompletableFuture<Void> future = kmsActions.tagKMSKeyAsync(targetKeyId);
             future.join();
 
-        } catch (RuntimeException rte) {
-            logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof KmsException kmsEx) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
         }
         waitForInputToContinue(scanner);
 
@@ -387,24 +438,39 @@ public class KMSScenario {
                 CompletableFuture<Void> future = kmsActions.deleteSpecificAliasAsync(aliasName);
                 future.join();
 
-            } catch (RuntimeException rte) {
-                logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+            } catch (RuntimeException rt) {
+                Throwable cause = rt.getCause();
+                if (cause instanceof KmsException kmsEx) {
+                    logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+                } else {
+                    logger.info("An unexpected error occurred: " + rt.getMessage());
+                }
             }
             waitForInputToContinue(scanner);
             try {
                 CompletableFuture<Void> future = kmsActions.disableKeyAsync(targetKeyId);
                 future.join();
 
-            } catch (RuntimeException rte) {
-                logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+            } catch (RuntimeException rt) {
+                Throwable cause = rt.getCause();
+                if (cause instanceof KmsException kmsEx) {
+                    logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+                } else {
+                    logger.info("An unexpected error occurred: " + rt.getMessage());
+                }
             }
 
             try {
                 CompletableFuture<Void> future = kmsActions.deleteKeyAsync(targetKeyId);
                 future.join();
 
-            } catch (RuntimeException rte) {
-                logger.error("An error occurred: {}", rte.getCause() != null ? rte.getCause().getMessage() : rte.getMessage());
+            } catch (RuntimeException rt) {
+                Throwable cause = rt.getCause();
+                if (cause instanceof KmsException kmsEx) {
+                    logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+                } else {
+                    logger.info("An unexpected error occurred: " + rt.getMessage());
+                }
             }
 
         } else {

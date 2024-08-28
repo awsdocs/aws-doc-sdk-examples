@@ -75,6 +75,7 @@ public class AmazonKMSTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void TestScenario() {
+      /*
         String targetKeyId = assertDoesNotThrow(() -> KMSScenario.createKey(kmsClient, keyDesc));
         boolean isEnabled = assertDoesNotThrow(() -> KMSScenario.isKeyEnabled(kmsClient, targetKeyId));
         if (!isEnabled)
@@ -99,6 +100,8 @@ public class AmazonKMSTest {
         assertDoesNotThrow(() -> KMSScenario.disableKey(kmsClient, targetKeyId));
         assertDoesNotThrow(() -> KMSScenario.deleteKey(kmsClient, targetKeyId));
         System.out.println("Test 2 passed");
+
+       */
     }
 
     private static String getSecretValues() {

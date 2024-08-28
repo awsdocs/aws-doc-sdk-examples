@@ -14,17 +14,20 @@ import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsAsyncClient;
 import software.amazon.awssdk.services.kms.model.CreateAliasRequest;
+import software.amazon.awssdk.services.kms.model.CreateAliasResponse;
 import software.amazon.awssdk.services.kms.model.CreateGrantRequest;
 import software.amazon.awssdk.services.kms.model.CreateGrantResponse;
 import software.amazon.awssdk.services.kms.model.CreateKeyRequest;
-import software.amazon.awssdk.services.kms.model.CustomerMasterKeySpec;
 import software.amazon.awssdk.services.kms.model.DecryptRequest;
+import software.amazon.awssdk.services.kms.model.DecryptResponse;
 import software.amazon.awssdk.services.kms.model.DeleteAliasRequest;
 import software.amazon.awssdk.services.kms.model.DescribeKeyRequest;
 import software.amazon.awssdk.services.kms.model.DescribeKeyResponse;
 import software.amazon.awssdk.services.kms.model.DisableKeyRequest;
 import software.amazon.awssdk.services.kms.model.EnableKeyRequest;
+import software.amazon.awssdk.services.kms.model.EnableKeyResponse;
 import software.amazon.awssdk.services.kms.model.EnableKeyRotationRequest;
+import software.amazon.awssdk.services.kms.model.EnableKeyRotationResponse;
 import software.amazon.awssdk.services.kms.model.EncryptRequest;
 import software.amazon.awssdk.services.kms.model.EncryptResponse;
 import software.amazon.awssdk.services.kms.model.GetKeyPolicyRequest;
@@ -146,18 +149,20 @@ public class KMSActions {
             .keyId(keyId)
             .build();
 
-        CompletableFuture<Void> responseFuture = new CompletableFuture<>();
-
-        getAsyncClient().enableKey(enableKeyRequest).whenComplete((resp, ex) -> {
-            if (ex != null) {
-                responseFuture.completeExceptionally(ex);
-            } else {
+        CompletableFuture<EnableKeyResponse> responseFuture = getAsyncClient().enableKey(enableKeyRequest);
+        responseFuture.whenComplete((response, exception) -> {
+            if (exception == null) {
                 logger.info("Key with ID [{}] has been enabled.", keyId);
-                responseFuture.complete(null);
+            } else {
+                if (exception instanceof KmsException kmsEx) {
+                    throw new RuntimeException("KMS error occurred while enabling key: " + kmsEx.getMessage(), kmsEx);
+                } else {
+                    throw new RuntimeException("An unexpected error occurred while enabling key: " + exception.getMessage(), exception);
+                }
             }
         });
 
-        return responseFuture;
+        return responseFuture.thenApply(response -> null);
     }
     // snippet-end:[kms.java2_enable_key.main]
 
@@ -184,7 +189,7 @@ public class KMSActions {
             } else {
                 throw new RuntimeException(ex);
             }
-        }).thenApply(response -> response.ciphertextBlob());
+        }).thenApply(EncryptResponse::ciphertextBlob);
     }
     // snippet-end:[kms.java2_encrypt_data.main]
 
@@ -195,21 +200,22 @@ public class KMSActions {
             .targetKeyId(targetKeyId)
             .build();
 
-        CompletableFuture<Void> responseFuture = new CompletableFuture<>();
-        getAsyncClient().createAlias(aliasRequest).whenComplete((response, ex) -> {
-            if (ex != null) {
-                if (ex instanceof ResourceExistsException) {
-                      responseFuture.complete(null);
-                } else {
-                     responseFuture.completeExceptionally(ex);
-                }
-            } else {
+        CompletableFuture<CreateAliasResponse> responseFuture = getAsyncClient().createAlias(aliasRequest);
+        responseFuture.whenComplete((response, exception) -> {
+            if (exception == null) {
                 logger.info("{} was successfully created.", aliasName);
-                responseFuture.complete(null);
+            } else {
+                if (exception instanceof ResourceExistsException) {
+                    logger.info("Alias [{}] already exists. Moving on...", aliasName);
+                } else if (exception instanceof KmsException kmsEx) {
+                    throw new RuntimeException("KMS error occurred while creating alias: " + kmsEx.getMessage(), kmsEx);
+                } else {
+                    throw new RuntimeException("An unexpected error occurred while creating alias: " + exception.getMessage(), exception);
+                }
             }
         });
 
-        return responseFuture;
+        return responseFuture.thenApply(response -> null);
     }
     // snippet-end:[kms.java2._create_alias.main]
 
@@ -219,7 +225,7 @@ public class KMSActions {
      *
      * @return a {@link CompletableFuture} that completes when the list of aliases has been processed
      */
-    public static CompletableFuture<Object> listAllAliasesAsync() {
+    public CompletableFuture<Object> listAllAliasesAsync() {
         ListAliasesRequest aliasesRequest = ListAliasesRequest.builder()
             .limit(15)
             .build();
@@ -227,7 +233,7 @@ public class KMSActions {
         ListAliasesPublisher paginator = getAsyncClient().listAliasesPaginator(aliasesRequest);
         return paginator.subscribe(response -> {
                 response.aliases().forEach(alias ->
-                    System.out.println("The alias name is: " + alias.aliasName())
+                    logger.info("The alias name is: " + alias.aliasName())
                 );
             })
             .thenApply(v -> null)
@@ -243,30 +249,27 @@ public class KMSActions {
     // snippet-end:[kms.java2_list_aliases.main]
 
     // snippet-start:[kms.java2._key_rotation.main]
-    public CompletableFuture<Void> enableKeyRotationAsync(String keyId) {
+    public CompletableFuture<EnableKeyRotationResponse> enableKeyRotationAsync(String keyId) {
         EnableKeyRotationRequest enableKeyRotationRequest = EnableKeyRotationRequest.builder()
             .keyId(keyId)
             .build();
 
-        CompletableFuture<Void> response = getAsyncClient().enableKeyRotation(enableKeyRotationRequest)
-            .thenAccept(r -> {
-                // Process the response if needed
+        CompletableFuture<EnableKeyRotationResponse> responseFuture = getAsyncClient().enableKeyRotation(enableKeyRotationRequest);
+        responseFuture.whenComplete((response, exception) -> {
+            if (exception == null) {
                 logger.info("Key rotation has been enabled for key with id [{}]", keyId);
-            })
-            .exceptionally(ex -> {
-                // Handle exceptions
-                if (ex instanceof KmsException) {
-                    logger.error("Failed to enable key rotation: {}", ex.getMessage());
+            } else {
+                if (exception instanceof KmsException kmsEx) {
+                    throw new RuntimeException("Failed to enable key rotation: " + kmsEx.getMessage(), kmsEx);
                 } else {
-                    logger.error("An unexpected error occurred: {}", ex.getMessage());
+                    throw new RuntimeException("An unexpected error occurred: " + exception.getMessage(), exception);
                 }
-                return null; // Return null or handle the exception as needed
-            });
+            }
+        });
 
-        return response;
+        return responseFuture;
     }
     // snippet-end:[kms.java2._key_rotation.main]
-
 
     // snippet-start:[kms.java2_create_grant.main]
     /**
@@ -278,11 +281,11 @@ public class KMSActions {
      * @throws RuntimeException If an error occurs during the grant creation process.
      */
     public CompletableFuture<String> grantKeyAsync(String keyId, String granteePrincipal) {
-        // Create the grant request
-        List<GrantOperation> grantPermissions = new ArrayList<>();
-        grantPermissions.add(GrantOperation.ENCRYPT);
-        grantPermissions.add(GrantOperation.DECRYPT);
-        grantPermissions.add(GrantOperation.DESCRIBE_KEY);
+        List<GrantOperation> grantPermissions = List.of(
+            GrantOperation.ENCRYPT,
+            GrantOperation.DECRYPT,
+            GrantOperation.DESCRIBE_KEY
+        );
 
         CreateGrantRequest grantRequest = CreateGrantRequest.builder()
             .keyId(keyId)
@@ -291,25 +294,20 @@ public class KMSActions {
             .operations(grantPermissions)
             .build();
 
-        // Send the request asynchronously and handle response.
-        return getAsyncClient().createGrant(grantRequest)
-            .whenComplete((response, ex) -> {
-                if (response != null) {
-                    System.out.println("Grant created successfully with ID: " + response.grantId());
+        CompletableFuture<CreateGrantResponse> responseFuture = getAsyncClient().createGrant(grantRequest);
+        responseFuture.whenComplete((response, ex) -> {
+            if (ex == null) {
+                logger.info("Grant created successfully with ID: " + response.grantId());
+            } else {
+                if (ex instanceof KmsException kmsEx) {
+                    throw new RuntimeException("Failed to create grant: " + kmsEx.getMessage(), kmsEx);
                 } else {
-                    throw new RuntimeException(ex);
+                    throw new RuntimeException("An unexpected error occurred: " + ex.getMessage(), ex);
                 }
-            })
-            .thenApply(CreateGrantResponse::grantId) // Extract grant ID from response
-            .exceptionally(ex -> {
-                // Handle exceptions and return null or a default value
-                if (ex instanceof KmsException) {
-                    System.err.println("Failed to create grant: " + ex.getMessage());
-                } else {
-                    System.err.println("An unexpected error occurred: " + ex.getMessage());
-                }
-                return null;
-            });
+            }
+        });
+
+        return responseFuture.thenApply(CreateGrantResponse::grantId);
     }
     // snippet-end:[kms.java2_create_grant.main]
 
@@ -330,7 +328,7 @@ public class KMSActions {
         ListGrantsPublisher paginator = getAsyncClient().listGrantsPaginator(grantsRequest);
         return paginator.subscribe(response -> {
                 response.grants().forEach(grant -> {
-                    System.out.println("The grant Id is: " + grant.grantId());
+                    logger.info("The grant Id is: " + grant.grantId());
                 });
             })
             .thenApply(v -> null)
@@ -361,29 +359,26 @@ public class KMSActions {
             .grantId(grantId)
             .build();
 
-        return getAsyncClient().revokeGrant(grantRequest)
-            .whenComplete((response, exception) -> {
-                if (exception != null) {
-                    Throwable cause = exception.getCause();
-                    if (cause instanceof KmsException kmsEx) {
-                        if (kmsEx.getMessage().contains("Grant does not exist")) {
-                            // Grant does not exist.
-                            logger.info("The grant ID '" + grantId + "' does not exist. Moving on...");
-                        } else {
-                            logger.error("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
-                        }
+        CompletableFuture<RevokeGrantResponse> responseFuture = getAsyncClient().revokeGrant(grantRequest);
+        responseFuture.whenComplete((response, exception) -> {
+            if (exception == null) {
+                logger.info("Grant ID: [" + grantId + "] was successfully revoked!");
+            } else {
+                if (exception instanceof KmsException kmsEx) {
+                    if (kmsEx.getMessage().contains("Grant does not exist")) {
+                        logger.info("The grant ID '" + grantId + "' does not exist. Moving on...");
                     } else {
-                        logger.error("An unexpected error occurred: " + exception.getMessage(), exception);
+                        throw new RuntimeException("KMS error occurred: " + kmsEx.getMessage(), kmsEx);
                     }
                 } else {
-                    logger.info("Grant ID: [" + grantId + "] was successfully revoked!");
+                    throw new RuntimeException("An unexpected error occurred: " + exception.getMessage(), exception);
                 }
-            })
-            .exceptionally(throwable -> {
-                logger.error("Failed to revoke grant ID: [" + grantId + "]", throwable);
-                return null;
-            });
+            }
+        });
+
+        return responseFuture;
     }
+
     // snippet-end:[kms.java2_revoke_grant.main]
 
     // snippet-start:[kms.java2_decrypt_data.main]
@@ -402,12 +397,20 @@ public class KMSActions {
             .keyId(keyId)
             .build();
 
-        return getAsyncClient().decrypt(decryptRequest)
-            .thenApply(decryptResponse -> decryptResponse.plaintext().asString(StandardCharsets.UTF_8))
-            .exceptionally(throwable -> {
-                logger.error("Failed to decrypt data: " + throwable.getMessage(), throwable);
-                return "";
-            });
+        CompletableFuture<DecryptResponse> responseFuture = getAsyncClient().decrypt(decryptRequest);
+        responseFuture.whenComplete((decryptResponse, exception) -> {
+            if (exception == null) {
+                logger.info("Data decrypted successfully for key ID: " + keyId);
+            } else {
+                if (exception instanceof KmsException kmsEx) {
+                    throw new RuntimeException("KMS error occurred while decrypting data: " + kmsEx.getMessage(), kmsEx);
+                } else {
+                    throw new RuntimeException("An unexpected error occurred while decrypting data: " + exception.getMessage(), exception);
+                }
+            }
+        });
+
+        return responseFuture.thenApply(decryptResponse -> decryptResponse.plaintext().asString(StandardCharsets.UTF_8));
     }
     // snippet-end:[kms.java2_decrypt_data.main]
 
@@ -422,7 +425,6 @@ public class KMSActions {
      *         whether the policy replacement was successful or not
      */
     public CompletableFuture<Boolean> replacePolicyAsync(String keyId, String policyName, String accountId) {
-        // Change the principle in the below JSON.
         String policy = """
         {
           "Version": "2012-10-17",
@@ -528,14 +530,12 @@ public class KMSActions {
 
                         return getAsyncClient().verify(verifyRequest)
                             .thenApply(verifyResponse -> {
-                                boolean isSignatureValid = verifyResponse.signatureValid();
-                                return isSignatureValid;
+                                return (boolean) verifyResponse.signatureValid();
                             });
                     });
             })
             .exceptionally(throwable -> {
-                // Rethrow the exception to propagate it to the calling code
-                throw new RuntimeException("Failed to sign or verify data", throwable);
+               throw new RuntimeException("Failed to sign or verify data", throwable);
             });
     }
     // snippet-end:[kms.java2_sign.main]
@@ -547,7 +547,7 @@ public class KMSActions {
      * @param keyId the ID of the KMS key to be tagged
      * @return a {@link CompletableFuture} that completes when the tagging operation is finished
      */
-    public static CompletableFuture<Void> tagKMSKeyAsync(String keyId) {
+    public CompletableFuture<Void> tagKMSKeyAsync(String keyId) {
         Tag tag = Tag.builder()
             .tagKey("Environment")
             .tagValue("Production")
@@ -625,7 +625,7 @@ public class KMSActions {
      * @param keyId the ID of the KMS key to delete
      * @return a {@link CompletableFuture} that completes when the key deletion is scheduled
      */
-    public static CompletableFuture<Void> deleteKeyAsync(String keyId) {
+    public CompletableFuture<Void> deleteKeyAsync(String keyId) {
         ScheduleKeyDeletionRequest deletionRequest = ScheduleKeyDeletionRequest.builder()
             .keyId(keyId)
             .pendingWindowInDays(7)
@@ -648,5 +648,4 @@ public class KMSActions {
             return callerIdentity.account();
         }
     }
-
 }
