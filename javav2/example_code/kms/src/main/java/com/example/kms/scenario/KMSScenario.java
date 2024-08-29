@@ -439,7 +439,7 @@ public class KMSScenario {
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Boolean> future = kmsActions.signVerifyDataAsync();
-            boolean success = future.join(); // Wait for the operation to complete
+            boolean success = future.join();
             if (success) {
                 logger.info("Sign and verify data operation succeeded.");
             } else {
