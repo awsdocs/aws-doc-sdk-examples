@@ -122,8 +122,6 @@ public class S3ActionsTest {
         // Delete the S3 bucket and the test file after testing
         s3Actions.deleteObjectFromBucketAsync(BUCKET_NAME, objectKey).join();
         s3Actions.getAsyncClient().deleteBucket(DeleteBucketRequest.builder().bucket(BUCKET_NAME).build()).join();
-        Files.deleteIfExists(Paths.get(path));
-        Files.deleteIfExists(Paths.get("downloaded-file.txt"));
     }
 
     private static String getSecretValues() {
