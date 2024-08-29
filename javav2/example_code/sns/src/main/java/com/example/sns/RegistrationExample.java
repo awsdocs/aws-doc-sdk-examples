@@ -57,7 +57,6 @@ public class RegistrationExample {
 
         createEndpoint(snsClient, token, platformApplicationArn);
     }
-
     public static void createEndpoint(SnsClient snsClient, String token, String platformApplicationArn) {
         System.out.println("Creating platform endpoint with token " + token);
         try {
