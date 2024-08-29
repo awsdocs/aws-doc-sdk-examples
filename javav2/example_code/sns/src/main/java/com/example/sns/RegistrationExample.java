@@ -33,16 +33,20 @@ public class RegistrationExample {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:     <token> <platformApplicationArn>
+            Usage:     <token> <platformApplicationArn>
 
-                Where:
-                   token - The name of the FIFO topic.\s
-                   platformApplicationArn - The ARN value of platform application. You can get this value from the AWS Management Console.\s
-                """;
+            Where:
+               token - The device token or registration ID of the mobile device. This is a unique 
+               identifier provided by the device platform (e.g., Apple Push Notification Service (APNS) for iOS devices, Firebase Cloud Messaging (FCM) 
+               for Android devices) when the mobile app is registered to receive push notifications.
+
+               platformApplicationArn - The ARN value of platform application. You can get this value from the AWS Management Console.\s
+
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
-            System.exit(1);
+            return;
         }
 
         String token = args[0];
@@ -64,9 +68,9 @@ public class RegistrationExample {
 
             CreatePlatformEndpointResponse response = snsClient.createPlatformEndpoint(endpointRequest);
             System.out.println("The ARN of the endpoint is " + response.endpointArn());
+
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
         }
     }
 }
