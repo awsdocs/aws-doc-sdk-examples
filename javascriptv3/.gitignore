@@ -4,3 +4,4 @@ node_modules/
 package-lock.json
 test_results/
 test-results.xml
+state.json
