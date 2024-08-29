@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachLoadBalancerTargetGroups](../cross-services/wkflw-resilient-service/steps-deploy.js#L492)
+- [AttachLoadBalancerTargetGroups](../cross-services/wkflw-resilient-service/steps-deploy.js#L493)
 
 ### Scenarios
 

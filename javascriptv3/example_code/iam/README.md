@@ -51,7 +51,7 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteAccessKey](actions/delete-access-key.js#L6)
 - [DeleteAccountAlias](actions/delete-account-alias.js#L6)
 - [DeleteGroup](actions/delete-group.js#L6)
-- [DeleteInstanceProfile](../cross-services/wkflw-resilient-service/steps-destroy.js#L213)
+- [DeleteInstanceProfile](../cross-services/wkflw-resilient-service/steps-destroy.js#L216)
 - [DeletePolicy](actions/delete-policy.js#L6)
 - [DeleteRole](actions/delete-role.js#L6)
 - [DeleteRolePolicy](actions/delete-role-policy.js#L6)
