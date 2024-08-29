@@ -41,16 +41,15 @@ public class S3Scenario {
     private static final Logger logger = LoggerFactory.getLogger(S3Scenario.class);
     public static void main(String[] args) throws IOException {
         final String usage = """
+        Usage:
+           <key> <objectPath> <savePath> <toBucket>
 
-            Usage:
-               <key> <objectPath> <savePath> <toBucket>
-
-            Where:
-                key - The key to use.
-                objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).
-                savePath - The path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf).
-                toBucket - An Amazon S3 bucket to where an object is copied to.\s
-                """;
+        Where:
+            key - The unique identifier for the object stored in the S3 bucket.
+            objectPath - The full file path of the object within the S3 bucket (e.g., "documents/reports/annual_report.pdf").
+            savePath - The local file path where the object will be downloaded and saved (e.g., "C:/Users/username/Downloads/annual_report.pdf").
+            toBucket - The name of the S3 bucket to which the object will be copied.
+        """;
 
       // if (args.length != 4) {
       //     logger.info(usage);
