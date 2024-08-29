@@ -11,7 +11,6 @@ import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.core.retry.RetryPolicy;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsAsyncClient;
 import software.amazon.awssdk.services.kms.model.CreateAliasRequest;
 import software.amazon.awssdk.services.kms.model.CreateAliasResponse;
@@ -57,7 +56,6 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 // snippet-start:[kms.java2_actions.main]
@@ -65,6 +63,25 @@ public class KMSActions {
     private static final Logger logger = LoggerFactory.getLogger(KMSActions.class);
     private static KmsAsyncClient kmsAsyncClient;
 
+    /**
+     * Retrieves an asynchronous AWS Key Management Service (KMS) client.
+     * <p>
+     * This method creates and returns a singleton instance of the KMS async client, with the following configurations:
+     * <ul>
+     *   <li>Max concurrency: 100</li>
+     *   <li>Connection timeout: 60 seconds</li>
+     *   <li>Read timeout: 60 seconds</li>
+     *   <li>Write timeout: 60 seconds</li>
+     *   <li>API call timeout: 2 minutes</li>
+     *   <li>API call attempt timeout: 90 seconds</li>
+     *   <li>Retry policy: up to 3 retries</li>
+     *   <li>Credentials provider: environment variable credentials provider</li>
+     * </ul>
+     * <p>
+     * If the client instance has already been created, it is returned instead of creating a new one.
+     *
+     * @return the KMS async client instance
+     */
     private static KmsAsyncClient getAsyncClient() {
         if (kmsAsyncClient == null) {
             SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
@@ -83,7 +100,6 @@ public class KMSActions {
                 .build();
 
             kmsAsyncClient = KmsAsyncClient.builder()
-                .region(Region.US_EAST_1)
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -116,6 +132,14 @@ public class KMSActions {
     // snippet-end:[kms.java2_create_key.main]
 
     // snippet-start:[kms.java2_describe_key.main]
+    /**
+     * Asynchronously checks if a specified key is enabled.
+     *
+     * @param keyId the ID of the key to check
+     * @return a {@link CompletableFuture} that, when completed, indicates whether the key is enabled or not
+     *
+     * @throws RuntimeException if an exception occurs while checking the key state
+     */
     public CompletableFuture<Boolean> isKeyEnabledAsync(String keyId) {
         DescribeKeyRequest keyRequest = DescribeKeyRequest.builder()
             .keyId(keyId)
@@ -194,6 +218,13 @@ public class KMSActions {
     // snippet-end:[kms.java2_encrypt_data.main]
 
     // snippet-start:[kms.java2._create_alias.main]
+    /**
+     * Creates a custom alias for the specified target key asynchronously.
+     *
+     * @param targetKeyId the ID of the target key for the alias
+     * @param aliasName   the name of the alias to create
+     * @return a {@link CompletableFuture} that completes when the alias creation operation is finished
+     */
     public CompletableFuture<Void> createCustomAliasAsync(String targetKeyId, String aliasName) {
         CreateAliasRequest aliasRequest = CreateAliasRequest.builder()
             .aliasName(aliasName)
@@ -249,6 +280,13 @@ public class KMSActions {
     // snippet-end:[kms.java2_list_aliases.main]
 
     // snippet-start:[kms.java2._key_rotation.main]
+    /**
+     * Enables key rotation asynchronously for the specified key ID.
+     *
+     * @param keyId the ID of the key for which to enable key rotation
+     * @return a CompletableFuture that represents the asynchronous operation of enabling key rotation
+     * @throws RuntimeException if there was an error enabling key rotation, either due to a KMS exception or an unexpected error
+     */
     public CompletableFuture<EnableKeyRotationResponse> enableKeyRotationAsync(String keyId) {
         EnableKeyRotationRequest enableKeyRotationRequest = EnableKeyRotationRequest.builder()
             .keyId(keyId)
@@ -589,7 +627,6 @@ public class KMSActions {
             });
     }
     // snippet-end:[kms.java2_delete_alias.main]
-
 
     // snippet-start:[kms.java2_disable_key.main]
     /**
