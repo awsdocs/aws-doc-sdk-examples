@@ -47,13 +47,13 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateListener](../../cross_service/resilient_service/load_balancer.py#L172)
+- [CreateListener](../../cross_service/resilient_service/load_balancer.py#L176)
 - [CreateLoadBalancer](../../cross_service/resilient_service/load_balancer.py#L124)
 - [CreateTargetGroup](../../cross_service/resilient_service/load_balancer.py#L28)
-- [DeleteLoadBalancer](../../cross_service/resilient_service/load_balancer.py#L232)
+- [DeleteLoadBalancer](../../cross_service/resilient_service/load_balancer.py#L237)
 - [DeleteTargetGroup](../../cross_service/resilient_service/load_balancer.py#L85)
-- [DescribeLoadBalancers](../../cross_service/resilient_service/load_balancer.py#L265)
-- [DescribeTargetHealth](../../cross_service/resilient_service/load_balancer.py#L319)
+- [DescribeLoadBalancers](../../cross_service/resilient_service/load_balancer.py#L271)
+- [DescribeTargetHealth](../../cross_service/resilient_service/load_balancer.py#L325)
 
 ### Scenarios
 
