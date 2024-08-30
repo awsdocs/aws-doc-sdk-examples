@@ -7,13 +7,13 @@ cognito-identity_ListIdentityPools:
           github: swift/example_code/cognito-identity/FindOrCreateIdentityPool
           sdkguide: sdk-for-swift/latest/developer-guide/getting-started.html
           excerpts:
-            - description: >-
-                <para>Find the ID of an identity pool given its name.</para>
-                <programlisting language="swift" linenumbering="unnumbered">import AWSCognitoIdentity</programlisting>
+            - description:
               snippet_tags:
+                - cognitoidentity.swift.import
                 - cognitoidentity.swift.get-pool-id
             - description: Get the ID of an existing identity pool or create it if it doesn't already exist.
               snippet_tags:
+                - cognitoidentity.swift.import
                 - cognitoidentity.swift.get-or-create-pool-id
     Java:
       versions:
