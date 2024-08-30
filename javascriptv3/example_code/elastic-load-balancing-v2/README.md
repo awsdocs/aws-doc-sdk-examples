@@ -38,11 +38,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateListener](../cross-services/wkflw-resilient-service/steps-deploy.js#L463)
-- [CreateLoadBalancer](../cross-services/wkflw-resilient-service/steps-deploy.js#L435)
-- [CreateTargetGroup](../cross-services/wkflw-resilient-service/steps-deploy.js#L402)
-- [DeleteLoadBalancer](../cross-services/wkflw-resilient-service/steps-destroy.js#L293)
-- [DeleteTargetGroup](../cross-services/wkflw-resilient-service/steps-destroy.js#L327)
+- [CreateListener](../cross-services/wkflw-resilient-service/steps-deploy.js#L464)
+- [CreateLoadBalancer](../cross-services/wkflw-resilient-service/steps-deploy.js#L436)
+- [CreateTargetGroup](../cross-services/wkflw-resilient-service/steps-deploy.js#L403)
+- [DeleteLoadBalancer](../cross-services/wkflw-resilient-service/steps-destroy.js#L296)
+- [DeleteTargetGroup](../cross-services/wkflw-resilient-service/steps-destroy.js#L330)
 - [DescribeLoadBalancers](hello.js)
 - [DescribeTargetGroups](../cross-services/wkflw-resilient-service/steps-demo.js#L77)
 - [DescribeTargetHealth](../cross-services/wkflw-resilient-service/steps-demo.js#L86)

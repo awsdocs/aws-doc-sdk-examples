@@ -48,6 +48,7 @@ import {
   ScenarioInput,
   ScenarioAction,
 } from "@aws-doc-sdk-examples/lib/scenario/index.js";
+import { saveState } from "@aws-doc-sdk-examples/lib/scenario/steps-common.js";
 import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 import { MESSAGES, NAMES, RESOURCES_PATH, ROOT } from "./constants.js";
@@ -622,4 +623,5 @@ export const deploySteps = [
       );
     }
   }),
+  saveState,
 ];

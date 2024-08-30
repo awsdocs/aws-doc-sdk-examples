@@ -172,6 +172,9 @@ Some of the resources create by this demo are:
     "Detached SSM only role ${ROLE_NAME} from profile ${PROFILE_NAME}.",
   detachSsmOnlyRoleFromProfileError:
     "Error detaching SSM only role ${ROLE_NAME} from profile ${PROFILE_NAME}.",
+  revokeSecurityGroupIngressError:
+    "Error revoking security group ingress for ${IP}.",
+  revokedSecurityGroupIngress: "Revoked security group ingress for ${IP}",
 };
 
 export const PREFIX = "resilient-wkflw-";
