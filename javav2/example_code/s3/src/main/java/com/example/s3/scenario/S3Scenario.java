@@ -53,16 +53,16 @@ public class S3Scenario {
                 toBucket - The name of the S3 bucket to which the object will be copied.
             """;
 
-        // if (args.length != 4) {
-        //     logger.info(usage);
-        //      return;
-        // }
+        if (args.length != 4) {
+            logger.info(usage);
+            return;
+        }
 
         String bucketName = "scenario-" + UUID.randomUUID();
-        String key = "book2.pdf"; //args[0];
-        String objectPath = "C:/AWS/book2.pdf"; // args[1];
-        String savePath = "C:/AWS/book4.pdf"; //; args[2];
-        String toBucket = "myjunebucket"; //  args[3];
+        String key = args[0];
+        String objectPath = args[1];
+        String savePath = args[2];
+        String toBucket = args[3];
 
 
         logger.info(DASHES);
