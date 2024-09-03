@@ -40,15 +40,15 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CopyObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L165)
-- [CreateBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L42)
-- [DeleteBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L57)
-- [DeleteObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L184)
-- [DeleteObjects](DeleteObjects/Sources/ServiceHandler/ServiceHandler.swift#L54)
-- [GetObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L113)
-- [ListBuckets](ListBuckets/Sources/ListBuckets/S3Session.swift#L70)
-- [ListObjectsV2](basics/Sources/ServiceHandler/ServiceHandler.swift#L205)
-- [PutObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L71)
+- [CopyObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
+- [CreateBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
+- [DeleteBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
+- [DeleteObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
+- [DeleteObjects](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
+- [GetObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L116)
+- [ListBuckets](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
+- [ListObjectsV2](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
+- [PutObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L11)
 
 
 <!--custom.examples.start-->
@@ -109,7 +109,7 @@ in the `swift` folder.
 
 - [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
 - [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
-- [SDK for Swift Amazon S3 reference](https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWSS3/Home)
+- [SDK for Swift Amazon S3 reference](https://sdk.amazonaws.com/swift/api/awss3/latest/documentation/awss3)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

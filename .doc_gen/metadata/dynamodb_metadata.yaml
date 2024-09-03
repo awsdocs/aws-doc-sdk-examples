@@ -173,7 +173,7 @@ dynamodb_CreateTable:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb
+          github: swift/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -256,7 +256,7 @@ dynamodb_BatchGetItem:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb
+          github: swift/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -458,7 +458,7 @@ dynamodb_BatchWriteItem:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb/
+          github: swift/example_code/dynamodb/
           excerpts:
             - description:
               snippet_tags:
@@ -587,7 +587,7 @@ dynamodb_DeleteTable:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb
+          github: swift/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -723,7 +723,7 @@ dynamodb_PutItem:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb
+          github: swift/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -850,7 +850,7 @@ dynamodb_GetItem:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb
+          github: swift/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -974,7 +974,7 @@ dynamodb_UpdateItem:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb
+          github: swift/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -1116,7 +1116,7 @@ dynamodb_DeleteItem:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb
+          github: swift/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -1249,7 +1249,7 @@ dynamodb_ListTables:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb
+          github: swift/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -1388,7 +1388,7 @@ dynamodb_Query:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb
+          github: swift/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -1519,7 +1519,7 @@ dynamodb_Scan:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb
+          github: swift/example_code/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -1982,7 +1982,7 @@ dynamodb_Scenario_GettingStartedMovies:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb
+          github: swift/example_code/dynamodb
           excerpts:
             - description: A Swift class that handles &DDB; calls to the &Swift;.
               snippet_tags:
