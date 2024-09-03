@@ -79,7 +79,7 @@ in the `swift` folder.
 
 - [Amazon Cognito Identity Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html)
 - [Amazon Cognito Identity API Reference](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html)
-- [SDK for Swift Amazon Cognito Identity reference](https://sdk.amazonaws.com/swift/api/awscognito-identity/latest/documentation/awscognito-identity)
+- [SDK for Swift Amazon Cognito Identity reference](https://sdk.amazonaws.com/swift/api/awscognitoidentity/latest/documentation/awscognitoidentity)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
