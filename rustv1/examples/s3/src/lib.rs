@@ -1,31 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[rust.example_code.s3.scenario_getting_started.lib]
-
-use aws_config::Region;
-use aws_sdk_s3::operation::create_bucket::CreateBucketOutput;
-use aws_sdk_s3::types::{
-    BucketLocationConstraint, CreateBucketConfiguration, Delete, ObjectIdentifier,
-};
-use aws_sdk_s3::{error::SdkError, primitives::ByteStream, Client};
-use aws_sdk_s3::{
-    operation::{
-        get_object::{GetObjectError, GetObjectOutput},
-        put_object::PutObjectOutput,
-    },
-    types::CopyObjectResult,
-};
 use error::S3ExampleError;
-use std::path::Path;
-use std::str;
-
 pub mod error;
 
-// snippet-start:[rust.copy-object]
+// snippet-start:[rust.copy_object]
 /// Copy an object from one bucket to another.
 pub async fn copy_object(
-    client: &Client,
+    client: &aws_sdk_s3::Client,
     source_bucket: &str,
     destination_bucket: &str,
     source_object: &str,
@@ -44,17 +26,21 @@ pub async fn copy_object(
         "Copied from {source_key} to {destination_bucket}/{destination_object} with etag {}",
         response
             .copy_object_result
-            .unwrap_or_else(|| CopyObjectResult::builder().build())
+            .unwrap_or_else(|| aws_sdk_s3::types::CopyObjectResult::builder().build())
             .e_tag()
             .unwrap_or("missing")
     );
     Ok(())
 }
-// snippet-end:[bin.rust.copy-object]
+// snippet-end:[s3.rust.copy_object]
 
-// snippet-start:[s3.rust.delete-object]
+// snippet-start:[s3.rust.delete_object]
 /// Delete an object from a bucket.
-pub async fn remove_object(client: &Client, bucket: &str, key: &str) -> Result<(), S3ExampleError> {
+pub async fn remove_object(
+    client: &aws_sdk_s3::Client,
+    bucket: &str,
+    key: &str,
+) -> Result<(), S3ExampleError> {
     client
         .delete_object()
         .bucket(bucket)
@@ -62,36 +48,36 @@ pub async fn remove_object(client: &Client, bucket: &str, key: &str) -> Result<(
         .send()
         .await?;
 
-    println!("Object deleted.");
+    // There are no modeled errors to handle when deleting an object.
 
     Ok(())
 }
-// snippet-end:[s3.rust.delete-object]
+// snippet-end:[s3.rust.delete_object]
 
-// snippet-start:[rust.example_code.s3.basics.download_object]
+// snippet-start:[s3.rust.download_object]
 pub async fn download_object(
-    client: &Client,
+    client: &aws_sdk_s3::Client,
     bucket_name: &str,
     key: &str,
-) -> Result<GetObjectOutput, SdkError<GetObjectError>> {
+) -> Result<aws_sdk_s3::operation::get_object::GetObjectOutput, S3ExampleError> {
     client
         .get_object()
         .bucket(bucket_name)
         .key(key)
         .send()
         .await
+        .map_err(S3ExampleError::from)
 }
-// snippet-end:[rust.example_code.s3.basics.download_object]
+// snippet-end:[s3.rust.download_object]
 
-// snippet-start:[rust.example_code.s3.basics.upload_object]
-// snippet-start:[rust.example_code.s3.basics.put_object]
+// snippet-start:[s3.rust.upload_object]
 pub async fn upload_object(
-    client: &Client,
+    client: &aws_sdk_s3::Client,
     bucket_name: &str,
     file_name: &str,
     key: &str,
-) -> Result<PutObjectOutput, S3ExampleError> {
-    let body = ByteStream::from_path(Path::new(file_name)).await;
+) -> Result<aws_sdk_s3::operation::put_object::PutObjectOutput, S3ExampleError> {
+    let body = aws_sdk_s3::primitives::ByteStream::from_path(std::path::Path::new(file_name)).await;
     client
         .put_object()
         .bucket(bucket_name)
@@ -101,11 +87,10 @@ pub async fn upload_object(
         .await
         .map_err(S3ExampleError::from)
 }
-// snippet-end:[rust.example_code.s3.basics.put_object]
-// snippet-end:[rust.example_code.s3.basics.upload_object]
+// snippet-end:[s3.rust.upload_object]
 
-// snippet-start:[rust.example_code.s3.basics.list_objects]
-pub async fn list_objects(client: &Client, bucket: &str) -> Result<(), S3ExampleError> {
+// snippet-start:[s3.rust.list_objects]
+pub async fn list_objects(client: &aws_sdk_s3::Client, bucket: &str) -> Result<(), S3ExampleError> {
     let mut response = client
         .list_objects_v2()
         .bucket(bucket.to_owned())
@@ -128,13 +113,13 @@ pub async fn list_objects(client: &Client, bucket: &str) -> Result<(), S3Example
 
     Ok(())
 }
-// snippet-end:[rust.example_code.s3.basics.list_objects]
+// snippet-end:[s3.rust.list_objects]
 
-// snippet-start:[rust.example_code.s3.basics.clear_bucket]
+// snippet-start:[s3.rust.clear_bucket]
 /// Given a bucket, remove all objects in the bucket, and then ensure no objects
 /// remain in the bucket.
 pub async fn clear_bucket(
-    client: &Client,
+    client: &aws_sdk_s3::Client,
     bucket_name: &str,
 ) -> Result<Vec<String>, S3ExampleError> {
     let objects = client.list_objects_v2().bucket(bucket_name).send().await?;
@@ -142,7 +127,7 @@ pub async fn clear_bucket(
     // delete_objects no longer needs to be mutable.
     let objects_to_delete: Vec<String> = objects
         .contents()
-        .into_iter()
+        .iter()
         .filter_map(|obj| obj.key())
         .map(String::from)
         .collect();
@@ -166,19 +151,19 @@ pub async fn clear_bucket(
         )),
     }
 }
-// snippet-end:[rust.example_code.s3.basics.clear_bucket]
+// snippet-end:[s3.rust.clear_bucket]
 
-// snippet-start:[rust.example_code.s3.delete_objects]
+// snippet-start:[s3.rust.delete_objects]
 /// Delete the objects in a bucket.
 pub async fn delete_objects(
-    client: &Client,
+    client: &aws_sdk_s3::Client,
     bucket_name: &str,
     objects_to_delete: Vec<String>,
 ) -> Result<(), S3ExampleError> {
-    // Push into a mut vector to use `?` early return while building object keys.
-    let mut delete_object_ids: Vec<ObjectIdentifier> = vec![];
+    // Push into a mut vector to use `?` early return errors while building object keys.
+    let mut delete_object_ids: Vec<aws_sdk_s3::types::ObjectIdentifier> = vec![];
     for obj in objects_to_delete {
-        let obj_id = ObjectIdentifier::builder()
+        let obj_id = aws_sdk_s3::types::ObjectIdentifier::builder()
             .key(obj)
             .build()
             .map_err(|err| {
@@ -191,7 +176,7 @@ pub async fn delete_objects(
         .delete_objects()
         .bucket(bucket_name)
         .delete(
-            Delete::builder()
+            aws_sdk_s3::types::Delete::builder()
                 .set_objects(Some(delete_object_ids))
                 .build()
                 .map_err(|err| {
@@ -202,17 +187,16 @@ pub async fn delete_objects(
         .await?;
     Ok(())
 }
-// snippet-end:[rust.example_code.s3.basics.delete_objects]
+// snippet-end:[s3.rust.delete_objects]
 
-// snippet-start:[rust.example_code.s3.basics.create_bucket]
-// snippet-start:[s3.rust.create-bucket]
+// snippet-start:[s3.rust.create_bucket]
 pub async fn create_bucket(
-    client: &Client,
+    client: &aws_sdk_s3::Client,
     bucket_name: &str,
-    region: &Region,
-) -> Result<Option<CreateBucketOutput>, S3ExampleError> {
-    let constraint = BucketLocationConstraint::from(region.to_string().as_str());
-    let cfg = CreateBucketConfiguration::builder()
+    region: &aws_config::Region,
+) -> Result<Option<aws_sdk_s3::operation::create_bucket::CreateBucketOutput>, S3ExampleError> {
+    let constraint = aws_sdk_s3::types::BucketLocationConstraint::from(region.to_string().as_str());
+    let cfg = aws_sdk_s3::types::CreateBucketConfiguration::builder()
         .location_constraint(constraint)
         .build();
     let create = client
@@ -235,17 +219,18 @@ pub async fn create_bucket(
         }
     })
 }
-// snippet-end:[s3.rust.create-bucket]
-// snippet-end:[rust.example_code.s3.basics.create_bucket]
-// snippet-end:[rust.example_code.s3.scenario_getting_started.lib]
+// snippet-end:[s3.rust.create_bucket]
 
-// snippet-start:[rust.example_code.s3.basics.delete_bucket]
-pub async fn delete_bucket(client: &Client, bucket_name: &str) -> Result<(), S3ExampleError> {
-    client.delete_bucket().bucket(bucket_name).send().await?;
-    println!("Bucket deleted");
+// snippet-start:[s3.rust.delete_bucket]
+pub async fn delete_bucket(
+    client: &aws_sdk_s3::Client,
+    bucket_name: &str,
+) -> Result<(), S3ExampleError> {
+    let resp = client.delete_bucket().bucket(bucket_name).send().await?;
+    // if resp.is_ok() || resp.is_err_and(|err| err.source())
     Ok(())
 }
-// snippet-end:[rust.example_code.s3.basics.delete_bucket]
+// snippet-end:[s3.rust.delete_bucket]
 
 #[cfg(test)]
 mod test {

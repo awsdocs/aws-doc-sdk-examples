@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-use aws_sdk_s3::error::ProvideErrorMetadata;
-
 // snippet-start:[s3.rust.s3-example-error]
 /// S3ExampleError provides a From<T: ProvideErrorMetadata> impl to extract
 /// client-specific error details. This serves as a consistent backup to handling
@@ -20,7 +18,7 @@ impl S3ExampleError {
     }
 }
 
-impl<T: ProvideErrorMetadata> From<T> for S3ExampleError {
+impl<T: aws_sdk_s3::error::ProvideErrorMetadata> From<T> for S3ExampleError {
     fn from(value: T) -> Self {
         S3ExampleError(format!(
             "{}: {}",
