@@ -10,7 +10,9 @@
 // snippet-start:[iam.swift.basics.sts.imports]
 import Foundation
 import AWSIAM
+// snippet-start:[sts.swift.import]
 import AWSSTS
+// snippet-end:[sts.swift.import]
 import ClientRuntime
 import SwiftUtilities
 import AWSSDKIdentity
