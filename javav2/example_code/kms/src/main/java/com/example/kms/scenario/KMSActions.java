@@ -35,6 +35,7 @@ import software.amazon.awssdk.services.kms.model.KeySpec;
 import software.amazon.awssdk.services.kms.model.KeyState;
 import software.amazon.awssdk.services.kms.model.KeyUsageType;
 import software.amazon.awssdk.services.kms.model.KmsException;
+import software.amazon.awssdk.services.kms.model.LimitExceededException;
 import software.amazon.awssdk.services.kms.model.ListAliasesRequest;
 import software.amazon.awssdk.services.kms.model.ListGrantsRequest;
 import software.amazon.awssdk.services.kms.model.OriginType;
@@ -464,16 +465,16 @@ public class KMSActions {
      */
     public CompletableFuture<Boolean> replacePolicyAsync(String keyId, String policyName, String accountId) {
         String policy = """
-        {
-          "Version": "2012-10-17",
-          "Statement": [{
-            "Effect": "Allow",
-            "Principal": {"AWS": "arn:aws:iam::%s:root"},
-            "Action": "kms:*",
-            "Resource": "*"
-          }]
-        }
-        """.formatted(accountId);
+    {
+      "Version": "2012-10-17",
+      "Statement": [{
+        "Effect": "Allow",
+        "Principal": {"AWS": "arn:aws:iam::%s:root"},
+        "Action": "kms:*",
+        "Resource": "*"
+      }]
+    }
+    """.formatted(accountId);
 
         PutKeyPolicyRequest keyPolicyRequest = PutKeyPolicyRequest.builder()
             .keyId(keyId)
@@ -481,15 +482,25 @@ public class KMSActions {
             .policy(policy)
             .build();
 
-        return getAsyncClient().putKeyPolicy(keyPolicyRequest)
-            .thenApply(response -> {
+        // First, get the current policy to check if it exists
+        return getAsyncClient().getKeyPolicy(r -> r.keyId(keyId).policyName(policyName))
+            .thenCompose(response -> {
+                logger.info("Current policy exists. Replacing it...");
+                return getAsyncClient().putKeyPolicy(keyPolicyRequest);
+            })
+            .thenApply(putPolicyResponse -> {
                 logger.info("The key policy has been replaced.");
                 return true;
             })
             .exceptionally(throwable -> {
+                if (throwable.getCause() instanceof LimitExceededException) {
+                    logger.error("Cannot replace policy, as only one policy is allowed per key.");
+                    return false;
+                }
                 throw new RuntimeException("Error replacing policy", throwable);
             });
     }
+
     // snippet-end:[kms.java2_set_policy.main]
 
     // snippet-start:[kms.java2_get_policy.main]

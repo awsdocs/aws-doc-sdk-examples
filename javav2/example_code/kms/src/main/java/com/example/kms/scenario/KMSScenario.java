@@ -48,11 +48,11 @@ public class KMSScenario {
                granteePrincipal - The principal (user, service account, or group) to whom the grant or permission is being given. 
             """;
 
-        if (args.length != 1) {
-            logger.info(usage);
-            return;
-        }
-        String granteePrincipal = args[0];
+      //  if (args.length != 1) {
+      //      logger.info(usage);
+      //      return;
+      //  }
+        String granteePrincipal = "arn:aws:iam::814548047983:user/kmsuser" ; //args[0];
         String policyName = "default";
 
         accountId = kmsActions.getAccountId();
