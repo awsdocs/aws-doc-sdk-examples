@@ -3,12 +3,10 @@
 
 #![allow(clippy::result_large_err)]
 
-use std::error::Error;
-
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::{config::Region, meta::PKG_VERSION, types::BucketLocationConstraint, Client};
 use clap::Parser;
-use s3_service::error::S3ExampleError;
+use s3_code_examples::error::S3ExampleError;
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -78,7 +76,7 @@ async fn show_buckets(
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() -> Result<(), S3ExampleError> {
     tracing_subscriber::fmt::init();
 
     let Opt {

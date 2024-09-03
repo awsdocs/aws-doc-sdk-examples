@@ -3,12 +3,10 @@
 
 #![allow(clippy::result_large_err)]
 
-use std::error::Error;
-
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::{config::Region, meta::PKG_VERSION, types::CopyObjectResult, Client};
+use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client};
 use clap::Parser;
-use s3_service::error::S3ExampleError;
+use s3_code_examples::{copy_object, error::S3ExampleError};
 
 #[derive(Debug, Parser)]
 struct Opt {

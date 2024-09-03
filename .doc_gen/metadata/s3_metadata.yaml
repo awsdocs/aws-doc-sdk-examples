@@ -74,6 +74,9 @@ s3_Hello:
           excerpts:
             - snippet_tags:
                 - s3.rust.s3-helloworld
+            - description: S3ExampleError utilities
+            - snippet_tags:
+                - s3.rust.s3-example-error
   services:
     s3: {ListBuckets}
 s3_CreateBucket:

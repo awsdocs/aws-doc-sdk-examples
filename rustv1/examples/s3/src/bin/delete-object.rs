@@ -4,9 +4,9 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
+use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client};
 use clap::Parser;
-use s3_service::error::S3ExampleError;
+use s3_code_examples::{error::S3ExampleError, remove_object};
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -27,22 +27,6 @@ struct Opt {
     verbose: bool,
 }
 
-// Delete an object from a bucket.
-// snippet-start:[s3.rust.delete-object]
-async fn remove_object(client: &Client, bucket: &str, key: &str) -> Result<(), S3ExampleError> {
-    client
-        .delete_object()
-        .bucket(bucket)
-        .key(key)
-        .send()
-        .await?;
-
-    println!("Object deleted.");
-
-    Ok(())
-}
-// snippet-end:[s3.rust.delete-object]
-
 /// Deletes an object in an Amazon S3 bucket.
 /// # Arguments
 ///
@@ -53,7 +37,7 @@ async fn remove_object(client: &Client, bucket: &str, key: &str) -> Result<(), S
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() -> Result<(), S3ExampleError> {
     tracing_subscriber::fmt::init();
 
     let Opt {

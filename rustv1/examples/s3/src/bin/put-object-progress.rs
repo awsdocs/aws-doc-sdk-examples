@@ -17,6 +17,7 @@ use aws_smithy_runtime_api::http::Request;
 use bytes::Bytes;
 use clap::Parser;
 use http_body::{Body, SizeHint};
+use s3_code_examples::error::S3ExampleError;
 use tracing::{debug, info};
 
 #[derive(Debug, Parser)]
@@ -143,7 +144,8 @@ async fn put_object(client: &Client, opts: &Opt) -> Result<(), S3ExampleError> {
         // progress steps.
         .buffer_size(2048)
         .build()
-        .await?;
+        .await
+        .map_err(|err| S3ExampleError::new(format!("Failed to start file read stream: {err:?}")))?;
 
     let request = client
         .put_object()

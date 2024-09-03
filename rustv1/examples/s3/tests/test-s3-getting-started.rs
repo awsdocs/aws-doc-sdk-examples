@@ -3,7 +3,7 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::{config::Region, Client};
-use s3_service::error::S3ExampleError;
+use s3_code_examples::error::S3ExampleError;
 use uuid::Uuid;
 
 #[ignore]
@@ -22,13 +22,13 @@ async fn run_s3_operations(
     key: String,
     target_key: String,
 ) -> Result<(), S3ExampleError> {
-    s3_service::create_bucket(&client, &bucket_name, region.as_ref()).await?;
-    s3_service::upload_object(&client, &bucket_name, &file_name, &key).await?;
-    s3_service::download_object(&client, &bucket_name, &key).await?;
-    s3_service::copy_object(&client, &bucket_name, &key, &target_key).await?;
-    s3_service::list_objects(&client, &bucket_name).await?;
-    s3_service::clear_bucket(&client, &bucket_name).await?;
-    s3_service::delete_bucket(&client, &bucket_name).await?;
+    s3_code_examples::create_bucket(&client, &bucket_name, &region).await?;
+    s3_code_examples::upload_object(&client, &bucket_name, &file_name, &key).await?;
+    s3_code_examples::download_object(&client, &bucket_name, &key).await?;
+    s3_code_examples::copy_object(&client, &bucket_name, &bucket_name, &key, &target_key).await?;
+    s3_code_examples::list_objects(&client, &bucket_name).await?;
+    s3_code_examples::clear_bucket(&client, &bucket_name).await?;
+    s3_code_examples::delete_bucket(&client, &bucket_name).await?;
 
     Ok(())
 }

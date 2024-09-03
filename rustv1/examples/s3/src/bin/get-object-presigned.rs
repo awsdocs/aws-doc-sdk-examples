@@ -46,7 +46,7 @@ async fn get_object(
         .get_object()
         .bucket(bucket)
         .key(object)
-        .presigned(PresigningConfig::expires_in(&expires_in)?)
+        .presigned(PresigningConfig::expires_in(expires_in)?)
         .await?;
 
     println!("Object URI: {}", presigned_request.uri());

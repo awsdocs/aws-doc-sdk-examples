@@ -4,11 +4,9 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::error::SdkError;
-use aws_sdk_s3::operation::create_bucket::{CreateBucketError, CreateBucketOutput};
-use aws_sdk_s3::types::{BucketLocationConstraint, CreateBucketConfiguration};
-use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
+use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client};
 use clap::Parser;
+use s3_code_examples::{create_bucket, error::S3ExampleError};
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -25,54 +23,6 @@ struct Opt {
     verbose: bool,
 }
 
-// snippet-start:[s3.rust.create-bucket]
-/// Creates a bucket.
-async fn make_bucket(
-    client: &Client,
-    bucket: &str,
-    region: &str,
-) -> Result<CreateBucketOutput, S3ExampleError> {
-    let constraint = BucketLocationConstraint::from(region);
-    let cfg = CreateBucketConfiguration::builder()
-        .location_constraint(constraint)
-        .build();
-
-    let response = client
-        .create_bucket()
-        .create_bucket_configuration(cfg)
-        .bucket(bucket)
-        .send()
-        .await?;
-
-    println!("Created bucket at {}", response.location);
-
-    Ok(())
-}
-// snippet-end:[s3.rust.create-bucket]
-
-#[cfg(test)]
-mod test_make_bucket {
-    use sdk_examples_test_utils::single_shot_client;
-
-    use crate::make_bucket;
-
-    #[tokio::test]
-    async fn test_make_bucket() {
-        let client = single_shot_client! {
-            sdk: aws_sdk_s3,
-            status: 200,
-            headers: vec![("Location", "/test_bucket")],
-            response: r#""#
-        };
-
-        let res = make_bucket(&client, "bucket", "region").await;
-
-        assert!(res.is_ok(), "{res:?}");
-
-        assert_eq!(res.unwrap().location(), Some("/test_bucket"))
-    }
-}
-
 /// Creates an Amazon S3 bucket in the Region.
 /// # Arguments
 ///
@@ -82,7 +32,7 @@ mod test_make_bucket {
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() -> Result<(), S3ExampleError> {
     tracing_subscriber::fmt::init();
 
     let Opt {
@@ -95,17 +45,11 @@ async fn main() -> Result<(), Error> {
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
 
-    println!();
-
-    let r_rgr = region_provider.region().await.unwrap();
-    let r_str = r_rgr.as_ref();
+    let region = region_provider.region().await.unwrap();
 
     if verbose {
         println!("S3 client version: {}", PKG_VERSION);
-        println!(
-            "Region:            {}",
-            region_provider.region().await.unwrap().as_ref()
-        );
+        println!("Region:            {}", region);
         println!("Bucket:            {}", &bucket);
         println!();
     }
@@ -113,7 +57,7 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    make_bucket(&client, &bucket, r_str).await?;
+    create_bucket(&client, &bucket, &region).await?;
     println!("Created bucket.");
 
     Ok(())

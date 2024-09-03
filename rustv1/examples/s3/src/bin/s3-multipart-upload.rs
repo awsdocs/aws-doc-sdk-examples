@@ -19,7 +19,7 @@ use aws_sdk_s3::{config::Region, Client as S3Client};
 use aws_smithy_types::byte_stream::{ByteStream, Length};
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
-use s3_service::error::S3ExampleError;
+use s3_code_examples::error::S3ExampleError;
 use std::process;
 use uuid::Uuid;
 
@@ -42,7 +42,7 @@ async fn run_example() -> Result<(), S3ExampleError> {
     let bucket_name = format!("doc-example-bucket-{}", Uuid::new_v4());
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
     let region = region_provider.region().await.unwrap();
-    s3_service::create_bucket(&client, &bucket_name, region.as_ref()).await?;
+    s3_code_examples::create_bucket(&client, &bucket_name, &region).await?;
 
     let key = "sample.txt".to_string();
     // snippet-start:[rust.example_code.s3.create_multipart_upload]
@@ -145,7 +145,8 @@ async fn run_example() -> Result<(), S3ExampleError> {
         .unwrap();
     // snippet-end:[rust.example_code.s3.complete_multipart_upload]
 
-    let data: GetObjectOutput = s3_service::download_object(&client, &bucket_name, &key).await?;
+    let data: GetObjectOutput =
+        s3_code_examples::download_object(&client, &bucket_name, &key).await?;
     let data_length: u64 = data
         .content_length()
         .unwrap_or_default()
@@ -157,10 +158,10 @@ async fn run_example() -> Result<(), S3ExampleError> {
         println!("The data was not the same size!");
     }
 
-    s3_service::clear_bucket(&client, &bucket_name)
+    s3_code_examples::clear_bucket(&client, &bucket_name)
         .await
         .expect("Error emptying bucket.");
-    s3_service::delete_bucket(&client, &bucket_name)
+    s3_code_examples::delete_bucket(&client, &bucket_name)
         .await
         .expect("Error deleting bucket.");
 

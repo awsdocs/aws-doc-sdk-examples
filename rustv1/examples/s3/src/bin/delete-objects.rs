@@ -4,11 +4,9 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::types::{Delete, ObjectIdentifier};
-use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
+use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client};
 use clap::Parser;
-use s3_service::error::S3ExampleError;
-use s3_service::remove_objects;
+use s3_code_examples::{delete_objects, error::S3ExampleError};
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -69,9 +67,5 @@ async fn main() -> Result<(), S3ExampleError> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let removed = remove_objects(&client, &bucket, objects).await?;
-
-    println!("{} objects deleted", removed);
-
-    Ok(())
+    delete_objects(&client, &bucket, objects).await
 }

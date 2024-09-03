@@ -3,7 +3,11 @@
 
 use aws_sdk_s3::error::ProvideErrorMetadata;
 
-/// S3ExampleError provides a
+// snippet-start:[s3.rust.s3-example-error]
+/// S3ExampleError provides a From<T: ProvideErrorMetadata> impl to extract
+/// client-specific error details. This serves as a consistent backup to handling
+/// specific service errors, depending on what is needed by the scenario.
+/// It is used throughout the code examples for the AWS SDK for Rust.
 #[derive(Debug)]
 pub struct S3ExampleError(String);
 impl S3ExampleError {
@@ -39,3 +43,4 @@ impl std::fmt::Display for S3ExampleError {
         write!(f, "{}", self.0)
     }
 }
+// snippet-end:[s3.rust.s3-example-error]
