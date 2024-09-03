@@ -37,37 +37,38 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 
 public class S3Scenario {
 
+    public static Scanner scanner = new Scanner(System.in);
+    static S3Actions s3Actions = new S3Actions();
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     private static final Logger logger = LoggerFactory.getLogger(S3Scenario.class);
     public static void main(String[] args) throws IOException {
         final String usage = """
-        Usage:
-           <key> <objectPath> <savePath> <toBucket>
+            Usage:
+               <key> <objectPath> <savePath> <toBucket>
 
-        Where:
-            key - The unique identifier for the object stored in the S3 bucket.
-            objectPath - The full file path of the object within the S3 bucket (e.g., "documents/reports/annual_report.pdf").
-            savePath - The local file path where the object will be downloaded and saved (e.g., "C:/Users/username/Downloads/annual_report.pdf").
-            toBucket - The name of the S3 bucket to which the object will be copied.
-        """;
+            Where:
+                key - The unique identifier for the object stored in the S3 bucket.
+                objectPath - The full file path of the object within the S3 bucket (e.g., "documents/reports/annual_report.pdf").
+                savePath - The local file path where the object will be downloaded and saved (e.g., "C:/Users/username/Downloads/annual_report.pdf").
+                toBucket - The name of the S3 bucket to which the object will be copied.
+            """;
 
-      // if (args.length != 4) {
-      //     logger.info(usage);
-      //      return;
-      // }
+        // if (args.length != 4) {
+        //     logger.info(usage);
+        //      return;
+        // }
 
         String bucketName = "scenario-" + UUID.randomUUID();
-        String key = "book2.pdf" ; //args[0];
+        String key = "book2.pdf"; //args[0];
         String objectPath = "C:/AWS/book2.pdf"; // args[1];
         String savePath = "C:/AWS/book4.pdf"; //; args[2];
-        String toBucket =  "myjunebucket" ; //  args[3];
-        Scanner scanner = new Scanner(System.in);
-        S3Actions s3Actions = new S3Actions();
+        String toBucket = "myjunebucket"; //  args[3];
+
 
         logger.info(DASHES);
-        logger.info("Welcome to the Amazon S3 example scenario.");
+        logger.info("Welcome to the Amazon Simple Storage Service (S3) example scenario.");
         logger.info("""
-            Amazon S3 (Simple Storage Service) is a highly scalable and durable object storage 
+            Amazon S3 is a highly scalable and durable object storage 
             service provided by Amazon Web Services (AWS). It is designed to store and retrieve 
             any amount of data, from anywhere on the web, at any time.
                         
@@ -77,13 +78,28 @@ public class S3Scenario {
             part of their application deployment pipelines. With S3, teams can focus on building 
             and deploying their applications without having to worry about the underlying storage 
             infrastructure required to host and manage large amounts of data.
-            
+                        
             This scenario walks you through how to perform key operations for this service.  
             Let's get started...
             """);
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
+        try {
+            // Run the methods that belong to this scenario.
+            runScenario(bucketName, key, objectPath, savePath, toBucket);
+
+        } catch (Throwable rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof S3Exception kmsEx) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(), kmsEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
+        }
+    }
+
+    private static void runScenario(String bucketName, String key, String objectPath, String savePath, String toBucket) throws Throwable {
         logger.info(DASHES);
         logger.info("1. Create an Amazon S3 bucket.");
         try {
@@ -98,6 +114,8 @@ public class S3Scenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
+
         }
         logger.info(DASHES);
 
@@ -116,6 +134,7 @@ public class S3Scenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -136,6 +155,7 @@ public class S3Scenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -157,6 +177,7 @@ public class S3Scenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -176,6 +197,7 @@ public class S3Scenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -195,6 +217,7 @@ public class S3Scenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -213,6 +236,7 @@ public class S3Scenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         try {
             CompletableFuture<Void> future = s3Actions.deleteObjectFromBucketAsync(bucketName, "multiPartKey");
@@ -225,6 +249,7 @@ public class S3Scenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -243,6 +268,7 @@ public class S3Scenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
