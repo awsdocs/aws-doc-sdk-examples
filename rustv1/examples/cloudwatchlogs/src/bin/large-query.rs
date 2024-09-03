@@ -27,7 +27,11 @@ use sdk_examples_test_utils::wait_on;
 #[derive(Debug)]
 enum LargeQueryError {
     DateOutOfBounds,
+    // Internal error is used in Debug output
+    #[allow(dead_code)]
     FromCloudwatchLogs(Error),
+    // Internal error is used in Debug output
+    #[allow(dead_code)]
     FromChronoParse(chrono::ParseError),
 }
 

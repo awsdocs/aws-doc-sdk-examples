@@ -20,7 +20,7 @@ use aws_sdk_s3::{
 };
 use aws_smithy_types::Blob;
 use serde::{ser::SerializeMap, Serialize};
-use std::{path::PathBuf, str::FromStr, time::Duration};
+use std::{fmt::Display, path::PathBuf, str::FromStr, time::Duration};
 use tracing::{debug, info, warn};
 
 /* Operation describes  */
@@ -50,13 +50,13 @@ impl FromStr for Operation {
     }
 }
 
-impl ToString for Operation {
-    fn to_string(&self) -> String {
+impl Display for Operation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Operation::Plus => "plus".to_string(),
-            Operation::Minus => "minus".to_string(),
-            Operation::Times => "times".to_string(),
-            Operation::DividedBy => "divided-by".to_string(),
+            Operation::Plus => write!(f, "plus"),
+            Operation::Minus => write!(f, "minus"),
+            Operation::Times => write!(f, "times"),
+            Operation::DividedBy => write!(f, "divided-by"),
         }
     }
 }
