@@ -12,7 +12,7 @@ import Foundation
 import AWSS3
 import ClientRuntime
 import SwiftUtilities
-import AWSClientRuntime
+import AWSSDKIdentity
 // snippet-end:[iam.swift.basics.s3.imports]
 
 public class ServiceHandlerS3 {
@@ -55,19 +55,18 @@ public class ServiceHandlerS3 {
                             throw ServiceHandlerError.authError
                 }
 
-                let credentialsProvider = try AWSClientRuntime.StaticCredentialsProvider(
-                    AWSClientRuntime.Credentials(
-                        accessKey: keyId,
-                        secret: secretKey,
-                        sessionToken: sessionToken
-                    )
+                let credentials: AWSCredentialIdentity = AWSCredentialIdentity(
+                    accessKey: keyId,
+                    secret: secretKey,
+                    sessionToken: sessionToken
                 )
+                let identityResolver = try StaticAWSCredentialIdentityResolver(credentials)
 
                 // Create an Amazon S3 configuration specifying the credentials
                 // provider. Then create a new `S3Client` using those permissions.
 
                 let s3Config = try await S3Client.S3ClientConfiguration(
-                    credentialsProvider: credentialsProvider,
+                    awsCredentialIdentityResolver: identityResolver,
                     region: self.region
                 )
                 s3Client = S3Client(config: s3Config)
@@ -95,19 +94,18 @@ public class ServiceHandlerS3 {
             // to generate a static credentials provider suitable for use when
             // initializing an Amazon S3 client.
 
-            let credentialsProvider = try AWSClientRuntime.StaticCredentialsProvider(
-                AWSClientRuntime.Credentials(
-                    accessKey: accessKeyId,
-                    secret: secretAccessKey,
-                    sessionToken: sessionToken
-                )
+            let credentials: AWSCredentialIdentity = AWSCredentialIdentity(
+                accessKey: accessKeyId,
+                secret: secretAccessKey,
+                sessionToken: sessionToken
             )
+            let identityResolver = try StaticAWSCredentialIdentityResolver(credentials)
 
-            // Create a new Amazon S3 client with the specified access
-            // credentials.
+            // Create an Amazon S3 configuration specifying the credentials
+            // provider. Then create a new `S3Client` using those permissions.
 
             let s3Config = try await S3Client.S3ClientConfiguration(
-                credentialsProvider: credentialsProvider,
+                awsCredentialIdentityResolver: identityResolver,
                 region: self.region
             )
             s3Client = S3Client(config: s3Config)

@@ -175,9 +175,9 @@ dynamodb_CreateTable:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
+            - description:
               snippet_tags:
+                - ddb.swift.import
                 - ddb.swift.basics.createtable
     Bash:
       versions:
@@ -258,10 +258,9 @@ dynamodb_BatchGetItem:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
+            - description:
               snippet_tags:
-                - ddb.swift.batchgetitem.batchget
+                - ddb.swift.import
     Bash:
       versions:
         - sdk_version: 2
@@ -461,10 +460,9 @@ dynamodb_BatchWriteItem:
         - sdk_version: 1
           github: swift/example_code/ddb/
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
+            - description:
               snippet_tags:
-                - ddb.swift.basics.populate
+                - ddb.swift.import                - ddb.swift.basics.populate
     Bash:
       versions:
         - sdk_version: 2
@@ -590,9 +588,9 @@ dynamodb_DeleteTable:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
+            - description:
               snippet_tags:
+                - ddb.swift.import
                 - ddb.swift.basics.deletetable
     Bash:
       versions:
@@ -726,9 +724,9 @@ dynamodb_PutItem:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
+            - description:
               snippet_tags:
+                - ddb.swift.import
                 - ddb.swift.basics.add-movie
                 - ddb.swift.basics.movie.getasitem
     Bash:
@@ -853,9 +851,9 @@ dynamodb_GetItem:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
+            - description:
               snippet_tags:
+                - ddb.swift.import
                 - ddb.swift.basics.get
     Bash:
       versions:
@@ -977,9 +975,9 @@ dynamodb_UpdateItem:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
+            - description:
               snippet_tags:
+                - ddb.swift.import
                 - ddb.swift.basics.update
     Bash:
       versions:
@@ -1119,9 +1117,9 @@ dynamodb_DeleteItem:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
+            - description:
               snippet_tags:
+                - ddb.swift.import
                 - ddb.swift.basics.delete
     Bash:
       versions:
@@ -1252,9 +1250,9 @@ dynamodb_ListTables:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
+            - description:
               snippet_tags:
+                - ddb.swift.import
                 - ddb.swift.databasemanager.gettablelist
     Bash:
       versions:
@@ -1391,9 +1389,9 @@ dynamodb_Query:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
+            - description:
               snippet_tags:
+                - ddb.swift.import
                 - ddb.swift.basics.getMovies-year
     Bash:
       versions:
@@ -1522,9 +1520,9 @@ dynamodb_Scan:
         - sdk_version: 1
           github: swift/example_code/ddb
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSDynamoDB</programlisting>
+            - description:
               snippet_tags:
+                - ddb.swift.import
                 - ddb.swift.basics.getmovies-range
     Bash:
       versions:
