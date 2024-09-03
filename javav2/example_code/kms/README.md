@@ -31,37 +31,37 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello AWS KMS](src/main/java/com/example/kms/HelloKMS.java#L6) (`listKeysPaginator`)
+- [Hello KMS key](src/main/java/com/example/kms/HelloKMS.java#L6) (`listKeysPaginator`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](src/main/java/com/example/kms/scenario/KMSScenario.java)
+- [Learn KMS key core operations](src/main/java/com/example/kms/scenario/KMSScenario.java)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateAlias](src/main/java/com/example/kms/scenario/KMSScenario.java#L636)
-- [CreateGrant](src/main/java/com/example/kms/scenario/KMSScenario.java#L592)
-- [CreateKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L682)
-- [Decrypt](src/main/java/com/example/kms/scenario/KMSScenario.java#L529)
-- [DeleteAlias](src/main/java/com/example/kms/scenario/KMSScenario.java#L489)
-- [DescribeKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L505)
-- [DisableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L322)
-- [EnableKey](src/main/java/com/example/kms/scenario/KMSScenario.java#L703)
-- [Encrypt](src/main/java/com/example/kms/scenario/KMSScenario.java#L657)
-- [ListAliases](src/main/java/com/example/kms/scenario/KMSScenario.java#L302)
-- [ListGrants](src/main/java/com/example/kms/scenario/KMSScenario.java#L566)
-- [ListKeyPolicies](src/main/java/com/example/kms/scenario/KMSScenario.java#L399)
+- [CreateAlias](src/main/java/com/example/kms/scenario/KMSActions.java#L221)
+- [CreateGrant](src/main/java/com/example/kms/scenario/KMSActions.java#L313)
+- [CreateKey](src/main/java/com/example/kms/scenario/KMSActions.java#L112)
+- [Decrypt](src/main/java/com/example/kms/scenario/KMSActions.java#L423)
+- [DeleteAlias](src/main/java/com/example/kms/scenario/KMSActions.java#L620)
+- [DescribeKey](src/main/java/com/example/kms/scenario/KMSActions.java#L135)
+- [DisableKey](src/main/java/com/example/kms/scenario/KMSActions.java#L642)
+- [EnableKey](src/main/java/com/example/kms/scenario/KMSActions.java#L165)
+- [Encrypt](src/main/java/com/example/kms/scenario/KMSActions.java#L194)
+- [ListAliases](src/main/java/com/example/kms/scenario/KMSActions.java#L254)
+- [ListGrants](src/main/java/com/example/kms/scenario/KMSActions.java#L353)
+- [ListKeyPolicies](src/main/java/com/example/kms/scenario/KMSActions.java#L506)
 - [ListKeys](src/main/java/com/example/kms/HelloKMS.java#L6)
-- [RevokeGrant](src/main/java/com/example/kms/scenario/KMSScenario.java#L548)
-- [ScheduleKeyDeletion](src/main/java/com/example/kms/scenario/KMSScenario.java#L471)
-- [Sign](src/main/java/com/example/kms/scenario/KMSScenario.java#L338)
-- [TagResource](src/main/java/com/example/kms/scenario/KMSScenario.java#L376)
+- [RevokeGrant](src/main/java/com/example/kms/scenario/KMSActions.java#L385)
+- [ScheduleKeyDeletion](src/main/java/com/example/kms/scenario/KMSActions.java#L664)
+- [Sign](src/main/java/com/example/kms/scenario/KMSActions.java#L532)
+- [TagResource](src/main/java/com/example/kms/scenario/KMSActions.java#L592)
 
 
 <!--custom.examples.start-->
@@ -75,12 +75,12 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello AWS KMS
+#### Hello KMS key
 
-This example shows you how to get started using AWS KMS.
+This example shows you how to get started using KMS key.
 
 
-#### Learn the basics
+#### Learn KMS key core operations
 
 This example shows you how to do the following:
 
