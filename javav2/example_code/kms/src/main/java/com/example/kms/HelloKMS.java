@@ -5,15 +5,10 @@ package com.example.kms;
 
 // snippet-start:[kms.java2_list_keys.main]
 // snippet-start:[kms.java2_list_keys.import]
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsAsyncClient;
-import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.model.ListKeysRequest;
-import software.amazon.awssdk.services.kms.model.KmsException;
-import software.amazon.awssdk.services.kms.paginators.ListKeysIterable;
 import software.amazon.awssdk.services.kms.paginators.ListKeysPublisher;
-
 import java.util.concurrent.CompletableFuture;
 // snippet-end:[kms.java2_list_keys.import]
 

@@ -6,20 +6,15 @@ import com.example.kms.scenario.KMSActions;
 import com.google.gson.Gson;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
-import software.amazon.awssdk.services.kms.KmsAsyncClient;
-import software.amazon.awssdk.services.kms.KmsClient;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
-import com.example.kms.scenario.KMSScenario;
 
 /**
  * To run these integration tests, you must set the required values
