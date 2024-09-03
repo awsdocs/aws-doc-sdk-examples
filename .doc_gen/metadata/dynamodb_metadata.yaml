@@ -462,7 +462,8 @@ dynamodb_BatchWriteItem:
           excerpts:
             - description:
               snippet_tags:
-                - ddb.swift.import                - ddb.swift.basics.populate
+                - ddb.swift.import
+                - ddb.swift.basics.populate
     Bash:
       versions:
         - sdk_version: 2

@@ -196,9 +196,9 @@ s3_CreateBucket:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.createbucket
     Bash:
       versions:
@@ -326,9 +326,9 @@ s3_CopyObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.copyfile
     Bash:
       versions:
@@ -492,9 +492,9 @@ s3_DeleteObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.deletefile
     Bash:
       versions:
@@ -607,9 +607,9 @@ s3_DeleteObjects:
         - sdk_version: 1
           github: swift/example_code/s3/DeleteObjects
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.deleteobjects.handler.deleteobjects
     C++:
       versions:
@@ -1391,9 +1391,9 @@ s3_ListObjectsV2:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.listbucketfiles
     Bash:
       versions:
@@ -1573,16 +1573,13 @@ s3_PutObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: >-
-                <para>Upload a file from local storage to a bucket.</para>
-                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
+            - description:
               snippet_tags:
+                - s3-smithy.swift.import
                 - s3.swift.basics.handler.uploadfile
-            - description: >-
-                <para>Upload the contents of a Swift Data object to a
-                bucket.</para>
-                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
+            - description:
               snippet_tags:
+                - s3-smithy.swift.import
                 - s3.swift.basics.handler.createfile
     Bash:
       versions:
@@ -1712,9 +1709,9 @@ s3_DeleteBucket:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.deletebucket
     Bash:
       versions:
@@ -2201,9 +2198,9 @@ s3_ListBuckets:
         - sdk_version: 1
           github: swift/example_code/s3
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.listbuckets.getallbuckets
   services:
     s3: {ListBuckets}

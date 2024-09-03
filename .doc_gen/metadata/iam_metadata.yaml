@@ -578,9 +578,9 @@ iam_CreateAccessKey:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.basics.iam.createaccesskey
     Bash:
       versions:
@@ -687,9 +687,9 @@ iam_DeleteAccessKey:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.basics.iam.deleteaccesskey
     Bash:
       versions:
@@ -1023,9 +1023,9 @@ iam_CreatePolicy:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.basics.iam.createpolicy
     Bash:
       versions:
@@ -1115,9 +1115,9 @@ iam_DeletePolicy:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.basics.iam.deletepolicy
     Bash:
       versions:
@@ -1213,9 +1213,9 @@ iam_ListPolicies:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.listpolicies.handler.listpolicies
     C++:
       versions:
@@ -1301,9 +1301,9 @@ iam_GetPolicy:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.getpolicy.handler.getpolicy
     C++:
       versions:
@@ -1423,9 +1423,9 @@ iam_AttachRolePolicy:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.attachrolepolicy.handler.attachrolepolicy
     JavaScript:
       versions:
@@ -1540,9 +1540,9 @@ iam_ListAttachedRolePolicies:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.listattachedrolepolicies.handler.listattachedrolepolicies
   services:
     iam: {ListAttachedRolePolicies}
@@ -1642,9 +1642,9 @@ iam_DetachRolePolicy:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.basics.iam.detachrolepolicy
     Bash:
       versions:
@@ -1749,9 +1749,9 @@ iam_CreateRole:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.createrole.handler.createrole
     JavaScript:
       versions:
@@ -1857,9 +1857,9 @@ iam_ListRoles:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.listroles.handler.listroles
   services:
     iam: {ListRoles}
@@ -1931,9 +1931,9 @@ iam_GetRole:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.getrole.handler.getrole
   services:
     iam: {GetRole}
@@ -1996,9 +1996,9 @@ iam_DeleteRole:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.basics.iam.deleterole
     Bash:
       versions:
@@ -2111,9 +2111,9 @@ iam_ListRolePolicies:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.listrolepolicies.handler.listrolepolicies
   services:
     iam: {ListRolePolicies}
@@ -2213,9 +2213,9 @@ iam_CreateUser:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.createuser.handler.createuser
     Go:
       versions:
@@ -2357,9 +2357,9 @@ iam_DeleteUser:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.basics.iam.deleteuser
     Bash:
       versions:
@@ -2481,9 +2481,9 @@ iam_ListUsers:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.listusers.handler.listusers
     Go:
       versions:
@@ -2690,9 +2690,9 @@ iam_PutUserPolicy:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.basics.iam.putuserpolicy
   services:
     iam: {PutUserPolicy}
@@ -2750,9 +2750,9 @@ iam_DeleteUserPolicy:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.basics.iam.deleteuserpolicy
   services:
     iam: {DeleteUserPolicy}
@@ -3112,9 +3112,9 @@ iam_ListGroups:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.listgroups.handler.listgroups
   services:
     iam: {ListGroups}
@@ -3199,9 +3199,9 @@ iam_CreateServiceLinkedRole:
         - sdk_version: 1
           github: swift/example_code/iam
           excerpts:
-            - description: >-
-                <programlisting language="swift" linenumbering="unnumbered">import AWSIAM</programlisting>
+            - description:
               snippet_tags:
+                - iam.swift.import
                 - iam.swift.createservicelinkedrole.handler.createservicelinkedrole
   services:
     iam: {CreateServiceLinkedRole}
