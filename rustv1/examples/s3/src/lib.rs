@@ -4,7 +4,7 @@
 use error::S3ExampleError;
 pub mod error;
 
-// snippet-start:[rust.copy_object]
+// snippet-start:[s3.rust.copy_object]
 /// Copy an object from one bucket to another.
 pub async fn copy_object(
     client: &aws_sdk_s3::Client,

@@ -29,6 +29,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `rustv
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello Amazon S3](src/bin/s3-helloworld.rs#L35) (`ListBuckets`)
+
+
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
@@ -41,18 +46,18 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [CompleteMultipartUpload](src/bin/s3-multipart-upload.rs#L136)
-- [CopyObject](src/s3-service-lib.rs#L99)
-- [CreateBucket](src/s3-service-lib.rs#L156)
+- [CopyObject](src/lib.rs#L7)
+- [CreateBucket](src/lib.rs#L192)
 - [CreateMultipartUpload](src/bin/s3-multipart-upload.rs#L48)
-- [DeleteBucket](src/s3-service-lib.rs#L23)
-- [DeleteObject](src/bin/delete-object.rs#L30)
-- [DeleteObjects](src/s3-service-lib.rs#L31)
-- [GetBucketLocation](src/bin/list-buckets.rs#L26)
-- [GetObject](src/bin/get-object.rs#L20)
-- [ListBuckets](src/bin/list-buckets.rs#L26)
+- [DeleteBucket](src/lib.rs#L224)
+- [DeleteObject](src/lib.rs#L37)
+- [DeleteObjects](src/lib.rs#L156)
+- [GetBucketLocation](src/bin/list-buckets.rs#L27)
+- [GetObject](src/bin/get-object.rs#L21)
+- [ListBuckets](src/bin/list-buckets.rs#L27)
 - [ListObjectVersions](src/bin/list-object-versions.rs#L26)
-- [ListObjectsV2](src/s3-service-lib.rs#L73)
-- [PutObject](src/s3-service-lib.rs#L137)
+- [ListObjectsV2](src/lib.rs#L92)
+- [PutObject](src/lib.rs#L73)
 - [UploadPart](src/bin/s3-multipart-upload.rs#L112)
 
 ### Scenarios
@@ -60,7 +65,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a presigned URL](src/bin/put-object-presigned.rs)
+- [Create a presigned URL](src/bin/get-object-presigned.rs)
 - [Get an object from a bucket if it has been modified](src/bin/if-modified-since.rs)
 - [Unit and integration test with an SDK](Cargo.toml)
 - [Upload or download large files](src/bin/s3-multipart-upload.rs)
@@ -76,6 +81,10 @@ functions within the same service.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+#### Hello Amazon S3
+
+This example shows you how to get started using Amazon S3.
 
 
 #### Learn the basics

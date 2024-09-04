@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #![allow(clippy::result_large_err)]
-// snippet-start:[rust.example_code.s3.scenario_getting_started.bin]
 
 //!  Purpose
 //!  Shows how to use the AWS SDK for Rust to get started using

@@ -1678,7 +1678,7 @@ s3_DeleteBucket:
           excerpts:
             - description:
               snippet_tags:
-                - rust.example_code.s3.basics.delete_bucket
+                - s3.rust.delete_bucket
     SAP ABAP:
       versions:
         - sdk_version: 1
