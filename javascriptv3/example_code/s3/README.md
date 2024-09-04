@@ -77,6 +77,7 @@ functions within the same service.
 
 - [Create a presigned URL](scenarios/presigned-url-upload.js)
 - [Create a web page that lists Amazon S3 objects](../web/s3/list-objects/src/App.tsx)
+- [Delete all objects in a bucket](scenarios/delete-all-objects.js)
 - [Get the legal hold configuration of an object](actions/get-object-legal-hold.js)
 - [Lock Amazon S3 objects](scenarios/object-locking/index.js)
 - [Upload or download large files](scenarios/multipart-upload.js)
@@ -174,6 +175,18 @@ This example shows you how to list Amazon S3 objects in a web page.
 
 <!--custom.scenarios.s3_Scenario_ListObjectsWeb.start-->
 <!--custom.scenarios.s3_Scenario_ListObjectsWeb.end-->
+
+#### Delete all objects in a bucket
+
+This example shows you how to delete all of the objects in an Amazon S3 bucket.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_DeleteAllObjects.start-->
+<!--custom.scenario_prereqs.s3_Scenario_DeleteAllObjects.end-->
+
+
+<!--custom.scenarios.s3_Scenario_DeleteAllObjects.start-->
+<!--custom.scenarios.s3_Scenario_DeleteAllObjects.end-->
 
 #### Get the legal hold configuration of an object
 
