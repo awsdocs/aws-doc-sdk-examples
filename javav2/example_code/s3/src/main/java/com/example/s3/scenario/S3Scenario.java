@@ -64,7 +64,6 @@ public class S3Scenario {
         String savePath = args[2];
         String toBucket = args[3];
 
-
         logger.info(DASHES);
         logger.info("Welcome to the Amazon Simple Storage Service (S3) example scenario.");
         logger.info("""
