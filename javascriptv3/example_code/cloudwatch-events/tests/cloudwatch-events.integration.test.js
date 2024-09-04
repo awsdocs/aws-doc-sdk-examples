@@ -39,11 +39,21 @@ const createLogGroup = async (logGroupName) => {
  * @param {string} ruleName - The name of the rule.
  */
 const deleteRule = async (ruleName) => {
-  const cweClient = new CloudWatchEventsClient({});
-  const command = new DeleteRuleCommand({
-    Name: ruleName,
-  });
-  await cweClient.send(command);
+  try {
+    const cweClient = new CloudWatchEventsClient({});
+    const command = new DeleteRuleCommand({
+      Name: ruleName,
+    });
+    await cweClient.send(command);
+  } catch (caught) {
+    if (caught instanceof Error) {
+      console.error(
+        `Failed to delete rule: ${ruleName}. ${caught.name}: ${caught.message}`,
+      );
+    } else {
+      throw caught;
+    }
+  }
 };
 
 /**
@@ -52,12 +62,22 @@ const deleteRule = async (ruleName) => {
  * @param {string[]} targetIds - The IDs of the targets to remove.
  */
 const removeTargets = async (ruleName, targetIds) => {
-  const cweClient = new CloudWatchEventsClient({});
-  const command = new RemoveTargetsCommand({
-    Rule: ruleName,
-    Ids: targetIds,
-  });
-  await cweClient.send(command);
+  try {
+    const cweClient = new CloudWatchEventsClient({});
+    const command = new RemoveTargetsCommand({
+      Rule: ruleName,
+      Ids: targetIds,
+    });
+    await cweClient.send(command);
+  } catch (caught) {
+    if (caught instanceof Error) {
+      console.error(
+        `Failed to remove targets: ${targetIds} from rule: ${ruleName}. ${caught.name}: ${caught.message}`,
+      );
+    } else {
+      throw caught;
+    }
+  }
 };
 
 /**
@@ -65,15 +85,25 @@ const removeTargets = async (ruleName, targetIds) => {
  * @param {string} logGroupName - The name of the log group.
  */
 const deleteLogGroup = async (logGroupName) => {
-  const cwlClient = new CloudWatchLogsClient({});
-  const command = new DeleteLogGroupCommand({
-    logGroupName: logGroupName,
-  });
-  await cwlClient.send(command);
+  try {
+    const cwlClient = new CloudWatchLogsClient({});
+    const command = new DeleteLogGroupCommand({
+      logGroupName: logGroupName,
+    });
+    await cwlClient.send(command);
+  } catch (caught) {
+    if (caught instanceof Error) {
+      console.error(
+        `Failed to delete log group: ${logGroupName}. ${caught.name}: ${caught.message}`,
+      );
+    } else {
+      throw caught;
+    }
+  }
 };
 
 describe("CloudWatch Events integration test", () => {
-  const logGroupName = "test-log-group";
+  const logGroupName = "cloudwatch-events-test-log-group";
   const ruleName = "test-rule";
   const rulePattern = JSON.stringify({
     source: ["my.app"],
