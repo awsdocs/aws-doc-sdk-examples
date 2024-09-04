@@ -226,9 +226,17 @@ pub async fn delete_bucket(
     client: &aws_sdk_s3::Client,
     bucket_name: &str,
 ) -> Result<(), S3ExampleError> {
-    let resp = client.delete_bucket().bucket(bucket_name).send().await?;
-    // if resp.is_ok() || resp.is_err_and(|err| err.source())
-    Ok(())
+    let resp = client.delete_bucket().bucket(bucket_name).send().await;
+    match resp {
+        Ok(_) => Ok(()),
+        Err(err) => {
+            if err.as_service_error().map(|se| se.meta().code()) == Some(Some("NoSuchBucket")) {
+                Ok(())
+            } else {
+                Err(S3ExampleError::from(err))
+            }
+        }
+    }
 }
 // snippet-end:[s3.rust.delete_bucket]
 

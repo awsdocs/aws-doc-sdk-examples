@@ -130,7 +130,7 @@ async fn main() -> Result<(), S3ExampleError> {
 
     let filename = PathBuf::from(filename);
     if !filename.exists() {
-        eprintln!("")
+        eprintln!("Cannot find {} for upload!", filename.display());
     }
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
