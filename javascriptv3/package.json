@@ -36,6 +36,7 @@
     "example_code/cross-services/feedback-sentiment-analyzer/ExtractText",
     "example_code/cross-services/feedback-sentiment-analyzer/SynthesizeAudio",
     "example_code/cross-services/feedback-sentiment-analyzer/TranslateText",
+    "example_code/cross-services/photo_analyzer",
     "example_code/cross-services/photo-asset-manager",
     "example_code/cross-services/transcribe-streaming-app",
     "example_code/cross-services/wkflw-topics-queues",

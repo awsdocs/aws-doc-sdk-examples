@@ -128,12 +128,12 @@ Resources:
         Version: "2012-10-17"
     Metadata:
       aws:cdk:path: SetupStackRekognition/rekognition-photo-analyzer-role/Resource
-  ExampleIdentityPool:
+  PhotoAnalyzerSdkExampleIdPool:
     Type: AWS::Cognito::IdentityPool
     Properties:
       AllowUnauthenticatedIdentities: true
     Metadata:
-      aws:cdk:path: SetupStackRekognition/ExampleIdentityPool
+      aws:cdk:path: SetupStackRekognition/PhotoAnalyzerSdkExampleIdPool
   CognitoDefaultUnauthenticatedRoleABBF7267:
     Type: AWS::IAM::Role
     Properties:
@@ -143,7 +143,7 @@ Resources:
             Condition:
               StringEquals:
                 cognito-identity.amazonaws.com:aud:
-                  Ref: ExampleIdentityPool
+                  Ref: PhotoAnalyzerSdkExampleIdPool
               ForAnyValue:StringLike:
                 cognito-identity.amazonaws.com:amr: unauthenticated
             Effect: Allow
@@ -185,7 +185,7 @@ Resources:
     Type: AWS::Cognito::IdentityPoolRoleAttachment
     Properties:
       IdentityPoolId:
-        Ref: ExampleIdentityPool
+        Ref: PhotoAnalyzerSdkExampleIdPool
       Roles:
         unauthenticated:
           Fn::GetAtt:
@@ -201,15 +201,15 @@ Resources:
       aws:cdk:path: SetupStackRekognition/CDKMetadata/Default
     Condition: CDKMetadataAvailable
 Outputs:
-  Bucketforimages:
+  ImagesBucketName:
     Value:
       Ref: bucketforimages293BECA3
-  Bucketforreports:
+  ReportsBucketName:
     Value:
       Ref: bucketforreports8DC7D870
-  Identitypoolid:
+  IdentityPoolId:
     Value:
-      Ref: ExampleIdentityPool
+      Ref: PhotoAnalyzerSdkExampleIdPool
 Conditions:
   CDKMetadataAvailable:
     Fn::Or:

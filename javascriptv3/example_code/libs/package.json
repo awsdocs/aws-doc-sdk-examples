@@ -9,6 +9,7 @@
     "test": "vitest run **/*.unit.test.js"
   },
   "dependencies": {
+    "@aws-sdk/client-cloudformation": "^3.637.0",
     "@aws-sdk/client-lambda": "^3.168.0",
     "@types/archiver": "^5.3.1",
     "archiver": "^5.3.1",
