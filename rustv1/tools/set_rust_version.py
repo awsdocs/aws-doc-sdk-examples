@@ -36,7 +36,7 @@ def update_toolchains(root: pathlib.Path, channel: str, dry_run: bool):
 
 
 def update_actions(root: pathlib.Path, channel: str, dry_run: bool):
-    rust_yaml = root / ".github" / "workflows" / "rust.yml"
+    rust_yaml = root / ".github" / "workflows" / "lint-rust.yml"
     with open(rust_yaml, "rt") as file:
         action = file.readlines()
     found = None

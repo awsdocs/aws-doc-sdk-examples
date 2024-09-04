@@ -51,8 +51,8 @@ pub struct Record {
     pub description: String,
 }
 
-fn is_valid_json(data: impl AsRef<str>) -> bool {
-    serde_json::from_str::<IgnoredAny>(data.as_ref()).is_ok()
+fn is_valid_json(data: &str) -> bool {
+    serde_json::from_str::<IgnoredAny>(data).is_ok()
 }
 
 // Get object content.
@@ -133,8 +133,8 @@ fn parse_line_buffered(buf: &mut String, line: &str) -> Result<Option<Record>, a
         Ok(Some(serde_json::from_str(line)?))
     } else {
         buf.push_str(line);
-        if is_valid_json(&buf) {
-            let result = serde_json::from_str(buf);
+        if is_valid_json(buf) {
+            let result = serde_json::from_str(buf.as_str());
             buf.clear();
             Ok(Some(result?))
         } else {
