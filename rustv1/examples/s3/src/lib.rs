@@ -230,7 +230,11 @@ pub async fn delete_bucket(
     match resp {
         Ok(_) => Ok(()),
         Err(err) => {
-            if err.as_service_error().map(|se| se.meta().code()) == Some(Some("NoSuchBucket")) {
+            if err
+                .as_service_error()
+                .and_then(aws_sdk_s3::error::ProvideErrorMetadata::code)
+                == Some("NoSuchBucket")
+            {
                 Ok(())
             } else {
                 Err(S3ExampleError::from(err))
