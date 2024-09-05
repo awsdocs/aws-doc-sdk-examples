@@ -86,7 +86,7 @@ public static class ServerSideEncryption
         };
         try
         {
-            var encryptionResponse =await _s3Client.PutBucketEncryptionAsync(new PutBucketEncryptionRequest
+            var encryptionResponse = await _s3Client.PutBucketEncryptionAsync(new PutBucketEncryptionRequest
             {
                 BucketName = bucketName,
                 ServerSideEncryptionConfiguration = serverSideEncryptionByDefault,
