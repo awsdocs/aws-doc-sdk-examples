@@ -52,7 +52,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create an Amazon Textract explorer application](python/cross_service/textract_explorer)
+- [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
 - [Create and publish to a FIFO topic](sns_fifo_topic.py)
 - [Publish an SMS text message](sns_basics.py)
 

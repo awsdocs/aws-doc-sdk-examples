@@ -51,7 +51,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a lip-sync application](python/example_code/polly)
+- [Create a lip-sync application](../../example_code/polly)
 
 
 <!--custom.examples.start-->

@@ -1,8 +1,8 @@
 # zexi 0.4.0
 kms_Hello:
-  title: Hello &KMS;
-  title_abbrev: Hello &KMS;
-  synopsis: get started using &KMS;.
+  title: Hello &kms-key;
+  title_abbrev: Hello &kms-key;
+  synopsis: get started using &kms-key;.
   category: Hello
   languages:
     Java:
@@ -785,6 +785,8 @@ kms_Scenario_KeyManagement:
   services:
     kms: {CreateKey, ListKeys, DescribeKey, GenerateDataKey, EnableKey, DisableKey, ScheduleKeyDeletion}
 kms_Scenario_Basics:
+  title: Learn core operations for &kms-key; using an &AWS; SDK
+  title_abbrev: Learn &kms-key; core operations
   synopsis_list:
     - Create a &kms-key;.
     - List &kms-keys; for your account and get details about them.
@@ -801,9 +803,12 @@ kms_Scenario_Basics:
           github: javav2/example_code/kms
           sdkguide:
           excerpts:
-            - description:
+            - description: Run a scenario at a command prompt.
               snippet_tags:
                 - kms.java2_scenario.main
+            - description: Define a class that wraps KMS actions.
+              snippet_tags:
+                - kms.java2_actions.main   
   services:
     kms: {CreateKey, ListKeys, DescribeKey, GenerateDataKey, EnableKey, Sign, DisableKey, ScheduleKeyDeletion}
     

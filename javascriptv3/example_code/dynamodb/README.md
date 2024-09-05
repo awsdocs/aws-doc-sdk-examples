@@ -67,7 +67,6 @@ functions within the same service.
 
 - [Query a table by using batches of PartiQL statements](scenarios/partiql-batch.js)
 - [Query a table using PartiQL](scenarios/partiql-single.js)
-- [Use Step Functions to invoke Lambda functions](javascriptv3/example_code/cross-services/lambda-step-functions)
 
 
 <!--custom.examples.start-->
@@ -87,10 +86,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
@@ -153,18 +163,6 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.dynamodb_Scenario_PartiQLSingle.start-->
 <!--custom.scenarios.dynamodb_Scenario_PartiQLSingle.end-->
-
-#### Use Step Functions to invoke Lambda functions
-
-This example shows you how to create an AWS Step Functions state machine that invokes AWS Lambda functions in sequence.
-
-
-<!--custom.scenario_prereqs.cross_ServerlessWorkflows.start-->
-<!--custom.scenario_prereqs.cross_ServerlessWorkflows.end-->
-
-
-<!--custom.scenarios.cross_ServerlessWorkflows.start-->
-<!--custom.scenarios.cross_ServerlessWorkflows.end-->
 
 ### Tests
 

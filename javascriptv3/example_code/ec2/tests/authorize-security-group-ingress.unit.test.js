@@ -25,19 +25,31 @@ describe("authorize-security-group-ingress", () => {
       SecurityGroupRules: rules,
     });
 
-    await main();
+    await main({ groupId: "123", ipAddress: "123" });
 
     expect(logSpy).toHaveBeenCalledWith(JSON.stringify(rules, null, 2));
   });
 
-  it("should log the error message", async () => {
-    const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to authorize security group"));
+  it("should log InvalidGroupId.Malformed errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("InvalidGroupId");
+    error.name = "InvalidGroupId.Malformed";
 
-    await main();
+    send.mockRejectedValueOnce(error);
 
-    expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to authorize security group"),
+    await main({ groupId: "groupId", ipAddress: "ipAddress" });
+
+    expect(logSpy).toBeCalledWith(
+      "InvalidGroupId. Please provide a valid GroupId.",
+    );
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Failed to authorize security group");
+    send.mockRejectedValueOnce(error);
+
+    await expect(() => main({ groupId: "123", ipAddress: "123" })).rejects.toBe(
+      error,
     );
   });
 });

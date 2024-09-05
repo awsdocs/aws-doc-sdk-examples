@@ -35,7 +35,7 @@ export const main = async (confirmAll = false) => {
       "deleteTable",
       `A table named ${tableName} already exists. If you choose not to delete
 this table, the scenario cannot continue. Delete it?`,
-      { confirmAll },
+      { type: "confirm", confirmAll },
     );
     const deleteTable = await input.handle({});
     if (deleteTable) {

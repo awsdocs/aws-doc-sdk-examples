@@ -315,14 +315,7 @@ class Renderer:
         if self.read_current() == self.readme_text:
             return RenderStatus.UNCHANGED
         else:
-            if (
-                self.lang_config["service_folder"]
-                not in self.lang_config.get("service_folder_overrides", {}).values()
-                and self.readme_filename.exists()
-            ):
-                return RenderStatus.UNMANAGED
-            else:
-                return RenderStatus.UPDATED
+            return RenderStatus.UPDATED
 
     def write(self):
         if self.readme_filename.exists():

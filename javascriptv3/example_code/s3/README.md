@@ -77,6 +77,7 @@ functions within the same service.
 
 - [Create a presigned URL](scenarios/presigned-url-upload.js)
 - [Create a web page that lists Amazon S3 objects](../web/s3/list-objects/src/App.tsx)
+- [Delete all objects in a bucket](scenarios/delete-all-objects.js)
 - [Get the legal hold configuration of an object](actions/get-object-legal-hold.js)
 - [Lock Amazon S3 objects](scenarios/object-locking/index.js)
 - [Upload or download large files](scenarios/multipart-upload.js)
@@ -99,10 +100,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 
@@ -163,6 +175,18 @@ This example shows you how to list Amazon S3 objects in a web page.
 
 <!--custom.scenarios.s3_Scenario_ListObjectsWeb.start-->
 <!--custom.scenarios.s3_Scenario_ListObjectsWeb.end-->
+
+#### Delete all objects in a bucket
+
+This example shows you how to delete all of the objects in an Amazon S3 bucket.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_DeleteAllObjects.start-->
+<!--custom.scenario_prereqs.s3_Scenario_DeleteAllObjects.end-->
+
+
+<!--custom.scenarios.s3_Scenario_DeleteAllObjects.start-->
+<!--custom.scenarios.s3_Scenario_DeleteAllObjects.end-->
 
 #### Get the legal hold configuration of an object
 

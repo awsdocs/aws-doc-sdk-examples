@@ -66,7 +66,7 @@ export class ScenarioOutput extends Step {
   /**
    * @param {string} name
    * @param {string | (state: Record<string, any>) => string | false} value
-   * @param {ScenarioOutputOptions} [scenarioOutputOptions]
+   * @param {Step<ScenarioOutputOptions>['stepOptions']} [scenarioOutputOptions]
    */
   constructor(name, value, scenarioOutputOptions = { slow: true }) {
     super(name, scenarioOutputOptions);
@@ -81,7 +81,9 @@ export class ScenarioOutput extends Step {
    */
   async handle(state, stepHandlerOptions) {
     if (this.stepOptions.skipWhen(state)) {
-      console.log(`Skipping step: ${this.name}`);
+      if (stepHandlerOptions.verbose) {
+        console.log(`Skipping step: ${this.name}`);
+      }
       return;
     }
     super.handle(state, stepHandlerOptions);
@@ -110,8 +112,8 @@ export class ScenarioOutput extends Step {
 /**
  * @typedef {{
  *   type: "confirm" | "input" | "multi-select" | "select",
- *   choices: (string | { name: string, value: string })[],
- *   default: string | string[] | boolean }
+ *   choices: (string | { name: string, value: string })[] | () => (string | { name: string, value: string })[],
+ *   default: string | string[] | boolean | () => string | string[] | boolean }
  *   } ScenarioInputOptions
  */
 
@@ -122,7 +124,7 @@ export class ScenarioInput extends Step {
   /**
    * @param {string} name
    * @param {string | (c: Record<string, any>) => string | false } prompt
-   * @param {ScenarioInputOptions} [scenarioInputOptions]
+   * @param {Step<ScenarioInputOptions>['stepOptions']} [scenarioInputOptions]
    */
   constructor(name, prompt, scenarioInputOptions) {
     super(name, scenarioInputOptions);
@@ -136,15 +138,22 @@ export class ScenarioInput extends Step {
    */
   async handle(state, stepHandlerOptions = {}) {
     if (this.stepOptions.skipWhen(state)) {
-      console.log(`Skipping step: ${this.name}`);
+      if (stepHandlerOptions.verbose) {
+        console.log(`Skipping step: ${this.name}`);
+      }
       return;
     }
     super.handle(state, stepHandlerOptions);
 
-    if (stepHandlerOptions.confirmAll && this.stepOptions.default) {
-      state[this.name] = this.stepOptions.default;
+    this.default =
+      typeof this.stepOptions.default === "function"
+        ? this.stepOptions.default(state)
+        : this.stepOptions.default;
+
+    if (stepHandlerOptions.confirmAll && this.default) {
+      state[this.name] = this.default;
       return state[this.name];
-    } else if (stepHandlerOptions.confirmAll && !this.stepOptions.default) {
+    } else if (stepHandlerOptions.confirmAll && !this.default) {
       if (this.stepOptions?.type === "confirm") {
         state[this.name] = true;
         return true;
@@ -154,20 +163,18 @@ export class ScenarioInput extends Step {
       );
     }
 
-    const message = this._getPrompt(state);
-
     switch (this.stepOptions?.type) {
       case "multi-select":
-        await this._handleMultiSelect(state, message);
+        await this._handleMultiSelect(state);
         break;
       case "select":
-        await this._handleSelect(state, message);
+        await this._handleSelect(state);
         break;
       case "input":
-        await this._handleInput(state, message);
+        await this._handleInput(state);
         break;
       case "confirm":
-        await this._handleConfirm(state, message);
+        await this._handleConfirm(state);
         break;
       default:
         throw new Error(
@@ -181,47 +188,48 @@ export class ScenarioInput extends Step {
   /**
    * @param {Record<string, any>} state
    */
-  _getPrompt(state) {
-    const prompt =
-      typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
-    const message =
-      this.stepOptions.type !== "confirm" && this.stepOptions.default
-        ? `${prompt} (${this.stepOptions.default})`
-        : prompt;
-
-    if (!message) {
-      throw new Error(`Error handling ScenarioInput. Missing prompt.`);
-    }
-
-    return message;
-  }
-
-  _getChoices() {
+  _getChoices(state) {
     if (this.choices) {
       return this.choices;
     }
 
+    const rawChoices =
+      typeof this.stepOptions.choices === "function"
+        ? this.stepOptions.choices(state)
+        : this.stepOptions.choices;
+
+    if (!rawChoices) {
+      throw new Error(
+        `Error handling ScenarioInput. Could not get choices for ${this.name}.`,
+      );
+    }
+
     this.choices =
-      this.stepOptions?.choices &&
-      typeof this.stepOptions?.choices[0] === "string"
-        ? this.stepOptions?.choices.map((s) => ({ name: s, value: s }))
-        : this.stepOptions?.choices;
+      typeof rawChoices[0] === "string"
+        ? rawChoices.map((s) => ({ name: s, value: s }))
+        : rawChoices;
 
     return this.choices;
   }
 
   /**
    * @param {Record<string, any>} state
-   * @param {string} message
    */
-  async _handleMultiSelect(state, message) {
+  async _handleMultiSelect(state) {
+    const message =
+      typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
+
+    if (!message) {
+      throw new Error(`Error handling ScenarioInput. Missing prompt.`);
+    }
+
     const result = await this.prompter.checkbox({
       message,
-      choices: this._getChoices(),
+      choices: this._getChoices(state),
     });
 
-    if (!result.length && this.stepOptions.default) {
-      state[this.name] = this.stepOptions.default;
+    if (!result.length && this.default) {
+      state[this.name] = this.default;
     } else if (!result.length) {
       throw new Error(
         `Error handing ScenarioInput. Result of ${this.name} was empty.`,
@@ -233,17 +241,23 @@ export class ScenarioInput extends Step {
 
   /**
    * @param {Record<string, any>} state
-   * @param {string} message
    */
-  async _handleSelect(state, message) {
+  async _handleSelect(state) {
+    const message =
+      typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
+
+    if (!message) {
+      throw new Error(`Error handling ScenarioInput. Missing prompt.`);
+    }
+
     if (this.stepOptions?.type === "select") {
       const result = await this.prompter.select({
         message,
-        choices: this._getChoices(),
+        choices: this._getChoices(state),
       });
 
-      if (!result && this.stepOptions.default) {
-        state[this.name] = this.stepOptions.default;
+      if (!result && this.default) {
+        state[this.name] = this.default;
       } else if (!result) {
         throw new Error(
           `Error handing ScenarioInput. Result of ${this.name} was empty.`,
@@ -256,13 +270,20 @@ export class ScenarioInput extends Step {
 
   /**
    * @param {Record<string, any>} state
-   * @param {string} message
    */
-  async _handleInput(state, message) {
+  async _handleInput(state) {
+    const prompt =
+      typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
+    const message = this.default ? `${prompt} (${this.default})` : prompt;
+
+    if (!message) {
+      throw new Error(`Error handling ScenarioInput. Missing prompt.`);
+    }
+
     const result = await this.prompter.input({ message });
 
-    if (!result && this.stepOptions.default) {
-      state[this.name] = this.stepOptions.default;
+    if (!result && this.default) {
+      state[this.name] = this.default;
     } else if (!result) {
       throw new Error(
         `Error handing ScenarioInput. Result of ${this.name} was empty.`,
@@ -274,9 +295,15 @@ export class ScenarioInput extends Step {
 
   /**
    * @param {Record<string, any>} state
-   * @param {string} message
    */
-  async _handleConfirm(state, message) {
+  async _handleConfirm(state) {
+    const message =
+      typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
+
+    if (!message) {
+      throw new Error(`Error handling ScenarioInput. Missing prompt.`);
+    }
+
     const result = await this.prompter.confirm({
       message,
     });
@@ -310,7 +337,9 @@ export class ScenarioAction extends Step {
    */
   async handle(state, stepHandlerOptions) {
     if (this.stepOptions.skipWhen(state)) {
-      console.log(`Skipping step: ${this.name}`);
+      if (stepHandlerOptions.verbose) {
+        console.log(`Skipping step: ${this.name}`);
+      }
       return;
     }
     const _handle = async () => {

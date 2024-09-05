@@ -22,7 +22,9 @@ describe("describe-security-groups", () => {
     const logSpy = vi.spyOn(console, "log");
     const securityGroups = [
       {
-        Foo: "bar",
+        GroupName: "group",
+        GroupId: "sg-1",
+        Description: "My security group",
       },
     ];
 
@@ -30,21 +32,41 @@ describe("describe-security-groups", () => {
       SecurityGroups: securityGroups,
     });
 
-    await main();
+    await main({});
 
     expect(logSpy).toHaveBeenCalledWith(
-      JSON.stringify(securityGroups, null, 2),
+      `Security groups:\n• group (sg-1): My security group`,
     );
   });
 
-  it("should log the error message", async () => {
-    const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to describe security group"));
+  it("should log InvalidGroupId.Malformed errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("Bad group id");
+    error.name = "InvalidGroupId.Malformed";
+    send.mockRejectedValueOnce(error);
 
-    await main();
+    await main({});
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to describe security group"),
+      "Bad group id. Please provide a valid GroupId.",
     );
+  });
+
+  it("should log InvalidGroup.NotFound errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("Missing");
+    error.name = "InvalidGroup.NotFound";
+    send.mockRejectedValueOnce(error);
+
+    await main({});
+
+    expect(logSpy).toHaveBeenCalledWith("Missing");
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Unknown error");
+    send.mockRejectedValueOnce(error);
+
+    await expect(() => main({})).rejects.toBe(error);
   });
 });

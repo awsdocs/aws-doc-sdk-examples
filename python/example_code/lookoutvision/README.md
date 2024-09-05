@@ -63,7 +63,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a manifest file](datasets.py)
-- [Create, train, and start a model](python/example_code/lookoutvision)
+- [Create, train, and start a model](../../example_code/lookoutvision)
 - [Export the datasets from a project](export_datasets.py)
 - [Find a project with a specific tag](find_tag.py)
 - [List models that are currently hosted](hosting.py)

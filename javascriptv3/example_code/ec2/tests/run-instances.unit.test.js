@@ -28,25 +28,38 @@ describe("run-instances", () => {
       ],
     });
 
-    await main();
-
-    expect(logSpy).toHaveBeenCalledWith({
-      Instances: [
-        {
-          InstanceId: "i-0e8810a92833675aa",
-        },
-      ],
+    await main({
+      keyName: "key",
+      securityGroupIds: ["sg-id"],
+      imageId: "imageid",
+      instanceType: "a1.2xlarge",
     });
-  });
-
-  it("should log the error message", async () => {
-    const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to launch instances"));
-
-    await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to launch instances"),
+      `Launched instances:\n• i-0e8810a92833675aa`,
     );
+  });
+
+  it("should log ResourceCountExceeded errors", async () => {
+    const logSpy = vi.spyOn(console, "warn");
+    const error = new Error("Count");
+    error.name = "ResourceCountExceeded";
+    send.mockRejectedValueOnce(error);
+
+    await main({
+      keyName: "key",
+      securityGroupIds: ["sg-id"],
+      imageId: "imageid",
+      instanceType: "a1.2xlarge",
+    });
+
+    expect(logSpy).toHaveBeenCalledWith("Count");
+  });
+
+  it("should throw unknown errors", async () => {
+    const error = new Error("Unknown error");
+    send.mockRejectedValueOnce(error);
+
+    await expect(() => main({})).rejects.toBe(error);
   });
 });

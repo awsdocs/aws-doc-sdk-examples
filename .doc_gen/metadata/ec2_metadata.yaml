@@ -47,8 +47,8 @@ ec2_Hello:
           sdkguide:
           excerpts:
             - description:
-              snippet_tags:
-                - javascript.v3.ec2.scenarios.Hello
+              snippet_files:
+                - javascriptv3/example_code/ec2/hello.js
     C++:
       versions:
         - sdk_version: 1
@@ -118,7 +118,7 @@ ec2_CreateKeyPair:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.scenario.create_key_pair.main
+                - ec2.java2.create_key_pair.main
     Python:
       versions:
         - sdk_version: 3
@@ -216,7 +216,7 @@ ec2_DescribeKeyPairs:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java.scenario_describe_keys.main
+                - ec2.java2.describe_key_pairs.main
     Python:
       versions:
         - sdk_version: 3
@@ -302,7 +302,7 @@ ec2_CreateSecurityGroup:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java.scenario_inbound_rule.main
+                - ec2.java2.create_security_group.main
     Python:
       versions:
         - sdk_version: 3
@@ -482,7 +482,7 @@ ec2_StartInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.scenario.start_instance.main
+                - ec2.java2.start_instance.main
     Python:
       versions:
         - sdk_version: 3
@@ -580,7 +580,7 @@ ec2_StopInstances:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.scenario.stop_instance.main
+                - ec2.java2.stop.instance.main
     Python:
       versions:
         - sdk_version: 3
@@ -677,7 +677,7 @@ ec2_AllocateAddress:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java2.scenario.allocate_address.main
+                - ec2.java2.allocate_address.main
     Python:
       versions:
         - sdk_version: 3
@@ -704,8 +704,8 @@ ec2_AllocateAddress:
           sdkguide:
           excerpts:
             - description:
-              snippet_tags:
-                - ec2.JavaScript.Addresses.allocateAddressV3
+              snippet_files:
+                - javascriptv3/example_code/ec2/actions/allocate-address.js
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -1030,7 +1030,7 @@ ec2_AuthorizeSecurityGroupIngress:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.java.scenario_inbound_rule.main
+                - ec2.java2.create_security_group.main
     Python:
       versions:
         - sdk_version: 3
@@ -2185,9 +2185,12 @@ ec2_Scenario_GetStartedInstances:
           github: javav2/example_code/ec2
           sdkguide:
           excerpts:
-            - description:
+            - description: Run a scenario at a command prompt.
               snippet_tags:
                 - ec2.java2.scenario.main
+            - description: Define a class that wraps EC2 actions.
+              snippet_tags:
+                - ec2.java2.actions.main    
     Python:
       versions:
         - sdk_version: 3
@@ -2215,9 +2218,12 @@ ec2_Scenario_GetStartedInstances:
           github: javascriptv3/example_code/ec2
           sdkguide:
           excerpts:
-            - description: Run an interactive scenario at a command prompt.
-              snippet_tags:
-                - javascript.v3.ec2.scenarios.basic
+            - description: |
+                This file contains a list of common actions used with EC2. The steps are constructed
+                with a Scenario framework that simplifies running an interactive example. For the full
+                context, visit the GitHub repository.
+              snippet_files:
+                - javascriptv3/example_code/ec2/scenarios/steps.js 
     Bash:
       versions:
         - sdk_version: 2

@@ -85,15 +85,10 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a presigned URL](s3_basics/presigned_url.py)
-<<<<<<< HEAD
-- [Get started with buckets and objects](s3_basics/scenario_getting_started.py)
-- [Manage versioned objects in batches with a Lambda function](python/example_code/s3/s3_versioning)
-=======
-- [Create an Amazon Textract explorer application](python/cross_service/textract_explorer)
-- [Detect entities in text extracted from an image](python/cross_service/textract_comprehend_notebook)
-- [Detect objects in images](python/cross_service/photo_analyzer)
-- [Manage versioned objects in batches with a Lambda function](python/code_examples/s3_versioning)
->>>>>>> 80a2ce34d (Run WRITEME for recategorization.)
+- [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
+- [Detect entities in text extracted from an image](../../cross_service/textract_comprehend_notebook)
+- [Detect objects in images](../../cross_service/photo_analyzer)
+- [Manage versioned objects in batches with a Lambda function](../../example_code/s3/s3_versioning)
 - [Upload or download large files](file_transfer/file_transfer.py)
 - [Work with versioned objects](s3_versioning/versioning.py)
 

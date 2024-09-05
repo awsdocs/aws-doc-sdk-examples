@@ -65,9 +65,9 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Copy email and domain identities across Regions](ses_replicate_identities.py)
-- [Create a web application to track DynamoDB data](python/cross_service/dynamodb_item_tracker)
-- [Create an Aurora Serverless work item tracker](python/cross_service/aurora_item_tracker)
-- [Detect objects in images](python/cross_service/photo_analyzer)
+- [Create a web application to track DynamoDB data](../../cross_service/dynamodb_item_tracker)
+- [Create an Aurora Serverless work item tracker](../../cross_service/aurora_item_tracker)
+- [Detect objects in images](../../cross_service/photo_analyzer)
 - [Generate credentials to connect to an SMTP endpoint](ses_generate_smtp_credentials.py)
 - [Verify an email identity and send messages](ses_email.py)
 

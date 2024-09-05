@@ -56,13 +56,13 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a REST API to track COVID-19 data](python/cross_service/apigateway_covid-19_tracker)
-- [Create a lending library REST API](python/cross_service/aurora_rest_lending_library)
-- [Create a messenger application](python/cross_service/stepfunctions_messenger)
-- [Create a websocket chat application](python/cross_service/apigateway_websocket_chat)
+- [Create a REST API to track COVID-19 data](../../cross_service/apigateway_covid-19_tracker)
+- [Create a lending library REST API](../../cross_service/aurora_rest_lending_library)
+- [Create a messenger application](../../cross_service/stepfunctions_messenger)
+- [Create a websocket chat application](../../cross_service/apigateway_websocket_chat)
 - [Get started with functions](lambda_handler_basic.py)
-- [Use API Gateway to invoke a Lambda function](python/example_code/lambda)
-- [Use scheduled events to invoke a Lambda function](python/example_code/lambda)
+- [Use API Gateway to invoke a Lambda function](../../example_code/lambda)
+- [Use scheduled events to invoke a Lambda function](../../example_code/lambda)
 
 
 <!--custom.examples.start-->

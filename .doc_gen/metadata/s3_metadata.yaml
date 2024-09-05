@@ -3416,3 +3416,20 @@ s3_Scenario_ProcessS3EventNotification:
   services:
     s3: {PutBucketNotificationConfiguration}
     sqs: {ReceiveMessage, GetQueueAttributes, DeleteMessageBatch}
+s3_Scenario_DeleteAllObjects:
+  title: Delete all objects in a given &S3; bucket using an &AWS; SDK.
+  title_abbrev: Delete all objects in a bucket
+  synopsis: delete all of the objects in an &S3; bucket.
+  category: Scenarios
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Delete all objects for a given &S3; bucket.
+              snippet_files:
+                - javascriptv3/example_code/s3/scenarios/delete-all-objects.js
+  services:
+    s3: {DeleteObjects, ListObjectsV2}

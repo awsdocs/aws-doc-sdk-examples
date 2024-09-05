@@ -51,7 +51,7 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteAccessKey](actions/delete-access-key.js#L6)
 - [DeleteAccountAlias](actions/delete-account-alias.js#L6)
 - [DeleteGroup](actions/delete-group.js#L6)
-- [DeleteInstanceProfile](../cross-services/wkflw-resilient-service/steps-destroy.js#L213)
+- [DeleteInstanceProfile](../cross-services/wkflw-resilient-service/steps-destroy.js#L216)
 - [DeletePolicy](actions/delete-policy.js#L6)
 - [DeleteRole](actions/delete-role.js#L6)
 - [DeleteRolePolicy](actions/delete-role-policy.js#L6)
@@ -108,10 +108,21 @@ node ./actions/<fileName>
 ```
 
 **Run a scenario**
+
 Most scenarios can be run with the following command:
 ```bash
 node ./scenarios/<fileName>
 ```
+
+**Run with options**
+
+Some actions and scenarios can be run with options from the command line:
+```bash
+node ./scenarios/<fileName> --option1 --option2
+```
+[util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) is used to configure
+these options. For the specific options available to each script, see the `parseArgs` usage
+for that file.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->

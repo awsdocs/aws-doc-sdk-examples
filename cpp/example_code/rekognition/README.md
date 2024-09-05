@@ -53,7 +53,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a serverless application to manage photos](cpp/example_code/cross-service/photo_asset_manager)
+- [Create a serverless application to manage photos](../../example_code/cross-service/photo_asset_manager)
 
 
 <!--custom.examples.start-->

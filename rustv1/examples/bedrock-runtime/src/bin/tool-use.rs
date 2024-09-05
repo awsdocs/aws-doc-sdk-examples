@@ -240,6 +240,8 @@ async fn fetch_weather_data(
 // snippet-end:[rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.weather-tool]
 
 // snippet-start:[rust.bedrock-runtime.Converse_AnthropicClaude.tool-use]
+#[derive(Debug)]
+#[allow(dead_code)]
 struct InvokeToolResult(String, ToolResultBlock);
 struct ToolUseScenario {
     client: Client,

@@ -59,7 +59,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a presigned URL](PresignedURL.php)
-- [Create a serverless application to manage photos](php/applications/photo_asset_manager)
+- [Create a serverless application to manage photos](../../applications/photo_asset_manager)
 
 
 <!--custom.examples.start-->

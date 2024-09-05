@@ -125,10 +125,7 @@ fn get_converse_output_text(
 ) -> Result<String, BedrockConverseStreamError> {
     Ok(match output {
         ConverseStreamOutputType::ContentBlockDelta(event) => match event.delta() {
-            Some(delta) => delta
-                .as_text()
-                .map(|s| s.clone())
-                .unwrap_or_else(|_| "".into()),
+            Some(delta) => delta.as_text().cloned().unwrap_or_else(|_| "".into()),
             None => "".into(),
         },
         _ => "".into(),

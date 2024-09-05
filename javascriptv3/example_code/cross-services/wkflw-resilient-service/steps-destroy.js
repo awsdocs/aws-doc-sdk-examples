@@ -7,6 +7,7 @@ import {
   EC2Client,
   DeleteKeyPairCommand,
   DeleteLaunchTemplateCommand,
+  RevokeSecurityGroupIngressCommand,
 } from "@aws-sdk/client-ec2";
 import {
   IAMClient,
@@ -36,6 +37,7 @@ import {
   ScenarioInput,
   ScenarioAction,
 } from "@aws-doc-sdk-examples/lib/scenario/index.js";
+import { loadState } from "@aws-doc-sdk-examples/lib/scenario/steps-common.js";
 import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 import { MESSAGES, NAMES } from "./constants.js";
@@ -45,6 +47,7 @@ import { findLoadBalancer } from "./shared.js";
  * @type {import('@aws-doc-sdk-examples/lib/scenario.js').Step[]}
  */
 export const destroySteps = [
+  loadState,
   new ScenarioInput("destroy", MESSAGES.destroy, { type: "confirm" }),
   new ScenarioAction(
     "abort",
@@ -512,6 +515,39 @@ export const destroySteps = [
         "${ROLE_NAME}",
         NAMES.ssmOnlyRoleName,
       );
+    }
+  }),
+  new ScenarioAction(
+    "revokeSecurityGroupIngress",
+    async (
+      /** @type {{ myIp: string, defaultSecurityGroup: { GroupId: string } }} */ state,
+    ) => {
+      const ec2Client = new EC2Client({});
+
+      try {
+        await ec2Client.send(
+          new RevokeSecurityGroupIngressCommand({
+            GroupId: state.defaultSecurityGroup.GroupId,
+            CidrIp: `${state.myIp}/32`,
+            FromPort: 80,
+            ToPort: 80,
+            IpProtocol: "tcp",
+          }),
+        );
+      } catch (e) {
+        state.revokeSecurityGroupIngressError = e;
+      }
+    },
+  ),
+  new ScenarioOutput("revokeSecurityGroupIngressResult", (state) => {
+    if (state.revokeSecurityGroupIngressError) {
+      console.error(state.revokeSecurityGroupIngressError);
+      return MESSAGES.revokeSecurityGroupIngressError.replace(
+        "${IP}",
+        state.myIp,
+      );
+    } else {
+      return MESSAGES.revokedSecurityGroupIngress.replace("${IP}", state.myIp);
     }
   }),
 ];
