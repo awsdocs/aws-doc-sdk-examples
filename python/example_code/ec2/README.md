@@ -50,6 +50,32 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
+- [AllocateAddress](elastic_ip.py#L56)
+- [AssociateAddress](elastic_ip.py#L82)
+- [AuthorizeSecurityGroupIngress](security_group.py#L68)
+- [CreateKeyPair](key_pair.py#L57)
+- [CreateLaunchTemplate](../../cross_service/resilient_service/auto_scaler.py#L396)
+- [CreateSecurityGroup](security_group.py#L42)
+- [DeleteKeyPair](key_pair.py#L118)
+- [DeleteLaunchTemplate](../../cross_service/resilient_service/auto_scaler.py#L461)
+- [DeleteSecurityGroup](security_group.py#L148)
+- [DescribeAvailabilityZones](../../cross_service/resilient_service/auto_scaler.py#L488)
+- [DescribeIamInstanceProfileAssociations](../../cross_service/resilient_service/auto_scaler.py#L223)
+- [DescribeImages](instance.py#L253)
+- [DescribeInstanceTypes](instance.py#L274)
+- [DescribeInstances](instance.py#L106)
+- [DescribeKeyPairs](key_pair.py#L89)
+- [DescribeSecurityGroups](security_group.py#L108)
+- [DescribeSubnets](../../cross_service/resilient_service/auto_scaler.py#L845)
+- [DescribeVpcs](../../cross_service/resilient_service/auto_scaler.py#L705)
+- [DisassociateAddress](elastic_ip.py#L121)
+- [RebootInstances](../../cross_service/resilient_service/auto_scaler.py#L19)
+- [ReleaseAddress](elastic_ip.py#L162)
+- [ReplaceIamInstanceProfileAssociation](../../cross_service/resilient_service/auto_scaler.py#L252)
+- [RunInstances](instance.py#L43)
+- [StartInstances](instance.py#L190)
+- [StopInstances](instance.py#L221)
+- [TerminateInstances](instance.py#L158)
 
 ### Scenarios
 
