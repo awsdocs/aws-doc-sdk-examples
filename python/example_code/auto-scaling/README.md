@@ -50,9 +50,9 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachLoadBalancerTargetGroups](../../cross_service/resilient_service/auto_scaler.py#L627)
+- [AttachLoadBalancerTargetGroups](../../cross_service/resilient_service/auto_scaler.py#L618)
 - [CreateAutoScalingGroup](action_wrapper.py#L31)
-- [DeleteAutoScalingGroup](../../cross_service/resilient_service/auto_scaler.py#L668)
+- [DeleteAutoScalingGroup](../../cross_service/resilient_service/auto_scaler.py#L659)
 - [DescribeAutoScalingGroups](action_wrapper.py#L167)
 - [DescribeAutoScalingInstances](action_wrapper.py#L284)
 - [DescribeScalingActivities](action_wrapper.py#L317)

@@ -18,7 +18,6 @@ from pprint import pp
 import boto3
 import coloredlogs
 import requests
-
 from auto_scaler import AutoScalingWrapper
 from load_balancer import ElasticLoadBalancerWrapper
 from parameters import ParameterHelper

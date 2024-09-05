@@ -8,16 +8,11 @@ from datetime import datetime
 
 import boto3
 import pytest
-
 import runner
 from auto_scaler import AutoScalingWrapper
 from load_balancer import ElasticLoadBalancerWrapper
 from parameters import ParameterHelper
 from recommendation_service import RecommendationService
-
-# This is needed so Python can find test_tools on the path.
-# sys.path.append("../..")
-# from test_tools.fixtures.common import *
 
 
 class ScenarioData:

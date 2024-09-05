@@ -178,7 +178,6 @@ class AutoScalingWrapper:
                                      the role, such as AmazonSSMManagedInstanceCore to grant
                                      use of Systems Manager to send commands to the instance.
         :return: The ARN of the profile that is created.
-        :raises AutoScalerError: If the policy, role, or profile creation fails.
         """
         assume_role_doc = {
             "Version": "2012-10-17",
@@ -228,7 +227,6 @@ class AutoScalingWrapper:
 
         :param instance_id: The ID of the instance to look up.
         :return: The profile data.
-        :raises AutoScalerError: If unable to retrieve the instance profile data.
         """
         try:
             response = self.ec2_client.describe_iam_instance_profile_associations(
@@ -268,7 +266,6 @@ class AutoScalingWrapper:
                                           the specified instance.
         :param profile_association_id: The ID of the existing profile association for the
                                        instance.
-        :raises AutoScalerError: If the instance profile replacement or reboot fails.
         """
         try:
             self.ec2_client.replace_iam_instance_profile_association(
@@ -321,7 +318,6 @@ class AutoScalingWrapper:
 
         :param profile_name: The name of the profile to delete.
         :param role_name: The name of the role to delete.
-        :raises AutoScalerError: If the profile, role, or policies cannot be deleted.
         """
         try:
             self.iam_client.remove_role_from_instance_profile(
@@ -360,7 +356,6 @@ class AutoScalingWrapper:
         Creates a new key pair.
 
         :param key_pair_name: The name of the key pair to create.
-        :raises AutoScalerError: If the key pair creation fails.
         """
         try:
             response = self.ec2_client.create_key_pair(KeyName=key_pair_name)
@@ -382,8 +377,6 @@ class AutoScalingWrapper:
     def delete_key_pair(self) -> None:
         """
         Deletes a key pair.
-
-        :raises AutoScalerError: If the key pair deletion fails.
         """
         try:
             self.ec2_client.delete_key_pair(KeyName=self.key_pair_name)
@@ -415,7 +408,6 @@ class AutoScalingWrapper:
         :param instance_policy_file: The path to a file that defines a permissions policy
                                      to create and attach to the instance profile.
         :return: Information about the newly created template.
-        :raises AutoScalerError: If the template creation fails.
         """
         template = {}
         try:
@@ -521,7 +513,6 @@ class AutoScalingWrapper:
         :param group_size: The number of instances to set for the minimum and maximum in
                            the group.
         :return: The list of Availability Zones specified for the group.
-        :raises AutoScalerError: If the Auto Scaling group creation fails.
         """
         try:
             zones = self.get_availability_zones()
@@ -585,18 +576,18 @@ class AutoScalingWrapper:
 
     # snippet-end:[python.cross_service.resilient_service.auto-scaling.DescribeAutoScalingGroups]
 
-    def terminate_instance(self, instance_id: str, decremment_setting=False) -> None:
+    def terminate_instance(self, instance_id: str, decrementsetting=False) -> None:
         """
         Terminates an instance in an EC2 Auto Scaling group. After an instance is
         terminated, it can no longer be accessed.
 
         :param instance_id: The ID of the instance to terminate.
-        :param decremment_setting: If True, do not replace terminated instances.
+        :param decrementsetting: If True, do not replace terminated instances.
         """
         try:
             self.autoscaling_client.terminate_instance_in_auto_scaling_group(
                 InstanceId=instance_id,
-                ShouldDecrementDesiredCapacity=decremment_setting,
+                ShouldDecrementDesiredCapacity=decrementsetting,
             )
             log.info("Terminated instance %s.", instance_id)
 

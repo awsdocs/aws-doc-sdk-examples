@@ -43,7 +43,6 @@ class ElasticLoadBalancerWrapper:
         :param port: The port to use to forward requests, such as 80.
         :param vpc_id: The ID of the VPC in which the load balancer exists.
         :return: Data about the newly created target group.
-        :raises LoadBalancerError: If the target group creation fails.
         """
         try:
             response = self.elb_client.create_target_group(
@@ -86,8 +85,6 @@ class ElasticLoadBalancerWrapper:
     def delete_target_group(self, target_group_name) -> None:
         """
         Deletes the target group.
-
-        :raises LoadBalancerError: If the target group deletion fails.
         """
         try:
             # Describe the target group to get its ARN
@@ -261,7 +258,6 @@ class ElasticLoadBalancerWrapper:
         Deletes a load balancer.
 
         :param load_balancer_name: The name of the load balancer to delete.
-        :raises LoadBalancerError: If the load balancer deletion fails.
         """
         try:
             response = self.elb_client.describe_load_balancers(
@@ -344,12 +340,11 @@ class ElasticLoadBalancerWrapper:
         return verified
 
     # snippet-start:[python.cross_service.resilient_service.elbv2.DescribeTargetHealth]
-    def check_target_health(self, target_group_name) -> List[Dict[str, Any]]:
+    def check_target_health(self, target_group_name: str) -> List[Dict[str, Any]]:
         """
         Checks the health of the instances in the target group.
 
         :return: The health status of the target group.
-        :raises LoadBalancerError: If unable to check the health of the targets.
         """
         try:
             tg_response = self.elb_client.describe_target_groups(

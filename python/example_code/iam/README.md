@@ -55,7 +55,7 @@ Code excerpts that show you how to call individual service functions.
 - [CreateUser](user_wrapper.py#L25)
 - [DeleteAccessKey](access_key_wrapper.py#L47)
 - [DeleteAccountAlias](account_wrapper.py#L44)
-- [DeleteInstanceProfile](../../cross_service/resilient_service/auto_scaler.py#L316)
+- [DeleteInstanceProfile](../../cross_service/resilient_service/auto_scaler.py#L313)
 - [DeletePolicy](policy_wrapper.py#L61)
 - [DeleteRole](role_wrapper.py#L102)
 - [DeleteUser](user_wrapper.py#L46)
