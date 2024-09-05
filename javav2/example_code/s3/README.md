@@ -47,9 +47,10 @@ Code excerpts that show you how to call individual service functions.
 
 - [CopyObject](src/main/java/com/example/s3/scenario/S3Actions.java#L203)
 - [CreateBucket](src/main/java/com/example/s3/scenario/S3Actions.java#L85)
-- [DeleteBucket](src/main/java/com/example/s3/S3BucketOps.java#L79)
+- [DeleteBucket](src/main/java/com/example/s3/scenario/S3Actions.java#L342)
 - [DeleteBucketPolicy](src/main/java/com/example/s3/DeleteBucketPolicy.java#L6)
 - [DeleteBucketWebsite](src/main/java/com/example/s3/DeleteWebsiteConfiguration.java#L6)
+- [DeleteObject](src/main/java/com/example/s3/scenario/S3Actions.java#L315)
 - [DeleteObjects](src/main/java/com/example/s3/DeleteMultiObjects.java#L6)
 - [GetBucketAcl](src/main/java/com/example/s3/GetAcl.java#L6)
 - [GetBucketPolicy](src/main/java/com/example/s3/GetBucketPolicy.java#L6)
