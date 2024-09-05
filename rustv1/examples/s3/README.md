@@ -45,7 +45,7 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CompleteMultipartUpload](src/bin/s3-multipart-upload.rs#L136)
+- [CompleteMultipartUpload](src/bin/s3-multipart-upload.rs#L139)
 - [CopyObject](src/lib.rs#L7)
 - [CreateBucket](src/lib.rs#L192)
 - [CreateMultipartUpload](src/bin/s3-multipart-upload.rs#L48)
@@ -58,7 +58,7 @@ Code excerpts that show you how to call individual service functions.
 - [ListObjectVersions](src/bin/list-object-versions.rs#L26)
 - [ListObjectsV2](src/lib.rs#L92)
 - [PutObject](src/lib.rs#L73)
-- [UploadPart](src/bin/s3-multipart-upload.rs#L112)
+- [UploadPart](src/bin/s3-multipart-upload.rs#L101)
 
 ### Scenarios
 

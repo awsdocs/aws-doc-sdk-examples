@@ -30,6 +30,7 @@ struct Opt {
     source: PathBuf,
 }
 
+// snippet-start:[s3.rust.ProgressTracker]
 // ProgressTracker prints information as the upload progresses.
 struct ProgressTracker {
     bytes_written: u64,
@@ -43,6 +44,7 @@ impl ProgressTracker {
         info!("Read {} bytes, progress: {:.2}%", len, progress * 100.0);
     }
 }
+// snippet-end:[s3.rust.ProgressTracker]
 
 // snippet-start:[s3.rust.put-object-progress-body]
 // A ProgressBody to wrap any http::Body with upload progress information.

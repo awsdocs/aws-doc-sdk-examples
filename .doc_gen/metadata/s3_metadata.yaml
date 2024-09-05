@@ -1222,9 +1222,12 @@ s3_CompleteMultipartUpload:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:
-              snippet_tags:
-                - rust.example_code.s3.complete_multipart_upload
+            - snippet_tags:
+                - s3.rust.complete_multipart_upload
+            - snippet_tags:
+                - s3.rust.create_multipart_upload
+            - snippet_tags:
+                - s3.rust.upload_part
     C++:
       versions:
         - sdk_version: 1
@@ -1242,9 +1245,12 @@ s3_CreateMultipartUpload:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:
-              snippet_tags:
-                - rust.example_code.s3.create_multipart_upload
+            - snippet_tags:
+                - s3.rust.create_multipart_upload
+            - snippet_tags:
+                - s3.rust.upload_part
+            - snippet_tags:
+                - s3.rust.complete_multipart_upload
     C++:
       versions:
         - sdk_version: 1
@@ -2377,9 +2383,11 @@ s3_UploadPart:
           github: rustv1/examples/s3
           excerpts:
             - snippet_tags:
-                - rust.example_code.s3.upload_part
+                - s3.rust.upload_part
             - snippet_tags:
-                - rust.example_code.s3.upload_part.CompletedMultipartUpload
+                - s3.rust.create_multipart_upload
+            - snippet_tags:
+                - s3.rust.complete_multipart_upload
     C++:
       versions:
         - sdk_version: 1
