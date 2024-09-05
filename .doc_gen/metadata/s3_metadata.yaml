@@ -466,6 +466,15 @@ s3_DeleteObject:
             - description:
               snippet_tags:
                 - s3.abapv1.delete_object
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.delete_objects.main
     Swift:
       versions:
         - sdk_version: 1
@@ -1616,7 +1625,7 @@ s3_DeleteBucket:
           excerpts:
             - description:
               snippet_tags:
-                - s3.java2.s3_bucket_ops.delete_bucket
+                - s3.java2.bucket_deletion.main
     PHP:
       versions:
         - sdk_version: 3
@@ -2832,9 +2841,12 @@ s3_Scenario_GettingStarted:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description:
+            - description: A scenario example. 
               snippet_tags:
                 - s3.java2.s3_scenario.main
+            - description: A wrapper class that contains the operations. 
+              snippet_tags:
+                - s3.java2.s3_actions.main
     JavaScript:
       versions:
         - sdk_version: 3
