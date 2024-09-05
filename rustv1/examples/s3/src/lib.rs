@@ -269,6 +269,19 @@ mod test {
     }
 
     #[tokio::test]
+    async fn test_delete_missing_bucket() {
+        let client = single_shot_client!(
+            sdk: aws_sdk_s3,
+            status: 404,
+            response: r#"<Error><Code>NoSuchBucket</Code><Message>The specified bucket does not exist</Message><BucketName>bucket_name</BucketName><RequestId>REQUEST</RequestId><HostId>HOSTID=</HostId></Error>"#
+        );
+
+        let resp = delete_bucket(&client, "bucket_name").await;
+
+        assert!(resp.is_ok(), "{resp:?}");
+    }
+
+    #[tokio::test]
     async fn test_delete_objects() {
         let client = aws_sdk_s3::Client::from_conf(
             client_config!(aws_sdk_s3)
