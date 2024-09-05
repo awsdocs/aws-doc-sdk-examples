@@ -2163,7 +2163,7 @@ s3_ListBuckets:
           excerpts:
             - description:
               snippet_tags:
-                - s3.rust.list-buckets
+                - s3.rust.list_buckets
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2834,7 +2834,7 @@ s3_GetBucketLocation:
           excerpts:
             - description:
               snippet_tags:
-                - s3.rust.list-buckets
+                - s3.rust.list_buckets
   services:
     s3: {GetBucketLocation}
 s3_Scenario_GettingStarted:

@@ -24,32 +24,34 @@ struct Opt {
 }
 
 // Shows your buckets, or those just in the region.
-// snippet-start:[s3.rust.list-buckets]
+// snippet-start:[s3.rust.list_buckets]
 async fn show_buckets(
     strict: bool,
     client: &Client,
     region: BucketLocationConstraint,
 ) -> Result<(), S3ExampleError> {
-    let resp = client.list_buckets().send().await?;
-    let buckets = resp.buckets();
-    let num_buckets = buckets.len();
+    let mut buckets = client.list_buckets().into_paginator().send();
 
+    let mut num_buckets = 0;
     let mut in_region = 0;
 
-    for bucket in buckets {
-        if strict {
-            let r = client
-                .get_bucket_location()
-                .bucket(bucket.name().unwrap_or_default())
-                .send()
-                .await?;
+    while let Some(Ok(output)) = buckets.next().await {
+        for bucket in output.buckets() {
+            num_buckets += 1;
+            if strict {
+                let r = client
+                    .get_bucket_location()
+                    .bucket(bucket.name().unwrap_or_default())
+                    .send()
+                    .await?;
 
-            if r.location_constraint() == Some(&region) {
+                if r.location_constraint() == Some(&region) {
+                    println!("{}", bucket.name().unwrap_or_default());
+                    in_region += 1;
+                }
+            } else {
                 println!("{}", bucket.name().unwrap_or_default());
-                in_region += 1;
             }
-        } else {
-            println!("{}", bucket.name().unwrap_or_default());
         }
     }
 
@@ -65,7 +67,7 @@ async fn show_buckets(
 
     Ok(())
 }
-// snippet-end:[s3.rust.list-buckets]
+// snippet-end:[s3.rust.list_buckets]
 
 /// Lists your Amazon S3 buckets, or just the buckets in the Region.
 /// # Arguments
