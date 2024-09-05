@@ -539,7 +539,7 @@ s3_DeleteObjects:
           excerpts:
             - description:
               snippet_tags:
-                - s3.java2.delete_many_objects.mainJavaScript
+                - s3.java2.delete_many_objects.main
     PHP:
       versions:
         - sdk_version: 3
