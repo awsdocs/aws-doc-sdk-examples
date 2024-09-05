@@ -466,6 +466,15 @@ s3_DeleteObject:
             - description:
               snippet_tags:
                 - s3.abapv1.delete_object
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.delete_objects.main
     Swift:
       versions:
         - sdk_version: 1
@@ -628,7 +637,7 @@ s3_DeleteBucketWebsite:
           excerpts:
             - description:
               snippet_tags:
-                - s3.java2.delete_objects.main
+                - s3.java2.delete_website_configuration.main
     JavaScript:
       versions:
         - sdk_version: 3
