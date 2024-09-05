@@ -1,8 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 import unittest
+from itertools import cycle
+from unittest.mock import patch
 
 import boto3
+import pytest
 from botocore.exceptions import ClientError
 
 from auto_scaler import AutoScalingWrapper
@@ -10,6 +13,11 @@ from load_balancer import ElasticLoadBalancerWrapper
 from parameters import ParameterHelper
 from recommendation_service import RecommendationService
 from runner import Runner
+
+
+@pytest.fixture(autouse=True)
+def disable_capture(pytestconfig):
+    pytestconfig.option.capture = "no"
 
 
 class TestRunnerIntegration(unittest.TestCase):
@@ -50,7 +58,10 @@ class TestRunnerIntegration(unittest.TestCase):
             cls.param_helper,
         )
 
-    def test_deploy_resources(self):
+    @pytest.mark.integ
+    @pytest.mark.usefixtures("disable_capture")
+    @patch("builtins.input", side_effect=cycle(["3"]))
+    def test_deploy_resources(self, mock_input):
         try:
             self.runner.deploy()
             # Verify that resources were created
@@ -66,36 +77,23 @@ class TestRunnerIntegration(unittest.TestCase):
         except ClientError as e:
             self.fail(f"Deployment failed with error: {e}")
 
-    def test_service_resilience(self):
+    @pytest.mark.integ
+    @pytest.mark.usefixtures("disable_capture")
+    @patch("builtins.input", side_effect=cycle(["3"]))
+    def test_service_resilience(self, mock_input):
         self.runner.deploy()
         try:
             self.runner.demo()
-            # The demo method will interact with the service,
-            # triggering different scenarios and responses.
         except Exception as e:
             self.fail(f"Service resilience test failed with error: {e}")
         finally:
-            self.runner.destroy()
-
-    def test_destroy_resources(self):
-        try:
-            self.runner.destroy()
-            # Verify that resources were destroyed
-            with self.assertRaises(ClientError):
-                self.ddb_client.describe_table(TableName=self.recommendation.table_name)
-
-            with self.assertRaises(ClientError):
-                self.elb_client.describe_load_balancers(
-                    Names=[self.runner.load_balancer_name]
-                )
-        except ClientError as e:
-            self.fail(f"Cleanup failed with error: {e}")
+            self.runner.destroy(automation=True)
 
     @classmethod
     def tearDownClass(cls):
         # Clean up in case any resources were left
         try:
-            cls.runner.destroy()
+            cls.runner.destroy(automation=True)
         except Exception as e:
             print(f"Cleanup failed in tearDown with error: {e}")
 

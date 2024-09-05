@@ -284,7 +284,7 @@ class Runner:
         self.demo_choices()
         self.param_helper.reset()
 
-    def destroy(self) -> None:
+    def destroy(self, automation=False) -> None:
         """
         Destroys all resources created for the demo, including the load balancer, Auto Scaling group,
         EC2 instances, and DynamoDB table.
@@ -292,7 +292,14 @@ class Runner:
         logging.info(
             "This concludes the demo. Preparing to clean up all AWS resources created during the demo."
         )
-        if q.ask("Do you want to clean up all demo resources? (y/n) ", q.is_yesno):
+        if automation:
+            cleanup = True
+        else:
+            cleanup = q.ask(
+                "Do you want to clean up all demo resources? (y/n) ", q.is_yesno
+            )
+
+        if cleanup:
             logging.info("Deleting load balancer and related resources.")
             self.loadbalancer.delete_load_balancer(self.load_balancer_name)
             self.loadbalancer.delete_target_group(self.target_group_name)

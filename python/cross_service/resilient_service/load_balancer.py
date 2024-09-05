@@ -98,9 +98,8 @@ class ElasticLoadBalancerWrapper:
             self.elb_client.delete_target_group(TargetGroupArn=tg_arn)
             log.info("Deleted load balancing target group %s.", target_group_name)
 
-            # Use a waiter to wait until the target group is no longer available
-            waiter = self.elb_client.get_waiter("target_group_deleted")
-            waiter.wait(TargetGroupArns=[tg_arn])
+            # Use a custom waiter to wait until the target group is no longer available
+            self.wait_for_target_group_deletion(self.elb_client, tg_arn)
             log.info("Target group %s successfully deleted.", target_group_name)
 
         except ClientError as err:
@@ -118,6 +117,28 @@ class ElasticLoadBalancerWrapper:
                 )
             log.error(f"Full error:\n\t{err}")
             pass
+
+    def wait_for_target_group_deletion(
+        self, elb_client, target_group_arn, max_attempts=10, delay=30
+    ):
+        for attempt in range(max_attempts):
+            try:
+                elb_client.describe_target_groups(TargetGroupArns=[target_group_arn])
+                print(
+                    f"Attempt {attempt + 1}: Target group {target_group_arn} still exists."
+                )
+            except ClientError as e:
+                if e.response["Error"]["Code"] == "TargetGroupNotFound":
+                    print(
+                        f"Target group {target_group_arn} has been successfully deleted."
+                    )
+                    return
+                else:
+                    raise
+            time.sleep(delay)
+        raise TimeoutError(
+            f"Target group {target_group_arn} was not deleted after {max_attempts * delay} seconds."
+        )
 
     # snippet-end:[python.cross_service.resilient_service.elbv2.DeleteTargetGroup]
 

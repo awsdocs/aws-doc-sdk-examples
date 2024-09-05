@@ -852,7 +852,7 @@ class AutoScalingWrapper:
     # snippet-end:[python.cross_service.resilient_service.ec2.AuthorizeSecurityGroupIngress]
 
     # snippet-start:[python.cross_service.resilient_service.ec2.DescribeSubnets]
-    def get_subnets(self, vpc_id: str, zones: List[str]) -> List[Dict[str, Any]]:
+    def get_subnets(self, vpc_id: str, zones: List[str] = None) -> List[Dict[str, Any]]:
         """
         Gets the default subnets in a VPC for a specified list of Availability Zones.
 
@@ -860,6 +860,9 @@ class AutoScalingWrapper:
         :param zones: The list of Availability Zones to look up.
         :return: The list of subnets found.
         """
+        # Ensure that 'zones' is a list, even if None is passed
+        if zones is None:
+            zones = []
         try:
             paginator = self.ec2_client.get_paginator("describe_subnets")
             page_iterator = paginator.paginate(
