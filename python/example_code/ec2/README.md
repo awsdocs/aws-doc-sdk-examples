@@ -36,7 +36,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Amazon EC2](hello/hello_ec2.py#L4) (`DescribeSecurityGroups`)
+- [Hello Amazon EC2](hello/hello_ec2.py#L11) (`DescribeSecurityGroups`)
 
 
 ### Basics
@@ -50,32 +50,32 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AllocateAddress](elastic_ip.py#L34)
-- [AssociateAddress](elastic_ip.py#L59)
-- [AuthorizeSecurityGroupIngress](security_group.py#L62)
-- [CreateKeyPair](key_pair.py#L40)
+- [AllocateAddress](elastic_ip.py#L56)
+- [AssociateAddress](elastic_ip.py#L82)
+- [AuthorizeSecurityGroupIngress](security_group.py#L68)
+- [CreateKeyPair](key_pair.py#L57)
 - [CreateLaunchTemplate](../../cross_service/resilient_service/auto_scaler.py#L346)
-- [CreateSecurityGroup](security_group.py#L35)
-- [DeleteKeyPair](key_pair.py#L91)
+- [CreateSecurityGroup](security_group.py#L42)
+- [DeleteKeyPair](key_pair.py#L118)
 - [DeleteLaunchTemplate](../../cross_service/resilient_service/auto_scaler.py#L409)
-- [DeleteSecurityGroup](security_group.py#L129)
+- [DeleteSecurityGroup](security_group.py#L148)
 - [DescribeAvailabilityZones](../../cross_service/resilient_service/auto_scaler.py#L438)
 - [DescribeIamInstanceProfileAssociations](../../cross_service/resilient_service/auto_scaler.py#L184)
-- [DescribeImages](instance.py#L195)
-- [DescribeInstanceTypes](instance.py#L217)
-- [DescribeInstances](instance.py#L85)
-- [DescribeKeyPairs](key_pair.py#L70)
-- [DescribeSecurityGroups](security_group.py#L102)
+- [DescribeImages](instance.py#L253)
+- [DescribeInstanceTypes](instance.py#L274)
+- [DescribeInstances](instance.py#L106)
+- [DescribeKeyPairs](key_pair.py#L89)
+- [DescribeSecurityGroups](security_group.py#L108)
 - [DescribeSubnets](../../cross_service/resilient_service/auto_scaler.py#L731)
 - [DescribeVpcs](../../cross_service/resilient_service/auto_scaler.py#L630)
-- [DisassociateAddress](elastic_ip.py#L89)
+- [DisassociateAddress](elastic_ip.py#L121)
 - [RebootInstances](../../cross_service/resilient_service/auto_scaler.py#L21)
-- [ReleaseAddress](elastic_ip.py#L112)
+- [ReleaseAddress](elastic_ip.py#L162)
 - [ReplaceIamInstanceProfileAssociation](../../cross_service/resilient_service/auto_scaler.py#L205)
-- [RunInstances](instance.py#L34)
-- [StartInstances](instance.py#L141)
-- [StopInstances](instance.py#L168)
-- [TerminateInstances](instance.py#L116)
+- [RunInstances](instance.py#L43)
+- [StartInstances](instance.py#L190)
+- [StopInstances](instance.py#L221)
+- [TerminateInstances](instance.py#L158)
 
 ### Scenarios
 
