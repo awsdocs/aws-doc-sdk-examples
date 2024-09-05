@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 use aws_config::meta::region::RegionProviderChain;
+use s3_code_examples::error::S3ExampleError;
 use std::{fs::File, io::Write, path::PathBuf, process::exit};
 
 use aws_sdk_s3::Client;
@@ -18,12 +19,16 @@ struct Opt {
 }
 
 // snippet-start:[s3.rust.get_object]
-async fn get_object(client: Client, opt: Opt) -> Result<usize, anyhow::Error> {
+async fn get_object(client: Client, opt: Opt) -> Result<usize, S3ExampleError> {
     trace!("bucket:      {}", opt.bucket);
     trace!("object:      {}", opt.object);
     trace!("destination: {}", opt.destination.display());
 
-    let mut file = File::create(opt.destination.clone())?;
+    let mut file = File::create(opt.destination.clone()).map_err(|err| {
+        S3ExampleError::new(format!(
+            "Failed to initialize file for saving S3 download: {err:?}"
+        ))
+    })?;
 
     let mut object = client
         .get_object()
@@ -33,9 +38,15 @@ async fn get_object(client: Client, opt: Opt) -> Result<usize, anyhow::Error> {
         .await?;
 
     let mut byte_count = 0_usize;
-    while let Some(bytes) = object.body.try_next().await? {
+    while let Some(bytes) = object.body.try_next().await.map_err(|err| {
+        S3ExampleError::new(format!("Failed to read from S3 download stream: {err:?}"))
+    })? {
         let bytes_len = bytes.len();
-        file.write_all(&bytes)?;
+        file.write_all(&bytes).map_err(|err| {
+            S3ExampleError::new(format!(
+                "Failed to write from S3 download stream to local file: {err:?}"
+            ))
+        })?;
         trace!("Intermediate write of {bytes_len}");
         byte_count += bytes_len;
     }

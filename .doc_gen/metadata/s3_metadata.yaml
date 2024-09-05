@@ -67,6 +67,16 @@ s3_Hello:
             - description:
               snippet_tags:
                 - ruby.hello_s3
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/s3
+          excerpts:
+            - snippet_tags:
+                - s3.rust.s3-helloworld
+            - description: S3ExampleError utilities
+            - snippet_tags:
+                - s3.rust.s3-example-error
   services:
     s3: {ListBuckets}
 s3_CreateBucket:
@@ -172,7 +182,7 @@ s3_CreateBucket:
           excerpts:
             - description:
               snippet_tags:
-                - rust.example_code.s3.basics.create_bucket
+                - s3.rust.create_bucket
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -301,7 +311,7 @@ s3_CopyObject:
           excerpts:
             - description:
               snippet_tags:
-                - rust.example_code.s3.basics.copy_object
+                - s3.rust.copy_object
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -449,7 +459,7 @@ s3_DeleteObject:
           excerpts:
             - description:
               snippet_tags:
-                - s3.rust.delete-object
+                - s3.rust.delete_object
     JavaScript:
       versions:
         - sdk_version: 3
@@ -588,7 +598,7 @@ s3_DeleteObjects:
           excerpts:
             - description:
               snippet_tags:
-                - rust.example_code.s3.basics.delete_objects
+                - s3.rust.delete_objects
     Swift:
       versions:
         - sdk_version: 1
@@ -1212,9 +1222,12 @@ s3_CompleteMultipartUpload:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:
-              snippet_tags:
-                - rust.example_code.s3.complete_multipart_upload
+            - snippet_tags:
+                - s3.rust.complete_multipart_upload
+            - snippet_tags:
+                - s3.rust.create_multipart_upload
+            - snippet_tags:
+                - s3.rust.upload_part
     C++:
       versions:
         - sdk_version: 1
@@ -1232,9 +1245,12 @@ s3_CreateMultipartUpload:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:
-              snippet_tags:
-                - rust.example_code.s3.create_multipart_upload
+            - snippet_tags:
+                - s3.rust.create_multipart_upload
+            - snippet_tags:
+                - s3.rust.upload_part
+            - snippet_tags:
+                - s3.rust.complete_multipart_upload
     C++:
       versions:
         - sdk_version: 1
@@ -1336,7 +1352,7 @@ s3_ListObjectsV2:
           excerpts:
             - description:
               snippet_tags:
-                - rust.example_code.s3.basics.list_objects
+                - s3.rust.list_objects
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1511,7 +1527,7 @@ s3_PutObject:
           excerpts:
             - description:
               snippet_tags:
-                - rust.example_code.s3.basics.put_object
+                - s3.rust.upload_object
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1668,7 +1684,7 @@ s3_DeleteBucket:
           excerpts:
             - description:
               snippet_tags:
-                - rust.example_code.s3.basics.delete_bucket
+                - s3.rust.delete_bucket
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -2147,7 +2163,7 @@ s3_ListBuckets:
           excerpts:
             - description:
               snippet_tags:
-                - s3.rust.list-buckets
+                - s3.rust.list_buckets
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2366,10 +2382,12 @@ s3_UploadPart:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description:
-              snippet_tags:
-                - rust.example_code.s3.upload_part
-                - rust.example_code.s3.upload_part.CompletedMultipartUpload
+            - snippet_tags:
+                - s3.rust.upload_part
+            - snippet_tags:
+                - s3.rust.create_multipart_upload
+            - snippet_tags:
+                - s3.rust.complete_multipart_upload
     C++:
       versions:
         - sdk_version: 1
@@ -2747,9 +2765,11 @@ s3_Scenario_PresignedUrl:
         - sdk_version: 1
           github: rustv1/examples/s3
           excerpts:
-            - description: Create presigning requests to GET and PUT S3 objects.
+            - description: Create presigning requests to GET S3 objects.
               snippet_tags:
                 - s3.rust.get-object-presigned
+            - description: Create presigning requests to PUT S3 objects.
+              snippet_tags:
                 - s3.rust.put-object-presigned
     C++:
       versions:
@@ -2814,7 +2834,7 @@ s3_GetBucketLocation:
           excerpts:
             - description:
               snippet_tags:
-                - s3.rust.list-buckets
+                - s3.rust.list_buckets
   services:
     s3: {GetBucketLocation}
 s3_Scenario_GettingStarted:
@@ -2942,11 +2962,17 @@ s3_Scenario_GettingStarted:
           github: rustv1/examples/s3
           excerpts:
             - description: Code for the binary crate which runs the scenario.
+              snippet_files:
+                - rustv1/examples/s3/src/bin/s3-getting-started.rs
+            - description: Common actions used by the scenario.
               snippet_tags:
-                - rust.example_code.s3.scenario_getting_started.bin
-            - description: A library crate with common actions called by the binary.
-              snippet_tags:
-                - rust.example_code.s3.scenario_getting_started.lib
+                - s3.rust.create_bucket
+                - s3.rust.upload_object
+                - s3.rust.download_object
+                - s3.rust.copy_object
+                - s3.rust.list_objects
+                - s3.rust.clear_bucket
+                - s3.rust.delete_bucket
     C++:
       versions:
         - sdk_version: 1

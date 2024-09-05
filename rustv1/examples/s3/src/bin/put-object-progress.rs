@@ -17,6 +17,7 @@ use aws_smithy_runtime_api::http::Request;
 use bytes::Bytes;
 use clap::Parser;
 use http_body::{Body, SizeHint};
+use s3_code_examples::error::S3ExampleError;
 use tracing::{debug, info};
 
 #[derive(Debug, Parser)]
@@ -29,6 +30,7 @@ struct Opt {
     source: PathBuf,
 }
 
+// snippet-start:[s3.rust.ProgressTracker]
 // ProgressTracker prints information as the upload progresses.
 struct ProgressTracker {
     bytes_written: u64,
@@ -42,6 +44,7 @@ impl ProgressTracker {
         info!("Read {} bytes, progress: {:.2}%", len, progress * 100.0);
     }
 }
+// snippet-end:[s3.rust.ProgressTracker]
 
 // snippet-start:[s3.rust.put-object-progress-body]
 // A ProgressBody to wrap any http::Body with upload progress information.
@@ -132,7 +135,7 @@ where
 // Uploads a local file to a bucket using a ProgressBody wrapper. ProgressBody
 // overrides SdkBody::poll_data to print additional debug information while
 // uploading the object.
-async fn put_object(client: &Client, opts: &Opt) -> Result<(), anyhow::Error> {
+async fn put_object(client: &Client, opts: &Opt) -> Result<(), S3ExampleError> {
     debug!("bucket: {}", opts.bucket);
     debug!("object: {}", opts.object);
     debug!("source: {}", opts.source.display());
@@ -143,7 +146,8 @@ async fn put_object(client: &Client, opts: &Opt) -> Result<(), anyhow::Error> {
         // progress steps.
         .buffer_size(2048)
         .build()
-        .await?;
+        .await
+        .map_err(|err| S3ExampleError::new(format!("Failed to start file read stream: {err:?}")))?;
 
     let request = client
         .put_object()
