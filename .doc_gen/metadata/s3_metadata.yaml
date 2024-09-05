@@ -539,7 +539,7 @@ s3_DeleteObjects:
           excerpts:
             - description:
               snippet_tags:
-                - s3.java2.delete_many_objects.main
+                - s3.java2.delete_many_objects.mainJavaScript
     PHP:
       versions:
         - sdk_version: 3
@@ -2847,7 +2847,6 @@ s3_Scenario_GettingStarted:
             - description: A wrapper class that contains the operations. 
               snippet_tags:
                 - s3.java2.s3_actions.main
-    JavaScript:    
     JavaScript:
       versions:
         - sdk_version: 3
