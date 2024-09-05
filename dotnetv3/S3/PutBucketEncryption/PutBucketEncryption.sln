@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35201.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerSideEncryption", "ServerSideEncryption\ServerSideEncryption.csproj", "{4225C4A2-0FAC-4A42-9A26-D82B6A41EC7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerSideEncryptionTests", "ServerSideEncryptionTests\ServerSideEncryptionTests.csproj", "{49B7349D-97CC-4622-B32E-BABAAF21E572}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4225C4A2-0FAC-4A42-9A26-D82B6A41EC7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4225C4A2-0FAC-4A42-9A26-D82B6A41EC7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4225C4A2-0FAC-4A42-9A26-D82B6A41EC7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4225C4A2-0FAC-4A42-9A26-D82B6A41EC7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49B7349D-97CC-4622-B32E-BABAAF21E572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49B7349D-97CC-4622-B32E-BABAAF21E572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49B7349D-97CC-4622-B32E-BABAAF21E572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49B7349D-97CC-4622-B32E-BABAAF21E572}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E1A86E11-AEE8-495D-9C84-EE59DCAA0C1B}
+	EndGlobalSection
+EndGlobal
