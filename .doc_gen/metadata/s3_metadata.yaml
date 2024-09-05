@@ -628,7 +628,7 @@ s3_DeleteBucketWebsite:
           excerpts:
             - description:
               snippet_tags:
-                - s3.java2.delete_website_configuration.main
+                - s3.java2.delete_objects.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1616,7 +1616,7 @@ s3_DeleteBucket:
           excerpts:
             - description:
               snippet_tags:
-                - s3.java2.s3_bucket_ops.delete_bucket
+                - s3.java2.bucket_deletion.main
     PHP:
       versions:
         - sdk_version: 3
