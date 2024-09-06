@@ -235,10 +235,6 @@ cross_DynamoDBDataTracker:
         - sdk_version: 3
           github: python/cross_service/dynamodb_item_tracker
           block_content: cross_DynamoDBDataTracker_Python_block.xml
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          block_content: cross_DynamoDBDataTracker_JavaScript_block.xml
   service_main: dynamodb
   services:
     dynamodb:
@@ -475,10 +471,6 @@ cross_RekognitionPhotoAnalyzerPPE:
       versions:
         - sdk_version: 2
           block_content: cross_RekognitionLambdPPE_Java_block.xml
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          block_content: cross_RekognitionPhotoAnalyzerPPE_JavaScript_block.xml
   service_main: rekognition
   services:
     rekognition:
@@ -528,13 +520,6 @@ cross_RekognitionVideoDetection:
       versions:
         - sdk_version: 2
           block_content: cross_RekognitionVideoAnalyzer_Java_block.xml
-          add_services:
-            s3:
-            ses:
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          block_content: cross_RekognitionVideoAnalyzer_JavaScript_block.xml
           add_services:
             s3:
             ses:
