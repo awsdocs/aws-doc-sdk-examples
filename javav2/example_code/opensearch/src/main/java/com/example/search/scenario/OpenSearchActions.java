@@ -166,6 +166,7 @@ public class OpenSearchActions {
     }
     // snippet-end:[opensearch.java2.update_domain.main]
 
+    // snippet-start:[opensearch.java2.change_process.main]
     public void domainChangeProgress(String domainName) {
         boolean isCompleted = false;
         long startTime = System.currentTimeMillis();
@@ -203,7 +204,9 @@ public class OpenSearchActions {
             }
         }
     }
+    // snippet-end:[opensearch.java2.change_process.main]
 
+    // snippet-start:[opensearch.java2.add_tags.main]
     public void addDomainTags(String domainARN) {
         Tag tag1 = Tag.builder()
             .key("service")
@@ -227,7 +230,9 @@ public class OpenSearchActions {
         getClient().addTags(addTagsRequest);
         System.out.println("Successfully added tags to the domain");
     }
+    // snippet-end:[opensearch.java2.add_tags.main]
 
+    // snippet-start:[opensearch.java2.list_tags.main]
     public void listDomainTags(String arn) {
         ListTagsRequest tagsRequest = ListTagsRequest.builder()
             .arn(arn)
@@ -240,6 +245,7 @@ public class OpenSearchActions {
             System.out.println("Tag value is "+tag.value());
         }
     }
+    // snippet-end:[opensearch.java2.list_tags.main]
 }
 // snippet-end:[opensearch.java2.actions.main]
 

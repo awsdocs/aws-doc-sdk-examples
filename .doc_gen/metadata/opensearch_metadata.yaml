@@ -65,6 +65,58 @@ opensearch_ListDomainNames:
                 - opensearch.java2.list_domains.main
   services:
     opensearch: {ListDomainNames}
+opensearch_ListTags:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.add_tags.main
+  services:
+    opensearch: {ListTags}
+opensearch_AddTags:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.add_tags.main
+  services:
+    opensearch: {AddTags}
+opensearch_ChangeProgress:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.change_process.main
+  services:
+    opensearch: {ChangeProgress}
+opensearch_DescribeDomain:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.update_domain.main
+  services:
+    opensearch: {DescribeDomain}
 opensearch_UpdateDomainConfig:
   languages:
     Kotlin:
