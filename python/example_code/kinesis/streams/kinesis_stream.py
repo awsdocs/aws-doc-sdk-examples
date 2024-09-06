@@ -115,7 +115,8 @@ class KinesisStream:
         """
         try:
             response = self.kinesis_client.put_record(
-                StreamName=self.name, Data=json.dumps(data), PartitionKey=partition_key)
+                StreamName=self.name, Data=json.dumps(data), PartitionKey=partition_key
+            )
             logger.info("Put record in stream %s.", self.name)
         except ClientError:
             logger.exception("Couldn't put record in stream %s.", self.name)

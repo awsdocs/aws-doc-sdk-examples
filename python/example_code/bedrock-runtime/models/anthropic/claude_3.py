@@ -177,9 +177,7 @@ def usage_demo():
     print("Welcome to the Amazon Bedrock Runtime demo with Anthropic Claude 3.")
     print("-" * 88)
 
-    client = boto3.client(
-        service_name="bedrock-runtime",
-        region_name="us-east-1")
+    client = boto3.client(service_name="bedrock-runtime", region_name="us-east-1")
     wrapper = Claude3Wrapper(client)
 
     # Invoke Claude 3 with a text prompt

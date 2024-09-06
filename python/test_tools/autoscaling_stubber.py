@@ -77,8 +77,7 @@ class AutoScalingStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_describe_auto_scaling_groups(
-            self, group_names, groups, error_code=None):
+    def stub_describe_auto_scaling_groups(self, group_names, groups, error_code=None):
         expected_params = {"AutoScalingGroupNames": group_names}
         response = {"AutoScalingGroups": groups}
         self._stub_bifurcator(
@@ -113,10 +112,8 @@ class AutoScalingStubber(ExampleStubber):
         }
         response = {}
         self._stub_bifurcator(
-            "set_desired_capacity",
-            expected_params,
-            response,
-            error_code=error_code)
+            "set_desired_capacity", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_auto_scaling_instances(
         self, instance_ids, instances, error_code=None
@@ -130,8 +127,7 @@ class AutoScalingStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_describe_scaling_activities(
-            self, group_name, activities, error_code=None):
+    def stub_describe_scaling_activities(self, group_name, activities, error_code=None):
         expected_params = {"AutoScalingGroupName": group_name}
         response = {"Activities": activities}
         self._stub_bifurcator(
@@ -141,8 +137,7 @@ class AutoScalingStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_enable_metrics_collection(
-            self, group_name, metrics, error_code=None):
+    def stub_enable_metrics_collection(self, group_name, metrics, error_code=None):
         expected_params = {
             "AutoScalingGroupName": group_name,
             "Metrics": metrics,
@@ -169,9 +164,7 @@ class AutoScalingStubber(ExampleStubber):
     def stub_attach_load_balancer_target_groups(
         self, asg_name, tg_arns, error_code=None
     ):
-        expected_params = {
-            "AutoScalingGroupName": asg_name,
-            "TargetGroupARNs": tg_arns}
+        expected_params = {"AutoScalingGroupName": asg_name, "TargetGroupARNs": tg_arns}
         response = {}
         self._stub_bifurcator(
             "attach_load_balancer_target_groups",

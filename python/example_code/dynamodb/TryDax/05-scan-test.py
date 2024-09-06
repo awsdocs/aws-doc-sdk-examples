@@ -57,15 +57,13 @@ if __name__ == "__main__":
 
     test_iterations = 100
     if args.endpoint_url:
-        print(
-            f"Scanning the table {test_iterations} times, using the DAX client.")
+        print(f"Scanning the table {test_iterations} times, using the DAX client.")
         # Use a with statement so the DAX client closes the cluster after
         # completion.
         with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url) as dax:
             test_start, test_end = scan_test(test_iterations, dyn_resource=dax)
     else:
-        print(
-            f"Scanning the table {test_iterations} times, using the Boto3 client.")
+        print(f"Scanning the table {test_iterations} times, using the Boto3 client.")
         test_start, test_end = scan_test(test_iterations)
     print(
         "Total time: {test_end - test_start:.4f} sec. Average time: "

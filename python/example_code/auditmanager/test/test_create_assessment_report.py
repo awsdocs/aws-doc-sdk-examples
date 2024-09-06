@@ -15,31 +15,26 @@ from botocore.exceptions import ClientError
 from create_assessment_report import AuditReport
 
 
-@pytest.mark.parametrize("inputs, outputs, error_code",
-                         [(["bad-uuid"],
-                           (None,
-                            None),
-                             "Nostub"),
-                             (["f66e7fc4-baf1-4661-85db-f6ff6ee76630",
-                               "bad-date"],
-                              (None,
-                                 None),
-                              "Nostub"),
-                             (["f66e7fc4-baf1-4661-85db-f6ff6ee76630",
-                               "2021-01-01"],
-                              (uuid.UUID("f66e7fc4-baf1-4661-85db-f6ff6ee76630"),
-                               dateutil.parser.parse("2021-01-01").date(),
-                               ),
-                              None,
-                              ),
-                             (["f66e7fc4-baf1-4661-85db-f6ff6ee76630",
-                               "2021-01-01"],
-                              (None,
-                               None),
-                              "TestException",
-                              ),
-                          ],
-                         )
+@pytest.mark.parametrize(
+    "inputs, outputs, error_code",
+    [
+        (["bad-uuid"], (None, None), "Nostub"),
+        (["f66e7fc4-baf1-4661-85db-f6ff6ee76630", "bad-date"], (None, None), "Nostub"),
+        (
+            ["f66e7fc4-baf1-4661-85db-f6ff6ee76630", "2021-01-01"],
+            (
+                uuid.UUID("f66e7fc4-baf1-4661-85db-f6ff6ee76630"),
+                dateutil.parser.parse("2021-01-01").date(),
+            ),
+            None,
+        ),
+        (
+            ["f66e7fc4-baf1-4661-85db-f6ff6ee76630", "2021-01-01"],
+            (None, None),
+            "TestException",
+        ),
+    ],
+)
 def test_get_input(make_stubber, monkeypatch, inputs, outputs, error_code):
     auditmanager_client = boto3.client("auditmanager")
     auditmanager_stubber = make_stubber(auditmanager_client)
@@ -48,8 +43,7 @@ def test_get_input(make_stubber, monkeypatch, inputs, outputs, error_code):
     monkeypatch.setattr("builtins.input", lambda x: inputs.pop(0))
 
     if error_code != "Nostub":
-        auditmanager_stubber.stub_get_assessment(
-            inputs[0], error_code=error_code)
+        auditmanager_stubber.stub_get_assessment(inputs[0], error_code=error_code)
 
     got_uuid, got_date = report.get_input()
     assert got_uuid == outputs[0]
@@ -137,7 +131,7 @@ def test_clear_staging(
                 auditmanager_stubber.stub_get_evidence_folders_by_assessment,
                 str(assessment_uuid),
                 1000,
-                tokens[i_token: i_token + 2],
+                tokens[i_token : i_token + 2],
                 folders,
             )
         if len(folders) > 0:
@@ -199,12 +193,7 @@ def test_add_folder_to_staging(make_stubber, error_code):
     "error_code, stop_on_action",
     [(None, None), ("TestException", "stub_create_assessment_report")],
 )
-def test_get_report(
-        make_stubber,
-        stub_runner,
-        monkeypatch,
-        error_code,
-        stop_on_action):
+def test_get_report(make_stubber, stub_runner, monkeypatch, error_code, stop_on_action):
     auditmanager_client = boto3.client("auditmanager")
     auditmanager_stubber = make_stubber(auditmanager_client)
     report = AuditReport(auditmanager_client)
@@ -222,9 +211,7 @@ def test_get_report(
             str(assessment_uuid),
             report_id,
         )
-        runner.add(
-            auditmanager_stubber.stub_list_assessment_reports,
-            [report_id])
+        runner.add(auditmanager_stubber.stub_list_assessment_reports, [report_id])
         runner.add(
             auditmanager_stubber.stub_get_assessment_report_url,
             report_id,

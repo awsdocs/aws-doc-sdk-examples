@@ -51,39 +51,24 @@ class ApiGatewayStubber(ExampleStubber):
     def stub_create_resource(
         self, api_id, parent_id, path, resource_id, error_code=None
     ):
-        expected_params = {
-            "restApiId": api_id,
-            "parentId": parent_id,
-            "pathPart": path}
+        expected_params = {"restApiId": api_id, "parentId": parent_id, "pathPart": path}
         response = {"id": resource_id}
         self._stub_bifurcator(
             "create_resource", expected_params, response, error_code=error_code
         )
 
-    def stub_put_method(
-            self,
-            api_id,
-            resource_id,
-            error_code=None,
-            http_method="ANY"):
+    def stub_put_method(self, api_id, resource_id, error_code=None, http_method="ANY"):
         expected_params = {
             "restApiId": api_id,
             "resourceId": resource_id,
             "httpMethod": http_method,
             "authorizationType": "NONE",
         }
-        self._stub_bifurcator(
-            "put_method",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("put_method", expected_params, error_code=error_code)
 
     def stub_put_method_response(
-            self,
-            api_id,
-            resource_id,
-            response_models,
-            error_code=None,
-            http_method="ANY"):
+        self, api_id, resource_id, response_models, error_code=None, http_method="ANY"
+    ):
         expected_params = {
             "restApiId": api_id,
             "resourceId": resource_id,
@@ -124,10 +109,7 @@ class ApiGatewayStubber(ExampleStubber):
             }
         if passthrough is not None:
             expected_params["passthroughBehavior"] = passthrough
-        self._stub_bifurcator(
-            "put_integration",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("put_integration", expected_params, error_code=error_code)
 
     def stub_put_integration_response(
         self,
@@ -156,10 +138,7 @@ class ApiGatewayStubber(ExampleStubber):
 
     def stub_delete_rest_api(self, api_id, error_code=None):
         expected_params = {"restApiId": api_id}
-        self._stub_bifurcator(
-            "delete_rest_api",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("delete_rest_api", expected_params, error_code=error_code)
 
     def stub_get_rest_apis(self, rest_apis, error_code=None):
         expected_params = {}

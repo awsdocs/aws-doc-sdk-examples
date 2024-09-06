@@ -77,12 +77,7 @@ class DynamoStubber(ExampleStubber):
                 out_item[key] = {value_type: out_val}
         return out_item
 
-    def stub_create_table(
-            self,
-            table_name,
-            schema,
-            throughput,
-            error_code=None):
+    def stub_create_table(self, table_name, schema, throughput, error_code=None):
         table_input = {
             "ProvisionedThroughput": {
                 "ReadCapacityUnits": throughput["read"],
@@ -129,17 +124,10 @@ class DynamoStubber(ExampleStubber):
 
     def stub_list_tables(self, table_names, error_code=None):
         self._stub_bifurcator(
-            "list_tables",
-            response={
-                "TableNames": table_names},
-            error_code=error_code)
+            "list_tables", response={"TableNames": table_names}, error_code=error_code
+        )
 
-    def stub_put_item(
-            self,
-            table_name,
-            item,
-            http_status=200,
-            error_code=None):
+    def stub_put_item(self, table_name, item, http_status=200, error_code=None):
         self._stub_bifurcator(
             "put_item",
             expected_params={"TableName": table_name, "Item": item},
@@ -153,11 +141,7 @@ class DynamoStubber(ExampleStubber):
             response = {"Item": self._build_out_item(item)}
         else:
             response = {}
-        self._stub_bifurcator(
-            "get_item",
-            expected_params,
-            response,
-            error_code)
+        self._stub_bifurcator("get_item", expected_params, response, error_code)
 
     def stub_update_item(
         self,
@@ -190,11 +174,7 @@ class DynamoStubber(ExampleStubber):
         if condition:
             expected_params["ConditionExpression"] = condition
         response = {"Attributes": self._build_out_item(update)}
-        self._stub_bifurcator(
-            "update_item",
-            expected_params,
-            response,
-            error_code)
+        self._stub_bifurcator("update_item", expected_params, response, error_code)
 
     def stub_update_item_attr_update(
         self, table_name, update_key, attribs, error_code=None
@@ -203,17 +183,11 @@ class DynamoStubber(ExampleStubber):
             "TableName": table_name,
             "Key": update_key,
             "AttributeUpdates": {
-                key: {
-                    "Value": value,
-                    "Action": "PUT"} for key,
-                value in attribs.items()},
+                key: {"Value": value, "Action": "PUT"} for key, value in attribs.items()
+            },
         }
         response = {"Attributes": self._build_out_item(attribs)}
-        self._stub_bifurcator(
-            "update_item",
-            expected_params,
-            response,
-            error_code)
+        self._stub_bifurcator("update_item", expected_params, response, error_code)
 
     def stub_delete_item(
         self,
@@ -228,10 +202,7 @@ class DynamoStubber(ExampleStubber):
             expected_params["ConditionExpression"] = condition
         if expression_attrs:
             expected_params["ExpressionAttributeValues"] = expression_attrs
-        self._stub_bifurcator(
-            "delete_item",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("delete_item", expected_params, error_code=error_code)
 
     def stub_scan(
         self,
@@ -256,15 +227,12 @@ class DynamoStubber(ExampleStubber):
             expected_params["ExpressionAttributeNames"] = expression_attrs
         if start_key:
             expected_params["ExclusiveStartKey"] = start_key
-        response = {"Items": [self._build_out_item(
-            output_item) for output_item in output_items]}
+        response = {
+            "Items": [self._build_out_item(output_item) for output_item in output_items]
+        }
         if last_key:
             response["LastEvaluatedKey"] = last_key
-        self._stub_bifurcator(
-            "scan",
-            expected_params,
-            response,
-            error_code=error_code)
+        self._stub_bifurcator("scan", expected_params, response, error_code=error_code)
 
     def stub_query(
         self,
@@ -289,8 +257,8 @@ class DynamoStubber(ExampleStubber):
             self._build_out_item(output_item) for output_item in output_items
         ]
         self._stub_bifurcator(
-            "query", expected_params, {
-                "Items": response_items}, error_code=error_code)
+            "query", expected_params, {"Items": response_items}, error_code=error_code
+        )
 
     def stub_batch_write_item(
         self, request_items, unprocessed_items=None, error_code=None
@@ -302,51 +270,34 @@ class DynamoStubber(ExampleStubber):
             else {}
         }
         self._stub_bifurcator(
-            "batch_write_item",
-            expected_params,
-            response,
-            error_code=error_code)
+            "batch_write_item", expected_params, response, error_code=error_code
+        )
 
     def stub_batch_get_item(
-            self,
-            request_items,
-            response_items=None,
-            unprocessed_keys=None,
-            error_code=None):
+        self, request_items, response_items=None, unprocessed_keys=None, error_code=None
+    ):
         expected_params = {"RequestItems": request_items}
         response = {
-            "UnprocessedKeys": unprocessed_keys if unprocessed_keys is not None else {}}
+            "UnprocessedKeys": unprocessed_keys if unprocessed_keys is not None else {}
+        }
         if response_items is not None:
             response["Responses"] = response_items
         self._stub_bifurcator(
             "batch_get_item", expected_params, response, error_code=error_code
         )
 
-    def stub_execute_statement(
-            self,
-            statement,
-            params,
-            items,
-            error_code=None):
+    def stub_execute_statement(self, statement, params, items, error_code=None):
         expected_params = {"Statement": statement}
         if params is not None:
             expected_params["Parameters"] = params
         response = {"Items": items}
         self._stub_bifurcator(
-            "execute_statement",
-            expected_params,
-            response,
-            error_code=error_code)
+            "execute_statement", expected_params, response, error_code=error_code
+        )
 
-    def stub_batch_execute_statement(
-            self,
-            statements,
-            responses,
-            error_code=None):
+    def stub_batch_execute_statement(self, statements, responses, error_code=None):
         expected_params = {"Statements": statements}
         response = {"Responses": responses}
         self._stub_bifurcator(
-            "batch_execute_statement",
-            expected_params,
-            response,
-            error_code=error_code)
+            "batch_execute_statement", expected_params, response, error_code=error_code
+        )

@@ -108,8 +108,7 @@ class CloudWatchQuery:
         for log in logs:
             for item in log:
                 if item["field"] == "@timestamp":
-                    logging.debug(
-                        f"Compared: {item['value']} to {most_recent_date}")
+                    logging.debug(f"Compared: {item['value']} to {most_recent_date}")
                     if (
                         self.date_utilities.compare_dates(
                             item["value"], most_recent_date
@@ -136,11 +135,11 @@ class CloudWatchQuery:
         try:
             try:
                 start_time = round(
-                    self.date_utilities.convert_iso8601_to_unix_timestamp(
-                        date_range[0]))
+                    self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[0])
+                )
                 end_time = round(
-                    self.date_utilities.convert_iso8601_to_unix_timestamp(
-                        date_range[1]))
+                    self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[1])
+                )
                 response = client.start_query(
                     logGroupName=self.log_groups,
                     startTime=start_time,
@@ -178,11 +177,11 @@ class CloudWatchQuery:
         """
         try:
             start_time = round(
-                self.date_utilities.convert_iso8601_to_unix_timestamp(
-                    date_range[0]))
+                self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[0])
+            )
             end_time = round(
-                self.date_utilities.convert_iso8601_to_unix_timestamp(
-                    date_range[1]))
+                self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[1])
+            )
             response = client.start_query(
                 logGroupName=self.log_groups,
                 startTime=start_time,

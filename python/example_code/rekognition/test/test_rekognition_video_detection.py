@@ -74,23 +74,15 @@ def test_create_notification_channel(
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(sns_stubber.stub_create_topic, resource_name, topic_arn)
-        runner.add(sqs_stubber.stub_create_queue,
-                   resource_name, ANY, queue_url)
+        runner.add(sqs_stubber.stub_create_queue, resource_name, ANY, queue_url)
         runner.add(sqs_stubber.stub_get_queue_attributes, queue_url, queue_arn)
-        runner.add(sqs_stubber.stub_set_queue_attributes,
-                   queue_url, {"Policy": ANY})
+        runner.add(sqs_stubber.stub_set_queue_attributes, queue_url, {"Policy": ANY})
         runner.add(
-            sns_stubber.stub_subscribe,
-            topic_arn,
-            "sqs",
-            queue_arn,
-            subscription_arn)
+            sns_stubber.stub_subscribe, topic_arn, "sqs", queue_arn, subscription_arn
+        )
         runner.add(iam_stubber.stub_create_role, resource_name)
         runner.add(iam_stubber.stub_create_policy, resource_name, policy_arn)
-        runner.add(
-            iam_stubber.stub_attach_role_policy,
-            resource_name,
-            policy_arn)
+        runner.add(iam_stubber.stub_attach_role_policy, resource_name, policy_arn)
 
     video = RekognitionVideo(
         {"S3Object": {"Bucket": "doc-example-bucket", "Name": "doc-example-key"}},
@@ -157,13 +149,9 @@ def test_delete_notification_channel(
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
-            iam_stubber.stub_list_attached_role_policies,
-            resource_name,
-            policies)
-        runner.add(
-            iam_stubber.stub_detach_role_policy,
-            resource_name,
-            policy_arn)
+            iam_stubber.stub_list_attached_role_policies, resource_name, policies
+        )
+        runner.add(iam_stubber.stub_detach_role_policy, resource_name, policy_arn)
         runner.add(iam_stubber.stub_delete_policy, policy_arn)
         runner.add(iam_stubber.stub_delete_role, resource_name)
         runner.add(sqs_stubber.stub_delete_queue, queue_url)
@@ -185,18 +173,15 @@ def test_delete_notification_channel(
         ("TestException", "stub_delete_message"),
     ],
 )
-def test_poll_notification(
-        make_stubber,
-        stub_runner,
-        error_code,
-        stop_on_method):
+def test_poll_notification(make_stubber, stub_runner, error_code, stop_on_method):
     sqs_resource = boto3.resource("sqs")
     sqs_stubber = make_stubber(sqs_resource.meta.client)
     queue_url = "https://sqs.us-west-2.amazonaws.com/123456789012/test-queue"
     job_id = "test-job-id"
     status = "TESTING"
-    message = {"body": json.dumps(
-        {"Message": json.dumps({"JobId": job_id, "Status": status})})}
+    message = {
+        "body": json.dumps({"Message": json.dumps({"JobId": job_id, "Status": status})})
+    }
     message_count = 1
 
     with stub_runner(error_code, stop_on_method) as runner:
@@ -247,8 +232,7 @@ def test_do_label_detection(
     rekognition_stubber = make_stubber(rekognition_client)
     job_id = "test-job-id"
     job_status = "TESTING"
-    labels = [RekognitionLabel(label, time.time_ns())
-              for label in make_labels(3)]
+    labels = [RekognitionLabel(label, time.time_ns()) for label in make_labels(3)]
     video = mock_video(monkeypatch, poll_status, rekognition_client)
 
     with stub_runner(error_code, stop_on_method) as runner:
@@ -261,10 +245,8 @@ def test_do_label_detection(
         )
         if poll_status == "SUCCEEDED":
             runner.add(
-                rekognition_stubber.stub_get_label_detection,
-                job_id,
-                job_status,
-                labels)
+                rekognition_stubber.stub_get_label_detection, job_id, job_status, labels
+            )
 
     if error_code is None:
         got_labels = video.do_label_detection()
@@ -289,12 +271,8 @@ def test_do_label_detection(
     ],
 )
 def test_do_face_detection(
-        make_stubber,
-        stub_runner,
-        make_faces,
-        monkeypatch,
-        error_code,
-        stop_on_method):
+    make_stubber, stub_runner, make_faces, monkeypatch, error_code, stop_on_method
+):
     rekognition_client = boto3.client("rekognition")
     rekognition_stubber = make_stubber(rekognition_client)
     job_id = "test-job-id"
@@ -311,10 +289,8 @@ def test_do_face_detection(
             job_id,
         )
         runner.add(
-            rekognition_stubber.stub_get_face_detection,
-            job_id,
-            job_status,
-            faces)
+            rekognition_stubber.stub_get_face_detection, job_id, job_status, faces
+        )
 
     if error_code is None:
         got_faces = video.do_face_detection()
@@ -336,19 +312,14 @@ def test_do_face_detection(
     ],
 )
 def test_do_person_tracking(
-        make_stubber,
-        stub_runner,
-        make_persons,
-        monkeypatch,
-        error_code,
-        stop_on_method):
+    make_stubber, stub_runner, make_persons, monkeypatch, error_code, stop_on_method
+):
     rekognition_client = boto3.client("rekognition")
     rekognition_stubber = make_stubber(rekognition_client)
     job_id = "test-job-id"
     job_status = "TESTING"
     video = mock_video(monkeypatch, "SUCCEEDED", rekognition_client)
-    persons = [RekognitionPerson(person, time.time_ns())
-               for person in make_persons(3)]
+    persons = [RekognitionPerson(person, time.time_ns()) for person in make_persons(3)]
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
@@ -359,10 +330,8 @@ def test_do_person_tracking(
             job_id,
         )
         runner.add(
-            rekognition_stubber.stub_get_person_tracking,
-            job_id,
-            job_status,
-            persons)
+            rekognition_stubber.stub_get_person_tracking, job_id, job_status, persons
+        )
 
     if error_code is None:
         got_persons = video.do_person_tracking()
@@ -384,12 +353,8 @@ def test_do_person_tracking(
     ],
 )
 def test_do_celebrity_recognition(
-        make_stubber,
-        stub_runner,
-        make_faces,
-        monkeypatch,
-        error_code,
-        stop_on_method):
+    make_stubber, stub_runner, make_faces, monkeypatch, error_code, stop_on_method
+):
     rekognition_client = boto3.client("rekognition")
     rekognition_stubber = make_stubber(rekognition_client)
     job_id = "test-job-id"
@@ -461,10 +426,8 @@ def test_do_content_moderation(
             job_id,
         )
         runner.add(
-            rekognition_stubber.stub_get_content_moderation,
-            job_id,
-            job_status,
-            labels)
+            rekognition_stubber.stub_get_content_moderation, job_id, job_status, labels
+        )
 
     if error_code is None:
         got_labels = video.do_content_moderation()

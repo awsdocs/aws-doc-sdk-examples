@@ -54,15 +54,17 @@
 
 import os
 
+
 def add_newline_to_file(filepath):
     with open(filepath, "rb+") as file:
         file.seek(-1, os.SEEK_END)
         last_char = file.read(1)
 
         # If the last character is not a newline, add one
-        if last_char != b'\n':
+        if last_char != b"\n":
             print(f"Fixing {filepath} (adding newline)...")
-            file.write(b'\n')
+            file.write(b"\n")
+
 
 def add_newlines_in_directory(directory):
     for root, dirs, files in os.walk(directory):
@@ -71,8 +73,10 @@ def add_newlines_in_directory(directory):
                 filepath = os.path.join(root, filename)
                 add_newline_to_file(filepath)
 
+
 if __name__ == "__main__":
     import sys
+
     if len(sys.argv) != 2:
         print("Usage: python fix_newline.py <directory>")
     else:

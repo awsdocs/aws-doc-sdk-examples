@@ -40,8 +40,7 @@ class ComprehendDetect:
         :return: The list of languages along with their confidence scores.
         """
         try:
-            response = self.comprehend_client.detect_dominant_language(
-                Text=text)
+            response = self.comprehend_client.detect_dominant_language(Text=text)
             languages = response["Languages"]
             logger.info("Detected %s languages.", len(languages))
         except ClientError:
@@ -138,9 +137,7 @@ class ComprehendDetect:
             response = self.comprehend_client.detect_sentiment(
                 Text=text, LanguageCode=language_code
             )
-            logger.info(
-                "Detected primary sentiment %s.",
-                response["Sentiment"])
+            logger.info("Detected primary sentiment %s.", response["Sentiment"])
         except ClientError:
             logger.exception("Couldn't detect sentiment.")
             raise
@@ -182,9 +179,7 @@ def usage_demo():
     print("Welcome to the Amazon Comprehend detection demo!")
     print("-" * 88)
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     comp_detect = ComprehendDetect(boto3.client("comprehend"))
     with open("detect_sample.txt") as sample_file:

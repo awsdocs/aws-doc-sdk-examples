@@ -76,8 +76,7 @@ def get_last_use(key_id):
     """
     try:
         response = iam.meta.client.get_access_key_last_used(AccessKeyId=key_id)
-        last_used_date = response["AccessKeyLastUsed"].get(
-            "LastUsedDate", None)
+        last_used_date = response["AccessKeyLastUsed"].get("LastUsedDate", None)
         last_service = response["AccessKeyLastUsed"].get("ServiceName", None)
         logger.info(
             "Key %s was last used by %s on %s to access %s.",
@@ -133,15 +132,11 @@ def update_key(user_name, key_id, activate):
             key.activate()
         else:
             key.deactivate()
-        logger.info(
-            "%s key %s.",
-            "Activated" if activate else "Deactivated",
-            key_id)
+        logger.info("%s key %s.", "Activated" if activate else "Deactivated", key_id)
     except ClientError:
         logger.exception(
-            "Couldn't %s key %s.",
-            "Activate" if activate else "Deactivate",
-            key_id)
+            "Couldn't %s key %s.", "Activate" if activate else "Deactivate", key_id
+        )
         raise
 
 
@@ -158,9 +153,7 @@ def usage_demo():
         print("The current user's keys are now:")
         print(*[f"{key.id}: {key.status}" for key in current_keys], sep="\n")
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     print("-" * 88)
     print("Welcome to the AWS Identity and Account Management access key demo.")
     print("-" * 88)
@@ -175,17 +168,18 @@ def usage_demo():
         print(
             "The current user already has the maximum of 2 access keys. To run "
             "this demo, either delete one of the access keys or use a user "
-            "that has only 1 access key.")
+            "that has only 1 access key."
+        )
     else:
         new_key = create_key(current_user_name)
-        print(
-            f"Created a new key with id {new_key.id} and secret {new_key.secret}.")
+        print(f"Created a new key with id {new_key.id} and secret {new_key.secret}.")
         print_keys()
         existing_key = next(key for key in all_keys if key != new_key)
         last_use = get_last_use(existing_key.id)["AccessKeyLastUsed"]
         print(
             f"Key {all_keys[0].id} was last used to access {last_use['ServiceName']} "
-            f"on {last_use['LastUsedDate']}")
+            f"on {last_use['LastUsedDate']}"
+        )
         update_key(current_user_name, new_key.id, False)
         print(f"Key {new_key.id} is now deactivated.")
         print_keys()

@@ -54,9 +54,7 @@ def test_describe(make_stubber, error_code):
     comprehend_client = boto3.client("comprehend")
     comprehend_stubber = make_stubber(comprehend_client)
     comp_class = ComprehendClassifier(comprehend_client)
-    classifier = {
-        "DocumentClassifierArn": CLASSIFIER_ARN,
-        "Status": "SUBMITTED"}
+    classifier = {"DocumentClassifierArn": CLASSIFIER_ARN, "Status": "SUBMITTED"}
 
     comprehend_stubber.stub_describe_document_classifier(
         CLASSIFIER_ARN, classifier["Status"], error_code=error_code

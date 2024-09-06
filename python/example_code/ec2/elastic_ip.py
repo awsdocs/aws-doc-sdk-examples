@@ -43,10 +43,8 @@ class ElasticIpWrapper:
                  associated with any instance.
         """
         try:
-            response = self.ec2_resource.meta.client.allocate_address(
-                Domain="vpc")
-            self.elastic_ip = self.ec2_resource.VpcAddress(
-                response["AllocationId"])
+            response = self.ec2_resource.meta.client.allocate_address(Domain="vpc")
+            self.elastic_ip = self.ec2_resource.VpcAddress(response["AllocationId"])
         except ClientError as err:
             logger.error(
                 "Couldn't allocate Elastic IP. Here's why: %s: %s",

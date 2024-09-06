@@ -31,12 +31,7 @@ class BedrockAgentWrapper:
     # snippet-end:[python.example_code.bedrock-agent.BedrockAgentWrapper.decl]
 
     # snippet-start:[python.example_code.bedrock-agent.CreateAgent]
-    def create_agent(
-            self,
-            agent_name,
-            foundation_model,
-            role_arn,
-            instruction):
+    def create_agent(self, agent_name, foundation_model, role_arn, instruction):
         """
         Creates an agent that orchestrates interactions between foundation models,
         data sources, software applications, user conversations, and APIs to carry
@@ -66,13 +61,8 @@ class BedrockAgentWrapper:
 
     # snippet-start:[python.example_code.bedrock-agent.CreateAgentActionGroup]
     def create_agent_action_group(
-            self,
-            name,
-            description,
-            agent_id,
-            agent_version,
-            function_arn,
-            api_schema):
+        self, name, description, agent_id, agent_version, function_arn, api_schema
+    ):
         """
         Creates an action group for an agent. An action group defines a set of actions that an
         agent should carry out for the customer.
@@ -97,8 +87,7 @@ class BedrockAgentWrapper:
             )
             agent_action_group = response["agentActionGroup"]
         except ClientError as e:
-            logger.error(
-                f"Error: Couldn't create agent action group. Here's why: {e}")
+            logger.error(f"Error: Couldn't create agent action group. Here's why: {e}")
             raise
         else:
             return agent_action_group
@@ -284,8 +273,7 @@ class BedrockAgentWrapper:
         :return: The response from Agents for Bedrock if successful, otherwise raises an exception.
         """
         try:
-            prepared_agent_details = self.client.prepare_agent(
-                agentId=agent_id)
+            prepared_agent_details = self.client.prepare_agent(agentId=agent_id)
         except ClientError as e:
             logger.error(f"Couldn't prepare agent. {e}")
             raise

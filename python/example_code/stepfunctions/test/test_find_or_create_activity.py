@@ -17,7 +17,8 @@ class MockManager:
                 "name": self.act_name,
                 "activityArn": f"arn:aws:states:test-region:111122223333:/activity/{self.act_name}",
                 "creationDate": datetime.now(),
-            }]
+            }
+        ]
         self.scenario_args = [self.act_name]
         self.stub_runner = stub_runner
 
@@ -64,8 +65,7 @@ def test_find_or_create_activity_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:
-        mock_mgr.scenario_data.scenario.find_or_create_activity(
-            *mock_mgr.scenario_args)
+        mock_mgr.scenario_data.scenario.find_or_create_activity(*mock_mgr.scenario_args)
     assert exc_info.value.response["Error"]["Code"] == error
 
     assert error in caplog.text

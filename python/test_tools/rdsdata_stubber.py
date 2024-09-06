@@ -110,18 +110,12 @@ class RdsDataStubber(ExampleStubber):
                 for fields in generated_field_sets
             ]
         self._stub_bifurcator(
-            "batch_execute_statement",
-            expected_params,
-            response,
-            error_code=error_code)
+            "batch_execute_statement", expected_params, response, error_code=error_code
+        )
 
     def stub_begin_transaction(
-            self,
-            resource_arn,
-            secret_arn,
-            database,
-            transaction_id,
-            error_code=None):
+        self, resource_arn, secret_arn, database, transaction_id, error_code=None
+    ):
         expected_params = {
             "resourceArn": resource_arn,
             "secretArn": secret_arn,
@@ -129,10 +123,8 @@ class RdsDataStubber(ExampleStubber):
         }
         response = {"transactionId": transaction_id}
         self._stub_bifurcator(
-            "begin_transaction",
-            expected_params,
-            response,
-            error_code=error_code)
+            "begin_transaction", expected_params, response, error_code=error_code
+        )
 
     def stub_commit_transaction(
         self, resource_arn, secret_arn, transaction_id, error_code=None
@@ -144,10 +136,8 @@ class RdsDataStubber(ExampleStubber):
         }
         response = {"transactionStatus": "TEST_STATUS"}
         self._stub_bifurcator(
-            "commit_transaction",
-            expected_params,
-            response,
-            error_code=error_code)
+            "commit_transaction", expected_params, response, error_code=error_code
+        )
 
     def stub_rollack_transaction(
         self, resource_arn, secret_arn, transaction_id, error_code=None
@@ -159,7 +149,5 @@ class RdsDataStubber(ExampleStubber):
         }
         response = {"transactionStatus": "TEST_STATUS"}
         self._stub_bifurcator(
-            "rollback_transaction",
-            expected_params,
-            response,
-            error_code=error_code)
+            "rollback_transaction", expected_params, response, error_code=error_code
+        )

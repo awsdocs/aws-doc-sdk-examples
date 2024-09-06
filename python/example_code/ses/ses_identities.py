@@ -42,8 +42,7 @@ class SesIdentity:
         :return: The token to include in the TXT record with your DNS provider.
         """
         try:
-            response = self.ses_client.verify_domain_identity(
-                Domain=domain_name)
+            response = self.ses_client.verify_domain_identity(Domain=domain_name)
             token = response["VerificationToken"]
             logger.info("Got domain verification token for %s.", domain_name)
         except ClientError:
@@ -67,9 +66,7 @@ class SesIdentity:
             self.ses_client.verify_email_identity(EmailAddress=email_address)
             logger.info("Started verification of %s.", email_address)
         except ClientError:
-            logger.exception(
-                "Couldn't start verification of %s.",
-                email_address)
+            logger.exception("Couldn't start verification of %s.", email_address)
             raise
 
     # snippet-end:[python.example_code.ses.VerifyEmailIdentity]
@@ -87,9 +84,7 @@ class SesIdentity:
             logger.info("Waiting until %s exists.", identity)
             waiter.wait(Identities=[identity])
         except WaiterError:
-            logger.error(
-                "Waiting for identity %s failed or timed out.",
-                identity)
+            logger.error("Waiting for identity %s failed or timed out.", identity)
             raise
 
     # snippet-end:[python.example_code.ses.helper.wait_until_identity_exists]
@@ -149,12 +144,9 @@ class SesIdentity:
                 IdentityType=identity_type, MaxItems=max_items
             )
             identities = response["Identities"]
-            logger.info(
-                "Got %s identities for the current account.",
-                len(identities))
+            logger.info("Got %s identities for the current account.", len(identities))
         except ClientError:
-            logger.exception(
-                "Couldn't list identities for the current account.")
+            logger.exception("Couldn't list identities for the current account.")
             raise
         else:
             return identities
@@ -169,9 +161,7 @@ def usage_demo():
     print("Welcome to the Amazon Simple Email Service (Amazon SES) identities demo!")
     print("-" * 88)
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     ses_identity = SesIdentity(boto3.client("ses"))
     email = input(
@@ -180,8 +170,7 @@ def usage_demo():
     )
     ses_identity.verify_email_identity(email)
 
-    print(
-        f"Follow the steps in the email to {email} to complete verification.")
+    print(f"Follow the steps in the email to {email} to complete verification.")
     print("Waiting for verification...")
     try:
         ses_identity.wait_until_identity_exists(email)

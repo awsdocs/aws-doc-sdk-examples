@@ -16,8 +16,7 @@ def test_ensure_tls_cert_download(scenario_data, monkeypatch, input_mocker):
 
     with patch("builtins.open", mock_open()) as mock_file:
         cert_path = scenario_data.scenario.ensure_tls_cert()
-        mock_file.assert_called_with(
-            f"test-path/{QueryManager.DEFAULT_CERT_FILE}", "w")
+        mock_file.assert_called_with(f"test-path/{QueryManager.DEFAULT_CERT_FILE}", "w")
         assert cert_path == f"test-path/{QueryManager.DEFAULT_CERT_FILE}"
 
 

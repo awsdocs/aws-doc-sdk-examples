@@ -46,7 +46,8 @@ class ComprehendDemoResources:
             self.bucket = self.s3_resource.create_bucket(
                 Bucket=f"doc-example-bucket-{uuid.uuid4()}",
                 CreateBucketConfiguration={
-                    "LocationConstraint": self.s3_resource.meta.client.meta.region_name},
+                    "LocationConstraint": self.s3_resource.meta.client.meta.region_name
+                },
             )
             logger.info("Created demo bucket %s.", self.bucket.name)
         except ClientError:
@@ -62,14 +63,14 @@ class ComprehendDemoResources:
                         "Statement": [
                             {
                                 "Effect": "Allow",
-                                "Principal": {
-                                    "Service": "comprehend.amazonaws.com"},
+                                "Principal": {"Service": "comprehend.amazonaws.com"},
                                 "Action": "sts:AssumeRole",
-                            }],
-                    }),
+                            }
+                        ],
+                    }
+                ),
             )
-            role_waiter = self.iam_resource.meta.client.get_waiter(
-                "role_exists")
+            role_waiter = self.iam_resource.meta.client.get_waiter("role_exists")
             role_waiter.wait(RoleName=self.data_access_role.name)
             policy = self.iam_resource.create_policy(
                 PolicyName=f"{demo_name}-policy",
@@ -93,10 +94,10 @@ class ComprehendDemoResources:
                                 "Effect": "Allow",
                             },
                         ],
-                    }),
+                    }
+                ),
             )
-            policy_waiter = self.iam_resource.meta.client.get_waiter(
-                "policy_exists")
+            policy_waiter = self.iam_resource.meta.client.get_waiter("policy_exists")
             policy_waiter.wait(PolicyArn=policy.arn)
             self.data_access_role.attach_policy(PolicyArn=policy.arn)
             logger.info(
@@ -107,8 +108,7 @@ class ComprehendDemoResources:
             print("Waiting for eventual consistency of role resource...")
             time.sleep(10)
         except ClientError:
-            logger.exception(
-                "Couldn't create role and policy for data access.")
+            logger.exception("Couldn't create role and policy for data access.")
             raise
 
     def cleanup(self):
@@ -124,9 +124,7 @@ class ComprehendDemoResources:
                     policy.delete()
                     logger.info("Detached and deleted policy %s.", policy.arn)
                 self.data_access_role.delete()
-                logger.info(
-                    "Deleted data access role %s.",
-                    self.data_access_role.name)
+                logger.info("Deleted data access role %s.", self.data_access_role.name)
                 self.data_access_role = None
             except ClientError:
                 logger.exception(
@@ -156,8 +154,7 @@ class ComprehendDemoResources:
         :return: Job output as a dictionary where the keys are the individual file
                  names in the tar archive.
         """
-        output_key = job["OutputDataConfig"]["S3Uri"].split(
-            self.bucket.name + "/")[1]
+        output_key = job["OutputDataConfig"]["S3Uri"].split(self.bucket.name + "/")[1]
         try:
             output_bytes = io.BytesIO()
             self.bucket.download_fileobj(output_key, output_bytes)
@@ -187,12 +184,11 @@ class ComprehendDemoResources:
                     output_dict[name]["data"] = list(reader)
                 total_lines += len(output_dict[name]["data"])
             logger.info(
-                "Extracted %s lines of output data from tar archive.",
-                total_lines)
+                "Extracted %s lines of output data from tar archive.", total_lines
+            )
         except ClientError:
             logger.exception(
-                "Couldn't get output data from %s/%s",
-                self.bucket.name,
-                output_key)
+                "Couldn't get output data from %s/%s", self.bucket.name, output_key
+            )
         else:
             return output_dict

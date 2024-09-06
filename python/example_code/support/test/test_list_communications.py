@@ -26,9 +26,8 @@ class MockManager:
     def setup_stubs(self, error, stop_on, stubber):
         with self.stub_runner(error, stop_on) as runner:
             runner.add(
-                stubber.stub_describe_communications,
-                self.case_id,
-                self.communications)
+                stubber.stub_describe_communications, self.case_id, self.communications
+            )
 
 
 @pytest.fixture
@@ -39,8 +38,7 @@ def mock_mgr(stub_runner, scenario_data, input_mocker):
 def test_list_communications(mock_mgr, capsys):
     mock_mgr.setup_stubs(None, None, mock_mgr.scenario_data.stubber)
 
-    mock_mgr.scenario_data.scenario.list_communications(
-        *mock_mgr.scenario_args)
+    mock_mgr.scenario_data.scenario.list_communications(*mock_mgr.scenario_args)
 
     capt = capsys.readouterr()
     for communication in mock_mgr.communications:
@@ -54,8 +52,7 @@ def test_list_communications_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:
-        mock_mgr.scenario_data.scenario.list_communications(
-            *mock_mgr.scenario_args)
+        mock_mgr.scenario_data.scenario.list_communications(*mock_mgr.scenario_args)
     assert exc_info.value.response["Error"]["Code"] == error
 
     assert error in caplog.text

@@ -21,8 +21,7 @@ def hello_autoscaling(autoscaling_client):
     groups = response.get("AutoScalingGroups", [])
     if groups:
         for group in groups:
-            print(
-                f"\t{group['AutoScalingGroupName']}: {group['AvailabilityZones']}")
+            print(f"\t{group['AutoScalingGroupName']}: {group['AvailabilityZones']}")
     else:
         print("There are no Auto Scaling groups in your account.")
 

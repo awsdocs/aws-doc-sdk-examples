@@ -41,9 +41,7 @@ def add_arguments(parser):
 
 
 def main():
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     try:
         # Get command line arguments.
@@ -53,7 +51,8 @@ def main():
 
         print(
             f"Updating {args.dataset_type} dataset for project {args.project_name} "
-            "with entries from {args.updates_file}.")
+            "with entries from {args.updates_file}."
+        )
 
         # Update the dataset.
         session = boto3.Session(profile_name="lookoutvision-access")

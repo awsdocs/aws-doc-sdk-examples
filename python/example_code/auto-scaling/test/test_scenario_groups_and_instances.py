@@ -116,10 +116,8 @@ def test_get_launch_template(
             "InvalidLaunchTemplateName.NotFoundException",
         )
         runner.add(
-            ec2_stubber.stub_create_launch_template,
-            template_name,
-            "t1.micro",
-            ANY)
+            ec2_stubber.stub_create_launch_template, template_name, "t1.micro", ANY
+        )
         runner.add(ec2_stubber.stub_describe_availability_zones, [zone])
         runner.add(
             as_stubber.stub_create_auto_scaling_group,
@@ -129,18 +127,11 @@ def test_get_launch_template(
             1,
             1,
         )
+        runner.add(as_stubber.stub_describe_auto_scaling_groups, [group_name], [group])
+        runner.add(as_stubber.stub_describe_auto_scaling_groups, [group_name], [group])
         runner.add(
-            as_stubber.stub_describe_auto_scaling_groups,
-            [group_name],
-            [group])
-        runner.add(
-            as_stubber.stub_describe_auto_scaling_groups,
-            [group_name],
-            [group])
-        runner.add(
-            as_stubber.stub_describe_auto_scaling_instances,
-            instance_ids,
-            instances)
+            as_stubber.stub_describe_auto_scaling_instances, instance_ids, instances
+        )
         runner.add(
             as_stubber.stub_enable_metrics_collection,
             group_name,
@@ -152,49 +143,26 @@ def test_get_launch_template(
                 "GroupTotalInstances",
             ],
         )
-        runner.add(
-            as_stubber.stub_update_auto_scaling_group,
-            group_name,
-            max_size=3)
-        runner.add(
-            as_stubber.stub_describe_auto_scaling_groups,
-            [group_name],
-            [group])
+        runner.add(as_stubber.stub_update_auto_scaling_group, group_name, max_size=3)
+        runner.add(as_stubber.stub_describe_auto_scaling_groups, [group_name], [group])
         runner.add(as_stubber.stub_set_desired_capacity, group_name, 2)
+        runner.add(as_stubber.stub_describe_auto_scaling_groups, [group_name], [group])
+        runner.add(as_stubber.stub_describe_auto_scaling_groups, [group_name], [group])
         runner.add(
-            as_stubber.stub_describe_auto_scaling_groups,
-            [group_name],
-            [group])
-        runner.add(
-            as_stubber.stub_describe_auto_scaling_groups,
-            [group_name],
-            [group])
-        runner.add(
-            as_stubber.stub_describe_auto_scaling_instances,
-            instance_ids,
-            instances)
+            as_stubber.stub_describe_auto_scaling_instances, instance_ids, instances
+        )
         runner.add(
             as_stubber.stub_terminate_instance_in_auto_scaling_group,
             instance_ids[0],
             False,
             activities[0],
         )
+        runner.add(as_stubber.stub_describe_auto_scaling_groups, [group_name], [group])
+        runner.add(as_stubber.stub_describe_auto_scaling_groups, [group_name], [group])
         runner.add(
-            as_stubber.stub_describe_auto_scaling_groups,
-            [group_name],
-            [group])
-        runner.add(
-            as_stubber.stub_describe_auto_scaling_groups,
-            [group_name],
-            [group])
-        runner.add(
-            as_stubber.stub_describe_auto_scaling_instances,
-            instance_ids,
-            instances)
-        runner.add(
-            as_stubber.stub_describe_scaling_activities,
-            group_name,
-            activities)
+            as_stubber.stub_describe_auto_scaling_instances, instance_ids, instances
+        )
+        runner.add(as_stubber.stub_describe_scaling_activities, group_name, activities)
         runner.add(
             cw_stubber.stub_list_metrics,
             "AWS/AutoScaling",
@@ -213,14 +181,8 @@ def test_get_launch_template(
             dimensions=metric.dimensions,
         )
         runner.add(as_stubber.stub_disable_metrics_collection, group_name)
-        runner.add(
-            as_stubber.stub_update_auto_scaling_group,
-            group_name,
-            min_size=0)
-        runner.add(
-            as_stubber.stub_describe_auto_scaling_groups,
-            [group_name],
-            [group])
+        runner.add(as_stubber.stub_update_auto_scaling_group, group_name, min_size=0)
+        runner.add(as_stubber.stub_describe_auto_scaling_groups, [group_name], [group])
         for inst_id in instance_ids:
             runner.add(
                 as_stubber.stub_terminate_instance_in_auto_scaling_group,
@@ -229,9 +191,8 @@ def test_get_launch_template(
                 activities[0],
             )
         runner.add(
-            as_stubber.stub_describe_auto_scaling_instances,
-            instance_ids,
-            instances)
+            as_stubber.stub_describe_auto_scaling_instances, instance_ids, instances
+        )
         runner.add(as_stubber.stub_delete_auto_scaling_group, group_name)
         runner.add(ec2_stubber.stub_delete_launch_template, template_name)
 

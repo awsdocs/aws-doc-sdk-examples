@@ -31,12 +31,8 @@ def make_mock_upload(
     calls the Callback with the upload file size."""
 
     def mock_upload_file(
-            Filename=None,
-            Bucket=None,
-            Key=None,
-            Callback=None,
-            ExtraArgs=None,
-            Config=None):
+        Filename=None, Bucket=None, Key=None, Callback=None, ExtraArgs=None, Config=None
+    ):
         assert Filename == expect_filename
         assert Bucket == expect_bucket
         assert expect_key == Key
@@ -60,12 +56,8 @@ def make_mock_download(
     calls the Callback with the download file size."""
 
     def mock_download_file(
-            Filename=None,
-            Bucket=None,
-            Key=None,
-            Callback=None,
-            ExtraArgs=None,
-            Config=None):
+        Filename=None, Bucket=None, Key=None, Callback=None, ExtraArgs=None, Config=None
+    ):
         assert Filename == expect_filename
         assert Bucket == expect_bucket
         assert expect_key == Key
@@ -93,44 +85,57 @@ def test_transfer_callback():
         assert value == 60
 
 
-@pytest.mark.parametrize("upload_func,upload_kwargs,expected_upload_kwargs,"
-                         "download_func,download_kwargs,expected_download_kwargs",
-                         [(file_transfer.upload_with_default_configuration,
-                           {},
-                             {},
-                             file_transfer.download_with_default_configuration,
-                             {},
-                             {},
-                           ),
-                             (file_transfer.upload_with_chunksize_and_meta,
-                              {"metadata": {"favorite_color": "aqua"}},
-                              {"expect_extra_args": {"Metadata": {"favorite_color": "aqua"}},
-                               "expect_config": {"multipart_chunksize": 1 * file_transfer.MB},
-                               },
-                              file_transfer.download_with_single_thread,
-                              {},
-                              {"expect_config": {"use_threads": False}},
-                              ),
-                             (file_transfer.upload_with_high_threshold,
-                              {},
-                              {"expect_config": {"multipart_threshold": os.path.getsize(__file__) * 2}},
-                              file_transfer.download_with_high_threshold,
-                              {},
-                              {"expect_config": {"multipart_threshold": os.path.getsize(__file__) * 2}},
-                              ),
-                             (file_transfer.upload_with_sse,
-                              {"sse_key": _demo_sse_key},
-                              {"expect_extra_args": {"SSECustomerAlgorithm": "AES256",
-                                                     "SSECustomerKey": _demo_sse_key,
-                                                     }},
-                              file_transfer.download_with_sse,
-                              {"sse_key": _demo_sse_key},
-                              {"expect_extra_args": {"SSECustomerAlgorithm": "AES256",
-                                                     "SSECustomerKey": _demo_sse_key,
-                                                     }},
-                              ),
-                          ],
-                         )
+@pytest.mark.parametrize(
+    "upload_func,upload_kwargs,expected_upload_kwargs,"
+    "download_func,download_kwargs,expected_download_kwargs",
+    [
+        (
+            file_transfer.upload_with_default_configuration,
+            {},
+            {},
+            file_transfer.download_with_default_configuration,
+            {},
+            {},
+        ),
+        (
+            file_transfer.upload_with_chunksize_and_meta,
+            {"metadata": {"favorite_color": "aqua"}},
+            {
+                "expect_extra_args": {"Metadata": {"favorite_color": "aqua"}},
+                "expect_config": {"multipart_chunksize": 1 * file_transfer.MB},
+            },
+            file_transfer.download_with_single_thread,
+            {},
+            {"expect_config": {"use_threads": False}},
+        ),
+        (
+            file_transfer.upload_with_high_threshold,
+            {},
+            {"expect_config": {"multipart_threshold": os.path.getsize(__file__) * 2}},
+            file_transfer.download_with_high_threshold,
+            {},
+            {"expect_config": {"multipart_threshold": os.path.getsize(__file__) * 2}},
+        ),
+        (
+            file_transfer.upload_with_sse,
+            {"sse_key": _demo_sse_key},
+            {
+                "expect_extra_args": {
+                    "SSECustomerAlgorithm": "AES256",
+                    "SSECustomerKey": _demo_sse_key,
+                }
+            },
+            file_transfer.download_with_sse,
+            {"sse_key": _demo_sse_key},
+            {
+                "expect_extra_args": {
+                    "SSECustomerAlgorithm": "AES256",
+                    "SSECustomerKey": _demo_sse_key,
+                }
+            },
+        ),
+    ],
+)
 def test_upload_download_mega_test(
     make_unique_name,
     make_bucket,
@@ -166,11 +171,7 @@ def test_upload_download_mega_test(
     monkeypatch.setattr(
         file_transfer.s3.meta.client,
         "upload_file",
-        make_mock_upload(
-            __file__,
-            bucket_name,
-            object_key,
-            **expected_upload_kwargs),
+        make_mock_upload(__file__, bucket_name, object_key, **expected_upload_kwargs),
     )
     monkeypatch.setattr(
         file_transfer.s3.meta.client,
@@ -181,12 +182,8 @@ def test_upload_download_mega_test(
     )
 
     upload_thread_info = upload_func(
-        __file__,
-        bucket_name,
-        object_key,
-        file_size /
-        file_transfer.MB,
-        **upload_kwargs)
+        __file__, bucket_name, object_key, file_size / file_transfer.MB, **upload_kwargs
+    )
     download_thread_info = download_func(
         bucket_name,
         object_key,

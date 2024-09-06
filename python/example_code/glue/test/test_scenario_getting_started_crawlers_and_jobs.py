@@ -52,12 +52,7 @@ def test_upload_job_script(make_stubber, error_code):
         ("TestException", "stub_delete_crawler"),
     ],
 )
-def test_run(
-        make_stubber,
-        stub_runner,
-        monkeypatch,
-        error_code,
-        stop_on_method):
+def test_run(make_stubber, stub_runner, monkeypatch, error_code, stop_on_method):
     glue_client = boto3.client("glue")
     glue_stubber = make_stubber(glue_client)
     iam_resource = boto3.resource("iam")
@@ -72,9 +67,8 @@ def test_run(
     role_name = "test-role"
     role_arn = "arn:aws:iam::123456789012:role/test-role"
     scenario = GlueCrawlerJobScenario(
-        glue_client,
-        iam_resource.Role(role_name),
-        s3_resource.Bucket("test-bucket"))
+        glue_client, iam_resource.Role(role_name), s3_resource.Bucket("test-bucket")
+    )
     tables = [
         {
             "Name": f"table-{index}",
@@ -138,11 +132,7 @@ def test_run(
             },
             run_id,
         )
-        runner.add(
-            glue_stubber.stub_get_job_run,
-            job_name,
-            run_id,
-            "SUCCEEDED")
+        runner.add(glue_stubber.stub_get_job_run, job_name, run_id, "SUCCEEDED")
         runner.add(
             s3_stubber.stub_list_objects,
             scenario.glue_bucket.name,
@@ -155,11 +145,7 @@ def test_run(
             key,
             content_length=len(run_data),
         )
-        runner.add(
-            s3_stubber.stub_get_object,
-            scenario.glue_bucket.name,
-            key,
-            run_data)
+        runner.add(s3_stubber.stub_get_object, scenario.glue_bucket.name, key, run_data)
         runner.add(glue_stubber.stub_list_jobs, [job_name])
         runner.add(glue_stubber.stub_get_job_runs, job_name, runs)
         runner.add(glue_stubber.stub_delete_job, job_name)
@@ -169,20 +155,10 @@ def test_run(
         runner.add(glue_stubber.stub_delete_crawler, crawler_name)
 
     if error_code is None:
-        scenario.run(
-            crawler_name,
-            db_name,
-            db_prefix,
-            s3_target,
-            job_script,
-            job_name)
+        scenario.run(crawler_name, db_name, db_prefix, s3_target, job_script, job_name)
     else:
         with pytest.raises(ClientError) as exc_info:
             scenario.run(
-                crawler_name,
-                db_name,
-                db_prefix,
-                s3_target,
-                job_script,
-                job_name)
+                crawler_name, db_name, db_prefix, s3_target, job_script, job_name
+            )
         assert exc_info.value.response["Error"]["Code"] == error_code

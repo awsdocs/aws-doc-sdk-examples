@@ -29,8 +29,7 @@ def mock_mgr(stub_runner, scenario_data, input_mocker):
 def test_describe_resolved_cases(mock_mgr, capsys):
     mock_mgr.setup_stubs(None, None, mock_mgr.scenario_data.stubber)
 
-    mock_mgr.scenario_data.scenario.list_resolved_cases(
-        *mock_mgr.scenario_args)
+    mock_mgr.scenario_data.scenario.list_resolved_cases(*mock_mgr.scenario_args)
 
     capt = capsys.readouterr()
     for case in mock_mgr.support_cases:
@@ -47,8 +46,7 @@ def test_cases_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:
-        mock_mgr.scenario_data.scenario.list_resolved_cases(
-            *mock_mgr.scenario_args)
+        mock_mgr.scenario_data.scenario.list_resolved_cases(*mock_mgr.scenario_args)
     assert exc_info.value.response["Error"]["Code"] == error
 
     assert error in caplog.text

@@ -78,17 +78,10 @@ class CloudFrontStubber(ExampleStubber):
             }
         }
         self._stub_bifurcator(
-            "list_distributions",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_distributions", expected_params, response, error_code=error_code
+        )
 
-    def stub_get_distribution_config(
-            self,
-            distrib_id,
-            comment,
-            etag,
-            error_code=None):
+    def stub_get_distribution_config(self, distrib_id, comment, etag, error_code=None):
         expected_params = {"Id": distrib_id}
         response = {
             "DistributionConfig": {
@@ -107,17 +100,10 @@ class CloudFrontStubber(ExampleStubber):
             "ETag": etag,
         }
         self._stub_bifurcator(
-            "get_distribution_config",
-            expected_params,
-            response,
-            error_code=error_code)
+            "get_distribution_config", expected_params, response, error_code=error_code
+        )
 
-    def stub_update_distribution(
-            self,
-            distrib_id,
-            comment,
-            etag,
-            error_code=None):
+    def stub_update_distribution(self, distrib_id, comment, etag, error_code=None):
         expected_params = {
             "Id": distrib_id,
             "DistributionConfig": {
@@ -137,7 +123,5 @@ class CloudFrontStubber(ExampleStubber):
         }
         response = {}
         self._stub_bifurcator(
-            "update_distribution",
-            expected_params,
-            response,
-            error_code=error_code)
+            "update_distribution", expected_params, response, error_code=error_code
+        )

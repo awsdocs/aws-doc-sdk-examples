@@ -43,7 +43,7 @@ def update_actions(root: pathlib.Path, channel: str, dry_run: bool):
     for i, line in enumerate(action):
         if "toolchain:" in line:
             sep = line.find(":")
-            found = i, line[sep + 2:]
+            found = i, line[sep + 2 :]
             action[i] = f'{line[: sep + 1]} "{channel}"\n'
     if found is None:
         raise Exception(f"Did not find toolchain entry in {rust_yaml}")
@@ -71,10 +71,8 @@ argument_parser.add_argument(
     help="Don't write updated files.",
 )
 argument_parser.add_argument(
-    "--verbose",
-    action="store_true",
-    default=False,
-    help="Write verbose logging")
+    "--verbose", action="store_true", default=False, help="Write verbose logging"
+)
 
 
 def main():

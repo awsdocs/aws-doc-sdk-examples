@@ -29,11 +29,7 @@ class TextractWrapper:
         self.s3_resource = s3_resource
         self.sqs_resource = sqs_resource
 
-    def detect_file_text(
-            self,
-            *,
-            document_file_name=None,
-            document_bytes=None):
+    def detect_file_text(self, *, document_file_name=None, document_bytes=None):
         """
         Detects text elements in a local image file or from in-memory byte data.
         The image must be in PNG or JPG format.
@@ -100,10 +96,7 @@ class TextractWrapper:
             bucket.upload_fileobj(document_bytes, document_name)
             logger.info("Uploaded %s to %s.", document_name, bucket_name)
         except ClientError:
-            logger.exception(
-                "Couldn't upload %s to %s.",
-                document_name,
-                bucket_name)
+            logger.exception("Couldn't upload %s to %s.", document_name, bucket_name)
             raise
 
     def check_job_queue(self, queue_url, job_id):
@@ -126,9 +119,8 @@ class TextractWrapper:
                     messages[0].delete()
                     status = msg.get("Status")
                     logger.info(
-                        "Got message %s with status %s.",
-                        messages[0].message_id,
-                        status)
+                        "Got message %s with status %s.", messages[0].message_id, status
+                    )
             else:
                 logger.info("No messages in queue %s.", queue_url)
         except ClientError:
@@ -166,9 +158,8 @@ class TextractWrapper:
             )
             job_id = response["JobId"]
             logger.info(
-                "Started text detection job %s on %s.",
-                job_id,
-                document_file_name)
+                "Started text detection job %s on %s.", job_id, document_file_name
+            )
         except ClientError:
             logger.exception("Couldn't detect text in %s.", document_file_name)
             raise
@@ -184,8 +175,7 @@ class TextractWrapper:
                  detected in the image.
         """
         try:
-            response = self.textract_client.get_document_text_detection(
-                JobId=job_id)
+            response = self.textract_client.get_document_text_detection(JobId=job_id)
             job_status = response["JobStatus"]
             logger.info("Job %s status is %s.", job_id, job_status)
         except ClientError:
@@ -221,9 +211,8 @@ class TextractWrapper:
         try:
             response = self.textract_client.start_document_analysis(
                 DocumentLocation={
-                    "S3Object": {
-                        "Bucket": bucket_name,
-                        "Name": document_file_name}},
+                    "S3Object": {"Bucket": bucket_name, "Name": document_file_name}
+                },
                 NotificationChannel={
                     "SNSTopicArn": sns_topic_arn,
                     "RoleArn": sns_role_arn,
@@ -232,13 +221,10 @@ class TextractWrapper:
             )
             job_id = response["JobId"]
             logger.info(
-                "Started text analysis job %s on %s.",
-                job_id,
-                document_file_name)
+                "Started text analysis job %s on %s.", job_id, document_file_name
+            )
         except ClientError:
-            logger.exception(
-                "Couldn't analyze text in %s.",
-                document_file_name)
+            logger.exception("Couldn't analyze text in %s.", document_file_name)
             raise
         else:
             return job_id

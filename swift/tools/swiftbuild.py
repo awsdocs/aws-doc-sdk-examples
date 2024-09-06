@@ -29,7 +29,7 @@ def swiftbuild(test, run, packages, swiftc_options):
 
     # Display a table of build results.
     if num_packages_found != 0:
-        print("{: <65} {}".format("Example", "Status"))
+        print(f"{'Example': <65} Status")
         print("-" * 65, "-" * 6)
 
     fails = 0
@@ -52,7 +52,7 @@ def swiftbuild(test, run, packages, swiftc_options):
         short_path_len = len(short_path)
         if short_path_len > 64:
             short_path = f"...{short_path[-61:]}"
-        print("{:.<65} {}".format(f"{short_path} ", outcome_str))
+        print(f"{f'{short_path} ':.<65} {outcome_str}")
 
     print(f"\nBuilt {num_packages_found} project(s) with {fails} failure(s).")
     print_configuration(test, swiftc_options)
@@ -176,8 +176,7 @@ if __name__ == "__main__":
         if is_package_dir(cwd_path):
             package_list = [cwd_path]
         else:
-            package_list = [
-                item for item in cwd_path.iterdir() if item.is_dir()]
+            package_list = [item for item in cwd_path.iterdir() if item.is_dir()]
     else:
         package_list = args.packages
 

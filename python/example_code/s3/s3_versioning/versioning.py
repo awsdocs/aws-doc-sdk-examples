@@ -67,9 +67,7 @@ def create_versioned_bucket(bucket_name, prefix):
         bucket.Versioning().enable()
         logger.info("Enabled versioning on bucket %s.", bucket.name)
     except ClientError:
-        logger.exception(
-            "Couldn't enable versioning on bucket %s.",
-            bucket.name)
+        logger.exception("Couldn't enable versioning on bucket %s.", bucket.name)
         raise
 
     try:
@@ -80,9 +78,11 @@ def create_versioned_bucket(bucket_name, prefix):
                     {
                         "Status": "Enabled",
                         "Prefix": prefix,
-                        "NoncurrentVersionExpiration": {
-                            "NoncurrentDays": expiration},
-                    }]})
+                        "NoncurrentVersionExpiration": {"NoncurrentDays": expiration},
+                    }
+                ]
+            }
+        )
         logger.info(
             "Configured lifecycle to expire noncurrent versions after %s days "
             "on bucket %s.",
@@ -145,8 +145,8 @@ def rollback_object(bucket, object_key, version_id):
         print(f"Active version is now {bucket.Object(object_key).version_id}")
     else:
         raise KeyError(
-            f"{version_id} was not found in the list of versions for "
-            f"{object_key}.")
+            f"{version_id} was not found in the list of versions for " f"{object_key}."
+        )
 
 
 # snippet-end:[s3.python.versioning.rollback_object]
@@ -192,9 +192,7 @@ def revive_object(bucket, object_key):
                 "Delete marker is not the latest version for %s!", object_key
             )
     elif "Versions" in response:
-        logger.warning(
-            "Got an active version for %s, nothing to do.",
-            object_key)
+        logger.warning("Got an active version for %s, nothing to do.", object_key)
     else:
         logger.error("Couldn't get any version info for %s.", object_key)
 
@@ -214,9 +212,7 @@ def permanently_delete_object(bucket, object_key):
     """
     try:
         bucket.object_versions.filter(Prefix=object_key).delete()
-        logger.info(
-            "Permanently deleted all versions of object %s.",
-            object_key)
+        logger.info("Permanently deleted all versions of object %s.", object_key)
     except ClientError:
         logger.exception("Couldn't delete all versions of %s.", object_key)
         raise
@@ -264,8 +260,7 @@ def usage_demo_single_object(obj_prefix="demo-versioning/"):
     )
 
     # Versions are returned in order, most recent first.
-    obj_stanza_1_versions = bucket.object_versions.filter(
-        Prefix=obj_stanza_1.key)
+    obj_stanza_1_versions = bucket.object_versions.filter(Prefix=obj_stanza_1.key)
     print(
         "The version data of the stanza revisions:",
         *[
@@ -277,8 +272,7 @@ def usage_demo_single_object(obj_prefix="demo-versioning/"):
 
     # Rollback two versions.
     print("\nRolling back two versions...")
-    rollback_object(bucket, obj_stanza_1.key, list(
-        obj_stanza_1_versions)[2].version_id)
+    rollback_object(bucket, obj_stanza_1.key, list(obj_stanza_1_versions)[2].version_id)
     print(
         "The latest version of the stanza:",
         obj_stanza_1.get()["Body"].read().decode("utf-8"),
@@ -308,8 +302,7 @@ def usage_demo_single_object(obj_prefix="demo-versioning/"):
     # Permanently delete all versions of the object. This cannot be undone!
     print("\nPermanently deleting all versions of the stanza...")
     permanently_delete_object(bucket, obj_stanza_1.key)
-    obj_stanza_1_versions = bucket.object_versions.filter(
-        Prefix=obj_stanza_1.key)
+    obj_stanza_1_versions = bucket.object_versions.filter(Prefix=obj_stanza_1.key)
     if len(list(obj_stanza_1_versions)) == 0:
         print("The stanza has been permanently deleted and now has no versions.")
     else:

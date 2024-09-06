@@ -92,13 +92,11 @@ def test_create_parameter_group_not_exist(mock_mgr, capsys):
         ("TESTERROR-describe_db_cluster_parameter_groups", 3),
     ],
 )
-def test_create_parameter_group_not_exist_error(
-        mock_mgr, caplog, error, stop_on_index):
+def test_create_parameter_group_not_exist_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.cluster_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:
-        mock_mgr.cluster_data.scenario.create_parameter_group(
-            *mock_mgr.scenario_args)
+        mock_mgr.cluster_data.scenario.create_parameter_group(*mock_mgr.scenario_args)
     assert exc_info.value.response["Error"]["Code"] == error
 
     assert error in caplog.text

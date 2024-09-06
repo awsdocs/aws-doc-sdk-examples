@@ -33,19 +33,14 @@ class StepFunctionsStubber(ExampleStubber):
     def stub_create_state_machine(
         self, name, definition, role_arn, state_machine_arn, error_code=None
     ):
-        expected_params = {
-            "name": name,
-            "definition": definition,
-            "roleArn": role_arn}
+        expected_params = {"name": name, "definition": definition, "roleArn": role_arn}
         response = {
             "stateMachineArn": state_machine_arn,
             "creationDate": datetime.now(),
         }
         self._stub_bifurcator(
-            "create_state_machine",
-            expected_params,
-            response,
-            error_code=error_code)
+            "create_state_machine", expected_params, response, error_code=error_code
+        )
 
     def stub_update_state_machine(
         self, state_machine_arn, definition, role_arn=None, error_code=None
@@ -58,19 +53,15 @@ class StepFunctionsStubber(ExampleStubber):
             expected_params["roleArn"] = role_arn
         response = {"updateDate": datetime.now()}
         self._stub_bifurcator(
-            "update_state_machine",
-            expected_params,
-            response,
-            error_code=error_code)
+            "update_state_machine", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_state_machine(self, state_machine_arn, error_code=None):
         expected_params = {"stateMachineArn": state_machine_arn}
         response = {}
         self._stub_bifurcator(
-            "delete_state_machine",
-            expected_params,
-            response,
-            error_code=error_code)
+            "delete_state_machine", expected_params, response, error_code=error_code
+        )
 
     def stub_list_state_machines(self, state_machines, error_code=None):
         expected_params = {}
@@ -81,19 +72,12 @@ class StepFunctionsStubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "list_state_machines",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_state_machines", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_state_machine(
-            self,
-            state_machine_arn,
-            name,
-            definition,
-            status,
-            role_arn,
-            error_code=None):
+        self, state_machine_arn, name, definition, status, role_arn, error_code=None
+    ):
         expected_params = {"stateMachineArn": state_machine_arn}
         response = {
             "name": name,
@@ -105,18 +89,12 @@ class StepFunctionsStubber(ExampleStubber):
             "creationDate": datetime.now(),
         }
         self._stub_bifurcator(
-            "describe_state_machine",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_state_machine", expected_params, response, error_code=error_code
+        )
 
     def stub_start_execution(
-            self,
-            state_machine_arn,
-            run_arn,
-            run_input=None,
-            run_name=None,
-            error_code=None):
+        self, state_machine_arn, run_arn, run_input=None, run_name=None, error_code=None
+    ):
         expected_params = {"stateMachineArn": state_machine_arn}
         if run_input is not None:
             expected_params["input"] = json.dumps(run_input)
@@ -148,13 +126,7 @@ class StepFunctionsStubber(ExampleStubber):
             "list_executions", expected_params, response, error_code=error_code
         )
 
-    def stub_describe_execution(
-            self,
-            run_arn,
-            sm_arn,
-            status,
-            output,
-            error_code=None):
+    def stub_describe_execution(self, run_arn, sm_arn, status, output, error_code=None):
         expected_params = {"executionArn": run_arn}
         response = {
             "executionArn": run_arn,
@@ -164,10 +136,8 @@ class StepFunctionsStubber(ExampleStubber):
             "startDate": datetime.now(),
         }
         self._stub_bifurcator(
-            "describe_execution",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_execution", expected_params, response, error_code=error_code
+        )
 
     def stub_stop_execution(self, run_arn, cause, error_code=None):
         expected_params = {"executionArn": run_arn, "cause": cause}
@@ -190,28 +160,19 @@ class StepFunctionsStubber(ExampleStubber):
             "create_activity", expected_params, response, error_code=error_code
         )
 
-    def stub_get_activity_task(
-            self,
-            act_arn,
-            token,
-            act_input,
-            error_code=None):
+    def stub_get_activity_task(self, act_arn, token, act_input, error_code=None):
         expected_params = {"activityArn": act_arn}
         response = {"taskToken": token, "input": act_input}
         self._stub_bifurcator(
-            "get_activity_task",
-            expected_params,
-            response,
-            error_code=error_code)
+            "get_activity_task", expected_params, response, error_code=error_code
+        )
 
     def stub_send_task_success(self, token, output, error_code=None):
         expected_params = {"taskToken": token, "output": output}
         response = {}
         self._stub_bifurcator(
-            "send_task_success",
-            expected_params,
-            response,
-            error_code=error_code)
+            "send_task_success", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_activity(self, act_arn, error_code=None):
         expected_params = {"activityArn": act_arn}

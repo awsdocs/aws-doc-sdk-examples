@@ -19,8 +19,8 @@ class MockManager:
     def setup_stubs(self, error, stop_on, stubber):
         with self.stub_runner(error, stop_on) as runner:
             runner.add(
-                stubber.stub_delete_db_instance,
-                self.db_inst["DBInstanceIdentifier"])
+                stubber.stub_delete_db_instance, self.db_inst["DBInstanceIdentifier"]
+            )
             runner.add(
                 stubber.stub_describe_db_instances,
                 self.db_inst["DBInstanceIdentifier"],

@@ -51,12 +51,7 @@ class CognitoIdpStubber(ExampleStubber):
             "sign_up", expected_params, response, error_code=error_code
         )
 
-    def stub_admin_get_user(
-            self,
-            user_pool_id,
-            user_name,
-            status,
-            error_code=None):
+    def stub_admin_get_user(self, user_pool_id, user_name, status, error_code=None):
         expected_params = {"UserPoolId": user_pool_id, "Username": user_name}
         response = {"Username": user_name, "UserStatus": status}
         self._stub_bifurcator(
@@ -64,29 +59,19 @@ class CognitoIdpStubber(ExampleStubber):
         )
 
     def stub_resend_confirmation_code(
-            self,
-            client_id,
-            user_name,
-            delivery,
-            client_secret_hash=None,
-            error_code=None):
+        self, client_id, user_name, delivery, client_secret_hash=None, error_code=None
+    ):
         expected_params = {"ClientId": client_id, "Username": user_name}
         if client_secret_hash is not None:
             expected_params["SecretHash"] = client_secret_hash
         response = {"CodeDeliveryDetails": delivery}
         self._stub_bifurcator(
-            "resend_confirmation_code",
-            expected_params,
-            response,
-            error_code=error_code)
+            "resend_confirmation_code", expected_params, response, error_code=error_code
+        )
 
     def stub_confirm_sign_up(
-            self,
-            client_id,
-            user_name,
-            conf_code,
-            client_secret_hash=None,
-            error_code=None):
+        self, client_id, user_name, conf_code, client_secret_hash=None, error_code=None
+    ):
         expected_params = {
             "ClientId": client_id,
             "Username": user_name,
@@ -133,34 +118,22 @@ class CognitoIdpStubber(ExampleStubber):
             "Session": session,
         }
         self._stub_bifurcator(
-            "admin_initiate_auth",
-            expected_params,
-            response,
-            error_code=error_code)
+            "admin_initiate_auth", expected_params, response, error_code=error_code
+        )
 
-    def stub_associate_software_token(
-            self, session, mfa_secret, error_code=None):
+    def stub_associate_software_token(self, session, mfa_secret, error_code=None):
         expected_params = {"Session": session}
         response = {"SecretCode": mfa_secret}
         self._stub_bifurcator(
-            "associate_software_token",
-            expected_params,
-            response,
-            error_code=error_code)
+            "associate_software_token", expected_params, response, error_code=error_code
+        )
 
-    def stub_verify_software_token(
-            self,
-            session,
-            user_code,
-            status,
-            error_code=None):
+    def stub_verify_software_token(self, session, user_code, status, error_code=None):
         expected_params = {"Session": session, "UserCode": user_code}
         response = {"Status": status}
         self._stub_bifurcator(
-            "verify_software_token",
-            expected_params,
-            response,
-            error_code=error_code)
+            "verify_software_token", expected_params, response, error_code=error_code
+        )
 
     def stub_admin_respond_to_auth_challenge(
         self,
@@ -194,13 +167,8 @@ class CognitoIdpStubber(ExampleStubber):
         )
 
     def stub_confirm_device(
-            self,
-            access_token,
-            device_key,
-            pw_verifier,
-            salt,
-            confirmation,
-            error_code=None):
+        self, access_token, device_key, pw_verifier, salt, confirmation, error_code=None
+    ):
         expected_params = {
             "AccessToken": access_token,
             "DeviceKey": device_key,

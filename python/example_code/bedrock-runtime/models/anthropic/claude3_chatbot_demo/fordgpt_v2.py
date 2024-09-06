@@ -77,8 +77,8 @@ class FordGPTv2:
             )
 
             prompt = template.format(
-                resume=resume,
-                input_text="Introduce yourself in a single sentence.")
+                resume=resume, input_text="Introduce yourself in a single sentence."
+            )
 
             conversation = ConversationChain(
                 llm=self.llm,

@@ -240,14 +240,9 @@ class Movies:
         """
         try:
             response = self.table.update_item(
-                Key={
-                    "year": year,
-                    "title": title},
+                Key={"year": year, "title": title},
                 UpdateExpression="set info.rating=:r, info.plot=:p",
-                ExpressionAttributeValues={
-                    ":r": Decimal(
-                        str(rating)),
-                    ":p": plot},
+                ExpressionAttributeValues={":r": Decimal(str(rating)), ":p": plot},
                 ReturnValues="UPDATED_NEW",
             )
         except ClientError as err:
@@ -273,8 +268,7 @@ class Movies:
         :return: The list of movies that were released in the specified year.
         """
         try:
-            response = self.table.query(
-                KeyConditionExpression=Key("year").eq(year))
+            response = self.table.query(KeyConditionExpression=Key("year").eq(year))
         except ClientError as err:
             logger.error(
                 "Couldn't query for movies released in %s. Here's why: %s: %s",
@@ -393,7 +387,8 @@ def get_sample_movie_data(movie_file_name):
     except FileNotFoundError:
         print(
             f"File {movie_file_name} not found. You must first download the file to "
-            "run this demo. See the README for instructions.")
+            "run this demo. See the README for instructions."
+        )
         raise
     else:
         # The sample file lists over 4000 movies, return only the first 250.
@@ -405,9 +400,7 @@ def get_sample_movie_data(movie_file_name):
 
 # snippet-start:[python.example_code.dynamodb.Scenario_GettingStartedMovies]
 def run_scenario(table_name, movie_file_name, dyn_resource):
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     print("-" * 88)
     print("Welcome to the Amazon DynamoDB getting started demo.")
@@ -423,24 +416,18 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
     my_movie = Question.ask_questions(
         [
             Question(
-                "title",
-                "Enter the title of a movie you want to add to the table: "),
-            Question(
-                "year",
-                "What year was it released? ",
-                Question.is_int),
+                "title", "Enter the title of a movie you want to add to the table: "
+            ),
+            Question("year", "What year was it released? ", Question.is_int),
             Question(
                 "rating",
                 "On a scale of 1 - 10, how do you rate it? ",
                 Question.is_float,
-                Question.in_range(
-                    1,
-                    10),
+                Question.in_range(1, 10),
             ),
-            Question(
-                "plot",
-                "Summarize the plot for me: "),
-        ])
+            Question("plot", "Summarize the plot for me: "),
+        ]
+    )
     movies.add_movie(**my_movie)
     print(f"\nAdded '{my_movie['title']}' to '{movies.table.name}'.")
     print("-" * 88)
@@ -487,12 +474,13 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
     while ask_for_year:
         release_year = Question.ask_question(
             "\nLet's get a list of movies released in a given year. Enter a year between "
-            f"1972 and 2018: ", Question.is_int, Question.in_range(
-                1972, 2018), )
+            f"1972 and 2018: ",
+            Question.is_int,
+            Question.in_range(1972, 2018),
+        )
         releases = movies.query_movies(release_year)
         if releases:
-            print(
-                f"There were {len(releases)} movies released in {release_year}:")
+            print(f"There were {len(releases)} movies released in {release_year}:")
             for release in releases:
                 print(f"\t{release['title']}")
             ask_for_year = False
@@ -509,19 +497,16 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
                 "first",
                 "\nNow let's scan for movies released in a range of years. Enter a year: ",
                 Question.is_int,
-                Question.in_range(
-                    1972,
-                    2018),
+                Question.in_range(1972, 2018),
             ),
             Question(
                 "second",
                 "Now enter another year: ",
                 Question.is_int,
-                Question.in_range(
-                    1972,
-                    2018),
+                Question.in_range(1972, 2018),
             ),
-        ])
+        ]
+    )
     releases = movies.scan_movies(years)
     if releases:
         count = Question.ask_question(
@@ -553,7 +538,8 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
     else:
         print(
             "Don't forget to delete the table when you're done or you might incur "
-            "charges on your account.")
+            "charges on your account."
+        )
 
     print("\nThanks for watching!")
     print("-" * 88)
@@ -562,9 +548,8 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
 if __name__ == "__main__":
     try:
         run_scenario(
-            "doc-example-table-movies",
-            "moviedata.json",
-            boto3.resource("dynamodb"))
+            "doc-example-table-movies", "moviedata.json", boto3.resource("dynamodb")
+        )
     except Exception as e:
         print(f"Something went wrong with the demo! Here's what: {e}")
 # snippet-end:[python.example_code.dynamodb.Scenario_GettingStartedMovies]

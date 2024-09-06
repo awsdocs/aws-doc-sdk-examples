@@ -33,12 +33,7 @@ from botocore.exceptions import ClientError
         ("TestException", "stub_respond_to_auth_challenge"),
     ],
 )
-def test_scenario(
-        make_stubber,
-        stub_runner,
-        monkeypatch,
-        error_code,
-        stop_on_method):
+def test_scenario(make_stubber, stub_runner, monkeypatch, error_code, stop_on_method):
     cognito_idp_client = boto3.client("cognito-idp")
     cognito_idp_stubber = make_stubber(cognito_idp_client)
     user_pool_id = "test-user-pool-id"
@@ -114,10 +109,8 @@ def test_scenario(
             delivery,
         )
         runner.add(
-            cognito_idp_stubber.stub_confirm_sign_up,
-            client_id,
-            user_name,
-            conf_code)
+            cognito_idp_stubber.stub_confirm_sign_up, client_id, user_name, conf_code
+        )
         runner.add(cognito_idp_stubber.stub_list_users, user_pool_id, users)
         runner.add(
             cognito_idp_stubber.stub_admin_initiate_auth,
@@ -131,14 +124,11 @@ def test_scenario(
             session,
         )
         runner.add(
-            cognito_idp_stubber.stub_associate_software_token,
-            session,
-            mfa_secret)
+            cognito_idp_stubber.stub_associate_software_token, session, mfa_secret
+        )
         runner.add(
-            cognito_idp_stubber.stub_verify_software_token,
-            session,
-            user_code,
-            status)
+            cognito_idp_stubber.stub_verify_software_token, session, user_code, status
+        )
         runner.add(
             cognito_idp_stubber.stub_admin_initiate_auth,
             user_pool_id,

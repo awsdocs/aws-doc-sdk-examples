@@ -51,7 +51,8 @@ def test_create(make_stubber, error_code):
     role_arn = "test-role-arn"
 
     kinesisanalyticsv2_stubber.stub_create_application(
-        app_name, "SQL-1_0", role_arn, app_arn, app_version_id, error_code=error_code)
+        app_name, "SQL-1_0", role_arn, app_arn, app_version_id, error_code=error_code
+    )
 
     if error_code is None:
         got_app_details = app.create(app_name, role_arn)
@@ -197,7 +198,8 @@ def test_add_output(make_stubber, error_code):
     output_arn = "test-arn"
 
     kinesisanalyticsv2_stubber.stub_add_application_output(
-        app.name, app.version_id, stream_name, output_arn, error_code=error_code)
+        app.name, app.version_id, stream_name, output_arn, error_code=error_code
+    )
 
     if error_code is None:
         got_response = app.add_output(stream_name, output_arn)
@@ -260,8 +262,7 @@ def test_stop(make_stubber, error_code):
     app = KinesisAnalyticsApplicationV2(kinesisanalyticsv2_client)
     app.name = "test-app"
 
-    kinesisanalyticsv2_stubber.stub_stop_application(
-        app.name, error_code=error_code)
+    kinesisanalyticsv2_stubber.stub_stop_application(app.name, error_code=error_code)
 
     if error_code is None:
         app.stop()

@@ -37,7 +37,8 @@ def test_index():
         response = client.http.get("/")
         assert response.json_body == {
             "description": "A simple lending library REST API that runs entirely on "
-            "serverless components."}
+            "serverless components."
+        }
 
 
 def test_list_books(mock_storage):

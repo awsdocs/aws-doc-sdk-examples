@@ -30,9 +30,8 @@ class MockManager:
             )
             runner.add(stubber.stub_describe_security_groups, [self.group])
             runner.add(
-                stubber.stub_authorize_security_group_ingress,
-                self.group["id"],
-                ANY)
+                stubber.stub_authorize_security_group_ingress, self.group["id"], ANY
+            )
             runner.add(stubber.stub_describe_security_groups, [self.group])
 
 
@@ -43,10 +42,7 @@ def mock_mgr(stub_runner, scenario_data, input_mocker):
 
 @pytest.fixture(autouse=True)
 def patch_urlopen(monkeypatch):
-    monkeypatch.setattr(
-        urllib.request,
-        "urlopen",
-        lambda x: BytesIO(b"1.2.3.4"))
+    monkeypatch.setattr(urllib.request, "urlopen", lambda x: BytesIO(b"1.2.3.4"))
 
 
 def test_create_security_group(mock_mgr, capsys):

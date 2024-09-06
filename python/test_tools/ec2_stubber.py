@@ -34,11 +34,7 @@ class Ec2Stubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
-    def stub_create_key_pair(
-            self,
-            key_name,
-            key_material=None,
-            error_code=None):
+    def stub_create_key_pair(self, key_name, key_material=None, error_code=None):
         expected_params = {"KeyName": key_name}
         response = {"KeyName": key_name}
         if key_material is not None:
@@ -51,17 +47,12 @@ class Ec2Stubber(ExampleStubber):
         expected_params = {}
         response = {"KeyPairs": key_pairs}
         self._stub_bifurcator(
-            "describe_key_pairs",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_key_pairs", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_key_pair(self, key_name, error_code=None):
         expected_params = {"KeyName": key_name}
-        self._stub_bifurcator(
-            "delete_key_pair",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("delete_key_pair", expected_params, error_code=error_code)
 
     def stub_describe_vpcs(self, vpcs, vpc_filters=None, error_code=None):
         expected_params = {}
@@ -81,12 +72,7 @@ class Ec2Stubber(ExampleStubber):
             "describe_vpcs", expected_params, response, error_code=error_code
         )
 
-    def stub_describe_subnets(
-            self,
-            vpc_id,
-            zones,
-            subnet_ids,
-            error_code=None):
+    def stub_describe_subnets(self, vpc_id, zones, subnet_ids, error_code=None):
         expected_params = {
             "Filters": [
                 {"Name": "vpc-id", "Values": [vpc_id]},
@@ -96,18 +82,12 @@ class Ec2Stubber(ExampleStubber):
         }
         response = {"Subnets": [{"SubnetId": sub_id} for sub_id in subnet_ids]}
         self._stub_bifurcator(
-            "describe_subnets",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_subnets", expected_params, response, error_code=error_code
+        )
 
     def stub_create_security_group(
-            self,
-            group_name,
-            group_id,
-            group_description=ANY,
-            vpc_id=None,
-            error_code=None):
+        self, group_name, group_id, group_description=ANY, vpc_id=None, error_code=None
+    ):
         expected_params = {
             "GroupName": group_name,
             "Description": group_description,
@@ -116,10 +96,8 @@ class Ec2Stubber(ExampleStubber):
             expected_params["VpcId"] = vpc_id
         response = {"GroupId": group_id}
         self._stub_bifurcator(
-            "create_security_group",
-            expected_params,
-            response,
-            error_code=error_code)
+            "create_security_group", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_security_group(self, group_id, error_code=None):
         expected_params = {"GroupId": group_id}
@@ -185,9 +163,7 @@ class Ec2Stubber(ExampleStubber):
         )
 
     def stub_describe_instances(self, instances, error_code=None):
-        expected_params = {
-            "InstanceIds": [
-                instance.id for instance in instances]}
+        expected_params = {"InstanceIds": [instance.id for instance in instances]}
         response = {
             "Reservations": [
                 {
@@ -199,10 +175,8 @@ class Ec2Stubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "describe_instances",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_instances", expected_params, response, error_code=error_code
+        )
 
     def stub_start_instances(self, instance_ids, error_code=None):
         expected_params = {"InstanceIds": instance_ids}
@@ -266,10 +240,8 @@ class Ec2Stubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "describe_addresses",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_addresses", expected_params, response, error_code=error_code
+        )
 
     def stub_allocate_elastic_ip(self, address, error_code=None):
         expected_params = {"Domain": address.domain}
@@ -278,10 +250,8 @@ class Ec2Stubber(ExampleStubber):
             "AllocationId": address.allocation_id,
         }
         self._stub_bifurcator(
-            "allocate_address",
-            expected_params,
-            response,
-            error_code=error_code)
+            "allocate_address", expected_params, response, error_code=error_code
+        )
 
     def stub_associate_elastic_ip(self, address, instance_id, error_code=None):
         expected_params = {
@@ -290,10 +260,8 @@ class Ec2Stubber(ExampleStubber):
         }
         response = {"AssociationId": address.association_id}
         self._stub_bifurcator(
-            "associate_address",
-            expected_params,
-            response,
-            error_code=error_code)
+            "associate_address", expected_params, response, error_code=error_code
+        )
 
     def stub_disassociate_elastic_ip(self, association_id, error_code=None):
         expected_params = {"AssociationId": association_id}
@@ -303,25 +271,21 @@ class Ec2Stubber(ExampleStubber):
 
     def stub_release_elastic_ip(self, allocation_id, error_code=None):
         expected_params = {"AllocationId": allocation_id}
-        self._stub_bifurcator(
-            "release_address",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("release_address", expected_params, error_code=error_code)
 
     def stub_get_console_output(self, instance_id, output, error_code=None):
         expected_params = {"InstanceId": instance_id}
         response = {"InstanceId": instance_id, "Output": output}
         self._stub_bifurcator(
-            "get_console_output",
-            expected_params,
-            response,
-            error_code=error_code)
+            "get_console_output", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_network_interfaces(
         self, instance_id, interfaces, error_code=None
     ):
-        expected_params = {"Filters": [
-            {"Name": "attachment.instance-id", "Values": [instance_id]}]}
+        expected_params = {
+            "Filters": [{"Name": "attachment.instance-id", "Values": [instance_id]}]
+        }
         response = {
             "NetworkInterfaces": [
                 {
@@ -344,16 +308,12 @@ class Ec2Stubber(ExampleStubber):
     def stub_modify_network_interface_attribute(
         self, interface_id, group_ids, error_code=None
     ):
-        expected_params = {
-            "NetworkInterfaceId": interface_id,
-            "Groups": group_ids}
+        expected_params = {"NetworkInterfaceId": interface_id, "Groups": group_ids}
         self._stub_bifurcator(
-            "modify_network_interface_attribute",
-            expected_params,
-            error_code=error_code)
+            "modify_network_interface_attribute", expected_params, error_code=error_code
+        )
 
-    def stub_describe_security_groups(
-            self, groups, vpc_id=None, error_code=None):
+    def stub_describe_security_groups(self, groups, vpc_id=None, error_code=None):
         expected_params = {"GroupIds": [group["id"] for group in groups]}
         if vpc_id is not None:
             expected_params = {
@@ -373,10 +333,8 @@ class Ec2Stubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "describe_security_groups",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_security_groups", expected_params, response, error_code=error_code
+        )
 
     def stub_revoke_security_group_ingress(self, sec_group, error_code=None):
         expected_params = {
@@ -384,9 +342,8 @@ class Ec2Stubber(ExampleStubber):
             "IpPermissions": sec_group["ip_permissions"],
         }
         self._stub_bifurcator(
-            "revoke_security_group_ingress",
-            expected_params,
-            error_code=error_code)
+            "revoke_security_group_ingress", expected_params, error_code=error_code
+        )
 
     def stub_describe_launch_templates(
         self, template_names, templates, error_code=None
@@ -411,9 +368,7 @@ class Ec2Stubber(ExampleStubber):
     ):
         expected_params = {
             "LaunchTemplateName": template_name,
-            "LaunchTemplateData": {
-                "InstanceType": inst_type,
-                "ImageId": ami_id},
+            "LaunchTemplateData": {"InstanceType": inst_type, "ImageId": ami_id},
         }
         if inst_profile is not None:
             expected_params["LaunchTemplateData"]["IamInstanceProfile"] = {
@@ -423,24 +378,19 @@ class Ec2Stubber(ExampleStubber):
             expected_params["LaunchTemplateData"]["UserData"] = user_data
         response = {"LaunchTemplate": {"LaunchTemplateName": template_name}}
         self._stub_bifurcator(
-            "create_launch_template",
-            expected_params,
-            response,
-            error_code=error_code)
+            "create_launch_template", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_launch_template(self, template_name, error_code=None):
         expected_params = {"LaunchTemplateName": template_name}
         response = {}
         self._stub_bifurcator(
-            "delete_launch_template",
-            expected_params,
-            response,
-            error_code=error_code)
+            "delete_launch_template", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_availability_zones(self, zones, error_code=None):
         expected_params = {}
-        response = {"AvailabilityZones": [
-            {"ZoneName": zone} for zone in zones]}
+        response = {"AvailabilityZones": [{"ZoneName": zone} for zone in zones]}
         self._stub_bifurcator(
             "describe_availability_zones",
             expected_params,
@@ -464,19 +414,14 @@ class Ec2Stubber(ExampleStubber):
             "describe_images", expected_params, response, error_code=error_code
         )
 
-    def stub_describe_instance_types(
-            self,
-            inst_types,
-            filters=ANY,
-            error_code=None):
+    def stub_describe_instance_types(self, inst_types, filters=ANY, error_code=None):
         expected_params = {"Filters": filters}
-        response = {"InstanceTypes": [
-            {"InstanceType": inst_type} for inst_type in inst_types]}
+        response = {
+            "InstanceTypes": [{"InstanceType": inst_type} for inst_type in inst_types]
+        }
         self._stub_bifurcator(
-            "describe_instance_types",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_instance_types", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_iam_instance_profile_associations(
         self, instance_id, association_id, error_code=None
@@ -484,8 +429,9 @@ class Ec2Stubber(ExampleStubber):
         expected_params = {
             "Filters": [{"Name": "instance-id", "Values": [instance_id]}]
         }
-        response = {"IamInstanceProfileAssociations": [
-            {"AssociationId": association_id}]}
+        response = {
+            "IamInstanceProfileAssociations": [{"AssociationId": association_id}]
+        }
         self._stub_bifurcator(
             "describe_iam_instance_profile_associations",
             expected_params,

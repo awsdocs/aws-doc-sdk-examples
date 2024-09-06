@@ -36,10 +36,7 @@ def test_check_no_errors(csv_file, result):
 
     clean_up(deduplicated_file, duplicates_file, manifest_file)
 
-    assert check_duplicates(
-        csv_file,
-        deduplicated_file,
-        duplicates_file) == result
+    assert check_duplicates(csv_file, deduplicated_file, duplicates_file) == result
     assert not exists(deduplicated_file)
     assert not exists(duplicates_file)
 
@@ -62,18 +59,16 @@ def test_duplicates_errors(csv_file, result):
 
     clean_up(deduplicated_file, duplicates_file, manifest_file)
 
-    assert check_duplicates(
-        csv_file,
-        deduplicated_file,
-        duplicates_file) == result
+    assert check_duplicates(csv_file, deduplicated_file, duplicates_file) == result
     assert exists(deduplicated_file)
     assert exists(duplicates_file)
 
     clean_up(deduplicated_file, duplicates_file, manifest_file)
 
 
-@pytest.mark.parametrize("csv_file,img_count,anom_count",
-                         [("test/test_csvs/test_no_s3.csv", 15, 33)])
+@pytest.mark.parametrize(
+    "csv_file,img_count,anom_count", [("test/test_csvs/test_no_s3.csv", 15, 33)]
+)
 def test_create_manifest_no_s3_supplied(csv_file, img_count, anom_count):
     """
     Checks that a CSV file with images and no Amazon S3 path creates
@@ -99,8 +94,9 @@ def test_create_manifest_no_s3_supplied(csv_file, img_count, anom_count):
     clean_up(deduplicated_file, errors_file, manifest_file)
 
 
-@pytest.mark.parametrize("csv_file,img_count,lbl_count",
-                         [("test/test_csvs/test_s3_supplied.csv", 15, 33)])
+@pytest.mark.parametrize(
+    "csv_file,img_count,lbl_count", [("test/test_csvs/test_s3_supplied.csv", 15, 33)]
+)
 def test_create_manifest_s3_supplied(csv_file, img_count, lbl_count):
     """
     Checks that a CSV file with images and an Amazon S3 path creates
@@ -114,8 +110,7 @@ def test_create_manifest_s3_supplied(csv_file, img_count, lbl_count):
 
     clean_up(deduplicated_file, errors_file, manifest_file)
 
-    image_count, label_count = create_manifest_file(
-        csv_file, manifest_file, s3_path)
+    image_count, label_count = create_manifest_file(csv_file, manifest_file, s3_path)
     assert image_count == img_count
     assert label_count == lbl_count
     assert exists(manifest_file)

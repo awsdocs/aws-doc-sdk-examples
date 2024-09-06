@@ -53,8 +53,7 @@ def delete_alias(alias):
         iam.meta.client.delete_account_alias(AccountAlias=alias)
         logger.info("Removed alias '%s' from your account.", alias)
     except ClientError:
-        logger.exception(
-            "Couldn't remove alias '%s' from your account.", alias)
+        logger.exception("Couldn't remove alias '%s' from your account.", alias)
         raise
 
 
@@ -141,11 +140,11 @@ def generate_credential_report():
     try:
         response = iam.meta.client.generate_credential_report()
         logger.info(
-            "Generating credentials report for your account. "
-            "Current state is %s.", response["State"], )
+            "Generating credentials report for your account. " "Current state is %s.",
+            response["State"],
+        )
     except ClientError:
-        logger.exception(
-            "Couldn't generate a credentials report for your account.")
+        logger.exception("Couldn't generate a credentials report for your account.")
         raise
     else:
         return response
@@ -188,10 +187,8 @@ def print_password_policy():
         print(f"\texpire_passwords: {pw_policy.expire_passwords}")
         print(f"\thard_expiry: {pw_policy.hard_expiry}")
         print(f"\tmax_password_age: {pw_policy.max_password_age}")
-        print(
-            f"\tminimum_password_length: {pw_policy.minimum_password_length}")
-        print(
-            f"\tpassword_reuse_prevention: {pw_policy.password_reuse_prevention}")
+        print(f"\tminimum_password_length: {pw_policy.minimum_password_length}")
+        print(f"\tpassword_reuse_prevention: {pw_policy.password_reuse_prevention}")
         print(
             f"\trequire_lowercase_characters: {pw_policy.require_lowercase_characters}"
         )
@@ -239,9 +236,7 @@ def list_saml_providers(count):
 # snippet-start:[python.example_code.iam.Scenario_AccountManagement]
 def usage_demo():
     """Shows how to use the account functions."""
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     print("-" * 88)
     print("Welcome to the AWS Identity and Account Management account demo.")
     print("-" * 88)
@@ -283,14 +278,15 @@ def usage_demo():
     print()
     cred_report = get_credential_report()
     col_count = 3
-    print(
-        f"Got credentials report. Showing only the first {col_count} columns.")
-    cred_lines = [line.split(",")[:col_count]
-                  for line in cred_report.decode("utf-8").split("\n")]
+    print(f"Got credentials report. Showing only the first {col_count} columns.")
+    cred_lines = [
+        line.split(",")[:col_count] for line in cred_report.decode("utf-8").split("\n")
+    ]
     col_width = max([len(item) for line in cred_lines for item in line]) + 2
     for line in cred_report.decode("utf-8").split("\n"):
-        print("".join(element.ljust(col_width)
-                      for element in line.split(",")[:col_count]))
+        print(
+            "".join(element.ljust(col_width) for element in line.split(",")[:col_count])
+        )
 
     print("-" * 88)
     print("Let's get an account summary.")
@@ -301,15 +297,13 @@ def usage_demo():
     print("-" * 88)
     print("Let's get authorization details!")
     details = get_authorization_details([])
-    see_details = input(
-        "These are pretty long, do you want to see them (y/n)? ")
+    see_details = input("These are pretty long, do you want to see them (y/n)? ")
     if see_details.lower() == "y":
         pprint.pprint(details)
 
     print("-" * 88)
     pw_policy_created = None
-    see_pw_policy = input(
-        "Want to see the password policy for the account (y/n)? ")
+    see_pw_policy = input("Want to see the password policy for the account (y/n)? ")
     if see_pw_policy.lower() == "y":
         while True:
             if print_password_policy():

@@ -22,10 +22,8 @@ def test_create(make_stubber, error_code):
 
     kinesis_stubber.stub_create_stream(stream_name, error_code=error_code)
     if error_code is None:
-        kinesis_stubber.stub_describe_stream(
-            stream_name, stream_arn, stream_status)
-        kinesis_stubber.stub_describe_stream(
-            stream_name, stream_arn, stream_status)
+        kinesis_stubber.stub_describe_stream(stream_name, stream_arn, stream_status)
+        kinesis_stubber.stub_describe_stream(stream_name, stream_arn, stream_status)
 
     if error_code is None:
         stream.create(stream_name)
@@ -48,10 +46,8 @@ def test_describe(make_stubber, error_code):
     }
 
     kinesis_stubber.stub_describe_stream(
-        details["StreamName"],
-        details["StreamARN"],
-        "ACTIVE",
-        error_code=error_code)
+        details["StreamName"], details["StreamARN"], "ACTIVE", error_code=error_code
+    )
 
     if error_code is None:
         stream.describe(details["StreamName"])

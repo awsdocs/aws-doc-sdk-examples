@@ -74,7 +74,8 @@ def main():
     parser = argparse.ArgumentParser(
         description="Deploys and destroys scaffold resources for the 'Getting started "
         "with crawlers and jobs' scenario. Run with the 'deploy' action to "
-        "deploy resources or with the 'destroy' action to destroy resources.")
+        "deploy resources or with the 'destroy' action to destroy resources."
+    )
     parser.add_argument(
         "action",
         choices=["deploy", "destroy"],
@@ -107,14 +108,14 @@ def main():
             print("-" * 88)
             print(
                 "To clean up all AWS resources created for the example, run this script "
-                "again with the 'destroy' flag.")
+                "again with the 'destroy' flag."
+            )
         elif args.action == "destroy":
             print("Destroying scaffold resources created for the example.")
             destroy(stack, cf_resource, boto3.resource("s3"))
     except ClientError as err:
         print(f"Something went wrong while trying to {args.action} the stack:")
-        print(
-            f"{err.response['Error']['Code']}: {err.response['Error']['Message']}")
+        print(f"{err.response['Error']['Code']}: {err.response['Error']['Message']}")
 
     print("-" * 88)
 

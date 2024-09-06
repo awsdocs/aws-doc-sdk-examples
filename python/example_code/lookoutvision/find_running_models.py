@@ -44,8 +44,8 @@ def find_running_models_in_project(lfv_client, project_name):
             )
 
             logger.info(
-                "Checking: %s",
-                model_description["ModelDescription"]["ModelArn"])
+                "Checking: %s", model_description["ModelDescription"]["ModelArn"]
+            )
 
             if model_description["ModelDescription"]["Status"] == "HOSTED":
                 running_model = {
@@ -134,9 +134,7 @@ def find_running_models(boto3_session):
 
 
 def main():
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     try:
         session = boto3.Session(profile_name="lookoutvision-access")

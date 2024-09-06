@@ -105,17 +105,14 @@ def test_create_agent_action_group(stubber, wrapper, error_code):
 
     if error_code is None:
         created_action_group = wrapper.create_agent_action_group(
-            name, description, agent_id, agent_version, function_arn, api_schema)
+            name, description, agent_id, agent_version, function_arn, api_schema
+        )
         assert created_action_group is not None
     else:
         with pytest.raises(ClientError) as exc_info:
             wrapper.create_agent_action_group(
-                name,
-                description,
-                agent_id,
-                agent_version,
-                function_arn,
-                api_schema)
+                name, description, agent_id, agent_version, function_arn, api_schema
+            )
             assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -181,8 +178,7 @@ def test_delete_agent_alias(stubber, wrapper, error_code):
         "agentAliasStatus": "DELETING",
     }
 
-    stubber.stub_delete_agent_alias(
-        expected_params, response, error_code=error_code)
+    stubber.stub_delete_agent_alias(expected_params, response, error_code=error_code)
 
     if error_code is None:
         response = wrapper.delete_agent_alias(agent_id, agent_alias_id)
@@ -311,10 +307,7 @@ def test_prepare_agent(stubber, wrapper, error_code):
         "preparedAt": Fake.TIMESTAMP,
     }
 
-    stubber.stub_prepare_agent(
-        expected_params,
-        response,
-        error_code=error_code)
+    stubber.stub_prepare_agent(expected_params, response, error_code=error_code)
 
     if error_code is None:
         agent = wrapper.prepare_agent(agent_id)

@@ -71,10 +71,8 @@ class CloudWatchQuery:
         try:
             response = self.logs_client.start_query(
                 logGroupName=self.log_group_names,
-                startTime=int(
-                    date_range[0].timestamp() * 1000),
-                endTime=int(
-                    date_range[1].timestamp() * 1000),
+                startTime=int(date_range[0].timestamp() * 1000),
+                endTime=int(date_range[1].timestamp() * 1000),
                 queryString="fields @timestamp, @message | sort @timestamp asc",
                 limit=max_logs,
             )

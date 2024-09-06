@@ -33,17 +33,14 @@ def test_create_and_delete_my_bucket(
         runner.add(s3_stubber.stub_list_buckets, [])
         runner.add(s3_stubber.stub_create_bucket, bucket_name, region)
         runner.add(s3_stubber.stub_head_bucket, bucket_name)
-        runner.add(
-            s3_stubber.stub_list_buckets, [
-                s3_resource.Bucket(bucket_name)])
+        runner.add(s3_stubber.stub_list_buckets, [s3_resource.Bucket(bucket_name)])
         if not keep:
             runner.add(s3_stubber.stub_delete_bucket, bucket_name)
             runner.add(s3_stubber.stub_head_bucket, bucket_name, 404)
             runner.add(s3_stubber.stub_list_buckets, [])
 
     if error_code is None:
-        demo_bucket_basics.create_and_delete_my_bucket(
-            s3_resource, bucket_name, keep)
+        demo_bucket_basics.create_and_delete_my_bucket(s3_resource, bucket_name, keep)
     else:
         with pytest.raises(ClientError) as exc_info:
             demo_bucket_basics.create_and_delete_my_bucket(

@@ -18,9 +18,6 @@ to do the following:
 * Delete the table and keyspace.
 """
 
-from demo_tools.retries import wait
-from demo_tools import demo_func
-import demo_tools.question as q
 import logging
 import os
 import sys
@@ -28,7 +25,10 @@ from datetime import datetime
 from pprint import pp
 
 import boto3
+import demo_tools.question as q
 import requests
+from demo_tools import demo_func
+from demo_tools.retries import wait
 from keyspace import KeyspaceWrapper
 from query import QueryManager
 
@@ -58,7 +58,9 @@ class KeyspaceScenario:
         print("Let's create a keyspace.")
         ks_name = q.ask(
             "Enter a name for your new keyspace.\nThe name can contain only letters, "
-            "numbers and underscores: ", q.non_empty, )
+            "numbers and underscores: ",
+            q.non_empty,
+        )
         if self.ks_wrapper.exists_keyspace(ks_name):
             print(f"A keyspace named {ks_name} exists.")
         else:
@@ -116,7 +118,8 @@ class KeyspaceScenario:
         if not os.path.exists(cert_path):
             cert_choice = q.ask(
                 f"Press enter to download a certificate from {QueryManager.CERT_URL} "
-                f"or enter the full path to the certificate you want to use: ")
+                f"or enter the full path to the certificate you want to use: "
+            )
             if cert_choice:
                 cert_path = cert_choice
             else:
@@ -140,9 +143,7 @@ class KeyspaceScenario:
         qm.add_movies(self.ks_wrapper.table_name, movie_file)
         movies = qm.get_movies(self.ks_wrapper.table_name)
         print(f"Added {len(movies)} movies to the table:")
-        sel = q.choose(
-            "Pick one to learn more about it: ", [
-                m.title for m in movies])
+        sel = q.choose("Pick one to learn more about it: ", [m.title for m in movies])
         movie_choice = qm.get_movie(
             self.ks_wrapper.table_name, movies[sel].title, movies[sel].year
         )
@@ -176,10 +177,7 @@ class KeyspaceScenario:
         )
         movies = qm.get_movies(self.ks_wrapper.table_name)
         for movie in movies[:10]:
-            qm.watched_movie(
-                self.ks_wrapper.table_name,
-                movie.title,
-                movie.year)
+            qm.watched_movie(self.ks_wrapper.table_name, movie.title, movie.year)
             print(f"Marked {movie.title} as watched.")
         movies = qm.get_movies(self.ks_wrapper.table_name, watched=True)
         print("-" * 88)
@@ -193,8 +191,7 @@ class KeyspaceScenario:
             q.is_yesno,
         ):
             starting_table_name = self.ks_wrapper.table_name
-            table_name_restored = self.ks_wrapper.restore_table(
-                pre_update_timestamp)
+            table_name_restored = self.ks_wrapper.restore_table(pre_update_timestamp)
             table = {"status": "RESTORING"}
             while table["status"] != "ACTIVE":
                 wait(10)
@@ -232,7 +229,8 @@ class KeyspaceScenario:
             self.ks_wrapper.delete_keyspace()
             print(
                 "Keyspace deleted. If you chose to restore your table during the "
-                "demo, the original table is also deleted.")
+                "demo, the original table is also deleted."
+            )
             if cert_path == os.path.join(
                 os.path.dirname(__file__), QueryManager.DEFAULT_CERT_FILE
             ) and os.path.exists(cert_path):
@@ -240,9 +238,7 @@ class KeyspaceScenario:
                 print("Removed certificate that was downloaded for this demo.")
 
     def run_scenario(self):
-        logging.basicConfig(
-            level=logging.INFO,
-            format="%(levelname)s: %(message)s")
+        logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
         print("-" * 88)
         print("Welcome to the Amazon Keyspaces (for Apache Cassandra) demo.")

@@ -62,9 +62,8 @@ class PhotoList(Resource):
         result = 200
         parse = reqparse.RequestParser()
         parse.add_argument(
-            "image_file",
-            type=werkzeug.datastructures.FileStorage,
-            location="files")
+            "image_file", type=werkzeug.datastructures.FileStorage, location="files"
+        )
         args = parse.parse_args()
         image_file = args["image_file"]
         logger.info("Got file to upload: %s", image_file.filename)
@@ -83,8 +82,7 @@ class PhotoList(Resource):
                 result = 404
         except S3UploadFailedError as err:
             logger.error(
-                "Couldn't upload file %s. Here's why: %s",
-                image_file.filename,
-                err)
+                "Couldn't upload file %s. Here's why: %s", image_file.filename, err
+            )
             result = 400
         return None, result

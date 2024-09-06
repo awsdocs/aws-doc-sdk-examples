@@ -36,27 +36,18 @@ class TextractStubber(ExampleStubber):
         expected_params = {"Document": {"Bytes": doc_bytes}}
         response = {"Blocks": blocks}
         self._stub_bifurcator(
-            "detect_document_text",
-            expected_params,
-            response,
-            error_code=error_code)
+            "detect_document_text", expected_params, response, error_code=error_code
+        )
 
-    def stub_analyze_document(
-            self,
-            doc_bytes,
-            feature_types,
-            blocks,
-            error_code=None):
+    def stub_analyze_document(self, doc_bytes, feature_types, blocks, error_code=None):
         expected_params = {
             "Document": {"Bytes": doc_bytes},
             "FeatureTypes": feature_types,
         }
         response = {"Blocks": blocks}
         self._stub_bifurcator(
-            "analyze_document",
-            expected_params,
-            response,
-            error_code=error_code)
+            "analyze_document", expected_params, response, error_code=error_code
+        )
 
     def stub_start_document_text_detection(
         self,
@@ -68,10 +59,8 @@ class TextractStubber(ExampleStubber):
         error_code=None,
     ):
         expected_params = {
-            "DocumentLocation": {
-                "S3Object": {
-                    "Bucket": bucket_name,
-                    "Name": obj_name}}}
+            "DocumentLocation": {"S3Object": {"Bucket": bucket_name, "Name": obj_name}}
+        }
         if topic_arn is not None and role_arn is not None:
             expected_params["NotificationChannel"] = {
                 "SNSTopicArn": topic_arn,
@@ -85,8 +74,7 @@ class TextractStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_get_document_text_detection(
-            self, job_id, status, error_code=None):
+    def stub_get_document_text_detection(self, job_id, status, error_code=None):
         expected_params = {"JobId": job_id}
         response = {"JobStatus": status}
         self._stub_bifurcator(
@@ -107,10 +95,7 @@ class TextractStubber(ExampleStubber):
         error_code=None,
     ):
         expected_params = {
-            "DocumentLocation": {
-                "S3Object": {
-                    "Bucket": bucket_name,
-                    "Name": obj_name}},
+            "DocumentLocation": {"S3Object": {"Bucket": bucket_name, "Name": obj_name}},
             "FeatureTypes": feature_types,
         }
         if topic_arn is not None and role_arn is not None:
@@ -120,16 +105,12 @@ class TextractStubber(ExampleStubber):
             }
         response = {"JobId": job_id}
         self._stub_bifurcator(
-            "start_document_analysis",
-            expected_params,
-            response,
-            error_code=error_code)
+            "start_document_analysis", expected_params, response, error_code=error_code
+        )
 
     def stub_get_document_analysis(self, job_id, status, error_code=None):
         expected_params = {"JobId": job_id}
         response = {"JobStatus": status}
         self._stub_bifurcator(
-            "get_document_analysis",
-            expected_params,
-            response,
-            error_code=error_code)
+            "get_document_analysis", expected_params, response, error_code=error_code
+        )

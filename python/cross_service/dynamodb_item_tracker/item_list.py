@@ -69,8 +69,7 @@ class ItemList(MethodView):
             schema = WorkItemSchema(many=True)
             response = schema.dump(work_items)
         except StorageError as err:
-            logger.error(
-                "Storage error when trying to get work items: %s", err)
+            logger.error("Storage error when trying to get work items: %s", err)
             response = jsonify("A storage error occurred.")
             result = 500
         return response, result
@@ -88,8 +87,7 @@ class ItemList(MethodView):
         try:
             response = self.storage.add_or_update_work_item(args)
         except StorageError as err:
-            logger.error(
-                "Storage error when trying to add a work item: %s", err)
+            logger.error("Storage error when trying to add a work item: %s", err)
             response = "A storage error occurred."
             result = 500
         return jsonify(response), result
@@ -115,8 +113,7 @@ class ItemList(MethodView):
         try:
             response = self.storage.add_or_update_work_item(work_item)
         except StorageError as err:
-            logger.error(
-                "Storage error when trying to add a work item: %s", err)
+            logger.error("Storage error when trying to add a work item: %s", err)
             response = "A storage error occurred."
             result = 500
         return jsonify(response), result

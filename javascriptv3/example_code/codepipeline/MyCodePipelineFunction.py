@@ -87,8 +87,7 @@ def update_stack(stack, template):
         if e.response["Error"]["Message"] == "No updates are to be performed.":
             return False
         else:
-            raise Exception(
-                f'Error updating CloudFormation stack "{stack}"', e)
+            raise Exception(f'Error updating CloudFormation stack "{stack}"', e)
 
 
 def stack_exists(stack):
@@ -220,16 +219,10 @@ def start_update_or_create(job_id, stack, template):
     """
     if stack_exists(stack):
         status = get_stack_status(stack)
-        if status not in [
-            "CREATE_COMPLETE",
-            "ROLLBACK_COMPLETE",
-                "UPDATE_COMPLETE"]:
+        if status not in ["CREATE_COMPLETE", "ROLLBACK_COMPLETE", "UPDATE_COMPLETE"]:
             # If the CloudFormation stack is not in a state where
             # it can be updated again then fail the job right away.
-            put_job_failure(
-                job_id,
-                "Stack cannot be updated when status is: " +
-                status)
+            put_job_failure(job_id, "Stack cannot be updated when status is: " + status)
             return
 
         were_updates = update_stack(stack, template)
@@ -319,14 +312,12 @@ def get_user_params(job_data):
     if "artifact" not in decoded_parameters:
         # Validate that the artifact name is provided, otherwise fail the job
         # with a helpful message.
-        raise Exception(
-            "Your UserParameters JSON must include the artifact name")
+        raise Exception("Your UserParameters JSON must include the artifact name")
 
     if "file" not in decoded_parameters:
         # Validate that the template file is provided, otherwise fail the job
         # with a helpful message.
-        raise Exception(
-            "Your UserParameters JSON must include the template file name")
+        raise Exception("Your UserParameters JSON must include the template file name")
 
     return decoded_parameters
 
@@ -353,9 +344,7 @@ def setup_s3_client(job_data):
         aws_secret_access_key=key_secret,
         aws_session_token=session_token,
     )
-    return session.client(
-        "s3", config=botocore.client.Config(
-            signature_version="s3v4"))
+    return session.client("s3", config=botocore.client.Config(signature_version="s3v4"))
 
 
 def lambda_handler(event, context):

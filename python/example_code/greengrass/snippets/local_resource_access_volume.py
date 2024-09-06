@@ -24,9 +24,7 @@ def function_handler(event, context):
     Gets volume information for the local file system and publishes it.
     Writes a file named 'test' and then reads the file and publishes its contents.
     """
-    iot_client.publish(
-        topic="LRA/test",
-        payload="Sent from AWS IoT Greengrass Core.")
+    iot_client.publish(topic="LRA/test", payload="Sent from AWS IoT Greengrass Core.")
     try:
         volume_info = os.stat(volume_path)
         iot_client.publish(topic="LRA/test", payload=str(volume_info))

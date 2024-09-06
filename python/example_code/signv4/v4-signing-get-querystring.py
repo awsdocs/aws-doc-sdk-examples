@@ -91,8 +91,7 @@ signed_headers = "host"
 # Match the algorithm to the hashing algorithm you use, either SHA-1 or
 # SHA-256 (recommended)
 algorithm = "AWS4-HMAC-SHA256"
-credential_scope = datestamp + "/" + region + \
-    "/" + service + "/" + "aws4_request"
+credential_scope = datestamp + "/" + region + "/" + service + "/" + "aws4_request"
 
 # Step 4: Create the canonical query string. In this example, request
 # parameters are in the query string. Query string values must

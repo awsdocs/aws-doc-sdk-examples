@@ -21,12 +21,8 @@ import pytest
     ],
 )
 def test_grant_management(
-        make_stubber,
-        stub_runner,
-        monkeypatch,
-        error_code,
-        stop_on_action,
-        delete_choice):
+    make_stubber, stub_runner, monkeypatch, error_code, stop_on_action, delete_choice
+):
     kms_client = boto3.client("kms")
     kms_stubber = make_stubber(kms_client)
     key_id = "test-key-id"

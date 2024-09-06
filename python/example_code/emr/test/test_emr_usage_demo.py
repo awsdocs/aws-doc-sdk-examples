@@ -76,10 +76,7 @@ def test_delete_bucket(
     obj_keys = ["test-key-1", "test-key-2"]
 
     with stub_runner(error_code, stop_on_method) as runner:
-        runner.add(
-            s3_stubber.stub_list_objects,
-            bucket.name,
-            object_keys=obj_keys)
+        runner.add(s3_stubber.stub_list_objects, bucket.name, object_keys=obj_keys)
         runner.add(s3_stubber.stub_delete_objects, bucket.name, obj_keys)
         runner.add(s3_stubber.stub_delete_bucket, bucket.name)
 
@@ -125,9 +122,7 @@ def test_create_roles(
             job_flow_role_name,
             "arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceforEC2Role",
         )
-        runner_jf.add(
-            iam_stubber.stub_create_instance_profile,
-            job_flow_role_name)
+        runner_jf.add(iam_stubber.stub_create_instance_profile, job_flow_role_name)
         runner_jf.add(
             iam_stubber.stub_add_role_to_instance_profile,
             job_flow_role_name,
@@ -185,14 +180,8 @@ def test_delete_roles(
 
     with stub_runner(error_code, stop_on_method) as runner:
         for role in roles:
-            runner.add(
-                iam_stubber.stub_list_attached_role_policies,
-                role.name,
-                policy)
-            runner.add(
-                iam_stubber.stub_detach_role_policy,
-                role.name,
-                policy_arn)
+            runner.add(iam_stubber.stub_list_attached_role_policies, role.name, policy)
+            runner.add(iam_stubber.stub_detach_role_policy, role.name, policy_arn)
             runner.add(
                 iam_stubber.stub_list_instance_profiles_for_role,
                 role.name,
@@ -253,8 +242,7 @@ def test_create_security_groups(
         )
 
     if error_code is None:
-        got_groups = emr_usage_demo.create_security_groups(
-            "test", ec2_resource)
+        got_groups = emr_usage_demo.create_security_groups("test", ec2_resource)
         assert [group.id for group in got_groups.values()] == [
             sec_group_manager,
             sec_group_worker,
@@ -274,11 +262,7 @@ def test_create_security_groups(
         ("TestException", "stub_delete_security_group"),
     ],
 )
-def test_delete_security_groups(
-        make_stubber,
-        stub_runner,
-        error_code,
-        stop_on_method):
+def test_delete_security_groups(make_stubber, stub_runner, error_code, stop_on_method):
     ec2_resource = boto3.resource("ec2")
     ec2_stubber = make_stubber(ec2_resource.meta.client)
     sec_group_info = {
@@ -310,8 +294,7 @@ def test_delete_security_groups(
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-def test_delete_security_groups_dependency_violation(
-        make_stubber, monkeypatch):
+def test_delete_security_groups_dependency_violation(make_stubber, monkeypatch):
     ec2_resource = boto3.resource("ec2")
     ec2_stubber = make_stubber(ec2_resource.meta.client)
     sec_group_info = {

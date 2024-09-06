@@ -34,9 +34,7 @@ class AuditReport:
             try:
                 assessment_uuid = uuid.UUID(assessment_id)
             except ValueError:
-                logger.error(
-                    "Assessment Id is not a valid UUID: %s",
-                    assessment_id)
+                logger.error("Assessment Id is not a valid UUID: %s", assessment_id)
                 raise
             evidence_folder = input("Provide evidence date [yyyy-mm-dd]: ")
             try:
@@ -49,9 +47,7 @@ class AuditReport:
                     assessmentId=str(assessment_uuid)
                 )
             except ClientError:
-                logger.exception(
-                    "Couldn't get assessment %s.",
-                    assessment_uuid)
+                logger.exception("Couldn't get assessment %s.", assessment_uuid)
                 raise
         except (ValueError, ClientError):
             return None, None
@@ -70,7 +66,9 @@ class AuditReport:
             if next_token is None:
                 folder_list = (
                     self.auditmanager_client.get_evidence_folders_by_assessment(
-                        assessmentId=str(assessment_uuid), maxResults=1000))
+                        assessmentId=str(assessment_uuid), maxResults=1000
+                    )
+                )
             else:
                 folder_list = (
                     self.auditmanager_client.get_evidence_folders_by_assessment(
@@ -90,9 +88,11 @@ class AuditReport:
                 ):
                     print(
                         f"Removing folder from report selection : {folder.get('name')} "
-                        f"{folder_id} {folder.get('controlId')}")
+                        f"{folder_id} {folder.get('controlId')}"
+                    )
                     self.auditmanager_client.disassociate_assessment_report_evidence_folder(
-                        assessmentId=str(assessment_uuid), evidenceFolderId=folder_id)
+                        assessmentId=str(assessment_uuid), evidenceFolderId=folder_id
+                    )
                 elif folder.get("assessmentReportSelectionCount") > 0:
                     # Get all evidence in the folder and
                     # add selected evidence in the selected_evidence_list.
@@ -102,14 +102,16 @@ class AuditReport:
                             controlSetId=folder_id,
                             evidenceFolderId=folder_id,
                             maxResults=1000,
-                        ))
+                        )
+                    )
                     selected_evidence_list = []
                     for evidence in evidence_list.get("evidence"):
                         if evidence.get("assessmentReportSelection") == "Yes":
                             selected_evidence_list.append(evidence.get("id"))
                     print(
                         f"Removing evidence report selection : {folder.get('name')} "
-                        f"{len(selected_evidence_list)}")
+                        f"{len(selected_evidence_list)}"
+                    )
                     self.auditmanager_client.batch_disassociate_assessment_report_evidence(
                         assessmentId=str(assessment_uuid),
                         evidenceFolderId=folder_id,
@@ -125,7 +127,8 @@ class AuditReport:
         print(f"Adding folders to report : {folder_id_list}")
         for folder in folder_id_list:
             self.auditmanager_client.associate_assessment_report_evidence_folder(
-                assessmentId=str(assessment_uuid), evidenceFolderId=folder)
+                assessmentId=str(assessment_uuid), evidenceFolderId=folder
+            )
 
     def get_report(self, assessment_uuid):
         report = self.auditmanager_client.create_assessment_report(
@@ -150,14 +153,14 @@ class AuditReport:
             print("Report generation did not finish in 15 minutes.")
             print(
                 "Failed to download report. Go to the console and manually download "
-                "the report.")
+                "the report."
+            )
 
     def _is_report_generated(self, assessment_report_id):
         max_wait_time = 0
         while max_wait_time < 900:
             print(f"Checking status of the report {assessment_report_id}")
-            report_list = self.auditmanager_client.list_assessment_reports(
-                maxResults=1)
+            report_list = self.auditmanager_client.list_assessment_reports(maxResults=1)
             if (
                 report_list.get("assessmentReports")[0].get("id")
                 == assessment_report_id
@@ -175,7 +178,8 @@ def run_demo():
     print("-" * 88)
     print(
         "This script creates an assessment report for an assessment with all the "
-        "evidence collected on the provided date.")
+        "evidence collected on the provided date."
+    )
     print("-" * 88)
 
     report = AuditReport(boto3.client("auditmanager"))

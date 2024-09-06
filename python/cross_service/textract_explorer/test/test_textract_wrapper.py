@@ -31,15 +31,13 @@ def test_detect_file_text(
     twrapper = TextractWrapper(textract_client, None, None)
     blocks = [{"BlockType": "TEST"}]
 
-    textract_stubber.stub_detect_document_text(
-        doc_bytes, blocks, error_code=error_code)
+    textract_stubber.stub_detect_document_text(doc_bytes, blocks, error_code=error_code)
 
     if error_code is None:
         if list(func_kwargs.keys())[0] == "document_file_name":
             with patch("builtins.open", mock_open(read_data=doc_bytes)) as mock_file:
                 got_blocks = twrapper.detect_file_text(**func_kwargs)
-            mock_file.assert_called_once_with(
-                func_kwargs["document_file_name"], "rb")
+            mock_file.assert_called_once_with(func_kwargs["document_file_name"], "rb")
         else:
             got_blocks = twrapper.detect_file_text(**func_kwargs)
         assert got_blocks["Blocks"] == blocks
@@ -71,10 +69,8 @@ def test_analyze_file(make_stubber, func_kwargs, doc_bytes, error_code):
     if error_code is None:
         if list(func_kwargs.keys())[0] == "document_file_name":
             with patch("builtins.open", mock_open(read_data=doc_bytes)) as mock_file:
-                got_blocks = twrapper.analyze_file(
-                    feature_types, **func_kwargs)
-            mock_file.assert_called_once_with(
-                func_kwargs["document_file_name"], "rb")
+                got_blocks = twrapper.analyze_file(feature_types, **func_kwargs)
+            mock_file.assert_called_once_with(func_kwargs["document_file_name"], "rb")
         else:
             got_blocks = twrapper.analyze_file(feature_types, **func_kwargs)
         assert got_blocks["Blocks"] == blocks
@@ -170,8 +166,7 @@ def test_start_detection_job(make_stubber, error_code):
         assert got_job_id == job_id
     else:
         with pytest.raises(ClientError) as exc_info:
-            twrapper.start_detection_job(
-                bucket_name, file_name, topic_arn, role_arn)
+            twrapper.start_detection_job(bucket_name, file_name, topic_arn, role_arn)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -252,40 +247,33 @@ def test_get_analysis_job(make_stubber, error_code):
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-test_input = [{"Id": "1",
-               "BlockType": "PAGE",
-               "Relationships": [{"Type": "CHILD",
-                                  "Ids": ["1-1",
-                                          "1-2"]}],
-               },
-              {"Id": "2",
-               "BlockType": "PAGE",
-               "Relationships": [{"Type": "CHILD",
-                                  "Ids": ["2-1"]}],
-               },
-              {"Id": "1-1",
-               "BlockType": "LINE",
-               "Relationships": [{"Type": "CHILD",
-                                  "Ids": ["1-1-1",
-                                          "1-1-2",
-                                          "1-1-3"]}],
-               },
-              {"Id": "1-2",
-               "BlockType": "LINE",
-               "Relationships": [{"Type": "CHILD",
-                                  "Ids": ["1-2-1"]}],
-               },
-              {"Id": "2-1",
-               "BlockType": "LINE"},
-              {"Id": "1-1-1",
-               "BlockType": "WORD"},
-              {"Id": "1-1-2",
-               "BlockType": "WORD"},
-              {"Id": "1-1-3",
-               "BlockType": "WORD"},
-              {"Id": "1-2-1",
-               "BlockType": "WORD"},
-              ]
+test_input = [
+    {
+        "Id": "1",
+        "BlockType": "PAGE",
+        "Relationships": [{"Type": "CHILD", "Ids": ["1-1", "1-2"]}],
+    },
+    {
+        "Id": "2",
+        "BlockType": "PAGE",
+        "Relationships": [{"Type": "CHILD", "Ids": ["2-1"]}],
+    },
+    {
+        "Id": "1-1",
+        "BlockType": "LINE",
+        "Relationships": [{"Type": "CHILD", "Ids": ["1-1-1", "1-1-2", "1-1-3"]}],
+    },
+    {
+        "Id": "1-2",
+        "BlockType": "LINE",
+        "Relationships": [{"Type": "CHILD", "Ids": ["1-2-1"]}],
+    },
+    {"Id": "2-1", "BlockType": "LINE"},
+    {"Id": "1-1-1", "BlockType": "WORD"},
+    {"Id": "1-1-2", "BlockType": "WORD"},
+    {"Id": "1-1-3", "BlockType": "WORD"},
+    {"Id": "1-2-1", "BlockType": "WORD"},
+]
 
 test_hierarchy = {
     "Children": [

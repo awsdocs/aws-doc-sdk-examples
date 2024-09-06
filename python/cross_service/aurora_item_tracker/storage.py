@@ -71,7 +71,8 @@ class Storage:
                 raise DataServiceNotReadyException(
                     "The Aurora Data Service is not ready, probably because it entered "
                     "pause mode after a period of inactivity. Wait a minute for "
-                    "your cluster to resume and try your request again.") from error
+                    "your cluster to resume and try your request again."
+                ) from error
             else:
                 logger.exception("Run statement on %s failed.", self._db_name)
                 raise StorageError(error)
@@ -91,8 +92,7 @@ class Storage:
         sql_params = None
         if archived is not None:
             sql_where = "WHERE archived=:archived"
-            sql_params = [{"name": "archived",
-                           "value": {"booleanValue": archived}}]
+            sql_params = [{"name": "archived", "value": {"booleanValue": archived}}]
         sql = f"{sql_select} FROM {self._table_name} {sql_where}"
         print(sql)
         results = self._run_statement(sql, sql_params=sql_params)
@@ -132,7 +132,8 @@ class Storage:
             f"WITH t1 AS ( "
             f"INSERT INTO {self._table_name} (description, guide, status, username) "
             f" VALUES (:description, :guide, :status, :username) RETURNING iditem "
-            f") SELECT iditem FROM t1")
+            f") SELECT iditem FROM t1"
+        )
         sql_params = [
             {"name": "description", "value": {"stringValue": work_item["description"]}},
             {"name": "guide", "value": {"stringValue": work_item["guide"]}},

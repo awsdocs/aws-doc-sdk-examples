@@ -28,16 +28,12 @@ class BedrockStubber(ExampleStubber):
         expected_params = {}
         response = {"modelSummaries": models}
         self._stub_bifurcator(
-            "list_foundation_models",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_foundation_models", expected_params, response, error_code=error_code
+        )
 
     def stub_get_foundation_model(self, model_identifier, error_code=None):
         expected_params = {"modelIdentifier": model_identifier}
         response = {}
         self._stub_bifurcator(
-            "get_foundation_model",
-            expected_params,
-            response,
-            error_code=error_code)
+            "get_foundation_model", expected_params, response, error_code=error_code
+        )

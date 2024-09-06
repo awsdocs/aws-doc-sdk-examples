@@ -58,10 +58,8 @@ class PollyStubber(ExampleStubber):
             expected_params["SpeechMarkTypes"] = mark_types
         response = {"AudioStream": output_stream}
         self._stub_bifurcator(
-            "synthesize_speech",
-            expected_params,
-            response,
-            error_code=error_code)
+            "synthesize_speech", expected_params, response, error_code=error_code
+        )
 
     def stub_start_speech_synthesis_task(
         self,
@@ -87,9 +85,8 @@ class PollyStubber(ExampleStubber):
         if mark_types is not None:
             expected_params["SpeechMarkTypes"] = mark_types
         response = {
-            "SynthesisTask": {
-                "TaskId": task_id,
-                "OutputUri": f"{bucket}/{key}"}}
+            "SynthesisTask": {"TaskId": task_id, "OutputUri": f"{bucket}/{key}"}
+        }
         self._stub_bifurcator(
             "start_speech_synthesis_task",
             expected_params,

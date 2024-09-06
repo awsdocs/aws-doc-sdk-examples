@@ -67,7 +67,8 @@ class PartiQLBatchWrapper:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
                 logger.error(
                     "Couldn't execute batch of PartiQL statements because the table "
-                    "does not exist.")
+                    "does not exist."
+                )
             else:
                 logger.error(
                     "Couldn't execute batch of PartiQL statements. Here's why: %s: %s",
@@ -86,9 +87,7 @@ class PartiQLBatchWrapper:
 
 # snippet-start:[python.example_code.dynamodb.Scenario_PartiQLBatch]
 def run_scenario(scaffold, wrapper, table_name):
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     print("-" * 88)
     print("Welcome to the Amazon DynamoDB PartiQL batch statement demo.")
@@ -98,30 +97,37 @@ def run_scenario(scaffold, wrapper, table_name):
     scaffold.create_table(table_name)
     print("-" * 88)
 
-    movie_data = [{"title": "House PartiQL",
-                   "year": datetime.now().year - 5,
-                   "info": {"plot": "Wacky high jinks result from querying a mysterious database.",
-                            "rating": Decimal("8.5"),
-                            },
-                   },
-                  {"title": "House PartiQL 2",
-                   "year": datetime.now().year - 3,
-                   "info": {"plot": "Moderate high jinks result from querying another mysterious database.",
-                            "rating": Decimal("6.5"),
-                            },
-                   },
-                  {"title": "House PartiQL 3",
-                   "year": datetime.now().year - 1,
-                   "info": {"plot": "Tepid high jinks result from querying yet another mysterious database.",
-                            "rating": Decimal("2.5"),
-                            },
-                   },
-                  ]
+    movie_data = [
+        {
+            "title": "House PartiQL",
+            "year": datetime.now().year - 5,
+            "info": {
+                "plot": "Wacky high jinks result from querying a mysterious database.",
+                "rating": Decimal("8.5"),
+            },
+        },
+        {
+            "title": "House PartiQL 2",
+            "year": datetime.now().year - 3,
+            "info": {
+                "plot": "Moderate high jinks result from querying another mysterious database.",
+                "rating": Decimal("6.5"),
+            },
+        },
+        {
+            "title": "House PartiQL 3",
+            "year": datetime.now().year - 1,
+            "info": {
+                "plot": "Tepid high jinks result from querying yet another mysterious database.",
+                "rating": Decimal("2.5"),
+            },
+        },
+    ]
 
     print(f"Inserting a batch of movies into table '{table_name}.")
     statements = [
-        f'INSERT INTO "{table_name}" '
-        f"VALUE {{'title': ?, 'year': ?, 'info': ?}}"] * len(movie_data)
+        f'INSERT INTO "{table_name}" ' f"VALUE {{'title': ?, 'year': ?, 'info': ?}}"
+    ] * len(movie_data)
     params = [list(movie.values()) for movie in movie_data]
     wrapper.run_partiql(statements, params)
     print("Success!")

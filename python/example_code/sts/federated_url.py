@@ -56,8 +56,7 @@ def setup(iam_resource):
             }
         ),
     )
-    role.attach_policy(
-        PolicyArn="arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess")
+    role.attach_policy(PolicyArn="arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess")
     print(f"Created role {role.name}.")
 
     print("Give AWS time to propagate these new resources and connections.", end="")

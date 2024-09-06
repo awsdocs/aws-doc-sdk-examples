@@ -68,8 +68,7 @@ def upload_df_file(filename, type_, mime="application/octet-stream"):
         )
         print(" done")
         if not put_req.ok:
-            raise Exception(
-                f"Couldn't upload. Requests says: {put_req.reason}")
+            raise Exception(f"Couldn't upload. Requests says: {put_req.reason}")
     started = datetime.datetime.now()
     while True:
         print(
@@ -79,7 +78,8 @@ def upload_df_file(filename, type_, mime="application/octet-stream"):
         if upload_response["upload"]["status"] == "FAILED":
             raise Exception(
                 f"The upload failed processing. Device Farm says the reason is: \n"
-                f"{+upload_response['upload']['message']}")
+                f"{+upload_response['upload']['message']}"
+            )
         if upload_response["upload"]["status"] == "SUCCEEDED":
             break
         time.sleep(5)
@@ -126,8 +126,7 @@ except BaseException:
     client.stop_run(arn=run_arn)
     exit(1)
 
-print(
-    f"Tests finished in state {state} after {datetime.datetime.now() - start_time}")
+print(f"Tests finished in state {state} after {datetime.datetime.now() - start_time}")
 # Pull all the logs.
 jobs_response = client.list_jobs(arn=run_arn)
 # Save the output somewhere, using the unique value.
@@ -143,8 +142,9 @@ for job in jobs_response["jobs"]:
         for test in client.list_tests(arn=suite["arn"])["tests"]:
             # Get the artifacts.
             for artifact_type in ["FILE", "SCREENSHOT", "LOG"]:
-                artifacts = client.list_artifacts(
-                    type=artifact_type, arn=test["arn"])["artifacts"]
+                artifacts = client.list_artifacts(type=artifact_type, arn=test["arn"])[
+                    "artifacts"
+                ]
                 for artifact in artifacts:
                     # Replace `:` because it has a special meaning in Windows &
                     # macOS.

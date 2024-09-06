@@ -82,8 +82,7 @@ class DateUtilities:
         :rtype: list of tuples
         """
         midpoint = (date_range[0] + date_range[1]) / 2
-        return [(date_range[0], round(midpoint)),
-                (round(midpoint), date_range[1])]
+        return [(date_range[0], round(midpoint)), (round(midpoint), date_range[1])]
 
     @staticmethod
     def convert_unix_timestamp_to_iso8601(
@@ -105,8 +104,7 @@ class DateUtilities:
         return iso8601
 
     @staticmethod
-    def convert_iso8601_to_datetime(
-            iso8601, iso8601_format="%Y-%m-%d %H:%M:%S"):
+    def convert_iso8601_to_datetime(iso8601, iso8601_format="%Y-%m-%d %H:%M:%S"):
         """
         Converts a date string in ISO 8601 format to a Python datetime object.
 
@@ -170,8 +168,7 @@ class DateUtilities:
         :rtype: str
         """
         unix_timestamp = datetime_obj.replace(tzinfo=timezone.utc).timestamp()
-        iso8601 = self.convert_unix_timestamp_to_iso8601(
-            round(unix_timestamp * 1000))
+        iso8601 = self.convert_unix_timestamp_to_iso8601(round(unix_timestamp * 1000))
         return iso8601
 
     def compare_dates(self, date_str1, date_str2):
@@ -193,11 +190,7 @@ class DateUtilities:
         else:
             return date_str2
 
-    def normalize_date_range_format(
-            self,
-            date_range,
-            from_format=None,
-            to_format=None):
+    def normalize_date_range_format(self, date_range, from_format=None, to_format=None):
         """
         Normalizes date ranges received in variable formats to a specified format.
 
@@ -217,14 +210,12 @@ class DateUtilities:
             )
         if "unix_timestamp" in to_format and "datetime" in from_format:
             if not self.is_datetime(date_range[0], self.datetime_format):
-                start_date = self.convert_unix_timestamp_to_datetime(
-                    date_range[0])
+                start_date = self.convert_unix_timestamp_to_datetime(date_range[0])
             else:
                 start_date = date_range[0]
 
             if not self.is_datetime(date_range[1], self.datetime_format):
-                end_date = self.convert_unix_timestamp_to_datetime(
-                    date_range[1])
+                end_date = self.convert_unix_timestamp_to_datetime(date_range[1])
             else:
                 end_date = date_range[1]
         else:

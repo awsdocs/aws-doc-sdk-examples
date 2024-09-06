@@ -18,10 +18,7 @@ send_topic = "sns/message"
 
 
 def create_request():
-    return {
-        "request": {
-            "message": "Message from SNS Connector Test"},
-        "id": "req_123"}
+    return {"request": {"message": "Message from SNS Connector Test"}, "id": "req_123"}
 
 
 def publish_basic_message():

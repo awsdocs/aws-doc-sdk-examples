@@ -101,20 +101,13 @@ class SnsWrapper:
         """
         try:
             subscription = topic.subscribe(
-                Protocol=protocol,
-                Endpoint=endpoint,
-                ReturnSubscriptionArn=True)
-            logger.info(
-                "Subscribed %s %s to topic %s.",
-                protocol,
-                endpoint,
-                topic.arn)
+                Protocol=protocol, Endpoint=endpoint, ReturnSubscriptionArn=True
+            )
+            logger.info("Subscribed %s %s to topic %s.", protocol, endpoint, topic.arn)
         except ClientError:
             logger.exception(
-                "Couldn't subscribe %s %s to topic %s.",
-                protocol,
-                endpoint,
-                topic.arn)
+                "Couldn't subscribe %s %s to topic %s.", protocol, endpoint, topic.arn
+            )
             raise
         else:
             return subscription
@@ -158,8 +151,8 @@ class SnsWrapper:
         try:
             att_policy = {key: [value] for key, value in attributes.items()}
             subscription.set_attributes(
-                AttributeName="FilterPolicy",
-                AttributeValue=json.dumps(att_policy))
+                AttributeName="FilterPolicy", AttributeValue=json.dumps(att_policy)
+            )
             logger.info("Added filter to subscription %s.", subscription.arn)
         except ClientError:
             logger.exception(
@@ -179,9 +172,7 @@ class SnsWrapper:
             subscription.delete()
             logger.info("Deleted subscription %s.", subscription.arn)
         except ClientError:
-            logger.exception(
-                "Couldn't delete subscription %s.",
-                subscription.arn)
+            logger.exception("Couldn't delete subscription %s.", subscription.arn)
             raise
 
     # snippet-end:[python.example_code.sns.Unsubscribe]
@@ -230,13 +221,10 @@ class SnsWrapper:
             att_dict = {}
             for key, value in attributes.items():
                 if isinstance(value, str):
-                    att_dict[key] = {
-                        "DataType": "String", "StringValue": value}
+                    att_dict[key] = {"DataType": "String", "StringValue": value}
                 elif isinstance(value, bytes):
-                    att_dict[key] = {
-                        "DataType": "Binary", "BinaryValue": value}
-            response = topic.publish(
-                Message=message, MessageAttributes=att_dict)
+                    att_dict[key] = {"DataType": "Binary", "BinaryValue": value}
+            response = topic.publish(Message=message, MessageAttributes=att_dict)
             message_id = response["MessageId"]
             logger.info(
                 "Published message with attributes %s to topic %s.",
@@ -244,9 +232,7 @@ class SnsWrapper:
                 topic.arn,
             )
         except ClientError:
-            logger.exception(
-                "Couldn't publish message to topic %s.",
-                topic.arn)
+            logger.exception("Couldn't publish message to topic %s.", topic.arn)
             raise
         else:
             return message_id
@@ -280,17 +266,12 @@ class SnsWrapper:
                 "email": email_message,
             }
             response = topic.publish(
-                Message=json.dumps(message),
-                Subject=subject,
-                MessageStructure="json")
+                Message=json.dumps(message), Subject=subject, MessageStructure="json"
+            )
             message_id = response["MessageId"]
-            logger.info(
-                "Published multi-format message to topic %s.",
-                topic.arn)
+            logger.info("Published multi-format message to topic %s.", topic.arn)
         except ClientError:
-            logger.exception(
-                "Couldn't publish message to topic %s.",
-                topic.arn)
+            logger.exception("Couldn't publish message to topic %s.", topic.arn)
             raise
         else:
             return message_id
@@ -304,9 +285,7 @@ def usage_demo():
     print("Welcome to the Amazon Simple Notification Service (Amazon SNS) demo!")
     print("-" * 88)
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     sns_wrapper = SnsWrapper(boto3.resource("sns"))
     topic_name = f"demo-basics-topic-{time.time_ns()}"
@@ -319,8 +298,7 @@ def usage_demo():
     )
     if phone_number != "":
         print(f"Sending an SMS message directly from SNS to {phone_number}.")
-        sns_wrapper.publish_text_message(
-            phone_number, "Hello from the SNS demo!")
+        sns_wrapper.publish_text_message(phone_number, "Hello from the SNS demo!")
 
     email = input(
         f"Enter an email address to subscribe to {topic_name} and receive "
@@ -342,20 +320,23 @@ def usage_demo():
             answer = input(
                 f"Email address {email} is not confirmed. Follow the "
                 f"instructions in the email to confirm and receive SNS messages. "
-                f"Press Enter when confirmed or enter 's' to skip. ")
+                f"Press Enter when confirmed or enter 's' to skip. "
+            )
             email_sub.reload()
 
     phone_sub = None
     if phone_number != "":
         print(
             f"Subscribing {phone_number} to {topic_name}. Phone numbers do not "
-            f"require confirmation.")
+            f"require confirmation."
+        )
         phone_sub = sns_wrapper.subscribe(topic, "sms", phone_number)
 
     if phone_number != "" or email != "":
         print(
             f"Publishing a multi-format message to {topic_name}. Multi-format "
-            f"messages contain different messages for different kinds of endpoints.")
+            f"messages contain different messages for different kinds of endpoints."
+        )
         sns_wrapper.publish_multi_message(
             topic,
             "SNS multi-format demo",
@@ -369,16 +350,15 @@ def usage_demo():
         friendly = "friendly"
         print(
             f"Adding a filter policy to the {phone_number} subscription to send "
-            f"only messages with a '{mobile_key}' attribute of '{friendly}'.")
+            f"only messages with a '{mobile_key}' attribute of '{friendly}'."
+        )
         sns_wrapper.add_subscription_filter(phone_sub, {mobile_key: friendly})
-        print(
-            f"Publishing a message with a {mobile_key}: {friendly} attribute.")
+        print(f"Publishing a message with a {mobile_key}: {friendly} attribute.")
         sns_wrapper.publish_message(
-            topic, "Hello! This message is mobile friendly.", {
-                mobile_key: friendly})
+            topic, "Hello! This message is mobile friendly.", {mobile_key: friendly}
+        )
         not_friendly = "not-friendly"
-        print(
-            f"Publishing a message with a {mobile_key}: {not_friendly} attribute.")
+        print(f"Publishing a message with a {mobile_key}: {not_friendly} attribute.")
         sns_wrapper.publish_message(
             topic,
             "Hey. This message is not mobile friendly, so you shouldn't get "

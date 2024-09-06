@@ -56,10 +56,7 @@ class CloudWatchWrapper:
             metric_iter = self.cloudwatch_resource.metrics.filter(**kwargs)
             logger.info("Got metrics for %s.%s.", namespace, name)
         except ClientError:
-            logger.exception(
-                "Couldn't get metrics for %s.%s.",
-                namespace,
-                name)
+            logger.exception("Couldn't get metrics for %s.%s.", namespace, name)
             raise
         else:
             return metric_iter
@@ -85,10 +82,7 @@ class CloudWatchWrapper:
             )
             logger.info("Put data for metric %s.%s", namespace, name)
         except ClientError:
-            logger.exception(
-                "Couldn't put data for metric %s.%s",
-                namespace,
-                name)
+            logger.exception("Couldn't put data for metric %s.%s", namespace, name)
             raise
 
     # snippet-end:[python.example_code.cloudwatch.PutMetricData]
@@ -123,23 +117,13 @@ class CloudWatchWrapper:
             )
             logger.info("Put data set for metric %s.%s.", namespace, name)
         except ClientError:
-            logger.exception(
-                "Couldn't put data set for metric %s.%s.",
-                namespace,
-                name)
+            logger.exception("Couldn't put data set for metric %s.%s.", namespace, name)
             raise
 
     # snippet-end:[python.example_code.cloudwatch.PutMetricData_DataSet]
 
     # snippet-start:[python.example_code.cloudwatch.GetMetricStatistics]
-    def get_metric_statistics(
-            self,
-            namespace,
-            name,
-            start,
-            end,
-            period,
-            stat_types):
+    def get_metric_statistics(self, namespace, name, start, end, period, stat_types):
         """
         Gets statistics for a metric within a specified time span. Metrics are grouped
         into the specified period.
@@ -160,18 +144,13 @@ class CloudWatchWrapper:
         try:
             metric = self.cloudwatch_resource.Metric(namespace, name)
             stats = metric.get_statistics(
-                StartTime=start,
-                EndTime=end,
-                Period=period,
-                Statistics=stat_types)
+                StartTime=start, EndTime=end, Period=period, Statistics=stat_types
+            )
             logger.info(
-                "Got %s statistics for %s.", len(
-                    stats["Datapoints"]), stats["Label"])
+                "Got %s statistics for %s.", len(stats["Datapoints"]), stats["Label"]
+            )
         except ClientError:
-            logger.exception(
-                "Couldn't get statistics for %s.%s.",
-                namespace,
-                name)
+            logger.exception("Couldn't get statistics for %s.%s.", namespace, name)
             raise
         else:
             return stats
@@ -208,8 +187,7 @@ class CloudWatchWrapper:
         :return: The newly created alarm.
         """
         try:
-            metric = self.cloudwatch_resource.Metric(
-                metric_namespace, metric_name)
+            metric = self.cloudwatch_resource.Metric(metric_namespace, metric_name)
             alarm = metric.put_alarm(
                 AlarmName=alarm_name,
                 Statistic=stat_type,
@@ -248,10 +226,7 @@ class CloudWatchWrapper:
         """
         metric = self.cloudwatch_resource.Metric(metric_namespace, metric_name)
         alarm_iter = metric.alarms.all()
-        logger.info(
-            "Got alarms for metric %s.%s.",
-            metric_namespace,
-            metric_name)
+        logger.info("Got alarms for metric %s.%s.", metric_namespace, metric_name)
         return alarm_iter
 
     # snippet-end:[python.example_code.cloudwatch.DescribeAlarmsForMetric]
@@ -297,13 +272,11 @@ class CloudWatchWrapper:
         :param metric_name: The name of the metric.
         """
         try:
-            metric = self.cloudwatch_resource.Metric(
-                metric_namespace, metric_name)
+            metric = self.cloudwatch_resource.Metric(metric_namespace, metric_name)
             metric.alarms.delete()
             logger.info(
-                "Deleted alarms for metric %s.%s.",
-                metric_namespace,
-                metric_name)
+                "Deleted alarms for metric %s.%s.", metric_namespace, metric_name
+            )
         except ClientError:
             logger.exception(
                 "Couldn't delete alarms for metric %s.%s.",
@@ -322,9 +295,7 @@ def usage_demo():
     print("Welcome to the Amazon CloudWatch metrics and alarms demo!")
     print("-" * 88)
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     cw_wrapper = CloudWatchWrapper(boto3.resource("cloudwatch"))
 
@@ -334,7 +305,8 @@ def usage_demo():
     start = datetime.utcnow() - timedelta(minutes=minutes)
     print(
         f"Putting data into metric {metric_namespace}.{metric_name} spanning the "
-        f"last {minutes} minutes.")
+        f"last {minutes} minutes."
+    )
     for offset in range(0, minutes):
         stamp = start + timedelta(minutes=offset)
         cw_wrapper.put_metric_data_set(
@@ -370,7 +342,8 @@ def usage_demo():
 
     print(
         f"Sending data to trigger the alarm. This requires data over the threshold "
-        f"for {eval_periods} periods of {period} seconds each.")
+        f"for {eval_periods} periods of {period} seconds each."
+    )
     while alarm.state_value == "INSUFFICIENT_DATA":
         print("Sending data for the metric.")
         cw_wrapper.put_metric_data(
@@ -390,7 +363,8 @@ def usage_demo():
 
     print(
         f"Getting data for metric {metric_namespace}.{metric_name} during timespan "
-        f"of {start} to {datetime.utcnow()} (times are UTC).")
+        f"of {start} to {datetime.utcnow()} (times are UTC)."
+    )
     stats = cw_wrapper.get_metric_statistics(
         metric_namespace,
         metric_name,

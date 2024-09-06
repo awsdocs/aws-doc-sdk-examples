@@ -29,13 +29,11 @@ class MockManager:
     def setup_stubs(self, error, stop_on, stubber):
         with self.stub_runner(error, stop_on) as runner:
             runner.add(
-                stubber.stub_describe_db_parameters,
-                self.group_name,
-                self.parameters)
+                stubber.stub_describe_db_parameters, self.group_name, self.parameters
+            )
             runner.add(
-                stubber.stub_modify_db_parameter_group,
-                self.group_name,
-                self.parameters)
+                stubber.stub_modify_db_parameter_group, self.group_name, self.parameters
+            )
             runner.add(
                 stubber.stub_describe_db_parameters,
                 self.group_name,
@@ -71,8 +69,7 @@ def test_update_parameters_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.instance_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:
-        mock_mgr.instance_data.scenario.update_parameters(
-            *mock_mgr.scenario_args)
+        mock_mgr.instance_data.scenario.update_parameters(*mock_mgr.scenario_args)
     assert exc_info.value.response["Error"]["Code"] == error
 
     assert error in caplog.text

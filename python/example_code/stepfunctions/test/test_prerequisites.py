@@ -17,19 +17,14 @@ class MockManager:
     def setup_stubs(self, error, stop_on, stubber):
         with self.stub_runner(error, stop_on) as runner:
             if self.role_exists:
-                runner.add(
-                    stubber.stub_get_role,
-                    self.role_name,
-                    self.role_arn)
+                runner.add(stubber.stub_get_role, self.role_name, self.role_arn)
             else:
                 runner.add(
-                    stubber.stub_get_role,
-                    self.role_name,
-                    error_code="NoSuchEntity")
+                    stubber.stub_get_role, self.role_name, error_code="NoSuchEntity"
+                )
                 runner.add(
-                    stubber.stub_create_role,
-                    self.role_name,
-                    role_arn=self.role_arn)
+                    stubber.stub_create_role, self.role_name, role_arn=self.role_arn
+                )
 
 
 @pytest.fixture
@@ -61,10 +56,7 @@ def test_prerequisites(mock_mgr, capsys, role_exists):
     ],
 )
 def test_prerequisites_error(mock_mgr, caplog, error, stop_on_index):
-    mock_mgr.setup_stubs(
-        error,
-        stop_on_index,
-        mock_mgr.scenario_data.iam_stubber)
+    mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.iam_stubber)
 
     with pytest.raises(ClientError) as exc_info:
         mock_mgr.scenario_data.scenario.prerequisites(*mock_mgr.scenario_args)

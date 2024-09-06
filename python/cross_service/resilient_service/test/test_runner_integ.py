@@ -21,11 +21,8 @@ def test_runner_integ(input_mocker, caplog):
     loadbalancer = LoadBalancer.from_client(prefix)
     param_helper = ParameterHelper.from_client(recommendation.table_name)
     scenario = runner.Runner(
-        "test/resources",
-        recommendation,
-        autoscaler,
-        loadbalancer,
-        param_helper)
+        "test/resources", recommendation, autoscaler, loadbalancer, param_helper
+    )
 
     input_mocker.mock_answers(
         [

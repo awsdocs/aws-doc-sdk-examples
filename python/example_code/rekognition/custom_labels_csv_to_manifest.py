@@ -88,8 +88,7 @@ def create_manifest_file(csv_file, manifest_file, s3_path):
     with open(csv_file, newline="", encoding="UTF-8") as csvfile, open(
         manifest_file, "w", encoding="UTF-8"
     ) as output_file:
-        image_classifications = csv.reader(
-            csvfile, delimiter=",", quotechar="|")
+        image_classifications = csv.reader(csvfile, delimiter=",", quotechar="|")
 
         # Process each row (image) in CSV file.
         for row in image_classifications:
@@ -117,8 +116,9 @@ def create_manifest_file(csv_file, manifest_file, s3_path):
                 metadata["job-name"] = "labeling-job/" + image_level_label
                 metadata["class-name"] = image_level_label
                 metadata["human-annotated"] = "yes"
-                metadata["creation-date"] = datetime.now(
-                    timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%f")
+                metadata["creation-date"] = datetime.now(timezone.utc).strftime(
+                    "%Y-%m-%dT%H:%M:%S.%f"
+                )
                 metadata["type"] = "groundtruth/image-classification"
 
                 json_line[f"{image_level_label}-metadata"] = metadata
@@ -144,9 +144,7 @@ def add_arguments(parser):
     :param parser: The command line parser.
     """
 
-    parser.add_argument(
-        "csv_file",
-        help="The CSV file that you want to process.")
+    parser.add_argument("csv_file", help="The CSV file that you want to process.")
 
     parser.add_argument(
         "--s3_path",
@@ -157,9 +155,7 @@ def add_arguments(parser):
 
 
 def main():
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     try:
         # Get command line arguments
@@ -186,7 +182,8 @@ def main():
             )
             print(
                 f"{deduplicated_file} contains the first occurence of a duplicate. "
-                "Update as necessary with the correct label information.")
+                "Update as necessary with the correct label information."
+            )
             print(f"Re-run the script with {deduplicated_file}")
         else:
             print("No duplicates found. Creating manifest file.")

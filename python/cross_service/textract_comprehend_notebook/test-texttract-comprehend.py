@@ -22,12 +22,7 @@ def test_text_detection(tb):
     # with the name of a document in the bucket
     bucket = "DOC-EXAMPLE-BUCKET"
     document = "Your document name here"
-    res = detect_func(
-        bucket,
-        document,
-        aws_access_code,
-        aws_secret_code,
-        region)
+    res = detect_func(bucket, document, aws_access_code, aws_secret_code, region)
     # Check if list returned
     print(res)
     assert len(res)

@@ -34,9 +34,7 @@ class AuditManagerStubber(ExampleStubber):
     def stub_get_evidence_folders_by_assessment(
         self, assessment_id, max_results, tokens, folders, error_code=None
     ):
-        expected_params = {
-            "assessmentId": assessment_id,
-            "maxResults": max_results}
+        expected_params = {"assessmentId": assessment_id, "maxResults": max_results}
         if tokens[0] is not None:
             expected_params["nextToken"] = tokens[0]
         response = {"evidenceFolders": folders}
@@ -52,9 +50,7 @@ class AuditManagerStubber(ExampleStubber):
     def stub_disassociate_assessment_report_evidence_folder(
         self, assessment_id, folder_id, error_code=None
     ):
-        expected_params = {
-            "assessmentId": assessment_id,
-            "evidenceFolderId": folder_id}
+        expected_params = {"assessmentId": assessment_id, "evidenceFolderId": folder_id}
         response = {}
         self._stub_bifurcator(
             "disassociate_assessment_report_evidence_folder",
@@ -99,9 +95,7 @@ class AuditManagerStubber(ExampleStubber):
     def stub_associate_assessment_report_evidence_folder(
         self, assessment_id, folder_id, error_code=None
     ):
-        expected_params = {
-            "assessmentId": assessment_id,
-            "evidenceFolderId": folder_id}
+        expected_params = {"assessmentId": assessment_id, "evidenceFolderId": folder_id}
         response = {}
         self._stub_bifurcator(
             "associate_assessment_report_evidence_folder",
@@ -120,10 +114,8 @@ class AuditManagerStubber(ExampleStubber):
         }
         response = {"assessmentReport": {"id": report_id}}
         self._stub_bifurcator(
-            "create_assessment_report",
-            expected_params,
-            response,
-            error_code=error_code)
+            "create_assessment_report", expected_params, response, error_code=error_code
+        )
 
     def stub_list_assessment_reports(self, report_ids, error_code=None):
         expected_params = {"maxResults": 1}
@@ -133,10 +125,8 @@ class AuditManagerStubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "list_assessment_reports",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_assessment_reports", expected_params, response, error_code=error_code
+        )
 
     def stub_get_assessment_report_url(
         self, report_id, assessment_id, report_url, error_code=None
@@ -146,9 +136,8 @@ class AuditManagerStubber(ExampleStubber):
             "assessmentId": assessment_id,
         }
         response = {
-            "preSignedUrl": {
-                "link": report_url,
-                "hyperlinkName": "stubbed_link"}}
+            "preSignedUrl": {"link": report_url, "hyperlinkName": "stubbed_link"}
+        }
         self._stub_bifurcator(
             "get_assessment_report_url",
             expected_params,
@@ -156,12 +145,7 @@ class AuditManagerStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_create_control(
-            self,
-            name,
-            source_id,
-            control_id,
-            error_code=None):
+    def stub_create_control(self, name, source_id, control_id, error_code=None):
         expected_params = {
             "name": name,
             "controlMappingSources": [
@@ -199,8 +183,7 @@ class AuditManagerStubber(ExampleStubber):
         expected_params = {"controlType": ctl_type, "maxResults": max_results}
         if tokens[0] is not None:
             expected_params["nextToken"] = tokens[0]
-        response = {"controlMetadataList": [
-            {"id": ctl_id} for ctl_id in control_ids]}
+        response = {"controlMetadataList": [{"id": ctl_id} for ctl_id in control_ids]}
         if tokens[1] is not None:
             response["nextToken"] = tokens[1]
         self._stub_bifurcator(

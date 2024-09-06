@@ -177,4 +177,5 @@ def stubber_factory(service_name):
     else:
         raise StubberFactoryNotImplemented(
             "If you see this exception, it probably means that you forgot to add "
-            "a new stubber to stubber_factory.py.")
+            "a new stubber to stubber_factory.py."
+        )

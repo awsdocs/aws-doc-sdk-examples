@@ -44,8 +44,7 @@ def test_state_cases(monkeypatch, state, method, body, status_code):
 
         return _check_params
 
-    app.app.current_request = unittest.mock.MagicMock(
-        method=method, json_body=body)
+    app.app.current_request = unittest.mock.MagicMock(method=method, json_body=body)
     monkeypatch.setattr(app.storage, "get_state_data", check_params(True))
     monkeypatch.setattr(app.storage, "put_state_data", check_params())
     monkeypatch.setattr(app.storage, "delete_state_data", check_params())

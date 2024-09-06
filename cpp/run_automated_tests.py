@@ -79,8 +79,7 @@ def build_cmake_tests(cmake_files, executable_pattern):
                 shell=False,
             )
         else:
-            result_code = subprocess.call(
-                ["cmake", "--build", "."], shell=False)
+            result_code = subprocess.call(["cmake", "--build", "."], shell=False)
 
         if result_code != 0:
             has_error = True
@@ -96,8 +95,7 @@ def build_cmake_tests(cmake_files, executable_pattern):
 
 def build_tests(service="*"):
     cmake_files = glob.glob(f"example_code/{service}/tests/CMakeLists.txt")
-    cmake_files.extend(
-        glob.glob(f"example_code/{service}/gtests/CMakeLists.txt"))
+    cmake_files.extend(glob.glob(f"example_code/{service}/gtests/CMakeLists.txt"))
 
     executable_pattern = ["/*_gtest", "/Debug/*_gtest.exe"]
 
@@ -170,8 +168,7 @@ def test_hello_service(service="*"):
     print(f"Running hello tests for {service}.")
 
     print(os.getcwd())
-    cmake_files = glob.glob(
-        f"example_code/{service}/hello_{service}/CMakeLists.txt")
+    cmake_files = glob.glob(f"example_code/{service}/hello_{service}/CMakeLists.txt")
 
     (err_code, run_files) = build_cmake_tests(
         cmake_files, ["/hello_*", "/Debug/hello_*.exe"]
@@ -193,8 +190,7 @@ def test_hello_service(service="*"):
         path_split = os.path.splitext(run_file)
         if (path_split[1] == ".exe") or (path_split[1] == ""):
             print(f"Calling '{run_file}'.")
-            completedProcess = subprocess.run(
-                [run_file], stdout=subprocess.DEVNULL)
+            completedProcess = subprocess.run([run_file], stdout=subprocess.DEVNULL)
             if completedProcess.returncode != 0:
                 print(f"Error with {run_file}")
                 has_error = True
@@ -259,8 +255,9 @@ def main(argv):
 
     os.chdir(base_dir)
     if err_code == 0:
-        [err_code, hello_passed_count,
-            hello_failed_count] = test_hello_service(service=service)
+        [err_code, hello_passed_count, hello_failed_count] = test_hello_service(
+            service=service
+        )
         passed_count = passed_count + hello_passed_count
         failed_count = failed_count + hello_failed_count
 

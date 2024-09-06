@@ -60,22 +60,15 @@ class ApiGatewayWebsocket:
             self.api_id = response["ApiId"]
             self.api_endpoint = response["ApiEndpoint"]
             logger.info(
-                "Created websocket API %s with ID %s.",
-                self.api_name,
-                self.api_id)
+                "Created websocket API %s with ID %s.", self.api_name, self.api_id
+            )
         except ClientError:
-            logger.exception(
-                "Couldn't create websocket API %s.",
-                self.api_name)
+            logger.exception("Couldn't create websocket API %s.", self.api_name)
             raise
         else:
             return self.api_id
 
-    def add_connection_permissions(
-            self,
-            account,
-            lambda_role_name,
-            iam_resource):
+    def add_connection_permissions(self, account, lambda_role_name, iam_resource):
         """
         Adds permission to let the AWS Lambda handler access connections through the
         API Gateway Management API. This is required so the Lambda handler can
@@ -104,19 +97,21 @@ class ApiGatewayWebsocket:
                                 "Effect": "Allow",
                                 "Action": ["execute-api:ManageConnections"],
                                 "Resource": self.api_arn,
-                            }],
-                    }),
+                            }
+                        ],
+                    }
+                ),
             )
             policy.attach_role(RoleName=lambda_role_name)
             logger.info(
-                "Created and attached policy %s to Lambda role.",
-                policy.policy_name)
+                "Created and attached policy %s to Lambda role.", policy.policy_name
+            )
         except ClientError:
             if policy is not None:
                 policy.delete()
             logger.exception(
-                "Couldn't create or attach policy to Lambda role %s.",
-                lambda_role_name)
+                "Couldn't create or attach policy to Lambda role %s.", lambda_role_name
+            )
             raise
 
     def remove_connection_permissions(self, lambda_role):
@@ -134,20 +129,14 @@ class ApiGatewayWebsocket:
                     lambda_role.detach_policy(PolicyArn=policy.arn)
                     policy.delete()
                     break
-            logger.info(
-                "Detached and deleted connection policy %s.",
-                policy_name)
+            logger.info("Detached and deleted connection policy %s.", policy_name)
         except ClientError:
             logger.exception(
                 "Couldn't detach or delete connection policy %s.", policy_name
             )
             raise
 
-    def add_route_and_integration(
-            self,
-            route_name,
-            lambda_func,
-            lambda_client):
+    def add_route_and_integration(self, route_name, lambda_func, lambda_client):
         """
         Adds a route to the websocket API and an integration to a Lambda
         function that is used to handle the request.
@@ -164,7 +153,8 @@ class ApiGatewayWebsocket:
         """
         integration_uri = (
             f"arn:aws:apigateway:{self.apig2_client.meta.region_name}:lambda:"
-            f'path/2015-03-31/functions/{lambda_func["FunctionArn"]}/invocations')
+            f'path/2015-03-31/functions/{lambda_func["FunctionArn"]}/invocations'
+        )
         try:
             response = self.apig2_client.create_integration(
                 ApiId=self.api_id,
@@ -174,9 +164,7 @@ class ApiGatewayWebsocket:
             )
             logging.info("Created integration to %s.", integration_uri)
         except ClientError:
-            logging.exception(
-                "Couldn't create integration to %s.",
-                integration_uri)
+            logging.exception("Couldn't create integration to %s.", integration_uri)
             raise
         else:
             integration_id = response["IntegrationId"]
@@ -188,10 +176,7 @@ class ApiGatewayWebsocket:
             )
             logger.info("Created route %s to %s.", route_name, target)
         except ClientError:
-            logger.exception(
-                "Couldn't create route %s to %s.",
-                route_name,
-                target)
+            logger.exception("Couldn't create route %s to %s.", route_name, target)
             raise
         else:
             route_id = response["RouteId"]
@@ -208,7 +193,9 @@ class ApiGatewayWebsocket:
             )
             logger.info(
                 "Added permission to let API Gateway invoke Lambda function %s "
-                "from the new route.", lambda_func["FunctionName"], )
+                "from the new route.",
+                lambda_func["FunctionName"],
+            )
         except ClientError:
             logger.exception(
                 "Couldn't add permission to AWS Lambda function %s.",
@@ -323,7 +310,8 @@ def usage_demo(
     lambda_file_name = "lambda_chat.py"
     print(
         f"Updating Lambda function {lambda_function_name} with example code file "
-        f"{lambda_file_name}.")
+        f"{lambda_file_name}."
+    )
     buffer = io.BytesIO()
     with zipfile.ZipFile(buffer, "w") as zipped:
         zipped.write(lambda_file_name)
@@ -333,9 +321,7 @@ def usage_demo(
             FunctionName=lambda_function_name, ZipFile=buffer.read()
         )
     except ClientError:
-        logger.exception(
-            "Couldn't update Lambda function %s.",
-            lambda_function_name)
+        logger.exception("Couldn't update Lambda function %s.", lambda_function_name)
         raise
 
     print(f"Creating websocket chat API {sock_gateway.api_name}.")
@@ -345,20 +331,19 @@ def usage_demo(
         "Adding permission to let the Lambda function send messages to "
         "websocket connections."
     )
-    sock_gateway.add_connection_permissions(
-        account, lambda_role_name, iam_resource)
+    sock_gateway.add_connection_permissions(account, lambda_role_name, iam_resource)
 
     print("Adding routes to the chat API and integrating with the Lambda function.")
     for route in ["$connect", "$disconnect", "sendmessage"]:
-        sock_gateway.add_route_and_integration(
-            route, lambda_func, lambda_client)
+        sock_gateway.add_route_and_integration(route, lambda_func, lambda_client)
 
     print("Deploying the API to stage test.")
     chat_uri = sock_gateway.deploy_api("test")
 
     print(
         "Try it yourself! Connect a websocket client to the chat URI to start a "
-        "chat.")
+        "chat."
+    )
     print(f"\tChat URI: {chat_uri}")
     print("Send messages in this format:")
     print('\t{"action": "sendmessage", "msg": "YOUR MESSAGE HERE"}')
@@ -409,8 +394,7 @@ def destroy(sock_gateway, lambda_role_name, iam_resource, stack, cf_resource):
     :param cf_resource: A Boto3 CloudFormation resource.
     """
     print(f"Deleting websocket API {sock_gateway.api_name}.")
-    sock_gateway.remove_connection_permissions(
-        iam_resource.Role(lambda_role_name))
+    sock_gateway.remove_connection_permissions(iam_resource.Role(lambda_role_name))
     sock_gateway.delete_api()
 
     print(f"Deleting stack {stack.name}.")
@@ -428,7 +412,8 @@ def main():
         "'demo' flag to see how to create and deploy a websocket chat API, "
         "and with the 'chat' flag to see an automated demo of using the "
         "chat API from a websocket client. Run with the 'destroy' flag to "
-        "clean up all resources.")
+        "clean up all resources."
+    )
     parser.add_argument(
         "action",
         choices=["deploy", "demo", "chat", "destroy"],
@@ -440,14 +425,11 @@ def main():
     print("Welcome to the Amazon API Gateway websocket chat demo!")
     print("-" * 88)
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     cf_resource = boto3.resource("cloudformation")
     stack = cf_resource.Stack("python-example-code-apigateway-websocket-chat")
-    sock_gateway = ApiGatewayWebsocket(
-        stack.name, boto3.client("apigatewayv2"))
+    sock_gateway = ApiGatewayWebsocket(stack.name, boto3.client("apigatewayv2"))
 
     if args.action == "deploy":
         print("Deploying prerequisite resources for the demo.")
@@ -459,7 +441,8 @@ def main():
         asyncio.run(chat_demo(f"{api_endpoint}/test"))
         print(
             "To remove resources created for the demo, run the script again with "
-            "the 'destroy' flag.")
+            "the 'destroy' flag."
+        )
     elif args.action in ["demo", "destroy"]:
         lambda_role_name = None
         lambda_function_name = None
@@ -471,7 +454,8 @@ def main():
         if args.action == "demo":
             print(
                 "Demonstrating how to use Amazon API Gateway to create a websocket "
-                "chat application.")
+                "chat application."
+            )
             account = boto3.client("sts").get_caller_identity().get("Account")
             usage_demo(
                 sock_gateway,
@@ -487,7 +471,8 @@ def main():
             )
             print(
                 "When you're done, clean up all AWS resources created for the demo "
-                "by running the script with the 'destroy' flag.")
+                "by running the script with the 'destroy' flag."
+            )
         elif args.action == "destroy":
             print("Destroying AWS resources created for the demo.")
             destroy(

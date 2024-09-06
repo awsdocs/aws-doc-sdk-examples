@@ -46,8 +46,7 @@ def test_add_communication_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:
-        mock_mgr.scenario_data.scenario.add_communication(
-            *mock_mgr.scenario_args)
+        mock_mgr.scenario_data.scenario.add_communication(*mock_mgr.scenario_args)
     assert exc_info.value.response["Error"]["Code"] == error
 
     assert error in caplog.text

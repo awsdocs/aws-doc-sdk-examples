@@ -83,12 +83,7 @@ class S3ControlStubber(ExampleStubber):
                 service_error_code=error_code,
             )
 
-    def stub_describe_job(
-            self,
-            account_id,
-            job_id,
-            status="Complete",
-            error_code=None):
+    def stub_describe_job(self, account_id, job_id, status="Complete", error_code=None):
         expected_params = {"AccountId": account_id, "JobId": job_id}
         if not error_code:
             self.add_response(

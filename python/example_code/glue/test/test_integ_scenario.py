@@ -29,8 +29,7 @@ def test_run_integ(monkeypatch):
         outputs = scaffold.deploy(
             "setup_scenario_getting_started.yaml", stack.name, cf_resource
         )
-        args = scenario_script.parse_args(
-            [outputs["RoleName"], outputs["BucketName"]])
+        args = scenario_script.parse_args([outputs["RoleName"], outputs["BucketName"]])
         monkeypatch.setattr(scenario_script, "parse_args", lambda x: args)
         scenario_script.main()
         scaffold.destroy(stack, cf_resource, s3_resource)

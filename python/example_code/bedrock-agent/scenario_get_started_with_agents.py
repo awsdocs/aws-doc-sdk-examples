@@ -18,8 +18,6 @@ the AWS SDK for Python (Boto3). It covers the following steps:
 8. Deleting all created resources.
 """
 
-from demo_tools.retries import wait
-import demo_tools.question as q
 import asyncio
 import io
 import json
@@ -32,9 +30,11 @@ import uuid
 import zipfile
 
 import boto3
+import demo_tools.question as q
 import yaml
 from bedrock_agent_wrapper import BedrockAgentWrapper
 from botocore.exceptions import ClientError
+from demo_tools.retries import wait
 
 # Add relative path to include demo_tools in this code example without
 # needing to set up.
@@ -51,12 +51,8 @@ class BedrockAgentScenarioWrapper:
     """Runs a scenario that shows how to get started using Agents for Amazon Bedrock."""
 
     def __init__(
-            self,
-            bedrock_agent_client,
-            runtime_client,
-            lambda_client,
-            iam_resource,
-            postfix):
+        self, bedrock_agent_client, runtime_client, lambda_client, iam_resource, postfix
+    ):
         self.iam_resource = iam_resource
         self.lambda_client = lambda_client
         self.bedrock_agent_runtime_client = runtime_client
@@ -120,9 +116,7 @@ class BedrockAgentScenarioWrapper:
         print("=" * 88)
         print("Thanks for running the demo!\n")
 
-        if q.ask(
-            "Do you want to delete the created resources? [y/N] ",
-                q.is_yesno):
+        if q.ask("Do you want to delete the created resources? [y/N] ", q.is_yesno):
             self._delete_resources()
             print("=" * 88)
             print(
@@ -168,11 +162,12 @@ class BedrockAgentScenarioWrapper:
                         "Statement": [
                             {
                                 "Effect": "Allow",
-                                "Principal": {
-                                    "Service": "bedrock.amazonaws.com"},
+                                "Principal": {"Service": "bedrock.amazonaws.com"},
                                 "Action": "sts:AssumeRole",
-                            }],
-                    }),
+                            }
+                        ],
+                    }
+                ),
             )
 
             role.Policy(ROLE_POLICY_NAME).put(
@@ -267,14 +262,16 @@ class BedrockAgentScenarioWrapper:
                         "Statement": [
                             {
                                 "Effect": "Allow",
-                                "Principal": {
-                                    "Service": "lambda.amazonaws.com"},
+                                "Principal": {"Service": "lambda.amazonaws.com"},
                                 "Action": "sts:AssumeRole",
-                            }],
-                    }),
+                            }
+                        ],
+                    }
+                ),
             )
             role.attach_policy(
-                PolicyArn="arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole")
+                PolicyArn="arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+            )
             print(f"Created role {role_name}")
         except ClientError as e:
             logger.error(f"Couldn't create role {role_name}. Here's why: {e}")
@@ -297,8 +294,7 @@ class BedrockAgentScenarioWrapper:
                 "Resource": self.lambda_function["FunctionArn"],
             }
         )
-        self.agent_role.Policy(ROLE_POLICY_NAME).put(
-            PolicyDocument=json.dumps(doc))
+        self.agent_role.Policy(ROLE_POLICY_NAME).put(PolicyDocument=json.dumps(doc))
 
     def _let_function_accept_invocations_from_agent(self):
         try:
@@ -329,8 +325,7 @@ class BedrockAgentScenarioWrapper:
                     api_schema=json.dumps(yaml.safe_load(file)),
                 )
         except ClientError as e:
-            logger.error(
-                f"Couldn't create agent action group. Here's why: {e}")
+            logger.error(f"Couldn't create agent action group. Here's why: {e}")
             raise
 
     def _get_agent(self):
@@ -359,8 +354,7 @@ class BedrockAgentScenarioWrapper:
         return agent_alias
 
     def _wait_for_agent_status(self, agent_id, status):
-        while self.bedrock_wrapper.get_agent(
-                agent_id)["agentStatus"] != status:
+        while self.bedrock_wrapper.get_agent(agent_id)["agentStatus"] != status:
             wait(2)
 
     def _chat_with_agent(self, agent_alias):
@@ -377,9 +371,7 @@ class BedrockAgentScenarioWrapper:
             if prompt == "exit":
                 break
 
-            response = asyncio.run(
-                self._invoke_agent(
-                    agent_alias, prompt, session_id))
+            response = asyncio.run(self._invoke_agent(agent_alias, prompt, session_id))
 
             print(f"Agent: {response}")
 
@@ -406,12 +398,10 @@ class BedrockAgentScenarioWrapper:
             if self.agent_alias:
                 agent_alias_id = self.agent_alias["agentAliasId"]
                 print("Deleting agent alias...")
-                self.bedrock_wrapper.delete_agent_alias(
-                    agent_id, agent_alias_id)
+                self.bedrock_wrapper.delete_agent_alias(agent_id, agent_alias_id)
 
             print("Deleting agent...")
-            agent_status = self.bedrock_wrapper.delete_agent(agent_id)[
-                "agentStatus"]
+            agent_status = self.bedrock_wrapper.delete_agent(agent_id)["agentStatus"]
             while agent_status == "DELETING":
                 wait(5)
                 try:
@@ -455,9 +445,9 @@ class BedrockAgentScenarioWrapper:
     def is_valid_agent_name(answer):
         valid_regex = r"^[a-zA-Z0-9_-]{1,100}$"
         return (
-            answer if answer and len(answer) <= 100 and re.match(
-                valid_regex,
-                answer) else None,
+            answer
+            if answer and len(answer) <= 100 and re.match(valid_regex, answer)
+            else None,
             "I need a name for the agent, please. Valid characters are a-z, A-Z, 0-9, _ (underscore) and - (hyphen).",
         )
 
@@ -466,16 +456,14 @@ class BedrockAgentScenarioWrapper:
         buffer = io.BytesIO()
         with zipfile.ZipFile(buffer, "w") as zipped:
             zipped.write(
-                "./scenario_resources/lambda_function.py",
-                f"{function_name}.py")
+                "./scenario_resources/lambda_function.py", f"{function_name}.py"
+            )
         buffer.seek(0)
         return buffer.read()
 
 
 if __name__ == "__main__":
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     postfix = "".join(
         random.choice(string.ascii_lowercase + "0123456789") for _ in range(8)
@@ -494,7 +482,6 @@ if __name__ == "__main__":
     try:
         scenario.run_scenario()
     except Exception as e:
-        logging.exception(
-            f"Something went wrong with the demo. Here's what: {e}")
+        logging.exception(f"Something went wrong with the demo. Here's what: {e}")
 
 # snippet-end:[python.example_code.bedrock-agent.Scenario_GettingStartedBedrockAgents]

@@ -28,8 +28,8 @@ These custom arguments must be passed as Arguments to the StartJobRun request.
     --output_bucket_url An S3 bucket that receives the transformed output data.
 """
 args = getResolvedOptions(
-    sys.argv, [
-        "JOB_NAME", "input_database", "input_table", "output_bucket_url"])
+    sys.argv, ["JOB_NAME", "input_database", "input_table", "output_bucket_url"]
+)
 sc = SparkContext()
 glueContext = GlueContext(sc)
 spark = glueContext.spark_session
@@ -74,9 +74,7 @@ RevisedFlightData_node3 = glueContext.write_dynamic_frame.from_options(
     frame=ApplyMapping_node2,
     connection_type="s3",
     format="json",
-    connection_options={
-        "path": args["output_bucket_url"],
-        "partitionKeys": []},
+    connection_options={"path": args["output_bucket_url"], "partitionKeys": []},
     transformation_ctx="RevisedFlightData_node3",
 )
 

@@ -41,13 +41,8 @@ class SecretsManagerStubber(ExampleStubber):
         )
 
     def stub_delete_secret(self, secret_name, error_code=None):
-        expected_params = {
-            "SecretId": secret_name,
-            "ForceDeleteWithoutRecovery": True}
-        self._stub_bifurcator(
-            "delete_secret",
-            expected_params,
-            error_code=error_code)
+        expected_params = {"SecretId": secret_name, "ForceDeleteWithoutRecovery": True}
+        self._stub_bifurcator("delete_secret", expected_params, error_code=error_code)
 
     def stub_describe_secret(self, name, error_code=None):
         expected_params = {"SecretId": name}
@@ -56,12 +51,7 @@ class SecretsManagerStubber(ExampleStubber):
             "describe_secret", expected_params, response, error_code=error_code
         )
 
-    def stub_get_secret_value(
-            self,
-            name,
-            stage,
-            secret_value,
-            error_code=None):
+    def stub_get_secret_value(self, name, stage, secret_value, error_code=None):
         expected_params = {"SecretId": name}
         if stage is not None:
             expected_params["VersionStage"] = stage
@@ -71,26 +61,17 @@ class SecretsManagerStubber(ExampleStubber):
         elif isinstance(secret_value, bytes):
             response["SecretBinary"] = secret_value
         self._stub_bifurcator(
-            "get_secret_value",
-            expected_params,
-            response,
-            error_code=error_code)
+            "get_secret_value", expected_params, response, error_code=error_code
+        )
 
     def stub_get_random_password(self, pw_length, password, error_code=None):
         expected_params = {"PasswordLength": pw_length}
         response = {"RandomPassword": password}
         self._stub_bifurcator(
-            "get_random_password",
-            expected_params,
-            response,
-            error_code=error_code)
+            "get_random_password", expected_params, response, error_code=error_code
+        )
 
-    def stub_put_secret_value(
-            self,
-            name,
-            secret_value,
-            stages,
-            error_code=None):
+    def stub_put_secret_value(self, name, secret_value, stages, error_code=None):
         expected_params = {"SecretId": name}
         if isinstance(secret_value, str):
             expected_params["SecretString"] = secret_value
@@ -100,10 +81,8 @@ class SecretsManagerStubber(ExampleStubber):
             expected_params["VersionStages"] = stages
         response = {}
         self._stub_bifurcator(
-            "put_secret_value",
-            expected_params,
-            response,
-            error_code=error_code)
+            "put_secret_value", expected_params, response, error_code=error_code
+        )
 
     def stub_update_secret_version_stage(
         self, name, stage, remove_from, move_to, error_code=None

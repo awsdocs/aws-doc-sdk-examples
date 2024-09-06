@@ -60,8 +60,7 @@ def test_list_datastores(make_stubber, error_code):
     medical_imaging_stubber = make_stubber(medical_imaging_client)
     wrapper = MedicalImagingWrapper(medical_imaging_client)
     datastore_id = "abcdedf1234567890abcdef123456789"
-    medical_imaging_stubber.stub_list_datastores(
-        datastore_id, error_code=error_code)
+    medical_imaging_stubber.stub_list_datastores(datastore_id, error_code=error_code)
 
     if error_code is None:
         datastores = wrapper.list_datastores()
@@ -79,8 +78,7 @@ def test_delete_datastore(make_stubber, error_code):
     wrapper = MedicalImagingWrapper(medical_imaging_client)
     datastore_id = "abcdedf1234567890abcdef123456789"
 
-    medical_imaging_stubber.stub_delete_data_store(
-        datastore_id, error_code=error_code)
+    medical_imaging_stubber.stub_delete_data_store(datastore_id, error_code=error_code)
 
     if error_code is None:
         wrapper.delete_datastore(datastore_id)
@@ -238,8 +236,7 @@ def test_get_image_set_metadata(make_stubber, error_code):
 
     else:
         with pytest.raises(ClientError) as exc_info:
-            wrapper.get_image_set_metadata(
-                test_file, datastore_id, image_set_id)
+            wrapper.get_image_set_metadata(test_file, datastore_id, image_set_id)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -257,11 +254,7 @@ def test_get_pixel_data(make_stubber, error_code):
     )
 
     if error_code is None:
-        wrapper.get_pixel_data(
-            test_file,
-            datastore_id,
-            image_set_id,
-            image_frame_id)
+        wrapper.get_pixel_data(test_file, datastore_id, image_set_id, image_frame_id)
         assert os.path.exists(test_file)
         os.remove(test_file)
 
@@ -336,7 +329,8 @@ def test_copy_image_set_without_destination(make_stubber, error_code):
     new_image_set_id = "cccccc1234567890abcdef123456789"
 
     medical_imaging_stubber.stub_copy_image_set_without_destination(
-        datastore_id, image_set_id, version_id, new_image_set_id, error_code=error_code)
+        datastore_id, image_set_id, version_id, new_image_set_id, error_code=error_code
+    )
 
     if error_code is None:
         wrapper.copy_image_set(datastore_id, image_set_id, version_id)
@@ -416,11 +410,11 @@ def test_tag_resource(make_stubber, error_code):
     wrapper = MedicalImagingWrapper(medical_imaging_client)
     resource_arn = (
         "arn:aws:medical-imaging:us-east-1:123456789012:datastore/abcdedf1234567890abcdef123456789/image"
-        "-set/cccccc1234567890abcdef123456789 ")
+        "-set/cccccc1234567890abcdef123456789 "
+    )
     tags = {"test-key": "test-value"}
 
-    medical_imaging_stubber.stub_tag_resource(
-        resource_arn, tags, error_code=error_code)
+    medical_imaging_stubber.stub_tag_resource(resource_arn, tags, error_code=error_code)
 
     if error_code is None:
         wrapper.tag_resource(resource_arn, tags)
@@ -438,7 +432,8 @@ def test_untag_resource(make_stubber, error_code):
     wrapper = MedicalImagingWrapper(medical_imaging_client)
     resource_arn = (
         "arn:aws:medical-imaging:us-east-1:123456789012:datastore/abcdedf1234567890abcdef123456789/image"
-        "-set/cccccc1234567890abcdef123456789 ")
+        "-set/cccccc1234567890abcdef123456789 "
+    )
     tag_keys = ["test-key"]
 
     medical_imaging_stubber.stub_untag_resource(
@@ -461,7 +456,8 @@ def test_list_tags_for_resource(make_stubber, error_code):
     wrapper = MedicalImagingWrapper(medical_imaging_client)
     resource_arn = (
         "arn:aws:medical-imaging:us-east-1:123456789012:datastore/abcdedf1234567890abcdef123456789/image"
-        "-set/cccccc1234567890abcdef123456789 ")
+        "-set/cccccc1234567890abcdef123456789 "
+    )
 
     medical_imaging_stubber.stub_list_tags_for_resource(
         resource_arn, error_code=error_code

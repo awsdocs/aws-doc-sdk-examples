@@ -18,9 +18,7 @@ from botocore.exceptions import ClientError
 
 
 def list_my_buckets(s3_resource):
-    print("Buckets:\n\t",
-          *[b.name for b in s3_resource.buckets.all()],
-          sep="\n\t")
+    print("Buckets:\n\t", *[b.name for b in s3_resource.buckets.all()], sep="\n\t")
 
 
 def create_and_delete_my_bucket(s3_resource, bucket_name, keep_bucket):
@@ -58,12 +56,8 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "bucket_name",
-        help="The name of the bucket to create.")
-    parser.add_argument(
-        "region",
-        help="The region in which to create your bucket.")
+    parser.add_argument("bucket_name", help="The name of the bucket to create.")
+    parser.add_argument("region", help="The region in which to create your bucket.")
     parser.add_argument(
         "--keep_bucket",
         help="Keeps the created bucket. When not "
@@ -79,8 +73,7 @@ def main():
         else boto3.resource("s3")
     )
     try:
-        create_and_delete_my_bucket(
-            s3_resource, args.bucket_name, args.keep_bucket)
+        create_and_delete_my_bucket(s3_resource, args.bucket_name, args.keep_bucket)
     except ClientError:
         print("Exiting the demo.")
 

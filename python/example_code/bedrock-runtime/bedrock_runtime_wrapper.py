@@ -342,7 +342,8 @@ class BedrockRuntimeWrapper:
             }
 
             response = self.bedrock_runtime_client.invoke_model_with_response_stream(
-                modelId="anthropic.claude-v2", body=json.dumps(body))
+                modelId="anthropic.claude-v2", body=json.dumps(body)
+            )
 
             for event in response.get("body"):
                 chunk = json.loads(event["chunk"]["bytes"])["completion"]
@@ -448,9 +449,7 @@ def usage_demo():
     print("Welcome to the Amazon Bedrock Runtime demo.")
     print("-" * 88)
 
-    client = boto3.client(
-        service_name="bedrock-runtime",
-        region_name="us-west-2")
+    client = boto3.client(service_name="bedrock-runtime", region_name="us-west-2")
 
     wrapper = BedrockRuntimeWrapper(client)
 
@@ -464,10 +463,7 @@ def usage_demo():
 
     invoke(wrapper, "mistral.mistral-7b-instruct-v0:2", text_generation_prompt)
 
-    invoke(
-        wrapper,
-        "mistral.mixtral-8x7b-instruct-v0:1",
-        text_generation_prompt)
+    invoke(wrapper, "mistral.mixtral-8x7b-instruct-v0:1", text_generation_prompt)
 
     asyncio.run(
         invoke_with_response_stream(

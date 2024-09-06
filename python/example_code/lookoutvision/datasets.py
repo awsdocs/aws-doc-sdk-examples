@@ -31,11 +31,7 @@ class Datasets:
 
     # snippet-start:[python.example_code.lookoutvision.CreateDataset]
     @staticmethod
-    def create_dataset(
-            lookoutvision_client,
-            project_name,
-            manifest_file,
-            dataset_type):
+    def create_dataset(lookoutvision_client, project_name, manifest_file, dataset_type):
         """
         Creates a new Lookout for Vision dataset
 
@@ -50,25 +46,19 @@ class Datasets:
             bucket, key = manifest_file.replace("s3://", "").split("/", 1)
             logger.info("Creating %s dataset type...", dataset_type)
             dataset = {
-                "GroundTruthManifest": {
-                    "S3Object": {
-                        "Bucket": bucket,
-                        "Key": key}}}
+                "GroundTruthManifest": {"S3Object": {"Bucket": bucket, "Key": key}}
+            }
             response = lookoutvision_client.create_dataset(
                 ProjectName=project_name,
                 DatasetType=dataset_type,
                 DatasetSource=dataset,
             )
-            logger.info(
-                "Dataset Status: %s",
-                response["DatasetMetadata"]["Status"])
+            logger.info("Dataset Status: %s", response["DatasetMetadata"]["Status"])
             logger.info(
                 "Dataset Status Message: %s",
                 response["DatasetMetadata"]["StatusMessage"],
             )
-            logger.info(
-                "Dataset Type: %s",
-                response["DatasetMetadata"]["DatasetType"])
+            logger.info("Dataset Type: %s", response["DatasetMetadata"]["DatasetType"])
 
             # Wait until either created or failed.
             finished = False
@@ -144,8 +134,7 @@ class Datasets:
                     Prefix=prefix + "anomaly/", Delimiter="/"
                 ):
                     image_path = f"s3://{src_bucket.name}/{obj.key}"
-                    manifest = Datasets.create_json_line(
-                        image_path, "anomaly", dttm)
+                    manifest = Datasets.create_json_line(image_path, "anomaly", dttm)
                     mfile.write(json.dumps(manifest) + "\n")
 
                 # Create json lines for normal images.
@@ -153,8 +142,7 @@ class Datasets:
                     Prefix=prefix + "normal/", Delimiter="/"
                 ):
                     image_path = f"s3://{src_bucket.name}/{obj.key}"
-                    manifest = Datasets.create_json_line(
-                        image_path, "normal", dttm)
+                    manifest = Datasets.create_json_line(image_path, "normal", dttm)
                     mfile.write(json.dumps(manifest) + "\n")
 
             logger.info("Uploading manifest file to %s", manifest_s3_path)
@@ -224,9 +212,8 @@ class Datasets:
         """
         try:
             logger.info(
-                "Deleting the %s dataset for project %s.",
-                dataset_type,
-                project_name)
+                "Deleting the %s dataset for project %s.", dataset_type, project_name
+            )
             lookoutvision_client.delete_dataset(
                 ProjectName=project_name, DatasetType=dataset_type
             )
@@ -256,16 +243,11 @@ class Datasets:
             print(f"Name: {response['DatasetDescription']['ProjectName']}")
             print(f"Type: {response['DatasetDescription']['DatasetType']}")
             print(f"Status: {response['DatasetDescription']['Status']}")
-            print(
-                f"Message: {response['DatasetDescription']['StatusMessage']}")
-            print(
-                f"Images: {response['DatasetDescription']['ImageStats']['Total']}")
-            print(
-                f"Labeled: {response['DatasetDescription']['ImageStats']['Labeled']}")
-            print(
-                f"Normal: {response['DatasetDescription']['ImageStats']['Normal']}")
-            print(
-                f"Anomaly: {response['DatasetDescription']['ImageStats']['Anomaly']}")
+            print(f"Message: {response['DatasetDescription']['StatusMessage']}")
+            print(f"Images: {response['DatasetDescription']['ImageStats']['Total']}")
+            print(f"Labeled: {response['DatasetDescription']['ImageStats']['Labeled']}")
+            print(f"Normal: {response['DatasetDescription']['ImageStats']['Normal']}")
+            print(f"Anomaly: {response['DatasetDescription']['ImageStats']['Anomaly']}")
         except ClientError:
             logger.exception("Service error: problem listing datasets.")
             raise
@@ -346,10 +328,12 @@ class Datasets:
 
                 logger.exception(
                     f"Failed. Unexpected state for dataset update: {status} : {status_message} : "
-                    "{dataset_type} dataset for project {project_name}.")
+                    "{dataset_type} dataset for project {project_name}."
+                )
                 raise Exception(
                     f"Failed. Unexpected state for dataset update: {status} : "
-                    "{status_message} :{dataset_type} dataset for project {project_name}.")
+                    "{status_message} :{dataset_type} dataset for project {project_name}."
+                )
 
             logger.info("Added entries to dataset.")
 

@@ -19,8 +19,7 @@ def test_create_vault(make_stubber, error_code):
     vault_name = "test-vault_name"
     vault_uri = f"/123456789012/vaults/{vault_name}"
 
-    glacier_stubber.stub_create_vault(
-        vault_name, vault_uri, error_code=error_code)
+    glacier_stubber.stub_create_vault(vault_name, vault_uri, error_code=error_code)
 
     if error_code is None:
         got_vault = glacier.create_vault(vault_name)
@@ -59,15 +58,11 @@ def test_upload_archive(make_stubber, error_code):
     archive_id = "EXAMPLEID11111111"
 
     glacier_stubber.stub_upload_archive(
-        vault.name,
-        archive_description,
-        archive_file,
-        archive_id,
-        error_code=error_code)
+        vault.name, archive_description, archive_file, archive_id, error_code=error_code
+    )
 
     if error_code is None:
-        got_archive = glacier.upload_archive(
-            vault, archive_description, archive_file)
+        got_archive = glacier.upload_archive(vault, archive_description, archive_file)
         assert got_archive.id == archive_id
     else:
         with pytest.raises(ClientError) as exc_info:
@@ -75,8 +70,9 @@ def test_upload_archive(make_stubber, error_code):
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize("error_code,stop_on_method",
-                         [(None, None), ("TestException", "stub_initiate_job")])
+@pytest.mark.parametrize(
+    "error_code,stop_on_method", [(None, None), ("TestException", "stub_initiate_job")]
+)
 def test_initiate_inventory_retrieval(
     make_stubber, stub_runner, error_code, stop_on_method
 ):
@@ -170,8 +166,9 @@ def test_delete_vault(make_stubber, error_code):
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize("error_code,stop_on_method",
-                         [(None, None), ("TestException", "stub_initiate_job")])
+@pytest.mark.parametrize(
+    "error_code,stop_on_method", [(None, None), ("TestException", "stub_initiate_job")]
+)
 def test_initiate_archive_retrieval(
     make_stubber, stub_runner, error_code, stop_on_method
 ):
@@ -237,11 +234,8 @@ def test_get_job_status(make_stubber, error_code):
     job_status_code = "test-status"
 
     glacier_stubber.stub_describe_job(
-        job.vault_name,
-        job.id,
-        job_action,
-        job_status_code,
-        error_code=error_code)
+        job.vault_name, job.id, job_action, job_status_code, error_code=error_code
+    )
 
     if error_code is None:
         got_job_status = glacier.get_job_status(job)

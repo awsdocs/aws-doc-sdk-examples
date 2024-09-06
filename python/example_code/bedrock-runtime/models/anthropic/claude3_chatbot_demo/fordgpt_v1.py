@@ -22,8 +22,7 @@ class FordGPTv1:
         """
         Initializes the FordPriorConversationalResponder with a Bedrock runtime client and a custom logger.
         """
-        self.bedrock_runtime_client = boto3.client(
-            service_name="bedrock-runtime")
+        self.bedrock_runtime_client = boto3.client(service_name="bedrock-runtime")
         self.logger = setup_custom_logger(os.path.basename(__file__))
 
     @timeit
@@ -86,8 +85,9 @@ class FordGPTv1:
                 )
                 bytes_content = response["body"].read()
                 data = json.loads(bytes_content.decode("utf-8"))
-                text_contents = [item["text"]
-                                 for item in data["content"] if item["type"] == "text"]
+                text_contents = [
+                    item["text"] for item in data["content"] if item["type"] == "text"
+                ]
                 self.logger.warning(text_contents[0])
                 input_text = input("You: ")
             except Exception as e:

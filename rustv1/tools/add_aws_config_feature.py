@@ -68,10 +68,8 @@ arg_parser.add_argument(
     help="Don't write updated Cargo files.",
 )
 arg_parser.add_argument(
-    "--verbose",
-    action="store_true",
-    default=False,
-    help="Write verbose logging")
+    "--verbose", action="store_true", default=False, help="Write verbose logging"
+)
 
 
 def main():

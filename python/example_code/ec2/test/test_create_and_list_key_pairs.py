@@ -55,8 +55,7 @@ def test_create_and_list_key_pairs(mock_mgr, capsys):
         ("TESTERROR-stub_describe_key_pairs", 1),
     ],
 )
-def test_create_and_list_key_pairs_error(
-        mock_mgr, caplog, error, stop_on_index):
+def test_create_and_list_key_pairs_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
     with patch("builtins.open", mock_open()) as mock_file:

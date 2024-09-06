@@ -18,15 +18,15 @@ log that's returned from the invocation.
 7. Delete the IAM role and the Lambda function.
 """
 
-from demo_tools.retries import wait
-from demo_tools.custom_waiter import CustomWaiter, WaitState
-import demo_tools.question as q
 import base64
 import json
 import logging
 import sys
 
 import boto3
+import demo_tools.question as q
+from demo_tools.custom_waiter import CustomWaiter, WaitState
+from demo_tools.retries import wait
 from lambda_basics import LambdaWrapper
 
 # Add relative path to include demo_tools in this code example without
@@ -53,12 +53,7 @@ class UpdateFunctionWaiter(CustomWaiter):
         self._wait(FunctionName=function_name)
 
 
-def run_scenario(
-        lambda_client,
-        iam_resource,
-        basic_file,
-        calculator_file,
-        lambda_name):
+def run_scenario(lambda_client, iam_resource, basic_file, calculator_file, lambda_name):
     """
     Runs the scenario.
 
@@ -69,9 +64,7 @@ def run_scenario(
     :param lambda_name: The name to give resources created for the scenario, such as the
                         IAM role and the Lambda function.
     """
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     print("-" * 88)
     print("Welcome to the AWS Lambda getting started with functions demo.")
@@ -94,10 +87,8 @@ def run_scenario(
         )
         print(f"...and creating the {lambda_name} Lambda function.")
         wrapper.create_function(
-            lambda_name,
-            f"{lambda_name}.lambda_handler",
-            iam_role,
-            deployment_package)
+            lambda_name, f"{lambda_name}.lambda_handler", iam_role, deployment_package
+        )
     else:
         print(f"Function {lambda_name} already exists.")
     print("-" * 88)
@@ -151,17 +142,16 @@ def run_scenario(
         response = wrapper.invoke_function(lambda_name, action_params, True)
         print(
             f"Calculating {action_params['x']} {action_params['action']} {action_params['y']} "
-            f"resulted in {json.load(response['Payload'])}")
+            f"resulted in {json.load(response['Payload'])}"
+        )
         q.ask("Press Enter to see the logs from the call.")
         print(base64.b64decode(response["LogResult"]).decode())
-        want_invoke = q.ask(
-            "That was fun. Shall we do it again? (y/n) ",
-            q.is_yesno)
+        want_invoke = q.ask("That was fun. Shall we do it again? (y/n) ", q.is_yesno)
     print("-" * 88)
 
     if q.ask(
-        "Do you want to list all of the functions in your account? (y/n) ",
-            q.is_yesno):
+        "Do you want to list all of the functions in your account? (y/n) ", q.is_yesno
+    ):
         wrapper.list_functions()
     print("-" * 88)
 

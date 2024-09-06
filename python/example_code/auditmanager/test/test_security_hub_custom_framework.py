@@ -35,19 +35,17 @@ def test_get_sechub_controls(
                 auditmanager_stubber.stub_list_controls,
                 "Standard",
                 100,
-                tokens[i_token: i_token + 2],
+                tokens[i_token : i_token + 2],
                 control_list,
             )
             for ctl in control_list:
                 runner.add(
-                    auditmanager_stubber.stub_get_control,
-                    ctl,
-                    "AWS Security Hub")
+                    auditmanager_stubber.stub_get_control, ctl, "AWS Security Hub"
+                )
 
     if error_code is None:
         got_control_list = sechub.get_sechub_controls()
-        assert [ctl["id"]
-                for ctl in got_control_list] == control_list * ctl_sets
+        assert [ctl["id"] for ctl in got_control_list] == control_list * ctl_sets
     else:
         with pytest.raises(ClientError) as exc_info:
             sechub.get_sechub_controls()

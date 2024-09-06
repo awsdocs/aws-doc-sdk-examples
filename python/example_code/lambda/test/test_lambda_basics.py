@@ -40,10 +40,7 @@ def test_create_iam_role_for_lambda(
     role_name = make_unique_name("role-")
 
     with stub_runner(error_code, stop_on_method) as runner:
-        runner.add(
-            iam_stubber.stub_get_role,
-            role_name,
-            error_code="NoSuchEntity")
+        runner.add(iam_stubber.stub_get_role, role_name, error_code="NoSuchEntity")
         runner.add(iam_stubber.stub_create_role, role_name)
         runner.add(
             iam_stubber.stub_attach_role_policy,
@@ -90,8 +87,7 @@ def test_create_function(make_stubber, make_unique_name, error_code):
         assert got_arn == func_arn
     else:
         with pytest.raises(ClientError) as exc_info:
-            wrapper.create_function(
-                func_name, handler_name, iam_role, test_package)
+            wrapper.create_function(func_name, handler_name, iam_role, test_package)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -192,8 +188,7 @@ def test_update_function_configuration(make_stubber, error_code):
     )
 
     if error_code is None:
-        got_response = wrapper.update_function_configuration(
-            func_name, env_vars)
+        got_response = wrapper.update_function_configuration(func_name, env_vars)
         assert got_response
     else:
         with pytest.raises(ClientError) as exc_info:

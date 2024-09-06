@@ -67,8 +67,8 @@ class ExponentialRetry:
                     sleepy_time = sleepy_time * 2
                 else:
                     logger.error(
-                        "%s raised an error and cannot be retried.",
-                        self.func.__name__)
+                        "%s raised an error and cannot be retried.", self.func.__name__
+                    )
                     raise
         if sleepy_time > self.max_sleep:
             raise MaxRetriesExceededError(

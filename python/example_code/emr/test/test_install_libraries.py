@@ -25,12 +25,8 @@ from botocore.exceptions import ClientError
     ],
 )
 def test_install_libraries_on_core_nodes(
-        make_stubber,
-        stub_runner,
-        monkeypatch,
-        error_code,
-        stop_on_method,
-        status_details):
+    make_stubber, stub_runner, monkeypatch, error_code, stop_on_method, status_details
+):
     emr_client = boto3.client("emr")
     emr_stubber = make_stubber(emr_client)
     ssm_client = boto3.client("ssm")
@@ -49,26 +45,14 @@ def test_install_libraries_on_core_nodes(
     monkeypatch.setattr(time, "sleep", lambda x: None)
 
     with stub_runner(error_code, stop_on_method) as runner:
-        runner.add(
-            emr_stubber.stub_list_instances,
-            cluster_id,
-            ["CORE"],
-            instance_ids)
+        runner.add(emr_stubber.stub_list_instances, cluster_id, ["CORE"], instance_ids)
         for command in commands:
             runner.add(
-                ssm_stubber.stub_send_command,
-                instance_ids,
-                [command],
-                command_id)
-            runner.add(
-                ssm_stubber.stub_list_commands,
-                command_id,
-                status_details)
+                ssm_stubber.stub_send_command, instance_ids, [command], command_id
+            )
+            runner.add(ssm_stubber.stub_list_commands, command_id, status_details)
             if status_details == "InProgress":
-                runner.add(
-                    ssm_stubber.stub_list_commands,
-                    command_id,
-                    "Success")
+                runner.add(ssm_stubber.stub_list_commands, command_id, "Success")
             elif status_details == "Failed":
                 break
 

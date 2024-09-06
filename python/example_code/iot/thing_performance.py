@@ -141,8 +141,8 @@ class PerformanceShadowClient:
         while True:
             performance = self.readPerformance()
             print(f"[{self.thingName}]")
-            print("CPU:\t{}%".format(performance["cpu"]))
-            print("Memory:\t{}%\n".format(performance["memory"]))
+            print(f"CPU:\t{performance['cpu']}%")
+            print(f"Memory:\t{performance['memory']}%\n")
             payload = {"state": {"reported": performance}}
             deviceShadowHandler.shadowUpdate(
                 json.dumps(payload), self.shadowUpdateCallback, 5

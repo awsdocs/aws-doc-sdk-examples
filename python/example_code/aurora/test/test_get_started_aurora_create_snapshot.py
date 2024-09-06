@@ -23,9 +23,7 @@ class MockManager:
                 self.snapshot_id,
                 self.cluster_name,
             )
-            runner.add(
-                stubber.stub_describe_db_cluster_snapshots,
-                self.snapshot_id)
+            runner.add(stubber.stub_describe_db_cluster_snapshots, self.snapshot_id)
 
 
 @pytest.fixture

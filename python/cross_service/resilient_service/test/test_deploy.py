@@ -48,8 +48,7 @@ class MockManager:
                 self.scenario_data.ddb.stubber.stub_describe_table,
                 self.scenario_data.table_name,
             )
-            runner.add(
-                self.scenario_data.ddb.stubber.stub_batch_write_item, ANY)
+            runner.add(self.scenario_data.ddb.stubber.stub_batch_write_item, ANY)
             runner.add(
                 self.scenario_data.iam.stubber.stub_create_policy,
                 f"{self.scenario_data.resource_prefix}-pol",
@@ -189,8 +188,11 @@ def mock_mgr(stub_runner, scenario_data, input_mocker):
 def test_deploy(mock_mgr, caplog, monkeypatch):
     caplog.set_level(logging.INFO)
     monkeypatch.setattr(time, "sleep", lambda x: None)
-    monkeypatch.setattr(requests, "get", lambda x: MagicMock(
-        status_code=404, text=mock_mgr.scenario_data.ip_address), )
+    monkeypatch.setattr(
+        requests,
+        "get",
+        lambda x: MagicMock(status_code=404, text=mock_mgr.scenario_data.ip_address),
+    )
     mock_mgr.setup_stubs(None, None)
 
     mock_mgr.scenario_data.scenario.deploy()
@@ -249,16 +251,13 @@ def test_deploy(mock_mgr, caplog, monkeypatch):
         (AutoScalerError, "stub_authorize_security_group_ingress", 21),
     ],
 )
-def test_deploy_error(
-        mock_mgr,
-        capsys,
-        monkeypatch,
-        error,
-        stub_name,
-        stop_on_index):
+def test_deploy_error(mock_mgr, capsys, monkeypatch, error, stub_name, stop_on_index):
     monkeypatch.setattr(time, "sleep", lambda x: None)
-    monkeypatch.setattr(requests, "get", lambda x: MagicMock(
-        status_code=404, text=mock_mgr.scenario_data.ip_address), )
+    monkeypatch.setattr(
+        requests,
+        "get",
+        lambda x: MagicMock(status_code=404, text=mock_mgr.scenario_data.ip_address),
+    )
     mock_mgr.setup_stubs(error, stop_on_index)
 
     with pytest.raises(error):

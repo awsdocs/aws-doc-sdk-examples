@@ -25,7 +25,7 @@ from botocore.session import Session
 def greengrass_hello_world_run():
     # Create the green grass client so that we can send messages to IoT console
     client = greengrasssdk.client("iot-data")
-    iot_topic = "$aws/things/{}/infer".format(os.environ["AWS_IOT_THING_NAME"])
+    iot_topic = f"$aws/things/{os.environ['AWS_IOT_THING_NAME']}/infer"
 
     # Stream configuration, name and retention
     # Note that the name will appear as deeplens-myStream

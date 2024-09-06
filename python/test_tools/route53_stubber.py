@@ -38,10 +38,8 @@ class Route53Stubber(ExampleStubber):
             "MaxItems": max_items,
         }
         self._stub_bifurcator(
-            "list_hosted_zones",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_hosted_zones", expected_params, response, error_code=error_code
+        )
 
     def stub_list_resource_record_sets(
         self, zone_id, max_items, record_sets, error_code=None
@@ -59,12 +57,8 @@ class Route53Stubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_change_resource_record_sets(
-            self, zone_id, changes, error_code=None):
-        expected_params = {
-            "HostedZoneId": zone_id,
-            "ChangeBatch": {
-                "Changes": changes}}
+    def stub_change_resource_record_sets(self, zone_id, changes, error_code=None):
+        expected_params = {"HostedZoneId": zone_id, "ChangeBatch": {"Changes": changes}}
         response = {
             "ChangeInfo": {
                 "Id": "/change/123456789012",

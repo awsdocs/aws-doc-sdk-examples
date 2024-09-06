@@ -35,11 +35,9 @@ def test_get_photo_list(make_stubber, error_code):
         assert result == 400
 
 
-@pytest.mark.parametrize("error_code",
-                         [None,
-                          "TestException",
-                          "AccessDenied",
-                          "S3UploadFailedError"])
+@pytest.mark.parametrize(
+    "error_code", [None, "TestException", "AccessDenied", "S3UploadFailedError"]
+)
 def test_post_photo(make_stubber, monkeypatch, error_code):
     s3_resource = boto3.resource("s3")
     make_stubber(s3_resource.meta.client)

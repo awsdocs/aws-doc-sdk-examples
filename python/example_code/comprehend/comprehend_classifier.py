@@ -72,15 +72,12 @@ class ComprehendClassifier:
             response = self.comprehend_client.create_document_classifier(
                 DocumentClassifierName=name,
                 LanguageCode=language_code,
-                InputDataConfig={
-                    "S3Uri": f"s3://{training_bucket}/{training_key}"},
+                InputDataConfig={"S3Uri": f"s3://{training_bucket}/{training_key}"},
                 DataAccessRoleArn=data_access_role_arn,
                 Mode=mode.value,
             )
             self.classifier_arn = response["DocumentClassifierArn"]
-            logger.info(
-                "Started classifier creation. Arn is: %s.",
-                self.classifier_arn)
+            logger.info("Started classifier creation. Arn is: %s.", self.classifier_arn)
         except ClientError:
             logger.exception("Couldn't create classifier %s.", name)
             raise
@@ -106,9 +103,7 @@ class ComprehendClassifier:
             classifier = response["DocumentClassifierProperties"]
             logger.info("Got classifier %s.", self.classifier_arn)
         except ClientError:
-            logger.exception(
-                "Couldn't get classifier %s.",
-                self.classifier_arn)
+            logger.exception("Couldn't get classifier %s.", self.classifier_arn)
             raise
         else:
             return classifier
@@ -148,9 +143,7 @@ class ComprehendClassifier:
             logger.info("Deleted classifier %s.", self.classifier_arn)
             self.classifier_arn = None
         except ClientError:
-            logger.exception(
-                "Couldn't deleted classifier %s.",
-                self.classifier_arn)
+            logger.exception("Couldn't deleted classifier %s.", self.classifier_arn)
             raise
 
     # snippet-end:[python.example_code.comprehend.DeleteDocumentClassifier]
@@ -196,14 +189,12 @@ class ComprehendClassifier:
                     "S3Uri": f"s3://{input_bucket}/{input_key}",
                     "InputFormat": input_format.value,
                 },
-                OutputDataConfig={
-                    "S3Uri": f"s3://{output_bucket}/{output_key}"},
+                OutputDataConfig={"S3Uri": f"s3://{output_bucket}/{output_key}"},
                 DataAccessRoleArn=data_access_role_arn,
             )
             logger.info(
-                "Document classification job %s is %s.",
-                job_name,
-                response["JobStatus"])
+                "Document classification job %s is %s.", job_name, response["JobStatus"]
+            )
         except ClientError:
             logger.exception("Couldn't start classification job %s.", job_name)
             raise
@@ -222,7 +213,8 @@ class ComprehendClassifier:
         """
         try:
             response = self.comprehend_client.describe_document_classification_job(
-                JobId=job_id)
+                JobId=job_id
+            )
             job = response["DocumentClassificationJobProperties"]
             logger.info("Got classification job %s.", job["JobName"])
         except ClientError:

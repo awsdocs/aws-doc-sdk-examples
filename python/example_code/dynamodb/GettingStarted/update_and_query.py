@@ -42,13 +42,9 @@ class UpdateQueryWrapper:
         """
         try:
             response = self.table.update_item(
-                Key={
-                    "year": year,
-                    "title": title},
+                Key={"year": year, "title": title},
                 UpdateExpression="set info.rating = info.rating + :val",
-                ExpressionAttributeValues={
-                    ":val": Decimal(
-                        str(rating_change))},
+                ExpressionAttributeValues={":val": Decimal(str(rating_change))},
                 ReturnValues="UPDATED_NEW",
             )
         except ClientError as err:
@@ -187,9 +183,7 @@ def usage_demo(table):
     print("Welcome to the Amazon DynamoDB updates and queries usage demo!")
     print("-" * 88)
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     try:
         table.load()
@@ -198,7 +192,8 @@ def usage_demo(table):
             print(
                 "\nThis demo is intended to be used with an existing table filled with"
                 "\nmovie data. To create one, run scenario_getting_started_movies.py "
-                "\nand keep the table that it creates.")
+                "\nand keep the table that it creates."
+            )
             print("-" * 88)
         raise
 
@@ -208,7 +203,8 @@ def usage_demo(table):
     increase = 3.3
     print(
         f"\nYou can use an arithmetic operation in an expression to update a numeric value."
-        f"\nUpdating the rating of {title} by 3.3.")
+        f"\nUpdating the rating of {title} by 3.3."
+    )
     updated = wrapper.update_rating(title, 2001, increase)
     print(f"\nRating updated: {updated}.")
     print("-" * 88)
@@ -217,7 +213,8 @@ def usage_demo(table):
     print(
         f"\nYou can use a conditional update to remove actors listed for a movie,"
         f"\nbut only if there are more than {actor_count} actors listed."
-        f"\nAttempting to remove an actor from {title}...")
+        f"\nAttempting to remove an actor from {title}..."
+    )
     try:
         wrapper.remove_actors(title, 2001, actor_count)
     except ClientError as err:
@@ -239,14 +236,16 @@ def usage_demo(table):
     rating = 2
     print(
         f"\nSimilarly, you can delete a movie, but only if it meets a certain condition."
-        f"\nAttempting to remove '{title}', but only if it's rated below {rating}...")
+        f"\nAttempting to remove '{title}', but only if it's rated below {rating}..."
+    )
     try:
         wrapper.delete_underrated_movie(title, 2013, rating)
     except ClientError as err:
         if err.response["Error"]["Code"] == "ConditionalCheckFailedException":
             print(
                 f"\nIt looks like {title} is rated higher than {rating}, for some reason."
-                f"\nLet's try again with a rating threshold of 5.")
+                f"\nLet's try again with a rating threshold of 5."
+            )
             rating = 5
             wrapper.delete_underrated_movie(title, 2013, rating)
             print(f"\nThat worked. Removed {title} from the table.")
@@ -257,17 +256,20 @@ def usage_demo(table):
     print(
         "\nYou can combine query conditions, such as to query for movies released in"
         f"\na certain year that start with letters in a range, and you can "
-        f"\nproject the output to return only the fields that you want.")
+        f"\nproject the output to return only the fields that you want."
+    )
     releases = wrapper.query_and_project_movies(release_year, letters)
     if releases:
         print(
             f"\nFound {len(releases)} movies released in {release_year} with titles"
-            f"\nthat start between {letters['first']} and {letters['second']}. They are:")
+            f"\nthat start between {letters['first']} and {letters['second']}. They are:"
+        )
         pprint(releases)
     else:
         print(
             f"I don't know about any movies released in {release_year} with titles "
-            f"between {letters['first']} and {letters['second']}.")
+            f"between {letters['first']} and {letters['second']}."
+        )
     print("-" * 88)
 
     print("Don't forget to delete the table when you're done.")
@@ -277,7 +279,6 @@ def usage_demo(table):
 
 if __name__ == "__main__":
     try:
-        usage_demo(boto3.resource("dynamodb").Table(
-            "doc-example-table-movies"))
+        usage_demo(boto3.resource("dynamodb").Table("doc-example-table-movies"))
     except Exception as e:
         print(f"Something went wrong with the demo! Here's what: {e}")

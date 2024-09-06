@@ -121,8 +121,9 @@ class BedrockRuntimeStubber(ExampleStubber):
             ),
         }
 
-        response_body = io.BytesIO(json.dumps(
-            {"generation": "Fake completion response."}).encode("utf-8"))
+        response_body = io.BytesIO(
+            json.dumps({"generation": "Fake completion response."}).encode("utf-8")
+        )
 
         response = {"body": response_body, "contentType": ""}
 
@@ -150,12 +151,7 @@ class BedrockRuntimeStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_invoke_stable_diffusion(
-            self,
-            prompt,
-            style_preset,
-            seed,
-            error_code=None):
+    def stub_invoke_stable_diffusion(self, prompt, style_preset, seed, error_code=None):
         expected_params = {
             "modelId": "stability.stable-diffusion-xl",
             "body": json.dumps(

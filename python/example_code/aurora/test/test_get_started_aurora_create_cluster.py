@@ -20,11 +20,7 @@ class MockManager:
         ]
         self.admin = "test-admin"
         self.password = "test-password"
-        self.scenario_args = [
-            self.cluster_name,
-            self.engine,
-            self.db_name,
-            self.group]
+        self.scenario_args = [self.cluster_name, self.engine, self.db_name, self.group]
         self.scenario_out = {
             "DBClusterIdentifier": self.cluster_name,
             "Status": "available",
@@ -70,11 +66,9 @@ def mock_mgr(stub_runner, cluster_data, input_mocker):
 
 
 def test_create_cluster_exists(mock_mgr, capsys):
-    mock_mgr.cluster_data.stubber.stub_describe_db_clusters(
-        mock_mgr.cluster_name)
+    mock_mgr.cluster_data.stubber.stub_describe_db_clusters(mock_mgr.cluster_name)
 
-    got_output = mock_mgr.cluster_data.scenario.create_cluster(
-        *mock_mgr.scenario_args)
+    got_output = mock_mgr.cluster_data.scenario.create_cluster(*mock_mgr.scenario_args)
 
     capt = capsys.readouterr()
     assert got_output == mock_mgr.scenario_out
@@ -87,8 +81,7 @@ def test_create_cluster_exists(mock_mgr, capsys):
 def test_create_cluster_not_exist(mock_mgr, capsys):
     mock_mgr.setup_stubs(None, None, mock_mgr.cluster_data.stubber)
 
-    got_output = mock_mgr.cluster_data.scenario.create_cluster(
-        *mock_mgr.scenario_args)
+    got_output = mock_mgr.cluster_data.scenario.create_cluster(*mock_mgr.scenario_args)
 
     capt = capsys.readouterr()
     assert got_output == mock_mgr.scenario_out

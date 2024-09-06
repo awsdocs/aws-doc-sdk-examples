@@ -22,10 +22,7 @@ class MockManager:
             "../../../resources/sample_files/chat_sfn_state_machine.json"
         )
         scenario_data.scenario.state_machine_role = {"Arn": self.sm_role_arn}
-        self.scenario_args = [
-            self.sm_name,
-            self.act_arn,
-            self.state_machine_file]
+        self.scenario_args = [self.sm_name, self.act_arn, self.state_machine_file]
         self.stub_runner = stub_runner
 
     def setup_stubs(self, error, stop_on, stubber):
@@ -66,7 +63,8 @@ def test_find_or_create_state_machine(mock_mgr, capsys, sm_exists):
 
     with patch("builtins.open", mock_open(read_data=mock_mgr.sm_def)) as mock_file:
         got_output = mock_mgr.scenario_data.scenario.find_or_create_state_machine(
-            *mock_mgr.scenario_args)
+            *mock_mgr.scenario_args
+        )
         if not sm_exists:
             mock_file.assert_called_with(mock_mgr.state_machine_file)
 
@@ -85,8 +83,7 @@ def test_find_or_create_state_machine(mock_mgr, capsys, sm_exists):
         ("TESTERROR-stub_describe_state_machine", 2),
     ],
 )
-def test_find_or_create_state_machine_error(
-        mock_mgr, caplog, error, stop_on_index):
+def test_find_or_create_state_machine_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:

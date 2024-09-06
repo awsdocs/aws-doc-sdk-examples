@@ -63,11 +63,7 @@ class LocalDisplay(Thread):
         # thread.
         super().__init__()
         # List of valid resolutions
-        RESOLUTION = {
-            "1080p": (
-                1920, 1080), "720p": (
-                1280, 720), "480p": (
-                858, 480)}
+        RESOLUTION = {"1080p": (1920, 1080), "720p": (1280, 720), "480p": (858, 480)}
         if resolution not in RESOLUTION:
             raise Exception("Invalid resolution")
         self.resolution = RESOLUTION[resolution]
@@ -128,8 +124,7 @@ def infinite_infer_run():
 
         # Create an IoT client for sending to messages to the cloud.
         client = greengrasssdk.client("iot-data")
-        iot_topic = "$aws/things/{}/infer".format(
-            os.environ["AWS_IOT_THING_NAME"])
+        iot_topic = f"$aws/things/{os.environ['AWS_IOT_THING_NAME']}/infer"
 
         # Create a local display instance that will dump the image bytes to a FIFO
         # file that the image can be rendered locally.
@@ -158,9 +153,7 @@ def infinite_infer_run():
             ...
 
     except Exception as ex:
-        client.publish(
-            topic=iot_topic,
-            payload=f"Error in cat-dog lambda: {ex}")
+        client.publish(topic=iot_topic, payload=f"Error in cat-dog lambda: {ex}")
         # snippet-end:[deeplens.python.deeplens_inference_lambda.inference_loop]
 
         # snippet-start:[deeplens.python.deeplens_inference_lambda.inference_step]
@@ -234,11 +227,7 @@ class LocalDisplay(Thread):
         # thread.
         super().__init__()
         # List of valid resolutions
-        RESOLUTION = {
-            "1080p": (
-                1920, 1080), "720p": (
-                1280, 720), "480p": (
-                858, 480)}
+        RESOLUTION = {"1080p": (1920, 1080), "720p": (1280, 720), "480p": (858, 480)}
         if resolution not in RESOLUTION:
             raise Exception("Invalid resolution")
         self.resolution = RESOLUTION[resolution]
@@ -294,8 +283,7 @@ def infinite_infer_run():
         output_map = {0: "dog", 1: "cat"}
         # Create an IoT client for sending to messages to the cloud.
         client = greengrasssdk.client("iot-data")
-        iot_topic = "$aws/things/{}/infer".format(
-            os.environ["AWS_IOT_THING_NAME"])
+        iot_topic = f"$aws/things/{os.environ['AWS_IOT_THING_NAME']}/infer"
         # Create a local display instance that will dump the image bytes to a FIFO
         # file that the image can be rendered locally.
         local_display = LocalDisplay("480p")
@@ -351,9 +339,7 @@ def infinite_infer_run():
                 cloud_output[output_map[obj["label"]]] = obj["prob"]
             client.publish(topic=iot_topic, payload=json.dumps(cloud_output))
     except Exception as ex:
-        client.publish(
-            topic=iot_topic,
-            payload=f"Error in cat-dog lambda: {ex}")
+        client.publish(topic=iot_topic, payload=f"Error in cat-dog lambda: {ex}")
 
 
 infinite_infer_run()

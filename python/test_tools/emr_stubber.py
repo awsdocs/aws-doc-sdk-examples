@@ -92,10 +92,8 @@ class EmrStubber(ExampleStubber):
         expected_params = {"ClusterId": cluster_id}
         response = {"Cluster": cluster}
         self._stub_bifurcator(
-            "describe_cluster",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_cluster", expected_params, response, error_code=error_code
+        )
 
     def stub_terminate_job_flows(self, cluster_ids, error_code=None):
         expected_params = {"JobFlowIds": cluster_ids}
@@ -110,12 +108,7 @@ class EmrStubber(ExampleStubber):
             "list_steps", expected_params, response, error_code=error_code
         )
 
-    def stub_add_job_flow_steps(
-            self,
-            cluster_id,
-            steps,
-            step_ids,
-            error_code=None):
+    def stub_add_job_flow_steps(self, cluster_id, steps, step_ids, error_code=None):
         expected_params = {"JobFlowId": cluster_id, "Steps": []}
         for step in steps:
             if step["type"] == "emrfs":
@@ -152,10 +145,8 @@ class EmrStubber(ExampleStubber):
                 )
         response = {"StepIds": step_ids}
         self._stub_bifurcator(
-            "add_job_flow_steps",
-            expected_params,
-            response,
-            error_code=error_code)
+            "add_job_flow_steps", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_step(self, cluster_id, step, error_code=None):
         expected_params = {"ClusterId": cluster_id, "StepId": step["Id"]}
@@ -164,17 +155,11 @@ class EmrStubber(ExampleStubber):
             "describe_step", expected_params, response, error_code=error_code
         )
 
-    def stub_list_instances(
-            self,
-            cluster_id,
-            types,
-            instance_ids,
-            error_code=None):
-        expected_params = {
-            "ClusterId": cluster_id,
-            "InstanceGroupTypes": types}
-        response = {"Instances": [{"Ec2InstanceId": inst_id}
-                                  for inst_id in instance_ids]}
+    def stub_list_instances(self, cluster_id, types, instance_ids, error_code=None):
+        expected_params = {"ClusterId": cluster_id, "InstanceGroupTypes": types}
+        response = {
+            "Instances": [{"Ec2InstanceId": inst_id} for inst_id in instance_ids]
+        }
         self._stub_bifurcator(
             "list_instances", expected_params, response, error_code=error_code
         )

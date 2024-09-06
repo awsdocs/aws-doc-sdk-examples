@@ -80,9 +80,8 @@ class ExampleStubber(Stubber):
             response = {}
         if error_code is None:
             self.add_response(
-                method,
-                expected_params=expected_params,
-                service_response=response)
+                method, expected_params=expected_params, service_response=response
+            )
         else:
             self.add_client_error(
                 method,

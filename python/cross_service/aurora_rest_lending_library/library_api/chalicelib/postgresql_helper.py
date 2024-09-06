@@ -267,8 +267,7 @@ def update(table_name, set_values, where_clauses):
              RDS Data Service.
     """
     set_clauses = [f"{key}=:set_{key}" for key in set_values.keys()]
-    set_params = _make_params(
-        {f"set_{key}": val for key, val in set_values.items()})
+    set_params = _make_params({f"set_{key}": val for key, val in set_values.items()})
     where_sql, where_params = _make_where_parts(where_clauses)
     sql = f"UPDATE {table_name} SET {', '.join(set_clauses)}{where_sql}"
     return sql, set_params + where_params
@@ -300,7 +299,8 @@ def query(primary_name, tables, where_clauses=None):
                 joins.append(
                     f"INNER JOIN {col.foreign_key.table_name} "
                     f"ON {table.name}.{col.name}="
-                    f"{col.foreign_key.table_name}.{col.foreign_key.column_name}")
+                    f"{col.foreign_key.table_name}.{col.foreign_key.column_name}"
+                )
                 build_query(tables[col.foreign_key.table_name])
 
     build_query(tables[primary_name])
@@ -377,8 +377,7 @@ def delete(table, value_sets):
              the RDS Data Service.
     """
     delete_clause = f"DELETE FROM {table.name}"
-    wheres = [
-        f"{col.name}=:{col.name}" for col in table.cols if col.primary_key]
+    wheres = [f"{col.name}=:{col.name}" for col in table.cols if col.primary_key]
     sql = f"{delete_clause} WHERE {' AND '.join(wheres)}"
     param_sets = [_make_params(values) for values in value_sets]
     return sql, param_sets

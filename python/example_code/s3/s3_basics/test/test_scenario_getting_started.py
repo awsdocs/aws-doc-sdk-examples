@@ -45,13 +45,10 @@ def test_do_scenario(
     monkeypatch.setattr("builtins.input", lambda x: inputs.pop(0))
 
     with stub_runner(error_code, stop_on_method) as runner:
-        runner.add(s3_stubber.stub_create_bucket, ANY,
-                   s3_resource.meta.client.meta.region_name)
         runner.add(
-            s3_stubber.stub_put_object,
-            ANY,
-            upload_key,
-            raise_and_continue=True)
+            s3_stubber.stub_create_bucket, ANY, s3_resource.meta.client.meta.region_name
+        )
+        runner.add(s3_stubber.stub_put_object, ANY, upload_key, raise_and_continue=True)
         if want_to_download == "y":
             runner.add(
                 s3_stubber.stub_head_object,
@@ -83,15 +80,10 @@ def test_do_scenario(
                 copy_key,
                 raise_and_continue=True,
             )
-        runner.add(
-            s3_stubber.stub_list_objects,
-            ANY,
-            keys,
-            raise_and_continue=True)
+        runner.add(s3_stubber.stub_list_objects, ANY, keys, raise_and_continue=True)
         if want_to_delete == "y":
             runner.add(s3_stubber.stub_list_objects, ANY, keys)
             runner.add(s3_stubber.stub_delete_objects, ANY, keys)
-            runner.add(s3_stubber.stub_delete_bucket,
-                       ANY, raise_and_continue=True)
+            runner.add(s3_stubber.stub_delete_bucket, ANY, raise_and_continue=True)
 
     do_scenario(s3_resource)

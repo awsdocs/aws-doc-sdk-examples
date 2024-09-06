@@ -50,8 +50,9 @@ def test_write_data_to_dax_table(make_stubber):
     for partition in range(1, key_count + 1):
         for sort in range(1, key_count + 1):
             dyn_stubber.stub_put_item(
-                TRY_DAX_TABLE, {
-                    "partition_key": partition, "sort_key": sort, "some_data": data}, )
+                TRY_DAX_TABLE,
+                {"partition_key": partition, "sort_key": sort, "some_data": data},
+            )
 
     write_data.write_data_to_dax_table(key_count, item_size, dyn)
 
@@ -67,9 +68,10 @@ def test_getitem_test(make_stubber):
         for partition in range(1, key_count + 1):
             for sort in range(1, key_count + 1):
                 dyn_stubber.stub_get_item(
-                    TRY_DAX_TABLE, {
-                        "partition_key": partition, "sort_key": sort}, {
-                        "partition_key": partition, "sort_key": sort, "some_data": data}, )
+                    TRY_DAX_TABLE,
+                    {"partition_key": partition, "sort_key": sort},
+                    {"partition_key": partition, "sort_key": sort, "some_data": data},
+                )
 
     start, end = getitem_test.get_item_test(key_count, iterations, dyn)
     assert end > start

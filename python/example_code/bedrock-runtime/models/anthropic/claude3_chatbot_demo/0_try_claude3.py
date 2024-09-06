@@ -197,7 +197,8 @@ class BedrockAIConverter:
             accept = "application/json"
             contentType = "application/json"
             response = self.bedrock_runtime_client.invoke_model(
-                body=body, modelId=modelId, accept=accept, contentType=contentType)
+                body=body, modelId=modelId, accept=accept, contentType=contentType
+            )
             response = json.loads(response.get("body").read())
             images = response.get("artifacts")
             image = Image.open(BytesIO(b64decode(images[0].get("base64"))))

@@ -46,9 +46,8 @@ def generate(stream_name, kinesis_client):
         order = get_order(order_id, ticker)
         print(order)
         kinesis_client.put_record(
-            StreamName=stream_name,
-            Data=json.dumps(order),
-            PartitionKey=PARTITION_KEY)
+            StreamName=stream_name, Data=json.dumps(order), PartitionKey=PARTITION_KEY
+        )
         for trade_id in range(1, random.randint(0, 6)):
             trade = get_trade(order_id, trade_id, ticker)
             print(trade)

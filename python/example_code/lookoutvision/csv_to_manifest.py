@@ -54,10 +54,8 @@ def check_errors(csv_file):
                 continue
 
             # Record any incorrect classifications.
-            if not row[1].lower(
-            ) == "normal" and not row[1].lower() == "anomaly":
-                error_writer.writerow(
-                    [line, row[0], row[1], "INVALID_CLASSIFICATION"])
+            if not row[1].lower() == "normal" and not row[1].lower() == "anomaly":
+                error_writer.writerow([line, row[0], row[1], "INVALID_CLASSIFICATION"])
                 errors_found = True
 
             # Write first image entry to dedup file and record duplicates.
@@ -94,8 +92,7 @@ def create_manifest_file(csv_file, manifest_file, s3_path):
     with open(csv_file, newline="", encoding="UTF-8") as csvfile, open(
         manifest_file, "w", encoding="UTF-8"
     ) as output_file:
-        image_classifications = csv.reader(
-            csvfile, delimiter=",", quotechar="|")
+        image_classifications = csv.reader(csvfile, delimiter=",", quotechar="|")
 
         # Process each row (image) in the CSV file.
         for row in image_classifications:
@@ -146,9 +143,7 @@ def add_arguments(parser):
     :param parser: The command line parser.
     """
 
-    parser.add_argument(
-        "csv_file",
-        help="The CSV file that you want to process.")
+    parser.add_argument("csv_file", help="The CSV file that you want to process.")
 
     parser.add_argument(
         "--s3_path",
@@ -159,9 +154,7 @@ def add_arguments(parser):
 
 
 def main():
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     try:
         # Get command line arguments.
@@ -187,8 +180,7 @@ def main():
                 "occurrence of a duplicate.\n"
                 "Update as necessary with the correct information."
             )
-            print(
-                f"Re-run the script with {csv_file_no_extension}_deduplicated.csv")
+            print(f"Re-run the script with {csv_file_no_extension}_deduplicated.csv")
         else:
             print("No duplicates found. Creating manifest file.")
 

@@ -93,8 +93,7 @@ def test_describe_cluster(make_stubber, error_code):
     cluster_id = "test-id"
     cluster = {"Id": cluster_id, "Name": "cluster-name"}
 
-    emr_stubber.stub_describe_cluster(
-        cluster_id, cluster, error_code=error_code)
+    emr_stubber.stub_describe_cluster(cluster_id, cluster, error_code=error_code)
 
     if error_code is None:
         got_cluster = emr_basics.describe_cluster(cluster_id, emr_client)

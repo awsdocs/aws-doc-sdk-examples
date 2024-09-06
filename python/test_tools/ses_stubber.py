@@ -34,10 +34,8 @@ class SesStubber(ExampleStubber):
         expected_params = {"Domain": domain_name}
         response = {"VerificationToken": token}
         self._stub_bifurcator(
-            "verify_domain_identity",
-            expected_params,
-            response,
-            error_code=error_code)
+            "verify_domain_identity", expected_params, response, error_code=error_code
+        )
 
     def stub_verify_email_identity(self, email_address, error_code=None):
         expected_params = {"EmailAddress": email_address}
@@ -62,10 +60,7 @@ class SesStubber(ExampleStubber):
 
     def stub_delete_identity(self, identity, error_code=None):
         expected_params = {"Identity": identity}
-        self._stub_bifurcator(
-            "delete_identity",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("delete_identity", expected_params, error_code=error_code)
 
     def stub_list_identities(
         self, identity_type, max_items, identities, error_code=None
@@ -152,11 +147,7 @@ class SesStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_delete_receipt_rule(
-            self,
-            rule_set_name,
-            rule_name,
-            error_code=None):
+    def stub_delete_receipt_rule(self, rule_set_name, rule_name, error_code=None):
         expected_params = {"RuleSetName": rule_set_name, "RuleName": rule_name}
         self._stub_bifurcator(
             "delete_receipt_rule", expected_params, error_code=error_code
@@ -177,17 +168,11 @@ class SesStubber(ExampleStubber):
                 "HtmlPart": html,
             }
         }
-        self._stub_bifurcator(
-            "create_template",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("create_template", expected_params, error_code=error_code)
 
     def stub_delete_template(self, name, error_code=None):
         expected_params = {"TemplateName": name}
-        self._stub_bifurcator(
-            "delete_template",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("delete_template", expected_params, error_code=error_code)
 
     def stub_get_template(self, name, subject, text, html, error_code=None):
         expected_params = {"TemplateName": name}
@@ -218,10 +203,7 @@ class SesStubber(ExampleStubber):
                 "HtmlPart": html,
             }
         }
-        self._stub_bifurcator(
-            "update_template",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("update_template", expected_params, error_code=error_code)
 
     def stub_send_email(
         self,
@@ -282,19 +264,15 @@ class SesStubber(ExampleStubber):
             expected_params["ReplyToAddresses"] = reply_tos
         response = {"MessageId": message_id}
         self._stub_bifurcator(
-            "send_templated_email",
-            expected_params,
-            response,
-            error_code=error_code)
+            "send_templated_email", expected_params, response, error_code=error_code
+        )
 
     def stub_verify_domain_dkim(self, domain, tokens, error_code=None):
         expected_params = {"Domain": domain}
         response = {"DkimTokens": tokens}
         self._stub_bifurcator(
-            "verify_domain_dkim",
-            expected_params,
-            response,
-            error_code=error_code)
+            "verify_domain_dkim", expected_params, response, error_code=error_code
+        )
 
     def stub_set_identity_notification_topic(
         self, identity, topic, topic_arn, error_code=None
@@ -305,6 +283,5 @@ class SesStubber(ExampleStubber):
             "SnsTopic": topic_arn,
         }
         self._stub_bifurcator(
-            "set_identity_notification_topic",
-            expected_params,
-            error_code=error_code)
+            "set_identity_notification_topic", expected_params, error_code=error_code
+        )

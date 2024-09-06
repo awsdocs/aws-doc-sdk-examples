@@ -65,8 +65,9 @@ def test_check_errors(csv_file, result):
     clean_up(deduplicated_file, errors_file, manifest_file)
 
 
-@pytest.mark.parametrize("csv_file,img_count,anom_count",
-                         [("test/test_csvs/test_s3_supplied.csv", 9, 5)])
+@pytest.mark.parametrize(
+    "csv_file,img_count,anom_count", [("test/test_csvs/test_s3_supplied.csv", 9, 5)]
+)
 def test_create_manifest_s3_supplied(csv_file, img_count, anom_count):
     """
     Checks that a CSV file with images and an Amazon S3 path creates

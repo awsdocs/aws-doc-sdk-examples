@@ -70,7 +70,8 @@ def main():
     destination_number = "+14255550142"
     message = (
         "This is a sample message sent from Amazon Pinpoint by using the AWS SDK for "
-        "Python (Boto 3).")
+        "Python (Boto 3)."
+    )
     message_type = "TRANSACTIONAL"
 
     print("Sending SMS message.")

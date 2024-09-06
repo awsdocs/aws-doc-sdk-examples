@@ -72,11 +72,8 @@ class SnsStubber(ExampleStubber):
         )
 
     def stub_set_subscription_attributes(
-            self,
-            subscription_arn,
-            attribute_name,
-            attribute_value,
-            error_code=None):
+        self, subscription_arn, attribute_name, attribute_value, error_code=None
+    ):
         expected_params = {
             "SubscriptionArn": subscription_arn,
             "AttributeName": attribute_name,
@@ -92,26 +89,18 @@ class SnsStubber(ExampleStubber):
 
     def stub_delete_topic(self, topic_arn, error_code=None):
         expected_params = {"TopicArn": topic_arn}
-        self._stub_bifurcator(
-            "delete_topic",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("delete_topic", expected_params, error_code=error_code)
 
     def stub_list_subscriptions(self, sub_arns, error_code=None):
         expected_params = {}
-        response = {"Subscriptions": [
-            {"SubscriptionArn": arn} for arn in sub_arns]}
+        response = {"Subscriptions": [{"SubscriptionArn": arn} for arn in sub_arns]}
         self._stub_bifurcator(
-            "list_subscriptions",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_subscriptions", expected_params, response, error_code=error_code
+        )
 
-    def stub_list_subscriptions_by_topic(
-            self, topic_arn, sub_arns, error_code=None):
+    def stub_list_subscriptions_by_topic(self, topic_arn, sub_arns, error_code=None):
         expected_params = {"TopicArn": topic_arn}
-        response = {"Subscriptions": [
-            {"SubscriptionArn": arn} for arn in sub_arns]}
+        response = {"Subscriptions": [{"SubscriptionArn": arn} for arn in sub_arns]}
         self._stub_bifurcator(
             "list_subscriptions_by_topic",
             expected_params,
@@ -156,11 +145,9 @@ class SnsStubber(ExampleStubber):
             att_dict = {}
             for key, value in message_attributes.items():
                 if isinstance(value, str):
-                    att_dict[key] = {
-                        "DataType": "String", "StringValue": value}
+                    att_dict[key] = {"DataType": "String", "StringValue": value}
                 elif isinstance(value, bytes):
-                    att_dict[key] = {
-                        "DataType": "Binary", "BinaryValue": value}
+                    att_dict[key] = {"DataType": "Binary", "BinaryValue": value}
             expected_params["MessageAttributes"] = att_dict
         response = {"MessageId": message_id}
         self._stub_bifurcator(

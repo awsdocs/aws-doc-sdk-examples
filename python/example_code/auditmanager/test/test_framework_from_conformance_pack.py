@@ -23,8 +23,7 @@ def test_get_conformance_pack(make_stubber, monkeypatch, in_name, error_code):
 
     monkeypatch.setattr("builtins.input", lambda x: in_name)
 
-    config_stubber.stub_describe_conformance_packs(
-        [cpack_name], error_code=error_code)
+    config_stubber.stub_describe_conformance_packs([cpack_name], error_code=error_code)
 
     if error_code is None:
         if in_name != "garbage":
@@ -50,12 +49,9 @@ def test_create_custom_controls(make_stubber):
     source_ids = ["src-1", "src-2"]
     control_ids = [f'ctl-{"1"*36}', f'ctl-{"2"*36}']
 
-    config_stubber.stub_describe_conformance_pack_compliance(
-        pack_name, rule_names)
-    for rule_name, source_id, control_id in zip(
-            rule_names, source_ids, control_ids):
-        config_stubber.stub_describe_config_rules(
-            [rule_name], source_ids=[source_id])
+    config_stubber.stub_describe_conformance_pack_compliance(pack_name, rule_names)
+    for rule_name, source_id, control_id in zip(rule_names, source_ids, control_ids):
+        config_stubber.stub_describe_config_rules([rule_name], source_ids=[source_id])
         auditmanager_stubber.stub_create_control(
             f"Config-{rule_name}", source_id, control_id
         )
@@ -71,9 +67,7 @@ def test_create_custom_framework(make_stubber, error_code):
     pack = ConformancePack(None, auditmanager_client)
     pack_name = "test-pack_name"
     control_ids = [{"id": f'ctl-{"1"*36}'}, {"id": f'ctl-{"2"*36}'}]
-    framework = {
-        "name": f"Config-Conformance-pack-{pack_name}",
-        "id": f'fw-{"1"*36}'}
+    framework = {"name": f"Config-Conformance-pack-{pack_name}", "id": f'fw-{"1"*36}'}
 
     auditmanager_stubber.stub_create_assessment_framework(
         framework["name"],

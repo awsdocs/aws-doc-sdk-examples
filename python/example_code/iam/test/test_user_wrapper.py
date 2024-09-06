@@ -82,8 +82,7 @@ def test_attach_policy(make_stubber, make_unique_name, error_code):
     user_name = make_unique_name("user-")
     policy_arn = "arn:aws:iam:::test/policy"
 
-    iam_stubber.stub_attach_user_policy(
-        user_name, policy_arn, error_code=error_code)
+    iam_stubber.stub_attach_user_policy(user_name, policy_arn, error_code=error_code)
 
     if error_code is None:
         user_wrapper.attach_policy(user_name, policy_arn)
@@ -99,8 +98,7 @@ def test_detach_policy(make_stubber, make_unique_name, error_code):
     user_name = make_unique_name("user-")
     policy_arn = "arn:aws:iam:::test/policy"
 
-    iam_stubber.stub_detach_user_policy(
-        user_name, policy_arn, error_code=error_code)
+    iam_stubber.stub_detach_user_policy(user_name, policy_arn, error_code=error_code)
 
     if error_code is None:
         user_wrapper.detach_policy(user_name, policy_arn)

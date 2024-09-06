@@ -45,8 +45,7 @@ def test_get_training_issues(monkeypatch, status_code, training):
         assert all(["\r" not in issue["body"] for issue in got_issues])
         assert all(["\n" not in issue["body"] for issue in got_issues])
         if training:
-            assert all([issue["labels"] - labels == set()
-                       for issue in got_issues])
+            assert all([issue["labels"] - labels == set() for issue in got_issues])
         else:
             assert all([issue["labels"]] for issue in got_issues)
     else:
@@ -69,9 +68,7 @@ def test_upload_issue_data(make_stubber, training, error_code):
             assert issue_bytes.read() == b"test1 body1\ntest2 body2"
         assert obj_key == "training/issues.txt" if training else "input/issues.txt"
 
-    demo_resources = MagicMock(
-        bucket=MagicMock(
-            upload_fileobj=verify_issue_bytes))
+    demo_resources = MagicMock(bucket=MagicMock(upload_fileobj=verify_issue_bytes))
     classifier_demo = ClassifierDemo(demo_resources)
     if training:
         issues = [
@@ -107,6 +104,5 @@ def test_reconcile_job_output():
         }
     }
 
-    got_reconciled = ClassifierDemo.reconcile_job_output(
-        input_issues, output_dict)
+    got_reconciled = ClassifierDemo.reconcile_job_output(input_issues, output_dict)
     assert len(got_reconciled) == 3

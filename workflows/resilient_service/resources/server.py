@@ -69,8 +69,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         param_response = self.ssm_client.get_parameters(
             Names=[table, failure_response, health_check]
         )
-        parameters = {p["Name"]: p["Value"]
-                      for p in param_response["Parameters"]}
+        parameters = {p["Name"]: p["Value"] for p in param_response["Parameters"]}
         print(parameters)
 
         if self.path == "/":
@@ -78,10 +77,9 @@ class RequestHandler(BaseHTTPRequestHandler):
                 media_type = random.choice(["Book", "Movie", "Song"])
                 item_id = random.randint(1, 3)
                 response = self.dynamodb_client.get_item(
-                    TableName=parameters[table], Key={
-                        "MediaType": {
-                            "S": media_type}, "ItemId": {
-                            "N": str(item_id)}}, )
+                    TableName=parameters[table],
+                    Key={"MediaType": {"S": media_type}, "ItemId": {"N": str(item_id)}},
+                )
                 payload = response.get("Item", {})
             except ClientError as err:
                 print(f"Recommendation service error: {err}")
@@ -134,10 +132,8 @@ def run():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "port",
-        default=80,
-        type=int,
-        help="The port where the HTTP server listens.")
+        "port", default=80, type=int, help="The port where the HTTP server listens."
+    )
     parser.add_argument(
         "--region",
         default=ec2_metadata.region,

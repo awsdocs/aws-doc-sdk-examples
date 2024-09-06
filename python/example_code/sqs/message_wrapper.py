@@ -167,12 +167,12 @@ def delete_messages(queue, messages):
         response = queue.delete_messages(Entries=entries)
         if "Successful" in response:
             for msg_meta in response["Successful"]:
-                logger.info("Deleted %s",
-                            messages[int(msg_meta["Id"])].receipt_handle)
+                logger.info("Deleted %s", messages[int(msg_meta["Id"])].receipt_handle)
         if "Failed" in response:
             for msg_meta in response["Failed"]:
-                logger.warning("Could not delete %s",
-                               messages[int(msg_meta["Id"])].receipt_handle)
+                logger.warning(
+                    "Could not delete %s", messages[int(msg_meta["Id"])].receipt_handle
+                )
     except ClientError:
         logger.exception("Couldn't delete messages from queue %s", queue)
     else:
@@ -232,8 +232,7 @@ def usage_demo():
         sys.stdout.flush()
     print(f"Done. Sent {len(lines) - 1} messages.")
 
-    print(
-        f"Receiving, handling, and deleting messages in batches of {batch_size}.")
+    print(f"Receiving, handling, and deleting messages in batches of {batch_size}.")
     more_messages = True
     while more_messages:
         received_messages = receive_messages(queue, batch_size, 2)
@@ -248,8 +247,7 @@ def usage_demo():
             more_messages = False
     print("Done.")
 
-    if all([lines[index] == received_lines[index]
-           for index in range(len(lines))]):
+    if all([lines[index] == received_lines[index] for index in range(len(lines))]):
         print("Successfully reassembled all file lines!")
     else:
         print("Uh oh, some lines were missed!")

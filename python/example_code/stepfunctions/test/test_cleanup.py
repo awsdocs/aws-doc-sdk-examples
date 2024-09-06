@@ -32,9 +32,7 @@ class MockManager:
         with self.stub_runner(error, stop_on) as runner:
             runner.add(stubber.stub_delete_state_machine, self.sm_arn)
             runner.add(stubber.stub_delete_activity, self.act_arn)
-            runner.add(
-                self.scenario_data.iam_stubber.stub_delete_role,
-                self.sm_role)
+            runner.add(self.scenario_data.iam_stubber.stub_delete_role, self.sm_role)
 
 
 @pytest.fixture

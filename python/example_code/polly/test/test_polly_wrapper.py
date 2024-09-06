@@ -33,8 +33,9 @@ def test_describe_voices(make_stubber, error_code):
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize("include_visemes,error_code",
-                         [(True, None), (False, None), (True, "TestException")])
+@pytest.mark.parametrize(
+    "include_visemes,error_code", [(True, None), (False, None), (True, "TestException")]
+)
 def test_synthesize(make_stubber, include_visemes, error_code):
     polly_client = boto3.client("polly")
     polly_stubber = make_stubber(polly_client)
@@ -46,18 +47,14 @@ def test_synthesize(make_stubber, include_visemes, error_code):
     audio_stream = "test-stream"
     visemes = [{"value": "i", "time": index} for index in range(3)]
     viseme_stream = io.BytesIO()
-    viseme_stream.write("\n".join(
-        [json.dumps(v, separators=(",", ":")) for v in visemes]).encode())
+    viseme_stream.write(
+        "\n".join([json.dumps(v, separators=(",", ":")) for v in visemes]).encode()
+    )
     viseme_stream.seek(0)
 
     polly_stubber.stub_synthesize_speech(
-        text,
-        engine,
-        voice,
-        "mp3",
-        lang_code,
-        audio_stream,
-        error_code=error_code)
+        text, engine, voice, "mp3", lang_code, audio_stream, error_code=error_code
+    )
     if error_code is None and include_visemes:
         polly_stubber.stub_synthesize_speech(
             text,
@@ -97,12 +94,8 @@ def test_synthesize(make_stubber, include_visemes, error_code):
     ],
 )
 def test_do_synthesis_task(
-        make_stubber,
-        stub_runner,
-        monkeypatch,
-        include_visemes,
-        error_code,
-        stop_on_method):
+    make_stubber, stub_runner, monkeypatch, include_visemes, error_code, stop_on_method
+):
     polly_client = boto3.client("polly")
     s3_resource = boto3.resource("s3")
     polly_stubber = make_stubber(polly_client)
@@ -115,8 +108,9 @@ def test_do_synthesis_task(
     audio_stream = io.BytesIO(b"test-stream")
     speech_task_id = "speech"
     visemes = [{"value": "i", "time": index} for index in range(3)]
-    viseme_stream = io.BytesIO("\n".join(
-        [json.dumps(v, separators=(",", ":")) for v in visemes]).encode())
+    viseme_stream = io.BytesIO(
+        "\n".join([json.dumps(v, separators=(",", ":")) for v in visemes]).encode()
+    )
     viseme_task_id = "viseme"
     bucket = "test-bucket"
     key = "test-key"
@@ -183,7 +177,8 @@ def test_do_synthesis_task(
 
     if error_code is None:
         got_audio_stream, got_visemes = polly_wrapper.do_synthesis_task(
-            text, engine, voice, "mp3", bucket, "en-US", include_visemes, wait_callback)
+            text, engine, voice, "mp3", bucket, "en-US", include_visemes, wait_callback
+        )
         assert got_audio_stream.read() == audio_stream.read()
         if include_visemes:
             assert got_visemes == visemes
@@ -302,15 +297,13 @@ def test_get_voice_engines():
     assert got_engines == {"standard", "neural"}
 
 
-@pytest.mark.parametrize("engine,langs",
-                         [("standard",
-                           {"US English": "en-US",
-                            "Norwegian": "nb-NO",
-                            "Polish": "pl-PL"}),
-                             ("test",
-                              {}),
-                          ],
-                         )
+@pytest.mark.parametrize(
+    "engine,langs",
+    [
+        ("standard", {"US English": "en-US", "Norwegian": "nb-NO", "Polish": "pl-PL"}),
+        ("test", {}),
+    ],
+)
 def test_get_languages(engine, langs):
     polly_wrapper = PollyWrapper(None, None)
     polly_wrapper.voice_metadata = voice_metadata

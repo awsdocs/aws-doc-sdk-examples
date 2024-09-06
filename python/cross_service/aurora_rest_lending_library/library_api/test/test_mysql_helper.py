@@ -167,7 +167,8 @@ def test_query():
         "FROM Test "
         "INNER JOIN OtherTable ON Test.ForeignID=OtherTable.OtherID "
         "WHERE Test.LastName = :Test_LastName "
-        "AND OtherTable.ThirdCol < :OtherTable_ThirdCol")
+        "AND OtherTable.ThirdCol < :OtherTable_ThirdCol"
+    )
     cols = {}
     for table in tables.values():
         for col in table.cols:

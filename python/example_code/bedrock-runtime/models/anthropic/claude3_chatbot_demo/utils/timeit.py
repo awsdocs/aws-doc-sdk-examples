@@ -1,9 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-from utils.custom_logging import setup_custom_logger
 import os
 import sys
 import time
+
+from utils.custom_logging import setup_custom_logger
 
 sys.path.append("..")
 
@@ -17,8 +18,7 @@ def timeit(f):
         result = f(*args, **kwargs)
         end_time = time.time()
         elapsed_time = end_time - start_time
-        logger.error(
-            "Function {f.__name__} executed in {elapsed_time:.5f} seconds.")
+        logger.error("Function {f.__name__} executed in {elapsed_time:.5f} seconds.")
         return result
 
     return wrapper

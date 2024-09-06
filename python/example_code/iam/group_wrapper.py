@@ -41,9 +41,7 @@ def usage_demo():
     print("Welcome to the IAM groups demo!")
     print("-" * 88)
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     print("Listing up to 10 groups for the account.")
     list_groups(10)

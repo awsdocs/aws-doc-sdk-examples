@@ -17,12 +17,14 @@ class MockManager:
             scenario_data.resource.VpcAddress(self.mock_address.allocation_id)
         )
         scenario_data.scenario.inst_wrapper.instance = scenario_data.resource.Instance(
-            self.instance_id)
+            self.instance_id
+        )
         scenario_data.scenario.sg_wrapper.security_group = (
             scenario_data.resource.SecurityGroup(self.sg_id)
         )
         scenario_data.scenario.key_wrapper.key_pair = scenario_data.resource.KeyPair(
-            self.key_name)
+            self.key_name
+        )
         self.scenario_data = scenario_data
         answers = ["y"]
         input_mocker.mock_answers(answers)
@@ -32,11 +34,9 @@ class MockManager:
         with self.stub_runner(error, stop_on) as runner:
             runner.add(stubber.stub_describe_addresses, [self.mock_address])
             runner.add(
-                stubber.stub_disassociate_elastic_ip,
-                self.mock_address.association_id)
-            runner.add(
-                stubber.stub_release_elastic_ip,
-                self.mock_address.allocation_id)
+                stubber.stub_disassociate_elastic_ip, self.mock_address.association_id
+            )
+            runner.add(stubber.stub_release_elastic_ip, self.mock_address.allocation_id)
             runner.add(stubber.stub_terminate_instances, [self.instance_id])
             runner.add(
                 stubber.stub_describe_instances,

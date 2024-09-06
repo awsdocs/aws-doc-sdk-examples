@@ -50,7 +50,8 @@ def test_update(make_stubber, role_arn, error_code):
     definition = {"Comment": "test-definition"}
 
     stepfunctions_stubber.stub_update_state_machine(
-        state_machine.state_machine_arn, definition, role_arn, error_code=error_code)
+        state_machine.state_machine_arn, definition, role_arn, error_code=error_code
+    )
 
     if error_code is None:
         state_machine.update(definition, role_arn)
@@ -175,14 +176,10 @@ def test_start_run(make_stubber, run_input, error_code):
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize("run_status,error_code",
-                         [("test-run_status",
-                           None),
-                          (None,
-                           None),
-                          ("test-run_status",
-                           "TestException")],
-                         )
+@pytest.mark.parametrize(
+    "run_status,error_code",
+    [("test-run_status", None), (None, None), ("test-run_status", "TestException")],
+)
 def test_list_runs(make_stubber, run_status, error_code):
     stepfunctions_client = boto3.client("stepfunctions")
     stepfunctions_stubber = make_stubber(stepfunctions_client)
@@ -194,10 +191,8 @@ def test_list_runs(make_stubber, run_status, error_code):
     ]
 
     stepfunctions_stubber.stub_list_executions(
-        state_machine.state_machine_arn,
-        runs,
-        run_status,
-        error_code=error_code)
+        state_machine.state_machine_arn, runs, run_status, error_code=error_code
+    )
 
     if error_code is None:
         got_runs = state_machine.list_runs(run_status)
@@ -219,8 +214,7 @@ def test_stop_run(make_stubber, error_code):
     run_arn = "test-run_arn"
     cause = "test cause"
 
-    stepfunctions_stubber.stub_stop_execution(
-        run_arn, cause, error_code=error_code)
+    stepfunctions_stubber.stub_stop_execution(run_arn, cause, error_code=error_code)
 
     if error_code is None:
         state_machine.stop_run(run_arn, cause)

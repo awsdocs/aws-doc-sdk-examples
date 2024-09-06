@@ -43,9 +43,7 @@ class PollyWrapper:
         try:
             response = self.polly_client.describe_voices()
             self.voice_metadata = response["Voices"]
-            logger.info(
-                "Got metadata about %s voices.", len(
-                    self.voice_metadata))
+            logger.info("Got metadata about %s voices.", len(self.voice_metadata))
         except ClientError:
             logger.exception("Couldn't get voice metadata.")
             raise
@@ -56,13 +54,8 @@ class PollyWrapper:
 
     # snippet-start:[python.example_code.polly.Synthesize]
     def synthesize(
-            self,
-            text,
-            engine,
-            voice,
-            audio_format,
-            lang_code=None,
-            include_visemes=False):
+        self, text, engine, voice, audio_format, lang_code=None, include_visemes=False
+    ):
         """
         Synthesizes speech or speech marks from text, using the specified voice.
 
@@ -111,13 +104,7 @@ class PollyWrapper:
 
     # snippet-end:[python.example_code.polly.Synthesize]
 
-    def _wait_for_task(
-            self,
-            tries,
-            task_id,
-            task_type,
-            wait_callback,
-            output_bucket):
+    def _wait_for_task(self, tries, task_id, task_type, wait_callback, output_bucket):
         """
         Waits for an asynchronous speech synthesis task to complete. This function
         polls Amazon Polly for data about the specified task until a completion
@@ -209,20 +196,15 @@ class PollyWrapper:
                 kwargs["LanguageCode"] = lang_code
             response = self.polly_client.start_speech_synthesis_task(**kwargs)
             speech_task = response["SynthesisTask"]
-            logger.info(
-                "Started speech synthesis task %s.",
-                speech_task["TaskId"])
+            logger.info("Started speech synthesis task %s.", speech_task["TaskId"])
 
             viseme_task = None
             if include_visemes:
                 kwargs["OutputFormat"] = "json"
                 kwargs["SpeechMarkTypes"] = ["viseme"]
-                response = self.polly_client.start_speech_synthesis_task(
-                    **kwargs)
+                response = self.polly_client.start_speech_synthesis_task(**kwargs)
                 viseme_task = response["SynthesisTask"]
-                logger.info(
-                    "Started viseme synthesis task %s.",
-                    viseme_task["TaskId"])
+                logger.info("Started viseme synthesis task %s.", viseme_task["TaskId"])
         except ClientError:
             logger.exception("Couldn't start synthesis task.")
             raise
@@ -238,7 +220,8 @@ class PollyWrapper:
                     10, viseme_task["TaskId"], "viseme", wait_callback, bucket
                 )
                 visemes = [
-                    json.loads(v) for v in viseme_data.read().decode().split() if v]
+                    json.loads(v) for v in viseme_data.read().decode().split() if v
+                ]
 
             return audio_stream, visemes
 
@@ -253,12 +236,9 @@ class PollyWrapper:
         :return: Metadata about the task.
         """
         try:
-            response = self.polly_client.get_speech_synthesis_task(
-                TaskId=task_id)
+            response = self.polly_client.get_speech_synthesis_task(TaskId=task_id)
             task = response["SynthesisTask"]
-            logger.info(
-                "Got synthesis task. Status is %s.",
-                task["TaskStatus"])
+            logger.info("Got synthesis task. Status is %s.", task["TaskStatus"])
         except ClientError:
             logger.exception("Couldn't get synthesis task %s.", task_id)
             raise

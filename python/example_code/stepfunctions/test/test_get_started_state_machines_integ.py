@@ -21,9 +21,8 @@ def test_run_get_started_state_machines_integ(input_mocker, capsys):
     stepfunctions_client = boto3.client("stepfunctions")
     iam_client = boto3.client("iam")
     scenario = StateMachineScenario(
-        Activity(stepfunctions_client),
-        StateMachine(stepfunctions_client),
-        iam_client)
+        Activity(stepfunctions_client), StateMachine(stepfunctions_client), iam_client
+    )
 
     input_mocker.mock_answers(
         [
@@ -34,9 +33,7 @@ def test_run_get_started_state_machines_integ(input_mocker, capsys):
     )
 
     scenario.prerequisites("doc-example-test-state-machine-chat")
-    scenario.run_scenario(
-        "doc-example-test-activity",
-        "doc-example-test-state-machine")
+    scenario.run_scenario("doc-example-test-activity", "doc-example-test-state-machine")
 
     capt = capsys.readouterr()
     assert "Thanks for watching!" in capt.out

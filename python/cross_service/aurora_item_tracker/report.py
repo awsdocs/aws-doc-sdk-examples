@@ -45,13 +45,7 @@ class Report(MethodView):
         self.email_sender = email_sender
         self.ses_client = ses_client
 
-    def _format_mime_message(
-            self,
-            recipient,
-            text,
-            html,
-            attachment,
-            charset="utf-8"):
+    def _format_mime_message(self, recipient, text, html, attachment, charset="utf-8"):
         """
         Formats the report as a MIME message. When the the email contains an attachment,
         it must be sent in MIME format.
@@ -68,10 +62,7 @@ class Report(MethodView):
         msg_body.attach(htmlpart)
 
         att = MIMEApplication(attachment.encode(charset))
-        att.add_header(
-            "Content-Disposition",
-            "attachment",
-            filename="work_items.csv")
+        att.add_header("Content-Disposition", "attachment", filename="work_items.csv")
         msg.attach(msg_body)
         msg.attach(att)
         return msg
@@ -115,10 +106,7 @@ class Report(MethodView):
         try:
             work_items = self.storage.get_work_items(archived=False)
             snap_time = datetime.now()
-            logger.info(
-                "Sending report of %s items to %s.",
-                len(work_items),
-                email)
+            logger.info("Sending report of %s items to %s.", len(work_items), email)
             html_report = render_template(
                 "report.html",
                 work_items=work_items,

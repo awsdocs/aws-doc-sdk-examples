@@ -115,10 +115,7 @@ def attach_policy(user_name, policy_arn):
         iam.User(user_name).attach_policy(PolicyArn=policy_arn)
         logger.info("Attached policy %s to user %s.", policy_arn, user_name)
     except ClientError:
-        logger.exception(
-            "Couldn't attach policy %s to user %s.",
-            policy_arn,
-            user_name)
+        logger.exception("Couldn't attach policy %s to user %s.", policy_arn, user_name)
         raise
 
 
@@ -155,9 +152,7 @@ def usage_demo():
     The demo then shows how the users can perform only the actions they are permitted
     to perform.
     """
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     print("-" * 88)
     print("Welcome to the AWS Identity and Account Management user demo.")
     print("-" * 88)
@@ -175,16 +170,14 @@ def usage_demo():
     print(f"Created an Amazon S3 bucket named {bucket.name}.")
     user_read_writer = create_user("demo-iam-read-writer")
     user_reader = create_user("demo-iam-reader")
-    print(
-        f"Created two IAM users: {user_read_writer.name} and {user_reader.name}")
+    print(f"Created two IAM users: {user_read_writer.name} and {user_reader.name}")
     update_user(user_read_writer.name, "demo-iam-creator")
     update_user(user_reader.name, "demo-iam-getter")
     users = list_users()
     user_read_writer = next(
         user for user in users if user.user_id == user_read_writer.user_id
     )
-    user_reader = next(
-        user for user in users if user.user_id == user_reader.user_id)
+    user_reader = next(user for user in users if user.user_id == user_reader.user_id)
     print(
         f"Changed the names of the users to {user_read_writer.name} "
         f"and {user_reader.name}."
@@ -206,12 +199,10 @@ def usage_demo():
         "s3:GetObject",
         f"arn:aws:s3:::{bucket.name}/*",
     )
-    print(
-        f"Created policy {read_policy.policy_name} with ARN: {read_policy.arn}")
+    print(f"Created policy {read_policy.policy_name} with ARN: {read_policy.arn}")
     print(read_policy.description)
     attach_policy(user_read_writer.name, read_write_policy.arn)
-    print(
-        f"Attached {read_write_policy.policy_name} to {user_read_writer.name}.")
+    print(f"Attached {read_write_policy.policy_name} to {user_read_writer.name}.")
     attach_policy(user_reader.name, read_policy.arn)
     print(f"Attached {read_policy.policy_name} to {user_reader.name}.")
 
@@ -229,10 +220,9 @@ def usage_demo():
     demo_object = None
     while demo_object is None:
         try:
-            demo_object = s3_read_writer_resource.Bucket(
-                bucket.name).put_object(
-                Key=demo_object_key,
-                Body=b"AWS IAM demo object content!")
+            demo_object = s3_read_writer_resource.Bucket(bucket.name).put_object(
+                Key=demo_object_key, Body=b"AWS IAM demo object content!"
+            )
         except ClientError as error:
             if error.response["Error"]["Code"] == "InvalidAccessKeyId":
                 print("Access key not yet available. Waiting...")
@@ -248,8 +238,7 @@ def usage_demo():
         demo_object_key
     )
     read_writer_content = read_writer_object.get()["Body"].read()
-    print(
-        f"Got object {read_writer_object.key} using read-writer user's credentials.")
+    print(f"Got object {read_writer_object.key} using read-writer user's credentials.")
     print(f"Object content: {read_writer_content}")
 
     s3_reader_resource = boto3.resource(
@@ -260,11 +249,9 @@ def usage_demo():
     demo_content = None
     while demo_content is None:
         try:
-            demo_object = s3_reader_resource.Bucket(
-                bucket.name).Object(demo_object_key)
+            demo_object = s3_reader_resource.Bucket(bucket.name).Object(demo_object_key)
             demo_content = demo_object.get()["Body"].read()
-            print(
-                f"Got object {demo_object.key} using reader user's credentials.")
+            print(f"Got object {demo_object.key} using reader user's credentials.")
             print(f"Object content: {demo_content}")
         except ClientError as error:
             if error.response["Error"]["Code"] == "InvalidAccessKeyId":
@@ -281,19 +268,17 @@ def usage_demo():
             print(
                 "Tried to delete the object using the reader user's credentials. "
                 "Got expected AccessDenied error because the reader is not "
-                "allowed to delete objects.")
+                "allowed to delete objects."
+            )
             print("-" * 88)
 
     access_key_wrapper.delete_key(user_reader.name, user_reader_key.id)
     detach_policy(user_reader.name, read_policy.arn)
     policy_wrapper.delete_policy(read_policy.arn)
     delete_user(user_reader.name)
-    print(
-        f"Deleted keys, detached and deleted policy, and deleted {user_reader.name}.")
+    print(f"Deleted keys, detached and deleted policy, and deleted {user_reader.name}.")
 
-    access_key_wrapper.delete_key(
-        user_read_writer.name,
-        user_read_writer_key.id)
+    access_key_wrapper.delete_key(user_read_writer.name, user_read_writer_key.id)
     detach_policy(user_read_writer.name, read_write_policy.arn)
     policy_wrapper.delete_policy(read_write_policy.arn)
     delete_user(user_read_writer.name)

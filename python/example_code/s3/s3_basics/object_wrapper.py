@@ -46,8 +46,7 @@ class ObjectWrapper:
             try:
                 put_data = open(data, "rb")
             except OSError:
-                logger.exception(
-                    "Expected file name or binary data, got '%s'.", data)
+                logger.exception("Expected file name or binary data, got '%s'.", data)
                 raise
 
         try:
@@ -113,12 +112,10 @@ class ObjectWrapper:
             else:
                 objects = list(bucket.objects.filter(Prefix=prefix))
             logger.info(
-                "Got objects %s from bucket '%s'", [
-                    o.key for o in objects], bucket.name)
+                "Got objects %s from bucket '%s'", [o.key for o in objects], bucket.name
+            )
         except ClientError:
-            logger.exception(
-                "Couldn't get objects for bucket '%s'.",
-                bucket.name)
+            logger.exception("Couldn't get objects for bucket '%s'.", bucket.name)
             raise
         else:
             return objects
@@ -135,9 +132,8 @@ class ObjectWrapper:
         """
         try:
             dest_object.copy_from(
-                CopySource={
-                    "Bucket": self.object.bucket_name,
-                    "Key": self.object.key})
+                CopySource={"Bucket": self.object.bucket_name, "Key": self.object.key}
+            )
             dest_object.wait_until_exists()
             logger.info(
                 "Copied object from %s:%s to %s:%s.",
@@ -214,9 +210,7 @@ class ObjectWrapper:
                     bucket.name,
                 )
         except ClientError:
-            logger.exception(
-                "Couldn't delete any objects from bucket %s.",
-                bucket.name)
+            logger.exception("Couldn't delete any objects from bucket %s.", bucket.name)
             raise
         else:
             return response
@@ -253,14 +247,16 @@ class ObjectWrapper:
             # Putting an ACL overwrites the existing ACL, so append new grants
             # if you want to preserve existing grants.
             grants = acl.grants if acl.grants else []
-            grants.append({"Grantee": {"Type": "AmazonCustomerByEmail",
-                                       "EmailAddress": email}, "Permission": "READ", })
+            grants.append(
+                {
+                    "Grantee": {"Type": "AmazonCustomerByEmail", "EmailAddress": email},
+                    "Permission": "READ",
+                }
+            )
             acl.put(AccessControlPolicy={"Grants": grants, "Owner": acl.owner})
             logger.info("Granted read access to %s.", email)
         except ClientError:
-            logger.exception(
-                "Couldn't add ACL to object '%s'.",
-                self.object.key)
+            logger.exception("Couldn't add ACL to object '%s'.", self.object.key)
             raise
 
     # snippet-end:[python.example_code.s3.PutObjectAcl]
@@ -280,9 +276,7 @@ class ObjectWrapper:
                 acl.owner["DisplayName"],
             )
         except ClientError:
-            logger.exception(
-                "Couldn't get ACL for object %s.",
-                self.object.key)
+            logger.exception("Couldn't get ACL for object %s.", self.object.key)
             raise
         else:
             return acl
@@ -297,9 +291,7 @@ def usage_demo():
     print("Welcome to the Amazon S3 object demo!")
     print("-" * 88)
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     s3_resource = boto3.resource("s3")
     bucket = s3_resource.Bucket(f"doc-example-bucket-{uuid.uuid4()}")
@@ -342,14 +334,12 @@ def usage_demo():
 
     copied_obj = bucket.Object(line_wrappers[0].key + "-copy")
     line_wrappers[0].copy(copied_obj)
-    print(
-        f"Made a copy of object {line_wrappers[0].key}, named {copied_obj.key}.")
+    print(f"Made a copy of object {line_wrappers[0].key}, named {copied_obj.key}.")
 
     try:
         obj_wrapper.put_acl("arnav@example.net")
         acl = obj_wrapper.get_acl()
-        print(
-            f"Put ACL grants on object {obj_wrapper.key}: {json.dumps(acl.grants)}")
+        print(f"Put ACL grants on object {obj_wrapper.key}: {json.dumps(acl.grants)}")
     except ClientError as error:
         if error.response["Error"]["Code"] == "UnresolvableGrantByEmailAddress":
             print("*" * 88)
@@ -357,7 +347,8 @@ def usage_demo():
                 "This demo couldn't apply the ACL to the object because the email\n"
                 "address specified as the grantee is for a test user who does not\n"
                 "exist. For this request to succeed, you must replace the grantee\n"
-                "email with one for an existing AWS user.")
+                "email with one for an existing AWS user."
+            )
             print("*" * 88)
         else:
             raise

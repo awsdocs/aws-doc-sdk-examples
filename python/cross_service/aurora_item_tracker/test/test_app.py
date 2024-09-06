@@ -61,14 +61,7 @@ class MockManager:
             }
         )
 
-    def setup_stubs(
-            self,
-            err,
-            stop_on,
-            sql,
-            sql_params,
-            report=None,
-            **kwargs):
+    def setup_stubs(self, err, stop_on, sql, sql_params, report=None, **kwargs):
         err_msg = "Communications link failure" if err == "BadRequestException" else ""
         with self.stub_runner(err, stop_on) as runner:
             expander = 1 if (report is None or report == "small") else 3
@@ -108,18 +101,22 @@ class MockManager:
             if data is not None:
                 sql = (
                     f"SELECT iditem, description, guide, status, username, archived "
-                    f"FROM {self.table_name} WHERE archived=:archived")
-                sql_params = [{"name": "archived",
-                               "value": {"booleanValue": data == "true"}}]
+                    f"FROM {self.table_name} WHERE archived=:archived"
+                )
+                sql_params = [
+                    {"name": "archived", "value": {"booleanValue": data == "true"}}
+                ]
             else:
                 sql = (
                     f"SELECT iditem, description, guide, status, username, archived "
-                    f"FROM {self.table_name} ")
+                    f"FROM {self.table_name} "
+                )
                 sql_params = None
         elif kind == "INSERT":
             sql = (
                 f"INSERT INTO {self.table_name} (description, guide, status, username) "
-                f" VALUES (:description, :guide, :status, :username)")
+                f" VALUES (:description, :guide, :status, :username)"
+            )
             sql_params = [
                 {"name": "description", "value": {"stringValue": data["description"]}},
                 {"name": "guide", "value": {"stringValue": data["guide"]}},
@@ -190,8 +187,8 @@ def test_get_items_error(mock_mgr, error, stop_on, code, msg):
 def test_post_item(mock_mgr):
     sql, sql_params = mock_mgr.make_query("INSERT", mock_mgr.data_items[0])
     mock_mgr.setup_stubs(
-        None, None, sql, sql_params, generated_fields=[
-            mock_mgr.data_items[0]["iditem"]])
+        None, None, sql, sql_params, generated_fields=[mock_mgr.data_items[0]["iditem"]]
+    )
 
     with mock_mgr.app.test_client() as client:
         rte = "/api/items"
@@ -235,8 +232,7 @@ def test_post_item_error(mock_mgr, error, stop_on, code, msg):
 
 
 def test_archive_item(mock_mgr):
-    sql, sql_params = mock_mgr.make_query(
-        "UPDATE", mock_mgr.data_items[0]["iditem"])
+    sql, sql_params = mock_mgr.make_query("UPDATE", mock_mgr.data_items[0]["iditem"])
     mock_mgr.setup_stubs(None, None, sql, sql_params)
 
     with mock_mgr.app.test_client() as client:
@@ -263,8 +259,7 @@ def test_archive_item(mock_mgr):
     ],
 )
 def test_archive_item_error(mock_mgr, error, stop_on, code, msg):
-    sql, sql_params = mock_mgr.make_query(
-        "UPDATE", mock_mgr.data_items[0]["iditem"])
+    sql, sql_params = mock_mgr.make_query("UPDATE", mock_mgr.data_items[0]["iditem"])
     mock_mgr.setup_stubs(error, stop_on, sql, sql_params)
 
     with mock_mgr.app.test_client() as client:

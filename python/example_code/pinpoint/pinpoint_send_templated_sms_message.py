@@ -43,18 +43,16 @@ def send_templated_sms_message(
         response = pinpoint_client.send_messages(
             ApplicationId=project_id,
             MessageRequest={
-                "Addresses": {
-                    destination_number: {
-                        "ChannelType": "SMS"}},
+                "Addresses": {destination_number: {"ChannelType": "SMS"}},
                 "MessageConfiguration": {
                     "SMSMessage": {
                         "MessageType": message_type,
                         "OriginationNumber": origination_number,
-                    }},
+                    }
+                },
                 "TemplateConfiguration": {
-                    "SMSTemplate": {
-                        "Name": template_name,
-                        "Version": template_version}},
+                    "SMSTemplate": {"Name": template_name, "Version": template_version}
+                },
             },
         )
 

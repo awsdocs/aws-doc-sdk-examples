@@ -162,8 +162,7 @@ def test_detect_syntax(make_stubber, error_code):
         for index in range(5)
     ]
 
-    comprehend_stubber.stub_detect_syntax(
-        text, language, tokens, error_code=error_code)
+    comprehend_stubber.stub_detect_syntax(text, language, tokens, error_code=error_code)
 
     if error_code is None:
         got_tokens = comp_detect.detect_syntax(text, language)

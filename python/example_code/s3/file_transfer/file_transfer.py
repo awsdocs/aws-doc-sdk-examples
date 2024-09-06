@@ -103,11 +103,7 @@ def upload_with_chunksize_and_meta(
     return transfer_callback.thread_info
 
 
-def upload_with_high_threshold(
-        local_file_path,
-        bucket_name,
-        object_key,
-        file_size_mb):
+def upload_with_high_threshold(local_file_path, bucket_name, object_key, file_size_mb):
     """
     Upload a file from a local folder to an Amazon S3 bucket, setting a
     multipart threshold larger than the size of the file.
@@ -137,16 +133,12 @@ def upload_with_sse(
     """
     transfer_callback = TransferCallback(file_size_mb)
     if sse_key:
-        extra_args = {
-            "SSECustomerAlgorithm": "AES256",
-            "SSECustomerKey": sse_key}
+        extra_args = {"SSECustomerAlgorithm": "AES256", "SSECustomerKey": sse_key}
     else:
         extra_args = None
     s3.Bucket(bucket_name).upload_file(
-        local_file_path,
-        object_key,
-        ExtraArgs=extra_args,
-        Callback=transfer_callback)
+        local_file_path, object_key, ExtraArgs=extra_args, Callback=transfer_callback
+    )
     return transfer_callback.thread_info
 
 
@@ -212,9 +204,7 @@ def download_with_sse(
     transfer_callback = TransferCallback(file_size_mb)
 
     if sse_key:
-        extra_args = {
-            "SSECustomerAlgorithm": "AES256",
-            "SSECustomerKey": sse_key}
+        extra_args = {"SSECustomerAlgorithm": "AES256", "SSECustomerKey": sse_key}
     else:
         extra_args = None
     s3.Bucket(bucket_name).Object(object_key).download_file(

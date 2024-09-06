@@ -21,8 +21,7 @@ def test_run_cluster_scenario_integ(input_mocker, capsys):
         AuroraWrapper.from_client()
     )
 
-    input_mocker.mock_answers(
-        [1, "1", "1", "admin", "password", 1, 1, "y", "y"])
+    input_mocker.mock_answers([1, "1", "1", "admin", "password", 1, 1, "y", "y"])
 
     scenario.run_scenario(
         "aurora-mysql",

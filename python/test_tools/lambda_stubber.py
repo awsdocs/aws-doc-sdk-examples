@@ -85,9 +85,7 @@ class LambdaStubber(ExampleStubber):
         log_result=None,
         error_code=None,
     ):
-        expected_params = {
-            "FunctionName": function_name,
-            "Payload": in_payload}
+        expected_params = {"FunctionName": function_name, "Payload": in_payload}
         if log_type is not None:
             expected_params["LogType"] = log_type
         response = {"Payload": out_payload}
@@ -107,26 +105,18 @@ class LambdaStubber(ExampleStubber):
             "Principal": principal,
             "SourceArn": source_arn,
         }
-        self._stub_bifurcator(
-            "add_permission",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("add_permission", expected_params, error_code=error_code)
 
     def stub_update_function_code(
         self, func_name, update_status, package=ANY, error_code=None
     ):
         expected_params = {"FunctionName": func_name, "ZipFile": package}
-        response = {
-            "FunctionName": func_name,
-            "LastUpdateStatus": update_status}
+        response = {"FunctionName": func_name, "LastUpdateStatus": update_status}
         self._stub_bifurcator(
-            "update_function_code",
-            expected_params,
-            response,
-            error_code=error_code)
+            "update_function_code", expected_params, response, error_code=error_code
+        )
 
-    def stub_update_function_configuration(
-            self, func_name, env_vars, error_code=None):
+    def stub_update_function_configuration(self, func_name, env_vars, error_code=None):
         expected_params = {
             "FunctionName": func_name,
             "Environment": {"Variables": env_vars},

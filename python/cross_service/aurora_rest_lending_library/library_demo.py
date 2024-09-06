@@ -45,16 +45,16 @@ def find_api_url(stack_name):
             if output["OutputKey"] == "EndpointURL"
         )
         logging.info(
-            "Found API URL in %s AWS CloudFormation stack: %s",
-            stack_name,
-            api_url)
+            "Found API URL in %s AWS CloudFormation stack: %s", stack_name, api_url
+        )
     except StopIteration:
         logger.warning(
             "Couldn't find the REST URL for your API. Try running the following "
             "at the command prompt:\n"
             "\taws cloudformation describe-stacks --stack-name {stack_name} "
             "--query \"Stacks[0].Outputs[?OutputKey=='EndpointURL'].OutputValue\" "
-            "--output text")
+            "--output text"
+        )
     else:
         return api_url
 
@@ -104,9 +104,8 @@ def create_resources(
     # With Aurora Serverless v2, the cluster might be 'Available' while the
     # writer instance is still 'Creating'. Wait for the instance to be
     # available too.
-    instance_available_waiter = aurora_tools.DBInstanceAvailableWaiter(
-        rds_client)
-    instance_available_waiter.wait("%s-instance" % cluster_name)
+    instance_available_waiter = aurora_tools.DBInstanceAvailableWaiter(rds_client)
+    instance_available_waiter.wait(f"{cluster_name}-instance")
 
     return cluster, secret
 
@@ -158,8 +157,7 @@ def do_populate_database(cluster, db_name, secret):
     storage = Storage(cluster, secret, db_name, rdsdata_client)
     print(f"Creating tables in database {db_name}.")
     storage.bootstrap_tables()
-    print(
-        f"Pulling data from {url_get_spider_books} to populate the demo database.")
+    print(f"Pulling data from {url_get_spider_books} to populate the demo database.")
     author_count, book_count = fill_db_tables(url_get_spider_books, storage)
     print(f"Added {book_count} books and {author_count} authors.")
 
@@ -185,8 +183,7 @@ def do_deploy_rest(stack_name):
             bucket = s3.create_bucket(
                 Bucket=bucket_name,
             )
-        logger.info(
-            f"Creating bucket {bucket.name} to hold deployment package.")
+        logger.info(f"Creating bucket {bucket.name} to hold deployment package.")
         bucket.wait_until_exists()
     except Exception as err:
         logger.exception(
@@ -258,12 +255,10 @@ def do_rest_demo(stack_name):
 
     patron = patrons["patrons"][0]
     book = random.choice(books["books"])
-    print(
-        f"Lending the book '{book['Books.Title']}' to {patron['Patrons.FirstName']}")
+    print(f"Lending the book '{book['Books.Title']}' to {patron['Patrons.FirstName']}")
     response = requests.put(
-        urljoin(
-            lending_url,
-            f"{book['Books.BookID']}/{patron['Patrons.PatronID']}"))
+        urljoin(lending_url, f"{book['Books.BookID']}/{patron['Patrons.PatronID']}")
+    )
     try:
         response = requests.get(lending_url)
         print(f"Response: {response.status_code}")
@@ -275,16 +270,13 @@ def do_rest_demo(stack_name):
         raise
     print(f"Returning '{book['Books.Title']}'.")
     response = requests.delete(
-        urljoin(
-            lending_url,
-            f"{book['Books.BookID']}/{patron['Patrons.PatronID']}"))
+        urljoin(lending_url, f"{book['Books.BookID']}/{patron['Patrons.PatronID']}")
+    )
     logger.info(f"Response: {response.status_code}")
 
 
 def main():
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -302,10 +294,7 @@ def main():
         print("Next, run 'python library_demo.py deploy_rest' to deploy the REST API.")
     elif args.action == "populate_database":
         print("Populating serverless database cluster with data.")
-        do_populate_database(
-            config["cluster"],
-            config["db_name"],
-            config["secret"])
+        do_populate_database(config["cluster"], config["db_name"], config["secret"])
         print("Next, run 'python library_demo.py deploy_rest' to deploy the REST API.")
     elif args.action == "deploy_rest":
         print("Deploying the REST API components.")
@@ -325,7 +314,8 @@ def main():
         else:
             print(
                 "Next, give it a try yourself or run 'python library_demo.py cleanup' "
-                "to delete all demo resources.")
+                "to delete all demo resources."
+            )
     print("-" * 88)
 
 

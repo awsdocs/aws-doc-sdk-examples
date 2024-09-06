@@ -27,10 +27,7 @@ def test_setup(make_stubber, monkeypatch, unique_names):
     )
     mock_code = "123456"
 
-    monkeypatch.setattr(
-        assume_role_mfa,
-        "unique_name",
-        lambda x: unique_names[x])
+    monkeypatch.setattr(assume_role_mfa, "unique_name", lambda x: unique_names[x])
     monkeypatch.setattr(assume_role_mfa, "progress_bar", lambda x: None)
     monkeypatch.setattr(webbrowser, "open", lambda x: None)
     monkeypatch.setattr("builtins.input", lambda x: mock_code)
@@ -47,9 +44,7 @@ def test_setup(make_stubber, monkeypatch, unique_names):
     iam_stubber.stub_attach_role_policy(unique_names["role"], policy_arn)
     iam_stubber.stub_get_policy(policy_arn)
     iam_stubber.stub_get_role(unique_names["role"], role_arn)
-    iam_stubber.stub_put_user_policy(
-        unique_names["user"],
-        unique_names["user-policy"])
+    iam_stubber.stub_put_user_policy(unique_names["user"], unique_names["user-policy"])
 
     user, user_key, v_mfa, role = assume_role_mfa.setup(iam_resource)
     assert user is not None
@@ -69,15 +64,12 @@ def test_try_to_assume_role_without_mfa(make_stubber, error_code):
 
     if error_code is None:
         with pytest.raises(RuntimeError):
-            assume_role_mfa.try_to_assume_role_without_mfa(
-                role_arn, session_name, sts)
+            assume_role_mfa.try_to_assume_role_without_mfa(role_arn, session_name, sts)
     elif error_code == "AccessDenied":
-        assume_role_mfa.try_to_assume_role_without_mfa(
-            role_arn, session_name, sts)
+        assume_role_mfa.try_to_assume_role_without_mfa(role_arn, session_name, sts)
     elif error_code == "TestException":
         with pytest.raises(ClientError):
-            assume_role_mfa.try_to_assume_role_without_mfa(
-                role_arn, session_name, sts)
+            assume_role_mfa.try_to_assume_role_without_mfa(role_arn, session_name, sts)
 
 
 def test_list_buckets_from_assumed_role_with_mfa(make_stubber, monkeypatch):
@@ -96,17 +88,12 @@ def test_list_buckets_from_assumed_role_with_mfa(make_stubber, monkeypatch):
     monkeypatch.setattr(
         boto3,
         "resource",
-        lambda x,
-        aws_access_key_id,
-        aws_secret_access_key,
-        aws_session_token: s3,
+        lambda x, aws_access_key_id, aws_secret_access_key, aws_session_token: s3,
     )
 
     sts_stubber.stub_assume_role(
-        role_arn,
-        session_name,
-        mfa_serial_number=mfa_serial_number,
-        mfa_totp=mfa_totp)
+        role_arn, session_name, mfa_serial_number=mfa_serial_number, mfa_totp=mfa_totp
+    )
     s3_stubber.stub_list_buckets(buckets)
 
     assume_role_mfa.list_buckets_from_assumed_role_with_mfa(
@@ -152,7 +139,5 @@ def test_teardown(make_stubber):
     iam_stubber.stub_delete_user(user_name)
 
     assume_role_mfa.teardown(
-        iam.User(user_name),
-        iam.VirtualMfaDevice(
-            mfa_serials[0]),
-        iam.Role(role_name))
+        iam.User(user_name), iam.VirtualMfaDevice(mfa_serials[0]), iam.Role(role_name)
+    )

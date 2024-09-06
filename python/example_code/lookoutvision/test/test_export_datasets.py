@@ -28,11 +28,7 @@ from export_datasets import (
         ("TestPutException", "stub_put_object"),
     ],
 )
-def test_export_datasets(
-        make_stubber,
-        stub_runner,
-        error_code,
-        stop_on_method):
+def test_export_datasets(make_stubber, stub_runner, error_code, stop_on_method):
     lookoutvision_client = boto3.client("lookoutvision")
     lookoutvision_stubber = make_stubber(lookoutvision_client)
     project_name = "test-project"
@@ -58,10 +54,7 @@ def test_export_datasets(
         json_lines = json_file.read()
 
     with stub_runner(error_code, stop_on_method) as runner:
-        runner.add(
-            lookoutvision_stubber.stub_describe_project,
-            project_name,
-            [dataset])
+        runner.add(lookoutvision_stubber.stub_describe_project, project_name, [dataset])
         runner.add(
             lookoutvision_stubber.stub_list_dataset_entries,
             project_name,
@@ -79,29 +72,19 @@ def test_export_datasets(
             runner.add(s3_stubber.stub_head_object, dest_bucket_name, dest_key)
         runner.add(s3_stubber.stub_put_object, dest_bucket_name, manifest_key)
         if error_code is None:
-            runner.add(
-                s3_stubber.stub_head_object,
-                dest_bucket_name,
-                manifest_key)
+            runner.add(s3_stubber.stub_head_object, dest_bucket_name, manifest_key)
 
     if error_code is None:
-        export_datasets(
-            lookoutvision_client,
-            s3_resource,
-            project_name,
-            s3_path)
+        export_datasets(lookoutvision_client, s3_resource, project_name, s3_path)
     else:
         with pytest.raises(ClientError) as exc_info:
-            export_datasets(
-                lookoutvision_client,
-                s3_resource,
-                project_name,
-                s3_path)
+            export_datasets(lookoutvision_client, s3_resource, project_name, s3_path)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize("error_code,stop_on_method",
-                         [(None, None), ("TestException", "stub_copy_object")])
+@pytest.mark.parametrize(
+    "error_code,stop_on_method", [(None, None), ("TestException", "stub_copy_object")]
+)
 def test_copy_file(make_stubber, stub_runner, error_code, stop_on_method):
     s3_resource = boto3.resource("s3")
     s3_stubber = make_stubber(s3_resource.meta.client)
@@ -131,13 +114,10 @@ def test_copy_file(make_stubber, stub_runner, error_code, stop_on_method):
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize("error_code,stop_on_method",
-                         [(None, None), ("TestException", "stub_put_object")])
-def test_upload_manifest_file(
-        make_stubber,
-        stub_runner,
-        error_code,
-        stop_on_method):
+@pytest.mark.parametrize(
+    "error_code,stop_on_method", [(None, None), ("TestException", "stub_put_object")]
+)
+def test_upload_manifest_file(make_stubber, stub_runner, error_code, stop_on_method):
     s3_resource = boto3.resource("s3")
     s3_stubber = make_stubber(s3_resource.meta.client)
 
@@ -171,11 +151,7 @@ def test_upload_manifest_file(
     "error_code,stop_on_method",
     [(None, None), ("TestException", "stub_describe_project")],
 )
-def test_get_dataset_types(
-        make_stubber,
-        stub_runner,
-        error_code,
-        stop_on_method):
+def test_get_dataset_types(make_stubber, stub_runner, error_code, stop_on_method):
     lookoutvision_client = boto3.client("lookoutvision")
     lookoutvision_stubber = make_stubber(lookoutvision_client)
     project_name = "test-project"
@@ -187,10 +163,7 @@ def test_get_dataset_types(
     }
 
     with stub_runner(error_code, stop_on_method) as runner:
-        runner.add(
-            lookoutvision_stubber.stub_describe_project,
-            project_name,
-            [dataset])
+        runner.add(lookoutvision_stubber.stub_describe_project, project_name, [dataset])
 
     if error_code is None:
         get_dataset_types(lookoutvision_client, project_name)
@@ -200,13 +173,10 @@ def test_get_dataset_types(
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize("error_code,stop_on_method",
-                         [(None, None), ("TestException", "stub_copy_object")])
-def test_process_json_line(
-        make_stubber,
-        stub_runner,
-        error_code,
-        stop_on_method):
+@pytest.mark.parametrize(
+    "error_code,stop_on_method", [(None, None), ("TestException", "stub_copy_object")]
+)
+def test_process_json_line(make_stubber, stub_runner, error_code, stop_on_method):
     s3_resource = boto3.resource("s3")
     s3_stubber = make_stubber(s3_resource.meta.client)
 
@@ -237,11 +207,7 @@ def test_process_json_line(
         process_json_line(s3_resource, json_line, "train", destination_folder)
     else:
         with pytest.raises(ClientError) as exc_info:
-            process_json_line(
-                s3_resource,
-                json_line,
-                "train",
-                destination_folder)
+            process_json_line(s3_resource, json_line, "train", destination_folder)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -254,11 +220,7 @@ def test_process_json_line(
         ("TestPutException", "stub_put_object"),
     ],
 )
-def test_write_manifest_file(
-        make_stubber,
-        stub_runner,
-        error_code,
-        stop_on_method):
+def test_write_manifest_file(make_stubber, stub_runner, error_code, stop_on_method):
     lookoutvision_client = boto3.client("lookoutvision")
     lookoutvision_stubber = make_stubber(lookoutvision_client)
     project_name = "test-project"
@@ -295,10 +257,7 @@ def test_write_manifest_file(
             runner.add(s3_stubber.stub_head_object, dest_bucket_name, dest_key)
         runner.add(s3_stubber.stub_put_object, dest_bucket_name, manifest_key)
         if error_code is None:
-            runner.add(
-                s3_stubber.stub_head_object,
-                dest_bucket_name,
-                manifest_key)
+            runner.add(s3_stubber.stub_head_object, dest_bucket_name, manifest_key)
 
     if error_code is None:
         write_manifest_file(
@@ -307,9 +266,6 @@ def test_write_manifest_file(
     else:
         with pytest.raises(ClientError) as exc_info:
             write_manifest_file(
-                lookoutvision_client,
-                s3_resource,
-                project_name,
-                "train",
-                s3_path)
+                lookoutvision_client, s3_resource, project_name, "train", s3_path
+            )
         assert exc_info.value.response["Error"]["Code"] == error_code

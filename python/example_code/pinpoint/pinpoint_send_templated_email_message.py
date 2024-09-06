@@ -18,12 +18,8 @@ logger = logging.getLogger(__name__)
 
 
 def send_templated_email_message(
-        pinpoint_client,
-        project_id,
-        sender,
-        to_addresses,
-        template_name,
-        template_version):
+    pinpoint_client, project_id, sender, to_addresses, template_name, template_version
+):
     """
     Sends an email message with HTML and plain text versions.
 

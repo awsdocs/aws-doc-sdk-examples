@@ -119,11 +119,7 @@ class CustomWaiter:
                 status = status.get(key[:-2])[0]
             else:
                 status = status.get(key)
-        logger.info(
-            "Waiter %s called %s, got %s.",
-            self.name,
-            self.operation,
-            status)
+        logger.info("Waiter %s called %s, got %s.", self.name, self.operation, status)
 
     def _wait(self, **kwargs):
         """

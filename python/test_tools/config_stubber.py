@@ -34,11 +34,7 @@ class ConfigStubber(ExampleStubber):
             "put_config_rule", expected_params, response, error_code=error_code
         )
 
-    def stub_describe_config_rules(
-            self,
-            rule_names,
-            source_ids=None,
-            error_code=None):
+    def stub_describe_config_rules(self, rule_names, source_ids=None, error_code=None):
         expected_params = {"ConfigRuleNames": rule_names}
         response = {
             "ConfigRules": [
@@ -53,19 +49,15 @@ class ConfigStubber(ExampleStubber):
             for rule, source_id in zip(response["ConfigRules"], source_ids):
                 rule["Source"]["SourceIdentifier"] = source_id
         self._stub_bifurcator(
-            "describe_config_rules",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_config_rules", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_config_rule(self, rule_name, error_code=None):
         expected_params = {"ConfigRuleName": rule_name}
         response = {}
         self._stub_bifurcator(
-            "delete_config_rule",
-            expected_params,
-            response,
-            error_code=error_code)
+            "delete_config_rule", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_conformance_packs(self, packs, error_code=None):
         expected_params = {}

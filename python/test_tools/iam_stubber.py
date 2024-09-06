@@ -17,8 +17,7 @@ from test_tools.example_stubber import ExampleStubber
 
 
 def random_string(length):
-    return "".join([random.choice(string.ascii_lowercase)
-                   for _ in range(length)])
+    return "".join([random.choice(string.ascii_lowercase) for _ in range(length)])
 
 
 class IamStubber(ExampleStubber):
@@ -103,9 +102,8 @@ class IamStubber(ExampleStubber):
     def stub_generate_credential_report(self, state, error_code=None):
         response = {"State": state, "Description": "It's only a test."}
         self._stub_bifurcator(
-            "generate_credential_report",
-            response=response,
-            error_code=error_code)
+            "generate_credential_report", response=response, error_code=error_code
+        )
 
     def stub_get_credential_report(self, report, error_code=None):
         response = {
@@ -131,12 +129,7 @@ class IamStubber(ExampleStubber):
             "create_role", expected_params, response, error_code=error_code
         )
 
-    def stub_get_role(
-            self,
-            role_name,
-            role_arn=None,
-            status_code=200,
-            error_code=None):
+    def stub_get_role(self, role_name, role_arn=None, status_code=200, error_code=None):
         expected_params = {"RoleName": role_name}
         response = {"ResponseMetadata": {"HTTPStatusCode": status_code}}
         self._add_role(response, role_name, role_arn)
@@ -159,9 +152,7 @@ class IamStubber(ExampleStubber):
         description=None,
         error_code=None,
     ):
-        expected_params = {
-            "PolicyName": policy_name,
-            "PolicyDocument": policy_document}
+        expected_params = {"PolicyName": policy_name, "PolicyDocument": policy_document}
         if description is not None:
             expected_params["Description"] = description
         response = {"Policy": {"PolicyName": policy_name, "Arn": policy_arn}}
@@ -170,11 +161,8 @@ class IamStubber(ExampleStubber):
         )
 
     def stub_get_policy(
-            self,
-            policy_arn,
-            default_version_id=None,
-            status_code=200,
-            error_code=None):
+        self, policy_arn, default_version_id=None, status_code=200, error_code=None
+    ):
         expected_params = {"PolicyArn": policy_arn}
         response = {
             "ResponseMetadata": {"HTTPStatusCode": status_code},
@@ -225,32 +213,21 @@ class IamStubber(ExampleStubber):
             }
         }
         self._stub_bifurcator(
-            "create_policy_version",
-            expected_params,
-            response,
-            error_code=error_code)
+            "create_policy_version", expected_params, response, error_code=error_code
+        )
 
     def stub_get_policy_version(
         self, policy_arn, policy_version_id, policy_doc, error_code=None
     ):
-        expected_params = {
-            "PolicyArn": policy_arn,
-            "VersionId": policy_version_id}
+        expected_params = {"PolicyArn": policy_arn, "VersionId": policy_version_id}
         response = {
-            "PolicyVersion": {
-                "Document": policy_doc,
-                "VersionId": policy_version_id}}
+            "PolicyVersion": {"Document": policy_doc, "VersionId": policy_version_id}
+        }
         self._stub_bifurcator(
-            "get_policy_version",
-            expected_params,
-            response,
-            error_code=error_code)
+            "get_policy_version", expected_params, response, error_code=error_code
+        )
 
-    def stub_list_policy_versions(
-            self,
-            policy_arn,
-            policy_versions,
-            error_code=None):
+    def stub_list_policy_versions(self, policy_arn, policy_versions, error_code=None):
         expected_params = {"PolicyArn": policy_arn}
         response = {
             "Versions": [
@@ -264,30 +241,19 @@ class IamStubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "list_policy_versions",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_policy_versions", expected_params, response, error_code=error_code
+        )
 
     def stub_set_default_policy_version(
         self, policy_arn, policy_version, error_code=None
     ):
-        expected_params = {
-            "PolicyArn": policy_arn,
-            "VersionId": policy_version}
+        expected_params = {"PolicyArn": policy_arn, "VersionId": policy_version}
         self._stub_bifurcator(
-            "set_default_policy_version",
-            expected_params,
-            error_code=error_code)
+            "set_default_policy_version", expected_params, error_code=error_code
+        )
 
-    def stub_delete_policy_version(
-            self,
-            policy_arn,
-            policy_version,
-            error_code=None):
-        expected_params = {
-            "PolicyArn": policy_arn,
-            "VersionId": policy_version}
+    def stub_delete_policy_version(self, policy_arn, policy_version, error_code=None):
+        expected_params = {"PolicyArn": policy_arn, "VersionId": policy_version}
         self._stub_bifurcator(
             "delete_policy_version", expected_params, error_code=error_code
         )
@@ -314,18 +280,12 @@ class IamStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_list_role_policies(
-            self,
-            role_name,
-            policies=None,
-            error_code=None):
+    def stub_list_role_policies(self, role_name, policies=None, error_code=None):
         expected_params = {"RoleName": role_name}
         response = {"PolicyNames": policies}
         self._stub_bifurcator(
-            "list_role_policies",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_role_policies", expected_params, response, error_code=error_code
+        )
 
     def stub_detach_role_policy(self, role_name, policy_arn, error_code=None):
         self._stub_bifurcator(
@@ -346,10 +306,8 @@ class IamStubber(ExampleStubber):
             }
         }
         self._stub_bifurcator(
-            "create_access_key",
-            expected_params,
-            response,
-            error_code=error_code)
+            "create_access_key", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_access_key(self, user_name, key_id, error_code=None):
         expected_params = {"UserName": user_name, "AccessKeyId": key_id}
@@ -357,8 +315,7 @@ class IamStubber(ExampleStubber):
             "delete_access_key", expected_params, error_code=error_code
         )
 
-    def stub_get_access_key_last_used(
-            self, key_id, user_name, error_code=None):
+    def stub_get_access_key_last_used(self, key_id, user_name, error_code=None):
         expected_params = {"AccessKeyId": key_id}
         response = {
             "UserName": user_name,
@@ -369,10 +326,8 @@ class IamStubber(ExampleStubber):
             },
         }
         self._stub_bifurcator(
-            "get_access_key_last_used",
-            expected_params,
-            response,
-            error_code=error_code)
+            "get_access_key_last_used", expected_params, response, error_code=error_code
+        )
 
     def stub_list_access_keys(self, user_name, key_ids, error_code=None):
         expected_params = {"UserName": user_name}
@@ -388,17 +343,10 @@ class IamStubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "list_access_keys",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_access_keys", expected_params, response, error_code=error_code
+        )
 
-    def stub_update_access_key(
-            self,
-            user_name,
-            key_id,
-            activate,
-            error_code=None):
+    def stub_update_access_key(self, user_name, key_id, activate, error_code=None):
         expected_params = {
             "UserName": user_name,
             "AccessKeyId": key_id,
@@ -424,8 +372,7 @@ class IamStubber(ExampleStubber):
         )
 
     def stub_get_user(self, user_name, user_arn, error_code=None):
-        expected_params = {
-            "UserName": user_name} if user_name is not None else {}
+        expected_params = {"UserName": user_name} if user_name is not None else {}
         response = {
             "User": {
                 "UserName": user_name if user_name is not None else "test-user",
@@ -433,17 +380,15 @@ class IamStubber(ExampleStubber):
                 "Arn": user_arn,
                 "Path": "/",
                 "CreateDate": datetime.datetime.now(),
-            }}
+            }
+        }
         self._stub_bifurcator(
             "get_user", expected_params, response, error_code=error_code
         )
 
     def stub_delete_user(self, user_name, error_code=None):
         expected_params = {"UserName": user_name}
-        self._stub_bifurcator(
-            "delete_user",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("delete_user", expected_params, error_code=error_code)
 
     def stub_list_users(self, user_count, error_code=None):
         response = {
@@ -459,10 +404,7 @@ class IamStubber(ExampleStubber):
                 for index in range(1, user_count + 1)
             ]
         }
-        self._stub_bifurcator(
-            "list_users",
-            response=response,
-            error_code=error_code)
+        self._stub_bifurcator("list_users", response=response, error_code=error_code)
 
     def stub_put_user_policy(
         self, user_name, policy_name, policy_doc=ANY, error_code=None
@@ -472,23 +414,14 @@ class IamStubber(ExampleStubber):
             "PolicyName": policy_name,
             "PolicyDocument": policy_doc,
         }
-        self._stub_bifurcator(
-            "put_user_policy",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("put_user_policy", expected_params, error_code=error_code)
 
-    def stub_list_user_policies(
-            self,
-            user_name,
-            policy_names,
-            error_code=None):
+    def stub_list_user_policies(self, user_name, policy_names, error_code=None):
         expected_params = {"UserName": user_name}
         response = {"PolicyNames": policy_names}
         self._stub_bifurcator(
-            "list_user_policies",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_user_policies", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_user_policy(self, user_name, policy_name, error_code=None):
         expected_params = {"UserName": user_name, "PolicyName": policy_name}
@@ -498,10 +431,7 @@ class IamStubber(ExampleStubber):
 
     def stub_update_user(self, current_name, new_name, error_code=None):
         expected_params = {"UserName": current_name, "NewUserName": new_name}
-        self._stub_bifurcator(
-            "update_user",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("update_user", expected_params, error_code=error_code)
 
     def stub_attach_user_policy(self, user_name, policy_arn, error_code=None):
         expected_params = {"UserName": user_name, "PolicyArn": policy_arn}
@@ -549,11 +479,7 @@ class IamStubber(ExampleStubber):
             "enable_mfa_device", expected_params, error_code=error_code
         )
 
-    def stub_list_mfa_devices(
-            self,
-            user_name,
-            serial_numbers,
-            error_code=None):
+    def stub_list_mfa_devices(self, user_name, serial_numbers, error_code=None):
         expected_params = {"UserName": user_name}
         response = {
             "MFADevices": [
@@ -566,19 +492,11 @@ class IamStubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "list_mfa_devices",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_mfa_devices", expected_params, response, error_code=error_code
+        )
 
-    def stub_deactivate_mfa_device(
-            self,
-            user_name,
-            serial_number,
-            error_code=None):
-        expected_params = {
-            "UserName": user_name,
-            "SerialNumber": serial_number}
+    def stub_deactivate_mfa_device(self, user_name, serial_number, error_code=None):
+        expected_params = {"UserName": user_name, "SerialNumber": serial_number}
         self._stub_bifurcator(
             "deactivate_mfa_device", expected_params, error_code=error_code
         )
@@ -600,16 +518,10 @@ class IamStubber(ExampleStubber):
             }
         }
         self._stub_bifurcator(
-            "create_instance_profile",
-            expected_params,
-            response,
-            error_code=error_code)
+            "create_instance_profile", expected_params, response, error_code=error_code
+        )
 
-    def stub_get_instance_profile(
-            self,
-            profile_name,
-            profile_arn,
-            error_code=None):
+    def stub_get_instance_profile(self, profile_name, profile_arn, error_code=None):
         expected_params = {"InstanceProfileName": profile_name}
         response = {
             "InstanceProfile": {
@@ -623,21 +535,16 @@ class IamStubber(ExampleStubber):
             "ResponseMetadata": {"HTTPStatusCode": 200},
         }
         self._stub_bifurcator(
-            "get_instance_profile",
-            expected_params,
-            response,
-            error_code=error_code)
+            "get_instance_profile", expected_params, response, error_code=error_code
+        )
 
     def stub_add_role_to_instance_profile(
         self, profile_name, role_name, error_code=None
     ):
-        expected_params = {
-            "InstanceProfileName": profile_name,
-            "RoleName": role_name}
+        expected_params = {"InstanceProfileName": profile_name, "RoleName": role_name}
         self._stub_bifurcator(
-            "add_role_to_instance_profile",
-            expected_params,
-            error_code=error_code)
+            "add_role_to_instance_profile", expected_params, error_code=error_code
+        )
 
     def stub_list_instance_profiles_for_role(
         self, role_name, profiles, error_code=None
@@ -666,13 +573,10 @@ class IamStubber(ExampleStubber):
     def stub_remove_role_from_instance_profile(
         self, profile_name, role_name, error_code=None
     ):
-        expected_params = {
-            "InstanceProfileName": profile_name,
-            "RoleName": role_name}
+        expected_params = {"InstanceProfileName": profile_name, "RoleName": role_name}
         self._stub_bifurcator(
-            "remove_role_from_instance_profile",
-            expected_params,
-            error_code=error_code)
+            "remove_role_from_instance_profile", expected_params, error_code=error_code
+        )
 
     def stub_delete_instance_profile(self, profile_name, error_code=None):
         expected_params = {"InstanceProfileName": profile_name}
@@ -730,7 +634,5 @@ class IamStubber(ExampleStubber):
         expected_params = {}
         response = {"SAMLProviderList": [{"Arn": p} for p in providers]}
         self._stub_bifurcator(
-            "list_saml_providers",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_saml_providers", expected_params, response, error_code=error_code
+        )

@@ -19,8 +19,7 @@ def test_send_email(make_stubber, error_code):
     ses_stubber = make_stubber(ses_client)
     ses_mail_sender = SesMailSender(ses_client)
     source = "test@example.com"
-    destination = SesDestination(
-        ["test-dest-1@example.com", "test-dest-2@example.com"])
+    destination = SesDestination(["test-dest-1@example.com", "test-dest-2@example.com"])
     subject = "Testing!"
     text = "Texting!"
     html = "Htmling!"
@@ -57,8 +56,7 @@ def test_send_templated_email(make_stubber, error_code):
     ses_stubber = make_stubber(ses_client)
     ses_mail_sender = SesMailSender(ses_client)
     source = "test@example.com"
-    destination = SesDestination(
-        ["test-dest-1@example.com", "test-dest-2@example.com"])
+    destination = SesDestination(["test-dest-1@example.com", "test-dest-2@example.com"])
     reply_tos = ["test-reply@example.com"]
     template_name = "test-template"
     template_data = {"thing": "oboe"}

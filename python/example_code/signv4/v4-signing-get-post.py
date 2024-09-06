@@ -145,8 +145,7 @@ canonical_request = (
 # Match the algorithm to the hashing algorithm you use, either SHA-1 or
 # SHA-256 (recommended)
 algorithm = "AWS4-HMAC-SHA256"
-credential_scope = date_stamp + "/" + region + \
-    "/" + service + "/" + "aws4_request"
+credential_scope = date_stamp + "/" + region + "/" + service + "/" + "aws4_request"
 string_to_sign = (
     algorithm
     + "\n"

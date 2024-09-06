@@ -43,9 +43,10 @@ class MockManager:
                 self.scenario_data.tg_arn,
             )
             runner.add(
-                self.scenario_data.auto_scaling.stubber.stub_describe_auto_scaling_groups, [
-                    self.scenario_data.asg_name], [
-                    self.scenario_data.asg_group], )
+                self.scenario_data.auto_scaling.stubber.stub_describe_auto_scaling_groups,
+                [self.scenario_data.asg_name],
+                [self.scenario_data.asg_group],
+            )
             runner.add(
                 self.scenario_data.auto_scaling.stubber.stub_update_auto_scaling_group,
                 self.scenario_data.asg_name,

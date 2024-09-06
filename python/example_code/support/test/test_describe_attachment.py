@@ -18,9 +18,8 @@ class MockManager:
     def setup_stubs(self, error, stop_on, stubber):
         with self.stub_runner(error, stop_on) as runner:
             runner.add(
-                stubber.stub_describe_attachment,
-                self.attachment_id,
-                self.file_name)
+                stubber.stub_describe_attachment, self.attachment_id, self.file_name
+            )
 
 
 @pytest.fixture
@@ -31,8 +30,7 @@ def mock_mgr(stub_runner, scenario_data, input_mocker):
 def test_describe_attachment(mock_mgr, capsys):
     mock_mgr.setup_stubs(None, None, mock_mgr.scenario_data.stubber)
 
-    mock_mgr.scenario_data.scenario.describe_case_attachment(
-        *mock_mgr.scenario_args)
+    mock_mgr.scenario_data.scenario.describe_case_attachment(*mock_mgr.scenario_args)
 
     capt = capsys.readouterr()
     assert mock_mgr.file_name in capt.out
@@ -41,8 +39,7 @@ def test_describe_attachment(mock_mgr, capsys):
 @pytest.mark.parametrize(
     "error, stop_on_index", [("TESTERROR-stub_describe_attachment", 0)]
 )
-def test_describe_case_attachment_error(
-        mock_mgr, caplog, error, stop_on_index):
+def test_describe_case_attachment_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:

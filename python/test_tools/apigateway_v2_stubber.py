@@ -34,13 +34,8 @@ class ApiGatewayV2Stubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_create_api(
-            self,
-            api_name,
-            protocol,
-            route_selection,
-            api_id,
-            api_endpoint,
-            error_code=None):
+        self, api_name, protocol, route_selection, api_id, api_endpoint, error_code=None
+    ):
         expected_params = {
             "Name": api_name,
             "ProtocolType": protocol,
@@ -62,32 +57,18 @@ class ApiGatewayV2Stubber(ExampleStubber):
         }
         response = {"IntegrationId": integration_id}
         self._stub_bifurcator(
-            "create_integration",
-            expected_params,
-            response,
-            error_code=error_code)
+            "create_integration", expected_params, response, error_code=error_code
+        )
 
-    def stub_create_route(
-            self,
-            api_id,
-            route_name,
-            target,
-            route_id,
-            error_code=None):
-        expected_params = {
-            "ApiId": api_id,
-            "RouteKey": route_name,
-            "Target": target}
+    def stub_create_route(self, api_id, route_name, target, route_id, error_code=None):
+        expected_params = {"ApiId": api_id, "RouteKey": route_name, "Target": target}
         response = {"RouteId": route_id}
         self._stub_bifurcator(
             "create_route", expected_params, response, error_code=error_code
         )
 
     def stub_create_stage(self, api_id, stage, error_code=None):
-        expected_params = {
-            "ApiId": api_id,
-            "AutoDeploy": True,
-            "StageName": stage}
+        expected_params = {"ApiId": api_id, "AutoDeploy": True, "StageName": stage}
         response = {}
         self._stub_bifurcator(
             "create_stage", expected_params, response, error_code=error_code

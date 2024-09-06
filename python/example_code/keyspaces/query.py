@@ -95,8 +95,7 @@ class QueryManager:
                 parameters=[
                     movie["year"],
                     movie["title"],
-                    date.fromisoformat(
-                        movie["info"]["release_date"].partition("T")[0]),
+                    date.fromisoformat(movie["info"]["release_date"].partition("T")[0]),
                     movie["info"]["plot"],
                 ],
             )

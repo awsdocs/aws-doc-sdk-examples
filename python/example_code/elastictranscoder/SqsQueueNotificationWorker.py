@@ -89,8 +89,7 @@ class SqsWorker:
         self._job_id = job_id
         self._finished = multiprocessing.Value(c_bool, False)
         self._job_status = multiprocessing.Value("i", JobStatus.RUNNING.value)
-        self._process_status = multiprocessing.Value(
-            "i", ProcessStatus.READY.value)
+        self._process_status = multiprocessing.Value("i", ProcessStatus.READY.value)
         self._args = (
             job_id,
             sqs_queue_name,
@@ -192,8 +191,8 @@ def poll_and_handle_messages(
             if notification["jobId"] == job_id:
                 # Delete the message from the queue
                 sqs_client.delete_message(
-                    QueueUrl=sqs_queue_url,
-                    ReceiptHandle=message["ReceiptHandle"])
+                    QueueUrl=sqs_queue_url, ReceiptHandle=message["ReceiptHandle"]
+                )
 
                 # Did the job finish, either successfully or with error?
                 if notification["state"] == "COMPLETED":

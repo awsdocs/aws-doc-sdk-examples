@@ -50,10 +50,9 @@ class SesReceiptHandler:
             self.ses_client.create_receipt_filter(
                 Filter={
                     "Name": filter_name,
-                    "IpFilter": {
-                        "Cidr": ip_address_or_range,
-                        "Policy": policy},
-                })
+                    "IpFilter": {"Cidr": ip_address_or_range, "Policy": policy},
+                }
+            )
             logger.info(
                 "Created receipt filter %s to %s IP of %s.",
                 filter_name,
@@ -113,9 +112,7 @@ class SesReceiptHandler:
             self.ses_client.create_receipt_rule_set(RuleSetName=rule_set_name)
             logger.info("Created receipt rule set %s.", rule_set_name)
         except ClientError:
-            logger.exception(
-                "Couldn't create receipt rule set %s.",
-                rule_set_name)
+            logger.exception("Couldn't create receipt rule set %s.", rule_set_name)
             raise
 
     # snippet-end:[python.example_code.ses.CreateReceiptRuleSet]
@@ -145,16 +142,16 @@ class SesReceiptHandler:
         bucket = None
         try:
             bucket = self.s3_resource.create_bucket(
-                Bucket=bucket_name, CreateBucketConfiguration={
-                    "LocationConstraint": self.s3_resource.meta.client.meta.region_name}, )
+                Bucket=bucket_name,
+                CreateBucketConfiguration={
+                    "LocationConstraint": self.s3_resource.meta.client.meta.region_name
+                },
+            )
             bucket.wait_until_exists()
             bucket.Policy().put(Policy=json.dumps(allow_ses_put_policy))
-            logger.info(
-                "Created bucket %s to receive copies of emails.",
-                bucket_name)
+            logger.info("Created bucket %s to receive copies of emails.", bucket_name)
         except ClientError:
-            logger.exception(
-                "Couldn't create bucket to receive copies of emails.")
+            logger.exception("Couldn't create bucket to receive copies of emails.")
             if bucket is not None:
                 bucket.delete()
             raise
@@ -223,9 +220,7 @@ class SesReceiptHandler:
             )
             logger.info("Got data for rule set %s.", rule_set_name)
         except ClientError:
-            logger.exception(
-                "Couldn't get data for rule set %s.",
-                rule_set_name)
+            logger.exception("Couldn't get data for rule set %s.", rule_set_name)
             raise
         else:
             return response
@@ -244,15 +239,11 @@ class SesReceiptHandler:
             self.ses_client.delete_receipt_rule(
                 RuleSetName=rule_set_name, RuleName=rule_name
             )
-            logger.info(
-                "Removed rule %s from rule set %s.",
-                rule_name,
-                rule_set_name)
+            logger.info("Removed rule %s from rule set %s.", rule_name, rule_set_name)
         except ClientError:
             logger.exception(
-                "Couldn't remove rule %s from rule set %s.",
-                rule_name,
-                rule_set_name)
+                "Couldn't remove rule %s from rule set %s.", rule_name, rule_set_name
+            )
             raise
 
     # snippet-end:[python.example_code.ses.DeleteReceiptRule]
@@ -281,12 +272,11 @@ def usage_demo():
     print("-" * 88)
     print(
         "Welcome to the Amazon Simple Email Service (Amazon SES) receipt rules "
-        "and filters demo!")
+        "and filters demo!"
+    )
     print("-" * 88)
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     ses_receipt = SesReceiptHandler(boto3.client("ses"), boto3.resource("s3"))
     filter_name = "block-self"
@@ -296,8 +286,9 @@ def usage_demo():
     bucket_name = f"doc-example-bucket-{time.time_ns()}"
     prefix = "example-emails/"
 
-    current_ip_address = (request.urlopen(
-        "http://checkip.amazonaws.com").read().decode("utf-8").strip())
+    current_ip_address = (
+        request.urlopen("http://checkip.amazonaws.com").read().decode("utf-8").strip()
+    )
     print(
         f"Adding a filter to block email from the current IP address "
         f"{current_ip_address}."
@@ -311,7 +302,8 @@ def usage_demo():
 
     print(
         f"Creating a rule set and adding a rule to copy all emails received by "
-        f"{email} to Amazon S3 bucket {bucket_name}.")
+        f"{email} to Amazon S3 bucket {bucket_name}."
+    )
     print(f"Creating bucket {bucket_name} to hold emails.")
     bucket = ses_receipt.create_bucket_for_copy(bucket_name)
     ses_receipt.create_receipt_rule_set(rule_set_name)

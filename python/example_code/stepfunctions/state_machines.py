@@ -68,8 +68,7 @@ class StateMachine:
         :return: The ARN of the state machine if found; otherwise, None.
         """
         try:
-            paginator = self.stepfunctions_client.get_paginator(
-                "list_state_machines")
+            paginator = self.stepfunctions_client.get_paginator("list_state_machines")
             for page in paginator.paginate():
                 for state_machine in page.get("stateMachines", []):
                     if state_machine["name"] == name:

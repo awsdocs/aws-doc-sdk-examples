@@ -39,8 +39,7 @@ def do_scenario(s3_resource):
         print(f"Created demo bucket named {bucket.name}.")
     except ClientError as err:
         print(f"Tried and failed to create demo bucket {bucket_name}.")
-        print(
-            f"\t{err.response['Error']['Code']}:{err.response['Error']['Message']}")
+        print(f"\t{err.response['Error']['Code']}:{err.response['Error']['Message']}")
         print("\nCan't continue the demo without a bucket!")
         return
 
@@ -95,8 +94,7 @@ def do_scenario(s3_resource):
             print(f"\t{o.key}")
     except ClientError as err:
         print(f"Couldn't list the objects in bucket {bucket.name}.")
-        print(
-            f"\t{err.response['Error']['Code']}:{err.response['Error']['Message']}")
+        print(f"\t{err.response['Error']['Code']}:{err.response['Error']['Message']}")
 
     answer = input(
         "\nDo you want to delete all of the objects as well as the bucket (y/n)? "

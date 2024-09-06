@@ -19,11 +19,7 @@ from botocore.exceptions import ClientError
         ("TestException", "stub_get_resources"),
     ],
 )
-def test_create_rest_api(
-        make_stubber,
-        stub_runner,
-        error_code,
-        stop_on_method):
+def test_create_rest_api(make_stubber, stub_runner, error_code, stop_on_method):
     apigateway_client = boto3.client("apigateway")
     apigateway_stubber = make_stubber(apigateway_client)
     api_gtos = ApiGatewayToService(apigateway_client)
@@ -56,11 +52,8 @@ def test_add_rest_resource(make_stubber, error_code):
     resource_id = "resource-id"
 
     apigateway_stubber.stub_create_resource(
-        api_gtos.api_id,
-        parent_id,
-        resource_path,
-        resource_id,
-        error_code=error_code)
+        api_gtos.api_id, parent_id, resource_path, resource_id, error_code=error_code
+    )
 
     if error_code is None:
         got_resource_id = api_gtos.add_rest_resource(parent_id, resource_path)
@@ -81,11 +74,7 @@ def test_add_rest_resource(make_stubber, error_code):
         ("TestException", "stub_put_integration_response"),
     ],
 )
-def test_add_integration_method(
-        make_stubber,
-        stub_runner,
-        error_code,
-        stop_on_method):
+def test_add_integration_method(make_stubber, stub_runner, error_code, stop_on_method):
     apigateway_client = boto3.client("apigateway")
     apigateway_stubber = make_stubber(apigateway_client)
     api_gtos = ApiGatewayToService(apigateway_client)
@@ -190,7 +179,8 @@ def test_api_url():
     api_gtos.stage = "test"
     url = (
         f"https://{api_gtos.api_id}.execute-api.{apigateway_client.meta.region_name}"
-        f".amazonaws.com/{api_gtos.stage}")
+        f".amazonaws.com/{api_gtos.stage}"
+    )
 
     assert api_gtos.api_url("thing") == f"{url}/thing"
 
@@ -224,8 +214,7 @@ def test_delete_rest_api(make_stubber, error_code):
     api_gtos = ApiGatewayToService(apigateway_client)
     api_gtos.api_id = "test-api-id"
 
-    apigateway_stubber.stub_delete_rest_api(
-        api_gtos.api_id, error_code=error_code)
+    apigateway_stubber.stub_delete_rest_api(api_gtos.api_id, error_code=error_code)
 
     if error_code is None:
         api_gtos.delete_rest_api()

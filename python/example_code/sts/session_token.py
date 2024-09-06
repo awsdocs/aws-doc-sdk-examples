@@ -62,7 +62,8 @@ def setup(iam_resource):
 
     print(
         "Showing the QR code for the device. Scan this in the MFA app of your "
-        f"choice.")
+        f"choice."
+    )
     with open("qr.png", "wb") as qr_file:
         qr_file.write(virtual_mfa_device.qr_code_png)
     webbrowser.open(qr_file.name)
@@ -84,18 +85,26 @@ def setup(iam_resource):
     print("Wait for user to be ready.", end="")
     progress_bar(10)
 
-    user.create_policy(PolicyName=unique_name("user-policy"),
-                       PolicyDocument=json.dumps({"Version": "2012-10-17",
-                                                  "Statement": [{"Effect": "Allow",
-                                                                 "Action": "s3:ListAllMyBuckets",
-                                                                 "Resource": "arn:aws:s3:::*",
-                                                                 "Condition": {"Bool": {"aws:MultiFactorAuthPresent": True}},
-                                                                 }],
-                                                  }),
-                       )
+    user.create_policy(
+        PolicyName=unique_name("user-policy"),
+        PolicyDocument=json.dumps(
+            {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Action": "s3:ListAllMyBuckets",
+                        "Resource": "arn:aws:s3:::*",
+                        "Condition": {"Bool": {"aws:MultiFactorAuthPresent": True}},
+                    }
+                ],
+            }
+        ),
+    )
     print(
         f"Created an inline policy for {user.name} that lets the user list buckets, "
-        f"but only when MFA credentials are present.")
+        f"but only when MFA credentials are present."
+    )
 
     print("Give AWS time to propagate these new resources and connections.", end="")
     progress_bar(10)
@@ -107,8 +116,7 @@ def setup(iam_resource):
 
 
 # snippet-start:[python.example_code.sts.Scenario_SessionTokenMfa_list_buckets]
-def list_buckets_with_session_token_with_mfa(
-        mfa_serial_number, mfa_totp, sts_client):
+def list_buckets_with_session_token_with_mfa(mfa_serial_number, mfa_totp, sts_client):
     """
     Gets a session token with MFA credentials and uses the temporary session
     credentials to list Amazon S3 buckets.
@@ -180,9 +188,8 @@ def usage_demo():
     user, user_key, virtual_mfa_device = setup(iam_resource)
     try:
         sts_client = boto3.client(
-            "sts",
-            aws_access_key_id=user_key.id,
-            aws_secret_access_key=user_key.secret)
+            "sts", aws_access_key_id=user_key.id, aws_secret_access_key=user_key.secret
+        )
         try:
             print("Listing buckets without specifying MFA credentials.")
             list_buckets_with_session_token_with_mfa(None, None, sts_client)

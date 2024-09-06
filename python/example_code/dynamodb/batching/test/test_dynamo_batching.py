@@ -13,8 +13,9 @@ import pytest
 from botocore.exceptions import ClientError
 
 
-@pytest.mark.parametrize("error_code,stop_on_method",
-                         [(None, None), ("TestException", "stub_create_table")])
+@pytest.mark.parametrize(
+    "error_code,stop_on_method", [(None, None), ("TestException", "stub_create_table")]
+)
 def test_create_table(
     make_stubber, make_unique_name, stub_runner, error_code, stop_on_method
 ):
@@ -26,8 +27,9 @@ def test_create_table(
     ]
 
     with stub_runner(error_code, stop_on_method) as runner:
-        runner.add(dyn_stubber.stub_create_table, table_name,
-                   schema, {"read": 10, "write": 10})
+        runner.add(
+            dyn_stubber.stub_create_table, table_name, schema, {"read": 10, "write": 10}
+        )
         runner.add(dyn_stubber.stub_describe_table, table_name)
 
     if error_code is None:
@@ -61,10 +63,8 @@ def test_do_batch_get(make_stubber, monkeypatch):
 
     monkeypatch.setattr(time, "sleep", lambda x: None)
 
-    dyn_stubber.stub_batch_get_item(
-        request_keys, unprocessed_keys=request_keys)
-    dyn_stubber.stub_batch_get_item(
-        request_keys, response_items=response_items)
+    dyn_stubber.stub_batch_get_item(request_keys, unprocessed_keys=request_keys)
+    dyn_stubber.stub_batch_get_item(request_keys, response_items=response_items)
 
     got_data = dynamo_batching.do_batch_get(request_keys)
     for key in request_keys:
@@ -87,7 +87,7 @@ def test_fill_table(make_stubber, item_count, error_code):
             {
                 table.name: [
                     {"PutRequest": {"Item": item}}
-                    for item in table_data[data_index: data_index + max_batch_size]
+                    for item in table_data[data_index : data_index + max_batch_size]
                 ]
             },
             error_code=error_code,
@@ -155,8 +155,9 @@ def test_archive_movies(
 ):
     dyn_stubber = make_stubber(dynamo_batching.dynamodb.meta.client)
     movie_table = dynamo_batching.dynamodb.Table("movie-test")
-    movie_list = [{"year": index, "title": f"title-{index}"}
-                  for index in range(item_count)]
+    movie_list = [
+        {"year": index, "title": f"title-{index}"} for index in range(item_count)
+    ]
     table_schema = [
         {"name": "year", "type": "N", "key_type": "HASH"},
         {"name": "title", "type": "S", "key_type": "RANGE"},
@@ -168,9 +169,7 @@ def test_archive_movies(
             dyn_stubber.stub_describe_table,
             movie_table.name,
             schema=table_schema,
-            provisioned_throughput={
-                "ReadCapacityUnits": 10,
-                "WriteCapacityUnits": 10},
+            provisioned_throughput={"ReadCapacityUnits": 10, "WriteCapacityUnits": 10},
         )
         runner.add(
             dyn_stubber.stub_create_table,

@@ -21,11 +21,7 @@ from find_running_models import find_running_models, find_running_models_in_proj
         ("TestException", "stub_describe_model"),
     ],
 )
-def test_find_models_in_project(
-        make_stubber,
-        stub_runner,
-        error_code,
-        stop_on_method):
+def test_find_models_in_project(make_stubber, stub_runner, error_code, stop_on_method):
     lookoutvision_client = boto3.client("lookoutvision")
     lookoutvision_stubber = make_stubber(lookoutvision_client)
     project_name = "test-project_name"
@@ -44,10 +40,7 @@ def test_find_models_in_project(
     out_folder = "test-folder"
 
     with stub_runner(error_code, stop_on_method) as runner:
-        runner.add(
-            lookoutvision_stubber.stub_list_models,
-            project_name,
-            [model])
+        runner.add(lookoutvision_stubber.stub_list_models, project_name, [model])
         runner.add(
             lookoutvision_stubber.stub_describe_model,
             project_name,
@@ -129,10 +122,7 @@ def test_find_running_models(
             [project_name],
             [{"arn": project_arn, "created": created}],
         )
-        runner.add(
-            lookoutvision_stubber.stub_list_models,
-            project_name,
-            [model])
+        runner.add(lookoutvision_stubber.stub_list_models, project_name, [model])
         runner.add(
             lookoutvision_stubber.stub_describe_model,
             project_name,

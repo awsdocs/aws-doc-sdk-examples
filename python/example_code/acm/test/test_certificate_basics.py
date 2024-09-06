@@ -45,8 +45,7 @@ def test_get(make_stubber, error_code):
         "CertificateChain": "test-certificate-chain",
     }
 
-    acm_stubber.stub_get_certificate(
-        certificate_arn, cert_data, error_code=error_code)
+    acm_stubber.stub_get_certificate(certificate_arn, cert_data, error_code=error_code)
 
     if error_code is None:
         got_cert_data = acm_certificate.get(certificate_arn)
@@ -134,8 +133,7 @@ def test_list(make_stubber, statuses, includes, error_code):
     )
 
     if error_code is None:
-        got_certificates = acm_certificate.list(
-            max_items, statuses, **includes)
+        got_certificates = acm_certificate.list(max_items, statuses, **includes)
         assert got_certificates == certificates
     else:
         with pytest.raises(ClientError) as exc_info:
@@ -231,11 +229,7 @@ def test_remove_tags(make_stubber, error_code):
     acm_stubber = make_stubber(acm_client)
     acm_certificate = AcmCertificate(acm_client)
     certificate_arn = f"arn:aws:acm:us-west-2:123456789012:certificate/{uuid.uuid4()}"
-    tags = {
-        "key-1": "value-1",
-        "key-2": None,
-        "key-3": "value-3",
-        "key-4": None}
+    tags = {"key-1": "value-1", "key-2": None, "key-3": "value-3", "key-4": None}
 
     acm_stubber.stub_remove_tags_from_certificate(
         certificate_arn, tags, error_code=error_code
@@ -249,8 +243,9 @@ def test_remove_tags(make_stubber, error_code):
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize("use_options,error_code",
-                         [(False, None), (False, "TestException"), (True, None)])
+@pytest.mark.parametrize(
+    "use_options,error_code", [(False, None), (False, "TestException"), (True, None)]
+)
 def test_request_validation(make_stubber, use_options, error_code):
     acm_client = boto3.client("acm")
     acm_stubber = make_stubber(acm_client)

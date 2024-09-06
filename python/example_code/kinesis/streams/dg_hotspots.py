@@ -42,12 +42,8 @@ def get_record(field, hotspot, hotspot_weight):
 
 
 def generate(
-        stream_name,
-        field,
-        hotspot_size,
-        hotspot_weight,
-        batch_size,
-        kinesis_client):
+    stream_name, field, hotspot_size, hotspot_weight, batch_size, kinesis_client
+):
     """
     Generates points used as input to a hotspot detection algorithm.
     With probability hotspot_weight (20%), a point is drawn from the hotspot;
@@ -59,8 +55,9 @@ def generate(
     while True:
         if points_generated % 1000 == 0:
             hotspot = get_hotspot(field, hotspot_size)
-        records = [get_record(field, hotspot, hotspot_weight)
-                   for _ in range(batch_size)]
+        records = [
+            get_record(field, hotspot, hotspot_weight) for _ in range(batch_size)
+        ]
         points_generated += len(records)
         pprint(records)
         kinesis_client.put_records(StreamName=stream_name, Records=records)

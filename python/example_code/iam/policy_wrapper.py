@@ -105,9 +105,7 @@ def create_policy_version(policy_arn, actions, resource_arn, set_as_default):
             policy_version.arn,
         )
     except ClientError:
-        logger.exception(
-            "Couldn't create a policy version for %s.",
-            policy_arn)
+        logger.exception("Couldn't create a policy version for %s.", policy_arn)
         raise
     else:
         return policy_version
@@ -155,9 +153,7 @@ def get_default_policy_statement(policy_arn):
         logger.info("Got default policy doc for %s.", policy.policy_name)
         logger.info(policy_doc)
     except ClientError:
-        logger.exception(
-            "Couldn't get default policy statement for %s.",
-            policy_arn)
+        logger.exception("Couldn't get default policy statement for %s.", policy_arn)
         raise
     else:
         return policy_statement
@@ -185,10 +181,7 @@ def rollback_policy_version(policy_arn):
             iam.Policy(policy_arn).versions.all(),
             key=operator.attrgetter("create_date"),
         )
-        logger.info(
-            "Got %s versions for %s.",
-            len(policy_versions),
-            policy_arn)
+        logger.info("Got %s versions for %s.", len(policy_versions), policy_arn)
     except ClientError:
         logger.exception("Couldn't get versions for %s.", policy_arn)
         raise
@@ -202,20 +195,19 @@ def rollback_policy_version(policy_arn):
                 default_version = ver
         rollback_version = policy_versions.pop()
         rollback_version.set_as_default()
-        logger.info(
-            "Set %s as the default version.",
-            rollback_version.version_id)
+        logger.info("Set %s as the default version.", rollback_version.version_id)
         default_version.delete()
-        logger.info(
-            "Deleted original default version %s.",
-            default_version.version_id)
+        logger.info("Deleted original default version %s.", default_version.version_id)
     except IndexError:
         if default_version is None:
             logger.warning("No default version found for %s.", policy_arn)
         elif rollback_version is None:
             logger.warning(
                 "Default version %s found for %s, but no previous version exists, so "
-                "nothing to roll back to.", default_version.version_id, policy_arn, )
+                "nothing to roll back to.",
+                default_version.version_id,
+                policy_arn,
+            )
     except ClientError:
         logger.exception("Couldn't roll back version for %s.", policy_arn)
         raise
@@ -238,10 +230,7 @@ def attach_to_role(role_name, policy_arn):
         iam.Policy(policy_arn).attach_role(RoleName=role_name)
         logger.info("Attached policy %s to role %s.", policy_arn, role_name)
     except ClientError:
-        logger.exception(
-            "Couldn't attach policy %s to role %s.",
-            policy_arn,
-            role_name)
+        logger.exception("Couldn't attach policy %s to role %s.", policy_arn, role_name)
         raise
 
 
@@ -272,9 +261,7 @@ def detach_from_role(role_name, policy_arn):
 # snippet-start:[python.example_code.iam.Scenario_PolicyManagement]
 def usage_demo():
     """Shows how to use the policy functions."""
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     print("-" * 88)
     print("Welcome to the AWS Identity and Account Management policy demo.")
     print("-" * 88)

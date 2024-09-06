@@ -51,7 +51,8 @@ def index():
     """Briefly describes the REST API."""
     return {
         "description": "A simple lending library REST API that runs entirely on "
-        "serverless components: Aurora Serverless v2, API Gateway"}
+        "serverless components: Aurora Serverless v2, API Gateway"
+    }
 
 
 @app.route("/books", methods=["GET"])

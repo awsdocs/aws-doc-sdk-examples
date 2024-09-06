@@ -28,8 +28,7 @@ def setup_custom_logger(name):
     logger.setLevel(logging.DEBUG)  # Setting to debug to catch all logs
 
     # Creating and setting the custom formatter
-    formatter = ColoredFormatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    formatter = ColoredFormatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
     # Creating a stream handler (console output) and setting the custom
     # formatter

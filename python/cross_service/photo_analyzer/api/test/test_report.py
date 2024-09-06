@@ -68,10 +68,10 @@ def test_post_report(make_stubber, monkeypatch, error_code):
         "subject": "test-subject",
         "message": "test-message",
         "analysis_labels": [
-            f"label{index}-1,label{index}-2,label{index}-3" for index in range(3)],
+            f"label{index}-1,label{index}-2,label{index}-3" for index in range(3)
+        ],
     }
-    text_body = f"{post_args['message']}\n\n" + \
-        "\n".join(post_args["analysis_labels"])
+    text_body = f"{post_args['message']}\n\n" + "\n".join(post_args["analysis_labels"])
     mock_parser = MagicMock(
         name="mock_parser",
         return_value=MagicMock(parse_args=MagicMock(return_value=post_args)),
@@ -79,9 +79,7 @@ def test_post_report(make_stubber, monkeypatch, error_code):
     monkeypatch.setattr(reqparse, "RequestParser", mock_parser)
 
     html_body = "test-html"
-    monkeypatch.setattr(
-        "report.render_template", MagicMock(
-            return_value=html_body))
+    monkeypatch.setattr("report.render_template", MagicMock(return_value=html_body))
 
     ses_stubber.stub_send_email(
         post_args["sender"],

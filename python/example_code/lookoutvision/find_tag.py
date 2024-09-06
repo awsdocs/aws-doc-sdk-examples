@@ -64,7 +64,8 @@ def find_tag_in_projects(lookoutvision_client, key, value):
                     ModelVersion=model["ModelVersion"],
                 )
                 tags = lookoutvision_client.list_tags_for_resource(
-                    ResourceArn=model_description["ModelDescription"]["ModelArn"])
+                    ResourceArn=model_description["ModelDescription"]["ModelArn"]
+                )
 
                 logger.info(
                     "\tSearching model: %s for tag: %s value: %s.",
@@ -82,8 +83,11 @@ def find_tag_in_projects(lookoutvision_client, key, value):
                     found_tags.append(
                         {
                             "Project": project["ProjectName"],
-                            "ModelVersion": model_description["ModelDescription"]["ModelVersion"],
-                        })
+                            "ModelVersion": model_description["ModelDescription"][
+                                "ModelVersion"
+                            ],
+                        }
+                    )
         if found is False:
             logger.info("No match for tag %s with value %s.", key, value)
     except ClientError:
@@ -94,9 +98,7 @@ def find_tag_in_projects(lookoutvision_client, key, value):
 
 
 def main():
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     parser = argparse.ArgumentParser(usage=argparse.SUPPRESS)
     parser.add_argument("tag", help="The tag that you want to find.")
     parser.add_argument("value", help="The tag value that you want to find.")
@@ -114,8 +116,7 @@ def main():
     print("Matched models\n--------------")
     if len(tagged_models) > 0:
         for model in tagged_models:
-            print(
-                f"Project: {model['Project']}. model version:{model['ModelVersion']}")
+            print(f"Project: {model['Project']}. model version:{model['ModelVersion']}")
     else:
         print("No matches found.")
 

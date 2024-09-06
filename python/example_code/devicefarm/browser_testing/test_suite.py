@@ -84,8 +84,7 @@ class TestHelloSuite:
         desired_cap["BrowserVersion"] = "latest"
 
         # Configure the webdriver with the appropriate remote endpoint.
-        self.driver = webdriver.Remote(
-            testgrid_url_response["url"], desired_cap)
+        self.driver = webdriver.Remote(testgrid_url_response["url"], desired_cap)
 
         #
         # Auto-Tagging
@@ -94,7 +93,8 @@ class TestHelloSuite:
         # In order to get the Session ARN, we need to look up the session by the
         # Project ARN and session ID (from the driver).
         testgrid_session_arn_response = devicefarm_client.get_test_grid_session(
-            projectArn=project_arn, sessionId=self.driver.session_id)
+            projectArn=project_arn, sessionId=self.driver.session_id
+        )
 
         # Save the session's ARN so we can tag the session.
         self.session_arn = testgrid_session_arn_response["testGridSession"]["arn"]
@@ -103,11 +103,8 @@ class TestHelloSuite:
         # add a tag to the session ARN that we just got.
         tag_client = boto3.client("resourcegroupstaggingapi")
         tag_client.tag_resources(
-            ResourceARNList=[
-                self.session_arn],
-            Tags={
-                "TestSuite": f"testsuite {method.__name__}",
-                "GitId": get_git_hash()},
+            ResourceARNList=[self.session_arn],
+            Tags={"TestSuite": f"testsuite {method.__name__}", "GitId": get_git_hash()},
         )
 
     def teardown_method(self, method):

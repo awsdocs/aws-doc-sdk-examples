@@ -65,9 +65,7 @@ class LookoutVisionStubber(ExampleStubber):
         image_stats=None,
         error_code=None,
     ):
-        expected_params = {
-            "ProjectName": project_name,
-            "DatasetType": dataset_type}
+        expected_params = {"ProjectName": project_name, "DatasetType": dataset_type}
         response = {
             "DatasetDescription": {
                 "ProjectName": project_name,
@@ -79,15 +77,11 @@ class LookoutVisionStubber(ExampleStubber):
         if image_stats is not None:
             response["DatasetDescription"]["ImageStats"] = image_stats
         self._stub_bifurcator(
-            "describe_dataset",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_dataset", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_dataset(self, project_name, dataset_type, error_code=None):
-        expected_params = {
-            "ProjectName": project_name,
-            "DatasetType": dataset_type}
+        expected_params = {"ProjectName": project_name, "DatasetType": dataset_type}
         response = {}
         self._stub_bifurcator(
             "delete_dataset", expected_params, response, error_code=error_code
@@ -103,10 +97,8 @@ class LookoutVisionStubber(ExampleStubber):
         }
         response = {"DatasetEntries": [jsonline]}
         self._stub_bifurcator(
-            "list_dataset_entries",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_dataset_entries", expected_params, response, error_code=error_code
+        )
 
     def stub_list_projects(self, project_names, extras=None, error_code=None):
         expected_params = {}
@@ -133,8 +125,7 @@ class LookoutVisionStubber(ExampleStubber):
 
     def stub_list_models(self, project_name, model_versions, error_code=None):
         expected_params = {"ProjectName": project_name}
-        response = {"Models": [{"ModelVersion": version}
-                               for version in model_versions]}
+        response = {"Models": [{"ModelVersion": version} for version in model_versions]}
         self._stub_bifurcator(
             "list_models", expected_params, response, error_code=error_code
         )
@@ -148,13 +139,10 @@ class LookoutVisionStubber(ExampleStubber):
         extras=None,
         error_code=None,
     ):
-        expected_params = {
-            "ProjectName": project_name,
-            "ModelVersion": model_version}
+        expected_params = {"ProjectName": project_name, "ModelVersion": model_version}
         response = {
-            "ModelDescription": {
-                "ModelVersion": model_version,
-                "ModelArn": model_arn}}
+            "ModelDescription": {"ModelVersion": model_version, "ModelArn": model_arn}
+        }
         if status is not None:
             response["ModelDescription"]["Status"] = status
         if extras is not None:
@@ -180,20 +168,14 @@ class LookoutVisionStubber(ExampleStubber):
 
     def stub_list_tags_for_resource(self, resource_arn, tags, error_code=None):
         expected_params = {"ResourceArn": resource_arn}
-        response = {"Tags": [{"Key": key, "Value": value}
-                             for key, value in tags.items()]}
+        response = {
+            "Tags": [{"Key": key, "Value": value} for key, value in tags.items()]
+        }
         self._stub_bifurcator(
-            "list_tags_for_resource",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_tags_for_resource", expected_params, response, error_code=error_code
+        )
 
-    def stub_start_model(
-            self,
-            project_name,
-            model_version,
-            min_units,
-            error_code=None):
+    def stub_start_model(self, project_name, model_version, min_units, error_code=None):
         expected_params = {
             "ProjectName": project_name,
             "ModelVersion": model_version,
@@ -204,15 +186,8 @@ class LookoutVisionStubber(ExampleStubber):
             "start_model", expected_params, response, error_code=error_code
         )
 
-    def stub_stop_model(
-            self,
-            project_name,
-            model_version,
-            status,
-            error_code=None):
-        expected_params = {
-            "ProjectName": project_name,
-            "ModelVersion": model_version}
+    def stub_stop_model(self, project_name, model_version, status, error_code=None):
+        expected_params = {"ProjectName": project_name, "ModelVersion": model_version}
         response = {"Status": status}
         self._stub_bifurcator(
             "stop_model", expected_params, response, error_code=error_code
@@ -235,14 +210,11 @@ class LookoutVisionStubber(ExampleStubber):
             "ModelVersion": model_version,
         }
         response = {
-            "DetectAnomalyResult": {
-                "IsAnomalous": anomalous,
-                "Confidence": confidence}}
+            "DetectAnomalyResult": {"IsAnomalous": anomalous, "Confidence": confidence}
+        }
         self._stub_bifurcator(
-            "detect_anomalies",
-            expected_params,
-            response,
-            error_code=error_code)
+            "detect_anomalies", expected_params, response, error_code=error_code
+        )
 
     def stub_create_model(
         self,
@@ -261,17 +233,14 @@ class LookoutVisionStubber(ExampleStubber):
             "Tags": [],
         }
         response = {
-            "ModelMetadata": {
-                "ModelArn": model_arn,
-                "ModelVersion": model_version}}
+            "ModelMetadata": {"ModelArn": model_arn, "ModelVersion": model_version}
+        }
         self._stub_bifurcator(
             "create_model", expected_params, response, error_code=error_code
         )
 
     def stub_delete_model(self, project_name, model_version, error_code=None):
-        expected_params = {
-            "ProjectName": project_name,
-            "ModelVersion": model_version}
+        expected_params = {"ProjectName": project_name, "ModelVersion": model_version}
         response = {}
         self._stub_bifurcator(
             "delete_model", expected_params, response, error_code=error_code
@@ -295,10 +264,8 @@ class LookoutVisionStubber(ExampleStubber):
         expected_params = {"ProjectName": project_name}
         response = {"ProjectDescription": {"Datasets": datasets}}
         self._stub_bifurcator(
-            "describe_project",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_project", expected_params, response, error_code=error_code
+        )
 
     def stub_update_dataset_entries(
         self, project_name, dataset_type, changes, status, error_code=None
@@ -311,7 +278,5 @@ class LookoutVisionStubber(ExampleStubber):
         response = {"Status": status}
 
         self._stub_bifurcator(
-            "update_dataset_entries",
-            expected_params,
-            response,
-            error_code=error_code)
+            "update_dataset_entries", expected_params, response, error_code=error_code
+        )

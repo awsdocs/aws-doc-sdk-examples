@@ -33,10 +33,7 @@ CONFIG_ATTRS = (
     "use_threads",
 )
 # These configuration attributes affect only downloads.
-DOWNLOAD_CONFIG_ATTRS = (
-    "max_io_queue",
-    "io_chunksize",
-    "num_download_attempts")
+DOWNLOAD_CONFIG_ATTRS = ("max_io_queue", "io_chunksize", "num_download_attempts")
 
 
 class TransferDemoManager:
@@ -64,8 +61,8 @@ class TransferDemoManager:
         """
         while not self.demo_folder:
             self.demo_folder = input(
-                "Which file folder do you want to use to store "
-                "demonstration files? ")
+                "Which file folder do you want to use to store " "demonstration files? "
+            )
             if not os.path.isdir(self.demo_folder):
                 print(f"{self.demo_folder} isn't a folder!")
                 self.demo_folder = None
@@ -89,12 +86,8 @@ class TransferDemoManager:
                 self.demo_bucket = None
 
     def demo(
-            self,
-            question,
-            upload_func,
-            download_func,
-            upload_args=None,
-            download_args=None):
+        self, question, upload_func, download_func, upload_args=None, download_args=None
+    ):
         """Run a demonstration.
 
         Ask the user if they want to run this specific demonstration.
@@ -171,8 +164,7 @@ class TransferDemoManager:
             if self.demo_bucket:
                 print(f"Removing {self.demo_bucket}:{s3_object_key}")
                 try:
-                    self._s3.Bucket(self.demo_bucket).Object(
-                        s3_object_key).delete()
+                    self._s3.Bucket(self.demo_bucket).Object(s3_object_key).delete()
                 except ClientError as err:
                     print(err)
 
@@ -185,8 +177,7 @@ class TransferDemoManager:
             self._create_file_cmd = f"dd if=/dev/urandom of={{}} " f"bs={MB} count={{}}"
             self._size_multiplier = 1
         else:
-            raise OSError(
-                f"Demo of platform {platform.system()} isn't supported.")
+            raise OSError(f"Demo of platform {platform.system()} isn't supported.")
 
     def _create_demo_file(self):
         """
@@ -213,8 +204,8 @@ class TransferDemoManager:
         s3_object_key = file_name_template.format(file_tag, object_suffix)
 
         downloaded_file_path = os.path.join(
-            self.demo_folder, file_name_template.format(
-                file_tag, download_suffix))
+            self.demo_folder, file_name_template.format(file_tag, download_suffix)
+        )
 
         filled_cmd = self._create_file_cmd.format(
             local_file_path, self.file_size_mb * self._size_multiplier
@@ -351,8 +342,8 @@ def main():
     # Remove all created and downloaded files, remove all objects from
     # S3 storage.
     if demo_manager.ask_user(
-        "Demonstration complete. Do you want to remove local files "
-            "and S3 objects?"):
+        "Demonstration complete. Do you want to remove local files " "and S3 objects?"
+    ):
         demo_manager.cleanup()
 
 

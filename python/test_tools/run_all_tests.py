@@ -15,7 +15,6 @@ import os
 import platform
 import sys
 
-
 IGNORE_FOLDERS = {
     "venv",
     ".venv",
@@ -33,9 +32,8 @@ def main():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--integ",
-        action="store_true",
-        help="When specified, run integration tests.")
+        "--integ", action="store_true", help="When specified, run integration tests."
+    )
     args = parser.parse_args()
 
     test_dirs = []

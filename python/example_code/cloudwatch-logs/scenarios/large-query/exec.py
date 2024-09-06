@@ -33,10 +33,7 @@ class CloudWatchLogsQueryRunner:
         :rtype: boto3.client
         """
         try:
-            return boto3.client(
-                "logs", config=Config(
-                    retries={
-                        "max_attempts": 10}))
+            return boto3.client("logs", config=Config(retries={"max_attempts": 10}))
         except Exception as e:
             logging.error(f"Failed to create CloudWatch Logs client: {e}")
             sys.exit(1)
@@ -75,9 +72,11 @@ class CloudWatchLogsQueryRunner:
         :rtype: tuple
         """
         start_date_iso8601 = self.date_utilities.convert_unix_timestamp_to_iso8601(
-            start_date)
+            start_date
+        )
         end_date_iso8601 = self.date_utilities.convert_unix_timestamp_to_iso8601(
-            end_date)
+            end_date
+        )
         return start_date_iso8601, end_date_iso8601
 
     def execute_query(
@@ -117,8 +116,7 @@ def main():
     start_date_iso8601 = DateUtilities.convert_unix_timestamp_to_iso8601(
         query_start_date
     )
-    end_date_iso8601 = DateUtilities.convert_unix_timestamp_to_iso8601(
-        query_end_date)
+    end_date_iso8601 = DateUtilities.convert_unix_timestamp_to_iso8601(query_end_date)
     runner.execute_query(start_date_iso8601, end_date_iso8601)
 
 

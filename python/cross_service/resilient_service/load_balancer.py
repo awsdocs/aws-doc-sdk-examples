@@ -41,10 +41,7 @@ class LoadBalancer:
         :param resource_prefix: The prefix to give to AWS resources created by this class.
         """
         elb_client = boto3.client("elbv2")
-        return cls(
-            f"{resource_prefix}-tg",
-            f"{resource_prefix}-lb",
-            elb_client)
+        return cls(f"{resource_prefix}-tg", f"{resource_prefix}-lb", elb_client)
 
     # snippet-start:[python.cross_service.resilient_service.elbv2.DescribeLoadBalancers]
     def endpoint(self):
@@ -96,9 +93,7 @@ class LoadBalancer:
                 VpcId=vpc_id,
             )
             target_group = response["TargetGroups"][0]
-            log.info(
-                "Created load balancing target group %s.",
-                self.target_group_name)
+            log.info("Created load balancing target group %s.", self.target_group_name)
         except ClientError as err:
             raise LoadBalancerError(
                 f"Couldn't create load balancing target group {self.target_group_name}: {err}"
@@ -122,8 +117,8 @@ class LoadBalancer:
                 tg_arn = response["TargetGroups"][0]["TargetGroupArn"]
                 self.elb_client.delete_target_group(TargetGroupArn=tg_arn)
                 log.info(
-                    "Deleted load balancing target group %s.",
-                    self.target_group_name)
+                    "Deleted load balancing target group %s.", self.target_group_name
+                )
                 done = True
             except ClientError as err:
                 if err.response["Error"]["Code"] == "TargetGroupNotFound":
@@ -185,7 +180,8 @@ class LoadBalancer:
         except ClientError as err:
             raise LoadBalancerError(
                 f"Failed to create load balancer {self.load_balancer_name}"
-                f"and add a listener for target group {target_group['TargetGroupName']}: {err}")
+                f"and add a listener for target group {target_group['TargetGroupName']}: {err}"
+            )
         else:
             self._endpoint = load_balancer["DNSName"]
             return load_balancer

@@ -34,12 +34,8 @@ class SsmStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_send_command(
-            self,
-            instance_ids,
-            commands,
-            command_id=None,
-            timeout=3600,
-            error_code=None):
+        self, instance_ids, commands, command_id=None, timeout=3600, error_code=None
+    ):
         expected_parameters = {
             "InstanceIds": instance_ids,
             "DocumentName": "AWS-RunShellScript",
@@ -51,27 +47,19 @@ class SsmStubber(ExampleStubber):
         if command_id is not None:
             response["Command"] = {"CommandId": command_id}
         self._stub_bifurcator(
-            "send_command",
-            expected_parameters,
-            response,
-            error_code=error_code)
+            "send_command", expected_parameters, response, error_code=error_code
+        )
 
     def stub_list_commands(self, command_id, status_details, error_code=None):
         expected_parameters = {"CommandId": command_id}
-        response = {"Commands": [
-            {"CommandId": command_id, "StatusDetails": status_details}]}
+        response = {
+            "Commands": [{"CommandId": command_id, "StatusDetails": status_details}]
+        }
         self._stub_bifurcator(
-            "list_commands",
-            expected_parameters,
-            response,
-            error_code=error_code)
+            "list_commands", expected_parameters, response, error_code=error_code
+        )
 
-    def stub_get_parameters_by_path(
-            self,
-            names,
-            values,
-            path=ANY,
-            error_code=None):
+    def stub_get_parameters_by_path(self, names, values, path=ANY, error_code=None):
         expected_params = {"Path": path}
         response = {
             "Parameters": [
@@ -79,10 +67,8 @@ class SsmStubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "get_parameters_by_path",
-            expected_params,
-            response,
-            error_code=error_code)
+            "get_parameters_by_path", expected_params, response, error_code=error_code
+        )
 
     def stub_get_parameter(self, name, value, error_code=None):
         expected_params = {"Name": name}
@@ -98,8 +84,7 @@ class SsmStubber(ExampleStubber):
             "put_parameter", expected_params, response, error_code=error_code
         )
 
-    def stub_describe_instance_information(
-            self, instance_ids, error_code=None):
+    def stub_describe_instance_information(self, instance_ids, error_code=None):
         expected_params = {}
         response = {
             "InstanceInformationList": [

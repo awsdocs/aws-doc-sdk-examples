@@ -67,10 +67,8 @@ def test_create_rest_api(
         )
         runner.add(apig_stubber.stub_put_method, rest_api_id, resource_id)
         runner.add(
-            apig_stubber.stub_put_integration,
-            rest_api_id,
-            resource_id,
-            lambda_uri)
+            apig_stubber.stub_put_integration, rest_api_id, resource_id, lambda_uri
+        )
         runner.add(apig_stubber.stub_create_deployment, rest_api_id, api_stage)
         runner.add(
             lambda_stubber.stub_add_permission,

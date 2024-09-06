@@ -12,21 +12,14 @@ import pytest
 import remove_delete_marker
 
 
-def test_remove_delete_marker(
-        make_stubber,
-        make_unique_name,
-        make_event,
-        make_result):
+def test_remove_delete_marker(make_stubber, make_unique_name, make_event, make_result):
     s3_stubber = make_stubber(remove_delete_marker.s3)
     bucket_name = make_unique_name("bucket")
     # include a space in the object key to verify url-encoding/decoding
     obj_key = make_unique_name("prefix object")
     version_id = "test-version-id"
 
-    event = make_event(
-        bucket_name,
-        parse.quote(obj_key),
-        version_id=version_id)
+    event = make_event(bucket_name, parse.quote(obj_key), version_id=version_id)
 
     s3_stubber.stub_head_object(
         bucket_name,
@@ -35,8 +28,7 @@ def test_remove_delete_marker(
         error_code="405",
         response_meta={"HTTPHeaders": {"x-amz-delete-marker": "true"}},
     )
-    s3_stubber.stub_delete_object(
-        bucket_name, obj_key, obj_version_id=version_id)
+    s3_stubber.stub_delete_object(bucket_name, obj_key, obj_version_id=version_id)
 
     result = remove_delete_marker.lambda_handler(event, None)
     assert result == make_result("Succeeded")
@@ -55,10 +47,7 @@ def test_remove_delete_marker_not_deleted(
 
     event = make_event(bucket_name, obj_key, version_id=version_id)
 
-    s3_stubber.stub_head_object(
-        bucket_name,
-        obj_key,
-        obj_version_id=version_id)
+    s3_stubber.stub_head_object(bucket_name, obj_key, obj_version_id=version_id)
 
     result = remove_delete_marker.lambda_handler(event, None)
     assert result == make_result("PermanentFailure")

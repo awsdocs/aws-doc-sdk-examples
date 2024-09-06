@@ -13,9 +13,7 @@ from botocore.exceptions import ClientError
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_list_foundation_models(make_stubber, error_code):
-    bedrock_client = boto3.client(
-        service_name="bedrock",
-        region_name="us-east-1")
+    bedrock_client = boto3.client(service_name="bedrock", region_name="us-east-1")
     bedrock_stubber = make_stubber(bedrock_client)
     wrapper = BedrockWrapper(bedrock_client)
     models = [
@@ -45,16 +43,13 @@ def test_list_foundation_models(make_stubber, error_code):
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_get_foundation_model(make_stubber, error_code):
-    bedrock_client = boto3.client(
-        service_name="bedrock",
-        region_name="us-east-1")
+    bedrock_client = boto3.client(service_name="bedrock", region_name="us-east-1")
     bedrock_stubber = make_stubber(bedrock_client)
     wrapper = BedrockWrapper(bedrock_client)
 
     model_identifier = "fake.model.id"
 
-    bedrock_stubber.stub_get_foundation_model(
-        model_identifier, error_code=error_code)
+    bedrock_stubber.stub_get_foundation_model(model_identifier, error_code=error_code)
 
     if error_code is None:
         got_model = wrapper.get_foundation_model(model_identifier)

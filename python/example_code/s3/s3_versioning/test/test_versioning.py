@@ -25,12 +25,8 @@ from botocore.stub import ANY
     ],
 )
 def test_create_versioned_bucket(
-        make_stubber,
-        make_unique_name,
-        stub_runner,
-        error_code,
-        stop_on_method,
-        keep_going):
+    make_stubber, make_unique_name, stub_runner, error_code, stop_on_method, keep_going
+):
     s3_stubber = make_stubber(versioning.s3.meta.client)
     bucket_name = make_unique_name("bucket")
     obj_prefix = "test-prefix"
@@ -70,8 +66,7 @@ def test_create_versioned_bucket(
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize("rollback_version",
-                         ["version-2", "non-existent-version"])
+@pytest.mark.parametrize("rollback_version", ["version-2", "non-existent-version"])
 def test_rollback_object(make_stubber, make_unique_name, rollback_version):
     s3_stubber = make_stubber(versioning.s3.meta.client)
     bucket_name = make_unique_name("bucket")
@@ -84,23 +79,17 @@ def test_rollback_object(make_stubber, make_unique_name, rollback_version):
     ]
     delete_markers = [
         s3_stubber.make_version(
-            obj_key,
-            f"version-{index}",
-            True,
-            datetime.now() +
-            timedelta(
-                minutes=index)) for index in range(
-            10,
-            15)]
+            obj_key, f"version-{index}", True, datetime.now() + timedelta(minutes=index)
+        )
+        for index in range(10, 15)
+    ]
     sorted_versions = sorted(
         versions + delete_markers, key=itemgetter("LastModified"), reverse=True
     )
 
     s3_stubber.stub_list_object_versions(
-        bucket_name,
-        prefix=obj_key,
-        versions=versions,
-        delete_markers=delete_markers)
+        bucket_name, prefix=obj_key, versions=versions, delete_markers=delete_markers
+    )
     if rollback_version in [ver["VersionId"] for ver in sorted_versions]:
         for version in sorted_versions:
             if version["VersionId"] != rollback_version:
@@ -202,8 +191,7 @@ def test_permanently_delete_object(make_stubber, make_unique_name, error_code):
     )
 
     if not error_code:
-        versioning.permanently_delete_object(
-            versioning.s3.Bucket(bucket_name), obj_key)
+        versioning.permanently_delete_object(versioning.s3.Bucket(bucket_name), obj_key)
     else:
         with pytest.raises(ClientError) as exc_info:
             versioning.permanently_delete_object(

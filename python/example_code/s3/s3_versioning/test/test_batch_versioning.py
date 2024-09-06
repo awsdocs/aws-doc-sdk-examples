@@ -123,11 +123,8 @@ def test_create_lambda_function_failure(make_stubber, make_unique_name):
     handler = "test_batch_versioning.test_function"
 
     lambda_stubber.stub_create_function(
-        function_name,
-        function_arn,
-        mock_role.arn,
-        handler,
-        error_code="TestException")
+        function_name, function_arn, mock_role.arn, handler, error_code="TestException"
+    )
 
     with pytest.raises(ClientError) as exc_info:
         batch_versioning.create_lambda_function(
@@ -139,11 +136,8 @@ def test_create_lambda_function_failure(make_stubber, make_unique_name):
 def test_create_lambda_function_bad_file():
     with pytest.raises(IOError):
         batch_versioning.create_lambda_function(
-            "role",
-            "func",
-            "not_a_file.py",
-            "nonexistent.no_handler",
-            "None at all")
+            "role", "func", "not_a_file.py", "nonexistent.no_handler", "None at all"
+        )
 
 
 def test_create_and_fill_bucket(make_stubber, make_unique_name, monkeypatch):
@@ -169,8 +163,7 @@ def test_create_and_fill_bucket(make_stubber, make_unique_name, monkeypatch):
     assert len(stanza_objects) == len(stanzas)
 
 
-def test_create_and_fill_bucket_failure(
-        make_stubber, make_unique_name, monkeypatch):
+def test_create_and_fill_bucket_failure(make_stubber, make_unique_name, monkeypatch):
     s3_stubber = make_stubber(batch_versioning.s3.meta.client)
     bucket_name = make_unique_name("bucket")
     monkeypatch.setattr(
@@ -185,8 +178,7 @@ def test_create_and_fill_bucket_failure(
     )
 
     with pytest.raises(ClientError) as exc_info:
-        batch_versioning.create_and_fill_bucket(
-            __file__, bucket_name, obj_prefix)
+        batch_versioning.create_and_fill_bucket(__file__, bucket_name, obj_prefix)
     assert exc_info.value.response["Error"]["Code"] == "TestException"
 
 
@@ -276,8 +268,11 @@ def test_prepare_for_cleanup_failure(make_stubber, make_unique_name, fail_at):
     stanzas = [MagicMock(), MagicMock(), MagicMock()]
 
     if fail_at == "put_object":
-        stanzas[0].put = MagicMock(side_effect=ClientError(
-            {"Error": {"Code": "TestException", "Message": "hi"}}, "test-op"))
+        stanzas[0].put = MagicMock(
+            side_effect=ClientError(
+                {"Error": {"Code": "TestException", "Message": "hi"}}, "test-op"
+            )
+        )
     elif fail_at == "list_versions":
         s3_stubber.stub_list_object_versions(
             bucket_name, f"{obj_prefix}stanza", error_code="TestException"
@@ -312,10 +307,7 @@ def test_create_batch_job(make_stubber, make_unique_name):
         "function_arn": "test-function-arn",
     }
 
-    s3_stubber.stub_put_object(
-        bucket_name,
-        manifest["key"],
-        e_tag=manifest["e_tag"])
+    s3_stubber.stub_put_object(bucket_name, manifest["key"], e_tag=manifest["e_tag"])
     s3control_stubber.stub_create_job(
         job["account_id"],
         job["role_arn"],
@@ -406,8 +398,7 @@ def test_report_job_status_failure(make_stubber):
     account_id = "test-account-id"
     job_id = "test-job-id"
 
-    s3control_stubber.stub_describe_job(
-        account_id, job_id, error_code="TestException")
+    s3control_stubber.stub_describe_job(account_id, job_id, error_code="TestException")
 
     with pytest.raises(ClientError) as exc_info:
         batch_versioning.report_job_status(account_id, job_id)
@@ -427,18 +418,10 @@ def test_setup_demo(monkeypatch):
         }
     }
     test_stanzas = ["stanza1", "stanza2"]
+    monkeypatch.setattr(batch_versioning, "create_iam_role", lambda x: mock_role)
     monkeypatch.setattr(
-        batch_versioning,
-        "create_iam_role",
-        lambda x: mock_role)
-    monkeypatch.setattr(
-        batch_versioning,
-        "create_lambda_function",
-        lambda a,
-        b,
-        c,
-        d,
-        e: "test-arn")
+        batch_versioning, "create_lambda_function", lambda a, b, c, d, e: "test-arn"
+    )
     monkeypatch.setattr(
         batch_versioning,
         "create_and_fill_bucket",
@@ -465,12 +448,8 @@ def test_setup_demo(monkeypatch):
     ],
 )
 def test_usage_demo_batch_operations(
-        make_stubber,
-        stub_runner,
-        monkeypatch,
-        error_code,
-        stop_on_method,
-        stop_index):
+    make_stubber, stub_runner, monkeypatch, error_code, stop_on_method, stop_index
+):
     sts_stubber = make_stubber(batch_versioning.sts)
     s3_stubber = make_stubber(batch_versioning.s3.meta.client)
     bucket = batch_versioning.s3.Bucket("bucket")
@@ -492,24 +471,15 @@ def test_usage_demo_batch_operations(
         lambda x, y: "test-revision-manifest",
     )
     monkeypatch.setattr(
-        batch_versioning,
-        "prepare_for_revival",
-        lambda x,
-        y: "test-revival-manifest")
+        batch_versioning, "prepare_for_revival", lambda x, y: "test-revival-manifest"
+    )
     monkeypatch.setattr(
-        batch_versioning,
-        "prepare_for_cleanup",
-        lambda x,
-        y,
-        z: "test-cleanup-manifest")
+        batch_versioning, "prepare_for_cleanup", lambda x, y, z: "test-cleanup-manifest"
+    )
     monkeypatch.setattr(
         batch_versioning, "create_batch_job", lambda x, y: "test-job-id"
     )
-    monkeypatch.setattr(
-        batch_versioning,
-        "report_job_status",
-        lambda x,
-        y: None)
+    monkeypatch.setattr(batch_versioning, "report_job_status", lambda x, y: None)
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(sts_stubber.stub_get_caller_identity, "test-account-id")
@@ -595,8 +565,9 @@ def test_teardown_demo(
     policy_arn = "test-arn-must-be-20-characters"
     function_name = "test-function"
     function_info = {function_name: "test-info"}
-    versions = [{"Key": f"key-{index}", "VersionId": f"version-{index}"}
-                for index in range(5)]
+    versions = [
+        {"Key": f"key-{index}", "VersionId": f"version-{index}"} for index in range(5)
+    ]
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
@@ -608,10 +579,7 @@ def test_teardown_demo(
         runner.add(iam_stubber.stub_detach_role_policy, role_name, policy_arn)
         runner.add(iam_stubber.stub_delete_policy, policy_arn)
         runner.add(iam_stubber.stub_delete_role, role_name, keep_going=True)
-        runner.add(
-            lambda_stubber.stub_delete_function,
-            function_name,
-            keep_going=True)
+        runner.add(lambda_stubber.stub_delete_function, function_name, keep_going=True)
         runner.add(
             s3_stubber.stub_list_object_versions,
             bucket_name,

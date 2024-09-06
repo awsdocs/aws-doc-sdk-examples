@@ -47,8 +47,7 @@ def test_sign_up_user(make_stubber, client_secret, error_code):
         error_code=error_code,
     )
     if error_code == "UsernameExistsException":
-        cognito_idp_stubber.stub_admin_get_user(
-            user_pool_id, user_name, "CONFIRMED")
+        cognito_idp_stubber.stub_admin_get_user(user_pool_id, user_name, "CONFIRMED")
 
     if error_code is None or error_code == "UsernameExistsException":
         got_confirmed = wrapper.sign_up_user(user_name, password, email)
@@ -127,12 +126,10 @@ def test_list_users(make_stubber, error_code):
     cognito_idp_client = boto3.client("cognito-idp")
     cognito_idp_stubber = make_stubber(cognito_idp_client)
     user_pool_id = "test-pool-id"
-    wrapper = CognitoIdentityProviderWrapper(
-        cognito_idp_client, user_pool_id, "")
+    wrapper = CognitoIdentityProviderWrapper(cognito_idp_client, user_pool_id, "")
     users = [{}, {}]
 
-    cognito_idp_stubber.stub_list_users(
-        user_pool_id, users, error_code=error_code)
+    cognito_idp_stubber.stub_list_users(user_pool_id, users, error_code=error_code)
 
     if error_code is None:
         got_users = wrapper.list_users()
@@ -182,9 +179,8 @@ def test_start_sign_in(
             client_secret_hash=None if client_secret is None else ANY,
         )
         runner.add(
-            cognito_idp_stubber.stub_associate_software_token,
-            session,
-            mfa_secret)
+            cognito_idp_stubber.stub_associate_software_token, session, mfa_secret
+        )
 
     if error_code is None:
         got_response = wrapper.start_sign_in(user_name, password)
@@ -233,9 +229,7 @@ def test_respond_to_mfa_challenge(make_stubber, error_code, client_secret):
     challenge_name = "SOFTWARE_TOKEN_MFA"
     session = "test-session-test-session"
     mfa_code = "123456"
-    challenge_responses = {
-        "USERNAME": user_name,
-        "SOFTWARE_TOKEN_MFA_CODE": mfa_code}
+    challenge_responses = {"USERNAME": user_name, "SOFTWARE_TOKEN_MFA_CODE": mfa_code}
     access_token = "test-token"
 
     cognito_idp_stubber.stub_admin_respond_to_auth_challenge(
@@ -373,7 +367,8 @@ def test_sign_in_with_tracked_device(
         )
     if error_code is None:
         got_access_token = wrapper.sign_in_with_tracked_device(
-            user_name, password, device_key, device_group_key, device_password, aws_srp)
+            user_name, password, device_key, device_group_key, device_password, aws_srp
+        )
         assert got_access_token["AccessToken"] == access_token
     else:
         with pytest.raises(ClientError) as exc_info:

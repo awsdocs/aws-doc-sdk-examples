@@ -46,13 +46,8 @@ class KinesisAnalyticsV2Stubber(ExampleStubber):
         }
 
     def stub_create_application(
-            self,
-            app_name,
-            app_env,
-            role_arn,
-            app_arn,
-            app_version_id,
-            error_code=None):
+        self, app_name, app_env, role_arn, app_arn, app_version_id, error_code=None
+    ):
         expected_params = {
             "ApplicationName": app_name,
             "RuntimeEnvironment": app_env,
@@ -62,21 +57,15 @@ class KinesisAnalyticsV2Stubber(ExampleStubber):
             app_name, app_version_id, app_arn, env=app_env
         )
         self._stub_bifurcator(
-            "create_application",
-            expected_params,
-            response,
-            error_code=error_code)
+            "create_application", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_application(self, name, create_timestamp, error_code=None):
-        expected_params = {
-            "ApplicationName": name,
-            "CreateTimestamp": create_timestamp}
+        expected_params = {"ApplicationName": name, "CreateTimestamp": create_timestamp}
         response = {}
         self._stub_bifurcator(
-            "delete_application",
-            expected_params,
-            response,
-            error_code=error_code)
+            "delete_application", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_application(
         self, name, version_id, arn, status="STARTING", error_code=None
@@ -84,17 +73,13 @@ class KinesisAnalyticsV2Stubber(ExampleStubber):
         expected_params = {"ApplicationName": name}
         response = self._make_application_detail(name, version_id, arn, status)
         self._stub_bifurcator(
-            "describe_application",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_application", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_application_snapshot(
         self, app_name, snapshot_name, error_code=None
     ):
-        expected_params = {
-            "ApplicationName": app_name,
-            "SnapshotName": snapshot_name}
+        expected_params = {"ApplicationName": app_name, "SnapshotName": snapshot_name}
         response = {
             "SnapshotDetails": {
                 "SnapshotName": snapshot_name,
@@ -110,16 +95,11 @@ class KinesisAnalyticsV2Stubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_discover_input_schema(
-            self,
-            stream_arn,
-            role_arn,
-            error_code=None):
+    def stub_discover_input_schema(self, stream_arn, role_arn, error_code=None):
         expected_params = {
             "ResourceARN": stream_arn,
             "ServiceExecutionRole": role_arn,
-            "InputStartingPositionConfiguration": {
-                "InputStartingPosition": "NOW"},
+            "InputStartingPositionConfiguration": {"InputStartingPosition": "NOW"},
         }
         response = {
             "InputSchema": {
@@ -134,10 +114,8 @@ class KinesisAnalyticsV2Stubber(ExampleStubber):
             }
         }
         self._stub_bifurcator(
-            "discover_input_schema",
-            expected_params,
-            response,
-            error_code=error_code)
+            "discover_input_schema", expected_params, response, error_code=error_code
+        )
 
     def stub_add_application_input(
         self,
@@ -165,21 +143,16 @@ class KinesisAnalyticsV2Stubber(ExampleStubber):
                     "InputId": "input-id-1",
                     "NamePrefix": input_prefix,
                     "InputSchema": input_schema,
-                }],
+                }
+            ],
         }
         self._stub_bifurcator(
-            "add_application_input",
-            expected_params,
-            response,
-            error_code=error_code)
+            "add_application_input", expected_params, response, error_code=error_code
+        )
 
     def stub_add_application_output(
-            self,
-            app_name,
-            app_version_id,
-            stream_name,
-            output_arn,
-            error_code=None):
+        self, app_name, app_version_id, stream_name, output_arn, error_code=None
+    ):
         expected_params = {
             "ApplicationName": app_name,
             "CurrentApplicationVersionId": app_version_id,
@@ -200,22 +173,15 @@ class KinesisAnalyticsV2Stubber(ExampleStubber):
                         "ResourceARN": output_arn,
                         "RoleARN": "test-role-arn",
                     },
-                    "DestinationSchema": {
-                        "RecordFormatType": "JSON"},
-                }],
+                    "DestinationSchema": {"RecordFormatType": "JSON"},
+                }
+            ],
         }
         self._stub_bifurcator(
-            "add_application_output",
-            expected_params,
-            response,
-            error_code=error_code)
+            "add_application_output", expected_params, response, error_code=error_code
+        )
 
-    def stub_update_application(
-            self,
-            app_name,
-            app_version_id,
-            code,
-            error_code=None):
+    def stub_update_application(self, app_name, app_version_id, code, error_code=None):
         expected_params = {
             "ApplicationName": app_name,
             "CurrentApplicationVersionId": app_version_id,
@@ -228,10 +194,8 @@ class KinesisAnalyticsV2Stubber(ExampleStubber):
         }
         response = self._make_application_detail(app_name, app_version_id)
         self._stub_bifurcator(
-            "update_application",
-            expected_params,
-            response,
-            error_code=error_code)
+            "update_application", expected_params, response, error_code=error_code
+        )
 
     def stub_start_application(self, app_name, input_id, error_code=None):
         expected_params = {
@@ -249,16 +213,12 @@ class KinesisAnalyticsV2Stubber(ExampleStubber):
         }
         response = {}
         self._stub_bifurcator(
-            "start_application",
-            expected_params,
-            response,
-            error_code=error_code)
+            "start_application", expected_params, response, error_code=error_code
+        )
 
     def stub_stop_application(self, app_name, error_code=None):
         expected_params = {"ApplicationName": app_name}
         response = {}
         self._stub_bifurcator(
-            "stop_application",
-            expected_params,
-            response,
-            error_code=error_code)
+            "stop_application", expected_params, response, error_code=error_code
+        )

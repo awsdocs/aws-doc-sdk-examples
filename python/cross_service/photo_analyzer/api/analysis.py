@@ -40,9 +40,7 @@ class Analysis(Resource):
                 }
             )
             labels = response.get("Labels", [])
-            logger.info(
-                "Found %s labels in %s.", len(
-                    response["Labels"]), photo_key)
+            logger.info("Found %s labels in %s.", len(response["Labels"]), photo_key)
         except ClientError as err:
             logger.info(
                 "Couldn't detect labels in %s. Here's why: %s: %s",

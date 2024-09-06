@@ -11,7 +11,6 @@ After the classifier is trained, the demo sends a second set of GitHub issues
 to the classifier so they can be labeled.
 """
 
-from demo_tools.custom_waiter import CustomWaiter, WaitState
 import logging
 import sys
 from io import BytesIO
@@ -22,6 +21,7 @@ import requests
 from botocore.exceptions import ClientError
 from comprehend_classifier import ClassifierMode, ComprehendClassifier, JobInputFormat
 from comprehend_demo_resources import ComprehendDemoResources
+from demo_tools.custom_waiter import CustomWaiter, WaitState
 
 # Add relative path to include demo_tools in this code example without
 # need for setup.
@@ -107,8 +107,7 @@ class ClassifierDemo:
         """
         issues = []
         logger.info("Requesting issues from %s?%s.", GITHUB_SEARCH_URL, query)
-        response = requests.get(
-            f"{GITHUB_SEARCH_URL}?{query}&per_page={issue_count}")
+        response = requests.get(f"{GITHUB_SEARCH_URL}?{query}&per_page={issue_count}")
         if response.status_code == 200:
             issue_page = response.json()["items"]
             logger.info("Got %s issues.", len(issue_page))
@@ -200,8 +199,8 @@ class ClassifierDemo:
             )
         except ClientError:
             logger.exception(
-                "Couldn't upload data to bucket %s.",
-                self.demo_resources.bucket.name)
+                "Couldn't upload data to bucket %s.", self.demo_resources.bucket.name
+            )
             raise
 
     def extract_job_output(self, job):
@@ -246,9 +245,7 @@ def usage_demo():
     print("Welcome to the Amazon Comprehend custom document classifier demo!")
     print("-" * 88)
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     comp_demo = ClassifierDemo(
         ComprehendDemoResources(boto3.resource("s3"), boto3.resource("iam"))
@@ -316,12 +313,10 @@ def usage_demo():
     pprint(job_output)
 
     print("Reconciling job output with labels from GitHub:")
-    reconciled_output = comp_demo.reconcile_job_output(
-        input_issues, job_output)
+    reconciled_output = comp_demo.reconcile_job_output(input_issues, job_output)
     print(*reconciled_output, sep="\n")
 
-    answer = input(
-        f"Do you want to delete the classifier {classifier_name} (y/n)? ")
+    answer = input(f"Do you want to delete the classifier {classifier_name} (y/n)? ")
     if answer.lower() == "y":
         print(f"Deleting {classifier_name}.")
         comp_classifier.delete()

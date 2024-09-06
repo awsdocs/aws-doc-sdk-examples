@@ -13,8 +13,9 @@ from botocore.exceptions import ClientError
 from hello import Hello
 
 
-@pytest.mark.parametrize("error_code,stop_on_method",
-                         [(None, None), ("TestException", "stub_list_projects")])
+@pytest.mark.parametrize(
+    "error_code,stop_on_method", [(None, None), ("TestException", "stub_list_projects")]
+)
 def test_hello(make_stubber, stub_runner, error_code, stop_on_method):
     lookoutvision_client = boto3.client("lookoutvision")
     lookoutvision_stubber = make_stubber(lookoutvision_client)

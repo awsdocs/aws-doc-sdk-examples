@@ -195,12 +195,7 @@ class GlueWrapper:
     # snippet-end:[python.example_code.glue.CreateJob]
 
     # snippet-start:[python.example_code.glue.StartJobRun]
-    def start_job_run(
-            self,
-            name,
-            input_database,
-            input_table,
-            output_bucket_name):
+    def start_job_run(self, name, input_database, input_table, output_bucket_name):
         """
         Starts a job run. A job run extracts data from the source, transforms it,
         and loads it to the output bucket.
@@ -339,8 +334,7 @@ class GlueWrapper:
         :param table_name: The name of the table to delete.
         """
         try:
-            self.glue_client.delete_table(
-                DatabaseName=db_name, Name=table_name)
+            self.glue_client.delete_table(DatabaseName=db_name, Name=table_name)
         except ClientError as err:
             logger.error(
                 "Couldn't delete table %s. Here's why: %s: %s",

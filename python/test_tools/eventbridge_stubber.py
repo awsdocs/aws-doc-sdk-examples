@@ -55,17 +55,11 @@ class EventBridgeStubber(ExampleStubber):
 
     def stub_enable_rule(self, event_rule_name, error_code=None):
         expected_params = {"Name": event_rule_name}
-        self._stub_bifurcator(
-            "enable_rule",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("enable_rule", expected_params, error_code=error_code)
 
     def stub_disable_rule(self, event_rule_name, error_code=None):
         expected_params = {"Name": event_rule_name}
-        self._stub_bifurcator(
-            "disable_rule",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("disable_rule", expected_params, error_code=error_code)
 
     def stub_describe_rule(self, event_rule_name, state, error_code=None):
         expected_params = {"Name": event_rule_name}
@@ -74,20 +68,10 @@ class EventBridgeStubber(ExampleStubber):
             "describe_rule", expected_params, response, error_code=error_code
         )
 
-    def stub_remove_targets(
-            self,
-            event_rule_name,
-            target_ids,
-            error_code=None):
+    def stub_remove_targets(self, event_rule_name, target_ids, error_code=None):
         expected_params = {"Rule": event_rule_name, "Ids": target_ids}
-        self._stub_bifurcator(
-            "remove_targets",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("remove_targets", expected_params, error_code=error_code)
 
     def stub_delete_rule(self, event_rule_name, error_code=None):
         expected_params = {"Name": event_rule_name}
-        self._stub_bifurcator(
-            "delete_rule",
-            expected_params,
-            error_code=error_code)
+        self._stub_bifurcator("delete_rule", expected_params, error_code=error_code)

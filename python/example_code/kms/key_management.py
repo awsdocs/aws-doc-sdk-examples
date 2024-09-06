@@ -37,8 +37,7 @@ class KeyManager:
             if not key_desc:
                 key_desc = "Key management demo key"
             try:
-                key = self.kms_client.create_key(
-                    Description=key_desc)["KeyMetadata"]
+                key = self.kms_client.create_key(Description=key_desc)["KeyMetadata"]
             except ClientError as err:
                 logging.error(
                     "Couldn't create your key. Here's why: %s",
@@ -62,8 +61,7 @@ class KeyManager:
             page_size = 10
             print("\nLet's list your keys.")
             key_paginator = self.kms_client.get_paginator("list_keys")
-            for key_page in key_paginator.paginate(
-                    PaginationConfig={"PageSize": 10}):
+            for key_page in key_paginator.paginate(PaginationConfig={"PageSize": 10}):
                 print(f"Here are {len(key_page['Keys'])} keys:")
                 pprint(key_page["Keys"])
                 if key_page["Truncated"]:
@@ -87,8 +85,7 @@ class KeyManager:
         """
         Describes a key.
         """
-        key_id = input(
-            "Enter a key ID or ARN here to get information about the key: ")
+        key_id = input("Enter a key ID or ARN here to get information about the key: ")
         if key_id:
             try:
                 key = self.kms_client.describe_key(KeyId=key_id)["KeyMetadata"]
@@ -134,8 +131,7 @@ class KeyManager:
         """
         Disables and then enables a key. Gets the key state after each state change.
         """
-        answer = input(
-            "Do you want to disable and then enable that key (y/n)? ")
+        answer = input("Do you want to disable and then enable that key (y/n)? ")
         if answer.lower() == "y":
             try:
                 self.kms_client.disable_key(KeyId=key_id)
@@ -194,9 +190,7 @@ class KeyManager:
 
 
 def key_management(kms_client):
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     print("-" * 88)
     print("Welcome to the AWS Key Management Service (AWS KMS) key management demo.")

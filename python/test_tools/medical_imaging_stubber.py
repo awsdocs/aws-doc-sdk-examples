@@ -32,21 +32,15 @@ class MedicalImagingStubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
-    def stub_create_datastore(
-            self,
-            datastore_name,
-            datastore_id,
-            error_code=None):
+    def stub_create_datastore(self, datastore_name, datastore_id, error_code=None):
         expected_params = {"datastoreName": datastore_name}
         response = {
             "datastoreId": datastore_id,
             "datastoreStatus": "CREATING",
         }
         self._stub_bifurcator(
-            "create_datastore",
-            expected_params,
-            response,
-            error_code=error_code)
+            "create_datastore", expected_params, response, error_code=error_code
+        )
 
     def stub_get_datastore_properties(self, datastore_id, error_code=None):
         expected_params = {"datastoreId": datastore_id}
@@ -82,10 +76,8 @@ class MedicalImagingStubber(ExampleStubber):
         expected_params = {"datastoreId": datastore_id}
         response = {"datastoreId": datastore_id, "datastoreStatus": "DELETING"}
         self._stub_bifurcator(
-            "delete_datastore",
-            expected_params,
-            response,
-            error_code=error_code)
+            "delete_datastore", expected_params, response, error_code=error_code
+        )
 
     def stub_start_dicom_import_job(
         self,
@@ -112,10 +104,8 @@ class MedicalImagingStubber(ExampleStubber):
         }
 
         self._stub_bifurcator(
-            "start_dicom_import_job",
-            expected_params,
-            response,
-            error_code=error_code)
+            "start_dicom_import_job", expected_params, response, error_code=error_code
+        )
 
     def stub_get_dicom_import_job(
         self, job_id, datastore_id, job_status, error_code=None
@@ -130,12 +120,11 @@ class MedicalImagingStubber(ExampleStubber):
                 "dataAccessRoleArn": "arn:aws:iam::111111111111:role/dicom_import",
                 "inputS3Uri": "s3://healthimaging-source/CRStudy/",
                 "outputS3Uri": "s3://healthimaging-destination/CRStudy/",
-            }}
+            }
+        }
         self._stub_bifurcator(
-            "get_dicom_import_job",
-            expected_params,
-            response,
-            error_code=error_code)
+            "get_dicom_import_job", expected_params, response, error_code=error_code
+        )
 
     def stub_list_dicom_import_jobs(self, datastore_id, error_code=None):
         expected_params = {"datastoreId": datastore_id}
@@ -147,18 +136,14 @@ class MedicalImagingStubber(ExampleStubber):
                     "jobName": "test_job",
                     "datastoreId": "cccccc1234567890abcdef123456789",
                     "dataAccessRoleArn": "arn:aws:iam::111111111111:role/dicom_import",
-                }]}
+                }
+            ]
+        }
         self._stub_bifurcator(
-            "list_dicom_import_jobs",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_dicom_import_jobs", expected_params, response, error_code=error_code
+        )
 
-    def stub_search_image_sets(
-            self,
-            datastore_id,
-            search_criteria,
-            error_code=None):
+    def stub_search_image_sets(self, datastore_id, search_criteria, error_code=None):
         expected_params = {
             "datastoreId": datastore_id,
             "searchCriteria": search_criteria,
@@ -174,10 +159,8 @@ class MedicalImagingStubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "search_image_sets",
-            expected_params,
-            response,
-            error_code=error_code)
+            "search_image_sets", expected_params, response, error_code=error_code
+        )
 
     def stub_get_image_set(
         self, datastore_id, image_set_id, version_id, error_code=None
@@ -198,14 +181,8 @@ class MedicalImagingStubber(ExampleStubber):
             "get_image_set", expected_params, response, error_code=error_code
         )
 
-    def stub_get_image_set_metadata(
-            self,
-            datastore_id,
-            image_set_id,
-            error_code=None):
-        expected_params = {
-            "datastoreId": datastore_id,
-            "imageSetId": image_set_id}
+    def stub_get_image_set_metadata(self, datastore_id, image_set_id, error_code=None):
+        expected_params = {"datastoreId": datastore_id, "imageSetId": image_set_id}
 
         data_string = b"akdelfaldkflakdflkajs"
         stream = botocore.response.StreamingBody(
@@ -218,10 +195,8 @@ class MedicalImagingStubber(ExampleStubber):
         }
 
         self._stub_bifurcator(
-            "get_image_set_metadata",
-            expected_params,
-            response,
-            error_code=error_code)
+            "get_image_set_metadata", expected_params, response, error_code=error_code
+        )
 
     def stub_get_pixel_data(
         self, datastore_id, image_set_id, image_frame_id, error_code=None
@@ -242,14 +217,8 @@ class MedicalImagingStubber(ExampleStubber):
             "get_image_frame", expected_params, response, error_code=error_code
         )
 
-    def stub_list_image_set_versions(
-            self,
-            datastore_id,
-            image_set_id,
-            error_code=None):
-        expected_params = {
-            "datastoreId": datastore_id,
-            "imageSetId": image_set_id}
+    def stub_list_image_set_versions(self, datastore_id, image_set_id, error_code=None):
+        expected_params = {"datastoreId": datastore_id, "imageSetId": image_set_id}
 
         response = {
             "imageSetPropertiesList": [
@@ -263,10 +232,8 @@ class MedicalImagingStubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "list_image_set_versions",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_image_set_versions", expected_params, response, error_code=error_code
+        )
 
     def stub_update_image_set_metadata(
         self, datastore_id, image_set_id, version_id, metadata, error_code=None
@@ -361,14 +328,8 @@ class MedicalImagingStubber(ExampleStubber):
             "copy_image_set", expected_params, response, error_code=error_code
         )
 
-    def stub_delete_image_set(
-            self,
-            datastore_id,
-            image_set_id,
-            error_code=None):
-        expected_params = {
-            "datastoreId": datastore_id,
-            "imageSetId": image_set_id}
+    def stub_delete_image_set(self, datastore_id, image_set_id, error_code=None):
+        expected_params = {"datastoreId": datastore_id, "imageSetId": image_set_id}
 
         response = {
             "datastoreId": datastore_id,
@@ -378,10 +339,8 @@ class MedicalImagingStubber(ExampleStubber):
         }
 
         self._stub_bifurcator(
-            "delete_image_set",
-            expected_params,
-            response,
-            error_code=error_code)
+            "delete_image_set", expected_params, response, error_code=error_code
+        )
 
     def stub_tag_resource(self, resource_arn, tags, error_code=None):
         expected_params = {"resourceArn": resource_arn, "tags": tags}
@@ -407,7 +366,5 @@ class MedicalImagingStubber(ExampleStubber):
         response = {"tags": {"test-key": "test-value"}}
 
         self._stub_bifurcator(
-            "list_tags_for_resource",
-            expected_params,
-            response,
-            error_code=error_code)
+            "list_tags_for_resource", expected_params, response, error_code=error_code
+        )

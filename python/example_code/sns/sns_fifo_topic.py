@@ -131,10 +131,7 @@ class FifoTopicWrapper:
         :return: The ID of the message.
         """
         try:
-            att_dict = {
-                "business": {
-                    "DataType": "String",
-                    "StringValue": "wholesale"}}
+            att_dict = {"business": {"DataType": "String", "StringValue": "wholesale"}}
             dedup_id = uuid.uuid4()
             response = topic.publish(
                 Subject="Price Update",
@@ -146,9 +143,7 @@ class FifoTopicWrapper:
             message_id = response["MessageId"]
             logger.info("Published message to topic %s.", topic.arn)
         except ClientError as error:
-            logger.exception(
-                "Couldn't publish message to topic %s.",
-                topic.arn)
+            logger.exception("Couldn't publish message to topic %s.", topic.arn)
             raise error
         return message_id
 
@@ -219,8 +214,7 @@ def usage_demo():
     queues.add(retail_queue)
     print(f"Created FIFO queue with URL: {retail_queue.url}.")
 
-    analytics_queue = sqs.create_queue(
-        QueueName=prefix + "analytics", Attributes={})
+    analytics_queue = sqs.create_queue(QueueName=prefix + "analytics", Attributes={})
     queues.add(analytics_queue)
     print(f"Created standard queue with URL: {analytics_queue.url}.")
 

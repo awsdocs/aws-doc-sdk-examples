@@ -220,8 +220,7 @@ class InputMocker:
     #   py -m pytest -o log_cli=true --log-cli-level=INFO
     def _handle_input(self, question):
         if self.index >= len(self.answers):
-            raise IndexError(
-                f"Got question '{question}' but have no more answers.")
+            raise IndexError(f"Got question '{question}' but have no more answers.")
         val = self.answers[self.index]
         self.index += 1
         logger.info("Input Q: %s A: %s", question, val)

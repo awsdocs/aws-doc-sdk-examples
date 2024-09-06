@@ -82,9 +82,9 @@ def main():
         "using the <break strength='weak'/>AWS SDK for Python (Boto3). "
         "<amazon:effect phonation='soft'>Thank you for listening."
         "</amazon:effect>"
-        "</speak>")
-    print(
-        f"Sending voice message from {origination_number} to {destination_number}.")
+        "</speak>"
+    )
+    print(f"Sending voice message from {origination_number} to {destination_number}.")
     message_id = send_voice_message(
         boto3.client("pinpoint-sms-voice"),
         origination_number,

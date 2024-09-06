@@ -74,8 +74,7 @@ class ComprehendTopicModeler:
                     "S3Uri": f"s3://{input_bucket}/{input_key}",
                     "InputFormat": input_format.value,
                 },
-                OutputDataConfig={
-                    "S3Uri": f"s3://{output_bucket}/{output_key}"},
+                OutputDataConfig={"S3Uri": f"s3://{output_bucket}/{output_key}"},
             )
             logger.info("Started topic modeling job %s.", response["JobId"])
         except ClientError:

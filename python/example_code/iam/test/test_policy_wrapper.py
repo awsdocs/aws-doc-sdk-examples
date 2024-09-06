@@ -22,11 +22,14 @@ def test_create_policy(make_stubber, make_unique_name, error_code):
     resource_arn = "arn:aws:test:::test/resource"
     policy_arn = "arn:aws:iam:::test/policy"
 
-    policy_doc = json.dumps({"Version": "2012-10-17",
-                             "Statement": [{"Effect": "Allow",
-                                            "Action": actions,
-                                            "Resource": resource_arn}],
-                             })
+    policy_doc = json.dumps(
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {"Effect": "Allow", "Action": actions, "Resource": resource_arn}
+            ],
+        }
+    )
 
     iam_stubber.stub_create_policy(
         policy_name,
@@ -73,11 +76,14 @@ def test_create_policy_version(make_stubber, make_unique_name, error_code):
     policy_version_id = "test-policy-version"
     set_as_default = True
 
-    policy_doc = json.dumps({"Version": "2012-10-17",
-                             "Statement": [{"Effect": "Allow",
-                                            "Action": actions,
-                                            "Resource": resource_arn}],
-                             })
+    policy_doc = json.dumps(
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {"Effect": "Allow", "Action": actions, "Resource": resource_arn}
+            ],
+        }
+    )
 
     iam_stubber.stub_create_policy_version(
         policy_arn,
@@ -137,16 +143,11 @@ def test_get_default_version_statement(make_stubber, error_code):
         ],
     }
 
-    iam_stubber.stub_get_policy(
-        policy_arn,
-        policy_version_id,
-        error_code=error_code)
+    iam_stubber.stub_get_policy(policy_arn, policy_version_id, error_code=error_code)
     if error_code is None:
         iam_stubber.stub_get_policy_version(
-            policy_arn,
-            policy_version_id,
-            json.dumps(policy_doc),
-            error_code=error_code)
+            policy_arn, policy_version_id, json.dumps(policy_doc), error_code=error_code
+        )
 
     if error_code is None:
         got_statement = policy_wrapper.get_default_policy_statement(policy_arn)
@@ -169,11 +170,8 @@ def test_get_default_version_statement(make_stubber, error_code):
     ],
 )
 def test_rollback_policy_version(
-        make_stubber,
-        version_count,
-        default_index,
-        list_error_code,
-        default_error_code):
+    make_stubber, version_count, default_index, list_error_code, default_error_code
+):
     iam_stubber = make_stubber(policy_wrapper.iam.meta.client)
     policy_arn = "arn:aws:iam:::test-policy"
     policy_versions = [

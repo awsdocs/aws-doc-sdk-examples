@@ -51,13 +51,10 @@ def usage_demo():
     emr_client = boto3.client("emr")
     # Assumes the first waiting cluster has EMRFS enabled and has created metadata
     # with the default name of 'EmrFSMetadata'.
-    cluster = emr_client.list_clusters(
-        ClusterStates=["WAITING"])["Clusters"][0]
+    cluster = emr_client.list_clusters(ClusterStates=["WAITING"])["Clusters"][0]
     add_emrfs_step(
-        "sync",
-        "s3://elasticmapreduce/samples/cloudfront",
-        cluster["Id"],
-        emr_client)
+        "sync", "s3://elasticmapreduce/samples/cloudfront", cluster["Id"], emr_client
+    )
 
 
 if __name__ == "__main__":

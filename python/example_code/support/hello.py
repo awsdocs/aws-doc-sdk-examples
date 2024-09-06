@@ -28,7 +28,8 @@ def hello_support(support_client):
             logger.info(
                 "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
                 "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                "examples.")
+                "examples."
+            )
         else:
             logger.error(
                 "Couldn't count services. Here's why: %s: %s",

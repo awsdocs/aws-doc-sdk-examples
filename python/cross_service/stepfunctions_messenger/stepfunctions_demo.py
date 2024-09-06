@@ -57,14 +57,14 @@ def poll_for_messages(queue):
     messages = True
     while messages:
         messages = queue.receive_messages(
-            MessageAttributeNames=["All"],
-            MaxNumberOfMessages=10,
-            WaitTimeSeconds=5)
+            MessageAttributeNames=["All"], MaxNumberOfMessages=10, WaitTimeSeconds=5
+        )
         for msg in messages:
             print(
                 f"Message {msg.message_attributes['message_id']['StringValue']} "
                 f"received from {msg.message_attributes['user']['StringValue']}: "
-                f"{msg.body}")
+                f"{msg.body}"
+            )
             msg.delete()
 
 
@@ -83,10 +83,7 @@ def usage_demo(state_machine_name, resources):
     if state_machine_arn is None:
         print("Create a message pump state machine.")
         definition = make_definition(resources, False)
-        state_machine.create(
-            state_machine_name,
-            definition,
-            resources["StepRoleArn"])
+        state_machine.create(state_machine_name, definition, resources["StepRoleArn"])
 
     print("Put three messages in the message table.")
     for user_name, message in [
@@ -130,12 +127,9 @@ def usage_demo(state_machine_name, resources):
     print("Reset the messages in the DynamoDB table to not sent.")
     for msg in table.scan()["Items"]:
         table.update_item(
-            Key={
-                "user_name": msg["user_name"],
-                "message_id": msg["message_id"]},
+            Key={"user_name": msg["user_name"], "message_id": msg["message_id"]},
             UpdateExpression="SET sent=:s",
-            ExpressionAttributeValues={
-                ":s": False},
+            ExpressionAttributeValues={":s": False},
         )
 
     print("Restart the state machine.")
@@ -190,7 +184,8 @@ def main():
         description="Runs the AWS Step Functions demo. Run this script with the "
         "'deploy' flag to deploy prerequisite resources, then with the "
         "'demo' flag to see example usage. Run with the 'destroy' flag to "
-        "clean up all resources.")
+        "clean up all resources."
+    )
     parser.add_argument(
         "action",
         choices=["deploy", "demo", "destroy"],
@@ -202,9 +197,7 @@ def main():
     print("Welcome to the AWS Step Functions demo!")
     print("-" * 88)
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     cf_resource = boto3.resource("cloudformation")
     stack = cf_resource.Stack("doc-example-stepfunctions-messages-stack")
@@ -222,7 +215,8 @@ def main():
         )
         print(
             "To clean up all AWS resources created for the demo, run this script "
-            "again with the 'destroy' flag.")
+            "again with the 'destroy' flag."
+        )
     elif args.action == "destroy":
         print("Destroying AWS resources created for the demo.")
         destroy(state_machine_name, stack, cf_resource)

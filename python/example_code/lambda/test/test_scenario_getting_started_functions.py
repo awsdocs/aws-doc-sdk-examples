@@ -68,14 +68,8 @@ def test_run_scenario(
     monkeypatch.setattr(zipfile.ZipFile, "write", lambda x, y, z: None)
 
     with stub_runner(error_code, stop_on_method) as runner:
-        runner.add(
-            iam_stubber.stub_get_role,
-            lambda_name,
-            error_code="NoSuchEntity")
-        runner.add(
-            iam_stubber.stub_create_role,
-            lambda_name,
-            role_arn=iam_role.arn)
+        runner.add(iam_stubber.stub_get_role, lambda_name, error_code="NoSuchEntity")
+        runner.add(iam_stubber.stub_create_role, lambda_name, role_arn=iam_role.arn)
         runner.add(
             iam_stubber.stub_attach_role_policy,
             lambda_name,
@@ -86,10 +80,7 @@ def test_run_scenario(
             lambda_name,
             error_code="ResourceNotFoundException",
         )
-        runner.add(
-            iam_stubber.stub_get_role,
-            lambda_name,
-            role_arn=iam_role.arn)
+        runner.add(iam_stubber.stub_get_role, lambda_name, role_arn=iam_role.arn)
         runner.add(
             lambda_stubber.stub_create_function,
             lambda_name,
@@ -105,18 +96,13 @@ def test_run_scenario(
             inc_response_payload,
             log_type="None",
         )
+        runner.add(lambda_stubber.stub_update_function_code, lambda_name, "InProgress")
         runner.add(
-            lambda_stubber.stub_update_function_code,
-            lambda_name,
-            "InProgress")
+            lambda_stubber.stub_get_function, lambda_name, update_status="Successful"
+        )
         runner.add(
-            lambda_stubber.stub_get_function,
-            lambda_name,
-            update_status="Successful")
-        runner.add(
-            lambda_stubber.stub_update_function_configuration,
-            lambda_name,
-            env_vars)
+            lambda_stubber.stub_update_function_configuration, lambda_name, env_vars
+        )
         runner.add(
             lambda_stubber.stub_invoke,
             lambda_name,
@@ -131,28 +117,19 @@ def test_run_scenario(
             lambda_name,
             {"test-policy": policy_arn},
         )
-        runner.add(
-            iam_stubber.stub_detach_role_policy,
-            lambda_name,
-            policy_arn)
+        runner.add(iam_stubber.stub_detach_role_policy, lambda_name, policy_arn)
         runner.add(iam_stubber.stub_delete_role, lambda_name)
         runner.add(lambda_stubber.stub_delete_function, lambda_name)
 
     if error_code is None:
         scenario.run_scenario(
-            lambda_client,
-            iam_resource,
-            basic_file,
-            calculator_file,
-            lambda_name)
+            lambda_client, iam_resource, basic_file, calculator_file, lambda_name
+        )
     else:
         with pytest.raises(ClientError) as exc_info:
             scenario.run_scenario(
-                lambda_client,
-                iam_resource,
-                basic_file,
-                calculator_file,
-                lambda_name)
+                lambda_client, iam_resource, basic_file, calculator_file, lambda_name
+            )
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -169,9 +146,6 @@ def test_run_scenario_integ(monkeypatch):
 
     with patch("builtins.print") as mock_print:
         scenario.run_scenario(
-            lambda_client,
-            iam_resource,
-            basic_file,
-            calculator_file,
-            lambda_name)
+            lambda_client, iam_resource, basic_file, calculator_file, lambda_name
+        )
         mock_print.assert_any_call("\nThanks for watching!")

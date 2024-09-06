@@ -46,8 +46,7 @@ def test_describe_config_rule(make_stubber, error_code):
     rule_name = "test-rule_name"
     rules = [{"ConfigRuleName": rule_name}]
 
-    config_stubber.stub_describe_config_rules(
-        [rule_name], error_code=error_code)
+    config_stubber.stub_describe_config_rules([rule_name], error_code=error_code)
 
     if error_code is None:
         got_rule = config.describe_config_rule(rule_name)

@@ -33,31 +33,17 @@ class SupportStubber(ExampleStubber):
         expected_params = {"language": language}
         response = {"services": services}
         self._stub_bifurcator(
-            "describe_services",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_services", expected_params, response, error_code=error_code
+        )
 
-    def stub_describe_severity_levels(
-            self,
-            language,
-            severity_levels,
-            error_code=None):
+    def stub_describe_severity_levels(self, language, severity_levels, error_code=None):
         expected_params = {"language": language}
         response = {"severityLevels": severity_levels}
         self._stub_bifurcator(
-            "describe_severity_levels",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_severity_levels", expected_params, response, error_code=error_code
+        )
 
-    def stub_create_case(
-            self,
-            service,
-            category,
-            severity,
-            case_id,
-            error_code=None):
+    def stub_create_case(self, service, category, severity, case_id, error_code=None):
         expected_params = {
             "subject": "Example case for testing, ignore.",
             "serviceCode": service["code"],
@@ -78,13 +64,13 @@ class SupportStubber(ExampleStubber):
                 {
                     "data": b"This is a sample file for attachment to a support case.",
                     "fileName": "attachment_file.txt",
-                }]}
+                }
+            ]
+        }
         response = {"attachmentSetId": set_id}
         self._stub_bifurcator(
-            "add_attachments_to_set",
-            expected_params,
-            response,
-            error_code=error_code)
+            "add_attachments_to_set", expected_params, response, error_code=error_code
+        )
 
     def stub_add_communication_to_case(
         self, attachment_set_id, case_id, error_code=None
@@ -102,31 +88,19 @@ class SupportStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_describe_communications(
-            self,
-            case_id,
-            communications,
-            error_code=None):
+    def stub_describe_communications(self, case_id, communications, error_code=None):
         expected_params = {"caseId": case_id}
         response = {"communications": communications}
         self._stub_bifurcator(
-            "describe_communications",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_communications", expected_params, response, error_code=error_code
+        )
 
-    def stub_describe_attachment(
-            self,
-            attachment_id,
-            file_name,
-            error_code=None):
+    def stub_describe_attachment(self, attachment_id, file_name, error_code=None):
         expected_params = {"attachmentId": attachment_id}
         response = {"attachment": {"fileName": file_name}}
         self._stub_bifurcator(
-            "describe_attachment",
-            expected_params,
-            response,
-            error_code=error_code)
+            "describe_attachment", expected_params, response, error_code=error_code
+        )
 
     def stub_resolve_case(self, case_id, error_code=None):
         expected_params = {"caseId": case_id}
