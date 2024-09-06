@@ -20,7 +20,7 @@ func TestNewStandardFileSystemGwd(t *testing.T) {
 func TestNewStandardFileSystemFileIO(t *testing.T) {
 	filesystem := NewStandardFileSystem()
 	filename := "test.txt"
-	file, err := os.Create(filename)
+	file, _ := os.Create(filename)
 	fsFile, err := filesystem.OpenFile(filename)
 	if err != nil {
 		t.Errorf("NewStandardFileSystemFileInteraction(): error opening file: %v", err)

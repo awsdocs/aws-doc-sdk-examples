@@ -2,8 +2,9 @@ Rem Run this batch script with no arguments to run unit tests or with 'integrati
 
 for /d %%a in (* workflows\*) do (
     if not "%%a" == "workflows" (
-      pushd %%a
-      call go test -tags=%1 -timeout=60m ./...
-      popd
+        pushd %%a
+        call go get -u ./...
+        call go mod tidy
+        popd
     )
 )

@@ -53,7 +53,7 @@ func (scenTest *GetStartedFunctionsScenarioTest) SetupDataAndStubs() []testtools
 		Number: 5,
 	})
 	incremResult, _ := json.Marshal(actions.LambdaResultInt{Result: 6})
-	opChoice := "0"
+	opChoice := "1"
 	x := "6"
 	y := "7"
 	calcPayload, _ := json.Marshal(actions.CalculatorParameters{

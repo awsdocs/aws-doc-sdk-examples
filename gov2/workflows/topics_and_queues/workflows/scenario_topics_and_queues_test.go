@@ -59,7 +59,7 @@ func (scenTest *TopicsAndQueuesScenarioTest) SetupDataAndStubs() []testtools.Stu
 	toneChoice := 1
 	filterAttributes := map[string]snstypes.MessageAttributeValue{TONE_KEY: {
 		DataType:    aws.String("String"),
-		StringValue: aws.String(ToneChoices[toneChoice]),
+		StringValue: aws.String(ToneChoices[toneChoice-1]),
 	}}
 	receiptHandles := []string{"test-handle-1", "test-handle-2", "test-handle-3"}
 

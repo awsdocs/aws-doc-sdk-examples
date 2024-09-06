@@ -44,15 +44,15 @@ func (scenTest *GetStartedClustersTest) SetupDataAndStubs() []testtools.Stub {
 	familyChoice := 1
 	params := []types.Parameter{{
 		ParameterName: aws.String("auto_increment_param1"), ParameterValue: aws.String("1"),
-		AllowedValues: aws.String("1-10"), Description: aws.String("Test desc"), IsModifiable: true,
+		AllowedValues: aws.String("1-10"), Description: aws.String("Test desc"), IsModifiable: aws.Bool(true),
 		DataType: aws.String("integer"),
 	}, {
 		ParameterName: aws.String("auto_increment_param2"), ParameterValue: aws.String("2"),
-		AllowedValues: aws.String("1-10"), Description: aws.String("Test desc"), IsModifiable: true,
+		AllowedValues: aws.String("1-10"), Description: aws.String("Test desc"), IsModifiable: aws.Bool(true),
 		DataType: aws.String("integer"),
 	}, {
 		ParameterName: aws.String("another_param"), ParameterValue: aws.String("3"),
-		AllowedValues: aws.String("1-10"), Description: aws.String("Test desc"), IsModifiable: true,
+		AllowedValues: aws.String("1-10"), Description: aws.String("Test desc"), IsModifiable: aws.Bool(true),
 		DataType: aws.String("integer"),
 	}}
 	updateParams := make([]types.Parameter, 2)
@@ -70,13 +70,13 @@ func (scenTest *GetStartedClustersTest) SetupDataAndStubs() []testtools.Stub {
 	scenTest.helper = clustersTestHelper{}
 	scenTest.Answers = []string{
 		// CreateParameterGroup
-		strconv.Itoa(familyChoice),
+		strconv.Itoa(familyChoice + 1),
 		// SetUserParameters
 		*updateParams[0].ParameterValue, *updateParams[1].ParameterValue, adminName, adminPassword,
 		// CreateCluster
-		strconv.Itoa(engineVersionChoice),
+		strconv.Itoa(engineVersionChoice + 1),
 		// CreateInstance
-		strconv.Itoa(instanceChoice),
+		strconv.Itoa(instanceChoice + 1),
 		// CreateSnapshot
 		"y",
 		// Cleanup

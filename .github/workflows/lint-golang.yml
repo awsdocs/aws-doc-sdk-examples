@@ -24,10 +24,10 @@ jobs:
       - uses: actions/setup-go@v3
         if: steps.changed-files.outputs.any_changed == 'true'
         with:
-          go-version: 1.18
+          go-version: 1.21
       - name: install golangci-lint
         if: steps.changed-files.outputs.any_changed == 'true'
-        run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.47.3
+        run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.61.0
       - name: run golangci-lint
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |  # If you get a linting error of "File is not `goimports`-ed", the solution is to run "gofmt -w ./<folder>".

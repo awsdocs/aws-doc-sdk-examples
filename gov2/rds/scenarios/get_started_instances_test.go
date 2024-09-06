@@ -41,18 +41,18 @@ func (scenTest *GetStartedInstancesTest) SetupDataAndStubs() []testtools.Stub {
 	scenTest.dbName = "test-database"
 
 	families := []string{"family-1", "family-2", "family-3"}
-	familyChoice := 1
+	familyIndex := 1
 	params := []types.Parameter{{
 		ParameterName: aws.String("auto_increment_param1"), ParameterValue: aws.String("1"),
-		AllowedValues: aws.String("1-10"), Description: aws.String("Test desc"), IsModifiable: true,
+		AllowedValues: aws.String("1-10"), Description: aws.String("Test desc"), IsModifiable: aws.Bool(true),
 		DataType: aws.String("integer"),
 	}, {
 		ParameterName: aws.String("auto_increment_param2"), ParameterValue: aws.String("2"),
-		AllowedValues: aws.String("1-10"), Description: aws.String("Test desc"), IsModifiable: true,
+		AllowedValues: aws.String("1-10"), Description: aws.String("Test desc"), IsModifiable: aws.Bool(true),
 		DataType: aws.String("integer"),
 	}, {
 		ParameterName: aws.String("another_param"), ParameterValue: aws.String("3"),
-		AllowedValues: aws.String("1-10"), Description: aws.String("Test desc"), IsModifiable: true,
+		AllowedValues: aws.String("1-10"), Description: aws.String("Test desc"), IsModifiable: aws.Bool(true),
 		DataType: aws.String("integer"),
 	}}
 	updateParams := make([]types.Parameter, 2)
@@ -61,20 +61,20 @@ func (scenTest *GetStartedInstancesTest) SetupDataAndStubs() []testtools.Stub {
 	updateParams[1].ParameterValue = aws.String("5")
 	adminName := "admin"
 	adminPassword := "password"
-	engineVersionChoice := 1
-	engineVersion := fmt.Sprintf("%v-%v", scenTest.dbEngine, engineVersionChoice)
+	engineVersionIndex := 1
+	engineVersion := fmt.Sprintf("%v-%v", scenTest.dbEngine, engineVersionIndex)
 	instanceClasses := []string{"micro-1", "micro-2", "micro-3"}
-	instanceChoice := 1
+	instanceIndex := 1
 	snapshotId := fmt.Sprintf("%v-%v", scenTest.instanceName, scenTest.helper.UniqueId())
 
 	scenTest.helper = instancesTestHelper{}
 	scenTest.Answers = []string{
 		// CreateParameterGroup
-		strconv.Itoa(familyChoice),
+		strconv.Itoa(familyIndex + 1),
 		// SetUserParameters
 		*updateParams[0].ParameterValue, *updateParams[1].ParameterValue,
 		// CreateInstance
-		adminName, adminPassword, strconv.Itoa(engineVersionChoice), strconv.Itoa(instanceChoice),
+		adminName, adminPassword, strconv.Itoa(engineVersionIndex + 1), strconv.Itoa(instanceIndex + 1),
 		// CreateSnapshot
 		"y",
 		// Cleanup
@@ -84,12 +84,12 @@ func (scenTest *GetStartedInstancesTest) SetupDataAndStubs() []testtools.Stub {
 	var stubList []testtools.Stub
 
 	// CreateParameterGroup
-	stubList = append(stubList, stubs.StubGetParameterGroup(scenTest.parameterGroupName, families[familyChoice],
+	stubList = append(stubList, stubs.StubGetParameterGroup(scenTest.parameterGroupName, families[familyIndex],
 		&testtools.StubError{Err: &types.DBParameterGroupNotFoundFault{}, ContinueAfter: true}))
 	stubList = append(stubList, stubs.StubGetEngineVersions(scenTest.dbEngine, "", families, nil))
 	stubList = append(stubList, stubs.StubCreateParameterGroup(scenTest.parameterGroupName,
-		families[familyChoice], "Example parameter group.", nil))
-	stubList = append(stubList, stubs.StubGetParameterGroup(scenTest.parameterGroupName, families[familyChoice], nil))
+		families[familyIndex], "Example parameter group.", nil))
+	stubList = append(stubList, stubs.StubGetParameterGroup(scenTest.parameterGroupName, families[familyIndex], nil))
 
 	// SetUserParameters
 	stubList = append(stubList, stubs.StubGetParameters(scenTest.parameterGroupName, "", params, nil))
@@ -99,10 +99,10 @@ func (scenTest *GetStartedInstancesTest) SetupDataAndStubs() []testtools.Stub {
 	// CreateInstance
 	stubList = append(stubList, stubs.StubGetInstance(scenTest.dbName, "",
 		&testtools.StubError{Err: &types.DBInstanceNotFoundFault{}, ContinueAfter: true}))
-	stubList = append(stubList, stubs.StubGetEngineVersions(scenTest.dbEngine, families[familyChoice], families, nil))
+	stubList = append(stubList, stubs.StubGetEngineVersions(scenTest.dbEngine, families[familyIndex], families, nil))
 	stubList = append(stubList, stubs.StubGetOrderableInstances(scenTest.dbEngine, engineVersion, instanceClasses, nil))
 	stubList = append(stubList, stubs.StubCreateInstance(scenTest.instanceName, scenTest.dbName,
-		scenTest.dbEngine, engineVersion, scenTest.parameterGroupName, instanceClasses[instanceChoice],
+		scenTest.dbEngine, engineVersion, scenTest.parameterGroupName, instanceClasses[instanceIndex],
 		"standard", int32(5), adminName, adminPassword, nil))
 	stubList = append(stubList, stubs.StubGetInstance(scenTest.instanceName, "available", nil))
 

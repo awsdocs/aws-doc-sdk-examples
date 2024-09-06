@@ -154,7 +154,7 @@ func (scenario GetStartedInstances) SetUserParameters(parameterGroupName string)
 	var updateParams []types.Parameter
 	for _, dbParam := range dbParameters {
 		if strings.HasPrefix(*dbParam.ParameterName, "auto_increment") &&
-			dbParam.IsModifiable && *dbParam.DataType == "integer" {
+			*dbParam.IsModifiable && *dbParam.DataType == "integer" {
 			log.Printf("The %v parameter is described as:\n\t%v",
 				*dbParam.ParameterName, *dbParam.Description)
 			rangeSplit := strings.Split(*dbParam.AllowedValues, "-")

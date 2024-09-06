@@ -191,7 +191,7 @@ func (clusters *DbClusters) CreateDbCluster(clusterName string, parameterGroupNa
 func (clusters *DbClusters) DeleteDbCluster(clusterName string) error {
 	_, err := clusters.AuroraClient.DeleteDBCluster(context.TODO(), &rds.DeleteDBClusterInput{
 		DBClusterIdentifier: aws.String(clusterName),
-		SkipFinalSnapshot:   true,
+		SkipFinalSnapshot:   aws.Bool(true),
 	})
 	if err != nil {
 		log.Printf("Couldn't delete DB cluster %v: %v\n", clusterName, err)
@@ -293,7 +293,7 @@ func (clusters *DbClusters) GetInstance(instanceName string) (
 func (clusters *DbClusters) DeleteInstance(instanceName string) error {
 	_, err := clusters.AuroraClient.DeleteDBInstance(context.TODO(), &rds.DeleteDBInstanceInput{
 		DBInstanceIdentifier:   aws.String(instanceName),
-		SkipFinalSnapshot:      true,
+		SkipFinalSnapshot:      aws.Bool(true),
 		DeleteAutomatedBackups: aws.Bool(true),
 	})
 	if err != nil {
