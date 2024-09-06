@@ -58,7 +58,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.batch.model.SubmitJobResponse;
 import software.amazon.awssdk.services.batch.model.UpdateComputeEnvironmentRequest;
 import software.amazon.awssdk.services.batch.model.UpdateComputeEnvironmentResponse;
