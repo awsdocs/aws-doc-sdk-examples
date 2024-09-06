@@ -4,8 +4,9 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
+use aws_sdk_s3::{config::Region, meta::PKG_VERSION, types::BucketLocationConstraint, Client};
 use clap::Parser;
+use s3_code_examples::error::S3ExampleError;
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -23,28 +24,34 @@ struct Opt {
 }
 
 // Shows your buckets, or those just in the region.
-// snippet-start:[s3.rust.list-buckets]
-async fn show_buckets(strict: bool, client: &Client, region: &str) -> Result<(), Error> {
-    let resp = client.list_buckets().send().await?;
-    let buckets = resp.buckets();
-    let num_buckets = buckets.len();
+// snippet-start:[s3.rust.list_buckets]
+async fn show_buckets(
+    strict: bool,
+    client: &Client,
+    region: BucketLocationConstraint,
+) -> Result<(), S3ExampleError> {
+    let mut buckets = client.list_buckets().into_paginator().send();
 
+    let mut num_buckets = 0;
     let mut in_region = 0;
 
-    for bucket in buckets {
-        if strict {
-            let r = client
-                .get_bucket_location()
-                .bucket(bucket.name().unwrap_or_default())
-                .send()
-                .await?;
+    while let Some(Ok(output)) = buckets.next().await {
+        for bucket in output.buckets() {
+            num_buckets += 1;
+            if strict {
+                let r = client
+                    .get_bucket_location()
+                    .bucket(bucket.name().unwrap_or_default())
+                    .send()
+                    .await?;
 
-            if r.location_constraint().unwrap().as_ref() == region {
+                if r.location_constraint() == Some(&region) {
+                    println!("{}", bucket.name().unwrap_or_default());
+                    in_region += 1;
+                }
+            } else {
                 println!("{}", bucket.name().unwrap_or_default());
-                in_region += 1;
             }
-        } else {
-            println!("{}", bucket.name().unwrap_or_default());
         }
     }
 
@@ -60,7 +67,7 @@ async fn show_buckets(strict: bool, client: &Client, region: &str) -> Result<(),
 
     Ok(())
 }
-// snippet-end:[s3.rust.list-buckets]
+// snippet-end:[s3.rust.list_buckets]
 
 /// Lists your Amazon S3 buckets, or just the buckets in the Region.
 /// # Arguments
@@ -71,7 +78,7 @@ async fn show_buckets(strict: bool, client: &Client, region: &str) -> Result<(),
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() -> Result<(), S3ExampleError> {
     tracing_subscriber::fmt::init();
 
     let Opt {
@@ -108,5 +115,8 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    show_buckets(strict, &client, &region_str).await
+    let region = BucketLocationConstraint::try_parse(&region_str)
+        .map_err(|e| S3ExampleError::new(format!("{e:?}")))?;
+
+    show_buckets(strict, &client, region).await
 }

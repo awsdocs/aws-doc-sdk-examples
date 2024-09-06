@@ -19,7 +19,7 @@ use aws_sdk_s3::{config::Region, Client as S3Client};
 use aws_smithy_types::byte_stream::{ByteStream, Length};
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
-use s3_service::error::Error;
+use s3_code_examples::error::S3ExampleError;
 use std::process;
 use uuid::Uuid;
 
@@ -35,26 +35,30 @@ pub async fn main() {
     }
 }
 
-async fn run_example() -> Result<(), Error> {
+async fn run_example() -> Result<(), S3ExampleError> {
     let shared_config = aws_config::load_from_env().await;
     let client = S3Client::new(&shared_config);
 
     let bucket_name = format!("doc-example-bucket-{}", Uuid::new_v4());
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
     let region = region_provider.region().await.unwrap();
-    s3_service::create_bucket(&client, &bucket_name, region.as_ref()).await?;
+    s3_code_examples::create_bucket(&client, &bucket_name, &region).await?;
 
     let key = "sample.txt".to_string();
-    // snippet-start:[rust.example_code.s3.create_multipart_upload]
+    // snippet-start:[s3.rust.create_multipart_upload]
+    // Create a multipart upload. Use UploadPart and CompleteMultipartUpload to
+    // upload the file.
     let multipart_upload_res: CreateMultipartUploadOutput = client
         .create_multipart_upload()
         .bucket(&bucket_name)
         .key(&key)
         .send()
-        .await
-        .unwrap();
-    // snippet-end:[rust.example_code.s3.create_multipart_upload]
-    let upload_id = multipart_upload_res.upload_id().unwrap();
+        .await?;
+
+    let upload_id = multipart_upload_res.upload_id().ok_or(S3ExampleError::new(
+        "Missing upload_id after CreateMultipartUpload",
+    ))?;
+    // snippet-end:[s3.rust.create_multipart_upload]
 
     //Create a file of random characters for the upload.
     let mut file = File::create(&key).expect("Could not create sample file.");
@@ -86,13 +90,16 @@ async fn run_example() -> Result<(), Error> {
     }
 
     if file_size == 0 {
-        panic!("Bad file size.");
+        return Err(S3ExampleError::new("Bad file size."));
     }
     if chunk_count > MAX_CHUNKS {
-        panic!("Too many chunks! Try increasing your chunk size.")
+        return Err(S3ExampleError::new(
+            "Too many chunks! Try increasing your chunk size.",
+        ));
     }
 
-    let mut upload_parts: Vec<CompletedPart> = Vec::new();
+    // snippet-start:[s3.rust.upload_part]
+    let mut upload_parts: Vec<aws_sdk_s3::types::CompletedPart> = Vec::new();
 
     for chunk_index in 0..chunk_count {
         let this_chunk = if chunk_count - 1 == chunk_index {
@@ -107,9 +114,9 @@ async fn run_example() -> Result<(), Error> {
             .build()
             .await
             .unwrap();
-        //Chunk index needs to start at 0, but part numbers start at 1.
+
+        // Chunk index needs to start at 0, but part numbers start at 1.
         let part_number = (chunk_index as i32) + 1;
-        // snippet-start:[rust.example_code.s3.upload_part]
         let upload_part_res = client
             .upload_part()
             .key(&key)
@@ -119,21 +126,22 @@ async fn run_example() -> Result<(), Error> {
             .part_number(part_number)
             .send()
             .await?;
+
         upload_parts.push(
             CompletedPart::builder()
                 .e_tag(upload_part_res.e_tag.unwrap_or_default())
                 .part_number(part_number)
                 .build(),
         );
-        // snippet-end:[rust.example_code.s3.upload_part]
     }
-    // snippet-start:[rust.example_code.s3.upload_part.CompletedMultipartUpload]
+    // snippet-end:[s3.rust.upload_part]
+
+    // snippet-start:[s3.rust.complete_multipart_upload]
+    // upload_parts: Vec<aws_sdk_s3::types::CompletedPart>
     let completed_multipart_upload: CompletedMultipartUpload = CompletedMultipartUpload::builder()
         .set_parts(Some(upload_parts))
         .build();
-    // snippet-end:[rust.example_code.s3.upload_part.CompletedMultipartUpload]
 
-    // snippet-start:[rust.example_code.s3.complete_multipart_upload]
     let _complete_multipart_upload_res = client
         .complete_multipart_upload()
         .bucket(&bucket_name)
@@ -141,11 +149,11 @@ async fn run_example() -> Result<(), Error> {
         .multipart_upload(completed_multipart_upload)
         .upload_id(upload_id)
         .send()
-        .await
-        .unwrap();
-    // snippet-end:[rust.example_code.s3.complete_multipart_upload]
+        .await?;
+    // snippet-end:[s3.rust.complete_multipart_upload]
 
-    let data: GetObjectOutput = s3_service::download_object(&client, &bucket_name, &key).await?;
+    let data: GetObjectOutput =
+        s3_code_examples::download_object(&client, &bucket_name, &key).await?;
     let data_length: u64 = data
         .content_length()
         .unwrap_or_default()
@@ -157,10 +165,10 @@ async fn run_example() -> Result<(), Error> {
         println!("The data was not the same size!");
     }
 
-    s3_service::delete_objects(&client, &bucket_name)
+    s3_code_examples::clear_bucket(&client, &bucket_name)
         .await
         .expect("Error emptying bucket.");
-    s3_service::delete_bucket(&client, &bucket_name)
+    s3_code_examples::delete_bucket(&client, &bucket_name)
         .await
         .expect("Error deleting bucket.");
 

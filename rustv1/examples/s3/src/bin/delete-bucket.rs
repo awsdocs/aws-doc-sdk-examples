@@ -6,7 +6,7 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client};
 use clap::Parser;
-use s3_code_examples::{delete_objects, error::S3ExampleError};
+use s3_code_examples::{delete_bucket, error::S3ExampleError};
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -18,21 +18,16 @@ struct Opt {
     #[structopt(short, long)]
     bucket: String,
 
-    /// The objects to delete.
-    #[structopt(short, long)]
-    objects: Vec<String>,
-
     /// Whether to display additional information.
     #[structopt(short, long)]
     verbose: bool,
 }
 
-/// Removes objects from an Amazon S3 bucket.
+/// Deletes an Amazon S3 bucket.
 ///
 /// # Arguments
 ///
 /// * `-b BUCKET` - The name of the bucket.
-/// * `-o OBJECTS` - The names of the objects to delete.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///   If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
@@ -44,7 +39,6 @@ async fn main() -> Result<(), S3ExampleError> {
     let Opt {
         region,
         bucket,
-        objects,
         verbose,
     } = Opt::parse();
 
@@ -61,12 +55,11 @@ async fn main() -> Result<(), S3ExampleError> {
             region_provider.region().await.unwrap().as_ref()
         );
         println!("Bucket:            {}", &bucket);
-        println!("Objects:           {:?}", &objects);
         println!();
     }
 
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    delete_objects(&client, &bucket, objects).await
+    delete_bucket(&client, &bucket).await
 }
