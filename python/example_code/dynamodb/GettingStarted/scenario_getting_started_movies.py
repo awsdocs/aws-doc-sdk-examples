@@ -486,7 +486,7 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
     ask_for_year = True
     while ask_for_year:
         release_year = Question.ask_question(
-            f"\nLet's get a list of movies released in a given year. Enter a year between "
+            "\nLet's get a list of movies released in a given year. Enter a year between "
             f"1972 and 2018: ", Question.is_int, Question.in_range(
                 1972, 2018), )
         releases = movies.query_movies(release_year)
@@ -507,7 +507,7 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
         [
             Question(
                 "first",
-                f"\nNow let's scan for movies released in a range of years. Enter a year: ",
+                "\nNow let's scan for movies released in a range of years. Enter a year: ",
                 Question.is_int,
                 Question.in_range(
                     1972,
@@ -547,7 +547,7 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
         print(f"\nRemoved '{my_movie['title']}' from the table.")
     print("-" * 88)
 
-    if Question.ask_question(f"\nDelete the table? (y/n) ", Question.is_yesno):
+    if Question.ask_question("\nDelete the table? (y/n) ", Question.is_yesno):
         movies.delete_table()
         print(f"Deleted {table_name}.")
     else:

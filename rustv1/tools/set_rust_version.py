@@ -15,12 +15,12 @@ from glob import glob
 
 
 def read_toml(path: pathlib.Path) -> tomlkit.TOMLDocument:
-    with open(path, "rt") as file:
+    with open(path) as file:
         return tomlkit.parse(file.read())
 
 
 def write_toml(path: pathlib.Path, toml: tomlkit.TOMLDocument):
-    with open(path, "wt") as file:
+    with open(path, "w") as file:
         tomlkit.dump(toml, file)
 
 
@@ -37,7 +37,7 @@ def update_toolchains(root: pathlib.Path, channel: str, dry_run: bool):
 
 def update_actions(root: pathlib.Path, channel: str, dry_run: bool):
     rust_yaml = root / ".github" / "workflows" / "rust.yml"
-    with open(rust_yaml, "rt") as file:
+    with open(rust_yaml) as file:
         action = file.readlines()
     found = None
     for i, line in enumerate(action):
@@ -49,7 +49,7 @@ def update_actions(root: pathlib.Path, channel: str, dry_run: bool):
         raise Exception(f"Did not find toolchain entry in {rust_yaml}")
     logging.debug(f"Setting {rust_yaml} to {channel} from {found}")
     if not dry_run:
-        with open(rust_yaml, "wt") as file:
+        with open(rust_yaml, "w") as file:
             file.writelines(action)
 
 

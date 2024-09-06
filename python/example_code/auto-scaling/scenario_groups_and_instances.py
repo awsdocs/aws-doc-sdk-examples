@@ -215,7 +215,7 @@ def print_simplified_group(group):
         f"\tMin: {group['MinSize']}, Max: {group['MaxSize']}, Desired: {group['DesiredCapacity']}"
     )
     if group["Instances"]:
-        print(f"\tInstances:")
+        print("\tInstances:")
         for inst in group["Instances"]:
             print(f"\t\t{inst['InstanceId']}: {inst['LifecycleState']}")
 
@@ -418,7 +418,7 @@ def run_scenario(as_wrapper, svc_helper):
             else:
                 done = True
 
-    print(f"Let's clean up.")
+    print("Let's clean up.")
     q.ask("Press Enter when you're ready.")
     if use_metrics:
         print(f"Stopping metrics collection for {group_name}.")

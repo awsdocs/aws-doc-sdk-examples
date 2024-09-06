@@ -149,12 +149,12 @@ class GlueCrawlerJobScenario:
         database = wrapper.get_database(db_name)
         print(f"The crawler created database {db_name}:")
         pprint(database)
-        print(f"The database contains these tables:")
+        print("The database contains these tables:")
         tables = wrapper.get_tables(db_name)
         for index, table in enumerate(tables):
             print(f"\t{index + 1}. {table['Name']}")
         table_index = Question.ask_question(
-            f"Enter the number of a table to see more detail: ",
+            "Enter the number of a table to see more detail: ",
             Question.is_int,
             Question.in_range(1, len(tables)),
         )
@@ -177,7 +177,7 @@ class GlueCrawlerJobScenario:
             "In this example, the data is transformed from CSV to JSON, and only a few "
             "fields are included in the output.")
         job_run_status = None
-        if Question.ask_question(f"Ready to run? (y/n) ", Question.is_yesno):
+        if Question.ask_question("Ready to run? (y/n) ", Question.is_yesno):
             job_run_id = wrapper.start_job_run(
                 job_name, db_name, tables[0]["Name"], self.glue_bucket.name
             )
@@ -236,7 +236,7 @@ class GlueCrawlerJobScenario:
                 for index, job_run in enumerate(job_runs):
                     print(
                         f"\t{index + 1}. {job_run['JobRunState']} on "
-                        f"{job_run['CompletedOn']:%Y-%m-%d %H:%M:%S}"
+                        "{job_run['CompletedOn']:%Y-%m-%d %H:%M:%S}"
                     )
                 run_index = Question.ask_question(
                     f"Enter a number between 1 and {len(job_runs)} to see details for a run: ",

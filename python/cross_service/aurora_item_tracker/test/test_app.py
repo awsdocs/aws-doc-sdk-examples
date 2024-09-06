@@ -88,7 +88,7 @@ class MockManager:
                     self.ses_stubber.stub_send_email,
                     self.sender,
                     {"ToAddresses": [self.recipient]},
-                    f"Work items",
+                    "Work items",
                     ANY,
                     ANY,
                     "test-msg-id",
@@ -287,7 +287,7 @@ def test_report_small(mock_mgr):
     mock_mgr.setup_stubs(None, None, sql, sql_params, report="small")
 
     with mock_mgr.app.test_client() as client:
-        rte = f"/api/items:report"
+        rte = "/api/items:report"
         rv = client.post(rte, json={"email": mock_mgr.recipient})
         assert rv.status_code == 200
 
@@ -297,7 +297,7 @@ def test_report_large(mock_mgr):
     mock_mgr.setup_stubs(None, None, sql, sql_params, report="large")
 
     with mock_mgr.app.test_client() as client:
-        rte = f"/api/items:report"
+        rte = "/api/items:report"
         rv = client.post(rte, json={"email": mock_mgr.recipient})
         assert rv.status_code == 200
 
@@ -314,7 +314,7 @@ def test_report_error(mock_mgr, err, stop_on, msg):
     mock_mgr.setup_stubs(err, stop_on, sql, sql_params, report="small")
 
     with mock_mgr.app.test_client() as client:
-        rte = f"/api/items:report"
+        rte = "/api/items:report"
         rv = client.post(rte, json={"email": mock_mgr.recipient})
         assert rv.status_code == 500
         assert msg in rv.json

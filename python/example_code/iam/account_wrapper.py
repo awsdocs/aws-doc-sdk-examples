@@ -261,7 +261,7 @@ def usage_demo():
     current_aliases = list_aliases()
     print(f"Your account alias is now {current_aliases}.")
     delete_alias(current_aliases[0])
-    print(f"Your account now has no alias.")
+    print("Your account now has no alias.")
     if len(old_aliases) > 0:
         print(f"Restoring your original alias back to {old_aliases[0]}...")
         create_alias(old_aliases[0])

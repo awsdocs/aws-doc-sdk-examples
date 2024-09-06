@@ -83,7 +83,7 @@ if __name__ == "__main__":
         )
 
     print(
-        f"Total time: {test_end - test_start:.4f} sec. Average time: "
+        "Total time: {test_end - test_start:.4f} sec. Average time: "
         f"{(test_end - test_start)/test_iterations}."
     )
 # snippet-end:[dynamodb.Python.TryDax.04-query-test]

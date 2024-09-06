@@ -228,7 +228,7 @@ def usage_demo():
         lambda_function_arn,
     )
 
-    print(f"Sleeping for 3 minutes to let our function trigger a few times...")
+    print("Sleeping for 3 minutes to let our function trigger a few times...")
     time.sleep(3 * 60)
 
     print(

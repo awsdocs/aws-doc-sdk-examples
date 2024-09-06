@@ -56,7 +56,7 @@ class TransferCallback:
             target = self._target_size * MB
             sys.stdout.write(
                 f"\r{self._total_transferred} of {target} transferred "
-                f"({(self._total_transferred / target) * 100:.2f}%)."
+                "({(self._total_transferred / target) * 100:.2f}%)."
             )
             sys.stdout.flush()
 

@@ -387,10 +387,10 @@ def demo_short_lived_cluster():
     terminates after the step completes.
     """
     print("-" * 88)
-    print(f"Welcome to the Amazon EMR short-lived cluster demo.")
+    print("Welcome to the Amazon EMR short-lived cluster demo.")
     print("-" * 88)
 
-    prefix = f"demo-short-emr"
+    prefix = "demo-short-emr"
 
     s3_resource = boto3.resource("s3")
     iam_resource = boto3.resource("iam")
@@ -483,7 +483,7 @@ def demo_short_lived_cluster():
 
     # Clean up demo resources (if you want to).
     remove_everything = input(
-        f"Do you want to delete the security roles, groups, and bucket (y/n)? "
+        "Do you want to delete the security roles, groups, and bucket (y/n)? "
     )
     if remove_everything.lower() == "y":
         delete_security_groups(security_groups)
@@ -491,7 +491,7 @@ def demo_short_lived_cluster():
         delete_bucket(bucket)
     else:
         print(
-            f"Remember that objects kept in an Amazon S3 bucket can incur charges"
+            "Remember that objects kept in an Amazon S3 bucket can incur charges"
             f"against your account.")
     print("Thanks for watching!")
 
@@ -503,7 +503,7 @@ def demo_long_lived_cluster():
     terminated.
     """
     print("-" * 88)
-    print(f"Welcome to the Amazon EMR long-lived cluster demo.")
+    print("Welcome to the Amazon EMR long-lived cluster demo.")
     print("-" * 88)
 
     prefix = "demo-long-emr"
@@ -604,7 +604,7 @@ def demo_long_lived_cluster():
 
     # Clean up demo resources (if you want to).
     remove_everything = input(
-        f"Do you want to terminate the cluster and delete the security roles, "
+        "Do you want to terminate the cluster and delete the security roles, "
         f"groups, bucket, and all of its contents (y/n)? "
     )
     if remove_everything.lower() == "y":
@@ -621,7 +621,7 @@ def demo_long_lived_cluster():
         delete_bucket(bucket)
     else:
         print(
-            f"Remember that running Amazon EMR clusters and objects kept in an "
+            "Remember that running Amazon EMR clusters and objects kept in an "
             f"Amazon S3 bucket can incur charges against your account.")
     print("Thanks for watching!")
 

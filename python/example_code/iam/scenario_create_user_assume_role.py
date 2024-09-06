@@ -59,7 +59,7 @@ def setup(iam_resource):
 
     try:
         user_key = user.create_access_key_pair()
-        print(f"Created access key pair for user.")
+        print("Created access key pair for user.")
     except ClientError as error:
         print(
             f"Couldn't create access keys for user {user.name}. Here's why: "
@@ -67,7 +67,7 @@ def setup(iam_resource):
         )
         raise
 
-    print(f"Wait for user to be ready.", end="")
+    print("Wait for user to be ready.", end="")
     progress_bar(10)
 
     try:
@@ -157,7 +157,7 @@ def show_access_denied_without_role(user_key):
     :param user_key: The key of the user created during setup. This user does not
                      have permission to list buckets in the account.
     """
-    print(f"Try to list buckets without first assuming the role.")
+    print("Try to list buckets without first assuming the role.")
     s3_denied_resource = boto3.resource(
         "s3",
         aws_access_key_id=user_key.id,
@@ -211,7 +211,7 @@ def list_buckets_from_assumed_role(user_key, assume_role_arn, session_name):
         aws_secret_access_key=temp_credentials["SecretAccessKey"],
         aws_session_token=temp_credentials["SessionToken"],
     )
-    print(f"Listing buckets for the assumed role's account:")
+    print("Listing buckets for the assumed role's account:")
     try:
         for bucket in s3_resource.buckets.all():
             print(bucket.name)
@@ -266,7 +266,7 @@ def teardown(user, role):
 def usage_demo():
     """Drives the demonstration."""
     print("-" * 88)
-    print(f"Welcome to the IAM create user and assume role demo.")
+    print("Welcome to the IAM create user and assume role demo.")
     print("-" * 88)
     iam_resource = boto3.resource("iam")
     user = None

@@ -43,5 +43,5 @@ def create_dax_table(dyn_resource=None):
 
 if __name__ == "__main__":
     dax_table = create_dax_table()
-    print(f"Created table.")
+    print("Created table.")
 # snippet-end:[dynamodb.Python.TryDax.01-create-table]

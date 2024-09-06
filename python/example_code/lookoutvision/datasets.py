@@ -351,7 +351,7 @@ class Datasets:
                     f"Failed. Unexpected state for dataset update: {status} : "
                     "{status_message} :{dataset_type} dataset for project {project_name}.")
 
-            logger.info(f"Added entries to dataset.")
+            logger.info("Added entries to dataset.")
 
             return status, status_message
 

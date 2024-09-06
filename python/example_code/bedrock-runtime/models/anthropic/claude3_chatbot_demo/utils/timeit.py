@@ -18,7 +18,7 @@ def timeit(f):
         end_time = time.time()
         elapsed_time = end_time - start_time
         logger.error(
-            f"Function {f.__name__} executed in {elapsed_time:.5f} seconds.")
+            "Function {f.__name__} executed in {elapsed_time:.5f} seconds.")
         return result
 
     return wrapper

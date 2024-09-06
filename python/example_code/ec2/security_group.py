@@ -114,7 +114,7 @@ class SecurityGroupWrapper:
             print(f"\tID: {self.security_group.id}")
             print(f"\tVPC: {self.security_group.vpc_id}")
             if self.security_group.ip_permissions:
-                print(f"Inbound permissions:")
+                print("Inbound permissions:")
                 pp(self.security_group.ip_permissions)
         except ClientError as err:
             logger.error(

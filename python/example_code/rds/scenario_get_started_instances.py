@@ -64,7 +64,7 @@ class RdsInstanceScenario:
                             for ver in engine_versions})
             family_index = q.choose(
                 "Which family do you want to use? ", families)
-            print(f"Creating a parameter group.")
+            print("Creating a parameter group.")
             self.instance_wrapper.create_parameter_group(
                 parameter_group_name, families[family_index], "Example parameter group.")
             parameter_group = self.instance_wrapper.get_parameter_group(

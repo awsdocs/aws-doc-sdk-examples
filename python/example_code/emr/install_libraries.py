@@ -55,7 +55,7 @@ def install_libraries_on_core_nodes(
             cmd_result = ssm_client.list_commands(
                 CommandId=command_id)["Commands"][0]
             if cmd_result["StatusDetails"] == "Success":
-                print(f"Command succeeded.")
+                print("Command succeeded.")
                 break
             elif cmd_result["StatusDetails"] in ["Pending", "InProgress"]:
                 print(

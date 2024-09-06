@@ -80,7 +80,7 @@ if __name__ == "__main__":
         )
         test_start, test_end = get_item_test(test_key_count, test_iterations)
     print(
-        f"Total time: {test_end - test_start:.4f} sec. Average time: "
+        "Total time: {test_end - test_start:.4f} sec. Average time: "
         f"{(test_end - test_start)/ test_iterations}."
     )
 # snippet-end:[dynamodb.Python.TryDax.03-getitem-test]

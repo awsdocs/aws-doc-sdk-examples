@@ -10,9 +10,9 @@ from botocore.exceptions import ClientError
 class MockManager:
     def __init__(self, stub_runner, scenario_data, input_mocker):
         self.scenario_data = scenario_data
-        self.sm_arn = f"arn:aws:states:test-region:111122223333:/statemachine/test-sm"
+        self.sm_arn = "arn:aws:states:test-region:111122223333:/statemachine/test-sm"
         self.act_arn = "arn:aws:states:test-region:111122223333:/activity/test-act"
-        self.run_arn = f"arn:aws:states:test-region:111122223333:/execution/test-run"
+        self.run_arn = "arn:aws:states:test-region:111122223333:/execution/test-run"
         self.token = "test-token"
         self.scenario_args = [self.sm_arn, self.act_arn]
         self.scenario_out = self.run_arn

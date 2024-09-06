@@ -224,7 +224,7 @@ class TransferDemoManager:
             f"Creating file of size {self.file_size_mb} MB "
             f"in {self.demo_folder} by running:"
         )
-        print(f"{'':4}{filled_cmd}")
+        print("{'':4}{filled_cmd}")
         os.system(filled_cmd)
 
         chore = (local_file_path, s3_object_key, downloaded_file_path)
@@ -267,8 +267,8 @@ class TransferDemoManager:
         """Report the result of a transfer, including per-thread data."""
         print(f"\nUsed {len(thread_info)} threads.")
         for ident, byte_count in thread_info.items():
-            print(f"{'':4}Thread {ident} copied {byte_count} bytes.")
-        print(f"Your transfer took {elapsed:.2f} seconds.")
+            print("{'':4}Thread {ident} copied {byte_count} bytes.")
+        print("Your transfer took {elapsed:.2f} seconds.")
 
 
 def main():
@@ -346,7 +346,7 @@ def main():
                 "Got expected error when trying to download an encrypted "
                 "object without specifying encryption info:"
             )
-            print(f"{'':4}{err}")
+            print("{'':4}{err}")
 
     # Remove all created and downloaded files, remove all objects from
     # S3 storage.

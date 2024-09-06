@@ -117,7 +117,7 @@ def toggle_routing_control_state(routing_control_arn, cluster_endpoints):
     if response:
         print("Success!")
     else:
-        print(f"Something went wrong.")
+        print("Something went wrong.")
     print("-" * 88)
 
 

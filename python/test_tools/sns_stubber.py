@@ -36,7 +36,7 @@ class SnsStubber(ExampleStubber):
         self, topic_name, topic_arn, topic_attributes=None, error_code=None
     ):
         expected_params = {"Name": topic_name}
-        response = {f"TopicArn": topic_arn}
+        response = {"TopicArn": topic_arn}
         if topic_attributes is not None:
             expected_params["Attributes"] = topic_attributes
         self._stub_bifurcator(

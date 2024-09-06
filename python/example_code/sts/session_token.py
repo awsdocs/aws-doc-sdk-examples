@@ -61,13 +61,13 @@ def setup(iam_resource):
     print(f"Created virtual MFA device {virtual_mfa_device.serial_number}")
 
     print(
-        f"Showing the QR code for the device. Scan this in the MFA app of your "
+        "Showing the QR code for the device. Scan this in the MFA app of your "
         f"choice.")
     with open("qr.png", "wb") as qr_file:
         qr_file.write(virtual_mfa_device.qr_code_png)
     webbrowser.open(qr_file.name)
 
-    print(f"Enter two consecutive code from your MFA device.")
+    print("Enter two consecutive code from your MFA device.")
     mfa_code_1 = input("Enter the first code: ")
     mfa_code_2 = input("Enter the second code: ")
     user.enable_mfa(
@@ -76,12 +76,12 @@ def setup(iam_resource):
         AuthenticationCode2=mfa_code_2,
     )
     os.remove(qr_file.name)
-    print(f"MFA device is registered with the user.")
+    print("MFA device is registered with the user.")
 
     user_key = user.create_access_key_pair()
-    print(f"Created access key pair for user.")
+    print("Created access key pair for user.")
 
-    print(f"Wait for user to be ready.", end="")
+    print("Wait for user to be ready.", end="")
     progress_bar(10)
 
     user.create_policy(PolicyName=unique_name("user-policy"),
@@ -135,7 +135,7 @@ def list_buckets_with_session_token_with_mfa(
         aws_session_token=temp_credentials["SessionToken"],
     )
 
-    print(f"Buckets for the account:")
+    print("Buckets for the account:")
     for bucket in s3_resource.buckets.all():
         print(bucket.name)
 
@@ -172,7 +172,7 @@ def usage_demo():
     """Drives the demonstration."""
     print("-" * 88)
     print(
-        f"Welcome to the AWS Security Token Service assume role demo, "
+        "Welcome to the AWS Security Token Service assume role demo, "
         f"starring multi-factor authentication (MFA)!"
     )
     print("-" * 88)

@@ -63,7 +63,7 @@ class DateUtilities:
 
         # Format microseconds to remove trailing zeros, ensuring at least 3
         # digits
-        microseconds = f".{dt.microsecond:06}".rstrip("0")[:4]
+        microseconds = ".{dt.microsecond:06}".rstrip("0")[:4]
 
         # Construct the final date string
         formatted_date = date_without_microseconds + microseconds

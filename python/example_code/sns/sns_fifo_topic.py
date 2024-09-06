@@ -258,7 +258,7 @@ def usage_demo():
     for q in queues:
         fifo_topic_wrapper.delete_queue(q)
 
-    print(f"Deleted subscriptions, queues, and topic.")
+    print("Deleted subscriptions, queues, and topic.")
 
     print("Thanks for watching!")
     print("-" * 88)

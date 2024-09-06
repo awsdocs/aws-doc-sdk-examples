@@ -73,7 +73,7 @@ class AliasManager:
                         err.response["Error"]["Message"],
                     )
                 else:
-                    print(f"Key scheduled for deletion in 7 days.")
+                    print("Key scheduled for deletion in 7 days.")
 
     # snippet-start:[python.example_code.kms.CreateAlias]
     def create_alias(self, key_id):
@@ -168,7 +168,7 @@ class AliasManager:
         """
         Deletes an alias.
         """
-        alias = input(f"Enter an alias that you'd like to delete: ")
+        alias = input("Enter an alias that you'd like to delete: ")
         if alias != "":
             try:
                 self.kms_client.delete_alias(AliasName=alias)

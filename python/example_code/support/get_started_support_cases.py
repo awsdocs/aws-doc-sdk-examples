@@ -95,7 +95,7 @@ class SupportCasesScenario:
         print("-" * 88)
         severity_levels_list = self.support_wrapper.describe_severity_levels(
             "en")
-        print(f"Available severity levels:")
+        print("Available severity levels:")
         severity_choices = [level["name"] for level in severity_levels_list]
         selected_index = q.choose(
             "Select an example severity level by entering a number from the preceding list:",
@@ -158,7 +158,7 @@ class SupportCasesScenario:
         add to the communication.
         """
         print("-" * 88)
-        print(f"Adding a communication and attachment set to the case.")
+        print("Adding a communication and attachment set to the case.")
         self.support_wrapper.add_communication_to_case(
             attachment_set_id, case_id)
         print(

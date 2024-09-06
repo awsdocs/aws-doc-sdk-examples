@@ -84,14 +84,14 @@ class Runner:
             f"For demo purposes, this server is run as the root user. In production, the best practice is to\n"
             f"run a web server, such as Apache, with least-privileged credentials.\n")
         print(
-            f"The template also defines an IAM policy that each instance uses to assume a role that grants\n"
+            "The template also defines an IAM policy that each instance uses to assume a role that grants\n"
             f"permissions to access the DynamoDB recommendation table and Systems Manager parameters\n"
             f"that control the flow of the demo.\n")
         self.autoscaler.create_template(startup_script, instance_policy)
         print("-" * 88)
 
         print(
-            f"Creating an EC2 Auto Scaling group that maintains three EC2 instances, each in a different\n"
+            "Creating an EC2 Auto Scaling group that maintains three EC2 instances, each in a different\n"
             f"Availability Zone.")
         zones = self.autoscaler.create_group(3)
         print("-" * 88)
@@ -101,7 +101,7 @@ class Runner:
         print("-" * 88)
         q.ask("Press Enter when you're ready to continue.")
 
-        print(f"Creating variables that control the flow of the demo.\n")
+        print("Creating variables that control the flow of the demo.\n")
         self.param_helper.reset()
 
         print(
@@ -117,7 +117,7 @@ class Runner:
             [subnet["SubnetId"] for subnet in subnets], target_group
         )
         self.autoscaler.attach_load_balancer_target_group(target_group)
-        print(f"Verifying access to the load balancer endpoint...")
+        print("Verifying access to the load balancer endpoint...")
         lb_success = self.loadbalancer.verify_load_balancer_endpoint()
         if not lb_success:
             print(
@@ -204,7 +204,7 @@ class Runner:
                             f"\t\t{target['TargetHealth']['Reason']}: {target['TargetHealth']['Description']}\n"
                         )
                 print(
-                    f"\nNote that it can take a minute or two for the health check to update\n"
+                    "\nNote that it can take a minute or two for the health check to update\n"
                     f"after changes are made.\n")
             elif choice == 2:
                 print("\nOkay, let's move on.")
@@ -238,11 +238,11 @@ class Runner:
         )
         self.demo_choices()
 
-        print(f"Instead of failing when the recommendation service fails, the web service can return a static response.\n"
+        print("Instead of failing when the recommendation service fails, the web service can return a static response.\n"
               f"While this is not a perfect solution, it presents the customer with a somewhat better experience than failure.\n")
         self.param_helper.put(self.param_helper.failure_response, "static")
         print(
-            f"\nNow, sending a GET request to the load balancer endpoint returns a static response.\n"
+            "\nNow, sending a GET request to the load balancer endpoint returns a static response.\n"
             f"The service still reports as healthy because health checks are still shallow.\n")
         self.demo_choices()
 

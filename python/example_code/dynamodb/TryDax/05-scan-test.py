@@ -68,7 +68,7 @@ if __name__ == "__main__":
             f"Scanning the table {test_iterations} times, using the Boto3 client.")
         test_start, test_end = scan_test(test_iterations)
     print(
-        f"Total time: {test_end - test_start:.4f} sec. Average time: "
+        "Total time: {test_end - test_start:.4f} sec. Average time: "
         f"{(test_end - test_start)/test_iterations}."
     )
 # snippet-end:[dynamodb.Python.TryDax.05-scan-test]

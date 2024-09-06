@@ -168,7 +168,7 @@ class StateMachineScenario:
         :return: The ARN of the run.
         """
         print(
-            f"Let's run the state machine. It's a simplistic, non-AI chat simulator "
+            "Let's run the state machine. It's a simplistic, non-AI chat simulator "
             f"we'll call ChatSFN.")
         user_name = q.ask("What should ChatSFN call you? ", q.non_empty)
         run_input = {"name": user_name}
@@ -195,7 +195,7 @@ class StateMachineScenario:
 
         :param run_arn: The ARN of the run to retrieve.
         """
-        print(f"Let's get the final output from the state machine:")
+        print("Let's get the final output from the state machine:")
         status = "RUNNING"
         while status == "RUNNING":
             run_output = self.state_machine.describe_run(run_arn)

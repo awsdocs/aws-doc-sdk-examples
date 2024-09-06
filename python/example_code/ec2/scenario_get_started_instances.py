@@ -167,7 +167,7 @@ class Ec2InstanceScenario:
             self.key_wrapper.key_pair,
             [self.sg_wrapper.security_group],
         )
-        print(f"Your instance is ready:\n")
+        print("Your instance is ready:\n")
         self.inst_wrapper.display()
 
         print("You can use SSH to connect to your instance.")
@@ -206,7 +206,7 @@ class Ec2InstanceScenario:
         elastic_ip = self.eip_wrapper.allocate()
         print(f"Allocated static Elastic IP address: {elastic_ip.public_ip}.")
         self.eip_wrapper.associate(self.inst_wrapper.instance)
-        print(f"Associated your Elastic IP with your instance.")
+        print("Associated your Elastic IP with your instance.")
         print(
             "You can now use SSH to connect to your instance by using the Elastic IP."
         )

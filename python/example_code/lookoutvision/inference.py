@@ -106,8 +106,8 @@ class Inference:
         if prediction["IsAnomalous"] and prediction["Confidence"] >= confidence_limit:
             reject = True
             reject_info = (
-                f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) is greater"
-                f" than limit ({confidence_limit:.2%})")
+                "Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) is greater"
+                " than limit ({confidence_limit:.2%})")
             logger.info("%s", reject_info)
 
         if not reject:
@@ -142,8 +142,8 @@ class Inference:
             if len(anomaly_types) > anomaly_types_limit:
                 reject = True
                 reject_info = (
-                    f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) "
-                    f"is greater than limit ({confidence_limit:.2%}) and "
+                    "Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) "
+                    "is greater than limit ({confidence_limit:.2%}) and "
                     f"the number of anomaly types ({len(anomaly_types)-1}) is "
                     f"greater than the limit ({anomaly_types_limit})")
 
@@ -179,10 +179,10 @@ class Inference:
                 ] > (coverage_limit):
                     reject = True
                     reject_info = (
-                        f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) "
-                        f"is greater than limit ({confidence_limit:.2%}) and {anomaly['Name']} "
-                        f"coverage ({anomaly['PixelAnomaly']['TotalPercentageArea']:.2%}) "
-                        f"is greater than limit ({coverage_limit:.2%})")
+                        "Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) "
+                        "is greater than limit ({confidence_limit:.2%}) and {anomaly['Name']} "
+                        "coverage ({anomaly['PixelAnomaly']['TotalPercentageArea']:.2%}) "
+                        "is greater than limit ({coverage_limit:.2%})")
 
                     logger.info("%s", reject_info)
 

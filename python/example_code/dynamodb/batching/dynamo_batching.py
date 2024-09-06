@@ -328,7 +328,7 @@ def usage_demo():
         {"name": "name", "key_type": "HASH", "type": "S"},
     ]
 
-    print(f"Creating movie and actor tables and waiting until they exist...")
+    print("Creating movie and actor tables and waiting until they exist...")
     movie_table = create_table(
         f"demo-batch-movies-{time.time_ns()}",
         movie_schema)
@@ -356,7 +356,7 @@ def usage_demo():
     )
     print("The first 2 movies returned are: ")
     pprint.pprint(items[movie_table.name][:2])
-    print(f"The first 2 actors returned are: ")
+    print("The first 2 actors returned are: ")
     pprint.pprint(items[actor_table.name][:2])
 
     print(

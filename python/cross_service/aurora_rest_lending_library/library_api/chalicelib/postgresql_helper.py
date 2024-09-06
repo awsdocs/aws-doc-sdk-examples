@@ -184,7 +184,7 @@ def insert(table, value_sets):
              the RDS Data Service.
     """
     insert_clause = f"INSERT INTO {table.name}"
-    returning_clause = f"RETURNING *"
+    returning_clause = "RETURNING *"
     cols = [col.name for col in table.cols if not col.auto_increment]
     vals = [f":{col}" for col in cols]
     # Currently, the RETURNING clause does not have a material effect on the result set as seen by the Data API.
@@ -216,7 +216,7 @@ def insert_returning(table, value_sets):
              the RDS Data Service.
     """
     insert_clause = f"INSERT INTO {table.name}"
-    returning_clause = f"RETURNING *"
+    returning_clause = "RETURNING *"
     cols = [col.name for col in table.cols if not col.auto_increment]
     vals = [f":{col}" for col in cols]
     sql = f"WITH derived AS ({insert_clause} ({', '.join(cols)}) VALUES ({', '.join(vals)}) {returning_clause}) SELECT * FROM derived"
@@ -239,7 +239,7 @@ def insert_without_batch(table, values_clause):
     """
 
     insert_clause = f"INSERT INTO {table.name}"
-    returning_clause = f"RETURNING *"
+    returning_clause = "RETURNING *"
     cols = [col.name for col in table.cols if not col.auto_increment]
     # The RETURNING clause currently does not have a material effect on the result set as seen by the Data API.
     # This might not be a permanent limitation. If RETURNING does start to have an effect on the elements in
