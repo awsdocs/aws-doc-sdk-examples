@@ -6,15 +6,14 @@ Contains common test fixtures used to run unit tests.
 """
 
 import sys
+
 import boto3
 import pytest
-
-from keyspace import KeyspaceWrapper
 import scenario_get_started_keyspaces
+from keyspace import KeyspaceWrapper
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")
-from test_tools.fixtures.common import *
 
 
 class ScenarioData:

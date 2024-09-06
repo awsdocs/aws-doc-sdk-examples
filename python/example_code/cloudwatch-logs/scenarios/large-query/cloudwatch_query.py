@@ -1,18 +1,16 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 import logging
+import threading
 import time
 from datetime import datetime
-import threading
-import boto3
 
+import boto3
 from date_utilities import DateUtilities
 
 
 class DateOutOfBoundsError(Exception):
     """Exception raised when the date range for a query is out of bounds."""
-
-    pass
 
 
 class CloudWatchQuery:
@@ -110,7 +108,8 @@ class CloudWatchQuery:
         for log in logs:
             for item in log:
                 if item["field"] == "@timestamp":
-                    logging.debug(f"Compared: {item['value']} to {most_recent_date}")
+                    logging.debug(
+                        f"Compared: {item['value']} to {most_recent_date}")
                     if (
                         self.date_utilities.compare_dates(
                             item["value"], most_recent_date
@@ -137,11 +136,11 @@ class CloudWatchQuery:
         try:
             try:
                 start_time = round(
-                    self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[0])
-                )
+                    self.date_utilities.convert_iso8601_to_unix_timestamp(
+                        date_range[0]))
                 end_time = round(
-                    self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[1])
-                )
+                    self.date_utilities.convert_iso8601_to_unix_timestamp(
+                        date_range[1]))
                 response = client.start_query(
                     logGroupName=self.log_groups,
                     startTime=start_time,
@@ -179,11 +178,11 @@ class CloudWatchQuery:
         """
         try:
             start_time = round(
-                self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[0])
-            )
+                self.date_utilities.convert_iso8601_to_unix_timestamp(
+                    date_range[0]))
             end_time = round(
-                self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[1])
-            )
+                self.date_utilities.convert_iso8601_to_unix_timestamp(
+                    date_range[1]))
             response = client.start_query(
                 logGroupName=self.log_groups,
                 startTime=start_time,

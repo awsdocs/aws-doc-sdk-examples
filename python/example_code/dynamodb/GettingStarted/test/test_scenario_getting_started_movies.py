@@ -5,15 +5,15 @@
 Tests for scenario_getting_started_movies.py.
 """
 
-from decimal import Decimal
 import json
+from decimal import Decimal
 from unittest.mock import patch
+
 import boto3
+import pytest
+import scenario_getting_started_movies as scenario
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
-import pytest
-
-import scenario_getting_started_movies as scenario
 
 
 @pytest.mark.parametrize(
@@ -41,14 +41,13 @@ def test_run_scenario(
     with open(movie_file_name) as data:
         movie_data = json.load(data, parse_float=Decimal)
     test_rating = 3.3
-    test_movie = {
-        "title": "Test Movie Title!",
-        "year": 2001,
-        "info": {"rating": Decimal(str(test_rating)), "plot": "Long and boring."},
-    }
+    test_movie = {"title": "Test Movie Title!", "year": 2001, "info": {
+        "rating": Decimal(str(test_rating)), "plot": "Long and boring."}, }
     test_rating_update = 2.2
     test_plot_update = "Better than I remember."
-    lotr = {"title": "The Lord of the Rings: The Fellowship of the Ring", "year": 2001}
+    lotr = {
+        "title": "The Lord of the Rings: The Fellowship of the Ring",
+        "year": 2001}
     year = 1985
     year_range = (1985, 2005)
 
@@ -97,10 +96,8 @@ def test_run_scenario(
                 ":p": test_plot_update,
             },
         )
-        runner.add(
-            dynamodb_stubber.stub_batch_write_item,
-            {table_name: [{"PutRequest": {"Item": item}} for item in movie_data]},
-        )
+        runner.add(dynamodb_stubber.stub_batch_write_item, {table_name: [
+            {"PutRequest": {"Item": item}} for item in movie_data]}, )
         runner.add(dynamodb_stubber.stub_get_item, table_name, lotr, lotr)
         runner.add(
             dynamodb_stubber.stub_query,
@@ -112,9 +109,12 @@ def test_run_scenario(
             dynamodb_stubber.stub_scan,
             table_name,
             movie_data,
-            filter_expression=Key("year").between(year_range[0], year_range[1]),
+            filter_expression=Key("year").between(
+                year_range[0],
+                year_range[1]),
             projection_expression="#yr, title, info.rating",
-            expression_attrs={"#yr": "year"},
+            expression_attrs={
+                "#yr": "year"},
         )
         runner.add(
             dynamodb_stubber.stub_delete_item,
@@ -127,7 +127,10 @@ def test_run_scenario(
         scenario.run_scenario(table_name, movie_file_name, dynamodb_resource)
     else:
         with pytest.raises(ClientError) as exc_info:
-            scenario.run_scenario(table_name, movie_file_name, dynamodb_resource)
+            scenario.run_scenario(
+                table_name,
+                movie_file_name,
+                dynamodb_resource)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -155,11 +158,8 @@ def test_run_scenario_integ(monkeypatch):
     table_name = "getting-started-scenario-test-table"
     movie_file_name = "test/.test.moviedata.json"
     test_rating = 3.3
-    test_movie = {
-        "title": "Test Movie Title!",
-        "year": 2001,
-        "info": {"rating": Decimal(str(test_rating)), "plot": "Long and boring."},
-    }
+    test_movie = {"title": "Test Movie Title!", "year": 2001, "info": {
+        "rating": Decimal(str(test_rating)), "plot": "Long and boring."}, }
     test_rating_update = 2.2
     test_plot_update = "Better than I remember."
     year = 2001

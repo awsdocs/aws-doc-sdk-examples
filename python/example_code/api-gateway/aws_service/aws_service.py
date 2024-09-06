@@ -13,9 +13,10 @@ import argparse
 import json
 import logging
 from pprint import pprint
+
 import boto3
-from botocore.exceptions import ClientError
 import requests
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +54,10 @@ class ApiGatewayToService:
         try:
             result = self.apig_client.create_rest_api(name=api_name)
             self.api_id = result["id"]
-            logger.info("Created REST API %s with ID %s.", api_name, self.api_id)
+            logger.info(
+                "Created REST API %s with ID %s.",
+                api_name,
+                self.api_id)
         except ClientError:
             logger.exception("Couldn't create REST API %s.", api_name)
             raise
@@ -85,8 +89,7 @@ class ApiGatewayToService:
         """
         try:
             result = self.apig_client.create_resource(
-                restApiId=self.api_id, parentId=parent_id, pathPart=resource_path
-            )
+                restApiId=self.api_id, parentId=parent_id, pathPart=resource_path)
             resource_id = result["id"]
             logger.info("Created resource %s.", resource_path)
         except ClientError:
@@ -145,11 +148,15 @@ class ApiGatewayToService:
                 statusCode="200",
                 responseModels={"application/json": "Empty"},
             )
-            logger.info("Created %s method for resource %s.", rest_method, resource_id)
+            logger.info(
+                "Created %s method for resource %s.",
+                rest_method,
+                resource_id)
         except ClientError:
             logger.exception(
-                "Couldn't create %s method for resource %s.", rest_method, resource_id
-            )
+                "Couldn't create %s method for resource %s.",
+                rest_method,
+                resource_id)
             raise
 
         try:
@@ -160,7 +167,8 @@ class ApiGatewayToService:
                 type="AWS",
                 integrationHttpMethod=service_method,
                 credentials=role_arn,
-                requestTemplates={"application/json": json.dumps(mapping_template)},
+                requestTemplates={
+                    "application/json": json.dumps(mapping_template)},
                 uri=service_uri,
                 passthroughBehavior="WHEN_NO_TEMPLATES",
             )
@@ -220,8 +228,7 @@ class ApiGatewayToService:
         """
         url = (
             f"https://{self.api_id}.execute-api.{self.apig_client.meta.region_name}"
-            f".amazonaws.com/{self.stage}"
-        )
+            f".amazonaws.com/{self.stage}")
         if resource is not None:
             url = f"{url}/{resource}"
         return url
@@ -243,8 +250,7 @@ class ApiGatewayToService:
             paginator = self.apig_client.get_paginator("get_rest_apis")
             for page in paginator.paginate():
                 rest_api = next(
-                    (item for item in page["items"] if item["name"] == api_name), None
-                )
+                    (item for item in page["items"] if item["name"] == api_name), None)
                 if rest_api is not None:
                     break
             self.api_id = rest_api["id"]
@@ -369,11 +375,13 @@ def usage_demo(table_name, role_name, rest_api_name):
     profiles_url = gateway.api_url("profiles")
     print(
         f"Using the Requests package to post some people to the profiles REST API at "
-        f"{profiles_url}."
-    )
+        f"{profiles_url}.")
     requests.post(
         profiles_url,
-        json={"username": "will", "name": "William Shakespeare", "title": "playwright"},
+        json={
+            "username": "will",
+            "name": "William Shakespeare",
+            "title": "playwright"},
     )
     requests.post(
         profiles_url,
@@ -390,7 +398,8 @@ def usage_demo(table_name, role_name, rest_api_name):
     print("Getting the list of profiles from the REST API.")
     profiles = requests.get(profiles_url).json()
     pprint(profiles)
-    print(f"Getting just the profile for username 'jane' (URL: {profiles_url}/jane).")
+    print(
+        f"Getting just the profile for username 'jane' (URL: {profiles_url}/jane).")
     jane = requests.get(f"{profiles_url}/jane").json()
     pprint(jane)
 
@@ -425,8 +434,7 @@ def main():
         description="Runs the Amazon API Gateway demo. Run this script with the "
         "'deploy' flag to deploy prerequisite resources, then with the "
         "'demo' flag to see example usage. Run with the 'destroy' flag to "
-        "clean up all resources."
-    )
+        "clean up all resources.")
     parser.add_argument(
         "action",
         choices=["deploy", "demo", "destroy"],
@@ -439,11 +447,14 @@ def main():
     print("Welcome to the Amazon API Gateway AWS service demo!")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     cf_resource = boto3.resource("cloudformation")
     rest_api_name = "doc-example-apigateway-dynamodb-profiles"
-    stack = cf_resource.Stack("python-example-code-apigateway-dynamodb-profiles")
+    stack = cf_resource.Stack(
+        "python-example-code-apigateway-dynamodb-profiles")
 
     if args.action == "deploy":
         print("Deploying prerequisite resources for the demo.")
@@ -452,8 +463,7 @@ def main():
     elif args.action == "demo":
         print(
             "Demonstrating how to use API Gateway to set up a REST API and call it "
-            "with the Python Requests package."
-        )
+            "with the Python Requests package.")
         table_name = None
         role_name = None
         for resource in stack.resource_summaries.all():
@@ -464,8 +474,7 @@ def main():
         usage_demo(table_name, role_name, rest_api_name)
         print(
             "To clean up all AWS resources created for the demo, run this script "
-            "again with the 'destroy' flag."
-        )
+            "again with the 'destroy' flag.")
     elif args.action == "destroy":
         print("Destroying AWS resources created for the demo.")
         destroy(rest_api_name, stack, cf_resource)

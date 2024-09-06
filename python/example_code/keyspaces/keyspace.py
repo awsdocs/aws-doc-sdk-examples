@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -91,8 +92,10 @@ class KeyspaceWrapper:
         :param limit: The maximum number of keyspaces to list.
         """
         try:
-            ks_paginator = self.keyspaces_client.get_paginator("list_keyspaces")
-            for page in ks_paginator.paginate(PaginationConfig={"MaxItems": limit}):
+            ks_paginator = self.keyspaces_client.get_paginator(
+                "list_keyspaces")
+            for page in ks_paginator.paginate(
+                    PaginationConfig={"MaxItems": limit}):
                 for ks in page["keyspaces"]:
                     print(ks["keyspaceName"])
                     print(f"\t{ks['resourceArn']}")
@@ -180,7 +183,8 @@ class KeyspaceWrapper:
         Lists the tables in the keyspace.
         """
         try:
-            table_paginator = self.keyspaces_client.get_paginator("list_tables")
+            table_paginator = self.keyspaces_client.get_paginator(
+                "list_tables")
             for page in table_paginator.paginate(keyspaceName=self.ks_name):
                 for table in page["tables"]:
                     print(table["tableName"])

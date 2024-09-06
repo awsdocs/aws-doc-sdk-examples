@@ -9,22 +9,21 @@ that call AWS Lambda functions to perform processing. The demo has three phases:
 processing, and teardown.
 """
 
-from contextlib import contextmanager
-from io import BytesIO
 import json
 import logging
 import random
+import time
+import uuid
+from contextlib import contextmanager
+from io import BytesIO
 from shutil import get_terminal_size
 from sys import stdout
-import time
 from urllib import parse
-import uuid
 from zipfile import ZipFile
 
 import boto3
-from botocore.exceptions import ClientError
-
 import versioning
+from botocore.exceptions import ClientError
 
 logging.basicConfig(
     format="%(levelname)s:%(message)s", level=logging.INFO, stream=stdout
@@ -99,12 +98,14 @@ def create_iam_role(role_name):
             "Statement": [
                 {
                     "Effect": "Allow",
-                    "Principal": {"Service": "lambda.amazonaws.com"},
+                    "Principal": {
+                        "Service": "lambda.amazonaws.com"},
                     "Action": "sts:AssumeRole",
                 },
                 {
                     "Effect": "Allow",
-                    "Principal": {"Service": "batchoperations.s3.amazonaws.com"},
+                    "Principal": {
+                        "Service": "batchoperations.s3.amazonaws.com"},
                     "Action": "sts:AssumeRole",
                 },
             ],
@@ -146,8 +147,8 @@ def create_iam_role(role_name):
         }
 
         policy = iam.create_policy(
-            PolicyName=policy_name, PolicyDocument=json.dumps(s3_and_invoke_policy)
-        )
+            PolicyName=policy_name,
+            PolicyDocument=json.dumps(s3_and_invoke_policy))
         iam.meta.client.get_waiter("policy_exists").wait(PolicyArn=policy.arn)
         logger.info("Created policy %s with arn %s.", policy_name, policy.arn)
 
@@ -231,7 +232,8 @@ def create_and_fill_bucket(file_name, bucket_name, obj_prefix):
             obj = bucket.Object(f"{obj_prefix}stanza-{index}")
             obj.put(Body=bytes(stanza, "utf-8"))
             stanza_objects.append(obj)
-        print(f"Added {len(stanza_objects)} stanzas as objects to {bucket.name}.")
+        print(
+            f"Added {len(stanza_objects)} stanzas as objects to {bucket.name}.")
     except ClientError:
         logger.exception(
             "Couldn't put initial stanza objects into bucket %s.", bucket.name
@@ -318,11 +320,11 @@ def prepare_for_cleanup(bucket, obj_prefix, stanza_objects):
             Bucket=bucket.name, Prefix=f"{obj_prefix}stanza"
         )
 
-        version_count = len(response["Versions"]) + len(response["DeleteMarkers"])
+        version_count = len(response["Versions"]) + \
+            len(response["DeleteMarkers"])
         print(
             f"Created a mess of delete markers. There are currently {version_count} "
-            f"versions in {bucket.name}."
-        )
+            f"versions in {bucket.name}.")
 
         manifest_lines = [
             f"{bucket.name},{parse.quote(marker['Key'])},{marker['VersionId']}"
@@ -349,7 +351,11 @@ def create_batch_job(job, manifest):
     manifest_e_tag = None
     try:
         # Upload the manifest so the batch system can find it.
-        response = manifest_obj.put(Body=bytes("\n".join(manifest["lines"]), "utf-8"))
+        response = manifest_obj.put(
+            Body=bytes(
+                "\n".join(
+                    manifest["lines"]),
+                "utf-8"))
         if "ETag" in response:
             manifest_e_tag = response["ETag"]
         logger.info(
@@ -420,9 +426,8 @@ def report_job_status(account_id, job_id):
         print(f"Status of job {job_id}:")
         while job_status not in ("Complete", "Failed", "Cancelled"):
             prev_job_status = job_status
-            job_status = s3control.describe_job(AccountId=account_id, JobId=job_id)[
-                "Job"
-            ]["Status"]
+            job_status = s3control.describe_job(
+                AccountId=account_id, JobId=job_id)["Job"]["Status"]
             if prev_job_status != job_status:
                 print(job_status, end="")
             else:
@@ -459,8 +464,11 @@ def setup_demo(role_name, bucket_name, function_info, obj_prefix):
     for function_name in function_info.keys():
         info = function_info[function_name]
         info["arn"] = create_lambda_function(
-            role, function_name, info["file_name"], info["handler"], info["description"]
-        )
+            role,
+            function_name,
+            info["file_name"],
+            info["handler"],
+            info["description"])
 
     print("Creating a version-enabled bucket and filling it with initial stanzas...")
     bucket, stanza_objects = create_and_fill_bucket(
@@ -487,7 +495,10 @@ def usage_demo_batch_operations(
 
     account_id = sts.get_caller_identity()["Account"]
     job = {"account_id": account_id, "role_arn": role_arn}
-    manifest = {"bucket": bucket, "obj_prefix": obj_prefix, "has_versions": False}
+    manifest = {
+        "bucket": bucket,
+        "obj_prefix": obj_prefix,
+        "has_versions": False}
 
     with header():
         print(
@@ -520,8 +531,7 @@ def usage_demo_batch_operations(
     with header():
         print(
             "Creating a batch job to revive any stanzas that were deleted as part of "
-            "the random revisions..."
-        )
+            "the random revisions...")
     revival_manifest = prepare_for_revival(bucket, obj_prefix)
     job["description"] = "Remove delete markers."
     job["function_arn"] = function_info["remove_delete_marker"]["arn"]
@@ -532,7 +542,10 @@ def usage_demo_batch_operations(
     report_job_status(account_id, job_id)
 
     try:
-        stanza_count = len(list(bucket.objects.filter(Prefix=f"{obj_prefix}stanza")))
+        stanza_count = len(
+            list(
+                bucket.objects.filter(
+                    Prefix=f"{obj_prefix}stanza")))
         print(f"There are now {stanza_count} stanzas in {bucket.name}.")
     except ClientError:
         logger.exception("Couldn't get stanzas from bucket %s.", bucket.name)
@@ -599,8 +612,9 @@ def teardown_demo(role_name, function_info, bucket_name):
             logger.info("Deleted Lambda function %s.", function_name)
         except ClientError as error:
             logger.warning(
-                "Couldn't delete Lambda function %s because %s", function_name, error
-            )
+                "Couldn't delete Lambda function %s because %s",
+                function_name,
+                error)
 
     print("\nEmptying and deleting the bucket...")
     bucket = s3.Bucket(bucket_name)
@@ -608,13 +622,19 @@ def teardown_demo(role_name, function_info, bucket_name):
         bucket.object_versions.delete()
         print(f"Permanently deleted everything in {bucket.name}.")
     except ClientError as error:
-        logger.warning("Couldn't empty bucket %s because %s.", bucket.name, error)
+        logger.warning(
+            "Couldn't empty bucket %s because %s.",
+            bucket.name,
+            error)
 
     try:
         bucket.delete()
         print(f"Deleted bucket {bucket.name}.")
     except ClientError as error:
-        logger.warning("Couldn't delete bucket %s because %s.", bucket.name, error)
+        logger.warning(
+            "Couldn't delete bucket %s because %s.",
+            bucket.name,
+            error)
 
 
 def main():
@@ -646,8 +666,7 @@ def main():
             "This demonstration manipulates Amazon S3 objects in batches "
             "by creating jobs that call AWS Lambda functions to perform processing. "
             "It uses the stanzas from the poem 'You Are Old, Father William' "
-            "by Lewis Carroll, treating each stanza as a separate object."
-        )
+            "by Lewis Carroll, treating each stanza as a separate object.")
 
     print("Let's do the demo.")
     role, bucket, stanza_objects = setup_demo(

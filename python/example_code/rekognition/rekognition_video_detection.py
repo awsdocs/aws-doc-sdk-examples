@@ -8,17 +8,17 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Rekognition to
 recognize people and objects in videos.
 """
 
-import logging
 import json
-from pprint import pprint
+import logging
 import time
-import boto3
-from botocore.exceptions import ClientError
-import requests
+from pprint import pprint
 
+import boto3
+import requests
+from botocore.exceptions import ClientError
 from rekognition_objects import (
-    RekognitionFace,
     RekognitionCelebrity,
+    RekognitionFace,
     RekognitionLabel,
     RekognitionModerationLabel,
     RekognitionPerson,
@@ -58,7 +58,10 @@ class RekognitionVideo:
         :param rekognition_client: A Boto3 Rekognition client.
         :return: The RekognitionVideo object, initialized with Amazon S3 object data.
         """
-        video = {"S3Object": {"Bucket": s3_object.bucket_name, "Name": s3_object.key}}
+        video = {
+            "S3Object": {
+                "Bucket": s3_object.bucket_name,
+                "Name": s3_object.key}}
         return cls(video, s3_object.key, rekognition_client)
 
     def create_notification_channel(
@@ -85,8 +88,8 @@ class RekognitionVideo:
         """
         self.topic = sns_resource.create_topic(Name=resource_name)
         self.queue = sqs_resource.create_queue(
-            QueueName=resource_name, Attributes={"ReceiveMessageWaitTimeSeconds": "5"}
-        )
+            QueueName=resource_name, Attributes={
+                "ReceiveMessageWaitTimeSeconds": "5"})
         queue_arn = self.queue.attributes["QueueArn"]
 
         # This policy lets the queue receive messages from the topic.
@@ -99,18 +102,15 @@ class RekognitionVideo:
                             {
                                 "Sid": "test-sid",
                                 "Effect": "Allow",
-                                "Principal": {"AWS": "*"},
+                                "Principal": {
+                                    "AWS": "*"},
                                 "Action": "SQS:SendMessage",
                                 "Resource": queue_arn,
                                 "Condition": {
-                                    "ArnEquals": {"aws:SourceArn": self.topic.arn}
-                                },
-                            }
-                        ],
-                    }
-                )
-            }
-        )
+                                    "ArnEquals": {
+                                        "aws:SourceArn": self.topic.arn}},
+                            }],
+                    })})
         self.topic.subscribe(Protocol="sqs", Endpoint=queue_arn)
 
         # This role lets Amazon Rekognition publish to the topic. Its Amazon Resource
@@ -123,12 +123,11 @@ class RekognitionVideo:
                     "Statement": [
                         {
                             "Effect": "Allow",
-                            "Principal": {"Service": "rekognition.amazonaws.com"},
+                            "Principal": {
+                                "Service": "rekognition.amazonaws.com"},
                             "Action": "sts:AssumeRole",
-                        }
-                    ],
-                }
-            ),
+                        }],
+                }),
         )
         policy = iam_resource.create_policy(
             PolicyName=resource_name,
@@ -192,7 +191,10 @@ class RekognitionVideo:
                 if job_id != message["JobId"]:
                     raise RuntimeError
                 status = message["Status"]
-                logger.info("Got message %s with status %s.", message["JobId"], status)
+                logger.info(
+                    "Got message %s with status %s.",
+                    message["JobId"],
+                    status)
                 messages[0].delete()
                 job_done = True
         return status
@@ -208,21 +210,28 @@ class RekognitionVideo:
         """
         try:
             response = start_job_func(
-                Video=self.video, NotificationChannel=self.get_notification_channel()
-            )
+                Video=self.video,
+                NotificationChannel=self.get_notification_channel())
             job_id = response["JobId"]
             logger.info(
-                "Started %s job %s on %s.", job_description, job_id, self.video_name
-            )
+                "Started %s job %s on %s.",
+                job_description,
+                job_id,
+                self.video_name)
         except ClientError:
             logger.exception(
-                "Couldn't start %s job on %s.", job_description, self.video_name
-            )
+                "Couldn't start %s job on %s.",
+                job_description,
+                self.video_name)
             raise
         else:
             return job_id
 
-    def _get_rekognition_job_results(self, job_id, get_results_func, result_extractor):
+    def _get_rekognition_job_results(
+            self,
+            job_id,
+            get_results_func,
+            result_extractor):
         """
         Gets the results of a completed job by calling the specified results function.
         Results are extracted into objects by using the specified extractor function.
@@ -236,7 +245,10 @@ class RekognitionVideo:
         """
         try:
             response = get_results_func(JobId=job_id)
-            logger.info("Job %s has status: %s.", job_id, response["JobStatus"])
+            logger.info(
+                "Job %s has status: %s.",
+                job_id,
+                response["JobStatus"])
             results = result_extractor(response)
             logger.info("Found %s items in %s.", len(results), self.video_name)
         except ClientError:
@@ -246,8 +258,11 @@ class RekognitionVideo:
             return results
 
     def _do_rekognition_job(
-        self, job_description, start_job_func, get_results_func, result_extractor
-    ):
+            self,
+            job_description,
+            start_job_func,
+            get_results_func,
+            result_extractor):
         """
         Starts a job, waits for completion, and gets the results.
 
@@ -355,7 +370,9 @@ def usage_demo():
     print("Welcome to the Amazon Rekognition video detection demo!")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     print("Creating Amazon S3 bucket and uploading video.")
     s3_resource = boto3.resource("s3")
@@ -367,8 +384,8 @@ def usage_demo():
     )
     video_object = bucket.Object("bezos_vogel.mp4")
     bezos_vogel_video = requests.get(
-        "https://dhei5unw3vrsx.cloudfront.net/videos/bezos_vogel.mp4", stream=True
-    )
+        "https://dhei5unw3vrsx.cloudfront.net/videos/bezos_vogel.mp4",
+        stream=True)
     video_object.upload_fileobj(bezos_vogel_video.raw)
 
     rekognition_client = boto3.client("rekognition")
@@ -379,8 +396,10 @@ def usage_demo():
     sns_resource = boto3.resource("sns")
     sqs_resource = boto3.resource("sqs")
     video.create_notification_channel(
-        "doc-example-video-rekognition", iam_resource, sns_resource, sqs_resource
-    )
+        "doc-example-video-rekognition",
+        iam_resource,
+        sns_resource,
+        sqs_resource)
 
     print("Detecting labels in the video.")
     labels = video.do_label_detection()
@@ -400,8 +419,7 @@ def usage_demo():
     celebrities = video.do_celebrity_recognition()
     print(
         f"Found {len(celebrities)} celebrity detection events. Here's the first "
-        f"appearance of each celebrity:"
-    )
+        f"appearance of each celebrity:")
     celeb_names = set()
     for celeb in celebrities:
         if celeb.name not in celeb_names:
@@ -413,8 +431,7 @@ def usage_demo():
     persons = video.do_person_tracking()
     print(
         f"Detected {len(persons)} person tracking items, here are the first five "
-        f"for each person:"
-    )
+        f"for each person:")
     by_index = {}
     for person in persons:
         if person.index not in by_index:

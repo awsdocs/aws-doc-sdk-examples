@@ -6,11 +6,11 @@ Unit tests for scenario_create_user_assume_role.py.
 """
 
 from unittest.mock import MagicMock
-import pytest
-import boto3
-from botocore.exceptions import ClientError
 
+import boto3
+import pytest
 import scenario_create_user_assume_role as assume_role
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(
@@ -28,7 +28,12 @@ import scenario_create_user_assume_role as assume_role
         ("TestException", "stub_put_user_policy"),
     ],
 )
-def test_setup(make_stubber, stub_runner, monkeypatch, error_code, stop_on_action):
+def test_setup(
+        make_stubber,
+        stub_runner,
+        monkeypatch,
+        error_code,
+        stop_on_action):
     iam_resource = boto3.resource("iam")
     iam_stubber = make_stubber(iam_resource.meta.client)
     name_suffix = "test"
@@ -52,7 +57,10 @@ def test_setup(make_stubber, stub_runner, monkeypatch, error_code, stop_on_actio
         runner.add(iam_stubber.stub_attach_role_policy, role_name, policy_arn)
         runner.add(iam_stubber.stub_get_policy, policy_arn)
         runner.add(iam_stubber.stub_get_role, role_name, role_arn)
-        runner.add(iam_stubber.stub_put_user_policy, user_name, user_policy_name)
+        runner.add(
+            iam_stubber.stub_put_user_policy,
+            user_name,
+            user_policy_name)
 
     if error_code is None:
         user, user_key, role = assume_role.setup(iam_resource)
@@ -66,7 +74,8 @@ def test_setup(make_stubber, stub_runner, monkeypatch, error_code, stop_on_actio
 
 
 @pytest.mark.parametrize("error_code", [None, "AccessDenied", "TestException"])
-def test_show_access_denied_without_role(make_stubber, monkeypatch, error_code):
+def test_show_access_denied_without_role(
+        make_stubber, monkeypatch, error_code):
     s3_resource = boto3.resource("s3")
     s3_stubber = make_stubber(s3_resource.meta.client)
     user_key = MagicMock(id="test-access-key-id", secret="test-secret")
@@ -109,11 +118,15 @@ def test_list_buckets_from_assumed_role(
     role_arn = "arn:aws:iam::123456789012:role/test-role"
     session_name = "test-session"
     session_token = "test-session-token"
-    buckets = [s3_resource.Bucket("test-bucket-1"), s3_resource.Bucket("test-bucket-2")]
+    buckets = [
+        s3_resource.Bucket("test-bucket-1"),
+        s3_resource.Bucket("test-bucket-2")]
 
     def get_boto_entity(
-        client, aws_access_key_id, aws_secret_access_key, aws_session_token=None
-    ):
+            client,
+            aws_access_key_id,
+            aws_secret_access_key,
+            aws_session_token=None):
         assert aws_access_key_id == user_key.id
         assert aws_secret_access_key == user_key.secret
         assert client in ["s3", "sts"]
@@ -142,12 +155,14 @@ def test_list_buckets_from_assumed_role(
         runner.add(s3_stubber.stub_list_buckets, buckets)
 
     if error_code is None:
-        assume_role.list_buckets_from_assumed_role(user_key, role_arn, session_name)
+        assume_role.list_buckets_from_assumed_role(
+            user_key, role_arn, session_name)
         for bucket in buckets:
             mock_print.assert_any_call(bucket.name)
     else:
         with pytest.raises(ClientError) as exc_info:
-            assume_role.list_buckets_from_assumed_role(user_key, role_arn, session_name)
+            assume_role.list_buckets_from_assumed_role(
+                user_key, role_arn, session_name)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -174,15 +189,16 @@ def test_teardown(make_stubber, stub_runner, error_code, stop_on_action):
             {role_policy.policy_name: role_policy.arn},
         )
         runner.add(iam_stubber.stub_get_policy, role_policy.arn)
-        runner.add(iam_stubber.stub_detach_role_policy, role_name, role_policy.arn)
+        runner.add(
+            iam_stubber.stub_detach_role_policy,
+            role_name,
+            role_policy.arn)
         runner.add(iam_stubber.stub_delete_policy, role_policy.arn)
         runner.add(iam_stubber.stub_delete_role, role_name)
-        runner.add(
-            iam_stubber.stub_list_user_policies, user_name, [user_policy.policy_name]
-        )
-        runner.add(
-            iam_stubber.stub_delete_user_policy, user_name, user_policy.policy_name
-        )
+        runner.add(iam_stubber.stub_list_user_policies,
+                   user_name, [user_policy.policy_name])
+        runner.add(iam_stubber.stub_delete_user_policy,
+                   user_name, user_policy.policy_name)
         runner.add(iam_stubber.stub_list_access_keys, user_name, [user_key_id])
         runner.add(iam_stubber.stub_delete_access_key, user_name, user_key_id)
         runner.add(iam_stubber.stub_delete_user, user_name)

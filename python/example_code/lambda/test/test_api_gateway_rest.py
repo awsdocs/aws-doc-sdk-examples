@@ -5,11 +5,10 @@
 Unit tests for api_gateway_rest.py functions.
 """
 
-import boto3
-from botocore.exceptions import ClientError
-import pytest
-
 import api_gateway_rest
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(
@@ -68,8 +67,10 @@ def test_create_rest_api(
         )
         runner.add(apig_stubber.stub_put_method, rest_api_id, resource_id)
         runner.add(
-            apig_stubber.stub_put_integration, rest_api_id, resource_id, lambda_uri
-        )
+            apig_stubber.stub_put_integration,
+            rest_api_id,
+            resource_id,
+            lambda_uri)
         runner.add(apig_stubber.stub_create_deployment, rest_api_id, api_stage)
         runner.add(
             lambda_stubber.stub_add_permission,

@@ -7,7 +7,6 @@ Purpose
 Shows how to use the AWS SDK for Python (Boto3) to tag AWS HealthImaging data stores.
 """
 import boto3
-
 from medical_imaging_basics import MedicalImagingWrapper
 
 
@@ -21,7 +20,8 @@ def tagging_data_stores(medical_imaging_wrapper, data_store_arn):
     """
 
     # snippet-start:[python.example_code.medical-imaging.tagging_datastore.tag]
-    medical_imaging_wrapper.tag_resource(data_store_arn, {"Deployment": "Development"})
+    medical_imaging_wrapper.tag_resource(
+        data_store_arn, {"Deployment": "Development"})
     # snippet-end:[python.example_code.medical-imaging.tagging_datastore.tag]
 
     # snippet-start:[python.example_code.medical-imaging.tagging_datastore.list]

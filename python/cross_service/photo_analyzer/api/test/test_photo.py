@@ -5,10 +5,8 @@
 Unit tests for photo.py.
 """
 
-from unittest.mock import MagicMock
-import boto3
-import pytest
 
+import boto3
 from photo import Photo
 
 

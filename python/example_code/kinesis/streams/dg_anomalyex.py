@@ -12,9 +12,10 @@ Developer Guide.
 
 # snippet-start:[kinesisanalytics.python.datagenerator.anomalyex]
 
-from enum import Enum
 import json
 import random
+from enum import Enum
+
 import boto3
 
 STREAM_NAME = "ExampleInputStream"

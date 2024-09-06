@@ -12,6 +12,7 @@ viewer.
 # snippet-start:[python.example_code.rekognition.helper.imports]
 import io
 import logging
+
 from PIL import Image, ImageDraw
 
 logger = logging.getLogger(__name__)

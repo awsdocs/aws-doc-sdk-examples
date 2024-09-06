@@ -1,15 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from datetime import datetime
 import time
+from datetime import datetime
 from unittest.mock import MagicMock
-from botocore.exceptions import ClientError, WaiterError
-from botocore.stub import ANY
+
 import pytest
 import requests
-
 from auto_scaler import AutoScalerError
+from botocore.exceptions import WaiterError
+from botocore.stub import ANY
 from load_balancer import LoadBalancerError
 from parameters import ParameterHelper, ParameterHelperError
 
@@ -152,9 +152,8 @@ class MockManager:
                 [self.scenario_data.instance["InstanceId"]],
             )
             runner.add(
-                self.scenario_data.ssm.stubber.stub_describe_instance_information,
-                [self.scenario_data.instance["InstanceId"]],
-            )
+                self.scenario_data.ssm.stubber.stub_describe_instance_information, [
+                    self.scenario_data.instance["InstanceId"]], )
             runner.add(
                 self.scenario_data.ssm.stubber.stub_send_command,
                 [self.scenario_data.instance["InstanceId"]],
@@ -242,7 +241,13 @@ def test_demo(mock_mgr, monkeypatch):
         (ParameterHelperError, "stub_put_parameter", 27),
     ],
 )
-def test_demo_error(mock_mgr, caplog, error, stub_name, stop_on_index, monkeypatch):
+def test_demo_error(
+        mock_mgr,
+        caplog,
+        error,
+        stub_name,
+        stop_on_index,
+        monkeypatch):
     monkeypatch.setattr(time, "sleep", lambda x: None)
     monkeypatch.setattr(
         requests, "get", lambda x: MagicMock(status_code=200, text="test text")

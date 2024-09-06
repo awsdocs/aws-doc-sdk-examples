@@ -13,6 +13,7 @@ import boto3
 
 iot_client = boto3.client("iot-data")
 response = iot_client.publish(
-    topic="some/topic", qos=0, payload="Some payload".encode()
-)
+    topic="some/topic",
+    qos=0,
+    payload=b"Some payload")
 # snippet-end:[greengrass.python.iot-data-client-boto3.complete]

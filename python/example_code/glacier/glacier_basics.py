@@ -12,6 +12,7 @@ Glacier to create and manage vaults and archives.
 import argparse
 import logging
 import os
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -147,7 +148,10 @@ class GlacierWrapper:
                 job_list.append(job)
                 logger.info("Got %s %s job %s.", job_type, job.action, job.id)
         except ClientError:
-            logger.exception("Couldn't get %s jobs from %s.", job_type, vault.name)
+            logger.exception(
+                "Couldn't get %s jobs from %s.",
+                job_type,
+                vault.name)
             raise
         else:
             return job_list
@@ -204,8 +208,9 @@ class GlacierWrapper:
         try:
             archive.delete()
             logger.info(
-                "Deleted archive %s from vault %s.", archive.id, archive.vault_name
-            )
+                "Deleted archive %s from vault %s.",
+                archive.id,
+                archive.vault_name)
         except ClientError:
             logger.exception("Couldn't delete archive %s.", archive.id)
             raise
@@ -253,8 +258,8 @@ class GlacierWrapper:
             logger.info("Read %s bytes from job %s.", len(out_bytes), job.id)
             if "archiveDescription" in response:
                 logger.info(
-                    "These bytes are described as '%s'", response["archiveDescription"]
-                )
+                    "These bytes are described as '%s'",
+                    response["archiveDescription"])
         except ClientError:
             logger.exception("Couldn't get output for job %s.", job.id)
             raise
@@ -294,8 +299,9 @@ class GlacierWrapper:
             )
         except ClientError:
             logger.exception(
-                "Couldn't set notifications to %s on %s.", sns_topic_arn, vault.name
-            )
+                "Couldn't set notifications to %s on %s.",
+                sns_topic_arn,
+                vault.name)
             raise
         else:
             return notification
@@ -320,7 +326,9 @@ class GlacierWrapper:
                 notification.events,
             )
         except ClientError:
-            logger.exception("Couldn't get notification data for %s.", vault.name)
+            logger.exception(
+                "Couldn't get notification data for %s.",
+                vault.name)
             raise
         else:
             return notification
@@ -366,19 +374,18 @@ def upload_demo(glacier, vault_name, topic_arn):
     glacier.list_vaults()
     print(f"\nUploading glacier_basics.py to {vault.name}.")
     with open("glacier_basics.py", "rb") as upload_file:
-        archive = glacier.upload_archive(vault, "glacier_basics.py", upload_file)
+        archive = glacier.upload_archive(
+            vault, "glacier_basics.py", upload_file)
     print(
         "\nStarting an archive retrieval request to get the file back from the "
-        "vault."
-    )
+        "vault.")
     glacier.initiate_archive_retrieval(archive)
     print("\nListing in progress jobs:")
     glacier.list_jobs(vault, "in_progress")
     print(
         "\nBecause Amazon S3 Glacier is intended for infrequent retrieval, an "
         "archive request with Standard retrieval typically completes within 3–5 "
-        "hours."
-    )
+        "hours.")
     if topic_arn:
         notification = glacier.set_notifications(vault, topic_arn)
         print(
@@ -390,8 +397,7 @@ def upload_demo(glacier, vault_name, topic_arn):
     else:
         print(
             f"\nVault {vault.name} is not configured to notify an Amazon SNS topic "
-            f"when the archive retrieval completes so wait a few hours."
-        )
+            f"when the archive retrieval completes so wait a few hours.")
     print("\nRetrieve your job output by running this script with the --retrieve flag.")
 
 
@@ -417,8 +423,7 @@ def retrieve_demo(glacier, vault_name):
         if err.response["Error"]["Code"] == "ResourceNotFoundException":
             print(
                 f"\nVault {vault_name} doesn't exist. You must first run this script "
-                f"with the --upload flag to create the vault."
-            )
+                f"with the --upload flag to create the vault.")
             return
         else:
             raise
@@ -437,8 +442,7 @@ def retrieve_demo(glacier, vault_name):
     if retrieval_job is None:
         print(
             "\nNo ArchiveRetrieval jobs found. Give it some time and try again "
-            "later."
-        )
+            "later.")
         return
 
     print(f"\nGetting output from job {retrieval_job.id}.")
@@ -487,7 +491,9 @@ def usage_demo():
     print("Welcome to the Amazon S3 Glacier demo!")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     vault_name = "doc-example-vault"
     glacier = GlacierWrapper(boto3.resource("glacier"))

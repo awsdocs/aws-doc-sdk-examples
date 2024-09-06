@@ -15,19 +15,20 @@ previously created activity as a step.
 5. Delete resources created by the example.
 """
 
+from demo_tools.retries import wait
+import demo_tools.question as q
 import json
 import logging
 import sys
 
 import boto3
-from botocore.exceptions import ClientError
 from activities import Activity
+from botocore.exceptions import ClientError
 from state_machines import StateMachine
 
-# Add relative path to include demo_tools in this code example without need for setup.
+# Add relative path to include demo_tools in this code example without
+# need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +71,8 @@ class StateMachineScenario:
         }
         try:
             role = self.iam_client.get_role(RoleName=state_machine_role_name)
-            print(f"Prerequisite IAM role {state_machine_role_name} already exists.")
+            print(
+                f"Prerequisite IAM role {state_machine_role_name} already exists.")
         except ClientError as err:
             if err.response["Error"]["Code"] == "NoSuchEntity":
                 role = None
@@ -111,8 +113,7 @@ class StateMachineScenario:
             activity_arn = self.activity.create(activity_name)
             print(
                 f"Activity {activity_name} created. Its Amazon Resource Name (ARN) is "
-                f"{activity_arn}."
-            )
+                f"{activity_arn}.")
         else:
             print(f"Activity {activity_name} already exists.")
         return activity_arn
@@ -146,7 +147,8 @@ class StateMachineScenario:
         else:
             print(f"State machine {state_machine_name} already exists.")
         print("-" * 88)
-        print(f"Here's some information about state machine {state_machine_name}:")
+        print(
+            f"Here's some information about state machine {state_machine_name}:")
         state_machine_info = self.state_machine.describe(state_machine_arn)
         for field in ["name", "status", "stateMachineArn", "roleArn"]:
             print(f"\t{field}: {state_machine_info[field]}")
@@ -167,12 +169,12 @@ class StateMachineScenario:
         """
         print(
             f"Let's run the state machine. It's a simplistic, non-AI chat simulator "
-            f"we'll call ChatSFN."
-        )
+            f"we'll call ChatSFN.")
         user_name = q.ask("What should ChatSFN call you? ", q.non_empty)
         run_input = {"name": user_name}
         print("Starting state machine...")
-        run_arn = self.state_machine.start(state_machine_arn, json.dumps(run_input))
+        run_arn = self.state_machine.start(
+            state_machine_arn, json.dumps(run_input))
         action = None
         while action != "done":
             activity_task = self.activity.get_task(activity_arn)
@@ -204,7 +206,8 @@ class StateMachineScenario:
                 )
                 wait(1)
             elif status == "SUCCEEDED":
-                print(f"ChatSFN: {json.loads(run_output['output'])['message']}")
+                print(
+                    f"ChatSFN: {json.loads(run_output['output'])['message']}")
             else:
                 print(f"Run status: {status}.")
 
@@ -267,7 +270,9 @@ class StateMachineScenario:
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
     try:
         stepfunctions_client = boto3.client("stepfunctions")
         iam_client = boto3.client("iam")
@@ -277,7 +282,9 @@ if __name__ == "__main__":
             iam_client,
         )
         scenario.prerequisites("doc-example-state-machine-chat")
-        scenario.run_scenario("doc-example-activity", "doc-example-state-machine")
+        scenario.run_scenario(
+            "doc-example-activity",
+            "doc-example-state-machine")
     except Exception:
         logging.exception("Something went wrong with the demo.")
 # snippet-end:[python.example_code.sfn.Scenario_GetStartedStateMachines]

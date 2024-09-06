@@ -4,7 +4,6 @@ import os
 
 import boto3
 from langchain_community.chat_models import BedrockChat
-
 from utils.custom_logging import setup_custom_logger
 from utils.timeit import timeit
 
@@ -78,8 +77,8 @@ class FordGPTv2:
             )
 
             prompt = template.format(
-                resume=resume, input_text="Introduce yourself in a single sentence."
-            )
+                resume=resume,
+                input_text="Introduce yourself in a single sentence.")
 
             conversation = ConversationChain(
                 llm=self.llm,

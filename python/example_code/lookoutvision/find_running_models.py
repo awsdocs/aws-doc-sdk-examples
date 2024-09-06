@@ -10,13 +10,9 @@ client.
 # snippet-start:[python.example_code.lookoutvision.Scenario_FindRunningModels]
 
 import logging
+
 import boto3
-
-from boto3.session import Session
-
-
 from botocore.exceptions import ClientError, EndpointConnectionError
-
 
 logger = logging.getLogger(__name__)
 
@@ -40,15 +36,16 @@ def find_running_models_in_project(lfv_client, project_name):
 
     for page in page_iterator:
         for model in page["Models"]:
-            # Get model description and store hosted state, if model is running.
+            # Get model description and store hosted state, if model is
+            # running.
 
             model_description = lfv_client.describe_model(
                 ProjectName=project_name, ModelVersion=model["ModelVersion"]
             )
 
             logger.info(
-                "Checking: %s", model_description["ModelDescription"]["ModelArn"]
-            )
+                "Checking: %s",
+                model_description["ModelDescription"]["ModelArn"])
 
             if model_description["ModelDescription"]["Status"] == "HOSTED":
                 running_model = {
@@ -137,7 +134,9 @@ def find_running_models(boto3_session):
 
 
 def main():
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     try:
         session = boto3.Session(profile_name="lookoutvision-access")

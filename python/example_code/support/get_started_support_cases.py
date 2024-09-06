@@ -20,18 +20,17 @@ do the following:
 11. Get a list of resolved cases for the current day.
 """
 
-from datetime import datetime, timedelta
+from demo_tools.retries import wait
+import demo_tools.question as q
 import logging
 import sys
+from datetime import datetime, timedelta
 
-import boto3
-from botocore.exceptions import ClientError
 from support_wrapper import SupportWrapper
 
-# Add relative path to include demo_tools in this code example without need for setup.
+# Add relative path to include demo_tools in this code example without
+# need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 
@@ -77,7 +76,8 @@ class SupportCasesScenario:
         print(
             f"Available support categories for Service {service['name']} {len(service['categories'])}:"
         )
-        categories_choices = [category["name"] for category in service["categories"]]
+        categories_choices = [category["name"]
+                              for category in service["categories"]]
         selected_index = q.choose(
             "Select an example support category by entering a number from the preceding list:",
             categories_choices,
@@ -93,7 +93,8 @@ class SupportCasesScenario:
         :return: The selected severity level.
         """
         print("-" * 88)
-        severity_levels_list = self.support_wrapper.describe_severity_levels("en")
+        severity_levels_list = self.support_wrapper.describe_severity_levels(
+            "en")
         print(f"Available severity levels:")
         severity_choices = [level["name"] for level in severity_levels_list]
         selected_index = q.choose(
@@ -115,7 +116,8 @@ class SupportCasesScenario:
         """
         print("-" * 88)
         print(f"Creating new case for service {service['name']}.")
-        case_id = self.support_wrapper.create_case(service, category, severity_level)
+        case_id = self.support_wrapper.create_case(
+            service, category, severity_level)
         print(f"\tNew case created with ID {case_id}.")
         print("-" * 88)
         return case_id
@@ -128,7 +130,8 @@ class SupportCasesScenario:
         print("Let's list the open cases for the current day.")
         start_time = str(datetime.utcnow().date())
         end_time = str(datetime.utcnow().date() + timedelta(days=1))
-        open_cases = self.support_wrapper.describe_cases(start_time, end_time, False)
+        open_cases = self.support_wrapper.describe_cases(
+            start_time, end_time, False)
         for case in open_cases:
             print(f"\tCase: {case['caseId']}: status {case['status']}.")
         print("-" * 88)
@@ -156,7 +159,8 @@ class SupportCasesScenario:
         """
         print("-" * 88)
         print(f"Adding a communication and attachment set to the case.")
-        self.support_wrapper.add_communication_to_case(attachment_set_id, case_id)
+        self.support_wrapper.add_communication_to_case(
+            attachment_set_id, case_id)
         print(
             f"Added a communication and attachment set {attachment_set_id} to the case {case_id}."
         )
@@ -172,7 +176,8 @@ class SupportCasesScenario:
         print("-" * 88)
         print("Let's list the communications for our case.")
         attachment_id = ""
-        communications = self.support_wrapper.describe_all_case_communications(case_id)
+        communications = self.support_wrapper.describe_all_case_communications(
+            case_id)
         for communication in communications:
             print(
                 f"\tCommunication created on {communication['timeCreated']} "
@@ -215,13 +220,16 @@ class SupportCasesScenario:
         print("Let's list the resolved cases for the current day.")
         start_time = str(datetime.utcnow().date())
         end_time = str(datetime.utcnow().date() + timedelta(days=1))
-        resolved_cases = self.support_wrapper.describe_cases(start_time, end_time, True)
+        resolved_cases = self.support_wrapper.describe_cases(
+            start_time, end_time, True)
         for case in resolved_cases:
             print(f"\tCase: {case['caseId']}: status {case['status']}.")
         print("-" * 88)
 
     def run_scenario(self):
-        logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+        logging.basicConfig(
+            level=logging.INFO,
+            format="%(levelname)s: %(message)s")
 
         print("-" * 88)
         print("Welcome to the AWS Support get started with support cases demo.")

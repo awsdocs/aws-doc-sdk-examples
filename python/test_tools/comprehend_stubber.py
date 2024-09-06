@@ -5,7 +5,7 @@
 Stub functions that are used by the Amazon Comprehend unit tests.
 """
 
-import datetime
+
 from test_tools.example_stubber import ExampleStubber
 
 
@@ -32,8 +32,10 @@ class ComprehendStubber(ExampleStubber):
         expected_params = {"Text": text}
         response = {"Languages": languages}
         self._stub_bifurcator(
-            "detect_dominant_language", expected_params, response, error_code=error_code
-        )
+            "detect_dominant_language",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_detect_entities(self, text, language, entities, error_code=None):
         expected_params = {"Text": text, "LanguageCode": language}
@@ -42,19 +44,33 @@ class ComprehendStubber(ExampleStubber):
             "detect_entities", expected_params, response, error_code=error_code
         )
 
-    def stub_detect_key_phrases(self, text, language, phrases, error_code=None):
+    def stub_detect_key_phrases(
+            self,
+            text,
+            language,
+            phrases,
+            error_code=None):
         expected_params = {"Text": text, "LanguageCode": language}
         response = {"KeyPhrases": phrases}
         self._stub_bifurcator(
-            "detect_key_phrases", expected_params, response, error_code=error_code
-        )
+            "detect_key_phrases",
+            expected_params,
+            response,
+            error_code=error_code)
 
-    def stub_detect_pii_entities(self, text, language, entities, error_code=None):
+    def stub_detect_pii_entities(
+            self,
+            text,
+            language,
+            entities,
+            error_code=None):
         expected_params = {"Text": text, "LanguageCode": language}
         response = {"Entities": entities}
         self._stub_bifurcator(
-            "detect_pii_entities", expected_params, response, error_code=error_code
-        )
+            "detect_pii_entities",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_detect_sentiment(
         self, text, language, sentiment, sentiment_scores, error_code=None
@@ -62,8 +78,10 @@ class ComprehendStubber(ExampleStubber):
         expected_params = {"Text": text, "LanguageCode": language}
         response = {"Sentiment": sentiment, "SentimentScore": sentiment_scores}
         self._stub_bifurcator(
-            "detect_sentiment", expected_params, response, error_code=error_code
-        )
+            "detect_sentiment",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_detect_syntax(self, text, language, tokens, error_code=None):
         expected_params = {"Text": text, "LanguageCode": language}
@@ -160,7 +178,8 @@ class ComprehendStubber(ExampleStubber):
                 "S3Uri": f"s3://{input_bucket}/{input_key}",
                 "InputFormat": input_format,
             },
-            "OutputDataConfig": {"S3Uri": f"s3://{output_bucket}/{output_key}"},
+            "OutputDataConfig": {
+                "S3Uri": f"s3://{output_bucket}/{output_key}"},
             "DataAccessRoleArn": data_role_arn,
         }
         response = {"JobStatus": job_status}
@@ -191,9 +210,8 @@ class ComprehendStubber(ExampleStubber):
 
     def stub_list_document_classification_jobs(self, jobs, error_code=None):
         expected_params = {}
-        response = {
-            "DocumentClassificationJobPropertiesList": [{"JobId": job} for job in jobs]
-        }
+        response = {"DocumentClassificationJobPropertiesList": [
+            {"JobId": job} for job in jobs]}
         self._stub_bifurcator(
             "list_document_classification_jobs",
             expected_params,
@@ -221,7 +239,8 @@ class ComprehendStubber(ExampleStubber):
                 "S3Uri": f"s3://{input_bucket}/{input_key}",
                 "InputFormat": input_format,
             },
-            "OutputDataConfig": {"S3Uri": f"s3://{output_bucket}/{output_key}"},
+            "OutputDataConfig": {
+                "S3Uri": f"s3://{output_bucket}/{output_key}"},
         }
         response = {"JobId": job_id, "JobStatus": job_status}
         self._stub_bifurcator(

@@ -27,12 +27,11 @@
 # snippet-start:[deeplens.python.deeplens_view_output.lambda_function]
 
 import os
-import greengrasssdk
-from threading import Timer
-import time
+from threading import Thread, Timer
+
 import awscam
 import cv2
-from threading import Thread
+import greengrasssdk
 
 # Create an AWS Greengrass core SDK client.
 client = greengrasssdk.client("iot-data")
@@ -60,7 +59,7 @@ class FIFO_Thread(Thread):
         while Write_To_FIFO:
             try:
                 f.write(jpeg.tobytes())
-            except IOError as e:
+            except OSError as e:
                 continue
 
 
@@ -104,7 +103,7 @@ def greengrass_infinite_infer_run():
         model = awscam.Model(modelPath, mcfg)
         client.publish(topic=iotTopic, payload="Model loaded")
         ret, frame = awscam.getLastFrame()
-        if ret == False:
+        if not ret:
             raise Exception("Failed to get frame from the stream")
 
         yscale = float(frame.shape[0] / input_height)
@@ -116,7 +115,7 @@ def greengrass_infinite_infer_run():
             ret, frame = awscam.getLastFrame()
 
             # If you fail to get a frame, raise an exception.
-            if ret == False:
+            if not ret:
                 raise Exception("Failed to get frame from the stream")
 
             # Resize the frame to meet the  model input requirement.
@@ -125,7 +124,8 @@ def greengrass_infinite_infer_run():
             # Run model inference on the resized frame.
             inferOutput = model.doInference(frameResize)
 
-            # Output the result of inference to the fifo file so it can be viewed with mplayer.
+            # Output the result of inference to the fifo file so it can be
+            # viewed with mplayer.
             parsed_results = model.parseResult(modelType, inferOutput)["ssd"]
             label = "{"
             for obj in parsed_results:
@@ -138,8 +138,10 @@ def greengrass_infinite_infer_run():
                         (obj["xmax"] - input_width / 2) + input_width / 2
                     )
                     ymax = int(yscale * obj["ymax"])
-                    cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (255, 165, 20), 4)
-                    label += '"{}": {:.2f},'.format(outMap[obj["label"]], obj["prob"])
+                    cv2.rectangle(
+                        frame, (xmin, ymin), (xmax, ymax), (255, 165, 20), 4)
+                    label += '"{}": {:.2f},'.format(
+                        outMap[obj["label"]], obj["prob"])
                     label_show = "{}:    {:.2f}%".format(
                         outMap[obj["label"]], obj["prob"] * 100
                     )

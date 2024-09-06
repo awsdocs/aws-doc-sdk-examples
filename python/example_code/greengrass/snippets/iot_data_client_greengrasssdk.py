@@ -12,5 +12,5 @@ message to a topic.
 import greengrasssdk
 
 iot_client = greengrasssdk.client("iot-data")
-iot_client.publish(topic="some/topic", qos=0, payload="Some payload".encode())
+iot_client.publish(topic="some/topic", qos=0, payload=b"Some payload")
 # snippet-end:[greengrass.python.iot-data-client-greengrasssdk.complete]

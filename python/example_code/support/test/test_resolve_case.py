@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from botocore.exceptions import ClientError
 import pytest
+from botocore.exceptions import ClientError
 
 
 class MockManager:
@@ -35,7 +35,8 @@ def test_resolve_case(mock_mgr, capsys):
     assert mock_mgr.final_status in capt.out
 
 
-@pytest.mark.parametrize("error, stop_on_index", [("TESTERROR-stub_resolve_case", 0)])
+@pytest.mark.parametrize("error, stop_on_index",
+                         [("TESTERROR-stub_resolve_case", 0)])
 def test_resolve_case_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 

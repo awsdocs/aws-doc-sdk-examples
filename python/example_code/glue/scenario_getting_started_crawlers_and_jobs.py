@@ -19,16 +19,14 @@ Shows how to use the AWS SDK for Python (Boto3) with AWS Glue to:
 
 import argparse
 import io
-import json
 import logging
-from pprint import pprint
 import sys
 import time
-import uuid
+from pprint import pprint
+
 import boto3
 from boto3.exceptions import S3UploadFailedError
 from botocore.exceptions import ClientError
-
 from glue_wrapper import GlueWrapper
 from question import Question
 
@@ -87,7 +85,14 @@ class GlueCrawlerJobScenario:
             logger.error("Couldn't upload job script. Here's why: %s", err)
             raise
 
-    def run(self, crawler_name, db_name, db_prefix, data_source, job_script, job_name):
+    def run(
+            self,
+            crawler_name,
+            db_name,
+            db_prefix,
+            data_source,
+            job_script,
+            job_name):
         """
         Runs the scenario. This is an interactive experience that runs at a command
         prompt and asks you for input throughout.
@@ -124,8 +129,7 @@ class GlueCrawlerJobScenario:
         print(
             f"When you run the crawler, it crawls data stored in {data_source} and "
             f"creates a metadata database in the AWS Glue Data Catalog that describes "
-            f"the data in the data source."
-        )
+            f"the data in the data source.")
         print("In this example, the source data is in CSV format.")
         ready = False
         while not ready:
@@ -168,19 +172,18 @@ class GlueCrawlerJobScenario:
         print(
             f"When you run the job, it extracts data from {data_source}, transforms it "
             f"by using the {job_script} script, and loads the output into "
-            f"S3 bucket {self.glue_bucket.name}."
-        )
+            f"S3 bucket {self.glue_bucket.name}.")
         print(
             "In this example, the data is transformed from CSV to JSON, and only a few "
-            "fields are included in the output."
-        )
+            "fields are included in the output.")
         job_run_status = None
         if Question.ask_question(f"Ready to run? (y/n) ", Question.is_yesno):
             job_run_id = wrapper.start_job_run(
                 job_name, db_name, tables[0]["Name"], self.glue_bucket.name
             )
             print(f"Job {job_name} started. Let's wait for it to run.")
-            while job_run_status not in ["SUCCEEDED", "STOPPED", "FAILED", "TIMEOUT"]:
+            while job_run_status not in [
+                    "SUCCEEDED", "STOPPED", "FAILED", "TIMEOUT"]:
                 self.wait(10)
                 job_run = wrapper.get_job_run(job_name, job_run_id)
                 job_run_status = job_run["JobRunState"]
@@ -193,19 +196,18 @@ class GlueCrawlerJobScenario:
             )
             try:
                 keys = [
-                    obj.key for obj in self.glue_bucket.objects.filter(Prefix="run-")
-                ]
+                    obj.key for obj in self.glue_bucket.objects.filter(
+                        Prefix="run-")]
                 for index, key in enumerate(keys):
                     print(f"\t{index + 1}: {key}")
                 lines = 4
                 key_index = Question.ask_question(
                     f"Enter the number of a block to download it and see the first {lines} "
-                    f"lines of JSON output in the block: ",
-                    Question.is_int,
-                    Question.in_range(1, len(keys)),
-                )
+                    f"lines of JSON output in the block: ", Question.is_int, Question.in_range(
+                        1, len(keys)), )
                 job_data = io.BytesIO()
-                self.glue_bucket.download_fileobj(keys[key_index - 1], job_data)
+                self.glue_bucket.download_fileobj(
+                    keys[key_index - 1], job_data)
                 job_data.seek(0)
                 for _ in range(lines):
                     print(job_data.readline().decode("utf-8"))
@@ -225,13 +227,12 @@ class GlueCrawlerJobScenario:
                 print(f"\t{index + 1}. {job_name}")
             job_index = Question.ask_question(
                 f"Enter a number between 1 and {len(job_names)} to see the list of runs for "
-                f"a job: ",
-                Question.is_int,
-                Question.in_range(1, len(job_names)),
-            )
+                f"a job: ", Question.is_int, Question.in_range(
+                    1, len(job_names)), )
             job_runs = wrapper.get_job_runs(job_names[job_index - 1])
             if job_runs:
-                print(f"Found {len(job_runs)} runs for job {job_names[job_index - 1]}:")
+                print(
+                    f"Found {len(job_runs)} runs for job {job_names[job_index - 1]}:")
                 for index, job_run in enumerate(job_runs):
                     print(
                         f"\t{index + 1}. {job_run['JobRunState']} on "
@@ -240,7 +241,9 @@ class GlueCrawlerJobScenario:
                 run_index = Question.ask_question(
                     f"Enter a number between 1 and {len(job_runs)} to see details for a run: ",
                     Question.is_int,
-                    Question.in_range(1, len(job_runs)),
+                    Question.in_range(
+                        1,
+                        len(job_runs)),
                 )
                 pprint(job_runs[run_index - 1])
             else:
@@ -259,7 +262,8 @@ class GlueCrawlerJobScenario:
             wrapper.delete_job(job_name)
             print(f"Job definition '{job_name}' deleted.")
         tables = wrapper.get_tables(db_name)
-        print(f"We also created database '{db_name}' that contains these tables:")
+        print(
+            f"We also created database '{db_name}' that contains these tables:")
         for table in tables:
             print(f"\t{table['Name']}")
         if Question.ask_question(
@@ -290,8 +294,7 @@ def parse_args(args):
     parser = argparse.ArgumentParser(
         description="Runs the AWS Glue getting started with crawlers and jobs scenario. "
         "Before you run this scenario, set up scaffold resources by running "
-        "'python scaffold.py deploy'."
-    )
+        "'python scaffold.py deploy'.")
     parser.add_argument(
         "role_name",
         help="The name of an IAM role that AWS Glue can assume. This role must grant access "
@@ -336,8 +339,7 @@ def main():
         print("-" * 88)
         print(
             "To destroy scaffold resources, including the IAM role and S3 bucket "
-            "used in this scenario, run 'python scaffold.py destroy'."
-        )
+            "used in this scenario, run 'python scaffold.py destroy'.")
         print("\nThanks for watching!")
         print("-" * 88)
     except Exception:

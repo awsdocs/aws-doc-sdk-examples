@@ -27,7 +27,7 @@ class ProducerStack(Stack):
         self.init_rule(admin_topic)
 
     def get_yaml_config(self, filepath):
-        with open(filepath, "r") as file:
+        with open(filepath) as file:
             data = yaml.safe_load(file)
         return data
 

@@ -6,10 +6,10 @@ Unit tests for models.py.
 """
 
 import datetime
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from models import Models
 
 
@@ -40,7 +40,10 @@ def test_create_model(make_stubber, error_code):
         assert got_version == model_version
     else:
         with pytest.raises(ClientError) as exc_info:
-            Models.create_model(lookoutvision_client, project_name, training_results)
+            Models.create_model(
+                lookoutvision_client,
+                project_name,
+                training_results)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -82,10 +85,16 @@ def test_describe_model(make_stubber, error_code):
     )
 
     if error_code is None:
-        Models.describe_model(lookoutvision_client, project_name, model_version)
+        Models.describe_model(
+            lookoutvision_client,
+            project_name,
+            model_version)
     else:
         with pytest.raises(ClientError) as exc_info:
-            Models.describe_model(lookoutvision_client, project_name, model_version)
+            Models.describe_model(
+                lookoutvision_client,
+                project_name,
+                model_version)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -96,7 +105,8 @@ def test_describe_models(make_stubber, monkeypatch, error_code):
     project_name = "test-project_name"
     model = "test-model"
 
-    lookoutvision_stubber.stub_list_models(project_name, [model], error_code=error_code)
+    lookoutvision_stubber.stub_list_models(
+        project_name, [model], error_code=error_code)
 
     monkeypatch.setattr(Models, "describe_model", lambda x, y, z: None)
 
@@ -116,11 +126,15 @@ def test_delete_model(make_stubber, error_code):
     model_version = "test-model"
 
     lookoutvision_stubber.stub_delete_model(project_name, model_version)
-    lookoutvision_stubber.stub_list_models(project_name, [], error_code=error_code)
+    lookoutvision_stubber.stub_list_models(
+        project_name, [], error_code=error_code)
 
     if error_code is None:
         Models.delete_model(lookoutvision_client, project_name, model_version)
     else:
         with pytest.raises(ClientError) as exc_info:
-            Models.delete_model(lookoutvision_client, project_name, model_version)
+            Models.delete_model(
+                lookoutvision_client,
+                project_name,
+                model_version)
         assert exc_info.value.response["Error"]["Code"] == error_code

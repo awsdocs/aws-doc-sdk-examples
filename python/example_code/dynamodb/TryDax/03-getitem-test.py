@@ -16,6 +16,7 @@ mode lets you compare the performance of the two clients.
 import argparse
 import sys
 import time
+
 import amazondax
 import boto3
 
@@ -66,7 +67,8 @@ if __name__ == "__main__":
             f"Getting each item from the table {test_iterations} times, "
             f"using the DAX client."
         )
-        # Use a with statement so the DAX client closes the cluster after completion.
+        # Use a with statement so the DAX client closes the cluster after
+        # completion.
         with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url) as dax:
             test_start, test_end = get_item_test(
                 test_key_count, test_iterations, dyn_resource=dax

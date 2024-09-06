@@ -7,16 +7,20 @@ Contains common test fixtures used to run unit tests.
 
 import random
 import sys
+
 import pytest
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")
-from test_tools.fixtures.common import *
 
 
 @pytest.fixture()
 def make_faces():
-    def _make_faces(count, has_details=False, is_celebrity=False, is_index=False):
+    def _make_faces(
+            count,
+            has_details=False,
+            is_celebrity=False,
+            is_index=False):
         faces = []
         for _ in range(0, count):
             face_dict = {
@@ -48,7 +52,8 @@ def make_faces():
                     }
                 )
             if is_index:
-                face_dict.update({"FaceId": "test-face-id", "ImageId": "test-image-id"})
+                face_dict.update(
+                    {"FaceId": "test-face-id", "ImageId": "test-image-id"})
             if is_celebrity:
                 celeb = {
                     "Urls": ["http://example.com"],

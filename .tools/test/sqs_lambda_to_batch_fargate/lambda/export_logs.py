@@ -1,10 +1,10 @@
 ﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
+import csv
+import io
 import json
 import logging
 import os
-import io
-import csv
 
 import boto3
 

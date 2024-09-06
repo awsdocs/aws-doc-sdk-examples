@@ -12,11 +12,12 @@ import json
 import logging
 import smtplib
 import ssl
+
 import boto3
 from botocore.exceptions import ClientError, WaiterError
+from ses_generate_smtp_credentials import calculate_key
 from ses_identities import SesIdentity
 from ses_templates import SesTemplate
-from ses_generate_smtp_credentials import calculate_key
 
 logger = logging.getLogger(__name__)
 
@@ -63,7 +64,14 @@ class SesMailSender:
     # snippet-end:[python.example_code.ses.SesMailSender]
 
     # snippet-start:[python.example_code.ses.SendEmail]
-    def send_email(self, source, destination, subject, text, html, reply_tos=None):
+    def send_email(
+            self,
+            source,
+            destination,
+            subject,
+            text,
+            html,
+            reply_tos=None):
         """
         Sends an email.
 
@@ -93,8 +101,10 @@ class SesMailSender:
             response = self.ses_client.send_email(**send_args)
             message_id = response["MessageId"]
             logger.info(
-                "Sent mail %s from %s to %s.", message_id, source, destination.tos
-            )
+                "Sent mail %s from %s to %s.",
+                message_id,
+                source,
+                destination.tos)
         except ClientError:
             logger.exception(
                 "Couldn't send mail from %s to %s.", source, destination.tos
@@ -144,8 +154,9 @@ class SesMailSender:
             )
         except ClientError:
             logger.exception(
-                "Couldn't send templated mail from %s to %s.", source, destination.tos
-            )
+                "Couldn't send templated mail from %s to %s.",
+                source,
+                destination.tos)
             raise
         else:
             return message_id
@@ -160,7 +171,9 @@ def usage_demo():
     print("Welcome to the Amazon Simple Email Service (Amazon SES) email demo!")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     ses_client = boto3.client("ses")
     ses_identity = SesIdentity(ses_client)
@@ -175,11 +188,11 @@ def usage_demo():
             f"Amazon SES account is out of sandbox, you can send mail only from "
             f"and to verified accounts. Do you want to verify this account for use "
             f"with Amazon SES? If yes, the address will receive a verification "
-            f"email (y/n): "
-        )
+            f"email (y/n): ")
         if answer.lower() == "y":
             ses_identity.verify_email_identity(email)
-            print(f"Follow the steps in the email to {email} to complete verification.")
+            print(
+                f"Follow the steps in the email to {email} to complete verification.")
             print("Waiting for verification...")
             try:
                 ses_identity.wait_until_identity_exists(email)
@@ -188,8 +201,7 @@ def usage_demo():
             except WaiterError:
                 print(
                     f"Verification timeout exceeded. You must complete the "
-                    f"steps in the email sent to {email} to verify the address."
-                )
+                    f"steps in the email sent to {email} to verify the address.")
 
     if verified:
         test_message_text = "Hello from the Amazon SES mail demo!"
@@ -218,8 +230,8 @@ def usage_demo():
         template_data = {"name": email.split("@")[0], "action": "read"}
         if ses_template.verify_tags(template_data):
             ses_mail_sender.send_templated_email(
-                email, SesDestination([email]), ses_template.name(), template_data
-            )
+                email, SesDestination(
+                    [email]), ses_template.name(), template_data)
             input("Mail sent. Check your inbox and press Enter to continue.")
 
         print("Sending mail through the Amazon SES SMTP server.")
@@ -244,7 +256,8 @@ This message is sent from the Amazon SES SMTP mail demo."""
         print("Deleting demo template.")
         ses_template.delete_template()
     if verified:
-        answer = input(f"Do you want to remove {email} from Amazon SES (y/n)? ")
+        answer = input(
+            f"Do you want to remove {email} from Amazon SES (y/n)? ")
         if answer.lower() == "y":
             ses_identity.delete_identity(email)
     print("Thanks for watching!")

@@ -105,7 +105,9 @@ class RekognitionStubber(ExampleStubber):
 
     def stub_detect_faces(self, image, faces, error_code=None):
         expected_params = {"Image": image, "Attributes": ["ALL"]}
-        response = {"FaceDetails": [self._face_to_dict(face) for face in faces]}
+        response = {
+            "FaceDetails": [
+                self._face_to_dict(face) for face in faces]}
         self._stub_bifurcator(
             "detect_faces", expected_params, response, error_code=error_code
         )
@@ -154,27 +156,42 @@ class RekognitionStubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "detect_moderation_labels", expected_params, response, error_code=error_code
-        )
+            "detect_moderation_labels",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_detect_text(self, image, texts, error_code=None):
         expected_params = {"Image": image}
-        response = {"TextDetections": [self._text_to_dict(text) for text in texts]}
+        response = {
+            "TextDetections": [
+                self._text_to_dict(text) for text in texts]}
         self._stub_bifurcator(
             "detect_text", expected_params, response, error_code=error_code
         )
 
-    def stub_recognize_celebrities(self, image, celebrities, normals, error_code=None):
+    def stub_recognize_celebrities(
+            self,
+            image,
+            celebrities,
+            normals,
+            error_code=None):
         expected_params = {"Image": image}
         response = {
-            "CelebrityFaces": [self._celebrity_to_dict(celeb) for celeb in celebrities],
-            "UnrecognizedFaces": [self._face_to_dict(face) for face in normals],
-        }
+            "CelebrityFaces": [
+                self._celebrity_to_dict(celeb) for celeb in celebrities], "UnrecognizedFaces": [
+                self._face_to_dict(face) for face in normals], }
         self._stub_bifurcator(
-            "recognize_celebrities", expected_params, response, error_code=error_code
-        )
+            "recognize_celebrities",
+            expected_params,
+            response,
+            error_code=error_code)
 
-    def stub_describe_collection(self, collection_id, collection, error_code=None):
+    def stub_describe_collection(
+            self,
+            collection_id,
+            collection,
+            error_code=None):
         expected_params = {"CollectionId": collection_id}
         response = {
             "CollectionARN": collection.collection_arn,
@@ -182,8 +199,10 @@ class RekognitionStubber(ExampleStubber):
             "CreationTimestamp": collection.created,
         }
         self._stub_bifurcator(
-            "describe_collection", expected_params, response, error_code=error_code
-        )
+            "describe_collection",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_delete_collection(self, collection_id, error_code=None):
         expected_params = {"CollectionId": collection_id}
@@ -223,8 +242,15 @@ class RekognitionStubber(ExampleStubber):
             "index_faces", expected_params, response, error_code=error_code
         )
 
-    def stub_list_faces(self, collection_id, max_results, faces, error_code=None):
-        expected_params = {"CollectionId": collection_id, "MaxResults": max_results}
+    def stub_list_faces(
+            self,
+            collection_id,
+            max_results,
+            faces,
+            error_code=None):
+        expected_params = {
+            "CollectionId": collection_id,
+            "MaxResults": max_results}
         response = {"Faces": [self._face_to_dict(face) for face in faces]}
         self._stub_bifurcator(
             "list_faces", expected_params, response, error_code=error_code
@@ -254,21 +280,27 @@ class RekognitionStubber(ExampleStubber):
             ],
         }
         self._stub_bifurcator(
-            "search_faces_by_image", expected_params, response, error_code=error_code
-        )
+            "search_faces_by_image",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_search_faces(
-        self, collection_id, face_id, threshold, max_faces, faces, error_code=None
-    ):
+            self,
+            collection_id,
+            face_id,
+            threshold,
+            max_faces,
+            faces,
+            error_code=None):
         expected_params = {
             "CollectionId": collection_id,
             "FaceId": face_id,
             "FaceMatchThreshold": threshold,
             "MaxFaces": max_faces,
         }
-        response = {
-            "FaceMatches": [{"Face": self._face_to_dict(face)} for face in faces]
-        }
+        response = {"FaceMatches": [
+            {"Face": self._face_to_dict(face)} for face in faces]}
         self._stub_bifurcator(
             "search_faces", expected_params, response, error_code=error_code
         )
@@ -280,30 +312,49 @@ class RekognitionStubber(ExampleStubber):
             "delete_faces", expected_params, response, error_code=error_code
         )
 
-    def stub_create_collection(self, collection_id, collection, error_code=None):
+    def stub_create_collection(
+            self,
+            collection_id,
+            collection,
+            error_code=None):
         expected_params = {"CollectionId": collection_id}
         response = {"CollectionArn": collection.collection_arn}
         self._stub_bifurcator(
-            "create_collection", expected_params, response, error_code=error_code
-        )
+            "create_collection",
+            expected_params,
+            response,
+            error_code=error_code)
 
-    def stub_list_collections(self, max_results, collection_ids, error_code=None):
+    def stub_list_collections(
+            self,
+            max_results,
+            collection_ids,
+            error_code=None):
         expected_params = {"MaxResults": max_results}
         response = {"CollectionIds": collection_ids}
         self._stub_bifurcator(
-            "list_collections", expected_params, response, error_code=error_code
-        )
+            "list_collections",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_start_detection(
         self, func_name, video, notification_channel, job_id, error_code=None
     ):
-        expected_params = {"Video": video, "NotificationChannel": notification_channel}
+        expected_params = {
+            "Video": video,
+            "NotificationChannel": notification_channel}
         response = {"JobId": job_id}
         self._stub_bifurcator(
             func_name, expected_params, response, error_code=error_code
         )
 
-    def stub_get_label_detection(self, job_id, job_status, labels, error_code=None):
+    def stub_get_label_detection(
+            self,
+            job_id,
+            job_status,
+            labels,
+            error_code=None):
         expected_params = {"JobId": job_id}
         response = {
             "JobStatus": job_status,
@@ -313,10 +364,17 @@ class RekognitionStubber(ExampleStubber):
             ],
         }
         self._stub_bifurcator(
-            "get_label_detection", expected_params, response, error_code=error_code
-        )
+            "get_label_detection",
+            expected_params,
+            response,
+            error_code=error_code)
 
-    def stub_get_face_detection(self, job_id, job_status, faces, error_code=None):
+    def stub_get_face_detection(
+            self,
+            job_id,
+            job_status,
+            faces,
+            error_code=None):
         expected_params = {"JobId": job_id}
         response = {
             "JobStatus": job_status,
@@ -326,10 +384,17 @@ class RekognitionStubber(ExampleStubber):
             ],
         }
         self._stub_bifurcator(
-            "get_face_detection", expected_params, response, error_code=error_code
-        )
+            "get_face_detection",
+            expected_params,
+            response,
+            error_code=error_code)
 
-    def stub_get_person_tracking(self, job_id, job_status, persons, error_code=None):
+    def stub_get_person_tracking(
+            self,
+            job_id,
+            job_status,
+            persons,
+            error_code=None):
         expected_params = {"JobId": job_id}
         response = {
             "JobStatus": job_status,
@@ -339,8 +404,10 @@ class RekognitionStubber(ExampleStubber):
             ],
         }
         self._stub_bifurcator(
-            "get_person_tracking", expected_params, response, error_code=error_code
-        )
+            "get_person_tracking",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_get_celebrity_recognition(
         self, job_id, job_status, celebrities, error_code=None
@@ -363,7 +430,12 @@ class RekognitionStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_get_content_moderation(self, job_id, job_status, labels, error_code=None):
+    def stub_get_content_moderation(
+            self,
+            job_id,
+            job_status,
+            labels,
+            error_code=None):
         expected_params = {"JobId": job_id}
         response = {
             "JobStatus": job_status,
@@ -376,5 +448,7 @@ class RekognitionStubber(ExampleStubber):
             ],
         }
         self._stub_bifurcator(
-            "get_content_moderation", expected_params, response, error_code=error_code
-        )
+            "get_content_moderation",
+            expected_params,
+            response,
+            error_code=error_code)

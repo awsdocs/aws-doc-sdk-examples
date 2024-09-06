@@ -6,15 +6,15 @@ Unit tests for pinpoint_send_<various>.py.
 """
 
 from unittest import mock
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
 import pinpoint_send_email_message_api
 import pinpoint_send_email_smtp
 import pinpoint_send_sms_message_api
 import pinpoint_send_templated_email_message
 import pinpoint_send_templated_sms_message
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])

@@ -11,6 +11,7 @@ rules in AWS Config.
 
 # snippet-start:[python.example_code.auditmanager.Scenario_CustomFrameworkFromConformancePack]
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -49,8 +50,7 @@ class ConformancePack:
                 print(f"{cpack_name} is not in the list of conformance packs!")
                 print(
                     "Provide a conformance pack name from the available list of "
-                    "conformance packs."
-                )
+                    "conformance packs.")
                 raise Exception("Invalid conformance pack")
             print("-" * 88)
         except ClientError:
@@ -68,8 +68,7 @@ class ConformancePack:
         """
         try:
             rules_in_pack = self.config_client.describe_conformance_pack_compliance(
-                ConformancePackName=cpack_name
-            )
+                ConformancePackName=cpack_name)
             print(
                 "Number of rules in the conformance pack: ",
                 len(rules_in_pack.get("ConformancePackRuleComplianceList")),
@@ -79,8 +78,7 @@ class ConformancePack:
             print("-" * 88)
             print(
                 "Creating a custom control for each rule and a custom framework "
-                "consisting of these rules in Audit Manager."
-            )
+                "consisting of these rules in Audit Manager.")
             am_controls = []
             for rule in rules_in_pack.get("ConformancePackRuleComplianceList"):
                 config_rule = self.config_client.describe_config_rules(
@@ -148,10 +146,11 @@ def run_demo():
         "You can use this sample to select a conformance pack from AWS Config and "
         "use AWS Audit Manager to create a custom control for all the managed "
         "rules under the conformance pack. A custom framework is also created "
-        "with these controls."
-    )
+        "with these controls.")
     print("-" * 88)
-    conf_pack = ConformancePack(boto3.client("config"), boto3.client("auditmanager"))
+    conf_pack = ConformancePack(
+        boto3.client("config"),
+        boto3.client("auditmanager"))
     cpack_name = conf_pack.get_conformance_pack()
     am_controls = conf_pack.create_custom_controls(cpack_name)
     conf_pack.create_custom_framework(cpack_name, am_controls)

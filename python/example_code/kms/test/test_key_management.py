@@ -6,10 +6,9 @@ Unit tests for key_management.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
-import pytest
-
 import key_management
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(
@@ -54,27 +53,38 @@ def test_key_management(
             raise_and_continue=True,
         )
         runner.add(
-            kms_stubber.stub_describe_key, key_id, "CREATED", raise_and_continue=True
-        )
-        runner.add(kms_stubber.stub_disable_key, key_id, raise_and_continue=True)
+            kms_stubber.stub_describe_key,
+            key_id,
+            "CREATED",
+            raise_and_continue=True)
+        runner.add(
+            kms_stubber.stub_disable_key,
+            key_id,
+            raise_and_continue=True)
         if stop_on_action != "stub_disable_key":
             runner.add(
-                kms_stubber.stub_describe_key, key_id, "DISABLED", keep_going=True
-            )
-        runner.add(kms_stubber.stub_enable_key, key_id, raise_and_continue=True)
+                kms_stubber.stub_describe_key,
+                key_id,
+                "DISABLED",
+                keep_going=True)
+        runner.add(
+            kms_stubber.stub_enable_key,
+            key_id,
+            raise_and_continue=True)
         if stop_on_action != "stub_enable_key":
             runner.add(
-                kms_stubber.stub_describe_key, key_id, "ENABLED", keep_going=True
-            )
+                kms_stubber.stub_describe_key,
+                key_id,
+                "ENABLED",
+                keep_going=True)
         runner.add(
             kms_stubber.stub_generate_data_key,
             key_id,
             "AES_256",
             raise_and_continue=True,
         )
-        runner.add(
-            kms_stubber.stub_schedule_key_deletion, key_id, 7, raise_and_continue=True
-        )
+        runner.add(kms_stubber.stub_schedule_key_deletion,
+                   key_id, 7, raise_and_continue=True)
 
     if stop_on_action != "stub_create_key":
         key_management.key_management(kms_client)

@@ -6,9 +6,8 @@ Unit tests for grant_management.py.
 """
 
 import boto3
-import pytest
-
 import grant_management
+import pytest
 
 
 @pytest.mark.parametrize(
@@ -22,8 +21,12 @@ import grant_management
     ],
 )
 def test_grant_management(
-    make_stubber, stub_runner, monkeypatch, error_code, stop_on_action, delete_choice
-):
+        make_stubber,
+        stub_runner,
+        monkeypatch,
+        error_code,
+        stop_on_action,
+        delete_choice):
     kms_client = boto3.client("kms")
     kms_stubber = make_stubber(kms_client)
     key_id = "test-key-id"

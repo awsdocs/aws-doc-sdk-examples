@@ -47,10 +47,15 @@ class BucketWrapper:
         else:
             region = self.bucket.meta.client.meta.region_name
         try:
-            self.bucket.create(CreateBucketConfiguration={"LocationConstraint": region})
+            self.bucket.create(
+                CreateBucketConfiguration={
+                    "LocationConstraint": region})
 
             self.bucket.wait_until_exists()
-            logger.info("Created bucket '%s' in region=%s", self.bucket.name, region)
+            logger.info(
+                "Created bucket '%s' in region=%s",
+                self.bucket.name,
+                region)
         except ClientError as error:
             logger.exception(
                 "Couldn't create bucket named '%s' in region=%s.",
@@ -129,21 +134,22 @@ class BucketWrapper:
         try:
             acl = self.bucket.Acl()
             # Putting an ACL overwrites the existing ACL. If you want to preserve
-            # existing grants, append new grants to the list of existing grants.
+            # existing grants, append new grants to the list of existing
+            # grants.
             grants = acl.grants if acl.grants else []
-            grants.append(
-                {
-                    "Grantee": {
-                        "Type": "Group",
-                        "URI": "http://acs.amazonaws.com/groups/s3/LogDelivery",
-                    },
-                    "Permission": "WRITE",
-                }
-            )
+            grants.append({"Grantee": {"Type": "Group",
+                                       "URI": "http://acs.amazonaws.com/groups/s3/LogDelivery",
+                                       },
+                           "Permission": "WRITE",
+                           })
             acl.put(AccessControlPolicy={"Grants": grants, "Owner": acl.owner})
-            logger.info("Granted log delivery access to bucket '%s'", self.bucket.name)
+            logger.info(
+                "Granted log delivery access to bucket '%s'",
+                self.bucket.name)
         except ClientError:
-            logger.exception("Couldn't add ACL to bucket '%s'.", self.bucket.name)
+            logger.exception(
+                "Couldn't add ACL to bucket '%s'.",
+                self.bucket.name)
             raise
 
     # snippet-end:[python.example_code.s3.PutBucketAcl]
@@ -158,10 +164,13 @@ class BucketWrapper:
         try:
             acl = self.bucket.Acl()
             logger.info(
-                "Got ACL for bucket %s. Owner is %s.", self.bucket.name, acl.owner
-            )
+                "Got ACL for bucket %s. Owner is %s.",
+                self.bucket.name,
+                acl.owner)
         except ClientError:
-            logger.exception("Couldn't get ACL for bucket %s.", self.bucket.name)
+            logger.exception(
+                "Couldn't get ACL for bucket %s.",
+                self.bucket.name)
             raise
         else:
             return acl
@@ -179,10 +188,13 @@ class BucketWrapper:
         try:
             self.bucket.Cors().put(CORSConfiguration={"CORSRules": cors_rules})
             logger.info(
-                "Put CORS rules %s for bucket '%s'.", cors_rules, self.bucket.name
-            )
+                "Put CORS rules %s for bucket '%s'.",
+                cors_rules,
+                self.bucket.name)
         except ClientError:
-            logger.exception("Couldn't put CORS rules for bucket %s.", self.bucket.name)
+            logger.exception(
+                "Couldn't put CORS rules for bucket %s.",
+                self.bucket.name)
             raise
 
     # snippet-end:[python.example_code.s3.PutBucketCors]
@@ -197,10 +209,12 @@ class BucketWrapper:
         try:
             cors = self.bucket.Cors()
             logger.info(
-                "Got CORS rules %s for bucket '%s'.", cors.cors_rules, self.bucket.name
-            )
+                "Got CORS rules %s for bucket '%s'.",
+                cors.cors_rules,
+                self.bucket.name)
         except ClientError:
-            logger.exception(("Couldn't get CORS for bucket %s.", self.bucket.name))
+            logger.exception(
+                ("Couldn't get CORS for bucket %s.", self.bucket.name))
             raise
         else:
             return cors
@@ -218,7 +232,9 @@ class BucketWrapper:
             self.bucket.Cors().delete()
             logger.info("Deleted CORS from bucket '%s'.", self.bucket.name)
         except ClientError:
-            logger.exception("Couldn't delete CORS from bucket '%s'.", self.bucket.name)
+            logger.exception(
+                "Couldn't delete CORS from bucket '%s'.",
+                self.bucket.name)
             raise
 
     # snippet-end:[python.example_code.s3.DeleteBucketCors]
@@ -233,9 +249,14 @@ class BucketWrapper:
         """
         try:
             self.bucket.Policy().put(Policy=json.dumps(policy))
-            logger.info("Put policy %s for bucket '%s'.", policy, self.bucket.name)
+            logger.info(
+                "Put policy %s for bucket '%s'.",
+                policy,
+                self.bucket.name)
         except ClientError:
-            logger.exception("Couldn't apply policy to bucket '%s'.", self.bucket.name)
+            logger.exception(
+                "Couldn't apply policy to bucket '%s'.",
+                self.bucket.name)
             raise
 
     # snippet-end:[python.example_code.s3.PutBucketPolicy]
@@ -250,10 +271,13 @@ class BucketWrapper:
         try:
             policy = self.bucket.Policy()
             logger.info(
-                "Got policy %s for bucket '%s'.", policy.policy, self.bucket.name
-            )
+                "Got policy %s for bucket '%s'.",
+                policy.policy,
+                self.bucket.name)
         except ClientError:
-            logger.exception("Couldn't get policy for bucket '%s'.", self.bucket.name)
+            logger.exception(
+                "Couldn't get policy for bucket '%s'.",
+                self.bucket.name)
             raise
         else:
             return json.loads(policy.policy)
@@ -296,8 +320,8 @@ class BucketWrapper:
             )
         except ClientError:
             logger.exception(
-                "Couldn't put lifecycle rules for bucket '%s'.", self.bucket.name
-            )
+                "Couldn't put lifecycle rules for bucket '%s'.",
+                self.bucket.name)
             raise
 
     # snippet-end:[python.example_code.s3.PutBucketLifecycleConfiguration]
@@ -316,10 +340,10 @@ class BucketWrapper:
                 config.rules,
                 self.bucket.name,
             )
-        except:
+        except BaseException:
             logger.exception(
-                "Couldn't get lifecycle rules for bucket '%s'.", self.bucket.name
-            )
+                "Couldn't get lifecycle rules for bucket '%s'.",
+                self.bucket.name)
             raise
         else:
             return config.rules
@@ -334,8 +358,8 @@ class BucketWrapper:
         try:
             self.bucket.LifecycleConfiguration().delete()
             logger.info(
-                "Deleted lifecycle configuration for bucket '%s'.", self.bucket.name
-            )
+                "Deleted lifecycle configuration for bucket '%s'.",
+                self.bucket.name)
         except ClientError:
             logger.exception(
                 "Couldn't delete lifecycle configuration for bucket '%s'.",
@@ -381,13 +405,14 @@ def usage_demo():
     print("Welcome to the Amazon S3 bucket demo!")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     s3_resource = boto3.resource("s3")
     prefix = "doc-example-bucket-"
-    created_buckets = [
-        BucketWrapper(s3_resource.Bucket(prefix + str(uuid.uuid1()))) for _ in range(3)
-    ]
+    created_buckets = [BucketWrapper(s3_resource.Bucket(
+        prefix + str(uuid.uuid1()))) for _ in range(3)]
     for bucket in created_buckets:
         bucket.create()
         print(f"Created bucket {bucket.name}.")
@@ -400,7 +425,8 @@ def usage_demo():
     if not bucket_to_delete.exists():
         print(f"Bucket no longer exists: {bucket_to_delete.name}.")
 
-    buckets = [b for b in BucketWrapper.list(s3_resource) if b.name.startswith(prefix)]
+    buckets = [b for b in BucketWrapper.list(
+        s3_resource) if b.name.startswith(prefix)]
     for bucket in buckets:
         print(f"Got bucket {bucket.name}.")
 
@@ -418,7 +444,8 @@ def usage_demo():
     ]
     bucket.put_cors(put_rules)
     get_rules = bucket.get_cors()
-    print(f"Bucket {bucket.name} has CORS rules: {json.dumps(get_rules.cors_rules)}.")
+    print(
+        f"Bucket {bucket.name} has CORS rules: {json.dumps(get_rules.cors_rules)}.")
     bucket.delete_cors()
 
     put_policy_desc = {
@@ -447,8 +474,7 @@ def usage_demo():
             print(
                 "This demo couldn't set the bucket policy because the principal user\n"
                 "specified in the demo policy does not exist. For this request to\n"
-                "succeed, you must replace the user ARN with an existing AWS user."
-            )
+                "succeed, you must replace the user ARN with an existing AWS user.")
             print("*" * 88)
         else:
             raise
@@ -468,7 +494,8 @@ def usage_demo():
     ]
     bucket.put_lifecycle_configuration(put_rules)
     get_rules = bucket.get_lifecycle_configuration()
-    print(f"Bucket {bucket.name} has lifecycle configuration {json.dumps(get_rules)}.")
+    print(
+        f"Bucket {bucket.name} has lifecycle configuration {json.dumps(get_rules)}.")
     bucket.delete_lifecycle_configuration()
 
     for bucket in created_buckets:

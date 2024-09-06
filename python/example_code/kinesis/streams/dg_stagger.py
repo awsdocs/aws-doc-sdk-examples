@@ -14,6 +14,7 @@ import datetime
 import json
 import random
 import time
+
 import boto3
 
 STREAM_NAME = "ExampleInputStream"
@@ -30,7 +31,8 @@ def get_data():
 def generate(stream_name, kinesis_client):
     while True:
         data = get_data()
-        # Send six records, ten seconds apart, with the same event time and ticker
+        # Send six records, ten seconds apart, with the same event time and
+        # ticker
         for _ in range(6):
             print(data)
             kinesis_client.put_record(

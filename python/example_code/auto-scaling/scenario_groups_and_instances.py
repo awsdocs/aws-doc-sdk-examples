@@ -20,19 +20,20 @@ do the following:
 9. Stop collecting metrics, terminate all instances, and delete the group.
 """
 
-from datetime import datetime, timedelta, timezone
+from demo_tools.retries import wait
+import demo_tools.question as q
 import logging
-from pprint import pp
 import sys
+from datetime import datetime, timedelta, timezone
+from pprint import pp
+
 import boto3
+from action_wrapper import AutoScalingWrapper
 from botocore.exceptions import ClientError
 
-from action_wrapper import AutoScalingWrapper
-
-# Add relative path to include demo_tools in this code example without needing to setup.
+# Add relative path to include demo_tools in this code example without
+# needing to setup.
 sys.path.append("../..")
-import demo_tools.question as q
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 
@@ -67,7 +68,9 @@ class ServiceHelper:
                 err.response["Error"]["Code"]
                 == "InvalidLaunchTemplateName.NotFoundException"
             ):
-                logger.warning("Launch template %s does not exist.", template_name)
+                logger.warning(
+                    "Launch template %s does not exist.",
+                    template_name)
             else:
                 logger.error(
                     "Couldn't verify launch template %s. Here's why: %s: %s",
@@ -91,9 +94,8 @@ class ServiceHelper:
         """
         try:
             response = self.ec2_client.create_launch_template(
-                LaunchTemplateName=template_name,
-                LaunchTemplateData={"InstanceType": inst_type, "ImageId": ami_id},
-            )
+                LaunchTemplateName=template_name, LaunchTemplateData={
+                    "InstanceType": inst_type, "ImageId": ami_id}, )
             template = response["LaunchTemplate"]
         except ClientError as err:
             logger.error(
@@ -113,7 +115,8 @@ class ServiceHelper:
         :param template_name: The name of the template to delete.
         """
         try:
-            self.ec2_client.delete_launch_template(LaunchTemplateName=template_name)
+            self.ec2_client.delete_launch_template(
+                LaunchTemplateName=template_name)
         except ClientError as err:
             logger.error(
                 "Couldn't delete launch template %s. Here's why: %s: %s",
@@ -131,7 +134,8 @@ class ServiceHelper:
         """
         try:
             response = self.ec2_client.describe_availability_zones()
-            zones = [zone["ZoneName"] for zone in response["AvailabilityZones"]]
+            zones = [zone["ZoneName"]
+                     for zone in response["AvailabilityZones"]]
         except ClientError as err:
             logger.error(
                 "Couldn't get availability zones. Here's why: %s: %s",
@@ -205,7 +209,8 @@ def print_simplified_group(group):
     Prints a subset of data for an Auto Scaling group.
     """
     print(group["AutoScalingGroupName"])
-    print(f"\tLaunch template: {group['LaunchTemplate']['LaunchTemplateName']}")
+    print(
+        f"\tLaunch template: {group['LaunchTemplate']['LaunchTemplateName']}")
     print(
         f"\tMin: {group['MinSize']}, Max: {group['MaxSize']}, Desired: {group['DesiredCapacity']}"
     )
@@ -233,8 +238,10 @@ def wait_for_instances(instance_ids, as_wrapper):
     ready = False
     instances = []
     while not ready:
-        instances = as_wrapper.describe_instances(instance_ids) if instance_ids else []
-        if all([x["LifecycleState"] in ["Terminated", "InService"] for x in instances]):
+        instances = as_wrapper.describe_instances(
+            instance_ids) if instance_ids else []
+        if all([x["LifecycleState"] in ["Terminated", "InService"]
+               for x in instances]):
             ready = True
         else:
             wait(10)
@@ -252,7 +259,9 @@ def wait_for_instances(instance_ids, as_wrapper):
 
 # snippet-start:[python.example_code.auto-scaling.Scenario_GroupsAndInstances]
 def run_scenario(as_wrapper, svc_helper):
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     print("-" * 88)
     print(
@@ -262,8 +271,7 @@ def run_scenario(as_wrapper, svc_helper):
 
     print(
         "This example requires a launch template that specifies how to create\n"
-        "EC2 instances. You can use an existing template or create a new one."
-    )
+        "EC2 instances. You can use an existing template or create a new one.")
     template_name = q.ask(
         "Enter the name of an existing launch template or press Enter to create a new one: "
     )
@@ -288,8 +296,12 @@ def run_scenario(as_wrapper, svc_helper):
         print(f"\t{index+1}. {zone}")
     print(f"\t{len(zones)+1}. All zones")
     zone_sel = q.ask(
-        "Which zone do you want to use? ", q.is_int, q.in_range(1, len(zones) + 1)
-    )
+        "Which zone do you want to use? ",
+        q.is_int,
+        q.in_range(
+            1,
+            len(zones) +
+            1))
     group_zones = [zones[zone_sel - 1]] if zone_sel <= len(zones) else zones
     print(f"Creating group {group_name}...")
     as_wrapper.create_group(group_name, group_zones, template_name, 1, 1)
@@ -319,7 +331,8 @@ def run_scenario(as_wrapper, svc_helper):
         print(f"Metrics enabled for {group_name}.")
     print("-" * 88)
 
-    print(f"Let's update the maximum number of instances in {group_name} from 1 to 3.")
+    print(
+        f"Let's update the maximum number of instances in {group_name} from 1 to 3.")
     q.ask("Press Enter when you're ready.")
     as_wrapper.update_group(group_name, MaxSize=3)
     group = as_wrapper.describe_group(group_name)
@@ -373,11 +386,13 @@ def run_scenario(as_wrapper, svc_helper):
     if use_metrics:
         print("Let's look at CloudWatch metrics.")
         metric_namespace = "AWS/AutoScaling"
-        metric_dimensions = [{"Name": "AutoScalingGroupName", "Value": group_name}]
+        metric_dimensions = [
+            {"Name": "AutoScalingGroupName", "Value": group_name}]
         print(f"The following metrics are enabled for {group_name}:")
         done = False
         while not done:
-            metrics = svc_helper.get_metrics(metric_namespace, metric_dimensions)
+            metrics = svc_helper.get_metrics(
+                metric_namespace, metric_dimensions)
             for index, metric in enumerate(metrics):
                 print(f"\t{index+1}. {metric.name}")
             print(f"\t{len(metrics)+1}. None")
@@ -396,7 +411,9 @@ def run_scenario(as_wrapper, svc_helper):
                     metric_dimensions, metric, now - timedelta(minutes=span), now
                 )
                 pp(metric_data)
-                if not q.ask("Do you want to see another metric (y/n)? ", q.is_yesno):
+                if not q.ask(
+                    "Do you want to see another metric (y/n)? ",
+                        q.is_yesno):
                     done = True
             else:
                 done = True
@@ -437,7 +454,9 @@ def run_scenario(as_wrapper, svc_helper):
 if __name__ == "__main__":
     try:
         wrapper = AutoScalingWrapper(boto3.client("autoscaling"))
-        helper = ServiceHelper(boto3.client("ec2"), boto3.resource("cloudwatch"))
+        helper = ServiceHelper(
+            boto3.client("ec2"),
+            boto3.resource("cloudwatch"))
         run_scenario(wrapper, helper)
     except Exception:
         logging.exception("Something went wrong with the demo!")

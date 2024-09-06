@@ -14,7 +14,8 @@ This code is intended for demonstration only and does not guarantee best practic
 
 import datetime
 
-# Maps from Python types to PostgreSQL columns types used in a CREATE TABLE statement.
+# Maps from Python types to PostgreSQL columns types used in a CREATE
+# TABLE statement.
 COL_TYPES = {int: "int", str: "varchar", datetime.date: "date"}
 
 # Maps from Python types to Amazon RDS Data Service types.
@@ -148,7 +149,8 @@ def create_table(table):
     cols = []
     constraints = []
     for col in table.cols:
-        # If a column is auto-incrementing, override the original data type like 'int' and coerce it to 'serial'.
+        # If a column is auto-incrementing, override the original data type
+        # like 'int' and coerce it to 'serial'.
         if col.auto_increment:
             clause = f"{col.name} SERIAL"
         else:
@@ -242,7 +244,8 @@ def insert_without_batch(table, values_clause):
     # The RETURNING clause currently does not have a material effect on the result set as seen by the Data API.
     # This might not be a permanent limitation. If RETURNING does start to have an effect on the elements in
     # the response, the INSERT logic can be simplified to get rid of the surrounding
-    # WITH ... (INSERT ... RETURNING) SELECT ... FROM syntax and just do INSERT ... RETURNING.
+    # WITH ... (INSERT ... RETURNING) SELECT ... FROM syntax and just do
+    # INSERT ... RETURNING.
     sql = (
         f"{insert_clause} ({', '.join(cols)}) VALUES {values_clause} {returning_clause}"
     )
@@ -264,7 +267,8 @@ def update(table_name, set_values, where_clauses):
              RDS Data Service.
     """
     set_clauses = [f"{key}=:set_{key}" for key in set_values.keys()]
-    set_params = _make_params({f"set_{key}": val for key, val in set_values.items()})
+    set_params = _make_params(
+        {f"set_{key}": val for key, val in set_values.items()})
     where_sql, where_params = _make_where_parts(where_clauses)
     sql = f"UPDATE {table_name} SET {', '.join(set_clauses)}{where_sql}"
     return sql, set_params + where_params
@@ -296,8 +300,7 @@ def query(primary_name, tables, where_clauses=None):
                 joins.append(
                     f"INNER JOIN {col.foreign_key.table_name} "
                     f"ON {table.name}.{col.name}="
-                    f"{col.foreign_key.table_name}.{col.foreign_key.column_name}"
-                )
+                    f"{col.foreign_key.table_name}.{col.foreign_key.column_name}")
                 build_query(tables[col.foreign_key.table_name])
 
     build_query(tables[primary_name])
@@ -337,7 +340,7 @@ def unpack_insert_results(results):
     """
     try:
         return results["generatedFields"][0]["longValue"]
-    except:
+    except BaseException:
         logger.exception(
             f"Error trying to unpack generatedFields value from result of INSERT statement: {str(results)}"
         )
@@ -356,7 +359,7 @@ def unpack_insert_results_v2(results):
     try:
         new_id = results["records"][0][0]["longValue"]
         return new_id
-    except:
+    except BaseException:
         logger.exception(
             f"Error in unpack_insert_results_v2() trying to unpack generatedFields value from result of INSERT statement: {str(results)}"
         )
@@ -374,7 +377,8 @@ def delete(table, value_sets):
              the RDS Data Service.
     """
     delete_clause = f"DELETE FROM {table.name}"
-    wheres = [f"{col.name}=:{col.name}" for col in table.cols if col.primary_key]
+    wheres = [
+        f"{col.name}=:{col.name}" for col in table.cols if col.primary_key]
     sql = f"{delete_clause} WHERE {' AND '.join(wheres)}"
     param_sets = [_make_params(values) for values in value_sets]
     return sql, param_sets

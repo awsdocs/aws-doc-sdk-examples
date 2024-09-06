@@ -6,8 +6,9 @@ Unit tests for mysql_helper.py functions.
 """
 
 import datetime
-from chalicelib.mysql_helper import Table, Column, ForeignKey
+
 import chalicelib.mysql_helper as mysql_helper
+from chalicelib.mysql_helper import Column, ForeignKey, Table
 
 
 def make_table():
@@ -166,8 +167,7 @@ def test_query():
         "FROM Test "
         "INNER JOIN OtherTable ON Test.ForeignID=OtherTable.OtherID "
         "WHERE Test.LastName = :Test_LastName "
-        "AND OtherTable.ThirdCol < :OtherTable_ThirdCol"
-    )
+        "AND OtherTable.ThirdCol < :OtherTable_ThirdCol")
     cols = {}
     for table in tables.values():
         for col in table.cols:

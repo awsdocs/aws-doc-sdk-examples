@@ -12,6 +12,7 @@ to manage the security policy for a key.
 import json
 import logging
 from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -108,8 +109,7 @@ class KeyPolicy:
             )
             try:
                 self.kms_client.put_key_policy(
-                    KeyId=key_id, PolicyName="default", Policy=json.dumps(policy)
-                )
+                    KeyId=key_id, PolicyName="default", Policy=json.dumps(policy))
             except ClientError as err:
                 logger.error(
                     "Couldn't set policy for key %s. Here's why %s",
@@ -126,7 +126,9 @@ class KeyPolicy:
 
 
 def key_policies(kms_client):
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     print("-" * 88)
     print("Welcome to the AWS Key Management Service (AWS KMS) key policies demo.")

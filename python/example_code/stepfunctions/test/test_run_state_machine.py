@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import json
-from botocore.exceptions import ClientError
+
 import pytest
+from botocore.exceptions import ClientError
 
 
 class MockManager:
@@ -72,7 +73,8 @@ def test_run_state_machine_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:
-        mock_mgr.scenario_data.scenario.run_state_machine(*mock_mgr.scenario_args)
+        mock_mgr.scenario_data.scenario.run_state_machine(
+            *mock_mgr.scenario_args)
     assert exc_info.value.response["Error"]["Code"] == error
 
     assert error in caplog.text

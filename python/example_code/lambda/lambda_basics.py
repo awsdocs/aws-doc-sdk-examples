@@ -12,6 +12,7 @@ import io
 import json
 import logging
 import zipfile
+
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -100,11 +101,15 @@ class LambdaWrapper:
             )
             logger.info("Created role %s.", role.name)
             role.attach_policy(PolicyArn=policy_arn)
-            logger.info("Attached basic execution policy to role %s.", role.name)
+            logger.info(
+                "Attached basic execution policy to role %s.",
+                role.name)
         except ClientError as error:
             if error.response["Error"]["Code"] == "EntityAlreadyExists":
                 role = self.iam_resource.Role(iam_role_name)
-                logger.warning("The role %s already exists. Using it.", iam_role_name)
+                logger.warning(
+                    "The role %s already exists. Using it.",
+                    iam_role_name)
             else:
                 logger.exception(
                     "Couldn't create role %s or attach policy %s.",
@@ -125,7 +130,8 @@ class LambdaWrapper:
         """
         response = None
         try:
-            response = self.lambda_client.get_function(FunctionName=function_name)
+            response = self.lambda_client.get_function(
+                FunctionName=function_name)
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
                 logger.info("Function %s does not exist.", function_name)

@@ -12,9 +12,10 @@ This file is deployed to AWS Lambda as part of the Chalice deployment.
 
 import logging
 import urllib.parse
+
+import chalicelib.library_data
 from chalice import Chalice
 from chalice.app import RequestTimeoutError
-import chalicelib.library_data
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -50,8 +51,7 @@ def index():
     """Briefly describes the REST API."""
     return {
         "description": "A simple lending library REST API that runs entirely on "
-        "serverless components: Aurora Serverless v2, API Gateway"
-    }
+        "serverless components: Aurora Serverless v2, API Gateway"}
 
 
 @app.route("/books", methods=["GET"])

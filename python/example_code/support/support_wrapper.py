@@ -9,6 +9,7 @@ create and manage support cases.
 """
 
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -53,8 +54,7 @@ class SupportWrapper:
                 logger.info(
                     "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
                     "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                    "examples."
-                )
+                    "examples.")
             else:
                 logger.error(
                     "Couldn't get Support services for language %s. Here's why: %s: %s",
@@ -78,15 +78,15 @@ class SupportWrapper:
         :return: The list of severity levels.
         """
         try:
-            response = self.support_client.describe_severity_levels(language=language)
+            response = self.support_client.describe_severity_levels(
+                language=language)
             severity_levels = response["severityLevels"]
         except ClientError as err:
             if err.response["Error"]["Code"] == "SubscriptionRequiredException":
                 logger.info(
                     "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
                     "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                    "examples."
-                )
+                    "examples.")
             else:
                 logger.error(
                     "Couldn't get severity levels for language %s. Here's why: %s: %s",
@@ -126,8 +126,7 @@ class SupportWrapper:
                 logger.info(
                     "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
                     "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                    "examples."
-                )
+                    "examples.")
             else:
                 logger.error(
                     "Couldn't create case. Here's why: %s: %s",
@@ -153,17 +152,14 @@ class SupportWrapper:
                     {
                         "fileName": "attachment_file.txt",
                         "data": b"This is a sample file for attachment to a support case.",
-                    }
-                ]
-            )
+                    }])
             new_set_id = response["attachmentSetId"]
         except ClientError as err:
             if err.response["Error"]["Code"] == "SubscriptionRequiredException":
                 logger.info(
                     "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
                     "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                    "examples."
-                )
+                    "examples.")
             else:
                 logger.error(
                     "Couldn't add attachment. Here's why: %s: %s",
@@ -195,8 +191,7 @@ class SupportWrapper:
                 logger.info(
                     "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
                     "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                    "examples."
-                )
+                    "examples.")
             else:
                 logger.error(
                     "Couldn't add communication. Here's why: %s: %s",
@@ -217,7 +212,8 @@ class SupportWrapper:
         """
         try:
             communications = []
-            paginator = self.support_client.get_paginator("describe_communications")
+            paginator = self.support_client.get_paginator(
+                "describe_communications")
             for page in paginator.paginate(caseId=case_id):
                 communications += page["communications"]
         except ClientError as err:
@@ -225,8 +221,7 @@ class SupportWrapper:
                 logger.info(
                     "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
                     "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                    "examples."
-                )
+                    "examples.")
             else:
                 logger.error(
                     "Couldn't describe communications. Here's why: %s: %s",
@@ -257,8 +252,7 @@ class SupportWrapper:
                 logger.info(
                     "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
                     "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                    "examples."
-                )
+                    "examples.")
             else:
                 logger.error(
                     "Couldn't get attachment description. Here's why: %s: %s",
@@ -287,8 +281,7 @@ class SupportWrapper:
                 logger.info(
                     "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
                     "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                    "examples."
-                )
+                    "examples.")
             else:
                 logger.error(
                     "Couldn't resolve case. Here's why: %s: %s",
@@ -328,8 +321,7 @@ class SupportWrapper:
                 logger.info(
                     "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
                     "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                    "examples."
-                )
+                    "examples.")
             else:
                 logger.error(
                     "Couldn't describe cases. Here's why: %s: %s",
@@ -339,7 +331,8 @@ class SupportWrapper:
                 raise
         else:
             if resolved:
-                cases = filter(lambda case: case["status"] == "resolved", cases)
+                cases = filter(
+                    lambda case: case["status"] == "resolved", cases)
             return cases
 
     # snippet-end:[python.example_code.support.DescribeCases]

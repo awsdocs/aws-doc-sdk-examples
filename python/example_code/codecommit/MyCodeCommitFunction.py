@@ -25,7 +25,7 @@
 # snippet-sourcedate:[2016-03-07]
 # snippet-start:[codecommit.python.MyCodeCommitFunction.complete]
 
-import json
+
 import boto3
 
 codecommit = boto3.client("codecommit")

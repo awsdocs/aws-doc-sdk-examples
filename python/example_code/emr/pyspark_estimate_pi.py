@@ -39,8 +39,9 @@ def calculate_pi(partitions, output_uri):
 
     tries = 100000 * partitions
     logger.info(
-        "Calculating pi with a total of %s tries in %s partitions.", tries, partitions
-    )
+        "Calculating pi with a total of %s tries in %s partitions.",
+        tries,
+        partitions)
     with SparkSession.builder.appName("My PyPi").getOrCreate() as spark:
         hits = (
             spark.sparkContext.parallelize(range(tries), partitions)
@@ -48,9 +49,14 @@ def calculate_pi(partitions, output_uri):
             .reduce(add)
         )
         pi = 4.0 * hits / tries
-        logger.info("%s tries and %s hits gives pi estimate of %s.", tries, hits, pi)
+        logger.info(
+            "%s tries and %s hits gives pi estimate of %s.",
+            tries,
+            hits,
+            pi)
         if output_uri is not None:
-            df = spark.createDataFrame([(tries, hits, pi)], ["tries", "hits", "pi"])
+            df = spark.createDataFrame([(tries, hits, pi)], [
+                                       "tries", "hits", "pi"])
             df.write.mode("overwrite").json(output_uri)
 
 
@@ -63,8 +69,8 @@ if __name__ == "__main__":
         help="The number of parallel partitions to use when calculating pi.",
     )
     parser.add_argument(
-        "--output_uri", help="The URI where output is saved, typically an S3 bucket."
-    )
+        "--output_uri",
+        help="The URI where output is saved, typically an S3 bucket.")
     args = parser.parse_args()
 
     calculate_pi(args.partitions, args.output_uri)

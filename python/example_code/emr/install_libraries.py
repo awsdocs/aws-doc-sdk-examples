@@ -13,10 +13,15 @@ script manually.
 # snippet-start:[emr.python.jupyterhub.installlibraries]
 import argparse
 import time
+
 import boto3
 
 
-def install_libraries_on_core_nodes(cluster_id, script_path, emr_client, ssm_client):
+def install_libraries_on_core_nodes(
+        cluster_id,
+        script_path,
+        emr_client,
+        ssm_client):
     """
     Copies and runs a shell script on the core nodes in the cluster.
 
@@ -47,15 +52,18 @@ def install_libraries_on_core_nodes(cluster_id, script_path, emr_client, ssm_cli
         )["Command"]["CommandId"]
         while True:
             # Verify the previous step succeeded before running the next step.
-            cmd_result = ssm_client.list_commands(CommandId=command_id)["Commands"][0]
+            cmd_result = ssm_client.list_commands(
+                CommandId=command_id)["Commands"][0]
             if cmd_result["StatusDetails"] == "Success":
                 print(f"Command succeeded.")
                 break
             elif cmd_result["StatusDetails"] in ["Pending", "InProgress"]:
-                print(f"Command status is {cmd_result['StatusDetails']}, waiting...")
+                print(
+                    f"Command status is {cmd_result['StatusDetails']}, waiting...")
                 time.sleep(10)
             else:
-                print(f"Command status is {cmd_result['StatusDetails']}, quitting.")
+                print(
+                    f"Command status is {cmd_result['StatusDetails']}, quitting.")
                 raise RuntimeError(
                     f"Command {command} failed to run. "
                     f"Details: {cmd_result['StatusDetails']}"
@@ -65,7 +73,9 @@ def install_libraries_on_core_nodes(cluster_id, script_path, emr_client, ssm_cli
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("cluster_id", help="The ID of the cluster.")
-    parser.add_argument("script_path", help="The path to the script in Amazon S3.")
+    parser.add_argument(
+        "script_path",
+        help="The path to the script in Amazon S3.")
     args = parser.parse_args()
 
     emr_client = boto3.client("emr")

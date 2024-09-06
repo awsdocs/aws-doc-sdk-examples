@@ -11,6 +11,7 @@ AWS IoT Greengrass connector.
 # snippet-start:[greengrass.python.getting-started-connectors.complete]
 import json
 import random
+
 import greengrasssdk
 
 iot_client = greengrasssdk.client("iot-data")

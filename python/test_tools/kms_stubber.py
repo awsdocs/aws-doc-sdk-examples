@@ -27,7 +27,10 @@ class KmsStubber(ExampleStubber):
 
     def stub_create_key(self, description, key_id, error_code=None):
         expected_params = {"Description": description}
-        response = {"KeyMetadata": {"KeyId": key_id, "Description": description}}
+        response = {
+            "KeyMetadata": {
+                "KeyId": key_id,
+                "Description": description}}
         self._stub_bifurcator(
             "create_key", expected_params, response, error_code=error_code
         )
@@ -38,7 +41,8 @@ class KmsStubber(ExampleStubber):
         expected_params = {"Limit": limit}
         if marker is not None:
             expected_params["Marker"] = marker
-        response = {"Keys": [{"KeyId": kid} for kid in key_ids], "Truncated": truncated}
+        response = {"Keys": [{"KeyId": kid}
+                             for kid in key_ids], "Truncated": truncated}
         if truncated:
             response["NextMarker"] = "test-token"
         self._stub_bifurcator(
@@ -56,8 +60,10 @@ class KmsStubber(ExampleStubber):
         expected_params = {"KeyId": key_id, "KeySpec": key_spec}
         response = {}
         self._stub_bifurcator(
-            "generate_data_key", expected_params, response, error_code=error_code
-        )
+            "generate_data_key",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_enable_key(self, key_id, error_code=None):
         expected_params = {"KeyId": key_id}
@@ -77,8 +83,10 @@ class KmsStubber(ExampleStubber):
         expected_params = {"KeyId": key_id, "PendingWindowInDays": window}
         response = {}
         self._stub_bifurcator(
-            "schedule_key_deletion", expected_params, response, error_code=error_code
-        )
+            "schedule_key_deletion",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_create_alias(self, alias, key_id, error_code=None):
         expected_params = {"AliasName": alias, "TargetKeyId": key_id}
@@ -117,7 +125,13 @@ class KmsStubber(ExampleStubber):
             "delete_alias", expected_params, response, error_code=error_code
         )
 
-    def stub_create_grant(self, key_id, user, operations, grant, error_code=None):
+    def stub_create_grant(
+            self,
+            key_id,
+            user,
+            operations,
+            grant,
+            error_code=None):
         expected_params = {
             "KeyId": key_id,
             "GranteePrincipal": user,
@@ -153,8 +167,10 @@ class KmsStubber(ExampleStubber):
         expected_params = {"KeyId": key_id}
         response = {"PolicyNames": policy_names}
         self._stub_bifurcator(
-            "list_key_policies", expected_params, response, error_code=error_code
-        )
+            "list_key_policies",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_get_key_policy(self, key_id, policy, error_code=None):
         expected_params = {"KeyId": key_id, "PolicyName": "default"}
@@ -164,7 +180,10 @@ class KmsStubber(ExampleStubber):
         )
 
     def stub_put_key_policy(self, key_id, error_code=None):
-        expected_params = {"KeyId": key_id, "Policy": ANY, "PolicyName": "default"}
+        expected_params = {
+            "KeyId": key_id,
+            "Policy": ANY,
+            "PolicyName": "default"}
         response = {}
         self._stub_bifurcator(
             "put_key_policy", expected_params, response, error_code=error_code
@@ -184,7 +203,12 @@ class KmsStubber(ExampleStubber):
             "decrypt", expected_params, response, error_code=error_code
         )
 
-    def stub_re_encrypt(self, source_key_id, dest_key_id, ciphertext, error_code=None):
+    def stub_re_encrypt(
+            self,
+            source_key_id,
+            dest_key_id,
+            ciphertext,
+            error_code=None):
         expected_params = {
             "SourceKeyId": source_key_id,
             "DestinationKeyId": dest_key_id,

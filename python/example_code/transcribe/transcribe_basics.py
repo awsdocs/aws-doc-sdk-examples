@@ -14,16 +14,18 @@ Lewis Carroll. The original audio source file can be found here:
     https://en.wikisource.org/wiki/File:Jabberwocky.ogg
 """
 
+from demo_tools.custom_waiter import CustomWaiter, WaitState
 import logging
 import sys
 import time
-import boto3
-from botocore.exceptions import ClientError
-import requests
 
-# Add relative path to include demo_tools in this code example without need for setup.
+import boto3
+import requests
+from botocore.exceptions import ClientError
+
+# Add relative path to include demo_tools in this code example without
+# need for setup.
 sys.path.append("../..")
-from demo_tools.custom_waiter import CustomWaiter, WaitState
 
 logger = logging.getLogger(__name__)
 
@@ -123,7 +125,8 @@ def list_jobs(job_filter, transcribe_client):
     :return: The list of retrieved transcription job summaries.
     """
     try:
-        response = transcribe_client.list_transcription_jobs(JobNameContains=job_filter)
+        response = transcribe_client.list_transcription_jobs(
+            JobNameContains=job_filter)
         jobs = response["TranscriptionJobSummaries"]
         next_token = response.get("NextToken")
         while next_token is not None:
@@ -178,7 +181,8 @@ def delete_job(job_name, transcribe_client):
     :param transcribe_client: The Boto3 Transcribe client.
     """
     try:
-        transcribe_client.delete_transcription_job(TranscriptionJobName=job_name)
+        transcribe_client.delete_transcription_job(
+            TranscriptionJobName=job_name)
         logger.info("Deleted job %s.", job_name)
     except ClientError:
         logger.exception("Couldn't delete job %s.", job_name)
@@ -190,8 +194,11 @@ def delete_job(job_name, transcribe_client):
 
 # snippet-start:[python.example_code.transcribe.CreateVocabulary]
 def create_vocabulary(
-    vocabulary_name, language_code, transcribe_client, phrases=None, table_uri=None
-):
+        vocabulary_name,
+        language_code,
+        transcribe_client,
+        phrases=None,
+        table_uri=None):
     """
     Creates a custom vocabulary that can be used to improve the accuracy of
     transcription jobs. This function returns as soon as the vocabulary processing
@@ -208,15 +215,21 @@ def create_vocabulary(
     :return: Information about the newly created vocabulary.
     """
     try:
-        vocab_args = {"VocabularyName": vocabulary_name, "LanguageCode": language_code}
+        vocab_args = {
+            "VocabularyName": vocabulary_name,
+            "LanguageCode": language_code}
         if phrases is not None:
             vocab_args["Phrases"] = phrases
         elif table_uri is not None:
             vocab_args["VocabularyFileUri"] = table_uri
         response = transcribe_client.create_vocabulary(**vocab_args)
-        logger.info("Created custom vocabulary %s.", response["VocabularyName"])
+        logger.info(
+            "Created custom vocabulary %s.",
+            response["VocabularyName"])
     except ClientError:
-        logger.exception("Couldn't create custom vocabulary %s.", vocabulary_name)
+        logger.exception(
+            "Couldn't create custom vocabulary %s.",
+            vocabulary_name)
         raise
     else:
         return response
@@ -236,7 +249,8 @@ def list_vocabularies(vocabulary_filter, transcribe_client):
     :return: The list of retrieved vocabularies.
     """
     try:
-        response = transcribe_client.list_vocabularies(NameContains=vocabulary_filter)
+        response = transcribe_client.list_vocabularies(
+            NameContains=vocabulary_filter)
         vocabs = response["Vocabularies"]
         next_token = response.get("NextToken")
         while next_token is not None:
@@ -246,8 +260,9 @@ def list_vocabularies(vocabulary_filter, transcribe_client):
             vocabs += response["Vocabularies"]
             next_token = response.get("NextToken")
         logger.info(
-            "Got %s vocabularies with filter %s.", len(vocabs), vocabulary_filter
-        )
+            "Got %s vocabularies with filter %s.",
+            len(vocabs),
+            vocabulary_filter)
     except ClientError:
         logger.exception(
             "Couldn't list vocabularies with filter %s.", vocabulary_filter
@@ -270,7 +285,8 @@ def get_vocabulary(vocabulary_name, transcribe_client):
     :return: Information about the vocabulary.
     """
     try:
-        response = transcribe_client.get_vocabulary(VocabularyName=vocabulary_name)
+        response = transcribe_client.get_vocabulary(
+            VocabularyName=vocabulary_name)
         logger.info("Got vocabulary %s.", response["VocabularyName"])
     except ClientError:
         logger.exception("Couldn't get vocabulary %s.", vocabulary_name)
@@ -284,8 +300,11 @@ def get_vocabulary(vocabulary_name, transcribe_client):
 
 # snippet-start:[python.example_code.transcribe.UpdateVocabulary]
 def update_vocabulary(
-    vocabulary_name, language_code, transcribe_client, phrases=None, table_uri=None
-):
+        vocabulary_name,
+        language_code,
+        transcribe_client,
+        phrases=None,
+        table_uri=None):
     """
     Updates an existing custom vocabulary. The entire vocabulary is replaced with
     the contents of the update.
@@ -298,15 +317,21 @@ def update_vocabulary(
                       vocabulary.
     """
     try:
-        vocab_args = {"VocabularyName": vocabulary_name, "LanguageCode": language_code}
+        vocab_args = {
+            "VocabularyName": vocabulary_name,
+            "LanguageCode": language_code}
         if phrases is not None:
             vocab_args["Phrases"] = phrases
         elif table_uri is not None:
             vocab_args["VocabularyFileUri"] = table_uri
         response = transcribe_client.update_vocabulary(**vocab_args)
-        logger.info("Updated custom vocabulary %s.", response["VocabularyName"])
+        logger.info(
+            "Updated custom vocabulary %s.",
+            response["VocabularyName"])
     except ClientError:
-        logger.exception("Couldn't update custom vocabulary %s.", vocabulary_name)
+        logger.exception(
+            "Couldn't update custom vocabulary %s.",
+            vocabulary_name)
         raise
 
 
@@ -335,7 +360,9 @@ def delete_vocabulary(vocabulary_name, transcribe_client):
 # snippet-start:[python.example_code.transcribe.Scenario_CustomVocabulary]
 def usage_demo():
     """Shows how to use the Amazon Transcribe service."""
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     s3_resource = boto3.resource("s3")
     transcribe_client = boto3.client("transcribe")
@@ -425,13 +452,13 @@ def usage_demo():
         job_vocabulary_list["Transcript"]["TranscriptFileUri"]
     ).json()
     print(f"Transcript for job {transcript_vocabulary_list['jobName']}:")
-    print(transcript_vocabulary_list["results"]["transcripts"][0]["transcript"])
+    print(transcript_vocabulary_list["results"]
+          ["transcripts"][0]["transcript"])
 
     print("-" * 88)
     print(
         "Updating the custom vocabulary with table data that provides additional "
-        "pronunciation hints."
-    )
+        "pronunciation hints.")
     table_vocab_file = "jabber-vocabulary-table.txt"
     bucket.upload_file(table_vocab_file, table_vocab_file)
     update_vocabulary(
@@ -468,8 +495,7 @@ def usage_demo():
         job = get_job(job_sum["TranscriptionJobName"], transcribe_client)
         print(
             f"\t{job['TranscriptionJobName']}, {job['Media']['MediaFileUri']}, "
-            f"{job['Settings'].get('VocabularyName')}"
-        )
+            f"{job['Settings'].get('VocabularyName')}")
 
     jabber_vocabs = list_vocabularies("Jabber", transcribe_client)
     print(f"Found {len(jabber_vocabs)} vocabularies:")
@@ -481,7 +507,10 @@ def usage_demo():
 
     print("-" * 88)
     print("Deleting demo jobs.")
-    for job_name in [job_name_simple, job_name_vocabulary_list, job_name_vocab_table]:
+    for job_name in [
+            job_name_simple,
+            job_name_vocabulary_list,
+            job_name_vocab_table]:
         delete_job(job_name, transcribe_client)
     print("Deleting demo vocabulary.")
     delete_vocabulary(vocabulary_name, transcribe_client)

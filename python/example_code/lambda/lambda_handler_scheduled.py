@@ -10,6 +10,7 @@ Amazon EventBridge.
 
 import calendar
 import logging
+
 import dateutil.parser
 
 logger = logging.getLogger()

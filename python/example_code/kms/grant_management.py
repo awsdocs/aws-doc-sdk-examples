@@ -11,6 +11,7 @@ to manage permission grants for keys.
 # snippet-start:[python.example_code.kms.Scenario_GrantManagement]
 import logging
 from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -35,8 +36,7 @@ class GrantManager:
         """
         principal = input(
             f"Enter the ARN of a principal, such as an IAM role, to grant that role "
-            f"GenerateDataKey permissions on key {key_id}: "
-        )
+            f"GenerateDataKey permissions on key {key_id}: ")
         if principal != "":
             try:
                 grant = self.kms_client.create_grant(
@@ -112,7 +112,8 @@ class GrantManager:
         :param grant: The grant to revoke.
         """
         try:
-            self.kms_client.revoke_grant(KeyId=key_id, GrantId=grant["GrantId"])
+            self.kms_client.revoke_grant(
+                KeyId=key_id, GrantId=grant["GrantId"])
         except ClientError as err:
             logger.error(
                 "Couldn't revoke grant %s. Here's why: %s",
@@ -127,7 +128,9 @@ class GrantManager:
 
 
 def grant_management(kms_client):
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     print("-" * 88)
     print("Welcome to the AWS Key Management Service (AWS KMS) grant management demo.")
@@ -144,7 +147,8 @@ def grant_management(kms_client):
     grant_manager.list_grants(key_id)
     print("-" * 88)
     if grant is not None:
-        action = input("Let's remove the demo grant. Enter 'retire' or 'revoke': ")
+        action = input(
+            "Let's remove the demo grant. Enter 'retire' or 'revoke': ")
         if action == "retire":
             grant_manager.retire_grant(grant)
         elif action == "revoke":

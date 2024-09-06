@@ -37,7 +37,8 @@ class MedicalImagingWrapper:
         :return: The data store ID.
         """
         try:
-            data_store = self.health_imaging_client.create_datastore(datastoreName=name)
+            data_store = self.health_imaging_client.create_datastore(
+                datastoreName=name)
         except ClientError as err:
             logger.error(
                 "Couldn't create data store %s. Here's why: %s: %s",
@@ -84,7 +85,8 @@ class MedicalImagingWrapper:
         :return: The list of data stores.
         """
         try:
-            paginator = self.health_imaging_client.get_paginator("list_datastores")
+            paginator = self.health_imaging_client.get_paginator(
+                "list_datastores")
             page_iterator = paginator.paginate()
             datastore_summaries = []
             for page in page_iterator:
@@ -109,7 +111,8 @@ class MedicalImagingWrapper:
         :param datastore_id: The ID of the data store.
         """
         try:
-            self.health_imaging_client.delete_datastore(datastoreId=datastore_id)
+            self.health_imaging_client.delete_datastore(
+                datastoreId=datastore_id)
         except ClientError as err:
             logger.error(
                 "Couldn't delete data store %s. Here's why: %s: %s",
@@ -219,7 +222,8 @@ class MedicalImagingWrapper:
         :return: The list of image sets.
         """
         try:
-            paginator = self.health_imaging_client.get_paginator("search_image_sets")
+            paginator = self.health_imaging_client.get_paginator(
+                "search_image_sets")
             page_iterator = paginator.paginate(
                 datastoreId=datastore_id, searchCriteria=search_filter
             )
@@ -296,12 +300,12 @@ class MedicalImagingWrapper:
                 # snippet-start:[python.example_code.medical-imaging.GetImageSetMetadata.withoutVersionID]
 
                 image_set_metadata = self.health_imaging_client.get_image_set_metadata(
-                    imageSetId=image_set_id, datastoreId=datastore_id
-                )
+                    imageSetId=image_set_id, datastoreId=datastore_id)
                 # snippet-end:[python.example_code.medical-imaging.GetImageSetMetadata.withoutVersionID]
             print(image_set_metadata)
             with open(metadata_file, "wb") as f:
-                for chunk in image_set_metadata["imageSetMetadataBlob"].iter_chunks():
+                for chunk in image_set_metadata["imageSetMetadataBlob"].iter_chunks(
+                ):
                     if chunk:
                         f.write(chunk)
 
@@ -365,7 +369,8 @@ class MedicalImagingWrapper:
             )
             image_set_properties_list = []
             for page in page_iterator:
-                image_set_properties_list.extend(page["imageSetPropertiesList"])
+                image_set_properties_list.extend(
+                    page["imageSetPropertiesList"])
         except ClientError as err:
             logger.error(
                 "Couldn't list image set versions. Here's why: %s: %s",
@@ -497,7 +502,8 @@ class MedicalImagingWrapper:
         :param tags: The tags to apply.
         """
         try:
-            self.health_imaging_client.tag_resource(resourceArn=resource_arn, tags=tags)
+            self.health_imaging_client.tag_resource(
+                resourceArn=resource_arn, tags=tags)
         except ClientError as err:
             logger.error(
                 "Couldn't tag resource. Here's why: %s: %s",
@@ -575,8 +581,11 @@ class MedicalImagingWrapper:
 
         job_name = "python_usage_demo_job"
         job_id = self.start_dicom_import_job(
-            job_name, data_store_id, data_access_role_arn, source_s3_uri, dest_s3_uri
-        )
+            job_name,
+            data_store_id,
+            data_access_role_arn,
+            source_s3_uri,
+            dest_s3_uri)
         print(f"Started import job with id: {job_id}")
 
         while True:
@@ -687,14 +696,16 @@ class MedicalImagingWrapper:
             image_file_name, data_store_id, image_set_id, image_frame_id
         )
 
-        returned_versions = self.list_image_set_versions(data_store_id, image_set_id)
+        returned_versions = self.list_image_set_versions(
+            data_store_id, image_set_id)
         for version in returned_versions:
             print(version)
 
         copied_image_set_id = self.copy_image_set(
             data_store_id, image_set_id, str(version_id)
         )
-        print(f"Copied image set to new image set with ID : {copied_image_set_id}")
+        print(
+            f"Copied image set to new image set with ID : {copied_image_set_id}")
 
         image_set_ids.append(copied_image_set_id)
 
@@ -726,7 +737,8 @@ class MedicalImagingWrapper:
         self.update_image_set_metadata(
             data_store_id, copied_image_set_id, "1", metadata
         )
-        print(f"Updated metadata for image set with id : {copied_image_set_id}")
+        print(
+            f"Updated metadata for image set with id : {copied_image_set_id}")
 
         # Wait for all image sets to change from LOCKED status before deleting.
         for image_set_id in image_set_ids:
@@ -789,4 +801,5 @@ if __name__ == "__main__":
     medical_imaging_wrapper = MedicalImagingWrapper(client)
     # snippet-end:[python.example_code.medical-imaging.MedicalImagingWrapper.instantiation]
 
-    medical_imaging_wrapper.usage_demo(source_s3_uri, dest_s3_uri, data_access_role_arn)
+    medical_imaging_wrapper.usage_demo(
+        source_s3_uri, dest_s3_uri, data_access_role_arn)

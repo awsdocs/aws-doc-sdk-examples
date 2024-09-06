@@ -6,11 +6,11 @@ Unit tests for action_wrapper.py.
 """
 
 from datetime import datetime
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
 from action_wrapper import AutoScalingWrapper
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])
@@ -62,7 +62,10 @@ def test_update_group(make_stubber, error_code):
         wrapper.update_group(group_name, MinSize=min_size, MaxSize=max_size)
     else:
         with pytest.raises(ClientError) as exc_info:
-            wrapper.update_group(group_name, MinSize=min_size, MaxSize=max_size)
+            wrapper.update_group(
+                group_name,
+                MinSize=min_size,
+                MaxSize=max_size)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 

@@ -6,9 +6,8 @@ Unit tests for comprehend_topic_modeler.py
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from comprehend_topic_modeler import ComprehendTopicModeler, JobInputFormat
 
 DATA_ACCESS_ROLE_ARN = "arn:aws:iam:REGION:123456789012:role/test-role"
@@ -73,7 +72,8 @@ def test_describe_job(make_stubber, error_code):
     modeler = ComprehendTopicModeler(comprehend_client)
     job_id = "test-job_id"
 
-    comprehend_stubber.stub_describe_topics_detection_job(job_id, error_code=error_code)
+    comprehend_stubber.stub_describe_topics_detection_job(
+        job_id, error_code=error_code)
 
     if error_code is None:
         got_job = modeler.describe_job(job_id)
@@ -91,7 +91,8 @@ def test_list_jobs(make_stubber, error_code):
     modeler = ComprehendTopicModeler(comprehend_client)
     job_ids = [f"job-{index}" for index in range(5)]
 
-    comprehend_stubber.stub_list_topics_detection_jobs(job_ids, error_code=error_code)
+    comprehend_stubber.stub_list_topics_detection_jobs(
+        job_ids, error_code=error_code)
 
     if error_code is None:
         got_jobs = modeler.list_jobs()

@@ -5,17 +5,17 @@
 Unit tests for models/anthropic/claude_3.py.
 """
 
-import pytest
-
 import boto3
+import pytest
 from botocore.exceptions import ClientError
-
 from models.anthropic.claude_3 import Claude3Wrapper
 
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_invoke_with_text(make_stubber, error_code):
-    client = boto3.client(service_name="bedrock-runtime", region_name="us-east-1")
+    client = boto3.client(
+        service_name="bedrock-runtime",
+        region_name="us-east-1")
     wrapper = Claude3Wrapper(client)
 
     prompt = "Test prompt"
@@ -33,7 +33,9 @@ def test_invoke_with_text(make_stubber, error_code):
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])
 def test_invoke_multimodal(make_stubber, error_code):
-    client = boto3.client(service_name="bedrock-runtime", region_name="us-east-1")
+    client = boto3.client(
+        service_name="bedrock-runtime",
+        region_name="us-east-1")
     wrapper = Claude3Wrapper(client)
 
     prompt = "Test prompt"

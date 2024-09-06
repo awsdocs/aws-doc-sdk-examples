@@ -3,9 +3,8 @@
 
 import boto3
 import pytest
-
-from support_wrapper import SupportWrapper
 from get_started_support_cases import SupportCasesScenario
+from support_wrapper import SupportWrapper
 
 
 @pytest.fixture

@@ -2,15 +2,17 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from unittest.mock import MagicMock
-from botocore.exceptions import ClientError
+
 import pytest
+from botocore.exceptions import ClientError
 
 
 class MockManager:
     def __init__(self, stub_runner, scenario_data, input_mocker, mock_address):
         self.scenario_data = scenario_data
         self.mock_address = mock_address
-        self.scenario_data.scenario.inst_wrapper.instance = MagicMock(id="test-inst")
+        self.scenario_data.scenario.inst_wrapper.instance = MagicMock(
+            id="test-inst")
         self.scenario_data.scenario.key_wrapper.key_file_path = "test-key-file"
         answers = [""]
         input_mocker.mock_answers(answers)

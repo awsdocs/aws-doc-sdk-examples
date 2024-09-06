@@ -9,6 +9,7 @@ event and removes the specified delete marker from the bucket.
 # snippet-start:[s3.python.lambda.remove_delete_marker]
 import logging
 from urllib import parse
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -46,8 +47,9 @@ def lambda_handler(event, context):
         bucket_name = task["s3BucketArn"].split(":")[-1]
 
         logger.info(
-            "Got task: remove delete marker %s from object %s.", obj_version_id, obj_key
-        )
+            "Got task: remove delete marker %s from object %s.",
+            obj_version_id,
+            obj_key)
 
         try:
             # If this call does not raise an error, the object version is not a delete
@@ -57,23 +59,24 @@ def lambda_handler(event, context):
             )
             result_code = "PermanentFailure"
             result_string = (
-                f"Object {obj_key}, ID {obj_version_id} is not " f"a delete marker."
-            )
+                f"Object {obj_key}, ID {obj_version_id} is not "
+                f"a delete marker.")
 
             logger.debug(response)
             logger.warning(result_string)
         except ClientError as error:
             delete_marker = error.response["ResponseMetadata"]["HTTPHeaders"].get(
-                "x-amz-delete-marker", "false"
-            )
+                "x-amz-delete-marker", "false")
             if delete_marker == "true":
                 logger.info(
-                    "Object %s, version %s is a delete marker.", obj_key, obj_version_id
-                )
+                    "Object %s, version %s is a delete marker.",
+                    obj_key,
+                    obj_version_id)
                 try:
                     s3.delete_object(
-                        Bucket=bucket_name, Key=obj_key, VersionId=obj_version_id
-                    )
+                        Bucket=bucket_name,
+                        Key=obj_key,
+                        VersionId=obj_version_id)
                     result_code = "Succeeded"
                     result_string = (
                         f"Successfully removed delete marker "
@@ -81,7 +84,8 @@ def lambda_handler(event, context):
                     )
                     logger.info(result_string)
                 except ClientError as error:
-                    # Mark request timeout as a temporary failure so it will be retried.
+                    # Mark request timeout as a temporary failure so it will be
+                    # retried.
                     if error.response["Error"]["Code"] == "RequestTimeout":
                         result_code = "TemporaryFailure"
                         result_string = (

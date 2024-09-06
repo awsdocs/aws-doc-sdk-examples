@@ -14,8 +14,9 @@ mode lets you compare the performance of the two clients.
 
 # snippet-start:[dynamodb.Python.TryDax.04-query-test]
 import argparse
-import time
 import sys
+import time
+
 import amazondax
 import boto3
 from boto3.dynamodb.conditions import Key
@@ -67,14 +68,16 @@ if __name__ == "__main__":
     test_sort_keys = (2, 9)
     test_iterations = 100
     if args.endpoint_url:
-        print(f"Querying the table {test_iterations} times, using the DAX client.")
-        # Use a with statement so the DAX client closes the cluster after completion.
+        print(
+            f"Querying the table {test_iterations} times, using the DAX client.")
+        # Use a with statement so the DAX client closes the cluster after
+        # completion.
         with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url) as dax:
             test_start, test_end = query_test(
-                test_partition_key, test_sort_keys, test_iterations, dyn_resource=dax
-            )
+                test_partition_key, test_sort_keys, test_iterations, dyn_resource=dax)
     else:
-        print(f"Querying the table {test_iterations} times, using the Boto3 client.")
+        print(
+            f"Querying the table {test_iterations} times, using the Boto3 client.")
         test_start, test_end = query_test(
             test_partition_key, test_sort_keys, test_iterations
         )

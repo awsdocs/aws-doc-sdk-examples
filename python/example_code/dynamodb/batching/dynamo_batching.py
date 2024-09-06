@@ -19,13 +19,15 @@ import logging
 import os
 import pprint
 import time
+
 import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 dynamodb = boto3.resource("dynamodb")
 
-MAX_GET_SIZE = 100  # Amazon DynamoDB rejects a get batch larger than 100 items.
+# Amazon DynamoDB rejects a get batch larger than 100 items.
+MAX_GET_SIZE = 100
 
 # snippet-end:[python.example_code.dynamodb.Batching_imports]
 
@@ -79,7 +81,8 @@ def do_batch_get(batch_keys):
     """
     tries = 0
     max_tries = 5
-    sleepy_time = 1  # Start with 1 second of sleep, then exponentially increase.
+    # Start with 1 second of sleep, then exponentially increase.
+    sleepy_time = 1
     retrieved = {key: [] for key in batch_keys}
     while tries < max_tries:
         response = dynamodb.batch_get_item(RequestItems=batch_keys)
@@ -93,8 +96,8 @@ def do_batch_get(batch_keys):
                 [len(batch_key["Keys"]) for batch_key in batch_keys.values()]
             )
             logger.info(
-                "%s unprocessed keys returned. Sleep, then retry.", unprocessed_count
-            )
+                "%s unprocessed keys returned. Sleep, then retry.",
+                unprocessed_count)
             tries += 1
             if tries < max_tries:
                 logger.info("Sleeping for %s seconds.", sleepy_time)
@@ -158,11 +161,15 @@ def get_batch_data(movie_table, movie_list, actor_table, actor_list):
     try:
         retrieved = do_batch_get(batch_keys)
         for response_table, response_items in retrieved.items():
-            logger.info("Got %s items from %s.", len(response_items), response_table)
+            logger.info(
+                "Got %s items from %s.",
+                len(response_items),
+                response_table)
     except ClientError:
         logger.exception(
-            "Couldn't get items from %s and %s.", movie_table.name, actor_table.name
-        )
+            "Couldn't get items from %s and %s.",
+            movie_table.name,
+            actor_table.name)
         raise
     else:
         return retrieved
@@ -206,7 +213,9 @@ def archive_movies(movie_table, movie_data):
         logger.info("Table %s created, wait until exists.", archive_table.name)
         archive_table.wait_until_exists()
     except ClientError:
-        logger.exception("Couldn't create archive table for %s.", movie_table.name)
+        logger.exception(
+            "Couldn't create archive table for %s.",
+            movie_table.name)
         raise
 
     try:
@@ -220,13 +229,11 @@ def archive_movies(movie_table, movie_data):
         if error.response["Error"]["Code"] == "ValidationException":
             logger.info(
                 "Got expected exception when trying to put duplicate records into the "
-                "archive table."
-            )
+                "archive table.")
         else:
             logger.exception(
                 "Got unexpected exception when trying to put duplicate records into "
-                "the archive table."
-            )
+                "the archive table.")
             raise
 
     try:
@@ -266,7 +273,9 @@ def usage_demo():
     """
     Shows how to use the Amazon DynamoDB batch functions.
     """
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     print("-" * 88)
     print("Welcome to the Amazon DynamoDB batch usage demo.")
@@ -277,15 +286,15 @@ def usage_demo():
     try:
         with open(movies_file_name) as json_file:
             movie_data = json.load(json_file, parse_float=decimal.Decimal)
-            movie_data = movie_data[:500]  # Only use the first 500 movies for the demo.
+            # Only use the first 500 movies for the demo.
+            movie_data = movie_data[:500]
     except FileNotFoundError:
         print(
             f"The file moviedata.json was not found in the current working directory "
             f"{os.getcwd()}.\n"
             f"1. Download the zip file from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip.\n"
             f"2. Extract '{movies_file_name}' to {os.getcwd()}.\n"
-            f"3. Run the usage demo again."
-        )
+            f"3. Run the usage demo again.")
         return
 
     # Build a second table centered around actors.
@@ -296,8 +305,10 @@ def usage_demo():
             for actor in actors:
                 if actor not in actor_set:
                     actor_set[actor] = {"directors": set(), "costars": set()}
-                actor_set[actor]["directors"].update(movie["info"]["directors"])
-                actor_set[actor]["costars"].update([a for a in actors if a != actor])
+                actor_set[actor]["directors"].update(
+                    movie["info"]["directors"])
+                actor_set[actor]["costars"].update(
+                    [a for a in actors if a != actor])
         except KeyError:
             logger.warning("%s doesn't have any actors.", movie["title"])
     actor_data = []
@@ -318,8 +329,12 @@ def usage_demo():
     ]
 
     print(f"Creating movie and actor tables and waiting until they exist...")
-    movie_table = create_table(f"demo-batch-movies-{time.time_ns()}", movie_schema)
-    actor_table = create_table(f"demo-batch-actors-{time.time_ns()}", actor_schema)
+    movie_table = create_table(
+        f"demo-batch-movies-{time.time_ns()}",
+        movie_schema)
+    actor_table = create_table(
+        f"demo-batch-actors-{time.time_ns()}",
+        actor_schema)
     print(f"Created {movie_table.name} and {actor_table.name}.")
 
     print(f"Putting {len(movie_data)} movies into {movie_table.name}.")
@@ -330,9 +345,10 @@ def usage_demo():
 
     movie_list = [
         (movie["year"], movie["title"])
-        for movie in movie_data[0 : int(MAX_GET_SIZE / 2)]
+        for movie in movie_data[0: int(MAX_GET_SIZE / 2)]
     ]
-    actor_list = [actor["name"] for actor in actor_data[0 : int(MAX_GET_SIZE / 2)]]
+    actor_list = [actor["name"]
+                  for actor in actor_data[0: int(MAX_GET_SIZE / 2)]]
     items = get_batch_data(movie_table, movie_list, actor_table, actor_list)
     print(
         f"Got {len(items[movie_table.name])} movies from {movie_table.name}\n"
@@ -356,7 +372,8 @@ def usage_demo():
     archive_table.delete()
     movie_table.delete()
     actor_table.delete()
-    print(f"Deleted {movie_table.name}, {archive_table.name}, and {actor_table.name}.")
+    print(
+        f"Deleted {movie_table.name}, {archive_table.name}, and {actor_table.name}.")
     print("Thanks for watching!")
 
 

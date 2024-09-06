@@ -8,8 +8,8 @@ Shows how to use the AWS SDK for Python (Boto3) to create and manage Amazon Rela
 Database Service (Amazon RDS) DB instances.
 """
 
-import json
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -52,7 +52,9 @@ class InstanceWrapper:
             parameter_group = response["DBParameterGroups"][0]
         except ClientError as err:
             if err.response["Error"]["Code"] == "DBParameterGroupNotFound":
-                logger.info("Parameter group %s does not exist.", parameter_group_name)
+                logger.info(
+                    "Parameter group %s does not exist.",
+                    parameter_group_name)
             else:
                 logger.error(
                     "Couldn't get parameter group %s. Here's why: %s: %s",
@@ -123,7 +125,11 @@ class InstanceWrapper:
     # snippet-end:[python.example_code.rds.DeleteDBParameterGroup]
 
     # snippet-start:[python.example_code.rds.DescribeDBParameters]
-    def get_parameters(self, parameter_group_name, name_prefix="", source=None):
+    def get_parameters(
+            self,
+            parameter_group_name,
+            name_prefix="",
+            source=None):
         """
         Gets the parameters that are contained in a DB parameter group.
 
@@ -171,8 +177,7 @@ class InstanceWrapper:
         """
         try:
             response = self.rds_client.modify_db_parameter_group(
-                DBParameterGroupName=parameter_group_name, Parameters=update_parameters
-            )
+                DBParameterGroupName=parameter_group_name, Parameters=update_parameters)
         except ClientError as err:
             logger.error(
                 "Couldn't update parameters in %s. Here's why: %s: %s",
@@ -197,8 +202,7 @@ class InstanceWrapper:
         """
         try:
             response = self.rds_client.create_db_snapshot(
-                DBSnapshotIdentifier=snapshot_id, DBInstanceIdentifier=instance_id
-            )
+                DBSnapshotIdentifier=snapshot_id, DBInstanceIdentifier=instance_id)
             snapshot = response["DBSnapshot"]
         except ClientError as err:
             logger.error(

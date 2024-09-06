@@ -14,11 +14,12 @@
 # language governing permissions and limitations under the License.
 # snippet-start:[deeplens.python.deeplens_kvi_api.intro]
 
-import time
 import os
+import time
+
 import DeepLens_Kinesis_Video as dkv
-from botocore.session import Session
 import greengrasssdk
+from botocore.session import Session
 
 
 def greengrass_hello_world_run():
@@ -44,7 +45,7 @@ def greengrass_hello_world_run():
     )
     client.publish(topic=iot_topic, payload="Producer created")
     kvs_stream = producer.createStream(stream_name, retention)
-    client.publish(topic=iot_topic, payload="Stream {} created".format(stream_name))
+    client.publish(topic=iot_topic, payload=f"Stream {stream_name} created")
 
     # Start putting data into the KVS stream
     kvs_stream.start()

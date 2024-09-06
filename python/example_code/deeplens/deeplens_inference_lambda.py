@@ -26,13 +26,14 @@
 # language governing permissions and limitations under the License.
 # snippet-start:[deeplens.python.deeplens_inference_lambda.import]
 
-from threading import Thread, Event
-import os
 import json
-import numpy as np
+import os
+from threading import Event, Thread
+
 import awscam
 import cv2
 import greengrasssdk
+import numpy as np
 
 # snippet-end:[deeplens.python.deeplens_inference_lambda.import]
 # snippet-start:[deeplens.python.deeplens_inference_lambda.lambda_handler]
@@ -60,9 +61,13 @@ class LocalDisplay(Thread):
         """resolution - Desired resolution of the project stream"""
         # Initialize the base class, so that the object can run on its own
         # thread.
-        super(LocalDisplay, self).__init__()
+        super().__init__()
         # List of valid resolutions
-        RESOLUTION = {"1080p": (1920, 1080), "720p": (1280, 720), "480p": (858, 480)}
+        RESOLUTION = {
+            "1080p": (
+                1920, 1080), "720p": (
+                1280, 720), "480p": (
+                858, 480)}
         if resolution not in RESOLUTION:
             raise Exception("Invalid resolution")
         self.resolution = RESOLUTION[resolution]
@@ -90,7 +95,7 @@ class LocalDisplay(Thread):
                     # meaning the code will come to a halt here until a consumer
                     # is available.
                     fifo_file.write(self.frame.tobytes())
-                except IOError:
+                except OSError:
                     continue
 
     def set_frame_data(self, frame):
@@ -123,7 +128,8 @@ def infinite_infer_run():
 
         # Create an IoT client for sending to messages to the cloud.
         client = greengrasssdk.client("iot-data")
-        iot_topic = "$aws/things/{}/infer".format(os.environ["AWS_IOT_THING_NAME"])
+        iot_topic = "$aws/things/{}/infer".format(
+            os.environ["AWS_IOT_THING_NAME"])
 
         # Create a local display instance that will dump the image bytes to a FIFO
         # file that the image can be rendered locally.
@@ -153,8 +159,8 @@ def infinite_infer_run():
 
     except Exception as ex:
         client.publish(
-            topic=iot_topic, payload="Error in cat-dog lambda: {}".format(ex)
-        )
+            topic=iot_topic,
+            payload=f"Error in cat-dog lambda: {ex}")
         # snippet-end:[deeplens.python.deeplens_inference_lambda.inference_loop]
 
         # snippet-start:[deeplens.python.deeplens_inference_lambda.inference_step]
@@ -176,7 +182,8 @@ def infinite_infer_run():
         # Add the label of the top result to the frame used by local display.
         # See https://docs.opencv.org/3.4.1/d6/d6e/group__imgproc__draw.html
         # for more information about the cv2.putText method.
-        # Method signature: image, text, origin, font face, font scale, color, and thickness
+        # Method signature: image, text, origin, font face, font scale, color,
+        # and thickness
         cv2.putText(
             frame,
             output_map[top_k[0]["label"]],
@@ -205,13 +212,6 @@ def infinite_infer_run():
 #                                                    *
 # *****************************************************
 """ A sample lambda for cat-dog detection"""
-from threading import Thread, Event
-import os
-import json
-import numpy as np
-import awscam
-import cv2
-import greengrasssdk
 
 
 def lambda_handler(event, context):
@@ -232,9 +232,13 @@ class LocalDisplay(Thread):
         """resolution - Desired resolution of the project stream"""
         # Initialize the base class, so that the object can run on its own
         # thread.
-        super(LocalDisplay, self).__init__()
+        super().__init__()
         # List of valid resolutions
-        RESOLUTION = {"1080p": (1920, 1080), "720p": (1280, 720), "480p": (858, 480)}
+        RESOLUTION = {
+            "1080p": (
+                1920, 1080), "720p": (
+                1280, 720), "480p": (
+                858, 480)}
         if resolution not in RESOLUTION:
             raise Exception("Invalid resolution")
         self.resolution = RESOLUTION[resolution]
@@ -262,7 +266,7 @@ class LocalDisplay(Thread):
                     # meaning the code will come to a halt here until a consumer
                     # is available.
                     fifo_file.write(self.frame.tobytes())
-                except IOError:
+                except OSError:
                     continue
 
     def set_frame_data(self, frame):
@@ -290,7 +294,8 @@ def infinite_infer_run():
         output_map = {0: "dog", 1: "cat"}
         # Create an IoT client for sending to messages to the cloud.
         client = greengrasssdk.client("iot-data")
-        iot_topic = "$aws/things/{}/infer".format(os.environ["AWS_IOT_THING_NAME"])
+        iot_topic = "$aws/things/{}/infer".format(
+            os.environ["AWS_IOT_THING_NAME"])
         # Create a local display instance that will dump the image bytes to a FIFO
         # file that the image can be rendered locally.
         local_display = LocalDisplay("480p")
@@ -327,7 +332,8 @@ def infinite_infer_run():
             # Add the label of the top result to the frame used by local display.
             # See https://docs.opencv.org/3.4.1/d6/d6e/group__imgproc__draw.html
             # for more information about the cv2.putText method.
-            # Method signature: image, text, origin, font face, font scale, color, and thickness
+            # Method signature: image, text, origin, font face, font scale,
+            # color, and thickness
             cv2.putText(
                 frame,
                 output_map[top_k[0]["label"]],
@@ -346,8 +352,8 @@ def infinite_infer_run():
             client.publish(topic=iot_topic, payload=json.dumps(cloud_output))
     except Exception as ex:
         client.publish(
-            topic=iot_topic, payload="Error in cat-dog lambda: {}".format(ex)
-        )
+            topic=iot_topic,
+            payload=f"Error in cat-dog lambda: {ex}")
 
 
 infinite_infer_run()

@@ -30,14 +30,24 @@ class AcmStubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
-    def stub_describe_certificate(self, certificate_arn, certificate, error_code=None):
+    def stub_describe_certificate(
+            self,
+            certificate_arn,
+            certificate,
+            error_code=None):
         expected_params = {"CertificateArn": certificate_arn}
         response = {"Certificate": certificate}
         self._stub_bifurcator(
-            "describe_certificate", expected_params, response, error_code=error_code
-        )
+            "describe_certificate",
+            expected_params,
+            response,
+            error_code=error_code)
 
-    def stub_get_certificate(self, certificate_arn, cert_data, error_code=None):
+    def stub_get_certificate(
+            self,
+            certificate_arn,
+            cert_data,
+            error_code=None):
         expected_params = {"CertificateArn": certificate_arn}
         response = cert_data
         self._stub_bifurcator(
@@ -68,40 +78,49 @@ class AcmStubber(ExampleStubber):
             expected_params["Includes"] = includes
         response = {"CertificateSummaryList": certificates}
         self._stub_bifurcator(
-            "list_certificates", expected_params, response, error_code=error_code
-        )
+            "list_certificates",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_import_certificate(
         self, certificate, private_key, certificate_arn, error_code=None
     ):
-        expected_params = {"Certificate": certificate, "PrivateKey": private_key}
+        expected_params = {
+            "Certificate": certificate,
+            "PrivateKey": private_key}
         response = {"CertificateArn": certificate_arn}
         self._stub_bifurcator(
-            "import_certificate", expected_params, response, error_code=error_code
-        )
+            "import_certificate",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_delete_certificate(self, certificate_arn, error_code=None):
         expected_params = {"CertificateArn": certificate_arn}
         response = {}
         self._stub_bifurcator(
-            "delete_certificate", expected_params, response, error_code=error_code
-        )
+            "delete_certificate",
+            expected_params,
+            response,
+            error_code=error_code)
 
-    def stub_add_tags_to_certificate(self, certificate_arn, tags, error_code=None):
-        expected_params = {
-            "CertificateArn": certificate_arn,
-            "Tags": [{"Key": key, "Value": value} for key, value in tags.items()],
-        }
+    def stub_add_tags_to_certificate(
+            self, certificate_arn, tags, error_code=None):
+        expected_params = {"CertificateArn": certificate_arn, "Tags": [
+            {"Key": key, "Value": value} for key, value in tags.items()], }
         response = {}
         self._stub_bifurcator(
-            "add_tags_to_certificate", expected_params, response, error_code=error_code
-        )
+            "add_tags_to_certificate",
+            expected_params,
+            response,
+            error_code=error_code)
 
-    def stub_list_tags_for_certificate(self, certificate_arn, tags, error_code=None):
+    def stub_list_tags_for_certificate(
+            self, certificate_arn, tags, error_code=None):
         expected_params = {"CertificateArn": certificate_arn}
-        response = {
-            "Tags": [{"Key": key, "Value": value} for key, value in tags.items()]
-        }
+        response = {"Tags": [{"Key": key, "Value": value}
+                             for key, value in tags.items()]}
         self._stub_bifurcator(
             "list_tags_for_certificate",
             expected_params,
@@ -109,7 +128,8 @@ class AcmStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_remove_tags_from_certificate(self, certificate_arn, tags, error_code=None):
+    def stub_remove_tags_from_certificate(
+            self, certificate_arn, tags, error_code=None):
         expected_params = {"CertificateArn": certificate_arn}
         tag_list = []
         for key, value in tags.items():
@@ -148,8 +168,10 @@ class AcmStubber(ExampleStubber):
             ]
         response = {"CertificateArn": certificate_arn}
         self._stub_bifurcator(
-            "request_certificate", expected_params, response, error_code=error_code
-        )
+            "request_certificate",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_resend_validation_email(
         self, certificate_arn, domain, validation_domain, error_code=None
@@ -161,5 +183,7 @@ class AcmStubber(ExampleStubber):
         }
         response = {}
         self._stub_bifurcator(
-            "resend_validation_email", expected_params, response, error_code=error_code
-        )
+            "resend_validation_email",
+            expected_params,
+            response,
+            error_code=error_code)

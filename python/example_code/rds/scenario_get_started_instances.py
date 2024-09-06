@@ -14,17 +14,18 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Relation Database Se
 * Delete the DB instance and parameter group.
 """
 
+from demo_tools.retries import wait
+import demo_tools.question as q
 import logging
-from pprint import pp
 import sys
 import uuid
+from pprint import pp
 
 from instance_wrapper import InstanceWrapper
 
-# Add relative path to include demo_tools in this code example without need for setup.
+# Add relative path to include demo_tools in this code example without
+# need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 
@@ -55,14 +56,17 @@ class RdsInstanceScenario:
             parameter_group_name
         )
         if parameter_group is None:
-            print(f"Getting available database engine versions for {db_engine}.")
-            engine_versions = self.instance_wrapper.get_engine_versions(db_engine)
-            families = list({ver["DBParameterGroupFamily"] for ver in engine_versions})
-            family_index = q.choose("Which family do you want to use? ", families)
+            print(
+                f"Getting available database engine versions for {db_engine}.")
+            engine_versions = self.instance_wrapper.get_engine_versions(
+                db_engine)
+            families = list({ver["DBParameterGroupFamily"]
+                            for ver in engine_versions})
+            family_index = q.choose(
+                "Which family do you want to use? ", families)
             print(f"Creating a parameter group.")
             self.instance_wrapper.create_parameter_group(
-                parameter_group_name, families[family_index], "Example parameter group."
-            )
+                parameter_group_name, families[family_index], "Example parameter group.")
             parameter_group = self.instance_wrapper.get_parameter_group(
                 parameter_group_name
             )
@@ -85,7 +89,8 @@ class RdsInstanceScenario:
         update_params = []
         for auto_inc in auto_inc_parameters:
             if auto_inc["IsModifiable"] and auto_inc["DataType"] == "integer":
-                print(f"The {auto_inc['ParameterName']} parameter is described as:")
+                print(
+                    f"The {auto_inc['ParameterName']} parameter is described as:")
                 print(f"\t{auto_inc['Description']}")
                 param_range = auto_inc["AllowedValues"].split("-")
                 auto_inc["ParameterValue"] = str(
@@ -96,7 +101,8 @@ class RdsInstanceScenario:
                     )
                 )
                 update_params.append(auto_inc)
-        self.instance_wrapper.update_parameters(parameter_group_name, update_params)
+        self.instance_wrapper.update_parameters(
+            parameter_group_name, update_params)
         print(
             "You can get a list of parameters you've set by specifying a source of 'user'."
         )
@@ -106,7 +112,12 @@ class RdsInstanceScenario:
         pp(user_parameters)
         print("-" * 88)
 
-    def create_instance(self, instance_name, db_name, db_engine, parameter_group):
+    def create_instance(
+            self,
+            instance_name,
+            db_name,
+            db_engine,
+            parameter_group):
         """
         Shows how to create a DB instance that contains a database of a specified
         type and is configured to use a custom DB parameter group.
@@ -122,8 +133,8 @@ class RdsInstanceScenario:
         if db_inst is None:
             print("Let's create a DB instance.")
             admin_username = q.ask(
-                "Enter an administrator user name for the database: ", q.non_empty
-            )
+                "Enter an administrator user name for the database: ",
+                q.non_empty)
             admin_password = q.ask(
                 "Enter a password for the administrator (at least 8 characters): ",
                 q.non_empty,
@@ -133,7 +144,9 @@ class RdsInstanceScenario:
             )
             engine_choices = [ver["EngineVersion"] for ver in engine_versions]
             print("The available engines for your parameter group are:")
-            engine_index = q.choose("Which engine do you want to use? ", engine_choices)
+            engine_index = q.choose(
+                "Which engine do you want to use? ",
+                engine_choices)
             engine_selection = engine_versions[engine_index]
             print(
                 "The available micro DB instance classes for your database engine are:"
@@ -149,8 +162,8 @@ class RdsInstanceScenario:
                 }
             )
             inst_index = q.choose(
-                "Which micro DB instance class do you want to use? ", inst_choices
-            )
+                "Which micro DB instance class do you want to use? ",
+                inst_choices)
             group_name = parameter_group["DBParameterGroupName"]
             storage_type = "standard"
             allocated_storage = 5
@@ -160,8 +173,7 @@ class RdsInstanceScenario:
                 f"selected engine {engine_selection['EngineVersion']},\n"
                 f"selected DB instance class {inst_choices[inst_index]},"
                 f"and {allocated_storage} GiB of {storage_type} storage.\n"
-                f"This typically takes several minutes."
-            )
+                f"This typically takes several minutes.")
             db_inst = self.instance_wrapper.create_db_instance(
                 db_name,
                 instance_name,
@@ -195,12 +207,10 @@ class RdsInstanceScenario:
             "One way to connect is by using the 'mysql' shell on an Amazon EC2 instance\n"
             "that is running in the same VPC as your DB instance. Pass the endpoint,\n"
             "port, and administrator user name to 'mysql' and enter your password\n"
-            "when prompted:\n"
-        )
+            "when prompted:\n")
         print(
             f"\n\tmysql -h {db_inst['Endpoint']['Address']} -P {db_inst['Endpoint']['Port']} "
-            f"-u {db_inst['MasterUsername']} -p\n"
-        )
+            f"-u {db_inst['MasterUsername']} -p\n")
         print(
             "For more information, see the User Guide for Amazon RDS:\n"
             "\thttps://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.MySQL.html#CHAP_GettingStarted.Connecting.MySQL"
@@ -214,13 +224,14 @@ class RdsInstanceScenario:
         :param instance_name: The name of a DB instance to snapshot.
         """
         if q.ask(
-            "Do you want to create a snapshot of your DB instance (y/n)? ", q.is_yesno
-        ):
+            "Do you want to create a snapshot of your DB instance (y/n)? ",
+                q.is_yesno):
             snapshot_id = f"{instance_name}-{uuid.uuid4()}"
             print(
                 f"Creating a snapshot named {snapshot_id}. This typically takes a few minutes."
             )
-            snapshot = self.instance_wrapper.create_snapshot(snapshot_id, instance_name)
+            snapshot = self.instance_wrapper.create_snapshot(
+                snapshot_id, instance_name)
             while snapshot.get("Status") != "available":
                 wait(10)
                 snapshot = self.instance_wrapper.get_snapshot(snapshot_id)
@@ -241,7 +252,8 @@ class RdsInstanceScenario:
             q.is_yesno,
         ):
             print(f"Deleting DB instance {db_inst['DBInstanceIdentifier']}.")
-            self.instance_wrapper.delete_db_instance(db_inst["DBInstanceIdentifier"])
+            self.instance_wrapper.delete_db_instance(
+                db_inst["DBInstanceIdentifier"])
             print(
                 "Waiting for the DB instance to delete. This typically takes several minutes."
             )
@@ -253,8 +265,15 @@ class RdsInstanceScenario:
             print(f"Deleting parameter group {parameter_group_name}.")
             self.instance_wrapper.delete_parameter_group(parameter_group_name)
 
-    def run_scenario(self, db_engine, parameter_group_name, instance_name, db_name):
-        logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    def run_scenario(
+            self,
+            db_engine,
+            parameter_group_name,
+            instance_name,
+            db_name):
+        logging.basicConfig(
+            level=logging.INFO,
+            format="%(levelname)s: %(message)s")
 
         print("-" * 88)
         print(
@@ -263,7 +282,8 @@ class RdsInstanceScenario:
         )
         print("-" * 88)
 
-        parameter_group = self.create_parameter_group(parameter_group_name, db_engine)
+        parameter_group = self.create_parameter_group(
+            parameter_group_name, db_engine)
         self.update_parameters(parameter_group_name)
         db_inst = self.create_instance(
             instance_name, db_name, db_engine, parameter_group

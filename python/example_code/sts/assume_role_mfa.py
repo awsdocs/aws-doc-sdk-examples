@@ -10,9 +10,10 @@ using AWS Security Token Service (STS) credentials.
 
 import json
 import os
-import time
 import sys
+import time
 import webbrowser
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -66,8 +67,7 @@ def setup(iam_resource):
 
     print(
         f"Showing the QR code for the device. Scan this in the MFA app of your "
-        f"choice."
-    )
+        f"choice.")
     with open("qr.png", "wb") as qr_file:
         qr_file.write(virtual_mfa_device.qr_code_png)
     webbrowser.open(qr_file.name)
@@ -89,22 +89,15 @@ def setup(iam_resource):
     print(f"Wait for user to be ready.", end="")
     progress_bar(10)
 
-    role = iam_resource.create_role(
-        RoleName=unique_name("role"),
-        AssumeRolePolicyDocument=json.dumps(
-            {
-                "Version": "2012-10-17",
-                "Statement": [
-                    {
-                        "Effect": "Allow",
-                        "Principal": {"AWS": user.arn},
-                        "Action": "sts:AssumeRole",
-                        "Condition": {"Bool": {"aws:MultiFactorAuthPresent": True}},
-                    }
-                ],
-            }
-        ),
-    )
+    role = iam_resource.create_role(RoleName=unique_name("role"),
+                                    AssumeRolePolicyDocument=json.dumps({"Version": "2012-10-17",
+                                                                         "Statement": [{"Effect": "Allow",
+                                                                                        "Principal": {"AWS": user.arn},
+                                                                                        "Action": "sts:AssumeRole",
+                                                                                        "Condition": {"Bool": {"aws:MultiFactorAuthPresent": True}},
+                                                                                        }],
+                                                                         }),
+                                    )
     print(f"Created role {role.name} that requires MFA.")
 
     policy = iam_resource.create_policy(
@@ -166,7 +159,9 @@ def try_to_assume_role_without_mfa(assume_role_arn, session_name, sts_client):
     """
     print(f"Trying to assume the role without sending MFA credentials...")
     try:
-        sts_client.assume_role(RoleArn=assume_role_arn, RoleSessionName=session_name)
+        sts_client.assume_role(
+            RoleArn=assume_role_arn,
+            RoleSessionName=session_name)
         raise RuntimeError("Expected AccessDenied error.")
     except ClientError as error:
         if error.response["Error"]["Code"] == "AccessDenied":
@@ -266,9 +261,11 @@ def usage_demo():
     print(f"Created {user.name} and {role.name}.")
     try:
         sts_client = boto3.client(
-            "sts", aws_access_key_id=user_key.id, aws_secret_access_key=user_key.secret
-        )
-        try_to_assume_role_without_mfa(role.arn, "demo-sts-session", sts_client)
+            "sts",
+            aws_access_key_id=user_key.id,
+            aws_secret_access_key=user_key.secret)
+        try_to_assume_role_without_mfa(
+            role.arn, "demo-sts-session", sts_client)
         mfa_totp = input("Enter the code from your registered MFA device: ")
         list_buckets_from_assumed_role_with_mfa(
             role.arn,

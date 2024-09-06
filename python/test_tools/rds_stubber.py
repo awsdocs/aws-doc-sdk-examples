@@ -60,20 +60,24 @@ class RdsStubber(ExampleStubber):
         if engine_version is not None:
             expected_params["EngineVersion"] = engine_version
         response = {
-            "DBCluster": {"DatabaseName": db_name, "DBClusterIdentifier": cluster_name}
-        }
+            "DBCluster": {
+                "DatabaseName": db_name,
+                "DBClusterIdentifier": cluster_name}}
         self._stub_bifurcator(
-            "create_db_cluster", expected_params, response, error_code=error_code
-        )
+            "create_db_cluster",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_describe_db_clusters(self, cluster_name, error_code=None):
         expected_params = {"DBClusterIdentifier": cluster_name}
-        response = {
-            "DBClusters": [{"DBClusterIdentifier": cluster_name, "Status": "available"}]
-        }
+        response = {"DBClusters": [
+            {"DBClusterIdentifier": cluster_name, "Status": "available"}]}
         self._stub_bifurcator(
-            "describe_db_clusters", expected_params, response, error_code=error_code
-        )
+            "describe_db_clusters",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_delete_db_cluster(self, cluster_name, error_code=None):
         expected_params = {
@@ -118,9 +122,8 @@ class RdsStubber(ExampleStubber):
             "DBParameterGroupFamily": group_family,
             "Description": desc,
         }
-        response = {
-            "DBClusterParameterGroup": {"DBClusterParameterGroupName": group_name}
-        }
+        response = {"DBClusterParameterGroup": {
+            "DBClusterParameterGroupName": group_name}}
         self._stub_bifurcator(
             "create_db_cluster_parameter_group",
             expected_params,
@@ -157,7 +160,8 @@ class RdsStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_delete_db_cluster_parameter_group(self, group_name, error_code=None):
+    def stub_delete_db_cluster_parameter_group(
+            self, group_name, error_code=None):
         expected_params = {"DBClusterParameterGroupName": group_name}
         response = {}
         self._stub_bifurcator(
@@ -175,8 +179,10 @@ class RdsStubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "describe_db_instances", expected_params, response, error_code=error_code
-        )
+            "describe_db_instances",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_create_db_instance(
         self,
@@ -221,13 +227,17 @@ class RdsStubber(ExampleStubber):
             }
         }
         self._stub_bifurcator(
-            "create_db_instance", expected_params, response, error_code=error_code
-        )
+            "create_db_instance",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_describe_orderable_db_instance_options(
         self, db_engine, db_engine_version, options, error_code=None
     ):
-        expected_params = {"Engine": db_engine, "EngineVersion": db_engine_version}
+        expected_params = {
+            "Engine": db_engine,
+            "EngineVersion": db_engine_version}
         response = {"OrderableDBInstanceOptions": options}
         self._stub_bifurcator(
             "describe_orderable_db_instance_options",
@@ -249,15 +259,20 @@ class RdsStubber(ExampleStubber):
             }
         }
         self._stub_bifurcator(
-            "delete_db_instance", expected_params, response, error_code=error_code
-        )
+            "delete_db_instance",
+            expected_params,
+            response,
+            error_code=error_code)
 
-    def stub_create_db_cluster_snapshot(self, snapshot_id, cluster_id, error_code=None):
+    def stub_create_db_cluster_snapshot(
+            self, snapshot_id, cluster_id, error_code=None):
         expected_params = {
             "DBClusterSnapshotIdentifier": snapshot_id,
             "DBClusterIdentifier": cluster_id,
         }
-        response = {"DBClusterSnapshot": {"DBClusterSnapshotIdentifier": snapshot_id}}
+        response = {
+            "DBClusterSnapshot": {
+                "DBClusterSnapshotIdentifier": snapshot_id}}
         self._stub_bifurcator(
             "create_db_cluster_snapshot",
             expected_params,
@@ -281,7 +296,8 @@ class RdsStubber(ExampleStubber):
 
     def stub_describe_db_parameter_groups(self, group_name, error_code=None):
         expected_params = {"DBParameterGroupName": group_name}
-        response = {"DBParameterGroups": [{"DBParameterGroupName": group_name}]}
+        response = {"DBParameterGroups": [
+            {"DBParameterGroupName": group_name}]}
         self._stub_bifurcator(
             "describe_db_parameter_groups",
             expected_params,
@@ -329,11 +345,16 @@ class RdsStubber(ExampleStubber):
             expected_params["Source"] = source
         response = {"Parameters": params}
         self._stub_bifurcator(
-            "describe_db_parameters", expected_params, response, error_code=error_code
-        )
+            "describe_db_parameters",
+            expected_params,
+            response,
+            error_code=error_code)
 
-    def stub_modify_db_parameter_group(self, group_name, params, error_code=None):
-        expected_params = {"DBParameterGroupName": group_name, "Parameters": params}
+    def stub_modify_db_parameter_group(
+            self, group_name, params, error_code=None):
+        expected_params = {
+            "DBParameterGroupName": group_name,
+            "Parameters": params}
         response = {}
         self._stub_bifurcator(
             "modify_db_parameter_group",
@@ -342,15 +363,21 @@ class RdsStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_create_db_snapshot(self, snapshot_id, instance_id, error_code=None):
+    def stub_create_db_snapshot(
+            self,
+            snapshot_id,
+            instance_id,
+            error_code=None):
         expected_params = {
             "DBSnapshotIdentifier": snapshot_id,
             "DBInstanceIdentifier": instance_id,
         }
         response = {"DBSnapshot": {"DBSnapshotIdentifier": snapshot_id}}
         self._stub_bifurcator(
-            "create_db_snapshot", expected_params, response, error_code=error_code
-        )
+            "create_db_snapshot",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_describe_db_snapshots(self, snapshot_id, error_code=None):
         expected_params = {"DBSnapshotIdentifier": snapshot_id}
@@ -360,5 +387,7 @@ class RdsStubber(ExampleStubber):
             ]
         }
         self._stub_bifurcator(
-            "describe_db_snapshots", expected_params, response, error_code=error_code
-        )
+            "describe_db_snapshots",
+            expected_params,
+            response,
+            error_code=error_code)

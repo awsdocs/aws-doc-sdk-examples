@@ -11,9 +11,10 @@ on a Stream_ example in the Amazon Kinesis Data Analytics SQL Developer Guide.
 
 # snippet-start:[kinesisanalytics.python.datagenerator.anomaly]
 
-from enum import Enum
 import json
 import random
+from enum import Enum
+
 import boto3
 
 STREAM_NAME = "ExampleInputStream"

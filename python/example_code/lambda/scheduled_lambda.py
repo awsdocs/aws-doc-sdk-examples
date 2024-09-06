@@ -12,17 +12,18 @@ AWS Chalice to more easily create a scheduled AWS Lambda function. For more
 information on AWS Chalice, see https://github.com/aws/chalice.
 """
 
+from demo_tools.retries import wait
 import logging
 import sys
 import time
+
 import boto3
 from botocore.exceptions import ClientError
-
 from lambda_basics import LambdaWrapper
 
-# Add relative path to include demo_tools in this code example without need for setup.
+# Add relative path to include demo_tools in this code example without
+# need for setup.
 sys.path.append("../..")
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +53,10 @@ def schedule_lambda_function(
             Name=event_rule_name, ScheduleExpression=event_schedule
         )
         event_rule_arn = response["RuleArn"]
-        logger.info("Put rule %s with ARN %s.", event_rule_name, event_rule_arn)
+        logger.info(
+            "Put rule %s with ARN %s.",
+            event_rule_name,
+            event_rule_arn)
     except ClientError:
         logger.exception("Couldn't put rule %s.", event_rule_name)
         raise
@@ -89,8 +93,9 @@ def schedule_lambda_function(
             )
         else:
             logger.info(
-                "Set %s as the target of %s.", lambda_function_name, event_rule_name
-            )
+                "Set %s as the target of %s.",
+                lambda_function_name,
+                event_rule_name)
     except ClientError:
         logger.exception(
             "Couldn't set %s as the target of %s.",
@@ -116,12 +121,14 @@ def update_event_rule(eventbridge_client, event_rule_name, enable):
         else:
             eventbridge_client.disable_rule(Name=event_rule_name)
         logger.info(
-            "%s is now %s.", event_rule_name, "enabled" if enable else "disabled"
-        )
+            "%s is now %s.",
+            event_rule_name,
+            "enabled" if enable else "disabled")
     except ClientError:
         logger.exception(
-            "Couldn't %s %s.", "enable" if enable else "disable", event_rule_name
-        )
+            "Couldn't %s %s.",
+            "enable" if enable else "disable",
+            event_rule_name)
         raise
 
 
@@ -144,7 +151,10 @@ def get_event_rule_enabled(eventbridge_client, event_rule_name):
         return enabled
 
 
-def delete_event_rule(eventbridge_client, event_rule_name, lambda_function_name):
+def delete_event_rule(
+        eventbridge_client,
+        event_rule_name,
+        lambda_function_name):
     """
     Removes the specified targets from the event rule and deletes the rule.
 
@@ -170,7 +180,9 @@ def usage_demo():
     rule that invokes the function, and how to clean up the resources after the demo
     completes.
     """
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
     print("-" * 88)
     print("Welcome to the AWS Lambda scheduled rule demo.")
     print("-" * 88)
@@ -189,7 +201,8 @@ def usage_demo():
     logs_client = boto3.client("logs")
 
     print("Checking for IAM role for Lambda...")
-    iam_role, should_wait = wrapper.create_iam_role_for_lambda(lambda_role_name)
+    iam_role, should_wait = wrapper.create_iam_role_for_lambda(
+        lambda_role_name)
     if should_wait:
         logger.info("Giving AWS time to create resources...")
         wait(10)
@@ -218,11 +231,14 @@ def usage_demo():
     print(f"Sleeping for 3 minutes to let our function trigger a few times...")
     time.sleep(3 * 60)
 
-    print(f"Getting last 20 Amazon CloudWatch log events for {lambda_function_name}...")
+    print(
+        f"Getting last 20 Amazon CloudWatch log events for {lambda_function_name}...")
     log_group_name = f"/aws/lambda/{lambda_function_name}"
     log_streams = logs_client.describe_log_streams(
-        logGroupName=log_group_name, orderBy="LastEventTime", descending=True, limit=1
-    )
+        logGroupName=log_group_name,
+        orderBy="LastEventTime",
+        descending=True,
+        limit=1)
     log_events = logs_client.get_log_events(
         logGroupName=log_group_name,
         logStreamName=log_streams["logStreams"][0]["logStreamName"],
@@ -235,7 +251,10 @@ def usage_demo():
     get_event_rule_enabled(eventbridge_client, event_rule_name)
 
     print("Cleaning up all resources created for the demo...")
-    delete_event_rule(eventbridge_client, event_rule_name, lambda_function_name)
+    delete_event_rule(
+        eventbridge_client,
+        event_rule_name,
+        lambda_function_name)
     wrapper.delete_function(lambda_function_name)
     print(f"Deleted {lambda_function_name}.")
     for policy in iam_role.attached_policies.all():

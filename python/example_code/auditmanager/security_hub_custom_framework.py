@@ -10,6 +10,7 @@ custom framework with all standard controls using AWS Security Hub as their data
 
 # snippet-start:[python.example_code.auditmanager.Scenario_CustomFrameworkFromSecurityHub]
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -38,20 +39,24 @@ class SecurityHub:
                 )
             else:
                 control_list = self.auditmanager_client.list_controls(
-                    controlType="Standard", nextToken=next_token, maxResults=100
-                )
-            print("Total controls found:", len(control_list.get("controlMetadataList")))
+                    controlType="Standard", nextToken=next_token, maxResults=100)
+            print(
+                "Total controls found:", len(
+                    control_list.get("controlMetadataList")))
             for control in control_list.get("controlMetadataList"):
                 control_details = self.auditmanager_client.get_control(
                     controlId=control.get("id")
                 ).get("control", {})
                 if "AWS Security Hub" in control_details.get("controlSources"):
-                    sechub_control_list.append({"id": control_details.get("id")})
+                    sechub_control_list.append(
+                        {"id": control_details.get("id")})
             next_token = control_list.get("nextToken")
             if not next_token:
                 break
             page += 1
-        print("Number of Security Hub controls found: ", len(sechub_control_list))
+        print(
+            "Number of Security Hub controls found: ",
+            len(sechub_control_list))
         return sechub_control_list
 
     def create_custom_framework(self, am_controls):

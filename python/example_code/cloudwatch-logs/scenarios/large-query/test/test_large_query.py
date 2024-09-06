@@ -1,12 +1,13 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
+from exec import CloudWatchLogsQueryRunner
+from date_utilities import DateUtilities
 import sys
 from datetime import datetime, timedelta
+
 import pytest
 
 sys.path.append("../")
-from date_utilities import DateUtilities
-from exec import CloudWatchLogsQueryRunner
 
 date_utility = DateUtilities()
 runner = CloudWatchLogsQueryRunner()

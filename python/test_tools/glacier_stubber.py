@@ -85,9 +85,16 @@ class GlacierStubber(ExampleStubber):
         )
 
     def stub_describe_job(
-        self, vault_name, job_id, job_action, job_status_code=None, error_code=None
-    ):
-        expected_params = {"accountId": "-", "vaultName": vault_name, "jobId": job_id}
+            self,
+            vault_name,
+            job_id,
+            job_action,
+            job_status_code=None,
+            error_code=None):
+        expected_params = {
+            "accountId": "-",
+            "vaultName": vault_name,
+            "jobId": job_id}
         response = {"JobId": job_id, "Action": job_action}
         if job_status_code is not None:
             response["StatusCode"] = job_status_code
@@ -129,7 +136,10 @@ class GlacierStubber(ExampleStubber):
     def stub_get_job_output(
         self, vault_name, job_id, out_bytes, archive_desc=None, error_code=None
     ):
-        expected_params = {"accountId": "-", "vaultName": vault_name, "jobId": job_id}
+        expected_params = {
+            "accountId": "-",
+            "vaultName": vault_name,
+            "jobId": job_id}
         response = {"body": io.BytesIO(out_bytes)}
         if archive_desc is not None:
             response["archiveDescription"] = archive_desc
@@ -143,23 +153,30 @@ class GlacierStubber(ExampleStubber):
         expected_params = {
             "accountId": "-",
             "vaultName": vault_name,
-            "vaultNotificationConfig": {"SNSTopic": topic_arn, "Events": events},
+            "vaultNotificationConfig": {
+                "SNSTopic": topic_arn,
+                "Events": events},
         }
         response = {}
         self._stub_bifurcator(
-            "set_vault_notifications", expected_params, response, error_code=error_code
-        )
+            "set_vault_notifications",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_get_vault_notifications(
         self, vault_name, topic_arn, events, error_code=None
     ):
         expected_params = {"accountId": "-", "vaultName": vault_name}
         response = {
-            "vaultNotificationConfig": {"SNSTopic": topic_arn, "Events": events}
-        }
+            "vaultNotificationConfig": {
+                "SNSTopic": topic_arn,
+                "Events": events}}
         self._stub_bifurcator(
-            "get_vault_notifications", expected_params, response, error_code=error_code
-        )
+            "get_vault_notifications",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_delete_vault_notifications(self, vault_name, error_code=None):
         expected_params = {"accountId": "-", "vaultName": vault_name}

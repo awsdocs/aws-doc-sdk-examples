@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from unittest.mock import MagicMock
-from botocore.exceptions import ClientError
+
 import pytest
+from botocore.exceptions import ClientError
 
 
 class MockManager:
@@ -19,7 +20,8 @@ class MockManager:
         self.inst_types = [f"test-type-{ind}" for ind in range(1, 3)]
         self.scenario_data.scenario.key_wrapper.key_pair = MagicMock()
         self.scenario_data.scenario.key_wrapper.key_pair.name = "test-key"
-        self.scenario_data.scenario.sg_wrapper.security_group = MagicMock(id="test-sg")
+        self.scenario_data.scenario.sg_wrapper.security_group = MagicMock(
+            id="test-sg")
         self.instance = MagicMock(
             id="test-instance",
             image_id=self.images[0].id,

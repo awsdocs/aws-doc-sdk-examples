@@ -6,11 +6,11 @@ Unit tests for inference.py.
 """
 
 import imghdr
-from unittest.mock import patch, mock_open
-import boto3
-from botocore.exceptions import ClientError
-import pytest
+from unittest.mock import mock_open, patch
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from inference import Inference
 
 
@@ -82,7 +82,8 @@ def test_reject_on_classification(make_stubber, error_code):
     else:
         prediction = {"IsAnomalousX": True, "Confidence": 0.9}
         with pytest.raises(KeyError) as exc_info:
-            Inference.reject_on_classification(photo, prediction, confidence_limit)
+            Inference.reject_on_classification(
+                photo, prediction, confidence_limit)
         assert exc_info.typename == "KeyError"
 
 
@@ -146,6 +147,9 @@ def test_reject_on_coverage(make_stubber, error_code):
         }
         with pytest.raises(KeyError) as exc_info:
             Inference.reject_on_coverage(
-                photo, prediction, confidence_limit, anomaly_label, coverage_limit
-            )
+                photo,
+                prediction,
+                confidence_limit,
+                anomaly_label,
+                coverage_limit)
         assert exc_info.typename == "KeyError"

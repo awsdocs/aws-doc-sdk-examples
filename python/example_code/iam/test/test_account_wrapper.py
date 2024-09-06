@@ -5,10 +5,9 @@
 Unit tests for account_wrapper.py functions.
 """
 
+import account_wrapper
 import pytest
 from botocore.exceptions import ClientError
-
-import account_wrapper
 
 
 @pytest.mark.parametrize("error_code", [None, "NoSuchEntity"])
@@ -68,7 +67,8 @@ def test_get_authorization_details(make_stubber, error_code):
     )
 
     if error_code is None:
-        got_details = account_wrapper.get_authorization_details(response_filter)
+        got_details = account_wrapper.get_authorization_details(
+            response_filter)
         assert len(got_details["UserDetailList"]) == response_count
     else:
         with pytest.raises(ClientError) as exc_info:
@@ -145,8 +145,7 @@ def test_get_account_password_policy(make_stubber, error_code):
 def test_list_saml_providers(make_stubber, count, error_code):
     iam_stubber = make_stubber(account_wrapper.iam.meta.client)
     providers = [
-        f"arn:aws:iam::1111222333:saml-provider/provider-{ind}" for ind in range(3)
-    ]
+        f"arn:aws:iam::1111222333:saml-provider/provider-{ind}" for ind in range(3)]
 
     iam_stubber.stub_list_saml_providers(providers, error_code=error_code)
 

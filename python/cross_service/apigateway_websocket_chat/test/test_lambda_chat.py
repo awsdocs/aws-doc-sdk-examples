@@ -6,10 +6,10 @@ Unit tests for lambda_chat.py.
 """
 
 import json
-import boto3
-import pytest
 
+import boto3
 import lambda_chat
+import pytest
 
 
 @pytest.mark.parametrize(
@@ -28,7 +28,8 @@ def test_handle_connect(make_stubber, error_code, status_code):
         error_code=error_code,
     )
 
-    got_status_code = lambda_chat.handle_connect(user_name, table, connection_id)
+    got_status_code = lambda_chat.handle_connect(
+        user_name, table, connection_id)
     assert got_status_code == status_code
 
 
@@ -87,7 +88,7 @@ def test_handle_message(
     )
     if error_method != "stub_scan":
         apig_management_stubber.stub_post_to_connection(
-            f"{user_name}: {msg}".encode("utf-8"),
+            f"{user_name}: {msg}".encode(),
             other_connection_id,
             error_code=error_code
             if error_method == "stub_post_to_connection"
@@ -103,42 +104,81 @@ def test_handle_message(
 @pytest.mark.parametrize(
     "table_name,route,connection_id,user_name,msg_body,domain,stage,status_code",
     [
-        (
-            "test-table",
-            "$connect",
-            "test-conn",
-            "Tester",
-            '{"msg": "Yo"}',
-            "test-domain",
-            "test-stage",
-            200,
-        ),
-        ("test-table", "$connect", "conn", None, None, None, None, 200),
-        (
-            "test-table",
-            "$disconnect",
-            "test-conn",
-            "Tester",
-            '{"msg": "Yo"}',
-            "test-domain",
-            "test-stage",
-            200,
-        ),
-        ("test-table", "$disconnect", "conn", None, None, None, None, 200),
-        (
-            "test-table",
-            "sendmessage",
-            "test-conn",
-            "Tester",
-            '{"msg": "Yo"}',
-            "test-domain",
-            "test-stage",
-            200,
-        ),
-        ("test-table", "sendmessage", "test-conn", None, None, "dom", "stg", 200),
-        ("test-table", "sendmessage", "test-conn", None, None, None, None, 400),
-        ("test-table", "garbage", "test-conn", None, None, None, None, 404),
-        (None, None, None, None, None, None, None, 400),
+        ("test-table",
+         "$connect",
+         "test-conn",
+         "Tester",
+         '{"msg": "Yo"}',
+         "test-domain",
+         "test-stage",
+         200,
+         ),
+        ("test-table",
+         "$connect",
+         "conn",
+         None,
+         None,
+         None,
+         None,
+         200),
+        ("test-table",
+         "$disconnect",
+         "test-conn",
+         "Tester",
+         '{"msg": "Yo"}',
+         "test-domain",
+         "test-stage",
+         200,
+         ),
+        ("test-table",
+         "$disconnect",
+         "conn",
+         None,
+         None,
+         None,
+         None,
+         200),
+        ("test-table",
+         "sendmessage",
+         "test-conn",
+         "Tester",
+         '{"msg": "Yo"}',
+         "test-domain",
+         "test-stage",
+         200,
+         ),
+        ("test-table",
+         "sendmessage",
+         "test-conn",
+         None,
+         None,
+         "dom",
+         "stg",
+         200),
+        ("test-table",
+         "sendmessage",
+         "test-conn",
+         None,
+         None,
+         None,
+         None,
+         400),
+        ("test-table",
+         "garbage",
+         "test-conn",
+         None,
+         None,
+         None,
+         None,
+         404),
+        (None,
+         None,
+         None,
+         None,
+         None,
+         None,
+         None,
+         400),
     ],
 )
 def test_lambda_handler(
@@ -166,13 +206,17 @@ def test_lambda_handler(
     def verify_handle_message(tbl, conn, body, apig):
         assert tbl.name == table_name
         assert conn == connection_id
-        assert body == json.loads(msg_body if msg_body is not None else '{"msg": ""}')
+        assert body == json.loads(
+            msg_body if msg_body is not None else '{"msg": ""}')
         assert apig.meta.endpoint_url == f"https://{domain}/{stage}"
         return status_code
 
     monkeypatch.setenv("table_name", "test-table")
     monkeypatch.setattr(lambda_chat, "handle_connect", verify_handle_connect)
-    monkeypatch.setattr(lambda_chat, "handle_disconnect", verify_handle_disconnect)
+    monkeypatch.setattr(
+        lambda_chat,
+        "handle_disconnect",
+        verify_handle_disconnect)
     monkeypatch.setattr(lambda_chat, "handle_message", verify_handle_message)
 
     event = {

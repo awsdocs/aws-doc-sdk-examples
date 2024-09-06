@@ -5,23 +5,27 @@
 Unit tests for comprehend_demo_resources.py
 """
 
-from io import BytesIO
 import json
 import tarfile
 import time
-from unittest.mock import MagicMock
 import uuid
-import boto3
-from botocore.exceptions import ClientError
-import pytest
+from io import BytesIO
+from unittest.mock import MagicMock
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from comprehend_demo_resources import ComprehendDemoResources
 
 
-@pytest.mark.parametrize(
-    "error_code,stop_on_method", [(None, None), ("TestException", "stub_create_bucket")]
-)
-def test_setup(make_stubber, stub_runner, monkeypatch, error_code, stop_on_method):
+@pytest.mark.parametrize("error_code,stop_on_method",
+                         [(None, None), ("TestException", "stub_create_bucket")])
+def test_setup(
+        make_stubber,
+        stub_runner,
+        monkeypatch,
+        error_code,
+        stop_on_method):
     s3_resource = boto3.resource("s3")
     s3_stubber = make_stubber(s3_resource.meta.client)
     iam_resource = boto3.resource("iam")
@@ -79,11 +83,18 @@ def test_setup(make_stubber, stub_runner, monkeypatch, error_code, stop_on_metho
         ("TestException", "name1.jsonl", [], []),
     ],
 )
-def test_extract_job_output(monkeypatch, error_code, file_name, file_contents, output):
+def test_extract_job_output(
+        monkeypatch,
+        error_code,
+        file_name,
+        file_contents,
+        output):
     demo_resources = ComprehendDemoResources(None, None)
     demo_resources.bucket = MagicMock()
     demo_resources.bucket.name = "test-bucket"
-    job = {"OutputDataConfig": {"S3Uri": f"s3://{demo_resources.bucket.name}/test-key"}}
+    job = {
+        "OutputDataConfig": {
+            "S3Uri": f"s3://{demo_resources.bucket.name}/test-key"}}
 
     def mock_output(output_key, output_bytes):
         assert output_key == "test-key"
@@ -125,7 +136,8 @@ def test_cleanup(make_stubber, monkeypatch, error_code):
     demo_resources.data_access_role = iam_resource.Role(role_name)
     demo_resources.bucket = s3_resource.Bucket(bucket_name)
 
-    iam_stubber.stub_list_attached_role_policies(role_name, {policy_name: policy_arn})
+    iam_stubber.stub_list_attached_role_policies(
+        role_name, {policy_name: policy_arn})
     iam_stubber.stub_detach_role_policy(role_name, policy_arn)
     iam_stubber.stub_delete_policy(policy_arn)
     iam_stubber.stub_delete_role(role_name, error_code=error_code)

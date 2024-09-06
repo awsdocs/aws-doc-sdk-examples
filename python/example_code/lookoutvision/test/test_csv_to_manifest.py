@@ -1,10 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-from csv_to_manifest import check_errors, create_manifest_file
+from os import path, remove
 from os.path import exists
-from os import remove
-from os import path
+
 import pytest
+from csv_to_manifest import check_errors, create_manifest_file
 
 """
 Unit tests for csv_to_manifest.py.
@@ -65,9 +65,8 @@ def test_check_errors(csv_file, result):
     clean_up(deduplicated_file, errors_file, manifest_file)
 
 
-@pytest.mark.parametrize(
-    "csv_file,img_count,anom_count", [("test/test_csvs/test_s3_supplied.csv", 9, 5)]
-)
+@pytest.mark.parametrize("csv_file,img_count,anom_count",
+                         [("test/test_csvs/test_s3_supplied.csv", 9, 5)])
 def test_create_manifest_s3_supplied(csv_file, img_count, anom_count):
     """
     Checks that a CSV file with images and an Amazon S3 path creates

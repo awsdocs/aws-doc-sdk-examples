@@ -57,5 +57,7 @@ class PinpointSmsVoiceStubber(ExampleStubber):
         }
         response = {"MessageId": message_id}
         self._stub_bifurcator(
-            "send_voice_message", expected_params, response, error_code=error_code
-        )
+            "send_voice_message",
+            expected_params,
+            response,
+            error_code=error_code)

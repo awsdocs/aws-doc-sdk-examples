@@ -11,8 +11,8 @@ Shows how to start and stop a model. Also, how to get a list of running models
 in your AWS account.
 """
 
-import time
 import logging
+import time
 
 from botocore.exceptions import ClientError
 
@@ -43,8 +43,9 @@ class Hosting:
         """
         try:
             logger.info(
-                "Starting model version %s for project %s", model_version, project_name
-            )
+                "Starting model version %s for project %s",
+                model_version,
+                project_name)
             lookoutvision_client.start_model(
                 ProjectName=project_name,
                 ModelVersion=model_version,
@@ -72,7 +73,8 @@ class Hosting:
                     finished = True
                     continue
 
-                logger.info("Model hosting failed and the model can't be used.")
+                logger.info(
+                    "Model hosting failed and the model can't be used.")
                 finished = True
 
             if status != "HOSTED":
@@ -96,7 +98,10 @@ class Hosting:
         :param model_version:  The version of the model that you want to stop hosting.
         """
         try:
-            logger.info("Stopping model version %s for %s", model_version, project_name)
+            logger.info(
+                "Stopping model version %s for %s",
+                model_version,
+                project_name)
             response = lookoutvision_client.stop_model(
                 ProjectName=project_name, ModelVersion=model_version
             )
@@ -161,8 +166,7 @@ class Hosting:
                     if model_description["ModelDescription"]["Status"] == "HOSTED":
                         print(
                             f"Project: {project['ProjectName']} Model version: "
-                            f"{model['ModelVersion']}"
-                        )
+                            f"{model['ModelVersion']}")
                         hosted += 1
             print(f"{hosted} model(s) hosted")
         except ClientError:

@@ -13,20 +13,21 @@
 import argparse
 import contextlib
 import datetime
-import itertools
 import fnmatch
+import itertools
 import json
 import os
-from operator import itemgetter
 import pathlib
 import re
-import requests
 import subprocess
 import textwrap
+from operator import itemgetter
+from typing import List
+
+import requests
 import unidiff
 import yaml
 from github import Github
-from typing import List
 
 BAD_CHARS_APT_PACKAGES_PATTERN = "[;&|($]"
 DIFF_HEADER_LINE_LENGTH = 5
@@ -157,7 +158,7 @@ def make_file_offset_lookup(filenames):
     lookup = {}
 
     for filename in filenames:
-        with open(filename, "r") as file:
+        with open(filename) as file:
             lines = file.readlines()
         # Length of each line
         line_lengths = map(len, lines)
@@ -228,7 +229,7 @@ def find_line_number_from_offset(offset_lookup, filename, offset):
 def read_one_line(filename, line_offset):
     """Read a single line from a source file"""
     # Could cache the files instead of opening them each time?
-    with open(filename, "r") as file:
+    with open(filename) as file:
         file.seek(line_offset)
         return file.readline().rstrip("\n")
 
@@ -621,7 +622,7 @@ def get_clang_tidy_warnings(
     print(f"Took: {end - start}")
 
     try:
-        with open(FIXES_FILE, "r") as fixes_file:
+        with open(FIXES_FILE) as fixes_file:
             warnings_result = yaml.safe_load(fixes_file)
             warnings_result[HAS_COMPILE_COMMANDS] = has_compile_commands
             return warnings_result
@@ -738,7 +739,7 @@ def fix_absolute_paths(absolute_paths, base_dir):
     print(f"Found '{absolute_paths}', updating absolute paths")
     # We might need to change some absolute paths if we're inside
     # a docker container
-    with open(absolute_paths, "r") as f:
+    with open(absolute_paths) as f:
         compile_commands = json.load(f)
 
     print(f"Replacing '{basedir}' with '{newbasedir}'", flush=True)

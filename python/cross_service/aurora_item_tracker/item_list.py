@@ -9,12 +9,13 @@ Serverless database.
 """
 
 import logging
+
 from flask import jsonify
 from flask.views import MethodView
 from marshmallow import Schema
+from storage import DataServiceNotReadyException, StorageError
 from webargs import fields
 from webargs.flaskparser import use_args, use_kwargs
-from storage import DataServiceNotReadyException, StorageError
 
 logger = logging.getLogger(__name__)
 
@@ -69,10 +70,12 @@ class ItemList(MethodView):
             response = schema.dump(work_items)
         except DataServiceNotReadyException as err:
             logger.error(err)
-            response = jsonify("Data service not ready. Wait a minute and try again.")
+            response = jsonify(
+                "Data service not ready. Wait a minute and try again.")
             result = 503
         except StorageError as err:
-            logger.error("Storage error when trying to get work items: %s", err)
+            logger.error(
+                "Storage error when trying to get work items: %s", err)
             response = jsonify("A storage error occurred.")
             result = 500
         return response, result
@@ -94,7 +97,8 @@ class ItemList(MethodView):
             response = "Data service not ready. Wait a minute and try again."
             result = 503
         except StorageError as err:
-            logger.error("Storage error when trying to add a work item: %s", err)
+            logger.error(
+                "Storage error when trying to add a work item: %s", err)
             response = "A storage error occurred."
             result = 500
         return jsonify(response), result
@@ -123,7 +127,8 @@ class ItemList(MethodView):
             response = "Data service not ready. Wait a minute and try again."
             result = 503
         except StorageError as err:
-            logger.error("Storage error when trying to add a work item: %s", err)
+            logger.error(
+                "Storage error when trying to add a work item: %s", err)
             response = "A storage error occurred."
             result = 500
         return jsonify(response), result

@@ -45,18 +45,14 @@ class PinpointEmailStubber(ExampleStubber):
         error_code=None,
     ):
         expected_params = {
-            "FromEmailAddress": sender,
-            "Destination": {"ToAddresses": to_addresses, "CcAddresses": cc_addresses},
-            "Content": {
+            "FromEmailAddress": sender, "Destination": {
+                "ToAddresses": to_addresses, "CcAddresses": cc_addresses}, "Content": {
                 "Simple": {
-                    "Subject": {"Charset": char_set, "Data": subject},
-                    "Body": {
-                        "Html": {"Charset": char_set, "Data": html_message},
-                        "Text": {"Charset": char_set, "Data": text_message},
-                    },
-                }
-            },
-        }
+                    "Subject": {
+                        "Charset": char_set, "Data": subject}, "Body": {
+                        "Html": {
+                            "Charset": char_set, "Data": html_message}, "Text": {
+                                "Charset": char_set, "Data": text_message}, }, }}, }
         response = {"MessageId": message_id}
         self._stub_bifurcator(
             "send_email", expected_params, response, error_code=error_code

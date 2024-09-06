@@ -16,6 +16,7 @@ Logs written by this handler can be found in Amazon CloudWatch.
 import json
 import logging
 import os
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -36,8 +37,14 @@ def handle_connect(user_name, table, connection_id):
     """
     status_code = 200
     try:
-        table.put_item(Item={"connection_id": connection_id, "user_name": user_name})
-        logger.info("Added connection %s for user %s.", connection_id, user_name)
+        table.put_item(
+            Item={
+                "connection_id": connection_id,
+                "user_name": user_name})
+        logger.info(
+            "Added connection %s for user %s.",
+            connection_id,
+            user_name)
     except ClientError:
         logger.exception(
             "Couldn't add connection %s for user %s.", connection_id, user_name
@@ -95,13 +102,14 @@ def handle_message(table, connection_id, event_body, apig_management_client):
     connection_ids = []
     try:
         scan_response = table.scan(ProjectionExpression="connection_id")
-        connection_ids = [item["connection_id"] for item in scan_response["Items"]]
+        connection_ids = [item["connection_id"]
+                          for item in scan_response["Items"]]
         logger.info("Found %s active connections.", len(connection_ids))
     except ClientError:
         logger.exception("Couldn't get connections.")
         status_code = 404
 
-    message = f"{user_name}: {event_body['msg']}".encode("utf-8")
+    message = f"{user_name}: {event_body['msg']}".encode()
     logger.info("Message: %s", message)
 
     for other_conn_id in connection_ids:
@@ -122,7 +130,9 @@ def handle_message(table, connection_id, event_body, apig_management_client):
             try:
                 table.delete_item(Key={"connection_id": other_conn_id})
             except ClientError:
-                logger.exception("Couldn't remove connection %s.", other_conn_id)
+                logger.exception(
+                    "Couldn't remove connection %s.",
+                    other_conn_id)
 
     return status_code
 
@@ -159,8 +169,11 @@ def lambda_handler(event, context):
 
     response = {"statusCode": 200}
     if route_key == "$connect":
-        user_name = event.get("queryStringParameters", {"name": "guest"}).get("name")
-        response["statusCode"] = handle_connect(user_name, table, connection_id)
+        user_name = event.get(
+            "queryStringParameters", {
+                "name": "guest"}).get("name")
+        response["statusCode"] = handle_connect(
+            user_name, table, connection_id)
     elif route_key == "$disconnect":
         response["statusCode"] = handle_disconnect(table, connection_id)
     elif route_key == "sendmessage":
@@ -178,8 +191,8 @@ def lambda_handler(event, context):
             response["statusCode"] = 400
         else:
             apig_management_client = boto3.client(
-                "apigatewaymanagementapi", endpoint_url=f"https://{domain}/{stage}"
-            )
+                "apigatewaymanagementapi",
+                endpoint_url=f"https://{domain}/{stage}")
             response["statusCode"] = handle_message(
                 table, connection_id, body, apig_management_client
             )

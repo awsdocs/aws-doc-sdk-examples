@@ -10,6 +10,7 @@ AWS IoT Greengrass connector.
 
 # snippet-start:[greengrass.python.connector-raspberrypi-gpio-usage.complete]
 import os
+
 import greengrasssdk
 
 iot_client = greengrasssdk.client("iot-data")

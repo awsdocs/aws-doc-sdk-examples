@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from botocore.exceptions import ClientError
 import pytest
+from botocore.exceptions import ClientError
 
 
 class MockManager:
@@ -17,8 +17,9 @@ class MockManager:
     def setup_stubs(self, error, stop_on, stubber):
         with self.stub_runner(error, stop_on) as runner:
             runner.add(
-                stubber.stub_describe_severity_levels, "en", self.severity_levels
-            )
+                stubber.stub_describe_severity_levels,
+                "en",
+                self.severity_levels)
 
 
 @pytest.fixture
@@ -29,7 +30,8 @@ def mock_mgr(stub_runner, scenario_data, input_mocker):
 def test_display_and_select_severity(mock_mgr, capsys):
     mock_mgr.setup_stubs(None, None, mock_mgr.scenario_data.stubber)
 
-    mock_mgr.scenario_data.scenario.display_and_select_severity(*mock_mgr.scenario_args)
+    mock_mgr.scenario_data.scenario.display_and_select_severity(
+        *mock_mgr.scenario_args)
 
     capt = capsys.readouterr()
     for severity in mock_mgr.severity_levels:

@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import logging
+
 from botocore.exceptions import ClientError
 from flask import render_template
 from flask_restful import Resource, reqparse
@@ -46,14 +47,13 @@ class Report(Resource):
                         }
                     )
                     logger.info(
-                        "Found %s labels in %s.", len(response["Labels"]), photo.key
-                    )
+                        "Found %s labels in %s.", len(
+                            response["Labels"]), photo.key)
                     for label in response.get("Labels", []):
                         report_csv.append(
                             ",".join(
-                                (photo.key, label["Name"], str(label["Confidence"]))
-                            )
-                        )
+                                (photo.key, label["Name"], str(
+                                    label["Confidence"]))))
                 except ClientError as err:
                     logger.warning(
                         "Couldn't detect labels in %s. Here's why: %s: %s",
@@ -109,7 +109,6 @@ class Report(Resource):
         )
         text_labels = "\n".join(args["analysis_labels"])
         try:
-            pass
             self.ses_client.send_email(
                 Source=args["sender"],
                 Destination={"ToAddresses": [args["recipient"]]},

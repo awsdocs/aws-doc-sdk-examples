@@ -6,12 +6,12 @@ Unit tests for scenario_getting_started_crawlers_and_jobs.py functions.
 """
 
 from datetime import datetime
-import pytest
+
 import boto3
+import pytest
+import scaffold
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-
-import scaffold
 
 
 @pytest.mark.parametrize(
@@ -44,14 +44,21 @@ def test_deploy(make_stubber, stub_runner, error_code, stop_on_method):
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
-            cf_stubber.stub_create_stack, stack_name, ANY, capabilities, stack_id
-        )
+            cf_stubber.stub_create_stack,
+            stack_name,
+            ANY,
+            capabilities,
+            stack_id)
         runner.add(
-            cf_stubber.stub_describe_stacks, stack_name, "CREATE_COMPLETE", outputs
-        )
+            cf_stubber.stub_describe_stacks,
+            stack_name,
+            "CREATE_COMPLETE",
+            outputs)
         runner.add(
-            cf_stubber.stub_describe_stacks, stack_name, "CREATE_COMPLETE", outputs
-        )
+            cf_stubber.stub_describe_stacks,
+            stack_name,
+            "CREATE_COMPLETE",
+            outputs)
         runner.add(cf_stubber.stub_list_stack_resources, stack_name, resources)
 
     if error_code is None:
@@ -71,7 +78,12 @@ def test_deploy(make_stubber, stub_runner, error_code, stop_on_method):
         ("TestException", "stub_delete_stack"),
     ],
 )
-def test_destroy(make_stubber, stub_runner, monkeypatch, error_code, stop_on_method):
+def test_destroy(
+        make_stubber,
+        stub_runner,
+        monkeypatch,
+        error_code,
+        stop_on_method):
     cf_resource = boto3.resource("cloudformation")
     cf_stubber = make_stubber(cf_resource.meta.client)
     s3_resource = boto3.resource("s3")
@@ -83,11 +95,16 @@ def test_destroy(make_stubber, stub_runner, monkeypatch, error_code, stop_on_met
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
-            cf_stubber.stub_describe_stacks, stack_name, "CREATE_COMPLETE", outputs
-        )
+            cf_stubber.stub_describe_stacks,
+            stack_name,
+            "CREATE_COMPLETE",
+            outputs)
         runner.add(s3_stubber.stub_list_objects, bucket_name)
         runner.add(cf_stubber.stub_delete_stack, stack_name)
-        runner.add(cf_stubber.stub_describe_stacks, stack_name, "DELETE_COMPLETE")
+        runner.add(
+            cf_stubber.stub_describe_stacks,
+            stack_name,
+            "DELETE_COMPLETE")
 
     if error_code is None:
         scaffold.destroy(stack, cf_resource, s3_resource)

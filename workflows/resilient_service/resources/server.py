@@ -10,11 +10,11 @@ This code is only for use in this example.
 """
 
 import argparse
-from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from functools import partial
-from traceback import format_exc
 import random
+from functools import partial
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from traceback import format_exc
 
 import boto3
 from botocore.exceptions import ClientError
@@ -69,7 +69,8 @@ class RequestHandler(BaseHTTPRequestHandler):
         param_response = self.ssm_client.get_parameters(
             Names=[table, failure_response, health_check]
         )
-        parameters = {p["Name"]: p["Value"] for p in param_response["Parameters"]}
+        parameters = {p["Name"]: p["Value"]
+                      for p in param_response["Parameters"]}
         print(parameters)
 
         if self.path == "/":
@@ -77,9 +78,10 @@ class RequestHandler(BaseHTTPRequestHandler):
                 media_type = random.choice(["Book", "Movie", "Song"])
                 item_id = random.randint(1, 3)
                 response = self.dynamodb_client.get_item(
-                    TableName=parameters[table],
-                    Key={"MediaType": {"S": media_type}, "ItemId": {"N": str(item_id)}},
-                )
+                    TableName=parameters[table], Key={
+                        "MediaType": {
+                            "S": media_type}, "ItemId": {
+                            "N": str(item_id)}}, )
                 payload = response.get("Item", {})
             except ClientError as err:
                 print(f"Recommendation service error: {err}")
@@ -104,7 +106,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         elif self.path == "/healthcheck":
             response_code = 200
             success = True
-            if not health_check in parameters:
+            if health_check not in parameters:
                 print(f"{health_check} parameter not found.")
             elif parameters[health_check] == "deep":
                 try:
@@ -132,8 +134,10 @@ def run():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "port", default=80, type=int, help="The port where the HTTP server listens."
-    )
+        "port",
+        default=80,
+        type=int,
+        help="The port where the HTTP server listens.")
     parser.add_argument(
         "--region",
         default=ec2_metadata.region,

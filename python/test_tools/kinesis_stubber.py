@@ -7,6 +7,7 @@ Stub functions that are used by the Amazon Kinesis unit tests.
 
 import datetime
 import json
+
 from test_tools.example_stubber import ExampleStubber
 
 
@@ -36,7 +37,12 @@ class KinesisStubber(ExampleStubber):
             "create_stream", expected_params, response, error_code=error_code
         )
 
-    def stub_describe_stream(self, stream_name, stream_arn, status, error_code=None):
+    def stub_describe_stream(
+            self,
+            stream_name,
+            stream_arn,
+            status,
+            error_code=None):
         expected_params = {"StreamName": stream_name}
         response = {
             "StreamDescription": {
@@ -80,9 +86,8 @@ class KinesisStubber(ExampleStubber):
                 for record in batch
             ],
         }
-        response = {
-            "Records": [{"ShardId": "test-id", "SequenceNumber": "test-number"}]
-        }
+        response = {"Records": [
+            {"ShardId": "test-id", "SequenceNumber": "test-number"}]}
         self._stub_bifurcator(
             "put_records", expected_params, response, error_code=error_code
         )
@@ -97,8 +102,10 @@ class KinesisStubber(ExampleStubber):
         }
         response = {"ShardIterator": shard_iter}
         self._stub_bifurcator(
-            "get_shard_iterator", expected_params, response, error_code=error_code
-        )
+            "get_shard_iterator",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_get_records(self, shard_iter, limit, records, error_code=None):
         expected_params = {"ShardIterator": shard_iter, "Limit": limit}

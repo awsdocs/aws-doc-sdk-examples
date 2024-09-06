@@ -6,12 +6,11 @@ Unit tests for user_wrapper.py functions.
 """
 
 import time
-import pytest
 
+import pytest
+import service_linked_roles
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-
-import service_linked_roles
 
 
 @pytest.mark.parametrize(
@@ -42,17 +41,28 @@ def test_create_service_linked_role(
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
-            iam_stubber.stub_create_service_linked_role, service_name, ANY, role_name
-        )
-        runner.add(iam_stubber.stub_list_attached_role_policies, role_name, policy)
-        runner.add(iam_stubber.stub_get_policy, policy["test-policy"], policy_ver_id)
+            iam_stubber.stub_create_service_linked_role,
+            service_name,
+            ANY,
+            role_name)
+        runner.add(
+            iam_stubber.stub_list_attached_role_policies,
+            role_name,
+            policy)
+        runner.add(
+            iam_stubber.stub_get_policy,
+            policy["test-policy"],
+            policy_ver_id)
         runner.add(
             iam_stubber.stub_get_policy_version,
             policy["test-policy"],
             policy_ver_id,
             "test-document",
         )
-        runner.add(iam_stubber.stub_delete_service_linked_role, role_name, task_id)
+        runner.add(
+            iam_stubber.stub_delete_service_linked_role,
+            role_name,
+            task_id)
         runner.add(
             iam_stubber.stub_get_service_linked_role_deletion_status,
             task_id,

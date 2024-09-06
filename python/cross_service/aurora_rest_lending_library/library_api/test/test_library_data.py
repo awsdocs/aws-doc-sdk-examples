@@ -6,8 +6,9 @@ Unit tests for library_data.py functions.
 """
 
 import datetime
-import pytest
+
 import boto3
+import pytest
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
 from chalicelib.library_data import Storage
@@ -19,9 +20,8 @@ DB_NAME = "testdatabase"
 
 def make_storage_n_stubber(make_stubber):
     rdsdata_client = boto3.client("rds-data")
-    storage = Storage(
-        {"DBClusterArn": CLUSTER_ARN}, {"ARN": SECRET_ARN}, DB_NAME, rdsdata_client
-    )
+    storage = Storage({"DBClusterArn": CLUSTER_ARN}, {
+        "ARN": SECRET_ARN}, DB_NAME, rdsdata_client)
     return storage, make_stubber(rdsdata_client)
 
 
@@ -29,7 +29,8 @@ def test_bootstrap_tables(make_stubber):
     storage, rdsdata_stubber = make_storage_n_stubber(make_stubber)
 
     for _ in storage._tables:
-        rdsdata_stubber.stub_execute_statement(CLUSTER_ARN, SECRET_ARN, DB_NAME, ANY)
+        rdsdata_stubber.stub_execute_statement(
+            CLUSTER_ARN, SECRET_ARN, DB_NAME, ANY)
 
     storage.bootstrap_tables()
 
@@ -42,8 +43,8 @@ def test_add_books(make_stubber):
         {"title": "Book One 2 (the sequel)", "author": "Francine First"},
     ]
     author_sql = (
-        "INSERT INTO Authors (FirstName, LastName) " "VALUES (:FirstName, :LastName)"
-    )
+        "INSERT INTO Authors (FirstName, LastName) "
+        "VALUES (:FirstName, :LastName)")
     authors = {
         book["author"]: {
             "FirstName": " ".join(book["author"].split(" ")[:-1]),
@@ -51,13 +52,11 @@ def test_add_books(make_stubber):
         }
         for book in books
     }
-    author_param_sets = [
-        [
-            {"name": "FirstName", "value": {"stringValue": author["FirstName"]}},
-            {"name": "LastName", "value": {"stringValue": author["LastName"]}},
-        ]
-        for author in authors.values()
-    ]
+    author_param_sets = [[{"name": "FirstName",
+                           "value": {"stringValue": author["FirstName"]}},
+                          {"name": "LastName",
+                           "value": {"stringValue": author["LastName"]}},
+                          ] for author in authors.values()]
     author_generated_field_sets = [[1], [2]]
     book_sql = "INSERT INTO Books (Title, AuthorID) VALUES (:Title, :AuthorID)"
     book_param_sets = [
@@ -104,7 +103,8 @@ def test_get_books(make_stubber, author_id, error_code):
     sql_params = None
     if author_id is not None:
         sql += " WHERE Authors.AuthorID = :Authors_AuthorID"
-        sql_params = [{"name": "Authors_AuthorID", "value": {"longValue": author_id}}]
+        sql_params = [{"name": "Authors_AuthorID",
+                       "value": {"longValue": author_id}}]
     records = [
         [1, "Title One", 1, "Freddy", "Fake"],
         [2, "Title Two", 13, "Peter", "Pretend"],
@@ -209,8 +209,12 @@ def test_get_authors(make_stubber, error_code):
     records = [[1, "Freddy", "Fake"], [13, "Peter", "Pretend"]]
 
     rdsdata_stubber.stub_execute_statement(
-        CLUSTER_ARN, SECRET_ARN, DB_NAME, sql, records=records, error_code=error_code
-    )
+        CLUSTER_ARN,
+        SECRET_ARN,
+        DB_NAME,
+        sql,
+        records=records,
+        error_code=error_code)
 
     if error_code is None:
         got_authors = storage.get_authors()
@@ -228,8 +232,12 @@ def test_get_patrons(make_stubber, error_code):
     records = [[1, "Randall", "Reader"], [13, "Bob", "Booker"]]
 
     rdsdata_stubber.stub_execute_statement(
-        CLUSTER_ARN, SECRET_ARN, DB_NAME, sql, records=records, error_code=error_code
-    )
+        CLUSTER_ARN,
+        SECRET_ARN,
+        DB_NAME,
+        sql,
+        records=records,
+        error_code=error_code)
 
     if error_code is None:
         got_patrons = storage.get_patrons()
@@ -243,7 +251,9 @@ def test_get_patrons(make_stubber, error_code):
 @pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_add_patron(make_stubber, error_code):
     storage, rdsdata_stubber = make_storage_n_stubber(make_stubber)
-    patron = {"Patrons.FirstName": "Marguerite", "Patrons.LastName": "Magazine"}
+    patron = {
+        "Patrons.FirstName": "Marguerite",
+        "Patrons.LastName": "Magazine"}
     patron_sql = (
         "INSERT INTO Patrons (FirstName, LastName) VALUES (:FirstName, :LastName)"
     )
@@ -424,8 +434,12 @@ def test_return_book(make_stubber, error_code):
     ]
 
     rdsdata_stubber.stub_execute_statement(
-        CLUSTER_ARN, SECRET_ARN, DB_NAME, sql, sql_params, error_code=error_code
-    )
+        CLUSTER_ARN,
+        SECRET_ARN,
+        DB_NAME,
+        sql,
+        sql_params,
+        error_code=error_code)
 
     if error_code is None:
         storage.return_book(book_id, patron_id)

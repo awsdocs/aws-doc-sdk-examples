@@ -181,7 +181,10 @@ def add_step(cluster_id, name, script_uri, script_args, emr_client):
         step_id = response["StepIds"][0]
         logger.info("Started step with ID %s", step_id)
     except ClientError:
-        logger.exception("Couldn't start step %s with URI %s.", name, script_uri)
+        logger.exception(
+            "Couldn't start step %s with URI %s.",
+            name,
+            script_uri)
         raise
     else:
         return step_id
@@ -226,7 +229,8 @@ def describe_step(cluster_id, step_id, emr_client):
     :return: The retrieved information about the specified step.
     """
     try:
-        response = emr_client.describe_step(ClusterId=cluster_id, StepId=step_id)
+        response = emr_client.describe_step(
+            ClusterId=cluster_id, StepId=step_id)
         step = response["Step"]
         logger.info("Got data for step %s.", step_id)
     except ClientError:

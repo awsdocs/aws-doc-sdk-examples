@@ -53,8 +53,7 @@ class CloudFrontWrapper:
         )
 
         distribution_config_response = self.cloudfront_client.get_distribution_config(
-            Id=distribution_id
-        )
+            Id=distribution_id)
         distribution_config = distribution_config_response["DistributionConfig"]
         distribution_etag = distribution_config_response["ETag"]
 

@@ -10,11 +10,12 @@ shown in a Tkinter application that lets you explore the detected elements.
 """
 
 import argparse
-from io import BytesIO
 import logging
+from io import BytesIO
+
 import boto3
-from textract_wrapper import TextractWrapper
 from textract_app import TextractExplorer
+from textract_wrapper import TextractWrapper
 
 logger = logging.getLogger(__name__)
 
@@ -63,7 +64,11 @@ def usage_demo(outputs):
     twrapper = TextractWrapper(
         boto3.client("textract"), boto3.resource("s3"), boto3.resource("sqs")
     )
-    TextractExplorer(twrapper, outputs, default_image_name, default_image_bytes)
+    TextractExplorer(
+        twrapper,
+        outputs,
+        default_image_name,
+        default_image_bytes)
 
 
 def destroy(stack, outputs, cf_resource):
@@ -102,7 +107,9 @@ def main():
     print("Welcome to the Amazon Textract demo!")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     cf_resource = boto3.resource("cloudformation")
     stack = cf_resource.Stack("textract-example-s3-sns-sqs")
@@ -122,8 +129,7 @@ def main():
         print("-" * 88)
         print(
             "To clean up all AWS resources created for the demo, run this script "
-            "again with the 'destroy' flag."
-        )
+            "again with the 'destroy' flag.")
     elif args.action == "destroy":
         print("Destroying AWS resources created for the demo.")
         destroy(stack, outputs, cf_resource)

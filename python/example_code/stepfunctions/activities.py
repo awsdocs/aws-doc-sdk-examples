@@ -63,7 +63,8 @@ class Activity:
         :return: If found, the ARN of the activity; otherwise, None.
         """
         try:
-            paginator = self.stepfunctions_client.get_paginator("list_activities")
+            paginator = self.stepfunctions_client.get_paginator(
+                "list_activities")
             for page in paginator.paginate():
                 for activity in page.get("activities", []):
                     if activity["name"] == name:

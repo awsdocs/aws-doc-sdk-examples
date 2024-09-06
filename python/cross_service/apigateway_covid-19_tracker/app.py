@@ -16,6 +16,7 @@ import decimal
 import json
 import logging
 import urllib.parse
+
 import chalice
 import chalicelib.covid_data
 
@@ -59,8 +60,7 @@ def verify_input(state, date=None, data=None):
     if data is not None and state != data["state"]:
         raise chalice.BadRequestError(
             f"The state '{data['state']}' specified in the request body does not "
-            f"match the state '{state}' specified in the URL."
-        )
+            f"match the state '{state}' specified in the URL.")
 
     test_date = date if date is not None else None if data is None else data["date"]
     if test_date is not None:
@@ -142,7 +142,11 @@ def state_date_cases(state, date):
              body in JSON format.
              For DELETE requests, only the status code is returned.
     """
-    logger.info("Got %s to /states/%s/%s.", app.current_request.method, state, date)
+    logger.info(
+        "Got %s to /states/%s/%s.",
+        app.current_request.method,
+        state,
+        date)
 
     state = urllib.parse.unquote(state)
     date = urllib.parse.unquote(date)
@@ -154,7 +158,8 @@ def state_date_cases(state, date):
         if response is not None:
             response = json.dumps(response, default=convert_decimal_to_int)
         else:
-            raise chalice.NotFoundError(f"No data found for {state} on {date}.")
+            raise chalice.NotFoundError(
+                f"No data found for {state} on {date}.")
     elif app.current_request.method == "DELETE":
         storage.delete_state_date_data(state, date)
 

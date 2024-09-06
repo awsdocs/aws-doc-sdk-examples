@@ -1,12 +1,12 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-import config
 import logging
 import os
 import re
-import yaml
 
+import config
+import yaml
 from snippets import Snippet, scan_for_snippets
 
 logger = logging.getLogger(__name__)

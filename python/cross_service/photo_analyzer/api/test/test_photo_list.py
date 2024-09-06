@@ -6,11 +6,11 @@ Unit tests for photo_list.py.
 """
 
 from unittest.mock import MagicMock
+
 import boto3
+import pytest
 from boto3.s3.transfer import S3UploadFailedError
 from botocore.exceptions import ClientError
-import pytest
-
 from photo_list import PhotoList, reqparse
 
 
@@ -35,9 +35,11 @@ def test_get_photo_list(make_stubber, error_code):
         assert result == 400
 
 
-@pytest.mark.parametrize(
-    "error_code", [None, "TestException", "AccessDenied", "S3UploadFailedError"]
-)
+@pytest.mark.parametrize("error_code",
+                         [None,
+                          "TestException",
+                          "AccessDenied",
+                          "S3UploadFailedError"])
 def test_post_photo(make_stubber, monkeypatch, error_code):
     s3_resource = boto3.resource("s3")
     make_stubber(s3_resource.meta.client)

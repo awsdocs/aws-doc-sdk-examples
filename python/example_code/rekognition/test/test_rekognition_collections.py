@@ -9,11 +9,11 @@ Unit tests for rekognition_collections.py.
 
 import datetime
 import random
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
-from rekognition_collections import RekognitionCollectionManager, RekognitionCollection
+import boto3
+import pytest
+from botocore.exceptions import ClientError
+from rekognition_collections import RekognitionCollection, RekognitionCollectionManager
 from rekognition_image_detection import RekognitionImage
 from rekognition_objects import RekognitionFace
 
@@ -25,7 +25,9 @@ def make_collection(rekognition_client):
         {
             "CollectionId": "test-collection-id",
             "CollectionArn": "arn:aws:rekognition::collection/test-collection-id",
-            "FaceCount": random.randint(1, 100),
+            "FaceCount": random.randint(
+                1,
+                100),
             "CreationTimestamp": datetime.datetime.now(),
         },
         rekognition_client,
@@ -79,8 +81,8 @@ def test_index_faces(make_stubber, make_faces, error_code):
     image = RekognitionImage(TEST_IMAGE, "test-image", rekognition_client)
     max_faces = 3
     indexed_faces = [
-        RekognitionFace(face) for face in make_faces(3, has_details=True, is_index=True)
-    ]
+        RekognitionFace(face) for face in make_faces(
+            3, has_details=True, is_index=True)]
     unindexed_faces = [RekognitionFace(face) for face in make_faces(4)]
     collection = make_collection(rekognition_client)
 
@@ -244,7 +246,8 @@ def test_create_collection(make_stubber, error_code):
     )
 
     if error_code is None:
-        got_collection = collection_mgr.create_collection(collection.collection_id)
+        got_collection = collection_mgr.create_collection(
+            collection.collection_id)
         assert collection.to_dict() == got_collection.to_dict()
     else:
         with pytest.raises(ClientError) as exc_info:

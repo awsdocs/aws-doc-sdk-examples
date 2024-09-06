@@ -6,10 +6,9 @@ Unit tests for transcribe_basics.py functions.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
 import transcribe_basics
+from botocore.exceptions import ClientError
 
 
 def make_test_job(index):
@@ -118,7 +117,8 @@ def test_delete_job(make_stubber, error_code):
     transcribe_stubber = make_stubber(transcribe_client)
     job_name = "test-job"
 
-    transcribe_stubber.stub_delete_transcription_job(job_name, error_code=error_code)
+    transcribe_stubber.stub_delete_transcription_job(
+        job_name, error_code=error_code)
 
     if error_code is None:
         transcribe_basics.delete_job(job_name, transcribe_client)
@@ -190,7 +190,8 @@ def test_list_vocabularies(make_stubber, vocab_slice, error_code):
         ]
     else:
         with pytest.raises(ClientError) as exc_info:
-            transcribe_basics.list_vocabularies(vocab_filter, transcribe_client)
+            transcribe_basics.list_vocabularies(
+                vocab_filter, transcribe_client)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -246,7 +247,8 @@ def test_delete_vocabulary(make_stubber, error_code):
     transcribe_stubber = make_stubber(transcribe_client)
     vocab_name = "test-vocab"
 
-    transcribe_stubber.stub_delete_vocabulary(vocab_name, error_code=error_code)
+    transcribe_stubber.stub_delete_vocabulary(
+        vocab_name, error_code=error_code)
 
     if error_code is None:
         transcribe_basics.delete_vocabulary(vocab_name, transcribe_client)

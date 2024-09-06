@@ -8,6 +8,7 @@ Unit tests for stream data generators.
 import importlib
 import random
 import time
+
 import boto3
 import pytest
 
@@ -66,7 +67,13 @@ def test_static_generator(make_stubber, monkeypatch, module_name, repeat):
         ),
     ],
 )
-def test_random_generator(make_stubber, monkeypatch, module_name, data, rands, rates):
+def test_random_generator(
+        make_stubber,
+        monkeypatch,
+        module_name,
+        data,
+        rands,
+        rates):
     kinesis_client = boto3.client("kinesis")
     kinesis_stubber = make_stubber(kinesis_client)
     module = importlib.import_module(module_name)
@@ -128,8 +135,12 @@ def test_hotspot_generator(make_stubber, monkeypatch):
 
     with pytest.raises(IndexError):
         module.generate(
-            stream, field, hotspot_size, hotspot_weight, batch_size, kinesis_client
-        )
+            stream,
+            field,
+            hotspot_size,
+            hotspot_weight,
+            batch_size,
+            kinesis_client)
 
 
 def test_tworecordtypes_generator(make_stubber, monkeypatch):
@@ -148,9 +159,8 @@ def test_tworecordtypes_generator(make_stubber, monkeypatch):
     monkeypatch.setattr(random, "randint", lambda x, y: ints.pop(0))
 
     data = [module.get_order(order_id, choices[0])]
-    data += [
-        module.get_trade(order_id, trade_id, choices[0]) for trade_id in range(1, 3)
-    ]
+    data += [module.get_trade(order_id, trade_id, choices[0])
+             for trade_id in range(1, 3)]
     data.append(module.get_order(order_id + 1, choices[1]))
 
     for item in data:

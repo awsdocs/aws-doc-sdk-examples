@@ -3,7 +3,6 @@
 import os
 
 import boto3
-
 from utils.custom_logging import setup_custom_logger
 from utils.timeit import timeit
 
@@ -49,7 +48,8 @@ class BedrockModelService:
                 for model in model_summaries:
                     self.logger.debug(model["modelId"])
             else:
-                self.logger.warning("No model summaries found in the Bedrock response.")
+                self.logger.warning(
+                    "No model summaries found in the Bedrock response.")
         except Exception as e:
             # Log any exceptions that occur during the process
             self.logger.error(

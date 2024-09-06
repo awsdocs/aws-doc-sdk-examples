@@ -59,15 +59,21 @@ class OrganizationsStubber(ExampleStubber):
             }
         }
         self._stub_bifurcator(
-            "create_policy", expected_parameters, response, error_code=error_code
-        )
+            "create_policy",
+            expected_parameters,
+            response,
+            error_code=error_code)
 
     def stub_list_policies(self, policy_filter, policies, error_code=None):
         expected_parameters = {"Filter": policy_filter}
-        response = {"Policies": [self._make_policy_summary(pol) for pol in policies]}
+        response = {
+            "Policies": [
+                self._make_policy_summary(pol) for pol in policies]}
         self._stub_bifurcator(
-            "list_policies", expected_parameters, response, error_code=error_code
-        )
+            "list_policies",
+            expected_parameters,
+            response,
+            error_code=error_code)
 
     def stub_describe_policy(self, policy, error_code=None):
         expected_parameters = {"PolicyId": policy["id"]}
@@ -78,8 +84,10 @@ class OrganizationsStubber(ExampleStubber):
             }
         }
         self._stub_bifurcator(
-            "describe_policy", expected_parameters, response, error_code=error_code
-        )
+            "describe_policy",
+            expected_parameters,
+            response,
+            error_code=error_code)
 
     def stub_attach_policy(self, policy_id, target_id, error_code=None):
         expected_parameters = {"PolicyId": policy_id, "TargetId": target_id}

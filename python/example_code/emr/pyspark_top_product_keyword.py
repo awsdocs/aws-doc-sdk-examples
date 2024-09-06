@@ -15,6 +15,7 @@ running the query on the cluster instances.
 
 # snippet-start:[emr.python.spark.top_category_reviews]
 import argparse
+
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as func
 
@@ -59,5 +60,9 @@ if __name__ == "__main__":
     parser.add_argument("--count", type=int)
     parser.add_argument("--output_uri")
     args = parser.parse_args()
-    query_review_data(args.category, args.title_keyword, args.count, args.output_uri)
+    query_review_data(
+        args.category,
+        args.title_keyword,
+        args.count,
+        args.output_uri)
 # snippet-end:[emr.python.spark.top_category_reviews]

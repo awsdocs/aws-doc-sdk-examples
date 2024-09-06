@@ -8,9 +8,9 @@ Shows how to use the AWS SDK for Python (Boto3) with AWS
 Secrets Manager to get a batch of secrets that match a
 specified filter
 """
-import boto3
 import logging
 
+import boto3
 from batch_get_secret_value import BatchGetSecretsWrapper
 
 # Configure logging

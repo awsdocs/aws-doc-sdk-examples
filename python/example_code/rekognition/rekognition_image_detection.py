@@ -15,13 +15,13 @@ without cloning the GitHub repository, you must first download the image files f
 # snippet-start:[python.example_code.rekognition.image_detection_imports]
 import logging
 from pprint import pprint
-import boto3
-from botocore.exceptions import ClientError
-import requests
 
+import boto3
+import requests
+from botocore.exceptions import ClientError
 from rekognition_objects import (
-    RekognitionFace,
     RekognitionCelebrity,
+    RekognitionFace,
     RekognitionLabel,
     RekognitionModerationLabel,
     RekognitionText,
@@ -88,7 +88,10 @@ class RekognitionImage:
         :param rekognition_client: A Boto3 Rekognition client.
         :return: The RekognitionImage object, initialized with Amazon S3 object data.
         """
-        image = {"S3Object": {"Bucket": s3_object.bucket_name, "Name": s3_object.key}}
+        image = {
+            "S3Object": {
+                "Bucket": s3_object.bucket_name,
+                "Name": s3_object.key}}
         return cls(image, s3_object.key, rekognition_client)
 
     # snippet-end:[python.example_code.rekognition.RekognitionImage.from_bucket]
@@ -132,10 +135,10 @@ class RekognitionImage:
                 TargetImage=target_image.image,
                 SimilarityThreshold=similarity,
             )
-            matches = [
-                RekognitionFace(match["Face"]) for match in response["FaceMatches"]
-            ]
-            unmatches = [RekognitionFace(face) for face in response["UnmatchedFaces"]]
+            matches = [RekognitionFace(match["Face"])
+                       for match in response["FaceMatches"]]
+            unmatches = [RekognitionFace(face)
+                         for face in response["UnmatchedFaces"]]
             logger.info(
                 "Found %s matched faces and %s unmatched faces.",
                 len(matches),
@@ -192,8 +195,9 @@ class RekognitionImage:
                 for label in response["ModerationLabels"]
             ]
             logger.info(
-                "Found %s moderation labels in %s.", len(labels), self.image_name
-            )
+                "Found %s moderation labels in %s.",
+                len(labels),
+                self.image_name)
         except ClientError:
             logger.exception(
                 "Couldn't detect moderation labels in %s.", self.image_name
@@ -213,7 +217,8 @@ class RekognitionImage:
         """
         try:
             response = self.rekognition_client.detect_text(Image=self.image)
-            texts = [RekognitionText(text) for text in response["TextDetections"]]
+            texts = [RekognitionText(text)
+                     for text in response["TextDetections"]]
             logger.info("Found %s texts in %s.", len(texts), self.image_name)
         except ClientError:
             logger.exception("Couldn't detect text in %s.", self.image_name)
@@ -233,10 +238,10 @@ class RekognitionImage:
                  detected but did not match any known celebrities.
         """
         try:
-            response = self.rekognition_client.recognize_celebrities(Image=self.image)
-            celebrities = [
-                RekognitionCelebrity(celeb) for celeb in response["CelebrityFaces"]
-            ]
+            response = self.rekognition_client.recognize_celebrities(
+                Image=self.image)
+            celebrities = [RekognitionCelebrity(
+                celeb) for celeb in response["CelebrityFaces"]]
             other_faces = [
                 RekognitionFace(face) for face in response["UnrecognizedFaces"]
             ]
@@ -247,7 +252,9 @@ class RekognitionImage:
                 self.image_name,
             )
         except ClientError:
-            logger.exception("Couldn't detect celebrities in %s.", self.image_name)
+            logger.exception(
+                "Couldn't detect celebrities in %s.",
+                self.image_name)
             raise
         else:
             return celebrities, other_faces
@@ -262,7 +269,9 @@ def usage_demo():
     print("Welcome to the Amazon Rekognition image detection demo!")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
     rekognition_client = boto3.client("rekognition")
     street_scene_file_name = ".media/pexels-kaique-rocha-109919.jpg"
     celebrity_file_name = ".media/pexels-pixabay-53370.jpg"
@@ -339,7 +348,8 @@ def usage_demo():
     )
     input("Press Enter to continue.")
 
-    swimwear_image = RekognitionImage.from_bucket(swimwear_object, rekognition_client)
+    swimwear_image = RekognitionImage.from_bucket(
+        swimwear_object, rekognition_client)
     print(f"Detecting suggestive content in {swimwear_object.key}...")
     labels = swimwear_image.detect_moderation_labels()
     print(f"Found {len(labels)} moderation labels.")
@@ -354,8 +364,8 @@ def usage_demo():
     for text in texts[:7]:
         pprint(text.to_dict())
     show_polygons(
-        book_image.image["Bytes"], [text.geometry["Polygon"] for text in texts], "aqua"
-    )
+        book_image.image["Bytes"], [
+            text.geometry["Polygon"] for text in texts], "aqua")
 
     print("Thanks for watching!")
     print("-" * 88)

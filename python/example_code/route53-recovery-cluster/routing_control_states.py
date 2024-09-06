@@ -46,7 +46,8 @@ def get_routing_control_state(routing_control_arn, cluster_endpoints):
     """
 
     # As a best practice, we recommend choosing a random cluster endpoint to get or set routing control states.
-    # For more information, see https://docs.aws.amazon.com/r53recovery/latest/dg/route53-arc-best-practices.html#route53-arc-best-practices.regional
+    # For more information, see
+    # https://docs.aws.amazon.com/r53recovery/latest/dg/route53-arc-best-practices.html#route53-arc-best-practices.regional
     random.shuffle(cluster_endpoints)
     for cluster_endpoint in cluster_endpoints:
         try:
@@ -78,7 +79,8 @@ def update_routing_control_state(
     """
 
     # As a best practice, we recommend choosing a random cluster endpoint to get or set routing control states.
-    # For more information, see https://docs.aws.amazon.com/r53recovery/latest/dg/route53-arc-best-practices.html#route53-arc-best-practices.regional
+    # For more information, see
+    # https://docs.aws.amazon.com/r53recovery/latest/dg/route53-arc-best-practices.html#route53-arc-best-practices.regional
     random.shuffle(cluster_endpoints)
     for cluster_endpoint in cluster_endpoints:
         try:
@@ -100,7 +102,8 @@ def toggle_routing_control_state(routing_control_arn, cluster_endpoints):
     """
     Shows how to get and set the state of a routing control for a cluster.
     """
-    response = get_routing_control_state(routing_control_arn, cluster_endpoints)
+    response = get_routing_control_state(
+        routing_control_arn, cluster_endpoints)
     state = response["RoutingControlState"]
     print("-" * 88)
     print(f"Starting state of control {routing_control_arn}: {state}")
@@ -123,12 +126,17 @@ def toggle_routing_control_state(routing_control_arn, cluster_endpoints):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("routing_control_arn", help="The ARN of the routing control.")
+    parser.add_argument(
+        "routing_control_arn",
+        help="The ARN of the routing control.")
     parser.add_argument(
         "cluster_endpoints",
         help="A JSON file containing the list of endpoints for the cluster.",
     )
     args = parser.parse_args()
     with open(args.cluster_endpoints) as endpoints_file:
-        loaded_cluster_endpoints = json.load(endpoints_file)["ClusterEndpoints"]
-    toggle_routing_control_state(args.routing_control_arn, loaded_cluster_endpoints)
+        loaded_cluster_endpoints = json.load(
+            endpoints_file)["ClusterEndpoints"]
+    toggle_routing_control_state(
+        args.routing_control_arn,
+        loaded_cluster_endpoints)

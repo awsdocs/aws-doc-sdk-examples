@@ -64,33 +64,43 @@ class TranscribeStubber(ExampleStubber):
         expected_params = self._make_job(job)
         response = {"TranscriptionJob": {"TranscriptionJobName": job["name"]}}
         self._stub_bifurcator(
-            "start_transcription_job", expected_params, response, error_code=error_code
-        )
+            "start_transcription_job",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_list_transcription_jobs(
-        self, job_filter, jobs, response_slice, next_token=None, error_code=None
-    ):
+            self,
+            job_filter,
+            jobs,
+            response_slice,
+            next_token=None,
+            error_code=None):
         expected_params = {"JobNameContains": job_filter}
         if next_token is not None:
             expected_params["NextToken"] = next_token
         response = {
             "TranscriptionJobSummaries": [
                 {"TranscriptionJobName": job["name"]}
-                for job in jobs[response_slice[0] : response_slice[1]]
+                for job in jobs[response_slice[0]: response_slice[1]]
             ]
         }
         if response_slice[1] < len(jobs):
             response["NextToken"] = "test-token"
         self._stub_bifurcator(
-            "list_transcription_jobs", expected_params, response, error_code=error_code
-        )
+            "list_transcription_jobs",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_get_transcription_job(self, job, error_code=None):
         expected_params = {"TranscriptionJobName": job["name"]}
         response = {"TranscriptionJob": self._make_job(job)}
         self._stub_bifurcator(
-            "get_transcription_job", expected_params, response, error_code=error_code
-        )
+            "get_transcription_job",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_delete_transcription_job(self, job_name, error_code=None):
         expected_params = {"TranscriptionJobName": job_name}
@@ -102,26 +112,34 @@ class TranscribeStubber(ExampleStubber):
         expected_params = self._make_vocabulary(vocabulary)
         response = {"VocabularyName": vocabulary["name"]}
         self._stub_bifurcator(
-            "create_vocabulary", expected_params, response, error_code=error_code
-        )
+            "create_vocabulary",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_list_vocabularies(
-        self, vocab_filter, vocabularies, vocab_slice, next_token=None, error_code=None
-    ):
+            self,
+            vocab_filter,
+            vocabularies,
+            vocab_slice,
+            next_token=None,
+            error_code=None):
         expected_params = {"NameContains": vocab_filter}
         if next_token is not None:
             expected_params["NextToken"] = next_token
         response = {
             "Vocabularies": [
                 self._make_vocabulary(vocab)
-                for vocab in vocabularies[vocab_slice[0] : vocab_slice[1]]
+                for vocab in vocabularies[vocab_slice[0]: vocab_slice[1]]
             ]
         }
         if vocab_slice[1] < len(vocabularies):
             response["NextToken"] = "test-token"
         self._stub_bifurcator(
-            "list_vocabularies", expected_params, response, error_code=error_code
-        )
+            "list_vocabularies",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_get_vocabulary(self, vocabulary, error_code=None):
         expected_params = {"VocabularyName": vocabulary["name"]}
@@ -134,8 +152,10 @@ class TranscribeStubber(ExampleStubber):
         expected_params = self._make_vocabulary(vocabulary)
         response = {"VocabularyName": vocabulary["name"]}
         self._stub_bifurcator(
-            "update_vocabulary", expected_params, response, error_code=error_code
-        )
+            "update_vocabulary",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_delete_vocabulary(self, vocab_name, error_code=None):
         expected_params = {"VocabularyName": vocab_name}

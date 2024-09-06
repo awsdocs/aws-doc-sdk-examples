@@ -6,10 +6,9 @@ Unit tests for lambda_basics.py functions.
 """
 
 import boto3
-from botocore.exceptions import ClientError
-import pytest
-
 import organizations_policies
+import pytest
+from botocore.exceptions import ClientError
 
 
 def make_policy(index, pol_type):
@@ -69,8 +68,10 @@ def test_list_policies(make_stubber, error_code):
     orgs_stubber.stub_list_policies(pol_type, policies, error_code=error_code)
 
     if error_code is None:
-        got_policies = organizations_policies.list_policies(pol_type, orgs_client)
-        assert [got["Id"] for got in got_policies] == [had["id"] for had in policies]
+        got_policies = organizations_policies.list_policies(
+            pol_type, orgs_client)
+        assert [got["Id"] for got in got_policies] == [had["id"]
+                                                       for had in policies]
     else:
         with pytest.raises(ClientError) as exc_info:
             organizations_policies.list_policies(pol_type, orgs_client)
@@ -86,7 +87,8 @@ def test_describe_policy(make_stubber, error_code):
     orgs_stubber.stub_describe_policy(policy, error_code=error_code)
 
     if error_code is None:
-        got_policy = organizations_policies.describe_policy(policy["id"], orgs_client)
+        got_policy = organizations_policies.describe_policy(
+            policy["id"], orgs_client)
         assert got_policy["PolicySummary"]["Id"] == policy["id"]
     else:
         with pytest.raises(ClientError) as exc_info:
@@ -101,13 +103,15 @@ def test_attach_policy(make_stubber, error_code):
     policy_id = "p-123456789"
     target_id = "r-987654321"
 
-    orgs_stubber.stub_attach_policy(policy_id, target_id, error_code=error_code)
+    orgs_stubber.stub_attach_policy(
+        policy_id, target_id, error_code=error_code)
 
     if error_code is None:
         organizations_policies.attach_policy(policy_id, target_id, orgs_client)
     else:
         with pytest.raises(ClientError) as exc_info:
-            organizations_policies.attach_policy(policy_id, target_id, orgs_client)
+            organizations_policies.attach_policy(
+                policy_id, target_id, orgs_client)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -118,13 +122,15 @@ def test_detach_policy(make_stubber, error_code):
     policy_id = "p-123456789"
     target_id = "r-987654321"
 
-    orgs_stubber.stub_detach_policy(policy_id, target_id, error_code=error_code)
+    orgs_stubber.stub_detach_policy(
+        policy_id, target_id, error_code=error_code)
 
     if error_code is None:
         organizations_policies.detach_policy(policy_id, target_id, orgs_client)
     else:
         with pytest.raises(ClientError) as exc_info:
-            organizations_policies.detach_policy(policy_id, target_id, orgs_client)
+            organizations_policies.detach_policy(
+                policy_id, target_id, orgs_client)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 

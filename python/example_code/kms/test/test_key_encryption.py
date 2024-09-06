@@ -6,9 +6,8 @@ Unit tests for key_encryption.py.
 """
 
 import boto3
-import pytest
-
 import key_encryption
+import pytest
 
 
 @pytest.mark.parametrize(
@@ -34,7 +33,11 @@ def test_key_encryption(
     monkeypatch.setattr("builtins.input", lambda x: inputs.pop(0))
 
     with stub_runner(error_code, stop_on_action) as runner:
-        runner.add(kms_stubber.stub_encrypt, key_id, plain_text.encode(), cipher_text)
+        runner.add(
+            kms_stubber.stub_encrypt,
+            key_id,
+            plain_text.encode(),
+            cipher_text)
         runner.add(
             kms_stubber.stub_decrypt,
             key_id,

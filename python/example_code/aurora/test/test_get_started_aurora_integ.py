@@ -2,10 +2,10 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import time
-import pytest
 
-from aurora_wrapper import AuroraWrapper
+import pytest
 import scenario_get_started_aurora
+from aurora_wrapper import AuroraWrapper
 
 
 @pytest.fixture(autouse=True)
@@ -21,7 +21,8 @@ def test_run_cluster_scenario_integ(input_mocker, capsys):
         AuroraWrapper.from_client()
     )
 
-    input_mocker.mock_answers([1, "1", "1", "admin", "password", 1, 1, "y", "y"])
+    input_mocker.mock_answers(
+        [1, "1", "1", "admin", "password", 1, 1, "y", "y"])
 
     scenario.run_scenario(
         "aurora-mysql",

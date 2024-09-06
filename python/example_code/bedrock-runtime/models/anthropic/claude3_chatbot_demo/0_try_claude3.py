@@ -3,7 +3,6 @@
 import os
 
 import boto3
-
 from utils.custom_logging import setup_custom_logger
 from utils.timeit import timeit
 
@@ -130,7 +129,7 @@ class BedrockAIConverter:
                 volumes. Something small, nerdy, tech-oriented, and interactive.
 
                 Update the starter description provided in such a way that
-                your new improvement idea has been implemented. How would it look in the 
+                your new improvement idea has been implemented. How would it look in the
                 site description provided?
 
                 Starter Description: {text}
@@ -198,8 +197,7 @@ class BedrockAIConverter:
             accept = "application/json"
             contentType = "application/json"
             response = self.bedrock_runtime_client.invoke_model(
-                body=body, modelId=modelId, accept=accept, contentType=contentType
-            )
+                body=body, modelId=modelId, accept=accept, contentType=contentType)
             response = json.loads(response.get("body").read())
             images = response.get("artifacts")
             image = Image.open(BytesIO(b64decode(images[0].get("base64"))))

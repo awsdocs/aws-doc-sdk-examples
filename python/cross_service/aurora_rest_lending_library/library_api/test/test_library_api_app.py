@@ -8,10 +8,10 @@ class provided by AWS Chalice to simplify route testing.
 
 import json
 from unittest.mock import MagicMock
-import pytest
-from chalice.app import RequestTimeoutError
-from chalice.test import Client
+
 import app
+import pytest
+from chalice.test import Client
 from chalicelib.library_data import DataServiceNotReadyException
 
 
@@ -37,8 +37,7 @@ def test_index():
         response = client.http.get("/")
         assert response.json_body == {
             "description": "A simple lending library REST API that runs entirely on "
-            "serverless components."
-        }
+            "serverless components."}
 
 
 def test_list_books(mock_storage):

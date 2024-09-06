@@ -5,7 +5,7 @@
 A base class for stubbers that are used by the Python code example unit tests.
 """
 
-import contextlib
+
 from botocore.stub import Stubber
 
 
@@ -80,8 +80,9 @@ class ExampleStubber(Stubber):
             response = {}
         if error_code is None:
             self.add_response(
-                method, expected_params=expected_params, service_response=response
-            )
+                method,
+                expected_params=expected_params,
+                service_response=response)
         else:
             self.add_client_error(
                 method,

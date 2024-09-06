@@ -6,10 +6,10 @@ Unit tests for key_policies.py.
 """
 
 import json
-import boto3
-import pytest
 
+import boto3
 import key_policies
+import pytest
 
 
 @pytest.mark.parametrize(
@@ -47,6 +47,7 @@ def test_key_policies(
             raise_and_continue=True,
         )
         if stop_on_action != "stub_get_key_policy":
-            runner.add(kms_stubber.stub_put_key_policy, key_id, raise_and_continue=True)
+            runner.add(kms_stubber.stub_put_key_policy,
+                       key_id, raise_and_continue=True)
 
     key_policies.key_policies(kms_client)

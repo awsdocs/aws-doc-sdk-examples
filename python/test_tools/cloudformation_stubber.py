@@ -6,6 +6,7 @@ Stub functions that are used by AWS CloudFormation unit tests.
 """
 
 from datetime import datetime
+
 from test_tools.example_stubber import ExampleStubber
 
 
@@ -25,8 +26,12 @@ class CloudFormationStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_create_stack(
-        self, stack_name, setup_template, capabilities, stack_id, error_code=None
-    ):
+            self,
+            stack_name,
+            setup_template,
+            capabilities,
+            stack_id,
+            error_code=None):
         expected_params = {
             "StackName": stack_name,
             "TemplateBody": setup_template,
@@ -37,7 +42,12 @@ class CloudFormationStubber(ExampleStubber):
             "create_stack", expected_params, response, error_code=error_code
         )
 
-    def stub_describe_stacks(self, stack_name, status, outputs=None, error_code=None):
+    def stub_describe_stacks(
+            self,
+            stack_name,
+            status,
+            outputs=None,
+            error_code=None):
         expected_params = {"StackName": stack_name}
         response = {
             "Stacks": [
@@ -54,12 +64,18 @@ class CloudFormationStubber(ExampleStubber):
             "describe_stacks", expected_params, response, error_code=error_code
         )
 
-    def stub_list_stack_resources(self, stack_name, resources, error_code=None):
+    def stub_list_stack_resources(
+            self,
+            stack_name,
+            resources,
+            error_code=None):
         expected_params = {"StackName": stack_name}
         response = {"StackResourceSummaries": resources}
         self._stub_bifurcator(
-            "list_stack_resources", expected_params, response, error_code=error_code
-        )
+            "list_stack_resources",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_delete_stack(self, stack_name, error_code=None):
         expected_params = {"StackName": stack_name}

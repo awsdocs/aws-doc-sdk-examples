@@ -10,6 +10,7 @@ AWS IoT Greengrass connector.
 
 # snippet-start:[greengrass.python.connector-sns-usage.complete]
 import json
+
 import greengrasssdk
 
 iot_client = greengrasssdk.client("iot-data")
@@ -17,7 +18,10 @@ send_topic = "sns/message"
 
 
 def create_request():
-    return {"request": {"message": "Message from SNS Connector Test"}, "id": "req_123"}
+    return {
+        "request": {
+            "message": "Message from SNS Connector Test"},
+        "id": "req_123"}
 
 
 def publish_basic_message():

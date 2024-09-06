@@ -6,9 +6,8 @@ Unit tests for websocket_chat.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from websocket_chat import ApiGatewayWebsocket
 
 
@@ -75,7 +74,8 @@ def test_add_connection_permissions(
         sock_gate.add_connection_permissions(account, role_name, iam_resource)
     else:
         with pytest.raises(ClientError) as exc_info:
-            sock_gate.add_connection_permissions(account, role_name, iam_resource)
+            sock_gate.add_connection_permissions(
+                account, role_name, iam_resource)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -114,7 +114,8 @@ def test_remove_connection_permissions(
         sock_gate.remove_connection_permissions(iam_resource.Role(role_name))
     else:
         with pytest.raises(ClientError) as exc_info:
-            sock_gate.remove_connection_permissions(iam_resource.Role(role_name))
+            sock_gate.remove_connection_permissions(
+                iam_resource.Role(role_name))
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -171,7 +172,8 @@ def test_add_route_and_integration(
         assert got_route_id == route_id
     else:
         with pytest.raises(ClientError) as exc_info:
-            sock_gate.add_route_and_integration(route_name, lambda_func, lambda_client)
+            sock_gate.add_route_and_integration(
+                route_name, lambda_func, lambda_client)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 

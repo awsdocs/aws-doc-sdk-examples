@@ -10,6 +10,7 @@ manage streams.
 
 import json
 import logging
+
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -114,8 +115,7 @@ class KinesisStream:
         """
         try:
             response = self.kinesis_client.put_record(
-                StreamName=self.name, Data=json.dumps(data), PartitionKey=partition_key
-            )
+                StreamName=self.name, Data=json.dumps(data), PartitionKey=partition_key)
             logger.info("Put record in stream %s.", self.name)
         except ClientError:
             logger.exception("Couldn't put record in stream %s.", self.name)

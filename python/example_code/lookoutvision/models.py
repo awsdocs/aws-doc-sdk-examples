@@ -11,10 +11,10 @@ Shows how to create and delete a model. Also, how to view the versions of the mo
 in a project.
 """
 
-import time
 import logging
-from botocore.exceptions import ClientError
+import time
 
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
@@ -48,12 +48,12 @@ class Models:
         """
         try:
             logger.info("Training model...")
-            output_bucket, output_folder = training_results.replace("s3://", "").split(
-                "/", 1
-            )
+            output_bucket, output_folder = training_results.replace(
+                "s3://", "").split("/", 1)
             output_config = {
-                "S3Location": {"Bucket": output_bucket, "Prefix": output_folder}
-            }
+                "S3Location": {
+                    "Bucket": output_bucket,
+                    "Prefix": output_folder}}
             tags = []
             if tag_key is not None:
                 tags = [{"Key": tag_key, "Value": tag_key_value}]
@@ -63,7 +63,9 @@ class Models:
             )
 
             logger.info("ARN: %s", response["ModelMetadata"]["ModelArn"])
-            logger.info("Version: %s", response["ModelMetadata"]["ModelVersion"])
+            logger.info(
+                "Version: %s",
+                response["ModelMetadata"]["ModelVersion"])
             logger.info("Started training...")
 
             print("Training started. Training might take several hours to complete.")
@@ -129,7 +131,8 @@ class Models:
 
             print("\n\tPerformance metrics\n\t-------------------")
             print(f"\tRecall: {model_description['Performance']['Recall']}")
-            print(f"\tPrecision: {model_description['Performance']['Precision']}")
+            print(
+                f"\tPrecision: {model_description['Performance']['Precision']}")
             print(f"\tF1: {model_description['Performance']['F1Score']}")
 
             training_output_bucket = model_description["OutputConfig"]["S3Location"][
@@ -150,7 +153,8 @@ class Models:
         :param project_name: The name of the project that you want to use.
         """
         try:
-            response = lookoutvision_client.list_models(ProjectName=project_name)
+            response = lookoutvision_client.list_models(
+                ProjectName=project_name)
             print("Project: " + project_name)
             for model in response["Models"]:
                 Models.describe_model(
@@ -183,7 +187,8 @@ class Models:
 
             model_exists = True
             while model_exists:
-                response = lookoutvision_client.list_models(ProjectName=project_name)
+                response = lookoutvision_client.list_models(
+                    ProjectName=project_name)
 
                 model_exists = False
                 for model in response["Models"]:

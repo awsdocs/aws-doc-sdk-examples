@@ -21,21 +21,21 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Elastic Compute Clou
 * Clean up all of the resources created by this example.
 """
 
+from demo_tools import demo_func
+import demo_tools.question as q
 import logging
-import urllib.request
 import sys
+import urllib.request
 
 import boto3
-
 from elastic_ip import ElasticIpWrapper
 from instance import InstanceWrapper
 from key_pair import KeyPairWrapper
 from security_group import SecurityGroupWrapper
 
-# Add relative path to include demo_tools in this code example without need for setup.
+# Add relative path to include demo_tools in this code example without
+# need for setup.
 sys.path.append("../..")
-from demo_tools import demo_func
-import demo_tools.question as q
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +44,13 @@ logger = logging.getLogger(__name__)
 class Ec2InstanceScenario:
     """Runs an interactive scenario that shows how to get started using EC2 instances."""
 
-    def __init__(self, inst_wrapper, key_wrapper, sg_wrapper, eip_wrapper, ssm_client):
+    def __init__(
+            self,
+            inst_wrapper,
+            key_wrapper,
+            sg_wrapper,
+            eip_wrapper,
+            ssm_client):
         """
         :param inst_wrapper: An object that wraps instance actions.
         :param key_wrapper: An object that wraps key pair actions.
@@ -67,15 +73,15 @@ class Ec2InstanceScenario:
         """
         print(
             "Let's create an RSA key pair that you can be use to securely connect to "
-            "your EC2 instance."
-        )
+            "your EC2 instance.")
         key_name = q.ask("Enter a unique name for your key: ", q.non_empty)
         self.key_wrapper.create(key_name)
         print(
             f"Created a key pair {self.key_wrapper.key_pair.key_name} and saved the "
-            f"private key to {self.key_wrapper.key_file_path}.\n"
-        )
-        if q.ask("Do you want to list some of your key pairs? (y/n) ", q.is_yesno):
+            f"private key to {self.key_wrapper.key_file_path}.\n")
+        if q.ask(
+            "Do you want to list some of your key pairs? (y/n) ",
+                q.is_yesno):
             self.key_wrapper.list(5)
 
     @demo_func
@@ -93,14 +99,15 @@ class Ec2InstanceScenario:
         the AWS Management Console.
         """
         print("Let's create a security group to manage access to your instance.")
-        sg_name = q.ask("Enter a unique name for your security group: ", q.non_empty)
+        sg_name = q.ask(
+            "Enter a unique name for your security group: ",
+            q.non_empty)
         security_group = self.sg_wrapper.create(
             sg_name, "Security group for example: get started with instances."
         )
         print(
             f"Created security group {security_group.group_name} in your default "
-            f"VPC {security_group.vpc_id}.\n"
-        )
+            f"VPC {security_group.vpc_id}.\n")
 
         ip_response = urllib.request.urlopen("http://checkip.amazonaws.com")
         current_ip_address = ip_response.read().decode("utf-8").strip()
@@ -128,7 +135,8 @@ class Ec2InstanceScenario:
         """
         ami_paginator = self.ssm_client.get_paginator("get_parameters_by_path")
         ami_options = []
-        for page in ami_paginator.paginate(Path="/aws/service/ami-amazon-linux-latest"):
+        for page in ami_paginator.paginate(
+                Path="/aws/service/ami-amazon-linux-latest"):
             ami_options += page["Parameters"]
         amzn2_images = self.inst_wrapper.get_images(
             [opt["Value"] for opt in ami_options if "amzn2" in opt["Name"]]
@@ -137,20 +145,19 @@ class Ec2InstanceScenario:
             "Let's create an instance from an Amazon Linux 2 AMI. Here are some options:"
         )
         image_choice = q.choose(
-            "Which one do you want to use? ", [opt.description for opt in amzn2_images]
-        )
+            "Which one do you want to use? ", [
+                opt.description for opt in amzn2_images])
         print("Great choice!\n")
 
         print(
             f"Here are some instance types that support the "
-            f"{amzn2_images[image_choice].architecture} architecture of the image:"
-        )
+            f"{amzn2_images[image_choice].architecture} architecture of the image:")
         inst_types = self.inst_wrapper.get_instance_types(
             amzn2_images[image_choice].architecture
         )
         inst_type_choice = q.choose(
-            "Which one do you want to use? ", [it["InstanceType"] for it in inst_types]
-        )
+            "Which one do you want to use? ", [
+                it["InstanceType"] for it in inst_types])
         print("Another great choice.\n")
 
         print("Creating your instance and waiting for it to start...")
@@ -166,8 +173,7 @@ class Ec2InstanceScenario:
         print("You can use SSH to connect to your instance.")
         print(
             "If the connection attempt times out, you might have to manually update "
-            "the SSH ingress rule for your IP address in the AWS Management Console."
-        )
+            "the SSH ingress rule for your IP address in the AWS Management Console.")
         self._display_ssh_info()
 
     def _display_ssh_info(self):
@@ -196,8 +202,7 @@ class Ec2InstanceScenario:
         """
         print(
             "You can allocate an Elastic IP address and associate it with your instance\n"
-            "to keep a consistent IP address even when your instance restarts."
-        )
+            "to keep a consistent IP address even when your instance restarts.")
         elastic_ip = self.eip_wrapper.allocate()
         print(f"Allocated static Elastic IP address: {elastic_ip.public_ip}.")
         self.eip_wrapper.associate(self.inst_wrapper.instance)
@@ -231,8 +236,7 @@ class Ec2InstanceScenario:
         else:
             print(
                 "Because you have associated an Elastic IP with your instance, you can \n"
-                "connect by using a consistent IP address after the instance restarts."
-            )
+                "connect by using a consistent IP address after the instance restarts.")
         self._display_ssh_info()
 
     @demo_func
@@ -262,7 +266,9 @@ class Ec2InstanceScenario:
             print("Deleted key pair.")
 
     def run_scenario(self):
-        logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+        logging.basicConfig(
+            level=logging.INFO,
+            format="%(levelname)s: %(message)s")
 
         print("-" * 88)
         print(

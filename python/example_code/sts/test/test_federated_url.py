@@ -7,24 +7,28 @@ Unit tests for AWS Security Token Service (AWS STS) usage functions.
 
 import json
 import unittest.mock
+
+import boto3
+import federated_url
 import pytest
 import requests
-import boto3
 from botocore.exceptions import ClientError
-
-import federated_url
 
 
 def test_setup(make_stubber, monkeypatch, unique_names):
     iam = boto3.resource("iam")
     iam_stubber = make_stubber(iam.meta.client)
 
-    monkeypatch.setattr(federated_url, "unique_name", lambda x: unique_names[x])
+    monkeypatch.setattr(
+        federated_url,
+        "unique_name",
+        lambda x: unique_names[x])
     monkeypatch.setattr(federated_url, "progress_bar", lambda x: None)
 
     iam_stubber.stub_get_user(None, "arn:aws:iam:123456789012::user/test-user")
     iam_stubber.stub_create_role(unique_names["role"])
-    iam_stubber.stub_attach_role_policy(unique_names["role"], unittest.mock.ANY)
+    iam_stubber.stub_attach_role_policy(
+        unique_names["role"], unittest.mock.ANY)
 
     role = federated_url.setup(iam)
     assert role is not None

@@ -12,6 +12,7 @@ import argparse
 import json
 import logging
 import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -169,7 +170,9 @@ def usage_demo(target_id):
                       attached to and detached from this resource during the demo.
                       Otherwise, the attach and detach portion of the demo is skipped.
     """
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
     orgs_client = boto3.client("organizations")
 
     print("-" * 88)

@@ -1,17 +1,17 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from datetime import date
 import json
-from ssl import SSLContext, PROTOCOL_TLSv1_2, CERT_REQUIRED
+from datetime import date
+from ssl import CERT_REQUIRED, PROTOCOL_TLSv1_2, SSLContext
 
-from cassandra.cluster import (
-    Cluster,
-    ExecutionProfile,
-    EXEC_PROFILE_DEFAULT,
-    DCAwareRoundRobinPolicy,
-)
 from cassandra import ConsistencyLevel
+from cassandra.cluster import (
+    EXEC_PROFILE_DEFAULT,
+    Cluster,
+    DCAwareRoundRobinPolicy,
+    ExecutionProfile,
+)
 from cassandra.query import SimpleStatement
 from cassandra_sigv4.auth import SigV4AuthProvider
 
@@ -84,7 +84,7 @@ class QueryManager:
         :param table_name: The name of the table.
         :param movie_file_path: The path and file name of a JSON file that contains movie data.
         """
-        with open(movie_file_path, "r") as movie_file:
+        with open(movie_file_path) as movie_file:
             movies = json.loads(movie_file.read())
         stmt = self.session.prepare(
             f"INSERT INTO {table_name} (year, title, release_date, plot) VALUES (?, ?, ?, ?);"
@@ -95,7 +95,8 @@ class QueryManager:
                 parameters=[
                     movie["year"],
                     movie["title"],
-                    date.fromisoformat(movie["info"]["release_date"].partition("T")[0]),
+                    date.fromisoformat(
+                        movie["info"]["release_date"].partition("T")[0]),
                     movie["info"]["plot"],
                 ],
             )

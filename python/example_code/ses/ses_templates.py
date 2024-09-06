@@ -9,12 +9,14 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Email Service
 """
 
 import logging
-from pprint import pprint
 import re
+from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 
-# Defines template tags, which are enclosed in two curly braces, such as {{tag}}.
+# Defines template tags, which are enclosed in two curly braces, such as
+# {{tag}}.
 TEMPLATE_REGEX = r"(?<={{).+?(?=}})"
 
 logger = logging.getLogger(__name__)
@@ -40,7 +42,10 @@ class SesTemplate:
         :param text: The text version of the email.
         :param html: The html version of the email.
         """
-        self.template_tags = set(re.findall(TEMPLATE_REGEX, subject + text + html))
+        self.template_tags = set(
+            re.findall(
+                TEMPLATE_REGEX,
+                subject + text + html))
         logger.info("Extracted template tags: %s", self.template_tags)
 
     # snippet-end:[python.example_code.ses.SesTemplate]
@@ -57,8 +62,7 @@ class SesTemplate:
         diff = set(template_data) - self.template_tags
         if diff:
             logger.warning(
-                "Template data contains tags that aren't in the template: %s", diff
-            )
+                "Template data contains tags that aren't in the template: %s", diff)
             return False
         else:
             return True
@@ -102,7 +106,8 @@ class SesTemplate:
         Deletes an email template.
         """
         try:
-            self.ses_client.delete_template(TemplateName=self.template["TemplateName"])
+            self.ses_client.delete_template(
+                TemplateName=self.template["TemplateName"])
             logger.info("Deleted template %s.", self.template["TemplateName"])
             self.template = None
             self.template_tags = None
@@ -192,11 +197,12 @@ def usage_demo():
     print("-" * 88)
     print(
         "Welcome to the Amazon Simple Email Service (Amazon SES) email template "
-        "demo!"
-    )
+        "demo!")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     ses_template = SesTemplate(boto3.client("ses"))
     template = {

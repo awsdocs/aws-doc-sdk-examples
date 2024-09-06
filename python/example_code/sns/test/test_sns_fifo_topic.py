@@ -5,12 +5,10 @@
 Unit tests for sns_fifo_topic.py
 """
 
-import json
-import boto3
-from botocore.exceptions import ClientError
-from botocore.stub import ANY
-import pytest
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from sns_fifo_topic import FifoTopicWrapper
 
 TOPIC_ARN = "arn:aws:sns:REGION:123456789012:topic/test-name"
@@ -48,11 +46,16 @@ def test_subscribe_queue_to_topic(make_stubber, error_code):
     fifo_topic_wrapper = FifoTopicWrapper(sns_resource)
 
     sns_stubber.stub_subscribe(
-        topic.arn, "sqs", QUEUE_ARN, SUBSCRIPTION_ARN, False, error_code=error_code
-    )
+        topic.arn,
+        "sqs",
+        QUEUE_ARN,
+        SUBSCRIPTION_ARN,
+        False,
+        error_code=error_code)
 
     if error_code is None:
-        got_subscription = fifo_topic_wrapper.subscribe_queue_to_topic(topic, QUEUE_ARN)
+        got_subscription = fifo_topic_wrapper.subscribe_queue_to_topic(
+            topic, QUEUE_ARN)
         assert got_subscription.arn == SUBSCRIPTION_ARN
     else:
         with pytest.raises(ClientError) as exc_info:

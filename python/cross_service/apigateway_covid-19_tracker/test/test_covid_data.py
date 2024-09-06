@@ -1,11 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 import datetime
+
 import boto3
+import pytest
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
-import pytest
-
 from chalicelib.covid_data import Storage
 
 
@@ -38,8 +38,10 @@ def test_get_state_data(make_stubber, monkeypatch, item_count, error_code):
     ]
 
     dyn_stubber.stub_query(
-        table.name, items, key_condition=Key("state").eq(state), error_code=error_code
-    )
+        table.name,
+        items,
+        key_condition=Key("state").eq(state),
+        error_code=error_code)
     if item_count == 0:
         item = {"state": state, "date": datetime.date.today().isoformat()}
         monkeypatch.setattr(storage, "_generate_random_data", lambda st: item)
@@ -70,7 +72,8 @@ def test_put_or_post_state_data(make_stubber, method, error_code):
     table = dyn_resource.Table("test-table")
     storage = Storage(table)
     state = "Georgia"
-    item = {"state": state, "date": datetime.date.today().isoformat(), "cases": 5}
+    item = {"state": state, "date": datetime.date.today().isoformat(),
+            "cases": 5}
 
     dyn_stubber.stub_put_item(table.name, item, error_code=error_code)
 
@@ -134,9 +137,8 @@ def test_delete_state_data(
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize(
-    "item_exists,error_code", [(True, None), (True, "TestException"), (False, None)]
-)
+@pytest.mark.parametrize("item_exists,error_code",
+                         [(True, None), (True, "TestException"), (False, None)])
 def test_get_state_date_data(make_stubber, item_exists, error_code):
     dyn_resource = boto3.resource("dynamodb")
     dyn_stubber = make_stubber(dyn_resource.meta.client)

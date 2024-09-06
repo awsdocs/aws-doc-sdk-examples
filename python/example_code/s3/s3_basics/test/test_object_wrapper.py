@@ -5,12 +5,10 @@
 Unit tests for object_wrapper.py functions.
 """
 
-from unittest.mock import ANY
-import pytest
 
 import boto3
+import pytest
 from botocore.exceptions import ClientError
-
 from object_wrapper import ObjectWrapper
 
 
@@ -66,7 +64,8 @@ def test_list(make_stubber, error_code):
     prefix = "test-prefix"
     keys = [f"{prefix}-{ind}" for ind in range(3)]
 
-    s3_stubber.stub_list_objects(bucket_name, keys, prefix, error_code=error_code)
+    s3_stubber.stub_list_objects(
+        bucket_name, keys, prefix, error_code=error_code)
 
     if error_code is None:
         got_objects = ObjectWrapper.list(bucket, prefix)
@@ -89,8 +88,11 @@ def test_copy(make_stubber, error_code):
     dest_obj = s3_resource.Object(dest_bucket_name, dest_key)
 
     s3_stubber.stub_copy_object(
-        src_bucket_name, src_key, dest_bucket_name, dest_key, error_code=error_code
-    )
+        src_bucket_name,
+        src_key,
+        dest_bucket_name,
+        dest_key,
+        error_code=error_code)
     if error_code is None:
         s3_stubber.stub_head_object(dest_bucket_name, dest_key)
 
@@ -170,7 +172,8 @@ def test_put_acl(make_stubber, error_code):
     mail = "test-mail"
 
     s3_stubber.stub_get_object_acl(bucket_name, key)
-    s3_stubber.stub_put_object_acl(bucket_name, key, mail, error_code=error_code)
+    s3_stubber.stub_put_object_acl(
+        bucket_name, key, mail, error_code=error_code)
 
     if error_code is None:
         wrapper.put_acl(mail)

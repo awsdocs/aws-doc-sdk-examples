@@ -4,14 +4,14 @@
 
 try:
     import tomlkit
-except:
+except BaseException:
     print("Couldn't import tomlkit, either install it directly or instantiate a venv.")
     exit(1)
 
-from glob import glob
 import argparse
 import logging
 import pathlib
+from glob import glob
 
 
 def read_toml(path: pathlib.Path) -> tomlkit.TOMLDocument:
@@ -43,9 +43,9 @@ def update_actions(root: pathlib.Path, channel: str, dry_run: bool):
     for i, line in enumerate(action):
         if "toolchain:" in line:
             sep = line.find(":")
-            found = i, line[sep + 2 :]
+            found = i, line[sep + 2:]
             action[i] = f'{line[: sep + 1]} "{channel}"\n'
-    if found == None:
+    if found is None:
         raise Exception(f"Did not find toolchain entry in {rust_yaml}")
     logging.debug(f"Setting {rust_yaml} to {channel} from {found}")
     if not dry_run:
@@ -71,8 +71,10 @@ argument_parser.add_argument(
     help="Don't write updated files.",
 )
 argument_parser.add_argument(
-    "--verbose", action="store_true", default=False, help="Write verbose logging"
-)
+    "--verbose",
+    action="store_true",
+    default=False,
+    help="Write verbose logging")
 
 
 def main():

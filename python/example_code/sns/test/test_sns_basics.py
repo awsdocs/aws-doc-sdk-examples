@@ -6,10 +6,10 @@ Unit tests for sns_basics.py
 """
 
 import json
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from sns_basics import SnsWrapper
 
 TOPIC_ARN = "arn:aws:sns:REGION:123456789012:topic/test-name"
@@ -182,7 +182,8 @@ def test_publish_message(make_stubber, error_code):
     )
 
     if error_code is None:
-        got_message_id = sns_wrapper.publish_message(topic, message, attributes)
+        got_message_id = sns_wrapper.publish_message(
+            topic, message, attributes)
         assert got_message_id == message_id
     else:
         with pytest.raises(ClientError) as exc_info:
@@ -204,7 +205,8 @@ def test_publish_text_message(make_stubber, error_code):
     )
 
     if error_code is None:
-        got_message_id = sns_wrapper.publish_text_message(phone_number, message)
+        got_message_id = sns_wrapper.publish_text_message(
+            phone_number, message)
         assert got_message_id == message_id
     else:
         with pytest.raises(ClientError) as exc_info:
@@ -238,5 +240,6 @@ def test_publish_multi_message(make_stubber, error_code):
         assert got_message_id == message_id
     else:
         with pytest.raises(ClientError) as exc_info:
-            sns_wrapper.publish_multi_message(topic, subject, *message.values())
+            sns_wrapper.publish_multi_message(
+                topic, subject, *message.values())
         assert exc_info.value.response["Error"]["Code"] == error_code

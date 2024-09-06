@@ -13,14 +13,15 @@ of visemes from Amazon Polly that match up with the synthesized speech.
 import json
 import logging
 import os
-from tempfile import TemporaryDirectory
 import time
 import tkinter
 import tkinter.simpledialog
+from tempfile import TemporaryDirectory
+
 import boto3
+import requests
 from botocore.exceptions import ClientError
 from playsound import playsound
-import requests
 from polly_wrapper import PollyWrapper
 
 logger = logging.getLogger(__name__)
@@ -96,7 +97,8 @@ class PollyMouth:
 
         self.language_label = tkinter.Label(choices_frame, text="Language:")
         self.language_var = tkinter.StringVar(choices_frame, "US English")
-        self.language_choices = polly_wrapper.get_languages(self.engine_var.get())
+        self.language_choices = polly_wrapper.get_languages(
+            self.engine_var.get())
         self.language_options = tkinter.OptionMenu(
             choices_frame,
             self.language_var,
@@ -132,13 +134,24 @@ class PollyMouth:
 
         choices_frame.grid(row=1, column=1, sticky=tkinter.N)
         self.engine_label.grid(row=0, column=0, sticky=tkinter.N, pady=10)
-        self.engine_options.grid(row=0, column=1, sticky=tkinter.NW, padx=5, pady=10)
+        self.engine_options.grid(
+            row=0,
+            column=1,
+            sticky=tkinter.NW,
+            padx=5,
+            pady=10)
         self.engine_options.configure(width=18)
         self.language_label.grid(row=1, column=0, sticky=tkinter.N, pady=10)
-        self.language_options.grid(row=1, column=1, sticky=tkinter.NW, padx=5, pady=10)
+        self.language_options.grid(
+            row=1, column=1, sticky=tkinter.NW, padx=5, pady=10)
         self.language_options.configure(width=18)
         self.voice_label.grid(row=2, column=0, sticky=tkinter.N, pady=10)
-        self.voice_options.grid(row=2, column=1, sticky=tkinter.NW, padx=5, pady=10)
+        self.voice_options.grid(
+            row=2,
+            column=1,
+            sticky=tkinter.NW,
+            padx=5,
+            pady=10)
         self.voice_options.configure(width=18)
         self.face_canvas.grid(row=3, columnspan=2, padx=10)
 
@@ -152,13 +165,15 @@ class PollyMouth:
         and saves image data in a dictionary of visemes.
         """
         if os.path.isdir(".media"):
-            logger.info("Found .media folder. Loading images from the local folder.")
+            logger.info(
+                "Found .media folder. Loading images from the local folder.")
             for viseme in self.lips:
                 self.lips[viseme]["image"] = tkinter.PhotoImage(
                     file=self.lips[viseme]["name"]
                 )
         else:
-            logger.info("No local .media folder. Trying to load images from GitHub.")
+            logger.info(
+                "No local .media folder. Trying to load images from GitHub.")
             for viseme in self.lips:
                 url = GITHUB_URL + self.lips[viseme]["name"]
                 resp = requests.get(url)
@@ -235,8 +250,11 @@ class PollyMouth:
                 wait_time,
             )
             self.app.after(
-                wait_time, self.animate_lips, start_time, next_viseme, viseme_iter
-            )
+                wait_time,
+                self.animate_lips,
+                start_time,
+                next_viseme,
+                viseme_iter)
         except StopIteration:
             pass
 
@@ -248,7 +266,11 @@ class PollyMouth:
         :param task_type: The type of synthesis task (either 'speech' or 'viseme').
         :param task_status: The status of the task.
         """
-        self.loading_text.grid(row=0, rowspan=4, columnspan=2, sticky=tkinter.NSEW)
+        self.loading_text.grid(
+            row=0,
+            rowspan=4,
+            columnspan=2,
+            sticky=tkinter.NSEW)
         self.loading_text.configure(
             text=f"Waiting for {task_type}. Current status: {task_status}."
         )
@@ -310,15 +332,18 @@ class PollyMouth:
                 if not os.path.isdir(".media"):
                     silence = GITHUB_URL + silence
                 # Play a short silent audio file to ensure playsound is loaded and
-                # ready. Without this, the audio tends to lag behind viseme playback.
+                # ready. Without this, the audio tends to lag behind viseme
+                # playback.
                 playsound(silence)
                 playsound(speech_file_name, block=False)
                 start_time = time.time_ns() // 1000000
                 self.app.after(
-                    0, self.animate_lips, start_time, {"value": "sil"}, iter(visemes)
-                )
+                    0, self.animate_lips, start_time, {
+                        "value": "sil"}, iter(visemes))
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
     PollyMouth(PollyWrapper(boto3.client("polly"), boto3.resource("s3")))

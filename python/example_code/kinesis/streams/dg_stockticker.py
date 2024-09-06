@@ -13,6 +13,7 @@ and Aggregation_ examples in the Amazon Kinesis Data Analytics SQL Developer Gui
 import datetime
 import json
 import random
+
 import boto3
 
 STREAM_NAME = "ExampleInputStream"
@@ -31,8 +32,9 @@ def generate(stream_name, kinesis_client):
         data = get_data()
         print(data)
         kinesis_client.put_record(
-            StreamName=stream_name, Data=json.dumps(data), PartitionKey="partitionkey"
-        )
+            StreamName=stream_name,
+            Data=json.dumps(data),
+            PartitionKey="partitionkey")
 
 
 if __name__ == "__main__":

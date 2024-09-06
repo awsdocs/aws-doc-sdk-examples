@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from botocore.exceptions import ClientError
 import pytest
+from botocore.exceptions import ClientError
 
 
 class MockManager:
@@ -58,9 +58,11 @@ def mock_mgr(stub_runner, cluster_data, input_mocker):
 
 
 def test_create_instance_exists(mock_mgr, capsys):
-    mock_mgr.cluster_data.stubber.stub_describe_db_instances(mock_mgr.cluster_id)
+    mock_mgr.cluster_data.stubber.stub_describe_db_instances(
+        mock_mgr.cluster_id)
 
-    got_output = mock_mgr.cluster_data.scenario.create_instance(*mock_mgr.scenario_args)
+    got_output = mock_mgr.cluster_data.scenario.create_instance(
+        *mock_mgr.scenario_args)
 
     capt = capsys.readouterr()
     assert got_output == mock_mgr.scenario_out
@@ -73,7 +75,8 @@ def test_create_instance_exists(mock_mgr, capsys):
 def test_create_instance(mock_mgr, capsys):
     mock_mgr.setup_stubs(None, None, mock_mgr.cluster_data.stubber)
 
-    got_output = mock_mgr.cluster_data.scenario.create_instance(*mock_mgr.scenario_args)
+    got_output = mock_mgr.cluster_data.scenario.create_instance(
+        *mock_mgr.scenario_args)
 
     capt = capsys.readouterr()
     assert got_output == mock_mgr.scenario_out

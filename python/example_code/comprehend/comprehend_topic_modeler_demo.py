@@ -9,17 +9,18 @@ topic modeling job on sample data. After the job completes, the output is retrie
 from Amazon S3 and extracted from its compressed format.
 """
 
+from demo_tools.custom_waiter import CustomWaiter, WaitState
 import logging
-from pprint import pprint
 import sys
-import boto3
+from pprint import pprint
 
+import boto3
 from comprehend_demo_resources import ComprehendDemoResources
 from comprehend_topic_modeler import ComprehendTopicModeler, JobInputFormat
 
-# Add relative path to include demo_tools in this code example without need for setup.
+# Add relative path to include demo_tools in this code example without
+# need for setup.
 sys.path.append("../..")
-from demo_tools.custom_waiter import CustomWaiter, WaitState
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +48,9 @@ def usage_demo():
     print("Welcome to the Amazon Comprehend topic modeling demo!")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     input_prefix = "input/"
     output_prefix = "output/"
@@ -77,8 +80,7 @@ def usage_demo():
 
     print(
         f"Waiting for job {job_info['JobId']} to complete. This typically takes "
-        f"20 - 30 minutes."
-    )
+        f"20 - 30 minutes.")
     job_waiter = JobCompleteWaiter(topic_modeler.comprehend_client)
     job_waiter.wait(job_info["JobId"])
 

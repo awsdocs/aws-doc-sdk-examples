@@ -5,7 +5,7 @@ import base64
 import json
 import logging
 import time
-from os import remove, chmod
+from os import chmod, remove
 
 import boto3
 from botocore.exceptions import ClientError
@@ -85,8 +85,12 @@ class AutoScaler:
 
     # snippet-start:[python.cross_service.resilient_service.iam.CreateInstanceProfile]
     def create_instance_profile(
-        self, policy_file, policy_name, role_name, profile_name, aws_managed_policies=()
-    ):
+            self,
+            policy_file,
+            policy_name,
+            role_name,
+            profile_name,
+            aws_managed_policies=()):
         """
         Creates a policy, role, and profile that is associated with instances created by
         this class. An instance's associated profile defines a role that is assumed by the
@@ -125,31 +129,40 @@ class AutoScaler:
             log.info("Created policy with ARN %s.", policy_arn)
         except ClientError as err:
             if err.response["Error"]["Code"] == "EntityAlreadyExists":
-                log.info("Policy %s already exists, nothing to do.", policy_name)
-                list_pol_response = self.iam_client.list_policies(Scope="Local")
+                log.info(
+                    "Policy %s already exists, nothing to do.",
+                    policy_name)
+                list_pol_response = self.iam_client.list_policies(
+                    Scope="Local")
                 for pol in list_pol_response["Policies"]:
                     if pol["PolicyName"] == policy_name:
                         policy_arn = pol["Arn"]
                         break
             if policy_arn is None:
-                raise AutoScalerError(f"Couldn't create policy {policy_name}: {err}")
+                raise AutoScalerError(
+                    f"Couldn't create policy {policy_name}: {err}")
 
         try:
             self.iam_client.create_role(
-                RoleName=role_name, AssumeRolePolicyDocument=json.dumps(assume_role_doc)
-            )
-            self.iam_client.attach_role_policy(RoleName=role_name, PolicyArn=policy_arn)
+                RoleName=role_name,
+                AssumeRolePolicyDocument=json.dumps(assume_role_doc))
+            self.iam_client.attach_role_policy(
+                RoleName=role_name, PolicyArn=policy_arn)
             for aws_policy in aws_managed_policies:
                 self.iam_client.attach_role_policy(
                     RoleName=role_name,
                     PolicyArn=f"arn:aws:iam::aws:policy/{aws_policy}",
                 )
-            log.info("Created role %s and attached policy %s.", role_name, policy_arn)
+            log.info(
+                "Created role %s and attached policy %s.",
+                role_name,
+                policy_arn)
         except ClientError as err:
             if err.response["Error"]["Code"] == "EntityAlreadyExists":
                 log.info("Role %s already exists, nothing to do.", role_name)
             else:
-                raise AutoScalerError(f"Couldn't create role {role_name}: {err}")
+                raise AutoScalerError(
+                    f"Couldn't create role {role_name}: {err}")
 
         try:
             profile_response = self.iam_client.create_instance_profile(
@@ -162,7 +175,10 @@ class AutoScaler:
             self.iam_client.add_role_to_instance_profile(
                 InstanceProfileName=profile_name, RoleName=role_name
             )
-            log.info("Created profile %s and added role %s.", profile_name, role_name)
+            log.info(
+                "Created profile %s and added role %s.",
+                profile_name,
+                role_name)
         except ClientError as err:
             if err.response["Error"]["Code"] == "EntityAlreadyExists":
                 prof_response = self.iam_client.get_instance_profile(
@@ -170,13 +186,12 @@ class AutoScaler:
                 )
                 profile_arn = prof_response["InstanceProfile"]["Arn"]
                 log.info(
-                    "Instance profile %s already exists, nothing to do.", profile_name
-                )
+                    "Instance profile %s already exists, nothing to do.",
+                    profile_name)
             else:
                 raise AutoScalerError(
                     f"Couldn't create profile {profile_name} and attach it to role\n"
-                    f"{role_name}: {err}"
-                )
+                    f"{role_name}: {err}")
         return profile_arn
 
     # snippet-end:[python.cross_service.resilient_service.iam.CreateInstanceProfile]
@@ -191,8 +206,7 @@ class AutoScaler:
         """
         try:
             response = self.ec2_client.describe_iam_instance_profile_associations(
-                Filters=[{"Name": "instance-id", "Values": [instance_id]}]
-            )
+                Filters=[{"Name": "instance-id", "Values": [instance_id]}])
         except ClientError as err:
             raise AutoScalerError(
                 f"Couldn't get instance profile association for instance {instance_id}: {err}"
@@ -248,7 +262,9 @@ class AutoScaler:
                 DocumentName="AWS-RunShellScript",
                 Parameters={"commands": ["cd / && sudo python3 server.py 80"]},
             )
-            log.info("Restarted the Python web server on instance %s.", instance_id)
+            log.info(
+                "Restarted the Python web server on instance %s.",
+                instance_id)
         except ClientError as err:
             raise AutoScalerError(
                 f"Couldn't replace instance profile for association {profile_association_id}: {err}"
@@ -269,7 +285,8 @@ class AutoScaler:
             self.iam_client.remove_role_from_instance_profile(
                 InstanceProfileName=profile_name, RoleName=role_name
             )
-            self.iam_client.delete_instance_profile(InstanceProfileName=profile_name)
+            self.iam_client.delete_instance_profile(
+                InstanceProfileName=profile_name)
             log.info("Deleted instance profile %s.", profile_name)
             attached_policies = self.iam_client.list_attached_role_policies(
                 RoleName=role_name
@@ -286,13 +303,12 @@ class AutoScaler:
         except ClientError as err:
             if err.response["Error"]["Code"] == "NoSuchEntity":
                 log.info(
-                    "Instance profile %s doesn't exist, nothing to do.", profile_name
-                )
+                    "Instance profile %s doesn't exist, nothing to do.",
+                    profile_name)
             else:
                 raise AutoScalerError(
                     f"Couldn't delete instance profile {profile_name} or detach "
-                    f"policies and delete role {role_name}: {err}"
-                )
+                    f"policies and delete role {role_name}: {err}")
 
     # snippet-end:[python.cross_service.resilient_service.iam.DeleteInstanceProfile]
 
@@ -311,7 +327,8 @@ class AutoScaler:
             chmod(f"{key_pair_name}.pem", 0o600)
             log.info("Created key pair %s.", key_pair_name)
         except ClientError as err:
-            raise AutoScalerError(f"Couldn't create key pair {key_pair_name}: {err}")
+            raise AutoScalerError(
+                f"Couldn't create key pair {key_pair_name}: {err}")
 
     # snippet-end:[python.cross_service.resilient_service.ec2.CreateKeyPair]
 
@@ -331,11 +348,13 @@ class AutoScaler:
                 f"Couldn't delete key pair {self.key_pair_name}: {err}"
             )
         except FileNotFoundError:
-            log.info("Key pair %s doesn't exist, nothing to do.", self.key_pair_name)
+            log.info(
+                "Key pair %s doesn't exist, nothing to do.",
+                self.key_pair_name)
         except PermissionError:
             log.info(
-                "Inadequate permissions to delete key pair %s.", self.key_pair_name
-            )
+                "Inadequate permissions to delete key pair %s.",
+                self.key_pair_name)
         except Exception as err:
             raise AutoScalerError(
                 f"Couldn't delete key pair {self.key_pair_name}: {err}"
@@ -344,7 +363,10 @@ class AutoScaler:
     # snippet-end:[python.cross_service.resilient_service.ec2.DeleteKeyPair]
 
     # snippet-start:[python.cross_service.resilient_service.ec2.CreateLaunchTemplate]
-    def create_template(self, server_startup_script_file, instance_policy_file):
+    def create_template(
+            self,
+            server_startup_script_file,
+            instance_policy_file):
         """
         Creates an Amazon EC2 launch template to use with Amazon EC2 Auto Scaling. The
         launch template specifies a Bash script in its user data field that runs after
@@ -444,7 +466,8 @@ class AutoScaler:
         """
         try:
             response = self.ec2_client.describe_availability_zones()
-            zones = [zone["ZoneName"] for zone in response["AvailabilityZones"]]
+            zones = [zone["ZoneName"]
+                     for zone in response["AvailabilityZones"]]
         except ClientError as err:
             raise AutoScalerError(f"Couldn't get availability zones: {err}.")
         else:
@@ -530,7 +553,8 @@ class AutoScaler:
             )
             log.info("Terminated instance %s.", instance_id)
         except ClientError as err:
-            raise AutoScalerError(f"Couldn't terminate instance {instance_id}: {err}")
+            raise AutoScalerError(
+                f"Couldn't terminate instance {instance_id}: {err}")
 
     # snippet-start:[python.cross_service.resilient_service.auto-scaling.AttachLoadBalancerTargetGroups]
     def attach_load_balancer_target_group(self, lb_target_group):
@@ -554,8 +578,7 @@ class AutoScaler:
         except ClientError as err:
             raise AutoScalerError(
                 f"Couldn't attach load balancer target group {lb_target_group['TargetGroupName']}\n"
-                f"to auto scaling group {self.group_name}"
-            )
+                f"to auto scaling group {self.group_name}")
 
     # snippet-end:[python.cross_service.resilient_service.auto-scaling.AttachLoadBalancerTargetGroups]
 
@@ -566,15 +589,17 @@ class AutoScaler:
         while not stopping:
             try:
                 self.autoscaling_client.terminate_instance_in_auto_scaling_group(
-                    InstanceId=inst_id, ShouldDecrementDesiredCapacity=True
-                )
+                    InstanceId=inst_id, ShouldDecrementDesiredCapacity=True)
                 stopping = True
             except ClientError as err:
                 if err.response["Error"]["Code"] == "ScalingActivityInProgress":
-                    log.info("Scaling activity in progress for %s. Waiting...", inst_id)
+                    log.info(
+                        "Scaling activity in progress for %s. Waiting...",
+                        inst_id)
                     time.sleep(10)
                 else:
-                    raise AutoScalerError(f"Couldn't stop instance {inst_id}: {err}.")
+                    raise AutoScalerError(
+                        f"Couldn't stop instance {inst_id}: {err}.")
 
     def _try_delete_group(self):
         """
@@ -616,14 +641,18 @@ class AutoScaler:
                 self.autoscaling_client.update_auto_scaling_group(
                     AutoScalingGroupName=self.group_name, MinSize=0
                 )
-                instance_ids = [inst["InstanceId"] for inst in groups[0]["Instances"]]
+                instance_ids = [inst["InstanceId"]
+                                for inst in groups[0]["Instances"]]
                 for inst_id in instance_ids:
                     self._try_terminate_instance(inst_id)
                 self._try_delete_group()
             else:
-                log.info("No groups found named %s, nothing to do.", self.group_name)
+                log.info(
+                    "No groups found named %s, nothing to do.",
+                    self.group_name)
         except ClientError as err:
-            raise AutoScalerError(f"Couldn't delete group {self.group_name}: {err}.")
+            raise AutoScalerError(
+                f"Couldn't delete group {self.group_name}: {err}.")
 
     # snippet-end:[python.cross_service.resilient_service.auto-scaling.DeleteAutoScalingGroup]
 

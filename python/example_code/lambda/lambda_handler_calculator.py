@@ -12,10 +12,10 @@ invocation.
 import logging
 import os
 
-
 logger = logging.getLogger()
 
-# Define a list of Python lambda functions that are called by this AWS Lambda function.
+# Define a list of Python lambda functions that are called by this AWS
+# Lambda function.
 ACTIONS = {
     "plus": lambda x, y: x + y,
     "minus": lambda x, y: x - y,
@@ -34,7 +34,8 @@ def lambda_handler(event, context):
     :param context: The context in which the function is called.
     :return: The result of the specified action.
     """
-    # Set the log level based on a variable configured in the Lambda environment.
+    # Set the log level based on a variable configured in the Lambda
+    # environment.
     logger.setLevel(os.environ.get("LOG_LEVEL", logging.INFO))
     logger.debug("Event: %s", event)
 

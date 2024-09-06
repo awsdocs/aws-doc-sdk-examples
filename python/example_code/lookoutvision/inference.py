@@ -9,12 +9,12 @@ in an image. The image can be local or in an S3 bucket.
 """
 
 import argparse
+import imghdr
+import json
 import logging
 import os
-import json
-import imghdr
-import boto3
 
+import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -27,7 +27,11 @@ class Inference:
     """
 
     @staticmethod
-    def detect_anomalies(lookoutvision_client, project_name, model_version, photo):
+    def detect_anomalies(
+            lookoutvision_client,
+            project_name,
+            model_version,
+            photo):
         """
         Calls DetectAnomalies using the supplied project, model version, and image.
         :param lookoutvision_client: A Lookout for Vision Boto3 client.
@@ -103,8 +107,7 @@ class Inference:
             reject = True
             reject_info = (
                 f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) is greater"
-                f" than limit ({confidence_limit:.2%})"
-            )
+                f" than limit ({confidence_limit:.2%})")
             logger.info("%s", reject_info)
 
         if not reject:
@@ -142,8 +145,7 @@ class Inference:
                     f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) "
                     f"is greater than limit ({confidence_limit:.2%}) and "
                     f"the number of anomaly types ({len(anomaly_types)-1}) is "
-                    f"greater than the limit ({anomaly_types_limit})"
-                )
+                    f"greater than the limit ({anomaly_types_limit})")
 
                 logger.info("%s", reject_info)
 
@@ -180,8 +182,7 @@ class Inference:
                         f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) "
                         f"is greater than limit ({confidence_limit:.2%}) and {anomaly['Name']} "
                         f"coverage ({anomaly['PixelAnomaly']['TotalPercentageArea']:.2%}) "
-                        f"is greater than limit ({coverage_limit:.2%})"
-                    )
+                        f"is greater than limit ({coverage_limit:.2%})")
 
                     logger.info("%s", reject_info)
 
@@ -218,7 +219,8 @@ class Inference:
 
         anomalies = []
 
-        reject = Inference.reject_on_classification(image, prediction, confidence_limit)
+        reject = Inference.reject_on_classification(
+            image, prediction, confidence_limit)
 
         if reject:
             anomalies.append("Classification: An anomaly was found.")
@@ -235,7 +237,8 @@ class Inference:
         )
 
         if reject:
-            anomalies.append("Anomaly type count: Too many anomaly types found.")
+            anomalies.append(
+                "Anomaly type count: Too many anomaly types found.")
             print()
 
         if len(anomalies) > 0:
@@ -251,7 +254,9 @@ def main():
     Detects anomalies in an image file.
     """
     try:
-        logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+        logging.basicConfig(
+            level=logging.INFO,
+            format="%(levelname)s: %(message)s")
 
         parser = argparse.ArgumentParser(
             description="Find anomalies with Amazon Lookout for Vision."
@@ -262,13 +267,10 @@ def main():
             "path to an S3 object.",
         )
         parser.add_argument(
-            "config",
-            help=(
+            "config", help=(
                 "The configuration JSON file to use. "
                 "See https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/"
-                "python/example_code/lookoutvision/README.md"
-            ),
-        )
+                "python/example_code/lookoutvision/README.md"), )
 
         args = parser.parse_args()
 

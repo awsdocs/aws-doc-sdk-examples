@@ -9,7 +9,6 @@ set up stubs and passes all calls through to the Boto 3 client.
 """
 
 from botocore.stub import ANY
-
 from test_tools.example_stubber import ExampleStubber
 
 
@@ -45,10 +44,13 @@ class SqsStubber(ExampleStubber):
         expected_params = {"AttributeNames": ["All"], "QueueUrl": url}
         response = {"Attributes": {"QueueArn": arn}}
         self._stub_bifurcator(
-            "get_queue_attributes", expected_params, response, error_code=error_code
-        )
+            "get_queue_attributes",
+            expected_params,
+            response,
+            error_code=error_code)
 
-    def stub_list_dead_letter_source_queues(self, dl_url, source_urls, error_code=None):
+    def stub_list_dead_letter_source_queues(
+            self, dl_url, source_urls, error_code=None):
         expected_params = {"QueueUrl": dl_url}
         response = {"queueUrls": source_urls}
         self._stub_bifurcator(
@@ -74,9 +76,18 @@ class SqsStubber(ExampleStubber):
 
     def stub_delete_queue(self, url, error_code=None):
         expected_params = {"QueueUrl": url}
-        self._stub_bifurcator("delete_queue", expected_params, error_code=error_code)
+        self._stub_bifurcator(
+            "delete_queue",
+            expected_params,
+            error_code=error_code)
 
-    def stub_send_message(self, url, body, attributes, message_id, error_code=None):
+    def stub_send_message(
+            self,
+            url,
+            body,
+            attributes,
+            message_id,
+            error_code=None):
         expected_params = {
             "QueueUrl": url,
             "MessageBody": body,
@@ -111,8 +122,10 @@ class SqsStubber(ExampleStubber):
             "Failed": [],
         }
         self._stub_bifurcator(
-            "send_message_batch", expected_params, response, error_code=error_code
-        )
+            "send_message_batch",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_receive_messages(
         self,
@@ -156,7 +169,10 @@ class SqsStubber(ExampleStubber):
             expected_params["ReceiptHandle"] = message.receipt_handle
         elif receipt_handle is not None:
             expected_params["ReceiptHandle"] = receipt_handle
-        self._stub_bifurcator("delete_message", expected_params, error_code=error_code)
+        self._stub_bifurcator(
+            "delete_message",
+            expected_params,
+            error_code=error_code)
 
     def stub_delete_message_batch(
         self, url, messages, successes, failures, error_code=None
@@ -176,10 +192,16 @@ class SqsStubber(ExampleStubber):
             ],
         }
         self._stub_bifurcator(
-            "delete_message_batch", expected_params, response, error_code=error_code
-        )
+            "delete_message_batch",
+            expected_params,
+            response,
+            error_code=error_code)
 
-    def stub_set_queue_attributes(self, queue_url, attributes, error_code=None):
+    def stub_set_queue_attributes(
+            self,
+            queue_url,
+            attributes,
+            error_code=None):
         expected_params = {"QueueUrl": queue_url, "Attributes": attributes}
         self._stub_bifurcator(
             "set_queue_attributes", expected_params, error_code=error_code

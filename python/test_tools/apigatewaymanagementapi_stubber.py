@@ -36,5 +36,7 @@ class ApiGatewayManagementApiStubber(ExampleStubber):
         expected_params = {"Data": message, "ConnectionId": connection_id}
         response = {}
         self._stub_bifurcator(
-            "post_to_connection", expected_params, response, error_code=error_code
-        )
+            "post_to_connection",
+            expected_params,
+            response,
+            error_code=error_code)

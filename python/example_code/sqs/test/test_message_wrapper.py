@@ -5,11 +5,9 @@
 Unit tests for message_wrapper.py functions.
 """
 
-import pytest
-
-from botocore.exceptions import ClientError
-
 import message_wrapper
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(
@@ -45,7 +43,8 @@ def test_send_message_no_body(make_stubber, make_queue):
     sqs_stubber = make_stubber(message_wrapper.sqs.meta.client)
     queue = make_queue(sqs_stubber, message_wrapper.sqs)
 
-    sqs_stubber.stub_send_message(queue.url, "", {}, "", error_code="MissingParameter")
+    sqs_stubber.stub_send_message(
+        queue.url, "", {}, "", error_code="MissingParameter")
 
     with pytest.raises(ClientError) as exc_info:
         message_wrapper.send_message(queue, "")
@@ -67,7 +66,12 @@ def test_send_message_no_body(make_stubber, make_queue):
         ("Just {} message.", {}, 1),
     ],
 )
-def test_send_messages(make_stubber, make_queue, body_template, attributes, count):
+def test_send_messages(
+        make_stubber,
+        make_queue,
+        body_template,
+        attributes,
+        count):
     """Test that sending various batches of messages returns the expected list of
     successful sends."""
     sqs_stubber = make_stubber(message_wrapper.sqs.meta.client)
@@ -91,9 +95,8 @@ def test_send_messages_wrong_size(make_stubber, make_queue, count):
     sqs_stubber = make_stubber(message_wrapper.sqs.meta.client)
     queue = make_queue(sqs_stubber, message_wrapper.sqs)
 
-    messages = [
-        {"body": f"Another body {ind}", "attributes": {}} for ind in range(0, count)
-    ]
+    messages = [{"body": f"Another body {ind}", "attributes": {}}
+                for ind in range(0, count)]
 
     sqs_stubber.stub_send_message_batch(
         queue.url,
@@ -117,9 +120,8 @@ def test_send_messages_wrong_size(make_stubber, make_queue, count):
         )
 
 
-@pytest.mark.parametrize(
-    "send_count,receive_count,wait_time", [(5, 3, 5), (2, 10, 0), (1, 1, 1), (0, 5, 0)]
-)
+@pytest.mark.parametrize("send_count,receive_count,wait_time",
+                         [(5, 3, 5), (2, 10, 0), (1, 1, 1), (0, 5, 0)])
 def test_receive_messages(
     make_stubber, make_queue, send_count, receive_count, wait_time
 ):
@@ -180,13 +182,15 @@ def test_delete_messages(make_stubber, make_queue, message_count):
     sqs_stubber.stub_receive_messages(queue.url, messages, message_count)
 
     message_wrapper.send_messages(queue, messages)
-    messages = message_wrapper.receive_messages(queue, message_count, wait_time)
+    messages = message_wrapper.receive_messages(
+        queue, message_count, wait_time)
 
     if message_count == 1:
         sqs_stubber.stub_delete_message(queue.url, messages[0])
         messages[0].delete()
     else:
-        sqs_stubber.stub_delete_message_batch(queue.url, messages, len(messages), 0)
+        sqs_stubber.stub_delete_message_batch(
+            queue.url, messages, len(messages), 0)
         message_wrapper.delete_messages(queue, messages)
 
 
@@ -210,11 +214,11 @@ def test_delete_messages_not_exist(make_stubber, make_queue):
     and returns the expected list of failed messages."""
     sqs_stubber = make_stubber(message_wrapper.sqs.meta.client)
     queue = make_queue(sqs_stubber, message_wrapper.sqs)
-    messages = [
-        queue.Message(receipt_handle=f"fake-handle-{ind}") for ind in range(0, 5)
-    ]
+    messages = [queue.Message(
+        receipt_handle=f"fake-handle-{ind}") for ind in range(0, 5)]
 
-    sqs_stubber.stub_delete_message_batch(queue.url, messages, 0, len(messages))
+    sqs_stubber.stub_delete_message_batch(
+        queue.url, messages, 0, len(messages))
 
     response = message_wrapper.delete_messages(queue, messages)
 

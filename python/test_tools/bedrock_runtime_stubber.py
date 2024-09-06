@@ -10,6 +10,7 @@ set up stubs and passes all calls through to the Boto3 client.
 
 import io
 import json
+
 from test_tools.example_stubber import ExampleStubber
 
 
@@ -42,9 +43,7 @@ class BedrockRuntimeStubber(ExampleStubber):
         }
 
         response = {
-            "body": io.BytesIO(
-                '{ "outputs": [ { "text": "Fake completion" } ] }'.encode("utf-8")
-            ),
+            "body": io.BytesIO(b'{ "outputs": [ { "text": "Fake completion" } ] }'),
             "contentType": "",
         }
 
@@ -65,9 +64,7 @@ class BedrockRuntimeStubber(ExampleStubber):
         }
 
         response = {
-            "body": io.BytesIO(
-                '{ "outputs": [ { "text": "Fake completion" } ] }'.encode("utf-8")
-            ),
+            "body": io.BytesIO(b'{ "outputs": [ { "text": "Fake completion" } ] }'),
             "contentType": "",
         }
 
@@ -89,9 +86,7 @@ class BedrockRuntimeStubber(ExampleStubber):
         }
 
         response = {
-            "body": io.BytesIO(
-                '{ "completion": "Fake completion response" }'.encode("utf-8")
-            ),
+            "body": io.BytesIO(b'{ "completion": "Fake completion response" }'),
             "contentType": "",
         }
         self._stub_bifurcator(
@@ -126,9 +121,8 @@ class BedrockRuntimeStubber(ExampleStubber):
             ),
         }
 
-        response_body = io.BytesIO(
-            json.dumps({"generation": "Fake completion response."}).encode("utf-8")
-        )
+        response_body = io.BytesIO(json.dumps(
+            {"generation": "Fake completion response."}).encode("utf-8"))
 
         response = {"body": response_body, "contentType": ""}
 
@@ -156,7 +150,12 @@ class BedrockRuntimeStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_invoke_stable_diffusion(self, prompt, style_preset, seed, error_code=None):
+    def stub_invoke_stable_diffusion(
+            self,
+            prompt,
+            style_preset,
+            seed,
+            error_code=None):
         expected_params = {
             "modelId": "stability.stable-diffusion-xl",
             "body": json.dumps(

@@ -6,9 +6,8 @@ Unit tests for datasets.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from datasets import Datasets
 
 
@@ -85,10 +84,12 @@ def test_create_manifest_file_s3(make_stubber, monkeypatch, error_code):
         mani.write("Test manifest.")
 
     if error_code is None:
-        Datasets.create_manifest_file_s3(s3_resource, image_path, manifest_path)
+        Datasets.create_manifest_file_s3(
+            s3_resource, image_path, manifest_path)
     else:
         with pytest.raises(ClientError) as exc_info:
-            Datasets.create_manifest_file_s3(s3_resource, image_path, manifest_path)
+            Datasets.create_manifest_file_s3(
+                s3_resource, image_path, manifest_path)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -104,10 +105,14 @@ def test_delete_dataset(make_stubber, error_code):
     )
 
     if error_code is None:
-        Datasets.delete_dataset(lookoutvision_client, project_name, dataset_type)
+        Datasets.delete_dataset(
+            lookoutvision_client,
+            project_name,
+            dataset_type)
     else:
         with pytest.raises(ClientError) as exc_info:
-            Datasets.delete_dataset(lookoutvision_client, project_name, dataset_type)
+            Datasets.delete_dataset(
+                lookoutvision_client, project_name, dataset_type)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -122,14 +127,22 @@ def test_describe_dataset(make_stubber, error_code):
     image_stats = {"Total": 5, "Labeled": 2, "Normal": 2, "Anomaly": 1}
 
     lookoutvision_stubber.stub_describe_dataset(
-        project_name, dataset_type, status, message, image_stats, error_code=error_code
-    )
+        project_name,
+        dataset_type,
+        status,
+        message,
+        image_stats,
+        error_code=error_code)
 
     if error_code is None:
-        Datasets.describe_dataset(lookoutvision_client, project_name, dataset_type)
+        Datasets.describe_dataset(
+            lookoutvision_client,
+            project_name,
+            dataset_type)
     else:
         with pytest.raises(ClientError) as exc_info:
-            Datasets.describe_dataset(lookoutvision_client, project_name, dataset_type)
+            Datasets.describe_dataset(
+                lookoutvision_client, project_name, dataset_type)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -149,8 +162,7 @@ def test_update_dataset_entries(make_stubber, error_code):
         changes = f.read()
 
     lookoutvision_stubber.stub_update_dataset_entries(
-        project_name, dataset_type, changes, status_running, error_code=error_code
-    )
+        project_name, dataset_type, changes, status_running, error_code=error_code)
     if error_code is None:
         lookoutvision_stubber.stub_describe_dataset(
             project_name, dataset_type, status_complete, message

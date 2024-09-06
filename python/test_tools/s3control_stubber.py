@@ -8,10 +8,8 @@ When tests are run against an actual AWS account, the stubber class does not
 set up stubs and passes all calls through to the Boto 3 client.
 """
 
-import io
-import json
-from botocore.stub import ANY
 
+from botocore.stub import ANY
 from test_tools.example_stubber import ExampleStubber
 
 
@@ -85,7 +83,12 @@ class S3ControlStubber(ExampleStubber):
                 service_error_code=error_code,
             )
 
-    def stub_describe_job(self, account_id, job_id, status="Complete", error_code=None):
+    def stub_describe_job(
+            self,
+            account_id,
+            job_id,
+            status="Complete",
+            error_code=None):
         expected_params = {"AccountId": account_id, "JobId": job_id}
         if not error_code:
             self.add_response(

@@ -1,10 +1,9 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from botocore.exceptions import ClientError, WaiterError
 import pytest
-
 from auto_scaler import AutoScalerError
+from botocore.exceptions import WaiterError
 from load_balancer import LoadBalancerError
 from recommendation_service import RecommendationServiceError
 
@@ -44,10 +43,9 @@ class MockManager:
                 self.scenario_data.tg_arn,
             )
             runner.add(
-                self.scenario_data.auto_scaling.stubber.stub_describe_auto_scaling_groups,
-                [self.scenario_data.asg_name],
-                [self.scenario_data.asg_group],
-            )
+                self.scenario_data.auto_scaling.stubber.stub_describe_auto_scaling_groups, [
+                    self.scenario_data.asg_name], [
+                    self.scenario_data.asg_group], )
             runner.add(
                 self.scenario_data.auto_scaling.stubber.stub_update_auto_scaling_group,
                 self.scenario_data.asg_name,

@@ -8,10 +8,9 @@ Unit tests for ses_receipt_handler.py.
 """
 
 import boto3
+import pytest
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-import pytest
-
 from ses_receipt_handler import SesReceiptHandler
 
 
@@ -30,10 +29,12 @@ def test_create_receipt_filter(make_stubber, allow, error_code):
     )
 
     if error_code is None:
-        ses_receipt.create_receipt_filter(filter_name, ip_address_or_range, allow)
+        ses_receipt.create_receipt_filter(
+            filter_name, ip_address_or_range, allow)
     else:
         with pytest.raises(ClientError) as exc_info:
-            ses_receipt.create_receipt_filter(filter_name, ip_address_or_range, allow)
+            ses_receipt.create_receipt_filter(
+                filter_name, ip_address_or_range, allow)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -85,7 +86,8 @@ def test_create_receipt_rule_set(make_stubber, error_code):
     ses_receipt = SesReceiptHandler(ses_client, None)
     rule_set_name = "test-rule-set"
 
-    ses_stubber.stub_create_receipt_rule_set(rule_set_name, error_code=error_code)
+    ses_stubber.stub_create_receipt_rule_set(
+        rule_set_name, error_code=error_code)
 
     if error_code is None:
         ses_receipt.create_receipt_rule_set(rule_set_name)
@@ -103,7 +105,11 @@ def test_create_receipt_rule_set(make_stubber, error_code):
         ("TestException", "stub_put_bucket_policy"),
     ],
 )
-def test_create_bucket_for_copy(make_stubber, stub_runner, error_code, stop_on_method):
+def test_create_bucket_for_copy(
+        make_stubber,
+        stub_runner,
+        error_code,
+        stop_on_method):
     s3_resource = boto3.resource("s3")
     s3_stubber = make_stubber(s3_resource.meta.client)
     ses_receipt = SesReceiptHandler(None, s3_resource)
@@ -140,7 +146,8 @@ def test_create_s3_copy_rule(make_stubber, error_code):
     recipients = ["me", "myself", "I"]
     bucket_name = "doc-example-bucket"
     prefix = "mymails/"
-    actions = [{"S3Action": {"BucketName": bucket_name, "ObjectKeyPrefix": prefix}}]
+    actions = [
+        {"S3Action": {"BucketName": bucket_name, "ObjectKeyPrefix": prefix}}]
 
     ses_stubber.stub_create_receipt_rule(
         rule_set_name, rule_name, recipients, actions, error_code=error_code
@@ -168,7 +175,8 @@ def test_describe_receipt_rule_set(make_stubber, error_code):
     recipients = ["me", "myself", "I"]
     bucket_name = "doc-example-bucket"
     prefix = "mymails/"
-    actions = [{"S3Action": {"BucketName": bucket_name, "ObjectKeyPrefix": prefix}}]
+    actions = [
+        {"S3Action": {"BucketName": bucket_name, "ObjectKeyPrefix": prefix}}]
 
     ses_stubber.stub_describe_receipt_rule_set(
         rule_set_name, rule_name, recipients, actions, error_code=error_code
@@ -214,7 +222,8 @@ def test_delete_receipt_rule_set(make_stubber, error_code):
     ses_receipt = SesReceiptHandler(ses_client, None)
     rule_set_name = "test-rule-set"
 
-    ses_stubber.stub_delete_receipt_rule_set(rule_set_name, error_code=error_code)
+    ses_stubber.stub_delete_receipt_rule_set(
+        rule_set_name, error_code=error_code)
 
     if error_code is None:
         ses_receipt.delete_receipt_rule_set(rule_set_name)

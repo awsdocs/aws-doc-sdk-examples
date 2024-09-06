@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from botocore.exceptions import ClientError
 import pytest
+from botocore.exceptions import ClientError
 
 
 class MockManager:
@@ -34,7 +34,11 @@ class MockManager:
         self.password = "test-password"
         self.engine_choice = 1
         self.instance_choice = 1
-        answers = [self.admin, self.password, self.engine_choice, self.instance_choice]
+        answers = [
+            self.admin,
+            self.password,
+            self.engine_choice,
+            self.instance_choice]
         input_mocker.mock_answers(answers)
         self.stub_runner = stub_runner
 
@@ -81,7 +85,8 @@ def mock_mgr(stub_runner, instance_data, input_mocker):
 
 
 def test_create_instance_exist(mock_mgr, capsys):
-    mock_mgr.instance_data.stubber.stub_describe_db_instances(mock_mgr.instance_id)
+    mock_mgr.instance_data.stubber.stub_describe_db_instances(
+        mock_mgr.instance_id)
 
     got_output = mock_mgr.instance_data.scenario.create_instance(
         *mock_mgr.scenario_args
@@ -124,7 +129,8 @@ def test_create_instance_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.instance_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:
-        mock_mgr.instance_data.scenario.create_instance(*mock_mgr.scenario_args)
+        mock_mgr.instance_data.scenario.create_instance(
+            *mock_mgr.scenario_args)
     assert exc_info.value.response["Error"]["Code"] == error
 
     assert error in caplog.text

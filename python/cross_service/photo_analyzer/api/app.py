@@ -15,13 +15,14 @@ lets clients do the following:
 """
 
 import logging
+
 import boto3
-from flask import Flask
-from flask_restful import Api
-from flask_cors import CORS
 from analysis import Analysis
-from photo_list import PhotoList
+from flask import Flask
+from flask_cors import CORS
+from flask_restful import Api
 from photo import Photo
+from photo_list import PhotoList
 from report import Report
 
 logger = logging.getLogger(__name__)
@@ -46,8 +47,7 @@ def create_app(test_config=None):
     if bucket_name is None or bucket_name == "NEED-BUCKET-NAME":
         raise RuntimeError(
             "You must configure this app with an S3 bucket that you own by "
-            "entering the name of the bucket in the BUCKET_NAME field in config.py."
-        )
+            "entering the name of the bucket in the BUCKET_NAME field in config.py.")
 
     # Suppress CORS errors when working with React during development.
     # Remove this when you deploy your application!
@@ -59,7 +59,12 @@ def create_app(test_config=None):
     ses_client = boto3.client("ses")
 
     api.add_resource(PhotoList, "/photos", resource_class_args=(bucket,))
-    api.add_resource(Photo, "/photos/<string:photo_key>", resource_class_args=(bucket,))
+    api.add_resource(
+        Photo,
+        "/photos/<string:photo_key>",
+        resource_class_args=(
+            bucket,
+        ))
     api.add_resource(
         Analysis,
         "/photos/<string:photo_key>/labels",
@@ -75,7 +80,9 @@ def create_app(test_config=None):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
     try:
         create_app().run(
             debug=True

@@ -59,7 +59,9 @@ class ConfigWrapper:
             )
             logger.info("Created configuration rule %s.", rule_name)
         except ClientError:
-            logger.exception("Couldn't create configuration rule %s.", rule_name)
+            logger.exception(
+                "Couldn't create configuration rule %s.",
+                rule_name)
             raise
 
     # snippet-end:[python.example_code.config-service.PutConfigRule]
@@ -109,7 +111,9 @@ def usage_demo():
     print("Welcome to the AWS Config demo!")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     config = ConfigWrapper(boto3.client("config"))
     rule_name = "DemoS3BucketRule"

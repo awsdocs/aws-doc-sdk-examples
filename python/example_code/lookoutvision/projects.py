@@ -13,9 +13,9 @@ about your projects.
 """
 
 import logging
+
 from botocore.exceptions import ClientError
 from models import Models
-
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +40,8 @@ class Projects:
         """
         try:
             logger.info("Creating project: %s", project_name)
-            response = lookoutvision_client.create_project(ProjectName=project_name)
+            response = lookoutvision_client.create_project(
+                ProjectName=project_name)
             project_arn = response["ProjectMetadata"]["ProjectArn"]
             logger.info("project ARN: %s", project_arn)
         except ClientError:
@@ -62,7 +63,8 @@ class Projects:
         """
         try:
             logger.info("Deleting project: %s", project_name)
-            response = lookoutvision_client.delete_project(ProjectName=project_name)
+            response = lookoutvision_client.delete_project(
+                ProjectName=project_name)
             logger.info("Deleted project ARN: %s ", response["ProjectArn"])
         except ClientError as err:
             logger.exception("Couldn't delete project %s.", project_name)

@@ -5,11 +5,11 @@ import datetime
 import logging
 import os
 import re
-from jinja2 import Environment, FileSystemLoader, select_autoescape
 from operator import itemgetter
 from pathlib import Path
 
 import config
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 logger = logging.getLogger(__name__)
 
@@ -196,7 +196,7 @@ class Renderer:
         customs = {}
         section = None
         subsection = None
-        with open(readme_filename, "r", encoding="utf-8") as readme:
+        with open(readme_filename, encoding="utf-8") as readme:
             for line in readme.readlines():
                 if line.lstrip().startswith("<!--custom") and line.rstrip().endswith(
                     "start-->"
@@ -286,6 +286,6 @@ class Renderer:
         print(f"Updated {self.readme_filename}.")
 
     def check(self):
-        with open(self.readme_filename, "r", encoding="utf-8") as f:
+        with open(self.readme_filename, encoding="utf-8") as f:
             readme_current = f.read()
             return readme_current == self.readme_text

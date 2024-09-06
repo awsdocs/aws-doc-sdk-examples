@@ -2,10 +2,10 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from unittest.mock import MagicMock
-from botocore.exceptions import ClientError
-import pytest
 
+import pytest
 import query
+from botocore.exceptions import ClientError
 
 
 class MockManager:
@@ -59,17 +59,20 @@ class MockManager:
 @pytest.fixture
 def mock_mgr(stub_runner, scenario_data, monkeypatch, input_mocker):
     scenario_data.mm_movie = MagicMock(
-        title="test-title", year=1984, release_date="1984-10-31", plot="test-plot"
-    )
+        title="test-title",
+        year=1984,
+        release_date="1984-10-31",
+        plot="test-plot")
 
     monkeypatch.setattr(query, "SSLContext", lambda x: MagicMock())
     monkeypatch.setattr(query, "SigV4AuthProvider", lambda x: MagicMock())
     monkeypatch.setattr(query, "ExecutionProfile", lambda **kw: MagicMock())
     session = MagicMock(
-        execute=lambda s, parameters: MagicMock(
-            all=lambda: [scenario_data.mm_movie], one=lambda: scenario_data.mm_movie
-        )
-    )
+        execute=lambda s,
+        parameters: MagicMock(
+            all=lambda: [
+                scenario_data.mm_movie],
+            one=lambda: scenario_data.mm_movie))
     monkeypatch.setattr(
         query, "Cluster", lambda x, **kw: MagicMock(connect=lambda x: session)
     )
@@ -98,7 +101,8 @@ def test_update_and_restore_table(mock_mgr, capsys):
         ("TESTERROR-stub_get_table", 3),
     ],
 )
-def test_update_and_restore_table_error(mock_mgr, caplog, error, stop_on_index):
+def test_update_and_restore_table_error(
+        mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
     with query.QueryManager("test-cert-path", MagicMock(), "test-ks") as qm:

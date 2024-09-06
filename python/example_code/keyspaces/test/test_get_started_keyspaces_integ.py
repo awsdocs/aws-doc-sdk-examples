@@ -1,12 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-import os
-import pytest
 
+import pytest
 from keyspace import KeyspaceWrapper
 from scenario_get_started_keyspaces import KeyspaceScenario
-from query import QueryManager
 
 
 @pytest.fixture

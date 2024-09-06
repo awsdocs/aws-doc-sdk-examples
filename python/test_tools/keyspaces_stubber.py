@@ -71,8 +71,13 @@ class KeyspacesStubber(ExampleStubber):
         )
 
     def stub_get_table(
-        self, ks_name, table_name, status, table_arn, schema=None, error_code=None
-    ):
+            self,
+            ks_name,
+            table_name,
+            status,
+            table_arn,
+            schema=None,
+            error_code=None):
         expected_params = {"keyspaceName": ks_name, "tableName": table_name}
         response = {
             "keyspaceName": ks_name,

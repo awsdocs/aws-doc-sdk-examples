@@ -8,13 +8,12 @@ Unit tests for rekognition_image_detection.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from rekognition_image_detection import RekognitionImage
 from rekognition_objects import (
-    RekognitionFace,
     RekognitionCelebrity,
+    RekognitionFace,
     RekognitionLabel,
     RekognitionModerationLabel,
     RekognitionText,
@@ -30,7 +29,8 @@ def test_detect_faces(make_stubber, make_faces, error_code):
     image = RekognitionImage(TEST_IMAGE, "test-image", rekognition_client)
     faces = [RekognitionFace(face) for face in make_faces(3, True)]
 
-    rekognition_stubber.stub_detect_faces(image.image, faces, error_code=error_code)
+    rekognition_stubber.stub_detect_faces(
+        image.image, faces, error_code=error_code)
 
     if error_code is None:
         got_faces = image.detect_faces()
@@ -47,8 +47,10 @@ def test_detect_faces(make_stubber, make_faces, error_code):
 def test_compare_faces(make_stubber, make_faces, error_code):
     rekognition_client = boto3.client("rekognition")
     rekognition_stubber = make_stubber(rekognition_client)
-    source_image = RekognitionImage(TEST_IMAGE, "source-image", rekognition_client)
-    target_image = RekognitionImage(TEST_IMAGE, "target-image", rekognition_client)
+    source_image = RekognitionImage(
+        TEST_IMAGE, "source-image", rekognition_client)
+    target_image = RekognitionImage(
+        TEST_IMAGE, "target-image", rekognition_client)
     matches = [RekognitionFace(face) for face in make_faces(1)]
     unmatches = [RekognitionFace(face) for face in make_faces(2)]
     similarity = 80
@@ -102,11 +104,15 @@ def test_detect_labels(make_stubber, make_labels, error_code):
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])
-def test_detect_moderation_labels(make_stubber, make_moderation_labels, error_code):
+def test_detect_moderation_labels(
+        make_stubber,
+        make_moderation_labels,
+        error_code):
     rekognition_client = boto3.client("rekognition")
     rekognition_stubber = make_stubber(rekognition_client)
     image = RekognitionImage(TEST_IMAGE, "test-image", rekognition_client)
-    labels = [RekognitionModerationLabel(label) for label in make_moderation_labels(3)]
+    labels = [RekognitionModerationLabel(label)
+              for label in make_moderation_labels(3)]
 
     rekognition_stubber.stub_detect_moderation_labels(
         image.image, labels, error_code=error_code
@@ -130,7 +136,8 @@ def test_detect_text(make_stubber, make_texts, error_code):
     image = RekognitionImage(TEST_IMAGE, "test-image", rekognition_client)
     texts = [RekognitionText(text) for text in make_texts(3)]
 
-    rekognition_stubber.stub_detect_text(image.image, texts, error_code=error_code)
+    rekognition_stubber.stub_detect_text(
+        image.image, texts, error_code=error_code)
 
     if error_code is None:
         got_texts = image.detect_text()

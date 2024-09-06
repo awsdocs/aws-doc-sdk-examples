@@ -6,8 +6,9 @@ Base class for implementing custom waiters for services that don't already have
 prebuilt waiters. This class leverages botocore waiter code.
 """
 
-from enum import Enum
 import logging
+from enum import Enum
+
 import botocore.waiter
 
 logger = logging.getLogger(__name__)
@@ -118,7 +119,11 @@ class CustomWaiter:
                 status = status.get(key[:-2])[0]
             else:
                 status = status.get(key)
-        logger.info("Waiter %s called %s, got %s.", self.name, self.operation, status)
+        logger.info(
+            "Waiter %s called %s, got %s.",
+            self.name,
+            self.operation,
+            status)
 
     def _wait(self, **kwargs):
         """

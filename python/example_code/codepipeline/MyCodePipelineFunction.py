@@ -25,16 +25,15 @@
 # snippet-sourcedate:[2016-03-07]
 # snippet-start:[codepipeline.python.MyCodePipelineFunction.complete]
 
-from __future__ import print_function
-from boto3.session import Session
 
 import json
-import urllib
-import boto3
-import zipfile
 import tempfile
-import botocore
 import traceback
+import zipfile
+
+import boto3
+import botocore
+from boto3.session import Session
 
 print("Loading function")
 
@@ -58,7 +57,7 @@ def find_artifact(artifacts, name):
         if artifact["name"] == name:
             return artifact
 
-    raise Exception('Input artifact named "{0}" not found in event'.format(name))
+    raise Exception(f'Input artifact named "{name}" not found in event')
 
 
 def get_template(s3, artifact, file_in_zip):
@@ -113,8 +112,7 @@ def update_stack(stack, template):
             return False
         else:
             raise Exception(
-                'Error updating CloudFormation stack "{0}"'.format(stack), e
-            )
+                f'Error updating CloudFormation stack "{stack}"', e)
 
 
 def stack_exists(stack):
@@ -222,7 +220,8 @@ def continue_job_later(job, message):
     """
 
     # Use the continuation token to keep track of any job execution state
-    # This data will be available when a new job is scheduled to continue the current execution
+    # This data will be available when a new job is scheduled to continue the
+    # current execution
     continuation_token = json.dumps({"previous_job_id": job})
 
     print("Putting job continuation")
@@ -245,10 +244,16 @@ def start_update_or_create(job_id, stack, template):
     """
     if stack_exists(stack):
         status = get_stack_status(stack)
-        if status not in ["CREATE_COMPLETE", "ROLLBACK_COMPLETE", "UPDATE_COMPLETE"]:
+        if status not in [
+            "CREATE_COMPLETE",
+            "ROLLBACK_COMPLETE",
+                "UPDATE_COMPLETE"]:
             # If the CloudFormation stack is not in a state where
             # it can be updated again then fail the job right away.
-            put_job_failure(job_id, "Stack cannot be updated when status is: " + status)
+            put_job_failure(
+                job_id,
+                "Stack cannot be updated when status is: " +
+                status)
             return
 
         were_updates = update_stack(stack, template)
@@ -317,7 +322,8 @@ def get_user_params(job_data):
 
     """
     try:
-        # Get the user parameters which contain the stack, artifact and file settings
+        # Get the user parameters which contain the stack, artifact and file
+        # settings
         user_parameters = job_data["actionConfiguration"]["configuration"][
             "UserParameters"
         ]
@@ -337,12 +343,14 @@ def get_user_params(job_data):
     if "artifact" not in decoded_parameters:
         # Validate that the artifact name is provided, otherwise fail the job
         # with a helpful message.
-        raise Exception("Your UserParameters JSON must include the artifact name")
+        raise Exception(
+            "Your UserParameters JSON must include the artifact name")
 
     if "file" not in decoded_parameters:
         # Validate that the template file is provided, otherwise fail the job
         # with a helpful message.
-        raise Exception("Your UserParameters JSON must include the template file name")
+        raise Exception(
+            "Your UserParameters JSON must include the template file name")
 
     return decoded_parameters
 
@@ -369,7 +377,9 @@ def setup_s3_client(job_data):
         aws_secret_access_key=key_secret,
         aws_session_token=session_token,
     )
-    return session.client("s3", config=botocore.client.Config(signature_version="s3v4"))
+    return session.client(
+        "s3", config=botocore.client.Config(
+            signature_version="s3v4"))
 
 
 def lambda_handler(event, context):

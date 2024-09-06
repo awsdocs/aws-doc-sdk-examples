@@ -7,7 +7,7 @@
 Purpose
 
 Shows how to export the datasets (manifest files and images)
-from an Amazon Lookout for Vision project to a new Amazon 
+from an Amazon Lookout for Vision project to a new Amazon
 S3 location.
 """
 
@@ -33,14 +33,16 @@ def copy_file(s3_resource, source_file, destination_file):
     """
 
     source_bucket, source_key = source_file.replace("s3://", "").split("/", 1)
-    destination_bucket, destination_key = destination_file.replace("s3://", "").split(
-        "/", 1
-    )
+    destination_bucket, destination_key = destination_file.replace(
+        "s3://", "").split("/", 1)
 
     try:
         bucket = s3_resource.Bucket(destination_bucket)
         dest_object = bucket.Object(destination_key)
-        dest_object.copy_from(CopySource={"Bucket": source_bucket, "Key": source_key})
+        dest_object.copy_from(
+            CopySource={
+                "Bucket": source_bucket,
+                "Key": source_key})
         dest_object.wait_until_exists()
         logger.info("Copied %s to %s", source_file, destination_file)
     except ClientError as error:
@@ -63,7 +65,8 @@ def upload_manifest_file(s3_resource, manifest_file, destination):
     file to.
     """
 
-    destination_bucket, destination_key = destination.replace("s3://", "").split("/", 1)
+    destination_bucket, destination_key = destination.replace(
+        "s3://", "").split("/", 1)
 
     bucket = s3_resource.Bucket(destination_bucket)
 
@@ -73,11 +76,15 @@ def upload_manifest_file(s3_resource, manifest_file, destination):
     try:
         obj.put(Body=put_data)
         obj.wait_until_exists()
-        logger.info("Put manifest file '%s' to bucket '%s'.", obj.key, obj.bucket_name)
+        logger.info(
+            "Put manifest file '%s' to bucket '%s'.",
+            obj.key,
+            obj.bucket_name)
     except ClientError:
         logger.exception(
-            "Couldn't put manifest file '%s' to bucket '%s'.", obj.key, obj.bucket_name
-        )
+            "Couldn't put manifest file '%s' to bucket '%s'.",
+            obj.key,
+            obj.bucket_name)
         raise
     finally:
         if getattr(put_data, "close", None):
@@ -124,25 +131,33 @@ def process_json_line(s3_resource, entry, dataset_type, destination):
 
     print(f"source: {entry_json['source-ref']}")
 
-    # Use existing folder paths to ensure console added image names don't clash.
+    # Use existing folder paths to ensure console added image names don't
+    # clash.
     bucket, key = entry_json["source-ref"].replace("s3://", "").split("/", 1)
     logger.info("Source location: %s/%s", bucket, key)
 
     destination_image_location = destination + dataset_type + "/images/" + key
 
-    copy_file(s3_resource, entry_json["source-ref"], destination_image_location)
+    copy_file(
+        s3_resource,
+        entry_json["source-ref"],
+        destination_image_location)
 
     # Update JSON for writing.
     entry_json["source-ref"] = destination_image_location
 
     if "anomaly-mask-ref" in entry_json:
         source_anomaly_ref = entry_json["anomaly-mask-ref"]
-        mask_bucket, mask_key = source_anomaly_ref.replace("s3://", "").split("/", 1)
+        mask_bucket, mask_key = source_anomaly_ref.replace(
+            "s3://", "").split("/", 1)
 
         destination_mask_location = destination + dataset_type + "/masks/" + mask_key
         entry_json["anomaly-mask-ref"] = destination_mask_location
 
-        copy_file(s3_resource, source_anomaly_ref, entry_json["anomaly-mask-ref"])
+        copy_file(
+            s3_resource,
+            source_anomaly_ref,
+            entry_json["anomaly-mask-ref"])
 
     return entry_json
 
@@ -235,8 +250,12 @@ def add_arguments(parser):
     :param parser: The command line parser.
     """
 
-    parser.add_argument("project", help="The project that contains the dataset.")
-    parser.add_argument("destination", help="The destination Amazon S3 folder.")
+    parser.add_argument(
+        "project",
+        help="The project that contains the dataset.")
+    parser.add_argument(
+        "destination",
+        help="The destination Amazon S3 folder.")
 
 
 def main():
@@ -244,7 +263,9 @@ def main():
     Exports the datasets from an Amazon Lookout for Vision project to a
     destination Amazon S3 location.
     """
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
     parser = argparse.ArgumentParser(usage=argparse.SUPPRESS)
     add_arguments(parser)
 

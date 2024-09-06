@@ -3,15 +3,15 @@
 # SPDX-License-Identifier: Apache-2.0
 
 try:
-    from tomlkit import dumps, parse, TOMLDocument
-except:
+    from tomlkit import TOMLDocument, dumps, parse
+except BaseException:
     print("Couldn't import tomlkit, either install it directly or instantiate a venv.")
     exit(1)
 
+import logging
 from argparse import ArgumentParser
 from glob import glob
 from typing import Union
-import logging
 
 SDK_ORIGIN = "https://github.com/awslabs/aws-sdk-rust"
 
@@ -69,8 +69,10 @@ arg_parser.add_argument(
     help="Don't write updated Cargo files.",
 )
 arg_parser.add_argument(
-    "--verbose", action="store_true", default=False, help="Write verbose logging"
-)
+    "--verbose",
+    action="store_true",
+    default=False,
+    help="Write verbose logging")
 
 
 def main():

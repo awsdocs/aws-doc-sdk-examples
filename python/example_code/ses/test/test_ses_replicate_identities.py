@@ -10,14 +10,12 @@ Unit tests for ses_replicate_identities.py.
 import json
 import random
 import string
-import time
 import uuid
-import boto3
-from botocore.exceptions import ClientError
-from botocore.stub import ANY
-import pytest
 
+import boto3
+import pytest
 import ses_replicate_identities
+from botocore.exceptions import ClientError
 
 
 def generate_random_string(char_set, length):
@@ -116,10 +114,12 @@ def test_get_identities(make_stubber, error_code):
     emails = ["bill@example1.com", "bob@example3.com"]
     domains = ["example1.com", "example2.com"]
 
-    ses_stubber.stub_list_identities(None, 20, emails + domains, error_code=error_code)
+    ses_stubber.stub_list_identities(
+        None, 20, emails + domains, error_code=error_code)
 
     if error_code is None:
-        got_emails, got_domains = ses_replicate_identities.get_identities(ses_client)
+        got_emails, got_domains = ses_replicate_identities.get_identities(
+            ses_client)
         assert got_emails == emails
         assert got_domains == domains
     else:
@@ -131,11 +131,15 @@ def test_get_identities(make_stubber, error_code):
 def test_verify_emails(make_stubber):
     ses_client = boto3.client("ses")
     ses_stubber = make_stubber(ses_client)
-    in_emails = ["tester@example.com", "failer@example-2.com", "tryer@example-1.com"]
+    in_emails = [
+        "tester@example.com",
+        "failer@example-2.com",
+        "tryer@example-1.com"]
     out_emails = ["tester@example.com", "tryer@example-1.com"]
 
     ses_stubber.stub_verify_email_identity(in_emails[0])
-    ses_stubber.stub_verify_email_identity(in_emails[1], error_code="TestException")
+    ses_stubber.stub_verify_email_identity(
+        in_emails[1], error_code="TestException")
     ses_stubber.stub_verify_email_identity(in_emails[2])
 
     got_emails = ses_replicate_identities.verify_emails(in_emails, ses_client)
@@ -146,7 +150,9 @@ def test_verify_domains(make_stubber):
     ses_client = boto3.client("ses")
     ses_stubber = make_stubber(ses_client)
     in_domains = ["example.com", "example-fail.com", "example-1.com"]
-    out_domain_tokens = {"example.com": "test-token", "example-1.com": "test-token-1"}
+    out_domain_tokens = {
+        "example.com": "test-token",
+        "example-1.com": "test-token-1"}
 
     ses_stubber.stub_verify_domain_identity(
         in_domains[0], out_domain_tokens[in_domains[0]]
@@ -158,7 +164,8 @@ def test_verify_domains(make_stubber):
         in_domains[2], out_domain_tokens[in_domains[2]]
     )
 
-    got_domain_tokens = ses_replicate_identities.verify_domains(in_domains, ses_client)
+    got_domain_tokens = ses_replicate_identities.verify_domains(
+        in_domains, ses_client)
     assert got_domain_tokens == out_domain_tokens
 
 
@@ -201,7 +208,8 @@ def test_find_domain_zone_matches(make_stubber):
         "example3.com": None,
     }
 
-    got_domain_zones = ses_replicate_identities.find_domain_zone_matches(domains, zones)
+    got_domain_zones = ses_replicate_identities.find_domain_zone_matches(
+        domains, zones)
     assert got_domain_zones == domain_zones
 
 
@@ -241,8 +249,9 @@ def test_add_route_53_verification_record(
             record_sets,
         )
         runner.add(
-            route53_stubber.stub_change_resource_record_sets, zone["Id"], changes
-        )
+            route53_stubber.stub_change_resource_record_sets,
+            zone["Id"],
+            changes)
 
     if error_code is None:
         ses_replicate_identities.add_route53_verification_record(
@@ -265,7 +274,8 @@ def test_generate_dkim_tokens(make_stubber, error_code):
 
     ses_stubber.stub_verify_domain_dkim(domain, tokens, error_code=error_code)
 
-    got_tokens = ses_replicate_identities.generate_dkim_tokens(domain, ses_client)
+    got_tokens = ses_replicate_identities.generate_dkim_tokens(
+        domain, ses_client)
     if error_code is None:
         assert got_tokens == tokens
     else:
@@ -294,7 +304,8 @@ def test_configure_sns_topics(make_stubber, monkeypatch, error_code):
     ses_stubber = make_stubber(ses_client)
     identity = "tester@example.com"
     topics = ["Funny", "Critical", "Boing"]
-    topic_arns = [f"arn:aws:sns::123456789012:{topic}Topic" for topic in topics]
+    topic_arns = [
+        f"arn:aws:sns::123456789012:{topic}Topic" for topic in topics]
 
     monkeypatch.setattr("builtins.input", lambda x: topic_arns.pop(0))
 

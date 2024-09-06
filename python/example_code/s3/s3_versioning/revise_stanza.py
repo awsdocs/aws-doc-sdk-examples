@@ -9,6 +9,7 @@ event and applies the specified revision to the specified object.
 # snippet-start:[s3.python.lambda.revise_stanza]
 import logging
 from urllib import parse
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -38,8 +39,10 @@ def lambda_handler(event, context):
 
     task = event["tasks"][0]
     task_id = task["taskId"]
-    # The revision type is packed with the object key as a pipe-delimited string.
-    obj_key, revision = parse.unquote(task["s3Key"], encoding="utf-8").split("|")
+    # The revision type is packed with the object key as a pipe-delimited
+    # string.
+    obj_key, revision = parse.unquote(
+        task["s3Key"], encoding="utf-8").split("|")
     bucket_name = task["s3BucketArn"].split(":")[-1]
 
     logger.info("Got task: apply revision %s to %s.", revision, obj_key)
@@ -64,8 +67,8 @@ def lambda_handler(event, context):
         else:
             stanza_obj.put(Body=bytes(stanza, "utf-8"))
             result_string = (
-                f"Applied revision type '{revision}' to " f"stanza {stanza_obj.key}."
-            )
+                f"Applied revision type '{revision}' to "
+                f"stanza {stanza_obj.key}.")
 
         logger.info(result_string)
         result_code = "Succeeded"

@@ -6,8 +6,8 @@ Unit tests for revise_stanza.py functions.
 """
 
 import json
-import pytest
 
+import pytest
 import revise_stanza
 
 
@@ -52,7 +52,10 @@ def test_revise_stanza_object_not_exist(make_stubber, make_event, make_result):
 
     event = make_event("test-bucket", "test-object", "lower")
 
-    s3_stubber.stub_get_object("test-bucket", "test-object", error_code="NoSuchKey")
+    s3_stubber.stub_get_object(
+        "test-bucket",
+        "test-object",
+        error_code="NoSuchKey")
 
     result = revise_stanza.lambda_handler(event, None)
     assert result == make_result("Succeeded")
@@ -80,7 +83,10 @@ def test_revise_stanza_bad_revision(make_stubber, make_event):
 
     event = make_event("test-bucket", "test-object", "garbage")
 
-    s3_stubber.stub_get_object("test-bucket", "test-object", object_data=b"Test data")
+    s3_stubber.stub_get_object(
+        "test-bucket",
+        "test-object",
+        object_data=b"Test data")
 
     with pytest.raises(TypeError):
         revise_stanza.lambda_handler(event, None)

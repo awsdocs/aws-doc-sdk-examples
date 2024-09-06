@@ -9,11 +9,11 @@ Shows how to send email by using an Amazon Pinpoint SMTP server.
 
 # snippet-start:[pinpoint.python.pinpoint_send_email_smtp.complete]
 
+import logging
+import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from os import environ
-import logging
-import smtplib
 
 logger = logging.getLogger(__name__)
 

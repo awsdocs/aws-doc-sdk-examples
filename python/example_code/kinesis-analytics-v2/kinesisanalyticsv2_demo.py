@@ -9,24 +9,25 @@ and Amazon Kinesis to create an application that reads data from an input stream
 SQL code to transform the data, and writes it to an output stream.
 """
 
+from demo_tools.custom_waiter import CustomWaiter, WaitState
+from streams.kinesis_stream import KinesisStream
+from streams.dg_anomaly import generate
 import logging
 import os
-from pprint import pprint
 import sys
 import threading
 import time
+from pprint import pprint
+
 import boto3
+from analytics_application import KinesisAnalyticsApplicationV2
 from botocore.exceptions import ClientError
 
-from analytics_application import KinesisAnalyticsApplicationV2
-
 sys.path.append(os.path.abspath("../kinesis"))
-from streams.kinesis_stream import KinesisStream
-from streams.dg_anomaly import generate
 
-# Add relative path to include demo_tools in this code example without need for setup.
+# Add relative path to include demo_tools in this code example without
+# need for setup.
 sys.path.append("../..")
-from demo_tools.custom_waiter import CustomWaiter, WaitState
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +56,9 @@ def usage_demo():
     print("Welcome to the demo of version 2 of the Amazon Kinesis Data Analytics API.")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     kinesis_client = boto3.client("kinesis")
     analytics_client = boto3.client("kinesisanalyticsv2")
@@ -83,14 +86,17 @@ def usage_demo():
         "input stream."
     )
     stream_thread = threading.Thread(
-        target=generate, args=(input_stream.name, kinesis_client, False), daemon=True
-    )
+        target=generate,
+        args=(
+            input_stream.name,
+            kinesis_client,
+            False),
+        daemon=True)
     stream_thread.start()
 
     print(
         f"Creating role {role_name} to let Kinesis Analytics read from the input "
-        f"stream and write to the output stream."
-    )
+        f"stream and write to the output stream.")
     role = application.create_read_write_role(
         role_name, input_stream.arn(), output_stream.arn(), iam_resource
     )
@@ -112,7 +118,8 @@ def usage_demo():
                 raise
     pprint(app_data)
     print(f"Discovering schema of input stream {input_stream.name}.")
-    input_schema = application.discover_input_schema(input_stream.arn(), role.arn)
+    input_schema = application.discover_input_schema(
+        input_stream.arn(), role.arn)
     pprint(input_schema)
 
     print("Adding input stream to the application.")

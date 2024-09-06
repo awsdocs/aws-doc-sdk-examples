@@ -12,6 +12,11 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
+import argparse
+import json
+import logging
+import time
+
 # snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
 # snippet-sourcedescription:[thing_performance.py demonstrates how to push CPU and memory usage data to a thing's device shadow in AWS IoT.]
 # snippet-service:[iot]
@@ -26,12 +31,7 @@
 # snippet-sourceauthor:[FThompsonAWS]
 # snippet-start:[iot.python.thing_performance.complete]
 import AWSIoTPythonSDK.MQTTLib as AWSIoTPyMQTT
-
-import json
 import psutil
-import argparse
-import logging
-import time
 
 
 # Configures the argument parser for this program.
@@ -105,7 +105,8 @@ def configureParser():
     return parser
 
 
-# An MQTT shadow client that uploads device performance data to AWS IoT at a regular interval.
+# An MQTT shadow client that uploads device performance data to AWS IoT at
+# a regular interval.
 class PerformanceShadowClient:
     def __init__(
         self,
@@ -125,20 +126,21 @@ class PerformanceShadowClient:
         self.certificatePath = certificatePath
         self.requestDelay = requestDelay
 
-    # Updates this thing's shadow with system performance data at a regular interval.
+    # Updates this thing's shadow with system performance data at a regular
+    # interval.
     def run(self):
-        print("Connecting MQTT client for {}...".format(self.thingName))
+        print(f"Connecting MQTT client for {self.thingName}...")
         mqttClient = self.configureMQTTClient()
         mqttClient.connect()
-        print("MQTT client for {} connected".format(self.thingName))
+        print(f"MQTT client for {self.thingName} connected")
         deviceShadowHandler = mqttClient.createShadowHandlerWithName(
             self.thingName, True
         )
 
-        print("Running performance shadow client for {}...\n".format(self.thingName))
+        print(f"Running performance shadow client for {self.thingName}...\n")
         while True:
             performance = self.readPerformance()
-            print("[{}]".format(self.thingName))
+            print(f"[{self.thingName}]")
             print("CPU:\t{}%".format(performance["cpu"]))
             print("Memory:\t{}%\n".format(performance["memory"]))
             payload = {"state": {"reported": performance}}
@@ -168,8 +170,8 @@ class PerformanceShadowClient:
 
     # Prints the result of a shadow update call.
     def shadowUpdateCallback(self, payload, responseStatus, token):
-        print("[{}]".format(self.thingName))
-        print("Update request {} {}\n".format(token, responseStatus))
+        print(f"[{self.thingName}]")
+        print(f"Update request {token} {responseStatus}\n")
 
 
 # Configures debug logging for the AWS IoT Device SDK for Python.

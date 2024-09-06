@@ -8,9 +8,9 @@ Shows how to use the AWS SDK for Python (Boto3) with AWS
 Secrets Manager to get a specific of secrets that match a
 specified name
 """
-import boto3
 import logging
 
+import boto3
 from get_secret_value import GetSecretWrapper
 
 # Configure logging

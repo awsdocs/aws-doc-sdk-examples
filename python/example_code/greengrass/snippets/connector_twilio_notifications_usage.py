@@ -10,6 +10,7 @@ AWS IoT Greengrass connector.
 
 # snippet-start:[greengrass.python.connector-twilio-notifications-usage.complete]
 import json
+
 import greengrasssdk
 
 iot_client = greengrasssdk.client("iot-data")

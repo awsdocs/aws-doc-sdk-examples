@@ -39,20 +39,32 @@ class BedrockAgentStubber(ExampleStubber):
             error_code=error_code,
         )
 
-    def stub_create_agent_alias(self, expected_params, response, error_code=None):
+    def stub_create_agent_alias(
+            self,
+            expected_params,
+            response,
+            error_code=None):
         self._stub_bifurcator(
-            "create_agent_alias", expected_params, response, error_code=error_code
-        )
+            "create_agent_alias",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_delete_agent(self, expected_params, response, error_code=None):
         self._stub_bifurcator(
             "delete_agent", expected_params, response, error_code=error_code
         )
 
-    def stub_delete_agent_alias(self, expected_params, response, error_code=None):
+    def stub_delete_agent_alias(
+            self,
+            expected_params,
+            response,
+            error_code=None):
         self._stub_bifurcator(
-            "delete_agent_alias", expected_params, response, error_code=error_code
-        )
+            "delete_agent_alias",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_get_agent(self, expected_params, response, error_code=None):
         self._stub_bifurcator(
@@ -64,10 +76,16 @@ class BedrockAgentStubber(ExampleStubber):
             "list_agents", expected_params, response, error_code=error_code
         )
 
-    def stub_list_agent_action_groups(self, expected_params, response, error_code=None):
+    def stub_list_agent_action_groups(
+            self,
+            expected_params,
+            response,
+            error_code=None):
         self._stub_bifurcator(
-            "list_agent_action_groups", expected_params, response, error_code=error_code
-        )
+            "list_agent_action_groups",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_list_agent_knowledge_bases(
         self, expected_params, response, error_code=None

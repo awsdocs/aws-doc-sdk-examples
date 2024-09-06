@@ -10,6 +10,7 @@ create and run state machines.
 
 import json
 import logging
+
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -52,8 +53,9 @@ class StepFunctionsStateMachine:
             self.state_machine_name = name
             self.state_machine_arn = response["stateMachineArn"]
             logger.info(
-                "Created state machine %s. ARN is %s.", name, self.state_machine_arn
-            )
+                "Created state machine %s. ARN is %s.",
+                name,
+                self.state_machine_arn)
         except ClientError:
             logger.exception("Couldn't create state machine %s.", name)
             raise
@@ -117,7 +119,8 @@ class StepFunctionsStateMachine:
         """
         self._clear()
         try:
-            paginator = self.stepfunctions_client.get_paginator("list_state_machines")
+            paginator = self.stepfunctions_client.get_paginator(
+                "list_state_machines")
             for page in paginator.paginate():
                 for machine in page["stateMachines"]:
                     if machine["name"] == state_machine_name:
@@ -133,9 +136,13 @@ class StepFunctionsStateMachine:
                     self.state_machine_arn,
                 )
             else:
-                logger.info("Couldn't find state machine %s.", state_machine_name)
+                logger.info(
+                    "Couldn't find state machine %s.",
+                    state_machine_name)
         except ClientError:
-            logger.exception("Couldn't find state machine %s.", state_machine_name)
+            logger.exception(
+                "Couldn't find state machine %s.",
+                state_machine_name)
             raise
         else:
             return self.state_machine_arn
@@ -152,11 +159,13 @@ class StepFunctionsStateMachine:
             response = self.stepfunctions_client.describe_state_machine(
                 stateMachineArn=self.state_machine_arn
             )
-            logger.info("Got metadata for state machine %s.", self.state_machine_name)
+            logger.info(
+                "Got metadata for state machine %s.",
+                self.state_machine_name)
         except ClientError:
             logger.exception(
-                "Couldn't get metadata for state machine %s.", self.state_machine_name
-            )
+                "Couldn't get metadata for state machine %s.",
+                self.state_machine_name)
             raise
         else:
             return response
@@ -173,7 +182,9 @@ class StepFunctionsStateMachine:
         if self.state_machine_arn is None:
             raise ValueError
         try:
-            kwargs = {"stateMachineArn": self.state_machine_arn, "name": run_name}
+            kwargs = {
+                "stateMachineArn": self.state_machine_arn,
+                "name": run_name}
             if run_input is not None:
                 kwargs["input"] = json.dumps(run_input)
             response = self.stepfunctions_client.start_execution(**kwargs)
@@ -202,12 +213,13 @@ class StepFunctionsStateMachine:
             response = self.stepfunctions_client.list_executions(**kwargs)
             runs = response["executions"]
             logger.info(
-                "Got %s runs for state machine %s.", len(runs), self.state_machine_name
-            )
+                "Got %s runs for state machine %s.",
+                len(runs),
+                self.state_machine_name)
         except ClientError:
             logger.exception(
-                "Couldn't get runs for state machine %s.", self.state_machine_name
-            )
+                "Couldn't get runs for state machine %s.",
+                self.state_machine_name)
             raise
         else:
             return runs
@@ -220,7 +232,8 @@ class StepFunctionsStateMachine:
         :param cause: A description of why the run was stopped.
         """
         try:
-            self.stepfunctions_client.stop_execution(executionArn=run_arn, cause=cause)
+            self.stepfunctions_client.stop_execution(
+                executionArn=run_arn, cause=cause)
             logger.info("Stopping run %s.", run_arn)
         except ClientError:
             logger.exception("Couldn't stop run %s.", run_arn)

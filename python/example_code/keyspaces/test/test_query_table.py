@@ -2,9 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import json
-from unittest.mock import MagicMock, patch, mock_open
-from botocore.exceptions import ClientError
-import pytest
+from unittest.mock import MagicMock, mock_open, patch
 
 import query
 

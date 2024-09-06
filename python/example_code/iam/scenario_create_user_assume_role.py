@@ -111,12 +111,12 @@ def setup(iam_resource):
             ),
         )
         role.attach_policy(PolicyArn=policy.arn)
-        print(f"Created policy {policy.policy_name} and attached it to the role.")
+        print(
+            f"Created policy {policy.policy_name} and attached it to the role.")
     except ClientError as error:
         print(
             f"Couldn't create a policy and attach it to role {role.name}. Here's why: "
-            f"{error.response['Error']['Message']}"
-        )
+            f"{error.response['Error']['Message']}")
         raise
 
     try:
@@ -137,13 +137,11 @@ def setup(iam_resource):
         )
         print(
             f"Created an inline policy for {user.name} that lets the user assume "
-            f"the role."
-        )
+            f"the role.")
     except ClientError as error:
         print(
             f"Couldn't create an inline policy for user {user.name}. Here's why: "
-            f"{error.response['Error']['Message']}"
-        )
+            f"{error.response['Error']['Message']}")
         raise
 
     print("Give AWS time to propagate these new resources and connections.", end="")
@@ -161,12 +159,14 @@ def show_access_denied_without_role(user_key):
     """
     print(f"Try to list buckets without first assuming the role.")
     s3_denied_resource = boto3.resource(
-        "s3", aws_access_key_id=user_key.id, aws_secret_access_key=user_key.secret
-    )
+        "s3",
+        aws_access_key_id=user_key.id,
+        aws_secret_access_key=user_key.secret)
     try:
         for bucket in s3_denied_resource.buckets.all():
             print(bucket.name)
-        raise RuntimeError("Expected to get AccessDenied error when listing buckets!")
+        raise RuntimeError(
+            "Expected to get AccessDenied error when listing buckets!")
     except ClientError as error:
         if error.response["Error"]["Code"] == "AccessDenied":
             print("Attempt to list buckets with no permissions: AccessDenied.")
@@ -187,8 +187,9 @@ def list_buckets_from_assumed_role(user_key, assume_role_arn, session_name):
     :param session_name: The name of the STS session.
     """
     sts_client = boto3.client(
-        "sts", aws_access_key_id=user_key.id, aws_secret_access_key=user_key.secret
-    )
+        "sts",
+        aws_access_key_id=user_key.id,
+        aws_secret_access_key=user_key.secret)
     try:
         response = sts_client.assume_role(
             RoleArn=assume_role_arn, RoleSessionName=session_name
@@ -202,7 +203,8 @@ def list_buckets_from_assumed_role(user_key, assume_role_arn, session_name):
         )
         raise
 
-    # Create an S3 resource that can access the account with the temporary credentials.
+    # Create an S3 resource that can access the account with the temporary
+    # credentials.
     s3_resource = boto3.resource(
         "s3",
         aws_access_key_id=temp_credentials["AccessKeyId"],
@@ -242,8 +244,7 @@ def teardown(user, role):
     except ClientError as error:
         print(
             "Couldn't detach policy, delete policy, or delete role. Here's why: "
-            f"{error.response['Error']['Message']}"
-        )
+            f"{error.response['Error']['Message']}")
         raise
 
     try:
@@ -274,7 +275,8 @@ def usage_demo():
         user, user_key, role = setup(iam_resource)
         print(f"Created {user.name} and {role.name}.")
         show_access_denied_without_role(user_key)
-        list_buckets_from_assumed_role(user_key, role.arn, "AssumeRoleDemoSession")
+        list_buckets_from_assumed_role(
+            user_key, role.arn, "AssumeRoleDemoSession")
     except Exception:
         print("Something went wrong!")
     finally:

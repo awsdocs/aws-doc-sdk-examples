@@ -10,6 +10,7 @@ Data Analytics API to create and manage applications.
 
 import json
 import logging
+
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -100,8 +101,8 @@ class KinesisAnalyticsApplicationV2:
 
         try:
             policy = iam_resource.create_policy(
-                PolicyName=f"{prefix}-policy", PolicyDocument=json.dumps(policy_doc)
-            )
+                PolicyName=f"{prefix}-policy",
+                PolicyDocument=json.dumps(policy_doc))
             role = iam_resource.create_role(
                 RoleName=f"{prefix}-role",
                 AssumeRolePolicyDocument=json.dumps(trust_policy),
@@ -118,10 +119,7 @@ class KinesisAnalyticsApplicationV2:
         except ClientError:
             logger.exception(
                 "Couldn't create role or policy to read from stream %s and write to "
-                "stream %s.",
-                input_stream_arn,
-                output_stream_arn,
-            )
+                "stream %s.", input_stream_arn, output_stream_arn, )
             raise
         else:
             return role
@@ -162,8 +160,7 @@ class KinesisAnalyticsApplicationV2:
         """
         try:
             self.analytics_client.delete_application(
-                ApplicationName=self.name, CreateTimestamp=self.create_timestamp
-            )
+                ApplicationName=self.name, CreateTimestamp=self.create_timestamp)
             logger.info("Deleted application %s.", self.name)
         except ClientError:
             logger.exception("Couldn't delete application %s.", self.name)
@@ -180,7 +177,8 @@ class KinesisAnalyticsApplicationV2:
         :return: Metadata about the application.
         """
         try:
-            response = self.analytics_client.describe_application(ApplicationName=name)
+            response = self.analytics_client.describe_application(
+                ApplicationName=name)
             details = response["ApplicationDetail"]
             self._update_details(details)
             logger.info("Got metadata for application %s.", name)
@@ -240,7 +238,8 @@ class KinesisAnalyticsApplicationV2:
             response = self.analytics_client.discover_input_schema(
                 ResourceARN=stream_arn,
                 ServiceExecutionRole=role_arn,
-                InputStartingPositionConfiguration={"InputStartingPosition": "NOW"},
+                InputStartingPositionConfiguration={
+                    "InputStartingPosition": "NOW"},
             )
             schema = response["InputSchema"]
             logger.info("Discovered input schema for stream %s.", stream_arn)
@@ -280,11 +279,15 @@ class KinesisAnalyticsApplicationV2:
                 },
             )
             self.version_id = response["ApplicationVersionId"]
-            logger.info("Add input stream %s to application %s.", stream_arn, self.name)
+            logger.info(
+                "Add input stream %s to application %s.",
+                stream_arn,
+                self.name)
         except ClientError:
             logger.exception(
-                "Couldn't add input stream %s to application %s.", stream_arn, self.name
-            )
+                "Couldn't add input stream %s to application %s.",
+                stream_arn,
+                self.name)
             raise
         else:
             return response
@@ -322,7 +325,10 @@ class KinesisAnalyticsApplicationV2:
                 len(outputs),
             )
         except ClientError:
-            logger.exception("Couldn't add output %s to %s.", output_arn, self.name)
+            logger.exception(
+                "Couldn't add output %s to %s.",
+                output_arn,
+                self.name)
             raise
         else:
             return outputs
@@ -355,7 +361,9 @@ class KinesisAnalyticsApplicationV2:
             self.version_id = details["ApplicationVersionId"]
             logger.info("Update code for application %s.", self.name)
         except ClientError:
-            logger.exception("Couldn't update code for application %s.", self.name)
+            logger.exception(
+                "Couldn't update code for application %s.",
+                self.name)
             raise
         else:
             return details

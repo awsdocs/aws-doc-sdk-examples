@@ -4,12 +4,11 @@
 import logging
 
 import pytest
-
+import runner
 from auto_scaler import AutoScaler
 from load_balancer import LoadBalancer
 from parameters import ParameterHelper
 from recommendation_service import RecommendationService
-import runner
 
 
 @pytest.mark.integ
@@ -22,8 +21,11 @@ def test_runner_integ(input_mocker, caplog):
     loadbalancer = LoadBalancer.from_client(prefix)
     param_helper = ParameterHelper.from_client(recommendation.table_name)
     scenario = runner.Runner(
-        "test/resources", recommendation, autoscaler, loadbalancer, param_helper
-    )
+        "test/resources",
+        recommendation,
+        autoscaler,
+        loadbalancer,
+        param_helper)
 
     input_mocker.mock_answers(
         [

@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from botocore.exceptions import ClientError
 import pytest
+from botocore.exceptions import ClientError
 
 
 class MockManager:
@@ -32,7 +32,9 @@ class MockManager:
         with self.stub_runner(error, stop_on) as runner:
             runner.add(stubber.stub_delete_state_machine, self.sm_arn)
             runner.add(stubber.stub_delete_activity, self.act_arn)
-            runner.add(self.scenario_data.iam_stubber.stub_delete_role, self.sm_role)
+            runner.add(
+                self.scenario_data.iam_stubber.stub_delete_role,
+                self.sm_role)
 
 
 @pytest.fixture

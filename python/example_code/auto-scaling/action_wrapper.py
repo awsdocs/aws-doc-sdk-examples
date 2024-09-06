@@ -255,8 +255,7 @@ class AutoScalingWrapper:
         """
         try:
             self.autoscaling_client.enable_metrics_collection(
-                AutoScalingGroupName=group_name, Metrics=metrics, Granularity="1Minute"
-            )
+                AutoScalingGroupName=group_name, Metrics=metrics, Granularity="1Minute")
         except ClientError as err:
             logger.error(
                 "Couldn't enable metrics on %s. Here's why: %s: %s",

@@ -11,6 +11,7 @@ to manage key aliases.
 # snippet-start:[python.example_code.kms.Scenario_AliasManagement]
 import logging
 from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -60,8 +61,7 @@ class AliasManager:
         if self.created_key is not None:
             answer = input(
                 f"Key {self.created_key['KeyId']} was created for this demo. Do you "
-                f"want to delete it (y/n)? "
-            )
+                f"want to delete it (y/n)? ")
             if answer.lower() == "y":
                 try:
                     self.kms_client.schedule_key_deletion(
@@ -85,7 +85,8 @@ class AliasManager:
         """
         alias = ""
         while alias == "":
-            alias = input(f"What alias would you like to give to key {key_id}? ")
+            alias = input(
+                f"What alias would you like to give to key {key_id}? ")
         try:
             self.kms_client.create_alias(AliasName=alias, TargetKeyId=key_id)
         except ClientError as err:
@@ -142,11 +143,11 @@ class AliasManager:
         """
         new_key_id = input(
             f"Alias {alias} is currently associated with {current_key_id}. "
-            f"Enter another key ID or ARN that you want to associate with {alias}: "
-        )
+            f"Enter another key ID or ARN that you want to associate with {alias}: ")
         if new_key_id != "":
             try:
-                self.kms_client.update_alias(AliasName=alias, TargetKeyId=new_key_id)
+                self.kms_client.update_alias(
+                    AliasName=alias, TargetKeyId=new_key_id)
             except ClientError as err:
                 logger.error(
                     "Couldn't associate alias %s with key %s. Here's why: %s",
@@ -155,7 +156,8 @@ class AliasManager:
                     err.response["Error"]["Message"],
                 )
             else:
-                print(f"Alias {alias} is now associated with key {new_key_id}.")
+                print(
+                    f"Alias {alias} is now associated with key {new_key_id}.")
         else:
             print("Skipping alias update.")
 
@@ -186,7 +188,9 @@ class AliasManager:
 
 
 def alias_management(kms_client):
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     print("-" * 88)
     print("Welcome to the AWS Key Management Service (AWS KMS) alias management demo.")

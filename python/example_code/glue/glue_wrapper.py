@@ -9,6 +9,7 @@ create and manage crawlers, databases, and jobs.
 """
 
 import logging
+
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -194,7 +195,12 @@ class GlueWrapper:
     # snippet-end:[python.example_code.glue.CreateJob]
 
     # snippet-start:[python.example_code.glue.StartJobRun]
-    def start_job_run(self, name, input_database, input_table, output_bucket_name):
+    def start_job_run(
+            self,
+            name,
+            input_database,
+            input_table,
+            output_bucket_name):
         """
         Starts a job run. A job run extracts data from the source, transforms it,
         and loads it to the output bucket.
@@ -210,7 +216,8 @@ class GlueWrapper:
         """
         try:
             # The custom Arguments that are passed to this function are used by the
-            # Python ETL script to determine the location of input and output data.
+            # Python ETL script to determine the location of input and output
+            # data.
             response = self.glue_client.start_job_run(
                 JobName=name,
                 Arguments={
@@ -332,7 +339,8 @@ class GlueWrapper:
         :param table_name: The name of the table to delete.
         """
         try:
-            self.glue_client.delete_table(DatabaseName=db_name, Name=table_name)
+            self.glue_client.delete_table(
+                DatabaseName=db_name, Name=table_name)
         except ClientError as err:
             logger.error(
                 "Couldn't delete table %s. Here's why: %s: %s",

@@ -5,13 +5,13 @@
 Unit tests for textract_wrapper.py.
 """
 
-from io import BytesIO
 import json
-from unittest.mock import patch, mock_open
-import boto3
-from botocore.exceptions import ClientError
-import pytest
+from io import BytesIO
+from unittest.mock import mock_open, patch
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from textract_wrapper import TextractWrapper
 
 
@@ -31,13 +31,15 @@ def test_detect_file_text(
     twrapper = TextractWrapper(textract_client, None, None)
     blocks = [{"BlockType": "TEST"}]
 
-    textract_stubber.stub_detect_document_text(doc_bytes, blocks, error_code=error_code)
+    textract_stubber.stub_detect_document_text(
+        doc_bytes, blocks, error_code=error_code)
 
     if error_code is None:
         if list(func_kwargs.keys())[0] == "document_file_name":
             with patch("builtins.open", mock_open(read_data=doc_bytes)) as mock_file:
                 got_blocks = twrapper.detect_file_text(**func_kwargs)
-            mock_file.assert_called_once_with(func_kwargs["document_file_name"], "rb")
+            mock_file.assert_called_once_with(
+                func_kwargs["document_file_name"], "rb")
         else:
             got_blocks = twrapper.detect_file_text(**func_kwargs)
         assert got_blocks["Blocks"] == blocks
@@ -69,8 +71,10 @@ def test_analyze_file(make_stubber, func_kwargs, doc_bytes, error_code):
     if error_code is None:
         if list(func_kwargs.keys())[0] == "document_file_name":
             with patch("builtins.open", mock_open(read_data=doc_bytes)) as mock_file:
-                got_blocks = twrapper.analyze_file(feature_types, **func_kwargs)
-            mock_file.assert_called_once_with(func_kwargs["document_file_name"], "rb")
+                got_blocks = twrapper.analyze_file(
+                    feature_types, **func_kwargs)
+            mock_file.assert_called_once_with(
+                func_kwargs["document_file_name"], "rb")
         else:
             got_blocks = twrapper.analyze_file(feature_types, **func_kwargs)
         assert got_blocks["Blocks"] == blocks
@@ -166,7 +170,8 @@ def test_start_detection_job(make_stubber, error_code):
         assert got_job_id == job_id
     else:
         with pytest.raises(ClientError) as exc_info:
-            twrapper.start_detection_job(bucket_name, file_name, topic_arn, role_arn)
+            twrapper.start_detection_job(
+                bucket_name, file_name, topic_arn, role_arn)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 

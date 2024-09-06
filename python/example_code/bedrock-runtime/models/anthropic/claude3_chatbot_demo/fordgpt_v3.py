@@ -3,7 +3,6 @@
 import os
 
 from langchain_community.chat_models import BedrockChat
-
 from utils.custom_logging import setup_custom_logger
 from utils.timeit import timeit
 
@@ -63,11 +62,14 @@ class FordGPTv3:
             retriever = AmazonKnowledgeBasesRetriever(
                 knowledge_base_id=self.knowledge_base_id,
                 region_name="us-east-1",
-                retrieval_config={"vectorSearchConfiguration": {"numberOfResults": 1}},
+                retrieval_config={
+                    "vectorSearchConfiguration": {
+                        "numberOfResults": 1}},
             )
             qa = RetrievalQA.from_chain_type(
-                llm=self.llm, retriever=retriever, return_source_documents=False
-            )
+                llm=self.llm,
+                retriever=retriever,
+                return_source_documents=False)
 
             # loader = S3FileLoader("bedrock-training-ford-gpt", "Profile.pdf")
             # resume = loader.load()

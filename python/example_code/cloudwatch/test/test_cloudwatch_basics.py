@@ -9,10 +9,10 @@ Unit tests for cloudwatch_basics.py
 
 from datetime import datetime, timedelta
 from unittest.mock import MagicMock
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from cloudwatch_basics import CloudWatchWrapper
 
 
@@ -76,10 +76,12 @@ def test_put_metric_data_set(make_stubber, error_code):
     )
 
     if error_code is None:
-        cw_wrapper.put_metric_data_set(namespace, name, timestamp, unit, data_set)
+        cw_wrapper.put_metric_data_set(
+            namespace, name, timestamp, unit, data_set)
     else:
         with pytest.raises(ClientError) as exc_info:
-            cw_wrapper.put_metric_data_set(namespace, name, timestamp, unit, data_set)
+            cw_wrapper.put_metric_data_set(
+                namespace, name, timestamp, unit, data_set)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -97,8 +99,14 @@ def test_get_metric_statistics(make_stubber, error_code):
     stats = [1, 2, 3, 4]
 
     cloudwatch_stubber.stub_get_metric_statistics(
-        namespace, name, start, end, period, stat_type, stats, error_code=error_code
-    )
+        namespace,
+        name,
+        start,
+        end,
+        period,
+        stat_type,
+        stats,
+        error_code=error_code)
 
     if error_code is None:
         got_stats = cw_wrapper.get_metric_statistics(
@@ -206,9 +214,11 @@ def test_enable_alarm_actions(make_stubber, enable, error_code):
     alarm_name = "test-alarm_name"
 
     if enable:
-        cloudwatch_stubber.stub_enable_alarm_actions(alarm_name, error_code=error_code)
+        cloudwatch_stubber.stub_enable_alarm_actions(
+            alarm_name, error_code=error_code)
     else:
-        cloudwatch_stubber.stub_disable_alarm_actions(alarm_name, error_code=error_code)
+        cloudwatch_stubber.stub_disable_alarm_actions(
+            alarm_name, error_code=error_code)
 
     if error_code is None:
         cw_wrapper.enable_alarm_actions(alarm_name, enable)

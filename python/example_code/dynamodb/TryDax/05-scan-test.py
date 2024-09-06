@@ -14,8 +14,9 @@ mode lets you compare the performance of the two clients.
 
 # snippet-start:[dynamodb.Python.TryDax.05-scan-test]
 import argparse
-import time
 import sys
+import time
+
 import amazondax
 import boto3
 
@@ -56,12 +57,15 @@ if __name__ == "__main__":
 
     test_iterations = 100
     if args.endpoint_url:
-        print(f"Scanning the table {test_iterations} times, using the DAX client.")
-        # Use a with statement so the DAX client closes the cluster after completion.
+        print(
+            f"Scanning the table {test_iterations} times, using the DAX client.")
+        # Use a with statement so the DAX client closes the cluster after
+        # completion.
         with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url) as dax:
             test_start, test_end = scan_test(test_iterations, dyn_resource=dax)
     else:
-        print(f"Scanning the table {test_iterations} times, using the Boto3 client.")
+        print(
+            f"Scanning the table {test_iterations} times, using the Boto3 client.")
         test_start, test_end = scan_test(test_iterations)
     print(
         f"Total time: {test_end - test_start:.4f} sec. Average time: "

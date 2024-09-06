@@ -35,14 +35,15 @@ class PinpointStubber(ExampleStubber):
     def stub_create_app(self, name):
         self.add_response(
             "create_app",
-            expected_params={"CreateApplicationRequest": {"Name": name}},
+            expected_params={
+                "CreateApplicationRequest": {
+                    "Name": name}},
             service_response={
                 "ApplicationResponse": {
                     "Arn": "arn:aws:mobiletargeting:us-west-2:111122223333:apps/d41d8cd98f00b204e9800998ecf8427e",
                     "Id": "d41d8cd98f00b204e9800998ecf8427e",
                     "Name": name,
-                }
-            },
+                }},
         )
 
     def stub_create_app_error(self, name, error_code):
@@ -220,16 +221,18 @@ class PinpointStubber(ExampleStubber):
         expected_params = {
             "ApplicationId": app_id,
             "MessageRequest": {
-                "Addresses": {destination_number: {"ChannelType": "SMS"}},
+                "Addresses": {
+                    destination_number: {
+                        "ChannelType": "SMS"}},
                 "MessageConfiguration": {
                     "SMSMessage": {
                         "MessageType": message_type,
                         "OriginationNumber": origination_number,
-                    }
-                },
+                    }},
                 "TemplateConfiguration": {
-                    "SMSTemplate": {"Name": template_name, "Version": template_version}
-                },
+                    "SMSTemplate": {
+                        "Name": template_name,
+                        "Version": template_version}},
             },
         }
         response = {

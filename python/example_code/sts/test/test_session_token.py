@@ -5,14 +5,10 @@
 Unit tests for AWS Security Token Service (AWS STS) usage functions.
 """
 
-import json
 import unittest.mock
 import webbrowser
-import pytest
-import requests
-import boto3
-from botocore.exceptions import ClientError
 
+import boto3
 import session_token
 
 
@@ -26,7 +22,10 @@ def test_setup(make_stubber, monkeypatch, unique_names):
     )
     mock_code = "123456"
 
-    monkeypatch.setattr(session_token, "unique_name", lambda x: unique_names[x])
+    monkeypatch.setattr(
+        session_token,
+        "unique_name",
+        lambda x: unique_names[x])
     monkeypatch.setattr(session_token, "progress_bar", lambda x: None)
     monkeypatch.setattr(webbrowser, "open", lambda x: None)
     monkeypatch.setattr("builtins.input", lambda x: mock_code)
@@ -37,7 +36,9 @@ def test_setup(make_stubber, monkeypatch, unique_names):
         unique_names["user"], mock_mfa.serial_number, mock_code, mock_code
     )
     iam_stubber.stub_create_access_key(unique_names["user"])
-    iam_stubber.stub_put_user_policy(unique_names["user"], unique_names["user-policy"])
+    iam_stubber.stub_put_user_policy(
+        unique_names["user"],
+        unique_names["user-policy"])
 
     user, user_key, v_mfa = session_token.setup(iam)
     assert user is not None
@@ -59,7 +60,10 @@ def test_list_buckets_from_assumed_role(make_stubber, monkeypatch):
     monkeypatch.setattr(
         boto3,
         "resource",
-        lambda x, aws_access_key_id, aws_secret_access_key, aws_session_token: s3,
+        lambda x,
+        aws_access_key_id,
+        aws_secret_access_key,
+        aws_session_token: s3,
     )
 
     sts_stubber.stub_get_session_token(mfa_serial_number, mfa_totp)
@@ -92,4 +96,7 @@ def test_teardown(make_stubber):
         iam_stubber.stub_delete_virtual_mfa_device(mfa_serial)
     iam_stubber.stub_delete_user(user_name)
 
-    session_token.teardown(iam.User(user_name), iam.VirtualMfaDevice(mfa_serials[0]))
+    session_token.teardown(
+        iam.User(user_name),
+        iam.VirtualMfaDevice(
+            mfa_serials[0]))

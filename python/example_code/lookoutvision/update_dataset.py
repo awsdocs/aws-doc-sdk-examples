@@ -8,12 +8,12 @@ Amazon Lookout for Vision dataset code examples used in the service documentatio
 https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/edit-dataset.html
 Shows how to update a Lookout for Vision dataset with a manifest file.
 """
-import logging
 import argparse
+import logging
+
 import boto3
 from botocore.exceptions import ClientError
 from datasets import Datasets
-
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +41,9 @@ def add_arguments(parser):
 
 
 def main():
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     try:
         # Get command line arguments.
@@ -51,8 +53,7 @@ def main():
 
         print(
             f"Updating {args.dataset_type} dataset for project {args.project_name} "
-            "with entries from {args.updates_file}."
-        )
+            "with entries from {args.updates_file}.")
 
         # Update the dataset.
         session = boto3.Session(profile_name="lookoutvision-access")

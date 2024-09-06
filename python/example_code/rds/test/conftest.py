@@ -7,15 +7,14 @@ Contains common test fixtures used to run unit tests.
 
 import sys
 import uuid
+
 import boto3
 import pytest
-
-from instance_wrapper import InstanceWrapper
 import scenario_get_started_instances
+from instance_wrapper import InstanceWrapper
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")
-from test_tools.fixtures.common import *
 
 
 class InstanceData:

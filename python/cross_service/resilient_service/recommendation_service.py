@@ -88,14 +88,15 @@ class RecommendationService:
             with open(data_file) as data:
                 items = json.load(data)
             batch = [{"PutRequest": {"Item": item}} for item in items]
-            self.dynamodb_client.batch_write_item(RequestItems={self.table_name: batch})
+            self.dynamodb_client.batch_write_item(
+                RequestItems={self.table_name: batch})
             log.info(
-                "Populated table %s with items from %s.", self.table_name, data_file
-            )
+                "Populated table %s with items from %s.",
+                self.table_name,
+                data_file)
         except ClientError as err:
             raise RecommendationServiceError(
-                self.table_name, f"Couldn't populate table from {data_file}: {err}"
-            )
+                self.table_name, f"Couldn't populate table from {data_file}: {err}")
 
     def destroy(self):
         """
@@ -109,7 +110,9 @@ class RecommendationService:
             log.info("Table %s deleted.", self.table_name)
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                log.info("Table %s does not exist, nothing to do.", self.table_name)
+                log.info(
+                    "Table %s does not exist, nothing to do.",
+                    self.table_name)
             else:
                 raise RecommendationServiceError(
                     self.table_name, f"ClientError when deleting table: {err}."

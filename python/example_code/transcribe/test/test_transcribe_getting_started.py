@@ -6,8 +6,8 @@ Unit tests for getting_started.py functions.
 """
 
 import time
-import boto3
 
+import boto3
 import getting_started
 
 
@@ -30,4 +30,7 @@ def test_start_job(make_stubber, monkeypatch):
     job["file_uri"] = "https://test-uri"
     transcribe_stubber.stub_get_transcription_job(job)
 
-    getting_started.transcribe_file(job["name"], job["media_uri"], transcribe_client)
+    getting_started.transcribe_file(
+        job["name"],
+        job["media_uri"],
+        transcribe_client)

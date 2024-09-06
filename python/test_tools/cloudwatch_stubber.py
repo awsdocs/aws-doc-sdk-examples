@@ -53,7 +53,13 @@ class CloudWatchStubber(ExampleStubber):
             "list_metrics", expected_params, response, error_code=error_code
         )
 
-    def stub_put_metric_data(self, namespace, name, value, unit, error_code=None):
+    def stub_put_metric_data(
+            self,
+            namespace,
+            name,
+            value,
+            unit,
+            error_code=None):
         expected_params = {
             "Namespace": namespace,
             "MetricData": [{"MetricName": name, "Value": value, "Unit": unit}],
@@ -105,10 +111,13 @@ class CloudWatchStubber(ExampleStubber):
         }
         if dimensions is not None:
             expected_params["Dimensions"] = dimensions
-        response = {"Label": name, "Datapoints": [{stat_type: stat} for stat in stats]}
+        response = {"Label": name, "Datapoints": [
+            {stat_type: stat} for stat in stats]}
         self._stub_bifurcator(
-            "get_metric_statistics", expected_params, response, error_code=error_code
-        )
+            "get_metric_statistics",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_put_metric_alarm(
         self,
@@ -134,10 +143,13 @@ class CloudWatchStubber(ExampleStubber):
         }
         response = {}
         self._stub_bifurcator(
-            "put_metric_alarm", expected_params, response, error_code=error_code
-        )
+            "put_metric_alarm",
+            expected_params,
+            response,
+            error_code=error_code)
 
-    def stub_describe_alarms_for_metric(self, namespace, name, alarms, error_code=None):
+    def stub_describe_alarms_for_metric(
+            self, namespace, name, alarms, error_code=None):
         expected_params = {"Namespace": namespace, "MetricName": name}
         response = {
             "MetricAlarms": [
@@ -161,15 +173,19 @@ class CloudWatchStubber(ExampleStubber):
         expected_params = {"AlarmNames": [alarm_name]}
         response = {}
         self._stub_bifurcator(
-            "enable_alarm_actions", expected_params, response, error_code=error_code
-        )
+            "enable_alarm_actions",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_disable_alarm_actions(self, alarm_name, error_code=None):
         expected_params = {"AlarmNames": [alarm_name]}
         response = {}
         self._stub_bifurcator(
-            "disable_alarm_actions", expected_params, response, error_code=error_code
-        )
+            "disable_alarm_actions",
+            expected_params,
+            response,
+            error_code=error_code)
 
     def stub_delete_alarms(self, alarms, error_code=None):
         expected_params = {"AlarmNames": [a.name for a in alarms]}

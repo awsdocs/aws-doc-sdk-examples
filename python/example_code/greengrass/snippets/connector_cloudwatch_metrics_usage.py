@@ -10,8 +10,9 @@ AWS IoT Greengrass connector.
 
 # snippet-start:[greengrass.python.connector-cloudwatch-metrics-usage.complete]
 import json
-from threading import Timer
 import time
+from threading import Timer
+
 import greengrasssdk
 
 iot_client = greengrasssdk.client("iot-data")

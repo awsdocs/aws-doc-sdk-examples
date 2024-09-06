@@ -16,14 +16,16 @@
 # You may not use this file except in compliance with the License. A copy of the License is located at
 #    http://aws.amazon.com/asl/
 # This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for
-# the specific language governing permissions and limitations under the License.
+# the specific language governing permissions and limitations under the
+# License.
 
 #!/usr/bin/env python
 
 import os
 import sys
 from optparse import OptionParser
-from git import Repo, TagReference, RemoteProgress, GitCommandError
+
+from git import GitCommandError, RemoteProgress, Repo, TagReference
 
 
 class PushProgressPrinter(RemoteProgress):
@@ -69,16 +71,19 @@ class RepositoryMigration:
 
         print("Analyzing repository")
         head_commit = self.local_repo.head.commit
-        sys.setrecursionlimit(max(sys.getrecursionlimit(), head_commit.count()))
+        sys.setrecursionlimit(
+            max(sys.getrecursionlimit(), head_commit.count()))
 
         # tag commits on default branch
         leftover_commits = self.migrate_commit(head_commit)
-        self.tag_commits([commit for (commit, commit_count) in leftover_commits])
+        self.tag_commits(
+            [commit for (commit, commit_count) in leftover_commits])
 
         # tag commits on each branch
         for branch in self.local_repo.heads:
             leftover_commits = self.migrate_commit(branch.commit)
-            self.tag_commits([commit for (commit, commit_count) in leftover_commits])
+            self.tag_commits(
+                [commit for (commit, commit_count) in leftover_commits])
 
         # push the tags
         self.push_migration_tags()
@@ -108,12 +113,12 @@ class RepositoryMigration:
             # This is a merge commit
             # Ensure that all parents are pushed first
             for parent_commit in commit.parents:
-                pending_ancestor_pushes.extend(self.migrate_commit(parent_commit))
+                pending_ancestor_pushes.extend(
+                    self.migrate_commit(parent_commit))
         elif len(commit.parents) == 1:
             # Split linear history into individual pushes
             next_ancestor, commits_to_next_ancestor = self.find_next_ancestor_for_push(
-                commit.parents[0]
-            )
+                commit.parents[0])
             commit_count += commits_to_next_ancestor
             pending_ancestor_pushes.extend(self.migrate_commit(next_ancestor))
 
@@ -124,7 +129,8 @@ class RepositoryMigration:
     def find_next_ancestor_for_push(self, commit):
         commit_count = 0
 
-        # Traverse linear history until we reach our commit limit, a merge commit, or an initial commit
+        # Traverse linear history until we reach our commit limit, a merge
+        # commit, or an initial commit
         while (
             len(commit.parents) == 1
             and commit_count < self.max_commits_per_push
@@ -137,14 +143,16 @@ class RepositoryMigration:
         return commit, commit_count
 
     def stage_push(self, commit, commit_count, pending_ancestor_pushes):
-        # Determine whether we can roll up pending ancestor pushes into this push
+        # Determine whether we can roll up pending ancestor pushes into this
+        # push
         combined_commit_count = commit_count + sum(
             ancestor_commit_count
             for (ancestor, ancestor_commit_count) in pending_ancestor_pushes
         )
 
         if combined_commit_count < self.max_commits_per_push:
-            # don't push anything, roll up all pending ancestor pushes into this pending push
+            # don't push anything, roll up all pending ancestor pushes into
+            # this pending push
             return [(commit, combined_commit_count)]
 
         if combined_commit_count <= (
@@ -188,8 +196,10 @@ class RepositoryMigration:
     def push_migration_tags(self):
         print("Will attempt to push %d tags" % len(self.migration_tags))
         self.migration_tags.sort(
-            key=lambda tag: int(tag.name.replace(self.MIGRATION_TAG_PREFIX, ""))
-        )
+            key=lambda tag: int(
+                tag.name.replace(
+                    self.MIGRATION_TAG_PREFIX,
+                    "")))
         for tag in self.migration_tags:
             print(
                 "Pushing tag %s (out of %d tags), commit %s"
@@ -206,7 +216,8 @@ class RepositoryMigration:
 
             try:
                 if push_tags:
-                    infos = self.remote_repo.push(tags=True, progress=progress_printer)
+                    infos = self.remote_repo.push(
+                        tags=True, progress=progress_printer)
                 elif ref is not None:
                     infos = self.remote_repo.push(
                         refspec=ref, progress=progress_printer
@@ -234,13 +245,16 @@ class RepositoryMigration:
                 print(err)
 
         if push_tags:
-            print("Pushing all tags failed after %d attempts" % (self.PUSH_RETRY_LIMIT))
-        elif ref is not None:
-            print("Pushing %s failed after %d attempts" % (ref, self.PUSH_RETRY_LIMIT))
             print(
-                "For more information about the cause of this error, run the following command from the local repo: 'git push %s %s'"
-                % (self.remote_name, ref)
-            )
+                "Pushing all tags failed after %d attempts" %
+                (self.PUSH_RETRY_LIMIT))
+        elif ref is not None:
+            print(
+                "Pushing %s failed after %d attempts" %
+                (ref, self.PUSH_RETRY_LIMIT))
+            print(
+                "For more information about the cause of this error, run the following command from the local repo: 'git push %s %s'" %
+                (self.remote_name, ref))
         else:
             print(
                 "Pushing all branches failed after %d attempts"
@@ -252,11 +266,11 @@ class RepositoryMigration:
         remote_tags_output = self.local_repo.git.ls_remote(
             self.remote_name, tags=True
         ).split("\n")
-        self.remote_migration_tags = dict(
-            (tag.split()[1].replace("refs/tags/", ""), tag.split()[0])
+        self.remote_migration_tags = {
+            tag.split()[1].replace("refs/tags/", ""): tag.split()[0]
             for tag in remote_tags_output
             if self.MIGRATION_TAG_PREFIX in tag
-        )
+        }
 
     def clean_up(self, clean_up_remote=False):
         tags = [
@@ -270,7 +284,8 @@ class RepositoryMigration:
 
         # delete the remote tags
         if clean_up_remote:
-            tags_to_delete = [":" + tag_name for tag_name in self.remote_migration_tags]
+            tags_to_delete = [
+                ":" + tag_name for tag_name in self.remote_migration_tags]
             self.remote_repo.push(refspec=tags_to_delete)
 
 
@@ -312,7 +327,7 @@ parser.add_option(
 
 migration = RepositoryMigration()
 migration.migrate_repository_in_parts(
-    options.localrepo, options.remoterepo, int(options.batchsize), options.clean
-)
+    options.localrepo, options.remoterepo, int(
+        options.batchsize), options.clean)
 
 # snippet-end:[codecommit.python.push-in-parts.complete]

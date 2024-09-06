@@ -10,28 +10,32 @@ how the service responds to failures, and shows ways to restructure the service 
 more resilient when failures occur.
 """
 
+import demo_tools.question as q
 import argparse
 import logging
-from pprint import pp
 import sys
+from pprint import pp
 
 import requests
-
 from auto_scaler import AutoScaler
 from load_balancer import LoadBalancer
 from parameters import ParameterHelper
 from recommendation_service import RecommendationService
 
-# Add relative path to include demo_tools in this code example without need for setup.
+# Add relative path to include demo_tools in this code example without
+# need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
 
 
 # snippet-start:[python.example_code.workflow.ResilientService_Runner]
 class Runner:
     def __init__(
-        self, resource_path, recommendation, autoscaler, loadbalancer, param_helper
-    ):
+            self,
+            resource_path,
+            recommendation,
+            autoscaler,
+            loadbalancer,
+            param_helper):
         self.resource_path = resource_path
         self.recommendation = recommendation
         self.autoscaler = autoscaler
@@ -50,8 +54,7 @@ class Runner:
             "\nFor this demo, we'll use the AWS SDK for Python (Boto3) to create several AWS resources\n"
             "to set up a load-balanced web service endpoint and explore some ways to make it resilient\n"
             "against various kinds of failures.\n\n"
-            "Some of the resources create by this demo are:\n"
-        )
+            "Some of the resources create by this demo are:\n")
         print(
             "\t* A DynamoDB table that the web service depends on to provide book, movie, and song recommendations."
         )
@@ -79,26 +82,22 @@ class Runner:
             f"This script starts a Python web server defined in the `server.py` script. The web server\n"
             f"listens to HTTP requests on port 80 and responds to requests to '/' and to '/healthcheck'.\n"
             f"For demo purposes, this server is run as the root user. In production, the best practice is to\n"
-            f"run a web server, such as Apache, with least-privileged credentials.\n"
-        )
+            f"run a web server, such as Apache, with least-privileged credentials.\n")
         print(
             f"The template also defines an IAM policy that each instance uses to assume a role that grants\n"
             f"permissions to access the DynamoDB recommendation table and Systems Manager parameters\n"
-            f"that control the flow of the demo.\n"
-        )
+            f"that control the flow of the demo.\n")
         self.autoscaler.create_template(startup_script, instance_policy)
         print("-" * 88)
 
         print(
             f"Creating an EC2 Auto Scaling group that maintains three EC2 instances, each in a different\n"
-            f"Availability Zone."
-        )
+            f"Availability Zone.")
         zones = self.autoscaler.create_group(3)
         print("-" * 88)
         print(
             "At this point, you have EC2 instances created. Once each instance starts, it listens for\n"
-            "HTTP requests. You can see these instances in the console or continue with the demo."
-        )
+            "HTTP requests. You can see these instances in the console or continue with the demo.")
         print("-" * 88)
         q.ask("Press Enter when you're ready to continue.")
 
@@ -108,8 +107,7 @@ class Runner:
         print(
             "\nCreating an Elastic Load Balancing target group and load balancer. The target group\n"
             "defines how the load balancer connects to instances. The load balancer provides a\n"
-            "single endpoint where clients connect and dispatches requests to instances in the group.\n"
-        )
+            "single endpoint where clients connect and dispatches requests to instances in the group.\n")
         vpc = self.autoscaler.get_default_vpc()
         subnets = self.autoscaler.get_subnets(vpc["VpcId"], zones)
         target_group = self.loadbalancer.create_target_group(
@@ -138,8 +136,7 @@ class Runner:
                 print(
                     "For this example to work, the default security group for your default VPC must\n"
                     "allows access from this computer. You can either add it automatically from this\n"
-                    "example or add it yourself using the AWS Management Console.\n"
-                )
+                    "example or add it yourself using the AWS Management Console.\n")
                 if q.ask(
                     f"Do you want to add a rule to security group {sec_group['GroupId']} to allow\n"
                     f"inbound traffic on port {self.port} from your computer's IP address of {current_ip_address}? (y/n) ",
@@ -165,8 +162,7 @@ class Runner:
             print(
                 "Couldn't get a successful response from the load balancer endpoint. Troubleshoot by\n"
                 "manually verifying that your VPC and security group are configured correctly and that\n"
-                "you can successfully make a GET request to the load balancer endpoint:\n"
-            )
+                "you can successfully make a GET request to the load balancer endpoint:\n")
             print(f"\thttp://{self.loadbalancer.endpoint()}\n")
         print("-" * 88)
         q.ask("Press Enter when you're ready to continue with the demo.")
@@ -183,12 +179,14 @@ class Runner:
             print(
                 "\nSee the current state of the service by selecting one of the following choices:\n"
             )
-            choice = q.choose("\nWhich action would you like to take? ", actions)
+            choice = q.choose(
+                "\nWhich action would you like to take? ", actions)
             print("-" * 88)
             if choice == 0:
                 print("Request:\n")
                 print(f"GET http://{self.loadbalancer.endpoint()}")
-                response = requests.get(f"http://{self.loadbalancer.endpoint()}")
+                response = requests.get(
+                    f"http://{self.loadbalancer.endpoint()}")
                 print("\nResponse:\n")
                 print(f"{response.status_code}")
                 if response.headers.get("content-type") == "application/json":
@@ -207,8 +205,7 @@ class Runner:
                         )
                 print(
                     f"\nNote that it can take a minute or two for the health check to update\n"
-                    f"after changes are made.\n"
-                )
+                    f"after changes are made.\n")
             elif choice == 2:
                 print("\nOkay, let's move on.")
                 print("-" * 88)
@@ -222,8 +219,7 @@ class Runner:
         print(
             "\nThis part of the demonstration shows how to toggle different parts of the system\n"
             "to create situations where the web service fails, and shows how using a resilient\n"
-            "architecture can keep the web service running in spite of these failures."
-        )
+            "architecture can keep the web service running in spite of these failures.")
         print("-" * 88)
 
         print(
@@ -234,8 +230,7 @@ class Runner:
         print(
             f"The web service running on the EC2 instances gets recommendations by querying a DynamoDB table.\n"
             f"The table name is contained in a Systems Manager parameter named '{self.param_helper.table}'.\n"
-            f"To simulate a failure of the recommendation service, let's set this parameter to name a non-existent table.\n"
-        )
+            f"To simulate a failure of the recommendation service, let's set this parameter to name a non-existent table.\n")
         self.param_helper.put(self.param_helper.table, "this-is-not-a-table")
         print(
             "\nNow, sending a GET request to the load balancer endpoint returns a failure code. But, the service reports as\n"
@@ -243,23 +238,21 @@ class Runner:
         )
         self.demo_choices()
 
-        print(
-            f"Instead of failing when the recommendation service fails, the web service can return a static response.\n"
-            f"While this is not a perfect solution, it presents the customer with a somewhat better experience than failure.\n"
-        )
+        print(f"Instead of failing when the recommendation service fails, the web service can return a static response.\n"
+              f"While this is not a perfect solution, it presents the customer with a somewhat better experience than failure.\n")
         self.param_helper.put(self.param_helper.failure_response, "static")
         print(
             f"\nNow, sending a GET request to the load balancer endpoint returns a static response.\n"
-            f"The service still reports as healthy because health checks are still shallow.\n"
-        )
+            f"The service still reports as healthy because health checks are still shallow.\n")
         self.demo_choices()
 
         print("Let's reinstate the recommendation service.\n")
-        self.param_helper.put(self.param_helper.table, self.recommendation.table_name)
+        self.param_helper.put(
+            self.param_helper.table,
+            self.recommendation.table_name)
         print(
             "\nLet's also substitute bad credentials for one of the instances in the target group so that it can't\n"
-            "access the DynamoDB recommendation table.\n"
-        )
+            "access the DynamoDB recommendation table.\n")
         self.autoscaler.create_instance_profile(
             ssm_only_policy,
             self.autoscaler.bad_creds_policy_name,
@@ -269,11 +262,11 @@ class Runner:
         )
         instances = self.autoscaler.get_instances()
         bad_instance_id = instances[0]
-        instance_profile = self.autoscaler.get_instance_profile(bad_instance_id)
+        instance_profile = self.autoscaler.get_instance_profile(
+            bad_instance_id)
         print(
             f"\nReplacing the profile for instance {bad_instance_id} with a profile that contains\n"
-            f"bad credentials...\n"
-        )
+            f"bad credentials...\n")
         self.autoscaler.replace_instance_profile(
             bad_instance_id,
             self.autoscaler.bad_creds_profile_name,
@@ -281,8 +274,7 @@ class Runner:
         )
         print(
             "Now, sending a GET request to the load balancer endpoint returns either a recommendation or a static response,\n"
-            "depending on which instance is selected by the load balancer.\n"
-        )
+            "depending on which instance is selected by the load balancer.\n")
         self.demo_choices()
 
         print(
@@ -290,25 +282,21 @@ class Runner:
             "the web service can access the DynamoDB table that it depends on for recommendations. Note that\n"
             "the deep health check is only for ELB routing and not for Auto Scaling instance health.\n"
             "This kind of deep health check is not recommended for Auto Scaling instance health, because it\n"
-            "risks accidental termination of all instances in the Auto Scaling group when a dependent service fails.\n"
-        )
+            "risks accidental termination of all instances in the Auto Scaling group when a dependent service fails.\n")
         print(
             "By implementing deep health checks, the load balancer can detect when one of the instances is failing\n"
-            "and take that instance out of rotation.\n"
-        )
+            "and take that instance out of rotation.\n")
         self.param_helper.put(self.param_helper.health_check, "deep")
         print(
             f"\nNow, checking target health indicates that the instance with bad credentials ({bad_instance_id})\n"
             f"is unhealthy. Note that it might take a minute or two for the load balancer to detect the unhealthy \n"
             f"instance. Sending a GET request to the load balancer endpoint always returns a recommendation, because\n"
-            "the load balancer takes unhealthy instances out of its rotation.\n"
-        )
+            "the load balancer takes unhealthy instances out of its rotation.\n")
         self.demo_choices()
 
         print(
             "\nBecause the instances in this demo are controlled by an auto scaler, the simplest way to fix an unhealthy\n"
-            "instance is to terminate it and let the auto scaler start a new instance to replace it.\n"
-        )
+            "instance is to terminate it and let the auto scaler start a new instance to replace it.\n")
         self.autoscaler.terminate_instance(bad_instance_id)
         print(
             "\nEven while the instance is terminating and the new instance is starting, sending a GET\n"
@@ -316,8 +304,7 @@ class Runner:
             "the load balancer routes requests to the healthy instances. After the replacement instance\n"
             "starts and reports as healthy, it is included in the load balancing rotation.\n"
             "\nNote that terminating and replacing an instance typically takes several minutes, during which time you\n"
-            "can see the changing health check status until the new instance is running and healthy.\n"
-        )
+            "can see the changing health check status until the new instance is running and healthy.\n")
         self.demo_choices()
 
         print(
@@ -327,8 +314,7 @@ class Runner:
         print(
             "\nWhen all instances are unhealthy, the load balancer continues to route requests even to\n"
             "unhealthy instances, allowing them to fail open and return a static response rather than fail\n"
-            "closed and report failure to the customer."
-        )
+            "closed and report failure to the customer.")
         self.demo_choices()
         self.param_helper.reset()
 
@@ -336,9 +322,10 @@ class Runner:
         print(
             "This concludes the demo of how to build and manage a resilient service.\n"
             "To keep things tidy and to avoid unwanted charges on your account, we can clean up all AWS resources\n"
-            "that were created for this demo."
-        )
-        if q.ask("Do you want to clean up all demo resources? (y/n) ", q.is_yesno):
+            "that were created for this demo.")
+        if q.ask(
+            "Do you want to clean up all demo resources? (y/n) ",
+                q.is_yesno):
             self.loadbalancer.delete_load_balancer()
             self.loadbalancer.delete_target_group()
             self.autoscaler.delete_group()
@@ -352,8 +339,7 @@ class Runner:
         else:
             print(
                 "Okay, we'll leave the resources intact.\n"
-                "Don't forget to delete them when you're done with them or you might incur unexpected charges."
-            )
+                "Don't forget to delete them when you're done with them or you might incur unexpected charges.")
 
 
 def main():
@@ -361,7 +347,11 @@ def main():
     parser.add_argument(
         "--action",
         required=True,
-        choices=["all", "deploy", "demo", "destroy"],
+        choices=[
+            "all",
+            "deploy",
+            "demo",
+            "destroy"],
         help="The action to take for the demo. When 'all' is specified, resources are\n"
         "deployed, the demo is run, and resources are destroyed.",
     )
@@ -387,9 +377,14 @@ def main():
     loadbalancer = LoadBalancer.from_client(prefix)
     param_helper = ParameterHelper.from_client(recommendation.table_name)
     runner = Runner(
-        args.resource_path, recommendation, autoscaler, loadbalancer, param_helper
-    )
-    actions = [args.action] if args.action != "all" else ["deploy", "demo", "destroy"]
+        args.resource_path,
+        recommendation,
+        autoscaler,
+        loadbalancer,
+        param_helper)
+    actions = [
+        args.action] if args.action != "all" else [
+        "deploy", "demo", "destroy"]
     for action in actions:
         if action == "deploy":
             runner.deploy()
@@ -404,6 +399,8 @@ def main():
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
     main()
 # snippet-end:[python.example_code.workflow.ResilientService_Runner]

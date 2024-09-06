@@ -6,10 +6,9 @@ Unit tests for comprehend_classifier.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
-from comprehend_classifier import ComprehendClassifier, ClassifierMode, JobInputFormat
+from botocore.exceptions import ClientError
+from comprehend_classifier import ClassifierMode, ComprehendClassifier, JobInputFormat
 
 DATA_ROLE_ARN = "arn:aws:iam:REGION:123456789012:role/test-role"
 CLASSIFIER_ARN = "arn:aws:comprehend:REGION:123456789012:document-classifier/test-name"
@@ -55,7 +54,9 @@ def test_describe(make_stubber, error_code):
     comprehend_client = boto3.client("comprehend")
     comprehend_stubber = make_stubber(comprehend_client)
     comp_class = ComprehendClassifier(comprehend_client)
-    classifier = {"DocumentClassifierArn": CLASSIFIER_ARN, "Status": "SUBMITTED"}
+    classifier = {
+        "DocumentClassifierArn": CLASSIFIER_ARN,
+        "Status": "SUBMITTED"}
 
     comprehend_stubber.stub_describe_document_classifier(
         CLASSIFIER_ARN, classifier["Status"], error_code=error_code

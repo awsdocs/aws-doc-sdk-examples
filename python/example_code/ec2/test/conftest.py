@@ -7,18 +7,17 @@ Contains common test fixtures used to run unit tests.
 
 import sys
 from unittest.mock import MagicMock
+
 import boto3
 import pytest
-
+import scenario_get_started_instances
 from elastic_ip import ElasticIpWrapper
 from instance import InstanceWrapper
 from key_pair import KeyPairWrapper
 from security_group import SecurityGroupWrapper
-import scenario_get_started_instances
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")
-from test_tools.fixtures.common import *
 
 
 class ScenarioData:

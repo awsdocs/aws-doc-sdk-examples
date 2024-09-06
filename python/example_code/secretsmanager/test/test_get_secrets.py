@@ -1,15 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-import sys
+from get_secret_value import GetSecretWrapper
+from batch_get_secret_value import BatchGetSecretsWrapper
 import os
+import sys
+
 import boto3
 import pytest
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from batch_get_secret_value import BatchGetSecretsWrapper
-from get_secret_value import GetSecretWrapper
 
 
 @pytest.mark.integ

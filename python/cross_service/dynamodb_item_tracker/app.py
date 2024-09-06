@@ -22,10 +22,9 @@ import logging
 import boto3
 from flask import Flask
 from flask_cors import CORS
-
 from item_list import ItemList
 from report import Report
-from storage import Storage, StorageError
+from storage import Storage
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +69,11 @@ def create_app(test_config=None):
     storage = Storage(table)
 
     item_list_view = ItemList.as_view("item_list_api", storage)
-    report_view = Report.as_view("report_api", storage, sender_email, ses_client)
+    report_view = Report.as_view(
+        "report_api",
+        storage,
+        sender_email,
+        ses_client)
     app.add_url_rule(
         "/api/items",
         defaults={"iditem": None},
@@ -79,16 +82,24 @@ def create_app(test_config=None):
         strict_slashes=False,
     )
     app.add_url_rule(
-        "/api/items", view_func=item_list_view, methods=["POST"], strict_slashes=False
-    )
+        "/api/items",
+        view_func=item_list_view,
+        methods=["POST"],
+        strict_slashes=False)
     app.add_url_rule(
-        "/api/items/<string:iditem>", view_func=item_list_view, methods=["GET", "PUT"]
-    )
+        "/api/items/<string:iditem>",
+        view_func=item_list_view,
+        methods=[
+            "GET",
+            "PUT"])
     app.add_url_rule(
         "/api/items/<string:iditem>:<string:action>",
         view_func=item_list_view,
         methods=["PUT"],
     )
-    app.add_url_rule("/api/items:report", view_func=report_view, methods=["POST"])
+    app.add_url_rule(
+        "/api/items:report",
+        view_func=report_view,
+        methods=["POST"])
 
     return app

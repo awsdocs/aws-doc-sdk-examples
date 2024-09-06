@@ -9,11 +9,12 @@ Shows how to create and optionally start an Amazon Lookout for Vision model.
 
 import argparse
 import logging
+
 import boto3
-from projects import Projects
 from datasets import Datasets
-from models import Models
 from hosting import Hosting
+from models import Models
+from projects import Projects
 
 logger = logging.getLogger(__name__)
 
@@ -35,8 +36,7 @@ def start_model(lookoutvision_client, project_name, version):
         print(f"python inference.py {project_name} {version} <your_image>")
         print(
             "\nStop your model when you're done. You're charged while it's running. "
-            "See hosting.py"
-        )
+            "See hosting.py")
     else:
         print("Not starting model.")
 
@@ -64,8 +64,12 @@ def create_dataset(
 
     manifest_file = f"s3://{bucket}/{project_name}/manifests/{dataset_type}.manifest"
 
-    logger.info("Creating %s manifest file in %s.", dataset_type, manifest_file)
-    Datasets.create_manifest_file_s3(s3_resource, dataset_images, manifest_file)
+    logger.info(
+        "Creating %s manifest file in %s.",
+        dataset_type,
+        manifest_file)
+    Datasets.create_manifest_file_s3(
+        s3_resource, dataset_images, manifest_file)
 
     logger.info("Create %s dataset for project %s", dataset_type, project_name)
     Datasets.create_dataset(
@@ -91,8 +95,7 @@ def train_model(lookoutvision_client, bucket, project_name):
     if status == "TRAINED":
         print(
             "\nCheck the performance metrics and decide if you need to improve "
-            "the model performance."
-        )
+            "the model performance.")
         print(
             "\nMore information: "
             "https://docs.aws.amazon.com/lookout-for-vision/latest/developer-guide/improve.html"
@@ -115,7 +118,9 @@ def main():
     anomalous images in a folder named anomaly.
     Make sure that bucket and the training/test Amazon S3 paths are in the same AWS Region.
     """
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
     parser = argparse.ArgumentParser(usage=argparse.SUPPRESS)
     parser.add_argument("project", help="A unique name for your project")
     parser.add_argument(
@@ -159,8 +164,12 @@ def main():
     )
     if test_images is not None:
         create_dataset(
-            lookoutvision_client, s3_resource, bucket, project_name, test_images, "test"
-        )
+            lookoutvision_client,
+            s3_resource,
+            bucket,
+            project_name,
+            test_images,
+            "test")
 
     # Train the model and optionally start hosting.
     train_model(lookoutvision_client, bucket, project_name)

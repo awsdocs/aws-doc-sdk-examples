@@ -8,14 +8,16 @@ Shows how to use the AWS SDK for Python (Boto3) to create and delete an Amazon A
 (Aurora) database cluster and create and delete an AWS Secrets Manager secret.
 """
 
+from demo_tools.custom_waiter import CustomWaiter, WaitState
 import json
 import logging
 import sys
+
 from botocore.exceptions import ClientError
 
-# Add relative path to include demo_tools in this code example without need for setup.
+# Add relative path to include demo_tools in this code example without
+# need for setup.
 sys.path.append("../..")
-from demo_tools.custom_waiter import CustomWaiter, WaitState
 
 logger = logging.getLogger(__name__)
 
@@ -60,7 +62,12 @@ class DBInstanceAvailableWaiter(CustomWaiter):
         self._wait(DBInstanceIdentifier=instance_name)
 
 
-def create_db_cluster(cluster_name, db_name, admin_name, admin_password, rds_client):
+def create_db_cluster(
+        cluster_name,
+        db_name,
+        admin_name,
+        admin_password,
+        rds_client):
     """
     Creates an Amazon Aurora database cluster using an Aurora Serverless v2 database instance,
     and a PostgreSQL database within it.
@@ -82,7 +89,9 @@ def create_db_cluster(cluster_name, db_name, admin_name, admin_password, rds_cli
             MasterUsername=admin_name,
             MasterUserPassword=admin_password,
             EnableHttpEndpoint=True,
-            ServerlessV2ScalingConfiguration={"MinCapacity": 0.5, "MaxCapacity": 16},
+            ServerlessV2ScalingConfiguration={
+                "MinCapacity": 0.5,
+                "MaxCapacity": 16},
         )
         cluster = create_cluster_response["DBCluster"]
         logger.info(
@@ -122,8 +131,8 @@ def delete_db_cluster(cluster_name, rds_client):
     """
     try:
         rds_client.delete_db_instance(
-            DBInstanceIdentifier="%s-instance" % cluster_name, SkipFinalSnapshot=True
-        )
+            DBInstanceIdentifier="%s-instance" %
+            cluster_name, SkipFinalSnapshot=True)
         rds_client.delete_db_cluster(
             DBClusterIdentifier=cluster_name, SkipFinalSnapshot=True
         )
@@ -134,8 +143,14 @@ def delete_db_cluster(cluster_name, rds_client):
 
 
 def create_aurora_secret(
-    secret_name, username, password, engine, host, port, cluster_name, secrets_client
-):
+        secret_name,
+        username,
+        password,
+        engine,
+        host,
+        port,
+        cluster_name,
+        secrets_client):
     """
     Creates an AWS Secrets Manager secret that contains PostgreSQL user credentials.
 

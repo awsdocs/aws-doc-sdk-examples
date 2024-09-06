@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from botocore.exceptions import ClientError
 import pytest
+from botocore.exceptions import ClientError
 
 
 class MockManager:
@@ -23,8 +23,9 @@ class MockManager:
         ks_wrapper = self.scenario_data.scenario.ks_wrapper
         with self.stub_runner(error, stop_on) as runner:
             runner.add(
-                stubber.stub_delete_table, ks_wrapper.ks_name, ks_wrapper.table_name
-            )
+                stubber.stub_delete_table,
+                ks_wrapper.ks_name,
+                ks_wrapper.table_name)
             runner.add(
                 stubber.stub_get_table,
                 ks_wrapper.ks_name,

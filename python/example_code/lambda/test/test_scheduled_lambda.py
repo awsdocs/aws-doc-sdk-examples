@@ -6,10 +6,9 @@ Unit tests for scheduled_lambda.py functions.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
 import scheduled_lambda
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(
@@ -89,12 +88,15 @@ def test_update_event(make_stubber, enable, error_code):
     event_rule_name = "test-rule"
 
     if enable:
-        eventbridge_stubber.stub_enable_rule(event_rule_name, error_code=error_code)
+        eventbridge_stubber.stub_enable_rule(
+            event_rule_name, error_code=error_code)
     else:
-        eventbridge_stubber.stub_disable_rule(event_rule_name, error_code=error_code)
+        eventbridge_stubber.stub_disable_rule(
+            event_rule_name, error_code=error_code)
 
     if error_code is None:
-        scheduled_lambda.update_event_rule(eventbridge_client, event_rule_name, enable)
+        scheduled_lambda.update_event_rule(
+            eventbridge_client, event_rule_name, enable)
     else:
         with pytest.raises(ClientError) as exc_info:
             scheduled_lambda.update_event_rule(
@@ -123,7 +125,8 @@ def test_get_event_enabled(make_stubber, state, error_code):
         assert got_enabled == (state == "ENABLED")
     else:
         with pytest.raises(ClientError) as exc_info:
-            scheduled_lambda.get_event_rule_enabled(eventbridge_client, event_rule_name)
+            scheduled_lambda.get_event_rule_enabled(
+                eventbridge_client, event_rule_name)
         assert exc_info.value.response["Error"]["Code"] == error_code
 
 
@@ -139,8 +142,9 @@ def test_delete_event(make_stubber, stub_runner, error_code, stop_on_method):
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
-            eventbridge_stubber.stub_remove_targets, event_rule_name, [lambda_func_name]
-        )
+            eventbridge_stubber.stub_remove_targets,
+            event_rule_name,
+            [lambda_func_name])
         runner.add(eventbridge_stubber.stub_delete_rule, event_rule_name)
 
     if error_code is None:

@@ -10,6 +10,7 @@ send SMS messages using a message template.
 
 # snippet-start:[pinpoint.python.pinpoint_send_templated_sms_message.complete]
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -42,16 +43,18 @@ def send_templated_sms_message(
         response = pinpoint_client.send_messages(
             ApplicationId=project_id,
             MessageRequest={
-                "Addresses": {destination_number: {"ChannelType": "SMS"}},
+                "Addresses": {
+                    destination_number: {
+                        "ChannelType": "SMS"}},
                 "MessageConfiguration": {
                     "SMSMessage": {
                         "MessageType": message_type,
                         "OriginationNumber": origination_number,
-                    }
-                },
+                    }},
                 "TemplateConfiguration": {
-                    "SMSTemplate": {"Name": template_name, "Version": template_version}
-                },
+                    "SMSTemplate": {
+                        "Name": template_name,
+                        "Version": template_version}},
             },
         )
 

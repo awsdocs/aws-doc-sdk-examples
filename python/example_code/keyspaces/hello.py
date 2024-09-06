@@ -16,7 +16,10 @@ def hello_keyspaces(keyspaces_client):
                              the low-level Amazon Keyspaces service API.
     """
     print("Hello, Amazon Keyspaces! Let's list some of your keyspaces:\n")
-    for ks in keyspaces_client.list_keyspaces(maxResults=5).get("keyspaces", []):
+    for ks in keyspaces_client.list_keyspaces(
+        maxResults=5).get(
+        "keyspaces",
+            []):
         print(ks["keyspaceName"])
         print(f"\t{ks['resourceArn']}")
 

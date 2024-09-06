@@ -6,11 +6,10 @@ Unit tests for bucket_wrapper.py functions.
 """
 
 from urllib.parse import urlparse
-import pytest
 
 import boto3
+import pytest
 from botocore.exceptions import ClientError
-
 from bucket_wrapper import BucketWrapper
 
 
@@ -24,9 +23,11 @@ def test_create(make_stubber, region, error_code):
     wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
 
     stub_region = (
-        region if region is not None else s3_resource.meta.client.meta.region_name
-    )
-    s3_stubber.stub_create_bucket(bucket_name, stub_region, error_code=error_code)
+        region if region is not None else s3_resource.meta.client.meta.region_name)
+    s3_stubber.stub_create_bucket(
+        bucket_name,
+        stub_region,
+        error_code=error_code)
     if error_code is None:
         s3_stubber.stub_head_bucket(bucket_name)
 
@@ -119,7 +120,8 @@ def test_get_acl(make_stubber, error_code):
     bucket_name = "test-bucket_name"
     wrapper = BucketWrapper(s3_resource.Bucket(bucket_name))
 
-    s3_stubber.stub_get_bucket_acl(bucket_name, ["owner"], error_code=error_code)
+    s3_stubber.stub_get_bucket_acl(
+        bucket_name, ["owner"], error_code=error_code)
 
     if error_code is None:
         got_acl = wrapper.get_acl()
@@ -144,7 +146,8 @@ def test_put_cors(make_stubber, error_code):
         }
     ]
 
-    s3_stubber.stub_put_bucket_cors(bucket_name, cors_rules, error_code=error_code)
+    s3_stubber.stub_put_bucket_cors(
+        bucket_name, cors_rules, error_code=error_code)
 
     if error_code is None:
         wrapper.put_cors(cors_rules)
@@ -168,7 +171,8 @@ def test_get_cors(make_stubber, error_code):
         }
     ]
 
-    s3_stubber.stub_get_bucket_cors(bucket_name, cors_rules, error_code=error_code)
+    s3_stubber.stub_get_bucket_cors(
+        bucket_name, cors_rules, error_code=error_code)
 
     if error_code is None:
         got_rules = wrapper.get_cors()
@@ -250,7 +254,8 @@ def test_get_policy(make_stubber, error_code):
         ],
     }
 
-    s3_stubber.stub_get_bucket_policy(bucket_name, policy, error_code=error_code)
+    s3_stubber.stub_get_bucket_policy(
+        bucket_name, policy, error_code=error_code)
 
     if error_code is None:
         got_policy = wrapper.get_policy()

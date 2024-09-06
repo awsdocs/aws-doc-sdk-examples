@@ -12,24 +12,25 @@ bucket so that AWS Glue can access it.
 
 # snippet-start:[python.example_code.glue.Scenario_GetStartedCrawlersJobs.job_script]
 import sys
+
+from awsglue.context import GlueContext
+from awsglue.job import Job
 from awsglue.transforms import *
 from awsglue.utils import getResolvedOptions
 from pyspark.context import SparkContext
-from awsglue.context import GlueContext
-from awsglue.job import Job
 
 """
 These custom arguments must be passed as Arguments to the StartJobRun request.
-    --input_database    The name of a metadata database that is contained in your 
-                        AWS Glue Data Catalog and that contains tables that describe 
+    --input_database    The name of a metadata database that is contained in your
+                        AWS Glue Data Catalog and that contains tables that describe
                         the data to be processed.
     --input_table       The name of a table in the database that describes the data to
                         be processed.
-    --output_bucket_url An S3 bucket that receives the transformed output data.  
+    --output_bucket_url An S3 bucket that receives the transformed output data.
 """
 args = getResolvedOptions(
-    sys.argv, ["JOB_NAME", "input_database", "input_table", "output_bucket_url"]
-)
+    sys.argv, [
+        "JOB_NAME", "input_database", "input_table", "output_bucket_url"])
 sc = SparkContext()
 glueContext = GlueContext(sc)
 spark = glueContext.spark_session
@@ -45,7 +46,8 @@ S3FlightData_node1 = glueContext.create_dynamic_frame.from_catalog(
 
 # This mapping performs two main functions:
 # 1. It simplifies the output by removing most of the fields from the data.
-# 2. It renames some fields. For example, `fl_date` is renamed to `flight_date`.
+# 2. It renames some fields. For example, `fl_date` is renamed to
+# `flight_date`.
 ApplyMapping_node2 = ApplyMapping.apply(
     frame=S3FlightData_node1,
     mappings=[
@@ -73,7 +75,9 @@ RevisedFlightData_node3 = glueContext.write_dynamic_frame.from_options(
     frame=ApplyMapping_node2,
     connection_type="s3",
     format="json",
-    connection_options={"path": args["output_bucket_url"], "partitionKeys": []},
+    connection_options={
+        "path": args["output_bucket_url"],
+        "partitionKeys": []},
     transformation_ctx="RevisedFlightData_node3",
 )
 

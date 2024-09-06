@@ -5,20 +5,19 @@
 Contains common test fixtures used to run unit tests.
 """
 
-from datetime import datetime
 import sys
+from datetime import datetime
+
 import boto3
 import pytest
-
+import runner
 from auto_scaler import AutoScaler
 from load_balancer import LoadBalancer
 from parameters import ParameterHelper
 from recommendation_service import RecommendationService
-import runner
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")
-from test_tools.fixtures.common import *
 
 
 class ScenarioData:

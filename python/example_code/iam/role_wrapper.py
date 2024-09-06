@@ -43,8 +43,8 @@ def create_role(role_name, allowed_services):
 
     try:
         role = iam.create_role(
-            RoleName=role_name, AssumeRolePolicyDocument=json.dumps(trust_policy)
-        )
+            RoleName=role_name,
+            AssumeRolePolicyDocument=json.dumps(trust_policy))
         logger.info("Created role %s.", role.name)
     except ClientError:
         logger.exception("Couldn't create role %s.", role_name)
@@ -129,7 +129,10 @@ def attach_policy(role_name, policy_arn):
         iam.Role(role_name).attach_policy(PolicyArn=policy_arn)
         logger.info("Attached policy %s to role %s.", policy_arn, role_name)
     except ClientError:
-        logger.exception("Couldn't attach policy %s to role %s.", policy_arn, role_name)
+        logger.exception(
+            "Couldn't attach policy %s to role %s.",
+            policy_arn,
+            role_name)
         raise
 
 
@@ -198,7 +201,9 @@ def detach_policy(role_name, policy_arn):
 # snippet-start:[python.example_code.iam.Scenario_RoleManagement]
 def usage_demo():
     """Shows how to use the role functions."""
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
     print("-" * 88)
     print("Welcome to the AWS Identity and Account Management role demo.")
     print("-" * 88)
@@ -210,9 +215,9 @@ def usage_demo():
     roles = list_roles(10)
     print(f"The inline policies for role {roles[0].name} are:")
     list_policies(roles[0].name)
-    role = create_role(
-        "demo-iam-role", ["lambda.amazonaws.com", "batchoperations.s3.amazonaws.com"]
-    )
+    role = create_role("demo-iam-role",
+                       ["lambda.amazonaws.com",
+                        "batchoperations.s3.amazonaws.com"])
     print(f"Created role {role.name}, with trust policy:")
     pprint.pprint(role.assume_role_policy_document)
     policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"

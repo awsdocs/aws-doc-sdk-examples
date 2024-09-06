@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from unittest.mock import MagicMock
-from botocore.exceptions import ClientError
+
 import pytest
+from botocore.exceptions import ClientError
 
 
 class MockManager:

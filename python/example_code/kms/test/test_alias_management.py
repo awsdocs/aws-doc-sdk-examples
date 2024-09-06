@@ -5,11 +5,10 @@
 Unit tests for alias_management.py.
 """
 
-import boto3
-from botocore.exceptions import ClientError
-import pytest
-
 import alias_management
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(
@@ -38,13 +37,22 @@ def test_alias_management(
     monkeypatch.setattr("builtins.input", lambda x: inputs.pop(0))
 
     with stub_runner(error_code, stop_on_action) as runner:
-        runner.add(kms_stubber.stub_create_key, "Alias management demo key", key_id)
         runner.add(
-            kms_stubber.stub_create_alias, alias, key_id, raise_and_continue=True
-        )
+            kms_stubber.stub_create_key,
+            "Alias management demo key",
+            key_id)
+        runner.add(
+            kms_stubber.stub_create_alias,
+            alias,
+            key_id,
+            raise_and_continue=True)
         if stop_on_action == "stub_create_alias":
             inputs.insert(2, "test-alias")
-            runner.add(kms_stubber.stub_create_alias, alias, key_id, keep_going=True)
+            runner.add(
+                kms_stubber.stub_create_alias,
+                alias,
+                key_id,
+                keep_going=True)
         runner.add(
             kms_stubber.stub_list_aliases,
             10,
@@ -60,12 +68,16 @@ def test_alias_management(
             raise_and_continue=True,
         )
         runner.add(
-            kms_stubber.stub_update_alias, alias, key_id_2, raise_and_continue=True
-        )
-        runner.add(kms_stubber.stub_delete_alias, alias, raise_and_continue=True)
+            kms_stubber.stub_update_alias,
+            alias,
+            key_id_2,
+            raise_and_continue=True)
         runner.add(
-            kms_stubber.stub_schedule_key_deletion, key_id, 7, raise_and_continue=True
-        )
+            kms_stubber.stub_delete_alias,
+            alias,
+            raise_and_continue=True)
+        runner.add(kms_stubber.stub_schedule_key_deletion,
+                   key_id, 7, raise_and_continue=True)
 
     if stop_on_action != "stub_create_key":
         alias_management.alias_management(kms_client)

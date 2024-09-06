@@ -7,11 +7,10 @@ Unit tests for queue_wrapper.py functions.
 
 import json
 import time
+
 import pytest
-
-from botocore.exceptions import ClientError
-
 import queue_wrapper
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(
@@ -43,13 +42,12 @@ def test_create_standard_queue(make_stubber, make_unique_name, attributes):
         queue_wrapper.remove_queue(queue)
 
 
-@pytest.mark.parametrize(
-    "attributes",
-    [
-        ({}),
-        ({"MaximumMessageSize": str(1024), "ReceiveMessageWaitTimeSeconds": str(20)}),
-    ],
-)
+@pytest.mark.parametrize("attributes",
+                         [({}),
+                          ({"MaximumMessageSize": str(1024),
+                            "ReceiveMessageWaitTimeSeconds": str(20)}),
+                          ],
+                         )
 def test_create_fifo_queue(make_stubber, make_unique_name, attributes):
     """Test that creating a FIFO queue returns a queue with the expected form of URL."""
     sqs_stubber = make_stubber(queue_wrapper.sqs.meta.client)

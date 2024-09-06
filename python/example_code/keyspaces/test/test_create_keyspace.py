@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from botocore.exceptions import ClientError
 import pytest
+from botocore.exceptions import ClientError
 
 
 class MockManager:
@@ -22,7 +22,10 @@ class MockManager:
     def setup_stubs(self, error, stop_on, stubber):
         with self.stub_runner(error, stop_on) as runner:
             if self.ks_exists:
-                runner.add(stubber.stub_get_keyspace, self.ks_name, self.ks_arn)
+                runner.add(
+                    stubber.stub_get_keyspace,
+                    self.ks_name,
+                    self.ks_arn)
             else:
                 runner.add(
                     stubber.stub_get_keyspace,
@@ -30,8 +33,14 @@ class MockManager:
                     self.ks_arn,
                     error_code="ResourceNotFoundException",
                 )
-                runner.add(stubber.stub_create_keyspace, self.ks_name, self.ks_arn)
-                runner.add(stubber.stub_get_keyspace, self.ks_name, self.ks_arn)
+                runner.add(
+                    stubber.stub_create_keyspace,
+                    self.ks_name,
+                    self.ks_arn)
+                runner.add(
+                    stubber.stub_get_keyspace,
+                    self.ks_name,
+                    self.ks_arn)
             runner.add(stubber.stub_list_keyspaces, self.keyspaces)
 
 

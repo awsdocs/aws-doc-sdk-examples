@@ -5,15 +5,14 @@
 Tests for update_and_query.py.
 """
 
-from decimal import Decimal
 import json
-from unittest.mock import patch
+from decimal import Decimal
+
 import boto3
+import pytest
+import update_and_query as wrapper
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
-import pytest
-
-import update_and_query as wrapper
 
 
 @pytest.mark.parametrize(
@@ -24,7 +23,12 @@ import update_and_query as wrapper
         ("TestException", "stub_query"),
     ],
 )
-def test_usage_demo(make_stubber, stub_runner, monkeypatch, error_code, stop_on_method):
+def test_usage_demo(
+        make_stubber,
+        stub_runner,
+        monkeypatch,
+        error_code,
+        stop_on_method):
     dynamodb_resource = boto3.resource("dynamodb")
     dynamodb_stubber = make_stubber(dynamodb_resource.meta.client)
     table_name = "getting-started-scenario-test-table"
@@ -32,7 +36,9 @@ def test_usage_demo(make_stubber, stub_runner, monkeypatch, error_code, stop_on_
     movie_file_name = "test/.test.moviedata.json"
     with open(movie_file_name) as data:
         movie_data = json.load(data, parse_float=Decimal)
-    lotr = {"title": "The Lord of the Rings: The Fellowship of the Ring", "year": 2001}
+    lotr = {
+        "title": "The Lord of the Rings: The Fellowship of the Ring",
+        "year": 2001}
     rating_increase = 3.3
     one_dir = {"title": "One Direction: This Is Us", "year": 2013}
     year = 2000

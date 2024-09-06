@@ -8,7 +8,7 @@ Unit tests for AWS IoT Greengrass code example snippets.
 import importlib
 import os
 import sys
-from unittest.mock import MagicMock, ANY, patch, mock_open, call
+from unittest.mock import ANY, MagicMock, call, mock_open, patch
 
 import pytest
 
@@ -22,26 +22,29 @@ sys.modules["greengrass_machine_learning_sdk"] = gg_ml_mock
 sys.modules["boto3"] = boto3_mock
 
 
-@pytest.mark.parametrize(
-    "module_name, topic",
-    [
-        ("snippets.connector_cloudwatch_metrics_usage", "cloudwatch/metric/put"),
-        ("snippets.connector_kinesis_firehose_usage", "kinesisfirehose/message"),
-        ("snippets.connector_modbus_rtu_usage", "modbus/adapter/request"),
-        ("snippets.connector_raspberrypi_gpio_usage", "gpio/test-iot/22/read"),
-        (
-            "snippets.connector_serial_stream_usage",
-            "serial/CORE_THING_NAME/write/dev/serial1",
-        ),
-        (
-            "snippets.connector_servicenow_metricsbase_integration_usage",
-            "servicenow/metricbase/metric",
-        ),
-        ("snippets.connector_sns_usage", "sns/message"),
-        ("snippets.connector_splunk_integration_usage", "splunk/logs/put"),
-        ("snippets.connector_twilio_notifications_usage", "twilio/txt"),
-    ],
-)
+@pytest.mark.parametrize("module_name, topic",
+                         [("snippets.connector_cloudwatch_metrics_usage",
+                           "cloudwatch/metric/put"),
+                          ("snippets.connector_kinesis_firehose_usage",
+                           "kinesisfirehose/message"),
+                             ("snippets.connector_modbus_rtu_usage",
+                              "modbus/adapter/request"),
+                             ("snippets.connector_raspberrypi_gpio_usage",
+                              "gpio/test-iot/22/read"),
+                             ("snippets.connector_serial_stream_usage",
+                              "serial/CORE_THING_NAME/write/dev/serial1",
+                              ),
+                             ("snippets.connector_servicenow_metricsbase_integration_usage",
+                              "servicenow/metricbase/metric",
+                              ),
+                             ("snippets.connector_sns_usage",
+                              "sns/message"),
+                             ("snippets.connector_splunk_integration_usage",
+                              "splunk/logs/put"),
+                             ("snippets.connector_twilio_notifications_usage",
+                              "twilio/txt"),
+                          ],
+                         )
 def test_connector(module_name, topic, monkeypatch):
     monkeypatch.setenv("AWS_IOT_THING_NAME", "test-iot")
     conn_module = importlib.import_module(module_name)
@@ -71,8 +74,12 @@ def test_ml_connector():
 
 
 def test_getting_started_connector():
-    conn_module = importlib.import_module("snippets.getting_started_connectors")
-    event = {"to_name": "test name", "to_number": "555-0101", "temperature": 100}
+    conn_module = importlib.import_module(
+        "snippets.getting_started_connectors")
+    event = {
+        "to_name": "test name",
+        "to_number": "555-0101",
+        "temperature": 100}
     conn_module.function_handler(event, None)
     gg_mock.client.assert_called_with("iot-data")
     gg_mock.client().publish.assert_called_with(topic="twilio/txt", payload=ANY)
@@ -89,12 +96,13 @@ def test_client(module_name, sdk_mock):
     importlib.import_module(module_name)
     sdk_mock.client.assert_called_with("iot-data")
     sdk_mock.client().publish.assert_called_with(
-        topic="some/topic", qos=0, payload="Some payload".encode()
+        topic="some/topic", qos=0, payload=b"Some payload"
     )
 
 
 def test_local_resource_access(monkeypatch):
-    lra_module = importlib.import_module("snippets.local_resource_access_volume")
+    lra_module = importlib.import_module(
+        "snippets.local_resource_access_volume")
     monkeypatch.setattr(os, "stat", lambda x: f"Stat info for {x}")
     with patch("builtins.open", mock_open(read_data="data")) as mock_file:
         lra_module.function_handler(None, None)

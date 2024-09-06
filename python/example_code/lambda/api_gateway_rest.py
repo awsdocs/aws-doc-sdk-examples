@@ -16,21 +16,22 @@ AWS Chalice to more easily create a REST API.
     For more information about AWS Chalice, see https://github.com/aws/chalice.
 """
 
+from demo_tools.retries import wait
 import calendar
 import datetime
 import json
 import logging
 import sys
 import time
-import boto3
-from botocore.exceptions import ClientError
-import requests
 
+import boto3
+import requests
+from botocore.exceptions import ClientError
 from lambda_basics import LambdaWrapper
 
-# Add relative path to include demo_tools in this code example without need for setup.
+# Add relative path to include demo_tools in this code example without
+# need for setup.
 sys.path.append("../..")
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 
@@ -79,10 +80,12 @@ def create_rest_api(
 
     try:
         response = apigateway_client.get_resources(restApiId=api_id)
-        root_id = next(item["id"] for item in response["items"] if item["path"] == "/")
+        root_id = next(item["id"]
+                       for item in response["items"] if item["path"] == "/")
         logger.info("Found root resource of the REST API with ID %s.", root_id)
     except ClientError:
-        logger.exception("Couldn't get the ID of the root resource of the REST API.")
+        logger.exception(
+            "Couldn't get the ID of the root resource of the REST API.")
         raise
 
     try:
@@ -103,8 +106,8 @@ def create_rest_api(
             authorizationType="NONE",
         )
         logger.info(
-            "Created a method that accepts all HTTP verbs for the base " "resource."
-        )
+            "Created a method that accepts all HTTP verbs for the base "
+            "resource.")
     except ClientError:
         logger.exception("Couldn't create a method for the base resource.")
         raise
@@ -114,7 +117,8 @@ def create_rest_api(
         f"lambda:path/2015-03-31/functions/{lambda_function_arn}/invocations"
     )
     try:
-        # NOTE: You must specify 'POST' for integrationHttpMethod or this will not work.
+        # NOTE: You must specify 'POST' for integrationHttpMethod or this will
+        # not work.
         apigateway_client.put_integration(
             restApiId=api_id,
             resourceId=base_id,
@@ -129,12 +133,13 @@ def create_rest_api(
         )
     except ClientError:
         logger.exception(
-            "Couldn't set function %s as integration destination.", lambda_function_arn
-        )
+            "Couldn't set function %s as integration destination.",
+            lambda_function_arn)
         raise
 
     try:
-        apigateway_client.create_deployment(restApiId=api_id, stageName=api_stage)
+        apigateway_client.create_deployment(
+            restApiId=api_id, stageName=api_stage)
         logger.info("Deployed REST API %s.", api_id)
     except ClientError:
         logger.exception("Couldn't deploy REST API %s.", api_id)
@@ -206,7 +211,9 @@ def usage_demo():
     Shows how to deploy an AWS Lambda function, create a REST API, call the REST API
     in various ways, and remove all of the resources after the demo completes.
     """
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
     print("-" * 88)
     print("Welcome to the AWS Lambda and Amazon API Gateway REST API creation demo.")
     print("-" * 88)
@@ -223,7 +230,8 @@ def usage_demo():
     apig_client = boto3.client("apigateway")
 
     print("Checking for IAM role for Lambda...")
-    iam_role, should_wait = wrapper.create_iam_role_for_lambda(lambda_role_name)
+    iam_role, should_wait = wrapper.create_iam_role_for_lambda(
+        lambda_role_name)
     if should_wait:
         logger.info("Giving AWS time to create resources...")
         wait(10)

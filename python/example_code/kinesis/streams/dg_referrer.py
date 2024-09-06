@@ -12,6 +12,7 @@ a String_ example in the Amazon Kinesis Data Analytics SQL Developer Guide.
 # snippet-start:[kinesisanalytics.python.datagenerator.referrer]
 
 import json
+
 import boto3
 
 STREAM_NAME = "ExampleInputStream"
@@ -26,8 +27,9 @@ def generate(stream_name, kinesis_client):
         data = get_data()
         print(data)
         kinesis_client.put_record(
-            StreamName=stream_name, Data=json.dumps(data), PartitionKey="partitionkey"
-        )
+            StreamName=stream_name,
+            Data=json.dumps(data),
+            PartitionKey="partitionkey")
 
 
 if __name__ == "__main__":

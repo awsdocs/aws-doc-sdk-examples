@@ -10,15 +10,15 @@ to query a table that stores data about movies.
 * Use PartiQL statements to add, get, update, and delete data for individual movies.
 """
 
+import logging
+
 # snippet-start:[python.example_code.dynamodb.helper.PartiQLWrapper.imports]
 from datetime import datetime
 from decimal import Decimal
-import logging
 from pprint import pprint
 
 import boto3
 from botocore.exceptions import ClientError
-
 from scaffold import Scaffold
 
 logger = logging.getLogger(__name__)
@@ -82,7 +82,9 @@ class PartiQLWrapper:
 
 # snippet-start:[python.example_code.dynamodb.Scenario_PartiQLSingle]
 def run_scenario(scaffold, wrapper, table_name):
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(levelname)s: %(message)s")
 
     print("-" * 88)
     print("Welcome to the Amazon DynamoDB PartiQL single statement demo.")
@@ -99,9 +101,9 @@ def run_scenario(scaffold, wrapper, table_name):
 
     print(f"Inserting movie '{title}' released in {year}.")
     wrapper.run_partiql(
-        f"INSERT INTO \"{table_name}\" VALUE {{'title': ?, 'year': ?, 'info': ?}}",
-        [title, year, {"plot": plot, "rating": rating}],
-    )
+        f"INSERT INTO \"{table_name}\" VALUE {{'title': ?, 'year': ?, 'info': ?}}", [
+            title, year, {
+                "plot": plot, "rating": rating}], )
     print("Success!")
     print("-" * 88)
 

@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -61,7 +62,8 @@ class InstanceWrapper:
                 "KeyName": key_pair.name,
             }
             if security_groups is not None:
-                instance_params["SecurityGroupIds"] = [sg.id for sg in security_groups]
+                instance_params["SecurityGroupIds"] = [
+                    sg.id for sg in security_groups]
             self.instance = self.ec2_resource.create_instances(
                 **instance_params, MinCount=1, MaxCount=1
             )[0]

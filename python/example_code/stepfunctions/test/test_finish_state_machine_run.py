@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import json
-from botocore.exceptions import ClientError
+
 import pytest
+from botocore.exceptions import ClientError
 
 
 class MockManager:
@@ -40,7 +41,8 @@ def mock_mgr(stub_runner, scenario_data, input_mocker):
 def test_finish_state_machine_run(mock_mgr, capsys):
     mock_mgr.setup_stubs(None, None, mock_mgr.scenario_data.stubber)
 
-    mock_mgr.scenario_data.scenario.finish_state_machine_run(*mock_mgr.scenario_args)
+    mock_mgr.scenario_data.scenario.finish_state_machine_run(
+        *mock_mgr.scenario_args)
 
     capt = capsys.readouterr()
     assert "running" in capt.out
@@ -54,7 +56,8 @@ def test_finish_state_machine_run(mock_mgr, capsys):
         ("TESTERROR-stub_describe_execution", 1),
     ],
 )
-def test_finish_state_machine_run_error(mock_mgr, caplog, error, stop_on_index):
+def test_finish_state_machine_run_error(
+        mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:

@@ -9,6 +9,7 @@ DB clusters.
 """
 
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -51,7 +52,9 @@ class AuroraWrapper:
             parameter_group = response["DBClusterParameterGroups"][0]
         except ClientError as err:
             if err.response["Error"]["Code"] == "DBParameterGroupNotFound":
-                logger.info("Parameter group %s does not exist.", parameter_group_name)
+                logger.info(
+                    "Parameter group %s does not exist.",
+                    parameter_group_name)
             else:
                 logger.error(
                     "Couldn't get parameter group %s. Here's why: %s: %s",
@@ -124,7 +127,11 @@ class AuroraWrapper:
     # snippet-end:[python.example_code.aurora.DeleteDBClusterParameterGroup]
 
     # snippet-start:[python.example_code.aurora.DescribeDBClusterParameters]
-    def get_parameters(self, parameter_group_name, name_prefix="", source=None):
+    def get_parameters(
+            self,
+            parameter_group_name,
+            name_prefix="",
+            source=None):
         """
         Gets the parameters that are contained in a DB cluster parameter group.
 
@@ -141,7 +148,8 @@ class AuroraWrapper:
             if source is not None:
                 kwargs["Source"] = source
             parameters = []
-            paginator = self.rds_client.get_paginator("describe_db_cluster_parameters")
+            paginator = self.rds_client.get_paginator(
+                "describe_db_cluster_parameters")
             for page in paginator.paginate(**kwargs):
                 parameters += [
                     p
@@ -296,8 +304,7 @@ class AuroraWrapper:
         """
         try:
             response = self.rds_client.create_db_cluster_snapshot(
-                DBClusterSnapshotIdentifier=snapshot_id, DBClusterIdentifier=cluster_id
-            )
+                DBClusterSnapshotIdentifier=snapshot_id, DBClusterIdentifier=cluster_id)
             snapshot = response["DBClusterSnapshot"]
         except ClientError as err:
             logger.error(

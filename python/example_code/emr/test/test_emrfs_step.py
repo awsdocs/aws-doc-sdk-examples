@@ -5,11 +5,10 @@
 Unit tests for emrfs_step.py functions.
 """
 
-import pytest
 import boto3
-from botocore.exceptions import ClientError
-
 import emrfs_step
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])

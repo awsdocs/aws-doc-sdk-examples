@@ -27,22 +27,25 @@ import time
 
 import boto3
 from botocore.exceptions import ClientError
-from SqsQueueNotificationWorker import SqsWorker, JobStatus
-
+from SqsQueueNotificationWorker import JobStatus, SqsWorker
 
 # Job configuration settings. Set these values before running the script.
-pipeline_id = "PIPELINE_ID"  # Set to the ID of an existing Elastic Transcoder pipeline
+# Set to the ID of an existing Elastic Transcoder pipeline
+pipeline_id = "PIPELINE_ID"
 input_file = (
     "FILE_TO_TRANSCODE"  # Set to the name of an existing file in the S3 input bucket
 )
-output_file = "TRANSCODED_FILE"  # Set to the desired name of the transcoded output file
+# Set to the desired name of the transcoded output file
+output_file = "TRANSCODED_FILE"
 sqs_queue_name = (
     "ets-sample-queue"  # SQS queue subscribed to SNS ets-sample-topic notifications
 )
 
 # Other job configuration settings. Optionally change as desired.
-preset_id = "1351620000001-000020"  # Elastic Transcoder preset ID (480p 16:9 MP4)
-output_file_prefix = "elastic-transcoder-samples/output/"  # Prefix for all output files
+# Elastic Transcoder preset ID (480p 16:9 MP4)
+preset_id = "1351620000001-000020"
+# Prefix for all output files
+output_file_prefix = "elastic-transcoder-samples/output/"
 
 # Method used to wait for job to complete
 monitor_sqs_messages = True  # Set to False to use Waiter object

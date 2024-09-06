@@ -8,9 +8,8 @@ Unit tests for ses_identities.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError, WaiterError
 import pytest
-
+from botocore.exceptions import ClientError, WaiterError
 from ses_identities import SesIdentity
 
 
@@ -22,7 +21,8 @@ def test_verify_domain_identity(make_stubber, error_code):
     domain_name = "example.com"
     token = "test-token"
 
-    ses_stubber.stub_verify_domain_identity(domain_name, token, error_code=error_code)
+    ses_stubber.stub_verify_domain_identity(
+        domain_name, token, error_code=error_code)
 
     if error_code is None:
         got_token = ses_identity.verify_domain_identity(domain_name)

@@ -6,10 +6,10 @@ Unit tests for projects.py.
 """
 
 import datetime
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from models import Models
 from projects import Projects
 
@@ -26,7 +26,8 @@ def test_create_project(make_stubber, error_code):
     )
 
     if error_code is None:
-        got_project_arn = Projects.create_project(lookoutvision_client, project_name)
+        got_project_arn = Projects.create_project(
+            lookoutvision_client, project_name)
         assert got_project_arn == project_arn
     else:
         with pytest.raises(ClientError) as exc_info:
@@ -81,10 +82,14 @@ def test_list_projects(
             [project_name],
             [{"arn": project_arn, "created": created}],
         )
-        runner.add(lookoutvision_stubber.stub_describe_project, project_name, [dataset])
         runner.add(
-            lookoutvision_stubber.stub_list_models, project_name, [model_version]
-        )
+            lookoutvision_stubber.stub_describe_project,
+            project_name,
+            [dataset])
+        runner.add(
+            lookoutvision_stubber.stub_list_models,
+            project_name,
+            [model_version])
 
     if error_code is None:
         Projects.list_projects(lookoutvision_client)

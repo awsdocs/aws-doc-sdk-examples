@@ -17,10 +17,17 @@ maintained as functional code.
 
 # IAM API (CreateUser)
 
+import datetime
+import hashlib
+import hmac
+import os
+
 # See: http://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html
 # This version makes a GET request and passes request parameters
 # and authorization information in the query string
-import sys, os, datetime, hashlib, hmac, urllib.parse
+import sys
+import urllib.parse
+
 import requests  # pip install requests
 
 # ************* REQUEST VALUES *************
@@ -84,7 +91,8 @@ signed_headers = "host"
 # Match the algorithm to the hashing algorithm you use, either SHA-1 or
 # SHA-256 (recommended)
 algorithm = "AWS4-HMAC-SHA256"
-credential_scope = datestamp + "/" + region + "/" + service + "/" + "aws4_request"
+credential_scope = datestamp + "/" + region + \
+    "/" + service + "/" + "aws4_request"
 
 # Step 4: Create the canonical query string. In this example, request
 # parameters are in the query string. Query string values must
@@ -100,7 +108,7 @@ canonical_querystring += "&X-Amz-SignedHeaders=" + signed_headers
 
 # Step 5: Create payload hash. For GET requests, the payload is an
 # empty string ("").
-payload_hash = hashlib.sha256(("").encode("utf-8")).hexdigest()
+payload_hash = hashlib.sha256(b"").hexdigest()
 
 # Step 6: Combine elements to create canonical request
 canonical_request = (

@@ -10,18 +10,18 @@ When the list of items is longer than a specified threshold, it is included as a
 attachment to the email instead of in the body of the email itself.
 """
 
+import logging
 from datetime import datetime
+from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.application import MIMEApplication
-import logging
+
 from botocore.exceptions import ClientError
 from flask import jsonify, render_template
 from flask.views import MethodView
+from storage import StorageError
 from webargs import fields
 from webargs.flaskparser import use_kwargs
-
-from storage import StorageError
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +43,13 @@ class Report(MethodView):
         self.email_sender = email_sender
         self.ses_client = ses_client
 
-    def _format_mime_message(self, recipient, text, html, attachment, charset="utf-8"):
+    def _format_mime_message(
+            self,
+            recipient,
+            text,
+            html,
+            attachment,
+            charset="utf-8"):
         """
         Formats the report as a MIME message. When the the email contains an attachment,
         it must be sent in MIME format.
@@ -60,7 +66,10 @@ class Report(MethodView):
         msg_body.attach(htmlpart)
 
         att = MIMEApplication(attachment.encode(charset))
-        att.add_header("Content-Disposition", "attachment", filename="work_items.csv")
+        att.add_header(
+            "Content-Disposition",
+            "attachment",
+            filename="work_items.csv")
         msg.attach(msg_body)
         msg.attach(att)
         return msg
@@ -99,7 +108,8 @@ class Report(MethodView):
                 snap_time=snap_time,
             )
             if len(work_items) > 10:
-                item_csv = render_template("work_items.csv", work_items=work_items)
+                item_csv = render_template(
+                    "work_items.csv", work_items=work_items)
                 mime_msg = self._format_mime_message(
                     email, text_report, html_report, item_csv
                 )

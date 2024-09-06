@@ -17,10 +17,16 @@ maintained as functional code.
 
 # EC2 API (DescribeRegions)
 
+import datetime
+import hashlib
+import hmac
+import os
+
 # See: http://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html
 # This version makes a GET request and passes the signature
 # in the Authorization header.
-import sys, os, base64, datetime, hashlib, hmac
+import sys
+
 import requests  # pip install requests
 
 # ************* REQUEST VALUES *************
@@ -72,7 +78,8 @@ canonical_uri = "/"
 # Step 3: Create the canonical query string. In this example (a GET request),
 # request parameters are in the query string. Query string values must
 # be URL-encoded (space=%20). The parameters must be sorted by name.
-# For this example, the query string is pre-formatted in the request_parameters variable.
+# For this example, the query string is pre-formatted in the
+# request_parameters variable.
 canonical_querystring = request_parameters
 
 # Step 4: Create the canonical headers and signed headers. Header names
@@ -89,7 +96,7 @@ signed_headers = "host;x-amz-date"
 
 # Step 6: Create payload hash (hash of the request body content). For GET
 # requests, the payload is an empty string ("").
-payload_hash = hashlib.sha256(("").encode("utf-8")).hexdigest()
+payload_hash = hashlib.sha256(b"").hexdigest()
 
 # Step 7: Combine elements to create canonical request
 canonical_request = (
@@ -111,7 +118,8 @@ canonical_request = (
 # Match the algorithm to the hashing algorithm you use, either SHA-1 or
 # SHA-256 (recommended)
 algorithm = "AWS4-HMAC-SHA256"
-credential_scope = datestamp + "/" + region + "/" + service + "/" + "aws4_request"
+credential_scope = datestamp + "/" + region + \
+    "/" + service + "/" + "aws4_request"
 string_to_sign = (
     algorithm
     + "\n"
@@ -155,7 +163,8 @@ authorization_header = (
 # and (for this scenario) "Authorization". "host" and "x-amz-date" must
 # be included in the canonical_headers and signed_headers, as noted
 # earlier. Order here is not significant.
-# Python note: The 'host' header is added automatically by the Python 'requests' library.
+# Python note: The 'host' header is added automatically by the Python
+# 'requests' library.
 headers = {"x-amz-date": amzdate, "Authorization": authorization_header}
 
 

@@ -3,12 +3,11 @@
 
 import boto3
 import pytest
-
 from elastic_ip import ElasticIpWrapper
 from instance import InstanceWrapper
 from key_pair import KeyPairWrapper
-from security_group import SecurityGroupWrapper
 from scenario_get_started_instances import Ec2InstanceScenario
+from security_group import SecurityGroupWrapper
 
 
 @pytest.mark.integ

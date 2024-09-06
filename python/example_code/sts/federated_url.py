@@ -13,6 +13,7 @@ import json
 import sys
 import time
 import urllib.parse
+
 import boto3
 import requests
 
@@ -55,7 +56,8 @@ def setup(iam_resource):
             }
         ),
     )
-    role.attach_policy(PolicyArn="arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess")
+    role.attach_policy(
+        PolicyArn="arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess")
     print(f"Created role {role.name}.")
 
     print("Give AWS time to propagate these new resources and connections.", end="")
@@ -116,7 +118,8 @@ def construct_federated_url(assume_role_arn, session_name, issuer, sts_client):
     signin_token = json.loads(response.text)
     print(f"Got a sign-in token from the AWS sign-in federation endpoint.")
 
-    # Make a federated URL that can be used to sign into the AWS Management Console.
+    # Make a federated URL that can be used to sign into the AWS Management
+    # Console.
     query_string = urllib.parse.urlencode(
         {
             "Action": "login",

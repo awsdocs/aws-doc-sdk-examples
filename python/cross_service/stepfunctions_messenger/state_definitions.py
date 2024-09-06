@@ -45,7 +45,9 @@ def make_definition(resources, include_sqs):
                 "QueueUrl": resources["SendQueueUrl"],
                 "MessageBody.$": "$.message",
                 "MessageAttributes": {
-                    "user": {"DataType": "String", "StringValue.$": "$.user_name"},
+                    "user": {
+                        "DataType": "String",
+                        "StringValue.$": "$.user_name"},
                     "message_id": {
                         "DataType": "String",
                         "StringValue.$": "$.message_id",
@@ -54,8 +56,7 @@ def make_definition(resources, include_sqs):
             },
             "ResultPath": None,
             "Next": "Record Sent",
-        }
-    }
+        }}
 
     map_states = state_record_sent
     if include_sqs:
