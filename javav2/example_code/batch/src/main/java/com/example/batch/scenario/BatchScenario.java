@@ -56,13 +56,11 @@ public class BatchScenario {
     private static final Logger logger = LoggerFactory.getLogger(BatchScenario.class);
 
     public static void main(String[] args) throws InterruptedException {
-
         BatchActions batchActions = new BatchActions();
         Scanner scanner = new Scanner(System.in);
         String computeEnvironmentName = "my-compute-environment";
         String jobQueueName = "my-job-queue";
         String jobDefinitionName = "my-job-definition";
-
 
         // See the NOTE in this Java code example (at start).
         String dockerImage = "dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text";
@@ -94,10 +92,9 @@ public class BatchScenario {
             String input = scanner.nextLine();
             if (input.trim().equalsIgnoreCase("1")) {
                 logger.info("Continuing with the program...");
-               // logger.info("");
                 break;
             } else if (input.trim().equalsIgnoreCase("2")) {
-                String jobQueueARN = String.valueOf(batchActions. describeJobQueueAsync(computeEnvironmentName));
+                String jobQueueARN = String.valueOf(batchActions.describeJobQueueAsync(computeEnvironmentName));
                 if (!jobQueueARN.isEmpty()) {
                     batchActions.disableJobQueueAsync(jobQueueARN);
                     countdown(1);
