@@ -50,17 +50,17 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachLoadBalancerTargetGroups](../../cross_service/resilient_service/auto_scaler.py#L535)
-- [CreateAutoScalingGroup](action_wrapper.py#L30)
-- [DeleteAutoScalingGroup](../../cross_service/resilient_service/auto_scaler.py#L562)
-- [DescribeAutoScalingGroups](action_wrapper.py#L113)
-- [DescribeAutoScalingInstances](action_wrapper.py#L195)
-- [DescribeScalingActivities](action_wrapper.py#L220)
-- [DisableMetricsCollection](action_wrapper.py#L271)
-- [EnableMetricsCollection](action_wrapper.py#L248)
-- [SetDesiredCapacity](action_wrapper.py#L169)
-- [TerminateInstanceInAutoScalingGroup](action_wrapper.py#L139)
-- [UpdateAutoScalingGroup](action_wrapper.py#L67)
+- [AttachLoadBalancerTargetGroups](../../cross_service/resilient_service/auto_scaler.py#L615)
+- [CreateAutoScalingGroup](action_wrapper.py#L31)
+- [DeleteAutoScalingGroup](../../cross_service/resilient_service/auto_scaler.py#L656)
+- [DescribeAutoScalingGroups](action_wrapper.py#L167)
+- [DescribeAutoScalingInstances](action_wrapper.py#L284)
+- [DescribeScalingActivities](action_wrapper.py#L317)
+- [DisableMetricsCollection](action_wrapper.py#L399)
+- [EnableMetricsCollection](action_wrapper.py#L359)
+- [SetDesiredCapacity](action_wrapper.py#L248)
+- [TerminateInstanceInAutoScalingGroup](action_wrapper.py#L204)
+- [UpdateAutoScalingGroup](action_wrapper.py#L92)
 
 ### Scenarios
 

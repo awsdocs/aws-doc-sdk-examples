@@ -4,21 +4,16 @@
 """
 Contains common test fixtures used to run unit tests.
 """
-
 from datetime import datetime
-import sys
+
 import boto3
 import pytest
 
-from auto_scaler import AutoScaler
-from load_balancer import LoadBalancer
+import runner
+from auto_scaler import AutoScalingWrapper
+from load_balancer import ElasticLoadBalancerWrapper
 from parameters import ParameterHelper
 from recommendation_service import RecommendationService
-import runner
-
-# This is needed so Python can find test_tools on the path.
-sys.path.append("../..")
-from test_tools.fixtures.common import *
 
 
 class ScenarioData:
@@ -72,7 +67,7 @@ class ScenarioData:
         self.scenario = runner.Runner(
             self.test_resource_path,
             RecommendationService(self.table_name, self.ddb.client),
-            AutoScaler(
+            AutoScalingWrapper(
                 self.resource_prefix,
                 self.inst_type,
                 self.ami_param,
@@ -81,7 +76,7 @@ class ScenarioData:
                 self.ssm.client,
                 self.iam.client,
             ),
-            LoadBalancer(self.tg_name, self.lb_name, self.elb.client),
+            ElasticLoadBalancerWrapper(self.elb.client),
             ParameterHelper(self.table_name, self.ssm.client),
         )
 

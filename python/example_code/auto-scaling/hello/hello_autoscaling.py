@@ -12,7 +12,7 @@ def hello_autoscaling(autoscaling_client):
     This example uses the default settings specified in your shared credentials
     and config files.
 
-    :param auto-scaling_client: A Boto3 Amazon EC2 Auto Scaling client object.
+    :param autoscaling_client: A Boto3 Amazon EC2 Auto Scaling client object.
     """
     print(
         "Hello, Amazon EC2 Auto Scaling! Let's list up to ten of you Auto Scaling groups:"
