@@ -332,7 +332,7 @@ def main():
                 download_file_path,
                 demo_manager.file_size_mb,
             )
-        except ClientError as err:
+        except ClientError:
             print(
                 "Got expected error when trying to download an encrypted "
                 "object without specifying encryption info:"

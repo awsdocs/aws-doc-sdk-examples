@@ -13,6 +13,7 @@ This code is intended for demonstration only and does not guarantee best practic
 """
 
 import datetime
+import logger
 
 # Maps from Python types to PostgreSQL columns types used in a CREATE
 # TABLE statement.

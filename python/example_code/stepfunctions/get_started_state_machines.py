@@ -168,7 +168,7 @@ class StateMachineScenario:
         """
         print(
             "Let's run the state machine. It's a simplistic, non-AI chat simulator "
-            f"we'll call ChatSFN."
+            "we'll call ChatSFN."
         )
         user_name = q.ask("What should ChatSFN call you? ", q.non_empty)
         run_input = {"name": user_name}

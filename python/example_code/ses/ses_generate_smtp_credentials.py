@@ -10,8 +10,6 @@ into a password that you can use to connect to an Amazon Simple Email Service
 """
 
 # snippet-start:[ses.python.ses_generate_smtp_credentials.complete]
-#!/usr/bin/env python3
-
 import argparse
 import base64
 import hashlib

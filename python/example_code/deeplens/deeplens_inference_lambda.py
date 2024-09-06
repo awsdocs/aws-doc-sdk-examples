@@ -204,15 +204,15 @@ def infinite_infer_run():
 # All Rights Reserved.                               *
 #                                                    *
 # *****************************************************
-""" A sample lambda for cat-dog detection"""
+"""A sample lambda for cat-dog detection"""
 
 
-def lambda_handler(event, context):
+def handler(event, context):
     """Empty entry point to the Lambda function invoked from the edge."""
     return
 
 
-class LocalDisplay(Thread):
+class LocalResultsDisplay(Thread):
     """Class for facilitating the local display of inference results
     (as images). The class is designed to run on its own thread. In
     particular the class dumps the inference results into a FIFO
@@ -273,7 +273,7 @@ class LocalDisplay(Thread):
         self.stop_request.set()
 
 
-def infinite_infer_run():
+def infinite_infer_run_v2():
     """Run the DeepLens inference loop frame by frame"""
     try:
         # This cat-dog model is implemented as binary classifier, since the number
@@ -286,7 +286,7 @@ def infinite_infer_run():
         iot_topic = f"$aws/things/{os.environ['AWS_IOT_THING_NAME']}/infer"
         # Create a local display instance that will dump the image bytes to a FIFO
         # file that the image can be rendered locally.
-        local_display = LocalDisplay("480p")
+        local_display = LocalResultsDisplay("480p")
         local_display.start()
         # The sample projects come with optimized artifacts, hence only the artifact
         # path is required.
@@ -342,5 +342,5 @@ def infinite_infer_run():
         client.publish(topic=iot_topic, payload=f"Error in cat-dog lambda: {ex}")
 
 
-infinite_infer_run()
+infinite_infer_run_v2()
 # snippet-end:[deeplens.python.deeplens_inference_lambda.complete]

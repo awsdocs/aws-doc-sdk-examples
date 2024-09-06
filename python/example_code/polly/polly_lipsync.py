@@ -182,7 +182,7 @@ class PollyMouth:
         sorted_choices = sorted(self.language_choices)
         for lang in sorted_choices:
             lang_menu.add_command(
-                label=lang, command=lambda l=lang: self.change_language(l)
+                label=lang, command=lambda language=lang: self.change_language(language)
             )
         self.change_language(sorted_choices[0])
 

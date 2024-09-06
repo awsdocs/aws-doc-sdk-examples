@@ -255,8 +255,8 @@ def usage_demo(table):
     release_year = 2000
     print(
         "\nYou can combine query conditions, such as to query for movies released in"
-        f"\na certain year that start with letters in a range, and you can "
-        f"\nproject the output to return only the fields that you want."
+        "\na certain year that start with letters in a range, and you can "
+        "\nproject the output to return only the fields that you want."
     )
     releases = wrapper.query_and_project_movies(release_year, letters)
     if releases:

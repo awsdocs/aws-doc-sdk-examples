@@ -67,7 +67,7 @@ def setup(iam_resource):
 
     print(
         "Showing the QR code for the device. Scan this in the MFA app of your "
-        f"choice."
+        "choice."
     )
     with open("qr.png", "wb") as qr_file:
         qr_file.write(virtual_mfa_device.qr_code_png)
@@ -259,7 +259,7 @@ def usage_demo():
     print("-" * 88)
     print(
         "Welcome to the AWS Security Token Service assume role demo, "
-        f"starring multi-factor authentication (MFA)!"
+        "starring multi-factor authentication (MFA)!"
     )
     print("-" * 88)
     iam_resource = boto3.resource("iam")

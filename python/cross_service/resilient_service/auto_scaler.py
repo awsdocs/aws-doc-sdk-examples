@@ -551,7 +551,7 @@ class AutoScaler:
                 lb_target_group["TargetGroupName"],
                 self.group_name,
             )
-        except ClientError as err:
+        except ClientError:
             raise AutoScalerError(
                 f"Couldn't attach load balancer target group {lb_target_group['TargetGroupName']}\n"
                 f"to auto scaling group {self.group_name}"

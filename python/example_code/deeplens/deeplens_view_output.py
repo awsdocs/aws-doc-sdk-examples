@@ -59,7 +59,7 @@ class FIFO_Thread(Thread):
         while Write_To_FIFO:
             try:
                 f.write(jpeg.tobytes())
-            except OSError as e:
+            except OSError:
                 continue
 
 

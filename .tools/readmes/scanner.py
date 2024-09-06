@@ -3,11 +3,10 @@
 
 import logging
 import os
-import re
 
 import config
 import yaml
-from snippets import Snippet, scan_for_snippets
+from snippets import scan_for_snippets
 
 logger = logging.getLogger(__name__)
 

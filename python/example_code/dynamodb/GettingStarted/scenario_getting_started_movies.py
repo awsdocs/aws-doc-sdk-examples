@@ -474,9 +474,9 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
     while ask_for_year:
         release_year = Question.ask_question(
             "\nLet's get a list of movies released in a given year. Enter a year between "
-            f"1972 and 2018: ",
-            Question.is_int,
-            Question.in_range(1972, 2018),
+            "1972 and 2018: ",
+            f"{Question.is_int}",
+            f"{Question.in_range(1972, 2018)}",
         )
         releases = movies.query_movies(release_year)
         if releases:

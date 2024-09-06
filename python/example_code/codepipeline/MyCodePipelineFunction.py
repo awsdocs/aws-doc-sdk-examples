@@ -322,7 +322,7 @@ def get_user_params(job_data):
         ]
         decoded_parameters = json.loads(user_parameters)
 
-    except Exception as e:
+    except Exception:
         # We're expecting the user parameters to be encoded as JSON
         # so we can pass multiple values. If the JSON can't be decoded
         # then fail the job with a helpful message.

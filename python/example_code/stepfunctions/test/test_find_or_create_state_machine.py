@@ -87,7 +87,7 @@ def test_find_or_create_state_machine_error(mock_mgr, caplog, error, stop_on_ind
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:
-        with patch("builtins.open", mock_open(read_data=mock_mgr.sm_def)) as mock_file:
+        with patch("builtins.open", mock_open(read_data=mock_mgr.sm_def)):
             mock_mgr.scenario_data.scenario.find_or_create_state_machine(
                 *mock_mgr.scenario_args
             )

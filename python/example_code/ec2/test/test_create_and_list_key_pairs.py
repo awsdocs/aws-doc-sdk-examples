@@ -58,7 +58,7 @@ def test_create_and_list_key_pairs(mock_mgr, capsys):
 def test_create_and_list_key_pairs_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
-    with patch("builtins.open", mock_open()) as mock_file:
+    with patch("builtins.open", mock_open()):
         with pytest.raises(ClientError) as exc_info:
             mock_mgr.scenario_data.scenario.create_and_list_key_pairs()
         assert exc_info.value.response["Error"]["Code"] == error

@@ -4,7 +4,7 @@
 import os
 
 import yaml
-from aws_cdk import Aws, Duration, Size, Stack, aws_batch
+from aws_cdk import Aws, Duration, Size, Stack
 from aws_cdk import aws_batch_alpha as batch_alpha
 from aws_cdk import aws_ec2 as ec2
 from aws_cdk import aws_ecs as ecs

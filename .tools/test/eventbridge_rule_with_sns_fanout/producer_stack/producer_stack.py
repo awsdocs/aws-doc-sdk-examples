@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT-0
 
 import yaml
-from aws_cdk import Aws, CfnOutput, Duration, Size, Stack
+from aws_cdk import Aws, Stack
 from aws_cdk import aws_events as events
 from aws_cdk import aws_events_targets as targets
 from aws_cdk import aws_iam as iam

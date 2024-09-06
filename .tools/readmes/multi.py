@@ -4,9 +4,7 @@
 
 import argparse
 import logging
-import os
 import sys
-from pathlib import Path
 
 import config
 from render import Renderer

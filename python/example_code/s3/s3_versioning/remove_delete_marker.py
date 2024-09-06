@@ -96,7 +96,7 @@ def lambda_handler(event, context):
             else:
                 raise ValueError(
                     "The x-amz-delete-marker header is either not "
-                    f"present or is not 'true'."
+                    "present or is not 'true'."
                 )
     except Exception as error:
         # Mark all other exceptions as permanent failures.

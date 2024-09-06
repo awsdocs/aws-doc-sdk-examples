@@ -115,7 +115,7 @@ class Renderer:
         for _, pre in pre_actions.items():
             try:
                 api = next(iter(pre["services"][self.scanner.svc_name]))
-            except:
+            except Exception:
                 api = ""
             action = {
                 "title_abbrev": pre["title_abbrev"],

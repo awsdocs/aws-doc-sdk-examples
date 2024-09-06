@@ -455,7 +455,7 @@ def demo_short_lived_cluster():
     )
 
     print(
-        f"Job complete!. The script, logs, and output for this demo are in "
+        "Job complete!. The script, logs, and output for this demo are in "
         f"Amazon S3 bucket {bucket_name}. The output is:"
     )
     for obj in bucket.objects.filter(Prefix=output_prefix):
@@ -472,7 +472,7 @@ def demo_short_lived_cluster():
     else:
         print(
             "Remember that objects kept in an Amazon S3 bucket can incur charges"
-            f"against your account."
+            "against your account."
         )
     print("Thanks for watching!")
 
@@ -557,7 +557,7 @@ def demo_long_lived_cluster():
         while True:
             input_cat = input(
                 f"Your turn! Possible categories are: {categories}. Which category "
-                f"would you like to search (enter 'none' when you're done)? "
+                "would you like to search (enter 'none' when you're done)? "
             )
             if input_cat.lower() == "none" or input_cat in categories:
                 break
@@ -581,7 +581,7 @@ def demo_long_lived_cluster():
     # Clean up demo resources (if you want to).
     remove_everything = input(
         "Do you want to terminate the cluster and delete the security roles, "
-        f"groups, bucket, and all of its contents (y/n)? "
+        "groups, bucket, and all of its contents (y/n)? "
     )
     if remove_everything.lower() == "y":
         emr_basics.terminate_cluster(cluster_id, emr_client)
@@ -598,7 +598,7 @@ def demo_long_lived_cluster():
     else:
         print(
             "Remember that running Amazon EMR clusters and objects kept in an "
-            f"Amazon S3 bucket can incur charges against your account."
+            "Amazon S3 bucket can incur charges against your account."
         )
     print("Thanks for watching!")
 
