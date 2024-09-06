@@ -3,6 +3,7 @@
 
 package com.example.search.scenario;
 
+// snippet-start:[opensearch.java2.actions.main]
 import software.amazon.awssdk.services.opensearch.OpenSearchClient;
 import software.amazon.awssdk.services.opensearch.model.AddTagsRequest;
 import software.amazon.awssdk.services.opensearch.model.ClusterConfig;
@@ -13,8 +14,6 @@ import software.amazon.awssdk.services.opensearch.model.DescribeDomainChangeProg
 import software.amazon.awssdk.services.opensearch.model.DescribeDomainChangeProgressResponse;
 import software.amazon.awssdk.services.opensearch.model.DescribeDomainRequest;
 import software.amazon.awssdk.services.opensearch.model.DescribeDomainResponse;
-import software.amazon.awssdk.services.opensearch.model.DescribeDomainsRequest;
-import software.amazon.awssdk.services.opensearch.model.DescribeDomainsResponse;
 import software.amazon.awssdk.services.opensearch.model.DomainInfo;
 import software.amazon.awssdk.services.opensearch.model.DomainStatus;
 import software.amazon.awssdk.services.opensearch.model.EBSOptions;
@@ -167,29 +166,6 @@ public class OpenSearchActions {
     }
     // snippet-end:[opensearch.java2.update_domain.main]
 
-    public void showUpgradeHistory(String name) {
-
-        // Build the GetUpgradeHistoryRequest
-        GetUpgradeHistoryRequest request = GetUpgradeHistoryRequest.builder()
-            .domainName(name)
-            .build();
-
-        try {
-            // Execute the GetUpgradeHistoryRequest and get the response
-            GetUpgradeHistoryResponse response = getClient().getUpgradeHistory(request);
-
-            // Print the upgrade history
-            System.out.println("Upgrade History:");
-            response.upgradeHistories().forEach(upgrade -> {
-                System.out.println("Status: " + upgrade.upgradeStatus());
-                System.out.println();
-            });
-        } catch (OpenSearchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-    }
-
     public void domainChangeProgress(String domainName) {
         boolean isCompleted = false;
         long startTime = System.currentTimeMillis();
@@ -265,5 +241,5 @@ public class OpenSearchActions {
         }
     }
 }
-
+// snippet-end:[opensearch.java2.actions.main]
 

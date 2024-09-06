@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 package com.example.search.scenario;
-
+// snippet-start:[opensearch.java2.scenario.main]
 import java.util.Scanner;
 public class OpenSearchScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -141,5 +141,5 @@ public class OpenSearchScenario {
             }
         }
     }
-
 }
+// snippet-end:[opensearch.java2.scenario.main]

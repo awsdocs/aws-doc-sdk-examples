@@ -113,6 +113,6 @@ opensearch_Scenario:
                 - opensearch.java2.scenario.main
             - description: A wrapper class for &ES; SDK methods.
               snippet_tags:
-                - batch.java2.actions.main
+                - opensearch.java2.actions.main
   services:
     opensearch: {CreateDomain, DeleteDomain, DescribeDomain, ListDomainNames, UpdateDomainConfig, DescribeDomainChangeProgress, AddTags, ListTags}
