@@ -100,7 +100,7 @@ opensearch_Scenario:
     - Lists the tags associated with an &ES; domain.
     - Removes tags from an &ES; domain.
     - Deletes the &ES; domain.
-  category: Scenarios
+  category: Basics
   languages:
     Java:
       versions:
