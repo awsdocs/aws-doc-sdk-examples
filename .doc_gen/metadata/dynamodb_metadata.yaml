@@ -2312,7 +2312,7 @@ dynamodb_MidLevelInterface:
 dynamodb_local:
   title: Connect to a local &DDB; instance using an &AWS; SDK
   title_abbrev: Connect to a local instance
-  synopsis: Override the endpoint URL to connect to a local development deployment of &DDB; and an &AWS; SDK.
+  synopsis: override an endpoint URL to connect to a local development deployment of &DDB; and an &AWS; SDK.
   guide_topic:
     title: DynamoDB Local
     url: amazondynamodb/latest/developerguide/DynamoDBLocal.html

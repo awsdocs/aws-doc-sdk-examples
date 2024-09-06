@@ -65,7 +65,7 @@ functions within the same service.
 
 #### Connect to a local instance
 
-This example shows you how to Override the endpoint URL to connect to a local development deployment of DynamoDB and an AWS SDK.
+This example shows you how to override an endpoint URL to connect to a local development deployment of DynamoDB and an AWS SDK.
 
 
 <!--custom.scenario_prereqs.dynamodb_local.start-->
