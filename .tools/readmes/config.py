@@ -184,7 +184,7 @@ language = {
         1: {
             "base_folder": "swift",
             "service_folder": 'swift/example_code/{{service["name"]}}',
-            "sdk_api_ref": 'https://sdk.amazonaws.com/swift/api/aws{{service["name"]}}/latest/documentation/aws{{service["name"]}}',
+            "sdk_api_ref": '{% set name = service["name"] | replace("-","") -%}https://sdk.amazonaws.com/swift/api/aws{{name}}/latest/documentation/aws{{name}}',
             "service_folder_overrides": {
                 "cognito-identity": "swift/example_code/cognito-identity",
                 "dynamodb": "swift/example_code/dynamodb",
