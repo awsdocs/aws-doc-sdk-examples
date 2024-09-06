@@ -475,10 +475,6 @@ cross_RekognitionPhotoAnalyzerPPE:
       versions:
         - sdk_version: 2
           block_content: cross_RekognitionLambdPPE_Java_block.xml
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          block_content: cross_RekognitionPhotoAnalyzerPPE_JavaScript_block.xml
   service_main: rekognition
   services:
     rekognition:
