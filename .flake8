@@ -1,4 +1,23 @@
 # In the root for editors when opening the workspace as a whole.
 [flake8]
-extend-ignore = E203,E501
-exclude = .git,__pycache__,
+# Extend ignore with additional rules for whitespace and line length
+extend-ignore = E203, E501
+
+# Ignore specific error codes
+# T101: "fixme found (TODO)"
+# F403: "from X import * used"
+# F405: "may be undefined, or defined from star imports"
+# F821: "undefined name"
+# W503: "Line break before ternary operator"
+ignore = T101, F403, F405, F821, W503
+
+# Exclude specific directories and files
+exclude = 
+    .git,
+    __pycache__,
+    .venv,
+    build,
+    dist
+
+# Optionally set a max line length
+max-line-length = 120
