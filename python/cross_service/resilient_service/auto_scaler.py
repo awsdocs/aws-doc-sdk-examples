@@ -4,7 +4,6 @@
 import base64
 import json
 import logging
-import random
 import time
 from os import chmod, remove
 from typing import Any, Dict, List, Tuple
@@ -52,11 +51,9 @@ class AutoScalingWrapper:
         sts_client = boto3.client("sts")
         self.account_id = sts_client.get_caller_identity()["Account"]
 
-        rand_int = random.randint(100, 999)
-
-        self.key_pair_name = f"{resource_prefix}-key-pair-{rand_int}"
-        self.launch_template_name = f"{resource_prefix}-template-{rand_int}"
-        self.group_name = f"{resource_prefix}-group-{rand_int}"
+        self.key_pair_name = f"{resource_prefix}-key-pair"
+        self.launch_template_name = f"{resource_prefix}-template-"
+        self.group_name = f"{resource_prefix}-group"
 
         # Happy path
         self.instance_policy_name = f"{resource_prefix}-pol"

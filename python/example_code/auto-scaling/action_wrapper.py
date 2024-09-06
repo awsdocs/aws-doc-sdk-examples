@@ -62,7 +62,7 @@ class AutoScalingWrapper:
                 MaxSize=max_size,
             )
 
-            # Wait for the group to exist
+            # Wait for the group to exist.
             waiter = self.autoscaling_client.get_waiter("group_exists")
             waiter.wait(AutoScalingGroupNames=[group_name])
 
@@ -138,7 +138,7 @@ class AutoScalingWrapper:
                 AutoScalingGroupName=group_name
             )
 
-            # Wait for the group to be deleted
+            # Wait for the group to be deleted.
             waiter = self.autoscaling_client.get_waiter("group_not_exists")
             waiter.wait(AutoScalingGroupNames=[group_name])
 
