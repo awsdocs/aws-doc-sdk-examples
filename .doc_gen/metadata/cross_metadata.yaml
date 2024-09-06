@@ -235,10 +235,6 @@ cross_DynamoDBDataTracker:
         - sdk_version: 3
           github: python/cross_service/dynamodb_item_tracker
           block_content: cross_DynamoDBDataTracker_Python_block.xml
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          block_content: cross_DynamoDBDataTracker_JavaScript_block.xml
   service_main: dynamodb
   services:
     dynamodb:
