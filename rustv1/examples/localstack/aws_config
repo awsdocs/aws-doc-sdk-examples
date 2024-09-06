@@ -1,0 +1,6 @@
+# snippet-start:[localstack.rust.aws_config]
+[profile localstack]
+region=us-east-1
+output=json
+endpoint_url = http://localhost:4566
+# snippet-end:[localstack.rust.aws_config]

@@ -2309,3 +2309,21 @@ dynamodb_MidLevelInterface:
                 - dynamodb.dotnetv3.MidLevelQueryAndScanExample
   services:
     dynamodb: {}
+dynamodb_local:
+  title: Connect to a local &DDB; instance using an &AWS; SDK
+  title_abbrev: Connect to a local instance
+  synopsis: override an endpoint URL to connect to a local development deployment of &DDB; and an &AWS; SDK.
+  guide_topic:
+    title: DynamoDB Local
+    url: amazondynamodb/latest/developerguide/DynamoDBLocal.html
+  category: Scenarios
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rustv1/examples/dynamodb
+          excerpts:
+            - snippet_files:
+                - rustv1/examples/dynamodb/src/bin/list-tables-local.rs
+  services:
+    dynamodb: {}
