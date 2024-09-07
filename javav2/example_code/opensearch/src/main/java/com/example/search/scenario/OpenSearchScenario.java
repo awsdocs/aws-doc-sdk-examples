@@ -3,17 +3,29 @@
 
 package com.example.search.scenario;
 // snippet-start:[opensearch.java2.scenario.main]
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.services.opensearch.model.DomainInfo;
+import software.amazon.awssdk.services.opensearch.model.OpenSearchException;
+import software.amazon.awssdk.services.opensearch.model.UpdateDomainConfigResponse;
+import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
+
 public class OpenSearchScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
+
+    private static final Logger logger = LoggerFactory.getLogger(OpenSearchScenario.class);
     public static void main(String[]args){
         Scanner scanner = new Scanner(System.in);
         OpenSearchActions openSearchActions = new OpenSearchActions();
         String currentTimestamp = String.valueOf(System.currentTimeMillis());
         String domainName = "test-domain-" + currentTimestamp;
 
-        System.out.println("""
-           Use the Amazon OpenSearch Service configuration API to create, configure, and manage OpenSearch Service domains. 
+        logger.info("""
+          Welcome to the Amazon OpenSearch Service Basics Scenario.
+          
+          Use the Amazon OpenSearch Service API to create, configure, and manage OpenSearch Service domains. 
            
           These operations exposed by the OpenSearch Service client is focused on managing the OpenSearch Service domains 
           and their configurations, not the data within the domains (such as indexing or querying documents). 
@@ -24,9 +36,9 @@ public class OpenSearchScenario {
             """);
         waitForInputToContinue(scanner);
 
-        System.out.println(DASHES);
-        System.out.println("1. Create an Amazon OpenSearch domain");
-        System.out.println("""
+        logger.info(DASHES);
+        logger.info("1. Create an Amazon OpenSearch domain");
+        logger.info("""
            An Amazon OpenSearch domain is a managed instance of the OpenSearch engine, 
            which is an open-source search and analytics engine derived from Elasticsearch. 
            An OpenSearch domain is essentially a cluster of compute resources and storage that hosts 
@@ -34,22 +46,57 @@ public class OpenSearchScenario {
            visualizations.
            """);
         waitForInputToContinue(scanner);
-        String domainId = openSearchActions.createNewDomain(domainName);
-        System.out.println("The Id of the domain is "+domainId);
+        try {
+            CompletableFuture<String> future = openSearchActions.createNewDomainAsync(domainName);
+            String domainId = future.join();
+            logger.info("Domain successfully created with ID: " + domainId);
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof OpenSearchException openSearchEx) {
+                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
+        }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
         System.out.println("2. Describe the Amazon OpenSearch domain ");
+        System.out.println("In this step, we get back the Domain ARN which is used in upcoming steps.");
         waitForInputToContinue(scanner);
-        String arn = openSearchActions.describeDomain(domainName);
+        String arn = "";
+        try {
+            CompletableFuture<String> future = openSearchActions.describeDomainAsync(domainName);
+            arn = future.join();
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof OpenSearchException openSearchEx) {
+                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
+        }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
         System.out.println("3. List the domains in your account ");
         waitForInputToContinue(scanner);
-        openSearchActions.listAllDomains();
+        try {
+            CompletableFuture<List<DomainInfo>> future = openSearchActions.listAllDomainsAsync();
+            List<DomainInfo> domainInfoList = future.join();
+            for (DomainInfo domain : domainInfoList) {
+                logger.info("Domain name is: " + domain.domainName());
+            }
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof OpenSearchException openSearchEx) {
+                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
+        }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
@@ -64,7 +111,18 @@ public class OpenSearchScenario {
         updating the OpenSearch version, may take 10-30 minutes,
         """);
         waitForInputToContinue(scanner);
-        openSearchActions.domainChangeProgress(domainName);
+        try {
+            CompletableFuture<Void> future = openSearchActions.domainChangeProgressAsync(domainName);
+            future.join();
+            System.out.println("Domain change progress completed successfully.");
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof OpenSearchException ex) {
+                System.out.println("An OpenSearch error occurred: Error message: " +ex.getMessage());
+            } else {
+                System.out.println("An unexpected error occurred: " + rt.getMessage());
+            }
+        }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
@@ -77,7 +135,19 @@ public class OpenSearchScenario {
            having to recreate the entire domain.
             """);
         waitForInputToContinue(scanner);
-        openSearchActions.updateSpecificDomain(domainName);
+        try {
+            CompletableFuture<UpdateDomainConfigResponse> future = openSearchActions.updateSpecificDomainAsync(domainName);
+            UpdateDomainConfigResponse updateResponse = future.join();  // Wait for the task to complete
+            logger.info("Domain update response from Amazon OpenSearch Service: " + updateResponse.toString());
+
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof OpenSearchException openSearchEx) {
+                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
+        }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
@@ -88,7 +158,18 @@ public class OpenSearchScenario {
                
         """);
         waitForInputToContinue(scanner);
-        openSearchActions.domainChangeProgress(domainName);
+        try {
+            CompletableFuture<Void> future = openSearchActions.domainChangeProgressAsync(domainName);
+            future.join();  // Wait for the task to complete
+            System.out.println("Domain change progress completed successfully.");
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof OpenSearchException ex) {
+                System.out.println("EC2 error occurred: Error message: " +ex.getMessage());
+            } else {
+                System.out.println("An unexpected error occurred: " + rt.getMessage());
+            }
+        }
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
 
@@ -115,7 +196,18 @@ public class OpenSearchScenario {
         System.out.println(DASHES);
         System.out.println("9. Delete the Amazon OpenSearch ");
         waitForInputToContinue(scanner);
-        openSearchActions.deleteSpecificDomain(domainName);
+        try {
+            CompletableFuture<Void> future = openSearchActions.deleteSpecificDomainAsync(domainName);
+            future.join();
+            logger.info(domainName + " was successfully deleted.");
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof OpenSearchException openSearchEx) {
+                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
+        }
         System.out.println(domainName +" has been deleted.");
         waitForInputToContinue(scanner);
         System.out.println(DASHES);

@@ -6,8 +6,9 @@ This SDK Basics scenario demonstrates how to interact with Amazon OpenSearch usi
 ## Resources
 This Basics scenario does not have a depedency on any AWS resources.
 
-## Hello AWS  Batch
-This program is intended for users not familiar with the Amazon OpenSearch SDK to easily get up and running. The logic is to show use of `listJobsPaginator()`.
+## Hello Amazon OpenSearch
+This program is intended for users not familiar with the Amazon OpenSearch SDK to easily get up and running. The logic is to show use of `
+`listVersions()`.
 
 ## Scenario Program Flow
 The Amazon OpenSearch Basics scenario executes the following operations.

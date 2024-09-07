@@ -4,6 +4,14 @@
 package com.example.search.scenario;
 
 // snippet-start:[opensearch.java2.actions.main]
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import software.amazon.awssdk.core.retry.RetryPolicy;
+import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
+import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.opensearch.OpenSearchAsyncClient;
 import software.amazon.awssdk.services.opensearch.OpenSearchClient;
 import software.amazon.awssdk.services.opensearch.model.AddTagsRequest;
 import software.amazon.awssdk.services.opensearch.model.ClusterConfig;
@@ -17,8 +25,6 @@ import software.amazon.awssdk.services.opensearch.model.DescribeDomainResponse;
 import software.amazon.awssdk.services.opensearch.model.DomainInfo;
 import software.amazon.awssdk.services.opensearch.model.DomainStatus;
 import software.amazon.awssdk.services.opensearch.model.EBSOptions;
-import software.amazon.awssdk.services.opensearch.model.GetUpgradeHistoryRequest;
-import software.amazon.awssdk.services.opensearch.model.GetUpgradeHistoryResponse;
 import software.amazon.awssdk.services.opensearch.model.ListDomainNamesRequest;
 import software.amazon.awssdk.services.opensearch.model.ListDomainNamesResponse;
 import software.amazon.awssdk.services.opensearch.model.ListTagsRequest;
@@ -29,12 +35,41 @@ import software.amazon.awssdk.services.opensearch.model.Tag;
 import software.amazon.awssdk.services.opensearch.model.UpdateDomainConfigRequest;
 import software.amazon.awssdk.services.opensearch.model.UpdateDomainConfigResponse;
 import software.amazon.awssdk.services.opensearch.model.VolumeType;
-
-import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class OpenSearchActions {
+
+    private static final Logger logger = LoggerFactory.getLogger(OpenSearchActions.class);
+    private static OpenSearchAsyncClient openSearchClientAsyncClient;
+
+    private static OpenSearchAsyncClient getAsyncClient() {
+        if (openSearchClientAsyncClient == null) {
+            SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
+                .maxConcurrency(100)
+                .connectionTimeout(Duration.ofSeconds(60))
+                .readTimeout(Duration.ofSeconds(60))
+                .writeTimeout(Duration.ofSeconds(60))
+                .build();
+
+            ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
+                .apiCallTimeout(Duration.ofMinutes(2))
+                .apiCallAttemptTimeout(Duration.ofSeconds(90))
+                .retryPolicy(RetryPolicy.builder()
+                    .numRetries(3)
+                    .build())
+                .build();
+
+            openSearchClientAsyncClient = OpenSearchAsyncClient.builder()
+                .region(Region.US_EAST_1)
+                .httpClient(httpClient)
+                .overrideConfiguration(overrideConfig)
+                .build();
+        }
+        return openSearchClientAsyncClient;
+    }
 
     private static OpenSearchClient getClient() {
         return OpenSearchClient.builder()
@@ -42,167 +77,185 @@ public class OpenSearchActions {
     }
 
     // snippet-start:[opensearch.java2.create_domain.main]
-    public String createNewDomain(String domainName) {
-        try {
-            ClusterConfig clusterConfig = ClusterConfig.builder()
-                .dedicatedMasterEnabled(true)
-                .dedicatedMasterCount(3)
-                .dedicatedMasterType("t2.small.search")
-                .instanceType("t2.small.search")
-                .instanceCount(5)
-                .build();
+    /**
+     * Creates a new OpenSearch domain asynchronously.
+     *
+     * @param domainName the name of the new OpenSearch domain to create
+     * @return a {@link CompletableFuture} containing the domain ID of the newly created domain
+     */
+    public CompletableFuture<String> createNewDomainAsync(String domainName) {
+        ClusterConfig clusterConfig = ClusterConfig.builder()
+            .dedicatedMasterEnabled(true)
+            .dedicatedMasterCount(3)
+            .dedicatedMasterType("t2.small.search")
+            .instanceType("t2.small.search")
+            .instanceCount(5)
+            .build();
 
-            EBSOptions ebsOptions = EBSOptions.builder()
-                .ebsEnabled(true)
-                .volumeSize(10)
-                .volumeType(VolumeType.GP2)
-                .build();
+        EBSOptions ebsOptions = EBSOptions.builder()
+            .ebsEnabled(true)
+            .volumeSize(10)
+            .volumeType(VolumeType.GP2)
+            .build();
 
-            NodeToNodeEncryptionOptions encryptionOptions = NodeToNodeEncryptionOptions.builder()
-                .enabled(true)
-                .build();
+        NodeToNodeEncryptionOptions encryptionOptions = NodeToNodeEncryptionOptions.builder()
+            .enabled(true)
+            .build();
 
-            CreateDomainRequest domainRequest = CreateDomainRequest.builder()
-                .domainName(domainName)
-                .engineVersion("OpenSearch_1.0")
-                .clusterConfig(clusterConfig)
-                .ebsOptions(ebsOptions)
-                .nodeToNodeEncryptionOptions(encryptionOptions)
-                .build();
+        CreateDomainRequest domainRequest = CreateDomainRequest.builder()
+            .domainName(domainName)
+            .engineVersion("OpenSearch_1.0")
+            .clusterConfig(clusterConfig)
+            .ebsOptions(ebsOptions)
+            .nodeToNodeEncryptionOptions(encryptionOptions)
+            .build();
 
-            System.out.println("Sending domain creation request...");
-            CreateDomainResponse createResponse = getClient().createDomain(domainRequest);
-            System.out.println("Domain status is " + createResponse.domainStatus().toString());
-            System.out.println("Domain Id is " + createResponse.domainStatus().domainId());
-            return createResponse.domainStatus().domainId();
-
-        } catch (OpenSearchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        return "";
+        System.out.println("Sending domain creation request...");
+        return getAsyncClient().createDomain(domainRequest)
+            .thenApply(createResponse -> {
+                System.out.println("Domain status is " + createResponse.domainStatus().toString());
+                System.out.println("Domain Id is " + createResponse.domainStatus().domainId());
+                return createResponse.domainStatus().domainId();
+            })
+            .exceptionally(ex -> {
+                throw new RuntimeException("Failed to create domain", ex);
+            });
     }
+
     // snippet-end:[opensearch.java2.create_domain.main]
 
     // snippet-start:[opensearch.java2.delete_domain.main]
-    public void deleteSpecificDomain(String domainName) {
-        try {
-            DeleteDomainRequest domainRequest = DeleteDomainRequest.builder()
-                .domainName(domainName)
-                .build();
+    /**
+     * Deletes a specific domain asynchronously.
+     *
+     * @param domainName the name of the domain to be deleted
+     * @return a {@link CompletableFuture} that completes when the domain has been deleted
+     *         or throws a {@link RuntimeException} if the deletion fails
+     */
+    public CompletableFuture<Void> deleteSpecificDomainAsync(String domainName) {
+        DeleteDomainRequest domainRequest = DeleteDomainRequest.builder()
+            .domainName(domainName)
+            .build();
 
-            getClient().deleteDomain(domainRequest);
-            System.out.println(domainName + " was successfully deleted.");
-
-        } catch (OpenSearchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        // Delete domain asynchronously
+        return getAsyncClient().deleteDomain(domainRequest)
+            .thenRun(() -> {
+            })
+            .exceptionally(ex -> {
+                throw new RuntimeException("Failed to delete the domain: " + domainName, ex);
+            });
     }
     // snippet-end:[opensearch.java2.delete_domain.main]
 
     // snippet-start:[opensearch.java2.describe_domain.main]
-    public String describeDomain(String domainName) {
+    /**
+     * Describes the specified domain asynchronously.
+     *
+     * @param domainName the name of the domain to describe
+     * @return a {@link CompletableFuture} that completes with the ARN of the domain
+     * @throws RuntimeException if the domain description fails
+     */
+    public CompletableFuture<String> describeDomainAsync(String domainName) {
         DescribeDomainRequest request = DescribeDomainRequest.builder()
             .domainName(domainName)
             .build();
 
-        DescribeDomainResponse response = getClient().describeDomain(request);
-        DomainStatus domainStatus = response.domainStatus();
+        return getAsyncClient().describeDomain(request)
+            .thenApply(response -> {
+                DomainStatus domainStatus = response.domainStatus();
+                String endpoint = domainStatus.endpoint();
+                String arn = domainStatus.arn();
+                String engineVersion = domainStatus.engineVersion();
+                System.out.println("Domain endpoint is: " + endpoint);
+                System.out.println("ARN: " + arn);
+                System.out.println("Engine version: " + engineVersion);
 
-        // Extract additional details about the domain
-        String endpoint = domainStatus.endpoint();
-        String arn = domainStatus.arn();
-        String engineVersion = domainStatus.engineVersion();
-
-
-        System.out.println("Domain endpoint is: " + endpoint);
-        System.out.println("ARN: " + arn);
-        System.out.println("Engine version "+engineVersion);
-        return arn;
+                return arn;
+            })
+            .exceptionally(ex -> {
+                throw new RuntimeException("Failed to describe domain", ex);
+            });
     }
     // snippet-end:[opensearch.java2.describe_domain.main]
 
     // snippet-start:[opensearch.java2.list_domains.main]
-    public static void listAllDomains() {
-        try {
-            ListDomainNamesRequest namesRequest = ListDomainNamesRequest.builder()
-                .engineType("OpenSearch")
-                .build();
+    public CompletableFuture<List<DomainInfo>> listAllDomainsAsync() {
+        ListDomainNamesRequest namesRequest = ListDomainNamesRequest.builder()
+            .engineType("OpenSearch")
+            .build();
 
-            ListDomainNamesResponse response = getClient().listDomainNames(namesRequest);
-            List<DomainInfo> domainInfoList = response.domainNames();
-            for (DomainInfo domain : domainInfoList)
-                System.out.println("Domain name is " + domain.domainName());
-
-        } catch (OpenSearchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        return getAsyncClient().listDomainNames(namesRequest)
+            .thenApply(ListDomainNamesResponse::domainNames)
+            .exceptionally(ex -> {
+                throw new RuntimeException("Failed to list all domains", ex);
+            });
     }
     // snippet-end:[opensearch.java2.list_domains.main]
 
     // snippet-start:[opensearch.java2.update_domain.main]
-    public static void updateSpecificDomain(String domainName) {
-        try {
-            ClusterConfig clusterConfig = ClusterConfig.builder()
-                .instanceCount(3)
-                .build();
+    /**
+     * Updates the configuration of a specific domain asynchronously.
+     *
+     * @param domainName the name of the domain to update
+     * @return a {@link CompletableFuture} that represents the asynchronous operation of updating the domain configuration
+     */
+    public CompletableFuture<UpdateDomainConfigResponse> updateSpecificDomainAsync(String domainName) {
+        ClusterConfig clusterConfig = ClusterConfig.builder()
+            .instanceCount(3)
+            .build();
 
-            UpdateDomainConfigRequest updateDomainConfigRequest = UpdateDomainConfigRequest.builder()
-                .domainName(domainName)
-                .clusterConfig(clusterConfig)
-                .build();
+        UpdateDomainConfigRequest updateDomainConfigRequest = UpdateDomainConfigRequest.builder()
+            .domainName(domainName)
+            .clusterConfig(clusterConfig)
+            .build();
 
-            System.out.println("Sending domain update request...");
-            UpdateDomainConfigResponse updateResponse = getClient().updateDomainConfig(updateDomainConfigRequest);
-            System.out.println("Domain update response from Amazon OpenSearch Service:");
-            System.out.println(updateResponse.toString());
-
-        } catch (OpenSearchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        return getAsyncClient().updateDomainConfig(updateDomainConfigRequest)
+            .exceptionally(ex -> {
+                throw new RuntimeException("Failed to update the domain configuration", ex);
+            });
     }
     // snippet-end:[opensearch.java2.update_domain.main]
 
     // snippet-start:[opensearch.java2.change_process.main]
-    public void domainChangeProgress(String domainName) {
-        boolean isCompleted = false;
-        long startTime = System.currentTimeMillis();
+    /**
+     * Asynchronously checks the progress of a domain change operation in Amazon OpenSearch Service.
+     *
+     * @param domainName the name of the OpenSearch domain to check the progress for
+     * @return a {@link CompletableFuture} that completes when the domain change operation is completed
+     */
+    public CompletableFuture<Void> domainChangeProgressAsync(String domainName) {
+        DescribeDomainChangeProgressRequest request = DescribeDomainChangeProgressRequest.builder()
+            .domainName(domainName)
+            .build();
 
-        while (!isCompleted) {
-            DescribeDomainChangeProgressRequest domainsRequest = DescribeDomainChangeProgressRequest.builder()
-                .domainName(domainName)
-                .build();
+        return CompletableFuture.runAsync(() -> {
+            boolean isCompleted = false;
+            long startTime = System.currentTimeMillis();
+            while (!isCompleted) {
+                try {
+                    // Check the progress
+                    DescribeDomainChangeProgressResponse response = getAsyncClient().describeDomainChangeProgress(request).join();
+                    String state = response.changeProgressStatus().statusAsString();  // Get the status as string
 
-            try {
-                // Make the request to check the progress
-                DescribeDomainChangeProgressResponse response = getClient().describeDomainChangeProgress(domainsRequest);
-                // Get the progress status
-                String state = response.changeProgressStatus().statusAsString();  // Status as string
-
-                // Check if status is COMPLETED
-                if ("COMPLETED".equals(state)) {
-                    System.out.println("\nOpenSearch domain status: Completed");
-                    isCompleted = true;
-                } else {
-                    // Update the clock every second while waiting for the next API call
-                    for (int i = 0; i < 5; i++) { // Wait for 5 seconds total (check again every second)
-                        long elapsedTimeInSeconds = (System.currentTimeMillis() - startTime) / 1000;
-                        String formattedTime = String.format("%02d:%02d", elapsedTimeInSeconds / 60, elapsedTimeInSeconds % 60);
-                        System.out.print("\rOpenSearch domain state: " + state + " | Time Elapsed: " + formattedTime);
-                        Thread.sleep(1_000); // Sleep for 1 second
+                    if ("COMPLETED".equals(state)) {
+                        System.out.println("\nOpenSearch domain status: Completed");
+                        isCompleted = true;
+                    } else {
+                        for (int i = 0; i < 5; i++) { // Wait for 5 seconds (checking every second)
+                            long elapsedTimeInSeconds = (System.currentTimeMillis() - startTime) / 1000;
+                            String formattedTime = String.format("%02d:%02d", elapsedTimeInSeconds / 60, elapsedTimeInSeconds % 60);
+                            System.out.print("\rOpenSearch domain state: " + state + " | Time Elapsed: " + formattedTime);
+                            Thread.sleep(1_000); // Sleep for 1 second
+                        }
                     }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException("Thread was interrupted", e);
+                } catch (Exception e) {
+                    throw new RuntimeException("Failed to check domain progress", e);
                 }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                throw new RuntimeException("Thread was interrupted", e);
-            } catch (Exception e) {
-                // Handle other exceptions (e.g., AWS SDK exceptions)
-                throw new RuntimeException("Failed to check domain progress", e);
             }
-        }
+        });
     }
     // snippet-end:[opensearch.java2.change_process.main]
 
