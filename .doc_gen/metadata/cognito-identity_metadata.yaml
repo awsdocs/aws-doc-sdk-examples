@@ -36,7 +36,7 @@ cognito-identity_CreateIdentityPool:
           excerpts:
             - description:
               snippet_tags:
-                - ddb.swift.batchgetitem.batchget
+                - cognitoidentity.swift.import
                 - cognitoidentity.swift.create-identity-pool
     Java:
       versions:
