@@ -149,7 +149,7 @@ class BedrockRuntimeService extends \AwsUtilities\AWSServiceClass
         $base64_image_data = "";
 
         try {
-            $modelId = 'stability.stable-diffusion-xl';
+            $modelId = 'stability.stable-diffusion-xl-v1';
 
             $body = [
                 'text_prompts' => [

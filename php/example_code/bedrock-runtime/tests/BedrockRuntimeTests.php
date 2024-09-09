@@ -24,7 +24,7 @@ class BedrockRuntimeTests extends TestCase
     public function setup(): void
     {
         $clientArgs = [
-            'region' => 'us-west-2',
+            'region' => 'us-east-1',
             'version' => 'latest',
             'profile' => 'default',
         ];
