@@ -138,7 +138,8 @@ class Scanner:
                             base_folder = f"{config.language[self.lang_name][self.sdk_ver]['base_folder']}/"
                             if base_folder in github:
                                 tag_path = (
-                                    self._lang_level_double_dots() + github.split(base_folder, 1)[1]
+                                    self._lang_level_double_dots()
+                                    + github.split(base_folder, 1)[1]
                                 )
                             else:
                                 tag_path = github

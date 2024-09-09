@@ -4,6 +4,7 @@
 """
 Contains common test fixtures used to run unit tests.
 """
+
 from datetime import datetime
 
 import boto3

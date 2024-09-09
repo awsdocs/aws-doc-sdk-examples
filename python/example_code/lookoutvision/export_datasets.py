@@ -7,7 +7,7 @@
 Purpose
 
 Shows how to export the datasets (manifest files and images)
-from an Amazon Lookout for Vision project to a new Amazon 
+from an Amazon Lookout for Vision project to a new Amazon
 S3 location.
 """
 

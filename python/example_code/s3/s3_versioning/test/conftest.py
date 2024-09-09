@@ -4,6 +4,7 @@
 """
 Contains common test fixtures used to run Amazon S3 versioning tests.
 """
+
 from urllib import parse
 import pytest
 from botocore.stub import ANY

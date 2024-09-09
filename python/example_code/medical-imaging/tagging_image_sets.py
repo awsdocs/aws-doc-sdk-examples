@@ -6,6 +6,7 @@ Purpose
 
 Shows how to use the AWS SDK for Python (Boto3) to tag AWS HealthImaging image sets.
 """
+
 import boto3
 
 from medical_imaging_basics import MedicalImagingWrapper

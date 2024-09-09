@@ -32,5 +32,4 @@ jobs:
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           changed_files=(${{steps.changed-files.outputs.all_changed_files}})
-          black "${changed_files[@]}"
-          pylint --rcfile .github/linters/.python-lint "${changed_files[@]}"
+          ruff check "${changed_files[@]}"
