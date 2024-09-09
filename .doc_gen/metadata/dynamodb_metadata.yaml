@@ -260,6 +260,7 @@ dynamodb_BatchGetItem:
           excerpts:
             - description:
               snippet_tags:
+                - ddb.swift.batchgetitem.batchget
                 - ddb.swift.import
     Bash:
       versions:

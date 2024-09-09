@@ -34,10 +34,9 @@ cognito-identity_CreateIdentityPool:
           github: swift/example_code/cognito-identity/FindOrCreateIdentityPool
           sdkguide: sdk-for-swift/latest/developer-guide/getting-started.html
           excerpts:
-            - description: >-
-                <para>Create a new identity pool.</para>
-                <programlisting language="swift" linenumbering="unnumbered">import AWSCognitoIdentity</programlisting>
+            - description:
               snippet_tags:
+                - ddb.swift.batchgetitem.batchget
                 - cognitoidentity.swift.create-identity-pool
     Java:
       versions:
@@ -58,10 +57,9 @@ cognito-identity_DeleteIdentityPool:
           github: swift/example_code/cognito-identity/FindOrCreateIdentityPool
           sdkguide: sdk-for-swift/latest/developer-guide/getting-started.html
           excerpts:
-            - description: >-
-                <para>Delete the specified identity pool.</para>
-                <programlisting language="swift" linenumbering="unnumbered">import AWSCognitoIdentity</programlisting>
+            - description:
               snippet_tags:
+                - cognitoidentity.swift.import
                 - cognitoidentity.swift.delete-identity-pool
     Java:
       versions:

@@ -904,15 +904,13 @@ s3_GetObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: >-
-                <para>Download an object from a bucket to a local file.</para>
-                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.downloadfile
-            - description: >-
-                <para>Read an object into a Swift Data object.</para>
-                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.readfile
     Bash:
       versions:
@@ -3008,15 +3006,13 @@ s3_Scenario_GettingStarted:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: >-
-                <para>A Swift class that handles calls to the SDK for Swift.</para>
-                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler
-            - description: >-
-                <para>A Swift command-line program to manage the SDK calls.</para>
-                <programlisting language="swift" linenumbering="unnumbered">import AWSS3</programlisting>
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.example
     Bash:
       versions:
