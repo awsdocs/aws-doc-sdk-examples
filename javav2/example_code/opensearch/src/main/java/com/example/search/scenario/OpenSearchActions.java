@@ -12,25 +12,20 @@ import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.opensearch.OpenSearchAsyncClient;
-import software.amazon.awssdk.services.opensearch.OpenSearchClient;
 import software.amazon.awssdk.services.opensearch.model.AddTagsRequest;
 import software.amazon.awssdk.services.opensearch.model.ClusterConfig;
 import software.amazon.awssdk.services.opensearch.model.CreateDomainRequest;
-import software.amazon.awssdk.services.opensearch.model.CreateDomainResponse;
 import software.amazon.awssdk.services.opensearch.model.DeleteDomainRequest;
 import software.amazon.awssdk.services.opensearch.model.DescribeDomainChangeProgressRequest;
 import software.amazon.awssdk.services.opensearch.model.DescribeDomainChangeProgressResponse;
 import software.amazon.awssdk.services.opensearch.model.DescribeDomainRequest;
-import software.amazon.awssdk.services.opensearch.model.DescribeDomainResponse;
 import software.amazon.awssdk.services.opensearch.model.DomainInfo;
 import software.amazon.awssdk.services.opensearch.model.DomainStatus;
 import software.amazon.awssdk.services.opensearch.model.EBSOptions;
 import software.amazon.awssdk.services.opensearch.model.ListDomainNamesRequest;
 import software.amazon.awssdk.services.opensearch.model.ListDomainNamesResponse;
 import software.amazon.awssdk.services.opensearch.model.ListTagsRequest;
-import software.amazon.awssdk.services.opensearch.model.ListTagsResponse;
 import software.amazon.awssdk.services.opensearch.model.NodeToNodeEncryptionOptions;
-import software.amazon.awssdk.services.opensearch.model.OpenSearchException;
 import software.amazon.awssdk.services.opensearch.model.Tag;
 import software.amazon.awssdk.services.opensearch.model.UpdateDomainConfigRequest;
 import software.amazon.awssdk.services.opensearch.model.UpdateDomainConfigResponse;
@@ -71,11 +66,6 @@ public class OpenSearchActions {
         return openSearchClientAsyncClient;
     }
 
-    private static OpenSearchClient getClient() {
-        return OpenSearchClient.builder()
-            .build();
-    }
-
     // snippet-start:[opensearch.java2.create_domain.main]
     /**
      * Creates a new OpenSearch domain asynchronously.
@@ -110,18 +100,17 @@ public class OpenSearchActions {
             .nodeToNodeEncryptionOptions(encryptionOptions)
             .build();
 
-        System.out.println("Sending domain creation request...");
+        logger.info("Sending domain creation request...");
         return getAsyncClient().createDomain(domainRequest)
             .thenApply(createResponse -> {
-                System.out.println("Domain status is " + createResponse.domainStatus().toString());
-                System.out.println("Domain Id is " + createResponse.domainStatus().domainId());
+                logger.info("Domain status is " + createResponse.domainStatus().toString());
+                logger.info("Domain Id is " + createResponse.domainStatus().domainId());
                 return createResponse.domainStatus().domainId();
             })
             .exceptionally(ex -> {
                 throw new RuntimeException("Failed to create domain", ex);
             });
     }
-
     // snippet-end:[opensearch.java2.create_domain.main]
 
     // snippet-start:[opensearch.java2.delete_domain.main]
@@ -166,8 +155,8 @@ public class OpenSearchActions {
                 String endpoint = domainStatus.endpoint();
                 String arn = domainStatus.arn();
                 String engineVersion = domainStatus.engineVersion();
-                System.out.println("Domain endpoint is: " + endpoint);
-                System.out.println("ARN: " + arn);
+                logger.info("Domain endpoint is: " + endpoint);
+                logger.info("ARN: " + arn);
                 System.out.println("Engine version: " + engineVersion);
 
                 return arn;
@@ -179,6 +168,13 @@ public class OpenSearchActions {
     // snippet-end:[opensearch.java2.describe_domain.main]
 
     // snippet-start:[opensearch.java2.list_domains.main]
+    /**
+     * Asynchronously lists all the domains in the current AWS account.
+     *
+     * @return a {@link CompletableFuture} that, when completed, contains a list of {@link DomainInfo} objects representing
+     *         the domains in the account.
+     * @throws RuntimeException if there was a failure while listing the domains.
+     */
     public CompletableFuture<List<DomainInfo>> listAllDomainsAsync() {
         ListDomainNamesRequest namesRequest = ListDomainNamesRequest.builder()
             .engineType("OpenSearch")
@@ -233,18 +229,17 @@ public class OpenSearchActions {
             long startTime = System.currentTimeMillis();
             while (!isCompleted) {
                 try {
-                    // Check the progress
                     DescribeDomainChangeProgressResponse response = getAsyncClient().describeDomainChangeProgress(request).join();
                     String state = response.changeProgressStatus().statusAsString();  // Get the status as string
 
                     if ("COMPLETED".equals(state)) {
-                        System.out.println("\nOpenSearch domain status: Completed");
+                        logger.info("\nOpenSearch domain status: Completed");
                         isCompleted = true;
                     } else {
-                        for (int i = 0; i < 5; i++) { // Wait for 5 seconds (checking every second)
+                        for (int i = 0; i < 5; i++) {
                             long elapsedTimeInSeconds = (System.currentTimeMillis() - startTime) / 1000;
                             String formattedTime = String.format("%02d:%02d", elapsedTimeInSeconds / 60, elapsedTimeInSeconds % 60);
-                            System.out.print("\rOpenSearch domain state: " + state + " | Time Elapsed: " + formattedTime);
+                            logger.info("\rOpenSearch domain state: {} | Time Elapsed: {} ", state, formattedTime);
                             Thread.sleep(1_000); // Sleep for 1 second
                         }
                     }
@@ -260,7 +255,14 @@ public class OpenSearchActions {
     // snippet-end:[opensearch.java2.change_process.main]
 
     // snippet-start:[opensearch.java2.add_tags.main]
-    public void addDomainTags(String domainARN) {
+    /**
+     * Asynchronously adds tags to an Amazon OpenSearch Service domain.
+     *
+     * @param domainARN the Amazon Resource Name (ARN) of the Amazon OpenSearch Service domain to add tags to
+     * @return a {@link CompletableFuture} that completes when the tags have been successfully added to the domain,
+     *         or throws a {@link RuntimeException} if the operation fails
+     */
+    public CompletableFuture<Void> addDomainTagsAsync(String domainARN) {
         Tag tag1 = Tag.builder()
             .key("service")
             .value("OpenSearch")
@@ -280,23 +282,38 @@ public class OpenSearchActions {
             .tagList(tagList)
             .build();
 
-        getClient().addTags(addTagsRequest);
-        System.out.println("Successfully added tags to the domain");
+        return getAsyncClient().addTags(addTagsRequest)
+            .thenRun(() -> {
+                })
+            .exceptionally(ex -> {
+                throw new RuntimeException("Failed to add tags to the domain: " + domainARN, ex);
+            });
     }
     // snippet-end:[opensearch.java2.add_tags.main]
 
     // snippet-start:[opensearch.java2.list_tags.main]
-    public void listDomainTags(String arn) {
+    /**
+     * Asynchronously lists the tags associated with the specified Amazon Resource Name (ARN).
+     *
+     * @param arn the Amazon Resource Name (ARN) of the resource for which to list the tags
+     * @return a {@link CompletableFuture} that, when completed, will contain a list of the tags associated with the
+     *         specified ARN
+     * @throws RuntimeException if there is an error listing the tags
+     */
+    public CompletableFuture<Void> listDomainTagsAsync(String arn) {
         ListTagsRequest tagsRequest = ListTagsRequest.builder()
             .arn(arn)
             .build();
 
-        ListTagsResponse response = getClient().listTags(tagsRequest);
-        List<Tag> tagList = response.tagList();
-        for (Tag tag : tagList) {
-            System.out.println("Tag key is "+tag.key());
-            System.out.println("Tag value is "+tag.value());
-        }
+        return getAsyncClient().listTags(tagsRequest).thenAccept(response -> {
+            List<Tag> tagList = response.tagList();
+            for (Tag tag : tagList) {
+                logger.info("Tag key is " + tag.key());
+                logger.info("Tag value is " + tag.value());
+            }
+        }).exceptionally(ex -> {
+            throw new RuntimeException("Failed to list domain tags", ex);
+        });
     }
     // snippet-end:[opensearch.java2.list_tags.main]
 }

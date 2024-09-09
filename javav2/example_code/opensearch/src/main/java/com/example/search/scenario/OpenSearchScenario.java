@@ -59,11 +59,11 @@ public class OpenSearchScenario {
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("2. Describe the Amazon OpenSearch domain ");
-        System.out.println("In this step, we get back the Domain ARN which is used in upcoming steps.");
+        logger.info(DASHES);
+        logger.info("2. Describe the Amazon OpenSearch domain ");
+        logger.info("In this step, we get back the Domain ARN which is used in an upcoming step.");
         waitForInputToContinue(scanner);
         String arn = "";
         try {
@@ -78,10 +78,10 @@ public class OpenSearchScenario {
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("3. List the domains in your account ");
+        logger.info(DASHES);
+        logger.info("3. List the domains in your account ");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<List<DomainInfo>> future = openSearchActions.listAllDomainsAsync();
@@ -98,11 +98,11 @@ public class OpenSearchScenario {
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("4. Wait until the domain's change status reaches a completed state");
-        System.out.println("""
+        logger.info(DASHES);
+        logger.info("4. Wait until the domain's change status reaches a completed state");
+        logger.info("""
         In the following method call, the clock counts up until the domain's change status reaches a completed state.
         
         Roughly, the time it takes for an OpenSearch domain's change status to reach a completed state can range 
@@ -114,21 +114,21 @@ public class OpenSearchScenario {
         try {
             CompletableFuture<Void> future = openSearchActions.domainChangeProgressAsync(domainName);
             future.join();
-            System.out.println("Domain change progress completed successfully.");
+            logger.info("Domain change progress completed successfully.");
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof OpenSearchException ex) {
-                System.out.println("An OpenSearch error occurred: Error message: " +ex.getMessage());
+                logger.info("An OpenSearch error occurred: Error message: " +ex.getMessage());
             } else {
-                System.out.println("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: " + rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("5. Modify the domain ");
-        System.out.println("""
+        logger.info(DASHES);
+        logger.info("5. Modify the domain ");
+        logger.info("""
            You can modify the cluster configuration, such as the instance count, without having to manually 
            manage the domain's settings. This flexibility is particularly useful when your data or usage patterns 
            change over time, as you can easily scale the OpenSearch domain to meet the new requirements without 
@@ -149,11 +149,11 @@ public class OpenSearchScenario {
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("6. Wait until the domain's change status reaches a completed state");
-        System.out.println("""
+        logger.info(DASHES);
+        logger.info("6. Wait until the domain's change status reaches a completed state");
+        logger.info("""
         In the following method call, the clock counts up until the domain's change status reaches a completed state.
                
         """);
@@ -161,40 +161,57 @@ public class OpenSearchScenario {
         try {
             CompletableFuture<Void> future = openSearchActions.domainChangeProgressAsync(domainName);
             future.join();  // Wait for the task to complete
-            System.out.println("Domain change progress completed successfully.");
+            logger.info("Domain change progress completed successfully.");
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof OpenSearchException ex) {
-                System.out.println("EC2 error occurred: Error message: " +ex.getMessage());
+                logger.info("EC2 error occurred: Error message: " +ex.getMessage());
             } else {
-                System.out.println("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: " + rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("7. Tag the Domain ");
-        System.out.println("""
+        logger.info(DASHES);
+        logger.info("7. Tag the Domain ");
+        logger.info("""
             Tags let you assign arbitrary information to an Amazon OpenSearch Service domain so you can 
             categorize and filter on that information. A tag is a key-value pair that you define and 
             associate with an OpenSearch Service domain. You can use these tags to track costs by grouping 
             expenses for similarly tagged resources.\s
             """);
         waitForInputToContinue(scanner);
-        openSearchActions.addDomainTags(arn);
+        try {
+            CompletableFuture<Void> future = openSearchActions.addDomainTagsAsync(domainName);
+            future.join();
+            logger.info("Domain change progress completed successfully.");
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof OpenSearchException ex) {
+                logger.info("EC2 error occurred: Error message: " +ex.getMessage());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
+        }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("8. List Domain tags ");
+        logger.info(DASHES);
+        logger.info("8. List Domain tags ");
         waitForInputToContinue(scanner);
-        openSearchActions.listDomainTags(arn);
+        try {
+            CompletableFuture<Void> future = openSearchActions.listDomainTagsAsync(arn);
+            future.join();
+            logger.info("Domain tags listed successfully.");
+        } catch (RuntimeException e) {
+            logger.info("Error occurred while listing domain tags:{} ", e.getMessage());
+        }
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("9. Delete the Amazon OpenSearch ");
+        logger.info(DASHES);
+        logger.info("9. Delete the Amazon OpenSearch ");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = openSearchActions.deleteSpecificDomainAsync(domainName);
@@ -208,28 +225,27 @@ public class OpenSearchScenario {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
         }
-        System.out.println(domainName +" has been deleted.");
+        logger.info(domainName +" has been deleted.");
         waitForInputToContinue(scanner);
-        System.out.println(DASHES);
+        logger.info(DASHES);
 
-        System.out.println(DASHES);
-        System.out.println("This concludes the AWS OpenSearch Scenario");
-        System.out.println(DASHES);
+        logger.info(DASHES);
+        logger.info("This concludes the AWS OpenSearch Scenario");
+        logger.info(DASHES);
     }
 
     private static void waitForInputToContinue(Scanner scanner) {
         while (true) {
-            System.out.println("");
-            System.out.println("Enter 'c' followed by <ENTER> to continue:");
+            logger.info("");
+            logger.info("Enter 'c' followed by <ENTER> to continue:");
             String input = scanner.nextLine();
 
             if (input.trim().equalsIgnoreCase("c")) {
-                System.out.println("Continuing with the program...");
-                System.out.println("");
+                logger.info("Continuing with the program...");
+                logger.info("");
                 break;
             } else {
-                // Handle invalid input.
-                System.out.println("Invalid input. Please try again.");
+                logger.info("Invalid input. Please try again.");
             }
         }
     }
