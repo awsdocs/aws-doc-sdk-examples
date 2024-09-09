@@ -5,8 +5,8 @@ on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
 
 jobs:
-  black:
-    name: Flake8 Linting & Black Formatting
+  linting:
+    name: Linting & Formatting with autopep8, pyupgrade, black, isort, and flynt
     runs-on: ubuntu-latest
 
     steps:
@@ -26,11 +26,26 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install black pylint
+          pip install autopep8 pyupgrade black isort flynt
 
-      - name: Run Black & Pylint
+      - name: Run autopep8, pyupgrade, black, isort, and flynt
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           changed_files=(${{steps.changed-files.outputs.all_changed_files}})
+          
+          # Run autopep8 with single aggressive mode on changed files
+          autopep8 --in-place --aggressive "${changed_files[@]}"
+          
+          # Run pyupgrade to ensure Python 3.6+ compatibility only on changed files
+          for file in "${changed_files[@]}"; do
+            pyupgrade --py36-plus "$file"
+          done
+          
+          # Run black for consistent formatting on changed files
           black "${changed_files[@]}"
-          pylint --rcfile .github/linters/.python-lint "${changed_files[@]}"
+          
+          # Sort imports using isort on changed files
+          isort "${changed_files[@]}"
+          
+          # Use flynt to convert string formatting to f-strings on changed files
+          flynt "${changed_files[@]}"
