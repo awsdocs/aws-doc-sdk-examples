@@ -1,23 +1,22 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from collections import defaultdict
 import datetime
 import logging
 import os
 import re
+from collections import defaultdict
 from dataclasses import asdict
 from enum import Enum
-from jinja2 import Environment, FileSystemLoader, select_autoescape
 from operator import itemgetter
 from pathlib import Path
 from typing import Dict, List, Tuple
 
+import config
 from aws_doc_sdk_examples_tools.metadata import Example
 from aws_doc_sdk_examples_tools.sdks import Sdk
 from aws_doc_sdk_examples_tools.services import Service
-
-import config
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 from scanner import Scanner
 
 logger = logging.getLogger(__name__)
