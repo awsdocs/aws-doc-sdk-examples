@@ -8,10 +8,13 @@
 // snippet-start:[s3.swift.basics.handler]
 // snippet-start:[s3.swift.basics.handler.imports]
 import Foundation
+// snippet-start:[s3-smithy.swift.import]
+// snippet-start:[s3.swift.import]
 import AWSS3
-import ClientRuntime
-import AWSClientRuntime
+// snippet-end:[s3.swift.import]
 import Smithy
+// snippet-end:[s3-smithy.swift.import]
+import ClientRuntime
 // snippet-end:[s3.swift.basics.handler.imports]
 
 /// A class containing all the code that interacts with the AWS SDK for Swift.

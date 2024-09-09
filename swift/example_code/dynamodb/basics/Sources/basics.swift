@@ -30,8 +30,10 @@
 // snippet-start:[ddb.swift.basics]
 import Foundation
 import ArgumentParser
-import AWSDynamoDB
 import ClientRuntime
+// snippet-start:[ddb.swift.import]
+import AWSDynamoDB
+// snippet-end:[ddb.swift.import]
 
 @testable import MovieList
 
@@ -69,7 +71,6 @@ struct ExampleCommand: ParsableCommand {
     /// Called by ``main()`` to asynchronously run the AWS example.
     func runAsync() async throws {
         print("Welcome to the AWS SDK for Swift basic scenario for Amazon DynamoDB!")
-        SDKLoggingSystem.initialize(logLevel: .error)
 
         //=====================================================================
         // 1. Create the table. The Amazon DynamoDB table is represented by

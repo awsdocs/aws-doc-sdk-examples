@@ -1,13 +1,13 @@
-# Amazon Cognito Identity code examples for the SDK for Swift
+# DynamoDB code examples for the SDK for Swift
 
 ## Overview
 
-Shows how to use the AWS SDK for Swift to work with Amazon Cognito Identity.
+Shows how to use the AWS SDK for Swift to work with Amazon DynamoDB.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon Cognito Identity enables you to create unique identities for your users and federate them with identity providers._
+_DynamoDB is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability._
 
 ## ⚠ Important
 
@@ -29,13 +29,28 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](basics/MovieList/MovieTable.swift)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateIdentityPool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L7)
-- [DeleteIdentityPool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L7)
-- [ListIdentityPools](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L7)
+- [BatchGetItem](basics/Sources/basics.swift#L34)
+- [BatchWriteItem](basics/Sources/basics.swift#L34)
+- [CreateTable](basics/Sources/basics.swift#L34)
+- [DeleteItem](basics/Sources/basics.swift#L34)
+- [DeleteTable](basics/Sources/basics.swift#L34)
+- [GetItem](basics/Sources/basics.swift#L34)
+- [ListTables](basics/Sources/basics.swift#L34)
+- [PutItem](basics/Sources/basics.swift#L34)
+- [Query](basics/Sources/basics.swift#L34)
+- [Scan](basics/Sources/basics.swift#L34)
+- [UpdateItem](basics/Sources/basics.swift#L34)
 
 
 <!--custom.examples.start-->
@@ -61,6 +76,24 @@ and run commands.
 <!--custom.instructions.end-->
 
 
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a table that can hold movie data.
+- Put, get, and update a single movie in the table.
+- Write movie data to the table from a sample JSON file.
+- Query for movies that were released in a given year.
+- Scan for movies that were released in a range of years.
+- Delete a movie from the table, then delete the table.
+
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basic_prereqs.dynamodb_Scenario_GettingStartedMovies.end-->
+
+
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.start-->
+<!--custom.basics.dynamodb_Scenario_GettingStartedMovies.end-->
+
 
 ### Tests
 
@@ -77,9 +110,9 @@ in the `swift` folder.
 
 ## Additional resources
 
-- [Amazon Cognito Identity Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html)
-- [Amazon Cognito Identity API Reference](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html)
-- [SDK for Swift Amazon Cognito Identity reference](https://sdk.amazonaws.com/swift/api/awscognitoidentity/latest/documentation/awscognitoidentity)
+- [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
+- [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
+- [SDK for Swift DynamoDB reference](https://sdk.amazonaws.com/swift/api/awsdynamodb/latest/documentation/awsdynamodb)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

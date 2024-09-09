@@ -184,7 +184,15 @@ language = {
         1: {
             "base_folder": "swift",
             "service_folder": 'swift/example_code/{{service["name"]}}',
-            "sdk_api_ref": 'https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWS{{service["name"] | capitalize}}/Home',
+            "sdk_api_ref": '{% set name = service["name"] | replace("-","") -%}https://sdk.amazonaws.com/swift/api/aws{{name}}/latest/documentation/aws{{name}}',
+            "service_folder_overrides": {
+                "cognito-identity": "swift/example_code/cognito-identity",
+                "dynamodb": "swift/example_code/dynamodb",
+                "iam": "swift/example_code/iam",
+                "s3": "swift/example_code/s3",
+                "sts": "swift/example_code/sts"
+            }
+
         }
     },
     "Bash": {

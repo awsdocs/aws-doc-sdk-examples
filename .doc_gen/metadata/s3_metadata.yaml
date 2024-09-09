@@ -198,6 +198,7 @@ s3_CreateBucket:
           excerpts:
             - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.createbucket
     Bash:
       versions:
@@ -327,6 +328,7 @@ s3_CopyObject:
           excerpts:
             - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.copyfile
     Bash:
       versions:
@@ -492,6 +494,7 @@ s3_DeleteObject:
           excerpts:
             - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.deletefile
     Bash:
       versions:
@@ -606,6 +609,7 @@ s3_DeleteObjects:
           excerpts:
             - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.deleteobjects.handler.deleteobjects
     C++:
       versions:
@@ -900,11 +904,13 @@ s3_GetObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: Download an object from a bucket to a local file.
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.downloadfile
-            - description: Read an object into a Swift Data object.
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.readfile
     Bash:
       versions:
@@ -1385,6 +1391,7 @@ s3_ListObjectsV2:
           excerpts:
             - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.listbucketfiles
     Bash:
       versions:
@@ -1564,11 +1571,13 @@ s3_PutObject:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: Upload a file from local storage to a bucket.
+            - description:
               snippet_tags:
+                - s3-smithy.swift.import
                 - s3.swift.basics.handler.uploadfile
-            - description: Upload the contents of a Swift Data object to a bucket.
+            - description:
               snippet_tags:
+                - s3-smithy.swift.import
                 - s3.swift.basics.handler.createfile
     Bash:
       versions:
@@ -1700,6 +1709,7 @@ s3_DeleteBucket:
           excerpts:
             - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler.deletebucket
     Bash:
       versions:
@@ -2188,6 +2198,7 @@ s3_ListBuckets:
           excerpts:
             - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.listbuckets.getallbuckets
   services:
     s3: {ListBuckets}
@@ -2995,11 +3006,13 @@ s3_Scenario_GettingStarted:
         - sdk_version: 1
           github: swift/example_code/s3/basics
           excerpts:
-            - description: A Swift class that handles calls to the SDK for Swift.
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.handler
-            - description: A Swift command-line program to manage the SDK calls.
+            - description:
               snippet_tags:
+                - s3.swift.import
                 - s3.swift.basics.example
     Bash:
       versions:

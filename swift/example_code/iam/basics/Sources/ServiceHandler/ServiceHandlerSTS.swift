@@ -10,10 +10,12 @@
 // snippet-start:[iam.swift.basics.sts.imports]
 import Foundation
 import AWSIAM
+// snippet-start:[sts.swift.import]
 import AWSSTS
+// snippet-end:[sts.swift.import]
 import ClientRuntime
 import SwiftUtilities
-import AWSClientRuntime
+import AWSSDKIdentity
 // snippet-end:[iam.swift.basics.sts.imports]
 
 /// A class providing functions for interacting with the AWS Security Token
@@ -56,20 +58,19 @@ public class ServiceHandlerSTS {
                         let secretKey = secretAccessKey else {
                             throw ServiceHandlerError.authError
                 }
-                
-                let credentialsProvider = try AWSClientRuntime.StaticCredentialsProvider(
-                    AWSClientRuntime.Credentials(
-                        accessKey: keyId,
-                        secret: secretKey,
-                        sessionToken: sessionToken
-                    )
-                )
 
+                let credentials = AWSCredentialIdentity(
+                    accessKey: keyId,
+                    secret: secretKey,
+                    sessionToken: sessionToken
+                )
+                let identityResolver = try StaticAWSCredentialIdentityResolver(credentials)
+                
                 // Create an AWS STS configuration specifying the credentials
                 // provider. Then create a new `STSClient` using those permissions.
 
                 let s3Config = try await STSClient.STSClientConfiguration(
-                    credentialsProvider: credentialsProvider,
+                    awsCredentialIdentityResolver: identityResolver,
                     region: self.region
                 )
                 stsClient = STSClient(config: s3Config)
@@ -93,22 +94,21 @@ public class ServiceHandlerSTS {
     public func setCredentials(accessKeyId: String, secretAccessKey: String,
                 sessionToken: String? = nil) async throws {
         do {
-            // Use the given access key ID, secret access key, and session token
-            // to generate a static credentials provider suitable for use when
-            // initializing an AWS STS client.
+            // Use the given access key ID, secret access key, and session
+            // token to generate a static credentials resolver suitable for
+            // use when initializing an AWS STS client.
 
-                let credentialsProvider = try AWSClientRuntime.StaticCredentialsProvider(
-                    AWSClientRuntime.Credentials(
-                        accessKey: accessKeyId,
-                        secret: secretAccessKey,
-                        sessionToken: sessionToken
-                    )
-                )
+            let credentials: AWSCredentialIdentity = AWSCredentialIdentity(
+                accessKey: accessKeyId,
+                secret: secretAccessKey,
+                sessionToken: sessionToken
+            )
+            let identityResolver = try StaticAWSCredentialIdentityResolver(credentials)
 
             // Create a new AWS STS client with the specified access credentials.
 
             let stsConfig = try await STSClient.STSClientConfiguration(
-                credentialsProvider: credentialsProvider,
+                awsCredentialIdentityResolver: identityResolver,
                 region: self.region
             )
             stsClient = STSClient(config: stsConfig)

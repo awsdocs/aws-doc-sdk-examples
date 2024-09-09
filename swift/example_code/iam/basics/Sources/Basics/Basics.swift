@@ -25,10 +25,12 @@
 // snippet-start:[iam.swift.basics.main.imports]
 import Foundation
 import ArgumentParser
+import ClientRuntime
+// snippet-start:[iam.swift.import]
 import AWSIAM
+// snippet-end:[iam.swift.import]
 import AWSSTS
 import AWSS3
-import ClientRuntime
 // snippet-end:[iam.swift.basics.main.imports]
 
 @testable import ServiceHandler
@@ -67,8 +69,6 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[iam.swift.basics.command.runasync]
     func runAsync() async throws {
-        SDKLoggingSystem.initialize(logLevel: .error)
-
         // Create handlers for the AWS services to use.
 
         let iamHandler = await ServiceHandlerIAM()

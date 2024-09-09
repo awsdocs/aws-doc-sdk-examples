@@ -3,8 +3,10 @@
 
 // snippet-start:[cognitoidentity.swift.handler-imports]
 import Foundation
-import AWSCognitoIdentity
 import ClientRuntime
+// snippet-start:[cognitoidentity.swift.import]
+import AWSCognitoIdentity
+// snippet-end:[cognitoidentity.swift.import]
 // snippet-end:[cognitoidentity.swift.handler-imports]
 
 /// A class containing all the code that interacts with the AWS SDK for Swift.
