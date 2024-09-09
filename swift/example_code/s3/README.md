@@ -45,7 +45,7 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
 - [DeleteObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
 - [DeleteObjects](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
-- [GetObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L116)
+- [GetObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
 - [ListBuckets](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
 - [ListObjectsV2](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
 - [PutObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L11)

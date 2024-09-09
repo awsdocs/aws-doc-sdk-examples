@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateIdentityPool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L94)
-- [DeleteIdentityPool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L116)
+- [CreateIdentityPool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L7)
+- [DeleteIdentityPool](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L7)
 - [ListIdentityPools](FindOrCreateIdentityPool/Sources/CognitoIdentityHandler/CognitoIdentityHandler.swift#L7)
 
 
