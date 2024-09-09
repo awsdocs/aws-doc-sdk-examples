@@ -6,14 +6,21 @@ package com.example.search;
 // snippet-start:[opensearch.java2.create_domain.main]
 // snippet-start:[opensearch.java2.create_domain.import]
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.opensearch.OpenSearchAsyncClient;
 import software.amazon.awssdk.services.opensearch.OpenSearchClient;
 import software.amazon.awssdk.services.opensearch.model.ClusterConfig;
 import software.amazon.awssdk.services.opensearch.model.EBSOptions;
+import software.amazon.awssdk.services.opensearch.model.ListVersionsRequest;
+import software.amazon.awssdk.services.opensearch.model.ListVersionsResponse;
+import software.amazon.awssdk.services.opensearch.model.VersionStatus;
 import software.amazon.awssdk.services.opensearch.model.VolumeType;
 import software.amazon.awssdk.services.opensearch.model.NodeToNodeEncryptionOptions;
 import software.amazon.awssdk.services.opensearch.model.CreateDomainRequest;
 import software.amazon.awssdk.services.opensearch.model.CreateDomainResponse;
 import software.amazon.awssdk.services.opensearch.model.OpenSearchException;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 // snippet-end:[opensearch.java2.create_domain.import]
 
 /**
@@ -26,67 +33,33 @@ import software.amazon.awssdk.services.opensearch.model.OpenSearchException;
  */
 public class HelloOpenSearch {
     public static void main(String[] args) {
-        final String usage = """
-
-                Usage:
-                    <domainName>
-
-                Where:
-                    domainName - The name of the domain to create.
-                """;
-
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
+        try {
+            CompletableFuture<Void> future = listVersionsAsync();
+            future.join();
+            System.out.println("Versions listed successfully.");
+        } catch (RuntimeException e) {
+            System.err.println("Error occurred while listing versions: " + e.getMessage());
         }
-
-        String domainName = args[0];
-        Region region = Region.US_EAST_1;
-        OpenSearchClient searchClient = OpenSearchClient.builder()
-                .region(region)
-                .build();
-
-        createNewDomain(searchClient, domainName);
-        System.out.println("Done");
     }
 
-    public static void createNewDomain(OpenSearchClient searchClient, String domainName) {
-        try {
-            ClusterConfig clusterConfig = ClusterConfig.builder()
-                    .dedicatedMasterEnabled(true)
-                    .dedicatedMasterCount(3)
-                    .dedicatedMasterType("t2.small.search")
-                    .instanceType("t2.small.search")
-                    .instanceCount(5)
-                    .build();
+    private static OpenSearchAsyncClient getAsyncClient() {
+        return OpenSearchAsyncClient.builder().build();
+    }
 
-            EBSOptions ebsOptions = EBSOptions.builder()
-                    .ebsEnabled(true)
-                    .volumeSize(10)
-                    .volumeType(VolumeType.GP2)
-                    .build();
+    public static CompletableFuture<Void> listVersionsAsync() {
+        ListVersionsRequest request = ListVersionsRequest.builder()
+            .maxResults(10)
+            .build();
 
-            NodeToNodeEncryptionOptions encryptionOptions = NodeToNodeEncryptionOptions.builder()
-                    .enabled(true)
-                    .build();
-
-            CreateDomainRequest domainRequest = CreateDomainRequest.builder()
-                    .domainName(domainName)
-                    .engineVersion("OpenSearch_1.0")
-                    .clusterConfig(clusterConfig)
-                    .ebsOptions(ebsOptions)
-                    .nodeToNodeEncryptionOptions(encryptionOptions)
-                    .build();
-
-            System.out.println("Sending domain creation request...");
-            CreateDomainResponse createResponse = searchClient.createDomain(domainRequest);
-            System.out.println("Domain status is " + createResponse.domainStatus().toString());
-            System.out.println("Domain Id is " + createResponse.domainStatus().domainId());
-
-        } catch (OpenSearchException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
+        return getAsyncClient().listVersions(request).thenAccept(response -> {
+            List<String> versionList = response.versions();
+            for (String version : versionList) {
+                System.out.println("Version info: " + version);
+            }
+        }).exceptionally(ex -> {
+            // Handle the exception, or propagate it as a RuntimeException
+            throw new RuntimeException("Failed to list versions", ex);
+        });
     }
 }
 // snippet-end:[opensearch.java2.create_domain.main]
