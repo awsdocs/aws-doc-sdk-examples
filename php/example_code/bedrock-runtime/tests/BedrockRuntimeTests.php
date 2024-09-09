@@ -23,12 +23,12 @@ class BedrockRuntimeTests extends TestCase
 
     public function setup(): void
     {
-        $this->clientArgs = [
+        $clientArgs = [
             'region' => 'us-west-2',
             'version' => 'latest',
             'profile' => 'default',
         ];
-        $this->bedrockRuntimeService = new BedrockRuntimeService($this->clientArgs);
+        $this->bedrockRuntimeService = new BedrockRuntimeService(null, $clientArgs['region'], $clientArgs['version'], $clientArgs['profile']);
     }
 
     public function test_claude_can_be_invoked()

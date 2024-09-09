@@ -20,12 +20,12 @@ class BedrockBasicsTests extends TestCase
 
     public function setup(): void
     {
-        $this->clientArgs = [
+        $clientArgs = [
             'region' => 'us-west-2',
             'version' => 'latest',
             'profile' => 'default',
         ];
-        $this->bedrockService = new BedrockService($this->clientArgs);
+        $this->bedrockService = new BedrockService(null, $clientArgs['region'], $clientArgs['version'], $clientArgs['profile']);
     }
 
     public function test_foundation_models_can_be_listed()

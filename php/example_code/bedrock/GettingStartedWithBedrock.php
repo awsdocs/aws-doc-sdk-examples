@@ -28,7 +28,7 @@ class GettingStartedWithBedrock
             'profile' => 'default',
         ];
 
-        $bedrockService = new BedrockService($clientArgs);
+        $bedrockService = new BedrockService(null, $clientArgs['region'], $clientArgs['version'], $clientArgs['profile']);
 
         echo "Let's retrieve the available foundation models (FMs).\n";
 

@@ -11,6 +11,10 @@
 # snippet-start:[php.example_code.bedrock-runtime.basics.scenario]
 namespace BedrockRuntime;
 
+use Aws\BedrockRuntime\BedrockRuntimeClient;
+use BedrockRuntime\BedrockRuntimeService;
+
+
 class GettingStartedWithBedrockRuntime
 {
     protected BedrockRuntimeService $bedrockRuntimeService;
@@ -28,7 +32,7 @@ class GettingStartedWithBedrockRuntime
             'profile' => 'default',
         ];
 
-        $bedrockRuntimeService = new BedrockRuntimeService($clientArgs);
+        $bedrockRuntimeService = new BedrockRuntimeService(null, $clientArgs['region'], $clientArgs['version'], $clientArgs['profile']);
 
         $prompt = 'In one paragraph, who are you?';
 
