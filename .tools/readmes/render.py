@@ -274,7 +274,12 @@ class Renderer:
         custom_cats = self._transform_custom_categories()
 
         if (
-            len(hello) + len(actions) + len(basics) + len(scenarios) + len(custom_cats) + len(crosses)
+            len(hello)
+            + len(actions)
+            + len(basics)
+            + len(scenarios)
+            + len(custom_cats)
+            + len(crosses)
             == 0
         ):
             return RenderStatus.NO_EXAMPLES
