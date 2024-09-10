@@ -40,16 +40,14 @@ export const main = async ({
 import { fileURLToPath } from "url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    const options = {
-      opsItemId: {
-        type: "string",
-      },
-      status: {
-        type: "OpsItemStatus",
-      },
-    };
-    const { values } = parseArgs({ options });
-    main(values);
-  }
+  const options = {
+    opsItemId: {
+      type: "string",
+    },
+    status: {
+      type: "OpsItemStatus",
+    },
+  };
+  const { values } = parseArgs({ options });
+  main(values);
 }

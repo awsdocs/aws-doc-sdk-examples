@@ -43,28 +43,26 @@ export const main = async ({
 import { fileURLToPath } from "url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    const options = {
-      windowId: {
-        type: "string",
-      },
-      allowUnassociatedTargets: {
-        type: "boolean",
-      },
-      duration: {
-        type: "number",
-      },
-      enabled: {
-        type: "boolean",
-      },
-      name: {
-        type: "string",
-      },
-      schedule: {
-        type: "string",
-      },
-    };
-    const { values } = parseArgs({ options });
-    main(values);
-  }
+  const options = {
+    windowId: {
+      type: "string",
+    },
+    allowUnassociatedTargets: {
+      type: "boolean",
+    },
+    duration: {
+      type: "number",
+    },
+    enabled: {
+      type: "boolean",
+    },
+    name: {
+      type: "string",
+    },
+    schedule: {
+      type: "string",
+    },
+  };
+  const { values } = parseArgs({ options });
+  main(values);
 }

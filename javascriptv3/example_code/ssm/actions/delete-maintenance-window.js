@@ -29,13 +29,11 @@ export const main = async ({ windowId }) => {
 import { fileURLToPath } from "url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    const options = {
-      windowId: {
-        type: "string",
-      },
-    };
-    const { values } = parseArgs({ options });
-    main(values);
-  }
+  const options = {
+    windowId: {
+      type: "string",
+    },
+  };
+  const { values } = parseArgs({ options });
+  main(values);
 }

@@ -33,19 +33,17 @@ export const main = async ({ content, name, documentType }) => {
 import { fileURLToPath } from "url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    const options = {
-      content: {
-        type: "string",
-      },
-      name: {
-        type: "string",
-      },
-      documentType: {
-        type: "string",
-      },
-    };
-    const { values } = parseArgs({ options });
-    main(values);
-  }
+  const options = {
+    content: {
+      type: "string",
+    },
+    name: {
+      type: "string",
+    },
+    documentType: {
+      type: "string",
+    },
+  };
+  const { values } = parseArgs({ options });
+  main(values);
 }
