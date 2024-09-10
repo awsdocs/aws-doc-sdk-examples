@@ -1,11 +1,9 @@
 [flake8]
-# Specify the max line length if needed
-max-line-length = 88
 
-# Exclude specific error codes (F403 in this case)
+# Exclude specific error codes
 ignore = F403
 
-# You can also exclude specific directories if needed (e.g., migrations)
+# You can also exclude specific directories
 exclude = 
     .git,
     __pycache__,
