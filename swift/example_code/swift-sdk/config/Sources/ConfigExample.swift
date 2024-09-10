@@ -5,16 +5,18 @@
 // SDK for Swift. The same principle applies to all services.
 
 import Foundation
-import ClientRuntime
+import AWSClientRuntime
 import AWSS3
+import SmithyRetries
+import SmithyRetriesAPI
 
 @main
 struct ConfigExample {
     static func main() async {
         // snippet-start:[config.swift.use-custom-configuration]
         // Create an Amazon S3 client configuration object that specifies the
-        // region as "us-east-1", the adaptive retry mode, and the maximum
-        // number of retries as 5.
+        // region as "us-east-1", an exponential backoff strategy, the
+        // adaptive retry mode, and the maximum number of retries as 5.
 
         let config: S3Client.S3ClientConfiguration
 
@@ -23,8 +25,9 @@ struct ConfigExample {
             config = try await S3Client.S3ClientConfiguration(
                 region: "us-east-1", 
                 retryStrategyOptions: RetryStrategyOptions(
+                    backoffStrategy: SmithyRetries.ExponentialBackoffStrategy(),
                     maxRetriesBase: 5,
-                    rateLimitingMode: .adaptive
+                    rateLimitingMode: RetryStrategyOptions.RateLimitingMode.adaptive
                 )
             )
             // snippet-end:[config.swift.create-configuration]
