@@ -7,8 +7,5 @@ export default defineConfig({
   test: {
     restoreMocks: true,
     cache: false,
-    coverage: {
-      reporter: ["text", "html"],
-    },
   },
 });

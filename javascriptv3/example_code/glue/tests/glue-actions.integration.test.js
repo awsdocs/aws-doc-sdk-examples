@@ -16,6 +16,7 @@ import {
   ListObjectsCommand,
   PutObjectCommand,
   S3Client,
+  waitUntilObjectNotExists,
 } from "@aws-sdk/client-s3";
 
 import { dirnameFromMetaUrl } from "@aws-doc-sdk-examples/lib/utils/util-fs.js";
@@ -42,7 +43,7 @@ config();
 
 const dirname = dirnameFromMetaUrl(import.meta.url);
 const cdkAppPath = `${dirname}../../../../resources/cdk/glue_role_bucket/setup.yaml`;
-const stackName = `glue-test-stack-${Date.now()}`;
+const stackName = `glue-test-stack`;
 const fiveMinutesInMs = 5 * 60 * 1000; // 5 Minutes
 const fiveMinutesInSeconds = fiveMinutesInMs / 1000;
 
@@ -83,9 +84,10 @@ const emptyS3Bucket = async (bucketName) => {
   const { Contents } = await client.send(listCommand);
 
   await Promise.all(
-    Contents.map(({ Key }) =>
-      client.send(new DeleteObjectCommand({ Bucket: bucketName, Key })),
-    ),
+    Contents.map(async ({ Key }) => {
+      await client.send(new DeleteObjectCommand({ Bucket: bucketName, Key }));
+      await waitUntilObjectNotExists({ client }, { Bucket: bucketName, Key });
+    }),
   );
 };
 
@@ -113,18 +115,14 @@ describe("actions", () => {
   }, fiveMinutesInMs);
 
   afterAll(async () => {
-    try {
-      await emptyS3Bucket(bucketName).catch(console.error);
-      await deleteTable("doc-example-database", "doc-example-csv").catch(
-        console.error,
-      );
-      await deleteDatabase("doc-example-database");
-      await deleteCrawler("s3-flight-data-crawler").catch(console.error);
-      await deleteJob("flight_etl_job").catch(console.error);
-      await deleteStack().catch(console.error);
-    } catch (err) {
-      console.error(err);
-    }
+    await emptyS3Bucket(bucketName).catch(console.error);
+    await deleteTable("doc-example-database", "doc-example-csv").catch(
+      console.error,
+    );
+    await deleteDatabase("doc-example-database").catch(console.error);
+    await deleteCrawler("s3-flight-data-crawler").catch(console.error);
+    await deleteJob("flight_etl_job").catch(console.error);
+    await deleteStack().catch(console.error);
   }, fiveMinutesInMs);
 
   const addPythonScriptToBucket = async () => {
@@ -207,20 +205,16 @@ describe("actions", () => {
     expect(JobRuns[0].JobName).toBe("flight_etl_job");
   };
 
-  it(
-    "should run",
-    async () => {
-      await addPythonScriptToBucket();
-      await testCreateCrawler();
-      await testCreateJob(bucketName, roleName);
-      await testListJobs();
-      await testStartCrawler();
-      await testGetDatabases();
-      await testGetDatabase();
-      await testGetTables();
-      await testStartJobRun(bucketName);
-      await testGetJobRuns();
-    },
-    { timeout: fiveMinutesInMs * 5 },
-  );
+  it("should run", { timeout: fiveMinutesInMs * 5 }, async () => {
+    await addPythonScriptToBucket();
+    await testCreateCrawler();
+    await testCreateJob(bucketName, roleName);
+    await testListJobs();
+    await testStartCrawler();
+    await testGetDatabases();
+    await testGetDatabase();
+    await testGetTables();
+    await testStartJobRun(bucketName);
+    await testGetJobRuns();
+  });
 });

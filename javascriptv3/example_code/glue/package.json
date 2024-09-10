@@ -1,26 +1,25 @@
 {
   "name": "@aws-doc-sdk-examples/glue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AWS SDK for JavaScript (v3) examples for AWS Glue",
   "type": "module",
-  "author": "corepyle@amazon.com",
+  "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache-2.0",
   "scripts": {
     "test": "vitest run **/*.unit.test.js",
     "integration-test": "vitest run **/*.integration.test.js --reporter=junit --outputFile=test_results/$npm_package_name.junit.xml"
   },
   "dependencies": {
-    "@aws-doc-sdk-examples/lib": "^1.0.0",
-    "@aws-sdk/client-glue": "^3.425.0",
+    "@aws-doc-sdk-examples/lib": "^1.0.1",
+    "@aws-sdk/client-glue": "^3.645.0",
     "chalk": "^5.3.0",
-    "dotenv": "^16.3.1",
-    "inquirer": "^9.2.11",
-    "open": "^9.1.0"
+    "dotenv": "^16.4.5",
+    "inquirer": "^10.2.0",
+    "open": "^10.1.0"
   },
   "devDependencies": {
-    "@aws-sdk/client-cloudformation": "^3.204.0",
-    "@aws-sdk/client-s3": "^3.204.0",
-    "@vitest/coverage-c8": "^0.25.0",
-    "vitest": "^1.6.0"
+    "@aws-sdk/client-cloudformation": "^3.645.0",
+    "@aws-sdk/client-s3": "^3.645.0",
+    "vitest": "^2.0.5"
   }
 }
