@@ -270,7 +270,7 @@ const sdkGetCommandTime = new ScenarioAction(
     /**
      * @type {import('@aws-sdk/client-ssm').CommandInvocation}
      */
-    const commandInvocation = listInvocationsPaginated.shift();
+    const commandInvocation = listInvocationsPaginated.shift(); // Because the call was made with CommandId, there's only one result, so shift it off.
     state.requestedDateTime = commandInvocation.RequestedDateTime;
 
     console.log(
