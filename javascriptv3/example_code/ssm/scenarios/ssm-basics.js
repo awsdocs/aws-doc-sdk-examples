@@ -78,16 +78,24 @@ const getMaintenanceWindow = new ScenarioInput(
 export const sdkCreateMaintenanceWindow = new ScenarioAction(
   "sdkCreateMaintenanceWindow",
   async (/** @type {State} */ state) => {
-    const response = await state.ssmClient.send(
-      new CreateMaintenanceWindowCommand({
-        Name: state.maintenanceWindow,
-        Schedule: "cron(0 10 ? * MON-FRI *)", //The schedule of the maintenance window in the form of a cron or rate expression.
-        Duration: 2, //The duration of the maintenance window in hours.
-        Cutoff: 1, //The number of hours before the end of the maintenance window that Amazon Web Services Systems Manager stops scheduling new tasks for execution.
-        AllowUnassociatedTargets: true, //Allow the maintenance window to run on managed nodes, even if you haven't registered those nodes as targets.
-      }),
-    );
-    state.winId = response.WindowId;
+    try {
+      const response = await state.ssmClient.send(
+        new CreateMaintenanceWindowCommand({
+          Name: state.maintenanceWindow,
+          Schedule: "cron(0 10 ? * MON-FRI *)", //The schedule of the maintenance window in the form of a cron or rate expression.
+          Duration: 2, //The duration of the maintenance window in hours.
+          Cutoff: 1, //The number of hours before the end of the maintenance window that Amazon Web Services Systems Manager stops scheduling new tasks for execution.
+          AllowUnassociatedTargets: true, //Allow the maintenance window to run on managed nodes, even if you haven't registered those nodes as targets.
+        }),
+      );
+      state.winId = response.WindowId;
+    } catch (caught) {
+      console.error(caught.message);
+      console.log(
+        `An error occurred while creating the maintenance window. Please fix the error and try again. Error message: ${caught.message}`,
+      );
+      throw caught;
+    }
   },
 );
 
@@ -99,12 +107,20 @@ const modifyMaintenanceWindow = new ScenarioOutput(
 const sdkModifyMaintenanceWindow = new ScenarioAction(
   "sdkModifyMaintenanceWindow",
   async (/** @type {State} */ state) => {
-    await state.ssmClient.send(
-      new UpdateMaintenanceWindowCommand({
-        WindowId: state.winId,
-        Schedule: "cron(0 0 ? * MON *)",
-      }),
-    );
+    try {
+      await state.ssmClient.send(
+        new UpdateMaintenanceWindowCommand({
+          WindowId: state.winId,
+          Schedule: "cron(0 0 ? * MON *)",
+        }),
+      );
+    } catch (caught) {
+      console.error(caught.message);
+      console.log(
+        `An error occurred while modifying the maintenance window. Please fix the error and try again. Error message: ${caught.message}`,
+      );
+      throw caught;
+    }
   },
 );
 
@@ -145,12 +161,16 @@ const sdkCreateSSMDoc = new ScenarioAction(
           DocumentType: "Command",
         }),
       );
-    } catch (e) {
+    } catch (caught) {
       console.log("Exception type: (" + typeof e + ")");
-      if (e instanceof DocumentAlreadyExists) {
+      if (caught instanceof DocumentAlreadyExists) {
         console.log("Document already exists. Continuing...\n");
       } else {
-        throw e;
+        console.error(caught.message);
+        console.log(
+          `An error occurred while creating the document. Please fix the error and try again. Error message: ${caught.message}`,
+        );
+        throw caught;
       }
     }
   },
@@ -170,14 +190,22 @@ const enterIdOrSkipEC2HelloWorld = new ScenarioInput(
 const sdkEC2HelloWorld = new ScenarioAction(
   "sdkEC2HelloWorld",
   async (/** @type {State} */ state) => {
-    const response = await state.ssmClient.send(
-      new SendCommandCommand({
-        DocumentName: state.documentName,
-        InstanceIds: [state.ec2InstanceId],
-        TimeoutSeconds: COMMAND_TIMEOUT_DURATION_SECONDS,
-      }),
-    );
-    state.CommandId = response.Command.CommandId;
+    try {
+      const response = await state.ssmClient.send(
+        new SendCommandCommand({
+          DocumentName: state.documentName,
+          InstanceIds: [state.ec2InstanceId],
+          TimeoutSeconds: COMMAND_TIMEOUT_DURATION_SECONDS,
+        }),
+      );
+      state.CommandId = response.Command.CommandId;
+    } catch (caught) {
+      console.error(caught.message);
+      console.log(
+        `An error occurred while sending the command. Please fix the error and try again. Error message: ${caught.message}`,
+      );
+      throw caught;
+    }
   },
   {
     skipWhen: (/** @type {State} */ state) =>
@@ -264,16 +292,24 @@ You can create OpsItems to track and manage operational issues as they arise. Fo
 const sdkCreateSSMOpsItem = new ScenarioAction(
   "sdkCreateSSMOpsItem",
   async (/** @type {State} */ state) => {
-    const response = await state.ssmClient.send(
-      new CreateOpsItemCommand({
-        Description: "Created by the System Manager Javascript API",
-        Title: "Disk Space Alert",
-        Source: "EC2",
-        Category: "Performance",
-        Severity: "2",
-      }),
-    );
-    state.opsItemId = response.OpsItemId;
+    try {
+      const response = await state.ssmClient.send(
+        new CreateOpsItemCommand({
+          Description: "Created by the System Manager Javascript API",
+          Title: "Disk Space Alert",
+          Source: "EC2",
+          Category: "Performance",
+          Severity: "2",
+        }),
+      );
+      state.opsItemId = response.OpsItemId;
+    } catch (caught) {
+      console.error(caught.message);
+      console.log(
+        `An error occurred while creating the ops item. Please fix the error and try again. Error message: ${caught.message}`,
+      );
+      throw caught;
+    }
   },
 );
 
@@ -286,12 +322,20 @@ const updateOpsItem = new ScenarioOutput(
 const sdkUpdateOpsItem = new ScenarioAction(
   "sdkUpdateOpsItem",
   async (/** @type {State} */ state) => {
-    const _response = await state.ssmClient.send(
-      new UpdateOpsItemCommand({
-        OpsItemId: state.opsItemId,
-        Description: "An update to " + state.opsItemId,
-      }),
-    );
+    try {
+      const _response = await state.ssmClient.send(
+        new UpdateOpsItemCommand({
+          OpsItemId: state.opsItemId,
+          Description: "An update to " + state.opsItemId,
+        }),
+      );
+    } catch (caught) {
+      console.error(caught.message);
+      console.log(
+        `An error occurred while updating the ops item. Please fix the error and try again. Error message: ${caught.message}`,
+      );
+      throw caught;
+    }
   },
 );
 
@@ -304,12 +348,20 @@ const getOpsItemStatus = new ScenarioOutput(
 const sdkOpsItemStatus = new ScenarioAction(
   "sdkGetOpsItemStatus",
   async (/** @type {State} */ state) => {
-    const response = await state.ssmClient.send(
-      new DescribeOpsItemsCommand({
-        OpsItemId: state.opsItemId,
-      }),
-    );
-    state.opsItemStatus = response.OpsItemStatus;
+    try {
+      const response = await state.ssmClient.send(
+        new DescribeOpsItemsCommand({
+          OpsItemId: state.opsItemId,
+        }),
+      );
+      state.opsItemStatus = response.OpsItemStatus;
+    } catch (caught) {
+      console.error(caught.message);
+      console.log(
+        `An error occurred while describing the ops item. Please fix the error and try again. Error message: ${caught.message}`,
+      );
+      throw caught;
+    }
   },
 );
 
@@ -322,12 +374,20 @@ const resolveOpsItem = new ScenarioOutput(
 const sdkResolveOpsItem = new ScenarioAction(
   "sdkResolveOpsItem",
   async (/** @type {State} */ state) => {
-    const _response = await state.ssmClient.send(
-      new UpdateOpsItemCommand({
-        OpsItemId: state.opsItemId,
-        Status: OpsItemStatus.RESOLVED,
-      }),
-    );
+    try {
+      const _response = await state.ssmClient.send(
+        new UpdateOpsItemCommand({
+          OpsItemId: state.opsItemId,
+          Status: OpsItemStatus.RESOLVED,
+        }),
+      );
+    } catch (caught) {
+      console.error(caught.message);
+      console.log(
+        `An error occurred while updating the ops item. Please fix the error and try again. Error message: ${caught.message}`,
+      );
+      throw caught;
+    }
   },
 );
 
