@@ -29,7 +29,7 @@ describe("listCommandInvocations", () => {
     paginateListCommandInvocationsMock.mockImplementationOnce(
       async function* () {
         yield { CommandInvocations: mockCommandInvocations };
-      }
+      },
     );
 
     const result = await main({ instanceId: "i-12345678" });
@@ -47,15 +47,15 @@ describe("listCommandInvocations", () => {
       // eslint-disable-next-line require-yield
       (async function* () {
         throw mockError;
-      })()
+      })(),
     );
 
     await expect(main({ instanceId: "invalid-instance-id" })).rejects.toThrow(
-      mockError
+      mockError,
     );
 
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      `${mockError.message}. Did you provide a valid instance ID?`
+      `${mockError.message}. Did you provide a valid instance ID?`,
     );
   });
 
@@ -66,7 +66,7 @@ describe("listCommandInvocations", () => {
       // eslint-disable-next-line require-yield
       (async function* () {
         throw mockError;
-      })()
+      })(),
     );
 
     await expect(main({})).rejects.toThrow(mockError);

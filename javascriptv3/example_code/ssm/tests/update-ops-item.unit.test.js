@@ -24,14 +24,14 @@ describe("updateOpsItem", () => {
           OpsItemId: "123",
           Status: "Open",
         },
-      })
+      }),
     );
     expect(result).toEqual({ Success: true });
   });
 
   it("should handle MissingParameter error", async () => {
-    const mockError = new Error("MissingParameter: Some parameter is missing.");
-    mockError.name = "MissingParameter";
+    const mockError = new Error("testError");
+    mockError.name = "OpsItemLimitExceededException";
     const sendMock = vi
       .spyOn(SSMClient.prototype, "send")
       .mockRejectedValueOnce(mockError);
@@ -41,7 +41,7 @@ describe("updateOpsItem", () => {
 
     expect(sendMock).toHaveBeenCalledWith(expect.any(UpdateOpsItemCommand));
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      `${mockError.message}. Did you provide these values?`
+      `Couldn't create ops item because you have exceeded your open OpsItem limit. ${mockError.message}.`,
     );
   });
 
@@ -52,7 +52,7 @@ describe("updateOpsItem", () => {
       .mockRejectedValueOnce(mockError);
 
     await expect(main({ opsItemId: "123", status: "Open" })).rejects.toThrow(
-      mockError
+      mockError,
     );
 
     expect(sendMock).toHaveBeenCalledWith(expect.any(UpdateOpsItemCommand));

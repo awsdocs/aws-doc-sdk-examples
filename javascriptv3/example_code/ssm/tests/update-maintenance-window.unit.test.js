@@ -30,7 +30,7 @@ describe("updateMaintenanceWindow", () => {
     });
 
     expect(sendMock).toHaveBeenCalledWith(
-      expect.any(UpdateMaintenanceWindowCommand)
+      expect.any(UpdateMaintenanceWindowCommand),
     );
     expect(sendMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -42,7 +42,7 @@ describe("updateMaintenanceWindow", () => {
           Name: "updated-test-window",
           Schedule: "cron(0 0 ? * MON *)",
         },
-      })
+      }),
     );
     expect(result).toEqual({
       OpsItemArn: mockOpsItemArn,
@@ -52,7 +52,7 @@ describe("updateMaintenanceWindow", () => {
 
   it("should handle ValidationError", async () => {
     const mockError = new Error(
-      "ValidationError: Invalid maintenance window parameters."
+      "ValidationError: Invalid maintenance window parameters.",
     );
     mockError.name = "ValidationError";
     const sendMock = vi
@@ -70,10 +70,10 @@ describe("updateMaintenanceWindow", () => {
     });
 
     expect(sendMock).toHaveBeenCalledWith(
-      expect.any(UpdateMaintenanceWindowCommand)
+      expect.any(UpdateMaintenanceWindowCommand),
     );
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      `${mockError.message}. Are these values correct?`
+      `${mockError.message}. Are these values correct?`,
     );
   });
 
@@ -91,11 +91,11 @@ describe("updateMaintenanceWindow", () => {
         enabled: true,
         name: "updated-test-window",
         schedule: "cron(0 0 ? * MON *)",
-      })
+      }),
     ).rejects.toThrow(mockError);
 
     expect(sendMock).toHaveBeenCalledWith(
-      expect.any(UpdateMaintenanceWindowCommand)
+      expect.any(UpdateMaintenanceWindowCommand),
     );
   });
 });

@@ -3,22 +3,34 @@
 
 // snippet-start:[ssm.JavaScript.Basics.updateOpsItem]
 import { UpdateOpsItemCommand, SSMClient } from "@aws-sdk/client-ssm";
+import { parseArgs } from "util";
 
 /**
- * This method initiates an asynchronous request to update an SSM OpsItem.
+ * Update an SSM OpsItem.
+ * @param {{ opsItemId: string, status?: OpsItemStatus }}
  */
-export const main = async ({ opsItemId, status }) => {
+export const main = async ({
+  opsItemId,
+  status = undefined, // The OpsItem status. Status can be Open, In Progress, or Resolved
+}) => {
   const client = new SSMClient({});
-  const command = new UpdateOpsItemCommand({
-    OpsItemId: opsItemId,
-    Status: status,
-  });
   try {
-    await client.send(command);
+    await client.send(
+      new UpdateOpsItemCommand({
+        OpsItemId: opsItemId,
+        Status: status,
+      }),
+    );
+    console.log("Ops item updated.");
     return { Success: true };
   } catch (caught) {
-    if (caught instanceof Error && caught.name === "MissingParameter") {
-      console.warn(`${caught.message}. Did you provide these values?`);
+    if (
+      caught instanceof Error &&
+      caught.name === "OpsItemLimitExceededException"
+    ) {
+      console.warn(
+        `Couldn't create ops item because you have exceeded your open OpsItem limit. ${caught.message}.`,
+      );
     } else {
       throw caught;
     }
@@ -28,5 +40,16 @@ export const main = async ({ opsItemId, status }) => {
 import { fileURLToPath } from "url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    const options = {
+      opsItemId: {
+        type: "string",
+      },
+      status: {
+        type: "OpsItemStatus",
+      },
+    };
+    const { values } = parseArgs({ options });
+    main(values);
+  }
 }

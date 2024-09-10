@@ -21,7 +21,25 @@ describe("hello", () => {
   });
 
   it("should list some documents", async () => {
-    const mockListDocuments = [{ Name: "test-doc-1" }, { Name: "test-doc-2" }];
+    const message =
+      "Hello, AWS Systems Manager! Let's list some of your documents:\n";
+    const docList = [
+      `test-doc-1 - testFormat - testDate`,
+      `test-doc-2 - testFormat - testDate`,
+    ];
+
+    const mockListDocuments = [
+      {
+        Name: "test-doc-1",
+        DocumentFormat: "testFormat",
+        CreatedDate: "testDate",
+      },
+      {
+        Name: "test-doc-2",
+        DocumentFormat: "testFormat",
+        CreatedDate: "testDate",
+      },
+    ];
     const consoleSpy = vi.spyOn(console, "log");
 
     paginateListDocuments.mockImplementationOnce(async function* () {
@@ -30,7 +48,9 @@ describe("hello", () => {
 
     await main();
 
-    expect(consoleSpy).toHaveBeenCalledWith(mockListDocuments);
+    expect(consoleSpy).toHaveBeenCalledWith(message);
+    expect(consoleSpy).toHaveBeenCalledWith(docList[0]);
+    expect(consoleSpy).toHaveBeenCalledWith(docList[1]);
   });
 
   it("should throw any errors", async () => {
@@ -39,7 +59,7 @@ describe("hello", () => {
       // eslint-disable-next-line require-yield
       (async function* () {
         throw mockError;
-      })()
+      })(),
     );
 
     await expect(main({})).rejects.toThrow(mockError);

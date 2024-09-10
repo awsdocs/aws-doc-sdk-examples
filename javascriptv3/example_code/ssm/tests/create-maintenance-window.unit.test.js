@@ -28,7 +28,7 @@ describe("createMaintenanceWindow", () => {
     });
 
     expect(sendMock).toHaveBeenCalledWith(
-      expect.any(CreateMaintenanceWindowCommand)
+      expect.any(CreateMaintenanceWindowCommand),
     );
     expect(sendMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -40,7 +40,7 @@ describe("createMaintenanceWindow", () => {
           Cutoff: 1,
           Schedule: "cron(0 0 ? * MON *)",
         },
-      })
+      }),
     );
     expect(result.WindowId).toEqual(mockWindowId);
   });
@@ -62,10 +62,10 @@ describe("createMaintenanceWindow", () => {
     });
 
     expect(sendMock).toHaveBeenCalledWith(
-      expect.any(CreateMaintenanceWindowCommand)
+      expect.any(CreateMaintenanceWindowCommand),
     );
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      `${mockError.message}. Did you provide these values?`
+      `${mockError.message}. Did you provide these values?`,
     );
   });
 
@@ -82,11 +82,11 @@ describe("createMaintenanceWindow", () => {
         duration: 2,
         cutoff: 1,
         schedule: "cron(0 0 ? * MON *)",
-      })
+      }),
     ).rejects.toThrow(mockError);
 
     expect(sendMock).toHaveBeenCalledWith(
-      expect.any(CreateMaintenanceWindowCommand)
+      expect.any(CreateMaintenanceWindowCommand),
     );
   });
 });

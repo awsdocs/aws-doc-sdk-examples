@@ -3,15 +3,19 @@
 
 // snippet-start:[ssm.JavaScript.Basics.deleteMaintenanceWindow]
 import { DeleteMaintenanceWindowCommand, SSMClient } from "@aws-sdk/client-ssm";
+import { parseArgs } from "util";
 
 /**
- * This method initiates an asynchronous request to delete an SSM maintenance window.
+ * Delete an SSM maintenance window.
+ * @param {{ windowId: string }}
  */
 export const main = async ({ windowId }) => {
   const client = new SSMClient({});
-  const command = new DeleteMaintenanceWindowCommand({ WindowId: windowId });
   try {
-    await client.send(command);
+    await client.send(
+      new DeleteMaintenanceWindowCommand({ WindowId: windowId }),
+    );
+    console.log("Maintenance window '" + windowId + "' deleted.");
     return { Deleted: true };
   } catch (caught) {
     if (caught instanceof Error && caught.name === "MissingParameter") {
@@ -25,5 +29,13 @@ export const main = async ({ windowId }) => {
 import { fileURLToPath } from "url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    const options = {
+      windowId: {
+        type: "string",
+      },
+    };
+    const { values } = parseArgs({ options });
+    main(values);
+  }
 }

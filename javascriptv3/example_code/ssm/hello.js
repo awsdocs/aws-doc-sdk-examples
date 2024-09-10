@@ -9,7 +9,7 @@ export const main = async () => {
   const client = new SSMClient();
   let listDocumentsPaginated = [];
   console.log(
-    "Hello, AWS Systems Manager! Let's list some of your documents:\n"
+    "Hello, AWS Systems Manager! Let's list some of your documents:\n",
   );
   try {
     // The paginate function is a wrapper around the base command.
@@ -21,7 +21,9 @@ export const main = async () => {
     console.error(`There was a problem saying hello: ${caught.message}`);
     throw caught;
   }
-  console.log(listDocumentsPaginated);
+  listDocumentsPaginated.forEach(({ Name, DocumentFormat, CreatedDate }) => {
+    console.log(`${Name} - ${DocumentFormat} - ${CreatedDate}`);
+  });
 };
 
 // Call function if run directly.

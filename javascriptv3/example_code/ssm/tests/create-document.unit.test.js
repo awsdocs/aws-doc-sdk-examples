@@ -44,7 +44,7 @@ describe("createDocument", () => {
 
     expect(sendMock).toHaveBeenCalledWith(expect.any(CreateDocumentCommand));
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      `${mockError.message}. Did you provide a new document name?`
+      `${mockError.message}. Did you provide a new document name?`,
     );
   });
 
@@ -59,7 +59,7 @@ describe("createDocument", () => {
         content: "document content",
         name: "test-document",
         documentType: "Command",
-      })
+      }),
     ).rejects.toThrow(mockError);
 
     expect(sendMock).toHaveBeenCalledWith(expect.any(CreateDocumentCommand));

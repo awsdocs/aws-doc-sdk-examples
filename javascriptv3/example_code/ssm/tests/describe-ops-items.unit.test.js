@@ -43,7 +43,7 @@ describe("describeOpsItems", () => {
       // eslint-disable-next-line require-yield
       (async function* () {
         throw mockError;
-      })()
+      })(),
     );
 
     const consoleWarnSpy = vi.spyOn(console, "warn");
@@ -51,7 +51,7 @@ describe("describeOpsItems", () => {
     await expect(main({})).rejects.toThrow(mockError);
 
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      `${mockError.message}. Did you provide this value?`
+      `${mockError.message}. Did you provide this value?`,
     );
   });
 
@@ -61,7 +61,7 @@ describe("describeOpsItems", () => {
       // eslint-disable-next-line require-yield
       (async function* () {
         throw mockError;
-      })()
+      })(),
     );
 
     await expect(main({})).rejects.toThrow(mockError);

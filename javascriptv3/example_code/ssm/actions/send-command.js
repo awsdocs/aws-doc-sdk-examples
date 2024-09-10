@@ -3,17 +3,21 @@
 
 // snippet-start:[ssm.JavaScript.Basics.sendCommand]
 import { SendCommandCommand, SSMClient } from "@aws-sdk/client-ssm";
+import { parseArgs } from "util";
 
 /**
- * This method initiates asynchronous requests to send an SSM command to a managed node.
+ * Send an SSM command to a managed node.
+ * @param {{ documentName: string }}
  */
 export const main = async ({ documentName }) => {
   const client = new SSMClient({});
-  const command = new SendCommandCommand({
-    DocumentName: documentName,
-  });
   try {
-    await client.send(command);
+    await client.send(
+      new SendCommandCommand({
+        DocumentName: documentName,
+      }),
+    );
+    console.log("Command sent successfully.");
     return { Success: true };
   } catch (caught) {
     if (caught instanceof Error && caught.name === "ValidationError") {
@@ -27,5 +31,13 @@ export const main = async ({ documentName }) => {
 import { fileURLToPath } from "url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    const options = {
+      documentName: {
+        type: "string",
+      },
+    };
+    const { values } = parseArgs({ options });
+    main(values);
+  }
 }

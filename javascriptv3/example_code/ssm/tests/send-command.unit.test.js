@@ -23,7 +23,7 @@ describe("sendCommand", () => {
         input: {
           DocumentName: "valid-document",
         },
-      })
+      }),
     );
     expect(result).toEqual({ Success: true });
   });
@@ -40,7 +40,7 @@ describe("sendCommand", () => {
 
     expect(sendMock).toHaveBeenCalledWith(expect.any(SendCommandCommand));
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      `${mockError.message}. Did you provide a valid document name?`
+      `${mockError.message}. Did you provide a valid document name?`,
     );
   });
 
@@ -51,7 +51,7 @@ describe("sendCommand", () => {
       .mockRejectedValueOnce(mockError);
 
     await expect(main({ documentName: "valid-document" })).rejects.toThrow(
-      mockError
+      mockError,
     );
 
     expect(sendMock).toHaveBeenCalledWith(expect.any(SendCommandCommand));

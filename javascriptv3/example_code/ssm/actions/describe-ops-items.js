@@ -8,9 +8,11 @@ import {
   paginateDescribeOpsItems,
   SSMClient,
 } from "@aws-sdk/client-ssm";
+import { parseArgs } from "util";
 
 /**
- * This method initiates an asynchronous request to describe SSM OpsItems.
+ * Describe SSM OpsItems.
+ * @param {{ opsItemId: string }}
  */
 export const main = async ({ opsItemId }) => {
   let client = new SSMClient({});
@@ -24,10 +26,12 @@ export const main = async ({ opsItemId }) => {
           Operator: OpsItemFilterOperator.EQUAL,
           Values: opsItemId,
         },
-      }
+      },
     )) {
       describeOpsItemsPaginated.push(...page.OpsItemSummaries);
     }
+    console.log("Here are the ops items:");
+    console.log(describeOpsItemsPaginated);
     return { OpsItemSummaries: describeOpsItemsPaginated };
   } catch (caught) {
     if (caught instanceof Error && caught.name === "MissingParameter") {
@@ -40,5 +44,13 @@ export const main = async ({ opsItemId }) => {
 import { fileURLToPath } from "url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    const options = {
+      opsItemId: {
+        type: "string",
+      },
+    };
+    const { values } = parseArgs({ options });
+    main(values);
+  }
 }

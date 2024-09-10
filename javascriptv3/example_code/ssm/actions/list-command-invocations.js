@@ -3,9 +3,11 @@
 
 // snippet-start:[ssm.JavaScript.Basics.listCommandInvocations]
 import { paginateListCommandInvocations, SSMClient } from "@aws-sdk/client-ssm";
+import { parseArgs } from "util";
 
 /**
- * This method initiates an asynchronous request to list SSM command invocations on an instance.
+ * List SSM command invocations on an instance.
+ * @param {{ instanceId: string }}
  */
 export const main = async ({ instanceId }) => {
   const client = new SSMClient({});
@@ -16,11 +18,13 @@ export const main = async ({ instanceId }) => {
       { client },
       {
         InstanceId: instanceId,
-      }
+      },
     );
     for await (const page of paginator) {
       listCommandInvocationsPaginated.push(...page.CommandInvocations);
     }
+    console.log("Here is the list of command invocations:");
+    console.log(listCommandInvocationsPaginated);
     return { CommandInvocations: listCommandInvocationsPaginated };
   } catch (caught) {
     if (caught instanceof Error && caught.name === "ValidationError") {
@@ -33,5 +37,13 @@ export const main = async ({ instanceId }) => {
 import { fileURLToPath } from "url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    const options = {
+      instanceId: {
+        type: "string",
+      },
+    };
+    const { values } = parseArgs({ options });
+    main(values);
+  }
 }

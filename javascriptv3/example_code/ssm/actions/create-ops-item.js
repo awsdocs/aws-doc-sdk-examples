@@ -3,9 +3,11 @@
 
 // snippet-start:[ssm.JavaScript.Basics.createOpsItem]
 import { CreateOpsItemCommand, SSMClient } from "@aws-sdk/client-ssm";
+import { parseArgs } from "util";
 
 /**
- * This method initiates an asynchronous request to create an SSM OpsItem.
+ * Create an SSM OpsItem.
+ * @param {{ title: string, source: string, category?: string, severity?: string }}
  */
 export const main = async ({
   title,
@@ -14,14 +16,16 @@ export const main = async ({
   severity = undefined,
 }) => {
   const client = new SSMClient({});
-  const command = new CreateOpsItemCommand({
-    Title: title,
-    Source: source,
-    Category: category,
-    Severity: severity,
-  });
   try {
-    const { opsItemArn, opsItemId } = await client.send(command);
+    const { opsItemArn, opsItemId } = await client.send(
+      new CreateOpsItemCommand({
+        Title: title,
+        Source: source, // The origin of the OpsItem, such as Amazon EC2 or Systems Manager.
+        Category: category,
+        Severity: severity,
+      }),
+    );
+    console.log("Ops item created with id: " + opsItemId);
     return { OpsItemArn: opsItemArn, OpsItemId: opsItemId };
   } catch (caught) {
     if (caught instanceof Error && caught.name === "MissingParameter") {
@@ -35,5 +39,22 @@ export const main = async ({
 import { fileURLToPath } from "url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    const options = {
+      title: {
+        type: "string",
+      },
+      source: {
+        type: "string",
+      },
+      category: {
+        type: "string",
+      },
+      severity: {
+        type: "string",
+      },
+    };
+    const { values } = parseArgs({ options });
+    main(values);
+  }
 }

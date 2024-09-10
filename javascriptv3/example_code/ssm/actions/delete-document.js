@@ -3,15 +3,17 @@
 
 // snippet-start:[ssm.JavaScript.Basics.deleteDocument]
 import { DeleteDocumentCommand, SSMClient } from "@aws-sdk/client-ssm";
+import { parseArgs } from "util";
 
 /**
- * This method initiates an asynchronous request to delete an SSM document.
+ * Delete an SSM document.
+ * @param {{ documentName: string }}
  */
 export const main = async ({ documentName }) => {
   const client = new SSMClient({});
-  const command = new DeleteDocumentCommand({ DocumentName: documentName });
   try {
-    await client.send(command);
+    await client.send(new DeleteDocumentCommand({ Name: documentName }));
+    console.log("Document '" + documentName + "' deleted.");
     return { Deleted: true };
   } catch (caught) {
     if (caught instanceof Error && caught.name === "MissingParameter") {
@@ -25,5 +27,13 @@ export const main = async ({ documentName }) => {
 import { fileURLToPath } from "url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    const options = {
+      name: {
+        documentName: "string",
+      },
+    };
+    const { values } = parseArgs({ options });
+    main(values);
+  }
 }

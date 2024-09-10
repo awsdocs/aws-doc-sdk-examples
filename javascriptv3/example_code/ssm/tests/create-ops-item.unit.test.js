@@ -36,7 +36,7 @@ describe("createOpsItem", () => {
           Category: "Troubleshooting",
           Severity: "2",
         },
-      })
+      }),
     );
     expect(result).toEqual({
       OpsItemArn: mockOpsItemArn,
@@ -59,7 +59,7 @@ describe("createOpsItem", () => {
 
     expect(sendMock).toHaveBeenCalledWith(expect.any(CreateOpsItemCommand));
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      `${mockError.message}. Did you provide these values?`
+      `${mockError.message}. Did you provide these values?`,
     );
   });
 
@@ -75,7 +75,7 @@ describe("createOpsItem", () => {
         source: "test-service",
         category: "Troubleshooting",
         severity: "2",
-      })
+      }),
     ).rejects.toThrow(mockError);
 
     expect(sendMock).toHaveBeenCalledWith(expect.any(CreateOpsItemCommand));

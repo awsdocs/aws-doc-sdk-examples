@@ -156,7 +156,7 @@ export class ScenarioInput extends Step {
     ) {
       state[this.name] = this.stepOptions.default;
       return state[this.name];
-    } else if (stepHandlerOptions.confirmAll && !this.default) {
+    } else if (stepHandlerOptions.confirmAll) {
       if (this.stepOptions?.type === "confirm") {
         state[this.name] = true;
         return true;
@@ -203,7 +203,7 @@ export class ScenarioInput extends Step {
 
     if (!rawChoices) {
       throw new Error(
-        `Error handling ScenarioInput. Could not get choices for ${this.name}.`,
+        `Error handling ScenarioInput. Could not get choices for ${this.name}.`
       );
     }
 
@@ -287,7 +287,7 @@ export class ScenarioInput extends Step {
 
     if (!result && this.default) {
       state[this.name] = this.default;
-    } else if (!result) {
+    } else if (result === undefined) {
       throw new Error(
         `Error handing ScenarioInput. Result of ${this.name} was empty.`
       );

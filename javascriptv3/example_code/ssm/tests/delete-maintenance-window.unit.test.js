@@ -18,14 +18,14 @@ describe("deleteMaintenanceWindow", () => {
     const result = await main({ windowId: "test-window-id" });
 
     expect(sendMock).toHaveBeenCalledWith(
-      expect.any(DeleteMaintenanceWindowCommand)
+      expect.any(DeleteMaintenanceWindowCommand),
     );
     expect(sendMock).toHaveBeenCalledWith(
       expect.objectContaining({
         input: {
           WindowId: "test-window-id",
         },
-      })
+      }),
     );
     expect(result).toEqual({ Deleted: true });
   });
@@ -41,10 +41,10 @@ describe("deleteMaintenanceWindow", () => {
     await main({});
 
     expect(sendMock).toHaveBeenCalledWith(
-      expect.any(DeleteMaintenanceWindowCommand)
+      expect.any(DeleteMaintenanceWindowCommand),
     );
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      `${mockError.message}. Did you provide this value?`
+      `${mockError.message}. Did you provide this value?`,
     );
   });
 
@@ -55,11 +55,11 @@ describe("deleteMaintenanceWindow", () => {
       .mockRejectedValueOnce(mockError);
 
     await expect(main({ windowId: "test-window-id" })).rejects.toThrow(
-      mockError
+      mockError,
     );
 
     expect(sendMock).toHaveBeenCalledWith(
-      expect.any(DeleteMaintenanceWindowCommand)
+      expect.any(DeleteMaintenanceWindowCommand),
     );
   });
 });

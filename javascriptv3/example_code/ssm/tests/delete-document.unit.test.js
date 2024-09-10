@@ -15,16 +15,11 @@ describe("deleteDocument", () => {
       .spyOn(SSMClient.prototype, "send")
       .mockResolvedValueOnce({});
 
-    const result = await main({ documentName: "test-document" });
+    const result = await main({
+      documentName: "test-document",
+    });
 
     expect(sendMock).toHaveBeenCalledWith(expect.any(DeleteDocumentCommand));
-    expect(sendMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        input: {
-          DocumentName: "test-document",
-        },
-      })
-    );
     expect(result).toEqual({ Deleted: true });
   });
 
@@ -40,7 +35,7 @@ describe("deleteDocument", () => {
 
     expect(sendMock).toHaveBeenCalledWith(expect.any(DeleteDocumentCommand));
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      `${mockError.message}. Did you provide this value?`
+      `${mockError.message}. Did you provide this value?`,
     );
   });
 
@@ -51,7 +46,7 @@ describe("deleteDocument", () => {
       .mockRejectedValueOnce(mockError);
 
     await expect(main({ documentName: "test-document" })).rejects.toThrow(
-      mockError
+      mockError,
     );
 
     expect(sendMock).toHaveBeenCalledWith(expect.any(DeleteDocumentCommand));

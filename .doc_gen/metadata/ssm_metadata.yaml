@@ -432,6 +432,7 @@ ssm_Scenario:
         - sdk_version: 3
           github: javascriptv3/example_code/ssm
           sdkguide:
+          genai: some
           excerpts:
             - description:
               snippet_tags:
