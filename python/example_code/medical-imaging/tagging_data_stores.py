@@ -40,7 +40,7 @@ if __name__ == "__main__":
     a_data_store_arn = "arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012"
     # snippet-end:[python.example_code.medical-imaging.tagging_datastore.arn]
 
-    a_data_store_arn = input(f"Enter the ARN of the data store to tag: ")
+    a_data_store_arn = input("Enter the ARN of the data store to tag: ")
 
     client = boto3.client("medical-imaging")
     a_medical_imaging_wrapper = MedicalImagingWrapper(client)

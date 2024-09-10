@@ -1,4 +1,14 @@
-# In the root for editors when opening the workspace as a whole.
 [flake8]
-extend-ignore = E203,E501
-exclude = .git,__pycache__,
+# Specify the max line length if needed
+max-line-length = 88
+
+# Exclude specific error codes (F403 in this case)
+ignore = F403
+
+# You can also exclude specific directories if needed (e.g., migrations)
+exclude = 
+    .git,
+    __pycache__,
+    migrations,
+    env,
+    venv

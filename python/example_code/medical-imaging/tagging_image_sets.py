@@ -43,7 +43,7 @@ if __name__ == "__main__":
     )
     # snippet-end:[python.example_code.medical-imaging.tagging_image_set.arn]
 
-    an_image_set_arn = input(f"Enter the ARN of the image set to tag: ")
+    an_image_set_arn = input("Enter the ARN of the image set to tag: ")
 
     client = boto3.client("medical-imaging")
     a_medical_imaging_wrapper = MedicalImagingWrapper(client)
