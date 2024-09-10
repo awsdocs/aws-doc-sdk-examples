@@ -26,10 +26,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install black pylint
+          pip install ruff flake8
 
       - name: Run Black & Pylint
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           changed_files=(${{steps.changed-files.outputs.all_changed_files}})
           ruff check "${changed_files[@]}"
+          flake8 "${changed_files[@]}"
