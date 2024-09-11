@@ -68,7 +68,7 @@ public class OpenSearchScenario {
             Throwable cause = rt.getCause();
             if (cause != null) {
                 if (cause instanceof OpenSearchException openSearchEx) {
-                    logger.error("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+                    logger.error("An OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
                 } else {
                     logger.error("An unexpected error occurred: " + cause.getMessage(), cause);
                 }
@@ -91,7 +91,7 @@ public class OpenSearchScenario {
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof OpenSearchException openSearchEx) {
-                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+                logger.info("An OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
@@ -112,7 +112,7 @@ public class OpenSearchScenario {
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof OpenSearchException openSearchEx) {
-                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+                logger.info("An OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
@@ -168,7 +168,7 @@ public class OpenSearchScenario {
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof OpenSearchException openSearchEx) {
-                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+                logger.info("An OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
@@ -185,12 +185,12 @@ public class OpenSearchScenario {
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = openSearchActions.domainChangeProgressAsync(domainName);
-            future.join();  // Wait for the task to complete
+            future.join();
             logger.info("Domain change progress completed successfully.");
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof OpenSearchException ex) {
-                logger.info("EC2 error occurred: Error message: " +ex.getMessage());
+                logger.info("An OpenSearch error occurred: Error message: " +ex.getMessage());
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
@@ -218,7 +218,7 @@ public class OpenSearchScenario {
             Throwable cause = rt.getCause();
             if (cause != null) {
                 if (cause instanceof OpenSearchException) {
-                    logger.error("OpenSearch error occurred: Error message: " + cause.getMessage(), cause);
+                    logger.error("An OpenSearch error occurred: Error message: " + cause.getMessage(), cause);
                 } else {
                     logger.error("An unexpected error occurred: " + cause.getMessage(), cause);
                 }
@@ -253,7 +253,7 @@ public class OpenSearchScenario {
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof OpenSearchException openSearchEx) {
-                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+                logger.info("An OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
