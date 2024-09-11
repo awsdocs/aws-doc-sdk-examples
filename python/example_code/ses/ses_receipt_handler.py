@@ -10,9 +10,10 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Simple Email Service
 
 import json
 import logging
-from pprint import pprint
 import time
+from pprint import pprint
 from urllib import request
+
 import boto3
 from botocore.exceptions import ClientError
 

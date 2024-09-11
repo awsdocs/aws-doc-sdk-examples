@@ -6,10 +6,10 @@ Unit tests for report.py
 """
 
 from unittest.mock import MagicMock
+
 import boto3
 import pytest
-
-from report import Report, reqparse, render_template
+from report import Report, render_template, reqparse
 
 
 @pytest.mark.parametrize(

@@ -10,6 +10,7 @@ to encrypt and decrypt data.
 
 # snippet-start:[python.example_code.kms.Scenario_KeyEncryption]
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 

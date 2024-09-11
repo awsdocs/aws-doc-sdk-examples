@@ -9,11 +9,12 @@ Shows how to create and optionally start an Amazon Lookout for Vision model.
 
 import argparse
 import logging
+
 import boto3
-from projects import Projects
 from datasets import Datasets
-from models import Models
 from hosting import Hosting
+from models import Models
+from projects import Projects
 
 logger = logging.getLogger(__name__)
 

@@ -7,10 +7,10 @@ The script interacts with a foundation model on Amazon Bedrock to provide weathe
 input. It uses the Open-Meteo API (https://open-meteo.com) to retrieve current weather data for a given location.
 """
 
-import boto3
 import logging
 from enum import Enum
 
+import boto3
 import utils.tool_use_print_utils as output
 import weather_tool
 

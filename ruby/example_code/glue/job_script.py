@@ -12,11 +12,12 @@ bucket so that AWS Glue can access it.
 
 # snippet-start:[ruby.example_code.glue.Scenario_GetStartedCrawlersJobs.job_script]
 import sys
+
+from awsglue.context import GlueContext
+from awsglue.job import Job
 from awsglue.transforms import *
 from awsglue.utils import getResolvedOptions
 from pyspark.context import SparkContext
-from awsglue.context import GlueContext
-from awsglue.job import Job
 
 """
 These custom arguments must be passed as Arguments to the StartJobRun request.

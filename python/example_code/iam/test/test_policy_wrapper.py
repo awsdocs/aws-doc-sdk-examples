@@ -8,10 +8,9 @@ Unit tests for policy_wrapper.py functions.
 import datetime
 import json
 
+import policy_wrapper
 import pytest
 from botocore.exceptions import ClientError
-
-import policy_wrapper
 
 
 @pytest.mark.parametrize("error_code", [None, "MalformedPolicyDocument"])

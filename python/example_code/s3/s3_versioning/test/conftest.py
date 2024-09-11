@@ -5,15 +5,15 @@
 Contains common test fixtures used to run Amazon S3 versioning tests.
 """
 
+import sys
 from urllib import parse
+
 import pytest
 from botocore.stub import ANY
-
-import sys
+from test_tools.fixtures.common import *
 
 # This is needed so Python can find test_tools in the path.
 sys.path.append("../../..")
-from test_tools.fixtures.common import *
 
 
 @pytest.fixture

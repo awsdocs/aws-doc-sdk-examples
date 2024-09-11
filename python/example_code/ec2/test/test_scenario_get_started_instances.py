@@ -1,17 +1,17 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 import os
-import pytest
 import sys
 
 import boto3
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+import pytest
 from elastic_ip import ElasticIpWrapper
 from instance import EC2InstanceWrapper
 from key_pair import KeyPairWrapper
 from scenario_get_started_instances import EC2InstanceScenario
 from security_group import SecurityGroupWrapper
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 @pytest.mark.integ

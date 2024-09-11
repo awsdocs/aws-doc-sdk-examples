@@ -6,11 +6,11 @@ Unit tests for inference.py.
 """
 
 import imghdr
-from unittest.mock import patch, mock_open
-import boto3
-from botocore.exceptions import ClientError
-import pytest
+from unittest.mock import mock_open, patch
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from inference import Inference
 
 

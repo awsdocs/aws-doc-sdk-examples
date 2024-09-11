@@ -9,10 +9,10 @@ Unit tests for cloudwatch_basics.py
 
 from datetime import datetime, timedelta
 from unittest.mock import MagicMock
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from cloudwatch_basics import CloudWatchWrapper
 
 

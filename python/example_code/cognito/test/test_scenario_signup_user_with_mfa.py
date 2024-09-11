@@ -5,15 +5,15 @@
 Unit tests for scenario_signup_user_with_mfa.py.
 """
 
+import webbrowser
 from datetime import datetime
-from unittest.mock import MagicMock, ANY
+from unittest.mock import ANY, MagicMock
+
 import boto3
-from botocore.exceptions import ClientError
 import pytest
 import qrcode
-import webbrowser
-
 import scenario_signup_user_with_mfa as scenario
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(

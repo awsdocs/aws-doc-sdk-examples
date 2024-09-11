@@ -6,16 +6,16 @@ Contains common test fixtures used to run unit tests.
 """
 
 import sys
-import boto3
-import pytest
 
+import boto3
+import get_started_state_machines
+import pytest
 from activities import Activity
 from state_machines import StateMachine
-import get_started_state_machines
+from test_tools.fixtures.common import *
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")
-from test_tools.fixtures.common import *
 
 
 class ScenarioData:

@@ -5,13 +5,13 @@
 Tests for imaging_set_and_frames workflow.
 """
 
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 import os
 
-from medicalimaging import MedicalImagingWrapper
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from imaging_set_and_frames import MedicalImagingWorkflowScenario
+from medicalimaging import MedicalImagingWrapper
 
 
 @pytest.mark.skip(

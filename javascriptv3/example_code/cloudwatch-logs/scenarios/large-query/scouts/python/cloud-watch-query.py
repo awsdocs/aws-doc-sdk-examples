@@ -1,9 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
+import time
+from datetime import datetime, timedelta
+
 import boto3
 from botocore.config import Config
-from datetime import datetime, timedelta
-import time
 
 
 class DateOutOfBoundsError(Exception):

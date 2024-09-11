@@ -12,6 +12,7 @@ example in the Amazon Kinesis Data Analytics SQL Developer Guide.
 # snippet-start:[kinesisanalytics.python.datagenerator.weblog]
 
 import json
+
 import boto3
 
 STREAM_NAME = "ExampleInputStream"

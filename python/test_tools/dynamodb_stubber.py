@@ -9,6 +9,7 @@ set up stubs and passes all calls through to the Boto3 client.
 """
 
 from decimal import Decimal
+
 from botocore.stub import ANY
 from test_tools.example_stubber import ExampleStubber
 
@@ -35,14 +36,14 @@ class DynamoStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     type_encoding = {
-        type(""): "S",
-        type(1): "N",
-        type(0.1): "N",
+        str: "S",
+        int: "N",
+        float: "N",
         type(Decimal()): "N",
-        type(b""): "B",
+        bytes: "B",
         type({}): "M",
         type([]): "L",
-        type(True): "BOOL",
+        bool: "BOOL",
     }
 
     @staticmethod

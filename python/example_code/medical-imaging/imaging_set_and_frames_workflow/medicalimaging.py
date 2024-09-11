@@ -1,15 +1,16 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-import logging
-import boto3
-import os
 import gzip
-import zlib
-import openjpeg
 import json
-import jmespath
+import logging
+import os
 import time
+import zlib
+
+import boto3
+import jmespath
+import openjpeg
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)

@@ -8,10 +8,9 @@ Unit tests for ses_receipt_handler.py.
 """
 
 import boto3
+import pytest
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-import pytest
-
 from ses_receipt_handler import SesReceiptHandler
 
 

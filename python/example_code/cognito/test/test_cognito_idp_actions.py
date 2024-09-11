@@ -7,11 +7,11 @@ Unit tests for cognito_idp_actions.py.
 
 from datetime import datetime
 from unittest.mock import MagicMock
+
 import boto3
+import pytest
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-import pytest
-
 from cognito_idp_actions import CognitoIdentityProviderWrapper
 
 

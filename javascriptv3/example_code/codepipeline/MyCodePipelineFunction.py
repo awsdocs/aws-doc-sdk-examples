@@ -1,16 +1,15 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from __future__ import print_function
-from boto3.session import Session
-
 import json
-import urllib
-import boto3
-import zipfile
 import tempfile
-import botocore
 import traceback
+import urllib
+import zipfile
+
+import boto3
+import botocore
+from boto3.session import Session
 
 print("Loading function")
 
@@ -34,7 +33,7 @@ def find_artifact(artifacts, name):
         if artifact["name"] == name:
             return artifact
 
-    raise Exception('Input artifact named "{0}" not found in event'.format(name))
+    raise Exception(f'Input artifact named "{name}" not found in event')
 
 
 def get_template(s3, artifact, file_in_zip):
@@ -88,9 +87,7 @@ def update_stack(stack, template):
         if e.response["Error"]["Message"] == "No updates are to be performed.":
             return False
         else:
-            raise Exception(
-                'Error updating CloudFormation stack "{0}"'.format(stack), e
-            )
+            raise Exception(f'Error updating CloudFormation stack "{stack}"', e)
 
 
 def stack_exists(stack):

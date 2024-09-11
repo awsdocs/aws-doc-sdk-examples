@@ -86,17 +86,13 @@ class EC2InstanceWrapper:
             error_code = err.response["Error"]["Code"]
             if error_code == "InstanceLimitExceeded":
                 logger.error(
-                    (
-                        f"Insufficient capacity for instance type '{instance_type}'. "
-                        "Terminate unused instances or contact AWS Support for a limit increase."
-                    )
+                    f"Insufficient capacity for instance type '{instance_type}'. "
+                    "Terminate unused instances or contact AWS Support for a limit increase."
                 )
             if error_code == "InsufficientInstanceCapacity":
                 logger.error(
-                    (
-                        f"Insufficient capacity for instance type '{instance_type}'. "
-                        "Select a different instance type or launch in a different availability zone."
-                    )
+                    f"Insufficient capacity for instance type '{instance_type}'. "
+                    "Select a different instance type or launch in a different availability zone."
                 )
             raise
         return self.instances

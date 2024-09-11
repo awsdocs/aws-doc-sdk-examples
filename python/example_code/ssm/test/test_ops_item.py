@@ -12,7 +12,6 @@ from logging.handlers import QueueHandler
 import boto3
 import pytest
 from botocore.exceptions import ClientError
-
 from ops_item import OpsItemWrapper
 
 log_queue = queue.LifoQueue()

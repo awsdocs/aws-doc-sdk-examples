@@ -12,6 +12,7 @@ messages.
 import json
 import logging
 import time
+
 import boto3
 from botocore.exceptions import ClientError
 

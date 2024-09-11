@@ -1,13 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+import argparse
+import csv
+import json
+import logging
+import os
+
 # snippet-start:[rekognition.python.custom_labels_csv_manifest.complete]
 from datetime import datetime, timezone
-import argparse
-import logging
-import csv
-import os
-import json
 
 """
 Purpose
@@ -41,7 +42,7 @@ def check_duplicates(csv_file, deduplicated_file, duplicates_file):
     duplicates_found = False
 
     # Find duplicates.
-    with open(csv_file, "r", newline="", encoding="UTF-8") as f, open(
+    with open(csv_file, newline="", encoding="UTF-8") as f, open(
         deduplicated_file, "w", encoding="UTF-8"
     ) as dedup, open(duplicates_file, "w", encoding="UTF-8") as duplicates:
         reader = csv.reader(f, delimiter=",")

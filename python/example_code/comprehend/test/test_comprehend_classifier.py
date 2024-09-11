@@ -6,10 +6,9 @@ Unit tests for comprehend_classifier.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
-from comprehend_classifier import ComprehendClassifier, ClassifierMode, JobInputFormat
+from botocore.exceptions import ClientError
+from comprehend_classifier import ClassifierMode, ComprehendClassifier, JobInputFormat
 
 DATA_ROLE_ARN = "arn:aws:iam:REGION:123456789012:role/test-role"
 CLASSIFIER_ARN = "arn:aws:comprehend:REGION:123456789012:document-classifier/test-name"

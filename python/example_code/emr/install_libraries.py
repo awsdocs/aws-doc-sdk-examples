@@ -13,6 +13,7 @@ script manually.
 # snippet-start:[emr.python.jupyterhub.installlibraries]
 import argparse
 import time
+
 import boto3
 
 

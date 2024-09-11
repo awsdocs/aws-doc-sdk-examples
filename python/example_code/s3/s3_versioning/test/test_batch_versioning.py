@@ -9,11 +9,10 @@ import time
 from unittest.mock import MagicMock
 from urllib import parse
 
-import pytest
-
-from botocore.exceptions import ClientError
-import versioning
 import batch_versioning
+import pytest
+import versioning
+from botocore.exceptions import ClientError
 
 
 def test_custom_retry():

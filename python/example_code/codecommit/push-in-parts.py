@@ -23,7 +23,8 @@
 import os
 import sys
 from optparse import OptionParser
-from git import Repo, TagReference, RemoteProgress, GitCommandError
+
+from git import GitCommandError, RemoteProgress, Repo, TagReference
 
 
 class PushProgressPrinter(RemoteProgress):
@@ -85,7 +86,7 @@ class RepositoryMigration:
 
         # push all branch references
         for branch in self.local_repo.heads:
-            print("Pushing branch %s" % branch.name)
+            print(f"Pushing branch {branch.name}")
             self.do_push_with_retries(ref=branch.name)
 
         # push all tags
@@ -186,7 +187,7 @@ class RepositoryMigration:
                 sys.exit(1)
 
     def push_migration_tags(self):
-        print("Will attempt to push %d tags" % len(self.migration_tags))
+        print(f"Will attempt to push {len(self.migration_tags)} tags")
         self.migration_tags.sort(
             key=lambda tag: int(tag.name.replace(self.MIGRATION_TAG_PREFIX, ""))
         )
@@ -252,11 +253,11 @@ class RepositoryMigration:
         remote_tags_output = self.local_repo.git.ls_remote(
             self.remote_name, tags=True
         ).split("\n")
-        self.remote_migration_tags = dict(
-            (tag.split()[1].replace("refs/tags/", ""), tag.split()[0])
+        self.remote_migration_tags = {
+            tag.split()[1].replace("refs/tags/", ""): tag.split()[0]
             for tag in remote_tags_output
             if self.MIGRATION_TAG_PREFIX in tag
-        )
+        }
 
     def clean_up(self, clean_up_remote=False):
         tags = [

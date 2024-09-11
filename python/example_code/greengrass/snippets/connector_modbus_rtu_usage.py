@@ -10,6 +10,7 @@ AWS IoT Greengrass connector.
 
 # snippet-start:[greengrass.python.connector-modbus-rtu-usage.complete]
 import json
+
 import greengrasssdk
 
 iot_client = greengrasssdk.client("iot-data")

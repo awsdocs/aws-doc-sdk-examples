@@ -6,11 +6,10 @@ Unit tests for role_wrapper.py functions.
 """
 
 import json
+
 import pytest
-from botocore.exceptions import ClientError
-
-
 import role_wrapper
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize("error_code", [None, "MalformedPolicyDocument"])

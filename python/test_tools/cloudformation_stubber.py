@@ -6,6 +6,7 @@ Stub functions that are used by AWS CloudFormation unit tests.
 """
 
 from datetime import datetime
+
 from test_tools.example_stubber import ExampleStubber
 
 

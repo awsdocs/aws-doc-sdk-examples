@@ -6,8 +6,9 @@ Base class for implementing custom waiters for services that don't already have
 prebuilt waiters. This class leverages botocore waiter code.
 """
 
-from enum import Enum
 import logging
+from enum import Enum
+
 import botocore.waiter
 
 logger = logging.getLogger(__name__)

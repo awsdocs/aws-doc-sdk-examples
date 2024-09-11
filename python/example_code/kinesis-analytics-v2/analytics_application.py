@@ -10,6 +10,7 @@ Data Analytics API to create and manage applications.
 
 import json
 import logging
+
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)

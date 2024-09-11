@@ -5,13 +5,13 @@
 Unit tests for scenario_getting_started_crawlers_and_jobs.py functions.
 """
 
-from datetime import datetime
 import time
-import pytest
+from datetime import datetime
+
 import boto3
+import pytest
 from boto3.exceptions import S3UploadFailedError
 from botocore.exceptions import ClientError
-
 from scenario_getting_started_crawlers_and_jobs import GlueCrawlerJobScenario
 
 

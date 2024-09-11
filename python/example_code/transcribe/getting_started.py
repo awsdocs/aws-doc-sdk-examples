@@ -14,6 +14,7 @@ Amazon Transcribe Developer Guide here:
 
 # snippet-start:[transcribe.python.start-transcription-job]
 import time
+
 import boto3
 
 

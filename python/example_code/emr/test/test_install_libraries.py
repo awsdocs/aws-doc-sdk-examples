@@ -7,11 +7,11 @@ Unit tests for install_libraries.py functions.
 
 import time
 import uuid
-import pytest
-import boto3
-from botocore.exceptions import ClientError
 
+import boto3
 import install_libraries
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(

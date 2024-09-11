@@ -33,7 +33,7 @@ def swiftbuild(
 
     # Display a table of build results.
     if num_packages_found != 0:
-        print("{0: <65} {1}".format("Example", "Status"))
+        print(f"{'Example': <65} Status")
         print("-" * 65, "-" * 6)
 
     fails = 0
@@ -47,7 +47,7 @@ def swiftbuild(
         short_path = str(short_path)
         if len(short_path) > 64:
             short_path = f"...{short_path[-61:]}"
-        print("{0:.<65} {1}".format(f"{short_path} ", outcome_str))
+        print(f"{f'{short_path} ':.<65} {outcome_str}")
 
     print(f"\nBuilt {num_packages_found} project(s) with {fails} failure(s).")
     print_configuration(test, swiftc_options)

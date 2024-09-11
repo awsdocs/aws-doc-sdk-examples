@@ -20,18 +20,18 @@ do the following:
 11. Get a list of resolved cases for the current day.
 """
 
-from datetime import datetime, timedelta
 import logging
 import sys
+from datetime import datetime, timedelta
 
 import boto3
+import demo_tools.question as q
 from botocore.exceptions import ClientError
+from demo_tools.retries import wait
 from support_wrapper import SupportWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 

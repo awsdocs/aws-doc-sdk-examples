@@ -11,6 +11,7 @@ send SMS messages.
 # snippet-start:[pinpoint.python.pinpoint_send_sms_message_api.complete]
 
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 

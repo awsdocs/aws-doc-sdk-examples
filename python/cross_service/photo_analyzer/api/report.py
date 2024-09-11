@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import logging
+
 from botocore.exceptions import ClientError
 from flask import render_template
 from flask_restful import Resource, reqparse

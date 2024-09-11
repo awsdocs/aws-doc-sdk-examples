@@ -9,14 +9,15 @@ application and test packages to AWS Device Farm, start a test, wait for test
 completion, and report the results.
 """
 
+import datetime
+import os
+import random
+import string
+import time
+
 # snippet-start:[python.example_code.device-farm.Scenario_DeviceTesting]
 import boto3
-import os
 import requests
-import string
-import random
-import datetime
-import time
 
 # Update this dict with your own values before you run the example:
 config = {

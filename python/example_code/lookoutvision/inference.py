@@ -9,12 +9,12 @@ in an image. The image can be local or in an S3 bucket.
 """
 
 import argparse
+import imghdr
+import json
 import logging
 import os
-import json
-import imghdr
-import boto3
 
+import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)

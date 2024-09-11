@@ -9,10 +9,11 @@ Amazon Textract output. Lets you explore how the detection output relates to the
 image.
 """
 
-from io import BytesIO
 import logging
-import tkinter
 import threading
+import tkinter
+from io import BytesIO
+
 from PIL import Image, ImageTk
 from textract_wrapper import TextractWrapper
 

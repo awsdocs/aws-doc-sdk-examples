@@ -5,10 +5,9 @@
 Unit tests for account_wrapper.py functions.
 """
 
+import account_wrapper
 import pytest
 from botocore.exceptions import ClientError
-
-import account_wrapper
 
 
 @pytest.mark.parametrize("error_code", [None, "NoSuchEntity"])

@@ -10,8 +10,8 @@ set up stubs and passes all calls through to the Boto 3 client.
 
 import io
 import json
-from botocore.stub import ANY
 
+from botocore.stub import ANY
 from test_tools.example_stubber import ExampleStubber
 
 

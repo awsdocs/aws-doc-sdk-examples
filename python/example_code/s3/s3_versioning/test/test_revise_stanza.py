@@ -6,8 +6,8 @@ Unit tests for revise_stanza.py functions.
 """
 
 import json
-import pytest
 
+import pytest
 import revise_stanza
 
 

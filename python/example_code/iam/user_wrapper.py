@@ -11,11 +11,10 @@ Shows how to use AWS Identity and Access Management (IAM) users.
 import logging
 import time
 
-import boto3
-from botocore.exceptions import ClientError
-
 import access_key_wrapper
+import boto3
 import policy_wrapper
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 iam = boto3.resource("iam")

@@ -18,23 +18,22 @@ to do the following:
 * Delete the table and keyspace.
 """
 
-from datetime import datetime
 import logging
 import os
-from pprint import pp
 import sys
+from datetime import datetime
+from pprint import pp
 
 import boto3
+import demo_tools.question as q
 import requests
-
-from query import QueryManager
+from demo_tools import demo_func
+from demo_tools.retries import wait
 from keyspace import KeyspaceWrapper
+from query import QueryManager
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-from demo_tools import demo_func
-import demo_tools.question as q
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 

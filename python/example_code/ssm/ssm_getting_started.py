@@ -20,13 +20,13 @@ import logging
 import sys
 import time
 
+import demo_tools.question as q
 from document import DocumentWrapper
 from maintenance_window import MaintenanceWindowWrapper
 from ops_item import OpsItemWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
 
 logger = logging.getLogger(__name__)
 

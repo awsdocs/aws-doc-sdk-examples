@@ -6,10 +6,10 @@ from unittest import mock
 import boto3
 import pytest
 from botocore.exceptions import NoCredentialsError
+from firehose import FirehoseClient, load_sample_data
 from moto import mock_cloudwatch, mock_firehose
 
 sys.path.append("../../firehose-put-actions")
-from firehose import FirehoseClient, load_sample_data
 
 
 # Sample configuration mock

@@ -11,10 +11,10 @@ Shows how to create and delete a model. Also, how to view the versions of the mo
 in a project.
 """
 
-import time
 import logging
-from botocore.exceptions import ClientError
+import time
 
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 

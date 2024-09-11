@@ -1,11 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 import argparse
-import boto3
 import os
+
+import boto3
 import yaml
 from langchain_community.chat_models import BedrockChat
-
 from utils.custom_logging import setup_custom_logger
 from utils.timeit import timeit
 
@@ -28,7 +28,7 @@ class Claude3WithKnowledgeBase:
         the BedrockChat model for interaction with a large language model, and identifiers for
         knowledge base and document retrieval.
         """
-        with open("config.yaml", "r") as file:
+        with open("config.yaml") as file:
             self.data = yaml.safe_load(file)
         self.logger = setup_custom_logger(os.path.basename(__file__))
         self.boto3_bedrock = boto3.client(service_name="bedrock-runtime")

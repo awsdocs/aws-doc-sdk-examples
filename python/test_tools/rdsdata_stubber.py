@@ -6,6 +6,7 @@ Stub functions that are used by the Amazon RDS Data Service unit tests.
 """
 
 import datetime
+
 from test_tools.example_stubber import ExampleStubber
 
 VALUE_KEYS = {

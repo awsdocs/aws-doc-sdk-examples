@@ -9,15 +9,16 @@ Shows how to use the AWS SDK for Python (Boto3) with AWS Audit Manager to create
 assessment report that consists of only one day of evidence.
 """
 
-# snippet-start:[python.example_code.auditmanager.Scenario_CreateAssessmentReport]
-import dateutil.parser
 import logging
 import time
 import urllib.request
 import uuid
-import boto3
-from botocore.exceptions import ClientError
 
+import boto3
+
+# snippet-start:[python.example_code.auditmanager.Scenario_CreateAssessmentReport]
+import dateutil.parser
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 

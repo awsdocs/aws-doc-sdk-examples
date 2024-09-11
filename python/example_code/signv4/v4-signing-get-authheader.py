@@ -17,10 +17,17 @@ maintained as functional code.
 
 # EC2 API (DescribeRegions)
 
+import base64
+import datetime
+import hashlib
+import hmac
+import os
+
 # See: http://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html
 # This version makes a GET request and passes the signature
 # in the Authorization header.
-import sys, os, base64, datetime, hashlib, hmac
+import sys
+
 import requests  # pip install requests
 
 # ************* REQUEST VALUES *************
@@ -89,7 +96,7 @@ signed_headers = "host;x-amz-date"
 
 # Step 6: Create payload hash (hash of the request body content). For GET
 # requests, the payload is an empty string ("").
-payload_hash = hashlib.sha256(("").encode("utf-8")).hexdigest()
+payload_hash = hashlib.sha256(b"").hexdigest()
 
 # Step 7: Combine elements to create canonical request
 canonical_request = (

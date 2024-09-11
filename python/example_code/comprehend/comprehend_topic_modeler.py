@@ -9,8 +9,9 @@ run a topic modeling job. Topic modeling analyzes a set of documents and determi
 common themes.
 """
 
-from enum import Enum
 import logging
+from enum import Enum
+
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)

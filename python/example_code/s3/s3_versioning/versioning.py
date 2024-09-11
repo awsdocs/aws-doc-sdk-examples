@@ -14,10 +14,10 @@ account and my incur charges.
 """
 
 import logging
+import uuid
 from operator import attrgetter
 from shutil import get_terminal_size
 from sys import stdout
-import uuid
 
 import boto3
 from botocore.exceptions import ClientError

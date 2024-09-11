@@ -15,16 +15,16 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Relation Database Se
 """
 
 import logging
-from pprint import pp
 import sys
 import uuid
+from pprint import pp
 
+import demo_tools.question as q
+from demo_tools.retries import wait
 from instance_wrapper import InstanceWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 

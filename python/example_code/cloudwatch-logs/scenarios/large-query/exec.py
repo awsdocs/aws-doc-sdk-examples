@@ -6,7 +6,6 @@ import sys
 
 import boto3
 from botocore.config import Config
-
 from cloudwatch_query import CloudWatchQuery
 from date_utilities import DateUtilities
 

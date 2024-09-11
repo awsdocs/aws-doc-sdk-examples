@@ -7,7 +7,6 @@ from datetime import datetime, timedelta
 
 import backoff
 import boto3
-
 from config import get_config
 
 
@@ -21,7 +20,7 @@ def load_sample_data(path: str) -> dict:
     Returns:
         dict: The loaded sample data as a dictionary.
     """
-    with open(path, "r") as f:
+    with open(path) as f:
         return json.load(f)
 
 

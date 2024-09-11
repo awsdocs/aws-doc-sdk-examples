@@ -9,9 +9,8 @@ from datetime import datetime
 
 import boto3
 import pytest
-from botocore.exceptions import ClientError
-
 from action_wrapper import AutoScalingWrapper
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])

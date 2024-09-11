@@ -6,10 +6,9 @@ Unit tests for the dynamodb_item_tracker example.
 """
 
 import boto3
-from botocore.stub import ANY
 import pytest
-
 from app import create_app
+from botocore.stub import ANY
 
 
 class MockManager:

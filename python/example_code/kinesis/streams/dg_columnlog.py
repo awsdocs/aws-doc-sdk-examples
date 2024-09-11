@@ -12,6 +12,7 @@ Multiple Fields_ example in the Amazon Kinesis Data Analytics SQL Developer Guid
 # snippet-start:[kinesisanalytics.python.datagenerator.columnlog]
 
 import json
+
 import boto3
 
 STREAM_NAME = "ExampleInputStream"

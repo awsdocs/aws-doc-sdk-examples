@@ -11,22 +11,22 @@ SQL code to transform the data, and writes it to an output stream.
 
 import logging
 import os
-from pprint import pprint
 import sys
 import threading
 import time
-import boto3
-from botocore.exceptions import ClientError
+from pprint import pprint
 
+import boto3
 from analytics_application import KinesisAnalyticsApplicationV2
+from botocore.exceptions import ClientError
+from demo_tools.custom_waiter import CustomWaiter, WaitState
+from streams.dg_anomaly import generate
+from streams.kinesis_stream import KinesisStream
 
 sys.path.append(os.path.abspath("../kinesis"))
-from streams.kinesis_stream import KinesisStream
-from streams.dg_anomaly import generate
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-from demo_tools.custom_waiter import CustomWaiter, WaitState
 
 logger = logging.getLogger(__name__)
 

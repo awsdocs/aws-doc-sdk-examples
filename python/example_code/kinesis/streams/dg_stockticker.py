@@ -13,6 +13,7 @@ and Aggregation_ examples in the Amazon Kinesis Data Analytics SQL Developer Gui
 import datetime
 import json
 import random
+
 import boto3
 
 STREAM_NAME = "ExampleInputStream"

@@ -8,12 +8,11 @@ Tests for scenario_partiql_batch.py.
 from unittest.mock import patch
 
 import boto3
+import pytest
+import scenario_partiql_batch as scenario
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-import pytest
-
 from scaffold import Scaffold
-import scenario_partiql_batch as scenario
 
 
 @pytest.mark.parametrize(

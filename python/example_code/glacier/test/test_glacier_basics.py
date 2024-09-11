@@ -6,9 +6,8 @@ Unit tests for glacier_basics.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from glacier_basics import GlacierWrapper
 
 

@@ -8,9 +8,8 @@ Unit tests for ses_email.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from ses_email import SesDestination, SesMailSender
 
 

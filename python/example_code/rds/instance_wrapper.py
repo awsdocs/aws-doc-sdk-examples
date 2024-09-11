@@ -10,6 +10,7 @@ Database Service (Amazon RDS) DB instances.
 
 import json
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 

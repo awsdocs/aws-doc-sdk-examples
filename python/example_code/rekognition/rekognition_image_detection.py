@@ -15,13 +15,13 @@ without cloning the GitHub repository, you must first download the image files f
 # snippet-start:[python.example_code.rekognition.image_detection_imports]
 import logging
 from pprint import pprint
-import boto3
-from botocore.exceptions import ClientError
-import requests
 
+import boto3
+import requests
+from botocore.exceptions import ClientError
 from rekognition_objects import (
-    RekognitionFace,
     RekognitionCelebrity,
+    RekognitionFace,
     RekognitionLabel,
     RekognitionModerationLabel,
     RekognitionText,

@@ -5,11 +5,9 @@
 Unit tests for message_wrapper.py functions.
 """
 
-import pytest
-
-from botocore.exceptions import ClientError
-
 import message_wrapper
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(

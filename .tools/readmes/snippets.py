@@ -65,7 +65,7 @@ def scan_for_snippets(root):
             if ext in EXT_IGNORES:
                 continue
             try:
-                with open(os.path.join(root, f), "r", encoding="utf-8") as search_file:
+                with open(os.path.join(root, f), encoding="utf-8") as search_file:
                     for index, line in enumerate(search_file.readlines()):
                         if SNIPPET_START in line:
                             tag = Snippet.tag_from_line(SNIPPET_START, line)

@@ -13,22 +13,22 @@ import datetime
 import gzip
 import json
 import logging
-import random
-import time
-import sys
 import os
+import random
+import sys
+import time
+from threading import Thread
 
 import boto3
+import demo_tools.question as q
 from botocore.exceptions import ClientError
-from threading import Thread
+from demo_tools import demo_func
 
 # Import the wrapper for the service functionality.
 from medicalimaging import MedicalImagingWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../../..")
-from demo_tools import demo_func
-import demo_tools.question as q
 
 logger = logging.getLogger(__name__)
 

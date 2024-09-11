@@ -5,12 +5,10 @@
 Unit tests for bedrock_agent_runtime_wrapper.py.
 """
 
-import pytest
-
 import boto3
-from botocore.exceptions import ClientError
-
+import pytest
 from bedrock_agent_runtime_wrapper import BedrockAgentRuntimeWrapper
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.asyncio

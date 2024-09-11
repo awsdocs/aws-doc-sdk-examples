@@ -6,6 +6,7 @@ Stub functions that are used by the Amazon Kinesis Data Analytics v2 unit tests.
 """
 
 import datetime
+
 from test_tools.example_stubber import ExampleStubber
 
 

@@ -11,6 +11,7 @@ using Regex_ example in the Amazon Kinesis Data Analytics SQL Developer Guide.
 # snippet-start:[kinesisanalytics.python.datagenerator.regexlog]
 
 import json
+
 import boto3
 
 STREAM_NAME = "ExampleInputStream"

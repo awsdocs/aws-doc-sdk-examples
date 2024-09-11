@@ -15,6 +15,7 @@ running the query on the cluster instances.
 
 # snippet-start:[emr.python.spark.top_category_reviews]
 import argparse
+
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as func
 

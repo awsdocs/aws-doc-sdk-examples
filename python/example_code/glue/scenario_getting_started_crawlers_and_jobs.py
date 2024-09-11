@@ -21,14 +21,14 @@ import argparse
 import io
 import json
 import logging
-from pprint import pprint
 import sys
 import time
 import uuid
+from pprint import pprint
+
 import boto3
 from boto3.exceptions import S3UploadFailedError
 from botocore.exceptions import ClientError
-
 from glue_wrapper import GlueWrapper
 from question import Question
 

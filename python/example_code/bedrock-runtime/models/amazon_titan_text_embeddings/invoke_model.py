@@ -4,8 +4,9 @@
 # snippet-start:[python.example_code.bedrock-runtime.InvokeModel_TitanTextEmbeddings]
 # Generate and print an embedding with Amazon Titan Text Embeddings V2.
 
-import boto3
 import json
+
+import boto3
 
 # Create a Bedrock Runtime client in the AWS Region of your choice.
 client = boto3.client("bedrock-runtime", region_name="us-east-1")

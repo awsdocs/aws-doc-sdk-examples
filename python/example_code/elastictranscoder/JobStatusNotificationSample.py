@@ -27,8 +27,7 @@ import time
 
 import boto3
 from botocore.exceptions import ClientError
-from SqsQueueNotificationWorker import SqsWorker, JobStatus
-
+from SqsQueueNotificationWorker import JobStatus, SqsWorker
 
 # Job configuration settings. Set these values before running the script.
 pipeline_id = "PIPELINE_ID"  # Set to the ID of an existing Elastic Transcoder pipeline

@@ -8,12 +8,14 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon CloudWatch to create
 and manage custom metrics and alarms.
 """
 
-# snippet-start:[python.example_code.cloudwatch.imports]
-from datetime import datetime, timedelta
 import logging
-from pprint import pprint
 import random
 import time
+
+# snippet-start:[python.example_code.cloudwatch.imports]
+from datetime import datetime, timedelta
+from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 

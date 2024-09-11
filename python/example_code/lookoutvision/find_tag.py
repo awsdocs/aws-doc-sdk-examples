@@ -8,13 +8,13 @@ Shows how to find a tag value that's associated with models within Amazon Lookou
 Vision projects.
 """
 
+import argparse
+
 # snippet-start:[python.example_code.lookoutvision.Scenario_FindTagInProjects]
 import logging
-import argparse
+
 import boto3
-
 from botocore.exceptions import ClientError
-
 
 logger = logging.getLogger(__name__)
 

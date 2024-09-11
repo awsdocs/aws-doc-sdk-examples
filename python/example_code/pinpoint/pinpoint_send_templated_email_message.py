@@ -10,6 +10,7 @@ send email using a message template.
 
 # snippet-start:[pinpoint.python.pinpoint_send_templated_email_message.complete]
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 

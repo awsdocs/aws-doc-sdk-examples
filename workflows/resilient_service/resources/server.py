@@ -10,11 +10,11 @@ This code is only for use in this example.
 """
 
 import argparse
-from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from functools import partial
-from traceback import format_exc
 import random
+from functools import partial
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from traceback import format_exc
 
 import boto3
 from botocore.exceptions import ClientError

@@ -9,6 +9,7 @@ set up stubs and passes all calls through to the Boto3 client.
 """
 
 import datetime
+
 from test_tools.example_stubber import ExampleStubber
 
 

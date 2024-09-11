@@ -3,7 +3,6 @@
 from typing import Dict
 
 import boto3
-
 from s3_operations import create_buckets, populate_buckets, update_retention_policy
 
 

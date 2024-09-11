@@ -6,9 +6,8 @@ Unit tests for kinesis_stream.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from streams.kinesis_stream import KinesisStream
 
 

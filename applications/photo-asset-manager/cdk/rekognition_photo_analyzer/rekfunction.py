@@ -5,9 +5,10 @@
 # Author: Katreena Mullican
 # Contact: mullicak@amazon.com
 #
-import boto3
-import os
 import json
+import os
+
+import boto3
 
 s3 = boto3.client("s3")
 rekognition = boto3.client("rekognition")
@@ -54,5 +55,5 @@ def handler(event, context):
 
     except Exception as e:
         print(e)
-        print("Error processing object {} from bucket {}. ".format(key, bucket_name))
+        print(f"Error processing object {key} from bucket {bucket_name}. ")
         raise e

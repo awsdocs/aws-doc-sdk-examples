@@ -3,6 +3,7 @@
 
 # snippet-start:[python.example_code.support.Hello]
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 

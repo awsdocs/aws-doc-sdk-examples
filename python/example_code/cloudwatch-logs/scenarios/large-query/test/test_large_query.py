@@ -2,11 +2,12 @@
 # SPDX-License-Identifier: Apache-2.0
 import sys
 from datetime import datetime, timedelta
-import pytest
 
-sys.path.append("../")
+import pytest
 from date_utilities import DateUtilities
 from exec import CloudWatchLogsQueryRunner
+
+sys.path.append("../")
 
 date_utility = DateUtilities()
 runner = CloudWatchLogsQueryRunner()

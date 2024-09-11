@@ -27,18 +27,17 @@ import re
 import string
 import sys
 import uuid
-import yaml
 import zipfile
 
 import boto3
-from botocore.exceptions import ClientError
-
+import demo_tools.question as q
+import yaml
 from bedrock_agent_wrapper import BedrockAgentWrapper
+from botocore.exceptions import ClientError
+from demo_tools.retries import wait
 
 # Add relative path to include demo_tools in this code example without needing to set up.
 sys.path.append("../..")
-import demo_tools.question as q
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 

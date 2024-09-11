@@ -9,10 +9,10 @@ create and use a custom classifier. A custom classifier scans documents and
 labels them according to their contents.
 """
 
-from enum import Enum
 import logging
-from botocore.exceptions import ClientError
+from enum import Enum
 
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 

@@ -9,6 +9,7 @@ event and applies the specified revision to the specified object.
 # snippet-start:[s3.python.lambda.revise_stanza]
 import logging
 from urllib import parse
+
 import boto3
 from botocore.exceptions import ClientError
 

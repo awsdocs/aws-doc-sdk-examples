@@ -14,17 +14,18 @@
 # language governing permissions and limitations under the License.
 # snippet-start:[deeplens.python.deeplens_kvi_api.intro]
 
-import time
 import os
+import time
+
 import DeepLens_Kinesis_Video as dkv
-from botocore.session import Session
 import greengrasssdk
+from botocore.session import Session
 
 
 def greengrass_hello_world_run():
     # Create the green grass client so that we can send messages to IoT console
     client = greengrasssdk.client("iot-data")
-    iot_topic = "$aws/things/{}/infer".format(os.environ["AWS_IOT_THING_NAME"])
+    iot_topic = f"$aws/things/{os.environ['AWS_IOT_THING_NAME']}/infer"
 
     # Stream configuration, name and retention
     # Note that the name will appear as deeplens-myStream
@@ -44,7 +45,7 @@ def greengrass_hello_world_run():
     )
     client.publish(topic=iot_topic, payload="Producer created")
     kvs_stream = producer.createStream(stream_name, retention)
-    client.publish(topic=iot_topic, payload="Stream {} created".format(stream_name))
+    client.publish(topic=iot_topic, payload=f"Stream {stream_name} created")
 
     # Start putting data into the KVS stream
     kvs_stream.start()

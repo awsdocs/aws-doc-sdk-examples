@@ -6,11 +6,11 @@ Unit tests for scenario_create_user_assume_role.py.
 """
 
 from unittest.mock import MagicMock
-import pytest
-import boto3
-from botocore.exceptions import ClientError
 
+import boto3
+import pytest
 import scenario_create_user_assume_role as assume_role
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(

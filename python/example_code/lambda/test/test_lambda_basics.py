@@ -8,10 +8,10 @@ Unit tests for lambda_basics.py functions.
 import json
 import unittest.mock
 import zipfile
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from lambda_basics import LambdaWrapper
 
 

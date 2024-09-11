@@ -6,12 +6,12 @@ Unit tests for scenario_getting_started_crawlers_and_jobs.py functions.
 """
 
 from datetime import datetime
-import pytest
+
 import boto3
+import pytest
+import scaffold
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-
-import scaffold
 
 
 @pytest.mark.parametrize(

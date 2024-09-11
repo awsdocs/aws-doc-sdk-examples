@@ -10,6 +10,7 @@ send SMS messages using a message template.
 
 # snippet-start:[pinpoint.python.pinpoint_send_templated_sms_message.complete]
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 

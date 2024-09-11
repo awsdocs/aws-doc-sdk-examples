@@ -5,11 +5,10 @@
 Unit tests for api_gateway_rest.py functions.
 """
 
-import boto3
-from botocore.exceptions import ClientError
-import pytest
-
 import api_gateway_rest
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(

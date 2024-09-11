@@ -7,11 +7,10 @@ Unit tests for queue_wrapper.py functions.
 
 import json
 import time
+
 import pytest
-
-from botocore.exceptions import ClientError
-
 import queue_wrapper
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(

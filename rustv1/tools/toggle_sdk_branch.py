@@ -3,22 +3,21 @@
 # SPDX-License-Identifier: Apache-2.0
 
 try:
-    from tomlkit import dumps, parse, TOMLDocument
+    from tomlkit import TOMLDocument, dumps, parse
 except Exception:
     print("Couldn't import tomlkit, either install it directly or instantiate a venv.")
     exit(1)
 
+import logging
 from argparse import ArgumentParser
 from glob import glob
 from typing import Union
-import logging
 
 SDK_ORIGIN = "https://github.com/awslabs/aws-sdk-rust"
 
 
 def list_cargos(pathname: str):
-    for file in glob(f"{pathname}/**/Cargo.toml", recursive=True):
-        yield file
+    yield from glob(f"{pathname}/**/Cargo.toml", recursive=True)
 
 
 def read_cargo(pathname: str) -> TOMLDocument:

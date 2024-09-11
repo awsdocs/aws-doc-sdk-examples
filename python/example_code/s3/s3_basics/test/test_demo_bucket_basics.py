@@ -5,12 +5,10 @@
 Unit tests for demo_bucket_basics.py.
 """
 
-import pytest
-
 import boto3
-from botocore.exceptions import ClientError
-
 import demo_bucket_basics
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(

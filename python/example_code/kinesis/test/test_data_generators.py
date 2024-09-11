@@ -8,6 +8,7 @@ Unit tests for stream data generators.
 import importlib
 import random
 import time
+
 import boto3
 import pytest
 

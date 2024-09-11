@@ -11,15 +11,15 @@ to run batches of queries against a table that stores data about movies.
   individual movies.
 """
 
+import logging
+
 # snippet-start:[python.example_code.dynamodb.helper.PartiQLBatchWrapper.imports]
 from datetime import datetime
 from decimal import Decimal
-import logging
 from pprint import pprint
 
 import boto3
 from botocore.exceptions import ClientError
-
 from scaffold import Scaffold
 
 logger = logging.getLogger(__name__)

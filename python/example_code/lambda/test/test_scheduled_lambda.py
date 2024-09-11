@@ -6,10 +6,9 @@ Unit tests for scheduled_lambda.py functions.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
 import scheduled_lambda
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(

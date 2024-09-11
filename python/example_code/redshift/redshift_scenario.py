@@ -18,17 +18,18 @@ This Boto3 example performs these tasks:
 """
 
 import json
+import logging
 import os
 import sys
 import time
-import logging
+
 import boto3
+import demo_tools.question as q
 from redshift import RedshiftWrapper
 from redshift_data import RedshiftDataWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
 
 DASHES = "-" * 80
 

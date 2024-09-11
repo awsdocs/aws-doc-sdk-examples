@@ -7,15 +7,15 @@ Contains common test fixtures used to run unit tests.
 
 import sys
 import uuid
+
 import boto3
 import pytest
-
-from aurora_wrapper import AuroraWrapper
 import scenario_get_started_aurora
+from aurora_wrapper import AuroraWrapper
+from test_tools.fixtures.common import *
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")
-from test_tools.fixtures.common import *
 
 
 class ClusterData:

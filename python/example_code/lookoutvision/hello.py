@@ -10,8 +10,8 @@ the response is an empty list, however it confirms that you can call the
 Lookout for Vision API.
 """
 
-from botocore.exceptions import ClientError
 import boto3
+from botocore.exceptions import ClientError
 
 
 class Hello:

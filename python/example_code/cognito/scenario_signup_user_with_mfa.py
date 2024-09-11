@@ -25,19 +25,18 @@ import argparse
 import base64
 import logging
 import os
-from pprint import pp
 import sys
 import webbrowser
+from pprint import pp
 
 import boto3
+import demo_tools.question as q
 import qrcode
-from pycognito import aws_srp
-
 from cognito_idp_actions import CognitoIdentityProviderWrapper
+from pycognito import aws_srp
 
 # Add relative path to include demo_tools in this code example without needing to set up.
 sys.path.append("../..")
-import demo_tools.question as q
 
 logger = logging.getLogger(__name__)
 

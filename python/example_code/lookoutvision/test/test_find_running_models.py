@@ -5,13 +5,13 @@
 Unit tests for find_running_models.py.
 """
 
-import pytest
-from botocore.exceptions import ClientError
 import datetime
+
 import boto3
 import models
+import pytest
 from boto3.session import Session
-
+from botocore.exceptions import ClientError
 from find_running_models import find_running_models, find_running_models_in_project
 
 

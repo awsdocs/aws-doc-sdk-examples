@@ -20,12 +20,9 @@ import shutil
 import time
 
 import boto3
-from boto3.s3.transfer import TransferConfig
-from botocore.exceptions import ClientError
-from botocore.exceptions import ParamValidationError
-from botocore.exceptions import NoCredentialsError
-
 import file_transfer
+from boto3.s3.transfer import TransferConfig
+from botocore.exceptions import ClientError, NoCredentialsError, ParamValidationError
 
 MB = 1024 * 1024
 # These configuration attributes affect both uploads and downloads.
@@ -180,9 +177,7 @@ class TransferDemoManager:
             self._create_file_cmd = f"dd if=/dev/urandom of={{}} " f"bs={MB} count={{}}"
             self._size_multiplier = 1
         else:
-            raise EnvironmentError(
-                f"Demo of platform {platform.system()} isn't supported."
-            )
+            raise OSError(f"Demo of platform {platform.system()} isn't supported.")
 
     def _create_demo_file(self):
         """
@@ -313,7 +308,7 @@ def main():
     # Upload using server-side encryption with customer-provided
     # encryption keys.
     # Generate a 256-bit key from a passphrase.
-    sse_key = hashlib.sha256("demo_passphrase".encode("utf-8")).digest()
+    sse_key = hashlib.sha256(b"demo_passphrase").digest()
     demo_manager.demo(
         "Do you want to upload and download a {} MB file using "
         "server-side encryption?",

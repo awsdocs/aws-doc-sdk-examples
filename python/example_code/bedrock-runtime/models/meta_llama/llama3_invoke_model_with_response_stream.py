@@ -5,9 +5,9 @@
 # Use the native inference API to send a text message to Meta Llama 3
 # and print the response stream.
 
-import boto3
 import json
 
+import boto3
 from botocore.exceptions import ClientError
 
 # Create a Bedrock Runtime client in the AWS Region of your choice.

@@ -10,11 +10,12 @@ shown in a Tkinter application that lets you explore the detected elements.
 """
 
 import argparse
-from io import BytesIO
 import logging
+from io import BytesIO
+
 import boto3
-from textract_wrapper import TextractWrapper
 from textract_app import TextractExplorer
+from textract_wrapper import TextractWrapper
 
 logger = logging.getLogger(__name__)
 

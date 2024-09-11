@@ -1,8 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from testbook import testbook
 import boto3
+from testbook import testbook
 
 # Get AWS credentials
 session = boto3.Session()

@@ -7,9 +7,10 @@ Unit tests for Amazon DynamoDB batching code example.
 
 import time
 import unittest.mock
-from botocore.exceptions import ClientError
-import pytest
+
 import dynamo_batching
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(

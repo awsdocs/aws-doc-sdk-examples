@@ -6,9 +6,8 @@ Unit tests for comprehend_detect.py
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from comprehend_detect import ComprehendDetect
 
 

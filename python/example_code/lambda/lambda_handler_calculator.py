@@ -12,7 +12,6 @@ invocation.
 import logging
 import os
 
-
 logger = logging.getLogger()
 
 # Define a list of Python lambda functions that are called by this AWS Lambda function.

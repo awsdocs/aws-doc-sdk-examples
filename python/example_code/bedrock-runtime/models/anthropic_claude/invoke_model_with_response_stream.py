@@ -5,8 +5,9 @@
 # Use the native inference API to send a text message to Anthropic Claude
 # and print the response stream.
 
-import boto3
 import json
+
+import boto3
 
 # Create a Bedrock Runtime client in the AWS Region of your choice.
 client = boto3.client("bedrock-runtime", region_name="us-east-1")

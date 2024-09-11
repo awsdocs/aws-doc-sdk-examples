@@ -11,6 +11,7 @@ send email.
 # snippet-start:[pinpoint.python.pinpoint_send_email_message_api.complete]
 
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 

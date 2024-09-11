@@ -11,6 +11,7 @@ detect entities, phrases, and more in a document.
 # snippet-start:[python.example_code.comprehend.ComprehendDetect_imports]
 import logging
 from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 

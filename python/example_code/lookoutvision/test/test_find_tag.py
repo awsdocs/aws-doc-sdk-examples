@@ -6,10 +6,9 @@ Unit tests for find_tag.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
-import pytest
-
 import find_tag
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(

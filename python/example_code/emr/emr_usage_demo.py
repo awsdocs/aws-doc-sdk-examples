@@ -19,15 +19,14 @@ The demos also create several other AWS resources:
 """
 
 import argparse
-import logging
 import json
+import logging
 import sys
 import time
 
 import boto3
-from botocore.exceptions import ClientError
-
 import emr_basics
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 

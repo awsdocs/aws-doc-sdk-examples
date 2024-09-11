@@ -1,8 +1,9 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
+from time import sleep
+
 import boto3
 from botocore.exceptions import ClientError
-from time import sleep
 
 # Constants
 CONTACT_LIST_NAME = "weekly-coupons-newsletter"
@@ -33,7 +34,7 @@ def load_file_content(file_path):
         str: The content of the file.
     """
     try:
-        with open(file_path, "r") as file:
+        with open(file_path) as file:
             content = file.read()
         return content
     except Exception:

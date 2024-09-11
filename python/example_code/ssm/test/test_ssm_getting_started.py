@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import pytest
-
 from document import DocumentWrapper
 from maintenance_window import MaintenanceWindowWrapper
 from ops_item import OpsItemWrapper

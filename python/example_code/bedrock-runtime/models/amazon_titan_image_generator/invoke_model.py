@@ -5,10 +5,11 @@
 # Use the native inference API to create an image with Amazon Titan Image Generator
 
 import base64
-import boto3
 import json
 import os
 import random
+
+import boto3
 
 # Create a Bedrock Runtime client in the AWS Region of your choice.
 client = boto3.client("bedrock-runtime", region_name="us-east-1")

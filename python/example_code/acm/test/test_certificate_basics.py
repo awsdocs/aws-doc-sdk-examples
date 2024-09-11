@@ -8,9 +8,8 @@ Unit tests for certificate_basics.py
 import uuid
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from certificate_basics import AcmCertificate
 
 

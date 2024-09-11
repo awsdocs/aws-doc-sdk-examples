@@ -6,7 +6,6 @@ from typing import Dict
 import boto3
 import coloredlogs
 from prettytable import PrettyTable
-
 from s3_operations import set_legal_hold, set_retention
 
 # Configure logging
@@ -24,7 +23,7 @@ def read_bucket_names() -> Dict[str, str]:
         A dictionary containing the bucket names.
     """
     buckets = {}
-    with open("buckets.txt", "r") as f:
+    with open("buckets.txt") as f:
         for line in f:
             name, bucket = line.strip().split("=")
             buckets[name] = bucket

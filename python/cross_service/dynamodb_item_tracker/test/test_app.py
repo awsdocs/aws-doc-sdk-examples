@@ -6,12 +6,12 @@ Unit tests for the dynamodb_item_tracker example.
 """
 
 import json
-import boto3
-from botocore.stub import ANY
-import pytest
 
-from app import create_app
+import boto3
+import pytest
 import storage
+from app import create_app
+from botocore.stub import ANY
 from storage import Storage
 
 

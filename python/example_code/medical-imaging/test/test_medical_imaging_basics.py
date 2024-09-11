@@ -10,7 +10,6 @@ import os
 import boto3
 import pytest
 from botocore.exceptions import ClientError
-
 from medical_imaging_basics import MedicalImagingWrapper
 
 

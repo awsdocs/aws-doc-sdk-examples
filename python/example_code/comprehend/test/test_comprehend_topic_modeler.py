@@ -6,9 +6,8 @@ Unit tests for comprehend_topic_modeler.py
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from comprehend_topic_modeler import ComprehendTopicModeler, JobInputFormat
 
 DATA_ACCESS_ROLE_ARN = "arn:aws:iam:REGION:123456789012:role/test-role"

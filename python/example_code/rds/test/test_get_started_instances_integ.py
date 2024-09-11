@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import pytest
-
 from instance_wrapper import InstanceWrapper
 from scenario_get_started_instances import RdsInstanceScenario
 

@@ -8,9 +8,8 @@ Unit tests for ses_identities.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError, WaiterError
 import pytest
-
+from botocore.exceptions import ClientError, WaiterError
 from ses_identities import SesIdentity
 
 

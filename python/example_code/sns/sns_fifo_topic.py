@@ -8,10 +8,11 @@ Demonstrates subscribing Amazon Simple Queue Service (Amazon SQS)
 queues to a FIFO (First-In-First-Out) Amazon Simple Notification Service (Amazon SNS) topic.
 """
 
+import json
 import logging
 import uuid
+
 import boto3
-import json
 from botocore.exceptions import ClientError
 from sns_basics import SnsWrapper
 

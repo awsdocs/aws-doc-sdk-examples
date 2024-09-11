@@ -8,7 +8,6 @@ Unit tests for document.py functions.
 import boto3
 import pytest
 from botocore.exceptions import ClientError
-
 from document import DocumentWrapper
 
 

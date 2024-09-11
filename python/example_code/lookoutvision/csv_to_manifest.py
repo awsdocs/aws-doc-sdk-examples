@@ -14,12 +14,12 @@ More information: https://docs.aws.amazon.com/lookout-for-vision/latest/develope
 
 # snippet-start:[python.example_code.lookoutvision.Scenario_CSVtoManifest]
 
-from datetime import datetime, timezone
 import argparse
-import logging
 import csv
-import os
 import json
+import logging
+import os
+from datetime import datetime, timezone
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +40,7 @@ def check_errors(csv_file):
     errors_file = f"{os.path.splitext(csv_file)[0]}_errors.csv"
     deduplicated_file = f"{os.path.splitext(csv_file)[0]}_deduplicated.csv"
 
-    with open(csv_file, "r", encoding="UTF-8") as input_file, open(
+    with open(csv_file, encoding="UTF-8") as input_file, open(
         deduplicated_file, "w", encoding="UTF-8"
     ) as dedup, open(errors_file, "w", encoding="UTF-8") as errors:
         reader = csv.reader(input_file, delimiter=",")

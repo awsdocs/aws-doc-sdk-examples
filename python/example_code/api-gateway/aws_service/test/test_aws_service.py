@@ -6,10 +6,9 @@ Unit tests for aws_service.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
 from aws_service import ApiGatewayToService
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(

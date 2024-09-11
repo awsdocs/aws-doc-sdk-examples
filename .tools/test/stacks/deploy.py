@@ -2,12 +2,13 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import argparse
-import subprocess
-import os
-import yaml
-import time
 import logging
+import os
 import re
+import subprocess
+import time
+
+import yaml
 
 
 def run_shell_command(command, env_vars=None):
@@ -102,7 +103,7 @@ def main():
 
     if args.type in {"admin", "images"}:
         try:
-            with open("config/resources.yaml", "r") as file:
+            with open("config/resources.yaml") as file:
                 data = yaml.safe_load(file)
                 accounts = {
                     "admin": {
@@ -114,7 +115,7 @@ def main():
             print(f"Failed to read config data: \n{e}")
     elif args.type in {"plugin"}:
         try:
-            with open("config/targets.yaml", "r") as file:
+            with open("config/targets.yaml") as file:
                 accounts = yaml.safe_load(file)
         except Exception as e:
             print(f"Failed to read config data: \n{e}")

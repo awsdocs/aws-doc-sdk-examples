@@ -9,9 +9,10 @@ perform more advanced actions, such as arithmetic and conditional updates. You c
 run queries with multiple conditions that are combined with projection expressions.
 """
 
-from decimal import Decimal
 import logging
+from decimal import Decimal
 from pprint import pprint
+
 import boto3
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError

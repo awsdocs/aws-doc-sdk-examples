@@ -11,6 +11,7 @@ to manage permission grants for keys.
 # snippet-start:[python.example_code.kms.Scenario_GrantManagement]
 import logging
 from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 

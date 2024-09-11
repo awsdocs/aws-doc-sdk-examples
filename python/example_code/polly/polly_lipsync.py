@@ -13,14 +13,15 @@ of visemes from Amazon Polly that match up with the synthesized speech.
 import json
 import logging
 import os
-from tempfile import TemporaryDirectory
 import time
 import tkinter
 import tkinter.simpledialog
+from tempfile import TemporaryDirectory
+
 import boto3
+import requests
 from botocore.exceptions import ClientError
 from playsound import playsound
-import requests
 from polly_wrapper import PollyWrapper
 
 logger = logging.getLogger(__name__)

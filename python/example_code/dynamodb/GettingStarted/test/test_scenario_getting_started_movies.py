@@ -5,15 +5,15 @@
 Tests for scenario_getting_started_movies.py.
 """
 
-from decimal import Decimal
 import json
+from decimal import Decimal
 from unittest.mock import patch
+
 import boto3
+import pytest
+import scenario_getting_started_movies as scenario
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
-import pytest
-
-import scenario_getting_started_movies as scenario
 
 
 @pytest.mark.parametrize(

@@ -6,7 +6,6 @@ Unit tests for presigned_url.py functions.
 """
 
 import boto3
-
 import presigned_url
 
 

@@ -6,11 +6,12 @@ Contains common test fixtures used to run AWS Security Token Service (AWS STS) t
 """
 
 import sys
+
 import pytest
+from test_tools.fixtures.common import *
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")
-from test_tools.fixtures.common import *
 
 
 @pytest.fixture

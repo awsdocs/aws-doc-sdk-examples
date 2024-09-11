@@ -8,7 +8,6 @@ Unit tests for maintenance_window.py functions.
 import boto3
 import pytest
 from botocore.exceptions import ClientError, ParamValidationError
-
 from maintenance_window import MaintenanceWindowWrapper
 
 

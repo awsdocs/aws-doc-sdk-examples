@@ -6,6 +6,7 @@ Stub functions that are used by the AWS Glue unit tests.
 """
 
 from datetime import datetime
+
 from botocore.stub import ANY
 from test_tools.example_stubber import ExampleStubber
 

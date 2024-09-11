@@ -40,7 +40,7 @@ class ConsumerStack(Stack):
         self.init_log_function(admin_bucket_name)
 
     def get_yaml_config(self, filepath):
-        with open(filepath, "r") as file:
+        with open(filepath) as file:
             data = yaml.safe_load(file)
         return data
 

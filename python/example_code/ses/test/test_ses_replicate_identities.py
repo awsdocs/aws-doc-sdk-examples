@@ -12,12 +12,12 @@ import random
 import string
 import time
 import uuid
+
 import boto3
+import pytest
+import ses_replicate_identities
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-import pytest
-
-import ses_replicate_identities
 
 
 def generate_random_string(char_set, length):

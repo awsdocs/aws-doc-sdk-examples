@@ -6,9 +6,9 @@ Unit tests for photo.py.
 """
 
 from unittest.mock import MagicMock
+
 import boto3
 import pytest
-
 from photo import Photo
 
 

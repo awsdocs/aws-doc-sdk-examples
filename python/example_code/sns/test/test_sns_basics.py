@@ -6,10 +6,10 @@ Unit tests for sns_basics.py
 """
 
 import json
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from sns_basics import SnsWrapper
 
 TOPIC_ARN = "arn:aws:sns:REGION:123456789012:topic/test-name"

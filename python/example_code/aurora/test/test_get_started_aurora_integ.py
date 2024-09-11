@@ -2,10 +2,10 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import time
-import pytest
 
-from aurora_wrapper import AuroraWrapper
+import pytest
 import scenario_get_started_aurora
+from aurora_wrapper import AuroraWrapper
 
 
 @pytest.fixture(autouse=True)

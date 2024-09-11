@@ -4,11 +4,11 @@
 import datetime
 import json
 import unittest.mock
-import chalice
-import pytest
 
 import app
+import chalice
 import chalicelib
+import pytest
 
 
 def test_list_states():

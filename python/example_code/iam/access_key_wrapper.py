@@ -9,6 +9,7 @@ Shows how to use AWS Identity and Access Management (IAM) access keys.
 
 # snippet-start:[python.example_code.iam.access_key_wrapper.imports]
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 

@@ -9,8 +9,8 @@ Shows how to use AWS Identity and Access Management (IAM) service-linked roles.
 
 # snippet-start:[python.example_code.iam.service_linked_roles.imports]
 import logging
-from pprint import pprint
 import time
+from pprint import pprint
 
 import boto3
 from botocore.exceptions import ClientError

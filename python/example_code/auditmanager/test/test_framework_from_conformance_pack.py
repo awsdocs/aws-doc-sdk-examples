@@ -6,9 +6,8 @@ Unit tests for framework_from_conformance_pack.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from framework_from_conformance_pack import ConformancePack
 
 

@@ -5,11 +5,10 @@
 Unit tests for alias_management.py.
 """
 
-import boto3
-from botocore.exceptions import ClientError
-import pytest
-
 import alias_management
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(

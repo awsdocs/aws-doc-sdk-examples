@@ -12,10 +12,10 @@ into a password that you can use to connect to an Amazon Simple Email Service
 # snippet-start:[ses.python.ses_generate_smtp_credentials.complete]
 #!/usr/bin/env python3
 
-import hmac
-import hashlib
-import base64
 import argparse
+import base64
+import hashlib
+import hmac
 
 SMTP_REGIONS = [
     "us-east-2",  # US East (Ohio)

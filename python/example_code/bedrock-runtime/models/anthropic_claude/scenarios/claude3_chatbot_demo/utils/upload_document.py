@@ -1,9 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-import boto3
 import os
 import random
 import string
+
+import boto3
 import yaml
 
 
@@ -71,7 +72,7 @@ def write_bucket_name_to_yaml(bucket_name, file_path="../config.yaml"):
     """
     new_values = {"bucket_name": bucket_name, "file_name": "einstein_resume.pdf"}
     if os.path.exists(file_path):
-        with open(file_path, "r") as file:
+        with open(file_path) as file:
             existing_data = yaml.safe_load(file)
             if existing_data is None:
                 existing_data = {}

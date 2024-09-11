@@ -6,10 +6,10 @@ Unit tests for projects.py.
 """
 
 import datetime
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from hello import Hello
 
 

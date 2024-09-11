@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import os
-from unittest.mock import mock_open, patch, MagicMock
-import requests
+from unittest.mock import MagicMock, mock_open, patch
 
+import requests
 from query import QueryManager
 
 

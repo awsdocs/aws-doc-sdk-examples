@@ -6,9 +6,8 @@ Unit tests for grant_management.py.
 """
 
 import boto3
-import pytest
-
 import grant_management
+import pytest
 
 
 @pytest.mark.parametrize(

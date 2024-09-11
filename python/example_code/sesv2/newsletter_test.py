@@ -3,16 +3,16 @@
 
 import json
 import sys
-from botocore.exceptions import ClientError
 from io import StringIO
-import pytest
 from unittest.mock import patch
 
+import pytest
+from botocore.exceptions import ClientError
 from newsletter import (
-    SESv2Workflow,
-    get_subaddress_variants,
     CONTACT_LIST_NAME,
     TEMPLATE_NAME,
+    SESv2Workflow,
+    get_subaddress_variants,
 )
 
 # Run tests with `python -m unittest`

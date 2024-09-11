@@ -14,6 +14,7 @@ import datetime
 import json
 import random
 import time
+
 import boto3
 
 STREAM_NAME = "ExampleInputStream"

@@ -10,6 +10,7 @@ custom framework with all standard controls using AWS Security Hub as their data
 
 # snippet-start:[python.example_code.auditmanager.Scenario_CustomFrameworkFromSecurityHub]
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 

@@ -10,16 +10,16 @@ from Amazon S3 and extracted from its compressed format.
 """
 
 import logging
-from pprint import pprint
 import sys
-import boto3
+from pprint import pprint
 
+import boto3
 from comprehend_demo_resources import ComprehendDemoResources
 from comprehend_topic_modeler import ComprehendTopicModeler, JobInputFormat
+from demo_tools.custom_waiter import CustomWaiter, WaitState
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-from demo_tools.custom_waiter import CustomWaiter, WaitState
 
 logger = logging.getLogger(__name__)
 

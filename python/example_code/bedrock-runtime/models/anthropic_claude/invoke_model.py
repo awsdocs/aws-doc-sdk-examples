@@ -4,9 +4,9 @@
 # snippet-start:[python.example_code.bedrock-runtime.InvokeModel_AnthropicClaude]
 # Use the native inference API to send a text message to Anthropic Claude.
 
-import boto3
 import json
 
+import boto3
 from botocore.exceptions import ClientError
 
 # Create a Bedrock Runtime client in the AWS Region of your choice.

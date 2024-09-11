@@ -7,11 +7,11 @@ Unit tests for AWS Security Token Service (AWS STS) usage functions.
 
 import unittest.mock
 import webbrowser
-import pytest
-import boto3
-from botocore.exceptions import ClientError
 
 import assume_role_mfa
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 
 
 def test_setup(make_stubber, monkeypatch, unique_names):

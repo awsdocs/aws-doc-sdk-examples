@@ -10,6 +10,7 @@ set up stubs and passes all calls through to the Boto3 client.
 
 import io
 import json
+
 from test_tools.example_stubber import ExampleStubber
 
 
@@ -47,9 +48,7 @@ class BedrockRuntimeStubber(ExampleStubber):
         }
 
         response = {
-            "body": io.BytesIO(
-                '{ "outputs": [ { "text": "Fake completion" } ] }'.encode("utf-8")
-            ),
+            "body": io.BytesIO(b'{ "outputs": [ { "text": "Fake completion" } ] }'),
             "contentType": "",
         }
 
@@ -70,9 +69,7 @@ class BedrockRuntimeStubber(ExampleStubber):
         }
 
         response = {
-            "body": io.BytesIO(
-                '{ "outputs": [ { "text": "Fake completion" } ] }'.encode("utf-8")
-            ),
+            "body": io.BytesIO(b'{ "outputs": [ { "text": "Fake completion" } ] }'),
             "contentType": "",
         }
 
@@ -94,9 +91,7 @@ class BedrockRuntimeStubber(ExampleStubber):
         }
 
         response = {
-            "body": io.BytesIO(
-                '{ "completion": "Fake completion response" }'.encode("utf-8")
-            ),
+            "body": io.BytesIO(b'{ "completion": "Fake completion response" }'),
             "contentType": "",
         }
         self._stub_bifurcator(

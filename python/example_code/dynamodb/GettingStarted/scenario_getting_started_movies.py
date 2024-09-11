@@ -13,16 +13,18 @@ create and use a table that stores data about movies.
 4. Query and scan the table to retrieve movie data that meets varying criteria.
 """
 
-# snippet-start:[python.example_code.dynamodb.helper.Movies.imports]
-from decimal import Decimal
-from io import BytesIO
 import json
 import logging
 import os
+
+# snippet-start:[python.example_code.dynamodb.helper.Movies.imports]
+from decimal import Decimal
+from io import BytesIO
 from pprint import pprint
-import requests
 from zipfile import ZipFile
+
 import boto3
+import requests
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 from question import Question

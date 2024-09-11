@@ -2,11 +2,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# flake8: noqa: F401 for side effects
-import update
-
 import argparse
-import config
 import logging
 import os
 import sys
@@ -14,7 +10,11 @@ from difflib import unified_diff
 from pathlib import Path
 from typing import Optional
 
-from render import Renderer, MissingMetadataError, RenderStatus
+import config
+
+# flake8: noqa: F401 for side effects
+import update
+from render import MissingMetadataError, Renderer, RenderStatus
 from scanner import Scanner
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO").upper(), force=True)

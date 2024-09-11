@@ -9,11 +9,11 @@ Unit tests for rekognition_collections.py.
 
 import datetime
 import random
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
-from rekognition_collections import RekognitionCollectionManager, RekognitionCollection
+import boto3
+import pytest
+from botocore.exceptions import ClientError
+from rekognition_collections import RekognitionCollection, RekognitionCollectionManager
 from rekognition_image_detection import RekognitionImage
 from rekognition_objects import RekognitionFace
 

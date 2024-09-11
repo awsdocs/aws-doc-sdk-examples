@@ -7,13 +7,13 @@ Tests for scenario_getting_started_functions.py functions.
 
 import base64
 import json
-from unittest.mock import patch, MagicMock
 import zipfile
-import boto3
-from botocore.exceptions import ClientError
-import pytest
+from unittest.mock import MagicMock, patch
 
+import boto3
+import pytest
 import scenario_getting_started_functions as scenario
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize(

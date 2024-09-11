@@ -9,6 +9,7 @@ event and removes the specified delete marker from the bucket.
 # snippet-start:[s3.python.lambda.remove_delete_marker]
 import logging
 from urllib import parse
+
 import boto3
 from botocore.exceptions import ClientError
 

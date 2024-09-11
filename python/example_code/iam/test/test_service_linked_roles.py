@@ -6,12 +6,11 @@ Unit tests for user_wrapper.py functions.
 """
 
 import time
-import pytest
 
+import pytest
+import service_linked_roles
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-
-import service_linked_roles
 
 
 @pytest.mark.parametrize(

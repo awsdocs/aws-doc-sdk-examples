@@ -6,9 +6,8 @@ Unit tests for key_encryption.py.
 """
 
 import boto3
-import pytest
-
 import key_encryption
+import pytest
 
 
 @pytest.mark.parametrize(

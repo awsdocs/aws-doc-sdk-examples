@@ -11,6 +11,7 @@ to create, list, and manage keys.
 # snippet-start:[python.example_code.kms.Scenario_KeyManagement]
 import logging
 from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -169,11 +170,13 @@ class KeyManager:
 
         :param keys: The list of keys to delete.
         """
-        print("""
+        print(
+            """
         Warning:
             Deleting a KMS key is a destructive and potentially dangerous operation. When a KMS key is deleted,
             all data that was encrypted under the KMS key is unrecoverable.
-            """)
+            """
+        )
 
         answer = input("Do you want to delete these keys (y/n)? ")
         if answer.lower() == "y":

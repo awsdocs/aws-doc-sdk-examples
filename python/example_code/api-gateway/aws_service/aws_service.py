@@ -13,9 +13,10 @@ import argparse
 import json
 import logging
 from pprint import pprint
+
 import boto3
-from botocore.exceptions import ClientError
 import requests
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 

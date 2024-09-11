@@ -8,22 +8,22 @@ Unit tests for rekognition_video_detection.py.
 """
 
 import json
-from unittest.mock import MagicMock
-import uuid
 import time
+import uuid
+from unittest.mock import MagicMock
+
 import boto3
+import pytest
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-import pytest
-
-from rekognition_video_detection import RekognitionVideo
 from rekognition_objects import (
-    RekognitionFace,
     RekognitionCelebrity,
+    RekognitionFace,
     RekognitionLabel,
     RekognitionModerationLabel,
     RekognitionPerson,
 )
+from rekognition_video_detection import RekognitionVideo
 
 
 def mock_video(monkeypatch, poll_status, rekognition_client):

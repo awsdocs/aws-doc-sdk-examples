@@ -11,9 +11,8 @@ Shows how to implement an AWS Lambda function that uses machine learning.
 import logging
 from threading import Timer
 
-import numpy
-
 import greengrass_machine_learning_sdk as gg_ml
+import numpy
 
 # The inference input image.
 with open("/test_img/test.jpg", "rb") as f:

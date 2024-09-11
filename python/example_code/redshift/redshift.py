@@ -7,9 +7,10 @@ Purpose
 Shows how to use the AWS SDK for Python (Boto3) to create and manage Amazon Redshift clusters.
 """
 
+import logging
+
 import boto3
 from botocore.exceptions import ClientError
-import logging
 
 
 # snippet-start:[python.example_code.redshift.RedshiftWrapper]

@@ -12,11 +12,12 @@ import json
 import logging
 import smtplib
 import ssl
+
 import boto3
 from botocore.exceptions import ClientError, WaiterError
+from ses_generate_smtp_credentials import calculate_key
 from ses_identities import SesIdentity
 from ses_templates import SesTemplate
-from ses_generate_smtp_credentials import calculate_key
 
 logger = logging.getLogger(__name__)
 

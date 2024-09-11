@@ -27,9 +27,8 @@ from pprint import pp
 
 import boto3
 import coloredlogs
-from botocore.exceptions import ClientError
-
 from action_wrapper import AutoScalingWrapper
+from botocore.exceptions import ClientError
 
 # Add relative path to include demo_tools in this code example without needing to set up.
 sys.path.append("../..")

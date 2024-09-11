@@ -3,10 +3,9 @@
 
 import boto3
 import pytest
-
 from activities import Activity
-from state_machines import StateMachine
 from get_started_state_machines import StateMachineScenario
+from state_machines import StateMachine
 
 
 @pytest.fixture

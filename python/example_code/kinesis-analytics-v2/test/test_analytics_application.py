@@ -6,11 +6,11 @@ Unit tests for analytics_application.py.
 """
 
 import datetime
-import boto3
-from botocore.exceptions import ClientError, WaiterError
-import pytest
 
+import boto3
+import pytest
 from analytics_application import KinesisAnalyticsApplicationV2
+from botocore.exceptions import ClientError, WaiterError
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])

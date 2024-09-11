@@ -10,15 +10,15 @@ to query a table that stores data about movies.
 * Use PartiQL statements to add, get, update, and delete data for individual movies.
 """
 
+import logging
+
 # snippet-start:[python.example_code.dynamodb.helper.PartiQLWrapper.imports]
 from datetime import datetime
 from decimal import Decimal
-import logging
 from pprint import pprint
 
 import boto3
 from botocore.exceptions import ClientError
-
 from scaffold import Scaffold
 
 logger = logging.getLogger(__name__)

@@ -13,9 +13,9 @@ about your projects.
 """
 
 import logging
+
 from botocore.exceptions import ClientError
 from models import Models
-
 
 logger = logging.getLogger(__name__)
 

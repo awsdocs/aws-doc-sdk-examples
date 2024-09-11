@@ -6,11 +6,10 @@ Unit tests for bucket_wrapper.py functions.
 """
 
 from urllib.parse import urlparse
-import pytest
 
 import boto3
+import pytest
 from botocore.exceptions import ClientError
-
 from bucket_wrapper import BucketWrapper
 
 

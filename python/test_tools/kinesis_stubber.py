@@ -7,6 +7,7 @@ Stub functions that are used by the Amazon Kinesis unit tests.
 
 import datetime
 import json
+
 from test_tools.example_stubber import ExampleStubber
 
 

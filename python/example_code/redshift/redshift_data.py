@@ -7,8 +7,9 @@ Purpose
 Shows how to use the AWS SDK for Python (Boto3) to access Amazon Redshift data.
 """
 
-import boto3
 import logging
+
+import boto3
 from botocore.exceptions import ClientError
 
 

@@ -6,10 +6,9 @@ Unit tests for lambda_basics.py functions.
 """
 
 import boto3
-from botocore.exceptions import ClientError
-import pytest
-
 import organizations_policies
+import pytest
+from botocore.exceptions import ClientError
 
 
 def make_policy(index, pol_type):

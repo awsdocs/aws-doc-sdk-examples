@@ -7,8 +7,8 @@ Unit tests for remove_delete_marker.py functions.
 
 import json
 from urllib import parse
-import pytest
 
+import pytest
 import remove_delete_marker
 
 

@@ -6,11 +6,11 @@ Unit tests for emr_basics.py functions.
 """
 
 from unittest.mock import MagicMock
-import pytest
-import boto3
-from botocore.exceptions import ClientError
 
+import boto3
 import emr_basics
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])

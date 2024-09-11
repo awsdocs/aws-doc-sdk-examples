@@ -5,10 +5,9 @@
 Unit tests for access_key_wrapper.py functions.
 """
 
+import access_key_wrapper
 import pytest
 from botocore.exceptions import ClientError
-
-import access_key_wrapper
 
 
 @pytest.mark.parametrize("error_code", [None, "NoSuchEntity"])

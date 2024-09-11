@@ -2,10 +2,10 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import os
-import boto3
-from botocore.stub import ANY
-import pytest
 
+import boto3
+import pytest
+from botocore.stub import ANY
 from scenario_getting_started import do_scenario
 
 

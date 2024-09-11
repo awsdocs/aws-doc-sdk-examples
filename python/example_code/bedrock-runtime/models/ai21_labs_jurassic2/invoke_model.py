@@ -4,9 +4,9 @@
 # snippet-start:[python.example_code.bedrock-runtime.InvokeModel_Ai21LabsJurassic2]
 # Use the native inference API to send a text message to AI21 Labs Jurassic-2.
 
-import boto3
 import json
 
+import boto3
 from botocore.exceptions import ClientError
 
 # Create a Bedrock Runtime client in the AWS Region of your choice.

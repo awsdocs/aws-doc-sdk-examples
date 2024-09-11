@@ -8,7 +8,6 @@ Unit tests for Redshift Data functions.
 import boto3
 import pytest
 from botocore.exceptions import ClientError
-
 from redshift_data import RedshiftDataWrapper
 
 

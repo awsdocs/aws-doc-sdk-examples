@@ -213,7 +213,7 @@ def clean_s3_object_locking() -> None:
     # Read bucket names from file
     buckets = []
     try:
-        with open("buckets.txt", "r") as f:
+        with open("buckets.txt") as f:
             for line in f:
                 name, bucket = line.strip().split("=")
                 buckets.append(bucket)

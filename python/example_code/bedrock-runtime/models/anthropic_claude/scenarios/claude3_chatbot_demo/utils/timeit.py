@@ -4,9 +4,10 @@ import os
 import sys
 import time
 
+from utils.custom_logging import setup_custom_logger
+
 sys.path.append("..")
 
-from utils.custom_logging import setup_custom_logger
 
 logger = setup_custom_logger(os.path.basename(__file__))
 

@@ -7,11 +7,11 @@ Unit tests for versioning.py functions.
 
 from datetime import datetime, timedelta
 from operator import itemgetter
-import pytest
 
+import pytest
+import versioning
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-import versioning
 
 
 @pytest.mark.parametrize(

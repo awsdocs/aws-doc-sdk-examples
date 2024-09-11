@@ -6,9 +6,8 @@ Unit tests for security_hub_custom_framework.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from security_hub_custom_framework import SecurityHub
 
 

@@ -9,8 +9,8 @@ code examples.
 import contextlib
 import logging
 import time
-import pytest
 
+import pytest
 from test_tools.stubber_factory import stubber_factory
 
 logger = logging.getLogger(__name__)

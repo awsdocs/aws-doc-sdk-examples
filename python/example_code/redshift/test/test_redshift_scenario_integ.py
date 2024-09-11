@@ -1,11 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+import os
+
 import boto3
 import pytest
-import os
 from botocore.config import Config
-
 from redshift import RedshiftWrapper
 from redshift_data import RedshiftDataWrapper
 from redshift_scenario import RedshiftScenario

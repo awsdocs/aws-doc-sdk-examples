@@ -12,9 +12,8 @@ import logging
 import sys
 
 import boto3
-from botocore.exceptions import ClientError
-
 import queue_wrapper
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 sqs = boto3.resource("sqs")

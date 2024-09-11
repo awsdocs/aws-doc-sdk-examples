@@ -6,11 +6,10 @@ Unit tests for object_wrapper.py functions.
 """
 
 from unittest.mock import ANY
-import pytest
 
 import boto3
+import pytest
 from botocore.exceptions import ClientError
-
 from object_wrapper import ObjectWrapper
 
 

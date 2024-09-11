@@ -1,7 +1,9 @@
 [flake8]
+# Specify the max line length if needed
+max-line-length = 150
 
 # Exclude specific error codes
-ignore = F403
+ignore = F403, W503
 
 # You can also exclude specific directories
 exclude = 

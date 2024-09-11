@@ -8,11 +8,10 @@ import uuid
 
 import boto3
 from alive_progress import alive_bar
-from rich.console import Console
-
 from elastic_ip import ElasticIpWrapper
 from instance import EC2InstanceWrapper
 from key_pair import KeyPairWrapper
+from rich.console import Console
 from security_group import SecurityGroupWrapper
 
 logger = logging.getLogger(__name__)

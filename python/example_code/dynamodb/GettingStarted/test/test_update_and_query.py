@@ -5,15 +5,15 @@
 Tests for update_and_query.py.
 """
 
-from decimal import Decimal
 import json
+from decimal import Decimal
 from unittest.mock import patch
+
 import boto3
+import pytest
+import update_and_query as wrapper
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
-import pytest
-
-import update_and_query as wrapper
 
 
 @pytest.mark.parametrize(

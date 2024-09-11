@@ -6,12 +6,12 @@ Unit tests for emr_emr_usage_demo.py functions.
 """
 
 import time
-import pytest
+
 import boto3
+import emr_usage_demo
+import pytest
 from boto3.s3.transfer import S3UploadFailedError
 from botocore.exceptions import ClientError
-
-import emr_usage_demo
 
 
 @pytest.mark.parametrize(

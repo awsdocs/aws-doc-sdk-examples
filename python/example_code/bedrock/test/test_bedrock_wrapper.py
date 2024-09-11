@@ -7,9 +7,8 @@ Unit tests for bedrock_wrapper.py.
 
 import boto3
 import pytest
-from botocore.exceptions import ClientError
-
 from bedrock_wrapper import BedrockWrapper
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize("error_code", [None, "ClientError"])

@@ -6,12 +6,12 @@ Integration tests for scenario_getting_started_crawlers_and_jobs.py.
 """
 
 from unittest.mock import patch
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
 import scaffold
 import scenario_getting_started_crawlers_and_jobs as scenario_script
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.integ

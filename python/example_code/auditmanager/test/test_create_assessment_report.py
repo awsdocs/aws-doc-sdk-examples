@@ -5,13 +5,13 @@
 Unit tests for create_assessment_report.py.
 """
 
-import dateutil.parser
 import urllib.request
 import uuid
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import dateutil.parser
+import pytest
+from botocore.exceptions import ClientError
 from create_assessment_report import AuditReport
 
 

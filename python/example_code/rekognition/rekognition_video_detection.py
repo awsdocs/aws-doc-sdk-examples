@@ -8,17 +8,17 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Rekognition to
 recognize people and objects in videos.
 """
 
-import logging
 import json
-from pprint import pprint
+import logging
 import time
-import boto3
-from botocore.exceptions import ClientError
-import requests
+from pprint import pprint
 
+import boto3
+import requests
+from botocore.exceptions import ClientError
 from rekognition_objects import (
-    RekognitionFace,
     RekognitionCelebrity,
+    RekognitionFace,
     RekognitionLabel,
     RekognitionModerationLabel,
     RekognitionPerson,

@@ -5,16 +5,16 @@
 Unit tests for comprehend_demo_resources.py
 """
 
-from io import BytesIO
 import json
 import tarfile
 import time
-from unittest.mock import MagicMock
 import uuid
-import boto3
-from botocore.exceptions import ClientError
-import pytest
+from io import BytesIO
+from unittest.mock import MagicMock
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from comprehend_demo_resources import ComprehendDemoResources
 
 

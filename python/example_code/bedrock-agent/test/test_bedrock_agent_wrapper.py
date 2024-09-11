@@ -7,10 +7,9 @@ Unit tests for bedrock_agent_wrapper.py.
 
 import boto3
 import pytest
-from botocore.exceptions import ClientError
-
-from conftest import FakeData as Fake
 from bedrock_agent_wrapper import BedrockAgentWrapper
+from botocore.exceptions import ClientError
+from conftest import FakeData as Fake
 
 
 @pytest.fixture(scope="module")

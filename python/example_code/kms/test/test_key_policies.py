@@ -6,10 +6,10 @@ Unit tests for key_policies.py.
 """
 
 import json
-import boto3
-import pytest
 
+import boto3
 import key_policies
+import pytest
 
 
 @pytest.mark.parametrize(

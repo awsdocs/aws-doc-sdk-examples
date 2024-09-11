@@ -5,9 +5,8 @@ Unit tests for config_rules.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from config_rules import ConfigWrapper
 
 

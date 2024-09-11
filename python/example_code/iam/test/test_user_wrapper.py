@@ -6,10 +6,8 @@ Unit tests for user_wrapper.py functions.
 """
 
 import pytest
-
-from botocore.exceptions import ClientError
-
 import user_wrapper
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize("error_code", [None, "EntityAlreadyExists"])

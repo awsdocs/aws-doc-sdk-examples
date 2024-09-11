@@ -10,11 +10,11 @@ Shows how to create and manage datasets. Also, how to create a manifest file and
 upload to an Amazon S3 bucket.
 """
 
+import json
 import logging
+import os
 import time
 from datetime import datetime
-import os
-import json
 
 from botocore.exceptions import ClientError
 
@@ -300,16 +300,14 @@ class Datasets:
 
                 if status == "UPDATE_IN_PROGRESS":
                     logger.info(
-                        (f"Updating {dataset_type} dataset for project {project_name}.")
+                        f"Updating {dataset_type} dataset for project {project_name}."
                     )
                     time.sleep(5)
                     continue
 
                 if status == "UPDATE_FAILED_ROLLBACK_IN_PROGRESS":
                     logger.info(
-                        (
-                            f"Update failed, rolling back {dataset_type} dataset for project {project_name}."
-                        )
+                        f"Update failed, rolling back {dataset_type} dataset for project {project_name}."
                     )
                     time.sleep(5)
                     continue

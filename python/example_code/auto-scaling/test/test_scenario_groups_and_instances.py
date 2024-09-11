@@ -6,10 +6,9 @@ from unittest.mock import MagicMock, patch
 
 import boto3
 import pytest
+import scenario_groups_and_instances as scenario
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
-
-import scenario_groups_and_instances as scenario
 
 
 @pytest.mark.parametrize(

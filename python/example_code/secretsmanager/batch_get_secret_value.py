@@ -8,8 +8,8 @@ Shows how to use the AWS SDK for Python (Boto3) to manage secrets in AWS
 Secrets Manager.
 """
 
-import logging
 import json
+import logging
 
 logger = logging.getLogger(__name__)
 

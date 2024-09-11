@@ -12,6 +12,7 @@ Data Types_ example in the Amazon Kinesis Data Analytics SQL Developer Guide.
 
 import json
 import random
+
 import boto3
 
 STREAM_NAME = "OrdersAndTradesStream"

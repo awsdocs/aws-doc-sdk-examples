@@ -6,10 +6,9 @@ Unit tests for transcribe_basics.py functions.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
 import transcribe_basics
+from botocore.exceptions import ClientError
 
 
 def make_test_job(index):

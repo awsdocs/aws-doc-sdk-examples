@@ -6,15 +6,16 @@ Unit tests for export_datasets.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
-from export_datasets import export_datasets
-from export_datasets import copy_file
-from export_datasets import upload_manifest_file
-from export_datasets import get_dataset_types
-from export_datasets import process_json_line
-from export_datasets import write_manifest_file
+from botocore.exceptions import ClientError
+from export_datasets import (
+    copy_file,
+    export_datasets,
+    get_dataset_types,
+    process_json_line,
+    upload_manifest_file,
+    write_manifest_file,
+)
 
 
 @pytest.mark.parametrize(

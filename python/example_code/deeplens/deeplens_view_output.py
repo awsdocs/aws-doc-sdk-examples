@@ -27,12 +27,12 @@
 # snippet-start:[deeplens.python.deeplens_view_output.lambda_function]
 
 import os
-import greengrasssdk
-from threading import Timer
 import time
+from threading import Thread, Timer
+
 import awscam
 import cv2
-from threading import Thread
+import greengrasssdk
 
 # Create an AWS Greengrass core SDK client.
 client = greengrasssdk.client("iot-data")
@@ -40,7 +40,7 @@ client = greengrasssdk.client("iot-data")
 # The information exchanged between AWS IoT and the AWS Cloud has
 # a topic and a message body.
 # This is the topic that this code uses to send messages to the Cloud.
-iotTopic = "$aws/things/{}/infer".format(os.environ["AWS_IOT_THING_NAME"])
+iotTopic = f"$aws/things/{os.environ['AWS_IOT_THING_NAME']}/infer"
 _, frame = awscam.getLastFrame()
 _, jpeg = cv2.imencode(".jpg", frame)
 Write_To_FIFO = True
@@ -60,7 +60,7 @@ class FIFO_Thread(Thread):
         while Write_To_FIFO:
             try:
                 f.write(jpeg.tobytes())
-            except IOError as e:
+            except OSError as e:
                 continue
 
 
@@ -139,10 +139,8 @@ def greengrass_infinite_infer_run():
                     )
                     ymax = int(yscale * obj["ymax"])
                     cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (255, 165, 20), 4)
-                    label += '"{}": {:.2f},'.format(outMap[obj["label"]], obj["prob"])
-                    label_show = "{}:    {:.2f}%".format(
-                        outMap[obj["label"]], obj["prob"] * 100
-                    )
+                    label += f"\"{outMap[obj['label']]}\": {obj['prob']:.2f},"
+                    label_show = f"{outMap[obj['label']]}:    {obj['prob'] * 100:.2f}%"
                     cv2.putText(
                         frame,
                         label_show,

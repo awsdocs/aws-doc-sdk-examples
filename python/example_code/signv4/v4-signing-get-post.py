@@ -17,11 +17,18 @@ maintained as functional code.
 
 # DynamoDB API (CreateTable)
 
+import base64
+import datetime
+import hashlib
+import hmac
+import os
+
 # See: http://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html
 # This version makes a POST request and passes request parameters
 # in the body (payload) of the request. Auth information is passed in
 # an Authorization header.
-import sys, os, base64, datetime, hashlib, hmac
+import sys
+
 import requests  # pip install requests
 
 # ************* REQUEST VALUES *************
@@ -84,7 +91,7 @@ date_stamp = t.strftime("%Y%m%d")  # Date w/o time, used in credential scope
 # string (use '/' if no path)
 canonical_uri = "/"
 
-## Step 3: Create the canonical query string. In this example, request
+# Step 3: Create the canonical query string. In this example, request
 # parameters are passed in the body of the request and the query string
 # is blank.
 canonical_querystring = ""

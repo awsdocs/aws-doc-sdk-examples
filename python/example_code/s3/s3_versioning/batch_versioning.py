@@ -9,22 +9,21 @@ that call AWS Lambda functions to perform processing. The demo has three phases:
 processing, and teardown.
 """
 
-from contextlib import contextmanager
-from io import BytesIO
 import json
 import logging
 import random
+import time
+import uuid
+from contextlib import contextmanager
+from io import BytesIO
 from shutil import get_terminal_size
 from sys import stdout
-import time
 from urllib import parse
-import uuid
 from zipfile import ZipFile
 
 import boto3
-from botocore.exceptions import ClientError
-
 import versioning
+from botocore.exceptions import ClientError
 
 logging.basicConfig(
     format="%(levelname)s:%(message)s", level=logging.INFO, stream=stdout

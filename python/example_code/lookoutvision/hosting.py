@@ -11,8 +11,8 @@ Shows how to start and stop a model. Also, how to get a list of running models
 in your AWS account.
 """
 
-import time
 import logging
+import time
 
 from botocore.exceptions import ClientError
 

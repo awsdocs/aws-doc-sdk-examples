@@ -12,9 +12,10 @@ This file is deployed to AWS Lambda as part of the Chalice deployment.
 
 import logging
 import urllib.parse
+
+import chalicelib.library_data
 from chalice import Chalice
 from chalice.app import RequestTimeoutError
-import chalicelib.library_data
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)

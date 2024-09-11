@@ -1,9 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-import pytest
 import subprocess
 import sys
+
+import pytest
 
 files_under_test = [
     # Text models

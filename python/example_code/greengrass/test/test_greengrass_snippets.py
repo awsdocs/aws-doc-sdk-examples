@@ -8,7 +8,7 @@ Unit tests for AWS IoT Greengrass code example snippets.
 import importlib
 import os
 import sys
-from unittest.mock import MagicMock, ANY, patch, mock_open, call
+from unittest.mock import ANY, MagicMock, call, mock_open, patch
 
 import pytest
 
@@ -89,7 +89,7 @@ def test_client(module_name, sdk_mock):
     importlib.import_module(module_name)
     sdk_mock.client.assert_called_with("iot-data")
     sdk_mock.client().publish.assert_called_with(
-        topic="some/topic", qos=0, payload="Some payload".encode()
+        topic="some/topic", qos=0, payload=b"Some payload"
     )
 
 

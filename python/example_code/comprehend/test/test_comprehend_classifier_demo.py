@@ -6,10 +6,10 @@ Unit tests for comprehend_classifier_demo.py
 """
 
 from unittest.mock import MagicMock
-from botocore.exceptions import ClientError
+
 import pytest
 import requests
-
+from botocore.exceptions import ClientError
 from comprehend_classifier_demo import ClassifierDemo
 
 

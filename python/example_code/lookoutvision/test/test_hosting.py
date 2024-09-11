@@ -6,9 +6,8 @@ Unit tests for hosting.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from hosting import Hosting
 
 

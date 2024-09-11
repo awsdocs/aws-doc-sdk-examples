@@ -6,10 +6,10 @@ Unit tests for lambda_chat.py.
 """
 
 import json
-import boto3
-import pytest
 
+import boto3
 import lambda_chat
+import pytest
 
 
 @pytest.mark.parametrize(
@@ -87,7 +87,7 @@ def test_handle_message(
     )
     if error_method != "stub_scan":
         apig_management_stubber.stub_post_to_connection(
-            f"{user_name}: {msg}".encode("utf-8"),
+            f"{user_name}: {msg}".encode(),
             other_connection_id,
             error_code=error_code
             if error_method == "stub_post_to_connection"

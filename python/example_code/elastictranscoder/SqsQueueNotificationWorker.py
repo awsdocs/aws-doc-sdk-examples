@@ -25,11 +25,11 @@
 
 # snippet-start:[elastictranscoder.python.create_sqs_notification_queue.import]
 
-from ctypes import c_bool
-from enum import Enum, auto
 import json
 import multiprocessing
 import pprint
+from ctypes import c_bool
+from enum import Enum, auto
 
 import boto3
 

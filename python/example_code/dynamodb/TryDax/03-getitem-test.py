@@ -16,6 +16,7 @@ mode lets you compare the performance of the two clients.
 import argparse
 import sys
 import time
+
 import amazondax
 import boto3
 

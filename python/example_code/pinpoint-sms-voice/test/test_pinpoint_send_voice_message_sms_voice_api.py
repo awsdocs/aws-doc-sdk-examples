@@ -6,10 +6,9 @@ Unit tests for pinpoint_send_voice_message_sms_voice_api.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
-import pytest
-
 import pinpoint_send_voice_message_sms_voice_api as api
+import pytest
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])

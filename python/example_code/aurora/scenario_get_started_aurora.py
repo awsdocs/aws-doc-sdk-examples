@@ -14,16 +14,16 @@ Shows how to use the AWS SDK for Python (Boto3) with Amazon Aurora to do the fol
 """
 
 import logging
-from pprint import pp
 import sys
 import uuid
+from pprint import pp
 
+import demo_tools.question as q
 from aurora_wrapper import AuroraWrapper
+from demo_tools.retries import wait
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
-import demo_tools.question as q
-from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 

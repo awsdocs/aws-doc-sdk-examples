@@ -10,9 +10,10 @@ using AWS Security Token Service (STS) credentials.
 
 import json
 import os
-import time
 import sys
+import time
 import webbrowser
+
 import boto3
 from botocore.exceptions import ClientError
 

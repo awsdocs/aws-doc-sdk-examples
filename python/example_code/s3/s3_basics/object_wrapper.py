@@ -45,7 +45,7 @@ class ObjectWrapper:
         if isinstance(data, str):
             try:
                 put_data = open(data, "rb")
-            except IOError:
+            except OSError:
                 logger.exception("Expected file name or binary data, got '%s'.", data)
                 raise
 
