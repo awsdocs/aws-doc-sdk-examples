@@ -8,7 +8,7 @@ personalize-events_PutEvents:
           excerpts:
             - description:
               snippet_tags:
-                - personalize.java2.put_items.main
+                - personalize.java2.put_events.main
     JavaScript:
       versions:
         - sdk_version: 3
