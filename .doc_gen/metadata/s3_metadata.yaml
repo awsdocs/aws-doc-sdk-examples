@@ -199,7 +199,7 @@ s3_CreateBucket:
             - description:
               snippet_tags:
                 - s3.swift.import
-                - s3.swift.basics.handler.createbucket
+                - s3.swift.basics.handler.CreateBucket
     Bash:
       versions:
         - sdk_version: 2
@@ -329,7 +329,7 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - s3.swift.import
-                - s3.swift.basics.handler.copyfile
+                - s3.swift.basics.handler.CopyObject
     Bash:
       versions:
         - sdk_version: 2
@@ -495,7 +495,7 @@ s3_DeleteObject:
             - description:
               snippet_tags:
                 - s3.swift.import
-                - s3.swift.basics.handler.deletefile
+                - s3.swift.basics.handler.DeleteObject
     Bash:
       versions:
         - sdk_version: 2
@@ -610,7 +610,7 @@ s3_DeleteObjects:
             - description:
               snippet_tags:
                 - s3.swift.import
-                - s3.swift.deleteobjects.handler.deleteobjects
+                - s3.swift.deleteobjects.handler.DeleteObjects
     C++:
       versions:
         - sdk_version: 1
@@ -907,7 +907,7 @@ s3_GetObject:
             - description:
               snippet_tags:
                 - s3.swift.import
-                - s3.swift.basics.handler.downloadfile
+                - s3.swift.basics.handler.GetObject
             - description:
               snippet_tags:
                 - s3.swift.import
@@ -1392,7 +1392,7 @@ s3_ListObjectsV2:
             - description:
               snippet_tags:
                 - s3.swift.import
-                - s3.swift.basics.handler.listbucketfiles
+                - s3.swift.basics.handler.ListObjectsV2
     Bash:
       versions:
         - sdk_version: 2
@@ -1574,7 +1574,7 @@ s3_PutObject:
             - description:
               snippet_tags:
                 - s3-smithy.swift.import
-                - s3.swift.basics.handler.uploadfile
+                - s3.swift.basics.handler.PutObject
             - description:
               snippet_tags:
                 - s3-smithy.swift.import
@@ -1710,7 +1710,7 @@ s3_DeleteBucket:
             - description:
               snippet_tags:
                 - s3.swift.import
-                - s3.swift.basics.handler.deletebucket
+                - s3.swift.basics.handler.DeleteBucket
     Bash:
       versions:
         - sdk_version: 2
@@ -2199,7 +2199,7 @@ s3_ListBuckets:
             - description:
               snippet_tags:
                 - s3.swift.import
-                - s3.swift.listbuckets.getallbuckets
+                - s3.swift.listbuckets.ListBuckets
   services:
     s3: {ListBuckets}
 s3_PutObjectAcl:

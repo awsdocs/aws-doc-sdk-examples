@@ -67,7 +67,7 @@ public class S3Manager {
     }
     // snippet-end:[s3.swift.listbuckets.s3manager.init]
 
-    // snippet-start:[s3.swift.listbuckets.getallbuckets]
+    // snippet-start:[s3.swift.listbuckets.ListBuckets]
     /// Return an array containing information about every available bucket.
     /// 
     /// - Returns: An array of ``S3ClientTypes.Bucket`` objects describing
@@ -80,6 +80,6 @@ public class S3Manager {
         }
         return buckets
     }
-    // snippet-end:[s3.swift.listbuckets.getallbuckets]
+    // snippet-end:[s3.swift.listbuckets.ListBuckets]
 }
 // snippet-end:[s3.swift.listbuckets.s3manager]
