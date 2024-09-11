@@ -1,4 +1,5 @@
 <?php
+
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -14,21 +15,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * @group integ
  */
-
 class BedrockRuntimeTests extends TestCase
 {
-    protected BedrockRuntimeService $bedrockRuntimeService;
-
+    private BedrockRuntimeService $bedrockRuntimeService;
     private string $prompt = 'A test prompt';
-
     public function setup(): void
     {
-        $clientArgs = [
-            'region' => 'us-east-1',
-            'version' => 'latest',
-            'profile' => 'default',
-        ];
-        $this->bedrockRuntimeService = new BedrockRuntimeService(null, $clientArgs['region'], $clientArgs['version'], $clientArgs['profile']);
+        $this->bedrockRuntimeService = new BedrockRuntimeService();
     }
 
     public function test_claude_can_be_invoked()

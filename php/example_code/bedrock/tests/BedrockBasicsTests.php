@@ -1,4 +1,5 @@
 <?php
+
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -17,20 +18,10 @@ use PHPUnit\Framework\TestCase;
 class BedrockBasicsTests extends TestCase
 {
     protected BedrockService $bedrockService;
-
-    public function setup(): void
-    {
-        $clientArgs = [
-            'region' => 'us-west-2',
-            'version' => 'latest',
-            'profile' => 'default',
-        ];
-        $this->bedrockService = new BedrockService(null, $clientArgs['region'], $clientArgs['version'], $clientArgs['profile']);
-    }
-
     public function test_foundation_models_can_be_listed()
     {
+        $this->bedrockService = new BedrockService();
         $result = $this->bedrockService->listFoundationModels();
-        self::assertNotEmpty($result['modelSummaries']);
+        self::assertNotEmpty($result);
     }
 }

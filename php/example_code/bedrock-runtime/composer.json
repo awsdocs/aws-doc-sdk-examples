@@ -11,8 +11,5 @@
             "BedrockRuntime\\": "../bedrock-runtime/",
             "AwsUtilities\\": "../aws_utilities/"
         }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^11.3"
     }
 }
