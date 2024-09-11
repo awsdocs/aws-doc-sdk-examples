@@ -239,8 +239,9 @@ public class OpenSearchActions {
                         for (int i = 0; i < 5; i++) {
                             long elapsedTimeInSeconds = (System.currentTimeMillis() - startTime) / 1000;
                             String formattedTime = String.format("%02d:%02d", elapsedTimeInSeconds / 60, elapsedTimeInSeconds % 60);
-                            logger.info("\rOpenSearch domain state: {} | Time Elapsed: {} ", state, formattedTime);
-                            Thread.sleep(1_000); // Sleep for 1 second
+                            System.out.print("\rOpenSearch domain state: " + state + " | Time Elapsed: " + formattedTime + " ");
+                            System.out.flush();
+                            Thread.sleep(1_000);
                         }
                     }
                 } catch (InterruptedException e) {

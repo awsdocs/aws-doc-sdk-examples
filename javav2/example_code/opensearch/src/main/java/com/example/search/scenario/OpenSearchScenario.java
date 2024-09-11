@@ -16,26 +16,33 @@ public class OpenSearchScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
 
     private static final Logger logger = LoggerFactory.getLogger(OpenSearchScenario.class);
-    public static void main(String[]args){
-        Scanner scanner = new Scanner(System.in);
-        OpenSearchActions openSearchActions = new OpenSearchActions();
-        String currentTimestamp = String.valueOf(System.currentTimeMillis());
-        String domainName = "test-domain-" + currentTimestamp;
+    static Scanner scanner = new Scanner(System.in);
 
+    static OpenSearchActions openSearchActions = new OpenSearchActions();
+    public static void main(String[]args) throws Throwable {
         logger.info("""
-          Welcome to the Amazon OpenSearch Service Basics Scenario.
-          
-          Use the Amazon OpenSearch Service API to create, configure, and manage OpenSearch Service domains. 
-           
-          These operations exposed by the OpenSearch Service client is focused on managing the OpenSearch Service domains 
-          and their configurations, not the data within the domains (such as indexing or querying documents). 
-          For document management, you typically interact directly with the OpenSearch REST API or use other libraries, 
-          such as the OpenSearch Java client.
-          
-          Lets get started...
-            """);
+            Welcome to the Amazon OpenSearch Service Basics Scenario.
+                      
+            Use the Amazon OpenSearch Service API to create, configure, and manage OpenSearch Service domains. 
+             
+            These operations exposed by the OpenSearch Service client is focused on managing the OpenSearch Service domains 
+            and their configurations, not the data within the domains (such as indexing or querying documents). 
+            For document management, you typically interact directly with the OpenSearch REST API or use other libraries, 
+            such as the OpenSearch Java client.
+                      
+            Lets get started...
+              """);
         waitForInputToContinue(scanner);
 
+        try {
+            runScenario();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+    }
+    private static void runScenario() throws Throwable {
+        String currentTimestamp = String.valueOf(System.currentTimeMillis());
+        String domainName = "test-domain-" + currentTimestamp;
         logger.info(DASHES);
         logger.info("1. Create an Amazon OpenSearch domain");
         logger.info("""
@@ -48,8 +55,8 @@ public class OpenSearchScenario {
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<String> future = openSearchActions.createNewDomainAsync(domainName);
-            String domainId = future.join();
-            logger.info("Domain successfully created with ID: " + domainId);
+            future.join();
+
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof OpenSearchException openSearchEx) {
@@ -57,6 +64,7 @@ public class OpenSearchScenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -76,6 +84,7 @@ public class OpenSearchScenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -96,6 +105,7 @@ public class OpenSearchScenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -122,6 +132,7 @@ public class OpenSearchScenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -147,6 +158,7 @@ public class OpenSearchScenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -169,6 +181,7 @@ public class OpenSearchScenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -183,7 +196,7 @@ public class OpenSearchScenario {
             """);
         waitForInputToContinue(scanner);
         try {
-            CompletableFuture<Void> future = openSearchActions.addDomainTagsAsync(domainName);
+            CompletableFuture<Void> future = openSearchActions.addDomainTagsAsync(arn);
             future.join();
             logger.info("Domain change progress completed successfully.");
         } catch (RuntimeException rt) {
@@ -193,6 +206,7 @@ public class OpenSearchScenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -224,6 +238,7 @@ public class OpenSearchScenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         logger.info(domainName +" has been deleted.");
         waitForInputToContinue(scanner);
