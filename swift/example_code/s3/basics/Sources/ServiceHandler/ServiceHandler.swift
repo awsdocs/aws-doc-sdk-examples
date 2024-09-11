@@ -19,22 +19,32 @@ import ClientRuntime
 
 /// A class containing all the code that interacts with the AWS SDK for Swift.
 public class ServiceHandler {
+    let configuration: S3Client.S3ClientConfiguration
     let client: S3Client
-    
+
+    enum HandlerError: Error {
+        case getObjectBody(String)
+        case readGetObjectBody(String)
+        case missingContents(String)
+    }
+
     /// Initialize and return a new ``ServiceHandler`` object, which is used to drive the AWS calls
     /// used for the example.
     ///
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[s3.swift.basics.handler.init]
-    public init() async {
+    public init() async throws {
         do {
-            client = try S3Client(region: "us-east-2")
-        } catch {
+            configuration = try await S3Client.S3ClientConfiguration()    
+            client = S3Client(config: configuration)
+        }
+        catch {
             print("ERROR: ", dump(error, name: "Initializing S3 client"))
-            exit(1)
+            throw error
         }
     }
+
     // snippet-end:[s3.swift.basics.handler.init]
 
     /// Create a new user given the specified name.
@@ -44,14 +54,26 @@ public class ServiceHandler {
     /// Throws an exception if an error occurs.
     // snippet-start:[s3.swift.basics.handler.createbucket]
     public func createBucket(name: String) async throws {
-        let config = S3ClientTypes.CreateBucketConfiguration(
-            locationConstraint: .usEast2
+        var input = CreateBucketInput(
+            bucket: name
         )
-        let input = CreateBucketInput(
-            bucket: name,
-            createBucketConfiguration: config
-        )
-        _ = try await client.createBucket(input: input)
+        if let region = configuration.region {
+            if region != "us-east-1" {
+                input.createBucketConfiguration = S3ClientTypes.CreateBucketConfiguration(locationConstraint: S3ClientTypes.BucketLocationConstraint(rawValue: region))
+            }
+        }
+
+        do {
+            _ = try await client.createBucket(input: input)
+        }
+        catch let error as BucketAlreadyOwnedByYou {
+            print("The bucket '\(name)' already exists and is owned by you. You may wish to ignore this exception.")
+            throw error
+        }
+        catch {
+            print("ERROR: ", dump(error, name: "Creating a bucket"))
+            throw error
+        }
     }
     // snippet-end:[s3.swift.basics.handler.createbucket]
 
@@ -62,7 +84,13 @@ public class ServiceHandler {
         let input = DeleteBucketInput(
             bucket: name
         )
-        _ = try await client.deleteBucket(input: input)
+        do {
+            _ = try await client.deleteBucket(input: input)
+        }
+        catch {
+            print("ERROR: ", dump(error, name: "Deleting a bucket"))
+            throw error
+        }
     }
     // snippet-end:[s3.swift.basics.handler.deletebucket]
 
@@ -74,15 +102,22 @@ public class ServiceHandler {
     // snippet-start:[s3.swift.basics.handler.uploadfile]
     public func uploadFile(bucket: String, key: String, file: String) async throws {
         let fileUrl = URL(fileURLWithPath: file)
-        let fileData = try Data(contentsOf: fileUrl)
-        let dataStream = ByteStream.data(fileData)
+        do {
+            let fileData = try Data(contentsOf: fileUrl)
+            let dataStream = ByteStream.data(fileData)
 
-        let input = PutObjectInput(
-            body: dataStream,
-            bucket: bucket,
-            key: key
-        )
-        _ = try await client.putObject(input: input)
+            let input = PutObjectInput(
+                body: dataStream,
+                bucket: bucket,
+                key: key
+            )
+
+            _ = try await client.putObject(input: input)
+        }
+        catch {
+            print("ERROR: ", dump(error, name: "Putting an object."))
+            throw error
+        }
     }
     // snippet-end:[s3.swift.basics.handler.uploadfile]
 
@@ -102,7 +137,14 @@ public class ServiceHandler {
             bucket: bucket,
             key: key
         )
-        _ = try await client.putObject(input: input)
+
+        do {
+            _ = try await client.putObject(input: input)
+        }
+        catch {
+            print("ERROR: ", dump(error, name: "Putting an object."))
+            throw error
+        }
     }
     // snippet-end:[s3.swift.basics.handler.createfile]
 
@@ -121,14 +163,23 @@ public class ServiceHandler {
             bucket: bucket,
             key: key
         )
-        let output = try await client.getObject(input: input)
+        do {
+            let output = try await client.getObject(input: input)
 
-        // Get the data stream object. Return immediately if there isn't one.
-        guard let body = output.body,
-              let data = try await body.readData() else {
-            return
+            guard let body = output.body else {
+                throw HandlerError.getObjectBody("GetObjectInput missing body.")
+            }
+
+            guard let data = try await body.readData() else {
+                throw HandlerError.readGetObjectBody("GetObjectInput unable to read data.")
+            }
+
+            try data.write(to: fileUrl)
         }
-        try data.write(to: fileUrl)
+        catch {
+            print("ERROR: ", dump(error, name: "Downloading a file."))
+            throw error
+        }
     }
     // snippet-end:[s3.swift.basics.handler.downloadfile]
 
@@ -146,17 +197,25 @@ public class ServiceHandler {
             bucket: bucket,
             key: key
         )
-        let output = try await client.getObject(input: input)
+        do {
+            let output = try await client.getObject(input: input)
+            
+            guard let body = output.body else {
+                throw HandlerError.getObjectBody("GetObjectInput missing body.")
+            }
 
-        // Get the stream and return its contents in a `Data` object. If
-        // there is no stream, return an empty `Data` object instead.
-        guard let body = output.body,
-              let data = try await body.readData() else {
-            return "".data(using: .utf8)!
+            guard let data = try await body.readData() else {
+                throw HandlerError.readGetObjectBody("GetObjectInput unable to read data.")
+            }
+
+            return data
         }
-        
-        return data
-    }
+        catch {
+            print("ERROR: ", dump(error, name: "Reading a file."))
+            throw error
+        }
+   }
+
     // snippet-end:[s3.swift.basics.handler.readfile]
 
     /// Copy a file from one bucket to another.
@@ -174,7 +233,13 @@ public class ServiceHandler {
             copySource: srcUrl,
             key: name
         )
-        _ = try await client.copyObject(input: input)
+        do {
+            _ = try await client.copyObject(input: input)
+        }
+        catch {
+            print("ERROR: ", dump(error, name: "Copying an object."))
+            throw error
+        }
     }
     // snippet-end:[s3.swift.basics.handler.copyfile]
 
@@ -193,7 +258,9 @@ public class ServiceHandler {
 
         do {
             _ = try await client.deleteObject(input: input)
-        } catch {
+        }
+        catch {
+            print("ERROR: ", dump(error, name: "Deleting a file."))
             throw error
         }
     }
@@ -207,23 +274,33 @@ public class ServiceHandler {
     ///            one file contained in the bucket.
     // snippet-start:[s3.swift.basics.handler.listbucketfiles]
     public func listBucketFiles(bucket: String) async throws -> [String] {
-        let input = ListObjectsV2Input(
-            bucket: bucket
-        )
-        let output = try await client.listObjectsV2(input: input)
-        var names: [String] = []
-
-        guard let objList = output.contents else {
-            return []
-        }
-
-        for obj in objList {
-            if let objName = obj.key {
-                names.append(objName)
+        do {
+            let input = ListObjectsV2Input(
+                bucket: bucket
+            )
+            let output = client.listObjectsV2Paginated(input: input)
+            var names: [String] = []
+            
+            for try await page in output {
+                guard let objList = page.contents else {
+                    print("ERROR: listObjectsV2Paginated returned nil contents.")
+                    continue
+                }
+                
+                for obj in objList {
+                    if let objName = obj.key {
+                        names.append(objName)
+                    }
+                }
             }
+            
+            
+            return names
         }
-
-        return names
+        catch {
+            print("ERROR: ", dump(error, name: "Listing objects."))
+            throw error
+        }
     }
     // snippet-end:[s3.swift.basics.handler.listbucketfiles]
 }

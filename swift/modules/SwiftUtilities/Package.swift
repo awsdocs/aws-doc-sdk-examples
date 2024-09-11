@@ -30,9 +30,6 @@ let package = Package(
             name: "SwiftUtilities",
             dependencies: [
                 "Fakery"
-            ],
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         ),
         .testTarget(
@@ -40,10 +37,15 @@ let package = Package(
             dependencies: [
                 "SwiftUtilities",
                 "Fakery"
-            ],
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
             ]
         ),
     ]
 )
+
+#if !os(macOS) && !os(iOS) && !os(watchOS) && !os(tvOS)
+    // Include librt for Dispatch to work on Linux.
+for target in package.targets {
+    target.linkerSettings?.append(LinkerSetting.linkedLibrary("rt"))
+}
+
+#endif

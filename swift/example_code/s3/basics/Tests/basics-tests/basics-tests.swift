@@ -30,10 +30,10 @@ final class BasicsTests: XCTestCase {
     override class func setUp() {
         let tdSem = TestWaiter(name: "Setup")
         super.setUp()
-        SDKLoggingSystem.initialize(logLevel: .error)
+        
 
         Task() {
-            BasicsTests.serviceHandler = await ServiceHandler()
+            BasicsTests.serviceHandler = try await ServiceHandler()
             BasicsTests.demoCleanup = await S3DemoCleanup()
             tdSem.signal()
         }
