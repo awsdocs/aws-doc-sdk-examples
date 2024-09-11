@@ -25,10 +25,10 @@ public class OpenSearchScenario {
                       
             Use the Amazon OpenSearch Service API to create, configure, and manage OpenSearch Service domains. 
              
-            These operations exposed by the OpenSearch Service client is focused on managing the OpenSearch Service domains 
+          The operations exposed by the AWS OpenSearch Service client are focused on managing the OpenSearch Service domains 
             and their configurations, not the data within the domains (such as indexing or querying documents). 
             For document management, you typically interact directly with the OpenSearch REST API or use other libraries, 
-            such as the OpenSearch Java client.
+          such as the OpenSearch Java client (https://opensearch.org/docs/latest/clients/java/).
                       
             Lets get started...
               """);
@@ -51,18 +51,26 @@ public class OpenSearchScenario {
            An OpenSearch domain is essentially a cluster of compute resources and storage that hosts 
            one or more OpenSearch indexes, enabling you to perform full-text searches, data analysis, and 
            visualizations.
+           
+           In this step, we'll initiate the creation of the domain. We'll check on the progress in a later
+           step.\s
            """);
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<String> future = openSearchActions.createNewDomainAsync(domainName);
-            future.join();
 
+            String domainId = future.join();
+            logger.info("Domain successfully created with ID: {}", domainId);
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            if (cause instanceof OpenSearchException openSearchEx) {
-                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+            if (cause != null) {
+                if (cause instanceof OpenSearchException openSearchEx) {
+                    logger.error("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+                } else {
+                    logger.error("An unexpected error occurred: " + cause.getMessage(), cause);
+                }
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.error("An unexpected error occurred: " + rt.getMessage());
             }
             throw cause;
         }
@@ -113,10 +121,12 @@ public class OpenSearchScenario {
         logger.info(DASHES);
         logger.info("4. Wait until the domain's change status reaches a completed state");
         logger.info("""
-        In the following method call, the clock counts up until the domain's change status reaches a completed state.
+        In this step, we check on the change status of the domain that we initiated in Step 1.
+        Until we reach a COMPLETED state, we stay in a loop by sending a DescribeDomainChangeProgressRequest.
         
-        Roughly, the time it takes for an OpenSearch domain's change status to reach a completed state can range 
-        from a few minutes to several hours, depending on the complexity of the change and the current load on 
+        The time it takes for a change to an OpenSearch domain to reach a completed state can range 
+        from a few minutes to several hours. In this case the change is creating a new domain that we initiated in Step 1.
+        The time varies depending on the complexity of the change and the current load on 
         the OpenSearch service. In general, simple changes, such as scaling the number of data nodes or 
         updating the OpenSearch version, may take 10-30 minutes,
         """);
@@ -140,16 +150,17 @@ public class OpenSearchScenario {
         logger.info(DASHES);
         logger.info("5. Modify the domain ");
         logger.info("""
-           You can modify the cluster configuration, such as the instance count, without having to manually 
-           manage the domain's settings. This flexibility is particularly useful when your data or usage patterns 
-           change over time, as you can easily scale the OpenSearch domain to meet the new requirements without 
-           having to recreate the entire domain.
-            """);
+           You can change your OpenSearch domain's settings, like the number of instances, without starting over from scratch. 
+           This makes it easy to adjust your domain as your needs change, allowing you to scale up or 
+           down quickly without recreating everything.
+           
+           We modify the domain in this step by changing the number of instances.
+           """);
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<UpdateDomainConfigResponse> future = openSearchActions.updateSpecificDomainAsync(domainName);
             UpdateDomainConfigResponse updateResponse = future.join();  // Wait for the task to complete
-            logger.info("Domain update response from Amazon OpenSearch Service: " + updateResponse.toString());
+            logger.info("Domain update status: " + updateResponse.domainConfig().changeProgressDetails().configChangeStatusAsString());
 
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
@@ -166,8 +177,7 @@ public class OpenSearchScenario {
         logger.info(DASHES);
         logger.info("6. Wait until the domain's change status reaches a completed state");
         logger.info("""
-        In the following method call, the clock counts up until the domain's change status reaches a completed state.
-               
+        In this step, we poll the status until the domain's change status reaches a completed state.
         """);
         waitForInputToContinue(scanner);
         try {
@@ -192,19 +202,25 @@ public class OpenSearchScenario {
             Tags let you assign arbitrary information to an Amazon OpenSearch Service domain so you can 
             categorize and filter on that information. A tag is a key-value pair that you define and 
             associate with an OpenSearch Service domain. You can use these tags to track costs by grouping 
-            expenses for similarly tagged resources.\s
+            expenses for similarly tagged resources.
+            
+            In this scenario, we create tags with keys "service" and "instances".
             """);
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = openSearchActions.addDomainTagsAsync(arn);
             future.join();
-            logger.info("Domain change progress completed successfully.");
+            logger.info("Domain tags added successfully.");
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            if (cause instanceof OpenSearchException ex) {
-                logger.info("EC2 error occurred: Error message: " +ex.getMessage());
+            if (cause != null) {
+                if (cause instanceof OpenSearchException) {
+                    logger.error("OpenSearch error occurred: Error message: " + cause.getMessage(), cause);
+                } else {
+                    logger.error("An unexpected error occurred: " + cause.getMessage(), cause);
+                }
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.error("An unexpected error occurred: " + rt.getMessage(), rt);
             }
             throw cause;
         }
@@ -230,7 +246,7 @@ public class OpenSearchScenario {
         try {
             CompletableFuture<Void> future = openSearchActions.deleteSpecificDomainAsync(domainName);
             future.join();
-            logger.info(domainName + " was successfully deleted.");
+            logger.info("Request to delete {} was successfully sent.", domainName);
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof OpenSearchException openSearchEx) {
@@ -240,7 +256,10 @@ public class OpenSearchScenario {
             }
             throw cause;
         }
-        logger.info(domainName +" has been deleted.");
+        logger.info("""
+                As mentioned earlier, it can take several minutes for the domain to be deleted.
+                We can complete the scenario while the deletion proceeds.
+                """);
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 

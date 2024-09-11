@@ -102,14 +102,14 @@ public class OpenSearchActions {
 
         logger.info("Sending domain creation request...");
         return getAsyncClient().createDomain(domainRequest)
-            .thenApply(createResponse -> {
-                logger.info("Domain status is " + createResponse.domainStatus().toString());
-                logger.info("Domain Id is " + createResponse.domainStatus().domainId());
-                return createResponse.domainStatus().domainId();
-            })
-            .exceptionally(ex -> {
-                throw new RuntimeException("Failed to create domain", ex);
-            });
+                .handle( (createResponse, throwable) -> {
+                    if (createResponse != null) {
+                        logger.info("Domain status is {}", createResponse.domainStatus().changeProgressDetails().configChangeStatusAsString());
+                        logger.info("Domain Id is {}", createResponse.domainStatus().domainId());
+                        return createResponse.domainStatus().domainId();
+                    }
+                    throw new RuntimeException("Failed to create domain", throwable);
+                });
     }
     // snippet-end:[opensearch.java2.create_domain.main]
 
@@ -128,7 +128,7 @@ public class OpenSearchActions {
 
         // Delete domain asynchronously
         return getAsyncClient().deleteDomain(domainRequest)
-            .thenRun(() -> {
+            .thenRun(() -> {                            //FIXME change to whenComplete
             })
             .exceptionally(ex -> {
                 throw new RuntimeException("Failed to delete the domain: " + domainName, ex);
@@ -150,7 +150,7 @@ public class OpenSearchActions {
             .build();
 
         return getAsyncClient().describeDomain(request)
-            .thenApply(response -> {
+            .thenApply(response -> {                               //FIXME change to handle()
                 DomainStatus domainStatus = response.domainStatus();
                 String endpoint = domainStatus.endpoint();
                 String arn = domainStatus.arn();
@@ -181,7 +181,7 @@ public class OpenSearchActions {
             .build();
 
         return getAsyncClient().listDomainNames(namesRequest)
-            .thenApply(ListDomainNamesResponse::domainNames)
+            .thenApply(ListDomainNamesResponse::domainNames)               //FIXME change to handle()
             .exceptionally(ex -> {
                 throw new RuntimeException("Failed to list all domains", ex);
             });
@@ -206,7 +206,7 @@ public class OpenSearchActions {
             .build();
 
         return getAsyncClient().updateDomainConfig(updateDomainConfigRequest)
-            .exceptionally(ex -> {
+            .exceptionally(ex -> {                                                          // FIXME change to whenComplete()
                 throw new RuntimeException("Failed to update the domain configuration", ex);
             });
     }
@@ -251,7 +251,7 @@ public class OpenSearchActions {
                     throw new RuntimeException("Failed to check domain progress", e);
                 }
             }
-        });
+        });              //FIXME add a whenComplete()
     }
     // snippet-end:[opensearch.java2.change_process.main]
 
@@ -284,7 +284,7 @@ public class OpenSearchActions {
             .build();
 
         return getAsyncClient().addTags(addTagsRequest)
-            .thenRun(() -> {
+            .thenRun(() -> {                             // FIXME change to whenComplete()
                 })
             .exceptionally(ex -> {
                 throw new RuntimeException("Failed to add tags to the domain: " + domainARN, ex);
@@ -306,7 +306,7 @@ public class OpenSearchActions {
             .arn(arn)
             .build();
 
-        return getAsyncClient().listTags(tagsRequest).thenAccept(response -> {
+        return getAsyncClient().listTags(tagsRequest).thenAccept(response -> {          // FIXME change to whenComplete()
             List<Tag> tagList = response.tagList();
             for (Tag tag : tagList) {
                 logger.info("Tag key is " + tag.key());
