@@ -40,15 +40,15 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CopyObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
-- [CreateBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
-- [DeleteBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
-- [DeleteObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
-- [DeleteObjects](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
-- [GetObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
-- [ListBuckets](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
-- [ListObjectsV2](basics/Sources/ServiceHandler/ServiceHandler.swift#L12)
-- [PutObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L11)
+- [CopyObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L232)
+- [CreateBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L56)
+- [DeleteBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L87)
+- [DeleteObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L257)
+- [DeleteObjects](DeleteObjects/Sources/ServiceHandler/ServiceHandler.swift#L54)
+- [GetObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L163)
+- [ListBuckets](ListBuckets/Sources/ListBuckets/S3Session.swift#L70)
+- [ListObjectsV2](basics/Sources/ServiceHandler/ServiceHandler.swift#L280)
+- [PutObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L107)
 
 
 <!--custom.examples.start-->

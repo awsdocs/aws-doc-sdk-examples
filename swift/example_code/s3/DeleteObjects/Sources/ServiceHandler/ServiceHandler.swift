@@ -51,7 +51,7 @@ public class ServiceHandler {
     ///   - bucket: Name of the bucket containing the object to delete.
     ///   - keys: Names of the objects to delete from the bucket.
     ///
-    // snippet-start:[s3.swift.deleteobjects.handler.deleteobjects]
+    // snippet-start:[s3.swift.deleteobjects.handler.DeleteObjects]
     public func deleteObjects(bucket: String, keys: [String]) async throws {
         let input = DeleteObjectsInput(
             bucket: bucket,
@@ -80,6 +80,6 @@ public class ServiceHandler {
             throw error
         }
     }
-    // snippet-end:[s3.swift.deleteobjects.handler.deleteobjects]
+    // snippet-end:[s3.swift.deleteobjects.handler.DeleteObjects]
 }
 // snippet-end:[s3.swift.deleteobjects.handler]

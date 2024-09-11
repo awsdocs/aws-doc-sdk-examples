@@ -36,7 +36,8 @@ public class ServiceHandler {
     // snippet-start:[s3.swift.basics.handler.init]
     public init() async throws {
         do {
-            configuration = try await S3Client.S3ClientConfiguration()    
+            configuration = try await S3Client.S3ClientConfiguration() 
+         //   configuration.region = "us-east-2" // Uncomment this to set the region programmatically.
             client = S3Client(config: configuration)
         }
         catch {
@@ -52,11 +53,15 @@ public class ServiceHandler {
     /// - Parameters:
     ///   - name: Name of the bucket to create.
     /// Throws an exception if an error occurs.
-    // snippet-start:[s3.swift.basics.handler.createbucket]
+    // snippet-start:[s3.swift.basics.handler.CreateBucket]
     public func createBucket(name: String) async throws {
         var input = CreateBucketInput(
             bucket: name
         )
+        
+        // For regions other than "us-east-1", you must set the locationConstraint in the createBucketConfiguration.
+        // For more information, see LocationConstraint in the S3 API guide.
+        // https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html#API_CreateBucket_RequestBody
         if let region = configuration.region {
             if region != "us-east-1" {
                 input.createBucketConfiguration = S3ClientTypes.CreateBucketConfiguration(locationConstraint: S3ClientTypes.BucketLocationConstraint(rawValue: region))
@@ -75,11 +80,11 @@ public class ServiceHandler {
             throw error
         }
     }
-    // snippet-end:[s3.swift.basics.handler.createbucket]
+    // snippet-end:[s3.swift.basics.handler.CreateBucket]
 
     /// Delete a bucket.
     /// - Parameter name: Name of the bucket to delete.
-    // snippet-start:[s3.swift.basics.handler.deletebucket]
+    // snippet-start:[s3.swift.basics.handler.DeleteBucket]
     public func deleteBucket(name: String) async throws {
         let input = DeleteBucketInput(
             bucket: name
@@ -92,14 +97,14 @@ public class ServiceHandler {
             throw error
         }
     }
-    // snippet-end:[s3.swift.basics.handler.deletebucket]
+    // snippet-end:[s3.swift.basics.handler.DeleteBucket]
 
     /// Upload a file from local storage to the bucket.
     /// - Parameters:
     ///   - bucket: Name of the bucket to upload the file to.
     ///   - key: Name of the file to create.
     ///   - file: Path name of the file to upload.
-    // snippet-start:[s3.swift.basics.handler.uploadfile]
+    // snippet-start:[s3.swift.basics.handler.PutObject]
     public func uploadFile(bucket: String, key: String, file: String) async throws {
         let fileUrl = URL(fileURLWithPath: file)
         do {
@@ -119,7 +124,7 @@ public class ServiceHandler {
             throw error
         }
     }
-    // snippet-end:[s3.swift.basics.handler.uploadfile]
+    // snippet-end:[s3.swift.basics.handler.PutObject]
 
     /// Create a file in the specified bucket with the given name. The new
     /// file's contents are uploaded from a `Data` object.
@@ -155,7 +160,7 @@ public class ServiceHandler {
     ///   - key: The name of the file to copy from the bucket.
     ///   - to: The path of the directory on the local device where you want to
     ///     download the file.
-    // snippet-start:[s3.swift.basics.handler.downloadfile]
+    // snippet-start:[s3.swift.basics.handler.GetObject]
     public func downloadFile(bucket: String, key: String, to: String) async throws {
         let fileUrl = URL(fileURLWithPath: to).appendingPathComponent(key)
 
@@ -181,7 +186,7 @@ public class ServiceHandler {
             throw error
         }
     }
-    // snippet-end:[s3.swift.basics.handler.downloadfile]
+    // snippet-end:[s3.swift.basics.handler.GetObject]
 
     /// Read the specified file from the given S3 bucket into a Swift
     /// `Data` object.
@@ -224,7 +229,7 @@ public class ServiceHandler {
     ///   - sourceBucket: Name of the bucket containing the source file.
     ///   - name: Name of the source file.
     ///   - destBucket: Name of the bucket to copy the file into.
-    // snippet-start:[s3.swift.basics.handler.copyfile]
+    // snippet-start:[s3.swift.basics.handler.CopyObject]
     public func copyFile(from sourceBucket: String, name: String, to destBucket: String) async throws {
         let srcUrl = ("\(sourceBucket)/\(name)").addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
 
@@ -241,7 +246,7 @@ public class ServiceHandler {
             throw error
         }
     }
-    // snippet-end:[s3.swift.basics.handler.copyfile]
+    // snippet-end:[s3.swift.basics.handler.CopyObject]
 
     /// Deletes the specified file from Amazon S3.
     ///
@@ -249,7 +254,7 @@ public class ServiceHandler {
     ///   - bucket: Name of the bucket containing the file to delete.
     ///   - key: Name of the file to delete.
     ///
-    // snippet-start:[s3.swift.basics.handler.deletefile]
+    // snippet-start:[s3.swift.basics.handler.DeleteObject]
     public func deleteFile(bucket: String, key: String) async throws {
         let input = DeleteObjectInput(
             bucket: bucket,
@@ -264,7 +269,7 @@ public class ServiceHandler {
             throw error
         }
     }
-    // snippet-end:[s3.swift.basics.handler.deletefile]
+    // snippet-end:[s3.swift.basics.handler.DeleteObject]
 
     /// Returns an array of strings, each naming one file in the
     /// specified bucket.
@@ -272,12 +277,15 @@ public class ServiceHandler {
     /// - Parameter bucket: Name of the bucket to get a file listing for.
     /// - Returns: An array of `String` objects, each giving the name of
     ///            one file contained in the bucket.
-    // snippet-start:[s3.swift.basics.handler.listbucketfiles]
+    // snippet-start:[s3.swift.basics.handler.ListObjectsV2]
     public func listBucketFiles(bucket: String) async throws -> [String] {
         do {
             let input = ListObjectsV2Input(
                 bucket: bucket
             )
+            
+            // Use "Paginated" to get all the objects.
+            // This lets the SDK handle the 'continuationToken' in "ListObjectsV2Output".
             let output = client.listObjectsV2Paginated(input: input)
             var names: [String] = []
             
@@ -302,6 +310,6 @@ public class ServiceHandler {
             throw error
         }
     }
-    // snippet-end:[s3.swift.basics.handler.listbucketfiles]
+    // snippet-end:[s3.swift.basics.handler.ListObjectsV2]
 }
 // snippet-end:[s3.swift.basics.handler]

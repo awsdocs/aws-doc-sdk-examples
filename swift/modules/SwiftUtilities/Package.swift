@@ -41,11 +41,3 @@ let package = Package(
         ),
     ]
 )
-
-#if !os(macOS) && !os(iOS) && !os(watchOS) && !os(tvOS)
-    // Include librt for Dispatch to work on Linux.
-for target in package.targets {
-    target.linkerSettings?.append(LinkerSetting.linkedLibrary("rt"))
-}
-
-#endif
