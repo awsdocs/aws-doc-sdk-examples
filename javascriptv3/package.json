@@ -63,6 +63,7 @@
     "example_code/ses",
     "example_code/sns",
     "example_code/sqs",
+    "example_code/ssm",
     "example_code/sts",
     "example_code/support",
     "example_code/transcribe",

@@ -46,10 +46,10 @@ export class Step {
       console.log(
         `[DEBUG ${new Date().toISOString()}] Handling step: ${
           this.constructor.name
-        }<${this.name}>`,
+        }<${this.name}>`
       );
       console.log(
-        `[DEBUG ${new Date().toISOString()}] State: ${JSON.stringify(state)}`,
+        `[DEBUG ${new Date().toISOString()}] State: ${JSON.stringify(state)}`
       );
     }
   }
@@ -150,16 +150,19 @@ export class ScenarioInput extends Step {
         ? this.stepOptions.default(state)
         : this.stepOptions.default;
 
-    if (stepHandlerOptions.confirmAll && this.default) {
-      state[this.name] = this.default;
+    if (
+      stepHandlerOptions.confirmAll &&
+      this.stepOptions.default != undefined
+    ) {
+      state[this.name] = this.stepOptions.default;
       return state[this.name];
-    } else if (stepHandlerOptions.confirmAll && !this.default) {
+    } else if (stepHandlerOptions.confirmAll) {
       if (this.stepOptions?.type === "confirm") {
         state[this.name] = true;
         return true;
       }
       throw new Error(
-        `Error handling ScenarioInput. confirmAll was selected for ${this.name} but no default was provided.`,
+        `Error handling ScenarioInput. confirmAll was selected for ${this.name} but no default was provided.`
       );
     }
 
@@ -178,7 +181,7 @@ export class ScenarioInput extends Step {
         break;
       default:
         throw new Error(
-          `Error handling ScenarioInput, ${this.stepOptions?.type} is not supported.`,
+          `Error handling ScenarioInput, ${this.stepOptions?.type} is not supported.`
         );
     }
 
@@ -200,7 +203,7 @@ export class ScenarioInput extends Step {
 
     if (!rawChoices) {
       throw new Error(
-        `Error handling ScenarioInput. Could not get choices for ${this.name}.`,
+        `Error handling ScenarioInput. Could not get choices for ${this.name}.`
       );
     }
 
@@ -232,7 +235,7 @@ export class ScenarioInput extends Step {
       state[this.name] = this.default;
     } else if (!result.length) {
       throw new Error(
-        `Error handing ScenarioInput. Result of ${this.name} was empty.`,
+        `Error handing ScenarioInput. Result of ${this.name} was empty.`
       );
     } else {
       state[this.name] = result;
@@ -260,7 +263,7 @@ export class ScenarioInput extends Step {
         state[this.name] = this.default;
       } else if (!result) {
         throw new Error(
-          `Error handing ScenarioInput. Result of ${this.name} was empty.`,
+          `Error handing ScenarioInput. Result of ${this.name} was empty.`
         );
       } else {
         state[this.name] = result;
@@ -284,9 +287,9 @@ export class ScenarioInput extends Step {
 
     if (!result && this.default) {
       state[this.name] = this.default;
-    } else if (!result) {
+    } else if (result === undefined) {
       throw new Error(
-        `Error handing ScenarioInput. Result of ${this.name} was empty.`,
+        `Error handing ScenarioInput. Result of ${this.name} was empty.`
       );
     } else {
       state[this.name] = result;
@@ -359,7 +362,7 @@ export class ScenarioAction extends Step {
         output &&
           (await this.stepOptions.whileConfig.output.handle(
             state,
-            stepHandlerOptions,
+            stepHandlerOptions
           ));
         await input.handle(state, stepHandlerOptions);
         runAction = whileFn(state);
