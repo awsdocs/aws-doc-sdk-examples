@@ -11,7 +11,6 @@ import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.batch.BatchAsyncClient;
-import software.amazon.awssdk.services.batch.BatchClient;
 import software.amazon.awssdk.services.batch.model.AssignPublicIp;
 import software.amazon.awssdk.services.batch.model.BatchException;
 import software.amazon.awssdk.services.batch.model.CEState;
@@ -58,6 +57,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.batch.model.SubmitJobResponse;
 import software.amazon.awssdk.services.batch.model.UpdateComputeEnvironmentRequest;
 import software.amazon.awssdk.services.batch.model.UpdateComputeEnvironmentResponse;
@@ -129,8 +129,8 @@ public class BatchActions {
         CompletableFuture<CreateComputeEnvironmentResponse> response = getAsyncClient().createComputeEnvironment(environmentRequest);
         response.whenComplete((resp, ex) -> {
             if (ex != null) {
-               String errorMessage = "Unexpected error occurred: " + ex.getMessage();
-               throw new RuntimeException(errorMessage, ex);
+                String errorMessage = "Unexpected error occurred: " + ex.getMessage();
+                throw new RuntimeException(errorMessage, ex);
             }
         });
 
@@ -273,47 +273,47 @@ public class BatchActions {
      */
     public CompletableFuture<String> registerJobDefinitionAsync(String jobDefinitionName, String executionRoleARN, String image, String cpuArch) {
         NetworkConfiguration networkConfiguration = NetworkConfiguration.builder()
-                .assignPublicIp(AssignPublicIp.ENABLED)
-                .build();
+            .assignPublicIp(AssignPublicIp.ENABLED)
+            .build();
 
         ContainerProperties containerProperties = ContainerProperties.builder()
-                .image(image)
-                .executionRoleArn(executionRoleARN)
-                .resourceRequirements(
-                        Arrays.asList(
-                                ResourceRequirement.builder()
-                                        .type(ResourceType.VCPU)
-                                        .value("1")
-                                        .build(),
-                                ResourceRequirement.builder()
-                                        .type(ResourceType.MEMORY)
-                                        .value("2048")
-                                        .build()
-                        )
+            .image(image)
+            .executionRoleArn(executionRoleARN)
+            .resourceRequirements(
+                Arrays.asList(
+                    ResourceRequirement.builder()
+                        .type(ResourceType.VCPU)
+                        .value("1")
+                        .build(),
+                    ResourceRequirement.builder()
+                        .type(ResourceType.MEMORY)
+                        .value("2048")
+                        .build()
                 )
-                .networkConfiguration(networkConfiguration)
-               .runtimePlatform(b -> b
-                        .cpuArchitecture(cpuArch)
-                        .operatingSystemFamily("LINUX"))
-                .build();
+            )
+            .networkConfiguration(networkConfiguration)
+            .runtimePlatform(b -> b
+                .cpuArchitecture(cpuArch)
+                .operatingSystemFamily("LINUX"))
+            .build();
 
         RegisterJobDefinitionRequest request = RegisterJobDefinitionRequest.builder()
-                .jobDefinitionName(jobDefinitionName)
-                .type(JobDefinitionType.CONTAINER)
-                .containerProperties(containerProperties)
-                .platformCapabilities(PlatformCapability.FARGATE)
-                .build();
+            .jobDefinitionName(jobDefinitionName)
+            .type(JobDefinitionType.CONTAINER)
+            .containerProperties(containerProperties)
+            .platformCapabilities(PlatformCapability.FARGATE)
+            .build();
 
         CompletableFuture<String> future = new CompletableFuture<>();
         getAsyncClient().registerJobDefinition(request)
-                .thenApply(RegisterJobDefinitionResponse::jobDefinitionArn)
-                .whenComplete((result, ex) -> {
-                    if (ex != null) {
-                        future.completeExceptionally(ex);
-                    } else {
-                        future.complete(result);
-                    }
-                });
+            .thenApply(RegisterJobDefinitionResponse::jobDefinitionArn)
+            .whenComplete((result, ex) -> {
+                if (ex != null) {
+                    future.completeExceptionally(ex);
+                } else {
+                    future.complete(result);
+                }
+            });
 
         return future;
     }
@@ -604,6 +604,3 @@ public class BatchActions {
 
 }
 // snippet-end:[batch.java2.actions.main]
-
-
-
