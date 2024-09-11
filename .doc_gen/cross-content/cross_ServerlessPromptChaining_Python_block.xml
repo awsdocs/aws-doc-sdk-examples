@@ -8,7 +8,7 @@
         The &BRlong; Serverless Prompt Chaining scenario demonstrates how
         <ulink  type="documentation"  url="step-functions/latest/dg/welcome.html">&SFNlong;</ulink>,
         <ulink  type="documentation"  url="bedrock/latest/userguide/what-is-bedrock.html">&BRlong;</ulink>,
-        and <ulink  type="documentation"  url="bedrock/latest/userguide/agents.html">Agents for &BRlong;</ulink>
+        and <ulink  type="documentation"  url="bedrock/latest/userguide/agents.html">&BRAlong;</ulink>
         can be used to build and orchestrate complex, serverless, and highly scalable generative AI applications.
         It contains the following working examples:
     </para>

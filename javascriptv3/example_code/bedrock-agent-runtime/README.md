@@ -1,13 +1,13 @@
-# Agents for Amazon Bedrock Runtime code examples for the SDK for JavaScript (v3)
+# Amazon Bedrock Agents Runtime code examples for the SDK for JavaScript (v3)
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript (v3) to work with Agents for Amazon Bedrock Runtime.
+Shows how to use the AWS SDK for JavaScript (v3) to work with Amazon Bedrock Agents Runtime.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Agents for Amazon Bedrock Runtime offers you the ability to run autonomous agents in your application._
+_Amazon Bedrock Agents Runtime offers you the ability to run autonomous agents in your application._
 
 ## ⚠ Important
 
@@ -27,9 +27,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 
 <!--custom.prerequisites.start-->
-
-> ⚠ You must create an agent before you can invoke it. For more information, see [Create an agent](https://docs.aws.amazon.com/bedrock/latest/userguide/agents-create.html). Additionally, you must grant access to the model you specify during agent creation. For more information, see [Model access](https://us-east-1.console.aws.amazon.com/bedrock/home?region=us-east-1#/modelaccess).
-
 <!--custom.prerequisites.end-->
 
 ### Single actions
@@ -92,9 +89,9 @@ in the `javascriptv3` folder.
 
 ## Additional resources
 
-- [Agents for Amazon Bedrock Runtime User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
-- [Agents for Amazon Bedrock Runtime API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html)
-- [SDK for JavaScript (v3) Agents for Amazon Bedrock Runtime reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/bedrock-agent-runtime)
+- [Amazon Bedrock Agents Runtime User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
+- [Amazon Bedrock Agents Runtime API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html)
+- [SDK for JavaScript (v3) Amazon Bedrock Agents Runtime reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/bedrock-agent-runtime)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
