@@ -13,7 +13,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 import com.example.search.*;
+import software.amazon.awssdk.services.opensearch.model.AddTagsResponse;
+import software.amazon.awssdk.services.opensearch.model.DeleteDomainResponse;
 import software.amazon.awssdk.services.opensearch.model.DomainInfo;
+import software.amazon.awssdk.services.opensearch.model.ListTagsResponse;
 import software.amazon.awssdk.services.opensearch.model.UpdateDomainConfigResponse;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -125,7 +128,7 @@ public class OpenSearchTest {
     @Order(8)
     public void domainTagTest() {
         assertDoesNotThrow(() -> {
-            CompletableFuture<Void> future = openSearchActions.addDomainTagsAsync(arn);
+            CompletableFuture<AddTagsResponse> future = openSearchActions.addDomainTagsAsync(arn);
             future.join();
             System.out.println("Domain change progress completed successfully.");
         });
@@ -137,7 +140,7 @@ public class OpenSearchTest {
     @Order(9)
     public void domainListTagsTest() {
         assertDoesNotThrow(() -> {
-            CompletableFuture<Void> future = openSearchActions.listDomainTagsAsync(arn);
+            CompletableFuture<ListTagsResponse> future = openSearchActions.listDomainTagsAsync(arn);
             future.join();
             System.out.println("Domain tags listed successfully.");
         });
@@ -149,7 +152,7 @@ public class OpenSearchTest {
     @Order(10)
     public void domainDelTest() {
         assertDoesNotThrow(() -> {
-            CompletableFuture<Void> future = openSearchActions.deleteSpecificDomainAsync(domainName);
+            CompletableFuture<DeleteDomainResponse> future = openSearchActions.deleteSpecificDomainAsync(domainName);
             future.join();
             System.out.println(domainName + " was successfully deleted.");
         });

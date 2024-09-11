@@ -5,7 +5,10 @@ package com.example.search.scenario;
 // snippet-start:[opensearch.java2.scenario.main]
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.services.opensearch.model.AddTagsResponse;
+import software.amazon.awssdk.services.opensearch.model.DeleteDomainResponse;
 import software.amazon.awssdk.services.opensearch.model.DomainInfo;
+import software.amazon.awssdk.services.opensearch.model.ListTagsResponse;
 import software.amazon.awssdk.services.opensearch.model.OpenSearchException;
 import software.amazon.awssdk.services.opensearch.model.UpdateDomainConfigResponse;
 import java.util.List;
@@ -21,16 +24,16 @@ public class OpenSearchScenario {
     static OpenSearchActions openSearchActions = new OpenSearchActions();
     public static void main(String[]args) throws Throwable {
         logger.info("""
-            Welcome to the Amazon OpenSearch Service Basics Scenario.
+          Welcome to the Amazon OpenSearch Service Basics Scenario.
                       
-            Use the Amazon OpenSearch Service API to create, configure, and manage OpenSearch Service domains. 
+          Use the Amazon OpenSearch Service API to create, configure, and manage OpenSearch Service domains. 
              
           The operations exposed by the AWS OpenSearch Service client are focused on managing the OpenSearch Service domains 
-            and their configurations, not the data within the domains (such as indexing or querying documents). 
-            For document management, you typically interact directly with the OpenSearch REST API or use other libraries, 
+          and their configurations, not the data within the domains (such as indexing or querying documents). 
+          For document management, you typically interact directly with the OpenSearch REST API or use other libraries, 
           such as the OpenSearch Java client (https://opensearch.org/docs/latest/clients/java/).
                       
-            Lets get started...
+          Lets get started...
               """);
         waitForInputToContinue(scanner);
 
@@ -208,7 +211,7 @@ public class OpenSearchScenario {
             """);
         waitForInputToContinue(scanner);
         try {
-            CompletableFuture<Void> future = openSearchActions.addDomainTagsAsync(arn);
+            CompletableFuture<AddTagsResponse> future = openSearchActions.addDomainTagsAsync(arn);
             future.join();
             logger.info("Domain tags added successfully.");
         } catch (RuntimeException rt) {
@@ -231,7 +234,7 @@ public class OpenSearchScenario {
         logger.info("8. List Domain tags ");
         waitForInputToContinue(scanner);
         try {
-            CompletableFuture<Void> future = openSearchActions.listDomainTagsAsync(arn);
+            CompletableFuture<ListTagsResponse> future = openSearchActions.listDomainTagsAsync(arn);
             future.join();
             logger.info("Domain tags listed successfully.");
         } catch (RuntimeException e) {
@@ -244,7 +247,7 @@ public class OpenSearchScenario {
         logger.info("9. Delete the Amazon OpenSearch ");
         waitForInputToContinue(scanner);
         try {
-            CompletableFuture<Void> future = openSearchActions.deleteSpecificDomainAsync(domainName);
+            CompletableFuture<DeleteDomainResponse> future = openSearchActions.deleteSpecificDomainAsync(domainName);
             future.join();
             logger.info("Request to delete {} was successfully sent.", domainName);
         } catch (RuntimeException rt) {
