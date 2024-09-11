@@ -6,7 +6,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript v
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-getRecommendationsFromRecommender.js demonstrates how to get recommendations from a recommender created in a 
+getRecommendationsFromRecommender.js demonstrates how to get recommendations from a recommender created in a
 domain dataset group with Amazon Personalize.
 For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html.
 

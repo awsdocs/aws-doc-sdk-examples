@@ -83,8 +83,8 @@ struct ErrorHandlingExample {
         // snippet-start:[errors.swift.crt-error]
         do {
             let client = try S3Client(region: "un-real-1")
-            
-            _ = try await client.listBuckets(input: ListBucketsInput()) 
+
+            _ = try await client.listBuckets(input: ListBucketsInput())
             print("Done.")
         } catch let error as CommonRunTimeError {
             switch error {

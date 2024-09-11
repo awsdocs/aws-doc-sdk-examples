@@ -58,7 +58,7 @@ public class GlacierTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests.
          * prop.load(input);
          * vaultName = prop.getProperty("vaultName");
@@ -66,7 +66,7 @@ public class GlacierTest {
          * downloadVault= prop.getProperty("downloadVault");
          * accountId= prop.getProperty("accountId");
          * emptyVault= prop.getProperty("emptyVault");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

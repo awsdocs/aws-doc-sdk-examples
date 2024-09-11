@@ -54,7 +54,7 @@ public class CloudFormationTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests.
          * prop.load(input);
          * stackName = prop.getProperty("stackName");
@@ -62,7 +62,7 @@ public class CloudFormationTest {
          * location = prop.getProperty("location");
          * key = prop.getProperty("key");
          * value = prop.getProperty("value");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

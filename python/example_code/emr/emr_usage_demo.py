@@ -362,7 +362,7 @@ def add_top_product_step(
     )
 
     print(
-        f"The output for this step is in Amazon S3 bucket "
+        "The output for this step is in Amazon S3 bucket "
         f"{bucket.name}/{output_folder}."
     )
     print("-" * 88)
@@ -377,10 +377,10 @@ def demo_short_lived_cluster():
     terminates after the step completes.
     """
     print("-" * 88)
-    print(f"Welcome to the Amazon EMR short-lived cluster demo.")
+    print("Welcome to the Amazon EMR short-lived cluster demo.")
     print("-" * 88)
 
-    prefix = f"demo-short-emr"
+    prefix = "demo-short-emr"
 
     s3_resource = boto3.resource("s3")
     iam_resource = boto3.resource("iam")
@@ -455,7 +455,7 @@ def demo_short_lived_cluster():
     )
 
     print(
-        f"Job complete!. The script, logs, and output for this demo are in "
+        "Job complete!. The script, logs, and output for this demo are in "
         f"Amazon S3 bucket {bucket_name}. The output is:"
     )
     for obj in bucket.objects.filter(Prefix=output_prefix):
@@ -463,17 +463,14 @@ def demo_short_lived_cluster():
 
     # Clean up demo resources (if you want to).
     remove_everything = input(
-        f"Do you want to delete the security roles, groups, and bucket (y/n)? "
+        "Do you want to delete the security roles, groups, and bucket (y/n)? "
     )
     if remove_everything.lower() == "y":
         delete_security_groups(security_groups)
         delete_roles([job_flow_role, service_role])
         delete_bucket(bucket)
     else:
-        print(
-            f"Remember that objects kept in an Amazon S3 bucket can incur charges"
-            f"against your account."
-        )
+        print("against your account.")
     print("Thanks for watching!")
 
 
@@ -484,7 +481,7 @@ def demo_long_lived_cluster():
     terminated.
     """
     print("-" * 88)
-    print(f"Welcome to the Amazon EMR long-lived cluster demo.")
+    print("Welcome to the Amazon EMR long-lived cluster demo.")
     print("-" * 88)
 
     prefix = "demo-long-emr"
@@ -557,7 +554,7 @@ def demo_long_lived_cluster():
         while True:
             input_cat = input(
                 f"Your turn! Possible categories are: {categories}. Which category "
-                f"would you like to search (enter 'none' when you're done)? "
+                "would you like to search (enter 'none' when you're done)? "
             )
             if input_cat.lower() == "none" or input_cat in categories:
                 break
@@ -580,8 +577,8 @@ def demo_long_lived_cluster():
 
     # Clean up demo resources (if you want to).
     remove_everything = input(
-        f"Do you want to terminate the cluster and delete the security roles, "
-        f"groups, bucket, and all of its contents (y/n)? "
+        "Do you want to terminate the cluster and delete the security roles, "
+        "groups, bucket, and all of its contents (y/n)? "
     )
     if remove_everything.lower() == "y":
         emr_basics.terminate_cluster(cluster_id, emr_client)
@@ -596,10 +593,7 @@ def demo_long_lived_cluster():
         delete_roles([job_flow_role, service_role])
         delete_bucket(bucket)
     else:
-        print(
-            f"Remember that running Amazon EMR clusters and objects kept in an "
-            f"Amazon S3 bucket can incur charges against your account."
-        )
+        print("Amazon S3 bucket can incur charges against your account.")
     print("Thanks for watching!")
 
 

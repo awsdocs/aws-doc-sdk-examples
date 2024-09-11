@@ -102,7 +102,7 @@ def main():
             print("-" * 88)
             print("To run the scenario, pass the role and bucket names to it: ")
             print(
-                f"\tpython scenario_getting_started_crawlers_and_jobs.py "
+                "\tpython scenario_getting_started_crawlers_and_jobs.py "
                 f"{outputs['RoleName']} {outputs['BucketName']}"
             )
             print("-" * 88)

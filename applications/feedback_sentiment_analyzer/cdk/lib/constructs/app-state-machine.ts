@@ -24,7 +24,7 @@ export class AppStateMachine extends Construct {
       )
     ) {
       throw new Error(`
-      Function mismatch. 
+      Function mismatch.
       You must provide all of the following functions:
       ExtractText: ${ExtractText},
       AnalyzeSentiment: ${AnalyzeSentiment},

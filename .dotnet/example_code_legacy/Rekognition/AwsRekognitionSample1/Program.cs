@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[rekognition.dotNET.DetectFaces]
 using System;
@@ -72,7 +72,7 @@ namespace NETRekognitionConsole
         {
             // Using USWest2, not the default region
             AmazonRekognitionClient rekoClient = new AmazonRekognitionClient(Amazon.RegionEndpoint.USWest2);
-            
+
             // Request needs image bytes, so read and add to request
             byte[] data = File.ReadAllBytes(filename);
 

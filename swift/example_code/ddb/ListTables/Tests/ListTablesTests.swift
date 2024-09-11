@@ -87,7 +87,7 @@ public struct MockDBSession: DatabaseSession {
         )
 
         // Stop at once if there are no table names in the list.
-        
+
         if testTableNames.count == 0 {
             return output
         }
@@ -157,7 +157,7 @@ final class ListTablesTests: XCTestCase {
     }
 
     /// Test fetching a list of table names that's short enough to only
-    /// require one call to `listTables()`.    
+    /// require one call to `listTables()`.
     func testWithOneChunk() async throws {
         let testNames = Array(fakeTableNames[0...20])
         let session = MockDBSession(tables: testNames)

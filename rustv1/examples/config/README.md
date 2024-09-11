@@ -19,7 +19,7 @@ AWS Config provides a detailed view of the resources associated with your AWS ac
 
 ## ⚠ Important
 
-- We recommend that you grant this code least privilege, 
+- We recommend that you grant this code least privilege,
   or at most the minimum permissions required to perform the task.
   For more information, see
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
@@ -142,11 +142,11 @@ This example displays the configuration history for a resource.
 - [AWS SDK for Rust repo](https://github.com/awslabs/aws-sdk-rust)
 - [AWS SDK for Rust API Reference for AWS Config](https://docs.rs/aws-sdk-config)
 - [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
-- 
+-
 ## Contributing
 
-To propose a new code example to the AWS documentation team, 
-see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md). 
-The team prefers to create code examples that show broad scenarios rather than individual API calls. 
+To propose a new code example to the AWS documentation team,
+see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md).
+The team prefers to create code examples that show broad scenarios rather than individual API calls.
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

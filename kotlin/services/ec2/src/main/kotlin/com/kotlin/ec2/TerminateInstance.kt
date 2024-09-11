@@ -20,10 +20,10 @@ suspend fun main(args: Array<String>) {
     val usage = """
 
     Usage:
-        <instanceID> 
+        <instanceID>
 
     Where:
-        instanceID - An instance id value that you can obtain from the AWS Management Console. 
+        instanceID - An instance id value that you can obtain from the AWS Management Console.
     """
 
     if (args.size != 1) {

@@ -143,7 +143,7 @@ struct ExampleCommand: ParsableCommand {
 
         do {
             print("Attempting to list buckets without permission to do so.")
-            
+
             // Use the user's access key to attempt to get the bucket list.
 
             try await s3Handler.setCredentials(accessKeyId: accessKeyId,
@@ -264,7 +264,7 @@ struct ExampleCommand: ParsableCommand {
             // Assume the role you created and get the credentials that grant the
             // permissions offered by the role.
             let credentials = try await stsHandler.assumeRole(
-                role: role, 
+                role: role,
                 sessionName: "listing-buckets"
             )
 
@@ -303,7 +303,7 @@ struct ExampleCommand: ParsableCommand {
         //=====================================================================
         // 8. Clean up by removing the policies, role, access key, and user you
         //    created.
-        
+
         do {
             print("Deleting resources created by this example.")
             try await iamHandler.detachRolePolicy(policy: managedPolicy, role: role)
@@ -321,13 +321,13 @@ struct ExampleCommand: ParsableCommand {
     // snippet-end:[iam.swift.basics.command.runasync]
 
     /// Display a message and wait for a few seconds to pass.
-    /// 
+    ///
     /// - Parameters:
     ///   - seconds: The number of seconds to wait as a `Double`.
     ///   - message: Optional `String` to display before the pause begins.
     func waitFor(seconds: Double, message: String? = nil) async {
         if message != nil {
-            print("*** \(message!) ***") 
+            print("*** \(message!) ***")
         }
         Thread.sleep(forTimeInterval: seconds)
     }
@@ -348,7 +348,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[iam.swift.basics.main]
 // snippet-end:[iam.swift.basics.example]

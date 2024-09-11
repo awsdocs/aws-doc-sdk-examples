@@ -63,7 +63,7 @@ public class ConnectTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * ConnectTest.class.getClassLoader().getResourceAsStream("config.properties"))
          * {
@@ -72,14 +72,14 @@ public class ConnectTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Load a properties file.
          * prop.load(input);
          * instanceAlias = prop.getProperty("instanceAlias");
          * contactId = prop.getProperty("contactId");
          * existingInstanceId = prop.getProperty("existingInstanceId");
          * targetArn = prop.getProperty("targetArn");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

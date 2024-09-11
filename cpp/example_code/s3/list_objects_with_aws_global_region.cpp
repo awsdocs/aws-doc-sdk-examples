@@ -92,7 +92,7 @@ static Aws::String createOneBucket(const Aws::S3::S3Client &s3Client) {
 
 static bool
 listTheObjects(const Aws::S3::S3Client &s3Client, const Aws::String &bucketName) {
-    // An S3 API client set to the aws-global AWS Region should be able to get 
+    // An S3 API client set to the aws-global AWS Region should be able to get
     // access to a bucket in any AWS Region.
 
     Aws::S3::Model::ListObjectsV2Request listObjectsRequest;

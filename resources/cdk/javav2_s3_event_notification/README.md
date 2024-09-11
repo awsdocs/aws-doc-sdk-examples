@@ -5,9 +5,9 @@ This directory contains Java CDK application that produce stacks for code exampl
 The following Java v2 code examples use stacks produced the application in this directory:
 
 * [PutBucketS3EventNotificationEventBridge.java](../../javav2/example_code/s3/src/main/java/com/example/s3/PutBucketS3EventNotificationEventBridge.java)
-  * uses stack named `queue-topic` 
+  * uses stack named `queue-topic`
 * [ProcessS3EventNotificationTest.java](../../javav2/example_code/s3/src/test/java/com/example/s3/ProcessS3EventNotificationTest.java)
-  * uses stack named `direct-target` 
+  * uses stack named `direct-target`
 
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.

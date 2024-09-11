@@ -28,7 +28,7 @@ Many Integrated Development Environments (IDEs) support CMake. If your preferred
 You can also build this project from a command line interface using the following commands.
 
 ```sh
-mkdir build 
+mkdir build
 cd build
 cmake --build ..
 ```

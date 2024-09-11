@@ -35,7 +35,7 @@ For example, you can upload a tutorial.txt file that contains the following text
 
 ```
 Amazon S3 Object Lambda Tutorial:
-You can add your own code to process data retrieved from S3 before 
+You can add your own code to process data retrieved from S3 before
 returning it to an application.
 ```
 
@@ -86,8 +86,8 @@ To transform original data, create a Lambda function for use with your S3 Object
 
 5. Install Nuget Package - AWSSDK.S3 & Amazon.Lambda.S3Events
 
-![step-5](images/step-5.png)  
-![step-6](images/step-6.png) 
+![step-5](images/step-5.png)
+![step-6](images/step-6.png)
 
 6. Update the Function Code
 
@@ -181,7 +181,7 @@ Create Access Point, give it a Name (ex: tutorial-access-point), Choose the Buck
 
 ![step-13](images/step-13.png)
 
-Create Object Lambda Access Point, 
+Create Object Lambda Access Point,
 
 Give it a Name (ex: tutorial-object-lambda-accesspoint), Choose the Access Point we created in the previous step,
 
@@ -198,7 +198,7 @@ And leave the rest as default click "Create Object Lambda Access Point".
 
 Refer to [View the transformed data in your S3 Object Lambda Access Point](https://docs.aws.amazon.com/AmazonS3/latest/userguide/tutorial-s3-object-lambda-uppercase.html#ol-upper-step6)
 
-Navigate to the Object Lambda Access Point in AWS S3 Console created, 
+Navigate to the Object Lambda Access Point in AWS S3 Console created,
 
 ![step-16](images/step-16.png)
 

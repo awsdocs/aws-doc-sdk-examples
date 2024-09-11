@@ -84,7 +84,7 @@ public class AmazonRDSTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * prop.load(input);
          * dbInstanceIdentifier = prop.getProperty("dbInstanceIdentifier")+
          * java.util.UUID.randomUUID();
@@ -104,7 +104,7 @@ public class AmazonRDSTest {
          * dbSnapshotIdentifierSc = prop.getProperty("dbSnapshotIdentifierSc")+
          * java.util.UUID.randomUUID();;
          * dbNameSc = prop.getProperty("dbNameSc")+ randomNum ;
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

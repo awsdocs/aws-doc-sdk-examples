@@ -102,11 +102,11 @@ public class RedshiftScenario {
         System.out.println("""
         This Java program demonstrates how to interact with Amazon Redshift by using the AWS SDK for Java (v2).\s
         Amazon Redshift is a fully managed, petabyte-scale data warehouse service hosted in the cloud.
-                                                                            
+
         The program's primary functionalities include cluster creation, verification of cluster readiness,\s
         list databases, table creation, data population within the table, and execution of SQL statements.
         Furthermore, it demonstrates the process of querying data from the Movie table.\s
-        
+
         Upon completion of the program, all AWS resources are cleaned up.
         """);
 
@@ -138,7 +138,7 @@ public class RedshiftScenario {
         System.out.println(DASHES);
         String databaseInfo = """
             When you created $clusteridD, the dev database is created by default and used in this scenario.\s
-            
+
             To create a custom database, you need to have a CREATEDB privilege.\s
             For more information, see the documentation here: https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_DATABASE.html.
            """.replace("$clusteridD", clusterId);

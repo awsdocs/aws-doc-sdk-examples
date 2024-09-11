@@ -22,14 +22,14 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
     val usage = """
-    
+
     Usage:
-        <sender> <recipient> <subject> 
+        <sender> <recipient> <subject>
 
     Where:
-        sender - An email address that represents the sender. 
-        recipient - An email address that represents the recipient. 
-        subject - The subject line. 
+        sender - An email address that represents the sender.
+        recipient - An email address that represents the recipient.
+        subject - The subject line.
     """
 
     if (args.size != 3) {

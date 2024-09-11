@@ -11,7 +11,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 /**
  * Delete the website configuration for an S3 bucket.
- * 
+ *
  * This code expects that you have AWS credentials delete up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/deleteup-credentials.html
  */

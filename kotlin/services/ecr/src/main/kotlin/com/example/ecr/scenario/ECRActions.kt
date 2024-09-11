@@ -67,7 +67,7 @@ class ECRActions {
                  }
             ]
             }
-            
+
             """.trimIndent()
         val lifecyclePolicyPreviewRequest =
             StartLifecyclePolicyPreviewRequest {
@@ -177,7 +177,7 @@ class ECRActions {
                 "Action" : "ecr:BatchGetImage"
               } ]
             }
-             
+
             """.trimIndent()
         val setRepositoryPolicyRequest =
             SetRepositoryPolicyRequest {

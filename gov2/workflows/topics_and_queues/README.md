@@ -20,7 +20,7 @@ The sample code builds a command line application that asks you for input. This 
 ### Create an SNS topic
 
 ```
-Would you like to work with FIFO topics? (y/n) 
+Would you like to work with FIFO topics? (y/n)
 ```
 
 You configure FIFO (First-In-First-Out) topics when you create them. Choosing a FIFO topic enables other options, too. To learn more, see [FIFO topics example use case](https://docs.aws.amazon.com/sns/latest/dg/fifo-example-use-case.html).
@@ -42,7 +42,7 @@ Topic names can have 1-256 characters. They can contain uppercase and lowercase 
 
 ### Create two SQS queues
 
-Now, configure two SQS queues to subscribe to your topic. Separate queues for each subscriber can be helpful. For 
+Now, configure two SQS queues to subscribe to your topic. Separate queues for each subscriber can be helpful. For
 instance, you can customize how messages are consumed and how messages are filtered.
 
 ```

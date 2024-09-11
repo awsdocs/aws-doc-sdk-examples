@@ -4,7 +4,7 @@
 
 This example demonstrate how to use LocalStack with the AWS SDK for Rust.
 
-LocalStack is a cloud service emulator that runs in a single container on your computer. 
+LocalStack is a cloud service emulator that runs in a single container on your computer.
 
 ## Code example
 
@@ -12,7 +12,7 @@ LocalStack is a cloud service emulator that runs in a single container on your c
 
 ## ⚠ Important
 
-- We recommend that you grant this code least privilege, 
+- We recommend that you grant this code least privilege,
   or at most the minimum permissions required to perform the task.
   For more information, see
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
@@ -41,8 +41,8 @@ This example lists your Amazon Simple Storage Service buckets and Amazon Simple 
 
 ## Contributing
 
-To propose a new code example to the AWS documentation team, 
-see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md). 
+To propose a new code example to the AWS documentation team,
+see [CONTRIBUTING.md](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/CONTRIBUTING.md).
 The team prefers to create code examples that show broad scenarios rather than individual API calls.
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

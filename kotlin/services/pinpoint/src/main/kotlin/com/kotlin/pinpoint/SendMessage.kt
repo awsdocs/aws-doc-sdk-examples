@@ -30,7 +30,7 @@ suspend fun main(args: Array<String>) {
     Where:
         message - The body of the message to send.
         appId - The Amazon Pinpoint project/application ID to use when you send this message.
-        originationNumber - The phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654). 
+        originationNumber - The phone number or short code that you specify has to be associated with your Amazon Pinpoint account. For best results, specify long codes in E.164 format (for example, +1-555-555-5654).
         destinationNumber - The recipient's phone number.  For best results, you should specify the phone number in E.164 format (for example, +1-555-555-5654).
     """
 

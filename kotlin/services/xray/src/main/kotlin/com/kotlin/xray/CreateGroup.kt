@@ -18,13 +18,13 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
     val usage = """
-        
-        Usage: 
+
+        Usage:
             <groupName>
-        
+
         Where:
-            groupName - The name of the group to create 
-                
+            groupName - The name of the group to create
+
         """
 
     if (args.size != 1) {

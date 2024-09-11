@@ -22,12 +22,12 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <groupName> <groupDesc> <vpcId> 
+            <groupName> <groupDesc> <vpcId>
 
         Where:
-            groupName - A group name (for example, TestKeyPair). 
-            groupDesc - A group description  (for example, TestKeyPair). 
-            vpc-id - A VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f). 
+            groupName - A group name (for example, TestKeyPair).
+            groupDesc - A group description  (for example, TestKeyPair).
+            vpc-id - A VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f).
         """
 
     if (args.size != 3) {

@@ -61,13 +61,13 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-* [Get started with state machines](get_started_state_machines.py) 
+* [Get started with state machines](get_started_state_machines.py)
 
 ### Cross-service examples
 
 Sample applications that work across multiple AWS services.
 
-* [Create a messenger application](../../cross_service/stepfunctions_messenger) 
+* [Create a messenger application](../../cross_service/stepfunctions_messenger)
 
 ## Run the examples
 

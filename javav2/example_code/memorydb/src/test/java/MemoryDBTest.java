@@ -54,7 +54,7 @@ public class MemoryDBTest {
          * try (InputStream input =
          * MemoryDBTest.class.getClassLoader().getResourceAsStream("config.properties"))
          * {
-         * 
+         *
          * Properties prop = new Properties();
          * if (input == null) {
          * System.out.println("Sorry, unable to find config.properties");
@@ -66,7 +66,7 @@ public class MemoryDBTest {
          * subnetGroupName = prop.getProperty("subnetGroupName");
          * aclName = prop.getProperty("aclName");
          * snapShotName= prop.getProperty("snapShotName");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

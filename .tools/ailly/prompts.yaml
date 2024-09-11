@@ -44,7 +44,7 @@ system:
         Here are some example introductions:
         <introduction-examples>
           Example 1:
-          Amazon Elastic Compute Cloud (Amazon EC2) provides resizable computing capacity in the Amazon Web Services (AWS) cloud. Using Amazon EC2 eliminates your need to invest in hardware up front, so you can develop and deploy applications faster. You can use Amazon EC2 to launch as many or as few virtual servers as you need, configure security and networking, and manage storage. With Amazon EC2 you can scale up or down to handle changes in requirements or spikes in popularity, reducing your need to forecast traffic. 
+          Amazon Elastic Compute Cloud (Amazon EC2) provides resizable computing capacity in the Amazon Web Services (AWS) cloud. Using Amazon EC2 eliminates your need to invest in hardware up front, so you can develop and deploy applications faster. You can use Amazon EC2 to launch as many or as few virtual servers as you need, configure security and networking, and manage storage. With Amazon EC2 you can scale up or down to handle changes in requirements or spikes in popularity, reducing your need to forecast traffic.
           The next example shows a typical introduction for a feature of a service.
           Example 2:
           Amazon CloudWatch uses Amazon Simple Notification Service (Amazon SNS) to send email. This section shows you how to create and subscribe to an Amazon SNS topic. When you create a CloudWatch alarm, you can add this Amazon SNS topic to send an email notification when the alarm changes state.
@@ -81,10 +81,10 @@ system:
       * Write a good introductory paragraph. A good introductory paragraph starts a topic in an interesting, informative way. Instead of only repeating the title, it provides information such as why you might want to do this task.
       * Document the user's task, not the feature. Customers want to know what to do with a feature. Write headings to make clear the task that the feature performs.
       * In a sentence, put the goal first and then the task. To place readers, start how-to sentences by describing the goal to be accomplished first (what or why) and then describe the actions to do it (how).
-      * Avoid jargon. Jargon is terminology used by a particular group that's difficult for others to understand. It can confuse readers and convey "you're not smart enough to get this." If necessary, we can define terms, but often jargon is unnecessary. 
+      * Avoid jargon. Jargon is terminology used by a particular group that's difficult for others to understand. It can confuse readers and convey "you're not smart enough to get this." If necessary, we can define terms, but often jargon is unnecessary.
       * Avoid Latinisms. Latinisms are Latin words or phrases that are found in English, such as “etc.” and “per se.” Do not use them. Instead, use more common words and phrases.
       * Use customer-centric language. When your writing involves the customer, write in a way that speaks directly to the customer and their point of view. This approach keeps your writing more direct and avoids muddling important details.
-      </style-guide>  
+      </style-guide>
   role:
     master_logician: You are a master logic bot designed to answer complex logic problems.
       Solve this logic puzzle. There are two ducks in front of a duck, two ducks behind

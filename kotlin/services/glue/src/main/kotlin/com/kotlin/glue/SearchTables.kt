@@ -23,7 +23,7 @@ suspend fun main(args: Array<String>) {
     Usage:
         <text>
     Where:
-        text - a string used for a text search. 
+        text - a string used for a text search.
     """
 
     if (args.size != 1) {

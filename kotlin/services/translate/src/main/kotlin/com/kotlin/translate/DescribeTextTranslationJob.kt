@@ -19,7 +19,7 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-        <jobId> 
+        <jobId>
 
     Where:
          jobId - A translation job ID value. You can obtain this value from the BatchTranslation example.

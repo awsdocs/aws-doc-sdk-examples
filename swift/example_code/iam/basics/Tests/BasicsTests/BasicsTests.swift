@@ -93,7 +93,7 @@ final class BasicsTests: XCTestCase {
             let user = try await BasicsTests.iamHandler!.getUser()
 
             guard let userARN = user.arn else {
-                throw ServiceHandlerError.noSuchUser 
+                throw ServiceHandlerError.noSuchUser
             }
 
             // Policy document for the new role.
@@ -142,7 +142,7 @@ final class BasicsTests: XCTestCase {
                 XCTFail("Unable to get the AWS user.")
                 return
             }
-            
+
             let accessKey = try await BasicsTests.iamHandler!.createAccessKey(userName: name)
 
             guard let _ = accessKey.accessKeyId else {
@@ -259,7 +259,7 @@ final class BasicsTests: XCTestCase {
             )
             cleanupClosures.append({ try await BasicsTests.iamHandler!.deletePolicy(policy: managedPolicy) })
 
-            // Wait for the policy to propagate. 
+            // Wait for the policy to propagate.
 
             await waitFor(seconds: 10)
 
@@ -323,7 +323,7 @@ final class BasicsTests: XCTestCase {
 
         /// Clean up after the test by calling the closures stored in the
         /// `cleanupClosures` list in the opposite order in which they were
-        /// added. The list is left empty when the cleanup is complete.    
+        /// added. The list is left empty when the cleanup is complete.
         func performCleanup() async throws {
             while(cleanupClosures.count != 0) {
                 try await cleanupClosures.removeLast()()
@@ -331,7 +331,7 @@ final class BasicsTests: XCTestCase {
         }
 
     }
-    
+
     /// Display a message and wait for a few seconds to pass.
     /// - Parameters:
     ///   - seconds: The number of seconds to wait.
@@ -339,7 +339,7 @@ final class BasicsTests: XCTestCase {
     ///     specified, no message is displayed.
     func waitFor(seconds: Double, message: String? = nil) async {
         if message != nil {
-            print("\n*** \(message!) ***") 
+            print("\n*** \(message!) ***")
         }
         Thread.sleep(forTimeInterval: seconds)
         print("\n")

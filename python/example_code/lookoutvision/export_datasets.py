@@ -125,18 +125,18 @@ def process_json_line(s3_resource, entry, dataset_type, destination):
     print(f"source: {entry_json['source-ref']}")
 
     # Use existing folder paths to ensure console added image names don't clash.
-    bucket, key = entry_json["source-ref"].replace("s3://", "").split("/", 1)
+    bucket, key = entry_json["source-re"].replace("s3://", "").split("/", 1)
     logger.info("Source location: %s/%s", bucket, key)
 
     destination_image_location = destination + dataset_type + "/images/" + key
 
-    copy_file(s3_resource, entry_json["source-ref"], destination_image_location)
+    copy_file(s3_resource, entry_json["source-re"], destination_image_location)
 
     # Update JSON for writing.
-    entry_json["source-ref"] = destination_image_location
+    entry_json["source-re"] = destination_image_location
 
-    if "anomaly-mask-ref" in entry_json:
-        source_anomaly_ref = entry_json["anomaly-mask-ref"]
+    if "anomaly-mask-re" in entry_json:
+        source_anomaly_ref = entry_json["anomaly-mask-re"]
         mask_bucket, mask_key = source_anomaly_ref.replace("s3://", "").split("/", 1)
 
         destination_mask_location = destination + dataset_type + "/masks/" + mask_key

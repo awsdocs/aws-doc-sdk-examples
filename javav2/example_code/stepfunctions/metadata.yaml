@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/stepfunctions/CreateStateMachine.java
     services:
@@ -24,4 +24,4 @@ files:
   - path: src/test/java/StepFunctionsTest.java
     services:
       - stepfunctions
-    
+

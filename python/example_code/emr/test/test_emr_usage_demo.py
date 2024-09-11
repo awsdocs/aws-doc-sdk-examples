@@ -298,10 +298,10 @@ def test_delete_security_groups_dependency_violation(make_stubber, monkeypatch):
     ec2_resource = boto3.resource("ec2")
     ec2_stubber = make_stubber(ec2_resource.meta.client)
     sec_group_info = {
-        "sg": ec2_resource.SecurityGroup(f"sg-test"),
-        "id": f"sg-test",
+        "sg": ec2_resource.SecurityGroup("sg-test"),
+        "id": "sg-test",
         "ip_permissions": [],
-        "group_name": f"test-test",
+        "group_name": "test-test",
     }
 
     monkeypatch.setattr(time, "sleep", lambda x: None)

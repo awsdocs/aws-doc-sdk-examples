@@ -279,7 +279,7 @@ def usage_demo():
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     ses_receipt = SesReceiptHandler(boto3.client("ses"), boto3.resource("s3"))
-    filter_name = "block-self"
+    filter_name = "block-sel"
     rule_set_name = "doc-example-rule-set"
     rule_name = "copy-mail-to-bucket"
     email = "example@example.org"
@@ -290,7 +290,7 @@ def usage_demo():
         request.urlopen("http://checkip.amazonaws.com").read().decode("utf-8").strip()
     )
     print(
-        f"Adding a filter to block email from the current IP address "
+        "Adding a filter to block email from the current IP address "
         f"{current_ip_address}."
     )
     ses_receipt.create_receipt_filter(filter_name, current_ip_address, False)
@@ -301,7 +301,7 @@ def usage_demo():
     ses_receipt.delete_receipt_filter(filter_name)
 
     print(
-        f"Creating a rule set and adding a rule to copy all emails received by "
+        "Creating a rule set and adding a rule to copy all emails received by "
         f"{email} to Amazon S3 bucket {bucket_name}."
     )
     print(f"Creating bucket {bucket_name} to hold emails.")

@@ -1,16 +1,16 @@
 # AWS SDK for .NET (v3) cross-service examples
 
-This README lists the cross-service examples available for the AWS SDK for 
-.NET (v3). Each folder in this directory contains the following cross-service 
+This README lists the cross-service examples available for the AWS SDK for
+.NET (v3). Each folder in this directory contains the following cross-service
 examples. A README in each folder describes how to run the example.
 
-A cross-service example is an application that works across multiple AWS services 
+A cross-service example is an application that works across multiple AWS services
 using the AWS SDK for .NET.
 
 ## ⚠️ Important
-* Running this code might result in charges to your AWS account. 
+* Running this code might result in charges to your AWS account.
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Cross-service examples
@@ -70,7 +70,7 @@ The application uses the following services:
 
 ### [Amazon DynamoDB work item tracker web application](DynamoDbItemTracker/README.md)
 
-Shows how to create a web application that tracks work items in DynamoDB and emails 
+Shows how to create a web application that tracks work items in DynamoDB and emails
 reports by using Amazon SES.
 
 The application uses the following services:

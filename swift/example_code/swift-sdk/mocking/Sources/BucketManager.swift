@@ -30,7 +30,7 @@ public class BucketManager {
 
     /// Return an array listing all of the user's buckets by calling the
     /// ``S3SessionProtocol`` function `listBuckets()`.
-    /// 
+    ///
     /// - Returns: An array of bucket name strings.
     ///
     // snippet-start:[mocking.swift.using-session.calling]
@@ -40,7 +40,7 @@ public class BucketManager {
         guard let buckets = output.buckets else {
             return []
         }
-        
+
         return buckets.map { $0.name ?? "<unknown>" }
     }
     // snippet-end:[mocking.swift.using-session.calling]

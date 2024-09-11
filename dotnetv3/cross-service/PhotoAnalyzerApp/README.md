@@ -6,7 +6,7 @@ You can create a dynamic web application that analyzes nature images located in 
 
 ![AWS Tracking Application](images/lakesun.png)
 
-After the application analyzes the images, it uses the Amazon Simple Email service (Amazon SES) to send an email message that contains the label data, as shown in the following illustration. For example, some labels for the preceding photo are **Outdoors**, **Sky**, and **Sun**.  
+After the application analyzes the images, it uses the Amazon Simple Email service (Amazon SES) to send an email message that contains the label data, as shown in the following illustration. For example, some labels for the preceding photo are **Outdoors**, **Sky**, and **Sun**.
 
 ![AWS Tracking Application](images/XmlReport.png)
 
@@ -39,19 +39,19 @@ To complete the tutorial, you need the following:
 ## ⚠️ Important
 
 + The AWS services used by this application are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to delete all of the resources that you create while going through this tutorial to ensure that you’re not charged.
 
 ## Creating the resources
 
 Create an S3 bucket named **photos[somevalue]** and upload five or six nature images. Be sure to use this bucket name in your Amazon S3 .NET code. For more information about creating a bucket, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html).
 
-In addition, make sure that you set up your .NET developer environment before following along with this tutorial. For more information, see [Setting up your AWS SDK for .NET environment](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html). 
+In addition, make sure that you set up your .NET developer environment before following along with this tutorial. For more information, see [Setting up your AWS SDK for .NET environment](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html).
 
 ## Understand the AWS Photo Analyzer application
 
-The AWS Photo Analyzer application supports viewing the images that are analyzed. To view the images, choose **Get Images**. 
+The AWS Photo Analyzer application supports viewing the images that are analyzed. To view the images, choose **Get Images**.
 
 ![AWS Photo Analyzer](images/GetImages.png)
 
@@ -71,11 +71,11 @@ Create a MVC .Net Web App project using Visual Studio. Name it **PhotoAnalyzerAp
 
 3. Choose **Next**.
 
-4. In the **Project Name** field, enter **PhotoAnalyzerApp**.  
+4. In the **Project Name** field, enter **PhotoAnalyzerApp**.
 
 5. Choose **Next**.
 
-6. Make sure that the Target Framework is set to .NET Core 5.0 (or make sure that the current version of .NET Core is selected). 
+6. Make sure that the Target Framework is set to .NET Core 5.0 (or make sure that the current version of .NET Core is selected).
 
 6. Choose **Create**.
 
@@ -85,7 +85,7 @@ At this point, you have a new project named **PhotoAnalyzerApp**. You must add t
 
 ![AWS Tracking Application](images/projectLibs.png)
 
-After you add the packages, you can use the AWS SDK for .NET in your project. 
+After you add the packages, you can use the AWS SDK for .NET in your project.
 
 1. In the Solution Explorer, choose or right-click the project name, **PhotoAnalyzerApp**.
 
@@ -93,38 +93,38 @@ After you add the packages, you can use the AWS SDK for .NET in your project.
 
 3. When the NuGet packages dialog opens, choose **Browse**.
 
-4. In the **Search** field, enter **AWSSDK.Core**.  
+4. In the **Search** field, enter **AWSSDK.Core**.
 
 5. Select the **AWSSDK.Core** package from the list. Then, in the right pane, choose **Install**. After installation, you can see the package.
 
 ![Install NuGet Package](images/nuget.png)
 
-**Note**: Repeat this process to add the **AWSSDK.Rekognition**, **AWSSDK.S3**, and **AWSSDK.SimpleEmail** packages. 
+**Note**: Repeat this process to add the **AWSSDK.Rekognition**, **AWSSDK.S3**, and **AWSSDK.SimpleEmail** packages.
 
-**Tip**: If you don't see the AWS packages after you add them, confirm that your NuGet is properly configured to use **nuget.org**. The following illustration shows **nuget.org** with source **https://api.nuget.org/v3/index.json** selected under the **Package Sources** for **NuGet Package Manager**. 
+**Tip**: If you don't see the AWS packages after you add them, confirm that your NuGet is properly configured to use **nuget.org**. The following illustration shows **nuget.org** with source **https://api.nuget.org/v3/index.json** selected under the **Package Sources** for **NuGet Package Manager**.
 
 ![AWS Tracking Application](images/nuget2.png)
 
  ## Create the classes
- 
- The following illustration shows the structure of this .NET project. 
- 
+
+ The following illustration shows the structure of this .NET project.
+
  ![AWS App](images/ProjectFulla.png)
- 
- **Note**: To keep this tutorial simple, the .NET classes are placed in the same namespace as the Controller. However, you can place them in other namespaces if you prefer. 
- 
+
+ **Note**: To keep this tutorial simple, the .NET classes are placed in the same namespace as the Controller. However, you can place them in other namespaces if you prefer.
+
  You work with the following .NET classes:
 
-+ **HomeController** - Used as the .NET controller that handles HTTP requests. 
++ **HomeController** - Used as the .NET controller that handles HTTP requests.
 + **AWSService** - Used to invoke service operations by using the Amazon S3, Amazon Rekognition, and Amazon SES .NET API operations. You can create this class in the same location as the **HomeController**.
-+ **BucketItem** -  Used as a model that stores S3 bucket information.   
++ **BucketItem** -  Used as a model that stores S3 bucket information.
 + **WorkItem**  - Used as a model that stores Amazon Rekognition data.
 
 **Note**: You need to add the **AWSService**,  **BucketItem**, and  **WorkItem** classes to your project.
 
 ### HomeController class
 
-The following C# code represents the **HomeController** class. Because the Async version of the AWS SDK for .NET is used, notice that the controller methods have to use **async** keywords and the return values are defined using **Task**. 
+The following C# code represents the **HomeController** class. Because the Async version of the AWS SDK for .NET is used, notice that the controller methods have to use **async** keywords and the return values are defined using **Task**.
 
 ```csharp
 using System;
@@ -200,10 +200,10 @@ namespace PhotoAnalyzerApp.Controllers
 
 ```
 
-**Note**: Be sure to specify the bucket name for the **bucketName** variable. 
+**Note**: Be sure to specify the bucket name for the **bucketName** variable.
 ### AWSService class
 
-The following C# code represents the **AWSService** class. This class uses the AWS .NET Rekognition API to analyze photos retrieved from an S3 bucket. The **DetectLabels** method returns a **List** object where each element is a **WorkItem** object that stores the label data. Likewise, the **ListBucketNames** method uses the Amazon S3 API to return a **List** object where each element is a string that specifies the object name. The **SendMessage** method uses the Amazon SES API to send an email message that contains the label data.  
+The following C# code represents the **AWSService** class. This class uses the AWS .NET Rekognition API to analyze photos retrieved from an S3 bucket. The **DetectLabels** method returns a **List** object where each element is a **WorkItem** object that stores the label data. Likewise, the **ListBucketNames** method uses the Amazon S3 API to return a **List** object where each element is a string that specifies the object name. The **SendMessage** method uses the Amazon SES API to send an email message that contains the label data.
 
 Here is the code for **AWSService**.
 
@@ -486,10 +486,10 @@ namespace PhotoAnalyzerApp.Controllers
 
 ## Modify the CSHTML file
 
-At this point, you have created all of the .NET classes required for this example application. Now, modify the index.cshtml file required for the application's view. This file exists in the Views/Home folder, as shown in this illustration. 
+At this point, you have created all of the .NET classes required for this example application. Now, modify the index.cshtml file required for the application's view. This file exists in the Views/Home folder, as shown in this illustration.
 
 ### index.cshtml
-The **index.cshtml** file is the application's home view. 
+The **index.cshtml** file is the application's home view.
 
 ```html
 
@@ -518,7 +518,7 @@ The **index.cshtml** file is the application's home view.
 
 ### process.cshtml
 
-Create a second CSHTML file named **Process.cshtml** that is located in the same folder as **Index.cshtml**. Add the following code to this file.  
+Create a second CSHTML file named **Process.cshtml** that is located in the same folder as **Index.cshtml**. Add the following code to this file.
 
 ```html
 @{
@@ -667,7 +667,7 @@ Create a second CSHTML file named **Process.cshtml** that is located in the same
 ```
 ## Run the application
 
-You can run your application from your IDE. The home page looks like the following image. 
+You can run your application from your IDE. The home page looks like the following image.
 
 ![AWS Tracking Application](images/Home.png)
 

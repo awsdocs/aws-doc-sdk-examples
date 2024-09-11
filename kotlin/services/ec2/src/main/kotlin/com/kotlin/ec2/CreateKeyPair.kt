@@ -20,10 +20,10 @@ suspend fun main(args: Array<String>) {
     val usage = """
 
     Usage:
-        <keyName> 
+        <keyName>
 
     Where:
-        keyName - A key pair name (for example, TestKeyPair). 
+        keyName - A key pair name (for example, TestKeyPair).
     """
 
     if (args.size != 1) {

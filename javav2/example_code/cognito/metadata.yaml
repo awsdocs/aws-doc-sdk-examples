@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/cognito/AddLoginProvider.java
     services:
@@ -47,7 +47,7 @@ files:
       - cognito
   - path: src/main/java/com/example/cognito/ListUsers.java
     services:
-      - cognito      
+      - cognito
   - path: src/test/java/AmazonCognitoTest.java
     services:
-      - cognito    
+      - cognito

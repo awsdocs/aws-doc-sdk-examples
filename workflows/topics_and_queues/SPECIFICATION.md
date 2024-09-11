@@ -29,7 +29,7 @@ The sample code builds a command line application that asks you for input. This 
 ### Create an SNS topic
 
 ```
-Would you like to work with FIFO topics? (y/n) 
+Would you like to work with FIFO topics? (y/n)
 ```
 
 You configure FIFO (First-In-First-Out) topics when you create them. Choosing a FIFO topic enables other options, too. To learn more, see [FIFO topics example use case](https://docs.aws.amazon.com/sns/latest/dg/fifo-example-use-case.html).
@@ -62,7 +62,7 @@ Queue names can have 1-80 characters. They can contain uppercase and lowercase A
 
 
 ```
-Filter messages for "<queue name>.fifo"s subscription to 
+Filter messages for "<queue name>.fifo"s subscription to
 the topic "<topic name>.fifo"?  (y/n)
 ```
 
@@ -121,7 +121,7 @@ If you added a filter to one of the subscriptions, you can choose to add a filte
 2. funny
 3. serious
 4. sincere
-Enter a number for an attribute: 
+Enter a number for an attribute:
 ```
 
 Select a number for an attribute.
@@ -138,9 +138,9 @@ When you are done posting messages, the application polls the queues and display
 ### Clean up resources
 
 ```
-Delete the SQS queues? (y/n) 
+Delete the SQS queues? (y/n)
 
-Delete the SNS topic? (y/n) 
+Delete the SNS topic? (y/n)
 
 ```
 

@@ -5,8 +5,8 @@
 ]>
 <block>
   <para>
-	  .NET Foundation Model (FM) Playground is a .NET MAUI Blazor sample application that showcases how to use &BRlong; from C# code. 
-	  This example shows how .NET and C# developers can use &BR; 
+	  .NET Foundation Model (FM) Playground is a .NET MAUI Blazor sample application that showcases how to use &BRlong; from C# code.
+	  This example shows how .NET and C# developers can use &BR;
 	  to build generative AI-enabled applications. You can test and interact with &BR; foundation models by using the following four playgrounds:
   </para>
   <itemizedlist>

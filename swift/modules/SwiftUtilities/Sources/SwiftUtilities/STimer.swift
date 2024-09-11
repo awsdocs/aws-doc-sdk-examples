@@ -42,7 +42,7 @@ public struct STimer {
         startTime = Date(timeIntervalSinceNow: 0.0)
         Thread.sleep(forTimeInterval: self.duration)
         self.endTime = Date(timeIntervalSinceNow: 0.0)
-        
+
         if endMessage != nil {
             print(endMessage!)
         }

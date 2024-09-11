@@ -457,7 +457,7 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
             Question(
                 "rating",
                 f"\nLet's update your movie.\nYou rated it {my_movie['rating']}, what new "
-                f"rating would you give it? ",
+                "rating would you give it? ",
                 Question.is_float,
                 Question.in_range(1, 10),
             ),
@@ -493,8 +493,8 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
     ask_for_year = True
     while ask_for_year:
         release_year = Question.ask_question(
-            f"\nLet's get a list of movies released in a given year. Enter a year between "
-            f"1972 and 2018: ",
+            "\nLet's get a list of movies released in a given year. Enter a year between "
+            "1972 and 2018: ",
             Question.is_int,
             Question.in_range(1972, 2018),
         )
@@ -515,7 +515,7 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
         [
             Question(
                 "first",
-                f"\nNow let's scan for movies released in a range of years. Enter a year: ",
+                "\nNow let's scan for movies released in a range of years. Enter a year: ",
                 Question.is_int,
                 Question.in_range(1972, 2018),
             ),
@@ -544,7 +544,7 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
     print("-" * 88)
 
     if Question.ask_question(
-        f"\nLet's remove your movie from the table. Do you want to remove "
+        "\nLet's remove your movie from the table. Do you want to remove "
         f"'{my_movie['title']}'? (y/n)",
         Question.is_yesno,
     ):
@@ -552,7 +552,7 @@ def run_scenario(table_name, movie_file_name, dyn_resource):
         print(f"\nRemoved '{my_movie['title']}' from the table.")
     print("-" * 88)
 
-    if Question.ask_question(f"\nDelete the table? (y/n) ", Question.is_yesno):
+    if Question.ask_question("\nDelete the table? (y/n) ", Question.is_yesno):
         movies.delete_table()
         print(f"Deleted {table_name}.")
     else:

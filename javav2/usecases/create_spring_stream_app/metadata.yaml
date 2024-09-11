@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/Application.java
     services:
@@ -12,5 +12,4 @@ files:
   - path: src/main/java/com/example/VideoStreamService.java
     services:
       - S3
- 
-    
+

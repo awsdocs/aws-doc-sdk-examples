@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.dotNET.CodeExample.01_CreateClient] 
+// snippet-start:[dynamodb.dotNET.CodeExample.01_CreateClient]
 using System;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -54,7 +54,7 @@ namespace DynamoDB_intro
 
             return isAvailable;
         }
-       
+
     public static bool createClient(bool useDynamoDbLocal)
     {
       if (useDynamoDbLocal)
@@ -87,7 +87,7 @@ namespace DynamoDB_intro
       {
           Client = new AmazonDynamoDBClient();
       }
-     
+
       return true;
     }
   }

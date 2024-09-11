@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.ServerAccesLoggingTest]
 using Amazon;
@@ -11,8 +11,8 @@ namespace Amazon.DocSamples.S3
 {
     class ServerAccesLoggingTest
     {
-        private const string bucketName = "*** bucket name for which to enable logging ***"; 
-        private const string targetBucketName = "*** bucket name where you want access logs stored ***"; 
+        private const string bucketName = "*** bucket name for which to enable logging ***";
+        private const string targetBucketName = "*** bucket name where you want access logs stored ***";
         private const string logObjectKeyPrefix = "Logs";
         // Specify your bucket region (an example region is shown).
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;

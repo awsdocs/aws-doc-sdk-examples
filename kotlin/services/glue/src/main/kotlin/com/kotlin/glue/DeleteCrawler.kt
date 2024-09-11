@@ -23,7 +23,7 @@ suspend fun main(args: Array<String>) {
         <crawlerName>
 
     Where:
-         crawlerName - The name of the crawler to delete. 
+         crawlerName - The name of the crawler to delete.
     """
 
     if (args.size != 1) {

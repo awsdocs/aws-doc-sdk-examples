@@ -62,7 +62,7 @@ final class MovieTests: XCTestCase {
 
             var sep = ""
             var str = "mismatch: "
-            
+
             if self.titleOK == false {
                 str += "\(sep)title"
                 sep = ", "
@@ -135,7 +135,7 @@ final class MovieTests: XCTestCase {
         if case .s(let titleVal) = titleAttr {
             titleOK = titleVal == expectedTitle
         }
-        
+
         if case .n(let yearVal) = yearAttr {
             yearOK = Int(yearVal)! == expectedYear
         }
@@ -281,14 +281,14 @@ final class MovieTests: XCTestCase {
 
         movie = Movie(title: "Not a Real Movie", year: 2020)
         item = try await movie.getAsItem()
-        valid = self.verifyItem(item: item, expectedTitle: "Not a Real Movie", 
+        valid = self.verifyItem(item: item, expectedTitle: "Not a Real Movie",
                                 expectedYear: 2020, expectedRating: nil,
                                 expectedPlot: nil)
         XCTAssertTrue(valid.isValid(), "Test 1: \(valid.toString())")
 
         movie = Movie(title: "Not a Real Movie", year: 2021, rating: 8.2)
         item = try await movie.getAsItem()
-        valid = self.verifyItem(item: item, expectedTitle: "Not a Real Movie", 
+        valid = self.verifyItem(item: item, expectedTitle: "Not a Real Movie",
                                 expectedYear: 2021, expectedRating: 8.2,
                                 expectedPlot: nil)
         XCTAssertTrue(valid.isValid(), "Test 2: \(valid.toString())")
@@ -296,7 +296,7 @@ final class MovieTests: XCTestCase {
         movie = Movie(title: "Not a Real Movie", year: 2022,
                              plot: "Some kind of story.")
         item = try await movie.getAsItem()
-        valid = self.verifyItem(item: item, expectedTitle: "Not a Real Movie", 
+        valid = self.verifyItem(item: item, expectedTitle: "Not a Real Movie",
                                 expectedYear: 2022, expectedRating: nil,
                                 expectedPlot: "Some kind of story.")
         XCTAssertTrue(valid.isValid(), "Test 3: \(valid.toString())")
@@ -304,7 +304,7 @@ final class MovieTests: XCTestCase {
         movie = Movie(title: "Not a Real Movie", year: 2023, rating: 3.5,
                              plot: "Some kind of story.")
         item = try await movie.getAsItem()
-        valid = self.verifyItem(item: item, expectedTitle: "Not a Real Movie", 
+        valid = self.verifyItem(item: item, expectedTitle: "Not a Real Movie",
                                 expectedYear: 2023, expectedRating: 3.5,
                                 expectedPlot: "Some kind of story.")
         XCTAssertTrue(valid.isValid(), "Test 4: \(valid.toString())")

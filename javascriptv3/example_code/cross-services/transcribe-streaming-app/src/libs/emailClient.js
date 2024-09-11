@@ -7,7 +7,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 This file handles the sending of the translated transcription using
-AWS SES 
+AWS SES
 */
 import { SESClient } from "@aws-sdk/client-ses";
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";

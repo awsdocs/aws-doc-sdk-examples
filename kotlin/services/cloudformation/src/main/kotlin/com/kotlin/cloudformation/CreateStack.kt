@@ -14,14 +14,14 @@ import kotlin.system.exitProcess
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-        <stackName> <roleARN> <location> <key> <value> 
+        <stackName> <roleARN> <location> <key> <value>
 
     Where:
-        stackName - The name of the AWS CloudFormation stack. 
-        roleARN - The ARN of the role that has AWS CloudFormation permissions. 
-        location - The location of file containing the template body. (for example, https://s3.amazonaws.com/<bucketname>/template.yml). 
-        key - The key associated with the parameter. 
-        value - The value associated with the parameter. 
+        stackName - The name of the AWS CloudFormation stack.
+        roleARN - The ARN of the role that has AWS CloudFormation permissions.
+        location - The location of file containing the template body. (for example, https://s3.amazonaws.com/<bucketname>/template.yml).
+        key - The key associated with the parameter.
+        value - The value associated with the parameter.
     """
 
     if (args.size != 5) {

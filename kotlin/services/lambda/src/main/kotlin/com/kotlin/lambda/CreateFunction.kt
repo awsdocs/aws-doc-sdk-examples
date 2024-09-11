@@ -22,15 +22,15 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main(args: Array<String>) {
     val usage = """
-    Usage: 
-        <functionName> <s3BucketName> <s3Key> <role> <handler> 
+    Usage:
+        <functionName> <s3BucketName> <s3Key> <role> <handler>
 
     Where:
-        functionName - The name of the Lambda function. 
-        s3BucketName - The Amazon Simple Storage Service (Amazon S3) bucket name that stores the JAR file for the Lambda function. 
+        functionName - The name of the Lambda function.
+        s3BucketName - The Amazon Simple Storage Service (Amazon S3) bucket name that stores the JAR file for the Lambda function.
         s3Key - The key name of the JAR file.
-        role - The role ARN that has Lambda permissions. 
-        handler - The fully qualified method name (for example, example.Handler::handleRequest).  
+        role - The role ARN that has Lambda permissions.
+        handler - The fully qualified method name (for example, example.Handler::handleRequest).
     """
 
     if (args.size != 5) {

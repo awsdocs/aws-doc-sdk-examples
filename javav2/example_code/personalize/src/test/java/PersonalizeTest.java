@@ -65,21 +65,21 @@ public class PersonalizeTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * PersonalizeTest.class.getClassLoader().getResourceAsStream(
          * "config.properties")) {
-         * 
+         *
          * Properties prop = new Properties();
-         * 
+         *
          * if (input == null) {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * //load a properties file from class path, inside static method
          * prop.load(input);
-         * 
+         *
          * // Populate the data members required for all tests
          * datasetGroupArn = prop.getProperty("datasetGroupArn");
          * solutionVersionArn = prop.getProperty("solutionVersionArn");
@@ -90,7 +90,7 @@ public class PersonalizeTest {
          * campaignName= prop.getProperty("campaignName")+ java.util.UUID.randomUUID();;
          * existingSolutionArn= prop.getProperty("existingSolutionArn");
          * existingCampaignName = prop.getProperty("existingCampaignName");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

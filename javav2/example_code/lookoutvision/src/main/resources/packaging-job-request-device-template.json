@@ -1,15 +1,15 @@
 {
-    "Configuration": { 
-        "Greengrass": { 
+    "Configuration": {
+        "Greengrass": {
             "ComponentDescription": "<Greengrass component description>",
             "ComponentName": "<Greengrass component name>",
             "ComponentVersion": "<Greengrass component in n.n.n format>",
-            "S3OutputLocation": { 
+            "S3OutputLocation": {
                 "Bucket": "<S3 bucket output location>",
                 "Prefix": "<Folder within Bucket>"
             },
-            "Tags": [ 
-               { 
+            "Tags": [
+               {
                   "Key": "<Your key>",
                   "Value": "<Your key value>"
                }

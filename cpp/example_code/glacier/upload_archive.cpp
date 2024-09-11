@@ -40,11 +40,11 @@ int main(int argc, char **argv)
         Aws::String archive_description("TestArchiveUpload");
 
         // Calculate SHA-256 tree hash of file contents
-        const std::shared_ptr<Aws::IOStream> file_contents = 
-            Aws::MakeShared<Aws::FStream>("SampleAllocationTag", 
-                                          file_name.c_str(), 
+        const std::shared_ptr<Aws::IOStream> file_contents =
+            Aws::MakeShared<Aws::FStream>("SampleAllocationTag",
+                                          file_name.c_str(),
                                           std::ios::in | std::ios::binary);
-        Aws::Utils::ByteBuffer byte_checksum = 
+        Aws::Utils::ByteBuffer byte_checksum =
             Aws::Utils::HashingUtils::CalculateSHA256TreeHash(*file_contents);
         Aws::String checksum = Aws::Utils::HashingUtils::HexEncode(byte_checksum);
 
@@ -63,12 +63,12 @@ int main(int argc, char **argv)
         // Process the result
         if (upload_outcome.IsSuccess())
         {
-            std::cout << "Success: Archive ID: " 
+            std::cout << "Success: Archive ID: "
                 << upload_outcome.GetResult().GetArchiveId() << std::endl;
         }
         else
         {
-            std::cout << "ERROR: " << upload_outcome.GetError().GetMessage() 
+            std::cout << "ERROR: " << upload_outcome.GetError().GetMessage()
                 << std::endl;
         }
     }

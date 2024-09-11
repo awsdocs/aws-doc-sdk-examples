@@ -18,13 +18,13 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
     val usage = """
-    
-        Usage: 
+
+        Usage:
             <message> <phoneNumber>
 
         Where:
             message - The message text to send.
-            phoneNumber - The mobile phone number to which a message is sent (for example, +1XXX5550100). 
+            phoneNumber - The mobile phone number to which a message is sent (for example, +1XXX5550100).
         """
 
     if (args.size != 2) {

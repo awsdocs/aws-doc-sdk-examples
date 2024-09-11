@@ -42,10 +42,10 @@ struct ExampleCommand: ParsableCommand {
                         print("Error: No policy found with ARN \(arn)")
                         return
                     }
-            
+
             print("Policy:  \(policyName) (\(policyID))")
             print("         \(policyARN)")
-            
+
             let policyCreateDate = policy.createDate ?? Date(timeIntervalSince1970: 0)
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
@@ -81,7 +81,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[iam.swift.getpolicy.main]
 // snippet-end:[iam.swift.getpolicy.example]

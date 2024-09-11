@@ -12,8 +12,8 @@ The Java code examples perform AWS operations for the account and AWS Region for
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a named query example. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information,
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 
 **Note:** These code examples depend on values defined in the **ExampleConstants** Java file. Be sure to set values that are applicable to your environment. For example, specify the database that you created by following https://docs.aws.amazon.com/athena/latest/ug/work-with-data.html.
@@ -33,7 +33,7 @@ Before running the Amazon Athena JUnit tests, you must define values in the **co
 
 Define this value to successfully run the JUnit tests:
 
-- **nameQuery** - A named query.  
+- **nameQuery** - A named query.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.

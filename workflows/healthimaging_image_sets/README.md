@@ -8,12 +8,12 @@ frames created by the DICOM import.
 
 Digital Imaging and Communications in Medicine (DICOM) is a technical standard for the digital storage and transmission of medical images and related information.
 
-This workflow runs as a command-line application prompting for user input. 
+This workflow runs as a command-line application prompting for user input.
 
 1. All the necessary resources are created from an AWS CloudFormation template.
    1. A HealthImaging data store.
    2. An Amazon Simple Storage Service (Amazon S3) input bucket for a DICOM import job.
-   3. An Amazon S3 output bucket for a DICOM import job. 
+   3. An Amazon S3 output bucket for a DICOM import job.
    4. An AWS Identity and Access Management (IAM) role with the appropriate permissions for a DICOM import job.
 
 ![CloudFormation stack diagram](.images/cfn_stack.png)

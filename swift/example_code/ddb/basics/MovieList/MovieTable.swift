@@ -98,7 +98,7 @@ public class MovieTable {
         guard let description = output.table else {
             throw MoviesError.TableNotFound
         }
-        
+
         return (description.tableName == self.tableName)
     }
     // snippet-end:[ddb.swift.basics.tableexists]
@@ -126,7 +126,7 @@ public class MovieTable {
         guard let client = self.ddbClient else {
             throw MoviesError.UninitializedClient
         }
-        
+
         let input = DeleteTableInput(
             tableName: self.tableName
         )
@@ -199,7 +199,7 @@ public class MovieTable {
 
         for chunk in chunks {
             var requestList: [DynamoDBClientTypes.WriteRequest] = []
-            
+
             for movie in chunk {
                 let item = try await movie.getAsItem()
                 let request = DynamoDBClientTypes.WriteRequest(
@@ -219,7 +219,7 @@ public class MovieTable {
     // snippet-start:[ddb.swift.basics.add-movie]
     /// Add a movie specified as a `Movie` structure to the Amazon DynamoDB
     /// table.
-    /// 
+    ///
     /// - Parameter movie: The `Movie` to add to the table.
     ///
     func add(movie: Movie) async throws {
@@ -242,7 +242,7 @@ public class MovieTable {
 
     // snippet-start:[ddb.swift.basics.add-args]
     /// Given a movie's details, add a movie to the Amazon DynamoDB table.
-    /// 
+    ///
     /// - Parameters:
     ///   - title: The movie's title as a `String`.
     ///   - year: The release year of the movie (`Int`).
@@ -396,7 +396,7 @@ public class MovieTable {
 
     // snippet-start:[ddb.swift.basics.update]
     /// Update the specified movie with new `rating` and `plot` information.
-    /// 
+    ///
     /// - Parameters:
     ///   - title: The title of the movie to update.
     ///   - year: The release year of the movie to update.

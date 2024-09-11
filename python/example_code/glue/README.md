@@ -98,10 +98,10 @@ This example shows you how to do the following:
 This example requires the following scaffold resources that are defined in the
 accompanying AWS CloudFormation script `setup_scenario_getting_started.yaml`.
 
-* An Amazon Simple Storage Service (Amazon S3) bucket that can contain the Python ETL 
+* An Amazon Simple Storage Service (Amazon S3) bucket that can contain the Python ETL
 job script and receive output data.
-* An AWS Identity and Access Management (IAM) role that can be assumed by AWS Glue. 
-The role must grant read-write access to the S3 bucket and standard rights needed by 
+* An AWS Identity and Access Management (IAM) role that can be assumed by AWS Glue.
+The role must grant read-write access to the S3 bucket and standard rights needed by
 AWS Glue.
 
 You can deploy the scaffold resources at a command prompt.

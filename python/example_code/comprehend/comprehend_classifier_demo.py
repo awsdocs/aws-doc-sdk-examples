@@ -274,7 +274,7 @@ def usage_demo():
     )
     print(
         f"Waiting until {classifier_name} is trained. This typically takes "
-        f"30–40 minutes."
+        "30–40 minutes."
     )
     classifier_trained_waiter.wait(comp_classifier.classifier_arn)
 
@@ -304,7 +304,7 @@ def usage_demo():
     pprint(job)
 
     print(
-        f"Getting job output data from Amazon S3: "
+        "Getting job output data from Amazon S3: "
         f"{job['OutputDataConfig']['S3Uri']}."
     )
     job_output = comp_demo.extract_job_output(job)

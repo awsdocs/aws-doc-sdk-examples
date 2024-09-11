@@ -49,22 +49,22 @@ public class AmazonComprehendTest {
          * try (InputStream input =
          * AmazonComprehendTest.class.getClassLoader().getResourceAsStream(
          * "config.properties")) {
-         * 
+         *
          * Properties prop = new Properties();
-         * 
+         *
          * if (input == null) {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * //load a properties file from class path, inside static method
          * prop.load(input);
-         * 
+         *
          * // Populate the data members required for all tests
          * dataAccessRoleArn = prop.getProperty("dataAccessRoleArn");
          * s3Uri = prop.getProperty("s3Uri");
          * documentClassifierName = prop.getProperty("documentClassifier");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

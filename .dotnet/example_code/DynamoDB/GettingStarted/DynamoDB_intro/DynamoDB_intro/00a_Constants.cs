@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.dotNET.CodeExample.00a_Constants] 
+// snippet-start:[dynamodb.dotNET.CodeExample.00a_Constants]
 using System.Collections.Generic;
 using Amazon.DynamoDBv2.Model;
 
@@ -55,7 +55,7 @@ namespace DynamoDB_intro
         KeyType = "RANGE"
       }
     };
-        
+
     public static ProvisionedThroughput MoviesTableProvisionedThroughput
       = new ProvisionedThroughput( 1, 1 );
 

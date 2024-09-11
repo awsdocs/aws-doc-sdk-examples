@@ -97,7 +97,7 @@ public class DynamoDBTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests.
          * prop.load(input);
          * tableName = prop.getProperty("tableName");
@@ -111,7 +111,7 @@ public class DynamoDBTest {
          * songTitle = prop.getProperty("SongTitle");
          * songTitleVal = prop.getProperty("SongTitleVal");
          * tableName2 = "Movies";
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

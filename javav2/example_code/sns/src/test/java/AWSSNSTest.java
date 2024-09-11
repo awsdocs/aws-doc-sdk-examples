@@ -72,7 +72,7 @@ public class AWSSNSTest {
          * lambdaarn = prop.getProperty("lambdaarn");
          * phone = prop.getProperty("phone");
          * message = prop.getProperty("message");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

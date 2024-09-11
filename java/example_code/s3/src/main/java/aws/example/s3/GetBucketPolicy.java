@@ -10,7 +10,7 @@ import com.amazonaws.services.s3.model.BucketPolicy;
 
 /**
  * Get the bucket policy from an existing S3 bucket.
- * 
+ *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[emr.java.stepfactory.enabledebugging]
-    StepFactory stepFactory = new StepFactory(); 
+    StepFactory stepFactory = new StepFactory();
 	StepConfig enabledebugging = new StepConfig()
    		.withName("Enable debugging")
    		.withActionOnFailure("TERMINATE_JOB_FLOW")

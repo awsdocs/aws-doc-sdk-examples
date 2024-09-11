@@ -34,8 +34,7 @@ codecommit = boto3.client("codecommit")
 def lambda_handler(event, context):
     # Log the updated references from the event
     references = {
-        reference["ref"]
-        for reference in event["Records"][0]["codecommit"]["references"]
+        reference["re"] for reference in event["Records"][0]["codecommit"]["references"]
     }
     print("References: " + str(references))
 

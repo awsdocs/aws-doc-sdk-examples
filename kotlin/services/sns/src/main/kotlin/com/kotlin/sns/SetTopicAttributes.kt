@@ -18,12 +18,12 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
     val usage = """
-      Usage: 
+      Usage:
         <attribute> <topicArn> <value>
 
       Where:
         attribute - The attribute action to use. Valid parameters are: Policy | DisplayName | DeliveryPolicy .
-        topicArn - The ARN of the topic. 
+        topicArn - The ARN of the topic.
         value - The value for the attribute.
     """
 

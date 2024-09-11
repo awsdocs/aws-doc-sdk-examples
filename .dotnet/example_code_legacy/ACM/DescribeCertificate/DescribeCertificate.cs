@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
 using System;
@@ -25,7 +25,7 @@ namespace DescribeCertificateExample
 
             Console.WriteLine(Environment.NewLine + "Certificate Details: ");
             Console.WriteLine("Certificate Domain: " + certificateDetail.DomainName);
-            Console.WriteLine("Certificate Arn: " + certificateDetail.CertificateArn);            
+            Console.WriteLine("Certificate Arn: " + certificateDetail.CertificateArn);
             Console.WriteLine("Certificate Subject: " + certificateDetail.Subject);
             Console.WriteLine("Certificate Status: " + certificateDetail.Status);
             foreach (var san in certificateDetail.SubjectAlternativeNames)

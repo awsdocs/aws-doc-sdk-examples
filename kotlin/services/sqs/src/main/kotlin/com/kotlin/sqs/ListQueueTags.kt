@@ -19,7 +19,7 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
     val usage = """
-        Usage: 
+        Usage:
             <queueName>
         Where:
             queueName - The name of the queue.

@@ -53,7 +53,7 @@
 // snippet-start:[cpp.example_code.iam.Scenario_CreateUserAssumeRole]
 namespace AwsDoc {
     namespace IAM {
-  
+
         //! Cleanup by deleting created entities.
         /*!
           \sa DeleteCreatedEntities

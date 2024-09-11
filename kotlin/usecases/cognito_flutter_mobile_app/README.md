@@ -12,7 +12,7 @@
 ## Step-1: Set Up AWS Cognito User Pool and App Client ID
   - Log in to the AWS Management Console.
   - Navigate to Amazon Cognito and select "Manage User Pools."
-  - Click "Create a user pool," name it, and follow the prompts to configure settings. 
+  - Click "Create a user pool," name it, and follow the prompts to configure settings.
   - Set up an App Client if you haven't already.
   - Make sure to note your Pool ID and App Client ID (without a client secret).
 
@@ -28,7 +28,7 @@ Update `assets/config.json` and initialize your Cognito user pool with your Pool
     "UserPoolID": "<<YOUR USER POOL ID>>",
     "ClientID": "<< YOUR CLIENT ID>>"
 }
-```  
+```
 
 ## Step 4: Integrate with AWS Cognito APIs
 See `cognito_manager.dart` for an example of integrating with AWS Cognito, e.g.,,
@@ -108,7 +108,7 @@ class CognitoManager {
     }
   }
 }
-```  
+```
 
 ## Step 4: Implementing UI
 See `main.dart` for a sample UI to implement sign up or sign in functionality, e.g.,

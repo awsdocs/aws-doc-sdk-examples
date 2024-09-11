@@ -7,7 +7,7 @@
 
 # For example, in this file @rlhagerm owns any files in the /dotnetv3/
 # directory and any of its subdirectories.
-# Note that you will not be assigned as a reviewer if you are the 
+# Note that you will not be assigned as a reviewer if you are the
 # author of the PR.
 
 /dotnetv3/ @rlhagerm

@@ -57,7 +57,7 @@ bool AwsDoc::S3::listBuckets(const Aws::S3::S3ClientConfiguration &clientConfig)
 
 int main() {
     //The Aws::SDKOptions struct contains SDK configuration options.
-    //An instance of Aws::SDKOptions is passed to the Aws::InitAPI and 
+    //An instance of Aws::SDKOptions is passed to the Aws::InitAPI and
     //Aws::ShutdownAPI methods. The same instance should be sent to both methods.
     Aws::SDKOptions options;
 
@@ -72,7 +72,7 @@ int main() {
         AwsDoc::S3::listBuckets(clientConfig);
     }
 
-    //Before the application terminates, the SDK must be shut down. 
+    //Before the application terminates, the SDK must be shut down.
     ShutdownAPI(options);
     return 0;
 }

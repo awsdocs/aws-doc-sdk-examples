@@ -15,9 +15,9 @@ public class SSMScenario {
         String usage = """
             Usage:
               <instanceId> <title> <source> <category> <severity>
-      
+
             Where:
-                instanceId - The Amazon EC2 Linux/UNIX instance Id that AWS Systems Manager uses (ie, i-0149338494ed95f06). 
+                instanceId - The Amazon EC2 Linux/UNIX instance Id that AWS Systems Manager uses (ie, i-0149338494ed95f06).
                 title - The title of the parameter (default is Disk Space Alert).
                 source - The source of the parameter (default is EC2).
                 category - The category of the parameter. Valid values are 'Availability', 'Cost', 'Performance', 'Recovery', 'Security' (default is Performance).
@@ -48,7 +48,7 @@ public class SSMScenario {
                 listing documents, listing commands, creating an OpsItem, modifying an OpsItem, and deleting AWS SSM resources.
                 Upon completion of the program, all AWS resources are cleaned up.
                 Let's get started...
-            
+
                 """);
         waitForInputToContinue(scanner);
         System.out.println(DASHES);
@@ -145,13 +145,13 @@ public class SSMScenario {
 
         System.out.println(DASHES);
         System.out.println("""
-             6. Now we will create an SSM OpsItem. 
-             A SSM OpsItem is a feature provided by Amazon's Systems Manager (SSM) service. 
-             It is a type of operational data item that allows you to manage and track various operational issues, 
+             6. Now we will create an SSM OpsItem.
+             A SSM OpsItem is a feature provided by Amazon's Systems Manager (SSM) service.
+             It is a type of operational data item that allows you to manage and track various operational issues,
              events, or tasks within your AWS environment.
-             
-             You can create OpsItems to track and manage operational issues as they arise. 
-             For example, you could create an OpsItem whenever your application detects a critical error 
+
+             You can create OpsItems to track and manage operational issues as they arise.
+             For example, you could create an OpsItem whenever your application detects a critical error
              or an anomaly in your infrastructure.
             """);
 

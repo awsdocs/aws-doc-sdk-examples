@@ -248,9 +248,9 @@ def usage_demo():
     print("Done.")
 
     if all([lines[index] == received_lines[index] for index in range(len(lines))]):
-        print(f"Successfully reassembled all file lines!")
+        print("Successfully reassembled all file lines!")
     else:
-        print(f"Uh oh, some lines were missed!")
+        print("Uh oh, some lines were missed!")
 
     queue.delete()
 

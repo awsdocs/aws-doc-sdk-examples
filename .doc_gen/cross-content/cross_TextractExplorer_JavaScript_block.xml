@@ -7,7 +7,7 @@
   <para>
     Shows how to use the &JSBlong; to build a React application
     that uses &TEXTRACTlong; to extract data from a document image and display it in
-    an interactive web page. This example runs in a web browser and requires an 
+    an interactive web page. This example runs in a web browser and requires an
     authenticated &COGlong; identity for credentials. It uses &S3long; (&S3;) for storage, and for notifications
     it polls an &SQSlong; (&SQS;) queue that is subscribed to an &SNSlong; (&SNS;) topic.
   </para>

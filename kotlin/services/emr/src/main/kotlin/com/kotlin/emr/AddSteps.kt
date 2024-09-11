@@ -25,8 +25,8 @@ suspend fun main(args: Array<String>) {
             <jar> <myClass> <jobFlowId>
 
         Where:
-            jar - A path to a JAR file run during the step. 
-            myClass - The name of the main class in the specified Java file. 
+            jar - A path to a JAR file run during the step.
+            myClass - The name of the main class in the specified Java file.
             jobFlowId - The id of the job flow.
         """
 

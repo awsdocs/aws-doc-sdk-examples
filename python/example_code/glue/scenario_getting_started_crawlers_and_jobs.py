@@ -121,8 +121,8 @@ class GlueCrawlerJobScenario:
 
         print(
             f"When you run the crawler, it crawls data stored in {data_source} and "
-            f"creates a metadata database in the AWS Glue Data Catalog that describes "
-            f"the data in the data source."
+            "creates a metadata database in the AWS Glue Data Catalog that describes "
+            "the data in the data source."
         )
         print("In this example, the source data is in CSV format.")
         ready = False
@@ -143,12 +143,12 @@ class GlueCrawlerJobScenario:
         database = wrapper.get_database(db_name)
         print(f"The crawler created database {db_name}:")
         pprint(database)
-        print(f"The database contains these tables:")
+        print("The database contains these tables:")
         tables = wrapper.get_tables(db_name)
         for index, table in enumerate(tables):
             print(f"\t{index + 1}. {table['Name']}")
         table_index = Question.ask_question(
-            f"Enter the number of a table to see more detail: ",
+            "Enter the number of a table to see more detail: ",
             Question.is_int,
             Question.in_range(1, len(tables)),
         )
@@ -173,7 +173,7 @@ class GlueCrawlerJobScenario:
             "fields are included in the output."
         )
         job_run_status = None
-        if Question.ask_question(f"Ready to run? (y/n) ", Question.is_yesno):
+        if Question.ask_question("Ready to run? (y/n) ", Question.is_yesno):
             job_run_id = wrapper.start_job_run(
                 job_name, db_name, tables[0]["Name"], self.glue_bucket.name
             )
@@ -198,7 +198,7 @@ class GlueCrawlerJobScenario:
                 lines = 4
                 key_index = Question.ask_question(
                     f"Enter the number of a block to download it and see the first {lines} "
-                    f"lines of JSON output in the block: ",
+                    "lines of JSON output in the block: ",
                     Question.is_int,
                     Question.in_range(1, len(keys)),
                 )
@@ -223,7 +223,7 @@ class GlueCrawlerJobScenario:
                 print(f"\t{index + 1}. {job_name}")
             job_index = Question.ask_question(
                 f"Enter a number between 1 and {len(job_names)} to see the list of runs for "
-                f"a job: ",
+                "a job: ",
                 Question.is_int,
                 Question.in_range(1, len(job_names)),
             )

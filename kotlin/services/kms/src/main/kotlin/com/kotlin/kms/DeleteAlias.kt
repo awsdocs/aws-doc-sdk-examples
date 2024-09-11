@@ -20,10 +20,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <aliasName>  
+            <aliasName>
         Where:
             aliasName - An alias name to delete (for example, alias/myAlias).
-        
+
          """
 
     if (args.size != 1) {

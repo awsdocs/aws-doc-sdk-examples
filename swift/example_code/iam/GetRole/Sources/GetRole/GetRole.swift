@@ -35,7 +35,7 @@ struct ExampleCommand: ParsableCommand {
 
         do {
             let role = try await serviceHandler.getRole(name: rolename)
-            
+
             guard   let roleName = role.roleName,
                     let roleID = role.roleId else {
                         print("Error: Unknown role \(rolename).")
@@ -95,7 +95,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[iam.swift.getrole.main]
 // snippet-end:[iam.swift.getrole.example]

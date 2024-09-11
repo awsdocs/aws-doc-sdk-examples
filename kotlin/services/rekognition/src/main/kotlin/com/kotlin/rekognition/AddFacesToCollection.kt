@@ -21,12 +21,12 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
     val usage = """
-    Usage: 
+    Usage:
         <collectionId> <sourceImage>
 
     Where:
         collectionName - The name of the collection.
-        sourceImage - The path to the image (for example, C:\AWS\pic1.png). 
+        sourceImage - The path to the image (for example, C:\AWS\pic1.png).
     """
 
     if (args.size != 2) {

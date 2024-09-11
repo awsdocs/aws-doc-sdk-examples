@@ -18,7 +18,7 @@
         <listitem><para>Define table structure and security role resources in an &CFNlong; template.</para></listitem>
         <listitem><para>Use &AWS; Chalice and &CFNshort; to package and deploy all necessary resources.</para></listitem>
         <listitem><para>Use &CFNshort; to clean up all created resources.</para></listitem>
-    </itemizedlist>    
+    </itemizedlist>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on
         <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/apigateway_covid-19_tracker">GitHub</ulink>.

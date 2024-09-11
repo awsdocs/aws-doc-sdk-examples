@@ -7,12 +7,12 @@ import XCTest
 /// Class based on `XCTestCase` that's run to perform testing of the project code.
 final class CognitoIdentityDemoTests: XCTestCase {
     var identityTester: CognitoIdentityHandler? = nil
-    
+
     /// Perform setup work needed by all tests.
     override func setUp() async throws {
         self.identityTester = try await CognitoIdentityHandler()
     }
-    
+
     /// **Test:** Attempt to find an identity pool that doesn't exist. If no error occurs, the test
     /// fails.
     func testFindNonexistent() async {
@@ -23,7 +23,7 @@ final class CognitoIdentityDemoTests: XCTestCase {
             print("ERROR: ", dump(error, name: "Finding identity pool that doesn't exist"))
         }
     }
-    
+
     /// **Test:** Create (or locate, if it already exists) an identity pool. Then try to find it
     /// a second time. Make sure the returned IDs match. If not, the test fails.
     func testCreateThenFind() async {
@@ -31,7 +31,7 @@ final class CognitoIdentityDemoTests: XCTestCase {
             // Create the test pool, or get its ID if it already exists.
             let firstPoolID = try await identityTester!.getOrCreateIdentityPoolID(name: "testCreateThenFind")
             XCTAssertNotNil(firstPoolID, "Unable to create or obtain test pool")
-            
+
             // Find the test pool ID, but only if it exists.
             let secondPoolID = try await identityTester?.getIdentityPoolID(name: "testCreateThenFind")
             XCTAssertNotNil(secondPoolID, "Unable to find test pool")

@@ -25,7 +25,7 @@ public class Hosting {
          * Starts hosting an Amazon Lookout for Vision model. Returns when the model has
          * started or if hosting fails. You are charged for the amount of time that
          * a model is hosted. To stop hosting a model, use the StopModel operation.
-         * 
+         *
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project that contains the model that you
          *                    want to host.
@@ -107,7 +107,7 @@ public class Hosting {
         /**
          * Stops the hosting an Amazon Lookout for Vision model. Returns when model has
          * stopped or if hosting fails.
-         * 
+         *
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project that contains the model that you
          *                    want to stop hosting.

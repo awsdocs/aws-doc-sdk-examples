@@ -42,7 +42,7 @@ You can create the AWS resources required for this cross-service example the [AW
 5. Select the **Enable access to unauthenticated identities** checkbox.
 6. Choose **Create Pool**.
 7. Choose **Allow**.
-8. Take note of the **Identity pool ID**, which is highlighted in red in the **Get AWS Credentials** section. 
+8. Take note of the **Identity pool ID**, which is highlighted in red in the **Get AWS Credentials** section.
 9. Choose **Edit identity pool**.
 10. Take note of the name of the role in the **Unauthenticated role** field.
 

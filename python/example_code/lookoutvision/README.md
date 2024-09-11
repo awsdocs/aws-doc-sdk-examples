@@ -183,7 +183,7 @@ Run this example at a command prompt with the following command.
 
 ```
 python export_datasets.py <project> <destination>
-``` 
+```
 
 - `project` - The project that you want to export the datasets from.
 - `destination` - The Amazon S3 path that you want to copy the datasets to.

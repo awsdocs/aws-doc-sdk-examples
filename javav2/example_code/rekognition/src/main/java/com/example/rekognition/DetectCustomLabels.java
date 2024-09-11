@@ -46,7 +46,7 @@ public class DetectCustomLabels {
                     .bucket(bucket)
                     .name(key)
                     .build();
-            
+
             Image s3Image = Image.builder()
                     .s3Object(s3Object)
                     .build();

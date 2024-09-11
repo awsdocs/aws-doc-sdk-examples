@@ -1,6 +1,6 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
-/* Build 
+/* Build
    Don't forget to use the Visual Studio command prompt
    Tested with csc /version == 2.10.0.0
      (C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\bin\Roslyn)

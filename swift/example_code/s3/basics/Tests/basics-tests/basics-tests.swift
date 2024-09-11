@@ -18,7 +18,7 @@ final class BasicsTests: XCTestCase {
 
     /// Class-wide setup function for the test case, which is run *once* before
     /// any tests are run.
-    /// 
+    ///
     /// This function sets up the following:
     ///
     ///     Configures AWS SDK log system to only log errors.
@@ -273,7 +273,7 @@ final class BasicsTests: XCTestCase {
         do {
             let bucketName = try await createTestBucket()
             let fileInfo = try await createTestFile(bucket: bucketName)
-            
+
             if try await verifyTestFileContents(fileInfo: fileInfo) == false {
             }
         } catch {
@@ -326,7 +326,7 @@ final class BasicsTests: XCTestCase {
         do {
             let srcBucketName = try await createTestBucket()
             let destBucketName = try await createTestBucket()
-        
+
             // Create a file.
 
             let srcFileInfo = try await createTestFile(bucket: srcBucketName)

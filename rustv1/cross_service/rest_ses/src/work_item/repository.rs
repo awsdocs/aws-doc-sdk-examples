@@ -124,7 +124,7 @@ pub async fn update(item: &WorkItem, client: &RdsClient) -> Result<WorkItem, Wor
         .sql(
             r#"
             UPDATE Work
-            SET 
+            SET
                 username = :username,
                 date = :date,
                 description = :description,

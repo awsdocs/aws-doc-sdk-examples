@@ -23,11 +23,11 @@ public enum ServiceHandlerError: Error {
 public class ServiceHandler {
     public let client: S3Client
     public var region: S3ClientTypes.BucketLocationConstraint?
-    
+
     /// Initialize and return a new ``ServiceHandler`` object, which is used
     /// to drive the AWS calls
     /// used for the example.
-    /// 
+    ///
     /// - Parameters:
     ///   - region: The AWS Region to access.
     ///

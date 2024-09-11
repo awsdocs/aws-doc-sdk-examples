@@ -101,7 +101,7 @@ public class ParseUri {
          * "https://s3.us-west-1.amazonaws.com/myBucket/object%20key?query=%5Bbrackets%5D"
          * Invalid:
          * "https://s3.us-west-1.amazonaws.com/myBucket/object key?query=[brackets]"
-         * 
+         *
          * Virtual-hosted-style URIs with bucket names that contain a dot, ".", the dot
          * must not be URL-encoded.
          * Valid: "https://my.Bucket.s3.us-west-1.amazonaws.com/key"

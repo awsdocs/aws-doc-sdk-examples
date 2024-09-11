@@ -6,9 +6,9 @@ FILES=$(ls file*.json)
 
 for f in $FILES; do
     echo "$f"
-    
+
     LOG_GROUP_NAME=""
-    
+
     if [[ "$OSTYPE" == "msys" ]]; then
         LOG_GROUP_NAME="//workflows\\cloudwatch-logs\\large-query"
     else

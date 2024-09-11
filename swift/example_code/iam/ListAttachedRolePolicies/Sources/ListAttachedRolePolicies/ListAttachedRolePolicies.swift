@@ -63,7 +63,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[iam.swift.listattachedrolepolicies.main]
 // snippet-end:[iam.swift.listattachedrolepolicies.example]

@@ -96,17 +96,17 @@ public class AmazonCognitoTest {
          * try (InputStream input =
          * AmazonCognitoTest.class.getClassLoader().getResourceAsStream(
          * "config.properties")) {
-         * 
+         *
          * Properties prop = new Properties();
-         * 
+         *
          * if (input == null) {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * //load a properties file from class path, inside static method
          * prop.load(input);
-         * 
+         *
          * // Populate the data members required for all tests
          * userPoolName = prop.getProperty("userPoolName");
          * username= prop.getProperty("username")+"_"+ java.util.UUID.randomUUID();
@@ -128,7 +128,7 @@ public class AmazonCognitoTest {
          * userNameMVP = prop.getProperty("userNameMVP");
          * passwordMVP = prop.getProperty("passwordMVP");
          * emailMVP = prop.getProperty("emailMVP");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

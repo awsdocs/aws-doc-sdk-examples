@@ -1,4 +1,4 @@
-# This workflow searches for issues/pull requests/discussions in a repository, measures several metrics, 
+# This workflow searches for issues/pull requests/discussions in a repository, measures several metrics,
 # and generates a report in form of a GitHub issue.
 #
 # You can adjust the behavior by modifying this file.

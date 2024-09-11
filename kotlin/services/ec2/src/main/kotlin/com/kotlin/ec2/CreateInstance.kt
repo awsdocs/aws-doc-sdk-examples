@@ -26,8 +26,8 @@ suspend fun main(args: Array<String>) {
         <name> <amiId>
 
     Where:
-        name - An instance name that you can obtain from the AWS Management Console (for example, ami-xxxxxx5c8b987b1a0). 
-        amiId - An Amazon Machine Image (AMI) value that you can obtain from the AWS Management Console (for example, i-xxxxxx2734106d0ab). 
+        name - An instance name that you can obtain from the AWS Management Console (for example, ami-xxxxxx5c8b987b1a0).
+        amiId - An Amazon Machine Image (AMI) value that you can obtain from the AWS Management Console (for example, i-xxxxxx2734106d0ab).
     """
 
     if (args.size != 2) {

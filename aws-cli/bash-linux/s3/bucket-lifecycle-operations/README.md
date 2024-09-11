@@ -12,7 +12,7 @@ specific language governing permissions and limitations under the License.
 
 # Amazon S3 Bucket Lifecycle Operations
 
-This example demonstrates how to interact with some of the basic Amazon S3 operations. 
+This example demonstrates how to interact with some of the basic Amazon S3 operations.
 
 ## Files
   * bucket-operations.sh - main script example file

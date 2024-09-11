@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.ManagingBucketACLTest.cs]
 using Amazon;
@@ -11,7 +11,7 @@ namespace Amazon.DocSamples.S3
 {
     class ManagingBucketACLTest
     {
-        private const string newBucketName = "*** bucket name ***"; 
+        private const string newBucketName = "*** bucket name ***";
         // Specify your bucket region (an example region is shown).
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
         private static IAmazonS3 client;

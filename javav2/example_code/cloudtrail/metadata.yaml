@@ -1,4 +1,4 @@
---- 
+---
 files:
  - path: src/main/java/com/example/cloudtrail/CreateTrail.java
    services:

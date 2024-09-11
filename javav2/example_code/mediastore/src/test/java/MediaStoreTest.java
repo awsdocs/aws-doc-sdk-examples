@@ -63,7 +63,7 @@ public class MediaStoreTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests
          * prop.load(input);
          * containerName = prop.getProperty("containerName")+
@@ -72,7 +72,7 @@ public class MediaStoreTest {
          * completePath = prop.getProperty("completePath");
          * existingContainer = prop.getProperty("existingContainer");
          * savePath = prop.getProperty("savePath");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

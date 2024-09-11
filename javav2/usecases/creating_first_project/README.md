@@ -22,7 +22,7 @@ The DynamoDB enhanced client maps your Java classes to DynamoDB tables. With the
 
 The following AWS services are used in this tutorial:
 
- - Amazon SNS 
+ - Amazon SNS
  - DynamoDB
  - Elastic Beanstalk
 
@@ -51,13 +51,13 @@ To complete the tutorial, you need the following:
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to delete all of the resources that you create while going through this tutorial so that you won't be charged.
 
 ### Creating the resources
 
-Create a DynamoDB table named **Greeting** that contains a partition key named **id**. For information about creating a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
+Create a DynamoDB table named **Greeting** that contains a partition key named **id**. For information about creating a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
 In addition, make sure that you have properly set up your development environment. For information, see [Setting up the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
@@ -165,7 +165,7 @@ In the **com.example.handlingformsubmission** package, create the **GreetingCont
 
     @PostMapping("/greeting")
     public String greetingSubmit(@ModelAttribute Greeting greeting) {
-        
+
         // Persist submitted data into a DynamoDB table.
         dde.injectDynamoItem(greeting);
 
@@ -179,7 +179,7 @@ In the **com.example.handlingformsubmission** package, create the **GreetingCont
 
 ### Create the Greeting class
 
-In the **com.example.handlingformsubmission** package, create the **Greeting** class. This class represents the model for the Spring Boot application. The following Java code represents this class.  
+In the **com.example.handlingformsubmission** package, create the **Greeting** class. This class represents the model for the Spring Boot application. The following Java code represents this class.
 
 ```java
 package com.example.handlingformsubmission;
@@ -225,7 +225,7 @@ public class Greeting {
  ```
 ### Create the GreetingItems class
 
-This class contains the annotation required for the enhanced client. The data members in this class map to the columns in the DynamoDB **Greeting** table.  
+This class contains the annotation required for the enhanced client. The data members in this class map to the columns in the DynamoDB **Greeting** table.
 
 ```java
 package com.example.handlingformsubmission;
@@ -333,14 +333,14 @@ public class DynamoDBEnhanced {
 }
 ```
 
-**Note:** The **EnvironmentVariableCredentialsProvider** is used to create a **DynamoDbClient** because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the  **DynamoDbClient** is successfully created. 	
+**Note:** The **EnvironmentVariableCredentialsProvider** is used to create a **DynamoDbClient** because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the  **DynamoDbClient** is successfully created.
 
 ### Create the PublishTextSMS class
 
 Create a class named **PublishTextSMS** that sends a text message when a new item is added to the DynamoDB table. The following Java code represents this class.
 
 ```java
-   
+
 package com.example.handlingformsubmission;
 
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -358,7 +358,7 @@ public class PublishTextSMS {
             .region(region)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
-        
+
 	String message = "A new item with ID value "+ id +" was added to the DynamoDB table";
         String phoneNumber = "<Enter a valid mobile number>"; // Replace with a mobile phone number.
 
@@ -495,7 +495,7 @@ If this is your first time accessing this service, you see the **Welcome to AWS 
 
 ![AWS Tracking Application](images/greet11.png)
 
-9. When you're done, the application states that the **Health** is **Ok**.  
+9. When you're done, the application states that the **Health** is **Ok**.
 
 ![AWS Tracking Application](images/greet13_1.png)
 

@@ -193,9 +193,9 @@ def do_deploy_rest(stack_name):
 
     commands = [
         "chalice package --merge-template resources.json out",
-        f"aws cloudformation package  --template-file out/sam.json "
+        "aws cloudformation package  --template-file out/sam.json "
         f"--s3-bucket {bucket.name} --output-template-file out/template.yml",
-        f"aws cloudformation deploy --template-file out/template.yml "
+        "aws cloudformation deploy --template-file out/template.yml "
         f"--stack-name {stack_name} --capabilities CAPABILITY_IAM",
     ]
 
@@ -300,9 +300,8 @@ def main():
         api_url = do_deploy_rest(config["cluster"]["cluster_name"])
         print(
             f"Next, send HTTP requests to {api_url} or run "
-            f"'python library_demo.py demo_rest' "
-            f"to see a demonstration of how to call the REST API by using the "
-            f"Requests package."
+            "'python library_demo.py demo_rest' "
+            "Requests package."
         )
     elif args.action == "demo_rest":
         print("Demonstrating how to call the REST API by using the Requests package.")

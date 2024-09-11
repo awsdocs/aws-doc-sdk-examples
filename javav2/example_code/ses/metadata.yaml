@@ -1,11 +1,11 @@
---- 
+---
 files:
  - path: src/main/java/com/example/ses/SendMessage.java
    services:
      - ses
  - path: src/main/java/com/example/ses/ListIdentities.java
    services:
-     - ses 
+     - ses
  - path: src/main/java/com/example/ses/SendMessageAttachment.java
    services:
      - ses

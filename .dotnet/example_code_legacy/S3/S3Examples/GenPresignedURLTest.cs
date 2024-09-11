@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.GenPresignedURLTest]
 using Amazon;
@@ -10,7 +10,7 @@ namespace Amazon.DocSamples.S3
 {
     class GenPresignedURLTest
     {
-        private const string bucketName = "*** bucket name ***"; 
+        private const string bucketName = "*** bucket name ***";
         private const string objectKey = "*** object key ***";
         // Specify how long the presigned URL lasts, in hours
         private const double timeoutDuration = 12;

@@ -1,14 +1,14 @@
 # Create a publish-subscription web application that translates messages using the AWS SDK for Kotlin
 
 ## Purpose
-You can create a web application that has subscription and publish functionality by using the Amazon Simple Notification Service (Amazon SNS) and the AWS SDK for Kotlin. The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter many emails and all of them are subscribed to the given SNS topic (once the email recipients confirm the subscription). The user can publish a message that results in all subscribed emails receiving the message. 
+You can create a web application that has subscription and publish functionality by using the Amazon Simple Notification Service (Amazon SNS) and the AWS SDK for Kotlin. The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter many emails and all of them are subscribed to the given SNS topic (once the email recipients confirm the subscription). The user can publish a message that results in all subscribed emails receiving the message.
 
 **Note**: Amazon SNS is a managed service that provides message delivery from publishers to subscribers (also known as producers and consumers). For more information, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
 
 #### Topics
 
 + Prerequisites
-+ Create an IntelliJ project 
++ Create an IntelliJ project
 + Add the dependencies to your project
 + Create the Kotlin classes
 + Create the HTML files
@@ -24,34 +24,34 @@ To complete the tutorial, you need the following:
 + Gradle 8.1 or higher
 + Setup your development environment. For more information, see [Setting up the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
 
-**Note**: Make sure that you have installed the Kotlin plug-in for IntelliJ. 
+**Note**: Make sure that you have installed the Kotlin plug-in for IntelliJ.
 
 ### ⚠️ Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 ### Creating the resources
 
-Create an Amazon SNS topic that you use in the Kotlin code. You need to reference the topic's ARN value in the Kotlin code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html). 
+Create an Amazon SNS topic that you use in the Kotlin code. You need to reference the topic's ARN value in the Kotlin code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html).
 
 ## Understand the Publish/Subscription application
 
-To subscribe to an Amazon SNS topic, the user enters a valid email address into the web application. 
+To subscribe to an Amazon SNS topic, the user enters a valid email address into the web application.
 
 ![AWS Tracking Application](images/pic1.png)
 
-The specified email address recieves an email message that lets the recipient confirm the subscription. 
+The specified email address recieves an email message that lets the recipient confirm the subscription.
 
 ![AWS Tracking Application](images/pic2.png)
 
-Once the email recipient accepts the confirmation, that email is subscribed to the specific SNS topic and recieves published messages. To publish a message, a user enters the message into the web applicaiton and then chooses the **Publish** button. 
+Once the email recipient accepts the confirmation, that email is subscribed to the specific SNS topic and recieves published messages. To publish a message, a user enters the message into the web applicaiton and then chooses the **Publish** button.
 
 ![AWS Tracking Application](images/pic3.png)
 
-This application lets a user specify the language of the message that is sent. For example, the user can select **French** from the dropdown field and then the message appears in that language to all subscribed users. 
+This application lets a user specify the language of the message that is sent. For example, the user can select **French** from the dropdown field and then the message appears in that language to all subscribed users.
 
 ![AWS Tracking Application](images/french.png)
 
@@ -60,11 +60,11 @@ This example application lets you view all of the subscribed email recipients by
 ![AWS Tracking Application](images/pic4.png)
 ## Create an IntelliJ project
 
-Perform these steps. 
+Perform these steps.
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 2. In the **New Project** dialog box, choose **Kotlin**.
-3. Enter the name **SpringKotlinSubPub**. 
+3. Enter the name **SpringKotlinSubPub**.
 4. Select **Gradle Kotlin** for the Build System.
 5. Select your JVM option and choose **Next**.
 6. Choose **Finish**.
@@ -129,24 +129,24 @@ tasks.withType<Test> {
 }
 
  ```
-     
+
  ## Create the Kotlin classes
- 
- Create a package in the main/kotlin folder named **com.aws.kotlin**. The Kotlin classes go into this package. 
- 
+
+ Create a package in the main/kotlin folder named **com.aws.kotlin**. The Kotlin classes go into this package.
+
  ![AWS Lex](images/project2.png)
- 
+
  Create these Kotlin classes:
 
 + **SubApplication** - Used as the base class for the Spring Boot application.
-+ **MessageResource** - Used as the Spring Boot controller that handles HTTP requests. 
-+ **SnsService** - Used to invoke Amazon SNS operations by using the Amazon SNS Kotlin API.  
++ **MessageResource** - Used as the Spring Boot controller that handles HTTP requests.
++ **SnsService** - Used to invoke Amazon SNS operations by using the Amazon SNS Kotlin API.
 
 **Note:** The **MessageResource** class is located in the **SubApplication** file.
 
 ### SubApplication class
 
-The following Kotlin code represents the **SubApplication** and the **MessageResource** classes. Notice that the **SubApplication** uses the **@SpringBootApplication** annotation while the **MessageResource** class uses the **@Controller** annotation. In addition, the Spring Controller uses **runBlocking** and **@runBlocking**. Both are required and part of Kotlin Coroutine functionality. For more information, see [Coroutines basics](https://kotlinlang.org/docs/coroutines-basics.html).  
+The following Kotlin code represents the **SubApplication** and the **MessageResource** classes. Notice that the **SubApplication** uses the **@SpringBootApplication** annotation while the **MessageResource** class uses the **@Controller** annotation. In addition, the Spring Controller uses **runBlocking** and **@runBlocking**. Both are required and part of Kotlin Coroutine functionality. For more information, see [Coroutines basics](https://kotlinlang.org/docs/coroutines-basics.html).
 
 ```kotlin
 package com.aws.kotlin
@@ -219,7 +219,7 @@ class MessageResource {
 
 ### SnsService class
 
-The following Kotlin code represents the **SnsService** class. This class uses the Kotlin SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. 
+The following Kotlin code represents the **SnsService** class. This class uses the Kotlin SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message.
 
 ```kotlin
 package com.aws.kotlin
@@ -402,7 +402,7 @@ class SnsService {
 
 ```
 
-**Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code does not work. 
+**Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code does not work.
 
 ## Create the HTML file
 
@@ -413,7 +413,7 @@ At this point, you have created all of the Java files required for this example 
 + sub.html
 
 ### index.html
-The **index.html** file is the application's home view. 
+The **index.html** file is the application's home view.
 
 ```html
     <!DOCTYPE html>
@@ -428,7 +428,7 @@ The **index.html** file is the application's home view.
      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
 
     <title>AWS Job Posting Example</title>
-    </head> 
+    </head>
 
      <body>
      <header th:replace="layout :: site-header"/>
@@ -469,7 +469,7 @@ The following code represents the **layout.html** file that represents the appli
     </html>
 
 ### add.html
-The **sub.html** file is the application's view that manages Amazon SNS Subscriptions. 
+The **sub.html** file is the application's view that manages Amazon SNS Subscriptions.
 
      <!DOCTYPE html>
      <html xmlns:th="https://www.thymeleaf.org" lang="">
@@ -550,10 +550,10 @@ The **sub.html** file is the application's view that manages Amazon SNS Subscrip
        </body>
       </html
  ```
-         
+
 ### Create the JS File
 
-This application has a **contact_me.js** file that is used to send HTTP requests to the Spring Controller using AJAX. Place this file in the **resources\public\js** folder. 
+This application has a **contact_me.js** file that is used to send HTTP requests to the Spring Controller using AJAX. Place this file in the **resources\public\js** folder.
 
 ```javascript
      $(function() {
@@ -671,7 +671,7 @@ This application has a **contact_me.js** file that is used to send HTTP requests
 ### Create the CSS File
 This application uses a CSS file named **styles.css** file that is used for the menu. Place this file in the resources\public\css folder.
 
-```css 
+```css
   body>header {
      background: #000;
      padding: 5px;
@@ -704,7 +704,7 @@ This application uses a CSS file named **styles.css** file that is used for the 
 
 ## Run the application
 
-Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, you can run the application by clicking the run icon in the Spring Boot main class, as shown in this illustration. 
+Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, you can run the application by clicking the run icon in the Spring Boot main class, as shown in this illustration.
 
 ![AWS Tracking Application](images/run.png)
 

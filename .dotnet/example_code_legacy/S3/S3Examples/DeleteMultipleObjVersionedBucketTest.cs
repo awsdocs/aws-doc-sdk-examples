@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.DeleteMultipleObjVersionedBucketTest]
 using Amazon;
@@ -12,7 +12,7 @@ namespace Amazon.DocSamples.S3
 {
     class DeleteMultipleObjVersionedBucketTest
     {
-        private const string bucketName = "*** versioning-enabled bucket name ***"; 
+        private const string bucketName = "*** versioning-enabled bucket name ***";
        // Specify your bucket region (an example region is shown).
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
         private static IAmazonS3 s3Client;
@@ -29,11 +29,11 @@ namespace Amazon.DocSamples.S3
             // Delete objects (specifying object version in the request).
             await DeleteObjectVersionsAsync();
 
-            // Delete objects (without specifying object version in the request). 
+            // Delete objects (without specifying object version in the request).
             var deletedObjects = await DeleteObjectsAsync();
 
-            // Additional exercise - remove the delete markers S3 returned in the preceding response. 
-            // This results in the objects reappearing in the bucket (you can 
+            // Additional exercise - remove the delete markers S3 returned in the preceding response.
+            // This results in the objects reappearing in the bucket (you can
             // verify the appearance/disappearance of objects in the console).
             await RemoveDeleteMarkersAsync(deletedObjects);
         }
@@ -43,7 +43,7 @@ namespace Amazon.DocSamples.S3
             // Upload the sample objects.
             var keysAndVersions2 = await PutObjectsAsync(3);
 
-            // Delete objects using only keys. Amazon S3 creates a delete marker and 
+            // Delete objects using only keys. Amazon S3 creates a delete marker and
             // returns its version ID in the response.
             List<DeletedObject> deletedObjects = await NonVersionedDeleteAsync(keysAndVersions2);
             return deletedObjects;
@@ -101,7 +101,7 @@ namespace Amazon.DocSamples.S3
                 multiObjectDeleteRequest.AddKey(key.Key);
             }
             // Execute DeleteObjects - Amazon S3 add delete marker for each object
-            // deletion. The objects disappear from your bucket. 
+            // deletion. The objects disappear from your bucket.
             // You can verify that using the Amazon S3 console.
             DeleteObjectsResponse response;
             try

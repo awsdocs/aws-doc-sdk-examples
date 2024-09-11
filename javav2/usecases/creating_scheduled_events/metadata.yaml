@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/aws/example/Handler.java
     services:
@@ -9,4 +9,3 @@ files:
   - path: src/main/java/com/aws/example/ScanEmployees.java
     services:
       - lambda
- 

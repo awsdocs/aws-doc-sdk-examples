@@ -10,9 +10,9 @@ body:
       value: |
         ## ⚠️ Warning
         Issues that don't use the following template will be marked `status/back-to-author` and assigned back to the creator.
-        
+
         ---
-        
+
         # ✨ Code example details
   - type: textarea
     id: context
@@ -76,6 +76,6 @@ body:
     attributes:
       value: |
         ---
-        
+
         ## What's next?
         A member of the AWS SDK Example Code team will review your issue and reply within 10 business days. 🙂

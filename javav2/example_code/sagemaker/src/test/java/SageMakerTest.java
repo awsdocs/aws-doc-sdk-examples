@@ -62,7 +62,7 @@ public class SageMakerTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * SageMakerTest.class.getClassLoader().getResourceAsStream("config.properties")
          * ) {
@@ -71,7 +71,7 @@ public class SageMakerTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests
          * prop.load(input);
          * image = prop.getProperty("image");
@@ -87,7 +87,7 @@ public class SageMakerTest {
          * channelName = prop.getProperty("channelName");
          * trainingImage = prop.getProperty("trainingImage");
          * existingModel = prop.getProperty("existingModel");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

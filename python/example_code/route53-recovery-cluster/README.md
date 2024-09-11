@@ -55,7 +55,7 @@ Run this example at a command prompt with the following command.
 
 ```commandline
 python routing_control_state.py [routing_control_arn] [cluster_endpoints_json_file]
-``` 
+```
 
 #### Example arguments
 
@@ -63,13 +63,13 @@ A routing control Amazon Resource Name (ARN) looks something like this:
 
 `arn:aws:route53-recovery-control::123456789012:controlpanel/ffa374e10db34a90bc56EXAMPLE/routingcontrol/60649aEXAMPLE`
 
-The Region within the cluster endpoint and the Region you provide with that endpoint 
+The Region within the cluster endpoint and the Region you provide with that endpoint
 must match. A cluster endpoints JSON looks something like this:
 
 ```json
-{"ClusterEndpoints": 
-    [{"Endpoint": "https://11111111.route53-recovery-cluster.us-east-1.amazonaws.com/v1", 
-      "Region": "us-east-1"}, 
+{"ClusterEndpoints":
+    [{"Endpoint": "https://11111111.route53-recovery-cluster.us-east-1.amazonaws.com/v1",
+      "Region": "us-east-1"},
      {"Endpoint": "https://22222222.route53-recovery-cluster.ap-northeast-1.amazonaws.com/v1",
       "Region": "ap-northeast-1"},
      {"Endpoint": "https://33333333.route53-recovery-cluster.ap-southeast-2.amazonaws.com/v1",

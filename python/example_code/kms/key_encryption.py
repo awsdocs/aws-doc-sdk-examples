@@ -87,7 +87,7 @@ class KeyEncrypt:
         """
         destination_key_id = input(
             f"Your ciphertext is currently encrypted with key {source_key_id}. "
-            f"Enter another key ID or ARN to reencrypt it: "
+            "Enter another key ID or ARN to reencrypt it: "
         )
         if destination_key_id != "":
             try:

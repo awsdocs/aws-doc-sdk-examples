@@ -2,15 +2,15 @@
 
 ## Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) with the Amazon Relational Database 
-Service (Amazon RDS) API and AWS Chalice to create a REST API backed by an 
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Relational Database
+Service (Amazon RDS) API and AWS Chalice to create a REST API backed by an
 Amazon Aurora database. The web service is fully serverless and represents
 a simple lending library where patrons can borrow and return books. Learn how to:
 
 * Create and manage a serverless Amazon Aurora database. This example uses Aurora Serverless v2.
 * Use AWS Secrets Manager to manage database credentials.
 * Implement a data storage layer that uses Amazon RDS Data Service to move data into
-and out of the database.  
+and out of the database.
 * Use AWS Chalice to deploy a serverless REST API to Amazon API Gateway and AWS Lambda.
 * Use the Requests package to send requests to the web service.
 
@@ -23,13 +23,13 @@ and out of the database.
 
 ## Cautions
 
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
+- As an AWS best practice, grant this code least privilege, or only the
+  permissions required to perform a task. For more information, see
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
+  in the *AWS Identity and Access Management
   User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
+- This code has not been tested in all AWS Regions. Some AWS services are
+  available only in specific Regions. For more information, see the
   [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
   on the AWS website.
 - Running this code might result in charges to your AWS account.
@@ -40,7 +40,7 @@ Install prerequisites by running the following at a command prompt.
 
 ```
 python -m pip install -r requirements.txt
-``` 
+```
 
 This example contains two deployment steps, a REST demo, and a cleanup step that
 all must be run separately.
@@ -49,35 +49,35 @@ all must be run separately.
 
     Creates an Amazon Aurora cluster and associated Aurora Serverless v2 database instance.
     Also creates an AWS Secrets Manager secret to hold the database user credentials.
-    It fills the database with example data pulled from the [Internet Archive's Open Library](https://openlibrary.org). 
-    
-Fill the database with example data pulled from the [Internet Archive's Open Library](https://openlibrary.org). 
+    It fills the database with example data pulled from the [Internet Archive's Open Library](https://openlibrary.org).
+
+Fill the database with example data pulled from the [Internet Archive's Open Library](https://openlibrary.org).
 
 ```
 python library_demo.py deploy_database
-``` 
+```
 
-The database is now ready and can be accessed through the 
-[AWS Console Query Editor](https://console.aws.amazon.com/rds/home?#query-editor:) 
+The database is now ready and can be accessed through the
+[AWS Console Query Editor](https://console.aws.amazon.com/rds/home?#query-editor:)
 or the Boto3 `rds-data` client. Or, run the next step to deploy the REST API.
 
 ---
 
 ### 3. REST API deployment
 
-Uses Chalice and AWS CLI commands to deploy routing and data-handling layers 
+Uses Chalice and AWS CLI commands to deploy routing and data-handling layers
 to AWS Lambda, set up API Gateway to handle HTTP requests, and
 establish AWS Identity and Access Management (IAM) roles and profiles to manage
-permissions. 
+permissions.
 
-Deploy the REST API by running the following command at a command 
+Deploy the REST API by running the following command at a command
 prompt.
 
 ```
 python library_demo.py deploy_rest
 ```
 
-The REST API is now deployed and can received HTTP requests. Try it yourself 
+The REST API is now deployed and can received HTTP requests. Try it yourself
 using your favorite HTTP client or run the next step to see a demonstration
 of how to use the Requests package to call the web service.
 
@@ -100,28 +100,28 @@ python library_demo.py demo_rest
 ```
 
 ---
-    
+
 ### 5. Cleanup
 
-Remove all resources created during the demonstration by running the following 
+Remove all resources created during the demonstration by running the following
 command at a command prompt.
 
 ```
 cdk destroy
 ```
 
-Be sure to run cleanup after you're done to avoid additional charges to your 
+Be sure to run cleanup after you're done to avoid additional charges to your
 account.
 
 ### Example structure
 
 The example is subdivided into two main sections.
 
-* The *library_demo.py* script and *rds_tools* folder are used to deploy resources 
+* The *library_demo.py* script and *rds_tools* folder are used to deploy resources
 and manage the demo.
-* The *library_api* folder contains the REST API code and resource definitions that 
+* The *library_api* folder contains the REST API code and resource definitions that
 are deployed to AWS by Chalice.
- 
+
 The example contains the following files.
 
 **library_demo.py**
@@ -132,11 +132,11 @@ runs a REST request demonstration, and cleans up resources.
 **rds_tools/aurora_tools.py**
 
 Wraps parts of the Boto3 RDS and Secrets Manager API to show how to create database
-clusters and secrets.  
+clusters and secrets.
 
 **library_api/app.py**
 
-Contains REST API routes that receive HTTP requests. This file and supporting 
+Contains REST API routes that receive HTTP requests. This file and supporting
 `chalicelib` files are deployed to AWS Lambda as part of the Chalice deployment.
 
 **library_api/requirements.txt**
@@ -146,7 +146,7 @@ Lists packages that are required in the AWS Lambda environment.
 **library_api/resources.json**
 
 Defines an IAM role and policy to grant AWS Lambda permission to perform specific
-actions on RDS, Secrets Manager, RDS Data Service, and Amazon CloudWatch Logs.    
+actions on RDS, Secrets Manager, RDS Data Service, and Amazon CloudWatch Logs.
 
 **.chalice/config.json**
 
@@ -160,24 +160,24 @@ Data Service to move data into and out of the database.
 
 **chalicelib/mysql_helper.py**
 
-A simplified object-relational mapping (ORM) layer that translates between Python 
-structures and SQL statements.  
+A simplified object-relational mapping (ORM) layer that translates between Python
+structures and SQL statements.
 
 ## Running the tests
 
-The unit tests in this module use the botocore Stubber. This captures requests before 
-they are sent to AWS, and returns a mocked response. To run all of the tests, 
-run the following in your 
+The unit tests in this module use the botocore Stubber. This captures requests before
+they are sent to AWS, and returns a mocked response. To run all of the tests,
+run the following in your
 [GitHub root]/python/example_code/rds/lending_library/rds_tools and
 [GitHub root]/python/example_code/rds/lending_library/library_api
 folders.
 
-```    
+```
 python -m pytest
 ```
 
 The tests in the *test_library_api_app.py* script use the `chalice.test.Client`
-object to help with route testing. For details, see 
+object to help with route testing. For details, see
 [Chalice Testing](https://aws.github.io/chalice/api.html#testing-api).
 
 ## Additional information

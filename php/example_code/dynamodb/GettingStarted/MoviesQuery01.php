@@ -23,7 +23,7 @@ $tableName = 'Movies';
 
 $eav = $marshaler->marshalJson('
     {
-        ":yyyy": 1985 
+        ":yyyy": 1985
     }
 ');
 

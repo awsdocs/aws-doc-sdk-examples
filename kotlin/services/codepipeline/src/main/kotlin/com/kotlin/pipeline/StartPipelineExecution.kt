@@ -20,9 +20,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <name> 
+            <name>
         Where:
-           name - the name of the pipeline. 
+           name - the name of the pipeline.
     """
 
     if (args.size != 1) {

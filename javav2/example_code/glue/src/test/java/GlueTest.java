@@ -73,7 +73,7 @@ public class GlueTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * GlueTest.class.getClassLoader().getResourceAsStream("config.properties")) {
          * Properties prop = new Properties();
@@ -99,7 +99,7 @@ public class GlueTest {
          * scriptLocationSc = prop.getProperty("scriptLocationSc");
          * locationUri = prop.getProperty("locationUri");
          * bucketNameSc = prop.getProperty("bucketNameSc");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

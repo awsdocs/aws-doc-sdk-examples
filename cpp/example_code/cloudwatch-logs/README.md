@@ -36,8 +36,8 @@ Next, for information on code example structures and how to build and run the ex
 
 <!--custom.prerequisites.start-->
 
-To run these code examples, your AWS user must have permissions to perform these actions with Amazon CloudWatch Logs.  
-The AWS managed policy named "CloudWatchLogsFullAccess" may be used to bulk-grant the necessary permissions.  
+To run these code examples, your AWS user must have permissions to perform these actions with Amazon CloudWatch Logs.
+The AWS managed policy named "CloudWatchLogsFullAccess" may be used to bulk-grant the necessary permissions.
 For more information on attaching policies to IAM user groups,
 
 <!--custom.prerequisites.end-->

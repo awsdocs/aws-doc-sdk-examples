@@ -115,7 +115,7 @@ class Datasets:
         output_manifest_file = "temp.manifest"
         try:
             # Current date and time in manifest file format.
-            dttm = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
+            dttm = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%")
 
             # Get bucket and folder from image and manifest file paths.
             bucket, prefix = image_s3_path.replace("s3://", "").split("/", 1)
@@ -183,7 +183,7 @@ class Datasets:
             raise Exception(f"Unexpected label value: {label} for {image}")
 
         manifest = {
-            "source-ref": image,
+            "source-re": image,
             "anomaly-label": label,
             "anomaly-label-metadata": {
                 "confidence": 1,
@@ -335,7 +335,7 @@ class Datasets:
                     "{status_message} :{dataset_type} dataset for project {project_name}."
                 )
 
-            logger.info(f"Added entries to dataset.")
+            logger.info("Added entries to dataset.")
 
             return status, status_message
 

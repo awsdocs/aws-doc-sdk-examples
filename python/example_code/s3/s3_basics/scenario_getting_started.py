@@ -40,7 +40,7 @@ def do_scenario(s3_resource):
     except ClientError as err:
         print(f"Tried and failed to create demo bucket {bucket_name}.")
         print(f"\t{err.response['Error']['Code']}:{err.response['Error']['Message']}")
-        print(f"\nCan't continue the demo without a bucket!")
+        print("\nCan't continue the demo without a bucket!")
         return
 
     file_name = None
@@ -66,7 +66,7 @@ def do_scenario(s3_resource):
         try:
             obj.download_fileobj(data)
             data.seek(0)
-            print(f"Got your object. Here are the first 20 bytes:\n")
+            print("Got your object. Here are the first 20 bytes:\n")
             print(f"\t{data.read(20)}")
         except ClientError as err:
             print(f"Couldn't download {obj.key}.")

@@ -34,7 +34,7 @@ def test_create_ops_item(make_stubber, error_code):
     severity = "2"
     category = "Availability"
 
-    ops_item_id = "oi-0123456789abcdef"
+    ops_item_id = "oi-0123456789abcde"
 
     ssm_stubber.stub_create_ops_item(
         title,

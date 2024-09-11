@@ -15,7 +15,7 @@
     <listitem><para>Use asynchronous APIs to start a job that publishes a notification to an &SNSlong; (&SNS;) topic when the
     job completes.</para></listitem>
     <listitem><para>Poll an &SQSlong; (&SQS;) queue for a job completion message and display the results.</para></listitem>
-  </itemizedlist>  
+  </itemizedlist>
   <para>
     For complete source code and instructions on how to set up and run, see the full example on
     <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/textract_explorer">GitHub</ulink>.

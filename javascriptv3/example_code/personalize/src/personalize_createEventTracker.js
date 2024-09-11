@@ -6,7 +6,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript v
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-createEventTracker.js demonstrates how to create an event tracker with Amazon Personalize. You 
+createEventTracker.js demonstrates how to create an event tracker with Amazon Personalize. You
 use an event tracker when you record events with the PutEvents API operation.
 For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateEventTracker.html.
 

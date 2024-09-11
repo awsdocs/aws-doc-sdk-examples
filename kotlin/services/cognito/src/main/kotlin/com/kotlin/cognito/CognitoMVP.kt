@@ -50,7 +50,7 @@ suspend fun main(args: Array<String>) {
             <clientId> <poolId>
         Where:
             clientId - The app client Id value that you can get from the AWS CDK script.
-            poolId - The pool Id that you can get from the AWS CDK script. 
+            poolId - The pool Id that you can get from the AWS CDK script.
     """
 
     if (args.size != 2) {

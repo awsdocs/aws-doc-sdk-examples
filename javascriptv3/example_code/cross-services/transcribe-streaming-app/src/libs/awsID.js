@@ -6,7 +6,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript v
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-This file provides the necessary information for the program to access 
+This file provides the necessary information for the program to access
 AWS resources.
 
 Inputs (replace in code):

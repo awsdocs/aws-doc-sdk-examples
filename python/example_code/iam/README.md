@@ -145,7 +145,7 @@ Complete details and instructions on how to run this example can be found in the
 
 #### Create a user and assume a role
 
-This example shows you how to create a user and assume a role. 
+This example shows you how to create a user and assume a role.
 
 - Create a user with no permissions.
 - Create a role that grants permission to list Amazon S3 buckets for the account.
@@ -167,7 +167,7 @@ python scenario_create_user_assume_role.py
 
 #### Create read-only and read-write users
 
-This example shows you how to create users and attach policies to them. 
+This example shows you how to create users and attach policies to them.
 
 - Create two IAM users.
 - Attach a policy for one user to get and put objects in an Amazon S3 bucket.
@@ -189,7 +189,7 @@ python user_wrapper.py
 
 #### Manage access keys
 
-This example shows you how to manage access keys. 
+This example shows you how to manage access keys.
 
 - Create and list access keys.
 - Find out when and how an access key was last used.

@@ -75,7 +75,7 @@ def lambda_handler(event, context):
             result_code = "Succeeded"
             result_string = (
                 f"Stanza {obj_key} not found, assuming it was deleted "
-                f"in an earlier revision."
+                "in an earlier revision."
             )
             logger.info(result_string)
         else:

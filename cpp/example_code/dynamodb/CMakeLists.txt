@@ -55,7 +55,7 @@ foreach(file ${AWSDOC_SOURCE})
             dynamodb_utils.cpp
             ${file})
 
-    target_include_directories(${EXAMPLE_EXE} PUBLIC 
+    target_include_directories(${EXAMPLE_EXE} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
             ${AWSSDK_INCLUDE_DIR}/aws

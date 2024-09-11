@@ -400,7 +400,7 @@ def usage_demo():
     celebrities = video.do_celebrity_recognition()
     print(
         f"Found {len(celebrities)} celebrity detection events. Here's the first "
-        f"appearance of each celebrity:"
+        "appearance of each celebrity:"
     )
     celeb_names = set()
     for celeb in celebrities:
@@ -413,7 +413,7 @@ def usage_demo():
     persons = video.do_person_tracking()
     print(
         f"Detected {len(persons)} person tracking items, here are the first five "
-        f"for each person:"
+        "for each person:"
     )
     by_index = {}
     for person in persons:

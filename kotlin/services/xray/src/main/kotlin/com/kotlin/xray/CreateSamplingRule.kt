@@ -20,13 +20,13 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
     val usage = """
-        
-        Usage: 
+
+        Usage:
             <ruleName>
-        
+
         Where:
-            ruleName - The name of the rule. 
-                
+            ruleName - The name of the rule.
+
         """
 
     if (args.size != 1) {

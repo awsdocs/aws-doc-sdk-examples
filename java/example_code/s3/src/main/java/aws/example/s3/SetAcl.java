@@ -12,7 +12,7 @@ import com.amazonaws.services.s3.model.Permission;
 
 /**
  * Add a bucket policy to an existing S3 bucket.
- * 
+ *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */

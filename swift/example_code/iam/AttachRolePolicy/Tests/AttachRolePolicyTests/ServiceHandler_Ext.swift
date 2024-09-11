@@ -68,14 +68,14 @@ public extension ServiceHandler {
         var policyList: [String] = []
         var marker: String? = nil
         var isTruncated: Bool
-        
+
         repeat {
             let input = ListAttachedRolePoliciesInput(
                 marker: marker,
                 roleName: role
             )
             let output = try await client.listAttachedRolePolicies(input: input)
-            
+
             guard let policies = output.attachedPolicies else {
                 return policyList
             }

@@ -48,12 +48,12 @@ public class CloudTrailTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests.
          * prop.load(input);
          * trailName = prop.getProperty("trailName");
          * s3BucketName = prop.getProperty("s3BucketName");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

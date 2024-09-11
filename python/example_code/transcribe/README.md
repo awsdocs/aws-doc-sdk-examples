@@ -90,9 +90,9 @@ python transcribe_basics.py
 
 
 <!--custom.scenarios.transcribe_Scenario_CustomVocabulary.start-->
-This example uses a public domain 
-[audio file](https://en.wikisource.org/wiki/File:Jabberwocky.ogg) downloaded from 
-Wikipedia and converted from .ogg to .mp3 format. The file contains a reading of 
+This example uses a public domain
+[audio file](https://en.wikisource.org/wiki/File:Jabberwocky.ogg) downloaded from
+Wikipedia and converted from .ogg to .mp3 format. The file contains a reading of
 the poem *Jabberwocky* by Lewis Carroll.
 <!--custom.scenarios.transcribe_Scenario_CustomVocabulary.end-->
 

@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/mediaconvert/CreateJob.java
     services:
@@ -14,4 +14,4 @@ files:
       - mediaconvert
   - path: src/test/java/AmazonMediaConvertTest.java
     services:
-      - mediaconvert  
+      - mediaconvert

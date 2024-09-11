@@ -33,35 +33,35 @@ To complete the tutorial, you need the following:
 ## ⚠️ Important
 
 + The AWS services included used by this application are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 ## Creating the resources
 
 Create an Amazon SNS queue that is used in the .NET code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html).
 
-In addition, make sure that you setup your .NET developer environment before following along with this tutorial. For more information, see [Setting up your AWS SDK for .NET environment](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html). 
+In addition, make sure that you setup your .NET developer environment before following along with this tutorial. For more information, see [Setting up your AWS SDK for .NET environment](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html).
 
 ## Understand the application
 
-To subscribe to an Amazon SNS topic, the user enters a valid email address into the web application. 
+To subscribe to an Amazon SNS topic, the user enters a valid email address into the web application.
 
 ![AWS Tracking Application](images/client1.png)
 
-The specified email address recieves an email message that asks the recipient to confirm the subscription. 
+The specified email address recieves an email message that asks the recipient to confirm the subscription.
 
 ![AWS Tracking Application](images/confirm.png)
 
-Once the email recipient accepts the confirmation, that email is subscribed to the specific SNS topic and recieves published messages. To publish a message, a user enters the message into the web application and then chooses the **Publish** button. 
+Once the email recipient accepts the confirmation, that email is subscribed to the specific SNS topic and recieves published messages. To publish a message, a user enters the message into the web application and then chooses the **Publish** button.
 
 ![AWS Tracking Application](images/client2.png)
 
-This application lets a user specify the language of the message that is sent. For example, the user can select **French** from the dropdown field and then the message appears in that language to all subscribed users. 
+This application lets a user specify the language of the message that is sent. For example, the user can select **French** from the dropdown field and then the message appears in that language to all subscribed users.
 
 ![AWS Tracking Application](images/client3.png)
 
-**Note**: The Amazon Translate Service is used to translate the body of the message. The code is shown later in this document. 
+**Note**: The Amazon Translate Service is used to translate the body of the message. The code is shown later in this document.
 
 This example application lets you view all of the subscribed email recipients by choosing the **List Subscriptions** button, as shown in the following illustration.
 
@@ -80,11 +80,11 @@ Create a Net Web App project using Visual Studio named **SNSApplication**.
 
 3. Choose **Next**.
 
-4. In the **Project Name** field, specify **SubscribePublishTranslate**.  
+4. In the **Project Name** field, specify **SubscribePublishTranslate**.
 
 5. Choose **Next**.
 
-6. Make sure that the Target Framework is set to .NET Core 5.0 (or the current version of .NET Core) has been selected. 
+6. Make sure that the Target Framework is set to .NET Core 5.0 (or the current version of .NET Core) has been selected.
 
 6. Choose **Create**.
 
@@ -94,7 +94,7 @@ At this point, you have a new project named **SubscribePublishTranslate**. You m
 
 ![AWS Tracking Application](images/packages.png)
 
-Once you add the packages, you can use the AWS SDK for .NET in your project. 
+Once you add the packages, you can use the AWS SDK for .NET in your project.
 
 1. In the Solution Explorer, right-click the project name, **SubscribePublishTranslate**.
 
@@ -102,34 +102,34 @@ Once you add the packages, you can use the AWS SDK for .NET in your project.
 
 3. When the NuGet packages dialog opens, choose **Browse**.
 
-4. In the **Search** field, specify **AWSSDK.Core**.  
+4. In the **Search** field, specify **AWSSDK.Core**.
 
 5. Select the AWSSDK.Core package from the list, and then click the **Install** button in the right-hand pane.
 
 ![Install NuGet Package](images/install_package.png)
 
-**Note**: Repeat this process for the **AWSSDK.Simplenotificationservice** and **AWSSDK.Translate** packages. 
+**Note**: Repeat this process for the **AWSSDK.Simplenotificationservice** and **AWSSDK.Translate** packages.
 
-**Tip**: If you do not see these AWS Packages, then ensure that your NuGet is properly configured to use **nuget.org**, as shown in this illustration. 
+**Tip**: If you do not see these AWS Packages, then ensure that your NuGet is properly configured to use **nuget.org**, as shown in this illustration.
 
 ![AWS Tracking Application](images/nuget.png)
 
  ## Create the classes
- 
- By default, most of the .NET classes that you use to build this AWS application are created. Notice the project structure of your application. 
- 
+
+ By default, most of the .NET classes that you use to build this AWS application are created. Notice the project structure of your application.
+
  ![AWS App](images/project3.png)
- 
+
  You work with these .NET classes:
 
-+ **HomeController** - Used as the .NET controller that handles HTTP requests. 
-+ **SnsService** - Used to invoke Amazon SNS operations by using the Amazon SNS .NET API This also uses the Amazon Translate API to translate messages. You need to create this class in the same location as the **HomeController**. 
++ **HomeController** - Used as the .NET controller that handles HTTP requests.
++ **SnsService** - Used to invoke Amazon SNS operations by using the Amazon SNS .NET API This also uses the Amazon Translate API to translate messages. You need to create this class in the same location as the **HomeController**.
 
-**Note**: You need to add the **SnsService** class to your project. 
+**Note**: You need to add the **SnsService** class to your project.
 
 ### HomeController class
 
-The following C# code represents the **HomeController** class. Becasue the Async version of the AWS SDK for .NET is used, notice that the controller methods have to use **async** keywords and the return values are defined using **Task**. 
+The following C# code represents the **HomeController** class. Becasue the Async version of the AWS SDK for .NET is used, notice that the controller methods have to use **async** keywords and the return values are defined using **Task**.
 
 ```csharp
 namespace SNSExample.Controllers
@@ -202,7 +202,7 @@ namespace SNSExample.Controllers
 
 ### SnsService class
 
-The following C# code represents the **SnsService** class. This class uses the AWS .NET SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. The **TranslateBody** method uses the Amazon Translate Service to translate the message if requested by the user.  
+The following C# code represents the **SnsService** class. This class uses the AWS .NET SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. The **TranslateBody** method uses the Amazon Translate Service to translate the message if requested by the user.
 
 In the code for the SnsService controller, be sure to change the AWS Region in the constructor call for the client object to the region where your rescources are defined. For example, in the first l ine of the UnSubEmail method, change:
 
@@ -400,16 +400,16 @@ namespace SNSExample.Controllers
 }
 ```
 
-**Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code will not work. 
+**Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code will not work.
 
 ## Modify the cshtml file
 
-At this point, you have created all of the .NET classes required for this example application. Now modify the index.cshtml file required for the application's view. This file exists in the Views/Home folder, as shown in this illustration. 
+At this point, you have created all of the .NET classes required for this example application. Now modify the index.cshtml file required for the application's view. This file exists in the Views/Home folder, as shown in this illustration.
 
 ![AWS Tracking Application](images/home.png)
 
 ### index.cshtml
-The **index.cshtml** file is the application's home view. 
+The **index.cshtml** file is the application's home view.
 
 ```html
 @{
@@ -514,13 +514,13 @@ The **index.cshtml** file is the application's home view.
       </div>
     </div>
   </div>
-</div> 
+</div>
 
 ```
 
 ### Create the JS File
 
-This application has a **site.js** file that is located in the JS folder and is used to send requests to the .NET Controller. Add the following JavaScript code to this file.  
+This application has a **site.js** file that is located in the JS folder and is used to send requests to the .NET Controller. Add the following JavaScript code to this file.
 
 ```javascript
 $(function () {
@@ -627,12 +627,12 @@ function validate(email) {
     } else {
         return false;
     }
-} 
+}
 ```
 
 ## Run the application
 
-You can run your application from your IDE. The home page will look like the following. 
+You can run your application from your IDE. The home page will look like the following.
 
 ![AWS Tracking Application](images/run.png)
 

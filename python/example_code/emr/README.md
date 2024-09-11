@@ -80,9 +80,9 @@ Start the example by running the following at a command prompt:
 
 
 <!--custom.scenarios.emr_Scenario_ShortLivedEmrCluster.start-->
-Shows how to write a job step that uses Apache Spark to estimate the value of pi by 
+Shows how to write a job step that uses Apache Spark to estimate the value of pi by
 performing a large number of parallelized calculations on cluster instances. Results
-are written to Amazon EMR logs and also to an S3 bucket. 
+are written to Amazon EMR logs and also to an S3 bucket.
 <!--custom.scenarios.emr_Scenario_ShortLivedEmrCluster.end-->
 
 #### Run a shell script to install libraries
@@ -106,13 +106,13 @@ command at a command prompt:
 
 ```
 python install_libraries.py CLUSTER_ID SHELL_SCRIPT_PATH
-``` 
+```
 
-This example is intended to be run as part of the tutorial in 
-[Installing Additional Kernels and Libraries](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-jupyterhub-install-kernels-libs.html). 
+This example is intended to be run as part of the tutorial in
+[Installing Additional Kernels and Libraries](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-jupyterhub-install-kernels-libs.html).
 The cluster specified by *CLUSTER_ID* must be set up to work with
 Systems Manager. You must also have previously uploaded a shell script
-to the Amazon S3 location specified by *SHELL_SCRIPT_PATH*. 
+to the Amazon S3 location specified by *SHELL_SCRIPT_PATH*.
 <!--custom.scenarios.emr_Usage_InstallLibrariesWithSsm.end-->
 
 ### Tests

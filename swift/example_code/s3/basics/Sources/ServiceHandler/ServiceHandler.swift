@@ -17,7 +17,7 @@ import Smithy
 /// A class containing all the code that interacts with the AWS SDK for Swift.
 public class ServiceHandler {
     let client: S3Client
-    
+
     /// Initialize and return a new ``ServiceHandler`` object, which is used to drive the AWS calls
     /// used for the example.
     ///
@@ -151,7 +151,7 @@ public class ServiceHandler {
               let data = try await body.readData() else {
             return "".data(using: .utf8)!
         }
-        
+
         return data
     }
     // snippet-end:[s3.swift.basics.handler.readfile]

@@ -19,10 +19,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            accessKeyId> 
+            accessKeyId>
 
         Where:
-            accessKeyId - The identifier of an access key (for example, XXXXX3JWY3BXW7POHDLA). 
+            accessKeyId - The identifier of an access key (for example, XXXXX3JWY3BXW7POHDLA).
         """
 
     if (args.size != 1) {

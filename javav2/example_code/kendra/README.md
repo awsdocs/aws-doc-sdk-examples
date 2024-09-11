@@ -6,16 +6,16 @@ This README discusses how to run and test the Java V2 code examples for Amazon K
 Amazon Kendra is an intelligent search service powered by machine learning (ML).
 
 ## ⚠️ Important
-* Running this code might result in charges to your AWS account. 
+* Running this code might result in charges to your AWS account.
 * Running the tests might result in charges to your AWS account.
-*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
 
 ### Single action
 
-The following examples use the **KendraClient** object: 
+The following examples use the **KendraClient** object:
 
 - [Deleting an Amazon Kendra data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/kendra/src/main/java/com/example/kendra/DeleteDataSource.java) (DeleteDataSource command)
 - [Deleting an Amazon Kendra index](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/kendra/src/main/java/com/example/kendra/DeleteIndex.java) (DeleteIndex command)
@@ -27,8 +27,8 @@ The following examples use the **KendraClient** object:
 - [Creating an Amazon Kendra index and data source, and syncing the data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/kendra/src/main/java/com/example/kendra/CreateIndexAndDataSourceExample.java) (Multiple commands)
 
 ## Running the examples
-To run these examples, you can set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
+To run these examples, you can set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information,
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an index. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
 
@@ -50,7 +50,7 @@ Define these values to successfully run the JUnit tests:
 
 - **indexName** - The name for the new index.
 - **dataSourceName** - The name for the new data source.
-- **indexDescription** - The description for the index. 
+- **indexDescription** - The description for the index.
 - **indexRoleArn** – The name of a key to use. For example, **Artist**.
 - **s3BucketName** - An Amazon S3 bucket name used as your data source.
 - **dataSourceDescription** – The ARN of am IAM role with permission to access the data source.

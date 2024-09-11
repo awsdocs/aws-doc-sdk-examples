@@ -35,7 +35,7 @@ def transcribe_file(job_name, file_uri, transcribe_client):
             print(f"Job {job_name} is {job_status}.")
             if job_status == "COMPLETED":
                 print(
-                    f"Download the transcript from\n"
+                    "Download the transcript from\n"
                     f"\t{job['TranscriptionJob']['Transcript']['TranscriptFileUri']}."
                 )
             break

@@ -101,7 +101,7 @@ public extension ServiceHandlerIAM {
     }
 
     /// Get the policy document with a particular name for a given role.
-    /// 
+    ///
     /// - Parameters:
     ///   - policyName: The name of the policy to get the policy document for.
     ///   - roleName: The name of the role the policy is part of.
@@ -124,7 +124,7 @@ public extension ServiceHandlerIAM {
 
     /// Return a list of the policies attached to a role, as an array of
     /// `IAMClientTypes.AttachedPolicy` objects.
-    /// 
+    ///
     /// - Parameter role: The role for which to return the attached policies.
     /// - Returns: An array of `IAMClientTypes.AttachedPolicy` objects giving
     ///   the names and ARNs of the policies attached to the role.

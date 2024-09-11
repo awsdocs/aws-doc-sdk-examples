@@ -147,7 +147,7 @@ def create_rest_api(
     try:
         lambda_client.add_permission(
             FunctionName=lambda_function_arn,
-            StatementId=f"demo-invoke",
+            StatementId="demo-invoke",
             Action="lambda:InvokeFunction",
             Principal="apigateway.amazonaws.com",
             SourceArn=source_arn,
@@ -256,7 +256,7 @@ def usage_demo():
         api_id, apig_client.meta.region_name, api_stage, api_base_path
     )
     print(f"REST API created, URL is :\n\t{api_url}")
-    print(f"Sleeping for a couple seconds to give AWS time to prepare...")
+    print("Sleeping for a couple seconds to give AWS time to prepare...")
     time.sleep(2)
 
     print(f"Sending some requests to {api_url}...")

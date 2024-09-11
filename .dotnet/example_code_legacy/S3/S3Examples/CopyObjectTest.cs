@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.CopyObjectTest]
 using Amazon;
@@ -16,7 +16,7 @@ namespace Amazon.DocSamples.S3
         private const string objectKey = "*** provide the name of object to copy ***";
         private const string destObjectKey = "*** provide the destination object key name ***";
         // Specify your bucket region (an example region is shown).
-        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2; 
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
         private static IAmazonS3 s3Client;
 
         public static void Main()

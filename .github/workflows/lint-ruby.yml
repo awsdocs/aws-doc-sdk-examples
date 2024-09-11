@@ -32,4 +32,4 @@ jobs:
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           changed_files=(${{steps.changed-files.outputs.all_changed_files}})
-          rubocop --config .github/linters/.ruby-lint.yml "${changed_files[@]}"     
+          rubocop --config .github/linters/.ruby-lint.yml "${changed_files[@]}"

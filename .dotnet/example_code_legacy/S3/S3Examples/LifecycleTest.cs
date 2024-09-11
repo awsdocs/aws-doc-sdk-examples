@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.LifecycleTest]
 using Amazon;
@@ -82,10 +82,10 @@ namespace Amazon.DocSamples.S3
                         }
                 };
 
-                // Add the configuration to the bucket. 
+                // Add the configuration to the bucket.
                 await AddExampleLifecycleConfigAsync(client, lifeCycleConfiguration);
 
-                // Retrieve an existing configuration. 
+                // Retrieve an existing configuration.
                 lifeCycleConfiguration = await RetrieveLifecycleConfigAsync(client);
 
                 // Add a new rule.
@@ -105,7 +105,7 @@ namespace Amazon.DocSamples.S3
                     }
                 });
 
-                // Add the configuration to the bucket. 
+                // Add the configuration to the bucket.
                 await AddExampleLifecycleConfigAsync(client, lifeCycleConfiguration);
 
                 // Verify that there are now three rules.

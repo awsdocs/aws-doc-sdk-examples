@@ -1,81 +1,81 @@
 ---
 files:
   - path: CreateDistributionS3.php
-    services: 
+    services:
       - cloudfront
   - path: tests/CreateDistributionS3Test.php
-    services: 
+    services:
       - cloudfront
   - path: CreateInvalidation.php
-    services: 
+    services:
       - cloudfront
   - path: tests/CreateInvalidationTest.php
-    services: 
+    services:
       - cloudfront
   - path: DeleteDistribution.php
-    services: 
+    services:
       - cloudfront
   - path: tests/DeleteDistributionTest.php
-    services: 
+    services:
       - cloudfront
   - path: DisableDistributionS3.php
-    services: 
+    services:
       - cloudfront
   - path: tests/DisableDistributionS3Test.php
-    services: 
+    services:
       - cloudfront
   - path: GetDistribution.php
-    services: 
+    services:
       - cloudfront
   - path: tests/GetDistributionTest.php
-    services: 
+    services:
       - cloudfront
   - path: GetInvalidation.php
-    services: 
+    services:
       - cloudfront
   - path: tests/GetInvalidationTest.php
-    services: 
+    services:
       - cloudfront
   - path: ListDistributions.php
-    services: 
+    services:
       - cloudfront
   - path: tests/ListDistributionsTest.php
-    services: 
+    services:
       - cloudfront
   - path: ListInvalidations.php
-    services: 
+    services:
       - cloudfront
   - path: tests/ListInvalidationsTest.php
-    services: 
+    services:
       - cloudfront
   - path: SignCookie.php
-    services: 
-      - cloudfront  
+    services:
+      - cloudfront
   - path: tests/SignCookieTest.php
-    services: 
+    services:
       - cloudfront
   - path: SignCookiePolicy.php
-    services: 
-      - cloudfront  
+    services:
+      - cloudfront
   - path: tests/SignCookiePolicyTest.php
-    services: 
+    services:
       - cloudfront
   - path: SignPrivateDistribution.php
-    services: 
-      - cloudfront  
+    services:
+      - cloudfront
   - path: tests/SignPrivateDistributionTest.php
-    services: 
+    services:
       - cloudfront
   - path: SignPrivateDistributionPolicy.php
-    services: 
-      - cloudfront  
+    services:
+      - cloudfront
   - path: tests/SignPrivateDistributionPolicyTest.php
-    services: 
+    services:
       - cloudfront
   - path: UpdateDistributionS3.php
-    services: 
-      - cloudfront  
+    services:
+      - cloudfront
   - path: tests/UpdateDistributionS3Test.php
-    services: 
+    services:
       - cloudfront
 ...

@@ -65,7 +65,7 @@ suspend fun main(args: Array<String>) {
 
     Where:
         roleName - The name of the IAM role to create for this state machine.
-        activityName - The name of an activity to create.    
+        activityName - The name of an activity to create.
         stateMachineName - The name of the state machine to create.
     """
 

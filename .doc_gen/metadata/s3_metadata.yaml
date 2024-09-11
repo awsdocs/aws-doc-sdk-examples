@@ -2311,7 +2311,7 @@ s3_PutObjectLockConfiguration:
           sdkguide:
           excerpts:
             - description: Set the object lock configuration of a bucket.
-              snippet_files: 
+              snippet_files:
                 - javascriptv3/example_code/s3/actions/put-object-lock-configuration.js
             - description: Set the default retention period of a bucket.
               snippet_files:
@@ -2861,10 +2861,10 @@ s3_Scenario_GettingStarted:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description: A scenario example. 
+            - description: A scenario example.
               snippet_tags:
                 - s3.java2.s3_scenario.main
-            - description: A wrapper class that contains the operations. 
+            - description: A wrapper class that contains the operations.
               snippet_tags:
                 - s3.java2.s3_actions.main
     JavaScript:
@@ -3230,7 +3230,7 @@ s3_Scenario_UseChecksums:
                 - s3.java2.basicOpsWithChecksums.multiPartTm
             - description: >-
                 Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client
-                API</ulink> 
+                API</ulink>
                       or (S3AsyncClient API) to perform a multipart upload. If you specify
                       an additional checksum, you must specify the algorithm to use on the initiation of the upload.
                       You must also specify the algorithm for each part request and provide the checksum calculated
@@ -3376,7 +3376,7 @@ s3_SelectObjectContent:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description: The following example shows a query using a JSON object. The <ulink 
+            - description: The following example shows a query using a JSON object. The <ulink
                 url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/SelectObjectContentExample.java">complete
                 example</ulink> also shows the use of a CSV object.
               snippet_tags:

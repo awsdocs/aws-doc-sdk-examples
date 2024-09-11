@@ -12,7 +12,7 @@ import kotlin.system.exitProcess
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <name> 
+            <name>
         Where:
            name - the name of the pipeline.
     """

@@ -50,12 +50,12 @@ suspend fun main(args: Array<String>) {
     val usage =
         """
         Usage:
-            <roleARN> <snsAction> 
+            <roleARN> <snsAction>
 
         Where:
             roleARN - The ARN of an IAM role that has permission to work with AWS IOT.
             snsAction  - An ARN of an SNS topic.
-        
+
         """.trimIndent()
 
     if (args.size != 2) {
@@ -72,12 +72,12 @@ suspend fun main(args: Array<String>) {
     println("Welcome to the AWS IoT example scenario.")
     println(
         """
-        This example program demonstrates various interactions with the AWS Internet of Things (IoT) Core service. 
-        The program guides you through a series of steps, including creating an IoT thing, generating a device certificate, 
-        updating the thing with attributes, and so on. 
-        
-        It utilizes the AWS SDK for Kotlin and incorporates functionality for creating and managing IoT things, certificates, rules, 
-        shadows, and performing searches. The program aims to showcase AWS IoT capabilities and provides a comprehensive example for 
+        This example program demonstrates various interactions with the AWS Internet of Things (IoT) Core service.
+        The program guides you through a series of steps, including creating an IoT thing, generating a device certificate,
+        updating the thing with attributes, and so on.
+
+        It utilizes the AWS SDK for Kotlin and incorporates functionality for creating and managing IoT things, certificates, rules,
+        shadows, and performing searches. The program aims to showcase AWS IoT capabilities and provides a comprehensive example for
         developers working with AWS IoT in a Kotlin environment.
         """.trimIndent(),
     )
@@ -124,8 +124,8 @@ suspend fun main(args: Array<String>) {
     println("3. Update an AWS IoT thing with Attributes.")
     println(
         """
-        IoT thing attributes, represented as key-value pairs, offer a pivotal advantage in facilitating efficient data 
-        management and retrieval within the AWS IoT ecosystem. 
+        IoT thing attributes, represented as key-value pairs, offer a pivotal advantage in facilitating efficient data
+        management and retrieval within the AWS IoT ecosystem.
         """.trimIndent(),
     )
     print("Press Enter to continue...")
@@ -160,10 +160,10 @@ suspend fun main(args: Array<String>) {
     println("6. Create an IoT shadow that refers to a digital representation or virtual twin of a physical IoT device")
     println(
         """
-        A thing shadow refers to a feature that enables you to create a virtual representation, or "shadow," 
-        of a physical device or thing. The thing shadow allows you to synchronize and control the state of a device between 
-        the cloud and the device itself. and the AWS IoT service. For example, you can write and retrieve JSON data from a thing shadow. 
-        
+        A thing shadow refers to a feature that enables you to create a virtual representation, or "shadow,"
+        of a physical device or thing. The thing shadow allows you to synchronize and control the state of a device between
+        the cloud and the device itself. and the AWS IoT service. For example, you can write and retrieve JSON data from a thing shadow.
+
         """.trimIndent(),
     )
     print("Press Enter to continue...")
@@ -182,7 +182,7 @@ suspend fun main(args: Array<String>) {
     println("8. Creates a rule")
     println(
         """
-        Creates a rule that is an administrator-level action. 
+        Creates a rule that is an administrator-level action.
         Any user who has permission to create rules will be able to access data processed by the rule.
         """.trimIndent(),
     )

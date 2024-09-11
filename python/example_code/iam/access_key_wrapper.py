@@ -159,9 +159,9 @@ def usage_demo():
     print("-" * 88)
     current_user_name = iam.CurrentUser().user_name
     print(
-        f"This demo creates an access key for the current user "
+        "This demo creates an access key for the current user "
         f"({current_user_name}), manipulates the key in a few ways, and then "
-        f"deletes it."
+        "deletes it."
     )
     all_keys = list_keys(current_user_name)
     if len(all_keys) == 2:

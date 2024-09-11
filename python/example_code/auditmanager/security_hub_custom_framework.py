@@ -68,7 +68,7 @@ class SecurityHub:
                 controlSets=[{"name": "Security-Hub", "controls": am_controls}],
             )
             print(
-                f"Successfully created the custom framework: "
+                "Successfully created the custom framework: "
                 f"{custom_framework.get('framework').get('name')}: "
                 f"{custom_framework.get('framework').get('id')}"
             )

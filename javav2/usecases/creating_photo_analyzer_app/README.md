@@ -47,8 +47,8 @@ To complete the tutorial, you need the following:
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 ### Creating the resources
@@ -67,7 +67,7 @@ To generate a report, enter an email address and choose **Analyze Photos**.
 
 ![AWS Photo Analyzer](images/Report2.png)
 
-You can also download a given image from the Amazon S3 bucket by using this application. Simply specify the image name and choose the **Download Photo** button. The image is downloaded to your browser, as shown in this illustration. 
+You can also download a given image from the Amazon S3 bucket by using this application. Simply specify the image name and choose the **Download Photo** button. The image is downloaded to your browser, as shown in this illustration.
 
 ![AWS Photo Analyzer](images/download.png)
 
@@ -103,13 +103,13 @@ The Java files go into this package.
 Create these Java classes:
 
 + **AnalyzePhotos** - Uses the Amazon Rekognition API to analyze the images.
-+ **BucketItem** - Used as a model that stores Amazon S3 bucket information.   
++ **BucketItem** - Used as a model that stores Amazon S3 bucket information.
 + **PhotoApplication** - Used as the base class for the Spring Boot application.
 + **PhotoController** - Used as the Spring Boot controller that handles HTTP requests.
 + **SendMessages** - Uses the Amazon SES API to send an email message with an attachment.
 + **S3Service** - Uses the Amazon S3 API to perform operations.
 + **WorkItem** - Used as a model that stores Amazon Rekognition data.
-+ **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.     
++ **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.
 
 ### AnalyzePhotos class
 
@@ -173,7 +173,7 @@ public class AnalyzePhotos {
 }
 ```
 
-**Note:** In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials. 
+**Note:** In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials.
 
 ### BucketItem class
 
@@ -248,7 +248,7 @@ The following Java code represents the **PhotoApplication** class.
 
 The following Java code represents the **PhotoController** class that handles HTTP requests. For example, when a new image is posted (uploaded to an S3 bucket), the **singleFileUpload** method handles the request.
 
-**Note**: Be sure that you change the **bucketName** variable to your Amazon S3 bucket name. 
+**Note**: Be sure that you change the **bucketName** variable to your Amazon S3 bucket name.
 
 ```java
 package com.example.photo;
@@ -385,7 +385,7 @@ public class PhotoController {
 
 ### S3Service class
 
-The following class uses the Amazon S3 Java API to perform Amazon S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. 
+The following class uses the Amazon S3 Java API to perform Amazon S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image.
 
 ```java
 package com.example.photo;
@@ -1245,11 +1245,11 @@ The following JavaScript represents the **message.js** file. The **ProcessImages
 
 ```
 
-**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.   
+**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.
 
 ## Run the application
 
-Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, click the run icon in the Spring Boot main class, as shown in this illustration. 
+Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, click the run icon in the Spring Boot main class, as shown in this illustration.
 
 ![AWS Tracking Application](images/runapp.png)
 

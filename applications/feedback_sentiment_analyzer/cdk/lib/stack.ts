@@ -271,7 +271,7 @@ export class AppStack extends Stack {
       const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
       exports.handler = async (event) => {
         console.log("GetFeedback", event);
-        const client = new DynamoDBClient(); 
+        const client = new DynamoDBClient();
         const scan = await client.send(new ScanCommand({
           FilterExpression: "${AppDatabase.INDEX} = :positive",
           ExpressionAttributeValues: {

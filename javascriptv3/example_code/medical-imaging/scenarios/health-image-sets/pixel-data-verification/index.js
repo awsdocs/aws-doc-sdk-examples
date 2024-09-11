@@ -80,7 +80,7 @@ openjphjs.onRuntimeInitialized = async (_) => {
     // calculate the CRC32 for the image frame
     const fullResCRC32Signed = CRC32.buf(decodedBuffer);
     const fullResCRC32 = fullResCRC32Signed >>> 0; // convert to unsigned
-    
+
     // compare it to the value in the metadata
     const fullResCRC32FromMeta =
         imageFrameMeta[0].PixelDataChecksumFromBaseToFullResolution[

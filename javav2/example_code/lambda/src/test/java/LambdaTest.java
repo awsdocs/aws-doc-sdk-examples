@@ -66,7 +66,7 @@ public class LambdaTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * LambdaTest.class.getClassLoader().getResourceAsStream("config.properties")) {
          * Properties prop = new Properties();
@@ -84,7 +84,7 @@ public class LambdaTest {
          * java.util.UUID.randomUUID();
          * bucketName = prop.getProperty("bucketName");
          * key = prop.getProperty("key");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

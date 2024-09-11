@@ -19,10 +19,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <appName> 
+            <appName>
 
         Where:
-            appName - The name of the AWS Elastic Beanstalk application. 
+            appName - The name of the AWS Elastic Beanstalk application.
     """
 
     if (args.size != 1) {

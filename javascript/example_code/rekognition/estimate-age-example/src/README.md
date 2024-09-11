@@ -5,7 +5,7 @@ This example demonstrates how to estimate the ages of faces in an photo.
 
 # Running the example
 
-1. Open the AWS CloudFormation Console, choose the stack, and choose the  **Resources** tab. 
+1. Open the AWS CloudFormation Console, choose the stack, and choose the  **Resources** tab.
 
 2. Copy the **Physical ID** of the **CognitoDefaultUnauthenticatedRole**.
 

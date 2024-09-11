@@ -3,7 +3,7 @@ name = "rds-code-examples"
 authors = [
   "LMJW <heysuperming@gmail.com>",
   "Doug Schwartz <dougsch@amazon.com>",
-  "David Souther <dpsouth@amazon.com>", 
+  "David Souther <dpsouth@amazon.com>",
 ]
 edition = "2021"
 version = "0.1.0"

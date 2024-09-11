@@ -92,7 +92,7 @@ Resources:
             ];
 
             try {
-              await Promise.all(recommendations.map(recommendation => 
+              await Promise.all(recommendations.map(recommendation =>
                 client.send(new PutItemCommand({TableName: tableName, Item: recommendation}))
               ));
               console.log("PUT ITEMS SUCCESS", {tableName});

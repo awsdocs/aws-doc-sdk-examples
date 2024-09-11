@@ -10,7 +10,7 @@ import ClientRuntime
 /// A class containing all the code that interacts with the AWS SDK for Swift.
 public class CognitoIdentityHandler {
     let cognitoIdentityClient: CognitoIdentityClient
-    
+
     // snippet-start:[cognitoidentity.swift.init]
     /// Initialize and return a new ``CognitoIdentityHandler`` object,
     /// which is used to drive the AWS calls used for the example.
@@ -21,7 +21,7 @@ public class CognitoIdentityHandler {
         cognitoIdentityClient = try await CognitoIdentityClient()
     }
     // snippet-end:[cognitoidentity.swift.init]
-    
+
     // snippet-start:[cognitoidentity.swift.get-pool-id]
     /// Return the ID of the identity pool with the specified name.
     ///
@@ -33,7 +33,7 @@ public class CognitoIdentityHandler {
     ///
     func getIdentityPoolID(name: String) async throws -> String? {
         var token: String? = nil
-        
+
         // Iterate over the identity pools until a match is found.
 
         repeat {
@@ -43,15 +43,15 @@ public class CognitoIdentityHandler {
             /// continue where you left off previously. If you specify `nil`
             /// or you don't provide the token, Amazon Cognito will start at
             /// the beginning.
-            
+
             let listPoolsInput = ListIdentityPoolsInput(maxResults: 25, nextToken: token)
-            
+
             /// Read pages of identity pools from Cognito until one is found
             /// whose name matches the one specified in the `name` parameter.
             /// Return the matching pool's ID. Each time we ask for the next
             /// page of identity pools, we pass in the token given by the
             /// previous page.
-            
+
             let output = try await cognitoIdentityClient.listIdentityPools(input: listPoolsInput)
 
             if let identityPools = output.identityPools {
@@ -61,15 +61,15 @@ public class CognitoIdentityHandler {
                     }
                 }
             }
-            
+
             token = output.nextToken
         } while token != nil
-        
+
         return nil
     }
     // snippet-end:[cognitoidentity.swift.get-pool-id]
-    
-    // snippet-start:[cognitoidentity.swift.get-or-create-pool-id] 
+
+    // snippet-start:[cognitoidentity.swift.get-or-create-pool-id]
     /// Return the ID of the identity pool with the specified name.
     ///
     /// - Parameters:
@@ -80,15 +80,15 @@ public class CognitoIdentityHandler {
     ///
     public func getOrCreateIdentityPoolID(name: String) async throws -> String? {
         // See if the pool already exists. If it doesn't, create it.
-        
+
         guard let poolId = try await self.getIdentityPoolID(name: name) else {
             return try await self.createIdentityPool(name: name)
         }
-    
+
         return poolId
     }
     // snippet-end:[cognitoidentity.swift.get-or-create-pool-id]
-    
+
     // snippet-start:[cognitoidentity.swift.create-identity-pool]
     /// Create a new identity pool and return its ID.
     ///
@@ -106,7 +106,7 @@ public class CognitoIdentityHandler {
         guard let poolId = result.identityPoolId else {
             return nil
         }
-        
+
         return poolId
     }
     // snippet-end:[cognitoidentity.swift.create-identity-pool]

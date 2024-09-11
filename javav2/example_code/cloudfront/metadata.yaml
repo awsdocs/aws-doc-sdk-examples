@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/cloudfront/CreateFunction.java
     services:
@@ -21,4 +21,3 @@ files:
   - path: src/test/java/CloudFrontTest.java
     services:
       - CloudFront
-        

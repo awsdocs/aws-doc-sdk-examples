@@ -48,7 +48,7 @@ final class CreateRoleTests: XCTestCase {
             let user = try await CreateRoleTests.serviceHandler!.getUser(name: nil)
 
             guard let userARN = user.arn else {
-                return 
+                return
             }
 
             // Policy document for the new role.

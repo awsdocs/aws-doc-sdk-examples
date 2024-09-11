@@ -83,7 +83,7 @@ struct S3ExampleLambda: LambdaHandler {
     ///
     /// - Returns: A string indicating the name of the file created in the AWS
     ///   S3 bucket.
-    private func putObject(client: S3Client, 
+    private func putObject(client: S3Client,
                            bucketName: String,
                            body: String) async throws -> String {
         // Generate an almost certainly unique object name based on the current

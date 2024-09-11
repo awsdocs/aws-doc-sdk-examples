@@ -413,7 +413,7 @@ def test_setup_demo(monkeypatch):
         "test_function": {
             "file_name": "test_file.py",
             "handler": "test_file.lambda_handler",
-            "description": "testing stuff",
+            "description": "testing stu",
             "arn": None,
         }
     }

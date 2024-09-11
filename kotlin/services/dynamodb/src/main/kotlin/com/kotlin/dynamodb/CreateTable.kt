@@ -26,7 +26,7 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-         <tableName> <key> 
+         <tableName> <key>
 
     Where:
         tableName - The Amazon DynamoDB table to create (for example, Music3).

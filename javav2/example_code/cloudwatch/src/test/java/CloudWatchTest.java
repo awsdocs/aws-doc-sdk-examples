@@ -102,7 +102,7 @@ public class CloudWatchTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests
          * prop.load(input);
          * logGroup = prop.getProperty("logGroup");
@@ -125,7 +125,7 @@ public class CloudWatchTest {
          * dashboardAddSc= prop.getProperty("dashboardAddSc");
          * settingsSc= prop.getProperty("settingsSc");
          * metricImageSc= prop.getProperty("metricImageSc");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

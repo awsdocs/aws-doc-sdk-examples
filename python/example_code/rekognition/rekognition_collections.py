@@ -410,7 +410,7 @@ def usage_demo():
     input("Press Enter to continue.")
 
     print(
-        f"Searching for faces in the collection that match the first face in the "
+        "Searching for faces in the collection that match the first face in the "
         f"list (Face ID: {faces[0].face_id}."
     )
     found_faces = collection.search_faces(faces[0].face_id, 80, 10)
@@ -420,7 +420,7 @@ def usage_demo():
     input("Press Enter to continue.")
 
     print(
-        f"Searching for faces in the collection that match the largest face in "
+        "Searching for faces in the collection that match the largest face in "
         f"{images[0].image_name}."
     )
     image_face, match_faces = collection.search_faces_by_image(images[0], 80, 10)

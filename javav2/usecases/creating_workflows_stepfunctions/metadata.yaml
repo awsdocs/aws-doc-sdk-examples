@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/example/Handler.java
     services:
@@ -16,4 +16,3 @@ files:
     services:
       - lambda
 
-  

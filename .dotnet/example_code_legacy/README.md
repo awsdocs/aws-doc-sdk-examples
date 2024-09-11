@@ -1,8 +1,8 @@
 # README for AWS SDK for .NET documentation examples - legacy code examples
 
-This is a collection of legacy code examples for the AWS SDK for .NET public documentation.  Legacy code examples might use older versions of the .NET framework, and they might not contain unit tests.  
+This is a collection of legacy code examples for the AWS SDK for .NET public documentation.  Legacy code examples might use older versions of the .NET framework, and they might not contain unit tests.
 
-You can find new and updated code examples in the folder example_code.  Legacy code examples might be updated and moved from the example_code_legacy to the example_code folder. 
+You can find new and updated code examples in the folder example_code.  Legacy code examples might be updated and moved from the example_code_legacy to the example_code folder.
 
 
 # Prerequisites
@@ -34,7 +34,7 @@ For each code example, follow the instructions in the README file for the exampl
 
 ## Copyright and License
 
-All content in this repository, unless otherwise stated, is 
+All content in this repository, unless otherwise stated, is
 Copyright © Amazon Web Services, Inc. or its affiliates. All rights reserved.
 
 Except where otherwise noted, all examples in this collection are licensed under the [Apache

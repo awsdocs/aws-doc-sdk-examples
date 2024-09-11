@@ -8,7 +8,7 @@ Route 53 is a highly available and scalable Domain Name System (DNS) web service
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. See [AWS Pricing](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
@@ -41,7 +41,7 @@ Code excerpts that show you how to call individual service functions.
 - [Update a health check](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/UpdateHealthCheck.kt) (updateHealthCheck command)
 - [View billing](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/route53/src/main/kotlin/com/kotlin/route/Route53Scenario.kt) (viewBillingPaginated command)
 
-### Scenario 
+### Scenario
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
@@ -57,11 +57,11 @@ Some of these examples perform *destructive* operations on AWS resources, such a
 
 ### Prerequisites
 
-To run these examples, set up your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
-see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
+To run these examples, set up your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information,
+see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
 
  ## Test the examples
- 
+
  ⚠️ Running the tests might result in charges to your AWS account.
 
 You can test the Kotlin code example for Amazon Route 53 by running a test file named **Route53Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/kotlin** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).

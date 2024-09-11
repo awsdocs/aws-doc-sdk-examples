@@ -27,7 +27,7 @@ func getBucketNames() async throws -> [String] {
         input: ListBucketsInput()
     )
     // snippet-end:[s3.swift.intro.listbuckets]
-    
+
     // Get the bucket names.
     var bucketNames: [String] = []
 

@@ -16,7 +16,7 @@ suspend fun main(args: Array<String>) {
 
     Where:
         queryString - The query string to use (for example, "SELECT * FROM mydatabase"; ).
-        namedQuery - The name of the query to create. 
+        namedQuery - The name of the query to create.
         database - The name of the database to use (for example, mydatabase).
     """
 

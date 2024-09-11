@@ -61,14 +61,14 @@ public class TranslateTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests.
          * prop.load(input);
          * s3Uri = prop.getProperty("s3Uri");
          * s3UriOut = prop.getProperty("s3UriOut");
          * jobName = prop.getProperty("jobName")+ java.util.UUID.randomUUID();
          * dataAccessRoleArn = prop.getProperty("dataAccessRoleArn");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

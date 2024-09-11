@@ -269,7 +269,7 @@ def usage_demo():
         "Policies let you define sets of permissions that can be attached to "
         "other IAM resources, like users and roles."
     )
-    bucket_arn = f"arn:aws:s3:::made-up-bucket-name"
+    bucket_arn = "arn:aws:s3:::made-up-bucket-name"
     policy = create_policy(
         "demo-iam-policy",
         "Policy for IAM demonstration.",

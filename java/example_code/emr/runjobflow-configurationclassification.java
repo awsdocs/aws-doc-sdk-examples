@@ -7,7 +7,7 @@ Application hive = new Application().withName("Hive");
 Map<String,String> hiveProperties = new HashMap<String,String>();
 	hiveProperties.put("hive.join.emit.interval","1000");
 	hiveProperties.put("hive.merge.mapfiles","true");
-	    
+
 Configuration myHiveConfig = new Configuration()
 	.withClassification("hive-site")
 	.withProperties(hiveProperties);
@@ -25,5 +25,5 @@ RunJobFlowRequest request = new RunJobFlowRequest()
 		.withKeepJobFlowAliveWhenNoSteps(true)
 		.withMasterInstanceType("m4.large")
 		.withSlaveInstanceType("m4.large")
-	);				
+	);
 // snippet-end:[emr.java.create-cluster.specifyconfigurationclassification]

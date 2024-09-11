@@ -62,7 +62,7 @@ final class CreateServiceLinkedRoleTests: XCTestCase {
                 XCTFail("Returned role does not have a name, but should.")
                 return
             }
-            
+
             let getID = try await CreateServiceLinkedRoleTests.serviceHandler!.getRoleID(name: roleName)
 
             XCTAssertTrue(createdRole.roleId == getID, "Created role's ID (\(createdRole.roleId!)) doesn't match retrieved role ID (\(getID))")

@@ -80,7 +80,7 @@ The following illustration shows an example of the Work table.
 
 ![AWS Tracking Application](images/workTable3.png)
 
-For more information about how to use the AWS Management Console to create a DynamoDB table  
+For more information about how to use the AWS Management Console to create a DynamoDB table
 and add data, see [Create a table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 (The table in that example is different from the table in this example.)
 

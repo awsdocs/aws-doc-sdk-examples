@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/rds/CreateDBInstance.java
     services:
@@ -20,7 +20,7 @@ files:
       - rds
   - path: src/main/java/com/example/rds/RebootDBInstance.java
     services:
-      - rds        
+      - rds
   - path: src/test/java/AmazonRDSTest.java
     services:
       - rds

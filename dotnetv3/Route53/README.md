@@ -55,7 +55,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-* [Get started with domains](Scenarios/Route53DomainScenario.cs) 
+* [Get started with domains](Scenarios/Route53DomainScenario.cs)
 
 ## Run the examples
 

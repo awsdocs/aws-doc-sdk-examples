@@ -26,7 +26,7 @@ suspend fun main(args: Array<String>) {
     val usage = """
        Usage:
             <clientId> <secretkey> <userName> <password> <email>
-    
+
        Where:
             clientId - The app client id value that you can obtain from the AWS Management Console.
             secretkey - The app client secret value that you can obtain from the AWS Management Console.

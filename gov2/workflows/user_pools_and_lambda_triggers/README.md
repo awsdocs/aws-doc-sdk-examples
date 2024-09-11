@@ -12,7 +12,7 @@ There are three workflows demonstrated by this example:
 * Automatically add known users at sign-in by using a migrate user trigger.
 * Write custom information to an Amazon DynamoDB table after users are authenticated by using a post authentication trigger.
 
-These workflows are described in more detail in the main [README](../../workflows/user_pools_and_lambda_triggers/README.md) 
+These workflows are described in more detail in the main [README](../../workflows/user_pools_and_lambda_triggers/README.md)
 for these examples.
 
 ## Automatically confirm known users

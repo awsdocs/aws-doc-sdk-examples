@@ -58,12 +58,12 @@ class AutoScalingWrapper:
         # Happy path
         self.instance_policy_name = f"{resource_prefix}-pol"
         self.instance_role_name = f"{resource_prefix}-role"
-        self.instance_profile_name = f"{resource_prefix}-prof"
+        self.instance_profile_name = f"{resource_prefix}-pro"
 
         # Failure mode
         self.bad_creds_policy_name = f"{resource_prefix}-bc-pol"
         self.bad_creds_role_name = f"{resource_prefix}-bc-role"
-        self.bad_creds_profile_name = f"{resource_prefix}-bc-prof"
+        self.bad_creds_profile_name = f"{resource_prefix}-bc-pro"
 
     # snippet-end:[python.cross_service.resilient_service.AutoScaler.decl]
 
@@ -295,7 +295,7 @@ class AutoScalingWrapper:
             if error_code == "InvalidInstanceId":
                 log.error(
                     f"The specified instance ID '{instance_id}' does not exist or is not available for SSM. "
-                    f"Please verify the instance ID and try again."
+                    "Please verify the instance ID and try again."
                 )
             log.error(f"Full error:\n\t{err}")
 
@@ -755,7 +755,7 @@ class AutoScalingWrapper:
                         port_is_open = True
                     if not port_is_open:
                         log.info(
-                            f"The inbound rule does not appear to be open to either this computer's IP "
+                            "The inbound rule does not appear to be open to either this computer's IP "
                             f"address of {ip_address}, to all IP addresses (0.0.0.0/0), or to a prefix list ID."
                         )
                     else:

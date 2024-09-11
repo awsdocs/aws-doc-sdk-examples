@@ -136,7 +136,7 @@ own:
 
  * [LambdaIncrement.zip](LambdaIncrement.zip)
  * [LambdaCalculator.zip](LambdaCalculator.zip)
- 
+
 ##### Configuration settings
 
 The scenario includes the following settings in `settings.json`:

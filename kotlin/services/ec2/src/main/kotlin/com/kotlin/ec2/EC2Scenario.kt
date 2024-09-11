@@ -73,12 +73,12 @@ suspend fun main(args: Array<String>) {
             <keyName> <fileName> <groupName> <groupDesc> <vpcId> <myIpAddress>
 
         Where:
-            keyName - A key pair name (for example, TestKeyPair). 
-            fileName - A file name where the key information is written to. 
-            groupName - The name of the security group. 
-            groupDesc - The description of the security group. 
-            vpcId - A VPC ID. You can get this value from the AWS Management Console. 
-            myIpAddress - The IP address of your development machine. 
+            keyName - A key pair name (for example, TestKeyPair).
+            fileName - A file name where the key information is written to.
+            groupName - The name of the security group.
+            groupDesc - The description of the security group.
+            vpcId - A VPC ID. You can get this value from the AWS Management Console.
+            myIpAddress - The IP address of your development machine.
 
 """
 

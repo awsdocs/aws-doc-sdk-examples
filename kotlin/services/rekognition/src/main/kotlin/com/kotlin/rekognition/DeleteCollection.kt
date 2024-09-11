@@ -18,11 +18,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main(args: Array<String>) {
     val usage = """
-    Usage: 
-        <collectionId> 
+    Usage:
+        <collectionId>
 
     Where:
-        collectionId - The id of the collection to delete. 
+        collectionId - The id of the collection to delete.
     """
 
     if (args.size != 1) {

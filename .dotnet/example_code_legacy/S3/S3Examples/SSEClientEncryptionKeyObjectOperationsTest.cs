@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.SSEClientEncryptionKeyObjectOperationsTest]
 using Amazon;
@@ -13,8 +13,8 @@ namespace Amazon.DocSamples.S3
 {
     class SSEClientEncryptionKeyObjectOperationsTest
     {
-        private const string bucketName = "*** bucket name ***"; 
-        private const string keyName = "*** key name for new object created ***"; 
+        private const string bucketName = "*** bucket name ***";
+        private const string keyName = "*** key name for new object created ***";
         private const string copyTargetKeyName = "*** key name for object copy ***";
         // Specify your bucket region (an example region is shown).
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
@@ -41,7 +41,7 @@ namespace Amazon.DocSamples.S3
                 await DownloadObjectAsync(base64Key, putObjectRequest);
                 // 3. Get object metadata and verify that the object uses AES-256 encryption.
                 await GetObjectMetadataAsync(base64Key);
-                // 4. Copy both the source and target objects using server-side encryption with 
+                // 4. Copy both the source and target objects using server-side encryption with
                 //    a customer-provided encryption key.
                 await CopyObjectAsync(aesEncryption, base64Key);
             }

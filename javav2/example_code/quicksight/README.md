@@ -8,7 +8,7 @@ This README discusses how to run and test the Java code examples for Amazon Quic
 
 The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information,
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 
@@ -27,7 +27,7 @@ Before running the Amazon QuickSight JUnit tests, you must define values in the 
 
 Define these values to successfully run the JUnit tests:
 
-- **account** - the ID of the AWS account.   
+- **account** - the ID of the AWS account.
 - **analysisId** - the ARN of an existing analysis.
 - **dashboardId** - the ID of the Amazon QuickSight Dashboard.
 - **templateId** - the ID of the Amazon QuickSight template.

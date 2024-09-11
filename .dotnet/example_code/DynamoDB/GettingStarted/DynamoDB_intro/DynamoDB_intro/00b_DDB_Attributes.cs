@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.dotNET.CodeExample.00b_DDB_Attributes] 
+// snippet-start:[dynamodb.dotNET.CodeExample.00b_DDB_Attributes]
 using System;
 using System.Text;
 using System.Collections.Generic;
@@ -43,7 +43,7 @@ namespace DynamoDB_intro
             var title = doc["title"];
             if (null != year) Console.WriteLine("Title: " + title);
     }
-        
+
     public static void showMovieAttrsShort( Dictionary<string, AttributeValue> movie )
     {
       Dictionary<string, AttributeValue> info = movie["info"].M;
@@ -154,7 +154,7 @@ namespace DynamoDB_intro
       sb.Append( "\n}" );
       return ( sb.ToString( ) );
     }
-        
+
     public static string attrValToString( AttributeValue attrVal, int startIndex )
     {
       string str = null;

@@ -80,7 +80,7 @@ def usage_demo():
         except FileNotFoundError:
             print(
                 f"Couldn't find {args.key}. For a PUT operation, the key must be the "
-                f"name of a file that exists on your computer."
+                "name of a file that exists on your computer."
             )
 
     if response is not None:

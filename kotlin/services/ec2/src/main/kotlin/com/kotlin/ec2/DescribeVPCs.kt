@@ -21,7 +21,7 @@ suspend fun main(args: Array<String>) {
     val usage = """
 
     Usage:
-        <vpcId> 
+        <vpcId>
 
     Where:
         vpcId - A VPC ID that you can obtain from the AWS Management Console (for example, vpc-xxxxxf2f).

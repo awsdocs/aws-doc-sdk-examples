@@ -1238,7 +1238,7 @@ medical-imaging_Scenario_ImageSetsAndFrames:
             - description: <noloc>deploy-steps.js</noloc> - Deploy resources.
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/deploy-steps.js
-            - description: <noloc>dataset-steps.js</noloc> - Copy DICOM files. 
+            - description: <noloc>dataset-steps.js</noloc> - Copy DICOM files.
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/dataset-steps.js
             - description: <noloc>import-steps.js</noloc> - Start import into datastore.

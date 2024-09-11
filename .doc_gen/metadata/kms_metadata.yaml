@@ -808,7 +808,7 @@ kms_Scenario_Basics:
                 - kms.java2_scenario.main
             - description: Define a class that wraps KMS actions.
               snippet_tags:
-                - kms.java2_actions.main   
+                - kms.java2_actions.main
   services:
     kms: {CreateKey, ListKeys, DescribeKey, GenerateDataKey, EnableKey, Sign, DisableKey, ScheduleKeyDeletion}
-    
+

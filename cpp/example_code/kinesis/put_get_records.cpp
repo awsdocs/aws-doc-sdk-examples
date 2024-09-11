@@ -68,7 +68,7 @@ int main(int argc, char** argv)
             Aws::Kinesis::Model::PutRecordsRequestEntry putRecordsRequestEntry;
             Aws::StringStream pk;
             pk << "pk-" << (i % 100);
-            putRecordsRequestEntry.SetPartitionKey(pk.str()); 
+            putRecordsRequestEntry.SetPartitionKey(pk.str());
             Aws::StringStream data;
             data << i << ", " << animals[mt_rand() % animals.size()] << ", " << mt_rand() << ", " << mt_rand() * (float).001;
             Aws::Utils::ByteBuffer bytes((unsigned char*)data.str().c_str(), data.str().length());

@@ -51,11 +51,11 @@ role:
 
       Our examples address common user challenges. They do not deliberately mirror
       AWS service silos.
-      
+
       Our examples are discoverable. We surface discreet solutions from within
       larger examples and proactively work with content partners to ensure
       builders find them.
-      
+
       We are subject matter experts. We are the primary reference for code example
       standards in TCX.
     </team_context>
@@ -1386,7 +1386,7 @@ code:
       tests for the behaviors explicitly requested.
       For writing unit tests remember that we are using Vitest. Do not import any mocking libraries other than those provided by vitest. Vitest requires that test methods (describe, it, expect, etc.) are explicitly imported. They are not added to the global environment. If you're not sure about the vitest API at any time, please let me know rather than making assumptions. Be sure to use the latest EcmaScript, not Typescript.
       While vitest allows for globals, we must explicitly import any vitest functions.
-      
+
       Be judicious in your mocking. For example, things like "path.join" probably don't need to be mocked
       because it's a pure function with no i/o.
 

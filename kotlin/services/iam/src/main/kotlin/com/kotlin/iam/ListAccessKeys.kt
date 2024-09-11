@@ -20,9 +20,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <username> 
+            <username>
         Where:
-             username - The name of the user for which access keys are retrieved. 
+             username - The name of the user for which access keys are retrieved.
         """
 
     if (args.size != 1) {

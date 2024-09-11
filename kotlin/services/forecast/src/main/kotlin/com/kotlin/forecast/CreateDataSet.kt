@@ -25,10 +25,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-        <name>  
+        <name>
 
     Where:
-        name - The name of the data set. 
+        name - The name of the data set.
            """
 
     if (args.size != 1) {

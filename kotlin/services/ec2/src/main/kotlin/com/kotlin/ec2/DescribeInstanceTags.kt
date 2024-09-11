@@ -20,7 +20,7 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <resourceIdVal> 
+            <resourceIdVal>
 
         Where:
             resourceIdVal - The instance ID value that you can obtain from the AWS Management Console (for example, i-xxxxxx0913e05f482).

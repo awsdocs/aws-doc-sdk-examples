@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/GreetingApplication.java
     services:
@@ -21,4 +21,4 @@ files:
   - path: src/main/resources/templates/result.html
     services:
       - dynamodb
-  
+

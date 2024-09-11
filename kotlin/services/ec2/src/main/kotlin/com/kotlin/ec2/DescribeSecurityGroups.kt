@@ -21,10 +21,10 @@ suspend fun main(args: Array<String>) {
     val usage = """
 
     Usage:
-        <groupId> 
+        <groupId>
 
     Where:
-        groupId - a security group id. 
+        groupId - a security group id.
     """
 
     if (args.size != 1) {

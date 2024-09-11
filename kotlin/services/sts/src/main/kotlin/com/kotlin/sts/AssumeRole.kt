@@ -36,11 +36,11 @@ import kotlin.system.exitProcess
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-        <roleArn> <roleSessionName> 
+        <roleArn> <roleSessionName>
 
     Where:
-        roleArn - The Amazon Resource Name (ARN) of the role to assume (for example, arn:aws:iam::xxxxx8047983:role/s3role). 
-        roleSessionName - An identifier for the assumed role session (for example, mysession). 
+        roleArn - The Amazon Resource Name (ARN) of the role to assume (for example, arn:aws:iam::xxxxx8047983:role/s3role).
+        roleSessionName - An identifier for the assumed role session (for example, mysession).
     """
 
     if (args.size != 2) {

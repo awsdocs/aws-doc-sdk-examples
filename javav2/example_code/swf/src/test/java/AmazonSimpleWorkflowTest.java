@@ -70,12 +70,12 @@ public class AmazonSimpleWorkflowTest {
          * workflowVersion = prop.getProperty("workflowVersion");
          * activity = prop.getProperty("activity");
          * activityVersion = prop.getProperty("activityVersion");
-         * 
-         * 
+         *
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }
-         * 
+         *
          */
     }
 

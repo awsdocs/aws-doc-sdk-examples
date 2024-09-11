@@ -19,11 +19,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <dbInstanceIdentifier> <masterUserPassword> 
+            <dbInstanceIdentifier> <masterUserPassword>
 
         Where:
-            dbInstanceIdentifier - The database instance identifier. 
-            masterUserPassword - The password that corresponds to the master user name. 
+            dbInstanceIdentifier - The database instance identifier.
+            masterUserPassword - The password that corresponds to the master user name.
     """
 
     if (args.size != 2) {

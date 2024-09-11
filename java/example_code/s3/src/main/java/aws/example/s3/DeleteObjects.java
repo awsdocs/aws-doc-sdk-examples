@@ -12,10 +12,10 @@ import java.util.Arrays;
 
 /**
  * Delete multiple objects from an Amazon S3 bucket.
- * 
+ *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
- * 
+ *
  * ++ Warning ++ This code will actually delete the objects that you specify!
  */
 public class DeleteObjects {

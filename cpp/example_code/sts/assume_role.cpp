@@ -113,7 +113,7 @@ int main(int argc, char **argv)
 
         if (!response_s3.IsSuccess())
         {
-            std::cerr << "Error listing S3 buckets in external account. " << 
+            std::cerr << "Error listing S3 buckets in external account. " <<
                 response_s3.GetError().GetMessage() << std::endl;
             return 1;
         }

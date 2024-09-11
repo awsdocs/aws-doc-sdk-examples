@@ -5,7 +5,7 @@
 This scenario demonstrates how to work with Amazon SageMaker pipelines and geospatial jobs.
 
 ### Amazon SageMaker Pipelines
-A [SageMaker pipeline](https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html) is a series of 
+A [SageMaker pipeline](https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html) is a series of
 interconnected steps that can be used to automate machine learning workflows. Pipelines use interconnected steps and shared parameters to support repeatable workflows that can be customized for your specific use case. You can create and run pipelines from SageMaker Studio using Python, but you can also do this by using AWS SDKs in other
 languages. Using the SDKs, you can create and run SageMaker pipelines and also monitor operations for them.
 

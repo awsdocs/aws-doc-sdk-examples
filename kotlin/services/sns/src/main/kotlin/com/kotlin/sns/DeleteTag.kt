@@ -18,13 +18,13 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
     val usage = """
-        Usage: 
+        Usage:
             <topicArn> <tagKey>
 
         Where:
             topicArn - The ARN of the topic to which tags are removed.
             tagKey - The key of the tag to delete.
-          
+
         """
 
     if (args.size != 2) {

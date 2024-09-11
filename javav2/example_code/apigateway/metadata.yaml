@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/gateway/CreateDeployment.java
     services:
@@ -26,4 +26,4 @@ files:
       - apigateway
   - path: src/test/java/APIGatewayTest.java
     services:
-      - apigateway    
+      - apigateway

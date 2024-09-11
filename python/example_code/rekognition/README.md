@@ -5,7 +5,7 @@
 Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Rekognition.
 
 <!--custom.overview.start-->
-Also includes a [utility](custom_labels_csv_to_manifest.py) that you can use to create a custom label image-level manifest 
+Also includes a [utility](custom_labels_csv_to_manifest.py) that you can use to create a custom label image-level manifest
 file from a CSV file.
 <!--custom.overview.end-->
 

@@ -39,15 +39,15 @@ To complete the tutorial, you need the following:
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 ### Creating the resources
 
 An Amazon S3 bucket named **video[somevalue]**. Be sure to use this bucket name in your Amazon S3 Java code. For information, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html).
 
-You must create an IAM role and a valid SNS topic. You need to reference these values in the **VideoDetectFaces** class. If you do not set these values, the application that you create does not work. For information, see [Configuring Amazon Rekognition Video](https://docs.aws.amazon.com/rekognition/latest/dg/api-video-roles.html).  
+You must create an IAM role and a valid SNS topic. You need to reference these values in the **VideoDetectFaces** class. If you do not set these values, the application that you create does not work. For information, see [Configuring Amazon Rekognition Video](https://docs.aws.amazon.com/rekognition/latest/dg/api-video-roles.html).
 
 
 ## Understand the AWS Video Analyzer application
@@ -56,11 +56,11 @@ The AWS Video Analyzer application supports uploading a video (MP4 file) to an A
 
 ![AWS Video Analyzer](images/pic1.png)
 
-To generate a report, enter an email address and choose **Analyze Video**. A mask is displayed to let the user know the report is being created. 
+To generate a report, enter an email address and choose **Analyze Video**. A mask is displayed to let the user know the report is being created.
 
 ![AWS Video Analyzer](images/pic2.png)
 
-**Note** Depending upon the size of the video, this may take a few minutes. To test this functionality, keep the video under 20 seconds. Also, there can only be one video in the Amazon S3 bucket. 
+**Note** Depending upon the size of the video, this may take a few minutes. To test this functionality, keep the video under 20 seconds. Also, there can only be one video in the Amazon S3 bucket.
 
 ## Create an IntelliJ project named SpringVideoAnalyzer
 
@@ -91,14 +91,14 @@ The Java files go into this package.
 
 Create these Java classes:
 
-+ **BucketItem** - Used as a model that stores Amazon S3 bucket information.   
++ **BucketItem** - Used as a model that stores Amazon S3 bucket information.
 + **FaceItem** - Used as a model that stores details obtained by analyzing the video.
 + **S3Service** - Uses the Amazon S3 API to perform S3 operations.
 + **SendMessages** - Uses the Amazon SES API to send an email message with an attachment.
 + **VideoApplication** - Used as the base class for the Spring Boot application.
 + **VideoController** - Used as the Spring Boot controller that handles HTTP requests.
 + **VideoDetectFaces** - Uses the Amazon Rekognition API to analyze the video.
-+ **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.     
++ **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.
 
 ### BucketItem class
 
@@ -148,8 +148,8 @@ The following Java code represents the **BucketItem** class that stores S3 objec
         return this.key ;
     }
     }
-```    
-    
+```
+
 ### FaceItems class
 
 The following Java code represents the **FaceItems** class that stores data returned by the Amazon Rekognition service.
@@ -607,7 +607,7 @@ The following Java code represents the **VideoController** class that handles HT
     public String process() {
         return "process";
     }
-    
+
     private String bucketName = "<Enter your bucket name>";
 
     @RequestMapping(value = "/getvideo", method = RequestMethod.GET)
@@ -654,16 +654,16 @@ The following Java code represents the **VideoController** class that handles HT
             e.printStackTrace();
         }
         return "The "+ myKey +" video has been successfully analyzed and the report is sent to "+email;
-      } 
+      }
      }
 ```
 
-**Note**: Change the **bucketName** variable to match your bucket. 
+**Note**: Change the **bucketName** variable to match your bucket.
 
 ### VideoDetectFaces class
 The following Java code represents the **VideoDetectFaces** class. This class uses the Amazon Rekognition API to analyze the video obtained from an Amazon S3 bucket. In this example, the video is analyzed by invoking the **RekognitionClient** object’s **startFaceDetection** method. This returns a **StartFaceDetectionResponse** object. You can get the job id number by invoking the **StartFaceDetectionResponse** object’s **jobId** method.
 
-You can get the results of the job by invoking the **GetFaceResults** method. Notice in this code example, a while loop is used to wait until the job is finished. This method returns a list where each element is a **FaceItems** object. 
+You can get the results of the job by invoking the **GetFaceResults** method. Notice in this code example, a while loop is used to wait until the job is finished. This method returns a list where each element is a **FaceItems** object.
 
 ```java
     package com.example.video;
@@ -810,7 +810,7 @@ You can get the results of the job by invoking the **GetFaceResults** method. No
       }
  ```
 
-**Note**: Specifiy valid **topicArn** and **roleArn** values. See the **Prerequisites** section at the start of this tutorial. 
+**Note**: Specifiy valid **topicArn** and **roleArn** values. See the **Prerequisites** section at the start of this tutorial.
 
 ### WriteExcel class
 
@@ -1196,7 +1196,7 @@ The following HTML represents the **layout.html** file for the application's men
     </body>
     </html>
 ```
-          
+
 ## Create script files
 
 Both the upload and process views use script files to communicate with the Spring controller. You have to ensure that these files are part of your project; otherwise, your application won't work.
@@ -1292,7 +1292,7 @@ The following JavaScript represents the **message.js** file. The **ProcessImages
     }
 ```
 
-**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.   
+**Note:** There are other CSS files located in the GitHub repository that you must add to your project. Ensure all of the files under the **resources** folder are included in your project.
 
 ## Increase the timeout value for Elastic Beanstalk
 
@@ -1311,7 +1311,7 @@ Package up the project into a .jar (JAR) file that you can deploy to AWS Elastic
 
     mvn package
 
-The JAR file is located in the target folder.    
+The JAR file is located in the target folder.
 
 The POM file contains the **spring-boot-maven-plugin** that builds an executable JAR file which includes the dependencies. (Without the dependencies, the application does not run on Elastic Beanstalk.) For more information, see [Spring Boot Maven Plugin](https://www.baeldung.com/executable-jar-with-maven).
 

@@ -47,14 +47,14 @@ public class DetectAnomalies {
         /**
          * Creates an Amazon Lookout for Vision dataset from a manifest file.
          * Returns after Lookout for Vision creates the dataset.
-         * 
+         *
          * @param lfvClient    An Amazon Lookout for Vision client.
          * @param projectName  The name of the project in which you want to create a
          *                     dataset.
          * @param modelVersion The version of the model that you want to use.
          *
          * @param photo        The photo that you want to analyze.
-         * 
+         *
          * @return DetectAnomalyResult The analysis result from DetectAnomalies.
          */
 
@@ -123,13 +123,13 @@ public class DetectAnomalies {
         /**
          * Rejects an image based on its anomaly classification and prediction
          * confidence
-         * 
+         *
          * @param image         The file name of the analyzed image.
          * @param prediction    The prediction for an image analyzed with
          *                      DetectAnomalies.
          * @param minConfidence The minimum acceptable confidence for the prediction
          *                      (0-1).
-         * 
+         *
          * @return boolean True if the image is anomalous, otherwise False.
          */
 
@@ -156,7 +156,7 @@ public class DetectAnomalies {
         /**
          * Rejects an image based on a maximum allowable coverage area for an anomaly
          * type.
-         * 
+         *
          * @param image         The file name of the analyzed image.
          * @param prediction    The prediction for an image analyzed with
          *                      DetectAnomalies.
@@ -165,7 +165,7 @@ public class DetectAnomalies {
          * @param anomalyLabel  The anomaly type (label) to check.
          * @param maxCoverage   The maximum allowable coverage area of the anomaly type.
          *                      (0-1).
-         * 
+         *
          * @return boolean True if the coverage area of the anomaly type exceeds the
          *         maximum allowed, otherwise False.
          */
@@ -213,7 +213,7 @@ public class DetectAnomalies {
          *                         (0-1).
          * @param maxAnomalyLabels The maximum allowable number of anomaly labels
          *                         (types).
-         * 
+         *
          * @return boolean True if the image contains more than the maximum allowed
          *         anomaly types, otherwise False.
          */

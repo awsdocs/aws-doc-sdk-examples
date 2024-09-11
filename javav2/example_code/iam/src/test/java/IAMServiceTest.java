@@ -64,7 +64,7 @@ public class IAMServiceTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * IAMServiceTest.class.getClassLoader().getResourceAsStream("config.properties"
          * )) {
@@ -81,12 +81,12 @@ public class IAMServiceTest {
          * roleSessionName=prop.getProperty("roleSessionName");
          * fileLocationSc=prop.getProperty("fileLocationSc");
          * bucketNameSc=prop.getProperty("bucketNameSc");
-         * 
+         *
          * if (input == null) {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

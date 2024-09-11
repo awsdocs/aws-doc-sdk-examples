@@ -136,7 +136,7 @@ def test_create_s3_copy_rule(make_stubber, error_code):
     ses_receipt = SesReceiptHandler(ses_client, None)
     rule_set_name = "test-rule-set"
     rule_name = "test-rule"
-    recipients = ["me", "myself", "I"]
+    recipients = ["me", "mysel", "I"]
     bucket_name = "doc-example-bucket"
     prefix = "mymails/"
     actions = [{"S3Action": {"BucketName": bucket_name, "ObjectKeyPrefix": prefix}}]
@@ -164,7 +164,7 @@ def test_describe_receipt_rule_set(make_stubber, error_code):
     ses_receipt = SesReceiptHandler(ses_client, None)
     rule_set_name = "test-rule-set"
     rule_name = "test-rule"
-    recipients = ["me", "myself", "I"]
+    recipients = ["me", "mysel", "I"]
     bucket_name = "doc-example-bucket"
     prefix = "mymails/"
     actions = [{"S3Action": {"BucketName": bucket_name, "ObjectKeyPrefix": prefix}}]

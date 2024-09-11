@@ -60,7 +60,7 @@ public class GeneratePresignedUrlAndUploadObject {
     // snippet-start:[presigned.java2.generatepresignedurl.main]
     /**
      * Create a presigned URL for uploading a String object.
-     * 
+     *
      * @param bucketName - The name of the bucket.
      * @param keyName    - The name of the object.
      * @return - The presigned URL for an HTTP PUT.
@@ -93,7 +93,7 @@ public class GeneratePresignedUrlAndUploadObject {
      * Use the JDK HttpURLConnection (since v1.1) class to upload a String, but you
      * can
      * use any HTTP client.
-     * 
+     *
      * @param presignedUrl - The presigned URL.
      */
     public void useHttpUrlConnectionToPutString(URL presignedUrl) {
@@ -119,7 +119,7 @@ public class GeneratePresignedUrlAndUploadObject {
     /**
      * Use the JDK HttpClient class (since v11) to upload a String,
      * but you can use any HTTP client.
-     * 
+     *
      * @param presignedUrl - The presigned URL.
      */
     public void useHttpClientToPutString(URL presignedUrl) {

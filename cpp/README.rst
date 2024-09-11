@@ -18,7 +18,7 @@ according to the AWS service they demonstrate.
 Prerequisites
 =============
 
-Before using the Code Examples, first complete the installation and setup steps of `Getting Started  
+Before using the Code Examples, first complete the installation and setup steps of `Getting Started
 <https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html>`_ in the AWS SDK for C++
 Developer Guide.
 
@@ -28,13 +28,13 @@ applicable to utilizing the code examples in this repository.
 
 Building and running the code examples
 =============
- 
+
 The example code is organized in subfolders by AWS service.
 For example "example_code/s3" contains the Amazon Simple Storage Service (Amazon S3) code examples.
 
 Examples that use multiple services are located in the [example_code/cross-service](example_code/cross-service) folder.
 
-The examples use the CMake build system. Every service subfolder contains a CMakeLists.txt file that builds all the examples for that service. 
+The examples use the CMake build system. Every service subfolder contains a CMakeLists.txt file that builds all the examples for that service.
 
 To understand more about the example applications, see
 [Get started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
@@ -42,7 +42,7 @@ To understand more about the example applications, see
 Hello Service
 -----------
 
-Many of the services have a "Hello Service" folder with a starter project and README documentation. 
+Many of the services have a "Hello Service" folder with a starter project and README documentation.
 For example, the Amazon S3 Hello project is located at [example_code/s3/hello_s3](example_code/s3/hello_s3).
 
 Docker image (Beta)
@@ -92,7 +92,7 @@ Additional information
 - Running this code might result in charges to your AWS account.
 
 - To propose a new code example for the AWS documentation team to consider producing, create a
-  new request. The team is looking to produce code examples that cover broader scenarios and use 
+  new request. The team is looking to produce code examples that cover broader scenarios and use
   cases, versus simple code snippets that cover only individual API calls. For instructions, see
   the Proposing new code examples section in the
   `Readme on GitHub <https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/README.rst>`_.
@@ -100,7 +100,7 @@ Additional information
 Copyright and License
 =============
 
-All content in this repository, unless otherwise stated, is 
+All content in this repository, unless otherwise stated, is
 Copyright © Amazon Web Services, Inc. or its affiliates. All rights reserved.
 
 Except where otherwise noted, all examples in this collection are licensed under the `Apache

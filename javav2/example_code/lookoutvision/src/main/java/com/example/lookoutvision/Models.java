@@ -42,7 +42,7 @@ public class Models {
          * You are charged for the amount of time it takes to successfully train a
          * model.
          * Returns after Lookout for Vision creates the dataset.
-         * 
+         *
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project in which you want to create a
          *                    model.
@@ -132,13 +132,13 @@ public class Models {
 
         /**
          * Describes an Amazon Lookout for Vision model.
-         * 
+         *
          * @param lfvClient    An Amazon Lookout for Vision client.
          * @param projectName  The name of the project that contains the model that you
          *                     want to describe.
-         * 
+         *
          * @param modelVersion The version of the model that you want to describe.
-         * 
+         *
          * @return ModelDescription The description of the model.
          */
         public static ModelDescription describeModel(LookoutVisionClient lfvClient, String projectName,
@@ -167,7 +167,7 @@ public class Models {
 
         /**
          * Lists the models in an Amazon Lookout for Vision project.
-         * 
+         *
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project that contains the models that
          *                    you want to list.
@@ -197,7 +197,7 @@ public class Models {
 
         /**
          * Lists the tags attached to an Amazon Lookout for Vision model.
-         * 
+         *
          * @param lfvClient    An Amazon Lookout for Vision client.
          * @param projectName  The name of the project that contains the model for which
          *                     you want to list attached tags.
@@ -241,7 +241,7 @@ public class Models {
 
         /**
          * Unattaches a tag from an Amazon Lookout for Vision model.
-         * 
+         *
          * @param lfvClient    An Amazon Lookout for Vision client.
          * @param projectName  The name of the project that contains the model for which
          *                     you want to unattach a tag.
@@ -283,7 +283,7 @@ public class Models {
 
         /**
          * Attaches a tag to an Amazon Lookout for Vision model.
-         * 
+         *
          * @param lfvClient    An Amazon Lookout for Vision client.
          * @param projectName  The name of the project that contains the model for which
          *                     you want to attach a tag.
@@ -331,7 +331,7 @@ public class Models {
 
         /**
          * Deletes an Amazon Lookout for Vision model.
-         * 
+         *
          * @param lfvClient    An Amazon Lookout for Vision client. Returns after the
          *                     model is deleted.
          * @param projectName  The name of the project that contains the model that you

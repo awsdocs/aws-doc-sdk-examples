@@ -281,11 +281,11 @@ def usage_demo():
             movie_data = movie_data[:500]  # Only use the first 500 movies for the demo.
     except FileNotFoundError:
         print(
-            f"The file moviedata.json was not found in the current working directory "
+            "The file moviedata.json was not found in the current working directory "
             f"{os.getcwd()}.\n"
-            f"1. Download the zip file from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip.\n"
+            "1. Download the zip file from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip.\n"
             f"2. Extract '{movies_file_name}' to {os.getcwd()}.\n"
-            f"3. Run the usage demo again."
+            "3. Run the usage demo again."
         )
         return
 
@@ -318,7 +318,7 @@ def usage_demo():
         {"name": "name", "key_type": "HASH", "type": "S"},
     ]
 
-    print(f"Creating movie and actor tables and waiting until they exist...")
+    print("Creating movie and actor tables and waiting until they exist...")
     movie_table = create_table(f"demo-batch-movies-{time.time_ns()}", movie_schema)
     actor_table = create_table(f"demo-batch-actors-{time.time_ns()}", actor_schema)
     print(f"Created {movie_table.name} and {actor_table.name}.")
@@ -341,7 +341,7 @@ def usage_demo():
     )
     print("The first 2 movies returned are: ")
     pprint.pprint(items[movie_table.name][:2])
-    print(f"The first 2 actors returned are: ")
+    print("The first 2 actors returned are: ")
     pprint.pprint(items[actor_table.name][:2])
 
     print(

@@ -61,7 +61,7 @@ class Commit:
 
     def get_commit_diff(self) -> List[unidiff.PatchSet]:
         """Download the compare diff, return a list of PatchedFile"""
-        diffs = self.get_for_compare("diff", f"/main...{self.head_ref}")
+        diffs = self.get_for_compare("di", f"/main...{self.head_ref}")
 
         # PatchSet is the easiest way to construct what we want, but the
         # diff_line_no property on lines is counted from the top of the
@@ -107,7 +107,7 @@ class PullRequest:
     def get_pr_diff(self) -> List[unidiff.PatchSet]:
         """Download the PR diff, return a list of PatchedFile"""
 
-        diffs = self.get("v3.diff")
+        diffs = self.get("v3.di")
 
         # PatchSet is the easiest way to construct what we want, but the
         # diff_line_no property on lines is counted from the top of the
@@ -330,7 +330,7 @@ def format_ordinary_line(source_line, line_offset):
     """Format a single C++ line with a diagnostic indicator"""
 
     return textwrap.dedent(
-        f"""\
+        """\
          ```cpp
          {source_line}
          {line_offset * " " + "^"}
@@ -361,7 +361,7 @@ def format_diff_line(diagnostic, offset_lookup, line_num):
         # format the replacement as a suggestion. Otherwise,
         # format it as a diff
         if replacement_line_num == line_num:
-            code_blocks += f"""
+            code_blocks += """
 ```suggestion
 {new_line}
 ```
@@ -378,7 +378,7 @@ def format_diff_line(diagnostic, offset_lookup, line_num):
 
             rel_path = try_relative(replacement_set[0]["FilePath"])
             code_blocks += textwrap.dedent(
-                f"""\
+                """\
 
                 {rel_path}:{replacement_line_num}:
                 ```diff
@@ -448,7 +448,7 @@ def make_comment_from_diagnostic(
     end_line = line_num
 
     print(
-        f"""{diagnostic}
+        """{diagnostic}
     {line_num=};    {line_offset=};    {source_line=}
     """
     )
@@ -817,8 +817,8 @@ if __name__ == "__main__":
         default='clang-tidy review says "All clean, LGTM! :+1:"',
     )
     parser.add_argument("--token", help="github auth token")
-    parser.add_argument("--head_ref", help="github head ref")
-    parser.add_argument("--ref", help="github ref")
+    parser.add_argument("--head_re", help="github head re")
+    parser.add_argument("--re", help="github re")
     parser.add_argument(
         "--dry-run", help="Run and generate review, but don't post", action="store_true"
     )

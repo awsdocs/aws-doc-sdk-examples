@@ -20,9 +20,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <accessId> 
+            <accessId>
         Where:
-            accessId - An access key id that you can obtain from the AWS Management Console. 
+            accessId - An access key id that you can obtain from the AWS Management Console.
         """
 
     if (args.size != 1) {

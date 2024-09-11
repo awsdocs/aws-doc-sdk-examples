@@ -64,20 +64,20 @@ public class TimestreamTest {
          * TimestreamTest.class.getClassLoader().getResourceAsStream("config.properties"
          * )) {
          * Properties prop = new Properties();
-         * 
+         *
          * if (input == null) {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * prop.load(input);
          * dbName = prop.getProperty("dbName")+ java.util.UUID.randomUUID();;
          * newTable = prop.getProperty("newTable")+ java.util.UUID.randomUUID();;
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }
-         * 
+         *
          */
     }
 

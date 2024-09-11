@@ -71,17 +71,17 @@ class MedicalImagingWorkflowScenario:
         This workflow will import DICOM files into a HealthImaging data store.
         DICOM® — Digital Imaging and Communications in Medicine — is the international
         standard for medical images and related information.
-        
+
         The workflow will then download all the image frames created during the DICOM import and decode
         the image frames from their HTJ2K format to a bitmap format.
         The bitmaps will then be validated with a checksum to ensure they are correct.
         This workflow requires a number of AWS resources to run.
-        
+
         It requires a HealthImaging data store, an Amazon Simple Storage Service (Amazon S3)
         bucket for uploaded DICOM files, an Amazon S3 bucket for the output of a DICOM import, and
         an AWS Identity and Access Management (IAM) role for importing the DICOM files into
         the data store.
-        
+
         These resources are created using the provided AWS CloudFormation stack
         which will be deployed now.
         """
@@ -92,7 +92,7 @@ class MedicalImagingWorkflowScenario:
             """\
         This workflow uses DICOM files from the National Cancer Institute Imaging Data Commons (IDC)
         Collections.
-        
+
         Here is the link to their website:
         https://registry.opendata.aws/nci-imaging-data-commons/
         We will use DICOM files stored in an S3 bucket managed by the IDC.
@@ -145,17 +145,17 @@ class MedicalImagingWorkflowScenario:
         )
 
         print(
-            f"""\
+            """\
         Information about the import job, including the IDs of the created image sets,
-        is located in a file named {IMPORT_JOB_MANIFEST_FILE_NAME} 
+        is located in a file named {IMPORT_JOB_MANIFEST_FILE_NAME}
         This file is located in a folder specified by the import job's 'outputS3Uri'.
         The 'outputS3Uri' is retrieved by calling the 'GetDICOMImportJob' action.
         """
         )
 
         print(
-            f"""\
-        The image set IDs will be retrieved by downloading '{IMPORT_JOB_MANIFEST_FILE_NAME}' 
+            """\
+        The image set IDs will be retrieved by downloading '{IMPORT_JOB_MANIFEST_FILE_NAME}'
         file from the output S3 bucket.
         """
         )
@@ -181,7 +181,7 @@ class MedicalImagingWorkflowScenario:
 
         print(
             """\
-        Next this workflow will download all the image frames created in this import job. 
+        Next this workflow will download all the image frames created in this import job.
         The IDs of all the image frames in an image set are stored in the image set metadata.
         The image set metadata will be downloaded and parsed for the image frame IDs.
         """
@@ -207,9 +207,9 @@ class MedicalImagingWorkflowScenario:
         print(
             """\
         The image frames are encoded in the HTJ2K format. This example will convert
-        the image frames to bitmaps. The decoded images will be verified using 
+        the image frames to bitmaps. The decoded images will be verified using
         a CRC32 checksum retrieved from the image set metadata.
-        The OpenJPEG open-source library will be used for the conversion.  
+        The OpenJPEG open-source library will be used for the conversion.
         The following link contains information about HTJ2K decoding libraries.
         https://docs.aws.amazon.com/healthimaging/latest/devguide/reference-htj2k.html
         """
@@ -222,7 +222,7 @@ class MedicalImagingWorkflowScenario:
         )
 
         print(
-            f"""\
+            """\
         The image files were successfully decoded and validated.
         The HTJ2K image files are located in the directory
         {out_dir} in the working directory of this example.
@@ -231,7 +231,7 @@ class MedicalImagingWorkflowScenario:
 
         print("\t\tThis concludes this workflow.")
         if q.ask(
-            f"\t\tClean up resources created by the workflow? (y/n) ",
+            "\t\tClean up resources created by the workflow? (y/n) ",
             q.is_yesno,
         ):
             self.destroy(cf_stack)

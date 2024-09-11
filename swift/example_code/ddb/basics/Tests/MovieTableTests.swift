@@ -14,7 +14,7 @@ import SwiftUtilities
 final class MovieTableTests: XCTestCase {
     /// Class-wide setup function for the test case, which is run *once* before
     /// any tests are run.
-    /// 
+    ///
     /// This function sets up the following:
     ///
     ///     Configures the AWS SDK log system to only log errors.

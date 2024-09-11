@@ -26,7 +26,7 @@ RUN apt-get update -y \
   && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/*
-COPY --from=builder /app/target/release/rest_ses rest_ses 
+COPY --from=builder /app/target/release/rest_ses rest_ses
 COPY configuration configuration
 ENV APP_ENVIRONMENT production
 ENTRYPOINT ["./rest_ses"]

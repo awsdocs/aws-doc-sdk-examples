@@ -468,7 +468,7 @@ class CognitoIdentityProviderWrapper:
             )
             if response_auth["ChallengeName"] != "DEVICE_PASSWORD_VERIFIER":
                 raise RuntimeError(
-                    f"Expected DEVICE_PASSWORD_VERIFIER challenge but got "
+                    "Expected DEVICE_PASSWORD_VERIFIER challenge but got "
                     f"{response_init['ChallengeName']}."
                 )
 

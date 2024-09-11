@@ -5,7 +5,7 @@
 Shows how to use the AWS SDK for Java with Amazon Simple Notification Service
 (Amazon SNS).
 
-*Amazon SNS enables applications, end-users, and devices to instantly send and 
+*Amazon SNS enables applications, end-users, and devices to instantly send and
 receive notifications from the cloud.*
 
 ## Code examples
@@ -18,13 +18,13 @@ receive notifications from the cloud.*
 
 ## ⚠ Important
 
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
+- As an AWS best practice, grant this code least privilege, or only the
+  permissions required to perform a task. For more information, see
+  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
+  in the *AWS Identity and Access Management
   User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
+- This code has not been tested in all AWS Regions. Some AWS services are
+  available only in specific Regions. For more information, see the
   [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
   on the AWS website.
 - Running this code might result in charges to your AWS account.

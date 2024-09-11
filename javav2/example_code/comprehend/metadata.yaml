@@ -1,4 +1,4 @@
---- 
+---
 files:
  - path: src/main/java/com/example/comprehend/DetectEntities.java
    services:

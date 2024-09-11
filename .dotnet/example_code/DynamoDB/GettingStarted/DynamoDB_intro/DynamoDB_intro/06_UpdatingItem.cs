@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.dotNET.CodeExample.06_UpdatingItem] 
+// snippet-start:[dynamodb.dotNET.CodeExample.06_UpdatingItem]
 using System;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2.Model;

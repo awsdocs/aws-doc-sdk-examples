@@ -25,7 +25,7 @@ public class ServiceHandlerS3 {
     /// Initialize the Amazon S3 client, optionally with credentials.
     ///
     /// - Parameters:
-    ///   - region: A `String` providing the AWS Region to use for Amazon S3. 
+    ///   - region: A `String` providing the AWS Region to use for Amazon S3.
     ///     operations. If not provided, us-east-2 is assumed.
     ///   - accessKeyId: An optional `String` giving the access key ID of the
     ///     credentials to use.
@@ -132,7 +132,7 @@ public class ServiceHandlerS3 {
 
     /// Returns an array of `S3ClientTypes.Bucket` objects providing
     /// information about each bucket in the Amazon S3 account.
-    /// 
+    ///
     /// - Returns: An array of `S3ClientTypes.Bucket` objects listing the
     ///   buckets in the Amazon S3 account.
     // snippet-start:[iam.swift.basics.s3.listbuckets]
@@ -141,7 +141,7 @@ public class ServiceHandlerS3 {
 
         do {
             let output = try await s3Client.listBuckets(input: input)
-        
+
             guard let buckets = output.buckets else {
                 throw ServiceHandlerError.bucketError
             }

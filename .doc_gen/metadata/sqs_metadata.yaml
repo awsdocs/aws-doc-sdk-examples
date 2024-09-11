@@ -633,7 +633,7 @@ sqs_ReceiveMessage:
                 - sqs.JavaScript.longPoll.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v2/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-message
           excerpts:
             - description: Receive a message from an  &SQS; queue using long-poll support.
@@ -700,7 +700,7 @@ sqs_DeleteMessage:
                 - sqs.JavaScript.messages.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v2/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-receiving
           excerpts:
             - description: Receive and delete &SQS; messages.
@@ -851,7 +851,7 @@ sqs_ChangeMessageVisibility:
                 - sqs.JavaScript.visibility.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v2/developer-guide/sqs-examples-managing-visibility-timeout.html#sqs-examples-managing-visibility-timeout-setting
           excerpts:
             - description: Receive an &SQS; message and change its timeout visibility.

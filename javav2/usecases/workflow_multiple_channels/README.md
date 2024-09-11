@@ -9,9 +9,9 @@
 | Required skills   | Java, Maven  |
 
 ## Purpose
-You can use Amazon Web Services to create a workflow that sends notifications over multiple channels. There are many practical business needs for this type of functionality. For example, a weather agency might need to warn many people about a storm, or a school might want to send parents alerts when kids are missing. 
+You can use Amazon Web Services to create a workflow that sends notifications over multiple channels. There are many practical business needs for this type of functionality. For example, a weather agency might need to warn many people about a storm, or a school might want to send parents alerts when kids are missing.
 
-The use case for this AWS tutorial assumes that you work at a school and you need to alert parents when a student skips school. Do you send an email message or do you send a text message to a mobile device? The AWS workflow created in this tutorial sends both a mobile text message and an email message, as shown in the following illustration. 
+The use case for this AWS tutorial assumes that you work at a school and you need to alert parents when a student skips school. Do you send an email message or do you send a text message to a mobile device? The AWS workflow created in this tutorial sends both a mobile text message and an email message, as shown in the following illustration.
 
 ![AWS Tracking Application](images/email.png)
 
@@ -27,9 +27,9 @@ To send notifications over multiple channels, you can use the following AWS serv
 
 + Prerequisites
 + Understand the workflow
-+ Create an AWS Identity and Access Management (IAM) role 
++ Create an AWS Identity and Access Management (IAM) role
 + Create a workflow by using AWS Step Functions
-+ Create an IntelliJ project 
++ Create an IntelliJ project
 + Add the POM dependencies to your project
 + Create Lambda functions by using the Lambda Java API
 + Package the project that contains Lambda functions
@@ -48,7 +48,7 @@ To use this tutorial, you need the following:
 
 ### Create an Amazon DynamoDB table
 
-Create an Amazon DynamoDB table named **Students**. Make sure that this table has these columns: 
+Create an Amazon DynamoDB table named **Students**. Make sure that this table has these columns:
 
 + **id** - The partition key that identifies the student.
 + **date** - A date value that specifies the date when the student was absent.
@@ -56,7 +56,7 @@ Create an Amazon DynamoDB table named **Students**. Make sure that this table ha
 + **mobileNumber** - Specifies the mobile number.
 + **email** - Specifies the email address.
 
-Add a couple of records to ensure that the Workflow works. 
+Add a couple of records to ensure that the Workflow works.
 
 ![AWS Tracking Application](images/dynamoTable.png)
 
@@ -65,23 +65,23 @@ For information on how to create an Amazon DynamoDB table, see [Create a table](
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
 
 ## Understand the workflow
 
-The following figure shows the workflow you'll create with this tutorial, which is able to send out multiple messages over multiple channels. 
+The following figure shows the workflow you'll create with this tutorial, which is able to send out multiple messages over multiple channels.
 
 ![AWS Tracking Application](images/workflowmodelA.png)
 
 The following describes each step in the workflow:
 + **Start** - Initiates the workflow and passes in a date value.
 + **Determine the missing students** – Determines the students that are absent for the given day. In this step, an Amazon DynamoDB table is queried to track the students that are absent. This workflow step dynamically creates XML that contains the students and passes the XML to the next step.
-+ **Send all notifications** – Parses the XML that contains all absent students. For each student, this step invokes Amazon SNS to send a mobile text message and an email message by using Amazon SES.  
++ **Send all notifications** – Parses the XML that contains all absent students. For each student, this step invokes Amazon SNS to send a mobile text message and an email message by using Amazon SES.
 + **End** - Stops the workflow.
 
-The workflow queries the **students** table to get all absent students, and dynamically creates XML that contains the absent students.  
+The workflow queries the **students** table to get all absent students, and dynamically creates XML that contains the absent students.
 
 ```xml
        <?xml version="1.0" encoding="UTF-8"?>
@@ -99,7 +99,7 @@ The workflow queries the **students** table to get all absent students, and dyna
        </Students>
 ```
 
-The second workflow step parses the XML, and for each student, it invokes multiple AWS services to send messages.   
+The second workflow step parses the XML, and for each student, it invokes multiple AWS services to send messages.
 
 ## Create an IAM role that's used to run Lambda functions
 
@@ -144,7 +144,7 @@ This tutorial uses Amazon SNS, Amazon SES, and Amazon Pinpoint to send messages.
 
 ![AWS Tracking Application](images/Policies2.png)
 
-**Note**: Repeat this process to create **workflow-support**. For step three, instead of choosing **Lambda**, choose **Step Functions**. You don't need to perform steps 11-13.  
+**Note**: Repeat this process to create **workflow-support**. For step three, instead of choosing **Lambda**, choose **Step Functions**. You don't need to perform steps 11-13.
 
 ## Create a serverless workflow by using AWS Step Functions
 
@@ -152,7 +152,7 @@ To define a workflow that sends notifications over multiple channels by using AW
 
 ![AWS Tracking Application](images/workflowmodelA.png)
 
-Workflows can pass data between steps. For example, the **Determine the missing students** step queries the **students** table, dynamically creates XML, and passes XML to the **Send All Notifications** step. 
+Workflows can pass data between steps. For example, the **Determine the missing students** step queries the **students** table, dynamically creates XML, and passes XML to the **Send All Notifications** step.
 
 #### To create a workflow
 
@@ -189,7 +189,7 @@ Workflows can pass data between steps. For example, the **Determine the missing 
 
 6. In the name field, enter **NotificationsStateMachine**.
 
-7. In the **Permission** section, select **Choose an existing role**.  
+7. In the **Permission** section, select **Choose an existing role**.
 
 8. Choose **workflow-support** (the IAM role that you created).
 
@@ -199,7 +199,7 @@ Workflows can pass data between steps. For example, the **Determine the missing 
 
 ## Create an IntelliJ project named LambdaNotifications
 
-Create a Java project to develop Lambda functions by using the Lambda Java runtime API. 
+Create a Java project to develop Lambda functions by using the Lambda Java runtime API.
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 
@@ -224,16 +224,16 @@ Use the Lambda runtime API to create the Java classes that define the Lambda fun
 To create a Lambda function by using the Lambda runtime API, implement [com.amazonaws.services.lambda.runtime.RequestHandler](https://javadoc.io/static/com.amazonaws/aws-lambda-java-core/1.2.1/com/amazonaws/services/lambda/runtime/RequestHandler.html). The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
 
 Create these Java classes, which are described in the following sections:
-+ **StudentData** - Used for the Amazon DynamoDB Enhanced client.  
-+ **ListMissingStudentsHandler** - Used as the first step in the workflow. This class queries data from the Amazon DynamoDB table. 
++ **StudentData** - Used for the Amazon DynamoDB Enhanced client.
++ **ListMissingStudentsHandler** - Used as the first step in the workflow. This class queries data from the Amazon DynamoDB table.
 + **ChannelHandler** - Used as the second step in the workflow. Sends out messages over multiple channels.
-+ **GetStudents** - Queries data from the **Students** table using the Amazon DynamoDB Java API (v2). 
++ **GetStudents** - Queries data from the **Students** table using the Amazon DynamoDB Java API (v2).
 + **SendNotifications** - Uses the AWS SDK for Java (v2) to invoke the Amazon SNS and Amazon SES services.
-+ **Student** - A Java class that defines data members to store student data. 
++ **Student** - A Java class that defines data members to store student data.
 
 ### StudentData class
 
-The following Java code represents the **StudentData** class. This class contains the annotations, such as **@DynamoDbBean** required for the enhanced client. 
+The following Java code represents the **StudentData** class. This class contains the annotations, such as **@DynamoDbBean** required for the enhanced client.
 
 ```java
 package com.example;
@@ -326,12 +326,12 @@ public class ListMissingStudentsHandler implements RequestHandler<Map<String,Str
 
 ### ChannelHandler class
 
-The **ChannelHandler** class is the second step in the workflow. It creates a **SendNotifications** object and passes the XML to the following methods: 
+The **ChannelHandler** class is the second step in the workflow. It creates a **SendNotifications** object and passes the XML to the following methods:
 
-+ **handleTextMessage** 
++ **handleTextMessage**
 + **handleEmailMessage**
 
-The following code represents the **ChannelHandler** method. In this example, the XML that is passed to the from the first workflow step is stored in the **xml** variable. 
+The following code represents the **ChannelHandler** method. In this example, the XML that is passed to the from the first workflow step is stored in the **xml** variable.
 
 ```java
 package com.example;
@@ -365,7 +365,7 @@ public class ChannelHandler implements RequestHandler<String, String> {
 
 ### GetStudents class
 
-The **GetStudents** class uses the Amazon DynamoDB Java API to query data from the **Students** table. The result set is stored in XML which is passed to the second step in the worlkflow. 
+The **GetStudents** class uses the Amazon DynamoDB Java API to query data from the **Students** table. The result set is stored in XML which is passed to the second step in the worlkflow.
 
 ```java
 package com.example;
@@ -518,7 +518,7 @@ public class GetStudents {
 
 ### SendNotifications class
 
-The **SendNotifications** class uses the Amazon SES API and the Amazon SNS API to send messages. Each student in the XML is sent a message. 
+The **SendNotifications** class uses the Amazon SES API and the Amazon SNS API to send messages. Each student in the XML is sent a message.
 
 ```java
 package com.example;
@@ -655,11 +655,11 @@ public class SendNotifications {
 
 ```
 
-**NOTE** You need to specify a valid email for the sender that has been validated. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).  
+**NOTE** You need to specify a valid email for the sender that has been validated. For information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
 ### Student class
 
-The following Java class represents the **Student** class. 
+The following Java class represents the **Student** class.
 
 ```java
      package com.example;
@@ -724,17 +724,17 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 8. For **Code entry type**, choose **Upload a .zip or .jar file**.
 
-9. Choose **Upload**, and then browse to the JAR file that you created.  
+9. Choose **Upload**, and then browse to the JAR file that you created.
 
 10. For **Handler**, enter the fully qualified name of the function, for example, **com.example.ListMissingStudentsHandler::handleRequest** (**com.example** specifies the package, followed by class and finally followed by :: and method name).
 
 11. Choose **Save.**
 
-12. Test your Lambda function. Pass in the JSON data that contains the date to query ("date": "2021-02-01"). When successful, you see XML that contains the data queried from the database.  
+12. Test your Lambda function. Pass in the JSON data that contains the date to query ("date": "2021-02-01"). When successful, you see XML that contains the data queried from the database.
 
 ![AWS Tracking Application](images/testData.png)
 
-**Note** Repeat this procedure for the **ChannelHandler** class. Name the corresponding Lambda function **myMultiChannel**. When you finish, you will have two Lambda functions that you can reference in the Amazon States Language document.  
+**Note** Repeat this procedure for the **ChannelHandler** class. Name the corresponding Lambda function **myMultiChannel**. When you finish, you will have two Lambda functions that you can reference in the Amazon States Language document.
 
 ## Add the Lambda functions to workflows
 
@@ -748,13 +748,13 @@ Copy the Lambda ARN value. Then, open the Step Functions console. In the **Deter
 
 ## Execute your workflow by using the Step Functions console
 
-You can invoke the workflow on the Step Functions console. An execution receives JSON input. For this example, you can pass the following JSON data to the workflow.  
+You can invoke the workflow on the Step Functions console. An execution receives JSON input. For this example, you can pass the following JSON data to the workflow.
 
 {
   "date": "2023-06-06T00:00:00Z"
 }
 
-**Note**: Change the date value to match the date values in the **Students** table. Otherwise, you will receive an empty result set. 
+**Note**: Change the date value to match the date values in the **Students** table. Otherwise, you will receive an empty result set.
 
 #### To execute your workflow
 

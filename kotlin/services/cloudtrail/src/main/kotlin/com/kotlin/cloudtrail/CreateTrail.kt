@@ -13,11 +13,11 @@ suspend fun main(args: Array<String>) {
     val usage = """
 
     Usage:
-        <trailName> <s3BucketName> 
+        <trailName> <s3BucketName>
 
     Where:
-        trailName - The name of the trail. 
-        s3BucketName - The name of the Amazon S3 bucket designated for publishing log files. 
+        trailName - The name of the trail.
+        s3BucketName - The name of the Amazon S3 bucket designated for publishing log files.
     """
 
     if (args.size != 2) {

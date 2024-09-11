@@ -6,9 +6,9 @@ This README discusses how to run and test the AWS SDK for Java (v2) code example
 Amazon Timestream is a fast, scalable, fully managed, purpose-built time series database for IoT and operational applications that makes it easy to store and analyze trillions of time series data points per day.
 
 ## ⚠️ Important
-* Running this code might result in charges to your AWS account. 
+* Running this code might result in charges to your AWS account.
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
@@ -32,11 +32,11 @@ The following examples use the **TimestreamWriteClient** object:
 
 **IMPORTANT**
 
-The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you might incur AWS service charges by running them. For details about the charges you can expect for a given service and operation, see the [AWS Pricing page](https://aws.amazon.com/pricing/).   
+The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you might incur AWS service charges by running them. For details about the charges you can expect for a given service and operation, see the [AWS Pricing page](https://aws.amazon.com/pricing/).
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a table. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
-To run these examples, set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+To run these examples, set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information,
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 
@@ -55,7 +55,7 @@ Before running the Amazon Timestream JUnit tests, you must define values in the 
 
 Define these values to successfully run the JUnit tests:
 
-- **dbName** - The name of the database. 
+- **dbName** - The name of the database.
 
 - **newTable** – The name of a table.
 
@@ -73,7 +73,7 @@ You will see output from the JUnit tests, as shown here.
 	Test 3 passed
 	Test 4 passed
 	...
-	
+
 
 ### Unsuccessful tests
 
@@ -88,9 +88,9 @@ If you do not define the correct values in the properties file, your JUnit tests
 	[INFO] ---------------------------------------
 	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
 	[ERROR];
-	
+
 ## Additional resources
 * [Developer Guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 * [Amazon Timestream Developer Guide](https://docs.aws.amazon.com/timestream/latest/developerguide/what-is-timestream.html).
-* [Interface TimestreamWriteClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/timestreamwrite/TimestreamWriteClient.html).	
+* [Interface TimestreamWriteClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/timestreamwrite/TimestreamWriteClient.html).
 

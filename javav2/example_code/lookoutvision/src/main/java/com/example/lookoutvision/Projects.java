@@ -30,7 +30,7 @@ public class Projects {
 
         /**
          * Creates an Amazon Lookout for Vision project.
-         * 
+         *
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project that you want to create.
          * @return ProjectMetadata Metadata information about the created project.
@@ -54,7 +54,7 @@ public class Projects {
          * Lists the Amazon Lookoutfor Vision projects in the current AWS account and
          * AWS
          * Region.
-         * 
+         *
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project that you want to create.
          * @return List<ProjectMetadata> Metadata for each project.
@@ -85,7 +85,7 @@ public class Projects {
 
         /**
          * Deletes an Amazon Lookout for Vision project.
-         * 
+         *
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project that you want to create.
          * @return String The ARN of the deleted project.
@@ -110,7 +110,7 @@ public class Projects {
 
         /**
          * Gets the description for an Amazon Lookout for Vision project.
-         * 
+         *
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project that you want to describe.
          * @return ProjectDescription The description for the requested project.

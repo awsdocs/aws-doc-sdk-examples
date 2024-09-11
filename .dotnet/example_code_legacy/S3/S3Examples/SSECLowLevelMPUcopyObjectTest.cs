@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.SSECLowLevelMPUcopyObjectTest]
 using Amazon;
@@ -15,7 +15,7 @@ namespace Amazon.DocSamples.S3
     class SSECLowLevelMPUcopyObjectTest
     {
         private const string existingBucketName = "*** bucket name ***";
-        private const string sourceKeyName      = "*** source object key name ***"; 
+        private const string sourceKeyName      = "*** source object key name ***";
         private const string targetKeyName      = "*** key name for the target object ***";
         private const string filePath           = @"*** file path ***";
         // Specify your bucket region (an example region is shown).

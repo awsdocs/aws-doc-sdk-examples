@@ -1,6 +1,6 @@
 # Customize Amazon Cognito authentication behavior with Lambda functions Workflow - Technical specification
 
-This document contains the technical specifications for 
+This document contains the technical specifications for
 _Customize Amazon Cognito authentication behavior with Lambda functions_,
 a workflow scenario that showcases AWS services and SDKs. It is primarily intended for the AWS code
 examples team to use while developing this example in additional languages.
@@ -23,14 +23,14 @@ For an introduction, see the [README.md](README.md).
 ## Reference implementation
 
 The implementation in [gov2/workflows/user_pools_and_lambda_triggers](../../gov2/workflows/user_pools_and_lambda_triggers)
-can be used as a reference for writing this example in other languages. 
+can be used as a reference for writing this example in other languages.
 
 ## Resources and User Input
 
 ### Create AWS resources
 
-The `PoolsAndTriggersBase` CDK construct in the  
-[reference implementation for Go](../../gov2/workflows/user_pools_and_lambda_triggers/cdk/lib/pools-and-triggers-base.ts) 
+The `PoolsAndTriggersBase` CDK construct in the
+[reference implementation for Go](../../gov2/workflows/user_pools_and_lambda_triggers/cdk/lib/pools-and-triggers-base.ts)
 folder creates all of the common AWS resources you need for this example:
 
 * Amazon DynamoDB table with a `UserEmail` primary key.
@@ -38,17 +38,17 @@ folder creates all of the common AWS resources you need for this example:
 * AWS Identity and Access Management (IAM) role that grants permission to write to CloudWatch Logs
   and to the Amazon DynamoDB table.
 
-This construct is intended as a base script that you copy to your implementation and include in a stack that 
-deploys Lambda handlers in the way that works best for your language. 
+This construct is intended as a base script that you copy to your implementation and include in a stack that
+deploys Lambda handlers in the way that works best for your language.
 For an example, see the [reference implementation for Go](../../gov2/workflows/user_pools_and_lambda_triggers/cdk/lib/pools-and-triggers-stack.ts).
 
 Because most languages require a bootstrap environment that contains an S3 bucket for staging Lambda handlers,
-it's recommended that you use `cdk deploy` to deploy resources, but if your language supports it you can use 
+it's recommended that you use `cdk deploy` to deploy resources, but if your language supports it you can use
 CloudFormation directly.
 
 The outputs from the stack can be read by your implementation to get things like the name of the
 Amazon DynamoDB table, the user pool ID, and the client ID. Start each run by getting the outputs from
-the stack using `CloudFormation.GetOutputs`, similar to the 
+the stack using `CloudFormation.GetOutputs`, similar to the
 [reference implementation](../../gov2/workflows/user_pools_and_lambda_triggers/actions/cloud_formation_actions.go).
 
 ### Lambda handlers
@@ -58,8 +58,8 @@ deploy them along with common resources with a CDK script.
 
 #### Handler: automatically confirm known users
 
-This handler is triggered when a user signs up. It looks up the user by their email name 
-in the known users table and returns event data to Amazon Cognito that indicates the user 
+This handler is triggered when a user signs up. It looks up the user by their email name
+in the known users table and returns event data to Amazon Cognito that indicates the user
 should be confirmed and verified.
 
 Your handler must perform the following steps:
@@ -80,8 +80,8 @@ See the [reference implementation](../../gov2/workflows/user_pools_and_lambda_tr
 
 #### Handler: automatically migrate known users
 
-This handler is triggered when a user tries to sign and is not in the user pool. It looks up the 
-user by `UserName` and returns event data that verifies the user's email and specifies the user 
+This handler is triggered when a user tries to sign and is not in the user pool. It looks up the
+user by `UserName` and returns event data that verifies the user's email and specifies the user
 must reset their password on next sign in.
 
 Your handler must perform the following steps:
@@ -104,7 +104,7 @@ See the [reference implementation](../../gov2/workflows/user_pools_and_lambda_tr
 
 #### Handler: Write custom activity after authentication
 
-This handler is triggered when a user is authenticated. It writes custom data to CloudWatch Logs and to the 
+This handler is triggered when a user is authenticated. It writes custom data to CloudWatch Logs and to the
 Amazon DynamoDB table.
 
 Your handler must perform the following steps:
@@ -117,7 +117,7 @@ Your handler must perform the following steps:
      LastLogin: LoginInfo{
        UserPoolId: event.UserPoolID,
        ClientId:   event.CallerContext.ClientID,
-       Time:       time.Now().Format(time.UnixDate), 
+       Time:       time.Now().Format(time.UnixDate),
      },
    }
    ```
@@ -177,7 +177,7 @@ Enter a password that has at least eight characters, uppercase, lowercase, numbe
 
 Sign the user up using `Cognito.SignUp`. Wait 10 seconds to let the flow process and CloudWatch Logs
 to settle. Get the most recent 10 items from the log stream for the Lambda handler and display them.
-   
+
 Example output:
 
 ```
@@ -315,8 +315,8 @@ This scenario writes custom activity data to CloudWatch Logs and to the Amazon D
 See the [reference implementation](../../gov2/workflows/user_pools_and_lambda_triggers/workflows/scenario_activity_log.go).
 
 Start by updating the user pool to invoke the Lambda handler by using `Cognito.UpdateUserPool`.
-Pick a user from the known users table and add that user to the user pool by using `Cognito.AdminCreateUser`. 
-Get a password from the user and set it by using `Cognito.AdminSetUserPassword`. 
+Pick a user from the known users table and add that user to the user pool by using `Cognito.AdminCreateUser`.
+Get a password from the user and set it by using `Cognito.AdminSetUserPassword`.
 
 Example output:
 

@@ -2,11 +2,11 @@
 
 ## Overview
 
- This Amazon Elastic Container Registry Service (Amazon ECR) basic scenario demonstrates how to interact with the Amazon ECR service using an AWS SDK.  The scenario covers various operations such as creating an Amazon ECR repository, pushing images to the repository, setting an ECR repository policy, and so on. 
- 
- Here are the top six service operations this scenario covers. 
+ This Amazon Elastic Container Registry Service (Amazon ECR) basic scenario demonstrates how to interact with the Amazon ECR service using an AWS SDK.  The scenario covers various operations such as creating an Amazon ECR repository, pushing images to the repository, setting an ECR repository policy, and so on.
 
-1. **Create an ECR repository**: The program creates an Amazon ECR repository. 
+ Here are the top six service operations this scenario covers.
+
+1. **Create an ECR repository**: The program creates an Amazon ECR repository.
 
 2. **Set an ECR repository policy**: The program sets an ECR repository policy, which grants the specified IAM role the necessary permissions to access the repository.
 
@@ -18,11 +18,11 @@
 
 6. **Verify the image in the ECR repository**: The program verifies that the Docker image was successfully pushed to the ECR repository.
 
-Note: These steps are not the complete program, but summarizes the 5-6 high-level steps. See the Eng Spec for a complete listing of ECR operations. 
+Note: These steps are not the complete program, but summarizes the 5-6 high-level steps. See the Eng Spec for a complete listing of ECR operations.
 
 ### Resources
 
-The basic scenario requires an IAM role that has Amazon ECR permissions. To create an IAM role, see [Creating IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html). 
+The basic scenario requires an IAM role that has Amazon ECR permissions. To create an IAM role, see [Creating IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html).
 
 For more information about using permissions with ECR (for example, how to create Amazon ECR Identity-based policies), see [How Amazon Elastic Container Registry works with IAM](https://docs.aws.amazon.com/AmazonECR/latest/userguide/security_iam_service-with-iam.html).
 

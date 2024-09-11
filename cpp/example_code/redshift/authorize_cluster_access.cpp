@@ -29,7 +29,7 @@ bool AuthorizeClusterAccess(const Aws::String & ipAddress)
 
     if (!outcome.IsSuccess())
     {
-        std::cerr << "Error allowing cluster access. " << 
+        std::cerr << "Error allowing cluster access. " <<
             outcome.GetError().GetMessage() << std::endl;
         return false;
     }
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
     Aws::InitAPI(options);
     {
         // Set these configuration values before running the program
-        // The demo's ipAddress setting allows access from any computer. This 
+        // The demo's ipAddress setting allows access from any computer. This
         // is reasonable for demonstration purposes, but is not appropriate in
         // a production environment.
         Aws::String ipAddress = "0.0.0.0/0";

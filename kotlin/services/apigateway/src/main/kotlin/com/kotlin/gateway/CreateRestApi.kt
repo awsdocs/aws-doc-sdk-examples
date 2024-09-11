@@ -12,11 +12,11 @@ import kotlin.system.exitProcess
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-        <restApiId> 
+        <restApiId>
 
     Where:
         restApiId - The string identifier of an existing RestApi. (for example, xxxx99ewyg).
-       
+
     """
 
     if (args.size != 1) {

@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.DeleteObjectVersion]
 using Amazon;
@@ -27,7 +27,7 @@ namespace Amazon.DocSamples.S3
         {
             try
             {
-                // Add a sample object. 
+                // Add a sample object.
                 string versionID = await PutAnObject(keyName);
 
                 // Delete the object by specifying an object key and a version ID.

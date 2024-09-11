@@ -20,11 +20,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-        <name> <predictorArn> 
+        <name> <predictorArn>
 
     Where:
-        name - The name of the forecast. 
-        predictorArn - The ARN of the predictor to use (ie, arn:aws:forecast:us-west-2:xxxxxe33:predictor/MyPredictor). 
+        name - The name of the forecast.
+        predictorArn - The ARN of the predictor to use (ie, arn:aws:forecast:us-west-2:xxxxxe33:predictor/MyPredictor).
     """
 
     if (args.size != 2) {

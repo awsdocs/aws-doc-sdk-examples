@@ -23,7 +23,7 @@ suspend fun main(args: Array<String>) {
             <envName> <appName>
 
         Where:
-            envName - The name of the AWS Elastic Beanstalk environment. 
+            envName - The name of the AWS Elastic Beanstalk environment.
             appName - The name of the AWS Elastic Beanstalk application.
     """
 

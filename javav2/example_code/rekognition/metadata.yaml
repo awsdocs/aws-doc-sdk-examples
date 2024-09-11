@@ -1,4 +1,4 @@
---- 
+---
 files:
  - path: src/main/java/com/example/rekognition/AddFacesToCollection.java
    services:
@@ -59,31 +59,31 @@ files:
      - rekognition
  - path: src/main/java/com/example/rekognition/SearchFaceMatchingIdCollection.java
    services:
-     - rekognition 
+     - rekognition
  - path: src/main/java/com/example/rekognition/SearchFaceMatchingImageCollection.java
    services:
-     - rekognition      
+     - rekognition
  - path: src/main/java/com/example/rekognition/VideoCelebrityDetection.java
    services:
-     - rekognition 
+     - rekognition
  - path: src/main/java/com/example/rekognition/VideoDetect.java
    services:
-     - rekognition 
+     - rekognition
  - path: src/main/java/com/example/rekognition/VideoDetectFaces.java
    services:
-     - rekognition 
+     - rekognition
  - path: src/main/java/com/example/rekognition/VideoDetectInappropriate.java
    services:
-     - rekognition 
+     - rekognition
  - path: src/main/java/com/example/rekognition/VideoDetectSegment.java
    services:
-     - rekognition 
+     - rekognition
  - path: src/main/java/com/example/rekognition/VideoDetectText.java
    services:
-     - rekognition 
+     - rekognition
  - path: src/main/java/com/example/rekognition/VideoPersonDetection.java
    services:
-     - rekognition 
+     - rekognition
  - path: src/test/java/RekognitionTest.java
    services:
      - rekognition

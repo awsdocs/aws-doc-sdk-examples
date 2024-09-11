@@ -49,18 +49,18 @@ class RedshiftScenario:
         print("Welcome to the Amazon Redshift SDK Getting Started example.")
         print(
             """
-      This Python program demonstrates how to interact with Amazon Redshift 
+      This Python program demonstrates how to interact with Amazon Redshift
       using the AWS SDK for Python (Boto3).
-      
-      Amazon Redshift is a fully managed, petabyte-scale data warehouse 
+
+      Amazon Redshift is a fully managed, petabyte-scale data warehouse
       service hosted in the cloud.
-      
-      The program's primary functionalities include cluster creation, 
-      verification of cluster readiness, listing databases, table creation, 
+
+      The program's primary functionalities include cluster creation,
+      verification of cluster readiness, listing databases, table creation,
       populating data within the table, and executing SQL statements.
-      
+
       It also demonstrates querying data from the Movies table.
-      
+
       Upon completion, all AWS resources are cleaned up.
     """
         )
@@ -80,7 +80,7 @@ class RedshiftScenario:
 
         print(DASHES)
         print(
-            """A Redshift cluster refers to the collection of computing resources and storage that work 
+            """A Redshift cluster refers to the collection of computing resources and storage that work
             together to process and analyze large volumes of data."""
         )
         cluster_id = q.ask(
@@ -101,11 +101,11 @@ class RedshiftScenario:
         print(DASHES)
 
         print(
-            f"""
+            """
        When you created {cluster_id}, the dev database is created by default and used in this scenario.
 
        To create a custom database, you need to have a CREATEDB privilege.
-       For more information, see the documentation here: 
+       For more information, see the documentation here:
        https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_DATABASE.html.
       """
         )

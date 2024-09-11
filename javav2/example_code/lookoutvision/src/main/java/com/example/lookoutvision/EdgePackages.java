@@ -40,7 +40,7 @@ public class EdgePackages {
 
         /**
          * Lists the model packaging jobs in an Amazon Lookout for Vision project.
-         * 
+         *
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project for which you want to list the
          *                    model packaging jobs.
@@ -78,7 +78,7 @@ public class EdgePackages {
 
         /**
          * Describes a Amazon Lookout for Vision model packaging job.
-         * 
+         *
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project that contains the model
          *                    packaging job that you want to describe.
@@ -119,16 +119,16 @@ public class EdgePackages {
         /**
          * Create a StartModelPackagingRequest object from a JSON file that
          * matches the request syntax for StartModelPackagingJob.
-         * 
+         *
          * @param projectName The name of the project that contains the model
          *                    packaging job that you want to start.
          * @param fileName    The name and path of the JSON file that matches the
          *                    request
          *                    syntax for StartModelPackagingJob.
-         * 
+         *
          * @return StartModelPackagingJobRequest A StartModelPackagingJobRequest object
          *         that you use with StartModelPackagingJob.
-         * 
+         *
          */
         public static StartModelPackagingJobRequest buildPackagingJobRequest(String projectName, String fileName)
                         throws IOException {
@@ -233,7 +233,7 @@ public class EdgePackages {
         /**
          * Starts an Amazon Lookout for Vision model packaging job. The operation
          * returns after the model is packaged.
-         * 
+         *
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project that contains the model
          *                    packaging job that you want to start.

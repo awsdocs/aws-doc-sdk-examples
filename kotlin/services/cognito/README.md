@@ -8,7 +8,7 @@ Amazon Cognito is a simple user identity and data synchronization service that h
 ## ⚠️ Important
 * The SDK for Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
@@ -44,8 +44,8 @@ The Kotlin examples perform AWS operations for the account and AWS Region for wh
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a user pool. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information, 
-see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
+To run these examples, you can setup your development environment to use Gradle to configure and build AWS SDK for Kotlin projects. For more information,
+see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
 
 
  ## Testing the Amazon Cognito files
@@ -63,11 +63,11 @@ Before running the Amazon Cognito JUnit tests, you must define values in the **c
 
 Define these values to successfully run the JUnit tests:
 
-- **userPoolName** - The name of the user pool that is created.  
+- **userPoolName** - The name of the user pool that is created.
 - **username** – The user name that is used in the **CreateAdminUser** test.
 - **email** - The user email that is used in the **CreateAdminUser** test.
-- **clientName** - The client name that is used in the **CreateUserPoolClient** test.  
-- **identityPoolName** - The pool name used in the **CreateIdentityPool** test. 
+- **clientName** - The client name that is used in the **CreateUserPoolClient** test.
+- **identityPoolName** - The pool name used in the **CreateIdentityPool** test.
 - **confirmationCode** - The confirmation code that is used in the **ConfirmSignUp** test.
 
 ### Command line
@@ -79,4 +79,4 @@ To execute the JUnit tests from the command line, you can use the following comm
 * [Developer Guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/home.html).
 * [Developer Guide - Amazon Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html).
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0	
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

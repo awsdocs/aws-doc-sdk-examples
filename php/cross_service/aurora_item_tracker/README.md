@@ -60,18 +60,18 @@ Select *Query Editor*. Then, choose the database instance created by using the A
 For *Database username*, choose *Connect with a Secrets Manager ARN*. Put the *SecretARN* revealed by
 the *describe-stacks* command from the AWS CDK instructions. Do the same for the database name.
 
-This opens a SQL query console. You can run any raw SQL queries here that you want. Run the 
+This opens a SQL query console. You can run any raw SQL queries here that you want. Run the
 following statement to create the work table.
 
 If you are using the MySQL-compatible edition:
 ```sql
 create table work_items (
   work_item_id INT AUTO_INCREMENT PRIMARY KEY,
-  created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-  description TEXT, 
-  guide TEXT, 
-  status TEXT, 
-  username VARCHAR(45), 
+  created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  description TEXT,
+  guide TEXT,
+  status TEXT,
+  username VARCHAR(45),
   archive BOOL DEFAULT 0
 );
 ```
@@ -103,8 +103,8 @@ A user can perform the following tasks in the AWS Tracker application:
 #### Build the front end
 
 We have provided a React (https://reactjs.org/) front end which can connect to any backend configured
-with the proper REST endpoints. Follow the [README](../../../resources/clients/react/item-tracker/README.md) to run a 
-local copy. When you have a local server running at http://localhost:3000, finish this section by setting up the 
+with the proper REST endpoints. Follow the [README](../../../resources/clients/react/item-tracker/README.md) to run a
+local copy. When you have a local server running at http://localhost:3000, finish this section by setting up the
 config.json.
 
 Open the [config.json](../../../resources/clients/react/item-tracker/src/config.json) file and change the *BASE_URL* value to
@@ -130,14 +130,14 @@ the raw output looks like.
 
 ## Run the application
 
-Now, you're all set! Access the application by opening http://localhost:3000 in a web browser. 
-You can add items, archive them, filter by state, and send out an email report. 
-(Before sending an email, make sure to register the email as a sender with 
+Now, you're all set! Access the application by opening http://localhost:3000 in a web browser.
+You can add items, archive them, filter by state, and send out an email report.
+(Before sending an email, make sure to register the email as a sender with
 [Amazon SES](https://aws.amazon.com/ses/).)
 
 
 ### Next steps
-Congratulations, you have created and deployed a Laravel application that interacts with Amazon RDS 
+Congratulations, you have created and deployed a Laravel application that interacts with Amazon RDS
 (and other AWS services).
 As stated at the beginning of this tutorial, be sure to delete all the resources you created
 during this tutorial so that you won't continue to be charged.

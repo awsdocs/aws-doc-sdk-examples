@@ -32,8 +32,8 @@ public class DisableDynamoDBAutoscaling {
 
             Where:
                tableId - The table Id value (for example, table/Music).\s
-               policyName - The name of the policy (for example, $Music5-scaling-policy). 
-        
+               policyName - The name of the policy (for example, $Music5-scaling-policy).
+
             """;
         if (args.length != 2) {
             System.out.println(usage);

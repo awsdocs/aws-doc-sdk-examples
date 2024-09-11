@@ -6,9 +6,9 @@
 <block>
     <para>
         Shows how to use the &SNS; Kotlin API to
-        create an application that has 
+        create an application that has
         subscription and publish functionality. In addition, this
-        example application also translates messages. 
+        example application also translates messages.
     </para>
     <para>
         For complete source code and instructions on how to create a web app, see the full example on

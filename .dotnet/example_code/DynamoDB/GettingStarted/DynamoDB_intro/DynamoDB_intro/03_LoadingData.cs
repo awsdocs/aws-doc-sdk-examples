@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.dotNET.CodeExample.03_LoadingData] 
+// snippet-start:[dynamodb.dotNET.CodeExample.03_LoadingData]
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -23,7 +23,7 @@ namespace DynamoDB_intro
 
             return true;
         }
-        
+
         public static async Task<JArray> ReadJsonMovieFile_async(string jsonMovieFilePath)
         {
             StreamReader sr = null;
@@ -31,7 +31,7 @@ namespace DynamoDB_intro
             JArray movieArray = null;
 
             Console.WriteLine("  -- Reading the movies data from a JSON file...");
-           
+
             try
             {
                 sr = new StreamReader(jsonMovieFilePath);
@@ -47,7 +47,7 @@ namespace DynamoDB_intro
                 jtr?.Close();
                 sr?.Close();
             }
-            
+
             return movieArray;
         }
 

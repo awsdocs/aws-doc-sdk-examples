@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.UploadFileMPUHighLevelAPITest]
 using Amazon;
@@ -41,7 +41,7 @@ namespace Amazon.DocSamples.S3
                 Console.WriteLine("Upload 2 completed");
 
                 // Option 3. Upload data from a type of System.IO.Stream.
-                using (var fileToUpload = 
+                using (var fileToUpload =
                     new FileStream(filePath, FileMode.Open, FileAccess.Read))
                 {
                     await fileTransferUtility.UploadAsync(fileToUpload,

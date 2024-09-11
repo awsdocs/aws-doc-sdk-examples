@@ -57,20 +57,20 @@ public class IotScenario {
         System.out.println(DASHES);
         System.out.println("Welcome to the AWS IoT basics scenario.");
         System.out.println("""
-            This example program demonstrates various interactions with the AWS Internet of Things (IoT) Core service. The program guides you through a series of steps, 
-            including creating an IoT Thing, generating a device certificate, updating the Thing with attributes, and so on. 
-            It utilizes the AWS SDK for Java V2 and incorporates functionality for creating and managing IoT Things, certificates, rules, 
-            shadows, and performing searches. The program aims to showcase AWS IoT capabilities and provides a comprehensive example for 
+            This example program demonstrates various interactions with the AWS Internet of Things (IoT) Core service. The program guides you through a series of steps,
+            including creating an IoT Thing, generating a device certificate, updating the Thing with attributes, and so on.
+            It utilizes the AWS SDK for Java V2 and incorporates functionality for creating and managing IoT Things, certificates, rules,
+            shadows, and performing searches. The program aims to showcase AWS IoT capabilities and provides a comprehensive example for
             developers working with AWS IoT in a Java environment.
-            
+
             Let's get started...
-       
+
             """);
         System.out.println(DASHES);
 
         System.out.println("1. Create an AWS IoT Thing.");
         System.out.println("""
-            An AWS IoT Thing represents a virtual entity in the AWS IoT service that can be associated with 
+            An AWS IoT Thing represents a virtual entity in the AWS IoT service that can be associated with
             a physical device.
             """);
         // Prompt the user for input.
@@ -82,7 +82,7 @@ public class IotScenario {
         System.out.println(DASHES);
         System.out.println("2. Generate a device certificate.");
         System.out.println("""
-            A device certificate performs a role in securing the communication between devices (Things) 
+            A device certificate performs a role in securing the communication between devices (Things)
             and the AWS IoT platform.
             """);
 
@@ -101,8 +101,8 @@ public class IotScenario {
         System.out.println(DASHES);
         System.out.println("3. Update an AWS IoT Thing with Attributes.");
         System.out.println("""
-             IoT Thing attributes, represented as key-value pairs, offer a pivotal advantage in facilitating efficient data 
-             management and retrieval within the AWS IoT ecosystem. 
+             IoT Thing attributes, represented as key-value pairs, offer a pivotal advantage in facilitating efficient data
+             management and retrieval within the AWS IoT ecosystem.
             """);
         waitForInputToContinue(scanner);
         iotActions.updateShadowThing(thingName);
@@ -134,9 +134,9 @@ public class IotScenario {
         System.out.println(DASHES);
         System.out.println("6. Create an IoT shadow that refers to a digital representation or virtual twin of a physical IoT device");
         System.out.println("""
-            A Thing Shadow refers to a feature that enables you to create a virtual representation, or "shadow," 
-            of a physical device or thing. The Thing Shadow allows you to synchronize and control the state of a device between 
-            the cloud and the device itself. and the AWS IoT service. For example, you can write and retrieve JSON data from a Thing Shadow. 
+            A Thing Shadow refers to a feature that enables you to create a virtual representation, or "shadow,"
+            of a physical device or thing. The Thing Shadow allows you to synchronize and control the state of a device between
+            the cloud and the device itself. and the AWS IoT service. For example, you can write and retrieve JSON data from a Thing Shadow.
            """);
         waitForInputToContinue(scanner);
         iotActions.updateShadowThing(thingName);
@@ -153,7 +153,7 @@ public class IotScenario {
         System.out.println(DASHES);
         System.out.println("8. Creates a rule");
         System.out.println("""
-        Creates a rule that is an administrator-level action. 
+        Creates a rule that is an administrator-level action.
         Any user who has permission to create rules will be able to access data processed by the rule.
         """);
         System.out.print("Enter Rule name: ");

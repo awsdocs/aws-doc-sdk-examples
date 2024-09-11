@@ -14,7 +14,7 @@ import AWSS3
 // snippet-start:[mocking.swift.tests]
 final class MockingTests: XCTestCase {
     /// The session to use for Amazon S3 calls. In this case, it's a mock
-    /// implementation. 
+    /// implementation.
     var session: MockS3Session? = nil
     /// The ``BucketManager`` that uses the session to perform Amazon S3
     /// operations.

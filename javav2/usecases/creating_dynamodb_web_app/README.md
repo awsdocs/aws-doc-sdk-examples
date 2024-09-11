@@ -15,9 +15,9 @@ You can develop a dynamic web application that tracks and reports on work items 
 + Amazon DynamoDB
 + Amazon Simple Email Service (Amazon SES). (The SDK for Java (v2) is used to access Amazon SES.)
 
-The application you create is a decoupled React application that uses a Spring REST API to work with Amazon DynamoDB data. 
-That is, the React application is a single-page application (SPA) that interacts with a Spring REST API by making RESTful GET and POST requests. 
-The Spring REST API uses the Amazon DynamoDB Java API to perform CRUD operations on the Amazon DynamoDB database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
+The application you create is a decoupled React application that uses a Spring REST API to work with Amazon DynamoDB data.
+That is, the React application is a single-page application (SPA) that interacts with a Spring REST API by making RESTful GET and POST requests.
+The Spring REST API uses the Amazon DynamoDB Java API to perform CRUD operations on the Amazon DynamoDB database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration.
 
 ![AWS Tracking Application](images/overview.png)
 
@@ -36,26 +36,26 @@ To complete the tutorial, you need the following:
 
 + An AWS account.
 + A Java IDE to build the Spring REST API. This tutorial uses the IntelliJ IDE.
-+ Java JDK 17  
++ Java JDK 17
 + Maven 3.6 or later.
-+ Set up your development environment. For more information, 
-see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
++ Set up your development environment. For more information,
+see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
 ### Important
 
 + The AWS services in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+ This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++ This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
 
 ### Creating the DynamoDB table and add some items
 
-Using the AWS Management Console, create an Amazon DynamoDB table named **Work** with a partition key named **id** of type String. 
+Using the AWS Management Console, create an Amazon DynamoDB table named **Work** with a partition key named **id** of type String.
 
 After creating the **Work** table with the **id** partition key, select the table in the Console. Under
 the **Actions** menu, select **Create item** to enter more columns and values (Attributes is the term used with Amazon DynamoDB).
 
-As you are creating an item for the first time, you will both define the attributes in your table as well 
+As you are creating an item for the first time, you will both define the attributes in your table as well
 as add values. Enter the attributes and values as shown in the table below. Enter 'Open' as the
 value for the **archive** attribute. Select **Create item** to create
 your first item (row). The **Work** table attributes.
@@ -76,24 +76,24 @@ needed for this example, select the first item you created by activating the ite
 
 Duplicate one more item so that you have a total of three items.
 
-The following illustration shows an example of the Work table. 
+The following illustration shows an example of the Work table.
 
 ![AWS Tracking Application](images/DynTable.png)
 
-For additional information about how to create an Amazon DynamoDB table using the AWS Management Console 
+For additional information about how to create an Amazon DynamoDB table using the AWS Management Console
 and how to add data, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 (The table created in that example is different from the one we are using in this example.)
 
-Now that the table is created and populated with some data, when we start up the Spring Boot app for 
+Now that the table is created and populated with some data, when we start up the Spring Boot app for
 the REST API, there will data to display.
 
-## Understand the AWS Tracker React application 
+## Understand the AWS Tracker React application
 
 A user can perform the following tasks using the React application:
 
 + View all active items.
 + View archived items that are complete.
-+ Add a new item. 
++ Add a new item.
 + Convert an active item into an archived item.
 + Send a report to an email recipient.
 
@@ -105,13 +105,13 @@ Likewise, the following illustration shows the React application displaying arch
 
 ![AWS Tracking Application](images/elappArc2.png)
 
-**Note**: Notice that the **Archived** button is disabled. 
+**Note**: Notice that the **Archived** button is disabled.
 
-The React application lets a user convert an active item to an archived item by clicking the **Archive** button. 
+The React application lets a user convert an active item to an archived item by clicking the **Archive** button.
 
 ![AWS Tracking Application](images/elappArcAll.png)
 
-The React application also lets a user enter a new item. 
+The React application also lets a user enter a new item.
 
 ![AWS Tracking Application](images/react3.png)
 
@@ -134,24 +134,24 @@ Active items are queried from the database and used to dynamically create an Exc
 
 ## Add the POM dependencies to your project
 
-Make sure that your project's pom.xml file looks like the POM file in this Github repository. Notice that dependencies for 
-Spring Boot 3.x are included. 
+Make sure that your project's pom.xml file looks like the POM file in this Github repository. Notice that dependencies for
+Spring Boot 3.x are included.
 
 ## Create the Java classes
 
 Create a Java package in the **main/java** folder named **com.aws.rest**. The following Java files go into this package:
 
-+ **App** - The entry point into the Spring boot application.  
++ **App** - The entry point into the Spring boot application.
 + **MainController** - Represents the Spring Controller that handles HTTP requests to handle data operations.
 + **ReportController** - Represents a second Spring Controller that handles HTTP requests that generates a report.
-+ **DynamoDBService** - Uses the Amazon DynamoDB Java API to perform CRUD operations on the **Work** table. 
++ **DynamoDBService** - Uses the Amazon DynamoDB Java API to perform CRUD operations on the **Work** table.
 + **WorkItem** - Represents the application's data model.
-+ **Work** - Represents the Java class that uses the **@DynamoDbBean** annotation required for the Enhanced Client.  
++ **Work** - Represents the Java class that uses the **@DynamoDbBean** annotation required for the Enhanced Client.
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report. (This does not use AWS SDK for Java API operations).
 
-### App class 
+### App class
 
-The following Java code represents the **App** class. This is the entry point into a Spring boot application.  
+The following Java code represents the **App** class. This is the entry point into a Spring boot application.
 
 ```java
 package com.aws.rest;
@@ -165,11 +165,11 @@ public class App {
                 SpringApplication.run(App.class, args);
         }
 }
-```    
+```
 
 ### MainController class
 
-The following Java code represents the **MainController** class, which handles HTTP requests for the application. Notice the use of the **CrossOrigin** annotation. This annotation lets the controller accept requests from different domains. 
+The following Java code represents the **MainController** class, which handles HTTP requests for the application. Notice the use of the **CrossOrigin** annotation. This annotation lets the controller accept requests from different domains.
 
 ```java
 package com.aws.rest;
@@ -254,8 +254,8 @@ public class MainController {
 
 ### DynamoDBService class
 
-The following Java code represents the **DynamoDBService** class. This class uses the Enhanced Client to perform operations on the Amazon DynamoDB **Work** table.  For more information, 
-see [Mapping items in DynamoDB tables](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-dynamodb-enhanced.html).  
+The following Java code represents the **DynamoDBService** class. This class uses the Enhanced Client to perform operations on the Amazon DynamoDB **Work** table.  For more information,
+see [Mapping items in DynamoDB tables](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-dynamodb-enhanced.html).
 
 ```java
 package com.aws.rest;
@@ -508,7 +508,7 @@ public class DynamoDBService {
 
 ### WorkItem class
 
-The following Java code represents the **WorkItem** class.   
+The following Java code represents the **WorkItem** class.
 
 ```java
   package com.aws.rest;
@@ -860,31 +860,31 @@ public class WriteExcel {
 }
 ```
 
-**Note:** You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
+**Note:** You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).
 
-## Run the application 
+## Run the application
 
-Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs. 
+Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs.
 
-- /api/items - A GET request that returns all data items from the **Work** table. 
-- /api/items?archived=true - A GET request that returns either active or archive data items from the **Work** table. 
-- /api/items/{id}:archive - A PUT request that converts the specified data item to an archived item. 
-- /api/items - A POST request that adds a new item to the database. 
-- api/items:report - A POST request that creates a report of active items and emails the report. 
+- /api/items - A GET request that returns all data items from the **Work** table.
+- /api/items?archived=true - A GET request that returns either active or archive data items from the **Work** table.
+- /api/items/{id}:archive - A PUT request that converts the specified data item to an archived item.
+- /api/items - A POST request that adds a new item to the database.
+- api/items:report - A POST request that creates a report of active items and emails the report.
 
-**Note**: The React application created in the next section consumes all of these URLs. 
+**Note**: The React application created in the next section consumes all of these URLs.
 
-Confirm that the Spring REST API works by viewing the Active items. Enter the following URL into a browser. 
+Confirm that the Spring REST API works by viewing the Active items. Enter the following URL into a browser.
 
 http://localhost:8080/api/items
 
-The following illustration shows the JSON data returned from the Spring REST API. 
+The following illustration shows the JSON data returned from the Spring REST API.
 
 ![AWS Tracking Application](images/jsonDynamoDB.png)
 
 ## Create the React front end
 
-You can create the React application that consumes the JSON data returned from the Spring REST API. To create the React application, you can download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. Click the following link to access the GitHub location [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing).  
+You can create the React application that consumes the JSON data returned from the Spring REST API. To create the React application, you can download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. Click the following link to access the GitHub location [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing).
 
 ### Update BASE_URL
 
@@ -895,7 +895,7 @@ You must ensure that the **BASE_URL** is correct. In the **config.json** file, e
   "BASE_URL": "http://localhost:8080/api"
 }
 ```
-  
+
 ### Next steps
 Congratulations, you have created a decoupled React application that consumes data from a Spring Boot application. The Spring Boot application uses the AWS SDK for Java (v2) to invoke AWS services. As stated at the beginning of this tutorial, be sure to delete all of the resources that you create during this tutorial so that you won't continue to be charged.
 

@@ -32,7 +32,7 @@ For an introduction, see the [README.md](README.md).
 - The workflow should wait for the stack CREATE_COMPLETE status.
   - After a successful deploy, the workflow should retrieve and print the output values for `RoleARN` and `SNStopicARN`, which will be used for the EventBridge Scheduler operations.
 - If the stack has any failed status, notify the user and end the workflow.
- 
+
 Example:
 ```
 --------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ y
 ```
 
 - Subscription Emails
-    - After confirming their subscription, the user should receive one email from the one-time schedule, and a recurring email from the recurring schedule. 
+    - After confirming their subscription, the user should receive one email from the one-time schedule, and a recurring email from the recurring schedule.
     - The email text should contain the user's custom name for each schedule.
 
 Example

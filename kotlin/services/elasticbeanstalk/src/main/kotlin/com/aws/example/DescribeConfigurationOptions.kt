@@ -21,10 +21,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <envName> 
+            <envName>
 
         Where:
-            envName - The name of the AWS Elastic Beanstalk environment. 
+            envName - The name of the AWS Elastic Beanstalk environment.
     """
 
     if (args.size != 1) {

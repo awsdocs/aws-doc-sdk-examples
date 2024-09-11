@@ -19,9 +19,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main(args: Array<String>) {
     val usage = """
-    
-        Usage: 
-            <containerName> 
+
+        Usage:
+            <containerName>
 
         Where:
             containerName - The name of the container.

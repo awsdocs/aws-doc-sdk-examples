@@ -61,7 +61,7 @@ addresses powered by Amazon Location Service. Other types of jobs can be substit
 To use this tutorial, you need the following:
 
 + An AWS account.
-+ A Java IDE. 
++ A Java IDE.
 + Java 17 JDK.
 + Maven 3.6 or later.
 + Set up your development environment. For more information, see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup-basics.html).
@@ -78,9 +78,9 @@ These files are located on GitHub in this [folder](../../../workflows/sagemaker_
 
 ### Java Lambda Function
 
-To successfully run this example, you need to create the Java Sagemaker Lambda function. This Lambda function is required. You can find this project here: [Create the SageMaker geospatial Lambda function using the Lambda Java rumtime API](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_sagemaker_lambda). This project creates a JAR file that is input to this code example.  
+To successfully run this example, you need to create the Java Sagemaker Lambda function. This Lambda function is required. You can find this project here: [Create the SageMaker geospatial Lambda function using the Lambda Java rumtime API](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_sagemaker_lambda). This project creates a JAR file that is input to this code example.
 
-Once you create the Java Lambda project, you can build the required JAR file using the **mvn package** command. This will create the JAR file in the target folder. You can use this JAR file as input to this code example. 
+Once you create the Java Lambda project, you can build the required JAR file using the **mvn package** command. This will create the JAR file in the target folder. You can use this JAR file as input to this code example.
 
 ### Instructions
 

@@ -35,13 +35,13 @@ suspend fun main(args: Array<String>) {
     val usage = """
 
     Usage:
-        <sender> <recipient> <subject> <fileLocation> 
+        <sender> <recipient> <subject> <fileLocation>
 
     Where:
-        sender - An email address that represents the sender. 
-        recipient -  An email address that represents the recipient. 
-        subject - The subject line. 
-        fileLocation - The location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls). 
+        sender - An email address that represents the sender.
+        recipient -  An email address that represents the recipient.
+        subject - The subject line.
+        fileLocation - The location of a Microsoft Excel file to use as an attachment (C:/AWS/customers.xls).
     """
 
     if (args.size != 4) {

@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/quicksight/DescribeAnalysis.java
     services:
@@ -29,4 +29,4 @@ files:
       - quicksight
   - path: src/test/java/QuickSightTest.java
     services:
-      - quicksight      
+      - quicksight

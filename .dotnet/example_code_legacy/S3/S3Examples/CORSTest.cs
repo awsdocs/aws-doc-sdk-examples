@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.CORSTest]
 using Amazon;
@@ -14,7 +14,7 @@ namespace Amazon.DocSamples.S3
     {
         private const string bucketName = "*** bucket name ***";
         // Specify your bucket region (an example region is shown).
-        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2; 
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
         private static IAmazonS3 s3Client;
 
         public static void Main()
@@ -26,7 +26,7 @@ namespace Amazon.DocSamples.S3
         {
             try
             {
-                // Create a new configuration request and add two rules    
+                // Create a new configuration request and add two rules
                 CORSConfiguration configuration = new CORSConfiguration
                 {
                     Rules = new System.Collections.Generic.List<CORSRule>
@@ -48,10 +48,10 @@ namespace Amazon.DocSamples.S3
                         }
                 };
 
-                // Add the configuration to the bucket. 
+                // Add the configuration to the bucket.
                 await PutCORSConfigurationAsync(configuration);
 
-                // Retrieve an existing configuration. 
+                // Retrieve an existing configuration.
                 configuration = await RetrieveCORSConfigurationAsync();
 
                 // Add a new rule.
@@ -62,7 +62,7 @@ namespace Amazon.DocSamples.S3
                     AllowedOrigins = new List<string> { "http://www.example.com" }
                 });
 
-                // Add the configuration to the bucket. 
+                // Add the configuration to the bucket.
                 await PutCORSConfigurationAsync(configuration);
 
                 // Verify that there are now three rules.

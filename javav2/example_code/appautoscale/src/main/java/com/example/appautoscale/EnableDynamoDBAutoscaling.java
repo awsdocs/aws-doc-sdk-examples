@@ -40,7 +40,7 @@ public class EnableDynamoDBAutoscaling {
                tableId - The table Id value (for example, table/Music).
                roleARN - The ARN of the role that has ApplicationAutoScaling permissions.
                policyName - The name of the policy to create.
-               
+
             """;
 
         if (args.length != 3) {

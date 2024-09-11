@@ -99,7 +99,7 @@ def run_scenario(scaffold, wrapper, table_name):
 
     print(f"Inserting movie '{title}' released in {year}.")
     wrapper.run_partiql(
-        f"INSERT INTO \"{table_name}\" VALUE {{'title': ?, 'year': ?, 'info': ?}}",
+        "INSERT INTO \"{table_name}\" VALUE {{'title': ?, 'year': ?, 'info': ?}}",
         [title, year, {"plot": plot, "rating": rating}],
     )
     print("Success!")
@@ -123,7 +123,7 @@ def run_scenario(scaffold, wrapper, table_name):
     print("Success!")
     print("-" * 88)
 
-    print(f"Getting data again to verify our update.")
+    print("Getting data again to verify our update.")
     output = wrapper.run_partiql(
         f'SELECT * FROM "{table_name}" WHERE title=? AND year=?', [title, year]
     )

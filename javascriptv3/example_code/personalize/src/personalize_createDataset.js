@@ -6,7 +6,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript v
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-createDataset.js demonstrates how to create a dataset with Amazon Personalize. 
+createDataset.js demonstrates how to create a dataset with Amazon Personalize.
 A dataset is a container for data that you upload to Amazon Personalize.
 For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDataset.html.
 

@@ -1,4 +1,4 @@
-_# Spec for Amazon Data Firehose Common Actions Workflow 
+_# Spec for Amazon Data Firehose Common Actions Workflow
 
 Create a robust, production-grade script demonstrating how to use Amazon Data Firehose to put individual records (`PutRecord`) and batches of records (`PutRecordBatch`) to a delivery stream.
 
@@ -7,7 +7,7 @@ Create a robust, production-grade script demonstrating how to use Amazon Data Fi
 4. **OPTIONAL: Ailly Configured**: Configure [Ailly](https://github.com/davidsouther/ailly) to use the [start.sh](./start.sh) script to generate a new workflow using AI.
 
 ## Infra & Data Setup
-To implement this specification, you will need to follow the [setup steps](README.md#run-this-workflow-yourself) outlined in the README.md. 
+To implement this specification, you will need to follow the [setup steps](README.md#run-this-workflow-yourself) outlined in the README.md.
 
 ## Script Specification
 

@@ -25,7 +25,7 @@ suspend fun main(args: Array<String>) {
     val usage = """
 
     Usage:
-        <alarmName> <instanceId> 
+        <alarmName> <instanceId>
 
     Where:
         alarmName - An alarm name to use.

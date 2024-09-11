@@ -20,7 +20,7 @@ The AWS SDK for Kotlin sample code builds a command line application that asks y
 ### Create an SNS topic
 
 ```
-Would you like to work with FIFO topics? (y/n) 
+Would you like to work with FIFO topics? (y/n)
 ```
 
 You configure FIFO topics when you create them. Choosing a FIFO topic enables other options, too. To learn more, see [FIFO topics example use case](https://docs.aws.amazon.com/sns/latest/dg/fifo-example-use-case.html).
@@ -42,7 +42,7 @@ Topic names can have 1-256 characters. They can contain uppercase and lowercase 
 
 ### Create an SQS queue
 
-Now, configure an SQS queue to subscribe to your topic. Separate queues for each subscriber can be helpful. For 
+Now, configure an SQS queue to subscribe to your topic. Separate queues for each subscriber can be helpful. For
 instance, you can customize how messages are consumed and how messages are filtered.
 
 ```
@@ -53,7 +53,7 @@ Queue names can have 1-80 characters. They can contain uppercase and lowercase A
 
 
 ```
-Filter messages for "<queue name>.fifo"s subscription to 
+Filter messages for "<queue name>.fifo"s subscription to
 the topic "<topic name>.fifo"?  (y/n)
 ```
 
@@ -111,7 +111,7 @@ If you added a filter to one of the subscriptions, you can choose to add a filte
 2. funny
 3. serious
 4. sincere
-Enter a number for an attribute: 
+Enter a number for an attribute:
 ```
 
 Select a number for an attribute.

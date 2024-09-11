@@ -94,7 +94,7 @@ final class ListPoliciesTests: XCTestCase {
             let policies = try await ListPoliciesTests.serviceHandler!.listPolicies()
             XCTAssertTrue(policies.count == createdPolicies.count + previousPolicies.count, "Incorrect number of policies created. Should be \(createdPolicies.count + previousPolicies.count) but is instead \(policies.count).")
 
-            // Remove the created policies.            
+            // Remove the created policies.
             for policy in createdPolicies {
                 _ = try await ListPoliciesTests.serviceHandler!.deletePolicy(policy: policy)
             }

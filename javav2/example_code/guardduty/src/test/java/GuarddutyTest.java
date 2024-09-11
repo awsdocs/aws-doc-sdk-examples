@@ -44,7 +44,7 @@ public class GuarddutyTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * GuarddutyTest.class.getClassLoader().getResourceAsStream("config.properties")
          * ) {
@@ -57,7 +57,7 @@ public class GuarddutyTest {
          * prop.load(input);
          * detectorId = prop.getProperty("detectorId");
          * findingId = prop.getProperty("findingId");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

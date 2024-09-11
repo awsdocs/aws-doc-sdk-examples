@@ -1,9 +1,9 @@
 ---
 files:
   - path: SignDomainRequest.php
-    services: 
+    services:
       - cloudsearch
   - path: tests/SignDomainRequestTest.php
-    services: 
+    services:
       - cloudsearch
 ...

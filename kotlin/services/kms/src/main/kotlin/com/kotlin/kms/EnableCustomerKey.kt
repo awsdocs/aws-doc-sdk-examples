@@ -20,9 +20,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <keyId> 
+            <keyId>
         Where:
-            keyId - An AWS KMS key id value to enable (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). 
+            keyId - An AWS KMS key id value to enable (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).
     """
 
     if (args.size != 1) {

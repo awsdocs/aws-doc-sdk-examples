@@ -12,9 +12,9 @@ import kotlin.system.exitProcess
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <name> 
+            <name>
         Where:
-           name - the name of the pipeline to delete. 
+           name - the name of the pipeline to delete.
    """
     if (args.size != 1) {
         println(usage)

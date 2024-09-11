@@ -70,7 +70,7 @@ Run this example at a command prompt with the following command.
 
 ```
 python sns_basics.py
-``` 
+```
 <!--custom.instructions.end-->
 
 

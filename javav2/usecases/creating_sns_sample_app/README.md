@@ -10,7 +10,7 @@
 
 ## Purpose
 
-You can create a web application that has subscription and publish functionality by using Amazon Simple Notification Service (Amazon SNS). The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter multiple email address values to subscribe them to the given SNS topic (after the email recipients confirm the subscription). The user can publish a message that results in all subscribed email addresses receiving the message. 
+You can create a web application that has subscription and publish functionality by using Amazon Simple Notification Service (Amazon SNS). The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter multiple email address values to subscribe them to the given SNS topic (after the email recipients confirm the subscription). The user can publish a message that results in all subscribed email addresses receiving the message.
 
 **Note**: Amazon SNS is a managed service that provides message delivery from publishers to subscribers (also known as producers and consumers). For more information, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
 
@@ -18,12 +18,12 @@ You can create a web application that has subscription and publish functionality
 
 + Prerequisites
 + Understand the Publish/Subscription application
-+ Create an IntelliJ project 
++ Create an IntelliJ project
 + Add the POM dependencies to your project
 + Create the Java classes
 + Create the HTML files
 + Run the application
- 
+
 ## Prerequisites
 
 To complete the tutorial, you need the following:
@@ -36,35 +36,35 @@ To complete the tutorial, you need the following:
 ## Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
 
 ### Creating the resources
 
-Create an Amazon SNS queue that is used in the Java code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html). 
+Create an Amazon SNS queue that is used in the Java code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html).
 
 In addition, set up your development environment. For information, see [Setting up the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
 ## Understand the Publish/Subscription application
 
-To subscribe to an Amazon SNS topic, the user enters a valid email address into the web application. 
+To subscribe to an Amazon SNS topic, the user enters a valid email address into the web application.
 
 ![AWS Tracking Application](images/pic1.png)
 
-The specified email address recieves an email message that lets the recipient confirm the subscription. 
+The specified email address recieves an email message that lets the recipient confirm the subscription.
 
 ![AWS Tracking Application](images/pic2.png)
 
-After the email recipient accepts the confirmation, their email address is subscribed to the specific SNS topic and recieves published messages. To publish a message, a user enters the message into the web application and then chooses the **Publish** button. 
+After the email recipient accepts the confirmation, their email address is subscribed to the specific SNS topic and recieves published messages. To publish a message, a user enters the message into the web application and then chooses the **Publish** button.
 
 ![AWS Tracking Application](images/pic3.png)
 
-This application lets a user specify the language of the message that is sent. For example, the user can select **French** from the dropdown and then the message appears in that language to all subscribed users. 
+This application lets a user specify the language of the message that is sent. For example, the user can select **French** from the dropdown and then the message appears in that language to all subscribed users.
 
 ![AWS Tracking Application](images/french.png)
 
-**Note**: Amazon Translate is used to translate the body of the message. The code is shown later in this document. 
+**Note**: Amazon Translate is used to translate the body of the message. The code is shown later in this document.
 
 This example application lets you view all of the subscribed email recipients by choosing the **List Subscriptions** button, as shown in the following image.
 
@@ -94,16 +94,16 @@ Create an IntelliJ project that is used to create the web application.
 Make sure that your project's pom.xml file looks like the POM file in this Github repository.
 
  ## Create the Java classes
- 
- Create a Java package in the main/java folder named **com.spring.sns**. The Java classes go into this package. 
- 
+
+ Create a Java package in the main/java folder named **com.spring.sns**. The Java classes go into this package.
+
  ![AWS Lex](images/project.png)
- 
+
  Create the following Java classes:
 
 + **SubApplication** - Used as the base class for the Spring Boot application.
-+ **SubController** - Used as the Spring Boot controller that handles HTTP requests. 
-+ **SnsService** - Used to invoke Amazon SNS operations by using the Amazon SNS Java API V2.  
++ **SubController** - Used as the Spring Boot controller that handles HTTP requests.
++ **SnsService** - Used to invoke Amazon SNS operations by using the Amazon SNS Java API V2.
 
 ### SubApplication class
 
@@ -197,7 +197,7 @@ public class SubController {
 
 ### SnsService class
 
-The following Java code represents the **SnsService** class. This class uses the [SnsClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/sns/SnsClient.html) to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. 
+The following Java code represents the **SnsService** class. This class uses the [SnsClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/sns/SnsClient.html) to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message.
 
 ```java
 package com.spring.sns;
@@ -429,7 +429,7 @@ public class SnsService {
 
 ```
 
-**Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code does not work. 
+**Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code does not work.
 
 ## Create the HTML file
 
@@ -440,7 +440,7 @@ At this point, you have created all of the Java files required for this example 
 + sub.html
 
 ### index.html
-The **index.html** file is the application's home view. 
+The **index.html** file is the application's home view.
 
 ```html
     <!DOCTYPE html>
@@ -455,7 +455,7 @@ The **index.html** file is the application's home view.
      <link rel="icon" href="../public/img/favicon.ico" th:href="@{/img/favicon.ico}" />
 
     <title>AWS job posting example</title>
-    </head> 
+    </head>
 
      <body>
      <header th:replace="layout :: site-header"/>
@@ -477,7 +477,7 @@ The **index.html** file is the application's home view.
      </body>
     </html>
 ```
-	   	
+
 
 ### layout.html
 The following code represents the **layout.html** file that represents the application's menu.
@@ -499,7 +499,7 @@ The following code represents the **layout.html** file that represents the appli
 ```
 
 ### add.html
-The **sub.html** file is the application's view that manages Amazon SNS subscriptions. 
+The **sub.html** file is the application's view that manages Amazon SNS subscriptions.
 
 ```html
      <!DOCTYPE html>
@@ -583,7 +583,7 @@ The **sub.html** file is the application's view that manages Amazon SNS subscrip
   ```
 ### Create the JS File
 
-This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the **resources\public\js** folder. 
+This application has a **contact_me.js** file that is used to send requests to the Spring Controller. Place this file in the **resources\public\js** folder.
 
 ```javascript
     $(function() {
@@ -610,7 +610,7 @@ This application has a **contact_me.js** file that is used to send requests to t
         });
       } );
     } );
-    
+
     function subEmail(){
      var mail = $('#inputEmail1').val();
      var result = validate(mail)
@@ -633,7 +633,7 @@ This application has a **contact_me.js** file that is used to send requests to t
 
      function getSubs() {
       $.ajax('/getSubs', {
-        type: 'GET', 
+        type: 'GET',
         success: function (data, status, xhr) {
 
             $('.modal-body').empty();
@@ -694,7 +694,7 @@ This application has a **contact_me.js** file that is used to send requests to t
 
 ## Run the application
 
-Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, choose the run icon in the Spring Boot main class, as shown in the following image. 
+Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, choose the run icon in the Spring Boot main class, as shown in the following image.
 
 ![AWS Tracking Application](images/run.png)
 

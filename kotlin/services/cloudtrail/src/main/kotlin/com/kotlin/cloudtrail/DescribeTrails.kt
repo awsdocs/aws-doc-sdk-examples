@@ -13,10 +13,10 @@ suspend fun main(args: Array<String>) {
     val usage = """
 
     Usage:
-        <trailName>  
+        <trailName>
 
     Where:
-        trailName - The name of the trail. 
+        trailName - The name of the trail.
     """
 
     if (args.size != 1) {

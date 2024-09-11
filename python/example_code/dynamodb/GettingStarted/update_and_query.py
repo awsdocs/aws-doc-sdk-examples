@@ -202,7 +202,7 @@ def usage_demo(table):
     title = "The Lord of the Rings: The Fellowship of the Ring"
     increase = 3.3
     print(
-        f"\nYou can use an arithmetic operation in an expression to update a numeric value."
+        "\nYou can use an arithmetic operation in an expression to update a numeric value."
         f"\nUpdating the rating of {title} by 3.3."
     )
     updated = wrapper.update_rating(title, 2001, increase)
@@ -211,7 +211,7 @@ def usage_demo(table):
 
     actor_count = 5
     print(
-        f"\nYou can use a conditional update to remove actors listed for a movie,"
+        "\nYou can use a conditional update to remove actors listed for a movie,"
         f"\nbut only if there are more than {actor_count} actors listed."
         f"\nAttempting to remove an actor from {title}..."
     )
@@ -221,13 +221,13 @@ def usage_demo(table):
         if err.response["Error"]["Code"] == "ConditionalCheckFailedException":
             print(
                 f"\nMore than {actor_count} actors must be listed. "
-                f"Let's try again with a limit of 2."
+                "Let's try again with a limit of 2."
             )
             actor_count = 2
             updated = wrapper.remove_actors(title, 2001, actor_count)
             print(
                 f"\nThat worked! Removed an actor from {title}. "
-                f"\nHere's how it looks now:"
+                "\nHere's how it looks now:"
             )
             pprint(updated)
     print("-" * 88)
@@ -235,7 +235,7 @@ def usage_demo(table):
     title = "One Direction: This Is Us"
     rating = 2
     print(
-        f"\nSimilarly, you can delete a movie, but only if it meets a certain condition."
+        "\nSimilarly, you can delete a movie, but only if it meets a certain condition."
         f"\nAttempting to remove '{title}', but only if it's rated below {rating}..."
     )
     try:
@@ -244,7 +244,7 @@ def usage_demo(table):
         if err.response["Error"]["Code"] == "ConditionalCheckFailedException":
             print(
                 f"\nIt looks like {title} is rated higher than {rating}, for some reason."
-                f"\nLet's try again with a rating threshold of 5."
+                "\nLet's try again with a rating threshold of 5."
             )
             rating = 5
             wrapper.delete_underrated_movie(title, 2013, rating)
@@ -254,9 +254,8 @@ def usage_demo(table):
     letters = {"first": "P", "second": "V"}
     release_year = 2000
     print(
-        f"\nYou can combine query conditions, such as to query for movies released in"
-        f"\na certain year that start with letters in a range, and you can "
-        f"\nproject the output to return only the fields that you want."
+        "\nYou can combine query conditions, such as to query for movies released in"
+        "\nproject the output to return only the fields that you want."
     )
     releases = wrapper.query_and_project_movies(release_year, letters)
     if releases:

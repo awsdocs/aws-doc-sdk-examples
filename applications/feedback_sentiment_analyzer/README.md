@@ -124,7 +124,7 @@ This application is deployed using the [AWS Cloud Development Kit (AWS CDK)](htt
 
 ### Play the result
 
-1. Wait. The image upload takes a minute or two to process. CloudFront will also cache API responses for five 
+1. Wait. The image upload takes a minute or two to process. CloudFront will also cache API responses for five
 minutes. To speed things up, create a CloudFront invalidation.
 2. Choose the `Refresh` button.
 

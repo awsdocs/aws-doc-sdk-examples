@@ -6,8 +6,8 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript v
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-createSolutionVersion.js demonstrates how to create a solution version (trained model) for 
-a custom dataset group with Amazon Personalize. 
+createSolutionVersion.js demonstrates how to create a solution version (trained model) for
+a custom dataset group with Amazon Personalize.
 For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolutionVersion.html
 
 Inputs (replace in code):

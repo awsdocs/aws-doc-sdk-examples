@@ -58,7 +58,7 @@ final class ListRolesTests: XCTestCase {
         let user = try await ListRolesTests.serviceHandler!.getUser(name: nil)
 
         guard let userARN = user.arn else {
-            throw ServiceHandlerError.noSuchUser 
+            throw ServiceHandlerError.noSuchUser
         }
 
         // The policy document is a JSON string describing the role. For
@@ -99,7 +99,7 @@ final class ListRolesTests: XCTestCase {
             let roles = try await ListRolesTests.serviceHandler!.listRoles()
             XCTAssertEqual(roles.count, createdRoles.count + previousRoles.count, "Incorrect number of roles created. Should be \(createdRoles.count + previousRoles.count) but is instead \(roles.count).")
 
-            // Remove the created roles.            
+            // Remove the created roles.
             for role in createdRoles {
                 _ = try await ListRolesTests.serviceHandler!.deleteRole(name: role)
             }

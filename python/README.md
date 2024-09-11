@@ -2,11 +2,11 @@
 
 ## Overview
 
-The code examples in this topic show you how to use the AWS SDK for Python (Boto3) 
-with AWS. 
+The code examples in this topic show you how to use the AWS SDK for Python (Boto3)
+with AWS.
 
 The AWS SDK for Python provides a Python API for AWS infrastructure services.
-Using the SDK, you can build applications on top of AWS services such as Amazon Simple 
+Using the SDK, you can build applications on top of AWS services such as Amazon Simple
 Storage Service (Amazon S3), Amazon Elastic Compute Cloud (Amazon EC2), and Amazon DynamoDB.
 
 ## Types of code examples
@@ -19,20 +19,20 @@ Storage Service (Amazon S3), Amazon Elastic Compute Cloud (Amazon EC2), and Amaz
 
 ### Finding code examples
 
-Single-service actions and scenarios are organized by AWS service in the 
-[example_code folder](example_code). A README in each folder lists and describes how 
+Single-service actions and scenarios are organized by AWS service in the
+[example_code folder](example_code). A README in each folder lists and describes how
 to run the examples.
 
-Cross-service examples are located in the [cross_service folder](cross_service). 
+Cross-service examples are located in the [cross_service folder](cross_service).
 A README in each folder describes how to run the example.
 
 ## ⚠️ Important
-* Running this code might result in charges to your AWS account. 
+* Running this code might result in charges to your AWS account.
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the 
-minimum permissions required to perform the task. For more information, see 
-[Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
-* This code is not tested in every AWS Region. For more information, see 
+* We recommend that you grant your code least privilege. At most, grant only the
+minimum permissions required to perform the task. For more information, see
+[Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see
 [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Run the examples
@@ -40,7 +40,7 @@ minimum permissions required to perform the task. For more information, see
 ### Prerequisites
 
 * You must have an AWS account, and have your default credentials and AWS Region
-configured as described in the 
+configured as described in the
 [AWS Tools and SDKs Shared Configuration and
 Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
 * [Python 3.6.0 or later](https://www.python.org/)
@@ -48,10 +48,10 @@ Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/
 ### Install packages
 
 Depending on how you have Python installed and on your operating system,
-the commands to install and run might vary slightly. For example, on Windows, use `py` 
+the commands to install and run might vary slightly. For example, on Windows, use `py`
 in place of `python`.
 
-Each example folder contains a `requirements.txt` file that defines the packages needed 
+Each example folder contains a `requirements.txt` file that defines the packages needed
 to run that example. To install the required packages, first navigate to the example folder
 and create a virtual environment by running the following:
 
@@ -87,8 +87,8 @@ python file_with_main.py
 ```
 
 Some examples require command line arguments. In these cases, you can run the example
-with a `-h` flag to get help. Each example has a README.md that describes additional 
-specifics about how to run the example and any other prerequisites. 
+with a `-h` flag to get help. Each example has a README.md that describes additional
+specifics about how to run the example and any other prerequisites.
 
 ## Linting and formatting
 We rely on [pylint](https://pylint.pycqa.org/en/latest/) and [black](https://black.readthedocs.io/en/stable/) to keep this code consistently formatted and styled.
@@ -97,7 +97,7 @@ To contribute Python code to this project, please refer to the following install
 ### Using Pylint
 We run Pylint using [a custom configuration file](.github/linters/.python-lint) against any changed file or directory. See the [Python Github Action workflow](../.github/workflows/python.yml) for details.
 
-To invoke Pylint yourself, first install it with `pip install pylint`. 
+To invoke Pylint yourself, first install it with `pip install pylint`.
 
 Next, run:
 
@@ -114,7 +114,7 @@ pylint --rcfile=.github/linters/.python-lint .
 ### Using Black
 We run Black against any changed file or directory. See the [Python Github Action workflow](../.github/workflows/python.yml) for details.
 
-To invoke Black yourself, first install it with `pip install black`. 
+To invoke Black yourself, first install it with `pip install black`.
 
 Next, run:
 
@@ -136,11 +136,11 @@ README for that service or cross-service example.
 
 ### Unit tests
 
-The unit tests in this module use stubbed responses from the botocore Stubber. 
-This means that when the unit tests are run, requests are not sent to AWS, 
+The unit tests in this module use stubbed responses from the botocore Stubber.
+This means that when the unit tests are run, requests are not sent to AWS,
 mocked responses are returned, and no charges are incurred on your account.
 
-Run unit tests in the folder for each service or cross-service example at a command 
+Run unit tests in the folder for each service or cross-service example at a command
 prompt by excluding the `integ` mark.
 
 ```
@@ -152,10 +152,10 @@ python -m pytest -m "not integ"
 ⚠️ Running the integration tests might result in charges to your AWS account.
 
 The integration tests in this module make actual requests to AWS. This means that when
-the integration tests are run, they can create and destroy resources in your account. 
+the integration tests are run, they can create and destroy resources in your account.
 These tests might also incur charges. Proceed with caution.
 
-Run integration tests in the folder for each service or cross-service example at a 
+Run integration tests in the folder for each service or cross-service example at a
 command prompt by including the `integ` mark.
 
 ```
@@ -165,8 +165,8 @@ python -m pytest -m "integ"
 ## Docker image
 
 This example code is available in a container image
-hosted on [Amazon Elastic Container Registry (Amazon ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). 
-The image is preloaded with all Python examples, with dependencies pre-resolved. 
+hosted on [Amazon Elastic Container Registry (Amazon ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html).
+The image is preloaded with all Python examples, with dependencies pre-resolved.
 That way, you can explore the examples in an isolated environment.
 
 See [SDK for Python image](https://gallery.ecr.aws/b4v4v1s0/python) for more information.
@@ -199,7 +199,7 @@ the instructions in the READMEs in the various folders.
 ### Run tests in the Docker container
 
 You can run all unit tests and write the output to a file by running the following command
-at the root of the container:  
+at the root of the container:
 
 ```
 python -m python.test_tools.run_all_tests > test-run-$(date +"%Y-%m-%d").out
@@ -207,15 +207,15 @@ python -m python.test_tools.run_all_tests > test-run-$(date +"%Y-%m-%d").out
 
 You can run integration tests by passing a `-m "integ"` flag to the `run_all_tests` module.
 Integration tests create and destroy AWS resources and will incur charges on your account.
-Proceed with caution. 
+Proceed with caution.
 
 ## Additional resources
- 
+
 * [AWS SDK for Python (Boto3) Documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
 * [AWS SDK for Python (Boto3) API Reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/index.html)
 
 ---
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 SPDX-License-Identifier: Apache-2.0

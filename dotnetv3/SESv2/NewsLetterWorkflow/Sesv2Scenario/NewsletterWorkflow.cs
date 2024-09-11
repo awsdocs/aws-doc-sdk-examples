@@ -1,4 +1,4 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[SESWorkflow.dotnetv3.NewsletterWorkflow]
@@ -19,25 +19,25 @@ public static class NewsletterWorkflow
     /*
       This workflow demonstrates how to use the Amazon Simple Email Service (SES) v2 to send a coupon newsletter to a list of subscribers.
       The workflow performs the following tasks:
-     
+
       1. Prepare the application:
          - Create a verified email identity for sending and replying to emails.
          - Create a contact list to store the subscribers' email addresses.
          - Create an email template for the coupon newsletter.
-     
+
       2. Gather subscriber email addresses:
          - Prompt the user for a base email address.
          - Create 3 variants of the email address using subaddress extensions (e.g., user+ses-weekly-newsletter-1@example.com).
          - Add each variant as a contact to the contact list.
          - Send a welcome email to each new contact.
-     
+
       3. Send the coupon newsletter:
          - Retrieve the list of contacts from the contact list.
          - Send the coupon newsletter using the email template to each contact.
-     
+
       4. Monitor and review:
          - Provide instructions for the user to review the sending activity and metrics in the AWS console.
-     
+
       5. Clean up resources:
          - Delete the contact list (which also deletes all contacts within it).
          - Delete the email template.

@@ -117,7 +117,7 @@ class KeyspaceScenario:
         if not os.path.exists(cert_path):
             cert_choice = q.ask(
                 f"Press enter to download a certificate from {QueryManager.CERT_URL} "
-                f"or enter the full path to the certificate you want to use: "
+                "or enter the full path to the certificate you want to use: "
             )
             if cert_choice:
                 cert_path = cert_choice

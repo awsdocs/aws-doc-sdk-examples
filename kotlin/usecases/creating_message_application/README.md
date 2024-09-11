@@ -24,7 +24,7 @@ The application you create is a decoupled React application that uses a Spring R
 
 + Prerequisites
 + Understand the AWS Messaging application
-+ Create an IntelliJ project 
++ Create an IntelliJ project
 + Add the dependencies to your project
 + Create the Kotlin classes
 + Run the application
@@ -40,19 +40,19 @@ To complete the tutorial, you need the following:
 + Gradle 8.1 or higher.
 + A Kotlin development environment setup. For more information, see [Setting up the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
 
-**Note**: Make sure that you have installed the Kotlin plug-in for IntelliJ. 
+**Note**: Make sure that you have installed the Kotlin plug-in for IntelliJ.
 ## Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to delete all of the resources you create during this tutorial so that you won't be charged.
 
 ### Create the resources
 
-Create a FIFO queue named **Message.fifo**. For more information, see [Creating an Amazon SQS queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-create-queue.html). 
+Create a FIFO queue named **Message.fifo**. For more information, see [Creating an Amazon SQS queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-create-queue.html).
 
-Add some items to the *Message.fifo* queue in the AWS console. After creating the queue, select the queue, then select 
+Add some items to the *Message.fifo* queue in the AWS console. After creating the queue, select the queue, then select
 **Send and receive messages**. On the **Send and receive messages** page, enter sample data below,
 selecting **Send message** after data is entered for each row.
 
@@ -79,14 +79,14 @@ The following describes how the application handles a message:
 1. The message and user values are posted to a Spring REST endpoint.
 2. The Spring controller creates a custom **MessageData** object that stores the message ID value (a GUID), the message text, and the user.
 3. The Spring controller passes the **MessageData** object to a message service that uses the **aws.sdk.kotlin.services.sqs.SqsClient** client object to store the data into a FIFO queue.
-4. The Spring REST endpoint invokes the message service’s **receiveMessage** method to read all of the messages in the queue. A list of **MessageData** objects is returned and displayed in the React application. 
+4. The Spring REST endpoint invokes the message service’s **receiveMessage** method to read all of the messages in the queue. A list of **MessageData** objects is returned and displayed in the React application.
 
 
 ## Create an IntelliJ project named AWSMessageRestKotlin
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 2. In the **New Project** dialog box, choose **Kotlin**.
-3. Enter the name **AWSMessageRestKotlin**. 
+3. Enter the name **AWSMessageRestKotlin**.
 4. Select **Gradle Kotlin** for the Build System.
 5. Select your JVM option and choose **Next**.
 6. Choose **Finish**.
@@ -160,7 +160,7 @@ Create the following Kotlin classes:
 + **MessageData** - Used as the model for this application.
 + **App** - Used as the base class for the Spring Boot application.
 + **MessageResource** - Used as the Spring Boot controller that handles HTTP requests.
-+ **SendReceiveMessages** - Uses the Amazon SQS API to process messages.  
++ **SendReceiveMessages** - Uses the Amazon SQS API to process messages.
 
 **Note** The MessageResource class is located in the same file as App.kt.
 
@@ -180,7 +180,7 @@ class MessageData {
 
 ### App class
 
-The following Kotlin code represents the **App** and the **MessageResource** classes. Notice that **App** uses the **@SpringBootApplication** annotation, while the **MessageResource** class uses the **@RestController** annotation. In addition, the Spring Controller uses **runBlocking**, which is part of Kotlin Coroutine functionality. For more information, see [Coroutines basics](https://kotlinlang.org/docs/coroutines-basics.html).  
+The following Kotlin code represents the **App** and the **MessageResource** classes. Notice that **App** uses the **@SpringBootApplication** annotation, while the **MessageResource** class uses the **@RestController** annotation. In addition, the Spring Controller uses **runBlocking**, which is part of Kotlin Coroutine functionality. For more information, see [Coroutines basics](https://kotlinlang.org/docs/coroutines-basics.html).
 
 ```java
 package com.example.sqs
@@ -250,7 +250,7 @@ open class App
 
 ### SendReceiveMessages class
 
-The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue. Amazon Comprehend is used in the following code example to detect the language code of the new message. 
+The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue. Amazon Comprehend is used in the following code example to detect the language code of the new message.
 
 ```java
 package com.example.sqs
@@ -376,9 +376,9 @@ class SendReceiveMessages {
 ## Run the application
 Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs:
 
-- /chat/msgs - A GET request that returns all messages in the queue. 
-- /chat/add - A POST request that adds a new message to the queue. 
-- /api/purge - A GET request that deletes messages from the queue. 
+- /chat/msgs - A GET request that returns all messages in the queue.
+- /chat/add - A POST request that adds a new message to the queue.
+- /api/purge - A GET request that deletes messages from the queue.
 
 **Note:** The React SPA that is created in a following section consumes all of the preceding URLs.
 
@@ -392,10 +392,10 @@ The following image shows the JSON data that is returned from the Spring REST AP
 
 ## Create the React front end
 
-Create the React SPA that consumes the JSON data returned from the 
-Spring REST API. To start, download files from the 
-following GitHub repository. Included in this repository are instructions 
-on how to set up the project. Click the following link to access the 
+Create the React SPA that consumes the JSON data returned from the
+Spring REST API. To start, download files from the
+following GitHub repository. Included in this repository are instructions
+on how to set up the project. Click the following link to access the
 GitHub location [sqs-chat web client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/resources/clients/react/elwing/src/plugins/sqs-chat/README.md).
 
 In the instructions for the React app, you'll see directions to replace the `BASE_URL` value.

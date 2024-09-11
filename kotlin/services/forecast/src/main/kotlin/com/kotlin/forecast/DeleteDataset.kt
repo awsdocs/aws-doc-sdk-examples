@@ -20,10 +20,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-        <dataSetARN>  
+        <dataSetARN>
 
     Where:
-        dataSetARN - The ARN of the data set to delete. 
+        dataSetARN - The ARN of the data set to delete.
        """
 
     if (args.size != 1) {

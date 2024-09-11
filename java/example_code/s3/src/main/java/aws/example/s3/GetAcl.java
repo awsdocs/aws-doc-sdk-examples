@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Retrieve the access control list of an existing S3 bucket.
- * 
+ *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */

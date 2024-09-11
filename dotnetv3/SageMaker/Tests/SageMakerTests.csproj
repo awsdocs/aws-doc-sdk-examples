@@ -22,7 +22,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-	
+
 	    	<ItemGroup>
 		<Content Include="testsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -31,7 +31,7 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<DependentUpon>testsettings.json</DependentUpon>
 		</Content>
-	</ItemGroup>	
+	</ItemGroup>
 
 	<ItemGroup>
 		<Content Include="testsettings.json">
@@ -41,7 +41,7 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<DependentUpon>testsettings.json</DependentUpon>
 		</Content>
-	</ItemGroup>	
+	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Scenarios\SageMakerScenario.csproj" />

@@ -23,7 +23,7 @@ public class GetPasswordData {
         final String usage = """
 
                 Usage:
-                   <instanceId> 
+                   <instanceId>
 
                 Where:
                    instanceId - An instance id value that you can obtain from the AWS Management Console.\s

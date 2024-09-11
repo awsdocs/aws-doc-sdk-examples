@@ -37,7 +37,7 @@ export const datasetExportJobParam = {
     s3DataDestination: {
         path: 'S3_DESTINATION_PATH' /* required */
         //kmsKeyArn: 'ARN'  /* include if your bucket uses AWS KMS for encryption
-    } 
+    }
   },
   jobName: 'NAME',/* required */
   roleArn: 'ROLE_ARN' /* required */

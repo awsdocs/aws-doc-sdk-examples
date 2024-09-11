@@ -376,7 +376,7 @@ async def chat_demo(uri):
                 await socket.send(json.dumps({"action": "sendmessage", "msg": msg}))
 
     await asyncio.gather(
-        *(receiver(user) for user in ("Bill", "Jeff", "Steve")), sender("DemoDude")
+        *(receiver(user) for user in ("Bill", "Je", "Steve")), sender("DemoDude")
     )
 
 

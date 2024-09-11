@@ -341,7 +341,7 @@ def usage_demo():
     print(f"Current alarm state is: {alarm.state_value}.")
 
     print(
-        f"Sending data to trigger the alarm. This requires data over the threshold "
+        "Sending data to trigger the alarm. This requires data over the threshold "
         f"for {eval_periods} periods of {period} seconds each."
     )
     while alarm.state_value == "INSUFFICIENT_DATA":

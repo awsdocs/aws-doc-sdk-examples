@@ -43,11 +43,11 @@ public class ServiceHandler {
         var groupList: [String] = []
         var marker: String? = nil
         var isTruncated: Bool
-        
+
         repeat {
             let input = ListGroupsInput(marker: marker)
             let output = try await client.listGroups(input: input)
-            
+
             guard let groups = output.groups else {
                 return groupList
             }

@@ -53,7 +53,7 @@ public class WorkdocsTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * WorkdocsTest.class.getClassLoader().getResourceAsStream("config.properties"))
          * {
@@ -62,7 +62,7 @@ public class WorkdocsTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * prop.load(input);
          * orgId = prop.getProperty("orgId");
          * userEmail = prop.getProperty("userEmail");
@@ -70,7 +70,7 @@ public class WorkdocsTest {
          * saveDocFullName = prop.getProperty("saveDocFullName");
          * docName = prop.getProperty("docName");
          * docPath = prop.getProperty("docPath");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

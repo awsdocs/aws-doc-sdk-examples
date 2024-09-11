@@ -24,8 +24,8 @@ suspend fun main(args: Array<String>) {
         <tableName> <key> <keyVal>
 
     Where:
-        tableName - The Amazon DynamoDB table from which an item is retrieved (for example, Music3). 
-        key - The key used in the Amazon DynamoDB table (for example, Artist). 
+        tableName - The Amazon DynamoDB table from which an item is retrieved (for example, Music3).
+        key - The key used in the Amazon DynamoDB table (for example, Artist).
         keyval - The key value that represents the item to get (for example, Famous Band).
     """
 

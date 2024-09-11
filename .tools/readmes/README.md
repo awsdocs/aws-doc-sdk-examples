@@ -61,7 +61,7 @@ This creates a README.md file in the `python/example_code/s3` folder.
 - `--dry-run`, `--no-dry-run` In dry run, compare current vs generated and exit with failure if they do not match.
 - `--check` Verifies whether the existing README.md matches the proposed new README.md
   (but does not write a new README.md). This is the same check that is run by the GitHub action.
- 
+
 You can get inline usage info by using the `-h` flag:
 
 ```

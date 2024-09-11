@@ -26,7 +26,7 @@ The application you create is a decoupled React application that uses a Spring R
 + Create an IntelliJ project
 + Add the POM dependencies to your project
 + Create the Java classes
-+ Run the application 
++ Run the application
 + Create the React front end
 
 ## Prerequisites
@@ -36,20 +36,20 @@ To complete the tutorial, you need the following:
 + An AWS account
 + A Java IDE (this tutorial uses the IntelliJ IDE)
 + Java JDK 17
-+ Maven 3.6 or later+ 
++ Maven 3.6 or later+
 
 ## Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to terminate all of the resources you create while going through this tutorial so that you won't be charged.
 
 ### Create the resources
 
-Create a FIFO queue named **Message.fifo**. For more information, see [Creating an Amazon SQS queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-create-queue.html). 
+Create a FIFO queue named **Message.fifo**. For more information, see [Creating an Amazon SQS queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-create-queue.html).
 
-Add some items to the *Message.fifo* queue in the AWS console. After creating the queue, select the queue, then select 
+Add some items to the *Message.fifo* queue in the AWS console. After creating the queue, select the queue, then select
 **Send and receive messages**. On the **Send and receive messages** page, enter sample data below,
 selecting **Send message** after data is entered for each row.
 
@@ -76,7 +76,7 @@ The following describes how the application handles a message:
 1. The message and user values are posted to a Spring REST endpoint.
 2. The Spring controller creates a custom **MessageData** object that stores the message ID value (a GUID), the message text, and the user.
 3. The Spring controller passes the **MessageData** object to a message service that uses the **software.amazon.awssdk.services.sqs.SqsClient** client object to store the data into a FIFO queue.
-4. The Spring REST endpoint invokes the message service’s **getMessages** method to read all of the messages in the queue. A list of **MessageData** objects is returned and displayed in the React application. 
+4. The Spring REST endpoint invokes the message service’s **getMessages** method to read all of the messages in the queue. A list of **MessageData** objects is returned and displayed in the React application.
 
 
 ## Create an IntelliJ project named AWSMessageRest
@@ -101,7 +101,7 @@ Create the following Java classes:
 + **MessageData** - Used as the model for this application.
 + **App** - Used as the base class for the Spring Boot application.
 + **MainController** - Used as the Spring Boot controller that handles HTTP requests.
-+ **SendReceiveMessages** - Uses the Amazon SQS API to process messages.  
++ **SendReceiveMessages** - Uses the Amazon SQS API to process messages.
 
 ### MessageData class
 
@@ -163,7 +163,7 @@ public class App {
 
 ### MainController class
 
-The following Java code represents the **MainController** class that handles HTTP requests. For example, when a new message is posted, the **addItems** method handles the request.  
+The following Java code represents the **MainController** class that handles HTTP requests. For example, when a new message is posted, the **addItems** method handles the request.
 
 ```java
   package com.example.sqs;
@@ -228,7 +228,7 @@ public class MainController {
 
 ### SendReceiveMessages class
 
-The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue. Amazon Comprehend is used in the following code example to detect the language code of the new message. 
+The following class uses the Amazon SQS API to send and retrieve messages. For example, the **getMessages** method retrieves a message from the queue. Likewise, the **processMessage** method sends a message to a queue. Amazon Comprehend is used in the following code example to detect the language code of the new message.
 
 ```java
 package com.example.sqs;
@@ -380,7 +380,7 @@ public class SendReceiveMessages {
 ```
 
 ## Run the application
-Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon (green arrow) in the App class. 
+Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon (green arrow) in the App class.
 
 **Note**: If you are already running a web server on port 8080, add a VM option
 to your IntellJ IDEA run configuration. For example, add `-Dserver.port=8082`, to
@@ -388,13 +388,13 @@ set Spring's embedded web server to listen on port 8082.
 
 The Spring API supports the following URLs:
 
-- /chat/msgs - A GET request that returns all messages in the queue. 
-- /chat/add - A POST request that adds a new message to the queue. 
-- /api/purge - A GET request that deletes messages from the queue. 
+- /chat/msgs - A GET request that returns all messages in the queue.
+- /chat/add - A POST request that adds a new message to the queue.
+- /api/purge - A GET request that deletes messages from the queue.
 
 Note: The React SPA that is created in the following section consumes all of these URLs.
 
-Confirm that the Spring REST API works by viewing the messages. 
+Confirm that the Spring REST API works by viewing the messages.
 Enter the following URL into a browser (change the port value as needed):
 
 http://localhost:8080/chat/msgs
@@ -405,10 +405,10 @@ The following image shows the JSON data returned from the Spring REST API.
 
 ## Create the React front end
 
-Create the React SPA that consumes the JSON data returned from the 
-Spring REST API. To start, download files from the 
-following GitHub repository. Included in this repository are instructions 
-on how to set up the project. Click the following link to access the 
+Create the React SPA that consumes the JSON data returned from the
+Spring REST API. To start, download files from the
+following GitHub repository. Included in this repository are instructions
+on how to set up the project. Click the following link to access the
 GitHub location [sqs-chat web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing).
 
 In the instructions for the React app, you'll see directions to replace the `BASE_URL` value located in **plugins\sqs-message\src\config.json**.
@@ -416,7 +416,7 @@ The React app uses the `BASE_URL` value to communicate with the Spring app.
 Be sure you use the same port you used to start the Spring app above. For example, use `http://localhost:8082/`
 for the `BASE_URL` value, if that is the port you used.
 
-Ensure that the **AwsService.js** file contains the following logic so that your React requests work with your Java backend. 
+Ensure that the **AwsService.js** file contains the following logic so that your React requests work with your Java backend.
 
 ```javascript
 

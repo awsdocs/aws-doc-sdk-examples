@@ -23,11 +23,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main(args: Array<String>) {
     val usage = """
-        Usage: 
+        Usage:
             <appId>
-    
+
         Where:
-            appId - The Amazon Pinpoint project/application ID to use. 
+            appId - The Amazon Pinpoint project/application ID to use.
        """
 
     if (args.size != 1) {

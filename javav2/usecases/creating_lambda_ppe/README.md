@@ -2,7 +2,7 @@
 
 ## Purpose
 
-You can create an AWS Lambda function that detects personal protective equipment (PPE) in images located in an Amazon Simple Storage Service (Amazon S3) bucket. For example, assume you run the Lambda function and you have this image in an Amazon S3 bucket. 
+You can create an AWS Lambda function that detects personal protective equipment (PPE) in images located in an Amazon Simple Storage Service (Amazon S3) bucket. For example, assume you run the Lambda function and you have this image in an Amazon S3 bucket.
 
 ![AWS Tracking Application](images/lam.png)
 
@@ -10,14 +10,14 @@ After you execute the Lambda function, it detects PPE information in the image u
 
 ![AWS Tracking Application](images/dynamodb.png)
 
-In addition, the Lambda function creates a list of all images with PPE and emails the list by using the Amazon Simple Email (Amazon SES) service, as shown in this illustration. 
+In addition, the Lambda function creates a list of all images with PPE and emails the list by using the Amazon Simple Email (Amazon SES) service, as shown in this illustration.
 
 ![AWS Tracking Application](images/email.png)
 
 As an Amazon Web Services API developer, you can create a Lambda function by using the AWS Lambda Java runtime API. Lambda is a compute service that enables you to run code without provisioning or managing servers. You can create Lambda functions in various programming languages. For more information about AWS Lambda, see
 [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
 
-This tutorial shows you how to use the AWS SDK for Java V2 API to invoke these AWS services: 
+This tutorial shows you how to use the AWS SDK for Java V2 API to invoke these AWS services:
 
 - Amazon S3 service
 - Amazon Rekognition service
@@ -44,13 +44,13 @@ To follow along with this tutorial, you need the following:
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 ### Creating the resources
 
-Create an Amazon S3 bucket with 5-7 PPE images. These images are read by the Lambda function. 
+Create an Amazon S3 bucket with 5-7 PPE images. These images are read by the Lambda function.
 
 Create an Amazon DynamoDB table named **Gear** with a key named **id**. For information, see [Create a table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.CreateTables.html).
 
@@ -61,7 +61,7 @@ Create the following IAM role:
 
 + **lambda-support** - Used to invoke Lamdba functions.
 
-This tutorial uses the Amazon Rekognition, DynamoDB, Amazon SES, and Amazon S3 services. The **lambda-support** role has to have policies that enable it to invoke these services.  
+This tutorial uses the Amazon Rekognition, DynamoDB, Amazon SES, and Amazon S3 services. The **lambda-support** role has to have policies that enable it to invoke these services.
 
 #### To create an IAM role
 
@@ -89,9 +89,9 @@ This tutorial uses the Amazon Rekognition, DynamoDB, Amazon SES, and Amazon S3 s
 
 12. Search for **AmazonRekognitionFullAccess**, and then choose **Attach policy**.
 
-13. Search for **AmazonS3FullAccess**, and then choose **Attach policy**. 
+13. Search for **AmazonS3FullAccess**, and then choose **Attach policy**.
 
-14. Search for **AmazonDynamoDBFullAccess**, and then choose **Attach policy**. 
+14. Search for **AmazonDynamoDBFullAccess**, and then choose **Attach policy**.
 
 15. Search for **AmazonSESFullAccess**, and then choose **Attach policy**. When you're done, you can see the permissions.
 
@@ -118,22 +118,22 @@ At this point, you have a new project named **WorkflowPPE**.
 ![AWS Tracking Application](images/project1.png)
 
 Make sure that your project's pom.xml file looks like the POM file in this Github repository.
-    
+
 ## Create a Lambda function by using the AWS Lambda runtime Java API
 
-Use the AWS Lambda runtime Java API to create the Java class that defines the Lamdba function. In this example, there is one Java class for the Lambda function named **PPEHandler** and additional classes required for this use case. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.example.ppe**. 
+Use the AWS Lambda runtime Java API to create the Java class that defines the Lamdba function. In this example, there is one Java class for the Lambda function named **PPEHandler** and additional classes required for this use case. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.example.ppe**.
 
 ![AWS Tracking Application](images/project2.png)
 
 Create these Java classes:
 
 + **AnalyzePhotos** - uses the Amazon Rekognition API to analyze the images and detect PPE images.
-+ **DynamoDBService** - uses the Amazon DynamoDB API to insert PPE records in the DynamoDB table. 
-+ **Gear** - defines a model that is used with the DynamoDB enhanced client. 
++ **DynamoDBService** - uses the Amazon DynamoDB API to insert PPE records in the DynamoDB table.
++ **Gear** - defines a model that is used with the DynamoDB enhanced client.
 + **GearItem** - defines a model that stores PPE information.
-+ **PPEHandler** - uses the Lambda Java run-time API and performs the use case described in this AWS tutorial. The executable application logic is in the **handleRequest** method. 
++ **PPEHandler** - uses the Lambda Java run-time API and performs the use case described in this AWS tutorial. The executable application logic is in the **handleRequest** method.
 + **S3Service** - uses the Amazon S3 API to perform S3 operations.
-+ **SendEmail** - uses the SES API to send email messages. 
++ **SendEmail** - uses the SES API to send email messages.
 
 
 ### AnalyzePhotos class
@@ -325,9 +325,9 @@ The **DynamoDBService** class uses the AWS SDK for Java V2 DynamoDB API to add a
       }
   ```
 
-### Gear class 
+### Gear class
 
-The **Gear** class is responsible for mapping an object to the Gear table using the enhanced client. Notice the use of the **@DynamoDbBean** annotation. 
+The **Gear** class is responsible for mapping an object to the Gear table using the enhanced client. Notice the use of the **@DynamoDbBean** annotation.
 
 ```java
        package com.example.ppe;
@@ -413,7 +413,7 @@ The **Gear** class is responsible for mapping an object to the Gear table using 
 
 ### GearItem class
 
-The **GearIten** class represents the model in this use case. Its stores data retrieved from the Amazon Rekognition service. 
+The **GearIten** class represents the model in this use case. Its stores data retrieved from the Amazon Rekognition service.
 
  ```java
     package com.example.ppe;
@@ -473,9 +473,9 @@ The **GearIten** class represents the model in this use case. Its stores data re
 
 ### PPEHandler class
 
-This Java code represents the **PPEHandler** class. This class reads a value that specifies which Amazon S3 bucket to read the images from. The **s3Service.ListBucketObjects** method returns a **List** object where each element is a string value that represents the object key. For each image in the bucket, the **s3Service.getObjectBytes** method returns a byte array. Then an **ArrayList** is obtained by calling the **photos.detectLabels** method. Finally the **ArrayList** object is added to another collection and the data that specifies PPE gear is persisted in a DynamoDB table and emailed to a user. 
+This Java code represents the **PPEHandler** class. This class reads a value that specifies which Amazon S3 bucket to read the images from. The **s3Service.ListBucketObjects** method returns a **List** object where each element is a string value that represents the object key. For each image in the bucket, the **s3Service.getObjectBytes** method returns a byte array. Then an **ArrayList** is obtained by calling the **photos.detectLabels** method. Finally the **ArrayList** object is added to another collection and the data that specifies PPE gear is persisted in a DynamoDB table and emailed to a user.
 
-The following Java code represents the **PPEHandler** class. 
+The following Java code represents the **PPEHandler** class.
 
 ```java
     package com.example.ppe;
@@ -633,9 +633,9 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
         }
       }
  ```
- 
+
  ### SendEmail class
-The following class uses the Amazon SES Java API to send email messages that specify which images contain PPE. 
+The following class uses the Amazon SES Java API to send email messages that specify which images contain PPE.
 
 ```java
     package com.example.ppe;
@@ -656,9 +656,9 @@ The following class uses the Amazon SES Java API to send email messages that spe
                 .region(region)
                 .build();
 
-        String sender = "<Enter the sender email address>"; 
-        String recipient = "<Enter the recipient email address>"; 
-        
+        String sender = "<Enter the sender email address>";
+        String recipient = "<Enter the recipient email address>";
+
         // Set the HTML body.
         String bodyHTML = "<html> <head></head> <body><p> The following images contains PPE gear " +
                     "<ol> ";
@@ -709,7 +709,7 @@ The following class uses the Amazon SES Java API to send email messages that spe
      }
 ```
 
-**Note**: Set email addresses for the **sender** and **recipient** variables. 
+**Note**: Set email addresses for the **sender** and **recipient** variables.
 
 ## Package the project that contains the Lambda functions
 
@@ -721,7 +721,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 ![AWS Tracking Application](images/jar.png)
 
-**Note**: Notice the use of the **maven-shade-plugin** in the project’s POM file. This plugin is responsible for creating a JAR that contains the required dependencies. If you attempt to package up the project without this plugin, the required dependencies are not included in the JAR file and you will encounter a **ClassNotFoundException**. 
+**Note**: Notice the use of the **maven-shade-plugin** in the project’s POM file. This plugin is responsible for creating a JAR that contains the required dependencies. If you attempt to package up the project without this plugin, the required dependencies are not included in the JAR file and you will encounter a **ClassNotFoundException**.
 
 ## Deploy the Lambda function
 
@@ -741,7 +741,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 8. For **Code entry type**, choose **Upload a .zip or .jar file**.
 
-9. Choose **Upload**, and then browse to the JAR file that you created.  
+9. Choose **Upload**, and then browse to the JAR file that you created.
 
 10. For **Handler**, enter the fully qualified name of the function, for example, **com.example.ppe.PPEHandler:handleRequest** (**com.example.ppe** specifies the package, **PPEHandler** is the class followed by :: and method name).
 
@@ -756,13 +756,13 @@ At this point in the tutorial, you can test the Lambda function. Click the **Tes
     "bucketName": "<Bucket name>"
      }
 
-**Note**: Be sure that you specify the name of the Amazon S3 bucket that contains the PPE images. 
+**Note**: Be sure that you specify the name of the Amazon S3 bucket that contains the PPE images.
 
-Choose the **Invoke** button. After the Lambda function is invoked, you see a successful message. 
+Choose the **Invoke** button. After the Lambda function is invoked, you see a successful message.
 
 ![AWS Tracking Application](images/lambda.png)
 
-**Note**: You may have to set a longer timeout period for the Lambda function. For information, see [Configuring functions in the console](https://docs.aws.amazon.com/lambda/latest/dg/configuration-console.html). 
+**Note**: You may have to set a longer timeout period for the Lambda function. For information, see [Configuring functions in the console](https://docs.aws.amazon.com/lambda/latest/dg/configuration-console.html).
 
 ### Next steps
 Congratulations, you have created an AWS Lambda function that detects PPE in images located in an Amazon S3 bucket. As stated at the beginning of this tutorial, be sure to terminate all of the resources you created while going through this tutorial to ensure that you’re not charged.

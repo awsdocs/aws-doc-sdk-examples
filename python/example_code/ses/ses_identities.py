@@ -177,7 +177,7 @@ def usage_demo():
         print(f"Identity verified for {email}.")
     except WaiterError:
         print(
-            f"Verification timeout exceeded. You must complete the "
+            "Verification timeout exceeded. You must complete the "
             f"steps in the email sent to {email} to verify the address."
         )
 

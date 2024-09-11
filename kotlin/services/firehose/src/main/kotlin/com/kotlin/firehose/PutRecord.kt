@@ -21,10 +21,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <textValue> <streamName> 
+            <textValue> <streamName>
         Where:
-            textValue - The text used as the data to write to the data stream. 
-            streamName - The data stream name. 
+            textValue - The text used as the data to write to the data stream.
+            streamName - The data stream name.
     """
 
     if (args.size != 2) {

@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/forecast/CreateDataSet.java
     services:
@@ -23,7 +23,7 @@ files:
       - forecast
   - path: src/main/java/com/example/forecast/ListForecasts.java
     services:
-      - forecast      
+      - forecast
   - path: src/test/java/ForecastTest.java
     services:
       - forecast

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.java.codeexample.StreamsLowLevelDemo] 
+// snippet-start:[dynamodb.java.codeexample.StreamsLowLevelDemo]
 
 package com.amazon.codesamples;
 

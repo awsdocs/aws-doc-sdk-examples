@@ -60,7 +60,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.*;
 
-//Analyzes videos using the Rekognition Video API 
+//Analyzes videos using the Rekognition Video API
 public class VideoDetect {
     // Change to your values
     private static String bucket = "";

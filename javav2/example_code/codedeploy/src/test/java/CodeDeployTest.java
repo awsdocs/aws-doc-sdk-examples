@@ -65,7 +65,7 @@ public class CodeDeployTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests.
          * prop.load(input);
          * appName = prop.getProperty("appName");
@@ -78,7 +78,7 @@ public class CodeDeployTest {
          * serviceRoleArn = prop.getProperty("serviceRoleArn");
          * tagKey = prop.getProperty("tagKey");
          * tagValue = prop.getProperty("tagValue");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

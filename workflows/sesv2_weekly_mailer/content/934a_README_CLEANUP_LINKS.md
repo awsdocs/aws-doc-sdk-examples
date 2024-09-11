@@ -9,7 +9,7 @@ debug:
 isolated: false
 prompt: >
   Create the remaining SES v2 Actions Used links for the Cleanup step. Use the
-  same format as the links 
+  same format as the links
 
 
   Current links:

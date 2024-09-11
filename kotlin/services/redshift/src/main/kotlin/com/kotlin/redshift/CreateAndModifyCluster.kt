@@ -32,8 +32,8 @@ suspend fun main(args: Array<String>) {
         <clusterId> <secretName>
 
     Where:
-        clusterId - The id of the cluster to create. 
-        secretName - The name of the AWS Secrets Manager secret that contains the database credentials. 
+        clusterId - The id of the cluster to create.
+        secretName - The name of the AWS Secrets Manager secret that contains the database credentials.
     """
 
     if (args.size != 2) {

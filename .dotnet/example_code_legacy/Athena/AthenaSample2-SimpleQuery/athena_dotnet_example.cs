@@ -52,7 +52,7 @@ namespace athena_api
                 List<Dictionary<String, String>> items = await getQueryExecution(client, qRes.QueryExecutionId);
                 foreach(var item in items)
                 {
-                    foreach(KeyValuePair<String, String> pair in item) 
+                    foreach(KeyValuePair<String, String> pair in item)
                     {
                         Console.WriteLine("Col: {0}", pair.Key);
                         Console.WriteLine("Val: {0}", pair.Value);
@@ -88,7 +88,7 @@ namespace athena_api
             } while(q.Status.State == "RUNNING" || q.Status.State == "QUEUED");
 
             Console.WriteLine("Data Scanned for {0}: {1} Bytes", id, q.Statistics.DataScannedInBytes);
-            
+
             /* Declare query results request object */
             GetQueryResultsRequest resReq = new GetQueryResultsRequest() {
                 QueryExecutionId = id,

@@ -50,7 +50,7 @@ This Kotlin example performs the following tasks:
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-        <fileAttachment> 
+        <fileAttachment>
     Where:
          fileAttachment - The file can be a simple saved .txt file to use as an email attachment.
     """

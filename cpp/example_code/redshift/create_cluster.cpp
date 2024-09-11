@@ -46,7 +46,7 @@ Aws::Redshift::Model::Cluster * CreateRedshiftCluster(
 
     if (!outcome.IsSuccess())
     {
-        std::cerr << "Error creating cluster. " << 
+        std::cerr << "Error creating cluster. " <<
             outcome.GetError().GetMessage() << std::endl;
         return NULL;
     }

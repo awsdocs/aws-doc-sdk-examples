@@ -45,7 +45,7 @@ public class FirehoseTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * FirehoseTest.class.getClassLoader().getResourceAsStream("config.properties"))
          * {
@@ -54,14 +54,14 @@ public class FirehoseTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests.
          * prop.load(input);
          * bucketARN = prop.getProperty("bucketARN");
          * roleARN = prop.getProperty("roleARN");
          * newStream = prop.getProperty("newStream")+java.util.UUID.randomUUID();
          * textValue = prop.getProperty("textValue");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

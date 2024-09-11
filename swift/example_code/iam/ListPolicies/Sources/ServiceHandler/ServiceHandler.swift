@@ -51,11 +51,11 @@ public class ServiceHandler {
         var policyList: [MyPolicyRecord] = []
         var marker: String? = nil
         var isTruncated: Bool
-        
+
         repeat {
             let input = ListPoliciesInput(marker: marker)
             let output = try await client.listPolicies(input: input)
-            
+
             guard let policies = output.policies else {
                 return policyList
             }

@@ -8,8 +8,8 @@ This README discusses how to run and test the Java code examples for Amazon Guar
 
 The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information,
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 
 ## Testing the Amazon GuardDuty Java files
@@ -27,7 +27,7 @@ Before running the Amazon GuardDuty JUnit tests, you must define values in the *
 
 Define these values to successfully run the JUnit tests:
 
-- **detectorId** - The detector ID value.   
+- **detectorId** - The detector ID value.
 - **findingId** - The finding ID value.
 
 ### Command line

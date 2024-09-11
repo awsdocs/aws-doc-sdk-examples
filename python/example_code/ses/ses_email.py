@@ -173,10 +173,9 @@ def usage_demo():
     if not verified:
         answer = input(
             f"The address '{email}' is not verified with Amazon SES. Unless your "
-            f"Amazon SES account is out of sandbox, you can send mail only from "
-            f"and to verified accounts. Do you want to verify this account for use "
-            f"with Amazon SES? If yes, the address will receive a verification "
-            f"email (y/n): "
+            "Amazon SES account is out of sandbox, you can send mail only from "
+            "with Amazon SES? If yes, the address will receive a verification "
+            "email (y/n): "
         )
         if answer.lower() == "y":
             ses_identity.verify_email_identity(email)
@@ -188,7 +187,7 @@ def usage_demo():
                 verified = True
             except WaiterError:
                 print(
-                    f"Verification timeout exceeded. You must complete the "
+                    "Verification timeout exceeded. You must complete the "
                     f"steps in the email sent to {email} to verify the address."
                 )
 

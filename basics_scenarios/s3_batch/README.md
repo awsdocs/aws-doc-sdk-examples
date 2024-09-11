@@ -4,7 +4,7 @@
 This scenario demonstrates how to use the AWS SDK to interact with Amazon Simple Storage Service (S3) using AWS Batch. The scenario covers various operations such as creating a batch job, modifying the job, and adding additional tags to the job.
 
 ## Setting up Resources
-To successfully run this basic scenario, the program requires an IAM (Identity and Access Management) role. However, the program creates the IAM role by using an AWS CloudFormation template. 
+To successfully run this basic scenario, the program requires an IAM (Identity and Access Management) role. However, the program creates the IAM role by using an AWS CloudFormation template.
 
 ## Service Operations Invoked
 The program performs the following tasks:
@@ -23,7 +23,7 @@ The program performs the following tasks:
 
 5. **List Batch Jobs**:
    - Amazon S3 Batch Operation: `listJobs`
- 
+
 6.  **Update an existing S3 Batch Operations job's priority**:
    - Amazon S3 Batch Operation: `updateJobPriority`
 

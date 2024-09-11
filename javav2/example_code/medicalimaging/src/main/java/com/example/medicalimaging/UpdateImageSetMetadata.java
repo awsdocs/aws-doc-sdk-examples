@@ -129,7 +129,7 @@ public class UpdateImageSetMetadata {
                               }
                             }
                           }
-                        }      
+                        }
                         """;
                 MetadataUpdates metadataRemoveUpdates = MetadataUpdates.builder()
                         .dicomUpdates(DICOMUpdates.builder()

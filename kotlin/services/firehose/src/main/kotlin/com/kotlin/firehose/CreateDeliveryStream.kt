@@ -21,14 +21,14 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main(args: Array<String>) {
     val usage = """
-    
+
     Usage:
-        <bucketARN> <roleARN> <streamName> 
+        <bucketARN> <roleARN> <streamName>
 
     Where:
-        bucketARN - The ARN of the Amazon S3 bucket where the data stream is written. 
-        roleARN - The ARN of the IAM role that has the permissions that Kinesis Data Firehose needs. 
-        streamName - The name of the delivery stream. 
+        bucketARN - The ARN of the Amazon S3 bucket where the data stream is written.
+        roleARN - The ARN of the IAM role that has the permissions that Kinesis Data Firehose needs.
+        streamName - The name of the delivery stream.
     """
 
     if (args.size != 3) {

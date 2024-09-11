@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.TempCredExplicitSessionStartTest]
 using Amazon;
@@ -28,7 +28,7 @@ namespace Amazon.DocSamples.S3
         {
             try
             {
-                // Credentials use the default AWS SDK for .NET credential search chain. 
+                // Credentials use the default AWS SDK for .NET credential search chain.
                 // On local development machines, this is your default profile.
                 Console.WriteLine("Listing objects stored in a bucket");
                 SessionAWSCredentials tempCredentials = await GetTemporaryCredentialsAsync();

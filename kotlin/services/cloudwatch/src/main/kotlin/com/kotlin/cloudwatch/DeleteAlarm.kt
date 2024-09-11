@@ -20,7 +20,7 @@ suspend fun main(args: Array<String>) {
     val usage = """
 
     Usage:
-        <alarmName>  
+        <alarmName>
 
     Where:
         alarmName - An alarm name to delete.

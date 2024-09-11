@@ -131,9 +131,9 @@ The Storage Bucket has a notification configuration when objects are PUT to call
 ### ⚙️ DynamoDB
 
 This stack consists of a single DynamoDB table containing the labels detected by Amazon Rekognition. This table has a simple primary key with an attribute `Label` of type `S`.
-	
+
 This table is technically named `{NAME}-PAM-PamTablesLabelsTable{RANDOM}` but will be referred to in this document as `LabelsTable`.
- 
+
 | Table                                     | Key      | Use                                                                    |
 | ----------------------------------------- | -------- | ---------------------------------------------------------------------- |
 | `{NAME}-PAM-PamTablesLabelsTable{RANDOM}` | Label: S | Track the detected labels and each label's image count and image list. |
@@ -172,7 +172,7 @@ This Lambda will be triggered by uploads to the Storage Bucket.
 
 1. Run Amazon Rekognition’s `detectLabels` on each incoming object.
 2. If Amazon Rekognition’s `detectLabels` succeeds, update `LabelsTable`. For each Label key, add the image object key to the list in the Images column and increment the Count column. These must be atomic operations. If the enhanced DynamoDB client supports atomic counter fields, use them. Otherwise, the request can use update expressions to atomically update Count and Images.
-   
+
 > UpdateExpression: ` ADD Count :one, Images :im``g
  `ExpressionAttributeValues: `":one": AttributeValue::N(1), ":img": AttributeValue::S({object_key})`
 
@@ -195,10 +195,10 @@ WARNING: Presigned URLs are often longer than email client limits, and email cli
 # README
 
 Each implementation will include a README describing the language-specific details. While it should follow the [cross service README template](https://github.com/awsdocs/aws-doc-sdk-examples/wiki/single-cross-service-level-README-template), the content is left to the language writer in the best style for their language.
-  
+
 ## Suggested Title
 > Create a photo asset management application with the AWS SDK for \<language\> (\<version\>)
-  
+
 ### Suggested Overview
 > The Photo Asset Management (PAM) example app uses Amazon Rekognition to categorize images, which are stored with Amazon S3 Intelligent-Tiering for cost savings. Users can upload new images. Those images are analyzed with label detection and the labels are stored in an Amazon DynamoDB table. Users can later request a bundle of images matching those labels. When images are requested, they are retrieved from Amazon S3, zipped, and the user is sent a link to the zip.
 

@@ -37,7 +37,7 @@ func main() {
 
     svc := polly.New(sess)
     // snippet-end:[polly.go.describe_voices.session]
-    
+
     resp, err := GetVoices(svc)
     if err != nil {
         fmt.Println("Got error calling DescribeVoices:")

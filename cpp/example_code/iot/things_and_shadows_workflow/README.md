@@ -1,5 +1,5 @@
 ## AWS IoT Things and Shadows Workflow
-This example demonstrates various interactions with the AWS Internet of things (IoT) Core service using the AWS SDK. 
+This example demonstrates various interactions with the AWS Internet of things (IoT) Core service using the AWS SDK.
 The program guides you through a series of steps, showcasing AWS IoT capabilities and providing a comprehensive example for developers.
 
 
@@ -48,8 +48,8 @@ For CMake installation instructions, go to the following link [Get the Software]
 
 For AWS SDK for C++ installation instructions, go to the following link [Get started with the AWS SDK for C++](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html).
 
-*Note: you can speed up the SDK build by only building the libraries needed by this scenario. To do this, pass the 
-following argument to CMake.* 
+*Note: you can speed up the SDK build by only building the libraries needed by this scenario. To do this, pass the
+following argument to CMake.*
 
 `-DBUILD_ONLY="cloudformation;iot;iot-data"`
 

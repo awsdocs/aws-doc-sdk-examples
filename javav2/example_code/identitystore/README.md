@@ -4,15 +4,15 @@
 This README discusses how to run and test the AWS SDK for Java (v2) code examples for AWS IdentityStore.
 
 ## ⚠️ Important
-* Running this code might result in charges to your AWS account. 
-*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* Running this code might result in charges to your AWS account.
+*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 
 This is a Maven application using [AWS Java SDK 2.x](https://github.com/aws/aws-sdk-java-v2) dependencies.
 
 It builds on the basics described in [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 ## Code examples
-The following code examples use the **IdentitystoreClient** object. 
+The following code examples use the **IdentitystoreClient** object.
 
 - [Creating a Identitystore group](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/identitystore/src/main/java/com/example/identitystore/CreateGroup.java)
     `mvn exec:java -Dexec.mainClass="com.example.identitystore.CreateGroup" -Dexec.args=IDENTITY_STORE_ID GROUP_NAME DESCRIPTION`
@@ -37,7 +37,7 @@ The following code examples use the **IdentitystoreClient** object.
 
 - [Describe group membership id](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/identitystore/src/main/java/com/example/identitystore/DescribeGroupMembership.java)
     `mvn exec:java -Dexec.mainClass="com.example.identitystore.DescribeGroupMembership" -Dexec.args=IDENTITY_STORE_ID MEMBERSHIP_ID`
-    
+
 - [Describe user](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/identitystore/src/main/java/com/example/identitystore/DescribeUser.java)
     `mvn exec:java -Dexec.mainClass="com.example.identitystore.DescribeUser" -Dexec.args=IDENTITY_STORE_ID USER_ID`
 
@@ -72,12 +72,12 @@ The following code examples use the **IdentitystoreClient** object.
     `mvn exec:java -Dexec.mainClass="com.example.identitystore.UpdateUser" -Dexec.args=IDENTITY_STORE_ID USER_ID USER_ATTRIBUTE_NAME USER_ATTRIBUTE_VALUE`
 
 Note: Replace the arguments with your unique values
-               
 
-## Running the IdentityStore code examples for the SDK for Java (v2)   
 
-To run these examples, set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
+## Running the IdentityStore code examples for the SDK for Java (v2)
+
+To run these examples, set up your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information,
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a user. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
 
@@ -96,10 +96,10 @@ Before running the Identitystore JUnit tests, you must define values in the **co
 
 Define these values to successfully run the JUnit tests:
 
-- **identitystoreId** 	- Identitystore ID.  
-- **groupName** 		- A group name that is used to create a group.  
-- **groupDesc** 		- A group description that is used to create a group.  
-- **userName**  		- A user name that is used to create a user. 
+- **identitystoreId** 	- Identitystore ID.
+- **groupName** 		- A group name that is used to create a group.
+- **groupDesc** 		- A group description that is used to create a group.
+- **userName**  		- A user name that is used to create a user.
 - **givenName**			- The first name of the user that is used to create a user.
 - **familyName**		- The last name os the user that is used to create a user.
 

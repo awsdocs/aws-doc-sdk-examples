@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/glacier/ArchiveDownload.java
     services:
@@ -24,4 +24,4 @@ files:
   - path: src/test/java/GlacierTest.java
     services:
       - glacier
-   
+

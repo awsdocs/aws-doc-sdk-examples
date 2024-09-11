@@ -20,11 +20,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main(args: Array<String>) {
     val usage = """
-        Usage: 
-            <sourceImage> 
+        Usage:
+            <sourceImage>
 
         Where:
-           sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png). 
+           sourceImage - The name of the image in an Amazon S3 bucket (for example, people.png).
     """
 
     if (args.size != 1) {

@@ -6,7 +6,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript v
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-getPersonalizedRanking.js demonstrates how to get ranked recommendations from a campaign created in a 
+getPersonalizedRanking.js demonstrates how to get ranked recommendations from a campaign created in a
 custom dataset group with Amazon Personalize.
 For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetPersonalizedRanking.html.
 

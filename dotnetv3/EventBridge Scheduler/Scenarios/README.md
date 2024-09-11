@@ -12,15 +12,15 @@ This workflow demonstrates the following steps and tasks:
 1. **Prepare the Application**
 
    - Prompts the user for an email address to use for the subscription for the SNS topic.
-   - Prompts the user for a name for the Cloud Formation stack. 
+   - Prompts the user for a name for the Cloud Formation stack.
      - The user must confirm the email subscription to receive event emails.
-   - Deploys the Cloud Formation template in resources/cfn_template.yaml for resource creation. 
+   - Deploys the Cloud Formation template in resources/cfn_template.yaml for resource creation.
      - Stores the outputs of the stack into variables for use in the workflow.
    - Creates a schedule group for all workflow schedules.
 
 2. **Create a one-time Schedule**
 
-   - Creates a one-time schedule to send an initial event. 
+   - Creates a one-time schedule to send an initial event.
      - Prompts the user for a name for the one-time schedule.
      - The user must confirm the email subscription to receive an event email.
      - The content of the email should include the name of the newly created schedule.

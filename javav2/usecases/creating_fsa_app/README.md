@@ -50,20 +50,20 @@ To complete the tutorial, you need the following:
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to delete all of the resources you create while going through this tutorial so that you won't be charged.
 + Also make sure to properly set up your development environment. For information, see [Setting up the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
 ### Resource creation
 
-The required AWS resources are created by using an AWS Cloud Development Kit (AWS CDK) script. This is discussed later in the document. There is no need to create any resources by using the AWS Management Console. 
+The required AWS resources are created by using an AWS Cloud Development Kit (AWS CDK) script. This is discussed later in the document. There is no need to create any resources by using the AWS Management Console.
 
 ## Understand the Feedback Sentiment Analyzer application
 
 The front end of the FSA application is a React application that uses the [Cloudscape Design System](https://cloudscape.design/). The application supports uploading images that contain text to an S3 bucket. The text represents comments made by a customer in various languages, such as French.
 
-After a user authenticates by using Amazon Cognito, the application displays all uploaded images, the translated text, and a button that lets the user hear the audio (which was created by using Amazon Polly). 
+After a user authenticates by using Amazon Cognito, the application displays all uploaded images, the translated text, and a button that lets the user hear the audio (which was created by using Amazon Polly).
 
 ![AWS Photo Analyzer](images/app.png)
 
@@ -73,35 +73,35 @@ After an image is uploaded into the storage bucket, an EventBridge rule is trigg
 
 ![AWS Photo Analyzer](images/workflow.png)
 
-The following descibes each step in the workflow. 
+The following descibes each step in the workflow.
 
-- **ExtractText** - Extracts text from the image. The text can be in another language such as French. 
+- **ExtractText** - Extracts text from the image. The text can be in another language such as French.
 - **AnalyzeSentiment** - Retrieves the sentiment of the text. For example, it can determine if the text is positive or negative.
 - **ContinueIfPositive** - Routes the workflow based on the sentiment value. If the value is positive, the the next step is TranslateText.
 - **TranslateText** - Translates the text into English.
 - **SynthesizeAudio** - Converts the English text into an MP3 audio file and places the audio file into an S3 bucket.
 - **PutPositiveComment** - Places the data into an Amazon DynamoDB table.
 
-**Note**: The client React application does not display any data until the workflow successfully completes and data is stored in the S3 bucket and DynamoDB table. 
+**Note**: The client React application does not display any data until the workflow successfully completes and data is stored in the S3 bucket and DynamoDB table.
 
-The following illustration shows the Amazon DynamoDB table storing the values. 
+The following illustration shows the Amazon DynamoDB table storing the values.
 
 ![AWS Photo Analyzer](images/dbtable.png)
 
-**Note**: This DynamoDB table is created when you run the AWS CDK script to set up the resources. This is discussed later in this document. 	
+**Note**: This DynamoDB table is created when you run the AWS CDK script to set up the resources. This is discussed later in this document.
 
-### Understand the AWS resources used by the FSA application 	
+### Understand the AWS resources used by the FSA application
 
-This section describes the AWS resources that the FSA application uses. You do not have to manually deploy any of these AWS resources, such as the AWS Lambda functions, by using the AWS Management Console. Instead, you can deploy all of them by running a provided AWS CDK script. Instructions on how to deploy these AWS resources are provided later in this document. 
+This section describes the AWS resources that the FSA application uses. You do not have to manually deploy any of these AWS resources, such as the AWS Lambda functions, by using the AWS Management Console. Instead, you can deploy all of them by running a provided AWS CDK script. Instructions on how to deploy these AWS resources are provided later in this document.
 
 #### AWS Lambda functions
 
 The backend of the FSA application is implemented by using these AWS Lambda functions created by using the AWS SDK for Java (v2):
 
-- **ExtractText** 
-- **AnalyzeSentiment** 
+- **ExtractText**
+- **AnalyzeSentiment**
 - **TranslateText**
-- **SynthesizeAudio** 
+- **SynthesizeAudio**
 
 **Note**: These AWS Lambda names are short names. The full names that appear in the AWS Management Console depend on how you configure the provided AWS CDK script. Full names appear as {NAME}{Function Name}. For example, **fsa-user-java-SynthesizeAudio134971D4-x8Q5178Y4ZBH**.
 
@@ -126,14 +126,14 @@ Create a Java package in the **main/java** folder named **com.example.fsa**. The
 
 Create these Java classes in the **com.example.fsa.handlers** package. These Java classes use the AWS Lambda Java runtime API to build the AWS Lambda functions described earlier in this document. Each class represents a handler for a separate AWS Lambda function. For more information about the AWS Lambda Java runtime API, see [AWS Lambda function handler in Java](https://docs.aws.amazon.com/lambda/latest/dg/java-handler.html).
 
-+ **AnalyzeSentimentHandler** - The handler for the **AnalyzeSentiment** Lambda function. 
++ **AnalyzeSentimentHandler** - The handler for the **AnalyzeSentiment** Lambda function.
 + **ExtractTextHandler** - The handler for the **ExtractText** Lambda function.
-+ **SynthesizeAudioHandler** - The handler for the **fnSynthesizeAudio** Lambda function. 
-+ **TranslateTextHandler** - The handler for the **TranslateText** Lambda function. 
++ **SynthesizeAudioHandler** - The handler for the **fnSynthesizeAudio** Lambda function.
++ **TranslateTextHandler** - The handler for the **TranslateText** Lambda function.
 
 #### AnalyzeSentimentHandler class
 
-The following is the **AnalyzeSentimentHandler** class. 
+The following is the **AnalyzeSentimentHandler** class.
 
 ```java
 package com.example.fsa.handlers;
@@ -161,7 +161,7 @@ public class AnalyzeSentimentHandler implements RequestHandler<Map<String, Objec
 
 #### ExtractTextHandler class
 
-The following Java code represents the **S3Handler** class. 
+The following Java code represents the **S3Handler** class.
 
 ```java
 package com.example.fsa.handlers;
@@ -191,7 +191,7 @@ public class ExtractTextHandler implements RequestHandler<Map<String, Object>, S
 
 #### SynthesizeAudioHandler class
 
-The following Java code represents the **SynthesizeAudioHandler** class. 
+The following Java code represents the **SynthesizeAudioHandler** class.
 
 ```java
 package com.example.fsa.handlers;
@@ -229,7 +229,7 @@ public class SynthesizeAudioHandler implements RequestHandler<Map<String, Object
 
 #### TranslateTextHandler class
 
-The following Java code represents the **TranslateTextHandler** class. 
+The following Java code represents the **TranslateTextHandler** class.
 
 ```java
 package com.example.fsa.handlers;
@@ -259,17 +259,17 @@ public class TranslateTextHandler implements RequestHandler<Map<String, Object>,
 
 ### Services package
 
-Create these Java classes in the **com.example.fsa.services** package. These Java classes use the AWS SDK for Java (v2) asynchronous service clients to perform various AWS operations. For example, the **TextractAsyncClient** class translates the given text into English.  
+Create these Java classes in the **com.example.fsa.services** package. These Java classes use the AWS SDK for Java (v2) asynchronous service clients to perform various AWS operations. For example, the **TextractAsyncClient** class translates the given text into English.
 
-+ **DetectSentimentService** - Uses the **ComprehendAsyncClient** to detect the sentimant of text.   
-+ **ExtractTextService** - Uses the **TextractAsyncClient** to extract text from an image located in an S3 bucket.  
++ **DetectSentimentService** - Uses the **ComprehendAsyncClient** to detect the sentimant of text.
++ **ExtractTextService** - Uses the **TextractAsyncClient** to extract text from an image located in an S3 bucket.
 + **PollyService** -  Uses the **PollyAsyncClient** to convert text into an MP3 audio file.
 + **S3Service** - Uses the **S3TransferManager** to place an audio file into an S3 bucket.
-+ **TranslateService** - Uses the **TranslateAsyncClient** to translate text into English. 
++ **TranslateService** - Uses the **TranslateAsyncClient** to translate text into English.
 
  #### DetectSentimentService class
 
- The following Java code represents the **DetectSentimentService** class. 
+ The following Java code represents the **DetectSentimentService** class.
 
 ```java
 package com.example.fsa.services;
@@ -351,7 +351,7 @@ public class DetectSentimentService {
 
 #### ExtractTextService class
 
-The following Java code represents the **ExtractTextService** class. 
+The following Java code represents the **ExtractTextService** class.
 
 ```java
  package com.example.fsa.services;
@@ -429,7 +429,7 @@ public class ExtractTextService {
 
  The following Java code represents the **PollyService** class. This code performs the following tasks:
 
-+ It starts by creating a **DescribeVoicesRequest** object, which is used to request information about available voices for speech synthesis. 
++ It starts by creating a **DescribeVoicesRequest** object, which is used to request information about available voices for speech synthesis.
 
 + It then initiates an asynchronous request to the Polly service to describe available voices using the **PollyAsyncClient** object's **describeVoices** method. This returns a **CompletableFuture<?>** called future.
 
@@ -437,7 +437,7 @@ public class ExtractTextService {
 
 + After the request is complete, it casts the result to a **DescribeVoicesResponse** object called describeVoicesResult.
 
-+ The code then filters the list of available voices to find a voice named **Joanna** using Java streams. 
++ The code then filters the list of available voices to find a voice named **Joanna** using Java streams.
 
 + Once it has found the desired voice (in this case, "Joanna"), it constructs a **SynthesizeSpeechRequest** object. This request is used to synthesize speech from the input text. It specifies the input text, output format (MP3), and the voice to be used (based on the previously found "Joanna").
 
@@ -512,7 +512,7 @@ public class PollyService {
 
 #### S3Service class
 
-The following Java code represents the **S3Service** class. This example uses the [Amazon S3 Transfer Manager API](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#upload(software.amazon.awssdk.transfer.s3.model.UploadRequest)) to upload a .mp3 file to an S3 bucket. This code performs the following tasks: 
+The following Java code represents the **S3Service** class. This example uses the [Amazon S3 Transfer Manager API](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#upload(software.amazon.awssdk.transfer.s3.model.UploadRequest)) to upload a .mp3 file to an S3 bucket. This code performs the following tasks:
 
 + It configures the **S3TransferManager** instance by specifying the S3 client to use, which is obtained from the **getS3AsyncClient()** method.
 
@@ -556,7 +556,7 @@ public class S3Service {
                 .build();
 
             // 'null' indicates a stream will be provided later.
-            BlockingInputStreamAsyncRequestBody body = AsyncRequestBody.forBlockingInputStream(null); 
+            BlockingInputStreamAsyncRequestBody body = AsyncRequestBody.forBlockingInputStream(null);
             Upload upload = transferManager.upload(builder -> builder
                 .requestBody(body)
                 .putObjectRequest(req -> req.bucket(bucketName).key(key))
@@ -627,12 +627,12 @@ public class TranslateService {
 
 ## Deploy the AWS resources
 
-At this point, you have completed all of the application Java business logic required for the FSA application to work. Now you need to deploy the AWS resources, including the AWS Lambda functions and API Gateway endpoints. 
+At this point, you have completed all of the application Java business logic required for the FSA application to work. Now you need to deploy the AWS resources, including the AWS Lambda functions and API Gateway endpoints.
 
-Instead of deploying all of the resources manually by using the AWS Management Console, you can use a provided AWS CDK script. The script makes it more efficient to deploy the resources. 
+Instead of deploying all of the resources manually by using the AWS Management Console, you can use a provided AWS CDK script. The script makes it more efficient to deploy the resources.
 
 **Note**: For information about the AWS CDK, see [What is the AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html).
-		
+
 For complete instuctions on how to run the supplied AWS CDK script, see [Feedback Sentiment Analyzer (FSA)](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/applications/feedback_sentiment_analyzer/README.md).
 
 ### Check permissions for the Lambda roles
@@ -655,7 +655,7 @@ Check the Lambda configuration options and if desired you can modify values such
 
 ### Run the application
 
-After you run the AWS CDK script, you can run the client application by using the Amazon Cloudfront distribution URL as specified in the supplied AWS CDK instructions. After you upload an image using the React client, a workflow is invoked and you can view its progress using AWS Step Functions. When it successfully completes, each step is green, you will see a .mp3 file in the S3 bucket, and you will see a new record in the Amazon DynamoDB table. 
+After you run the AWS CDK script, you can run the client application by using the Amazon Cloudfront distribution URL as specified in the supplied AWS CDK instructions. After you upload an image using the React client, a workflow is invoked and you can view its progress using AWS Step Functions. When it successfully completes, each step is green, you will see a .mp3 file in the S3 bucket, and you will see a new record in the Amazon DynamoDB table.
 
 ### Next steps
 Congratulations! You have created and deployed the FSA application. As stated at the beginning of this tutorial, delete all of the resources by following the AWS CDK instructions so that you won't continue to be charged for them.

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.dotNET.CodeExample.00_Main] 
+// snippet-start:[dynamodb.dotNET.CodeExample.00_Main]
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -28,7 +28,7 @@ namespace DynamoDB_intro
         public static CancellationToken Token = Source.Token;
         public static readonly int year = 2018;
         public static readonly string title = "The Big New Movie";
-        
+
         public static void Main()
         {
             bool response;
@@ -70,7 +70,7 @@ namespace DynamoDB_intro
                     return;
                 }
             }
-            
+
             //  2.  Create a table for movie data asynchronously
             Console.WriteLine(StepString, step, "Create a table for movie data");
 
@@ -127,7 +127,7 @@ namespace DynamoDB_intro
                 ["info"] = Document.FromJson(
                     "{\"plot\" : \"Nothing happens at all.\",\"rating\" : 0}")
             };
-            
+
             Console.WriteLine(StepString, step, "Add a new movie to the Movies table");
 
             var writeNew = WritingNewMovie_async(newItemDocument);
@@ -214,7 +214,7 @@ namespace DynamoDB_intro
             };
 
             updateRequest.UpdateExpression = "SET info.rating = info.rating + :inc";
-            
+
             updateMovie = UpdatingMovie_async(updateRequest);
             if (!updateMovie.Result)
             {
@@ -232,7 +232,7 @@ namespace DynamoDB_intro
                                 "     ONLY ON THE CONDITION THAT the movie has more than 3 actors...");
             updateRequest.ExpressionAttributeValues.Add(":n", new AttributeValue { N = "3" });
             updateRequest.ConditionExpression = "size(info.actors) > :n";
-            
+
             updateMovie = UpdatingMovie_async(updateRequest);
             if (!updateMovie.Result)
             {
@@ -274,7 +274,7 @@ namespace DynamoDB_intro
                 Console.WriteLine("Could not delete movie, bye.");
                 return;
             }
-                
+
             pause();
             step++;
 
@@ -326,7 +326,7 @@ namespace DynamoDB_intro
             config.AttributesToGet = new List<string> { "year", "title", "info" };
             config.Select = SelectValues.SpecificAttributes;
             Console.WriteLine("     -- Creating the Search object based on the QueryOperationConfig");
-            
+
             try
             {
                 search = MoviesTable.Query(config);
@@ -356,7 +356,7 @@ namespace DynamoDB_intro
                     showMovieDocShort(doc);
                 }
             }
-            
+
             //  8c. Query using a QueryRequest
             Console.WriteLine(StepString, step + "c",
               "Query the Movies table for 1992 movies with titles from M... to Tzz...");
@@ -377,10 +377,10 @@ namespace DynamoDB_intro
                 KeyConditionExpression = "#yr = :qYr and title between :tSt and :tEn",
                 ProjectionExpression = "#yr, title, info.actors[0], info.genres, info.running_time_secs"
             };
-            
+
             Console.WriteLine("     -- Using a QueryRequest to get the lead actor and genres of\n" +
                                "        1992 movies with titles between 'M...' and 'Tzz...'.");
-            
+
             var clientQuery = ClientQuerying_async(qRequest);
             if (clientQuery.Result.Count < 1)
             {
@@ -408,7 +408,7 @@ namespace DynamoDB_intro
             {
                 Filter = filter
             };
-            
+
             Console.WriteLine("     -- Creating a Search object based on a ScanFilter");
 
             try
@@ -477,17 +477,17 @@ namespace DynamoDB_intro
             //  10.  Finally, delete the Movies table and all its contents
             Console.WriteLine(StepString, step,
               "Finally, delete the Movies table and all its contents");
-            
+
             var deletingTable = DeletingTable_async(MoviesTableName);
 
             if(!deletingTable.Result) Console.WriteLine("Could not delete the table.");
 
-            
+
             Console.WriteLine(
               "\n=================================================================================" +
               "\n            This concludes the DynamoDB Getting-Started demo program" +
               "\n=================================================================================");
-            
+
             pause();
         }
 

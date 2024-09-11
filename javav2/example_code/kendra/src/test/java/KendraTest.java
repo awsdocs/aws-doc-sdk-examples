@@ -56,7 +56,7 @@ public class KendraTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * KendraTest.class.getClassLoader().getResourceAsStream("config.properties")) {
          * Properties prop = new Properties();
@@ -64,10 +64,10 @@ public class KendraTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Load a properties file from the class path.
          * prop.load(input);
-         * 
+         *
          * // Populate the data members required for all tests.
          * indexName = prop.getProperty("indexName")+ java.util.UUID.randomUUID();
          * indexRoleArn = prop.getProperty("indexRoleArn");
@@ -77,7 +77,7 @@ public class KendraTest {
          * dataSourceDescription = prop.getProperty("dataSourceDescription");
          * dataSourceRoleArn = prop.getProperty("dataSourceRoleArn");
          * text = prop.getProperty("text");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

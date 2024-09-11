@@ -24,11 +24,11 @@ suspend fun main(args: Array<String>) {
         Usage:
             <ruleName> <cronExpression> <lambdaARN> <json> <targetId>
         Where:
-            ruleName - The name of the rule to create. 
-            cronExpression - The scheduling expression. For example, rate(5 minutes)   
-            lambdaARN - The ARN value of a Lambda function that is the target    
-            json  - The JSON to pass the Lambda function    
-            targetId - The ID of the target within the specified rule 
+            ruleName - The name of the rule to create.
+            cronExpression - The scheduling expression. For example, rate(5 minutes)
+            lambdaARN - The ARN value of a Lambda function that is the target
+            json  - The JSON to pass the Lambda function
+            targetId - The ID of the target within the specified rule
     """
 
     if (args.size != 5) {

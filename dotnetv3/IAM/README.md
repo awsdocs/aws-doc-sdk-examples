@@ -152,7 +152,7 @@ This example shows you how to do the following:
 
 #### Create a user and assume a role
 
-This example shows you how to create a user and assume a role. 
+This example shows you how to create a user and assume a role.
 
 - Create a user with no permissions.
 - Create a role that grants permission to list Amazon S3 buckets for the account.

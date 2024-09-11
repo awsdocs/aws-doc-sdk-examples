@@ -21,12 +21,12 @@ from pyspark.context import SparkContext
 
 """
 These custom arguments must be passed as Arguments to the StartJobRun request.
-    --input_database    The name of a metadata database that is contained in your 
-                        AWS Glue Data Catalog and that contains tables that describe 
+    --input_database    The name of a metadata database that is contained in your
+                        AWS Glue Data Catalog and that contains tables that describe
                         the data to be processed.
     --input_table       The name of a table in the database that describes the data to
                         be processed.
-    --output_bucket_url An S3 bucket that receives the transformed output data.  
+    --output_bucket_url An S3 bucket that receives the transformed output data.
 """
 args = getResolvedOptions(
     sys.argv, ["JOB_NAME", "input_database", "input_table", "output_bucket_url"]
@@ -61,7 +61,7 @@ ApplyMapping_node2 = ApplyMapping.apply(
         ("dest_city_name", "string", "dest_city_name", "string"),
         ("dest_state_abr", "string", "dest_state_abr", "string"),
         ("dep_time", "long", "departure_time", "long"),
-        ("wheels_off", "long", "wheels_off", "long"),
+        ("wheels_o", "long", "wheels_o", "long"),
         ("wheels_on", "long", "wheels_on", "long"),
         ("arr_time", "long", "arrival_time", "long"),
         ("mon", "string", "mon", "string"),

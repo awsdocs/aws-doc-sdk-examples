@@ -57,13 +57,13 @@ suspend fun main(args: Array<String>) {
         Usage:
             <domainType> <phoneNumber> <email> <domainSuggestion> <firstName> <lastName> <city>
         Where:
-           domainType - The domain type (for example, com). 
-           phoneNumber - The phone number to use (for example, +1.2065550100)      
-           email - The email address to use.      
-           domainSuggestion - The domain suggestion (for example, findmy.example). 
-           firstName - The first name to use to register a domain. 
-           lastName -  The last name to use to register a domain. 
-           city - The city to use to register a domain. 
+           domainType - The domain type (for example, com).
+           phoneNumber - The phone number to use (for example, +1.2065550100)
+           email - The email address to use.
+           domainSuggestion - The domain suggestion (for example, findmy.example).
+           firstName - The first name to use to register a domain.
+           lastName -  The last name to use to register a domain.
+           city - The city to use to register a domain.
     """
 
     if (args.size != 7) {

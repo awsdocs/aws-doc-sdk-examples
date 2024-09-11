@@ -12,7 +12,7 @@ specific language governing permissions and limitations under the License.
 
 # AWS CLI examples for BASH shell on Linux
 
-These are examples for the AWS Command Line Interface (CLI) public 
+These are examples for the AWS Command Line Interface (CLI) public
 documentation. All examples have been tested and verified to work with AWS CLI
 version 2. The testing platforms include Amazon Linux 2 and MacOS 10.14, both
 using a BASH shell.
@@ -28,11 +28,11 @@ To run these examples, you need:
 
 Examples are typically written as functions in shell script files that can be
 sourced from other files.  When you're done with an example, we do
-recommend that you check the resources in your account to ensure that the 
+recommend that you check the resources in your account to ensure that the
 teardown worked as expected and didn't accidentally leave any resources behind.
 
-To run the examples, you need to create a shared credentials file. For more 
-information about how to set up a shared credentials file, see [Configuration 
+To run the examples, you need to create a shared credentials file. For more
+information about how to set up a shared credentials file, see [Configuration
 and Credential File Settings](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
 in the _AWS CLI User Guide_.
 

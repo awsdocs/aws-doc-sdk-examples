@@ -48,7 +48,7 @@ public class QuickSightTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * QuickSightTest.class.getClassLoader().getResourceAsStream("config.properties"
          * )) {
@@ -64,7 +64,7 @@ public class QuickSightTest {
          * templateId = prop.getProperty("templateId");
          * dataSetArn = prop.getProperty("dataSetArn");
          * analysisArn = prop.getProperty("analysisArn");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

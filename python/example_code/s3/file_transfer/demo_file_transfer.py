@@ -81,7 +81,7 @@ class TransferDemoManager:
                 print(err)
                 print(
                     f"Either {self.demo_bucket} doesn't exist or you don't "
-                    f"have access to it."
+                    "have access to it."
                 )
                 self.demo_bucket = None
 

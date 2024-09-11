@@ -53,9 +53,9 @@ class SystemsManagerScenario:
                 """
 Welcome to the AWS Systems Manager SDK Getting Started scenario.
 This program demonstrates how to interact with Systems Manager using the AWS SDK for Python (Boto3).
-Systems Manager is the operations hub for your AWS applications and resources and a secure end-to-end management 
-solution. The program's primary functions include creating a maintenance window, creating a document, sending a 
-command to a document, listing documents, listing commands, creating an OpsItem, modifying an OpsItem, and deleting 
+Systems Manager is the operations hub for your AWS applications and resources and a secure end-to-end management
+solution. The program's primary functions include creating a maintenance window, creating a document, sending a
+command to a document, listing documents, listing commands, creating an OpsItem, modifying an OpsItem, and deleting
 Systems Manager resources. Upon completion of the program, all AWS resources are cleaned up.
 Let's get started..."""
             )
@@ -129,7 +129,7 @@ Let's get started..."""
 Now you have the option of running a command on an EC2 instance that echoes 'Hello, world!'.
 In order to run this command, you must provide the instance ID of a Linux EC2 instance. If you do
 not already have a running Linux EC2 instance in your account, you can create one using the AWS console.
-For information about creating an EC2 instance, see 
+For information about creating an EC2 instance, see
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-instance-wizard.html.
             """
             )

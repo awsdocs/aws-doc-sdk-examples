@@ -32,7 +32,7 @@ class CloudFrontWrapper:
                 print(f"Domain: {distribution['DomainName']}")
                 print(f"Distribution Id: {distribution['Id']}")
                 print(
-                    f"Certificate Source: "
+                    "Certificate Source: "
                     f"{distribution['ViewerCertificate']['CertificateSource']}"
                 )
                 if distribution["ViewerCertificate"]["CertificateSource"] == "acm":
@@ -61,7 +61,7 @@ class CloudFrontWrapper:
         distribution_config["Comment"] = input(
             f"\nThe current comment for distribution {distribution_id} is "
             f"'{distribution_config['Comment']}'.\n"
-            f"Enter a new comment: "
+            "Enter a new comment: "
         )
         self.cloudfront_client.update_distribution(
             DistributionConfig=distribution_config,

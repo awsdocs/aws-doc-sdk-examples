@@ -26,7 +26,7 @@ public class BatchReadItems {
         final String usage = """
 
                 Usage:
-                    <tableName> 
+                    <tableName>
 
                 Where:
                     tableName - The Amazon DynamoDB table (for example, Music).\s

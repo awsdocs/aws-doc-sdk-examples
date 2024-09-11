@@ -38,7 +38,7 @@ struct ExampleCommand: ParsableCommand {
             var table = TextTable(columns: [nameCol, idCol, arnCol])
 
             let policies = try await serviceHandler.listPolicies()
-            
+
             table.header = "Found \(policies.count) policies"
             for policy in policies {
                 table.addRow(values: [policy.name, policy.id, policy.arn])
@@ -68,7 +68,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[iam.swift.listpolicies.main]
 // snippet-end:[iam.swift.listpolicies.example]

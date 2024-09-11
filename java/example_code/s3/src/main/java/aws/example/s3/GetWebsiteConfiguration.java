@@ -12,7 +12,7 @@ import com.amazonaws.services.s3.model.BucketWebsiteConfiguration;
 
 /**
  * Get the website configuration for an S3 bucket.
- * 
+ *
  * This code expects that you have AWS credentials get up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/getup-credentials.html
  */

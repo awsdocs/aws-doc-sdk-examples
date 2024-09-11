@@ -46,7 +46,7 @@ cloudwatch-events_PutEvents:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cloudwatch-events
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
           excerpts:
             - description: Import the SDK and client modules and call the API.
@@ -57,7 +57,7 @@ cloudwatch-events_PutEvents:
                 - javascript.v3.cloudwatchevents.client
         - sdk_version: 2
           github: javascript/example_code/cloudwatch-events
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
           excerpts:
             - description:

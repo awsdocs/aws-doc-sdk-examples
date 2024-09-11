@@ -20,7 +20,7 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
     val usage = """
-        Usage: 
+        Usage:
             <queueName> <tagName>
         Where:
            queueUrl - The URL of the queue to which messages are sent.

@@ -77,7 +77,7 @@ def usage_demo():
 
     print(
         f"Waiting for job {job_info['JobId']} to complete. This typically takes "
-        f"20 - 30 minutes."
+        "20 - 30 minutes."
     )
     job_waiter = JobCompleteWaiter(topic_modeler.comprehend_client)
     job_waiter.wait(job_info["JobId"])
@@ -87,7 +87,7 @@ def usage_demo():
     pprint(job)
 
     print(
-        f"Getting job output data from the output Amazon S3 bucket: "
+        "Getting job output data from the output Amazon S3 bucket: "
         f"{job['OutputDataConfig']['S3Uri']}."
     )
     job_output = demo_resources.extract_job_output(job)

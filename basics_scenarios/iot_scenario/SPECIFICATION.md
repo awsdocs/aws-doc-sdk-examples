@@ -3,7 +3,7 @@
 ## Overview
 This example shows how to use AWS SDKs to perform device management use cases using the AWS Iot SDK.
 
-The AWS Iot API provides secure, bi-directional communication between Internet-connected devices (such as sensors, actuators, embedded devices, or smart appliances) and the Amazon Web Services cloud. This example shows some typical use cases such as creating things, creating certifications, applying the certifications to the IoT Thing and so on. 
+The AWS Iot API provides secure, bi-directional communication between Internet-connected devices (such as sensors, actuators, embedded devices, or smart appliances) and the Amazon Web Services cloud. This example shows some typical use cases such as creating things, creating certifications, applying the certifications to the IoT Thing and so on.
 
 ## Resources
 This program requires these AWS resources.
@@ -66,11 +66,11 @@ This scenario demonstrates the following key AWS IoT Service operations:
 13. **Delete an AWS IoT Thing**:
     - Use the `DeleteThing` API to delete an AWS IoT Thing.
 
- Note: We have buy off on these operations from IoT SME. 
+ Note: We have buy off on these operations from IoT SME.
 
 ### Program execution
 
-This scenario does have user interaction. The following shows the output of the program. 
+This scenario does have user interaction. The following shows the output of the program.
 
 ```
 --------------------------------------------------------------------------------

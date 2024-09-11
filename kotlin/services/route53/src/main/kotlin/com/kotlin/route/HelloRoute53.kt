@@ -20,10 +20,10 @@ import kotlin.system.exitProcess
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-           <domainType> 
+           <domainType>
 
        Where:
-           domainType - The domain type (for example, com). 
+           domainType - The domain type (for example, com).
     """
 
     if (args.size != 1) {

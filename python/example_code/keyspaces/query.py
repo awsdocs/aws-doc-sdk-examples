@@ -31,7 +31,7 @@ class QueryManager:
     """
 
     DEFAULT_CERT_FILE = "sf-class2-root.crt"
-    CERT_URL = f"https://certs.secureserver.net/repository/sf-class2-root.crt"
+    CERT_URL = "https://certs.secureserver.net/repository/sf-class2-root.crt"
 
     def __init__(self, cert_file_path, boto_session, keyspace_name):
         """

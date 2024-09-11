@@ -60,7 +60,7 @@ public class EC2Scenario {
 
         logger.info("""
             Usage:
-               <keyName> <fileName> <groupName> <groupDesc> 
+               <keyName> <fileName> <groupName> <groupDesc>
 
             Where:
                keyName -  A key pair name (for example, TestKeyPair).\s
@@ -81,23 +81,23 @@ public class EC2Scenario {
         String myIpAddress = localAddress.getHostAddress();
 
         logger.info("""
-            Amazon Elastic Compute Cloud (EC2) is a web service that provides secure, resizable compute 
-            capacity in the cloud. It allows developers and organizations to easily launch and manage 
+            Amazon Elastic Compute Cloud (EC2) is a web service that provides secure, resizable compute
+            capacity in the cloud. It allows developers and organizations to easily launch and manage
             virtual server instances, known as EC2 instances, to run their applications.
-                        
-            EC2 provides a wide range of instance types, each with different compute, memory, 
-            and storage capabilities, to meet the diverse needs of various workloads. Developers 
-            can choose the appropriate instance type based on their application's requirements, 
+
+            EC2 provides a wide range of instance types, each with different compute, memory,
+            and storage capabilities, to meet the diverse needs of various workloads. Developers
+            can choose the appropriate instance type based on their application's requirements,
             such as high-performance computing, memory-intensive tasks, or GPU-accelerated workloads.
-                        
-            The `Ec2AsyncClient` interface in the AWS SDK for Java 2.x provides a set of methods to 
-            programmatically interact with the Amazon EC2 service. This allows developers to 
-            automate the provisioning, management, and monitoring of EC2 instances as part of their 
-            application deployment pipelines. With EC2, teams can focus on building and deploying 
-            their applications without having to worry about the underlying infrastructure 
+
+            The `Ec2AsyncClient` interface in the AWS SDK for Java 2.x provides a set of methods to
+            programmatically interact with the Amazon EC2 service. This allows developers to
+            automate the provisioning, management, and monitoring of EC2 instances as part of their
+            application deployment pipelines. With EC2, teams can focus on building and deploying
+            their applications without having to worry about the underlying infrastructure
             required to host and manage physical servers.
-            
-            This scenario walks you through how to perform key operations for this service.  
+
+            This scenario walks you through how to perform key operations for this service.
             Let's get started...
             """);
 
@@ -107,8 +107,8 @@ public class EC2Scenario {
         logger.info(DASHES);
         logger.info("1. Create an RSA key pair and save the private key material as a .pem file.");
         logger.info("""
-            An RSA key pair for Amazon EC2 is a security mechanism used to authenticate and secure 
-            access to your EC2 instances. It consists of a public key and a private key, 
+            An RSA key pair for Amazon EC2 is a security mechanism used to authenticate and secure
+            access to your EC2 instances. It consists of a public key and a private key,
             which are generated as a pair.
             """);
         waitForInputToContinue(scanner);
@@ -162,9 +162,9 @@ public class EC2Scenario {
         logger.info(DASHES);
         logger.info("3. Create a security group.");
         logger.info("""
-            An AWS EC2 Security Group is a virtual firewall that controls the 
-            inbound and outbound traffic to an EC2 instance. It acts as a first line 
-            of defense for your EC2 instances, allowing you to specify the rules that 
+            An AWS EC2 Security Group is a virtual firewall that controls the
+            inbound and outbound traffic to an EC2 instance. It acts as a first line
+            of defense for your EC2 instances, allowing you to specify the rules that
             govern the network traffic entering and leaving your instances.
            """);
         waitForInputToContinue(scanner);
@@ -218,8 +218,8 @@ public class EC2Scenario {
         logger.info(DASHES);
         logger.info("5. Get a list of Amazon Linux 2 AMIs and select one with amzn2 in the name.");
         logger.info("""
-            An Amazon EC2 AMI (Amazon Machine Image) is a pre-configured virtual machine image that 
-            serves as a template for launching EC2 instances. It contains all the necessary software and 
+            An Amazon EC2 AMI (Amazon Machine Image) is a pre-configured virtual machine image that
+            serves as a template for launching EC2 instances. It contains all the necessary software and
             configurations required to run an application or operating system on an EC2 instance.
             """);
         waitForInputToContinue(scanner);
@@ -251,11 +251,11 @@ public class EC2Scenario {
         logger.info(DASHES);
         logger.info("6. Get the (Amazon Machine Image) AMI value from the amzn2 image.");
         logger.info("""
-           An AMI value represents a specific version of a virtual machine (VM) or server image.   
-           It uniquely identifies a particular version of an EC2 instance, including its operating system, 
-           pre-installed software, and any custom configurations. This allows you to consistently deploy the same 
+           An AMI value represents a specific version of a virtual machine (VM) or server image.
+           It uniquely identifies a particular version of an EC2 instance, including its operating system,
+           pre-installed software, and any custom configurations. This allows you to consistently deploy the same
            VM image across your infrastructure.
-                        
+
             """);
         waitForInputToContinue(scanner);
         String amiValue;
@@ -410,17 +410,17 @@ public class EC2Scenario {
         logger.info("12. Allocate an Elastic IP address and associate it with the instance.");
         logger.info("""
             An Elastic IP address is a static public IP address that you can associate with your EC2 instance.
-            This allows you to have a fixed, predictable IP address that remains the same even if your instance 
-            is stopped, terminated, or replaced. 
-            This is particularly useful for applications or services that need to be accessed consistently from a 
+            This allows you to have a fixed, predictable IP address that remains the same even if your instance
+            is stopped, terminated, or replaced.
+            This is particularly useful for applications or services that need to be accessed consistently from a
             known IP address.
-                        
+
             An EC2 Allocation ID (also known as a Reserved Instance Allocation ID) is a unique identifier associated with a Reserved Instance (RI) that you have purchased in AWS.
-                       
-            When you purchase a Reserved Instance, AWS assigns a unique Allocation ID to it. 
-            This Allocation ID is used to track and identify the specific RI you have purchased, 
+
+            When you purchase a Reserved Instance, AWS assigns a unique Allocation ID to it.
+            This Allocation ID is used to track and identify the specific RI you have purchased,
             and it is important for managing and monitoring your Reserved Instances.
-                        
+
             """);
 
         waitForInputToContinue(scanner);

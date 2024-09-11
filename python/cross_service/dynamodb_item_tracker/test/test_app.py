@@ -256,14 +256,14 @@ def test_report_small(mock_mgr, monkeypatch):
             mock_mgr.ses_stubber.stub_send_email,
             mock_mgr.sender,
             {"ToAddresses": [mock_mgr.recipient]},
-            f"Work items",
+            "Work items",
             ANY,
             ANY,
             "test-msg-id",
         )
 
     with mock_mgr.app.test_client() as client:
-        rte = f"/api/items:report"
+        rte = "/api/items:report"
         rv = client.post(rte, json={"email": mock_mgr.recipient})
         assert rv.status_code == 200
 
@@ -285,7 +285,7 @@ def test_report_large(mock_mgr, monkeypatch):
         )
 
     with mock_mgr.app.test_client() as client:
-        rte = f"/api/items:report"
+        rte = "/api/items:report"
         rv = client.post(rte, json={"email": mock_mgr.recipient})
         assert rv.status_code == 200
 
@@ -305,13 +305,13 @@ def test_report_error(mock_mgr, monkeypatch, err, stop_on):
             mock_mgr.ses_stubber.stub_send_email,
             mock_mgr.sender,
             {"ToAddresses": [mock_mgr.recipient]},
-            f"Work items",
+            "Work items",
             ANY,
             ANY,
             "test-msg-id",
         )
 
     with mock_mgr.app.test_client() as client:
-        rte = f"/api/items:report"
+        rte = "/api/items:report"
         rv = client.post(rte, json={"email": mock_mgr.recipient})
         assert rv.status_code == 500

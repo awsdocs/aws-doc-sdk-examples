@@ -49,11 +49,11 @@ suspend fun main(args: Array<String>) {
             iam - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that has AWS Glue and Amazon Simple Storage Service (Amazon S3) permissions.
             s3Path - The Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).
             cron - A cron expression used to specify the schedule (for example, cron(15 12 * * ? *).
-            dbName - The database name. 
-            crawlerName - The name of the crawler. 
+            dbName - The database name.
+            crawlerName - The name of the crawler.
             jobName - The name you assign to this job definition.
             scriptLocation - Specifies the Amazon S3 path to a script that runs a job.
-            locationUri - Specifies the location of the database 
+            locationUri - Specifies the location of the database
         """
 
     if (args.size != 8) {

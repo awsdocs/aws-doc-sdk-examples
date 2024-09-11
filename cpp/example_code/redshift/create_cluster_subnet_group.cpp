@@ -57,7 +57,7 @@ int main(int argc, char **argv)
         Aws::Redshift::Model::ClusterSubnetGroup subnetGroup;
 
         // Create a subnet group for the cluster
-        if (!CreateClusterSubnetGroup(subnetGroupName, subnetIds, description, 
+        if (!CreateClusterSubnetGroup(subnetGroupName, subnetIds, description,
             subnetGroup))
         {
             return 1;

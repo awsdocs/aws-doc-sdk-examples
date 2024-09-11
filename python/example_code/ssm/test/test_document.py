@@ -136,7 +136,7 @@ def test_send_command(make_stubber, error_code):
     document_wrapper = DocumentWrapper(ssm_client)
     name = "python-test"
     document_wrapper.name = name
-    instance_ids = ["i-0123456789abcdef"]
+    instance_ids = ["i-0123456789abcde"]
     command_id = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
     ssm_stubber.stub_send_command(

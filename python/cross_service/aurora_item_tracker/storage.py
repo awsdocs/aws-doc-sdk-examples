@@ -129,10 +129,10 @@ class Storage:
         :return: The generated ID of the new work item.
         """
         sql = (
-            f"WITH t1 AS ( "
+            "WITH t1 AS ( "
             f"INSERT INTO {self._table_name} (description, guide, status, username) "
-            f" VALUES (:description, :guide, :status, :username) RETURNING iditem "
-            f") SELECT iditem FROM t1"
+            " VALUES (:description, :guide, :status, :username) RETURNING iditem "
+            ") SELECT iditem FROM t1"
         )
         sql_params = [
             {"name": "description", "value": {"stringValue": work_item["description"]}},

@@ -2,7 +2,7 @@
 
 ## Overview
 
- This AWS Key Management Service (AWS KMS) getting started scenario demonstrates how to interact with the AWS KMS service using an AWS SDK.  The scenario covers various operations such as creating and managing AWS KMS keys, encrpting data, digitally signing data, tagging keys, and so on. 
+ This AWS Key Management Service (AWS KMS) getting started scenario demonstrates how to interact with the AWS KMS service using an AWS SDK.  The scenario covers various operations such as creating and managing AWS KMS keys, encrpting data, digitally signing data, tagging keys, and so on.
 
 Here are the 5-6 high-level steps of the most important KMS operations used in this scenario:
 
@@ -18,9 +18,9 @@ Here are the 5-6 high-level steps of the most important KMS operations used in t
 
 6. **Tag and Delete the Key**: The program adds a tag to the KMS key and then provides an option to schedule the deletion of the key.
 
-These steps cover the core KMS operations, including creating and managing keys, encrypting and decrypting data, controlling access through grants and policies, and managing the key's lifecycle. 
+These steps cover the core KMS operations, including creating and managing keys, encrypting and decrypting data, controlling access through grants and policies, and managing the key's lifecycle.
 
-Note: These steps are not the complete program, but summarizes the 5-6 high-level steps. 
+Note: These steps are not the complete program, but summarizes the 5-6 high-level steps.
 
 ### Resources
 

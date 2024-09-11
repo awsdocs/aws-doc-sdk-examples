@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/kinesis/AddDataShards.java
     services:
@@ -41,4 +41,4 @@ files:
       - kinesis
   - path: src/test/java/KinesisServiceTest.java
     services:
-      - kinesis  
+      - kinesis

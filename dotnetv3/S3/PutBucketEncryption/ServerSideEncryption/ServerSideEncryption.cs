@@ -91,7 +91,7 @@ public static class ServerSideEncryption
                 BucketName = bucketName,
                 ServerSideEncryptionConfiguration = serverSideEncryptionByDefault,
             });
-            
+
             return encryptionResponse.HttpStatusCode == HttpStatusCode.OK;
         }
         catch (AmazonS3Exception ex)

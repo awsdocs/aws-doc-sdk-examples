@@ -8,7 +8,7 @@ Route 53 is a highly available and scalable Domain Name System (DNS) web service
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. See [AWS Pricing](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
@@ -43,7 +43,7 @@ Code excerpts that show you how to call individual service functions.
 - [View prices for domain types](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/Route53Scenario.java) (listPricesPaginator command)
 
 
-### Scenario 
+### Scenario
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
@@ -53,13 +53,13 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 ### Prerequisites
 
-To run these examples, set up your development environment. For more information, 
-see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
+To run these examples, set up your development environment. For more information,
+see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
 **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
  ## Test the Amazon Route 53 Java files
- 
+
  ⚠️ Running the tests might result in charges to your AWS account.
 
 You can test the Java code example for Amazon Route 53 by running a test file named **Route53Test**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).

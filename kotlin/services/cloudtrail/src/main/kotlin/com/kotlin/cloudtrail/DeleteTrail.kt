@@ -13,10 +13,10 @@ suspend fun main(args: Array<String>) {
     val usage = """
 
     Usage:
-        <trailName>  
+        <trailName>
 
     Where:
-        trailName - The name of the trail to delete. 
+        trailName - The name of the trail to delete.
     """
 
     if (args.size != 1) {

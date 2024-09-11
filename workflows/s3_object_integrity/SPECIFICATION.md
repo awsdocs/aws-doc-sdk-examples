@@ -85,7 +85,7 @@ The locally calculated checksums have been verified against the retrieved checks
 For PutObject upload retrieved hash is AP39dw==
 For PutObject upload, locally and remotely calculated hashes all match!
 ```
-The workflow repeats this process with the TransferManager, uploading the 
+The workflow repeats this process with the TransferManager, uploading the
 large file using the multi-part upload APIs. In the case of the TransferManager,
 SDK calculated APIs are always used, because of difficulties using locally calculated
 hashes.

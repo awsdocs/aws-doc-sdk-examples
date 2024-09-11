@@ -21,7 +21,7 @@ export const getAccessKeyLastUsed = async (accessKeyId) => {
 
   if (response.AccessKeyLastUsed?.LastUsedDate) {
     console.log(`
-    ${accessKeyId} was last used by ${response.UserName} via 
+    ${accessKeyId} was last used by ${response.UserName} via
     the ${response.AccessKeyLastUsed.ServiceName} service on
     ${response.AccessKeyLastUsed.LastUsedDate.toISOString()}
     `);

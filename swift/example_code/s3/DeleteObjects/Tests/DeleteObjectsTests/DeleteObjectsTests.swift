@@ -111,7 +111,7 @@ final class DeleteObjectsTests: XCTestCase {
             throw error
         }
     }
- 
+
     //*********** TEST FUNCTIONS ************************************
 
     func testDeleteObjects() async throws {

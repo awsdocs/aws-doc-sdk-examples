@@ -63,13 +63,13 @@ public class SQSIntegrationTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests.
          * prop.load(input);
          * queueName = prop.getProperty("QueueName");
          * message = prop.getProperty("Message");
          * dlqueueName=prop.getProperty("DLQueueName");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

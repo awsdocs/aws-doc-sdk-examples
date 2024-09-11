@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/entities/WorkItem.java
     services:
@@ -44,4 +44,4 @@ files:
       - dynamodb
   - path: src/main/resources/public/js/items.js
     services:
-      - dynamodb 
+      - dynamodb

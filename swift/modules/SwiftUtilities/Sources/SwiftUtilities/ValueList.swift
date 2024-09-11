@@ -31,7 +31,7 @@ public struct ValueItem {
         self.falseValue = falseValue
 
         self.title = title
-        
+
         if value == true {
             self.value = self.trueValue
         } else {
@@ -95,7 +95,7 @@ public class ValueList {
                 width = item.title.count
             }
         }
-        
+
         return width
     }
 
@@ -150,7 +150,7 @@ public class ValueList {
     }
 
     /// Return a string containing the formatted data ready for printing.
-    /// 
+    ///
     /// - Returns: A `String` containing the entire formatted output, ready to
     ///   be displayed on the console.
     public func getFormattedOutput() -> String {
@@ -164,7 +164,7 @@ public class ValueList {
             let titleLength = item.title.count
 
             let padding = self.titleWidth + self.gapWidth - titleLength
-            
+
             output += "\(item.title)\(String(repeating: " ", count: padding))\(item.value)\n"
         }
         return output

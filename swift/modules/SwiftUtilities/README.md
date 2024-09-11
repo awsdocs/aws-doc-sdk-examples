@@ -75,5 +75,5 @@ also run the tests in Xcode if you prefer.
 
 ---
 
-**_Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved._**  
+**_Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved._**
 _SPDX-License-Identifier: Apache-2.0_

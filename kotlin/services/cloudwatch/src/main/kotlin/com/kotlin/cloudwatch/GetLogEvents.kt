@@ -20,7 +20,7 @@ suspend fun main(args: Array<String>) {
     val usage = """
 
     Usage:
-        <logGroup> <logStreamName> 
+        <logGroup> <logStreamName>
 
     Where:
         logGroup - A log group name (testgroup).

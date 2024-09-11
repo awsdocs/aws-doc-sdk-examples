@@ -5,9 +5,9 @@
 This example code creates an HTTP server which implements the following APIs.
 - `GET /items` to query all items.
 - `GET /items?archived=true` to query archived items, `archived=false` to query active items.
-- `GET /items/{item_id}` to query a single item. 
+- `GET /items/{item_id}` to query a single item.
 - `POST /items` to create a new item in the collection.
-- `PUT /items/{item_id}` to update an individual item. 
+- `PUT /items/{item_id}` to update an individual item.
 - `PUT /items/{item_id}:archive` to move an individual item to the `archived` status.
 - `POST /items:report` to generate a report. The body can accept an `email` field with a string email address.
 
@@ -15,25 +15,25 @@ The data for these APIs is stored in an Amazon Aurora Serverless database. The e
 
 This example uses C++ code, JavaScript React code, and AWS Cloud Development Kit (AWS CDK) code.
 
-1. The example code in this folder creates an HTTP server which accesses AWS services using the AWS SDK for C++. 
+1. The example code in this folder creates an HTTP server which accesses AWS services using the AWS SDK for C++.
 
 2. A client JavaScript React web app is created using the code at [resources/clients/react/elwing](../../../../resources/clients/react/elwing/).
 
-3. The Amazon Aurora Serverless resources are created using the AWS CDK code at [resources/cdk/aurora_serverless_app](../../../../resources/cdk/aurora_serverless_app). 
+3. The Amazon Aurora Serverless resources are created using the AWS CDK code at [resources/cdk/aurora_serverless_app](../../../../resources/cdk/aurora_serverless_app).
 
 ## ⚠️ Important
 
-* Running this code might result in charges to your AWS account. 
+* Running this code might result in charges to your AWS account.
 * Running the tests might result in charges to your AWS account.
-*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ### Prerequisites
 
 * Install the [AWS SDK for C++](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html).
-* Install the [Conan C++ package manager](https://conan.io/), which is used by this example to install dependencies. 
+* Install the [Conan C++ package manager](https://conan.io/), which is used by this example to install dependencies.
 
-## Create the resources 
+## Create the resources
 
 The Amazon RDS resources for this example can be created by running the AWS CloudFormation
 `setup.yaml` script in
@@ -46,7 +46,7 @@ A [verified identity](https://docs.aws.amazon.com/ses/latest/dg/verify-addresses
 
 ### Open a terminal in the code example's directory and create a build subdirectory
 
-`mkdir build`  
+`mkdir build`
 `cd build`
 
 ### Install the Poco library using the Conan package manager
@@ -61,7 +61,7 @@ On Windows.
 
 ### Build the example using CMake and Make
 
-`cmake ..`  
+`cmake ..`
 `make ..`
 
 ## Run the example
@@ -95,4 +95,4 @@ Amazon SES to send email from a verified user.
 * [Amazon SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/Welcome.html)
 * [Amazon RDS Data Service API Reference](https://docs.aws.amazon.com/rdsdataservice/latest/APIReference/Welcome.html)
 * [Amazon SES API Reference](https://docs.aws.amazon.com/ses/latest/APIReference/Welcome.html)
-* [AWS SDK for C++ Developer Guide](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/welcome.html) 
+* [AWS SDK for C++ Developer Guide](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/welcome.html)

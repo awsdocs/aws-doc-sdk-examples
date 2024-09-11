@@ -68,7 +68,7 @@ public class AWSSSMTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests.
          * prop.load(input);
          * paraName = prop.getProperty("paraName");
@@ -76,7 +76,7 @@ public class AWSSSMTest {
          * source = prop.getProperty("source");
          * category = prop.getProperty("category");
          * severity = prop.getProperty("severity");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

@@ -108,12 +108,12 @@ public class ShowAnomalies extends JPanel {
         /**
          * Draws a line of text at the spsecified y position and color.
          * confidence
-         * 
+         *
          * @param g2D     The Graphics2D object for the image.
          * @param line    The line of text to draw.
          * @param metrics The font information to use.
          * @param yPos    The y position for the line of text.
-         * 
+         *
          * @return The yPos for the next line of text.
          */
 
@@ -144,10 +144,10 @@ public class ShowAnomalies extends JPanel {
     public void drawImageInfo(DetectAnomalyResult result) {
         /**
          * Draws the results from DetectAnomalies onto the output image.
-         * 
+         *
          * @param result The response from a call to
          *               DetectAnomalies.
-         * 
+         *
          */
 
         // Set up drawing.
@@ -218,10 +218,10 @@ public class ShowAnomalies extends JPanel {
     public void paintComponent(Graphics g)
     /**
      * Draws the image and analysis results.
-     * 
+     *
      * @param g The Graphics context object for drawing.
      *          DetectAnomalies.
-     * 
+     *
      */
     {
 
@@ -238,9 +238,9 @@ public class ShowAnomalies extends JPanel {
     /**
      * Gets the file type of a supplied image. Raises an exception if the image
      * isn't compatible with Amazon Lookout for Vision.
-     * 
+     *
      * @param image The image that you want to check.
-     * 
+     *
      * @return String The type of the image.
      */
 

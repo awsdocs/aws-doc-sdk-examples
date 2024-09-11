@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.UploadObjectUsingPresignedURLTest]
 using Amazon;
@@ -18,7 +18,7 @@ namespace Amazon.DocSamples.S3
         // Specify how long the presigned URL lasts, in hours
         private const double timeoutDuration = 12;
         // Specify your bucket region (an example region is shown).
-        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2; 
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
         private static IAmazonS3 s3Client;
 
         public static void Main()

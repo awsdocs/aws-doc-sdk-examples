@@ -130,7 +130,7 @@ python aws_service/aws_service.py
 
 
 <!--custom.scenarios.api-gateway_Usage_CreateDeployRest.start-->
-For additional instructions on how to set up and run this example, see the 
+For additional instructions on how to set up and run this example, see the
 [README](aws_service/README.md) in the `aws_service` folder.
 <!--custom.scenarios.api-gateway_Usage_CreateDeployRest.end-->
 

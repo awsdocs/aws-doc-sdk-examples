@@ -10,9 +10,9 @@ In this tutorial, you create a Lambda function by using the AWS Lambda Java runt
 
 ![AWS Tracking Application](images/picPhone.png)
 
-This tutorial shows you how to use Java logic to create a solution that performs this use case. For example, you'll learn how to read an Amazon DynamoDB table to determine which employees have reached the one year anniversary date, how to process the data, and send out a text message all by using an AWS Lambda function. Then you’ll learn how to use a cron expression to invoke the AWS Lambda function every weekday. 
+This tutorial shows you how to use Java logic to create a solution that performs this use case. For example, you'll learn how to read an Amazon DynamoDB table to determine which employees have reached the one year anniversary date, how to process the data, and send out a text message all by using an AWS Lambda function. Then you’ll learn how to use a cron expression to invoke the AWS Lambda function every weekday.
 
-This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains these fields. 
+This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains these fields.
 -	**Id** – the key for the table.
 -	**first** – the employee’s first name.
 -	**phone** – the employee’s phone number.
@@ -35,13 +35,13 @@ To follow along with this tutorial, you need the following:
 + An AWS Account with proper credentials.
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
 + Java 17 JDK.
-+ Maven 3.6 or higher.+ 
++ Maven 3.6 or higher.+
 
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 ### Creating the resources
@@ -55,7 +55,7 @@ Create the following IAM role:
 
 + **lambda-support** - Used to invoke Lamdba functions.
 
-This tutorial uses the DynamoDB and Amazon SNS services. The **lambda-support** role has to have policies that enable it to invoke these services from a Lambda function.  
+This tutorial uses the DynamoDB and Amazon SNS services. The **lambda-support** role has to have policies that enable it to invoke these services from a Lambda function.
 
 #### To create an IAM role
 
@@ -113,18 +113,18 @@ At this point, you have a new project named **LambdaCronFunctions**.
 
 Make sure that your project's pom.xml file looks like the POM file in this Github repository.
 
-    
+
 ## Create a Lambda function by using the AWS Lambda runtime Java API
 
-Use the AWS Lambda runtime Java API to create the Java class that defines the Lamdba function. In this example, there is one Java class for the Lambda function and two extra classes required for this use case. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.aws.example**. 
+Use the AWS Lambda runtime Java API to create the Java class that defines the Lamdba function. In this example, there is one Java class for the Lambda function and two extra classes required for this use case. The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **com.aws.example**.
 
 ![AWS Tracking Application](images/pic5.png)
 
 Create these Java classes:
 
-+ **Handler** - used as the Lambda function that performs the use case described in this AWS tutorial. The application logic that's executed is located in the **handleRequest** method. 
++ **Handler** - used as the Lambda function that performs the use case described in this AWS tutorial. The application logic that's executed is located in the **handleRequest** method.
 + **ScanEmployees** - uses the Amazon DynamoDB Java V2 API to scan the **Employee** table using an **Expression** object. This class also uses the Amazon Simple Notification Service (Amazon SNS) Java V2 API to send a message to an employee.
-+ **Employee** - a Java class that is used with the DynamoDB Enhanced client. The fields in this class match the columns in the **Employee** table. 
++ **Employee** - a Java class that is used with the DynamoDB Enhanced client. The fields in this class match the columns in the **Employee** table.
 
 ### Handler class
 
@@ -154,7 +154,7 @@ This Java code represents the **Handler** class. The class creates a **ScanEmplo
 ```
 
 ### ScanEmployees class
-The **ScanEmployees** class uses both Amazon DynamoDB Java V2 API and the Amazon SNS Java V2 API. In the following code example, notice the use of an **Expression** object. This object is used to return employees that have a start date one year ago. For each employee returned, a text message is sent using the **SnsClient** object's **publish** method.  
+The **ScanEmployees** class uses both Amazon DynamoDB Java V2 API and the Amazon SNS Java V2 API. In the following code example, notice the use of an **Expression** object. This object is used to return employees that have a start date one year ago. For each employee returned, a text message is sent using the **SnsClient** object's **publish** method.
 
 ```java
     package com.aws.example;
@@ -323,15 +323,15 @@ The **Employee** class is used with the DynamoDB enhanced client and maps the **
      public void setPhone(String phone) {
         this.phone = phone;
      }
-    
+
     public String getPhone() {
         return this.phone;
      }
-   
+
      public void setFirst(String first) {
         this.first = first;
      }
-    
+
      public String getFirst() {
         return this.first;
      }
@@ -348,7 +348,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 ![AWS Tracking Application](images/pic6.png)
 
-**Note**: Notice the use of the **maven-shade-plugin** in the project’s POM file. This plugin is responsible for creating a JAR that contains the required dependencies. If you attempt to package up the project without this plugin, the required dependences are not included in the JAR file and you will encounter a **ClassNotFoundException**. 
+**Note**: Notice the use of the **maven-shade-plugin** in the project’s POM file. This plugin is responsible for creating a JAR that contains the required dependencies. If you attempt to package up the project without this plugin, the required dependences are not included in the JAR file and you will encounter a **ClassNotFoundException**.
 
 ## Deploy the Lambda function
 
@@ -370,7 +370,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 8. For **Code entry type**, choose **Upload a .zip or .jar file**.
 
-9. Choose **Upload**, and then browse to the JAR file that you created.  
+9. Choose **Upload**, and then browse to the JAR file that you created.
 
 10. For **Handler**, enter the fully qualified name of the function, for example, **com.aws.example.Handler::handleRequest** (**com.aws.example.Handler** specifies the package and class followed by :: and method name).
 
@@ -391,7 +391,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 5. For Rule, choose **Create a new rule**.
 
-6. Fill in the Rule name and Rule description. 
+6. Fill in the Rule name and Rule description.
 
 7. For rule type, select **Schedule expression**.
 
@@ -399,7 +399,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 9. Choose **Add**.
 
-**Note**: For more information, see [Using AWS Lambda with Amazon CloudWatch Events](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents.html). 
+**Note**: For more information, see [Using AWS Lambda with Amazon CloudWatch Events](https://docs.aws.amazon.com/lambda/latest/dg/services-cloudwatchevents.html).
 
 ### Next steps
 Congratulations, you have created a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. As stated at the beginning of this tutorial, be sure to terminate all of the resources you created while going through this tutorial to ensure that you’re not charged.

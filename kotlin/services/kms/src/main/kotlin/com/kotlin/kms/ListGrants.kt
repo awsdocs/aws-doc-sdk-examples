@@ -19,7 +19,7 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <keyId> 
+            <keyId>
         Where:
             keyId - The unique identifier for the KMS key that the grant applies to (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).
         """

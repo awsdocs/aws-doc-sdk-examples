@@ -1,4 +1,4 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[S3LockWorkflow.dotnetv3.ObjectLockWorkflow]
@@ -148,7 +148,7 @@ public static class S3ObjectLockWorkflow
 
         Console.WriteLine("\nObject lock policies can also be added to existing buckets.");
         await _s3ActionsWrapper.EnableObjectLockOnBucket(lockEnabledBucketName);
-        
+
         Console.WriteLine("Press Enter to continue.");
         if (interactive)
             Console.ReadLine();

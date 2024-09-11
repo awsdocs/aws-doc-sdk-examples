@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.dotNET.trydax.03-GetItem-Test] 
+// snippet-start:[dynamodb.dotNET.trydax.03-GetItem-Test]
 
 using System;
 using System.Collections.Generic;
@@ -63,4 +63,4 @@ namespace ClientTest
     }
 }
 
-// snippet-end:[dynamodb.dotNET.trydax.03-GetItem-Test] 
+// snippet-end:[dynamodb.dotNET.trydax.03-GetItem-Test]

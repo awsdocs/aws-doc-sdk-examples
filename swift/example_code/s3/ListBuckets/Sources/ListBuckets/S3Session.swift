@@ -69,7 +69,7 @@ public class S3Manager {
 
     // snippet-start:[s3.swift.listbuckets.getallbuckets]
     /// Return an array containing information about every available bucket.
-    /// 
+    ///
     /// - Returns: An array of ``S3ClientTypes.Bucket`` objects describing
     ///   each bucket.
     public func getAllBuckets() async throws -> [S3ClientTypes.Bucket] {

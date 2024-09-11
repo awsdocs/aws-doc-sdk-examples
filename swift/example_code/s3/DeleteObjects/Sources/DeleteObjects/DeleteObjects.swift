@@ -40,7 +40,7 @@ struct ExampleCommand: ParsableCommand {
         let serviceHandler = await ServiceHandler(region: region)
 
         do {
-            try await serviceHandler.deleteObjects(bucket: bucketName, 
+            try await serviceHandler.deleteObjects(bucket: bucketName,
                             keys: fileNames)
         } catch {
             print("*** Error. Unable to complete deleting the objects.")
@@ -65,7 +65,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[s3.swift.deleteobjects.main]
 // snippet-end:[s3.swift.deleteobjects.example]

@@ -385,13 +385,13 @@ def upload_demo(glacier, vault_name, topic_arn):
         print(
             f"\nVault {vault.name} is configured to notify the "
             f"{notification.sns_topic} topic when {notification.events} "
-            f"events occur. You can subscribe to this topic to receive "
-            f"a message when the archive retrieval completes.\n"
+            "events occur. You can subscribe to this topic to receive "
+            "a message when the archive retrieval completes.\n"
         )
     else:
         print(
             f"\nVault {vault.name} is not configured to notify an Amazon SNS topic "
-            f"when the archive retrieval completes so wait a few hours."
+            "when the archive retrieval completes so wait a few hours."
         )
     print("\nRetrieve your job output by running this script with the --retrieve flag.")
 
@@ -418,7 +418,7 @@ def retrieve_demo(glacier, vault_name):
         if err.response["Error"]["Code"] == "ResourceNotFoundException":
             print(
                 f"\nVault {vault_name} doesn't exist. You must first run this script "
-                f"with the --upload flag to create the vault."
+                "with the --upload flag to create the vault."
             )
             return
         else:

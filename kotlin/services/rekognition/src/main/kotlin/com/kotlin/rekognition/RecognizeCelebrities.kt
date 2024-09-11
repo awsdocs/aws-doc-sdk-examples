@@ -20,8 +20,8 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main(args: Array<String>) {
     val usage = """
-        Usage: 
-            <sourceImage> 
+        Usage:
+            <sourceImage>
 
         Where:
             "sourceImage - The name of the image  (for example, people.png).

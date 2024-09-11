@@ -25,7 +25,7 @@ suspend fun main(args: Array<String>) {
     Where:
         filter - A filter name (for example, myfilter).
         pattern - A filter pattern (for example, ERROR).
-        
+
     """
 
     if (args.size != 2) {

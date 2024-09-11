@@ -48,15 +48,15 @@ This example performs these operations:
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-        <username> <policyName> <roleName> <roleSessionName> <fileLocation> <bucketName> 
+        <username> <policyName> <roleName> <roleSessionName> <fileLocation> <bucketName>
 
     Where:
-        username - The name of the IAM user to create. 
-        policyName - The name of the policy to create. 
-        roleName - The name of the role to create. 
-        roleSessionName - The name of the session required for the assumeRole operation. 
-        fileLocation - The file location to the JSON required to create the role (see Readme). 
-        bucketName - The name of the Amazon S3 bucket from which objects are read. 
+        username - The name of the IAM user to create.
+        policyName - The name of the policy to create.
+        roleName - The name of the role to create.
+        roleSessionName - The name of the session required for the assumeRole operation.
+        fileLocation - The file location to the JSON required to create the role (see Readme).
+        bucketName - The name of the Amazon S3 bucket from which objects are read.
     """
 
     if (args.size != 6) {

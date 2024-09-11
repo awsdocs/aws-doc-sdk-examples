@@ -105,7 +105,7 @@ def run_scenario(lambda_client, iam_resource, basic_file, calculator_file, lambd
     )
     print("-" * 88)
 
-    print(f"Let's update the function to an arithmetic calculator.")
+    print("Let's update the function to an arithmetic calculator.")
     q.ask("Press Enter when you're ready.")
     print("Creating a new deployment package...")
     deployment_package = wrapper.create_deployment_package(
@@ -115,8 +115,8 @@ def run_scenario(lambda_client, iam_resource, basic_file, calculator_file, lambd
     update_waiter = UpdateFunctionWaiter(lambda_client)
     wrapper.update_function_code(lambda_name, deployment_package)
     update_waiter.wait(lambda_name)
-    print(f"This function uses an environment variable to control logging level.")
-    print(f"Let's set it to DEBUG to get the most logging.")
+    print("This function uses an environment variable to control logging level.")
+    print("Let's set it to DEBUG to get the most logging.")
     wrapper.update_function_configuration(
         lambda_name, {"LOG_LEVEL": logging.getLevelName(logging.DEBUG)}
     )

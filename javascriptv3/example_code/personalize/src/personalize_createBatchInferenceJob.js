@@ -7,7 +7,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 createBatchInferenceJob.js demonstrates how to create a batch inference job with Amazon Personalize.
-A batch inference job is a tool that imports your batch input data from an Amazon S3 bucket, uses your 
+A batch inference job is a tool that imports your batch input data from an Amazon S3 bucket, uses your
 solution version to generate recommendations, and exports the recommendations to an Amazon S3 bucket.
 For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateBatchInferenceJob.html.
 

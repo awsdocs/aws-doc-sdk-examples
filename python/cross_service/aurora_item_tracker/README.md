@@ -2,7 +2,7 @@
 
 ## Overview
 
-This example shows you how to use the AWS SDK for Python (Boto3) to create a REST 
+This example shows you how to use the AWS SDK for Python (Boto3) to create a REST
 service that lets you do the following:
 
 * Build a Flask REST service that integrates with AWS services.
@@ -15,17 +15,17 @@ The REST service is used in conjunction with the [Elwing React client](../../../
 to present a fully functional web application.
 
 ### ⚠️ Important
-* Running this code might result in charges to your AWS account. 
+* Running this code might result in charges to your AWS account.
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum 
-  permissions required to perform the task. For more information, see 
-  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
-* This code is not tested in every AWS Region. For more information, see 
+* We recommend that you grant your code least privilege. At most, grant only the minimum
+  permissions required to perform the task. For more information, see
+  [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see
   [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ### Prerequisites
 
-Prerequisites for running examples can be found in the 
+Prerequisites for running examples can be found in the
 [README](../../README.md#Prerequisites) in the Python folder.
 
 In addition to the standard prerequisites, this example also requires:
@@ -39,7 +39,7 @@ You can install all of the prerequisites by running the following in a virtual e
 ```
 python -m pip install -r requirements.txt
 ```
- 
+
 ## Create the resources
 
 ### Aurora Serverless DB cluster and Secrets Manager secret
@@ -52,30 +52,30 @@ the available choices are:
 For this example, we assume that the Aurora cluster uses a combination of Aurora PostgreSQL
 and Aurora Serverless v2.
 
-The database must be configured to use credentials that are contained in a Secrets Manager secret. 
+The database must be configured to use credentials that are contained in a Secrets Manager secret.
 
-Follow the instructions in the 
-[README for the Aurora Serverless application](/resources/cdk/aurora_serverless_app/README.md) 
+Follow the instructions in the
+[README for the Aurora Serverless application](/resources/cdk/aurora_serverless_app/README.md)
 to use the AWS Cloud Development Kit (AWS CDK) or AWS Command Line Interface
-(AWS CLI) to create and manage the resources. 
+(AWS CLI) to create and manage the resources.
 
 ### Create the work items table
 
 After you have created the Aurora DB cluster and database, you must create a table to
-contain work items. You can do this by using either the AWS Command Line Interface 
+contain work items. You can do this by using either the AWS Command Line Interface
 (AWS CLI) or the AWS Management Console.
 
 #### AWS CLI
 
-Use the AWS CLI to create the `work_items` table by running the following command at a 
-command prompt. Before you run, replace the following values with the output from the 
+Use the AWS CLI to create the `work_items` table by running the following command at a
+command prompt. Before you run, replace the following values with the output from the
 CloudFormation setup script:
 
-* **CLUSTER_ARN** — Replace with the ARN of the Aurora DB cluster, such as 
+* **CLUSTER_ARN** — Replace with the ARN of the Aurora DB cluster, such as
 `arn:aws:rds:us-west-2:123456789012:cluster:doc-example-aurora-app-docexampleauroraappcluster-15xfvaEXAMPLE`.
 * **SECRET_ARN** — Replace with the ARN of the secret that contains your database
 credentials, such as `arn:aws:secretsmanager:us-west-2:123456789012:secret:docexampleauroraappsecret8B-xI1R8EXAMPLE-hfDaaj`.
-* **DATABASE** — Replace with the name of the database, such as `auroraappdb`.  
+* **DATABASE** — Replace with the name of the database, such as `auroraappdb`.
 
 *Tip:* The caret `\` is the line continuation character for a Linux or Mac command prompt.
 If you run this command on another platform, replace the backslash with the line continuation
@@ -95,46 +95,46 @@ Use the Console to create the `work_items` table with the following steps:
 
 1. Browse to the [Amazon RDS console](https://console.aws.amazon.com/rds).
 2. Select *Query Editor*.
-3. For *Database instance or cluster*, choose your database instance. If you used the 
-CloudFormation script to create your AWS resources, the name begins with 
+3. For *Database instance or cluster*, choose your database instance. If you used the
+CloudFormation script to create your AWS resources, the name begins with
 `doc-example-aurora-app-`.
-4. For *Database username*, choose *Connect with a Secrets Manager ARN*. 
-5. Enter the ARN of the secret that contains your database credentials, such as 
-`arn:aws:secretsmanager:us-west-2:123456789012:secret:docexampleauroraappsecret8B-xI1R8EXAMPLE-hfDaaj`. 
+4. For *Database username*, choose *Connect with a Secrets Manager ARN*.
+5. Enter the ARN of the secret that contains your database credentials, such as
+`arn:aws:secretsmanager:us-west-2:123456789012:secret:docexampleauroraappsecret8B-xI1R8EXAMPLE-hfDaaj`.
 6. For *Enter the name of the database or schema*, enter the name of your database, such
 as `auroraappdb`.
 7. Select *Connect to database*.
 
-This opens a SQL query console. You can run any SQL queries here that you want. Run the 
+This opens a SQL query console. You can run any SQL queries here that you want. Run the
 following to create the `work_items` table:
 
 For a PostgreSQL-compatible database:
 ```sql
-create table work_items ( 
-  iditem SERIAL PRIMARY KEY, 
-  description TEXT, 
-  guide VARCHAR(45), 
-  status TEXT, 
-  username VARCHAR(45), 
+create table work_items (
+  iditem SERIAL PRIMARY KEY,
+  description TEXT,
+  guide VARCHAR(45),
+  status TEXT,
+  username VARCHAR(45),
   archived BOOL DEFAULT false
 );
 
 ```
 For a MySQL-compatible database:
 ```sql
-create table work_items ( 
-  iditem INT AUTO_INCREMENT PRIMARY KEY, 
-  description TEXT, 
-  guide VARCHAR(45), 
-  status TEXT, 
-  username VARCHAR(45), 
+create table work_items (
+  iditem INT AUTO_INCREMENT PRIMARY KEY,
+  description TEXT,
+  guide VARCHAR(45),
+  status TEXT,
+  username VARCHAR(45),
   archived BOOL DEFAULT 0
 );
 ```
 
 ### Verified email address
 
-To email reports from the app, you must register at least one email address with 
+To email reports from the app, you must register at least one email address with
 Amazon SES. This verified email is specified as the sender for emailed reports.
 
 1. In a browser, navigate to the [Amazon SES console](https://console.aws.amazon.com/ses/).
@@ -148,10 +148,10 @@ Amazon SES. This verified email is specified as the sender for emailed reports.
 to verify the email with Amazon SES. Follow the instructions in the email to complete
 verification.
 
-*Tip:* For this example, you can use the same email account for both the sender and 
+*Tip:* For this example, you can use the same email account for both the sender and
 the recipient.
 
-## Run the example 
+## Run the example
 
 ### REST service
 
@@ -160,17 +160,17 @@ the recipient.
 Before you run the service, enter your AWS resource values and verified email address
 in `config.py`, similar to the following:
 
-* **CLUSTER_ARN** — Replace with the ARN of the Aurora DB cluster, such as 
+* **CLUSTER_ARN** — Replace with the ARN of the Aurora DB cluster, such as
 `arn:aws:rds:us-west-2:123456789012:cluster:doc-example-aurora-app-docexampleauroraappcluster-15xfvaEXAMPLE`.
 * **SECRET_ARN** — Replace with the ARN of the secret that contains your database
 credentials, such as `arn:aws:secretsmanager:us-west-2:123456789012:secret:docexampleauroraappsecret8B-xI1R8EXAMPLE-hfDaaj`.
-* **DATABASE** — Replace with the name of the database, such as `auroraappdb`.  
+* **DATABASE** — Replace with the name of the database, such as `auroraappdb`.
 * **TABLE_NAME** — Replace with the name of the work item table, such as `work_items`.
-* **SENDER_EMAIL** — Replace with an email address that is registered with Amazon SES. 
+* **SENDER_EMAIL** — Replace with an email address that is registered with Amazon SES.
 
 #### Run the service
 
-This example uses [Flask](https://flask.palletsprojects.com/en/2.0.x/) to host a local 
+This example uses [Flask](https://flask.palletsprojects.com/en/2.0.x/) to host a local
 web server and REST service. With the web server running, you can send HTTP requests to
 the service endpoint to list, add, and update work items and to send email reports.
 
@@ -185,7 +185,7 @@ flask --debug run -p 8080
 ### Webpage
 
 The REST service is designed to work with the item tracker plugin in the Elwing web
-client. The item tracker plugin is a JavaScript application that lets you manage work 
+client. The item tracker plugin is a JavaScript application that lets you manage work
 items, send requests to the REST service, and see the results.
 
 #### Run Elwing and select the item tracker
@@ -217,25 +217,25 @@ items, send requests to the REST service, and see the results.
     "archived":false}
    ```
 
-1. After you add items, they're displayed in the table. You can archive an active 
+1. After you add items, they're displayed in the table. You can archive an active
    item by selecting the **Archive** button next to the item.
 
     ![Work item tracker with items](images/item-tracker-all-items.png)
 
    This sends a PUT request to the REST service, specifying the item ID and the
-   `archive` action. 
-   
+   `archive` action.
+
    ```
    PUT http://localhost:8080/api/items/8db8aaa4-6f04-4467-bd60-EXAMPLEGUID:archive
    ```
-   
+
 1. Select a filter in the dropdown list, such as **Archived**, to get and display
 only items with the specified status.
 
     ![Work item tracker Archived items](images/item-tracker-archived-items.png)
 
    This sends a GET request to the REST service with an `archived` query parameter.
-   
+
    ```
    GET http://localhost:8080/api/items?archived=true
    ```
@@ -245,11 +245,11 @@ only items with the specified status.
     ![Work item tracker send report](images/item-tracker-send-report.png)
 
    This sends a POST request to the REST service with a `report` action.
-   
+
    ```
    POST http://localhost:8080/api/items:report
    ```
-    
+
    When your Amazon SES account is in the sandbox, both the sender and recipient
    email addresses must be registered with Amazon SES.
 
@@ -260,7 +260,7 @@ HTTP requests.
 
 ### Routing
 
-The [app.py](app.py) file configures the app, creates Boto3 resources, and sets up 
+The [app.py](app.py) file configures the app, creates Boto3 resources, and sets up
 URL routing. This example uses Flask's `MethodView` class to help with routing.
 
 In this file, you can find route definitions like the following, which routes a GET
@@ -271,27 +271,27 @@ item_list_view = ItemList.as_view('item_list_api', storage)
 app.add_url_rule(
     '/api/items', defaults={'iditem': None}, view_func=item_list_view, methods=['GET'],
     strict_slashes=False)
-```  
+```
 
 ### REST methods
 
-HTTP requests are routed to methods in the [ItemList](item_list.py) and 
-[Report](report.py) classes, which use webargs and marshmallow to handle argument 
+HTTP requests are routed to methods in the [ItemList](item_list.py) and
+[Report](report.py) classes, which use webargs and marshmallow to handle argument
 parsing and data transformation.
 
 For example, the work item schema includes a field that is named `id` in the webpage,
-but is named `iditem` in the data table. By defining a `data_key`, the marshmallow 
-schema transforms this field automatically. 
+but is named `iditem` in the data table. By defining a `data_key`, the marshmallow
+schema transforms this field automatically.
 
 ```python
 class WorkItemSchema(Schema):
     iditem = fields.Str(data_key='id')
-``` 
+```
 
 The `ItemList` class contains methods that handle REST requests and use the
 `@use_args` and `@use_kwargs` decorators from webargs to parse incoming arguments.
 
-For example, the `get` method uses `@use_kwargs` to parse fields contained in the query 
+For example, the `get` method uses `@use_kwargs` to parse fields contained in the query
 string into arguments in the method signature, and then calls the underlying `storage`
 object to get work items from the DynamoDB table.
 
@@ -304,11 +304,11 @@ def get(self, iditem, archived=None):
 ### Aurora Serverless MySQL storage
 
 The [storage.py](storage.py) file contains functions that get and set data in an
-Aurora Serverless MySQL database by using a Boto3 Amazon Relational Database 
-Service (Amazon RDS) Data Service object. This object wraps low-level Amazon RDS Data 
+Aurora Serverless MySQL database by using a Boto3 Amazon Relational Database
+Service (Amazon RDS) Data Service object. This object wraps low-level Amazon RDS Data
 Service actions.
- 
-For example, the `get_work_items` function constructs a `SELECT` statement and parameters 
+
+For example, the `get_work_items` function constructs a `SELECT` statement and parameters
 and sends them to the data client to get work items with a specified `archived` status:
 
 ```python
@@ -333,33 +333,33 @@ def _run_statement(self, sql, sql_params=None):
 
 ### Amazon SES report
 
-The [report.py](report.py) file contains functions that send an email report of work 
+The [report.py](report.py) file contains functions that send an email report of work
 items to a specified email address.
 
-When 10 or fewer work items are included in the report, the work item list is included 
+When 10 or fewer work items are included in the report, the work item list is included
 directly in the email body, with both HTML and text versions. This style of report is
 sent by using the `send_email` service action, which lets you send the HTML and text
 body as plain Python strings.
 
-When the list is larger than 10 work items, it is rendered in CSV format and included 
-as an attachment to the email. When you use Amazon SES to send an attachment, you must 
-use the `send_raw_email` service action and send the email in MIME format. 
+When the list is larger than 10 work items, it is rendered in CSV format and included
+as an attachment to the email. When you use Amazon SES to send an attachment, you must
+use the `send_raw_email` service action and send the email in MIME format.
 
 ## Delete the resources
 
 To avoid charges, delete all the resources that you created for this tutorial.
 
 If you created the example resources by using the AWS CDK or AWS CLI,
-you can destroy the resources by following the instructions in the 
-[README for the Aurora Serverless application](/resources/cdk/aurora_serverless_app/README.md). 
+you can destroy the resources by following the instructions in the
+[README for the Aurora Serverless application](/resources/cdk/aurora_serverless_app/README.md).
 
-If you created your resources through the AWS Management Console, or modified them by 
+If you created your resources through the AWS Management Console, or modified them by
 running the app, you must use the console to delete them.
 
 ## Next steps
 
-Congratulations! You have built a REST service that reads, writes, and archives 
-work items that are stored in an Aurora Serverless database, and that uses 
+Congratulations! You have built a REST service that reads, writes, and archives
+work items that are stored in an Aurora Serverless database, and that uses
 Amazon SES to send email to a registered user.
 
 ## Additional information

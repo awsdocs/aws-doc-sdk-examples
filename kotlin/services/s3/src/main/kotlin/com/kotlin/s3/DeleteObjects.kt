@@ -21,7 +21,7 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-         <bucketName> <objectKey> 
+         <bucketName> <objectKey>
 
     Where:
         bucketName - The Amazon S3 bucket name that contains the object (for example, bucket1).

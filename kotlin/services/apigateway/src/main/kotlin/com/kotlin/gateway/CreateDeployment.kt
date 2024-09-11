@@ -16,7 +16,7 @@ suspend fun main(args: Array<String>) {
 
         Where:
             restApiId - The string identifier of the associated RestApi. (for example, xxxx99ewyg).
-            stageName - The name of the stage. 
+            stageName - The name of the stage.
         """
 
     if (args.size != 2) {

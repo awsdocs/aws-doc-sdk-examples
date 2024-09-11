@@ -1,7 +1,7 @@
 [package]
 name = "aurora-code-examples"
 authors = [
-  "David Souther <dpsouth@amazon.com>", 
+  "David Souther <dpsouth@amazon.com>",
 ]
 edition = "2021"
 version = "0.1.0"

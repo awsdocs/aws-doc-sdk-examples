@@ -59,13 +59,13 @@ public class AppSyncTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * prop.load(input);
          * apiId = prop.getProperty("apiId");
          * dsName = prop.getProperty("dsName");
          * dsRole= prop.getProperty("dsRole");
          * tableName= prop.getProperty("tableName");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

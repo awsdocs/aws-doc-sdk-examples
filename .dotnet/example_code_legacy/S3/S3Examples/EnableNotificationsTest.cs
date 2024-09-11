@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.EnableNotificationsTest]
 using Amazon;
@@ -47,7 +47,7 @@ namespace Amazon.DocSamples.S3
                     Events = new List<EventType> { EventType.ObjectCreatedPut },
                     Queue = sqsQueue
                 });
-                
+
                 PutBucketNotificationResponse response = await client.PutBucketNotificationAsync(request);
             }
             catch (AmazonS3Exception e)

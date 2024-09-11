@@ -42,8 +42,8 @@ def find_api_url(stack_name):
         )
         print(
             f"\taws cloudformation describe-stacks --stack-name {stack_name} "
-            f"--query \"Stacks[0].Outputs[?OutputKey=='EndpointURL'].OutputValue\" "
-            f"--output text"
+            "--query \"Stacks[0].Outputs[?OutputKey=='EndpointURL'].OutputValue\" "
+            "--output text"
         )
     else:
         return api_url
@@ -59,7 +59,7 @@ def demo():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--api_url",
-        help=f"The base URL of the REST API for the demo. If not specified, the demo "
+        help="The base URL of the REST API for the demo. If not specified, the demo "
         f"looks it up in the {stack_name} AWS CloudFormation stack.",
     )
     args = parser.parse_args()
@@ -122,7 +122,7 @@ def demo():
         print(f"Response: {date_response.status_code}")
 
         print(
-            f"Sending DELETE request to remove all historical data from "
+            "Sending DELETE request to remove all historical data from "
             f"{random_state}."
         )
         state_response = requests.delete(state_url)

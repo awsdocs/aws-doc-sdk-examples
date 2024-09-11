@@ -44,22 +44,22 @@ public class AmazonLexTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * AmazonLexTest.class.getClassLoader().getResourceAsStream("config.properties")
          * ) {
          * Properties prop = new Properties();
-         * 
+         *
          * if (input == null) {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * prop.load(input);
          * botName = prop.getProperty("botName");
          * intentName = prop.getProperty("intentName");
          * intentVersion = prop.getProperty("intentVersion");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

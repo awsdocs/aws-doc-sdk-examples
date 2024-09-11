@@ -26,7 +26,7 @@ The following shows the output of the program in the console.
 
 
 ## Scenario Program execution
-The following shows the output of the program in the console. 
+The following shows the output of the program in the console.
 
 
 ```

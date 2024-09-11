@@ -16,7 +16,7 @@ ENTRY_COUNT=0
 # Generate the json files
 for i in $(seq 1 "$NUM_FILES"); do
 
-  # Set filename 
+  # Set filename
   FILE="file$i.json"
 
   # Write opening bracket
@@ -34,9 +34,9 @@ for i in $(seq 1 "$NUM_FILES"); do
     if [ "$i" -eq "$NUM_FILES" ] && [ "$j" -eq "$ENTRIES_PER_FILE" ]; then
       echo "export QUERY_END_DATE=$TIMESTAMP";
     fi
-    
 
-    # Simple message 
+
+    # Simple message
     MSG="Entry $ENTRY_COUNT"
     ((ENTRY_COUNT++))
 

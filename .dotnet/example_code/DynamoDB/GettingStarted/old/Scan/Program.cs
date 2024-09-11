@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.dotNET.CodeExample.Scan] 
+// snippet-start:[dynamodb.dotNET.CodeExample.Scan]
 using System;
 using System.Collections.Generic;
 using System.Linq;

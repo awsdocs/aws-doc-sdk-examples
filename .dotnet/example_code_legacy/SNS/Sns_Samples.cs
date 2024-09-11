@@ -271,8 +271,8 @@ namespace AWSSDKDocSamples.SNS
       var request =
         new SetPlatformApplicationAttributesRequest
         {
-          Attributes = new Dictionary<string, string>() 
-            { { "EventDeliveryFailure", 
+          Attributes = new Dictionary<string, string>()
+            { { "EventDeliveryFailure",
                 "arn:aws:sns:us-east-1:80398EXAMPLE:CodingTestResults" } },
           PlatformApplicationArn =
             "arn:aws:sns:us-east-1:80398EXAMPLE:" +
@@ -402,7 +402,7 @@ namespace AWSSDKDocSamples.SNS
       snsClient.DeletePlatformApplication(request);
       #endregion
     }
-    
+
     #region ISample Members
     public virtual void Run()
     {

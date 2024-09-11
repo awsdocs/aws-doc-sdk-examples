@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.java.codeexample.MoviesLoadData] 
+// snippet-start:[dynamodb.java.codeexample.MoviesLoadData]
 
 package com.amazonaws.codesamples.gsg;
 

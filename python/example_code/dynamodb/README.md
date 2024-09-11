@@ -141,16 +141,16 @@ python TryDax/01-create-table.py
 
 
 <!--custom.scenarios.dynamodb_Usage_DaxDemo.start-->
-To run the scripts with the DAX client, you must run them on an Amazon Elastic Compute 
-Cloud (Amazon EC2) instance within your virtual private cloud (VPC). This process is 
-described in the Python sample application tutorial in the  
-[Developing with the DAX Client](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.client.html) 
+To run the scripts with the DAX client, you must run them on an Amazon Elastic Compute
+Cloud (Amazon EC2) instance within your virtual private cloud (VPC). This process is
+described in the Python sample application tutorial in the
+[Developing with the DAX Client](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.client.html)
 section of the *Amazon DynamoDB Developer Guide*.
 
 The tutorial shows you how to set up the following additional resources:
 
 - A VPC from Amazon Virtual Private Cloud (Amazon VPC)
-- A DAX cluster set up in your VPC 
+- A DAX cluster set up in your VPC
 - An EC2 instance running in your VPC with the following installed:
     - Python 3.7 or later
     - Boto3 1.11.10 or later
@@ -158,7 +158,7 @@ The tutorial shows you how to set up the following additional resources:
 
 On an EC2 instance, run the get item, query, and scan test scripts with the DAX client
 by specifying a DAX cluster endpoint as the first positional argument.
-To run the query test script with the DAX client, run the following from a command 
+To run the query test script with the DAX client, run the following from a command
 prompt window.
 Start the example by running the following at a command prompt:
 

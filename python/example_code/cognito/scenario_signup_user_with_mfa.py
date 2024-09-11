@@ -60,7 +60,7 @@ def run_scenario(cognito_idp_client, user_pool_id, client_id):
     while not confirmed:
         print(
             f"User {user_name} requires confirmation. Check {email} for "
-            f"a verification code."
+            "a verification code."
         )
         confirmation_code = q.ask("Enter the confirmation code from the email: ")
         if not confirmation_code:
@@ -153,7 +153,7 @@ def run_scenario(cognito_idp_client, user_pool_id, client_id):
 
     print(
         f"Now let's sign in as {user_name} from your confirmed device {device_key}.\n"
-        f"Because this device is tracked by Amazon Cognito, you won't have to re-enter an MFA code."
+        "Because this device is tracked by Amazon Cognito, you won't have to re-enter an MFA code."
     )
     q.ask("Press Enter when ready.")
     auth_tokens = cog_wrapper.sign_in_with_tracked_device(

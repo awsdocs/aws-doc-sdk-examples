@@ -116,7 +116,7 @@ bool DeleteTheBucket(const Aws::S3::S3Client &s3Client,
 #ifndef EXCLUDE_MAIN_FUNCTION
 // Create an S3 bucket and then delete it.
 // Before and after creating the bucket, and again after deleting the bucket,
-// try to determine whether that bucket still exists. 
+// try to determine whether that bucket still exists.
 int main(int argc, char *argv[]) {
 
     if (argc < 3) {

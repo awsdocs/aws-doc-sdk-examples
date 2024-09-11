@@ -43,11 +43,11 @@ public class ServiceHandler {
         var userList: [MyUserRecord] = []
         var marker: String? = nil
         var isTruncated: Bool
-        
+
         repeat {
             let input = ListUsersInput(marker: marker)
             let output = try await client.listUsers(input: input)
-            
+
             guard let users = output.users else {
                 return userList
             }

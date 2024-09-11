@@ -19,11 +19,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <targetKeyId> <aliasName>  
+            <targetKeyId> <aliasName>
         Where:
             targetKeyId - The key ID or the Amazon Resource Name (ARN) of the KMS key.
             aliasName - An alias name to create (for example, alias/myAlias).
-        
+
          """
 
     if (args.size != 2) {

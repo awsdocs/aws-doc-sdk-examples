@@ -68,25 +68,25 @@ public class BatchScenario {
         String dockerImage = "dkr.ecr.us-east-1.amazonaws.com/echo-text:echo-text";
 
         logger.info("""
-            AWS Batch is a fully managed batch processing service that dynamically provisions the required compute 
-            resources for batch computing workloads. The Java V2 `BatchAsyncClient` allows 
+            AWS Batch is a fully managed batch processing service that dynamically provisions the required compute
+            resources for batch computing workloads. The Java V2 `BatchAsyncClient` allows
             developers to automate the submission, monitoring, and management of batch jobs.
-                        
-            This scenario provides an example of setting up a compute environment, job queue and job definition, 
+
+            This scenario provides an example of setting up a compute environment, job queue and job definition,
             and then submitting a job.
-            
+
             This scenario submits a job that pulls a Docker image named echo-text from Amazon ECR to Amazon Fargate.
-            
+
             To place this Docker image on Amazon ECR, run the following Basics scenario.
-            
+
             https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/ecr
-            
+
             Let's get started...
-                        
+
             You have two choices:
-            
+
             1 - Run the entire program.
-            2 - Delete an existing Compute Environment (created from a previous execution of 
+            2 - Delete an existing Compute Environment (created from a previous execution of
             this program that did not complete).
             """);
 
@@ -152,14 +152,14 @@ public class BatchScenario {
         logger.info(DASHES);
         logger.info("1. Create a Batch compute environment");
         logger.info("""
-            A compute environment is a resource where you can run your batch jobs. 
-            After creating a compute environment, you can define job queues and job definitions to submit jobs for 
-            execution. 
-            
-            The benefit of creating a compute environment is it allows you to easily configure and manage the compute 
+            A compute environment is a resource where you can run your batch jobs.
+            After creating a compute environment, you can define job queues and job definitions to submit jobs for
+            execution.
+
+            The benefit of creating a compute environment is it allows you to easily configure and manage the compute
             resources that will be used to run your Batch jobs. By separating the compute environment from the job definitions,
-            you can easily scale your compute resources up or down as needed, without having to modify your job definitions. 
-            This makes it easier to manage your Batch workloads and ensures that your jobs have the necessary 
+            you can easily scale your compute resources up or down as needed, without having to modify your job definitions.
+            This makes it easier to manage your Batch workloads and ensures that your jobs have the necessary
             compute resources to run efficiently.
             """);
 
@@ -209,9 +209,9 @@ public class BatchScenario {
         logger.info(DASHES);
         logger.info("3. Create a job queue");
         logger.info("""
-             A job queue is an essential component that helps manage the execution of your batch jobs. 
-             It acts as a buffer, where jobs are placed and then scheduled for execution based on their 
-             priority and the available resources in the compute environment. 
+             A job queue is an essential component that helps manage the execution of your batch jobs.
+             It acts as a buffer, where jobs are placed and then scheduled for execution based on their
+             priority and the available resources in the compute environment.
              """);
         waitForInputToContinue(scanner);
 
@@ -248,7 +248,7 @@ public class BatchScenario {
             Registering a job in AWS Batch using the Fargate launch type ensures that all
             necessary parameters, such as the execution role, command to run, and so on
             are specified and reused across multiple job submissions.
-            
+
              The job definition pulls a Docker image from Amazon ECR and executes the Docker image.
             """);
 
@@ -262,7 +262,7 @@ public class BatchScenario {
                     1. Windows       X86_64
                     2. Mac or Linux  ARM64
                     3. Mac or Linux  X86_64
-                                
+
                     Please select 1, 2, or 3.
                     """);
                 String platAns = scanner.nextLine().trim();
@@ -354,8 +354,8 @@ public class BatchScenario {
         logger.info("8. Delete Batch resources");
         logger.info(
             """
-            When deleting an AWS Batch compute environment, it does not happen instantaneously. 
-            There is typically a delay, similar to some other AWS resources. 
+            When deleting an AWS Batch compute environment, it does not happen instantaneously.
+            There is typically a delay, similar to some other AWS resources.
             AWS Batch starts the deletion process.
             """);
         logger.info("Would you like to delete the AWS Batch resources such as the compute environment? (y/n)");

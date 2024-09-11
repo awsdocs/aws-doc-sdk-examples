@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 This file is licensed under the Apache License, Version 2.0 (the "License").
 
@@ -11,8 +11,8 @@ specific language governing permissions and limitations under the License.
 -->
 # AWS CLI examples
 
-These are examples for the AWS Command Line Interface (AWS CLI) public 
-documentation. All examples have been tested and verified to work with 
+These are examples for the AWS Command Line Interface (AWS CLI) public
+documentation. All examples have been tested and verified to work with
 the AWS CLI version 2.
 
 ## Prerequisites

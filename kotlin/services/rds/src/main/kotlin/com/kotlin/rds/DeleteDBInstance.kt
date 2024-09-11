@@ -19,10 +19,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <dbInstanceIdentifier> 
+            <dbInstanceIdentifier>
         Where:
-            dbInstanceIdentifier - The database instance identifier to delete. 
-           
+            dbInstanceIdentifier - The database instance identifier to delete.
+
         """
 
     if (args.size != 1) {

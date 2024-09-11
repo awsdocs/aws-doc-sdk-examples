@@ -26,15 +26,15 @@ private var startJobId = ""
 
 suspend fun main(args: Array<String>) {
     val usage = """
-        
-        Usage: 
+
+        Usage:
             <bucket> <video> <topicArn> <roleArn>
-        
+
         Where:
-            bucket - The name of the bucket in which the video is located (for example, (for example, myBucket). 
-            video - The name of the video (for example, people.mp4). 
-            topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic. 
-            roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use. 
+            bucket - The name of the bucket in which the video is located (for example, (for example, myBucket).
+            video - The name of the video (for example, people.mp4).
+            topicArn - The ARN of the Amazon Simple Notification Service (Amazon SNS) topic.
+            roleArn - The ARN of the AWS Identity and Access Management (IAM) role to use.
         """
 
     if (args.size != 4) {

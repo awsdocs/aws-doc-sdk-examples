@@ -14,5 +14,5 @@ aws-smithy-types-convert = { version = "0.60.0", features = [
 ] }
 clap = { version = "~4.4", features = ["derive"] }
 thiserror = "1.0"
-tokio = { version = "1.20.1", features = ["full"] } 
+tokio = { version = "1.20.1", features = ["full"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }

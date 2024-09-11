@@ -9,19 +9,19 @@
 | Required skills   | Java, Maven  |
 
 ## Purpose
-An Extract, Transform, and Load (ETL) workflow extracts data from a given source, transforms the data, and loads the data into a target source. You can create an ETL workflow by using AWS Step Functions and the AWS SDK for Java V2. In this AWS tutorial, population data located in a Microsoft Excel spreadsheet and stored in an Amazon Simple Storage Service (Amazon S3) bucket is retrieved, transformed to another format, and stored in an Amazon DyanmoDB table named **Country**. 
+An Extract, Transform, and Load (ETL) workflow extracts data from a given source, transforms the data, and loads the data into a target source. You can create an ETL workflow by using AWS Step Functions and the AWS SDK for Java V2. In this AWS tutorial, population data located in a Microsoft Excel spreadsheet and stored in an Amazon Simple Storage Service (Amazon S3) bucket is retrieved, transformed to another format, and stored in an Amazon DyanmoDB table named **Country**.
 
 ![AWS Tracking Application](images/step_functions.png)
 
-The following illustration shows the population data located in a Microsoft Excel spreadsheet. 
+The following illustration shows the population data located in a Microsoft Excel spreadsheet.
 
 ![AWS Tracking Application](images/popDate.png)
 
-After the workflow successfully runs the ETL job, population data is stored in an Amazon DynamoDB table, as shown in this illustation. 
+After the workflow successfully runs the ETL job, population data is stored in an Amazon DynamoDB table, as shown in this illustation.
 
 ![AWS Tracking Application](images/DynTable.png)
 
-**Note**: You can also create ETL logic by using AWS Glue. 
+**Note**: You can also create ETL logic by using AWS Glue.
 
 ## Topics
 
@@ -29,7 +29,7 @@ After the workflow successfully runs the ETL job, population data is stored in a
 + Understand the workflow
 + Create an IAM role that is used to execute Lambda functions
 + Create a workflow by using AWS Step functions
-+ Create an IntelliJ project 
++ Create an IntelliJ project
 + Add the POM dependencies to your project
 + Create Lambda functions by using the Lambda Java runtime API
 + Package the project that contains Lambda functions
@@ -50,8 +50,8 @@ To complete the tutorial, you need the following:
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 ### Creating the resources
@@ -60,27 +60,27 @@ The AWS Services used in this AWS tutorial are:
  - Amazon S3 Service
  - Amazon DynamoDB
  - AWS Step Functions
- 
+
 Each workflow step is implemented by using an AWS Lambda function. Lambda is a compute service that enables you to run code without provisioning or managing servers.
 
-**Note**: You can create Lambda functions in various programming languages. For this tutorial, Lambda functions are implemented by using the Lambda Java API. For more information about Lambda, see  [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html). 
+**Note**: You can create Lambda functions in various programming languages. For this tutorial, Lambda functions are implemented by using the Lambda Java API. For more information about Lambda, see  [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
 
 You need to create these resources prior to starting this tutorial:
 
 + An Amazon S3 bucket that contains a Microsoft Excel document that contains poplation data. Create a Microsoft Excel document similiar to the previous illustration and put in example numbers for population data.  For information about creating an Amazon S3 bucket, see [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
-+ An Amazon DynamoDB table named **Country** that contains a partition key named **id**. For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html). 
++ An Amazon DynamoDB table named **Country** that contains a partition key named **id**. For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
 ## Understand the workflow
 
-The following figure shows the workflow you'll create with this tutorial, which performs the ETL operation.  
+The following figure shows the workflow you'll create with this tutorial, which performs the ETL operation.
 
 ![AWS Tracking Application](images/workflow.png)
 
 The following describes each step in the workflow:
 
 + **Start** - Initiates the workflow.
-+ **Get Excel Data** – Retrieves an Excel file from an Amazon S3 bucket by using the Amazon S3 Java API. This step dynamically creates XML that contains the population data and passes the XML to the next step. 
-+ **Store Data** – Parses the XML that contains the population data. For each item in the XML, this step adds a record to an Amazon DynamoDB table by using the Amazon DynamoDB Java API.   
++ **Get Excel Data** – Retrieves an Excel file from an Amazon S3 bucket by using the Amazon S3 Java API. This step dynamically creates XML that contains the population data and passes the XML to the next step.
++ **Store Data** – Parses the XML that contains the population data. For each item in the XML, this step adds a record to an Amazon DynamoDB table by using the Amazon DynamoDB Java API.
 + **End** - Stops the workflow.
 
 ## Create an IAM role that's used to execute Lambda functions
@@ -124,7 +124,7 @@ This tutorial uses the Amazon S3 and Amazon DynamoDB. The **lambda-support** rol
 
 13. Search for **AmazonDynamoDBFullAccess**, and then choose **Attach policy**. When you're done, you can see the permissions.
 
-**Note**: Repeat this process to create **workflow-support**. For step three, instead of choosing **Lambda**, choose **Step Functions**. You don't need to perform steps 11-13.  
+**Note**: Repeat this process to create **workflow-support**. For step three, instead of choosing **Lambda**, choose **Step Functions**. You don't need to perform steps 11-13.
 ## Create a serverless workflow by using AWS Step functions
 
 To define a workflow that performs an ETL operation by using AWS Step Functions, you create an Amazon States Language (JSON-based) document to define your state machine. An Amazon States Language document describes each step. After you define the document, AWS Step Functions provides a visual representation of the workflow. The following figure shows a visual representation of the workflow.
@@ -135,7 +135,7 @@ Workflows can pass data between steps. For example, the **Get Excel Data** dynam
 
 ![AWS Tracking Application](images/workflowdata.png)
 
-**Note**: Later in this tutorial, you'll create application logic in the Lambda function to read data from the Amazon S3 bucket.  
+**Note**: Later in this tutorial, you'll create application logic in the Lambda function to read data from the Amazon S3 bucket.
 
 #### To create a workflow
 
@@ -172,7 +172,7 @@ Workflows can pass data between steps. For example, the **Get Excel Data** dynam
 
 6. In the name field, enter **ETLStateMachine**.
 
-7. In the **Permission** section, choose **Choose an existing role**.  
+7. In the **Permission** section, choose **Choose an existing role**.
 
 8. Choose **workflow-support** (the IAM role that you created).
 
@@ -202,20 +202,20 @@ Create an IntelliJ project that is used to create the web application.
 Make sure that your project's pom.xml file looks like the POM file in this Github repository.
 
 ## Create the Java classes
- 
- Create a Java package in the main/java folder named **com.etl.example**. The Java classes go into this package. 
- 
+
+ Create a Java package in the main/java folder named **com.etl.example**. The Java classes go into this package.
+
  ![AWS Lex](images/Java.png)
- 
+
  Create these Java classes:
 
 + **DocumentHandler** - Used as the first step in the workflow that retrieves the Microsoft Excel document and dynamically creates XML that contains the data.
-+ **DynamoDBService** - Uses the Amazon DynamoDB Java V2 API to store population data into a DynamoDB table. The Amazon DynamoDB Enhanced Client is used. For more information about the Enhanced Client, see [Map items in DynamoDB tables](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-dynamodb-enhanced.html). 
-+ **ExcelService** - Uses the **jxl.Workbook** (not an AWS Java API) to read data from a Microsoft Excel spreadsheet. 
-+ **HandlerStoreData** - Used as the second step in the workflow. 
-+ **PopData** - Used as a model that stores population data. 
-+ **Population** - Used as the data mapping class for the Amazon DynamoDB Java API (V2) Enchanced Client. 
-+ **S3Service** - Uses the Amazon S3 Java API (V2) to read the Microsoft Excel document and returns a byte array.  
++ **DynamoDBService** - Uses the Amazon DynamoDB Java V2 API to store population data into a DynamoDB table. The Amazon DynamoDB Enhanced Client is used. For more information about the Enhanced Client, see [Map items in DynamoDB tables](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-dynamodb-enhanced.html).
++ **ExcelService** - Uses the **jxl.Workbook** (not an AWS Java API) to read data from a Microsoft Excel spreadsheet.
++ **HandlerStoreData** - Used as the second step in the workflow.
++ **PopData** - Used as a model that stores population data.
++ **Population** - Used as the data mapping class for the Amazon DynamoDB Java API (V2) Enchanced Client.
++ **S3Service** - Uses the Amazon S3 Java API (V2) to read the Microsoft Excel document and returns a byte array.
 
 ### DocumentHandler class
 
@@ -251,7 +251,7 @@ The following Java code represents the **DocumentHandler** class.
 
 ### DynamoDBService class
 
-The following Java code represents the **DynamoDBService** class. This class uses the Amazon DynamoDB Java API (V2) to populate the **Country** table. 
+The following Java code represents the **DynamoDBService** class. This class uses the Amazon DynamoDB Java API (V2) to populate the **Country** table.
 
 ```java
 package com.etl.example;
@@ -587,7 +587,7 @@ public class ExcelService {
 
 ### HandlerStoreData class
 
-The following Java code represents the **HandlerStoreData** class. This class represents the second step in the workflow. 
+The following Java code represents the **HandlerStoreData** class. This class represents the second step in the workflow.
 
 ```java
     package com.etl.example;
@@ -748,7 +748,7 @@ The following Java code represents the **PopData** class.
 
 ### Population class
 
-The following Java code represents the **Population** class. The class is used for data mapping for the Amazon DynamoDB Java API Enhanced Client. 
+The following Java code represents the **Population** class. The class is used for data mapping for the Amazon DynamoDB Java API Enhanced Client.
 
 ```java
      package com.etl.example;
@@ -878,10 +878,10 @@ The following Java code represents the **Population** class. The class is used f
     }
   }
 ```
-    
+
 ### S3Service class
 
-The following Java code represents the **S3Service** class. This class contains a method named **getObjectBytes** that accepts the bucket name and object name (which represents the Microsoft Excel file) and returns a byte array. 
+The following Java code represents the **S3Service** class. This class contains a method named **getObjectBytes** that accepts the bucket name and object name (which represents the Microsoft Excel file) and returns a byte array.
 
 ```java
     package com.etl.example;
@@ -950,7 +950,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 8. For **Code entry type**, choose **Upload a .zip or .jar file**.
 
-9. Choose **Upload**, and then browse to the JAR file that you created.  
+9. Choose **Upload**, and then browse to the JAR file that you created.
 
 10. For **Handler**, enter the fully qualified name of the function, for example, **com.etl.example.DocumentHandler::handleRequest** (**com.etl.example.DocumentHandler** specifies the package and class followed by :: and method name).
 
@@ -958,7 +958,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 11. Choose **Save.**
 
-12. Repeat this procedure for the **HandlerStoreData** class. Name the corresponding Lambda function **ETLStoreData**. When you finish, you will have two Lambda functions that you can reference in the Amazon States Language document.  
+12. Repeat this procedure for the **HandlerStoreData** class. Name the corresponding Lambda function **ETLStoreData**. When you finish, you will have two Lambda functions that you can reference in the Amazon States Language document.
 
 **Note**: It's recommended that you increase the timeout value for the Lambda functions. For more information, see [Configuring functions in the console](https://docs.aws.amazon.com/lambda/latest/dg/configuration-console.html).
 
@@ -976,14 +976,14 @@ Update the Resource for the **Store Data** step with the ARN of the **ETLStoreDa
 
 ## Execute your workflow by using the Step Functions console
 
-You can invoke the workflow on the Step Functions console.  An execution receives JSON input. For this example, you can pass the following JSON data to the workflow.  
+You can invoke the workflow on the Step Functions console.  An execution receives JSON input. For this example, you can pass the following JSON data to the workflow.
 
      {
       "bucketname": "<Enter your Amazon S3 bucket name>",
       "objectname": "<Enter the MS Excel document>"
      }
 
-**Note**: Ensure that you specify the correct Amazon S3 bucket name and the Excel document that contains population data. These values are used by the **DocumentHandler** class and are input into the workflow. 
+**Note**: Ensure that you specify the correct Amazon S3 bucket name and the Excel document that contains population data. These values are used by the **DocumentHandler** class and are input into the workflow.
 
 #### To execute your workflow
 

@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-/* Build 
+/* Build
    Don't forget to use the Visual Studio command prompt
    Tested with csc /version == 2.10.0.0
      (C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\bin\Roslyn)
@@ -164,7 +164,7 @@ namespace Ec2SpotCrud
 
         // snippet-start:[ec2.dotnet.spot_instance_main]
         /* Creates, cancels, and terminates a spot instance request
-         * 
+         *
          *   AmazonEC2Client ec2Client is the EC2 client through which the spot instance is manipulated
          *   string spotRequestId is the ID of the spot instance
          *
@@ -186,16 +186,16 @@ namespace Ec2SpotCrud
             Console.WriteLine("  -h displays this message and quits");
             Console.WriteLine();
         }
-        
+
         /* Creates, cancels, and terminates a spot instance request
          * See Usage() for information about the command-line args
          */
         static void Main(string[] args)
         {
-            // Values that aren't easy to pass on the command line            
+            // Values that aren't easy to pass on the command line
             RegionEndpoint region = RegionEndpoint.USWest2;
             InstanceType instanceType = InstanceType.T1Micro;
-            
+
             // Default values for optional command-line args
             string securityGroupName = "default";
             string spotPrice = "0.003";
@@ -313,6 +313,6 @@ namespace Ec2SpotCrud
 
             Console.ReadLine();
         }
-        // snippet-end:[ec2.dotnet.spot_instance_main]        
+        // snippet-end:[ec2.dotnet.spot_instance_main]
     }
 }

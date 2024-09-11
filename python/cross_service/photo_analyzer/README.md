@@ -29,9 +29,9 @@ perform the following actions:
 * Analyze all photos in your S3 bucket and use Amazon SES to email a report.
 
 ## ⚠️ Important
-* Running this code might result in charges to your AWS account. 
+* Running this code might result in charges to your AWS account.
 * Running the tests might result in charges to your AWS account.
-*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ### Prerequisites
@@ -39,7 +39,7 @@ perform the following actions:
 #### Webpage
 
 The requirements for the webpage are listed in the accompanying `package.json` file.
-You will need recent versions of Node.js and npm to install the requirements. 
+You will need recent versions of Node.js and npm to install the requirements.
 
 * Node.js 16.14.2
 * npm 8.5.0
@@ -61,16 +61,16 @@ file. You will need recent versions of Python and pip to the install the require
 * Python 3.8.8
 * pip 21.1.2
 
-Install the REST service components by running the following in the `api` folder in 
+Install the REST service components by running the following in the `api` folder in
 a virtual environment:
 
 ```
 python -m pip install -r requirements.txt
-```  
+```
 
-This installs components like Boto3, Flask, and Flask-RESTful.  
+This installs components like Boto3, Flask, and Flask-RESTful.
 
-## Creating the resources 
+## Creating the resources
 
 ### Photo bucket
 
@@ -86,7 +86,7 @@ The example sends an email report by using Amazon SES. When your account is in t
 sandbox, you must register both the sender and recipient email addresses. You can
 do this by using [the console](https://console.aws.amazon.com/ses).
 
-*Tip:* For this example, you can register the same email account as both the sender and 
+*Tip:* For this example, you can register the same email account as both the sender and
 the recipient.
 
 ## Running the code
@@ -134,14 +134,14 @@ to analyze all photos in your bucket and display a report.
 
 ![Analyzer display report](images/analyzer-display-report.png)
 
-Fill out the form with sender address, recipient address, and a message. Select 
+Fill out the form with sender address, recipient address, and a message. Select
 **Send report** to email the report.
 
 ![Analyzer email report](images/analyzer-email-report.png)
 
 ## Deleting the resources
 
-To avoid charges, use the console to delete all the resources that you created for 
+To avoid charges, use the console to delete all the resources that you created for
 this tutorial.
 
 * Empty and delete your S3 bucket.

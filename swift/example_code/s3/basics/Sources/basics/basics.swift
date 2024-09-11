@@ -126,7 +126,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[s3.swift.basics.main]
 // snippet-end:[s3.swift.basics.example]

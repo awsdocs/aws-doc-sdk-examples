@@ -23,9 +23,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <streamName> 
+            <streamName>
         Where:
-            streamName - The data stream name. 
+            streamName - The data stream name.
     """
 
     if (args.size != 1) {

@@ -24,8 +24,8 @@ suspend fun main(args: Array<String>) {
         Usage:
             <roleName> <policyArn>
         Where:
-            roleName - A role name that you can obtain from the AWS Management Console. 
-            policyArn - A policy ARN that you can obtain from the AWS Management Console. 
+            roleName - A role name that you can obtain from the AWS Management Console.
+            policyArn - A policy ARN that you can obtain from the AWS Management Console.
         """
 
     if (args.size != 2) {

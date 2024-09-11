@@ -30,7 +30,7 @@ class ScenarioData:
         self.resource_prefix = "doc-example-test-resilience"
         self.policy_arn = "arn:aws:iam:us-west-2:123456789012:policy/test-policy"
         self.role_name = f"{self.resource_prefix}-role"
-        self.profile_name = f"{self.resource_prefix}-prof"
+        self.profile_name = f"{self.resource_prefix}-pro"
         self.lt_name = f"{self.resource_prefix}-template"
         self.inst_type = "test-inst-type"
         self.ami_param = "test-ami-param"
@@ -63,7 +63,7 @@ class ScenarioData:
             "arn:aws:iam:us-west-2:123456789012:policy/test-bad-policy"
         )
         self.bad_role_name = f"{self.resource_prefix}-bc-role"
-        self.bad_prof_name = f"{self.resource_prefix}-bc-prof"
+        self.bad_prof_name = f"{self.resource_prefix}-bc-pro"
         self.scenario = runner.Runner(
             self.test_resource_path,
             RecommendationService(self.table_name, self.ddb.client),

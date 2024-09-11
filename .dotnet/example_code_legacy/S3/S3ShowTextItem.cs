@@ -3,8 +3,8 @@
 /*
   To compile, use the VS command prompt and run (all on one line):
 
-    csc S3ShowTextItem.cs 
-      /reference:"C:\Program Files (x86)\AWS SDK for .NET\bin\Net45\AWSSDK.Core.dll" 
+    csc S3ShowTextItem.cs
+      /reference:"C:\Program Files (x86)\AWS SDK for .NET\bin\Net45\AWSSDK.Core.dll"
       /reference:"C:\Program Files (x86)\AWS SDK for .NET\bin\Net45\AWSSDK.S3.dll"
 
   To run:

@@ -48,7 +48,7 @@ public class TextractTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * TextractTest.class.getClassLoader().getResourceAsStream("config.properties"))
          * {
@@ -57,16 +57,16 @@ public class TextractTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * prop.load(input);
          * sourceDoc = prop.getProperty("sourceDoc");
          * bucketName = prop.getProperty("bucketName");
          * docName = prop.getProperty("docName");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }
-         * 
+         *
          */
     }
 

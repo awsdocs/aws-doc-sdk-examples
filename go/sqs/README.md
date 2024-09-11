@@ -34,14 +34,14 @@ in the *AWS SDK for Go Developer Guide*.
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
   in the AWS Identity and Access Management User Guide.
 - This code has not been tested in all Regions.
-  Some AWS services are available only in specific 
+  Some AWS services are available only in specific
   [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running the examples might result in charges to your AWS account.
 
 ## About the unit tests
 
 The unit tests should delete any resources that they create.
-However, they might result in charges to your 
+However, they might result in charges to your
 AWS account.
 
 To run a unit test, enter the following:
@@ -241,7 +241,7 @@ The unit test:
    it creates a dead-letter queue with a name beginning with **mydlqueue-**.
 4. Configures the dead-letter queue to receive undelivered messages from the queue.
 5. If it created the queue, it deletes the queue.
-6. If it created the dead-letter queue, it deletes the dead-letter queue.   
+6. If it created the dead-letter queue, it deletes the dead-letter queue.
 
 ### DeleteMessage
 
@@ -337,7 +337,7 @@ The unit test accepts the following configuration values in *config.json* and st
   The default is false.
 - **SleepSeconds** specifies how long, in seconds, to wait after creating a queue and listing it.
   the default is 60.
-  
+
 NOTE: If you set **Confirm** to true,
 the unit test sleeps **SleepSeconds** before listing the queues,
 which adds a considerable amount of time to running the unit test.
@@ -422,7 +422,7 @@ The unit test accepts the following configuration values in *config.json* and st
    The example uses this in lieu of configuring the queue for long polling.
 - **Visibility** is how long, in seconds, the message is not available to other consumers.
    The default is 5.
-   
+
 The unit test:
 
 1. Gets the values from *config.json* and stores them in a struct,

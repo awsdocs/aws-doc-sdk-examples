@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.java.codeexample.DynamoDBDynamicFaultInjection] 
+// snippet-start:[dynamodb.java.codeexample.DynamoDBDynamicFaultInjection]
 
 package com.amazonaws.services.dynamodbv2.client;
 

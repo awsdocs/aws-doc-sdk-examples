@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Centralizes PyTest fixtures and specialized stubbers based on the botocore Stubber 
+Centralizes PyTest fixtures and specialized stubbers based on the botocore Stubber
 that Python code examples can use for unit tests.
 
 ## Prerequisites
@@ -31,14 +31,14 @@ common fixtures from the test tools.
 ### Stubs versus actual AWS
 
 The main fixture in the test tools is `make_stubber`, which is a factory function
-that lets you make a stubber for a specific AWS service client. The stubbers 
-inherit from the botocore Stubber and contain stub functions that you can use to 
+that lets you make a stubber for a specific AWS service client. The stubbers
+inherit from the botocore Stubber and contain stub functions that you can use to
 test the most common functions of the specified client.
 
 All of the stubbers honor the `--use-real-aws-may-incur-charges` command line option.
 When this option is not present, stubs are used in all tests and no requests are
 made to your AWS account. When this option *is* present, the stubbers let requests
-flow through to your actual AWS account, which might incur charges. 
+flow through to your actual AWS account, which might incur charges.
 
 ### Example
 

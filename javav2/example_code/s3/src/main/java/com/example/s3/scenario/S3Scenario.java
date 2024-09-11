@@ -67,18 +67,18 @@ public class S3Scenario {
         logger.info(DASHES);
         logger.info("Welcome to the Amazon Simple Storage Service (S3) example scenario.");
         logger.info("""
-            Amazon S3 is a highly scalable and durable object storage 
-            service provided by Amazon Web Services (AWS). It is designed to store and retrieve 
+            Amazon S3 is a highly scalable and durable object storage
+            service provided by Amazon Web Services (AWS). It is designed to store and retrieve
             any amount of data, from anywhere on the web, at any time.
-                        
-            The `S3AsyncClient` interface in the AWS SDK for Java 2.x provides a set of methods to 
-            programmatically interact with the Amazon S3 (Simple Storage Service) service. This allows 
-            developers to automate the management and manipulation of S3 buckets and objects as 
-            part of their application deployment pipelines. With S3, teams can focus on building 
-            and deploying their applications without having to worry about the underlying storage 
+
+            The `S3AsyncClient` interface in the AWS SDK for Java 2.x provides a set of methods to
+            programmatically interact with the Amazon S3 (Simple Storage Service) service. This allows
+            developers to automate the management and manipulation of S3 buckets and objects as
+            part of their application deployment pipelines. With S3, teams can focus on building
+            and deploying their applications without having to worry about the underlying storage
             infrastructure required to host and manage large amounts of data.
-                        
-            This scenario walks you through how to perform key operations for this service.  
+
+            This scenario walks you through how to perform key operations for this service.
             Let's get started...
             """);
         waitForInputToContinue(scanner);

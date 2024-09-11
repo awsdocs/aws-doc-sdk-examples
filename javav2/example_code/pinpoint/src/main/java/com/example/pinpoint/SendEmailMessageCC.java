@@ -27,9 +27,9 @@ public class SendEmailMessageCC {
     // The body of the email.
     static final String body = """
         Amazon Pinpoint test (AWS SDK for Java 2.x)
-                
+
         This email was sent through the Amazon Pinpoint Email API using the AWS SDK for Java 2.x
-                
+
         """;
     public static void main(String[] args) {
         final String usage = """

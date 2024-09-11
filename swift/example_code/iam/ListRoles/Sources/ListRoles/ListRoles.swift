@@ -32,7 +32,7 @@ struct ExampleCommand: ParsableCommand {
 
         do {
             let roles = try await serviceHandler.listRoles()
-            
+
             print("Found \(roles.count) roles")
             for roleName in roles {
                 print("  \(roleName)")
@@ -60,7 +60,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[iam.swift.listroles.main]
 // snippet-end:[iam.swift.listroles.example]

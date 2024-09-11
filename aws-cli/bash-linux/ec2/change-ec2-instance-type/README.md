@@ -33,7 +33,7 @@ The main script file contains the `change_ec2_instance_type()` function that per
 
  * An Amazon Web Services (AWS) account.
  * A shared credentials file with a default profile. The profile that you use must have permissions that allow the AWS operations performed by the script. For more information about how to set up a shared credentials file, see [Configuration and Credential File Settings](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) in the _AWS CLI User Guide_.
- * A running EC2 instance in the account for which you have permission to stop and modify. If you run the test script, it launches an instance for you, tests changing the type, and then terminates the instance. 
+ * A running EC2 instance in the account for which you have permission to stop and modify. If you run the test script, it launches an instance for you, tests changing the type, and then terminates the instance.
 
 ## Running the Code
 This example is written as a function in a shell script file (*`change_ec2_instance_type.sh`*) that you can `source` from another script or from the command line. Once the function is in memory, you can invoke it from the command line. For example, the following commands change the type of the specified instance to `t2.nano`:

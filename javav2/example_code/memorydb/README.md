@@ -8,7 +8,7 @@ Amazon MemoryDB for Redis is a Redis-compatible, durable, in-memory database ser
 ## ⚠️ Important
 * The SDK for Java examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges that you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
@@ -31,8 +31,8 @@ The following examples use the **MemoryDbClient** object:
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a cluster. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
-To run these examples, set up your development environment. For more information, 
-see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
+To run these examples, set up your development environment. For more information,
+see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
 
  ## Test the MemoryDB Java files
@@ -50,7 +50,7 @@ Before running the JUnit tests, you must define values in the **config.propertie
 
 Define these values to successfully run the JUnit tests:
 
-- **clusterName** - The name of the cluster.   
+- **clusterName** - The name of the cluster.
 - **nodeType** - The compute and memory capacity of the nodes in the cluster.
 - **subnetGroupName** - The name of the subnet group to be used for the cluster.
 - **aclName** - The name of the Access Control List to associate with the cluster.

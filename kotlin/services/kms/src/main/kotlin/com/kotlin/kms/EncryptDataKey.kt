@@ -24,8 +24,8 @@ suspend fun main(args: Array<String>) {
         Usage:
             <keyId> <path>
         Where:
-            keyId - A key id value to describe (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). 
-            path - The path of a text file where the data is written to (for example, C:\AWS\TextFile.txt). 
+            keyId - A key id value to describe (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).
+            path - The path of a text file where the data is written to (for example, C:\AWS\TextFile.txt).
     """
 
     if (args.size != 2) {

@@ -5,7 +5,7 @@ The DynamoDB code examples in this folder might use older versions of the .NET f
 
 ## Copyright and License
 
-All content in this repository, unless otherwise stated, is 
+All content in this repository, unless otherwise stated, is
 Copyright © Amazon Web Services, Inc. or its affiliates. All rights reserved.
 
 Except where otherwise noted, all examples in this collection are licensed under the [Apache

@@ -12,7 +12,7 @@ import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 
 /**
  * Copy an object from one Amazon S3 bucket to another using S3 TransferManager.
- * 
+ *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */

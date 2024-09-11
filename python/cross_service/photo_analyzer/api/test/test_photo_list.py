@@ -21,7 +21,7 @@ def test_get_photo_list(make_stubber, error_code):
     bucket = s3_resource.Bucket("test-bucket")
     photo_list = PhotoList(bucket)
     photos = ["photo.jpg", "photo.PNG"]
-    all_keys = photos + ["photo.txt", "photo.pdf"]
+    all_keys = photos + ["photo.txt", "photo.pd"]
 
     s3_stubber.stub_list_objects(bucket.name, all_keys, error_code=error_code)
 

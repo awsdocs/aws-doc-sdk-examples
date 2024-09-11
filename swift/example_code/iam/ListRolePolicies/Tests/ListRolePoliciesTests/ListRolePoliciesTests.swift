@@ -47,7 +47,7 @@ final class ListRolePoliciesTests: XCTestCase {
         let user = try await ListRolePoliciesTests.serviceHandler!.getUser(name: nil)
 
         guard let userARN = user.arn else {
-            throw ServiceHandlerError.noSuchUser 
+            throw ServiceHandlerError.noSuchUser
         }
 
         // The policy document is a JSON string describing the role. For

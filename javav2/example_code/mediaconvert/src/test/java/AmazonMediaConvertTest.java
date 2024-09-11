@@ -57,11 +57,11 @@ public class AmazonMediaConvertTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * prop.load(input);
          * mcRoleARN = prop.getProperty("mcRoleARN");
          * fileInput = prop.getProperty("fileInput");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

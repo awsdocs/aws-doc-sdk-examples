@@ -16,7 +16,7 @@ import java.io.File;
 
 /**
  * Download objects from an Amazon S3 bucket using S3 TransferManager.
- * 
+ *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */

@@ -49,9 +49,9 @@ to use the AWS Cloud Development Kit (AWS CDK) or AWS Command Line Interface
 
 ## Build the code
 
-The Visual Studio solution **PhotoAssetManager.sln** includes several projects with different purposes for this example. The Lambda functions included in the solution also use [Powertools for AWS Lambda (.NET)](https://github.com/aws-powertools/powertools-lambda-dotnet) for enhanced logging. 
+The Visual Studio solution **PhotoAssetManager.sln** includes several projects with different purposes for this example. The Lambda functions included in the solution also use [Powertools for AWS Lambda (.NET)](https://github.com/aws-powertools/powertools-lambda-dotnet) for enhanced logging.
 
-- **PamApi** - A Lambda Serverless API project that includes an ApiController for the serverless endpoints, a Swagger UI for development environments, and separate Download and DetectLabels functions. 
+- **PamApi** - A Lambda Serverless API project that includes an ApiController for the serverless endpoints, a Swagger UI for development environments, and separate Download and DetectLabels functions.
   - This is the project that will be packaged and deployed when using the `dotnet` language option when setting up the CDK stack.
 - **PamApiAnnotations** - A [Lambda Annotations](https://github.com/aws/aws-lambda-dotnet/blob/master/Libraries/src/Amazon.Lambda.Annotations/README.md) project that includes a version of the serverless endpoints that use Lambda Annotations for .NET.
   - This is the project that will be packaged and deployed when using the `dotnetla` language option when setting up the CDK stack.
@@ -61,7 +61,7 @@ The Visual Studio solution **PhotoAssetManager.sln** includes several projects w
 
 ### Local development
 The PamApi project includes a Swagger integration and setup, with additional test endpoints that can be used for investigating the various application functionality.
-You can access this UI by running the `PamApi` project from Visual Studio in debug mode. 
+You can access this UI by running the `PamApi` project from Visual Studio in debug mode.
 
 ![pam_api_swagger.png](pam_api_swagger.png)
 
@@ -72,7 +72,7 @@ For local development, you will also need to set the following environment varia
 * WORKING_BUCKET_NAME
 * NOTIFICATION_TOPIC
 
-For local debugging of the `PamApiAnnotations` project and the `Download` and 
+For local debugging of the `PamApiAnnotations` project and the `Download` and
 `DetectLabels` functions, you can use the [Mock Lambda Test Tool](https://github.com/aws/aws-lambda-dotnet/blob/master/Tools/LambdaTestTool/README.md).
 To run the tool for debugging, select the tool from the `Debug` menu in Visual Studio.
 

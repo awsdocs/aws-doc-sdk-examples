@@ -34,7 +34,7 @@ usage: <command> [<args>]
 
   update-function-configuration          Takes the name of a function and updates the function's
     <function_name>                      configuration with the provided config.json.
-    
+
 
   list-functions                         Lists all Lambda functions for the configured account.
 

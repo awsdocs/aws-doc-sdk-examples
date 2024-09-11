@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.DeleteObjectNonVersionedBucketTest1]
 using Amazon;
@@ -11,7 +11,7 @@ namespace Amazon.DocSamples.S3
 {
     class DeleteObjectNonVersionedBucketTest
     {
-        private const string bucketName = "*** bucket name ***"; 
+        private const string bucketName = "*** bucket name ***";
         private const string keyName = "*** object key ***";
         // Specify your bucket region (an example region is shown).
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;

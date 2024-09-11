@@ -19,7 +19,7 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <groupId> 
+            <groupId>
 
         Where:
             groupId - A security group id that you can obtain from the AWS Management Console (for example, sg-xxxxxx1c0b65785c3).

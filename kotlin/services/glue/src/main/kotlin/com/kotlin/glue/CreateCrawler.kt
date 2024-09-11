@@ -25,11 +25,11 @@ suspend fun main(args: Array<String>) {
         <IAM> <s3Path> <cron> <dbName> <crawlerName>
 
     Where:
-        IAM - The ARN of the IAM role that has AWS Glue and S3 permissions. 
+        IAM - The ARN of the IAM role that has AWS Glue and S3 permissions.
         s3Path - The Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).
         cron - A cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).
-        dbName - The database name. 
-        crawlerName - The name of the crawler. 
+        dbName - The database name.
+        crawlerName - The name of the crawler.
     """
 
     if (args.size != 5) {

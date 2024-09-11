@@ -61,7 +61,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[iam.swift.attachrolepolicy.main]
 // snippet-end:[iam.swift.attachrolepolicy.example]

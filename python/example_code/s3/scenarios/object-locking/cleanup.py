@@ -200,7 +200,7 @@ def disable_bucket_object_lock_configuration(s3_client, bucket: str) -> str:
         logger.debug(
             "Unable to disable object lock configuration for bucket %s", bucket
         )
-        return f"Unable to disable object lock configuration after bucket creation."
+        return "Unable to disable object lock configuration after bucket creation."
     return "Success"
 
 

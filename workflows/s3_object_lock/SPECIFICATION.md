@@ -50,7 +50,7 @@ Press Enter to continue.
   - Two files in each bucket, so that different settings can be applied.
   - For Object Lock and Retention Period settings, the user should be given the option to add these settings.
     - For Retention Period, only Governance mode should be used, since Compliance mode cannot be removed even by the root user.
-    
+
 Example:
 
 ```
@@ -88,7 +88,7 @@ Explore the S3 locking features by selecting one of the following choices:
         5. View the object and bucket retention settings for a file.
         6. View the legal hold settings for a file.
         7. Finish the workflow.
-        
+
 6
 --------------------------------------------------------------------------------
 

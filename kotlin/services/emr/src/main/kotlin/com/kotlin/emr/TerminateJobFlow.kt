@@ -19,11 +19,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main(args: Array<String>) {
     val usage = """
-          Usage:    
+          Usage:
             <id>
-    
+
           Where:
-            id - An id of a job flow to shut down. 
+            id - An id of a job flow to shut down.
         """
 
     if (args.size != 1) {

@@ -41,9 +41,9 @@ suspend fun main(args: Array<String>) {
     Where:
         bucketName - The Amazon S3 bucket to create.
         key - The key to use.
-        objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).   
-        savePath - The path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf).     
-        toBucket - An Amazon S3 bucket to where an object is copied to (for example, C:/AWS/book2.pdf). 
+        objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).
+        savePath - The path where the file is saved after it's downloaded (for example, C:/AWS/book2.pdf).
+        toBucket - An Amazon S3 bucket to where an object is copied to (for example, C:/AWS/book2.pdf).
         """
 
     if (args.size != 4) {

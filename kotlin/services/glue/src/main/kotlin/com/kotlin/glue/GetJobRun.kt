@@ -23,8 +23,8 @@ suspend fun main(args: Array<String>) {
         <jobName> <runId>
 
     Where:
-        jobName - the name of the job. 
-        runId - the run id value that you can obtain from the AWS Management Console. 
+        jobName - the name of the job.
+        runId - the run id value that you can obtain from the AWS Management Console.
     """
 
     if (args.size != 2) {

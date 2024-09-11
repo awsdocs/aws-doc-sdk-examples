@@ -55,7 +55,7 @@ by running the following at a command prompt:
 
 ```
 python pinpoint_send_email_message_api.py
-```  
+```
 <!--custom.instructions.end-->
 
 

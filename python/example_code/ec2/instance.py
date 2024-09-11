@@ -167,7 +167,7 @@ class EC2InstanceWrapper:
             waiter.wait(InstanceIds=instance_ids)
             self.instances.clear()
             for instance_id in instance_ids:
-                print(f"• Instance ID: {instance_id}\n" f"• Action: Terminated")
+                print(f"• Instance ID: {instance_id}\n" "• Action: Terminated")
 
         except ClientError as err:
             logger.error(

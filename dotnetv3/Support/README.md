@@ -31,8 +31,8 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 You must have a Business, Enterprise On-Ramp, or Enterprise Support plan to use the AWS Support API.
 
-If you call the AWS Support API from an account that doesn't have a Business, Enterprise On-Ramp, or Enterprise Support 
-plan, the SubscriptionRequiredException error message appears. For information about changing your support plan, see 
+If you call the AWS Support API from an account that doesn't have a Business, Enterprise On-Ramp, or Enterprise Support
+plan, the SubscriptionRequiredException error message appears. For information about changing your support plan, see
 [AWS Premium Support](http://aws.amazon.com/premiumsupport/).
 <!--custom.prerequisites.end-->
 

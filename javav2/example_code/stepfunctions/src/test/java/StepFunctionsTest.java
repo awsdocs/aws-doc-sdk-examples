@@ -52,7 +52,7 @@ public class StepFunctionsTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * StepFunctionsTest.class.getClassLoader().getResourceAsStream(
          * "config.properties")) {
@@ -67,7 +67,7 @@ public class StepFunctionsTest {
          * java.util.UUID.randomUUID();;
          * stateMachineNameSC = prop.getProperty("stateMachineNameSC")+
          * java.util.UUID.randomUUID();;
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

@@ -1,4 +1,4 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[SQS.dotnetv3.MPFTutorial.Handler]
@@ -28,7 +28,7 @@ builder.ConfigureServices(services =>
             builder.AddMessageHandler<GreetingMessageHandler, GreetingMessage>("greetingMessage");
 
         }
-        // You can add additional message handlers here, using different message types. 
+        // You can add additional message handlers here, using different message types.
     });
 });
 

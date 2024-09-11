@@ -8,7 +8,7 @@ AWS AppSync provides a robust, scalable GraphQL interface for application develo
 ## ⚠️ Important
 * The SDK for Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
@@ -29,8 +29,8 @@ The following examples use the **AppSyncClient** object:
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS AppSync data source. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
-To run these examples, set up your development environment. For more information, 
-see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
+To run these examples, set up your development environment. For more information,
+see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
 
  ## Testing the AWS AppSync Kotlin files
@@ -49,8 +49,8 @@ Before running the AWS AppSync JUnit tests, you must define values in the **conf
 Define these values to successfully run the JUnit tests:
 
 - **apiId** - The Id of the API. (You can get this value from the AWS Management Console.)
-- **dsName** - The name of the data source. 
-- **dsRole** - The AWS Identity and Access Management (IAM) service role for the data source. 
+- **dsName** - The name of the data source.
+- **dsRole** - The AWS Identity and Access Management (IAM) service role for the data source.
 - **tableName** - The name of the Amazon DynamoDB table used as the data source.
 
 ## Additional resources

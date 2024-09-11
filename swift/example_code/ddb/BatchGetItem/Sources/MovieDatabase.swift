@@ -136,7 +136,7 @@ public class MovieDatabase {
         guard let description = output.table else {
             return false
         }
-        
+
         return (description.tableName == self.tableName)
     }
     // snippet-end:[ddb.swift.batchgetitem.tableexists]

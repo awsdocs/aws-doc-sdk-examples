@@ -14,10 +14,10 @@ public class HelloECR {
 
     public static void main(String[] args) {
         final String usage = """
-            Usage:    <repositoryName> 
+            Usage:    <repositoryName>
 
             Where:
-               repositoryName - The name of the Amazon ECR repository. 
+               repositoryName - The name of the Amazon ECR repository.
             """;
 
         if (args.length != 1) {

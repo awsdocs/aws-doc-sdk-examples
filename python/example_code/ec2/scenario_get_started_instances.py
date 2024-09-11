@@ -175,7 +175,7 @@ class EC2InstanceScenario:
             time.sleep(21)
             bar()
 
-        console.print(f"**Success! Your instance is ready:**\n", style="bold green")
+        console.print("**Success! Your instance is ready:**\n", style="bold green")
         self.inst_wrapper.display()
 
         console.print(
@@ -270,7 +270,7 @@ class EC2InstanceScenario:
             time.sleep(2)
             bar()
 
-        console.print(f"- **Associated Elastic IP with Your Instance**.")
+        console.print("- **Associated Elastic IP with Your Instance**.")
         console.print(
             "You can now use SSH to connect to your instance by using the Elastic IP."
         )
@@ -311,7 +311,7 @@ class EC2InstanceScenario:
             )
         else:
             console.print(
-                f"Because you have associated an Elastic IP with your instance, you can \n"
+                "Because you have associated an Elastic IP with your instance, you can \n"
                 f"connect by using a consistent IP address after the instance restarts: {elastic_ip.public_ip}"
             )
 

@@ -24,23 +24,23 @@ public class S3BatchScenario {
         System.out.println(DASHES);
         System.out.println("Welcome to the Amazon S3 Batch basics scenario.");
         System.out.println("""
-            S3 Batch operations enables efficient and cost-effective processing of large-scale 
-            data stored in Amazon S3. It automatically scales resources to handle varying workloads 
-            without the need for manual intervention. 
-                        
-            One of the key features of S3 Batch is its ability to perform tagging operations on objects stored in 
-            S3 buckets. Users can leverage S3 Batch to apply, update, or remove tags on thousands or millions of 
-            objects in a single operation, streamlining the management and organization of their data. 
-                        
-            This can be particularly useful for tasks such as cost allocation, lifecycle management, or 
-            metadata-driven workflows, where consistent and accurate tagging is essential. 
-            S3 Batch's scalability and serverless nature make it an ideal solution for organizations with 
+            S3 Batch operations enables efficient and cost-effective processing of large-scale
+            data stored in Amazon S3. It automatically scales resources to handle varying workloads
+            without the need for manual intervention.
+
+            One of the key features of S3 Batch is its ability to perform tagging operations on objects stored in
+            S3 buckets. Users can leverage S3 Batch to apply, update, or remove tags on thousands or millions of
+            objects in a single operation, streamlining the management and organization of their data.
+
+            This can be particularly useful for tasks such as cost allocation, lifecycle management, or
+            metadata-driven workflows, where consistent and accurate tagging is essential.
+            S3 Batch's scalability and serverless nature make it an ideal solution for organizations with
             growing data volumes and complex data management requirements.
-                        
-            This Java program walks you through Amazon S3 Batch operations. 
-                        
+
+            This Java program walks you through Amazon S3 Batch operations.
+
             Let's get started...
-                   
+
             """);
         waitForInputToContinue(scanner);
         // Use CloudFormation to stand up the resource required for this scenario.
@@ -87,14 +87,14 @@ public class S3BatchScenario {
         System.out.println(DASHES);
         System.out.println("2. Update an existing S3 Batch Operations job's priority");
         System.out.println("""
-             In this step, we modify the job priority value. The higher the number, the higher the priority. 
-             So, a job with a priority of `30` would have a higher priority than a job with 
-             a priority of `20`. This is a common way to represent the priority of a task 
+             In this step, we modify the job priority value. The higher the number, the higher the priority.
+             So, a job with a priority of `30` would have a higher priority than a job with
+             a priority of `20`. This is a common way to represent the priority of a task
              or job, with higher numbers indicating a higher priority.
-             
-             Ensure that the job status allows for priority updates. Jobs in certain 
-             states (e.g., Cancelled, Failed, or Completed) cannot have their priorities 
-             updated. Only jobs in the Active or Suspended state typically allow priority 
+
+             Ensure that the job status allows for priority updates. Jobs in certain
+             states (e.g., Cancelled, Failed, or Completed) cannot have their priorities
+             updated. Only jobs in the Active or Suspended state typically allow priority
              updates.
              """);
 

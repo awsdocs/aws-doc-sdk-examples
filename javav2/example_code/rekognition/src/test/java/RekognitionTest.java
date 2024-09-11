@@ -105,7 +105,7 @@ public class RekognitionTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * RekognitionTest.class.getClassLoader().getResourceAsStream(
          * "config.properties")) {
@@ -114,7 +114,7 @@ public class RekognitionTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * prop.load(input);
          * facesImage = prop.getProperty("facesImage");
          * celebritiesImage = prop.getProperty("celebritiesImage");
@@ -133,18 +133,18 @@ public class RekognitionTest {
          * modVid= prop.getProperty("modVid");
          * textVid = prop.getProperty("textVid");
          * celVid= prop.getProperty("celVid");
-         * 
-         * 
+         *
+         *
          * // Required for tests that involve videos
          * channel = NotificationChannel.builder()
          * .snsTopicArn(topicArn)
          * .roleArn(roleArn)
          * .build();
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }
-         * 
+         *
          */
     }
 

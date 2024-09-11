@@ -98,7 +98,7 @@ def create_manifest_file(csv_file, manifest_file, s3_path):
 
             # Create JSON for image source ref.
             json_line = {}
-            json_line["source-ref"] = source_ref
+            json_line["source-re"] = source_ref
 
             # Process each image level label.
             for index in range(1, len(row)):
@@ -117,7 +117,7 @@ def create_manifest_file(csv_file, manifest_file, s3_path):
                 metadata["class-name"] = image_level_label
                 metadata["human-annotated"] = "yes"
                 metadata["creation-date"] = datetime.now(timezone.utc).strftime(
-                    "%Y-%m-%dT%H:%M:%S.%f"
+                    "%Y-%m-%dT%H:%M:%S.%"
                 )
                 metadata["type"] = "groundtruth/image-classification"
 

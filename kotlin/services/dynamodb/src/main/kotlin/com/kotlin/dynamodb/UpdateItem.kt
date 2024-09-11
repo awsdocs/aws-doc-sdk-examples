@@ -31,7 +31,7 @@ suspend fun main(args: Array<String>) {
         keyVal - The value of the key (for example, Famous Band).
         name - The name of the column where the value is updated (for example, Awards).
         updateVal - The value used to update an item (for example, 14).
-        
+
         """
 
     if (args.size != 5) {

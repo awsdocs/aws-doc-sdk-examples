@@ -138,7 +138,7 @@ def greengrass_infinite_infer_run():
                     )
                     ymax = int(yscale * obj["ymax"])
                     cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (255, 165, 20), 4)
-                    label += f"\"{outMap[obj['label']]}\": {obj['prob']:.2f},"
+                    label += "\"{outMap[obj['label']]}\": {obj['prob']:.2f},"
                     label_show = f"{outMap[obj['label']]}:    {obj['prob'] * 100:.2f}%"
                     cv2.putText(
                         frame,

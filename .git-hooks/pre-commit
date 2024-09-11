@@ -18,7 +18,7 @@ for dir in * ; do
       log "The following files have staged changes in $dir:"
       log "$staged"
       if [ -x "${dir}/hook_scripts/pre-commit.sh" ] ; then
-      
+
         # Enter directory.
         (cd "$dir" || exit
 

@@ -161,7 +161,7 @@ cloudwatch-logs_DescribeSubscriptionFilters:
                 - javascript.v3.cloudwatchlogs.actions.DescribeSubscriptionFilters
         - sdk_version: 2
           github: javascript/example_code/cloudwatch-logs
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
           excerpts:
             - description:

@@ -21,7 +21,7 @@ To run the code in this example, you need the following:
 + An AWS account.
 + .NET 6
 + To set up your development environment,
-see [Setting up your AWS SDK for .NET environment](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html). 
+see [Setting up your AWS SDK for .NET environment](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html).
 
 ## Create the resources
 
@@ -61,7 +61,7 @@ returns JSON data in an HTTP response, as shown in the following illustration.
 ![AWS Tracker JSON response](images/item_tracker_response.png)
 
 #### Configure the application
-Before you run the .NET application, set the configuration values for your DynamoDB table, 
+Before you run the .NET application, set the configuration values for your DynamoDB table,
 and your verified sender email address in the `appsettings.json` file. Alternatively, add an `appsettings.development.json` file
 with your local settings.
 
@@ -104,7 +104,7 @@ Here is the React application displaying archived data.
 
 ![Viewing archived items](images/elapp3.png)
 
-The user can insert a new item into the work item table from the user interface in the React front end application. In the following image, you can see the new item form. 
+The user can insert a new item into the work item table from the user interface in the React front end application. In the following image, you can see the new item form.
 
 ![Adding a new work item](images/item_tracker_add_item.png)
 

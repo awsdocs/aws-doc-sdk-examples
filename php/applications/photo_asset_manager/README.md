@@ -107,10 +107,10 @@ The backend of the PAM application is implemented by using these AWS Lambda func
 The following table describes the AWS Lambda functions used by this application.
 | Function |Trigger | Input | Output | Uses |
 | ------------- | ---------------------- | ---------------------------------| --------------------------------------------| ------------------------------------|
-| Upload | APIG PUT /upload | See following example | See following example | Storage bucket |  
+| Upload | APIG PUT /upload | See following example | See following example | Storage bucket |
 | DetectLabels | S3 PutObject jpeg | See following example | N/A | Labels table |
 | PrepareDownload | APIG POST /download | {"labels": ["Mountain", "Lake"]} | N/A | Labels table / Working bucket |
-| LabelsFn | APIG GET /labels | N/A | {"labels": {"maintain": {"count": 5}}} | Storage bucket, Labels table |  
+| LabelsFn | APIG GET /labels | N/A | {"labels": {"maintain": {"count": 5}}} | Storage bucket, Labels table |
 | | | | | |
 
 **Note**: The application logic required to build these AWS Lambda functions is discussed later in this document.

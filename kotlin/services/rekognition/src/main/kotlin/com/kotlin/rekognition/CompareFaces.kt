@@ -24,8 +24,8 @@ suspend fun main(args: Array<String>) {
         Usage: <pathSource> <pathTarget>
 
         Where:
-            pathSource - The path to the source image (for example, C:\AWS\pic1.png). 
-            pathTarget - The path to the target image (for example, C:\AWS\pic2.png). 
+            pathSource - The path to the source image (for example, C:\AWS\pic1.png).
+            pathTarget - The path to the target image (for example, C:\AWS\pic2.png).
     """
 
     if (args.size != 2) {

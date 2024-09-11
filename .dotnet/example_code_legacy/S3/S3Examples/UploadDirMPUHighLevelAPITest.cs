@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.UploadDirMPUHighLevelAPITest]
 using Amazon;
@@ -37,8 +37,8 @@ namespace Amazon.DocSamples.S3
                     existingBucketName);
                 Console.WriteLine("Upload statement 1 completed");
 
-                // 2. Upload only the .txt files from a directory 
-                //    and search recursively. 
+                // 2. Upload only the .txt files from a directory
+                //    and search recursively.
                 await directoryTransferUtility.UploadDirectoryAsync(
                                                directoryPath,
                                                existingBucketName,
@@ -46,7 +46,7 @@ namespace Amazon.DocSamples.S3
                                                SearchOption.AllDirectories);
                 Console.WriteLine("Upload statement 2 completed");
 
-                // 3. The same as Step 2 and some optional configuration. 
+                // 3. The same as Step 2 and some optional configuration.
                 //    Search recursively for .txt files to upload.
                 var request = new TransferUtilityUploadDirectoryRequest
                 {

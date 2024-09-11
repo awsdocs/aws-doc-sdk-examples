@@ -41,7 +41,7 @@ struct ExampleCommand: ParsableCommand {
             guard let userName = user.userName,
                   let userID = user.userId,
                   let userARN = user.arn else {
-                    return 
+                    return
                   }
             print("Creating new role for user \(userName) (ID \(userID); ARN: \(userARN)")
 
@@ -85,7 +85,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[iam.swift.createrole.main]
 // snippet-end:[iam.swift.createrole.example]

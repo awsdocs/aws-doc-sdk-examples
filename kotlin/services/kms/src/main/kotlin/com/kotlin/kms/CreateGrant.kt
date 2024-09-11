@@ -24,8 +24,8 @@ suspend fun main(args: Array<String>) {
             <keyId> <granteePrincipal> <operation>
         Where:
             keyId - The unique identifier for the AWS KMS key that the grant applies to (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).
-            granteePrincipal - The principal that is given permission to perform the operations that the grant permits. 
-            operation - An operation (for example, Encrypt). 
+            granteePrincipal - The principal that is given permission to perform the operations that the grant permits.
+            operation - An operation (for example, Encrypt).
     """
 
     if (args.size != 3) {

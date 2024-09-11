@@ -56,7 +56,7 @@ public class ServiceHandlerSTS {
                         let secretKey = secretAccessKey else {
                             throw ServiceHandlerError.authError
                 }
-                
+
                 let credentialsProvider = try AWSClientRuntime.StaticCredentialsProvider(
                     AWSClientRuntime.Credentials(
                         accessKey: keyId,

@@ -8,14 +8,14 @@ Amazon Kendra is an intelligent search service powered by machine learning (ML).
 ## ⚠️ Important
 * The AWS SDK for Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing page](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
-*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
 
 ### Single action
 
-The following examples use the **KendraClient** object: 
+The following examples use the **KendraClient** object:
 
 - [Deleting an Amazon Kendra data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/example_code/kendra/src/main/kotlin/com/example/kendra/DeleteDataSource.kt) (DeleteDataSource command)
 - [Deleting an Amazon Kendra index](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/example_code/kendra/src/main/kotlin/com/example/kendra/DeleteIndex.kt) (DeleteIndex command)
@@ -27,8 +27,8 @@ The following examples use the **KendraClient** object:
 - [Creating an Amazon Kendra index and data source, and syncing the data source](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/example_code/kendra/src/main/kotlin/com/example/kendra/CreateIndexAndDataSourceExample.kt) (Multiple commands)
 
 ## Running the examples
-To run these examples, set up your development environment to use Gradle. For more information, 
-see [Setting up the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
+To run these examples, set up your development environment to use Gradle. For more information,
+see [Setting up the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an index. **Be very careful** when running an operation that deletes or modifies AWS resources in your account.
 
@@ -50,7 +50,7 @@ Define these values to successfully run the JUnit tests:
 
 - **indexName** - The name for the new index.
 - **dataSourceName** - The name for the new data source.
-- **indexDescription** - The description for the index. 
+- **indexDescription** - The description for the index.
 - **indexRoleArn** – An AWS Identity and Access Management (IAM) role that gives Amazon Kendra permissions to access your Amazon CloudWatch logs and metrics.
 - **s3BucketName** - An Amazon S3 bucket name used as your data source.
 - **dataSourceDescription** – A description for the data source.

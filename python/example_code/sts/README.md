@@ -66,7 +66,7 @@ functions within the same service.
 
 #### Assume an IAM role that requires an MFA token
 
-This example shows you how to assume a role that requires an MFA token. 
+This example shows you how to assume a role that requires an MFA token.
 
 - Create an IAM role that grants permission to list Amazon S3 buckets.
 - Create an IAM user that has permission to assume the role only when MFA credentials are provided.
@@ -109,7 +109,7 @@ python federated_url.py
 
 #### Get a session token that requires an MFA token
 
-This example shows you how to get a session token that requires an MFA token. 
+This example shows you how to get a session token that requires an MFA token.
 
 - Create an IAM role that grants permission to list Amazon S3 buckets.
 - Create an IAM user that has permission to assume the role only when MFA credentials are provided.

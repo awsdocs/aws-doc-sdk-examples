@@ -29,11 +29,11 @@ suspend fun main(args: Array<String>) {
             <jar> <myClass> <keys> <logUri> <name>
 
         Where:
-            jar - A path to a JAR file run during the step. 
-            myClass - The name of the main class in the specified Java file. 
-            keys - The name of the EC2 key pair. 
-            logUri - The Amazon S3 bucket where the logs are located (for example,  s3://<BucketName>/logs/). 
-            name - The name of the job flow. 
+            jar - A path to a JAR file run during the step.
+            myClass - The name of the main class in the specified Java file.
+            keys - The name of the EC2 key pair.
+            logUri - The Amazon S3 bucket where the logs are located (for example,  s3://<BucketName>/logs/).
+            name - The name of the job flow.
 
         """
 

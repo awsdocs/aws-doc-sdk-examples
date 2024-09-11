@@ -36,7 +36,7 @@ async def converse_stream(user_message: str) -> AsyncIterator[str]:
     ]
 
     try:
-        yield f""""{user_message}":\n"""
+        yield """"{user_message}":\n"""
 
         # Send the message to the model, using a basic inference configuration.
         response = client.converse_stream(

@@ -33,7 +33,7 @@ struct ExampleCommand: ParsableCommand {
         do {
             var users: [MyUserRecord]
             users = try await serviceHandler.listUsers()
-            
+
             print("Found \(users.count) users")
             for user in users {
                 print("  \(user.name) (\(user.id))")
@@ -61,7 +61,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[iam.swift.listusers.main]
 // snippet-end:[iam.swift.listusers.example]

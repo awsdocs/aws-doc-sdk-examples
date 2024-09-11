@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.java.codeexample.DynamoDBLocalFixture] 
+// snippet-start:[dynamodb.java.codeexample.DynamoDBLocalFixture]
 
 package com.amazonaws.services.dynamodbv2;
 
@@ -14,7 +14,7 @@ import com.amazonaws.services.dynamodbv2.model.ListTablesResult;
 
 /**
  * This class demonstrates how to use DynamoDB Local as a test fixture.
- * 
+ *
  * @author Alexander Patrikalakis
  */
 public class DynamoDBLocalFixture {

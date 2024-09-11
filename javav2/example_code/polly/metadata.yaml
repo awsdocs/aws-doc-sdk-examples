@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/polly/DescribeVoicesSample.java
     services:
@@ -8,7 +8,7 @@ files:
       - Polly
   - path: src/main/java/com/example/polly/PollyDemo.java
     services:
-      - Polly      
+      - Polly
   - path: src/test/java/AWSPollyTest.java
     services:
       - Polly

@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/helloswf/ActivityWorker.java
     services:
@@ -17,4 +17,4 @@ files:
       - swf
   - path: src/test/java/AmazonSimpleWorkflowTest.java
     services:
-      - swf  
+      - swf

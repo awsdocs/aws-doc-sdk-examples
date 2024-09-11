@@ -14,7 +14,7 @@ public final class TranscoderSampleUtilities {
 
     /**
      * Method converts a byte array into a hex string.
-     * 
+     *
      * @param input
      * @return String representing hex encoded byte array.
      */
@@ -30,7 +30,7 @@ public final class TranscoderSampleUtilities {
     /**
      * Method converts an input key into an output key but computing
      * BASE16(SHA256(UTF-8(inputKey))).
-     * 
+     *
      * @param inputKey
      * @return Output key generated from the input key.
      * @throws NoSuchAlgorithmException

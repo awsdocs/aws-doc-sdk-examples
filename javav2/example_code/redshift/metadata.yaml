@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/redshift/ConnectToCluster.java
     services:
@@ -17,7 +17,7 @@ files:
       - redshift
   - path: src/main/java/com/example/redshift/ListEvents.java
     services:
-      - redshift      
+      - redshift
   - path: src/test/java/AmazonRedshiftTest.java
     services:
-      - redshift  
+      - redshift

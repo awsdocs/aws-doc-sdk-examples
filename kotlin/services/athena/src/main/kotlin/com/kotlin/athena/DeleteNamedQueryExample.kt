@@ -12,7 +12,7 @@ import kotlin.system.exitProcess
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-        <queryId> 
+        <queryId>
 
     Where:
         queryId - The id of the Amazon Athena query (for example, b34e7780-903b-4842-9d2c-6c99bebc82aa).

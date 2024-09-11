@@ -29,7 +29,7 @@ public extension String {
             for i in 1...paragraphs {
                 if i != 1 {
                     text += "\n"
-                } 
+                }
                 let sentenceCount = Int.random(in: 4...8)
                 for n in 1...sentenceCount {
                     if n != 1 {

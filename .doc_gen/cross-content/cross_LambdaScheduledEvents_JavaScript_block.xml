@@ -9,8 +9,8 @@
         Configure &EV; to use a cron expression to schedule when the &LAM; function is invoked.
         In this example, you create a &LAM; function by using the &LAM; JavaScript runtime API.
         This example invokes different &AWS; services to perform a specific use case. This example demonstrates how to
-        create an app that sends a mobile text message to your employees that congratulates 
-        them at the one year anniversary date. 
+        create an app that sends a mobile text message to your employees that congratulates
+        them at the one year anniversary date.
     </para>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on

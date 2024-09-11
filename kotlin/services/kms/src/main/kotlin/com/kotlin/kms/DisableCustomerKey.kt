@@ -20,9 +20,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <keyId> 
+            <keyId>
         Where:
-            keyId -  A key id value to disable (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab). 
+            keyId -  A key id value to disable (for example, xxxxxbcd-12ab-34cd-56ef-1234567890ab).
     """
 
     if (args.size != 1) {

@@ -20,9 +20,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <alias> 
+            <alias>
         Where:
-            alias - The account alias to create (for example, myawsaccount).  
+            alias - The account alias to create (for example, myawsaccount).
 
         """
 

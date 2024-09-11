@@ -23,10 +23,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-        <sourceDoc> 
+        <sourceDoc>
 
     Where:
-        sourceDoc - The path where the document is located (must be an image, for example, C:/AWS/book.png). 
+        sourceDoc - The path where the document is located (must be an image, for example, C:/AWS/book.png).
     """
 
     if (args.size != 1) {

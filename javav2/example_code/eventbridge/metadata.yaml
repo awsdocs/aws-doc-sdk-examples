@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/eventbridge/CreateRule.java
     services:
@@ -17,7 +17,7 @@ files:
       - eventbridge
   - path: src/main/java/com/example/eventbridge/PutEvents.java
     services:
-      - eventbridge   
+      - eventbridge
   - path: src/test/java/EventBridgeTest.java
     services:
-      - eventbridge      
+      - eventbridge

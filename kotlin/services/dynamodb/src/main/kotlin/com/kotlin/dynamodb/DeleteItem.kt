@@ -25,7 +25,7 @@ suspend fun main(args: Array<String>) {
 
     Where:
         tableName - The Amazon DynamoDB table to delete the item from (for example, Music3).
-        key - The key used in the Amazon DynamoDB table (for example, Artist). 
+        key - The key used in the Amazon DynamoDB table (for example, Artist).
         keyval - The key value that represents the item to delete (for example, Famous Band).
     """
 

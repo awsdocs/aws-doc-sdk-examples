@@ -108,7 +108,7 @@ public class AmazonPinpointTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * AmazonPinpointTest.class.getClassLoader().getResourceAsStream(
          * "config.properties")) {
@@ -117,7 +117,7 @@ public class AmazonPinpointTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests
          * prop.load(input);
          * appName = prop.getProperty("appName");
@@ -136,7 +136,7 @@ public class AmazonPinpointTest {
          * destinationNumber= prop.getProperty("destinationNumber");
          * destinationNumber1 = prop.getProperty("destinationNumber1");
          * message= prop.getProperty("message");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

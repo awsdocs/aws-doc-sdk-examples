@@ -1,4 +1,4 @@
---- 
+---
 files:
  - path: src/main/java/com/example/personalize/CreateCampaign.java
    services:
@@ -32,7 +32,7 @@ files:
      - personalize
  - path: src/main/java/com/example/personalize/ListSolutions.java
    services:
-     - personalize     
+     - personalize
  - path: src/test/java/PersonalizeTest.java
    services:
      - personalize

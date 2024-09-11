@@ -8,7 +8,7 @@ AWS Elastic Beanstalk is an easy-to-use service for deploying and scaling web ap
 ## ⚠️ Important
 * The SDK for Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing page](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
-*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
@@ -29,8 +29,8 @@ The following examples use the **ElasticBeanstalkClient** object:
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an AWS Elastic Beanstalk application. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
-To run these examples, set up your development environment to use Gradle. For more information, 
-see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
+To run these examples, set up your development environment to use Gradle. For more information,
+see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
 
 
  ## Testing the AWS Elastic Beanstalk Kotlin files
@@ -48,8 +48,8 @@ Before running the AWS Elastic Beanstalk JUnit tests, you must define values in 
 
 Define these values to successfully run the JUnit tests:
 
-- **appName** - The name of the application.   
-- **envName** - The name of the environment. 
+- **appName** - The name of the application.
+- **envName** - The name of the environment.
 
 ## Additional resources
 * [Developer Guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).

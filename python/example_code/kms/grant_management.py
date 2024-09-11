@@ -35,7 +35,7 @@ class GrantManager:
         :return: The grant that is created.
         """
         principal = input(
-            f"Enter the ARN of a principal, such as an IAM role, to grant that role "
+            "Enter the ARN of a principal, such as an IAM role, to grant that role "
             f"GenerateDataKey permissions on key {key_id}: "
         )
         if principal != "":

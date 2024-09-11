@@ -48,7 +48,7 @@ This workflow runs as a command-line application prompting for user input.
 #### Build system requirements.
 
 * CMake - A C++ cross-platform build system.
-* AWS SDK for C++. 
+* AWS SDK for C++.
 * vcpkg - An optional C/C++ dependency manager.
 
 For CMake installation instructions, go to the following link [Get the Software](https://cmake.org/download/).
@@ -76,7 +76,7 @@ CMake will install the library dependencies using the included [vckpg.json](vcpk
 
 ### Build and Run the Scenario
 
-These instructions build and run the executable as a command-line application. 
+These instructions build and run the executable as a command-line application.
 
 *Note: Many Integrated Development Environments (IDEs), such as Visual Studio and CLion, support CMake and can also be used to build and run the scenario.*
 

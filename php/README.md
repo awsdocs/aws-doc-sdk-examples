@@ -53,7 +53,7 @@ To contribute PHP code to this project, please refer to the following installati
 
 ### Using PHPCS
 
-From the `/php` directory, make sure all dependencies are installed at that level with `composer install`. 
+From the `/php` directory, make sure all dependencies are installed at that level with `composer install`.
 
 Then, the linter can be run with
 `vendor/bin/phpcs --standard=../.github/linters/phpcs.xml --extensions=php --ignore=vendor /path/to/lint`

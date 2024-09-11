@@ -49,7 +49,7 @@ const makeComponentContents = (componentName: string) => {
     } from "@cloudscape-design/components";
 
     import React from "react";
-    
+
     const Component = () =>
     <SpaceBetween size="l">
       <Header variant="h1">${titleCase(componentName)}</Header>
@@ -85,7 +85,7 @@ const makeComponentContents = (componentName: string) => {
         </Box>
       </Container>
     </SpaceBetween>;
-    
+
     export default Component;
   `;
 
@@ -106,7 +106,7 @@ const makePackageJsonContents = (pluginName: string): string => {
       "react": "^18.2.0",
       "react-dom": "^18.2.0"
     }
-  }  
+  }
   `;
 
   return format(fileData, { parser: "json" });

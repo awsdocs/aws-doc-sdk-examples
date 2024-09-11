@@ -21,7 +21,7 @@ struct ConfigExample {
         do {
             // snippet-start:[config.swift.create-configuration]
             config = try await S3Client.S3ClientConfiguration(
-                region: "us-east-1", 
+                region: "us-east-1",
                 retryStrategyOptions: RetryStrategyOptions(
                     maxRetriesBase: 5,
                     rateLimitingMode: .adaptive

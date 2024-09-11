@@ -43,7 +43,7 @@ unique = (
 
 print(
     f"The unique identifier for this run is '{unique}'. All uploads will be prefixed "
-    f"with this."
+    "with this."
 )
 
 
@@ -73,11 +73,11 @@ def upload_df_file(filename, type_, mime="application/octet-stream"):
     while True:
         print(
             f"Upload of {filename} in state {upload_response['upload']['status']} "
-            f"after " + str(datetime.datetime.now() - started)
+            "after " + str(datetime.datetime.now() - started)
         )
         if upload_response["upload"]["status"] == "FAILED":
             raise Exception(
-                f"The upload failed processing. Device Farm says the reason is: \n"
+                "The upload failed processing. Device Farm says the reason is: \n"
                 f"{+upload_response['upload']['message']}"
             )
         if upload_response["upload"]["status"] == "SUCCEEDED":

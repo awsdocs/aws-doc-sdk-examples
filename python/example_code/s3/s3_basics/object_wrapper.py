@@ -303,7 +303,7 @@ def usage_demo():
         )
     except ClientError as err:
         print(
-            f"Couldn't create a bucket for the demo. Here's why: "
+            "Couldn't create a bucket for the demo. Here's why: "
             f"{err.response['Error']['Message']}."
         )
 
@@ -321,7 +321,7 @@ def usage_demo():
         line_wrapper = ObjectWrapper(bucket.Object(f"line-{line}"))
         line_wrapper.put(bytes(lines[line], "utf-8"))
         line_wrappers.append(line_wrapper)
-    print(f"Put 10 random lines from this script as objects.")
+    print("Put 10 random lines from this script as objects.")
 
     listed_lines = ObjectWrapper.list(bucket, "line-")
     print(f"Their keys are: {', '.join(l.key for l in listed_lines)}")

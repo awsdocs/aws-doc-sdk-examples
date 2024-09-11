@@ -20,9 +20,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <alias> 
+            <alias>
         Where:
-            alias - The account alias to delete (for example, myawsaccount).  
+            alias - The account alias to delete (for example, myawsaccount).
         """
 
     if (args.size != 1) {

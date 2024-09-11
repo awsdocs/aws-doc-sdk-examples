@@ -20,9 +20,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <user> 
+            <user>
         Where:
-           user - An AWS IAM user that you can obtain from the AWS Management Console. 
+           user - An AWS IAM user that you can obtain from the AWS Management Console.
 
         """
 

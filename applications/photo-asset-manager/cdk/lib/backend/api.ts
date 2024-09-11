@@ -61,7 +61,7 @@ export class PamApi extends Construct {
           allowOrigins: Cors.ALL_ORIGINS,
           allowCredentials: true,
         }
-      
+
    //     deployOptions: {
    //       accessLogDestination: new LogGroupLogDestination(access),
    //       loggingLevel: MethodLoggingLevel.INFO,

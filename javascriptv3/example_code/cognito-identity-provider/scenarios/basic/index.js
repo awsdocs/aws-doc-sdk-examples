@@ -22,20 +22,20 @@ const cmdInterface = createInterface({ input, output });
 
 const help = `
  usage: <command> [<args>]
- 
+
    Commands:
- 
+
    help                                   Shows this list of commands.
 
    create-user-pool <user_pool_name>      Creates and configures an Amazon Cognito user pool
                                           compatible with this example.
 
    sign-up <user_name> <password>         Creates a new user in the user pool.
-    <email>                               Also emails a verification code to 
+    <email>                               Also emails a verification code to
                                           the provided email address.
 
-   resend-confirmation-code <user_name>   Sends the user a new confirmation code.                                       
-                                          
+   resend-confirmation-code <user_name>   Sends the user a new confirmation code.
+
    confirm-sign-up <user_name> <code>     Confirms a new user with the code received
                                           from the 'sign-up' step.
 
@@ -47,16 +47,16 @@ const help = `
     <password>                            with the provided credentials. This command
                                           requires AWS developer credentials to be set
                                           up. initiate-auth does not.
-                                          
+
    verify-software-token <totp>           Attempts to verify a time-based one-time password.
                                           This completes MFA setup.
-                                          
+
    admin-respond-to-auth-challenge        Attempts to verify the time-based one-time password.
     <username> <totp>                     This is the last step in authentication.
 
    clean-up                               Deletes any user pool created with this
-                                          tool.                                          
- 
+                                          tool.
+
    quit                                   Quits the current interactive session.
  `;
 

@@ -157,7 +157,7 @@ class SsmStubber(ExampleStubber):
         expected_params = {
             "Name": name,
             "AllowUnassociatedTargets": allow_unassociated_targets,
-            "Cutoff": cutoff,
+            "Cuto": cutoff,
             "Duration": duration,
             "Schedule": schedule,
         }
@@ -201,7 +201,7 @@ class SsmStubber(ExampleStubber):
         if allow_unassociated_targets is not None:
             expected_params["AllowUnassociatedTargets"] = allow_unassociated_targets
         if cutoff is not None:
-            expected_params["Cutoff"] = cutoff
+            expected_params["Cuto"] = cutoff
         if duration is not None:
             expected_params["Duration"] = duration
         if enabled is not None:

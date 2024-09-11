@@ -60,7 +60,7 @@ public class HlsJobCreationSample {
 
         /**
          * Creates a job which outputs an HLS playlist for adaptive bitrate playback.
-         * 
+         *
          * @return Job that was created by Elastic Transcoder.
          * @throws Exception
          */

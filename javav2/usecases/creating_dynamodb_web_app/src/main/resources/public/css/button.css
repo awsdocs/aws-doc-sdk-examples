@@ -8,18 +8,18 @@ button.shiny-blue {
 	background-image	 : -ms-linear-gradient(top, #759ae9 0%, #376fe0 50%, #1a5ad9 50%, #2463de 100%);
 	background-image	 : -o-linear-gradient(top, #759ae9 0%, #376fe0 50%, #1a5ad9 50%, #2463de 100%);
 	background-image	 : linear-gradient(top, #759ae9 0%, #376fe0 50%, #1a5ad9 50%, #2463de 100%);
-	
+
 	border-top			 : 1px solid #1f58cc;
 	border-right		 : 1px solid #1b4db3;
 	border-bottom		 : 1px solid #174299;
 	border-left			 : 1px solid #1b4db3;
 	border-radius		 : 4px;
-	
+
 	-webkit-border-radius: 4px;
 	-moz-border-radius	 : 4px;
 	-webkit-box-shadow	 : inset 0 0 2px 0 rgba(57, 140, 255, 0.8);
 	-moz-box-shadow		 : inset 0 0 2px 0 rgba(57, 140, 255, 0.8);
-	
+
 	box-shadow			 : inset 0 0 2px 0 rgba(57, 140, 255, 0.8);
 	color				 : #fff;
 	font				 : bold 12px "helvetica neue", helvetica, arial, sans-serif;
@@ -38,7 +38,7 @@ button.shiny-blue:hover {
 	background-image : -ms-linear-gradient(top, #5d89e8 0%, #2261e0 50%, #044bd9 50%, #0d53de 100%);
 	background-image : -o-linear-gradient(top, #5d89e8 0%, #2261e0 50%, #044bd9 50%, #0d53de 100%);
 	background-image : linear-gradient(top, #5d89e8 0%, #2261e0 50%, #044bd9 50%, #0d53de 100%);
-	
+
 	cursor			 : pointer;
 }
 
@@ -47,7 +47,7 @@ button.shiny-blue:active {
 	border-right	   : 1px solid #174299;
 	border-bottom	   : 1px solid #133780;
 	border-left		   : 1px solid #174299;
-	
+
 	box-shadow		   : inset 0 0 5px 2px #1a47a0, 0 1px 0 #eeeeee;
 	-webkit-box-shadow : inset 0 0 5px 2px #1a47a0, 0 1px 0 #eeeeee;
 	-moz-box-shadow	   : inset 0 0 5px 2px #1a47a0, 0 1px 0 #eeeeee;

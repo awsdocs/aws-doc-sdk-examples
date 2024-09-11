@@ -279,7 +279,7 @@ def configure_sns_topics(identity, topics, ses_client):
     for topic in topics:
         topic_arn = input(
             f"Enter the Amazon Resource Name (ARN) of the {topic} topic or press "
-            f"Enter to skip: "
+            "Enter to skip: "
         )
         if topic_arn != "":
             try:
@@ -298,7 +298,7 @@ def replicate(source_client, destination_client, route53_client):
 
     print("-" * 88)
     print(
-        f"Replicating Amazon SES identities and other configuration from "
+        "Replicating Amazon SES identities and other configuration from "
         f"{source_client.meta.region_name} to {destination_client.meta.region_name}."
     )
     print("-" * 88)

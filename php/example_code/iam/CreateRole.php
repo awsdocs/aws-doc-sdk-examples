@@ -49,7 +49,7 @@ $AmazonCSMPolicy =
             ],
             "Resource": "*"
         },
-        {   
+        {
             "Effect": "Allow",
             "Action": [
                 "ssm:GetParameter"

@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/com/example/firehose/CreateDeliveryStream.java
     services:

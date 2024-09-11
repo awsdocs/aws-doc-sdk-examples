@@ -22,7 +22,7 @@ In addition to the AWS SDK for Kotlin, this application also uses the Android AP
 
 + Prerequisites
 + Understand the Publish/Subscription application
-+ Create an Android project 
++ Create an Android project
 + Add dependencies to your Android project
 + Create the layout XML file for your Android project
 + Create the Kotlin classes for your Android project
@@ -45,13 +45,13 @@ To complete the tutorial, you need the following:
 ### ⚠️ Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to delete all of the resources you create during this tutorial so that you won't be charged.
 
 ### AWS Credentials
 
-Because the Kotlin code is running on a mobile device, you cannot use some of the AWS credential providers such as Shared credentials. This is because the mobile application can't read the credentials file from your local computer. For this reason, the **StaticCredentialsProvider** provider is used. 
+Because the Kotlin code is running on a mobile device, you cannot use some of the AWS credential providers such as Shared credentials. This is because the mobile application can't read the credentials file from your local computer. For this reason, the **StaticCredentialsProvider** provider is used.
 
     fun getStatic() : StaticCredentialsProvider{
         val staticCredentials = StaticCredentialsProvider {
@@ -60,7 +60,7 @@ Because the Kotlin code is running on a mobile device, you cannot use some of th
         }
         return staticCredentials
     }
-    
+
 However, you can also use the **Environment variables** provider. In this situation, you must set the key values in your Android Studio development environment. For more information, see [Environment variables](https://developer.android.com/studio/command-line/variables).
 
 After you do, you can use the **EnvironmentCredentialsProvider** provider.
@@ -72,8 +72,8 @@ After you do, you can use the **EnvironmentCredentialsProvider** provider.
         }
         return translateClient
     }
-    
-For more information, see [Credential providers](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/credential-providers.html).     
+
+For more information, see [Credential providers](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/credential-providers.html).
 
 
 ### Creating the resources
@@ -82,23 +82,23 @@ Create an Amazon SNS topic. You must reference the ARN of the Amazon SNS topic i
 
 ## Understand the Publish/Subscription application
 
-To subscribe to an Amazon SNS topic, the user enters a valid email address into the Android application and chooses the **Subscribe** button. 
+To subscribe to an Amazon SNS topic, the user enters a valid email address into the Android application and chooses the **Subscribe** button.
 
 ![AWS Tracking Application](images/mobileApp2.png)
 
-The specified email address recieves an email message that lets the recipient confirm the subscription. 
+The specified email address recieves an email message that lets the recipient confirm the subscription.
 
 ![AWS Tracking Application](images/mail.png)
 
-To publish a message, a user enters the message into the Android application and then chooses the **Publish** button. 
+To publish a message, a user enters the message into the Android application and then chooses the **Publish** button.
 
 ![AWS Tracking Application](images/mobileApp3.png)
 
-This application lets a user specify the language of the message that is sent. For example, the user can select **Fr** from the dropdown field and then the message appears in French to all subscribed users. 
+This application lets a user specify the language of the message that is sent. For example, the user can select **Fr** from the dropdown field and then the message appears in French to all subscribed users.
 
 ![AWS Tracking Application](images/appSubLan.png)
 
-**Note**: Amazon Translate is used to translate the body of the message. The code is shown later in this document. 
+**Note**: Amazon Translate is used to translate the body of the message. The code is shown later in this document.
 
 This example application lets you view all of the subscribed email recipients by choosing the **List Subscriptions** button, as shown in the following illustration.
 
@@ -110,8 +110,8 @@ This example application lets you view all of the subscribed email recipients by
 2. In the **New Project** dialog box, choose **Empty Activity**.
 3. Choose **Next**.
 5. In the **Name** field, enter **AndroidSubPub**.
-6. In the **Package name** field, enter **com.example.sub**. 
-7. From the **Language** field, choose **Kotlin**. 
+6. In the **Package name** field, enter **com.example.sub**.
+7. From the **Language** field, choose **Kotlin**.
 8. In the **Minimum API** field, specify **API 26 - Android 8**.
 9. Choose **Finish**.
 
@@ -179,11 +179,11 @@ dependencies {
 
 ## Create the layout XML file for your Android project
 
-The user interface for your Android project is defined in an XML file named **activity_main.xml**, as shown in the following illustration. 
+The user interface for your Android project is defined in an XML file named **activity_main.xml**, as shown in the following illustration.
 
 ![AWS Tracking Application](images/mobileAppProjectLayout2.png)
 
-You can modify the **activity_main.xml** file with the following code. 
+You can modify the **activity_main.xml** file with the following code.
 
 
 ```yaml
@@ -299,17 +299,17 @@ You can modify the **activity_main.xml** file with the following code.
 
 ### Configure Android permissions
 
-In the **AndroidManifest.xml** file located in your project, add **uses-permission**. This gives your application permissions to make calls over the internet. 
+In the **AndroidManifest.xml** file located in your project, add **uses-permission**. This gives your application permissions to make calls over the internet.
 
      <uses-permission android:name="android.permission.INTERNET"/>
 
  ## Create the Kotlin classes for your Android project
- 
-In the **com.example.sub** package, notice the class named **MainActivity**. This class contains the logic that invokes AWS service operations. 
- 
+
+In the **com.example.sub** package, notice the class named **MainActivity**. This class contains the logic that invokes AWS service operations.
+
 ### MainActivity class
 
-The following Kotlin code represents the **MainActivity** Kotlin class. To handle the required AWS credentials, notice the use of a **StaticCredentialsProvider** object. 
+The following Kotlin code represents the **MainActivity** Kotlin class. To handle the required AWS credentials, notice the use of a **StaticCredentialsProvider** object.
 
 ```kotlin
 package com.example.sub
@@ -535,13 +535,13 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 }
 ```
 
-**Note**: Be sure to enter your topic ARN and your credential key values. Otherwise, your code doesn't work. 
+**Note**: Be sure to enter your topic ARN and your credential key values. Otherwise, your code doesn't work.
 
 ## Run the Android application
 
-To run the application from the IDE, you must install an Android emulator that simulates an Android application. For more information, see [Run apps on the Android Emulator](https://developer.android.com/studio/run/emulator).  
+To run the application from the IDE, you must install an Android emulator that simulates an Android application. For more information, see [Run apps on the Android Emulator](https://developer.android.com/studio/run/emulator).
 
-After you install the emulator, you can run the application. Then, the application appears in the emulator. 
+After you install the emulator, you can run the application. Then, the application appears in the emulator.
 
 ### Next steps
 Congratulations! You have created a native Android application that interacts with AWS services by using the AWS SDK for Kotlin. As stated at the beginning of this tutorial, be sure to delete all of the resources that you created during this tutorial so that you won't continue to be charged for them.

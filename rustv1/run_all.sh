@@ -17,7 +17,7 @@ ACTIONS=(
   "test --all"
 )
 
-if [ "$1" == "--clean" ] ; then 
+if [ "$1" == "--clean" ] ; then
   rm ./**/Cargo.lock
   ACTIONS=("clean" "${ACTIONS[@]}")
 fi

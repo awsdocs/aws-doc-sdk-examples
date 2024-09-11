@@ -23,7 +23,7 @@ suspend fun main(args: Array<String>) {
         <forecastArn>
 
     Where:
-       forecastArn - The ARN that belongs to the forecast to delete. 
+       forecastArn - The ARN that belongs to the forecast to delete.
       """
 
     if (args.size != 1) {

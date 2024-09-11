@@ -8,7 +8,7 @@ AWS Step Functions is a visual workflow service that helps developers use AWS se
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. See [AWS Pricing](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
@@ -47,13 +47,13 @@ Code examples that show you how to accomplish specific tasks by calling multiple
 
 ### Prerequisites
 
-To run these examples, set up your development environment. For more information, 
-see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
+To run these examples, set up your development environment. For more information,
+see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
 **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
  ## Test the AWS Step Functions Java files
- 
+
  ⚠️ Running the tests might result in charges to your AWS account.
 
 You can test the Java code example for AWS Step Functions by running a test file named **StepFunctionsTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
@@ -73,11 +73,11 @@ Define the following values to successfully run the JUnit tests:
 - **activityNameSc** - The name of an activity to create for the Scenario test.
 - **stateMachineNameSc** – The name of the state machine to create for the Scenario test.
 
-You can obtain the JSON file to create a state machine in the following GitHub location. 
+You can obtain the JSON file to create a state machine in the following GitHub location.
 
 https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files
 
-To run the Scenario test, place the **chat_sfn_state_machine.json** file into your project's **resources** folder. If you do not, the test is not successful. 
+To run the Scenario test, place the **chat_sfn_state_machine.json** file into your project's **resources** folder. If you do not, the test is not successful.
 
 
 ## Additional resources

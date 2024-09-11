@@ -80,7 +80,7 @@ The following tutorials are AWS Lambda use cases:
 
 - [Creating Lambda functions that tags digital assets located in Amazon S3 buckets](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_tag_assets) - Discusses how to create a Lambda function that automatically tags digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket.
 
-If you want to learn how to monitor the performance of an Amazon DynamoDB application in 
+If you want to learn how to monitor the performance of an Amazon DynamoDB application in
 Amazon CloudWatch, see
 - [Monitor performance of a DynamoDB application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/monitor_dynamodb)
 
@@ -92,7 +92,7 @@ The AWS service-specific Java examples are located in the **example_code** folde
 
 ### Build the examples using Apache Maven or Gradle
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information,  
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information,
 see "Get started with the AWS SDK for Java 2.x" located at https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html.
 
 **Note:** Add the POM file you find in a service-specific folder to the POM file in the project. Then create a package that you find in the examples and you can start adding the Java classes to your project.

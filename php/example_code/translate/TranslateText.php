@@ -42,9 +42,9 @@ $currentLanguage = 'es';
 $targetLanguage = 'en';
 
 $textToTranslate =
-    'El AWS SDK for PHP versión 3 permite a los desarrolladores de PHP utilizar Amazon Web Services en su código PHP 
+    'El AWS SDK for PHP versión 3 permite a los desarrolladores de PHP utilizar Amazon Web Services en su código PHP
     y crear aplicaciones y software robustos utilizando servicios como Amazon S3, Amazon DynamoDB, Amazon Glacier, etc.
-     Puede empezar rápidamente instalando el SDK mediante Composer (solicitando el paquete aws/aws-sdk-php) o 
+     Puede empezar rápidamente instalando el SDK mediante Composer (solicitando el paquete aws/aws-sdk-php) o
      descargando el archivo aws.zip o aws.phar independiente';
 
 try {

@@ -7,7 +7,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 createSolution.js demonstrates how to create a solution for a custom dataset group
-with Amazon Personalize. 
+with Amazon Personalize.
 For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html.
 
 Inputs (replace in code):

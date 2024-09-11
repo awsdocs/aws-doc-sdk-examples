@@ -28,7 +28,7 @@ To create a new issue, use the following two (2) templates:
 All contributions that are not bug fixes must be pre-approved by the maintainers.
 
 ### Close an issue
-At any time, you can close issues that you create yourself. 
+At any time, you can close issues that you create yourself.
 
 ---
 
@@ -43,7 +43,7 @@ For single-line bug fixes, you can optionally [edit the file directly on the Git
 without needing to create a fork.
 
 ## Best practices for coding
-1. Follow [coding best practices](https://en.wikipedia.org/wiki/Coding_best_practices) such 
+1. Follow [coding best practices](https://en.wikipedia.org/wiki/Coding_best_practices) such
 as [DRY](https://www.digitalocean.com/community/tutorials/what-is-dry-development) and [SOLID](https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) where possible.
 2. Carefully read the pull request template and follow it closely.
 3. Don't include AWS account identifiers or secret keys in your examples.

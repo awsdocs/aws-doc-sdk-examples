@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.java.codeexample.DocumentAPIBatchWrite] 
+// snippet-start:[dynamodb.java.codeexample.DocumentAPIBatchWrite]
 
 package com.amazonaws.codesamples.document;
 

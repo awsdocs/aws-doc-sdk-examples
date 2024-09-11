@@ -288,7 +288,7 @@ const confirmSetRetentionPeriodFileEnabled = (scenarios) =>
   new scenarios.ScenarioInput(
     "confirmSetRetentionPeriodFileEnabled",
     (state) =>
-      `Would you like to add a 1 day Governance retention period to file1.txt in ${state.lockEnabledBucketName}? 
+      `Would you like to add a 1 day Governance retention period to file1.txt in ${state.lockEnabledBucketName}?
 Reminder: Only a user with the s3:BypassGovernanceRetention permission will be able to delete this file or its bucket until the retention period has expired.`,
     {
       type: "confirm",

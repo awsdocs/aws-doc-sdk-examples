@@ -133,10 +133,10 @@ namespace DirectoryServicePortTest
             }
 
             if (ipAddress.Length > 0)
-            { 
-                _ipAddr = IPAddress.Parse(ipAddress); 
+            {
+                _ipAddr = IPAddress.Parse(ipAddress);
             }
-            
+
             return fReturn;
         }
 

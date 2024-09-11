@@ -10,11 +10,11 @@ import kotlin.system.exitProcess
 
 suspend fun main(args: Array<String>) {
     val usage = """
-            Usage: <repositoryName> 
+            Usage: <repositoryName>
 
             Where:
-               repositoryName - The name of the Amazon ECR repository. 
-            
+               repositoryName - The name of the Amazon ECR repository.
+
     """.trimIndent()
 
     if (args.size != 1) {

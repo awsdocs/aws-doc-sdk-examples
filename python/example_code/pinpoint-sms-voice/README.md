@@ -54,7 +54,7 @@ Send a voice message by running the following at a command prompt:
 
 ```
 python pinpoint_send_voice_message_sms_voice_api.py
-```  
+```
 <!--custom.instructions.end-->
 
 

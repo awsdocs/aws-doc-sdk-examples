@@ -4,9 +4,9 @@
 This SDK getting started scenario demonstrates how to interact with Amazon Elastic Container Registry Service (Amazon ECR) using the AWS SDK. It demonstrates various tasks such as creating a repository, setting an ECR repository policy, obtaining an authorization token, pushing a docker image to the repository, and so on.  Finally this scenario demonstrates how to clean up resources. Its purpose is to demonstrate how to get up and running with Amazon ECR and the AWS SDK.
 
 ## Resources
-The required resources for this SDK scenario are an IAM role and a local Docker image. The IAM role must have permission to interact with the Amazon ECR service (for example, ecr:PutImage). 
+The required resources for this SDK scenario are an IAM role and a local Docker image. The IAM role must have permission to interact with the Amazon ECR service (for example, ecr:PutImage).
 
-To create an IAM role, see [Creating IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html). 
+To create an IAM role, see [Creating IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html).
 
 For more information about using permissions with ECR (for example, how to create Amazon ECR Identity-based policies), see [How Amazon Elastic Container Registry works with IAM](https://docs.aws.amazon.com/AmazonECR/latest/userguide/security_iam_service-with-iam.html).
 
@@ -18,10 +18,10 @@ This scenario uses the Docker client API for a specific programming language. Fo
 This program is intended for users not familiar with the Amazon ECR SDK to easily get up and running. The logic is to show use of `ecrClient.listImagesPaginator()`.
 
 ### Program execution
-The following shows the output of the program in the console. 
+The following shows the output of the program in the console.
 
-```java 
-The docker image tag is latest 
+```java
+The docker image tag is latest
 
 ```
 
@@ -32,7 +32,7 @@ The Amazon ECR SDK getting started scenario executes the following steps:
 
 2. **Introduce Amazon ECR**: The program provides a brief introduction to Amazon ECR.
 
-3. **Checks the local machine for a docker image**: The program checks the local mahcine for a docker image named echo-text. If it's not located, the program ends. 
+3. **Checks the local machine for a docker image**: The program checks the local mahcine for a docker image named echo-text. If it's not located, the program ends.
 
 3. **Create an ECR repository**: The program creates the repository using the `createECRRepository` method.
 
@@ -50,20 +50,20 @@ The Amazon ECR SDK getting started scenario executes the following steps:
 
 10. **Verify the image in the ECR repository**: The program verifies that the Docker image was successfully pushed to the ECR repository using the `verifyImage` method.
 
-11. Provide optional steps on how a user can run the image in the ECR repo. 
+11. Provide optional steps on how a user can run the image in the ECR repo.
 
 12. **Delete the ECR repository**: The program prompts the user to delete the ECR repository and its contents using the `deleteECRRepository` method.
 
 
 ### Program execution
-The following shows the output of the Amazon ECR program in the console. 
+The following shows the output of the Amazon ECR program in the console.
 
 ```
   The Amazon Elastic Container Registry (ECR) is a fully-managed Docker container registry
   service provided by AWS. It allows developers and organizations to securely
   store, manage, and deploy Docker container images.
   ECR provides a simple and scalable way to manage container images throughout their lifecycle,
-  from building and testing to production deployment. 
+  from building and testing to production deployment.
 
   The `EcrAsyncClient` interface in the AWS SDK provides a set of methods to
   programmatically interact with the Amazon ECR service. This allows developers to
@@ -88,7 +88,7 @@ If this image exists, then an Amazon ECR repository is created.
 
 An ECR repository is a private Docker container repository provided
 by Amazon Web Services (AWS). It is a managed service that makes it easy
-to store, manage, and deploy Docker container images. 
+to store, manage, and deploy Docker container images.
 
 echo-text:latest
 The local image named echo-text exists.

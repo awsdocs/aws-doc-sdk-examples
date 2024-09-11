@@ -90,8 +90,8 @@ def get_and_put_logs(job_detail, bucket):
         for obj in objects:
             key = obj["Key"]
             if (
-                key.endswith(f"SUCCEEDED")
-                or key.endswith(f"FAILED")
+                key.endswith("SUCCEEDED")
+                or key.endswith("FAILED")
                 or key.endswith(f"SUCCEEDED-{tool_name}.log")
                 or key.endswith(f"FAILED-{tool_name}.log")
             ):

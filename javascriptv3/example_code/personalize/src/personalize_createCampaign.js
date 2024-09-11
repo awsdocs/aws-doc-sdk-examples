@@ -7,7 +7,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
 createCampaign.js demonstrates how to create a campaign with Amazon Personalize. A campaign
-is a deployed solution version (trained model) with provisioned dedicated 
+is a deployed solution version (trained model) with provisioned dedicated
 transaction capacity for creating real-time recommendations for your application users.
 For more information, see https://docs.aws.amazon.com/personalize/latest/dg/API_CreateCampaign.html.
 

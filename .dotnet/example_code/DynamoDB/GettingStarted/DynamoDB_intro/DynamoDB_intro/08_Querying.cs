@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.dotNET.CodeExample.08_Querying] 
+// snippet-start:[dynamodb.dotNET.CodeExample.08_Querying]
 using System;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2.Model;
@@ -15,7 +15,7 @@ namespace DynamoDB_intro
         public static async Task<List<List<Document>>> SearchListing_async(Search search)
         {
             List<List<Document>> docsList = new List<List<Document>>();
-            
+
             do
             {
                 try
@@ -29,7 +29,7 @@ namespace DynamoDB_intro
                     return null;
                 }
             } while (!search.IsDone);
-            
+
             return docsList;
         }
 

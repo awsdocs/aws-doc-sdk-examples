@@ -12,7 +12,7 @@ import kotlin.system.exitProcess
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-        <restApiId> <resourceId> <httpMethod> 
+        <restApiId> <resourceId> <httpMethod>
 
     Where:
         restApiId - The string identifier of an existing RestApi. (for example, xxxx99ewyg).

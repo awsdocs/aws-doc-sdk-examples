@@ -19,10 +19,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
     val usage = """
-        Usage: 
+        Usage:
             <queueUrl>
         Where:
-           queueUrl - The URL of the queue from which messages are deleted. 
+           queueUrl - The URL of the queue from which messages are deleted.
          """
 
     if (args.size != 1) {

@@ -31,7 +31,7 @@ using namespace Aws;
 using namespace Aws::Utils;
 using namespace Aws::S3;
 
-static const size_t BUFFER_SIZE = 512 * 1024 * 1024; // 512MB Buffer 
+static const size_t BUFFER_SIZE = 512 * 1024 * 1024; // 512MB Buffer
 
 /**
  * In-memory stream implementation
@@ -50,7 +50,7 @@ class MyUnderlyingStream : public Aws::IOStream
 
 int main(int argc, char** argv)
 {
-    if (argc < 4) 
+    if (argc < 4)
     {
         std::cout << "This program is used to demonstrate how transfer manager transfers large object in memory without copying it to a local file." << std::endl
             << "It first uploads [LocalFilePath] to your Amazon S3 [Bucket] with object name [Key], then downloads the object to memory." << std::endl
@@ -87,11 +87,11 @@ int main(int argc, char** argv)
 
         auto uploadHandle = transfer_manager->UploadFile(LOCAL_FILE, BUCKET, KEY, "text/plain", Aws::Map<Aws::String, Aws::String>());
         uploadHandle->WaitUntilFinished();
-        bool success = uploadHandle->GetStatus() == Transfer::TransferStatus::COMPLETED; 
-      
+        bool success = uploadHandle->GetStatus() == Transfer::TransferStatus::COMPLETED;
+
         if (!success)
         {
-            auto err = uploadHandle->GetLastError();           
+            auto err = uploadHandle->GetLastError();
             std::cout << "File upload failed:  "<< err.GetMessage() << std::endl;
         }
         else
@@ -115,12 +115,12 @@ int main(int argc, char** argv)
             }
             std::cout << "File download to memory finished."  << std::endl;
             // snippet-end:[transfer-manager.cpp.transferOnStream.code]
-             
-            
+
+
             // Verify the download retrieved the expected length of data.
             assert(downloadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTransferred());
 
-            // Verify that the length of the upload equals the download. 
+            // Verify that the length of the upload equals the download.
             assert(uploadHandle->GetBytesTotalSize() == downloadHandle->GetBytesTotalSize());
 
             // Write the buffered data to local file copy.

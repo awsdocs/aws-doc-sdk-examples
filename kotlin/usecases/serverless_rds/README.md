@@ -16,11 +16,11 @@ You can develop a dynamic web application that tracks and reports on work items 
 + Amazon Aurora Serverless database for Amazon Relational Database Service (Amazon RDS)
 + Amazon Simple Email Service (Amazon SES)
 
-The application you create is a decoupled React application that uses a Spring REST API to return Aurora Serverless data. That is, the React application interacts with a Spring API by making RESTful GET and POST requests. The Spring API uses an [RdsDataClient](https://sdk.amazonaws.com/kotlin/api/latest/rdsdata/aws.sdk.kotlin.services.rdsdata/-rds-data-client/index.html) object to perform CRUD operations on the Aurora Serverless database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
+The application you create is a decoupled React application that uses a Spring REST API to return Aurora Serverless data. That is, the React application interacts with a Spring API by making RESTful GET and POST requests. The Spring API uses an [RdsDataClient](https://sdk.amazonaws.com/kotlin/api/latest/rdsdata/aws.sdk.kotlin.services.rdsdata/-rds-data-client/index.html) object to perform CRUD operations on the Aurora Serverless database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration.
 
 ![AWS Tracking Application](images/overview.png)
 
-**Note:** You can only use the **RdsDataClient** object for an Aurora Serverless DB cluster or Aurora PostgreSQL. For more information, see [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html).  
+**Note:** You can only use the **RdsDataClient** object for an Aurora Serverless DB cluster or Aurora PostgreSQL. For more information, see [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html).
 
 #### Topics
 
@@ -39,14 +39,14 @@ To complete the tutorial, you need the following:
 + A Kotlin IDE (this tutorial uses the IntelliJ IDE).
 + Java 17 JDK.
 + Gradle 8.1 or higher.
-+ You must also set up your development environment. For more information, 
-see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html). 
++ You must also set up your development environment. For more information,
+see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
 
 ### Important
 
 + The AWS services in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
 
 ### Create the resources
@@ -74,20 +74,20 @@ The following figure shows the **Work** table in the Amazon RDS console.
 
 For more information, see [Creating an Aurora Serverless v1 DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.create.html).
 
-To successfully connect to the database using the **RdsDataClient** object, set up an AWS Secrets Manager secret to use for authentication. For more information, see [Rotate Amazon RDS database credentials automatically with AWS Secrets Manager](https://aws.amazon.com/blogs/security/rotate-amazon-rds-database-credentials-automatically-with-aws-secrets-manager/). 
+To successfully connect to the database using the **RdsDataClient** object, set up an AWS Secrets Manager secret to use for authentication. For more information, see [Rotate Amazon RDS database credentials automatically with AWS Secrets Manager](https://aws.amazon.com/blogs/security/rotate-amazon-rds-database-credentials-automatically-with-aws-secrets-manager/).
 
-To use the **RdsDataClient** object, you must have the following two Amazon Resource Name (ARN) values: 
+To use the **RdsDataClient** object, you must have the following two Amazon Resource Name (ARN) values:
 
 + The ARN of an Aurora Serverless database
 + The ARN of a Secrets Manager secret to use for database access
 
-**Note:** You must set up inbound rules for the security group to connect to the database. You can set up an inbound rule for your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. After you set up the inbound rules, you can connect to the database from the REST endpoint. For information about setting up security group inbound rules, see [Controlling access with security groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
+**Note:** You must set up inbound rules for the security group to connect to the database. You can set up an inbound rule for your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. After you set up the inbound rules, you can connect to the database from the REST endpoint. For information about setting up security group inbound rules, see [Controlling access with security groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).
 
 #### Using the AWS Cloud Development Kit
 
 Using the AWS Cloud Development Kit (AWS CDK), you can set up the resources required for this tutorial. For more information, see the [AWS CDK instructions](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/cdk/aurora_serverless_app/README.md).
 
-## Understand the AWS Tracker React application 
+## Understand the AWS Tracker React application
 
 A user can perform the following tasks using the React application:
 
@@ -105,11 +105,11 @@ Likewise, the following illustration shows the React application displaying arch
 
 ![AWS Tracking Application](images/archiveShow.png)
 
-With the React application, a user can convert an active item to an archived item by choosing the **Archive item(s)** button. 
+With the React application, a user can convert an active item to an archived item by choosing the **Archive item(s)** button.
 
 ![AWS Tracking Application](images/archiveNew.png)
 
-The React application also lets a user enter a new item. 
+The React application also lets a user enter a new item.
 
 ![AWS Tracking Application](images/newItem.png)
 
@@ -117,15 +117,15 @@ The user can enter an email recipient into the text field and choose **Send Repo
 
 ![AWS Tracking Application](images/newReport.png)
 
-The application queries active items from the database and sends the data to the selected email recipient. 
+The application queries active items from the database and sends the data to the selected email recipient.
 
 ## Create an IntelliJ project named ItemTrackerKotlinRDSRest
 
-Perform these steps. 
+Perform these steps.
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 2. In the **New Project** dialog box, choose **Kotlin**.
-3. Enter the name **ItemTrackerKotlinRDSRest**. 
+3. Enter the name **ItemTrackerKotlinRDSRest**.
 4. Select **Gradle Kotlin** for the Build System.
 5. Select your JVM option and choose **Next**.
 6. Choose **Finish**.
@@ -203,9 +203,9 @@ Create a new package in the **main/kotlin** folder named **com.example.demo**. T
 
 **Note:** The **MessageResource** class is located in the **DemoApplication** file.
 
-### DemoApplication class 
+### DemoApplication class
 
-The following Kotlin code represents the **DemoApplication** class. This is the entry point into a Spring Boot application.  
+The following Kotlin code represents the **DemoApplication** class. This is the entry point into a Spring Boot application.
 
 ```kotlin
 package com.example.demo
@@ -295,7 +295,7 @@ class MessageResource {
 }
 
 
-```    
+```
 
 ### WorkItemRepository class
 The following Kotlin code represents the **WorkItemRepository** class. You are required to specify ARN values for Secrets Manager and the Amazon Aurora Serverless database (as discussed in the **Create the resources** section). Without both of these values, your code won't work. To use the **RDSDataClient**, you must create an **ExecuteStatementRequest** object and specify both ARN values, the database name, and the SQL statement.
@@ -586,11 +586,11 @@ class WorkItemRepository {
 ```
 
 ### SendMessage class
-The **SendMessage** class uses the [SesClient](https://sdk.amazonaws.com/kotlin/api/latest/ses/aws.sdk.kotlin.services.ses/-ses-client/index.html) to send an email message. 
+The **SendMessage** class uses the [SesClient](https://sdk.amazonaws.com/kotlin/api/latest/ses/aws.sdk.kotlin.services.ses/-ses-client/index.html) to send an email message.
 
 Before you can send the email message, the email address that you're sending it to must be verified. For more information, see [Verifying an email address](https://docs.aws.amazon.com/ses/latest/DeveloperGuide//verify-email-addresses-procedure.html).
 
-The following Kotlin code represents the **SendMessage** class. 
+The following Kotlin code represents the **SendMessage** class.
 
 ```kotlin
 package com.example.demo
@@ -655,12 +655,12 @@ class SendMessage {
 }
 ```
 
-**Note:** You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
+**Note:** You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).
 
 
 ### WorkItem class
 
-The following Kotlin code represents the **WorkItem** class.   
+The following Kotlin code represents the **WorkItem** class.
 
 ```kotlin
    package com.example.demo
@@ -677,9 +677,9 @@ class WorkItem {
 
 ```
 
-## Run the application 
+## Run the application
 
-Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs. 
+Using the IntelliJ IDE, you can run your Spring REST API. The first time you run it, choose the run icon in the main class. The Spring API supports the following URLs.
 
 - /api/items - A GET request that returns all data items from the **Work** table
 - /api/items?archived=true - A GET request that returns either active or archive data items from the **Work** table
@@ -687,41 +687,41 @@ Using the IntelliJ IDE, you can run your Spring REST API. The first time you run
 - /api/items - A POST request that adds a new item to the database
 - api/items:report - A POST request that creates a report of active items and emails the report
 
-**Note**: The React application created in the next section consumes all of the preceding URLs. 
+**Note**: The React application created in the next section consumes all of the preceding URLs.
 
-Confirm that the Spring REST API works by viewing the Active items. Enter the following URL into a browser. 
+Confirm that the Spring REST API works by viewing the Active items. Enter the following URL into a browser.
 
 http://localhost:8080/api/items
 
-The following illustration shows the JSON data returned from the Spring REST API. 
+The following illustration shows the JSON data returned from the Spring REST API.
 
 ![AWS Tracking Application](images/json2.png)
 
 
 ### Using cURL Commands
-You can also utilize cURL commands to invoke the functionality of this application. 
+You can also utilize cURL commands to invoke the functionality of this application.
 
-You can retrieve items by executing the following cURL command: 
+You can retrieve items by executing the following cURL command:
 
  ```kotlin
- 
+
     curl -X GET http://localhost:8080/api/items
 ```
 
 
 Likewise, you can send a report by executing the following cURL command:
- 
+
  ```kotlin
- 
+
     curl -X POST -H "Content-Type: application/json" -d "{\"email\":\"<email address>\"}" http://localhost:8080/api/items:report
 
 ```
 
-**Note**: Make sure that you specify a valid email address. 
+**Note**: Make sure that you specify a valid email address.
 
 ## Create the React front end
 
-You can create the React application that consumes the JSON data returned from the Spring REST API. To create the React application, download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. To access the GitHub location, see [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing).  
+You can create the React application that consumes the JSON data returned from the Spring REST API. To create the React application, download files from the following GitHub repository. Included in this repository are instructions on how to set up the project. To access the GitHub location, see [Work item tracker web client](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/clients/react/elwing).
 
 ### Update BASE_URL
 
@@ -732,6 +732,6 @@ In the **config.json** file, you must make sure that the **BASE_URL** value refe
   "BASE_URL": "http://localhost:8080/api"
 }
 ```
-  
+
 ### Next steps
 Congratulations, you have created a decoupled React application that consumes data from a Spring REST API. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services. As stated at the beginning of this tutorial, be sure to delete all of the resources that you create during this tutorial so that you won't continue to be charged.

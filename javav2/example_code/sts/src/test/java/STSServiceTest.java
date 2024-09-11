@@ -54,13 +54,13 @@ public class STSServiceTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests.
          * prop.load(input);
          * roleArn = prop.getProperty("roleArn");
          * accessKeyId = prop.getProperty("accessKeyId");
          * roleSessionName = prop.getProperty("roleSessionName");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

@@ -59,11 +59,11 @@ Run this example at a command prompt with the following command.
 
 ```
 python organizations_policies.py [--target TARGET]
-``` 
+```
 
 The example optionally attaches and detaches the demo policy to an AWS Organizations
 resource, such as a root organization or account. If you want to include this in the
-demo, replace `TARGET` in the command with the ID of the resource. 
+demo, replace `TARGET` in the command with the ID of the resource.
 <!--custom.instructions.end-->
 
 

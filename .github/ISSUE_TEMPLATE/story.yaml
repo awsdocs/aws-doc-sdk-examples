@@ -10,9 +10,9 @@ body:
       value: |
         ## ⚠️ Warning
         Issues that don't use the following template will be marked `status/back-to-author` and assigned back to the creator.
-        
+
         ---
-        
+
         # 📚️ Story details
   - type: textarea
     id: user-stories

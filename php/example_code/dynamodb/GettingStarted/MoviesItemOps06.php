@@ -26,14 +26,14 @@ $title = 'The Big New Movie';
 
 $key = $marshaler->marshalJson('
     {
-        "year": ' . $year . ', 
+        "year": ' . $year . ',
         "title": "' . $title . '"
     }
 ');
 
 $eav = $marshaler->marshalJson('
     {
-        ":val": 5 
+        ":val": 5
     }
 ');
 

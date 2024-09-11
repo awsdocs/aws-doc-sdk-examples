@@ -31,7 +31,7 @@ public class ServiceHandlerIAM {
     ///     secret access key.
     ///   - sessionToken: An optional string specifying the session token.
     // snippet-start:[iam.swift.basics.iam.init]
-    public init(accessKeyId: String? = nil, 
+    public init(accessKeyId: String? = nil,
                 secretAccessKey: String? = nil,
                 sessionToken: String? = nil) async {
         do {
@@ -107,7 +107,7 @@ public class ServiceHandlerIAM {
         }
     }
     // snippet-end:[iam.swift.basics.iam.setcredentials]
-    
+
     /// Reset IAM credentials by replacing the internal `iamClient` with a
     /// fresh one that uses the default configuration.
     // snippet-start:[iam.swift.basics.iam.resetcredentials]
@@ -286,7 +286,7 @@ public class ServiceHandlerIAM {
     // snippet-end:[iam.swift.basics.iam.attachrolepolicy]
 
     /// Detach a policy from a role.
-    /// 
+    ///
     /// - Parameters:
     ///   - policy: The policy to be detached from the role.
     ///   - role: The role from which to detach a policy.

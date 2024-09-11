@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * List your Amazon S3 buckets.
- * 
+ *
  * This code expects that you have AWS credentials set up per:
  * http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-credentials.html
  */

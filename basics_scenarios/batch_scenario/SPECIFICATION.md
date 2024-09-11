@@ -57,7 +57,7 @@ This operation disables a compute environment to prevent it from executing new j
 
 
 ### Program execution
-The following shows the output of the AWS Batch program in the console. 
+The following shows the output of the AWS Batch program in the console.
 
 ```
 AWS Batch is a fully managed batch processing service that dynamically provisions the required compute

@@ -23,12 +23,12 @@ import com.amazonaws.services.sqs.AmazonSQSClient;
  * used to receive job status updates using an event-driven model. Using
  * notifications allows you to track job status of transcoding jobs in a
  * scalable fashion.
- * 
+ *
  * Note that this implementation will not scale to multiple machines because
  * the provided JobStatusNotificationHandler is looking for a specific job ID.
  * If there are multiple machines polling SQS for notifications, there is no
  * guarantee that a particular machine will receive a particular notification.
- * 
+ *
  * More information about notifications can be found in the Elastic Transcoder
  * documentation:
  * http://docs.aws.amazon.com/elastictranscoder/latest/developerguide/notifications.html
@@ -81,7 +81,7 @@ public class JobStatusNotificationsSample {
     /**
      * Creates a job in Elastic Transcoder using the configured pipeline, input
      * key, preset, and output key prefix.
-     * 
+     *
      * @return Job ID of the job that was created in Elastic Transcoder.
      * @throws Exception
      */
@@ -111,7 +111,7 @@ public class JobStatusNotificationsSample {
      * Waits for the specified job to complete by adding a handler to the SQS
      * notification worker that is polling for status updates. This method
      * will block until the specified job completes.
-     * 
+     *
      * @param jobId
      * @param sqsQueueNotificationWorker
      * @throws InterruptedException

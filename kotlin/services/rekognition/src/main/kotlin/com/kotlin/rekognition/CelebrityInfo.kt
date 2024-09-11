@@ -18,11 +18,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main(args: Array<String>) {
     val usage = """
-        Usage: 
+        Usage:
             <id>
-       
+
         Where:
-            id - The id value of the celebrity. You can use the RecognizeCelebrities example to get the ID value. 
+            id - The id value of the celebrity. You can use the RecognizeCelebrities example to get the ID value.
         """
 
     if (args.size != 1) {

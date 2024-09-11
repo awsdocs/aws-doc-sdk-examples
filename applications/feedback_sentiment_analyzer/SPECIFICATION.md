@@ -134,7 +134,7 @@ All the APIs are created by the CDK script. The endpoints are common to every la
   ]
 }
 </pre>
-</td>  
+</td>
 </tr>
 </table>
 </details>

@@ -52,11 +52,11 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.instructions.start-->
-Start the example by running the following at a command prompt: 
+Start the example by running the following at a command prompt:
 
 ```
 python distributions.py
-``` 
+```
 <!--custom.instructions.end-->
 
 

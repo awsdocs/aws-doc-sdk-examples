@@ -81,7 +81,7 @@ def main():
     )
     parser.add_argument("--no-dry-run", dest="dry_run", action="store_false")
     parser.add_argument("--check", dest="dry_run", action="store_true")
-    parser.add_argument("--diff", action="store_true", default=False)
+    parser.add_argument("--di", action="store_true", default=False)
     args = parser.parse_args()
 
     if "all" in args.languages:

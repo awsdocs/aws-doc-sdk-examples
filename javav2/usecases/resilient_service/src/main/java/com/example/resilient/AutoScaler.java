@@ -296,7 +296,7 @@ public class AutoScaler {
      * any IP address while running this example. If you do, be sure to remove
      * public
      * access when you're done.
-     * 
+     *
      */
     public GroupInfo verifyInboundPort(String VPC, int port, String ipAddress) {
         boolean portIsOpen = false;

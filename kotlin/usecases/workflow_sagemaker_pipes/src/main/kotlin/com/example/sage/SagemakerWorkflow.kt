@@ -98,7 +98,7 @@ suspend fun main(args: Array<String>) {
         functionKey - The name of the Amazon S3 key name that represents the Lambda function (for example, SageMakerLambda.zip).
         queueName - The name of the Amazon Simple Queue Service (Amazon SQS) queue.
         bucketName - The name of the Amazon Simple Storage Service (Amazon S3) bucket.
-        bucketFunction - The name of the Amazon S3 bucket that contains the Lambda ZIP file. 
+        bucketFunction - The name of the Amazon S3 bucket that contains the Lambda ZIP file.
         lnglatData - The file location of the latlongtest.csv file required for this use case.
         spatialPipelinePath - The file location of the GeoSpatialPipeline.json file required for this use case.
         pipelineName - The name of the pipeline to create (for example, sagemaker-sdk-example-pipeline).

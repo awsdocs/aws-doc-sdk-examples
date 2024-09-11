@@ -22,7 +22,7 @@ In this tutorial, you create a Spring Boot application named **Kotlin Photo Anal
 
 This application uses the following AWS services:
 *	Amazon Rekognition
-*	Amazon S3	
+*	Amazon S3
 
 #### Topics
 
@@ -47,8 +47,8 @@ To complete the tutorial, you need the following:
 ### ⚠️ Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 ### Creating the resources
@@ -69,7 +69,7 @@ The following figure shows the report that is generated. Notice that image data 
 
 ![AWS Photo Analyzer](images/excel2.png)
 
-You can also download a given image from the Amazon S3 bucket by using this application. Simply specify the image name and choose the **Download Photo** button. The image is downloaded to your browser, as shown in this illustration. 
+You can also download a given image from the Amazon S3 bucket by using this application. Simply specify the image name and choose the **Download Photo** button. The image is downloaded to your browser, as shown in this illustration.
 
 ![AWS Photo Analyzer](images/download.png)
 
@@ -154,14 +154,14 @@ Create a package in the **main/kotlin** folder named **com.aws.photo**. The Kotl
 Create these Kotlin classes:
 
 + **AnalyzePhotos** - Uses the Amazon Rekognition Kotlin API to analyze the images.
-+ **BucketItem** - Used as a model that stores Amazon S3 bucket information.   
++ **BucketItem** - Used as a model that stores Amazon S3 bucket information.
 + **PhotoApp** - Used as the base class for the Spring Boot application.
 + **MessageResource** - Used as the Spring Boot controller that handles HTTP requests.
 + **S3Service** - Uses the Amazon S3 Kotlin API to perform S3 operations.
 + **WorkItem** - Used as a model that stores Amazon Rekognition data.
-+ **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.     
++ **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.
 
-**Note** The **MessageResource** class is located in the **PhotoApp** file. 
+**Note** The **MessageResource** class is located in the **PhotoApp** file.
 
 ### AnalyzePhotos class
 
@@ -341,7 +341,7 @@ The following Java code represents the **PhotoApplication** class.
             response.setHeader("Content-disposition", "attachment; filename=$photoKey")
             org.apache.commons.io.IOUtils.copy(`is`, response.outputStream)
             response.flushBuffer()
-        
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -369,7 +369,7 @@ The following Java code represents the **PhotoApplication** class.
 
 ### S3Service class
 
-The following class uses the Amazon S3 Kotlin API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. 
+The following class uses the Amazon S3 Kotlin API to perform S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image.
 
 ```kotlin
     package com.aws.photo
@@ -989,7 +989,7 @@ The following JavaScript represents the **message.js** file. The **ProcessImages
 ### Create the CSS File
 This application uses a CSS file named **styles.css** file that is used for the menu.
 
-```css 
+```css
   body>header {
      background: #000;
      padding: 5px;
@@ -1021,7 +1021,7 @@ This application uses a CSS file named **styles.css** file that is used for the 
 ```
 ## Run the application
 
-Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, you can run the application by clicking the run icon in the Spring Boot main class, as shown in this illustration. 
+Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, you can run the application by clicking the run icon in the Spring Boot main class, as shown in this illustration.
 
 ![AWS Tracking Application](images/run.png)
 

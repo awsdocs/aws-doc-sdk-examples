@@ -1,4 +1,4 @@
---- 
+---
 files:
   - path: src/main/java/aws/example/athena/AthenaClientFactory.java
     services:
@@ -23,7 +23,7 @@ files:
       - athena
   - path: src/main/java/aws/example/athena/StopQueryExecutionExample.java
     services:
-      - athena      
+      - athena
   - path: src/test/java/AmazonAthenaTest.java
     services:
       - athena

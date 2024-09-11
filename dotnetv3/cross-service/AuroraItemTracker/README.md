@@ -22,7 +22,7 @@ To run the code in this example, you need the following:
 + An AWS account.
 + .NET 6
 + To set up your development environment,
-see [Setting up your AWS SDK for .NET environment](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html). 
+see [Setting up your AWS SDK for .NET environment](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html).
 
 ## Create the resources
 
@@ -127,7 +127,7 @@ Here is the React application displaying archived data.
 
 ![Viewing archived items](images/elapp3.png)
 
-The user can insert a new item into the work item table from the user interface in the React front end application. In the following image, you can see the new item form. 
+The user can insert a new item into the work item table from the user interface in the React front end application. In the following image, you can see the new item form.
 
 ![Adding a new work item](images/item_tracker_add_item.png)
 

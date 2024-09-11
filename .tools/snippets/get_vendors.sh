@@ -14,7 +14,7 @@ LANGUAGES=(
   "tree-sitter/tree-sitter-rust"
 )
 
-for L in "${LANGUAGES[@]}" ; do 
+for L in "${LANGUAGES[@]}" ; do
   D=$(basename "$L")
   if [ -d "$D" ] ; then
     (

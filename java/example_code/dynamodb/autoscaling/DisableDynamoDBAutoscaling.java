@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.java.codeexample.DisableDynamoDBAutoscaling] 
+// snippet-start:[dynamodb.java.codeexample.DisableDynamoDBAutoscaling]
 package com.amazonaws.codesamples.autoscaling;
 
 import com.amazonaws.services.applicationautoscaling.AWSApplicationAutoScalingClient;

@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.CopyObjectUsingMPUapiTest]
 using Amazon;
@@ -17,7 +17,7 @@ namespace Amazon.DocSamples.S3
         private const string sourceObjectKey = "*** provide the name of object to copy ***";
         private const string targetObjectKey = "*** provide the name of the object copy ***";
         // Specify your bucket region (an example region is shown).
-        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2; 
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
         private static IAmazonS3 s3Client;
 
         public static void Main()
@@ -94,7 +94,7 @@ namespace Amazon.DocSamples.S3
                 completeRequest.AddPartETags(copyResponses);
 
                 // Complete the copy.
-                CompleteMultipartUploadResponse completeUploadResponse = 
+                CompleteMultipartUploadResponse completeUploadResponse =
                     await s3Client.CompleteMultipartUploadAsync(completeRequest);
             }
             catch (AmazonS3Exception e)

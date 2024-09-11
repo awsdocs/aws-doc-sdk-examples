@@ -45,7 +45,7 @@ The pipeline in this example is defined through a [JSON file](resources/GeoSpati
 
 ## Common resources
 This example has a set of common resources that are stored in the [resources](resources) folder.
-- GeoSpatialPipeline.json defines the pipeline steps and parameters for the SageMaker pipeline. 
+- GeoSpatialPipeline.json defines the pipeline steps and parameters for the SageMaker pipeline.
 - latlongtest.csv is a sample set of coordinates for geocoding.
 - pipeline.png is a pipeline image to use in language-specific READMEs.
 - workflow.png is a workflow image to use in language-specific READMEs.
@@ -147,7 +147,7 @@ _Reminder:_ A scenario runs at a command prompt and prints output to the user on
             },
          ],
       }
-      ```   
+      ```
        b. ExecutionPolicy:
        ```
         {

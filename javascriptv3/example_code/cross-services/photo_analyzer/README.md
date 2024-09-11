@@ -32,7 +32,7 @@ To build this example, complete the following steps:
 
 1. Follow the instructions for [creating an email address identity](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#verify-email-addresses-procedure)
 
-## Bundling and running the app 
+## Bundling and running the app
 
 This is a static site consisting only of HTML, CSS, and client-side JavaScript. However, a build step is required to enable the modules to work natively in the browser. The build step also uses your local credentials to fetch the CloudFormation outputs and supplies them as environment variables to Webpack.
 
@@ -64,7 +64,7 @@ A helper script has been provided to bundle the code and start an HTTP server. Y
 
     http-server version: 14.1.1
 
-    http-server settings: 
+    http-server settings:
     CORS: disabled
     Cache: 3600 seconds
     Connection Timeout: 120 seconds

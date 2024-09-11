@@ -5,7 +5,7 @@
 ]>
 <block>
     <para>
-        This example shows how to build an app that enables users to submit data to an &DDBlong; table, 
+        This example shows how to build an app that enables users to submit data to an &DDBlong; table,
         and send a text message to the administrator using &SNSlong; (&SNS;).
     </para>
     <para>

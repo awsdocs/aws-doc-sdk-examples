@@ -5,7 +5,7 @@
 Shows how to use the AWS SDK for Python (Boto3) to work with Elastic Load Balancing - Version 2.
 
 <!--custom.overview.start-->
-Most of the example code for Elastic Load Balancing can be found in the  
+Most of the example code for Elastic Load Balancing can be found in the
 [python/cross_service/resilient_service](../../cross_service/resilient_service) folder,
 which contains the [Build and manage a resilient service](../../cross_service/resilient_service/README.md)
 scenario.

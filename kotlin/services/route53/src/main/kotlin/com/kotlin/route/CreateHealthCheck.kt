@@ -23,10 +23,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-        <domainName> 
+        <domainName>
 
     Where:
-        domainName - The fully qualified domain name. 
+        domainName - The fully qualified domain name.
     """
 
     if (args.size != 1) {

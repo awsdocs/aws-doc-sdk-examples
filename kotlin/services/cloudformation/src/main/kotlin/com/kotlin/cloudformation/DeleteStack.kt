@@ -15,7 +15,7 @@ suspend fun main(args: Array<String>) {
         <stackName>
 
     Where:
-        stackName - The name of the AWS CloudFormation stack. 
+        stackName - The name of the AWS CloudFormation stack.
     """
 
     if (args.size != 1) {

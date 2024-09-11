@@ -66,11 +66,11 @@ suspend fun main(args: Array<String>) {
             <dbGroupName> <dbParameterGroupFamily> <dbInstanceIdentifier> <dbName> <dbSnapshotIdentifier><secretName>
 
         Where:
-            dbGroupName - The database group name. 
+            dbGroupName - The database group name.
             dbParameterGroupFamily - The database parameter group name.
-            dbInstanceIdentifier - The database instance identifier. 
-            dbName -  The database name. 
-            dbSnapshotIdentifier - The snapshot identifier. 
+            dbInstanceIdentifier - The database instance identifier.
+            dbName -  The database name.
+            dbSnapshotIdentifier - The snapshot identifier.
             secretName - The name of the AWS Secrets Manager secret that contains the database credentials.
     """
 

@@ -10,8 +10,8 @@ The Java code examples perform AWS operations for the account and AWS Region for
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting a deployment. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information,
+see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
  ## Testing the Amazon API Gateway Java files
 
@@ -28,11 +28,11 @@ Before running the  Amazon API Gateway JUnit tests, you must define values in th
 
 Define this value to successfully run the JUnit tests:
 
-- **restApiId** - The string identifier of an existing RestApi (for example, xxxx99ewyg).  
+- **restApiId** - The string identifier of an existing RestApi (for example, xxxx99ewyg).
 - **deploymentId** - The string identifier of an existing deployment.
-- **httpMethod** - The HTTP method used in the **GetMethod** test (for example, GET).  
-- **restApiName** - The name to use for the new RestApi. 
-- **stageName** - The name of the stage used in the **CreateDeployment** test.  
+- **httpMethod** - The HTTP method used in the **GetMethod** test (for example, GET).
+- **restApiName** - The name to use for the new RestApi.
+- **stageName** - The name of the stage used in the **CreateDeployment** test.
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.

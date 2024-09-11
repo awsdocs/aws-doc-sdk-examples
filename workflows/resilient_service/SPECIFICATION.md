@@ -2,13 +2,13 @@
 
 This document contains the technical specifications for *Build and manage a resilient service*,
 a workflow scenario that showcases AWS services and SDKs. It is primarily intended for the AWS code
-examples team to use while developing this example in additional languages. 
+examples team to use while developing this example in additional languages.
 
 This document explains the following:
 
 - Deploying AWS resources and their configurations.
-- Flow of the demo and the AWS Systems Manager parameters that simulate failures and how the web 
-  server responds to them. 
+- Flow of the demo and the AWS Systems Manager parameters that simulate failures and how the web
+  server responds to them.
 - Destroying the AWS resources at the end of the example.
 
 For an introduction to *Build and manage a resilient service*, see the [README.md](README.md).
@@ -51,7 +51,7 @@ simulating failures and acting in a more resilient manner.
 
 ## HTTP API specification
 
-The Python web server handles two kinds of HTTP requests. These are common to every language 
+The Python web server handles two kinds of HTTP requests. These are common to every language
 variation and do not need any additional implementation. The web server is defined in
 [server.py](resources/server.py).
 
@@ -73,7 +73,7 @@ Content-type: application/json
     "AvailabilityZone": "us-west-2b"}
 }
 ```
-  
+
 ##### GET /healthcheck
 
 Indicates to the load balancer whether the server is healthy by returning a success code (200)
@@ -94,7 +94,7 @@ are controlled by Systems Manager parameters. After each stage, the user is pres
 with a short menu of choices:
 
 1. Send a GET request to the load balancer endpoint.
-2. Check the health of the load balancer targets. 
+2. Check the health of the load balancer targets.
 3. Continue to the next stage.
 
 The user can select the first two choices multiple times to see how the situation changes as the
@@ -158,7 +158,7 @@ Welcome to the demonstration of How to Build and Manage a Resilient Service!
 ----------------------------------------------------------------------------------------
 INFO: Found credentials in shared credentials file: ~/.aws/credentials
 
-For this demo, we'll use an AWS SDK to create several AWS resources to set up a load-balanced 
+For this demo, we'll use an AWS SDK to create several AWS resources to set up a load-balanced
 web service endpoint and explore some ways to make it resilient against various kinds of failures.
 
 Some of the resources create by this demo are:
@@ -175,7 +175,7 @@ Press Enter when you're ready to start deploying resources.
 
 #### Recommendation service
 
-The recommendation service is a mock service and is a DynamoDB table that the web server calls 
+The recommendation service is a mock service and is a DynamoDB table that the web server calls
 directly. Create a DynamoDB table using DynamoDB.CreateTable and specify the following schema:
 
 ```
@@ -191,7 +191,7 @@ KeySchema=[{
     'KeyType': 'RANGE'}],
 ```
 
-Populate the table by reading [recommendations.json](resources/recommendations.json) and 
+Populate the table by reading [recommendations.json](resources/recommendations.json) and
 sending it to DynamoDB by using DynamoDB.BatchWriteItem.
 
 Output:
@@ -223,7 +223,7 @@ that control the flow of the demo.
 ##### Permissions
 
 As you create permissions, use waiters if your SDK has them. You might also have to insert
-pauses when the waiter is not sufficient. 
+pauses when the waiter is not sufficient.
 
 1. Use IAM.CreatePolicy to create an IAM policy from [instance_policy.json](resources/instance_policy.json).
 2. Use IAM.CreateRole to create an IAM role.
@@ -238,7 +238,7 @@ pauses when the waiter is not sufficient.
    }
    ```
 3. Use IAM.AttachRolePolicy to attach the policy to the role.
-4. Use IAM.CreateInstanceProfile and IAM.AddRoleToInstanceProfile to create an IAM instance 
+4. Use IAM.CreateInstanceProfile and IAM.AddRoleToInstanceProfile to create an IAM instance
    profile and add the role.
 
 Output:
@@ -252,8 +252,8 @@ INFO: Created profile doc-example-resilience-prof and added role doc-example-res
 
 ##### EC2 launch template
 
-1. Get the ID of a current AMI by calling SystemsManager.GetParameter for 
-   `/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2`. 
+1. Get the ID of a current AMI by calling SystemsManager.GetParameter for
+   `/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2`.
 2. Get the startup Bash script for the launch template by reading from
    [server_startup_script.sh](resources/server_startup_script.sh).
 3. Create a launch template by calling EC2.CreateLaunchTemplate. Specify a small instance type,
@@ -276,7 +276,7 @@ INFO: Created launch template doc-example-resilience-template for AMI ami-016773
 
 ##### Auto Scaling group
 
-1. Use EC2.DescribeAvailabilityZones to get the names of the Availability Zones for the 
+1. Use EC2.DescribeAvailabilityZones to get the names of the Availability Zones for the
 current Region.
 2. Use AutoScaling.CreateAutoScalingGroup to create an Auto Scaling group that uses the launch template,
 targets the Availability Zones for the Region, and specifies three minimum and maximum instances.
@@ -308,7 +308,7 @@ Elastic Load Balancer has two clients. This example uses an Application Load Bal
 targets V2. Be aware that the Auto Scaling group is not the same as the load balancer
 target group, although the two are linked.
 
-1. Use EC2.DescribeVpcs with a Filter of Name = `'is-default'` and Values = `['true']` to 
+1. Use EC2.DescribeVpcs with a Filter of Name = `'is-default'` and Values = `['true']` to
 get the default VPC.
 2. Use EC2.DescribeSubnets with a Filter to get the default subnets for the VPC.
    ```
@@ -321,17 +321,17 @@ get the default VPC.
    Specify the arguments shown in the following snippet:
    ```
    response = self.elb_client.create_target_group(
-       Name=self.target_group_name, 
-       Protocol='HTTP', 
+       Name=self.target_group_name,
+       Protocol='HTTP',
        Port=80,
-       HealthCheckPath='/healthcheck', 
+       HealthCheckPath='/healthcheck',
        HealthCheckIntervalSeconds=10,
-       HealthCheckTimeoutSeconds=5, 
+       HealthCheckTimeoutSeconds=5,
        HealthyThresholdCount=2,
-       UnhealthyThresholdCount=2, 
+       UnhealthyThresholdCount=2,
        VpcId=vpc_id)
    ```
-4. Use ELBv2.CreateLoadBalancer to create an Application Load Balancer. Specify the default 
+4. Use ELBv2.CreateLoadBalancer to create an Application Load Balancer. Specify the default
 subnets for Subnets.
 5. Cache the DNSName field of the load balancer. This is the endpoint where you will send
    GET requests for the example.
@@ -374,8 +374,8 @@ INFO: Attached load balancer target group doc-example-resilience-tg to auto scal
    ```
 2. If the request succeeds, display that to the user along with the endpoint.
 3. If the request fails, the most likely culprit is the default security group for the VPC.
-   Use EC2.DescribeSecurityGroups to get the default security group and examine its 
-   IpPermissions to find whether it has port 80 open either to the current computer's IP 
+   Use EC2.DescribeSecurityGroups to get the default security group and examine its
+   IpPermissions to find whether it has port 80 open either to the current computer's IP
    address (you can find this programmatically by sending a GET request to http://checkip.amazonaws.com),
    to all IP addresses (0.0.0.0/0) or to a VPN/Corpnet prefix:
     ```
@@ -456,8 +456,8 @@ Which action would you like to take?
 
 #### 1. Send a GET request
 
-Send a GET request to the load balancer endpoint. Depending on the stage of the demo, the 
-response is either successful and contains a JSON payload that contains the recommendation 
+Send a GET request to the load balancer endpoint. Depending on the stage of the demo, the
+response is either successful and contains a JSON payload that contains the recommendation
 and server metadata, or fails and returns a failure code.
 
 ```
@@ -504,8 +504,8 @@ The following are the stages of the demo, which must be performed in the order s
 
 #### Set parameters
 
-Before you start, use SSM.PutParameter to set the Systems Manager parameters to the starting 
-values. The names of the parameters must exactly match these names, because they are used by 
+Before you start, use SSM.PutParameter to set the Systems Manager parameters to the starting
+values. The names of the parameters must exactly match these names, because they are used by
 the web server to get the parameters at runtime.
 ```
 table = 'doc-example-resilient-architecture-table'
@@ -552,8 +552,8 @@ Checking the health of load balancer targets:
 
 #### Broken dependency
 
-The next phase simulates a broken dependency by setting the table name parameter to a 
-non-existent table name. When the web server tries to get a recommendation, it fails because 
+The next phase simulates a broken dependency by setting the table name parameter to a
+non-existent table name. When the web server tries to get a recommendation, it fails because
 the table doesn't exist.
 
 Use SSM.PutParameter to set the `doc-example-resilient-architecture-table` parameter to a value
@@ -585,13 +585,13 @@ Response:
 ----------------------------------------------------------------------------------------
 ```
 
-All instances report as healthy because they use shallow health checks, which means 
+All instances report as healthy because they use shallow health checks, which means
 that they simply report success under all conditions.
 
 #### Static response
 
-The next phase sets a parameter that instructs the web server to return a static response when 
-it cannot get a recommendation from the recommendation service. The static response is to always 
+The next phase sets a parameter that instructs the web server to return a static response when
+it cannot get a recommendation from the recommendation service. The static response is to always
 suggest the *404 Not Found* coloring book.
 
 Use SSM.PutParameter to set the `doc-example-resilient-architecture-failure-response` parameter
@@ -630,16 +630,16 @@ Response:
 
 #### Bad credentials
 
-The next phase replaces the credentials on a single instance with credentials that don't allow 
+The next phase replaces the credentials on a single instance with credentials that don't allow
 access to the recommendation service.
 
-Use SSM.PutParameter to set the `doc-example-resilient-architecture-table` parameter back to 
+Use SSM.PutParameter to set the `doc-example-resilient-architecture-table` parameter back to
 the name of your DynamoDB recommendation table.
 
 ##### Create an instance profile with bad credentials
 
 Create all the pieces needed for an instance profile that does not allow permission to the
-DynamoDB recommendation table. 
+DynamoDB recommendation table.
 
 1. Use IAM.CreatePolicy to create an IAM policy from [ssm_only_policy.json](resources/ssm_only_policy.json).
 2. Use IAM.CreateRole to create an IAM role.
@@ -656,7 +656,7 @@ DynamoDB recommendation table.
 3. Use IAM.AttachRolePolicy to attach the policy to the role.
 4. Use IAM.AttachRolePolicy to attach the managed policy `AmazonSSMManagedInstanceCore' to the role.
    This is required so that Systems Manager can restart the web server on the instance.
-5. Use IAM.CreateInstanceProfile and IAM.AddRoleToInstanceProfile to create an IAM instance 
+5. Use IAM.CreateInstanceProfile and IAM.AddRoleToInstanceProfile to create an IAM instance
    profile and add the role.
 
 Select an instance, replace its instance profile, and reboot the instance.
@@ -665,7 +665,7 @@ Select an instance, replace its instance profile, and reboot the instance.
    to poison.
 2. Use EC2.DescribeIamInstanceProfileAssociations to get the profile association ID for the
    instance.
-3. Use EC2.ReplaceIamInstanceProfileAssociation to replace the profile for the instance with 
+3. Use EC2.ReplaceIamInstanceProfileAssociation to replace the profile for the instance with
    the new instance profile that contains bad credentials.
 4. Use EC2.RebootInstances to reboot the instance.
 5. Use SSM.DescribeInstanceInformation in a loop (with pauses) until the instance is in the
@@ -673,7 +673,7 @@ Select an instance, replace its instance profile, and reboot the instance.
 6. Use SSM.SendCommand to restart the web server on the instance.
    ```
    self.ssm_client.send_command(
-       InstanceIds=[instance_id], 
+       InstanceIds=[instance_id],
        DocumentName='AWS-RunShellScript',
        Parameters={'commands': ['cd / && sudo python3 server.py 80']})
    ```
@@ -747,12 +747,12 @@ Response:
 #### Deep health checks
 
 The next phase sets a parameter that instructs the web server to use a deep health check.
-This means that the web server returns an error code when it can't connect to the recommendations 
+This means that the web server returns an error code when it can't connect to the recommendations
 service.
 
-Note that the deep health check is only for ELB routing and not for Auto Scaling instance health. 
-This kind of deep health check is not recommended for Auto Scaling instance health, see 
-[Choosing the right health check with Elastic Load Balancing and EC2 Auto Scaling](https://aws.amazon.com/blogs/networking-and-content-delivery/choosing-the-right-health-check-with-elastic-load-balancing-and-ec2-auto-scaling/) 
+Note that the deep health check is only for ELB routing and not for Auto Scaling instance health.
+This kind of deep health check is not recommended for Auto Scaling instance health, see
+[Choosing the right health check with Elastic Load Balancing and EC2 Auto Scaling](https://aws.amazon.com/blogs/networking-and-content-delivery/choosing-the-right-health-check-with-elastic-load-balancing-and-ec2-auto-scaling/)
 for more information.
 
 Use SSM.PutParameter to set the `doc-example-resilient-architecture-health-check` to 'deep'.
@@ -797,7 +797,7 @@ Checking the health of load balancer targets:
 
 #### Replace the failing instance
 
-This next phase uses an SDK action to terminate the unhealthy instance, at which point Auto Scaling 
+This next phase uses an SDK action to terminate the unhealthy instance, at which point Auto Scaling
 automatically starts a new instance.
 
 Use AutoScaling.TerminateInstanceInAutoScalingGroup with ShouldDecrementDesiredCapacity=False
@@ -882,7 +882,7 @@ Checking the health of load balancer targets:
 ----------------------------------------------------------------------------------------
 ```
 
-When all instances in a target group are unhealthy, the load balancer continues to forward requests to 
+When all instances in a target group are unhealthy, the load balancer continues to forward requests to
 them, allowing for a fail open behavior.
 
 ## Destroy
@@ -904,7 +904,7 @@ and then do so. Use waiters as necessary if your SDK provides them.
    2. Use IAM.DeleteInstanceProfile to delete the instance profile.
    3. Use IAM.ListAttachedRolePolicies to get all policies attached to the role.
    4. Use IAM.DetachRolePolicy and IAM.DeletePolicy to detach and delete each policy. Don't delete
-      AWS managed policies, which have ARNs that start with 'arn:aws:iam::aws'. 
+      AWS managed policies, which have ARNs that start with 'arn:aws:iam::aws'.
    5. Use IAM.DeleteRole to delete the role.
 8. Use DynamoDB.DeleteTable to delete the recommendations table.
 
@@ -953,7 +953,7 @@ Thanks for watching!
 Most services used in this example already have an MVP defined. The only new service
 to add is Elastic Load Balancing.
 
-* ELBv2.DescribeLoadBalancers. List LoadBalancerName and DNSName of up to 10 load balancers. 
+* ELBv2.DescribeLoadBalancers. List LoadBalancerName and DNSName of up to 10 load balancers.
 There might not be any if the customer has not yet defined any.
 
 Output:

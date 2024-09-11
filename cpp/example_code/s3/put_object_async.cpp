@@ -99,9 +99,9 @@ bool AwsDoc::S3::putObjectAsync(const Aws::S3::S3Client &s3Client,
             Aws::MakeShared<Aws::Client::AsyncCallerContext>("PutObjectAllocationTag");
     context->SetUUID(fileName);
 
-    // Make the asynchronous put object call. Queue the request into a 
+    // Make the asynchronous put object call. Queue the request into a
     // thread executor and call the putObjectAsyncFinished function when the
-    // operation has finished. 
+    // operation has finished.
     s3Client.PutObjectAsync(request, putObjectAsyncFinished, context);
 
     return true;

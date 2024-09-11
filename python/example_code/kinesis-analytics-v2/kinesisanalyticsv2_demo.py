@@ -89,7 +89,7 @@ def usage_demo():
 
     print(
         f"Creating role {role_name} to let Kinesis Analytics read from the input "
-        f"stream and write to the output stream."
+        "stream and write to the output stream."
     )
     role = application.create_read_write_role(
         role_name, input_stream.arn(), output_stream.arn(), iam_resource

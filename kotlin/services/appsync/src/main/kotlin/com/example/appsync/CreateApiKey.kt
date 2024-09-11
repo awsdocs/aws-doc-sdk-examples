@@ -19,7 +19,7 @@ import kotlin.system.exitProcess
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <apiId> 
+            <apiId>
         Where:
             apiId - The Id of the API. (You can get this value from the AWS Management Console.)
     """

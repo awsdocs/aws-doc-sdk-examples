@@ -42,14 +42,14 @@ import kotlin.system.exitProcess
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <functionName> <role> <handler> <bucketName> <updatedBucketName> <key> 
+            <functionName> <role> <handler> <bucketName> <updatedBucketName> <key>
 
         Where:
-            functionName - The name of the AWS Lambda function. 
-            role - The AWS Identity and Access Management (IAM) service role that has AWS Lambda permissions. 
-            handler - The fully qualified method name (for example, example.Handler::handleRequest). 
+            functionName - The name of the AWS Lambda function.
+            role - The AWS Identity and Access Management (IAM) service role that has AWS Lambda permissions.
+            handler - The fully qualified method name (for example, example.Handler::handleRequest).
             bucketName - The Amazon Simple Storage Service (Amazon S3) bucket name that contains the ZIP or JAR used for the Lambda function's code.
-            updatedBucketName - The Amazon S3 bucket name that contains the .zip or .jar used to update the Lambda function's code. 
+            updatedBucketName - The Amazon S3 bucket name that contains the .zip or .jar used to update the Lambda function's code.
             key - The Amazon S3 key name that represents the .zip or .jar file (for example, LambdaHello-1.0-SNAPSHOT.jar).
             """
 

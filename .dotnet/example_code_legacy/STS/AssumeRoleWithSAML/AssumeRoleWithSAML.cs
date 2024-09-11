@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[sts.dotNET.CodeExample.AssumeRoleWithSAML] 
+// snippet-start:[sts.dotNET.CodeExample.AssumeRoleWithSAML]
 
 using System;
 using System.IO;
@@ -60,4 +60,4 @@ namespace AssumeRoleWithSAMLExample
         }
     }
 }
-// snippet-end:[sts.dotNET.CodeExample.AssumeRoleWithSAML] 
+// snippet-end:[sts.dotNET.CodeExample.AssumeRoleWithSAML]

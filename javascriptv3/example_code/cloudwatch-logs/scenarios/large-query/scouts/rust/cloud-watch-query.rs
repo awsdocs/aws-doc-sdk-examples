@@ -32,7 +32,7 @@ struct Query {
 impl Query {
     fn new(config: SdkConfig, query_config: QueryConfig) -> Self {
         let client = Client::new(&config);
-        Query { client, config } 
+        Query { client, config }
     }
 
     async fn run(&self) -> QueryResults {
@@ -40,13 +40,13 @@ impl Query {
         let results = self.query_logs(self.config.date_range).await;
         let end = SystemTime::now();
         let elapsed = end.duration_since(start).unwrap();
-        
+
         QueryResults::new(results, elapsed)
     }
 
     async fn query_logs(&self, date_range: (SystemTime, SystemTime)) -> Vec<Vec<String>> {
         // Implementation of recursive query
-        todo!() 
+        todo!()
     }
 
     async fn start_query(&self, date_range: (SystemTime, SystemTime)) -> Result<String, Error> {

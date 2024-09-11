@@ -6,9 +6,9 @@
 <block>
     <para>
         Shows how to use the &SNSlong; Java API to
-        create a web application that has 
+        create a web application that has
         subscription and publish functionality. In addition, this
-        example application also translates messages. 
+        example application also translates messages.
     </para>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on

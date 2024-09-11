@@ -9,11 +9,11 @@
 | Required skills   | Java, Maven  |
 
 ## Purpose
-You can create an Amazon Lex Chatbot within a web application to engage your web site visitors. An Amazon Lex Chatbot is functionality that performs on-line chat conversation with users without providing direct contact with a person. For example, the following illustration shows an Amazon Lex Chatbot that engages a user about booking a hotel room. 
+You can create an Amazon Lex Chatbot within a web application to engage your web site visitors. An Amazon Lex Chatbot is functionality that performs on-line chat conversation with users without providing direct contact with a person. For example, the following illustration shows an Amazon Lex Chatbot that engages a user about booking a hotel room.
 
 ![AWS Video Analyzer](images/chatintro.png)
 
-The Amazon Lex Chatbot created in this AWS tutorial is able to handle multiple languages. For example, a user who speaks French can enter French text and get back a response in French. 
+The Amazon Lex Chatbot created in this AWS tutorial is able to handle multiple languages. For example, a user who speaks French can enter French text and get back a response in French.
 
 ![AWS Video Analyzer](images/LanChatBot2.png)
 
@@ -48,8 +48,8 @@ To complete the tutorial, you need the following:
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 
@@ -67,13 +67,13 @@ The first step is to create an Amazon Lex chatbot by using the AWS Management Co
 
 4. Fill in the default settings and choose **Create** (the console shows the **BookTrip** bot). On the Editor tab, review the details of the preconfigured intents.
 
-5. Test the bot in the test window. Start the test by typing *I want to book a hotel room*. 
+5. Test the bot in the test window. Start the test by typing *I want to book a hotel room*.
 
 ![AWS Video Analyzer](images/ChatBotTest.png)
 
-6. Choose **Publish** and specify an alias name (you will need this value when using the AWS SDK for Java). 
+6. Choose **Publish** and specify an alias name (you will need this value when using the AWS SDK for Java).
 
-**Note**: You need to reference the **bot name** and the **bot alias** in your Java code. 
+**Note**: You need to reference the **bot name** and the **bot alias** in your Java code.
 
 ## Create an IntelliJ project named SpringChatbot
 
@@ -102,16 +102,16 @@ At this point, you have a new project named **SpringChatbot**.
 Make sure that your project's pom.xml file looks like the POM file in this Github repository.
 
 ## Create the Java classes
- 
+
  Create a Java package in the main/java folder named **com.aws.spring**. The Java files go into this package.
- 
+
   ![AWS Lex](images/project2.png)
- 
+
  Create these Java classes:
 
 + **BotExample** - The base class for the Spring Boot application.
 + **BotController** - The Spring Boot controller that handles HTTP requests.
-+ **LexService** - The class that uses the AWS SDK for Java (V2) to invoke AWS Services to perform this use case. 
++ **LexService** - The class that uses the AWS SDK for Java (V2) to invoke AWS Services to perform this use case.
 
 ### BotExample class
 
@@ -160,7 +160,7 @@ The following Java code represents the **BotController** class.
         return "index";
      }
 
-     // Handles a string posted from the client. 
+     // Handles a string posted from the client.
      @RequestMapping(value = "/text", method = RequestMethod.POST)
      @ResponseBody
      String addItems(HttpServletRequest request, HttpServletResponse response) {
@@ -174,7 +174,7 @@ The following Java code represents the **BotController** class.
 
 ### LexService class
 
-The **LexService** class uses the AWS SDK for Java (v2) to handle all text submitted from the client. This class contains a method named **getText** that accepts the text posted from the client. The first task this method does is to invoke the **ComprehendClient** object's **detectDominantLanguage** to determine the language of the text. For example, if the posted text was french, then this method returns **fr**. After the language is determined, the next thing that occurs is the text is translated from the given language to english by invoking the **TranslateClient** object's **translateText** method. Finally when the text is translated to english, the **LexRuntimeClient** object's **postText** method is invoked. This method returns a text response from the Amazon Lex service. 
+The **LexService** class uses the AWS SDK for Java (v2) to handle all text submitted from the client. This class contains a method named **getText** that accepts the text posted from the client. The first task this method does is to invoke the **ComprehendClient** object's **detectDominantLanguage** to determine the language of the text. For example, if the posted text was french, then this method returns **fr**. After the language is determined, the next thing that occurs is the text is translated from the given language to english by invoking the **TranslateClient** object's **translateText** method. Finally when the text is translated to english, the **LexRuntimeClient** object's **postText** method is invoked. This method returns a text response from the Amazon Lex service.
 
 If the text was in another language, then the text is translated back into the original language and passed back to the client where it's displayed in the Web UI. The following Java code represents the **LexService** class.
 
@@ -334,7 +334,7 @@ If the text was in another language, then the text is translated back into the o
       }
 ```
 
-**Note**: Ensure that you specify the bot name and the bot alias when creating the **PostTextRequest** object.  
+**Note**: Ensure that you specify the bot name and the bot alias when creating the **PostTextRequest** object.
 
 ## Create the HTML file
 
@@ -342,7 +342,7 @@ At this point, you have created all of the Java files required for this example 
 
 + index.html
 
-The **index.html** file is the application's home view that displays the Amazon Lex bot. The following HTML represents the **index.html** file. 
+The **index.html** file is the application's home view that displays the Amazon Lex bot. The following HTML represents the **index.html** file.
 
 ```html
     <!DOCTYPE html>
@@ -481,7 +481,7 @@ The **index.html** file is the application's home view that displays the Amazon 
 
 ## Run the application
 
-Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, click the run icon in the Spring Boot main class, as shown in this illustration. 
+Using the IntelliJ IDE, you can run your application. The first time you run the Spring Boot application, click the run icon in the Spring Boot main class, as shown in this illustration.
 
 ![AWS Tracking Application](images/runapp.png)
 

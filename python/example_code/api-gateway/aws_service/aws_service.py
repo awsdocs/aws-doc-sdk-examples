@@ -369,7 +369,7 @@ def usage_demo(table_name, role_name, rest_api_name):
 
     profiles_url = gateway.api_url("profiles")
     print(
-        f"Using the Requests package to post some people to the profiles REST API at "
+        "Using the Requests package to post some people to the profiles REST API at "
         f"{profiles_url}."
     )
     requests.post(

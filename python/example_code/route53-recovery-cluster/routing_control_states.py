@@ -106,7 +106,7 @@ def toggle_routing_control_state(routing_control_arn, cluster_endpoints):
     print(f"Starting state of control {routing_control_arn}: {state}")
     print("-" * 88)
 
-    update_state = "Off" if state == "On" else "On"
+    update_state = "O" if state == "On" else "On"
     print(f"Setting control state to '{update_state}'.")
     response = update_routing_control_state(
         routing_control_arn, cluster_endpoints, update_state
@@ -114,7 +114,7 @@ def toggle_routing_control_state(routing_control_arn, cluster_endpoints):
     if response:
         print("Success!")
     else:
-        print(f"Something went wrong.")
+        print("Something went wrong.")
     print("-" * 88)
 
 

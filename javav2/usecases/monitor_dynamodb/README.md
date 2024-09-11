@@ -14,8 +14,8 @@ the application's performance. This tutorial discusses the following ways to mon
 * Configure client-side performance metrics.
 * View metrics from DynamoDB and from the SDK in Amazon CloudWatch.
 * Set up alarms on those metrics.
-* Set up CloudWatch contributor insights for DynamoDB to dive into specific issues with usage patterns. 
- 
+* Set up CloudWatch contributor insights for DynamoDB to dive into specific issues with usage patterns.
+
 This tutorial does not cover general best-practices for DynamoDB. For information on best practices see [Best practices for designing
 and architecting with DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html).
 This tutorial uses the DynamoDB enhanced client, for more information see the [DynamoDB Enhanced Client API topic](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/dynamodb-enhanced-client.html)
@@ -240,26 +240,26 @@ In the constructor, this class instantiates the following service client types.
 * `DynamoDbClient` - used by the DynamoDb enhanced client to work with the DynamoDb service
 * `DynamoDbEnhancedClient` - entry-point class for client-side mapping
 
-The last statement of the constructor creates a `DynamoDbTable` (identified as `greetingsTable`) that 
-works with the `Greetings` DynamoDB table. A `DynamoDbTable` instance is a client-side representation of a physical 
+The last statement of the constructor creates a `DynamoDbTable` (identified as `greetingsTable`) that
+works with the `Greetings` DynamoDB table. A `DynamoDbTable` instance is a client-side representation of a physical
 DynamoDB table.
 
-Note that the service clients are instantiated at application start-up and released at application close. By reusing 
+Note that the service clients are instantiated at application start-up and released at application close. By reusing
 the same clients across requests, we reuse that client's connections--`DynamoDbClient's` connections to DynamoDB and
 `CloudWatchAsyncClient's` connections to CloudWatch. The reuse of connections is a best practice for service clients.
-If we had instantiated a new client for each request, we would pay a significant performance penalty to establish 
+If we had instantiated a new client for each request, we would pay a significant performance penalty to establish
 a connection on each request.
 
-The `sendGreetings` method runs a loop that creates a new greeting, writes it, and reads it from DynamoDB. 
-To give us metrics for a longer period, we delay the run of each loop. 
+The `sendGreetings` method runs a loop that creates a new greeting, writes it, and reads it from DynamoDB.
+To give us metrics for a longer period, we delay the run of each loop.
 
-The code also writes and retrieves the first item (with id `greeting-00`) in each loop. This is to give us a 
+The code also writes and retrieves the first item (with id `greeting-00`) in each loop. This is to give us a
 noticeable imbalance in partition key utilization that
 easily shows up [when CloudWatch Contributor Insights is enabled](#understanding-application-partition-usage-with-cloudwatch-contributor-insights). In a real application you should aim to spread
 utilization across the partitions of a DynamoDB table.
 
 The `putGreeting` and `getGreeting` methods send and retrieve the data. These methods also show how to get the request ID
-if there is a problem on the service end of the request. The request ID can be useful in troubleshooting 
+if there is a problem on the service end of the request. The request ID can be useful in troubleshooting
 support cases.
 
 The class definition ends with methods to create and delete the `Greetings` table and to close service clients.
@@ -429,7 +429,7 @@ This class provides the entry point to the sample application. The class perform
 * Configures the core `GreetingsSender` instance.
 * Creates the DynamoDB table.
 * Initiates the write/read loop.
-* Deletes the DynamoDB table. If you intend to [review CloudWatch Contributor Insights](#Understanding-application-partition-usage-with-CloudWatch-Contributor-Insights), 
+* Deletes the DynamoDB table. If you intend to [review CloudWatch Contributor Insights](#Understanding-application-partition-usage-with-CloudWatch-Contributor-Insights),
 comment out the `greetingsSender.deleteTable();` statement. Remember to delete the table later.
 * Calls `close()` on the `GreetingsSender` instance to close down the service clients.
 
@@ -486,7 +486,7 @@ the next section.
 
 #### DynamoDB metrics
 All DynamoDB tables publish metrics, including latency metrics, to CloudWatch. You can find these metrics in the console
-by navigating to **CloudWatch** in a region for which you have DynamoDB tables. Select **Metrics -> All metrics** in the 
+by navigating to **CloudWatch** in a region for which you have DynamoDB tables. Select **Metrics -> All metrics** in the
 left navigation panel, then in the **Browse** tab, you find a tile for **DynamoDB**. The tile for **DynamoDB** is under
 the **AWS namespaces** heading after running this sample application.
 
@@ -511,17 +511,17 @@ against the `Greetings` table. These lines represent the average latency reporte
 
 ![Server-side latency graph](images/02_server_side_cloudwatch_latency.png)
 
-Note that these are DynamoDB server-side metrics. Because they are server-side metrics, the latency does 
+Note that these are DynamoDB server-side metrics. Because they are server-side metrics, the latency does
 not reflect the full client experience. For example, the time spent over the network and in SDK/client-side activity
-are not included. Additionally, server-side metrics include only summary statistics (minimum, maximum, sum, 
-average, and sample count) and do not currently provide percentile metrics, for example p99 metrics. 
+are not included. Additionally, server-side metrics include only summary statistics (minimum, maximum, sum,
+average, and sample count) and do not currently provide percentile metrics, for example p99 metrics.
 For more information about the metrics that are available for DynamoDB, see [Monitoring metrics with Amazon
 CloudWatch](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Monitoring-metrics-with-Amazon-CloudWatch.html).
 
 #### SDK metrics
 By configuring [SDK metric publishing](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/metrics.html) at the client end,
 and in particular by configuring detailed metrics, you can get metrics that capture time spent over the wire and
-include percentile metrics. 
+include percentile metrics.
 
 In our sample application, we configured the metric publisher to send **ApiCallDuration** metrics for each request to CloudWatch
 as shown in the following snippet. The **ApiCallDuration** metric is the total time taken to finish a request (inclusive of all retries).
@@ -534,7 +534,7 @@ as shown in the following snippet. The **ApiCallDuration** metric is the total t
                         CoreMetric.API_CALL_DURATION)
                 .build();
 ```
-The [metric section of the AWS SDK for Java 2.x Develop Guide](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/metrics-list.html) 
+The [metric section of the AWS SDK for Java 2.x Develop Guide](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/metrics-list.html)
 lists the metrics that can be published.
 
 ##### To view the SDK-generated latency metrics
@@ -572,8 +572,8 @@ services to quickly understand when performance is degraded because of a service
 ### Log information
 
 #### SDK logging
-As a best practice, you should log exceptions from DynamoDB. 
-This tutorial shows how to log the AWS Request ID for requests that throw exceptions. 
+As a best practice, you should log exceptions from DynamoDB.
+This tutorial shows how to log the AWS Request ID for requests that throw exceptions.
 The request ID is useful if you need to engage AWS support in
 debugging an issue with DynamoDB performance.
 
@@ -620,19 +620,19 @@ to automatically log all DynamoDB access.
 
 DynamoDB applications perform better when reads and writes are more uniformly spread across a table's partition keys.
 For more information about partition key design see [Best practices for designing and using partition keys
-effectively](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html). 
+effectively](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html).
 
-Therefore, in order to optimize DynamoDB performance for your application, it is helpful to 
-know if your tables have "hot" (frequently accessed) partitions. [CloudWatch Contributor Insights](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/contributorinsights.html) 
+Therefore, in order to optimize DynamoDB performance for your application, it is helpful to
+know if your tables have "hot" (frequently accessed) partitions. [CloudWatch Contributor Insights](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/contributorinsights.html)
 provides a way to view your top accessed partition keys.
 
-For this tutorial, you can enable CloudWatch Contributor Insights in the [DynamoDB console](https://console.aws.amazon.com/dynamodb) in the **Monitoring** tab 
+For this tutorial, you can enable CloudWatch Contributor Insights in the [DynamoDB console](https://console.aws.amazon.com/dynamodb) in the **Monitoring** tab
 for the `Greetings` table. After you enable this feature and rerun this example program, you should see a graph similar
 to the following.
 
 ![CloudWatch Contributor Insights](images/04_cloudwatch_contributor_insights.png)
 
-For our tutorial application, we created this uneven access pattern on purpose. In a real application, uneven 
+For our tutorial application, we created this uneven access pattern on purpose. In a real application, uneven
 accesses can be hard to track down and might be the result of emerging customer usage and table design.
 
 > [!NOTE]

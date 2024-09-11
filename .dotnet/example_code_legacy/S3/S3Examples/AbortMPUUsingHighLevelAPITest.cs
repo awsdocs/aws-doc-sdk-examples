@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.AbortMPUUsingHighLevelAPITest]
 using Amazon;
@@ -40,7 +40,7 @@ namespace Amazon.DocSamples.S3
             {
                 Console.WriteLine("Unknown encountered on server. Message:'{0}' when writing an object", e.Message);
             }
-        } 
+        }
     }
 }
 // snippet-end:[s3.dotNET.AbortMPUUsingHighLevelAPITest]

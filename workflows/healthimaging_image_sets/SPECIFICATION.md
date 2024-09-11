@@ -2,12 +2,12 @@
 
 This document contains the technical specifications for *HealthImaging image sets and frames*,
 a workflow scenario that showcases AWS services and SDKs. It is primarily intended for the AWS code
-examples team to use while developing this example in additional languages. 
+examples team to use while developing this example in additional languages.
 
 This document explains the following:
 
 - Deploying AWS resources with a CloudFormation stack.
-- Flow of the demo, importing DICOM files, and downloading and decoding image frames. 
+- Flow of the demo, importing DICOM files, and downloading and decoding image frames.
 - Destroying the AWS resources at the end of the example.
 
 For an introduction to *HealthImaging image sets and frames*, see the [README.md](README.md).
@@ -44,7 +44,7 @@ The template is stored at [resources/cfn_template.yaml](resources/cfn_template.y
 
 If changes are required to the template, the template can be re-generated from an updated CDK script, "resources/cdk/healthimaging_imagesets_and_frames/cdk.json.
 After the template file has been generated, it must be edited manually to implement object deletion for the S3 bucket. A lambda function is created by the CDK script and output to "cdk.out/asset.???/index.js". This lambda function must be copied
-to the CloudFormation template. 
+to the CloudFormation template.
 
 Replace
 
@@ -78,7 +78,7 @@ This example runs as a console application that prompts the user for the name of
 the particular DICOM files to import:
 
 1. Enter a stack name.
-2. Enter a data store name. 
+2. Enter a data store name.
 3. Select the DICOM files to import.
 4. Choose whether to delete the stack.
 
@@ -145,7 +145,7 @@ You have the choice of one of the following 4 folders to copy.
 3 - MRI of head (192 images)
 4 - MRI of breast (92 images)
 Choose DICOM files to import: 3
-The files in the directory '0002d261-8a5d-4e63-8e2e-0cbfac87b904' in the bucket 'idc-open-data' will be copied 
+The files in the directory '0002d261-8a5d-4e63-8e2e-0cbfac87b904' in the bucket 'idc-open-data' will be copied
 to the folder 'input/12345678901234567890123456789012' in the bucket 'workflow-stack-docexampledicominbucket1234567'.
 Enter return to start the copy.
 192 DICOM files were copied.
@@ -179,7 +179,7 @@ The 'outputS3Uri' is retrieved by calling the 'GetDICOMImportJob' action.
 
 The image set IDs will be retrieved by downloading 'job-output-manifest.json' file from the output S3 bucket.
 Enter return to continue.
-The image sets created by this import job are: 
+The image sets created by this import job are:
 Image set: 12345678901234567890123456789012
 If you would like information about how HealthImaging organizes image sets,
 go to the following link.
@@ -263,7 +263,7 @@ Stack deletion completed.
 ## Hello Service
 
 
-* medical-imaging.ListDatastores. List the data stores. 
+* medical-imaging.ListDatastores. List the data stores.
 
 
 Output:
@@ -300,7 +300,7 @@ Output:
 * `ListObjects`
 * `CopyObject`
 * `GetObject`
-  
+
 **CloudFormation**
 
 * `CreateStack`

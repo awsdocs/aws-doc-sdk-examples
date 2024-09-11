@@ -33,7 +33,7 @@ The Amazon S3 Batch basic scenario executes the following steps:
 
 
 ### Program execution
-The following shows the output of the Amazon S3 Batch program in the console. 
+The following shows the output of the Amazon S3 Batch program in the console.
 
 ```
 --------------------------------------------------------------------------------

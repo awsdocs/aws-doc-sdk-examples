@@ -452,7 +452,7 @@ iot_Scenario:
                 - iot.java2.scenario.main
             - description: A wrapper class for &IoT; SDK methods.
               snippet_tags:
-                - iot.java2.scenario.actions.main   
+                - iot.java2.scenario.actions.main
     C++:
       versions:
         - sdk_version: 1

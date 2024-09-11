@@ -61,7 +61,7 @@ class ExponentialRetry:
                 if error.response["Error"]["Code"] == self.error_code:
                     print(
                         f"Sleeping for {sleepy_time} to give AWS time to "
-                        f"connect resources."
+                        "connect resources."
                     )
                     time.sleep(sleepy_time)
                     sleepy_time = sleepy_time * 2

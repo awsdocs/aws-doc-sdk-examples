@@ -13,7 +13,7 @@ import SwiftUtilities
 final class MovieTests: XCTestCase {
     /// Class-wide setup function for the test case, which is run *once* before
     /// any tests are run.
-    /// 
+    ///
     /// This function sets up the following:
     ///
     ///     Configures the AWS SDK log system to only log errors.
@@ -43,7 +43,7 @@ final class MovieTests: XCTestCase {
         XCTAssertEqual(5.0, movie2.info.rating, "Movie 2 rating mismatch.")
         XCTAssertEqual(nil, movie2.info.plot,
                     "Movie 2 should have nil plot but doesn't.")
-        
+
         // Test creating a movie with all information.
 
         let movie3 = Movie(title: "Yet Another Title", year: 1955, rating: 5.0,
@@ -117,7 +117,7 @@ final class MovieTests: XCTestCase {
             ])
         ]
         let movie = try Movie(withItem: item)
-        
+
         XCTAssertEqual(movieYear, movie.year, "Movie year mismatch.")
         XCTAssertEqual(movieTitle, movie.title, "Movie title mismatch.")
         XCTAssertEqual(movieRating, movie.info.rating, "Movie rating mismatch.")

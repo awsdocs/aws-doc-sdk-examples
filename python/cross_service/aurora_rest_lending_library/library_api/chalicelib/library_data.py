@@ -497,7 +497,7 @@ class Storage:
             )
         except Exception:
             logger.exception(
-                f"Couldn't call query() to construct the query for the Lending table."
+                "Couldn't call query() to construct the query for the Lending table."
             )
             raise
         try:

@@ -24,8 +24,8 @@ suspend fun main(args: Array<String>) {
     Where:
         queryString - The query string to use (for example, "SELECT * FROM mydatabase"; ).
         database - The name of the database to use (for example, mydatabase ).
-        outputLocation - The output location (for example, the name of an Amazon S3 bucket - s3://mybucket). 
-        
+        outputLocation - The output location (for example, the name of an Amazon S3 bucket - s3://mybucket).
+
     """
 
     if (args.size != 3) {

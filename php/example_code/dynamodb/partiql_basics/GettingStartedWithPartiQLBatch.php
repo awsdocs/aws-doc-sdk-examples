@@ -113,7 +113,7 @@ class GettingStartedWithPartiQLBatch
 
 # snippet-start:[php.example_code.dynamodb.partiql_batch.getItem]
         $movie = $service->getItemByPartiQLBatch($tableName, [$key]);
-        echo "\nThe movie {$movie['Responses'][0]['Item']['title']['S']} 
+        echo "\nThe movie {$movie['Responses'][0]['Item']['title']['S']}
         was released in {$movie['Responses'][0]['Item']['year']['N']}.\n";
 # snippet-end:[php.example_code.dynamodb.partiql_batch.getItem]
 # snippet-start:[php.example_code.dynamodb.partiql_batch.updateItem]
@@ -131,7 +131,7 @@ class GettingStartedWithPartiQLBatch
 # snippet-end:[php.example_code.dynamodb.partiql_batch.updateItem]
 
         $movie = $service->getItemByPartiQLBatch($tableName, [$key]);
-        echo "Okay, you have rated {$movie['Responses'][0]['Item']['title']['S']} 
+        echo "Okay, you have rated {$movie['Responses'][0]['Item']['title']['S']}
         as a {$movie['Responses'][0]['Item']['rating']['N']}\n";
 
 # snippet-start:[php.example_code.dynamodb.partiql_batch.deleteItem]

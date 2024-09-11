@@ -92,7 +92,7 @@ def main():
     """
     s3_client = boto3.client("s3")
     bucket_name = create_bucket("example-", s3_client)
-    upload_file_to_bucket(bucket_name, "einstein_resume.pdf", s3_client)
+    upload_file_to_bucket(bucket_name, "einstein_resume.pd", s3_client)
     write_bucket_name_to_yaml(bucket_name)
 
 

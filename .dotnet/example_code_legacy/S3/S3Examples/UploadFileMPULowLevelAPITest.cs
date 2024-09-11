@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.UploadFileMPULowLevelAPITest]
 using Amazon;
@@ -25,7 +25,7 @@ namespace Amazon.DocSamples.S3
         {
             s3Client = new AmazonS3Client(bucketRegion);
             Console.WriteLine("Uploading an object");
-            UploadObjectAsync().Wait(); 
+            UploadObjectAsync().Wait();
         }
 
         private static async Task UploadObjectAsync()
@@ -51,7 +51,7 @@ namespace Amazon.DocSamples.S3
             try
             {
                 Console.WriteLine("Uploading parts");
-        
+
                 long filePosition = 0;
                 for (int i = 1; filePosition < contentLength; i++)
                 {
@@ -105,7 +105,7 @@ namespace Amazon.DocSamples.S3
         }
         public static void UploadPartProgressEventCallback(object sender, StreamTransferProgressArgs e)
         {
-            // Process event. 
+            // Process event.
             Console.WriteLine("{0}/{1}", e.TransferredBytes, e.TotalBytes);
         }
     }

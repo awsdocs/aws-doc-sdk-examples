@@ -12,7 +12,7 @@ The Java examples perform AWS operations for the account and AWS Region for whic
 
 Some of these examples perform *destructive* operations on AWS resources. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
+To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information,
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 
 
@@ -31,7 +31,7 @@ Before running the AWS Migration Hub JUnit tests, you must define values in the 
 
 Define these values to successfully run the JUnit tests:
 
-- **appId** - The ID value of an application.   
+- **appId** - The ID value of an application.
 - **migrationtask** – A String value that defines the migration task name.
 - **progress** - A String value that defines the progress stream name.
 

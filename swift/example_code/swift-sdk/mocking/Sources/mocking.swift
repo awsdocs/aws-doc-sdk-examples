@@ -21,7 +21,7 @@ struct MockingDemo {
         /// A ``BucketManager`` object that will be initialized to call the
         /// SDK using the session.
         let bucketMgr: BucketManager
-        
+
         // Create the ``S3Session`` and a ``BucketManager`` that calls the SDK
         // using it.
         do {

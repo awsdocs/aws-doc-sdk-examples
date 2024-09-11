@@ -5,7 +5,7 @@ try {
    DeleteJobRequest request = new DeleteJobRequest(jobId);
    DeleteJobResult result = ET.deleteJob(request);
    System.out.println("Result: " + result);
-   // Get error information from the service while trying to run the operation	
+   // Get error information from the service while trying to run the operation
    }  catch (AmazonServiceException ase) {
       System.err.println("Failed to delete job " + jobId);
       // Get specific error information
@@ -14,7 +14,7 @@ try {
       System.out.println("AWS Error Code:   " + ase.getErrorCode());
       System.out.println("Error Type:       " + ase.getErrorType());
       System.out.println("Request ID:       " + ase.getRequestId());
-   // Get information in case the operation is not successful for other reasons	
+   // Get information in case the operation is not successful for other reasons
    }  catch (AmazonClientException ace) {
       System.out.println("Caught an AmazonClientException, which means"+
       " the client encountered " +

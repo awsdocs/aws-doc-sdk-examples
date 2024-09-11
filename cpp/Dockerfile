@@ -1,5 +1,5 @@
 # To build the docker image, run the following command from the shell. This Dockerfile
-# is configured to be run from within the cpp directory of aws-doc-sdk-examples. 
+# is configured to be run from within the cpp directory of aws-doc-sdk-examples.
 #
 # 'docker build -t <container_tag> .'
 #

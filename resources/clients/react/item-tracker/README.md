@@ -1,8 +1,8 @@
-# Work item tracker web client 
+# Work item tracker web client
 
 ## Overview
 
-Shows how to use [React](https://reactjs.org/) to create a web page that connects to a 
+Shows how to use [React](https://reactjs.org/) to create a web page that connects to a
 REST service that lets you do the following:
 
 * Get a list of active or archived work items.
@@ -13,7 +13,7 @@ REST service that lets you do the following:
 ## Sample REST applications
 
 The web client is designed to send requests to one of the following sample applications.
-Each sample application shows you how to use an AWS SDK to store work items using AWS 
+Each sample application shows you how to use an AWS SDK to store work items using AWS
 resources:
 
 * [Creating a React and Spring REST application that queries Amazon Aurora Serverless data](../../../../javav2/usecases/Creating_Spring_RDS_%20Rest)
@@ -24,7 +24,7 @@ resources:
 
 ### Prerequisites
 
-To build and run the web client, you must have [Node.js](https://nodejs.org) installed 
+To build and run the web client, you must have [Node.js](https://nodejs.org) installed
 on your computer. The web client was built and tested by using Node.js 16.14.2.
 
 Install all of the packages needed to run the web client by running the following at
@@ -37,16 +37,16 @@ npm install
 #### Configure the REST endpoint
 
 Each sample application hosts a REST endpoint. After you set up and run one of the
-sample REST applications, configure the web client to send requests to the endpoint by 
+sample REST applications, configure the web client to send requests to the endpoint by
 updating [src/config.json](src/config.json).
 
-* Replace the default `BASE_URL` value with the endpoint provided by your sample 
-application.   
+* Replace the default `BASE_URL` value with the endpoint provided by your sample
+application.
 
 #### Run the web client
 
-Run the web client in development mode by running the following at a command prompt in 
-the `resources/clients/react/item-tracker` folder: 
+Run the web client in development mode by running the following at a command prompt in
+the `resources/clients/react/item-tracker` folder:
 
 ```
 npm start
@@ -65,7 +65,7 @@ The web client sends the following REST requests to the REST endpoint:
 
 Retrieves a list of work items. The default route returns all active items. Optional states are `archive`
 for archived items and `all` for all items regardless of state.
-* 
+*
 * Items are expected to be a JSON array of items that each have the following fields:
 
     ```
@@ -118,8 +118,8 @@ Sends an email report of work items.
 
 The web client unit tests do not require a REST endpoint and do not create or use any
 AWS resources. Run all of the tests by running the following at a command prompt in
-the `resources/clients/react/item-tracker` folder: 
-  
+the `resources/clients/react/item-tracker` folder:
+
 ```
 npm test
 ```
@@ -138,6 +138,6 @@ This launches the test runner in interactive watch mode.
 
 ---
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 SPDX-License-Identifier: Apache-2.0

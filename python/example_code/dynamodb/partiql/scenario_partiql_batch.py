@@ -99,7 +99,7 @@ def run_scenario(scaffold, wrapper, table_name):
 
     movie_data = [
         {
-            "title": f"House PartiQL",
+            "title": "House PartiQL",
             "year": datetime.now().year - 5,
             "info": {
                 "plot": "Wacky high jinks result from querying a mysterious database.",
@@ -107,7 +107,7 @@ def run_scenario(scaffold, wrapper, table_name):
             },
         },
         {
-            "title": f"House PartiQL 2",
+            "title": "House PartiQL 2",
             "year": datetime.now().year - 3,
             "info": {
                 "plot": "Moderate high jinks result from querying another mysterious database.",
@@ -115,7 +115,7 @@ def run_scenario(scaffold, wrapper, table_name):
             },
         },
         {
-            "title": f"House PartiQL 3",
+            "title": "House PartiQL 3",
             "year": datetime.now().year - 1,
             "info": {
                 "plot": "Tepid high jinks result from querying yet another mysterious database.",
@@ -133,7 +133,7 @@ def run_scenario(scaffold, wrapper, table_name):
     print("Success!")
     print("-" * 88)
 
-    print(f"Getting data for a batch of movies.")
+    print("Getting data for a batch of movies.")
     statements = [f'SELECT * FROM "{table_name}" WHERE title=? AND year=?'] * len(
         movie_data
     )
@@ -145,9 +145,9 @@ def run_scenario(scaffold, wrapper, table_name):
     print("-" * 88)
 
     ratings = [Decimal("7.7"), Decimal("5.5"), Decimal("1.3")]
-    print(f"Updating a batch of movies with new ratings.")
+    print("Updating a batch of movies with new ratings.")
     statements = [
-        f'UPDATE "{table_name}" SET info.rating=? ' f"WHERE title=? AND year=?"
+        f'UPDATE "{table_name}" SET info.rating=? ' "WHERE title=? AND year=?"
     ] * len(movie_data)
     params = [
         [rating, movie["title"], movie["year"]]
@@ -157,14 +157,14 @@ def run_scenario(scaffold, wrapper, table_name):
     print("Success!")
     print("-" * 88)
 
-    print(f"Getting projected data from the table to verify our update.")
+    print("Getting projected data from the table to verify our update.")
     output = wrapper.dyn_resource.meta.client.execute_statement(
         Statement=f'SELECT title, info.rating FROM "{table_name}"'
     )
     pprint(output["Items"])
     print("-" * 88)
 
-    print(f"Deleting a batch of movies from the table.")
+    print("Deleting a batch of movies from the table.")
     statements = [f'DELETE FROM "{table_name}" WHERE title=? AND year=?'] * len(
         movie_data
     )

@@ -5,8 +5,8 @@
 ]>
 <block>
     <para>
-        Shows how to use the &LEX2long; API to 
-        create a Chatbot within a web application to engage your web site visitors. 
+        Shows how to use the &LEX2long; API to
+        create a Chatbot within a web application to engage your web site visitors.
     </para>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on

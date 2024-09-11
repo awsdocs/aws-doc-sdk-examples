@@ -69,8 +69,8 @@ public class AWSSesTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
-         * 
+         *
+         *
          * try (InputStream input =
          * AWSSesTest.class.getClassLoader().getResourceAsStream("config.properties")) {
          * Properties prop = new Properties();
@@ -84,7 +84,7 @@ public class AWSSesTest {
          * subject = prop.getProperty("subject");
          * fileLocation= prop.getProperty("fileLocation");
          * templateName = prop.getProperty("templateName");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

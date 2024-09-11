@@ -302,7 +302,7 @@ def usage_demo():
 
     email = input(
         f"Enter an email address to subscribe to {topic_name} and receive "
-        f"a message: "
+        "a message: "
     )
 
     if email != "":
@@ -310,8 +310,8 @@ def usage_demo():
         email_sub = sns_wrapper.subscribe(topic, "email", email)
         answer = input(
             f"Confirmation email sent to {email}. To receive SNS messages, "
-            f"follow the instructions in the email. When confirmed, press "
-            f"Enter to continue."
+            "follow the instructions in the email. When confirmed, press "
+            "Enter to continue."
         )
         while (
             email_sub.attributes["PendingConfirmation"] == "true"
@@ -319,8 +319,8 @@ def usage_demo():
         ):
             answer = input(
                 f"Email address {email} is not confirmed. Follow the "
-                f"instructions in the email to confirm and receive SNS messages. "
-                f"Press Enter when confirmed or enter 's' to skip. "
+                "instructions in the email to confirm and receive SNS messages. "
+                "Press Enter when confirmed or enter 's' to skip. "
             )
             email_sub.reload()
 
@@ -328,14 +328,14 @@ def usage_demo():
     if phone_number != "":
         print(
             f"Subscribing {phone_number} to {topic_name}. Phone numbers do not "
-            f"require confirmation."
+            "require confirmation."
         )
         phone_sub = sns_wrapper.subscribe(topic, "sms", phone_number)
 
     if phone_number != "" or email != "":
         print(
             f"Publishing a multi-format message to {topic_name}. Multi-format "
-            f"messages contain different messages for different kinds of endpoints."
+            "messages contain different messages for different kinds of endpoints."
         )
         sns_wrapper.publish_multi_message(
             topic,

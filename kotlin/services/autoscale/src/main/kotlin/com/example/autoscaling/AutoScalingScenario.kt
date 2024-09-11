@@ -52,7 +52,7 @@ suspend fun main(args: Array<String>) {
 
     Where:
         groupName - The name of the Auto Scaling group.
-        launchTemplateName - The name of the launch template. 
+        launchTemplateName - The name of the launch template.
         serviceLinkedRoleARN - The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses.
         vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.
     """

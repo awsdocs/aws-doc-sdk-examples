@@ -58,7 +58,7 @@ def lambda_handler(event, context):
             )
             result_code = "PermanentFailure"
             result_string = (
-                f"Object {obj_key}, ID {obj_version_id} is not " f"a delete marker."
+                f"Object {obj_key}, ID {obj_version_id} is not " "a delete marker."
             )
 
             logger.debug(response)
@@ -77,7 +77,7 @@ def lambda_handler(event, context):
                     )
                     result_code = "Succeeded"
                     result_string = (
-                        f"Successfully removed delete marker "
+                        "Successfully removed delete marker "
                         f"{obj_version_id} from object {obj_key}."
                     )
                     logger.info(result_string)
@@ -86,7 +86,7 @@ def lambda_handler(event, context):
                     if error.response["Error"]["Code"] == "RequestTimeout":
                         result_code = "TemporaryFailure"
                         result_string = (
-                            f"Attempt to remove delete marker from  "
+                            "Attempt to remove delete marker from  "
                             f"object {obj_key} timed out."
                         )
                         logger.info(result_string)
@@ -94,8 +94,8 @@ def lambda_handler(event, context):
                         raise
             else:
                 raise ValueError(
-                    f"The x-amz-delete-marker header is either not "
-                    f"present or is not 'true'."
+                    "The x-amz-delete-marker header is either not "
+                    "present or is not 'true'."
                 )
     except Exception as error:
         # Mark all other exceptions as permanent failures.

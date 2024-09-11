@@ -20,7 +20,7 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
       Usage:
-         <exeARN> 
+         <exeARN>
     Where:
         exeARN - The Amazon Resource Name (ARN) of the execution.
 

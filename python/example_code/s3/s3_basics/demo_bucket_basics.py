@@ -33,7 +33,7 @@ def create_and_delete_my_bucket(s3_resource, bucket_name, keep_bucket):
         )
     except ClientError as e:
         print(
-            f"Couldn't create a bucket for the demo. Here's why: "
+            "Couldn't create a bucket for the demo. Here's why: "
             f"{e.response['Error']['Message']}"
         )
         raise

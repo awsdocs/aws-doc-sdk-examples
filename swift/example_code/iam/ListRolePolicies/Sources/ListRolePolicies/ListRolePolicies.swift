@@ -35,7 +35,7 @@ struct ExampleCommand: ParsableCommand {
 
         do {
             let policies = try await serviceHandler.listRolePolicies(role: rolename)
-            
+
             print("Found \(policies.count) policies in role \(rolename)")
             for policy in policies {
                 print("  \(policy)")
@@ -63,7 +63,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[iam.swift.listrolepolicies.main]
 // snippet-end:[iam.swift.listrolepolicies.example]

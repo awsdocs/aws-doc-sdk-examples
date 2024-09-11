@@ -4,16 +4,16 @@
 This SDK getting started scenario demonstrates how to interact with AWS Key Management Service (AWS KMS) using the AWS SDK. It demonstrates various tasks such as creating AWS KMS Keys, encrypting data, digitally signing data, creating aliases, tagging keys, and so on.  Finally this scenario demonstrates how to clean up resources. Its purpose is to demonstrate how to get up and running with AWS KMS and the AWS SDK.
 
 ## Resources and User Input
-The only required resource for this SDK getting started scenario is the grantee principal. The `GranteePrincipal` is the AWS Identity and Access Management (IAM) entity (user, role, or service) that is granted permission to perform specific actions. 
+The only required resource for this SDK getting started scenario is the grantee principal. The `GranteePrincipal` is the AWS Identity and Access Management (IAM) entity (user, role, or service) that is granted permission to perform specific actions.
 
 ## Hello AWS KSM
 This program is intended for users not familiar with the AWS KSM SDK to easily get up and running. The logic is to show use of `KmsClient.listKeysPaginator()`.
 
 ### Program execution
-The following shows the output of the program in the console. 
+The following shows the output of the program in the console.
 
-``` java 
-The key ARN is: arn:aws:kms:us-west-2:123456789012:key/12345678-abcd-abcd-abcd-123456789012. The key Id is: 2345678-abcd-abcd-abcd-1234 
+``` java
+The key ARN is: arn:aws:kms:us-west-2:123456789012:key/12345678-abcd-abcd-abcd-123456789012. The key Id is: 2345678-abcd-abcd-abcd-1234
 
 ```
 
@@ -40,7 +40,7 @@ The AWS Key Management SDK getting started scenario executes the following steps
 19. Concludes the AWS Key Management SDK getting started scenario.
 
 ### Program execution
-The following shows the output of the program in the console. 
+The following shows the output of the program in the console.
 
 ``` java
 --------------------------------------------------------------------------------
@@ -254,7 +254,7 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 11. Get the key policy.
-Lets get the key policy to make sure it exists. 
+Lets get the key policy to make sure it exists.
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -323,7 +323,7 @@ the key state of the KMS key changes to PendingDeletion and the key can't be use
 cryptographic operations. It remains in this state for the duration of the waiting period.
 
 Deleting a KMS key is a destructive and potentially dangerous operation. When a KMS key is deleted,
-all data that was encrypted under the KMS key is unrecoverable. 
+all data that was encrypted under the KMS key is unrecoverable.
 
 Would you like to delete the Key Management resources? (y/n)
 y

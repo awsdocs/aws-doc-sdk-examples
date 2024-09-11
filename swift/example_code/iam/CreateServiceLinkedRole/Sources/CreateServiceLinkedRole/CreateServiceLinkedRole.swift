@@ -43,7 +43,7 @@ struct ExampleCommand: ParsableCommand {
             // Create the role and output information about it.
             let role = try await serviceHandler.createServiceLinkedRole(
                     service: servicename, suffix: suffix, description: description)
-            
+
             let roleID = role.roleId ?? "<unknown>"
             let roleARN = role.arn ?? "<unknown>"
             let roleDesc = role.description ?? "<none>"
@@ -84,7 +84,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[iam.swift.createservicelinkedrole.main]
 // snippet-end:[iam.swift.createservicelinkedrole.example]

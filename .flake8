@@ -6,7 +6,7 @@ max-line-length = 150
 ignore = F403, W503
 
 # You can also exclude specific directories
-exclude = 
+exclude =
     .git,
     __pycache__,
     migrations,

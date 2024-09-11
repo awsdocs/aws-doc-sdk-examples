@@ -32,7 +32,7 @@ EXT_IGNORES = {
     ".wav",
     ".ico",
     ".mp3",
-    ".pdf",
+    ".pd",
     ".jar",
     ".swp",
     ".keystore",

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[dynamodb.dotNET.CodeExample.02_CreatingTable] 
+// snippet-start:[dynamodb.dotNET.CodeExample.02_CreatingTable]
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

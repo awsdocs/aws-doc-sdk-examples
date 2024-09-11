@@ -20,9 +20,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <policyName> 
+            <policyName>
         Where:
-            policyName - A unique policy name. 
+            policyName - A unique policy name.
         """
 
     if (args.size != 1) {

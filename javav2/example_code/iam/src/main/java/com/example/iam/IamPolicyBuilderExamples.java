@@ -98,7 +98,7 @@ public class IamPolicyBuilderExamples {
                  * All IamPolicy components are immutable, so use the copy method that creates a
                  * new instance that
                  * can be altered in the same method call.
-                 * 
+                 *
                  * Add the ability to get an item from DynamoDB as an additional action.
                  */
                 IamStatement newStatement = policy.statements().get(0).copy(s -> s.addAction("dynamodb:GetItem"));

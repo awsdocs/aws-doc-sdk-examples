@@ -21,11 +21,11 @@ jobs:
         with:
           sparse-checkout: .github/allowed-labels.yml
           sparse-checkout-cone-mode: false
-      
+
       # The Audit Labels workflow creates, renames, updates
       # or deletes labels based on a list of allowed labels.
       #
-      # To use this workflow, you must set up and configure 
+      # To use this workflow, you must set up and configure
       # labels in a .github/allowed-labels.yml file
       #
       # For more information, see:

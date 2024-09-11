@@ -22,8 +22,8 @@ suspend fun main(args: Array<String>) {
             <dbInstanceIdentifier> <dbSnapshotIdentifier>
 
         Where:
-            dbInstanceIdentifier - The database instance identifier. 
-            dbSnapshotIdentifier - The dbSnapshotIdentifier identifier. 
+            dbInstanceIdentifier - The database instance identifier.
+            dbSnapshotIdentifier - The dbSnapshotIdentifier identifier.
         """
 
     if (args.size != 2) {

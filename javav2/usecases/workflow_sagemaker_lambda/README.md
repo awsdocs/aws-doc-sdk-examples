@@ -1,8 +1,8 @@
 # Create the SageMaker geospatial Lambda function using the Lambda Java API
 
-This example demonstrates how to create a Lambda function for the Amazon SageMaker pipeline and geospatial job example. 
+This example demonstrates how to create a Lambda function for the Amazon SageMaker pipeline and geospatial job example.
 
-A [SageMaker pipeline](https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html) is a series of 
+A [SageMaker pipeline](https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html) is a series of
 interconnected steps that can be used to automate machine learning workflows. You can create and run pipelines from SageMaker Studio by using Python, but you can also do this by using AWS SDKs in other
 languages. Using the SDKs, you can create and run SageMaker pipelines and also monitor operations for them.
 
@@ -13,7 +13,7 @@ You need to build this Lambda function in order to successfully complete the Jav
 To use this tutorial, you need the following:
 
 + An AWS account.
-+ A Java IDE. 
++ A Java IDE.
 + Java 17 JDK.
 + Maven 3.6 or later.
 + Set up your development environment. For more information, see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup-basics.html).
@@ -24,7 +24,7 @@ You can compile the project into a .jar file, which will serve as input for [Cre
 
     mvn package
 
-The .jar file is located in the target folder. 
+The .jar file is located in the target folder.
 
 ## Additional resources
 

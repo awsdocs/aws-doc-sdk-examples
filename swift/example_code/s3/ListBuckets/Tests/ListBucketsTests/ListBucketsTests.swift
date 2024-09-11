@@ -30,7 +30,7 @@ public struct MockS3Session: S3SessionProtocol {
 
     /// Initialize the mock Amazon S3 session to use the specified mock bucket
     /// information.
-    /// 
+    ///
     /// - Parameter data: An array of objects with the data to use to
     ///   construct fake bucket records.
     init(data: [BucketInfo]) {
@@ -52,7 +52,7 @@ public struct MockS3Session: S3SessionProtocol {
         df.dateFormat = "M/d/yy, h:mm:ss a z"
 
         // Build the array of Amazon S3 bucket objects from the test data.
-        
+
         for item in self.testData {
             let bucket = S3ClientTypes.Bucket(
                 creationDate: df.date(from: item.date),
@@ -60,7 +60,7 @@ public struct MockS3Session: S3SessionProtocol {
             )
             bucketList.append(bucket)
         }
-        
+
         // Create and return the `ListBucketsOutput` object containing
         // the results.
 
@@ -75,7 +75,7 @@ public struct MockS3Session: S3SessionProtocol {
 /// The tests for the ListBuckets example.
 final class ListBucketsTests: XCTestCase {
     /// The session to use for Amazon S3 calls. In this case, it's a mock
-    /// implementation. 
+    /// implementation.
     var session: MockS3Session? = nil
     /// The `S3Manager` that uses the session to perform Amazon S3 operations.
     var s3: S3Manager? = nil
@@ -118,7 +118,7 @@ final class ListBucketsTests: XCTestCase {
             if bucket.creationDate != nil {
                 dateStr = df.string(from: bucket.creationDate!)
             }
-            
+
             itemList = itemList.filter { $0.name != bucket.name && $0.date != dateStr}
         }
 
@@ -135,7 +135,7 @@ final class ListBucketsTests: XCTestCase {
 
         let df = DateFormatter()
         df.dateFormat = "M/d/yy, h:mm:ss a z"
-        
+
         // Create a bucket object to use for the test.
         let bucket = S3ClientTypes.Bucket(
             creationDate: df.date(from: testDate),
@@ -143,7 +143,7 @@ final class ListBucketsTests: XCTestCase {
         )
 
         let bs = bucketString(bucket)
-        
+
         XCTAssertEqual(bs, testString, "Converted date doesn't match original")
     }
 

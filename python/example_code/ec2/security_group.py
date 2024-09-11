@@ -139,7 +139,7 @@ class SecurityGroupWrapper:
             if err.response["Error"]["Code"] == "InvalidGroup.NotFound":
                 logger.error(
                     f"Security group {security_group_id} does not exist "
-                    f"because the specified security group ID was not found."
+                    "because the specified security group ID was not found."
                 )
             raise
 

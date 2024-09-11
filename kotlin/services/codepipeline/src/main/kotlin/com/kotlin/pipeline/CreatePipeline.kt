@@ -21,14 +21,14 @@ import kotlin.system.exitProcess
 
 suspend fun main(args: Array<String>) {
     val usage = """
-        Usage: 
+        Usage:
             <name> <roleArn> <s3Bucket> <s3OuputBucket>
 
         Where:
-            name - the name of the pipeline to create. 
-            roleArn - the Amazon Resource Name (ARN) for AWS CodePipeline to use.  
-            s3Bucket - the name of the Amazon S3 bucket where the code is located.  
-            s3OuputBucket - the name of the Amazon S3 bucket where the code is deployed.  
+            name - the name of the pipeline to create.
+            roleArn - the Amazon Resource Name (ARN) for AWS CodePipeline to use.
+            s3Bucket - the name of the Amazon S3 bucket where the code is located.
+            s3OuputBucket - the name of the Amazon S3 bucket where the code is deployed.
         """
 
     if (args.size != 4) {

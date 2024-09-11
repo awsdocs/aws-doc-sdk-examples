@@ -50,7 +50,7 @@ public class EMRTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * EMRTest.class.getClassLoader().getResourceAsStream("config.properties")) {
          * Properties prop = new Properties();
@@ -66,7 +66,7 @@ public class EMRTest {
          * logUri = prop.getProperty("logUri");
          * name = prop.getProperty("name");
          * existingClusterId= prop.getProperty("existingClusterId");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

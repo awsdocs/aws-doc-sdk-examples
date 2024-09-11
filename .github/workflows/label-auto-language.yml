@@ -18,8 +18,8 @@ jobs:
       # The Add Labels workflow adds a label to pull requests
       # based on the files included in the proposed change.
       #
-      # To use this workflow, you must set up and configure 
-      # rules in a .github/label-ruleset.yml file 
+      # To use this workflow, you must set up and configure
+      # rules in a .github/label-ruleset.yml file
       #
       # For more information, see:
       # https://github.com/actions/labeler

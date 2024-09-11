@@ -67,10 +67,10 @@ suspend fun main(args: Array<String>) {
         Usage:
             <dbClusterGroupName> <dbParameterGroupFamily> <dbInstanceClusterIdentifier> <dbName> <dbSnapshotIdentifier> <secretName>
         Where:
-            dbClusterGroupName - The database group name. 
+            dbClusterGroupName - The database group name.
             dbParameterGroupFamily - The database parameter group name.
-            dbInstanceClusterIdentifier - The database instance identifier. 
-            dbName -  The database name. 
+            dbInstanceClusterIdentifier - The database instance identifier.
+            dbName -  The database name.
             dbSnapshotIdentifier - The snapshot identifier.
             secretName - The name of the AWS Secrets Manager secret that contains the database credentials.
     """

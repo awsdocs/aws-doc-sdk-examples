@@ -54,7 +54,7 @@ public class EcsTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * EcsTest.class.getClassLoader().getResourceAsStream("config.properties")) {
          * Properties prop = new Properties();
@@ -62,7 +62,7 @@ public class EcsTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests.
          * prop.load(input);
          * clusterName = prop.getProperty("clusterName")+java.util.UUID.randomUUID();
@@ -71,7 +71,7 @@ public class EcsTest {
          * securityGroups = prop.getProperty("securityGroups");
          * serviceName = prop.getProperty("serviceName")+java.util.UUID.randomUUID();
          * taskDefinition = prop.getProperty("taskDefinition");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

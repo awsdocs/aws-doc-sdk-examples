@@ -37,8 +37,8 @@ To complete the tutorial, you need the following:
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
 ### Creating the resources
@@ -64,7 +64,7 @@ Create the following two IAM roles:
 + **lambda-support** - Used to invoke Lamdba functions.
 + **workflow-support** - Used to enable AWS Step Functions to invoke the workflow.
 
-This tutorial uses the DynamoDB and Amazon SES services. The **lambda-support** role has to have policies that enable it to invoke these services from a Lambda function.  
+This tutorial uses the DynamoDB and Amazon SES services. The **lambda-support** role has to have policies that enable it to invoke these services from a Lambda function.
 
 #### To create an IAM role
 
@@ -100,7 +100,7 @@ This tutorial uses the DynamoDB and Amazon SES services. The **lambda-support** 
 
 ![AWS Tracking Application](images/lambda16.png)
 
-14. Repeat this process to create **workflow-support**. For step three, instead of choosing **Lambda**, choose **Step Functions**. You don't need to perform steps 11-13.  
+14. Repeat this process to create **workflow-support**. For step three, instead of choosing **Lambda**, choose **Step Functions**. You don't need to perform steps 11-13.
 
 ## Create a serverless workflow by using Step functions
 
@@ -108,7 +108,7 @@ You can create a workflow that processes support tickets. To define a workflow b
 
 ![AWS Tracking Application](images/Lambda2.png)
 
-Workflows can pass data between steps. For example, the **Open Case** step processes a case ID value (passed to the workflow) and passes that value to the **Assign Case** step. Later in this tutorial, you'll create application logic in the Lambda function to read and process the data values.  
+Workflows can pass data between steps. For example, the **Open Case** step processes a case ID value (passed to the workflow) and passes that value to the **Assign Case** step. Later in this tutorial, you'll create application logic in the Lambda function to read and process the data values.
 
 #### To create a workflow
 
@@ -143,7 +143,7 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
          "End": true
           }
           }
-         
+
 ```
 **Note:** Don't worry about the errors related to the Lambda resource values. You'll update these values later in this tutorial.
 
@@ -151,7 +151,7 @@ Workflows can pass data between steps. For example, the **Open Case** step proce
 
 6. In the name field, enter **SupportStateMachine**.
 
-7. In the **Permission** section, choose **Choose an existing role**.  
+7. In the **Permission** section, choose **Choose an existing role**.
 
 8. Choose **workflow-support** (the IAM role that you created).
 
@@ -185,7 +185,7 @@ Make sure that your project's pom.xml file looks like the POM file in this Githu
 
 ## Create Lambda functions by using the AWS SDK for Java Lambda API
 
-Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are three workflow steps that each correspond to a Java class. There are also two extra classes that invoke the Amazon DynamoDB service and the Amazon SES service.  
+Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are three workflow steps that each correspond to a Java class. There are also two extra classes that invoke the Amazon DynamoDB service and the Amazon SES service.
 
 The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **example**.
 
@@ -194,7 +194,7 @@ The following figure shows the Java classes in the project. Notice that all Java
 To create a Lambda function by using the Lambda runtime API, you implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
 
 Create these Java classes, which are described in the following sections:
-+ **Handler** - Used as the first step in the workflow that processes the ticket ID value.  
++ **Handler** - Used as the first step in the workflow that processes the ticket ID value.
 + **Handler2** - Used as the second step in the workflow that assigns the ticket to an employee and stores the data in a database.
 + **Handler3** - Used as the third step in the workflow that sends an email message to the employee to notify them about the ticket.
 + **PersistCase** - Uses the Amazon DynamoDB API to store the data in a DynamoDB table.
@@ -573,7 +573,7 @@ The following Java class represents the **SendMessage** class. This class uses t
          }
        }
  ```
- 
+
 ## Package the project that contains the Lambda functions
 
 Package up the project into a .jar (JAR) file that you can deploy as a Lambda function by using the following Maven command.
@@ -604,7 +604,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 8. For **Code entry type**, choose **Upload a .zip or .jar file**.
 
-9. Choose **Upload**, and then browse to the JAR file that you created.  
+9. Choose **Upload**, and then browse to the JAR file that you created.
 
 10. For **Handler**, enter the fully qualified name of the function, for example, **example.Handler::handleRequest** (**example.Handler** specifies the package and class followed by :: and method name).
 
@@ -612,7 +612,7 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 11. Choose **Save.**
 
-12. Repeat this procedure for the **Handler2** and **Handler3** classes. Name the corresponding Lambda functions **TicStep2** and **TicStep3**. When you finish, you will have three Lambda functions that you can reference in the Amazon States Language document.  
+12. Repeat this procedure for the **Handler2** and **Handler3** classes. Name the corresponding Lambda functions **TicStep2** and **TicStep3**. When you finish, you will have three Lambda functions that you can reference in the Amazon States Language document.
 
 ## Add the Lambda functions to workflows
 
@@ -628,7 +628,7 @@ Update the Resource for the **Assign Case** and **Send Email** steps. This is ho
 
 ## Execute your workflow by using the Step Functions console
 
-You can invoke the workflow on the Step Functions console.  An execution receives JSON input. For this example, you can pass the following JSON data to the workflow.  
+You can invoke the workflow on the Step Functions console.  An execution receives JSON input. For this example, you can pass the following JSON data to the workflow.
 
      {
 	"inputCaseID": "001"

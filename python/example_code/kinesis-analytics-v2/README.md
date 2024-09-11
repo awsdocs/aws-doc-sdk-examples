@@ -72,13 +72,13 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.instructions.start-->
-The action examples in this section are demonstrated as part of a scenario that reads 
-data from an input stream, uses SQL code to transform the data, and writes it to an 
+The action examples in this section are demonstrated as part of a scenario that reads
+data from an input stream, uses SQL code to transform the data, and writes it to an
 output stream. Run the scenario at a command prompt with the following command:
 
 ```
 python kinesisanalyticsv2_demo.py
-``` 
+```
 <!--custom.instructions.end-->
 
 

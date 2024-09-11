@@ -59,7 +59,7 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
 // snippet-end:[iam.swift.listgroups.main]
 // snippet-end:[iam.swift.listgroups.example]

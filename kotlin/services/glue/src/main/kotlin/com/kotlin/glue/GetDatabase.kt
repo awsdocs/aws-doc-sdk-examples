@@ -19,13 +19,13 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main(args: Array<String>) {
     val usage = """
-        
+
         Usage:
             <dbName>
 
         Where:
-            dbName - the database name. 
-              
+            dbName - the database name.
+
         """
 
     if (args.size != 1) {

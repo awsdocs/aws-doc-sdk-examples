@@ -23,7 +23,7 @@ suspend fun main(args: Array<String>) {
         <crawlerName>
 
     Where:
-        crawlerName - The name of the crawler. 
+        crawlerName - The name of the crawler.
     """
 
     if (args.size != 1) {

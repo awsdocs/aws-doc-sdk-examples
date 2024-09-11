@@ -20,7 +20,7 @@ model_id = "meta.llama3-8b-instruct-v1:0"
 prompt = "Describe the purpose of a 'hello world' program in one line."
 
 # Embed the prompt in Llama 3's instruction format.
-formatted_prompt = f"""
+formatted_prompt = """
 <|begin_of_text|>
 <|start_header_id|>user<|end_header_id|>
 {prompt}

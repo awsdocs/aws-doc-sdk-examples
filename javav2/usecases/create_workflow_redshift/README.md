@@ -45,8 +45,8 @@ To complete the tutorial, you need the following:
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to delete all of the resources that you create during this tutorial so that you won't continue to be charged when you're done.
 
 ### Creating the resources
@@ -55,19 +55,19 @@ Create an Amazon Redshift table named **blog** that contains the fields describe
 
 ## Understand the workflow
 
-The data that the workflow modifies is stored in an Amazon Redshift table named **blog**, as shown in this illustration. 
+The data that the workflow modifies is stored in an Amazon Redshift table named **blog**, as shown in this illustration.
 
 ![AWS Tracking Application](images/database.png)
 
-The **blog** table contains these fields: 
+The **blog** table contains these fields:
 
 - **idblog** - A varchar field that stores a GUID value and represents the PK.
-- **date** - A date field that represents the date when the record was added. 
-- **title** - A varchar field that represents the title. 
-- **body** - A varchar field that represents the body. 
-- **author** - A varchar field that represents the author. 
+- **date** - A date field that represents the date when the record was added.
+- **title** - A varchar field that represents the title.
+- **body** - A varchar field that represents the body.
+- **author** - A varchar field that represents the author.
 
-**Note**: For more information about supported field data types, see [Data types](https://docs.aws.amazon.com/redshift/latest/dg/c_Supported_data_types.html). 
+**Note**: For more information about supported field data types, see [Data types](https://docs.aws.amazon.com/redshift/latest/dg/c_Supported_data_types.html).
 
 The following figure shows the workflow that you will create with this tutorial.
 
@@ -76,7 +76,7 @@ The following figure shows the workflow that you will create with this tutorial.
 The following is what happens at each step in the workflow:
 + **Start** - Initiates the workflow.
 + **Get Values** – Gets the unique values of the Amazon Redshift records to delete and passes the values to the next step in the workflow.
-+ **Delete Records** – Deletes the records that correspond to the unique values by using the Amazon Redshift Data Client Java API. 
++ **Delete Records** – Deletes the records that correspond to the unique values by using the Amazon Redshift Data Client Java API.
 + **Send Email** – Sends an email message to a database administrator using Amazon Simple Email Service (Amazon SES). Informs them that Amazon Redshift records were deleted.
 + **End** - Stops the workflow.
 
@@ -86,7 +86,7 @@ Create the following AWS Identity and Access Management (IAM) roles:
 + **lambda-support** - Used to invoke Lambda functions.
 + **workflow-support** - Used to enable AWS Step Functions to invoke the workflow.
 
-This tutorial uses the Amazon Redshift and Amazon SES services. The **lambda-support** role must have policies that enable it to invoke these services from a Lambda function.  
+This tutorial uses the Amazon Redshift and Amazon SES services. The **lambda-support** role must have policies that enable it to invoke these services from a Lambda function.
 #### To create an IAM role
 
 1. Open the AWS Management Console. Enter **IAM** in the search box, and then choose **IAM** to open the IAM console.
@@ -117,7 +117,7 @@ This tutorial uses the Amazon Redshift and Amazon SES services. The **lambda-sup
 
 ![AWS Tracking Application](images/permissions2.png)
 
-14. Repeat this process to create an IAM role named **workflow-support**. For step three, instead of selecting **Lambda**, select **Step Functions**. You don't need to perform steps 10-13.  
+14. Repeat this process to create an IAM role named **workflow-support**. For step three, instead of selecting **Lambda**, select **Step Functions**. You don't need to perform steps 10-13.
 
 ## Create a serverless workflow by using Step Functions
 
@@ -125,7 +125,7 @@ You can create a workflow that modifies Amazon Redshift data. To define a workfl
 
 ![AWS Tracking Application](images/stepfunctions.png)
 
-Workflows can pass data between steps. For example, the **Get Values** step gets the unique value (passed to the workflow) and passes it to the **Delete Records** step. Later in this tutorial, you will create application logic in the Lambda function to read and process the data values.  
+Workflows can pass data between steps. For example, the **Get Values** step gets the unique value (passed to the workflow) and passes it to the **Delete Records** step. Later in this tutorial, you will create application logic in the Lambda function to read and process the data values.
 
 #### To create a workflow
 
@@ -161,7 +161,7 @@ Workflows can pass data between steps. For example, the **Get Values** step gets
           }
           }
 }
-         
+
 ```
 **Note:** Don't worry about the errors related to the Lambda resource values. You'll update these values later in this tutorial.
 
@@ -169,7 +169,7 @@ Workflows can pass data between steps. For example, the **Get Values** step gets
 
 6. In the name field, enter **MyRedshiftMachine**.
 
-7. In the **Permission** section, choose **Choose an existing role**.  
+7. In the **Permission** section, choose **Choose an existing role**.
 
 8. Choose **workflow-support** (the IAM role that you created).
 
@@ -196,7 +196,7 @@ Make sure that your project's pom.xml file looks like the POM file in this Githu
 
 ## Create Lambda functions by using the AWS SDK for Java
 
-Use the Lambda runtime API to create the Java classes that define the Lambda functions. In this example, there are three workflow steps that each correspond to a Java class. 
+Use the Lambda runtime API to create the Java classes that define the Lambda functions. In this example, there are three workflow steps that each correspond to a Java class.
 The following figure shows the Java classes in the project. Notice that all Java classes are located in a package named **redshift**.
 
 ![AWS Tracking Application](images/project.png)
@@ -204,8 +204,8 @@ The following figure shows the Java classes in the project. Notice that all Java
 To create a Lambda function by using the Lambda runtime API, you implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** API operation. The return value of this operation is passed to the next step in a workflow.
 
 Create these Java classes, which are described in the following sections:
-+ **Handler** - The first step in the workflow. Retrieves the unique ID value.  
-+ **RedshiftHandler** - The second step in the workflow. Uses the **RedshiftDataClient** object to delete an Amazon Redshift record. 
++ **Handler** - The first step in the workflow. Retrieves the unique ID value.
++ **RedshiftHandler** - The second step in the workflow. Uses the **RedshiftDataClient** object to delete an Amazon Redshift record.
 + **HandlerSES** - The third step in the workflow. Sends an email message to a database administrator.
 + **SendMessage** - Uses the Amazon SES API operation to send an email message.
 
@@ -303,12 +303,12 @@ The **RedshiftHandler** class is the second step in the workflow and uses the **
             System.err.println(e.getMessage());
             System.exit(1);
         }
-      } 
+      }
     }
 
 ```
 
-**Note** - Be sure to specify valid values for **clusterId**, **database**, and **dbUser** variables. Otherwise, the code doesn't work. 
+**Note** - Be sure to specify valid values for **clusterId**, **database**, and **dbUser** variables. Otherwise, the code doesn't work.
 
 ### HandlerSES class
 
@@ -359,7 +359,7 @@ public class HandlerSES implements RequestHandler<String, String> {
 
 ```
 
-**Note** - Be sure to specify valid values for **sender** and **recipient** variables. Otherwise, the code doesn't work. 
+**Note** - Be sure to specify valid values for **sender** and **recipient** variables. Otherwise, the code doesn't work.
 
 
 ### SendMessage class
@@ -418,11 +418,11 @@ The following Java class represents the **SendMessage** class. This class uses t
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-      } 
+      }
     }
 
  ```
- 
+
 ## Package the project that contains the Lambda functions
 
 Package up the project into a .jar (JAR) file that you can deploy as a Lambda function by using the following Maven command.
@@ -455,7 +455,7 @@ Note: This section describes how to deploy a Lambda function by using the AWS Ma
 
 9. For **Code entry type**, choose **Upload a .zip or .jar file**.
 
-10. Choose **Upload**, and then browse to the JAR file that you created. 
+10. Choose **Upload**, and then browse to the JAR file that you created.
 
 11. For **Handler**, enter the fully qualified name of the function. For example, **redshift.Handler::handleRequest** (**redshift.Handler** specifies the package and class followed by :: and the API operation).
 
@@ -463,7 +463,7 @@ Note: This section describes how to deploy a Lambda function by using the AWS Ma
 
 12. Choose **Save.**
 
-13. Repeat this procedure for the **HandlerSES** and **RedshiftHandler** classes. Name the corresponding Lambda functions **DeleteRSRecord** and **RedshiftMessage**. When you finish, you will have three Lambda functions that you can reference in the Amazon States Language document.  
+13. Repeat this procedure for the **HandlerSES** and **RedshiftHandler** classes. Name the corresponding Lambda functions **DeleteRSRecord** and **RedshiftMessage**. When you finish, you will have three Lambda functions that you can reference in the Amazon States Language document.
 
 ## Add the Lambda functions to the workflow
 
@@ -479,13 +479,13 @@ Update the resource for the **Delete Records** and **Send Email** steps. This is
 
 ## Execute your workflow by using the Step Functions console
 
-You can invoke the workflow on the Step Functions console.  An execution receives JSON input. For this example, you can pass the following JSON data to the workflow.  
+You can invoke the workflow on the Step Functions console.  An execution receives JSON input. For this example, you can pass the following JSON data to the workflow.
 
       {
         "inputID1": "5f376586-ca17-4a9c-b1e0-1b520e46b089"
       }
 
-**Note**: Make sure that the value that you specify corresponds to a PK value of a record. 
+**Note**: Make sure that the value that you specify corresponds to a PK value of a record.
 
 #### To execute your workflow
 
@@ -497,7 +497,7 @@ You can invoke the workflow on the Step Functions console.  An execution receive
 
 If the step turns red, an error occurred. You can click the step and view the logs that are accessible from the right side.
 
-When the workflow is finished, the Amazon Redshift record that corresponds to the unique value is deleted. 
+When the workflow is finished, the Amazon Redshift record that corresponds to the unique value is deleted.
 
 ### Next steps
 Congratulations, you have created an AWS serverless workflow by using the AWS SDK for Java. Be sure to delete all of the resources that you created during this tutorial so that you won't continue to be charged.

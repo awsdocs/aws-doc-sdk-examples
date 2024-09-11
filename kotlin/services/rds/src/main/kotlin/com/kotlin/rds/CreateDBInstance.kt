@@ -28,11 +28,11 @@ https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-serv
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <dbInstanceIdentifier> <dbName> <masterUsername> <masterUserPassword> 
+            <dbInstanceIdentifier> <dbName> <masterUsername> <masterUserPassword>
 
         Where:
-            dbInstanceIdentifier - The database instance identifier. 
-            dbName - The database name. 
+            dbInstanceIdentifier - The database instance identifier.
+            dbName - The database name.
     "       secretName - The name of the AWS Secrets Manager secret that contains the database credentials.
         """
 

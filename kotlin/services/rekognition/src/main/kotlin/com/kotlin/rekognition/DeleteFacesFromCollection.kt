@@ -16,12 +16,12 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
     val usage = """
-    Usage: 
-         <collectionId> <faceId> 
+    Usage:
+         <collectionId> <faceId>
 
     Where:
-        collectionId - The id of the collection from which faces are deleted. 
-        faceId - The id of the face to delete. 
+        collectionId - The id of the collection from which faces are deleted.
+        faceId - The id of the face to delete.
     """
 
     if (args.size != 2) {

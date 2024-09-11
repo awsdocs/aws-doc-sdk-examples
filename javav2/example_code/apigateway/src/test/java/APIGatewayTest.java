@@ -52,24 +52,24 @@ public class APIGatewayTest {
          * try (InputStream input =
          * APIGatewayTest.class.getClassLoader().getResourceAsStream("config.properties"
          * )) {
-         * 
+         *
          * Properties prop = new Properties();
-         * 
+         *
          * if (input == null) {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * //load a properties file from class path, inside static method
          * prop.load(input);
-         * 
+         *
          * // Populate the data members required for all tests
          * restApiId = prop.getProperty("restApiId");
          * resourceId = prop.getProperty("resourceId");
          * httpMethod = prop.getProperty("httpMethod");
          * restApiName = prop.getProperty("restApiName");
          * stageName = prop.getProperty("stageName");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

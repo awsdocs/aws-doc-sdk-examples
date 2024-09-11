@@ -52,7 +52,7 @@ public struct DynamoDBSession: DatabaseSession {
     ///   `ListTablesInput` object.
     ///
     /// - Returns: The `ListTablesOutput` returned by `listTables()`.
-    /// 
+    ///
     /// - Throws: Errors from DynamoDB are thrown as usual.
     public func listTables(input: ListTablesInput) async throws -> ListTablesOutput {
         return try await client.listTables(input: input)

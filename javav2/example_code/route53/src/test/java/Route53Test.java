@@ -79,7 +79,7 @@ public class Route53Test {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * Route53Test.class.getClassLoader().getResourceAsStream("config.properties"))
          * {
@@ -88,7 +88,7 @@ public class Route53Test {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * // Populate the data members required for all tests
          * prop.load(input);
          * domainName = prop.getProperty("domainName");
@@ -99,7 +99,7 @@ public class Route53Test {
          * firstNameSc = prop.getProperty("firstNameSc");
          * lastNameSc = prop.getProperty("lastNameSc");
          * citySc = prop.getProperty("citySc");
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

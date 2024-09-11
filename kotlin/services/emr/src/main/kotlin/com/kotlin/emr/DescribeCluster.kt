@@ -20,10 +20,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <clusterIdVal> 
+            <clusterIdVal>
 
         Where:
-            clusterIdVal - The id of the cluster to describe. 
+            clusterIdVal - The id of the cluster to describe.
         """
 
     if (args.size != 1) {

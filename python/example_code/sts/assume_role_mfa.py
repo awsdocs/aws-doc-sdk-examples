@@ -66,14 +66,14 @@ def setup(iam_resource):
     print(f"Created virtual MFA device {virtual_mfa_device.serial_number}")
 
     print(
-        f"Showing the QR code for the device. Scan this in the MFA app of your "
-        f"choice."
+        "Showing the QR code for the device. Scan this in the MFA app of your "
+        "choice."
     )
     with open("qr.png", "wb") as qr_file:
         qr_file.write(virtual_mfa_device.qr_code_png)
     webbrowser.open(qr_file.name)
 
-    print(f"Enter two consecutive code from your MFA device.")
+    print("Enter two consecutive code from your MFA device.")
     mfa_code_1 = input("Enter the first code: ")
     mfa_code_2 = input("Enter the second code: ")
     user.enable_mfa(
@@ -82,10 +82,10 @@ def setup(iam_resource):
         AuthenticationCode2=mfa_code_2,
     )
     os.remove(qr_file.name)
-    print(f"MFA device is registered with the user.")
+    print("MFA device is registered with the user.")
 
     user_key = user.create_access_key_pair()
-    print(f"Created access key pair for user.")
+    print("Created access key pair for user.")
 
     print(f"Wait for user to be ready.", end="")
     progress_bar(10)
@@ -143,7 +143,7 @@ def setup(iam_resource):
     )
     print(
         f"Created an inline policy for {user.name} that lets the user assume "
-        f"the role."
+        "the role."
     )
 
     print("Give AWS time to propagate these new resources and connections.", end="")
@@ -165,7 +165,7 @@ def try_to_assume_role_without_mfa(assume_role_arn, session_name, sts_client):
     :param session_name: The name of the STS session.
     :param sts_client: A Boto3 STS instance that has permission to assume the role.
     """
-    print(f"Trying to assume the role without sending MFA credentials...")
+    print("Trying to assume the role without sending MFA credentials...")
     try:
         sts_client.assume_role(RoleArn=assume_role_arn, RoleSessionName=session_name)
         raise RuntimeError("Expected AccessDenied error.")
@@ -214,7 +214,7 @@ def list_buckets_from_assumed_role_with_mfa(
         aws_session_token=temp_credentials["SessionToken"],
     )
 
-    print(f"Listing buckets for the assumed role's account:")
+    print("Listing buckets for the assumed role's account:")
     for bucket in s3_resource.buckets.all():
         print(bucket.name)
 
@@ -258,8 +258,8 @@ def usage_demo():
     """Drives the demonstration."""
     print("-" * 88)
     print(
-        f"Welcome to the AWS Security Token Service assume role demo, "
-        f"starring multi-factor authentication (MFA)!"
+        "Welcome to the AWS Security Token Service assume role demo, "
+        "starring multi-factor authentication (MFA)!"
     )
     print("-" * 88)
     iam_resource = boto3.resource("iam")

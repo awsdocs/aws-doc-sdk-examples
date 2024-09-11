@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.ManageACLsTest.cs]
 using Amazon;
@@ -14,7 +14,7 @@ namespace Amazon.DocSamples.S3
     {
         private const string bucketName    = "*** existing bucket name ***";
         private const string newBucketName = "*** new bucket name ***";
-        private const string keyName = "*** object key name ***"; 
+        private const string keyName = "*** object key name ***";
         private const string emailAddress = "***  email address ***";
         // Specify your bucket region (an example region is shown).
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
@@ -54,7 +54,7 @@ namespace Amazon.DocSamples.S3
             var request = new PutBucketRequest()
             {
                 BucketName = newBucketName,
-                BucketRegion = S3Region.EUW1, 
+                BucketRegion = S3Region.EUW1,
                 // Add a canned ACL.
                 CannedACL = S3CannedACL.LogDeliveryWrite
             };
@@ -87,7 +87,7 @@ namespace Amazon.DocSamples.S3
             // Clear existing grants.
             acl.Grants.Clear();
 
-            // Add a grant to reset the owner's full permission 
+            // Add a grant to reset the owner's full permission
             // (the previous clear statement removed all permissions).
             S3Grant fullControlGrant = new S3Grant
             {
@@ -102,7 +102,7 @@ namespace Amazon.DocSamples.S3
                 Permission = S3Permission.WRITE_ACP
             };
 
-            // Specify log delivery group as grantee. 
+            // Specify log delivery group as grantee.
             S3Grant grantLogDeliveryGroup = new S3Grant
             {
                 Grantee = new S3Grantee { URI = "http://acs.amazonaws.com/groups/s3/LogDelivery" },

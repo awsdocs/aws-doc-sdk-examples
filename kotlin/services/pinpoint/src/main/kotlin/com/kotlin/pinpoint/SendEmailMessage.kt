@@ -27,20 +27,20 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 val body: String =
     """
     Amazon Pinpoint test (AWS SDK for Kotlin)
-            
+
     This email was sent through the Amazon Pinpoint Email API using the AWS SDK for Kotlin.
-                            
+
     """.trimIndent()
 
 suspend fun main(args: Array<String>) {
     val usage = """
-    Usage: 
+    Usage:
         <subject> <appId> <senderAddress> <toAddress>
 
     Where:
         subject - The email subject to use.
-        senderAddress - The from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email 
-        toAddress - The to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email 
+        senderAddress - The from address. This address has to be verified in Amazon Pinpoint in the region you're using to send email
+        toAddress - The to address. This address has to be verified in Amazon Pinpoint in the region you're using to send email
     """
 
     if (args.size != 3) {

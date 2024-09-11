@@ -54,7 +54,7 @@ struct ExampleCommand: ParsableCommand {
         print("Please wait while the database is installed and searched...\n")
 
         let database = try await MovieDatabase(jsonPath: jsonPath)
-        
+
         let movies = try await database.batchGet(keys: [
             (title: "Titanic", year: 1997),
             (title: "The Shawshank Redemption", year: 1994),

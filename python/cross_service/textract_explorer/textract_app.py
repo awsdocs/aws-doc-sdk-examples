@@ -412,7 +412,7 @@ class TextractExplorer:
         self.render_document(doc_hierarchy)
         self.explorer_label["text"] = (
             f"Extracted {self.block_filter} data from {self.current_file}.\n"
-            f"Click an element to expand it and see its bounding polygon."
+            "Click an element to expand it and see its bounding polygon."
         )
 
         button.update()

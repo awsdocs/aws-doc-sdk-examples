@@ -237,7 +237,7 @@ def print_simplified_group(group: dict) -> None:
         f"\tMin: {group['MinSize']}, Max: {group['MaxSize']}, Desired: {group['DesiredCapacity']}"
     )
     if group["Instances"]:
-        print(f"\tInstances:")
+        print("\tInstances:")
         for inst in group["Instances"]:
             print(f"\t\t{inst['InstanceId']}: {inst['LifecycleState']}")
 
@@ -418,7 +418,7 @@ def run_scenario(as_wrapper: AutoScalingWrapper, svc_helper: ServiceHelper) -> N
     )
     print(
         f"Found {len(activities)} activities.\n"
-        f"Activities are ordered with the most recent one first:"
+        "Activities are ordered with the most recent one first:"
     )
     for act in activities:
         pp(act)
@@ -455,7 +455,7 @@ def run_scenario(as_wrapper: AutoScalingWrapper, svc_helper: ServiceHelper) -> N
             else:
                 done = True
 
-    print(f"Let's clean up.")
+    print("Let's clean up.")
     q.ask("Press Enter when you're ready.")
     if use_metrics:
         print(f"Stopping metrics collection for {group_name}.")

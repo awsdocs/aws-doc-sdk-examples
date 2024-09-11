@@ -21,7 +21,7 @@ suspend fun main(args: Array<String>) {
     val usage = """
 
     Usage:
-        <filter> <pattern> <logGroup> <functionArn> 
+        <filter> <pattern> <logGroup> <functionArn>
 
     Where:
         filter - A filter name (for example, myfilter).

@@ -65,7 +65,7 @@ if __name__ == "__main__":
     if args.endpoint_url:
         print(
             f"Getting each item from the table {test_iterations} times, "
-            f"using the DAX client."
+            "using the DAX client."
         )
         # Use a with statement so the DAX client closes the cluster after completion.
         with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url) as dax:
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     else:
         print(
             f"Getting each item from the table {test_iterations} times, "
-            f"using the Boto3 client."
+            "using the Boto3 client."
         )
         test_start, test_end = get_item_test(test_key_count, test_iterations)
     print(

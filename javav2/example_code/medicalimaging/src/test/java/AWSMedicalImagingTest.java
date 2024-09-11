@@ -68,7 +68,7 @@ public class AWSMedicalImagingTest {
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
         /*
-         * 
+         *
          * try (InputStream input =
          * AWSMedicalImagingTest.class.getClassLoader().getResourceAsStream(
          * "config.properties")) {
@@ -77,12 +77,12 @@ public class AWSMedicalImagingTest {
          * dataAccessRoleArn = prop.getProperty("dataAccessRoleArn");
          * inputS3Uri= prop.getProperty("inputS3Uri");
          * outputS3Uri= prop.getProperty("outputS3Uri");
-         * 
+         *
          * if (input == null) {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }
@@ -142,7 +142,7 @@ public class AWSMedicalImagingTest {
 
     }
 
-  
+
     @Test
     @Tag("IntegrationTest")
     @Order(5)

@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.UploadObjectTest]
 using Amazon;
@@ -17,7 +17,7 @@ namespace Amazon.DocSamples.S3
         private const string keyName1 = "*** key name for first object created ***";
         private const string keyName2 = "*** key name for second object created ***";
         private const string filePath = @"*** file path ***";
-        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.EUWest1; 
+        private static readonly RegionEndpoint bucketRegion = RegionEndpoint.EUWest1;
 
         private static IAmazonS3 client;
 
@@ -49,7 +49,7 @@ namespace Amazon.DocSamples.S3
                     FilePath = filePath,
                     ContentType = "text/plain"
                 };
-                
+
                 putRequest2.Metadata.Add("x-amz-meta-title", "someTitle");
                 PutObjectResponse response2 = await client.PutObjectAsync(putRequest2);
             }

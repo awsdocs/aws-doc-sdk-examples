@@ -39,7 +39,7 @@ public class Datasets {
         /**
          * Creates an Amazon Lookout for Vision dataset from a manifest file.
          * Returns after Lookout for Vision creates the dataset.
-         * 
+         *
          * @param lfvClient    An Amazon Lookout for Vision client.
          * @param projectName  The name of the project in which you want to create a
          *                     dataset.
@@ -144,7 +144,7 @@ public class Datasets {
          * Gets the JSON lines from an Amazon Lookout for Vision dataset. You can filter
          * on various fields. Specify null
          * to not filter a field.
-         * 
+         *
          * @param lfvClient          An Amazon Lookout for Vision client.
          * @param projectName        The name of the project that contains the dataset
          *                           you want to list.
@@ -193,7 +193,7 @@ public class Datasets {
 
         /**
          * Deletes the train or test dataset in an Amazon Lookout for Vision project.
-         * 
+         *
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project in which you want to delete a
          *                    dataset.
@@ -221,7 +221,7 @@ public class Datasets {
 
         /**
          * Gets the description for a Amazon Lookout for Vision dataset.
-         * 
+         *
          * @param lfvClient   An Amazon Lookout for Vision client.
          * @param projectName The name of the project in which you want to describe a
          *                    dataset.
@@ -268,7 +268,7 @@ public class Datasets {
         /**
          * Updates an Amazon Lookout for Vision dataset from a manifest file.
          * Returns after Lookout for Vision updates the dataset.
-         * 
+         *
          * @param lfvClient    An Amazon Lookout for Vision client.
          * @param projectName  The name of the project in which you want to update a
          *                     dataset.

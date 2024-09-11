@@ -34,19 +34,19 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 For more information, see the following resources:
 
-- Familiarize yourself with Audit Manager terminology and functionality. For a general 
+- Familiarize yourself with Audit Manager terminology and functionality. For a general
 overview, see [What is AWS Audit Manager?](https://docs.aws.amazon.com/audit-manager/latest/userguide/what-is.html) and [AWS Audit Manager concepts and terminology](https://docs.aws.amazon.com/audit-manager/latest/userguide/concepts.html).
-- Complete all the prerequisites that are described in 
-[Setting up AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/userguide/setting-up.html). 
-- Configure your AWS Identity and Access Management (IAM) identity to have the appropriate permissions to create resources in Audit 
-Manager. Two suggested policies that grant these permissions are 
-[Example 2: Allow full administrator access](https://docs.aws.amazon.com/audit-manager/latest/userguide/security_iam_id-based-policy-examples.html#example-1) 
+- Complete all the prerequisites that are described in
+[Setting up AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/userguide/setting-up.html).
+- Configure your AWS Identity and Access Management (IAM) identity to have the appropriate permissions to create resources in Audit
+Manager. Two suggested policies that grant these permissions are
+[Example 2: Allow full administrator access](https://docs.aws.amazon.com/audit-manager/latest/userguide/security_iam_id-based-policy-examples.html#example-1)
 and [Example 3: Allow management access](https://docs.aws.amazon.com/audit-manager/latest/userguide/security_iam_id-based-policy-examples.html#example-2).
-- To create custom controls that use AWS Security Hub as a data source, you must first 
-[enable AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-settingup.html), then [enable all security standards](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-enable-disable.html#securityhub-standard-enable-console). 
-- To create custom controls and frameworks from an AWS Config conformance pack, you 
-must first [enable AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/gs-console.html), 
-then [deploy the conformance pack](https://docs.aws.amazon.com/config/latest/developerguide/conformance-pack-console.html) 
+- To create custom controls that use AWS Security Hub as a data source, you must first
+[enable AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-settingup.html), then [enable all security standards](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards-enable-disable.html#securityhub-standard-enable-console).
+- To create custom controls and frameworks from an AWS Config conformance pack, you
+must first [enable AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/gs-console.html),
+then [deploy the conformance pack](https://docs.aws.amazon.com/config/latest/developerguide/conformance-pack-console.html)
 that you want to use.
 <!--custom.prerequisites.end-->
 ### Scenarios

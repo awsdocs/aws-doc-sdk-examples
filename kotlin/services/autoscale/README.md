@@ -8,7 +8,7 @@ With Amazon EC2 Auto Scaling, you can maintain application availability and auto
 ## ⚠️ Important
 * The SDK for Kotlin examples perform AWS operations for the account and AWS Region for which you've specified credentials. Running these examples might incur charges on your account. For details about the charges you can expect for a given service and API operation, see [AWS Pricing](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
@@ -23,8 +23,8 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 Some of these examples perform *destructive* operations on AWS resources, such as deleting an Auto Scaling group. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
-To run these examples, set up your development environment. For more information, 
-see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
+To run these examples, set up your development environment. For more information,
+see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
 
  ## Testing the Amazon EC2 Auto Scaling Java files
@@ -42,8 +42,8 @@ Before running the AWS Elastic Beanstalk JUnit tests, you must define values in 
 
 To successfully run the JUnit tests, define the following values:
 
-- **groupName** - The name of the Auto Scaling group.  
-- **groupNameSc** - The name of the Auto Scaling group used in the scenario. 
+- **groupName** - The name of the Auto Scaling group.
+- **groupNameSc** - The name of the Auto Scaling group used in the scenario.
 - **launchTemplateName** - The name of the launch template.
 - **serviceLinkedRoleARN** - The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses.
 - **vpcZoneId** - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.

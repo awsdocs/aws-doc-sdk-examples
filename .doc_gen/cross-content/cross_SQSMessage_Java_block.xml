@@ -6,7 +6,7 @@
 <block>
     <para>
         Shows how to use the &SQS; API to
-        develop a Spring REST API that sends and retrieves messages. 
+        develop a Spring REST API that sends and retrieves messages.
     </para>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on

@@ -52,7 +52,7 @@ final class ListAttachedRolePoliciesTests: XCTestCase {
         let user = try await ListAttachedRolePoliciesTests.serviceHandler!.getUser(name: nil)
 
         guard let userARN = user.arn else {
-            throw ServiceHandlerError.noSuchUser 
+            throw ServiceHandlerError.noSuchUser
         }
 
         // The policy document is a JSON string describing the role. For
@@ -156,7 +156,7 @@ final class ListAttachedRolePoliciesTests: XCTestCase {
 
             var index = 0
             for attachedPolicy in attachedPolicies {
-                XCTAssertEqual(testPolicyARNs[index], attachedPolicy.policyArn, 
+                XCTAssertEqual(testPolicyARNs[index], attachedPolicy.policyArn,
                     "Policy list mismatch: \(testPolicyARNs[index]) expected but \(attachedPolicy.policyArn ?? "<no name>") found")
                 index += 1
             }

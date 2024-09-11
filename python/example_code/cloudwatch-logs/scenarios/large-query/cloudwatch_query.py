@@ -13,7 +13,6 @@ class DateOutOfBoundsError(Exception):
     """Exception raised when the date range for a query is out of bounds."""
 
 
-
 class CloudWatchQuery:
     """
     A class to query AWS CloudWatch logs within a specified date range.
@@ -30,7 +29,7 @@ class CloudWatchQuery:
         self.query_results = []
         self.date_range = date_range
         self.query_duration = None
-        self.datetime_format = "%Y-%m-%d %H:%M:%S.%f"
+        self.datetime_format = "%Y-%m-%d %H:%M:%S.%"
         self.date_utilities = DateUtilities()
         self.limit = 10000
 
@@ -48,7 +47,7 @@ class CloudWatchQuery:
         )
 
         logging.info(
-            f"Original query:"
+            "Original query:"
             f"\n       START:    {start_date}"
             f"\n       END:      {end_date}"
         )

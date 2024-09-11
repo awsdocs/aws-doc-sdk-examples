@@ -92,7 +92,7 @@ class DateUtilities:
 
         :param unix_timestamp: UNIX timestamp in milliseconds.
         :type unix_timestamp: int
-        :param iso8601_format: The format string for the output date string, defaults to "%Y-%m-%d %H:%M:%S.%f".
+        :param iso8601_format: The format string for the output date string, defaults to "%Y-%m-%d %H:%M:%S.%".
         :type iso8601_format: str
         :return: The formatted date string.
         :rtype: str

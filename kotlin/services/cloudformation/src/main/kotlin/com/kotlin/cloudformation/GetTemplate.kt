@@ -12,10 +12,10 @@ import kotlin.system.exitProcess
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <stackName> 
+            <stackName>
 
         Where:
-            stackName - The name of the AWS CloudFormation stack. 
+            stackName - The name of the AWS CloudFormation stack.
     """
 
     if (args.size != 1) {

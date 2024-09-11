@@ -29,7 +29,7 @@ dynamodb_Hello:
           sdkguide:
           excerpts:
             - description: >-
-                For more details on working with &DDB; in &JSBlong;, 
+                For more details on working with &DDB; in &JSBlong;,
                 see <ulink url="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/programming-with-javascript.html">Programming &DDB; with JavaScript</ulink>.
               snippet_tags:
                 - javascript.v3.dynamodb.hello
@@ -148,7 +148,7 @@ dynamodb_CreateTable:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-creating-a-table
           excerpts:
             - description:
@@ -156,7 +156,7 @@ dynamodb_CreateTable:
                 - dynamodb.JavaScript.table.createTableV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v2/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-creating-a-table
           excerpts:
             - description:
@@ -228,7 +228,7 @@ dynamodb_BatchGetItem:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-reading
           excerpts:
             - description: This example uses the document client to simplify working with items in &DDB;. For API details
@@ -237,7 +237,7 @@ dynamodb_BatchGetItem:
                 - javascript.v3.dynamodb.doc-client.BatchGet
         - sdk_version: 2
           github: javascript/example_code/dynamodb
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-reading
           excerpts:
             - description:
@@ -315,7 +315,7 @@ dynamodb_DescribeTable:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-describing-a-table
           excerpts:
             - description:
@@ -323,7 +323,7 @@ dynamodb_DescribeTable:
                 - dynamodb.JavaScript.table.describeTableV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v2/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-describing-a-table
           excerpts:
             - description:
@@ -430,7 +430,7 @@ dynamodb_BatchWriteItem:
                 - dynamodb.JavaScript.movies.batchwriteV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-writing
           excerpts:
             - description:
@@ -568,7 +568,7 @@ dynamodb_DeleteTable:
                 - dynamodb.JavaScript.item.deleteTableV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v2/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-deleting-a-table
           excerpts:
             - description:
@@ -649,7 +649,7 @@ dynamodb_PutItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Puts an item into a table using <ulink 
+            - description: Puts an item into a table using <ulink
                 url="http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html">DynamoDbClient</ulink>.
               snippet_tags:
                 - dynamodb.java2.put_item.main
@@ -700,7 +700,7 @@ dynamodb_PutItem:
                 - dynamodb.JavaScript.docClient.putV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-writing-an-item
           excerpts:
             - description: Put an item in a table.
@@ -909,7 +909,7 @@ dynamodb_UpdateItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Updates an item in a table using <ulink 
+            - description: Updates an item in a table using <ulink
                 url="http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html">DynamoDbClient</ulink>.
               snippet_tags:
                 - dynamodb.java2.update_item.main
@@ -1072,7 +1072,7 @@ dynamodb_DeleteItem:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item
           excerpts:
             - description: This example uses the document client to simplify working with items in &DDB;. For API details
@@ -1081,7 +1081,7 @@ dynamodb_DeleteItem:
                 - dynamodb.JavaScript.docClient.deleteV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
-          sdkguide: 
+          sdkguide:
             sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item
           excerpts:
             - description: Delete an item from a table.
@@ -1305,7 +1305,7 @@ dynamodb_Query:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Queries a table by using <ulink 
+            - description: Queries a table by using <ulink
                 url="http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html">DynamoDbClient</ulink>.
               snippet_tags:
                 - dynamodb.java2.query.main
@@ -1443,7 +1443,7 @@ dynamodb_Scan:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Scans an Amazon DynamoDB table using <ulink 
+            - description: Scans an Amazon DynamoDB table using <ulink
                 url="http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html">DynamoDbClient</ulink>.
               snippet_tags:
                 - dynamodb.java2.dynamoDB_scan.main

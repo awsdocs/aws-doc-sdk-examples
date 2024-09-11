@@ -7,9 +7,9 @@ Shows how to use the AWS SDK for C++ to create and manage Amazon EC2 Auto Scalin
 
 ## ⚠️ Important
 
-* Running this code might result in charges to your AWS account. 
+* Running this code might result in charges to your AWS account.
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
@@ -18,20 +18,20 @@ Shows how to use the AWS SDK for C++ to create and manage Amazon EC2 Auto Scalin
 
 Code excerpts that show you how to call individual service functions.
 
-* [Create a group](groups_and_instances_scenario.cpp) 
+* [Create a group](groups_and_instances_scenario.cpp)
   (`CreateAutoScalingGroup`)
 * [Delete a group](groups_and_instances_scenario.cpp)(`DeleteAutoScalingGroup`)
 * [Disable metrics collection for a group](groups_and_instances_scenario.cpp)(`DisableMetricsCollection`)
-* [Enable metrics collection for a group](groups_and_instances_scenario.cpp) 
+* [Enable metrics collection for a group](groups_and_instances_scenario.cpp)
   (`EnableMetricsCollection`)
-* [Get information about groups](groups_and_instances_scenario.cpp) 
+* [Get information about groups](groups_and_instances_scenario.cpp)
   (`DescribeAutoScalingGroups`)
-* [Get information about instances](groups_and_instances_scenario.cpp) 
+* [Get information about instances](groups_and_instances_scenario.cpp)
   (`DescribeAutoScalingInstances`)
 * [Get information about scaling activities](groups_and_instances_scenario.cpp) (`DescribeScalingActivities`)
-* [Set the desired capacity of a group](groups_and_instances_scenario.cpp) 
+* [Set the desired capacity of a group](groups_and_instances_scenario.cpp)
   (`SetDesiredCapacity`)
-* [Terminate an instance in a group](groups_and_instances_scenario.cpp) 
+* [Terminate an instance in a group](groups_and_instances_scenario.cpp)
   (`TerminateInstanceInAutoScalingGroup`)
 * [Update a group](groups_and_instances_scenario.cpp) (`UpdateAutoScalingGroup`)
 ### Scenarios
@@ -57,8 +57,8 @@ Next, for information on code example structures and how to build and run the ex
    cd <BUILD_DIR>
    cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
    make
-   ctest 
-```   
+   ctest
+```
 
 ## Additional resources
 * [Amazon EC2 Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)

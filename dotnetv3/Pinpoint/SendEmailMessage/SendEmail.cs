@@ -22,16 +22,16 @@ public class SendEmailMainClass
         .Build();
 
         // The AWS Region that you want to use to send the email. For a list of
-        // AWS Regions where the Amazon Pinpoint API is available, see 
+        // AWS Regions where the Amazon Pinpoint API is available, see
         // https://docs.aws.amazon.com/pinpoint/latest/apireference/
         string region = "us-east-1";
 
-        // The "From" address. This address has to be verified in Amazon Pinpoint 
+        // The "From" address. This address has to be verified in Amazon Pinpoint
         // in the region you're using to send email.
         string senderAddress = configuration["SenderAddress"]!;
 
         // The address on the "To" line. If your Amazon Pinpoint account is in
-        // the sandbox, this address also has to be verified. 
+        // the sandbox, this address also has to be verified.
         string toAddress = configuration["ToAddress"]!;
 
         // The Amazon Pinpoint project/application ID to use when you send this message.
@@ -57,7 +57,7 @@ public class SendEmailMainClass
         // The subject line of the email.
         string subject = "Amazon Pinpoint Email test";
 
-        // The body of the email for recipients whose email clients don't 
+        // The body of the email for recipients whose email clients don't
         // support HTML content.
         string textBody = @"Amazon Pinpoint Email Test (.NET)"
                           + "\n---------------------------------"

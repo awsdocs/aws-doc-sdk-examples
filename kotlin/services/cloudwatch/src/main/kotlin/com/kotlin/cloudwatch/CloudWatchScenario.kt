@@ -89,16 +89,16 @@ val DASHES: String? = String(CharArray(80)).replace("\u0000", "-")
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <myDate> <costDateWeek> <dashboardName> <dashboardJson> <dashboardAdd> <settings> <metricImage>  
+            <myDate> <costDateWeek> <dashboardName> <dashboardJson> <dashboardAdd> <settings> <metricImage>
 
         Where:
-            myDate - The start date to use to get metric statistics. (For example, 2023-01-11T18:35:24.00Z.) 
-            costDateWeek - The start date to use to get AWS Billing and Cost Management statistics. (For example, 2023-01-11T18:35:24.00Z.) 
-            dashboardName - The name of the dashboard to create. 
-            dashboardJson - The location of a JSON file to use to create a dashboard. (See Readme file.) 
-            dashboardAdd - The location of a JSON file to use to update a dashboard. (See Readme file.) 
-            settings - The location of a JSON file from which various values are read. (See Readme file.) 
-            metricImage - The location of a BMP file that is used to create a graph. 
+            myDate - The start date to use to get metric statistics. (For example, 2023-01-11T18:35:24.00Z.)
+            costDateWeek - The start date to use to get AWS Billing and Cost Management statistics. (For example, 2023-01-11T18:35:24.00Z.)
+            dashboardName - The name of the dashboard to create.
+            dashboardJson - The location of a JSON file to use to create a dashboard. (See Readme file.)
+            dashboardAdd - The location of a JSON file to use to update a dashboard. (See Readme file.)
+            settings - The location of a JSON file from which various values are read. (See Readme file.)
+            metricImage - The location of a BMP file that is used to create a graph.
     """
 
     if (args.size != 7) {

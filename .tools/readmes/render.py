@@ -66,8 +66,8 @@ class Renderer:
         }
 
         self._extract_service_folder(self.scanner, env, service_info)
-        sdk_api_ref_tmpl = env.from_string(self.lang_config.get("sdk_api_ref", ""))
-        self.lang_config["sdk_api_ref"] = sdk_api_ref_tmpl.render(service=service_info)
+        sdk_api_ref_tmpl = env.from_string(self.lang_config.get("sdk_api_re", ""))
+        self.lang_config["sdk_api_re"] = sdk_api_ref_tmpl.render(service=service_info)
 
         self.readme_filename = (
             Path(__file__).parent.parent.parent
@@ -257,7 +257,7 @@ class Renderer:
                     if link_match:
                         link, href = link_match.groups()
                         if link.startswith(sdk_short):
-                            self.lang_config["sdk_api_ref"] = href
+                            self.lang_config["sdk_api_re"] = href
         return customs
 
     def render(self) -> RenderStatus:

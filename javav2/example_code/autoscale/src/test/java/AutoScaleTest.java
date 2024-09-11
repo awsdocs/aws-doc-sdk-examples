@@ -70,13 +70,13 @@ public class AutoScaleTest {
          * System.out.println("Sorry, unable to find config.properties");
          * return;
          * }
-         * 
+         *
          * prop.load(input);
          * groupName = prop.getProperty("groupName")+randomNum;
          * launchTemplateName = prop.getProperty("launchTemplateName");
          * vpcZoneId = prop.getProperty("vpcZoneId");
          * groupNameSc = prop.getProperty("groupNameSc")+randomNum;
-         * 
+         *
          * } catch (IOException ex) {
          * ex.printStackTrace();
          * }

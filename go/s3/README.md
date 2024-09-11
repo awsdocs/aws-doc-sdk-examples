@@ -402,14 +402,14 @@ The unit test accepts similar values from *config.json*.
   [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege)
   in the AWS Identity and Access Management User Guide.
 - This code has not been tested in all Regions.
-  Some AWS services are available only in specific 
+  Some AWS services are available only in specific
   [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account.
 
 ## Running a unit test
 
 Unit tests should delete any resources they create.
-However, they might result in charges to your 
+However, they might result in charges to your
 AWS account.
 
 To run a unit test, enter the following:

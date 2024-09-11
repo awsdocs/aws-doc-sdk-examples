@@ -21,10 +21,10 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 suspend fun main(args: Array<String>) {
     val usage = """
-        Usage: <functionName> 
+        Usage: <functionName>
 
         Where:
-        functionName - the name of the Lambda function to invoke (for example, myLambda). 
+        functionName - the name of the Lambda function to invoke (for example, myLambda).
        """
 
     if (args.size != 1) {

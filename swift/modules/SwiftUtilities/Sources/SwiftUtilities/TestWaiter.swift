@@ -79,7 +79,7 @@ public struct TestWaiter {
         if DEBUG_SEM == true {
             print("Wait for semaphore \(name): Start.")
         }
-        
+
         let timeoutResult = sem.wait(timeout: .now() + self.timeout)
         if (timeoutResult == .timedOut) {
             timedOut = true

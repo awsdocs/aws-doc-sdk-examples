@@ -23,7 +23,7 @@ public class BatchDeleteItems {
         final String usage = """
 
                 Usage:
-                    <tableName> 
+                    <tableName>
 
                 Where:
                     tableName - The Amazon DynamoDB table (for example, Music).\s

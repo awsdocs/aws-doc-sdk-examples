@@ -21,11 +21,11 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
-       <bucketName> <docName> 
+       <bucketName> <docName>
 
     Where:
         bucketName - The name of the Amazon S3 bucket that contains the document.
-        docName - The document name (must be an image, i.e., book.png). 
+        docName - The document name (must be an image, i.e., book.png).
     """
 
     if (args.size != 2) {

@@ -18,9 +18,9 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
 suspend fun main(args: Array<String>) {
     val usage = """
-    
-        Usage: 
-            <topicName> 
+
+        Usage:
+            <topicName>
 
         Where:
             topicName - The name of the topic to create (for example, mytopic).

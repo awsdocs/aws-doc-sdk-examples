@@ -80,7 +80,7 @@ These files are located on GitHub in this [folder](../../../workflows/sagemaker_
 
 ### Kotlin Lambda function
 
-To successfully run this example, you need to create the Kotlin Sagemaker Lambda function by creating a .jar file and then placing the .jar file into an S3 bucket. You can find this project here: [Create the SageMaker geospatial Lambda function using the AWS SDK for Kotlin](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/workflow_sagemaker_lambda).  
+To successfully run this example, you need to create the Kotlin Sagemaker Lambda function by creating a .jar file and then placing the .jar file into an S3 bucket. You can find this project here: [Create the SageMaker geospatial Lambda function using the AWS SDK for Kotlin](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/workflow_sagemaker_lambda).
 
 ### Instructions
 

@@ -19,7 +19,7 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage: <topicArn>
-    
+
         Where:
             topicArn - The ARN of the topic from which tags are listed.
         """

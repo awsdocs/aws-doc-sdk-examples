@@ -217,7 +217,7 @@ prompt: >
   },
   {
     "action": "CreateConfigurationSet",
-    "title": "Create a Configuration Set" 
+    "title": "Create a Configuration Set"
   },
   {
     "action": "CreateConfigurationSetEventDestination",

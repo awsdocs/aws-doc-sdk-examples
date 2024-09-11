@@ -9,9 +9,9 @@ get access tokens.
 
 ## ⚠️ Important
 
-* Running this code might result in charges to your AWS account. 
+* Running this code might result in charges to your AWS account.
 * Running the tests might result in charges to your AWS account.
-* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
@@ -56,7 +56,7 @@ The Amazon Cognito resources for `Sign up a user with a user pool that requires 
 For instructions on how to run the script, see the [README](../../../resources/cdk/cognito_scenario_user_pool_with_mfa/README.md).
 
 Optionally, build [Sign up a user with a user pool that requires MFA](./getting_started_with_user_pools.cpp) to use the
-[qr-code-generator](https://github.com/nayuki/QR-Code-generator) library. This creates a QR code image for MFA authentication. 
+[qr-code-generator](https://github.com/nayuki/QR-Code-generator) library. This creates a QR code image for MFA authentication.
 A [conanfile.txt](conanfile.txt) is included with the sample code. You can install the qr-code-generator library by using the [Conan C++ package manager](https://conan.io/).
 
 To install the `qr-code-generator` library using Conan, run the following command from the build directory.
@@ -80,8 +80,8 @@ Next, enable the `USING_CONAN` variable in [CMakeLists.txt](CMakeLists.txt).
    cd <BUILD_DIR>
    cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
    make
-   ctest 
-```   
+   ctest
+```
 
 ## Additional resources
 

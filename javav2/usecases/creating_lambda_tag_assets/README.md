@@ -9,7 +9,7 @@
 | Required skills   | Java, Maven  |
 
 ## Purpose
-You can create an AWS Lambda function that automatically tags digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket. This example invokes different AWS services to perform this specific use case. For example, assume you run the Lambda function and you have the following image in an S3 bucket. 
+You can create an AWS Lambda function that automatically tags digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket. This example invokes different AWS services to perform this specific use case. For example, assume you run the Lambda function and you have the following image in an S3 bucket.
 
 ![AWS Tracking Application](images/grass.png)
 
@@ -21,8 +21,8 @@ Tagging an object has benefits such as providing a way to categorize storage. Fo
 
 **Note**: Lambda is a compute service that you can use to run code without provisioning or managing servers. You can create Lambda functions in various programming languages. For more information about Lambda, see
 [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
-  
-In addition to applying tags to images, this Lambda function also supports removing tags from images. For example, if you execute the Lambda function and set an input variable to **false**, the Lambda function removes all object tags from the given bucket.     
+
+In addition to applying tags to images, this Lambda function also supports removing tags from images. For example, if you execute the Lambda function and set an input variable to **false**, the Lambda function removes all object tags from the given bucket.
 
 **Note**: Be sure to delete all of the resources after you complete this tutorial so that you won't be charged.
 
@@ -47,13 +47,13 @@ To follow along with this tutorial, you need the following:
 + A Java IDE. (For this tutorial, the IntelliJ IDE is used.)
 + Java 17 JDK.
 + Maven 3.6 or higher.
-+ An S3 bucket with 5-7 nature images in it.  
++ An S3 bucket with 5-7 nature images in it.
 
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
-+ Running this code might result in charges to your AWS account. 
++  This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
++ Running this code might result in charges to your AWS account.
 + Be sure to delete all of the resources that you create during this tutorial so that you won't be charged.
 
 ### Creating the resources
@@ -66,7 +66,7 @@ Create the following IAM role:
 
 + **lambda-support** - Used to invoke Lamdba functions.
 
-This tutorial uses the Amazon Rekognition and Amazon S3 services. The **lambda-support** role has to have policies that allow it to invoke these services from a Lambda function.  
+This tutorial uses the Amazon Rekognition and Amazon S3 services. The **lambda-support** role has to have policies that allow it to invoke these services from a Lambda function.
 
 #### To create an IAM role
 
@@ -115,16 +115,16 @@ This tutorial uses the Amazon Rekognition and Amazon S3 services. The **lambda-s
 ## Add the POM dependencies to your project
 
 At this point, you have a new project named **WorkflowTagAssets**. Make sure that your project's pom.xml file looks like the POM file in this Github repository.
-    
+
 ## Create a Lambda function by using the Lambda runtime Java API
 
-Use the Lambda runtime Java API to create the Java class that defines the Lamdba function. In this example, there is one Java class for the Lambda function named **Handler** and additional classes required for this use case. The following figure shows the Java classes in the project. All Java classes are located in a package named **com.aws.tags**. 
+Use the Lambda runtime Java API to create the Java class that defines the Lamdba function. In this example, there is one Java class for the Lambda function named **Handler** and additional classes required for this use case. The following figure shows the Java classes in the project. All Java classes are located in a package named **com.aws.tags**.
 
 ![AWS Tracking Application](images/project.png)
 
 Create the following Java classes:
 
-+ **Handler** - Uses the Lambda Java runtime API and performs the use case described in this AWS tutorial. The application logic that's executed is located in the **handleRequest** method. 
++ **Handler** - Uses the Lambda Java runtime API and performs the use case described in this AWS tutorial. The application logic that's executed is located in the **handleRequest** method.
 + **S3Service** - Uses the Amazon S3 API to perform Amazon S3 operations.
 + **AnalyzePhotos** - Uses the Amazon Rekognition API to analyze the images.
 + **BucketItem** - Defines a model that stores S3 bucket information.
@@ -187,7 +187,7 @@ This Java code represents the **Handler** class. The class reads a flag that is 
      }
 ```
 
-**Note**: Make sure that you assign your bucket name to the **bucketName** variable. 
+**Note**: Make sure that you assign your bucket name to the **bucketName** variable.
 
 ### AnalyzePhotos class
 
@@ -306,9 +306,9 @@ The following Java code represents the **BucketItem** class that stores Amazon S
      }
     }
  ```
-    
+
  ### S3Service class
-The following class uses the Amazon S3 API to perform Amazon S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. Likewise, the **listBucketObjects** method returns a **List** object where each element is a string value that specifies the key name.  
+The following class uses the Amazon S3 API to perform Amazon S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. Likewise, the **listBucketObjects** method returns a **List** object where each element is a string value that specifies the key name.
 
 ```java
      package com.aws.tags;
@@ -536,11 +536,11 @@ Package up the project into a .jar (JAR) file by using the following Maven comma
 
     mvn package
 
-The .jar file is located in the **target** folder (which is a child folder of the project folder). 
+The .jar file is located in the **target** folder (which is a child folder of the project folder).
 
 ![AWS Tracking Application](images/pic6.png)
 
-**Note**: The **maven-shade-plugin** is used in the project’s POM file. This plugin is responsible for creating a .jar file that contains the required dependencies. If you attempt to package up the project without this plugin, the required dependences are not included in the .jar file and you will encounter a **ClassNotFoundException**. 
+**Note**: The **maven-shade-plugin** is used in the project’s POM file. This plugin is responsible for creating a .jar file that contains the required dependencies. If you attempt to package up the project without this plugin, the required dependences are not included in the .jar file and you will encounter a **ClassNotFoundException**.
 
 ## Deploy the Lambda function
 
@@ -560,13 +560,13 @@ The .jar file is located in the **target** folder (which is a child folder of th
 
 8. For **Code entry type**, choose **Upload a .zip or .jar file**.
 
-9. Choose **Upload**, and then browse to the .jar file that you created.  
+9. Choose **Upload**, and then browse to the .jar file that you created.
 
 10. For **Handler**, enter the fully qualified name of the function, for example, **com.aws.tags.Handler::handleRequest**. (**com.aws.tags** specifies the package, and **Handler** is the class followed by :: and the method name.)
 
 11. Choose **Save.**
 
-**Note**: Increase the timeout value for this Lambda function so that it doesn't timeout while it tags the digital assets. 
+**Note**: Increase the timeout value for this Lambda function so that it doesn't timeout while it tags the digital assets.
 
 ### Test the Lambda method
 
@@ -578,9 +578,9 @@ At this point in the tutorial, you can test the Lambda function. Choose the **Te
 
 ![AWS Tracking Application](images/pic7.png)
 
-**Note**: Passing **true** tags the digital assets, and passing **false** deletes the tags. 
+**Note**: Passing **true** tags the digital assets, and passing **false** deletes the tags.
 
-Choose the **Invoke** button. After the Lambda function is invoked, you see a successful message. 
+Choose the **Invoke** button. After the Lambda function is invoked, you see a successful message.
 
 ![AWS Tracking Application](images/pic8.png)
 

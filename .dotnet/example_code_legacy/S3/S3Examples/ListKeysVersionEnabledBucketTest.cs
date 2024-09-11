@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 // snippet-start:[s3.dotNET.ListObjectsVersioningEnabledBucketTest]
 using Amazon;
@@ -37,7 +37,7 @@ namespace Amazon.DocSamples.S3
                 };
                 do
                 {
-                    ListVersionsResponse response = await s3Client.ListVersionsAsync(request); 
+                    ListVersionsResponse response = await s3Client.ListVersionsAsync(request);
                     // Process response.
                     foreach (S3ObjectVersion entry in response.Versions)
                     {
@@ -45,7 +45,7 @@ namespace Amazon.DocSamples.S3
                             entry.Key, entry.Size);
                     }
 
-                    // If response is truncated, set the marker to get the next 
+                    // If response is truncated, set the marker to get the next
                     // set of keys.
                     if (response.IsTruncated)
                     {
