@@ -10,9 +10,10 @@
 /// `MockS3Session` instance to use mock data for testing.
 
 import Foundation
-import AWSClientRuntime
 import AWSS3
+// snippet-start:[waiters.swift.imports]
 import SmithyWaitersAPI
+// snippet-end:[waiters.swift.imports]
 
 /// A protocol defining the Amazon S3 functions we want to mock
 /// during testing.

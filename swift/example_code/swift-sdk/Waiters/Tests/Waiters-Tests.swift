@@ -4,7 +4,9 @@
 import XCTest
 import Foundation
 import AWSS3
-import ClientRuntime
+//import AWSClientRuntime
+import SmithyWaitersAPI
+import SmithyHTTPAPI
 
 @testable import Waiters
 
@@ -16,8 +18,12 @@ public enum MockS3Error: Error {
 public struct MockS3Session: S3SessionProtocol {
     var buckets: [String] = []
 
+    /// Simulate the ``S3Client`` function `createBucket()`.
+    ///
+    /// - Parameter input: The input record.
+    /// - Returns: The output record.
     public mutating func createBucket(input: CreateBucketInput) async throws
-                -> CreateBucketOutputResponse {
+                -> CreateBucketOutput {
         if input.bucket == nil {
             throw MockS3Error.invalidBucketName
         }
@@ -27,35 +33,33 @@ public struct MockS3Session: S3SessionProtocol {
 
         buckets.append(input.bucket!)
         
-        return CreateBucketOutputResponse(location: "/\(input.bucket)")
+        return CreateBucketOutput(location: "/\(input.bucket!)")
     }
 
-    /// Call through to the ``S3Client`` function `waitUntilBucketExists()`.
+    /// Simulate the ``S3Client`` function `waitUntilBucketExists()`.
     ///
     /// - Parameter input: The input record.
     /// - Returns: The output record.
     public func waitUntilBucketExists(options: WaiterOptions,
                 input: HeadBucketInput) async throws
-                -> WaiterOutcome<HeadBucketOutputResponse> {
-        let response = ClientRuntime.HttpResponse(
-            statusCode: .ok
-        )
-        let output = try await HeadBucketOutputResponse(
-            httpResponse: response
-        )
+                -> WaiterOutcome<HeadBucketOutput> {
+        let output = HeadBucketOutput()
 
-        return WaiterOutcome<HeadBucketOutputResponse>(
+        return WaiterOutcome<HeadBucketOutput>(
             attempts: 1,
             result: .success(output)
         )
     }
 
-    /// Call through to the ``S3Client`` function `deleteBucket()`.
+    /// Simulate the ``S3Client`` function `deleteBucket()`.
     ///
     /// - Parameter input: The input record.
     /// - Returns: The output record.
     public mutating func deleteBucket(input: DeleteBucketInput) async throws
-                -> DeleteBucketOutputResponse {
+                -> DeleteBucketOutput {
+        let output = DeleteBucketOutput()
+
+        return output
     }
 }
 
@@ -75,7 +79,6 @@ final class MainTests: XCTestCase {
     /// the test output to let the results be more visible.
     override class func setUp() {
         super.setUp()
-        SDKLoggingSystem.initialize(logLevel: .error)
     }
 
     /// Set up things that need to be done just before each individual
