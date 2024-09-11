@@ -5,7 +5,6 @@
 Stub functions that are used by the AWS Support unit tests.
 """
 
-import json
 from datetime import datetime, timedelta
 
 from test_tools.example_stubber import ExampleStubber

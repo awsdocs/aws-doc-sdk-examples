@@ -15,7 +15,6 @@ import tkinter
 from io import BytesIO
 
 from PIL import Image, ImageTk
-from textract_wrapper import TextractWrapper
 
 logger = logging.getLogger(__name__)
 

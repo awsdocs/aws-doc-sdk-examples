@@ -22,7 +22,6 @@ def test_hello(make_stubber, stub_runner, error_code, stop_on_method):
     project_name = "test-project"
     project_arn = "test-arn"
     created = datetime.datetime.now()
-    model_version = "test-model"
     dataset = {"DatasetType": "testing", "StatusMessage": "nicely tested"}
 
     with stub_runner(error_code, stop_on_method) as runner:

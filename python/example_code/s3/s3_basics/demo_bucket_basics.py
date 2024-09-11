@@ -11,7 +11,6 @@ https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-python.html
 """
 
 # snippet-start:[s3.python.bucket_operations.list_create_delete]
-import sys
 
 import boto3
 from botocore.exceptions import ClientError

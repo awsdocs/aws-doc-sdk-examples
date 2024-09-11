@@ -8,7 +8,6 @@ Shows how to use the AWS SDK for Python (Boto3) to create and manage Amazon Rela
 Database Service (Amazon RDS) DB instances.
 """
 
-import json
 import logging
 
 import boto3

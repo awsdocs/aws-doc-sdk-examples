@@ -10,7 +10,7 @@ import datetime
 import boto3
 import pytest
 from analytics_application import KinesisAnalyticsApplicationV2
-from botocore.exceptions import ClientError, WaiterError
+from botocore.exceptions import ClientError
 
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])

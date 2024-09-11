@@ -21,7 +21,7 @@ def function_handler(event, context):
     response = secrets_client.get_secret_value(
         SecretId=secret_name, VersionStage=secret_version
     )
-    secret = response.get("SecretString")
+    response.get("SecretString")
 
 
 # snippet-end:[greengrass.python.secret-resource-access-staging-label.complete]

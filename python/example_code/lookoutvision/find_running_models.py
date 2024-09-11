@@ -12,7 +12,6 @@ client.
 import logging
 
 import boto3
-from boto3.session import Session
 from botocore.exceptions import ClientError, EndpointConnectionError
 
 logger = logging.getLogger(__name__)

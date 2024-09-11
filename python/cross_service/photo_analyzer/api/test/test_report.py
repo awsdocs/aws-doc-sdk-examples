@@ -9,7 +9,7 @@ from unittest.mock import MagicMock
 
 import boto3
 import pytest
-from report import Report, render_template, reqparse
+from report import Report, reqparse
 
 
 @pytest.mark.parametrize(

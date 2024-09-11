@@ -11,7 +11,6 @@ from unittest.mock import MagicMock
 
 import app
 import pytest
-from chalice.app import RequestTimeoutError
 from chalice.test import Client
 from chalicelib.library_data import DataServiceNotReadyException
 

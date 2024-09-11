@@ -27,7 +27,6 @@
 # snippet-start:[deeplens.python.deeplens_view_output.lambda_function]
 
 import os
-import time
 from threading import Thread, Timer
 
 import awscam
@@ -60,7 +59,7 @@ class FIFO_Thread(Thread):
         while Write_To_FIFO:
             try:
                 f.write(jpeg.tobytes())
-            except OSError as e:
+            except OSError:
                 continue
 
 

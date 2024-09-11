@@ -10,7 +10,6 @@ from cleanup import clean_s3_object_locking
 from demo import demo_s3_object_locking
 from deploy import deploy_s3_object_locking
 from main import main
-from s3_operations import create_buckets, populate_buckets, update_retention_policy
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 

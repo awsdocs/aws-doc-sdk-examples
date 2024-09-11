@@ -17,7 +17,6 @@ maintained as functional code.
 
 # EC2 API (DescribeRegions)
 
-import base64
 import datetime
 import hashlib
 import hmac

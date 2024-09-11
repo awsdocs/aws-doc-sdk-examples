@@ -12,7 +12,6 @@ from date_utilities import DateUtilities
 class DateOutOfBoundsError(Exception):
     """Exception raised when the date range for a query is out of bounds."""
 
-    pass
 
 
 class CloudWatchQuery:

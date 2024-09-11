@@ -4,9 +4,7 @@
 import json
 from unittest.mock import MagicMock, mock_open, patch
 
-import pytest
 import query
-from botocore.exceptions import ClientError
 
 
 def test_query_table(scenario_data, monkeypatch, capsys, input_mocker):

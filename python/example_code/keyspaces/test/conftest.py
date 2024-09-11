@@ -11,7 +11,6 @@ import boto3
 import pytest
 import scenario_get_started_keyspaces
 from keyspace import KeyspaceWrapper
-from test_tools.fixtures.common import *
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")

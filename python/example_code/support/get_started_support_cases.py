@@ -24,9 +24,7 @@ import logging
 import sys
 from datetime import datetime, timedelta
 
-import boto3
 import demo_tools.question as q
-from botocore.exceptions import ClientError
 from demo_tools.retries import wait
 from support_wrapper import SupportWrapper
 

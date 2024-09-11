@@ -5,7 +5,6 @@
 Stub functions that are used by the Amazon Comprehend unit tests.
 """
 
-import datetime
 
 from test_tools.example_stubber import ExampleStubber
 

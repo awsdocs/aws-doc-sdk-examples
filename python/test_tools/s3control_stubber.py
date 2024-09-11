@@ -8,8 +8,6 @@ When tests are run against an actual AWS account, the stubber class does not
 set up stubs and passes all calls through to the Boto 3 client.
 """
 
-import io
-import json
 
 from botocore.stub import ANY
 from test_tools.example_stubber import ExampleStubber

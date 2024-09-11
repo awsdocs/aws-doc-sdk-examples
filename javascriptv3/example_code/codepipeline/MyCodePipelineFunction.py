@@ -4,7 +4,6 @@
 import json
 import tempfile
 import traceback
-import urllib
 import zipfile
 
 import boto3

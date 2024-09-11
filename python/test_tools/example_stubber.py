@@ -5,7 +5,6 @@
 A base class for stubbers that are used by the Python code example unit tests.
 """
 
-import contextlib
 
 from botocore.stub import Stubber
 

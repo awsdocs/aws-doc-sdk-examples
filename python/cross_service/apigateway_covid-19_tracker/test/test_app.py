@@ -7,7 +7,6 @@ import unittest.mock
 
 import app
 import chalice
-import chalicelib
 import pytest
 
 

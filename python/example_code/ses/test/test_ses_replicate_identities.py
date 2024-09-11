@@ -10,14 +10,12 @@ Unit tests for ses_replicate_identities.py.
 import json
 import random
 import string
-import time
 import uuid
 
 import boto3
 import pytest
 import ses_replicate_identities
 from botocore.exceptions import ClientError
-from botocore.stub import ANY
 
 
 def generate_random_string(char_set, length):

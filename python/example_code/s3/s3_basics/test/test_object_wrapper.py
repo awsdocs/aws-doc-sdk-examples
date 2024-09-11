@@ -5,7 +5,6 @@
 Unit tests for object_wrapper.py functions.
 """
 
-from unittest.mock import ANY
 
 import boto3
 import pytest

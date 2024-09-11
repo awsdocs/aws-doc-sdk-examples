@@ -12,7 +12,6 @@ import get_started_state_machines
 import pytest
 from activities import Activity
 from state_machines import StateMachine
-from test_tools.fixtures.common import *
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")

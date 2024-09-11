@@ -64,7 +64,7 @@ class Projects:
             logger.info("Deleting project: %s", project_name)
             response = lookoutvision_client.delete_project(ProjectName=project_name)
             logger.info("Deleted project ARN: %s ", response["ProjectArn"])
-        except ClientError as err:
+        except ClientError:
             logger.exception("Couldn't delete project %s.", project_name)
             raise
 

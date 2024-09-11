@@ -7,7 +7,6 @@ Tests for update_and_query.py.
 
 import json
 from decimal import Decimal
-from unittest.mock import patch
 
 import boto3
 import pytest

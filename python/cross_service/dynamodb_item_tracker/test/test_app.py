@@ -5,7 +5,6 @@
 Unit tests for the dynamodb_item_tracker example.
 """
 
-import json
 
 import boto3
 import pytest

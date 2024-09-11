@@ -5,12 +5,10 @@
 Unit tests for sns_fifo_topic.py
 """
 
-import json
 
 import boto3
 import pytest
 from botocore.exceptions import ClientError
-from botocore.stub import ANY
 from sns_fifo_topic import FifoTopicWrapper
 
 TOPIC_ARN = "arn:aws:sns:REGION:123456789012:topic/test-name"

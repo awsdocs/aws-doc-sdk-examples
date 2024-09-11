@@ -16,7 +16,6 @@ import threading
 
 import file_transfer
 import pytest
-from botocore.exceptions import ClientError
 
 _demo_sse_key = hashlib.sha256(b"demo_passphrase").digest()
 

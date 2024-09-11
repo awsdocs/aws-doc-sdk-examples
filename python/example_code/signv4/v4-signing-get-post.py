@@ -17,7 +17,6 @@ maintained as functional code.
 
 # DynamoDB API (CreateTable)
 
-import base64
 import datetime
 import hashlib
 import hmac

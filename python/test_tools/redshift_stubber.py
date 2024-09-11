@@ -5,8 +5,6 @@
 Stub functions that are used by the Amazon Redshift unit tests.
 """
 
-import json
-from datetime import datetime
 
 from test_tools.example_stubber import ExampleStubber
 

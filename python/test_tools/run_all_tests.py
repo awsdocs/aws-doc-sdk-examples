@@ -15,7 +15,6 @@ import os
 import platform
 import sys
 
-import pytest
 
 IGNORE_FOLDERS = {
     "venv",
