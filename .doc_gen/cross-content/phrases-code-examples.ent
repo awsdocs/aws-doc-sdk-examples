@@ -89,11 +89,11 @@
 <!ENTITY BRRUNlong '&BRlong; Runtime'>
 <!ENTITY BRRUN '&BR; Runtime'>
 
-<!--Bedrock-->
-<!ENTITY BRAlong 'Agents for Amazon Bedrock'>
-<!ENTITY BRA 'Agents for Amazon Bedrock'>
+<!--Bedrock Agents-->
+<!ENTITY BRAlong 'Amazon Bedrock Agents'>
+<!ENTITY BRA 'Amazon Bedrock Agents'>
 
-<!--Bedrock Runtime-->
+<!--Bedrock Agents Runtime-->
 <!ENTITY BRARUNlong '&BRAlong; Runtime'>
 <!ENTITY BRARUN '&BRA; Runtime'>
 
