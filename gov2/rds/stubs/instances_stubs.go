@@ -181,7 +181,7 @@ func StubGetInstance(instanceIdentifier string, status string, raiseErr *testtoo
 					EngineVersion:        aws.String("test-engine-version"),
 					Endpoint: &types.Endpoint{
 						Address: aws.String("test-address"),
-						Port:    13,
+						Port:    aws.Int32(13),
 					},
 					MasterUsername: aws.String("test-user"),
 				},
@@ -197,7 +197,7 @@ func StubDeleteInstance(instanceIdentifier string, raiseErr *testtools.StubError
 		Input: &rds.DeleteDBInstanceInput{
 			DBInstanceIdentifier:   aws.String(instanceIdentifier),
 			DeleteAutomatedBackups: aws.Bool(true),
-			SkipFinalSnapshot:      true,
+			SkipFinalSnapshot:      aws.Bool(true),
 		},
 		Output: &rds.DeleteDBInstanceOutput{},
 		Error:  raiseErr,

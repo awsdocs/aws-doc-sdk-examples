@@ -232,7 +232,7 @@ func (instances *DbInstances) GetInstance(instanceName string) (
 func (instances *DbInstances) DeleteInstance(instanceName string) error {
 	_, err := instances.RdsClient.DeleteDBInstance(context.TODO(), &rds.DeleteDBInstanceInput{
 		DBInstanceIdentifier:   aws.String(instanceName),
-		SkipFinalSnapshot:      true,
+		SkipFinalSnapshot:      aws.Bool(true),
 		DeleteAutomatedBackups: aws.Bool(true),
 	})
 	if err != nil {

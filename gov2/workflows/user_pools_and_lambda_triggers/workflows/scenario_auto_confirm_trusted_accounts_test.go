@@ -54,8 +54,8 @@ func (scenTest *AutoConfirmScenarioTest) SetupDataAndStubs() []testtools.Stub {
 		popTableWriteReqs[i] = dynamotypes.WriteRequest{PutRequest: &dynamotypes.PutRequest{Item: user}}
 	}
 	preSignUpConfig := cogidptypes.LambdaConfigType{PreSignUp: aws.String(stackOutputs["AutoConfirmFunctionArn"])}
-	userName := "test_user_2"
-	userEmail := "test_email_2@example.com"
+	userName := "test_user_1"
+	userEmail := "test_email_1@example.com"
 	password := "test-password"
 	logStreamName := "test-log-stream-name"
 	logMsgs := []string{"test-message-1", "test-message-2", "test-message-3"}

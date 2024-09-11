@@ -107,3 +107,5 @@ func (scenTest *PartiQLBatchScenarioTest) SetupDataAndStubs() []testtools.Stub {
 func (scenTest *PartiQLBatchScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
 	RunPartiQLBatchScenario(*stubber.SdkConfig, scenTest.TableName)
 }
+
+func (scenTest *PartiQLBatchScenarioTest) Cleanup() {}

@@ -74,3 +74,5 @@ func (scenTest *PartiQLSingleScenarioTest) SetupDataAndStubs() []testtools.Stub 
 func (scenTest *PartiQLSingleScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
 	RunPartiQLSingleScenario(*stubber.SdkConfig, scenTest.TableName)
 }
+
+func (scenTest *PartiQLSingleScenarioTest) Cleanup() {}

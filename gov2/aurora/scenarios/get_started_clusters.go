@@ -7,6 +7,7 @@ import (
 	"aurora/actions"
 	"fmt"
 	"log"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -157,7 +158,7 @@ func (scenario GetStartedClusters) SetUserParameters(parameterGroupName string) 
 	var updateParams []types.Parameter
 	for _, dbParam := range dbParameters {
 		if strings.HasPrefix(*dbParam.ParameterName, "auto_increment") &&
-			dbParam.IsModifiable && *dbParam.DataType == "integer" {
+			*dbParam.IsModifiable && *dbParam.DataType == "integer" {
 			log.Printf("The %v parameter is described as:\n\t%v",
 				*dbParam.ParameterName, *dbParam.Description)
 			rangeSplit := strings.Split(*dbParam.AllowedValues, "-")
@@ -265,6 +266,8 @@ func (scenario GetStartedClusters) CreateInstance(cluster *types.DBCluster) *typ
 		for _, opt := range instOpts {
 			instChoices = append(instChoices, *opt.DBInstanceClass)
 		}
+		slices.Sort(instChoices)
+		instChoices = slices.Compact(instChoices)
 		instIndex := scenario.questioner.AskChoice(
 			"Which DB instance class do you want to use?\n", instChoices)
 		log.Println("Creating a database instance. This typically takes several minutes.")

@@ -4,12 +4,11 @@
 package scenarios
 
 import (
+	"crypto/rand"
 	"fmt"
 	"log"
-	"math/rand"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
@@ -99,8 +98,7 @@ func RunGetStartedScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 	log.Printf("Let's create a slice of %v MiB of random bytes and upload it to your bucket. ", mibs)
 	questioner.Ask("Press Enter when you're ready.")
 	largeBytes := make([]byte, 1024*1024*mibs)
-	rand.Seed(time.Now().Unix())
-	rand.Read(largeBytes)
+	_, _ = rand.Read(largeBytes)
 	largeKey := "doc-example-large"
 	log.Println("Uploading...")
 	err = bucketBasics.UploadLargeObject(bucketName, largeKey, largeBytes)

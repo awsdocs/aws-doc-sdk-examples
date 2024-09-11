@@ -104,7 +104,7 @@ func StubCompleteMultipartUpload(bucketName string, objectKey string, uploadId s
 	partNumbers []int32, raiseErr *testtools.StubError) testtools.Stub {
 	var completedParts []types.CompletedPart
 	for _, partNumber := range partNumbers {
-		completedParts = append(completedParts, types.CompletedPart{PartNumber: partNumber})
+		completedParts = append(completedParts, types.CompletedPart{PartNumber: aws.Int32(partNumber)})
 	}
 	return testtools.Stub{
 		OperationName: "CompleteMultipartUpload",

@@ -19,7 +19,6 @@ import (
 // DemoBucket contains metadata for buckets used in this example.
 type DemoBucket struct {
 	name             string
-	legalHold        bool
 	retentionEnabled bool
 	objectKeys       []string
 }

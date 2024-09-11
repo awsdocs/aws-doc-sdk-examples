@@ -155,7 +155,7 @@ func StubDeleteDbCluster(clusterIdentifier string, raiseErr *testtools.StubError
 		OperationName: "DeleteDBCluster",
 		Input: &rds.DeleteDBClusterInput{
 			DBClusterIdentifier: aws.String(clusterIdentifier),
-			SkipFinalSnapshot:   true,
+			SkipFinalSnapshot:   aws.Bool(true),
 		},
 		Output: &rds.DeleteDBClusterOutput{},
 		Error:  raiseErr,
@@ -252,7 +252,7 @@ func StubDeleteInstance(instanceIdentifier string, raiseErr *testtools.StubError
 		Input: &rds.DeleteDBInstanceInput{
 			DBInstanceIdentifier:   aws.String(instanceIdentifier),
 			DeleteAutomatedBackups: aws.Bool(true),
-			SkipFinalSnapshot:      true,
+			SkipFinalSnapshot:      aws.Bool(true),
 		},
 		Output: &rds.DeleteDBInstanceOutput{},
 		Error:  raiseErr,

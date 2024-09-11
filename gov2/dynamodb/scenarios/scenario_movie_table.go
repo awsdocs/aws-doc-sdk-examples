@@ -19,13 +19,13 @@ import (
 // RunMovieScenario is an interactive example that shows you how to use the AWS SDK for Go
 // to create and use an Amazon DynamoDB table that stores data about movies.
 //
-//   1. Create a table that can hold movie data.
-//   2. Put, get, and update a single movie in the table.
-//   3. Write movie data to the table from a sample JSON file.
-//   4. Query for movies that were released in a given year.
-//   5. Scan for movies that were released in a range of years.
-//   6. Delete a movie from the table.
-//   7. Delete the table.
+//  1. Create a table that can hold movie data.
+//  2. Put, get, and update a single movie in the table.
+//  3. Write movie data to the table from a sample JSON file.
+//  4. Query for movies that were released in a given year.
+//  5. Scan for movies that were released in a range of years.
+//  6. Delete a movie from the table.
+//  7. Delete the table.
 //
 // This example creates a DynamoDB service client from the specified sdkConfig so that
 // you can replace it with a mocked or stubbed config for unit testing.
@@ -69,16 +69,15 @@ func RunMovieScenario(
 
 	var customMovie actions.Movie
 	customMovie.Title = questioner.Ask("Enter a movie title to add to the table:",
-		[]demotools.IAnswerValidator{demotools.NotEmpty{}})
+		demotools.NotEmpty{})
 	customMovie.Year = questioner.AskInt("What year was it released?",
-		[]demotools.IAnswerValidator{demotools.NotEmpty{}, demotools.InIntRange{
-			Lower: 1900, Upper: 2030}})
+		demotools.NotEmpty{}, demotools.InIntRange{Lower: 1900, Upper: 2030})
 	customMovie.Info = map[string]interface{}{}
 	customMovie.Info["rating"] = questioner.AskFloat64(
-		"Enter a rating between 1 and 10:", []demotools.IAnswerValidator{
-			demotools.NotEmpty{}, demotools.InFloatRange{Lower: 1, Upper: 10}})
+		"Enter a rating between 1 and 10:",
+		demotools.NotEmpty{}, demotools.InFloatRange{Lower: 1, Upper: 10})
 	customMovie.Info["plot"] = questioner.Ask("What's the plot? ",
-		[]demotools.IAnswerValidator{demotools.NotEmpty{}})
+		demotools.NotEmpty{})
 	err = tableBasics.AddMovie(customMovie)
 	if err == nil {
 		log.Printf("Added %v to the movie table.\n", customMovie.Title)
@@ -87,11 +86,11 @@ func RunMovieScenario(
 
 	log.Printf("Let's update your movie. You previously rated it %v.\n", customMovie.Info["rating"])
 	customMovie.Info["rating"] = questioner.AskFloat64(
-		"What new rating would you give it?", []demotools.IAnswerValidator{
-			demotools.NotEmpty{}, demotools.InFloatRange{Lower: 1, Upper: 10}})
+		"What new rating would you give it?",
+		demotools.NotEmpty{}, demotools.InFloatRange{Lower: 1, Upper: 10})
 	log.Printf("You summarized the plot as '%v'.\n", customMovie.Info["plot"])
 	customMovie.Info["plot"] = questioner.Ask("What would you say now?",
-		[]demotools.IAnswerValidator{demotools.NotEmpty{}})
+		demotools.NotEmpty{})
 	attributes, err := tableBasics.UpdateMovie(customMovie)
 	if err == nil {
 		log.Printf("Updated %v with new values.\n", customMovie.Title)
@@ -122,8 +121,8 @@ func RunMovieScenario(
 		log.Printf("\t%v. %v\n", index+1, movie.Title)
 	}
 	movieIndex := questioner.AskInt(
-		"Enter the number of a movie to get info about it: ", []demotools.IAnswerValidator{
-			demotools.InIntRange{Lower: 1, Upper: show}},
+		"Enter the number of a movie to get info about it: ",
+		demotools.InIntRange{Lower: 1, Upper: show},
 	)
 	movie, err := tableBasics.GetMovie(movies[movieIndex-1].Title, movies[movieIndex-1].Year)
 	if err == nil {
@@ -133,7 +132,7 @@ func RunMovieScenario(
 
 	log.Println("Let's get a list of movies released in a given year.")
 	releaseYear := questioner.AskInt("Enter a year between 1972 and 2018: ",
-		[]demotools.IAnswerValidator{demotools.InIntRange{Lower: 1972, Upper: 2018}},
+		demotools.InIntRange{Lower: 1972, Upper: 2018},
 	)
 	releases, err := tableBasics.Query(releaseYear)
 	if err == nil {
@@ -148,10 +147,10 @@ func RunMovieScenario(
 	log.Println(strings.Repeat("-", 88))
 
 	log.Println("Now let's scan for movies released in a range of years.")
-	startYear := questioner.AskInt("Enter a year: ", []demotools.IAnswerValidator{
-		demotools.InIntRange{Lower: 1972, Upper: 2018}})
-	endYear := questioner.AskInt("Enter another year: ", []demotools.IAnswerValidator{
-		demotools.InIntRange{Lower: 1972, Upper: 2018}})
+	startYear := questioner.AskInt("Enter a year: ",
+		demotools.InIntRange{Lower: 1972, Upper: 2018})
+	endYear := questioner.AskInt("Enter another year: ",
+		demotools.InIntRange{Lower: 1972, Upper: 2018})
 	releases, err = tableBasics.Scan(startYear, endYear)
 	if err == nil {
 		if len(releases) == 0 {
