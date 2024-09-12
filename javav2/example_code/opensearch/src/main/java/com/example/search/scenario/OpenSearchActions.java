@@ -308,7 +308,6 @@ public class OpenSearchActions {
                 }
             });
     }
-
     // snippet-end:[opensearch.java2.add_tags.main]
 
     // snippet-start:[opensearch.java2.list_tags.main]
