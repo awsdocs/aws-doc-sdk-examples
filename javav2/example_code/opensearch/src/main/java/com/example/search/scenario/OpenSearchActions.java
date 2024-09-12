@@ -192,7 +192,6 @@ public class OpenSearchActions {
     // snippet-start:[opensearch.java2.update_domain.main]
     /**
      * Updates the configuration of a specific domain asynchronously.
-     *
      * @param domainName the name of the domain to update
      * @return a {@link CompletableFuture} that represents the asynchronous operation of updating the domain configuration
      */
@@ -219,7 +218,7 @@ public class OpenSearchActions {
     // snippet-start:[opensearch.java2.change_process.main]
     /**
      * Asynchronously checks the progress of a domain change operation in Amazon OpenSearch Service.
-      * @param domainName the name of the OpenSearch domain to check the progress for
+     * @param domainName the name of the OpenSearch domain to check the progress for
      * @return a {@link CompletableFuture} that completes when the domain change operation is completed
      */
     public CompletableFuture<Void> domainChangeProgressAsync(String domainName) {
