@@ -101,7 +101,6 @@ public class OpenSearchActions {
             .ebsOptions(ebsOptions)
             .nodeToNodeEncryptionOptions(encryptionOptions)
             .build();
-
         logger.info("Sending domain creation request...");
         return getAsyncClient().createDomain(domainRequest)
                 .handle( (createResponse, throwable) -> {
@@ -118,7 +117,6 @@ public class OpenSearchActions {
     // snippet-start:[opensearch.java2.delete_domain.main]
     /**
      * Deletes a specific domain asynchronously.
-     *
      * @param domainName the name of the domain to be deleted
      * @return a {@link CompletableFuture} that completes when the domain has been deleted
      * or throws a {@link RuntimeException} if the deletion fails
@@ -156,7 +154,6 @@ public class OpenSearchActions {
                 if (exception != null) {
                     throw new RuntimeException("Failed to describe domain", exception);
                 }
-
                 DomainStatus domainStatus = response.domainStatus();
                 String endpoint = domainStatus.endpoint();
                 String arn = domainStatus.arn();
