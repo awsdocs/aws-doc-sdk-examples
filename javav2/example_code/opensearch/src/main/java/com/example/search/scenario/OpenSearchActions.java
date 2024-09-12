@@ -219,8 +219,7 @@ public class OpenSearchActions {
     // snippet-start:[opensearch.java2.change_process.main]
     /**
      * Asynchronously checks the progress of a domain change operation in Amazon OpenSearch Service.
-     *
-     * @param domainName the name of the OpenSearch domain to check the progress for
+      * @param domainName the name of the OpenSearch domain to check the progress for
      * @return a {@link CompletableFuture} that completes when the domain change operation is completed
      */
     public CompletableFuture<Void> domainChangeProgressAsync(String domainName) {
