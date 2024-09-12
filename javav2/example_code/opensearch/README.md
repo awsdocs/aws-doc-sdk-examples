@@ -101,7 +101,7 @@ in the `javav2` folder.
 
 - [OpenSearch User Guide](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/gsg.html)
 - [OpenSearch API Reference](https://docs.aws.amazon.com/opensearch-service/latest/APIReference/Welcome.html)
-- [SDK for Java 2.x OpenSearch reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/opensearch/package-summary.html)
+- [SDK for Java 2.x OpenSearch reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudtrail/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
