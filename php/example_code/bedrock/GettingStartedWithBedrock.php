@@ -1,7 +1,6 @@
 <?php
-
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /**
  * Purpose
@@ -9,7 +8,7 @@
  * List information about the available foundation models.
  **/
 
-# snippet-start:[php.example_code.bedrock.basics.scenario]
+// snippet-start:[php.example_code.bedrock.basics.scenario]
 namespace Bedrock;
 
 class GettingStartedWithBedrock
@@ -38,4 +37,4 @@ class GettingStartedWithBedrock
         }
     }
 }
-# snippet-end:[php.example_code.bedrock.basics.scenario]
+// snippet-end:[php.example_code.bedrock.basics.scenario]

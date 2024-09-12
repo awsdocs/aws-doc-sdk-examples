@@ -1,7 +1,6 @@
 <?php
-
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 /**
  * Purpose
@@ -9,7 +8,7 @@
  * - ...
  **/
 
-# snippet-start:[php.example_code.bedrock-runtime.basics.scenario]
+// snippet-start:[php.example_code.bedrock-runtime.basics.scenario]
 namespace BedrockRuntime;
 
 class GettingStartedWithBedrockRuntime
@@ -66,5 +65,4 @@ class GettingStartedWithBedrockRuntime
         return $file_path;
     }
 }
-
-# snippet-end:[php.example_code.bedrock-runtime.basics.scenario]
+// snippet-end:[php.example_code.bedrock-runtime.basics.scenario]
