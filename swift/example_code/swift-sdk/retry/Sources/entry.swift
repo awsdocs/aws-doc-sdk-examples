@@ -6,8 +6,9 @@
 // AWS service.
 
 import Foundation
-import ClientRuntime
 import AWSS3
+import SmithyRetries
+import SmithyRetriesAPI
 
 @main
 struct RetryExample {
@@ -16,12 +17,14 @@ struct RetryExample {
         let config: S3Client.S3ClientConfiguration
 
         // Create an Amazon S3 client configuration object that specifies the
-        // adaptive retry mode and the base maximum number of retries as 5.
+        // standard exponential backoff strategy, adaptive retry mode and the
+        // base maximum number of retries as 5.
 
         do {
             // snippet-start:[retry.swift.configure]
             config = try await S3Client.S3ClientConfiguration(
                 retryStrategyOptions: RetryStrategyOptions(
+                    backoffStrategy: SmithyRetries.ExponentialBackoffStrategy(),
                     maxRetriesBase: 5,
                     rateLimitingMode: .adaptive
                 )
