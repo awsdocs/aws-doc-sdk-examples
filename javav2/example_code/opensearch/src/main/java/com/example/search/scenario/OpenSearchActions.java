@@ -156,7 +156,6 @@ public class OpenSearchActions {
                 if (exception != null) {
                     throw new RuntimeException("Failed to describe domain", exception);
                 }
-
                 DomainStatus domainStatus = response.domainStatus();
                 String endpoint = domainStatus.endpoint();
                 String arn = domainStatus.arn();
@@ -173,7 +172,6 @@ public class OpenSearchActions {
     // snippet-start:[opensearch.java2.list_domains.main]
     /**
      * Asynchronously lists all the domains in the current AWS account.
-     *
      * @return a {@link CompletableFuture} that, when completed, contains a list of {@link DomainInfo} objects representing
      *         the domains in the account.
      * @throws RuntimeException if there was a failure while listing the domains.
