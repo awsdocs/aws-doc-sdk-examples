@@ -42,7 +42,7 @@ Code excerpts that show you how to call individual service functions.
 
 - [AddTags](src/main/java/com/example/search/scenario/OpenSearchActions.java#L271)
 - [ChangeProgress](src/main/java/com/example/search/scenario/OpenSearchActions.java#L220)
-- [CreateDomain](src/main/java/com/example/search/scenario/OpenSearchActions.java#L71)
+- [CreateDomain](src/main/java/com/example/search/HelloOpenSearch.java#L6)
 - [DeleteDomain](src/main/java/com/example/search/scenario/OpenSearchActions.java#L117)
 - [DescribeDomain](src/main/java/com/example/search/scenario/OpenSearchActions.java#L193)
 - [ListDomainNames](src/main/java/com/example/search/scenario/OpenSearchActions.java#L170)
