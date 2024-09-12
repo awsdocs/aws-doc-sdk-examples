@@ -11,7 +11,6 @@ import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.batch.BatchAsyncClient;
-import software.amazon.awssdk.services.batch.BatchClient;
 import software.amazon.awssdk.services.batch.model.AssignPublicIp;
 import software.amazon.awssdk.services.batch.model.BatchException;
 import software.amazon.awssdk.services.batch.model.CEState;
@@ -20,6 +19,9 @@ import software.amazon.awssdk.services.batch.model.CRType;
 import software.amazon.awssdk.services.batch.model.ComputeEnvironmentOrder;
 import software.amazon.awssdk.services.batch.model.ComputeResource;
 import software.amazon.awssdk.services.batch.model.ContainerProperties;
+import software.amazon.awssdk.services.batch.model.EcsProperties;
+import software.amazon.awssdk.services.batch.model.EcsTaskProperties;
+import software.amazon.awssdk.services.batch.model.TaskContainerProperties;
 import software.amazon.awssdk.services.batch.model.CreateComputeEnvironmentRequest;
 import software.amazon.awssdk.services.batch.model.CreateComputeEnvironmentResponse;
 import software.amazon.awssdk.services.batch.model.CreateJobQueueRequest;
@@ -67,6 +69,7 @@ import software.amazon.awssdk.services.batch.model.UpdateJobQueueResponse;
 import software.amazon.awssdk.services.batch.paginators.ListJobsPublisher;
 import software.amazon.awssdk.services.sts.StsAsyncClient;
 import software.amazon.awssdk.services.sts.model.GetCallerIdentityResponse;
+
 
 public class BatchActions {
     private static BatchAsyncClient batchClient;
@@ -273,37 +276,47 @@ public class BatchActions {
      *         an error if the registration fails
      */
     public CompletableFuture<String> registerJobDefinitionAsync(String jobDefinitionName, String executionRoleARN, String image, String cpuArch) {
-        NetworkConfiguration networkConfiguration = NetworkConfiguration.builder()
-                .assignPublicIp(AssignPublicIp.ENABLED)
-                .build();
-
-        ContainerProperties containerProperties = ContainerProperties.builder()
-                .image(image)
-                .executionRoleArn(executionRoleARN)
-                .resourceRequirements(
-                        Arrays.asList(
-                                ResourceRequirement.builder()
-                                        .type(ResourceType.VCPU)
-                                        .value("1")
-                                        .build(),
-                                ResourceRequirement.builder()
-                                        .type(ResourceType.MEMORY)
-                                        .value("2048")
-                                        .build()
-                        )
+        TaskContainerProperties taskContainerProperties = TaskContainerProperties.builder()
+            .image(image)
+            .name("helloWorldContainer")
+            .command(java.util.Arrays.asList("echo", "'hello world!'"))
+            .resourceRequirements(
+                Arrays.asList(
+                    ResourceRequirement.builder()
+                        .type(ResourceType.VCPU)
+                        .value("1")
+                        .build(),
+                    ResourceRequirement.builder()
+                        .type(ResourceType.MEMORY)
+                        .value("2048")
+                        .build()
                 )
-                .networkConfiguration(networkConfiguration)
-               .runtimePlatform(b -> b
-                        .cpuArchitecture(cpuArch)
-                        .operatingSystemFamily("LINUX"))
-                .build();
+            ).build();
+
+        NetworkConfiguration networkConfiguration = NetworkConfiguration.builder()
+            .assignPublicIp(AssignPublicIp.ENABLED)
+            .build();
+
+        EcsTaskProperties ecsTaskProperties = EcsTaskProperties.builder()
+            .executionRoleArn(executionRoleARN)
+            .containers(Arrays.asList(taskContainerProperties))
+            .networkConfiguration(networkConfiguration)
+            .runtimePlatform(b -> b
+                .cpuArchitecture(cpuArch)
+                .operatingSystemFamily("LINUX"))
+            .build();
+
+        EcsProperties ecsProperties = EcsProperties.builder()
+            .taskProperties(
+                Arrays.asList(ecsTaskProperties)
+            ).build();
 
         RegisterJobDefinitionRequest request = RegisterJobDefinitionRequest.builder()
-                .jobDefinitionName(jobDefinitionName)
-                .type(JobDefinitionType.CONTAINER)
-                .containerProperties(containerProperties)
-                .platformCapabilities(PlatformCapability.FARGATE)
-                .build();
+            .jobDefinitionName(jobDefinitionName)
+            .type(JobDefinitionType.CONTAINER)
+            .ecsProperties(ecsProperties)
+            .platformCapabilities(PlatformCapability.FARGATE)
+            .build();
 
         CompletableFuture<String> future = new CompletableFuture<>();
         getAsyncClient().registerJobDefinition(request)
