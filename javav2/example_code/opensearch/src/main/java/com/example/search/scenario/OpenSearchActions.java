@@ -170,29 +170,6 @@ public class OpenSearchActions {
     }
     // snippet-end:[opensearch.java2.describe_domain.main]
 
-    // snippet-start:[opensearch.java2.list_domains.main]
-    /**
-     * Asynchronously lists all the domains in the current AWS account.
-     *
-     * @return a {@link CompletableFuture} that, when completed, contains a list of {@link DomainInfo} objects representing
-     *         the domains in the account.
-     * @throws RuntimeException if there was a failure while listing the domains.
-     */
-    public CompletableFuture<List<DomainInfo>> listAllDomainsAsync() {
-        ListDomainNamesRequest namesRequest = ListDomainNamesRequest.builder()
-            .engineType("OpenSearch")
-            .build();
-
-        return getAsyncClient().listDomainNames(namesRequest)
-            .handle((response, exception) -> {
-                if (exception != null) {
-                    throw new RuntimeException("Failed to list all domains", exception);
-                }
-                return response.domainNames();  // Return the list of domain names on success
-            });
-    }
-    // snippet-end:[opensearch.java2.list_domains.main]
-
     // snippet-start:[opensearch.java2.update_domain.main]
     /**
      * Updates the configuration of a specific domain asynchronously.
@@ -338,6 +315,29 @@ public class OpenSearchActions {
             });
     }
     // snippet-end:[opensearch.java2.list_tags.main]
+
+    // snippet-start:[opensearch.java2.list_domains.main]
+    /**
+     * Asynchronously lists all the domains in the current AWS account.
+     *
+     * @return a {@link CompletableFuture} that, when completed, contains a list of {@link DomainInfo} objects representing
+     *         the domains in the account.
+     * @throws RuntimeException if there was a failure while listing the domains.
+     */
+    public CompletableFuture<List<DomainInfo>> listAllDomainsAsync() {
+        ListDomainNamesRequest namesRequest = ListDomainNamesRequest.builder()
+            .engineType("OpenSearch")
+            .build();
+
+        return getAsyncClient().listDomainNames(namesRequest)
+            .handle((response, exception) -> {
+                if (exception != null) {
+                    throw new RuntimeException("Failed to list all domains", exception);
+                }
+                return response.domainNames();  // Return the list of domain names on success
+            });
+    }
+    // snippet-end:[opensearch.java2.list_domains.main]
 }
 // snippet-end:[opensearch.java2.actions.main]
 
