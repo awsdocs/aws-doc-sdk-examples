@@ -40,14 +40,14 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AddTags](src/main/java/com/example/search/scenario/OpenSearchActions.java#L271)
-- [ChangeProgress](src/main/java/com/example/search/scenario/OpenSearchActions.java#L220)
-- [CreateDomain](src/main/java/com/example/search/HelloOpenSearch.java#L6)
+- [AddTags](src/main/java/com/example/search/scenario/OpenSearchActions.java#L270)
+- [ChangeProgress](src/main/java/com/example/search/scenario/OpenSearchActions.java#L219)
+- [CreateDomain](src/main/java/com/example/search/scenario/OpenSearchActions.java#L71)
 - [DeleteDomain](src/main/java/com/example/search/scenario/OpenSearchActions.java#L117)
-- [DescribeDomain](src/main/java/com/example/search/scenario/OpenSearchActions.java#L193)
+- [DescribeDomain](src/main/java/com/example/search/scenario/OpenSearchActions.java#L192)
 - [ListDomainNames](src/main/java/com/example/search/scenario/OpenSearchActions.java#L170)
-- [ListTags](src/main/java/com/example/search/scenario/OpenSearchActions.java#L271)
-- [UpdateDomainConfig](src/main/java/com/example/search/scenario/OpenSearchActions.java#L193)
+- [ListTags](src/main/java/com/example/search/scenario/OpenSearchActions.java#L270)
+- [UpdateDomainConfig](src/main/java/com/example/search/scenario/OpenSearchActions.java#L192)
 
 
 <!--custom.examples.start-->
