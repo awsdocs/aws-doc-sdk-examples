@@ -308,7 +308,6 @@ public class OpenSearchActions {
     // snippet-start:[opensearch.java2.list_tags.main]
     /**
      * Asynchronously lists the tags associated with the specified Amazon Resource Name (ARN).
-     *
      * @param arn the Amazon Resource Name (ARN) of the resource for which to list the tags
      * @return a {@link CompletableFuture} that, when completed, will contain a list of the tags associated with the
      * specified ARN
