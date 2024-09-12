@@ -40,13 +40,13 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AddTags](src/main/java/com/example/search/scenario/OpenSearchActions.java#L274)
-- [ChangeProgress](src/main/java/com/example/search/scenario/OpenSearchActions.java#L223)
+- [AddTags](src/main/java/com/example/search/scenario/OpenSearchActions.java#L272)
+- [ChangeProgress](src/main/java/com/example/search/scenario/OpenSearchActions.java#L221)
 - [CreateDomain](src/main/java/com/example/search/scenario/OpenSearchActions.java#L71)
 - [DeleteDomain](src/main/java/com/example/search/scenario/OpenSearchActions.java#L118)
 - [DescribeDomain](src/main/java/com/example/search/UpdateDomain.java#L6)
-- [ListDomainNames](src/main/java/com/example/search/scenario/OpenSearchActions.java#L173)
-- [ListTags](src/main/java/com/example/search/scenario/OpenSearchActions.java#L274)
+- [ListDomainNames](src/main/java/com/example/search/scenario/OpenSearchActions.java#L172)
+- [ListTags](src/main/java/com/example/search/scenario/OpenSearchActions.java#L272)
 - [UpdateDomainConfig](src/main/java/com/example/search/UpdateDomain.java#L6)
 
 
