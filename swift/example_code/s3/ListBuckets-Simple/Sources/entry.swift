@@ -8,8 +8,8 @@
 
 // snippet-start:[s3.swift.intro.imports]
 import Foundation
-import ClientRuntime
 import AWSS3
+import AWSClientRuntime
 // snippet-end:[s3.swift.intro.imports]
 
 // snippet-start:[s3.swift.intro.getbucketnames]
@@ -54,7 +54,7 @@ struct Main {
             for name in names {
                 print("  \(name)")
             }
-        } catch let error as ServiceError {
+        } catch let error as AWSServiceError {
             print("An Amazon S3 service error occurred: \(error.message ?? "No details available")")
         } catch {
             print("An unknown error occurred: \(dump(error))")
