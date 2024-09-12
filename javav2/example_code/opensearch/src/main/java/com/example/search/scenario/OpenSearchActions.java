@@ -38,7 +38,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class OpenSearchActions {
-
     private static final Logger logger = LoggerFactory.getLogger(OpenSearchActions.class);
     private static OpenSearchAsyncClient openSearchClientAsyncClient;
 
@@ -192,7 +191,6 @@ public class OpenSearchActions {
     // snippet-start:[opensearch.java2.update_domain.main]
     /**
      * Updates the configuration of a specific domain asynchronously.
-     *
      * @param domainName the name of the domain to update
      * @return a {@link CompletableFuture} that represents the asynchronous operation of updating the domain configuration
      */
@@ -219,7 +217,6 @@ public class OpenSearchActions {
     // snippet-start:[opensearch.java2.change_process.main]
     /**
      * Asynchronously checks the progress of a domain change operation in Amazon OpenSearch Service.
-     *
      * @param domainName the name of the OpenSearch domain to check the progress for
      * @return a {@link CompletableFuture} that completes when the domain change operation is completed
      */
@@ -270,7 +267,6 @@ public class OpenSearchActions {
     // snippet-start:[opensearch.java2.add_tags.main]
     /**
      * Asynchronously adds tags to an Amazon OpenSearch Service domain.
-     *
      * @param domainARN the Amazon Resource Name (ARN) of the Amazon OpenSearch Service domain to add tags to
      * @return a {@link CompletableFuture} that completes when the tags have been successfully added to the domain,
      * or throws a {@link RuntimeException} if the operation fails
@@ -310,7 +306,6 @@ public class OpenSearchActions {
     // snippet-start:[opensearch.java2.list_tags.main]
     /**
      * Asynchronously lists the tags associated with the specified Amazon Resource Name (ARN).
-     *
      * @param arn the Amazon Resource Name (ARN) of the resource for which to list the tags
      * @return a {@link CompletableFuture} that, when completed, will contain a list of the tags associated with the
      * specified ARN
