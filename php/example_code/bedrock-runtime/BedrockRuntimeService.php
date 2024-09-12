@@ -1,10 +1,8 @@
 <?php
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
-
-#snippet-start:[php.example_code.bedrock-runtime.service]
-
+// snippet-start:[php.example_code.bedrock-runtime.service]
 namespace BedrockRuntime;
 
 use Aws\BedrockRuntime\BedrockRuntimeClient;
@@ -21,17 +19,17 @@ class BedrockRuntimeService extends AWSServiceClass
         ]);
     }
 
-    #snippet-start:[php.example_code.bedrock-runtime.service.invokeClaude]
+    // snippet-start:[php.example_code.bedrock-runtime.service.invokeClaude]
     public function invokeClaude($prompt)
     {
-        # The different model providers have individual request and response formats.
-        # For the format, ranges, and default values for Anthropic Claude, refer to:
-        # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-claude.html
+        // The different model providers have individual request and response formats.
+        // For the format, ranges, and default values for Anthropic Claude, refer to:
+        // https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-claude.html
 
         $completion = "";
         try {
             $modelId = 'anthropic.claude-v2';
-            # Claude requires you to enclose the prompt as follows:
+            // Claude requires you to enclose the prompt as follows:
             $prompt = "\n\nHuman: {$prompt}\n\nAssistant:";
             $body = [
                 'prompt' => $prompt,
@@ -52,9 +50,9 @@ class BedrockRuntimeService extends AWSServiceClass
 
         return $completion;
     }
-    #snippet-end:[php.example_code.bedrock-runtime.service.invokeClaude]
+    // snippet-end:[php.example_code.bedrock-runtime.service.invokeClaude]
 
-    #snippet-start:[php.example_code.bedrock-runtime.service.invokeJurassic2]
+    // snippet-start:[php.example_code.bedrock-runtime.service.invokeJurassic2]
     public function invokeJurassic2($prompt)
     {
         # The different model providers have individual request and response formats.
@@ -82,14 +80,14 @@ class BedrockRuntimeService extends AWSServiceClass
 
         return $completion;
     }
-    #snippet-end:[php.example_code.bedrock-runtime.service.invokeJurassic2]
+    // snippet-end:[php.example_code.bedrock-runtime.service.invokeJurassic2]
 
-    #snippet-start:[php.example_code.bedrock-runtime.service.invokeLlama2]
+    // snippet-start:[php.example_code.bedrock-runtime.service.invokeLlama2]
     public function invokeLlama2($prompt)
     {
-        # The different model providers have individual request and response formats.
-        # For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
-        # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
+        // The different model providers have individual request and response formats.
+        // For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
+        // https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
 
         $completion = "";
         try {
@@ -112,14 +110,14 @@ class BedrockRuntimeService extends AWSServiceClass
 
         return $completion;
     }
-    #snippet-end:[php.example_code.bedrock-runtime.service.invokeLlama2]
+    // snippet-end:[php.example_code.bedrock-runtime.service.invokeLlama2]
 
-    #snippet-start:[php.example_code.bedrock-runtime.service.invokeStableDiffusion]
+    // snippet-start:[php.example_code.bedrock-runtime.service.invokeStableDiffusion]
     public function invokeStableDiffusion(string $prompt, int $seed, string $style_preset)
     {
-        # The different model providers have individual request and response formats.
-        # For the format, ranges, and available style_presets of Stable Diffusion models refer to:
-        # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-stability-diffusion.html
+        // The different model providers have individual request and response formats.
+        // For the format, ranges, and available style_presets of Stable Diffusion models refer to:
+        // https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-stability-diffusion.html
 
         $base64_image_data = "";
         try {
@@ -149,14 +147,14 @@ class BedrockRuntimeService extends AWSServiceClass
 
         return $base64_image_data;
     }
-    #snippet-end:[php.example_code.bedrock-runtime.service.invokeStableDiffusion]
+    // snippet-end:[php.example_code.bedrock-runtime.service.invokeStableDiffusion]
 
-    #snippet-start:[php.example_code.bedrock-runtime.service.invokeTitanImage]
+    // snippet-start:[php.example_code.bedrock-runtime.service.invokeTitanImage]
     public function invokeTitanImage(string $prompt, int $seed)
     {
-        # The different model providers have individual request and response formats.
-        # For the format, ranges, and default values for Titan Image models refer to:
-        # https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-image.html
+        // The different model providers have individual request and response formats.
+        // For the format, ranges, and default values for Titan Image models refer to:
+        // https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-image.html
 
         $base64_image_data = "";
         try {
@@ -188,7 +186,6 @@ class BedrockRuntimeService extends AWSServiceClass
 
         return $base64_image_data;
     }
-    #snippet-end:[php.example_code.bedrock-runtime.service.invokeTitanImage]
+    // snippet-end:[php.example_code.bedrock-runtime.service.invokeTitanImage]
 }
-
-#snippet-end:[php.example_code.bedrock-runtime.service]
+// snippet-end:[php.example_code.bedrock-runtime.service]
