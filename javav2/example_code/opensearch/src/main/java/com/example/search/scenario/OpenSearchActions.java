@@ -269,7 +269,6 @@ public class OpenSearchActions {
     // snippet-start:[opensearch.java2.add_tags.main]
     /**
      * Asynchronously adds tags to an Amazon OpenSearch Service domain.
-     *
      * @param domainARN the Amazon Resource Name (ARN) of the Amazon OpenSearch Service domain to add tags to
      * @return a {@link CompletableFuture} that completes when the tags have been successfully added to the domain,
      * or throws a {@link RuntimeException} if the operation fails
