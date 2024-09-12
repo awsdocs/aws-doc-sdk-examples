@@ -10,13 +10,10 @@ import software.amazon.awssdk.services.opensearch.model.DeleteDomainResponse;
 import software.amazon.awssdk.services.opensearch.model.DomainInfo;
 import software.amazon.awssdk.services.opensearch.model.ListTagsResponse;
 import software.amazon.awssdk.services.opensearch.model.OpenSearchException;
-import software.amazon.awssdk.services.opensearch.model.ResourceAlreadyExistsException;
-import software.amazon.awssdk.services.opensearch.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.opensearch.model.UpdateDomainConfigResponse;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
 
 public class OpenSearchScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -43,12 +40,12 @@ public class OpenSearchScenario {
         try {
             runScenario();
         } catch (RuntimeException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
     }
     private static void runScenario() throws Throwable {
         String currentTimestamp = String.valueOf(System.currentTimeMillis());
-        String domainName = "test-domain"+currentTimestamp;
+        String domainName = "test-domain-" + currentTimestamp;
         logger.info(DASHES);
         logger.info("1. Create an Amazon OpenSearch domain");
         logger.info("""
@@ -64,16 +61,21 @@ public class OpenSearchScenario {
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<String> future = openSearchActions.createNewDomainAsync(domainName);
+
             String domainId = future.join();
             logger.info("Domain successfully created with ID: {}", domainId);
-        } catch (OpenSearchException ose) {
-            // Handle specific OpenSearchException
-            logger.error("OpenSearchException occurred: " + ose.awsErrorDetails().errorMessage(), ose);
-            throw ose;
         } catch (RuntimeException rt) {
-            // Handle general RuntimeException
-            logger.error("An unexpected error occurred: " + rt.getMessage(), rt);
-            throw rt;
+            Throwable cause = rt.getCause();
+            if (cause != null) {
+                if (cause instanceof OpenSearchException openSearchEx) {
+                    logger.error("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+                } else {
+                    logger.error("An unexpected error occurred: " + cause.getMessage(), cause);
+                }
+            } else {
+                logger.error("An unexpected error occurred: " + rt.getMessage());
+            }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -86,27 +88,14 @@ public class OpenSearchScenario {
         try {
             CompletableFuture<String> future = openSearchActions.describeDomainAsync(domainName);
             arn = future.join();
-        } catch (CompletionException ce) {
-            Throwable cause = ce.getCause();
-            while (cause.getCause() != null && !(cause instanceof ResourceNotFoundException)) {
-                cause = cause.getCause();
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof OpenSearchException openSearchEx) {
+                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
             }
-            if (cause instanceof ResourceNotFoundException notFoundException) {
-                 logger.error("Resource not found: Error message: {}, Error code: {}",
-                    notFoundException.awsErrorDetails().errorMessage(),
-                    notFoundException.awsErrorDetails().errorCode(),
-                    notFoundException);
-                throw notFoundException; // Rethrow specific exception
-            } else if (cause instanceof OpenSearchException openSearchEx) {
-                logger.error("OpenSearch error occurred: Error message: {}, Error code: {}",
-                    openSearchEx.awsErrorDetails().errorMessage(),
-                    openSearchEx.awsErrorDetails().errorCode(),
-                    openSearchEx);
-                throw openSearchEx; // Rethrow specific exception
-            } else if (cause instanceof RuntimeException rtOpenSearchEx) {
-                logger.error("An unexpected error occurred: {}", rtOpenSearchEx.getMessage(), cause);
-                throw cause;
-            }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -122,9 +111,6 @@ public class OpenSearchScenario {
             }
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            while (cause.getCause() != null && !(cause instanceof ResourceNotFoundException)) {
-                cause = cause.getCause();
-            }
             if (cause instanceof OpenSearchException openSearchEx) {
                 logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
             } else {
