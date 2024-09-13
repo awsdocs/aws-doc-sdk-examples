@@ -10,6 +10,7 @@ detect text, form, and table elements in document images.
 
 import json
 import logging
+
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -95,7 +96,8 @@ class TextractWrapper:
             bucket.upload_fileobj(document_bytes, document_name)
             logger.info("Uploaded %s to %s.", document_name, bucket_name)
         except ClientError:
-            logger.exception("Couldn't upload %s to %s.", document_name, bucket_name)
+            logger.exception("Couldn't upload %s to %s.",
+                             document_name, bucket_name)
             raise
 
     def check_job_queue(self, queue_url, job_id):
@@ -174,7 +176,8 @@ class TextractWrapper:
                  detected in the image.
         """
         try:
-            response = self.textract_client.get_document_text_detection(JobId=job_id)
+            response = self.textract_client.get_document_text_detection(
+                JobId=job_id)
             job_status = response["JobStatus"]
             logger.info("Job %s status is %s.", job_id, job_status)
         except ClientError:
@@ -223,7 +226,8 @@ class TextractWrapper:
                 "Started text analysis job %s on %s.", job_id, document_file_name
             )
         except ClientError:
-            logger.exception("Couldn't analyze text in %s.", document_file_name)
+            logger.exception("Couldn't analyze text in %s.",
+                             document_file_name)
             raise
         else:
             return job_id

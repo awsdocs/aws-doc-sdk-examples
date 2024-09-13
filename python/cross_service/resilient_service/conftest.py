@@ -4,11 +4,11 @@
 """
 Contains common test fixtures used to run unit tests.
 """
+
 from datetime import datetime
 
 import boto3
 import pytest
-
 import runner
 from auto_scaler import AutoScalingWrapper
 from load_balancer import ElasticLoadBalancerWrapper

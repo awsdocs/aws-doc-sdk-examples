@@ -6,8 +6,9 @@ Unit tests for mysql_helper.py functions.
 """
 
 import datetime
-from chalicelib.mysql_helper import Table, Column, ForeignKey
+
 import chalicelib.mysql_helper as mysql_helper
+from chalicelib.mysql_helper import Column, ForeignKey, Table
 
 
 def make_table():
@@ -20,7 +21,8 @@ def make_table():
             Column("FirstName", str),
             Column("LastName", str),
             Column("Birthday", datetime.date, nullable=False),
-            Column("ForeignID", int, foreign_key=ForeignKey("OtherTable", "OtherID")),
+            Column("ForeignID", int, foreign_key=ForeignKey(
+                "OtherTable", "OtherID")),
         ],
     )
     return table

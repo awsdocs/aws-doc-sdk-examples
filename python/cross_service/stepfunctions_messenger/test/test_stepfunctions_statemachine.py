@@ -6,10 +6,10 @@ Unit tests for stepfunctions_statemachine.py
 """
 
 import json
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from stepfunctions_statemachine import StepFunctionsStateMachine
 
 
@@ -178,7 +178,8 @@ def test_start_run(make_stubber, run_input, error_code):
 
 @pytest.mark.parametrize(
     "run_status,error_code",
-    [("test-run_status", None), (None, None), ("test-run_status", "TestException")],
+    [("test-run_status", None), (None, None),
+     ("test-run_status", "TestException")],
 )
 def test_list_runs(make_stubber, run_status, error_code):
     stepfunctions_client = boto3.client("stepfunctions")
@@ -214,7 +215,8 @@ def test_stop_run(make_stubber, error_code):
     run_arn = "test-run_arn"
     cause = "test cause"
 
-    stepfunctions_stubber.stub_stop_execution(run_arn, cause, error_code=error_code)
+    stepfunctions_stubber.stub_stop_execution(
+        run_arn, cause, error_code=error_code)
 
     if error_code is None:
         state_machine.stop_run(run_arn, cause)

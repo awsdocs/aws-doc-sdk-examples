@@ -4,11 +4,10 @@
 import datetime
 import json
 import unittest.mock
-import chalice
-import pytest
 
 import app
-import chalicelib
+import chalice
+import pytest
 
 
 def test_list_states():
@@ -21,11 +20,15 @@ def test_list_states():
     [
         ("Washington", "GET", None, 200),
         ("Emergency", "GET", None, 400),
-        ("Washington", "PUT", {"state": "Washington", "date": "2020-01-01"}, 200),
-        ("Washington", "PUT", {"state": "Washington", "date": "2000-01-01"}, 400),
+        ("Washington", "PUT", {
+         "state": "Washington", "date": "2020-01-01"}, 200),
+        ("Washington", "PUT", {
+         "state": "Washington", "date": "2000-01-01"}, 400),
         ("Idaho", "PUT", {"state": "Washington", "date": "2020-01-01"}, 400),
-        ("Washington", "DELETE", {"state": "Washington", "date": "2020-01-01"}, 200),
-        ("Washington", "POST", {"state": "Washington", "date": "2020-01-01"}, 200),
+        ("Washington", "DELETE", {
+         "state": "Washington", "date": "2020-01-01"}, 200),
+        ("Washington", "POST", {
+         "state": "Washington", "date": "2020-01-01"}, 200),
     ],
 )
 def test_state_cases(monkeypatch, state, method, body, status_code):
@@ -45,7 +48,8 @@ def test_state_cases(monkeypatch, state, method, body, status_code):
 
         return _check_params
 
-    app.app.current_request = unittest.mock.MagicMock(method=method, json_body=body)
+    app.app.current_request = unittest.mock.MagicMock(
+        method=method, json_body=body)
     monkeypatch.setattr(app.storage, "get_state_data", check_params(True))
     monkeypatch.setattr(app.storage, "put_state_data", check_params())
     monkeypatch.setattr(app.storage, "delete_state_data", check_params())

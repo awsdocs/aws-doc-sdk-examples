@@ -11,20 +11,21 @@ that is backed by AWS Lambda functions that call an Amazon Aurora database.
 import argparse
 import logging
 import os
-from pprint import pprint
 import random
 import time
+from pprint import pprint
 from urllib.parse import urljoin
-import requests
-import boto3
-import yaml
 
+import boto3
+import requests
+import yaml
 from library_api.chalicelib.library_data import Storage
+import rds_tools.aurora_tools as aurora_tools
 
 logger = logging.getLogger(__name__)
 
 # Read YAML configuration
-with open("config.yml", "r") as file:
+with open("config.yml") as file:
     config = yaml.safe_load(file)
 
 
@@ -103,8 +104,9 @@ def create_resources(
 
     # With Aurora Serverless v2, the cluster might be 'Available' while the
     # writer instance is still 'Creating'. Wait for the instance to be available too.
-    instance_available_waiter = aurora_tools.DBInstanceAvailableWaiter(rds_client)
-    instance_available_waiter.wait("%s-instance" % cluster_name)
+    instance_available_waiter = aurora_tools.DBInstanceAvailableWaiter(
+        rds_client)
+    instance_available_waiter.wait(f"{cluster_name}-instance")
 
     return cluster, secret
 
@@ -156,7 +158,8 @@ def do_populate_database(cluster, db_name, secret):
     storage = Storage(cluster, secret, db_name, rdsdata_client)
     print(f"Creating tables in database {db_name}.")
     storage.bootstrap_tables()
-    print(f"Pulling data from {url_get_spider_books} to populate the demo database.")
+    print(
+        f"Pulling data from {url_get_spider_books} to populate the demo database.")
     author_count, book_count = fill_db_tables(url_get_spider_books, storage)
     print(f"Added {book_count} books and {author_count} authors.")
 
@@ -182,7 +185,8 @@ def do_deploy_rest(stack_name):
             bucket = s3.create_bucket(
                 Bucket=bucket_name,
             )
-        logger.info(f"Creating bucket {bucket.name} to hold deployment package.")
+        logger.info(
+            f"Creating bucket {bucket.name} to hold deployment package.")
         bucket.wait_until_exists()
     except Exception as err:
         logger.exception(
@@ -254,9 +258,11 @@ def do_rest_demo(stack_name):
 
     patron = patrons["patrons"][0]
     book = random.choice(books["books"])
-    print(f"Lending the book '{book['Books.Title']}' to {patron['Patrons.FirstName']}")
+    print(
+        f"Lending the book '{book['Books.Title']}' to {patron['Patrons.FirstName']}")
     response = requests.put(
-        urljoin(lending_url, f"{book['Books.BookID']}/{patron['Patrons.PatronID']}")
+        urljoin(lending_url,
+                f"{book['Books.BookID']}/{patron['Patrons.PatronID']}")
     )
     try:
         response = requests.get(lending_url)
@@ -269,13 +275,15 @@ def do_rest_demo(stack_name):
         raise
     print(f"Returning '{book['Books.Title']}'.")
     response = requests.delete(
-        urljoin(lending_url, f"{book['Books.BookID']}/{patron['Patrons.PatronID']}")
+        urljoin(lending_url,
+                f"{book['Books.BookID']}/{patron['Patrons.PatronID']}")
     )
     logger.info(f"Response: {response.status_code}")
 
 
 def main():
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO,
+                        format="%(levelname)s: %(message)s")
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -289,11 +297,20 @@ def main():
 
     if args.action == "deploy_database":
         print("Deploying the serverless database and supporting resources.")
-        do_deploy_database(cluster_name, secret_name)
+        cluster, secret = create_resources(
+            config['cluster']['cluster_name'],
+            config['db_name'],
+            config['cluster']['admin_name'],
+            config['cluster']['admin_password'],
+            boto3.client('rds'),
+            config['secret']['name'],
+            boto3.client('secretsmanager')
+        )
         print("Next, run 'python library_demo.py deploy_rest' to deploy the REST API.")
     elif args.action == "populate_database":
         print("Populating serverless database cluster with data.")
-        do_populate_database(config["cluster"], config["db_name"], config["secret"])
+        do_populate_database(
+            config["cluster"], config["db_name"], config["secret"])
         print("Next, run 'python library_demo.py deploy_rest' to deploy the REST API.")
     elif args.action == "deploy_rest":
         print("Deploying the REST API components.")

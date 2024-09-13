@@ -18,7 +18,6 @@ from pprint import pp
 import boto3
 import coloredlogs
 import requests
-
 from auto_scaler import AutoScalingWrapper
 from load_balancer import ElasticLoadBalancerWrapper
 from parameters import ParameterHelper
@@ -78,7 +77,8 @@ class Runner:
         startup_script = f"{self.resource_path}/server_startup_script.sh"
         instance_policy = f"{self.resource_path}/instance_policy.json"
 
-        logging.info("Starting deployment of resources for the resilient service.")
+        logging.info(
+            "Starting deployment of resources for the resilient service.")
 
         logging.info(
             "Creating and populating DynamoDB table '%s'.",
@@ -101,7 +101,8 @@ class Runner:
         logging.info("Creating variables that control the flow of the demo.")
         self.param_helper.reset()
 
-        logging.info("Creating Elastic Load Balancing target group and load balancer.")
+        logging.info(
+            "Creating Elastic Load Balancing target group and load balancer.")
 
         vpc = self.autoscaler.get_default_vpc()
         subnets = self.autoscaler.get_subnets(vpc["VpcId"], zones)
@@ -111,14 +112,16 @@ class Runner:
         self.loadbalancer.create_load_balancer(
             self.load_balancer_name, [subnet["SubnetId"] for subnet in subnets]
         )
-        self.loadbalancer.create_listener(self.load_balancer_name, target_group)
+        self.loadbalancer.create_listener(
+            self.load_balancer_name, target_group)
 
         self.autoscaler.attach_load_balancer_target_group(target_group)
 
         logging.info("Verifying access to the load balancer endpoint.")
         endpoint = self.loadbalancer.get_endpoint(self.load_balancer_name)
         lb_success = self.loadbalancer.verify_load_balancer_endpoint(endpoint)
-        current_ip_address = requests.get("http://checkip.amazonaws.com").text.strip()
+        current_ip_address = requests.get(
+            "http://checkip.amazonaws.com").text.strip()
 
         if not lb_success:
             logging.warning(
@@ -151,7 +154,8 @@ class Runner:
                     self.autoscaler.open_inbound_port(
                         sec_group["GroupId"], self.ssh_port, current_ip_address
                     )
-            lb_success = self.loadbalancer.verify_load_balancer_endpoint(endpoint)
+            lb_success = self.loadbalancer.verify_load_balancer_endpoint(
+                endpoint)
 
         if lb_success:
             logging.info(
@@ -177,8 +181,10 @@ class Runner:
             logging.info("Choose an action to interact with the service.")
             choice = q.choose("Which action would you like to take? ", actions)
             if choice == 0:
-                logging.info("Sending a GET request to the load balancer endpoint.")
-                endpoint = self.loadbalancer.get_endpoint(self.load_balancer_name)
+                logging.info(
+                    "Sending a GET request to the load balancer endpoint.")
+                endpoint = self.loadbalancer.get_endpoint(
+                    self.load_balancer_name)
                 logging.info("GET http://%s", endpoint)
                 response = requests.get(f"http://{endpoint}")
                 logging.info("Response: %s", response.status_code)
@@ -186,7 +192,8 @@ class Runner:
                     pp(response.json())
             elif choice == 1:
                 logging.info("Checking the health of load balancer targets.")
-                health = self.loadbalancer.check_target_health(self.target_group_name)
+                health = self.loadbalancer.check_target_health(
+                    self.target_group_name)
                 for target in health:
                     state = target["TargetHealth"]["State"]
                     logging.info(
@@ -234,8 +241,10 @@ class Runner:
         logging.info("Sending GET requests will now return static responses.")
         self.demo_choices()
 
-        logging.info("Restoring normal operation of the recommendation service.")
-        self.param_helper.put(self.param_helper.table, self.recommendation.table_name)
+        logging.info(
+            "Restoring normal operation of the recommendation service.")
+        self.param_helper.put(self.param_helper.table,
+                              self.recommendation.table_name)
 
         logging.info(
             "Introducing a failure by assigning bad credentials to one of the instances."
@@ -249,7 +258,8 @@ class Runner:
         )
         instances = self.autoscaler.get_instances()
         bad_instance_id = instances[0]
-        instance_profile = self.autoscaler.get_instance_profile(bad_instance_id)
+        instance_profile = self.autoscaler.get_instance_profile(
+            bad_instance_id)
         logging.info(
             "Replacing instance profile with bad credentials for instance %s.",
             bad_instance_id,
@@ -264,7 +274,8 @@ class Runner:
         )
         self.demo_choices()
 
-        logging.info("Implementing deep health checks to detect unhealthy instances.")
+        logging.info(
+            "Implementing deep health checks to detect unhealthy instances.")
         self.param_helper.put(self.param_helper.health_check, "deep")
         logging.info("Checking the health of the load balancer targets.")
         self.demo_choices()
@@ -273,10 +284,12 @@ class Runner:
             "Terminating the unhealthy instance to let the auto scaler replace it."
         )
         self.autoscaler.terminate_instance(bad_instance_id)
-        logging.info("The service remains resilient during instance replacement.")
+        logging.info(
+            "The service remains resilient during instance replacement.")
         self.demo_choices()
 
-        logging.info("Simulating a complete failure of the recommendation service.")
+        logging.info(
+            "Simulating a complete failure of the recommendation service.")
         self.param_helper.put(self.param_helper.table, "this-is-not-a-table")
         logging.info(
             "All instances will report as unhealthy, but the service will still return static responses."
@@ -303,7 +316,8 @@ class Runner:
             logging.info("Deleting load balancer and related resources.")
             self.loadbalancer.delete_load_balancer(self.load_balancer_name)
             self.loadbalancer.delete_target_group(self.target_group_name)
-            self.autoscaler.delete_autoscaling_group(self.autoscaler.group_name)
+            self.autoscaler.delete_autoscaling_group(
+                self.autoscaler.group_name)
             self.autoscaler.delete_key_pair()
             self.autoscaler.delete_template()
             self.autoscaler.delete_instance_profile(
@@ -374,7 +388,8 @@ def main() -> None:
         elb_wrapper,
         param_helper,
     )
-    actions = [args.action] if args.action != "all" else ["deploy", "demo", "destroy"]
+    actions = [args.action] if args.action != "all" else [
+        "deploy", "demo", "destroy"]
     for action in actions:
         if action == "deploy":
             runner.deploy()
@@ -387,6 +402,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO,
+                        format="%(levelname)s: %(message)s")
     main()
 # snippet-end:[python.example_code.workflow.ResilientService_Runner]
