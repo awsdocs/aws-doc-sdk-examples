@@ -32,9 +32,9 @@ public class ActionExamples
     // Set this value to the Amazon S3 location of a media file.
     // A sample media file is provided in the media folder of this solution.
     private static readonly string transcriptionMediaLocation =
-        "https://DOC-EXAMPLE-BUCKET1.s3.amazonaws.com/Jabberwocky.mp3";
+        "https://amzn-s3-demo-bucket1.s3.amazonaws.com/Jabberwocky.mp3";
     // Set this value to an Amazon S3 bucket name where the output can be stored.
-    private static readonly string transcriptionMediaOutputLocation = "DOC-EXAMPLE-BUCKET2";
+    private static readonly string transcriptionMediaOutputLocation = "amzn-s3-demo-bucket2";
     private static readonly string customVocabularyName = "Example-jabber-vocabulary";
 
     static async Task Main(string[] args)

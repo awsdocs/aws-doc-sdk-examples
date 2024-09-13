@@ -233,7 +233,7 @@ public class IamPolicyBuilderExamples {
                                                 .effect(IamEffect.ALLOW)
                                                 .addPrincipal(IamPrincipalType.AWS, "111122223333")
                                                 .addAction("s3:PutObject")
-                                                .addResource("arn:aws:s3:::DOC-EXAMPLE-BUCKET/*")
+                                                .addResource("arn:aws:s3:::amzn-s3-demo-bucket/*")
                                                 .addCondition(b1 -> b1
                                                                 .operator(IamConditionOperator.STRING_EQUALS)
                                                                 .key("s3:x-amz-acl")

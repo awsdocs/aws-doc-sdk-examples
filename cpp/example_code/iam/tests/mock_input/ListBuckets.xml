@@ -2,11 +2,11 @@
     <Buckets>
         <Bucket>
             <CreationDate>2019-12-11T23:32:47+00:00</CreationDate>
-            <String>DOC-EXAMPLE-BUCKET</String>
+            <String>amzn-s3-demo-bucket</String>
         </Bucket>
         <Bucket>
             <CreationDate>2019-11-10T23:32:13+00:00</CreationDate>
-            <String>DOC-EXAMPLE-BUCKET2</String>
+            <String>amzn-s3-demo-bucket2</String>
         </Bucket>
     </Buckets>
     <Owner>

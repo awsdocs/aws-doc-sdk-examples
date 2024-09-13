@@ -1,7 +1,7 @@
 {
-  "transcriptionMediaLocation": "DOC-EXAMPLE-BUCKET",
+  "transcriptionMediaLocation": "amzn-s3-demo-bucket",
   "transcriptionJobName": "testTranscriptionJobName",
-  "outputLocation": "DOC-EXAMPLE-BUCKET2",
+  "outputLocation": "amzn-s3-demo-bucket2",
   "medicalTranscriptionJobName": "testMedicalTranscriptionJobName",
   "customVocabularyName": "example_vocabulary_name"
 }
