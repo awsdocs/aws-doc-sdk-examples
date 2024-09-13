@@ -23,8 +23,6 @@ Specifically, it consumes images from a Simple Notification Service (SNS) topic,
 
 Before you get started, update [config/resources.yaml](../config/resources.yaml) and [config/targets.yaml](../config/targets.yaml) to include logical names representing test targets and their corresponding AWS Account ID and enabled status.
 
-This PR disabled JS tests runs, as this language does not support test automation within our engineering constraints.
-
 If you need to disable a plugin stack, use this configuration file and perform an [admin stack deployment](../../DEPLOYMENT.md#usage).
 
 ---
