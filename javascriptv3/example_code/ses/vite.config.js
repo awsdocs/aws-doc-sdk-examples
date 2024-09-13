@@ -2,9 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 import { defineConfig } from "vitest/config";
 
+const timeout = 3600000; // 1 hour timeout
+
 export default defineConfig({
   test: {
-    testTimeout: 3600000, // 1 hour timeout
+    testTimeout: timeout,
+    hookTimeout: timeout,
     sequence: {
       concurrent: false, // Run tests sequentially
     },
