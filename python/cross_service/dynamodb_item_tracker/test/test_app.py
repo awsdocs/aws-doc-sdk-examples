@@ -93,8 +93,7 @@ def test_get_items(mock_mgr, archived, filter_ex):
 
 def test_get_items_error(mock_mgr):
     with mock_mgr.stub_runner("TestException", "stub_scan") as runner:
-        runner.add(mock_mgr.stubber.stub_scan,
-                   mock_mgr.table.name, mock_mgr.data_items)
+        runner.add(mock_mgr.stubber.stub_scan, mock_mgr.table.name, mock_mgr.data_items)
 
     with mock_mgr.app.test_client() as client:
         rv = client.get("/api/items")
@@ -142,8 +141,7 @@ def test_post_item(mock_mgr, monkeypatch):
     post_item = mock_mgr.web_items[1].copy()
     del post_item["id"]
 
-    monkeypatch.setattr(
-        storage, "uuid4", lambda: mock_mgr.data_items[1]["iditem"])
+    monkeypatch.setattr(storage, "uuid4", lambda: mock_mgr.data_items[1]["iditem"])
 
     with mock_mgr.app.test_client() as client:
         rte = "/api/items"
@@ -161,8 +159,7 @@ def test_post_item_error(mock_mgr, monkeypatch):
     post_item = mock_mgr.web_items[1].copy()
     del post_item["id"]
 
-    monkeypatch.setattr(
-        storage, "uuid4", lambda: mock_mgr.data_items[1]["iditem"])
+    monkeypatch.setattr(storage, "uuid4", lambda: mock_mgr.data_items[1]["iditem"])
 
     with mock_mgr.app.test_client() as client:
         rte = "/api/items"
@@ -182,8 +179,7 @@ def test_put_item(mock_mgr, monkeypatch):
             data_item,
         )
 
-    monkeypatch.setattr(
-        storage, "uuid4", lambda: mock_mgr.data_items[0]["iditem"])
+    monkeypatch.setattr(storage, "uuid4", lambda: mock_mgr.data_items[0]["iditem"])
 
     put_item = mock_mgr.web_items[0].copy()
     del put_item["id"]
@@ -207,8 +203,7 @@ def test_put_item_error(mock_mgr, monkeypatch):
             data_item,
         )
 
-    monkeypatch.setattr(
-        storage, "uuid4", lambda: mock_mgr.data_items[0]["iditem"])
+    monkeypatch.setattr(storage, "uuid4", lambda: mock_mgr.data_items[0]["iditem"])
 
     put_item = mock_mgr.web_items[0].copy()
     del put_item["id"]
@@ -296,8 +291,7 @@ def test_report_large(mock_mgr, monkeypatch):
 
 
 @pytest.mark.parametrize(
-    "err, stop_on", [("TESTERROR-stub_scan", 0),
-                     ("TESTERROR-stub_send_email", 1)]
+    "err, stop_on", [("TESTERROR-stub_scan", 0), ("TESTERROR-stub_send_email", 1)]
 )
 def test_report_error(mock_mgr, monkeypatch, err, stop_on):
     with mock_mgr.stub_runner(err, stop_on) as runner:

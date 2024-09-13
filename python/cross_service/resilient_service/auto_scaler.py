@@ -83,8 +83,7 @@ class AutoScalingWrapper:
                 PolicyName=policy_name, PolicyDocument=policy_doc
             )
             policy_arn = response["Policy"]["Arn"]
-            log.info(
-                f"Policy '{policy_name}' created successfully. ARN: {policy_arn}")
+            log.info(f"Policy '{policy_name}' created successfully. ARN: {policy_arn}")
             return policy_arn
 
         except ClientError as err:
@@ -94,8 +93,7 @@ class AutoScalingWrapper:
                     PolicyArn=f"arn:aws:iam::{self.account_id}:policy/{policy_name}"
                 )
                 policy_arn = response["Policy"]["Arn"]
-                log.info(
-                    f"Policy '{policy_name}' already exists. ARN: {policy_arn}")
+                log.info(f"Policy '{policy_name}' already exists. ARN: {policy_arn}")
                 return policy_arn
             log.error(f"Full error:\n\t{err}")
 
@@ -110,12 +108,10 @@ class AutoScalingWrapper:
         """
         try:
             response = self.iam_client.create_role(
-                RoleName=role_name, AssumeRolePolicyDocument=json.dumps(
-                    assume_role_doc)
+                RoleName=role_name, AssumeRolePolicyDocument=json.dumps(assume_role_doc)
             )
             role_arn = response["Role"]["Arn"]
-            log.info(
-                f"Role '{role_name}' created successfully. ARN: {role_arn}")
+            log.info(f"Role '{role_name}' created successfully. ARN: {role_arn}")
             return role_arn
 
         except ClientError as err:
@@ -141,8 +137,7 @@ class AutoScalingWrapper:
         :param aws_managed_policies: A tuple of AWS-managed policy names to attach to the role.
         """
         try:
-            self.iam_client.attach_role_policy(
-                RoleName=role_name, PolicyArn=policy_arn)
+            self.iam_client.attach_role_policy(RoleName=role_name, PolicyArn=policy_arn)
             for aws_policy in aws_managed_policies:
                 self.iam_client.attach_role_policy(
                     RoleName=role_name,
@@ -150,8 +145,7 @@ class AutoScalingWrapper:
                 )
             log.info(f"Attached policy {policy_arn} to role {role_name}.")
         except ClientError as err:
-            log.error(
-                f"Failed to attach policy {policy_arn} to role {role_name}.")
+            log.error(f"Failed to attach policy {policy_arn} to role {role_name}.")
             log.error(f"Full error:\n\t{err}")
 
     # snippet-start:[python.cross_service.resilient_service.iam.CreateInstanceProfile]
@@ -204,8 +198,7 @@ class AutoScalingWrapper:
             self.iam_client.add_role_to_instance_profile(
                 InstanceProfileName=profile_name, RoleName=role_name
             )
-            log.info("Created profile %s and added role %s.",
-                     profile_name, role_name)
+            log.info("Created profile %s and added role %s.", profile_name, role_name)
         except ClientError as err:
             if err.response["Error"]["Code"] == "EntityAlreadyExists":
                 prof_response = self.iam_client.get_instance_profile(
@@ -233,8 +226,7 @@ class AutoScalingWrapper:
                 Filters=[{"Name": "instance-id", "Values": [instance_id]}]
             )
             if not response["IamInstanceProfileAssociations"]:
-                log.info(
-                    f"No instance profile found for instance {instance_id}.")
+                log.info(f"No instance profile found for instance {instance_id}.")
             profile_data = response["IamInstanceProfileAssociations"][0]
             log.info(f"Retrieved instance profile for instance {instance_id}.")
             return profile_data
@@ -291,8 +283,7 @@ class AutoScalingWrapper:
                 DocumentName="AWS-RunShellScript",
                 Parameters={"commands": ["cd / && sudo python3 server.py 80"]},
             )
-            log.info(
-                f"Restarted the Python web server on instance '{instance_id}'.")
+            log.info(f"Restarted the Python web server on instance '{instance_id}'.")
         except ClientError as err:
             log.error("Failed to replace instance profile.")
             error_code = err.response["Error"]["Code"]
@@ -323,8 +314,7 @@ class AutoScalingWrapper:
             self.iam_client.remove_role_from_instance_profile(
                 InstanceProfileName=profile_name, RoleName=role_name
             )
-            self.iam_client.delete_instance_profile(
-                InstanceProfileName=profile_name)
+            self.iam_client.delete_instance_profile(InstanceProfileName=profile_name)
             log.info("Deleted instance profile %s.", profile_name)
             attached_policies = self.iam_client.list_attached_role_policies(
                 RoleName=role_name
@@ -367,8 +357,7 @@ class AutoScalingWrapper:
             error_code = err.response["Error"]["Code"]
             log.error(f"Failed to create key pair {key_pair_name}.")
             if error_code == "InvalidKeyPair.Duplicate":
-                log.error(
-                    f"A key pair with the name '{key_pair_name}' already exists.")
+                log.error(f"A key pair with the name '{key_pair_name}' already exists.")
             log.error(f"Full error:\n\t{err}")
 
     # snippet-end:[python.cross_service.resilient_service.ec2.CreateKeyPair]
@@ -386,8 +375,7 @@ class AutoScalingWrapper:
             log.error(f"Couldn't delete key pair '{self.key_pair_name}'.")
             log.error(f"Full error:\n\t{err}")
         except FileNotFoundError as err:
-            log.info("Key pair %s doesn't exist, nothing to do.",
-                     self.key_pair_name)
+            log.info("Key pair %s doesn't exist, nothing to do.", self.key_pair_name)
             log.error(f"Full error:\n\t{err}")
 
     # snippet-end:[python.cross_service.resilient_service.ec2.DeleteKeyPair]
@@ -445,8 +433,7 @@ class AutoScalingWrapper:
                 f"Created launch template {self.launch_template_name} for AMI {ami_id} on {self.inst_type}."
             )
         except ClientError as err:
-            log.error(
-                f"Failed to create launch template {self.launch_template_name}.")
+            log.error(f"Failed to create launch template {self.launch_template_name}.")
             error_code = err.response["Error"]["Code"]
             if error_code == "InvalidLaunchTemplateName.AlreadyExistsException":
                 log.info(
@@ -492,8 +479,7 @@ class AutoScalingWrapper:
         """
         try:
             response = self.ec2_client.describe_availability_zones()
-            zones = [zone["ZoneName"]
-                     for zone in response["AvailabilityZones"]]
+            zones = [zone["ZoneName"] for zone in response["AvailabilityZones"]]
             log.info(f"Retrieved {len(zones)} availability zones: {zones}.")
         except ClientError as err:
             log.error("Failed to retrieve availability zones.")
@@ -534,8 +520,7 @@ class AutoScalingWrapper:
                     f"EC2 Auto Scaling group {self.group_name} already exists, nothing to do."
                 )
             else:
-                log.error(
-                    f"Failed to create EC2 Auto Scaling group {self.group_name}.")
+                log.error(f"Failed to create EC2 Auto Scaling group {self.group_name}.")
                 log.error(f"Full error:\n\t{err}")
         else:
             return zones
@@ -566,8 +551,7 @@ class AutoScalingWrapper:
                 f"Failed to retrieve instances for Auto Scaling group {self.group_name}."
             )
             if error_code == "ResourceNotFound":
-                log.error(
-                    f"The Auto Scaling group '{self.group_name}' does not exist.")
+                log.error(f"The Auto Scaling group '{self.group_name}' does not exist.")
             log.error(f"Full error:\n\t{err}")
         else:
             return instance_ids
@@ -668,8 +652,7 @@ class AutoScalingWrapper:
                 self.autoscaling_client.update_auto_scaling_group(
                     AutoScalingGroupName=group_name, MinSize=0
                 )
-                instance_ids = [inst["InstanceId"]
-                                for inst in groups[0]["Instances"]]
+                instance_ids = [inst["InstanceId"] for inst in groups[0]["Instances"]]
                 for inst_id in instance_ids:
                     self.terminate_instance(inst_id)
 
@@ -680,8 +663,7 @@ class AutoScalingWrapper:
                     waiter.wait(InstanceIds=instance_ids)
                     log.info("All instances have been terminated.")
             else:
-                log.info(
-                    f"No groups found named '{group_name}'! Nothing to do.")
+                log.info(f"No groups found named '{group_name}'! Nothing to do.")
         except ClientError as err:
             error_code = err.response["Error"]["Code"]
             log.error(f"Failed to delete Auto Scaling group '{group_name}'.")
@@ -726,8 +708,7 @@ class AutoScalingWrapper:
             log.error(f"Full error:\n\t{err}")
         else:
             if "Vpcs" in response and response["Vpcs"]:
-                log.info(
-                    f"Retrieved default VPC: {response['Vpcs'][0]['VpcId']}")
+                log.info(f"Retrieved default VPC: {response['Vpcs'][0]['VpcId']}")
                 return response["Vpcs"][0]
             else:
                 pass

@@ -79,12 +79,10 @@ def create_app(test_config=None):
         rdsdata_client = boto3.client("rds-data")
         ses_client = boto3.client("ses")
 
-    storage = Storage(cluster_arn, secret_arn, database,
-                      table_name, rdsdata_client)
+    storage = Storage(cluster_arn, secret_arn, database, table_name, rdsdata_client)
 
     item_list_view = ItemList.as_view("item_list_api", storage)
-    report_view = Report.as_view(
-        "report_api", storage, sender_email, ses_client)
+    report_view = Report.as_view("report_api", storage, sender_email, ses_client)
     app.add_url_rule(
         "/api/items",
         defaults={"iditem": None},
@@ -103,7 +101,6 @@ def create_app(test_config=None):
         view_func=item_list_view,
         methods=["PUT"],
     )
-    app.add_url_rule("/api/items:report",
-                     view_func=report_view, methods=["POST"])
+    app.add_url_rule("/api/items:report", view_func=report_view, methods=["POST"])
 
     return app

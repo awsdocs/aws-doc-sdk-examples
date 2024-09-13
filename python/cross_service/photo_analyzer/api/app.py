@@ -60,8 +60,7 @@ def create_app(test_config=None):
     ses_client = boto3.client("ses")
 
     api.add_resource(PhotoList, "/photos", resource_class_args=(bucket,))
-    api.add_resource(Photo, "/photos/<string:photo_key>",
-                     resource_class_args=(bucket,))
+    api.add_resource(Photo, "/photos/<string:photo_key>", resource_class_args=(bucket,))
     api.add_resource(
         Analysis,
         "/photos/<string:photo_key>/labels",
@@ -77,8 +76,7 @@ def create_app(test_config=None):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO,
-                        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     try:
         create_app().run(
             debug=True

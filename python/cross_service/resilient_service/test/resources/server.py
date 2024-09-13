@@ -65,8 +65,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         param_response = self.ssm_client.get_parameters(
             Names=[table, failure_response, health_check]
         )
-        parameters = {p["Name"]: p["Value"]
-                      for p in param_response["Parameters"]}
+        parameters = {p["Name"]: p["Value"] for p in param_response["Parameters"]}
         print(parameters)
 
         if self.path == "/":
@@ -75,8 +74,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                 item_id = random.randint(1, 3)
                 response = self.dynamodb_client.get_item(
                     TableName=parameters[table],
-                    Key={"MediaType": {"S": media_type},
-                         "ItemId": {"N": str(item_id)}},
+                    Key={"MediaType": {"S": media_type}, "ItemId": {"N": str(item_id)}},
                 )
                 payload = response["Item"]
             except ClientError as err:

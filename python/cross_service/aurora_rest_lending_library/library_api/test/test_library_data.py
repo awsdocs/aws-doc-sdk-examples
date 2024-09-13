@@ -21,8 +21,7 @@ DB_NAME = "testdatabase"
 def make_storage_n_stubber(make_stubber):
     rdsdata_client = boto3.client("rds-data")
     storage = Storage(
-        {"DBClusterArn": CLUSTER_ARN}, {
-            "ARN": SECRET_ARN}, DB_NAME, rdsdata_client
+        {"DBClusterArn": CLUSTER_ARN}, {"ARN": SECRET_ARN}, DB_NAME, rdsdata_client
     )
     return storage, make_stubber(rdsdata_client)
 
@@ -31,8 +30,7 @@ def test_bootstrap_tables(make_stubber):
     storage, rdsdata_stubber = make_storage_n_stubber(make_stubber)
 
     for _ in storage._tables:
-        rdsdata_stubber.stub_execute_statement(
-            CLUSTER_ARN, SECRET_ARN, DB_NAME, ANY)
+        rdsdata_stubber.stub_execute_statement(CLUSTER_ARN, SECRET_ARN, DB_NAME, ANY)
 
     storage.bootstrap_tables()
 
@@ -56,8 +54,7 @@ def test_add_books(make_stubber):
     }
     author_param_sets = [
         [
-            {"name": "FirstName", "value": {
-                "stringValue": author["FirstName"]}},
+            {"name": "FirstName", "value": {"stringValue": author["FirstName"]}},
             {"name": "LastName", "value": {"stringValue": author["LastName"]}},
         ]
         for author in authors.values()
@@ -108,8 +105,7 @@ def test_get_books(make_stubber, author_id, error_code):
     sql_params = None
     if author_id is not None:
         sql += " WHERE Authors.AuthorID = :Authors_AuthorID"
-        sql_params = [{"name": "Authors_AuthorID",
-                       "value": {"longValue": author_id}}]
+        sql_params = [{"name": "Authors_AuthorID", "value": {"longValue": author_id}}]
     records = [
         [1, "Title One", 1, "Freddy", "Fake"],
         [2, "Title Two", 13, "Peter", "Pretend"],
@@ -248,8 +244,7 @@ def test_get_patrons(make_stubber, error_code):
 @pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_add_patron(make_stubber, error_code):
     storage, rdsdata_stubber = make_storage_n_stubber(make_stubber)
-    patron = {"Patrons.FirstName": "Marguerite",
-              "Patrons.LastName": "Magazine"}
+    patron = {"Patrons.FirstName": "Marguerite", "Patrons.LastName": "Magazine"}
     patron_sql = (
         "INSERT INTO Patrons (FirstName, LastName) VALUES (:FirstName, :LastName)"
     )
@@ -318,8 +313,7 @@ def test_get_borrowed_books(make_stubber, error_code):
         "AND Lending.Returned IS :Lending_Returned"
     )
     sql_params = [
-        {"name": "Lending_Lent", "value": {
-            "stringValue": str(datetime.date.today())}},
+        {"name": "Lending_Lent", "value": {"stringValue": str(datetime.date.today())}},
         {"name": "Lending_Returned", "value": {"isNull": True}},
     ]
     records = [

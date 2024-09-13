@@ -63,8 +63,7 @@ class ApiGatewayWebsocket:
                 "Created websocket API %s with ID %s.", self.api_name, self.api_id
             )
         except ClientError:
-            logger.exception(
-                "Couldn't create websocket API %s.", self.api_name)
+            logger.exception("Couldn't create websocket API %s.", self.api_name)
             raise
         else:
             return self.api_id
@@ -130,8 +129,7 @@ class ApiGatewayWebsocket:
                     lambda_role.detach_policy(PolicyArn=policy.arn)
                     policy.delete()
                     break
-            logger.info(
-                "Detached and deleted connection policy %s.", policy_name)
+            logger.info("Detached and deleted connection policy %s.", policy_name)
         except ClientError:
             logger.exception(
                 "Couldn't detach or delete connection policy %s.", policy_name
@@ -166,8 +164,7 @@ class ApiGatewayWebsocket:
             )
             logging.info("Created integration to %s.", integration_uri)
         except ClientError:
-            logging.exception(
-                "Couldn't create integration to %s.", integration_uri)
+            logging.exception("Couldn't create integration to %s.", integration_uri)
             raise
         else:
             integration_id = response["IntegrationId"]
@@ -179,8 +176,7 @@ class ApiGatewayWebsocket:
             )
             logger.info("Created route %s to %s.", route_name, target)
         except ClientError:
-            logger.exception("Couldn't create route %s to %s.",
-                             route_name, target)
+            logger.exception("Couldn't create route %s to %s.", route_name, target)
             raise
         else:
             route_id = response["RouteId"]
@@ -325,8 +321,7 @@ def usage_demo(
             FunctionName=lambda_function_name, ZipFile=buffer.read()
         )
     except ClientError:
-        logger.exception("Couldn't update Lambda function %s.",
-                         lambda_function_name)
+        logger.exception("Couldn't update Lambda function %s.", lambda_function_name)
         raise
 
     print(f"Creating websocket chat API {sock_gateway.api_name}.")
@@ -336,13 +331,11 @@ def usage_demo(
         "Adding permission to let the Lambda function send messages to "
         "websocket connections."
     )
-    sock_gateway.add_connection_permissions(
-        account, lambda_role_name, iam_resource)
+    sock_gateway.add_connection_permissions(account, lambda_role_name, iam_resource)
 
     print("Adding routes to the chat API and integrating with the Lambda function.")
     for route in ["$connect", "$disconnect", "sendmessage"]:
-        sock_gateway.add_route_and_integration(
-            route, lambda_func, lambda_client)
+        sock_gateway.add_route_and_integration(route, lambda_func, lambda_client)
 
     print("Deploying the API to stage test.")
     chat_uri = sock_gateway.deploy_api("test")
@@ -383,8 +376,7 @@ async def chat_demo(uri):
                 await socket.send(json.dumps({"action": "sendmessage", "msg": msg}))
 
     await asyncio.gather(
-        *(receiver(user)
-          for user in ("Bill", "Jeff", "Steve")), sender("DemoDude")
+        *(receiver(user) for user in ("Bill", "Jeff", "Steve")), sender("DemoDude")
     )
 
 
@@ -402,8 +394,7 @@ def destroy(sock_gateway, lambda_role_name, iam_resource, stack, cf_resource):
     :param cf_resource: A Boto3 CloudFormation resource.
     """
     print(f"Deleting websocket API {sock_gateway.api_name}.")
-    sock_gateway.remove_connection_permissions(
-        iam_resource.Role(lambda_role_name))
+    sock_gateway.remove_connection_permissions(iam_resource.Role(lambda_role_name))
     sock_gateway.delete_api()
 
     print(f"Deleting stack {stack.name}.")
@@ -434,13 +425,11 @@ def main():
     print("Welcome to the Amazon API Gateway websocket chat demo!")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO,
-                        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     cf_resource = boto3.resource("cloudformation")
     stack = cf_resource.Stack("python-example-code-apigateway-websocket-chat")
-    sock_gateway = ApiGatewayWebsocket(
-        stack.name, boto3.client("apigatewayv2"))
+    sock_gateway = ApiGatewayWebsocket(stack.name, boto3.client("apigatewayv2"))
 
     if args.action == "deploy":
         print("Deploying prerequisite resources for the demo.")

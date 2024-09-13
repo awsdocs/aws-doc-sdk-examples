@@ -118,12 +118,10 @@ class MockManager:
                 " VALUES (:description, :guide, :status, :username)"
             )
             sql_params = [
-                {"name": "description", "value": {
-                    "stringValue": data["description"]}},
+                {"name": "description", "value": {"stringValue": data["description"]}},
                 {"name": "guide", "value": {"stringValue": data["guide"]}},
                 {"name": "status", "value": {"stringValue": data["status"]}},
-                {"name": "username", "value": {
-                    "stringValue": data["username"]}},
+                {"name": "username", "value": {"stringValue": data["username"]}},
             ]
         elif kind == "UPDATE":
             sql = (
@@ -234,8 +232,7 @@ def test_post_item_error(mock_mgr, error, stop_on, code, msg):
 
 
 def test_archive_item(mock_mgr):
-    sql, sql_params = mock_mgr.make_query(
-        "UPDATE", mock_mgr.data_items[0]["iditem"])
+    sql, sql_params = mock_mgr.make_query("UPDATE", mock_mgr.data_items[0]["iditem"])
     mock_mgr.setup_stubs(None, None, sql, sql_params)
 
     with mock_mgr.app.test_client() as client:
@@ -262,8 +259,7 @@ def test_archive_item(mock_mgr):
     ],
 )
 def test_archive_item_error(mock_mgr, error, stop_on, code, msg):
-    sql, sql_params = mock_mgr.make_query(
-        "UPDATE", mock_mgr.data_items[0]["iditem"])
+    sql, sql_params = mock_mgr.make_query("UPDATE", mock_mgr.data_items[0]["iditem"])
     mock_mgr.setup_stubs(error, stop_on, sql, sql_params)
 
     with mock_mgr.app.test_client() as client:

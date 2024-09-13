@@ -62,8 +62,7 @@ class Report(MethodView):
         msg_body.attach(htmlpart)
 
         att = MIMEApplication(attachment.encode(charset))
-        att.add_header("Content-Disposition", "attachment",
-                       filename="work_items.csv")
+        att.add_header("Content-Disposition", "attachment", filename="work_items.csv")
         msg.attach(msg_body)
         msg.attach(att)
         return msg

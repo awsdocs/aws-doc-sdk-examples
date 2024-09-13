@@ -83,8 +83,7 @@ def create_db_cluster(cluster_name, db_name, admin_name, admin_password, rds_cli
             MasterUsername=admin_name,
             MasterUserPassword=admin_password,
             EnableHttpEndpoint=True,
-            ServerlessV2ScalingConfiguration={
-                "MinCapacity": 0.5, "MaxCapacity": 16},
+            ServerlessV2ScalingConfiguration={"MinCapacity": 0.5, "MaxCapacity": 16},
         )
         cluster = create_cluster_response["DBCluster"]
         logger.info(

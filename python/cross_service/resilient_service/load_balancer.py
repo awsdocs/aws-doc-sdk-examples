@@ -57,8 +57,7 @@ class ElasticLoadBalancerWrapper:
                 VpcId=vpc_id,
             )
             target_group = response["TargetGroups"][0]
-            log.info(
-                f"Created load balancing target group '{target_group_name}'.")
+            log.info(f"Created load balancing target group '{target_group_name}'.")
             return target_group
         except ClientError as err:
             log.error(
@@ -88,14 +87,12 @@ class ElasticLoadBalancerWrapper:
         """
         try:
             # Describe the target group to get its ARN
-            response = self.elb_client.describe_target_groups(
-                Names=[target_group_name])
+            response = self.elb_client.describe_target_groups(Names=[target_group_name])
             tg_arn = response["TargetGroups"][0]["TargetGroupArn"]
 
             # Delete the target group
             self.elb_client.delete_target_group(TargetGroupArn=tg_arn)
-            log.info("Deleted load balancing target group %s.",
-                     target_group_name)
+            log.info("Deleted load balancing target group %s.", target_group_name)
 
             # Use a custom waiter to wait until the target group is no longer available
             self.wait_for_target_group_deletion(self.elb_client, tg_arn)
@@ -121,8 +118,7 @@ class ElasticLoadBalancerWrapper:
     ):
         for attempt in range(max_attempts):
             try:
-                elb_client.describe_target_groups(
-                    TargetGroupArns=[target_group_arn])
+                elb_client.describe_target_groups(TargetGroupArns=[target_group_arn])
                 print(
                     f"Attempt {attempt + 1}: Target group {target_group_arn} still exists."
                 )
@@ -352,8 +348,7 @@ class ElasticLoadBalancerWrapper:
                 TargetGroupArn=tg_response["TargetGroups"][0]["TargetGroupArn"]
             )
         except ClientError as err:
-            log.error(
-                f"Couldn't check health of {target_group_name} target(s).")
+            log.error(f"Couldn't check health of {target_group_name} target(s).")
             error_code = err.response["Error"]["Code"]
             if error_code == "LoadBalancerNotFoundException":
                 log.error(

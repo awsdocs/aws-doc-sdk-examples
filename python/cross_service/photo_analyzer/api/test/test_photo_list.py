@@ -36,8 +36,7 @@ def test_get_photo_list(make_stubber, error_code):
 
 
 @pytest.mark.parametrize(
-    "error_code", [None, "TestException",
-                   "AccessDenied", "S3UploadFailedError"]
+    "error_code", [None, "TestException", "AccessDenied", "S3UploadFailedError"]
 )
 def test_post_photo(make_stubber, monkeypatch, error_code):
     s3_resource = boto3.resource("s3")

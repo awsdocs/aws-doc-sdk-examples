@@ -70,8 +70,7 @@ def test_put_or_post_state_data(make_stubber, method, error_code):
     table = dyn_resource.Table("test-table")
     storage = Storage(table)
     state = "Georgia"
-    item = {"state": state, "date": datetime.date.today().isoformat(),
-            "cases": 5}
+    item = {"state": state, "date": datetime.date.today().isoformat(), "cases": 5}
 
     dyn_stubber.stub_put_item(table.name, item, error_code=error_code)
 
@@ -123,8 +122,7 @@ def test_delete_state_data(
             runner.add(
                 dyn_stubber.stub_batch_write_item,
                 request_items={
-                    table.name: [{"DeleteRequest": {"Key": item}}
-                                 for item in items]
+                    table.name: [{"DeleteRequest": {"Key": item}} for item in items]
                 },
             )
 
@@ -137,8 +135,7 @@ def test_delete_state_data(
 
 
 @pytest.mark.parametrize(
-    "item_exists,error_code", [
-        (True, None), (True, "TestException"), (False, None)]
+    "item_exists,error_code", [(True, None), (True, "TestException"), (False, None)]
 )
 def test_get_state_date_data(make_stubber, item_exists, error_code):
     dyn_resource = boto3.resource("dynamodb")

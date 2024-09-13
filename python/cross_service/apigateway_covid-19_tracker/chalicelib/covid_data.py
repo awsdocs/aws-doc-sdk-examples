@@ -114,8 +114,7 @@ class Storage:
         :param state: The state to retrieve.
         :return: The retrieved data.
         """
-        response = self._table.query(
-            KeyConditionExpression=Key("state").eq(state))
+        response = self._table.query(KeyConditionExpression=Key("state").eq(state))
         items = response.get("Items", [])
         if len(items) == 0:
             items.append(self._generate_random_data(state))
@@ -137,13 +136,11 @@ class Storage:
 
         :param state: The state to delete.
         """
-        response = self._table.query(
-            KeyConditionExpression=Key("state").eq(state))
+        response = self._table.query(KeyConditionExpression=Key("state").eq(state))
         items = response.get("Items", [])
         with self._table.batch_writer() as batch:
             for item in items:
-                batch.delete_item(
-                    Key={"state": item["state"], "date": item["date"]})
+                batch.delete_item(Key={"state": item["state"], "date": item["date"]})
 
     def post_state_data(self, state, state_data):
         """

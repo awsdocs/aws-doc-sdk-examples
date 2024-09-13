@@ -64,8 +64,7 @@ def usage_demo(outputs):
     twrapper = TextractWrapper(
         boto3.client("textract"), boto3.resource("s3"), boto3.resource("sqs")
     )
-    TextractExplorer(twrapper, outputs, default_image_name,
-                     default_image_bytes)
+    TextractExplorer(twrapper, outputs, default_image_name, default_image_bytes)
 
 
 def destroy(stack, outputs, cf_resource):
@@ -104,8 +103,7 @@ def main():
     print("Welcome to the Amazon Textract demo!")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO,
-                        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     cf_resource = boto3.resource("cloudformation")
     stack = cf_resource.Stack("textract-example-s3-sns-sqs")

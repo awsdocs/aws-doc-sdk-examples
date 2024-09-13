@@ -47,14 +47,12 @@ class Report(Resource):
                         }
                     )
                     logger.info(
-                        "Found %s labels in %s.", len(
-                            response["Labels"]), photo.key
+                        "Found %s labels in %s.", len(response["Labels"]), photo.key
                     )
                     for label in response.get("Labels", []):
                         report_csv.append(
                             ",".join(
-                                (photo.key, label["Name"],
-                                 str(label["Confidence"]))
+                                (photo.key, label["Name"], str(label["Confidence"]))
                             )
                         )
                 except ClientError as err:

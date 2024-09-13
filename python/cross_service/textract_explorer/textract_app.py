@@ -121,8 +121,7 @@ class TextractExplorer:
             command=lambda: self.extract(self.extract_form_button),
         )
 
-        self.explorer_label = tkinter.Label(
-            self.explorer_frame, text=NO_DATA_MESSAGE)
+        self.explorer_label = tkinter.Label(self.explorer_frame, text=NO_DATA_MESSAGE)
         self.explorer_label.grid(row=0, column=0, sticky=tkinter.NW, pady=5)
         self.tree_frame = tkinter.Frame(self.explorer_frame)
         self.tree_frame.grid(row=1, column=0, sticky=tkinter.NSEW)
@@ -208,8 +207,7 @@ class TextractExplorer:
         doc_node = {"frame": self.doc_frame, "data": document}
         self.expand_node(doc_node, [doc_node])
 
-        self.doc_canvas.create_window(
-            (4, 4), window=self.doc_frame, anchor=tkinter.NW)
+        self.doc_canvas.create_window((4, 4), window=self.doc_frame, anchor=tkinter.NW)
 
     @staticmethod
     def render_block(block):
@@ -266,16 +264,14 @@ class TextractExplorer:
                     text=self.render_block(child),
                     variable=child_var,
                     value=index,
-                    command=lambda: self.select_document_node(
-                        child_list, child_var),
+                    command=lambda: self.select_document_node(child_list, child_var),
                 )
                 child_list.append({"frame": child_frame, "data": child})
                 row = index * 2
                 child_radio.grid(
                     row=row, column=0, sticky=tkinter.NW, pady=2, padx=indent
                 )
-                child_frame.grid(row=row + 1, column=0,
-                                 sticky=tkinter.NW, padx=indent)
+                child_frame.grid(row=row + 1, column=0, sticky=tkinter.NW, padx=indent)
 
         sel_node["frame"].grid()
 
@@ -302,8 +298,7 @@ class TextractExplorer:
         ]
         points.append(points[0])
         self.input_canvas.delete("polygon")
-        self.input_canvas.create_line(
-            points, fill=color, width=2, tag="polygon")
+        self.input_canvas.create_line(points, fill=color, width=2, tag="polygon")
 
     def select_document_node(self, node_list, node_var):
         """
@@ -353,8 +348,7 @@ class TextractExplorer:
             )
         else:
             job_id = self.textract_wrapper.start_analysis_job(
-                bucket_name, obj_name, [
-                    self.block_filter], sns_topic_arn, sns_role_arn
+                bucket_name, obj_name, [self.block_filter], sns_topic_arn, sns_role_arn
             )
         return job_id
 
@@ -371,8 +365,7 @@ class TextractExplorer:
         """
         if thread.is_alive():
             self.app.after(
-                100, lambda: self.render_data_when_thread_ready(
-                    thread, button, text)
+                100, lambda: self.render_data_when_thread_ready(thread, button, text)
             )
         else:
             self.render_data(button, text)
@@ -392,11 +385,9 @@ class TextractExplorer:
         status = self.textract_wrapper.check_job_queue(queue_url, job_id)
         if status == "SUCCEEDED":
             if self.block_filter == "TEXT":
-                self.textract_data = self.textract_wrapper.get_detection_job(
-                    job_id)
+                self.textract_data = self.textract_wrapper.get_detection_job(job_id)
             else:
-                self.textract_data = self.textract_wrapper.get_analysis_job(
-                    job_id)
+                self.textract_data = self.textract_wrapper.get_analysis_job(job_id)
             self.render_data(button, text)
         else:
             self.app.after(

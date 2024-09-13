@@ -21,8 +21,7 @@ def make_table():
             Column("FirstName", str),
             Column("LastName", str),
             Column("Birthday", datetime.date, nullable=False),
-            Column("ForeignID", int, foreign_key=ForeignKey(
-                "OtherTable", "OtherID")),
+            Column("ForeignID", int, foreign_key=ForeignKey("OtherTable", "OtherID")),
         ],
     )
     return table

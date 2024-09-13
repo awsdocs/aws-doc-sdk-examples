@@ -34,8 +34,7 @@ def find_api_url(stack_name):
             for output in stack.outputs
             if output["OutputKey"] == "EndpointURL"
         )
-        print(
-            f"Found API URL in {stack_name} AWS CloudFormation stack: {api_url}")
+        print(f"Found API URL in {stack_name} AWS CloudFormation stack: {api_url}")
     except StopIteration:
         print(
             "Couldn't find the REST URL for your API. Try running the following "
@@ -54,8 +53,7 @@ def demo():
     """
     Calls the REST API in various ways, using the requests package.
     """
-    logging.basicConfig(level=logging.INFO,
-                        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     stack_name = "ChaliceRestDemo"
 
     parser = argparse.ArgumentParser()
@@ -78,8 +76,7 @@ def demo():
         states_url = urllib.parse.urljoin(api_url, "states")
         print(f"Sending GET request to {states_url}")
         states_response = requests.get(states_url)
-        print(
-            f"Response: {states_response.status_code}\n\t{states_response.json()}")
+        print(f"Response: {states_response.status_code}\n\t{states_response.json()}")
 
         states = states_response.json()["states"].split(", ")
         random_state = random.choice(states)
@@ -100,8 +97,7 @@ def demo():
             }
             for index in range(1, 11)
         ]
-        print(
-            f"Put {len(historical_data)} historical records for {random_state}.")
+        print(f"Put {len(historical_data)} historical records for {random_state}.")
         for record in historical_data:
             requests.put(state_url, json=record)
         print(f"Send GET request again to {state_url}")
@@ -112,12 +108,10 @@ def demo():
         past_date = (
             datetime.date.today() - datetime.timedelta(days=random.randint(2, 10))
         ).isoformat()
-        date_url = urllib.parse.urljoin(
-            api_url, f"states/{random_state}/{past_date}")
+        date_url = urllib.parse.urljoin(api_url, f"states/{random_state}/{past_date}")
         print(f"Sending GET request to {date_url}")
         date_response = requests.get(date_url)
-        print(
-            f"Response: {date_response.status_code}\n\t{date_response.json()}")
+        print(f"Response: {date_response.status_code}\n\t{date_response.json()}")
 
         print(f"Sending DELETE request to {date_url}")
         date_del_response = requests.delete(date_url)
@@ -136,8 +130,7 @@ def demo():
 
         print(f"Send GET to {state_url} (expect new random data for today).")
         state_response = requests.get(state_url)
-        print(
-            f"Response: {state_response.status_code}\n\t{state_response.json()}")
+        print(f"Response: {state_response.status_code}\n\t{state_response.json()}")
 
         print(
             "You can remove all resources created for this demo by running "

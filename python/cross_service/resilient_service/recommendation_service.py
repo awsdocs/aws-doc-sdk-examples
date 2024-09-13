@@ -66,8 +66,7 @@ class RecommendationService:
                     {"AttributeName": "MediaType", "KeyType": "HASH"},
                     {"AttributeName": "ItemId", "KeyType": "RANGE"},
                 ],
-                ProvisionedThroughput={
-                    "ReadCapacityUnits": 5, "WriteCapacityUnits": 5},
+                ProvisionedThroughput={"ReadCapacityUnits": 5, "WriteCapacityUnits": 5},
             )
             log.info("Creating table %s...", self.table_name)
             waiter = self.dynamodb_client.get_waiter("table_exists")
@@ -75,8 +74,7 @@ class RecommendationService:
             log.info("Table %s created.", self.table_name)
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceInUseException":
-                log.info("Table %s exists, nothing to be done.",
-                         self.table_name)
+                log.info("Table %s exists, nothing to be done.", self.table_name)
             else:
                 raise RecommendationServiceError(
                     self.table_name, f"ClientError when creating table: {err}."
@@ -95,8 +93,7 @@ class RecommendationService:
             with open(data_file) as data:
                 items = json.load(data)
             batch = [{"PutRequest": {"Item": item}} for item in items]
-            self.dynamodb_client.batch_write_item(
-                RequestItems={self.table_name: batch})
+            self.dynamodb_client.batch_write_item(RequestItems={self.table_name: batch})
             log.info(
                 "Populated table %s with items from %s.", self.table_name, data_file
             )
@@ -119,8 +116,7 @@ class RecommendationService:
             log.info("Table %s deleted.", self.table_name)
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
-                log.info("Table %s does not exist, nothing to do.",
-                         self.table_name)
+                log.info("Table %s does not exist, nothing to do.", self.table_name)
             else:
                 raise RecommendationServiceError(
                     self.table_name, f"ClientError when deleting table: {err}."

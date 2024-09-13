@@ -116,8 +116,7 @@ class Storage:
                         auto_increment=True,
                         primary_key=True,
                     ),
-                    Column("BookID", int, foreign_key=ForeignKey(
-                        "Books", "BookID")),
+                    Column("BookID", int, foreign_key=ForeignKey("Books", "BookID")),
                     Column(
                         "PatronID", int, foreign_key=ForeignKey("Patrons", "PatronID")
                     ),
@@ -138,8 +137,7 @@ class Storage:
         cluster = boto3.client("rds").describe_db_clusters(
             DBClusterIdentifier=cluster_name
         )["DBClusters"][0]
-        secret = boto3.client("secretsmanager").describe_secret(
-            SecretId=secret_name)
+        secret = boto3.client("secretsmanager").describe_secret(SecretId=secret_name)
         rdsdata_client = boto3.client("rds-data")
         return cls(cluster, secret, db_name, rdsdata_client)
 
@@ -242,8 +240,7 @@ class Storage:
             result = self._rdsdata_client.batch_execute_statement(**run_args)
             logger.info("Ran batch statement on %s.", self._db_name)
         except ClientError:
-            logger.exception(
-                "Run batch statement on %s failed.", self._db_name)
+            logger.exception("Run batch statement on %s failed.", self._db_name)
             raise
         else:
             return result
@@ -343,8 +340,7 @@ class Storage:
                           Otherwise, all books are returned.
         :returns: The list of books.
         """
-        logger.info("Listing by author %s.",
-                    "All" if author_id is None else author_id)
+        logger.info("Listing by author %s.", "All" if author_id is None else author_id)
         where_clauses = (
             None
             if author_id is None
@@ -451,8 +447,7 @@ class Storage:
         :return: The ID of the added patron.
         """
         logger.info("Adding patron %s.", patron)
-        sql, sql_param_sets = insert_returning(
-            self._tables["Patrons"], [patron])
+        sql, sql_param_sets = insert_returning(self._tables["Patrons"], [patron])
         results = self._run_statement(sql, sql_params=sql_param_sets[0])
         new_id = unpack_insert_results_v2(results)
         return new_id
@@ -464,8 +459,7 @@ class Storage:
         :param patron_id: The ID of the patron to delete.
         """
         logger.info("Deleting patron %s.", patron_id)
-        sql, sql_param_sets = delete(self._tables["Patrons"], [
-                                     {"PatronID": patron_id}])
+        sql, sql_param_sets = delete(self._tables["Patrons"], [{"PatronID": patron_id}])
         try:
             self._run_statement(sql, sql_params=sql_param_sets[0])
         except Exception as err:
@@ -568,8 +562,7 @@ class Storage:
             "Lending",
             {"Returned": datetime.date.today()},
             [
-                {"table": "Lending", "column": "BookID",
-                    "op": "=", "value": book_id},
+                {"table": "Lending", "column": "BookID", "op": "=", "value": book_id},
                 {
                     "table": "Lending",
                     "column": "PatronID",

@@ -143,8 +143,7 @@ def state_date_cases(state, date):
              body in JSON format.
              For DELETE requests, only the status code is returned.
     """
-    logger.info("Got %s to /states/%s/%s.",
-                app.current_request.method, state, date)
+    logger.info("Got %s to /states/%s/%s.", app.current_request.method, state, date)
 
     state = urllib.parse.unquote(state)
     date = urllib.parse.unquote(date)
@@ -156,8 +155,7 @@ def state_date_cases(state, date):
         if response is not None:
             response = json.dumps(response, default=convert_decimal_to_int)
         else:
-            raise chalice.NotFoundError(
-                f"No data found for {state} on {date}.")
+            raise chalice.NotFoundError(f"No data found for {state} on {date}.")
     elif app.current_request.method == "DELETE":
         storage.delete_state_date_data(state, date)
 

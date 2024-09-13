@@ -92,8 +92,7 @@ class Storage:
         sql_params = None
         if archived is not None:
             sql_where = "WHERE archived=:archived"
-            sql_params = [{"name": "archived",
-                           "value": {"booleanValue": archived}}]
+            sql_params = [{"name": "archived", "value": {"booleanValue": archived}}]
         sql = f"{sql_select} FROM {self._table_name} {sql_where}"
         print(sql)
         results = self._run_statement(sql, sql_params=sql_params)
@@ -136,12 +135,10 @@ class Storage:
             ") SELECT iditem FROM t1"
         )
         sql_params = [
-            {"name": "description", "value": {
-                "stringValue": work_item["description"]}},
+            {"name": "description", "value": {"stringValue": work_item["description"]}},
             {"name": "guide", "value": {"stringValue": work_item["guide"]}},
             {"name": "status", "value": {"stringValue": work_item["status"]}},
-            {"name": "username", "value": {
-                "stringValue": work_item["username"]}},
+            {"name": "username", "value": {"stringValue": work_item["username"]}},
         ]
         results = self._run_statement(sql, sql_params=sql_params)
         # Old style, for Serverless v1:

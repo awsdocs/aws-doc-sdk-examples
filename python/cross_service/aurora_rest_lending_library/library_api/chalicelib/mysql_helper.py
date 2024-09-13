@@ -195,8 +195,7 @@ def update(table_name, set_values, where_clauses):
              RDS Data Service.
     """
     set_clauses = [f"{key}=:set_{key}" for key in set_values.keys()]
-    set_params = _make_params(
-        {f"set_{key}": val for key, val in set_values.items()})
+    set_params = _make_params({f"set_{key}": val for key, val in set_values.items()})
     where_sql, where_params = _make_where_parts(where_clauses)
     sql = f"UPDATE {table_name} SET {', '.join(set_clauses)}{where_sql}"
     return sql, set_params + where_params

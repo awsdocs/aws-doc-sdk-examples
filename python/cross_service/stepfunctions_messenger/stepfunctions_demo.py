@@ -83,8 +83,7 @@ def usage_demo(state_machine_name, resources):
     if state_machine_arn is None:
         print("Create a message pump state machine.")
         definition = make_definition(resources, False)
-        state_machine.create(state_machine_name, definition,
-                             resources["StepRoleArn"])
+        state_machine.create(state_machine_name, definition, resources["StepRoleArn"])
 
     print("Put three messages in the message table.")
     for user_name, message in [
@@ -128,8 +127,7 @@ def usage_demo(state_machine_name, resources):
     print("Reset the messages in the DynamoDB table to not sent.")
     for msg in table.scan()["Items"]:
         table.update_item(
-            Key={"user_name": msg["user_name"],
-                 "message_id": msg["message_id"]},
+            Key={"user_name": msg["user_name"], "message_id": msg["message_id"]},
             UpdateExpression="SET sent=:s",
             ExpressionAttributeValues={":s": False},
         )
@@ -199,8 +197,7 @@ def main():
     print("Welcome to the AWS Step Functions demo!")
     print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO,
-                        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     cf_resource = boto3.resource("cloudformation")
     stack = cf_resource.Stack("doc-example-stepfunctions-messages-stack")
