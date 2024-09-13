@@ -6,6 +6,8 @@ Parameters:
 Resources:
   SchedulerSnsTopic:
     Type: AWS::SNS::Topic
+    Properties:
+      KmsMasterKeyId: alias/aws/sns
 
   MySubscription:
     Type: AWS::SNS::Subscription
