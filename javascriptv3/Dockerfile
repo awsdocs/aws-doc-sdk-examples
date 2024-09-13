@@ -3,16 +3,16 @@ FROM node:20
 
 # Update image
 RUN apt-get update && \
- apt-get upgrade -y && \
- apt-get clean && \
- rm -rf /var/lib/apt/lists/*
+    apt-get upgrade -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copy source code
 COPY ./javascriptv3 /javascriptv3
 
 # Set non-root user
 RUN useradd -m automation && \
- chown -R automation:automation /javascriptv3
+    chown -R automation:automation /javascriptv3
 USER automation:automation
 
 # Copy resources
