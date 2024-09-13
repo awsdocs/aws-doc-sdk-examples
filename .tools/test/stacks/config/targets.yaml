@@ -11,7 +11,7 @@ gov2:
   status: "enabled"
 javascriptv3:
   account_id: "875008041426"
-  status: "enabled"
+  status: "disabled"
 javav2:
   account_id: "667348412466"  # back-up "814548047983"
   status: "enabled"
