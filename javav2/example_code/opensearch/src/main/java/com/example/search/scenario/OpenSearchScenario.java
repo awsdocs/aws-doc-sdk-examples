@@ -10,6 +10,7 @@ import software.amazon.awssdk.services.opensearch.model.DeleteDomainResponse;
 import software.amazon.awssdk.services.opensearch.model.DomainInfo;
 import software.amazon.awssdk.services.opensearch.model.ListTagsResponse;
 import software.amazon.awssdk.services.opensearch.model.OpenSearchException;
+import software.amazon.awssdk.services.opensearch.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.opensearch.model.UpdateDomainConfigResponse;
 import java.util.List;
 import java.util.Scanner;
@@ -84,14 +85,17 @@ public class OpenSearchScenario {
         logger.info("2. Describe the Amazon OpenSearch domain ");
         logger.info("In this step, we get back the Domain ARN which is used in an upcoming step.");
         waitForInputToContinue(scanner);
-        String arn = "";
+        String arn;
         try {
             CompletableFuture<String> future = openSearchActions.describeDomainAsync(domainName);
             arn = future.join();
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            if (cause instanceof OpenSearchException openSearchEx) {
-                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+            while (cause.getCause() != null && !(cause instanceof ResourceNotFoundException)) {
+                cause = cause.getCause();
+            }
+            if (cause instanceof ResourceNotFoundException resourceNotFoundException) {
+                logger.info("The specific AWS resource was not found: Error message: {}, Error code {}", resourceNotFoundException.awsErrorDetails().errorMessage(), resourceNotFoundException.awsErrorDetails().errorCode());
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
@@ -111,6 +115,9 @@ public class OpenSearchScenario {
             }
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
+            while (cause.getCause() != null && !(cause instanceof OpenSearchException)) {
+                cause = cause.getCause();
+            }
             if (cause instanceof OpenSearchException openSearchEx) {
                 logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
             } else {
@@ -140,8 +147,11 @@ public class OpenSearchScenario {
             logger.info("Domain change progress completed successfully.");
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            if (cause instanceof OpenSearchException ex) {
-                logger.info("An OpenSearch error occurred: Error message: " +ex.getMessage());
+            while (cause.getCause() != null && !(cause instanceof ResourceNotFoundException)) {
+                cause = cause.getCause();
+            }
+            if (cause instanceof ResourceNotFoundException resourceNotFoundException) {
+                logger.info("The specific AWS resource was not found: Error message: {}, Error code {}", resourceNotFoundException.awsErrorDetails().errorMessage(), resourceNotFoundException.awsErrorDetails().errorCode());
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
@@ -167,8 +177,11 @@ public class OpenSearchScenario {
 
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            if (cause instanceof OpenSearchException openSearchEx) {
-                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+            while (cause.getCause() != null && !(cause instanceof ResourceNotFoundException)) {
+                cause = cause.getCause();
+            }
+            if (cause instanceof ResourceNotFoundException resourceNotFoundException) {
+                logger.info("The specific AWS resource was not found: Error message: {}, Error code {}", resourceNotFoundException.awsErrorDetails().errorMessage(), resourceNotFoundException.awsErrorDetails().errorCode());
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
@@ -189,8 +202,11 @@ public class OpenSearchScenario {
             logger.info("Domain change progress completed successfully.");
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            if (cause instanceof OpenSearchException ex) {
-                logger.info("EC2 error occurred: Error message: " +ex.getMessage());
+            while (cause.getCause() != null && !(cause instanceof ResourceNotFoundException)) {
+                cause = cause.getCause();
+            }
+            if (cause instanceof ResourceNotFoundException resourceNotFoundException) {
+                logger.info("The specific AWS resource was not found: Error message: {}, Error code {}", resourceNotFoundException.awsErrorDetails().errorMessage(), resourceNotFoundException.awsErrorDetails().errorCode());
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
@@ -216,14 +232,13 @@ public class OpenSearchScenario {
             logger.info("Domain tags added successfully.");
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            if (cause != null) {
-                if (cause instanceof OpenSearchException) {
-                    logger.error("OpenSearch error occurred: Error message: " + cause.getMessage(), cause);
-                } else {
-                    logger.error("An unexpected error occurred: " + cause.getMessage(), cause);
-                }
+            while (cause.getCause() != null && !(cause instanceof OpenSearchException)) {
+                cause = cause.getCause();
+            }
+            if (cause instanceof OpenSearchException openSearchEx) {
+                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
             } else {
-                logger.error("An unexpected error occurred: " + rt.getMessage(), rt);
+                logger.info("An unexpected error occurred: " + rt.getMessage());
             }
             throw cause;
         }
@@ -237,8 +252,17 @@ public class OpenSearchScenario {
             CompletableFuture<ListTagsResponse> future = openSearchActions.listDomainTagsAsync(arn);
             future.join();
             logger.info("Domain tags listed successfully.");
-        } catch (RuntimeException e) {
-            logger.info("Error occurred while listing domain tags:{} ", e.getMessage());
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            while (cause.getCause() != null && !(cause instanceof OpenSearchException)) {
+                cause = cause.getCause();
+            }
+            if (cause instanceof OpenSearchException openSearchEx) {
+                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -252,8 +276,11 @@ public class OpenSearchScenario {
             logger.info("Request to delete {} was successfully sent.", domainName);
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            if (cause instanceof OpenSearchException openSearchEx) {
-                logger.info("OpenSearch error occurred: Error message: {}, Error code {}", openSearchEx.awsErrorDetails().errorMessage(), openSearchEx.awsErrorDetails().errorCode());
+            while (cause.getCause() != null && !(cause instanceof ResourceNotFoundException)) {
+                cause = cause.getCause();
+            }
+            if (cause instanceof ResourceNotFoundException resourceNotFoundException) {
+                logger.info("The specific AWS resource was not found: Error message: {}, Error code {}", resourceNotFoundException.awsErrorDetails().errorMessage(), resourceNotFoundException.awsErrorDetails().errorCode());
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }

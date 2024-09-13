@@ -15,7 +15,7 @@ The Amazon OpenSearch Basics scenario executes the following operations.
 
 1. **Create an Amazon OpenSearch Domain**:
    - Description: This operation creates a new Amazon OpenSearch domain, which is a managed instance of the OpenSearch engine. Invoke the `createDomain` method. 
-   - Exception Handling: Check to see if a `OpenSearchException` is thrown. We tested as group and ResourceExistsException is not thrown. Display the message and end the program.
+   - Exception Handling: Check to see if a `OpenSearchException` is thrown. We tested as group and `ResourceExistsException` is not thrown. Display the message and end the program.
 
 2. **Describe the Amazon OpenSearch Domain**:
    - Description: This operation retrieves information about the specified Amazon OpenSearch domain.
@@ -30,14 +30,14 @@ The Amazon OpenSearch Basics scenario executes the following operations.
 4. **Wait until the Domain's Change Status Reaches a Completed State**:
    - Description: This operation waits until the change status of the specified Amazon OpenSearch domain reaches a completed state.
    - When making changes to an OpenSearch domain, such as scaling the number of data nodes or updating the OpenSearch version, the domain goes through a change process. This method, `domainChangeProgress(domainName)`, waits until the change status of the specified domain reaches a completed state, which can take several minutes to several hours, depending on the complexity of the change and the current load on the OpenSearch service.
-   Note this operation may take up to 20 minutes. 
    - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end program. 
+   Note this operation may take up to 20 minutes (I am observering that uses the Java SDK). 
 
 5. **Modify the Domain**:
    - Description: This operation modifies the cluster configuration of the specified Amazon OpenSearch domain, such as the instance count.
    - The flexibility to modify the OpenSearch domain's configuration is particularly useful when the data or usage patterns change over time, as you can easily scale the domain to meet the new requirements without having to recreate the entire domain.
    - The method `updateSpecificDomain(domainName)` is called to update the configuration of the specified OpenSearch domain.
-   - Exception Handling: Check to see if a `OpenSearchException` is thrown. There are not many other useful exceptions for this specific call. If so, display the message and end the program. 
+   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end program.  
 
 6. **Wait until the Domain's Change Status Reaches a Completed State (Again)**:
    - Description: This operation is similar to the previous "Wait until the Domain's Change Status Reaches a Completed State" operation, but it is called after the domain modification to ensure the changes have been fully applied.
