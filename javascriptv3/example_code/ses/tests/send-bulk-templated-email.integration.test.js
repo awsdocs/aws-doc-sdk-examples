@@ -2,19 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 import { describe, beforeAll, afterAll, it, expect } from "vitest";
 
-import {
-  createIdentity,
-  createTemplate,
-  deleteIdentity,
-  deleteTemplate,
-} from "../src/libs/sesUtils";
-import { run, TEMPLATE_NAME, USERS } from "../src/ses_sendbulktemplatedemail";
+import { createTemplate, deleteTemplate } from "../src/libs/sesUtils";
+import { run, TEMPLATE_NAME } from "../src/ses_sendbulktemplatedemail";
 import { MessageRejected } from "@aws-sdk/client-ses";
 
 describe("ses_sendbulktemplatedemail", () => {
   beforeAll(async () => {
     try {
-      await Promise.all(USERS.map((user) => createIdentity(user.emailAddress)));
       await createTemplate(TEMPLATE_NAME);
     } catch (e) {
       console.error(e);
@@ -23,7 +17,6 @@ describe("ses_sendbulktemplatedemail", () => {
 
   afterAll(async () => {
     try {
-      await Promise.all(USERS.map((user) => deleteIdentity(user.emailAddress)));
       await deleteTemplate(TEMPLATE_NAME);
     } catch (e) {
       console.error(e);

@@ -11,6 +11,7 @@ import {
   PutObjectLegalHoldCommand,
   GetObjectRetentionCommand,
   DeleteObjectCommand,
+  waitUntilObjectNotExists,
 } from "@aws-sdk/client-s3";
 import { client as s3Client } from "../client.js";
 
@@ -31,16 +32,23 @@ export function deleteBucket(bucketName) {
 }
 
 export async function emptyBucket(bucketName) {
-  const listObjectsCommand = new ListObjectsCommand({ Bucket: bucketName });
-  const listObjectsResult = await s3Client.send(listObjectsCommand);
+  const listObjectsResult = await s3Client.send(
+    new ListObjectsCommand({ Bucket: bucketName }),
+  );
   const objects = listObjectsResult.Contents;
   const objectIdentifiers = objects.map((o) => ({ Key: o.Key }));
-  const deleteObjectsCommand = new DeleteObjectsCommand({
-    Bucket: bucketName,
-    Delete: { Objects: objectIdentifiers },
-  });
-
-  return s3Client.send(deleteObjectsCommand);
+  await s3Client.send(
+    new DeleteObjectsCommand({
+      Bucket: bucketName,
+      Delete: { Objects: objectIdentifiers },
+    }),
+  );
+  for (const objId of objectIdentifiers) {
+    await waitUntilObjectNotExists(
+      { client: s3Client },
+      { Bucket: bucketName, Key: objId.Key },
+    );
+  }
 }
 
 export function putBucketPolicyAllowPuts(bucketName, sid) {

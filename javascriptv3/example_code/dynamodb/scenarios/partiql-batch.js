@@ -37,7 +37,7 @@ export const main = async (confirmAll = false) => {
 this table, the scenario cannot continue. Delete it?`,
       { type: "confirm", confirmAll },
     );
-    const deleteTable = await input.handle({});
+    const deleteTable = await input.handle({}, { confirmAll });
     if (deleteTable) {
       await client.send(new DeleteTableCommand({ tableName }));
     } else {
