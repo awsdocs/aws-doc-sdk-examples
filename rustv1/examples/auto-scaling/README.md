@@ -53,7 +53,7 @@ Code excerpts that show you how to call individual service functions.
 - [DisableMetricsCollection](src/scenario.rs#L617)
 - [EnableMetricsCollection](src/scenario.rs#L294)
 - [SetDesiredCapacity](src/scenario.rs#L595)
-- [TerminateInstanceInAutoScalingGroup](src/scenario.rs#L654)
+- [TerminateInstanceInAutoScalingGroup](src/scenario.rs#L456)
 - [UpdateAutoScalingGroup](src/bin/update-autoscaling-group.rs#L30)
 
 

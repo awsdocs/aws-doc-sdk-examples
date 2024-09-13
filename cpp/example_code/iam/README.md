@@ -49,7 +49,7 @@ Code excerpts that show you how to call individual service functions.
 - [AttachRolePolicy](attach_role_policy.cpp#L38)
 - [CreateAccessKey](create_access_key.cpp#L35)
 - [CreateAccountAlias](create_account_alias.cpp#L35)
-- [CreatePolicy](create_policy.cpp#L43)
+- [CreatePolicy](create_policy.cpp#L69)
 - [CreateRole](create_role.cpp#L35)
 - [CreateUser](create_user.cpp#L40)
 - [DeleteAccessKey](delete_access_key.cpp#L35)

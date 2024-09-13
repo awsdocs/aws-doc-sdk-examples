@@ -89,7 +89,7 @@ functions within the same service.
 - [Manage access control lists (ACLs)](ManageACLsExample/ManageACLs.cs)
 - [Perform a multipart copy](MPUapiCopyObjExample/MPUapiCopyObj.cs)
 - [Transform data with S3 Object Lambda](../cross-service/S3ObjectLambdaFunction)
-- [Upload or download large files](scenarios/TransferUtilityBasics/TransferUtilityBasics/TransferBasics.cs)
+- [Upload or download large files](scenarios/TransferUtilityBasics/TransferUtilityBasics/GlobalUsings.cs)
 
 
 <!--custom.examples.start-->

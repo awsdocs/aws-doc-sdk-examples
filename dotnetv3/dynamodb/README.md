@@ -67,7 +67,7 @@ functions within the same service.
 
 - [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
 - [Create a web application to track DynamoDB data](../cross-service/DynamoDbItemTracker)
-- [Query a table by using batches of PartiQL statements](scenarios/PartiQL_Batch_Scenario/PartiQL_Batch_Scenario/PartiQLBatchMethods.cs)
+- [Query a table by using batches of PartiQL statements](scenarios/PartiQL_Batch_Scenario/PartiQL_Batch_Scenario/PartiQLBatch.cs)
 - [Query a table using PartiQL](scenarios/PartiQL_Basics_Scenario/PartiQL_Basics_Scenario/PartiQLMethods.cs)
 - [Use a document model](mid-level-api/MidlevelItemCRUDExample/MidlevelItemCRUDExample/MidlevelItemCRUD.cs)
 - [Use a high-level object persistence model](high-level-api/HighLevelItemCRUDExample/HighLevelItemCRUDExample/HighLevelItemCRUD.cs)

@@ -60,7 +60,7 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteDBParameterGroup](getting_started_with_db_instances.cpp#L927)
 - [DescribeDBEngineVersions](getting_started_with_db_instances.cpp#L698)
 - [DescribeDBInstances](getting_started_with_db_instances.cpp#L752)
-- [DescribeDBParameterGroups](getting_started_with_db_instances.cpp#L275)
+- [DescribeDBParameterGroups](getting_started_with_db_instances.cpp#L256)
 - [DescribeDBParameters](getting_started_with_db_instances.cpp#L639)
 - [DescribeDBSnapshots](getting_started_with_db_instances.cpp#L597)
 - [DescribeOrderableDBInstanceOptions](getting_started_with_db_instances.cpp#L792)

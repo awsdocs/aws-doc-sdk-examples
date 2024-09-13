@@ -45,7 +45,7 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteAlias](alias_management.py#L164)
 - [DescribeKey](key_management.py#L82)
 - [DisableKey](key_management.py#L128)
-- [EnableKey](key_management.py#L20)
+- [EnableKey](key_management.py#L128)
 - [Encrypt](key_encryption.py#L26)
 - [GenerateDataKey](key_management.py#L104)
 - [GetKeyPolicy](key_policies.py#L50)

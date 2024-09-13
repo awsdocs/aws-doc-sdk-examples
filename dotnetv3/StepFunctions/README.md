@@ -38,7 +38,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](Scenarios/UIMethods.cs)
+- [Learn the basics](Scenarios/StepFunctionsBasics.cs)
 
 
 ### Single actions

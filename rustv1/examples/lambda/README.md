@@ -41,7 +41,7 @@ Code excerpts that show you how to call individual service functions.
 - [GetFunction](src/actions.rs#L382)
 - [Invoke](src/actions.rs#L407)
 - [ListFunctions](src/actions.rs#L395)
-- [UpdateFunctionCode](src/actions.rs#L423)
+- [UpdateFunctionCode](src/actions.rs#L200)
 - [UpdateFunctionConfiguration](src/actions.rs#L449)
 
 ### Scenarios

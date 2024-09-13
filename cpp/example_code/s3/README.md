@@ -72,7 +72,7 @@ Code excerpts that show you how to call individual service functions.
 - [ListBuckets](list_buckets.cpp#L29)
 - [ListObjectsV2](list_objects.cpp#L32)
 - [PutBucketAcl](put_bucket_acl.cpp#L47)
-- [PutBucketPolicy](put_bucket_policy.cpp#L37)
+- [PutBucketPolicy](put_bucket_policy.cpp#L68)
 - [PutBucketWebsite](put_website_config.cpp#L33)
 - [PutObject](put_object.cpp#L33)
 - [PutObjectAcl](get_put_object_acl.cpp#L165)
