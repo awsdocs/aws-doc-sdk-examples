@@ -71,7 +71,7 @@ def usage_demo():
     if args.action == "get":
         response = requests.get(url)
         if response.status_code == 200:
-            with open(args.key, 'wb') as object_file:
+            with open(args.key.split("/")[-1], 'wb') as object_file:
                 object_file.write(response.content)
     elif args.action == "put":
         print("Putting data to the URL.")
