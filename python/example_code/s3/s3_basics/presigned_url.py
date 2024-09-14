@@ -70,10 +70,13 @@ def usage_demo():
     response = None
     if args.action == "get":
         response = requests.get(url)
+        if response.status_code == 200:
+            with open(args.key, 'wb') as object_file:
+                object_file.write(response.content)
     elif args.action == "put":
         print("Putting data to the URL.")
         try:
-            with open(args.key, "r") as object_file:
+            with open(args.key, "rb") as object_file:
                 object_text = object_file.read()
             response = requests.put(url, data=object_text)
         except FileNotFoundError:
@@ -83,9 +86,7 @@ def usage_demo():
             )
 
     if response is not None:
-        print("Got response:")
         print(f"Status: {response.status_code}")
-        print(response.text)
 
     print("-" * 88)
 
