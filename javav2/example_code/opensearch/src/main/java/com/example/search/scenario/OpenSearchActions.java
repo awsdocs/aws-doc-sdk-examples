@@ -40,7 +40,6 @@ import java.util.concurrent.CompletableFuture;
 public class OpenSearchActions {
     private static final Logger logger = LoggerFactory.getLogger(OpenSearchActions.class);
     private static OpenSearchAsyncClient openSearchClientAsyncClient;
-
     private static OpenSearchAsyncClient getAsyncClient() {
         if (openSearchClientAsyncClient == null) {
             SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
@@ -70,7 +69,6 @@ public class OpenSearchActions {
     // snippet-start:[opensearch.java2.create_domain.main]
     /**
      * Creates a new OpenSearch domain asynchronously.
-     *
      * @param domainName the name of the new OpenSearch domain to create
      * @return a {@link CompletableFuture} containing the domain ID of the newly created domain
      */
