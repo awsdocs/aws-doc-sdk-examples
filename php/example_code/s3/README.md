@@ -45,8 +45,8 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CopyObject](GettingStartedWithS3.php#L52)
-- [CreateBucket](GettingStartedWithS3.php#L52)
+- [CopyObject](GettingStartedWithS3.php#L104)
+- [CreateBucket](GettingStartedWithS3.php#L61)
 - [DeleteBucket](GettingStartedWithS3.php#L52)
 - [DeleteObjects](GettingStartedWithS3.php#L52)
 - [GetObject](GettingStartedWithS3.php#L52)

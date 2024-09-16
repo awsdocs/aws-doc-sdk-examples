@@ -44,7 +44,7 @@ Code excerpts that show you how to call individual service functions.
 - [ListLexicons](polly_wrapper.py#L286)
 - [PutLexicon](polly_wrapper.py#L249)
 - [StartSpeechSynthesisTask](polly_wrapper.py#L147)
-- [SynthesizeSpeech](polly_wrapper.py#L20)
+- [SynthesizeSpeech](polly_wrapper.py#L54)
 
 ### Scenarios
 

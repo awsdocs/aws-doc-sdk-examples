@@ -68,7 +68,7 @@ Code excerpts that show you how to call individual service functions.
 - [GetObjectLockConfiguration](scenarios/object-locking/cleanup.py#L17)
 - [HeadBucket](s3_basics/bucket_wrapper.py#L64)
 - [ListBuckets](s3_basics/bucket_wrapper.py#L85)
-- [ListObjectsV2](s3_basics/object_wrapper.py#L21)
+- [ListObjectsV2](s3_basics/object_wrapper.py#L99)
 - [PutBucketAcl](s3_basics/bucket_wrapper.py#L122)
 - [PutBucketCors](s3_basics/bucket_wrapper.py#L171)
 - [PutBucketLifecycleConfiguration](s3_basics/bucket_wrapper.py#L279)

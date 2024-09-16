@@ -38,7 +38,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](scenarios/basic/steps/start-crawler.js)
+- [Learn the basics](actions/create-crawler.js)
 
 
 ### Single actions

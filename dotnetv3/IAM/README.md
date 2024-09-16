@@ -78,8 +78,8 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Build and manage a resilient service](../cross-service/ResilientService/ResilientServiceWorkflow/ResilientServiceWorkflow.cs)
-- [Create a group and add a user](Scenarios/IamScenariosCommon/UIWrapper.cs)
-- [Create a user and assume a role](Scenarios/IamScenariosCommon/UIWrapper.cs)
+- [Create a group and add a user](Scenarios/IamScenariosCommon/S3Wrapper.cs)
+- [Create a user and assume a role](Scenarios/IAMBasics/IAMBasics.cs)
 
 
 <!--custom.examples.start-->

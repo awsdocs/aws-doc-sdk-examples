@@ -51,7 +51,7 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AddAttachmentsToSet](support_wrapper.py#L19)
+- [AddAttachmentsToSet](support_wrapper.py#L143)
 - [AddCommunicationToCase](support_wrapper.py#L179)
 - [CreateCase](support_wrapper.py#L103)
 - [DescribeAttachment](support_wrapper.py#L242)

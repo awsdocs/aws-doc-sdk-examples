@@ -46,7 +46,7 @@ Next, for information on code example structures and how to build and run the ex
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](dynamodb_utils.cpp)
+- [Learn the basics](dynamodb_getting_started_scenario.cpp)
 
 
 ### Single actions
@@ -74,8 +74,8 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a serverless application to manage photos](../../example_code/cross-service/photo_asset_manager)
-- [Query a table by using batches of PartiQL statements](dynamodb_utils.cpp)
-- [Query a table using PartiQL](dynamodb_utils.cpp)
+- [Query a table by using batches of PartiQL statements](dynamodb_partiql_batch_scenario.cpp)
+- [Query a table using PartiQL](dynamodb_partiql_single_scenario.cpp)
 
 
 <!--custom.examples.start-->

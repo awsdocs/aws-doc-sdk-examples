@@ -142,13 +142,11 @@ class Scanner:
             excerpt = first(ex_ver.excerpts)
             if excerpt is not None:
                 if excerpt.snippet_tags:
-                    tags = excerpt.snippet_tags
-                    tags = [*filter(lambda t: api_name in t, tags)]
-
-                    # tags = [*sorted(tags)] # TODO: Switch to this form so that READMEs are always consistent
-                    tags = [*reversed(tags)]
-
-                    tag = first(tags) or excerpt.snippet_tags[0]
+                    # This form ensures that READMEs are always consistent,
+                    # but does not always give the "best" README link.
+                    tags = [*sorted(excerpt.snippet_tags)]
+                    filtered = filter(lambda t: api_name in t, tags)
+                    tag = first(filtered) or tags[0]
                 elif excerpt.snippet_files:
                     # TODO: Find the best (or all?) snippet files, not the first.
                     full_path = first(excerpt.snippet_files)

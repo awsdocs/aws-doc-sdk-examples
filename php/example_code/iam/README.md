@@ -33,11 +33,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachRolePolicy](GettingStartedWithIAM.php#L46)
-- [CreatePolicy](GettingStartedWithIAM.php#L46)
-- [CreateRole](GettingStartedWithIAM.php#L46)
+- [AttachRolePolicy](GettingStartedWithIAM.php#L82)
+- [CreatePolicy](GettingStartedWithIAM.php#L70)
+- [CreateRole](GettingStartedWithIAM.php#L57)
 - [CreateServiceLinkedRole](GettingStartedWithIAM.php#L46)
-- [CreateUser](GettingStartedWithIAM.php#L46)
+- [CreateUser](GettingStartedWithIAM.php#L51)
 - [GetAccountPasswordPolicy](GettingStartedWithIAM.php#L46)
 - [GetPolicy](GettingStartedWithIAM.php#L46)
 - [GetRole](GettingStartedWithIAM.php#L46)
