@@ -12,7 +12,7 @@
 /// SPDX-License-Identifier: Apache-2.0
 
 import Foundation
-import ClientRuntime
+import AWSClientRuntime
 import AWSS3
 
 // snippet-start:[s3.swift.listbuckets.s3sessionprotocol]

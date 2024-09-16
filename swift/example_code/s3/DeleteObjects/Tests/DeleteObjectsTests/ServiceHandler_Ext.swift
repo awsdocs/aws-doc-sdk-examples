@@ -11,7 +11,6 @@ import AWSS3
 import AWSClientRuntime
 import ClientRuntime
 import SwiftUtilities
-import Smithy
 @testable import ServiceHandler
 
 public extension ServiceHandler {

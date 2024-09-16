@@ -47,7 +47,6 @@ struct ExampleCommand: ParsableCommand {
     func runAsync() async throws {
         let session = try DynamoDBSession(region: awsRegion)
         let dbManager = DatabaseManager(session: session)
-        SDKLoggingSystem.initialize(logLevel: .error)
 
         let tableList = try await dbManager.getTableList()
 

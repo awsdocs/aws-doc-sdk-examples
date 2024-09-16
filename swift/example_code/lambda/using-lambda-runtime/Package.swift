@@ -22,7 +22,7 @@ let package = Package(
             url: "https://github.com/swift-server/swift-aws-lambda-runtime.git",
             from: "1.0.0-alpha"),
         .package(url: "https://github.com/awslabs/aws-sdk-swift.git",
-            from: "0.46.0"),
+            from: "0.77.0"),
     ],
     targets: [
         // Add the executable target for the main program. These are the

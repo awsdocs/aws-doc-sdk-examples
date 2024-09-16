@@ -1,6 +1,6 @@
+// swift-tools-version: 5.5
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-// swift-tools-version: 5.5
 
 // The swift-tools-version declares the minimum version of Swift required to
 // build this package.

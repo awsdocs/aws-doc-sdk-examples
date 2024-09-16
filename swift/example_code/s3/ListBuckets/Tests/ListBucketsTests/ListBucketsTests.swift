@@ -83,7 +83,6 @@ final class ListBucketsTests: XCTestCase {
     /// Perform one-time initialization before executing any tests.
     override class func setUp() {
         super.setUp()
-        SDKLoggingSystem.initialize(logLevel: .error)
     }
 
     /// Set up things that need to be done just before each
@@ -129,7 +128,7 @@ final class ListBucketsTests: XCTestCase {
     /// name and a date for which the string is known. Then compare the result
     /// to the expected value.
     func testBucketString() async throws {
-        let testDate = "1/23/45, 6:07:08 PM UTC"
+        let testDate = "1/23/45, 6:07:08 PM UTC"
         let testName = "test-bucket-name"
         let testString = "\(testName) (created \(testDate))"
 
@@ -151,7 +150,7 @@ final class ListBucketsTests: XCTestCase {
     /// object for which we know the expected string result.
     func testDateToString() async throws {
         let testDate = Date(timeIntervalSinceReferenceDate: -123456789.0)
-        let testString = "2/2/97, 2:26:51 AM UTC"
+        let testString = "2/2/97, 2:26:51 AM UTC"
 
         let ds = dateToString(testDate)
 

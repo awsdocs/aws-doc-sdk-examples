@@ -10,7 +10,7 @@
 // snippet-start:[s3.swift.listbuckets.command.imports]
 import Foundation
 import ArgumentParser
-import ClientRuntime
+import AWSClientRuntime
 import AWSS3
 // snippet-end:[s3.swift.listbuckets.command.imports]
 
@@ -57,8 +57,6 @@ struct ExampleCommand: ParsableCommand {
     /// Called by ``main()`` to asynchronously run the AWS example.
     func runAsync() async throws {
         let s3 = S3Manager(session: try S3Session(region: region))
-        SDKLoggingSystem.initialize(logLevel: .error)
-
         let bucketList = try await s3.getAllBuckets()
 
         if bucketList.count != 0 {
