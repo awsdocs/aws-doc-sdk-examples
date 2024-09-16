@@ -29,13 +29,24 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn OpenSearch core operations](src/main/java/com/example/search/scenario/OpenSearchScenario.java)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDomain](src/main/java/com/example/search/CreateDomain.java#L6)
-- [DeleteDomain](src/main/java/com/example/search/DeleteDomain.java#L6)
-- [ListDomainNames](src/main/java/com/example/search/ListDomainNames.java#L6)
+- [AddTags](src/main/java/com/example/search/scenario/OpenSearchActions.java#L265)
+- [ChangeProgress](src/main/java/com/example/search/scenario/OpenSearchActions.java#L215)
+- [CreateDomain](src/main/java/com/example/search/scenario/OpenSearchActions.java#L69)
+- [DeleteDomain](src/main/java/com/example/search/scenario/OpenSearchActions.java#L114)
+- [DescribeDomain](src/main/java/com/example/search/UpdateDomain.java#L6)
+- [ListDomainNames](src/main/java/com/example/search/scenario/OpenSearchActions.java#L167)
+- [ListTags](src/main/java/com/example/search/scenario/OpenSearchActions.java#L265)
 - [UpdateDomainConfig](src/main/java/com/example/search/UpdateDomain.java#L6)
 
 
@@ -50,6 +61,27 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+
+#### Learn OpenSearch core operations
+
+This example shows you how to do the following:
+
+- Create an OpenSearch domain.
+- Provides detailed information about a specific OpenSearch domain.
+- Lists all the OpenSearch domains owned by the account.
+- Waits until the OpenSearch domain's change status reaches a completed state.
+- Modifies the configuration of an existing OpenSearch domain.
+- Add a tag to the OpenSearch domain.
+- Lists the tags associated with an OpenSearch domain.
+- Removes tags from an OpenSearch domain.
+- Deletes the OpenSearch domain.
+
+<!--custom.basic_prereqs.opensearch_Scenario.start-->
+<!--custom.basic_prereqs.opensearch_Scenario.end-->
+
+
+<!--custom.basics.opensearch_Scenario.start-->
+<!--custom.basics.opensearch_Scenario.end-->
 
 
 ### Tests
