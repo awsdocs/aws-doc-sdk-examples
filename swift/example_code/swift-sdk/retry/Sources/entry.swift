@@ -23,11 +23,8 @@ struct RetryExample {
         do {
             // snippet-start:[retry.swift.configure]
             config = try await S3Client.S3ClientConfiguration(
-                retryStrategyOptions: RetryStrategyOptions(
-                    backoffStrategy: SmithyRetries.ExponentialBackoffStrategy(),
-                    maxRetriesBase: 5,
-                    rateLimitingMode: .adaptive
-                )
+                awsRetryMode: .adaptive,
+                maxAttempts: 3
             )
             // snippet-end:[retry.swift.configure]
         } catch {
