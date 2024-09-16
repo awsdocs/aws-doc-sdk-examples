@@ -1,4 +1,21 @@
 # zexi 0.4.0
+opensearch_Hello:
+  title: Hello &ES;
+  title_abbrev: Hello &ES;
+  synopsis: get started using &ES;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.hello.main
+  services:
+    opensearch: {ListVersions}
 opensearch_CreateDomain:
   languages:
     Kotlin:

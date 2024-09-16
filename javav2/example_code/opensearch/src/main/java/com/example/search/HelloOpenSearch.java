@@ -3,25 +3,11 @@
 
 package com.example.search;
 
-// snippet-start:[opensearch.java2.create_domain.main]
-// snippet-start:[opensearch.java2.create_domain.import]
-import software.amazon.awssdk.regions.Region;
+// snippet-start:[opensearch.java2.hello.main]
 import software.amazon.awssdk.services.opensearch.OpenSearchAsyncClient;
-import software.amazon.awssdk.services.opensearch.OpenSearchClient;
-import software.amazon.awssdk.services.opensearch.model.ClusterConfig;
-import software.amazon.awssdk.services.opensearch.model.EBSOptions;
 import software.amazon.awssdk.services.opensearch.model.ListVersionsRequest;
-import software.amazon.awssdk.services.opensearch.model.ListVersionsResponse;
-import software.amazon.awssdk.services.opensearch.model.VersionStatus;
-import software.amazon.awssdk.services.opensearch.model.VolumeType;
-import software.amazon.awssdk.services.opensearch.model.NodeToNodeEncryptionOptions;
-import software.amazon.awssdk.services.opensearch.model.CreateDomainRequest;
-import software.amazon.awssdk.services.opensearch.model.CreateDomainResponse;
-import software.amazon.awssdk.services.opensearch.model.OpenSearchException;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-// snippet-end:[opensearch.java2.create_domain.import]
 
 /**
  * Before running this Java V2 code example, set up your development
@@ -62,4 +48,4 @@ public class HelloOpenSearch {
         });
     }
 }
-// snippet-end:[opensearch.java2.create_domain.main]
+// snippet-end:[opensearch.java2.hello.main]
