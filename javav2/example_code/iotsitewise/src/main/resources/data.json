@@ -1,0 +1,44 @@
+{
+  "assets": [
+    {
+      "name": "Temperature",
+      "description": "Measures the ambient temperature",
+      "properties": [
+        {
+          "name": "value",
+          "type": "number",
+          "unit": "°C",
+          "description": "The current temperature reading",
+          "value": 25.6
+        },
+        {
+          "name": "timestamp",
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the temperature reading",
+          "value": "2024-09-09T12:30:00Z"
+        }
+      ]
+    },
+    {
+      "name": "Humidity",
+      "description": "Measures the ambient humidity",
+      "properties": [
+        {
+          "name": "value",
+          "type": "number",
+          "unit": "%",
+          "description": "The current humidity reading",
+          "value": 45.3
+        },
+        {
+          "name": "timestamp",
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the humidity reading",
+          "value": "2024-09-09T12:35:00Z"
+        }
+      ]
+    }
+  ]
+}
