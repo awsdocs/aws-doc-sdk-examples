@@ -14,80 +14,51 @@ This program is intended for users not familiar with the Amazon OpenSearch SDK t
 The Amazon OpenSearch Basics scenario executes the following operations.
 
 1. **Create an Amazon OpenSearch Domain**:
-<<<<<<< HEAD
    - Description: This operation creates a new Amazon OpenSearch domain, which is a managed instance of the OpenSearch engine. Invoke the `createDomain` method. 
    - Exception Handling: Check to see if a `OpenSearchException` is thrown. We tested as group and `ResourceExistsException` is not thrown. Display the message and end the program.
-=======
-   - Description: This operation creates a new Amazon OpenSearch domain, which is a managed instance of the OpenSearch engine.
->>>>>>> 150c02cfd (added OpenSearch Basics Scenario)
 
 2. **Describe the Amazon OpenSearch Domain**:
    - Description: This operation retrieves information about the specified Amazon OpenSearch domain.
    - The method `describeDomain(domainName)` is called to obtain the Amazon Resource Name (ARN) of the specified OpenSearch domain.
-<<<<<<< HEAD
    - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end program. 
-=======
->>>>>>> 150c02cfd (added OpenSearch Basics Scenario)
 
 3. **List the Domains in Your Account**:
    - Description: This operation lists all the Amazon OpenSearch domains in the current AWS account.
    - The method `listAllDomains()` is called to retrieve a list of all the OpenSearch domains available in the account.
-<<<<<<< HEAD
    - Exception Handling: Check to see if a `OpenSearchException` is thrown. There are not many other useful exceptions for this specific call. If so, display the message and end the program. 
-=======
->>>>>>> 150c02cfd (added OpenSearch Basics Scenario)
 
 4. **Wait until the Domain's Change Status Reaches a Completed State**:
    - Description: This operation waits until the change status of the specified Amazon OpenSearch domain reaches a completed state.
    - When making changes to an OpenSearch domain, such as scaling the number of data nodes or updating the OpenSearch version, the domain goes through a change process. This method, `domainChangeProgress(domainName)`, waits until the change status of the specified domain reaches a completed state, which can take several minutes to several hours, depending on the complexity of the change and the current load on the OpenSearch service.
-<<<<<<< HEAD
    - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end program. 
    Note this operation may take up to 20 minutes (I am observering that uses the Java SDK). 
-=======
-   Note this operation may take up to 20 minutes. 
->>>>>>> 150c02cfd (added OpenSearch Basics Scenario)
 
 5. **Modify the Domain**:
    - Description: This operation modifies the cluster configuration of the specified Amazon OpenSearch domain, such as the instance count.
    - The flexibility to modify the OpenSearch domain's configuration is particularly useful when the data or usage patterns change over time, as you can easily scale the domain to meet the new requirements without having to recreate the entire domain.
    - The method `updateSpecificDomain(domainName)` is called to update the configuration of the specified OpenSearch domain.
-<<<<<<< HEAD
    - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end program.  
-=======
->>>>>>> 150c02cfd (added OpenSearch Basics Scenario)
 
 6. **Wait until the Domain's Change Status Reaches a Completed State (Again)**:
    - Description: This operation is similar to the previous "Wait until the Domain's Change Status Reaches a Completed State" operation, but it is called after the domain modification to ensure the changes have been fully applied.
    - The method `domainChangeProgress(domainName)` is called again to wait until the change status of the specified domain reaches a completed state.
-<<<<<<< HEAD
    - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end program. 
-=======
->>>>>>> 150c02cfd (added OpenSearch Basics Scenario)
 
 7. **Tag the Domain**:
    - Description: This operation adds tags to the specified Amazon OpenSearch domain.
    - Tags are key-value pairs that can be used to categorize and filter OpenSearch domains. They can be useful for tracking costs by grouping expenses for similarly tagged resources.
    - The method `addDomainTags(arn)` is called to add tags to the OpenSearch domain identified by the provided ARN.
-<<<<<<< HEAD
    - Exception Handling: Check to see if a `OpenSearchException` is thrown. There are not many other useful exceptions for this specific call. If so, display the message and end the program. 
-=======
->>>>>>> 150c02cfd (added OpenSearch Basics Scenario)
 
 8. **List Domain Tags**:
    - Description: This operation lists the tags associated with the specified Amazon OpenSearch domain.
    - The method `listDomainTags(arn)` is called to retrieve the tags for the OpenSearch domain identified by the provided ARN.
-<<<<<<< HEAD
    - Exception Handling: Check to see if a `OpenSearchException` is thrown. There are not many other useful exceptions for this specific call. If so, display the message and end the program. 
-=======
->>>>>>> 150c02cfd (added OpenSearch Basics Scenario)
 
 9. **Delete the Amazon OpenSearch Domain**:
    - Description: This operation deletes the specified Amazon OpenSearch domain.
    - The method `deleteSpecificDomain(domainName)` is called to delete the OpenSearch domain with the specified name."
-<<<<<<< HEAD
    - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end program.
-=======
->>>>>>> 150c02cfd (added OpenSearch Basics Scenario)
 
 
 ### Program execution
