@@ -44,7 +44,7 @@ This scenario example will be implemented in the following languages:
 
 ## Additional reading
 
-- [Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html)
+- [Amazon OpenSearch](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html)
 
 ---
 
