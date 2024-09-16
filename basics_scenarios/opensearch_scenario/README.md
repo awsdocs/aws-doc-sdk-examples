@@ -2,7 +2,7 @@
 
 ## Overview
 
- This Amazon OpenSearch Service (Amazon ECR) basic scenario demonstrates how to interact with the Amazon OpenSearch service using an AWS SDK.  The scenario covers various operations such as creating an OpenSearch domain, modifying a domain, waiting for changes to the domain to enter a complete state, and so on. 
+ This Amazon OpenSearch Service basic scenario demonstrates how to interact with the Amazon OpenSearch service using an AWS SDK.  The scenario covers various operations such as creating an OpenSearch domain, modifying a domain, waiting for changes to the domain to enter a complete state, and so on. 
  
  Here are the top five service operations this scenario covers. 
 
