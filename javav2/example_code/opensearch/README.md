@@ -29,6 +29,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello OpenSearch](src/main/java/com/example/search/HelloOpenSearch.java#L6) (`ListVersions`)
+
+
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
@@ -60,6 +65,10 @@ Code excerpts that show you how to call individual service functions.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
+
+#### Hello OpenSearch
+
+This example shows you how to get started using OpenSearch.
 
 
 #### Learn OpenSearch core operations
