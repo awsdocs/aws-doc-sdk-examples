@@ -1,0 +1,19 @@
+# zexi 0.4.0
+iotsitewise_Scenario:
+  synopsis: Learn core operations for &ITSWlong; using an &AWS; SDK
+  category: Basics
+  languages:
+   Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &ITSW; features.
+              snippet_tags:
+                - iotsitewise.java2.scenario.main
+            - description: A wrapper class for &ITSW; SDK methods.
+              snippet_tags:
+                - iotsitewise.java2.actions.main 
+  services:
+    iotsitewise: {}

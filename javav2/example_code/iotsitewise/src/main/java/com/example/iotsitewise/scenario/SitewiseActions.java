@@ -58,6 +58,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
+// snippet-start:[iotsitewise.java2.actions.main]
 public class SitewiseActions {
 
     private static final Logger logger = LoggerFactory.getLogger(SitewiseActions.class);
@@ -296,7 +297,6 @@ public class SitewiseActions {
             })
             .handle((propertyId, exception) -> {
                 if (exception != null) {
-                    // Handle exception, log it, or rethrow
                     throw new RuntimeException("Failed to find property by name: " + exception.getMessage(), exception);
                 }
                 return propertyId;
@@ -492,7 +492,7 @@ public class SitewiseActions {
                 if (exception != null) {
                     throw new RuntimeException("Error creating gateway", exception);
                 } else {
-                    System.out.println("The Gateway was deleted successfully");
+                    logger.info("The Gateway was deleted successfully");
                 }
             });
         return null;
@@ -510,10 +510,10 @@ public class SitewiseActions {
                 if (exception != null) {
                     throw new RuntimeException("Failed to describe the SiteWise gateway", exception);
                 }
-                System.out.println("Gateway Name: " + response.gatewayName());
-                System.out.println("Gateway ARN: " + response.gatewayArn());
-                System.out.println("Gateway Platform: " + response.gatewayPlatform().toString());
-                System.out.println("Gateway Creation Date: " + response.creationDate());
+                logger.info("Gateway Name: " + response.gatewayName());
+                logger.info("Gateway ARN: " + response.gatewayArn());
+                logger.info("Gateway Platform: " + response.gatewayPlatform().toString());
+                logger.info("Gateway Creation Date: " + response.creationDate());
                 return response;
             });
     }
@@ -526,3 +526,4 @@ public class SitewiseActions {
         return data;
     }
 }
+// snippet-end:[iotsitewise.java2.actions.main]

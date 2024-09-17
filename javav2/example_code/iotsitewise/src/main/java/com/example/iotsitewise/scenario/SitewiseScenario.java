@@ -15,10 +15,10 @@ import software.amazon.awssdk.services.iotsitewise.model.DeletePortalResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DescribeGatewayResponse;
 import software.amazon.awssdk.services.iotsitewise.model.IoTSiteWiseException;
 import software.amazon.awssdk.services.iotsitewise.model.ResourceAlreadyExistsException;
-
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
 
+// snippet-start:[iotsitewise.java2.scenario.main]
 public class SitewiseScenario {
 
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -118,7 +118,6 @@ public class SitewiseScenario {
 
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            // Unwrap nested exceptions to find the root cause.
             while (cause != null) {
                 if (cause instanceof software.amazon.awssdk.services.iotsitewise.model.ResourceNotFoundException) {
                     logger.info("The AWS resource was not found: {}", cause.getMessage());
@@ -433,3 +432,4 @@ public class SitewiseScenario {
         System.out.println("Countdown complete!");
     }
 }
+// snippet-end:[iotsitewise.java2.scenario.main]
