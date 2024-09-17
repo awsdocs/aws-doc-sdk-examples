@@ -46,12 +46,12 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [CreateCluster](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L102)
-- [DeleteCluster](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L477)
+- [DeleteCluster](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L476)
 - [DescribeClusters](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L132)
-- [DescribeStatement](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L329)
-- [ExecuteStatement](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L214)
-- [GetStatementResult](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L371)
-- [ModifyCluster](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L448)
+- [DescribeStatement](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L328)
+- [ExecuteStatement](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L213)
+- [GetStatementResult](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L370)
+- [ModifyCluster](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L447)
 
 
 <!--custom.examples.start-->
