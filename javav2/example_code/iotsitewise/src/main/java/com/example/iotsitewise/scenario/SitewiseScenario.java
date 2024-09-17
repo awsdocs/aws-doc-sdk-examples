@@ -148,7 +148,7 @@ public class SitewiseScenario {
             """);
         waitForInputToContinue(scanner);
 
-        String humPropId = "";
+        String humPropId;
         try {
             CompletableFuture<String> future = sitewiseActions.findPropertyIdByNameAsync("Humidity");
             humPropId = future.join();
@@ -241,7 +241,6 @@ public class SitewiseScenario {
             if (cause == null) {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
-
             throw cause;
         }
         sitewiseActions.getAssetPropValueAsync("Humidity property", humPropId, assetId);
