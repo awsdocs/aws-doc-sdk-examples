@@ -443,7 +443,7 @@ public class SitewiseActions {
                 return response.portalStartUrl();
             });
     }
-    // snippet-start:[sitewise.java2.describe.portal.main]
+    // snippet-end:[sitewise.java2.describe.portal.main]
 
     // snippet-start:[sitewise.java2.create.gateway.main]
     /**
