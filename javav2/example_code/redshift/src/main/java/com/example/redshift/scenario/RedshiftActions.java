@@ -102,7 +102,6 @@ public class RedshiftActions {
     // snippet-start:[redshift.java2.create_cluster.main]
     /**
      * Creates a new Amazon Redshift cluster asynchronously.
-     *
      * @param clusterId     the unique identifier for the cluster
      * @param username      the username for the administrative user
      * @param userPassword  the password for the administrative user
@@ -133,7 +132,6 @@ public class RedshiftActions {
     // snippet-start:[redshift.java2.describe_cluster.main]
     /**
      * Waits asynchronously for the specified cluster to become available.
-     *
      * @param clusterId the identifier of the cluster to wait for
      * @return a {@link CompletableFuture} that completes when the cluster is ready
      */
