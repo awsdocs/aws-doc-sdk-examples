@@ -469,7 +469,6 @@ public class RedshiftActions {
         return getAsyncClient().modifyCluster(modifyClusterRequest)
             .whenComplete((clusterResponse, exception) -> {
                 if (exception != null) {
-                    // Handle exceptions
                     if (exception.getCause() instanceof RedshiftException) {
                         logger.info("Error: {} ", exception.getMessage());
                     } else {
