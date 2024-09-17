@@ -49,6 +49,7 @@
     "example_code/iam",
     "example_code/lambda",
     "example_code/libs",
+    "example_code/kinesis",
     "example_code/mediaconvert",
     "example_code/medical-imaging",
     "example_code/medical-imaging/scenarios/health-image-sets/pixel-data-verification",
