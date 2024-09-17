@@ -49,7 +49,6 @@ struct ExampleCommand: ParsableCommand {
 
     /// Called by ``main()`` to asynchronously run the AWS example.
     func runAsync() async throws {
-        SDKLoggingSystem.initialize(logLevel: .error)
         print("Welcome to the AWS SDK for Swift batchGetItem() example for Amazon DynamoDB!")
         print("Please wait while the database is installed and searched...\n")
 

@@ -134,7 +134,6 @@ final class ListTablesTests: XCTestCase {
     /// This function configures the AWS SDK log system to only log errors.
     override class func setUp() {
         super.setUp()
-        SDKLoggingSystem.initialize(logLevel: .error)
     }
 
     /// Test fetching a list of table names that's long enough to require

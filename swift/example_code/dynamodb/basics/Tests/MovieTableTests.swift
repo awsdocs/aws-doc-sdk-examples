@@ -17,7 +17,6 @@ final class MovieTableTests: XCTestCase {
     /// 
     /// This function sets up the following:
     ///
-    ///     Configures the AWS SDK log system to only log errors.
     ///     Instantiates the service handler, which is used to call
     ///     Amazon S3 functions.
     ///     Instantiates the demo cleanup handler, which is used to
@@ -25,7 +24,6 @@ final class MovieTableTests: XCTestCase {
     ///     in order to remove them after testing is complete.
     override class func setUp() {
         super.setUp()
-        SDKLoggingSystem.initialize(logLevel: .error)
     }
 
     func testInit() async throws {
