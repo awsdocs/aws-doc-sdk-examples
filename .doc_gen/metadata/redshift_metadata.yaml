@@ -281,22 +281,6 @@ redshift_ExecuteStatement:
             - description: Executes a SQL statement to query a database table.
               snippet_tags:
                 - redshiftdata.java2.query.main      
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/redshift
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.redshift.redshift_scenario.create_table
-            - description: Wrapper object calling ExecuteStatement.
-              snippet_tags:
-                - python.example_code.redshift_data.RedshiftDataWrapper
-                - python.example_code.redshift_data.ExecuteStatement
-            - description: >
-                The following code instantiates the RedshiftDataWrapper object.
-              snippet_tags:
-                - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
   services:
     redshift: {ExecuteStatement}
 redshift_Scenario:
