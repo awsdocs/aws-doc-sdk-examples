@@ -7,7 +7,7 @@ Contains common test fixtures used to run tests.
 import sys
 
 # This is needed so Python can find test_tools in the path.
-sys.path.append("../..") # noqa
+sys.path.append("../..")  # noqa
 
 from test_tools.fixtures.common import (
     pytest_configure,
@@ -17,5 +17,5 @@ from test_tools.fixtures.common import (
     StubRunner,
     stub_runner,
     InputMocker,
-    input_mocker
+    input_mocker,
 )

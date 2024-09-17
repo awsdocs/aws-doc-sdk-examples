@@ -102,7 +102,7 @@ def handle_message(table, connection_id, event_body, apig_management_client):
         logger.exception("Couldn't get connections.")
         status_code = 404
 
-    message = f"{user_name}: {event_body['msg']}".encode()
+    message = f"{user_name}: {event_body['msg']}".encode()  # utf-8
     logger.info("Message: %s", message)
 
     for other_conn_id in connection_ids:

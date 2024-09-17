@@ -87,7 +87,7 @@ def test_handle_message(
     )
     if error_method != "stub_scan":
         apig_management_stubber.stub_post_to_connection(
-            f"{user_name}: {msg}".encode(),
+            f"{user_name}: {msg}".encode(),  # utf-8
             other_connection_id,
             error_code=error_code
             if error_method == "stub_post_to_connection"
