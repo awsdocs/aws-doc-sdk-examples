@@ -75,8 +75,6 @@ public class RedshiftScenario {
 
         String jsonFilePath = "C:\\AWS\\movies.json"; //args[0];
         String secretName = "test/red"; //args[0];
-
-
         Scanner scanner = new Scanner(System.in);
         logger.info(DASHES);
         logger.info("Welcome to the Amazon Redshift SDK Basics scenario.");
@@ -98,16 +96,26 @@ public class RedshiftScenario {
             Using Amazon Secrets Manager to store Redshift credentials provides several security benefits. 
             It allows you to securely store and manage sensitive information, such as passwords, API keys, and 
             database credentials, without embedding them directly in your application code.
+            
+            More information can be found here: 
+            
+            https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-services-use-secrets_RS.html
             """);
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(getSecretValues(secretName)), User.class);
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
-        runScenario(user, scanner, jsonFilePath);
+        try {
+            runScenario(user, scanner, jsonFilePath);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private static void runScenario(User user, Scanner scanner,  String jsonFilePath){
+    private static void runScenario(User user, Scanner scanner,  String jsonFilePath) throws Throwable {
         String databaseName = "dev";
         System.out.println(DASHES);
         logger.info("Create a Redshift Cluster");
@@ -118,7 +126,7 @@ public class RedshiftScenario {
         try {
             CompletableFuture<CreateClusterResponse> future = redshiftActions.createClusterAsync(clusterId, user.getUserName(), user.getUserPassword());
             CreateClusterResponse response = future.join();
-            logger.info("Cluster successfully created. Cluster Identifier: " + response.cluster().clusterIdentifier());
+            logger.info("Cluster successfully created. Cluster Identifier {} ", response.cluster().clusterIdentifier());
 
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
@@ -126,7 +134,6 @@ public class RedshiftScenario {
                 logger.info("The Cluster {} already exists. Moving on...", clusterId);
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
-                return;
             }
         }
         logger.info(DASHES);
@@ -143,11 +150,10 @@ public class RedshiftScenario {
             Throwable cause = rt.getCause();
             if (cause instanceof RedshiftException redshiftEx) {
                 logger.info("Redshift error occurred: Error message: {}, Error code {}", redshiftEx.getMessage(), redshiftEx.awsErrorDetails().errorCode());
-                return;
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
-                return;
             }
+            throw cause;
         }
         logger.info(DASHES);
 
@@ -178,6 +184,7 @@ public class RedshiftScenario {
             } else {
                 logger.error("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         logger.info(DASHES);
 
@@ -195,6 +202,7 @@ public class RedshiftScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         logger.info(DASHES);
 
@@ -212,7 +220,18 @@ public class RedshiftScenario {
             }
             numRecords = scanner.nextInt();
         } while (numRecords < 50 || numRecords > 200);
-        redshiftActions.popTableAsync(clusterId, databaseName, user.getUserName(), jsonFilePath, numRecords).join();  // Wait for the operation to complete
+        try {
+            redshiftActions.popTableAsync(clusterId, databaseName, user.getUserName(), jsonFilePath, numRecords).join();  // Wait for the operation to complete
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof RedshiftDataException redshiftEx) {
+                logger.info("Redshift Data error occurred: {} Error code: {}", redshiftEx.getMessage(), redshiftEx.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
+            }
+            throw cause;
+        }
+        waitForInputToContinue(scanner);
         logger.info(DASHES);
 
         logger.info(DASHES);
@@ -229,7 +248,7 @@ public class RedshiftScenario {
             scanner.nextLine();
         } while (movieYear < 2012 || movieYear > 2014);
 
-        String id = "";
+        String id;
         try {
             CompletableFuture<String> future = redshiftActions.queryMoviesByYearAsync(databaseName, user.getUserName(), movieYear, clusterId);
             id = future.join();
@@ -241,6 +260,7 @@ public class RedshiftScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
 
         logger.info("The identifier of the statement is " + id);
@@ -256,6 +276,7 @@ public class RedshiftScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         try {
@@ -269,7 +290,9 @@ public class RedshiftScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
+        waitForInputToContinue(scanner);
         logger.info(DASHES);
 
         logger.info(DASHES);
@@ -286,6 +309,7 @@ public class RedshiftScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -307,6 +331,7 @@ public class RedshiftScenario {
                 } else {
                     logger.info("An unexpected error occurred: {}", rt.getMessage());
                 }
+                throw cause;
             }
         } else {
             logger.info("The {}  was not deleted", clusterId);

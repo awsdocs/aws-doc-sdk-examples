@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.core.retry.RetryPolicy;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
@@ -62,9 +63,7 @@ public class RedshiftActions {
             ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
                 .apiCallTimeout(Duration.ofMinutes(2))
                 .apiCallAttemptTimeout(Duration.ofSeconds(90))
-                .retryPolicy(RetryPolicy.builder()
-                    .numRetries(3)
-                    .build())
+                .retryStrategy(RetryMode.STANDARD)
                 .build();
 
             redshiftAsyncClient = RedshiftAsyncClient.builder()
@@ -88,9 +87,7 @@ public class RedshiftActions {
             ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
                 .apiCallTimeout(Duration.ofMinutes(2))
                 .apiCallAttemptTimeout(Duration.ofSeconds(90))
-                .retryPolicy(RetryPolicy.builder()
-                    .numRetries(3)
-                    .build())
+                .retryStrategy(RetryMode.STANDARD)
                 .build();
 
             redshiftDataAsyncClient = RedshiftDataAsyncClient.builder()
@@ -293,8 +290,6 @@ public class RedshiftActions {
                     // Use SqlParameter to avoid SQL injection.
                     List<SqlParameter> parameterList = new ArrayList<>();
                     String sqlStatement = "INSERT INTO Movies VALUES( :id , :title, :year);";
-
-                    // Create the parameters.
                     SqlParameter idParam = SqlParameter.builder()
                         .name("id")
                         .value(String.valueOf(t))
@@ -390,12 +385,11 @@ public class RedshiftActions {
         return getAsyncDataClient().getStatementResult(resultRequest)
             .handle((response, exception) -> {
                 if (exception != null) {
-                    // Handle the exception
                     logger.info("Error getting statement result {} ", exception.getMessage());
                     throw new RuntimeException("Error getting statement result: " + exception.getMessage(), exception);
                 }
 
-                // Extract and print the field values using streams if the response is valid
+                // Extract and print the field values using streams if the response is valid.
                 response.records().stream()
                     .flatMap(List::stream)
                     .map(Field::stringValue)
