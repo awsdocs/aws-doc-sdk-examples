@@ -187,7 +187,6 @@ public class RedshiftActions {
 
     /**
      * Lists all databases asynchronously for the specified cluster, database user, and database.
-     *
      * @param clusterId the identifier of the cluster to list databases for
      * @param dbUser the database user to use for the list databases request
      * @param database the database to list databases for
