@@ -99,8 +99,8 @@ public class ConnectToCluster {
             // Uncomment the following line if using a keystore.
             // props.setProperty("ssl", "true");
             String host = "jdbc:redshift://" + user.getHost() + ":5439/dev";
-            String userName = user.getUsername();
-            String password = user.getPassword();
+            String userName = user.getUserName();
+            String password = user.getUserPassword();
             props.setProperty("user", userName);
             props.setProperty("password", password);
             conn = DriverManager.getConnection(host, props);

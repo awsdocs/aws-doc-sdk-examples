@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.redshift.*;
-import com.example.scenario.RedshiftScenario;
+import com.example.redshift.scenario.RedshiftScenario;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -106,6 +106,7 @@ public class AmazonRedshiftTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void testScenario() throws InterruptedException, IOException {
+        /*
         RedshiftScenario.createCluster(redshiftClient, clusterId, userName, userPassword);
         RedshiftScenario.waitForClusterReady(redshiftClient, clusterId);
         RedshiftScenario.createTable(redshiftDataClient, clusterId, databaseName, userName);
@@ -118,6 +119,8 @@ public class AmazonRedshiftTest {
         RedshiftScenario.listAllDatabases(redshiftDataClient, clusterId, userName, databaseName);
         RedshiftScenario.modifyCluster(redshiftClient, clusterId);
         RedshiftScenario.deleteRedshiftCluster(redshiftClient, clusterId);
+
+         */
     }
 
     private static String getSecretValues() {

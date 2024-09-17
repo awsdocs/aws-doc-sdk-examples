@@ -3,27 +3,13 @@
 package com.example.redshift;
 
 public class User {
-
-    private String username;
-    private String  password;
-
     private String userName;
 
-    private String userPassword;
+    private String password;
 
     private String host;
 
-
-    //getter
-    String getUsername(){
-        return this.username;
-    }
-
-    String getPassword(){
-        return this.password;
-    }
-
-    String getHost(){
+    public String getHost(){
         return this.host;
     }
 
@@ -32,6 +18,6 @@ public class User {
     }
 
     public String getUserPassword(){
-        return this.userPassword;
+        return this.password;
     }
 }
