@@ -42,6 +42,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
+// snippet-start:[redshift.java2.actions.main]
 public class RedshiftActions {
 
     private static final Logger logger = LoggerFactory.getLogger(RedshiftActions.class);
@@ -512,3 +513,4 @@ public class RedshiftActions {
     }
     // snippet-end:[redshift.java2.delete_cluster.main]
 }
+// snippet-end:[redshift.java2.actions.main]

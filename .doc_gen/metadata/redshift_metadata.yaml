@@ -290,7 +290,7 @@ redshift_GetStatementResult:
                 - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
   services:
     redshift: {GetStatementResult}
-redshift_CreateTable:
+redshift_ExecuteStatement:
   languages:
     Java:
       versions:
@@ -298,9 +298,9 @@ redshift_CreateTable:
           github: javav2/example_code/redshift
           sdkguide:
           excerpts:
-            - description:
+            - description: 
               snippet_tags:
-                - redshiftdata.java2.create_table.main
+                - redshiftdata.java2.execute_statement.main
     Python:
       versions:
         - sdk_version: 3
@@ -318,9 +318,9 @@ redshift_CreateTable:
               snippet_tags:
                 - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
   services:
-    redshift: {CreateTable}
+    redshift: {ExecuteStatement}
 redshift_Scenario:
-  synopsis: work with &RS; tables, items, and queries.
+  synopsis: Learn core operations for &RS; using an &AWS;.
   category: Basics
   languages:
     Java:
@@ -329,9 +329,12 @@ redshift_Scenario:
           github: javav2/example_code/redshift
           sdkguide:
           excerpts:
-            - description:
+            - description: Run an interactive scenario demonstrating &RS; features.
               snippet_tags:
                 - redshift.java2.scenario.main
+            - description: A wrapper class for &RS; SDK methods.
+              snippet_tags:
+                - redshift.java2.actions.main  
     Python:
       versions:
         - sdk_version: 3

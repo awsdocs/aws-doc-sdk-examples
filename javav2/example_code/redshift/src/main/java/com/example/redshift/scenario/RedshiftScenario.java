@@ -68,48 +68,51 @@ public class RedshiftScenario {
                 secretName - The name of the secret that belongs to Secret Manager that stores the user name and password used in this scenario. 
             """;
 
-     //   if (args.length != 1) {
-      //     logger.info(usage);
-     //       return;
-     //   }
+        //   if (args.length != 1) {
+        //     logger.info(usage);
+        //       return;
+        //   }
 
-        String jsonFilePath = "C:\\AWS\\movies.json" ; //args[0];
-        String secretName = "test/red" ; //args[0];
-        String userName;
-        String userPassword;
-        String databaseName = "dev" ;
+        String jsonFilePath = "C:\\AWS\\movies.json"; //args[0];
+        String secretName = "test/red"; //args[0];
+
 
         Scanner scanner = new Scanner(System.in);
         logger.info(DASHES);
         logger.info("Welcome to the Amazon Redshift SDK Basics scenario.");
         logger.info("""
-        This Java program demonstrates how to interact with Amazon Redshift by using the AWS SDK for Java (v2).\s
-        Amazon Redshift is a fully managed, petabyte-scale data warehouse service hosted in the cloud.
-                                                                            
-        The program's primary functionalities include cluster creation, verification of cluster readiness,\s
-        list databases, table creation, data population within the table, and execution of SQL statements.
-        Furthermore, it demonstrates the process of querying data from the Movie table.\s
-        
-        Upon completion of the program, all AWS resources are cleaned up.
-        """);
+            This Java program demonstrates how to interact with Amazon Redshift by using the AWS SDK for Java (v2).\s
+            Amazon Redshift is a fully managed, petabyte-scale data warehouse service hosted in the cloud.
+                                                                                
+            The program's primary functionalities include cluster creation, verification of cluster readiness,\s
+            list databases, table creation, data population within the table, and execution of SQL statements.
+            Furthermore, it demonstrates the process of querying data from the Movie table.\s
+                    
+            Upon completion of the program, all AWS resources are cleaned up.
+            """);
 
         logger.info("Lets get started...");
         logger.info("""
-        First, we will retrieve the user name and password from Secrets Manager.
-        
-        Using Amazon Secrets Manager to store Redshift credentials provides several security benefits. 
-        It allows you to securely store and manage sensitive information, such as passwords, API keys, and 
-        database credentials, without embedding them directly in your application code.
-        """);
+            First, we will retrieve the user name and password from Secrets Manager.
+                    
+            Using Amazon Secrets Manager to store Redshift credentials provides several security benefits. 
+            It allows you to securely store and manage sensitive information, such as passwords, API keys, and 
+            database credentials, without embedding them directly in your application code.
+            """);
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(getSecretValues(secretName)), User.class);
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
+        runScenario(user, scanner, jsonFilePath);
+    }
+
+    private static void runScenario(User user, Scanner scanner,  String jsonFilePath){
+        String databaseName = "dev";
         System.out.println(DASHES);
         logger.info("Create a Redshift Cluster");
         logger.info("A Redshift cluster refers to the collection of computing resources and storage that work together to process and analyze large volumes of data.");
-        logger.info("Enter a cluster id value (default is redshift-cluster-movies): ");
+        logger.info("Enter a cluster id value or accept the default by hitting Enter (default is redshift-cluster-movies): ");
         String userClusterId = scanner.nextLine();
         String clusterId = userClusterId.isEmpty() ? "redshift-cluster-movies" : userClusterId;
         try {
