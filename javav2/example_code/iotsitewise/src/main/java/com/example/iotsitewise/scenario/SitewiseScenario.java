@@ -29,6 +29,25 @@ public class SitewiseScenario {
     static SitewiseActions sitewiseActions = new SitewiseActions();
 
     public static void main(String[] args) throws Throwable {
+        final String usage = """
+            Usage:
+               <assetModelName> <assetName> <iamRole> <portalName> <contactEmail> <gatewayName> <myThing>
+
+            Where:
+                assetModelName - The name of the asset model used in the IoT SiteWise program.
+                assetName -  The name of the asset created in the IoT SiteWise program. 
+                iamRole - The Amazon Resource Name (ARN) of the IAM role used by the IoT SiteWise service to access other AWS services.
+                portalName - The name of the IoT SiteWise portal where the asset and other resources are created.
+                contactEmail - The email address of the contact person associated with the IoT SiteWise program.
+                gatewayName - The name of the IoT SiteWise gateway used to collect and send data to the IoT SiteWise service.
+                myThing - The name of the IoT thing or device that is connected to the IoT SiteWise gateway.
+            """;
+
+        if (args.length != 4) {
+            logger.info(usage);
+            return;
+        }
+
         Scanner scanner = new Scanner(System.in);
         String assetModelName = "MyAssetModel2";
         String assetName = "MyAsset";

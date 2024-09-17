@@ -1,4 +1,16 @@
 # zexi 0.4.0
+iotsitewise_CreateAssetModel:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2_create_asset_model.main
+  services:
+    iotsitewise: {CreateAssetModel}
 iotsitewise_Scenario:
   synopsis: Learn core operations for &ITSWlong; using an &AWS; SDK
   category: Basics

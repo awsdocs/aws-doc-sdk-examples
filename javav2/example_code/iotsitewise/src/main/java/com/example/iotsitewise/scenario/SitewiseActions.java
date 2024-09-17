@@ -91,14 +91,6 @@ public class SitewiseActions {
         return ioTSiteWiseAsyncClient;
     }
 
-    private static IoTSiteWiseClient getClient() {
-        IoTSiteWiseClient client = IoTSiteWiseClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
-
-        return client;
-    }
-
     // snippet-start:[sitewise.java2_create_asset_model.main]
     /**
      * Creates an asset model asynchronously.
@@ -147,7 +139,6 @@ public class SitewiseActions {
                 return response;
             });
     }
-
     // snippet-end:[sitewise.java2_create_asset_model.main]
 
     // snippet-start:[sitewise.java2_create_asset.main]
