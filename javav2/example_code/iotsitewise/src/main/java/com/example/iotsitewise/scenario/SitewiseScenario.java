@@ -15,7 +15,6 @@ import software.amazon.awssdk.services.iotsitewise.model.DeletePortalResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DescribeGatewayResponse;
 import software.amazon.awssdk.services.iotsitewise.model.IoTSiteWiseException;
 import software.amazon.awssdk.services.iotsitewise.model.ResourceAlreadyExistsException;
-import software.amazon.awssdk.services.ssm.model.ResourceNotFoundException;
 
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
@@ -89,8 +88,6 @@ public class SitewiseScenario {
 
         } catch (RuntimeException rt) {
             Throwable cause = rt;
-
-            // Unwrap nested exceptions to find the root cause.
             while (cause.getCause() != null && !(cause instanceof ResourceAlreadyExistsException)) {
                 cause = cause.getCause();
             }
@@ -98,7 +95,6 @@ public class SitewiseScenario {
                 assetModelId = sitewiseActions.getAssetModelIdAsync(assetModelName).join();
                 logger.info("The Asset Model {} already exists. The id of the existing model is {}. Moving on...", assetModelName, assetModelId);
             } else {
-                // Log unexpected errors
                 logger.info("An unexpected error occurred: " + rt.getMessage(), rt);
                 throw cause;
             }
@@ -113,12 +109,12 @@ public class SitewiseScenario {
                     
             """);
         waitForInputToContinue(scanner);
-        String assetId = "";
+        String assetId;
         try {
             CompletableFuture<CreateAssetResponse> future = sitewiseActions.createAssetAsync(assetName, assetModelId);
             CreateAssetResponse response = future.join();
             assetId = response.assetId();
-            logger.info("Asset created with ID: " + assetId);
+            logger.info("Asset created with ID: {}", assetId);
 
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
@@ -134,7 +130,6 @@ public class SitewiseScenario {
             if (cause == null) {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
-
             throw cause;
         }
         waitForInputToContinue(scanner);
@@ -310,7 +305,7 @@ public class SitewiseScenario {
             gatewayId = response.gatewayId();
             logger.info("Gateway creation completed successfully. id is {}",gatewayId );
         } catch (RuntimeException e) {
-            System.err.println("Failed to create gateway: " + e.getMessage());
+            logger.info("Failed to create gateway: {} ", e.getMessage());
         }
         logger.info(DASHES);
 
