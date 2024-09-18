@@ -27,15 +27,14 @@ public class ServiceHandler {
     public let client: IAMClient
 
     /// Initialize and return a new ``ServiceHandler`` object, which is used
-    /// to drive the AWS calls used for the example. The Region string
-    /// `AWS_GLOBAL` is used because users are shared across all Regions.
+    /// to drive the AWS calls used for the example.
     ///
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[iam.swift.getrole.handler.init]
     public init() async {
         do {
-            client = try IAMClient(region: "AWS_GLOBAL")
+            client = try IAMClient(region: "us-east-1")
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
             exit(1)

@@ -9,7 +9,7 @@
 import Foundation
 import AWSS3
 import AWSClientRuntime
-import ClientRuntime
+import Smithy
 import SwiftUtilities
 @testable import ServiceHandler
 

@@ -23,7 +23,7 @@ sleep 5
 # Run the program and capture the output so we can verify that the results
 # match our expectations.
 
-cmd_output=$(swift run)
+cmd_output=$(swift run 2>&1)
 cmd_exit_code=$?
 
 # Make sure the HTTP Host header matches the configuration's setting for
@@ -38,15 +38,14 @@ cmd_exit_code=$?
 # 101. If the retry mode mismatches but everything else is correct, the exit
 # code  is 102. If both the Region and retry mode mismatch, the exit code is
 # 103.
+#
+# The retry mode test has been disabled for now, as the output that was used
+# to detect a failure has been removed from the SDK.
 
 config_exit_code="0"
-if [[ "$cmd_output" != *"Host: s3.us-east-1.amazonaws.com"* ]]; then
+if [[ "$cmd_output" != *"Connection was acquired to: Optional(\"https://s3.us-east-1.amazonaws.com/"* ]]; then
     echo "Error: The HTTP Host should be s3.us-east-1.amazonaws.com but is not."
     config_exit_code=$(($config_exit_code + "1"))
-fi
-if [[ "$cmd_output" != *"cfg/retry-mode#adaptive"* ]]; then
-    echo "Error: The retry mode is not set to 'adaptive' as expected."
-    config_exit_code=$(($config_exit_code + "2"))
 fi
 if [[ "$config_exit_code" -ne "0" ]]; then
     config_exit_code=$(($config_exit_code + "100"))

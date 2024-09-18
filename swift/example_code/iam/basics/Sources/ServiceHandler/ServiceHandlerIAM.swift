@@ -111,7 +111,7 @@ public class ServiceHandlerIAM {
     // snippet-start:[iam.swift.basics.iam.resetcredentials]
     public func resetCredentials() async throws {
         do {
-            iamClient = try IAMClient(region: "AWS_GLOBAL")
+            iamClient = try IAMClient(region: "us-east-1")
         } catch {
             throw error
         }
