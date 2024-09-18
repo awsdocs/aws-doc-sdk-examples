@@ -14,52 +14,52 @@ This program is intended for users not familiar with the AWS IoT SiteWise Servic
 The AWS IoT SiteWise Basics scenario executes the following operations.
 
 1. **Create an AWS SiteWise Asset Model**:
-   - Description: This operation creates an AWS SiteWise Asset Model. Invoke the `createAssetModel` method. 
-   - Exception Handling: Check to see if a `ResourceAlreadyExistsException` is thrown. If it is thrown, get the asset model id and move on.
+   - Description: This operation creates an AWS SiteWise Asset Model. Invoke the `createAssetModel` method.
+   - Exception Handling: Check to see if a `ResourceAlreadyExistsException` is thrown. If it is thrown, get the asset model ID and move on.
 
 2. **Create an AWS IoT SiteWise Asset**:
    - Description: This operation creates an AWS SiteWise asset.
-   - The method `createAsset` is called to obtain the asset id.
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end program. 
+   - The method `createAsset` is called to obtain the asset ID.
+   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
 3. **Retrieve the property ID values**:
    - Description: To send data to an asset, we need to get the property ID values for the Temperature and Humidity properties.
-   - The method `listAssetModels()` is called to retrieve asset id values.
-   - Exception Handling: Check to see if a `IoTSiteWiseException` is thrown. There are not many other useful exceptions for this specific call. If so, display the message and end the program. 
+   - The method `listAssetModels()` is called to retrieve the asset ID values.
+   - Exception Handling: Check to see if an `IoTSiteWiseException` is thrown. There are not many other useful exceptions for this specific call. If so, display the message and end the program.
 
 4. **Send data to an AWS IoT SiteWise Asset**:
    - Description: This operation sends data to an IoT SiteWise Asset.
    - This step uses the method `batchPutAssetPropertyValue()`.
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end program. 
+   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
 5. **Retrieve the value of the IoT SiteWise Asset property**:
    - Description: This operation gets data from the asset.
    - This step uses the method `getAssetPropertyValue()`.
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end program.  
+   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
 6. **Create an IoT SiteWise Portal**:
-   - Description: This operation is creates a Sitewise portal.
+   - Description: This operation creates an IoT SiteWise portal.
    - The method `createPortal` is called.
-   - Exception Handling: Check to see if a `IoTSiteWiseException` is thrown.  
+   - Exception Handling: Check to see if an `IoTSiteWiseException` is thrown.
 
 7. **Describe the Portal**:
-   - Description: This operation descrines the portal and returns an URL for the portal.
-   - The method `describePortal()` is called and retutns URL.
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end program. 
+   - Description: This operation describes the portal and returns a URL for the portal.
+   - The method `describePortal()` is called and returns the URL.
+   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
 8. **Create an IoTSitewise Gateway**:
-   - Description: This operation creates a Sitewise Gateway.
-   - The method `createGateway)` is called.
-  - Exception Handling: Check to see if a `IoTSiteWiseException` is thrown.  
+   - Description: This operation creates an IoT SiteWise Gateway.
+   - The method `createGateway` is called.
+   - Exception Handling: Check to see if an `IoTSiteWiseException` is thrown.
 
-9. **Describe the Sitewise Gateway**:
+9. **Describe the IoT SiteWise Gateway**:
    - Description: This operation describes the Gateway.
-   - The method `describeGateway()` is called."
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end program.
+   - The method `describeGateway()` is called.
+   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
-10. **Delete the AWS IoT SiteWise Assets**
-  - The `delete()` methods ares called to clean up the resources.
-  - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end program. 
+10. **Delete the AWS IoT SiteWise Assets**:
+    - The `delete()` methods are called to clean up the resources.
+    - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program."
 
 ### Program execution
 The following shows the output of the AWS IoT SiteWise Basics scenario in the console. 
