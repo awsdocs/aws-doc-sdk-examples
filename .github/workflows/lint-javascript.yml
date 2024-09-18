@@ -37,3 +37,6 @@ jobs:
         run: |
           changed_files=(${{steps.changed-files.outputs.all_changed_files}})
           ./javascriptv3/github_scripts/lint.sh "${changed_files[@]}"
+      - name: Run unit tests
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: npm test --prefix javascriptv3
