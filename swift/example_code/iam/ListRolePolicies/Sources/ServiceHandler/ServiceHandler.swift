@@ -2,15 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
-   A class containing functions that interact with AWS services.
-*/
+ A class containing functions that interact with AWS services.
+ */
 
 // snippet-start:[iam.swift.listrolepolicies.handler]
 // snippet-start:[iam.swift.listrolepolicies.handler.imports]
-import Foundation
+import AWSClientRuntime
 import AWSIAM
 import ClientRuntime
-import AWSClientRuntime
+import Foundation
+
 // snippet-end:[iam.swift.listrolepolicies.handler.imports]
 
 /// Errors returned by `ServiceHandler` functions.
@@ -31,45 +32,50 @@ public class ServiceHandler {
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[iam.swift.listrolepolicies.handler.init]
-    public init() async {
+    public init() async throws {
         do {
-            client = try IAMClient(region: "us-east-1")
+            client = try await IAMClient()
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
-            exit(1)
+            throw error
         }
     }
+
     // snippet-end:[iam.swift.listrolepolicies.handler.init]
 
     /// Returns a list of all AWS Identity and Access Management (IAM) policy
     /// names.
     ///
     /// - Returns: An array of the available policy names.
-    // snippet-start:[iam.swift.listrolepolicies.handler.listrolepolicies]
+    // snippet-start:[iam.swift.listrolepolicies.handler.ListRolePolicies]
     public func listRolePolicies(role: String) async throws -> [String] {
         var policyList: [String] = []
-        var marker: String? = nil
-        var isTruncated: Bool
-        
-        repeat {
-            let input = ListRolePoliciesInput(
-                marker: marker,
-                roleName: role
-            )
-            let output = try await client.listRolePolicies(input: input)
-            
-            guard let policies = output.policyNames else {
-                return policyList
-            }
 
-            for policy in policies {
-                policyList.append(policy)
+        // Use "Paginated" to get all the objects.
+        // This lets the SDK handle the 'isTruncated' in "ListRolePoliciesOutput".
+        let input = ListRolePoliciesInput(
+            roleName: role
+        )
+        let pages = client.listRolePoliciesPaginated(input: input)
+
+        do {
+            for try await page in pages {
+                guard let policies = page.policyNames else {
+                    print("Error: no role policies returned.")
+                    continue
+                }
+
+                for policy in policies {
+                    policyList.append(policy)
+                }
             }
-            marker = output.marker
-            isTruncated = output.isTruncated
-        } while isTruncated == true
+        } catch {
+            print("ERROR: listRolePolicies:", dump(error))
+            throw error
+        }
         return policyList
     }
-    // snippet-end:[iam.swift.listrolepolicies.handler.listrolepolicies]
+    // snippet-end:[iam.swift.listrolepolicies.handler.ListRolePolicies]
 }
+
 // snippet-end:[iam.swift.listrolepolicies.handler]

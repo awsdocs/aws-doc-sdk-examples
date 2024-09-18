@@ -22,7 +22,7 @@ import AWSSDKIdentity
 /// Service (AWS STS).
 public class ServiceHandlerSTS {
     /// The AWS Region to use for AWS STS operations.
-    let region: String
+    let region: String?
 
     /// The STSClient used to interact with AWS STS.
     var stsClient: STSClient
@@ -30,7 +30,7 @@ public class ServiceHandlerSTS {
     /// Initialize the AWS STS client, optionally with credentials.
     ///
     /// - Parameters:
-    ///   - region: A string specifying the AWS Region in which to perform
+    ///   - region: An optional string specifying the AWS Region in which to perform
     ///     AWS STS operations. If not specified, us-east-2 is used.
     ///   - accessKeyId: An optional string giving the access key ID to
     ///     use for AWS STS operations.
@@ -40,15 +40,20 @@ public class ServiceHandlerSTS {
     ///     credentials.
     ///
     // snippet-start:[iam.swift.basics.sts.init]
-    public init(region: String = "us-east-2",
+    public init(region: String? = nil,
                 accessKeyId: String? = nil,
                 secretAccessKey: String? = nil,
-                sessionToken: String? = nil) async {
+                sessionToken: String? = nil) async throws {
         do {
             self.region = region
+            
+            let stsConfig = try await STSClient.STSClientConfiguration()
+            if let region = self.region {
+                stsConfig.region = region
+            }
 
             if accessKeyId == nil {
-                stsClient = try STSClient(region: self.region)
+                stsClient = STSClient(config: stsConfig)
             } else {
                 // Use the given access key ID, secret access key, and session token
                 // to generate a static credentials provider suitable for use when
@@ -66,18 +71,14 @@ public class ServiceHandlerSTS {
                 )
                 let identityResolver = try StaticAWSCredentialIdentityResolver(credentials)
                 
-                // Create an AWS STS configuration specifying the credentials
-                // provider. Then create a new `STSClient` using those permissions.
-
-                let s3Config = try await STSClient.STSClientConfiguration(
-                    awsCredentialIdentityResolver: identityResolver,
-                    region: self.region
-                )
-                stsClient = STSClient(config: s3Config)
+                // Update s3Config to use the new credentials.
+                // Then create a new `STSClient` using those permissions.
+                stsConfig.awsCredentialIdentityResolver = identityResolver
+                stsClient = STSClient(config: stsConfig)
             }
         } catch {
             print("Error initializing the AWS S3 client: ", dump(error))
-            exit(1)
+            throw error
         }
     }
     // snippet-end:[iam.swift.basics.sts.init]
@@ -108,11 +109,15 @@ public class ServiceHandlerSTS {
             // Create a new AWS STS client with the specified access credentials.
 
             let stsConfig = try await STSClient.STSClientConfiguration(
-                awsCredentialIdentityResolver: identityResolver,
-                region: self.region
+                awsCredentialIdentityResolver: identityResolver
             )
+            
+            if let region = self.region {
+                stsConfig.region = region
+            }
             stsClient = STSClient(config: stsConfig)
         } catch {
+            print("Error setting credentials: ", dump(error))
             throw error
         }
     }
@@ -124,8 +129,13 @@ public class ServiceHandlerSTS {
     // snippet-start:[iam.swift.basics.sts.resetcredentials]
     public func resetCredentials() async throws {
         do {
-            stsClient = try STSClient(region: self.region)
+            let stsConfig = try await STSClient.STSClientConfiguration()
+            if let region = self.region {
+                stsConfig.region = region
+            }
+           stsClient = STSClient(config: stsConfig)
         } catch {
+            print("Error resetting credentials: ", dump(error))
             throw error
         }
     }
@@ -157,6 +167,7 @@ public class ServiceHandlerSTS {
 
             return credentials
         } catch {
+            print("Error assuming role: ", dump(error))
             throw error
         }
     }

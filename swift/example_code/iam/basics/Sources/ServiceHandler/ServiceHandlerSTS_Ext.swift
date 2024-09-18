@@ -31,5 +31,9 @@ public extension ServiceHandlerSTS {
             }
             return account
         }
-    }
+        catch {
+            print("Error getting access key account number: ", dump(error))
+            throw error
+        }
+   }
 }

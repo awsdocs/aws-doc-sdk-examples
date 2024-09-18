@@ -2,15 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
-   A class containing functions that interact with AWS services.
-*/
+ A class containing functions that interact with AWS services.
+ */
 
 // snippet-start:[iam.swift.listroles.handler]
 // snippet-start:[iam.swift.listroles.handler.imports]
-import Foundation
+import AWSClientRuntime
 import AWSIAM
 import ClientRuntime
-import AWSClientRuntime
+import Foundation
+
 // snippet-end:[iam.swift.listroles.handler.imports]
 
 /// Errors returned by `ServiceHandler` functions.
@@ -30,44 +31,50 @@ public class ServiceHandler {
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[iam.swift.listroles.handler.init]
-    public init() async {
+    public init() async throws {
         do {
-            client = try IAMClient(region: "us-east-1")
+            client = try await IAMClient()
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
-            exit(1)
+            throw error
         }
     }
+
     // snippet-end:[iam.swift.listroles.handler.init]
 
     /// Returns a list of all AWS Identity and Access Management (IAM) role
     /// names.
     ///
     /// - Returns: An array of user records.
-    // snippet-start:[iam.swift.listroles.handler.listroles]
+    // snippet-start:[iam.swift.listroles.handler.ListRoles]
     public func listRoles() async throws -> [String] {
         var roleList: [String] = []
-        var marker: String? = nil
-        var isTruncated: Bool
-        
-        repeat {
-            let input = ListRolesInput(marker: marker)
-            let output = try await client.listRoles(input: input)
-            
-            guard let roles = output.roles else {
-                return roleList
-            }
 
-            for role in roles {
-                if let name = role.roleName {
-                    roleList.append(name)
+        // Use "Paginated" to get all the objects.
+        // This lets the SDK handle the 'isTruncated' in "ListRolesOutput".
+        let input = ListRolesInput()
+        let pages = client.listRolesPaginated(input: input)
+
+        do {
+            for try await page in pages {
+                guard let roles = page.roles else {
+                    print("Error: no roles returned.")
+                    continue
+                }
+
+                for role in roles {
+                    if let name = role.roleName {
+                        roleList.append(name)
+                    }
                 }
             }
-            marker = output.marker
-            isTruncated = output.isTruncated
-        } while isTruncated == true
+        } catch {
+            print("ERROR: listRoles:", dump(error))
+            throw error
+        }
         return roleList
     }
-    // snippet-end:[iam.swift.listroles.handler.listroles]
+    // snippet-end:[iam.swift.listroles.handler.ListRoles]
 }
+
 // snippet-end:[iam.swift.listroles.handler]

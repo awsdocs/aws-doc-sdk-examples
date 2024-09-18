@@ -25,7 +25,7 @@ public class ServiceHandlerS3 {
     /// Initialize the Amazon S3 client, optionally with credentials.
     ///
     /// - Parameters:
-    ///   - region: A `String` providing the AWS Region to use for Amazon S3. 
+    ///   - region: An optional`String` providing the AWS Region to use for Amazon S3.
     ///     operations. If not provided, us-east-2 is assumed.
     ///   - accessKeyId: An optional `String` giving the access key ID of the
     ///     credentials to use.
@@ -39,6 +39,11 @@ public class ServiceHandlerS3 {
                 sessionToken: String? = nil) async {
         do {
             self.region = region
+            let s3Config = try await S3Client.S3ClientConfiguration()
+            
+            if let region = self.region {
+                s3Config.region = region
+            }
 
             // If the access key ID isn't provided, initialize the Amazon
             // S3 client with the Region. Otherwise, use the credentials.
@@ -121,7 +126,13 @@ public class ServiceHandlerS3 {
     // snippet-start:[iam.swift.basics.s3.resetcredentials]
     public func resetCredentials() async throws {
         do {
-            s3Client = try S3Client(region: self.region)
+            let s3Config = try await S3Client.S3ClientConfiguration()
+            
+            if let region = self.region {
+                s3Config.region = region
+            }
+            
+            s3Client = S3Client(config: s3Config)
         } catch {
             throw error
         }

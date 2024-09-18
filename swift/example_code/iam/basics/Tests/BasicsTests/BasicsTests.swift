@@ -338,7 +338,13 @@ final class BasicsTests: XCTestCase {
         if message != nil {
             print("\n*** \(message!) ***") 
         }
-        Thread.sleep(forTimeInterval: seconds)
+        do {
+            let duration = UInt64(seconds * 1_000_000_000)
+            try await Task.sleep(nanoseconds: duration)
+        }
+        catch {
+            print("Sleep error:", dump(error))
+        }
         print("\n")
     }
 }

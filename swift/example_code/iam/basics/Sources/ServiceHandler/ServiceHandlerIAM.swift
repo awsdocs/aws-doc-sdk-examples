@@ -30,10 +30,15 @@ public class ServiceHandlerIAM {
     ///   - secretAccessKey: An optional `String` giving the credentials'
     ///     secret access key.
     ///   - sessionToken: An optional string specifying the session token.
+    ///     region:  An optional region to be used by the IAM client.
     // snippet-start:[iam.swift.basics.iam.init]
     public init(accessKeyId: String? = nil, 
                 secretAccessKey: String? = nil,
-                sessionToken: String? = nil) async {
+                sessionToken: String? = nil,
+                region: String? = nil) async throws
+    {
+        self.region = region
+
         do {
             if accessKeyId == nil {
                 iamClient = try IAMClient(region: self.region)
@@ -99,6 +104,10 @@ public class ServiceHandlerIAM {
                 awsCredentialIdentityResolver: identityResolver,
                 region: self.region
             )
+
+            if let region = self.region {
+                iamConfig.region = region
+            }
             iamClient = IAMClient(config: iamConfig)
         } catch {
             throw error
@@ -111,7 +120,11 @@ public class ServiceHandlerIAM {
     // snippet-start:[iam.swift.basics.iam.resetcredentials]
     public func resetCredentials() async throws {
         do {
-            iamClient = try IAMClient(region: "us-east-1")
+            let iamConfig = try await IAMClient.IAMClientConfiguration()
+            if let region = self.region {
+                iamConfig.region = region
+            }
+            iamClient = IAMClient(config: iamConfig)
         } catch {
             throw error
         }
@@ -174,7 +187,7 @@ public class ServiceHandlerIAM {
     ///
     /// - Returns: An `IAMClientTypes.AccessKey` object with the access key
     ///            details.
-    // snippet-start:[iam.swift.basics.iam.createaccesskey]
+    // snippet-start:[iam.swift.basics.iam.CreateAccessKey]
     public func createAccessKey(userName: String) async throws -> IAMClientTypes.AccessKey {
         let input = CreateAccessKeyInput(
             userName: userName
@@ -189,7 +202,8 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
-    // snippet-end:[iam.swift.basics.iam.createaccesskey]
+
+    // snippet-end:[iam.swift.basics.iam.CreateAccessKey]
 
     /// Create a new AWS Identity and Access Management (IAM) policy.
     ///
@@ -199,7 +213,7 @@ public class ServiceHandlerIAM {
     ///
     /// - Returns: An `IAMClientTypes.Policy` object describing the new policy.
     ///
-    // snippet-start:[iam.swift.basics.iam.createpolicy]
+    // snippet-start:[iam.swift.basics.iam.CreatePolicy]
     public func createPolicy(name: String, policyDocument: String) async throws -> IAMClientTypes.Policy {
         let input = CreatePolicyInput(
             policyDocument: policyDocument,
@@ -215,7 +229,8 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
-    // snippet-end:[iam.swift.basics.iam.createpolicy]
+
+    // snippet-end:[iam.swift.basics.iam.CreatePolicy]
 
     /// Add an inline policy to an AWS Identity and Access Management (IAM)
     /// user.
@@ -226,7 +241,7 @@ public class ServiceHandlerIAM {
     ///   - policyName: A string giving the policy's name.
     ///   - user: The `IAMClientTypes.User` specifying the user.
     ///
-    // snippet-start:[iam.swift.basics.iam.putuserpolicy]
+    // snippet-start:[iam.swift.basics.iam.PutUserPolicy]
     func putUserPolicy(policyDocument: String, policyName: String, user: IAMClientTypes.User) async throws {
         let input = PutUserPolicyInput(
             policyDocument: policyDocument,
@@ -239,7 +254,8 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
-    // snippet-end:[iam.swift.basics.iam.putuserpolicy]
+
+    // snippet-end:[iam.swift.basics.iam.PutUserPolicy]
 
     /// Delete the specified inline user policy.
     ///
@@ -248,7 +264,7 @@ public class ServiceHandlerIAM {
     ///     delete the policy.
     ///   - policyName: The name of the policy to delete.
     ///
-    // snippet-start:[iam.swift.basics.iam.deleteuserpolicy]
+    // snippet-start:[iam.swift.basics.iam.DeleteUserPolicy]
     func deleteUserPolicy(user: IAMClientTypes.User, policyName: String) async throws {
         let input = DeleteUserPolicyInput(
             policyName: policyName,
@@ -260,7 +276,8 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
-    // snippet-end:[iam.swift.basics.iam.deleteuserpolicy]
+
+    // snippet-end:[iam.swift.basics.iam.DeleteUserPolicy]
 
     /// Attach a managed policy to a role.
     ///
@@ -288,7 +305,7 @@ public class ServiceHandlerIAM {
     /// - Parameters:
     ///   - policy: The policy to be detached from the role.
     ///   - role: The role from which to detach a policy.
-    // snippet-start:[iam.swift.basics.iam.detachrolepolicy]
+    // snippet-start:[iam.swift.basics.iam.DetachRolePolicy]
     public func detachRolePolicy(policy: IAMClientTypes.Policy, role: IAMClientTypes.Role) async throws {
         let input = DetachRolePolicyInput(
             policyArn: policy.arn,
@@ -301,13 +318,14 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
-    // snippet-end:[iam.swift.basics.iam.detachrolepolicy]
+
+    // snippet-end:[iam.swift.basics.iam.DetachRolePolicy]
 
     /// Delete the specified policy.
     ///
     /// - Parameter policy: The `IAMClientTypes.Policy` object identifying the
     ///   policy to delete.
-    // snippet-start:[iam.swift.basics.iam.deletepolicy]
+    // snippet-start:[iam.swift.basics.iam.DeletePolicy]
     public func deletePolicy(policy: IAMClientTypes.Policy) async throws {
         let input = DeletePolicyInput(
             policyArn: policy.arn
@@ -318,14 +336,15 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
-    // snippet-end:[iam.swift.basics.iam.deletepolicy]
+
+    // snippet-end:[iam.swift.basics.iam.DeletePolicy]
 
     /// Delete an IAM user.
     ///
     /// - Parameter user: The `IAMClientTypes.User` object describing the IAM
     ///   user to delete.
     ///
-    // snippet-start:[iam.swift.basics.iam.deleteuser]
+    // snippet-start:[iam.swift.basics.iam.DeleteUser]
     public func deleteUser(user: IAMClientTypes.User) async throws {
         let input = DeleteUserInput(
             userName: user.userName
@@ -336,7 +355,8 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
-    // snippet-end:[iam.swift.basics.iam.deleteuser]
+
+    // snippet-end:[iam.swift.basics.iam.DeleteUser]
 
     /// Delete an access key.
     /// - Parameters:
@@ -345,7 +365,7 @@ public class ServiceHandlerIAM {
     ///           access key signing the request.
     ///   - key: An `IAMClientTypes.AccessKey` object representing the key to
     ///          delete.
-    // snippet-start:[iam.swift.basics.iam.deleteaccesskey]
+    // snippet-start:[iam.swift.basics.iam.DeleteAccessKey]
     public func deleteAccessKey(user: IAMClientTypes.User? = nil,
                                 key: IAMClientTypes.AccessKey) async throws {
         let userName: String?
@@ -366,12 +386,13 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
-    // snippet-end:[iam.swift.basics.iam.deleteaccesskey]
+
+    // snippet-end:[iam.swift.basics.iam.DeleteAccessKey]
 
     /// Delete an IAM role.
     ///
     /// - Parameter name: The IAM role to delete.
-    // snippet-start:[iam.swift.basics.iam.deleterole]
+    // snippet-start:[iam.swift.basics.iam.DeleteRole]
     public func deleteRole(role: IAMClientTypes.Role) async throws {
         let input = DeleteRoleInput(
             roleName: role.roleName
@@ -382,7 +403,8 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
-    // snippet-end:[iam.swift.basics.iam.deleterole]
+
+    // snippet-end:[iam.swift.basics.iam.DeleteRole]
 
     /// Get information about the specified user.
     ///
@@ -390,7 +412,7 @@ public class ServiceHandlerIAM {
     ///   this parameter is `nil`, the default user's information is returned.
     ///
     /// - Returns: An `IAMClientTypes.User` record describing the user.
-    // snippet-start:[iam.swift.basics.iam.getuser]
+    // snippet-start:[iam.swift.basics.iam.GetUser]
     public func getUser(name: String? = nil) async throws -> IAMClientTypes.User {
         let input = GetUserInput(
             userName: name
@@ -405,6 +427,6 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
-    // snippet-end:[iam.swift.basics.iam.getuser]
+    // snippet-end:[iam.swift.basics.iam.GetUser]
 }
 // snippet-end:[iam.swift.basics.iam]

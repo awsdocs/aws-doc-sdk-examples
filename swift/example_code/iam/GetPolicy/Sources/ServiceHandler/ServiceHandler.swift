@@ -31,12 +31,12 @@ public class ServiceHandler {
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[iam.swift.getpolicy.handler.init]
-    public init() async {
+    public init() async throws {
         do {
-            client = try IAMClient(region: "us-east-1")
+            client = try await IAMClient()
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
-            exit(1)
+            throw error
         }
     }
     // snippet-end:[iam.swift.getpolicy.handler.init]
@@ -46,7 +46,7 @@ public class ServiceHandler {
     ///
     /// - Parameter arn: The ARN of the policy to return.
     /// - Returns: A `IAMClientTypes.Policy` with the policy information.
-    // snippet-start:[iam.swift.getpolicy.handler.getpolicy]
+    // snippet-start:[iam.swift.getpolicy.handler.GetPolicy]
     public func getPolicy(arn: String) async throws -> IAMClientTypes.Policy {
         let input = GetPolicyInput(
             policyArn: arn
@@ -58,9 +58,10 @@ public class ServiceHandler {
             }
             return policy
         } catch {
+            print("ERROR: getPolicy:", dump(error))
             throw error
         }
     }
-    // snippet-end:[iam.swift.getpolicy.handler.getpolicy]
+    // snippet-end:[iam.swift.getpolicy.handler.GetPolicy]
 }
 // snippet-end:[iam.swift.getpolicy.handler]

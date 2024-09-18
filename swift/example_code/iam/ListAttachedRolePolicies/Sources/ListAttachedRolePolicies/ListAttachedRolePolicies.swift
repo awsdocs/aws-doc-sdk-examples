@@ -31,9 +31,10 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[iam.swift.listattachedrolepolicies.command.runasync]
     func runAsync() async throws {
-        let serviceHandler = await ServiceHandler()
+        
 
         do {
+            let serviceHandler = try await ServiceHandler()
             let attachedPolicies = try await serviceHandler.listAttachedRolePolicies(role: rolename)
 
             print("Found \(attachedPolicies.count) policies attached to role \(rolename)")
@@ -41,6 +42,7 @@ struct ExampleCommand: ParsableCommand {
                 print("  \(policy.policyName ?? "<unnamed>")")
             }
         } catch {
+            print("ERROR: ListAttachedRolePolicies runAsync:", dump(error))
             throw error
         }
     }

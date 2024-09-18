@@ -27,17 +27,17 @@ public class ServiceHandler {
     public let client: IAMClient
 
     /// Initialize and return a new ``ServiceHandler`` object, which is used
-    /// to drive the AWS calls used for the example.
+    /// to drive the AWS calls used for the example. 
     ///
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[iam.swift.createrole.handler.init]
-    public init() async {
+    public init() async throws {
         do {
-            client = try IAMClient(region: "us-east-1")
+            client = try await IAMClient()
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
-            exit(1)
+            throw error
         }
     }
     // snippet-end:[iam.swift.createrole.handler.init]
@@ -47,7 +47,7 @@ public class ServiceHandler {
     /// - Parameter name: The name of the new IAM role.
     ///
     /// - Returns: The ID of the newly created role.
-    // snippet-start:[iam.swift.createrole.handler.createrole]
+    // snippet-start:[iam.swift.createrole.handler.CreateRole]
     public func createRole(name: String, policyDocument: String) async throws -> String {
         let input = CreateRoleInput(
             assumeRolePolicyDocument: policyDocument,
@@ -63,10 +63,11 @@ public class ServiceHandler {
             }
             return id
         } catch {
+            print("ERROR: createRole:", dump(error))
             throw error
         }
     }
-    // snippet-end:[iam.swift.createrole.handler.createrole]
+    // snippet-end:[iam.swift.createrole.handler.CreateRole]
 
     /// Get information about the specified user
     ///
@@ -86,6 +87,7 @@ public class ServiceHandler {
             }
             return user
         } catch {
+            print("ERROR: getUser:", dump(error))
             throw error
         }
     }
