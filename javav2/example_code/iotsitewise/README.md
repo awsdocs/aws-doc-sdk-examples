@@ -1,13 +1,13 @@
-# Amazon EC2 code examples for the SDK for Java 2.x
+# AWS IoT SiteWise code examples for the SDK for Java 2.x
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 2.x to work with Amazon Elastic Compute Cloud (Amazon EC2).
+Shows how to use the AWS SDK for Java 2.x to work with AWS IoT SiteWise.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon EC2 is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems._
+_AWS IoT SiteWise _
 
 ## ⚠ Important
 
@@ -31,45 +31,34 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Amazon EC2](src/main/java/com/example/ec2/scenario/EC2Actions.java#L468) (`DescribeSecurityGroups`)
+- [Hello AWS IoT SiteWise](src/main/java/com/example/iotsitewise/HelloSitewise.java#L17) (`ListVersions`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](src/main/java/com/example/ec2/scenario/EC2Scenario.java)
+- [Learn the basics](src/main/java/com/example/iotsitewise/scenario/SitewiseScenario.java)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [AllocateAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L265)
-- [AssociateAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L235)
-- [AuthorizeSecurityGroupIngress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L505)
-- [CreateKeyPair](src/main/java/com/example/ec2/scenario/EC2Actions.java#L585)
-- [CreateSecurityGroup](src/main/java/com/example/ec2/scenario/EC2Actions.java#L505)
-- [DeleteKeyPair](src/main/java/com/example/ec2/scenario/EC2Actions.java#L106)
-- [DeleteSecurityGroup](src/main/java/com/example/ec2/scenario/EC2Actions.java#L132)
-- [DescribeInstanceTypes](src/main/java/com/example/ec2/scenario/EC2Actions.java#L356)
-- [DescribeInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L402)
-- [DescribeKeyPairs](src/main/java/com/example/ec2/scenario/EC2Actions.java#L566)
-- [DescribeSecurityGroups](src/main/java/com/example/ec2/scenario/EC2Actions.java#L468)
-- [DisassociateAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L207)
-- [GetPasswordData](src/main/java/com/example/ec2/GetPasswordData.java#L6)
-- [ReleaseAddress](src/main/java/com/example/ec2/scenario/EC2Actions.java#L184)
-- [RunInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L319)
-- [StartInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L696)
-- [StopInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L653)
-- [TerminateInstances](src/main/java/com/example/ec2/scenario/EC2Actions.java#L155)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Build and manage a resilient service](../../usecases/resilient_service/src/main/java/com/example/resilient/Main.java)
+- [BatchPutAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L168)
+- [CreateAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L142)
+- [CreateAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L92)
+- [CreateGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L434)
+- [CreatePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L337)
+- [DeleteAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L293)
+- [DeleteAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L315)
+- [DeleteGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L470)
+- [DeletePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L364)
+- [DescribeAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L241)
+- [DescribeGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L488)
+- [DescribePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L410)
+- [GetAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L220)
+- [ListAssetModels](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L386)
 
 
 <!--custom.examples.start-->
@@ -83,46 +72,23 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Amazon EC2
+#### Hello AWS IoT SiteWise
 
-This example shows you how to get started using Amazon EC2.
+This example shows you how to get started using AWS IoT SiteWise.
 
 
 #### Learn the basics
 
-This example shows you how to do the following:
-
-- Create a key pair and security group.
-- Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
-- Stop and restart the instance.
-- Associate an Elastic IP address with your instance.
-- Connect to your instance with SSH, then clean up resources.
-
-<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.basic_prereqs.ec2_Scenario_GetStartedInstances.end-->
+This example shows you how to Learn core operations for AWS IoT SiteWise using an AWS SDK
 
 
-<!--custom.basics.ec2_Scenario_GetStartedInstances.start-->
-<!--custom.basics.ec2_Scenario_GetStartedInstances.end-->
+<!--custom.basic_prereqs.iotsitewise_Scenario.start-->
+<!--custom.basic_prereqs.iotsitewise_Scenario.end-->
 
 
-#### Build and manage a resilient service
+<!--custom.basics.iotsitewise_Scenario.start-->
+<!--custom.basics.iotsitewise_Scenario.end-->
 
-This example shows you how to create a load-balanced web service that returns book, movie, and song recommendations. The example shows how the service responds to failures, and how to restructure the service for more resilience when failures occur.
-
-- Use an Amazon EC2 Auto Scaling group to create Amazon Elastic Compute Cloud (Amazon EC2) instances based on a launch template and to keep the number of instances in a specified range.
-- Handle and distribute HTTP requests with Elastic Load Balancing.
-- Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.
-- Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds with recommendations and health checks.
-- Simulate a recommendation service with an Amazon DynamoDB table.
-- Control web server response to requests and health checks by updating AWS Systems Manager parameters.
-
-<!--custom.scenario_prereqs.cross_ResilientService.start-->
-<!--custom.scenario_prereqs.cross_ResilientService.end-->
-
-
-<!--custom.scenarios.cross_ResilientService.start-->
-<!--custom.scenarios.cross_ResilientService.end-->
 
 ### Tests
 
@@ -139,9 +105,9 @@ in the `javav2` folder.
 
 ## Additional resources
 
-- [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
-- [Amazon EC2 API Reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html)
-- [SDK for Java 2.x Amazon EC2 reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/ec2/package-summary.html)
+- [AWS IoT SiteWise Developer Guide](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/what-is-sitewise.html)
+- [AWS IoT SiteWise API Reference](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/Welcome.html)
+- [SDK for Java 2.x AWS IoT SiteWise reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/ec2/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
