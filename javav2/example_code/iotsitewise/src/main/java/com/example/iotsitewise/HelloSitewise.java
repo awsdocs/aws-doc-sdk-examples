@@ -3,25 +3,40 @@
 
 package com.example.iotsitewise;
 
-import com.example.iotsitewise.scenario.SitewiseActions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iotsitewise.IoTSiteWiseAsyncClient;
 import software.amazon.awssdk.services.iotsitewise.model.AssetSummary;
 import software.amazon.awssdk.services.iotsitewise.model.ListAssetsRequest;
+import software.amazon.awssdk.services.iotsitewise.paginators.ListAssetsPublisher;
+
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 // snippet-start:[iotsitewise.hello.main]
 public class HelloSitewise {
     private static final Logger logger = LoggerFactory.getLogger(HelloSitewise.class);
     public static void main(String[] args) {
-        String modelId = "754c6991-9b34-4fd3-85a5-d4261b1324a1";
+        final String usage = """
+            Usage:
+               <assetModelId>
+
+            Where:
+                assetModelId - The Id value of the asset model used in the IoT SiteWise program.
+            """;
+
+   //     if (args.length != 1) {
+  //          logger.info(usage);
+      ///      return;
+    //    }
+
+        String assetModelId = "754c6991-9b34-4fd3-85a5-d4261b1324a1";
         IoTSiteWiseAsyncClient siteWiseAsyncClient = IoTSiteWiseAsyncClient.builder()
             .region(Region.US_EAST_1)
             .build();
 
-        fetchAssets(siteWiseAsyncClient, modelId);
+        fetchAssets(siteWiseAsyncClient, assetModelId);
     }
 
     /**
@@ -36,19 +51,16 @@ public class HelloSitewise {
             .assetModelId(modelId)
             .build();
 
-        siteWiseAsyncClient.listAssets(assetsRequest)
-            .whenComplete((response, throwable) -> {
-                if (throwable != null) {
-                    logger.info("Error fetching assets: {} ", throwable.getMessage());
-                } else {
-                    List<AssetSummary> assetList = response.assetSummaries();
-                    logger.info("Fetched assets:");
-                    for (AssetSummary asset : assetList) {
-                        logger.info("- " + asset.name());
-                    }
-                }
-            })
-            .join();
+        // Asynchronous paginator - process paginated results.
+        ListAssetsPublisher listAssetsPaginator = siteWiseAsyncClient.listAssetsPaginator(assetsRequest);
+        CompletableFuture<Void> future = listAssetsPaginator.subscribe(response -> {
+            response.assetSummaries().forEach(assetSummary ->
+                logger.info("Asset Name: {} ", assetSummary.name())
+            );
+        });
+
+        // Wait for the asynchronous operation to complete
+        future.join();
     }
 }
 // snippet-end:[iotsitewise.hello.main]

@@ -6,9 +6,9 @@ This SDK Basics scenario demonstrates how to interact with AWS IoT SiteWise usin
 ## Resources
 This Basics scenario has a depedency on an IAM role that has permissions for this service. We will create this resource using a CloudFormation template so the user does not have to manually create it. 
 
-## Hello Amazon OpenSearch
-This program is intended for users not familiar with the AWS IoT SiteWise Service to easily get up and running. The logic is to show use of `
-`???.
+## Hello AWS IoT SiteWise
+This program is intended for users not familiar with the AWS IoT SiteWise Service to easily get up and running. The logic is to show use of 
+`listAssetslistAssetsPaginator`.
 
 ## Scenario Program Flow
 The AWS IoT SiteWise Basics scenario executes the following operations.

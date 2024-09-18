@@ -27,7 +27,7 @@ iotsitewise_DescribeGateway:
               snippet_tags:
                 - sitewise.java2.describe.gateway.main
   services:
-    iotsitewise: {iotsitewise_DescribeGateway}
+    iotsitewise: {DescribeGateway}
 iotsitewise_DeleteGateway:
   languages:
     Java:
@@ -39,7 +39,7 @@ iotsitewise_DeleteGateway:
               snippet_tags:
                 - sitewise.java2.delete.gateway.main
   services:
-    iotsitewise: {iotsitewise_DeleteGateway}
+    iotsitewise: {DeleteGateway}
 iotsitewise_CreateGateway:
   languages:
     Java:
@@ -51,7 +51,7 @@ iotsitewise_CreateGateway:
               snippet_tags:
                 - sitewise.java2.create.gateway.main
   services:
-    iotsitewise: {iotsitewise_CreateGateway}
+    iotsitewise: {CreateGateway}
 iotsitewise_DescribePortal:
   languages:
     Java:
@@ -63,7 +63,7 @@ iotsitewise_DescribePortal:
               snippet_tags:
                 - sitewise.java2.describe.portal.main
   services:
-    iotsitewise: {iotsitewise_DescribePortal}
+    iotsitewise: {DescribePortal}
 iotsitewise_ListAssetModels:
   languages:
     Java:
@@ -75,7 +75,7 @@ iotsitewise_ListAssetModels:
               snippet_tags:
                 - sitewise.java2.list.asset.model.main
   services:
-    iotsitewise: {iotsitewise_ListAssetModels}
+    iotsitewise: {ListAssetModels}
 iotsitewise_DeletePortal:
   languages:
     Java:
@@ -87,7 +87,7 @@ iotsitewise_DeletePortal:
               snippet_tags:
                 - sitewise.java2.delete.portal.main
   services:
-    iotsitewise: {iotsitewise_DeletePortal}
+    iotsitewise: {DeletePortal}
 iotsitewise_CreatePortal:
   languages:
     Java:
@@ -99,7 +99,7 @@ iotsitewise_CreatePortal:
               snippet_tags:
                 - sitewise.java2.create.portal.main
   services:
-    iotsitewise: {iotsitewise_CreatePortal}
+    iotsitewise: {CreatePortal}
 iotsitewise_DeleteAssetModel:
   languages:
     Java:
@@ -111,7 +111,7 @@ iotsitewise_DeleteAssetModel:
               snippet_tags:
                 - sitewise.java2.delete.asset.model.main
   services:
-    iotsitewise: {iotsitewise_DeleteAssetModel}
+    iotsitewise: {DeleteAssetModel}
 iotsitewise_DeleteAsset:
   languages:
     Java:
@@ -123,7 +123,7 @@ iotsitewise_DeleteAsset:
               snippet_tags:
                 - sitewise.java2.delete.asset.main
   services:
-    iotsitewise: {iotsitewise_DeleteAsset}
+    iotsitewise: {DeleteAsset}
 iotsitewise_DescribeAssetModel:
   languages:
     Java:
@@ -135,7 +135,7 @@ iotsitewise_DescribeAssetModel:
               snippet_tags:
                 - sitewise.java2.describe.asset.model.main
   services:
-    iotsitewise: {iotsitewise_DescribeAssetModel}
+    iotsitewise: {DescribeAssetModel}
 iotsitewise_GetAssetPropertyValue:
   languages:
     Java:
@@ -147,7 +147,7 @@ iotsitewise_GetAssetPropertyValue:
               snippet_tags:
                 - sitewise.java2_get_property.main
   services:
-    iotsitewise: {iotsitewise_GetAssetPropertyValue}
+    iotsitewise: {GetAssetPropertyValue}
 iotsitewise_BatchPutAssetPropertyValue:
   languages:
     Java:
@@ -159,7 +159,7 @@ iotsitewise_BatchPutAssetPropertyValue:
               snippet_tags:
                 - sitewise.java2_put_property.main
   services:
-    iotsitewise: {iotsitewise_BatchPutAssetPropertyValue}
+    iotsitewise: {BatchPutAssetPropertyValue}
 iotsitewise_CreateAsset:
   languages:
     Java:

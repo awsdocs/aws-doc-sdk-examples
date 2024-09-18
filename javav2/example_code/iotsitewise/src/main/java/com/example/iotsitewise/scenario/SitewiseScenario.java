@@ -43,7 +43,7 @@ public class SitewiseScenario {
                 myThing - The name of the IoT thing or device that is connected to the IoT SiteWise gateway.
             """;
 
-        if (args.length != 4) {
+        if (args.length != 7) {
             logger.info(usage);
             return;
         }
