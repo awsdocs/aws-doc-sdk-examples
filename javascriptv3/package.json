@@ -7,14 +7,15 @@
     "merge-test-results": "jrm test-results.xml \"**/test_results/**/*.junit.xml\"",
     "log-tests": "cat test-results.xml",
     "lint": "lint-staged",
-    "ci-lint": "eslint"
+    "ci-lint": "eslint",
+    "ci-format-check": "prettier --check"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
       "eslint",
       "prettier -w"
     ],
-    "*.{md}": [
+    "*.md": [
       "prettier -w"
     ]
   },
