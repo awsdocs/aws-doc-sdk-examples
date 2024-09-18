@@ -1,6 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import {
+  BucketAlreadyExists,
+  BucketAlreadyOwnedByYou,
+} from "@aws-sdk/client-s3";
 import { describe, it, expect, vi } from "vitest";
 
 const send = vi.fn();
@@ -17,24 +21,40 @@ vi.doMock("@aws-sdk/client-s3", async () => {
 
 const { main } = await import("../actions/create-bucket.js");
 
-describe("copy-object", () => {
+describe("create-bucket", () => {
   it("should log the response from the service", async () => {
     send.mockResolvedValue({ Location: "foo" });
 
     const spy = vi.spyOn(console, "log");
 
-    await main();
+    await main({ bucketName: "bucket-name" });
 
     expect(spy).toHaveBeenCalledWith("Bucket created with location foo");
   });
 
-  it("should log errors", async () => {
-    send.mockRejectedValue("foo");
+  it("should log a relevant error message if a bucket already exists globally", async () => {
+    const error = new BucketAlreadyExists();
+    send.mockRejectedValue(error);
 
     const spy = vi.spyOn(console, "error");
 
-    await main();
+    await main({ bucketName: "bucket-name" });
 
-    expect(spy).toHaveBeenCalledWith("foo");
+    expect(spy).toHaveBeenCalledWith(
+      `The bucket "bucket-name" already exists in another AWS account. Bucket names must be globally unique.`,
+    );
+  });
+
+  it("should log a relevant error message if a bucket already exists in the users AWS account", async () => {
+    const error = new BucketAlreadyOwnedByYou();
+    send.mockRejectedValue(error);
+
+    const spy = vi.spyOn(console, "error");
+
+    await main({ bucketName: "bucket-name" });
+
+    expect(spy).toHaveBeenCalledWith(
+      `The bucket "bucket-name" already exists in this AWS account.`,
+    );
   });
 });
