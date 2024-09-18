@@ -34,8 +34,8 @@ Resources:
           Fn::GetAtt:
             - ExampleStreamKeyBB67426B
             - Arn
-    UpdateReplacePolicy: Retain
-    DeletionPolicy: Retain
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
     Metadata:
       aws:cdk:path: KinesisCdkStack/ExampleStream/Resource
   CDKMetadata:
