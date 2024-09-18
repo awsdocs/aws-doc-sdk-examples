@@ -12,6 +12,7 @@ export class KinesisCdkStack extends cdk.Stack {
     const stream = new kinesis.Stream(this, "ExampleStream", {
       streamName: "example-stream",
       encryption: kinesis.StreamEncryption.KMS,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
     new cdk.CfnOutput(this, "ExampleStreamName", {
