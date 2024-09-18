@@ -26,12 +26,12 @@ public class HelloSitewise {
                 assetModelId - The Id value of the asset model used in the IoT SiteWise program.
             """;
 
-   //     if (args.length != 1) {
-  //          logger.info(usage);
-      ///      return;
-    //    }
+        if (args.length != 1) {
+            logger.info(usage);
+            return;
+        }
 
-        String assetModelId = "754c6991-9b34-4fd3-85a5-d4261b1324a1";
+        String assetModelId = args[0];
         IoTSiteWiseAsyncClient siteWiseAsyncClient = IoTSiteWiseAsyncClient.builder()
             .region(Region.US_EAST_1)
             .build();

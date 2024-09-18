@@ -299,12 +299,23 @@ The following table describes the metadata used in this Basics Scenario.
 
 | action                         | metadata file                     | metadata key                            |
 |--------------------------------|-----------------------------------|---------------------------------------- |
-| `createDomain`                 | opensearch_metadata.yaml          | opensearch_CreateDomain                 |
-| `deleteDomain            `     | opensearch_metadata.yaml          | opensearch_DeleteDomain                 |
-| `listDomainNames  `            | opensearch_metadata.yaml          | opensearch_ListDomainNames              |
-| `updateDomainConfig`           | opensearch_metadata.yaml          | opensearch_UpdateDomainConfig           |
-| `describeDomain`               | opensearch_metadata.yaml          | opensearch_DescribeDomain               |
-| `describeDomainChangeProgress` | opensearch_metadata.yaml          | opensearch_ChangeProgress               |
-| `listDomainTags`               | opensearch_metadata.yaml          | opensearch_ListTags                     |
-| `scenario`                     | opensearch_metadata.yaml          | opensearch_Scenario                     |
+| `describeGateway`              | iot_sitewise_metadata.yaml        | iotsitewise_DescribeGateway             |
+| `deleteGateway `               | iot_sitewise_metadata.yaml        | iotsitewise_DeleteGateway               |
+| `createGateway `               | iot_sitewise_metadata.yaml        | iotsitewise_CreateGateway               |
+| `describePortal`               | iot_sitewise_metadata.yaml        | iotsitewise_DescribePortal              |
+| `listAssetModels`              | iot_sitewise_metadata.yaml        | iotsitewise_ListAssetModels             |
+| `deletePortal`                 | iot_sitewise_metadata.yaml        | iotsitewise_DeletePortal                |
+| `createPortals`                | iot_sitewise_metadata.yaml        | iotsitewise_CreatePortal                |
+| `deleteAssetModel`             | iot_sitewise_metadata.yaml        | iotsitewise_DeleteAssetModel            |
+| `deleteAsset`                  | iot_sitewise_metadata.yaml        | iotsitewise_DeleteAsset                 |
+| `describeAssetModel`           | iot_sitewise_metadata.yaml        | iotsitewise_DescribeAssetModel          |
+| `getAssetPropertyValue`        | iot_sitewise_metadata.yaml        | iotsitewise_GetAssetPropertyValue       |
+| `batchPutAssetPropertyValue`   | iot_sitewise_metadata.yaml        | iotsitewise_BatchPutAssetPropertyValue  |
+| `createAsset`                  | iot_sitewise_metadata.yaml        | iotsitewise_CreateAsset                 |
+| `createAsset`                  | iot_sitewise_metadata.yaml        | iotsitewise_CreateAsset                 |
+| `createAssetModel `            | iot_sitewise_metadata.yaml        | iotsitewise_CreateAssetModel            |
+| `scenario`                     | iot_sitewise_metadata.yaml        | iotsitewise_Scenario                    |
+| `hello`                        | iot_sitewise_metadata.yaml        | iotsitewise_Hello                       |
+
+
 
