@@ -4,8 +4,6 @@
 """
 Unit tests for the dynamodb_item_tracker example.
 """
-
-
 import boto3
 import pytest
 import storage
@@ -22,7 +20,7 @@ class MockManager:
         self.ses_stubber = ses_stubber
         self.stub_runner = stub_runner
         self.table = resource.Table("test-table")
-        self.storage = Storage(self.table) # noqa: E1120
+        self.storage = Storage(self.table) # pylint: disable=E1120
         self.web_items = [
             {
                 "id": f"id-{index}",
