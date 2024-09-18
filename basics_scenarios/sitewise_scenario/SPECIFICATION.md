@@ -8,7 +8,7 @@ This Basics scenario has a depedency on an IAM role that has permissions for thi
 
 ## Hello AWS IoT SiteWise
 This program is intended for users not familiar with the AWS IoT SiteWise Service to easily get up and running. The logic is to show use of 
-`listAssetslistAssetsPaginator`.
+`listAssetsPaginator`.
 
 ## Scenario Program Flow
 The AWS IoT SiteWise Basics scenario executes the following operations.
