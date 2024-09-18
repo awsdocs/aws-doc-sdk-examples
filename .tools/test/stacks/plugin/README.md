@@ -23,6 +23,8 @@ Specifically, it consumes images from a Simple Notification Service (SNS) topic,
 
 Before you get started, update [config/resources.yaml](../config/resources.yaml) and [config/targets.yaml](../config/targets.yaml) to include logical names representing test targets and their corresponding AWS Account ID and enabled status.
 
+If you need to disable a plugin stack, update [config/targets.yaml](../config/targets.yaml) accordingly and perform an [admin stack deployment](../../DEPLOYMENT.md#usage).
+
 ---
 
 ## AWS CDK setup and deployment
