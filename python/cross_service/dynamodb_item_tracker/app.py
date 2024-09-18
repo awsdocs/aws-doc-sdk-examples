@@ -66,7 +66,7 @@ def create_app(test_config=None):
         dynamodb_resource = boto3.resource("dynamodb")
         ses_client = boto3.client("ses")
     table = dynamodb_resource.Table(app.config["TABLE_NAME"])
-    storage = Storage(table)
+    storage = Storage(table) # noqa: E1120
 
     item_list_view = ItemList.as_view("item_list_api", storage)
     report_view = Report.as_view("report_api", storage, sender_email, ses_client)
