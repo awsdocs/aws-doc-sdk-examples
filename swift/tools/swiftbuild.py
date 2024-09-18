@@ -10,7 +10,7 @@ from typing import List, Tuple
 
 
 def swiftbuild(
-    test: bool, run: bool, packages: List[pathlib.Path], swiftc_options: List[str]
+    test: bool, run: bool, clean: bool, packages: List[pathlib.Path], swiftc_options: List[str]
 ) -> None:
     """
     Build (or test) one or more Swift projects.
@@ -18,6 +18,8 @@ def swiftbuild(
     Args:
         test (bool): Whether to run tests after building.
         run (bool): Whether to run each project after building.
+        clean (bool): Whether or not to erase the build artifacts before
+        building.
         packages (List[pathlib.Path]): List of package directories to build.
         swiftc_options (List[str]): Additional options to pass to the Swift compiler.
     """
@@ -26,7 +28,7 @@ def swiftbuild(
     for directory in packages:
         if directory.exists() and directory.is_dir():
             path = directory.expanduser().resolve()
-            output, is_package = build_package(test, run, path, swiftc_options)
+            output, is_package = build_package(test, run, clean, path, swiftc_options)
             if is_package:
                 num_packages_found += 1
                 results += ((path, output),)
@@ -87,7 +89,7 @@ def is_package_dir(directory: pathlib.Path) -> bool:
 
 
 def build_package(
-    test: bool, run: bool, package: pathlib.Path, swiftc_options: List[str]
+    test: bool, run: bool, clean: bool, package: pathlib.Path, swiftc_options: List[str]
 ) -> Tuple[int, bool]:
     """
     Build one package, given a specific directory. Build and test if the `test` argument is True.
@@ -120,6 +122,11 @@ def build_package(
 
     print(f"Now {command_gerund} project in {package}...")
 
+    # If cleaning requested, do that first.
+    if clean:
+        print("Cleaning the build artifacts...")
+        results = subprocess.run(["rm", "-rf", ".build"], cwd=package)
+
     results = subprocess.run(command_parts, cwd=package)
     print("=" * 72, "\n")
     return results.returncode, is_package
@@ -135,6 +142,18 @@ if __name__ == "__main__":
         action="store_true",
         help="build and run each project",
         dest="run",
+    )
+    parser.add_argument(
+        "-c",
+        "--clean",
+        action="store_true",
+        help="clean the build artifacts first"
+    )
+    parser.add_argument(
+        "-x",
+        "--purge",
+        action="store_true",
+        help="purge global build package cache"
     )
     parser.add_argument(
         "-t",
@@ -172,10 +191,18 @@ if __name__ == "__main__":
     if args.parseable:
         swiftc_options.append("-parseable-output")
 
+    if args.purge:
+        print("Purging the global package cache...")
+        home = pathlib.Path.home() / ".swiftpm"
+        try:
+            results = subprocess.run(["rm", "-rf", "cache"], cwd=home)
+        except:
+            print("   - No cache present")
+
     package_list = [pathlib.Path().absolute()] if not args.packages else args.packages
     if not args.packages:
         cwd_path = pathlib.Path().absolute()
         if not is_package_dir(cwd_path):
             package_list = [item for item in cwd_path.iterdir() if item.is_dir()]
 
-    swiftbuild(args.test, args.run, package_list, swiftc_options)
+    swiftbuild(args.test, args.run, args.clean, package_list, swiftc_options)

@@ -13,7 +13,7 @@ let package = Package(
         // This project requires the AWS SDK for Swift.
         .package(
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.68.0"
+            from: "1.0.0"
         ),
     ],
     targets: [
