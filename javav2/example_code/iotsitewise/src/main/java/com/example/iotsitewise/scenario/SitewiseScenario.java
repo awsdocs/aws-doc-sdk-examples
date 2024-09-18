@@ -90,11 +90,12 @@ public class SitewiseScenario {
     }
 
     public static void runScenario(String assetModelName, String assetName,  String portalName, String contactEmail, String gatewayName, String myThing) throws Throwable {
-
-        logger.info("Use AWS CloudFormation to create an IAM role that are required for this scenario.");
+        logger.info("Use AWS CloudFormation to create an IAM role that is required for this scenario.");
         CloudFormationHelper.deployCloudFormationStack(ROLES_STACK);
         Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputs(ROLES_STACK);
         String iamRole = stackOutputs.get("SitewiseRoleArn");
+        logger.info("The ARN of the IAM role is {}",iamRole);
+        logger.info(DASHES);
 
         logger.info(DASHES);
         logger.info("1. Create an AWS SiteWise Asset Model");
