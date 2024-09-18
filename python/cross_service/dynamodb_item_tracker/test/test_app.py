@@ -9,7 +9,7 @@ Unit tests for the dynamodb_item_tracker example.
 import boto3
 import pytest
 import storage
-from app import create_app
+from app import create_app  # noqa: E0611
 from botocore.stub import ANY
 from storage import Storage
 
