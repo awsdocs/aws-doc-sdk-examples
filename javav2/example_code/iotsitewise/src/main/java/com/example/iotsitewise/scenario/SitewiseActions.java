@@ -218,6 +218,7 @@ public class SitewiseActions {
     // snippet-end:[sitewise.java2_put_property.main]
 
     // snippet-start:[sitewise.java2_get_property.main]
+    // TODO -- fix this including Javadoc
     public void getAssetPropValueAsync(String propName, String propId, String assetId) {
         GetAssetPropertyValueRequest assetPropertyValueRequest = GetAssetPropertyValueRequest.builder()
             .propertyId(propId)
@@ -227,14 +228,13 @@ public class SitewiseActions {
         CompletableFuture<GetAssetPropertyValueResponse> futureResponse = getAsyncClient().getAssetPropertyValue(assetPropertyValueRequest);
         futureResponse.whenComplete((response, exception) -> {
             if (exception != null) {
-                // Handle the exception, rethrow as RuntimeException or log it
                 throw new RuntimeException("Error occurred while fetching property value: " + exception.getMessage(), exception);
             } else {
                 String assetVal = String.valueOf(response.propertyValue().value().doubleValue());
-                logger.info("The property name is: " + propName);
-                logger.info("The value of this property is " + assetVal);
+                logger.info("The property name is: {} ", propName);
+                logger.info("The value of this property is {}", assetVal);
             }
-        }).join(); // You can remove this join() if you don't need to block the thread.
+        }).join();
     }
     // snippet-end:[sitewise.java2_get_property.main]
 

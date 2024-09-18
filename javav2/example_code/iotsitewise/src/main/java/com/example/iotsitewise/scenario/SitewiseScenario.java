@@ -15,6 +15,7 @@ import software.amazon.awssdk.services.iotsitewise.model.DeletePortalResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DescribeGatewayResponse;
 import software.amazon.awssdk.services.iotsitewise.model.IoTSiteWiseException;
 import software.amazon.awssdk.services.iotsitewise.model.ResourceAlreadyExistsException;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
 
@@ -26,32 +27,32 @@ public class SitewiseScenario {
     private static final Logger logger = LoggerFactory.getLogger(SitewiseScenario.class);
     static Scanner scanner = new Scanner(System.in);
 
+    private static final String ROLES_STACK = "RoleSitewise";
+
     static SitewiseActions sitewiseActions = new SitewiseActions();
 
     public static void main(String[] args) throws Throwable {
         final String usage = """
             Usage:
-               <assetModelName> <assetName> <iamRole> <portalName> <contactEmail> <gatewayName> <myThing>
+               <assetModelName> <assetName> <portalName> <contactEmail> <gatewayName> <myThing>
 
             Where:
                 assetModelName - The name of the asset model used in the IoT SiteWise program.
                 assetName -  The name of the asset created in the IoT SiteWise program. 
-                iamRole - The Amazon Resource Name (ARN) of the IAM role used by the IoT SiteWise service to access other AWS services.
                 portalName - The name of the IoT SiteWise portal where the asset and other resources are created.
                 contactEmail - The email address of the contact person associated with the IoT SiteWise program.
                 gatewayName - The name of the IoT SiteWise gateway used to collect and send data to the IoT SiteWise service.
                 myThing - The name of the IoT thing or device that is connected to the IoT SiteWise gateway.
             """;
 
-        if (args.length != 7) {
-            logger.info(usage);
-            return;
-        }
+        //if (args.length != 6) {
+        //    logger.info(usage);
+        //    return;
+       // }
 
         Scanner scanner = new Scanner(System.in);
-        String assetModelName = "MyAssetModel2";
+        String assetModelName = "MyAssetModel";
         String assetName = "MyAsset";
-        String iamRole = "arn:aws:iam::814548047983:role/service-role/AWSIoTSiteWiseMonitorServiceRole_8jLqg43nJ";
         String portalName = "MyPortal";
         String contactEmail = "scmacdon@amazon.com";
         String gatewayName = "myGateway11";
@@ -82,13 +83,19 @@ public class SitewiseScenario {
         logger.info(DASHES);
 
         try {
-            runScenario(assetModelName, assetName, iamRole, portalName, contactEmail, gatewayName, myThing);
+            runScenario(assetModelName, assetName, portalName, contactEmail, gatewayName, myThing);
         } catch (RuntimeException e) {
            logger.info(e.getMessage());
         }
     }
 
-    public static void runScenario(String assetModelName, String assetName,  String iamRole, String portalName, String contactEmail, String gatewayName, String myThing) throws Throwable {
+    public static void runScenario(String assetModelName, String assetName,  String portalName, String contactEmail, String gatewayName, String myThing) throws Throwable {
+
+        logger.info("Use AWS CloudFormation to create an IAM role that are required for this scenario.");
+        CloudFormationHelper.deployCloudFormationStack(ROLES_STACK);
+        Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputs(ROLES_STACK);
+        String iamRole = stackOutputs.get("SitewiseRoleArn");
+
         logger.info(DASHES);
         logger.info("1. Create an AWS SiteWise Asset Model");
         logger.info("""
@@ -98,7 +105,7 @@ public class SitewiseScenario {
              of each asset.
             """);
         waitForInputToContinue(scanner);
-        String assetModelId = "";
+        String assetModelId;
         try {
             CompletableFuture<CreateAssetModelResponse> future = sitewiseActions.createAssetModelAsync(assetModelName);
             CreateAssetModelResponse response = future.join();
@@ -418,6 +425,7 @@ public class SitewiseScenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
+        CloudFormationHelper.destroyCloudFormationStack(ROLES_STACK);
         logger.info("This concludes the AWS SiteWise Scenario");
         logger.info(DASHES);
     }
