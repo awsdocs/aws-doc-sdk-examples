@@ -188,7 +188,7 @@ iotsitewise_Scenario:
   synopsis: Learn core operations for &ITSWlong; using an &AWS; SDK
   category: Basics
   languages:
-   Java:
+    Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/iotsitewise
