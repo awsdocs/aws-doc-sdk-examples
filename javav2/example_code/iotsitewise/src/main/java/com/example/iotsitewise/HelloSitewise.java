@@ -1,0 +1,54 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+package com.example.iotsitewise;
+
+import com.example.iotsitewise.scenario.SitewiseActions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.iotsitewise.IoTSiteWiseAsyncClient;
+import software.amazon.awssdk.services.iotsitewise.model.AssetSummary;
+import software.amazon.awssdk.services.iotsitewise.model.ListAssetsRequest;
+import java.util.List;
+
+// snippet-start:[iotsitewise.hello.main]
+public class HelloSitewise {
+    private static final Logger logger = LoggerFactory.getLogger(HelloSitewise.class);
+    public static void main(String[] args) {
+        String modelId = "754c6991-9b34-4fd3-85a5-d4261b1324a1";
+        IoTSiteWiseAsyncClient siteWiseAsyncClient = IoTSiteWiseAsyncClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
+
+        fetchAssets(siteWiseAsyncClient, modelId);
+    }
+
+    /**
+     * Fetches assets from AWS IoT SiteWise using the provided {@link IoTSiteWiseAsyncClient}.
+     *
+     * @param siteWiseAsyncClient the AWS IoT SiteWise asynchronous client to use for the request
+     * @param modelId the ID of the asset model to fetch assets for
+     */
+    public static void fetchAssets(IoTSiteWiseAsyncClient siteWiseAsyncClient, String modelId) {
+        ListAssetsRequest assetsRequest = ListAssetsRequest.builder()
+            .maxResults(10)
+            .assetModelId(modelId)
+            .build();
+
+        siteWiseAsyncClient.listAssets(assetsRequest)
+            .whenComplete((response, throwable) -> {
+                if (throwable != null) {
+                    logger.info("Error fetching assets: {} ", throwable.getMessage());
+                } else {
+                    List<AssetSummary> assetList = response.assetSummaries();
+                    logger.info("Fetched assets:");
+                    for (AssetSummary asset : assetList) {
+                        logger.info("- " + asset.name());
+                    }
+                }
+            })
+            .join();
+    }
+}
+// snippet-end:[iotsitewise.hello.main]

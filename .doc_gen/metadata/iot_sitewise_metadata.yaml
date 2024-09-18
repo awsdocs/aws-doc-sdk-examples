@@ -1,4 +1,21 @@
 # zexi 0.4.0
+iotsitewise_Hello:
+  title: Hello &ITSWlong;
+  title_abbrev: Hello &ITSW;
+  synopsis: get started using &ITSW;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.hello.main
+  services:
+    iotsitewise: {ListVersions}
 iotsitewise_DescribeGateway:
   languages:
     Java:
