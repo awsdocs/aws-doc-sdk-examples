@@ -16,9 +16,7 @@ import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.core.retry.RetryPolicy;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iotsitewise.IoTSiteWiseAsyncClient;
-import software.amazon.awssdk.services.iotsitewise.IoTSiteWiseClient;
 import software.amazon.awssdk.services.iotsitewise.model.AssetModelProperty;
 import software.amazon.awssdk.services.iotsitewise.model.AssetModelPropertyDefinition;
 import software.amazon.awssdk.services.iotsitewise.model.AssetModelSummary;
@@ -232,10 +230,7 @@ public class SitewiseActions {
                 // Handle the exception, rethrow as RuntimeException or log it
                 throw new RuntimeException("Error occurred while fetching property value: " + exception.getMessage(), exception);
             } else {
-                // Process the response
-                String assetPropName = response.toString();
                 String assetVal = String.valueOf(response.propertyValue().value().doubleValue());
-
                 logger.info("The property name is: " + propName);
                 logger.info("The value of this property is " + assetVal);
             }
@@ -269,7 +264,7 @@ public class SitewiseActions {
                                     return property.id();
                                 }
                             }
-                            return null; // Continue searching in other models if not found
+                            return null;
                         });
 
                     futures.add(future);
