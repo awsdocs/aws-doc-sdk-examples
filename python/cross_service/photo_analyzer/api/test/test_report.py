@@ -92,7 +92,7 @@ def test_post_report(make_stubber, monkeypatch, error_code):
         error_code=error_code,
     )
 
-    _, result = report.post()
+    _, result = report.post() # pylint: disable=E1120
     if error_code is None:
         assert result == 200
     else:
