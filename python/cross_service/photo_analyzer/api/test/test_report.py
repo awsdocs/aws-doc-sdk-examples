@@ -13,7 +13,6 @@ from report import Report
 from flask_restful import reqparse
 
 
-
 @pytest.mark.parametrize(
     "error_code, stop_on_method",
     [
@@ -90,8 +89,9 @@ def test_post_report(make_stubber, monkeypatch, error_code):
         text_body,
         html_body,
         "test-id",
-        error_code=error_code
-    ) # pylint: disable=E1120
+        error_code=error_code,
+    )
+    # pylint: disable=E1120
 
     _, result = report.post()
     if error_code is None:

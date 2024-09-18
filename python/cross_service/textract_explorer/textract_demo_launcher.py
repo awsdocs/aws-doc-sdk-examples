@@ -119,7 +119,7 @@ def main():
         print("-" * 88)
         print("Demonstrating how to use Amazon Textract.")
         print("-" * 88)
-        usage_demo(outputs)
+        usage_demo(outputs)  # pylint: disable=E0606
         print("-" * 88)
         print(
             "To clean up all AWS resources created for the demo, run this script "
