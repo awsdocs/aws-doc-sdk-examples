@@ -4,7 +4,7 @@
 This SDK Basics scenario demonstrates how to interact with AWS IoT SiteWise using the AWS SDK. It demonstrates various tasks such as creating a SiteWise Asset Model, creating an asset, sending data to the asset, reading data, and so on.  Finally this scenario demonstrates how to clean up resources. Its purpose is to demonstrate how to get up and running with AWS IoT SiteWise and the AWS SDK.
 
 ## Resources
-This Basics scenario has a depedency on an IAM role that has permissions for this service. We will create this resource using a CloudFormation template so the user does not have to manually create it. 
+This Basics scenario has a depedency on an IAM role that has permissions for this service. We will create this resource using a CloudFormation template so the user does not have to manually create it. You can see this functionality in the Program execution section below. 
 
 ## Hello AWS IoT SiteWise
 This program is intended for users not familiar with the AWS IoT SiteWise Service to easily get up and running. The logic is to show use of 
@@ -90,6 +90,9 @@ c
 Continuing with the program...
 
 --------------------------------------------------------------------------------
+Use AWS CloudFormation to create an IAM role that are required for this scenario.
+Stack creation requested, ARN is arn:aws:cloudformation:us-east-1:814548047983:stack/RoleSitewise/29f480c0-75fd-11ef-a42e-12cd4e534049
+Stack created successfully
 --------------------------------------------------------------------------------
 1. Create an AWS SiteWise Asset Model
  An AWS IoT SiteWise Asset Model is a way to represent the physical assets, such as equipment,
@@ -102,7 +105,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The Asset Model MyAssetModel2 already exists. The id of the existing model is 754c6991-9b34-4fd3-85a5-d4261b1324a1. Moving on...
+The Asset Model MyAssetModel already exists. The id of the existing model is ffbc475b-73ad-4eb6-bf28-8728818fa8ef. Moving on...
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -119,7 +122,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Asset created with ID: c11d78da-4356-4f52-8c11-24a02dcf3c5b
+Asset created with ID: 4d681624-a303-46dd-8830-6189790ae915
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -136,8 +139,8 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The Humidity property Id is cfd388c0-b70c-4e25-b656-675d909f7ef7
-The Temperature property Id is fac55cfe-6e7f-4c5e-8bea-2d3e333f169d
+The Humidity property Id is feb4aba6-55f9-4b00-b366-27b9d7e5a747
+The Temperature property Id is 6cb505aa-6bcc-46f4-a12a-7ca5df8eb028
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -177,14 +180,14 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The property name is: Temperature property
+The property name is: Temperature property 
 The value of this property is 23.5
 
 Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The property name is: Humidity property
+The property name is: Humidity property 
 The value of this property is 65.0
 
 Enter 'c' followed by <ENTER> to continue:
@@ -202,8 +205,8 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Portal created successfully. Portal ID 391384ff-f439-481d-a6bb-2195fe70418e
-The portal Id is 391384ff-f439-481d-a6bb-2195fe70418e
+Portal created successfully. Portal ID 63e65729-b7a1-410a-aa36-94145fe92153
+The portal Id is 63e65729-b7a1-410a-aa36-94145fe92153
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -219,7 +222,7 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Portal URL: https://p-9l9bnfd7.app.iotsitewise.aws
+Portal URL: https://p-fy9qnrqy.app.iotsitewise.aws
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -239,8 +242,8 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-The ARN of the gateway is arn:aws:iotsitewise:us-east-1:814548047983:gateway/417f041e-44e8-40e8-93f4-2904f3a8febd
-Gateway creation completed successfully. id is 417f041e-44e8-40e8-93f4-2904f3a8febd
+The ARN of the gateway is arn:aws:iotsitewise:us-east-1:814548047983:gateway/50320670-1d88-4a7e-9013-1d7e8a3af832
+Gateway creation completed successfully. id is 50320670-1d88-4a7e-9013-1d7e8a3af832
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 9. Describe the IoTSitewise Gateway
@@ -250,9 +253,9 @@ c
 Continuing with the program...
 
 Gateway Name: myGateway11
-Gateway ARN: arn:aws:iotsitewise:us-east-1:814548047983:gateway/417f041e-44e8-40e8-93f4-2904f3a8febd
+Gateway ARN: arn:aws:iotsitewise:us-east-1:814548047983:gateway/50320670-1d88-4a7e-9013-1d7e8a3af832
 Gateway Platform: GatewayPlatform(GreengrassV2=GreengrassV2(CoreDeviceThingName=myThing78))
-Gateway Creation Date: 2024-09-13T16:50:54.037Z
+Gateway Creation Date: 2024-09-18T20:34:13.117Z
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 10. Delete the AWS IoT SiteWise Assets
@@ -267,10 +270,11 @@ Enter 'c' followed by <ENTER> to continue:
 c
 Continuing with the program...
 
-Portal 391384ff-f439-481d-a6bb-2195fe70418e was deleted successfully.
-The Gateway was deleted
+Portal 63e65729-b7a1-410a-aa36-94145fe92153 was deleted successfully.
+An unexpected error occurred: Cannot invoke "java.util.concurrent.CompletableFuture.join()" because "future" is null
 Asset deleted successfully.
 Lets wait 1 min for the asset to be deleted
+01:00The Gateway was deleted successfully
 00:00Countdown complete!
 
 Enter 'c' followed by <ENTER> to continue:
@@ -278,7 +282,7 @@ c
 Continuing with the program...
 
 Delete the AWS IoT SiteWise Asset Model
-IoT SiteWise error occurred: Error message: Asset model had assets when delete was called (Service: IoTSiteWise, Status Code: 400, Request ID: 6ebc4c3e-82e8-4a8b-a6d7-de0c8ada5a9d), Error code InvalidRequestException
+Asset model deleted successfully.
 
 Enter 'c' followed by <ENTER> to continue:
 c
@@ -286,6 +290,8 @@ Continuing with the program...
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+Delete stack requested ....
+Stack deleted successfully.
 This concludes the AWS SiteWise Scenario
 --------------------------------------------------------------------------------
 
