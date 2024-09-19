@@ -31,7 +31,7 @@ redshift_Hello:
               snippet_tags:
                 - python.example_code.redshift.Hello
   services:
-    redshift: {describeClusters}
+    redshift: {DescribeClusters}
 redshift_ListDatabases:
   languages:
     Java:
@@ -54,6 +54,8 @@ redshift_CreateCluster:
           excerpts:
             - description:
               snippet_tags:
+                - gov2.redshift.Imports
+                - gov2.redshift.ActionsStruct
                 - gov2.redshift.CreateCluster
     Kotlin:
       versions:
@@ -109,6 +111,8 @@ redshift_DeleteCluster:
           excerpts:
             - description:
               snippet_tags:
+                - gov2.redshift.Imports
+                - gov2.redshift.ActionsStruct
                 - gov2.redshift.DeleteCluster
     Kotlin:
       versions:
@@ -164,6 +168,8 @@ redshift_DescribeClusters:
           excerpts:
             - description:
               snippet_tags:
+                - gov2.redshift.Imports
+                - gov2.redshift.ActionsStruct
                 - gov2.redshift.DescribeClusters
     Kotlin:
       versions:
@@ -219,6 +225,8 @@ redshift_ModifyCluster:
           excerpts:
             - description:
               snippet_tags:
+                - gov2.redshift.Imports
+                - gov2.redshift.ActionsStruct
                 - gov2.redshift.ModifyCluster
     Kotlin:
       versions:
@@ -267,14 +275,6 @@ redshift_ModifyCluster:
     redshift: {ModifyCluster}
 redshift_DescribeStatement:
   languages:
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/redshift
-          excerpts:
-            - description:
-              snippet_tags:
-                - gov2.redshift.DescribeStatement
     Java:
       versions:
         - sdk_version: 2
@@ -301,14 +301,6 @@ redshift_DescribeStatement:
     redshift: {DescribeStatement}
 redshift_GetStatementResult:
   languages:
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/redshift
-          excerpts:
-            - description:
-              snippet_tags:
-                - gov2.redshift.GetStatementResult
     Java:
       versions:
         - sdk_version: 2
@@ -335,14 +327,6 @@ redshift_GetStatementResult:
     redshift: {GetStatementResult}
 redshift_ExecuteStatement:
   languages:
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/redshift
-          excerpts:
-            - description:
-              snippet_tags:
-                - gov2.redshift.CreateTable
     Java:
       versions:
         - sdk_version: 2
@@ -361,7 +345,7 @@ redshift_ExecuteStatement:
   services:
     redshift: {ExecuteStatement}
 redshift_Scenario:
-  synopsis: learn core operations for &RS; using an &AWS;.
+  synopsis: learn core operations for &RS; using an &AWS; SDK.
   category: Basics
   languages:
     Go:
@@ -407,4 +391,4 @@ redshift_Scenario:
                 - python.example_code.redshift_data.ListDatabases
                 - python.example_code.redshift.DeleteCluster
   services:
-    redshift: {createCluster, describeClusters, executeStatement, describeStatement, modifyCluster, getStatementResult, listDatabasesPaginator}
+    redshift: {CreateCluster, DescribeClusters, ExecuteStatement, DescribeStatement, ModifyCluster, GetStatementResult, ListDatabasesPaginator}

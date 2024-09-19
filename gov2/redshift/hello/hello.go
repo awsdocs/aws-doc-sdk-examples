@@ -8,6 +8,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/redshift"
 )
@@ -24,22 +25,21 @@ func main() {
 		return
 	}
 	redshiftClient := redshift.NewFromConfig(sdkConfig)
-	count := 10
+	count := 20
 	fmt.Printf("Let's list up to %v clusters for your account.\n", count)
-	result, err := redshiftClient.DescribeClusters(context.TODO(), &redshift.DescribeClustersInput{})
+	result, err := redshiftClient.DescribeClusters(context.TODO(), &redshift.DescribeClustersInput{
+		MaxRecords: aws.Int32(int32(count)),
+	})
 	if err != nil {
 		fmt.Printf("Couldn't list clusters for your account. Here's why: %v\n", err)
 		return
 	}
 	if len(result.Clusters) == 0 {
 		fmt.Println("You don't have any clusters!")
-	} else {
-		if count > len(result.Clusters) {
-			count = len(result.Clusters)
-		}
-		for _, cluster := range result.Clusters[:count] {
-			fmt.Printf("\t%v : %v\n", *cluster.ClusterIdentifier, *cluster.ClusterStatus)
-		}
+		return
+	}
+	for _, cluster := range result.Clusters {
+		fmt.Printf("\t%v : %v\n", *cluster.ClusterIdentifier, *cluster.ClusterStatus)
 	}
 }
 

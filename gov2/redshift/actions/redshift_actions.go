@@ -3,6 +3,8 @@
 
 package actions
 
+// snippet-start:[gov2.redshift.Imports]
+
 import (
 	"context"
 	"errors"
@@ -10,12 +12,19 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/redshift"
 	"github.com/aws/aws-sdk-go-v2/service/redshift/types"
 	"log"
+	"time"
 )
+
+// snippet-end:[gov2.redshift.Imports]
+
+// snippet-start:[gov2.redshift.ActionsStruct]
 
 // RedshiftActions wraps Redshift service actions.
 type RedshiftActions struct {
 	RedshiftClient *redshift.Client
 }
+
+// snippet-end:[gov2.redshift.ActionsStruct]
 
 // snippet-start:[gov2.redshift.CreateCluster]
 
@@ -30,7 +39,6 @@ func (actor RedshiftActions) CreateCluster(ctx context.Context, clusterId string
 		ClusterType:        aws.String(clusterType),
 		PubliclyAccessible: aws.Bool(publiclyAccessible),
 	}
-
 	var opErr *types.ClusterAlreadyExistsFault
 	output, err := actor.RedshiftClient.CreateCluster(ctx, input)
 	if err != nil && errors.As(err, &opErr) {
@@ -57,10 +65,14 @@ func (actor RedshiftActions) ModifyCluster(ctx context.Context, clusterId string
 		PreferredMaintenanceWindow: aws.String(maintenanceWindow),
 	}
 
+	var opErr *types.InvalidClusterStateFault
 	output, err := actor.RedshiftClient.ModifyCluster(ctx, input)
-	if err != nil {
+	if err != nil && errors.As(err, &opErr) {
+		log.Println("Cluster is in an invalid state.")
+		panic(err)
+	} else if err != nil {
 		log.Printf("Failed to modify Redshift cluster: %v\n", err)
-		return nil
+		panic(err)
 	}
 
 	log.Printf("The cluster was successfully modified and now has %s as the maintenance window\n", *output.Cluster.PreferredMaintenanceWindow)
@@ -74,12 +86,16 @@ func (actor RedshiftActions) ModifyCluster(ctx context.Context, clusterId string
 // DeleteCluster deletes the given cluster.
 func (actor RedshiftActions) DeleteCluster(ctx context.Context, clusterId string) (bool, error) {
 	// Delete the specified Redshift cluster
-	input := &redshift.DeleteClusterInput{
-		ClusterIdentifier:        aws.String(clusterId),
-		SkipFinalClusterSnapshot: aws.Bool(true),
-	}
-	_, err := actor.RedshiftClient.DeleteCluster(ctx, input)
-	if err != nil {
+
+	waiter := redshift.NewClusterDeletedWaiter(actor.RedshiftClient)
+	err := waiter.Wait(ctx, &redshift.DescribeClustersInput{
+		ClusterIdentifier: aws.String(clusterId),
+	}, 5*time.Minute)
+	var opErr *types.ClusterNotFoundFault
+	if err != nil && errors.As(err, &opErr) {
+		log.Println("Cluster was not found. Where could it be?")
+		return false, err
+	} else if err != nil {
 		log.Printf("Failed to delete Redshift cluster: %v\n", err)
 		return false, err
 	}
@@ -88,3 +104,23 @@ func (actor RedshiftActions) DeleteCluster(ctx context.Context, clusterId string
 }
 
 // snippet-end:[gov2.redshift.DeleteCluster]
+
+// snippet-start:[gov2.redshift.DescribeClusters]
+
+// DescribeClusters returns information about the given cluster.
+func (actor RedshiftActions) DescribeClusters(ctx context.Context, clusterId string) (*redshift.DescribeClustersOutput, error) {
+	input, err := actor.RedshiftClient.DescribeClusters(ctx, &redshift.DescribeClustersInput{
+		ClusterIdentifier: aws.String(clusterId),
+	})
+	var opErr *types.AccessToClusterDeniedFault
+	if errors.As(err, &opErr) {
+		println("Access to cluster denied.")
+		panic(err)
+	} else if err != nil {
+		println("Failed to describe Redshift clusters.")
+		return nil, err
+	}
+	return input, nil
+}
+
+// snippet-end:[gov2.redshift.DescribeClusters]

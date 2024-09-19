@@ -8,14 +8,19 @@ import (
 	"errors"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/redshiftdata"
+	"github.com/aws/aws-sdk-go-v2/service/redshiftdata/types"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 	"log"
 )
+
+// snippet-start:[gov2.redshift.DataActionsStruct]
 
 // RedshiftDataActions wraps RedshiftData actions.
 type RedshiftDataActions struct {
 	RedshiftDataClient *redshiftdata.Client
 }
+
+// snippet-end:[gov2.redshift.DataActionsStruct]
 
 // snippet-start:[gov2.redshift.RedshiftQuery.struct]
 
@@ -32,9 +37,7 @@ type RedshiftQuery struct {
 
 // ExecuteStatement calls the ExecuteStatement operation from the RedshiftDataClient
 func (actor RedshiftDataActions) ExecuteStatement(ctx context.Context, input redshiftdata.ExecuteStatementInput) (*redshiftdata.ExecuteStatementOutput, error) {
-
 	return actor.RedshiftDataClient.ExecuteStatement(ctx, &input)
-
 }
 
 // snippet-end:[gov2.redshift.ExecuteStatement
@@ -52,19 +55,28 @@ func (actor RedshiftDataActions) ExecuteBatchStatement(ctx context.Context, inpu
 
 // ListDatabases lists all databases in the given cluster.
 func (actor RedshiftDataActions) ListDatabases(ctx context.Context, clusterId string, databaseName string, userName string) error {
-	input := redshiftdata.ListDatabasesInput{
-		ClusterIdentifier: aws.String(clusterId),
+
+	var opErr *types.DatabaseConnectionException
+	var databaseNames []string
+	paginator := redshiftdata.NewListDatabasesPaginator(actor.RedshiftDataClient, &redshiftdata.ListDatabasesInput{
 		Database:          aws.String(databaseName),
+		ClusterIdentifier: aws.String(clusterId),
 		DbUser:            aws.String(userName),
+	})
+	for paginator.HasMorePages() {
+		output, err := paginator.NextPage(ctx)
+		if err != nil && errors.As(err, &opErr) {
+			log.Printf("Could not connect to the database.")
+			panic(err)
+		} else if err != nil {
+			log.Printf("Couldn't finish listing the tables. Here's why: %v\n", err)
+			return err
+		} else {
+			databaseNames = append(databaseNames, output.Databases...)
+		}
 	}
 
-	output, err := actor.RedshiftDataClient.ListDatabases(ctx, &input)
-	if err != nil {
-		log.Printf("Failed to list databases: %v\n", err)
-		return err
-	}
-
-	for _, database := range output.Databases {
+	for _, database := range databaseNames {
 		log.Printf("The database name is : %s\n", database)
 	}
 	return nil
@@ -90,8 +102,11 @@ func (actor RedshiftDataActions) CreateTable(ctx context.Context, clusterId stri
 		Sql:               aws.String(sql),
 	}
 
+	var opErr *types.DatabaseConnectionException
 	output, err := actor.RedshiftDataClient.ExecuteStatement(ctx, createTableInput)
-	if err != nil {
+	if err != nil && errors.As(err, &opErr) {
+		log.Printf("Could not connect to the database.")
+	} else if err != nil {
 		log.Printf("Failed to create table: %v\n", err)
 		return err
 	}
@@ -114,8 +129,11 @@ func (actor RedshiftDataActions) DeleteTable(ctx context.Context, clusterId stri
 		Sql:               aws.String(sql),
 	}
 
+	var opErr *types.DatabaseConnectionException
 	output, err := actor.RedshiftDataClient.ExecuteStatement(ctx, deleteTableInput)
-	if err != nil {
+	if err != nil && errors.As(err, &opErr) {
+		log.Printf("Could not connect to the database.")
+	} else if err != nil {
 		log.Printf("Failed to delete table "+tableName+" from "+databaseName+" database: %v\n", err)
 		return false, err
 	}
@@ -162,6 +180,24 @@ func (actor RedshiftDataActions) DeleteDataRows(ctx context.Context, clusterId s
 
 // snippet-end:[gov2.redshift.DeleteRows]
 
+// snippet-start:[gov2.redshift.DescribeStatement]
+
+// DescribeStatement gets information about the given statement.
+func (actor RedshiftDataActions) DescribeStatement(query RedshiftQuery) (*redshiftdata.DescribeStatementOutput, error) {
+	describeOutput, err := actor.RedshiftDataClient.DescribeStatement(query.Context, &query.Input)
+	var opErr *types.QueryTimeoutException
+	if errors.As(err, &opErr) {
+		println("The connection to the redshift data request timed out.")
+		panic(err)
+	} else if err != nil {
+		println("Failed to execute describe statement")
+		return nil, err
+	}
+	return describeOutput, nil
+}
+
+// snippet-end:[gov2.redshift.DescribeStatement]
+
 // snippet-start:[gov2.redshift.WaitForQueryStatus]
 
 // WaitForQueryStatus waits until the given RedshiftQuery object has succeeded or failed.
@@ -170,8 +206,7 @@ func (actor RedshiftDataActions) WaitForQueryStatus(query RedshiftQuery, pauser 
 	attempts := 0
 	maxWaitCycles := 30
 	for done == false {
-		// snippet-start:[gov2.redshift.DescribeStatement]
-		describeOutput, err := actor.RedshiftDataClient.DescribeStatement(query.Context, &query.Input)
+		describeOutput, err := actor.DescribeStatement(query)
 		if err != nil {
 			return err
 		}
@@ -187,7 +222,6 @@ func (actor RedshiftDataActions) WaitForQueryStatus(query RedshiftQuery, pauser 
 		if describeOutput.Status == "FINISHED" {
 			done = true
 		}
-		// snippet-end:[gov2.redshift.DescribeStatement]
 		attempts++
 		pauser.Pause(attempts)
 	}
@@ -200,10 +234,15 @@ func (actor RedshiftDataActions) WaitForQueryStatus(query RedshiftQuery, pauser 
 
 // GetStatementResult returns the result of the statement with the given id.
 func (actor RedshiftDataActions) GetStatementResult(ctx context.Context, statementId string) (*redshiftdata.GetStatementResultOutput, error) {
+
+	var opErr *types.QueryTimeoutException
 	getStatementResultOutput, err := actor.RedshiftDataClient.GetStatementResult(ctx, &redshiftdata.GetStatementResultInput{
 		Id: aws.String(statementId),
 	})
-	if err != nil {
+	if err != nil && errors.As(err, &opErr) {
+		log.Printf("Query timed out: %v\n", err)
+		return nil, err
+	} else if err != nil {
 		return nil, err
 	}
 	return getStatementResultOutput, nil

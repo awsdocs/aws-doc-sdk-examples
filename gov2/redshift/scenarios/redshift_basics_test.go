@@ -11,7 +11,6 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/redshift/stubs"
 	"io"
 	"math/rand"
-	"os"
 	"testing"
 	"time"
 
@@ -37,7 +36,8 @@ func TestRunBasicsScenario(t *testing.T) {
 }
 
 // httpErr is used to mock an HTTP error. This is required by the download manager,
-// which calls GetObject until it receives a 415 status code.
+// which calls GetObject until it receives a 415 status code. IDEs may indicate it's
+// unused, but it is required for side effects.
 type httpErr struct {
 	statusCode int
 }
@@ -75,10 +75,14 @@ type BasicsScenarioTest struct {
 // mocked data.
 func (scenarioTest *BasicsScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	// set up variables
-	clusterId := "test-cluster-1"
-	userName, userPassword := "awsuser", "AwsUser1000"
+	clusterId := "demo-cluster-1"
+	secretId := "s3express/basics/secrets"
+	user := User{
+		Username: "testUser",
+		Password: "testPassword",
+	}
 	databaseName := "dev"
-	nodeType := "test.node"
+	nodeType := "ra3.xlplus"
 	clusterType := "single-node"
 	publiclyAccessible := true
 	testId := "test-result-id"
@@ -87,22 +91,24 @@ func (scenarioTest *BasicsScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	scenarioTest.OutFilename = "test.out"
 
 	scenarioTest.Answers = []string{
-		"enter", "enter", "enter", "2013", "enter", "y", "y", //"3", "4", "5", "6", "7", "8", "9", "10",
+		"enter", "enter", "10", "2013", "y", "y", "y",
 	}
 
 	// set up stubs
 	var stubList []testtools.Stub
-	stubList = append(stubList, stubs.StubCreateCluster(clusterId, userPassword, userName, nodeType, clusterType, publiclyAccessible, nil))
+	stubList = append(stubList, stubs.StubGetSecretValue(secretId, user.Username, user.Password, nil))
+	stubList = append(stubList, stubs.StubCreateCluster(clusterId, user.Username, user.Password, nodeType, clusterType, publiclyAccessible, nil))
 	stubList = append(stubList, stubs.StubDescribeClusters(clusterId, nil))
-	stubList = append(stubList, stubs.StubListDatabases(clusterId, databaseName, userName, nil))
-	stubList = append(stubList, stubs.StubExecuteStatement(clusterId, databaseName, userName, sql, testId, nil))
-	stubList = append(stubList, stubs.StubBatchExecuteStatement(clusterId, databaseName, userName, sqls, testId, nil))
-	stubList = append(stubList, stubs.StubDescribeStatement(testId, nil)) // This is where Execute is getting called instead of Describe. Comment this line out to see the second Describe work.
-	stubList = append(stubList, stubs.StubExecuteStatement(clusterId, databaseName, userName, sql, testId, nil))
+	stubList = append(stubList, stubs.StubDescribeClusters(clusterId, nil))
+	stubList = append(stubList, stubs.StubListDatabases(clusterId, databaseName, user.Username, nil))
+	stubList = append(stubList, stubs.StubExecuteStatement(clusterId, databaseName, user.Username, sql, testId, nil))
+	stubList = append(stubList, stubs.StubBatchExecuteStatement(clusterId, databaseName, user.Username, sqls, testId, nil))
+	stubList = append(stubList, stubs.StubDescribeStatement(testId, nil))
+	stubList = append(stubList, stubs.StubExecuteStatement(clusterId, databaseName, user.Username, sql, testId, nil))
 	stubList = append(stubList, stubs.StubDescribeStatement(testId, nil))
 	stubList = append(stubList, stubs.StubGetStatementResult(nil))
 	stubList = append(stubList, stubs.StubModifyCluster(nil))
-	stubList = append(stubList, stubs.StubDeleteCluster(clusterId, nil))
+	stubList = append(stubList, stubs.StubDeleteCluster(clusterId))
 
 	return stubList
 }
@@ -116,7 +122,5 @@ func (scenarioTest *BasicsScenarioTest) RunSubTest(stubber *testtools.AwsmStubbe
 	scenario.Run()
 }
 
-// Cleanup deletes the output file created by the download test.
 func (scenarioTest *BasicsScenarioTest) Cleanup() {
-	_ = os.Remove(scenarioTest.OutFilename)
 }

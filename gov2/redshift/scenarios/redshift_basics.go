@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[gov2.redshift.BasicsScenario]
+
 package scenarios
 
 import (
@@ -11,10 +13,12 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	redshift_types "github.com/aws/aws-sdk-go-v2/service/redshift/types"
 	redshiftdata_types "github.com/aws/aws-sdk-go-v2/service/redshiftdata/types"
+	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/redshift/actions"
 	"log"
 	"math/rand"
+	"strings"
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/service/redshift"
@@ -49,6 +53,12 @@ type RedshiftBasicsScenario struct {
 	filesystem        demotools.IFileSystem
 	redshiftActor     *actions.RedshiftActions
 	redshiftDataActor *actions.RedshiftDataActions
+	secretsmanager    *SecretsManager
+}
+
+// SecretsManager is used to retrieve username and password information from a secure service.
+type SecretsManager struct {
+	SecretsManagerClient *secretsmanager.Client
 }
 
 // RedshiftBasics constructs a new Redshift Basics runner.
@@ -59,6 +69,7 @@ func RedshiftBasics(sdkConfig aws.Config, questioner demotools.IQuestioner, paus
 		questioner:        questioner,
 		pauser:            pauser,
 		filesystem:        filesystem,
+		secretsmanager:    &SecretsManager{SecretsManagerClient: secretsmanager.NewFromConfig(sdkConfig)},
 		redshiftActor:     &actions.RedshiftActions{RedshiftClient: redshift.NewFromConfig(sdkConfig)},
 		redshiftDataActor: &actions.RedshiftDataActions{RedshiftDataClient: redshiftdata.NewFromConfig(sdkConfig)},
 	}
@@ -76,11 +87,16 @@ type Movie struct {
 
 // snippet-end:[gov2.redshift.Movie.struct]
 
-// snippet-start:[gov2.redshift.BasicsScenario]
+// User makes it easier to get the User data back from SecretsManager and use it later.
+type User struct {
+	Username string `json:"userName"`
+	Password string `json:"userPassword"`
+}
 
 // Run runs the RedshiftBasics interactive example that shows you how to use Amazon
 // Redshift and how to interact with its common endpoints.
 //
+// 0. Retrieve username and password information to access Redshift.
 // 1. Create a cluster.
 // 2. Wait for the cluster to become available.
 // 3. List the available databases in the region.
@@ -97,13 +113,15 @@ type Movie struct {
 // This package can be found in the ..\..\demotools folder of this repo.
 func (runner *RedshiftBasicsScenario) Run() {
 
-	// Prompt the user for input
-	userName, userPassword := "awsuser", "AwsUser1000"
-	clusterId := "test-cluster-1"
+	user := User{}
+	secretId := "s3express/basics/secrets"
+	clusterId := "demo-cluster-1"
+	maintenanceWindow := "wed:07:30-wed:08:00"
 	databaseName := "dev"
 	tableName := "Movies"
 	fileName := "Movies.json"
-	runner.helper.GetName()
+	nodeType := "ra3.xlplus"
+	clusterType := "single-node"
 	ctx := context.TODO()
 
 	defer func() {
@@ -113,14 +131,28 @@ func (runner *RedshiftBasicsScenario) Run() {
 			if isMock || runner.questioner.AskBool("Do you want to see the full error message (y/n)?", "y") {
 				log.Println(r)
 			}
-			runner.cleanUpResources(ctx, clusterId, databaseName, tableName, userName, runner.questioner)
+			runner.cleanUpResources(ctx, clusterId, databaseName, tableName, user.Username, runner.questioner)
 		}
 	}()
 
+	// Retrieve the userName and userPassword from SecretsManager
+	output, err := runner.secretsmanager.SecretsManagerClient.GetSecretValue(ctx, &secretsmanager.GetSecretValueInput{
+		SecretId: aws.String(secretId),
+	})
+	if err != nil {
+		log.Printf("There was a problem getting the secret value: %s", err)
+		log.Printf("Please make sure to create a secret named 's3express/basics/secrets' with keys of 'userName' and 'userPassword'.")
+		panic(err)
+	}
+
+	err = json.Unmarshal([]byte(*output.SecretString), &user)
+	if err != nil {
+		log.Printf("There was a problem parsing the secret value from JSON: %s", err)
+		panic(err)
+	}
+
 	// Create the Redshift cluster
-	nodeType := "ra3.xlplus"
-	clusterType := "single-node"
-	_, err := runner.redshiftActor.CreateCluster(ctx, clusterId, userName, userPassword, nodeType, clusterType, true)
+	_, err = runner.redshiftActor.CreateCluster(ctx, clusterId, user.Username, user.Password, nodeType, clusterType, true)
 	if err != nil {
 		var clusterAlreadyExistsFault *redshift_types.ClusterAlreadyExistsFault
 		if errors.As(err, &clusterAlreadyExistsFault) {
@@ -132,16 +164,29 @@ func (runner *RedshiftBasicsScenario) Run() {
 	}
 
 	// Wait for the cluster to become available
-	err = runner.WaitForClusterAvailable(runner.redshiftActor.RedshiftClient, clusterId, runner.questioner, runner.pauser)
+	waiter := redshift.NewClusterAvailableWaiter(runner.redshiftActor.RedshiftClient)
+	err = waiter.Wait(ctx, &redshift.DescribeClustersInput{
+		ClusterIdentifier: aws.String(clusterId),
+	}, 5*time.Minute)
 	if err != nil {
 		log.Println("An error occurred waiting for the cluster.")
 		panic(err)
 	}
 
+	// Get some info about the cluster
+	describeOutput, err := runner.redshiftActor.DescribeClusters(ctx, clusterId)
+	if err != nil {
+		log.Println("Something went wrong trying to get information about the cluster.")
+		panic(err)
+	}
+	log.Println("Here's some information about the cluster.")
+	log.Printf("The cluster's status is %s", *describeOutput.Clusters[0].ClusterStatus)
+	log.Printf("The cluster was created at %s", *describeOutput.Clusters[0].ClusterCreateTime)
+
 	// List databases
 	log.Println("List databases in", clusterId)
 	runner.questioner.Ask("Press Enter to continue...")
-	err = runner.redshiftDataActor.ListDatabases(ctx, clusterId, databaseName, userName)
+	err = runner.redshiftDataActor.ListDatabases(ctx, clusterId, databaseName, user.Username)
 	if err != nil {
 		log.Printf("Failed to list databases: %v\n", err)
 		panic(err)
@@ -150,28 +195,27 @@ func (runner *RedshiftBasicsScenario) Run() {
 	// Create the "Movies" table
 	log.Println("Now you will create a table named " + tableName + ".")
 	runner.questioner.Ask("Press Enter to continue...")
-	err = runner.redshiftDataActor.CreateTable(ctx, clusterId, databaseName, tableName, userName, []string{"title VARCHAR(256)", "year INT"})
+	err = runner.redshiftDataActor.CreateTable(ctx, clusterId, databaseName, tableName, user.Username, []string{"title VARCHAR(256)", "year INT"})
 	if err != nil {
 		log.Printf("Failed to create table: %v\n", err)
 		panic(err)
 	}
 
 	// Populate the "Movies" table
-	runner.PopulateMoviesTable(ctx, clusterId, databaseName, tableName, userName, fileName)
+	runner.PopulateMoviesTable(ctx, clusterId, databaseName, tableName, user.Username, fileName)
 
 	// Query the "Movies" table by year
 	log.Println("Query the Movies table by year.")
 	year := runner.questioner.AskInt(
 		fmt.Sprintf("Enter a value between %v and %v:", 2012, 2014),
 		demotools.InIntRange{Lower: 2012, Upper: 2014})
-	runner.QueryMoviesByYear(ctx, clusterId, databaseName, tableName, userName, year)
+	runner.QueryMoviesByYear(ctx, clusterId, databaseName, tableName, user.Username, year)
 
 	// Modify the cluster's maintenance window
-	//maintenanceWindow := aws.String("wed:07:30-wed:08:00")
-	runner.redshiftActor.ModifyCluster(ctx, clusterId, "wed:07:30-wed:08:00")
+	runner.redshiftActor.ModifyCluster(ctx, clusterId, maintenanceWindow)
 
 	// Delete the Redshift cluster if confirmed
-	runner.cleanUpResources(ctx, clusterId, databaseName, tableName, userName, runner.questioner)
+	runner.cleanUpResources(ctx, clusterId, databaseName, tableName, user.Username, runner.questioner)
 
 	log.Println("Thanks for watching!")
 }
@@ -204,8 +248,6 @@ func (runner *RedshiftBasicsScenario) cleanUpResources(ctx context.Context, clus
 	}
 }
 
-// snippet-end:[gov2.redshift.BasicsScenario]
-
 // snippet-start:[gov2.redshift.loadMoviesFromJSON]
 
 // loadMoviesFromJSON takes the <fileName> file and populates a slice of Movie objects.
@@ -227,39 +269,6 @@ func (runner *RedshiftBasicsScenario) loadMoviesFromJSON(fileName string, filesy
 
 // snippet-end:[gov2.redshift.loadMoviesFromJSON]
 
-// snippet-start:[gov2.redshift.WaitForClusterAvailable]
-
-// WaitForClusterAvailable loops until a success or failure state is returned about the given cluster.
-func (runner *RedshiftBasicsScenario) WaitForClusterAvailable(client *redshift.Client, clusterId string, questioner demotools.IQuestioner, pauser demotools.IPausable) error {
-	questioner.Ask("Now we will wait until the cluster is available. Press Enter to continue...")
-
-	log.Println("Waiting for cluster to become available. This may take a few minutes.")
-	describeClusterInput := &redshift.DescribeClustersInput{
-		ClusterIdentifier: &clusterId,
-	}
-
-	for {
-		// snippet-start:[gov2.redshift.DescribeClusters]
-		output, err := client.DescribeClusters(context.TODO(), describeClusterInput)
-		if err != nil {
-			return err
-		}
-
-		if output.Clusters[0].ClusterStatus != nil && *output.Clusters[0].ClusterStatus == "available" {
-			log.Println("Cluster is available! Total Elapsed Time:", time.Since(time.Now().Add(-1*time.Second*time.Duration(output.Clusters[0].ClusterCreateTime.Second()))))
-			return nil
-		}
-
-		log.Print("Elapsed Time: ")
-		log.Println(time.Since(time.Now().Add(-1 * time.Second * time.Duration(output.Clusters[0].ClusterCreateTime.Second()))))
-		// snippet-end:[gov2.redshift.DescribeClusters]
-
-		pauser.Pause(5)
-	}
-}
-
-// snippet-end:[gov2.redshift.WaitForClusterAvailable]
-
 // snippet-start:[gov2.redshift.PopulateMoviesTable]
 
 // PopulateMoviesTable reads data from the <fileName> file and inserts records into the "Movies" table.
@@ -272,7 +281,7 @@ func (runner *RedshiftBasicsScenario) PopulateMoviesTable(ctx context.Context, c
 	movies, err := runner.loadMoviesFromJSON(fileName, runner.filesystem)
 	if err != nil {
 		log.Printf("Failed to load movies from JSON: %v\n", err)
-		return
+		panic(err)
 	}
 
 	var sqlStatements []string
@@ -282,7 +291,11 @@ func (runner *RedshiftBasicsScenario) PopulateMoviesTable(ctx context.Context, c
 			break
 		}
 
-		sqlStatement := fmt.Sprintf(`INSERT INTO %s (title, year) VALUES ('%s', %d);`, tableName, movie.Title, movie.Year)
+		sqlStatement := fmt.Sprintf(`INSERT INTO %s (title, year) VALUES ('%s', %d);`,
+			tableName,
+			strings.Replace(movie.Title, "'", "''", -1), // Double any single quotes to escape them
+			movie.Year)
+
 		sqlStatements = append(sqlStatements, sqlStatement)
 	}
 
@@ -296,7 +309,7 @@ func (runner *RedshiftBasicsScenario) PopulateMoviesTable(ctx context.Context, c
 	result, err := runner.redshiftDataActor.ExecuteBatchStatement(ctx, *input)
 	if err != nil {
 		log.Printf("Failed to execute batch statement: %v\n", err)
-		return
+		panic(err)
 	}
 
 	describeInput := redshiftdata.DescribeStatementInput{
@@ -337,7 +350,7 @@ func (runner *RedshiftBasicsScenario) QueryMoviesByYear(ctx context.Context, clu
 	result, err := runner.redshiftDataActor.ExecuteStatement(ctx, *input)
 	if err != nil {
 		log.Printf("Failed to query movies: %v\n", err)
-		return
+		panic(err)
 	}
 
 	log.Println("The identifier of the statement is ", *result.Id)
@@ -354,14 +367,14 @@ func (runner *RedshiftBasicsScenario) QueryMoviesByYear(ctx context.Context, clu
 	err = runner.redshiftDataActor.WaitForQueryStatus(query, runner.pauser, true)
 	if err != nil {
 		log.Printf("Failed to execute query: %v\n", err)
-		return
+		panic(err)
 	}
 	log.Printf("Successfully executed query\n")
 
 	getResultOutput, err := runner.redshiftDataActor.GetStatementResult(ctx, *result.Id)
 	if err != nil {
 		log.Printf("Failed to query movies: %v\n", err)
-		return
+		panic(err)
 	}
 	for _, row := range getResultOutput.Records {
 		for _, col := range row {
@@ -376,3 +389,5 @@ func (runner *RedshiftBasicsScenario) QueryMoviesByYear(ctx context.Context, clu
 }
 
 // snippet-end:[gov2.redshift.QueryMoviesByYear]
+
+// snippet-end:[gov2.redshift.BasicsScenario]

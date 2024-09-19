@@ -31,7 +31,7 @@ func TestBasicsScenario_Integration(t *testing.T) {
 	outFile := "integ-test.out"
 	mockQuestioner := &demotools.MockQuestioner{
 		Answers: []string{
-			"", "", "", "10", "2013", "n", "y",
+			"enter", "enter", "10", "2013", "n", "y",
 		},
 	}
 

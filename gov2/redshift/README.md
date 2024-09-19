@@ -31,7 +31,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 ### Get started
 
-- [Hello Amazon Redshift](hello/hello.go#L4) (`describeClusters`)
+- [Hello Amazon Redshift](hello/hello.go#L4) (`DescribeClusters`)
 
 
 ### Basics
@@ -45,13 +45,10 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateCluster](actions/redshift_actions.go#L20)
-- [CreateTable](actions/redshiftdata_actions.go#L75)
-- [DeleteCluster](actions/redshift_actions.go#L72)
-- [DescribeClusters](scenarios/redshift_basics.go#L242)
-- [DescribeStatement](actions/redshiftdata_actions.go#L173)
-- [GetStatementResult](actions/redshiftdata_actions.go#L199)
-- [ModifyCluster](actions/redshift_actions.go#L50)
+- [CreateCluster](actions/redshift_actions.go#L29)
+- [DeleteCluster](actions/redshift_actions.go#L84)
+- [DescribeClusters](actions/redshift_actions.go#L108)
+- [ModifyCluster](actions/redshift_actions.go#L58)
 
 
 <!--custom.examples.start-->
@@ -83,7 +80,7 @@ go run ./cmd -h
 ```
 #### Learn the basics
 
-This example shows you how to work with Amazon Redshift tables, items, and queries.
+This example shows you how to learn core operations for Amazon Redshift using an AWS SDK.
 
 
 <!--custom.basic_prereqs.redshift_Scenario.start-->

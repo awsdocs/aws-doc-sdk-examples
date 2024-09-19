@@ -7,6 +7,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/redshift"
 	"github.com/aws/aws-sdk-go-v2/service/redshift/types"
+	"github.com/aws/smithy-go"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
 	"time"
 )
@@ -32,7 +33,7 @@ func StubDescribeClusters(clusterId string, raiseErr *testtools.StubError) testt
 	}
 }
 
-func StubCreateCluster(clusterId string, userPassword string, userName string, nodeType string, clusterType string, publiclyAccessible bool, raiseErr *testtools.StubError) testtools.Stub {
+func StubCreateCluster(clusterId string, userName string, userPassword string, nodeType string, clusterType string, publiclyAccessible bool, raiseErr *testtools.StubError) testtools.Stub {
 	input := &redshift.CreateClusterInput{
 		ClusterIdentifier:  aws.String(clusterId),
 		MasterUserPassword: aws.String(userPassword),
@@ -58,7 +59,7 @@ func StubModifyCluster(raiseErr *testtools.StubError) testtools.Stub {
 	return testtools.Stub{
 		OperationName: "ModifyCluster",
 		Input: &redshift.ModifyClusterInput{
-			ClusterIdentifier:          aws.String("test-cluster-1"),
+			ClusterIdentifier:          aws.String("demo-cluster-1"),
 			PreferredMaintenanceWindow: aws.String("wed:07:30-wed:08:00"),
 		},
 		Output: &redshift.ModifyClusterOutput{
@@ -70,14 +71,18 @@ func StubModifyCluster(raiseErr *testtools.StubError) testtools.Stub {
 	}
 }
 
-func StubDeleteCluster(clusterId string, raiseErr *testtools.StubError) testtools.Stub {
+func StubDeleteCluster(clusterId string) testtools.Stub {
 	return testtools.Stub{
-		OperationName: "DeleteCluster",
-		Input: &redshift.DeleteClusterInput{
-			ClusterIdentifier:        aws.String(clusterId),
-			SkipFinalClusterSnapshot: aws.Bool(true),
+		OperationName: "DescribeClusters", // Because a waiter is used, this is the actual called mocked.
+		Input: &redshift.DescribeClustersInput{
+			ClusterIdentifier: &clusterId,
 		},
-		Output: &redshift.DeleteClusterOutput{},
-		Error:  raiseErr,
+		SkipErrorTest: true,
+		Error: &testtools.StubError{
+			Err: &smithy.GenericAPIError{
+				Code:    "ClusterNotFound",
+				Message: "ClusterNotFound",
+			},
+		},
 	}
 }

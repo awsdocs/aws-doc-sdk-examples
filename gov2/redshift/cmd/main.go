@@ -22,9 +22,7 @@ import (
 //
 // `-scenario` can be one of the following:
 //
-//   - `getstarted`    -  Runs the interactive get started scenario that shows you how to use
-//     Amazon Simple Storage Service (Amazon S3) actions to work with
-//     S3 buckets and objects.
+//   - `basics`    -  Runs the interactive Basics scenario to show core Redshift actions.
 func main() {
 	scenarioMap := map[string]func(sdkConfig aws.Config, helper scenarios.IScenarioHelper){
 		"basics": runRedshiftBasicsScenario,

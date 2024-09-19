@@ -24,7 +24,7 @@ func StubListDatabases(clusterId string, databaseName string, userName string, r
 	}
 }
 
-func StubExecuteStatement(clusterId string, databaseName string, userName string, sql string, resultId string, raiseErr *testtools.StubError) testtools.Stub {
+func StubExecuteStatement(clusterId string, databaseName string, userName, sql string, resultId string, raiseErr *testtools.StubError) testtools.Stub {
 	return testtools.Stub{
 		OperationName: "ExecuteStatement",
 		Input: &redshiftdata.ExecuteStatementInput{
