@@ -11,24 +11,27 @@ import {
 
 /**
  * Delete one object from an Amazon S3 bucket.
- * @param {{ bucketName: string, key: string }} config
+ * @param {{ bucketName: string, key: string }}
  */
 export const main = async ({ bucketName, key }) => {
   const client = new S3Client({});
-  const command = new DeleteObjectCommand({
-    Bucket: bucketName,
-    Key: key,
-  });
 
   try {
-    const response = await client.send(command);
+    await client.send(
+      new DeleteObjectCommand({
+        Bucket: bucketName,
+        Key: key,
+      }),
+    );
     await waitUntilObjectNotExists(
       { client },
       { Bucket: bucketName, Key: key },
     );
     // A successful delete, or a delete for a non-existent object, both return
     // a 204 response code.
-    console.log(response);
+    console.log(
+      `The object "${key}" from bucket "${bucketName}" was deleted, or it didn't exist.`,
+    );
   } catch (caught) {
     if (
       caught instanceof S3ServiceException &&

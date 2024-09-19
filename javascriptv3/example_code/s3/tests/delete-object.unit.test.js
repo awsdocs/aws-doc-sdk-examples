@@ -21,13 +21,15 @@ const { main } = await import("../actions/delete-object.js");
 
 describe("delete-object", () => {
   it("should log the response from the service", async () => {
-    send.mockResolvedValue("foo");
+    send.mockResolvedValueOnce();
 
     const spy = vi.spyOn(console, "log");
 
-    await main({ bucketName: "my-bucket" });
+    await main({ bucketName: "my-bucket", key: "my-object" });
 
-    expect(spy).toHaveBeenCalledWith("foo");
+    expect(spy).toHaveBeenCalledWith(
+      `The object "my-object" from bucket "my-bucket" was deleted, or it didn't exist.`,
+    );
   });
 
   it("should log a relevant error when the bucket doesn't exist", async () => {

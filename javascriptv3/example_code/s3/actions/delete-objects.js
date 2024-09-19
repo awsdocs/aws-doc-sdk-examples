@@ -15,15 +15,16 @@ import {
  */
 export const main = async ({ bucketName, keys }) => {
   const client = new S3Client({});
-  const command = new DeleteObjectsCommand({
-    Bucket: bucketName,
-    Delete: {
-      Objects: keys.map((k) => ({ Key: k })),
-    },
-  });
 
   try {
-    const { Deleted } = await client.send(command);
+    const { Deleted } = await client.send(
+      new DeleteObjectsCommand({
+        Bucket: bucketName,
+        Delete: {
+          Objects: keys.map((k) => ({ Key: k })),
+        },
+      }),
+    );
     for (const key in keys) {
       await waitUntilObjectNotExists(
         { client },

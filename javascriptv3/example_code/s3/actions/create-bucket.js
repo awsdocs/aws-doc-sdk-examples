@@ -16,20 +16,21 @@ import {
  */
 export const main = async ({ bucketName }) => {
   const client = new S3Client({});
-  const command = new CreateBucketCommand({
-    // The name of the bucket. Bucket names are unique and have several other constraints.
-    // See https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
-    Bucket: bucketName,
-  });
 
   try {
-    const { Location } = await client.send(command);
+    const { Location } = await client.send(
+      new CreateBucketCommand({
+        // The name of the bucket. Bucket names are unique and have several other constraints.
+        // See https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
+        Bucket: bucketName,
+      }),
+    );
     await waitUntilBucketExists({ client }, { Bucket: bucketName });
     console.log(`Bucket created with location ${Location}`);
   } catch (caught) {
     if (caught instanceof BucketAlreadyExists) {
       console.error(
-        `The bucket "${bucketName}" already exists in another AWS account. Bucket names must be globally unique.`
+        `The bucket "${bucketName}" already exists in another AWS account. Bucket names must be globally unique.`,
       );
     }
     // WARNING: If you try to create a bucket in the North Virginia region,
@@ -38,7 +39,7 @@ export const main = async ({ bucketName }) => {
     // and the ACL on that bucket will be reset.
     else if (caught instanceof BucketAlreadyOwnedByYou) {
       console.error(
-        `The bucket "${bucketName}" already exists in this AWS account.`
+        `The bucket "${bucketName}" already exists in this AWS account.`,
       );
     } else {
       throw caught;

@@ -26,7 +26,7 @@ describe("delete-bucket-policy", () => {
 
     await main({ bucketName: "my-bucket" });
 
-    expect(spy).toHaveBeenCalledWith("foo");
+    expect(spy).toHaveBeenCalledWith(`Bucket policy deleted from "my-bucket".`);
   });
 
   it("should log a relevant error when the bucket doesn't exist", async () => {
@@ -40,7 +40,7 @@ describe("delete-bucket-policy", () => {
     await main({ bucketName });
 
     expect(spy).toHaveBeenCalledWith(
-      `Error from S3 while deleting policy from ${bucketName}. The bucket doesn't exist.`
+      `Error from S3 while deleting policy from ${bucketName}. The bucket doesn't exist.`,
     );
   });
 
@@ -55,7 +55,7 @@ describe("delete-bucket-policy", () => {
     await main({ bucketName });
 
     expect(spy).toHaveBeenCalledWith(
-      `Error from S3 while deleting policy from ${bucketName}.  ${error.name}: ${error.message}`
+      `Error from S3 while deleting policy from ${bucketName}.  ${error.name}: ${error.message}`,
     );
   });
 

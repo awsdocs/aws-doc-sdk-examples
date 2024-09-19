@@ -16,14 +16,16 @@ export const main = async ({ bucketName }) => {
   const client = new S3Client({});
 
   try {
-    const response = await client.send(
+    await client.send(
       new DeleteBucketWebsiteCommand({
         Bucket: bucketName,
       }),
     );
     // The response code will be successful for both removed configurations and
     // configurations that did not exist in the first place.
-    console.log(response);
+    console.log(
+      `The bucket "${bucketName}" is not longer configured as a website, or it never was.`,
+    );
   } catch (caught) {
     if (
       caught instanceof S3ServiceException &&

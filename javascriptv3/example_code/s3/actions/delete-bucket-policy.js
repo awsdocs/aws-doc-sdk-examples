@@ -14,24 +14,25 @@ import {
  */
 export const main = async ({ bucketName }) => {
   const client = new S3Client({});
-  const command = new DeleteBucketPolicyCommand({
-    Bucket: bucketName,
-  });
 
   try {
-    const response = await client.send(command);
-    console.log(response);
+    await client.send(
+      new DeleteBucketPolicyCommand({
+        Bucket: bucketName,
+      }),
+    );
+    console.log(`Bucket policy deleted from "${bucketName}".`);
   } catch (caught) {
     if (
       caught instanceof S3ServiceException &&
       caught.name === "NoSuchBucket"
     ) {
       console.error(
-        `Error from S3 while deleting policy from ${bucketName}. The bucket doesn't exist.`
+        `Error from S3 while deleting policy from ${bucketName}. The bucket doesn't exist.`,
       );
     } else if (caught instanceof S3ServiceException) {
       console.error(
-        `Error from S3 while deleting policy from ${bucketName}.  ${caught.name}: ${caught.message}`
+        `Error from S3 while deleting policy from ${bucketName}.  ${caught.name}: ${caught.message}`,
       );
     } else {
       throw caught;
