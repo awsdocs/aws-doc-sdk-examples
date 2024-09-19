@@ -6,11 +6,11 @@ Unit tests for photo_list.py.
 """
 
 from unittest.mock import MagicMock
+
 import boto3
+import pytest
 from boto3.s3.transfer import S3UploadFailedError
 from botocore.exceptions import ClientError
-import pytest
-
 from photo_list import PhotoList, reqparse
 
 

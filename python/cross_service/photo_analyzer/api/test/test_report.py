@@ -6,10 +6,11 @@ Unit tests for report.py
 """
 
 from unittest.mock import MagicMock
+
 import boto3
 import pytest
-
-from report import Report, reqparse, render_template
+from report import Report
+from flask_restful import reqparse
 
 
 @pytest.mark.parametrize(
@@ -91,7 +92,7 @@ def test_post_report(make_stubber, monkeypatch, error_code):
         error_code=error_code,
     )
 
-    _, result = report.post()
+    _, result = report.post() # pylint: disable=E1120
     if error_code is None:
         assert result == 200
     else:

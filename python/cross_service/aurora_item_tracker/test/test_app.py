@@ -6,10 +6,9 @@ Unit tests for the dynamodb_item_tracker example.
 """
 
 import boto3
-from botocore.stub import ANY
 import pytest
-
-from app import create_app
+from app import create_app  # pylint: disable=E0611
+from botocore.stub import ANY
 
 
 class MockManager:
@@ -82,7 +81,7 @@ class MockManager:
                     self.ses_stubber.stub_send_email,
                     self.sender,
                     {"ToAddresses": [self.recipient]},
-                    f"Work items",
+                    "Work items",
                     ANY,
                     ANY,
                     "test-msg-id",
@@ -101,7 +100,7 @@ class MockManager:
         if kind == "SELECT":
             if data is not None:
                 sql = (
-                    f"SELECT iditem, description, guide, status, username, archived "
+                    "SELECT iditem, description, guide, status, username, archived "
                     f"FROM {self.table_name} WHERE archived=:archived"
                 )
                 sql_params = [
@@ -109,14 +108,14 @@ class MockManager:
                 ]
             else:
                 sql = (
-                    f"SELECT iditem, description, guide, status, username, archived "
+                    "SELECT iditem, description, guide, status, username, archived "
                     f"FROM {self.table_name} "
                 )
                 sql_params = None
         elif kind == "INSERT":
             sql = (
                 f"INSERT INTO {self.table_name} (description, guide, status, username) "
-                f" VALUES (:description, :guide, :status, :username)"
+                " VALUES (:description, :guide, :status, :username)"
             )
             sql_params = [
                 {"name": "description", "value": {"stringValue": data["description"]}},
@@ -283,7 +282,7 @@ def test_report_small(mock_mgr):
     mock_mgr.setup_stubs(None, None, sql, sql_params, report="small")
 
     with mock_mgr.app.test_client() as client:
-        rte = f"/api/items:report"
+        rte = "/api/items:report"
         rv = client.post(rte, json={"email": mock_mgr.recipient})
         assert rv.status_code == 200
 
@@ -293,7 +292,7 @@ def test_report_large(mock_mgr):
     mock_mgr.setup_stubs(None, None, sql, sql_params, report="large")
 
     with mock_mgr.app.test_client() as client:
-        rte = f"/api/items:report"
+        rte = "/api/items:report"
         rv = client.post(rte, json={"email": mock_mgr.recipient})
         assert rv.status_code == 200
 
@@ -310,7 +309,7 @@ def test_report_error(mock_mgr, err, stop_on, msg):
     mock_mgr.setup_stubs(err, stop_on, sql, sql_params, report="small")
 
     with mock_mgr.app.test_client() as client:
-        rte = f"/api/items:report"
+        rte = "/api/items:report"
         rv = client.post(rte, json={"email": mock_mgr.recipient})
         assert rv.status_code == 500
         assert msg in rv.json

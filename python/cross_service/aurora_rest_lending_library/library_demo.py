@@ -11,20 +11,21 @@ that is backed by AWS Lambda functions that call an Amazon Aurora database.
 import argparse
 import logging
 import os
-from pprint import pprint
 import random
 import time
+from pprint import pprint
 from urllib.parse import urljoin
-import requests
-import boto3
-import yaml
 
+import boto3
+import requests
+import yaml
 from library_api.chalicelib.library_data import Storage
+import rds_tools.aurora_tools as aurora_tools
 
 logger = logging.getLogger(__name__)
 
 # Read YAML configuration
-with open("config.yml", "r") as file:
+with open("config.yml") as file:
     config = yaml.safe_load(file)
 
 
@@ -104,7 +105,7 @@ def create_resources(
     # With Aurora Serverless v2, the cluster might be 'Available' while the
     # writer instance is still 'Creating'. Wait for the instance to be available too.
     instance_available_waiter = aurora_tools.DBInstanceAvailableWaiter(rds_client)
-    instance_available_waiter.wait("%s-instance" % cluster_name)
+    instance_available_waiter.wait(f"{cluster_name}-instance")
 
     return cluster, secret
 
@@ -289,7 +290,15 @@ def main():
 
     if args.action == "deploy_database":
         print("Deploying the serverless database and supporting resources.")
-        do_deploy_database(cluster_name, secret_name)
+        cluster, secret = create_resources(
+            config["cluster"]["cluster_name"],
+            config["db_name"],
+            config["cluster"]["admin_name"],
+            config["cluster"]["admin_password"],
+            boto3.client("rds"),
+            config["secret"]["name"],
+            boto3.client("secretsmanager"),
+        )
         print("Next, run 'python library_demo.py deploy_rest' to deploy the REST API.")
     elif args.action == "populate_database":
         print("Populating serverless database cluster with data.")

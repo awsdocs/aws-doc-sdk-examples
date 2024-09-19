@@ -15,9 +15,10 @@ import asyncio
 import io
 import json
 import logging
-import websockets
 import zipfile
+
 import boto3
+import websockets
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)

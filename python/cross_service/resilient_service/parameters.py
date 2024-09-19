@@ -69,7 +69,6 @@ class ParameterHelper:
                     "Use Overwrite=True to update the parameter."
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
 
 
 # snippet-end:[python.example_code.workflow.ResilientService_ParameterHelper]

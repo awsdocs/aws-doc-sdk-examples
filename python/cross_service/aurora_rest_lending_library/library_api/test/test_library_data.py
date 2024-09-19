@@ -6,8 +6,9 @@ Unit tests for library_data.py functions.
 """
 
 import datetime
-import pytest
+
 import boto3
+import pytest
 from botocore.exceptions import ClientError
 from botocore.stub import ANY
 from chalicelib.library_data import Storage

@@ -16,6 +16,7 @@ import decimal
 import json
 import logging
 import urllib.parse
+
 import chalice
 import chalicelib.covid_data
 

@@ -11,8 +11,9 @@ database and sends them to an Amazon Simple Queue Service (Amazon SQS) queue.
 
 import argparse
 import logging
-from pprint import pprint
 import time
+from pprint import pprint
+
 import boto3
 from state_definitions import make_definition
 from stepfunctions_statemachine import StepFunctionsStateMachine

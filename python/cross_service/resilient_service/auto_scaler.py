@@ -96,7 +96,6 @@ class AutoScalingWrapper:
                 log.info(f"Policy '{policy_name}' already exists. ARN: {policy_arn}")
                 return policy_arn
             log.error(f"Full error:\n\t{err}")
-            pass
 
     def create_role(self, role_name: str, assume_role_doc: dict) -> str:
         """
@@ -123,7 +122,6 @@ class AutoScalingWrapper:
                 log.info(f"Role '{role_name}' already exists. ARN: {role_arn}")
                 return role_arn
             log.error(f"Full error:\n\t{err}")
-            pass
 
     def attach_policy(
         self,
@@ -149,7 +147,6 @@ class AutoScalingWrapper:
         except ClientError as err:
             log.error(f"Failed to attach policy {policy_arn} to role {role_name}.")
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-start:[python.cross_service.resilient_service.iam.CreateInstanceProfile]
     def create_instance_profile(
@@ -212,7 +209,6 @@ class AutoScalingWrapper:
                     "Instance profile %s already exists, nothing to do.", profile_name
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
         return profile_arn
 
     # snippet-end:[python.cross_service.resilient_service.iam.CreateInstanceProfile]
@@ -242,7 +238,6 @@ class AutoScalingWrapper:
             if error_code == "InvalidInstanceID.NotFound":
                 log.error(f"The instance ID '{instance_id}' does not exist.")
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.ec2.DescribeIamInstanceProfileAssociations]
 
@@ -303,7 +298,6 @@ class AutoScalingWrapper:
                     f"Please verify the instance ID and try again."
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.ec2.ReplaceIamInstanceProfileAssociation]
 
@@ -343,7 +337,6 @@ class AutoScalingWrapper:
                 log.info(
                     "Instance profile %s doesn't exist, nothing to do.", profile_name
                 )
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.iam.DeleteInstanceProfile]
 
@@ -366,7 +359,6 @@ class AutoScalingWrapper:
             if error_code == "InvalidKeyPair.Duplicate":
                 log.error(f"A key pair with the name '{key_pair_name}' already exists.")
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.ec2.CreateKeyPair]
 
@@ -382,11 +374,9 @@ class AutoScalingWrapper:
         except ClientError as err:
             log.error(f"Couldn't delete key pair '{self.key_pair_name}'.")
             log.error(f"Full error:\n\t{err}")
-            pass
         except FileNotFoundError as err:
             log.info("Key pair %s doesn't exist, nothing to do.", self.key_pair_name)
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.ec2.DeleteKeyPair]
 
@@ -450,7 +440,6 @@ class AutoScalingWrapper:
                     f"Launch template {self.launch_template_name} already exists, nothing to do."
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
         return template
 
     # snippet-end:[python.cross_service.resilient_service.ec2.CreateLaunchTemplate]
@@ -478,7 +467,6 @@ class AutoScalingWrapper:
                     self.launch_template_name,
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.ec2.DeleteLaunchTemplate]
 
@@ -496,7 +484,6 @@ class AutoScalingWrapper:
         except ClientError as err:
             log.error("Failed to retrieve availability zones.")
             log.error(f"Full error:\n\t{err}")
-            pass
         else:
             return zones
 
@@ -535,7 +522,6 @@ class AutoScalingWrapper:
             else:
                 log.error(f"Failed to create EC2 Auto Scaling group {self.group_name}.")
                 log.error(f"Full error:\n\t{err}")
-                pass
         else:
             return zones
 
@@ -567,7 +553,6 @@ class AutoScalingWrapper:
             if error_code == "ResourceNotFound":
                 log.error(f"The Auto Scaling group '{self.group_name}' does not exist.")
             log.error(f"Full error:\n\t{err}")
-            pass
         else:
             return instance_ids
 
@@ -610,7 +595,6 @@ class AutoScalingWrapper:
                     "Ensure that no conflicting operations are being performed on the resource."
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-start:[python.cross_service.resilient_service.auto-scaling.AttachLoadBalancerTargetGroups]
     def attach_load_balancer_target_group(
@@ -649,7 +633,6 @@ class AutoScalingWrapper:
                     "Check that the service-linked role exists and is correctly configured."
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.auto-scaling.AttachLoadBalancerTargetGroups]
 
@@ -695,7 +678,6 @@ class AutoScalingWrapper:
                     "Ensure that no conflicting operations are being performed on the group."
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.auto-scaling.DeleteAutoScalingGroup]
 
@@ -724,7 +706,6 @@ class AutoScalingWrapper:
                 )
 
             log.error(f"Full error:\n\t{err}")
-            pass
         else:
             if "Vpcs" in response and response["Vpcs"]:
                 log.info(f"Retrieved default VPC: {response['Vpcs'][0]['VpcId']}")
@@ -789,7 +770,6 @@ class AutoScalingWrapper:
                     f"The specified VPC ID '{vpc['VpcId']}' does not exist. Please check the VPC ID."
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
         else:
             return sec_group, port_is_open
 
@@ -835,7 +815,6 @@ class AutoScalingWrapper:
                     "Check the existing rules for this security group."
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.ec2.AuthorizeSecurityGroupIngress]
 
@@ -879,7 +858,6 @@ class AutoScalingWrapper:
                 )
             # Add more error-specific handling as needed
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.ec2.DescribeSubnets]
 

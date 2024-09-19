@@ -13,22 +13,25 @@ This file is deployed to AWS Lambda as part of the Chalice deployment.
 import datetime
 import logging
 import os
+
 import boto3
 from botocore.exceptions import ClientError
-from .postgresql_helper import Table, Column, ForeignKey
+
 from .postgresql_helper import (
+    Column,
+    ForeignKey,
+    Table,
     create_table,
+    delete,
     insert,
-    insert_without_batch,
     insert_returning,
-    update,
+    insert_without_batch,
     query,
-    unpack_query_results,
     unpack_insert_results,
     unpack_insert_results_v2,
-    delete,
+    unpack_query_results,
+    update,
 )
-
 
 logger = logging.getLogger(__name__)
 
@@ -292,7 +295,7 @@ class Storage:
                 "Added %s authors to the database. Result set included updateResults field.",
                 author_count,
             )
-        except:
+        except Exception:
             pass
         try:
             author_count = len(result["records"])
@@ -300,7 +303,7 @@ class Storage:
                 "Added %s authors to the database. Result set included records field.",
                 author_count,
             )
-        except:
+        except Exception:
             pass
 
         auth_ids = [
@@ -492,9 +495,9 @@ class Storage:
                     },
                 ],
             )
-        except Exception as err:
+        except Exception:
             logger.exception(
-                f"Couldn't call query() to construct the query for the Lending table."
+                "Couldn't call query() to construct the query for the Lending table."
             )
             raise
         try:
@@ -575,7 +578,7 @@ class Storage:
             ],
         )
         try:
-            results = self._run_statement(sql, sql_params)
+            self._run_statement(sql, sql_params)
         except Exception as err:
             logger.exception(
                 f"Error running SQL statement for return_book(): {str(err)}"

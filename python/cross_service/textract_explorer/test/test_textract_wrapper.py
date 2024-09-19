@@ -5,13 +5,13 @@
 Unit tests for textract_wrapper.py.
 """
 
-from io import BytesIO
 import json
-from unittest.mock import patch, mock_open
-import boto3
-from botocore.exceptions import ClientError
-import pytest
+from io import BytesIO
+from unittest.mock import mock_open, patch
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from textract_wrapper import TextractWrapper
 
 

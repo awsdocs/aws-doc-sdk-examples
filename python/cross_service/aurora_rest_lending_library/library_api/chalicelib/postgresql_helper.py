@@ -13,6 +13,9 @@ This code is intended for demonstration only and does not guarantee best practic
 """
 
 import datetime
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Maps from Python types to PostgreSQL columns types used in a CREATE TABLE statement.
 COL_TYPES = {int: "int", str: "varchar", datetime.date: "date"}
@@ -182,7 +185,7 @@ def insert(table, value_sets):
              the RDS Data Service.
     """
     insert_clause = f"INSERT INTO {table.name}"
-    returning_clause = f"RETURNING *"
+    returning_clause = "RETURNING *"
     cols = [col.name for col in table.cols if not col.auto_increment]
     vals = [f":{col}" for col in cols]
     # Currently, the RETURNING clause does not have a material effect on the result set as seen by the Data API.
@@ -214,7 +217,7 @@ def insert_returning(table, value_sets):
              the RDS Data Service.
     """
     insert_clause = f"INSERT INTO {table.name}"
-    returning_clause = f"RETURNING *"
+    returning_clause = "RETURNING *"
     cols = [col.name for col in table.cols if not col.auto_increment]
     vals = [f":{col}" for col in cols]
     sql = f"WITH derived AS ({insert_clause} ({', '.join(cols)}) VALUES ({', '.join(vals)}) {returning_clause}) SELECT * FROM derived"
@@ -237,7 +240,7 @@ def insert_without_batch(table, values_clause):
     """
 
     insert_clause = f"INSERT INTO {table.name}"
-    returning_clause = f"RETURNING *"
+    returning_clause = "RETURNING *"
     cols = [col.name for col in table.cols if not col.auto_increment]
     # The RETURNING clause currently does not have a material effect on the result set as seen by the Data API.
     # This might not be a permanent limitation. If RETURNING does start to have an effect on the elements in
@@ -337,7 +340,7 @@ def unpack_insert_results(results):
     """
     try:
         return results["generatedFields"][0]["longValue"]
-    except:
+    except Exception:
         logger.exception(
             f"Error trying to unpack generatedFields value from result of INSERT statement: {str(results)}"
         )
@@ -356,7 +359,7 @@ def unpack_insert_results_v2(results):
     try:
         new_id = results["records"][0][0]["longValue"]
         return new_id
-    except:
+    except Exception:
         logger.exception(
             f"Error in unpack_insert_results_v2() trying to unpack generatedFields value from result of INSERT statement: {str(results)}"
         )

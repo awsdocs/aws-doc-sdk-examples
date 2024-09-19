@@ -6,10 +6,10 @@ Unit tests for stepfunctions_statemachine.py
 """
 
 import json
-import boto3
-from botocore.exceptions import ClientError
-import pytest
 
+import boto3
+import pytest
+from botocore.exceptions import ClientError
 from stepfunctions_statemachine import StepFunctionsStateMachine
 
 
