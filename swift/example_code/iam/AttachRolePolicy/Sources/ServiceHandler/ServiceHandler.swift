@@ -26,22 +26,14 @@ public class ServiceHandler {
     public let client: IAMClient
 
     /// Initialize and return a new ``ServiceHandler`` object, which is used
-<<<<<<< HEAD
     /// to drive the AWS calls used for the example.
-=======
-    /// to drive the AWS calls used for the example. 
->>>>>>> 1a390a317 (Swift IAM updates)
     ///
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[iam.swift.attachrolepolicy.handler.init]
     public init() async throws {
         do {
-<<<<<<< HEAD
-            client = try IAMClient(region: "us-east-1")
-=======
             client = try await IAMClient()
->>>>>>> 1a390a317 (Swift IAM updates)
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
             throw error
