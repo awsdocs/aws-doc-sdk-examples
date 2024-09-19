@@ -24,6 +24,19 @@ redshift_Hello:
                 - python.example_code.redshift.Hello
   services:
     redshift: {describeClusters}
+redshift_ListDatabases:
+  languages:
+   Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - redshift.java2.list_databases.main
+  services:
+    redshift: {ListDatabases}    
 redshift_CreateCluster:
   languages:
     Kotlin:
@@ -284,7 +297,7 @@ redshift_ExecuteStatement:
   services:
     redshift: {ExecuteStatement}
 redshift_Scenario:
-  synopsis: Learn core operations for &RS; using an &AWS;.
+  synopsis: learn core operations for &RS; using an &AWS;.
   category: Basics
   languages:
     Java:

@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.core.retry.RetryMode;
-import software.amazon.awssdk.core.retry.RetryPolicy;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.services.redshift.RedshiftAsyncClient;
@@ -34,6 +33,7 @@ import software.amazon.awssdk.services.redshiftdata.model.GetStatementResultRequ
 import software.amazon.awssdk.services.redshiftdata.model.ListDatabasesRequest;
 import software.amazon.awssdk.services.redshiftdata.model.RedshiftDataException;
 import software.amazon.awssdk.services.redshiftdata.model.SqlParameter;
+import software.amazon.awssdk.services.redshiftdata.paginators.ListDatabasesPublisher;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
@@ -168,7 +168,7 @@ public class RedshiftActions {
                     long minutes = elapsedSeconds / 60;
                     long seconds = elapsedSeconds % 60;
                     System.out.printf("\rElapsed Time: %02d:%02d - Waiting for cluster...", minutes, seconds);
-                    System.out.flush();  // Ensure output is immediately flushed
+                    System.out.flush();
 
                     // Wait 1 second before the next status check
                     return CompletableFuture.runAsync(() -> {
@@ -185,6 +185,7 @@ public class RedshiftActions {
     }
     // snippet-end:[redshift.java2.describe_cluster.main]
 
+    // snippet-start:[redshift.java2.list_databases.main]
     /**
      * Lists all databases asynchronously for the specified cluster, database user, and database.
      * @param clusterId the identifier of the cluster to list databases for
@@ -199,16 +200,20 @@ public class RedshiftActions {
             .database(database)
             .build();
 
-        return getAsyncDataClient().listDatabases(databasesRequest)
-            .thenAccept(listDatabasesResponse -> {
-                listDatabasesResponse.databases().forEach(db -> {
-                    logger.info("The database name is {} ",db);
-                });
-            })
-            .exceptionally(exception -> {
-                throw new RuntimeException("Failed to list databases: " + exception.getMessage(), exception);
+        // Asynchronous paginator for listing databases.
+        ListDatabasesPublisher databasesPaginator = getAsyncDataClient().listDatabasesPaginator(databasesRequest);
+        CompletableFuture<Void> future = databasesPaginator.subscribe(response -> {
+            response.databases().forEach(db -> {
+                logger.info("The database name is {} ", db);
             });
+        });
+
+        // Return the future for asynchronous handling.
+        return future.exceptionally(exception -> {
+            throw new RuntimeException("Failed to list databases: " + exception.getMessage(), exception);
+        });
     }
+    // snippet-end:[redshift.java2.list_databases.main]
 
     // snippet-start:[redshiftdata.java2.execute_statement.main]
     /**

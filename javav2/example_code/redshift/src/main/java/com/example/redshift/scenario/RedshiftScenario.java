@@ -68,13 +68,13 @@ public class RedshiftScenario {
                 secretName - The name of the secret that belongs to Secret Manager that stores the user name and password used in this scenario. 
             """;
 
-        //   if (args.length != 1) {
-        //     logger.info(usage);
-        //       return;
-        //   }
+        if (args.length != 2) {
+            logger.info(usage);
+            return;
+        }
 
-        String jsonFilePath = "C:\\AWS\\movies.json"; //args[0];
-        String secretName = "test/red"; //args[0];
+        String jsonFilePath = args[0];
+        String secretName = args[1];
         Scanner scanner = new Scanner(System.in);
         logger.info(DASHES);
         logger.info("Welcome to the Amazon Redshift SDK Basics scenario.");
