@@ -136,7 +136,7 @@ language = {
                 "device-farm": "python/example_code/devicefarm",
                 "elastic-load-balancing-v2": "python/example_code/elastic-load-balancing",
                 "secrets-manager": "python/example_code/secretsmanager",
-                "dynamodb": "python/example_code/dynamodb"
+                "dynamodb": "python/example_code/dynamodb",
             },
         }
     },
