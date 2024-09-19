@@ -38,6 +38,7 @@ ec2_Hello:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.Hello
     JavaScript:
@@ -126,6 +127,7 @@ ec2_CreateKeyPair:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.CreateKeyPair
@@ -224,6 +226,7 @@ ec2_DescribeKeyPairs:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.DescribeKeyPairs
@@ -310,6 +313,7 @@ ec2_CreateSecurityGroup:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.CreateSecurityGroup
@@ -404,6 +408,7 @@ ec2_RunInstances:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.RunInstances
@@ -490,6 +495,7 @@ ec2_StartInstances:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.StartInstances
@@ -588,6 +594,7 @@ ec2_StopInstances:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.StopInstances
@@ -685,6 +692,7 @@ ec2_AllocateAddress:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AllocateAddress
@@ -780,6 +788,7 @@ ec2_AssociateAddress:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AssociateAddress
@@ -875,6 +884,7 @@ ec2_DisassociateAddress:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.DisassociateAddress
@@ -944,6 +954,7 @@ ec2_ReleaseAddress:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.ReleaseAddress
@@ -1038,6 +1049,7 @@ ec2_AuthorizeSecurityGroupIngress:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.AuthorizeSecurityGroupIngress
@@ -1118,6 +1130,7 @@ ec2_DeleteKeyPair:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.DeleteKeyPair
@@ -1206,6 +1219,7 @@ ec2_DescribeSecurityGroups:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.DescribeSecurityGroups
@@ -1291,6 +1305,7 @@ ec2_DeleteSecurityGroup:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.DeleteSecurityGroup
@@ -1403,6 +1418,7 @@ ec2_TerminateInstances:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.TerminateInstances
@@ -1730,6 +1746,7 @@ ec2_DescribeImages:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.DescribeImages
@@ -1802,6 +1819,7 @@ ec2_DescribeInstanceTypes:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.DescribeInstanceTypes
@@ -1977,6 +1995,7 @@ ec2_DescribeIamInstanceProfileAssociations:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.DescribeIamInstanceProfileAssociations
@@ -2010,6 +2029,7 @@ ec2_ReplaceIamInstanceProfileAssociation:
             - description:
                 This example replaces the instance profile of a running instance, reboots the instance, and sends
                 a command to the instance after it starts.
+              genai: some
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.ReplaceIamInstanceProfileAssociation
@@ -2042,6 +2062,7 @@ ec2_CreateLaunchTemplate:
           excerpts:
             - description: This example creates a launch template that includes an instance profile that grants specific permissions
                 to the instance, and a user data Bash script that runs on the instance after it starts.
+              genai: some
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.CreateLaunchTemplate
@@ -2073,6 +2094,7 @@ ec2_DeleteLaunchTemplate:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.DeleteLaunchTemplate
@@ -2104,6 +2126,7 @@ ec2_DescribeVpcs:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.DescribeVpcs
@@ -2135,6 +2158,7 @@ ec2_DescribeSubnets:
           sdkguide:
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.ec2.DescribeSubnets
@@ -2198,18 +2222,23 @@ ec2_Scenario_GetStartedInstances:
           sdkguide:
           excerpts:
             - description: Run an interactive scenario at a command prompt.
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.Scenario_GetStartedInstances
             - description: Define a class that wraps key pair actions.
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.class
             - description: Define a class that wraps security group actions.
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.class
             - description: Define a class that wraps instance actions.
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.class
             - description: Define a class that wraps Elastic IP actions.
+              genai: some
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.class
     JavaScript:
