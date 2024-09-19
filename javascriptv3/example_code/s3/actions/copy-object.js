@@ -25,14 +25,15 @@ export const main = async ({
   destinationKey,
 }) => {
   const client = new S3Client({});
-  const command = new CopyObjectCommand({
-    CopySource: `${sourceBucket}/${sourceKey}`,
-    Bucket: destinationBucket,
-    Key: destinationKey,
-  });
 
   try {
-    await client.send(command);
+    await client.send(
+      new CopyObjectCommand({
+        CopySource: `${sourceBucket}/${sourceKey}`,
+        Bucket: destinationBucket,
+        Key: destinationKey,
+      }),
+    );
     await waitUntilObjectExists(
       { client },
       { Bucket: destinationBucket, Key: destinationKey },
