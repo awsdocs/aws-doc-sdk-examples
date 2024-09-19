@@ -17,7 +17,6 @@ import software.amazon.awssdk.services.redshift.paginators.DescribeClustersItera
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class HelloRedshift {
-
     public static void main(String[] args) {
         Region region = Region.US_EAST_1;
         RedshiftClient redshiftClient = RedshiftClient.builder()

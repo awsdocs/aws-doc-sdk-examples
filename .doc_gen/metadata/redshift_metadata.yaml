@@ -24,6 +24,19 @@ redshift_Hello:
                 - python.example_code.redshift.Hello
   services:
     redshift: {describeClusters}
+redshift_ListDatabases:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/redshift
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - redshift.java2.list_databases.main
+  services:
+    redshift: {ListDatabases}    
 redshift_CreateCluster:
   languages:
     Kotlin:
@@ -212,32 +225,6 @@ redshift_ModifyCluster:
                 - python.example_code.redshift.RedshiftWrapper.instantiation
   services:
     redshift: {ModifyCluster}
-redshift_Insert:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/redshift
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - redshiftdata.java2.add.record.main
-  services:
-    redshift: {Insert}
-redshift_Query:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/redshift
-          sdkguide:
-          excerpts:
-            - description: Query a table.
-              snippet_tags:
-                - redshiftdata.java2.query.main
-  services:
-    redshift: {Query}
 redshift_DescribeStatement:
   languages:
     Java:
@@ -290,7 +277,7 @@ redshift_GetStatementResult:
                 - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
   services:
     redshift: {GetStatementResult}
-redshift_CreateTable:
+redshift_ExecuteStatement:
   languages:
     Java:
       versions:
@@ -298,29 +285,19 @@ redshift_CreateTable:
           github: javav2/example_code/redshift
           sdkguide:
           excerpts:
-            - description:
+            - description: Executes a SQL statement to create a database table.
               snippet_tags:
-                - redshiftdata.java2.create_table.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/redshift
-          excerpts:
-            - description:
+                - redshiftdata.java2.execute_statement.main
+            - description: Executes a SQL statement to insert data into a database table.
               snippet_tags:
-                - python.example_code.redshift.redshift_scenario.create_table
-            - description: Wrapper object calling ExecuteStatement.
+                - redshiftdata.java2.add.record.main 
+            - description: Executes a SQL statement to query a database table.
               snippet_tags:
-                - python.example_code.redshift_data.RedshiftDataWrapper
-                - python.example_code.redshift_data.ExecuteStatement
-            - description: >
-                The following code instantiates the RedshiftDataWrapper object.
-              snippet_tags:
-                - python.example_code.redshift_data.RedshiftDataWrapper.instantiation
+                - redshiftdata.java2.query.main      
   services:
-    redshift: {CreateTable}
+    redshift: {ExecuteStatement}
 redshift_Scenario:
-  synopsis: work with &RS; tables, items, and queries.
+  synopsis: learn core operations for &RS; using an &AWS;.
   category: Basics
   languages:
     Java:
@@ -329,9 +306,12 @@ redshift_Scenario:
           github: javav2/example_code/redshift
           sdkguide:
           excerpts:
-            - description:
+            - description: Run an interactive scenario demonstrating &RS; features.
               snippet_tags:
                 - redshift.java2.scenario.main
+            - description: A wrapper class for &RS; SDK methods.
+              snippet_tags:
+                - redshift.java2.actions.main  
     Python:
       versions:
         - sdk_version: 3
