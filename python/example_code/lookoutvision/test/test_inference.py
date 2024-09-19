@@ -57,7 +57,7 @@ def test_detect_anomalies(make_stubber, monkeypatch, error_code):
 
 def test_download_from_s3(make_stubber, monkeypatch):
     s3_resource = boto3.resource("s3")
-    photo = "s3://doc-example-bucket/test-photo.jpeg"
+    photo = "s3://amzn-s3-demo-bucket/test-photo.jpeg"
     file = "test-photo.jpeg"
 
     monkeypatch.setattr(
@@ -72,7 +72,7 @@ def test_download_from_s3(make_stubber, monkeypatch):
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_reject_on_classification(make_stubber, error_code):
-    photo = "s3://doc-example-bucket/test-photo.jpeg"
+    photo = "s3://amzn-s3-demo-bucket/test-photo.jpeg"
     prediction = {"IsAnomalous": True, "Confidence": 0.9}
 
     confidence_limit = 0.5
@@ -88,7 +88,7 @@ def test_reject_on_classification(make_stubber, error_code):
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_reject_on_anomaly_types(make_stubber, error_code):
-    photo = "s3://doc-example-bucket/test-photo.jpeg"
+    photo = "s3://amzn-s3-demo-bucket/test-photo.jpeg"
     prediction = {
         "IsAnomalous": True,
         "Confidence": 0.9,
@@ -117,7 +117,7 @@ def test_reject_on_anomaly_types(make_stubber, error_code):
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_reject_on_coverage(make_stubber, error_code):
-    photo = "s3://doc-example-bucket/test-photo.jpeg"
+    photo = "s3://amzn-s3-demo-bucket/test-photo.jpeg"
     prediction = {
         "IsAnomalous": True,
         "Confidence": 0.9,

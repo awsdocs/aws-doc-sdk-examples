@@ -17,7 +17,7 @@ namespace ListObjectVersionsExample
     {
         public static async Task Main()
         {
-            string bucketName = "doc-example-bucket";
+            string bucketName = "amzn-s3-demo-bucket";
 
             // If the AWS Region where your bucket is defined is different from
             // the AWS Region where the Amazon S3 bucket is defined, pass the constant

@@ -89,7 +89,7 @@ void AwsDocTest::S3_GTests::TearDownTestSuite() {
 std::vector<Aws::String> AwsDocTest::S3_GTests::GetCachedS3Buckets(size_t count) {
     for (size_t index = s_cachedS3Buckets.size(); index < count; ++index) {
         Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-        Aws::String bucketName = "doc-example-bucket-" +
+        Aws::String bucketName = "amzn-s3-demo-bucket-" +
                                  Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
         if (CreateBucket(bucketName)) {

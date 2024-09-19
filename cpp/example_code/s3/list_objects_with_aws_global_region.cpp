@@ -45,7 +45,7 @@ static const int MAX_TIMEOUT_RETRIES = 20;
 static Aws::String createOneBucket(const Aws::S3::S3Client &s3Client) {
     // Create an S3 bucket within the us-west-2 AWS Region.
     Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-    Aws::String bucketName = "doc-example-bucket-" +
+    Aws::String bucketName = "amzn-s3-demo-bucket-" +
                              Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
     Aws::S3::Model::CreateBucketRequest createBucketRequest;

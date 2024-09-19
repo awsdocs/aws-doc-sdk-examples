@@ -38,7 +38,7 @@ end
 
 # Example usage:
 def run_demo
-  bucket_name = "doc-example-bucket"
+  bucket_name = "amzn-s3-demo-bucket"
   index_document = "index.html"
   error_document = "404.html"
 

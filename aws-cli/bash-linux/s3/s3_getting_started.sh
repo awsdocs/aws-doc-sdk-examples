@@ -52,7 +52,7 @@ function s3_getting_started() {
   echo_repeat "*" 88
 
   local bucket_name
-  bucket_name=$(generate_random_name "doc-example-bucket")
+  bucket_name=$(generate_random_name "amzn-s3-demo-bucket")
 
   local region_code
   region_code=$(aws configure get region)

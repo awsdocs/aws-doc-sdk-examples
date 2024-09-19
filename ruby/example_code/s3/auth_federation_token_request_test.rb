@@ -56,7 +56,7 @@ end
 #         'Sid' => 'Stmt1',
 #         'Effect' => 'Allow',
 #         'Action' => 's3:ListBucket',
-#         'Resource' => 'arn:aws:s3:::doc-example-bucket'
+#         'Resource' => 'arn:aws:s3:::amzn-s3-demo-bucket'
 #       ]
 #     }
 #   )
@@ -80,7 +80,7 @@ end
 # @return [Boolean] true if the objects were listed; otherwise, false.
 # @example
 #   s3_client = Aws::S3::Client.new(region: 'us-west-2')
-#   exit 1 unless list_objects_in_bucket?(s3_client, 'doc-example-bucket')
+#   exit 1 unless list_objects_in_bucket?(s3_client, 'amzn-s3-demo-bucket')
 def list_objects_in_bucket?(s3_client, bucket_name)
   puts "Accessing the contents of the bucket named '#{bucket_name}'..."
   response = s3_client.list_objects_v2(
@@ -106,7 +106,7 @@ end
 def run_me
   region = "us-west-2"
   user_name = "my-user"
-  bucket_name = "doc-example-bucket"
+  bucket_name = "amzn-s3-demo-bucket"
 
   iam = Aws::IAM::Client.new(region: region)
   user = get_user(iam, user_name)

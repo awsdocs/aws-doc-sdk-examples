@@ -34,7 +34,7 @@ describe "#describe_metric_alarms", :integ do
               dimensions: [
                 {
                   name: "BucketName",
-                  value: "doc-example-bucket"
+                  value: "amzn-s3-demo-bucket"
                 },
                 {
                     name: "StorageType",

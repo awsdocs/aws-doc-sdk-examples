@@ -25,7 +25,7 @@ namespace TransferAccelerationExample
         public static async Task Main()
         {
             var s3Client = new AmazonS3Client();
-            const string bucketName = "doc-example-bucket";
+            const string bucketName = "amzn-s3-demo-bucket";
 
             await EnableAccelerationAsync(s3Client, bucketName);
         }

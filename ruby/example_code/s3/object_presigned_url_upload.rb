@@ -24,7 +24,7 @@ end
 
 # Example usage:
 def run_demo
-  bucket_name = "doc-example-bucket"
+  bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-file.txt"
   object_content = "This is the content of my-file.txt."
 

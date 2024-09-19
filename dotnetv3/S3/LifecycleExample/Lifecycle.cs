@@ -24,7 +24,7 @@ namespace LifecycleExample
             // should look like this:
             //      RegionEndpoint.USWest2
             var client = new AmazonS3Client();
-            const string BucketName = "doc-example-bucket";
+            const string BucketName = "amzn-s3-demo-bucket";
 
             await AddUpdateDeleteLifecycleConfigAsync(client, BucketName);
         }

@@ -17,7 +17,7 @@ namespace BucketACLExample
     {
         public static async Task Main()
         {
-            const string newBucketName = "doc-example-bucket";
+            const string newBucketName = "amzn-s3-demo-bucket";
 
             IAmazonS3 client = new AmazonS3Client();
 

@@ -22,7 +22,7 @@ namespace DeleteObjectExample
         /// </summary>
         public static async Task Main()
         {
-            const string bucketName = "doc-example-bucket";
+            const string bucketName = "amzn-s3-demo-bucket";
             const string keyName = "testfile.txt";
 
             // If the Amazon S3 bucket is located in an AWS Region other than the

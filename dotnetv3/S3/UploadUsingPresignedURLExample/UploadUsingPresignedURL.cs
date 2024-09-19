@@ -24,7 +24,7 @@ namespace UploadUsingPresignedURLExample
 
         public static async Task Main()
         {
-            string bucketName = "doc-example-bucket";
+            string bucketName = "amzn-s3-demo-bucket";
             string keyName = "samplefile.txt";
             string filePath = $"source\\{keyName}";
 

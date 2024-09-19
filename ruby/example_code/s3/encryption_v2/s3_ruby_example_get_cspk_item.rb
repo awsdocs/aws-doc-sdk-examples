@@ -32,7 +32,7 @@ require "openssl"
 #       security_profile: :v2,
 #       region: 'us-west-2'
 #     ),
-#     'doc-example-bucket',
+#     'amzn-s3-demo-bucket',
 #     'my-file.txt'
 #   )
 def download_object_with_private_key_encryption(
@@ -51,7 +51,7 @@ end
 
 # Example usage:
 def run_me
-  bucket_name = "doc-example-bucket"
+  bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-file.txt"
   region = "us-west-2"
   private_key_file = "my-private-key.pem"
