@@ -2,23 +2,21 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
-   A class containing functions that interact with AWS Identity and Access
-   Management (IAM).
-*/
+ A class containing functions that interact with AWS Identity and Access
+ Management (IAM).
+ */
 
 // snippet-start:[iam.swift.basics.iam]
 // snippet-start:[iam.swift.basics.iam.imports]
-import Foundation
 import AWSIAM
-import ClientRuntime
 import AWSSDKIdentity
+import ClientRuntime
+import Foundation
 import SwiftUtilities
+
 // snippet-end:[iam.swift.basics.iam.imports]
 
 public class ServiceHandlerIAM {
-    /// IAM always uses the global value for the Region.
-    let region = "us-east-1"
-
     /// The `IAMClient` used to interact with IAM.
     var iamClient: IAMClient
 
@@ -30,29 +28,26 @@ public class ServiceHandlerIAM {
     ///   - secretAccessKey: An optional `String` giving the credentials'
     ///     secret access key.
     ///   - sessionToken: An optional string specifying the session token.
-    ///     region:  An optional region to be used by the IAM client.
     // snippet-start:[iam.swift.basics.iam.init]
-    public init(accessKeyId: String? = nil, 
+    public init(accessKeyId: String? = nil,
                 secretAccessKey: String? = nil,
-                sessionToken: String? = nil,
-                region: String? = nil) async throws
+                sessionToken: String? = nil) async throws
     {
-        self.region = region
-
         do {
             if accessKeyId == nil {
-                iamClient = try IAMClient(region: self.region)
+                iamClient = try await IAMClient()
             } else {
                 // Use the given access key ID, secret access key, and session token
                 // to generate a static credentials provider suitable for use when
                 // initializing an IAM client.
 
-                guard   let keyId = accessKeyId,
-                        let secretKey = secretAccessKey else {
-                            throw ServiceHandlerError.authError
+                guard let keyId = accessKeyId,
+                      let secretKey = secretAccessKey
+                else {
+                    throw ServiceHandlerError.authError
                 }
 
-                let credentials: AWSCredentialIdentity = AWSCredentialIdentity(
+                let credentials: AWSCredentialIdentity = .init(
                     accessKey: keyId,
                     secret: secretKey,
                     sessionToken: sessionToken
@@ -64,16 +59,16 @@ public class ServiceHandlerIAM {
                 // permissions.
 
                 let iamConfig = try await IAMClient.IAMClientConfiguration(
-                    awsCredentialIdentityResolver: identityResolver,
-                    region: self.region
+                    awsCredentialIdentityResolver: identityResolver
                 )
                 iamClient = IAMClient(config: iamConfig)
             }
         } catch {
             print("Error initializing the AWS IAM client: ", dump(error))
-            exit(1)
+            throw error
         }
     }
+
     // snippet-end:[iam.swift.basics.iam.init]
 
     /// Update the IAM handler with a new `IAMClient` set up to use the
@@ -85,13 +80,14 @@ public class ServiceHandlerIAM {
     ///   - sessionToken: An optional string containing the AWS session token.
     // snippet-start:[iam.swift.basics.iam.setcredentials]
     public func setCredentials(accessKeyId: String, secretAccessKey: String,
-                sessionToken: String? = nil) async throws {
+                               sessionToken: String? = nil) async throws
+    {
         do {
             // Use the given access key ID, secret access key, and session
             // token to generate a static credentials provider suitable for
             // use when initializing an IAM client.
 
-            let credentials: AWSCredentialIdentity = AWSCredentialIdentity(
+            let credentials: AWSCredentialIdentity = .init(
                 accessKey: accessKeyId,
                 secret: secretAccessKey,
                 sessionToken: sessionToken
@@ -101,34 +97,29 @@ public class ServiceHandlerIAM {
             // Create a new `IAMClient` using the new identity resolver.
 
             let iamConfig = try await IAMClient.IAMClientConfiguration(
-                awsCredentialIdentityResolver: identityResolver,
-                region: self.region
+                awsCredentialIdentityResolver: identityResolver
             )
 
-            if let region = self.region {
-                iamConfig.region = region
-            }
             iamClient = IAMClient(config: iamConfig)
         } catch {
+            print("ERROR: setCredentials:", dump(error))
             throw error
         }
     }
+
     // snippet-end:[iam.swift.basics.iam.setcredentials]
-    
+
     /// Reset IAM credentials by replacing the internal `iamClient` with a
     /// fresh one that uses the default configuration.
     // snippet-start:[iam.swift.basics.iam.resetcredentials]
     public func resetCredentials() async throws {
         do {
-            let iamConfig = try await IAMClient.IAMClientConfiguration()
-            if let region = self.region {
-                iamConfig.region = region
-            }
-            iamClient = IAMClient(config: iamConfig)
+            iamClient = try await IAMClient()
         } catch {
             throw error
         }
     }
+
     // snippet-end:[iam.swift.basics.iam.resetcredentials]
 
     /// Create a new IAM user.
@@ -150,9 +141,11 @@ public class ServiceHandlerIAM {
 
             return user
         } catch {
+            print("ERROR: createUser:", dump(error))
             throw error
         }
     }
+
     // snippet-end:[iam.swift.basics.iam.createuser]
 
     /// Create a new IAM role.
@@ -176,9 +169,11 @@ public class ServiceHandlerIAM {
             }
             return role
         } catch {
+            print("ERROR: createRole:", dump(error))
             throw error
         }
     }
+
     // snippet-end:[iam.swift.basics.iam.createrole]
 
     /// Create an IAM access key for a user.
@@ -199,6 +194,7 @@ public class ServiceHandlerIAM {
             }
             return accessKey
         } catch {
+            print("ERROR: createAccessKey:", dump(error))
             throw error
         }
     }
@@ -226,6 +222,7 @@ public class ServiceHandlerIAM {
             }
             return policy
         } catch {
+            print("ERROR: createPolicy:", dump(error))
             throw error
         }
     }
@@ -251,6 +248,7 @@ public class ServiceHandlerIAM {
         do {
             _ = try await iamClient.putUserPolicy(input: input)
         } catch {
+            print("ERROR: putUserPolicy:", dump(error))
             throw error
         }
     }
@@ -273,6 +271,7 @@ public class ServiceHandlerIAM {
         do {
             _ = try await iamClient.deleteUserPolicy(input: input)
         } catch {
+            print("ERROR: deleteUserPolicy:", dump(error))
             throw error
         }
     }
@@ -295,13 +294,15 @@ public class ServiceHandlerIAM {
         do {
             _ = try await iamClient.attachRolePolicy(input: input)
         } catch {
+            print("ERROR: attachRolePolicy:", dump(error))
             throw error
         }
     }
+
     // snippet-end:[iam.swift.basics.iam.attachrolepolicy]
 
     /// Detach a policy from a role.
-    /// 
+    ///
     /// - Parameters:
     ///   - policy: The policy to be detached from the role.
     ///   - role: The role from which to detach a policy.
@@ -315,6 +316,7 @@ public class ServiceHandlerIAM {
         do {
             _ = try await iamClient.detachRolePolicy(input: input)
         } catch {
+            print("ERROR: detachRolePolicy:", dump(error))
             throw error
         }
     }
@@ -333,6 +335,7 @@ public class ServiceHandlerIAM {
         do {
             _ = try await iamClient.deletePolicy(input: input)
         } catch {
+            print("ERROR: deletePolicy:", dump(error))
             throw error
         }
     }
@@ -352,6 +355,7 @@ public class ServiceHandlerIAM {
         do {
             _ = try await iamClient.deleteUser(input: input)
         } catch {
+            print("ERROR: deleteUser:", dump(error))
             throw error
         }
     }
@@ -367,7 +371,8 @@ public class ServiceHandlerIAM {
     ///          delete.
     // snippet-start:[iam.swift.basics.iam.DeleteAccessKey]
     public func deleteAccessKey(user: IAMClientTypes.User? = nil,
-                                key: IAMClientTypes.AccessKey) async throws {
+                                key: IAMClientTypes.AccessKey) async throws
+    {
         let userName: String?
 
         if user != nil {
@@ -383,6 +388,7 @@ public class ServiceHandlerIAM {
         do {
             _ = try await iamClient.deleteAccessKey(input: input)
         } catch {
+            print("ERROR: deleteAccessKey:", dump(error))
             throw error
         }
     }
@@ -400,6 +406,7 @@ public class ServiceHandlerIAM {
         do {
             _ = try await iamClient.deleteRole(input: input)
         } catch {
+            print("ERROR: deleteRole:", dump(error))
             throw error
         }
     }
@@ -424,9 +431,11 @@ public class ServiceHandlerIAM {
             }
             return user
         } catch {
+            print("ERROR: getUser:", dump(error))
             throw error
         }
     }
     // snippet-end:[iam.swift.basics.iam.GetUser]
 }
+
 // snippet-end:[iam.swift.basics.iam]

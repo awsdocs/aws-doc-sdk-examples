@@ -39,9 +39,9 @@ final class BasicsTests: XCTestCase {
         // the `setUp()` function.
 
         Task() {
-            self.iamHandler = await ServiceHandlerIAM()
-            self.stsHandler = await ServiceHandlerSTS(region: self.region)
-            self.s3Handler = await ServiceHandlerS3(region: self.region)
+            self.iamHandler = try await ServiceHandlerIAM()
+            self.stsHandler = try await ServiceHandlerSTS(region: self.region)
+            self.s3Handler = try await ServiceHandlerS3(region: self.region)
             tdSem.signal()
         }
         tdSem.wait()
@@ -61,7 +61,7 @@ final class BasicsTests: XCTestCase {
             }
 
             // Try to fetch the new user's ID from AWS.
-
+        
             let getID = try await BasicsTests.iamHandler!.getUserID(name: name)
 
             XCTAssertTrue(userID == getID, "Created user's ID (\(userID)) doesn't match retrieved user's ID (\(getID))")
@@ -132,6 +132,10 @@ final class BasicsTests: XCTestCase {
 
     /// Test creating and deleting a user access key.
     func testCreateAndDeleteAccessKey() async throws {
+        typealias CleanupClosure = () async throws -> ()
+ 
+        var cleanupClosures: [CleanupClosure] = []
+
         do {
             let user = try await BasicsTests.iamHandler!.getUser()
 
@@ -141,6 +145,7 @@ final class BasicsTests: XCTestCase {
             }
             
             let accessKey = try await BasicsTests.iamHandler!.createAccessKey(userName: name)
+            cleanupClosures.append({ try await BasicsTests.iamHandler!.deleteAccessKey(user: user, key: accessKey) })
 
             guard let _ = accessKey.accessKeyId else {
                 XCTFail("Unable to get the new access key's ID.")
@@ -150,11 +155,21 @@ final class BasicsTests: XCTestCase {
             let account = try await BasicsTests.stsHandler!.getAccessKeyAccountNumber(key: accessKey)
             XCTAssertNotNil(Int(account), "Invalid account number returned for the generated access key.")
 
-            try await BasicsTests.iamHandler!.deleteAccessKey(key: accessKey)
-            //try await BasicsTests.iamHandler!.deleteUser(user: user)
+            try await performCleanup()
         } catch {
+            try await performCleanup()
             throw error
         }
+        
+        /// Clean up after the test by calling the closures stored in the
+        /// `cleanupClosures` list in the opposite order in which they were
+        /// added. The list is left empty when the cleanup is complete.
+        func performCleanup() async throws {
+            while(cleanupClosures.count != 0) {
+                try await cleanupClosures.removeLast()()
+            }
+        }
+
     }
 
     /// Test creating and deleting a policy.

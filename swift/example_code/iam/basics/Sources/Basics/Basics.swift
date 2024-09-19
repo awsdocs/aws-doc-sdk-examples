@@ -30,12 +30,11 @@ import Swift
 
 // snippet-start:[iam.swift.import]
 import AWSIAM
-
 import AWSS3
 
 // snippet-end:[iam.swift.import]
 import AWSSTS
-import AWSS3
+
 // snippet-end:[iam.swift.basics.main.imports]
 
 @testable import ServiceHandler

@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
-   A class containing functions that interact with the AWS Security Token
-   Service (AWS STS).
-*/
+ A class containing functions that interact with the AWS Security Token
+ Service (AWS STS).
+ */
 
 // snippet-start:[iam.swift.basics.sts]
 // snippet-start:[iam.swift.basics.sts.imports]
-import Foundation
 import AWSIAM
+import Foundation
 // snippet-start:[sts.swift.import]
 import AWSSTS
 // snippet-end:[sts.swift.import]
@@ -21,7 +21,7 @@ import AWSSDKIdentity
 /// A class providing functions for interacting with the AWS Security Token
 /// Service (AWS STS).
 public class ServiceHandlerSTS {
-    /// The AWS Region to use for AWS STS operations.
+    /// The AWS Region to use for AWS STS operations, when set.
     let region: String?
 
     /// The STSClient used to interact with AWS STS.
@@ -43,10 +43,11 @@ public class ServiceHandlerSTS {
     public init(region: String? = nil,
                 accessKeyId: String? = nil,
                 secretAccessKey: String? = nil,
-                sessionToken: String? = nil) async throws {
+                sessionToken: String? = nil) async throws
+    {
         do {
             self.region = region
-            
+
             let stsConfig = try await STSClient.STSClientConfiguration()
             if let region = self.region {
                 stsConfig.region = region
@@ -59,9 +60,10 @@ public class ServiceHandlerSTS {
                 // to generate a static credentials provider suitable for use when
                 // initializing an AWS STS client.
 
-                guard   let keyId = accessKeyId,
-                        let secretKey = secretAccessKey else {
-                            throw ServiceHandlerError.authError
+                guard let keyId = accessKeyId,
+                      let secretKey = secretAccessKey
+                else {
+                    throw ServiceHandlerError.authError
                 }
 
                 let credentials = AWSCredentialIdentity(
@@ -70,7 +72,7 @@ public class ServiceHandlerSTS {
                     sessionToken: sessionToken
                 )
                 let identityResolver = try StaticAWSCredentialIdentityResolver(credentials)
-                
+
                 // Update s3Config to use the new credentials.
                 // Then create a new `STSClient` using those permissions.
                 stsConfig.awsCredentialIdentityResolver = identityResolver
@@ -81,6 +83,7 @@ public class ServiceHandlerSTS {
             throw error
         }
     }
+
     // snippet-end:[iam.swift.basics.sts.init]
 
     /// Set the credentials to use when making AWS STS calls. This is done by
@@ -93,13 +96,14 @@ public class ServiceHandlerSTS {
     ///   - sessionToken: The optional session token string.
     // snippet-start:[iam.swift.basics.sts.setcredentials]
     public func setCredentials(accessKeyId: String, secretAccessKey: String,
-                sessionToken: String? = nil) async throws {
+                               sessionToken: String? = nil) async throws
+    {
         do {
             // Use the given access key ID, secret access key, and session
             // token to generate a static credentials resolver suitable for
             // use when initializing an AWS STS client.
 
-            let credentials: AWSCredentialIdentity = AWSCredentialIdentity(
+            let credentials: AWSCredentialIdentity = .init(
                 accessKey: accessKeyId,
                 secret: secretAccessKey,
                 sessionToken: sessionToken
@@ -111,8 +115,8 @@ public class ServiceHandlerSTS {
             let stsConfig = try await STSClient.STSClientConfiguration(
                 awsCredentialIdentityResolver: identityResolver
             )
-            
-            if let region = self.region {
+
+            if let region = region {
                 stsConfig.region = region
             }
             stsClient = STSClient(config: stsConfig)
@@ -121,6 +125,7 @@ public class ServiceHandlerSTS {
             throw error
         }
     }
+
     // snippet-end:[iam.swift.basics.sts.setcredentials]
 
     /// Switch to using the default credentials for future AWS STS calls by
@@ -130,15 +135,16 @@ public class ServiceHandlerSTS {
     public func resetCredentials() async throws {
         do {
             let stsConfig = try await STSClient.STSClientConfiguration()
-            if let region = self.region {
+            if let region = region {
                 stsConfig.region = region
             }
-           stsClient = STSClient(config: stsConfig)
+            stsClient = STSClient(config: stsConfig)
         } catch {
             print("Error resetting credentials: ", dump(error))
             throw error
         }
     }
+
     // snippet-end:[iam.swift.basics.sts.resetcredentials]
 
     /// Assume the specified role.
@@ -153,7 +159,8 @@ public class ServiceHandlerSTS {
     ///
     // snippet-start:[iam.swift.basics.sts.assumerole]
     public func assumeRole(role: IAMClientTypes.Role, sessionName: String)
-                    async throws -> STSClientTypes.Credentials {
+        async throws -> STSClientTypes.Credentials
+    {
         let input = AssumeRoleInput(
             roleArn: role.arn,
             roleSessionName: sessionName
@@ -173,5 +180,5 @@ public class ServiceHandlerSTS {
     }
     // snippet-end:[iam.swift.basics.sts.assumerole]
 }
-// snippet-end:[iam.swift.basics.sts]
 
+// snippet-end:[iam.swift.basics.sts]

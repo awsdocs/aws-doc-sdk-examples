@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
-   Extensions to the `ServiceHandlerSTS` class to handle tasks needed
-   for testing that aren't the purpose of this example.
-*/
+ Extensions to the `ServiceHandlerSTS` class to handle tasks needed
+ for testing that aren't the purpose of this example.
+ */
 
-import Foundation
-import AWSSTS
 import AWSIAM
+import AWSSTS
 import ClientRuntime
+import Foundation
 import SwiftUtilities
 
 public extension ServiceHandlerSTS {
@@ -35,5 +35,5 @@ public extension ServiceHandlerSTS {
             print("Error getting access key account number: ", dump(error))
             throw error
         }
-   }
+    }
 }

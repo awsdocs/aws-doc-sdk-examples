@@ -2,22 +2,23 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
-   A class containing functions that interact with the AWS Simple Storage
-   Service (Amazon S3).
-*/
+ A class containing functions that interact with the AWS Simple Storage
+ Service (Amazon S3).
+ */
 
 // snippet-start:[iam.swift.basics.s3]
 // snippet-start:[iam.swift.basics.s3.imports]
-import Foundation
 import AWSS3
-import ClientRuntime
-import SwiftUtilities
 import AWSSDKIdentity
+import ClientRuntime
+import Foundation
+import SwiftUtilities
+
 // snippet-end:[iam.swift.basics.s3.imports]
 
 public class ServiceHandlerS3 {
-    /// The AWS Region to use for Amazon S3 operations.
-    let region: String
+    /// The AWS Region to use for Amazon S3 operations, if set.
+    let region: String?
 
     /// The S3Client used to interact with Amazon S3.
     var s3Client: S3Client
@@ -33,14 +34,15 @@ public class ServiceHandlerS3 {
     ///     secret access key.
     ///   - sessionToken: An optional string specifying the session token.
     // snippet-start:[iam.swift.basics.s3.init]
-    public init(region: String = "us-east-2",
+    public init(region: String? = nil,
                 accessKeyId: String? = nil,
                 secretAccessKey: String? = nil,
-                sessionToken: String? = nil) async {
+                sessionToken: String? = nil) async throws
+    {
         do {
             self.region = region
             let s3Config = try await S3Client.S3ClientConfiguration()
-            
+
             if let region = self.region {
                 s3Config.region = region
             }
@@ -49,18 +51,19 @@ public class ServiceHandlerS3 {
             // S3 client with the Region. Otherwise, use the credentials.
 
             if accessKeyId == nil {
-                s3Client = try S3Client(region: self.region)
+                s3Client = S3Client(config: s3Config)
             } else {
                 // Use the given access key ID, secret access key, and session token
                 // to generate a static credentials provider suitable for use when
                 // initializing an Amazon S3 client.
 
-                guard   let keyId = accessKeyId,
-                        let secretKey = secretAccessKey else {
-                            throw ServiceHandlerError.authError
+                guard let keyId = accessKeyId,
+                      let secretKey = secretAccessKey
+                else {
+                    throw ServiceHandlerError.authError
                 }
 
-                let credentials: AWSCredentialIdentity = AWSCredentialIdentity(
+                let credentials = AWSCredentialIdentity(
                     accessKey: keyId,
                     secret: secretKey,
                     sessionToken: sessionToken
@@ -78,9 +81,10 @@ public class ServiceHandlerS3 {
             }
         } catch {
             print("Error initializing the AWS S3 client: ", dump(error))
-            exit(1)
+            throw error
         }
     }
+
     // snippet-end:[iam.swift.basics.s3.init]
 
     /// Set the credentials to use when making Amazon S3 calls. This is done by
@@ -93,13 +97,14 @@ public class ServiceHandlerS3 {
     ///   - sessionToken: The optional session token string.
     // snippet-start:[iam.swift.basics.s3.setcredentials]
     public func setCredentials(accessKeyId: String, secretAccessKey: String,
-                sessionToken: String? = nil) async throws {
+                               sessionToken: String? = nil) async throws
+    {
         do {
             // Use the given access key ID, secret access key, and session token
             // to generate a static credentials provider suitable for use when
             // initializing an Amazon S3 client.
 
-            let credentials: AWSCredentialIdentity = AWSCredentialIdentity(
+            let credentials: AWSCredentialIdentity = .init(
                 accessKey: accessKeyId,
                 secret: secretAccessKey,
                 sessionToken: sessionToken
@@ -110,14 +115,19 @@ public class ServiceHandlerS3 {
             // provider. Then create a new `S3Client` using those permissions.
 
             let s3Config = try await S3Client.S3ClientConfiguration(
-                awsCredentialIdentityResolver: identityResolver,
-                region: self.region
+                awsCredentialIdentityResolver: identityResolver
             )
+
+            if let region = region {
+                s3Config.region = region
+            }
             s3Client = S3Client(config: s3Config)
         } catch {
+            print("ERROR: setCredentials:", dump(error))
             throw error
         }
     }
+
     // snippet-end:[iam.swift.basics.s3.setcredentials]
 
     /// Switch to using the default credentials for future Amazon S3 calls.
@@ -127,38 +137,51 @@ public class ServiceHandlerS3 {
     public func resetCredentials() async throws {
         do {
             let s3Config = try await S3Client.S3ClientConfiguration()
-            
-            if let region = self.region {
+
+            if let region = region {
                 s3Config.region = region
             }
-            
+
             s3Client = S3Client(config: s3Config)
         } catch {
+            print("ERROR: resetCredentials:", dump(error))
             throw error
         }
     }
+
     // snippet-end:[iam.swift.basics.s3.resetcredentials]
 
     /// Returns an array of `S3ClientTypes.Bucket` objects providing
     /// information about each bucket in the Amazon S3 account.
-    /// 
+    ///
     /// - Returns: An array of `S3ClientTypes.Bucket` objects listing the
     ///   buckets in the Amazon S3 account.
     // snippet-start:[iam.swift.basics.s3.listbuckets]
     public func listBuckets() async throws -> [S3ClientTypes.Bucket] {
-        let input = ListBucketsInput()
-
         do {
-            let output = try await s3Client.listBuckets(input: input)
-        
-            guard let buckets = output.buckets else {
-                throw ServiceHandlerError.bucketError
+            var buckets: [S3ClientTypes.Bucket] = []
+            let input = ListBucketsInput()
+
+            // Use "Paginated" to get all the objects.
+            // This lets the SDK handle the 'continuationToken' field in "ListBucketsOutput".
+            let pages = s3Client.listBucketsPaginated(input: input)
+
+            for try await page in pages {
+                guard let pageBuckets = page.buckets else {
+                    print("ERROR: listBucketsPaginated returned nil buckets.")
+                    continue
+                }
+
+                buckets += pageBuckets
             }
+
             return buckets
         } catch {
+            print("ERROR: listBuckets:", dump(error))
             throw error
         }
     }
     // snippet-end:[iam.swift.basics.s3.listbuckets]
 }
+
 // snippet-end:[iam.swift.basics.s3]
