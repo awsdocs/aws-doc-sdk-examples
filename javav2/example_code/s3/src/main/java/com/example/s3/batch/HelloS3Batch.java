@@ -30,7 +30,7 @@ public class HelloS3Batch {
                     System.err.println("List batch jobs failed: " + ex.getMessage());
                     return null;
                 })
-                .join(); // Wait for completion
+                .join();
 
         } catch (CompletionException ex) {
             System.err.println("Failed to list batch jobs: " + ex.getMessage());
