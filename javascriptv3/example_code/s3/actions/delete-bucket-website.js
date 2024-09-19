@@ -1,29 +1,58 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
-
 // snippet-start:[s3.JavaScript.website.deleteBucketWebsiteV3]
-import { DeleteBucketWebsiteCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+  DeleteBucketWebsiteCommand,
+  S3Client,
+  S3ServiceException,
+} from "@aws-sdk/client-s3";
 
-const client = new S3Client({});
-
-// Disable static website hosting on the bucket.
-export const main = async () => {
-  const command = new DeleteBucketWebsiteCommand({
-    Bucket: "test-bucket",
-  });
+/**
+ * Remove the website configuration for a bucket.
+ * @param {{ bucketName: string }}
+ */
+export const main = async ({ bucketName }) => {
+  const client = new S3Client({});
 
   try {
-    const response = await client.send(command);
+    const response = await client.send(
+      new DeleteBucketWebsiteCommand({
+        Bucket: bucketName,
+      }),
+    );
+    // The response code will be successful for both removed configurations and
+    // configurations that did not exist in the first place.
     console.log(response);
-  } catch (err) {
-    console.error(err);
+  } catch (caught) {
+    if (
+      caught instanceof S3ServiceException &&
+      caught.name === "NoSuchBucket"
+    ) {
+      console.error(
+        `Error from S3 while removing website configuration from ${bucketName}. The bucket doesn't exist.`,
+      );
+    } else if (caught instanceof S3ServiceException) {
+      console.error(
+        `Error from S3 while removing website configuration from ${bucketName}.  ${caught.name}: ${caught.message}`,
+      );
+    } else {
+      throw caught;
+    }
   }
 };
 // snippet-end:[s3.JavaScript.website.deleteBucketWebsiteV3]
 
-// Invoke main function if this file was run directly.
+// Call function if run directly
+import { fileURLToPath } from "url";
+import { parseArgs } from "util";
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  const options = {
+    bucketName: {
+      type: "string",
+    },
+  };
+  const { values } = parseArgs({ options });
+  main(values);
 }
