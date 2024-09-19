@@ -54,7 +54,7 @@ public class S3BatchScenario {
         System.out.println(DASHES);
         System.out.println("Setup the required bucket for this scenario.");
         waitForInputToContinue(scanner);
-        String bucketName = "x-" + UUID.randomUUID();
+        String bucketName = "amazon-s3-demo-bucket-" + UUID.randomUUID();
         actions.createBucket(bucketName);
         String reportBucketName = "arn:aws:s3:::"+bucketName;
         String manifestLocation = "arn:aws:s3:::"+bucketName+"/job-manifest.csv";
