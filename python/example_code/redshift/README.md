@@ -79,7 +79,7 @@ python hello.py
 
 #### Learn the basics
 
-This example shows you how to Learn core operations for Amazon Redshift using an AWS.
+This example shows you how to learn core operations for Amazon Redshift using an AWS.
 
 
 <!--custom.basic_prereqs.redshift_Scenario.start-->
