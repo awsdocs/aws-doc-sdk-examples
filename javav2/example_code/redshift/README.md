@@ -46,12 +46,13 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [CreateCluster](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L102)
-- [DeleteCluster](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L476)
+- [DeleteCluster](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L481)
 - [DescribeClusters](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L132)
-- [DescribeStatement](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L328)
-- [ExecuteStatement](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L213)
-- [GetStatementResult](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L370)
-- [ModifyCluster](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L447)
+- [DescribeStatement](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L333)
+- [ExecuteStatement](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L218)
+- [GetStatementResult](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L375)
+- [ListDatabases](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L188)
+- [ModifyCluster](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L452)
 
 
 <!--custom.examples.start-->
@@ -72,7 +73,7 @@ This example shows you how to get started using Amazon Redshift.
 
 #### Learn the basics
 
-This example shows you how to Learn core operations for Amazon Redshift using an AWS.
+This example shows you how to learn core operations for Amazon Redshift using an AWS.
 
 
 <!--custom.basic_prereqs.redshift_Scenario.start-->
