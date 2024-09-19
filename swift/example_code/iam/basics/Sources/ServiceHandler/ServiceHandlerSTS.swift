@@ -21,7 +21,7 @@ import AWSSDKIdentity
 /// A class providing functions for interacting with the AWS Security Token
 /// Service (AWS STS).
 public class ServiceHandlerSTS {
-    /// The AWS Region to use for AWS STS operations, when set.
+    /// The optional AWS Region to use for AWS STS operations.
     let region: String?
 
     /// The STSClient used to interact with AWS STS.

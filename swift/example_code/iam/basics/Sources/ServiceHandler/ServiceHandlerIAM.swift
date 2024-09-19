@@ -47,7 +47,7 @@ public class ServiceHandlerIAM {
                     throw ServiceHandlerError.authError
                 }
 
-                let credentials: AWSCredentialIdentity = .init(
+                let credentials: AWSCredentialIdentity = AWSCredentialIdentity(
                     accessKey: keyId,
                     secret: secretKey,
                     sessionToken: sessionToken
@@ -87,7 +87,7 @@ public class ServiceHandlerIAM {
             // token to generate a static credentials provider suitable for
             // use when initializing an IAM client.
 
-            let credentials: AWSCredentialIdentity = .init(
+            let credentials: AWSCredentialIdentity = AWSCredentialIdentity(
                 accessKey: accessKeyId,
                 secret: secretAccessKey,
                 sessionToken: sessionToken

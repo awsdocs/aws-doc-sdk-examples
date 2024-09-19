@@ -104,7 +104,7 @@ public class ServiceHandlerS3 {
             // to generate a static credentials provider suitable for use when
             // initializing an Amazon S3 client.
 
-            let credentials: AWSCredentialIdentity = .init(
+            let credentials: AWSCredentialIdentity = AWSCredentialIdentity(
                 accessKey: accessKeyId,
                 secret: secretAccessKey,
                 sessionToken: sessionToken

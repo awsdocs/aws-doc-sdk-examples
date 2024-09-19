@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachRolePolicy](AttachRolePolicy/Sources/ServiceHandler/ServiceHandler.swift#L58)
+- [AttachRolePolicy](AttachRolePolicy/Sources/ServiceHandler/ServiceHandler.swift#L50)
 - [CreateAccessKey](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L185)
 - [CreatePolicy](basics/Sources/ServiceHandler/ServiceHandlerIAM.swift#L212)
 - [CreateRole](CreateRole/Sources/ServiceHandler/ServiceHandler.swift#L50)
