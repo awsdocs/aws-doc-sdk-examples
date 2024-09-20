@@ -1,28 +1,56 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
-
 // snippet-start:[s3.JavaScript.policy.getBucketPolicyV3]
-import { GetBucketPolicyCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+  GetBucketPolicyCommand,
+  S3Client,
+  S3ServiceException,
+} from "@aws-sdk/client-s3";
 
-const client = new S3Client({});
-
-export const main = async () => {
-  const command = new GetBucketPolicyCommand({
-    Bucket: "test-bucket",
-  });
+/**
+ * Logs the policy for a specified bucket.
+ * @param {{ bucketName: string }}
+ */
+export const main = async ({ bucketName }) => {
+  const client = new S3Client({});
 
   try {
-    const { Policy } = await client.send(command);
-    console.log(JSON.parse(Policy));
-  } catch (err) {
-    console.error(err);
+    const { Policy } = await client.send(
+      new GetBucketPolicyCommand({
+        Bucket: bucketName,
+      }),
+    );
+    console.log(`Policy for "${bucketName}":\n${Policy}`);
+  } catch (caught) {
+    if (
+      caught instanceof S3ServiceException &&
+      caught.name === "NoSuchBucket"
+    ) {
+      console.error(
+        `Error from S3 while getting policy from ${bucketName}. The bucket doesn't exist.`,
+      );
+    } else if (caught instanceof S3ServiceException) {
+      console.error(
+        `Error from S3 while getting policy from ${bucketName}.  ${caught.name}: ${caught.message}`,
+      );
+    } else {
+      throw caught;
+    }
   }
 };
 // snippet-end:[s3.JavaScript.policy.getBucketPolicyV3]
 
-// Invoke main function if this file was run directly.
+// Call function if run directly
+import { fileURLToPath } from "url";
+import { parseArgs } from "util";
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  const options = {
+    bucketName: {
+      type: "string",
+    },
+  };
+  const { values } = parseArgs({ options });
+  main(values);
 }
