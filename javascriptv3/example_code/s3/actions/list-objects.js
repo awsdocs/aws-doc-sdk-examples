@@ -15,7 +15,7 @@ const client = new S3Client({});
 
 export const main = async () => {
   const command = new ListObjectsV2Command({
-    Bucket: "my-bucket",
+    Bucket: "amzn-s3-demo-bucket",
     // The default and maximum number of keys returned is 1000. This limits it to
     // one for demonstration purposes.
     MaxKeys: 1,

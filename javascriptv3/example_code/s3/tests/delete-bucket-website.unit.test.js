@@ -22,7 +22,7 @@ describe("delete-bucket-website", () => {
   it("should log a relevant error when the bucket doesn't exist", async () => {
     const error = new S3ServiceException("The specified bucket does not exist");
     error.name = "NoSuchBucket";
-    const bucketName = "my-bucket";
+    const bucketName = "amzn-s3-demo-bucket";
     send.mockRejectedValueOnce(error);
 
     const spy = vi.spyOn(console, "error");
@@ -37,7 +37,7 @@ describe("delete-bucket-website", () => {
   it("should indicate a failure came from S3 when the error isn't generic", async () => {
     const error = new S3ServiceException("Some S3 service exception.");
     error.name = "ServiceException";
-    const bucketName = "my-bucket";
+    const bucketName = "amzn-s3-demo-bucket";
     send.mockRejectedValueOnce(error);
 
     const spy = vi.spyOn(console, "error");
@@ -50,7 +50,7 @@ describe("delete-bucket-website", () => {
   });
 
   it("should throw errors that are not S3 specific", async () => {
-    const bucketName = "my-bucket";
+    const bucketName = "amzn-s3-demo-bucket";
     send.mockRejectedValueOnce(new Error());
 
     await expect(() =>

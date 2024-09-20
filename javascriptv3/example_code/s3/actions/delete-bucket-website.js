@@ -53,7 +53,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {
     bucketName: {
       type: "string",
-      default: "my-bucket",
+      default: "amzn-s3-demo-bucket",
     },
   };
   const { values } = parseArgs({ options });

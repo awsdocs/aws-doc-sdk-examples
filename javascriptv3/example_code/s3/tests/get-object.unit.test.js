@@ -30,13 +30,13 @@ describe("get-object", () => {
 
     const spy = vi.spyOn(console, "log");
 
-    await main({ bucketName: "my-bucket", key: "foo" });
+    await main({ bucketName: "amzn-s3-demo-bucket", key: "foo" });
 
     expect(spy).toHaveBeenCalledWith("foo");
   });
 
   it("should log a relevant error message when the object key doesn't exist in the bucket", async () => {
-    const bucketName = "my-bucket";
+    const bucketName = "amzn-s3-demo-bucket";
     const key = "foo";
     send.mockRejectedValueOnce(new NoSuchKey());
 
@@ -52,7 +52,7 @@ describe("get-object", () => {
   it("should indicate a failure came from S3 when the error isn't generic", async () => {
     const error = new S3ServiceException("Some S3 service exception.");
     error.name = "ServiceException";
-    const bucketName = "my-bucket";
+    const bucketName = "amzn-s3-demo-bucket";
     const key = "foo";
     send.mockRejectedValueOnce(error);
 
@@ -66,7 +66,7 @@ describe("get-object", () => {
   });
 
   it("should throw errors that are not S3 specific", async () => {
-    const bucketName = "my-bucket";
+    const bucketName = "amzn-s3-demo-bucket";
     const key = "foo";
     send.mockRejectedValueOnce(new Error());
 
