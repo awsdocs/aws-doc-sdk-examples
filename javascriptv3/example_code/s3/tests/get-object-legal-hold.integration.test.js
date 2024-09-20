@@ -7,7 +7,6 @@ import {
   CreateBucketCommand,
   PutObjectLegalHoldCommand,
   PutObjectCommand,
-  GetObjectLegalHoldCommand,
 } from "@aws-sdk/client-s3";
 import { getUniqueName } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 import { main as getObjectLegalHold } from "../actions/get-object-legal-hold.js";
@@ -24,7 +23,6 @@ describe("get-object-legal-hold.js Integration Test", () => {
   });
 
   it("should get object legal hold", async () => {
-    // Setup
     await client.send(
       new CreateBucketCommand({
         Bucket: bucketName,
@@ -46,15 +44,8 @@ describe("get-object-legal-hold.js Integration Test", () => {
       }),
     );
 
-    // Execute
-    const spy = vi.spyOn(console, "error");
-    await getObjectLegalHold(client, bucketName, objectKey);
-    expect(spy).not.toHaveBeenCalled();
-
-    // Verify
-    const { LegalHold } = await client.send(
-      new GetObjectLegalHoldCommand({ Bucket: bucketName, Key: objectKey }),
-    );
-    expect(LegalHold.Status).toBe("ON");
+    const spy = vi.spyOn(console, "log");
+    await getObjectLegalHold({ bucketName, key: objectKey });
+    expect(spy).toHaveBeenCalledWith("Legal Hold Status: ON");
   });
 });
