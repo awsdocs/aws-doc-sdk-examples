@@ -10,7 +10,7 @@ import Foundation
 // snippet-start:[retry.swift.imports]
 import SmithyRetries
 import SmithyRetriesAPI
-// snippet-start:[retry.swift.imports]
+// snippet-end:[retry.swift.imports]
 
 @main
 struct RetryExample {
