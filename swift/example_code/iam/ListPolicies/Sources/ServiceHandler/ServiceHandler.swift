@@ -50,7 +50,7 @@ public class ServiceHandler {
     public func listPolicies() async throws -> [MyPolicyRecord] {
         var policyList: [MyPolicyRecord] = []
 
-        // Use "Paginated" to get all the objects.
+        // Use "Paginated" to get all the policies.
         // This lets the SDK handle the 'isTruncated' in "ListPoliciesOutput".
         let input = ListPoliciesInput()
         let output = client.listPoliciesPaginated(input: input)

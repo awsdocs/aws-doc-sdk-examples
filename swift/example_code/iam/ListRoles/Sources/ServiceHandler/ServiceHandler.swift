@@ -50,7 +50,7 @@ public class ServiceHandler {
     public func listRoles() async throws -> [String] {
         var roleList: [String] = []
 
-        // Use "Paginated" to get all the objects.
+        // Use "Paginated" to get all the roles.
         // This lets the SDK handle the 'isTruncated' in "ListRolesOutput".
         let input = ListRolesInput()
         let pages = client.listRolesPaginated(input: input)

@@ -41,7 +41,7 @@ public class ServiceHandler {
     public func listUsers() async throws -> [MyUserRecord] {
         var userList: [MyUserRecord] = []
         
-        // Use "Paginated" to get all the objects.
+        // Use "Paginated" to get all the users.
         // This lets the SDK handle the 'isTruncated' in "ListUsersOutput".
         let input = ListUsersInput()
         let output = client.listUsersPaginated(input: input)

@@ -55,7 +55,7 @@ public class ServiceHandler {
     public func listAttachedRolePolicies(role: String) async throws -> [IAMClientTypes.AttachedPolicy] {
         var policyList: [IAMClientTypes.AttachedPolicy] = []
 
-        // Use "Paginated" to get all the objects.
+        // Use "Paginated" to get all the attached role polices.
         // This lets the SDK handle the 'isTruncated' in "ListAttachedRolePoliciesOutput".
         let input = ListAttachedRolePoliciesInput(
             roleName: role

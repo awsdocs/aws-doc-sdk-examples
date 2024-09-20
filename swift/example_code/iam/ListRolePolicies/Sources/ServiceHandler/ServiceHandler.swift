@@ -51,7 +51,7 @@ public class ServiceHandler {
     public func listRolePolicies(role: String) async throws -> [String] {
         var policyList: [String] = []
 
-        // Use "Paginated" to get all the objects.
+        // Use "Paginated" to get all the role policies.
         // This lets the SDK handle the 'isTruncated' in "ListRolePoliciesOutput".
         let input = ListRolePoliciesInput(
             roleName: role
