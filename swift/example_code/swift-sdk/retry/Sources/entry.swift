@@ -5,9 +5,9 @@
 // Swift. This example uses Amazon S3, but the same principle applies to every
 // AWS service.
 
-import AWSS3
 import Foundation
 // snippet-start:[retry.swift.imports]
+import AWSS3
 import SmithyRetries
 import SmithyRetriesAPI
 // snippet-end:[retry.swift.imports]
