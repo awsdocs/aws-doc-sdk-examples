@@ -5,10 +5,12 @@
 // Swift. This example uses Amazon S3, but the same principle applies to every
 // AWS service.
 
-import Foundation
 import AWSS3
+import Foundation
+// snippet-start:[retry.swift.imports]
 import SmithyRetries
 import SmithyRetriesAPI
+// snippet-start:[retry.swift.imports]
 
 @main
 struct RetryExample {
@@ -17,8 +19,8 @@ struct RetryExample {
         let config: S3Client.S3ClientConfiguration
 
         // Create an Amazon S3 client configuration object that specifies the
-        // standard exponential backoff strategy, adaptive retry mode and the
-        // base maximum number of retries as 5.
+        // adaptive retry mode and sets the maximum number of attempts to 3.
+        // If that fails, create a default configuration instead.
 
         do {
             // snippet-start:[retry.swift.configure]
@@ -28,9 +30,13 @@ struct RetryExample {
             )
             // snippet-end:[retry.swift.configure]
         } catch {
-            print("Error: Unable to create configuration")
-            dump(error)
-            exit(1)
+            do {
+                config = try await S3Client.S3ClientConfiguration()
+            } catch {
+                print("Error: Unable to configure Amazon S3.")
+                dump(error)
+                return
+            }
         }
 
         // Create an Amazon S3 client using the configuration created above.
@@ -52,9 +58,9 @@ struct RetryExample {
                 print("\(bucket.name ?? "<unknown>")")
             }
         } catch {
-            print("Error: Unable to get list of buckets")
+            print("Error: Unable to get a list of buckets.")
             dump(error)
-            exit(2)
+            return
         }
     }
 }
