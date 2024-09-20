@@ -8,6 +8,9 @@ import { S3Client, CopyObjectCommand } from "@aws-sdk/client-s3";
 
 const client = new S3Client({});
 
+/**
+ * Copy an Amazon S3 object from one bucket to another.
+ */
 export const main = async () => {
   const command = new CopyObjectCommand({
     CopySource: "SOURCE_BUCKET/SOURCE_OBJECT_KEY",
