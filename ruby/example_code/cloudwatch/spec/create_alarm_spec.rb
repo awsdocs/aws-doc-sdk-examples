@@ -15,7 +15,7 @@ describe "#alarm_created_or_updated?", :integ do
     [
       {
         name: "BucketName",
-        value: "doc-example-bucket"
+        value: "amzn-s3-demo-doc-example-bucket"
       },
       {
         name: "StorageType",

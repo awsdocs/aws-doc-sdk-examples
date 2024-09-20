@@ -4,7 +4,7 @@
 require_relative "../s3-ruby-example-add-cspk-item"
 
 describe "#object_uploaded_with_public_key_encryption?" do
-  let(:bucket_name) { "doc-example-bucket" }
+  let(:bucket_name) { "amzn-s3-demo-doc-example-bucket" }
   let(:object_key) { "my-file.txt" }
   let(:object_content) { "This is the content of my-file.txt." }
   # Note that Aws::S3::EncryptionV2::Client is a wrapper around

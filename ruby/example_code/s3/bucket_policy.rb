@@ -60,7 +60,7 @@ end
 
 # Example usage:
 def run_demo
-  bucket_name = "doc-example-bucket"
+  bucket_name = "amzn-s3-demo-doc-example-bucket"
   policy_user = "arn:aws:iam::111122223333:user/Martha"
   policy = {
     'Version': "2012-10-17",

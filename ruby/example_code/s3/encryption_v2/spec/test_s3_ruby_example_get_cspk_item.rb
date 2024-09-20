@@ -40,7 +40,7 @@ describe "#download_object_with_private_key_encryption" do
     )
   end
 
-  let(:bucket_name) { "doc-example-bucket" }
+  let(:bucket_name) { "amzn-s3-demo-doc-example-bucket" }
   let(:object_key) { "my-file.txt" }
   let(:object_content) { "This is the content of my-file.txt." }
   # Note that Aws::S3::EncryptionV2::Client is a wrapper around

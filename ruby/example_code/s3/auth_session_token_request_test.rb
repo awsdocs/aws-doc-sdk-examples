@@ -125,7 +125,7 @@ end
 # @return [Boolean] true if the bucket exists; otherwise, false.
 # @example
 #   s3_client = Aws::S3::Client.new(region: 'us-west-2')
-#   exit 1 unless bucket_exists?(s3_client, 'doc-example-bucket')
+#   exit 1 unless bucket_exists?(s3_client, 'amzn-s3-demo-doc-example-bucket')
 def bucket_exists?(s3_client, bucket_name)
   response = s3_client.list_buckets
   response.buckets.each do |bucket|
@@ -143,7 +143,7 @@ end
 # @return [Boolean] true if the objects were listed; otherwise, false.
 # @example
 #   s3_client = Aws::S3::Client.new(region: 'us-west-2')
-#   exit 1 unless list_objects_in_bucket?(s3_client, 'doc-example-bucket')
+#   exit 1 unless list_objects_in_bucket?(s3_client, 'amzn-s3-demo-doc-example-bucket')
 def list_objects_in_bucket?(s3_client, bucket_name)
   puts "Accessing the contents of the bucket named '#{bucket_name}'..."
   response = s3_client.list_objects_v2(
@@ -177,7 +177,7 @@ def run_me
   role_session_name = "ReadAmazonS3Bucket"
   duration_seconds = 3600
   sts_client = Aws::STS::Client.new(region: region)
-  bucket_name = "doc-example-bucket"
+  bucket_name = "amzn-s3-demo-doc-example-bucket"
 
   puts "Getting or creating user '#{user_name}'..."
 

@@ -17,7 +17,7 @@ require "aws-sdk-s3"
 # @return [Boolean] true if all operations succeed; otherwise, false.
 # @example
 #   s3_client = Aws::S3::Client.new(region: 'us-west-2')
-#   exit 1 unless list_bucket_objects?(s3_client, 'doc-example-bucket')
+#   exit 1 unless list_bucket_objects?(s3_client, 'amzn-s3-demo-doc-example-bucket')
 def list_bucket_objects?(s3_client, bucket_name)
   puts "Accessing the bucket named '#{bucket_name}'..."
   objects = s3_client.list_objects_v2(

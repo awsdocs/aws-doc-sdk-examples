@@ -42,7 +42,7 @@ require "aws-sdk-cloudwatch"
 #     [
 #       {
 #         name: 'BucketName',
-#         value: 'doc-example-bucket'
+#         value: 'amzn-s3-demo-doc-example-bucket'
 #       },
 #       {
 #         name: 'StorageType',
@@ -127,7 +127,7 @@ def run_me
   dimensions = [
     {
       name: "BucketName",
-      value: "doc-example-bucket"
+      value: "amzn-s3-demo-doc-example-bucket"
     },
     {
       name: "StorageType",
