@@ -50,6 +50,11 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {
     bucketName: {
       type: "string",
+      default: "my-bucket",
+    },
+    key: {
+      type: "string",
+      default: "foo.txt",
     },
   };
   const { values } = parseArgs({ options });
