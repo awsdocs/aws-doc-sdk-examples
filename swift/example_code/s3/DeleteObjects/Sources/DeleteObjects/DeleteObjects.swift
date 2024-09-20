@@ -8,9 +8,10 @@
 
 // snippet-start:[s3.swift.deleteobjects.example]
 // snippet-start:[s3.swift.deleteobjects.main.imports]
+import ArgumentParser
 import Foundation
 import ServiceHandler
-import ArgumentParser
+
 // snippet-end:[s3.swift.deleteobjects.main.imports]
 
 /// The command-line arguments and options available for this
@@ -18,7 +19,7 @@ import ArgumentParser
 // snippet-start:[s3.swift.deleteobjects.command]
 struct ExampleCommand: ParsableCommand {
     @Option(help: "AWS Region the bucket where the bucket is")
-    var region = "us-east-1"
+    var region: String?
 
     @Argument(help: "Name of the S3 bucket to delete objects in")
     var bucketName: String
@@ -37,17 +38,17 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[s3.swift.deleteobjects.command.runasync]
     func runAsync() async throws {
-        let serviceHandler = await ServiceHandler(region: region)
-
         do {
-            try await serviceHandler.deleteObjects(bucket: bucketName, 
-                            keys: fileNames)
+            let serviceHandler = try await ServiceHandler(region: region)
+            try await serviceHandler.deleteObjects(bucket: bucketName,
+                                                   keys: fileNames)
         } catch {
             print("*** Error. Unable to complete deleting the objects.")
         }
     }
     // snippet-end:[s3.swift.deleteobjects.command.runasync]
 }
+
 // snippet-end:[s3.swift.deleteobjects.command]
 
 //
@@ -65,7 +66,8 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
+
 // snippet-end:[s3.swift.deleteobjects.main]
 // snippet-end:[s3.swift.deleteobjects.example]
