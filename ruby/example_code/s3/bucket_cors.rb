@@ -7,7 +7,7 @@
 # Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[ruby.example_code.s3.helper.BucketCorsWrapper]
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # Wraps Amazon S3 bucket CORS configuration.
 class BucketCorsWrapper
@@ -17,7 +17,7 @@ class BucketCorsWrapper
   def initialize(bucket_cors)
     @bucket_cors = bucket_cors
   end
-# snippet-end:[ruby.example_code.s3.helper.BucketCorsWrapper]
+  # snippet-end:[ruby.example_code.s3.helper.BucketCorsWrapper]
 
   # snippet-start:[ruby.example_code.s3.GetBucketCors]
   # Gets the CORS configuration of a bucket.
@@ -69,13 +69,13 @@ class BucketCorsWrapper
     false
   end
   # snippet-end:[ruby.example_code.s3.DeleteBucketCors]
-# snippet-start:[ruby.example_code.s3.helper.end.BucketCorsWrapper]
+  # snippet-start:[ruby.example_code.s3.helper.end.BucketCorsWrapper]
 end
 # snippet-end:[ruby.example_code.s3.helper.end.BucketCorsWrapper]
 
 # Example usage:
 def run_demo
-  bucket_name = "amzn-s3-demo-doc-example-bucket"
+  bucket_name = 'amzn-s3-demo-doc-example-bucket'
   allowed_methods = %w[GET PUT]
   allowed_origins = %w[http://www.example.com]
 

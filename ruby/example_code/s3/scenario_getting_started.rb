@@ -12,7 +12,7 @@
 #   - https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
 
 # snippet-start:[ruby.example_code.s3.Scenario_GettingStarted]
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # Wraps the getting started scenario actions.
 class ScenarioGettingStarted
@@ -31,12 +31,12 @@ class ScenarioGettingStarted
     bucket = @s3_resource.create_bucket(
       bucket: "amzn-s3-demo-doc-example-bucket-#{Random.uuid}",
       create_bucket_configuration: {
-        location_constraint: "us-east-1" # Note: only certain regions permitted
+        location_constraint: 'us-east-1' # NOTE: only certain regions permitted
       }
     )
     puts("Created demo bucket named #{bucket.name}.")
   rescue Aws::Errors::ServiceError => e
-    puts("Tried and failed to create demo bucket.")
+    puts('Tried and failed to create demo bucket.')
     puts("\t#{e.code}: #{e.message}")
     puts("\nCan't continue the demo without a bucket!")
     raise
@@ -48,7 +48,7 @@ class ScenarioGettingStarted
   #
   # @return The name of the file.
   def create_file
-    File.open("demo.txt", w) { |f| f.write("This is a demo file.") }
+    File.open('demo.txt', w) { |f| f.write('This is a demo file.') }
   end
 
   # Uploads a file to an Amazon S3 bucket.
@@ -56,9 +56,9 @@ class ScenarioGettingStarted
   # @param bucket [Aws::S3::Bucket] The bucket object representing the upload destination
   # @return [Aws::S3::Object] The Amazon S3 object that contains the uploaded file.
   def upload_file(bucket)
-    File.open("demo.txt", "w+") { |f| f.write("This is a demo file.") }
-    s3_object = bucket.object(File.basename("demo.txt"))
-    s3_object.upload_file("demo.txt")
+    File.open('demo.txt', 'w+') { |f| f.write('This is a demo file.') }
+    s3_object = bucket.object(File.basename('demo.txt'))
+    s3_object.upload_file('demo.txt')
     puts("Uploaded file demo.txt into bucket #{bucket.name} with key #{s3_object.key}.")
   rescue Aws::Errors::ServiceError => e
     puts("Couldn't upload file demo.txt to #{bucket.name}.")
@@ -74,8 +74,8 @@ class ScenarioGettingStarted
   def download_file(s3_object)
     puts("\nDo you want to download #{s3_object.key} to a local file (y/n)? ")
     answer = gets.chomp.downcase
-    if answer == "y"
-      puts("Enter a name for the downloaded file: ")
+    if answer == 'y'
+      puts('Enter a name for the downloaded file: ')
       file_name = gets.chomp
       s3_object.download_file(file_name)
       puts("Object #{s3_object.key} successfully downloaded to #{file_name}.")
@@ -94,7 +94,7 @@ class ScenarioGettingStarted
     dest_object = nil
     puts("\nDo you want to copy #{source_object.key} to a subfolder in your bucket (y/n)? ")
     answer = gets.chomp.downcase
-    if answer == "y"
+    if answer == 'y'
       dest_object = source_object.bucket.object("demo-folder/#{source_object.key}")
       dest_object.copy_from(source_object)
       puts("Copied #{source_object.key} to #{dest_object.key}.")
@@ -129,7 +129,7 @@ class ScenarioGettingStarted
   def delete_bucket(bucket)
     puts("\nDo you want to delete all of the objects as well as the bucket (y/n)? ")
     answer = gets.chomp.downcase
-    if answer == "y"
+    if answer == 'y'
       bucket.objects.batch_delete!
       bucket.delete
       puts("Emptied and deleted bucket #{bucket.name}.\n")
@@ -145,9 +145,9 @@ end
 
 # Runs the Amazon S3 getting started scenario.
 def run_scenario(scenario)
-  puts("-" * 88)
-  puts("Welcome to the Amazon S3 getting started demo!")
-  puts("-" * 88)
+  puts('-' * 88)
+  puts('Welcome to the Amazon S3 getting started demo!')
+  puts('-' * 88)
 
   bucket = scenario.create_bucket
   s3_object = scenario.upload_file(bucket)
@@ -156,10 +156,10 @@ def run_scenario(scenario)
   scenario.list_objects(bucket)
   scenario.delete_bucket(bucket)
 
-  puts("Thanks for watching!")
-  puts("-" * 88)
+  puts('Thanks for watching!')
+  puts('-' * 88)
 rescue Aws::Errors::ServiceError
-  puts("Something went wrong with the demo!")
+  puts('Something went wrong with the demo!')
 end
 
 run_scenario(ScenarioGettingStarted.new(Aws::S3::Resource.new)) if $PROGRAM_NAME == __FILE__

@@ -5,7 +5,7 @@
 
 # snippet-start:[cloudwatch.Ruby.createAlarm]
 
-require "aws-sdk-cloudwatch"
+require 'aws-sdk-cloudwatch'
 
 # @param cloudwatch_client [Aws::CloudWatch::Client]
 #   An initialized CloudWatch client.
@@ -81,39 +81,39 @@ def alarm_created_or_updated?(
     threshold: threshold,
     comparison_operator: comparison_operator
   )
-  return true
+  true
 rescue StandardError => e
   puts "Error creating alarm: #{e.message}"
-  return false
+  false
 end
 
 # Example usage:
 def run_me
-  alarm_name = "ObjectsInBucket"
-  alarm_description = "Objects exist in this bucket for more than 1 day."
-  metric_name = "NumberOfObjects"
+  alarm_name = 'ObjectsInBucket'
+  alarm_description = 'Objects exist in this bucket for more than 1 day.'
+  metric_name = 'NumberOfObjects'
   # Notify this Amazon Simple Notification Service (Amazon SNS) topic when
   # the alarm transitions to the ALARM state.
-  alarm_actions = ["arn:aws:sns:us-east-1:111111111111:Default_CloudWatch_Alarms_Topic"]
-  namespace = "AWS/S3"
-  statistic = "Average"
+  alarm_actions = ['arn:aws:sns:us-east-1:111111111111:Default_CloudWatch_Alarms_Topic']
+  namespace = 'AWS/S3'
+  statistic = 'Average'
   dimensions = [
     {
-      name: "BucketName",
-      value: "amzn-s3-demo-doc-example-bucket"
+      name: 'BucketName',
+      value: 'amzn-s3-demo-doc-example-bucket'
     },
     {
-      name: "StorageType",
-      value: "AllStorageTypes"
+      name: 'StorageType',
+      value: 'AllStorageTypes'
     }
   ]
   period = 86_400 # Daily (24 hours * 60 minutes * 60 seconds = 86400 seconds).
-  unit = "Count"
+  unit = 'Count'
   evaluation_periods = 1 # More than one day.
   threshold = 1 # One object.
-  comparison_operator = "GreaterThanThreshold" # More than one object.
+  comparison_operator = 'GreaterThanThreshold' # More than one object.
   # Replace us-west-2 with the AWS Region you're using for Amazon CloudWatch.
-  region = "us-east-1"
+  region = 'us-east-1'
 
   cloudwatch_client = Aws::CloudWatch::Client.new(region: region)
 

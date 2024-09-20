@@ -1,7 +1,7 @@
 ﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-iam"
-require "logger"
+require 'aws-sdk-iam'
+require 'logger'
 
 # snippet-start:[ruby.iam.ManageUsers]
 # Manages IAM users
@@ -12,7 +12,7 @@ class UserManager
   def initialize(iam_client, logger = Logger.new($stdout))
     @iam_client = iam_client
     @logger = logger
-    @logger.progname = "UserManager"
+    @logger.progname = 'UserManager'
   end
 
   # snippet-start:[ruby.iam.CreateUser]
@@ -94,10 +94,10 @@ class UserManager
   # @param user_name [String] The name of the user
   def display_groups(user_name)
     @logger.info("Listing groups for user: #{user_name}")
-    puts "Groups:"
+    puts 'Groups:'
     groups_response = @iam_client.list_groups_for_user(user_name: user_name)
     if groups_response.groups.empty?
-      puts "  None"
+      puts '  None'
     else
       groups_response.groups.each { |group| puts "  #{group.group_name}" }
     end
@@ -108,10 +108,10 @@ class UserManager
   # @param user_name [String] The name of the user
   def display_policies(user_name)
     @logger.info("Listing policies for user: #{user_name}")
-    puts "Inline embedded user policies:"
+    puts 'Inline embedded user policies:'
     policies_response = @iam_client.list_user_policies(user_name: user_name)
     if policies_response.policy_names.empty?
-      puts "  None"
+      puts '  None'
     else
       policies_response.policy_names.each { |policy_name| puts "  #{policy_name}" }
     end
@@ -122,10 +122,10 @@ class UserManager
   # @param user_name [String] The name of the user
   def display_access_keys(user_name)
     @logger.info("Listing access keys for user: #{user_name}")
-    puts "Access keys:"
+    puts 'Access keys:'
     access_keys_response = @iam_client.list_access_keys(user_name: user_name)
     if access_keys_response.access_key_metadata.empty?
-      puts "  None"
+      puts '  None'
     else
       access_keys_response.access_key_metadata.each { |access_key| puts "  #{access_key.access_key_id}" }
     end
@@ -149,17 +149,16 @@ class UserManager
   end
   # snippet-end:[ruby.iam.DeleteUser]
 
-
   # This is a example module that displays information about available users in
   # AWS Identity and Access Management (IAM). This includes user names, associated
   # group names, inline embedded user policy names, and access key IDs. Logging is
   # added for monitoring purposes.
   def get_user_details
-    @logger.info("Requesting list of users")
+    @logger.info('Requesting list of users')
     users_response = list_users
     if users_response.users.empty?
-      @logger.warn("No users found.")
-      puts "No users found."
+      @logger.warn('No users found.')
+      puts 'No users found.'
       return
     end
 
@@ -173,7 +172,7 @@ class UserManager
 
     users_response.users.each do |user|
       @logger.info("Displaying details for user: #{user.user_name}")
-      puts "-" * 30
+      puts '-' * 30
       puts "User name: #{user.user_name}"
       display_groups(user.user_name)
       display_policies(user.user_name)
@@ -191,21 +190,21 @@ if __FILE__ == $PROGRAM_NAME
   iam_client = Aws::IAM::Client.new
   logger = Logger.new($stdout)
   user_manager = UserManager.new(iam_client, logger)
-  user_name = "example-user"
-  initial_password = "InitialP@ssw0rd!"
+  user_name = 'example-user'
+  initial_password = 'InitialP@ssw0rd!'
 
   # Create a new IAM user
   if (user_id = user_manager.create_user(user_name, initial_password))
     logger.info("User '#{user_name}' created with ID '#{user_id}' and initial password '#{initial_password}'.")
   else
-    logger.error("User not created.")
+    logger.error('User not created.')
   end
 
   # Retrieve details of the created user
   if (user = user_manager.get_user(user_name))
     logger.info("Retrieved user '#{user_name}' with creation date #{user.create_date}.")
   else
-    logger.error("Could not retrieve user details.")
+    logger.error('Could not retrieve user details.')
   end
 
   # List all IAM users

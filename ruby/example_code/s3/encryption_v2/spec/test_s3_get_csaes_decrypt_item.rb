@@ -1,9 +1,9 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative "../s3_get_csaes_decrypt_item"
+require_relative '../s3_get_csaes_decrypt_item'
 
-describe "#get_decrypted_object_content" do
+describe '#get_decrypted_object_content' do
   # Captures the data (metadata and body) put to an Amazon S3 object.
   def stub_put(s3_client)
     data = {}
@@ -21,12 +21,8 @@ describe "#get_decrypted_object_content" do
   #   auth_tag.
   def stub_get(s3_client, data, stub_auth_tag)
     resp_headers = Hash[*data[:metadata].flat_map { |k, v| ["x-amz-meta-#{k}", v] }]
-    resp_headers["content-length"] = data[:enc_body].length
-    if stub_auth_tag
-      auth_tag = data[:enc_body].unpack("C*")[-16, 16].pack("C*")
-    else
-      auth_tag = nil
-    end
+    resp_headers['content-length'] = data[:enc_body].length
+    auth_tag = (data[:enc_body].unpack('C*')[-16, 16].pack('C*') if stub_auth_tag)
     s3_client.stub_responses(
       :get_object,
       {
@@ -40,11 +36,11 @@ describe "#get_decrypted_object_content" do
     )
   end
 
-  let(:bucket_name) { "amzn-s3-demo-doc-example-bucket" }
-  let(:object_key) { "my-file.txt" }
-  let(:object_content) { "This is the content of my-file.txt." }
-  let(:encryption_key_string) { "XSiKrmzhtDKR9tTwJRSLjgwLhiMA82TC2z3GEXAMPLE=" }
-  let(:encryption_key) { encryption_key_string.unpack("m")[0] }
+  let(:bucket_name) { 'amzn-s3-demo-doc-example-bucket' }
+  let(:object_key) { 'my-file.txt' }
+  let(:object_content) { 'This is the content of my-file.txt.' }
+  let(:encryption_key_string) { 'XSiKrmzhtDKR9tTwJRSLjgwLhiMA82TC2z3GEXAMPLE=' }
+  let(:encryption_key) { encryption_key_string.unpack1('m') }
   # Note that Aws::S3::EncryptionV2::Client is a wrapper around
   #   Aws::S3::Client. So you must first stub Aws::S3::Client
   #   and then pass it into Aws::S3::EncryptionV2::Client
@@ -66,7 +62,7 @@ describe "#get_decrypted_object_content" do
     )
   end
 
-  it "gets the decrypted content of an object in an Amazon S3 bucket" do
+  it 'gets the decrypted content of an object in an Amazon S3 bucket' do
     data = stub_put(s3_client)
     s3_encryption_client.put_object(
       bucket: bucket_name,
@@ -75,9 +71,9 @@ describe "#get_decrypted_object_content" do
     )
     stub_get(s3_client, data, true)
     expect(get_decrypted_object_content(
-      s3_encryption_client,
-      bucket_name,
-      object_key
-    )).to eq(object_content)
+             s3_encryption_client,
+             bucket_name,
+             object_key
+           )).to eq(object_content)
   end
 end

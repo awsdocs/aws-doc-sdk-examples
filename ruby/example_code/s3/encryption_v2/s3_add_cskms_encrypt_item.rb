@@ -6,7 +6,7 @@
 
 # snippet-start:[s3.ruby.s3_add_cskms_encrypt_item]
 
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # Prerequisites:
 #
@@ -49,18 +49,18 @@ def encrypted_object_uploaded?(
     key: object_key,
     body: object_content
   )
-  return true
+  true
 rescue Aws::Errors::ServiceError => e
   puts "Error uploading object: #{e.message}"
-  return false
+  false
 end
 
 # Example usage:
 def run_me
-  bucket_name = "amzn-s3-demo-doc-example-bucket"
-  object_key = "my-file.txt"
-  region = "us-west-2"
-  kms_key_id = "9041e78c-7a20-4db3-929e-828abEXAMPLE"
+  bucket_name = 'amzn-s3-demo-doc-example-bucket'
+  object_key = 'my-file.txt'
+  region = 'us-west-2'
+  kms_key_id = '9041e78c-7a20-4db3-929e-828abEXAMPLE'
   object_content = File.read(object_key)
 
   # Note that in the following call:
@@ -81,9 +81,9 @@ def run_me
     object_key,
     object_content
   )
-    puts "Uploaded."
+    puts 'Uploaded.'
   else
-    puts "Not uploaded."
+    puts 'Not uploaded.'
   end
 end
 

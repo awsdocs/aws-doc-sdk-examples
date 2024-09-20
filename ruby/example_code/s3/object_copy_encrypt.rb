@@ -7,7 +7,7 @@
 # target object.
 
 # snippet-start:[s3.ruby.copy_object_encrypt_copy.rb]
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # Wraps Amazon S3 object actions.
 class ObjectCopyEncryptWrapper
@@ -34,11 +34,11 @@ end
 
 # Example usage:
 def run_demo
-  source_bucket_name = "amzn-s3-demo-doc-example-bucket1"
-  source_key = "my-source-file.txt"
-  target_bucket_name = "amzn-s3-demo-doc-example-bucket2"
-  target_key = "my-target-file.txt"
-  target_encryption = "AES256"
+  source_bucket_name = 'amzn-s3-demo-doc-example-bucket1'
+  source_key = 'my-source-file.txt'
+  target_bucket_name = 'amzn-s3-demo-doc-example-bucket2'
+  target_key = 'my-target-file.txt'
+  target_encryption = 'AES256'
 
   source_bucket = Aws::S3::Bucket.new(source_bucket_name)
   wrapper = ObjectCopyEncryptWrapper.new(source_bucket.object(source_key))

@@ -1,21 +1,106 @@
----
 #######################
 # Rubocop Config file #
 #######################
+
 Metrics/MethodLength:
   Max: 25
+  Exclude:
+    - alarm_actions.rb
+    - alarm_basics.rb
+    - create_alarm.rb
+    - metrics_basics.rb
+    - show_alarms.rb
+    - scenario_users.rb
+    - auth_session_token_request_test.rb
+
 Metrics/BlockLength:
   Max: 75
+  Exclude:
+    - spec/send_events_ec2_spec.rb
+    - encryption_v2/spec/test_s3_get_cskms_decrypt_item.rb
+
 Metrics/AbcSize:
   Max: 20
+  Exclude:
+    - metrics_basics.rb
+    - show_alarms.rb
+    - list_users.rb
+    - manage_users.rb
+    - scenario_users.rb
+    - auth_session_token_request_test.rb
+    - encryption_v2/spec/test_s3_get_cskms_decrypt_item.rb
+
+Metrics/ParameterLists:
+  Max: 5
+  Exclude:
+    - alarm_actions.rb
+    - alarm_basics.rb
+    - create_alarm.rb
+    - metrics_basics.rb
+
+Metrics/CyclomaticComplexity:
+  Max: 7
+  Exclude:
+    - show_alarms.rb
+
+Metrics/PerceivedComplexity:
+  Max: 8
+  Exclude:
+    - show_alarms.rb
+    - auth_session_token_request_test.rb
+
+Metrics/ClassLength:
+  Max: 100
+  Exclude:
+    - manage_roles.rb
+    - manage_users.rb
+    - scenario_users.rb
+
 Style/FrozenStringLiteralComment:
   Enabled: false
+
 Layout/EndOfLine:
   Enabled: false
+
 Layout/LineLength:
+  Max: 120
   Exclude:
     - ruby/example_code/kms/decrypt_data.rb
+    - spec/list_admins_spec.rb
+    - encryption_v2/s3_add_cskms_encrypt_item.rb
+    - encryption_v2/spec/test_s3_add_cskms_encrypt_item.rb
+    - encryption_v2/spec/test_s3_get_cskms_decrypt_item.rb
+
 Naming/FileName:
   Enabled: false
+
 Style/HashSyntax:
   EnforcedShorthandSyntax: either
+
+Naming/PredicateName:
+  Enabled: false
+  Exclude:
+    - list_admins.rb
+
+Naming/AccessorMethodName:
+  Enabled: false
+  Exclude:
+    - list_users.rb
+    - manage_users.rb
+    - bucket_cors.rb
+    - bucket_policy.rb
+    - bucket_put_encryption.rb
+    - encryption_v2/s3_add_csaes_encrypt_item.rb
+    - object_get_encryption.rb
+    - s3.rb
+
+Naming/MethodParameterName:
+  Min: 3
+  Exclude:
+    - manage_roles.rb
+    - s3.rb
+
+Naming/VariableNumber:
+  Enabled: false
+  Exclude:
+    - encryption_v2/s3_add_csaes_encrypt_item.rb

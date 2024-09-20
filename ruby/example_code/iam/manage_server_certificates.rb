@@ -1,14 +1,14 @@
 ﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-iam"
-require "logger"
+require 'aws-sdk-iam'
+require 'logger'
 
 # snippet-start:[iam.ruby.ManageServerCertificates]
 class ServerCertificateManager
   def initialize(iam_client, logger: Logger.new($stdout))
     @iam_client = iam_client
     @logger = logger
-    @logger.progname = "ServerCertificateManager"
+    @logger.progname = 'ServerCertificateManager'
   end
 
   # Creates a new server certificate.
@@ -20,7 +20,7 @@ class ServerCertificateManager
     @iam_client.upload_server_certificate({
                                             server_certificate_name: name,
                                             certificate_body: certificate_body,
-                                            private_key: private_key,
+                                            private_key: private_key
                                           })
     true
   rescue Aws::IAM::Errors::ServiceError => e
@@ -33,7 +33,7 @@ class ServerCertificateManager
     response = @iam_client.list_server_certificates
 
     if response.server_certificate_metadata_list.empty?
-      @logger.info("No server certificates found.")
+      @logger.info('No server certificates found.')
       return
     end
 

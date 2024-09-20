@@ -7,7 +7,7 @@
 # bucket using server-side encryption.
 
 # snippet-start:[ruby.example_code.s3.PutBucketEncryption]
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # Wraps Amazon S3 actions.
 class BucketEncryptionWrapper
@@ -27,7 +27,7 @@ class BucketEncryptionWrapper
         [
           {
             apply_server_side_encryption_by_default:
-              { sse_algorithm: "AES256" }
+              { sse_algorithm: 'AES256' }
           }
         ]
       }
@@ -41,7 +41,7 @@ end
 
 # Example usage:
 def run_demo
-  bucket_name = "amzn-s3-demo-doc-example-bucket"
+  bucket_name = 'amzn-s3-demo-doc-example-bucket'
   wrapper = BucketEncryptionWrapper.new(Aws::S3::Client.new)
   return unless wrapper.set_encryption(bucket_name)
 

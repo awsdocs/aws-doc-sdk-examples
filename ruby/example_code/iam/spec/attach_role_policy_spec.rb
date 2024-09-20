@@ -1,8 +1,8 @@
 ﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-iam"
-require_relative("../attach_role_policy")
-require "rspec"
+require 'aws-sdk-iam'
+require_relative('../attach_role_policy')
+require 'rspec'
 
 describe RolePolicyManager do
   before(:all) do
@@ -11,24 +11,24 @@ describe RolePolicyManager do
     @role_name = "test-role-#{Time.now.to_i}"
     @policy_name = "test-policy-#{Time.now.to_i}"
     @policy_document = {
-      "Version" => "2012-10-17",
-      "Statement" => [
+      'Version' => '2012-10-17',
+      'Statement' => [
         {
-          "Effect" => "Allow",
-          "Action" => "s3:ListAllMyBuckets",
-          "Resource" => "arn:aws:s3:::*"
+          'Effect' => 'Allow',
+          'Action' => 's3:ListAllMyBuckets',
+          'Resource' => 'arn:aws:s3:::*'
         }
       ]
     }
     @iam_client.create_role(
       role_name: @role_name,
       assume_role_policy_document: {
-        "Version" => "2012-10-17",
-        "Statement" => [
+        'Version' => '2012-10-17',
+        'Statement' => [
           {
-            "Effect" => "Allow",
-            "Principal" => { "Service" => "ec2.amazonaws.com" },
-            "Action" => "sts:AssumeRole"
+            'Effect' => 'Allow',
+            'Principal' => { 'Service' => 'ec2.amazonaws.com' },
+            'Action' => 'sts:AssumeRole'
           }
         ]
       }.to_json
@@ -39,7 +39,7 @@ describe RolePolicyManager do
     @iam_client.delete_role(role_name: @role_name)
   end
 
-  it "creates, attaches, lists, and detaches a policy to a role" do
+  it 'creates, attaches, lists, and detaches a policy to a role' do
     policy_arn = @manager.create_policy(@policy_name, @policy_document)
     expect(policy_arn).not_to be_nil
 

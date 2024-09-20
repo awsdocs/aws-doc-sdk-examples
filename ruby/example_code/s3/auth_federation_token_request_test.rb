@@ -9,9 +9,9 @@
 # Prerequisites:
 #  - An existing Amazon S3 bucket.
 
-require "aws-sdk-s3"
-require "aws-sdk-iam"
-require "json"
+require 'aws-sdk-s3'
+require 'aws-sdk-iam'
+require 'json'
 
 # Checks to see whether a user exists in IAM; otherwise,
 # creates the user.
@@ -28,14 +28,14 @@ def get_user(iam, user_name)
   puts "Checking for a user with the name '#{user_name}'..."
   response = iam.get_user(user_name: user_name)
   puts "A user with the name '#{user_name}' already exists."
-  return response.user
+  response.user
 # If the user doesn't exist, create them.
 rescue Aws::IAM::Errors::NoSuchEntity
   puts "A user with the name '#{user_name}' doesn't exist. Creating this user..."
   response = iam.create_user(user_name: user_name)
   iam.wait_until(:user_exists, user_name: user_name)
   puts "Created user with the name '#{user_name}'."
-  return response.user
+  response.user
 rescue StandardError => e
   puts "Error while accessing or creating the user named '#{user_name}': #{e.message}"
 end
@@ -68,7 +68,7 @@ def get_temporary_credentials(sts, duration_seconds, user_name, policy)
     name: user_name,
     policy: policy.to_json
   )
-  return response.credentials
+  response.credentials
 rescue StandardError => e
   puts "Error while getting federation token: #{e.message}"
 end
@@ -90,23 +90,23 @@ def list_objects_in_bucket?(s3_client, bucket_name)
 
   if response.count.positive?
     puts "Contents of the bucket named '#{bucket_name}' (first 50 objects):"
-    puts "Name => ETag"
+    puts 'Name => ETag'
     response.contents.each do |obj|
       puts "#{obj.key} => #{obj.etag}"
     end
   else
     puts "No objects in the bucket named '#{bucket_name}'."
   end
-  return true
+  true
 rescue StandardError => e
   puts "Error while accessing the bucket named '#{bucket_name}': #{e.message}"
 end
 
 # Example usage:
 def run_me
-  region = "us-west-2"
-  user_name = "my-user"
-  bucket_name = "amzn-s3-demo-doc-example-bucket"
+  region = 'us-west-2'
+  user_name = 'my-user'
+  bucket_name = 'amzn-s3-demo-doc-example-bucket'
 
   iam = Aws::IAM::Client.new(region: region)
   user = get_user(iam, user_name)
@@ -116,16 +116,15 @@ def run_me
   puts "User's name: #{user.user_name}"
   sts = Aws::STS::Client.new(region: region)
   credentials = get_temporary_credentials(sts, 3600, user_name,
-    {
-      "Version" => "2012-10-17",
-      "Statement" => [
-        "Sid" => "Stmt1",
-        "Effect" => "Allow",
-        "Action" => "s3:ListBucket",
-        "Resource" => "arn:aws:s3:::#{bucket_name}"
-      ]
-    }
-  )
+                                          {
+                                            'Version' => '2012-10-17',
+                                            'Statement' => [
+                                              'Sid' => 'Stmt1',
+                                              'Effect' => 'Allow',
+                                              'Action' => 's3:ListBucket',
+                                              'Resource' => "arn:aws:s3:::#{bucket_name}"
+                                            ]
+                                          })
 
   exit 1 unless credentials.access_key_id
 

@@ -6,7 +6,7 @@
 # Shows how to check if an Amazon Simple Storage Service (Amazon S3) object exists.
 
 # snippet-start:[ruby.example_code.s3.exists]
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # Wraps Amazon S3 object actions.
 class ObjectExistsWrapper
@@ -30,8 +30,8 @@ end
 
 # Example usage:
 def run_demo
-  bucket_name = "amzn-s3-demo-doc-example-bucket"
-  object_key = "my-object.txt"
+  bucket_name = 'amzn-s3-demo-doc-example-bucket'
+  object_key = 'my-object.txt'
 
   wrapper = ObjectExistsWrapper.new(Aws::S3::Object.new(bucket_name, object_key))
   exists = wrapper.exists?
