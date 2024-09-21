@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
-// snippet-start:[route53.go-v2.route53.hello]
+// snippet-start:[go-v2.route53.hello]
 package main
 
 import (
@@ -89,4 +89,4 @@ func main() {
 	fmt.Println(output)
 }
 
-// snippet-end:[route53.go-v2.route53.hello]
+// snippet-end:[go-v2.route53.hello]
