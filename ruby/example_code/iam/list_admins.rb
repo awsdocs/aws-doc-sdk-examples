@@ -15,7 +15,7 @@ class AdminPrivilegeManager
   end
 
   # Checks if the specified IAM entity (user or group) has admin privileges
-  def has_admin_privileges?(entity)
+  def admin_privileges?(entity)
     entity_policies = @iam.list_attached_user_policies(user_name: entity.user_name) if entity.respond_to?(:user_name)
     if entity.respond_to?(:group_name)
       entity_policies ||= @iam.list_attached_group_policies(group_name: entity.group_name)

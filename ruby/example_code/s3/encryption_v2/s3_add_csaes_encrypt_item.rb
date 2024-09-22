@@ -66,7 +66,7 @@ end
 #   have this key.
 # @ example
 #     get_random_aes_256_gcm_key
-def get_random_aes_256_gcm_key
+def random_aes_256_gcm_key
   cipher = OpenSSL::Cipher.new('aes-256-gcm')
   cipher.encrypt
   random_key = cipher.random_key

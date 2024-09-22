@@ -18,7 +18,7 @@ class BucketEncryptionWrapper
     @s3_client = s3_client
   end
 
-  def set_encryption(bucket_name)
+  def encryption(bucket_name)
     @s3_client.put_bucket_encryption(
       bucket: bucket_name,
       server_side_encryption_configuration:

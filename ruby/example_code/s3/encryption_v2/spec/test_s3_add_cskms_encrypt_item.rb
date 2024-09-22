@@ -36,6 +36,7 @@ describe '#encrypted_object_uploaded?' do
       stub_responses: {
         generate_data_key: {
           ciphertext_blob: 'AQIDAHh58pZkpaY6Ifx4UPd9kZBp2ssaYk/T1eiY2dnLv9dP1QHFZ71+8g1Yq0ikFTvgjbzgAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMgGqjmfp6p9q3pqgsAgEQgDufNsOEtJJUAsZ6QkJoVUQz9tWgYQ0HMHNtXSObHsRbw6QejNCtGJAxip4/9HJWbmo8V+s+7+NEXAMPLE==',
+
           key_id: 'arn:aws:kms:us-west-2:111111111111:key/9041e78c-7a20-4db3-929e-828abEXAMPLE',
           plaintext: "\xAD\xC8\xF0o\v\x0F\x1E\xD3\xEA\xF8\x05\x03\x9F?\xC2#\xB4_\xE3\xBD\x96\x1A\xC9S\xCA\xE8Ya\xB9{\t\x7F"
         }

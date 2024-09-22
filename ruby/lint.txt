@@ -1,0 +1,588 @@
+Inspecting 240 files
+....C.C...CC..C..C.CCCCC....C......C....CC...CC.CCCCC..C.C.CC................C............CC..CCC.C....C..C..C.CC...C.........CCC.WWWC................CC...CC.CC.....C.C.......C....C..................C.C..................C.CCC.C.......WC..W.
+
+Offenses:
+
+cross_service_examples/feedback_sentiment_analyzer/textract_lambda_handler.rb:9:1: C: Metrics/AbcSize: Assignment Branch Condition size for lambda_handler is too high. [<6, 20, 4> 21.26/20]
+def lambda_handler(event:, context:) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+cross_service_examples/item_tracker/env/setup_scripts/create_table.rb:56:121: C: Layout/LineLength: Line is too long. [195/120]
+        sql: 'CREATE TABLE work_items (work_item_id INT AUTO_INCREMENT PRIMARY KEY, description VARCHAR(400), guide VARCHAR(45), status VARCHAR(400), username VARCHAR(45), archived TINYINT(4));',
+                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+cross_service_examples/item_tracker/src/aurora.rb:12:1: C: Metrics/ClassLength: Class has too many lines. [102/100]
+class AuroraActions ...
+^^^^^^^^^^^^^^^^^^^
+cross_service_examples/item_tracker/src/report.rb:36:3: C: Metrics/AbcSize: Assignment Branch Condition size for format_mime_message is too high. [<14, 23, 0> 26.93/20]
+  def format_mime_message(email_recipient, text, html, attachment) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+cross_service_examples/item_tracker/src/report.rb:99:3: C: Metrics/AbcSize: Assignment Branch Condition size for post_report is too high. [<9, 21, 5> 23.39/20]
+  def post_report(recipient_email) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+cross_service_examples/item_tracker/src/report.rb:99:3: C: Metrics/MethodLength: Method has too many lines. [50/25]
+  def post_report(recipient_email) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/cloudtrail/create_trail.rb:13:1: C: Metrics/MethodLength: Method has too many lines. [49/25]
+def create_trail_example(s3_client, sts_client, cloudtrail_client, trail_name, bucket_name) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/cloudtrail/lookup_events.rb:12:1: C: Metrics/AbcSize: Assignment Branch Condition size for lookup_events_example is too high. [<3, 20, 2> 20.32/20]
+def lookup_events_example(client) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/cloudwatch/alarm_actions.rb:58:30: C: Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters. [13/5]
+def alarm_created_or_updated?( ...
+                             ^
+example_code/cloudwatch/alarm_actions.rb:119:1: C: Metrics/MethodLength: Method has too many lines. [47/25]
+def run_me ...
+^^^^^^^^^^
+example_code/cloudwatch/alarm_basics.rb:79:30: C: Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters. [13/5]
+def alarm_created_or_updated?( ...
+                             ^
+example_code/cloudwatch/alarm_basics.rb:140:1: C: Metrics/MethodLength: Method has too many lines. [49/25]
+def run_me ...
+^^^^^^^^^^
+example_code/cloudwatch/create_alarm.rb:55:30: C: Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters. [13/5]
+def alarm_created_or_updated?( ...
+                             ^
+example_code/cloudwatch/create_alarm.rb:91:1: C: Metrics/MethodLength: Method has too many lines. [42/25]
+def run_me ...
+^^^^^^^^^^
+example_code/cloudwatch/metrics_basics.rb:35:31: C: Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters. [7/5]
+def datapoint_added_to_metric?( ...
+                              ^
+example_code/cloudwatch/metrics_basics.rb:81:1: C: Metrics/AbcSize: Assignment Branch Condition size for list_metrics_for_namespace is too high. [<3, 19, 6> 20.15/20]
+def list_metrics_for_namespace(cloudwatch_client, metric_namespace) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/cloudwatch/metrics_basics.rb:104:1: C: Metrics/MethodLength: Method has too many lines. [32/25]
+def run_me ...
+^^^^^^^^^^
+example_code/cloudwatch/show_alarms.rb:15:1: C: Metrics/AbcSize: Assignment Branch Condition size for describe_metric_alarms is too high. [<7, 68, 17> 70.44/20]
+def describe_metric_alarms(cloudwatch_client) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/cloudwatch/show_alarms.rb:15:1: C: Metrics/CyclomaticComplexity: Cyclomatic complexity for describe_metric_alarms is too high. [16/7]
+def describe_metric_alarms(cloudwatch_client) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/cloudwatch/show_alarms.rb:15:1: C: Metrics/MethodLength: Method has too many lines. [48/25]
+def describe_metric_alarms(cloudwatch_client) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/cloudwatch/show_alarms.rb:15:1: C: Metrics/PerceivedComplexity: Perceived complexity for describe_metric_alarms is too high. [18/8]
+def describe_metric_alarms(cloudwatch_client) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/cloudwatch/spec/send_events_ec2_spec.rb:229:1: C: Metrics/BlockLength: Block has too many lines. [79/75]
+describe '#instance_restarted?', :quarantine do ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/dynamodb/basics/scenario_getting_started_dynamodb.rb:20:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_scenario is too high. [<25, 149, 12> 151.6/20]
+def run_scenario ...
+^^^^^^^^^^^^^^^^
+example_code/dynamodb/basics/scenario_getting_started_dynamodb.rb:20:1: C: Metrics/CyclomaticComplexity: Cyclomatic complexity for run_scenario is too high. [10/7]
+def run_scenario ...
+^^^^^^^^^^^^^^^^
+example_code/dynamodb/basics/scenario_getting_started_dynamodb.rb:20:1: C: Metrics/MethodLength: Method has too many lines. [115/25]
+def run_scenario ...
+^^^^^^^^^^^^^^^^
+example_code/dynamodb/basics/scenario_getting_started_dynamodb.rb:20:1: C: Metrics/PerceivedComplexity: Perceived complexity for run_scenario is too high. [13/8]
+def run_scenario ...
+^^^^^^^^^^^^^^^^
+example_code/dynamodb/partiql/scenario_partiql_batch.rb:19:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_scenario is too high. [<6, 60, 2> 60.33/20]
+def run_scenario ...
+^^^^^^^^^^^^^^^^
+example_code/dynamodb/partiql/scenario_partiql_batch.rb:19:1: C: Metrics/MethodLength: Method has too many lines. [48/25]
+def run_scenario ...
+^^^^^^^^^^^^^^^^
+example_code/dynamodb/partiql/scenario_partiql_batch.rb:28:121: C: Layout/LineLength: Line is too long. [129/120]
+  puts 'You have launched a demo of Amazon DynamoDB using PartiQL and the AWS for Ruby v3 SDK. Over the next 60 seconds, it will'
+                                                                                                                        ^^^^^^^^^
+example_code/dynamodb/partiql/scenario_partiql_single.rb:19:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_scenario is too high. [<6, 77, 2> 77.26/20]
+def run_scenario ...
+^^^^^^^^^^^^^^^^
+example_code/dynamodb/partiql/scenario_partiql_single.rb:19:1: C: Metrics/MethodLength: Method has too many lines. [59/25]
+def run_scenario ...
+^^^^^^^^^^^^^^^^
+example_code/dynamodb/partiql/scenario_partiql_single.rb:28:121: C: Layout/LineLength: Line is too long. [128/120]
+  puts 'You have launched a demo of Amazon DynamoDB using PartiQL and the AWS for Ruby v3 SDK. Over the next 60 seconds,it will'
+                                                                                                                        ^^^^^^^^
+example_code/ec2/ec2-ruby-example-attach-igw-vpc.rb:56:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_me is too high. [<13, 15, 8> 21.4/20]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-attach-igw-vpc.rb:56:1: C: Metrics/MethodLength: Method has too many lines. [32/25]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-instance.rb:41:1: C: Metrics/AbcSize: Assignment Branch Condition size for instance_created? is too high. [<8, 23, 7> 25.34/20]
+def instance_created?( ...
+^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-instance.rb:41:1: C: Metrics/MethodLength: Method has too many lines. [39/25]
+def instance_created?( ...
+^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-instance.rb:41:22: C: Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters. [7/5]
+def instance_created?( ...
+                     ^
+example_code/ec2/ec2-ruby-example-create-instance.rb:102:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_me is too high. [<22, 19, 10> 30.74/20]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-instance.rb:102:1: C: Metrics/MethodLength: Method has too many lines. [46/25]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-route-table.rb:39:1: C: Metrics/MethodLength: Method has too many lines. [26/25]
+def route_table_created_and_associated?( ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-route-table.rb:39:40: C: Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters. [7/5]
+def route_table_created_and_associated?( ...
+                                       ^
+example_code/ec2/ec2-ruby-example-create-route-table.rb:77:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_me is too high. [<22, 18, 8> 29.53/20]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-route-table.rb:77:1: C: Metrics/MethodLength: Method has too many lines. [46/25]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-security-group.rb:39:1: C: Metrics/MethodLength: Method has too many lines. [28/25]
+def security_group_created_with_egress?( ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-security-group.rb:39:40: C: Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters. [8/5]
+def security_group_created_with_egress?( ...
+                                       ^
+example_code/ec2/ec2-ruby-example-create-security-group.rb:80:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_me is too high. [<25, 19, 8> 32.4/20]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-security-group.rb:80:1: C: Metrics/MethodLength: Method has too many lines. [50/25]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-subnet.rb:41:31: C: Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters. [6/5]
+def subnet_created_and_tagged?( ...
+                              ^
+example_code/ec2/ec2-ruby-example-create-subnet.rb:73:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_me is too high. [<19, 17, 8> 26.72/20]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-subnet.rb:73:1: C: Metrics/MethodLength: Method has too many lines. [40/25]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-vpc.rb:53:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_me is too high. [<13, 15, 8> 21.4/20]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-create-vpc.rb:53:1: C: Metrics/MethodLength: Method has too many lines. [32/25]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-elastic-ips.rb:164:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_me is too high. [<9, 36, 14> 39.66/20]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-elastic-ips.rb:164:1: C: Metrics/CyclomaticComplexity: Cyclomatic complexity for run_me is too high. [8/7]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-elastic-ips.rb:164:1: C: Metrics/MethodLength: Method has too many lines. [55/25]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-elastic-ips.rb:164:1: C: Metrics/PerceivedComplexity: Perceived complexity for run_me is too high. [12/8]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-key-pairs.rb:89:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_me is too high. [<8, 42, 10> 43.91/20]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-key-pairs.rb:89:1: C: Metrics/MethodLength: Method has too many lines. [45/25]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-key-pairs.rb:89:1: C: Metrics/PerceivedComplexity: Perceived complexity for run_me is too high. [9/8]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-manage-instances.rb:147:1: C: Metrics/AbcSize: Assignment Branch Condition size for list_instances_information is too high. [<4, 48, 5> 48.43/20]
+def list_instances_information(ec2_client) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-manage-instances.rb:178:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_me is too high. [<7, 24, 10> 26.93/20]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-manage-instances.rb:178:1: C: Metrics/CyclomaticComplexity: Cyclomatic complexity for run_me is too high. [8/7]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-manage-instances.rb:178:1: C: Metrics/MethodLength: Method has too many lines. [32/25]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-manage-instances.rb:178:1: C: Metrics/PerceivedComplexity: Perceived complexity for run_me is too high. [9/8]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-regions-availability-zones.rb:16:1: C: Metrics/AbcSize: Assignment Branch Condition size for list_regions_endpoints is too high. [<4, 26, 1> 26.32/20]
+def list_regions_endpoints(ec2_client) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-regions-availability-zones.rb:46:1: C: Metrics/AbcSize: Assignment Branch Condition size for list_availability_zones is too high. [<6, 51, 3> 51.44/20]
+def list_availability_zones(ec2_client) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-regions-availability-zones.rb:46:1: C: Metrics/MethodLength: Method has too many lines. [32/25]
+def list_availability_zones(ec2_client) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-security-group.rb:81:39: C: Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters. [6/5]
+def security_group_ingress_authorized?( ...
+                                      ^
+example_code/ec2/ec2-ruby-example-security-group.rb:129:1: C: Metrics/AbcSize: Assignment Branch Condition size for describe_security_group_permissions is too high. [<0, 34, 18> 38.47/20]
+def describe_security_group_permissions(perm) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-security-group.rb:129:1: C: Metrics/CyclomaticComplexity: Cyclomatic complexity for describe_security_group_permissions is too high. [12/7]
+def describe_security_group_permissions(perm) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-security-group.rb:129:1: C: Metrics/PerceivedComplexity: Perceived complexity for describe_security_group_permissions is too high. [14/8]
+def describe_security_group_permissions(perm) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-security-group.rb:163:1: C: Metrics/AbcSize: Assignment Branch Condition size for describe_security_groups is too high. [<6, 51, 12> 52.74/20]
+def describe_security_groups(ec2_client) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-security-group.rb:163:1: C: Metrics/CyclomaticComplexity: Cyclomatic complexity for describe_security_groups is too high. [12/7]
+def describe_security_groups(ec2_client) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-security-group.rb:163:1: C: Metrics/MethodLength: Method has too many lines. [32/25]
+def describe_security_groups(ec2_client) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-security-group.rb:163:1: C: Metrics/PerceivedComplexity: Perceived complexity for describe_security_groups is too high. [13/8]
+def describe_security_groups(ec2_client) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-security-group.rb:229:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_me is too high. [<40, 33, 14> 53.71/20]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-security-group.rb:229:1: C: Metrics/CyclomaticComplexity: Cyclomatic complexity for run_me is too high. [10/7]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-security-group.rb:229:1: C: Metrics/MethodLength: Method has too many lines. [93/25]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/ec2-ruby-example-security-group.rb:229:1: C: Metrics/PerceivedComplexity: Perceived complexity for run_me is too high. [12/8]
+def run_me ...
+^^^^^^^^^^
+example_code/ec2/tests/test_ec2-ruby-example-manage-instances.rb:154:1: C: Metrics/BlockLength: Block has too many lines. [77/75]
+describe '#list_instances_information' do ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/elastictranscoder/create_job.rb:11:1: C: Metrics/AbcSize: Assignment Branch Condition size for create_elastictranscoder_job is too high. [<24, 15, 1> 28.32/20]
+def create_elastictranscoder_job(transcoder_client, s3_resource, pipeline_name) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/elastictranscoder/create_job.rb:11:1: C: Metrics/MethodLength: Method has too many lines. [64/25]
+def create_elastictranscoder_job(transcoder_client, s3_resource, pipeline_name) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/elastictranscoder/create_job.rb:19:121: C: Layout/LineLength: Line is too long. [126/120]
+                                             role: 'arn:aws:iam::260778392212:role/Elastic_Transcoder_Default_Role' # required
+                                                                                                                        ^^^^^^
+example_code/elastictranscoder/create_job_status_notification.rb:33:121: C: Layout/LineLength: Line is too long. [124/120]
+                                           role: 'arn:aws:iam::260778392212:role/Elastic_Transcoder_Default_Role' # required
+                                                                                                                        ^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:79:1: C: Metrics/AbcSize: Assignment Branch Condition size for topic_exists? is too high. [<3, 19, 6> 20.15/20]
+def topic_exists?(sns_client, topic_arn) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:177:1: C: Metrics/AbcSize: Assignment Branch Condition size for role_exists? is too high. [<3, 19, 6> 20.15/20]
+def role_exists?(iam_client, role_arn) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:217:1: C: Metrics/MethodLength: Method has too many lines. [48/25]
+def create_role(iam_client, role_name) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:304:1: C: Metrics/AbcSize: Assignment Branch Condition size for rule_exists? is too high. [<3, 19, 6> 20.15/20]
+def rule_exists?(cloudwatchevents_client, rule_name) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:363:1: C: Metrics/MethodLength: Method has too many lines. [45/25]
+def rule_created?( ...
+^^^^^^^^^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:363:18: C: Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters. [7/5]
+def rule_created?( ...
+                 ^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:560:1: C: Metrics/AbcSize: Assignment Branch Condition size for instance_restarted? is too high. [<5, 22, 1> 22.58/20]
+def instance_restarted?( ...
+^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:560:1: C: Metrics/MethodLength: Method has too many lines. [42/25]
+def instance_restarted?( ...
+^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:637:1: C: Metrics/MethodLength: Method has too many lines. [27/25]
+def display_rule_activity( ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:691:1: C: Metrics/AbcSize: Assignment Branch Condition size for display_log_data is too high. [<5, 28, 8> 29.55/20]
+def display_log_data(cloudwatchlogs_client, log_group_name) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:691:1: C: Metrics/CyclomaticComplexity: Cyclomatic complexity for display_log_data is too high. [8/7]
+def display_log_data(cloudwatchlogs_client, log_group_name) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:691:1: C: Metrics/MethodLength: Method has too many lines. [29/25]
+def display_log_data(cloudwatchlogs_client, log_group_name) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:691:1: C: Metrics/PerceivedComplexity: Perceived complexity for display_log_data is too high. [9/8]
+def display_log_data(cloudwatchlogs_client, log_group_name) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:757:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_me is too high. [<25, 38, 11> 46.8/20]
+def run_me ...
+^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:757:1: C: Metrics/CyclomaticComplexity: Cyclomatic complexity for run_me is too high. [10/7]
+def run_me ...
+^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:757:1: C: Metrics/MethodLength: Method has too many lines. [85/25]
+def run_me ...
+^^^^^^^^^^
+example_code/eventbridge/cw-ruby-example-send-events-ec2.rb:757:1: C: Metrics/PerceivedComplexity: Perceived complexity for run_me is too high. [10/8]
+def run_me ...
+^^^^^^^^^^
+example_code/glue/getting_started.rb:27:1: C: Metrics/ClassLength: Class has too many lines. [103/100]
+class GlueCrawlerJobScenario ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/glue/getting_started.rb:35:3: C: Metrics/AbcSize: Assignment Branch Condition size for run is too high. [<22, 120, 14> 122.8/20]
+  def run(crawler_name, db_name, db_prefix, data_source, job_script, job_name) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/glue/getting_started.rb:35:3: C: Metrics/CyclomaticComplexity: Cyclomatic complexity for run is too high. [12/7]
+  def run(crawler_name, db_name, db_prefix, data_source, job_script, job_name) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/glue/getting_started.rb:35:3: C: Metrics/MethodLength: Method has too many lines. [95/25]
+  def run(crawler_name, db_name, db_prefix, data_source, job_script, job_name) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/glue/getting_started.rb:35:3: C: Metrics/PerceivedComplexity: Perceived complexity for run is too high. [12/8]
+  def run(crawler_name, db_name, db_prefix, data_source, job_script, job_name) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/glue/getting_started.rb:35:10: C: Metrics/ParameterLists: Avoid parameter lists longer than 5 parameters. [6/5]
+  def run(crawler_name, db_name, db_prefix, data_source, job_script, job_name)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/glue/getting_started.rb:146:1: C: Metrics/AbcSize: Assignment Branch Condition size for main is too high. [<10, 46, 0> 47.07/20]
+def main ...
+^^^^^^^^
+example_code/glue/getting_started.rb:146:1: C: Metrics/MethodLength: Method has too many lines. [49/25]
+def main ...
+^^^^^^^^
+example_code/glue/glue_wrapper.rb:10:121: C: Layout/LineLength: Line is too long. [126/120]
+# The `GlueWrapper` class serves as a wrapper around the AWS Glue API, providing a simplified interface for common operations.
+                                                                                                                        ^^^^^^
+example_code/glue/glue_wrapper.rb:11:121: C: Layout/LineLength: Line is too long. [159/120]
+# It encapsulates the functionality of the AWS SDK for Glue and provides methods for interacting with Glue crawlers, databases, tables, jobs, and S3 resources.
+                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/glue/glue_wrapper.rb:12:121: C: Layout/LineLength: Line is too long. [132/120]
+# The class initializes with a Glue client and a logger, allowing it to make API calls and log any errors or informational messages.
+                                                                                                                        ^^^^^^^^^^^^
+example_code/glue/glue_wrapper.rb:13:1: C: Metrics/ClassLength: Class has too many lines. [130/100]
+class GlueWrapper ...
+^^^^^^^^^^^^^^^^^
+example_code/glue/spec/getting_started_scenario_spec.rb:24:1: C: Metrics/BlockLength: Block has too many lines. [113/75]
+describe GlueWrapper, integ: true do ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/glue/spec/getting_started_scenario_spec.rb:25:3: C: Metrics/BlockLength: Block has too many lines. [111/75]
+  context 'GlueWrapper' do ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/iam/list_admins.rb:18:7: C: Naming/PredicateName: Rename has_admin_privileges? to admin_privileges?.
+  def has_admin_privileges?(entity)
+      ^^^^^^^^^^^^^^^^^^^^^
+example_code/iam/list_users.rb:19:3: C: Metrics/AbcSize: Assignment Branch Condition size for get_user_details is too high. [<4, 20, 5> 21/20]
+  def get_user_details ...
+  ^^^^^^^^^^^^^^^^^^^^
+example_code/iam/list_users.rb:19:7: C: Naming/AccessorMethodName: Do not prefix reader method names with get_.
+  def get_user_details
+      ^^^^^^^^^^^^^^^^
+example_code/iam/manage_roles.rb:8:1: C: Metrics/ClassLength: Class has too many lines. [110/100]
+class RoleManager ...
+^^^^^^^^^^^^^^^^^
+example_code/iam/manage_roles.rb:178:29: C: Naming/MethodParameterName: Method parameter must be at least 3 characters long.
+  def handle_deletion_error(e, role_name)
+                            ^
+example_code/iam/manage_users.rb:8:1: C: Metrics/ClassLength: Class has too many lines. [120/100]
+class UserManager ...
+^^^^^^^^^^^^^^^^^
+example_code/iam/manage_users.rb:156:3: C: Metrics/AbcSize: Assignment Branch Condition size for get_user_details is too high. [<4, 31, 5> 31.65/20]
+  def get_user_details ...
+  ^^^^^^^^^^^^^^^^^^^^
+example_code/iam/manage_users.rb:156:7: C: Naming/AccessorMethodName: Do not prefix reader method names with get_.
+  def get_user_details
+      ^^^^^^^^^^^^^^^^
+example_code/iam/scenario_users.rb:10:1: C: Metrics/ClassLength: Class has too many lines. [149/100]
+class ScenarioCreateUserAssumeRole ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/iam/scenario_users.rb:244:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_scenario is too high. [<5, 47, 1> 47.28/20]
+def run_scenario(scenario) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/iam/scenario_users.rb:244:1: C: Metrics/MethodLength: Method has too many lines. [30/25]
+def run_scenario(scenario) ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/iam/spec/list_admins_spec.rb:16:121: C: Layout/LineLength: Line is too long. [141/120]
+                                        policy_arn: 'arn:aws:iam::aws:policy/AdministratorAccess', # Use the correct ARN for the admin policy
+                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^
+example_code/kms/decrypt_data.rb:16:121: C: Layout/LineLength: Line is too long. [333/120]
+blob = '01020200785d68faeec386af1057904926253051eb2919d3c16078badf65b808b26dd057c101747cadf3593596e093d4ffbf22434a6d00000068306606092a864886f70d010706a0593057020100305206092a864886f70d010701301e060960864801650304012e3011040c9d629e573683972cdb7d94b30201108025b20b060591b02ca0deb0fbdfc2f86c8bfcb265947739851ad56f3adce91eba87c59691a9a1'
+                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/kms/encrypt_data.rb:15:1: C: Naming/VariableName: Use snake_case for variable names.
+keyId = 'arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab'
+^^^^^
+example_code/kms/encrypt_data.rb:22:33: C: Naming/VariableName: Use snake_case for variable names.
+                        key_id: keyId,
+                                ^^^^^
+example_code/kms/re_encrypt_data.rb:15:121: C: Layout/LineLength: Line is too long. [333/120]
+blob = '01020200785d68faeec386af1057904926253051eb2919d3c16078badf65b808b26dd057c101747cadf3593596e093d4ffbf22434a6d00000068306606092a864886f70d010706a0593057020100305206092a864886f70d010701301e060960864801650304012e3011040c9d629e573683972cdb7d94b30201108025b20b060591b02ca0deb0fbdfc2f86c8bfcb265947739851ad56f3adce91eba87c59691a9a1'
+                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/kms/re_encrypt_data.rb:16:1: C: Naming/VariableName: Use snake_case for variable names.
+sourceCiphertextBlob = [blob].pack('H*')
+^^^^^^^^^^^^^^^^^^^^
+example_code/kms/re_encrypt_data.rb:20:1: C: Naming/VariableName: Use snake_case for variable names.
+destinationKeyId = 'arn:aws:kms:us-west-2:111122223333:key/0987dcba-09fe-87dc-65ba-ab0987654321'
+^^^^^^^^^^^^^^^^
+example_code/kms/re_encrypt_data.rb:25:45: C: Naming/VariableName: Use snake_case for variable names.
+                           ciphertext_blob: sourceCiphertextBlob,
+                                            ^^^^^^^^^^^^^^^^^^^^
+example_code/kms/re_encrypt_data.rb:26:48: C: Naming/VariableName: Use snake_case for variable names.
+                           destination_key_id: destinationKeyId
+                                               ^^^^^^^^^^^^^^^^
+example_code/lambda/lambda_basics.rb:14:1: C: Style/GlobalVars: Do not introduce global variables.
+$cloudwatch_client = Aws::CloudWatchLogs::Client.new(region: 'us-east-1')
+^^^^^^^^^^^^^^^^^^
+example_code/lambda/lambda_basics.rb:15:1: C: Style/GlobalVars: Do not introduce global variables.
+$iam_client = Aws::IAM::Client.new(region: 'us-east-1')
+^^^^^^^^^^^
+example_code/lambda/lambda_basics.rb:19:1: C: Metrics/ClassLength: Class has too many lines. [192/100]
+class LambdaWrapper ...
+^^^^^^^^^^^^^^^^^^^
+example_code/lambda/lambda_basics.rb:35:3: C: Metrics/MethodLength: Method has too many lines. [48/25]
+  def manage_iam(iam_role_name, action) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/lambda/lambda_basics.rb:50:14: C: Style/GlobalVars: Do not introduce global variables.
+      role = $iam_client.create_role(
+             ^^^^^^^^^^^
+example_code/lambda/lambda_basics.rb:54:7: C: Style/GlobalVars: Do not introduce global variables.
+      $iam_client.attach_role_policy(
+      ^^^^^^^^^^^
+example_code/lambda/lambda_basics.rb:60:7: C: Style/GlobalVars: Do not introduce global variables.
+      $iam_client.wait_until(:role_exists, { role_name: iam_role_name }) do |w|
+      ^^^^^^^^^^^
+example_code/lambda/lambda_basics.rb:69:7: C: Style/GlobalVars: Do not introduce global variables.
+      $iam_client.detach_role_policy(
+      ^^^^^^^^^^^
+example_code/lambda/lambda_basics.rb:75:7: C: Style/GlobalVars: Do not introduce global variables.
+      $iam_client.delete_role(
+      ^^^^^^^^^^^
+example_code/lambda/lambda_basics.rb:184:15: C: Style/GlobalVars: Do not introduce global variables.
+    streams = $cloudwatch_client.describe_log_streams({ log_group_name: "/aws/lambda/#{function_name}" })
+              ^^^^^^^^^^^^^^^^^^
+example_code/lambda/lambda_basics.rb:186:14: C: Style/GlobalVars: Do not introduce global variables.
+      resp = $cloudwatch_client.get_log_events({
+             ^^^^^^^^^^^^^^^^^^
+example_code/lambda/lambda_basics.rb:190:28: W: Lint/ShadowingOuterLocalVariable: Shadowing outer local variable - x.
+      resp.events.each do |x|
+                           ^
+example_code/lambda/lambda_function.rb:16:28: W: Lint/UnusedMethodArgument: Unused method argument - context.
+def lambda_handler(event:, context:)
+                           ^^^^^^^
+example_code/lambda/lambda_function_updated.rb:16:28: W: Lint/UnusedMethodArgument: Unused method argument - context.
+def lambda_handler(event:, context:)
+                           ^^^^^^^
+example_code/lambda/scenario_getting_started_functions.rb:29:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_scenario is too high. [<17, 108, 4> 109.4/20]
+def run_scenario ...
+^^^^^^^^^^^^^^^^
+example_code/lambda/scenario_getting_started_functions.rb:29:1: C: Metrics/MethodLength: Method has too many lines. [78/25]
+def run_scenario ...
+^^^^^^^^^^^^^^^^
+example_code/s3/auth_session_token_request_test.rb:170:1: C: Metrics/AbcSize: Assignment Branch Condition size for run_me is too high. [<12, 29, 11> 33.26/20]
+def run_me ...
+^^^^^^^^^^
+example_code/s3/auth_session_token_request_test.rb:170:1: C: Metrics/MethodLength: Method has too many lines. [49/25]
+def run_me ...
+^^^^^^^^^^
+example_code/s3/auth_session_token_request_test.rb:170:1: C: Metrics/PerceivedComplexity: Perceived complexity for run_me is too high. [12/8]
+def run_me ...
+^^^^^^^^^^
+example_code/s3/bucket_cors.rb:26:7: C: Naming/AccessorMethodName: Do not prefix reader method names with get_.
+  def get_cors
+      ^^^^^^^^
+example_code/s3/bucket_policy.rb:27:7: C: Naming/AccessorMethodName: Do not prefix reader method names with get_.
+  def get_policy
+      ^^^^^^^^^^
+example_code/s3/bucket_policy.rb:39:7: C: Naming/AccessorMethodName: Do not prefix writer method names with set_.
+  def set_policy(policy)
+      ^^^^^^^^^^
+example_code/s3/bucket_put_encryption.rb:21:7: C: Naming/AccessorMethodName: Do not prefix writer method names with set_.
+  def set_encryption(bucket_name)
+      ^^^^^^^^^^^^^^
+example_code/s3/encryption_v2/s3_add_csaes_encrypt_item.rb:69:5: C: Naming/AccessorMethodName: Do not prefix reader method names with get_.
+def get_random_aes_256_gcm_key
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/s3/encryption_v2/s3_add_csaes_encrypt_item.rb:74:3: C: Naming/VariableNumber: Use normalcase for variable numbers.
+  random_key_64 = random_key_64_string.unpack1('m')
+  ^^^^^^^^^^^^^
+example_code/s3/encryption_v2/s3_add_cskms_encrypt_item.rb:5:121: C: Layout/LineLength: Line is too long. [122/120]
+# This code example demonstrates how to upload an encrypted object to an Amazon Simple Storage Service (Amazon S3) bucket.
+                                                                                                                        ^^
+example_code/s3/encryption_v2/spec/test_s3_add_cskms_encrypt_item.rb:30:121: C: Layout/LineLength: Line is too long. [278/120]
+          ciphertext_blob: 'AQIDAHh58pZkpaY6Ifx4UPd9kZBp2ssaYk/T1eiY2dnLv9dP1QHFZ71+8g1Yq0ikFTvgjbzgAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMgGqjmfp6p9q3pqgsAgEQgDufNsOEtJJUAsZ6QkJoVUQz9tWgYQ0HMHNtXSObHsRbw6QejNCtGJAxip4/9HJWbmo8V+s+7+NEXAMPLE==',
+                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/s3/encryption_v2/spec/test_s3_add_cskms_encrypt_item.rb:32:121: C: Layout/LineLength: Line is too long. [123/120]
+          plaintext: "\xAD\xC8\xF0o\v\x0F\x1E\xD3\xEA\xF8\x05\x03\x9F?\xC2#\xB4_\xE3\xBD\x96\x1A\xC9S\xCA\xE8Ya\xB9{\t\x7F"
+                                                                                                                        ^^^
+example_code/s3/encryption_v2/spec/test_s3_get_cskms_decrypt_item.rb:6:1: C: Metrics/BlockLength: Block has too many lines. [98/75]
+describe '#get_decrypted_object_content' do ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/s3/encryption_v2/spec/test_s3_get_cskms_decrypt_item.rb:39:3: C: Metrics/AbcSize: Assignment Branch Condition size for stub_decrypt is too high. [<1, 23, 5> 23.56/20]
+  def stub_decrypt(kms_client, opts) ...
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/s3/encryption_v2/spec/test_s3_get_cskms_decrypt_item.rb:62:121: C: Layout/LineLength: Line is too long. [281/120]
+    Base64.decode64("AQIDAHiWj6qDEnwihp7W7g6VZb1xqsat5jdSUdEaGhgZepHdLAGASCQI7LZz\nz7GzCpm6y4sHAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEH\nATAeBglghkgBZQMEAS4wEQQMJMJe6d8DkRTWwlvtAgEQgDtBCwiibCTS8pb7\n6BYKklVjy+CmO9q3r6y4u/9jJ8lk9eg5GwiskmcBtPMcWogMzx/vh+/65Cjb\nsQBpLQ==\n")
+                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+example_code/s3/object_get_encryption.rb:24:7: C: Naming/AccessorMethodName: Do not prefix reader method names with get_.
+  def get_object
+      ^^^^^^^^^^
+example_code/s3/s3.rb:20:21: C: Naming/MethodParameterName: Method parameter must be at least 3 characters long.
+def list_my_buckets(s3)
+                    ^^
+example_code/secretsmanager/sm_get_secrets.rb:30:3: C: Style/EmptyElse: Redundant else-clause.
+  else
+  ^^^^
+example_code/ses/v1/ses_get_statistics.rb:34:24: C: Naming/MethodParameterName: Method parameter must be at least 3 characters long.
+  def print_data_point(dp)
+                       ^^
+example_code/sqs/message_visibility_timeout.rb:20:121: C: Layout/LineLength: Line is too long. [135/120]
+                                                        max_number_of_messages: 10 # Receive up to 10 messages, if there are that many.
+                                                                                                                        ^^^^^^^^^^^^^^^
+example_code/sqs/message_visibility_timeout.rb:23:121: C: Layout/LineLength: Line is too long. [133/120]
+  puts "Before attempting to change message visibility timeout: received #{receive_message_result_before.messages.count} message(s)."
+                                                                                                                        ^^^^^^^^^^^^^
+example_code/sqs/message_visibility_timeout.rb:29:121: C: Layout/LineLength: Line is too long. [129/120]
+                                    visibility_timeout: 30 # This message will not be visible for 30 seconds after first receipt.
+                                                                                                                        ^^^^^^^^^
+example_code/sqs/message_visibility_timeout.rb:39:121: C: Layout/LineLength: Line is too long. [133/120]
+  puts "\nAfter attempting to change message visibility timeout: received #{receive_message_result_after.messages.count} message(s)."
+                                                                                                                        ^^^^^^^^^^^^^
+example_code/sqs/scenario_dead_letter_queue.rb:39:121: C: Layout/LineLength: Line is too long. [126/120]
+    'maxReceiveCount' => '5', # After the queue receives the same message 5 times, send that message to the dead letter queue.
+                                                                                                                        ^^^^^^
+example_code/sqs/scenario_getting_started.rb:30:121: C: Layout/LineLength: Line is too long. [125/120]
+                       'MessageRetentionPeriod' => '86400' # Delete message after 1 day (24 hours * 60 minutes * 60 seconds).
+                                                                                                                        ^^^^^
+example_code/sqs/scenario_getting_started.rb:46:121: C: Layout/LineLength: Line is too long. [137/120]
+                                           message_body: 'Information about current NY Times fiction bestseller for week of 2016-12-11.',
+                                                                                                                        ^^^^^^^^^^^^^^^^^
+example_code/sqs/scenario_polling.rb:23:121: C: Layout/LineLength: Line is too long. [121/120]
+                                           'ReceiveMessageWaitTimeSeconds' => '20' # Wait 20 seconds to receive messages.
+                                                                                                                        ^
+example_code/sqs/scenario_polling.rb:54:121: C: Layout/LineLength: Line is too long. [125/120]
+                                                 wait_time_seconds: 10, # Poll messages for 10 seconds at a time. Default: 0.
+                                                                                                                        ^^^^^
+example_code/sqs/scenario_polling.rb:55:121: C: Layout/LineLength: Line is too long. [128/120]
+                                                 max_number_of_messages: 10 # Receive up to 10 messages, if there are that many.
+                                                                                                                        ^^^^^^^^
+example_code/sqs/scenario_polling.rb:89:121: C: Layout/LineLength: Line is too long. [125/120]
+  puts "Cannot receive messages using Aws::SQS::QueuePoller for a queue named '#{receive_queue_name}', as it does not exist."
+                                                                                                                        ^^^^^
+example_code/sqs/send_message_batch.rb:5:121: C: Layout/LineLength: Line is too long. [129/120]
+# This code example demonstrates how to send multiple messages as a batch to a queue in Amazon Simple Queue Service (Amazon SQS).
+                                                                                                                        ^^^^^^^^^
+example_code/workdocs/workdocs_basics.rb:6:1: C: Style/Documentation: Missing top-level documentation comment for class WorkDocsManager.
+class WorkDocsManager
+^^^^^^^^^^^^^^^^^^^^^
+example_code/workdocs/workdocs_basics.rb:20:121: C: Layout/LineLength: Line is too long. [126/120]
+                                    sort: 'USER_NAME' # accepts USER_NAME, FULL_NAME, STORAGE_LIMIT, USER_STATUS, STORAGE_USED
+                                                                                                                        ^^^^^^
+example_code/workdocs/workdocs_basics.rb:41:26: W: Lint/ShadowingOuterLocalVariable: Shadowing outer local variable - user.
+    user = users.find { |user| user.email_address == user_email }
+                         ^^^^
+helpers/colorizer.rb:4:1: C: Style/Documentation: Missing top-level documentation comment for class String.
+class String
+^^^^^^^^^^^^
+helpers/question.rb:45:5: C: Naming/PredicateName: Rename is_yesno to yesno?.
+def is_yesno(answer)
+    ^^^^^^^^
+helpers/question.rb:51:5: C: Naming/PredicateName: Rename is_int to int?.
+def is_int(answer)
+    ^^^^^^
+helpers/question.rb:59:5: C: Naming/PredicateName: Rename is_float to float?.
+def is_float(answer)
+    ^^^^^^^^
+helpers/question.rb:61:25: W: Lint/FloatComparison: Avoid (in)equality comparisons of floats as they are unreliable.
+  float_answer = nil if float_answer == 0.0
+                        ^^^^^^^^^^^^^^^^^^^
+
+240 files inspected, 190 offenses detected
+
+Tip: Based on detected gems, the following RuboCop extension libraries might be helpful:
+  * rubocop-rspec (https://rubygems.org/gems/rubocop-rspec)
+  * rubocop-sequel (https://rubygems.org/gems/rubocop-sequel)
+
+The following RuboCop extension libraries are installed but not loaded in config:
+  * rubocop-rake
+
+You can opt out of this message by adding the following to your config (see https://docs.rubocop.org/rubocop/extensions.html#extension-suggestions for more options):
+  AllCops:
+    SuggestExtensions: false

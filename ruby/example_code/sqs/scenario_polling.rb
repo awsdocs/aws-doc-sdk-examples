@@ -51,7 +51,8 @@ begin
   puts 'Begin receipt of any messages using receive_message...'
   receive_message_result = sqs.receive_message({
                                                  queue_url: receive_queue_url,
-                                                 wait_time_seconds: 10, # Poll messages for 10 seconds at a time. Default: 0.
+                                                 wait_time_seconds: 10,
+                                                 # Poll messages for 10 seconds at a time. Default: 0.
                                                  max_number_of_messages: 10 # Receive up to 10 messages, if there are that many.
                                                })
 

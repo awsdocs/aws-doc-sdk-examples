@@ -25,7 +25,8 @@ def run_scenario
   puts '#                                                                                                    #'.yellow
   puts '######################################################################################################'.yellow
   puts ''
-  puts 'You have launched a demo of Amazon DynamoDB using PartiQL and the AWS for Ruby v3 SDK. Over the next 60 seconds, it will'
+  puts 'You have launched a demo of Amazon DynamoDB using PartiQL and the AWS for Ruby v3 SDK. Over the next 60 seconds,
+it will'
   puts 'do the following:'
   puts '    1. Create a new DynamoDB table.'
   puts '    2. Write batch data into the table'

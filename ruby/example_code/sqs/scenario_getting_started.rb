@@ -44,6 +44,7 @@ begin
   send_message_result = sqs.send_message({
                                            queue_url: queue_url,
                                            message_body: 'Information about current NY Times fiction bestseller for week of 2016-12-11.',
+
                                            message_attributes: {
                                              'Title' => {
                                                string_value: 'The Whistler',

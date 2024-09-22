@@ -36,7 +36,9 @@ begin
 
   # Use a redrive policy to specify the dead letter queue and its behavior.
   redrive_policy = {
-    'maxReceiveCount' => '5', # After the queue receives the same message 5 times, send that message to the dead letter queue.
+'maxReceiveCount' => '5',
+# After the queue receives the same message 5 times,
+send that message to the dead letter queue.
     'deadLetterTargetArn' => dead_letter_queue_arn
   }.to_json
 

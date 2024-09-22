@@ -23,7 +23,7 @@ class BucketCorsWrapper
   # Gets the CORS configuration of a bucket.
   #
   # @return [Aws::S3::Type::GetBucketCorsOutput, nil] The current CORS configuration for the bucket.
-  def get_cors
+  def cors
     @bucket_cors.data
   rescue Aws::Errors::ServiceError => e
     puts "Couldn't get CORS configuration for #{@bucket_cors.bucket.name}. Here's why: #{e.message}"

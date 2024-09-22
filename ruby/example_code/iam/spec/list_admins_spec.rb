@@ -13,7 +13,8 @@ describe AdminPrivilegeManager do
       it 'returns true' do
         user = iam_client.create_user(user_name: 'test_admin_user').user
         iam_client.attach_user_policy({
-                                        policy_arn: 'arn:aws:iam::aws:policy/AdministratorAccess', # Use the correct ARN for the admin policy
+                                        policy_arn: 'arn:aws:iam::aws:policy/AdministratorAccess',
+                                        # Use the correct ARN for the admin policy
                                         user_name: user.user_name
                                       })
 

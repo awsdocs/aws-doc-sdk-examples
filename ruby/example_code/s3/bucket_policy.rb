@@ -24,7 +24,7 @@ class BucketPolicyWrapper
   # Gets the policy of a bucket.
   #
   # @return [Aws::S3::GetBucketPolicyOutput, nil] The current bucket policy.
-  def get_policy
+  def policy
     policy = @bucket_policy.data.policy
     policy.respond_to?(:read) ? policy.read : policy
   rescue Aws::Errors::ServiceError => e
@@ -36,7 +36,7 @@ class BucketPolicyWrapper
   # snippet-start:[ruby.example_code.s3.PutBucketPolicy]
   # Sets a policy on a bucket.
   #
-  def set_policy(policy)
+  def policy(policy)
     @bucket_policy.put(policy: policy)
     true
   rescue Aws::Errors::ServiceError => e

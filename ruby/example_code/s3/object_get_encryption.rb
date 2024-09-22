@@ -21,7 +21,7 @@ class ObjectGetEncryptionWrapper
   # Gets the object into memory.
   #
   # @return [Aws::S3::Types::GetObjectOutput, nil] The retrieved object data if successful; otherwise nil.
-  def get_object
+  def object
     @object.get
   rescue Aws::Errors::ServiceError => e
     puts "Couldn't get object #{@object.key}. Here's why: #{e.message}"

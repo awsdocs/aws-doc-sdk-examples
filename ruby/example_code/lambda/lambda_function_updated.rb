@@ -13,7 +13,7 @@ require 'logger'
 # @param context [Hash] Methods and properties that provide information.
 # about the invocation, function, and execution environment.
 # @ return product [String] The product of the two numbers.
-def lambda_handler(event:, context:)
+def lambda_handler(event:, _)
   logger = Logger.new($stdout)
   log_level = ENV['LOG_LEVEL']
   logger.level = case log_level

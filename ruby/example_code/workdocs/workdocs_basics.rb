@@ -17,7 +17,11 @@ class WorkDocsManager
                                     organization_id: org_id,
                                     include: 'ALL', # accepts ALL, ACTIVE_PENDING
                                     order: 'ASCENDING', # accepts ASCENDING, DESCENDING
-                                    sort: 'USER_NAME' # accepts USER_NAME, FULL_NAME, STORAGE_LIMIT, USER_STATUS, STORAGE_USED
+sort: 'USER_NAME' # accepts USER_NAME,
+FULL_NAME,
+STORAGE_LIMIT,
+USER_STATUS,
+STORAGE_USED
                                   })
     resp.users.each do |user|
       @logger.info "First name:  #{user.given_name}"

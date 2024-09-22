@@ -7,8 +7,13 @@ require 'logger'
 # snippet-start:[ruby.example_code.glue.GlueWrapper.full]
 # snippet-start:[ruby.example_code.glue.GlueWrapper.decl]
 
-# The `GlueWrapper` class serves as a wrapper around the AWS Glue API, providing a simplified interface for common operations.
-# It encapsulates the functionality of the AWS SDK for Glue and provides methods for interacting with Glue crawlers, databases, tables, jobs, and S3 resources.
+# The `GlueWrapper` class serves as a wrapper around the AWS Glue API,
+providing a simplified interface for common operations.
+# It encapsulates the functionality of the AWS SDK for Glue and provides methods for interacting with Glue crawlers,
+databases,
+tables,
+jobs,
+and S3 resources.
 # The class initializes with a Glue client and a logger, allowing it to make API calls and log any errors or informational messages.
 class GlueWrapper
   def initialize(glue_client, logger)

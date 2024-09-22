@@ -53,7 +53,13 @@ class SetupDatabase
       {
         resource_arn: @config['resource_arn'],
         secret_arn: @config['secret_arn'],
-        sql: 'CREATE TABLE work_items (work_item_id INT AUTO_INCREMENT PRIMARY KEY, description VARCHAR(400), guide VARCHAR(45), status VARCHAR(400), username VARCHAR(45), archived TINYINT(4));',
+        sql: 'CREATE TABLE work_items (work_item_id INT AUTO_INCREMENT PRIMARY KEY,
+description VARCHAR(400),
+guide VARCHAR(45),
+status VARCHAR(400),
+username VARCHAR(45),
+archived TINYINT(4));',
+
         database: @config['database']
       }
     )

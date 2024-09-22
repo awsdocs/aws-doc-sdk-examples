@@ -16,7 +16,7 @@ class UserManager
   # Displays information about available users in AWS Identity and Access Management (IAM).
   # This includes user names, associated group names, inline embedded user policy names,
   # and access key IDs. Logging is added for monitoring purposes.
-  def get_user_details
+  def user_details
     @logger.info('Requesting list of users')
     users_response = @iam_client.list_users
 

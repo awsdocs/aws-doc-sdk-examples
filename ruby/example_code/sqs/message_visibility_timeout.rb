@@ -17,7 +17,8 @@ begin
 
   receive_message_result_before = sqs.receive_message({
                                                         queue_url: queue_url,
-                                                        max_number_of_messages: 10 # Receive up to 10 messages, if there are that many.
+max_number_of_messages: 10 # Receive up to 10 messages,
+if there are that many.
                                                       })
 
   puts "Before attempting to change message visibility timeout: received #{receive_message_result_before.messages.count} message(s)."
