@@ -125,7 +125,7 @@ public class CloudWatchScenario {
         int num;
         try {
             CompletableFuture<ArrayList<String>> future = cwActions.listNameSpacesAsync();
-            ArrayList<String> list = future.join();  // Wait for async operation to complete.
+            ArrayList<String> list = future.join();
             for (int z = 0; z < 5; z++) {
                 int index = z + 1;
                 logger.info("    " + index + ". {}", list.get(z));
@@ -165,7 +165,7 @@ public class CloudWatchScenario {
         try {
             CompletableFuture<ArrayList<String>> future = cwActions.listMetsAsync(selectedNamespace);
             ArrayList<String> metList = future.join();
-            logger.info("Metrics successfully retrieved. Total metrics: " + metList.size());
+            logger.info("Metrics successfully retrieved. Total metrics: {}", metList.size());
             for (int z = 0; z < 5; z++) {
                 int index = z + 1;
                 logger.info("    " + index + ". " + metList.get(z));
@@ -184,12 +184,11 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
 
         try {
-           // CompletableFuture<Dimension> future = cwActions.getSpecificMetAsync(selectedNamespace);
             myDimension = cwActions.getSpecificMetAsync(selectedNamespace).join();
             logger.info("Metric statistics successfully retrieved and displayed.");
         } catch (RuntimeException rt) {
@@ -197,7 +196,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
 
@@ -243,7 +242,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
@@ -262,7 +261,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
@@ -280,7 +279,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
@@ -298,7 +297,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
@@ -320,7 +319,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
@@ -338,7 +337,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         logger.info(DASHES);
@@ -356,7 +355,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
@@ -374,7 +373,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
@@ -391,7 +390,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
@@ -409,7 +408,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
@@ -427,7 +426,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
@@ -445,7 +444,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         logger.info(DASHES);
@@ -472,7 +471,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
@@ -490,7 +489,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
@@ -507,7 +506,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         logger.info(DASHES);
@@ -526,7 +525,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
 
@@ -541,7 +540,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
 
@@ -556,7 +555,7 @@ public class CloudWatchScenario {
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
         }
         waitForInputToContinue(scanner);
