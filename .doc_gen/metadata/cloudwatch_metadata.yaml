@@ -61,7 +61,7 @@ cloudwatch_DeleteAlarms:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.java2.delete_metrics.main
+                - cloudwatch.java2.delete_alarm.main
     Python:
       versions:
         - sdk_version: 3
@@ -227,7 +227,7 @@ cloudwatch_DescribeAlarms:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.java2.scenario.describe.alarm.main
+                - cloudwatch.java2.describe_alarms.main
     .NET:
       versions:
         - sdk_version: 3
