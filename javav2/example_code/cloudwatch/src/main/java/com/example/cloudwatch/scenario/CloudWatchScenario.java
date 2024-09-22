@@ -76,17 +76,17 @@ public class CloudWatchScenario {
                   metricImage - The location of a BMP file that is used to create a graph.\s
                 """;
 
-      //  if (args.length != 7) {
-      ///      logger.info(usage);
-      //      return;
-      //  }
-        String myDate = "2024-09-11T18:35:24.00Z"; // args[0];
-        String costDateWeek = "2024-09-11T18:35:24.00Z"; //args[1];
-        String dashboardName = "ScottDashboard1" ; //args[2];
-        String dashboardJson = "./jsonWidgets.json" ; //args[3];
-        String dashboardAdd = "./CloudDashboard.json" ; //args[4];
-        String settings = "./settings.json" ; //args[5];
-        String metricImage = "C:\\AWS\\outputFile.bmp" ; //args[6];
+        if (args.length != 7) {
+            logger.info(usage);
+            return;
+        }
+        String myDate = args[0];
+        String costDateWeek = args[1];
+        String dashboardName = args[2];
+        String dashboardJson = args[3];
+        String dashboardAdd = args[4];
+        String settings = args[5];
+        String metricImage = args[6];
 
         Double dataPoint = Double.parseDouble("10.0");
         Scanner sc = new Scanner(System.in);
