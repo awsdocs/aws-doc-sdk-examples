@@ -1026,6 +1026,7 @@ cloudwatch_PutMetricData:
   services:
     cloudwatch: {PutMetricData}
 cloudwatch_GetStartedMetricsDashboardsAlarms:
+  title: Learn core operations for &CW; using an &AWS;
   synopsis_list:
     - List &CW; namespaces and metrics.
     - Get statistics for a metric and for estimated billing.
@@ -1042,7 +1043,7 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
           github: kotlin/services/cloudwatch
           sdkguide:
           excerpts:
-            - description:
+            - description: Run an interactive scenario demonstrating &CW; features.
               snippet_tags:
                 - cloudwatch.kotlin.scenario.main
     Java:
@@ -1051,9 +1052,12 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
           github: javav2/example_code/cloudwatch
           sdkguide:
           excerpts:
-            - description:
+            - description: Run an interactive scenario demonstrating &CW; features.
               snippet_tags:
                 - cloudwatch.java2.scenario.main
+            - description: A wrapper class for &CW; SDK methods.
+              snippet_tags:
+                - cloudwatch.java2.actions.main
     .NET:
       versions:
         - sdk_version: 3

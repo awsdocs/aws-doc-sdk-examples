@@ -73,7 +73,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-
+// snippet-start:[cloudwatch.java2.actions.main]
 public class CloudWatchActions {
 
     private static CloudWatchAsyncClient cloudWatchAsyncClient;
@@ -1025,3 +1025,4 @@ public class CloudWatchActions {
         return new String(Files.readAllBytes(Paths.get(file)));
     }
 }
+// snippet-end:[cloudwatch.java2.actions.main]
