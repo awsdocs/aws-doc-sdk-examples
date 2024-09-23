@@ -5,8 +5,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[ddb.swift.batchgetitem.movie]
-import Foundation
 import AWSDynamoDB
+import Foundation
 
 // snippet-start:[ddb.swift.batchgetitem.info]
 /// The optional details about a movie.
@@ -16,6 +16,7 @@ public struct Info: Codable {
     /// The movie's plot, if available.
     var plot: String?
 }
+
 // snippet-end:[ddb.swift.batchgetitem.info]
 
 public struct Movie: Codable {
@@ -42,6 +43,7 @@ public struct Movie: Codable {
 
         self.info = Info(rating: rating, plot: plot)
     }
+
     // snippet-end:[ddb.swift.batchgetitem.movie.init]
 
     // snippet-start:[ddb.swift.batchgetitem.movie.init-info]
@@ -63,21 +65,23 @@ public struct Movie: Codable {
             self.info = Info(rating: nil, plot: nil)
         }
     }
+
     // snippet-end:[ddb.swift.batchgetitem.movie.init-info]
 
     // snippet-start:[ddb.swift.batchgetitem.movie.init-withitem]
     ///
     /// Return a new `MovieTable` object, given an array mapping string to Amazon
     /// DynamoDB attribute values.
-    /// 
+    ///
     /// - Parameter item: The item information provided in the form used by
     ///   DynamoDB. This is an array of strings mapped to
     ///   `DynamoDBClientTypes.AttributeValue` values.
-    init(withItem item: [Swift.String:DynamoDBClientTypes.AttributeValue]) throws {
+    init(withItem item: [Swift.String: DynamoDBClientTypes.AttributeValue]) throws {
         // Read the attributes.
 
         guard let titleAttr = item["title"],
-              let yearAttr = item["year"] else {
+              let yearAttr = item["year"]
+        else {
             throw MovieError.ItemNotFound
         }
         let infoAttr = item["info"] ?? nil
@@ -116,6 +120,7 @@ public struct Movie: Codable {
 
         self.info = Info(rating: rating, plot: plot)
     }
+
     // snippet-end:[ddb.swift.batchgetitem.movie.init-withitem]
 
     // snippet-start:[ddb.swift.batchgetitem.movie.getasitem]
@@ -127,19 +132,19 @@ public struct Movie: Codable {
     /// - Returns: The movie item as an array of type
     ///   `[Swift.String:DynamoDBClientTypes.AttributeValue]`.
     ///
-    func getAsItem() async throws -> [Swift.String:DynamoDBClientTypes.AttributeValue]  {
+    func getAsItem() async throws -> [Swift.String: DynamoDBClientTypes.AttributeValue] {
         // Build the item record, starting with the year and title, which are
         // always present.
 
-        var item: [Swift.String:DynamoDBClientTypes.AttributeValue] = [
-            "year": .n(String(self.year)),
-            "title": .s(self.title)
+        var item: [Swift.String: DynamoDBClientTypes.AttributeValue] = [
+            "year": .n(String(year)),
+            "title": .s(title)
         ]
 
         // Add the `info` field with the rating and/or plot if they're
         // available.
 
-        var info: [Swift.String:DynamoDBClientTypes.AttributeValue] = [:]
+        var info: [Swift.String: DynamoDBClientTypes.AttributeValue] = [:]
         if self.info.rating != nil {
             info["rating"] = .n(String(self.info.rating!))
         }
@@ -152,4 +157,5 @@ public struct Movie: Codable {
     }
     // snippet-end:[ddb.swift.batchgetitem.movie.getasitem]
 }
+
 // snippet-end:[ddb.swift.batchgetitem.movie]

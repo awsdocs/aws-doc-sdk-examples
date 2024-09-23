@@ -40,7 +40,7 @@ import AWSDynamoDB
 @testable import MovieList
 
 extension String {
-    // Get the directory if string is a file path.
+    // Get the directory if the string is a file path.
     func directory() -> String {
         guard let lastIndex = lastIndex(of: "/") else {
             print("Error: String directory separator not found.")
