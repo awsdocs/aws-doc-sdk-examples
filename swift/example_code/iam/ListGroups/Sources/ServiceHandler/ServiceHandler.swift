@@ -2,15 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
-   A class containing functions that interact with AWS services.
-*/
+ A class containing functions that interact with AWS services.
+ */
 
 // snippet-start:[iam.swift.listgroups.handler]
 // snippet-start:[iam.swift.listgroups.handler.imports]
-import Foundation
+import AWSClientRuntime
 import AWSIAM
 import ClientRuntime
-import AWSClientRuntime
+import Foundation
+
 // snippet-end:[iam.swift.listgroups.handler.imports]
 
 /// A class containing all the code that interacts with the AWS SDK for Swift.
@@ -23,44 +24,50 @@ public class ServiceHandler {
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[iam.swift.listgroups.handler.init]
-    public init() async {
+    public init() async throws {
         do {
-            client = try IAMClient(region: "us-east-1")
+            client = try await IAMClient()
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
-            exit(1)
+            throw error
         }
     }
+
     // snippet-end:[iam.swift.listgroups.handler.init]
 
     /// Returns a list of all AWS Identity and Access Management (IAM) group
     /// names.
     ///
     /// - Returns: An array of user records.
-    // snippet-start:[iam.swift.listgroups.handler.listgroups]
+    // snippet-start:[iam.swift.listgroups.handler.ListGroups]
     public func listGroups() async throws -> [String] {
         var groupList: [String] = []
-        var marker: String? = nil
-        var isTruncated: Bool
-        
-        repeat {
-            let input = ListGroupsInput(marker: marker)
-            let output = try await client.listGroups(input: input)
-            
-            guard let groups = output.groups else {
-                return groupList
-            }
 
-            for group in groups {
-                if let name = group.groupName {
-                    groupList.append(name)
+        // Use "Paginated" to get all the groups.
+        // This lets the SDK handle the 'isTruncated' property in "ListGroupsOutput".
+        let input = ListGroupsInput()
+
+        let pages = client.listGroupsPaginated(input: input)
+        do {
+            for try await page in pages {
+                guard let groups = page.groups else {
+                    print("Error: no groups returned.")
+                    continue
+                }
+
+                for group in groups {
+                    if let name = group.groupName {
+                        groupList.append(name)
+                    }
                 }
             }
-            marker = output.marker
-            isTruncated = output.isTruncated
-        } while isTruncated == true
+        } catch {
+            print("ERROR: listGroups:", dump(error))
+            throw error
+        }
         return groupList
     }
-    // snippet-end:[iam.swift.listgroups.handler.listgroups]
+    // snippet-end:[iam.swift.listgroups.handler.ListGroups]
 }
+
 // snippet-end:[iam.swift.listgroups.handler]

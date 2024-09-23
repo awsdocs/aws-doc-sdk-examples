@@ -32,12 +32,12 @@ public class ServiceHandler {
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[iam.swift.createservicelinkedrole.handler.init]
-    public init() async {
+    public init() async throws {
         do {
-            client = try IAMClient(region: "us-east-1")
+            client = try await IAMClient()
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
-            exit(1)
+            throw error
         }
     }
     // snippet-end:[iam.swift.createservicelinkedrole.handler.init]
@@ -55,7 +55,7 @@ public class ServiceHandler {
     /// The `service` parameter should be a string derived that looks like a
     /// URL but has no `http://` at the beginning, such as
     /// `elasticbeanstalk.amazonaws.com`.
-    // snippet-start:[iam.swift.createservicelinkedrole.handler.createservicelinkedrole]
+    // snippet-start:[iam.swift.createservicelinkedrole.handler.CreateServiceLinkedRole]
     public func createServiceLinkedRole(service: String, suffix: String? = nil, description: String?)
                     async throws -> IAMClientTypes.Role {
         let input = CreateServiceLinkedRoleInput(
@@ -70,9 +70,10 @@ public class ServiceHandler {
             }
             return role
         } catch {
+            print("ERROR: createServiceLinkedRole:", dump(error))
             throw error
         }
     }
-    // snippet-end:[iam.swift.createservicelinkedrole.handler.createservicelinkedrole]
+    // snippet-end:[iam.swift.createservicelinkedrole.handler.CreateServiceLinkedRole]
 }
 // snippet-end:[iam.swift.createservicelinkedrole.handler]

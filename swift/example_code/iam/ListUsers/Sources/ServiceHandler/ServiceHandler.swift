@@ -23,12 +23,12 @@ public class ServiceHandler {
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[iam.swift.listusers.handler.init]
-    public init() async {
+    public init() async throws {
         do {
-            client = try IAMClient(region: "us-east-1")
+            client = try await IAMClient()
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
-            exit(1)
+            throw error
         }
     }
     // snippet-end:[iam.swift.listusers.handler.init]
@@ -37,30 +37,33 @@ public class ServiceHandler {
     /// ``MyUserRecord`` structures.
     ///
     /// - Returns: An array of user records.
-    // snippet-start:[iam.swift.listusers.handler.listusers]
+    // snippet-start:[iam.swift.listusers.handler.ListUsers]
     public func listUsers() async throws -> [MyUserRecord] {
         var userList: [MyUserRecord] = []
-        var marker: String? = nil
-        var isTruncated: Bool
         
-        repeat {
-            let input = ListUsersInput(marker: marker)
-            let output = try await client.listUsers(input: input)
-            
-            guard let users = output.users else {
-                return userList
-            }
+        // Use "Paginated" to get all the users.
+        // This lets the SDK handle the 'isTruncated' in "ListUsersOutput".
+        let input = ListUsersInput()
+        let output = client.listUsersPaginated(input: input)
 
-            for user in users {
-                if let id = user.userId, let name = user.userName {
-                    userList.append(MyUserRecord(id: id, name: name))
+        do {
+            for try await page in output {
+                guard let users = page.users else {
+                    continue
+                }
+                for user in users {
+                    if let id = user.userId, let name = user.userName {
+                        userList.append(MyUserRecord(id: id, name: name))
+                    }
                 }
             }
-            marker = output.marker
-            isTruncated = output.isTruncated
-        } while isTruncated == true
-        return userList
+        }
+        catch {
+            print("ERROR: listUsers:", dump(error))
+            throw error
+        }
+       return userList
     }
-    // snippet-end:[iam.swift.listusers.handler.listusers]
+    // snippet-end:[iam.swift.listusers.handler.ListUsers]
 }
 // snippet-end:[iam.swift.listusers.handler]
