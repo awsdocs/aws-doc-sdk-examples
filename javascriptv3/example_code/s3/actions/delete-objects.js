@@ -54,7 +54,12 @@ export const main = async ({ bucketName, keys }) => {
 };
 // snippet-end:[s3.JavaScript.buckets.deletemultipleobjectsV3]
 
-// Call function if run directly
+/**
+  Call function if run directly.
+  
+  Example usage:
+  node delete-objects.js --bucketName amzn-s3-demo-bucket obj1.txt obj2.txt 
+ */
 import { fileURLToPath } from "url";
 import { parseArgs } from "util";
 
