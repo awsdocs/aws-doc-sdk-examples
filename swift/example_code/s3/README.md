@@ -44,9 +44,9 @@ Code excerpts that show you how to call individual service functions.
 - [CreateBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L56)
 - [DeleteBucket](basics/Sources/ServiceHandler/ServiceHandler.swift#L87)
 - [DeleteObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L257)
-- [DeleteObjects](DeleteObjects/Sources/ServiceHandler/ServiceHandler.swift#L54)
+- [DeleteObjects](DeleteObjects/Sources/ServiceHandler/ServiceHandler.swift#L59)
 - [GetObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L163)
-- [ListBuckets](ListBuckets/Sources/ListBuckets/S3Session.swift#L70)
+- [ListBuckets](ListBuckets/Sources/ListBuckets/S3Session.swift#L106)
 - [ListObjectsV2](basics/Sources/ServiceHandler/ServiceHandler.swift#L280)
 - [PutObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L107)
 

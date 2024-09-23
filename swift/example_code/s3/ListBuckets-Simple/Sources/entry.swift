@@ -7,9 +7,10 @@
 /// Amazon Simple Storage Service (Amazon S3) function `ListBuckets`.
 
 // snippet-start:[s3.swift.intro.imports]
-import Foundation
-import AWSS3
 import AWSClientRuntime
+import AWSS3
+import Foundation
+
 // snippet-end:[s3.swift.intro.imports]
 
 // snippet-start:[s3.swift.intro.getbucketnames]
@@ -17,29 +18,45 @@ import AWSClientRuntime
 //
 // - Returns: An array of strings listing the buckets.
 func getBucketNames() async throws -> [String] {
-    // Get an S3Client with which to access Amazon S3.
-    // snippet-start:[s3.swift.intro.client-init]
-    let client = try S3Client(region: "us-east-1")
-    // snippet-end:[s3.swift.intro.client-init]
+    do {
+        // Get an S3Client with which to access Amazon S3.
+        // snippet-start:[s3.swift.intro.client-init]
+        let configuration = try await S3Client.S3ClientConfiguration()
+        //   configuration.region = "us-east-2" // Uncomment this to set the region programmatically.
+        let client = S3Client(config: configuration)
+        // snippet-end:[s3.swift.intro.client-init]
 
-    // snippet-start:[s3.swift.intro.listbuckets]
-    let output = try await client.listBuckets(
-        input: ListBucketsInput()
-    )
-    // snippet-end:[s3.swift.intro.listbuckets]
-    
-    // Get the bucket names.
-    var bucketNames: [String] = []
+        // snippet-start:[s3.swift.intro.listbuckets]
+        // Use "Paginated" to get all the buckets.
+        // This lets the SDK handle the 'continuationToken' in "ListBucketsOutput".
+        let pages = client.listBucketsPaginated(
+            input: ListBucketsInput( maxBuckets: 10)
+        )
+        // snippet-end:[s3.swift.intro.listbuckets]
 
-    guard let buckets = output.buckets else {
-        return bucketNames
+        // Get the bucket names.
+        var bucketNames: [String] = []
+
+        do {
+            for try await page in pages {
+                guard let buckets = page.buckets else {
+                    print("Error: no buckets returned.")
+                    continue
+                }
+
+                for bucket in buckets {
+                    bucketNames.append(bucket.name ?? "<unknown>")
+                }
+            }
+
+            return bucketNames
+        } catch {
+            print("ERROR: listBuckets:", dump(error))
+            throw error
+        }
     }
-    for bucket in buckets {
-        bucketNames.append(bucket.name ?? "<unknown>")
-    }
-
-    return bucketNames
 }
+
 // snippet-end:[s3.swift.intro.getbucketnames]
 
 // snippet-start:[s3.swift.intro.main]
@@ -61,4 +78,5 @@ struct Main {
         }
     }
 }
+
 // snippet-end:[s3.swift.intro.main]
