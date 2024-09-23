@@ -35,9 +35,9 @@ Code excerpts that show you how to call individual service functions.
 
 - [DescribeAlarms](alarm_basics.rb#L8)
 - [DescribeAlarmsForMetric](show_alarms.rb#L8)
-- [DisableAlarmActions](alarm_actions.rb#L93)
-- [ListMetrics](metrics_basics.rb#L69)
-- [PutMetricAlarm](alarm_basics.rb#L30)
+- [DisableAlarmActions](alarm_actions.rb#L94)
+- [ListMetrics](metrics_basics.rb#L70)
+- [PutMetricAlarm](alarm_basics.rb#L31)
 - [PutMetricData](metrics_basics.rb#L8)
 
 

@@ -873,4 +873,3 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
-# snippet-end:[cloudwatch.cross-service.Ruby.displayReminder]
