@@ -15,10 +15,10 @@ begin
   queue_name = 'my-queue'
   queue_url = sqs.get_queue_url(queue_name: queue_name).queue_url
 
+  # Receive up to 10 messages
   receive_message_result_before = sqs.receive_message({
                                                         queue_url: queue_url,
-max_number_of_messages: 10 # Receive up to 10 messages,
-if there are that many.
+                                                        max_number_of_messages: 10
                                                       })
 
   puts "Before attempting to change message visibility timeout: received #{receive_message_result_before.messages.count} message(s)."
@@ -39,6 +39,6 @@ if there are that many.
 
   puts "\nAfter attempting to change message visibility timeout: received #{receive_message_result_after.messages.count} message(s)."
 rescue Aws::SQS::Errors::NonExistentQueue
-  puts "Cannot receive messages for a queue named '#{receive_queue_name}', as it does not exist."
+  puts "Cannot receive messages for a queue named '#{queue_name}', as it does not exist."
 end
 # snippet-end:[ruby.example_code.sqs.MessageVisibilityTimeout]

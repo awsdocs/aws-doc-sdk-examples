@@ -36,10 +36,8 @@ begin
 
   # Use a redrive policy to specify the dead letter queue and its behavior.
   redrive_policy = {
-'maxReceiveCount' => '5',
-# After the queue receives the same message 5 times,
-send that message to the dead letter queue.
-    'deadLetterTargetArn' => dead_letter_queue_arn
+    'maxReceiveCount' => '5', # After the queue receives the same message 5 times,
+    'deadLetterTargetArn' => dead_letter_queue_arn # send that message to the dead letter queue.
   }.to_json
 
   sqs.set_queue_attributes({
