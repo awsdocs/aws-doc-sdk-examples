@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 /*
 ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
@@ -18,10 +19,8 @@ node populate-table.js
 */
 // snippet-start:[lambda.JavaScript.general-examples-dynamodb-lambda.CreateTableV3]
 // Load the required Amazon DynamoDB client and commands.
-const {
-  BatchWriteItemCommand
-} = require("@aws-sdk/client-dynamodb");
-const {dynamoClient} = require ( "../libs/dynamoClient.js" );
+const { BatchWriteItemCommand } = require("@aws-sdk/client-dynamodb");
+const { dynamoClient } = require("../libs/dynamoClient.js");
 
 // Set the parameters.
 const params = {

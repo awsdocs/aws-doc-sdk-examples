@@ -1,5 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
+
 import type { Handler } from "src/types/handler.js";
 import { buildStatementCommand } from "../statement-commands/command-helper.js";
 
@@ -10,7 +12,7 @@ const putItemsArchiveHandler: Handler = {
       const { itemId } = req.params;
 
       const command = buildStatementCommand(
-        "update items\n" + "set archived = 1\n" + `where iditem = "${itemId}"`
+        "update items\n" + "set archived = 1\n" + `where iditem = "${itemId}"`,
       );
 
       await rdsDataClient.send(command);
