@@ -12,19 +12,19 @@ def lambda_handler(event:, context:)
   logger.info("event:\n #{event}\n")
   logger.info("context:\n #{context}\n")
 
-  rekognition_client = Aws::Comprehend::Client.new(region: event['region'])
+  comprehend_client = Aws::Comprehend::Client.new(region: event['region'])
 
   source_text = event['source_text']
 
   logger.info("payload:\n #{source_text}")
 
-  response = rekognition_client.detect_dominant_language({ text: source_text })
+  response = comprehend_client.detect_dominant_language({ text: source_text })
 
   language_code = response.languages[0].language_code
 
   logger.info("detected dominant language: #{language_code}")
 
-  response = rekognition_client.detect_sentiment({
+  response = comprehend_client.detect_sentiment({
                                                    text: source_text,
                                                    language_code:
                                                  })
