@@ -58,23 +58,23 @@ public class CloudWatchScenario {
     static CloudWatchActions cwActions = new CloudWatchActions();
 
     private static final Logger logger = LoggerFactory.getLogger(CloudWatchScenario.class);
+    static Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws Throwable {
 
-    public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
         final String usage = """
 
-                Usage:
-                  <myDate> <costDateWeek> <dashboardName> <dashboardJson> <dashboardAdd> <settings> <metricImage> \s
+            Usage:
+              <myDate> <costDateWeek> <dashboardName> <dashboardJson> <dashboardAdd> <settings> <metricImage> \s
 
-                Where:
-                  myDate - The start date to use to get metric statistics. (For example, 2023-01-11T18:35:24.00Z.)\s
-                  costDateWeek - The start date to use to get AWS/Billinget statistics. (For example, 2023-01-11T18:35:24.00Z.)\s
-                  dashboardName - The name of the dashboard to create.\s
-                  dashboardJson - The location of a JSON file to use to create a dashboard. (See Readme file.)\s
-                  dashboardAdd - The location of a JSON file to use to update a dashboard. (See Readme file.)\s
-                  settings - The location of a JSON file from which various values are read. (See Readme file.)\s
-                  metricImage - The location of a BMP file that is used to create a graph.\s
-                """;
+            Where:
+              myDate - The start date to use to get metric statistics. (For example, 2023-01-11T18:35:24.00Z.)\s
+              costDateWeek - The start date to use to get AWS/Billinget statistics. (For example, 2023-01-11T18:35:24.00Z.)\s
+              dashboardName - The name of the dashboard to create.\s
+              dashboardJson - The location of a JSON file to use to create a dashboard. (See jsonWidgets.json in Github.)\s
+              dashboardAdd - The location of a JSON file to use to update a dashboard. (See CloudDashboard.json in Github.)\s
+              settings - The location of a JSON file from which various values are read. (See settings.json in Github.)\s
+              metricImage - The location of a BMP file that is used to create a graph.\s
+            """;
 
         if (args.length != 7) {
             logger.info(usage);
@@ -87,9 +87,6 @@ public class CloudWatchScenario {
         String dashboardAdd = args[4];
         String settings = args[5];
         String metricImage = args[6];
-
-        Double dataPoint = Double.parseDouble("10.0");
-        Scanner sc = new Scanner(System.in);
 
         logger.info(DASHES);
         logger.info("Welcome to the Amazon CloudWatch Basics scenario.");
@@ -104,24 +101,33 @@ public class CloudWatchScenario {
             alarms and automatically respond to changes in your environment, 
             enabling you to quickly identify and address issues before they impact your 
             applications or services. 
-            
+                        
             With CloudWatch, you can gain visibility into your entire infrastructure, from the cloud 
             to the edge, and use this information to make informed decisions and optimize your 
             resource utilization.
-            
+                        
             This scenario guides you through how to perform Amazon CloudWatch tasks by using the 
             AWS SDK for Java v2. Let's get started...
             """);
         waitForInputToContinue(scanner);
-        logger.info(DASHES);
 
+        try {
+            runScenario(myDate, costDateWeek, dashboardName, dashboardJson, dashboardAdd, settings, metricImage);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+        logger.info(DASHES);
+    }
+
+    private static void runScenario(String myDate, String costDateWeek, String dashboardName, String dashboardJson, String dashboardAdd, String settings, String metricImage ) throws Throwable {
+        Double dataPoint = Double.parseDouble("10.0");
         logger.info(DASHES);
         logger.info("""
         1. List at least five available unique namespaces from Amazon CloudWatch. 
         Select one from the list.
         """);
-        String selectedNamespace = "";
-        String selectedMetrics = "";
+        String selectedNamespace;
+        String selectedMetrics;
         int num;
         try {
             CompletableFuture<ArrayList<String>> future = cwActions.listNameSpacesAsync();
@@ -131,7 +137,7 @@ public class CloudWatchScenario {
                 logger.info("    " + index + ". {}", list.get(z));
             }
 
-            num = Integer.parseInt(sc.nextLine());
+            num = Integer.parseInt(scanner.nextLine());
             if (1 <= num && num <= 5) {
                 selectedNamespace = list.get(num - 1);
             } else {
@@ -147,6 +153,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: " + rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -170,7 +177,7 @@ public class CloudWatchScenario {
                 int index = z + 1;
                 logger.info("    " + index + ". " + metList.get(z));
             }
-            num = Integer.parseInt(sc.nextLine());
+            num = Integer.parseInt(scanner.nextLine());
             if (1 <= num && num <= 5) {
                 selectedMetrics = metList.get(num - 1);
             } else {
@@ -186,6 +193,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
 
         try {
@@ -198,6 +206,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
 
         waitForInputToContinue(scanner);
@@ -223,7 +232,7 @@ public class CloudWatchScenario {
             logger.info("    " + (t + 1) + ". {}", statTypes.get(t));
         }
         logger.info("Select a metric statistic by entering a number from the preceding list:");
-        num = Integer.parseInt(sc.nextLine());
+        num = Integer.parseInt(scanner.nextLine());
         if (1 <= num && num <= 5) {
             metricOption = statTypes.get(num - 1);
         } else {
@@ -244,6 +253,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -263,7 +273,8 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
-        }
+             throw cause;
+         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -274,13 +285,14 @@ public class CloudWatchScenario {
             CompletableFuture<PutDashboardResponse> future = cwActions.createDashboardWithMetricsAsync(dashboardName, dashboardJson);
             future.join();
 
-        } catch (RuntimeException rt) {
+        } catch (RuntimeException | IOException rt) {
             Throwable cause = rt.getCause();
             if (cause instanceof CloudWatchException cwEx) {
                 logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -299,6 +311,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -321,6 +334,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -339,6 +353,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         logger.info(DASHES);
 
@@ -357,6 +372,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -375,6 +391,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -392,6 +409,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -410,6 +428,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -428,6 +447,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -446,6 +466,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         logger.info(DASHES);
 
@@ -473,6 +494,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -491,6 +513,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -508,6 +531,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         logger.info(DASHES);
 
@@ -527,6 +551,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
 
         try {
@@ -542,6 +567,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
 
         try {
@@ -557,6 +583,7 @@ public class CloudWatchScenario {
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
+            throw cause;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);

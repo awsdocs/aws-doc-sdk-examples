@@ -1026,7 +1026,7 @@ cloudwatch_PutMetricData:
   services:
     cloudwatch: {PutMetricData}
 cloudwatch_GetStartedMetricsDashboardsAlarms:
-  title: Learn core operations for &CW; using an &AWS;
+  title: Learn core operations for &CW; using an &AWS; SDK
   synopsis_list:
     - List &CW; namespaces and metrics.
     - Get statistics for a metric and for estimated billing.
