@@ -38,31 +38,31 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](src/main/java/com/example/cloudwatch/CloudWatchScenario.java)
+- [Learn the basics](src/main/java/com/example/cloudwatch/scenario/CloudWatchScenario.java)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [DeleteAlarms](src/main/java/com/example/cloudwatch/DeleteAlarm.java#L6)
-- [DeleteAnomalyDetector](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L299)
-- [DeleteDashboards](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L347)
-- [DescribeAlarmHistory](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L460)
-- [DescribeAlarms](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L635)
-- [DescribeAlarmsForMetric](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L495)
-- [DescribeAnomalyDetectors](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L403)
+- [DeleteAlarms](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L148)
+- [DeleteAnomalyDetector](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L106)
+- [DeleteDashboards](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L173)
+- [DescribeAlarmHistory](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L348)
+- [DescribeAlarms](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L618)
+- [DescribeAlarmsForMetric](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L400)
+- [DescribeAnomalyDetectors](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L254)
 - [DisableAlarmActions](src/main/java/com/example/cloudwatch/DisableAlarmActions.java#L6)
 - [EnableAlarmActions](src/main/java/com/example/cloudwatch/EnableAlarmActions.java#L6)
-- [GetMetricData](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L576)
-- [GetMetricStatistics](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L843)
-- [GetMetricWidgetImage](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L363)
-- [ListDashboards](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L755)
-- [ListMetrics](src/main/java/com/example/cloudwatch/ListMetrics.java#L6)
-- [PutAnomalyDetector](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L431)
-- [PutDashboard](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L773)
-- [PutMetricAlarm](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L659)
-- [PutMetricData](src/main/java/com/example/cloudwatch/CloudWatchScenario.java#L530)
+- [GetMetricData](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L540)
+- [GetMetricStatistics](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L895)
+- [GetMetricWidgetImage](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L197)
+- [ListDashboards](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L785)
+- [ListMetrics](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L936)
+- [PutAnomalyDetector](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L302)
+- [PutDashboard](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L807)
+- [PutMetricAlarm](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L652)
+- [PutMetricData](src/main/java/com/example/cloudwatch/scenario/CloudWatchActions.java#L467)
 
 
 <!--custom.examples.start-->
