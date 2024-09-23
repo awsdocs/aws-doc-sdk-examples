@@ -7,8 +7,8 @@ import {
   PutObjectCommand,
   CreateBucketCommand,
   PutObjectRetentionCommand,
-  GetObjectRetentionCommand,
 } from "@aws-sdk/client-s3";
+
 import { getUniqueName } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 import { main as getObjectRetention } from "../actions/get-object-retention.js";
 import { legallyEmptyAndDeleteBuckets } from "../libs/s3Utils.js";
@@ -24,7 +24,9 @@ describe("get-object-retention.js Integration Test", () => {
   });
 
   it("should get the object retention settings of an object", async () => {
-    // Setup
+    const retainUntilDate = new Date(
+      new Date().getTime() + 24 * 60 * 60 * 1000,
+    );
     await client.send(
       new CreateBucketCommand({
         Bucket: bucketName,
@@ -44,21 +46,15 @@ describe("get-object-retention.js Integration Test", () => {
         Key: objectKey,
         Retention: {
           Mode: "GOVERNANCE",
-          RetainUntilDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+          RetainUntilDate: retainUntilDate,
         },
       }),
     );
 
-    // Execute
-    const spy = vi.spyOn(console, "error");
-    await getObjectRetention(client, bucketName, objectKey);
-    expect(spy).not.toHaveBeenCalled();
-
-    // Verify
-    const { Retention } = await client.send(
-      new GetObjectRetentionCommand({ Bucket: bucketName, Key: objectKey }),
+    const spy = vi.spyOn(console, "log");
+    await getObjectRetention({ bucketName, key: objectKey });
+    expect(spy).toHaveBeenCalledWith(
+      `${objectKey} in ${bucketName} will be retained until ${retainUntilDate}`,
     );
-    expect(Retention.Mode).toBe("GOVERNANCE");
-    expect(Retention.RetainUntilDate).toBeDefined();
   });
 });
