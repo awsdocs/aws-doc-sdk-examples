@@ -29,6 +29,7 @@
 
 # The run_me function toward the end of this code example calls the
 # functions in the correct order.
+
 # snippet-start:[cloudwatch.cross-service.Ruby.require]
 require 'aws-sdk-sns'
 require 'aws-sdk-iam'
@@ -38,6 +39,7 @@ require 'aws-sdk-cloudwatch'
 require 'aws-sdk-cloudwatchlogs'
 require 'securerandom'
 # snippet-end:[cloudwatch.cross-service.Ruby.require]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.sns]
 # Checks whether the specified Amazon SNS
 # topic exists among those provided to this function.
@@ -55,15 +57,14 @@ require 'securerandom'
 #   )
 #     puts 'Topic found.'
 #   end
-
 def topic_found?(topics, topic_arn)
   topics.each do |topic|
     return true if topic.topic_arn == topic_arn
   end
   false
 end
-
 # snippet-end:[cloudwatch.cross-service.Ruby.sns]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.snstopic]
 # Checks whether the specified topic exists among those available to the
 # caller in Amazon SNS.
@@ -100,8 +101,8 @@ rescue StandardError => e
   puts "Topic not found: #{e.message}"
   false
 end
-
 # snippet-end:[cloudwatch.cross-service.Ruby.snstopic]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.createSnsTopic]
 # Creates a topic in Amazon SNS
 # and then subscribes an email address to receive notifications to that topic.
@@ -135,8 +136,8 @@ rescue StandardError => e
   puts "Error creating or subscribing to topic: #{e.message}"
   'Error'
 end
-
 # snippet-end:[cloudwatch.cross-service.Ruby.createSnsTopic]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.IamRole]
 # Checks whether the specified AWS Identity and Access Management (IAM)
 # role exists among those provided to this function.
@@ -160,8 +161,8 @@ def role_found?(roles, role_arn)
   end
   false
 end
-
 # snippet-end:[cloudwatch.cross-service.Ruby.IamRole]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.checkIamRole]
 # Checks whether the specified role exists among those available to the
 # caller in AWS Identity and Access Management (IAM).
@@ -198,8 +199,8 @@ rescue StandardError => e
   puts "Role not found: #{e.message}"
   false
 end
-
 # snippet-end:[cloudwatch.cross-service.Ruby.checkIamRole]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.createIamRole]
 # Creates a role in AWS Identity and Access Management (IAM).
 # This role is used by a rule in Amazon EventBridge to allow
@@ -264,8 +265,8 @@ rescue StandardError => e
     'to the role yourself, or delete the role yourself and try again.'
   'Error'
 end
-
 # snippet-end:[cloudwatch.cross-service.Ruby.createIamRole]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.checkRuleExists]
 # Checks whether the specified Amazon EventBridge rule exists among
 # those provided to this function.
@@ -286,8 +287,8 @@ def rule_found?(rules, rule_name)
   end
   false
 end
-
 # snippet-end:[cloudwatch.cross-service.Ruby.checkRuleExists]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.checkRuleAvailable]
 # Checks whether the specified rule exists among those available to the
 # caller in Amazon EventBridge.
@@ -325,8 +326,8 @@ rescue StandardError => e
   puts "Rule not found: #{e.message}"
   false
 end
-
 # snippet-end:[cloudwatch.cross-service.Ruby.checkRuleAvailable]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.createRule]
 # Creates a rule in Amazon EventBridge.
 # This rule is triggered whenever an available instance in
@@ -416,8 +417,8 @@ rescue StandardError => e
     'to the rule yourself, or delete the rule yourself and try again.'
   false
 end
-
 # snippet-end:[cloudwatch.cross-service.Ruby.createRule]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.checkLogGroup]
 # Checks to see whether the specified log group exists among those available
 # to the caller in Amazon CloudWatch Logs.
@@ -450,8 +451,8 @@ rescue StandardError => e
   puts "Log group not found: #{e.message}"
   false
 end
-
 # snippet-end:[cloudwatch.cross-service.Ruby.checkLogGroup]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.createLogGroup]
 # Creates a log group in Amazon CloudWatch Logs.
 #
@@ -473,8 +474,8 @@ rescue StandardError => e
   puts "Error creating log group: #{e.message}"
   false
 end
-
 # snippet-end:[cloudwatch.cross-service.Ruby.createLogGroup]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.writeEvent]
 # Writes an event to a log stream in Amazon CloudWatch Logs.
 #
@@ -531,8 +532,8 @@ rescue StandardError => e
   puts "Message not logged: #{e.message}"
 end
 # snippet-end:[cloudwatch.cross-service.Ruby.writeEvent]
-# snippet-start:[cloudwatch.cross-service.Ruby.restartInstance]
 
+# snippet-start:[cloudwatch.cross-service.Ruby.restartInstance]
 # Restarts an Amazon EC2 instance
 # and adds information about the related activity to a log stream
 # in Amazon CloudWatch Logs.
@@ -609,8 +610,8 @@ rescue StandardError => e
   )
   false
 end
-
 # snippet-end:[cloudwatch.cross-service.Ruby.restartInstance]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.displayInfo]
 # Displays information about activity for a rule in Amazon EventBridge.
 #
@@ -670,8 +671,8 @@ def display_rule_activity(
 rescue StandardError => e
   puts "Error getting information about event rule activity: #{e.message}"
 end
-
 # snippet-end:[cloudwatch.cross-service.Ruby.displayInfo]
+
 # snippet-start:[cloudwatch.cross-service.Ruby.displayLogInfo]
 # Displays log information for all of the log streams in a log group in
 # Amazon CloudWatch Logs.
@@ -720,8 +721,8 @@ rescue StandardError => e
     "#{e.message}"
 end
 # snippet-end:[cloudwatch.cross-service.Ruby.displayLogInfo]
-# snippet-start:[cloudwatch.cross-service.Ruby.displayReminder]
 
+# snippet-start:[cloudwatch.cross-service.Ruby.displayReminder]
 # Displays a reminder to the caller to manually clean up any associated
 # AWS resources that they no longer need.
 #
@@ -752,6 +753,7 @@ def manual_cleanup_notice(
   puts "- The Amazon CloudWatch Logs log group named '#{log_group_name}'."
   puts "- The Amazon EC2 instance with the ID '#{instance_id}'."
 end
+# snippet-end:[cloudwatch.cross-service.Ruby.displayReminder]
 
 # Example usage:
 def run_me

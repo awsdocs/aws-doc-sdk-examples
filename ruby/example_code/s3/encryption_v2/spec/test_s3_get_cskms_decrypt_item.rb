@@ -42,9 +42,7 @@ describe '#get_decrypted_object_content' do
         if opts[:any_kms_key]
           expect(context.params['key_id']).to be_nil
         else
-          if opts[:raise] && context.params['key_id'] != opts[:response][:key_id]
-            raise Aws::KMS::Errors::IncorrectKeyException.new(context, '')
-          end
+          raise Aws::KMS::Errors::IncorrectKeyException.new(context, '') if opts[:raise] && context.params['key_id'] != opts[:response][:key_id]
 
           expect(context.params[:key_id]).to eq(opts[:response][:key_id])
 

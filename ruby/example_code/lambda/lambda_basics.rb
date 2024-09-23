@@ -11,16 +11,15 @@ require 'logger'
 require 'json'
 require 'zip'
 
-$cloudwatch_client = Aws::CloudWatchLogs::Client.new(region: 'us-east-1')
-$iam_client = Aws::IAM::Client.new(region: 'us-east-1')
-
 # snippet-start:[ruby.example_code.ruby.LambdaWrapper.full]
 # snippet-start:[ruby.example_code.ruby.LambdaWrapper.decl]
 class LambdaWrapper
-  attr_accessor :lambda_client
+  attr_accessor :lambda_client, :cloudwatch_client, :iam_client
 
   def initialize
     @lambda_client = Aws::Lambda::Client.new
+    @cloudwatch_client = Aws::CloudWatchLogs::Client.new(region: 'us-east-1')
+    @iam_client = Aws::IAM::Client.new(region: 'us-east-1')
     @logger = Logger.new($stdout)
     @logger.level = Logger::WARN
   end
@@ -33,60 +32,66 @@ class LambdaWrapper
   # @param action: Whether to create or destroy the IAM apparatus.
   # @return: The IAM role.
   def manage_iam(iam_role_name, action)
+    case action
+    when 'create'
+      create_iam_role(iam_role_name)
+    when 'destroy'
+      destroy_iam_role(iam_role_name)
+    else
+      raise "Incorrect action provided. Must provide 'create' or 'destroy'"
+    end
+  end
+
+  private
+
+  def create_iam_role(iam_role_name)
     role_policy = {
       'Version': '2012-10-17',
       'Statement': [
         {
           'Effect': 'Allow',
-          'Principal': {
-            'Service': 'lambda.amazonaws.com'
-          },
+          'Principal': { 'Service': 'lambda.amazonaws.com' },
           'Action': 'sts:AssumeRole'
         }
       ]
     }
-    case action
-    when 'create'
-      role = $iam_client.create_role(
-        role_name: iam_role_name,
-        assume_role_policy_document: role_policy.to_json
-      )
-      $iam_client.attach_role_policy(
-        {
-          policy_arn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
-          role_name: iam_role_name
-        }
-      )
-      $iam_client.wait_until(:role_exists, { role_name: iam_role_name }) do |w|
-        w.max_attempts = 5
-        w.delay = 5
-      end
-      @logger.debug("Successfully created IAM role: #{role['role']['arn']}")
-      @logger.debug('Enforcing a 10-second sleep to allow IAM role to activate fully.')
-      sleep(10)
-      [role, role_policy.to_json]
-    when 'destroy'
-      $iam_client.detach_role_policy(
-        {
-          policy_arn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
-          role_name: iam_role_name
-        }
-      )
-      $iam_client.delete_role(
+    role = @iam_client.create_role(
+      role_name: iam_role_name,
+      assume_role_policy_document: role_policy.to_json
+    )
+    @iam_client.attach_role_policy(
+      {
+        policy_arn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
         role_name: iam_role_name
-      )
-      @logger.debug("Detached policy & deleted IAM role: #{iam_role_name}")
-    else
-      raise "Incorrect action provided. Must provide 'create' or 'destroy'"
+      }
+    )
+    wait_for_role_to_exist(iam_role_name)
+    @logger.debug("Successfully created IAM role: #{role['role']['arn']}")
+    sleep(10)
+    [role, role_policy.to_json]
+  end
+
+  def destroy_iam_role(iam_role_name)
+    @iam_client.detach_role_policy(
+      {
+        policy_arn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
+        role_name: iam_role_name
+      }
+    )
+    @iam_client.delete_role(role_name: iam_role_name)
+    @logger.debug("Detached policy & deleted IAM role: #{iam_role_name}")
+  end
+
+  def wait_for_role_to_exist(iam_role_name)
+    @iam_client.wait_until(:role_exists, { role_name: iam_role_name }) do |w|
+      w.max_attempts = 5
+      w.delay = 5
     end
-  rescue Aws::Lambda::Errors::ServiceException => e
-    @logger.error("There was an error creating role or attaching policy:\n #{e.message}")
   end
   # snippet-end:[ruby.example_code.lambda.setup_iam]
 
   # snippet-start:[ruby.example_code.lambda.create_deployment_package]
   # Creates a Lambda deployment package in .zip format.
-  # This zip can be passed directly as a string to Lambda when creating the function.
   #
   # @param source_file: The name of the object, without suffix, for the Lambda file and zip.
   # @return: The deployment package.
@@ -127,11 +132,9 @@ class LambdaWrapper
   # Deploys a Lambda function.
   #
   # @param function_name: The name of the Lambda function.
-  # @param handler_name: The fully qualified name of the handler function. This
-  #                      must include the file name and the function name.
+  # @param handler_name: The fully qualified name of the handler function.
   # @param role_arn: The IAM role to use for the function.
-  # @param deployment_package: The deployment package that contains the function
-  #                            code in .zip format.
+  # @param deployment_package: The deployment package that contains the function code in .zip format.
   # @return: The Amazon Resource Name (ARN) of the newly created function.
   def create_function(function_name, handler_name, role_arn, deployment_package)
     response = @lambda_client.create_function({
@@ -174,6 +177,7 @@ class LambdaWrapper
   end
   # snippet-end:[ruby.example_code.lambda.Invoke]
 
+  # snippet-start:[ruby.example_code.lambda.GetLogs]
   # Get function logs from the latest Amazon CloudWatch log stream.
   # @param function_name [String] The name of the function.
   # @param string_match [String] A string to look for in the logs.
@@ -181,16 +185,16 @@ class LambdaWrapper
   def get_cloudwatch_logs(function_name, string_match)
     @logger.debug('Enforcing a 10 second sleep to allow CloudWatch logs to appear.')
     sleep(10)
-    streams = $cloudwatch_client.describe_log_streams({ log_group_name: "/aws/lambda/#{function_name}" })
-    streams['log_streams'].each do |x|
-      resp = $cloudwatch_client.get_log_events({
+    streams = @cloudwatch_client.describe_log_streams({ log_group_name: "/aws/lambda/#{function_name}" })
+    streams['log_streams'].each do |log_stream|
+      resp = @cloudwatch_client.get_log_events({
                                                  log_group_name: "/aws/lambda/#{function_name}",
-                                                 log_stream_name: x['log_stream_name']
+                                                 log_stream_name: log_stream['log_stream_name']
                                                })
-      resp.events.each do |x|
-        next unless "/#{x.message}/".match(string_match)
+      resp.events.each do |event|
+        next unless "/#{event.message}/".match(string_match)
 
-        msg = x.message.split(' -- : ')[1].green
+        msg = event.message.split(' -- : ')[1].green
         puts "CloudWatch log stream: #{msg}"
         return msg
       end
@@ -198,6 +202,7 @@ class LambdaWrapper
   rescue Aws::Lambda::Errors::ServiceException => e
     @logger.error("There was an error fetching CloudWatch logs:\n #{e.message}")
   end
+  # snippet-end:[ruby.example_code.lambda.GetLogs]
 
   def invoke_and_verify(function_name, log_statement, payload = nil)
     response = invoke_function(function_name, payload)
@@ -236,7 +241,7 @@ class LambdaWrapper
   # snippet-start:[ruby.example_code.lambda.UpdateFunctionCode]
   # Updates the code for a Lambda function by submitting a .zip archive that contains
   # the code for the function.
-
+  #
   # @param function_name: The name of the function to update.
   # @param deployment_package: The function code to update, packaged as bytes in
   #                            .zip format.
@@ -269,7 +274,7 @@ class LambdaWrapper
     end
     functions
   rescue Aws::Lambda::Errors::ServiceException => e
-    @logger.error("There was an error executing #{function_name}:\n #{e.message}")
+    @logger.error("There was an error listing functions:\n #{e.message}")
   end
   # snippet-end:[ruby.example_code.lambda.ListFunctions]
 
@@ -286,5 +291,5 @@ class LambdaWrapper
     @logger.error("There was an error deleting #{function_name}:\n #{e.message}")
   end
   # snippet-end:[ruby.example_code.lambda.DeleteFunction]
-  # snippet-end:[ruby.example_code.ruby.LambdaWrapper.full]
 end
+# snippet-end:[ruby.example_code.ruby.LambdaWrapper.full]

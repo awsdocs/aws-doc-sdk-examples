@@ -25,11 +25,7 @@ resp.secret_list.each do |s|
 
   resp = sm.get_secret_value(secret_id: s.name)
 
-  if resp.secret_string
-    puts "    #{resp.secret_string}"
-  else
-    # do something with resp.secret_binary
-  end
+  puts "    #{resp.secret_string}" if resp.secret_string
 
   puts
 end

@@ -102,9 +102,7 @@ if __FILE__ == $PROGRAM_NAME
   puts keys_after.any? ? keys_after.join("\n") : 'No keys'
 
   # Optionally deactivate and delete the new access key
-  if new_key && manager.deactivate_access_key(user_name, new_key.access_key_id)
-    puts "Key #{new_key.access_key_id} deactivated."
-  end
+  puts "Key #{new_key.access_key_id} deactivated." if new_key && manager.deactivate_access_key(user_name, new_key.access_key_id)
 
   puts "Key #{new_key.access_key_id} deleted." if new_key && manager.delete_access_key(user_name, new_key.access_key_id)
 

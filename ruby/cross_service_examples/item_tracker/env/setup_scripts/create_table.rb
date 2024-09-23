@@ -70,9 +70,7 @@ if __FILE__ == $PROGRAM_NAME
   # Checks for a database cluster & creates a table if none exists.
   begin
     setup = SetupDatabase.new
-    unless setup.database_exists?
-      raise 'No DB cluster exists! Please run CDK script found in resources/cdk/aurora_serverless_app.'
-    end
+    raise 'No DB cluster exists! Please run CDK script found in resources/cdk/aurora_serverless_app.' unless setup.database_exists?
 
     setup.create_table unless setup.table_exists?
   rescue StandardError => e

@@ -17,9 +17,7 @@ class AdminPrivilegeManager
   # Checks if the specified IAM entity (user or group) has admin privileges
   def admin_privileges?(entity)
     entity_policies = @iam.list_attached_user_policies(user_name: entity.user_name) if entity.respond_to?(:user_name)
-    if entity.respond_to?(:group_name)
-      entity_policies ||= @iam.list_attached_group_policies(group_name: entity.group_name)
-    end
+    entity_policies ||= @iam.list_attached_group_policies(group_name: entity.group_name) if entity.respond_to?(:group_name)
 
     entity_policies.attached_policies.any? { |p| p.policy_name == ADMIN_ACCESS_POLICY_NAME }
   rescue Aws::IAM::Errors::ServiceError => e
