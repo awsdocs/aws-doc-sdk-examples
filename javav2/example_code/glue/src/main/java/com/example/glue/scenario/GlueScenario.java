@@ -413,7 +413,6 @@ public class GlueScenario {
     // snippet-end:[glue.java2.get_crawler.main]
 
     // snippet-start:[glue.java2.start_crawler.main]
-
     /**
      * Starts a specific AWS Glue crawler.
      *

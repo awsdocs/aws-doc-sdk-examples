@@ -31,23 +31,26 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Lambda](src/main/java/com/example/lambda/ListLambdaFunctions.java#L4) (`ListFunctions`)
+- [Hello Lambda](src/main/java/com/example/lambda/scenario/LambdaScenario.java#L220) (`ListFunctions`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Get started with functions](src/main/java/com/example/lambda/scenario/LambdaScenario.java)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateFunction](src/main/java/com/example/lambda/CreateFunction.java#L6)
-- [DeleteFunction](src/main/java/com/example/lambda/DeleteFunction.java#L7)
-- [Invoke](src/main/java/com/example/lambda/LambdaInvoke.java#L7)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with functions](src/main/java/com/example/lambda/LambdaScenario.java)
+- [CreateFunction](src/main/java/com/example/lambda/scenario/LambdaScenario.java#L144)
+- [DeleteFunction](src/main/java/com/example/lambda/scenario/LambdaScenario.java#L339)
+- [GetFunction](src/main/java/com/example/lambda/scenario/LambdaScenario.java#L197)
+- [Invoke](src/main/java/com/example/lambda/scenario/LambdaScenario.java#L243)
+- [UpdateFunctionCode](src/main/java/com/example/lambda/scenario/LambdaScenario.java#L197)
+- [UpdateFunctionConfiguration](src/main/java/com/example/lambda/scenario/LambdaScenario.java#L312)
 
 
 <!--custom.examples.start-->
@@ -66,7 +69,6 @@ functions within the same service.
 This example shows you how to get started using Lambda.
 
 
-
 #### Get started with functions
 
 This example shows you how to do the following:
@@ -77,12 +79,13 @@ This example shows you how to do the following:
 - Invoke the function with new parameters and get results. Display the returned execution log.
 - List the functions for your account, then clean up resources.
 
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
 
 
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
+
 
 ### Tests
 

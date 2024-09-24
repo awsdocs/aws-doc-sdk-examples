@@ -10,6 +10,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
+
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
@@ -45,9 +46,9 @@ public class GlueTest {
     @BeforeAll
     public static void setUp() {
         glueClient = GlueClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -124,7 +125,7 @@ public class GlueTest {
             System.out.println("*** Wait 5 min for the tables to become available");
             TimeUnit.MINUTES.sleep(5);
             System.out.println("6. Get tables.");
-            String myTableName = GlueScenario.getGlueTables(glueClient, dbNameSc);
+            GlueScenario.getGlueTables(glueClient, dbNameSc);
         });
     }
 
@@ -136,7 +137,6 @@ public class GlueTest {
             GlueScenario.createJob(glueClient, jobNameSc, IAM, scriptLocationSc);
         });
     }
-
 
     @Test
     @Tag("IntegrationTest")
@@ -198,14 +198,14 @@ public class GlueTest {
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
         String secretName = "test/glue";
 
         GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
-                .secretId(secretName)
-                .build();
+            .secretId(secretName)
+            .build();
 
         GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
         return valueResponse.secretString();

@@ -100,16 +100,16 @@ public class IAMScenario {
                 bucketName - The name of the Amazon S3 bucket from which objects are read.\s
             """;
 
-        //    if (args.length != 5) {
-        //        System.out.println(usage);
-        //        System.exit(1);
-        //    }
+        if (args.length != 5) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String userName = "User2000"; //args[0];
-        String policyName = "DynamoDBTest2000"; //args[1];
-        String roleName = "DynamoDBAutoscaleRole2000"; //args[2];
-        String roleSessionName = "lamsession2000"; //args[3];
-        String bucketName = "bucketmay995"; //args[4];
+        String userName = args[0];
+        String policyName = args[1];
+        String roleName = args[2];
+        String roleSessionName = args[3];
+        String bucketName = args[4];
 
         Region region = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
@@ -237,9 +237,9 @@ public class IAMScenario {
     /**
      * Creates an IAM role with the specified role name and assume role policy document.
      *
-     * @param iam        the IAM client to use for creating the role
-     * @param rolename   the name of the role to create
-     * @param json       the JSON-formatted assume role policy document
+     * @param iam      the IAM client to use for creating the role
+     * @param rolename the name of the role to create
+     * @param json     the JSON-formatted assume role policy document
      * @return the Amazon Resource Name (ARN) of the created role
      * @throws IamException if an error occurs while creating the role
      */
@@ -332,14 +332,15 @@ public class IAMScenario {
     }
 
     // snippet-start:[iam.java2.scenario.assumeRole]
+
     /**
      * Assumes a specific IAM role and uses the temporary credentials to list objects in an Amazon S3 bucket.
      *
-     * @param roleArn          The Amazon Resource Name (ARN) of the IAM role to assume.
-     * @param roleSessionName  A name that identifies the session.
-     * @param bucketName       The name of the Amazon S3 bucket.
-     * @param keyVal           The access key ID of the IAM user that has permissions to assume the role.
-     * @param keySecret        The secret access key of the IAM user that has permissions to assume the role.
+     * @param roleArn         The Amazon Resource Name (ARN) of the IAM role to assume.
+     * @param roleSessionName A name that identifies the session.
+     * @param bucketName      The name of the Amazon S3 bucket.
+     * @param keyVal          The access key ID of the IAM user that has permissions to assume the role.
+     * @param keySecret       The secret access key of the IAM user that has permissions to assume the role.
      */
     public static void assumeRole(String roleArn, String roleSessionName, String bucketName, String keyVal,
                                   String keySecret) {
@@ -391,13 +392,13 @@ public class IAMScenario {
     }
 
     // snippet-end:[iam.java2.scenario.assumeRole]
+
     /**
      * Deletes an IAM role and its associated IAM policy.
      *
-     * @param iam       The IAM client to use for the operations.
-     * @param roleName  The name of the IAM role to delete.
-     * @param polArn    The Amazon Resource Name (ARN) of the IAM policy to delete.
-     *
+     * @param iam      The IAM client to use for the operations.
+     * @param roleName The name of the IAM role to delete.
+     * @param polArn   The Amazon Resource Name (ARN) of the IAM policy to delete.
      * @throws IamException If an error occurs while performing the IAM operations.
      */
     public static void deleteRole(IamClient iam, String roleName, String polArn) {
@@ -436,10 +437,9 @@ public class IAMScenario {
     /**
      * Deletes an IAM access key for the specified user.
      *
-     * @param iam        The {@link IamClient} object used to interact with the AWS IAM service.
-     * @param username   The username of the IAM user whose access key should be deleted.
-     * @param accessKey  The ID of the access key to be deleted.
-     *
+     * @param iam       The {@link IamClient} object used to interact with the AWS IAM service.
+     * @param username  The username of the IAM user whose access key should be deleted.
+     * @param accessKey The ID of the access key to be deleted.
      * @throws IamException If an error occurs while deleting the access key.
      */
     public static void deleteKey(IamClient iam, String username, String accessKey) {
@@ -462,9 +462,8 @@ public class IAMScenario {
     /**
      * Deletes an IAM user.
      *
-     * @param iam       An {@link IamClient} object, which represents the AWS Identity and Access Management (IAM) client.
-     * @param userName  The name of the IAM user to be deleted.
-     *
+     * @param iam      An {@link IamClient} object, which represents the AWS Identity and Access Management (IAM) client.
+     * @param userName The name of the IAM user to be deleted.
      * @throws IamException If an error occurs while deleting the IAM user.
      */
     public static void deleteIAMUser(IamClient iam, String userName) {

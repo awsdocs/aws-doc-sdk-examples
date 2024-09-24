@@ -38,18 +38,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](src/main/java/com/example/glue/GlueScenario.java)
+- [Learn the basics](src/main/java/com/example/glue/scenario/GlueScenario.java)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateCrawler](src/main/java/com/example/glue/CreateCrawler.java#L6)
-- [GetCrawler](src/main/java/com/example/glue/GetCrawler.java#L6)
-- [GetDatabase](src/main/java/com/example/glue/GetDatabase.java#L6)
-- [GetTables](src/main/java/com/example/glue/GetTable.java#L6)
-- [StartCrawler](src/main/java/com/example/glue/StartCrawler.java#L6)
+- [CreateCrawler](src/main/java/com/example/glue/scenario/GlueScenario.java#L335)
+- [GetCrawler](src/main/java/com/example/glue/scenario/GlueScenario.java#L383)
+- [GetDatabase](src/main/java/com/example/glue/scenario/GlueScenario.java#L438)
+- [GetTables](src/main/java/com/example/glue/scenario/GlueScenario.java#L470)
+- [StartCrawler](src/main/java/com/example/glue/scenario/GlueScenario.java#L415)
 
 
 <!--custom.examples.start-->
