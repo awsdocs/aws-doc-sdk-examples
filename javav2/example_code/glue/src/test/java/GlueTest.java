@@ -94,7 +94,6 @@ public class GlueTest {
     }
 
     private static String getSecretValues() {
-        // Get the Amazon RDS creds from Secrets Manager.
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
                 .region(Region.US_EAST_1)
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())

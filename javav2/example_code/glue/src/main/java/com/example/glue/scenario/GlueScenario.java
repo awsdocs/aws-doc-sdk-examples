@@ -431,7 +431,7 @@ public class GlueScenario {
         }
         return myTableName;
     }
-    // snippet-start:[glue.java2.get_tables.main]
+    // snippet-end:[glue.java2.get_tables.main]
 
     // snippet-start:[glue.java2.start.job.main]
     /**
