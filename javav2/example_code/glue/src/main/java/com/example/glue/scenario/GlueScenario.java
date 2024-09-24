@@ -102,20 +102,20 @@ public class GlueScenario {
                 bucketNameSc - The Amazon S3 bucket name used when creating a job
                 """;
 
-        // if (args.length != 9) {
-        //     System.out.println(usage);
-        //     return;
-        // }
+        if (args.length != 9) {
+            System.out.println(usage);
+            return;
+        }
         Scanner scanner = new Scanner(System.in);
-        String iam = "arn:aws:iam::814548047983:role/AWSGlueServiceRoleDefault"; //args[0];
-        String s3Path = "s3://glue-demo-scott/read"; //args[1];
-        String cron = "cron(15 12 * * ? *)"; //args[2];
-        String dbName = "glue-db2"; //args[3];
-        String crawlerName = "crawl2019"; //args[4];
-        String jobName = "glue-job61"; //args[5];
-        String scriptLocation = "s3://aws-glue-scripts-814548047983-us-east-1/PowerUserScott/flight_etl_job_script.py"; //args[6];
-        String locationUri = "s3://crawler-public-us-east-1/flight/2016/csv/"; //args[7];
-        String bucketNameSc = "glue-demo-scott"; //args[8];
+        String iam = args[0];
+        String s3Path = args[1];
+        String cron = args[2];
+        String dbName = args[3];
+        String crawlerName = args[4];
+        String jobName = args[5];
+        String scriptLocation = args[6];
+        String locationUri = args[7];
+        String bucketNameSc = args[8];
 
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
