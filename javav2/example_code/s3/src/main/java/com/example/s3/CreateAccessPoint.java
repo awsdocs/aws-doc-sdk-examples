@@ -5,6 +5,7 @@ package com.example.s3;
 
 // snippet-start:[s3.java2.create_access_point.main]
 // snippet-start:[s3.java2.create_access_point.import]
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
 import software.amazon.awssdk.services.s3control.model.CreateAccessPointRequest;
@@ -15,9 +16,9 @@ import software.amazon.awssdk.services.s3control.model.DeleteAccessPointRequest;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
@@ -25,14 +26,14 @@ public class CreateAccessPoint {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:
-                    <accountId> <bucketName> <accessPointName>
+            Usage:
+                <accountId> <bucketName> <accessPointName>
 
-                Where:
-                    accountId - The account id that owns the Amazon S3 bucket.\s
-                    bucketName - The Amazon S3 bucket name.\s
-                    accessPointName - The access point name (for example, myaccesspoint).\s
-                """;
+            Where:
+                accountId - The account id that owns the Amazon S3 bucket.\s
+                bucketName - The Amazon S3 bucket name.\s
+                accessPointName - The access point name (for example, myaccesspoint).\s
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -44,8 +45,8 @@ public class CreateAccessPoint {
         String accessPointName = args[2];
         Region region = Region.US_EAST_1;
         S3ControlClient s3ControlClient = S3ControlClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         createSpecificAccessPoint(s3ControlClient, accountId, bucketName, accessPointName);
         deleteSpecificAccessPoint(s3ControlClient, accountId, accessPointName);
@@ -54,13 +55,13 @@ public class CreateAccessPoint {
 
     // This method creates an access point for the given Amazon S3 bucket.
     public static void createSpecificAccessPoint(S3ControlClient s3ControlClient, String accountId, String bucketName,
-            String accessPointName) {
+                                                 String accessPointName) {
         try {
             CreateAccessPointRequest accessPointRequest = CreateAccessPointRequest.builder()
-                    .accountId(accountId)
-                    .bucket(bucketName)
-                    .name(accessPointName)
-                    .build();
+                .accountId(accountId)
+                .bucket(bucketName)
+                .name(accessPointName)
+                .build();
 
             s3ControlClient.createAccessPoint(accessPointRequest);
             System.out.println("The access point was created");
@@ -72,12 +73,12 @@ public class CreateAccessPoint {
     }
 
     public static void deleteSpecificAccessPoint(S3ControlClient s3ControlClient, String accountId,
-            String accessPointName) {
+                                                 String accessPointName) {
         try {
             DeleteAccessPointRequest deleteAccessPointRequest = DeleteAccessPointRequest.builder()
-                    .name(accessPointName)
-                    .accountId(accountId)
-                    .build();
+                .name(accessPointName)
+                .accountId(accountId)
+                .build();
 
             s3ControlClient.deleteAccessPoint(deleteAccessPointRequest);
             System.out.println("The access point was deleted");

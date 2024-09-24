@@ -35,7 +35,7 @@ import java.util.UUID;
 
 public class DownloadFile {
     private static final Logger logger = LoggerFactory.getLogger(UploadFile.class);
-    public final String bucketName = "x-" + UUID.randomUUID();
+    public final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID();
     public final String key = UUID.randomUUID().toString();
     private final String downloadedFileName = "downloaded.pdf";
     public String downloadedFileWithPath;

@@ -14,6 +14,7 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.Duration;
@@ -23,21 +24,21 @@ import java.util.zip.ZipOutputStream;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class S3ZipExample {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:
-                  <bucketName> <imageKeys>\s
+            Usage:
+              <bucketName> <imageKeys>\s
 
-                Where:
-                  bucketName - The Amazon S3 bucket where JPG images are located.\s
-                  keys -  A comma separated list of images (without spaces) located in the S3 bucket and to be placed into a ZIP file. For example,  For example pic1.jpg,pic2.jpg""";
+            Where:
+              bucketName - The Amazon S3 bucket where JPG images are located.\s
+              keys -  A comma separated list of images (without spaces) located in the S3 bucket and to be placed into a ZIP file. For example,  For example pic1.jpg,pic2.jpg""";
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -50,8 +51,8 @@ public class S3ZipExample {
         String[] imageKeys = keys.split("[,]", 0);
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         createZIPFile(s3, bucketName, imageKeys);
     }
@@ -61,8 +62,6 @@ public class S3ZipExample {
         String zipName = uuid + ".zip";
         // Create a ByteArrayOutputStream to write the ZIP file to.
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-        // Create a ZipOutputStream to write the files to the ZIP file.
         ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream);
 
         try {
@@ -70,9 +69,9 @@ public class S3ZipExample {
             for (String imageKey : imageKeys) {
                 // Get the object data from S3.
                 GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                        .bucket(bucketName)
-                        .key(imageKey)
-                        .build();
+                    .bucket(bucketName)
+                    .key(imageKey)
+                    .build();
                 ResponseBytes<GetObjectResponse> responseBytes = s3.getObjectAsBytes(getObjectRequest);
 
                 // Create a ZipEntry for the object and add it to the ZipOutputStream.
@@ -91,9 +90,9 @@ public class S3ZipExample {
 
             // Upload the ZIP file to S3.
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(zipName)
-                    .build();
+                .bucket(bucketName)
+                .key(zipName)
+                .build();
             s3.putObject(putObjectRequest, RequestBody.fromBytes(outputStream.toByteArray()));
             String preSignUrl = signObjectToDownload(bucketName, zipName);
             System.out.println("The Presigned URL is " + preSignUrl);
@@ -112,19 +111,19 @@ public class S3ZipExample {
 
     public static String signObjectToDownload(String bucketName, String keyName) {
         S3Presigner presignerOb = S3Presigner.builder()
-                .region(Region.US_EAST_1)
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
 
         try {
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(keyName)
-                    .build();
+                .bucket(bucketName)
+                .key(keyName)
+                .build();
 
             GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(1440))
-                    .getObjectRequest(getObjectRequest)
-                    .build();
+                .signatureDuration(Duration.ofMinutes(1440))
+                .getObjectRequest(getObjectRequest)
+                .build();
 
             PresignedGetObjectRequest presignedGetObjectRequest = presignerOb.presignGetObject(getObjectPresignRequest);
             return presignedGetObjectRequest.url().toString();

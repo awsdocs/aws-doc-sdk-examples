@@ -43,7 +43,7 @@ import java.util.UUID;
 // snippet-start:[s3.java2.basicOpsWithChecksums.full]
 public class BasicOpsWithChecksums {
     static final S3Client s3Client = S3Client.create();
-    static final String bucketName = "x-" + UUID.randomUUID();
+    static final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID();
     static final String key = UUID.randomUUID().toString();
     private static final Logger logger = LoggerFactory.getLogger(BasicOpsWithChecksums.class);
 
@@ -105,7 +105,7 @@ public class BasicOpsWithChecksums {
                 .bucket(bucketName)
                 .key(key)
                 .checksumAlgorithm(ChecksumAlgorithm.CRC32),
-                RequestBody.fromString("This is a test"));
+            RequestBody.fromString("This is a test"));
     }
     // snippet-end:[s3.java2.basicOpsWithChecksums.putObject]
 
@@ -115,7 +115,7 @@ public class BasicOpsWithChecksums {
                 .bucket(bucketName)
                 .key(key)
                 .checksumMode(ChecksumMode.ENABLED))
-                .response();
+            .response();
     }
     // snippet-end:[s3.java2.basicOpsWithChecksums.getObject]
 
@@ -127,7 +127,7 @@ public class BasicOpsWithChecksums {
                 .bucket(bucketName)
                 .key(key)
                 .checksumSHA256(checksum)),
-                RequestBody.fromFile(Paths.get(filePath)));
+            RequestBody.fromFile(Paths.get(filePath)));
     }
     // snippet-end:[s3.java2.basicOpsWithChecksums.putObjectPreCalc]
 
@@ -135,12 +135,12 @@ public class BasicOpsWithChecksums {
     public void multipartUploadWithChecksumTm(String filePath) {
         S3TransferManager transferManager = S3TransferManager.create();
         UploadFileRequest uploadFileRequest = UploadFileRequest.builder()
-                .putObjectRequest(b -> b
-                        .bucket(bucketName)
-                        .key(key)
-                        .checksumAlgorithm(ChecksumAlgorithm.SHA1))
-                .source(Paths.get(filePath))
-                .build();
+            .putObjectRequest(b -> b
+                .bucket(bucketName)
+                .key(key)
+                .checksumAlgorithm(ChecksumAlgorithm.SHA1))
+            .source(Paths.get(filePath))
+            .build();
         FileUpload fileUpload = transferManager.uploadFile(uploadFileRequest);
         fileUpload.completionFuture().join();
         transferManager.close();
@@ -153,9 +153,9 @@ public class BasicOpsWithChecksums {
 
         // Initiate the multipart upload.
         CreateMultipartUploadResponse createMultipartUploadResponse = s3Client.createMultipartUpload(b -> b
-                .bucket(bucketName)
-                .key(key)
-                .checksumAlgorithm(algorithm)); // Checksum specified on initiation.
+            .bucket(bucketName)
+            .key(key)
+            .checksumAlgorithm(algorithm)); // Checksum specified on initiation.
         String uploadId = createMultipartUploadResponse.uploadId();
 
         // Upload the parts of the file.
@@ -172,22 +172,22 @@ public class BasicOpsWithChecksums {
 
                 bb.flip(); // Swap position and limit before reading from the buffer.
                 UploadPartRequest uploadPartRequest = UploadPartRequest.builder()
-                        .bucket(bucketName)
-                        .key(key)
-                        .uploadId(uploadId)
-                        .checksumAlgorithm(algorithm) // Checksum specified on each part.
-                        .partNumber(partNumber)
-                        .build();
+                    .bucket(bucketName)
+                    .key(key)
+                    .uploadId(uploadId)
+                    .checksumAlgorithm(algorithm) // Checksum specified on each part.
+                    .partNumber(partNumber)
+                    .build();
 
                 UploadPartResponse partResponse = s3Client.uploadPart(
-                        uploadPartRequest,
-                        RequestBody.fromByteBuffer(bb));
+                    uploadPartRequest,
+                    RequestBody.fromByteBuffer(bb));
 
                 CompletedPart part = CompletedPart.builder()
-                        .partNumber(partNumber)
-                        .checksumCRC32(partResponse.checksumCRC32()) // Provide the calculated checksum.
-                        .eTag(partResponse.eTag())
-                        .build();
+                    .partNumber(partNumber)
+                    .checksumCRC32(partResponse.checksumCRC32()) // Provide the calculated checksum.
+                    .eTag(partResponse.eTag())
+                    .build();
                 completedParts.add(part);
 
                 bb.clear();
@@ -200,10 +200,10 @@ public class BasicOpsWithChecksums {
 
         // Complete the multipart upload.
         s3Client.completeMultipartUpload(b -> b
-                .bucket(bucketName)
-                .key(key)
-                .uploadId(uploadId)
-                .multipartUpload(CompletedMultipartUpload.builder().parts(completedParts).build()));
+            .bucket(bucketName)
+            .key(key)
+            .uploadId(uploadId)
+            .multipartUpload(CompletedMultipartUpload.builder().parts(completedParts).build()));
     }
     // snippet-end:[s3.java2.basicOpsWithChecksums.multiPartS3Client]
 

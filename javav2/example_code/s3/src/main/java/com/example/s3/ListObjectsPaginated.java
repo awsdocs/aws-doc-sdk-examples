@@ -4,6 +4,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.list_objects.pag.main]
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
@@ -14,12 +15,12 @@ public class ListObjectsPaginated {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:
-                    <bucketName>\s
+            Usage:
+                <bucketName>\s
 
-                Where:
-                    bucketName - The Amazon S3 bucket from which objects are read.\s
-                """;
+            Where:
+                bucketName - The Amazon S3 bucket from which objects are read.\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -29,8 +30,8 @@ public class ListObjectsPaginated {
         String bucketName = args[0];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         listBucketObjects(s3, bucketName);
         s3.close();
@@ -39,14 +40,14 @@ public class ListObjectsPaginated {
     public static void listBucketObjects(S3Client s3, String bucketName) {
         try {
             ListObjectsV2Request listReq = ListObjectsV2Request.builder()
-                    .bucket(bucketName)
-                    .maxKeys(1)
-                    .build();
+                .bucket(bucketName)
+                .maxKeys(1)
+                .build();
 
             ListObjectsV2Iterable listRes = s3.listObjectsV2Paginator(listReq);
             listRes.stream()
-                    .flatMap(r -> r.contents().stream())
-                    .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
+                .flatMap(r -> r.contents().stream())
+                .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());

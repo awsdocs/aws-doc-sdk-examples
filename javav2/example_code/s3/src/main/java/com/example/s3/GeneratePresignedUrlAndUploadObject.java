@@ -39,9 +39,8 @@ public class GeneratePresignedUrlAndUploadObject {
     private static final Logger logger = org.slf4j.LoggerFactory.getLogger(GeneratePresignedUrlAndUploadObject.class);
 
     public static void main(String[] args) {
-
-        String bucketName = "b-" + UUID.randomUUID();
-        String keyName = "k-" + UUID.randomUUID();
+        String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID();
+        String keyName = "key" + UUID.randomUUID();
 
         try (S3Client s3Client = S3Client.create()) {
             PresignUrlUtils.createBucket(bucketName, s3Client);
@@ -58,9 +57,10 @@ public class GeneratePresignedUrlAndUploadObject {
     }
 
     // snippet-start:[presigned.java2.generatepresignedurl.main]
+
     /**
      * Create a presigned URL for uploading a String object.
-     * 
+     *
      * @param bucketName - The name of the bucket.
      * @param keyName    - The name of the object.
      * @return - The presigned URL for an HTTP PUT.
@@ -69,21 +69,21 @@ public class GeneratePresignedUrlAndUploadObject {
         try (S3Presigner presigner = S3Presigner.create()) {
 
             PutObjectRequest objectRequest = PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(keyName)
-                    .contentType("text/plain")
-                    .build();
+                .bucket(bucketName)
+                .key(keyName)
+                .contentType("text/plain")
+                .build();
 
             PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(10)) // The URL will expire in 10 minutes.
-                    .putObjectRequest(objectRequest)
-                    .build();
+                .signatureDuration(Duration.ofMinutes(10)) // The URL will expire in 10 minutes.
+                .putObjectRequest(objectRequest)
+                .build();
 
             PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
             String myURL = presignedRequest.url().toString();
             logger.info("Presigned URL to upload to: [{}]", myURL);
             logger.info("Which HTTP method needs to be used when uploading: [{}]",
-                    presignedRequest.httpRequest().method());
+                presignedRequest.httpRequest().method());
 
             return presignedRequest.url();
         }
@@ -93,7 +93,7 @@ public class GeneratePresignedUrlAndUploadObject {
      * Use the JDK HttpURLConnection (since v1.1) class to upload a String, but you
      * can
      * use any HTTP client.
-     * 
+     *
      * @param presignedUrl - The presigned URL.
      */
     public void useHttpUrlConnectionToPutString(URL presignedUrl) {
@@ -119,7 +119,7 @@ public class GeneratePresignedUrlAndUploadObject {
     /**
      * Use the JDK HttpClient class (since v11) to upload a String,
      * but you can use any HTTP client.
-     * 
+     *
      * @param presignedUrl - The presigned URL.
      */
     public void useHttpClientToPutString(URL presignedUrl) {
@@ -129,9 +129,9 @@ public class GeneratePresignedUrlAndUploadObject {
                     .uri(presignedUrl.toURI())
                     .header("Content-Type", "text/plain")
                     .PUT(HttpRequest.BodyPublishers
-                            .ofString("This text was uploaded as an object by using a presigned URL."))
+                        .ofString("This text was uploaded as an object by using a presigned URL."))
                     .build(),
-                    HttpResponse.BodyHandlers.discarding());
+                HttpResponse.BodyHandlers.discarding());
             logger.info("HTTP response code is " + response.statusCode());
         } catch (S3Exception | IOException | URISyntaxException | InterruptedException e) {
             logger.error(e.getMessage(), e);

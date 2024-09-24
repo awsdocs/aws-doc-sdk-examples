@@ -4,6 +4,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.performMultiPartUpload.import]
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.exception.SdkException;
@@ -37,7 +38,7 @@ import java.util.concurrent.CompletableFuture;
 // snippet-start:[s3.java2.performMultiPartUpload.full]
 public class PerformMultiPartUpload {
     static final S3Client s3Client = S3Client.create();
-    static final String bucketName = "x-" + UUID.randomUUID();
+    static final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID();
     static final String key = UUID.randomUUID().toString();
     static final String classPathFilePath = "/multipartUploadFiles/s3-userguide.pdf";
     static final String filePath = getFullFilePath(classPathFilePath);
@@ -77,11 +78,11 @@ public class PerformMultiPartUpload {
     public void multipartUploadWithTransferManager(String filePath) {
         S3TransferManager transferManager = S3TransferManager.create();
         UploadFileRequest uploadFileRequest = UploadFileRequest.builder()
-                .putObjectRequest(b -> b
-                        .bucket(bucketName)
-                        .key(key))
-                .source(Paths.get(filePath))
-                .build();
+            .putObjectRequest(b -> b
+                .bucket(bucketName)
+                .key(key))
+            .source(Paths.get(filePath))
+            .build();
         FileUpload fileUpload = transferManager.uploadFile(uploadFileRequest);
         fileUpload.completionFuture().join();
         transferManager.close();
@@ -93,8 +94,8 @@ public class PerformMultiPartUpload {
 
         // Initiate the multipart upload.
         CreateMultipartUploadResponse createMultipartUploadResponse = s3Client.createMultipartUpload(b -> b
-                .bucket(bucketName)
-                .key(key));
+            .bucket(bucketName)
+            .key(key));
         String uploadId = createMultipartUploadResponse.uploadId();
 
         // Upload the parts of the file.
@@ -111,20 +112,20 @@ public class PerformMultiPartUpload {
 
                 bb.flip(); // Swap position and limit before reading from the buffer.
                 UploadPartRequest uploadPartRequest = UploadPartRequest.builder()
-                        .bucket(bucketName)
-                        .key(key)
-                        .uploadId(uploadId)
-                        .partNumber(partNumber)
-                        .build();
+                    .bucket(bucketName)
+                    .key(key)
+                    .uploadId(uploadId)
+                    .partNumber(partNumber)
+                    .build();
 
                 UploadPartResponse partResponse = s3Client.uploadPart(
-                        uploadPartRequest,
-                        RequestBody.fromByteBuffer(bb));
+                    uploadPartRequest,
+                    RequestBody.fromByteBuffer(bb));
 
                 CompletedPart part = CompletedPart.builder()
-                        .partNumber(partNumber)
-                        .eTag(partResponse.eTag())
-                        .build();
+                    .partNumber(partNumber)
+                    .eTag(partResponse.eTag())
+                    .build();
                 completedParts.add(part);
 
                 bb.clear();
@@ -137,10 +138,10 @@ public class PerformMultiPartUpload {
 
         // Complete the multipart upload.
         s3Client.completeMultipartUpload(b -> b
-                .bucket(bucketName)
-                .key(key)
-                .uploadId(uploadId)
-                .multipartUpload(CompletedMultipartUpload.builder().parts(completedParts).build()));
+            .bucket(bucketName)
+            .key(key)
+            .uploadId(uploadId)
+            .multipartUpload(CompletedMultipartUpload.builder().parts(completedParts).build()));
     }
 
     // snippet-end:[s3.java2.performMultiPartUpload.s3Client]
@@ -148,13 +149,13 @@ public class PerformMultiPartUpload {
     public void multipartUploadWithS3AsyncClient(String filePath) {
         // Enable multipart support.
         S3AsyncClient s3AsyncClient = S3AsyncClient.builder()
-                .multipartEnabled(true)
-                .build();
+            .multipartEnabled(true)
+            .build();
 
         CompletableFuture<PutObjectResponse> response = s3AsyncClient.putObject(b -> b
-                        .bucket(bucketName)
-                        .key(key),
-                Paths.get(filePath));
+                .bucket(bucketName)
+                .key(key),
+            Paths.get(filePath));
 
         response.join();
         logger.info("File uploaded in multiple 8 MiB parts using S3AsyncClient.");

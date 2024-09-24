@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 
 public class DownloadToDirectory {
     private static final Logger logger = LoggerFactory.getLogger(DownloadToDirectory.class);
-    public final String bucketName = "x-" + UUID.randomUUID();
+    public final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID();
     public URI destinationPathURI;
     private final Set<String> downloadedFileNameSet = new HashSet<>();
     private final String destinationDirName = "downloadDirectory";

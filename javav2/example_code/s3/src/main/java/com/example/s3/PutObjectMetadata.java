@@ -5,11 +5,13 @@ package com.example.s3;
 
 // snippet-start:[s3.java2.s3_object_upload.metadata.main]
 // snippet-start:[s3.java2.s3_object_upload.metadata.import]
+
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,23 +20,23 @@ import java.util.Map;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class PutObjectMetadata {
     public static void main(String[] args) {
         final String USAGE = """
 
-                Usage:
-                  <bucketName> <objectKey> <objectPath>\s
+            Usage:
+              <bucketName> <objectKey> <objectPath>\s
 
-                Where:
-                  bucketName - The Amazon S3 bucket to upload an object into.
-                  objectKey - The object to upload (for example, book.pdf).
-                  objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).\s
-                """;
+            Where:
+              bucketName - The Amazon S3 bucket to upload an object into.
+              objectKey - The object to upload (for example, book.pdf).
+              objectPath - The path where the file is located (for example, C:/AWS/book2.pdf).\s
+            """;
 
         if (args.length != 3) {
             System.out.println(USAGE);
@@ -48,8 +50,8 @@ public class PutObjectMetadata {
         System.out.println("  in bucket: " + bucketName);
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         putS3Object(s3, bucketName, objectKey, objectPath);
         s3.close();
@@ -64,10 +66,10 @@ public class PutObjectMetadata {
             metadata.put("version", "1.0.0.0");
 
             PutObjectRequest putOb = PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(objectKey)
-                    .metadata(metadata)
-                    .build();
+                .bucket(bucketName)
+                .key(objectKey)
+                .metadata(metadata)
+                .build();
 
             s3.putObject(putOb, RequestBody.fromFile(new File(objectPath)));
             System.out.println("Successfully placed " + objectKey + " into bucket " + bucketName);

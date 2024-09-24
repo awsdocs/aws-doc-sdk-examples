@@ -30,7 +30,7 @@ import java.util.UUID;
 
 public class UploadADirectory {
     private static final Logger logger = LoggerFactory.getLogger(UploadADirectory.class);
-    public final String bucketName = "x-" + UUID.randomUUID();
+    public final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID();
     public URI sourceDirectory;
 
     public UploadADirectory() {

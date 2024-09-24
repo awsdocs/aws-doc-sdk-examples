@@ -48,8 +48,8 @@ public class GeneratePresignedGetUrlAndRetrieve {
     private final static S3Client s3Client = S3Client.create();
 
     public static void main(String[] args) {
-        String bucketName = "b-" + UUID.randomUUID();
-        String keyName = "k-" + UUID.randomUUID();
+        String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID();
+        String keyName = "key" + UUID.randomUUID();
         String resourcePath = "multipartUploadFiles/s3-userguide.pdf";
 
         PresignUrlUtils.createBucket(bucketName, s3Client);
