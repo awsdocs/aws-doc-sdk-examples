@@ -18,7 +18,7 @@ namespace DetectModerationLabelsExample
         public static async Task Main(string[] args)
         {
             string photo = "input.jpg";
-            string bucket = "bucket";
+            string bucket = "amzn-s3-demo-bucket";
 
             var rekognitionClient = new AmazonRekognitionClient();
 

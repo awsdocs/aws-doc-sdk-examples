@@ -18,7 +18,7 @@ namespace SearchFacesMatchingImageExample
         public static async Task Main()
         {
             string collectionId = "MyCollection";
-            string bucket = "bucket";
+            string bucket = "amzn-s3-demo-bucket";
             string photo = "input.jpg";
 
             var rekognitionClient = new AmazonRekognitionClient();

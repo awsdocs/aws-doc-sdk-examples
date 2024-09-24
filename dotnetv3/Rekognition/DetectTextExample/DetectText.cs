@@ -19,7 +19,7 @@ namespace DetectTextExample
         public static async Task Main()
         {
             string photo = "Dad_photographer.jpg"; // "input.jpg";
-            string bucket = "igsmiths3photos"; // "bucket";
+            string bucket = "amzn-s3-demo-bucket"; // "bucket";
 
             var rekognitionClient = new AmazonRekognitionClient();
 
