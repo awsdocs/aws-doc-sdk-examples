@@ -3363,7 +3363,7 @@ iam_Scenario_CreateUserAssumeRole:
     - Create a role that grants permission to list &S3; buckets for the account.
     - Add a policy to let the user assume the role.
     - Assume the role and list S3 buckets using temporary credentials, then clean up resources.
-  category: Scenarios
+  category: Basics
   languages:
     .NET:
       versions:
