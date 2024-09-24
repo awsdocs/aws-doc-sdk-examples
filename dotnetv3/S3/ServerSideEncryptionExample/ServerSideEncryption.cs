@@ -17,7 +17,7 @@ namespace ServerSideEncryptionExample
     {
         public static async Task Main()
         {
-            string bucketName = "doc-example-bucket";
+            string bucketName = "amzn-s3-demo-bucket";
             string keyName = "samplefile.txt";
 
             // If the AWS Region defined for your default user is different

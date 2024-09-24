@@ -38,7 +38,7 @@ def test_find_models_in_project(make_stubber, stub_runner, error_code, stop_on_m
     recall = 0.3
     precision = 0.5
     f1 = 0.7
-    out_buck = "doc-example-bucket"
+    out_buck = "amzn-s3-demo-bucket"
     out_folder = "test-folder"
 
     with stub_runner(error_code, stop_on_method) as runner:
@@ -100,7 +100,7 @@ def test_find_running_models(
     recall = 0.3
     precision = 0.5
     f1 = 0.7
-    out_buck = "doc-example-bucket"
+    out_buck = "amzn-s3-demo-bucket"
     out_folder = "test-folder"
     project_arn = "test-arn"
     region = "us-east-1"

@@ -28,7 +28,7 @@ def do_scenario(s3_resource):
     print("Welcome to the Amazon S3 getting started demo!")
     print("-" * 88)
 
-    bucket_name = f"doc-example-bucket-{uuid.uuid4()}"
+    bucket_name = f"amzn-s3-demo-bucket-{uuid.uuid4()}"
     bucket = s3_resource.Bucket(bucket_name)
     try:
         bucket.create(

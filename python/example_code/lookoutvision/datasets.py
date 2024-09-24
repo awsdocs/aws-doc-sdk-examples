@@ -104,7 +104,7 @@ class Datasets:
         :param image_s3_path: The Amazon S3 path to the images referenced by the
                               manifest file. The images must be in an Amazon S3 bucket
                               with the following folder structure.
-                                s3://doc-example-bucket/<train or test>/
+                                s3://amzn-s3-demo-bucket/<train or test>/
                                     normal/
                                     anomaly/
                               Place normal images in the normal folder and anomalous

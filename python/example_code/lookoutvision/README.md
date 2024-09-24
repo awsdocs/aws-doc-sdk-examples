@@ -94,7 +94,7 @@ Before running these demonstrations do the following:
 
 The folder structures for the training and test images must be as follows:
 ```
-s3://doc-example-bucket/<train or test>/
+s3://amzn-s3-demo-bucket/<train or test>/
     normal/
     anomaly/
 ```
@@ -234,11 +234,11 @@ Start the example by running the following at a command prompt:
 - `project` - A name for your project.
 - `bucket` - The name of the Amazon S3 bucket in which to store your manifest files and
   training output. The bucket must be in your AWS account and in the same AWS Region as
-  the Amazon S3 path supplied for `train` and `test`. For example, `doc-example-bucket`.
+  the Amazon S3 path supplied for `train` and `test`. For example, `amzn-s3-demo-bucket`.
 - `train` - The Amazon S3 path where your training images are stored. For example,
-  `s3://doc-example-bucket/circuitboard/train/`.
+  `s3://amzn-s3-demo-bucket/circuitboard/train/`.
 - `test` - (Optional) the Amazon S3 path where your test images are stored. For example,
-  `s3://doc-example-bucket/circuitboard/test/`. If you don't supply a value,
+  `s3://amzn-s3-demo-bucket/circuitboard/test/`. If you don't supply a value,
   Lookout for Vision splits the training dataset to create a test dataset.
 
 After training completes, use the performance metrics to decide if the model's

@@ -19,7 +19,7 @@ namespace AwsDocTest {
 // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(S3_GTests, create_bucket_2_) {
         Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-        Aws::String bucketName = "doc-example-bucket-" +
+        Aws::String bucketName = "amzn-s3-demo-bucket-" +
                                  Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
         bool result = AwsDoc::S3::createBucket(bucketName, *s_clientConfig);

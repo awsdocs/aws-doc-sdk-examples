@@ -39,7 +39,7 @@ async fn run_example() -> Result<(), S3ExampleError> {
     let shared_config = aws_config::load_from_env().await;
     let client = S3Client::new(&shared_config);
 
-    let bucket_name = format!("doc-example-bucket-{}", Uuid::new_v4());
+    let bucket_name = format!("amzn-s3-demo-bucket-{}", Uuid::new_v4());
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));
     let region = region_provider.region().await.unwrap();
     s3_code_examples::create_bucket(&client, &bucket_name, &region).await?;

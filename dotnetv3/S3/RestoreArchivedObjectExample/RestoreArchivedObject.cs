@@ -18,7 +18,7 @@ namespace RestoreArchivedObjectExample
     {
         public static void Main()
         {
-            string bucketName = "doc-example-bucket";
+            string bucketName = "amzn-s3-demo-bucket";
             string objectKey = "archived-object.txt";
 
             // Specify your bucket region (an example region is shown).

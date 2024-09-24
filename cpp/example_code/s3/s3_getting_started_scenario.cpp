@@ -81,9 +81,9 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath,
     Aws::S3::S3Client client(clientConfig);
 
     // Create a unique bucket name which is only temporary and will be deleted.
-    // Format: "doc-example-bucket-" + lowercase UUID.
+    // Format: "amzn-s3-demo-bucket-" + lowercase UUID.
     Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-    Aws::String bucketName = "doc-example-bucket-" +
+    Aws::String bucketName = "amzn-s3-demo-bucket-" +
                              Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
     // 1. Create a bucket.

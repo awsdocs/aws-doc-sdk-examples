@@ -29,5 +29,5 @@ export const main = async (client, bucketName, objectKey) => {
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main(new S3Client(), "DOC-EXAMPLE-BUCKET", "OBJECT_KEY");
+  main(new S3Client(), "amzn-s3-demo-bucket", "OBJECT_KEY");
 }

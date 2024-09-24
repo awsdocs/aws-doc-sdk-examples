@@ -20,7 +20,7 @@ def test_text_detection(tb):
     # variables for images
     # replace the value of bucket with the name of a bucket and the value of document
     # with the name of a document in the bucket
-    bucket = "DOC-EXAMPLE-BUCKET"
+    bucket = "amzn-s3-demo-bucket"
     document = "Your document name here"
     res = detect_func(bucket, document, aws_access_code, aws_secret_code, region)
     # Check if list returned

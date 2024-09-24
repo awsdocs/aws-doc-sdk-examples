@@ -18,7 +18,7 @@ namespace TrackMPUUsingHighLevelAPIExample
     {
         public static async Task Main()
         {
-            string bucketName = "doc-example-bucket";
+            string bucketName = "amzn-s3-demo-bucket";
             string keyName = "sample_pic.png";
             string path = "filepath/directory/";
             string filePath = $"{path}{keyName}";

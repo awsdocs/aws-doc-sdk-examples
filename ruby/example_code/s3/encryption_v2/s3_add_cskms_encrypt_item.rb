@@ -30,7 +30,7 @@ require "aws-sdk-s3"
 #   )
 #   if encrypted_object_uploaded?(
 #     s3_encryption_client,
-#     'doc-example-bucket',
+#     'amzn-s3-demo-bucket',
 #     'my-file.txt',
 #     'This is the content of my-file.txt.'
 #   )
@@ -57,7 +57,7 @@ end
 
 # Example usage:
 def run_me
-  bucket_name = "doc-example-bucket"
+  bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-file.txt"
   region = "us-west-2"
   kms_key_id = "9041e78c-7a20-4db3-929e-828abEXAMPLE"

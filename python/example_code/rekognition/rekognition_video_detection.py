@@ -360,7 +360,7 @@ def usage_demo():
     print("Creating Amazon S3 bucket and uploading video.")
     s3_resource = boto3.resource("s3")
     bucket = s3_resource.create_bucket(
-        Bucket=f"doc-example-bucket-rekognition-{time.time_ns()}",
+        Bucket=f"amzn-s3-demo-bucket-rekognition-{time.time_ns()}",
         CreateBucketConfiguration={
             "LocationConstraint": s3_resource.meta.client.meta.region_name
         },

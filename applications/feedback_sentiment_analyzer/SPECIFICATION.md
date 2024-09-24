@@ -201,7 +201,7 @@ For example:
 
 ```json
 {
-  "bucket": "DOC-EXAMPLE-BUCKET",
+  "bucket": "amzn-s3-demo-bucket",
   "region": "us-east-1",
   "object": "obj/ect.png"
 }
@@ -295,7 +295,7 @@ For example:
 
 ```json
 {
-  "bucket": "DOC-EXAMPLE-BUCKET",
+  "bucket": "amzn-s3-demo-bucket",
   "translated_text": "THIS HOTEL WAS GREAT",
   "region": "us-east-1",
   "object": "comment.png"

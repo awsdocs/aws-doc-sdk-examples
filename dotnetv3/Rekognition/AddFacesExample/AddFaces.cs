@@ -20,7 +20,7 @@ namespace AddFacesExample
         public static async Task Main()
         {
             string collectionId = "MyCollection2";
-            string bucket = "doc-example-bucket";
+            string bucket = "amzn-s3-demo-bucket";
             string photo = "input.jpg";
 
             var rekognitionClient = new AmazonRekognitionClient();

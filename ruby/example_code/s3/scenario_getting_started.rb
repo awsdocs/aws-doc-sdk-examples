@@ -29,7 +29,7 @@ class ScenarioGettingStarted
   # @return [Aws::S3::Bucket] The newly created bucket.
   def create_bucket
     bucket = @s3_resource.create_bucket(
-      bucket: "doc-example-bucket-#{Random.uuid}",
+      bucket: "amzn-s3-demo-bucket-#{Random.uuid}",
       create_bucket_configuration: {
         location_constraint: "us-east-1" # Note: only certain regions permitted
       }

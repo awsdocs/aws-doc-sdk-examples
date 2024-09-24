@@ -8,7 +8,7 @@
         "AWS": "arn:aws:iam::111111222222:user/UnitTester"
       },
       "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::doc-example-bucket/*"
+      "Resource": "arn:aws:s3:::amzn-s3-demo-bucket/*"
     }
   ]
 }

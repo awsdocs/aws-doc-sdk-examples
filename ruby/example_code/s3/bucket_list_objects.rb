@@ -38,7 +38,7 @@ end
 
 # Example usage:
 def run_demo
-  bucket_name = "doc-example-bucket"
+  bucket_name = "amzn-s3-demo-bucket"
 
   wrapper = BucketListObjectsWrapper.new(Aws::S3::Bucket.new(bucket_name))
   count = wrapper.list_objects(25)

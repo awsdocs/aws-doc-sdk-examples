@@ -16,7 +16,7 @@ $client = new S3Client([
     'profile' => 'default',
     'region' => 'us-east-1',
 ]);
-$bucket = 'doc-example-bucket10';
+$bucket = 'amzn-s3-demo-bucket10';
 $starts_with = 'user/eric/';
 $client->listBuckets();
 
