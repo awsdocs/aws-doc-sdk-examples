@@ -1,12 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import com.example.lambda.CreateFunction;
-import com.example.lambda.DeleteFunction;
 import com.example.lambda.GetAccountSettings;
-import com.example.lambda.LambdaScenario;
-import com.example.lambda.LambdaInvoke;
-import com.example.lambda.ListLambdaFunctions;
+import com.example.lambda.scenario.LambdaScenario;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -45,10 +41,8 @@ public class LambdaTest {
 
     @BeforeAll
     public static void setUp() {
-        Region region = Region.US_WEST_2;
         awsLambda = LambdaClient.builder()
-                .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
         // Get the values to run these tests from AWS Secrets Manager.
@@ -62,46 +56,12 @@ public class LambdaTest {
         functionNameSc = values.getFunctionNameSc() + java.util.UUID.randomUUID();
         bucketName = values.getBucketName();
         key = values.getKey();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * LambdaTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * prop.load(input);
-         * functionName = prop.getProperty("functionNameSc")+
-         * java.util.UUID.randomUUID();
-         * filePath = prop.getProperty("filePath");
-         * role = prop.getProperty("role");
-         * handler = prop.getProperty("handler");
-         * functionNameSc = prop.getProperty("functionNameSc")+
-         * java.util.UUID.randomUUID();
-         * bucketName = prop.getProperty("bucketName");
-         * key = prop.getProperty("key");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
+
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void CreateFunction() {
-        assertDoesNotThrow(() -> CreateFunction.createLambdaFunction(awsLambda, functionName, filePath, role, handler));
-        System.out.println("Test 1 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(2)
     public void GetAccountSettings() {
         assertDoesNotThrow(() -> GetAccountSettings.getSettings(awsLambda));
         System.out.println("Test 2 passed");
@@ -109,35 +69,9 @@ public class LambdaTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(3)
-    public void ListLambdaFunctions() {
-        assertDoesNotThrow(() -> ListLambdaFunctions.listFunctions(awsLambda));
-        System.out.println("Test 3 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(4)
-    public void LambdaInvoke() throws InterruptedException {
-        System.out.println("*** Wait for 5 MIN so the resource is available");
-        TimeUnit.MINUTES.sleep(5);
-        assertDoesNotThrow(() -> LambdaInvoke.invokeFunction(awsLambda, functionName));
-        System.out.println("Test 4 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(5)
-    public void DeleteFunction() {
-        assertDoesNotThrow(() -> DeleteFunction.deleteLambdaFunction(awsLambda, functionName));
-        System.out.println("Test 5 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(6)
+    @Order(2)
     public void LambdaScenario() throws InterruptedException {
-        String funArn = LambdaScenario.createLambdaFunction(awsLambda, functionNameSc, filePath, role, handler);
+        String funArn = LambdaScenario.createLambdaFunction(awsLambda, functionNameSc, key, bucketName, role, handler);
         assertFalse(funArn.isEmpty());
         System.out.println("The function ARN is " + funArn);
 
@@ -222,7 +156,5 @@ public class LambdaTest {
         public String getFunctionName() {
             return functionName;
         }
-
     }
-
 }
