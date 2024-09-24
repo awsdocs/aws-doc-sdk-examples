@@ -10,7 +10,7 @@ import {
 
 /**
  * Retrieves the Access Control List (ACL) for an S3 bucket.
- * @param {string} bucketName - The name of the S3 bucket.
+ * @param {{ bucketName: string }}
  */
 export const main = async ({ bucketName }) => {
   const client = new S3Client({});

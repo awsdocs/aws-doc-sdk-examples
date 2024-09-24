@@ -11,7 +11,6 @@ import {
 /**
  * Log the Cross-Origin Resource Sharing (CORS) configuration information
  * set for the bucket.
- *
  * @param {{ bucketName: string }}
  */
 export const main = async ({ bucketName }) => {

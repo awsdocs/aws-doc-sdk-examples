@@ -10,7 +10,7 @@ import {
 
 /**
  * Allows cross-origin requests to an S3 bucket by setting the CORS configuration.
- * @param {string} bucketName - The name of the S3 bucket.
+ * @param {{ bucketName: string }}
  */
 export const main = async ({ bucketName }) => {
   const client = new S3Client({});
