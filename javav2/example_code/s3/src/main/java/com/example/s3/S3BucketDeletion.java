@@ -6,6 +6,7 @@ package com.example.s3;
 // snippet-start:[s3.java2.s3_bucket_deletion.delete_objects]
 // snippet-start:[s3.java2.bucket_deletion.import]
 // snippet-start:[s3.java2.s3_bucket_ops.delete_bucket.import]
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
@@ -20,21 +21,21 @@ import software.amazon.awssdk.services.s3.model.S3Object;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class S3BucketDeletion {
     public static void main(String[] args) throws Exception {
         final String usage = """
 
-                Usage:
-                    <bucket>
+            Usage:
+                <bucket>
 
-                Where:
-                    bucket - The bucket to delete (for example, bucket1).\s
-                """;
+            Where:
+                bucket - The bucket to delete (for example, bucket1).\s
+            """;
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,8 +45,8 @@ public class S3BucketDeletion {
         String bucket = args[0];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         deleteObjectsInBucket(s3, bucket);
         s3.close();
@@ -55,17 +56,17 @@ public class S3BucketDeletion {
         try {
             // To delete a bucket, all the objects in the bucket must be deleted first.
             ListObjectsV2Request listObjectsV2Request = ListObjectsV2Request.builder()
-                    .bucket(bucket)
-                    .build();
+                .bucket(bucket)
+                .build();
             ListObjectsV2Response listObjectsV2Response;
 
             do {
                 listObjectsV2Response = s3.listObjectsV2(listObjectsV2Request);
                 for (S3Object s3Object : listObjectsV2Response.contents()) {
                     DeleteObjectRequest request = DeleteObjectRequest.builder()
-                            .bucket(bucket)
-                            .key(s3Object.key())
-                            .build();
+                        .bucket(bucket)
+                        .key(s3Object.key())
+                        .build();
                     s3.deleteObject(request);
                 }
             } while (listObjectsV2Response.isTruncated());

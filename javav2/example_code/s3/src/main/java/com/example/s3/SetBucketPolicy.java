@@ -5,15 +5,18 @@ package com.example.s3;
 
 // snippet-start:[s3.java2.set_bucket_policy.main]
 // snippet-start:[s3.java2.set_bucket_policy.import]
+
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutBucketPolicyRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.regions.Region;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 // snippet-end:[s3.java2.set_bucket_policy.import]
@@ -21,22 +24,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class SetBucketPolicy {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:
-                    <bucketName> <polFile>
+            Usage:
+                <bucketName> <polFile>
 
-                Where:
-                    bucketName - The Amazon S3 bucket to set the policy on.
-                    polFile - A JSON file containing the policy (see the Amazon S3 Readme for an example).\s
-                """;
+            Where:
+                bucketName - The Amazon S3 bucket to set the policy on.
+                polFile - A JSON file containing the policy (see the Amazon S3 Readme for an example).\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -48,8 +51,8 @@ public class SetBucketPolicy {
         String policyText = getBucketPolicyFromFile(polFile);
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         setPolicy(s3, bucketName, policyText);
         s3.close();
@@ -64,9 +67,9 @@ public class SetBucketPolicy {
 
         try {
             PutBucketPolicyRequest policyReq = PutBucketPolicyRequest.builder()
-                    .bucket(bucketName)
-                    .policy(policyText)
-                    .build();
+                .bucket(bucketName)
+                .policy(policyText)
+                .build();
 
             s3.putBucketPolicy(policyReq);
 
@@ -80,7 +83,6 @@ public class SetBucketPolicy {
 
     // Loads a JSON-formatted policy from a file
     public static String getBucketPolicyFromFile(String policyFile) {
-
         StringBuilder fileText = new StringBuilder();
         try {
             List<String> lines = Files.readAllLines(Paths.get(policyFile), StandardCharsets.UTF_8);

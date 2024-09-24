@@ -5,6 +5,7 @@ package com.example.s3;
 
 // snippet-start:[s3.java2.copy_store.main]
 // snippet-start:[s3.java2.copy_store.import]
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
@@ -14,9 +15,9 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
@@ -24,14 +25,14 @@ public class CopyObjectStorage {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:
-                    <objectKey> <fromBucket> <toBucket>
+            Usage:
+                <objectKey> <fromBucket> <toBucket>
 
-                Where:
-                    objectKey - The name of the object (for example, book.pdf).
-                    fromBucket - The S3 bucket name that contains the object (for example, bucket1).
-                    toBucket - The S3 bucket to copy the object to (for example, bucket2).
-                """;
+            Where:
+                objectKey - The name of the object (for example, book.pdf).
+                fromBucket - The S3 bucket name that contains the object (for example, bucket1).
+                toBucket - The S3 bucket to copy the object to (for example, bucket2).
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -43,8 +44,8 @@ public class CopyObjectStorage {
         String toBucket = args[2];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         copyBucketObject(s3, fromBucket, objectKey, toBucket);
         s3.close();
@@ -52,12 +53,12 @@ public class CopyObjectStorage {
 
     public static void copyBucketObject(S3Client s3, String fromBucket, String objectKey, String toBucket) {
         CopyObjectRequest copyReq = CopyObjectRequest.builder()
-                .sourceBucket(fromBucket)
-                .sourceKey(objectKey)
-                .storageClass("DEEP_ARCHIVE")
-                .destinationBucket(toBucket)
-                .destinationKey(objectKey)
-                .build();
+            .sourceBucket(fromBucket)
+            .sourceKey(objectKey)
+            .storageClass("DEEP_ARCHIVE")
+            .destinationBucket(toBucket)
+            .destinationKey(objectKey)
+            .build();
 
         try {
             s3.copyObject(copyReq);

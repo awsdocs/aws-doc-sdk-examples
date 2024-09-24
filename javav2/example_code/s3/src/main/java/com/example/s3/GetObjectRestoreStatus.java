@@ -4,6 +4,7 @@ package com.example.s3;
 
 // snippet-start:[s3.java2.get.restore.status.main]
 // snippet-start:[s3.java2.get.restore.status.import]
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
@@ -15,13 +16,13 @@ public class GetObjectRestoreStatus {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:
-                    <bucketName> <keyName>\s
+            Usage:
+                <bucketName> <keyName>\s
 
-                Where:
-                    bucketName - The Amazon S3 bucket name.\s
-                    keyName - A key name that represents the object.\s
-                """;
+            Where:
+                bucketName - The Amazon S3 bucket name.\s
+                keyName - A key name that represents the object.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -32,8 +33,8 @@ public class GetObjectRestoreStatus {
         String keyName = args[1];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         checkStatus(s3, bucketName, keyName);
         s3.close();
@@ -42,9 +43,9 @@ public class GetObjectRestoreStatus {
     public static void checkStatus(S3Client s3, String bucketName, String keyName) {
         try {
             HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(keyName)
-                    .build();
+                .bucket(bucketName)
+                .key(keyName)
+                .build();
 
             HeadObjectResponse response = s3.headObject(headObjectRequest);
             System.out.println("The Amazon S3 object restoration status is " + response.restore());

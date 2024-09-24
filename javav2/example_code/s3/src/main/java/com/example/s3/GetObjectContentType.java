@@ -5,6 +5,7 @@ package com.example.s3;
 
 // snippet-start:[s3.java2.getobjectcontenttype.main]
 // snippet-start:[s3.java2.getobjectcontenttype.import]
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
@@ -15,22 +16,22 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetObjectContentType {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:
-                    <bucketName> <keyName>>
+            Usage:
+                <bucketName> <keyName>
 
-                Where:
-                    bucketName - The Amazon S3 bucket name.\s
-                    keyName - The key name.\s
-                """;
+            Where:
+                bucketName - The Amazon S3 bucket name.\s
+                keyName - The key name.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(usage);
@@ -41,8 +42,8 @@ public class GetObjectContentType {
         String keyName = args[1];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         getContentType(s3, bucketName, keyName);
         s3.close();
@@ -51,9 +52,9 @@ public class GetObjectContentType {
     public static void getContentType(S3Client s3, String bucketName, String keyName) {
         try {
             HeadObjectRequest objectRequest = HeadObjectRequest.builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
+                .key(keyName)
+                .bucket(bucketName)
+                .build();
 
             HeadObjectResponse objectHead = s3.headObject(objectRequest);
             String type = objectHead.contentType();

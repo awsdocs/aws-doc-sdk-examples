@@ -47,7 +47,6 @@ public class DeleteBucketPolicy {
         s3.close();
     }
 
-    // Delete the bucket policy.
     public static void deleteS3BucketPolicy(S3Client s3, String bucketName) {
         DeleteBucketPolicyRequest delReq = DeleteBucketPolicyRequest.builder()
                 .bucket(bucketName)

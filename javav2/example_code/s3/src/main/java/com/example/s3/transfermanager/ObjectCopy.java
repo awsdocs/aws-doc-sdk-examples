@@ -27,9 +27,9 @@ import java.util.UUID;
 
 public class ObjectCopy {
     private static final Logger logger = LoggerFactory.getLogger(ObjectCopy.class);
-    public final String bucketName = "x-" + UUID.randomUUID();
+    public final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID();
     public final String key = UUID.randomUUID().toString();
-    public final String destinationBucket = "y-" + UUID.randomUUID();
+    public final String destinationBucket = "amzn-s3-demo-bucket-" + UUID.randomUUID();
     public final String destinationKey = UUID.randomUUID().toString();
 
     public ObjectCopy() {

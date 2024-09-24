@@ -5,6 +5,7 @@ package com.example.s3;
 
 // snippet-start:[s3.java2.getobjectdata.transformer.main]
 // snippet-start:[s3.java2.getobjectdata.transformer.import]
+
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.regions.Region;
@@ -12,6 +13,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,9 +23,9 @@ import java.io.OutputStream;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
@@ -31,14 +33,14 @@ public class GetDataResponseTransformer {
     public static void main(String[] args) {
         final String usage = """
 
-                Usage:
-                    <bucketName> <keyName> <path>
+            Usage:
+                <bucketName> <keyName> <path>
 
-                Where:
-                    bucketName - The Amazon S3 bucket name.\s
-                    keyName - The key name.\s
-                    path - The path where the file is written to.\s
-                """;
+            Where:
+                bucketName - The Amazon S3 bucket name.\s
+                keyName - The key name.\s
+                path - The path where the file is written to.\s
+            """;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -50,8 +52,8 @@ public class GetDataResponseTransformer {
         String path = args[2];
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         getObjectBytes(s3, bucketName, keyName, path);
         s3.close();
@@ -60,10 +62,10 @@ public class GetDataResponseTransformer {
     public static void getObjectBytes(S3Client s3, String bucketName, String keyName, String path) {
         try {
             GetObjectRequest objectRequest = GetObjectRequest
-                    .builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
+                .builder()
+                .key(keyName)
+                .bucket(bucketName)
+                .build();
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObject(objectRequest, ResponseTransformer.toBytes());
             byte[] data = objectBytes.asByteArray();

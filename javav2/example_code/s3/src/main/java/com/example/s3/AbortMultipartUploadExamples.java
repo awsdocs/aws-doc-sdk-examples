@@ -54,7 +54,7 @@ import static software.amazon.awssdk.transfer.s3.SizeConstant.KB;
  */
 
 public class AbortMultipartUploadExamples {
-    static final String bucketName = "x-" + UUID.randomUUID();
+    static final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID();
     static final String key = UUID.randomUUID().toString();
     static final String classPathFilePath = "/multipartUploadFiles/s3-userguide.pdf";
     static final String filePath = getFullFilePath(classPathFilePath);
@@ -80,8 +80,8 @@ public class AbortMultipartUploadExamples {
     // snippet-start:[s3.java2.abort_upload_from_list]
     public static void abortIncompleteMultipartUploadsFromList() {
         ListMultipartUploadsRequest listMultipartUploadsRequest = ListMultipartUploadsRequest.builder()
-                .bucket(bucketName)
-                .build();
+            .bucket(bucketName)
+            .build();
 
         ListMultipartUploadsResponse response = s3Client.listMultipartUploads(listMultipartUploadsRequest);
         List<MultipartUpload> uploads = response.uploads();
@@ -89,11 +89,11 @@ public class AbortMultipartUploadExamples {
         AbortMultipartUploadRequest abortMultipartUploadRequest;
         for (MultipartUpload upload : uploads) {
             abortMultipartUploadRequest = AbortMultipartUploadRequest.builder()
-                    .bucket(bucketName)
-                    .key(upload.key())
-                    .expectedBucketOwner(accountId)
-                    .uploadId(upload.uploadId())
-                    .build();
+                .bucket(bucketName)
+                .key(upload.key())
+                .expectedBucketOwner(accountId)
+                .uploadId(upload.uploadId())
+                .build();
 
             AbortMultipartUploadResponse abortMultipartUploadResponse = s3Client.abortMultipartUpload(abortMultipartUploadRequest);
             if (abortMultipartUploadResponse.sdkHttpResponse().isSuccessful()) {
@@ -114,8 +114,8 @@ public class AbortMultipartUploadExamples {
     // snippet-start:[s3.java2.abort_upload_older_than]
     static void abortIncompleteMultipartUploadsOlderThan(Instant pointInTime) {
         ListMultipartUploadsRequest listMultipartUploadsRequest = ListMultipartUploadsRequest.builder()
-                .bucket(bucketName)
-                .build();
+            .bucket(bucketName)
+            .build();
 
         ListMultipartUploadsResponse response = s3Client.listMultipartUploads(listMultipartUploadsRequest);
         List<MultipartUpload> uploads = response.uploads();
@@ -125,11 +125,11 @@ public class AbortMultipartUploadExamples {
             logger.info("Found multipartUpload with upload ID [{}], initiated [{}]", upload.uploadId(), upload.initiated());
             if (upload.initiated().isBefore(pointInTime)) {
                 abortMultipartUploadRequest = AbortMultipartUploadRequest.builder()
-                        .bucket(bucketName)
-                        .key(upload.key())
-                        .expectedBucketOwner(accountId)
-                        .uploadId(upload.uploadId())
-                        .build();
+                    .bucket(bucketName)
+                    .key(upload.key())
+                    .expectedBucketOwner(accountId)
+                    .uploadId(upload.uploadId())
+                    .build();
 
                 AbortMultipartUploadResponse abortMultipartUploadResponse = s3Client.abortMultipartUpload(abortMultipartUploadRequest);
                 if (abortMultipartUploadResponse.sdkHttpResponse().isSuccessful()) {
@@ -156,9 +156,9 @@ public class AbortMultipartUploadExamples {
     static void abortMultipartUploadUsingUploadId() {
         String uploadId = startUploadReturningUploadId();
         AbortMultipartUploadResponse response = s3Client.abortMultipartUpload(b -> b
-                .uploadId(uploadId)
-                .bucket(bucketName)
-                .key(key));
+            .uploadId(uploadId)
+            .bucket(bucketName)
+            .key(key));
 
         if (response.sdkHttpResponse().isSuccessful()) {
             logger.info("Upload ID [{}] to bucket [{}] successfully aborted.", uploadId, bucketName);
@@ -181,16 +181,16 @@ public class AbortMultipartUploadExamples {
     // snippet-start:[s3.java2.abort_upload_using_lifecycle_config]
     static void abortMultipartUploadsUsingLifecycleConfig() {
         Collection<LifecycleRule> lifeCycleRules = List.of(LifecycleRule.builder()
-                .abortIncompleteMultipartUpload(b -> b.
-                        daysAfterInitiation(7))
-                .status("Enabled")
-                .filter(SdkBuilder::build) // Filter element is required.
-                .build());
+            .abortIncompleteMultipartUpload(b -> b.
+                daysAfterInitiation(7))
+            .status("Enabled")
+            .filter(SdkBuilder::build) // Filter element is required.
+            .build());
 
         // If the action is successful, the service sends back an HTTP 200 response with an empty HTTP body.
         PutBucketLifecycleConfigurationResponse response = s3Client.putBucketLifecycleConfiguration(b -> b
-                .bucket(bucketName)
-                .lifecycleConfiguration(b1 -> b1.rules(lifeCycleRules)));
+            .bucket(bucketName)
+            .lifecycleConfiguration(b1 -> b1.rules(lifeCycleRules)));
 
         if (response.sdkHttpResponse().isSuccessful()) {
             logger.info("Rule to abort incomplete multipart uploads added to bucket.");
@@ -243,8 +243,8 @@ public class AbortMultipartUploadExamples {
 
     static String step1CreateMultipartUpload() {
         CreateMultipartUploadResponse createMultipartUploadResponse = s3Client.createMultipartUpload(b -> b
-                .bucket(bucketName)
-                .key(key));
+            .bucket(bucketName)
+            .key(key));
         return createMultipartUploadResponse.uploadId();
     }
 
@@ -262,20 +262,20 @@ public class AbortMultipartUploadExamples {
 
                 bb.flip(); // Swap position and limit before reading from the buffer.
                 UploadPartRequest uploadPartRequest = UploadPartRequest.builder()
-                        .bucket(bucketName)
-                        .key(key)
-                        .uploadId(uploadId)
-                        .partNumber(partNumber)
-                        .build();
+                    .bucket(bucketName)
+                    .key(key)
+                    .uploadId(uploadId)
+                    .partNumber(partNumber)
+                    .build();
 
                 UploadPartResponse partResponse = s3Client.uploadPart(
-                        uploadPartRequest,
-                        RequestBody.fromByteBuffer(bb));
+                    uploadPartRequest,
+                    RequestBody.fromByteBuffer(bb));
 
                 CompletedPart part = CompletedPart.builder()
-                        .partNumber(partNumber)
-                        .eTag(partResponse.eTag())
-                        .build();
+                    .partNumber(partNumber)
+                    .eTag(partResponse.eTag())
+                    .build();
                 completedParts.add(part);
                 logger.info("Part {} upload", partNumber);
 
@@ -292,10 +292,10 @@ public class AbortMultipartUploadExamples {
 
     static void step3CompleteMultipartUpload(String uploadId, List<CompletedPart> completedParts) {
         s3Client.completeMultipartUpload(b -> b
-                .bucket(bucketName)
-                .key(key)
-                .uploadId(uploadId)
-                .multipartUpload(CompletedMultipartUpload.builder().parts(completedParts).build()));
+            .bucket(bucketName)
+            .key(key)
+            .uploadId(uploadId)
+            .multipartUpload(CompletedMultipartUpload.builder().parts(completedParts).build()));
     }
 
     static String startUploadReturningUploadId() {
