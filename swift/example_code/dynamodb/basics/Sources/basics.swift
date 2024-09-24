@@ -28,21 +28,34 @@
 /// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[ddb.swift.basics]
-import Foundation
 import ArgumentParser
 import ClientRuntime
+import Foundation
+
 // snippet-start:[ddb.swift.import]
 import AWSDynamoDB
+
 // snippet-end:[ddb.swift.import]
 
 @testable import MovieList
 
+extension String {
+    // Get the directory if the string is a file path.
+    func directory() -> String {
+        guard let lastIndex = lastIndex(of: "/") else {
+            print("Error: String directory separator not found.")
+            return ""
+        }
+        return String(self[...lastIndex])
+    }
+}
+
 struct ExampleCommand: ParsableCommand {
     @Argument(help: "The path of the sample movie data JSON file.")
-    var jsonPath: String = "../../../../resources/sample_files/movies.json"
+    var jsonPath: String = #file.directory() + "../../../../../resources/sample_files/movies.json"
 
     @Option(help: "The AWS Region to run AWS API calls in.")
-    var awsRegion = "us-east-2"
+    var awsRegion: String?
 
     @Option(
         help: ArgumentHelp("The level of logging for the Swift SDK to perform."),
@@ -77,13 +90,12 @@ struct ExampleCommand: ParsableCommand {
         //    the `MovieTable` class.
         //=====================================================================
 
-        let tableName = "ddb-movies-sample-\(Int.random(in: 1...Int.max))"
-        //let tableName = String.uniqueName(withPrefix: "ddb-movies-sample", maxDigits: 8)
+        let tableName = "ddb-movies-sample-\(Int.random(in: 1 ... Int.max))"
 
         print("Creating table \"\(tableName)\"...")
 
         let movieDatabase = try await MovieTable(region: awsRegion,
-                            tableName: tableName)
+                                                 tableName: tableName)
 
         print("\nWaiting for table to be ready to use...")
         try await movieDatabase.awaitTableActive()
@@ -103,7 +115,7 @@ struct ExampleCommand: ParsableCommand {
 
         print("\nAdding details to the added movie...")
         _ = try await movieDatabase.update(title: "Avatar: The Way of Water", year: 2022,
-                    rating: 9.2, plot: "It's a sequel.")
+                                           rating: 9.2, plot: "It's a sequel.")
 
         //=====================================================================
         // 4. Populate the table from the JSON file.
@@ -174,4 +186,5 @@ struct Main {
         }
     }
 }
+
 // snippet-end:[ddb.swift.basics]

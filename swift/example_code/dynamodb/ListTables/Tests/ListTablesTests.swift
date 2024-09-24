@@ -80,54 +80,19 @@ public struct MockDBSession: DatabaseSession {
     /// Mock version of the DynamoDB client's `listTables()` function. Returns
     /// values from the string array `fakeTableNames` or the one specified as
     /// an optional input when creating the `MockDBSession`.
-    public func listTables(input: ListTablesInput) async throws -> ListTablesOutput {
-        var output = ListTablesOutput(
-            lastEvaluatedTableName: nil,
-            tableNames: nil
-        )
-
-        // Stop at once if there are no table names in the list.
-        
-        if testTableNames.count == 0 {
-            return output
+    public func listTables(input: ListTablesInput) async throws -> [String] {
+         var maxTables = testTableNames.count
+        if let limit = input.limit {
+            maxTables = Swift.min(limit, maxTables)
         }
 
-        var startIndex: Int
-
-        // Get the starting point in the list using the input's
-        // `exclusiveStartTableName` property. If it's `nil` or the string
-        // isn't found in the list, use 0 for the index.
-
-        if input.exclusiveStartTableName != nil {
-            startIndex = testTableNames.firstIndex(of: input.exclusiveStartTableName!) ?? 0
-        } else {
-            startIndex = 0
-        }
-
-        // Split the full list of table names into the number of parts
-        // specified by the `limit` parameter, or 100 parts if `limit` is not
-        // specified.
-
-        let chunkSize = input.limit ?? 100
-        let chunks: [[String]] = stride(from: startIndex, to: testTableNames.count, by: chunkSize).map {
-            Array(testTableNames[$0 ..< Swift.min($0 + chunkSize, testTableNames.count)])
-        }
-
-        output.tableNames = chunks[0]
-        if chunks.count == 1 {
-            output.lastEvaluatedTableName = nil
-        } else {
-            output.lastEvaluatedTableName = chunks[1].first
-        }
-
-        return output
+        return Array(testTableNames[0..<maxTables])
     }
 }
 
 /// Perform tests on the `getTableList()` function.
 final class ListTablesTests: XCTestCase {
-    static let region = "us-east-2"
-
+ 
     /// Class-wide setup function for the test case, which is run *once*
     /// before any tests are run.
     ///

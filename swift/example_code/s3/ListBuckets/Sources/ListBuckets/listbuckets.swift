@@ -8,10 +8,11 @@
 
 // snippet-start:[s3.swift.listbuckets.command]
 // snippet-start:[s3.swift.listbuckets.command.imports]
-import Foundation
 import ArgumentParser
 import AWSClientRuntime
 import AWSS3
+import Foundation
+
 // snippet-end:[s3.swift.listbuckets.command.imports]
 
 // snippet-start:[s3.swift.listbuckets.command.parsable]
@@ -56,7 +57,7 @@ struct ExampleCommand: ParsableCommand {
 
     /// Called by ``main()`` to asynchronously run the AWS example.
     func runAsync() async throws {
-        let s3 = S3Manager(session: try S3Session(region: region))
+        let s3 = try await S3Manager(session: S3Session(region: region))
         let bucketList = try await s3.getAllBuckets()
 
         if bucketList.count != 0 {
@@ -69,6 +70,7 @@ struct ExampleCommand: ParsableCommand {
         }
     }
 }
+
 // snippet-end:[s3.swift.listbuckets.command.parsable]
 
 // snippet-start:[s3.swift.listbuckets.datetostring]
@@ -78,10 +80,11 @@ struct ExampleCommand: ParsableCommand {
 ///
 /// - Returns: A string containing the date in the format `mm/dd/yy, h:mm:ss
 ///   pp UTC`, or `<unknown>` if the date is `nil`.
-func dateToString(_ date:Date?) -> String {
+func dateToString(_ date: Date?) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .short
     dateFormatter.timeStyle = .long
+    dateFormatter.timeZone = TimeZone(identifier: "GMT")
 
     if date != nil {
         return dateFormatter.string(from: date!)
@@ -89,6 +92,7 @@ func dateToString(_ date:Date?) -> String {
         return "<unknown>"
     }
 }
+
 // snippet-end:[s3.swift.listbuckets.datetostring]
 
 // snippet-start:[s3.swift.listbuckets.bucketstring]
@@ -102,6 +106,7 @@ func bucketString(_ bucket: S3ClientTypes.Bucket) -> String {
     let dateString = dateToString(bucket.creationDate)
     return "\(bucket.name ?? "<unknown>") (created \(dateString))"
 }
+
 // snippet-end:[s3.swift.listbuckets.bucketstring]
 
 // snippet-start:[s3.swift.listbuckets.main]
@@ -122,5 +127,6 @@ struct Main {
         }
     }
 }
+
 // snippet-end:[s3.swift.listbuckets.main]
 // snippet-end:[s3.swift.listbuckets.command]

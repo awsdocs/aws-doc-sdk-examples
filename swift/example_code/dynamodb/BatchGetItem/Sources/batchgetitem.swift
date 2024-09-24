@@ -7,17 +7,28 @@
 /// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[ddb.swift.batchgetitem]
-import Foundation
 import ArgumentParser
 import AWSDynamoDB
 import ClientRuntime
+import Foundation
+
+extension String {
+    // Get the directory if the string is a file path.
+    func directory() -> String {
+        guard let lastIndex = lastIndex(of: "/") else {
+            print("Error: String directory separator not found.")
+            return ""
+        }
+        return String(self[...lastIndex])
+    }
+}
 
 struct ExampleCommand: ParsableCommand {
     @Argument(help: "The path of the sample movie data JSON file.")
-    var jsonPath: String = "../../../../resources/sample_files/movies.json"
+    var jsonPath: String = #file.directory() + "../../../../../resources/sample_files/movies.json"
 
     @Option(help: "The AWS Region to run AWS API calls in.")
-    var awsRegion = "us-east-2"
+    var awsRegion: String?
 
     @Option(
         help: ArgumentHelp("The level of logging for the Swift SDK to perform."),
@@ -53,7 +64,7 @@ struct ExampleCommand: ParsableCommand {
         print("Please wait while the database is installed and searched...\n")
 
         let database = try await MovieDatabase(jsonPath: jsonPath)
-        
+
         let movies = try await database.batchGet(keys: [
             (title: "Titanic", year: 1997),
             (title: "The Shawshank Redemption", year: 1994),
@@ -82,4 +93,5 @@ struct Main {
         }
     }
 }
+
 // snippet-end:[ddb.swift.batchgetitem]

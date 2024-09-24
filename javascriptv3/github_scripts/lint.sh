@@ -12,3 +12,6 @@ done
 
 # Run linting only on filtered files
 npm run --prefix javascriptv3 ci-lint -- "${filtered_files[@]//javascriptv3\/}"
+
+# Run format check
+npm run --prefix javascriptv3 ci-format-check -- "${@//javascriptv3\/}"

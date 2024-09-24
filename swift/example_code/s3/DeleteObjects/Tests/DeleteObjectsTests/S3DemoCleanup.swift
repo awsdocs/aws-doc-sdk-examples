@@ -54,7 +54,7 @@ public class S3DemoCleanup {
 
     init() async {
         do {
-            self.client = try S3Client(region: "us-east-2")
+            self.client = try await S3Client()
         } catch {
             print("Error initializing S3 client for tracking and deleting Amazon S3 buckets and files created by the example:")
             dump(error)

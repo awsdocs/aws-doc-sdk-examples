@@ -5,8 +5,8 @@
 // using a Swift class.
 
 // snippet-start:[ddb.swift.basics.movietable]
-import Foundation
 import AWSDynamoDB
+import Foundation
 
 /// An enumeration of error codes representing issues that can arise when using
 /// the `MovieTable` class.
@@ -23,18 +23,17 @@ enum MoviesError: Error {
     case InvalidAttributes
 }
 
-
 /// A class representing an Amazon DynamoDB table containing movie
 /// information.
 public class MovieTable {
-    var ddbClient: DynamoDBClient? = nil
+    var ddbClient: DynamoDBClient?
     let tableName: String
 
     /// Create an object representing a movie table in an Amazon DynamoDB
     /// database.
     ///
     /// - Parameters:
-    ///   - region: The Amazon Region to create the database in.
+    ///   - region: The optional Amazon Region to create the database in.
     ///   - tableName: The name to assign to the table. If not specified, a
     ///     random table name is generated automatically.
     ///
@@ -43,11 +42,21 @@ public class MovieTable {
     /// `awaitTableActive()` to wait until the table's status is reported as
     /// ready to use by Amazon DynamoDB.
     ///
-    init(region: String = "us-east-2", tableName: String) async throws {
-        ddbClient = try DynamoDBClient(region: region)
-        self.tableName = tableName
+    init(region: String? = nil, tableName: String) async throws {
+        do {
+            let config = try await DynamoDBClient.DynamoDBClientConfiguration()
+            if let region = region {
+                config.region = region
+            }
 
-        try await self.createTable()
+            self.ddbClient = DynamoDBClient(config: config)
+            self.tableName = tableName
+
+            try await self.createTable()
+        } catch {
+            print("ERROR: ", dump(error, name: "Initializing Amazon DynamoDBClient client"))
+            throw error
+        }
     }
 
     // snippet-start:[ddb.swift.basics.createtable]
@@ -55,30 +64,36 @@ public class MovieTable {
     /// Create a movie table in the Amazon DynamoDB data store.
     ///
     private func createTable() async throws {
-        guard let client = self.ddbClient else {
-            throw MoviesError.UninitializedClient
-        }
+        do {
+            guard let client = self.ddbClient else {
+                throw MoviesError.UninitializedClient
+            }
 
-        let input = CreateTableInput(
-            attributeDefinitions: [
-                DynamoDBClientTypes.AttributeDefinition(attributeName: "year", attributeType: .n),
-                DynamoDBClientTypes.AttributeDefinition(attributeName: "title", attributeType: .s),
-            ],
-            keySchema: [
-                DynamoDBClientTypes.KeySchemaElement(attributeName: "year", keyType: .hash),
-                DynamoDBClientTypes.KeySchemaElement(attributeName: "title", keyType: .range)
-            ],
-            provisionedThroughput: DynamoDBClientTypes.ProvisionedThroughput(
-                readCapacityUnits: 10,
-                writeCapacityUnits: 10
-            ),
-            tableName: self.tableName
-        )
-        let output = try await client.createTable(input: input)
-        if output.tableDescription == nil {
-            throw MoviesError.TableNotFound
+            let input = CreateTableInput(
+                attributeDefinitions: [
+                    DynamoDBClientTypes.AttributeDefinition(attributeName: "year", attributeType: .n),
+                    DynamoDBClientTypes.AttributeDefinition(attributeName: "title", attributeType: .s)
+                ],
+                keySchema: [
+                    DynamoDBClientTypes.KeySchemaElement(attributeName: "year", keyType: .hash),
+                    DynamoDBClientTypes.KeySchemaElement(attributeName: "title", keyType: .range)
+                ],
+                provisionedThroughput: DynamoDBClientTypes.ProvisionedThroughput(
+                    readCapacityUnits: 10,
+                    writeCapacityUnits: 10
+                ),
+                tableName: self.tableName
+            )
+            let output = try await client.createTable(input: input)
+            if output.tableDescription == nil {
+                throw MoviesError.TableNotFound
+            }
+        } catch {
+            print("ERROR: createTable:", dump(error))
+            throw error
         }
     }
+
     // snippet-end:[ddb.swift.basics.createtable]
 
     // snippet-start:[ddb.swift.basics.tableexists]
@@ -87,20 +102,26 @@ public class MovieTable {
     /// - Returns: `true` if the table exists, or `false` if not.
     ///
     func tableExists() async throws -> Bool {
-        guard let client = self.ddbClient else {
-            throw MoviesError.UninitializedClient
-        }
+        do {
+            guard let client = self.ddbClient else {
+                throw MoviesError.UninitializedClient
+            }
 
-        let input = DescribeTableInput(
-            tableName: tableName
-        )
-        let output = try await client.describeTable(input: input)
-        guard let description = output.table else {
-            throw MoviesError.TableNotFound
+            let input = DescribeTableInput(
+                tableName: tableName
+            )
+            let output = try await client.describeTable(input: input)
+            guard let description = output.table else {
+                throw MoviesError.TableNotFound
+            }
+
+            return description.tableName == self.tableName
+        } catch {
+            print("ERROR: tableExists:", dump(error))
+            throw error
         }
-        
-        return (description.tableName == self.tableName)
     }
+
     // snippet-end:[ddb.swift.basics.tableexists]
 
     // snippet-start:[ddb.swift.basics.awaittableactive]
@@ -108,14 +129,25 @@ public class MovieTable {
     /// Waits for the table to exist and for its status to be active.
     ///
     func awaitTableActive() async throws {
-        while (try await tableExists() == false) {
-            Thread.sleep(forTimeInterval: 0.25)
+        while try (await self.tableExists() == false) {
+            do {
+                let duration = UInt64(0.25 * 1_000_000_000) // Convert .25 seconds to nanoseconds.
+                try await Task.sleep(nanoseconds: duration)
+            } catch {
+                print("Sleep error:", dump(error))
+            }
         }
 
-        while (try await getTableStatus() != .active) {
-            Thread.sleep(forTimeInterval: 0.25)
+        while try (await self.getTableStatus() != .active) {
+            do {
+                let duration = UInt64(0.25 * 1_000_000_000) // Convert .25 seconds to nanoseconds.
+                try await Task.sleep(nanoseconds: duration)
+            } catch {
+                print("Sleep error:", dump(error))
+            }
         }
     }
+
     // snippet-end:[ddb.swift.basics.awaittableactive]
 
     // snippet-start:[ddb.swift.basics.deletetable]
@@ -123,15 +155,21 @@ public class MovieTable {
     /// Deletes the table from Amazon DynamoDB.
     ///
     func deleteTable() async throws {
-        guard let client = self.ddbClient else {
-            throw MoviesError.UninitializedClient
+        do {
+            guard let client = self.ddbClient else {
+                throw MoviesError.UninitializedClient
+            }
+
+            let input = DeleteTableInput(
+                tableName: self.tableName
+            )
+            _ = try await client.deleteTable(input: input)
+        } catch {
+            print("ERROR: deleteTable:", dump(error))
+            throw error
         }
-        
-        let input = DeleteTableInput(
-            tableName: self.tableName
-        )
-        _ = try await client.deleteTable(input: input)
     }
+
     // snippet-end:[ddb.swift.basics.deletetable]
 
     // snippet-start:[ddb.swift.basics.gettablestatus]
@@ -141,22 +179,28 @@ public class MovieTable {
     ///   `DynamoDBClientTypes.TableStatus` enum.
     ///
     func getTableStatus() async throws -> DynamoDBClientTypes.TableStatus {
-        guard let client = self.ddbClient else {
-            throw MoviesError.UninitializedClient
-        }
+        do {
+            guard let client = self.ddbClient else {
+                throw MoviesError.UninitializedClient
+            }
 
-        let input = DescribeTableInput(
-            tableName: self.tableName
-        )
-        let output = try await client.describeTable(input: input)
-        guard let description = output.table else {
-            throw MoviesError.TableNotFound
+            let input = DescribeTableInput(
+                tableName: self.tableName
+            )
+            let output = try await client.describeTable(input: input)
+            guard let description = output.table else {
+                throw MoviesError.TableNotFound
+            }
+            guard let status = description.tableStatus else {
+                throw MoviesError.StatusUnknown
+            }
+            return status
+        } catch {
+            print("ERROR: getTableStatus:", dump(error))
+            throw error
         }
-        guard let status = description.tableStatus else {
-            throw MoviesError.StatusUnknown
-        }
-        return status
     }
+
     // snippet-end:[ddb.swift.basics.gettablestatus]
 
     // snippet-start:[ddb.swift.basics.populate]
@@ -165,84 +209,96 @@ public class MovieTable {
     /// - Parameter jsonPath: Path to a JSON file containing movie data.
     ///
     func populate(jsonPath: String) async throws {
-        guard let client = self.ddbClient else {
-            throw MoviesError.UninitializedClient
-        }
-
-        // Create a Swift `URL` and use it to load the file into a `Data`
-        // object. Then decode the JSON into an array of `Movie` objects.
-
-        let fileUrl = URL(fileURLWithPath: jsonPath)
-        let jsonData = try Data(contentsOf: fileUrl)
-
-        var movieList = try JSONDecoder().decode([Movie].self, from: jsonData)
-
-        // Truncate the list to the first 200 entries or so for this example.
-
-        if movieList.count > 200 {
-            movieList = Array(movieList[...199])
-        }
-
-        // Before sending records to the database, break the movie list into
-        // 25-entry chunks, which is the maximum size of a batch item request.
-
-        let count = movieList.count
-        let chunks = stride(from: 0, to: count, by: 25).map {
-            Array(movieList[$0 ..< Swift.min($0 + 25, count)])
-        }
-
-        // For each chunk, create a list of write request records and populate
-        // them with `PutRequest` requests, each specifying one movie from the
-        // chunk. Once the chunk's items are all in the `PutRequest` list,
-        // send them to Amazon DynamoDB using the
-        // `DynamoDBClient.batchWriteItem()` function.
-
-        for chunk in chunks {
-            var requestList: [DynamoDBClientTypes.WriteRequest] = []
-            
-            for movie in chunk {
-                let item = try await movie.getAsItem()
-                let request = DynamoDBClientTypes.WriteRequest(
-                    putRequest: .init(
-                        item: item
-                    )
-                )
-                requestList.append(request)
+        do {
+            guard let client = self.ddbClient else {
+                throw MoviesError.UninitializedClient
             }
 
-            let input = BatchWriteItemInput(requestItems: [tableName: requestList])
-            _ = try await client.batchWriteItem(input: input)
+            // Create a Swift `URL` and use it to load the file into a `Data`
+            // object. Then decode the JSON into an array of `Movie` objects.
+
+            let fileUrl = URL(fileURLWithPath: jsonPath)
+            let jsonData = try Data(contentsOf: fileUrl)
+
+            var movieList = try JSONDecoder().decode([Movie].self, from: jsonData)
+
+            // Truncate the list to the first 200 entries or so for this example.
+
+            if movieList.count > 200 {
+                movieList = Array(movieList[...199])
+            }
+
+            // Before sending records to the database, break the movie list into
+            // 25-entry chunks, which is the maximum size of a batch item request.
+
+            let count = movieList.count
+            let chunks = stride(from: 0, to: count, by: 25).map {
+                Array(movieList[$0 ..< Swift.min($0 + 25, count)])
+            }
+
+            // For each chunk, create a list of write request records and populate
+            // them with `PutRequest` requests, each specifying one movie from the
+            // chunk. Once the chunk's items are all in the `PutRequest` list,
+            // send them to Amazon DynamoDB using the
+            // `DynamoDBClient.batchWriteItem()` function.
+
+            for chunk in chunks {
+                var requestList: [DynamoDBClientTypes.WriteRequest] = []
+
+                for movie in chunk {
+                    let item = try await movie.getAsItem()
+                    let request = DynamoDBClientTypes.WriteRequest(
+                        putRequest: .init(
+                            item: item
+                        )
+                    )
+                    requestList.append(request)
+                }
+
+                let input = BatchWriteItemInput(requestItems: [tableName: requestList])
+                _ = try await client.batchWriteItem(input: input)
+            }
+        } catch {
+            print("ERROR: populate:", dump(error))
+            throw error
         }
     }
+
     // snippet-end:[ddb.swift.basics.populate]
 
     // snippet-start:[ddb.swift.basics.add-movie]
     /// Add a movie specified as a `Movie` structure to the Amazon DynamoDB
     /// table.
-    /// 
+    ///
     /// - Parameter movie: The `Movie` to add to the table.
     ///
     func add(movie: Movie) async throws {
-        guard let client = self.ddbClient else {
-            throw MoviesError.UninitializedClient
+        do {
+            guard let client = self.ddbClient else {
+                throw MoviesError.UninitializedClient
+            }
+
+            // Get a DynamoDB item containing the movie data.
+            let item = try await movie.getAsItem()
+
+            // Send the `PutItem` request to Amazon DynamoDB.
+
+            let input = PutItemInput(
+                item: item,
+                tableName: self.tableName
+            )
+            _ = try await client.putItem(input: input)
+        } catch {
+            print("ERROR: add movie:", dump(error))
+            throw error
         }
-
-        // Get a DynamoDB item containing the movie data.
-        let item = try await movie.getAsItem()
-
-        // Send the `PutItem` request to Amazon DynamoDB.
-
-        let input = PutItemInput(
-            item: item,
-            tableName: self.tableName
-        )
-        _ = try await client.putItem(input: input)
     }
+
     // snippet-end:[ddb.swift.basics.add-movie]
 
     // snippet-start:[ddb.swift.basics.add-args]
     /// Given a movie's details, add a movie to the Amazon DynamoDB table.
-    /// 
+    ///
     /// - Parameters:
     ///   - title: The movie's title as a `String`.
     ///   - year: The release year of the movie (`Int`).
@@ -252,10 +308,17 @@ public class MovieTable {
     ///     indicating no plot summary is available).
     ///
     func add(title: String, year: Int, rating: Double? = nil,
-             plot: String? = nil) async throws {
-        let movie = Movie(title: title, year: year, rating: rating, plot: plot)
-        try await self.add(movie: movie)
+             plot: String? = nil) async throws
+    {
+        do {
+            let movie = Movie(title: title, year: year, rating: rating, plot: plot)
+            try await self.add(movie: movie)
+        } catch {
+            print("ERROR: add with fields:", dump(error))
+            throw error
+        }
     }
+
     // snippet-end:[ddb.swift.basics.add-args]
 
     // snippet-start:[ddb.swift.basics.get]
@@ -270,25 +333,31 @@ public class MovieTable {
     ///
     /// - Returns: A `Movie` record with the movie's details.
     func get(title: String, year: Int) async throws -> Movie {
-        guard let client = self.ddbClient else {
-            throw MoviesError.UninitializedClient
-        }
+        do {
+            guard let client = self.ddbClient else {
+                throw MoviesError.UninitializedClient
+            }
 
-        let input = GetItemInput(
-            key: [
-                "year": .n(String(year)),
-                "title": .s(title)
-            ],
-            tableName: self.tableName
-        )
-        let output = try await client.getItem(input: input)
-        guard let item = output.item else {
-            throw MoviesError.ItemNotFound
-        }
+            let input = GetItemInput(
+                key: [
+                    "year": .n(String(year)),
+                    "title": .s(title)
+                ],
+                tableName: self.tableName
+            )
+            let output = try await client.getItem(input: input)
+            guard let item = output.item else {
+                throw MoviesError.ItemNotFound
+            }
 
-        let movie = try Movie(withItem: item)
-        return movie
+            let movie = try Movie(withItem: item)
+            return movie
+        } catch {
+            print("ERROR: get:", dump(error))
+            throw error
+        }
     }
+
     // snippet-end:[ddb.swift.basics.get]
 
     // snippet-start:[ddb.swift.basics.getMovies-year]
@@ -299,36 +368,48 @@ public class MovieTable {
     /// - Returns: An array of `Movie` objects describing each matching movie.
     ///
     func getMovies(fromYear year: Int) async throws -> [Movie] {
-        guard let client = self.ddbClient else {
-            throw MoviesError.UninitializedClient
+        do {
+            guard let client = self.ddbClient else {
+                throw MoviesError.UninitializedClient
+            }
+
+            let input = QueryInput(
+                expressionAttributeNames: [
+                    "#y": "year"
+                ],
+                expressionAttributeValues: [
+                    ":y": .n(String(year))
+                ],
+                keyConditionExpression: "#y = :y",
+                tableName: self.tableName
+            )
+            // Use "Paginated" to get all the movies.
+            // This lets the SDK handle the 'lastEvaluatedKey' property in "QueryOutput".
+
+            let pages = client.queryPaginated(input: input)
+
+            var movieList: [Movie] = []
+            for try await page in pages {
+                guard let items = page.items else {
+                    print("Error: no items returned.")
+                    continue
+                }
+
+                // Convert the found movies into `Movie` objects and return an array
+                // of them.
+
+                for item in items {
+                    let movie = try Movie(withItem: item)
+                    movieList.append(movie)
+                }
+            }
+            return movieList
+        } catch {
+            print("ERROR: getMovies:", dump(error))
+            throw error
         }
-
-        let input = QueryInput(
-            expressionAttributeNames: [
-                "#y": "year"
-            ],
-            expressionAttributeValues: [
-                ":y": .n(String(year))
-            ],
-            keyConditionExpression: "#y = :y",
-            tableName: self.tableName
-        )
-        let output = try await client.query(input: input)
-
-        guard let items = output.items else {
-            throw MoviesError.ItemNotFound
-        }
-
-        // Convert the found movies into `Movie` objects and return an array
-        // of them.
-
-        var movieList: [Movie] = []
-        for item in items {
-            let movie = try Movie(withItem: item)
-            movieList.append(movie)
-        }
-        return movieList
     }
+
     // snippet-end:[ddb.swift.basics.getMovies-year]
 
     // snippet-start:[ddb.swift.basics.getmovies-range]
@@ -347,56 +428,58 @@ public class MovieTable {
     ///   directly.
     ///
     func getMovies(firstYear: Int, lastYear: Int,
-                   startKey: [Swift.String:DynamoDBClientTypes.AttributeValue]? = nil)
-                   async throws -> [Movie] {
-        var movieList: [Movie] = []
+                   startKey: [Swift.String: DynamoDBClientTypes.AttributeValue]? = nil)
+        async throws -> [Movie]
+    {
+        do {
+            var movieList: [Movie] = []
 
-        guard let client = self.ddbClient else {
-            throw MoviesError.UninitializedClient
-        }
+            guard let client = self.ddbClient else {
+                throw MoviesError.UninitializedClient
+            }
 
-        let input = ScanInput(
-            consistentRead: true,
-            exclusiveStartKey: startKey,
-            expressionAttributeNames: [
-                "#y": "year"            // `year` is a reserved word, so use `#y` instead.
-            ],
-            expressionAttributeValues: [
-                ":y1": .n(String(firstYear)),
-                ":y2": .n(String(lastYear))
-            ],
-            filterExpression: "#y BETWEEN :y1 AND :y2",
-            tableName: self.tableName
-        )
+            let input = ScanInput(
+                consistentRead: true,
+                exclusiveStartKey: startKey,
+                expressionAttributeNames: [
+                    "#y": "year" // `year` is a reserved word, so use `#y` instead.
+                ],
+                expressionAttributeValues: [
+                    ":y1": .n(String(firstYear)),
+                    ":y2": .n(String(lastYear))
+                ],
+                filterExpression: "#y BETWEEN :y1 AND :y2",
+                tableName: self.tableName
+            )
 
-        let output = try await client.scan(input: input)
+            let pages = client.scanPaginated(input: input)
 
-        guard let items = output.items else {
+            for try await page in pages {
+                guard let items = page.items else {
+                    print("Error: no items returned.")
+                    continue
+                }
+
+                // Build an array of `Movie` objects for the returned items.
+
+                for item in items {
+                    let movie = try Movie(withItem: item)
+                    movieList.append(movie)
+                }
+            }
             return movieList
+
+        } catch {
+            print("ERROR: getMovies with scan:", dump(error))
+            throw error
         }
-
-        // Build an array of `Movie` objects for the returned items.
-
-        for item in items {
-            let movie = try Movie(withItem: item)
-            movieList.append(movie)
-        }
-
-        // Call this function recursively to continue collecting matching
-        // movies, if necessary.
-
-        if output.lastEvaluatedKey != nil {
-            let movies = try await self.getMovies(firstYear: firstYear, lastYear: lastYear,
-                         startKey: output.lastEvaluatedKey)
-            movieList += movies
-        }
-        return movieList
     }
+
     // snippet-end:[ddb.swift.basics.getmovies-range]
 
     // snippet-start:[ddb.swift.basics.update]
     /// Update the specified movie with new `rating` and `plot` information.
-    /// 
+    ///
     /// - Parameters:
     ///   - title: The title of the movie to update.
     ///   - year: The release year of the movie to update.
@@ -408,48 +491,55 @@ public class MovieTable {
     ///   aren't included in this list. `nil` if no changes were made.
     ///
     func update(title: String, year: Int, rating: Double? = nil, plot: String? = nil) async throws
-                -> [Swift.String:DynamoDBClientTypes.AttributeValue]? {
-        guard let client = self.ddbClient else {
-            throw MoviesError.UninitializedClient
+        -> [Swift.String: DynamoDBClientTypes.AttributeValue]?
+    {
+        do {
+            guard let client = self.ddbClient else {
+                throw MoviesError.UninitializedClient
+            }
+
+            // Build the update expression and the list of expression attribute
+            // values. Include only the information that's changed.
+
+            var expressionParts: [String] = []
+            var attrValues: [Swift.String: DynamoDBClientTypes.AttributeValue] = [:]
+
+            if rating != nil {
+                expressionParts.append("info.rating=:r")
+                attrValues[":r"] = .n(String(rating!))
+            }
+            if plot != nil {
+                expressionParts.append("info.plot=:p")
+                attrValues[":p"] = .s(plot!)
+            }
+            let expression = "set \(expressionParts.joined(separator: ", "))"
+
+            let input = UpdateItemInput(
+                // Create substitution tokens for the attribute values, to ensure
+                // no conflicts in expression syntax.
+                expressionAttributeValues: attrValues,
+                // The key identifying the movie to update consists of the release
+                // year and title.
+                key: [
+                    "year": .n(String(year)),
+                    "title": .s(title)
+                ],
+                returnValues: .updatedNew,
+                tableName: self.tableName,
+                updateExpression: expression
+            )
+            let output = try await client.updateItem(input: input)
+
+            guard let attributes: [Swift.String: DynamoDBClientTypes.AttributeValue] = output.attributes else {
+                throw MoviesError.InvalidAttributes
+            }
+            return attributes
+        } catch {
+            print("ERROR: update:", dump(error))
+            throw error
         }
-
-        // Build the update expression and the list of expression attribute
-        // values. Include only the information that's changed.
-
-        var expressionParts: [String] = []
-        var attrValues: [Swift.String:DynamoDBClientTypes.AttributeValue] = [:]
-
-        if rating != nil {
-            expressionParts.append("info.rating=:r")
-            attrValues[":r"] = .n(String(rating!))
-        }
-        if plot != nil {
-            expressionParts.append("info.plot=:p")
-            attrValues[":p"] = .s(plot!)
-        }
-        let expression: String = "set \(expressionParts.joined(separator: ", "))"
-
-        let input = UpdateItemInput(
-            // Create substitution tokens for the attribute values, to ensure
-            // no conflicts in expression syntax.
-            expressionAttributeValues: attrValues,
-            // The key identifying the movie to update consists of the release
-            // year and title.
-            key: [
-                "year": .n(String(year)),
-                "title": .s(title)
-            ],
-            returnValues: .updatedNew,
-            tableName: self.tableName,
-            updateExpression: expression
-        )
-        let output = try await client.updateItem(input: input)
-
-        guard let attributes: [Swift.String:DynamoDBClientTypes.AttributeValue] = output.attributes else {
-            throw MoviesError.InvalidAttributes
-        }
-        return attributes
     }
+
     // snippet-end:[ddb.swift.basics.update]
 
     // snippet-start:[ddb.swift.basics.delete]
@@ -460,19 +550,25 @@ public class MovieTable {
     ///   - year: The movie's release year.
     ///
     func delete(title: String, year: Int) async throws {
-        guard let client = self.ddbClient else {
-            throw MoviesError.UninitializedClient
-        }
+        do {
+            guard let client = self.ddbClient else {
+                throw MoviesError.UninitializedClient
+            }
 
-        let input = DeleteItemInput(
-            key: [
-                "year": .n(String(year)),
-                "title": .s(title)
-            ],
-            tableName: self.tableName
-        )
-        _ = try await client.deleteItem(input: input)
+            let input = DeleteItemInput(
+                key: [
+                    "year": .n(String(year)),
+                    "title": .s(title)
+                ],
+                tableName: self.tableName
+            )
+            _ = try await client.deleteItem(input: input)
+        } catch {
+            print("ERROR: delete:", dump(error))
+            throw error
+        }
     }
     // snippet-end:[ddb.swift.basics.delete]
 }
+
 // snippet-end:[ddb.swift.basics.movietable]

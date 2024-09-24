@@ -34,11 +34,12 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[iam.swift.attachrolepolicy.command.runasync]
     func runAsync() async throws {
-        let serviceHandler = await ServiceHandler()
-
         do {
+            let serviceHandler = try await ServiceHandler()
+            
             _ = try await serviceHandler.attachRolePolicy(role: rolename, policyArn: policyArn)
         } catch {
+            print("ERROR: runAsync:", dump(error))
             throw error
         }
     }

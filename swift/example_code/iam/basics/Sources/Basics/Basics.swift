@@ -23,14 +23,18 @@
 
 // snippet-start:[iam.swift.basics.example]
 // snippet-start:[iam.swift.basics.main.imports]
-import Foundation
 import ArgumentParser
 import ClientRuntime
+import Foundation
+import Swift
+
 // snippet-start:[iam.swift.import]
 import AWSIAM
+import AWSS3
+
 // snippet-end:[iam.swift.import]
 import AWSSTS
-import AWSS3
+
 // snippet-end:[iam.swift.basics.main.imports]
 
 @testable import ServiceHandler
@@ -39,7 +43,7 @@ import AWSS3
 // snippet-start:[iam.swift.basics.command]
 struct ExampleCommand: ParsableCommand {
     @Option(help: "The AWS Region to run AWS API calls in.")
-    var awsRegion = "us-east-2"
+    var awsRegion: String? = nil
 
     @Option(
         help: ArgumentHelp("The level of logging for the Swift SDK to perform."),
@@ -71,9 +75,9 @@ struct ExampleCommand: ParsableCommand {
     func runAsync() async throws {
         // Create handlers for the AWS services to use.
 
-        let iamHandler = await ServiceHandlerIAM()
-        let stsHandler = await ServiceHandlerSTS(region: awsRegion)
-        let s3Handler = await ServiceHandlerS3(region: awsRegion)
+        let iamHandler = try await ServiceHandlerIAM()
+        let stsHandler = try await ServiceHandlerSTS(region: awsRegion)
+        let s3Handler = try await ServiceHandlerS3(region: awsRegion)
 
         // Create unique names for the user, role, and policy to create.
         let userName = String.uniqueName(withPrefix: "basics-user", maxDigits: 8)
@@ -124,8 +128,9 @@ struct ExampleCommand: ParsableCommand {
         // Confirm that the returned access key is valid, then extract the access key
         // ID and secret access key. They will be needed later.
 
-        guard   let accessKeyId: String = accessKey.accessKeyId,
-                let secretAccessKey = accessKey.secretAccessKey else {
+        guard let accessKeyId: String = accessKey.accessKeyId,
+              let secretAccessKey = accessKey.secretAccessKey
+        else {
             print("*** Invalid access key returned by createAccessKey().")
             return
         }
@@ -134,7 +139,7 @@ struct ExampleCommand: ParsableCommand {
         // Pause a few seconds to give IAM time for the new user to propagate.
 
         await waitFor(seconds: 10,
-                message: "Pausing a few seconds so the new user can propagate.")
+                      message: "Pausing a few seconds so the new user can propagate.")
 
         //=====================================================================
         // 3. Attempt to list the S3 buckets without first getting permission
@@ -143,11 +148,11 @@ struct ExampleCommand: ParsableCommand {
 
         do {
             print("Attempting to list buckets without permission to do so.")
-            
+
             // Use the user's access key to attempt to get the bucket list.
 
             try await s3Handler.setCredentials(accessKeyId: accessKeyId,
-                    secretAccessKey: secretAccessKey)
+                                               secretAccessKey: secretAccessKey)
             _ = try await s3Handler.listBuckets()
 
             print("*** Successfully listed S3 buckets without permission. Bad program!")
@@ -224,7 +229,7 @@ struct ExampleCommand: ParsableCommand {
         }
 
         await waitFor(seconds: 10,
-                message: "Pausing a few seconds to allow user and role changes to propagate.")
+                      message: "Pausing a few seconds to allow user and role changes to propagate.")
 
         //=====================================================================
         // 6. Create a user policy letting the user change roles.
@@ -259,12 +264,12 @@ struct ExampleCommand: ParsableCommand {
             // Make sure our calls to the AWS STS will use the user's
             // credentials.
             try await stsHandler.setCredentials(accessKeyId: accessKeyId,
-                    secretAccessKey: secretAccessKey)
+                                                secretAccessKey: secretAccessKey)
 
             // Assume the role you created and get the credentials that grant the
             // permissions offered by the role.
             let credentials = try await stsHandler.assumeRole(
-                role: role, 
+                role: role,
                 sessionName: "listing-buckets"
             )
 
@@ -272,9 +277,10 @@ struct ExampleCommand: ParsableCommand {
             // three parts have values.
             guard let roleAccessKeyId = credentials.accessKeyId,
                   let roleSecretAccessKey = credentials.secretAccessKey,
-                  let roleSessionToken = credentials.sessionToken else {
-                    print("*** Incomplete access keys returned by AssumeRole.")
-                    return
+                  let roleSessionToken = credentials.sessionToken
+            else {
+                print("*** Incomplete access keys returned by AssumeRole.")
+                return
             }
 
             await waitFor(seconds: 10, message: "Waiting to ensure user has assumed the role.")
@@ -282,7 +288,7 @@ struct ExampleCommand: ParsableCommand {
             // Set our Amazon S3 handler to use the credentials returned by
             // assumeRole().
             try await s3Handler.setCredentials(accessKeyId: roleAccessKeyId,
-                    secretAccessKey: roleSecretAccessKey, sessionToken: roleSessionToken)
+                                               secretAccessKey: roleSecretAccessKey, sessionToken: roleSessionToken)
         } catch {
             print("*** Unable to assume the role and update Amazon S3 credentials.")
             throw error
@@ -303,7 +309,7 @@ struct ExampleCommand: ParsableCommand {
         //=====================================================================
         // 8. Clean up by removing the policies, role, access key, and user you
         //    created.
-        
+
         do {
             print("Deleting resources created by this example.")
             try await iamHandler.detachRolePolicy(policy: managedPolicy, role: role)
@@ -318,20 +324,27 @@ struct ExampleCommand: ParsableCommand {
             throw error
         }
     }
+
     // snippet-end:[iam.swift.basics.command.runasync]
 
     /// Display a message and wait for a few seconds to pass.
-    /// 
+    ///
     /// - Parameters:
     ///   - seconds: The number of seconds to wait as a `Double`.
     ///   - message: Optional `String` to display before the pause begins.
     func waitFor(seconds: Double, message: String? = nil) async {
         if message != nil {
-            print("*** \(message!) ***") 
+            print("*** \(message!) ***")
         }
-        Thread.sleep(forTimeInterval: seconds)
+        do {
+            let duration = UInt64(seconds * 1_000_000_000)
+            try await Task.sleep(nanoseconds: duration)
+        } catch {
+            print("Sleep error:", dump(error))
+        }
     }
 }
+
 // snippet-end:[iam.swift.basics.command]
 
 // Main program entry point.
@@ -348,7 +361,8 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
+
 // snippet-end:[iam.swift.basics.main]
 // snippet-end:[iam.swift.basics.example]

@@ -581,7 +581,7 @@ iam_CreateAccessKey:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.basics.iam.createaccesskey
+                - iam.swift.basics.iam.CreateAccessKey
     Bash:
       versions:
         - sdk_version: 2
@@ -690,7 +690,7 @@ iam_DeleteAccessKey:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.basics.iam.deleteaccesskey
+                - iam.swift.basics.iam.DeleteAccessKey
     Bash:
       versions:
         - sdk_version: 2
@@ -1026,7 +1026,7 @@ iam_CreatePolicy:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.basics.iam.createpolicy
+                - iam.swift.basics.iam.CreatePolicy
     Bash:
       versions:
         - sdk_version: 2
@@ -1118,7 +1118,7 @@ iam_DeletePolicy:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.basics.iam.deletepolicy
+                - iam.swift.basics.iam.DeletePolicy
     Bash:
       versions:
         - sdk_version: 2
@@ -1216,7 +1216,7 @@ iam_ListPolicies:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.listpolicies.handler.listpolicies
+                - iam.swift.listpolicies.handler.ListPolicies
     C++:
       versions:
         - sdk_version: 1
@@ -1304,7 +1304,7 @@ iam_GetPolicy:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.getpolicy.handler.getpolicy
+                - iam.swift.getpolicy.handler.GetPolicy
     C++:
       versions:
         - sdk_version: 1
@@ -1426,7 +1426,7 @@ iam_AttachRolePolicy:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.attachrolepolicy.handler.attachrolepolicy
+                - iam.swift.attachrolepolicy.handler.AttachRolePolicy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1543,7 +1543,7 @@ iam_ListAttachedRolePolicies:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.listattachedrolepolicies.handler.listattachedrolepolicies
+                - iam.swift.listattachedrolepolicies.handler.ListAttachedRolePolicies
   services:
     iam: {ListAttachedRolePolicies}
 iam_DetachRolePolicy:
@@ -1645,7 +1645,7 @@ iam_DetachRolePolicy:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.basics.iam.detachrolepolicy
+                - iam.swift.basics.iam.DetachRolePolicy
     Bash:
       versions:
         - sdk_version: 2
@@ -1752,7 +1752,7 @@ iam_CreateRole:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.createrole.handler.createrole
+                - iam.swift.createrole.handler.CreateRole
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1860,7 +1860,7 @@ iam_ListRoles:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.listroles.handler.listroles
+                - iam.swift.listroles.handler.ListRoles
   services:
     iam: {ListRoles}
 iam_GetRole:
@@ -1934,7 +1934,7 @@ iam_GetRole:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.getrole.handler.getrole
+                - iam.swift.getrole.handler.GetRole
   services:
     iam: {GetRole}
 iam_DeleteRole:
@@ -1999,7 +1999,7 @@ iam_DeleteRole:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.basics.iam.deleterole
+                - iam.swift.basics.iam.DeleteRole
     Bash:
       versions:
         - sdk_version: 2
@@ -2114,7 +2114,7 @@ iam_ListRolePolicies:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.listrolepolicies.handler.listrolepolicies
+                - iam.swift.listrolepolicies.handler.ListRolePolicies
   services:
     iam: {ListRolePolicies}
 iam_Scenario_RoleManagement:
@@ -2216,7 +2216,7 @@ iam_CreateUser:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.createuser.handler.createuser
+                - iam.swift.createuser.handler.CreateUser
     Go:
       versions:
         - sdk_version: 2
@@ -2360,7 +2360,7 @@ iam_DeleteUser:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.basics.iam.deleteuser
+                - iam.swift.basics.iam.DeleteUser
     Bash:
       versions:
         - sdk_version: 2
@@ -2411,6 +2411,15 @@ iam_GetUser:
               snippet_tags:
                 - aws-cli.bash-linux.iam.errecho
                 - aws-cli.bash-linux.iam.GetUser
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.import
+                - iam.swift.basics.iam.GetUser
   services:
     iam: {GetUser}
 iam_ListUsers:
@@ -2484,7 +2493,7 @@ iam_ListUsers:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.listusers.handler.listusers
+                - iam.swift.listusers.handler.ListUsers
     Go:
       versions:
         - sdk_version: 2
@@ -2693,7 +2702,7 @@ iam_PutUserPolicy:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.basics.iam.putuserpolicy
+                - iam.swift.basics.iam.PutUserPolicy
   services:
     iam: {PutUserPolicy}
 iam_ListUserPolicies:
@@ -2753,7 +2762,7 @@ iam_DeleteUserPolicy:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.basics.iam.deleteuserpolicy
+                - iam.swift.basics.iam.DeleteUserPolicy
   services:
     iam: {DeleteUserPolicy}
 iam_Scenario_UserPolicies:
@@ -3115,7 +3124,7 @@ iam_ListGroups:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.listgroups.handler.listgroups
+                - iam.swift.listgroups.handler.ListGroups
   services:
     iam: {ListGroups}
 iam_CreateSAMLProvider:
@@ -3202,7 +3211,7 @@ iam_CreateServiceLinkedRole:
             - description:
               snippet_tags:
                 - iam.swift.import
-                - iam.swift.createservicelinkedrole.handler.createservicelinkedrole
+                - iam.swift.createservicelinkedrole.handler.CreateServiceLinkedRole
   services:
     iam: {CreateServiceLinkedRole}
 iam_DeleteServiceLinkedRole:
