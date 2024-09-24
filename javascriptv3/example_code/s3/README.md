@@ -57,6 +57,7 @@ Code excerpts that show you how to call individual service functions.
 - [GetBucketPolicy](actions/get-bucket-policy.js#L6)
 - [GetBucketWebsite](actions/get-bucket-website.js#L6)
 - [GetObject](actions/get-object.js#L6)
+- [GetObjectLegalHold](actions/get-object-legal-hold.js)
 - [GetObjectLockConfiguration](actions/get-object-lock-configuration.js)
 - [GetObjectRetention](actions/get-object-retention.js)
 - [ListBuckets](actions/list-buckets.js#L6)
@@ -78,7 +79,6 @@ functions within the same service.
 - [Create a presigned URL](scenarios/presigned-url-upload.js)
 - [Create a web page that lists Amazon S3 objects](../web/s3/list-objects/src/App.tsx)
 - [Delete all objects in a bucket](scenarios/delete-all-objects.js)
-- [Get the legal hold configuration of an object](actions/get-object-legal-hold.js)
 - [Lock Amazon S3 objects](scenarios/object-locking/index.js)
 - [Upload or download large files](scenarios/multipart-upload.js)
 
@@ -187,18 +187,6 @@ This example shows you how to delete all of the objects in an Amazon S3 bucket.
 
 <!--custom.scenarios.s3_Scenario_DeleteAllObjects.start-->
 <!--custom.scenarios.s3_Scenario_DeleteAllObjects.end-->
-
-#### Get the legal hold configuration of an object
-
-This example shows you how to get the legal hold configuration of an S3 bucket.
-
-
-<!--custom.scenario_prereqs.s3_GetObjectLegalHoldConfiguration.start-->
-<!--custom.scenario_prereqs.s3_GetObjectLegalHoldConfiguration.end-->
-
-
-<!--custom.scenarios.s3_GetObjectLegalHoldConfiguration.start-->
-<!--custom.scenarios.s3_GetObjectLegalHoldConfiguration.end-->
 
 #### Lock Amazon S3 objects
 
