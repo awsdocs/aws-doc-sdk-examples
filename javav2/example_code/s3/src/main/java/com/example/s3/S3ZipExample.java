@@ -65,9 +65,7 @@ public class S3ZipExample {
         ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream);
 
         try {
-            // Loop through each object key.
             for (String imageKey : imageKeys) {
-                // Get the object data from S3.
                 GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                     .bucket(bucketName)
                     .key(imageKey)
