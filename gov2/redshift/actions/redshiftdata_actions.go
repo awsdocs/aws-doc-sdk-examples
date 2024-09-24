@@ -87,7 +87,7 @@ func (actor RedshiftDataActions) ListDatabases(ctx context.Context, clusterId st
 // snippet-start:[gov2.redshift.CreateTable]
 
 // CreateTable creates a table named <tableName> in the <databaseName> database with the given arguments.
-func (actor RedshiftDataActions) CreateTable(ctx context.Context, clusterId string, databaseName string, tableName string, userName string, args []string) error {
+func (actor RedshiftDataActions) CreateTable(ctx context.Context, clusterId string, databaseName string, tableName string, userName string, pauser demotools.IPausable, args []string) (*redshiftdata.ExecuteStatementOutput, error) {
 	sql := "CREATE TABLE " + tableName + " (" +
 		"id bigint identity(1, 1), " +
 		"PRIMARY KEY (id)"
@@ -108,11 +108,25 @@ func (actor RedshiftDataActions) CreateTable(ctx context.Context, clusterId stri
 		log.Printf("Could not connect to the database.")
 	} else if err != nil {
 		log.Printf("Failed to create table: %v\n", err)
-		return err
+		return nil, err
 	}
 
+	describeStatementInput := &redshiftdata.DescribeStatementInput{Id: output.Id}
+	query := RedshiftQuery{
+		Context: ctx,
+		Input:   *describeStatementInput,
+		Result:  output,
+	}
+
+	err = actor.WaitForQueryStatus(query, pauser, true)
+	if err != nil {
+		log.Printf("Failed to execute query: %v\n", err)
+		panic(err)
+	}
+	log.Printf("Successfully executed query\n")
+
 	log.Println("Table created:", *output.Id)
-	return nil
+	return output, nil
 }
 
 // snippet-end:[gov2.redshift.CreateTable]

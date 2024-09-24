@@ -195,11 +195,27 @@ func (runner *RedshiftBasicsScenario) Run() {
 	// Create the "Movies" table
 	log.Println("Now you will create a table named " + tableName + ".")
 	runner.questioner.Ask("Press Enter to continue...")
-	err = runner.redshiftDataActor.CreateTable(ctx, clusterId, databaseName, tableName, user.Username, []string{"title VARCHAR(256)", "year INT"})
+	err = nil
+	result, err := runner.redshiftDataActor.CreateTable(ctx, clusterId, databaseName, tableName, user.Username, runner.pauser, []string{"title VARCHAR(256)", "year INT"})
 	if err != nil {
 		log.Printf("Failed to create table: %v\n", err)
 		panic(err)
 	}
+
+	describeInput := redshiftdata.DescribeStatementInput{
+		Id: result.Id,
+	}
+	query := actions.RedshiftQuery{
+		Context: ctx,
+		Input:   describeInput,
+		Result:  result,
+	}
+	err = runner.redshiftDataActor.WaitForQueryStatus(query, runner.pauser, true)
+	if err != nil {
+		log.Printf("Failed to execute query: %v\n", err)
+		panic(err)
+	}
+	log.Printf("Successfully executed query\n")
 
 	// Populate the "Movies" table
 	runner.PopulateMoviesTable(ctx, clusterId, databaseName, tableName, user.Username, fileName)

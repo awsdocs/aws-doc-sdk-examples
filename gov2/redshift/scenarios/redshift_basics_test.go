@@ -102,6 +102,8 @@ func (scenarioTest *BasicsScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	stubList = append(stubList, stubs.StubDescribeClusters(clusterId, nil))
 	stubList = append(stubList, stubs.StubListDatabases(clusterId, databaseName, user.Username, nil))
 	stubList = append(stubList, stubs.StubExecuteStatement(clusterId, databaseName, user.Username, sql, testId, nil))
+	stubList = append(stubList, stubs.StubDescribeStatement(testId, nil))
+	stubList = append(stubList, stubs.StubDescribeStatement(testId, nil))
 	stubList = append(stubList, stubs.StubBatchExecuteStatement(clusterId, databaseName, user.Username, sqls, testId, nil))
 	stubList = append(stubList, stubs.StubDescribeStatement(testId, nil))
 	stubList = append(stubList, stubs.StubExecuteStatement(clusterId, databaseName, user.Username, sql, testId, nil))
