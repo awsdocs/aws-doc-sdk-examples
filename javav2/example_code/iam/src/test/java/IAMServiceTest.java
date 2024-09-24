@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.iam.*;
+import com.example.iam.scenario.IAMScenario;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -14,6 +15,8 @@ import software.amazon.awssdk.services.iam.model.User;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
+
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -50,8 +53,8 @@ public class IAMServiceTest {
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        userName = values.getUserName();
-        policyName = values.getPolicyName();
+        userName = values.getUserName()+ UUID.randomUUID();
+        policyName = values.getPolicyName()+ UUID.randomUUID();
         roleName = values.getRoleName();
         accountAlias = values.getAccountAlias();
         usernameSc = values.getUsernameSc();
@@ -60,37 +63,6 @@ public class IAMServiceTest {
         roleSessionName = values.getRoleName();
         fileLocationSc = values.getFileLocationSc();
         bucketNameSc = values.getBucketNameSc();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * IAMServiceTest.class.getClassLoader().getResourceAsStream("config.properties"
-         * )) {
-         * Properties prop = new Properties();
-         * prop.load(input);
-         * userName = prop.getProperty("userName");
-         * policyName= prop.getProperty("policyName");
-         * policyARN= prop.getProperty("policyARN");
-         * roleName=prop.getProperty("roleName");
-         * accountAlias=prop.getProperty("accountAlias");
-         * usernameSc=prop.getProperty("usernameSc");
-         * policyNameSc=prop.getProperty("policyNameSc");
-         * roleNameSc=prop.getProperty("roleNameSc");
-         * roleSessionName=prop.getProperty("roleSessionName");
-         * fileLocationSc=prop.getProperty("fileLocationSc");
-         * bucketNameSc=prop.getProperty("bucketNameSc");
-         * 
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
