@@ -64,7 +64,7 @@ public class LambdaTest {
     @Order(1)
     public void GetAccountSettings() {
         assertDoesNotThrow(() -> GetAccountSettings.getSettings(awsLambda));
-        System.out.println("Test 2 passed");
+        System.out.println("Test 1 passed");
     }
 
     @Test

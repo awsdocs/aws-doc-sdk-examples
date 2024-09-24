@@ -77,16 +77,16 @@ public class LambdaScenario {
                 key - The Amazon S3 key name that represents the .zip or .jar (for example, LambdaHello-1.0-SNAPSHOT.jar).
                 """;
 
-        //  if (args.length != 5) {
-        //      System.out.println(usage);
-        //      System.exit(1);
-        //  }
+        if (args.length != 5) {
+              System.out.println(usage);
+              return;
+        }
 
-        String functionName = "myFunction"; //args[0];
-        String role = "arn:aws:iam::814548047983:role/lambda-role"; //args[2];
-        String handler = "example.Handler::handleRequest"; //args[3];
-        String bucketName = "scottbucket1001"; //args[4];
-        String key = "LambdaHello-1.0-SNAPSHOT.jar"; //args[5];
+        String functionName = args[0];
+        String role = args[1];
+        String handler = args[2];
+        String bucketName = args[3];
+        String key = args[4];
         LambdaClient awsLambda = LambdaClient.builder()
             .build();
 
