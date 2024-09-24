@@ -437,7 +437,7 @@ glue_GetTables:
           excerpts:
             - description:
               snippet_tags:
-                - glue.java2.get_table.main
+                - glue.java2.get_tables.main
     PHP:
       versions:
         - sdk_version: 3
