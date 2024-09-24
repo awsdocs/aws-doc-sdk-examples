@@ -36,7 +36,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Amazon Redshift](hello.py#L4) (`describeClusters`)
+- [Hello Amazon Redshift](hello.py#L4) (`DescribeClusters`)
 
 
 ### Basics
@@ -79,7 +79,7 @@ python hello.py
 
 #### Learn the basics
 
-This example shows you how to learn core operations for Amazon Redshift using an AWS.
+This example shows you how to learn core operations for Amazon Redshift using an AWS SDK.
 
 
 <!--custom.basic_prereqs.redshift_Scenario.start-->

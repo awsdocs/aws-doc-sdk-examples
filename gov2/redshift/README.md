@@ -1,8 +1,8 @@
-# Amazon Redshift code examples for the SDK for Java 2.x
+# Amazon Redshift code examples for the SDK for Go V2
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 2.x to work with Amazon Redshift.
+Shows how to use the AWS SDK for Go V2 to work with Amazon Redshift.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
@@ -23,7 +23,7 @@ _Amazon Redshift is a fast, fully managed, petabyte-scale data warehouse service
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
+For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` folder.
 
 
 <!--custom.prerequisites.start-->
@@ -31,28 +31,24 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Amazon Redshift](src/main/java/com/example/redshift/HelloRedshift.java#L6) (`DescribeClusters`)
+- [Hello Amazon Redshift](hello/hello.go#L4) (`DescribeClusters`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](src/main/java/com/example/redshift/scenario/RedshiftScenario.java)
+- [Learn the basics](scenarios/redshift_basics.go)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateCluster](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L102)
-- [DeleteCluster](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L481)
-- [DescribeClusters](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L132)
-- [DescribeStatement](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L333)
-- [ExecuteStatement](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L218)
-- [GetStatementResult](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L375)
-- [ListDatabases](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L188)
-- [ModifyCluster](src/main/java/com/example/redshift/scenario/RedshiftActions.java#L452)
+- [CreateCluster](actions/redshift_actions.go#L29)
+- [DeleteCluster](actions/redshift_actions.go#L84)
+- [DescribeClusters](actions/redshift_actions.go#L108)
+- [ModifyCluster](actions/redshift_actions.go#L58)
 
 
 <!--custom.examples.start-->
@@ -70,7 +66,18 @@ Code excerpts that show you how to call individual service functions.
 
 This example shows you how to get started using Amazon Redshift.
 
+```
+go run ./hello
+```
 
+#### Run a scenario
+
+All scenarios can be run with the `cmd` runner. To get a list of scenarios
+and to get help for running a scenario, use the following command:
+
+```
+go run ./cmd -h
+```
 #### Learn the basics
 
 This example shows you how to learn core operations for Amazon Redshift using an AWS SDK.
@@ -89,8 +96,8 @@ This example shows you how to learn core operations for Amazon Redshift using an
 ⚠ Running tests might result in charges to your AWS account.
 
 
-To find instructions for running these tests, see the [README](../../README.md#Tests)
-in the `javav2` folder.
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `gov2` folder.
 
 
 
@@ -101,7 +108,7 @@ in the `javav2` folder.
 
 - [Amazon Redshift Management Guide](https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html)
 - [Amazon Redshift API Reference](https://docs.aws.amazon.com/redshift/latest/APIReference/Welcome.html)
-- [SDK for Java 2.x Amazon Redshift reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/redshift/package-summary.html)
+- [SDK for Go V2 Amazon Redshift reference](https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/redshift)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
