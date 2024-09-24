@@ -188,7 +188,7 @@ public class GlueTest {
     @Test
     @Tag("IntegrationTest")
     @Order(13)
-    void testCrawler() {
+    void testDelCrawler() {
         assertDoesNotThrow(() -> {
             System.out.println("*** Wait 5 MIN for the " + crawlerNameSc + " to stop");
             TimeUnit.MINUTES.sleep(5);
