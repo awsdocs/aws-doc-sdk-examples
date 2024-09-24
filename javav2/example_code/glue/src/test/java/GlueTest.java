@@ -14,6 +14,8 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 /**
  * To run these integration tests, you must set the required values
  * in the config.properties file or AWS Secrets Manager.
@@ -72,25 +74,126 @@ public class GlueTest {
     @Test
     @Tag("IntegrationTest")
     @Order(1)
-    public void ScenarioTest() throws InterruptedException {
-        GlueScenario.createDatabase(glueClient, dbNameSc, locationUri);
-        GlueScenario.createGlueCrawler(glueClient, IAM, s3PathSc, cron, dbNameSc, crawlerNameSc);
-        GlueScenario.getSpecificCrawler(glueClient, crawlerNameSc);
-        GlueScenario.startSpecificCrawler(glueClient, crawlerNameSc);
-        GlueScenario.getSpecificDatabase(glueClient, dbNameSc);
+    void testCreateDatabase() {
+        assertDoesNotThrow(() -> {
+            GlueScenario.createDatabase(glueClient, dbNameSc, locationUri);
+        });
+    }
 
-        System.out.println("Wait 5 min for the tables to become available");
-        TimeUnit.MINUTES.sleep(5);// Sleep for 5 minute to get tables ready
-        String myTableName = GlueScenario.getGlueTables(glueClient, dbNameSc);
-        GlueScenario.createJob(glueClient, jobNameSc, IAM, scriptLocationSc);
-        GlueScenario.startJob(glueClient, jobNameSc, dbNameSc, myTableName, bucketNameSc);
-        GlueScenario.getAllJobs(glueClient);
-        GlueScenario.getJobRuns(glueClient, jobNameSc);
-        GlueScenario.deleteJob(glueClient, jobNameSc);
-        System.out.println("*** Wait 5 MIN for the " + crawlerNameSc + " to stop");
-        TimeUnit.MINUTES.sleep(5);
-        GlueScenario.deleteDatabase(glueClient, dbNameSc);
-        GlueScenario.deleteSpecificCrawler(glueClient, crawlerNameSc);
+    @Test
+    @Tag("IntegrationTest")
+    @Order(2)
+    void testCreateGlueCrawler() {
+        assertDoesNotThrow(() -> {
+            GlueScenario.createGlueCrawler(glueClient, IAM, s3PathSc, cron, dbNameSc, crawlerNameSc);
+        });
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(3)
+    void testGetSpecificCrawler() {
+        assertDoesNotThrow(() -> {
+            GlueScenario.getSpecificCrawler(glueClient, crawlerNameSc);
+        });
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(4)
+    void testStartSpecificCrawler() {
+        assertDoesNotThrow(() -> {
+            GlueScenario.startSpecificCrawler(glueClient, crawlerNameSc);
+        });
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(5)
+    void testGetSpecificDatabase() {
+        assertDoesNotThrow(() -> {
+            GlueScenario.getSpecificDatabase(glueClient, dbNameSc);
+        });
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(6)
+    void testGetTable() {
+        assertDoesNotThrow(() -> {
+            System.out.println("*** Wait 5 min for the tables to become available");
+            TimeUnit.MINUTES.sleep(5);
+            System.out.println("6. Get tables.");
+            String myTableName = GlueScenario.getGlueTables(glueClient, dbNameSc);
+        });
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(7)
+    void testCreateJob() {
+        assertDoesNotThrow(() -> {
+            GlueScenario.createJob(glueClient, jobNameSc, IAM, scriptLocationSc);
+        });
+    }
+
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(8)
+    void testStartJob() {
+        assertDoesNotThrow(() -> {
+            GlueScenario.startJob(glueClient, jobNameSc, dbNameSc, tableName, bucketNameSc);
+        });
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(9)
+    void testGetJobs() {
+        assertDoesNotThrow(() -> {
+            GlueScenario.getAllJobs(glueClient);
+        });
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(10)
+    void testRunJobs() {
+        assertDoesNotThrow(() -> {
+            GlueScenario.getJobRuns(glueClient, jobNameSc);
+        });
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(11)
+    void testDeleteJob() {
+        assertDoesNotThrow(() -> {
+            GlueScenario.deleteJob(glueClient, jobNameSc);
+        });
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(12)
+    void testDeleteDB() {
+        assertDoesNotThrow(() -> {
+            System.out.println("*** Wait 5 MIN for the " + crawlerNameSc + " to stop");
+            TimeUnit.MINUTES.sleep(5);
+            GlueScenario.deleteDatabase(glueClient, dbNameSc);
+        });
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(13)
+    void testCrawler() {
+        assertDoesNotThrow(() -> {
+            System.out.println("*** Wait 5 MIN for the " + crawlerNameSc + " to stop");
+            TimeUnit.MINUTES.sleep(5);
+            GlueScenario.deleteSpecificCrawler(glueClient, crawlerNameSc);
+        });
     }
 
     private static String getSecretValues() {
