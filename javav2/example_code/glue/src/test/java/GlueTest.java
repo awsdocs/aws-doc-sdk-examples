@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import com.example.glue.*;
+import com.example.glue.scenario.GlueScenario;
 import com.google.gson.Gson;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.glue.GlueClient;
@@ -41,7 +41,7 @@ public class GlueTest {
     private static String bucketNameSc = "";
 
     @BeforeAll
-    public static void setUp() throws IOException, URISyntaxException {
+    public static void setUp() {
         glueClient = GlueClient.builder()
                 .region(Region.US_EAST_1)
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -61,49 +61,12 @@ public class GlueTest {
         existingDatabaseName = values.getExistingDatabaseName();
         existingCrawlerName = values.getExistingCrawlerName();
         jobNameSc = values.getJobNameSc() + java.util.UUID.randomUUID();
-        ;
         s3PathSc = values.getS3PathSc() + java.util.UUID.randomUUID();
-        ;
         dbNameSc = values.getDbNameSc() + java.util.UUID.randomUUID();
         crawlerNameSc = values.getCrawlerNameSc() + java.util.UUID.randomUUID();
         scriptLocationSc = values.getScriptLocationSc();
         locationUri = values.getLocationUri();
         bucketNameSc = values.getBucketNameSc();
-
-        // Uncomment this code block if you prefer using a config.properties file to
-        // retrieve AWS values required for these tests.
-        /*
-         * 
-         * try (InputStream input =
-         * GlueTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-         * Properties prop = new Properties();
-         * if (input == null) {
-         * System.out.println("Sorry, unable to find config.properties");
-         * return;
-         * }
-         * prop.load(input);
-         * crawlerName = prop.getProperty("crawlerName");
-         * s3Path = prop.getProperty("s3Path");
-         * cron = prop.getProperty("cron");
-         * IAM = prop.getProperty("IAM");
-         * databaseName = prop.getProperty("databaseName");
-         * tableName = prop.getProperty("tableName");
-         * text = prop.getProperty("text");
-         * existingDatabaseName = prop.getProperty("existingDatabaseName");
-         * existingCrawlerName = prop.getProperty("existingCrawlerName");
-         * jobNameSc = prop.getProperty("jobNameSc")+ java.util.UUID.randomUUID();;
-         * s3PathSc = prop.getProperty("s3PathSc")+ java.util.UUID.randomUUID();;
-         * dbNameSc = prop.getProperty("dbNameSc")+ java.util.UUID.randomUUID();
-         * crawlerNameSc = prop.getProperty("crawlerNameSc")+
-         * java.util.UUID.randomUUID();
-         * scriptLocationSc = prop.getProperty("scriptLocationSc");
-         * locationUri = prop.getProperty("locationUri");
-         * bucketNameSc = prop.getProperty("bucketNameSc");
-         * 
-         * } catch (IOException ex) {
-         * ex.printStackTrace();
-         * }
-         */
     }
 
     @Test
