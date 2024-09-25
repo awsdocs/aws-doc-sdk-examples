@@ -751,7 +751,7 @@ lambda_ListFunctions:
   services:
     lambda: {ListFunctions}
 lambda_Scenario_GettingStartedFunctions:
-  title: Learn the Basics for for &LAM; functions using an &AWS; SDK
+  title: Learn the Basics for &LAM; functions using an &AWS; SDK
   title_abbrev: Learn the Basics with functions
   synopsis_list:
     - Create an &IAM; role and &LAM; function, then upload handler code.
