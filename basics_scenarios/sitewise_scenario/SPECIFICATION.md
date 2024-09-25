@@ -1,31 +1,40 @@
 # AWS IoT SiteWise Service Scenario Specification
 
 ## Overview
-This SDK Basics scenario demonstrates how to interact with AWS IoT SiteWise using the AWS SDK. It demonstrates various tasks such as creating a SiteWise Asset Model, creating an asset, sending data to the asset, reading data, and so on.  Finally this scenario demonstrates how to clean up resources. Its purpose is to demonstrate how to get up and running with AWS IoT SiteWise and the AWS SDK.
+This SDK Basics scenario demonstrates how to interact with AWS IoT SiteWise using an AWS SDK. 
+It demonstrates various tasks such as creating a SiteWise Asset Model, creating an asset, 
+sending data to the asset, reading data, and so on.  Finally this scenario demonstrates how 
+to clean up resources. Its purpose is to demonstrate how to get up and running with 
+AWS IoT SiteWise and an AWS SDK.
 
 ## Resources
-This Basics scenario has a depedency on an IAM role that has permissions for this service. We will create this resource using a CloudFormation template so the user does not have to manually create it. You can see this functionality in the Program execution section below. 
+This Basics scenario requires an IAM role that has permissions to work with AWS IoT 
+SiteWise service. The scenario creates this resource using a CloudFormation template.
 
 ## Hello AWS IoT SiteWise
 This program is intended for users not familiar with the AWS IoT SiteWise Service to easily get up and running. The logic is to show use of 
 `listAssetsPaginator`.
 
-## Scenario Program Flow
+## Basics Scenario Program Flow
 The AWS IoT SiteWise Basics scenario executes the following operations.
 
 1. **Create an AWS SiteWise Asset Model**:
-   - Description: This operation creates an AWS SiteWise Asset Model. Invoke the `createAssetModel` method.
-   - Exception Handling: Check to see if a `ResourceAlreadyExistsException` is thrown. If it is thrown, get the asset model ID and move on.
+   - Description: This step creates an AWS SiteWise Asset Model by invoking the `createAssetModel` method.
+   - Exception Handling: Check to see if a `ResourceAlreadyExistsException` is thrown. 
+     If it is thrown, get the asset model ID and move on.
 
 2. **Create an AWS IoT SiteWise Asset**:
    - Description: This operation creates an AWS SiteWise asset.
    - The method `createAsset` is called to obtain the asset ID.
-   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
+   - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, 
+   display the message and end the program.
 
 3. **Retrieve the property ID values**:
-   - Description: To send data to an asset, we need to get the property ID values for the Temperature and Humidity properties.
-   - The method `listAssetModels()` is called to retrieve the asset ID values.
-   - Exception Handling: Check to see if an `IoTSiteWiseException` is thrown. There are not many other useful exceptions for this specific call. If so, display the message and end the program.
+   - Description: To send data to an asset, we need to get the property ID values for the 
+   the model properties. This scenario uses temperature and humidity properties.
+   - The method `listAssetModelProperties()` is called to retrieve the property ID values.
+   - Exception Handling: Check to see if an `IoTSiteWiseException` is thrown. There are not 
+   many other useful exceptions for this specific call. If so, display the message and end the program.
 
 4. **Send data to an AWS IoT SiteWise Asset**:
    - Description: This operation sends data to an IoT SiteWise Asset.
@@ -47,7 +56,7 @@ The AWS IoT SiteWise Basics scenario executes the following operations.
    - The method `describePortal()` is called and returns the URL.
    - Exception Handling: Check to see if a `ResourceNotFoundException` is thrown. If so, display the message and end the program.
 
-8. **Create an IoTSitewise Gateway**:
+8. **Create an IoTSiteWise Gateway**:
    - Description: This operation creates an IoT SiteWise Gateway.
    - The method `createGateway` is called.
    - Exception Handling: Check to see if an `IoTSiteWiseException` is thrown.
