@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 - [Hello Lambda](hello.js#L6) (`ListFunctions`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](../iam/actions/attach-role-policy.js)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -45,13 +52,6 @@ Code excerpts that show you how to call individual service functions.
 - [ListFunctions](actions/list-functions.js#L5)
 - [UpdateFunctionCode](actions/update-function-code.js#L15)
 - [UpdateFunctionConfiguration](actions/update-function-configuration.js#L12)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with functions](../iam/actions/attach-role-policy.js)
 
 
 <!--custom.examples.start-->
@@ -98,8 +98,7 @@ This example shows you how to get started using Lambda.
 node ./hello.js
 ```
 
-
-#### Get started with functions
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -109,12 +108,13 @@ This example shows you how to do the following:
 - Invoke the function with new parameters and get results. Display the returned execution log.
 - List the functions for your account, then clean up resources.
 
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
 
 
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
+
 
 ### Tests
 
