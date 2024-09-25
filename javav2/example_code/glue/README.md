@@ -49,11 +49,13 @@ Code excerpts that show you how to call individual service functions.
 - [CreateJob](src/main/java/com/example/glue/scenario/GlueScenario.java#L538)
 - [DeleteCrawler](src/main/java/com/example/glue/scenario/GlueScenario.java#L702)
 - [DeleteDatabase](src/main/java/com/example/glue/scenario/GlueScenario.java#L679)
+- [DeleteJob](src/main/java/com/example/glue/scenario/GlueScenario.java#L655)
 - [GetCrawler](src/main/java/com/example/glue/scenario/GlueScenario.java#L383)
 - [GetDatabase](src/main/java/com/example/glue/scenario/GlueScenario.java#L437)
 - [GetJobRuns](src/main/java/com/example/glue/scenario/GlueScenario.java#L602)
 - [GetTables](src/main/java/com/example/glue/scenario/GlueScenario.java#L468)
 - [StartCrawler](src/main/java/com/example/glue/scenario/GlueScenario.java#L414)
+- [StartJobRun](src/main/java/com/example/glue/scenario/GlueScenario.java#L502)
 
 
 <!--custom.examples.start-->

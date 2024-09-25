@@ -92,7 +92,7 @@ public class GlueScenario {
 
             Where:
                 iam - The ARN of the IAM role that has AWS Glue and S3 permissions.\s
-                s3Path - The Amazon Simple Storage Service (Amazon S3) target that contains data (for example, CSV data).
+                s3Path - The Amazon Simple Storage Service (Amazon S3) target that contains data (for example, s3://<bucket name>/read).
                 cron - A cron expression used to specify the schedule  (i.e., cron(15 12 * * ? *).
                 dbName - The database name.\s
                 crawlerName - The name of the crawler.\s
