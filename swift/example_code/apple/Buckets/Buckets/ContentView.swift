@@ -60,7 +60,7 @@ struct ContentView: View {
                         }
                     }
                     // snippet-end:[siwa-button.swift]
-                    .frame(height: 60)
+                    .frame(maxWidth: 340, maxHeight: 58)
                     .keyboardShortcut(.defaultAction)
                 }
                 .padding()
