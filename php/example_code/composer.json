@@ -21,6 +21,7 @@
       "DynamoDb\\": "dynamodb/",
       "DynamoDb\\Basics\\": "dynamodb/dynamodb_basics",
       "DynamoDb\\PartiQL_Basics\\": "dynamodb/partiql_basics",
+      "Ec2\\": "ec2/",
       "Glue\\": "glue/",
       "Iam\\": "iam/",
       "Kms\\": "kms/",
