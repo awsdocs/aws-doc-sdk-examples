@@ -5,10 +5,12 @@ package com.example.iotsitewise.scenario;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.services.iotsitewise.model.AssetModelPropertySummary;
 import software.amazon.awssdk.services.iotsitewise.model.BatchPutAssetPropertyValueResponse;
 import software.amazon.awssdk.services.iotsitewise.model.CreateGatewayRequest;
 import software.amazon.awssdk.services.iotsitewise.model.CreateGatewayResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DeleteGatewayRequest;
+import software.amazon.awssdk.services.iotsitewise.model.DeleteGatewayResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DescribeGatewayRequest;
 import software.amazon.awssdk.services.iotsitewise.model.DescribeGatewayResponse;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -40,6 +42,7 @@ import software.amazon.awssdk.services.iotsitewise.model.GatewayPlatform;
 import software.amazon.awssdk.services.iotsitewise.model.GetAssetPropertyValueRequest;
 import software.amazon.awssdk.services.iotsitewise.model.GetAssetPropertyValueResponse;
 import software.amazon.awssdk.services.iotsitewise.model.GreengrassV2;
+import software.amazon.awssdk.services.iotsitewise.model.ListAssetModelPropertiesRequest;
 import software.amazon.awssdk.services.iotsitewise.model.ListAssetModelsRequest;
 import software.amazon.awssdk.services.iotsitewise.model.Measurement;
 import software.amazon.awssdk.services.iotsitewise.model.PropertyDataType;
@@ -55,6 +58,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.stream.Collectors;
 
 // snippet-start:[iotsitewise.java2.actions.main]
 public class SitewiseActions {
@@ -83,7 +88,7 @@ public class SitewiseActions {
             ioTSiteWiseAsyncClient = IoTSiteWiseAsyncClient.builder()
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+       //         .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         }
         return ioTSiteWiseAsyncClient;
@@ -101,14 +106,14 @@ public class SitewiseActions {
             .measurement(Measurement.builder().build())
             .build();
 
-        PropertyType propertyType = PropertyType.builder()
+        PropertyType temperaturePropertyType = PropertyType.builder()
             .measurement(Measurement.builder().build())
             .build();
 
         AssetModelPropertyDefinition temperatureProperty = AssetModelPropertyDefinition.builder()
             .name("Temperature")
             .dataType(PropertyDataType.DOUBLE)
-            .type(propertyType)
+            .type(temperaturePropertyType)
             .build();
 
         AssetModelPropertyDefinition humidityProperty = AssetModelPropertyDefinition.builder()
@@ -117,16 +122,11 @@ public class SitewiseActions {
             .type(humidity)
             .build();
 
-        AssetModelPropertyDefinition measurementProperty = AssetModelPropertyDefinition.builder()
-            .name("Temperature")
-            .dataType(PropertyDataType.DOUBLE)
-            .type(temperatureProperty.type())
-            .build();
 
         CreateAssetModelRequest createAssetModelRequest = CreateAssetModelRequest.builder()
             .assetModelName(name)
             .assetModelDescription("This is my asset model")
-            .assetModelProperties(measurementProperty, humidityProperty)
+            .assetModelProperties(temperatureProperty, humidityProperty)
             .build();
 
         return getAsyncClient().createAssetModel(createAssetModelRequest)
@@ -165,8 +165,8 @@ public class SitewiseActions {
     }
     // snippet-end:[sitewise.java2_create_asset.main]
 
-    // snippet-start:[sitewise.java2_put_property.main]
-    public CompletableFuture<BatchPutAssetPropertyValueResponse> sendDataToSiteWiseAsync(String assetId, String humPropId, String idHum) {
+    // snippet-start:[sitewise.java2_put_batch_property.main]
+    public CompletableFuture<BatchPutAssetPropertyValueResponse> sendDataToSiteWiseAsync(String assetId, String tempPropertyId, String humidityPropId) {
         Map<String, Double> sampleData = generateSampleData();
         long timestamp = Instant.now().toEpochMilli();
 
@@ -180,7 +180,7 @@ public class SitewiseActions {
                 PutAssetPropertyValueEntry.builder()
                     .entryId("entry-3")
                     .assetId(assetId)
-                    .propertyId(humPropId)
+                    .propertyId(tempPropertyId)
                     .propertyValues(Arrays.asList(
                         AssetPropertyValue.builder()
                             .value(Variant.builder()
@@ -193,7 +193,7 @@ public class SitewiseActions {
                 PutAssetPropertyValueEntry.builder()
                     .entryId("entry-4")
                     .assetId(assetId)
-                    .propertyId(idHum)
+                    .propertyId(humidityPropId)
                     .propertyValues(Arrays.asList(
                         AssetPropertyValue.builder()
                             .value(Variant.builder()
@@ -209,13 +209,13 @@ public class SitewiseActions {
         return getAsyncClient().batchPutAssetPropertyValue(request)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("Failed to send data to SiteWise: " + exception.getMessage(), exception);
+                    logger.error("An exception occurred: {}", exception.getCause().getMessage());
                 } else {
                     logger.info("Data sent successfully.");
                 }
             });
     }
-    // snippet-end:[sitewise.java2_put_property.main]
+    // snippet-end:[sitewise.java2_put_batch_property.main]
 
     // snippet-start:[sitewise.java2_get_property.main]
     // TODO -- fix this including Javadoc
@@ -240,53 +240,21 @@ public class SitewiseActions {
 
     // snippet-start:[sitewise.java2.describe.asset.model.main]
     /**
-     * Finds the property ID of a given property name asynchronously.
-     *
-     * @param propertyName the name of the property to search for
-     * @return a {@link CompletableFuture} that completes with the property ID if found, or null if not found
-     * @throws RuntimeException if an exception occurs during the search
+     * @param assetModelId The Id of the asset model.
+     * @return A map of the asset model properties when the CompletableFuture completes.
      */
-    public CompletableFuture<String> findPropertyIdByNameAsync(String propertyName) {
-        ListAssetModelsRequest listRequest = ListAssetModelsRequest.builder().build();
-
-        return getAsyncClient().listAssetModels(listRequest)
-            .thenCompose(listResponse -> {
-                List<CompletableFuture<String>> futures = new ArrayList<>();
-                for (AssetModelSummary modelSummary : listResponse.assetModelSummaries()) {
-                    DescribeAssetModelRequest describeRequest = DescribeAssetModelRequest.builder()
-                        .assetModelId(modelSummary.id())
-                        .build();
-
-                    CompletableFuture<String> future = getAsyncClient().describeAssetModel(describeRequest)
-                        .thenApply(describeResponse -> {
-                            for (AssetModelProperty property : describeResponse.assetModelProperties()) {
-                                if (property.name().equals(propertyName)) {
-                                    return property.id();
-                                }
-                            }
-                            return null;
-                        });
-
-                    futures.add(future);
-                }
-
-                return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
-                    .thenApply(v -> {
-                        for (CompletableFuture<String> future : futures) {
-                            String propertyId = future.join();
-                            if (propertyId != null) {
-                                return propertyId;
-                            }
-                        }
-                        return null;
-                    });
-            })
-            .handle((propertyId, exception) -> {
-                if (exception != null) {
-                    throw new RuntimeException("Failed to find property by name: " + exception.getMessage(), exception);
-                }
-                return propertyId;
-            });
+    CompletableFuture<Map<String, String>> getPropertyIds(String assetModelId){
+        ListAssetModelPropertiesRequest modelPropertiesRequest = ListAssetModelPropertiesRequest.builder().assetModelId(assetModelId).build();
+        return getAsyncClient().listAssetModelProperties(modelPropertiesRequest)
+                .handle( (response, throwable) -> {
+                    if (response != null){
+                        return  response.assetModelPropertySummaries().stream()
+                                .collect(Collectors
+                                        .toMap(AssetModelPropertySummary::name, AssetModelPropertySummary::id));
+                    } else {
+                        throw (CompletionException) throwable.getCause();
+                    }
+                });
     }
     // snippet-end:[sitewise.java2.describe.asset.model.main]
 
@@ -306,7 +274,9 @@ public class SitewiseActions {
         return getAsyncClient().deleteAsset(deleteAssetRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("Failed to delete asset with ID: " + assetId + ". Error: " + exception.getMessage(), exception);
+                    logger.error("An error occurred deleting asset with id: {}", assetId);
+                } else {
+                    logger.info("Request to delete the asset completed successfully.");
                 }
             });
     }
@@ -352,11 +322,12 @@ public class SitewiseActions {
             .build();
 
         return getAsyncClient().createPortal(createPortalRequest)
-            .thenApply(CreatePortalResponse::portalId)
-            .whenComplete((portalId, exception) -> {
+            .handle ((response, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("Failed to create portal with name: " + portalName + ". Error: " + exception.getMessage(), exception);
+                    logger.error("Failed to create portal: {} ", exception.getCause().getMessage());
+                    throw (CompletionException) exception;
                 }
+                return response.portalId();
             });
     }
     // snippet-end:[sitewise.java2.create.portal.main]
@@ -438,7 +409,7 @@ public class SitewiseActions {
      * @return a {@link CompletableFuture} containing the {@link CreateGatewayResponse} representing the created gateway
      * @throws RuntimeException if there was an error creating the gateway
      */
-    public CompletableFuture<CreateGatewayResponse> createGatewayAsync(String gatewayName, String myThing) {
+    public CompletableFuture<String> createGatewayAsync(String gatewayName, String myThing) {
         GreengrassV2 gg = GreengrassV2.builder()
             .coreDeviceThingName(myThing)
             .build();
@@ -459,29 +430,29 @@ public class SitewiseActions {
         return getAsyncClient().createGateway(createGatewayRequest)
             .handle((response, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("Error creating gateway", exception);
+                    logger.error("Error creating the gateway.");
+                    throw (RuntimeException) exception;
                 }
                 System.out.println("The ARN of the gateway is " + response.gatewayArn());
-                return response;
+                return response.gatewayId();
             });
     }
     // snippet-end:[sitewise.java2.create.gateway.main]
 
     // snippet-start:[sitewise.java2.delete.gateway.main]
-    public CompletableFuture<DeleteAssetResponse> deleteGatewayAsync(String gatewayARN) {
+    public CompletableFuture<DeleteGatewayResponse> deleteGatewayAsync(String gatewayARN) {
         DeleteGatewayRequest deleteGatewayRequest = DeleteGatewayRequest.builder()
             .gatewayId(gatewayARN)
             .build();
 
-        getAsyncClient().deleteGateway(deleteGatewayRequest)
+        return getAsyncClient().deleteGateway(deleteGatewayRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("Error creating gateway", exception);
+                    logger.error("An error occurred during the deleteGateway method.");
                 } else {
-                    logger.info("The Gateway was deleted successfully");
+                    logger.info("The Gateway was deleted successfully.");
                 }
             });
-        return null;
     }
     // snippet-end:[sitewise.java2.delete.gateway.main]
 
@@ -492,15 +463,15 @@ public class SitewiseActions {
             .build();
 
         return getAsyncClient().describeGateway(request)
-            .handle((response, exception) -> {
+            .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("Failed to describe the SiteWise gateway", exception);
+                    logger.error("An error occurred during the describeGateway method");
+                } else {
+                    logger.info("Gateway Name: " + response.gatewayName());
+                    logger.info("Gateway ARN: " + response.gatewayArn());
+                    logger.info("Gateway Platform: " + response.gatewayPlatform().toString());
+                    logger.info("Gateway Creation Date: " + response.creationDate());
                 }
-                logger.info("Gateway Name: " + response.gatewayName());
-                logger.info("Gateway ARN: " + response.gatewayArn());
-                logger.info("Gateway Platform: " + response.gatewayPlatform().toString());
-                logger.info("Gateway Creation Date: " + response.creationDate());
-                return response;
             });
     }
     // snippet-end:[sitewise.java2.describe.gateway.main]

@@ -15,6 +15,9 @@ import software.amazon.awssdk.services.iotsitewise.model.DeletePortalResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DescribeGatewayResponse;
 import software.amazon.awssdk.services.iotsitewise.model.IoTSiteWiseException;
 import software.amazon.awssdk.services.iotsitewise.model.ResourceAlreadyExistsException;
+import software.amazon.awssdk.services.iotsitewise.model.ResourceNotFoundException;
+
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
@@ -59,7 +62,7 @@ public class SitewiseScenario {
         String myThing = "myThing78";
 
         logger.info("""
-            AWS IoT SiteWise is a fully managed industrial software-as-a-service (SaaS) that 
+            AWS IoT SiteWise is a fully managed software-as-a-service (SaaS) that 
             makes it easy to collect, store, organize, and monitor data from industrial equipment and processes. 
             It is designed to help industrial and manufacturing organizations collect data from their equipment and 
             processes, and use that data to make informed decisions about their operations.
@@ -104,6 +107,8 @@ public class SitewiseScenario {
              processes, and systems, that exist in an industrial environment. This model provides a structured and
              hierarchical representation of these assets, allowing users to define the relationships and properties
              of each asset.
+             
+             This scenario creates two asset model properties: temperature and humidity.
             """);
         waitForInputToContinue(scanner);
         String assetModelId;
@@ -131,8 +136,8 @@ public class SitewiseScenario {
         logger.info(DASHES);
         logger.info("2. Create an AWS IoT SiteWise Asset");
         logger.info("""
-             The IoT SiteWise model defines the structure and metadata for your physical assets. Now we
-             can use the asset model to create the asset.
+             The IoT SiteWise model that we just created defines the structure and metadata for your physical assets. Now we create
+             an asset from the asset model.
                     
             """);
         waitForInputToContinue(scanner);
@@ -147,7 +152,7 @@ public class SitewiseScenario {
             Throwable cause = rt.getCause();
             while (cause != null) {
                 if (cause instanceof software.amazon.awssdk.services.iotsitewise.model.ResourceNotFoundException) {
-                    logger.info("The AWS resource was not found: {}", cause.getMessage());
+                    logger.info("The AWS resource was not found: {}", cause.getMessage());  // QUESTION: What resource? the asset model? Clarify if that is the case?
                     break;
                 }
                 cause = cause.getCause();
@@ -164,42 +169,27 @@ public class SitewiseScenario {
         logger.info(DASHES);
         logger.info("3. Retrieve the property ID values");
         logger.info("""
-             To send data to an asset, we need to get the property ID values for the
-             Temperature and Humidity properties. 
+             To send data to an asset, we need to get the property ID values. In this scenario, we access the
+             temperature and humidity property ID values. 
             """);
         waitForInputToContinue(scanner);
 
-        String humPropId;
+        Map<String, String> propertyIds = null;
         try {
-            CompletableFuture<String> future = sitewiseActions.findPropertyIdByNameAsync("Humidity");
-            humPropId = future.join();
-            logger.info("The Humidity property Id is {}", humPropId);
-
-        } catch (RuntimeException rt) {
-            Throwable cause = rt.getCause();
-            if (cause instanceof IoTSiteWiseException siteWiseEx) {
-                logger.info("IoT SiteWise error occurred: Error message: {}, Error code {}", siteWiseEx.getMessage(), siteWiseEx.awsErrorDetails().errorCode());
+            propertyIds = sitewiseActions.getPropertyIds(assetModelId).join();
+        } catch (RuntimeException e) {
+            Throwable cause = e.getCause();
+            if (cause != null && cause instanceof IoTSiteWiseException) {
+                logger.error("IoTSiteWiseException occurred: {}", cause.getMessage(), e);
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.error("An unexpected error occurred: {}", e.getMessage(), e);
             }
-            throw cause;
+            return;
         }
-
-        String tempPropId;
-        try {
-            CompletableFuture<String> future = sitewiseActions.findPropertyIdByNameAsync("Temperature");
-            tempPropId = future.join();
-            logger.info("The Temperature property Id is {}", tempPropId);
-
-        } catch (RuntimeException rt) {
-            Throwable cause = rt.getCause();
-            if (cause instanceof IoTSiteWiseException siteWiseEx) {
-                logger.info("IoT SiteWise error occurred: Error message: {}, Error code {}", siteWiseEx.getMessage(), siteWiseEx.awsErrorDetails().errorCode());
-            } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
-            }
-            throw cause;
-        }
+        String humPropId =  propertyIds.get("Humidity");
+        logger.info("The Humidity property Id is {}", humPropId);
+        String tempPropId = propertyIds.get("Temperature");
+        logger.info("The Temperature property Id is {}", tempPropId);
 
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -211,28 +201,20 @@ public class SitewiseScenario {
             multiple sources, normalize the data into a standard format, and store it in a 
             centralized location. This makes it easier to analyze and gain insights from the data.
                         
-            This example demonstrate how to generate sample data and ingest it into the AWS IoT SiteWise asset.
+            In this example, we generate sample temperature and humidity data and send it to the AWS IoT SiteWise asset.
                         
             """);
         waitForInputToContinue(scanner);
         try {
-            CompletableFuture<BatchPutAssetPropertyValueResponse> future = sitewiseActions.sendDataToSiteWiseAsync(assetId, tempPropId, humPropId);
-            future.join();
+            sitewiseActions.sendDataToSiteWiseAsync(assetId, tempPropId, humPropId).join();
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            while (cause != null) {
-                if (cause instanceof software.amazon.awssdk.services.iotsitewise.model.ResourceNotFoundException) {
-                    logger.info("The AWS resource was not found: {}", cause.getMessage());
-                    break;
-                }
-                cause = cause.getCause();
+            if (cause != null && cause instanceof ResourceNotFoundException) {
+                logger.error("The AWS resource was not found: {}", cause.getMessage(), rt);
+            } else {
+                logger.error("An unexpected error occurred: {}", rt.getMessage(), rt);
             }
-
-            if (cause == null) {
-                logger.info("An unexpected error occurred: {}", rt.getMessage());
-            }
-
-            throw cause;
+            return;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
@@ -247,7 +229,7 @@ public class SitewiseScenario {
             """);
         waitForInputToContinue(scanner);
         try {
-        sitewiseActions.getAssetPropValueAsync("Temperature property", tempPropId, assetId);
+        sitewiseActions.getAssetPropValueAsync("Temperature property", tempPropId, assetId); // FIXME <------------------
         waitForInputToContinue(scanner);
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
@@ -264,7 +246,7 @@ public class SitewiseScenario {
             }
             throw cause;
         }
-        sitewiseActions.getAssetPropValueAsync("Humidity property", humPropId, assetId);
+        sitewiseActions.getAssetPropValueAsync("Humidity property", humPropId, assetId); // FIXME <------------------
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -277,18 +259,17 @@ public class SitewiseScenario {
         waitForInputToContinue(scanner);
         String portalId = "";
         try {
-            CompletableFuture<String> future = sitewiseActions.createPortalAsync(portalName, iamRole, contactEmail);
-            portalId = future.join();
+            portalId = sitewiseActions.createPortalAsync(portalName, iamRole, contactEmail).join();
             logger.info("Portal created successfully. Portal ID {}", portalId);
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            if (cause instanceof IoTSiteWiseException siteWiseEx) {
-                logger.info("IoT SiteWise error occurred: Error message: {}, Error code {}", siteWiseEx.getMessage(), siteWiseEx.awsErrorDetails().errorCode());
+            if (cause != null && cause instanceof IoTSiteWiseException siteWiseEx) {
+                logger.error("IoT SiteWise error occurred: Error message: {}, Error code {}", siteWiseEx.getMessage(), siteWiseEx.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.error("An unexpected error occurred: {}", rt.getMessage());
             }
+            return;
         }
-        logger.info("The portal Id is " + portalId);
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -299,52 +280,59 @@ public class SitewiseScenario {
             """);
         waitForInputToContinue(scanner);
         try {
-            CompletableFuture<String> future = sitewiseActions.describePortalAsync(portalId);
-            String portalUrl = future.join();
+            String portalUrl = sitewiseActions.describePortalAsync(portalId).join();
             logger.info("Portal URL: {}", portalUrl);
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            if (cause instanceof IoTSiteWiseException siteWiseEx) {
-                logger.info("IoT SiteWise error occurred: Error message: {}, Error code {}", siteWiseEx.getMessage(), siteWiseEx.awsErrorDetails().errorCode());
+            if (cause != null && cause instanceof ResourceNotFoundException notFoundException) {
+                logger.error("A ResourceNotFoundException occurred: Error message: {}, Error code {}", notFoundException.getMessage(), notFoundException.awsErrorDetails().errorCode());
             } else {
-                logger.info("An unexpected error occurred: " + rt.getMessage());
+                logger.error("An unexpected error occurred: {}", rt.getMessage());
             }
+            return;
         }
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("8. Create an IoTSitewise Gateway");
+        logger.info("8. Create an IoT SiteWise Gateway");
         logger.info(
             """
-                IoTSitewise Gateway serves as the bridge between industrial equipment, sensors, and the 
-                cloud-based IoTSitewise service. It is responsible for securely collecting, processing, and 
-                transmitting data from various industrial assets to the IoTSitewise platform, 
+                IoT SiteWise Gateway serves as the bridge between industrial equipment, sensors, and the 
+                cloud-based IoT SiteWise service. It is responsible for securely collecting, processing, and 
+                transmitting data from various industrial assets to the IoT SiteWise platform, 
                 enabling real-time monitoring, analysis, and optimization of industrial operations.
                      
                 """);
         waitForInputToContinue(scanner);
         String gatewayId = "";
         try {
-            CompletableFuture<CreateGatewayResponse> future = sitewiseActions.createGatewayAsync(gatewayName, myThing);
-            CreateGatewayResponse response = future.join();
-            gatewayId = response.gatewayId();
-            logger.info("Gateway creation completed successfully. id is {}",gatewayId );
-        } catch (RuntimeException e) {
-            logger.info("Failed to create gateway: {} ", e.getMessage());
+            gatewayId = sitewiseActions.createGatewayAsync(gatewayName, myThing).join();
+            logger.info("Gateway creation completed successfully. id is {}", gatewayId );
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause != null && cause instanceof IoTSiteWiseException siteWiseEx) {
+                logger.error("IoT SiteWise error occurred: Error message: {}, Error code {}", siteWiseEx.getMessage(), siteWiseEx.awsErrorDetails().errorCode());
+            } else {
+                logger.error("An unexpected error occurred: {}", rt.getMessage());
+            }
+            return;
         }
         logger.info(DASHES);
-
-
         logger.info(DASHES);
-        logger.info("9. Describe the IoTSitewise Gateway");
+
+        logger.info("9. Describe the IoT SiteWise Gateway");
          waitForInputToContinue(scanner);
         try {
-            CompletableFuture<DescribeGatewayResponse> future = sitewiseActions.describeGatewayAsync(gatewayId) ;
-            future.join();
-
-        } catch (RuntimeException e) {
-            System.err.println("Failed to create gateway: " + e.getMessage());
+            sitewiseActions.describeGatewayAsync(gatewayId).join();
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause != null && cause instanceof ResourceNotFoundException notFoundException) {
+                logger.error("A ResourceNotFoundException occurred: Error message: {}, Error code {}", notFoundException.getMessage(), notFoundException.awsErrorDetails().errorCode());
+            } else {
+                logger.error("An unexpected error occurred: {}", rt.getMessage());
+            }
+            return;
         }
         logger.info(DASHES);
 
@@ -355,67 +343,60 @@ public class SitewiseScenario {
             Before you can delete the Asset Model, you must delete the assets.  
      
             """);
-        logger.info("Would you like to delete the IoT Sitewise Assets? (y/n)");
+        logger.info("Would you like to delete the IoT SiteWise Assets? (y/n)");
         String delAns = scanner.nextLine().trim();
         if (delAns.equalsIgnoreCase("y")) {
-            logger.info("You selected to delete the Sitewise assets.");
+            logger.info("You selected to delete the SiteWise assets.");
             waitForInputToContinue(scanner);
             try {
-                CompletableFuture<DeletePortalResponse> future = sitewiseActions.deletePortalAsync(portalId);
-                future.join();
+                sitewiseActions.deletePortalAsync(portalId).join();
                 logger.info("Portal {} was deleted successfully.", portalId);
 
             } catch (RuntimeException rt) {
                 Throwable cause = rt.getCause();
-                if (cause instanceof IoTSiteWiseException siteWiseEx) {
-                    logger.info("IoT SiteWise error occurred: Error message: {}, Error code {}", siteWiseEx.getMessage(), siteWiseEx.awsErrorDetails().errorCode());
+                if (cause != null && cause instanceof ResourceNotFoundException notFoundException) {
+                    logger.error("A ResourceNotFoundException occurred: Error message: {}, Error code {}", notFoundException.getMessage(), notFoundException.awsErrorDetails().errorCode());
                 } else {
-                    logger.info("An unexpected error occurred: " + rt.getMessage());
+                    logger.error("An unexpected error occurred: {}", rt.getMessage());
                 }
             }
 
             // Delete the Gateway.
             try {
-                CompletableFuture<DeleteAssetResponse> future = sitewiseActions.deleteGatewayAsync(gatewayId);
-                future.join();
-
+                sitewiseActions.deleteGatewayAsync(gatewayId).join();
             } catch (RuntimeException rt) {
                 Throwable cause = rt.getCause();
-                if (cause instanceof IoTSiteWiseException siteWiseEx) {
-                    logger.info("IoT SiteWise error occurred: Error message: {}, Error code {}", siteWiseEx.getMessage(), siteWiseEx.awsErrorDetails().errorCode());
+                if (cause != null && cause instanceof ResourceNotFoundException notFoundException) {
+                    logger.error("A ResourceNotFoundException occurred: Error message: {}, Error code {}", notFoundException.getMessage(), notFoundException.awsErrorDetails().errorCode());
                 } else {
-                    logger.info("An unexpected error occurred: " + rt.getMessage());
+                    logger.error("An unexpected error occurred: {}", rt.getMessage());
                 }
             }
 
             try {
-                CompletableFuture<DeleteAssetResponse> future = sitewiseActions.deleteAssetAsync(assetId);
-                future.join();
-                logger.info("Asset deleted successfully.");
-
+                sitewiseActions.deleteAssetAsync(assetId).join();
             } catch (RuntimeException rt) {
                 Throwable cause = rt.getCause();
-                if (cause instanceof IoTSiteWiseException siteWiseEx) {
-                    logger.info("IoT SiteWise error occurred: Error message: {}, Error code {}", siteWiseEx.getMessage(), siteWiseEx.awsErrorDetails().errorCode());
+                if (cause != null && cause instanceof ResourceNotFoundException notFoundException) {
+                    logger.error("A ResourceNotFoundException occurred: Error message: {}, Error code {}", notFoundException.getMessage(), notFoundException.awsErrorDetails().errorCode());
                 } else {
-                    logger.info("An unexpected error occurred: " + rt.getMessage());
+                    logger.error("An unexpected error occurred: {}", rt.getMessage());
                 }
             }
-            logger.info("Lets wait 1 min for the asset to be deleted");
+            logger.info("Let's wait 1 minute for the asset to be deleted.");
             countdown(1);
             waitForInputToContinue(scanner);
             logger.info("Delete the AWS IoT SiteWise Asset Model");
             try {
-                CompletableFuture<DeleteAssetModelResponse> future = sitewiseActions.deleteAssetModelAsync(assetModelId);
-                future.join();
+                sitewiseActions.deleteAssetModelAsync(assetModelId).join();
                 logger.info("Asset model deleted successfully.");
 
             } catch (RuntimeException rt) {
                 Throwable cause = rt.getCause();
-                if (cause instanceof IoTSiteWiseException siteWiseEx) {
-                    logger.info("IoT SiteWise error occurred: Error message: {}, Error code {}", siteWiseEx.getMessage(), siteWiseEx.awsErrorDetails().errorCode());
+                if (cause != null && cause instanceof ResourceNotFoundException notFoundException) {
+                    logger.error("A ResourceNotFoundException occurred: Error message: {}, Error code {}", notFoundException.getMessage(), notFoundException.awsErrorDetails().errorCode());
                 } else {
-                    logger.info("An unexpected error occurred: " + rt.getMessage());
+                    logger.error("An unexpected error occurred: {}", rt.getMessage());
                 }
             }
             waitForInputToContinue(scanner);
@@ -427,7 +408,7 @@ public class SitewiseScenario {
 
         logger.info(DASHES);
         CloudFormationHelper.destroyCloudFormationStack(ROLES_STACK);
-        logger.info("This concludes the AWS SiteWise Scenario");
+        logger.info("This concludes the AWS IoT SiteWise Scenario");
         logger.info(DASHES);
     }
 
