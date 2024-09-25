@@ -142,7 +142,6 @@ public class LambdaScenario {
     }
 
     // snippet-start:[lambda.java2.create.main]
-
     /**
      * Creates a new Lambda function in AWS using the AWS Lambda Java API.
      *
