@@ -16,6 +16,7 @@
 		283FA3A72C5D3628003CF6D9 /* AWSSTS in Frameworks */ = {isa = PBXBuildFile; productRef = 283FA3A62C5D3628003CF6D9 /* AWSSTS */; };
 		283FA3A92C5D3697003CF6D9 /* IDString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283FA3A82C5D3697003CF6D9 /* IDString.swift */; };
 		283FA3AB2C5D36BC003CF6D9 /* BucketsAppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283FA3AA2C5D36BC003CF6D9 /* BucketsAppError.swift */; };
+		286E157D2CA46392001D1009 /* SimpleKeychain in Frameworks */ = {isa = PBXBuildFile; productRef = 286E157C2CA46392001D1009 /* SimpleKeychain */; };
 		28FA46BE2C8A135700A2E959 /* Task-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FA46BD2C8A135700A2E959 /* Task-extension.swift */; };
 		28FA46C02C8A139900A2E959 /* LocalizedAlertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FA46BF2C8A139900A2E959 /* LocalizedAlertError.swift */; };
 		28FA46C22C8A145500A2E959 /* View-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FA46C12C8A145500A2E959 /* View-extension.swift */; };
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				286E157D2CA46392001D1009 /* SimpleKeychain in Frameworks */,
 				283FA3A52C5D3628003CF6D9 /* AWSS3 in Frameworks */,
 				283FA3A72C5D3628003CF6D9 /* AWSSTS in Frameworks */,
 			);
@@ -53,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				283FA3912C5D34FF003CF6D9 /* Buckets */,
+				286E157B2CA46392001D1009 /* Frameworks */,
 				283FA3902C5D34FF003CF6D9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,10 +75,10 @@
 				283FA3942C5D34FF003CF6D9 /* ContentView.swift */,
 				283FA3A12C5D3590003CF6D9 /* ContentView-ViewModel.swift */,
 				283FA3AA2C5D36BC003CF6D9 /* BucketsAppError.swift */,
+				28FA46BC2C8A131D00A2E959 /* Support */,
 				283FA3962C5D3500003CF6D9 /* Assets.xcassets */,
 				283FA3982C5D3500003CF6D9 /* Buckets.entitlements */,
 				283FA3992C5D3500003CF6D9 /* Preview Content */,
-				28FA46BC2C8A131D00A2E959 /* Support */,
 			);
 			path = Buckets;
 			sourceTree = "<group>";
@@ -86,6 +89,13 @@
 				283FA39A2C5D3500003CF6D9 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		286E157B2CA46392001D1009 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		28FA46BC2C8A131D00A2E959 /* Support */ = {
@@ -118,6 +128,7 @@
 			packageProductDependencies = (
 				283FA3A42C5D3628003CF6D9 /* AWSS3 */,
 				283FA3A62C5D3628003CF6D9 /* AWSSTS */,
+				286E157C2CA46392001D1009 /* SimpleKeychain */,
 			);
 			productName = Buckets;
 			productReference = 283FA38F2C5D34FF003CF6D9 /* Buckets.app */;
@@ -149,6 +160,7 @@
 			mainGroup = 283FA3862C5D34FF003CF6D9;
 			packageReferences = (
 				283FA3A32C5D3628003CF6D9 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */,
+				2816F5ED2CA460E800E07574 /* XCRemoteSwiftPackageReference "SimpleKeychain" */,
 			);
 			productRefGroup = 283FA3902C5D34FF003CF6D9 /* Products */;
 			projectDirPath = "";
@@ -414,6 +426,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2816F5ED2CA460E800E07574 /* XCRemoteSwiftPackageReference "SimpleKeychain" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/auth0/SimpleKeychain.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 		283FA3A32C5D3628003CF6D9 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/awslabs/aws-sdk-swift.git";
@@ -434,6 +454,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 283FA3A32C5D3628003CF6D9 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
 			productName = AWSSTS;
+		};
+		286E157C2CA46392001D1009 /* SimpleKeychain */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2816F5ED2CA460E800E07574 /* XCRemoteSwiftPackageReference "SimpleKeychain" */;
+			productName = SimpleKeychain;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

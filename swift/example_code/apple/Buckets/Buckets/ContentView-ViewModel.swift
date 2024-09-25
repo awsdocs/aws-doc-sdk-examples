@@ -1,12 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[siwa-viewmodel.swift.imports]
 import SwiftUI
 import AuthenticationServices
+import SimpleKeychain
 
 // Import the AWS SDK for Swift modules the app requires.
-//
-// snippet-start:[siwa-viewmodel.swift.imports]
 import AWSS3
 import AWSSDKIdentity
 // snippet-end:[siwa-viewmodel.swift.imports]
@@ -34,49 +34,53 @@ class ViewModel: ObservableObject {
     /// This is only returned by SIWA if the user has just created
     /// the app's SIWA account link. Otherwise, it's returned as `nil`
     /// by SIWA and must be retrieved from local storage if needed.
-    @AppStorage("email") var email = ""
+    var email = ""
     
     /// The user's family (last) name.
     ///
     /// This is only returned by SIWA if the user has just created
     /// the app's SIWA account link. Otherwise, it's returned as `nil`
     /// by SIWA and must be retrieved from local storage if needed.
-    @AppStorage("family-name") var familyName = ""
-
+    var familyName = ""
+    
     /// The user's given (first) name.
     ///
     /// This is only returned by SIWA if the user has just created
     /// the app's SIWA account link. Otherwise, it's returned as `nil` by SIWA
     /// and must be retrieved from local storage if needed.
-    @AppStorage("given-name") var givenName = ""
-
+    var givenName = ""
+    
     /// The AWS account number provided by the user.
-    @AppStorage("account-number") var awsAccountNumber = ""
+    var awsAccountNumber = ""
     
     /// The AWS IAM role name given by the user.
-    @AppStorage("iam-role") var awsIAMRoleName = ""
-
+    var awsIAMRoleName = ""
+    
     /// The credential identity resolver created by the AWS SDK for
     /// Swift. This resolves temporary credentials using
     /// `AssumeRoleWithWebIdentity`.
     var identityResolver: STSWebIdentityAWSCredentialIdentityResolver? = nil
     // snippet-end:[siwa-auth-properties.swift]
-
+    
     //****** The variables below this point aren't involved in Sign in With
     //****** Apple or AWS authentication.
-
+    
     /// An array of the user's bucket names.
     ///
     /// This is filled out once the user is signed into AWS.
     @Published var bucketList: [IDString] = []
-
+    
     /// An error string to present in an alert panel if needed. If this is
     /// `nil`, no error alert is presented.
     @Published var error: Swift.Error?
     
     /// The title of the error alert's close button.
     @Published var errorButtonTitle: String = "Continue"
-
+    
+    init() {
+        readUserData()
+    }
+    
     // MARK: - Authentication
     
     // snippet-start:[siwa-handle.swift]
@@ -102,13 +106,13 @@ class ViewModel: ObservableObject {
             else {
                 throw BucketsAppError.credentialsIncomplete
             }
-
+            
             userID = credential.user
-
+            
             // If the email field has a value, set the user's recorded email
             // address. Otherwise, keep the existing one.
             email = credential.email ?? self.email
-
+            
             // Similarly, if the name is present in the credentials, use it.
             // Otherwise, the last known name is retained.
             if let name = credential.fullName {
@@ -140,7 +144,7 @@ class ViewModel: ObservableObject {
         }
     }
     // snippet-end:[siwa-handle.swift]
-
+    
     // snippet-start:[siwa-authenticate.swift]
     /// Convert the given JWT identity token string into the temporary
     /// AWS credentials needed to allow this application to operate, as
@@ -170,13 +174,12 @@ class ViewModel: ObservableObject {
         do {
             try tokenString.write(to: tokenFileURL, atomically: true, encoding: .utf8)
         } catch {
-            //print("Error writing token to disk: \(error)")
             throw BucketsAppError.tokenFileError()
         }
         
         // Create an identity resolver that uses the JWT token received
         // from Apple to create AWS credentials.
-                    
+        
         do {
             identityResolver = try STSWebIdentityAWSCredentialIdentityResolver(
                 region: region,
@@ -187,9 +190,14 @@ class ViewModel: ObservableObject {
         } catch {
             throw BucketsAppError.assumeRoleFailed
         }
+        
+        // Save the user's data securely to local storage so it's available
+        // in the future.
+        
+        saveUserData()
     }
     // snippet-end:[siwa-authenticate.swift]
-
+    
     // snippet-start:[siwa-sign-out.swift]
     /// "Sign out" of the user's account.
     ///
@@ -218,7 +226,7 @@ class ViewModel: ObservableObject {
         return userID != ""
     }
     // snippet-end:[siwa-check-signed-in.swift]
-
+    
     // MARK: - AWS access
     // snippet-start:[siwa-use-credentials.swift]
     /// Fetches a list of the user's Amazon S3 buckets.
@@ -230,11 +238,11 @@ class ViewModel: ObservableObject {
         // credential identity resolver created from the JWT token
         // returned by Sign In With Apple.
         let config = try await S3Client.S3ClientConfiguration(
-                awsCredentialIdentityResolver: identityResolver,
-                region: "us-east-1"
+            awsCredentialIdentityResolver: identityResolver,
+            region: "us-east-1"
         )
         let s3 = S3Client(config: config)
-                    
+        
         let output = try await s3.listBuckets(
             input: ListBucketsInput()
         )
@@ -251,7 +259,7 @@ class ViewModel: ObservableObject {
         }
     }
     // snippet-end:[siwa-use-credentials.swift]
-
+    
     // MARK: - Token file management
     
     // snippet-start:[siwa-create-token-file.swift]
@@ -264,7 +272,7 @@ class ViewModel: ObservableObject {
         return tempDirURL.appendingPathComponent("example-siwa-token.jwt")
     }
     // snippet-end:[siwa-create-token-file.swift]
-
+    
     // snippet-start:[siwa-delete-token-file.swift]
     /// Delete the local JWT token file.
     func deleteTokenFile() throws {
@@ -275,4 +283,81 @@ class ViewModel: ObservableObject {
         }
     }
     // snippet-end:[siwa-delete-token-file.swift]
+    
+
+    // MARK: - Secure storage
+    
+    let KEY_USER_ID = "buckets-user-id"
+    let KEY_USER_EMAIL = "buckets-user-email"
+    let KEY_USER_NAME_GIVEN = "buckets-user-given-name"
+    let KEY_USER_NAME_FAMILY = "buckets-user-family-name"
+    let KEY_AWS_ACCOUNT = "buckets-aws-account"
+    let KEY_IAM_ROLE = "buckets-iam-role"
+
+    /// Securely save user and account information to the Keychain.
+    func saveUserData() {
+        // Create a `SimpleKeychain` object to use for Keychain access. The
+        // default service name (the bundle ID) is used.
+        let simpleKeychain = SimpleKeychain()
+        
+        do {
+            //try simpleKeychain.set(userID, forKey: KEY_USER_ID)
+            try simpleKeychain.set(email, forKey: KEY_USER_EMAIL)
+            try simpleKeychain.set(givenName, forKey: KEY_USER_NAME_GIVEN)
+            try simpleKeychain.set(familyName, forKey: KEY_USER_NAME_FAMILY)
+            try simpleKeychain.set(awsAccountNumber, forKey: KEY_AWS_ACCOUNT)
+            try simpleKeychain.set(awsIAMRoleName, forKey: KEY_IAM_ROLE)
+        } catch {
+            // The way this example is written, if the data doesn't get saved,
+            // it just means it won't be available later. So silently log
+            // the problem and continue.
+            print("Unable to save user data to keychain.")
+        }
+    }
+    
+    /// Read user data from the keychain.
+    func readUserData() {
+        // Create a `SimpleKeychain` object to use for Keychain access. The
+        // default service name (the bundle ID) is used. Any item that isn't
+        // found is set to an empty string.
+        let simpleKeychain = SimpleKeychain()
+        
+        /*
+         do {
+            userID = try simpleKeychain.string(forKey: KEY_USER_ID)
+        } catch {
+            userID = ""
+        }
+         */
+        
+        do {
+            email = try simpleKeychain.string(forKey: KEY_USER_EMAIL)
+        } catch {
+            email = ""
+        }
+        
+        do {
+            givenName = try simpleKeychain.string(forKey: KEY_USER_NAME_GIVEN)
+        } catch {
+            givenName = ""
+        }
+        
+        do {
+            familyName = try simpleKeychain.string(forKey: KEY_USER_NAME_FAMILY)
+        } catch {
+            familyName = ""
+        }
+        
+        do {
+            awsAccountNumber = try simpleKeychain.string(forKey: KEY_AWS_ACCOUNT)
+        } catch {
+            awsAccountNumber = ""
+        }
+        
+        do {
+            awsIAMRoleName = try simpleKeychain.string(forKey: KEY_IAM_ROLE)
+        } catch {
+            awsIAMRoleName = ""
+        }
+    }
 }
