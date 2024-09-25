@@ -577,6 +577,15 @@ glue_CreateJob:
     glue: {CreateJob}
 glue_StartJobRun:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.java2.start.job.main
     .NET:
       versions:
         - sdk_version: 3
@@ -854,6 +863,15 @@ glue_GetJobRun:
     glue: {GetJobRun}
 glue_DeleteJob:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.java2.delete_job.main
     .NET:
       versions:
         - sdk_version: 3
