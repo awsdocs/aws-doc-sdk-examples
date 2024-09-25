@@ -38,7 +38,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn AWS Glue basic operations](src/main/java/com/example/glue/scenario/GlueScenario.java)
+- [Learn the basics](src/main/java/com/example/glue/scenario/GlueScenario.java)
 
 
 ### Single actions
@@ -72,7 +72,7 @@ Code excerpts that show you how to call individual service functions.
 This example shows you how to get started using AWS Glue.
 
 
-#### Learn AWS Glue basic operations
+#### Learn the basics
 
 This example shows you how to do the following:
 
