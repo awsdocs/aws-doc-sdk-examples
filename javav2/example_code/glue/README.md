@@ -38,7 +38,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](src/main/java/com/example/glue/scenario/GlueScenario.java)
+- [Learn AWS Glue basic operations](src/main/java/com/example/glue/scenario/GlueScenario.java)
 
 
 ### Single actions
@@ -46,10 +46,14 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [CreateCrawler](src/main/java/com/example/glue/scenario/GlueScenario.java#L335)
+- [CreateJob](src/main/java/com/example/glue/scenario/GlueScenario.java#L538)
+- [DeleteCrawler](src/main/java/com/example/glue/scenario/GlueScenario.java#L702)
+- [DeleteDatabase](src/main/java/com/example/glue/scenario/GlueScenario.java#L679)
 - [GetCrawler](src/main/java/com/example/glue/scenario/GlueScenario.java#L383)
-- [GetDatabase](src/main/java/com/example/glue/scenario/GlueScenario.java#L438)
-- [GetTables](src/main/java/com/example/glue/scenario/GlueScenario.java#L470)
-- [StartCrawler](src/main/java/com/example/glue/scenario/GlueScenario.java#L415)
+- [GetDatabase](src/main/java/com/example/glue/scenario/GlueScenario.java#L437)
+- [GetJobRuns](src/main/java/com/example/glue/scenario/GlueScenario.java#L602)
+- [GetTables](src/main/java/com/example/glue/scenario/GlueScenario.java#L468)
+- [StartCrawler](src/main/java/com/example/glue/scenario/GlueScenario.java#L414)
 
 
 <!--custom.examples.start-->
@@ -68,7 +72,7 @@ Code excerpts that show you how to call individual service functions.
 This example shows you how to get started using AWS Glue.
 
 
-#### Learn the basics
+#### Learn AWS Glue basic operations
 
 This example shows you how to do the following:
 
