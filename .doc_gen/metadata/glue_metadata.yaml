@@ -1156,8 +1156,6 @@ glue_GetJob:
   services:
     glue: {GetJob}
 glue_Scenario_GetStartedCrawlersJobs:
-  title: Learn the Basics for &GLUDCLong; using an &AWS; SDK
-  title_abbrev: Learn &GLU; basic operations
   synopsis_list:
     - Create a crawler that crawls a public &S3; bucket and generates a database of CSV-formatted metadata.
     - List information about databases and tables in your &GLUDCLong;.
