@@ -498,6 +498,15 @@ glue_GetTables:
     glue: {GetTables}
 glue_CreateJob:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.java2.create_job.main
     .NET:
       versions:
         - sdk_version: 3
@@ -970,6 +979,15 @@ glue_DeleteTable:
     glue: {DeleteTable}
 glue_DeleteDatabase:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.java2.delete_database.main
     .NET:
       versions:
         - sdk_version: 3
@@ -1038,6 +1056,15 @@ glue_DeleteDatabase:
     glue: {DeleteDatabase}
 glue_DeleteCrawler:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - glue.java2.delete_crawler.main
     .NET:
       versions:
         - sdk_version: 3

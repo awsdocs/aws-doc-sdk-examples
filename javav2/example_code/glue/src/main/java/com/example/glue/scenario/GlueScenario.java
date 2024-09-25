@@ -677,7 +677,6 @@ public class GlueScenario {
     // snippet-end:[glue.java2.delete_job.main]
 
     // snippet-start:[glue.java2.delete_database.main]
-
     /**
      * Deletes a AWS Glue Database.
      *
