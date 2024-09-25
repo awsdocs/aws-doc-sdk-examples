@@ -10,8 +10,11 @@
             "": "*"
         },
         "psr-4": {
+            "Ec2\\": "../ec2/",
+            "Iam\\": "../iam/",
             "S3\\": "../s3/",
             "AwsUtilities\\": "../aws_utilities/"
-        }
+        },
+        "files": ["../aws_utilities/TestableReadline.php"]
     }
 }
