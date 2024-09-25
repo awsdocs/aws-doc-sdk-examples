@@ -1,7 +1,7 @@
 ﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-iam"
-require "logger"
+require 'aws-sdk-iam'
+require 'logger'
 
 # snippet-start:[ruby.iam.ListGroups]
 # A class to manage IAM operations via the AWS SDK client
@@ -34,6 +34,6 @@ end
 if __FILE__ == $PROGRAM_NAME
   iam_client = Aws::IAM::Client.new
   iam_group_manager = IamGroupManager.new(iam_client)
-  puts "Attempting to list groups..."
+  puts 'Attempting to list groups...'
   iam_group_manager.list_groups(10)
 end

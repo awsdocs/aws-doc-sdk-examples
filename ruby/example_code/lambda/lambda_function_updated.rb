@@ -4,7 +4,7 @@
 # frozen_string_literal: true
 
 # snippet-start:[ruby.example_code.lambda.handler.multiply]
-require "logger"
+require 'logger'
 
 # A function that multiplies two whole numbers and logs the result.
 # Requires two whole numbers provided at runtime: 'first_number' and 'second_number'.
@@ -15,18 +15,18 @@ require "logger"
 # @ return product [String] The product of the two numbers.
 def lambda_handler(event:, context:)
   logger = Logger.new($stdout)
-  log_level = ENV["LOG_LEVEL"]
+  log_level = ENV['LOG_LEVEL']
   logger.level = case log_level
-                 when "debug"
+                 when 'debug'
                    Logger::DEBUG
-                 when "info"
+                 when 'info'
                    Logger::INFO
                  else
                    Logger::ERROR
                  end
 
-  first_number = event["first_number"].to_f
-  second_number = event["second_number"].to_f
+  first_number = event['first_number'].to_f
+  second_number = event['second_number'].to_f
   product = first_number.round * second_number.round
   logger.info("The product of #{first_number.round} and #{second_number.round} is #{product} ")
   product.to_s

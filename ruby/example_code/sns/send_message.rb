@@ -1,7 +1,7 @@
 ﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.00
-require "aws-sdk-sns"
-require "logger"
+require 'aws-sdk-sns'
+require 'logger'
 
 # snippet-start:[sns.Ruby.sendMessage]
 # Service class for sending messages using Amazon Simple Notification Service (SNS)
@@ -31,15 +31,15 @@ end
 
 # Example usage:
 if $PROGRAM_NAME == __FILE__
-  topic_arn = "SNS_TOPIC_ARN" # Should be replaced with a real topic ARN
-  message = "MESSAGE"         # Should be replaced with the actual message content
+  topic_arn = 'SNS_TOPIC_ARN' # Should be replaced with a real topic ARN
+  message = 'MESSAGE'         # Should be replaced with the actual message content
 
   sns_client = Aws::SNS::Client.new
   message_sender = SnsMessageSender.new(sns_client)
 
-  @logger.info("Sending message.")
+  @logger.info('Sending message.')
   unless message_sender.send_message(topic_arn, message)
-    @logger.error("Message sending failed. Stopping program.")
+    @logger.error('Message sending failed. Stopping program.')
     exit 1
   end
 end

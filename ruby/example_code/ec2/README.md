@@ -38,8 +38,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [AllocateAddress](ec2-ruby-example-elastic-ips.rb#L47)
-- [AssociateAddress](ec2-ruby-example-elastic-ips.rb#L63)
+- [AllocateAddress](ec2-ruby-example-elastic-ips.rb#L46)
+- [AssociateAddress](ec2-ruby-example-elastic-ips.rb#L62)
 - [CreateKeyPair](ec2-ruby-example-key-pairs.rb#L10)
 - [CreateRouteTable](ec2-ruby-example-create-route-table.rb#L9)
 - [CreateSecurityGroup](ec2-ruby-example-security-group.rb#L10)

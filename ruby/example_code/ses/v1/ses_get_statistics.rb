@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require "aws-sdk-sesv2" # Ensure you're using the aws-sdk-sesv2 gem for AWS SDK for Ruby V3.
+require 'aws-sdk-sesv2' # Ensure you're using the aws-sdk-sesv2 gem for AWS SDK for Ruby V3.
 
 # This class encapsulates operations for fetching Amazon Simple Email Service (Amazon SES) sending statistics.
 class SESStatisticsFetcher
@@ -42,8 +42,8 @@ class SESStatisticsFetcher
   end
 
 # If something goes wrong, display an error message.
-rescue Aws::SES::Errors::ServiceError => error
-  puts "Error: #{error}"
+rescue Aws::SES::Errors::ServiceError => e
+  puts "Error: #{e}"
 end
 
 # Example usage:

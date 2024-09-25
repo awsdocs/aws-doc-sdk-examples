@@ -7,9 +7,8 @@
 
 # snippet-start:[s3.ruby.s3-ruby-example-get-cspk-item]
 
-require "aws-sdk-s3"
-require "openssl"
-
+require 'aws-sdk-s3'
+require 'openssl'
 
 #
 # Prerequisites:
@@ -44,17 +43,24 @@ def download_object_with_private_key_encryption(
     bucket: bucket_name,
     key: object_key
   )
-  return response.body.read
+  response.body.read
 rescue Aws::Errors::ServiceError => e
   puts "Error downloading object: #{e.message}"
 end
 
 # Example usage:
 def run_me
+<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-file.txt"
   region = "us-west-2"
   private_key_file = "my-private-key.pem"
+=======
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  region = 'us-west-2'
+  private_key_file = 'my-private-key.pem'
+>>>>>>> 999c6133e (fixes)
   private_key = OpenSSL::PKey::RSA.new(File.read(private_key_file))
 
   # When initializing this Amazon S3 encryption client, note:

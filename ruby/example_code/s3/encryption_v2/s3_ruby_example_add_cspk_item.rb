@@ -7,8 +7,8 @@
 
 # snippet-start:[s3.ruby.s3-ruby-example-add-cspk-item]
 
-require "aws-sdk-s3"
-require "openssl"
+require 'aws-sdk-s3'
+require 'openssl'
 
 # Prerequisites:
 #
@@ -44,10 +44,10 @@ def object_uploaded_with_public_key_encryption?(
     key: object_key,
     body: object_content
   )
-  return true
+  true
 rescue Aws::Errors::ServiceError => e
   puts "Error uploading object: #{e.message}"
-  return false
+  false
 end
 
 # Full example call:
@@ -55,11 +55,19 @@ end
 
 # Example usage:
 def run_me
+<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-file.txt"
   object_content = "This is the content of my-file.txt."
   region = "us-west-2"
   public_key_file = "my-public-key.pem"
+=======
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  object_content = 'This is the content of my-file.txt.'
+  region = 'us-west-2'
+  public_key_file = 'my-public-key.pem'
+>>>>>>> 999c6133e (fixes)
   public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
 
   # When initializing this Amazon S3 encryption client, note:
@@ -80,9 +88,9 @@ def run_me
     object_key,
     object_content
   )
-    puts "Object uploaded."
+    puts 'Object uploaded.'
   else
-    puts "Object not uploaded."
+    puts 'Object not uploaded.'
   end
 end
 

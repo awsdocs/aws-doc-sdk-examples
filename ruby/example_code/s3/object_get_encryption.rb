@@ -7,7 +7,7 @@
 # encryption state.
 
 # snippet-start:[s3.ruby.determine_object_encryption_state.rb]
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # Wraps Amazon S3 object actions.
 class ObjectGetEncryptionWrapper
@@ -21,7 +21,7 @@ class ObjectGetEncryptionWrapper
   # Gets the object into memory.
   #
   # @return [Aws::S3::Types::GetObjectOutput, nil] The retrieved object data if successful; otherwise nil.
-  def get_object
+  def object
     @object.get
   rescue Aws::Errors::ServiceError => e
     puts "Couldn't get object #{@object.key}. Here's why: #{e.message}"
@@ -30,14 +30,19 @@ end
 
 # Example usage:
 def run_demo
+<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-object.txt"
+=======
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-object.txt'
+>>>>>>> 999c6133e (fixes)
 
   wrapper = ObjectGetEncryptionWrapper.new(Aws::S3::Object.new(bucket_name, object_key))
   obj_data = wrapper.get_object
   return unless obj_data
 
-  encryption = obj_data.server_side_encryption.nil? ? "no" : obj_data.server_side_encryption
+  encryption = obj_data.server_side_encryption.nil? ? 'no' : obj_data.server_side_encryption
   puts "Object #{object_key} uses #{encryption} encryption."
 end
 
