@@ -26,28 +26,23 @@ class KeyManager:
     # snippet-end:[python.example_code.kms.KeyManager]
 
     # snippet-start:[python.example_code.kms.CreateKey]
-    def create_key(self):
+    def create_key(self, key_description: str):
         """
-        Creates a key (or multiple keys) with a user-provided description.
+        Creates a key with a user-provided description.
+
+        :param key_description: A description for the key.
+        :return: The key ID.
         """
-        answer = "y"
-        while answer.lower() == "y":
-            key_desc = input("\nLet's create a key. Describe it for me: ")
-            if not key_desc:
-                key_desc = "Key management demo key"
-            try:
-                key = self.kms_client.create_key(Description=key_desc)["KeyMetadata"]
-            except ClientError as err:
-                logging.error(
-                    "Couldn't create your key. Here's why: %s",
-                    err.response["Error"]["Message"],
-                )
-                raise
-            else:
-                print("Key created:")
-                pprint(key)
-                self.created_keys.append(key)
-                answer = input("Create another (y/n)? ")
+        try:
+            key = self.kms_client.create_key(Description=key_description)["KeyMetadata"]
+            self.created_keys.append(key)
+            return key["KeyId"]
+        except ClientError as err:
+            logging.error(
+                "Couldn't create your key. Here's why: %s",
+                err.response["Error"]["Message"],
+            )
+            raise
 
     # snippet-end:[python.example_code.kms.CreateKey]
 
@@ -159,7 +154,7 @@ class KeyManager:
     # snippet-end:[python.example_code.kms.EnableDisableKey]
 
     # snippet-start:[python.example_code.kms.ScheduleKeyDeletion]
-    def delete_keys(self, keys):
+    def delete_key(self, key_id: str, window: str):
         """
         Deletes a list of keys.
 
@@ -169,31 +164,18 @@ class KeyManager:
 
         :param keys: The list of keys to delete.
         """
-        print("""
-        Warning:
-            Deleting a KMS key is a destructive and potentially dangerous operation. When a KMS key is deleted,
-            all data that was encrypted under the KMS key is unrecoverable.
-            """)
 
-        answer = input("Do you want to delete these keys (y/n)? ")
-        if answer.lower() == "y":
-            window = 7
-            for key in keys:
-                try:
-                    self.kms_client.schedule_key_deletion(
-                        KeyId=key["KeyId"], PendingWindowInDays=window
-                    )
-                except ClientError as err:
-                    logging.error(
-                        "Couldn't delete key %s. Here's why: %s",
-                        key["KeyId"],
-                        err.response["Error"]["Message"],
-                    )
-                else:
-                    print(
-                        f"Key {key['KeyId']} scheduled for deletion in {window} days."
-                    )
-
+        try:
+            self.kms_client.schedule_key_deletion(
+                KeyId=key_id, PendingWindowInDays=window
+            )
+        except ClientError as err:
+            logging.error(
+                "Couldn't delete key %s. Here's why: %s",
+                key_id,
+                err.response["Error"]["Message"],
+            )
+            raise
 
 # snippet-end:[python.example_code.kms.ScheduleKeyDeletion]
 
@@ -206,6 +188,25 @@ def key_management(kms_client):
     print("-" * 88)
 
     key_manager = KeyManager(kms_client)
+
+    answer = "y"
+    while answer.lower() == "y":
+        key_desc = input("\nLet's create a key. Describe it for me: ")
+        if not key_desc:
+            key_desc = "Key management demo key"
+        try:
+            key = key_manager.create_key(key_desc)
+        except ClientError as err:
+            logging.error(
+                "Couldn't create your key. Here's why: %s",
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            print("Key created:")
+            pprint(key)
+            answer = input("Create another (y/n)? ")
+
     key_manager.create_key()
     print("-" * 88)
     key_manager.list_keys()
@@ -221,7 +222,21 @@ def key_management(kms_client):
         print(f"\tKeyId: {key['KeyId']}")
         print(f"\tDescription: {key['Description']}")
         print("-" * 66)
-    key_manager.delete_keys(key_manager.created_keys)
+    print("""
+      Warning:
+          Deleting a KMS key is a destructive and potentially dangerous operation. When a KMS key is deleted,
+          all data that was encrypted under the KMS key is unrecoverable.
+          """)
+
+    answer = input("Do you want to delete these keys (y/n)? ")
+    if answer.lower() == "y":
+        window = 7
+        for key in key_manager.created_keys:
+            key_manager.delete_key(key['KeyId'])
+            print(
+                f"Key {key['KeyId']} scheduled for deletion in {window} days."
+            )
+
     print("\nThanks for watching!")
     print("-" * 88)
 
