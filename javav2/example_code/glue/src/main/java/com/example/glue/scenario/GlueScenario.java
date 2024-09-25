@@ -467,7 +467,7 @@ public class GlueScenario {
     }
     // snippet-end:[glue.java2.get_database.main]
 
-    // snippet-start:[glue.java2.get_tables.main]
+    // snippet-start:[glue.java2.get_table.main]
 
     /**
      * Retrieves the names of the tables in the specified Glue database.
@@ -499,7 +499,7 @@ public class GlueScenario {
         }
         return myTableName;
     }
-    // snippet-end:[glue.java2.get_tables.main]
+    // snippet-end:[glue.java2.get_table.main]
 
     // snippet-start:[glue.java2.start.job.main]
 
