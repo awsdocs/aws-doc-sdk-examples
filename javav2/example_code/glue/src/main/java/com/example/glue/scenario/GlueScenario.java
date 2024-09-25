@@ -57,15 +57,15 @@ import software.amazon.awssdk.services.glue.model.DeleteCrawlerRequest;
  * environment, including your credentials.
  * <p>
  * For more information, see the following documentation topic:
- * <p>
+ *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
- * <p>
+ *
  * To set up the resources, see this documentation topic:
- * <p>
+ *
  * https://docs.aws.amazon.com/glue/latest/ug/tutorial-add-crawler.html
- * <p>
+ *
  * This example performs the following tasks:
- * <p>
+ *
  * 1. Create a database.
  * 2. Create a crawler.
  * 3. Get a crawler.
@@ -88,7 +88,7 @@ public class GlueScenario {
         final String usage = """
 
             Usage:
-                <iam> <s3Path> <cron> <dbName> <crawlerName> <jobName>\s
+                <iam> <s3Path> <cron> <dbName> <crawlerName> <jobName> <scriptLocation> <locationUri> <bucketNameSc>\s
 
             Where:
                 iam - The ARN of the IAM role that has AWS Glue and S3 permissions.\s
@@ -98,7 +98,7 @@ public class GlueScenario {
                 crawlerName - The name of the crawler.\s
                 jobName - The name you assign to this job definition.
                 scriptLocation - The Amazon S3 path to a script that runs a job.
-                locationUri - The location of the database
+                locationUri - The location of the database (you can find this file in resources folder).
                 bucketNameSc - The Amazon S3 bucket name used when creating a job
                 """;
 
