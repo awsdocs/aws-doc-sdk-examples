@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-iam"
-require "logger"
+require 'aws-sdk-iam'
+require 'logger'
 
 # snippet-start:[ruby.iam.AttachRolePolicy]
 # Manages policies in AWS Identity and Access Management (IAM)
@@ -12,7 +12,7 @@ class RolePolicyManager
   def initialize(iam_client, logger: Logger.new($stdout))
     @iam_client = iam_client
     @logger = logger
-    @logger.progname = "PolicyManager"
+    @logger.progname = 'PolicyManager'
   end
 
   # Creates a policy
@@ -101,27 +101,27 @@ end
 if __FILE__ == $PROGRAM_NAME
   iam_client = Aws::IAM::Client.new
   manager = RolePolicyManager.new(iam_client)
-  role_name = "my-role"
-  policy_name = "my-policy"
+  role_name = 'my-role'
+  policy_name = 'my-policy'
   policy_document = {
-    "Version" => "2012-10-17",
-    "Statement" => [
+    'Version' => '2012-10-17',
+    'Statement' => [
       {
-        "Effect" => "Allow",
-        "Action" => "s3:ListAllMyBuckets",
-        "Resource" => "arn:aws:s3:::*"
+        'Effect' => 'Allow',
+        'Action' => 's3:ListAllMyBuckets',
+        'Resource' => 'arn:aws:s3:::*'
       }
     ]
   }
   iam_client.create_role(
     role_name: role_name,
     assume_role_policy_document: {
-      "Version" => "2012-10-17",
-      "Statement" => [
+      'Version' => '2012-10-17',
+      'Statement' => [
         {
-          "Effect" => "Allow",
-          "Principal" => { "Service" => "ec2.amazonaws.com" },
-          "Action" => "sts:AssumeRole"
+          'Effect' => 'Allow',
+          'Principal' => { 'Service' => 'ec2.amazonaws.com' },
+          'Action' => 'sts:AssumeRole'
         }
       ]
     }.to_json
@@ -133,6 +133,6 @@ if __FILE__ == $PROGRAM_NAME
     puts "Policy ARNs attached to role '#{role_name}': #{attached_policies}"
     manager.detach_policy_from_role(role_name, policy_arn)
   else
-    puts "Failed to create policy."
+    puts 'Failed to create policy.'
   end
 end

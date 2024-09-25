@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # snippet-start:[rds.ruby.createDatabaseSnapshot]
-require "aws-sdk-rds"  # v2: require 'aws-sdk'
+require 'aws-sdk-rds' # v2: require 'aws-sdk'
 
 # Create a snapshot for an Amazon Relational Database Service (Amazon RDS)
 # DB instance.
@@ -20,7 +20,7 @@ rescue Aws::Errors::ServiceError => e
   puts "Couldn't create DB instance snapshot #{id}:\n #{e.message}"
 end
 # snippet-end:[rds.ruby.createDatabaseSnapshot]
-if __FILE__ == $0
+if __FILE__ == $PROGRAM_NAME
   rds_resource = Aws::RDS::Resource.new
   db_instance_name = "rds-#{rand(10**4)}-instance"
   create_snapshot(rds_resource, db_instance_name)

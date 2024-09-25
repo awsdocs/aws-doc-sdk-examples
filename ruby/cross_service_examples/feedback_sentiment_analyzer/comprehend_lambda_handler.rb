@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 # frozen_string_literal: true
 
-require "json"
-require "aws-sdk-comprehend"
-require "logger"
+require 'json'
+require 'aws-sdk-comprehend'
+require 'logger'
 
 def lambda_handler(event:, context:)
   logger = Logger.new($stdout)
@@ -12,9 +12,9 @@ def lambda_handler(event:, context:)
   logger.info("event:\n #{event}\n")
   logger.info("context:\n #{context}\n")
 
-  rekognition_client = Aws::Comprehend::Client.new(region: event["region"])
+  rekognition_client = Aws::Comprehend::Client.new(region: event['region'])
 
-  source_text = event["source_text"]
+  source_text = event['source_text']
 
   logger.info("payload:\n #{source_text}")
 
@@ -32,5 +32,5 @@ def lambda_handler(event:, context:)
   logger.info("Sentiment: #{response.sentiment}")
   logger.info("Sentiment Score: #{response.sentiment_score}")
 
-  { "sentiment" => response.sentiment, "language_code" => language_code }
+  { 'sentiment' => response.sentiment, 'language_code' => language_code }
 end

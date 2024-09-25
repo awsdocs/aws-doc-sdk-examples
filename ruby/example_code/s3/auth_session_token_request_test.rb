@@ -21,9 +21,9 @@
 #   resources in this code example. This role must also trust the preceding IAM user.
 # - An existing S3 bucket.
 
-require "aws-sdk-core"
-require "aws-sdk-s3"
-require "aws-sdk-iam"
+require 'aws-sdk-core'
+require 'aws-sdk-s3'
+require 'aws-sdk-iam'
 
 # Checks whether a user exists in IAM.
 #
@@ -39,7 +39,7 @@ def user_exists?(iam_client, user_name)
 rescue Aws::IAM::Errors::NoSuchEntity
   # User doesn't exist.
 rescue StandardError => e
-  puts "Error while determining whether the user " \
+  puts 'Error while determining whether the user ' \
     "'#{user_name}' exists: #{e.message}"
 end
 
@@ -54,7 +54,7 @@ end
 #   exit 1 unless user.user_name
 def create_user(iam_client, user_name)
   response = iam_client.create_user(user_name: user_name)
-  return response.user
+  response.user
 rescue StandardError => e
   puts "Error while creating the user '#{user_name}': #{e.message}"
 end
@@ -70,7 +70,7 @@ end
 #   exit 1 unless user.user_name
 def get_user(iam_client, user_name)
   response = iam_client.get_user(user_name: user_name)
-  return response.user
+  response.user
 rescue StandardError => e
   puts "Error while getting the user '#{user_name}': #{e.message}"
 end
@@ -87,7 +87,7 @@ def role_exists?(iam_client, role_name)
   response = iam_client.get_role(role_name: role_name)
   return true if response.role.role_name
 rescue StandardError => e
-  puts "Error while determining whether the role " \
+  puts 'Error while determining whether the role ' \
     "'#{role_name}' exists: #{e.message}"
 end
 
@@ -153,14 +153,14 @@ def list_objects_in_bucket?(s3_client, bucket_name)
 
   if response.count.positive?
     puts "Contents of the bucket named '#{bucket_name}' (first 50 objects):"
-    puts "Name => ETag"
+    puts 'Name => ETag'
     response.contents.each do |obj|
       puts "#{obj.key} => #{obj.etag}"
     end
   else
     puts "No objects in the bucket named '#{bucket_name}'."
   end
-  return true
+  true
 rescue StandardError => e
   puts "Error while accessing the bucket named '#{bucket_name}': #{e.message}"
 end
@@ -168,24 +168,27 @@ end
 
 # Example usage:
 def run_me
-  user_name = "my-user"
-  region = "us-west-2"
+  user_name = 'my-user'
+  region = 'us-west-2'
   iam_client = Aws::IAM::Client.new(region: region)
-  user = ""
-  role_name = "AmazonS3ReadOnly"
-  role_arn = "arn:aws:iam::111111111111:role/" + role_name
-  role_session_name = "ReadAmazonS3Bucket"
+  role_name = 'AmazonS3ReadOnly'
+  role_arn = "arn:aws:iam::111111111111:role/#{role_name}"
+  role_session_name = 'ReadAmazonS3Bucket'
   duration_seconds = 3600
   sts_client = Aws::STS::Client.new(region: region)
+<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
+=======
+  bucket_name = 'doc-example-bucket'
+>>>>>>> 999c6133e (fixes)
 
   puts "Getting or creating user '#{user_name}'..."
 
-  if user_exists?(iam_client, user_name)
-    user = get_user(iam_client, user_name)
-  else
-    user = create_user(iam_client, user_name)
-  end
+  user = if user_exists?(iam_client, user_name)
+           get_user(iam_client, user_name)
+         else
+           create_user(iam_client, user_name)
+         end
 
   if user.empty?
     puts "Cannot get or create user '#{user_name}'. Stopping program."
@@ -202,15 +205,15 @@ def run_me
     puts "The role '#{role_name}' does not exist. Stopping program."
   end
 
-  puts "Getting credentials..."
+  puts 'Getting credentials...'
 
   credentials = get_credentials(sts_client, role_arn, role_session_name, duration_seconds)
 
   if credentials.nil?
-    puts "Cannot get credentials. Stopping program."
+    puts 'Cannot get credentials. Stopping program.'
     exit 1
   else
-    puts "Got credentials."
+    puts 'Got credentials.'
   end
 
   s3_client = Aws::S3::Client.new(
@@ -227,10 +230,10 @@ def run_me
     exit 1
   end
 
-  unless list_objects_in_bucket?(s3_client, bucket_name)
-    puts "Cannot access the bucket '#{bucket_name}'. Stopping program."
-    exit 1
-  end
+  return if list_objects_in_bucket?(s3_client, bucket_name)
+
+  puts "Cannot access the bucket '#{bucket_name}'. Stopping program."
+  exit 1
 end
 
 run_me if $PROGRAM_NAME == __FILE__

@@ -7,7 +7,7 @@
 # Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[ruby.example_code.s3.Scenario_BucketPolicyBasics]
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # snippet-start:[ruby.example_code.s3.helper.BucketPolicyWrapper]
 # Wraps an Amazon S3 bucket policy.
@@ -18,7 +18,7 @@ class BucketPolicyWrapper
   def initialize(bucket_policy)
     @bucket_policy = bucket_policy
   end
-# snippet-end:[ruby.example_code.s3.helper.BucketPolicyWrapper]
+  # snippet-end:[ruby.example_code.s3.helper.BucketPolicyWrapper]
 
   # snippet-start:[ruby.example_code.s3.GetBucketPolicy]
   # Gets the policy of a bucket.
@@ -54,20 +54,25 @@ class BucketPolicyWrapper
     false
   end
   # snippet-end:[ruby.example_code.s3.DeleteBucketPolicy]
-# snippet-start:[ruby.example_code.s3.helper.end.BucketPolicyWrapper]
+  # snippet-start:[ruby.example_code.s3.helper.end.BucketPolicyWrapper]
 end
 # snippet-end:[ruby.example_code.s3.helper.end.BucketPolicyWrapper]
 
 # Example usage:
 def run_demo
+<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
   policy_user = "arn:aws:iam::111122223333:user/Martha"
+=======
+  bucket_name = 'doc-example-bucket'
+  policy_user = 'arn:aws:iam::111122223333:user/Martha'
+>>>>>>> 999c6133e (fixes)
   policy = {
-    'Version': "2012-10-17",
-    'Id': "DemoBucketPolicy",
+    'Version': '2012-10-17',
+    'Id': 'DemoBucketPolicy',
     'Statement': [
       {
-        'Effect': "Deny",
+        'Effect': 'Deny',
         'Principal': { 'AWS': policy_user },
         'Action': %w[s3:GetObject s3:ListBucket],
         'NotResource': %W[arn:aws:s3:::#{bucket_name}/* arn:aws:s3:::#{bucket_name}]

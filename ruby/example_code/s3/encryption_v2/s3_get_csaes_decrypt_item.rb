@@ -7,7 +7,7 @@
 
 # snippet-start:[s3.s3_get_csaes_decrypt_item.rb]
 
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # Prerequisites:
 #
@@ -42,26 +42,31 @@ def get_decrypted_object_content(
 )
   response = s3_encryption_client.get_object(
     bucket: bucket_name,
-    key: object_key)
-  if defined?(response.body)
-    return response.body.read
-  else
-    return "Error: Object content empty or unavailable."
-  end
+    key: object_key
+  )
+  return response.body.read if defined?(response.body)
+
+  'Error: Object content empty or unavailable.'
 rescue Aws::Errors::ServiceError => e
-  return "Error getting object content: #{e.message}"
+  "Error getting object content: #{e.message}"
 end
 
 # Example usage:
 def run_me
+<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-file.txt"
   region = "us-west-2"
+=======
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  region = 'us-west-2'
+>>>>>>> 999c6133e (fixes)
 
   # Provide a base64-encoded string representation of the key that
   # was originally used to encrypt the object. For example:
-  encryption_key_string = "XSiKrmzhtDKR9tTwJRSLjgwLhiMA82TC2z3GEXAMPLE="
-  encryption_key = encryption_key_string.unpack("m")[0]
+  encryption_key_string = 'XSiKrmzhtDKR9tTwJRSLjgwLhiMA82TC2z3GEXAMPLE='
+  encryption_key = encryption_key_string.unpack1('m')
 
   # Note that in the following call:
   # - key_wrap_schema must be aes_gcm for symmetric keys.

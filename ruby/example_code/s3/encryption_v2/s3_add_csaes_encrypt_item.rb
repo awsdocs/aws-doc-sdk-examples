@@ -7,9 +7,8 @@
 
 # snippet-start:[s3.ruby.s3_add_csaes_encrypt_item]
 
-require "aws-sdk-s3"
-require "openssl"
-
+require 'aws-sdk-s3'
+require 'openssl'
 
 # Prerequisites:
 #
@@ -51,10 +50,10 @@ def encrypted_object_uploaded?(
     key: object_key,
     body: object_content
   )
-  return true
+  true
 rescue Aws::Errors::ServiceError => e
   puts "Error uploading object: #{e.message}"
-  return false
+  false
 end
 
 # Generates a random AES256-GCM key. Call this function if you do not
@@ -68,25 +67,31 @@ end
 # @ example
 #     get_random_aes_256_gcm_key
 def get_random_aes_256_gcm_key
-  cipher = OpenSSL::Cipher.new("aes-256-gcm")
+  cipher = OpenSSL::Cipher.new('aes-256-gcm')
   cipher.encrypt
   random_key = cipher.random_key
-  random_key_64_string = [random_key].pack("m")
-  random_key_64 = random_key_64_string.unpack("m")[0]
-  puts "The base 64-encoded string representation of the randomly-" \
-    "generated AES256-GCM key is:"
+  random_key_64_string = [random_key].pack('m')
+  random_key_64 = random_key_64_string.unpack1('m')
+  puts 'The base 64-encoded string representation of the randomly-' \
+    'generated AES256-GCM key is:'
   puts random_key_64_string
-  puts "Keep a record of this key string. You will not be able to later " \
-    "decrypt the contents of any object that is encrypted with this key " \
-    "unless you have this key."
-  return random_key_64
+  puts 'Keep a record of this key string. You will not be able to later ' \
+    'decrypt the contents of any object that is encrypted with this key ' \
+    'unless you have this key.'
+  random_key_64
 end
 
 # Example usage:
 def run_me
+<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-file.txt"
   region = "us-west-2"
+=======
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-file.txt'
+  region = 'us-west-2'
+>>>>>>> 999c6133e (fixes)
   object_content = File.read(object_key)
 
   # The following call generates a random AES256-GCM key. Alternatively, you can
@@ -114,9 +119,9 @@ def run_me
     object_key,
     object_content
   )
-    puts "Uploaded."
+    puts 'Uploaded.'
   else
-    puts "Not uploaded."
+    puts 'Not uploaded.'
   end
 end
 

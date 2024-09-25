@@ -1,12 +1,19 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative "../s3-ruby-example-add-cspk-item"
+require_relative '../s3-ruby-example-add-cspk-item'
 
+<<<<<<< HEAD
 describe "#object_uploaded_with_public_key_encryption?" do
   let(:bucket_name) { "amzn-s3-demo-bucket" }
   let(:object_key) { "my-file.txt" }
   let(:object_content) { "This is the content of my-file.txt." }
+=======
+describe '#object_uploaded_with_public_key_encryption?' do
+  let(:bucket_name) { 'doc-example-bucket' }
+  let(:object_key) { 'my-file.txt' }
+  let(:object_content) { 'This is the content of my-file.txt.' }
+>>>>>>> 999c6133e (fixes)
   # Note that Aws::S3::EncryptionV2::Client is a wrapper around
   #   Aws::S3::Client. So you must first stub Aws::S3::Client
   #   and then pass it into Aws::S3::EncryptionV2::Client
@@ -29,7 +36,7 @@ describe "#object_uploaded_with_public_key_encryption?" do
     )
   end
 
-  it "uploads an object to a bucket with public key encryption" do
+  it 'uploads an object to a bucket with public key encryption' do
     expect(
       object_uploaded_with_public_key_encryption?(
         s3_encryption_client,

@@ -1,16 +1,16 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative "../metrics_basics"
-require "rspec"
+require_relative '../metrics_basics'
+require 'rspec'
 
-describe "#datapoint_added_to_metric?", :integ do
-  let(:metric_namespace) { "SITE/TRAFFIC" }
-  let(:metric_name) { "UniqueVisitors" }
-  let(:dimension_name) { "SiteName" }
-  let(:dimension_value) { "example.com" }
+describe '#datapoint_added_to_metric?', :integ do
+  let(:metric_namespace) { 'SITE/TRAFFIC' }
+  let(:metric_name) { 'UniqueVisitors' }
+  let(:dimension_name) { 'SiteName' }
+  let(:dimension_value) { 'example.com' }
   let(:metric_value) { 5_885.0 }
-  let(:metric_unit) { "Count" }
+  let(:metric_unit) { 'Count' }
   let(:cloudwatch_client) do
     Aws::CloudWatch::Client.new(
       stub_responses: {
@@ -19,7 +19,7 @@ describe "#datapoint_added_to_metric?", :integ do
     )
   end
 
-  it "adds a datapoint to a metric" do
+  it 'adds a datapoint to a metric' do
     expect(
       datapoint_added_to_metric?(
         cloudwatch_client,
@@ -34,19 +34,19 @@ describe "#datapoint_added_to_metric?", :integ do
   end
 end
 
-describe "list_metrics_for_namespace", :integ do
-  let(:metric_namespace) { "SITE/TRAFFIC" }
+describe 'list_metrics_for_namespace', :integ do
+  let(:metric_namespace) { 'SITE/TRAFFIC' }
   let(:cloudwatch_client) do
     Aws::CloudWatch::Client.new(
       stub_responses: {
         list_metrics: {
           metrics: [
             {
-              metric_name: "UniqueVisitors",
+              metric_name: 'UniqueVisitors',
               dimensions: [
                 {
-                  name: "SiteName",
-                  value: "example.com"
+                  name: 'SiteName',
+                  value: 'example.com'
                 }
               ]
             }
@@ -56,9 +56,9 @@ describe "list_metrics_for_namespace", :integ do
     )
   end
 
-  it "lists the metrics for a namespace" do
-    expect {
+  it 'lists the metrics for a namespace' do
+    expect do
       list_metrics_for_namespace(cloudwatch_client, metric_namespace)
-    }.not_to raise_error
+    end.not_to raise_error
   end
 end

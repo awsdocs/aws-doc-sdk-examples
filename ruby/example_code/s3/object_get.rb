@@ -6,7 +6,7 @@
 # Shows how to get an object from an Amazon Simple Storage Service (Amazon S3) bucket.
 
 # snippet-start:[ruby.example_code.s3.GetObject]
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # Wraps Amazon S3 object actions.
 class ObjectGetWrapper
@@ -30,9 +30,15 @@ end
 
 # Example usage:
 def run_demo
+<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-object.txt"
   target_path = "my-object-as-file.txt"
+=======
+  bucket_name = 'doc-example-bucket'
+  object_key = 'my-object.txt'
+  target_path = 'my-object-as-file.txt'
+>>>>>>> 999c6133e (fixes)
 
   wrapper = ObjectGetWrapper.new(Aws::S3::Object.new(bucket_name, object_key))
   obj_data = wrapper.get_object(target_path)

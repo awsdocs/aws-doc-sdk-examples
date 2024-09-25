@@ -3,16 +3,16 @@
 
 # frozen_string_literal: true
 
-require "aws-sdk-lambda"
-require "aws-sdk-s3"
-require "aws-sdk-iam"
-require "aws-sdk-cloudwatchlogs"
-require "logger"
-require "json"
-require "zip"
+require 'aws-sdk-lambda'
+require 'aws-sdk-s3'
+require 'aws-sdk-iam'
+require 'aws-sdk-cloudwatchlogs'
+require 'logger'
+require 'json'
+require 'zip'
 
-$cloudwatch_client = Aws::CloudWatchLogs::Client.new(region: "us-east-1")
-$iam_client = Aws::IAM::Client.new(region: "us-east-1")
+$cloudwatch_client = Aws::CloudWatchLogs::Client.new(region: 'us-east-1')
+$iam_client = Aws::IAM::Client.new(region: 'us-east-1')
 
 # snippet-start:[ruby.example_code.ruby.LambdaWrapper.full]
 # snippet-start:[ruby.example_code.ruby.LambdaWrapper.decl]
@@ -34,26 +34,26 @@ class LambdaWrapper
   # @return: The IAM role.
   def manage_iam(iam_role_name, action)
     role_policy = {
-      'Version': "2012-10-17",
+      'Version': '2012-10-17',
       'Statement': [
         {
-          'Effect': "Allow",
+          'Effect': 'Allow',
           'Principal': {
-            'Service': "lambda.amazonaws.com"
+            'Service': 'lambda.amazonaws.com'
           },
-          'Action': "sts:AssumeRole"
+          'Action': 'sts:AssumeRole'
         }
       ]
     }
     case action
-    when "create"
+    when 'create'
       role = $iam_client.create_role(
         role_name: iam_role_name,
         assume_role_policy_document: role_policy.to_json
       )
       $iam_client.attach_role_policy(
         {
-          policy_arn: "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          policy_arn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
           role_name: iam_role_name
         }
       )
@@ -62,13 +62,13 @@ class LambdaWrapper
         w.delay = 5
       end
       @logger.debug("Successfully created IAM role: #{role['role']['arn']}")
-      @logger.debug("Enforcing a 10-second sleep to allow IAM role to activate fully.")
+      @logger.debug('Enforcing a 10-second sleep to allow IAM role to activate fully.')
       sleep(10)
-      return role, role_policy.to_json
-    when "destroy"
+      [role, role_policy.to_json]
+    when 'destroy'
       $iam_client.detach_role_policy(
         {
-          policy_arn: "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+          policy_arn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
           role_name: iam_role_name
         }
       )
@@ -92,16 +92,15 @@ class LambdaWrapper
   # @return: The deployment package.
   def create_deployment_package(source_file)
     Dir.chdir(File.dirname(__FILE__))
-    if File.exist?("lambda_function.zip")
-      File.delete("lambda_function.zip")
-      @logger.debug("Deleting old zip: lambda_function.zip")
+    if File.exist?('lambda_function.zip')
+      File.delete('lambda_function.zip')
+      @logger.debug('Deleting old zip: lambda_function.zip')
     end
-    Zip::File.open("lambda_function.zip", create: true) {
-      |zipfile|
-      zipfile.add("lambda_function.rb", "#{source_file}.rb")
-    }
+    Zip::File.open('lambda_function.zip', create: true) do |zipfile|
+      zipfile.add('lambda_function.rb', "#{source_file}.rb")
+    end
     @logger.debug("Zipping #{source_file}.rb into: lambda_function.zip.")
-    File.read("lambda_function.zip").to_s
+    File.read('lambda_function.zip').to_s
   rescue StandardError => e
     @logger.error("There was an error creating deployment package:\n #{e.message}")
   end
@@ -139,17 +138,17 @@ class LambdaWrapper
                                                 role: role_arn.to_s,
                                                 function_name: function_name,
                                                 handler: handler_name,
-                                                runtime: "ruby2.7",
+                                                runtime: 'ruby2.7',
                                                 code: {
                                                   zip_file: deployment_package
                                                 },
                                                 environment: {
                                                   variables: {
-                                                    "LOG_LEVEL" => "info"
+                                                    'LOG_LEVEL' => 'info'
                                                   }
                                                 }
                                               })
-    @lambda_client.wait_until(:function_active_v2, { function_name: function_name}) do |w|
+    @lambda_client.wait_until(:function_active_v2, { function_name: function_name }) do |w|
       w.max_attempts = 5
       w.delay = 5
     end
@@ -167,7 +166,7 @@ class LambdaWrapper
   # @param payload [nil] Payload containing runtime parameters.
   # @return [Object] The response from the function invocation.
   def invoke_function(function_name, payload = nil)
-    params = { function_name: function_name}
+    params = { function_name: function_name }
     params[:payload] = payload unless payload.nil?
     @lambda_client.invoke(params)
   rescue Aws::Lambda::Errors::ServiceException => e
@@ -180,20 +179,20 @@ class LambdaWrapper
   # @param string_match [String] A string to look for in the logs.
   # @return all_logs [Array] An array of all the log messages found for that stream.
   def get_cloudwatch_logs(function_name, string_match)
-    @logger.debug("Enforcing a 10 second sleep to allow CloudWatch logs to appear.")
+    @logger.debug('Enforcing a 10 second sleep to allow CloudWatch logs to appear.')
     sleep(10)
     streams = $cloudwatch_client.describe_log_streams({ log_group_name: "/aws/lambda/#{function_name}" })
-    streams["log_streams"].each do |x|
+    streams['log_streams'].each do |x|
       resp = $cloudwatch_client.get_log_events({
                                                  log_group_name: "/aws/lambda/#{function_name}",
-                                                 log_stream_name: x["log_stream_name"]
+                                                 log_stream_name: x['log_stream_name']
                                                })
       resp.events.each do |x|
-        if "/#{x.message}/".match(string_match)
-          msg = x.message.split(" -- : ")[1].green
-          puts "CloudWatch log stream: #{msg}"
-          return msg
-        end
+        next unless "/#{x.message}/".match(string_match)
+
+        msg = x.message.split(' -- : ')[1].green
+        puts "CloudWatch log stream: #{msg}"
+        return msg
       end
     end
   rescue Aws::Lambda::Errors::ServiceException => e
@@ -219,11 +218,11 @@ class LambdaWrapper
                                                    function_name: function_name,
                                                    environment: {
                                                      variables: {
-                                                       "LOG_LEVEL" => log_level
+                                                       'LOG_LEVEL' => log_level
                                                      }
                                                    }
                                                  })
-    @lambda_client.wait_until(:function_updated_v2, { function_name: function_name}) do |w|
+    @lambda_client.wait_until(:function_updated_v2, { function_name: function_name }) do |w|
       w.max_attempts = 5
       w.delay = 5
     end
@@ -247,7 +246,7 @@ class LambdaWrapper
       function_name: function_name,
       zip_file: deployment_package
     )
-    @lambda_client.wait_until(:function_updated_v2, { function_name: function_name}) do |w|
+    @lambda_client.wait_until(:function_updated_v2, { function_name: function_name }) do |w|
       w.max_attempts = 5
       w.delay = 5
     end
@@ -264,8 +263,8 @@ class LambdaWrapper
   def list_functions
     functions = []
     @lambda_client.list_functions.each do |response|
-      response["functions"].each do |function|
-        functions.append(function["function_name"])
+      response['functions'].each do |function|
+        functions.append(function['function_name'])
       end
     end
     functions
@@ -282,7 +281,7 @@ class LambdaWrapper
     @lambda_client.delete_function(
       function_name: function_name
     )
-    print "Done!".green
+    print 'Done!'.green
   rescue Aws::Lambda::Errors::ServiceException => e
     @logger.error("There was an error deleting #{function_name}:\n #{e.message}")
   end

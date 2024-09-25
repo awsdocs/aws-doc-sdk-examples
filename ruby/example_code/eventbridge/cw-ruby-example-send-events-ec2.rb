@@ -30,13 +30,13 @@
 # The run_me function toward the end of this code example calls the
 # functions in the correct order.
 # snippet-start:[cloudwatch.cross-service.Ruby.require]
-require "aws-sdk-sns"
-require "aws-sdk-iam"
-require "aws-sdk-cloudwatchevents"
-require "aws-sdk-ec2"
-require "aws-sdk-cloudwatch"
-require "aws-sdk-cloudwatchlogs"
-require "securerandom"
+require 'aws-sdk-sns'
+require 'aws-sdk-iam'
+require 'aws-sdk-cloudwatchevents'
+require 'aws-sdk-ec2'
+require 'aws-sdk-cloudwatch'
+require 'aws-sdk-cloudwatchlogs'
+require 'securerandom'
 # snippet-end:[cloudwatch.cross-service.Ruby.require]
 # snippet-start:[cloudwatch.cross-service.Ruby.sns]
 # Checks whether the specified Amazon SNS
@@ -60,8 +60,9 @@ def topic_found?(topics, topic_arn)
   topics.each do |topic|
     return true if topic.topic_arn == topic_arn
   end
-  return false
+  false
 end
+
 # snippet-end:[cloudwatch.cross-service.Ruby.sns]
 # snippet-start:[cloudwatch.cross-service.Ruby.snstopic]
 # Checks whether the specified topic exists among those available to the
@@ -80,25 +81,26 @@ def topic_exists?(sns_client, topic_arn)
   response = sns_client.list_topics
   if response.topics.count.positive?
     if topic_found?(response.topics, topic_arn)
-      puts "Topic found."
+      puts 'Topic found.'
       return true
     end
-    while response.next_page? do
+    while response.next_page?
       response = response.next_page
-      if response.topics.count.positive?
-        if topic_found?(response.topics, topic_arn)
-          puts "Topic found."
-          return true
-        end
+      next unless response.topics.count.positive?
+
+      if topic_found?(response.topics, topic_arn)
+        puts 'Topic found.'
+        return true
       end
     end
   end
-  puts "Topic not found."
-  return false
+  puts 'Topic not found.'
+  false
 rescue StandardError => e
   puts "Topic not found: #{e.message}"
-  return false
+  false
 end
+
 # snippet-end:[cloudwatch.cross-service.Ruby.snstopic]
 # snippet-start:[cloudwatch.cross-service.Ruby.createSnsTopic]
 # Creates a topic in Amazon SNS
@@ -120,19 +122,20 @@ def create_topic(sns_client, topic_name, email_address)
   puts "Topic created with ARN '#{topic_response.topic_arn}'."
   subscription_response = sns_client.subscribe(
     topic_arn: topic_response.topic_arn,
-    protocol: "email",
+    protocol: 'email',
     endpoint: email_address,
     return_subscription_arn: true
   )
-  puts "Subscription created with ARN " \
+  puts 'Subscription created with ARN ' \
     "'#{subscription_response.subscription_arn}'. Have the owner of the " \
     "email address '#{email_address}' check their inbox in a few minutes " \
-    "and confirm the subscription to start receiving notification emails."
-  return topic_response.topic_arn
+    'and confirm the subscription to start receiving notification emails.'
+  topic_response.topic_arn
 rescue StandardError => e
   puts "Error creating or subscribing to topic: #{e.message}"
-  return "Error"
+  'Error'
 end
+
 # snippet-end:[cloudwatch.cross-service.Ruby.createSnsTopic]
 # snippet-start:[cloudwatch.cross-service.Ruby.IamRole]
 # Checks whether the specified AWS Identity and Access Management (IAM)
@@ -155,8 +158,9 @@ def role_found?(roles, role_arn)
   roles.each do |role|
     return true if role.arn == role_arn
   end
-  return false
+  false
 end
+
 # snippet-end:[cloudwatch.cross-service.Ruby.IamRole]
 # snippet-start:[cloudwatch.cross-service.Ruby.checkIamRole]
 # Checks whether the specified role exists among those available to the
@@ -175,25 +179,26 @@ def role_exists?(iam_client, role_arn)
   response = iam_client.list_roles
   if response.roles.count.positive?
     if role_found?(response.roles, role_arn)
-      puts "Role found."
+      puts 'Role found.'
       return true
     end
-    while response.next_page? do
+    while response.next_page?
       response = response.next_page
-      if response.roles.count.positive?
-        if role_found?(response.roles, role_arn)
-          puts "Role found."
-          return true
-        end
+      next unless response.roles.count.positive?
+
+      if role_found?(response.roles, role_arn)
+        puts 'Role found.'
+        return true
       end
     end
   end
-  puts "Role not found."
-  return false
+  puts 'Role not found.'
+  false
 rescue StandardError => e
   puts "Role not found: #{e.message}"
-  return false
+  false
 end
+
 # snippet-end:[cloudwatch.cross-service.Ruby.checkIamRole]
 # snippet-start:[cloudwatch.cross-service.Ruby.createIamRole]
 # Creates a role in AWS Identity and Access Management (IAM).
@@ -213,52 +218,53 @@ def create_role(iam_client, role_name)
   puts "Creating the role named '#{role_name}'..."
   response = iam_client.create_role(
     assume_role_policy_document: {
-      'Version': "2012-10-17",
+      'Version': '2012-10-17',
       'Statement': [
         {
-          'Sid': "",
-          'Effect': "Allow",
+          'Sid': '',
+          'Effect': 'Allow',
           'Principal': {
-            'Service': "events.amazonaws.com"
+            'Service': 'events.amazonaws.com'
           },
-          'Action': "sts:AssumeRole"
+          'Action': 'sts:AssumeRole'
         }
       ]
     }.to_json,
-    path: "/",
+    path: '/',
     role_name: role_name
   )
   puts "Role created with ARN '#{response.role.arn}'."
-  puts "Adding access policy to role..."
+  puts 'Adding access policy to role...'
   iam_client.put_role_policy(
     policy_document: {
-      'Version': "2012-10-17",
+      'Version': '2012-10-17',
       'Statement': [
         {
-          'Sid': "CloudWatchEventsFullAccess",
-          'Effect': "Allow",
-          'Resource': "*",
-          'Action': "events:*"
+          'Sid': 'CloudWatchEventsFullAccess',
+          'Effect': 'Allow',
+          'Resource': '*',
+          'Action': 'events:*'
         },
         {
-          'Sid': "IAMPassRoleForCloudWatchEvents",
-          'Effect': "Allow",
-          'Resource': "arn:aws:iam::*:role/AWS_Events_Invoke_Targets",
-          'Action': "iam:PassRole"
+          'Sid': 'IAMPassRoleForCloudWatchEvents',
+          'Effect': 'Allow',
+          'Resource': 'arn:aws:iam::*:role/AWS_Events_Invoke_Targets',
+          'Action': 'iam:PassRole'
         }
       ]
     }.to_json,
-    policy_name: "CloudWatchEventsPolicy",
+    policy_name: 'CloudWatchEventsPolicy',
     role_name: role_name
   )
-  puts "Access policy added to role."
-  return response.role.arn
+  puts 'Access policy added to role.'
+  response.role.arn
 rescue StandardError => e
   puts "Error creating role or adding policy to it: #{e.message}"
-  puts "If the role was created, you must add the access policy " \
-    "to the role yourself, or delete the role yourself and try again."
-  return "Error"
+  puts 'If the role was created, you must add the access policy ' \
+    'to the role yourself, or delete the role yourself and try again.'
+  'Error'
 end
+
 # snippet-end:[cloudwatch.cross-service.Ruby.createIamRole]
 # snippet-start:[cloudwatch.cross-service.Ruby.checkRuleExists]
 # Checks whether the specified Amazon EventBridge rule exists among
@@ -278,8 +284,9 @@ def rule_found?(rules, rule_name)
   rules.each do |rule|
     return true if rule.name == rule_name
   end
-  return false
+  false
 end
+
 # snippet-end:[cloudwatch.cross-service.Ruby.checkRuleExists]
 # snippet-start:[cloudwatch.cross-service.Ruby.checkRuleAvailable]
 # Checks whether the specified rule exists among those available to the
@@ -299,25 +306,26 @@ def rule_exists?(cloudwatchevents_client, rule_name)
   response = cloudwatchevents_client.list_rules
   if response.rules.count.positive?
     if rule_found?(response.rules, rule_name)
-      puts "Rule found."
+      puts 'Rule found.'
       return true
     end
-    while response.next_page? do
+    while response.next_page?
       response = response.next_page
-      if response.rules.count.positive?
-        if rule_found?(response.rules, rule_name)
-          puts "Rule found."
-          return true
-        end
+      next unless response.rules.count.positive?
+
+      if rule_found?(response.rules, rule_name)
+        puts 'Rule found.'
+        return true
       end
     end
   end
-  puts "Rule not found."
-  return false
+  puts 'Rule not found.'
+  false
 rescue StandardError => e
   puts "Rule not found: #{e.message}"
-  return false
+  false
 end
+
 # snippet-end:[cloudwatch.cross-service.Ruby.checkRuleAvailable]
 # snippet-start:[cloudwatch.cross-service.Ruby.createRule]
 # Creates a rule in Amazon EventBridge.
@@ -367,10 +375,10 @@ def rule_created?(
     description: rule_description,
     event_pattern: {
       'source': [
-        "aws.ec2"
+        'aws.ec2'
       ],
       'detail-type': [
-        "EC2 Instance State-change Notification"
+        'EC2 Instance State-change Notification'
       ],
       'detail': {
         'state': [
@@ -378,7 +386,7 @@ def rule_created?(
         ]
       }
     }.to_json,
-    state: "ENABLED",
+    state: 'ENABLED',
     role_arn: role_arn
   )
   puts "Rule created with ARN '#{put_rule_response.rule_arn}'."
@@ -393,21 +401,22 @@ def rule_created?(
     ]
   )
   if put_targets_response.key?(:failed_entry_count) &&
-      put_targets_response.failed_entry_count > 0
-    puts "Error(s) adding target to rule:"
+     put_targets_response.failed_entry_count.positive?
+    puts 'Error(s) adding target to rule:'
     put_targets_response.failed_entries.each do |failure|
       puts failure.error_message
     end
-    return false
+    false
   else
-    return true
+    true
   end
 rescue StandardError => e
   puts "Error creating rule or adding target to rule: #{e.message}"
-  puts "If the rule was created, you must add the target " \
-    "to the rule yourself, or delete the rule yourself and try again."
-  return false
+  puts 'If the rule was created, you must add the target ' \
+    'to the rule yourself, or delete the rule yourself and try again.'
+  false
 end
+
 # snippet-end:[cloudwatch.cross-service.Ruby.createRule]
 # snippet-start:[cloudwatch.cross-service.Ruby.checkLogGroup]
 # Checks to see whether the specified log group exists among those available
@@ -430,17 +439,18 @@ def log_group_exists?(cloudwatchlogs_client, log_group_name)
   if response.log_groups.count.positive?
     response.log_groups.each do |log_group|
       if log_group.log_group_name == log_group_name
-        puts "Log group found."
+        puts 'Log group found.'
         return true
       end
     end
   end
-  puts "Log group not found."
-  return false
+  puts 'Log group not found.'
+  false
 rescue StandardError => e
   puts "Log group not found: #{e.message}"
-  return false
+  false
 end
+
 # snippet-end:[cloudwatch.cross-service.Ruby.checkLogGroup]
 # snippet-start:[cloudwatch.cross-service.Ruby.createLogGroup]
 # Creates a log group in Amazon CloudWatch Logs.
@@ -457,12 +467,13 @@ end
 def log_group_created?(cloudwatchlogs_client, log_group_name)
   puts "Attempting to create log group with the name '#{log_group_name}'..."
   cloudwatchlogs_client.create_log_group(log_group_name: log_group_name)
-  puts "Log group created."
-  return true
+  puts 'Log group created.'
+  true
 rescue StandardError => e
   puts "Error creating log group: #{e.message}"
-  return false
+  false
 end
+
 # snippet-end:[cloudwatch.cross-service.Ruby.createLogGroup]
 # snippet-start:[cloudwatch.cross-service.Ruby.writeEvent]
 # Writes an event to a log stream in Amazon CloudWatch Logs.
@@ -511,13 +522,11 @@ def log_event(
       }
     ]
   }
-  unless sequence_token.empty?
-    event[:sequence_token] = sequence_token
-  end
+  event[:sequence_token] = sequence_token unless sequence_token.empty?
 
   response = cloudwatchlogs_client.put_log_events(event)
-  puts "Message logged."
-  return response.next_sequence_token
+  puts 'Message logged.'
+  response.next_sequence_token
 rescue StandardError => e
   puts "Message not logged: #{e.message}"
 end
@@ -560,13 +569,13 @@ def instance_restarted?(
     log_group_name: log_group_name,
     log_stream_name: log_stream_name
   )
-  sequence_token = ""
+  sequence_token = ''
 
   puts "Attempting to stop the instance with the ID '#{instance_id}'. " \
-    "This might take a few minutes..."
+    'This might take a few minutes...'
   ec2_client.stop_instances(instance_ids: [instance_id])
   ec2_client.wait_until(:instance_stopped, instance_ids: [instance_id])
-  puts "Instance stopped."
+  puts 'Instance stopped.'
   sequence_token = log_event(
     cloudwatchlogs_client,
     log_group_name,
@@ -575,10 +584,10 @@ def instance_restarted?(
     sequence_token
   )
 
-  puts "Attempting to restart the instance. This might take a few minutes..."
+  puts 'Attempting to restart the instance. This might take a few minutes...'
   ec2_client.start_instances(instance_ids: [instance_id])
   ec2_client.wait_until(:instance_running, instance_ids: [instance_id])
-  puts "Instance restarted."
+  puts 'Instance restarted.'
   sequence_token = log_event(
     cloudwatchlogs_client,
     log_group_name,
@@ -587,9 +596,9 @@ def instance_restarted?(
     sequence_token
   )
 
-  return true
+  true
 rescue StandardError => e
-  puts "Error creating log stream or stopping or restarting the instance: " \
+  puts 'Error creating log stream or stopping or restarting the instance: ' \
     "#{e.message}"
   log_event(
     cloudwatchlogs_client,
@@ -598,8 +607,9 @@ rescue StandardError => e
     "Error stopping or starting instance '#{instance_id}': #{e.message}",
     sequence_token
   )
-  return false
+  false
 end
+
 # snippet-end:[cloudwatch.cross-service.Ruby.restartInstance]
 # snippet-start:[cloudwatch.cross-service.Ruby.displayInfo]
 # Displays information about activity for a rule in Amazon EventBridge.
@@ -631,21 +641,21 @@ def display_rule_activity(
   end_time,
   period
 )
-  puts "Attempting to display rule activity..."
+  puts 'Attempting to display rule activity...'
   response = cloudwatch_client.get_metric_statistics(
-    namespace: "AWS/Events",
-    metric_name: "Invocations",
+    namespace: 'AWS/Events',
+    metric_name: 'Invocations',
     dimensions: [
       {
-        name: "RuleName",
+        name: 'RuleName',
         value: rule_name
       }
     ],
     start_time: start_time,
     end_time: end_time,
     period: period,
-    statistics: ["Sum"],
-    unit: "Count"
+    statistics: ['Sum'],
+    unit: 'Count'
   )
 
   if response.key?(:datapoints) && response.datapoints.count.positive?
@@ -655,11 +665,12 @@ def display_rule_activity(
     end
   else
     puts "The event rule '#{rule_name}' was not triggered during the " \
-      "specified time period."
+      'specified time period.'
   end
 rescue StandardError => e
   puts "Error getting information about event rule activity: #{e.message}"
 end
+
 # snippet-end:[cloudwatch.cross-service.Ruby.displayInfo]
 # snippet-start:[cloudwatch.cross-service.Ruby.displayLogInfo]
 # Displays log information for all of the log streams in a log group in
@@ -678,34 +689,34 @@ end
 #     'aws-doc-sdk-examples-cloudwatch-log'
 #   )
 def display_log_data(cloudwatchlogs_client, log_group_name)
-  puts "Attempting to display log stream data for the log group " \
+  puts 'Attempting to display log stream data for the log group ' \
     "named '#{log_group_name}'..."
   describe_log_streams_response = cloudwatchlogs_client.describe_log_streams(
     log_group_name: log_group_name,
-    order_by: "LastEventTime",
+    order_by: 'LastEventTime',
     descending: true
   )
   if describe_log_streams_response.key?(:log_streams) &&
-      describe_log_streams_response.log_streams.count.positive?
+     describe_log_streams_response.log_streams.count.positive?
     describe_log_streams_response.log_streams.each do |log_stream|
       get_log_events_response = cloudwatchlogs_client.get_log_events(
         log_group_name: log_group_name,
         log_stream_name: log_stream.log_stream_name
       )
       puts "\nLog messages for '#{log_stream.log_stream_name}':"
-      puts "-" * (log_stream.log_stream_name.length + 20)
+      puts '-' * (log_stream.log_stream_name.length + 20)
       if get_log_events_response.key?(:events) &&
-          get_log_events_response.events.count.positive?
+         get_log_events_response.events.count.positive?
         get_log_events_response.events.each do |event|
           puts event.message
         end
       else
-        puts "No log messages for this log stream."
+        puts 'No log messages for this log stream.'
       end
     end
   end
 rescue StandardError => e
-  puts "Error getting information about the log streams or their messages: " \
+  puts 'Error getting information about the log streams or their messages: ' \
     "#{e.message}"
 end
 # snippet-end:[cloudwatch.cross-service.Ruby.displayLogInfo]
@@ -730,11 +741,11 @@ end
 def manual_cleanup_notice(
   topic_name, role_name, rule_name, log_group_name, instance_id
 )
-  puts "-" * 10
-  puts "Some of the following AWS resources might still exist in your account."
-  puts "If you no longer want to use this code example, then to clean up"
-  puts "your AWS account and avoid unexpected costs, you might want to"
-  puts "manually delete any of the following resources if they exist:"
+  puts '-' * 10
+  puts 'Some of the following AWS resources might still exist in your account.'
+  puts 'If you no longer want to use this code example, then to clean up'
+  puts 'your AWS account and avoid unexpected costs, you might want to'
+  puts 'manually delete any of the following resources if they exist:'
   puts "- The Amazon SNS topic named '#{topic_name}'."
   puts "- The IAM role named '#{role_name}'."
   puts "- The Amazon EventBridge rule named '#{rule_name}'."
@@ -745,26 +756,26 @@ end
 # Example usage:
 def run_me
   # Properties for the Amazon SNS topic.
-  topic_name = "aws-doc-sdk-examples-topic"
-  email_address = "mary@example.com"
+  topic_name = 'aws-doc-sdk-examples-topic'
+  email_address = 'mary@example.com'
   # Properties for the IAM role.
-  role_name = "aws-doc-sdk-examples-cloudwatch-events-rule-role"
+  role_name = 'aws-doc-sdk-examples-cloudwatch-events-rule-role'
   # Properties for the Amazon EventBridge rule.
-  rule_name = "aws-doc-sdk-examples-ec2-state-change"
-  rule_description = "Triggers when any available EC2 instance starts."
-  instance_state = "running"
-  target_id = "sns-topic"
+  rule_name = 'aws-doc-sdk-examples-ec2-state-change'
+  rule_description = 'Triggers when any available EC2 instance starts.'
+  instance_state = 'running'
+  target_id = 'sns-topic'
   # Properties for the Amazon EC2 instance.
-  instance_id = "i-033c48ef067af3dEX"
+  instance_id = 'i-033c48ef067af3dEX'
   # Properties for displaying the event rule's activity.
   start_time = Time.now - 600 # Go back over the past 10 minutes
-                              # (10 minutes * 60 seconds = 600 seconds).
+  # (10 minutes * 60 seconds = 600 seconds).
   end_time = Time.now
   period = 60 # Look back every 60 seconds over the past 10 minutes.
   # Properties for the Amazon CloudWatch Logs log group.
-  log_group_name = "aws-doc-sdk-examples-cloudwatch-log"
+  log_group_name = 'aws-doc-sdk-examples-cloudwatch-log'
   # AWS service clients for this code example.
-  region = "us-east-1"
+  region = 'us-east-1'
   sts_client = Aws::STS::Client.new(region: region)
   sns_client = Aws::SNS::Client.new(region: region)
   iam_client = Aws::IAM::Client.new(region: region)
@@ -781,8 +792,8 @@ def run_me
   topic_arn = "arn:aws:sns:#{region}:#{account_id}:#{topic_name}"
   unless topic_exists?(sns_client, topic_arn)
     topic_arn = create_topic(sns_client, topic_name, email_address)
-    if topic_arn == "Error"
-      puts "Could not create the Amazon SNS topic correctly. Program stopped."
+    if topic_arn == 'Error'
+      puts 'Could not create the Amazon SNS topic correctly. Program stopped.'
       manual_cleanup_notice(
         topic_name, role_name, rule_name, log_group_name, instance_id
       )
@@ -794,8 +805,8 @@ def run_me
   role_arn = "arn:aws:iam::#{account_id}:role/#{role_name}"
   unless role_exists?(iam_client, role_arn)
     role_arn = create_role(iam_client, role_name)
-    if role_arn == "Error"
-      puts "Could not create the IAM role correctly. Program stopped."
+    if role_arn == 'Error'
+      puts 'Could not create the IAM role correctly. Program stopped.'
       manual_cleanup_notice(
         topic_name, role_name, rule_name, log_group_name, instance_id
       )
@@ -803,33 +814,30 @@ def run_me
   end
 
   # If the Amazon EventBridge rule doesn't exist, create it.
-  unless rule_exists?(cloudwatchevents_client, rule_name)
-    unless rule_created?(
-      cloudwatchevents_client,
-      rule_name,
-      rule_description,
-      instance_state,
-      role_arn,
-      target_id,
-      topic_arn
+  if !rule_exists?(cloudwatchevents_client, rule_name) && !rule_created?(
+    cloudwatchevents_client,
+    rule_name,
+    rule_description,
+    instance_state,
+    role_arn,
+    target_id,
+    topic_arn
+  )
+    puts 'Could not create the Amazon EventBridge rule correctly. ' \
+      'Program stopped.'
+    manual_cleanup_notice(
+      topic_name, role_name, rule_name, log_group_name, instance_id
     )
-      puts "Could not create the Amazon EventBridge rule correctly. " \
-        "Program stopped."
-      manual_cleanup_notice(
-        topic_name, role_name, rule_name, log_group_name, instance_id
-      )
-    end
   end
 
   # If the Amazon CloudWatch Logs log group doesn't exist, create it.
-  unless log_group_exists?(cloudwatchlogs_client, log_group_name)
-    unless log_group_created?(cloudwatchlogs_client, log_group_name)
-      puts "Could not create the Amazon CloudWatch Logs log group " \
-      "correctly. Program stopped."
-      manual_cleanup_notice(
-        topic_name, role_name, rule_name, log_group_name, instance_id
-      )
-    end
+  if !log_group_exists?(cloudwatchlogs_client,
+                        log_group_name) && !log_group_created?(cloudwatchlogs_client, log_group_name)
+    puts 'Could not create the Amazon CloudWatch Logs log group ' \
+    'correctly. Program stopped.'
+    manual_cleanup_notice(
+      topic_name, role_name, rule_name, log_group_name, instance_id
+    )
   end
 
   # Restart the Amazon EC2 instance, which triggers the rule.
@@ -839,8 +847,8 @@ def run_me
     instance_id,
     log_group_name
   )
-    puts "Could not restart the instance to trigger the rule. " \
-      "Continuing anyway to show information about the rule and logs..."
+    puts 'Could not restart the instance to trigger the rule. ' \
+      'Continuing anyway to show information about the rule and logs...'
   end
 
   # Display how many times the rule was triggered over the past 10 minutes.

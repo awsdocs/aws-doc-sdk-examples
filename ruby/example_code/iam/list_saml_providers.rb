@@ -1,8 +1,8 @@
 ﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require "aws-sdk-iam"
-require "logger"
+require 'aws-sdk-iam'
+require 'logger'
 
 # snippet-start:[ruby.example_code.iam.ListSamlProviders]
 class SamlProviderLister
@@ -35,6 +35,6 @@ end
 if __FILE__ == $PROGRAM_NAME
   iam_client = Aws::IAM::Client.new
   user_manager = SamlProviderLister.new(iam_client)
-  puts "Attempting to get details for available SAML providers..."
+  puts 'Attempting to get details for available SAML providers...'
   user_manager.list_saml_providers(10)
 end

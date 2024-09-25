@@ -11,21 +11,18 @@
 # 3. Delete table
 
 # snippet-start:[ruby.example_code.dynamodb.helper.DynamoDBBasics]
-require "aws-sdk-dynamodb"
-require "json"
-require "open-uri"
-require "pp"
-require "zip"
+require 'aws-sdk-dynamodb'
+require 'json'
+require 'open-uri'
+require 'zip'
 
 # snippet-start:[ruby.example_code.dynamodb.Scaffold]
 # Encapsulates an Amazon DynamoDB table of movie data.
 class Scaffold
-  attr_reader :dynamo_resource
-  attr_reader :table_name
-  attr_reader :table
+  attr_reader :dynamo_resource, :table_name, :table
 
   def initialize(table_name)
-    client = Aws::DynamoDB::Client.new(region: "us-east-1")
+    client = Aws::DynamoDB::Client.new(region: 'us-east-1')
     @dynamo_resource = Aws::DynamoDB::Resource.new(client: client)
     @table_name = table_name
     @table = nil
@@ -64,14 +61,15 @@ class Scaffold
     @table = @dynamo_resource.create_table(
       table_name: table_name,
       key_schema: [
-        {attribute_name: "year", key_type: "HASH"},  # Partition key
-        {attribute_name: "title", key_type: "RANGE"}  # Sort key
+        { attribute_name: 'year', key_type: 'HASH' }, # Partition key
+        { attribute_name: 'title', key_type: 'RANGE' } # Sort key
       ],
       attribute_definitions: [
-        {attribute_name: "year", attribute_type: "N"},
-        {attribute_name: "title", attribute_type: "S"}
+        { attribute_name: 'year', attribute_type: 'N' },
+        { attribute_name: 'title', attribute_type: 'S' }
       ],
-      provisioned_throughput: {read_capacity_units: 10, write_capacity_units: 10})
+      provisioned_throughput: { read_capacity_units: 10, write_capacity_units: 10 }
+    )
     @dynamo_resource.client.wait_until(:table_exists, table_name: table_name)
     @table
   rescue Aws::DynamoDB::Errors::ServiceError => e
@@ -93,14 +91,15 @@ class Scaffold
     while index < movies.length
       movie_items = []
       movies[index, slice_size].each do |movie|
-        movie_items.append({put_request: { item: movie }})
+        movie_items.append({ put_request: { item: movie } })
       end
-      @dynamo_resource.client.batch_write_item({request_items: { @table.name => movie_items }})
+      @dynamo_resource.client.batch_write_item({ request_items: { @table.name => movie_items } })
       index += slice_size
     end
   rescue Aws::DynamoDB::Errors::ServiceError => e
     puts(
-      "Couldn't load data into table #{@table.name}. Here's why:")
+      "Couldn't load data into table #{@table.name}. Here's why:"
+    )
     puts("\t#{e.code}: #{e.message}")
     raise
   end
@@ -128,9 +127,9 @@ class Scaffold
     if !File.file?(movie_file_name)
       @logger.debug("Downloading #{movie_file_name}...")
       movie_content = URI.open(
-        "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip"
+        'https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip'
       )
-      movie_json = ""
+      movie_json = ''
       Zip::File.open_buffer(movie_content) do |zip|
         zip.each do |entry|
           movie_json = entry.get_input_stream.read

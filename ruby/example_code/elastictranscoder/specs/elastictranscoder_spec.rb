@@ -3,16 +3,15 @@
 
 # frozen_string_literal: true
 
-require_relative "../create_job"
-require "rspec"
+require_relative '../create_job'
+require 'rspec'
 
-describe "TestElastictranscoder" do
+describe 'TestElastictranscoder' do
   let(:transcoder_client) { Aws::ElasticTranscoder::Client.new }
   let(:s3_resource) { Aws::S3::Resource.new }
   let(:pipeline_name) { "transcoder-pipeline-#{rand(10**4)}" }
 
-  it "create" do
+  it 'create' do
     create_elastictranscoder_job(transcoder_client, s3_resource, pipeline_name)
   end
-
 end
