@@ -724,18 +724,13 @@ lambda_ListFunctions:
   services:
     lambda: {ListFunctions}
 lambda_Scenario_GettingStartedFunctions:
-  title: Get started creating and invoking &LAM; functions using an &AWS; SDK
-  title_abbrev: Get started with functions
   synopsis_list:
     - Create an &IAM; role and &LAM; function, then upload handler code.
     - Invoke the function with a single parameter and get results.
     - Update the function code and configure with an environment variable.
     - Invoke the function with new parameters and get results. Display the returned execution log.
     - List the functions for your account, then clean up resources.
-  category: Scenarios
-  guide_topic:
-    title: Create a &LAM; function with the console
-    url: lambda/latest/dg/getting-started-create-function.html
+  category: Basics
   languages:
     .NET:
       versions:
