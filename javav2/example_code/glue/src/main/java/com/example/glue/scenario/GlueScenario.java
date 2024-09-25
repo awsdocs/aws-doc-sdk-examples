@@ -381,7 +381,6 @@ public class GlueScenario {
     // snippet-end:[glue.java2.create_crawler.main]
 
     // snippet-start:[glue.java2.get_crawler.main]
-
     /**
      * Retrieves a specific crawler from the AWS Glue service and waits for it to be in the "READY" state.
      *
@@ -436,7 +435,6 @@ public class GlueScenario {
     // snippet-end:[glue.java2.start_crawler.main]
 
     // snippet-start:[glue.java2.get_database.main]
-
     /**
      * Retrieves the specific database from the AWS Glue service.
      *
@@ -602,7 +600,6 @@ public class GlueScenario {
     // snippet-end:[glue.java2.get_jobs.main]
 
     // snippet-start:[glue.java2.get_job.main]
-
     /**
      * Retrieves the job runs for a given Glue job and prints the status of the job runs.
      *
