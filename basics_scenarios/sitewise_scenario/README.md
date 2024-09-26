@@ -18,6 +18,8 @@ This AWS IoT SiteWise Service basic scenario demonstrates how to interact with t
 5. **Retrieve the value of the IoT SiteWise Asset property**:
    - This operation gets data from the asset.
 
+**Note** See the Eng spec for a full listing of operations. 
+
 ## Resources
 
 This Basics scenario requires an IAM role that has permissions to work with the AWS IoT SiteWise service. The scenario creates this resource using a CloudFormation template.
