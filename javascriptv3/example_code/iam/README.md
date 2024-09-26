@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 - [Hello IAM](hello.js#L6) (`ListPolicies`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/basic.js)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -88,7 +95,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Build and manage a resilient service](../cross-services/wkflw-resilient-service/index.js)
-- [Create a user and assume a role](scenarios/basic.js)
 
 
 <!--custom.examples.start-->
@@ -135,6 +141,22 @@ This example shows you how to get started using IAM.
 node ./hello.js
 ```
 
+#### Learn the basics
+
+This example shows you how to create a user and assume a role. 
+
+- Create a user with no permissions.
+- Create a role that grants permission to list Amazon S3 buckets for the account.
+- Add a policy to let the user assume the role.
+- Assume the role and list S3 buckets using temporary credentials, then clean up resources.
+
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+
+
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
+
 
 #### Build and manage a resilient service
 
@@ -153,22 +175,6 @@ This example shows you how to create a load-balanced web service that returns bo
 
 <!--custom.scenarios.cross_ResilientService.start-->
 <!--custom.scenarios.cross_ResilientService.end-->
-
-#### Create a user and assume a role
-
-This example shows you how to create a user and assume a role. 
-
-- Create a user with no permissions.
-- Create a role that grants permission to list Amazon S3 buckets for the account.
-- Add a policy to let the user assume the role.
-- Assume the role and list S3 buckets using temporary credentials, then clean up resources.
-
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
-
-
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
 
 ### Tests
 

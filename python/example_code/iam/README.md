@@ -39,6 +39,13 @@ python -m pip install -r requirements.txt
 - [Hello IAM](hello/hello_iam.py#L4) (`ListPolicies`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_create_user_assume_role.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -88,7 +95,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Build and manage a resilient service](../../cross_service/resilient_service/runner.py)
-- [Create a user and assume a role](scenario_create_user_assume_role.py)
 - [Create read-only and read-write users](user_wrapper.py)
 - [Manage access keys](access_key_wrapper.py)
 - [Manage policies](policy_wrapper.py)
@@ -116,6 +122,28 @@ This example shows you how to get started using IAM.
 python hello/hello_iam.py
 ```
 
+#### Learn the basics
+
+This example shows you how to create a user and assume a role. 
+
+- Create a user with no permissions.
+- Create a role that grants permission to list Amazon S3 buckets for the account.
+- Add a policy to let the user assume the role.
+- Assume the role and list S3 buckets using temporary credentials, then clean up resources.
+
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenario_create_user_assume_role.py
+```
+
+
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
+
 
 #### Build and manage a resilient service
 
@@ -142,28 +170,6 @@ python ../../cross_service/resilient_service/runner.py
 Complete details and instructions on how to run this example can be found in the
 [README](../../cross_service/resilient_service/README.md) for the example.
 <!--custom.scenarios.cross_ResilientService.end-->
-
-#### Create a user and assume a role
-
-This example shows you how to create a user and assume a role. 
-
-- Create a user with no permissions.
-- Create a role that grants permission to list Amazon S3 buckets for the account.
-- Add a policy to let the user assume the role.
-- Assume the role and list S3 buckets using temporary credentials, then clean up resources.
-
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-python scenario_create_user_assume_role.py
-```
-
-
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
 
 #### Create read-only and read-write users
 

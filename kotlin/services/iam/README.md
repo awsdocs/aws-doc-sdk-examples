@@ -29,6 +29,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/kotlin/com/kotlin/iam/IAMScenario.kt)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -48,13 +55,6 @@ Code excerpts that show you how to call individual service functions.
 - [ListAccountAliases](src/main/kotlin/com/kotlin/iam/ListAccountAliases.kt#L23)
 - [ListUsers](src/main/kotlin/com/kotlin/iam/ListUsers.kt#L23)
 - [UpdateUser](src/main/kotlin/com/kotlin/iam/UpdateUser.kt#L39)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Create a user and assume a role](src/main/kotlin/com/kotlin/iam/IAMScenario.kt)
 
 
 <!--custom.examples.start-->
@@ -96,8 +96,7 @@ see [Get started with the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-fo
 <!--custom.instructions.end-->
 
 
-
-#### Create a user and assume a role
+#### Learn the basics
 
 This example shows you how to create a user and assume a role. 
 
@@ -106,12 +105,13 @@ This example shows you how to create a user and assume a role.
 - Add a policy to let the user assume the role.
 - Assume the role and list S3 buckets using temporary credentials, then clean up resources.
 
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
 
 
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
+
 
 ### Tests
 

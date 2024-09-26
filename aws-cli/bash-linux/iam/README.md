@@ -29,6 +29,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `aws-c
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](iam_create_user_assume_role_scenario.sh)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -47,13 +54,6 @@ Code excerpts that show you how to call individual service functions.
 - [ListAccessKeys](iam_operations.sh#L273)
 - [ListUsers](iam_operations.sh#L56)
 
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Create a user and assume a role](iam_create_user_assume_role_scenario.sh)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -67,8 +67,7 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Create a user and assume a role
+#### Learn the basics
 
 This example shows you how to create a user and assume a role. 
 
@@ -77,12 +76,13 @@ This example shows you how to create a user and assume a role.
 - Add a policy to let the user assume the role.
 - Assume the role and list S3 buckets using temporary credentials, then clean up resources.
 
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
 
 
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
+
 
 ### Tests
 

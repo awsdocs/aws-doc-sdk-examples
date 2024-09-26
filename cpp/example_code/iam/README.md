@@ -42,6 +42,13 @@ Next, for information on code example structures and how to build and run the ex
 - [Hello IAM](hello_iam/CMakeLists.txt#L4) (`ListPolicies`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](iam_create_user_assume_role_scenario.cpp)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -70,13 +77,6 @@ Code excerpts that show you how to call individual service functions.
 - [UpdateAccessKey](update_access_key.cpp#L40)
 - [UpdateServerCertificate](update_server_certificate.cpp#L35)
 - [UpdateUser](update_user.cpp#L37)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Create a user and assume a role](iam_create_user_assume_role_scenario.cpp)
 
 
 <!--custom.examples.start-->
@@ -107,8 +107,7 @@ folder.
 This example shows you how to get started using IAM.
 
 
-
-#### Create a user and assume a role
+#### Learn the basics
 
 This example shows you how to create a user and assume a role. 
 
@@ -117,12 +116,13 @@ This example shows you how to create a user and assume a role.
 - Add a policy to let the user assume the role.
 - Assume the role and list S3 buckets using temporary credentials, then clean up resources.
 
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
 
 
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
+
 
 ### Tests
 
