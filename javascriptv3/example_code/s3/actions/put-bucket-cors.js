@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[s3.JavaScript.cors.putBucketCorsV3]
+// snippet-start:[s3.JavaScript.v3.cors.putBucketCors]
 import {
   PutBucketCorsCommand,
   S3Client,
@@ -58,7 +58,7 @@ export const main = async ({ bucketName }) => {
     }
   }
 };
-// snippet-end:[s3.JavaScript.cors.putBucketCorsV3]
+// snippet-end:[s3.JavaScript.v3.cors.putBucketCors]
 
 // Call function if run directly
 import { fileURLToPath } from "url";
