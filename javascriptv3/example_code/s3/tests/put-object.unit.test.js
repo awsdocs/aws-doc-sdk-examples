@@ -54,7 +54,7 @@ describe("put-object", () => {
     });
 
     expect(spy).toHaveBeenCalledWith(
-      `Error from S3 while uploading object to ${bucketName}. The bucket doesn't exist.`
+      `Error from S3 while uploading object to ${bucketName}. The bucket doesn't exist.`,
     );
   });
 
@@ -73,7 +73,7 @@ describe("put-object", () => {
     });
 
     expect(spy).toHaveBeenCalledWith(
-      `Error from S3 while uploading object to ${bucketName}.  ${error.name}: ${error.message}`
+      `Error from S3 while uploading object to ${bucketName}.  ${error.name}: ${error.message}`,
     );
   });
 
@@ -82,7 +82,7 @@ describe("put-object", () => {
     send.mockRejectedValueOnce(new Error());
 
     await expect(() =>
-      main({ bucketName, key: "movies.json", filePath: "path/to/movies.json" })
+      main({ bucketName, key: "movies.json", filePath: "path/to/movies.json" }),
     ).rejects.toBeTruthy();
   });
 });
