@@ -23,6 +23,7 @@
       "DynamoDb\\PartiQL_Basics\\": "dynamodb/partiql_basics",
       "Glue\\": "glue/",
       "Iam\\": "iam/",
+      "Kms\\": "kms/",
       "Lambda\\": "lambda/",
       "S3\\": "s3/"
     },
