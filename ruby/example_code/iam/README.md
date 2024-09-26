@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 - [Hello IAM](hello/hello_iam.rb#L4) (`ListPolicies`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenario_users.rb)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -73,13 +80,6 @@ Code excerpts that show you how to call individual service functions.
 - [UpdateServerCertificate](manage_server_certificates.rb#L6)
 - [UpdateUser](manage_users.rb#L78)
 
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Create a user and assume a role](scenario_users.rb)
-
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -101,8 +101,7 @@ This example shows you how to get started using IAM.
 ruby hello/hello_iam.rb
 ```
 
-
-#### Create a user and assume a role
+#### Learn the basics
 
 This example shows you how to create a user and assume a role. 
 
@@ -111,8 +110,8 @@ This example shows you how to create a user and assume a role.
 - Add a policy to let the user assume the role.
 - Assume the role and list S3 buckets using temporary credentials, then clean up resources.
 
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -120,8 +119,9 @@ Start the example by running the following at a command prompt:
 ruby scenario_users.rb
 ```
 
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
+
 
 ### Tests
 

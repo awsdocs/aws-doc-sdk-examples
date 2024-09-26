@@ -34,6 +34,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 - [Hello IAM](Actions/HelloIAM.cs#L4) (`ListPolicies`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Scenarios/IAMBasics/IAMBasics.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -79,7 +86,6 @@ functions within the same service.
 
 - [Build and manage a resilient service](../cross-service/ResilientService/ResilientServiceWorkflow/ResilientServiceWorkflow.cs)
 - [Create a group and add a user](Scenarios/IamScenariosCommon/S3Wrapper.cs)
-- [Create a user and assume a role](Scenarios/IAMBasics/IAMBasics.cs)
 
 
 <!--custom.examples.start-->
@@ -116,6 +122,22 @@ To run the examples, see the [README](../README.md#building-and-running-the-code
 This example shows you how to get started using IAM.
 
 
+#### Learn the basics
+
+This example shows you how to create a user and assume a role. 
+
+- Create a user with no permissions.
+- Create a role that grants permission to list Amazon S3 buckets for the account.
+- Add a policy to let the user assume the role.
+- Assume the role and list S3 buckets using temporary credentials, then clean up resources.
+
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basic_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
+
+
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.start-->
+<!--custom.basics.iam_Scenario_CreateUserAssumeRole.end-->
+
 
 #### Build and manage a resilient service
 
@@ -149,22 +171,6 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.iam_Scenario_GroupBasics.start-->
 <!--custom.scenarios.iam_Scenario_GroupBasics.end-->
-
-#### Create a user and assume a role
-
-This example shows you how to create a user and assume a role. 
-
-- Create a user with no permissions.
-- Create a role that grants permission to list Amazon S3 buckets for the account.
-- Add a policy to let the user assume the role.
-- Assume the role and list S3 buckets using temporary credentials, then clean up resources.
-
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenario_prereqs.iam_Scenario_CreateUserAssumeRole.end-->
-
-
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.start-->
-<!--custom.scenarios.iam_Scenario_CreateUserAssumeRole.end-->
 
 ### Tests
 
