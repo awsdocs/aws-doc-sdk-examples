@@ -20,12 +20,12 @@ import (
 //
 // `-scenario` can be one of the following:
 //
-// * `getstarted`    -  Runs the interactive get started scenario that shows you how to use
-//						Amazon Simple Storage Service (Amazon S3) actions to work with
-//						S3 buckets and objects.
-// * `presigning` - 	Runs the interactive presigning scenario that shows you how to
-//						get presigned requests that contain temporary credentials
-//						and can be used to make requests from any HTTP client.
+//   - `getstarted`    -  Runs the interactive get started scenario that shows you how to use
+//     Amazon Simple Storage Service (Amazon S3) actions to work with
+//     S3 buckets and objects.
+//   - `presigning` - 	Runs the interactive presigning scenario that shows you how to
+//     get presigned requests that contain temporary credentials
+//     and can be used to make requests from any HTTP client.
 func main() {
 	scenarioMap := map[string]func(sdkConfig aws.Config){
 		"getstarted": runGetStartedScenario,

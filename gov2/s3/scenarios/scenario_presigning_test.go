@@ -27,6 +27,9 @@ type MockHttpRequester struct {
 func (httpReq MockHttpRequester) Get(url string) (resp *http.Response, err error) {
 	return &http.Response{Status: "Testing", StatusCode: 200, Body: httpReq.GetBody}, nil
 }
+func (httpReq MockHttpRequester) Post(url, contentType string, body io.Reader) (resp *http.Response, err error) {
+	return &http.Response{Status: "Testing", StatusCode: 200}, nil
+}
 func (httpReq MockHttpRequester) Put(url string, contentLength int64, body io.Reader) (resp *http.Response, err error) {
 	return &http.Response{Status: "Testing", StatusCode: 200}, nil
 }
@@ -68,6 +71,7 @@ func (scenTest *PresigningScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	stubList = append(stubList, stubs.StubCreateBucket(bucketName, testConfig.Region, nil))
 	stubList = append(stubList, stubs.StubPresignedRequest("PUT", bucketName, objectKey, nil))
 	stubList = append(stubList, stubs.StubPresignedRequest("GET", bucketName, objectKey, nil))
+	stubList = append(stubList, stubs.StubPresignedRequest("POST", bucketName, objectKey, nil))
 	stubList = append(stubList, stubs.StubPresignedRequest("DELETE", bucketName, objectKey, nil))
 
 	return stubList
