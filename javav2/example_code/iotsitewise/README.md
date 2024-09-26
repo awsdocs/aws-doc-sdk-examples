@@ -107,7 +107,7 @@ in the `javav2` folder.
 
 - [AWS IoT SiteWise Developer Guide](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/what-is-sitewise.html)
 - [AWS IoT SiteWise API Reference](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/Welcome.html)
-- [SDK for Java 2.x AWS IoT SiteWise reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/ec2/package-summary.html)
+- [SDK for Java 2.x AWS IoT SiteWise reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/iotsitewise/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

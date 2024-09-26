@@ -146,7 +146,7 @@ public class SitewiseScenario {
             Throwable cause = rt.getCause();
             while (cause != null) {
                 if (cause instanceof software.amazon.awssdk.services.iotsitewise.model.ResourceNotFoundException) {
-                    logger.info("The AWS resource was not found: {}", cause.getMessage());  // QUESTION: What resource? the asset model? Clarify if that is the case?
+                    logger.info("The AWS resource was not found: {}", cause.getMessage());
                     break;
                 }
                 cause = cause.getCause();
