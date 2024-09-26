@@ -5,6 +5,7 @@ package com.example.iotsitewise.scenario;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.services.iotsitewise.model.AssetModelPropertySummary;
 import software.amazon.awssdk.services.iotsitewise.model.BatchPutAssetPropertyValueResponse;
 import software.amazon.awssdk.services.iotsitewise.model.CreateGatewayRequest;
@@ -13,13 +14,11 @@ import software.amazon.awssdk.services.iotsitewise.model.DeleteGatewayRequest;
 import software.amazon.awssdk.services.iotsitewise.model.DeleteGatewayResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DescribeGatewayRequest;
 import software.amazon.awssdk.services.iotsitewise.model.DescribeGatewayResponse;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.core.retry.RetryPolicy;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.services.iotsitewise.IoTSiteWiseAsyncClient;
-import software.amazon.awssdk.services.iotsitewise.model.AssetModelProperty;
 import software.amazon.awssdk.services.iotsitewise.model.AssetModelPropertyDefinition;
 import software.amazon.awssdk.services.iotsitewise.model.AssetModelSummary;
 import software.amazon.awssdk.services.iotsitewise.model.AssetPropertyValue;
@@ -36,7 +35,6 @@ import software.amazon.awssdk.services.iotsitewise.model.DeleteAssetRequest;
 import software.amazon.awssdk.services.iotsitewise.model.DeleteAssetResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DeletePortalRequest;
 import software.amazon.awssdk.services.iotsitewise.model.DeletePortalResponse;
-import software.amazon.awssdk.services.iotsitewise.model.DescribeAssetModelRequest;
 import software.amazon.awssdk.services.iotsitewise.model.DescribePortalRequest;
 import software.amazon.awssdk.services.iotsitewise.model.GatewayPlatform;
 import software.amazon.awssdk.services.iotsitewise.model.GetAssetPropertyValueRequest;
@@ -52,10 +50,8 @@ import software.amazon.awssdk.services.iotsitewise.model.TimeInNanos;
 import software.amazon.awssdk.services.iotsitewise.model.Variant;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
@@ -80,15 +76,12 @@ public class SitewiseActions {
             ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
                 .apiCallTimeout(Duration.ofMinutes(2))
                 .apiCallAttemptTimeout(Duration.ofSeconds(90))
-                .retryPolicy(RetryPolicy.builder()
-                    .numRetries(3)
-                    .build())
+                .retryStrategy(RetryMode.STANDARD)
                 .build();
 
             ioTSiteWiseAsyncClient = IoTSiteWiseAsyncClient.builder()
                 .httpClient(httpClient)
                 .overrideConfiguration(overrideConfig)
-       //         .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
         }
         return ioTSiteWiseAsyncClient;

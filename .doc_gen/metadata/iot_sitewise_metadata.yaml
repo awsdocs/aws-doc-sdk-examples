@@ -157,7 +157,7 @@ iotsitewise_BatchPutAssetPropertyValue:
           excerpts:
             - description:
               snippet_tags:
-                - sitewise.java2_put_property.main
+                - sitewise.java2_put_batch_property.main
   services:
     iotsitewise: {BatchPutAssetPropertyValue}
 iotsitewise_CreateAsset:
