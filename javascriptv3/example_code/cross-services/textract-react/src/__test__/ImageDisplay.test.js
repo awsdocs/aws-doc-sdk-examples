@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 // Unit tests for the ImageDisplay component.
 
@@ -16,7 +17,7 @@ describe("imageData props", () => {
 
   test("render with test image", () => {
     render(
-      <ImageDisplay imageData={{ base64Data: "hi" }} shownPolygons={[]} />
+      <ImageDisplay imageData={{ base64Data: "hi" }} shownPolygons={[]} />,
     );
     expect(screen.getByRole("img")).toBeInTheDocument();
   });
@@ -36,7 +37,7 @@ describe("imageData props", () => {
             },
           },
         ]}
-      />
+      />,
     );
   });
 });

@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 // Unit tests for the ExplorerCard component.
 
@@ -14,7 +15,7 @@ describe("extraction props", () => {
     render(<ExplorerCard header={testHeader} />);
     expect(screen.queryByText(testHeader)).toBeInTheDocument();
     expect(
-      screen.queryByText(/Extracted data is shown here/i)
+      screen.queryByText(/Extracted data is shown here/i),
     ).toBeInTheDocument();
     expect(screen.queryByText(/Showing extracted/i)).toBeNull();
     expect(screen.queryByText(/Click an element/i)).toBeNull();
@@ -25,8 +26,8 @@ describe("extraction props", () => {
     render(<ExplorerCard header="test" extraction={testExtraction} />);
     expect(
       screen.queryByText(
-        new RegExp(`Showing extracted ${testExtraction.ExtractType} data`, "i")
-      )
+        new RegExp(`Showing extracted ${testExtraction.ExtractType} data`, "i"),
+      ),
     ).toBeInTheDocument();
     expect(screen.queryByText(/Click an element/i)).toBeInTheDocument();
   });

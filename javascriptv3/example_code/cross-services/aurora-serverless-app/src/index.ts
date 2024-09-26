@@ -1,5 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
+
 import express from "express";
 import cors from "cors";
 import { rdsDataClient, sesClient } from "./client.js";
@@ -22,14 +24,14 @@ exp.get("/api/items", getItemsHandler.withClient({ rdsDataClient }));
 
 exp.post(
   "/api/items\\:report",
-  postItemsReportHandler.withClient({ rdsDataClient, sesClient })
+  postItemsReportHandler.withClient({ rdsDataClient, sesClient }),
 );
 
 exp.post("/api/items", postItemsHandler.withClient({ rdsDataClient }));
 
 exp.put(
   "/api/items/:itemId\\:archive",
-  putItemsArchiveHandler.withClient({ rdsDataClient })
+  putItemsArchiveHandler.withClient({ rdsDataClient }),
 );
 
 exp.listen(port, () => {
