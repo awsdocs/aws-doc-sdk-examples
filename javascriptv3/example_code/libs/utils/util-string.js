@@ -5,7 +5,13 @@ import { v4 as uuidv4 } from "uuid";
 /**
  * @param {string} name
  */
-export const getUniqueName = (name) => `${name.toLowerCase()}-${uuidv4()}`;
+export const getUniqueName = (name) => {
+  if (!name) {
+    return;
+  }
+
+  return `${name.toLowerCase()}-${uuidv4()}`;
+};
 
 /**
  * @param {int} length
