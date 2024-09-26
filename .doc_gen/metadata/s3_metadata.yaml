@@ -2844,7 +2844,7 @@ s3_Scenario_GettingStarted:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3
-          sdkguides3.JavaScript.v3.cors.putBucketCors:
+          sdkguide:
           excerpts:
             - description: A scenario example. 
               snippet_tags:
