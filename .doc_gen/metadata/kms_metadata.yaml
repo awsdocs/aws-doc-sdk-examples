@@ -471,7 +471,7 @@ kms_DisableKey:
             - description:
               snippet_tags:
                 - python.example_code.kms.KeyManager
-                - python.example_code.kms.EnableDisableKey
+                - python.example_code.kms.DisableKey
   services:
     kms: {DisableKey}
 kms_EnableKey:
@@ -511,7 +511,7 @@ kms_EnableKey:
             - description:
               snippet_tags:
                 - python.example_code.kms.KeyManager
-                - python.example_code.kms.EnableDisableKey
+                - python.example_code.kms.EnableKey
   services:
     kms: {EnableKey}
 kms_ScheduleKeyDeletion:
@@ -742,6 +742,20 @@ kms_PutKeyPolicy:
                 - python.example_code.kms.PutKeyPolicy
   services:
     kms: {PutKeyPolicy}
+kms_EnableKeyRotation:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyManager
+                - python.example_code.kms.EnableKeyRotation
+  services:
+    kms: {kms_EnableKeyRotation}
 kms_Scenario_KeyEncryption:
   title: Encrypt and decrypt text with &kms-keys-long; using an &AWS; SDK
   title_abbrev: Encrypt and decrypt text

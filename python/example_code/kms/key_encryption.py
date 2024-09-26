@@ -24,52 +24,46 @@ class KeyEncrypt:
     # snippet-end:[python.example_code.kms.KeyEncrypt]
 
     # snippet-start:[python.example_code.kms.Encrypt]
-    def encrypt(self, key_id):
+    def encrypt(self, key_id: str, text: str) -> str:
         """
         Encrypts text by using the specified key.
 
         :param key_id: The ARN or ID of the key to use for encryption.
+        :param text: The text to encrypt.
         :return: The encrypted version of the text.
         """
-        text = input("Enter some text to encrypt: ")
         try:
-            cipher_text = self.kms_client.encrypt(
-                KeyId=key_id, Plaintext=text.encode()
-            )["CiphertextBlob"]
+            return self.kms_client.encrypt(KeyId=key_id, Plaintext=text.encode())[
+                "CiphertextBlob"
+            ]
         except ClientError as err:
             logger.error(
                 "Couldn't encrypt text. Here's why: %s",
                 err.response["Error"]["Message"],
             )
-        else:
-            print(f"Your ciphertext is: {cipher_text}")
-            return cipher_text
+            raise
 
     # snippet-end:[python.example_code.kms.Encrypt]
 
     # snippet-start:[python.example_code.kms.Decrypt]
-    def decrypt(self, key_id, cipher_text):
+    def decrypt(self, key_id: str, cipher_text: str) -> str:
         """
         Decrypts text previously encrypted with a key.
 
         :param key_id: The ARN or ID of the key used to decrypt the data.
         :param cipher_text: The encrypted text to decrypt.
+        :return: The decrypted text.
         """
-        answer = input("Ready to decrypt your ciphertext (y/n)? ")
-        if answer.lower() == "y":
-            try:
-                text = self.kms_client.decrypt(
-                    KeyId=key_id, CiphertextBlob=cipher_text
-                )["Plaintext"]
-            except ClientError as err:
-                logger.error(
-                    "Couldn't decrypt your ciphertext. Here's why: %s",
-                    err.response["Error"]["Message"],
-                )
-            else:
-                print(f"Your plaintext is {text.decode()}")
-        else:
-            print("Skipping decryption demo.")
+        try:
+            return self.kms_client.decrypt(KeyId=key_id, CiphertextBlob=cipher_text)[
+                "Plaintext"
+            ]
+        except ClientError as err:
+            logger.error(
+                "Couldn't decrypt your ciphertext. Here's why: %s",
+                err.response["Error"]["Message"],
+            )
+            raise
 
     # snippet-end:[python.example_code.kms.Decrypt]
 
@@ -123,12 +117,18 @@ def key_encryption(kms_client):
         return
 
     key_encrypt = KeyEncrypt(kms_client)
-    cipher_text = key_encrypt.encrypt(key_id)
+    text = input("Enter some text to encrypt: ")
+    cipher_text = key_encrypt.encrypt(key_id, text)
     print("-" * 88)
     if cipher_text is not None:
-        key_encrypt.decrypt(key_id, cipher_text)
-        print("-" * 88)
-        key_encrypt.re_encrypt(key_id, cipher_text)
+        answer = input("Ready to decrypt your ciphertext (y/n)? ")
+        if answer.lower() == "y":
+            decrypted_text = key_encrypt.decrypt(key_id, cipher_text)
+            print(f"Your plaintext is {decrypted_text.decode()}")
+            print("-" * 88)
+            key_encrypt.re_encrypt(key_id, cipher_text)
+        else:
+            print("Skipping decryption demo.")
 
     print("\nThanks for watching!")
     print("-" * 88)

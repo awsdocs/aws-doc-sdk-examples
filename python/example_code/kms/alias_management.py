@@ -76,16 +76,13 @@ class AliasManager:
                     print(f"Key scheduled for deletion in 7 days.")
 
     # snippet-start:[python.example_code.kms.CreateAlias]
-    def create_alias(self, key_id):
+    def create_alias(self, key_id: str, alias: str) -> None:
         """
         Creates an alias for the specified key.
 
         :param key_id: The ARN or ID of a key to give an alias.
-        :return: The alias given to the key.
+        :param alias: The alias to assign to the key.
         """
-        alias = ""
-        while alias == "":
-            alias = input(f"What alias would you like to give to key {key_id}? ")
         try:
             self.kms_client.create_alias(AliasName=alias, TargetKeyId=key_id)
         except ClientError as err:
@@ -94,41 +91,37 @@ class AliasManager:
                 alias,
                 err.response["Error"]["Message"],
             )
-        else:
-            print(f"Created alias {alias} for key {key_id}.")
-            return alias
+            raise
 
     # snippet-end:[python.example_code.kms.CreateAlias]
 
     # snippet-start:[python.example_code.kms.ListAliases]
-    def list_aliases(self):
+    def list_aliases(self, page_size: int) -> None:
         """
         Lists aliases for the current account.
+        :param page_size: The number of aliases to list per page.
         """
-        answer = input("\nLet's list your key aliases. Ready (y/n)? ")
-        if answer.lower() == "y":
-            try:
-                page_size = 10
-
-                alias_paginator = self.kms_client.get_paginator("list_aliases")
-                for alias_page in alias_paginator.paginate(
-                    PaginationConfig={"PageSize": 10}
-                ):
-                    print(f"Here are {page_size} aliases:")
-                    pprint(alias_page["Aliases"])
-                    if alias_page["Truncated"]:
-                        answer = input(
-                            f"Do you want to see the next {page_size} aliases (y/n)? "
-                        )
-                        if answer.lower() != "y":
-                            break
-                    else:
-                        print("That's all your aliases!")
-            except ClientError as err:
-                logging.error(
-                    "Couldn't list your aliases. Here's why: %s",
-                    err.response["Error"]["Message"],
-                )
+        try:
+            alias_paginator = self.kms_client.get_paginator("list_aliases")
+            for alias_page in alias_paginator.paginate(
+                PaginationConfig={"PageSize": page_size}
+            ):
+                print(f"Here are {page_size} aliases:")
+                pprint(alias_page["Aliases"])
+                if alias_page["Truncated"]:
+                    answer = input(
+                        f"Do you want to see the next {page_size} aliases (y/n)? "
+                    )
+                    if answer.lower() != "y":
+                        break
+                else:
+                    print("That's all your aliases!")
+        except ClientError as err:
+            logging.error(
+                "Couldn't list your aliases. Here's why: %s",
+                err.response["Error"]["Message"],
+            )
+            raise
 
     # snippet-end:[python.example_code.kms.ListAliases]
 
@@ -162,24 +155,21 @@ class AliasManager:
     # snippet-end:[python.example_code.kms.UpdateAlias]
 
     # snippet-start:[python.example_code.kms.DeleteAlias]
-    def delete_alias(self):
+    def delete_alias(self, alias: str) -> None:
         """
         Deletes an alias.
+
+        :param alias: The alias to delete.
         """
-        alias = input(f"Enter an alias that you'd like to delete: ")
-        if alias != "":
-            try:
-                self.kms_client.delete_alias(AliasName=alias)
-            except ClientError as err:
-                logger.error(
-                    "Couldn't delete alias %s. Here's why: %s",
-                    alias,
-                    err.response["Error"]["Message"],
-                )
-            else:
-                print(f"Deleted alias {alias}.")
-        else:
-            print("Skipping alias deletion.")
+        try:
+            self.kms_client.delete_alias(AliasName=alias)
+        except ClientError as err:
+            logger.error(
+                "Couldn't delete alias %s. Here's why: %s",
+                alias,
+                err.response["Error"]["Message"],
+            )
+            raise
 
 
 # snippet-end:[python.example_code.kms.DeleteAlias]
@@ -199,13 +189,21 @@ def alias_management(kms_client):
     print("-" * 88)
     alias = None
     while alias is None:
-        alias = alias_manager.create_alias(key_id)
+        alias = ""
+        while alias == "":
+            alias = input(f"What alias would you like to give to key {key_id}? ")
+            alias_manager.create_alias(key_id, alias)
+            print(f"Created alias {alias} for key {key_id}.")
     print("-" * 88)
-    alias_manager.list_aliases()
+    answer = input("\nLet's list your key aliases. Ready (y/n)? ")
+    if answer.lower() == "y":
+        alias_manager.list_aliases(10)
     print("-" * 88)
     alias_manager.update_alias(alias, key_id)
     print("-" * 88)
-    alias_manager.delete_alias()
+    alias = input(f"Enter an alias that you'd like to delete: ")
+    if alias != "":
+        alias_manager.delete_alias(alias)
     print("-" * 88)
     alias_manager.teardown()
 
