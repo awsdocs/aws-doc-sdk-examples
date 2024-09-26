@@ -5,19 +5,11 @@ package com.example.iotsitewise.scenario;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import software.amazon.awssdk.services.iotsitewise.model.BatchPutAssetPropertyValueResponse;
 import software.amazon.awssdk.services.iotsitewise.model.CreateAssetModelResponse;
 import software.amazon.awssdk.services.iotsitewise.model.CreateAssetResponse;
-import software.amazon.awssdk.services.iotsitewise.model.CreateGatewayResponse;
-import software.amazon.awssdk.services.iotsitewise.model.DeleteAssetModelResponse;
-import software.amazon.awssdk.services.iotsitewise.model.DeleteAssetResponse;
-import software.amazon.awssdk.services.iotsitewise.model.DeletePortalResponse;
-import software.amazon.awssdk.services.iotsitewise.model.DescribeGatewayResponse;
 import software.amazon.awssdk.services.iotsitewise.model.IoTSiteWiseException;
 import software.amazon.awssdk.services.iotsitewise.model.ResourceAlreadyExistsException;
 import software.amazon.awssdk.services.iotsitewise.model.ResourceNotFoundException;
-
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
@@ -48,18 +40,18 @@ public class SitewiseScenario {
                 myThing - The name of the IoT thing or device that is connected to the IoT SiteWise gateway.
             """;
 
-        //if (args.length != 6) {
-        //    logger.info(usage);
-        //    return;
-       // }
+        if (args.length != 6) {
+            logger.info(usage);
+            return;
+        }
 
         Scanner scanner = new Scanner(System.in);
-        String assetModelName = "MyAssetModel";
-        String assetName = "MyAsset";
-        String portalName = "MyPortal";
-        String contactEmail = "scmacdon@amazon.com";
-        String gatewayName = "myGateway11";
-        String myThing = "myThing78";
+        String assetModelName = args[0];
+        String assetName = args[1];
+        String portalName = args[2];
+        String contactEmail = args[3];
+        String gatewayName = args[4];
+        String myThing = args[5];
 
         logger.info("""
             AWS IoT SiteWise is a fully managed software-as-a-service (SaaS) that 
@@ -140,6 +132,8 @@ public class SitewiseScenario {
              an asset from the asset model.
                     
             """);
+        logger.info("Let's wait 1 minute for the asset model to be ready.");
+        countdown(1);
         waitForInputToContinue(scanner);
         String assetId;
         try {
@@ -229,7 +223,7 @@ public class SitewiseScenario {
             """);
         waitForInputToContinue(scanner);
         try {
-        sitewiseActions.getAssetPropValueAsync("Temperature property", tempPropId, assetId); // FIXME <------------------
+        sitewiseActions.getAssetPropValueAsync("Temperature property", tempPropId, assetId);
         waitForInputToContinue(scanner);
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
@@ -246,7 +240,7 @@ public class SitewiseScenario {
             }
             throw cause;
         }
-        sitewiseActions.getAssetPropValueAsync("Humidity property", humPropId, assetId); // FIXME <------------------
+        sitewiseActions.getAssetPropValueAsync("Humidity property", humPropId, assetId);
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -257,7 +251,7 @@ public class SitewiseScenario {
              such as sensors, equipment, and control systems, into a centralized platform.
             """);
         waitForInputToContinue(scanner);
-        String portalId = "";
+        String portalId;
         try {
             portalId = sitewiseActions.createPortalAsync(portalName, iamRole, contactEmail).join();
             logger.info("Portal created successfully. Portal ID {}", portalId);

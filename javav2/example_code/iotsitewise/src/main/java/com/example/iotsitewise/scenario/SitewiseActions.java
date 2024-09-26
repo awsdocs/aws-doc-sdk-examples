@@ -236,7 +236,7 @@ public class SitewiseActions {
      * @param assetModelId The Id of the asset model.
      * @return A map of the asset model properties when the CompletableFuture completes.
      */
-    CompletableFuture<Map<String, String>> getPropertyIds(String assetModelId){
+    public CompletableFuture<Map<String, String>> getPropertyIds(String assetModelId){
         ListAssetModelPropertiesRequest modelPropertiesRequest = ListAssetModelPropertiesRequest.builder().assetModelId(assetModelId).build();
         return getAsyncClient().listAssetModelProperties(modelPropertiesRequest)
                 .handle( (response, throwable) -> {

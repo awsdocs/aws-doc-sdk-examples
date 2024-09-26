@@ -32,20 +32,19 @@ public class HelloSitewise {
         }
 
         String assetModelId = args[0];
-        IoTSiteWiseAsyncClient siteWiseAsyncClient = IoTSiteWiseAsyncClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
-
-        fetchAssets(siteWiseAsyncClient, assetModelId);
+        fetchAssets(assetModelId);
     }
 
     /**
      * Fetches assets from AWS IoT SiteWise using the provided {@link IoTSiteWiseAsyncClient}.
      *
-     * @param siteWiseAsyncClient the AWS IoT SiteWise asynchronous client to use for the request
      * @param modelId the ID of the asset model to fetch assets for
      */
-    public static void fetchAssets(IoTSiteWiseAsyncClient siteWiseAsyncClient, String modelId) {
+    public static void fetchAssets(String modelId) {
+        IoTSiteWiseAsyncClient siteWiseAsyncClient = IoTSiteWiseAsyncClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
+
         ListAssetsRequest assetsRequest = ListAssetsRequest.builder()
             .maxResults(10)
             .assetModelId(modelId)
