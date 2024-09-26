@@ -15,7 +15,7 @@ import { getUniqueName } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 import { legallyEmptyAndDeleteBuckets } from "../libs/s3Utils.js";
 
 const client = new S3Client({});
-const bucketName = getUniqueName("amzn-s3-demo-bucket");
+const bucketName = getUniqueName("code-example");
 
 describe("get-object-lock-configuration.js Integration Test", () => {
   afterAll(async () => {
