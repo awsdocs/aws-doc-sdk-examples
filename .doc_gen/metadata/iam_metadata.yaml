@@ -3355,7 +3355,7 @@ iam_Scenario_GroupBasics:
     iam: {AddUserToGroup, CreateGroup, CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy, PutGroupPolicy,
           DeleteGroup, DeleteGroupPolicy, DeleteAccessKey, DeleteUser, RemoveUserFromGroup}
 iam_Scenario_CreateUserAssumeRole:
-  title: Create an &IAM-user; and assume a role with &STS; using an &AWS; SDK
+  title: Learn core operations for &IAM; using an &AWS; SDK. 
   title_abbrev: Create a user and assume a role
   synopsis: create a user and assume a role. &aws_sec_sdk_use-federation-warning;
   synopsis_list:
@@ -3363,7 +3363,7 @@ iam_Scenario_CreateUserAssumeRole:
     - Create a role that grants permission to list &S3; buckets for the account.
     - Add a policy to let the user assume the role.
     - Assume the role and list S3 buckets using temporary credentials, then clean up resources.
-  category: Scenarios
+  category: Basics
   languages:
     .NET:
       versions:
@@ -3496,12 +3496,10 @@ iam_Scenario_CreateUserAssumeRole:
     iam: {CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy, PutUserPolicy, DeleteUserPolicy, DetachRolePolicy,
           DeletePolicy, DeleteRole, DeleteAccessKey, DeleteUser}
 iam_Scenario_IamPolicyBuilder:
-  title: Work with the &IAM; Policy Builder API using an &AWS; SDK
-  title_abbrev: Work with the &IAM; Policy Builder API
   synopsis_list:
     - Create &IAM; policies by using the object-oriented API.
     - Use the &IAM; Policy Builder API with the &IAM; service.
-  category: Scenarios
+  category: Basics
   languages:
     Java:
       versions:
