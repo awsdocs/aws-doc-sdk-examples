@@ -295,9 +295,9 @@ public class AutoScalerWrapper
                         IamInstanceProfile =
                             new
                                 LaunchTemplateIamInstanceProfileSpecificationRequest()
-                                {
-                                    Name = _instanceProfileName
-                                },
+                            {
+                                Name = _instanceProfileName
+                            },
                         KeyName = _keyPairName,
                         UserData = System.Convert.ToBase64String(plainTextBytes)
                     }

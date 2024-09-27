@@ -181,7 +181,7 @@ public class EC2Basics
             _uiMethods.DisplayTitle("Creating an EC2 Instance");
             instanceId = await _ec2Wrapper.RunInstances(selectedImage.ImageId,
                 selectedInstanceType, keyPairName, secGroupId);
-            
+
             _uiMethods.PressEnter(isInteractive);
 
             var instance = await _ec2Wrapper.DescribeInstance(instanceId);

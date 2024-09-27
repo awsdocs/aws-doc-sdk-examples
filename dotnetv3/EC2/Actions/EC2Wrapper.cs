@@ -78,7 +78,8 @@ public class EC2Wrapper
         {
             var request = new AssociateAddressRequest
             {
-                AllocationId = allocationId, InstanceId = instanceId
+                AllocationId = allocationId,
+                InstanceId = instanceId
             };
 
             var response = await _amazonEC2.AssociateAddressAsync(request);
@@ -121,7 +122,10 @@ public class EC2Wrapper
                 new List<IpRange> { new IpRange { CidrIp = $"{ipAddress}/32" } };
             var permission = new IpPermission
             {
-                Ipv4Ranges = ipRanges, IpProtocol = "tcp", FromPort = 22, ToPort = 22
+                Ipv4Ranges = ipRanges,
+                IpProtocol = "tcp",
+                FromPort = 22,
+                ToPort = 22
             };
             var permissions = new List<IpPermission> { permission };
             var response = await _amazonEC2.AuthorizeSecurityGroupIngressAsync(
