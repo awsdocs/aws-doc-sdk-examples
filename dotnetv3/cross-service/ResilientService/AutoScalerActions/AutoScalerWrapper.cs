@@ -7,10 +7,10 @@ using Amazon.EC2;
 using Amazon.EC2.Model;
 using Amazon.IdentityManagement;
 using Amazon.IdentityManagement.Model;
-using Amazon.Runtime;
 using Amazon.SimpleSystemsManagement;
 using Amazon.SimpleSystemsManagement.Model;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using AlreadyExistsException = Amazon.AutoScaling.Model.AlreadyExistsException;
 
 namespace AutoScalerActions;
@@ -25,6 +25,7 @@ public class AutoScalerWrapper
     private readonly IAmazonEC2 _amazonEc2;
     private readonly IAmazonSimpleSystemsManagement _amazonSsm;
     private readonly IAmazonIdentityManagementService _amazonIam;
+    private readonly ILogger<AutoScalerWrapper> _logger;
 
     private readonly string _instanceType = "";
     private readonly string _amiParam = "";
@@ -58,12 +59,14 @@ public class AutoScalerWrapper
         IAmazonEC2 amazonEc2,
         IAmazonSimpleSystemsManagement amazonSsm,
         IAmazonIdentityManagementService amazonIam,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        ILogger<AutoScalerWrapper> logger)
     {
         _amazonAutoScaling = amazonAutoScaling;
         _amazonEc2 = amazonEc2;
         _amazonSsm = amazonSsm;
         _amazonIam = amazonIam;
+        _logger = logger;
 
         var prefix = configuration["resourcePrefix"];
         _instanceType = configuration["instanceType"];
@@ -269,35 +272,53 @@ public class AutoScalerWrapper
     /// <returns>The template object.</returns>
     public async Task<Amazon.EC2.Model.LaunchTemplate> CreateTemplate(string startupScriptPath, string instancePolicyPath)
     {
-        await CreateKeyPair(_keyPairName);
-        await CreateInstanceProfileWithName(_instancePolicyName, _instanceRoleName, _instanceProfileName, instancePolicyPath);
+        try
+        {
+            await CreateKeyPair(_keyPairName);
+            await CreateInstanceProfileWithName(_instancePolicyName, _instanceRoleName,
+                _instanceProfileName, instancePolicyPath);
 
-        var startServerText = await File.ReadAllTextAsync(startupScriptPath);
-        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(startServerText);
+            var startServerText = await File.ReadAllTextAsync(startupScriptPath);
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(startServerText);
 
-        var amiLatest = await _amazonSsm.GetParameterAsync(
-            new GetParameterRequest() { Name = _amiParam });
-        var amiId = amiLatest.Parameter.Value;
-        var launchTemplateResponse = await _amazonEc2.CreateLaunchTemplateAsync(
-            new CreateLaunchTemplateRequest()
-            {
-                LaunchTemplateName = _launchTemplateName,
-                LaunchTemplateData = new RequestLaunchTemplateData()
+            var amiLatest = await _amazonSsm.GetParameterAsync(
+                new GetParameterRequest() { Name = _amiParam });
+            var amiId = amiLatest.Parameter.Value;
+            var launchTemplateResponse = await _amazonEc2.CreateLaunchTemplateAsync(
+                new CreateLaunchTemplateRequest()
                 {
-                    InstanceType = _instanceType,
-                    ImageId = amiId,
-                    IamInstanceProfile =
-                        new
-                            LaunchTemplateIamInstanceProfileSpecificationRequest()
-                        {
-                            Name = _instanceProfileName
-                        },
-                    KeyName = _keyPairName,
-                    UserData = System.Convert.ToBase64String(plainTextBytes)
-                }
-            });
-        return launchTemplateResponse.LaunchTemplate;
+                    LaunchTemplateName = _launchTemplateName,
+                    LaunchTemplateData = new RequestLaunchTemplateData()
+                    {
+                        InstanceType = _instanceType,
+                        ImageId = amiId,
+                        IamInstanceProfile =
+                            new
+                                LaunchTemplateIamInstanceProfileSpecificationRequest()
+                            {
+                                Name = _instanceProfileName
+                            },
+                        KeyName = _keyPairName,
+                        UserData = System.Convert.ToBase64String(plainTextBytes)
+                    }
+                });
+            return launchTemplateResponse.LaunchTemplate;
+        }
+        catch (AmazonEC2Exception ec2Exception)
+        {
+            if (ec2Exception.ErrorCode == "InvalidLaunchTemplateName.AlreadyExistsException")
+            {
+                _logger.LogError($"Could not create the template, the name {_launchTemplateName} already exists. " +
+                                 $"Please try again with a unique name.");
+            }
 
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"An error occurred while creating the template.: {ex.Message}");
+            throw;
+        }
     }
     // snippet-end:[ResilientService.dotnetv3.ec2.CreateLaunchTemplate]
 
@@ -308,9 +329,22 @@ public class AutoScalerWrapper
     /// <returns>A list of availability zones.</returns>
     public async Task<List<string>> DescribeAvailabilityZones()
     {
-        var zoneResponse = await _amazonEc2.DescribeAvailabilityZonesAsync(
-            new DescribeAvailabilityZonesRequest());
-        return zoneResponse.AvailabilityZones.Select(z => z.ZoneName).ToList();
+        try
+        {
+            var zoneResponse = await _amazonEc2.DescribeAvailabilityZonesAsync(
+                new DescribeAvailabilityZonesRequest());
+            return zoneResponse.AvailabilityZones.Select(z => z.ZoneName).ToList();
+        }
+        catch (AmazonEC2Exception ec2Exception)
+        {
+            _logger.LogError($"An Amazon EC2 error occurred while listing availability zones.: {ec2Exception.Message}");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"An error occurred while listing availability zones.: {ex.Message}");
+            throw;
+        }
     }
     // snippet-end:[ResilientService.dotnetv3.Ec2.DescribeAvailabilityZones]
 
@@ -356,15 +390,32 @@ public class AutoScalerWrapper
     /// <returns>The default VPC object.</returns>
     public async Task<Vpc> GetDefaultVpc()
     {
-        var vpcResponse = await _amazonEc2.DescribeVpcsAsync(
-            new DescribeVpcsRequest()
-            {
-                Filters = new List<Amazon.EC2.Model.Filter>()
+        try
+        {
+            var vpcResponse = await _amazonEc2.DescribeVpcsAsync(
+                new DescribeVpcsRequest()
                 {
-                    new ("is-default", new List<string>() { "true" })
-                }
-            });
-        return vpcResponse.Vpcs[0];
+                    Filters = new List<Amazon.EC2.Model.Filter>()
+                    {
+                        new("is-default", new List<string>() { "true" })
+                    }
+                });
+            return vpcResponse.Vpcs[0];
+        }
+        catch (AmazonEC2Exception ec2Exception)
+        {
+            if (ec2Exception.ErrorCode == "UnauthorizedOperation")
+            {
+                _logger.LogError(ec2Exception, $"You do not have the necessary permissions to describe VPCs.");
+            }
+
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"An error occurred while describing the vpcs.: {ex.Message}");
+            throw;
+        }
     }
     // snippet-end:[ResilientService.dotnetv3.Ec2.DescribeVpcs]
 
@@ -377,25 +428,42 @@ public class AutoScalerWrapper
     /// <returns>The collection of subnet objects.</returns>
     public async Task<List<Subnet>> GetAllVpcSubnetsForZones(string vpcId, List<string> availabilityZones)
     {
-        var subnets = new List<Subnet>();
-        var subnetPaginator = _amazonEc2.Paginators.DescribeSubnets(
-            new DescribeSubnetsRequest()
-            {
-                Filters = new List<Amazon.EC2.Model.Filter>()
-                {
-                    new ("vpc-id", new List<string>() { vpcId}),
-                    new ("availability-zone", availabilityZones),
-                    new ("default-for-az", new List<string>() { "true" })
-                }
-            });
-
-        // Get the entire list using the paginator.
-        await foreach (var subnet in subnetPaginator.Subnets)
+        try
         {
-            subnets.Add(subnet);
-        }
+            var subnets = new List<Subnet>();
+            var subnetPaginator = _amazonEc2.Paginators.DescribeSubnets(
+                new DescribeSubnetsRequest()
+                {
+                    Filters = new List<Amazon.EC2.Model.Filter>()
+                    {
+                        new("vpc-id", new List<string>() { vpcId }),
+                        new("availability-zone", availabilityZones),
+                        new("default-for-az", new List<string>() { "true" })
+                    }
+                });
 
-        return subnets;
+            // Get the entire list using the paginator.
+            await foreach (var subnet in subnetPaginator.Subnets)
+            {
+                subnets.Add(subnet);
+            }
+
+            return subnets;
+        }
+        catch (AmazonEC2Exception ec2Exception)
+        {
+            if (ec2Exception.ErrorCode == "InvalidVpcID.NotFound")
+            {
+                _logger.LogError(ec2Exception, $"The specified VPC ID {vpcId} does not exist.");
+            }
+
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"An error occurred while describing the subnets.: {ex.Message}");
+            throw;
+        }
     }
     // snippet-end:[ResilientService.dotnetv3.Ec2.DescribeSubnets]
 
@@ -415,9 +483,20 @@ public class AutoScalerWrapper
                     LaunchTemplateName = templateName
                 });
         }
-        catch (AmazonClientException)
+        catch (AmazonEC2Exception ec2Exception)
         {
-            Console.WriteLine($"Unable to delete template {templateName}.");
+            if (ec2Exception.ErrorCode == "InvalidLaunchTemplateName.NotFoundException")
+            {
+                _logger.LogError(
+                    $"Could not delete the template, the name {_launchTemplateName} was not found.");
+            }
+
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"An error occurred while deleting the template.: {ex.Message}");
+            throw;
         }
     }
     // snippet-end:[ResilientService.dotnetv3.Ec2.DeleteLaunchTemplate]
@@ -500,15 +579,32 @@ public class AutoScalerWrapper
     /// <returns>Instance profile associations data.</returns>
     public async Task<IamInstanceProfileAssociation> GetInstanceProfile(string instanceId)
     {
-        var response = await _amazonEc2.DescribeIamInstanceProfileAssociationsAsync(
-            new DescribeIamInstanceProfileAssociationsRequest()
-            {
-                Filters = new List<Amazon.EC2.Model.Filter>()
+        try
+        {
+            var response = await _amazonEc2.DescribeIamInstanceProfileAssociationsAsync(
+                new DescribeIamInstanceProfileAssociationsRequest()
                 {
-                    new ("instance-id", new List<string>() { instanceId })
-                },
-            });
-        return response.IamInstanceProfileAssociations[0];
+                    Filters = new List<Amazon.EC2.Model.Filter>()
+                    {
+                        new("instance-id", new List<string>() { instanceId })
+                    },
+                });
+            return response.IamInstanceProfileAssociations[0];
+        }
+        catch (AmazonEC2Exception ec2Exception)
+        {
+            if (ec2Exception.ErrorCode == "InvalidInstanceID.NotFound")
+            {
+                _logger.LogError(ec2Exception, $"Instance {instanceId} not found");
+            }
+
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"An error occurred while creating the template.: {ex.Message}");
+            throw;
+        }
     }
     // snippet-end:[ResilientService.dotnetv3.Ec2.GetInstanceProfile]
 
@@ -524,7 +620,9 @@ public class AutoScalerWrapper
     /// <returns>Async task.</returns>
     public async Task ReplaceInstanceProfile(string instanceId, string credsProfileName, string associationId)
     {
-        await _amazonEc2.ReplaceIamInstanceProfileAssociationAsync(
+        try
+        {
+            await _amazonEc2.ReplaceIamInstanceProfileAssociationAsync(
                 new ReplaceIamInstanceProfileAssociationRequest()
                 {
                     AssociationId = associationId,
@@ -533,40 +631,62 @@ public class AutoScalerWrapper
                         Name = credsProfileName
                     }
                 });
-        // Allow time before resetting.
-        Thread.Sleep(25000);
-        var instanceReady = false;
-        var retries = 5;
-        while (retries-- > 0 && !instanceReady)
-        {
+            // Allow time before resetting.
+            Thread.Sleep(25000);
+
             await _amazonEc2.RebootInstancesAsync(
                 new RebootInstancesRequest(new List<string>() { instanceId }));
-            Thread.Sleep(10000);
-
-            var instancesPaginator = _amazonSsm.Paginators.DescribeInstanceInformation(
-                new DescribeInstanceInformationRequest());
-            // Get the entire list using the paginator.
-            await foreach (var instance in instancesPaginator.InstanceInformationList)
+            Thread.Sleep(25000);
+            var instanceReady = false;
+            var retries = 5;
+            while (retries-- > 0 && !instanceReady)
             {
-                instanceReady = instance.InstanceId == instanceId;
-                if (instanceReady)
+                var instancesPaginator =
+                    _amazonSsm.Paginators.DescribeInstanceInformation(
+                        new DescribeInstanceInformationRequest());
+                // Get the entire list using the paginator.
+                await foreach (var instance in instancesPaginator.InstanceInformationList)
                 {
-                    break;
+                    instanceReady = instance.InstanceId == instanceId;
+                    if (instanceReady)
+                    {
+                        break;
+                    }
                 }
             }
-        }
-        Console.WriteLine($"Sending restart command to instance {instanceId}");
-        await _amazonSsm.SendCommandAsync(
-            new SendCommandRequest()
-            {
-                InstanceIds = new List<string>() { instanceId },
-                DocumentName = "AWS-RunShellScript",
-                Parameters = new Dictionary<string, List<string>>()
+            Console.WriteLine("Waiting for instance to be running.");
+            await WaitForInstanceState(instanceId, InstanceStateName.Running);
+            Console.WriteLine("Instance ready.");
+            Console.WriteLine($"Sending restart command to instance {instanceId}");
+            await _amazonSsm.SendCommandAsync(
+                new SendCommandRequest()
                 {
-                        {"commands", new List<string>() { "cd / && sudo python3 server.py 80" }}
-                }
-            });
-        Console.WriteLine($"Restarted the web server on instance {instanceId}");
+                    InstanceIds = new List<string>() { instanceId },
+                    DocumentName = "AWS-RunShellScript",
+                    Parameters = new Dictionary<string, List<string>>()
+                    {
+                        {
+                            "commands",
+                            new List<string>() { "cd / && sudo python3 server.py 80" }
+                        }
+                    }
+                });
+            Console.WriteLine($"Restarted the web server on instance {instanceId}");
+        }
+        catch (AmazonEC2Exception ec2Exception)
+        {
+            if (ec2Exception.ErrorCode == "InvalidInstanceID.NotFound")
+            {
+                _logger.LogError(ec2Exception, $"Instance {instanceId} not found");
+            }
+
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"An error occurred while replacing the template.: {ex.Message}");
+            throw;
+        }
     }
     // snippet-end:[ResilientService.dotnetv3.Ec2.ReplaceInstanceProfile]
 
@@ -785,6 +905,36 @@ public class AutoScalerWrapper
             });
     }
     // snippet-end:[ResilientService.dotnetv3.AutoScaling.AttachLoadBalancer]
+
+    /// <summary>
+    /// Wait until an EC2 instance is in a specified state.
+    /// </summary>
+    /// <param name="instanceId">The instance Id.</param>
+    /// <param name="stateName">The state to wait for.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
+    public async Task<bool> WaitForInstanceState(string instanceId, InstanceStateName stateName)
+    {
+        var request = new DescribeInstancesRequest
+        {
+            InstanceIds = new List<string> { instanceId }
+        };
+
+        // Wait until the instance is in the specified state.
+        var hasState = false;
+        do
+        {
+            // Wait 5 seconds.
+            Thread.Sleep(5000);
+
+            // Check for the desired state.
+            var response = await _amazonEc2.DescribeInstancesAsync(request);
+            var instance = response.Reservations[0].Instances[0];
+            hasState = instance.State.Name == stateName;
+            Console.Write(". ");
+        } while (!hasState);
+
+        return hasState;
+    }
 }
 
 // snippet-end:[ResilientService.dotnetv3.AutoScalerWrapper]

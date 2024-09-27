@@ -10,10 +10,10 @@ using Amazon.SimpleSystemsManagement;
 using AutoScalerActions;
 using ElasticLoadBalancerActions;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using ParameterActions;
 using RecommendationService;
 using ResilientService;
-using Xunit.Extensions.Ordering;
 
 namespace ResilientServiceTests;
 
@@ -29,8 +29,6 @@ public class ResilientServiceTests
     private readonly Recommendations _recommendations = null!;
     private readonly SmParameterWrapper _smParameterWrapper = null!;
 
-    private readonly string _databaseName;
-
     /// <summary>
     /// Constructor for the test class.
     /// </summary>
@@ -43,7 +41,12 @@ public class ResilientServiceTests
                 true) // Optionally, load local settings.
             .Build();
 
-        _databaseName = _configuration["databaseName"]!;
+
+        var loggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.AddConsole();
+        });
+        var _logger = new Logger<AutoScalerWrapper>(loggerFactory);
 
         _elasticLoadBalancerWrapper = new ElasticLoadBalancerWrapper(
             new AmazonElasticLoadBalancingV2Client(),
@@ -53,7 +56,7 @@ public class ResilientServiceTests
             new AmazonEC2Client(),
             new AmazonSimpleSystemsManagementClient(),
             new AmazonIdentityManagementServiceClient(),
-            _configuration);
+            _configuration, _logger);
         _recommendations = new Recommendations(new AmazonDynamoDBClient(),
             _configuration);
         _smParameterWrapper =
