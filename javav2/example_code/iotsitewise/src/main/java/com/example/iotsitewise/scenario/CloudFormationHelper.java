@@ -30,7 +30,6 @@ public class CloudFormationHelper {
 
     private static CloudFormationAsyncClient getCloudFormationClient() {
         CloudFormationAsyncClient cfClient = CloudFormationAsyncClient.builder()
-            .region(Region.US_EAST_1)
             .build();
 
         return cfClient;

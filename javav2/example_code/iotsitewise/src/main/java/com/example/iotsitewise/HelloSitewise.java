@@ -42,7 +42,6 @@ public class HelloSitewise {
      */
     public static void fetchAssets(String modelId) {
         IoTSiteWiseAsyncClient siteWiseAsyncClient = IoTSiteWiseAsyncClient.builder()
-            .region(Region.US_EAST_1)
             .build();
 
         ListAssetsRequest assetsRequest = ListAssetsRequest.builder()
