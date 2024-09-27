@@ -12,8 +12,8 @@ import {
 // Create a Bedrock Runtime client in the AWS Region of your choice.
 const client = new BedrockRuntimeClient({ region: "us-west-2" });
 
-// Set the model ID, e.g., Llama 3 8B Instruct.
-const modelId = "meta.llama3-8b-instruct-v1:0";
+// Set the model ID, e.g., Llama 3 70B Instruct.
+const modelId = "meta.llama3-70b-instruct-v1:0";
 
 // Define the user message to send.
 const userMessage =
@@ -21,8 +21,7 @@ const userMessage =
 
 // Embed the message in Llama 3's prompt format.
 const prompt = `
-<|begin_of_text|>
-<|start_header_id|>user<|end_header_id|>
+<|begin_of_text|><|start_header_id|>user<|end_header_id|>
 ${userMessage}
 <|eot_id|>
 <|start_header_id|>assistant<|end_header_id|>
