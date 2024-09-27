@@ -64,7 +64,7 @@ public class SitewiseTests {
     @BeforeAll
     public static void setUp() {
         CloudFormationHelper.deployCloudFormationStack(ROLES_STACK);
-        Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputs(ROLES_STACK);
+        Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputsAsync(ROLES_STACK).join();
         iamRole = stackOutputs.get("SitewiseRoleArn");
 
         Gson gson = new Gson();
@@ -94,11 +94,9 @@ public class SitewiseTests {
                 throw new RuntimeException("Simulating failure: response or assetModelId is null");
             }
 
-            // Simulate successful creation (won't reach this if above condition is met)
             assetModelId = response.assetModelId();
         });
 
-        // This won't be reached if the assert fails
         System.out.println("Test 2 passed");
     }
 
@@ -144,7 +142,7 @@ public class SitewiseTests {
     @Order(6)
     public void testGETHumValue() {
         assertDoesNotThrow(() -> {
-            sitewiseActions.getAssetPropValueAsync("Humidity property", humPropId, assetId);
+            sitewiseActions.getAssetPropValueAsync(humPropId, assetId);
         });
         System.out.println("Test 6 passed");
     }

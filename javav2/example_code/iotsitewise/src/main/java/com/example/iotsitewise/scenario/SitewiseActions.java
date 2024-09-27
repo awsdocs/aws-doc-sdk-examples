@@ -46,7 +46,6 @@ import software.amazon.awssdk.services.iotsitewise.model.PropertyType;
 import software.amazon.awssdk.services.iotsitewise.model.PutAssetPropertyValueEntry;
 import software.amazon.awssdk.services.iotsitewise.model.TimeInNanos;
 import software.amazon.awssdk.services.iotsitewise.model.Variant;
-
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
@@ -87,12 +86,12 @@ public class SitewiseActions {
     }
 
     // snippet-start:[sitewise.java2_create_asset_model.main]
-
     /**
      * Creates an asset model.
      *
-     * @param name the name of the asset model to create
-     * @return a {@link CompletableFuture} that completes with the created {@link CreateAssetModelResponse} when the operation is complete
+     * @param name the name of the asset model to create.
+     * @return a {@link CompletableFuture} that completes with the created {@link CreateAssetModelResponse} when the operation is complete.
+     * @throws RuntimeException if an error occurs while creating the asset model.
      */
     public CompletableFuture<CreateAssetModelResponse> createAssetModelAsync(String name) {
         PropertyType humidity = PropertyType.builder()
@@ -122,51 +121,47 @@ public class SitewiseActions {
             .build();
 
         return getAsyncClient().createAssetModel(createAssetModelRequest)
-            .handle((response, exception) -> {
+            .whenComplete((response, exception) -> {
                 if (exception != null) {
                     throw new RuntimeException("Failed to create asset model: " + exception.getMessage(), exception);
                 }
-                return response;
             });
     }
     // snippet-end:[sitewise.java2_create_asset_model.main]
 
     // snippet-start:[sitewise.java2_create_asset.main]
-
     /**
-     * Creates an asset with the specified name and model ARN.
+     * Creates an asset with the specified name and model Id.
      *
-     * @param assetName     the name of the asset to create
-     * @param assetModelArn the ARN of the asset model to associate with the asset
-     * @return a {@link CompletableFuture} that completes with the {@link CreateAssetResponse} when the asset creation is complete
-     * @throws RuntimeException if the asset creation fails
+     * @param assetName     the name of the asset to create.
+     * @param assetModelId the Id of the asset model to associate with the asset.
+     * @return a {@link CompletableFuture} that completes with the {@link CreateAssetResponse} when the asset creation is complete.
+     * @throws RuntimeException if the asset creation fails.
      */
-    public CompletableFuture<CreateAssetResponse> createAssetAsync(String assetName, String assetModelArn) {
+    public CompletableFuture<CreateAssetResponse> createAssetAsync(String assetName, String assetModelId) {
         CreateAssetRequest createAssetRequest = CreateAssetRequest.builder()
-            .assetModelId(assetModelArn)
+            .assetModelId(assetModelId)
             .assetDescription("Created using the AWS SDK for Java")
             .assetName(assetName)
             .build();
 
         return getAsyncClient().createAsset(createAssetRequest)
-            .handle((response, exception) -> {
+            .whenComplete((response, exception) -> {
                 if (exception != null) {
                     throw new RuntimeException("Failed to create asset: " + exception.getMessage(), exception);
                 }
-                return response;
             });
     }
     // snippet-end:[sitewise.java2_create_asset.main]
 
     // snippet-start:[sitewise.java2_put_batch_property.main]
-
     /**
      * Sends data to the SiteWise service.
      *
-     * @param assetId        the ID of the asset to which the data will be sent
-     * @param tempPropertyId the ID of the temperature property
-     * @param humidityPropId the ID of the humidity property
-     * @return a CompletableFuture representing the response from the SiteWise service
+     * @param assetId        the ID of the asset to which the data will be sent.
+     * @param tempPropertyId the ID of the temperature property.
+     * @param humidityPropId the ID of the humidity property.
+     * @return a CompletableFuture representing the response from the SiteWise service.
      */
     public CompletableFuture<BatchPutAssetPropertyValueResponse> sendDataToSiteWiseAsync(String assetId, String tempPropertyId, String humidityPropId) {
         Map<String, Double> sampleData = generateSampleData();
@@ -220,42 +215,35 @@ public class SitewiseActions {
     // snippet-end:[sitewise.java2_put_batch_property.main]
 
     // snippet-start:[sitewise.java2_get_property.main]
-
     /**
-     * Asynchronously fetches the value of an asset property.
+     * Fetches the value of an asset property.
      *
-     * @param propName the name of the asset property to fetch
-     * @param propId   the ID of the asset property to fetch
-     * @param assetId  the ID of the asset to fetch the property value for
-     * @throws RuntimeException if an error occurs while fetching the property value
+     * @param propId   the ID of the asset property to fetch.
+     * @param assetId  the ID of the asset to fetch the property value for.
+     * @throws RuntimeException if an error occurs while fetching the property value.
      */
-    public void getAssetPropValueAsync(String propName, String propId, String assetId) {
+    public CompletableFuture<String> getAssetPropValueAsync(String propId, String assetId) {
         GetAssetPropertyValueRequest assetPropertyValueRequest = GetAssetPropertyValueRequest.builder()
             .propertyId(propId)
             .assetId(assetId)
             .build();
 
         CompletableFuture<GetAssetPropertyValueResponse> futureResponse = getAsyncClient().getAssetPropertyValue(assetPropertyValueRequest);
-        futureResponse.whenComplete((response, exception) -> {
+        return futureResponse.whenComplete((response, exception) -> {
             if (exception != null) {
                 throw new RuntimeException("Error occurred while fetching property value: " + exception.getMessage(), exception);
-            } else {
-                String assetVal = String.valueOf(response.propertyValue().value().doubleValue());
-                logger.info("The property name is: {} ", propName);
-                logger.info("The value of this property is {}", assetVal);
             }
-        }).join();
+        }).thenApply(response -> String.valueOf(response.propertyValue().value().doubleValue()));
     }
     // snippet-end:[sitewise.java2_get_property.main]
 
     // snippet-start:[sitewise.java2.describe.asset.model.main]
-
     /**
      * Retrieves the property IDs associated with a specific asset model.
      *
-     * @param assetModelId the ID of the asset model to retrieve the property IDs for
-     * @return a {@link CompletableFuture} that, when completed, contains a {@link Map} mapping the property names to their corresponding IDs
-     * @throws CompletionException if an error occurs while retrieving the asset model properties
+     * @param assetModelId the ID of the asset model to retrieve the property IDs for.
+     * @return a {@link CompletableFuture} that, when completed, contains a {@link Map} mapping the property names to their corresponding IDs.
+     * @throws CompletionException if an error occurs while retrieving the asset model properties.
      */
     public CompletableFuture<Map<String, String>> getPropertyIds(String assetModelId) {
         ListAssetModelPropertiesRequest modelPropertiesRequest = ListAssetModelPropertiesRequest.builder().assetModelId(assetModelId).build();
@@ -273,13 +261,12 @@ public class SitewiseActions {
     // snippet-end:[sitewise.java2.describe.asset.model.main]
 
     // snippet-start:[sitewise.java2.delete.asset.main]
-
     /**
-     * Deletes an asset asynchronously.
+     * Deletes an asset.
      *
-     * @param assetId the ID of the asset to be deleted
-     * @return a {@link CompletableFuture} that represents the asynchronous operation of deleting the asset
-     * @throws RuntimeException if the asset deletion fails
+     * @param assetId the ID of the asset to be deleted.
+     * @return a {@link CompletableFuture} that represents the asynchronous operation of deleting the asset.
+     * @throws RuntimeException if the asset deletion fails.
      */
     public CompletableFuture<DeleteAssetResponse> deleteAssetAsync(String assetId) {
         DeleteAssetRequest deleteAssetRequest = DeleteAssetRequest.builder()
@@ -301,9 +288,9 @@ public class SitewiseActions {
     /**
      * Deletes an Asset Model with the specified ID.
      *
-     * @param assetModelId the ID of the Asset Model to delete
-     * @return a {@link CompletableFuture} that completes with the {@link DeleteAssetModelResponse} when the operation is complete
-     * @throws RuntimeException if the operation fails, containing the error message and the underlying exception
+     * @param assetModelId the ID of the Asset Model to delete.
+     * @return a {@link CompletableFuture} that completes with the {@link DeleteAssetModelResponse} when the operation is complete.
+     * @throws RuntimeException if the operation fails, containing the error message and the underlying exception.
      */
     public CompletableFuture<DeleteAssetModelResponse> deleteAssetModelAsync(String assetModelId) {
         DeleteAssetModelRequest deleteAssetModelRequest = DeleteAssetModelRequest.builder()
@@ -320,14 +307,13 @@ public class SitewiseActions {
     // snippet-end:[sitewise.java2.delete.asset.model.main]
 
     // snippet-start:[sitewise.java2.create.portal.main]
-
     /**
      * Creates a new IoT SiteWise portal.
      *
-     * @param portalName   the name of the portal to create
-     * @param iamRole      the IAM role ARN to use for the portal
-     * @param contactEmail the email address of the portal contact
-     * @return a {@link CompletableFuture} that completes with the portal ID when the portal is created successfully, or throws a {@link RuntimeException} if the creation fails
+     * @param portalName   the name of the portal to create.
+     * @param iamRole      the IAM role ARN to use for the portal.
+     * @param contactEmail the email address of the portal contact.
+     * @return a {@link CompletableFuture} that completes with the portal ID when the portal is created successfully, or throws a {@link RuntimeException} if the creation fails.
      */
     public CompletableFuture<String> createPortalAsync(String portalName, String iamRole, String contactEmail) {
         CreatePortalRequest createPortalRequest = CreatePortalRequest.builder()
@@ -352,9 +338,9 @@ public class SitewiseActions {
     /**
      * Deletes a portal.
      *
-     * @param portalId the ID of the portal to be deleted
-     * @return a {@link CompletableFuture} containing the {@link DeletePortalResponse} when the operation is complete
-     * @throws RuntimeException if the portal deletion fails, with the error message and the underlying exception
+     * @param portalId the ID of the portal to be deleted.
+     * @return a {@link CompletableFuture} containing the {@link DeletePortalResponse} when the operation is complete.
+     * @throws RuntimeException if the portal deletion fails, with the error message and the underlying exception.
      */
     public CompletableFuture<DeletePortalResponse> deletePortalAsync(String portalId) {
         DeletePortalRequest deletePortalRequest = DeletePortalRequest.builder()
@@ -374,8 +360,8 @@ public class SitewiseActions {
     /**
      * Retrieves the asset model ID for the given asset model name.
      *
-     * @param assetModelName the name of the asset model to retrieve the ID for
-     * @return a {@link CompletableFuture} that, when completed, contains the asset model ID, or {@code null} if the asset model is not found
+     * @param assetModelName the name of the asset model to retrieve the ID for.
+     * @return a {@link CompletableFuture} that, when completed, contains the asset model ID, or {@code null} if the asset model is not found.
      */
     public CompletableFuture<String> getAssetModelIdAsync(String assetModelName) {
         ListAssetModelsRequest listAssetModelsRequest = ListAssetModelsRequest.builder().build();
@@ -398,9 +384,9 @@ public class SitewiseActions {
     /**
      * Asynchronously describes a portal.
      *
-     * @param portalId the ID of the portal to describe
-     * @return a {@link CompletableFuture} that, when completed, will contain the URL of the described portal
-     * @throws RuntimeException if the portal description operation fails
+     * @param portalId the ID of the portal to describe.
+     * @return a {@link CompletableFuture} that, when completed, will contain the URL of the described portal.
+     * @throws RuntimeException if the portal description operation fails.
      */
     public CompletableFuture<String> describePortalAsync(String portalId) {
         DescribePortalRequest request = DescribePortalRequest.builder()
@@ -412,7 +398,6 @@ public class SitewiseActions {
                 if (exception != null) {
                     throw new RuntimeException("Failed to describe portal: " + exception.getMessage(), exception);
                 }
-                // Return the portal URL if the operation is successful
                 return response.portalStartUrl();
             });
     }
@@ -420,10 +405,10 @@ public class SitewiseActions {
 
     // snippet-start:[sitewise.java2.create.gateway.main]
     /**
-     * Creates a new IoTSitewise gateway asynchronously.
+     * Creates a new IoT Sitewise gateway.
      *
-     * @return a {@link CompletableFuture} containing the {@link CreateGatewayResponse} representing the created gateway
-     * @throws RuntimeException if there was an error creating the gateway
+     * @return a {@link CompletableFuture} containing the {@link CreateGatewayResponse} representing the created gateway.
+     * @throws RuntimeException if there was an error creating the gateway.
      */
     public CompletableFuture<String> createGatewayAsync(String gatewayName, String myThing) {
         GreengrassV2 gg = GreengrassV2.builder()
@@ -456,12 +441,12 @@ public class SitewiseActions {
     // snippet-end:[sitewise.java2.create.gateway.main]
 
     // snippet-start:[sitewise.java2.delete.gateway.main]
-
     /**
      * Deletes the specified gateway asynchronously.
      *
-     * @param gatewayARN the Amazon Resource Name (ARN) of the gateway to be deleted
-     * @return a {@link CompletableFuture} representing the asynchronous operation of deleting the gateway
+     * @param gatewayARN the ARN of the gateway to delete.
+     * @return a CompletableFuture containing the response of the delete operation.
+     * @throws RuntimeException if an error occurs during the delete operation.
      */
     public CompletableFuture<DeleteGatewayResponse> deleteGatewayAsync(String gatewayARN) {
         DeleteGatewayRequest deleteGatewayRequest = DeleteGatewayRequest.builder()
@@ -471,7 +456,7 @@ public class SitewiseActions {
         return getAsyncClient().deleteGateway(deleteGatewayRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    logger.error("An error occurred during the deleteGateway method.");
+                    throw new RuntimeException("Failed to delete gateway: " + exception.getMessage(), exception);
                 } else {
                     logger.info("The Gateway was deleted successfully.");
                 }
@@ -483,10 +468,10 @@ public class SitewiseActions {
     /**
      * Asynchronously describes the specified gateway.
      *
-     * @param gatewayId the ID of the gateway to describe
-     * @return a {@link CompletableFuture} that represents the asynchronous operation,
+     * @param gatewayId the ID of the gateway to describe.
+     * @return a {@link CompletableFuture} that represents the asynchronous operation
      * which will complete with a {@link DescribeGatewayResponse} containing
-     * information about the specified gateway
+     * information about the specified gateway.
      */
     public CompletableFuture<DescribeGatewayResponse> describeGatewayAsync(String gatewayId) {
         DescribeGatewayRequest request = DescribeGatewayRequest.builder()
@@ -496,15 +481,11 @@ public class SitewiseActions {
         return getAsyncClient().describeGateway(request)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    logger.error("An error occurred during the describeGateway method");
-                } else {
-                    logger.info("Gateway Name: " + response.gatewayName());
-                    logger.info("Gateway ARN: " + response.gatewayArn());
-                    logger.info("Gateway Platform: " + response.gatewayPlatform().toString());
-                    logger.info("Gateway Creation Date: " + response.creationDate());
+                    logger.error("An error occurred during the describeGateway method", exception);
                 }
             });
     }
+
     // snippet-end:[sitewise.java2.describe.gateway.main]
 
     private static Map<String, Double> generateSampleData() {

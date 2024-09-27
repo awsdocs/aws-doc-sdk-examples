@@ -29,29 +29,25 @@ public class SitewiseScenario {
     public static void main(String[] args) throws Throwable {
         final String usage = """
             Usage:
-               <assetModelName> <assetName> <portalName> <contactEmail> <gatewayName> <myThing>
+               <contactEmail> 
 
             Where:
-                assetModelName - The name of the asset model used in the IoT SiteWise program.
-                assetName -  The name of the asset created in the IoT SiteWise program. 
-                portalName - The name of the IoT SiteWise portal where the asset and other resources are created.
                 contactEmail - The email address of the contact person associated with the IoT SiteWise program.
-                gatewayName - The name of the IoT SiteWise gateway used to collect and send data to the IoT SiteWise service.
-                myThing - The name of the IoT thing or device that is connected to the IoT SiteWise gateway.
+                
             """;
 
-        if (args.length != 6) {
-            logger.info(usage);
-            return;
-        }
+      //  if (args.length != 1) {
+      //      logger.info(usage);
+     //       return;
+     //   }
 
         Scanner scanner = new Scanner(System.in);
-        String assetModelName = args[0];
-        String assetName = args[1];
-        String portalName = args[2];
-        String contactEmail = args[3];
-        String gatewayName = args[4];
-        String myThing = args[5];
+        String contactEmail = "scmacdon@amazon.com" ; //args[0];
+        String assetModelName = "MyAssetModel1";
+        String assetName = "MyAsset1" ;
+        String portalName = "MyPortal1" ;
+        String gatewayName = "MyGateway1" ;
+        String myThing =  "MyThing1" ;
 
         logger.info("""
             AWS IoT SiteWise is a fully managed software-as-a-service (SaaS) that 
@@ -87,7 +83,7 @@ public class SitewiseScenario {
     public static void runScenario(String assetModelName, String assetName,  String portalName, String contactEmail, String gatewayName, String myThing) throws Throwable {
         logger.info("Use AWS CloudFormation to create an IAM role that is required for this scenario.");
         CloudFormationHelper.deployCloudFormationStack(ROLES_STACK);
-        Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputs(ROLES_STACK);
+        Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputsAsync(ROLES_STACK).join();
         String iamRole = stackOutputs.get("SitewiseRoleArn");
         logger.info("The ARN of the IAM role is {}",iamRole);
         logger.info(DASHES);
@@ -223,8 +219,17 @@ public class SitewiseScenario {
             """);
         waitForInputToContinue(scanner);
         try {
-        sitewiseActions.getAssetPropValueAsync("Temperature property", tempPropId, assetId);
-        waitForInputToContinue(scanner);
+            sitewiseActions.getAssetPropValueAsync(tempPropId, assetId)
+                .whenComplete((assetVal, exception) -> {
+                    if (exception != null) {
+                        logger.error("Error fetching asset property value: {}", exception.getMessage(), exception);
+                    } else {
+                        logger.info("The property name is: {}", "Temperature");
+                        logger.info("The value of this property is: {}", assetVal);
+                    }
+                }).join();
+            waitForInputToContinue(scanner);
+
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             while (cause != null) {
@@ -238,9 +243,11 @@ public class SitewiseScenario {
             if (cause == null) {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
-            throw cause;
+
+            // Rethrow the root cause to ensure the exception is propagated properly
+            throw new RuntimeException(cause);
         }
-        sitewiseActions.getAssetPropValueAsync("Humidity property", humPropId, assetId);
+        sitewiseActions.getAssetPropValueAsync(humPropId, assetId);
         waitForInputToContinue(scanner);
         logger.info(DASHES);
 
@@ -318,7 +325,13 @@ public class SitewiseScenario {
         logger.info("9. Describe the IoT SiteWise Gateway");
          waitForInputToContinue(scanner);
         try {
-            sitewiseActions.describeGatewayAsync(gatewayId).join();
+            sitewiseActions.describeGatewayAsync(gatewayId)
+                .thenAccept(response -> {
+                    logger.info("Gateway Name: {}", response.gatewayName());
+                    logger.info("Gateway ARN: {}", response.gatewayArn());
+                    logger.info("Gateway Platform: {}", response.gatewayPlatform());
+                    logger.info("Gateway Creation Date: {}", response.creationDate());
+                }).join();
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
             if (cause != null && cause instanceof ResourceNotFoundException notFoundException) {
@@ -355,7 +368,6 @@ public class SitewiseScenario {
                 }
             }
 
-            // Delete the Gateway.
             try {
                 sitewiseActions.deleteGatewayAsync(gatewayId).join();
             } catch (RuntimeException rt) {

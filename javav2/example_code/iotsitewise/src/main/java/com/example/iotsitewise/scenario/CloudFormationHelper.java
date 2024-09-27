@@ -4,7 +4,10 @@
 package com.example.iotsitewise.scenario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import software.amazon.awssdk.core.retry.RetryMode;
+import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
+import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.services.cloudformation.CloudFormationAsyncClient;
 import software.amazon.awssdk.services.cloudformation.CloudFormationClient;
 import software.amazon.awssdk.services.cloudformation.model.Capability;
@@ -14,12 +17,12 @@ import software.amazon.awssdk.services.cloudformation.model.DescribeStacksRespon
 import software.amazon.awssdk.services.cloudformation.model.Output;
 import software.amazon.awssdk.services.cloudformation.model.Stack;
 import software.amazon.awssdk.services.cloudformation.waiters.CloudFormationAsyncWaiter;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,11 +31,29 @@ public class CloudFormationHelper {
     private static final String CFN_TEMPLATE = "SitewiseRoles-template.yaml";
     private static final Logger logger = LoggerFactory.getLogger(CloudFormationHelper.class);
 
-    private static CloudFormationAsyncClient getCloudFormationClient() {
-        CloudFormationAsyncClient cfClient = CloudFormationAsyncClient.builder()
-            .build();
+    private static CloudFormationAsyncClient cloudFormationClient;
 
-        return cfClient;
+    private static CloudFormationAsyncClient getCloudFormationClient() {
+        if (cloudFormationClient == null) {
+            SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
+                .maxConcurrency(100)
+                .connectionTimeout(Duration.ofSeconds(60))
+                .readTimeout(Duration.ofSeconds(60))
+                .writeTimeout(Duration.ofSeconds(60))
+                .build();
+
+            ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
+                .apiCallTimeout(Duration.ofMinutes(2))
+                .apiCallAttemptTimeout(Duration.ofSeconds(90))
+                .retryStrategy(RetryMode.STANDARD)
+                .build();
+
+            cloudFormationClient = CloudFormationAsyncClient.builder()
+                .httpClient(httpClient)
+                .overrideConfiguration(overrideConfig)
+                .build();
+        }
+        return cloudFormationClient;
     }
 
     public static void deployCloudFormationStack(String stackName) {
@@ -75,7 +96,6 @@ public class CloudFormationHelper {
     }
 
     // Check to see if the Stack exists before deploying it
-
     public static Boolean describeStack(String stackName) {
         try {
             CompletableFuture<?> future = getCloudFormationClient().describeStacks();
@@ -109,25 +129,31 @@ public class CloudFormationHelper {
             }).join();
     }
 
-    public static Map<String, String> getStackOutputs(String stackName) {
-        CloudFormationClient cfClient = CloudFormationClient.create();
+    public static CompletableFuture<Map<String, String>> getStackOutputsAsync(String stackName) {
+        CloudFormationAsyncClient cloudFormationAsyncClient = getCloudFormationClient();
+
         DescribeStacksRequest describeStacksRequest = DescribeStacksRequest.builder()
             .stackName(stackName)
             .build();
 
-        DescribeStacksResponse describeStacksResponse = cfClient.describeStacks(describeStacksRequest);
-        List<Stack> stacks = describeStacksResponse.stacks();
+        return cloudFormationAsyncClient.describeStacks(describeStacksRequest)
+            .handle((describeStacksResponse, throwable) -> {
+                if (throwable != null) {
+                    throw new RuntimeException("Failed to get stack outputs for: " + stackName, throwable);
+                }
 
-        if (stacks.isEmpty()) {
-            throw new RuntimeException("Stack not found: " + stackName);
-        }
+                // Process the result
+                if (describeStacksResponse.stacks().isEmpty()) {
+                    throw new RuntimeException("Stack not found: " + stackName);
+                }
 
-        Stack stack = stacks.get(0);
-        Map<String, String> outputs = new HashMap<>();
-        for (Output output : stack.outputs()) {
-            outputs.put(output.outputKey(), output.outputValue());
-        }
+                Stack stack = describeStacksResponse.stacks().get(0);
+                Map<String, String> outputs = new HashMap<>();
+                for (Output output : stack.outputs()) {
+                    outputs.put(output.outputKey(), output.outputValue());
+                }
 
-        return outputs;
+                return outputs;
+            });
     }
 }
