@@ -5,14 +5,13 @@ namespace Ec2_Basics;
 
 public class UiMethods
 {
-    public readonly string SepBar = new string('-', Console.WindowWidth);
+    public readonly string SepBar = new string('-', 88);
 
     /// <summary>
     /// Show information about the scenario.
     /// </summary>
     public void DisplayOverview()
     {
-        Console.Clear();
         DisplayTitle("Welcome to the Amazon Elastic Compute Cloud (Amazon EC2) get started with instances demo.");
 
         Console.WriteLine("This example application does the following:");
@@ -39,33 +38,22 @@ public class UiMethods
     /// <summary>
     /// Display a message and wait until the user presses enter.
     /// </summary>
-    public void PressEnter()
+    public void PressEnter(bool interactive)
     {
         Console.Write("\nPlease press <Enter> to continue. ");
-        _ = Console.ReadLine();
+        if (interactive)
+            _ = Console.ReadLine();
     }
 
     /// <summary>
-    /// Pad a string with spaces to center it on the console display.
-    /// </summary>
-    /// <param name="strToCenter"></param>
-    /// <returns></returns>
-    public string CenterString(string strToCenter)
-    {
-        var padAmount = (Console.WindowWidth - strToCenter.Length) / 2;
-        var leftPad = new string(' ', padAmount);
-        return $"{leftPad}{strToCenter}";
-    }
-
-    /// <summary>
-    /// Display a line of hyphens, the centered text of the title and another
+    /// Display a line of hyphens, the text of the title and another
     /// line of hyphens.
     /// </summary>
     /// <param name="strTitle">The string to be displayed.</param>
     public void DisplayTitle(string strTitle)
     {
         Console.WriteLine(SepBar);
-        Console.WriteLine(CenterString(strTitle));
+        Console.WriteLine(strTitle);
         Console.WriteLine(SepBar);
     }
 }

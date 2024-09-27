@@ -470,6 +470,7 @@ ec2_StartInstances:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.StartInstances
+                - EC2.dotnetv3.WaitForInstanceState
     Kotlin:
       versions:
         - sdk_version: 1
@@ -569,6 +570,7 @@ ec2_StopInstances:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.StopInstances
+                - EC2.dotnetv3.WaitForInstanceState
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1393,6 +1395,7 @@ ec2_TerminateInstances:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.TerminateInstances
+                - EC2.dotnetv3.WaitForInstanceState
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1682,9 +1685,10 @@ ec2_RebootInstances:
           github: dotnetv3/EC2
           sdkguide:
           excerpts:
-            - description:
+            - description: Reboot an instance by its Id.
               snippet_tags:
                 - EC2.dotnetv3.RebootInstances
+                - EC2.dotnetv3.WaitForInstanceState
             - description: Replace the profile for an instance, reboot, and restart a web server.
               snippet_tags:
                 - ResilientService.dotnetv3.Ec2.ReplaceInstanceProfile
