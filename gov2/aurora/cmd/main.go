@@ -23,7 +23,7 @@ import (
 //   - `clusters`    -  Runs the interactive DB clusters scenario that shows you how to use
 //     Amazon Aurora commands to work with DB clusters and databases.
 func main() {
-	scenarioMap := map[string]func(sdkConfig aws.Config){
+	scenarioMap := map[string]func(ctx context.Context, sdkConfig aws.Config){
 		"clusters": runClusterScenario,
 	}
 	choices := make([]string, len(scenarioMap))
@@ -41,18 +41,19 @@ func main() {
 		fmt.Printf("'%v' is not a valid scenario.\n", *scenario)
 		flag.Usage()
 	} else {
-		sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+		ctx := context.Background()
+		sdkConfig, err := config.LoadDefaultConfig(ctx)
 		if err != nil {
 			log.Fatalf("unable to load SDK config, %v", err)
 		}
 
 		log.SetFlags(0)
-		runScenario(sdkConfig)
+		runScenario(ctx, sdkConfig)
 	}
 }
 
-func runClusterScenario(sdkConfig aws.Config) {
+func runClusterScenario(ctx context.Context, sdkConfig aws.Config) {
 	scenario := scenarios.NewGetStartedClusters(sdkConfig, demotools.NewQuestioner(), scenarios.ScenarioHelper{})
-	scenario.Run("aurora-mysql", "doc-example-cluster-parameter-group", "doc-example-aurora",
+	scenario.Run(ctx, "aurora-mysql", "doc-example-cluster-parameter-group", "doc-example-aurora",
 		"docexampledb")
 }

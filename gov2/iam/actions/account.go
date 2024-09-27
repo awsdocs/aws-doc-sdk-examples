@@ -27,9 +27,9 @@ type AccountWrapper struct {
 
 // GetAccountPasswordPolicy gets the account password policy for the current account.
 // If no policy has been set, a NoSuchEntityException is error is returned.
-func (wrapper AccountWrapper) GetAccountPasswordPolicy() (*types.PasswordPolicy, error) {
+func (wrapper AccountWrapper) GetAccountPasswordPolicy(ctx context.Context) (*types.PasswordPolicy, error) {
 	var pwPolicy *types.PasswordPolicy
-	result, err := wrapper.IamClient.GetAccountPasswordPolicy(context.TODO(),
+	result, err := wrapper.IamClient.GetAccountPasswordPolicy(ctx,
 		&iam.GetAccountPasswordPolicyInput{})
 	if err != nil {
 		log.Printf("Couldn't get account password policy. Here's why: %v\n", err)
@@ -44,9 +44,9 @@ func (wrapper AccountWrapper) GetAccountPasswordPolicy() (*types.PasswordPolicy,
 // snippet-start:[gov2.iam.ListSAMLProviders]
 
 // ListSAMLProviders gets the SAML providers for the account.
-func (wrapper AccountWrapper) ListSAMLProviders() ([]types.SAMLProviderListEntry, error) {
+func (wrapper AccountWrapper) ListSAMLProviders(ctx context.Context) ([]types.SAMLProviderListEntry, error) {
 	var providers []types.SAMLProviderListEntry
-	result, err := wrapper.IamClient.ListSAMLProviders(context.TODO(), &iam.ListSAMLProvidersInput{})
+	result, err := wrapper.IamClient.ListSAMLProviders(ctx, &iam.ListSAMLProvidersInput{})
 	if err != nil {
 		log.Printf("Couldn't list SAML providers. Here's why: %v\n", err)
 	} else {

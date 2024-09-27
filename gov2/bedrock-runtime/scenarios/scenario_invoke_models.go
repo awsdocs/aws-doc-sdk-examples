@@ -4,6 +4,7 @@
 package scenarios
 
 import (
+	"context"
 	"encoding/base64"
 	"fmt"
 	"log"
@@ -50,7 +51,7 @@ func NewInvokeModelsScenario(sdkConfig aws.Config, questioner demotools.IQuestio
 }
 
 // Runs the interactive scenario.
-func (scenario InvokeModelsScenario) Run() {
+func (scenario InvokeModelsScenario) Run(ctx context.Context) {
 	defer func() {
 		if r := recover(); r != nil {
 			log.Printf("Something went wrong with the demo: %v\n", r)
@@ -67,22 +68,22 @@ func (scenario InvokeModelsScenario) Run() {
 
 	log.Println(strings.Repeat("-", 77))
 	log.Printf("Invoking Claude with prompt: %v\n", text2textPrompt)
-	scenario.InvokeClaude(text2textPrompt)
+	scenario.InvokeClaude(ctx, text2textPrompt)
 
 	log.Println(strings.Repeat("-", 77))
 	log.Printf("Invoking Jurassic-2 with prompt: %v\n", text2textPrompt)
-	scenario.InvokeJurassic2(text2textPrompt)
+	scenario.InvokeJurassic2(ctx, text2textPrompt)
 
 	log.Println(strings.Repeat("-", 77))
 	log.Printf("Invoking Llama2 with prompt: %v\n", text2textPrompt)
-	scenario.InvokeLlama2(text2textPrompt)
+	scenario.InvokeLlama2(ctx, text2textPrompt)
 
 	log.Println(strings.Repeat("=", 77))
 	log.Printf("Now, let's invoke Claude with the asynchronous client and process the response stream:\n\n")
 
 	log.Println(strings.Repeat("-", 77))
 	log.Printf("Invoking Claude with prompt: %v\n", text2textPrompt)
-	scenario.InvokeWithResponseStream(text2textPrompt)
+	scenario.InvokeWithResponseStream(ctx, text2textPrompt)
 
 	log.Println(strings.Repeat("=", 77))
 	log.Printf("Now, let's create an image with the Amazon Titan image generation model:\n\n")
@@ -92,52 +93,52 @@ func (scenario InvokeModelsScenario) Run() {
 
 	log.Println(strings.Repeat("-", 77))
 	log.Printf("Invoking Amazon Titan with prompt: %v\n", text2ImagePrompt)
-	scenario.InvokeTitanImage(text2ImagePrompt, seed)
+	scenario.InvokeTitanImage(ctx, text2ImagePrompt, seed)
 
 	log.Println(strings.Repeat("-", 77))
 	log.Printf("Invoking Titan Text Express with prompt: %v\n", text2textPrompt)
-	scenario.InvokeTitanText(text2textPrompt)
+	scenario.InvokeTitanText(ctx, text2textPrompt)
 
 	log.Println(strings.Repeat("=", 77))
 	log.Println("Thanks for watching!")
 	log.Println(strings.Repeat("=", 77))
 }
 
-func (scenario InvokeModelsScenario) InvokeClaude(prompt string) {
-	completion, err := scenario.invokeModelWrapper.InvokeClaude(prompt)
+func (scenario InvokeModelsScenario) InvokeClaude(ctx context.Context, prompt string) {
+	completion, err := scenario.invokeModelWrapper.InvokeClaude(ctx, prompt)
 	if err != nil {
 		panic(err)
 	}
 	log.Printf("\nClaude     : %v\n", strings.TrimSpace(completion))
 }
 
-func (scenario InvokeModelsScenario) InvokeJurassic2(prompt string) {
-	completion, err := scenario.invokeModelWrapper.InvokeJurassic2(prompt)
+func (scenario InvokeModelsScenario) InvokeJurassic2(ctx context.Context, prompt string) {
+	completion, err := scenario.invokeModelWrapper.InvokeJurassic2(ctx, prompt)
 	if err != nil {
 		panic(err)
 	}
 	log.Printf("\nJurassic-2 : %v\n", strings.TrimSpace(completion))
 }
 
-func (scenario InvokeModelsScenario) InvokeLlama2(prompt string) {
-	completion, err := scenario.invokeModelWrapper.InvokeLlama2(prompt)
+func (scenario InvokeModelsScenario) InvokeLlama2(ctx context.Context, prompt string) {
+	completion, err := scenario.invokeModelWrapper.InvokeLlama2(ctx, prompt)
 	if err != nil {
 		panic(err)
 	}
 	log.Printf("\nLlama 2    : %v\n\n", strings.TrimSpace(completion))
 }
 
-func (scenario InvokeModelsScenario) InvokeWithResponseStream(prompt string) {
+func (scenario InvokeModelsScenario) InvokeWithResponseStream(ctx context.Context, prompt string) {
 	log.Println("\nClaude with response stream:")
-	_, err := scenario.responseStreamWrapper.InvokeModelWithResponseStream(prompt)
+	_, err := scenario.responseStreamWrapper.InvokeModelWithResponseStream(ctx, prompt)
 	if err != nil {
 		panic(err)
 	}
 	log.Println()
 }
 
-func (scenario InvokeModelsScenario) InvokeTitanImage(prompt string, seed int64) {
-	base64ImageData, err := scenario.invokeModelWrapper.InvokeTitanImage(prompt, seed)
+func (scenario InvokeModelsScenario) InvokeTitanImage(ctx context.Context, prompt string, seed int64) {
+	base64ImageData, err := scenario.invokeModelWrapper.InvokeTitanImage(ctx, prompt, seed)
 	if err != nil {
 		panic(err)
 	}
@@ -145,8 +146,8 @@ func (scenario InvokeModelsScenario) InvokeTitanImage(prompt string, seed int64)
 	fmt.Printf("The generated image has been saved to %s\n", imagePath)
 }
 
-func (scenario InvokeModelsScenario) InvokeTitanText(prompt string) {
-	completion, err := scenario.invokeModelWrapper.InvokeTitanText(prompt)
+func (scenario InvokeModelsScenario) InvokeTitanText(ctx context.Context, prompt string) {
+	completion, err := scenario.invokeModelWrapper.InvokeTitanText(ctx, prompt)
 	if err != nil {
 		panic(err)
 	}

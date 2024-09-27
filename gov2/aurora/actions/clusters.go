@@ -23,10 +23,10 @@ type DbClusters struct {
 // snippet-start:[gov2.aurora.DescribeDBClusterParameterGroups]
 
 // GetParameterGroup gets a DB cluster parameter group by name.
-func (clusters *DbClusters) GetParameterGroup(parameterGroupName string) (
+func (clusters *DbClusters) GetParameterGroup(ctx context.Context, parameterGroupName string) (
 	*types.DBClusterParameterGroup, error) {
 	output, err := clusters.AuroraClient.DescribeDBClusterParameterGroups(
-		context.TODO(), &rds.DescribeDBClusterParameterGroupsInput{
+		ctx, &rds.DescribeDBClusterParameterGroupsInput{
 			DBClusterParameterGroupName: aws.String(parameterGroupName),
 		})
 	if err != nil {
@@ -49,10 +49,10 @@ func (clusters *DbClusters) GetParameterGroup(parameterGroupName string) (
 // CreateParameterGroup creates a DB cluster parameter group that is based on the specified
 // parameter group family.
 func (clusters *DbClusters) CreateParameterGroup(
-	parameterGroupName string, parameterGroupFamily string, description string) (
+	ctx context.Context, parameterGroupName string, parameterGroupFamily string, description string) (
 	*types.DBClusterParameterGroup, error) {
 
-	output, err := clusters.AuroraClient.CreateDBClusterParameterGroup(context.TODO(),
+	output, err := clusters.AuroraClient.CreateDBClusterParameterGroup(ctx,
 		&rds.CreateDBClusterParameterGroupInput{
 			DBClusterParameterGroupName: aws.String(parameterGroupName),
 			DBParameterGroupFamily:      aws.String(parameterGroupFamily),
@@ -71,8 +71,8 @@ func (clusters *DbClusters) CreateParameterGroup(
 // snippet-start:[gov2.aurora.DeleteDBClusterParameterGroup]
 
 // DeleteParameterGroup deletes the named DB cluster parameter group.
-func (clusters *DbClusters) DeleteParameterGroup(parameterGroupName string) error {
-	_, err := clusters.AuroraClient.DeleteDBClusterParameterGroup(context.TODO(),
+func (clusters *DbClusters) DeleteParameterGroup(ctx context.Context, parameterGroupName string) error {
+	_, err := clusters.AuroraClient.DeleteDBClusterParameterGroup(ctx,
 		&rds.DeleteDBClusterParameterGroupInput{
 			DBClusterParameterGroupName: aws.String(parameterGroupName),
 		})
@@ -89,7 +89,7 @@ func (clusters *DbClusters) DeleteParameterGroup(parameterGroupName string) erro
 // snippet-start:[gov2.aurora.DescribeDBClusterParameters]
 
 // GetParameters gets the parameters that are contained in a DB cluster parameter group.
-func (clusters *DbClusters) GetParameters(parameterGroupName string, source string) (
+func (clusters *DbClusters) GetParameters(ctx context.Context, parameterGroupName string, source string) (
 	[]types.Parameter, error) {
 
 	var output *rds.DescribeDBClusterParametersOutput
@@ -101,7 +101,7 @@ func (clusters *DbClusters) GetParameters(parameterGroupName string, source stri
 			Source:                      aws.String(source),
 		})
 	for parameterPaginator.HasMorePages() {
-		output, err = parameterPaginator.NextPage(context.TODO())
+		output, err = parameterPaginator.NextPage(ctx)
 		if err != nil {
 			log.Printf("Couldn't get paramaeters for %v: %v\n", parameterGroupName, err)
 			break
@@ -117,8 +117,8 @@ func (clusters *DbClusters) GetParameters(parameterGroupName string, source stri
 // snippet-start:[gov2.aurora.ModifyDBClusterParameterGroup]
 
 // UpdateParameters updates parameters in a named DB cluster parameter group.
-func (clusters *DbClusters) UpdateParameters(parameterGroupName string, params []types.Parameter) error {
-	_, err := clusters.AuroraClient.ModifyDBClusterParameterGroup(context.TODO(),
+func (clusters *DbClusters) UpdateParameters(ctx context.Context, parameterGroupName string, params []types.Parameter) error {
+	_, err := clusters.AuroraClient.ModifyDBClusterParameterGroup(ctx,
 		&rds.ModifyDBClusterParameterGroupInput{
 			DBClusterParameterGroupName: aws.String(parameterGroupName),
 			Parameters:                  params,
@@ -136,8 +136,8 @@ func (clusters *DbClusters) UpdateParameters(parameterGroupName string, params [
 // snippet-start:[gov2.aurora.DescribeDBClusters]
 
 // GetDbCluster gets data about an Aurora DB cluster.
-func (clusters *DbClusters) GetDbCluster(clusterName string) (*types.DBCluster, error) {
-	output, err := clusters.AuroraClient.DescribeDBClusters(context.TODO(),
+func (clusters *DbClusters) GetDbCluster(ctx context.Context, clusterName string) (*types.DBCluster, error) {
+	output, err := clusters.AuroraClient.DescribeDBClusters(ctx,
 		&rds.DescribeDBClustersInput{
 			DBClusterIdentifier: aws.String(clusterName),
 		})
@@ -162,11 +162,11 @@ func (clusters *DbClusters) GetDbCluster(clusterName string) (*types.DBCluster, 
 // CreateDbCluster creates a DB cluster that is configured to use the specified parameter group.
 // The newly created DB cluster contains a database that uses the specified engine and
 // engine version.
-func (clusters *DbClusters) CreateDbCluster(clusterName string, parameterGroupName string,
+func (clusters *DbClusters) CreateDbCluster(ctx context.Context, clusterName string, parameterGroupName string,
 	dbName string, dbEngine string, dbEngineVersion string, adminName string, adminPassword string) (
 	*types.DBCluster, error) {
 
-	output, err := clusters.AuroraClient.CreateDBCluster(context.TODO(), &rds.CreateDBClusterInput{
+	output, err := clusters.AuroraClient.CreateDBCluster(ctx, &rds.CreateDBClusterInput{
 		DBClusterIdentifier:         aws.String(clusterName),
 		Engine:                      aws.String(dbEngine),
 		DBClusterParameterGroupName: aws.String(parameterGroupName),
@@ -188,8 +188,8 @@ func (clusters *DbClusters) CreateDbCluster(clusterName string, parameterGroupNa
 // snippet-start:[gov2.aurora.DeleteDBCluster]
 
 // DeleteDbCluster deletes a DB cluster without keeping a final snapshot.
-func (clusters *DbClusters) DeleteDbCluster(clusterName string) error {
-	_, err := clusters.AuroraClient.DeleteDBCluster(context.TODO(), &rds.DeleteDBClusterInput{
+func (clusters *DbClusters) DeleteDbCluster(ctx context.Context, clusterName string) error {
+	_, err := clusters.AuroraClient.DeleteDBCluster(ctx, &rds.DeleteDBClusterInput{
 		DBClusterIdentifier: aws.String(clusterName),
 		SkipFinalSnapshot:   aws.Bool(true),
 	})
@@ -206,9 +206,9 @@ func (clusters *DbClusters) DeleteDbCluster(clusterName string) error {
 // snippet-start:[gov2.aurora.CreateDBClusterSnapshot]
 
 // CreateClusterSnapshot creates a snapshot of a DB cluster.
-func (clusters *DbClusters) CreateClusterSnapshot(clusterName string, snapshotName string) (
+func (clusters *DbClusters) CreateClusterSnapshot(ctx context.Context, clusterName string, snapshotName string) (
 	*types.DBClusterSnapshot, error) {
-	output, err := clusters.AuroraClient.CreateDBClusterSnapshot(context.TODO(), &rds.CreateDBClusterSnapshotInput{
+	output, err := clusters.AuroraClient.CreateDBClusterSnapshot(ctx, &rds.CreateDBClusterSnapshotInput{
 		DBClusterIdentifier:         aws.String(clusterName),
 		DBClusterSnapshotIdentifier: aws.String(snapshotName),
 	})
@@ -225,8 +225,8 @@ func (clusters *DbClusters) CreateClusterSnapshot(clusterName string, snapshotNa
 // snippet-start:[gov2.aurora.DescribeDBClusterSnapshots]
 
 // GetClusterSnapshot gets a DB cluster snapshot.
-func (clusters *DbClusters) GetClusterSnapshot(snapshotName string) (*types.DBClusterSnapshot, error) {
-	output, err := clusters.AuroraClient.DescribeDBClusterSnapshots(context.TODO(),
+func (clusters *DbClusters) GetClusterSnapshot(ctx context.Context, snapshotName string) (*types.DBClusterSnapshot, error) {
+	output, err := clusters.AuroraClient.DescribeDBClusterSnapshots(ctx,
 		&rds.DescribeDBClusterSnapshotsInput{
 			DBClusterSnapshotIdentifier: aws.String(snapshotName),
 		})
@@ -244,9 +244,9 @@ func (clusters *DbClusters) GetClusterSnapshot(snapshotName string) (*types.DBCl
 
 // CreateInstanceInCluster creates a database instance in an existing DB cluster. The first database that is
 // created defaults to a read-write DB instance.
-func (clusters *DbClusters) CreateInstanceInCluster(clusterName string, instanceName string,
+func (clusters *DbClusters) CreateInstanceInCluster(ctx context.Context, clusterName string, instanceName string,
 	dbEngine string, dbInstanceClass string) (*types.DBInstance, error) {
-	output, err := clusters.AuroraClient.CreateDBInstance(context.TODO(), &rds.CreateDBInstanceInput{
+	output, err := clusters.AuroraClient.CreateDBInstance(ctx, &rds.CreateDBInstanceInput{
 		DBInstanceIdentifier: aws.String(instanceName),
 		DBClusterIdentifier:  aws.String(clusterName),
 		Engine:               aws.String(dbEngine),
@@ -265,9 +265,9 @@ func (clusters *DbClusters) CreateInstanceInCluster(clusterName string, instance
 // snippet-start:[gov2.aurora.DescribeDBInstances]
 
 // GetInstance gets data about a DB instance.
-func (clusters *DbClusters) GetInstance(instanceName string) (
+func (clusters *DbClusters) GetInstance(ctx context.Context, instanceName string) (
 	*types.DBInstance, error) {
-	output, err := clusters.AuroraClient.DescribeDBInstances(context.TODO(),
+	output, err := clusters.AuroraClient.DescribeDBInstances(ctx,
 		&rds.DescribeDBInstancesInput{
 			DBInstanceIdentifier: aws.String(instanceName),
 		})
@@ -290,8 +290,8 @@ func (clusters *DbClusters) GetInstance(instanceName string) (
 // snippet-start:[gov2.aurora.DeleteDBInstance]
 
 // DeleteInstance deletes a DB instance.
-func (clusters *DbClusters) DeleteInstance(instanceName string) error {
-	_, err := clusters.AuroraClient.DeleteDBInstance(context.TODO(), &rds.DeleteDBInstanceInput{
+func (clusters *DbClusters) DeleteInstance(ctx context.Context, instanceName string) error {
+	_, err := clusters.AuroraClient.DeleteDBInstance(ctx, &rds.DeleteDBInstanceInput{
 		DBInstanceIdentifier:   aws.String(instanceName),
 		SkipFinalSnapshot:      aws.Bool(true),
 		DeleteAutomatedBackups: aws.Bool(true),
@@ -310,9 +310,9 @@ func (clusters *DbClusters) DeleteInstance(instanceName string) error {
 
 // GetEngineVersions gets database engine versions that are available for the specified engine
 // and parameter group family.
-func (clusters *DbClusters) GetEngineVersions(engine string, parameterGroupFamily string) (
+func (clusters *DbClusters) GetEngineVersions(ctx context.Context, engine string, parameterGroupFamily string) (
 	[]types.DBEngineVersion, error) {
-	output, err := clusters.AuroraClient.DescribeDBEngineVersions(context.TODO(),
+	output, err := clusters.AuroraClient.DescribeDBEngineVersions(ctx,
 		&rds.DescribeDBEngineVersionsInput{
 			Engine:                 aws.String(engine),
 			DBParameterGroupFamily: aws.String(parameterGroupFamily),
@@ -331,7 +331,7 @@ func (clusters *DbClusters) GetEngineVersions(engine string, parameterGroupFamil
 
 // GetOrderableInstances uses a paginator to get DB instance options that can be used to create DB instances that are
 // compatible with a set of specifications.
-func (clusters *DbClusters) GetOrderableInstances(engine string, engineVersion string) (
+func (clusters *DbClusters) GetOrderableInstances(ctx context.Context, engine string, engineVersion string) (
 	[]types.OrderableDBInstanceOption, error) {
 
 	var output *rds.DescribeOrderableDBInstanceOptionsOutput
@@ -343,7 +343,7 @@ func (clusters *DbClusters) GetOrderableInstances(engine string, engineVersion s
 			EngineVersion: aws.String(engineVersion),
 		})
 	for orderablePaginator.HasMorePages() {
-		output, err = orderablePaginator.NextPage(context.TODO())
+		output, err = orderablePaginator.NextPage(ctx)
 		if err != nil {
 			log.Printf("Couldn't get orderable DB instances: %v\n", err)
 			break

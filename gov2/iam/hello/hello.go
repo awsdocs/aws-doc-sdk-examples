@@ -19,7 +19,8 @@ import (
 // This example uses the default settings specified in your shared credentials
 // and config files.
 func main() {
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		fmt.Println("Couldn't load default configuration. Have you set up your AWS account?")
 		fmt.Println(err)
@@ -28,7 +29,7 @@ func main() {
 	iamClient := iam.NewFromConfig(sdkConfig)
 	const maxPols = 10
 	fmt.Printf("Let's list up to %v policies for your account.\n", maxPols)
-	result, err := iamClient.ListPolicies(context.TODO(), &iam.ListPoliciesInput{
+	result, err := iamClient.ListPolicies(ctx, &iam.ListPoliciesInput{
 		MaxItems: aws.Int32(maxPols),
 	})
 	if err != nil {

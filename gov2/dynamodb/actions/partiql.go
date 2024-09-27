@@ -30,12 +30,12 @@ type PartiQLRunner struct {
 // snippet-start:[gov2.dynamodb.ExecuteStatement.Insert]
 
 // AddMovie runs a PartiQL INSERT statement to add a movie to the DynamoDB table.
-func (runner PartiQLRunner) AddMovie(movie Movie) error {
+func (runner PartiQLRunner) AddMovie(ctx context.Context, movie Movie) error {
 	params, err := attributevalue.MarshalList([]interface{}{movie.Title, movie.Year, movie.Info})
 	if err != nil {
 		panic(err)
 	}
-	_, err = runner.DynamoDbClient.ExecuteStatement(context.TODO(), &dynamodb.ExecuteStatementInput{
+	_, err = runner.DynamoDbClient.ExecuteStatement(ctx, &dynamodb.ExecuteStatementInput{
 		Statement: aws.String(
 			fmt.Sprintf("INSERT INTO \"%v\" VALUE {'title': ?, 'year': ?, 'info': ?}",
 				runner.TableName)),
@@ -53,13 +53,13 @@ func (runner PartiQLRunner) AddMovie(movie Movie) error {
 
 // GetMovie runs a PartiQL SELECT statement to get a movie from the DynamoDB table by
 // title and year.
-func (runner PartiQLRunner) GetMovie(title string, year int) (Movie, error) {
+func (runner PartiQLRunner) GetMovie(ctx context.Context, title string, year int) (Movie, error) {
 	var movie Movie
 	params, err := attributevalue.MarshalList([]interface{}{title, year})
 	if err != nil {
 		panic(err)
 	}
-	response, err := runner.DynamoDbClient.ExecuteStatement(context.TODO(), &dynamodb.ExecuteStatementInput{
+	response, err := runner.DynamoDbClient.ExecuteStatement(ctx, &dynamodb.ExecuteStatementInput{
 		Statement: aws.String(
 			fmt.Sprintf("SELECT * FROM \"%v\" WHERE title=? AND year=?",
 				runner.TableName)),
@@ -83,13 +83,13 @@ func (runner PartiQLRunner) GetMovie(title string, year int) (Movie, error) {
 // GetAllMovies runs a PartiQL SELECT statement to get all movies from the DynamoDB table.
 // pageSize is not typically required and is used to show how to paginate the results.
 // The results are projected to return only the title and rating of each movie.
-func (runner PartiQLRunner) GetAllMovies(pageSize int32) ([]map[string]interface{}, error) {
+func (runner PartiQLRunner) GetAllMovies(ctx context.Context, pageSize int32) ([]map[string]interface{}, error) {
 	var output []map[string]interface{}
 	var response *dynamodb.ExecuteStatementOutput
 	var err error
 	var nextToken *string
 	for moreData := true; moreData; {
-		response, err = runner.DynamoDbClient.ExecuteStatement(context.TODO(), &dynamodb.ExecuteStatementInput{
+		response, err = runner.DynamoDbClient.ExecuteStatement(ctx, &dynamodb.ExecuteStatementInput{
 			Statement: aws.String(
 				fmt.Sprintf("SELECT title, info.rating FROM \"%v\"", runner.TableName)),
 			Limit:     aws.Int32(pageSize),
@@ -120,12 +120,12 @@ func (runner PartiQLRunner) GetAllMovies(pageSize int32) ([]map[string]interface
 
 // UpdateMovie runs a PartiQL UPDATE statement to update the rating of a movie that
 // already exists in the DynamoDB table.
-func (runner PartiQLRunner) UpdateMovie(movie Movie, rating float64) error {
+func (runner PartiQLRunner) UpdateMovie(ctx context.Context, movie Movie, rating float64) error {
 	params, err := attributevalue.MarshalList([]interface{}{rating, movie.Title, movie.Year})
 	if err != nil {
 		panic(err)
 	}
-	_, err = runner.DynamoDbClient.ExecuteStatement(context.TODO(), &dynamodb.ExecuteStatementInput{
+	_, err = runner.DynamoDbClient.ExecuteStatement(ctx, &dynamodb.ExecuteStatementInput{
 		Statement: aws.String(
 			fmt.Sprintf("UPDATE \"%v\" SET info.rating=? WHERE title=? AND year=?",
 				runner.TableName)),
@@ -142,12 +142,12 @@ func (runner PartiQLRunner) UpdateMovie(movie Movie, rating float64) error {
 // snippet-start:[gov2.dynamodb.ExecuteStatement.Delete]
 
 // DeleteMovie runs a PartiQL DELETE statement to remove a movie from the DynamoDB table.
-func (runner PartiQLRunner) DeleteMovie(movie Movie) error {
+func (runner PartiQLRunner) DeleteMovie(ctx context.Context, movie Movie) error {
 	params, err := attributevalue.MarshalList([]interface{}{movie.Title, movie.Year})
 	if err != nil {
 		panic(err)
 	}
-	_, err = runner.DynamoDbClient.ExecuteStatement(context.TODO(), &dynamodb.ExecuteStatementInput{
+	_, err = runner.DynamoDbClient.ExecuteStatement(ctx, &dynamodb.ExecuteStatementInput{
 		Statement: aws.String(
 			fmt.Sprintf("DELETE FROM \"%v\" WHERE title=? AND year=?",
 				runner.TableName)),
@@ -165,7 +165,7 @@ func (runner PartiQLRunner) DeleteMovie(movie Movie) error {
 
 // AddMovieBatch runs a batch of PartiQL INSERT statements to add multiple movies to the
 // DynamoDB table.
-func (runner PartiQLRunner) AddMovieBatch(movies []Movie) error {
+func (runner PartiQLRunner) AddMovieBatch(ctx context.Context, movies []Movie) error {
 	statementRequests := make([]types.BatchStatementRequest, len(movies))
 	for index, movie := range movies {
 		params, err := attributevalue.MarshalList([]interface{}{movie.Title, movie.Year, movie.Info})
@@ -179,7 +179,7 @@ func (runner PartiQLRunner) AddMovieBatch(movies []Movie) error {
 		}
 	}
 
-	_, err := runner.DynamoDbClient.BatchExecuteStatement(context.TODO(), &dynamodb.BatchExecuteStatementInput{
+	_, err := runner.DynamoDbClient.BatchExecuteStatement(ctx, &dynamodb.BatchExecuteStatementInput{
 		Statements: statementRequests,
 	})
 	if err != nil {
@@ -194,7 +194,7 @@ func (runner PartiQLRunner) AddMovieBatch(movies []Movie) error {
 
 // GetMovieBatch runs a batch of PartiQL SELECT statements to get multiple movies from
 // the DynamoDB table by title and year.
-func (runner PartiQLRunner) GetMovieBatch(movies []Movie) ([]Movie, error) {
+func (runner PartiQLRunner) GetMovieBatch(ctx context.Context, movies []Movie) ([]Movie, error) {
 	statementRequests := make([]types.BatchStatementRequest, len(movies))
 	for index, movie := range movies {
 		params, err := attributevalue.MarshalList([]interface{}{movie.Title, movie.Year})
@@ -208,7 +208,7 @@ func (runner PartiQLRunner) GetMovieBatch(movies []Movie) ([]Movie, error) {
 		}
 	}
 
-	output, err := runner.DynamoDbClient.BatchExecuteStatement(context.TODO(), &dynamodb.BatchExecuteStatementInput{
+	output, err := runner.DynamoDbClient.BatchExecuteStatement(ctx, &dynamodb.BatchExecuteStatementInput{
 		Statements: statementRequests,
 	})
 	var outMovies []Movie
@@ -234,7 +234,7 @@ func (runner PartiQLRunner) GetMovieBatch(movies []Movie) ([]Movie, error) {
 
 // UpdateMovieBatch runs a batch of PartiQL UPDATE statements to update the rating of
 // multiple movies that already exist in the DynamoDB table.
-func (runner PartiQLRunner) UpdateMovieBatch(movies []Movie, ratings []float64) error {
+func (runner PartiQLRunner) UpdateMovieBatch(ctx context.Context, movies []Movie, ratings []float64) error {
 	statementRequests := make([]types.BatchStatementRequest, len(movies))
 	for index, movie := range movies {
 		params, err := attributevalue.MarshalList([]interface{}{ratings[index], movie.Title, movie.Year})
@@ -248,7 +248,7 @@ func (runner PartiQLRunner) UpdateMovieBatch(movies []Movie, ratings []float64) 
 		}
 	}
 
-	_, err := runner.DynamoDbClient.BatchExecuteStatement(context.TODO(), &dynamodb.BatchExecuteStatementInput{
+	_, err := runner.DynamoDbClient.BatchExecuteStatement(ctx, &dynamodb.BatchExecuteStatementInput{
 		Statements: statementRequests,
 	})
 	if err != nil {
@@ -263,7 +263,7 @@ func (runner PartiQLRunner) UpdateMovieBatch(movies []Movie, ratings []float64) 
 
 // DeleteMovieBatch runs a batch of PartiQL DELETE statements to remove multiple movies
 // from the DynamoDB table.
-func (runner PartiQLRunner) DeleteMovieBatch(movies []Movie) error {
+func (runner PartiQLRunner) DeleteMovieBatch(ctx context.Context, movies []Movie) error {
 	statementRequests := make([]types.BatchStatementRequest, len(movies))
 	for index, movie := range movies {
 		params, err := attributevalue.MarshalList([]interface{}{movie.Title, movie.Year})
@@ -277,7 +277,7 @@ func (runner PartiQLRunner) DeleteMovieBatch(movies []Movie) error {
 		}
 	}
 
-	_, err := runner.DynamoDbClient.BatchExecuteStatement(context.TODO(), &dynamodb.BatchExecuteStatementInput{
+	_, err := runner.DynamoDbClient.BatchExecuteStatement(ctx, &dynamodb.BatchExecuteStatementInput{
 		Statements: statementRequests,
 	})
 	if err != nil {

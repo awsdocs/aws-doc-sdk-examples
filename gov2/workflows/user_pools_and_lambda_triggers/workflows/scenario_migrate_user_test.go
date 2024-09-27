@@ -4,6 +4,7 @@
 package workflows
 
 import (
+	"context"
 	"testing"
 	"user_pools_and_lambda_triggers/stubs"
 
@@ -106,7 +107,7 @@ func (scenTest *MigrateUserScenarioTest) RunSubTest(stubber *testtools.AwsmStubb
 	helper := NewScenarioHelper(*stubber.SdkConfig, &mockQuestioner)
 	helper.isTestRun = true
 	scenario := NewMigrateUser(*stubber.SdkConfig, &mockQuestioner, &helper)
-	scenario.Run(scenTest.stackName)
+	scenario.Run(context.Background(), scenTest.stackName)
 }
 
 func (scenTest *MigrateUserScenarioTest) Cleanup() {}

@@ -5,6 +5,7 @@ package scenarios
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"io"
 	"log"
@@ -122,7 +123,7 @@ func sendMultipartRequest(url string, fields map[string]string, file *os.File, f
 //
 // It uses an IHttpRequester interface to abstract HTTP requests so they can be mocked
 // during testing.
-func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestioner, httpRequester IHttpRequester) {
+func RunPresigningScenario(ctx context.Context, sdkConfig aws.Config, questioner demotools.IQuestioner, httpRequester IHttpRequester) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Printf("Something went wrong with the demo")
@@ -140,12 +141,12 @@ func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 
 	bucketName := questioner.Ask("We'll need a bucket. Enter a name for a bucket "+
 		"you own or one you want to create:", demotools.NotEmpty{})
-	bucketExists, err := bucketBasics.BucketExists(bucketName)
+	bucketExists, err := bucketBasics.BucketExists(ctx, bucketName)
 	if err != nil {
 		panic(err)
 	}
 	if !bucketExists {
-		err = bucketBasics.CreateBucket(bucketName, sdkConfig.Region)
+		err = bucketBasics.CreateBucket(ctx, bucketName, sdkConfig.Region)
 		if err != nil {
 			panic(err)
 		} else {
@@ -164,7 +165,7 @@ func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 		panic(err)
 	}
 	defer uploadFile.Close()
-	presignedPutRequest, err := presigner.PutObject(bucketName, uploadKey, 60)
+	presignedPutRequest, err := presigner.PutObject(ctx, bucketName, uploadKey, 60)
 	if err != nil {
 		panic(err)
 	}
@@ -185,7 +186,7 @@ func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 
 	log.Printf("Let's presign a request to download the object.")
 	questioner.Ask("Press Enter when you're ready.")
-	presignedGetRequest, err := presigner.GetObject(bucketName, uploadKey, 60)
+	presignedGetRequest, err := presigner.GetObject(ctx, bucketName, uploadKey, 60)
 	if err != nil {
 		panic(err)
 	}
@@ -209,7 +210,8 @@ func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 	log.Println(strings.Repeat("-", 88))
 
 	log.Println("Now we'll create a new request to put the same object using a presigned post request")
-	presignPostRequest, err := presigner.PresignPostObject(bucketName, uploadKey, 60)
+	questioner.Ask("Press Enter when you're ready.")
+	presignPostRequest, err := presigner.PresignPostObject(ctx, bucketName, uploadKey, 60)
 	if err != nil {
 		panic(err)
 	}
@@ -228,7 +230,7 @@ func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 
 	log.Println("Let's presign a request to delete the object.")
 	questioner.Ask("Press Enter when you're ready.")
-	presignedDelRequest, err := presigner.DeleteObject(bucketName, uploadKey)
+	presignedDelRequest, err := presigner.DeleteObject(ctx, bucketName, uploadKey)
 	if err != nil {
 		panic(err)
 	}

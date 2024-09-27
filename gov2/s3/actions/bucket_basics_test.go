@@ -6,6 +6,7 @@
 package actions
 
 import (
+	"context"
 	"errors"
 	"testing"
 
@@ -28,8 +29,9 @@ func TestBucketBasics_CopyToBucket(t *testing.T) {
 func CopyToBucket(raiseErr *testtools.StubError, t *testing.T) {
 	stubber, basics := enterTest()
 	stubber.Add(stubs.StubCopyObject("source-bucket", "object-key", "dest-bucket", "object-key", raiseErr))
+	ctx := context.Background()
 
-	err := basics.CopyToBucket("source-bucket", "dest-bucket", "object-key")
+	err := basics.CopyToBucket(ctx, "source-bucket", "dest-bucket", "object-key")
 
 	testtools.VerifyError(err, raiseErr, t)
 	testtools.ExitTest(stubber, t)

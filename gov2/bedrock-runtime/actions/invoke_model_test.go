@@ -6,6 +6,7 @@
 package actions
 
 import (
+	"context"
 	"encoding/json"
 	"log"
 	"testing"
@@ -33,33 +34,34 @@ func CallInvokeModelActions(sdkConfig aws.Config) {
 
 	client := bedrockruntime.NewFromConfig(sdkConfig)
 	wrapper := InvokeModelWrapper{client}
+	ctx := context.Background()
 
-	claudeCompletion, err := wrapper.InvokeClaude(prompt)
+	claudeCompletion, err := wrapper.InvokeClaude(ctx, prompt)
 	if err != nil {
 		panic(err)
 	}
 	log.Println(claudeCompletion)
 
-	jurassic2Completion, err := wrapper.InvokeJurassic2(prompt)
+	jurassic2Completion, err := wrapper.InvokeJurassic2(ctx, prompt)
 	if err != nil {
 		panic(err)
 	}
 	log.Println(jurassic2Completion)
 
-	llama2Completion, err := wrapper.InvokeLlama2(prompt)
+	llama2Completion, err := wrapper.InvokeLlama2(ctx, prompt)
 	if err != nil {
 		panic(err)
 	}
 	log.Println(llama2Completion)
 
 	seed := int64(0)
-	titanImageCompletion, err := wrapper.InvokeTitanImage(prompt, seed)
+	titanImageCompletion, err := wrapper.InvokeTitanImage(ctx, prompt, seed)
 	if err != nil {
 		panic(err)
 	}
 	log.Println(titanImageCompletion)
 
-	titanTextCompletion, err := wrapper.InvokeTitanText(prompt)
+	titanTextCompletion, err := wrapper.InvokeTitanText(ctx, prompt)
 	if err != nil {
 		panic(err)
 	}

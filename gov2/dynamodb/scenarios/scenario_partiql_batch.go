@@ -4,6 +4,7 @@
 package scenarios
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"strings"
@@ -26,7 +27,7 @@ import (
 // you can replace it with a mocked or stubbed config for unit testing.
 //
 // This example creates and deletes a DynamoDB table to use during the scenario.
-func RunPartiQLBatchScenario(sdkConfig aws.Config, tableName string) {
+func RunPartiQLBatchScenario(ctx context.Context, sdkConfig aws.Config, tableName string) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Printf("Something went wrong with the demo.")
@@ -46,13 +47,13 @@ func RunPartiQLBatchScenario(sdkConfig aws.Config, tableName string) {
 		TableName:      tableName,
 	}
 
-	exists, err := tableBasics.TableExists()
+	exists, err := tableBasics.TableExists(ctx)
 	if err != nil {
 		panic(err)
 	}
 	if !exists {
 		log.Printf("Creating table %v...\n", tableName)
-		_, err = tableBasics.CreateMovieTable()
+		_, err = tableBasics.CreateMovieTable(ctx)
 		if err != nil {
 			panic(err)
 		} else {
@@ -84,14 +85,14 @@ func RunPartiQLBatchScenario(sdkConfig aws.Config, tableName string) {
 	}
 
 	log.Printf("Inserting a batch of movies into table '%v'.\n", tableName)
-	err = runner.AddMovieBatch(customMovies)
+	err = runner.AddMovieBatch(ctx, customMovies)
 	if err == nil {
 		log.Printf("Added %v movies to the table.\n", len(customMovies))
 	}
 	log.Println(strings.Repeat("-", 88))
 
 	log.Println("Getting data for a batch of movies.")
-	movies, err := runner.GetMovieBatch(customMovies)
+	movies, err := runner.GetMovieBatch(ctx, customMovies)
 	if err == nil {
 		for _, movie := range movies {
 			log.Println(movie)
@@ -101,7 +102,7 @@ func RunPartiQLBatchScenario(sdkConfig aws.Config, tableName string) {
 
 	newRatings := []float64{7.7, 4.4, 1.1}
 	log.Println("Updating a batch of movies with new ratings.")
-	err = runner.UpdateMovieBatch(customMovies, newRatings)
+	err = runner.UpdateMovieBatch(ctx, customMovies, newRatings)
 	if err == nil {
 		log.Printf("Updated %v movies with new ratings.\n", len(customMovies))
 	}
@@ -109,7 +110,7 @@ func RunPartiQLBatchScenario(sdkConfig aws.Config, tableName string) {
 
 	log.Println("Getting projected data from the table to verify our update.")
 	log.Println("Using a page size of 2 to demonstrate paging.")
-	projections, err := runner.GetAllMovies(2)
+	projections, err := runner.GetAllMovies(ctx, 2)
 	if err == nil {
 		log.Println("All movies:")
 		for _, projection := range projections {
@@ -119,12 +120,12 @@ func RunPartiQLBatchScenario(sdkConfig aws.Config, tableName string) {
 	log.Println(strings.Repeat("-", 88))
 
 	log.Println("Deleting a batch of movies.")
-	err = runner.DeleteMovieBatch(customMovies)
+	err = runner.DeleteMovieBatch(ctx, customMovies)
 	if err == nil {
 		log.Printf("Deleted %v movies.\n", len(customMovies))
 	}
 
-	err = tableBasics.DeleteTable()
+	err = tableBasics.DeleteTable(ctx)
 	if err == nil {
 		log.Printf("Deleted table %v.\n", tableBasics.TableName)
 	}

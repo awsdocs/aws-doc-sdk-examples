@@ -4,6 +4,7 @@
 package workflows
 
 import (
+	"context"
 	"errors"
 	"log"
 	"strings"
@@ -39,12 +40,12 @@ func NewAutoConfirm(sdkConfig aws.Config, questioner demotools.IQuestioner, help
 }
 
 // AddPreSignUpTrigger adds a Lambda handler as an invocation target for the PreSignUp trigger.
-func (runner *AutoConfirm) AddPreSignUpTrigger(userPoolId string, functionArn string) {
+func (runner *AutoConfirm) AddPreSignUpTrigger(ctx context.Context, userPoolId string, functionArn string) {
 	log.Printf("Let's add a Lambda function to handle the PreSignUp trigger from Cognito.\n" +
 		"This trigger happens when a user signs up, and lets your function take action before the main Cognito\n" +
 		"sign up processing occurs.\n")
 	err := runner.cognitoActor.UpdateTriggers(
-		userPoolId,
+		ctx, userPoolId,
 		actions.TriggerInfo{Trigger: actions.PreSignUp, HandlerArn: aws.String(functionArn)})
 	if err != nil {
 		panic(err)
@@ -54,11 +55,11 @@ func (runner *AutoConfirm) AddPreSignUpTrigger(userPoolId string, functionArn st
 }
 
 // SignUpUser signs up a user from the known user table with a password you specify.
-func (runner *AutoConfirm) SignUpUser(clientId string, usersTable string) (string, string) {
+func (runner *AutoConfirm) SignUpUser(ctx context.Context, clientId string, usersTable string) (string, string) {
 	log.Println("Let's sign up a user to your Cognito user pool. When the user's email matches an email in the\n" +
 		"DynamoDB known users table, it is automatically verified and the user is confirmed.")
 
-	knownUsers, err := runner.helper.GetKnownUsers(usersTable)
+	knownUsers, err := runner.helper.GetKnownUsers(ctx, usersTable)
 	if err != nil {
 		panic(err)
 	}
@@ -71,7 +72,7 @@ func (runner *AutoConfirm) SignUpUser(clientId string, usersTable string) (strin
 		"(the password will not display as you type):", 8)
 	for !signedUp {
 		log.Printf("Signing up user '%v' with email '%v' to Cognito.\n", user.UserName, user.UserEmail)
-		userConfirmed, err = runner.cognitoActor.SignUp(clientId, user.UserName, password, user.UserEmail)
+		userConfirmed, err = runner.cognitoActor.SignUp(ctx, clientId, user.UserName, password, user.UserEmail)
 		if err != nil {
 			var invalidPassword *types.InvalidPasswordException
 			if errors.As(err, &invalidPassword) {
@@ -91,10 +92,10 @@ func (runner *AutoConfirm) SignUpUser(clientId string, usersTable string) (strin
 }
 
 // SignInUser signs in a user.
-func (runner *AutoConfirm) SignInUser(clientId string, userName string, password string) string {
+func (runner *AutoConfirm) SignInUser(ctx context.Context, clientId string, userName string, password string) string {
 	runner.questioner.Ask("Press Enter when you're ready to continue.")
 	log.Printf("Let's sign in as %v...\n", userName)
-	authResult, err := runner.cognitoActor.SignIn(clientId, userName, password)
+	authResult, err := runner.cognitoActor.SignIn(ctx, clientId, userName, password)
 	if err != nil {
 		panic(err)
 	}
@@ -104,11 +105,11 @@ func (runner *AutoConfirm) SignInUser(clientId string, userName string, password
 }
 
 // Run runs the scenario.
-func (runner *AutoConfirm) Run(stackName string) {
+func (runner *AutoConfirm) Run(ctx context.Context, stackName string) {
 	defer func() {
 		if r := recover(); r != nil {
 			log.Println("Something went wrong with the demo.")
-			runner.resources.Cleanup()
+			runner.resources.Cleanup(ctx)
 		}
 	}()
 
@@ -117,21 +118,21 @@ func (runner *AutoConfirm) Run(stackName string) {
 
 	log.Println(strings.Repeat("-", 88))
 
-	stackOutputs, err := runner.helper.GetStackOutputs(stackName)
+	stackOutputs, err := runner.helper.GetStackOutputs(ctx, stackName)
 	if err != nil {
 		panic(err)
 	}
 	runner.resources.userPoolId = stackOutputs["UserPoolId"]
-	runner.helper.PopulateUserTable(stackOutputs["TableName"])
+	runner.helper.PopulateUserTable(ctx, stackOutputs["TableName"])
 
-	runner.AddPreSignUpTrigger(stackOutputs["UserPoolId"], stackOutputs["AutoConfirmFunctionArn"])
+	runner.AddPreSignUpTrigger(ctx, stackOutputs["UserPoolId"], stackOutputs["AutoConfirmFunctionArn"])
 	runner.resources.triggers = append(runner.resources.triggers, actions.PreSignUp)
-	userName, password := runner.SignUpUser(stackOutputs["UserPoolClientId"], stackOutputs["TableName"])
-	runner.helper.ListRecentLogEvents(stackOutputs["AutoConfirmFunction"])
+	userName, password := runner.SignUpUser(ctx, stackOutputs["UserPoolClientId"], stackOutputs["TableName"])
+	runner.helper.ListRecentLogEvents(ctx, stackOutputs["AutoConfirmFunction"])
 	runner.resources.userAccessTokens = append(runner.resources.userAccessTokens,
-		runner.SignInUser(stackOutputs["UserPoolClientId"], userName, password))
+		runner.SignInUser(ctx, stackOutputs["UserPoolClientId"], userName, password))
 
-	runner.resources.Cleanup()
+	runner.resources.Cleanup(ctx)
 
 	log.Println(strings.Repeat("-", 88))
 	log.Println("Thanks for watching!")

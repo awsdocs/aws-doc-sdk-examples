@@ -6,6 +6,7 @@
 package workflows
 
 import (
+	"context"
 	"fmt"
 	"testing"
 	"topics_and_queues/stubs"
@@ -103,7 +104,7 @@ func (scenTest *TopicsAndQueuesScenarioTest) SetupDataAndStubs() []testtools.Stu
 // or without errors.
 func (scenTest *TopicsAndQueuesScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
 	mockQuestioner := demotools.MockQuestioner{Answers: scenTest.Answers}
-	RunTopicsAndQueuesScenario(*stubber.SdkConfig, &mockQuestioner)
+	RunTopicsAndQueuesScenario(context.Background(), *stubber.SdkConfig, &mockQuestioner)
 }
 
 func (scenTest *TopicsAndQueuesScenarioTest) Cleanup() {}

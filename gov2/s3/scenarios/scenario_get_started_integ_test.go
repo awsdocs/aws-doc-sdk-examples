@@ -29,7 +29,8 @@ func TestGetStartedScenario_Integration(t *testing.T) {
 		},
 	}
 
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)
 	}
@@ -38,7 +39,7 @@ func TestGetStartedScenario_Integration(t *testing.T) {
 	var buf bytes.Buffer
 	log.SetOutput(&buf)
 
-	RunGetStartedScenario(sdkConfig, mockQuestioner)
+	RunGetStartedScenario(ctx, sdkConfig, mockQuestioner)
 
 	_ = os.Remove(outFile)
 

@@ -6,6 +6,7 @@
 package scenarios
 
 import (
+	"context"
 	"fmt"
 	"testing"
 	"time"
@@ -72,7 +73,7 @@ func (scenTest *PartiQLSingleScenarioTest) SetupDataAndStubs() []testtools.Stub 
 // RunSubTest performs a single test run with a set of stubs that are set up to run with
 // or without errors.
 func (scenTest *PartiQLSingleScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
-	RunPartiQLSingleScenario(*stubber.SdkConfig, scenTest.TableName)
+	RunPartiQLSingleScenario(context.Background(), *stubber.SdkConfig, scenTest.TableName)
 }
 
 func (scenTest *PartiQLSingleScenarioTest) Cleanup() {}

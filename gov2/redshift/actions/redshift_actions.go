@@ -8,11 +8,12 @@ package actions
 import (
 	"context"
 	"errors"
+	"log"
+	"time"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/redshift"
 	"github.com/aws/aws-sdk-go-v2/service/redshift/types"
-	"log"
-	"time"
 )
 
 // snippet-end:[gov2.redshift.Imports]
@@ -85,12 +86,11 @@ func (actor RedshiftActions) ModifyCluster(ctx context.Context, clusterId string
 
 // DeleteCluster deletes the given cluster.
 func (actor RedshiftActions) DeleteCluster(ctx context.Context, clusterId string) (bool, error) {
-	// Delete the specified Redshift cluster
-
-	waiter := redshift.NewClusterDeletedWaiter(actor.RedshiftClient)
-	err := waiter.Wait(ctx, &redshift.DescribeClustersInput{
-		ClusterIdentifier: aws.String(clusterId),
-	}, 5*time.Minute)
+	input := redshift.DeleteClusterInput{
+		ClusterIdentifier:        aws.String(clusterId),
+		SkipFinalClusterSnapshot: aws.Bool(true),
+	}
+	_, err := actor.RedshiftClient.DeleteCluster(ctx, &input)
 	var opErr *types.ClusterNotFoundFault
 	if err != nil && errors.As(err, &opErr) {
 		log.Println("Cluster was not found. Where could it be?")
@@ -99,7 +99,14 @@ func (actor RedshiftActions) DeleteCluster(ctx context.Context, clusterId string
 		log.Printf("Failed to delete Redshift cluster: %v\n", err)
 		return false, err
 	}
-	log.Printf("The %s was deleted\n", clusterId)
+	waiter := redshift.NewClusterDeletedWaiter(actor.RedshiftClient)
+	err = waiter.Wait(ctx, &redshift.DescribeClustersInput{
+		ClusterIdentifier: aws.String(clusterId),
+	}, 5*time.Minute)
+	if err != nil {
+		log.Printf("Wait time exceeded for deleting cluster, continuing: %v\n", err)
+	}
+	log.Printf("The cluster %s was deleted\n", clusterId)
 	return true, nil
 }
 
