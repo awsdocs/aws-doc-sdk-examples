@@ -28,7 +28,7 @@ public class EC2Wrapper
     // snippet-start:[EC2.dotnetv3.AllocateAddress]
     /// <summary>
     /// Allocates an Elastic IP address that can be associated with an Amazon EC2
-    // instance.By using an Elastic IP address, you can keep the public IP address
+    // instance. By using an Elastic IP address, you can keep the public IP address
     // constant even when you restart the associated instance.
     /// </summary>
     /// <returns>The response object for the allocated address.</returns>
