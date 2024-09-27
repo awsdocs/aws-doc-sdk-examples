@@ -4,9 +4,11 @@
 package scenarios
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"log"
+	"mime/multipart"
 	"net/http"
 	"os"
 	"strings"
@@ -23,6 +25,7 @@ import (
 // unit testing.
 type IHttpRequester interface {
 	Get(url string) (resp *http.Response, err error)
+	Post(url, contentType string, body io.Reader) (resp *http.Response, err error)
 	Put(url string, contentLength int64, body io.Reader) (resp *http.Response, err error)
 	Delete(url string) (resp *http.Response, err error)
 }
@@ -33,6 +36,15 @@ type HttpRequester struct{}
 func (httpReq HttpRequester) Get(url string) (resp *http.Response, err error) {
 	return http.Get(url)
 }
+func (httpReq HttpRequester) Post(url, contentType string, body io.Reader) (resp *http.Response, err error) {
+	postRequest, err := http.NewRequest("POST", url, body)
+	if err != nil {
+		return nil, err
+	}
+	postRequest.Header.Set("Content-Type", contentType)
+	return http.DefaultClient.Do(postRequest)
+}
+
 func (httpReq HttpRequester) Put(url string, contentLength int64, body io.Reader) (resp *http.Response, err error) {
 	putRequest, err := http.NewRequest("PUT", url, body)
 	if err != nil {
@@ -50,6 +62,43 @@ func (httpReq HttpRequester) Delete(url string) (resp *http.Response, err error)
 }
 
 // snippet-end:[gov2.s3.IHttpRequester.helper]
+
+// snippet-start:[gov2.s3.MultipartUpload.helper]
+func sendMultipartRequest(url string, fields map[string]string, file *os.File, filePath string, httpRequester IHttpRequester) (*http.Response, error) {
+	// Create a buffer to hold the multipart data
+	var requestBody bytes.Buffer
+	writer := multipart.NewWriter(&requestBody)
+
+	// Add form fields
+	for key, val := range fields {
+		err := writer.WriteField(key, val)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	// Always has to be named like this, and always has to be the last one
+	fileField := "file"
+	part, err := writer.CreateFormFile(fileField, filePath)
+	if err != nil {
+		return nil, err
+	}
+	_, err = io.Copy(part, file)
+	if err != nil {
+		return nil, err
+	}
+
+	// Close the writer to finalize the multipart message
+	err = writer.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	// make the request
+	return httpRequester.Post(url, writer.FormDataContentType(), &requestBody)
+}
+
+// snippet-end:[gov2.s3.MultipartUpload.helper]
 
 // snippet-start:[gov2.s3.Scenario_Presigning]
 
@@ -76,7 +125,7 @@ func (httpReq HttpRequester) Delete(url string) (resp *http.Response, err error)
 func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestioner, httpRequester IHttpRequester) {
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Printf("Something went wrong with the demo.")
+			fmt.Printf("Something went wrong with the demo")
 		}
 	}()
 
@@ -158,6 +207,24 @@ func RunPresigningScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 	log.Println(strings.Repeat("-", 88))
 	log.Println(string(downloadBody[:100]))
 	log.Println(strings.Repeat("-", 88))
+
+	log.Println("Now we'll create a new request to put the same object using a presigned post request")
+	presignPostRequest, err := presigner.PresignPostObject(bucketName, uploadKey, 60)
+	if err != nil {
+		panic(err)
+	}
+	log.Printf("Got a presigned post request to url %v with values %v\n", presignPostRequest.URL, presignPostRequest.Values)
+	log.Println("Using net/http multipart to send the request...")
+	uploadFile, err = os.Open(uploadFilename)
+	if err != nil {
+		panic(err)
+	}
+	defer uploadFile.Close()
+	multiPartResponse, err := sendMultipartRequest(presignPostRequest.URL, presignPostRequest.Values, uploadFile, uploadKey, httpRequester)
+	if err != nil {
+		panic(err)
+	}
+	log.Printf("Presign post object %v with presigned URL returned %v.", uploadKey, multiPartResponse.StatusCode)
 
 	log.Println("Let's presign a request to delete the object.")
 	questioner.Ask("Press Enter when you're ready.")

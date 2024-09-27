@@ -83,4 +83,22 @@ func (presigner Presigner) DeleteObject(bucketName string, objectKey string) (*v
 }
 
 // snippet-end:[gov2.s3.PresignDeleteObject]
+
+// snippet-start:[gov2.s3.PresignPostObject]
+
+func (presigner Presigner) PresignPostObject(bucketName string, objectKey string, lifetimeSecs int64) (*s3.PresignedPostRequest, error) {
+	request, err := presigner.PresignClient.PresignPostObject(context.TODO(), &s3.PutObjectInput{
+		Bucket: aws.String(bucketName),
+		Key:    aws.String(objectKey),
+	}, func(options *s3.PresignPostOptions) {
+		options.Expires = time.Duration(lifetimeSecs) * time.Second
+	})
+	if err != nil {
+		log.Printf("Couldn't get a presigned post request to put %v:%v. Here's why: %v\n", bucketName, objectKey, err)
+	}
+	return request, nil
+}
+
+// snippet-end:[gov2.s3.PresignPostObject]
+
 // snippet-end:[gov2.s3.Presigner.complete]
