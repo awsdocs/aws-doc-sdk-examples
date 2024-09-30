@@ -31,37 +31,6 @@ pub async fn create_policy(
 }
 // snippet-end:[rust.example_code.iam.service.create_policy]
 
-#[cfg(test)]
-mod test_create_policy {
-    use crate::create_policy;
-    use http::StatusCode;
-    use sdk_examples_test_utils::single_shot_client;
-
-    #[tokio::test]
-    async fn test_create_policy_success() {
-        let client = single_shot_client!(
-            sdk: aws_sdk_iam,
-            status: StatusCode::OK,
-            response: include_str!("../testing/test_create_policy_response_success.xml")
-        );
-
-        let response = create_policy(&client, "{}", "test_role").await;
-        assert!(response.is_ok());
-    }
-
-    #[tokio::test]
-    async fn test_create_policy_failed() {
-        let client = single_shot_client!(
-            sdk: aws_sdk_iam,
-            status: StatusCode::BAD_REQUEST,
-            response: include_str!("../testing/test_create_policy_response_malformed.xml")
-        );
-
-        let response = create_policy(&client, "{}", "test_role").await;
-        assert!(response.is_err());
-    }
-}
-
 // snippet-start:[rust.example_code.iam.service.create_role]
 pub async fn create_role(
     client: &iamClient,
@@ -492,5 +461,38 @@ pub async fn list_saml_providers(
     Ok(response)
 }
 // snippet-end:[rust.example_code.iam.service.list_saml_providers]
+
+// snippet-start:[rust.example_code.iam.service.create_policy.test]
+#[cfg(test)]
+mod test_create_policy {
+    use crate::create_policy;
+    use http::StatusCode;
+    use sdk_examples_test_utils::single_shot_client;
+
+    #[tokio::test]
+    async fn test_create_policy_success() {
+        let client = single_shot_client!(
+            sdk: aws_sdk_iam,
+            status: StatusCode::OK,
+            response: include_str!("../testing/test_create_policy_response_success.xml")
+        );
+
+        let response = create_policy(&client, "{}", "test_role").await;
+        assert!(response.is_ok());
+    }
+
+    #[tokio::test]
+    async fn test_create_policy_failed() {
+        let client = single_shot_client!(
+            sdk: aws_sdk_iam,
+            status: StatusCode::BAD_REQUEST,
+            response: include_str!("../testing/test_create_policy_response_malformed.xml")
+        );
+
+        let response = create_policy(&client, "{}", "test_role").await;
+        assert!(response.is_err());
+    }
+}
+// snippet-end:[rust.example_code.iam.service.create_policy.test]
 
 // snippet-end:[rust.example_code.iam.scenario_getting_started.lib]
