@@ -35,7 +35,7 @@ export const main = async ({ bucketName, key }) => {
       );
     } else if (caught instanceof S3ServiceException) {
       console.error(
-        `Error from S3 while legal hold status for ${key} in ${bucketName} from ${bucketName}.  ${caught.name}: ${caught.message}`,
+        `Error from S3 while getting legal hold status for ${key} in ${bucketName} from ${bucketName}.  ${caught.name}: ${caught.message}`,
       );
     } else {
       throw caught;
