@@ -67,6 +67,7 @@ Code excerpts that show you how to call individual service functions.
 - [Query](query_items.cpp#L22)
 - [Scan](scan_table.cpp#L23)
 - [UpdateItem](update_item.cpp#L24)
+- [UpdateTable](update_table.cpp#L33)
 
 ### Scenarios
 
