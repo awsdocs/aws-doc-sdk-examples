@@ -27,22 +27,8 @@ public class SitewiseScenario {
     static SitewiseActions sitewiseActions = new SitewiseActions();
 
     public static void main(String[] args) throws Throwable {
-        final String usage = """
-            Usage:
-               <contactEmail> 
-
-            Where:
-                contactEmail - The email address of the contact person associated with the IoT SiteWise program.
-                
-            """;
-
-      //  if (args.length != 1) {
-      //      logger.info(usage);
-     //       return;
-     //   }
-
         Scanner scanner = new Scanner(System.in);
-        String contactEmail = "scmacdon@amazon.com" ; //args[0];
+        String contactEmail = "user@mydomain.com"; // Change email address.
         String assetModelName = "MyAssetModel1";
         String assetName = "MyAsset1" ;
         String portalName = "MyPortal1" ;
@@ -420,17 +406,16 @@ public class SitewiseScenario {
 
     private static void waitForInputToContinue(Scanner scanner) {
         while (true) {
-            System.out.println("");
-            System.out.println("Enter 'c' followed by <ENTER> to continue:");
+            logger.info("");
+            logger.info("Enter 'c' followed by <ENTER> to continue:");
             String input = scanner.nextLine();
 
             if (input.trim().equalsIgnoreCase("c")) {
-                System.out.println("Continuing with the program...");
-                System.out.println("");
+                logger.info("Continuing with the program...");
+                logger.info("");
                 break;
             } else {
-                // Handle invalid input.
-                System.out.println("Invalid input. Please try again.");
+                logger.info("Invalid input. Please try again.");
             }
         }
     }
@@ -440,11 +425,10 @@ public class SitewiseScenario {
         for (int i = minutes * 60 + seconds; i >= 0; i--) {
             int displayMinutes = i / 60;
             int displaySeconds = i % 60;
-            System.out.print(String.format("\r%02d:%02d", displayMinutes, displaySeconds));
+            System.out.printf("\r%02d:%02d", displayMinutes, displaySeconds);
             Thread.sleep(1000); // Wait for 1 second
         }
-
-        System.out.println("Countdown complete!");
+        logger.info("Countdown complete!");
     }
 }
 // snippet-end:[iotsitewise.java2.scenario.main]

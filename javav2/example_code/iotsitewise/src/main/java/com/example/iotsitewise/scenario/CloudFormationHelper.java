@@ -9,7 +9,6 @@ import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.services.cloudformation.CloudFormationAsyncClient;
-import software.amazon.awssdk.services.cloudformation.CloudFormationClient;
 import software.amazon.awssdk.services.cloudformation.model.Capability;
 import software.amazon.awssdk.services.cloudformation.model.CloudFormationException;
 import software.amazon.awssdk.services.cloudformation.model.DescribeStacksRequest;
@@ -32,7 +31,6 @@ public class CloudFormationHelper {
     private static final Logger logger = LoggerFactory.getLogger(CloudFormationHelper.class);
 
     private static CloudFormationAsyncClient cloudFormationClient;
-
     private static CloudFormationAsyncClient getCloudFormationClient() {
         if (cloudFormationClient == null) {
             SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()

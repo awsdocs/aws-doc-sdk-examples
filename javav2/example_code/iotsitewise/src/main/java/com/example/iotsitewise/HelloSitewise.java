@@ -5,55 +5,33 @@ package com.example.iotsitewise;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iotsitewise.IoTSiteWiseAsyncClient;
-import software.amazon.awssdk.services.iotsitewise.model.AssetSummary;
-import software.amazon.awssdk.services.iotsitewise.model.ListAssetsRequest;
-import software.amazon.awssdk.services.iotsitewise.paginators.ListAssetsPublisher;
-
-import java.util.List;
+import software.amazon.awssdk.services.iotsitewise.model.AssetModelType;
+import software.amazon.awssdk.services.iotsitewise.model.ListAssetModelsRequest;
+import software.amazon.awssdk.services.iotsitewise.paginators.ListAssetModelsPublisher;
 import java.util.concurrent.CompletableFuture;
 
 // snippet-start:[iotsitewise.hello.main]
 public class HelloSitewise {
     private static final Logger logger = LoggerFactory.getLogger(HelloSitewise.class);
     public static void main(String[] args) {
-        final String usage = """
-            Usage:
-               <assetModelId>
-
-            Where:
-                assetModelId - The Id value of the asset model used in the IoT SiteWise program.
-            """;
-
-        if (args.length != 1) {
-            logger.info(usage);
-            return;
-        }
-
-        String assetModelId = args[0];
-        fetchAssets(assetModelId);
+         fetchAssetModels();
     }
 
     /**
-     * Fetches assets from AWS IoT SiteWise using the provided {@link IoTSiteWiseAsyncClient}.
-     *
-     * @param modelId the ID of the asset model to fetch assets for
+     * Fetches asset models using the provided {@link IoTSiteWiseAsyncClient}.
      */
-    public static void fetchAssets(String modelId) {
-        IoTSiteWiseAsyncClient siteWiseAsyncClient = IoTSiteWiseAsyncClient.builder()
-            .build();
-
-        ListAssetsRequest assetsRequest = ListAssetsRequest.builder()
-            .maxResults(10)
-            .assetModelId(modelId)
+    public static void fetchAssetModels() {
+        IoTSiteWiseAsyncClient siteWiseAsyncClient = IoTSiteWiseAsyncClient.create();
+        ListAssetModelsRequest assetModelsRequest = ListAssetModelsRequest.builder()
+            .assetModelTypes(AssetModelType.ASSET_MODEL)
             .build();
 
         // Asynchronous paginator - process paginated results.
-        ListAssetsPublisher listAssetsPaginator = siteWiseAsyncClient.listAssetsPaginator(assetsRequest);
-        CompletableFuture<Void> future = listAssetsPaginator.subscribe(response -> {
-            response.assetSummaries().forEach(assetSummary ->
-                logger.info("Asset Name: {} ", assetSummary.name())
+        ListAssetModelsPublisher listModelsPaginator = siteWiseAsyncClient.listAssetModelsPaginator(assetModelsRequest);
+        CompletableFuture<Void> future = listModelsPaginator.subscribe(response -> {
+            response.assetModelSummaries().forEach(assetSummary ->
+                logger.info("Asset Model Name: {} ", assetSummary.name())
             );
         });
 

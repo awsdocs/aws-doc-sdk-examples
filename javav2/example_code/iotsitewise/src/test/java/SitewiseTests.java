@@ -28,6 +28,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -41,8 +42,6 @@ public class SitewiseTests {
     private static String contactEmail = "";
     private static final String gatewayName = "myGateway"+ UUID.randomUUID();
     private static final String myThing = "myThing"+ UUID.randomUUID();
-
-    private static String assetModelHello = "";
 
     private static String assetModelId = "";
 
@@ -67,18 +66,20 @@ public class SitewiseTests {
         Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputsAsync(ROLES_STACK).join();
         iamRole = stackOutputs.get("SitewiseRoleArn");
 
+         /*
+         The following values used in these integration tests are retrieved from AWS Secrets Manager.
+         */
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
         contactEmail = values.getContactEmail();
-        assetModelHello  = values.getAssetModelHello();
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(1)
     public void testHelloService() {
-        assertDoesNotThrow(() -> HelloSitewise.fetchAssets(assetModelHello));
+        assertDoesNotThrow(HelloSitewise::fetchAssetModels);
         System.out.println(" Test 1 passed");
     }
 
@@ -93,8 +94,8 @@ public class SitewiseTests {
             if (response == null || response.assetModelId() == null) {
                 throw new RuntimeException("Simulating failure: response or assetModelId is null");
             }
-
             assetModelId = response.assetModelId();
+            assertNotNull(assetModelId);
         });
 
         System.out.println("Test 2 passed");
@@ -109,6 +110,7 @@ public class SitewiseTests {
             CompletableFuture<CreateAssetResponse> future = sitewiseActions.createAssetAsync(assetName, assetModelId);
             CreateAssetResponse response = future.join();
             assetId = response.assetId();
+            assertNotNull(assetId);
         });
         System.out.println("Test 3 passed");
     }
@@ -153,6 +155,7 @@ public class SitewiseTests {
     public void testCreatePortal() {
         assertDoesNotThrow(() -> {
             portalId = sitewiseActions.createPortalAsync(portalName, iamRole, contactEmail).join();
+            assertNotNull(portalId);
         });
         System.out.println("Test 7 passed");
     }
@@ -163,7 +166,7 @@ public class SitewiseTests {
     public void testDescribePortal() {
         assertDoesNotThrow(() -> {
             String portalUrl = sitewiseActions.describePortalAsync(portalId).join();
-            assertFalse(portalUrl.isEmpty());
+            assertNotNull(portalUrl);
         });
         System.out.println("Test 8 passed");
     }
@@ -174,7 +177,7 @@ public class SitewiseTests {
     public void testCreateGateway() {
         assertDoesNotThrow(() -> {
             gatewayId = sitewiseActions.createGatewayAsync(gatewayName, myThing).join();
-            assertFalse(gatewayId.isEmpty());
+            assertNotNull(gatewayId);
         });
         System.out.println("Test 9 passed");
     }

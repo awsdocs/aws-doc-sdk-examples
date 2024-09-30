@@ -36,7 +36,6 @@ import software.amazon.awssdk.services.iotsitewise.model.DeletePortalResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DescribePortalRequest;
 import software.amazon.awssdk.services.iotsitewise.model.GatewayPlatform;
 import software.amazon.awssdk.services.iotsitewise.model.GetAssetPropertyValueRequest;
-import software.amazon.awssdk.services.iotsitewise.model.GetAssetPropertyValueResponse;
 import software.amazon.awssdk.services.iotsitewise.model.GreengrassV2;
 import software.amazon.awssdk.services.iotsitewise.model.ListAssetModelPropertiesRequest;
 import software.amazon.awssdk.services.iotsitewise.model.ListAssetModelsRequest;
@@ -123,7 +122,7 @@ public class SitewiseActions {
         return getAsyncClient().createAssetModel(createAssetModelRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("Failed to create asset model: " + exception.getMessage(), exception);
+                    logger.error("Failed to create asset model: {} ", exception.getMessage());
                 }
             });
     }
@@ -148,7 +147,7 @@ public class SitewiseActions {
         return getAsyncClient().createAsset(createAssetRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("Failed to create asset: " + exception.getMessage(), exception);
+                    logger.error("Failed to create asset: {}", exception.getMessage());
                 }
             });
     }
@@ -218,22 +217,24 @@ public class SitewiseActions {
     /**
      * Fetches the value of an asset property.
      *
-     * @param propId   the ID of the asset property to fetch.
-     * @param assetId  the ID of the asset to fetch the property value for.
+     * @param propId  the ID of the asset property to fetch.
+     * @param assetId the ID of the asset to fetch the property value for.
      * @throws RuntimeException if an error occurs while fetching the property value.
      */
-    public CompletableFuture<String> getAssetPropValueAsync(String propId, String assetId) {
+    public CompletableFuture<Double> getAssetPropValueAsync(String propId, String assetId) {
         GetAssetPropertyValueRequest assetPropertyValueRequest = GetAssetPropertyValueRequest.builder()
             .propertyId(propId)
             .assetId(assetId)
             .build();
 
-        CompletableFuture<GetAssetPropertyValueResponse> futureResponse = getAsyncClient().getAssetPropertyValue(assetPropertyValueRequest);
-        return futureResponse.whenComplete((response, exception) -> {
+        return getAsyncClient().getAssetPropertyValue(assetPropertyValueRequest)
+       .handle((response, exception) -> {
             if (exception != null) {
-                throw new RuntimeException("Error occurred while fetching property value: " + exception.getMessage(), exception);
+                logger.error("Error occurred while fetching property value: " + exception.getMessage(), exception);
+                throw (RuntimeException) exception;
             }
-        }).thenApply(response -> String.valueOf(response.propertyValue().value().doubleValue()));
+                return response.propertyValue().value().doubleValue();
+       });
     }
     // snippet-end:[sitewise.java2_get_property.main]
 
@@ -300,7 +301,7 @@ public class SitewiseActions {
         return getAsyncClient().deleteAssetModel(deleteAssetModelRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("Failed to delete asset model with ID: " + assetModelId + ". Error: " + exception.getMessage(), exception);
+                    logger.error("Failed to delete asset model with ID:{}.", exception.getMessage());
                 }
             });
     }
@@ -327,7 +328,7 @@ public class SitewiseActions {
             .handle((response, exception) -> {
                 if (exception != null) {
                     logger.error("Failed to create portal: {} ", exception.getCause().getMessage());
-                    throw (CompletionException) exception;
+                    throw (RuntimeException) exception;
                 }
                 return response.portalId();
             });
@@ -350,7 +351,7 @@ public class SitewiseActions {
         return getAsyncClient().deletePortal(deletePortalRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("Failed to delete portal with ID: " + portalId + ". Error: " + exception.getMessage(), exception);
+                    logger.error("Failed to delete portal with ID: " + portalId + ". Error: " + exception.getMessage(), exception);
                 }
             });
     }
@@ -382,7 +383,7 @@ public class SitewiseActions {
 
     // snippet-start:[sitewise.java2.describe.portal.main]
     /**
-     * Asynchronously describes a portal.
+     * Describes a portal.
      *
      * @param portalId the ID of the portal to describe.
      * @return a {@link CompletableFuture} that, when completed, will contain the URL of the described portal.
@@ -434,7 +435,7 @@ public class SitewiseActions {
                     logger.error("Error creating the gateway.");
                     throw (RuntimeException) exception;
                 }
-                System.out.println("The ARN of the gateway is " + response.gatewayArn());
+                logger.info("The ARN of the gateway is {}" ,  response.gatewayArn());
                 return response.gatewayId();
             });
     }
@@ -442,7 +443,7 @@ public class SitewiseActions {
 
     // snippet-start:[sitewise.java2.delete.gateway.main]
     /**
-     * Deletes the specified gateway asynchronously.
+     * Deletes the specified gateway.
      *
      * @param gatewayARN the ARN of the gateway to delete.
      * @return a CompletableFuture containing the response of the delete operation.
@@ -456,7 +457,7 @@ public class SitewiseActions {
         return getAsyncClient().deleteGateway(deleteGatewayRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("Failed to delete gateway: " + exception.getMessage(), exception);
+                    logger.error("Failed to delete gateway: " + exception.getMessage(), exception);
                 } else {
                     logger.info("The Gateway was deleted successfully.");
                 }
@@ -466,7 +467,7 @@ public class SitewiseActions {
 
     // snippet-start:[sitewise.java2.describe.gateway.main]
     /**
-     * Asynchronously describes the specified gateway.
+     * Describes the specified gateway.
      *
      * @param gatewayId the ID of the gateway to describe.
      * @return a {@link CompletableFuture} that represents the asynchronous operation
@@ -485,7 +486,6 @@ public class SitewiseActions {
                 }
             });
     }
-
     // snippet-end:[sitewise.java2.describe.gateway.main]
 
     private static Map<String, Double> generateSampleData() {
