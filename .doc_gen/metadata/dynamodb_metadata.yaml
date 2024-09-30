@@ -627,7 +627,6 @@ dynamodb_PutItem:
       versions:
         - sdk_version: 1
           github: cpp/example_code/dynamodb
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
@@ -1119,11 +1118,13 @@ dynamodb_DeleteItem:
       versions:
         - sdk_version: 1
           github: cpp/example_code/dynamodb
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
                 - cpp.example_code.dynamodb.delete_item
+            - description: Code that waits for the table to become active.
+              snippet_tags:
+                - cpp.example_code.dynamodb.scenario.waitTableActive
     Swift:
       versions:
         - sdk_version: 1
@@ -1790,7 +1791,6 @@ dynamodb_UpdateTable:
       versions:
         - sdk_version: 1
           github: cpp/example_code/dynamodb
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
