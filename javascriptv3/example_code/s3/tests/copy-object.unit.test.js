@@ -19,9 +19,9 @@ vi.doMock("@aws-sdk/client-s3", async () => {
 const { main } = await import("../actions/copy-object.js");
 
 describe("copy-object", () => {
-  const sourceBucket = "my-old-bucket";
+  const sourceBucket = "amzn-s3-demo-bucket";
   const sourceKey = "todo.txt";
-  const destinationBucket = "my-new-bucket";
+  const destinationBucket = "amzn-s3-demo-bucket1";
   const destinationKey = "updated-todo.txt";
 
   it("should log the response from the service", async () => {

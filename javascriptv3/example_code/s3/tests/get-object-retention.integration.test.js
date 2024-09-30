@@ -14,7 +14,9 @@ import { main as getObjectRetention } from "../actions/get-object-retention.js";
 import { legallyEmptyAndDeleteBuckets } from "../libs/s3Utils.js";
 
 const client = new S3Client({});
-const bucketName = getUniqueName("test-bucket");
+const bucketName = getUniqueName(
+  process.env["S3_BUCKET_NAME"] ?? "get-object-retention",
+);
 const objectKey = "test-object";
 
 describe("get-object-retention.js Integration Test", () => {

@@ -59,11 +59,9 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {
     bucketName: {
       type: "string",
-      default: "amzn-s3-demo-bucket",
     },
     key: {
       type: "string",
-      default: "todo.txt",
     },
   };
   const { values } = parseArgs({ options });

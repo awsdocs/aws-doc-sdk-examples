@@ -27,7 +27,7 @@ describe("create-bucket", () => {
 
     const spy = vi.spyOn(console, "log");
 
-    await main({ bucketName: "bucket-name" });
+    await main({ bucketName: "amzn-s3-demo-bucket" });
 
     expect(spy).toHaveBeenCalledWith("Bucket created with location foo");
   });
@@ -38,10 +38,10 @@ describe("create-bucket", () => {
 
     const spy = vi.spyOn(console, "error");
 
-    await main({ bucketName: "bucket-name" });
+    await main({ bucketName: "amzn-s3-demo-bucket" });
 
     expect(spy).toHaveBeenCalledWith(
-      `The bucket "bucket-name" already exists in another AWS account. Bucket names must be globally unique.`,
+      `The bucket "amzn-s3-demo-bucket" already exists in another AWS account. Bucket names must be globally unique.`,
     );
   });
 
@@ -51,10 +51,10 @@ describe("create-bucket", () => {
 
     const spy = vi.spyOn(console, "error");
 
-    await main({ bucketName: "bucket-name" });
+    await main({ bucketName: "amzn-s3-demo-bucket" });
 
     expect(spy).toHaveBeenCalledWith(
-      `The bucket "bucket-name" already exists in this AWS account.`,
+      `The bucket "amzn-s3-demo-bucket" already exists in this AWS account.`,
     );
   });
 });

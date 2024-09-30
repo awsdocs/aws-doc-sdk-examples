@@ -16,7 +16,7 @@ import { legallyEmptyAndDeleteBuckets } from "../libs/s3Utils.js";
 
 const client = new S3Client({});
 const bucketName = getUniqueName(
-  process.env["S3_BUCKET_NAME"] || "object-lock-integ",
+  process.env["S3_BUCKET_NAME"] ?? "object-lock-integ",
 );
 
 describe("put-object-lock-configuration.js Integration Test", () => {

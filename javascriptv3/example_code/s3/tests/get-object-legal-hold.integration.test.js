@@ -13,7 +13,9 @@ import { main as getObjectLegalHold } from "../actions/get-object-legal-hold.js"
 import { legallyEmptyAndDeleteBuckets } from "../libs/s3Utils.js";
 
 const client = new S3Client({});
-const bucketName = getUniqueName("test");
+const bucketName = getUniqueName(
+  process.env["S3_BUCKET_NAME"] ?? "get-object-legal-hold",
+);
 const objectKey = "test-object";
 
 describe("get-object-legal-hold.js Integration Test", () => {

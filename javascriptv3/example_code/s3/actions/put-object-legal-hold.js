@@ -59,11 +59,9 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {
     bucketName: {
       type: "string",
-      default: "amzn-s3-demo-bucket",
     },
     objectKey: {
       type: "string",
-      default: "file.txt",
     },
     legalHoldStatus: {
       type: "string",
