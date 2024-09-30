@@ -55,7 +55,7 @@ function s3_getting_started() {
     get_input
     bucket_name_prefix=$get_input_result
   local bucket_name
-  bucket_name=$(generate_random_name $bucket_name_prefix)
+  bucket_name=$(generate_random_name "$bucket_name_prefix")
 
   local region_code
   region_code=$(aws configure get region)
