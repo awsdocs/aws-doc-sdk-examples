@@ -11,6 +11,6 @@
     "vitest": "^1.6.0"
   },
   "dependencies": {
-    "@aws-sdk/client-bedrock-runtime": "^3.587.0"
+    "@aws-sdk/client-bedrock-runtime": "^3.658.1"
   }
 }
