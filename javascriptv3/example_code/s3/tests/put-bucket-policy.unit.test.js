@@ -33,7 +33,7 @@ describe("put-bucket-policy", () => {
 
   it("should log a relevant error when the bucket doesn't exist", async () => {
     const error = new S3ServiceException("The specified bucket does not exist");
-    error.name = "NoSuchBucket";
+    error.name = "MalformedPolicy";
     const bucketName = "amzn-s3-demo-bucket";
     send.mockRejectedValueOnce(error);
 
@@ -42,7 +42,7 @@ describe("put-bucket-policy", () => {
     await main({ bucketName });
 
     expect(spy).toHaveBeenCalledWith(
-      `Error from S3 while setting the bucket policy for the bucket "${bucketName}". The bucket doesn't exist.`,
+      `Error from S3 while setting the bucket policy for the bucket "${bucketName}". The policy was malformed.`,
     );
   });
 

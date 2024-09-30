@@ -43,10 +43,10 @@ export const main = async ({ bucketName, iamRoleArn }) => {
   } catch (caught) {
     if (
       caught instanceof S3ServiceException &&
-      caught.name === "NoSuchBucket"
+      caught.name === "MalformedPolicy"
     ) {
       console.error(
-        `Error from S3 while setting the bucket policy for the bucket "${bucketName}". The bucket doesn't exist.`,
+        `Error from S3 while setting the bucket policy for the bucket "${bucketName}". The policy was malformed.`,
       );
     } else if (caught instanceof S3ServiceException) {
       console.error(
