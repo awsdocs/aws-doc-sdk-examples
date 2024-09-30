@@ -50,9 +50,12 @@ function s3_getting_started() {
   echo_repeat "*" 88
   echo "Welcome to the Amazon S3 getting started demo."
   echo_repeat "*" 88
-
+    echo "A unique bucket will be created by appending a Universally Unique Identifier to a bucket name prefix."
+    echo -n "Enter a prefix for the S3 bucket that will be used in this deemo: "
+    get_input
+    bucket_name_prefix=$get_input_result
   local bucket_name
-  bucket_name=$(generate_random_name "amzn-s3-demo-bucket")
+  bucket_name=$(generate_random_name $bucket_name_prefix)
 
   local region_code
   region_code=$(aws configure get region)

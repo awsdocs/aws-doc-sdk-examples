@@ -81,6 +81,10 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.cpp.create_table.code
+            - description: Code that waits for the table to become active.
+              snippet_tags:
+                - cpp.example_code.dynamodb.scenario.waitTableActive
+
     Go:
       versions:
         - sdk_version: 2
@@ -628,6 +632,9 @@ dynamodb_PutItem:
             - description:
               snippet_tags:
                 - dynamodb.cpp.put_item.code
+            - description: Code that waits for the table to become active.
+              snippet_tags:
+                - cpp.example_code.dynamodb.scenario.waitTableActive
     Go:
       versions:
         - sdk_version: 2
@@ -890,6 +897,9 @@ dynamodb_UpdateItem:
             - description:
               snippet_tags:
                 - dynamodb.cpp.update_item.code
+            - description: Code that waits for the table to become active.
+              snippet_tags:
+                - cpp.example_code.dynamodb.scenario.waitTableActive
     Go:
       versions:
         - sdk_version: 2
@@ -1774,6 +1784,22 @@ dynamodb_BatchExecuteStatement:
                 - cpp.example_code.dynamodb.BatchExecuteStatement.Delete
   services:
     dynamodb: {BatchExecuteStatement}
+dynamodb_UpdateTable:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.cpp.update_table.code
+            - description: Code that waits for the table to become active.
+              snippet_tags:
+                - cpp.example_code.dynamodb.scenario.waitTableActive
+  services:
+    dynamodb: {UpdateTable}
 dynamodb_Usage_DaxDemo:
   title: Accelerate &DDB; reads with &DAX; using an &AWS; SDK
   title_abbrev: Accelerate reads with &DAX;
