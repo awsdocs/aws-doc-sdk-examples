@@ -12,7 +12,7 @@ This Basics scenario requires an IAM role that has permissions to work with AWS 
 SiteWise service. The scenario creates this resource using a CloudFormation template.
 
 ## Hello AWS IoT SiteWise
-This program is intended for users not familiar with the AWS IoT SiteWise Service to easily get up and running. The program uses a `listAssetsPaginator` to demonstrate how you can read through Asset information.
+This program is intended for users not familiar with the AWS IoT SiteWise Service to easily get up and running. The program uses a `listAssetModelsPaginator` to demonstrate how you can read through Asset Model information.
 
 ## Basics Scenario Program Flow
 The AWS IoT SiteWise Basics scenario executes the following operations.
