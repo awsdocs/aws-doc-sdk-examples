@@ -33,6 +33,7 @@ class KMSScenario:
         self.grant_manager = grant_manager
         self.key_id = ""
         self.alias_name = ""
+        self.asymmetric_key_id = ""
 
     def kms_scenario(self):
         key_description = "Created by the AWS KMS API"
@@ -211,75 +212,59 @@ Let's try to replace the automatically created policy with the following policy.
 }
         """
         )
+        principal = q.ask(
+            "Enter the ARN of a principal for the new policy or press enter to skip replacing the policy: "
+        )
+        if principal != "":
+            policy_name = "default"
+            self.key_manager.set_new_policy(self.key_id, policy_name, principal)
+            print("Key policy replacement succeeded.")
+            q.ask("Press Enter to continue...")
+
+        print(DASHES)
+        print(f"12. Get the key policy\n")
+        print(
+            f"The next bit of code that runs gets the key policy to make sure it exists."
+        )
         q.ask("Press Enter to continue...")
-        # print(f"Key policy replacement succeeded.")
-        # logging.error("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(),
-        #               kmsEx.awsErrorDetails().errorCode());
-        # logging.error("An unexpected error occurred: " + rt.getMessage());
-        # q.ask("Press Enter to continue...")
-        # print(DASHES)
-        # print(f"12. Get the key policy\n")
-        # print(f"The next bit of code that runs gets the key policy to make sure it exists.")
-        # q.ask("Press Enter to continue...")
-        # logging.error("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(),
-        #               kmsEx.awsErrorDetails().errorCode());
-        # logging.error("An unexpected error occurred: " + rt.getMessage());
-        # q.ask("Press Enter to continue...")
-        # print(DASHES)
-        # print(f"13. Create an asymmetric KMS key and sign your data\n")
-        # print("""
-        # Signing your data with an AWS key can provide several benefits that make it an attractive option
-        # for your data signing needs. By using an AWS KMS key, you can leverage the
-        # security controls and compliance features provided by AWS,
-        # which can help you meet various regulatory requirements and enhance the overall security posture
-        # of your organization.
-        # """);
-        # q.ask("Press Enter to continue...")
-        # print(f"Sign and verify data operation succeeded.")
-        # logging.error("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(),
-        #               kmsEx.awsErrorDetails().errorCode());
-        # logging.error("An unexpected error occurred: " + rt.getMessage());
-        # q.ask("Press Enter to continue...")
-        # print(DASHES)
-        # print(f"14. Tag your symmetric KMS Key\n")
-        # print("""
-        # By using tags, you can improve the overall management, security, and governance of your
-        # KMS keys, making it easier to organize, track, and control access to your encrypted data within
-        # your AWS environment
-        # """);
-        # q.ask("Press Enter to continue...")
-        # logging.error("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(),
-        #               kmsEx.awsErrorDetails().errorCode());
-        # logging.error("An unexpected error occurred: " + rt.getMessage());
-        # q.ask("Press Enter to continue...")
-        # print(DASHES)
-        # print(f"15. Schedule the deletion of the KMS key\n")
-        # print("""
-        # By default, KMS applies a waiting period of 30 days,
-        # but you can specify a waiting period of 7-30 days. When this operation is successful,
-        # the key state of the KMS key changes to PendingDeletion and the key can't be used in any
-        # cryptographic operations. It remains in this state for the duration of the waiting period.
-        #
-        # Deleting a KMS key is a destructive and potentially dangerous operation. When a KMS key is deleted,
-        # all data that was encrypted under the KMS key is unrecoverable.
-        # """);
-        # print(f"Would you like to delete the Key Management resources? (y/n)")
-        # print(f"You selected to delete the AWS KMS resources.")
-        # q.ask("Press Enter to continue...")
-        # logging.error("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(),
-        #               kmsEx.awsErrorDetails().errorCode());
-        # logging.error("An unexpected error occurred: " + rt.getMessage());
-        # q.ask("Press Enter to continue...")
-        # logging.error("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(),
-        #               kmsEx.awsErrorDetails().errorCode());
-        # logging.error("An unexpected error occurred: " + rt.getMessage());
-        # logging.error("KMS error occurred: Error message: {}, Error code {}", kmsEx.getMessage(),
-        #               kmsEx.awsErrorDetails().errorCode());
-        # logging.error("An unexpected error occurred: " + rt.getMessage());
-        # print(f"The Key Management resources will not be deleted")
-        # print(DASHES)
-        # print(f"This concludes the AWS Key Management SDK scenario")
-        # print(DASHES)
+        policy = self.key_manager.get_policy(self.key_id)
+        print(f"The key policy is: {policy}")
+
+        q.ask("Press Enter to continue...")
+        print(DASHES)
+        print(f"13. Create an asymmetric KMS key and sign your data\n")
+        print(
+            """
+        Signing your data with an AWS key can provide several benefits that make it an attractive option
+        for your data signing needs. By using an AWS KMS key, you can leverage the
+        security controls and compliance features provided by AWS,
+        which can help you meet various regulatory requirements and enhance the overall security posture
+        of your organization.
+        """
+        )
+        q.ask("Press Enter to continue...")
+        print(f"Sign and verify data operation succeeded.")
+        self.asymmetric_key_id = self.key_manager.create_asymmetric_key()
+        message = "Here is the message that will be digitally signed"
+        signature = self.key_encryption.sign(self.asymmetric_key_id, message)
+        if self.key_encryption.verify(self.asymmetric_key_id, message, signature):
+            print("Signature verification succeeded.")
+        else:
+            print("Signature verification failed.")
+
+        q.ask("Press Enter to continue...")
+        print(DASHES)
+        print(f"14. Tag your symmetric KMS Key\n")
+        print(
+            """
+        By using tags, you can improve the overall management, security, and governance of your
+        KMS keys, making it easier to organize, track, and control access to your encrypted data within
+        your AWS environment
+        """
+        )
+        q.ask("Press Enter to continue...")
+        self.key_manager.tag_resource(self.key_id, "Environment", "Production")
+        self.cleanup()
 
     def is_key_enabled(self, key_id: str) -> bool:
         """
@@ -295,7 +280,7 @@ Let's try to replace the automatically created policy with the following policy.
         if self.alias_name != "":
             print(f"Deleting the alias {self.alias_name}.")
             self.alias_manager.delete_alias(self.alias_name)
-
+        window = 7
         if self.key_id != "":
             print(
                 """
@@ -308,12 +293,24 @@ all data that was encrypted under the KMS key is unrecoverable.
                 f"Do you want to delete the key with ID {self.key_id} (y/n)?",
                 q.is_yesno,
             ):
-                window = 7
                 print(
                     f"The key will be deleted with a window of {window} days. You can cancel the deletion before"
                 )
                 print("the window expires.")
                 self.key_manager.delete_key(self.key_id, window)
+                self.key_id = ""
+
+        if self.asymmetric_key_id != "":
+            if q.ask(
+                f"Do you want to delete the asymmetric key with ID {self.asymmetric_key_id} (y/n)?",
+                q.is_yesno,
+            ):
+                print(
+                    f"The key will be deleted with a window of {window} days. You can cancel the deletion before"
+                )
+                print("the window expires.")
+                self.key_manager.delete_key(self.asymmetric_key_id, window)
+                self.asymmetric_key_id = ""
 
 
 if __name__ == "__main__":
@@ -330,6 +327,6 @@ if __name__ == "__main__":
         kms_scenario.kms_scenario()
     except Exception:
         logging.exception("Something went wrong with the demo!")
-    finally:
         if kms_scenario is not None:
             kms_scenario.clean_up()
+

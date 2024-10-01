@@ -123,7 +123,7 @@ class KeyPolicy:
 
     # snippet-end:[python.example_code.kms.PutKeyPolicy]
 
-    def set_new_policy(self, key_id, policy):
+    def set_new_policy(self, key_id, policy_name, policy):
         """
         Sets the policy of a key. Setting a policy entirely overwrites the existing
         policy, so care is taken to add a statement to the existing list of statements
@@ -136,7 +136,7 @@ class KeyPolicy:
 
         try:
             self.kms_client.put_key_policy(
-                KeyId=key_id, PolicyName="default", Policy=json.dumps(policy)
+                KeyId=key_id, PolicyName=policy_name, Policy=json.dumps(policy)
             )
         except ClientError as err:
             logger.error(
@@ -144,8 +144,6 @@ class KeyPolicy:
                 key_id,
                 err.response["Error"]["Message"],
             )
-        else:
-            print(f"Set policy for key {key_id}.")
 
 
 def key_policies(kms_client):

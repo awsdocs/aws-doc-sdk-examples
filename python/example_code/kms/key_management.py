@@ -46,6 +46,25 @@ class KeyManager:
 
     # snippet-end:[python.example_code.kms.CreateKey]
 
+    def create_asymmetric_key(self) -> str:
+        """
+        Creates an asymmetric key in AWS KMS for signing messages.
+
+        :return: The ID of the created key.
+        """
+        try:
+            key = self.kms_client.create_key(
+                KeySpec="RSA_2048", KeyUsage="SIGN_VERIFY", Origin="AWS_KMS"
+            )["KeyMetadata"]
+            self.created_keys.append(key)
+            return key["KeyId"]
+        except ClientError as err:
+            logger.error(
+                "Couldn't create your key. Here's why: %s",
+                err.response["Error"]["Message"],
+            )
+            raise
+
     # snippet-start:[python.example_code.kms.ListKeys]
     def list_keys(self):
         """
@@ -198,6 +217,25 @@ class KeyManager:
             raise
 
     # snippet-end:[python.example_code.kms.EnableKeyRotation]
+
+    # snippet-start:[python.example_code.kms.TagResource]
+    def tag_resource(self, key_id: str, tag_key: str, tag_value: str) -> None:
+        """
+        Add or edit tags on a customer managed key.
+
+        :param key_id: The ARN or ID of the key to enable rotation for.
+        :param tag_key: Key for the tag.
+        :param tag_value: Value for the tag.
+        """
+        try:
+            self.kms_client.tag_resource(KeyId=key_id, Tags=[{"TagKey": tag_key, "TagValue": tag_value}])
+        except ClientError as err:
+            logging.error(
+                "Couldn't add a tag for the key '%s'. Here's why: %s",
+                key_id,
+                err.response["Error"]["Message"],
+            )
+            raise
 
 
 def key_management(kms_client):

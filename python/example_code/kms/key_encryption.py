@@ -100,8 +100,62 @@ class KeyEncrypt:
         else:
             print("Skipping reencryption demo.")
 
+    # snippet-end:[python.example_code.kms.ReEncrypt]
 
-# snippet-end:[python.example_code.kms.ReEncrypt]
+    # snippet-start:[python.example_code.kms.Sign]
+    def sign(self, key_id: str, message: str) -> str:
+        """
+        Signs a message with a key.
+
+        :param key_id: The ARN or ID of the key to use for signing.
+        :param message: The message to sign.
+        :return: The signature of the message.
+        """
+        try:
+            return self.kms_client.sign(
+                KeyId=key_id,
+                Message=message.encode(),
+                SigningAlgorithm="RSASSA_PSS_SHA_256",
+            )["Signature"]
+        except ClientError as err:
+            logger.error(
+                "Couldn't sign your message. Here's why: %s",
+                err.response["Error"]["Message"],
+            )
+            raise
+
+    # snippet-end:[python.example_code.kms.Sign]
+
+    # snippet-start:[python.example_code.kms.Verify]
+    def verify(self, key_id: str, message: str, signature: str) -> bool:
+        """
+        Verifies a signature against a message.
+
+        :param key_id: The ARN or ID of the key used to sign the message.
+        :param message: The message to verify.
+        :param signature: The signature to verify.
+        :return: True when the signature matches the message, otherwise False.
+        """
+        try:
+            self.kms_client.verify(
+                KeyId=key_id,
+                Message=message.encode(),
+                Signature=signature,
+                SigningAlgorithm="RSASSA_PSS_SHA_256",
+            )
+            print("The signature is valid.")
+            return True
+        except ClientError as err:
+            if err.response["Error"]["Code"] == "SignatureDoesNotMatchException":
+                print("The signature is not valid.")
+            else:
+                logger.error(
+                    "Couldn't verify your signature. Here's why: %s",
+                    err.response["Error"]["Message"],
+                )
+            raise
+
+    # snippet-end:[python.example_code.kms.Verify]
 
 
 def key_encryption(kms_client):
