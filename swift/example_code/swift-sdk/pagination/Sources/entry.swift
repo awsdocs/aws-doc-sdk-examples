@@ -13,6 +13,7 @@ struct PaginatorExample {
         let PAGE_SIZE = 10
         let client: S3Client
 
+        // snippet-start:[swift.pagination]
         do {
             client = try await S3Client()
         } catch {
@@ -24,13 +25,16 @@ struct PaginatorExample {
         // `listBuckets(input:)` function. Each page has up to 10 buckets in
         // it.
 
+        // snippet-start:[swift.create-paginator]
         let pages = client.listBucketsPaginated(
             input: ListBucketsInput(maxBuckets: PAGE_SIZE)
         )
+        // snippet-end:[swift.create-paginator]
 
         // Go through the pages, printing each page's buckets to the console.
         // The paginator handles the continuation tokens automatically.
 
+        // snippet-start:[swift.process-paginator]
         var pageNumber = 0
 
         do {
@@ -53,5 +57,7 @@ struct PaginatorExample {
         } catch {
             print("ERROR: Unable to process bucket list pages.")
         }
+        // snippet-end:[swift.process-paginator]
     }
+    // snippet-end:[swift.pagination]
 }
