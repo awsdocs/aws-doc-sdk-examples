@@ -19,7 +19,7 @@ import AWSSDKIdentity
 ///   store any PII securely, such as by using the Keychain!
 ///
 ///   There are many useful packages available for this purpose that
-///   you can find using the [Swift Package 
+///   you can find using the [Swift Package
 ///   Index](https://swiftpackageindex.com/).
 @MainActor
 class ViewModel: ObservableObject {
@@ -193,6 +193,10 @@ class ViewModel: ObservableObject {
         
         // Save the user's data securely to local storage so it's available
         // in the future.
+        //
+        // IMPORTANT: Any potential Personally Identifiable Information _must_
+        // be saved securely, such as by using the Keychain or an appropriate
+        // encrypting technique.
         
         saveUserData()
     }
@@ -234,6 +238,11 @@ class ViewModel: ObservableObject {
     /// The bucket names are stored in the view model's `bucketList`
     /// property.
     func getBucketList() async throws {
+        // If there's no identity resolver yet, return without doing anything.
+        guard let identityResolver = identityResolver else {
+            return
+        }
+
         // Create an Amazon S3 client configuration that uses the
         // credential identity resolver created from the JWT token
         // returned by Sign In With Apple.
