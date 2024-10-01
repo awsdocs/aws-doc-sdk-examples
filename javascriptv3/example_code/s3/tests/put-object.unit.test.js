@@ -41,7 +41,7 @@ describe("put-object", () => {
 
   it("should log a relevant error when the bucket doesn't exist", async () => {
     const error = new S3ServiceException("The specified bucket does not exist");
-    error.name = "NoSuchBucket";
+    error.name = "EntityTooLarge";
     const bucketName = "amzn-s3-demo-bucket";
     send.mockRejectedValueOnce(error);
 
@@ -54,7 +54,9 @@ describe("put-object", () => {
     });
 
     expect(spy).toHaveBeenCalledWith(
-      `Error from S3 while uploading object to ${bucketName}. The bucket doesn't exist.`,
+      `Error from S3 while uploading object to ${bucketName}. \
+The object was too large. To upload objects larger than 5GB, use the S3 console (160GB max) \
+or the multipart upload API (5TB max).`,
     );
   });
 
