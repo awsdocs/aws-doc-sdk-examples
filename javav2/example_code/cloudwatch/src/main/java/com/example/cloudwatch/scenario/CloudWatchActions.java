@@ -57,6 +57,7 @@ import software.amazon.awssdk.services.cloudwatch.model.StandardUnit;
 import software.amazon.awssdk.services.cloudwatch.model.Statistic;
 import software.amazon.awssdk.services.cloudwatch.paginators.ListDashboardsPublisher;
 import software.amazon.awssdk.services.cloudwatch.paginators.ListMetricsPublisher;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -73,6 +74,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+
 // snippet-start:[cloudwatch.java2.actions.main]
 public class CloudWatchActions {
 
@@ -105,7 +107,7 @@ public class CloudWatchActions {
 
     // snippet-start:[cloudwatch.java2.scenario.del.anomalydetector.main]
     /**
-     * Deletes an Anomaly Detector asynchronously.
+     * Deletes an Anomaly Detector.
      *
      * @param fileName the name of the file containing the Anomaly Detector configuration
      * @return a CompletableFuture that represents the asynchronous deletion of the Anomaly Detector
@@ -147,12 +149,12 @@ public class CloudWatchActions {
 
     // snippet-start:[cloudwatch.java2.delete_alarm.main]
     /**
-     * Asynchronously deletes a CloudWatch alarm.
+     * Deletes a CloudWatch alarm.
      *
      * @param alarmName the name of the alarm to be deleted
      * @return a {@link CompletableFuture} representing the asynchronous operation to delete the alarm
-     *         the {@link DeleteAlarmsResponse} is returned when the operation completes successfully,
-     *         or a {@link RuntimeException} is thrown if the operation fails
+     * the {@link DeleteAlarmsResponse} is returned when the operation completes successfully,
+     * or a {@link RuntimeException} is thrown if the operation fails
      */
     public CompletableFuture<DeleteAlarmsResponse> deleteCWAlarmAsync(String alarmName) {
         DeleteAlarmsRequest request = DeleteAlarmsRequest.builder()
@@ -162,7 +164,7 @@ public class CloudWatchActions {
         return getAsyncClient().deleteAlarms(request)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("Failed to delete the alarm: " + alarmName, exception);
+                    throw new RuntimeException("Failed to delete the alarm:{} " + alarmName, exception);
                 } else {
                     logger.info("Successfully deleted alarm {} ", alarmName);
                 }
@@ -172,7 +174,7 @@ public class CloudWatchActions {
 
     // snippet-start:[cloudwatch.java2.scenario.del.dashboard.main]
     /**
-     * Asynchronously deletes the specified dashboard.
+     * Deletes the specified dashboard.
      *
      * @param dashboardName the name of the dashboard to be deleted
      * @return a {@link CompletableFuture} representing the asynchronous operation of deleting the dashboard
@@ -195,32 +197,33 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.del.dashboard.main]
 
     // snippet-start:[cloudwatch.java2.scenario.get.metric.image.main]
+
     /**
-     * Asynchronously retrieves and saves a custom metric image to a file.
+     * Retrieves and saves a custom metric image to a file.
      *
      * @param fileName the name of the file to save the metric image to
      * @return a {@link CompletableFuture} that completes when the image has been saved to the file
      */
-    public CompletableFuture<Void> getAndOpenMetricImageAsync( String fileName) {
+    public CompletableFuture<Void> getAndOpenMetricImageAsync(String fileName) {
         logger.info("Getting Image data for custom metric.");
         String myJSON = """
-        {
-            "title": "Example Metric Graph",
-            "view": "timeSeries",
-            "stacked ": false,
-            "period": 10,
-            "width": 1400,
-            "height": 600,
-            "metrics": [
-                [
-                "AWS/Billing",
-                "EstimatedCharges",
-                "Currency",
-                "USD"
-               ]
-            ]
-        }
-      """;
+              {
+                  "title": "Example Metric Graph",
+                  "view": "timeSeries",
+                  "stacked ": false,
+                  "period": 10,
+                  "width": 1400,
+                  "height": 600,
+                  "metrics": [
+                      [
+                      "AWS/Billing",
+                      "EstimatedCharges",
+                      "Currency",
+                      "USD"
+                     ]
+                  ]
+              }
+            """;
 
         GetMetricWidgetImageRequest imageRequest = GetMetricWidgetImageRequest.builder()
             .metricWidget(myJSON)
@@ -252,8 +255,9 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.get.metric.image.main]
 
     // snippet-start:[cloudwatch.java2.scenario.describe.anomalydetector.main]
+
     /**
-     * Asynchronously describes the anomaly detectors based on the specified JSON file.
+     * Describes the anomaly detectors based on the specified JSON file.
      *
      * @param fileName the name of the JSON file containing the custom metric namespace and name
      * @return a {@link CompletableFuture} that completes when the anomaly detectors have been described
@@ -300,8 +304,9 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.describe.anomalydetector.main]
 
     // snippet-start:[cloudwatch.java2.scenario.add.anomalydetector.main]
+
     /**
-     * Asynchronously adds an anomaly detector for the given file.
+     * Adds an anomaly detector for the given file.
      *
      * @param fileName the name of the file containing the anomaly detector configuration
      * @return a {@link CompletableFuture} that completes when the anomaly detector has been added
@@ -332,7 +337,7 @@ public class CloudWatchActions {
                     .build();
 
                 return getAsyncClient().putAnomalyDetector(anomalyDetectorRequest).thenAccept(response -> {
-                    logger.info("Added anomaly detector for metric {}", customMetricName );
+                    logger.info("Added anomaly detector for metric {}", customMetricName);
                 });
             } catch (Exception e) {
                 throw new RuntimeException("Failed to create anomaly detector", e);
@@ -346,11 +351,12 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.add.anomalydetector.main]
 
     // snippet-start:[cloudwatch.java2.scenario.get.alarm.history.main]
+
     /**
-     * Asynchronously retrieves the alarm history for a given alarm name and date range.
+     * Retrieves the alarm history for a given alarm name and date range.
      *
      * @param fileName the path to the JSON file containing the alarm name
-     * @param date the date to start the alarm history search (in the format "yyyy-MM-dd'T'HH:mm:ss'Z'")
+     * @param date     the date to start the alarm history search (in the format "yyyy-MM-dd'T'HH:mm:ss'Z'")
      * @return a {@code CompletableFuture<Void>} that completes when the alarm history has been retrieved and processed
      */
     public CompletableFuture<Void> getAlarmHistoryAsync(String fileName, String date) {
@@ -398,8 +404,9 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.get.alarm.history.main]
 
     // snippet-start:[cloudwatch.java2.scenario.check.met.alarm.main]
+
     /**
-     * Asynchronously checks for a metric alarm in AWS CloudWatch.
+     * Checks for a metric alarm in AWS CloudWatch.
      *
      * @param fileName the name of the file containing the JSON configuration for the custom metric
      * @return a {@link CompletableFuture} that completes when the check for the metric alarm is complete
@@ -438,7 +445,16 @@ public class CloudWatchActions {
         });
     }
 
-    // Recursive method to check for the alarm asynchronously.
+    // Recursive method to check for the alarm.
+
+    /**
+     * Checks for the existence of an alarm asynchronously for the specified metric.
+     *
+     * @param metricRequest    the request to describe the alarms for the specified metric
+     * @param customMetricName the name of the custom metric to check for an alarm
+     * @param retries          the number of retries to perform if no alarm is found
+     * @return a {@link CompletableFuture} that completes when an alarm is found or the maximum number of retries has been reached
+     */
     private static CompletableFuture<Void> checkForAlarmAsync(DescribeAlarmsForMetricRequest metricRequest, String customMetricName, int retries) {
         if (retries == 0) {
             return CompletableFuture.completedFuture(null).thenRun(() ->
@@ -465,6 +481,7 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.check.met.alarm.main]
 
     // snippet-start:[cloudwatch.java2.scenario.add.met.alarm.main]
+
     /**
      * Adds metric data for an alarm asynchronously.
      *
@@ -472,7 +489,6 @@ public class CloudWatchActions {
      * @return a CompletableFuture that asynchronously returns the PutMetricDataResponse
      */
     public CompletableFuture<PutMetricDataResponse> addMetricDataForAlarmAsync(String fileName) {
-        // Read the file asynchronously
         CompletableFuture<String> readFileFuture = CompletableFuture.supplyAsync(() -> {
             try {
                 JsonParser parser = new JsonFactory().createParser(new File(fileName));
@@ -485,15 +501,12 @@ public class CloudWatchActions {
 
         return readFileFuture.thenCompose(jsonContent -> {
             try {
-                // Parse the JSON content
                 com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(jsonContent);
                 String customMetricNamespace = rootNode.findValue("customMetricNamespace").asText();
                 String customMetricName = rootNode.findValue("customMetricName").asText();
-
-                // Set the current UTC timestamp
                 Instant instant = Instant.now();
 
-                // Create MetricDatum objects
+                // Create MetricDatum objects.
                 MetricDatum datum1 = MetricDatum.builder()
                     .metricName(customMetricName)
                     .unit(StandardUnit.NONE)
@@ -512,17 +525,17 @@ public class CloudWatchActions {
                 metricDataList.add(datum1);
                 metricDataList.add(datum2);
 
-                // Build the PutMetricData request
+                // Build the PutMetricData request.
                 PutMetricDataRequest request = PutMetricDataRequest.builder()
                     .namespace(customMetricNamespace)
                     .metricData(metricDataList)
                     .build();
 
-                // Send the request asynchronously
+                // Send the request asynchronously.
                 return getAsyncClient().putMetricData(request);
 
             } catch (IOException e) {
-                 CompletableFuture<PutMetricDataResponse> failedFuture = new CompletableFuture<>();
+                CompletableFuture<PutMetricDataResponse> failedFuture = new CompletableFuture<>();
                 failedFuture.completeExceptionally(new RuntimeException("Failed to parse JSON content", e));
                 return failedFuture;
             }
@@ -534,12 +547,12 @@ public class CloudWatchActions {
             }
         });
     }
-
     // snippet-end:[cloudwatch.java2.scenario.add.met.alarm.main]
 
     // snippet-start:[cloudwatch.java2.scenario.get.met.data.main]
+
     /**
-     * Retrieves custom metric data asynchronously from the AWS CloudWatch service.
+     * Retrieves custom metric data from the AWS CloudWatch service.
      *
      * @param fileName the name of the file containing the custom metric information
      * @return a {@link CompletableFuture} that completes when the metric data has been retrieved
@@ -610,18 +623,19 @@ public class CloudWatchActions {
                 logger.info("The status code is: {}", item.statusCode().toString());
             }
         }).exceptionally(exception -> {
-             throw new RuntimeException("Failed to get metric data", exception);
+            throw new RuntimeException("Failed to get metric data", exception);
         });
     }
     // snippet-end:[cloudwatch.java2.scenario.get.met.data.main]
 
     // snippet-start:[cloudwatch.java2.describe_alarms.main]
+
     /**
-     * Asynchronously describes the CloudWatch alarms of the 'METRIC_ALARM' type.
+     * Describes the CloudWatch alarms of the 'METRIC_ALARM' type.
      *
      * @return a {@link CompletableFuture} that represents the asynchronous operation
-     *         of describing the CloudWatch alarms. The future completes when the
-     *         operation is finished, either successfully or with an error.
+     * of describing the CloudWatch alarms. The future completes when the
+     * operation is finished, either successfully or with an error.
      */
     public CompletableFuture<Void> describeAlarmsAsync() {
         List<AlarmType> typeList = new ArrayList<>();
@@ -650,8 +664,9 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.describe_alarms.main]
 
     // snippet-start:[cloudwatch.java2.scenario.create.alarm.main]
+
     /**
-     * Creates an alarm asynchronously based on the configuration provided in a JSON file.
+     * Creates an alarm based on the configuration provided in a JSON file.
      *
      * @param fileName the name of the JSON file containing the alarm configuration
      * @return a CompletableFuture that represents the asynchronous operation of creating the alarm
@@ -710,13 +725,14 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.create.alarm.main]
 
     // snippet-start:[cloudwatch.java2.scenario.add.metric.dashboard.main]
+
     /**
      * Adds a metric to a dashboard asynchronously.
      *
-     * @param fileName     the name of the file containing the dashboard content
+     * @param fileName      the name of the file containing the dashboard content
      * @param dashboardName the name of the dashboard to be updated
      * @return a {@link CompletableFuture} representing the asynchronous operation, which will complete with a
-     *         {@link PutDashboardResponse} when the dashboard is successfully updated
+     * {@link PutDashboardResponse} when the dashboard is successfully updated
      */
     public CompletableFuture<PutDashboardResponse> addMetricToDashboardAsync(String fileName, String dashboardName) {
         String dashboardBody;
@@ -737,7 +753,7 @@ public class CloudWatchActions {
                     logger.info("Failed to update dashboard: {}", ex.getMessage());
                     throw new RuntimeException("Error updating dashboard", ex);
                 } else {
-                    logger.info("{} was successfully updated.",dashboardName);
+                    logger.info("{} was successfully updated.", dashboardName);
                     return response;
                 }
             });
@@ -778,16 +794,15 @@ public class CloudWatchActions {
                 }
             });
     }
-
     // snippet-end:[cloudwatch.java2.scenario.create.metric.main]
 
-
     // snippet-start:[cloudwatch.java2.scenario.list.dashboard.main]
+
     /**
-     * Asynchronously lists the available dashboards.
+     * Lists the available dashboards.
      *
      * @return a {@link CompletableFuture} that completes when the operation is finished.
-     *         The future will complete exceptionally if an error occurs while listing the dashboards.
+     * The future will complete exceptionally if an error occurs while listing the dashboards.
      */
     public CompletableFuture<Void> listDashboardsAsync() {
         ListDashboardsRequest listDashboardsRequest = ListDashboardsRequest.builder().build();
@@ -805,6 +820,7 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.list.dashboard.main]
 
     // snippet-start:[cloudwatch.java2.scenario.create.dashboard.main]
+
     /**
      * Creates a new dashboard asynchronously with the specified name and metrics from the given file.
      *
@@ -843,8 +859,9 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.create.dashboard.main]
 
     // snippet-start:[cloudwatch.java2.scenario.get.metrics.main]
+
     /**
-     * Asynchronously retrieves the metric statistics for the "EstimatedCharges" metric in the "AWS/Billing" namespace.
+     * Retrieves the metric statistics for the "EstimatedCharges" metric in the "AWS/Billing" namespace.
      *
      * @param costDateWeek the start date for the metric statistics, in the format of an ISO-8601 date string (e.g., "2023-04-05")
      * @return a {@link CompletableFuture} that, when completed, contains the {@link GetMetricStatisticsResponse} with the retrieved metric statistics
@@ -873,13 +890,13 @@ public class CloudWatchActions {
             .period(86400) // One day period
             .build();
 
-         return getAsyncClient().getMetricStatistics(statisticsRequest)
+        return getAsyncClient().getMetricStatistics(statisticsRequest)
             .whenComplete((response, exception) -> {
                 if (response != null) {
                     List<Datapoint> data = response.datapoints();
                     if (!data.isEmpty()) {
                         for (Datapoint datapoint : data) {
-                           logger.info("Timestamp: {} Maximum value: {})", datapoint.timestamp(), datapoint.maximum());
+                            logger.info("Timestamp: {} Maximum value: {})", datapoint.timestamp(), datapoint.maximum());
                         }
                     } else {
                         logger.info("The returned data list is empty");
@@ -893,8 +910,19 @@ public class CloudWatchActions {
 
 
     // snippet-start:[cloudwatch.java2.scenario.display.metrics.main]
+
+    /**
+     * Retrieves and displays metric statistics for the specified parameters.
+     *
+     * @param nameSpace    the namespace for the metric
+     * @param metVal       the name of the metric
+     * @param metricOption the statistic to retrieve for the metric (e.g., "Maximum", "Average")
+     * @param date         the date for which to retrieve the metric statistics, in the format "yyyy-MM-dd'T'HH:mm:ss'Z'"
+     * @param myDimension  the dimension(s) to filter the metric statistics by
+     * @return a {@link CompletableFuture} that completes when the metric statistics have been retrieved and displayed
+     */
     public CompletableFuture<GetMetricStatisticsResponse> getAndDisplayMetricStatisticsAsync(String nameSpace, String metVal,
-                                                                 String metricOption, String date, Dimension myDimension) {
+                                                                                             String metricOption, String date, Dimension myDimension) {
 
         Instant start = Instant.parse(date);
         Instant endDate = Instant.now();
@@ -910,7 +938,6 @@ public class CloudWatchActions {
             .statistics(Statistic.fromValue(metricOption))
             .build();
 
-        // Asynchronously getting the metric statistics.
         return getAsyncClient().getMetricStatistics(statisticsRequest)
             .whenComplete((response, exception) -> {
                 if (response != null) {
@@ -934,12 +961,13 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.display.metrics.main]
 
     // snippet-start:[cloudwatch.java2.list_metrics.main]
+
     /**
-     * Asynchronously retrieves a list of metric names for the specified namespace.
+     * Retrieves a list of metric names for the specified namespace.
      *
      * @param namespace the namespace for which to retrieve the metric names
      * @return a {@link CompletableFuture} that, when completed, contains an {@link ArrayList} of
-     *         the metric names in the specified namespace
+     * the metric names in the specified namespace
      * @throws RuntimeException if an error occurs while listing the metrics
      */
     public CompletableFuture<ArrayList<String>> listMetsAsync(String namespace) {
@@ -965,8 +993,9 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.list_metrics.main]
 
     // snippet-start:[cloudwatch.java2.scenario.list.namespaces.main]
+
     /**
-     * Asynchronously lists the available namespaces for the current AWS account.
+     * Lists the available namespaces for the current AWS account.
      *
      * @return a {@link CompletableFuture} that, when completed, contains an {@link ArrayList} of the available namespace names.
      * @throws RuntimeException if an error occurs while listing the namespaces.
@@ -992,15 +1021,14 @@ public class CloudWatchActions {
             });
     }
     // snippet-end:[cloudwatch.java2.scenario.list.namespaces.main]
-
     /**
      * Retrieves the specific metric asynchronously.
      *
      * @param namespace the namespace of the metric to retrieve
      * @return a CompletableFuture that completes with the first dimension of the first metric found in the specified namespace,
-     *         or throws a RuntimeException if an error occurs or no metrics or dimensions are found
+     * or throws a RuntimeException if an error occurs or no metrics or dimensions are found
      */
-    public CompletableFuture<Dimension> getSpecificMetAsync( String namespace) {
+    public CompletableFuture<Dimension> getSpecificMetAsync(String namespace) {
         ListMetricsRequest request = ListMetricsRequest.builder()
             .namespace(namespace)
             .build();
@@ -1010,7 +1038,7 @@ public class CloudWatchActions {
                 logger.info("Error occurred while listing metrics: {} ", exception.getMessage());
                 throw new RuntimeException("Failed to retrieve specific metric dimension", exception);
             } else {
-                 List<Metric> myList = response.metrics();
+                List<Metric> myList = response.metrics();
                 if (!myList.isEmpty()) {
                     Metric metric = myList.get(0);
                     if (!metric.dimensions().isEmpty()) {
@@ -1021,6 +1049,7 @@ public class CloudWatchActions {
             }
         });
     }
+
     public static String readFileAsString(String file) throws IOException {
         return new String(Files.readAllBytes(Paths.get(file)));
     }
