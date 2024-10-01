@@ -80,12 +80,12 @@ bool AwsDoc::DynamoDB::updateItem(const Aws::String &tableName,
             request);
     if (outcome.IsSuccess()) {
         std::cout << "Item was updated" << std::endl;
-    }
-    else {
+    } else {
         std::cerr << outcome.GetError().GetMessage() << std::endl;
+        return false;
     }
 
-    return outcome.IsSuccess();
+    return waitTableActive(tableName, dynamoClient);
 }
 // snippet-end:[dynamodb.cpp.update_item.code]
 

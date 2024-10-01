@@ -69,21 +69,23 @@ namespace AwsDoc {
 
 //! Scenario to create, copy, and delete S3 buckets and objects.
 /*!
+  \param bucketNamePrefix: A prefix for a bucket name.
   \param uploadFilePath: Path to file to upload to an Amazon S3 bucket.
   \param saveFilePath: Path for saving a downloaded S3 object.
   \param clientConfig: Aws client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath,
+bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &bucketNamePrefix,
+        const Aws::String &uploadFilePath,
                                            const Aws::String &saveFilePath,
                                            const Aws::Client::ClientConfiguration &clientConfig) {
 
     Aws::S3::S3Client client(clientConfig);
 
     // Create a unique bucket name which is only temporary and will be deleted.
-    // Format: "amzn-s3-demo-bucket-" + lowercase UUID.
+    // Format: <bucketNamePrefix> + "-" + lowercase UUID.
     Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-    Aws::String bucketName = "amzn-s3-demo-bucket-" +
+    Aws::String bucketName = bucketNamePrefix +
                              Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
     // 1. Create a bucket.
@@ -292,10 +294,11 @@ AwsDoc::S3::deleteBucket(const Aws::String &bucketName, Aws::S3::S3Client &clien
 
 int main(int argc, const char *argv[]) {
 
-    if (argc != 3) {
+    if (argc != 4) {
         std::cout << "Usage:\n" <<
-                  "    <uploadFilePath> <saveFilePath>\n\n" <<
+                  "    <bucketNamePrefix> <uploadFilePath> <saveFilePath>\n\n" <<
                   "Where:\n" <<
+                  "   bucketNamePrefix - A prefix for a bucket name..\n"
                   "   uploadFilePath - The path where the file is located (for example, C:/AWS/book2.pdf).\n"
                   <<
                   "   saveFilePath - The path where the file is saved after it's " <<
@@ -303,15 +306,16 @@ int main(int argc, const char *argv[]) {
         return 1;
     }
 
-    Aws::String objectPath = argv[1];
-    Aws::String savePath = argv[2];
+    Aws::String bucketNamePrefix = argv[1];
+    Aws::String objectPath = argv[2];
+    Aws::String savePath = argv[3];
 
     Aws::SDKOptions options;
     InitAPI(options);
 
     {
         Aws::Client::ClientConfiguration clientConfig;
-        AwsDoc::S3::S3_GettingStartedScenario(objectPath, savePath, clientConfig);
+        AwsDoc::S3::S3_GettingStartedScenario(bucketNamePrefix, objectPath, savePath, clientConfig);
     }
 
     ShutdownAPI(options);

@@ -6,6 +6,7 @@
 
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/dynamodb/model/AttributeValue.h>
+#include <aws/dynamodb/DynamoDBClient.h>
 
 namespace AwsDoc {
     namespace DynamoDB {
@@ -262,11 +263,11 @@ namespace AwsDoc {
         /*!
           \sa waitTableActive()
           \param waitTableActive: The DynamoDB table's name.
-          \param clientConfiguration: AWS client configuration.
+          \param dynamoClient: A DynamoDB client.
           \return bool: Function succeeded.
         */
         bool waitTableActive(const Aws::String &tableName,
-                             const Aws::Client::ClientConfiguration &clientConfiguration);
+                             const Aws::DynamoDB::DynamoDBClient &dynamoClient);
         //! Command line prompt/response utility function.
         /*!
          \\sa askQuestion()

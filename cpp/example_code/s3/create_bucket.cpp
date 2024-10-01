@@ -60,15 +60,27 @@ bool AwsDoc::S3::createBucket(const Aws::String &bucketName,
  *
  *  main function
  *
- *  Usage: 'run_create_bucket>'
+ *  Usage: 'run_create_bucket <bucket_name_prefix>
  *
  */
 
 #ifndef EXCLUDE_MAIN_FUNCTION
 
-int main() {
+int main(int argc, char* argv[]) {
     Aws::SDKOptions options;
     InitAPI(options);
+
+    if (argc != 2) {
+        std::cout << R"(
+Usage:
+    run_create_bucket <bucket_name_prefix>
+Where:
+    bucket_name - A bucket name prefix which will be made unique by appending a UUID.
+)" << std::endl;
+        return 1;
+    }
+
+    Aws::String bucketNamePrefix = argv[1];
 
     {
         Aws::S3::S3ClientConfiguration clientConfig;
@@ -77,10 +89,10 @@ int main() {
 
         // Create a unique bucket name to increase the chance of success
         // when trying to create the bucket.
-        // Format: "amzn-s3-demo-bucket-" + lowercase UUID.
+        // Format: "<bucketNamePrefix> + "-" + lowercase UUID.
         Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-        Aws::String bucketName = "amzn-s3-demo-bucket-" +
-                                 Aws::Utils::StringUtils::ToLower(uuid.c_str());
+        Aws::String bucketName = bucketNamePrefix + "-" +
+                               Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
         AwsDoc::S3::createBucket(bucketName, clientConfig);
     }

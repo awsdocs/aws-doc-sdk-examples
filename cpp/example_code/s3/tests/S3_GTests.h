@@ -53,6 +53,10 @@ namespace AwsDocTest {
 
         static Aws::String GetCanonicalUserID();
 
+        static Aws::String GetBucketNamePrefix();
+
+        static Aws::String GetUniqueBucketName();
+
         static Aws::String preconditionError();
 
         void AddCommandLineResponses(const std::vector<std::string> &responses);

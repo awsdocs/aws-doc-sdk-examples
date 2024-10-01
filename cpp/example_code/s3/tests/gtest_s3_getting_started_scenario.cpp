@@ -10,12 +10,13 @@ namespace AwsDocTest {
 // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(S3_GTests, s3_getting_started_scenario) {
 
+        Aws::String bucketNamePrefix = GetBucketNamePrefix();
         Aws::String testFile = GetTestFilePath();
         ASSERT_TRUE(!testFile.empty()) << "Failed precondition  for test." << std::endl;
 
         const char *TEST_SAVE_FILE = "test2.txt";
 
-        EXPECT_TRUE(AwsDoc::S3::S3_GettingStartedScenario(testFile, TEST_SAVE_FILE, *s_clientConfig));
+        EXPECT_TRUE(AwsDoc::S3::S3_GettingStartedScenario(bucketNamePrefix, testFile, TEST_SAVE_FILE, *s_clientConfig));
 
         {
             std::ifstream save_file(TEST_SAVE_FILE);

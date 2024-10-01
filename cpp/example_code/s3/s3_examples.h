@@ -62,6 +62,7 @@ namespace AwsDoc {
                          const Aws::S3::S3ClientConfiguration &clientConfig);
 
         bool listObjectsWithAwsGlobalRegion(
+                const Aws::String &bucketNamePrefix,
                 const Aws::S3::S3ClientConfiguration &clientConfig);
 
         Aws::String generatePreSignedPutObjectUrl(const Aws::String &bucketName,
@@ -107,7 +108,8 @@ namespace AwsDoc {
                               const Aws::String &errorPage,
                               const Aws::S3::S3ClientConfiguration &clientConfig);
 
-        bool S3_GettingStartedScenario(const Aws::String &uploadFilePath,
+        bool S3_GettingStartedScenario(const Aws::String &bucketNamePrefix,
+                                       const Aws::String &uploadFilePath,
                                        const Aws::String &saveFilePath,
                                        const Aws::Client::ClientConfiguration &clientConfig);
 

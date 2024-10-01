@@ -69,9 +69,10 @@ bool AwsDoc::DynamoDB::putItem(const Aws::String &tableName,
     }
     else {
         std::cerr << outcome.GetError().GetMessage() << std::endl;
+        return false;
     }
 
-    return outcome.IsSuccess();
+    return waitTableActive(tableName, dynamoClient);
 }
 
 // snippet-end:[dynamodb.cpp.put_item.code]

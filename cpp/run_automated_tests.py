@@ -302,6 +302,9 @@ def main(argv):
     start_time = datetime.datetime.now()
 
     base_dir = os.getcwd()
+    
+    # Set the S3 bucket prefix to be used in tests
+    os.environ['S3TestsBucketPrefix'] = 'tests-script'
 
     [err_code, run_files] = build_tests(service=service)
 
