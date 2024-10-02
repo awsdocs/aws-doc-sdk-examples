@@ -12,7 +12,6 @@ import software.amazon.awssdk.services.iotsitewise.model.ResourceAlreadyExistsEx
 import software.amazon.awssdk.services.iotsitewise.model.ResourceNotFoundException;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 // snippet-start:[iotsitewise.java2.scenario.main]
