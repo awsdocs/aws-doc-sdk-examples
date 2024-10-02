@@ -10,10 +10,12 @@ import Foundation
 @main
 struct PaginatorExample {
     static func main() async {
+        // snippet-start:[swift.pagination]
         let PAGE_SIZE = 10
         let client: S3Client
 
-        // snippet-start:[swift.pagination]
+        // Create the Amazon S3 client.
+        
         do {
             client = try await S3Client()
         } catch {
