@@ -33,6 +33,7 @@ class PluginStack extends cdk.Stack {
 
     const adminTopicName = resourceConfig["topic_name"];
     const adminBucketName = resourceConfig["bucket_name"];
+    const exampleBucketName = resourceConfig["s3_bucket_name_prefix"];
     this.awsRegion = resourceConfig["aws_region"];
     this.adminAccountId = resourceConfig["admin_acct"];
     const snsTopic = this.initGetTopic(adminTopicName);
@@ -42,7 +43,7 @@ class PluginStack extends cdk.Stack {
       this.batchMemory = acctConfig[`${toolName}`]?.memory ?? "16384";
       this.batchVcpus = acctConfig[`${toolName}`]?.vcpus ?? "4";
     }
-    const [jobDefinition, jobQueue] = this.initBatchFargate();
+    const [jobDefinition, jobQueue] = this.initBatchFargate(exampleBucketName);
     const batchFunction = this.initBatchLambda(jobQueue, jobDefinition);
     this.initSqsLambdaIntegration(batchFunction, sqsQueue);
     if (acctConfig[`${toolName}`].status === "enabled") {
@@ -59,7 +60,7 @@ class PluginStack extends cdk.Stack {
     );
   }
 
-  private initBatchFargate(): [batch.CfnJobDefinition, batch.CfnJobQueue] {
+  private initBatchFargate(exampleBucketName: string): [batch.CfnJobDefinition, batch.CfnJobQueue] {
     const batchExecutionRole = new iam.Role(
       this,
       `BatchExecutionRole-${toolName}`,
@@ -134,6 +135,12 @@ class PluginStack extends cdk.Stack {
             value: this.batchMemory,
           },
         ],
+        environment: [
+          {
+            name: "S3_BUCKET_NAME_PREFIX",
+            value: exampleBucketName
+          },
+        ],
       },
       platformCapabilities: ["FARGATE"],
     });
@@ -159,7 +166,7 @@ class PluginStack extends cdk.Stack {
 
   private initBatchLambda(
     jobQueue: batch.CfnJobQueue,
-    jobDefinition: batch.CfnJobDefinition,
+    jobDefinition: batch.CfnJobDefinition
   ): lambda.Function {
     const executionRole = new iam.Role(
       this,
@@ -188,7 +195,7 @@ class PluginStack extends cdk.Stack {
       environment: {
         JOB_QUEUE: jobQueue.ref,
         JOB_DEFINITION: jobDefinition.ref,
-        JOB_NAME: `job-${toolName}`,
+        JOB_NAME: `job-${toolName}`
       },
       role: executionRole,
     });

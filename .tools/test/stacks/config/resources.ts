@@ -9,6 +9,7 @@ interface ResourceConfig {
   bucket_name: string;
   admin_acct: string;
   aws_region: string;
+  s3_bucket_name_prefix: string;
 }
 
 export function readResourceConfig(filePath: string): ResourceConfig {
@@ -16,11 +17,13 @@ export function readResourceConfig(filePath: string): ResourceConfig {
     const fileContents = fs.readFileSync(filePath, "utf8");
     const data: ResourceConfig = parse(fileContents);
 
+    // Validate the required fields
     if (
       !data.topic_name ||
       !data.bucket_name ||
       !data.admin_acct ||
-      !data.aws_region
+      !data.aws_region ||
+      !data.s3_bucket_name_prefix
     ) {
       throw new Error(
         "Validation failed: Missing required AWS configuration fields.",
