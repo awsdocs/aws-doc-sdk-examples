@@ -5,6 +5,7 @@ package scenarios
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"testing"
@@ -122,7 +123,7 @@ func (scenTest *GetStartedFunctionsScenarioTest) RunSubTest(stubber *testtools.A
 	mockQuestioner := demotools.MockQuestioner{Answers: scenTest.Answers}
 	scenario := NewGetStartedFunctionsScenario(*stubber.SdkConfig, &mockQuestioner, &scenTest.helper)
 	scenario.isTestRun = true
-	scenario.Run()
+	scenario.Run(context.Background())
 }
 
 func (scenTest *GetStartedFunctionsScenarioTest) Cleanup() {}

@@ -21,7 +21,8 @@ import (
 )
 
 func TestRunPartiQLBatchScenario_Integration(t *testing.T) {
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)
 	}

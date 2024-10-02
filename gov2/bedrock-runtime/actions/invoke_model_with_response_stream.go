@@ -46,7 +46,7 @@ type Response struct {
 // Invokes Anthropic Claude on Amazon Bedrock to run an inference and asynchronously
 // process the response stream.
 
-func (wrapper InvokeModelWithResponseStreamWrapper) InvokeModelWithResponseStream(prompt string) (string, error) {
+func (wrapper InvokeModelWithResponseStreamWrapper) InvokeModelWithResponseStream(ctx context.Context, prompt string) (string, error) {
 
 	modelId := "anthropic.claude-v2"
 
@@ -67,7 +67,7 @@ func (wrapper InvokeModelWithResponseStreamWrapper) InvokeModelWithResponseStrea
 		log.Panicln("Couldn't marshal the request: ", err)
 	}
 
-	output, err := wrapper.BedrockRuntimeClient.InvokeModelWithResponseStream(context.Background(), &bedrockruntime.InvokeModelWithResponseStreamInput{
+	output, err := wrapper.BedrockRuntimeClient.InvokeModelWithResponseStream(ctx, &bedrockruntime.InvokeModelWithResponseStreamInput{
 		Body:        body,
 		ModelId:     aws.String(modelId),
 		ContentType: aws.String("application/json"),
@@ -84,7 +84,7 @@ func (wrapper InvokeModelWithResponseStreamWrapper) InvokeModelWithResponseStrea
 		}
 	}
 
-	resp, err := processStreamingOutput(output, func(ctx context.Context, part []byte) error {
+	resp, err := processStreamingOutput(ctx, output, func(ctx context.Context, part []byte) error {
 		fmt.Print(string(part))
 		return nil
 	})
@@ -99,7 +99,7 @@ func (wrapper InvokeModelWithResponseStreamWrapper) InvokeModelWithResponseStrea
 
 type StreamingOutputHandler func(ctx context.Context, part []byte) error
 
-func processStreamingOutput(output *bedrockruntime.InvokeModelWithResponseStreamOutput, handler StreamingOutputHandler) (Response, error) {
+func processStreamingOutput(ctx context.Context, output *bedrockruntime.InvokeModelWithResponseStreamOutput, handler StreamingOutputHandler) (Response, error) {
 
 	var combinedResult string
 	resp := Response{}
@@ -116,7 +116,7 @@ func processStreamingOutput(output *bedrockruntime.InvokeModelWithResponseStream
 				return resp, err
 			}
 
-			err = handler(context.Background(), []byte(resp.Completion))
+			err = handler(ctx, []byte(resp.Completion))
 			if err != nil {
 				return resp, err
 			}

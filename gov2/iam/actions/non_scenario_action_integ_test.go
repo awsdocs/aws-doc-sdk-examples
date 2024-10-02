@@ -22,7 +22,8 @@ import (
 // live AWS services. This test is used to verify that the actions not used in scenarios
 // run successfully when making calls to AWS.
 func TestCallNonScenarioActions_Integration(t *testing.T) {
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)
 	}
@@ -31,7 +32,7 @@ func TestCallNonScenarioActions_Integration(t *testing.T) {
 	var buf bytes.Buffer
 	log.SetOutput(&buf)
 
-	CallNonScenarioActions(sdkConfig)
+	CallNonScenarioActions(ctx, sdkConfig)
 
 	log.SetOutput(os.Stderr)
 	if !strings.Contains(buf.String(), "Thanks for watching") {

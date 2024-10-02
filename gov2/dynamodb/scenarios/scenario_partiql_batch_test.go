@@ -6,6 +6,7 @@
 package scenarios
 
 import (
+	"context"
 	"fmt"
 	"testing"
 	"time"
@@ -105,7 +106,7 @@ func (scenTest *PartiQLBatchScenarioTest) SetupDataAndStubs() []testtools.Stub {
 // RunSubTest performs a batch test run with a set of stubs that are set up to run with
 // or without errors.
 func (scenTest *PartiQLBatchScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
-	RunPartiQLBatchScenario(*stubber.SdkConfig, scenTest.TableName)
+	RunPartiQLBatchScenario(context.Background(), *stubber.SdkConfig, scenTest.TableName)
 }
 
 func (scenTest *PartiQLBatchScenarioTest) Cleanup() {}

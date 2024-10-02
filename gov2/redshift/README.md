@@ -45,10 +45,10 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateCluster](actions/redshift_actions.go#L29)
-- [DeleteCluster](actions/redshift_actions.go#L84)
-- [DescribeClusters](actions/redshift_actions.go#L108)
-- [ModifyCluster](actions/redshift_actions.go#L58)
+- [CreateCluster](actions/redshift_actions.go#L30)
+- [DeleteCluster](actions/redshift_actions.go#L85)
+- [DescribeClusters](actions/redshift_actions.go#L115)
+- [ModifyCluster](actions/redshift_actions.go#L59)
 
 
 <!--custom.examples.start-->

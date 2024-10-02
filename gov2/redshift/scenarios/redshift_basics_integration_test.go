@@ -12,13 +12,14 @@ package scenarios
 import (
 	"bytes"
 	"context"
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 	"log"
 	"math/rand"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 )
 
 // MockPauser holds the pausable object.
@@ -35,7 +36,8 @@ func TestBasicsScenario_Integration(t *testing.T) {
 		},
 	}
 
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)
 	}
@@ -51,7 +53,7 @@ func TestBasicsScenario_Integration(t *testing.T) {
 		Random: rand.New(rand.NewSource(0)),
 	}
 	scenario := RedshiftBasics(sdkConfig, mockQuestioner, demotools.Pauser{}, demotools.NewMockFileSystem(file), helper)
-	scenario.Run()
+	scenario.Run(ctx)
 
 	_ = os.Remove(outFile)
 

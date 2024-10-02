@@ -4,6 +4,7 @@
 package workflows
 
 import (
+	"context"
 	"log"
 	"user_pools_and_lambda_triggers/actions"
 
@@ -31,7 +32,7 @@ func (resources *Resources) init(cognitoActor *actions.CognitoActions, questione
 }
 
 // Cleanup deletes all AWS resources created during an example.
-func (resources *Resources) Cleanup() {
+func (resources *Resources) Cleanup(ctx context.Context) {
 	defer func() {
 		if r := recover(); r != nil {
 			log.Printf("Something went wrong during cleanup.\n%v\n", r)
@@ -44,7 +45,7 @@ func (resources *Resources) Cleanup() {
 		"during this demo (y/n)?", "y")
 	if wantDelete {
 		for _, accessToken := range resources.userAccessTokens {
-			err := resources.cognitoActor.DeleteUser(accessToken)
+			err := resources.cognitoActor.DeleteUser(ctx, accessToken)
 			if err != nil {
 				log.Println("Couldn't delete user during cleanup.")
 				panic(err)
@@ -55,7 +56,7 @@ func (resources *Resources) Cleanup() {
 		for i := 0; i < len(resources.triggers); i++ {
 			triggerList[i] = actions.TriggerInfo{Trigger: resources.triggers[i], HandlerArn: nil}
 		}
-		err := resources.cognitoActor.UpdateTriggers(resources.userPoolId, triggerList...)
+		err := resources.cognitoActor.UpdateTriggers(ctx, resources.userPoolId, triggerList...)
 		if err != nil {
 			log.Println("Couldn't update Cognito triggers during cleanup.")
 			panic(err)

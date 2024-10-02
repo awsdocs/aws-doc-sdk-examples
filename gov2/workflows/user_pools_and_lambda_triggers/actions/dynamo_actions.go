@@ -51,7 +51,7 @@ func (users *UserList) UserNameList() []string {
 }
 
 // PopulateTable adds a set of test users to the table.
-func (actor DynamoActions) PopulateTable(tableName string) error {
+func (actor DynamoActions) PopulateTable(ctx context.Context, tableName string) error {
 	var err error
 	var item map[string]types.AttributeValue
 	var writeReqs []types.WriteRequest
@@ -63,7 +63,7 @@ func (actor DynamoActions) PopulateTable(tableName string) error {
 		}
 		writeReqs = append(writeReqs, types.WriteRequest{PutRequest: &types.PutRequest{Item: item}})
 	}
-	_, err = actor.DynamoClient.BatchWriteItem(context.TODO(), &dynamodb.BatchWriteItemInput{
+	_, err = actor.DynamoClient.BatchWriteItem(ctx, &dynamodb.BatchWriteItemInput{
 		RequestItems: map[string][]types.WriteRequest{tableName: writeReqs},
 	})
 	if err != nil {
@@ -73,9 +73,9 @@ func (actor DynamoActions) PopulateTable(tableName string) error {
 }
 
 // Scan scans the table for all items.
-func (actor DynamoActions) Scan(tableName string) (UserList, error) {
+func (actor DynamoActions) Scan(ctx context.Context, tableName string) (UserList, error) {
 	var userList UserList
-	output, err := actor.DynamoClient.Scan(context.TODO(), &dynamodb.ScanInput{
+	output, err := actor.DynamoClient.Scan(ctx, &dynamodb.ScanInput{
 		TableName: aws.String(tableName),
 	})
 	if err != nil {
@@ -90,12 +90,12 @@ func (actor DynamoActions) Scan(tableName string) (UserList, error) {
 }
 
 // AddUser adds a user item to a table.
-func (actor DynamoActions) AddUser(tableName string, user User) error {
+func (actor DynamoActions) AddUser(ctx context.Context, tableName string, user User) error {
 	userItem, err := attributevalue.MarshalMap(user)
 	if err != nil {
 		log.Printf("Couldn't marshall user to item. Here's why: %v\n", err)
 	}
-	_, err = actor.DynamoClient.PutItem(context.TODO(), &dynamodb.PutItemInput{
+	_, err = actor.DynamoClient.PutItem(ctx, &dynamodb.PutItemInput{
 		Item:      userItem,
 		TableName: aws.String(tableName),
 	})

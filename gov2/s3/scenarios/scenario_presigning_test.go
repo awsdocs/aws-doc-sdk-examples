@@ -62,7 +62,7 @@ func (scenTest *PresigningScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	objectKey := "doc-example-key"
 	scenTest.TestBody = io.NopCloser(strings.NewReader("Test data!"))
 	scenTest.Answers = []string{
-		bucketName, "../README.md", objectKey, "", "",
+		bucketName, "../README.md", objectKey, "", "", "",
 	}
 
 	var stubList []testtools.Stub
@@ -81,7 +81,7 @@ func (scenTest *PresigningScenarioTest) SetupDataAndStubs() []testtools.Stub {
 // or without errors.
 func (scenTest *PresigningScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
 	mockQuestioner := demotools.MockQuestioner{Answers: scenTest.Answers}
-	RunPresigningScenario(*stubber.SdkConfig, &mockQuestioner, MockHttpRequester{GetBody: scenTest.TestBody})
+	RunPresigningScenario(context.Background(), *stubber.SdkConfig, &mockQuestioner, MockHttpRequester{GetBody: scenTest.TestBody})
 }
 
 func (scenTest *PresigningScenarioTest) Cleanup() {}

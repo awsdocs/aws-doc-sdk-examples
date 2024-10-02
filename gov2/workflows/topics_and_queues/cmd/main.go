@@ -24,7 +24,7 @@ import (
 //     you how to create an Amazon SNS topic and Amazon SQS queues and publish messages
 //     to the topic that are forwarded to the subscribed queues.
 func main() {
-	scenarioMap := map[string]func(sdkConfig aws.Config){
+	scenarioMap := map[string]func(ctx context.Context, sdkConfig aws.Config){
 		"topics_and_queues": runTopicsAndQueuesScenario,
 	}
 	choices := make([]string, len(scenarioMap))
@@ -42,16 +42,17 @@ func main() {
 		fmt.Printf("'%v' is not a valid scenario.\n", *scenario)
 		flag.Usage()
 	} else {
-		sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+		ctx := context.Background()
+		sdkConfig, err := config.LoadDefaultConfig(ctx)
 		if err != nil {
 			log.Fatalf("unable to load SDK config, %v", err)
 		}
 
 		log.SetFlags(0)
-		runScenario(sdkConfig)
+		runScenario(ctx, sdkConfig)
 	}
 }
 
-func runTopicsAndQueuesScenario(sdkConfig aws.Config) {
-	workflows.RunTopicsAndQueuesScenario(sdkConfig, demotools.NewQuestioner())
+func runTopicsAndQueuesScenario(ctx context.Context, sdkConfig aws.Config) {
+	workflows.RunTopicsAndQueuesScenario(ctx, sdkConfig, demotools.NewQuestioner())
 }

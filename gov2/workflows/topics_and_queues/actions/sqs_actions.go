@@ -29,13 +29,13 @@ type SqsActions struct {
 
 // CreateQueue creates an Amazon SQS queue with the specified name. You can specify
 // whether the queue is created as a FIFO queue.
-func (actor SqsActions) CreateQueue(queueName string, isFifoQueue bool) (string, error) {
+func (actor SqsActions) CreateQueue(ctx context.Context, queueName string, isFifoQueue bool) (string, error) {
 	var queueUrl string
 	queueAttributes := map[string]string{}
 	if isFifoQueue {
 		queueAttributes["FifoQueue"] = "true"
 	}
-	queue, err := actor.SqsClient.CreateQueue(context.TODO(), &sqs.CreateQueueInput{
+	queue, err := actor.SqsClient.CreateQueue(ctx, &sqs.CreateQueueInput{
 		QueueName:  aws.String(queueName),
 		Attributes: queueAttributes,
 	})
@@ -54,10 +54,10 @@ func (actor SqsActions) CreateQueue(queueName string, isFifoQueue bool) (string,
 
 // GetQueueArn uses the GetQueueAttributes action to get the Amazon Resource Name (ARN)
 // of an Amazon SQS queue.
-func (actor SqsActions) GetQueueArn(queueUrl string) (string, error) {
+func (actor SqsActions) GetQueueArn(ctx context.Context, queueUrl string) (string, error) {
 	var queueArn string
 	arnAttributeName := types.QueueAttributeNameQueueArn
-	attribute, err := actor.SqsClient.GetQueueAttributes(context.TODO(), &sqs.GetQueueAttributesInput{
+	attribute, err := actor.SqsClient.GetQueueAttributes(ctx, &sqs.GetQueueAttributesInput{
 		QueueUrl:       aws.String(queueUrl),
 		AttributeNames: []types.QueueAttributeName{arnAttributeName},
 	})
@@ -76,7 +76,7 @@ func (actor SqsActions) GetQueueArn(queueUrl string) (string, error) {
 // AttachSendMessagePolicy uses the SetQueueAttributes action to attach a policy to an
 // Amazon SQS queue that allows the specified Amazon SNS topic to send messages to the
 // queue.
-func (actor SqsActions) AttachSendMessagePolicy(queueUrl string, queueArn string, topicArn string) error {
+func (actor SqsActions) AttachSendMessagePolicy(ctx context.Context, queueUrl string, queueArn string, topicArn string) error {
 	policyDoc := PolicyDocument{
 		Version: "2012-10-17",
 		Statement: []PolicyStatement{{
@@ -92,7 +92,7 @@ func (actor SqsActions) AttachSendMessagePolicy(queueUrl string, queueArn string
 		log.Printf("Couldn't create policy document. Here's why: %v\n", err)
 		return err
 	}
-	_, err = actor.SqsClient.SetQueueAttributes(context.TODO(), &sqs.SetQueueAttributesInput{
+	_, err = actor.SqsClient.SetQueueAttributes(ctx, &sqs.SetQueueAttributesInput{
 		Attributes: map[string]string{
 			string(types.QueueAttributeNamePolicy): string(policyBytes),
 		},
@@ -128,9 +128,9 @@ type PolicyCondition map[string]map[string]string
 // snippet-start:[gov2.sqs.ReceiveMessage]
 
 // GetMessages uses the ReceiveMessage action to get messages from an Amazon SQS queue.
-func (actor SqsActions) GetMessages(queueUrl string, maxMessages int32, waitTime int32) ([]types.Message, error) {
+func (actor SqsActions) GetMessages(ctx context.Context, queueUrl string, maxMessages int32, waitTime int32) ([]types.Message, error) {
 	var messages []types.Message
-	result, err := actor.SqsClient.ReceiveMessage(context.TODO(), &sqs.ReceiveMessageInput{
+	result, err := actor.SqsClient.ReceiveMessage(ctx, &sqs.ReceiveMessageInput{
 		QueueUrl:            aws.String(queueUrl),
 		MaxNumberOfMessages: maxMessages,
 		WaitTimeSeconds:     waitTime,
@@ -149,13 +149,13 @@ func (actor SqsActions) GetMessages(queueUrl string, maxMessages int32, waitTime
 
 // DeleteMessages uses the DeleteMessageBatch action to delete a batch of messages from
 // an Amazon SQS queue.
-func (actor SqsActions) DeleteMessages(queueUrl string, messages []types.Message) error {
+func (actor SqsActions) DeleteMessages(ctx context.Context, queueUrl string, messages []types.Message) error {
 	entries := make([]types.DeleteMessageBatchRequestEntry, len(messages))
 	for msgIndex := range messages {
 		entries[msgIndex].Id = aws.String(fmt.Sprintf("%v", msgIndex))
 		entries[msgIndex].ReceiptHandle = messages[msgIndex].ReceiptHandle
 	}
-	_, err := actor.SqsClient.DeleteMessageBatch(context.TODO(), &sqs.DeleteMessageBatchInput{
+	_, err := actor.SqsClient.DeleteMessageBatch(ctx, &sqs.DeleteMessageBatchInput{
 		Entries:  entries,
 		QueueUrl: aws.String(queueUrl),
 	})
@@ -170,8 +170,8 @@ func (actor SqsActions) DeleteMessages(queueUrl string, messages []types.Message
 // snippet-start:[gov2.sqs.DeleteQueue]
 
 // DeleteQueue deletes an Amazon SQS queue.
-func (actor SqsActions) DeleteQueue(queueUrl string) error {
-	_, err := actor.SqsClient.DeleteQueue(context.TODO(), &sqs.DeleteQueueInput{
+func (actor SqsActions) DeleteQueue(ctx context.Context, queueUrl string) error {
+	_, err := actor.SqsClient.DeleteQueue(ctx, &sqs.DeleteQueueInput{
 		QueueUrl: aws.String(queueUrl)})
 	if err != nil {
 		log.Printf("Couldn't delete queue %v. Here's why: %v\n", queueUrl, err)

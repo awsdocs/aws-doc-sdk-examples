@@ -22,11 +22,11 @@ import (
 //
 // `-scenario` can be one of the following:
 //
-// * `assumerole`    -  Runs an interactive scenario that shows you how to assume a role
-//						with limited permissions and perform actions on AWS services.
+//   - `assumerole`    -  Runs an interactive scenario that shows you how to assume a role
+//     with limited permissions and perform actions on AWS services.
 func main() {
-	scenarioMap := map[string]func(sdkConfig aws.Config){
-		"assumerole":    runAssumeRoleScenario,
+	scenarioMap := map[string]func(ctx context.Context, sdkConfig aws.Config){
+		"assumerole": runAssumeRoleScenario,
 	}
 	choices := make([]string, len(scenarioMap))
 	choiceIndex := 0
@@ -43,21 +43,22 @@ func main() {
 		fmt.Printf("'%v' is not a valid scenario.\n", *scenario)
 		flag.Usage()
 	} else {
-		sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+		ctx := context.Background()
+		sdkConfig, err := config.LoadDefaultConfig(ctx)
 		if err != nil {
 			log.Fatalf("unable to load SDK config, %v", err)
 		}
 
 		log.SetFlags(0)
-		runScenario(sdkConfig)
+		runScenario(ctx, sdkConfig)
 	}
 }
 
-func runAssumeRoleScenario(sdkConfig aws.Config) {
+func runAssumeRoleScenario(ctx context.Context, sdkConfig aws.Config) {
 	helper := scenarios.ScenarioHelper{
 		Prefix: "doc-example-assumerole-",
 		Random: rand.New(rand.NewSource(time.Now().Unix())),
 	}
 	scenario := scenarios.NewAssumeRoleScenario(sdkConfig, demotools.NewQuestioner(), &helper)
-	scenario.Run()
+	scenario.Run(ctx)
 }

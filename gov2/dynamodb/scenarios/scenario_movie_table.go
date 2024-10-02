@@ -4,6 +4,7 @@
 package scenarios
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"strings"
@@ -36,7 +37,7 @@ import (
 // The specified movie sampler is used to get sample data from a URL that is loaded
 // into the named table.
 func RunMovieScenario(
-	sdkConfig aws.Config, questioner demotools.IQuestioner, tableName string,
+	ctx context.Context, sdkConfig aws.Config, questioner demotools.IQuestioner, tableName string,
 	movieSampler actions.IMovieSampler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -51,13 +52,13 @@ func RunMovieScenario(
 	tableBasics := actions.TableBasics{TableName: tableName,
 		DynamoDbClient: dynamodb.NewFromConfig(sdkConfig)}
 
-	exists, err := tableBasics.TableExists()
+	exists, err := tableBasics.TableExists(ctx)
 	if err != nil {
 		panic(err)
 	}
 	if !exists {
 		log.Printf("Creating table %v...\n", tableName)
-		_, err = tableBasics.CreateMovieTable()
+		_, err = tableBasics.CreateMovieTable(ctx)
 		if err != nil {
 			panic(err)
 		} else {
@@ -78,7 +79,7 @@ func RunMovieScenario(
 		demotools.NotEmpty{}, demotools.InFloatRange{Lower: 1, Upper: 10})
 	customMovie.Info["plot"] = questioner.Ask("What's the plot? ",
 		demotools.NotEmpty{})
-	err = tableBasics.AddMovie(customMovie)
+	err = tableBasics.AddMovie(ctx, customMovie)
 	if err == nil {
 		log.Printf("Added %v to the movie table.\n", customMovie.Title)
 	}
@@ -91,7 +92,7 @@ func RunMovieScenario(
 	log.Printf("You summarized the plot as '%v'.\n", customMovie.Info["plot"])
 	customMovie.Info["plot"] = questioner.Ask("What would you say now?",
 		demotools.NotEmpty{})
-	attributes, err := tableBasics.UpdateMovie(customMovie)
+	attributes, err := tableBasics.UpdateMovie(ctx, customMovie)
 	if err == nil {
 		log.Printf("Updated %v with new values.\n", customMovie.Title)
 		for _, attVal := range attributes {
@@ -105,7 +106,7 @@ func RunMovieScenario(
 	log.Printf("Getting movie data from %v and adding 250 movies to the table...\n",
 		movieSampler.GetURL())
 	movies := movieSampler.GetSampleMovies()
-	written, err := tableBasics.AddMovieBatch(movies, 250)
+	written, err := tableBasics.AddMovieBatch(ctx, movies, 250)
 	if err != nil {
 		panic(err)
 	} else {
@@ -124,7 +125,7 @@ func RunMovieScenario(
 		"Enter the number of a movie to get info about it: ",
 		demotools.InIntRange{Lower: 1, Upper: show},
 	)
-	movie, err := tableBasics.GetMovie(movies[movieIndex-1].Title, movies[movieIndex-1].Year)
+	movie, err := tableBasics.GetMovie(ctx, movies[movieIndex-1].Title, movies[movieIndex-1].Year)
 	if err == nil {
 		log.Println(movie)
 	}
@@ -134,7 +135,7 @@ func RunMovieScenario(
 	releaseYear := questioner.AskInt("Enter a year between 1972 and 2018: ",
 		demotools.InIntRange{Lower: 1972, Upper: 2018},
 	)
-	releases, err := tableBasics.Query(releaseYear)
+	releases, err := tableBasics.Query(ctx, releaseYear)
 	if err == nil {
 		if len(releases) == 0 {
 			log.Printf("I couldn't find any movies released in %v!\n", releaseYear)
@@ -151,7 +152,7 @@ func RunMovieScenario(
 		demotools.InIntRange{Lower: 1972, Upper: 2018})
 	endYear := questioner.AskInt("Enter another year: ",
 		demotools.InIntRange{Lower: 1972, Upper: 2018})
-	releases, err = tableBasics.Scan(startYear, endYear)
+	releases, err = tableBasics.Scan(ctx, startYear, endYear)
 	if err == nil {
 		if len(releases) == 0 {
 			log.Printf("I couldn't find any movies released between %v and %v!\n", startYear, endYear)
@@ -168,7 +169,7 @@ func RunMovieScenario(
 
 	var tables []string
 	if questioner.AskBool("Do you want to list all of your tables? (y/n) ", "y") {
-		tables, err = tableBasics.ListTables()
+		tables, err = tableBasics.ListTables(ctx)
 		if err == nil {
 			log.Printf("Found %v tables:", len(tables))
 			for _, table := range tables {
@@ -180,14 +181,14 @@ func RunMovieScenario(
 
 	log.Printf("Let's remove your movie '%v'.\n", customMovie.Title)
 	if questioner.AskBool("Do you want to delete it from the table? (y/n) ", "y") {
-		err = tableBasics.DeleteMovie(customMovie)
+		err = tableBasics.DeleteMovie(ctx, customMovie)
 	}
 	if err == nil {
 		log.Printf("Deleted %v.\n", customMovie.Title)
 	}
 
 	if questioner.AskBool("Delete the table, too? (y/n)", "y") {
-		err = tableBasics.DeleteTable()
+		err = tableBasics.DeleteTable(ctx)
 	} else {
 		log.Println("Don't forget to delete the table when you're done or you might " +
 			"incur charges on your account.")

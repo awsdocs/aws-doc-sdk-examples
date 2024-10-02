@@ -35,8 +35,8 @@ type BucketBasics struct {
 // snippet-start:[gov2.s3.ListBuckets]
 
 // ListBuckets lists the buckets in the current account.
-func (basics BucketBasics) ListBuckets() ([]types.Bucket, error) {
-	result, err := basics.S3Client.ListBuckets(context.TODO(), &s3.ListBucketsInput{})
+func (basics BucketBasics) ListBuckets(ctx context.Context) ([]types.Bucket, error) {
+	result, err := basics.S3Client.ListBuckets(ctx, &s3.ListBucketsInput{})
 	var buckets []types.Bucket
 	if err != nil {
 		log.Printf("Couldn't list buckets for your account. Here's why: %v\n", err)
@@ -51,8 +51,8 @@ func (basics BucketBasics) ListBuckets() ([]types.Bucket, error) {
 // snippet-start:[gov2.s3.HeadBucket]
 
 // BucketExists checks whether a bucket exists in the current account.
-func (basics BucketBasics) BucketExists(bucketName string) (bool, error) {
-	_, err := basics.S3Client.HeadBucket(context.TODO(), &s3.HeadBucketInput{
+func (basics BucketBasics) BucketExists(ctx context.Context, bucketName string) (bool, error) {
+	_, err := basics.S3Client.HeadBucket(ctx, &s3.HeadBucketInput{
 		Bucket: aws.String(bucketName),
 	})
 	exists := true
@@ -81,8 +81,8 @@ func (basics BucketBasics) BucketExists(bucketName string) (bool, error) {
 // snippet-start:[gov2.s3.CreateBucket]
 
 // CreateBucket creates a bucket with the specified name in the specified Region.
-func (basics BucketBasics) CreateBucket(name string, region string) error {
-	_, err := basics.S3Client.CreateBucket(context.TODO(), &s3.CreateBucketInput{
+func (basics BucketBasics) CreateBucket(ctx context.Context, name string, region string) error {
+	_, err := basics.S3Client.CreateBucket(ctx, &s3.CreateBucketInput{
 		Bucket: aws.String(name),
 		CreateBucketConfiguration: &types.CreateBucketConfiguration{
 			LocationConstraint: types.BucketLocationConstraint(region),
@@ -100,13 +100,13 @@ func (basics BucketBasics) CreateBucket(name string, region string) error {
 // snippet-start:[gov2.s3.PutObject]
 
 // UploadFile reads from a file and puts the data into an object in a bucket.
-func (basics BucketBasics) UploadFile(bucketName string, objectKey string, fileName string) error {
+func (basics BucketBasics) UploadFile(ctx context.Context, bucketName string, objectKey string, fileName string) error {
 	file, err := os.Open(fileName)
 	if err != nil {
 		log.Printf("Couldn't open file %v to upload. Here's why: %v\n", fileName, err)
 	} else {
 		defer file.Close()
-		_, err = basics.S3Client.PutObject(context.TODO(), &s3.PutObjectInput{
+		_, err = basics.S3Client.PutObject(ctx, &s3.PutObjectInput{
 			Bucket: aws.String(bucketName),
 			Key:    aws.String(objectKey),
 			Body:   file,
@@ -125,13 +125,13 @@ func (basics BucketBasics) UploadFile(bucketName string, objectKey string, fileN
 
 // UploadLargeObject uses an upload manager to upload data to an object in a bucket.
 // The upload manager breaks large data into parts and uploads the parts concurrently.
-func (basics BucketBasics) UploadLargeObject(bucketName string, objectKey string, largeObject []byte) error {
+func (basics BucketBasics) UploadLargeObject(ctx context.Context, bucketName string, objectKey string, largeObject []byte) error {
 	largeBuffer := bytes.NewReader(largeObject)
 	var partMiBs int64 = 10
 	uploader := manager.NewUploader(basics.S3Client, func(u *manager.Uploader) {
 		u.PartSize = partMiBs * 1024 * 1024
 	})
-	_, err := uploader.Upload(context.TODO(), &s3.PutObjectInput{
+	_, err := uploader.Upload(ctx, &s3.PutObjectInput{
 		Bucket: aws.String(bucketName),
 		Key:    aws.String(objectKey),
 		Body:   largeBuffer,
@@ -149,8 +149,8 @@ func (basics BucketBasics) UploadLargeObject(bucketName string, objectKey string
 // snippet-start:[gov2.s3.GetObject]
 
 // DownloadFile gets an object from a bucket and stores it in a local file.
-func (basics BucketBasics) DownloadFile(bucketName string, objectKey string, fileName string) error {
-	result, err := basics.S3Client.GetObject(context.TODO(), &s3.GetObjectInput{
+func (basics BucketBasics) DownloadFile(ctx context.Context, bucketName string, objectKey string, fileName string) error {
+	result, err := basics.S3Client.GetObject(ctx, &s3.GetObjectInput{
 		Bucket: aws.String(bucketName),
 		Key:    aws.String(objectKey),
 	})
@@ -180,13 +180,13 @@ func (basics BucketBasics) DownloadFile(bucketName string, objectKey string, fil
 // DownloadLargeObject uses a download manager to download an object from a bucket.
 // The download manager gets the data in parts and writes them to a buffer until all of
 // the data has been downloaded.
-func (basics BucketBasics) DownloadLargeObject(bucketName string, objectKey string) ([]byte, error) {
+func (basics BucketBasics) DownloadLargeObject(ctx context.Context, bucketName string, objectKey string) ([]byte, error) {
 	var partMiBs int64 = 10
 	downloader := manager.NewDownloader(basics.S3Client, func(d *manager.Downloader) {
 		d.PartSize = partMiBs * 1024 * 1024
 	})
 	buffer := manager.NewWriteAtBuffer([]byte{})
-	_, err := downloader.Download(context.TODO(), buffer, &s3.GetObjectInput{
+	_, err := downloader.Download(ctx, buffer, &s3.GetObjectInput{
 		Bucket: aws.String(bucketName),
 		Key:    aws.String(objectKey),
 	})
@@ -202,8 +202,8 @@ func (basics BucketBasics) DownloadLargeObject(bucketName string, objectKey stri
 // snippet-start:[gov2.s3.CopyObject]
 
 // CopyToFolder copies an object in a bucket to a subfolder in the same bucket.
-func (basics BucketBasics) CopyToFolder(bucketName string, objectKey string, folderName string) error {
-	_, err := basics.S3Client.CopyObject(context.TODO(), &s3.CopyObjectInput{
+func (basics BucketBasics) CopyToFolder(ctx context.Context, bucketName string, objectKey string, folderName string) error {
+	_, err := basics.S3Client.CopyObject(ctx, &s3.CopyObjectInput{
 		Bucket:     aws.String(bucketName),
 		CopySource: aws.String(fmt.Sprintf("%v/%v", bucketName, objectKey)),
 		Key:        aws.String(fmt.Sprintf("%v/%v", folderName, objectKey)),
@@ -220,8 +220,8 @@ func (basics BucketBasics) CopyToFolder(bucketName string, objectKey string, fol
 // snippet-start:[gov2.s3.CopyObject.ToBucket]
 
 // CopyToBucket copies an object in a bucket to another bucket.
-func (basics BucketBasics) CopyToBucket(sourceBucket string, destinationBucket string, objectKey string) error {
-	_, err := basics.S3Client.CopyObject(context.TODO(), &s3.CopyObjectInput{
+func (basics BucketBasics) CopyToBucket(ctx context.Context, sourceBucket string, destinationBucket string, objectKey string) error {
+	_, err := basics.S3Client.CopyObject(ctx, &s3.CopyObjectInput{
 		Bucket:     aws.String(destinationBucket),
 		CopySource: aws.String(fmt.Sprintf("%v/%v", sourceBucket, objectKey)),
 		Key:        aws.String(objectKey),
@@ -238,8 +238,8 @@ func (basics BucketBasics) CopyToBucket(sourceBucket string, destinationBucket s
 // snippet-start:[gov2.s3.ListObjectsV2]
 
 // ListObjects lists the objects in a bucket.
-func (basics BucketBasics) ListObjects(bucketName string) ([]types.Object, error) {
-	result, err := basics.S3Client.ListObjectsV2(context.TODO(), &s3.ListObjectsV2Input{
+func (basics BucketBasics) ListObjects(ctx context.Context, bucketName string) ([]types.Object, error) {
+	result, err := basics.S3Client.ListObjectsV2(ctx, &s3.ListObjectsV2Input{
 		Bucket: aws.String(bucketName),
 	})
 	var contents []types.Object
@@ -256,12 +256,12 @@ func (basics BucketBasics) ListObjects(bucketName string) ([]types.Object, error
 // snippet-start:[gov2.s3.DeleteObjects]
 
 // DeleteObjects deletes a list of objects from a bucket.
-func (basics BucketBasics) DeleteObjects(bucketName string, objectKeys []string) error {
+func (basics BucketBasics) DeleteObjects(ctx context.Context, bucketName string, objectKeys []string) error {
 	var objectIds []types.ObjectIdentifier
 	for _, key := range objectKeys {
 		objectIds = append(objectIds, types.ObjectIdentifier{Key: aws.String(key)})
 	}
-	output, err := basics.S3Client.DeleteObjects(context.TODO(), &s3.DeleteObjectsInput{
+	output, err := basics.S3Client.DeleteObjects(ctx, &s3.DeleteObjectsInput{
 		Bucket: aws.String(bucketName),
 		Delete: &types.Delete{Objects: objectIds},
 	})
@@ -278,8 +278,8 @@ func (basics BucketBasics) DeleteObjects(bucketName string, objectKeys []string)
 // snippet-start:[gov2.s3.DeleteBucket]
 
 // DeleteBucket deletes a bucket. The bucket must be empty or an error is returned.
-func (basics BucketBasics) DeleteBucket(bucketName string) error {
-	_, err := basics.S3Client.DeleteBucket(context.TODO(), &s3.DeleteBucketInput{
+func (basics BucketBasics) DeleteBucket(ctx context.Context, bucketName string) error {
+	_, err := basics.S3Client.DeleteBucket(ctx, &s3.DeleteBucketInput{
 		Bucket: aws.String(bucketName)})
 	if err != nil {
 		log.Printf("Couldn't delete bucket %v. Here's why: %v\n", bucketName, err)

@@ -27,9 +27,9 @@ type GroupWrapper struct {
 // snippet-start:[gov2.iam.ListGroups]
 
 // ListGroups lists up to maxGroups number of groups.
-func (wrapper GroupWrapper) ListGroups(maxGroups int32) ([]types.Group, error) {
+func (wrapper GroupWrapper) ListGroups(ctx context.Context, maxGroups int32) ([]types.Group, error) {
 	var groups []types.Group
-	result, err := wrapper.IamClient.ListGroups(context.TODO(), &iam.ListGroupsInput{
+	result, err := wrapper.IamClient.ListGroups(ctx, &iam.ListGroupsInput{
 		MaxItems: aws.Int32(maxGroups),
 	})
 	if err != nil {

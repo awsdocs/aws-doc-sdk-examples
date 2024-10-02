@@ -27,7 +27,7 @@ import (
 //     get presigned requests that contain temporary credentials
 //     and can be used to make requests from any HTTP client.
 func main() {
-	scenarioMap := map[string]func(sdkConfig aws.Config){
+	scenarioMap := map[string]func(ctx context.Context, sdkConfig aws.Config){
 		"getstarted": runGetStartedScenario,
 		"presigning": runPresigningScenario,
 	}
@@ -46,20 +46,21 @@ func main() {
 		fmt.Printf("'%v' is not a valid scenario.\n", *scenario)
 		flag.Usage()
 	} else {
-		sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+		ctx := context.Background()
+		sdkConfig, err := config.LoadDefaultConfig(ctx)
 		if err != nil {
 			log.Fatalf("unable to load SDK config, %v", err)
 		}
 
 		log.SetFlags(0)
-		runScenario(sdkConfig)
+		runScenario(ctx, sdkConfig)
 	}
 }
 
-func runGetStartedScenario(sdkConfig aws.Config) {
-	scenarios.RunGetStartedScenario(sdkConfig, demotools.NewQuestioner())
+func runGetStartedScenario(ctx context.Context, sdkConfig aws.Config) {
+	scenarios.RunGetStartedScenario(ctx, sdkConfig, demotools.NewQuestioner())
 }
 
-func runPresigningScenario(sdkConfig aws.Config) {
-	scenarios.RunPresigningScenario(sdkConfig, demotools.NewQuestioner(), scenarios.HttpRequester{})
+func runPresigningScenario(ctx context.Context, sdkConfig aws.Config) {
+	scenarios.RunPresigningScenario(ctx, sdkConfig, demotools.NewQuestioner(), scenarios.HttpRequester{})
 }

@@ -6,6 +6,7 @@ package workflows
 // snippet-start:[gov2.workflows.PoolsAndTriggers.MigrateUser]
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"log"
@@ -40,12 +41,12 @@ func NewMigrateUser(sdkConfig aws.Config, questioner demotools.IQuestioner, help
 }
 
 // AddMigrateUserTrigger adds a Lambda handler as an invocation target for the MigrateUser trigger.
-func (runner *MigrateUser) AddMigrateUserTrigger(userPoolId string, functionArn string) {
+func (runner *MigrateUser) AddMigrateUserTrigger(ctx context.Context, userPoolId string, functionArn string) {
 	log.Printf("Let's add a Lambda function to handle the MigrateUser trigger from Cognito.\n" +
 		"This trigger happens when an unknown user signs in, and lets your function take action before Cognito\n" +
 		"rejects the user.\n\n")
 	err := runner.cognitoActor.UpdateTriggers(
-		userPoolId,
+		ctx, userPoolId,
 		actions.TriggerInfo{Trigger: actions.UserMigration, HandlerArn: aws.String(functionArn)})
 	if err != nil {
 		panic(err)
@@ -57,7 +58,7 @@ func (runner *MigrateUser) AddMigrateUserTrigger(userPoolId string, functionArn 
 }
 
 // SignInUser adds a new user to the known users table and signs that user in to Amazon Cognito.
-func (runner *MigrateUser) SignInUser(usersTable string, clientId string) (bool, actions.User) {
+func (runner *MigrateUser) SignInUser(ctx context.Context, usersTable string, clientId string) (bool, actions.User) {
 	log.Println("Let's sign in a user to your Cognito user pool. When the username and email matches an entry in the\n" +
 		"DynamoDB known users table, the email is automatically verified and the user is migrated to the Cognito user pool.")
 
@@ -66,7 +67,7 @@ func (runner *MigrateUser) SignInUser(usersTable string, clientId string) (bool,
 	user.UserEmail = runner.questioner.Ask("\nEnter an email that you own. This email will be used to confirm user migration\n" +
 		"during this example:")
 
-	runner.helper.AddKnownUser(usersTable, user)
+	runner.helper.AddKnownUser(ctx, usersTable, user)
 
 	var err error
 	var resetRequired *types.PasswordResetRequiredException
@@ -74,7 +75,7 @@ func (runner *MigrateUser) SignInUser(usersTable string, clientId string) (bool,
 	signedIn := false
 	for !signedIn && resetRequired == nil {
 		log.Printf("Signing in to Cognito as user '%v'. The expected result is a PasswordResetRequiredException.\n\n", user.UserName)
-		authResult, err = runner.cognitoActor.SignIn(clientId, user.UserName, "_")
+		authResult, err = runner.cognitoActor.SignIn(ctx, clientId, user.UserName, "_")
 		if err != nil {
 			if errors.As(err, &resetRequired) {
 				log.Printf("\nUser '%v' is not in the Cognito user pool but was found in the DynamoDB known users table.\n"+
@@ -97,7 +98,7 @@ func (runner *MigrateUser) SignInUser(usersTable string, clientId string) (bool,
 }
 
 // ResetPassword starts a password recovery flow.
-func (runner *MigrateUser) ResetPassword(clientId string, user actions.User) {
+func (runner *MigrateUser) ResetPassword(ctx context.Context, clientId string, user actions.User) {
 	wantCode := runner.questioner.AskBool(fmt.Sprintf("In order to migrate the user to Cognito, you must be able to receive a confirmation\n"+
 		"code by email at %v. Do you want to send a code (y/n)?", user.UserEmail), "y")
 	if !wantCode {
@@ -105,7 +106,7 @@ func (runner *MigrateUser) ResetPassword(clientId string, user actions.User) {
 			"you own that can receive a confirmation code.")
 		return
 	}
-	codeDelivery, err := runner.cognitoActor.ForgotPassword(clientId, user.UserName)
+	codeDelivery, err := runner.cognitoActor.ForgotPassword(ctx, clientId, user.UserName)
 	if err != nil {
 		panic(err)
 	}
@@ -117,7 +118,7 @@ func (runner *MigrateUser) ResetPassword(clientId string, user actions.User) {
 		"(the password will not display as you type):", 8)
 	for !confirmed {
 		log.Printf("\nConfirming password reset for user '%v'.\n", user.UserName)
-		err = runner.cognitoActor.ConfirmForgotPassword(clientId, code, user.UserName, password)
+		err = runner.cognitoActor.ConfirmForgotPassword(ctx, clientId, code, user.UserName, password)
 		if err != nil {
 			var invalidPassword *types.InvalidPasswordException
 			if errors.As(err, &invalidPassword) {
@@ -131,7 +132,7 @@ func (runner *MigrateUser) ResetPassword(clientId string, user actions.User) {
 	}
 	log.Printf("User '%v' successfully confirmed and migrated.\n", user.UserName)
 	log.Println("Signing in with your username and password...")
-	authResult, err := runner.cognitoActor.SignIn(clientId, user.UserName, password)
+	authResult, err := runner.cognitoActor.SignIn(ctx, clientId, user.UserName, password)
 	if err != nil {
 		panic(err)
 	}
@@ -142,11 +143,11 @@ func (runner *MigrateUser) ResetPassword(clientId string, user actions.User) {
 }
 
 // Run runs the scenario.
-func (runner *MigrateUser) Run(stackName string) {
+func (runner *MigrateUser) Run(ctx context.Context, stackName string) {
 	defer func() {
 		if r := recover(); r != nil {
 			log.Println("Something went wrong with the demo.")
-			runner.resources.Cleanup()
+			runner.resources.Cleanup(ctx)
 		}
 	}()
 
@@ -155,21 +156,21 @@ func (runner *MigrateUser) Run(stackName string) {
 
 	log.Println(strings.Repeat("-", 88))
 
-	stackOutputs, err := runner.helper.GetStackOutputs(stackName)
+	stackOutputs, err := runner.helper.GetStackOutputs(ctx, stackName)
 	if err != nil {
 		panic(err)
 	}
 	runner.resources.userPoolId = stackOutputs["UserPoolId"]
 
-	runner.AddMigrateUserTrigger(stackOutputs["UserPoolId"], stackOutputs["MigrateUserFunctionArn"])
+	runner.AddMigrateUserTrigger(ctx, stackOutputs["UserPoolId"], stackOutputs["MigrateUserFunctionArn"])
 	runner.resources.triggers = append(runner.resources.triggers, actions.UserMigration)
-	resetNeeded, user := runner.SignInUser(stackOutputs["TableName"], stackOutputs["UserPoolClientId"])
+	resetNeeded, user := runner.SignInUser(ctx, stackOutputs["TableName"], stackOutputs["UserPoolClientId"])
 	if resetNeeded {
-		runner.helper.ListRecentLogEvents(stackOutputs["MigrateUserFunction"])
-		runner.ResetPassword(stackOutputs["UserPoolClientId"], user)
+		runner.helper.ListRecentLogEvents(ctx, stackOutputs["MigrateUserFunction"])
+		runner.ResetPassword(ctx, stackOutputs["UserPoolClientId"], user)
 	}
 
-	runner.resources.Cleanup()
+	runner.resources.Cleanup(ctx)
 
 	log.Println(strings.Repeat("-", 88))
 	log.Println("Thanks for watching!")

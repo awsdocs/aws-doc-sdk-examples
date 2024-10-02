@@ -6,13 +6,16 @@
 package scenarios
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/redshift/stubs"
 	"io"
 	"math/rand"
 	"testing"
 	"time"
+
+	"github.com/aws/aws-sdk-go-v2/service/redshift/types"
+	"github.com/awsdocs/aws-doc-sdk-examples/gov2/redshift/stubs"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
@@ -110,18 +113,23 @@ func (scenarioTest *BasicsScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	stubList = append(stubList, stubs.StubDescribeStatement(testId, nil))
 	stubList = append(stubList, stubs.StubGetStatementResult(nil))
 	stubList = append(stubList, stubs.StubModifyCluster(nil))
-	stubList = append(stubList, stubs.StubDeleteCluster(clusterId))
+	stubList = append(stubList, stubs.StubDeleteCluster(clusterId, nil))
+	stubList = append(stubList, stubs.StubDescribeClusters(clusterId, &testtools.StubError{Err: &types.ClusterNotFoundFault{}}))
 
 	return stubList
 }
+
+type TestPauser struct{}
+
+func (tp TestPauser) Pause(secs int) {}
 
 // RunSubTest performs a single test run with a set of stubs set up to run with
 // or without errors.
 func (scenarioTest *BasicsScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
 	mockQuestioner := demotools.MockQuestioner{Answers: scenarioTest.Answers}
-	scenario := RedshiftBasics(*stubber.SdkConfig, &mockQuestioner, demotools.Pauser{}, demotools.NewMockFileSystem(scenarioTest.File), scenarioTest.Helper)
+	scenario := RedshiftBasics(*stubber.SdkConfig, &mockQuestioner, TestPauser{}, demotools.NewMockFileSystem(scenarioTest.File), scenarioTest.Helper)
 
-	scenario.Run()
+	scenario.Run(context.Background())
 }
 
 func (scenarioTest *BasicsScenarioTest) Cleanup() {

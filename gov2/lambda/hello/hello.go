@@ -19,7 +19,8 @@ import (
 // This example uses the default settings specified in your shared credentials
 // and config files.
 func main() {
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		fmt.Println("Couldn't load default configuration. Have you set up your AWS account?")
 		fmt.Println(err)
@@ -29,7 +30,7 @@ func main() {
 
 	maxItems := 10
 	fmt.Printf("Let's list up to %v functions for your account.\n", maxItems)
-	result, err := lambdaClient.ListFunctions(context.TODO(), &lambda.ListFunctionsInput{
+	result, err := lambdaClient.ListFunctions(ctx, &lambda.ListFunctionsInput{
 		MaxItems: aws.Int32(int32(maxItems)),
 	})
 	if err != nil {

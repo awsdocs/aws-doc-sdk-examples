@@ -19,7 +19,8 @@ import (
 // This example uses the default settings specified in your shared credentials
 // and config files.
 func main() {
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		fmt.Println("Couldn't load default configuration. Have you set up your AWS account?")
 		fmt.Println(err)
@@ -28,8 +29,8 @@ func main() {
 	auroraClient := rds.NewFromConfig(sdkConfig)
 	const maxClusters = 20
 	fmt.Printf("Let's list up to %v DB clusters.\n", maxClusters)
-	output, err := auroraClient.DescribeDBClusters(context.TODO(),
-		&rds.DescribeDBClustersInput{MaxRecords: aws.Int32(maxClusters)})
+	output, err := auroraClient.DescribeDBClusters(
+		ctx, &rds.DescribeDBClustersInput{MaxRecords: aws.Int32(maxClusters)})
 	if err != nil {
 		fmt.Printf("Couldn't list DB clusters: %v\n", err)
 		return

@@ -85,7 +85,8 @@ func (h *handler) HandleRequest(ctx context.Context, event events.CognitoEventUs
 }
 
 func main() {
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Panicln(err)
 	}
