@@ -14,7 +14,8 @@ import * as sqs from "aws-cdk-lib/aws-sqs";
 import * as batch from "aws-cdk-lib/aws-batch";
 import * as subs from "aws-cdk-lib/aws-sns-subscriptions";
 import { Construct } from "constructs";
-import { readAccountConfig } from "../../config/types";
+import { readAccountConfig } from "../../config/targets";
+import { readVariableConfig } from "../../config/variables";
 import { readResourceConfig } from "../../config/resources";
 
 const toolName = process.env.TOOL_NAME ?? "defaultToolName";
@@ -30,10 +31,12 @@ class PluginStack extends cdk.Stack {
 
     const acctConfig = readAccountConfig("../../config/targets.yaml");
     const resourceConfig = readResourceConfig("../../config/resources.yaml");
+    const variableConfig = readResourceConfig("../../config/resources.yaml");
+
 
     const adminTopicName = resourceConfig["topic_name"];
     const adminBucketName = resourceConfig["bucket_name"];
-    const exampleBucketName = resourceConfig["s3_bucket_name_prefix"];
+    const exampleBucketName = variableConfig["s3_bucket_name_prefix"];
     this.awsRegion = resourceConfig["aws_region"];
     this.adminAccountId = resourceConfig["admin_acct"];
     const snsTopic = this.initGetTopic(adminTopicName);
