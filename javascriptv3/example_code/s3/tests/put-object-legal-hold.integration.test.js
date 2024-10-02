@@ -13,8 +13,8 @@ import { main as putObjectLegalHold } from "../actions/put-object-legal-hold.js"
 import { legallyEmptyAndDeleteBuckets } from "../libs/s3Utils.js";
 
 const client = new S3Client({});
-const bucketName = getUniqueName("test-bucket");
-const objectKey = "test-object";
+const bucketName = getUniqueName("code-example");
+const objectKey = "file.txt";
 
 describe("put-object-legal-hold.js Integration Test", () => {
   afterAll(async () => {
@@ -34,13 +34,13 @@ describe("put-object-legal-hold.js Integration Test", () => {
       new PutObjectCommand({
         Bucket: bucketName,
         Key: objectKey,
-        Body: "test content",
+        Body: "content",
       }),
     );
 
     // Execute
     const spy = vi.spyOn(console, "error");
-    await putObjectLegalHold(client, bucketName, objectKey);
+    await putObjectLegalHold({ bucketName, objectKey, legalHoldStatus: "ON" });
     expect(spy).not.toHaveBeenCalled();
 
     // Verify

@@ -1,17 +1,21 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+import { S3ServiceException } from "@aws-sdk/client-s3";
 import { describe, it, expect, vi } from "vitest";
 
-const send = vi.fn();
+const paginateListBuckets = vi.fn().mockImplementation(async function* () {
+  yield {
+    Buckets: [{ Name: "amzn-s3-demo-bucket" }],
+    Owner: { DisplayName: "bar" },
+  };
+});
 
 vi.doMock("@aws-sdk/client-s3", async () => {
   const actual = await vi.importActual("@aws-sdk/client-s3");
   return {
     ...actual,
-    S3Client: class {
-      send = send;
-    },
+    paginateListBuckets,
   };
 });
 
@@ -19,26 +23,45 @@ const { main } = await import("../actions/list-buckets.js");
 
 describe("list-buckets", () => {
   it("should log the response from the service", async () => {
-    send.mockResolvedValue({
-      Buckets: [{ Name: "foo" }],
-      Owner: { DisplayName: "bar" },
-    });
-
     const spy = vi.spyOn(console, "log");
 
     await main();
 
     expect(spy).toHaveBeenNthCalledWith(1, "bar owns 1 bucket:");
-    expect(spy).toHaveBeenNthCalledWith(2, " • foo");
+    expect(spy).toHaveBeenNthCalledWith(2, " • amzn-s3-demo-bucket");
   });
 
-  it("should log errors", async () => {
-    send.mockRejectedValue("foo");
+  it("should indicate a failure came from S3 when the error isn't generic", async () => {
+    const error = new S3ServiceException("Some S3 service exception.");
+    error.name = "ServiceException";
+    const bucketName = "amzn-s3-demo-bucket";
+    paginateListBuckets.mockImplementationOnce(
+      // eslint-disable-next-line require-yield
+      async function* () {
+        throw error;
+      },
+    );
 
     const spy = vi.spyOn(console, "error");
 
-    await main();
+    await main({ bucketName, keys: ["foo"] });
 
-    expect(spy).toHaveBeenCalledWith("foo");
+    expect(spy).toHaveBeenCalledWith(
+      `Error from S3 while listing buckets.  ${error.name}: ${error.message}`,
+    );
+  });
+
+  it("should throw errors that are not S3 specific", async () => {
+    const bucketName = "amzn-s3-demo-bucket";
+    paginateListBuckets.mockImplementationOnce(
+      // eslint-disable-next-line require-yield
+      async function* () {
+        throw new Error();
+      },
+    );
+
+    await expect(() =>
+      main({ bucketName, keys: ["foo"] }),
+    ).rejects.toBeTruthy();
   });
 });

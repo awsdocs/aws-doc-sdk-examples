@@ -16,19 +16,22 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-const { main } = await import("../actions/put-bucket-website.js");
+const { main } = await import("../actions/get-bucket-acl.js");
 
-describe("put-bucket-website", () => {
+describe("get-bucket-acl", () => {
   it("should log the response from the service", async () => {
-    send.mockResolvedValue("foo");
-    const bucketName = "amzn-s3-demo-bucket";
+    const response = {
+      Owner: { DisplayName: "Alice", ID: "1234" },
+      Grants: [],
+    };
+    send.mockResolvedValue(response);
+
     const spy = vi.spyOn(console, "log");
 
-    await main({ bucketName });
+    await main({ bucketName: "amzn-s3-demo-bucket" });
 
-    expect(spy).toHaveBeenCalledWith(
-      `The bucket "${bucketName}" has been configured as a static website.`,
-    );
+    expect(spy).toHaveBeenCalledWith(`ACL for bucket "amzn-s3-demo-bucket":`);
+    expect(spy).toHaveBeenCalledWith(JSON.stringify(response, null, 2));
   });
 
   it("should log a relevant error when the bucket doesn't exist", async () => {
@@ -42,7 +45,7 @@ describe("put-bucket-website", () => {
     await main({ bucketName });
 
     expect(spy).toHaveBeenCalledWith(
-      `Error from S3 while configuring the bucket "${bucketName}" as a static website. The bucket doesn't exist.`,
+      `Error from S3 while getting ACL for ${bucketName}. The bucket doesn't exist.`,
     );
   });
 
@@ -57,7 +60,7 @@ describe("put-bucket-website", () => {
     await main({ bucketName });
 
     expect(spy).toHaveBeenCalledWith(
-      `Error from S3 while configuring the bucket "${bucketName}" as a static website. ${error.name}: ${error.message}`,
+      `Error from S3 while getting ACL for ${bucketName}. ${error.name}: ${error.message}`,
     );
   });
 

@@ -16,6 +16,12 @@ describe("util-string", () => {
       const u2 = getUniqueName(value);
       expect(u1).not.toEqual(u2);
     });
+
+    it("should return undefined if a falsy value is passed in", () => {
+      expect(getUniqueName()).toBeUndefined();
+      expect(getUniqueName("")).toBeUndefined();
+      expect(getUniqueName(0)).toBeUndefined();
+    });
   });
 
   describe("postfix", () => {

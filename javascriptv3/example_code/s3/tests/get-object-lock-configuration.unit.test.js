@@ -16,18 +16,18 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-const { main } = await import("../actions/put-bucket-website.js");
+const { main } = await import("../actions/get-object-lock-configuration.js");
 
-describe("put-bucket-website", () => {
+describe("get-object-lock-configuration", () => {
   it("should log the response from the service", async () => {
-    send.mockResolvedValue("foo");
-    const bucketName = "amzn-s3-demo-bucket";
+    send.mockResolvedValue({ ObjectLockConfiguration: "foo" });
+
     const spy = vi.spyOn(console, "log");
 
-    await main({ bucketName });
+    await main({ bucketName: "amzn-s3-demo-bucket", key: "foo" });
 
     expect(spy).toHaveBeenCalledWith(
-      `The bucket "${bucketName}" has been configured as a static website.`,
+      `Object Lock Configuration:\n${JSON.stringify("foo")}`,
     );
   });
 
@@ -39,10 +39,10 @@ describe("put-bucket-website", () => {
 
     const spy = vi.spyOn(console, "error");
 
-    await main({ bucketName });
+    await main({ bucketName, keys: ["foo"] });
 
     expect(spy).toHaveBeenCalledWith(
-      `Error from S3 while configuring the bucket "${bucketName}" as a static website. The bucket doesn't exist.`,
+      `Error from S3 while getting object lock configuration for ${bucketName}. The bucket doesn't exist.`,
     );
   });
 
@@ -54,10 +54,10 @@ describe("put-bucket-website", () => {
 
     const spy = vi.spyOn(console, "error");
 
-    await main({ bucketName });
+    await main({ bucketName, keys: ["foo"] });
 
     expect(spy).toHaveBeenCalledWith(
-      `Error from S3 while configuring the bucket "${bucketName}" as a static website. ${error.name}: ${error.message}`,
+      `Error from S3 while getting object lock configuration for ${bucketName}.  ${error.name}: ${error.message}`,
     );
   });
 
@@ -65,6 +65,8 @@ describe("put-bucket-website", () => {
     const bucketName = "amzn-s3-demo-bucket";
     send.mockRejectedValueOnce(new Error());
 
-    await expect(() => main({ bucketName })).rejects.toBeTruthy();
+    await expect(() =>
+      main({ bucketName, keys: ["foo"] }),
+    ).rejects.toBeTruthy();
   });
 });

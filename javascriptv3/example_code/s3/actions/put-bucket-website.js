@@ -1,40 +1,73 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
-
 // snippet-start:[s3.JavaScript.website.putBucketWebsiteV3]
-import { PutBucketWebsiteCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+  PutBucketWebsiteCommand,
+  S3Client,
+  S3ServiceException,
+} from "@aws-sdk/client-s3";
 
-const client = new S3Client({});
-
-// Set up a bucket as a static website.
-// The bucket needs to be publicly accessible.
-export const main = async () => {
+/**
+ * Configure an Amazon S3 bucket to serve a static website.
+ * Website access must also be granted separately. For more information
+ * on setting the permissions for website access, see
+ * https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteAccessPermissionsReqd.html.
+ *
+ * @param {{ bucketName: string }}
+ */
+export const main = async ({ bucketName }) => {
+  const client = new S3Client({});
   const command = new PutBucketWebsiteCommand({
-    Bucket: "test-bucket",
+    Bucket: bucketName,
     WebsiteConfiguration: {
       ErrorDocument: {
         // The object key name to use when a 4XX class error occurs.
         Key: "error.html",
       },
       IndexDocument: {
-        // A suffix that is appended to a request that is for a directory.
+        // A suffix that is appended to a request when the request is
+        // for a directory.
         Suffix: "index.html",
       },
     },
   });
 
   try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
+    await client.send(command);
+    console.log(
+      `The bucket "${bucketName}" has been configured as a static website.`,
+    );
+  } catch (caught) {
+    if (
+      caught instanceof S3ServiceException &&
+      caught.name === "NoSuchBucket"
+    ) {
+      console.error(
+        `Error from S3 while configuring the bucket "${bucketName}" as a static website. The bucket doesn't exist.`,
+      );
+    } else if (caught instanceof S3ServiceException) {
+      console.error(
+        `Error from S3 while configuring the bucket "${bucketName}" as a static website. ${caught.name}: ${caught.message}`,
+      );
+    } else {
+      throw caught;
+    }
   }
 };
 // snippet-end:[s3.JavaScript.website.putBucketWebsiteV3]
 
-// Invoke main function if this file was run directly.
+// Call function if run directly
+import { fileURLToPath } from "url";
+import { parseArgs } from "util";
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  const options = {
+    bucketName: {
+      type: "string",
+      default: "amzn-s3-demo-bucket",
+    },
+  };
+  const { values } = parseArgs({ options });
+  main(values);
 }
