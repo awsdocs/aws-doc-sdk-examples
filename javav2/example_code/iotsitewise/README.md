@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello AWS IoT SiteWise](src/main/java/com/example/iotsitewise/HelloSitewise.java#L17) (`ListVersions`)
+- [Hello AWS IoT SiteWise](src/main/java/com/example/iotsitewise/HelloSitewise.java#L14) (`ListVersions`)
 
 
 ### Basics
@@ -45,20 +45,20 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchPutAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L161)
-- [CreateAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L135)
-- [CreateAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L90)
-- [CreateGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L398)
-- [CreatePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L300)
-- [DeleteAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L254)
-- [DeleteAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L278)
-- [DeleteGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L435)
-- [DeletePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L328)
-- [DescribeAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L234)
-- [DescribeGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L452)
-- [DescribePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L374)
-- [GetAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L213)
-- [ListAssetModels](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L350)
+- [BatchPutAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L169)
+- [CreateAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L138)
+- [CreateAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L88)
+- [CreateGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L468)
+- [CreatePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L347)
+- [DeleteAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L293)
+- [DeleteAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L320)
+- [DeleteGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L513)
+- [DeletePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L381)
+- [DescribeAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L264)
+- [DescribeGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L540)
+- [DescribePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L439)
+- [GetAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L233)
+- [ListAssetModels](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L408)
 
 
 <!--custom.examples.start-->
