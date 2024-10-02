@@ -34,6 +34,7 @@ import software.amazon.awssdk.services.iotsitewise.model.DeleteAssetResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DeletePortalRequest;
 import software.amazon.awssdk.services.iotsitewise.model.DeletePortalResponse;
 import software.amazon.awssdk.services.iotsitewise.model.DescribePortalRequest;
+import software.amazon.awssdk.services.iotsitewise.model.DescribePortalResponse;
 import software.amazon.awssdk.services.iotsitewise.model.GatewayPlatform;
 import software.amazon.awssdk.services.iotsitewise.model.GetAssetPropertyValueRequest;
 import software.amazon.awssdk.services.iotsitewise.model.GreengrassV2;
@@ -85,12 +86,18 @@ public class SitewiseActions {
     }
 
     // snippet-start:[sitewise.java2_create_asset_model.main]
+
     /**
      * Creates an asset model.
      *
      * @param name the name of the asset model to create.
-     * @return a {@link CompletableFuture} that completes with the created {@link CreateAssetModelResponse} when the operation is complete.
-     * @throws RuntimeException if an error occurs while creating the asset model.
+     * @return a {@link CompletableFuture} that represents a {@link CreateAssetModelResponse} result. The calling code
+     *         can attach callbacks, then handle the result or exception by calling {@link CompletableFuture#join()} or
+     *         {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps it
+     *         available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
     public CompletableFuture<CreateAssetModelResponse> createAssetModelAsync(String name) {
         PropertyType humidity = PropertyType.builder()
@@ -122,20 +129,26 @@ public class SitewiseActions {
         return getAsyncClient().createAssetModel(createAssetModelRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    logger.error("Failed to create asset model: {} ", exception.getMessage());
+                    logger.error("Failed to create asset model: {} ", exception.getCause().getMessage());
                 }
             });
     }
     // snippet-end:[sitewise.java2_create_asset_model.main]
 
     // snippet-start:[sitewise.java2_create_asset.main]
+
     /**
-     * Creates an asset with the specified name and model Id.
+     * Creates an asset with the specified name and asset model Id.
      *
-     * @param assetName     the name of the asset to create.
+     * @param assetName    the name of the asset to create.
      * @param assetModelId the Id of the asset model to associate with the asset.
-     * @return a {@link CompletableFuture} that completes with the {@link CreateAssetResponse} when the asset creation is complete.
-     * @throws RuntimeException if the asset creation fails.
+     * @return a {@link CompletableFuture} that represents a {@link CreateAssetResponse} result. The calling code can
+     *         attach callbacks, then handle the result or exception by calling {@link CompletableFuture#join()} or
+     *         {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps it
+     *         available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
     public CompletableFuture<CreateAssetResponse> createAssetAsync(String assetName, String assetModelId) {
         CreateAssetRequest createAssetRequest = CreateAssetRequest.builder()
@@ -147,7 +160,7 @@ public class SitewiseActions {
         return getAsyncClient().createAsset(createAssetRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    logger.error("Failed to create asset: {}", exception.getMessage());
+                    logger.error("Failed to create asset: {}", exception.getCause().getMessage());
                 }
             });
     }
@@ -160,7 +173,13 @@ public class SitewiseActions {
      * @param assetId        the ID of the asset to which the data will be sent.
      * @param tempPropertyId the ID of the temperature property.
      * @param humidityPropId the ID of the humidity property.
-     * @return a CompletableFuture representing the response from the SiteWise service.
+     * @return a {@link CompletableFuture} that represents a {@link BatchPutAssetPropertyValueResponse} result. The
+     *         calling code can attach callbacks, then handle the result or exception by calling
+     *         {@link CompletableFuture#join()} or {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps it
+     *         available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
     public CompletableFuture<BatchPutAssetPropertyValueResponse> sendDataToSiteWiseAsync(String assetId, String tempPropertyId, String humidityPropId) {
         Map<String, Double> sampleData = generateSampleData();
@@ -206,8 +225,6 @@ public class SitewiseActions {
             .whenComplete((response, exception) -> {
                 if (exception != null) {
                     logger.error("An exception occurred: {}", exception.getCause().getMessage());
-                } else {
-                    logger.info("Data sent successfully.");
                 }
             });
     }
@@ -219,22 +236,28 @@ public class SitewiseActions {
      *
      * @param propId  the ID of the asset property to fetch.
      * @param assetId the ID of the asset to fetch the property value for.
-     * @throws RuntimeException if an error occurs while fetching the property value.
+     * @return a {@link CompletableFuture} that represents a {@link Double} result. The calling code can attach
+     *         callbacks, then handle the result or exception by calling {@link CompletableFuture#join()} or
+     *         {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps
+     *         it available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
     public CompletableFuture<Double> getAssetPropValueAsync(String propId, String assetId) {
         GetAssetPropertyValueRequest assetPropertyValueRequest = GetAssetPropertyValueRequest.builder()
-            .propertyId(propId)
-            .assetId(assetId)
-            .build();
+                .propertyId(propId)
+                .assetId(assetId)
+                .build();
 
         return getAsyncClient().getAssetPropertyValue(assetPropertyValueRequest)
-       .handle((response, exception) -> {
-            if (exception != null) {
-                logger.error("Error occurred while fetching property value: " + exception.getMessage(), exception);
-                throw (RuntimeException) exception;
-            }
-                return response.propertyValue().value().doubleValue();
-       });
+                .handle((response, exception) -> {
+                    if (exception != null) {
+                        logger.error("Error occurred while fetching property value: {}.", exception.getCause().getMessage());
+                        throw (CompletionException) exception;
+                    }
+                    return response.propertyValue().value().doubleValue();
+                });
     }
     // snippet-end:[sitewise.java2_get_property.main]
 
@@ -242,9 +265,14 @@ public class SitewiseActions {
     /**
      * Retrieves the property IDs associated with a specific asset model.
      *
-     * @param assetModelId the ID of the asset model to retrieve the property IDs for.
-     * @return a {@link CompletableFuture} that, when completed, contains a {@link Map} mapping the property names to their corresponding IDs.
-     * @throws CompletionException if an error occurs while retrieving the asset model properties.
+     * @param assetModelId the ID of the asset model that defines the properties.
+     * @return a {@link CompletableFuture} that represents a {@link Map} result that associates the property name to the
+     *         propert ID. The calling code can attach callbacks, then handle the result or exception by calling
+     *         {@link CompletableFuture#join()} or {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps
+     *         it available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
     public CompletableFuture<Map<String, String>> getPropertyIds(String assetModelId) {
         ListAssetModelPropertiesRequest modelPropertiesRequest = ListAssetModelPropertiesRequest.builder().assetModelId(assetModelId).build();
@@ -255,7 +283,8 @@ public class SitewiseActions {
                         .collect(Collectors
                             .toMap(AssetModelPropertySummary::name, AssetModelPropertySummary::id));
                 } else {
-                    throw (CompletionException) throwable.getCause();
+                    logger.error("Error occurred while fetching property IDs: {}.", throwable.getCause().getMessage());
+                    throw (CompletionException) throwable;
                 }
             });
     }
@@ -266,8 +295,13 @@ public class SitewiseActions {
      * Deletes an asset.
      *
      * @param assetId the ID of the asset to be deleted.
-     * @return a {@link CompletableFuture} that represents the asynchronous operation of deleting the asset.
-     * @throws RuntimeException if the asset deletion fails.
+     * @return a {@link CompletableFuture} that represents a {@link DeleteAssetResponse} result. The calling code can
+     *         attach callbacks, then handle the result or exception by calling {@link CompletableFuture#join()} or
+     *         {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps
+     *         it available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
     public CompletableFuture<DeleteAssetResponse> deleteAssetAsync(String assetId) {
         DeleteAssetRequest deleteAssetRequest = DeleteAssetRequest.builder()
@@ -278,8 +312,6 @@ public class SitewiseActions {
             .whenComplete((response, exception) -> {
                 if (exception != null) {
                     logger.error("An error occurred deleting asset with id: {}", assetId);
-                } else {
-                    logger.info("Request to delete the asset completed successfully.");
                 }
             });
     }
@@ -290,8 +322,13 @@ public class SitewiseActions {
      * Deletes an Asset Model with the specified ID.
      *
      * @param assetModelId the ID of the Asset Model to delete.
-     * @return a {@link CompletableFuture} that completes with the {@link DeleteAssetModelResponse} when the operation is complete.
-     * @throws RuntimeException if the operation fails, containing the error message and the underlying exception.
+     * @return a {@link CompletableFuture} that represents a {@link DeleteAssetModelResponse} result. The calling code
+     *         can attach callbacks, then handle the result or exception by calling {@link CompletableFuture#join()} or
+     *         {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps
+     *         it available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
     public CompletableFuture<DeleteAssetModelResponse> deleteAssetModelAsync(String assetModelId) {
         DeleteAssetModelRequest deleteAssetModelRequest = DeleteAssetModelRequest.builder()
@@ -314,7 +351,13 @@ public class SitewiseActions {
      * @param portalName   the name of the portal to create.
      * @param iamRole      the IAM role ARN to use for the portal.
      * @param contactEmail the email address of the portal contact.
-     * @return a {@link CompletableFuture} that completes with the portal ID when the portal is created successfully, or throws a {@link RuntimeException} if the creation fails.
+     * @return a {@link CompletableFuture} that represents a {@link String} result of the portal ID. The calling code
+     *         can attach callbacks, then handle the result or exception by calling {@link CompletableFuture#join()} or
+     *         {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps
+     *         it available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
     public CompletableFuture<String> createPortalAsync(String portalName, String iamRole, String contactEmail) {
         CreatePortalRequest createPortalRequest = CreatePortalRequest.builder()
@@ -328,7 +371,7 @@ public class SitewiseActions {
             .handle((response, exception) -> {
                 if (exception != null) {
                     logger.error("Failed to create portal: {} ", exception.getCause().getMessage());
-                    throw (RuntimeException) exception;
+                    throw (CompletionException) exception;
                 }
                 return response.portalId();
             });
@@ -340,8 +383,13 @@ public class SitewiseActions {
      * Deletes a portal.
      *
      * @param portalId the ID of the portal to be deleted.
-     * @return a {@link CompletableFuture} containing the {@link DeletePortalResponse} when the operation is complete.
-     * @throws RuntimeException if the portal deletion fails, with the error message and the underlying exception.
+     * @return a {@link CompletableFuture} that represents a {@link DeletePortalResponse}. The calling code can attach
+     *         callbacks, then handle the result or exception by calling {@link CompletableFuture#join()} or
+     *         {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps
+     *         it available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
     public CompletableFuture<DeletePortalResponse> deletePortalAsync(String portalId) {
         DeletePortalRequest deletePortalRequest = DeletePortalRequest.builder()
@@ -351,7 +399,7 @@ public class SitewiseActions {
         return getAsyncClient().deletePortal(deletePortalRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    logger.error("Failed to delete portal with ID: " + portalId + ". Error: " + exception.getMessage(), exception);
+                    logger.error("Failed to delete portal with ID: {}. Error: {}", portalId, exception.getCause().getMessage());
                 }
             });
     }
@@ -361,33 +409,45 @@ public class SitewiseActions {
     /**
      * Retrieves the asset model ID for the given asset model name.
      *
-     * @param assetModelName the name of the asset model to retrieve the ID for.
-     * @return a {@link CompletableFuture} that, when completed, contains the asset model ID, or {@code null} if the asset model is not found.
+     * @param assetModelName the name of the asset model for the ID.
+     * @return a {@link CompletableFuture} that represents a {@link String} result of the asset model ID or null if the
+     *         asset model cannot be found. The calling code can attach callbacks, then handle the result or exception
+     *         by calling {@link CompletableFuture#join()} or {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps
+     *         it available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
     public CompletableFuture<String> getAssetModelIdAsync(String assetModelName) {
         ListAssetModelsRequest listAssetModelsRequest = ListAssetModelsRequest.builder().build();
         return getAsyncClient().listAssetModels(listAssetModelsRequest)
-            .handle((listAssetModelsResponse, exception) -> {
-                if (exception != null) {
-                    throw new RuntimeException("Failed to retrieve Asset Model ARN: " + exception.getMessage(), exception);
-                }
-                for (AssetModelSummary assetModelSummary : listAssetModelsResponse.assetModelSummaries()) {
-                    if (assetModelSummary.name().equals(assetModelName)) {
-                        return assetModelSummary.id();
+                .handle((listAssetModelsResponse, exception) -> {
+                    if (exception != null) {
+                        logger.error("Failed to retrieve Asset Model ID: {}", exception.getCause().getMessage());
+                        throw (CompletionException) exception;
                     }
-                }
-                return null;
-            });
+                    for (AssetModelSummary assetModelSummary : listAssetModelsResponse.assetModelSummaries()) {
+                        if (assetModelSummary.name().equals(assetModelName)) {
+                            return assetModelSummary.id();
+                        }
+                    }
+                    return null;
+                });
     }
     // snippet-end:[sitewise.java2.list.asset.model.main]
 
     // snippet-start:[sitewise.java2.describe.portal.main]
     /**
-     * Describes a portal.
+     * Retrieves a portal's description.
      *
      * @param portalId the ID of the portal to describe.
-     * @return a {@link CompletableFuture} that, when completed, will contain the URL of the described portal.
-     * @throws RuntimeException if the portal description operation fails.
+     * @return a {@link CompletableFuture} that represents a {@link String} result of the portal's start URL
+     *         (see: {@link DescribePortalResponse#portalStartUrl()}). The calling code can attach callbacks, then handle the
+     *         result or exception by calling {@link CompletableFuture#join()} or {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps
+     *         it available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
     public CompletableFuture<String> describePortalAsync(String portalId) {
         DescribePortalRequest request = DescribePortalRequest.builder()
@@ -397,7 +457,8 @@ public class SitewiseActions {
         return getAsyncClient().describePortal(request)
             .handle((response, exception) -> {
                 if (exception != null) {
-                    throw new RuntimeException("Failed to describe portal: " + exception.getMessage(), exception);
+                   logger.error("An exception occurred retrieving the portal description: {}", exception.getCause().getMessage());
+                   throw (CompletionException) exception;
                 }
                 return response.portalStartUrl();
             });
@@ -405,11 +466,19 @@ public class SitewiseActions {
     // snippet-end:[sitewise.java2.describe.portal.main]
 
     // snippet-start:[sitewise.java2.create.gateway.main]
+
     /**
      * Creates a new IoT Sitewise gateway.
      *
-     * @return a {@link CompletableFuture} containing the {@link CreateGatewayResponse} representing the created gateway.
-     * @throws RuntimeException if there was an error creating the gateway.
+     * @param gatewayName The name of the gateway to create.
+     * @param myThing     The name of the core device thing to associate with the gateway.
+     * @return a {@link CompletableFuture} that represents a {@link String} result of the gateways ID. The calling code
+     *         can attach callbacks, then handle the result or exception by calling {@link CompletableFuture#join()} or
+     *         {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps
+     *         it available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
     public CompletableFuture<String> createGatewayAsync(String gatewayName, String myThing) {
         GreengrassV2 gg = GreengrassV2.builder()
@@ -433,7 +502,7 @@ public class SitewiseActions {
             .handle((response, exception) -> {
                 if (exception != null) {
                     logger.error("Error creating the gateway.");
-                    throw (RuntimeException) exception;
+                    throw (CompletionException) exception;
                 }
                 logger.info("The ARN of the gateway is {}" ,  response.gatewayArn());
                 return response.gatewayId();
@@ -445,21 +514,24 @@ public class SitewiseActions {
     /**
      * Deletes the specified gateway.
      *
-     * @param gatewayARN the ARN of the gateway to delete.
-     * @return a CompletableFuture containing the response of the delete operation.
-     * @throws RuntimeException if an error occurs during the delete operation.
+     * @param gatewayId the ID of the gateway to delete.
+     * @return a {@link CompletableFuture} that represents a {@link DeleteGatewayResponse} result.. The calling code
+     *         can attach callbacks, then handle the result or exception by calling {@link CompletableFuture#join()} or
+     *         {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps
+     *         it available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
-    public CompletableFuture<DeleteGatewayResponse> deleteGatewayAsync(String gatewayARN) {
+    public CompletableFuture<DeleteGatewayResponse> deleteGatewayAsync(String gatewayId) {
         DeleteGatewayRequest deleteGatewayRequest = DeleteGatewayRequest.builder()
-            .gatewayId(gatewayARN)
+            .gatewayId(gatewayId)
             .build();
 
         return getAsyncClient().deleteGateway(deleteGatewayRequest)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    logger.error("Failed to delete gateway: " + exception.getMessage(), exception);
-                } else {
-                    logger.info("The Gateway was deleted successfully.");
+                    logger.error("Failed to delete gateway: {}", exception.getCause().getMessage());
                 }
             });
     }
@@ -470,9 +542,13 @@ public class SitewiseActions {
      * Describes the specified gateway.
      *
      * @param gatewayId the ID of the gateway to describe.
-     * @return a {@link CompletableFuture} that represents the asynchronous operation
-     * which will complete with a {@link DescribeGatewayResponse} containing
-     * information about the specified gateway.
+     * @return a {@link CompletableFuture} that represents a {@link DescribeGatewayResponse} result. The calling code
+     *         can attach callbacks, then handle the result or exception by calling {@link CompletableFuture#join()} or
+     *         {@link CompletableFuture#get()}.
+     *         <p>
+     *         If any completion stage in this method throws an exception, the method logs the exception cause and keeps
+     *         it available to the calling code as a {@link CompletionException}. By calling
+     *         {@link CompletionException#getCause()}, the calling code can access the original exception.
      */
     public CompletableFuture<DescribeGatewayResponse> describeGatewayAsync(String gatewayId) {
         DescribeGatewayRequest request = DescribeGatewayRequest.builder()
@@ -482,7 +558,7 @@ public class SitewiseActions {
         return getAsyncClient().describeGateway(request)
             .whenComplete((response, exception) -> {
                 if (exception != null) {
-                    logger.error("An error occurred during the describeGateway method", exception);
+                    logger.error("An error occurred during the describeGateway method: {}", exception.getCause().getMessage());
                 }
             });
     }
