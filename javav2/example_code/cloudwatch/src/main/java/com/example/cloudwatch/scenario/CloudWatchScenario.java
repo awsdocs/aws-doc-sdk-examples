@@ -7,11 +7,13 @@ package com.example.cloudwatch.scenario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
+import software.amazon.awssdk.services.cloudwatch.model.DashboardInvalidInputErrorException;
 import software.amazon.awssdk.services.cloudwatch.model.DeleteAlarmsResponse;
 import software.amazon.awssdk.services.cloudwatch.model.DeleteAnomalyDetectorResponse;
 import software.amazon.awssdk.services.cloudwatch.model.DeleteDashboardsResponse;
 import software.amazon.awssdk.services.cloudwatch.model.Dimension;
 import software.amazon.awssdk.services.cloudwatch.model.GetMetricStatisticsResponse;
+import software.amazon.awssdk.services.cloudwatch.model.LimitExceededException;
 import software.amazon.awssdk.services.cloudwatch.model.PutDashboardResponse;
 import software.amazon.awssdk.services.cloudwatch.model.PutMetricDataResponse;
 import java.io.IOException;
@@ -68,11 +70,11 @@ public class CloudWatchScenario {
 
             Where:
               myDate - The start date to use to get metric statistics. (For example, 2023-01-11T18:35:24.00Z.)\s
-              costDateWeek - The start date to use to get AWS/Billinget statistics. (For example, 2023-01-11T18:35:24.00Z.)\s
+              costDateWeek - The start date to use to get AWS/Billing statistics. (For example, 2023-01-11T18:35:24.00Z.)\s
               dashboardName - The name of the dashboard to create.\s
-              dashboardJson - The location of a JSON file to use to create a dashboard. (See jsonWidgets.json in Github.)\s
-              dashboardAdd - The location of a JSON file to use to update a dashboard. (See CloudDashboard.json in Github.)\s
-              settings - The location of a JSON file from which various values are read. (See settings.json in Github.)\s
+              dashboardJson - The location of a JSON file to use to create a dashboard. (See jsonWidgets.json in javav2/example_code/cloudwatch.)\s
+              dashboardAdd - The location of a JSON file to use to update a dashboard. (See CloudDashboard.json in javav2/example_code/cloudwatch.)\s
+              settings - The location of a JSON file from which various values are read. (See settings.json in javav2/example_code/cloudwatch.)\s
               metricImage - The location of a BMP file that is used to create a graph.\s
             """;
 
@@ -287,8 +289,8 @@ public class CloudWatchScenario {
 
         } catch (RuntimeException | IOException rt) {
             Throwable cause = rt.getCause();
-            if (cause instanceof CloudWatchException cwEx) {
-                logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
+            if (cause instanceof DashboardInvalidInputErrorException cwEx) {
+                logger.info("Invalid CloudWatch data. Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
@@ -348,8 +350,8 @@ public class CloudWatchScenario {
 
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            if (cause instanceof CloudWatchException cwEx) {
-                logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
+            if (cause instanceof DashboardInvalidInputErrorException cwEx) {
+                logger.info("Invalid CloudWatch data. Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
@@ -367,8 +369,8 @@ public class CloudWatchScenario {
 
         } catch (RuntimeException rt) {
             Throwable cause = rt.getCause();
-            if (cause instanceof CloudWatchException cwEx) {
-                logger.info("CloudWatch error occurred: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
+            if (cause instanceof LimitExceededException cwEx) {
+                logger.info("The quota for alarms has been reached: Error message: {}, Error code {}", cwEx.getMessage(), cwEx.awsErrorDetails().errorCode());
             } else {
                 logger.info("An unexpected error occurred: {}", rt.getMessage());
             }
@@ -521,7 +523,7 @@ public class CloudWatchScenario {
         logger.info(DASHES);
         logger.info("17. Get a metric image for the custom metric.");
         try {
-            CompletableFuture<Void> future = cwActions.getAndOpenMetricImageAsync(metricImage);
+            CompletableFuture<Void> future = cwActions.downloadAndSaveMetricImageAsync(metricImage);
             future.join();
 
         } catch (RuntimeException rt) {

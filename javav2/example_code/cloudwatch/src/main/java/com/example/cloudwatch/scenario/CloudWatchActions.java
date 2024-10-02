@@ -55,6 +55,7 @@ import software.amazon.awssdk.services.cloudwatch.model.ScanBy;
 import software.amazon.awssdk.services.cloudwatch.model.SingleMetricAnomalyDetector;
 import software.amazon.awssdk.services.cloudwatch.model.StandardUnit;
 import software.amazon.awssdk.services.cloudwatch.model.Statistic;
+import software.amazon.awssdk.services.cloudwatch.paginators.DescribeAlarmHistoryPublisher;
 import software.amazon.awssdk.services.cloudwatch.paginators.ListDashboardsPublisher;
 import software.amazon.awssdk.services.cloudwatch.paginators.ListMetricsPublisher;
 
@@ -82,6 +83,24 @@ public class CloudWatchActions {
 
     private static final Logger logger = LoggerFactory.getLogger(CloudWatchActions.class);
 
+    /**
+     * Retrieves an asynchronous CloudWatch client instance.
+     *
+     * <p>
+     * This method ensures that the CloudWatch client is initialized with the following configurations:
+     * <ul>
+     *     <li>Maximum concurrency: 100</li>
+     *     <li>Connection timeout: 60 seconds</li>
+     *     <li>Read timeout: 60 seconds</li>
+     *     <li>Write timeout: 60 seconds</li>
+     *     <li>API call timeout: 2 minutes</li>
+     *     <li>API call attempt timeout: 90 seconds</li>
+     *     <li>Retry strategy: STANDARD</li>
+     * </ul>
+     * </p>
+     *
+     * @return the asynchronous CloudWatch client instance
+     */
     private static CloudWatchAsyncClient getAsyncClient() {
         if (cloudWatchAsyncClient == null) {
             SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
@@ -204,7 +223,7 @@ public class CloudWatchActions {
      * @param fileName the name of the file to save the metric image to
      * @return a {@link CompletableFuture} that completes when the image has been saved to the file
      */
-    public CompletableFuture<Void> getAndOpenMetricImageAsync(String fileName) {
+    public CompletableFuture<Void> downloadAndSaveMetricImageAsync(String fileName) {
         logger.info("Getting Image data for custom metric.");
         String myJSON = """
               {
@@ -370,6 +389,7 @@ public class CloudWatchActions {
             }
         });
 
+        // Use the alarm name to describe alarm history with a paginator.
         return readFileFuture.thenCompose(alarmName -> {
             try {
                 Instant start = Instant.parse(date);
@@ -381,26 +401,33 @@ public class CloudWatchActions {
                     .historyItemType(HistoryItemType.ACTION)
                     .build();
 
-                return getAsyncClient().describeAlarmHistory(historyRequest).thenAccept(response -> {
-                    List<AlarmHistoryItem> historyItems = response.alarmHistoryItems();
-                    if (historyItems.isEmpty()) {
-                        logger.info("No alarm history data found for {} ", alarmName);
-                    } else {
-                        for (AlarmHistoryItem item : historyItems) {
-                            logger.info("History summary: {} ", item.historySummary());
-                            logger.info("Timestamp: {}", item.timestamp());
+                // Use the paginator to paginate through alarm history pages.
+                DescribeAlarmHistoryPublisher historyPublisher = getAsyncClient().describeAlarmHistoryPaginator(historyRequest);
+                CompletableFuture<Void> future = historyPublisher
+                    .subscribe(response -> response.alarmHistoryItems().forEach(item -> {
+                        logger.info("History summary: {}", item.historySummary());
+                        logger.info("Timestamp: {}", item.timestamp());
+                    }))
+                    .whenComplete((result, exception) -> {
+                        if (exception != null) {
+                            logger.error("Error occurred while getting alarm history: " + exception.getMessage(), exception);
+                        } else {
+                            logger.info("Successfully retrieved all alarm history.");
                         }
-                    }
-                });
+                    });
+
+                // Return the future to the calling code for further handling
+                return future;
             } catch (Exception e) {
                 throw new RuntimeException("Failed to process alarm history", e);
             }
         }).whenComplete((result, exception) -> {
             if (exception != null) {
-                throw new RuntimeException("Error getting alarm history", exception);
+                throw new RuntimeException("Error completing alarm history processing", exception);
             }
         });
     }
+
     // snippet-end:[cloudwatch.java2.scenario.get.alarm.history.main]
 
     // snippet-start:[cloudwatch.java2.scenario.check.met.alarm.main]
@@ -664,7 +691,6 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.describe_alarms.main]
 
     // snippet-start:[cloudwatch.java2.scenario.create.alarm.main]
-
     /**
      * Creates an alarm based on the configuration provided in a JSON file.
      *
@@ -673,7 +699,6 @@ public class CloudWatchActions {
      * @throws RuntimeException if an exception occurs while reading the JSON file or creating the alarm
      */
     public CompletableFuture<String> createAlarmAsync(String fileName) {
-        // Handle potential exceptions from reading the file synchronously
         com.fasterxml.jackson.databind.JsonNode rootNode;
         try {
             JsonParser parser = new JsonFactory().createParser(new File(fileName));
@@ -716,7 +741,6 @@ public class CloudWatchActions {
                     logger.info("Failed to create alarm: {}", ex.getMessage());
                     throw new RuntimeException("Failed to create alarm", ex);
                 } else {
-                    // If successful, log and return the alarm name
                     logger.info("{} was successfully created!", alarmName);
                     return alarmName;
                 }
@@ -725,7 +749,6 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.create.alarm.main]
 
     // snippet-start:[cloudwatch.java2.scenario.add.metric.dashboard.main]
-
     /**
      * Adds a metric to a dashboard asynchronously.
      *
@@ -761,6 +784,12 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.add.metric.dashboard.main]
 
     // snippet-start:[cloudwatch.java2.scenario.create.metric.main]
+    /**
+     * Creates a new custom metric.
+     *
+     * @param dataPoint the data point to be added to the custom metric
+     * @return a {@link CompletableFuture} representing the asynchronous operation of adding the custom metric
+     */
     public CompletableFuture<PutMetricDataResponse> createNewCustomMetricAsync(Double dataPoint) {
         Dimension dimension = Dimension.builder()
             .name("UNIQUE_PAGES")
@@ -797,7 +826,6 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.create.metric.main]
 
     // snippet-start:[cloudwatch.java2.scenario.list.dashboard.main]
-
     /**
      * Lists the available dashboards.
      *
@@ -822,7 +850,7 @@ public class CloudWatchActions {
     // snippet-start:[cloudwatch.java2.scenario.create.dashboard.main]
 
     /**
-     * Creates a new dashboard asynchronously with the specified name and metrics from the given file.
+     * Creates a new dashboard with the specified name and metrics from the given file.
      *
      * @param dashboardName the name of the dashboard to be created
      * @param fileName      the name of the file containing the dashboard body
@@ -830,7 +858,7 @@ public class CloudWatchActions {
      * @throws IOException if there is an error reading the dashboard body from the file
      */
     public CompletableFuture<PutDashboardResponse> createDashboardWithMetricsAsync(String dashboardName, String fileName) throws IOException {
-        String dashboardBody = readFileAsString(fileName); // Assume this method already throws IOException
+        String dashboardBody = readFileAsString(fileName);
         PutDashboardRequest dashboardRequest = PutDashboardRequest.builder()
             .dashboardName(dashboardName)
             .dashboardBody(dashboardBody)
@@ -910,7 +938,6 @@ public class CloudWatchActions {
 
 
     // snippet-start:[cloudwatch.java2.scenario.display.metrics.main]
-
     /**
      * Retrieves and displays metric statistics for the specified parameters.
      *
@@ -961,7 +988,6 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.scenario.display.metrics.main]
 
     // snippet-start:[cloudwatch.java2.list_metrics.main]
-
     /**
      * Retrieves a list of metric names for the specified namespace.
      *
@@ -993,7 +1019,6 @@ public class CloudWatchActions {
     // snippet-end:[cloudwatch.java2.list_metrics.main]
 
     // snippet-start:[cloudwatch.java2.scenario.list.namespaces.main]
-
     /**
      * Lists the available namespaces for the current AWS account.
      *
