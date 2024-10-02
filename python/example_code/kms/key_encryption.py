@@ -10,6 +10,7 @@ to encrypt and decrypt data.
 
 # snippet-start:[python.example_code.kms.Scenario_KeyEncryption]
 import logging
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -20,6 +21,16 @@ logger = logging.getLogger(__name__)
 class KeyEncrypt:
     def __init__(self, kms_client):
         self.kms_client = kms_client
+
+    @classmethod
+    def from_client(cls) -> "KeyEncrypt":
+        """
+        Creates an KeyEncrypt instance with a default KMS client.
+
+        :return: An instance of KeyEncrypt initialized with the default KMS client.
+        """
+        ec2_client = boto3.client("kms")
+        return cls(ec2_client)
 
     # snippet-end:[python.example_code.kms.KeyEncrypt]
 
@@ -33,20 +44,27 @@ class KeyEncrypt:
         :return: The encrypted version of the text.
         """
         try:
-            return self.kms_client.encrypt(KeyId=key_id, Plaintext=text.encode())[
-                "CiphertextBlob"
-            ]
-        except ClientError as err:
-            logger.error(
-                "Couldn't encrypt text. Here's why: %s",
-                err.response["Error"]["Message"],
+            response = self.kms_client.encrypt(KeyId=key_id, Plaintext=text.encode())
+            print(
+                f"The string was encrypted with algorithm {response['EncryptionAlgorithm']}"
             )
+            return response["CiphertextBlob"]
+        except ClientError as err:
+            if err.response["Error"]["Code"] == "DisabledException":
+                logger.error(
+                    "Could not encrypt because the key %s is disabled.", key_id
+                )
+            else:
+                logger.error(
+                    "Couldn't encrypt text. Here's why: %s",
+                    err.response["Error"]["Message"],
+                )
             raise
 
     # snippet-end:[python.example_code.kms.Encrypt]
 
     # snippet-start:[python.example_code.kms.Decrypt]
-    def decrypt(self, key_id: str, cipher_text: str) -> str:
+    def decrypt(self, key_id: str, cipher_text: str) -> bytes:
         """
         Decrypts text previously encrypted with a key.
 
@@ -173,6 +191,7 @@ def key_encryption(kms_client):
     key_encrypt = KeyEncrypt(kms_client)
     text = input("Enter some text to encrypt: ")
     cipher_text = key_encrypt.encrypt(key_id, text)
+    print(f"Your ciphertext is: {cipher_text}")
     print("-" * 88)
     if cipher_text is not None:
         answer = input("Ready to decrypt your ciphertext (y/n)? ")

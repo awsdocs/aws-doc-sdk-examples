@@ -27,6 +27,15 @@ kms_TagResource:
             - description:
               snippet_tags:
                 - kms.java2_tag.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyManagement
+                - python.example_code.kms.TagResource
   services:
     kms: {TagResource}
 kms_Sign:
@@ -40,8 +49,30 @@ kms_Sign:
             - description:
               snippet_tags:
                 - kms.java2_sign.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyEncrypt
+                - python.example_code.kms.Sign
   services:
     kms: {Sign}
+kms_Verify:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/kms
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.kms.KeyEncrypt
+                - python.example_code.kms.Verify
+  services:
+    kms: {Verify}
 kms_CreateKey:
   languages:
     Kotlin:

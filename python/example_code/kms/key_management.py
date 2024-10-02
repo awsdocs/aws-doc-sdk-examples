@@ -11,6 +11,7 @@ to create, list, and manage keys.
 # snippet-start:[python.example_code.kms.Scenario_KeyManagement]
 import logging
 from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -23,10 +24,20 @@ class KeyManager:
         self.kms_client = kms_client
         self.created_keys = []
 
+    @classmethod
+    def from_client(cls) -> "KeyManager":
+        """
+        Creates an KeyManager instance with a default KMS client.
+
+        :return: An instance of KeyManager initialized with the default KMS client.
+        """
+        ec2_client = boto3.client("kms")
+        return cls(ec2_client)
+
     # snippet-end:[python.example_code.kms.KeyManager]
 
     # snippet-start:[python.example_code.kms.CreateKey]
-    def create_key(self, key_description: str) -> str:
+    def create_key(self, key_description: str) -> dict[str, any]:
         """
         Creates a key with a user-provided description.
 
@@ -36,7 +47,7 @@ class KeyManager:
         try:
             key = self.kms_client.create_key(Description=key_description)["KeyMetadata"]
             self.created_keys.append(key)
-            return key["KeyId"]
+            return key
         except ClientError as err:
             logging.error(
                 "Couldn't create your key. Here's why: %s",
@@ -104,7 +115,6 @@ class KeyManager:
 
         try:
             key = self.kms_client.describe_key(KeyId=key_id)["KeyMetadata"]
-            print(f"Got key {key_id}:")
             return key
         except ClientError as err:
             logging.error(
@@ -112,6 +122,7 @@ class KeyManager:
                 key_id,
                 err.response["Error"]["Message"],
             )
+            raise
 
     # snippet-end:[python.example_code.kms.DescribeKey]
 
@@ -173,7 +184,7 @@ class KeyManager:
     # snippet-end:[python.example_code.kms.DisableKey]
 
     # snippet-start:[python.example_code.kms.ScheduleKeyDeletion]
-    def delete_key(self, key_id: str, window: str) -> None:
+    def delete_key(self, key_id: str, window: int) -> None:
         """
         Deletes a list of keys.
 
@@ -228,7 +239,9 @@ class KeyManager:
         :param tag_value: Value for the tag.
         """
         try:
-            self.kms_client.tag_resource(KeyId=key_id, Tags=[{"TagKey": tag_key, "TagValue": tag_value}])
+            self.kms_client.tag_resource(
+                KeyId=key_id, Tags=[{"TagKey": tag_key, "TagValue": tag_value}]
+            )
         except ClientError as err:
             logging.error(
                 "Couldn't add a tag for the key '%s'. Here's why: %s",
@@ -236,6 +249,8 @@ class KeyManager:
                 err.response["Error"]["Message"],
             )
             raise
+
+    # snippet-end:[python.example_code.kms.TagResource]
 
 
 def key_management(kms_client):
@@ -265,12 +280,14 @@ def key_management(kms_client):
             pprint(key)
             answer = input("Create another (y/n)? ")
 
-    key_manager.create_key()
     print("-" * 88)
     key_manager.list_keys()
     print("-" * 88)
     key_id = input("Enter a key ID or ARN here to get information about the key: ")
-    key_id = key_manager.describe_key(key_id)["KeyId"]
+    if key_id:
+        key = key_manager.describe_key(key_id)
+        print(f"Got key {key_id}:")
+        pprint(key)
     if key_id:
         answer = input("Do you want to disable and then enable that key (y/n)? ")
         if answer.lower() == "y":
@@ -301,7 +318,7 @@ def key_management(kms_client):
     if answer.lower() == "y":
         window = 7
         for key in key_manager.created_keys:
-            key_manager.delete_key(key["KeyId"])
+            key_manager.delete_key(key["KeyId"], window)
             print(f"Key {key['KeyId']} scheduled for deletion in {window} days.")
 
     print("\nThanks for watching!")

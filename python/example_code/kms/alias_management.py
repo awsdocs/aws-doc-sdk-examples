@@ -11,6 +11,7 @@ to manage key aliases.
 # snippet-start:[python.example_code.kms.Scenario_AliasManagement]
 import logging
 from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -22,6 +23,16 @@ class AliasManager:
     def __init__(self, kms_client):
         self.kms_client = kms_client
         self.created_key = None
+
+    @classmethod
+    def from_client(cls) -> "AliasManager":
+        """
+        Creates an AliasManager instance with a default KMS client.
+
+        :return: An instance of AliasManager initialized with the default KMS client.
+        """
+        ec2_client = boto3.client("kms")
+        return cls(ec2_client)
 
     # snippet-end:[python.example_code.kms.AliasManager]
 
@@ -86,12 +97,16 @@ class AliasManager:
         try:
             self.kms_client.create_alias(AliasName=alias, TargetKeyId=key_id)
         except ClientError as err:
-            logger.error(
-                "Couldn't create alias %s. Here's why: %s",
-                alias,
-                err.response["Error"]["Message"],
-            )
-            raise
+            if err.response["Error"]["Code"] == "AlreadyExistsException":
+                logger.error(
+                    "Could not create the alias %s because it already exists.", key_id
+                )
+            else:
+                logger.error(
+                    "Couldn't encrypt text. Here's why: %s",
+                    err.response["Error"]["Message"],
+                )
+                raise
 
     # snippet-end:[python.example_code.kms.CreateAlias]
 

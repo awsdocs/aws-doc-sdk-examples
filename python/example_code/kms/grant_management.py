@@ -11,6 +11,7 @@ to manage permission grants for keys.
 # snippet-start:[python.example_code.kms.Scenario_GrantManagement]
 import logging
 from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 
@@ -21,6 +22,16 @@ logger = logging.getLogger(__name__)
 class GrantManager:
     def __init__(self, kms_client):
         self.kms_client = kms_client
+
+    @classmethod
+    def from_client(cls) -> "GrantManager":
+        """
+        Creates an GrantManager instance with a default KMS client.
+
+        :return: An instance of GrantManager initialized with the default KMS client.
+        """
+        ec2_client = boto3.client("kms")
+        return cls(ec2_client)
 
     # snippet-end:[python.example_code.kms.GrantManager]
 
@@ -62,7 +73,12 @@ class GrantManager:
         :return: The grants for the key.
         """
         try:
-            grants = self.kms_client.list_grants(KeyId=key_id)["Grants"]
+            paginator = self.kms_client.get_paginator('list_grants')
+            grants = []
+            page_iterator = paginator.paginate(KeyId=key_id)
+            for page in page_iterator:
+                grants.extend(page['Grants'])
+
             print(f"Grants for key {key_id}:")
             pprint(grants)
             return grants
@@ -113,8 +129,6 @@ class GrantManager:
                 err.response["Error"]["Message"],
             )
             raise
-        else:
-            print(f"Grant {grant_id} revoked.")
 
 
 # snippet-end:[python.example_code.kms.RevokeGrant]
@@ -152,6 +166,7 @@ def grant_management(kms_client):
             grant_manager.retire_grant(grant)
         elif action == "revoke":
             grant_manager.revoke_grant(key_id, grant["GrantId"])
+            print(f"Grant {grant["GrantId"]} revoked.")
         else:
             print("Skipping grant removal.")
 

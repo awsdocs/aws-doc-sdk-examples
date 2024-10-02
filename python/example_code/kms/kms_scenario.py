@@ -1,13 +1,16 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-import boto3
 import logging
 import sys
-from key_management import KeyManager
-from key_encryption import KeyEncrypt
+
+import boto3
+
 from alias_management import AliasManager
 from grant_management import GrantManager
+from key_encryption import KeyEncrypt
+from key_management import KeyManager
+from key_policies import KeyPolicy
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append("../..")
@@ -21,16 +24,18 @@ class KMSScenario:
     """Runs an interactive scenario that shows how to get started with KMS."""
 
     def __init__(
-        self,
-        key_manager: KeyManager,
-        key_encryption: KeyEncrypt,
-        alias_manager: AliasManager,
-        grant_manager: GrantManager,
+            self,
+            key_manager: KeyManager,
+            key_encryption: KeyEncrypt,
+            alias_manager: AliasManager,
+            grant_manager: GrantManager,
+            key_policy: KeyPolicy,
     ):
         self.key_manager = key_manager
         self.key_encryption = key_encryption
         self.alias_manager = alias_manager
         self.grant_manager = grant_manager
+        self.key_policy = key_policy
         self.key_id = ""
         self.alias_name = ""
         self.asymmetric_key_id = ""
@@ -65,10 +70,8 @@ Let's get started...
             f"First, the program will creates a symmetric KMS key that you can used to encrypt and decrypt data."
         )
         q.ask("Press Enter to continue...")
-        self.key_id = self.key_manager.create_key(key_description)
-        print(
-            f"Key created with ID: {self.key_id} and description: '{key_description}'"
-        )
+        self.key_id = self.key_manager.create_key(key_description)['KeyId']
+        print(f"A symmetric key was successfully created {self.key_id}.")
         q.ask("Press Enter to continue...")
         print(DASHES)
         print(
@@ -89,11 +92,10 @@ determine if the key is enabled.
         print(f"3. Encrypt data using the symmetric KMS key")
         plain_text = "Hello, AWS KMS!"
         print(
-            """
+            f"""
 One of the main uses of symmetric keys is to encrypt and decrypt data.
-Next, the code encrypts the string {} with the SYMMETRIC_DEFAULT encryption algorithm.
-        """,
-            plain_text,
+Next, the code encrypts the string "{plain_text}" with the SYMMETRIC_DEFAULT encryption algorithm.
+        """
         )
         q.ask("Press Enter to continue...")
         encrypted_text = self.key_encryption.encrypt(self.key_id, key_description)
@@ -107,6 +109,7 @@ can associate with a KMS key. The alias name should be prefixed with 'alias/'.
         )
         alias_name = q.ask("Enter an alias name: ", q.non_empty)
         self.alias_manager.create_alias(self.key_id, alias_name)
+        print(f"{alias_name} was successfully created.")
         self.alias_name = alias_name
         print(DASHES)
         print(f"5. List all of your aliases")
@@ -126,6 +129,7 @@ thereafter.
         q.ask("Press Enter to continue...")
         self.key_manager.enable_key_rotation(self.key_id)
         print(DASHES)
+        print(f"Key rotation has been enabled for key with id {self.key_id}")
         print(
             """
 7. Create a grant
@@ -137,25 +141,27 @@ When authorizing access to a KMS key, grants are considered along with key polic
         )
         print(
             """
-To create a grant you must specify a principal. To specify the grantee principal, use the Amazon Resource Name (ARN) 
-of an AWS principal. Valid principals include AWS accounts, IAM users, IAM roles, federated users, 
+To create a grant you must specify a account_id. To specify the grantee account_id, use the Amazon Resource Name (ARN) 
+of an AWS account_id. Valid principals include AWS accounts, IAM users, IAM roles, federated users, 
 and assumed role users. 
         """
         )
-        principal = q.ask(
-            "Enter a name for a principal, or press enter to skip creating a grant... "
+        account_id = q.ask(
+            "Enter an account_id, or press enter to skip creating a grant... "
         )
         grant = None
-        if principal != "":
+        if account_id != "":
             grant = self.grant_manager.create_grant(
                 self.key_id,
-                principal,
+                account_id,
                 [
                     "Encrypt",
                     "Decrypt",
                     "DescribeKey",
                 ],
             )
+            print(f"Grant created successfully with ID: {grant["GrantId"]}")
+
         q.ask("Press Enter to continue...")
         print(DASHES)
         print(DASHES)
@@ -168,13 +174,16 @@ and assumed role users.
         print(
             """
 The revocation of a grant immediately removes the permissions and access that the grant had provided.
-This means that any principal (user, role, or service) that was granted access to perform specific
+This means that any account_id (user, role, or service) that was granted access to perform specific
 KMS operations on a KMS key will no longer be able to perform those operations.
         """
         )
         q.ask("Press Enter to continue...")
+
         if grant is not None:
             self.grant_manager.revoke_grant(self.key_id, grant["GrantId"])
+            print(f"Grant ID: {grant["GrantId"]} was successfully revoked!")
+
         q.ask("Press Enter to continue...")
         print(DASHES)
         print(f"10. Decrypt the data\n")
@@ -185,7 +194,10 @@ The code uses the same key to decrypt the string that we encrypted earlier in th
         """
         )
         q.ask("Press Enter to continue...")
-        decrypted_text = self.key_encryption.decrypt(self.key_id, encrypted_text)
+        decrypted_data = self.key_encryption.decrypt(self.key_id, encrypted_text)
+        print(f"Data decrypted successfully for key ID: {self.key_id}")
+        print(f"Decrypted data: {decrypted_data}")
+
         q.ask("Press Enter to continue...")
         print(DASHES)
         print(f"11. Replace a key policy\n")
@@ -212,14 +224,22 @@ Let's try to replace the automatically created policy with the following policy.
 }
         """
         )
-        principal = q.ask(
-            "Enter the ARN of a principal for the new policy or press enter to skip replacing the policy: "
+        account_id = q.ask(
+            "Enter your account ID or press enter to skip: "
         )
-        if principal != "":
-            policy_name = "default"
-            self.key_manager.set_new_policy(self.key_id, policy_name, principal)
+        if account_id != "":
+            policy = {"Version": "2012-10-17", "Statement": [{
+                "Effect": "Allow",
+                "Principal": {"AWS": f"arn:aws:iam::{account_id}:root"},
+                "Action": "kms:*",
+                "Resource": "*"
+            }]}
+
+            self.key_policy.set_new_policy(self.key_id, policy)
             print("Key policy replacement succeeded.")
             q.ask("Press Enter to continue...")
+        else:
+            print("Skipping replacing the key policy.")
 
         print(DASHES)
         print(f"12. Get the key policy\n")
@@ -227,7 +247,7 @@ Let's try to replace the automatically created policy with the following policy.
             f"The next bit of code that runs gets the key policy to make sure it exists."
         )
         q.ask("Press Enter to continue...")
-        policy = self.key_manager.get_policy(self.key_id)
+        policy = self.key_policy.get_policy(self.key_id)
         print(f"The key policy is: {policy}")
 
         q.ask("Press Enter to continue...")
@@ -264,7 +284,7 @@ Let's try to replace the automatically created policy with the following policy.
         )
         q.ask("Press Enter to continue...")
         self.key_manager.tag_resource(self.key_id, "Environment", "Production")
-        self.cleanup()
+        self.clean_up()
 
     def is_key_enabled(self, key_id: str) -> bool:
         """
@@ -274,7 +294,7 @@ Let's try to replace the automatically created policy with the following policy.
         :return: True if the key is enabled, otherwise False.
         """
         response = self.key_manager.describe_key(key_id)
-        return response["Enabled"] == "True"
+        return response["Enabled"] is True
 
     def clean_up(self):
         if self.alias_name != "":
@@ -290,8 +310,8 @@ all data that was encrypted under the KMS key is unrecoverable.
                 """
             )
             if q.ask(
-                f"Do you want to delete the key with ID {self.key_id} (y/n)?",
-                q.is_yesno,
+                    f"Do you want to delete the key with ID {self.key_id} (y/n)?",
+                    q.is_yesno,
             ):
                 print(
                     f"The key will be deleted with a window of {window} days. You can cancel the deletion before"
@@ -302,8 +322,8 @@ all data that was encrypted under the KMS key is unrecoverable.
 
         if self.asymmetric_key_id != "":
             if q.ask(
-                f"Do you want to delete the asymmetric key with ID {self.asymmetric_key_id} (y/n)?",
-                q.is_yesno,
+                    f"Do you want to delete the asymmetric key with ID {self.asymmetric_key_id} (y/n)?",
+                    q.is_yesno,
             ):
                 print(
                     f"The key will be deleted with a window of {window} days. You can cancel the deletion before"
@@ -321,12 +341,16 @@ if __name__ == "__main__":
         a_key_encrypt = KeyEncrypt(kms_client)
         an_alias_manager = AliasManager(kms_client)
         a_grant_manager = GrantManager(kms_client)
+        a_key_policy = KeyPolicy(kms_client)
         kms_scenario = KMSScenario(
-            a_key_manager, a_key_encrypt, an_alias_manager, a_grant_manager
+            key_manager=a_key_manager,
+            key_encryption=a_key_encrypt,
+            alias_manager=an_alias_manager,
+            grant_manager=a_grant_manager,
+            key_policy=a_key_policy,
         )
         kms_scenario.kms_scenario()
     except Exception:
         logging.exception("Something went wrong with the demo!")
         if kms_scenario is not None:
             kms_scenario.clean_up()
-
