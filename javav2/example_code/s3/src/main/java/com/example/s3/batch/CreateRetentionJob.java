@@ -33,7 +33,9 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
+
 /**
  * Before running this example:
  * <p/>
@@ -45,7 +47,8 @@ import java.util.stream.Collectors;
  */
 public class CreateRetentionJob {
     private static final String STACK_NAME = "MyS3Stack";
-    public static void main(String [] args) throws IOException, ParseException {
+
+    public static void main(String[] args) throws IOException, ParseException {
         S3Client s3 = S3Client.create();
         S3ControlClient s3ControlClient = S3ControlClient.create();
 
@@ -58,16 +61,16 @@ public class CreateRetentionJob {
         String accountId = getAccountId();
 
         // Specify your S3 bucket name.
-        String bucketName = "amazon-s3-demo-manifest-bucket" ;
+        String bucketName = "amzn-s3-demo-bucket-" + UUID.randomUUID();  // Change bucket name.
         System.out.println("Populate the bucket with the required files.");
         String[] fileNames = {"job-manifest.csv", "object-key-1.txt", "object-key-2.txt", "object-key-3.txt", "object-key-4.txt"};
         uploadFilesToBucket(s3, bucketName, fileNames);
         String jobId = createComplianceRetentionJob(s3ControlClient, iamRoleArn, bucketName, accountId);
-        System.out.println("The job Id is "+jobId);
+        System.out.println("The job Id is " + jobId);
 
         // Create a legal Hold Off Job.
-        String jobHoldOffId =createLegalHoldOffJob(s3ControlClient, iamRoleArn, bucketName, accountId);
-        System.out.println("The id of the hold off job is "+jobHoldOffId);
+        String jobHoldOffId = createLegalHoldOffJob(s3ControlClient, iamRoleArn, bucketName, accountId);
+        System.out.println("The id of the hold off job is " + jobHoldOffId);
         CloudFormationHelper.destroyCloudFormationStack(STACK_NAME);
     }
 
@@ -91,9 +94,9 @@ public class CreateRetentionJob {
     /**
      * Uploads a file to an Amazon S3 bucket.
      *
-     * @param s3 The {@link S3Client} instance used to interact with the Amazon S3 service.
+     * @param s3         The {@link S3Client} instance used to interact with the Amazon S3 service.
      * @param bucketName The name of the Amazon S3 bucket where the file will be uploaded.
-     * @param fileName The name of the file to be uploaded.
+     * @param fileName   The name of the file to be uploaded.
      */
     public static void populateBucket(S3Client s3, String bucketName, String fileName) {
         Path filePath = Paths.get("src/main/resources/batch/", fileName).toAbsolutePath();
@@ -110,7 +113,7 @@ public class CreateRetentionJob {
      * Updates the first value in each line of a CSV file located at the specified path.
      *
      * @param newValue the new value to be set for the first field in each line of the CSV file
-     * @throws IOException if an I/O error occurs while reading or writing the CSV file
+     * @throws IOException          if an I/O error occurs while reading or writing the CSV file
      * @throws NullPointerException if the {@code newValue} parameter is {@code null}
      */
     public static void updateCSV(String newValue) {
@@ -137,9 +140,10 @@ public class CreateRetentionJob {
     }
 
     // snippet-start:[s3control.java2.create_job.compliance.main]
+
     /**
      * Creates a compliance retention job in Amazon S3 Control.
-     *
+     * <p>
      * A compliance retention job in Amazon S3 Control is a feature that allows you to
      * set a retention period for objects stored in an S3 bucket.
      * This feature is particularly useful for organizations that need to comply with
@@ -184,7 +188,7 @@ public class CreateRetentionJob {
             .build();
 
         // Report details.
-        final String jobReportBucketArn = "arn:aws:s3:::"+bucketName;
+        final String jobReportBucketArn = "arn:aws:s3:::" + bucketName;
         final String jobReportPrefix = "reports/compliance-objects-bops";
 
         JobReport jobReport = JobReport.builder()
@@ -214,15 +218,15 @@ public class CreateRetentionJob {
     }
     // snippet-end:[s3control.java2.create_job.compliance.main]
 
-
     // snippet-start:[s3control.java2.create_job.legal.off.main]
+
     /**
      * Creates a legal hold off job in an S3 bucket.
      *
      * @param s3ControlClient the S3 Control client used to create the job
-     * @param roleArn the ARN of the IAM role to use for the job
-     * @param bucketName the name of the S3 bucket to create the job report in
-     * @param accountId the AWS account ID to create the job in
+     * @param roleArn         the ARN of the IAM role to use for the job
+     * @param bucketName      the name of the S3 bucket to create the job report in
+     * @param accountId       the AWS account ID to create the job in
      * @return the job ID of the created job
      */
     public static String createLegalHoldOffJob(final S3ControlClient s3ControlClient, String roleArn, String bucketName, String accountId) {
@@ -259,7 +263,7 @@ public class CreateRetentionJob {
             .build();
 
         // Report details.
-        final String jobReportBucketArn = "arn:aws:s3:::"+bucketName;
+        final String jobReportBucketArn = "arn:aws:s3:::" + bucketName;
         final String jobReportPrefix = "reports/compliance-objects-bops";
 
         JobReport jobReport = JobReport.builder()
