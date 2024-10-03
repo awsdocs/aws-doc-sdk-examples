@@ -17,10 +17,10 @@ describe("util-string", () => {
       expect(u1).not.toEqual(u2);
     });
 
-    it("should return undefined if a falsy value is passed in", () => {
-      expect(getUniqueName()).toBeUndefined();
-      expect(getUniqueName("")).toBeUndefined();
-      expect(getUniqueName(0)).toBeUndefined();
+    it("should throw an error if a falsy value is passed in for the prefix", () => {
+      expect(() => getUniqueName()).toThrowError();
+      expect(() => getUniqueName("")).toThrowError();
+      expect(() => getUniqueName(0)).toThrowError();
     });
   });
 
