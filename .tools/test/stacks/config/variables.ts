@@ -14,7 +14,6 @@ export function readVariableConfig(filePath: string): VariableConfig {
     const data: VariableConfig = parse(fileContents);
     console.log(data);
 
-    // Validate the required field
     if (!data.s3_bucket_name_prefix) {
       throw new Error("Validation failed: Missing required 's3_bucket_name_prefix' field.");
     }
