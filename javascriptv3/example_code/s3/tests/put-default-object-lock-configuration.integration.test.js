@@ -15,9 +15,7 @@ import { getUniqueName } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 import { legallyEmptyAndDeleteBuckets } from "../libs/s3Utils.js";
 
 const client = new S3Client({});
-const bucketName = getUniqueName(
-  process.env["S3_BUCKET_NAME"] ?? "put-default-lock",
-);
+const bucketName = getUniqueName(process.env["S3_BUCKET_NAME_PREFIX"]);
 
 describe("put-default-object-lock-configuration.js Integration Test", () => {
   afterAll(async () => {
@@ -40,7 +38,7 @@ describe("put-default-object-lock-configuration.js Integration Test", () => {
 
     // Execute
     const spy = vi.spyOn(console, "error");
-    await putDefaultObjectLockConfiguration(client, bucketName);
+    await putDefaultObjectLockConfiguration({ bucketName, retentionDays: 1 });
     expect(spy).not.toHaveBeenCalled();
 
     // Verify
@@ -51,6 +49,6 @@ describe("put-default-object-lock-configuration.js Integration Test", () => {
     expect(ObjectLockConfiguration.Rule.DefaultRetention.Mode).toBe(
       "GOVERNANCE",
     );
-    expect(ObjectLockConfiguration.Rule.DefaultRetention.Years).toBe(3);
+    expect(ObjectLockConfiguration.Rule.DefaultRetention.Days).toBe(1);
   });
 });

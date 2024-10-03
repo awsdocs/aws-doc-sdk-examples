@@ -13,8 +13,8 @@ import {
  *
  * Most Amazon S3 use cases don't require the use of access control lists (ACLs).
  * We recommend that you disable ACLs, except in unusual circumstances where
- * you need to control access for each object individually.
- * Consider a policy instead. For more information see https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html.
+ * you need to control access for each object individually. Consider a policy instead.
+ * For more information see https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html.
  * @param {{ bucketName: string, granteeCanonicalUserId: string, ownerCanonicalUserId }}
  */
 export const main = async ({
@@ -69,21 +69,37 @@ export const main = async ({
 // snippet-end:[s3.JavaScript.perms.putBucketAclV3]
 
 // Call function if run directly
-import { fileURLToPath } from "url";
 import { parseArgs } from "util";
+import {
+  isMain,
+  validateArgs,
+} from "@aws-doc-sdk-examples/lib/utils/util-node.js";
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+const loadArgs = () => {
   const options = {
     bucketName: {
       type: "string",
+      required: true,
     },
     granteeCanonicalUserId: {
       type: "string",
+      required: true,
     },
     ownerCanonicalUserId: {
       type: "string",
+      required: true,
     },
   };
-  const { values } = parseArgs({ options });
-  main(values);
+  const results = parseArgs({ options });
+  const { errors } = validateArgs({ options }, results);
+  return { errors, results };
+};
+
+if (isMain(import.meta.url)) {
+  const { errors, results } = loadArgs();
+  if (!errors) {
+    main(results.values);
+  } else {
+    console.error(errors.join("\n"));
+  }
 }

@@ -55,27 +55,40 @@ export const main = async ({
 
 // Call function if run directly
 import { parseArgs } from "util";
-import { isMain } from "@aws-doc-sdk-examples/lib/utils/util-node.js";
+import {
+  isMain,
+  validateArgs,
+} from "@aws-doc-sdk-examples/lib/utils/util-node.js";
 
 const loadArgs = () => {
   const options = {
     sourceBucketName: {
       type: "string",
+      required: true,
     },
     sourceKey: {
       type: "string",
+      required: true,
     },
     destinationBucket: {
       type: "string",
+      required: true,
     },
     destinationKey: {
       type: "string",
+      required: true,
     },
   };
-  return parseArgs({ options });
+  const results = parseArgs({ options });
+  const { errors } = validateArgs({ options }, results);
+  return { errors, results };
 };
 
 if (isMain(import.meta.url)) {
-  const { values } = loadArgs();
-  main(values);
+  const { errors, results } = loadArgs();
+  if (!errors) {
+    main(results.values);
+  } else {
+    console.error(errors.join("\n"));
+  }
 }

@@ -10,7 +10,7 @@ import { getUniqueName } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 import { helloS3 } from "../hello.js";
 
 describe("helloS3", () => {
-  const bucketName = getUniqueName(process.env["S3_BUCKET_NAME"] ?? "hello");
+  const bucketName = getUniqueName(process.env["S3_BUCKET_NAME_PREFIX"]);
   const s3Client = new S3Client({});
 
   beforeAll(async () => {

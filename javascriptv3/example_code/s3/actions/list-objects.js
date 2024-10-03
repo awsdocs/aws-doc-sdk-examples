@@ -51,19 +51,33 @@ export const main = async ({ bucketName, pageSize }) => {
 // snippet-end:[s3.JavaScript.buckets.listObjectsV3]
 
 // Call function if run directly
-import { fileURLToPath } from "url";
 import { parseArgs } from "util";
+import {
+  isMain,
+  validateArgs,
+} from "@aws-doc-sdk-examples/lib/utils/util-node.js";
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+const loadArgs = () => {
   const options = {
     bucketName: {
       type: "string",
+      required: true,
     },
     pageSize: {
       type: "string",
       default: "1",
     },
   };
-  const { values } = parseArgs({ options });
-  main(values);
+  const results = parseArgs({ options });
+  const { errors } = validateArgs({ options }, results);
+  return { errors, results };
+};
+
+if (isMain(import.meta.url)) {
+  const { errors, results } = loadArgs();
+  if (!errors) {
+    main(results.values);
+  } else {
+    console.error(errors.join("\n"));
+  }
 }
