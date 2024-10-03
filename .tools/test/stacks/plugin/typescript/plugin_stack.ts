@@ -31,7 +31,7 @@ class PluginStack extends cdk.Stack {
 
     const acctConfig = readAccountConfig("../../config/targets.yaml");
     const resourceConfig = readResourceConfig("../../config/resources.yaml");
-    const variableConfig = readResourceConfig("../../config/resources.yaml");
+    const variableConfig = readVariableConfig("../../config/variables.yaml");
 
 
     const adminTopicName = resourceConfig["topic_name"];

@@ -4,14 +4,15 @@
 import * as fs from "fs";
 import { parse } from "yaml";
 
-interface ResourceConfig {
+interface VariableConfig {
   s3_bucket_name_prefix: string;
 }
 
-export function readResourceConfig(filePath: string): ResourceConfig {
+export function readVariableConfig(filePath: string): VariableConfig {
   try {
     const fileContents = fs.readFileSync(filePath, "utf8");
-    const data: ResourceConfig = parse(fileContents);
+    const data: VariableConfig = parse(fileContents);
+    console.log(data);
 
     // Validate the required field
     if (!data.s3_bucket_name_prefix) {
