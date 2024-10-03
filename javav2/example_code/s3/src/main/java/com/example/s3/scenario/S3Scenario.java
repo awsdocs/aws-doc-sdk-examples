@@ -222,7 +222,28 @@ public class S3Scenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("7. Delete objects from the Amazon S3 bucket.");
+        logger.info("7. Copy the object to another Amazon S3 bucket using multi copy.");
+        waitForInputToContinue(scanner);
+
+        try {
+            CompletableFuture<String> future = s3Actions.performMultiCopy(toBucket, bucketName, key);
+            String result = future.join();
+            logger.info("Copy operation result: {}", result);
+
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof S3Exception s3Ex) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", s3Ex.getMessage(), s3Ex.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
+        }
+        waitForInputToContinue(scanner);
+        logger.info(DASHES);
+
+
+        logger.info(DASHES);
+        logger.info("8. Delete objects from the Amazon S3 bucket.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = s3Actions.deleteObjectFromBucketAsync(bucketName, key);
@@ -254,7 +275,7 @@ public class S3Scenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("8. Delete the Amazon S3 bucket.");
+        logger.info("9. Delete the Amazon S3 bucket.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = s3Actions.deleteBucketAsync(bucketName);

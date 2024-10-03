@@ -19,6 +19,15 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
+/**
+ * Before running this example:
+ * <p/>
+ * The SDK must be able to authenticate AWS requests on your behalf. If you have not configured
+ * authentication for SDKs and tools,see https://docs.aws.amazon.com/sdkref/latest/guide/access.html in the AWS SDKs and Tools Reference Guide.
+ * <p/>
+ * You must have a runtime environment configured with the Java SDK.
+ * See https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html in the Developer Guide if this is not set up.
+ */
 public class HelloS3Batch {
     private static S3ControlAsyncClient asyncClient;
     public static void main(String []args ) {
