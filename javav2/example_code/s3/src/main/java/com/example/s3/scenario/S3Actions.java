@@ -33,6 +33,7 @@ import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
+import software.amazon.awssdk.services.s3.model.UploadPartCopyRequest;
 import software.amazon.awssdk.services.s3.model.UploadPartRequest;
 import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Publisher;
 import software.amazon.awssdk.services.s3.waiters.S3AsyncWaiter;
@@ -363,6 +364,47 @@ public class S3Actions {
         return response.thenApply(r -> null);
     }
     // snippet-end:[s3.java2.bucket_deletion.main]
+
+    // snippet-start:[s3.java2.multi_copy.main]
+    public CompletableFuture<String> performMultiCopy(String toBucket, String bucketName, String key) {
+        // Step 1: Initiate multipart upload.
+        CreateMultipartUploadRequest createMultipartUploadRequest = CreateMultipartUploadRequest.builder()
+            .bucket(toBucket)
+            .key(key)
+            .build();
+
+        getAsyncClient().createMultipartUpload(createMultipartUploadRequest)
+            .thenApply(createMultipartUploadResponse -> {
+                String uploadId = createMultipartUploadResponse.uploadId();
+                System.out.println("Upload ID: " + uploadId);
+
+                // Step 2: Set the parameters for the upload part copy request.
+                UploadPartCopyRequest uploadPartCopyRequest = UploadPartCopyRequest.builder()
+                    .sourceBucket(bucketName)
+                    .destinationBucket(toBucket)
+                    .sourceKey(key)
+                    .destinationKey(key)
+                    .uploadId(uploadId)  // Use the valid uploadId.
+                    .partNumber(1)  // Ensure the part number is correct.
+                    .copySourceRange("bytes=0-1023")  // Adjust range as needed
+                    .build();
+
+                // Step 3: Perform the upload part copy operation asynchronously.
+                return getAsyncClient().uploadPartCopy(uploadPartCopyRequest);
+            })
+            .thenCompose(uploadPartCopyFuture -> uploadPartCopyFuture)
+            .whenComplete((uploadPartCopyResponse, exception) -> {
+                if (exception != null) {
+                    // Handle any exceptions.
+                    logger.error("Error during upload part copy: " + exception.getMessage());
+                } else {
+                    // Successfully completed the upload part copy.
+                    System.out.println("Upload Part Copy completed successfully. ETag: " + uploadPartCopyResponse.copyPartResult().eTag());
+                }
+            });
+        return null;
+    }
+    // snippet-end:[s3.java2.multi_copy.main]
 
     private static ByteBuffer getRandomByteBuffer(int size) {
         ByteBuffer buffer = ByteBuffer.allocate(size);
