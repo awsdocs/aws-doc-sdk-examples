@@ -169,7 +169,7 @@ class PluginStack extends cdk.Stack {
 
   private initBatchLambda(
     jobQueue: batch.CfnJobQueue,
-    jobDefinition: batch.CfnJobDefinition
+    jobDefinition: batch.CfnJobDefinition,
   ): lambda.Function {
     const executionRole = new iam.Role(
       this,
@@ -198,7 +198,7 @@ class PluginStack extends cdk.Stack {
       environment: {
         JOB_QUEUE: jobQueue.ref,
         JOB_DEFINITION: jobDefinition.ref,
-        JOB_NAME: `job-${toolName}`
+        JOB_NAME: `job-${toolName}`,
       },
       role: executionRole,
     });

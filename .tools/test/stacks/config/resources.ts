@@ -16,7 +16,6 @@ export function readResourceConfig(filePath: string): ResourceConfig {
     const fileContents = fs.readFileSync(filePath, "utf8");
     const data: ResourceConfig = parse(fileContents);
 
-    // Validate the required fields
     if (
       !data.topic_name ||
       !data.bucket_name ||
