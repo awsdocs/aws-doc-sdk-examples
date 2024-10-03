@@ -201,7 +201,6 @@ public class SitewiseTests {
             sitewiseActions.deleteAssetAsync(assetId).join();
         });
     }
-
     @Test
     @Tag("IntegrationTest")
     @Order(12)
@@ -212,7 +211,6 @@ public class SitewiseTests {
         });
         CloudFormationHelper.destroyCloudFormationStack(ROLES_STACK);
     }
-
 
     private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
