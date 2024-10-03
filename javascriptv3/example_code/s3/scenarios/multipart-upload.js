@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
-
 // snippet-start:[javascript.v3.s3.scenarios.multipartupload]
 import {
   CreateMultipartUploadCommand,
@@ -10,6 +8,7 @@ import {
   CompleteMultipartUploadCommand,
   AbortMultipartUploadCommand,
   S3Client,
+  S3ServiceException,
 } from "@aws-sdk/client-s3";
 
 const twentyFiveMB = 25 * 1024 * 1024;
@@ -18,10 +17,13 @@ export const createString = (size = twentyFiveMB) => {
   return "x".repeat(size);
 };
 
-export const main = async () => {
+/**
+ * Create a 25MB file and upload it in parts to the specified
+ * Amazon S3 bucket.
+ * @param {{ bucketName: string, key: string }}
+ */
+export const main = async ({ bucketName, key }) => {
   const s3Client = new S3Client({});
-  const bucketName = "test-bucket";
-  const key = "multipart.txt";
   const str = createString();
   const buffer = Buffer.from(str, "utf8");
 
@@ -81,9 +83,7 @@ export const main = async () => {
 
     // Verify the output by downloading the file from the Amazon Simple Storage Service (Amazon S3) console.
     // Because the output is a 25 MB string, text editors might struggle to open the file.
-  } catch (err) {
-    console.error(err);
-
+  } catch (caught) {
     if (uploadId) {
       const abortCommand = new AbortMultipartUploadCommand({
         Bucket: bucketName,
@@ -93,11 +93,49 @@ export const main = async () => {
 
       await s3Client.send(abortCommand);
     }
+
+    if (
+      caught instanceof S3ServiceException &&
+      caught.name === "NoSuchUpload"
+    ) {
+      console.error(
+        `Error trying to upload a part. Not upload was found with the id "${uploadId}.`,
+      );
+    } else {
+      throw caught;
+    }
   }
 };
 // snippet-end:[javascript.v3.s3.scenarios.multipartupload]
 
-// Invoke main function if this file was run directly.
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+// Call function if run directly
+import { parseArgs } from "util";
+import {
+  isMain,
+  validateArgs,
+} from "@aws-doc-sdk-examples/lib/utils/util-node.js";
+
+const loadArgs = () => {
+  const options = {
+    bucketName: {
+      type: "string",
+      required: true,
+    },
+    key: {
+      type: "string",
+      required: true,
+    },
+  };
+  const results = parseArgs({ options });
+  const { errors } = validateArgs({ options }, results);
+  return { errors, results };
+};
+
+if (isMain(import.meta.url)) {
+  const { errors, results } = loadArgs();
+  if (!errors) {
+    main(results.values);
+  } else {
+    console.error(errors.join("\n"));
+  }
 }
