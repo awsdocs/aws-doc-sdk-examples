@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 package com.example.iotsitewise.scenario;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
@@ -16,6 +17,7 @@ import software.amazon.awssdk.services.cloudformation.model.DescribeStacksRespon
 import software.amazon.awssdk.services.cloudformation.model.Output;
 import software.amazon.awssdk.services.cloudformation.model.Stack;
 import software.amazon.awssdk.services.cloudformation.waiters.CloudFormationAsyncWaiter;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -26,11 +28,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+
 public class CloudFormationHelper {
     private static final String CFN_TEMPLATE = "SitewiseRoles-template.yaml";
     private static final Logger logger = LoggerFactory.getLogger(CloudFormationHelper.class);
 
     private static CloudFormationAsyncClient cloudFormationClient;
+
     private static CloudFormationAsyncClient getCloudFormationClient() {
         if (cloudFormationClient == null) {
             SdkAsyncHttpClient httpClient = NettyNioAsyncHttpClient.builder()
@@ -99,8 +103,8 @@ public class CloudFormationHelper {
             CompletableFuture<?> future = getCloudFormationClient().describeStacks();
             DescribeStacksResponse stacksResponse = (DescribeStacksResponse) future.join();
             List<Stack> stacks = stacksResponse.stacks();
-            for (Stack myStack :stacks) {
-                if (myStack.stackName().compareTo(stackName)==0){
+            for (Stack myStack : stacks) {
+                if (myStack.stackName().compareTo(stackName) == 0) {
                     return true;
                 }
             }
@@ -109,6 +113,7 @@ public class CloudFormationHelper {
         }
         return false;
     }
+
     public static void destroyCloudFormationStack(String stackName) {
         getCloudFormationClient().deleteStack(b -> b.stackName(stackName))
             .whenComplete((dsr, t) -> {

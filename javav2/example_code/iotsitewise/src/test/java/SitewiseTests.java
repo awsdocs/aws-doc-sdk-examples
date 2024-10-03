@@ -26,6 +26,7 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,14 +35,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SitewiseTests {
 
-    private static final String assetModelName = "MyAssetModel"+ UUID.randomUUID();
+    private static final String assetModelName = "MyAssetModel" + UUID.randomUUID();
     private static final String assetName = "MyAsset";
 
     private static String assetId = "";
     private static final String portalName = "MyPortal";
     private static String contactEmail = "";
-    private static final String gatewayName = "myGateway"+ UUID.randomUUID();
-    private static final String myThing = "myThing"+ UUID.randomUUID();
+    private static final String gatewayName = "myGateway" + UUID.randomUUID();
+    private static final String myThing = "myThing" + UUID.randomUUID();
 
     private static String assetModelId = "";
 
@@ -80,7 +81,6 @@ public class SitewiseTests {
     @Order(1)
     public void testHelloService() {
         assertDoesNotThrow(HelloSitewise::fetchAssetModels);
-        System.out.println(" Test 1 passed");
     }
 
     @Test
@@ -97,8 +97,6 @@ public class SitewiseTests {
             assetModelId = response.assetModelId();
             assertNotNull(assetModelId);
         });
-
-        System.out.println("Test 2 passed");
     }
 
     @Test
@@ -112,7 +110,6 @@ public class SitewiseTests {
             assetId = response.assetId();
             assertNotNull(assetId);
         });
-        System.out.println("Test 3 passed");
     }
 
     @Test
@@ -121,12 +118,11 @@ public class SitewiseTests {
     public void testGetPropIds() {
         assertDoesNotThrow(() -> {
             propertyIds = sitewiseActions.getPropertyIds(assetModelId).join();
-            humPropId =  propertyIds.get("Humidity");
-            System.out.println("The Humidity property Id is "+ humPropId);
+            humPropId = propertyIds.get("Humidity");
+            System.out.println("The Humidity property Id is " + humPropId);
             tempPropId = propertyIds.get("Temperature");
             System.out.println("The Temperature property Id is " + tempPropId);
         });
-        System.out.println("Test 4 passed");
     }
 
     @Test
@@ -136,7 +132,6 @@ public class SitewiseTests {
         assertDoesNotThrow(() -> {
             sitewiseActions.sendDataToSiteWiseAsync(assetId, tempPropId, humPropId).join();
         });
-        System.out.println("Test 5 passed");
     }
 
     @Test
@@ -146,7 +141,6 @@ public class SitewiseTests {
         assertDoesNotThrow(() -> {
             sitewiseActions.getAssetPropValueAsync(humPropId, assetId);
         });
-        System.out.println("Test 6 passed");
     }
 
     @Test
@@ -157,7 +151,6 @@ public class SitewiseTests {
             portalId = sitewiseActions.createPortalAsync(portalName, iamRole, contactEmail).join();
             assertNotNull(portalId);
         });
-        System.out.println("Test 7 passed");
     }
 
     @Test
@@ -168,7 +161,6 @@ public class SitewiseTests {
             String portalUrl = sitewiseActions.describePortalAsync(portalId).join();
             assertNotNull(portalUrl);
         });
-        System.out.println("Test 8 passed");
     }
 
     @Test
@@ -179,7 +171,6 @@ public class SitewiseTests {
             gatewayId = sitewiseActions.createGatewayAsync(gatewayName, myThing).join();
             assertNotNull(gatewayId);
         });
-        System.out.println("Test 9 passed");
     }
 
     @Test
@@ -189,7 +180,6 @@ public class SitewiseTests {
         assertDoesNotThrow(() -> {
             sitewiseActions.describeGatewayAsync(gatewayId).join();
         });
-        System.out.println("Test 10 passed");
     }
 
     @Test
@@ -199,8 +189,7 @@ public class SitewiseTests {
         Thread.sleep(30000);
         assertDoesNotThrow(() -> {
             sitewiseActions.deletePortalAsync(portalId).join();
-                });
-        System.out.println("Test 11 passed");
+        });
     }
 
     @Test
@@ -211,7 +200,6 @@ public class SitewiseTests {
         assertDoesNotThrow(() -> {
             sitewiseActions.deleteAssetAsync(assetId).join();
         });
-        System.out.println("Test 11 passed");
     }
 
     @Test
@@ -223,7 +211,6 @@ public class SitewiseTests {
             sitewiseActions.deleteAssetModelAsync(assetModelId).join();
         });
         CloudFormationHelper.destroyCloudFormationStack(ROLES_STACK);
-        System.out.println("Test 11 passed");
     }
 
 
