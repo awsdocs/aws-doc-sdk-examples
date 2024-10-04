@@ -2,14 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[javascript.v3.s3.scenarios.multipartupload]
-import {
-  CreateMultipartUploadCommand,
-  UploadPartCommand,
-  CompleteMultipartUploadCommand,
-  AbortMultipartUploadCommand,
-  S3Client,
-  S3ServiceException,
-} from "@aws-sdk/client-s3";
+import { S3Client } from "@aws-sdk/client-s3";
+import { Upload } from "@aws-sdk/lib-storage";
+
+import { ProgressBar } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 
 const twentyFiveMB = 25 * 1024 * 1024;
 
@@ -23,89 +19,37 @@ export const createString = (size = twentyFiveMB) => {
  * @param {{ bucketName: string, key: string }}
  */
 export const main = async ({ bucketName, key }) => {
-  const s3Client = new S3Client({});
   const str = createString();
   const buffer = Buffer.from(str, "utf8");
-
-  let uploadId;
+  const progressBar = new ProgressBar({
+    description: `Uploading "${key}" to "${bucketName}"`,
+    barLength: 30,
+  });
 
   try {
-    const multipartUpload = await s3Client.send(
-      new CreateMultipartUploadCommand({
+    const upload = new Upload({
+      client: new S3Client({}),
+      params: {
         Bucket: bucketName,
         Key: key,
-      }),
-    );
+        Body: buffer,
+      },
+    });
 
-    uploadId = multipartUpload.UploadId;
+    upload.on("httpUploadProgress", ({ loaded, total }) => {
+      progressBar.update({ current: loaded, total });
+    });
 
-    const uploadPromises = [];
-    // Multipart uploads require a minimum size of 5 MB per part.
-    const partSize = Math.ceil(buffer.length / 5);
-
-    // Upload each part.
-    for (let i = 0; i < 5; i++) {
-      const start = i * partSize;
-      const end = start + partSize;
-      uploadPromises.push(
-        s3Client
-          .send(
-            new UploadPartCommand({
-              Bucket: bucketName,
-              Key: key,
-              UploadId: uploadId,
-              Body: buffer.subarray(start, end),
-              PartNumber: i + 1,
-            }),
-          )
-          .then((d) => {
-            console.log("Part", i + 1, "uploaded");
-            return d;
-          }),
-      );
-    }
-
-    const uploadResults = await Promise.all(uploadPromises);
-
-    return await s3Client.send(
-      new CompleteMultipartUploadCommand({
-        Bucket: bucketName,
-        Key: key,
-        UploadId: uploadId,
-        MultipartUpload: {
-          Parts: uploadResults.map(({ ETag }, i) => ({
-            ETag,
-            PartNumber: i + 1,
-          })),
-        },
-      }),
-    );
-
-    // Verify the output by downloading the file from the Amazon Simple Storage Service (Amazon S3) console.
-    // Because the output is a 25 MB string, text editors might struggle to open the file.
+    await upload.done();
   } catch (caught) {
-    if (uploadId) {
-      const abortCommand = new AbortMultipartUploadCommand({
-        Bucket: bucketName,
-        Key: key,
-        UploadId: uploadId,
-      });
-
-      await s3Client.send(abortCommand);
-    }
-
-    if (
-      caught instanceof S3ServiceException &&
-      caught.name === "NoSuchUpload"
-    ) {
-      console.error(
-        `Error trying to upload a part. Not upload was found with the id "${uploadId}.`,
-      );
+    if (caught instanceof Error && caught.name === "AbortError") {
+      console.error(`Multipart upload was aborted. ${caught.message}`);
     } else {
       throw caught;
     }
   }
 };
+
 // snippet-end:[javascript.v3.s3.scenarios.multipartupload]
 
 // Call function if run directly
