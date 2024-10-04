@@ -24,12 +24,12 @@ class KMSScenario:
     """Runs an interactive scenario that shows how to get started with KMS."""
 
     def __init__(
-            self,
-            key_manager: KeyManager,
-            key_encryption: KeyEncrypt,
-            alias_manager: AliasManager,
-            grant_manager: GrantManager,
-            key_policy: KeyPolicy,
+        self,
+        key_manager: KeyManager,
+        key_encryption: KeyEncrypt,
+        alias_manager: AliasManager,
+        grant_manager: GrantManager,
+        key_policy: KeyPolicy,
     ):
         self.key_manager = key_manager
         self.key_encryption = key_encryption
@@ -70,7 +70,7 @@ Let's get started...
             f"First, the program will creates a symmetric KMS key that you can used to encrypt and decrypt data."
         )
         q.ask("Press Enter to continue...")
-        self.key_id = self.key_manager.create_key(key_description)['KeyId']
+        self.key_id = self.key_manager.create_key(key_description)["KeyId"]
         print(f"A symmetric key was successfully created {self.key_id}.")
         q.ask("Press Enter to continue...")
         print(DASHES)
@@ -98,7 +98,7 @@ Next, the code encrypts the string "{plain_text}" with the SYMMETRIC_DEFAULT enc
         """
         )
         q.ask("Press Enter to continue...")
-        encrypted_text = self.key_encryption.encrypt(self.key_id, key_description)
+        encrypted_text = self.key_encryption.encrypt(self.key_id, plain_text)
         print(DASHES)
         print(f"4. Create an alias")
         print(
@@ -141,9 +141,9 @@ When authorizing access to a KMS key, grants are considered along with key polic
         )
         print(
             """
-To create a grant you must specify a account_id. To specify the grantee account_id, use the Amazon Resource Name (ARN) 
-of an AWS account_id. Valid principals include AWS accounts, IAM users, IAM roles, federated users, 
-and assumed role users. 
+To create a grant you must specify a account_id. To specify the grantee account_id, use the Amazon Resource Name (ARN)
+of an AWS account_id. Valid principals include AWS accounts, IAM users, IAM roles, federated users,
+and assumed role users.
         """
         )
         account_id = q.ask(
@@ -170,120 +170,120 @@ and assumed role users.
         self.grant_manager.list_grants(self.key_id)
         q.ask("Press Enter to continue...")
         print(DASHES)
-        print(f"9. Revoke the grant")
-        print(
-            """
-The revocation of a grant immediately removes the permissions and access that the grant had provided.
-This means that any account_id (user, role, or service) that was granted access to perform specific
-KMS operations on a KMS key will no longer be able to perform those operations.
-        """
-        )
-        q.ask("Press Enter to continue...")
-
-        if grant is not None:
-            self.grant_manager.revoke_grant(self.key_id, grant["GrantId"])
-            print(f"Grant ID: {grant["GrantId"]} was successfully revoked!")
-
-        q.ask("Press Enter to continue...")
-        print(DASHES)
-        print(f"10. Decrypt the data\n")
-        print(
-            """
-Lets decrypt the data that was encrypted in an early step.
-The code uses the same key to decrypt the string that we encrypted earlier in the program.
-        """
-        )
-        q.ask("Press Enter to continue...")
-        decrypted_data = self.key_encryption.decrypt(self.key_id, encrypted_text)
-        print(f"Data decrypted successfully for key ID: {self.key_id}")
-        print(f"Decrypted data: {decrypted_data}")
-
-        q.ask("Press Enter to continue...")
-        print(DASHES)
-        print(f"11. Replace a key policy\n")
-        print(
-            """
-A key policy is a resource policy for a KMS key. Key policies are the primary way to control
-access to KMS keys. Every KMS key must have exactly one key policy. The statements in the key policy
-determine who has permission to use the KMS key and how they can use it.
-You can also use IAM policies and grants to control access to the KMS key, but every KMS key
-must have a key policy.
-
-By default, when you create a key by using the SDK, a policy is created that
-gives the AWS account that owns the KMS key full access to the KMS key.
-
-Let's try to replace the automatically created policy with the following policy.
-{
-"Version": "2012-10-17",
-"Statement": [{
-"Effect": "Allow",
-"Principal": {"AWS": "arn:aws:iam::0000000000:root"},
-"Action": "kms:*",
-"Resource": "*"
-}]
-}
-        """
-        )
-        account_id = q.ask(
-            "Enter your account ID or press enter to skip: "
-        )
-        if account_id != "":
-            policy = {"Version": "2012-10-17", "Statement": [{
-                "Effect": "Allow",
-                "Principal": {"AWS": f"arn:aws:iam::{account_id}:root"},
-                "Action": "kms:*",
-                "Resource": "*"
-            }]}
-
-            self.key_policy.set_new_policy(self.key_id, policy)
-            print("Key policy replacement succeeded.")
-            q.ask("Press Enter to continue...")
-        else:
-            print("Skipping replacing the key policy.")
-
-        print(DASHES)
-        print(f"12. Get the key policy\n")
-        print(
-            f"The next bit of code that runs gets the key policy to make sure it exists."
-        )
-        q.ask("Press Enter to continue...")
-        policy = self.key_policy.get_policy(self.key_id)
-        print(f"The key policy is: {policy}")
-
-        q.ask("Press Enter to continue...")
-        print(DASHES)
-        print(f"13. Create an asymmetric KMS key and sign your data\n")
-        print(
-            """
-        Signing your data with an AWS key can provide several benefits that make it an attractive option
-        for your data signing needs. By using an AWS KMS key, you can leverage the
-        security controls and compliance features provided by AWS,
-        which can help you meet various regulatory requirements and enhance the overall security posture
-        of your organization.
-        """
-        )
-        q.ask("Press Enter to continue...")
-        print(f"Sign and verify data operation succeeded.")
-        self.asymmetric_key_id = self.key_manager.create_asymmetric_key()
-        message = "Here is the message that will be digitally signed"
-        signature = self.key_encryption.sign(self.asymmetric_key_id, message)
-        if self.key_encryption.verify(self.asymmetric_key_id, message, signature):
-            print("Signature verification succeeded.")
-        else:
-            print("Signature verification failed.")
-
-        q.ask("Press Enter to continue...")
-        print(DASHES)
-        print(f"14. Tag your symmetric KMS Key\n")
-        print(
-            """
-        By using tags, you can improve the overall management, security, and governance of your
-        KMS keys, making it easier to organize, track, and control access to your encrypted data within
-        your AWS environment
-        """
-        )
-        q.ask("Press Enter to continue...")
-        self.key_manager.tag_resource(self.key_id, "Environment", "Production")
+        #         print(f"9. Revoke the grant")
+        #         print(
+        #             """
+        # The revocation of a grant immediately removes the permissions and access that the grant had provided.
+        # This means that any account_id (user, role, or service) that was granted access to perform specific
+        # KMS operations on a KMS key will no longer be able to perform those operations.
+        #         """
+        #         )
+        #         q.ask("Press Enter to continue...")
+        #
+        #         if grant is not None:
+        #             self.grant_manager.revoke_grant(self.key_id, grant["GrantId"])
+        #             print(f"Grant ID: {grant["GrantId"]} was successfully revoked!")
+        #
+        #         q.ask("Press Enter to continue...")
+        #         print(DASHES)
+        #         print(f"10. Decrypt the data\n")
+        #         print(
+        #             """
+        # Lets decrypt the data that was encrypted in an early step.
+        # The code uses the same key to decrypt the string that we encrypted earlier in the program.
+        #         """
+        #         )
+        #         q.ask("Press Enter to continue...")
+        #         decrypted_data = self.key_encryption.decrypt(self.key_id, encrypted_text)
+        #         print(f"Data decrypted successfully for key ID: {self.key_id}")
+        #         print(f"Decrypted data: {decrypted_data}")
+        #
+        #         q.ask("Press Enter to continue...")
+        #         print(DASHES)
+        #         print(f"11. Replace a key policy\n")
+        #         print(
+        #             """
+        # A key policy is a resource policy for a KMS key. Key policies are the primary way to control
+        # access to KMS keys. Every KMS key must have exactly one key policy. The statements in the key policy
+        # determine who has permission to use the KMS key and how they can use it.
+        # You can also use IAM policies and grants to control access to the KMS key, but every KMS key
+        # must have a key policy.
+        #
+        # By default, when you create a key by using the SDK, a policy is created that
+        # gives the AWS account that owns the KMS key full access to the KMS key.
+        #
+        # Let's try to replace the automatically created policy with the following policy.
+        # {
+        # "Version": "2012-10-17",
+        # "Statement": [{
+        # "Effect": "Allow",
+        # "Principal": {"AWS": "arn:aws:iam::0000000000:root"},
+        # "Action": "kms:*",
+        # "Resource": "*"
+        # }]
+        # }
+        #         """
+        #         )
+        #         account_id = q.ask(
+        #             "Enter your account ID or press enter to skip: "
+        #         )
+        #         if account_id != "":
+        #             policy = {"Version": "2012-10-17", "Statement": [{
+        #                 "Effect": "Allow",
+        #                 "Principal": {"AWS": f"arn:aws:iam::{account_id}:root"},
+        #                 "Action": "kms:*",
+        #                 "Resource": "*"
+        #             }]}
+        #
+        #             self.key_policy.set_new_policy(self.key_id, policy)
+        #             print("Key policy replacement succeeded.")
+        #             q.ask("Press Enter to continue...")
+        #         else:
+        #             print("Skipping replacing the key policy.")
+        #
+        #         print(DASHES)
+        #         print(f"12. Get the key policy\n")
+        #         print(
+        #             f"The next bit of code that runs gets the key policy to make sure it exists."
+        #         )
+        #         q.ask("Press Enter to continue...")
+        #         policy = self.key_policy.get_policy(self.key_id)
+        #         print(f"The key policy is: {policy}")
+        #
+        #         q.ask("Press Enter to continue...")
+        #         print(DASHES)
+        #         print(f"13. Create an asymmetric KMS key and sign your data\n")
+        #         print(
+        #             """
+        #         Signing your data with an AWS key can provide several benefits that make it an attractive option
+        #         for your data signing needs. By using an AWS KMS key, you can leverage the
+        #         security controls and compliance features provided by AWS,
+        #         which can help you meet various regulatory requirements and enhance the overall security posture
+        #         of your organization.
+        #         """
+        #         )
+        #         q.ask("Press Enter to continue...")
+        #         print(f"Sign and verify data operation succeeded.")
+        #         self.asymmetric_key_id = self.key_manager.create_asymmetric_key()
+        #         message = "Here is the message that will be digitally signed"
+        #         signature = self.key_encryption.sign(self.asymmetric_key_id, message)
+        #         if self.key_encryption.verify(self.asymmetric_key_id, message, signature):
+        #             print("Signature verification succeeded.")
+        #         else:
+        #             print("Signature verification failed.")
+        #
+        #         q.ask("Press Enter to continue...")
+        #         print(DASHES)
+        #         print(f"14. Tag your symmetric KMS Key\n")
+        #         print(
+        #             """
+        #         By using tags, you can improve the overall management, security, and governance of your
+        #         KMS keys, making it easier to organize, track, and control access to your encrypted data within
+        #         your AWS environment
+        #         """
+        #         )
+        #         q.ask("Press Enter to continue...")
+        #         self.key_manager.tag_resource(self.key_id, "Environment", "Production")
         self.clean_up()
 
     def is_key_enabled(self, key_id: str) -> bool:
@@ -310,11 +310,11 @@ all data that was encrypted under the KMS key is unrecoverable.
                 """
             )
             if q.ask(
-                    f"Do you want to delete the key with ID {self.key_id} (y/n)?",
-                    q.is_yesno,
+                f"Do you want to delete the key with ID {self.key_id} (y/n)?",
+                q.is_yesno,
             ):
                 print(
-                    f"The key will be deleted with a window of {window} days. You can cancel the deletion before"
+                    f"The key {self.key_id} will be deleted with a window of {window} days. You can cancel the deletion before"
                 )
                 print("the window expires.")
                 self.key_manager.delete_key(self.key_id, window)
@@ -322,11 +322,11 @@ all data that was encrypted under the KMS key is unrecoverable.
 
         if self.asymmetric_key_id != "":
             if q.ask(
-                    f"Do you want to delete the asymmetric key with ID {self.asymmetric_key_id} (y/n)?",
-                    q.is_yesno,
+                f"Do you want to delete the asymmetric key with ID {self.asymmetric_key_id} (y/n)?",
+                q.is_yesno,
             ):
                 print(
-                    f"The key will be deleted with a window of {window} days. You can cancel the deletion before"
+                    f"The key {self.asymmetric_key_id} will be deleted with a window of {window} days. You can cancel the deletion before"
                 )
                 print("the window expires.")
                 self.key_manager.delete_key(self.asymmetric_key_id, window)

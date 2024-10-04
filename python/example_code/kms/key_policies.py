@@ -52,6 +52,7 @@ class KeyPolicy:
                 "Couldn't list your policies. Here's why: %s",
                 err.response["Error"]["Message"],
             )
+            raise
         else:
             print(f"The policies for key {key_id} are:")
             pprint(policy_names)
