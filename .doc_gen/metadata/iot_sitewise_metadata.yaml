@@ -1,0 +1,204 @@
+# zexi 0.4.0
+iotsitewise_Hello:
+  title: Hello &ITSWlong;
+  title_abbrev: Hello &ITSW;
+  synopsis: get started using &ITSW;.
+  category: Hello
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - iotsitewise.hello.main
+  services:
+    iotsitewise: {ListVersions}
+iotsitewise_DescribeGateway:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.describe.gateway.main
+  services:
+    iotsitewise: {DescribeGateway}
+iotsitewise_DeleteGateway:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.delete.gateway.main
+  services:
+    iotsitewise: {DeleteGateway}
+iotsitewise_CreateGateway:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.create.gateway.main
+  services:
+    iotsitewise: {CreateGateway}
+iotsitewise_DescribePortal:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.describe.portal.main
+  services:
+    iotsitewise: {DescribePortal}
+iotsitewise_ListAssetModels:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.list.asset.model.main
+  services:
+    iotsitewise: {ListAssetModels}
+iotsitewise_DeletePortal:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.delete.portal.main
+  services:
+    iotsitewise: {DeletePortal}
+iotsitewise_CreatePortal:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.create.portal.main
+  services:
+    iotsitewise: {CreatePortal}
+iotsitewise_DeleteAssetModel:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.delete.asset.model.main
+  services:
+    iotsitewise: {DeleteAssetModel}
+iotsitewise_DeleteAsset:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.delete.asset.main
+  services:
+    iotsitewise: {DeleteAsset}
+iotsitewise_DescribeAssetModel:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2.describe.asset.model.main
+  services:
+    iotsitewise: {DescribeAssetModel}
+iotsitewise_GetAssetPropertyValue:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2_get_property.main
+  services:
+    iotsitewise: {GetAssetPropertyValue}
+iotsitewise_BatchPutAssetPropertyValue:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2_put_batch_property.main
+  services:
+    iotsitewise: {BatchPutAssetPropertyValue}
+iotsitewise_CreateAsset:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2_create_asset.main
+  services:
+    iotsitewise: {CreateAsset}
+iotsitewise_CreateAssetModel:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - sitewise.java2_create_asset_model.main
+  services:
+    iotsitewise: {CreateAssetModel}
+iotsitewise_Scenario:
+  synopsis: Learn core operations for &ITSWlong; using an &AWS; SDK.
+  category: Basics
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iotsitewise
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &ITSW; features.
+              snippet_tags:
+                - iotsitewise.java2.scenario.main
+            - description: A wrapper class for &ITSW; SDK methods.
+              snippet_tags:
+                - iotsitewise.java2.actions.main 
+  services:
+    iotsitewise: {}
