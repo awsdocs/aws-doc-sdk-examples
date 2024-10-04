@@ -55,6 +55,15 @@ public class PutObjectRetention {
         s3.close();
     }
 
+    /**
+     * Sets the retention period for an object in an Amazon S3 bucket.
+     *
+     * @param s3     the S3Client object used to interact with the Amazon S3 service
+     * @param key    the key (name) of the object in the S3 bucket
+     * @param bucket the name of the S3 bucket where the object is stored
+     *
+     * @throws S3Exception if an error occurs while setting the object retention period
+     */
     public static void setRentionPeriod(S3Client s3, String key, String bucket) {
         try {
             LocalDate localDate = LocalDate.parse("2020-07-17");

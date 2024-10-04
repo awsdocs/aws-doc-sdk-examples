@@ -51,6 +51,14 @@ public class CopyObjectStorage {
         s3.close();
     }
 
+    /**
+     * Copies an object from one Amazon S3 bucket to another, and stores the object in the DEEP_ARCHIVE storage class.
+     *
+     * @param s3 the S3Client object used to interact with the Amazon S3 service
+     * @param fromBucket the name of the bucket from which the object is being copied
+     * @param objectKey the name of the object to be copied
+     * @param toBucket the name of the bucket to which the object is being copied
+     */
     public static void copyBucketObject(S3Client s3, String fromBucket, String objectKey, String toBucket) {
         CopyObjectRequest copyReq = CopyObjectRequest.builder()
             .sourceBucket(fromBucket)

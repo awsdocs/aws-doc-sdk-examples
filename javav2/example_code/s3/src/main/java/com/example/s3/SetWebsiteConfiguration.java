@@ -51,6 +51,13 @@ public class SetWebsiteConfiguration {
         s3.close();
     }
 
+    /**
+     * Sets the website configuration for an Amazon S3 bucket.
+     *
+     * @param s3 The {@link S3Client} instance to use for the AWS SDK operations.
+     * @param bucketName The name of the S3 bucket to configure.
+     * @param indexDoc The name of the index document to use for the website configuration.
+     */
     public static void setWebsiteConfig(S3Client s3, String bucketName, String indexDoc) {
         try {
             WebsiteConfiguration websiteConfig = WebsiteConfiguration.builder()

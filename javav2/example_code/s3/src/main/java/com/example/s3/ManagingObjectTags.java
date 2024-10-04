@@ -65,6 +65,14 @@ public class ManagingObjectTags {
     }
 
     // snippet-start:[s3.java2.s3_object_manage_tags.main]
+    /**
+     * Puts tags on an Amazon S3 object.
+     *
+     * @param s3 An {@link S3Client} object that represents the Amazon S3 client.
+     * @param bucketName The name of the Amazon S3 bucket.
+     * @param objectKey The key of the Amazon S3 object.
+     * @param objectPath The file path of the object to be uploaded.
+     */
     public static void putS3ObjectTags(S3Client s3, String bucketName, String objectKey, String objectPath) {
         try {
             Tag tag1 = Tag.builder()
@@ -99,6 +107,14 @@ public class ManagingObjectTags {
         }
     }
 
+    /**
+     * Updates the tags associated with an object in an Amazon S3 bucket.
+     *
+     * @param s3 an instance of the S3Client class, which is used to interact with the Amazon S3 service
+     * @param bucketName the name of the S3 bucket containing the object
+     * @param objectKey the key (or name) of the object in the S3 bucket
+     * @throws S3Exception if there is an error updating the object's tags
+     */
     public static void updateObjectTags(S3Client s3, String bucketName, String objectKey) {
         try {
             GetObjectTaggingRequest taggingRequest = GetObjectTaggingRequest.builder()
@@ -152,7 +168,12 @@ public class ManagingObjectTags {
         }
     }
 
-    // Return a byte array.
+    /**
+     * Retrieves the contents of a file as a byte array.
+     *
+     * @param filePath the path of the file to be read
+     * @return a byte array containing the contents of the file, or null if an error occurs
+     */
     private static byte[] getObjectFile(String filePath) {
         FileInputStream fileInputStream = null;
         byte[] bytesArray = null;

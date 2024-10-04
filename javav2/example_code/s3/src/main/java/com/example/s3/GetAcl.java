@@ -56,6 +56,14 @@ public class GetAcl {
         System.out.println("Done!");
     }
 
+    /**
+     * Retrieves the Access Control List (ACL) for an object in an Amazon S3 bucket.
+     *
+     * @param s3 The S3Client object used to interact with the Amazon S3 service.
+     * @param objectKey The key of the object for which the ACL is to be retrieved.
+     * @param bucketName The name of the bucket containing the object.
+     * @return The ID of the grantee who has permission on the object, or an empty string if an error occurs.
+     */
     public static String getBucketACL(S3Client s3, String objectKey, String bucketName) {
         try {
             GetObjectAclRequest aclReq = GetObjectAclRequest.builder()

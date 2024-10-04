@@ -43,7 +43,7 @@ import java.util.UUID;
 // snippet-start:[s3.java2.basicOpsWithChecksums.full]
 public class BasicOpsWithChecksums {
     static final S3Client s3Client = S3Client.create();
-    static final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID();
+    static final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID(); // Change bucket name.
     static final String key = UUID.randomUUID().toString();
     private static final Logger logger = LoggerFactory.getLogger(BasicOpsWithChecksums.class);
 

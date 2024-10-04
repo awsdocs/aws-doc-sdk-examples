@@ -86,6 +86,14 @@ public class CheckObjectIntegrity {
         validateExistingFileAgainstS3Checksum(s3, bucketName, objectKey, objectPath);
     }
 
+    /**
+     * Uploads an object to an Amazon S3 bucket using the Multipart Upload API, with the object being bracketed by a checksum.
+     *
+     * @param s3 The S3Client instance used to interact with the Amazon S3 service.
+     * @param bucketName The name of the S3 bucket to upload the object to.
+     * @param objectKey The key (name) of the object to be uploaded.
+     * @param objectPath The local file path of the object to be uploaded.
+     */
     public static void putS3MultipartObjectBracketedByChecksum(S3Client s3, String bucketName, String objectKey,
                                                                String objectPath) {
         System.out.println("Starting uploading file with additional checksum.");
@@ -137,6 +145,14 @@ public class CheckObjectIntegrity {
         }
     }
 
+    /**
+     * Downloads an S3 object that is split into multiple parts, and verifies the checksum of each part as well as the
+     * overall checksum of the entire object.
+     *
+     * @param s3 the S3 client used for interacting with the S3 service
+     * @param bucketName the name of the S3 bucket where the object is located
+     * @param objectKey the key of the S3 object to be downloaded
+     */
     public static void downloadS3MultipartObjectBracketedByChecksum(S3Client s3, String bucketName,
                                                                     String objectKey) {
         System.out.println("Starting downloading file and doing validation");
@@ -196,6 +212,16 @@ public class CheckObjectIntegrity {
         }
     }
 
+    /**
+     * Validates the locally persisted file against the checksum stored in Amazon S3.
+     *
+     * @param s3             The S3Client instance to interact with Amazon S3.
+     * @param bucketName     The name of the S3 bucket where the object is stored.
+     * @param objectKey      The key of the S3 object to be validated.
+     * @param objectPath     The local file path of the object to be validated.
+     * @throws IOException   If there is an error reading the local file or validating the checksum.
+     * @throws NoSuchAlgorithmException If the specified algorithm (SHA-256) is not available.
+     */
     public static void validateExistingFileAgainstS3Checksum(S3Client s3, String bucketName, String objectKey,
                                                              String objectPath) {
         System.out.println("Starting validating the locally persisted file.");

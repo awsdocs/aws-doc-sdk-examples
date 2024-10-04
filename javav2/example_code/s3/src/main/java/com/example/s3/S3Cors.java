@@ -59,6 +59,15 @@ public class S3Cors {
         s3.close();
     }
 
+    /**
+     * Deletes the CORS (Cross-Origin Resource Sharing) configuration for an Amazon S3 bucket.
+     *
+     * @param s3            the {@link S3Client} instance used to interact with the Amazon S3 service
+     * @param bucketName    the name of the Amazon S3 bucket for which the CORS configuration should be deleted
+     * @param accountId     the expected AWS account ID of the bucket owner
+     *
+     * @throws S3Exception if an error occurs while deleting the CORS configuration for the bucket
+     */
     public static void deleteBucketCorsInformation(S3Client s3, String bucketName, String accountId) {
         try {
             DeleteBucketCorsRequest bucketCorsRequest = DeleteBucketCorsRequest.builder()
@@ -74,6 +83,15 @@ public class S3Cors {
         }
     }
 
+    /**
+     * Retrieves the CORS (Cross-Origin Resource Sharing) configuration for the specified S3 bucket.
+     *
+     * @param s3 the S3Client instance to use for the operation
+     * @param bucketName the name of the S3 bucket to retrieve the CORS configuration for
+     * @param accountId the expected bucket owner's account ID
+     *
+     * @throws S3Exception if there is an error retrieving the CORS configuration
+     */
     public static void getBucketCorsInformation(S3Client s3, String bucketName, String accountId) {
         try {
             GetBucketCorsRequest bucketCorsRequest = GetBucketCorsRequest.builder()
@@ -95,6 +113,13 @@ public class S3Cors {
         }
     }
 
+    /**
+     * Sets the Cross-Origin Resource Sharing (CORS) rules for an Amazon S3 bucket.
+     *
+     * @param s3 The S3Client object used to interact with the Amazon S3 service.
+     * @param bucketName The name of the S3 bucket to set the CORS rules for.
+     * @param accountId The AWS account ID of the bucket owner.
+     */
     public static void setCorsInformation(S3Client s3, String bucketName, String accountId) {
         List<String> allowMethods = new ArrayList<>();
         allowMethods.add("PUT");

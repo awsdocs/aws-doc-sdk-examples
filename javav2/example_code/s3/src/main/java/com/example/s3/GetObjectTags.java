@@ -53,6 +53,13 @@ public class GetObjectTags {
         s3.close();
     }
 
+    /**
+     * Lists the tags associated with an Amazon S3 object.
+     *
+     * @param s3 the S3Client object used to interact with the Amazon S3 service
+     * @param bucketName the name of the S3 bucket that contains the object
+     * @param keyName the key (name) of the S3 object
+     */
     public static void listTags(S3Client s3, String bucketName, String keyName) {
         try {
             GetObjectTaggingRequest getTaggingRequest = GetObjectTaggingRequest

@@ -44,25 +44,26 @@ public class S3Scenario {
     public static void main(String[] args) throws IOException {
         final String usage = """
             Usage:
-               <key> <objectPath> <savePath> <toBucket>
+               <bucketName> <key> <objectPath> <savePath> <toBucket>
 
             Where:
+                bucketName - The name of the  S3 bucket.
                 key - The unique identifier for the object stored in the S3 bucket.
                 objectPath - The full file path of the object within the S3 bucket (e.g., "documents/reports/annual_report.pdf").
                 savePath - The local file path where the object will be downloaded and saved (e.g., "C:/Users/username/Downloads/annual_report.pdf").
                 toBucket - The name of the S3 bucket to which the object will be copied.
             """;
 
-      //  if (args.length != 4) {
-      //      logger.info(usage);
-      //      return;
-      //  }
+        if (args.length != 5) {
+            logger.info(usage);
+            return;
+        }
 
-        String bucketName = "amazon-s3-demo-bucket-" + UUID.randomUUID();
-        String key = "book.pdf" ; //args[0];
-        String objectPath = "C:\\AWS\\book2.pdf" ; //args[1];
-        String savePath = "C:\\AWS\\foo\\book33.pdf"; //args[2];
-        String toBucket = "scottsitewise";// args[3];
+        String bucketName = args[0];
+        String key = args[1];
+        String objectPath = args[2];
+        String savePath = args[3];
+        String toBucket = args[4];
 
         logger.info(DASHES);
         logger.info("Welcome to the Amazon Simple Storage Service (S3) example scenario.");

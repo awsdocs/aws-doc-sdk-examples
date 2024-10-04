@@ -55,6 +55,14 @@ public class RestoreObject {
         s3.close();
     }
 
+    /**
+     * Restores an S3 object from the Glacier storage class.
+     *
+     * @param s3                   an instance of the {@link S3Client} to be used for interacting with Amazon S3
+     * @param bucketName           the name of the S3 bucket where the object is stored
+     * @param keyName              the key (object name) of the S3 object to be restored
+     * @param expectedBucketOwner  the AWS account ID of the expected bucket owner
+     */
     public static void restoreS3Object(S3Client s3, String bucketName, String keyName, String expectedBucketOwner) {
         try {
             RestoreRequest restoreRequest = RestoreRequest.builder()

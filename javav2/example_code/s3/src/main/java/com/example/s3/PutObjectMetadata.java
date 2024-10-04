@@ -57,8 +57,14 @@ public class PutObjectMetadata {
         s3.close();
     }
 
-    // This example uses RequestBody.fromFile to avoid loading the whole file into
-    // memory.
+    /**
+     * Uploads an object to an Amazon S3 bucket with metadata.
+     *
+     * @param s3 the S3Client object used to interact with the Amazon S3 service
+     * @param bucketName the name of the S3 bucket to upload the object to
+     * @param objectKey the name of the object to be uploaded
+     * @param objectPath the local file path of the object to be uploaded
+     */
     public static void putS3Object(S3Client s3, String bucketName, String objectKey, String objectPath) {
         try {
             Map<String, String> metadata = new HashMap<>();

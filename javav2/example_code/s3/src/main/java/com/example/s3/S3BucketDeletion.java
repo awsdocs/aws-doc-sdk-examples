@@ -52,6 +52,13 @@ public class S3BucketDeletion {
         s3.close();
     }
 
+    /**
+     * Deletes all objects in the specified S3 bucket and then deletes the bucket.
+     *
+     * @param s3     The S3Client instance to use for the S3 operations.
+     * @param bucket The name of the S3 bucket to delete.
+     * @throws S3Exception if any error occurs during the S3 operations.
+     */
     public static void deleteObjectsInBucket(S3Client s3, String bucket) {
         try {
             // To delete a bucket, all the objects in the bucket must be deleted first.

@@ -5,6 +5,7 @@ package com.example.s3.batch;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.core.retry.RetryPolicy;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
@@ -128,9 +129,7 @@ public class S3BatchActions {
             ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
                 .apiCallTimeout(Duration.ofMinutes(2))
                 .apiCallAttemptTimeout(Duration.ofSeconds(90))
-                .retryPolicy(RetryPolicy.builder()
-                    .numRetries(3)
-                    .build())
+                .retryStrategy(RetryMode.STANDARD)
                 .build();
 
             s3AsyncClient = S3AsyncClient.builder()

@@ -38,7 +38,7 @@ import java.util.concurrent.CompletableFuture;
 // snippet-start:[s3.java2.performMultiPartUpload.full]
 public class PerformMultiPartUpload {
     static final S3Client s3Client = S3Client.create();
-    static final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID();
+    static final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID(); // Change bucket name.
     static final String key = UUID.randomUUID().toString();
     static final String classPathFilePath = "/multipartUploadFiles/s3-userguide.pdf";
     static final String filePath = getFullFilePath(classPathFilePath);
@@ -51,6 +51,13 @@ public class PerformMultiPartUpload {
         performMultiPartUpload.doMultipartUploadWithS3Client();
     }
 
+    /**
+     * Retrieves the full file path of a resource using the given file path.
+     *
+     * @param filePath the relative file path of the resource
+     * @return the full file path of the resource
+     * @throws RuntimeException if the file path is invalid or cannot be converted to a URI
+     */
     static String getFullFilePath(String filePath) {
         URL uploadDirectoryURL = PerformMultiPartUpload.class.getResource(filePath);
         String fullFilePath;
@@ -62,6 +69,15 @@ public class PerformMultiPartUpload {
         return fullFilePath;
     }
 
+    /**
+     * Creates an Amazon S3 bucket with the specified bucket name.
+     * <p>
+     * This method uses the {@link software.amazon.awssdk.services.s3.S3Client} to create a new S3 bucket. It also waits for the
+     * bucket to be successfully created using the {@link software.amazon.awssdk.services.s3.waiters.S3Waiter}.
+     * </p>
+     *
+     * @throws software.amazon.awssdk.services.s3.model.S3Exception if there is an error creating the bucket
+     */
     static void createBucket() {
         s3Client.createBucket(b -> b.bucket(bucketName));
         try (S3Waiter s3Waiter = s3Client.waiter()) {
@@ -69,12 +85,25 @@ public class PerformMultiPartUpload {
         }
     }
 
+    /**
+     * Deletes the resources stored in the specified S3 bucket.
+     * <p>
+     * This method first deletes the object with the specified key from the S3 bucket,
+     * and then deletes the S3 bucket itself.
+     *
+     * @throws RuntimeException if there is an error deleting the resources
+     */
     static void deleteResources() {
         s3Client.deleteObject(b -> b.bucket(bucketName).key(key));
         s3Client.deleteBucket(b -> b.bucket(bucketName));
     }
 
     // snippet-start:[s3.java2.performMultiPartUpload.transferManager]
+    /**
+     * Uploads a file to an Amazon S3 bucket using the S3TransferManager.
+     *
+     * @param filePath the file path of the file to be uploaded
+     */
     public void multipartUploadWithTransferManager(String filePath) {
         S3TransferManager transferManager = S3TransferManager.create();
         UploadFileRequest uploadFileRequest = UploadFileRequest.builder()
@@ -90,6 +119,11 @@ public class PerformMultiPartUpload {
     // snippet-end:[s3.java2.performMultiPartUpload.transferManager]
 
     // snippet-start:[s3.java2.performMultiPartUpload.s3Client]
+    /**
+     * Performs a multipart upload to Amazon S3 using the provided S3 client.
+     *
+     * @param filePath the path to the file to be uploaded
+     */
     public void multipartUploadWithS3Client(String filePath) {
 
         // Initiate the multipart upload.
@@ -146,6 +180,11 @@ public class PerformMultiPartUpload {
 
     // snippet-end:[s3.java2.performMultiPartUpload.s3Client]
     // snippet-start:[s3.java2.performMultiPartUpload.s3AsyncClient]
+    /**
+     * Uploads a file to an S3 bucket using the S3AsyncClient and enabling multipart support.
+     *
+     * @param filePath the local file path of the file to be uploaded
+     */
     public void multipartUploadWithS3AsyncClient(String filePath) {
         // Enable multipart support.
         S3AsyncClient s3AsyncClient = S3AsyncClient.builder()

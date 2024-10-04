@@ -63,6 +63,15 @@ public class LifecycleConfiguration {
         s3.close();
     }
 
+    /**
+     * Sets the lifecycle configuration for an Amazon S3 bucket.
+     *
+     * @param s3           The Amazon S3 client to use for the operation.
+     * @param bucketName   The name of the Amazon S3 bucket.
+     * @param accountId    The expected owner of the Amazon S3 bucket.
+     *
+     * @throws S3Exception if there is an error setting the lifecycle configuration.
+     */
     public static void setLifecycleConfig(S3Client s3, String bucketName, String accountId) {
         try {
             // Create a rule to archive objects with the "glacierobjects/" prefix to Amazon
@@ -127,7 +136,13 @@ public class LifecycleConfiguration {
         }
     }
 
-    // Retrieve the configuration and add a new rule.
+    /**
+     * Retrieves the lifecycle configuration for an Amazon S3 bucket and adds a new lifecycle rule to it.
+     *
+     * @param s3 the S3Client instance used to interact with Amazon S3
+     * @param bucketName the name of the Amazon S3 bucket
+     * @param accountId the expected owner of the Amazon S3 bucket
+     */
     public static void getLifecycleConfig(S3Client s3, String bucketName, String accountId) {
         try {
             GetBucketLifecycleConfigurationRequest getBucketLifecycleConfigurationRequest = GetBucketLifecycleConfigurationRequest
@@ -182,7 +197,15 @@ public class LifecycleConfiguration {
         }
     }
 
-    // Delete the configuration from the Amazon S3 bucket.
+    /**
+     * Deletes the lifecycle configuration for an Amazon S3 bucket.
+     *
+     * @param s3 the {@link S3Client} to use for the operation
+     * @param bucketName the name of the S3 bucket
+     * @param accountId the expected account owner of the S3 bucket
+     *
+     * @throws S3Exception if an error occurs while deleting the lifecycle configuration
+     */
     public static void deleteLifecycleConfig(S3Client s3, String bucketName, String accountId) {
         try {
             DeleteBucketLifecycleRequest deleteBucketLifecycleRequest = DeleteBucketLifecycleRequest
