@@ -53,7 +53,16 @@ public class CreateAccessPoint {
         s3ControlClient.close();
     }
 
-    // This method creates an access point for the given Amazon S3 bucket.
+    /**
+     * Creates a specific access point on an Amazon S3 bucket.
+     *
+     * @param s3ControlClient the S3 Control client to use for the operation
+     * @param accountId the AWS account ID associated with the bucket
+     * @param bucketName the name of the S3 bucket
+     * @param accessPointName the name of the access point to be created
+     *
+     * @throws S3ControlException if there is an error creating the access point
+     */
     public static void createSpecificAccessPoint(S3ControlClient s3ControlClient, String accountId, String bucketName,
                                                  String accessPointName) {
         try {
@@ -72,6 +81,14 @@ public class CreateAccessPoint {
         }
     }
 
+    /**
+     * Deletes a specific S3 access point.
+     *
+     * @param s3ControlClient the S3 Control client to use for the operation
+     * @param accountId the account ID of the access point to delete
+     * @param accessPointName the name of the access point to delete
+     * @throws S3ControlException if an error occurs while deleting the access point
+     */
     public static void deleteSpecificAccessPoint(S3ControlClient s3ControlClient, String accountId,
                                                  String accessPointName) {
         try {

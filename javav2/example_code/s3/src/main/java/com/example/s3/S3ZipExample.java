@@ -57,6 +57,13 @@ public class S3ZipExample {
         createZIPFile(s3, bucketName, imageKeys);
     }
 
+    /**
+     * Creates a ZIP file containing the specified image keys from an S3 bucket and uploads it to S3.
+     *
+     * @param s3 the S3Client instance to use for interacting with S3
+     * @param bucketName the name of the S3 bucket to use
+     * @param imageKeys an array of image keys to include in the ZIP file
+     */
     public static void createZIPFile(S3Client s3, String bucketName, String[] imageKeys) {
         String uuid = java.util.UUID.randomUUID().toString();
         String zipName = uuid + ".zip";
@@ -107,6 +114,14 @@ public class S3ZipExample {
         }
     }
 
+    /**
+     * Generates a pre-signed URL for downloading an object from an Amazon S3 bucket.
+     *
+     * @param bucketName the name of the S3 bucket where the object is stored
+     * @param keyName the key (object name) of the object to be downloaded
+     * @return the pre-signed URL that can be used to download the object
+     * @throws S3Exception if an error occurs while generating the pre-signed URL
+     */
     public static String signObjectToDownload(String bucketName, String keyName) {
         S3Presigner presignerOb = S3Presigner.builder()
             .region(Region.US_EAST_1)

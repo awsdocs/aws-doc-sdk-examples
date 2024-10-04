@@ -51,6 +51,14 @@ public class GetObjectUrl {
         s3.close();
     }
 
+    /**
+     * Retrieves the URL for a specific object in an Amazon S3 bucket.
+     *
+     * @param s3 the S3Client object used to interact with the Amazon S3 service
+     * @param bucketName the name of the S3 bucket where the object is stored
+     * @param keyName the name of the object for which the URL should be retrieved
+     * @throws S3Exception if there is an error retrieving the URL for the specified object
+     */
     public static void getURL(S3Client s3, String bucketName, String keyName) {
         try {
             GetUrlRequest request = GetUrlRequest.builder()

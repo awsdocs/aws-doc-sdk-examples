@@ -40,6 +40,14 @@ public class GetObjectRestoreStatus {
         s3.close();
     }
 
+    /**
+     * Checks the restoration status of an Amazon S3 object.
+     *
+     * @param s3         an instance of the {@link S3Client} class used to interact with the Amazon S3 service
+     * @param bucketName the name of the Amazon S3 bucket where the object is stored
+     * @param keyName    the name of the Amazon S3 object to be checked
+     * @throws S3Exception if an error occurs while interacting with the Amazon S3 service
+     */
     public static void checkStatus(S3Client s3, String bucketName, String keyName) {
         try {
             HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()

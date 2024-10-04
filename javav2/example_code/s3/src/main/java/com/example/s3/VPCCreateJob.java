@@ -78,6 +78,19 @@ public class VPCCreateJob {
         s3ControlClient.close();
     }
 
+    /**
+     * Creates an S3 Batch Operations job using the AWS Java SDK.
+     *
+     * @param s3ControlClient the S3 Control client used to create the job
+     * @param accountId the AWS account ID associated with the job
+     * @param iamRoleArn the ARN of the IAM role to be used for the job
+     * @param manifestLocation the Amazon S3 object location of the job manifest
+     * @param reportBucketName the name of the Amazon S3 bucket to store the job report
+     * @param tagKey the key of the tag to be added to the objects
+     * @param tagValue the value of the tag to be added to the objects
+     * @param eTag the ETag of the job manifest object
+     * @param uuid a unique identifier for the job request
+     */
     public static void createS3Job(S3ControlClient s3ControlClient, String accountId, String iamRoleArn,
                                    String manifestLocation, String reportBucketName, String tagKey, String tagValue, String eTag,
                                    String uuid) {

@@ -52,6 +52,12 @@ public class DeleteMultiObjects {
         s3.close();
     }
 
+    /**
+     * Deletes multiple objects from an Amazon S3 bucket.
+     *
+     * @param s3 An Amazon S3 client object.
+     * @param bucketName The name of the Amazon S3 bucket to delete objects from.
+     */
     public static void deleteBucketObjects(S3Client s3, String bucketName) {
         // Upload three sample objects to the specfied Amazon S3 bucket.
         ArrayList<ObjectIdentifier> keys = new ArrayList<>();

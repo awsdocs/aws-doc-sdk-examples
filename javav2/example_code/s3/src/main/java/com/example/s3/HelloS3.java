@@ -10,7 +10,6 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.Bucket;
 import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
-
 import java.util.List;
 
 /**
@@ -31,6 +30,11 @@ public class HelloS3 {
         listBuckets(s3);
     }
 
+    /**
+     * Lists all the S3 buckets associated with the provided AWS S3 client.
+     *
+     * @param s3 the S3Client instance used to interact with the AWS S3 service
+     */
     public static void listBuckets(S3Client s3) {
         try {
             ListBucketsResponse response = s3.listBuckets();

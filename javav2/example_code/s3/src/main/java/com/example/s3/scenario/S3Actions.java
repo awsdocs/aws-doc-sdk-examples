@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
@@ -72,6 +73,7 @@ public class S3Actions {
             ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
                 .apiCallTimeout(Duration.ofMinutes(2))  // Set the overall API call timeout.
                 .apiCallAttemptTimeout(Duration.ofSeconds(90))  // Set the individual call attempt timeout.
+                .retryStrategy(RetryMode.STANDARD)
                 .build();
 
             s3AsyncClient = S3AsyncClient.builder()

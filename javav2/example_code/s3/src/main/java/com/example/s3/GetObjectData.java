@@ -29,7 +29,7 @@ import java.io.OutputStream;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
-public class GetDataResponseTransformer {
+public class GetObjectData {
     public static void main(String[] args) {
         final String usage = """
 
@@ -59,6 +59,16 @@ public class GetDataResponseTransformer {
         s3.close();
     }
 
+    /**
+     * Retrieves the bytes of an object stored in an Amazon S3 bucket and saves them to a local file.
+     *
+     * @param s3 The S3Client instance used to interact with the Amazon S3 service.
+     * @param bucketName The name of the S3 bucket where the object is stored.
+     * @param keyName The key (or name) of the S3 object.
+     * @param path The local file path where the object's bytes will be saved.
+     * @throws IOException If an I/O error occurs while writing the bytes to the local file.
+     * @throws S3Exception If an error occurs while retrieving the object from the S3 bucket.
+     */
     public static void getObjectBytes(S3Client s3, String bucketName, String keyName, String path) {
         try {
             GetObjectRequest objectRequest = GetObjectRequest

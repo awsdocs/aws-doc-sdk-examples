@@ -49,6 +49,13 @@ public class GetObjectContentType {
         s3.close();
     }
 
+    /**
+     * Retrieves the content type of an object stored in an Amazon S3 bucket.
+     *
+     * @param s3 an instance of the {@link S3Client} class, which is used to interact with the Amazon S3 service
+     * @param bucketName the name of the S3 bucket where the object is stored
+     * @param keyName the key (file name) of the object in the S3 bucket
+     */
     public static void getContentType(S3Client s3, String bucketName, String keyName) {
         try {
             HeadObjectRequest objectRequest = HeadObjectRequest.builder()

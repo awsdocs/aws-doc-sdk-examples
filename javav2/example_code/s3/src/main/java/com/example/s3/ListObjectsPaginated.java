@@ -37,6 +37,12 @@ public class ListObjectsPaginated {
         s3.close();
     }
 
+    /**
+     * Lists the objects in the specified S3 bucket.
+     *
+     * @param s3 the S3Client instance used to interact with Amazon S3
+     * @param bucketName the name of the S3 bucket to list the objects from
+     */
     public static void listBucketObjects(S3Client s3, String bucketName) {
         try {
             ListObjectsV2Request listReq = ListObjectsV2Request.builder()

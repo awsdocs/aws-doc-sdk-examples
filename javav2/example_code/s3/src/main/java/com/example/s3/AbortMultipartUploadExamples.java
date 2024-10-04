@@ -54,7 +54,7 @@ import static software.amazon.awssdk.transfer.s3.SizeConstant.KB;
  */
 
 public class AbortMultipartUploadExamples {
-    static final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID();
+    static final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID(); // Change bucket name.
     static final String key = UUID.randomUUID().toString();
     static final String classPathFilePath = "/multipartUploadFiles/s3-userguide.pdf";
     static final String filePath = getFullFilePath(classPathFilePath);
@@ -78,6 +78,12 @@ public class AbortMultipartUploadExamples {
     }
 
     // snippet-start:[s3.java2.abort_upload_from_list]
+    /**
+     * Aborts all incomplete multipart uploads from the specified S3 bucket.
+     * <p>
+     * This method retrieves a list of all incomplete multipart uploads in the specified S3 bucket,
+     * and then aborts each of those uploads.
+     */
     public static void abortIncompleteMultipartUploadsFromList() {
         ListMultipartUploadsRequest listMultipartUploadsRequest = ListMultipartUploadsRequest.builder()
             .bucket(bucketName)

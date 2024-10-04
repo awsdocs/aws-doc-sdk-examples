@@ -58,6 +58,14 @@ public class SetAcl {
         s3.close();
     }
 
+    /**
+     * Sets the Access Control List (ACL) for an Amazon S3 bucket.
+     *
+     * @param s3 the S3Client instance to be used for the operation
+     * @param bucketName the name of the S3 bucket to set the ACL for
+     * @param id the ID of the AWS user or account that will be granted full control of the bucket
+     * @throws S3Exception if an error occurs while setting the bucket ACL
+     */
     public static void setBucketAcl(S3Client s3, String bucketName, String id) {
         try {
             Grant ownerGrant = Grant.builder()

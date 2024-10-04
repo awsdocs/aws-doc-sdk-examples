@@ -48,6 +48,13 @@ public class DeleteWebsiteConfiguration {
         s3.close();
     }
 
+    /**
+     * Deletes the website configuration for an Amazon S3 bucket.
+     *
+     * @param s3 The {@link S3Client} instance used to interact with Amazon S3.
+     * @param bucketName The name of the S3 bucket for which the website configuration should be deleted.
+     * @throws S3Exception If an error occurs while deleting the website configuration.
+     */
     public static void deleteBucketWebsiteConfig(S3Client s3, String bucketName) {
         DeleteBucketWebsiteRequest delReq = DeleteBucketWebsiteRequest.builder()
             .bucket(bucketName)

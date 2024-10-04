@@ -50,6 +50,13 @@ public class GetBucketPolicy {
         s3.close();
     }
 
+    /**
+     * Retrieves the policy for the specified Amazon S3 bucket.
+     *
+     * @param s3 the {@link S3Client} instance to use for making the request
+     * @param bucketName the name of the S3 bucket for which to retrieve the policy
+     * @return the policy text for the specified bucket, or an empty string if an error occurs
+     */
     public static String getPolicy(S3Client s3, String bucketName) {
         String policyText;
         System.out.format("Getting policy for bucket: \"%s\"\n\n", bucketName);

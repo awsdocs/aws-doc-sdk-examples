@@ -58,6 +58,14 @@ public class SetBucketPolicy {
         s3.close();
     }
 
+    /**
+     * Sets the policy for an Amazon S3 bucket.
+     *
+     * @param s3         the {@link S3Client} object used to interact with the Amazon S3 service
+     * @param bucketName the name of the Amazon S3 bucket
+     * @param policyText the text of the policy to be set on the bucket
+     * @throws S3Exception if there is an error setting the bucket policy
+     */
     public static void setPolicy(S3Client s3, String bucketName, String policyText) {
         System.out.println("Setting policy:");
         System.out.println("----");
@@ -81,7 +89,12 @@ public class SetBucketPolicy {
         System.out.println("Done!");
     }
 
-    // Loads a JSON-formatted policy from a file
+    /**
+     * Retrieves the bucket policy from a specified file.
+     *
+     * @param policyFile the path to the file containing the bucket policy
+     * @return the content of the bucket policy file as a string
+     */
     public static String getBucketPolicyFromFile(String policyFile) {
         StringBuilder fileText = new StringBuilder();
         try {
