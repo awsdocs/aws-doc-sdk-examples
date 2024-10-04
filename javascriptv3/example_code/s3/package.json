@@ -20,6 +20,7 @@
     "@smithy/hash-node": "^3.0.7",
     "@smithy/protocol-http": "^4.1.4",
     "@smithy/url-parser": "^3.0.7",
+    "fast-xml-parser": "^4.5.0",
     "libs": "*"
   },
   "devDependencies": {
