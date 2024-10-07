@@ -6,14 +6,16 @@ Contains common test fixtures used to run unit tests.
 """
 
 import sys
+
 import boto3
+import pytest
+
+import kms_scenario
 from alias_management import AliasManager
 from grant_management import GrantManager
 from key_encryption import KeyEncrypt
 from key_management import KeyManager
 from key_policies import KeyPolicy
-import kms_scenario
-import pytest
 
 # This is needed so Python can find test_tools on the path.
 sys.path.append("../..")

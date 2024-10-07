@@ -6,9 +6,10 @@ Unit tests for key_policies.py.
 """
 
 import json
+
 import boto3
-from botocore.exceptions import ClientError
 import pytest
+from botocore.exceptions import ClientError
 
 import key_policies
 

@@ -136,6 +136,7 @@ class KeyPolicy:
 
     # snippet-end:[python.example_code.kms.PutKeyPolicy]
 
+    # snippet-start:[python.example_code.kms.set_new_policy]
     def set_new_policy(self, key_id: str, policy: dict[str, any]) -> None:
         """
         Sets the policy of a key. Setting a policy entirely overwrites the existing
@@ -156,6 +157,9 @@ class KeyPolicy:
                 err.response["Error"]["Message"],
             )
             raise
+
+
+# snippet-end:[python.example_code.kms.set_new_policy]
 
 
 def key_policies(kms_client):

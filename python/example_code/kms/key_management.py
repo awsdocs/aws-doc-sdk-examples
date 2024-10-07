@@ -57,6 +57,7 @@ class KeyManager:
 
     # snippet-end:[python.example_code.kms.CreateKey]
 
+    # snippet-start:[python.example_code.kms.CreateAsymmetricKey]
     def create_asymmetric_key(self) -> str:
         """
         Creates an asymmetric key in AWS KMS for signing messages.
@@ -75,6 +76,8 @@ class KeyManager:
                 err.response["Error"]["Message"],
             )
             raise
+
+    # snippet-end:[python.example_code.kms.CreateAsymmetricKey]
 
     # snippet-start:[python.example_code.kms.ListKeys]
     def list_keys(self):

@@ -1,7 +1,9 @@
 # SPDX-License-Identifier: Apache-2.0
 
-from botocore.exceptions import ClientError
+import json
+
 import pytest
+from botocore.exceptions import ClientError
 
 
 class MockManager:
@@ -20,6 +22,12 @@ class MockManager:
             "DescribeKey",
         ]
         self.grant = {"GrantToken": "test-grant-token", "GrantId": "test-grant-id"}
+        self.policy = {"Statement": ["test-statement"]}
+        self.message = "Here is the message that will be digitally signed"
+        self.signature = b"test-signature"
+        self.asymmetric_key_id = "11223344-1122-1122-1122-112233445566"
+        self.tag_key = "Environment"
+        self.tag_value = "Production"
         answers = [
             "",
             "",
@@ -35,6 +43,18 @@ class MockManager:
             "",
             "",
             "",
+            "",
+            "",
+            "",
+            "",
+            self.account_id,
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "y",
             "y",
         ]
         input_mocker.mock_answers(answers)
@@ -58,6 +78,7 @@ class MockManager:
                 [self.alias_name] * 10,
             )
             runner.add(stubber.stub_enable_key_rotation, self.key_id)
+
             runner.add(
                 stubber.stub_create_grant,
                 self.key_id,
@@ -70,20 +91,47 @@ class MockManager:
                 self.key_id,
                 ["test-grant"] * 5,
             )
+            runner.add(
+                stubber.stub_revoke_grant,
+                self.key_id,
+                self.grant["GrantId"],
+            )
+            runner.add(
+                stubber.stub_decrypt,
+                self.key_id,
+                self.ciphertext_blob,
+                self.plain_text,
+            )
+            runner.add(stubber.stub_put_key_policy, self.key_id)
+            runner.add(
+                stubber.stub_get_key_policy,
+                self.key_id,
+                json.dumps(self.policy),
+            )
+            runner.add(stubber.stub_asymmetric_create_key, self.asymmetric_key_id)
+            runner.add(
+                stubber.stub_sign,
+                self.asymmetric_key_id,
+                self.message.encode(),
+                self.signature,
+            )
+            runner.add(
+                stubber.stub_verify,
+                self.asymmetric_key_id,
+                self.message.encode(),
+                self.signature,
+            )
+            runner.add(
+                stubber.stub_tag_resource,
+                self.key_id,
+                self.tag_key,
+                self.tag_value,
+            )
             runner.add(stubber.stub_delete_alias, self.alias_name)
             runner.add(stubber.stub_schedule_key_deletion, self.key_id, self.window)
-            # if self.ks_exists:
-            #     runner.add(stubber.stub_get_keyspace, self.ks_name, self.ks_arn)
-            # else:
-            #     runner.add(
-            #         stubber.stub_get_keyspace,
-            #         self.ks_name,
-            #         self.ks_arn,
-            #         error_code="ResourceNotFoundException",
-            #     )
-            #     runner.add(stubber.stub_create_keyspace, self.ks_name, self.ks_arn)
-            #     runner.add(stubber.stub_get_keyspace, self.ks_name, self.ks_arn)
-            # runner.add(stubber.stub_list_keyspaces, self.keyspaces)
+            runner.add(
+                stubber.stub_schedule_key_deletion, self.asymmetric_key_id, self.window
+            )
 
 
 @pytest.fixture
@@ -96,25 +144,29 @@ def test_kms_scenario(mock_mgr, capsys):
 
     mock_mgr.scenario_data.scenario.kms_scenario()
 
-    # capt = capsys.readouterr()
-    # assert mock_mgr.ks_name in capt.out
-    # for ks in mock_mgr.keyspaces:
-    #     assert ks["keyspaceName"] in capt.out
-
 
 @pytest.mark.parametrize(
     "error, stop_on_index",
     [
         ("TESTERROR-stub_create_key", 0),
         ("TESTERROR-stub_describe_key", 1),
-        ("TESTERROR-stub_stub_encrypt", 2),
+        ("TESTERROR-stub_encrypt", 2),
         ("TESTERROR-stub_create_alias", 3),
         ("TESTERROR-stub_list_aliases", 4),
         ("TESTERROR-stub_enable_key_rotation", 5),
         ("TESTERROR-stub_create_grant", 6),
         ("TESTERROR-stub_list_grants", 7),
-        ("TESTERROR-stub_delete_alias", 8),
-        ("TESTERROR-stub_schedule_key_deletion", 9),
+        ("TESTERROR-stub_revoke_grant", 8),
+        ("TESTERROR-stub_decrypt", 9),
+        ("TESTERROR-stub_put_key_policy", 10),
+        ("TESTERROR-stub_get_key_policy", 11),
+        ("TESTERROR-stub_asymmetric_create_key", 12),
+        ("TESTERROR-stub_sign", 13),
+        ("TESTERROR-stub_verify", 14),
+        ("TESTERROR-stub_tag_resource", 15),
+        ("TESTERROR-stub_delete_alias", 16),
+        ("TESTERROR-stub_schedule_key_deletion", 17),
+        ("TESTERROR-stub_schedule_key_deletion", 18),
     ],
 )
 def test_kms_scenario_error(mock_mgr, caplog, error, stop_on_index):
@@ -122,6 +174,3 @@ def test_kms_scenario_error(mock_mgr, caplog, error, stop_on_index):
 
     with pytest.raises(ClientError) as exc_info:
         mock_mgr.scenario_data.scenario.kms_scenario()
-    # assert exc_info.value.response["Error"]["Code"] == error
-    #
-    # assert error in caplog.text

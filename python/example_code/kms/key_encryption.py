@@ -155,14 +155,15 @@ class KeyEncrypt:
         :return: True when the signature matches the message, otherwise False.
         """
         try:
-            self.kms_client.verify(
+            response = self.kms_client.verify(
                 KeyId=key_id,
                 Message=message.encode(),
                 Signature=signature,
                 SigningAlgorithm="RSASSA_PSS_SHA_256",
             )
-            print("The signature is valid.")
-            return True
+            valid = response["SignatureValid"]
+            print(f"The signature is {'valid' if valid else 'invalid'}.")
+            return valid
         except ClientError as err:
             if err.response["Error"]["Code"] == "SignatureDoesNotMatchException":
                 print("The signature is not valid.")

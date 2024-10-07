@@ -6,8 +6,8 @@ Unit tests for key_encryption.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
+from botocore.exceptions import ClientError
 
 import key_encryption
 
