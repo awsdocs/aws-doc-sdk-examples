@@ -1,8 +1,8 @@
-# Amazon Redshift code examples for the SDK for Java 2.x
+# Amazon Redshift code examples for the SDK for Java 1.x
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 2.x to work with Amazon Redshift.
+Shows how to use the AWS SDK for Java 1.x to work with Amazon Redshift.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
