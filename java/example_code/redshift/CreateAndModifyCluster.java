@@ -17,14 +17,13 @@
 // snippet-start:[redshift.java.CreateAndModifyCluster.complete]
 
 public class CreateAndModifyCluster {
-/*
-    The AWS SDK for Java v1 is on path to deprection. See:
-    https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-java-v1-x-on-december-31-2025/
+ /*
+   The AWS SDK for Java v1 is approaching end-of-support. For more information, see:
+   https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-java-v1-x-on-december-31-2025/
 
    See the V2 version here:
    https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/redshift
    */
-
 }
 
 // snippet-end:[redshift.java.CreateAndModifyCluster.complete]
