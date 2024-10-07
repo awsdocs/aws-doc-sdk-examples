@@ -158,11 +158,6 @@ public class CreateRetentionJob {
         final String manifestObjectVersionId = "your-object-version-Id";
 
         Instant jan2025 = Instant.parse("2025-01-01T00:00:00Z");
-        S3Retention retention = S3Retention.builder()
-            .mode(S3ObjectLockRetentionMode.COMPLIANCE)
-            .retainUntilDate(jan2025)
-            .build();
-
         JobOperation jobOperation = JobOperation.builder()
             .s3PutObjectRetention(S3SetObjectRetentionOperation.builder()
                 .retention(S3Retention.builder()
@@ -232,13 +227,6 @@ public class CreateRetentionJob {
     public static String createLegalHoldOffJob(final S3ControlClient s3ControlClient, String roleArn, String bucketName, String accountId) {
         final String manifestObjectArn = "arn:aws:s3:::amzn-s3-demo-manifest-bucket/compliance-objects-manifest.csv";
         final String manifestObjectVersionId = "your-object-version-Id";
-
-        Instant jan2025 = Instant.parse("2025-01-01T00:00:00Z");
-        S3Retention retention = S3Retention.builder()
-            .mode(S3ObjectLockRetentionMode.COMPLIANCE)
-            .retainUntilDate(jan2025)
-            .build();
-
         JobOperation jobOperation = JobOperation.builder()
             .s3PutObjectLegalHold(S3SetObjectLegalHoldOperation.builder()
                 .legalHold(S3ObjectLockLegalHold.builder()
