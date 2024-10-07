@@ -54,28 +54,41 @@ export const main = async ({
 // snippet-end:[s3.JavaScript.buckets.copyObjectV3]
 
 // Call function if run directly
-import { fileURLToPath } from "url";
 import { parseArgs } from "util";
+import {
+  isMain,
+  validateArgs,
+} from "@aws-doc-sdk-examples/lib/utils/util-node.js";
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+const loadArgs = () => {
   const options = {
-    sourceBucket: {
+    sourceBucketName: {
       type: "string",
-      default: "source-bucket",
+      required: true,
     },
     sourceKey: {
       type: "string",
-      default: "todo.txt",
+      required: true,
     },
     destinationBucket: {
       type: "string",
-      default: "destination-bucket",
+      required: true,
     },
     destinationKey: {
       type: "string",
-      default: "todo.txt",
+      required: true,
     },
   };
-  const { values } = parseArgs({ options });
-  main(values);
+  const results = parseArgs({ options });
+  const { errors } = validateArgs({ options }, results);
+  return { errors, results };
+};
+
+if (isMain(import.meta.url)) {
+  const { errors, results } = loadArgs();
+  if (!errors) {
+    main(results.values);
+  } else {
+    console.error(errors.join("\n"));
+  }
 }

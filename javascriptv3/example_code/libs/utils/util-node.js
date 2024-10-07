@@ -35,9 +35,9 @@ export const validateArgs = (config, results) => {
 
     if (optionRequired && !optionPresent) {
       errors = errors ?? [];
-      errors.push(`Missing required argument "${option}".`);
+      errors.push(`Missing required argument "--${option}".`);
     }
-
-    return { errors };
   }
+
+  return { errors };
 };

@@ -60,19 +60,29 @@ export const main = async ({ bucketName, keys }) => {
   Example usage:
   node delete-objects.js --bucketName amzn-s3-demo-bucket obj1.txt obj2.txt 
  */
-import { fileURLToPath } from "url";
 import { parseArgs } from "util";
+import {
+  isMain,
+  validateArgs,
+} from "@aws-doc-sdk-examples/lib/utils/util-node.js";
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+const loadArgs = () => {
   const options = {
     bucketName: {
       type: "string",
-      default: "amzn-s3-demo-bucket",
+      required: true,
     },
   };
-  const { values, positionals } = parseArgs({
-    options,
-    allowPositionals: true,
-  });
-  main({ ...values, keys: positionals });
+  const results = parseArgs({ options, allowPositionals: true });
+  const { errors } = validateArgs({ options }, results);
+  return { errors, results };
+};
+
+if (isMain(import.meta.url)) {
+  const { errors, results } = loadArgs();
+  if (!errors) {
+    main({ ...results.values, keys: results.positionals });
+  } else {
+    console.error(errors.join("\n"));
+  }
 }

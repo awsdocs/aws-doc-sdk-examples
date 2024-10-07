@@ -43,20 +43,33 @@ export const main = async ({ bucketName, key }) => {
 };
 
 // Call function if run directly
-import { fileURLToPath } from "url";
 import { parseArgs } from "util";
+import {
+  isMain,
+  validateArgs,
+} from "@aws-doc-sdk-examples/lib/utils/util-node.js";
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+const loadArgs = () => {
   const options = {
     bucketName: {
       type: "string",
-      default: "amzn-s3-demo-bucket",
+      required: true,
     },
     key: {
       type: "string",
-      default: "foo.txt",
+      required: true,
     },
   };
-  const { values } = parseArgs({ options });
-  main(values);
+  const results = parseArgs({ options });
+  const { errors } = validateArgs({ options }, results);
+  return { errors, results };
+};
+
+if (isMain(import.meta.url)) {
+  const { errors, results } = loadArgs();
+  if (!errors) {
+    main(results.values);
+  } else {
+    console.error(errors.join("\n"));
+  }
 }

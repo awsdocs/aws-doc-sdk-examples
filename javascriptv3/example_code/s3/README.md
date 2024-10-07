@@ -47,7 +47,7 @@ Code excerpts that show you how to call individual service functions.
 
 - [CopyObject](actions/copy-object.js#L4)
 - [CreateBucket](actions/create-bucket.js#L4)
-- [DeleteBucket](actions/delete-bucket.js#L6)
+- [DeleteBucket](actions/delete-bucket.js#L4)
 - [DeleteBucketPolicy](actions/delete-bucket-policy.js#L4)
 - [DeleteBucketWebsite](actions/delete-bucket-website.js#L4)
 - [DeleteObject](actions/delete-object.js#L4)

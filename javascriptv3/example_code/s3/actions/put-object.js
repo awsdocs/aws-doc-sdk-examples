@@ -53,23 +53,31 @@ or the multipart upload API (5TB max).`,
   node put-object.js --bucketName amzn-s3-demo-bucket --key movies.json \
   ../../../../resources/sample_files/movies.json
  */
-import { fileURLToPath } from "url";
 import { parseArgs } from "util";
+import {
+  isMain,
+  validateArgs,
+} from "@aws-doc-sdk-examples/lib/utils/util-node.js";
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+const loadArgs = () => {
   const options = {
     bucketName: {
       type: "string",
-      default: "amzn-s3-demo-bucket",
     },
     key: {
       type: "string",
-      default: "demo-key.txt",
     },
   };
-  const { values, positionals } = parseArgs({
-    options,
-    allowPositionals: true,
-  });
-  main({ ...values, filePath: positionals[0] });
+  const results = parseArgs({ options, allowPositionals: true });
+  const { errors } = validateArgs({ options }, results);
+  return { errors, results };
+};
+
+if (isMain(import.meta.url)) {
+  const { errors, results } = loadArgs();
+  if (!errors) {
+    main({ ...results.values, filePath: results.positionals[0] });
+  } else {
+    console.error(errors.join("\n"));
+  }
 }
