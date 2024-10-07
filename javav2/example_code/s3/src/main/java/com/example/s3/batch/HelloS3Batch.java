@@ -5,6 +5,7 @@ package com.example.s3.batch;
 // snippet-start:[s3control.java2.list_jobs.main]
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.core.retry.RetryPolicy;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
@@ -30,9 +31,10 @@ import java.util.concurrent.CompletionException;
  */
 public class HelloS3Batch {
     private static S3ControlAsyncClient asyncClient;
-    public static void main(String []args ) {
+
+    public static void main(String[] args) {
         S3BatchActions actions = new S3BatchActions();
-        String accountId= actions.getAccountId();
+        String accountId = actions.getAccountId();
         try {
             listBatchJobsAsync(accountId)
                 .exceptionally(ex -> {
@@ -77,9 +79,7 @@ public class HelloS3Batch {
             ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
                 .apiCallTimeout(Duration.ofMinutes(2))
                 .apiCallAttemptTimeout(Duration.ofSeconds(90))
-                .retryPolicy(RetryPolicy.builder()
-                    .numRetries(3)
-                    .build())
+                .retryStrategy(RetryMode.STANDARD)
                 .build();
 
             asyncClient = S3ControlAsyncClient.builder()
@@ -91,7 +91,6 @@ public class HelloS3Batch {
         }
         return asyncClient;
     }
-
 
     /**
      * Asynchronously lists batch jobs that have completed for the specified account.

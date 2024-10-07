@@ -24,13 +24,13 @@ s3-control_CreateJob:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description: create an asynchronous S3 job
+            - description: Create an asynchronous S3 job.
               snippet_tags:
                 - s3control.java2.create_job.async.main
-            - description: create a compliance retention job
+            - description: Create a compliance retention job.
               snippet_tags:
                 - s3control.java2.create_job.compliance.main   
-            - description: creates a legal hold off job
+            - description: Create a legal hold off job.
               snippet_tags:
                 - s3control.java2.create_job.compliance.main       
   services:
