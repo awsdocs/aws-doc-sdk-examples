@@ -15,12 +15,12 @@ public class CreateAndDescribeSnapshot {
     public static String clusterIdentifier = "***provide a cluster identifier***";
     public static long sleepTime = 20;
 
+    
     public static void main(String[] args) throws IOException {
 
         // Default client using the {@link
         // com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
         client = AmazonRedshiftClientBuilder.defaultClient();
-
         try {
             // Unique snapshot identifier
             String snapshotId = "my-snapshot-" + (new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")).format(new Date());
