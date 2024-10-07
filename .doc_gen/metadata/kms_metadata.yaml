@@ -786,7 +786,7 @@ kms_EnableKeyRotation:
                 - python.example_code.kms.KeyManager
                 - python.example_code.kms.EnableKeyRotation
   services:
-    kms: {kms_EnableKeyRotation}
+    kms: {EnableKeyRotation}
 kms_Scenario_Basics:
   synopsis_list:
     - Create a &kms-key;.
@@ -819,7 +819,7 @@ kms_Scenario_Basics:
             - description:
               snippet_tags:
                 - python.example_code.kms.kms_basics
-            - description: Wrapper class and methods for &kms key management.
+            - description: Wrapper class and methods for &kms-key; management.
               snippet_tags:
                 - python.example_code.kms.KeyManager
                 - python.example_code.kms.CreateKey
@@ -829,14 +829,14 @@ kms_Scenario_Basics:
                 - python.example_code.kms.TagResource
                 - python.example_code.kms.ScheduleKeyDeletion
             - description: >
-                Wrapper class and methods for &kms key aliases.
+                Wrapper class and methods for &kms-key; aliases.
               snippet_tags:
                 - python.example_code.kms.AliasManager
                 - python.example_code.kms.CreateAlias
                 - python.example_code.kms.ListAliases
                 - python.example_code.kms.DeleteAlias
             - description: >
-                Wrapper class and methods for &kms key encryption.
+                Wrapper class and methods for &kms-key; encryption.
               snippet_tags:
                 - python.example_code.kms.KeyEncrypt
                 - python.example_code.kms.Encrypt
@@ -844,14 +844,14 @@ kms_Scenario_Basics:
                 - python.example_code.kms.Sign
                 - python.example_code.kms.Verify
             - description: >
-                Wrapper class and methods for &kms key grants.
+                Wrapper class and methods for &kms-key; grants.
               snippet_tags:
                 - python.example_code.kms.GrantManager
                 - python.example_code.kms.CreateGrant
                 - python.example_code.kms.ListGrants
                 - python.example_code.kms.RevokeGrant
             - description: >
-                Wrapper class and methods for &kms key policies.
+                Wrapper class and methods for &kms-key; policies.
               snippet_tags:
                 - python.example_code.kms.KeyPolicy
                 - python.example_code.kms.set_new_policy

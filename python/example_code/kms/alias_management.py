@@ -31,8 +31,8 @@ class AliasManager:
 
         :return: An instance of AliasManager initialized with the default KMS client.
         """
-        ec2_client = boto3.client("kms")
-        return cls(ec2_client)
+        kms_client = boto3.client("kms")
+        return cls(kms_client)
 
     # snippet-end:[python.example_code.kms.AliasManager]
 

@@ -27,12 +27,12 @@ class KeyPolicy:
     @classmethod
     def from_client(cls) -> "KeyPolicy":
         """
-        Creates an KeyPolicy instance with a default KMS client.
+        Creates a KeyPolicy instance with a default KMS client.
 
         :return: An instance of KeyPolicy initialized with the default KMS client.
         """
-        ec2_client = boto3.client("kms")
-        return cls(ec2_client)
+        kms_client = boto3.client("kms")
+        return cls(kms_client)
 
     # snippet-end:[python.example_code.kms.KeyPolicy]
 

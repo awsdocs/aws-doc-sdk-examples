@@ -48,7 +48,7 @@ class KMSScenario:
             """
 Welcome to the AWS Key Management SDK Basics scenario.
 
-This program demonstrates how to interact with AWS Key Management using the AWS SDK for Java (v2).
+This program demonstrates how to interact with AWS Key Management using the AWS SDK for Python (Boto3).
 The AWS Key Management Service (KMS) is a secure and highly available service that allows you to create
 and manage AWS KMS keys and control their use across a wide range of AWS services and applications.
 KMS provides a centralized and unified approach to managing encryption keys, making it easier to meet your

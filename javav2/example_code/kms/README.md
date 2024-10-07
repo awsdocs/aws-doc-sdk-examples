@@ -38,7 +38,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn KMS key core operations](src/main/java/com/example/kms/scenario/KMSScenario.java)
+- [Learn the basics](src/main/java/com/example/kms/scenario/KMSScenario.java)
 
 
 ### Single actions
@@ -80,7 +80,7 @@ Code excerpts that show you how to call individual service functions.
 This example shows you how to get started using KMS key.
 
 
-#### Learn KMS key core operations
+#### Learn the basics
 
 This example shows you how to do the following:
 

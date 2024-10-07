@@ -26,12 +26,12 @@ class GrantManager:
     @classmethod
     def from_client(cls) -> "GrantManager":
         """
-        Creates an GrantManager instance with a default KMS client.
+        Creates a GrantManager instance with a default KMS client.
 
         :return: An instance of GrantManager initialized with the default KMS client.
         """
-        ec2_client = boto3.client("kms")
-        return cls(ec2_client)
+        kms_client = boto3.client("kms")
+        return cls(kms_client)
 
     # snippet-end:[python.example_code.kms.GrantManager]
 
@@ -73,11 +73,11 @@ class GrantManager:
         :return: The grants for the key.
         """
         try:
-            paginator = self.kms_client.get_paginator('list_grants')
+            paginator = self.kms_client.get_paginator("list_grants")
             grants = []
             page_iterator = paginator.paginate(KeyId=key_id)
             for page in page_iterator:
-                grants.extend(page['Grants'])
+                grants.extend(page["Grants"])
 
             print(f"Grants for key {key_id}:")
             pprint(grants)
@@ -166,7 +166,7 @@ def grant_management(kms_client):
             grant_manager.retire_grant(grant)
         elif action == "revoke":
             grant_manager.revoke_grant(key_id, grant["GrantId"])
-            print(f"Grant {grant["GrantId"]} revoked.")
+            print(f"Grant {grant['GrantId']} revoked.")
         else:
             print("Skipping grant removal.")
 

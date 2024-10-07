@@ -25,12 +25,12 @@ class KeyEncrypt:
     @classmethod
     def from_client(cls) -> "KeyEncrypt":
         """
-        Creates an KeyEncrypt instance with a default KMS client.
+        Creates a KeyEncrypt instance with a default KMS client.
 
         :return: An instance of KeyEncrypt initialized with the default KMS client.
         """
-        ec2_client = boto3.client("kms")
-        return cls(ec2_client)
+        kms_client = boto3.client("kms")
+        return cls(kms_client)
 
     # snippet-end:[python.example_code.kms.KeyEncrypt]
 

@@ -53,6 +53,7 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeKey](key_management.py#L110)
 - [DisableKey](key_management.py#L175)
 - [EnableKey](key_management.py#L156)
+- [EnableKeyRotation](key_management.py#L216)
 - [Encrypt](key_encryption.py#L37)
 - [GenerateDataKey](key_management.py#L132)
 - [GetKeyPolicy](key_policies.py#L62)
@@ -69,7 +70,6 @@ Code excerpts that show you how to call individual service functions.
 - [TagResource](key_management.py#L235)
 - [UpdateAlias](alias_management.py#L143)
 - [Verify](key_encryption.py#L147)
-- [kms_EnableKeyRotation](key_management.py#L216)
 
 
 <!--custom.examples.start-->
