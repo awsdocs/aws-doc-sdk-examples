@@ -208,8 +208,11 @@ g
     lambdaFunction: lambda.Function,
     sqsQueue: sqs.Queue,
   ): void {
+    // Add the SQS queue as an event source for the Lambda function.
     lambdaFunction.addEventSource(new SqsEventSource(sqsQueue));
+    // Grant permissions to allow the function to receive messages from the queue.
     sqsQueue.grantConsumeMessages(lambdaFunction);
+    // Add IAM policy to the Lambda function's execution role to allow it to receive messages from the SQS queue.
     lambdaFunction.addToRolePolicy(
       new iam.PolicyStatement({
         actions: ["sqs:ReceiveMessage"],
