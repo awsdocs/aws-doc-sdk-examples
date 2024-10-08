@@ -1,6 +1,3 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
-
 import * as cdk from "aws-cdk-lib";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as events from "aws-cdk-lib/aws-events";
@@ -15,8 +12,10 @@ import * as batch from "aws-cdk-lib/aws-batch";
 import * as subs from "aws-cdk-lib/aws-sns-subscriptions";
 import { Construct } from "constructs";
 import { readAccountConfig } from "../../config/targets";
-import { readVariableConfig } from "../../config/variables";
 import { readResourceConfig } from "../../config/resources";
+import * as fs from 'fs';
+
+const variableConfigJson = JSON.parse(fs.readFileSync('../../config/variables.json', 'utf-8'));
 
 const toolName = process.env.TOOL_NAME ?? "defaultToolName";
 
@@ -31,14 +30,12 @@ class PluginStack extends cdk.Stack {
 
     const acctConfig = readAccountConfig("../../config/targets.yaml");
     const resourceConfig = readResourceConfig("../../config/resources.yaml");
-    const variableConfig = readVariableConfig("../../config/variables.yaml");
 
-
-    const adminTopicName = resourceConfig["topic_name"];
-    const adminBucketName = resourceConfig["bucket_name"];
-    const exampleBucketName = variableConfig["s3_bucket_name_prefix"];
     this.awsRegion = resourceConfig["aws_region"];
     this.adminAccountId = resourceConfig["admin_acct"];
+    const adminTopicName = resourceConfig["topic_name"];
+    const adminBucketName = resourceConfig["bucket_name"];
+
     const snsTopic = this.initGetTopic(adminTopicName);
     const sqsQueue = new sqs.Queue(this, `BatchJobQueue-${toolName}`);
     if (acctConfig[`${toolName}`].status === "enabled") {
@@ -46,9 +43,11 @@ class PluginStack extends cdk.Stack {
       this.batchMemory = acctConfig[`${toolName}`]?.memory ?? "16384";
       this.batchVcpus = acctConfig[`${toolName}`]?.vcpus ?? "4";
     }
-    const [jobDefinition, jobQueue] = this.initBatchFargate(exampleBucketName);
+
+    const [jobDefinition, jobQueue] = this.initBatchFargate();
     const batchFunction = this.initBatchLambda(jobQueue, jobDefinition);
     this.initSqsLambdaIntegration(batchFunction, sqsQueue);
+
     if (acctConfig[`${toolName}`].status === "enabled") {
       this.initLogFunction(adminBucketName);
     }
@@ -63,7 +62,7 @@ class PluginStack extends cdk.Stack {
     );
   }
 
-  private initBatchFargate(exampleBucketName: string): [batch.CfnJobDefinition, batch.CfnJobQueue] {
+  private initBatchFargate(): [batch.CfnJobDefinition, batch.CfnJobQueue] {
     const batchExecutionRole = new iam.Role(
       this,
       `BatchExecutionRole-${toolName}`,
@@ -119,6 +118,12 @@ class PluginStack extends cdk.Stack {
 
     const containerImageUri = `${this.adminAccountId}.dkr.ecr.us-east-1.amazonaws.com/${toolName}:latest`;
 
+    // Convert JSON to environment variable format for Batch
+    const environmentVariables = Object.entries(variableConfigJson).map(([key, value]) => ({
+      name: key,
+      value: value as string,
+    }));
+
     const jobDefinition = new batch.CfnJobDefinition(this, "JobDefn", {
       type: "container",
       containerProperties: {
@@ -138,12 +143,7 @@ class PluginStack extends cdk.Stack {
             value: this.batchMemory,
           },
         ],
-        environment: [
-          {
-            name: "S3_BUCKET_NAME_PREFIX",
-            value: exampleBucketName
-          },
-        ],
+        environment: environmentVariables,
       },
       platformCapabilities: ["FARGATE"],
     });
@@ -208,21 +208,14 @@ class PluginStack extends cdk.Stack {
     lambdaFunction: lambda.Function,
     sqsQueue: sqs.Queue,
   ): void {
-    // Add the SQS queue as an event source for the Lambda function.
     lambdaFunction.addEventSource(new SqsEventSource(sqsQueue));
-
-    // Grant permissions to allow the function to receive messages from the queue.
     sqsQueue.grantConsumeMessages(lambdaFunction);
-
-    // Add IAM policy to the Lambda function's execution role to allow it to receive messages from the SQS queue.
     lambdaFunction.addToRolePolicy(
       new iam.PolicyStatement({
         actions: ["sqs:ReceiveMessage"],
         resources: [sqsQueue.queueArn],
       }),
     );
-
-    // Additionally, ensure the Lambda function can create and write to CloudWatch Logs.
     lambdaFunction.addToRolePolicy(
       new iam.PolicyStatement({
         actions: [
@@ -230,22 +223,17 @@ class PluginStack extends cdk.Stack {
           "logs:CreateLogStream",
           "logs:PutLogEvents",
         ],
-        resources: ["*"], // You might want to restrict this to specific log groups.
+        resources: ["*"],
       }),
     );
   }
 
   private initLogFunction(adminBucketName: string): void {
-    // S3 Bucket to store logs within this account.
     const bucket = new s3.Bucket(this, "LogBucket", {
       versioned: false,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     });
 
-    // Execution role for AWS Lambda function to use
-    // To get logs and ship them to the Admin account.
-    // This role is referenced in the Admin stack configuration.
-    // Modifying it will sever cross-account connection.
     const executionRole = new iam.Role(this, "CloudWatchExecutionRole", {
       assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
       description: "Allows Lambda function to get logs from CloudWatch",
@@ -257,7 +245,6 @@ class PluginStack extends cdk.Stack {
       ],
     });
 
-    // Update bucket permissions to allow Lambda
     const statement = new iam.PolicyStatement({
       actions: [
         "s3:PutObject",
@@ -274,7 +261,6 @@ class PluginStack extends cdk.Stack {
     statement.addArnPrincipal(`arn:aws:iam::${cdk.Aws.ACCOUNT_ID}:root`);
     bucket.addToResourcePolicy(statement);
 
-    // Attach custom policy to allow Lambda to get logs from CloudWatch.
     executionRole.addToPolicy(
       new iam.PolicyStatement({
         actions: ["logs:GetLogEvents", "logs:DescribeLogStreams"],
@@ -282,7 +268,6 @@ class PluginStack extends cdk.Stack {
       }),
     );
 
-    // Attach custom policy to allow Lambda to get and put to local logs bucket.
     executionRole.addToPolicy(
       new iam.PolicyStatement({
         actions: [
@@ -296,7 +281,6 @@ class PluginStack extends cdk.Stack {
       }),
     );
 
-    // Attach custom policy to allow Lambda to get and put to admin logs bucket.
     executionRole.addToPolicy(
       new iam.PolicyStatement({
         actions: [
@@ -313,7 +297,6 @@ class PluginStack extends cdk.Stack {
       }),
     );
 
-    // Define the Lambda function.
     const lambdaFunction = new lambda.Function(this, "BatchJobCompleteLambda", {
       runtime: lambda.Runtime.PYTHON_3_8,
       handler: "export_logs.handler",
@@ -327,14 +310,12 @@ class PluginStack extends cdk.Stack {
       },
     });
 
-    // CloudWatch Event Rule to trigger the Lambda function.
     const batchRule = new events.Rule(this, "BatchAllEventsRule", {
       eventPattern: {
         source: ["aws.batch"],
       },
     });
 
-    // Add the Lambda function as a target for the CloudWatch Event Rule.
     batchRule.addTarget(new targets.LambdaFunction(lambdaFunction));
   }
 }
