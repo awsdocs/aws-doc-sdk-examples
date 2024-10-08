@@ -234,6 +234,10 @@ g
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     });
 
+    // Execution role for AWS Lambda function to use
+    // To get logs and ship them to the Admin account.
+    // This role is referenced in the Admin stack configuration.
+    // Modifying it will sever cross-account connection.
     const executionRole = new iam.Role(this, "CloudWatchExecutionRole", {
       assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
       description: "Allows Lambda function to get logs from CloudWatch",
@@ -245,6 +249,7 @@ g
       ],
     });
 
+    // Update bucket permissions to allow Lambda
     const statement = new iam.PolicyStatement({
       actions: [
         "s3:PutObject",
@@ -261,6 +266,7 @@ g
     statement.addArnPrincipal(`arn:aws:iam::${cdk.Aws.ACCOUNT_ID}:root`);
     bucket.addToResourcePolicy(statement);
 
+    // Attach custom policy to allow Lambda to get logs from CloudWatch.
     executionRole.addToPolicy(
       new iam.PolicyStatement({
         actions: ["logs:GetLogEvents", "logs:DescribeLogStreams"],
@@ -268,6 +274,7 @@ g
       }),
     );
 
+    // Attach custom policy to allow Lambda to get and put to local logs bucket.
     executionRole.addToPolicy(
       new iam.PolicyStatement({
         actions: [
@@ -297,6 +304,7 @@ g
       }),
     );
 
+    // Define the Lambda function.
     const lambdaFunction = new lambda.Function(this, "BatchJobCompleteLambda", {
       runtime: lambda.Runtime.PYTHON_3_8,
       handler: "export_logs.handler",
@@ -310,12 +318,14 @@ g
       },
     });
 
+    // CloudWatch Event Rule to trigger the Lambda function.
     const batchRule = new events.Rule(this, "BatchAllEventsRule", {
       eventPattern: {
         source: ["aws.batch"],
       },
     });
 
+    // Add the Lambda function as a target for the CloudWatch Event Rule.
     batchRule.addTarget(new targets.LambdaFunction(lambdaFunction));
   }
 }
