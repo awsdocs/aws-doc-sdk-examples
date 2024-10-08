@@ -9,9 +9,12 @@
          failOnWarning="true"
          verbose="true">
     <testsuites>
-        <testsuite name="dynamodb-basics">
-            <file>dynamodb/dynamodb_basics/tests/DynamoDBBasicsTest.php</file>
+        <testsuite name="kms-basics">
+            <file>kms/tests/KmsBasicsTests.php</file>
         </testsuite>
+<!--        <testsuite name="dynamodb-basics">-->
+<!--            <file>dynamodb/dynamodb_basics/tests/DynamoDBBasicsTest.php</file>-->
+<!--        </testsuite>-->
 <!--        <testsuite name="partiql-basics">-->
 <!--            <file>dynamodb/partiql_basics/tests/PartiQLBasicsTest.php</file>-->
 <!--        </testsuite>-->
@@ -37,6 +40,7 @@
             <directory suffix=".php">iam</directory>
             <directory suffix=".php">lambda</directory>
             <directory suffix=".php">auto-scaling</directory>
+            <directory suffix=".php">kms</directory>
         </include>
         <exclude>
             <directory suffix=".php">*vendor*</directory>
