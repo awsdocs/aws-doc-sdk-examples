@@ -27,7 +27,7 @@ class PluginStack extends cdk.Stack {
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-g
+
     const acctConfig = readAccountConfig("../../config/targets.yaml");
     const resourceConfig = readResourceConfig("../../config/resources.yaml");
 
@@ -118,7 +118,7 @@ g
 
     const containerImageUri = `${this.adminAccountId}.dkr.ecr.us-east-1.amazonaws.com/${toolName}:latest`;
 
-    // Convert JSON to environment variable format for Batch
+    // Convert JSON to environment variable format for Batch.
     const environmentVariables = Object.entries(variableConfigJson).map(([key, value]) => ({
       name: key,
       value: value as string,
@@ -213,7 +213,7 @@ g
 
     // Grant permissions to allow the function to receive messages from the queue.
     sqsQueue.grantConsumeMessages(lambdaFunction);
-    
+
     // Add IAM policy to the Lambda function's execution role to allow it to receive messages from the SQS queue.
     lambdaFunction.addToRolePolicy(
       new iam.PolicyStatement({
