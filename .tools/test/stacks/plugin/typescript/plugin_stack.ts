@@ -231,7 +231,7 @@ class PluginStack extends cdk.Stack {
           "logs:CreateLogStream",
           "logs:PutLogEvents",
         ],
-        resources: ["*"],
+        resources: ["*"], // You might want to restrict this to specific log groups.
       }),
     );
   }
@@ -283,7 +283,7 @@ class PluginStack extends cdk.Stack {
       }),
     );
 
-    // Attach custom policy to allow Lambda to get and put to local logs bucket.
+    // Attach custom policy to allow Lambda to get and put to admin logs bucket.
     executionRole.addToPolicy(
       new iam.PolicyStatement({
         actions: [
