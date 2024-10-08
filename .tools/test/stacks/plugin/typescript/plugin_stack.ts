@@ -283,7 +283,6 @@ class PluginStack extends cdk.Stack {
       }),
     );
 
-    // Attach custom policy to allow Lambda to get and put to admin logs bucket.
     executionRole.addToPolicy(
       new iam.PolicyStatement({
         actions: [
@@ -297,6 +296,7 @@ class PluginStack extends cdk.Stack {
       }),
     );
 
+    // Attach custom policy to allow Lambda to get and put to admin logs bucket.
     executionRole.addToPolicy(
       new iam.PolicyStatement({
         actions: [
