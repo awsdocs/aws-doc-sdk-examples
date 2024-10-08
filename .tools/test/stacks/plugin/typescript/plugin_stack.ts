@@ -24,6 +24,7 @@ class PluginStack extends cdk.Stack {
   private adminAccountId: string;
   private batchMemory: string;
   private batchVcpus: string;
+  private batchStorage: string;
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -42,6 +43,7 @@ class PluginStack extends cdk.Stack {
       this.initSubscribeSns(sqsQueue, snsTopic);
       this.batchMemory = acctConfig[`${toolName}`]?.memory ?? "16384";
       this.batchVcpus = acctConfig[`${toolName}`]?.vcpus ?? "4";
+      this.batchStorage = acctConfig[`${toolName}`]?.storage ?? "20";
     }
 
     const [jobDefinition, jobQueue] = this.initBatchFargate();
@@ -137,6 +139,9 @@ class PluginStack extends cdk.Stack {
             value: this.batchMemory,
           },
         ],
+        ephemeralStorage: {
+          sizeInGib: this.batchStorage,
+        },
         environment: variableConfigJson,
       },
       platformCapabilities: ["FARGATE"],

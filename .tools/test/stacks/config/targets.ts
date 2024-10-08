@@ -9,6 +9,7 @@ interface AccountConfig {
   status: "enabled" | "disabled";
   vcpus?: string;
   memory?: string;
+  storage?: string;
 }
 
 interface AccountConfigs {
