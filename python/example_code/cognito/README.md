@@ -43,7 +43,7 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [AdminGetUser](cognito_idp_actions.py#L23)
+- [AdminGetUser](cognito_idp_actions.py#L56)
 - [AdminInitiateAuth](cognito_idp_actions.py#L187)
 - [AdminRespondToAuthChallenge](cognito_idp_actions.py#L292)
 - [AssociateSoftwareToken](cognito_idp_actions.py#L241)

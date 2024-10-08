@@ -45,7 +45,8 @@ func TestRunAssumeRoleScenario_Integration(t *testing.T) {
 		Answers: []string{helper.GetName(), "", "", "", "y"},
 	}
 
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)
 	}
@@ -55,7 +56,7 @@ func TestRunAssumeRoleScenario_Integration(t *testing.T) {
 	log.SetOutput(&buf)
 
 	scenario := NewAssumeRoleScenario(sdkConfig, mockQuestioner, &helper)
-	scenario.Run()
+	scenario.Run(ctx)
 
 	log.SetOutput(os.Stderr)
 	if !strings.Contains(buf.String(), "Thanks for watching") {

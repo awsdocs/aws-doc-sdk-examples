@@ -24,7 +24,7 @@ Refer to [Create an S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userg
 Use CLI
 
 ```cmd
-aws s3api create-bucket --bucket DOC-EXAMPLE-BUCKET --region us-east-1
+aws s3api create-bucket --bucket amzn-s3-demo-bucket --region us-east-1
 ```
 
 ## Upload a file to the S3 bucket
@@ -46,7 +46,7 @@ or
 Use CLI
 
 ```cmd
-aws s3 cp tutorial.txt s3://DOC-EXAMPLE-BUCKET
+aws s3 cp tutorial.txt s3://amzn-s3-demo-bucket
 ```
 
 ## Create an S3 access point
@@ -58,7 +58,7 @@ or
 Use CLI
 
 ```cmd
-aws s3control create-access-point --bucket DOC-EXAMPLE-BUCKET --name DOC-EXAMPLE-BUCKET-ACCESSPOINT --account-id 111122223333
+aws s3control create-access-point --bucket amzn-s3-demo-bucket --name amzn-s3-demo-bucket-ACCESSPOINT --account-id 111122223333
 ```
 
 

@@ -13,8 +13,7 @@ import ClientRuntime
 
 /// Perform tests on the `MovieDatabase` class.
 final class MovieDatabaseTests: XCTestCase {
-    let region = "us-east-2"
-    let jsonPath: String = "../../../../resources/sample_files/movies.json"
+    let jsonPath: String = #file.directory() + "../../../../../resources/sample_files/movies.json"
 
     /// Class-wide setup function for the test case, which is run *once*
     /// before any tests are run.
@@ -31,7 +30,7 @@ final class MovieDatabaseTests: XCTestCase {
         do {
             _ = try await MovieDatabase(jsonPath: "path/that/does/not/exist.json")
         } catch {
-            XCTAssertEqual(2, error._code, "Unexpected error returned when creating database.")
+            XCTAssertEqual(260, error._code, "Unexpected error returned when creating database.")
             return
         }
         XCTFail("Attempt to initialize the database succeeded with invalid JSON path specified.")

@@ -4,6 +4,7 @@
 package scenarios
 
 import (
+	"context"
 	"crypto/rand"
 	"fmt"
 	"log"
@@ -36,7 +37,7 @@ import (
 //
 // It uses a questioner from the `demotools` package to get input during the example.
 // This package can be found in the ..\..\demotools folder of this repo.
-func RunGetStartedScenario(sdkConfig aws.Config, questioner demotools.IQuestioner) {
+func RunGetStartedScenario(ctx context.Context, sdkConfig aws.Config, questioner demotools.IQuestioner) {
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("Something went wrong with the demo.\n", r)
@@ -52,7 +53,7 @@ func RunGetStartedScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 
 	count := 10
 	log.Printf("Let's list up to %v buckets for your account:", count)
-	buckets, err := bucketBasics.ListBuckets()
+	buckets, err := bucketBasics.ListBuckets(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -69,12 +70,12 @@ func RunGetStartedScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 
 	bucketName := questioner.Ask("Let's create a bucket. Enter a name for your bucket:",
 		demotools.NotEmpty{})
-	bucketExists, err := bucketBasics.BucketExists(bucketName)
+	bucketExists, err := bucketBasics.BucketExists(ctx, bucketName)
 	if err != nil {
 		panic(err)
 	}
 	if !bucketExists {
-		err = bucketBasics.CreateBucket(bucketName, sdkConfig.Region)
+		err = bucketBasics.CreateBucket(ctx, bucketName, sdkConfig.Region)
 		if err != nil {
 			panic(err)
 		} else {
@@ -87,7 +88,7 @@ func RunGetStartedScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 	smallFile := questioner.Ask("Enter the path to a file you want to upload:",
 		demotools.NotEmpty{})
 	const smallKey = "doc-example-key"
-	err = bucketBasics.UploadFile(bucketName, smallKey, smallFile)
+	err = bucketBasics.UploadFile(ctx, bucketName, smallKey, smallFile)
 	if err != nil {
 		panic(err)
 	}
@@ -101,7 +102,7 @@ func RunGetStartedScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 	_, _ = rand.Read(largeBytes)
 	largeKey := "doc-example-large"
 	log.Println("Uploading...")
-	err = bucketBasics.UploadLargeObject(bucketName, largeKey, largeBytes)
+	err = bucketBasics.UploadLargeObject(ctx, bucketName, largeKey, largeBytes)
 	if err != nil {
 		panic(err)
 	}
@@ -110,7 +111,7 @@ func RunGetStartedScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 
 	log.Printf("Let's download %v to a file.", smallKey)
 	downloadFileName := questioner.Ask("Enter a name for the downloaded file:", demotools.NotEmpty{})
-	err = bucketBasics.DownloadFile(bucketName, smallKey, downloadFileName)
+	err = bucketBasics.DownloadFile(ctx, bucketName, smallKey, downloadFileName)
 	if err != nil {
 		panic(err)
 	}
@@ -120,7 +121,7 @@ func RunGetStartedScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 	log.Printf("Let's download the %v MiB object.", mibs)
 	questioner.Ask("Press Enter when you're ready.")
 	log.Println("Downloading...")
-	largeDownload, err := bucketBasics.DownloadLargeObject(bucketName, largeKey)
+	largeDownload, err := bucketBasics.DownloadLargeObject(ctx, bucketName, largeKey)
 	if err != nil {
 		panic(err)
 	}
@@ -129,7 +130,7 @@ func RunGetStartedScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 
 	log.Printf("Let's copy %v to a folder in the same bucket.", smallKey)
 	folderName := questioner.Ask("Enter a folder name: ", demotools.NotEmpty{})
-	err = bucketBasics.CopyToFolder(bucketName, smallKey, folderName)
+	err = bucketBasics.CopyToFolder(ctx, bucketName, smallKey, folderName)
 	if err != nil {
 		panic(err)
 	}
@@ -138,7 +139,7 @@ func RunGetStartedScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 
 	log.Println("Let's list the objects in your bucket.")
 	questioner.Ask("Press Enter when you're ready.")
-	objects, err := bucketBasics.ListObjects(bucketName)
+	objects, err := bucketBasics.ListObjects(ctx, bucketName)
 	if err != nil {
 		panic(err)
 	}
@@ -153,12 +154,12 @@ func RunGetStartedScenario(sdkConfig aws.Config, questioner demotools.IQuestione
 	if questioner.AskBool("Do you want to delete your bucket and all of its "+
 		"contents? (y/n)", "y") {
 		log.Println("Deleting objects.")
-		err = bucketBasics.DeleteObjects(bucketName, objKeys)
+		err = bucketBasics.DeleteObjects(ctx, bucketName, objKeys)
 		if err != nil {
 			panic(err)
 		}
 		log.Println("Deleting bucket.")
-		err = bucketBasics.DeleteBucket(bucketName)
+		err = bucketBasics.DeleteBucket(ctx, bucketName)
 		if err != nil {
 			panic(err)
 		}

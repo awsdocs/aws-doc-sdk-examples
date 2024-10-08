@@ -9,12 +9,13 @@ table.
 """
 
 import logging
+
 from flask import jsonify
 from flask.views import MethodView
 from marshmallow import Schema
+from storage import StorageError
 from webargs import fields
 from webargs.flaskparser import use_args, use_kwargs
-from storage import StorageError
 
 logger = logging.getLogger(__name__)
 

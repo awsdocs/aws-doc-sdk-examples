@@ -61,7 +61,7 @@ While developing this example, we have kept two other personas in mind:
 
 # Development / deployment
 
-Refer to [README.md](../tree/main/resources/cdk/photo_asset_manager/README.md) for deployment instructions and [DEVELOPMENT.md](../tree/main/resources/cdk/photo_asset_manager/DEVELOPMENT.md) for instructions on modifying the AWS CDK script.
+Refer to [README.md](./README.md) for deployment instructions and [DEVELOPMENT.md](./DEVELOPMENT.md) for instructions on modifying the AWS CDK script.
 
 # Frontend
 
@@ -205,7 +205,7 @@ Each implementation will include a README describing the language-specific detai
 
 # Resources
 
-- [In-Repo README for adding a new Lambda](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/cdk/photo_asset_manager/DEVELOPMENT.md)
+- [In-Repo README for adding a new Lambda](./DEVELOPMENT.md)
 
 # Glossary
 

@@ -6,9 +6,8 @@ from unittest.mock import patch
 
 import boto3
 import pytest
-from botocore.exceptions import ClientError
-
 from auto_scaler import AutoScalingWrapper
+from botocore.exceptions import ClientError
 from load_balancer import ElasticLoadBalancerWrapper
 from parameters import ParameterHelper
 from recommendation_service import RecommendationService

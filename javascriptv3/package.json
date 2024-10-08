@@ -2,19 +2,20 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "npm run test --workspaces --if-present",
-    "integration-test": "npm run integration-test --workspaces --if-present -- --silent; npm run merge-test-results; npm run log-tests",
+    "test": "npm run test --workspaces --if-present -- --silent",
+    "integration-test": "npm run integration-test --workspaces --if-present -- --silent; exit_code=$?; npm run merge-test-results; npm run log-tests; exit ${exit_code:-99}",
     "merge-test-results": "jrm test-results.xml \"**/test_results/**/*.junit.xml\"",
     "log-tests": "cat test-results.xml",
     "lint": "lint-staged",
-    "ci-lint": "eslint"
+    "ci-lint": "eslint",
+    "ci-format-check": "prettier --check"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
       "eslint",
       "prettier -w"
     ],
-    "*.{md}": [
+    "*.md": [
       "prettier -w"
     ]
   },
@@ -49,6 +50,7 @@
     "example_code/iam",
     "example_code/lambda",
     "example_code/libs",
+    "example_code/kinesis",
     "example_code/mediaconvert",
     "example_code/medical-imaging",
     "example_code/medical-imaging/scenarios/health-image-sets/pixel-data-verification",

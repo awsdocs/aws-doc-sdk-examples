@@ -41,8 +41,8 @@ type TriggerInfo struct {
 
 // UpdateTriggers adds or removes Lambda triggers for a user pool. When a trigger is specified with a `nil` value,
 // it is removed from the user pool.
-func (actor CognitoActions) UpdateTriggers(userPoolId string, triggers ...TriggerInfo) error {
-	output, err := actor.CognitoClient.DescribeUserPool(context.TODO(), &cognitoidentityprovider.DescribeUserPoolInput{
+func (actor CognitoActions) UpdateTriggers(ctx context.Context, userPoolId string, triggers ...TriggerInfo) error {
+	output, err := actor.CognitoClient.DescribeUserPool(ctx, &cognitoidentityprovider.DescribeUserPoolInput{
 		UserPoolId: aws.String(userPoolId),
 	})
 	if err != nil {
@@ -60,7 +60,7 @@ func (actor CognitoActions) UpdateTriggers(userPoolId string, triggers ...Trigge
 			lambdaConfig.PostAuthentication = trigger.HandlerArn
 		}
 	}
-	_, err = actor.CognitoClient.UpdateUserPool(context.TODO(), &cognitoidentityprovider.UpdateUserPoolInput{
+	_, err = actor.CognitoClient.UpdateUserPool(ctx, &cognitoidentityprovider.UpdateUserPoolInput{
 		UserPoolId:   aws.String(userPoolId),
 		LambdaConfig: lambdaConfig,
 	})
@@ -75,9 +75,9 @@ func (actor CognitoActions) UpdateTriggers(userPoolId string, triggers ...Trigge
 // snippet-start:[gov2.cognito-identity-provider.SignUp]
 
 // SignUp signs up a user with Amazon Cognito.
-func (actor CognitoActions) SignUp(clientId string, userName string, password string, userEmail string) (bool, error) {
+func (actor CognitoActions) SignUp(ctx context.Context, clientId string, userName string, password string, userEmail string) (bool, error) {
 	confirmed := false
-	output, err := actor.CognitoClient.SignUp(context.TODO(), &cognitoidentityprovider.SignUpInput{
+	output, err := actor.CognitoClient.SignUp(ctx, &cognitoidentityprovider.SignUpInput{
 		ClientId: aws.String(clientId),
 		Password: aws.String(password),
 		Username: aws.String(userName),
@@ -103,9 +103,9 @@ func (actor CognitoActions) SignUp(clientId string, userName string, password st
 // snippet-start:[gov2.cognito-identity-provider.InitiateAuth]
 
 // SignIn signs in a user to Amazon Cognito using a username and password authentication flow.
-func (actor CognitoActions) SignIn(clientId string, userName string, password string) (*types.AuthenticationResultType, error) {
+func (actor CognitoActions) SignIn(ctx context.Context, clientId string, userName string, password string) (*types.AuthenticationResultType, error) {
 	var authResult *types.AuthenticationResultType
-	output, err := actor.CognitoClient.InitiateAuth(context.TODO(), &cognitoidentityprovider.InitiateAuthInput{
+	output, err := actor.CognitoClient.InitiateAuth(ctx, &cognitoidentityprovider.InitiateAuthInput{
 		AuthFlow:       "USER_PASSWORD_AUTH",
 		ClientId:       aws.String(clientId),
 		AuthParameters: map[string]string{"USERNAME": userName, "PASSWORD": password},
@@ -129,8 +129,8 @@ func (actor CognitoActions) SignIn(clientId string, userName string, password st
 
 // ForgotPassword starts a password recovery flow for a user. This flow typically sends a confirmation code
 // to the user's configured notification destination, such as email.
-func (actor CognitoActions) ForgotPassword(clientId string, userName string) (*types.CodeDeliveryDetailsType, error) {
-	output, err := actor.CognitoClient.ForgotPassword(context.TODO(), &cognitoidentityprovider.ForgotPasswordInput{
+func (actor CognitoActions) ForgotPassword(ctx context.Context, clientId string, userName string) (*types.CodeDeliveryDetailsType, error) {
+	output, err := actor.CognitoClient.ForgotPassword(ctx, &cognitoidentityprovider.ForgotPasswordInput{
 		ClientId: aws.String(clientId),
 		Username: aws.String(userName),
 	})
@@ -145,8 +145,8 @@ func (actor CognitoActions) ForgotPassword(clientId string, userName string) (*t
 // snippet-start:[gov2.cognito-identity-provider.ConfirmForgotPassword]
 
 // ConfirmForgotPassword confirms a user with a confirmation code and a new password.
-func (actor CognitoActions) ConfirmForgotPassword(clientId string, code string, userName string, password string) error {
-	_, err := actor.CognitoClient.ConfirmForgotPassword(context.TODO(), &cognitoidentityprovider.ConfirmForgotPasswordInput{
+func (actor CognitoActions) ConfirmForgotPassword(ctx context.Context, clientId string, code string, userName string, password string) error {
+	_, err := actor.CognitoClient.ConfirmForgotPassword(ctx, &cognitoidentityprovider.ConfirmForgotPasswordInput{
 		ClientId:         aws.String(clientId),
 		ConfirmationCode: aws.String(code),
 		Password:         aws.String(password),
@@ -168,8 +168,8 @@ func (actor CognitoActions) ConfirmForgotPassword(clientId string, code string, 
 // snippet-start:[gov2.cognito-identity-provider.DeleteUser]
 
 // DeleteUser removes a user from the user pool.
-func (actor CognitoActions) DeleteUser(userAccessToken string) error {
-	_, err := actor.CognitoClient.DeleteUser(context.TODO(), &cognitoidentityprovider.DeleteUserInput{
+func (actor CognitoActions) DeleteUser(ctx context.Context, userAccessToken string) error {
+	_, err := actor.CognitoClient.DeleteUser(ctx, &cognitoidentityprovider.DeleteUserInput{
 		AccessToken: aws.String(userAccessToken),
 	})
 	if err != nil {
@@ -184,8 +184,8 @@ func (actor CognitoActions) DeleteUser(userAccessToken string) error {
 
 // AdminCreateUser uses administrator credentials to add a user to a user pool. This method leaves the user
 // in a state that requires they enter a new password next time they sign in.
-func (actor CognitoActions) AdminCreateUser(userPoolId string, userName string, userEmail string) error {
-	_, err := actor.CognitoClient.AdminCreateUser(context.TODO(), &cognitoidentityprovider.AdminCreateUserInput{
+func (actor CognitoActions) AdminCreateUser(ctx context.Context, userPoolId string, userName string, userEmail string) error {
+	_, err := actor.CognitoClient.AdminCreateUser(ctx, &cognitoidentityprovider.AdminCreateUserInput{
 		UserPoolId:     aws.String(userPoolId),
 		Username:       aws.String(userName),
 		MessageAction:  types.MessageActionTypeSuppress,
@@ -209,8 +209,8 @@ func (actor CognitoActions) AdminCreateUser(userPoolId string, userName string, 
 
 // AdminSetUserPassword uses administrator credentials to set a password for a user without requiring a
 // temporary password.
-func (actor CognitoActions) AdminSetUserPassword(userPoolId string, userName string, password string) error {
-	_, err := actor.CognitoClient.AdminSetUserPassword(context.TODO(), &cognitoidentityprovider.AdminSetUserPasswordInput{
+func (actor CognitoActions) AdminSetUserPassword(ctx context.Context, userPoolId string, userName string, password string) error {
+	_, err := actor.CognitoClient.AdminSetUserPassword(ctx, &cognitoidentityprovider.AdminSetUserPasswordInput{
 		Password:   aws.String(password),
 		UserPoolId: aws.String(userPoolId),
 		Username:   aws.String(userName),

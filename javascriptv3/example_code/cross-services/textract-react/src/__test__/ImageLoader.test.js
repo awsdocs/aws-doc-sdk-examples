@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 // Unit tests for the ImageLoader component.
 
@@ -21,7 +22,7 @@ describe("rendering", () => {
     const image = "test-image";
     render(<ImageLoader imageBucket={bucket} imageKey={image} />);
     expect(screen.getByRole("textbox", { name: /Bucket/i })).toHaveValue(
-      bucket
+      bucket,
     );
     expect(screen.getByRole("textbox", { name: /Image/i })).toHaveValue(image);
   });

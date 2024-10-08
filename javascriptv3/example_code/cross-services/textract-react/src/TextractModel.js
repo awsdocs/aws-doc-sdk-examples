@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 import {
   DetectDocumentTextCommand,
@@ -118,7 +119,7 @@ export default class TextractModel {
     console.log(`Loading from ${bucketName}:${objectKey}`);
     try {
       const resp = await this.s3.send(
-        new GetObjectCommand({ Bucket: bucketName, Key: objectKey })
+        new GetObjectCommand({ Bucket: bucketName, Key: objectKey }),
       );
       const str_data = await this._readStream(resp.Body);
       this.imageData = {
@@ -217,12 +218,12 @@ export default class TextractModel {
     console.log(`JobId: ${jobId}`);
 
     let waitTime = 0;
-    const getJob = async () =>  {
+    const getJob = async () => {
       const { Messages } = await this.sqs.send(
         new ReceiveMessageCommand({
           QueueUrl: this.queueUrl,
           MaxNumberOfMessages: 1,
-        })
+        }),
       );
       if (Messages) {
         console.log(`Message[0]: ${Messages[0].Body}`);
@@ -230,7 +231,7 @@ export default class TextractModel {
           new DeleteMessageCommand({
             QueueUrl: this.queueUrl,
             ReceiptHandle: Messages[0].ReceiptHandle,
-          })
+          }),
         );
         if (
           JSON.parse(JSON.parse(Messages[0].Body).Message).Status ===
@@ -256,7 +257,7 @@ export default class TextractModel {
         console.log(`Waited ${waitTime / 1000} seconds. No messages yet.`);
         setTimeout(getJob, tick);
       }
-    }
+    };
     await getJob(jobId);
   }
 

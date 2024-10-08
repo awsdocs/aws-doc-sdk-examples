@@ -5,6 +5,7 @@
 Shows how to use the AWS SDK for Rust to work with AWS Lambda.
 
 <!--custom.overview.start-->
+For an example of using Rust in a lambda function, see [this example](../../lambda).
 <!--custom.overview.end-->
 
 _Lambda allows you to run code without provisioning or managing servers._
@@ -41,7 +42,7 @@ Code excerpts that show you how to call individual service functions.
 - [GetFunction](src/actions.rs#L382)
 - [Invoke](src/actions.rs#L407)
 - [ListFunctions](src/actions.rs#L395)
-- [UpdateFunctionCode](src/actions.rs#L423)
+- [UpdateFunctionCode](src/actions.rs#L200)
 - [UpdateFunctionConfiguration](src/actions.rs#L449)
 
 ### Scenarios

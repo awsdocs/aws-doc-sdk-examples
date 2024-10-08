@@ -29,7 +29,7 @@ from rekognition_objects import (
 def mock_video(monkeypatch, poll_status, rekognition_client):
     video_name = "test-video"
     video = RekognitionVideo(
-        {"S3Object": {"Bucket": "doc-example-bucket", "Name": video_name}},
+        {"S3Object": {"Bucket": "amzn-s3-demo-bucket", "Name": video_name}},
         video_name,
         rekognition_client,
     )
@@ -85,7 +85,7 @@ def test_create_notification_channel(
         runner.add(iam_stubber.stub_attach_role_policy, resource_name, policy_arn)
 
     video = RekognitionVideo(
-        {"S3Object": {"Bucket": "doc-example-bucket", "Name": "doc-example-key"}},
+        {"S3Object": {"Bucket": "amzn-s3-demo-bucket", "Name": "doc-example-key"}},
         "Test Video",
         rekognition_client,
     )

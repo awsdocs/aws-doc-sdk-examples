@@ -28,7 +28,7 @@ def test_setup(make_stubber, stub_runner, monkeypatch, error_code, stop_on_metho
     iam_stubber = make_stubber(iam_resource.meta.client)
     demo_resources = ComprehendDemoResources(s3_resource, iam_resource)
     demo_name = "test-name"
-    bucket_name = "doc-example-bucket-test-uuid"
+    bucket_name = "amzn-s3-demo-bucket-test-uuid"
     role_name = f"{demo_name}-role"
     policy_name = f"{demo_name}-policy"
     policy_arn = f"arn:aws:iam:REGION:123456789012:policy/{policy_name}"
@@ -118,7 +118,7 @@ def test_cleanup(make_stubber, monkeypatch, error_code):
     iam_resource = boto3.resource("iam")
     iam_stubber = make_stubber(iam_resource.meta.client)
     demo_resources = ComprehendDemoResources(s3_resource, iam_resource)
-    bucket_name = "doc-example-bucket-test-uuid"
+    bucket_name = "amzn-s3-demo-bucket-test-uuid"
     role_name = "comprehend-classifier-demo-role"
     policy_name = "comprehend-classifier-demo-policy"
     policy_arn = "arn:aws:iam:REGION:123456789012:policy/test-policy"

@@ -31,9 +31,8 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[iam.swift.getpolicy.command.runasync]
     func runAsync() async throws {
-        let serviceHandler = await ServiceHandler()
-
         do {
+            let serviceHandler = try await ServiceHandler()
             let policy = try await serviceHandler.getPolicy(arn: arn)
 
             guard   let policyName = policy.policyName,
@@ -59,6 +58,7 @@ struct ExampleCommand: ParsableCommand {
             }
 
         } catch {
+            print("ERROR: CreateRole runAsync:", dump(error))
             throw error
         }
     }

@@ -6,9 +6,9 @@ Unit tests for analysis.py.
 """
 
 from unittest.mock import MagicMock
+
 import boto3
 import pytest
-
 from analysis import Analysis
 
 

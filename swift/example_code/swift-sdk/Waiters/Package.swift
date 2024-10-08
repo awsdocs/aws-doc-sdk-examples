@@ -1,6 +1,6 @@
+// swift-tools-version:5.9
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-// swift-tools-version: 5.5
 
 // The swift-tools-version declares the minimum version of Swift required to
 // build this package.
@@ -13,7 +13,7 @@ let package = Package(
         // This project requires the AWS SDK for Swift.
         .package(
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.68.0"
+            from: "1.0.0"
         ),
     ],
     targets: [

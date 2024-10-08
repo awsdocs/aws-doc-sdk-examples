@@ -2,12 +2,12 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # snippet-start:[codebuild.Ruby.buildProject]
-require "aws-sdk-codebuild"  # v2: require 'aws-sdk'
+require 'aws-sdk-codebuild' # v2: require 'aws-sdk'
 
-project_name = ""
+project_name = ''
 
 if ARGV.length != 1
-  puts "You must supply the name of the project to build"
+  puts 'You must supply the name of the project to build'
   exit 1
 else
   project_name = ARGV[0]
@@ -17,8 +17,8 @@ client = Aws::CodeBuild::Client.new
 
 begin
   client.start_build(project_name: project_name)
-  puts "Building project " + project_name
-rescue StandardError => ex
-  puts "Error building project: " + ex.message
+  puts "Building project #{project_name}"
+rescue StandardError => e
+  puts "Error building project: #{e.message}"
 end
 # snippet-end:[codebuild.Ruby.buildProject]

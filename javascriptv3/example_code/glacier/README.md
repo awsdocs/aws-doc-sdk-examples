@@ -33,8 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateVault](src/libs/glacierClient.js#L15)
-- [UploadArchive](src/libs/glacierClient.js#L15)
+- [CreateVault](src/libs/glacierClient.js#L16)
+- [UploadArchive](src/libs/glacierClient.js#L16)
 
 
 <!--custom.examples.start-->

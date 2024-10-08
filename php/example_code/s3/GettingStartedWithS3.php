@@ -55,7 +55,7 @@ class GettingStartedWithS3 implements RunnableExample
         */
 
         // snippet-start:[php.example_code.s3.basics.bucketName]
-        $this->bucketName = "doc-example-bucket-" . uniqid();
+        $this->bucketName = "amzn-s3-demo-bucket-" . uniqid();
         // snippet-end:[php.example_code.s3.basics.bucketName]
 
         // snippet-start:[php.example_code.s3.basics.createBucket]

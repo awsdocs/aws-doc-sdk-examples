@@ -6,9 +6,8 @@ Unit tests for websocket_chat.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
-
+from botocore.exceptions import ClientError
 from websocket_chat import ApiGatewayWebsocket
 
 

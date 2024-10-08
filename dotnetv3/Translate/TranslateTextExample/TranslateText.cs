@@ -36,7 +36,7 @@ namespace TranslateTextExample
 
             // The Amazon Simple Storage Service (Amazon S3) bucket where the
             // source text file is stored.
-            string srcBucket = "DOC-EXAMPLE-BUCKET";
+            string srcBucket = "amzn-s3-demo-bucket";
             string srcTextFile = "source.txt";
 
             var srcText = await GetSourceTextAsync(srcBucket, srcTextFile);

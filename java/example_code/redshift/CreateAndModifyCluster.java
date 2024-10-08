@@ -16,98 +16,14 @@
  */
 // snippet-start:[redshift.java.CreateAndModifyCluster.complete]
 
-package com.amazonaws.services.redshift;
-
-import java.io.IOException;
-import com.amazonaws.services.redshift.AmazonRedshift;
-import com.amazonaws.services.redshift.AmazonRedshiftClientBuilder;
-
-import com.amazonaws.services.redshift.model.*;
-
 public class CreateAndModifyCluster {
+ /*
+   The AWS SDK for Java v1 is approaching end-of-support. For more information, see:
+   https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-java-v1-x-on-december-31-2025/
 
-    public static AmazonRedshift client;
-
-    public static String clusterIdentifier = "***provide a cluster identifier***";
-    public static long sleepTime = 20;
-
-    public static void main(String[] args) throws IOException {
-
-        // Default client using the {@link
-        // com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
-        client = AmazonRedshiftClientBuilder.defaultClient();
-
-        try {
-            createCluster();
-            waitForClusterReady();
-            describeClusters();
-            modifyCluster();
-            describeClusters();
-
-        } catch (Exception e) {
-            System.err.println("Operation failed: " + e.getMessage());
-        }
-    }
-
-    private static void createCluster() {
-
-        CreateClusterRequest request = new CreateClusterRequest()
-                .withClusterIdentifier(clusterIdentifier)
-                .withMasterUsername("masteruser")
-                .withMasterUserPassword("12345678Aa")
-                .withNodeType("ds2.xlarge")
-                .withNumberOfNodes(2)
-                .withClusterSubnetGroupName("subnetgroup1");
-
-        Cluster createResponse = client.createCluster(request);
-        System.out.println("Created cluster " + createResponse.getClusterIdentifier());
-    }
-
-    private static void describeClusters() {
-        DescribeClustersRequest request = new DescribeClustersRequest()
-                .withClusterIdentifier(clusterIdentifier);
-
-        DescribeClustersResult result = client.describeClusters(request);
-        printResult(result);
-    }
-
-    private static void modifyCluster() {
-        ModifyClusterRequest request = new ModifyClusterRequest()
-                .withClusterIdentifier(clusterIdentifier)
-                .withPreferredMaintenanceWindow("wed:07:30-wed:08:00");
-
-        client.modifyCluster(request);
-        System.out.println("Modified cluster " + clusterIdentifier);
-
-    }
-
-    private static void printResult(DescribeClustersResult result) {
-        if (result == null) {
-            System.out.println("Describe clusters result is null.");
-            return;
-        }
-
-        System.out.println("Cluster property:");
-        System.out.format("Preferred Maintenance Window: %s\n",
-                result.getClusters().get(0).getPreferredMaintenanceWindow());
-    }
-
-    private static void waitForClusterReady() throws InterruptedException {
-        Boolean clusterReady = false;
-        System.out.println("Waiting for cluster to become available.");
-        while (!clusterReady) {
-            DescribeClustersResult result = client.describeClusters(new DescribeClustersRequest()
-                    .withClusterIdentifier(clusterIdentifier));
-
-            String status = (result.getClusters()).get(0).getClusterStatus();
-            if (status.equalsIgnoreCase("available")) {
-                clusterReady = true;
-            } else {
-                System.out.print(".");
-                Thread.sleep(sleepTime * 1000);
-            }
-        }
-    }
+   See the V2 version here:
+   https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/redshift
+   */
 }
 
 // snippet-end:[redshift.java.CreateAndModifyCluster.complete]

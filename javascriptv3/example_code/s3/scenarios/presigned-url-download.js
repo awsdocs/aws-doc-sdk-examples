@@ -1,8 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
-
 // snippet-start:[s3.JavaScript.buckets.getpresignedurlv3]
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { fromIni } from "@aws-sdk/credential-providers";
@@ -33,22 +31,25 @@ const createPresignedUrlWithClient = ({ region, bucket, key }) => {
   return getSignedUrl(client, command, { expiresIn: 3600 });
 };
 
-export const main = async () => {
-  const REGION = "us-east-1";
-  const BUCKET = "example_bucket";
-  const KEY = "example_file.jpg";
-
+/**
+ * Create two presigned urls for downloading an object from an S3 bucket.
+ * The first presigned URL is created with credentials from the shared INI file
+ * in the current environment. The second presigned URL is created using an
+ * existing S3Client instance that has already been provided with credentials.
+ * @param {{ bucketName: string, key: string, region: string }}
+ */
+export const main = async ({ bucketName, key, region }) => {
   try {
     const noClientUrl = await createPresignedUrlWithoutClient({
-      region: REGION,
-      bucket: BUCKET,
-      key: KEY,
+      bucket: bucketName,
+      region,
+      key,
     });
 
     const clientUrl = await createPresignedUrlWithClient({
-      region: REGION,
-      bucket: BUCKET,
-      key: KEY,
+      bucket: bucketName,
+      region,
+      key,
     });
 
     console.log("Presigned URL without client");
@@ -57,13 +58,50 @@ export const main = async () => {
 
     console.log("Presigned URL with client");
     console.log(clientUrl);
-  } catch (err) {
-    console.error(err);
+  } catch (caught) {
+    if (caught instanceof Error && caught.name === "CredentialsProviderError") {
+      console.error(
+        `There was an error getting your credentials. Are your local credentials configured?\n${caught.name}: ${caught.message}`,
+      );
+    } else {
+      throw caught;
+    }
   }
 };
 // snippet-end:[s3.JavaScript.buckets.getpresignedurlv3]
 
-// Invoke main function if this file was run directly.
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+// Call function if run directly
+import { parseArgs } from "util";
+import {
+  isMain,
+  validateArgs,
+} from "@aws-doc-sdk-examples/lib/utils/util-node.js";
+
+const loadArgs = () => {
+  const options = {
+    bucketName: {
+      type: "string",
+      required: true,
+    },
+    key: {
+      type: "string",
+      required: true,
+    },
+    region: {
+      type: "string",
+      required: true,
+    },
+  };
+  const results = parseArgs({ options });
+  const { errors } = validateArgs({ options }, results);
+  return { errors, results };
+};
+
+if (isMain(import.meta.url)) {
+  const { errors, results } = loadArgs();
+  if (!errors) {
+    main(results.values);
+  } else {
+    console.error(errors.join("\n"));
+  }
 }

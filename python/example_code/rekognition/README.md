@@ -61,7 +61,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Build a collection and find faces in it](rekognition_objects.py)
+- [Build a collection and find faces in it](rekognition_collections.py)
 - [Detect and display elements in images](rekognition_image_detection.py)
 - [Detect objects in images](../../cross_service/photo_analyzer)
 - [Detect people and objects in a video](../../example_code/rekognition)
@@ -95,7 +95,7 @@ This example shows you how to do the following:
 Start the example by running the following at a command prompt:
 
 ```
-python rekognition_objects.py
+python rekognition_collections.py
 ```
 
 

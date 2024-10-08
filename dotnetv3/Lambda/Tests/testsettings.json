@@ -2,7 +2,7 @@
   "FunctionName": "LambdaExample",
   "IncrementHandler": "LambdaIncrement::LambdaIncrement.Function::FunctionHandler",
   "CalculatorHandler": "LambdaCalculator::LambdaCalculator.Function::FunctionHandler",
-  "BucketName": "doc-example-bucket",
+  "BucketName": "amzn-s3-demo-bucket",
   "IncrementKey": "LambdaIncrement.zip",
   "CalculatorKey": "LambdaCalculator.zip",
   "RoleName": "lambda-support",

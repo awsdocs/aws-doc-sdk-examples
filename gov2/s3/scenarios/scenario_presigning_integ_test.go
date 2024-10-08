@@ -24,11 +24,12 @@ import (
 func TestRunPresigningScenario_Integration(t *testing.T) {
 	mockQuestioner := &demotools.MockQuestioner{
 		Answers: []string{
-			"doc-example-go-test-bucket", "../README.md", "test-object", "", "",
+			"doc-example-go-test-bucket", "../README.md", "test-object", "", "", "",
 		},
 	}
 
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)
 	}
@@ -37,7 +38,7 @@ func TestRunPresigningScenario_Integration(t *testing.T) {
 	var buf bytes.Buffer
 	log.SetOutput(&buf)
 
-	RunPresigningScenario(sdkConfig, mockQuestioner, HttpRequester{})
+	RunPresigningScenario(ctx, sdkConfig, mockQuestioner, HttpRequester{})
 
 	log.SetOutput(os.Stderr)
 	if !strings.Contains(buf.String(), "Thanks for watching") {

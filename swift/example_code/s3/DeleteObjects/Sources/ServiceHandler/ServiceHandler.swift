@@ -2,14 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
-   A class containing functions that interact with AWS services.
-*/
+ A class containing functions that interact with AWS services.
+ */
 
 // snippet-start:[s3.swift.deleteobjects.handler]
 // snippet-start:[s3.swift.deleteobjects.handler.imports]
-import Foundation
 import AWSS3
 import ClientRuntime
+import Foundation
+
 // snippet-end:[s3.swift.deleteobjects.handler.imports]
 
 /// Errors returned by `ServiceHandler` functions.
@@ -17,32 +18,36 @@ import ClientRuntime
 public enum ServiceHandlerError: Error {
     case deleteObjectsError
 }
+
 // snippet-end:[s3.swift.deleteobjects.enum.service-error]
 
 /// A class containing all the code that interacts with the AWS SDK for Swift.
 public class ServiceHandler {
     public let client: S3Client
-    public var region: S3ClientTypes.BucketLocationConstraint?
-    
+
     /// Initialize and return a new ``ServiceHandler`` object, which is used
     /// to drive the AWS calls
     /// used for the example.
-    /// 
+    ///
     /// - Parameters:
-    ///   - region: The AWS Region to access.
+    ///   - region: The optional AWS Region to access.
     ///
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[s3.swift.deleteobjects.handler.init]
-    public init(region: String = "us-east-2") async {
-        self.region = S3ClientTypes.BucketLocationConstraint(rawValue: region)
+    public init(region: String? = nil) async throws {
         do {
-            client = try S3Client(region: region)
+            let config = try await S3Client.S3ClientConfiguration()
+            if let region = region {
+                config.region = region
+            }
+            client = S3Client(config: config)
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon S3 client"))
-            exit(1)
+            throw error
         }
     }
+
     // snippet-end:[s3.swift.deleteobjects.handler.init]
 
     /// Deletes the specified objects from Amazon S3.
@@ -56,30 +61,19 @@ public class ServiceHandler {
         let input = DeleteObjectsInput(
             bucket: bucket,
             delete: S3ClientTypes.Delete(
-                objects: keys.map({ S3ClientTypes.ObjectIdentifier(key: $0) }),
+                objects: keys.map { S3ClientTypes.ObjectIdentifier(key: $0) },
                 quiet: true
             )
         )
 
         do {
-            let output = try await client.deleteObjects(input: input)
-
-            // As of the last update to this example, any errors are returned
-            // in the `output` object's `errors` property. If there are any
-            // errors in this array, throw an exception. Once the error
-            // handling is finalized in later updates to the AWS SDK for
-            // Swift, this example will be updated to handle errors better.
-
-            guard let errors = output.errors else {
-                return  // No errors.
-            }
-            if errors.count != 0 {
-                throw ServiceHandlerError.deleteObjectsError
-            }
+            _ = try await client.deleteObjects(input: input)
         } catch {
+            print("ERROR: deleteObjects:", dump(error))
             throw error
         }
     }
     // snippet-end:[s3.swift.deleteobjects.handler.DeleteObjects]
 }
+
 // snippet-end:[s3.swift.deleteobjects.handler]

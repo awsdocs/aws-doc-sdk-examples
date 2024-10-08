@@ -31,12 +31,13 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[iam.swift.createuser.command.runasync]
     func runAsync() async throws {
-        let serviceHandler = await ServiceHandler()
-
+        
         do {
+            let serviceHandler = try await ServiceHandler()
             let userID = try await serviceHandler.createUser(name: username)
             print("Created new user \(username) with ID \(userID)")
         } catch {
+            print("ERROR: CreateUser runAsync:", dump(error))
             throw error
         }
     }

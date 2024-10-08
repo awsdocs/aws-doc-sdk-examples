@@ -60,7 +60,7 @@ Code excerpts that show you how to call individual service functions.
 - [ListObjectsV2](actions/bucket_basics.go#L238)
 - [PutObject](actions/bucket_basics.go#L100)
 - [PutObjectLegalHold](../workflows/s3_object_lock/actions/s3_actions.go#L173)
-- [PutObjectLockConfiguration](../workflows/s3_object_lock/actions/s3_actions.go#L22)
+- [PutObjectLockConfiguration](../workflows/s3_object_lock/actions/s3_actions.go#L234)
 - [PutObjectRetention](../workflows/s3_object_lock/actions/s3_actions.go#L276)
 
 ### Scenarios

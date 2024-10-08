@@ -4,6 +4,7 @@
 package workflows
 
 import (
+	"context"
 	"fmt"
 	"testing"
 	"user_pools_and_lambda_triggers/stubs"
@@ -114,7 +115,7 @@ func (scenTest *AutoConfirmScenarioTest) RunSubTest(stubber *testtools.AwsmStubb
 	helper := NewScenarioHelper(*stubber.SdkConfig, &mockQuestioner)
 	helper.isTestRun = true
 	scenario := NewAutoConfirm(*stubber.SdkConfig, &mockQuestioner, &helper)
-	scenario.Run(scenTest.stackName)
+	scenario.Run(context.Background(), scenTest.stackName)
 }
 
 func (scenTest *AutoConfirmScenarioTest) Cleanup() {}

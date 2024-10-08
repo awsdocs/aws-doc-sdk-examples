@@ -27,7 +27,7 @@ import (
 //   - `activity_log` - Runs an interactive scenario that shows you how to use an Amazon Cognito
 //     Lambda trigger to log custom activity data.
 func main() {
-	scenarioMap := map[string]func(sdkConfig aws.Config, questioner demotools.IQuestioner, helper workflows.IScenarioHelper, stack string){
+	scenarioMap := map[string]func(ctx context.Context, sdkConfig aws.Config, questioner demotools.IQuestioner, helper workflows.IScenarioHelper, stack string){
 		"auto_confirm": runAutoConfirmScenario,
 		"migrate_user": runMigrateUserScenario,
 		"activity_log": runActivityLogScenario,
@@ -50,7 +50,8 @@ func main() {
 		fmt.Printf("'%v' is not a valid scenario.\n", *scenario)
 		flag.Usage()
 	} else {
-		sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+		ctx := context.Background()
+		sdkConfig, err := config.LoadDefaultConfig(ctx)
 		if err != nil {
 			log.Fatalf("unable to load SDK config, %v", err)
 		}
@@ -58,24 +59,24 @@ func main() {
 		log.SetFlags(0)
 		questioner := demotools.NewQuestioner()
 		helper := workflows.NewScenarioHelper(sdkConfig, questioner)
-		runScenario(sdkConfig, questioner, helper, *stack)
+		runScenario(ctx, sdkConfig, questioner, helper, *stack)
 	}
 }
 
-func runAutoConfirmScenario(sdkConfig aws.Config, questioner demotools.IQuestioner, helper workflows.IScenarioHelper,
+func runAutoConfirmScenario(ctx context.Context, sdkConfig aws.Config, questioner demotools.IQuestioner, helper workflows.IScenarioHelper,
 	stack string) {
 	workflow := workflows.NewAutoConfirm(sdkConfig, questioner, helper)
-	workflow.Run(stack)
+	workflow.Run(ctx, stack)
 }
 
-func runMigrateUserScenario(sdkConfig aws.Config, questioner demotools.IQuestioner, helper workflows.IScenarioHelper,
+func runMigrateUserScenario(ctx context.Context, sdkConfig aws.Config, questioner demotools.IQuestioner, helper workflows.IScenarioHelper,
 	stack string) {
 	workflow := workflows.NewMigrateUser(sdkConfig, questioner, helper)
-	workflow.Run(stack)
+	workflow.Run(ctx, stack)
 }
 
-func runActivityLogScenario(sdkConfig aws.Config, questioner demotools.IQuestioner, helper workflows.IScenarioHelper,
+func runActivityLogScenario(ctx context.Context, sdkConfig aws.Config, questioner demotools.IQuestioner, helper workflows.IScenarioHelper,
 	stack string) {
 	workflow := workflows.NewActivityLog(sdkConfig, questioner, helper)
-	workflow.Run(stack)
+	workflow.Run(ctx, stack)
 }

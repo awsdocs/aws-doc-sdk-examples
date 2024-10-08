@@ -1,20 +1,18 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require "aws-sdk-dynamodb"
-require "json"
-require "open-uri"
-require "pp"
-require "zip"
+require 'aws-sdk-dynamodb'
+require 'json'
+require 'open-uri'
+require 'zip'
 
 # snippet-start:[ruby.example_code.ruby.DynamoDBBasics.full]
 # snippet-start:[ruby.example_code.ruby.DynamoDBBasics.decl]
 class DynamoDBBasics
-  attr_reader :dynamo_resource
-  attr_reader :table
+  attr_reader :dynamo_resource, :table
 
   def initialize(table_name)
-    client = Aws::DynamoDB::Client.new(region: "us-east-1")
+    client = Aws::DynamoDB::Client.new(region: 'us-east-1')
     @dynamo_resource = Aws::DynamoDB::Resource.new(client: client)
     @table = @dynamo_resource.table(table_name)
   end
@@ -27,9 +25,11 @@ class DynamoDBBasics
   def add_item(movie)
     @table.put_item(
       item: {
-        "year" => movie[:year],
-        "title" => movie[:title],
-        "info" => {"plot" => movie[:plot], "rating" => movie[:rating]}})
+        'year' => movie[:year],
+        'title' => movie[:title],
+        'info' => { 'plot' => movie[:plot], 'rating' => movie[:rating] }
+      }
+    )
   rescue Aws::DynamoDB::Errors::ServiceError => e
     puts("Couldn't add movie #{title} to table #{@table.name}. Here's why:")
     puts("\t#{e.code}: #{e.message}")
@@ -44,7 +44,7 @@ class DynamoDBBasics
   # @param year [Integer] The release year of the movie.
   # @return [Hash] The data about the requested movie.
   def get_item(title, year)
-    @table.get_item(key: {"year" => year, "title" => title})
+    @table.get_item(key: { 'year' => year, 'title' => title })
   rescue Aws::DynamoDB::Errors::ServiceError => e
     puts("Couldn't get movie #{title} (#{year}) from table #{@table.name}:\n")
     puts("\t#{e.code}: #{e.message}")
@@ -57,12 +57,12 @@ class DynamoDBBasics
   #
   # @param movie [Hash] The title, year, plot, rating of the movie.
   def update_item(movie)
-
     response = @table.update_item(
-      key: {"year" => movie[:year], "title" => movie[:title]},
-      update_expression: "set info.rating=:r",
-      expression_attribute_values: { ":r" => movie[:rating] },
-      return_values: "UPDATED_NEW")
+      key: { 'year' => movie[:year], 'title' => movie[:title] },
+      update_expression: 'set info.rating=:r',
+      expression_attribute_values: { ':r' => movie[:rating] },
+      return_values: 'UPDATED_NEW'
+    )
   rescue Aws::DynamoDB::Errors::ServiceError => e
     puts("Couldn't update movie #{movie[:title]} (#{movie[:year]}) in table #{@table.name}\n")
     puts("\t#{e.code}: #{e.message}")
@@ -79,9 +79,10 @@ class DynamoDBBasics
   # @return [Array] The list of movies that were released in the specified year.
   def query_items(year)
     response = @table.query(
-      key_condition_expression: "#yr = :year",
-      expression_attribute_names: {"#yr" => "year"},
-      expression_attribute_values: {":year" => year})
+      key_condition_expression: '#yr = :year',
+      expression_attribute_names: { '#yr' => 'year' },
+      expression_attribute_values: { ':year' => year }
+    )
   rescue Aws::DynamoDB::Errors::ServiceError => e
     puts("Couldn't query for movies released in #{year}. Here's why:")
     puts("\t#{e.code}: #{e.message}")
@@ -100,11 +101,12 @@ class DynamoDBBasics
   def scan_items(year_range)
     movies = []
     scan_hash = {
-      filter_expression: "#yr between :start_yr and :end_yr",
-      projection_expression: "#yr, title, info.rating",
-      expression_attribute_names: {"#yr" => "year"},
+      filter_expression: '#yr between :start_yr and :end_yr',
+      projection_expression: '#yr, title, info.rating',
+      expression_attribute_names: { '#yr' => 'year' },
       expression_attribute_values: {
-        ":start_yr" => year_range[:start], ":end_yr" => year_range[:end]}
+        ':start_yr' => year_range[:start], ':end_yr' => year_range[:end]
+      }
     }
     done = false
     start_key = nil
@@ -130,7 +132,7 @@ class DynamoDBBasics
   # @param title [String] The title of the movie to delete.
   # @param year [Integer] The release year of the movie to delete.
   def delete_item(title, year)
-    @table.delete_item(key: {"year" => year, "title" => title})
+    @table.delete_item(key: { 'year' => year, 'title' => title })
   rescue Aws::DynamoDB::Errors::ServiceError => e
     puts("Couldn't delete movie #{title}. Here's why:")
     puts("\t#{e.code}: #{e.message}")

@@ -43,7 +43,7 @@ type ClaudeResponse struct {
 
 // Invokes Anthropic Claude on Amazon Bedrock to run an inference using the input
 // provided in the request body.
-func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
+func (wrapper InvokeModelWrapper) InvokeClaude(ctx context.Context, prompt string) (string, error) {
 	modelId := "anthropic.claude-v2"
 
 	// Anthropic Claude requires enclosing the prompt as follows:
@@ -60,7 +60,7 @@ func (wrapper InvokeModelWrapper) InvokeClaude(prompt string) (string, error) {
 		log.Fatal("failed to marshal", err)
 	}
 
-	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
+	output, err := wrapper.BedrockRuntimeClient.InvokeModel(ctx, &bedrockruntime.InvokeModelInput{
 		ModelId:     aws.String(modelId),
 		ContentType: aws.String("application/json"),
 		Body:        body,
@@ -104,7 +104,7 @@ type Data struct {
 
 // Invokes AI21 Labs Jurassic-2 on Amazon Bedrock to run an inference using the input
 // provided in the request body.
-func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error) {
+func (wrapper InvokeModelWrapper) InvokeJurassic2(ctx context.Context, prompt string) (string, error) {
 	modelId := "ai21.j2-mid-v1"
 
 	body, err := json.Marshal(Jurassic2Request{
@@ -117,7 +117,7 @@ func (wrapper InvokeModelWrapper) InvokeJurassic2(prompt string) (string, error)
 		log.Fatal("failed to marshal", err)
 	}
 
-	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
+	output, err := wrapper.BedrockRuntimeClient.InvokeModel(ctx, &bedrockruntime.InvokeModelInput{
 		ModelId:     aws.String(modelId),
 		ContentType: aws.String("application/json"),
 		Body:        body,
@@ -155,7 +155,7 @@ type Llama2Response struct {
 
 // Invokes Meta Llama 2 Chat on Amazon Bedrock to run an inference using the input
 // provided in the request body.
-func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
+func (wrapper InvokeModelWrapper) InvokeLlama2(ctx context.Context, prompt string) (string, error) {
 	modelId := "meta.llama2-13b-chat-v1"
 
 	body, err := json.Marshal(Llama2Request{
@@ -168,7 +168,7 @@ func (wrapper InvokeModelWrapper) InvokeLlama2(prompt string) (string, error) {
 		log.Fatal("failed to marshal", err)
 	}
 
-	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
+	output, err := wrapper.BedrockRuntimeClient.InvokeModel(ctx, &bedrockruntime.InvokeModelInput{
 		ModelId:     aws.String(modelId),
 		ContentType: aws.String("application/json"),
 		Body:        body,
@@ -213,7 +213,7 @@ type TitanImageResponse struct {
 
 // Invokes the Titan Image model to create an image using the input provided
 // in the request body.
-func (wrapper InvokeModelWrapper) InvokeTitanImage(prompt string, seed int64) (string, error) {
+func (wrapper InvokeModelWrapper) InvokeTitanImage(ctx context.Context, prompt string, seed int64) (string, error) {
 	modelId := "amazon.titan-image-generator-v1"
 
 	body, err := json.Marshal(TitanImageRequest{
@@ -235,7 +235,7 @@ func (wrapper InvokeModelWrapper) InvokeTitanImage(prompt string, seed int64) (s
 		log.Fatal("failed to marshal", err)
 	}
 
-	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.TODO(), &bedrockruntime.InvokeModelInput{
+	output, err := wrapper.BedrockRuntimeClient.InvokeModel(ctx, &bedrockruntime.InvokeModelInput{
 		ModelId:     aws.String(modelId),
 		ContentType: aws.String("application/json"),
 		Body:        body,
@@ -286,7 +286,7 @@ type Result struct {
 	CompletionReason string `json:"completionReason"`
 }
 
-func (wrapper InvokeModelWrapper) InvokeTitanText(prompt string) (string, error) {
+func (wrapper InvokeModelWrapper) InvokeTitanText(ctx context.Context, prompt string) (string, error) {
 	modelId := "amazon.titan-text-express-v1"
 
 	body, err := json.Marshal(TitanTextRequest{
@@ -302,7 +302,7 @@ func (wrapper InvokeModelWrapper) InvokeTitanText(prompt string) (string, error)
 		log.Fatal("failed to marshal", err)
 	}
 
-	output, err := wrapper.BedrockRuntimeClient.InvokeModel(context.Background(), &bedrockruntime.InvokeModelInput{
+	output, err := wrapper.BedrockRuntimeClient.InvokeModel(ctx, &bedrockruntime.InvokeModelInput{
 		ModelId:     aws.String(modelId),
 		ContentType: aws.String("application/json"),
 		Body:        body,

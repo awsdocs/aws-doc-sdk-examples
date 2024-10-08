@@ -102,7 +102,7 @@ func (scenTest *GetStartedScenarioTest) SetupDataAndStubs() []testtools.Stub {
 // or without errors.
 func (scenTest *GetStartedScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
 	mockQuestioner := demotools.MockQuestioner{Answers: scenTest.Answers}
-	RunGetStartedScenario(*stubber.SdkConfig, &mockQuestioner)
+	RunGetStartedScenario(context.Background(), *stubber.SdkConfig, &mockQuestioner)
 }
 
 // Cleanup deletes the output file created by the download test.

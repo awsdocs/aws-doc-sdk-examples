@@ -19,8 +19,8 @@ namespace ManageACLsExample
     {
         public static async Task Main()
         {
-            string bucketName = "doc-example-bucket1";
-            string newBucketName = "doc-example-bucket2";
+            string bucketName = "amzn-s3-demo-bucket1";
+            string newBucketName = "amzn-s3-demo-bucket2";
             string keyName = "sample-object.txt";
             string emailAddress = "someone@example.com";
 

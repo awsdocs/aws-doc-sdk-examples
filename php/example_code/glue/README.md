@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](GlueService.php)
+- [Learn the basics](GettingStartedWithGlue.php)
 
 
 ### Single actions
@@ -41,19 +41,19 @@ Code examples that show you how to perform the essential operations within a ser
 Code excerpts that show you how to call individual service functions.
 
 - [CreateCrawler](GettingStartedWithGlue.php#L47)
-- [CreateJob](GettingStartedWithGlue.php#L54)
+- [CreateJob](GettingStartedWithGlue.php#L110)
 - [DeleteCrawler](GettingStartedWithGlue.php#L180)
 - [DeleteDatabase](GettingStartedWithGlue.php#L173)
 - [DeleteJob](GettingStartedWithGlue.php#L159)
 - [DeleteTable](GettingStartedWithGlue.php#L166)
 - [GetCrawler](GettingStartedWithGlue.php#L69)
 - [GetDatabase](GettingStartedWithGlue.php#L58)
-- [GetJobRun](GettingStartedWithGlue.php#L107)
-- [GetJobRuns](GettingStartedWithGlue.php#L107)
+- [GetJobRun](GettingStartedWithGlue.php#L120)
+- [GetJobRuns](GettingStartedWithGlue.php#L130)
 - [GetTables](GettingStartedWithGlue.php#L58)
 - [ListJobs](GettingStartedWithGlue.php#L151)
 - [StartCrawler](GettingStartedWithGlue.php#L47)
-- [StartJobRun](GettingStartedWithGlue.php#L107)
+- [StartJobRun](GettingStartedWithGlue.php#L58)
 
 
 <!--custom.examples.start-->

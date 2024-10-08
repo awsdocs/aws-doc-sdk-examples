@@ -51,7 +51,7 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteMessage](delete_message.cpp#L23)
 - [DeleteMessageBatch](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L644)
 - [DeleteQueue](delete_queue.cpp#L24)
-- [GetQueueAttributes](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L380)
+- [GetQueueAttributes](../cross-service/topics_and_queues/messaging_with_topics_and_queues.cpp#L332)
 - [GetQueueUrl](get_queue_url.cpp#L23)
 - [ListQueues](list_queues.cpp#L23)
 - [ReceiveMessage](receive_message.cpp#L23)

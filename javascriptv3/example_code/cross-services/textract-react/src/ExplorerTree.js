@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 import React from "react";
 import { ColorMap, FilterMap } from "./Utils";
@@ -32,7 +33,7 @@ const ExplorerNode = (props) => {
               props.Id,
               props.BlockType,
               props.Geometry,
-              event.target.checked
+              event.target.checked,
             )
           }
         />

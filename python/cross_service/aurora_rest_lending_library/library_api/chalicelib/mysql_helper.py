@@ -268,7 +268,7 @@ def unpack_insert_results(results):
     """
     try:
         return results["generatedFields"][0]["longValue"]
-    except:
+    except Exception:
         print(
             f"Error trying to unpack generatedFields value from result of INSERT statement: {str(results)}"
         )

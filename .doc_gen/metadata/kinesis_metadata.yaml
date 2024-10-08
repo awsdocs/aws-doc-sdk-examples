@@ -231,6 +231,19 @@ kinesis_PutRecord:
                 - kns.abapv1.put_record
   services:
     kinesis: {PutRecord}
+kinesis_PutRecords:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/kinesis
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/kinesis/actions/put-records.js
+  services:
+    kinesis: {PutRecords}
 kinesis_GetRecords:
   languages:
     Java:

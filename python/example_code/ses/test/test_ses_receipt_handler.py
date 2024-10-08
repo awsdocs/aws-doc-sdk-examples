@@ -107,7 +107,7 @@ def test_create_bucket_for_copy(make_stubber, stub_runner, error_code, stop_on_m
     s3_resource = boto3.resource("s3")
     s3_stubber = make_stubber(s3_resource.meta.client)
     ses_receipt = SesReceiptHandler(None, s3_resource)
-    bucket_name = "doc-example-bucket"
+    bucket_name = "amzn-s3-demo-bucket"
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
@@ -138,7 +138,7 @@ def test_create_s3_copy_rule(make_stubber, error_code):
     rule_set_name = "test-rule-set"
     rule_name = "test-rule"
     recipients = ["me", "myself", "I"]
-    bucket_name = "doc-example-bucket"
+    bucket_name = "amzn-s3-demo-bucket"
     prefix = "mymails/"
     actions = [{"S3Action": {"BucketName": bucket_name, "ObjectKeyPrefix": prefix}}]
 
@@ -166,7 +166,7 @@ def test_describe_receipt_rule_set(make_stubber, error_code):
     rule_set_name = "test-rule-set"
     rule_name = "test-rule"
     recipients = ["me", "myself", "I"]
-    bucket_name = "doc-example-bucket"
+    bucket_name = "amzn-s3-demo-bucket"
     prefix = "mymails/"
     actions = [{"S3Action": {"BucketName": bucket_name, "ObjectKeyPrefix": prefix}}]
 

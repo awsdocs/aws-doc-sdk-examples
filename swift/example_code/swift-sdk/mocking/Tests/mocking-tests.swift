@@ -23,7 +23,6 @@ final class MockingTests: XCTestCase {
     /// Perform one-time initialization before executing any tests.
     override class func setUp() {
         super.setUp()
-        SDKLoggingSystem.initialize(logLevel: .error)
     }
 
     /// Set up things that need to be done just before each

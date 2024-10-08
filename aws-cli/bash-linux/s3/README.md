@@ -47,7 +47,7 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteObjects](bucket-lifecycle-operations/bucket_operations.sh#L303)
 - [GetObject](bucket-lifecycle-operations/bucket_operations.sh#L168)
 - [HeadBucket](bucket-lifecycle-operations/bucket_operations.sh#L20)
-- [ListObjectsV2](bucket-lifecycle-operations/awsdocs_general.sh#L94)
+- [ListObjectsV2](bucket-lifecycle-operations/bucket_operations.sh#L236)
 - [PutObject](bucket-lifecycle-operations/bucket_operations.sh#L134)
 
 

@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Systems Manager](hello.js#L4) (`listThings`)
+- [Hello Systems Manager](hello.js#L4) (`ListDocuments`)
 
 
 ### Basics

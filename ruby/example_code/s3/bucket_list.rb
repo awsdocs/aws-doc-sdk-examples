@@ -6,7 +6,7 @@
 # Shows how to list Amazon Simple Storage Service (Amazon S3) buckets.
 
 # snippet-start:[ruby.example_code.s3.ListBuckets]
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # Wraps Amazon S3 resource actions.
 class BucketListWrapper
@@ -21,7 +21,7 @@ class BucketListWrapper
   #
   # @param count [Integer] The maximum number of buckets to list.
   def list_buckets(count)
-    puts "Found these buckets:"
+    puts 'Found these buckets:'
     @s3_resource.buckets.each do |bucket|
       puts "\t#{bucket.name}"
       count -= 1

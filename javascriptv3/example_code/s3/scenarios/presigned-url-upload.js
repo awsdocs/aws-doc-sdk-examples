@@ -1,10 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
-
 // snippet-start:[s3.JavaScript.buckets.presignedurlv3]
 import https from "https";
+
+import { XMLParser } from "fast-xml-parser";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { fromIni } from "@aws-sdk/credential-providers";
 import { HttpRequest } from "@smithy/protocol-http";
@@ -36,7 +36,13 @@ const createPresignedUrlWithClient = ({ region, bucket, key }) => {
   return getSignedUrl(client, command, { expiresIn: 3600 });
 };
 
-function put(url, data) {
+/**
+ * Make a PUT request to the provided URL.
+ *
+ * @param {string} url
+ * @param {string} data
+ */
+const put = (url, data) => {
   return new Promise((resolve, reject) => {
     const req = https.request(
       url,
@@ -47,7 +53,12 @@ function put(url, data) {
           responseBody += chunk;
         });
         res.on("end", () => {
-          resolve(responseBody);
+          const parser = new XMLParser();
+          if (res.statusCode >= 200 && res.statusCode <= 299) {
+            resolve(parser.parse(responseBody, true));
+          } else {
+            reject(parser.parse(responseBody, true));
+          }
         });
       },
     );
@@ -57,27 +68,27 @@ function put(url, data) {
     req.write(data);
     req.end();
   });
-}
+};
 
-export const main = async () => {
-  const REGION = "us-east-1";
-  const BUCKET = "example_bucket";
-  const KEY = "example_file.txt";
-
-  // There are two ways to generate a presigned URL.
-  // 1. Use createPresignedUrl without the S3 client.
-  // 2. Use getSignedUrl in conjunction with the S3 client and GetObjectCommand.
+/**
+ * Create two presigned urls for uploading an object to an S3 bucket.
+ * The first presigned URL is created with credentials from the shared INI file
+ * in the current environment. The second presigned URL is created using an
+ * existing S3Client instance that has already been provided with credentials.
+ * @param {{ bucketName: string, key: string, region: string }}
+ */
+export const main = async ({ bucketName, key, region }) => {
   try {
     const noClientUrl = await createPresignedUrlWithoutClient({
-      region: REGION,
-      bucket: BUCKET,
-      key: KEY,
+      bucket: bucketName,
+      key,
+      region,
     });
 
     const clientUrl = await createPresignedUrlWithClient({
-      region: REGION,
-      bucket: BUCKET,
-      key: KEY,
+      bucket: bucketName,
+      region,
+      key,
     });
 
     // After you get the presigned URL, you can provide your own file
@@ -89,13 +100,50 @@ export const main = async () => {
     await put(clientUrl, "Hello World");
 
     console.log("\nDone. Check your S3 console.");
-  } catch (err) {
-    console.error(err);
+  } catch (caught) {
+    if (caught instanceof Error && caught.name === "CredentialsProviderError") {
+      console.error(
+        `There was an error getting your credentials. Are your local credentials configured?\n${caught.name}: ${caught.message}`,
+      );
+    } else {
+      throw caught;
+    }
   }
 };
 // snippet-end:[s3.JavaScript.buckets.presignedurlv3]
 
-// Invoke main function if this file was run directly.
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+// Call function if run directly
+import { parseArgs } from "util";
+import {
+  isMain,
+  validateArgs,
+} from "@aws-doc-sdk-examples/lib/utils/util-node.js";
+
+const loadArgs = () => {
+  const options = {
+    bucketName: {
+      type: "string",
+      required: true,
+    },
+    key: {
+      type: "string",
+      required: true,
+    },
+    region: {
+      type: "string",
+      required: true,
+    },
+  };
+  const results = parseArgs({ options });
+  const { errors } = validateArgs({ options }, results);
+  return { errors, results };
+};
+
+if (isMain(import.meta.url)) {
+  const { errors, results } = loadArgs();
+  if (!errors) {
+    main(results.values);
+  } else {
+    console.error(errors.join("\n"));
+  }
 }

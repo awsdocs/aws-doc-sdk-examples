@@ -43,7 +43,7 @@ class ComprehendDemoResources:
         """
         try:
             self.bucket = self.s3_resource.create_bucket(
-                Bucket=f"doc-example-bucket-{uuid.uuid4()}",
+                Bucket=f"amzn-s3-demo-bucket-{uuid.uuid4()}",
                 CreateBucketConfiguration={
                     "LocationConstraint": self.s3_resource.meta.client.meta.region_name
                 },

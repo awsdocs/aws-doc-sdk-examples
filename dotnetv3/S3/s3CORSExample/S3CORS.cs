@@ -22,7 +22,7 @@ namespace S3CORSExample
     {
         // Remember to change the bucket name to the name of an Amazon Simple
         // Storage Service (Amazon S3) bucket that exists on your account.
-        private const string BucketName = "doc-example-bucket";
+        private const string BucketName = "amzn-s3-demo-bucket";
 
         public static async Task Main()
         {

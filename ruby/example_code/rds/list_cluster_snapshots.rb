@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # snippet-start:[rds.ruby.listClusterSnapshots]
-require "aws-sdk-rds"  # v2: require 'aws-sdk'
+require 'aws-sdk-rds' # v2: require 'aws-sdk'
 
 # List snapshots for all Amazon Relational Database Service (Amazon RDS)
 # RDS clusters.
@@ -26,7 +26,7 @@ rescue Aws::Errors::ServiceError => e
 end
 # snippet-end:[rds.ruby.listClusterSnapshots]
 
-if __FILE__ == $0
+if __FILE__ == $PROGRAM_NAME
   rds_resource = Aws::RDS::Resource.new
   test = list_cluster_snapshots(rds_resource)
   puts test

@@ -32,7 +32,7 @@ ssm_Hello:
               snippet_tags:
                 - python.example_code.ssm.Hello
   services:
-    ssm: {listThings}
+    ssm: {ListDocuments}
 ssm_DescribeParameters:
   languages:
     Java:
@@ -456,5 +456,5 @@ ssm_Scenario:
               snippet_tags:
                 - python.example_code.ssm.MaintenanceWindowWrapper.class
   services:
-    ssm: {CreateOpsItem, CreateMaintenanceWindow, CreateDocument, SendCommand, CommandInvocations, DeleteMaintenanceWindow,
+    ssm: {CreateOpsItem, CreateMaintenanceWindow, CreateDocument, SendCommand, ListCommandInvocations, DeleteMaintenanceWindow,
           UpdateOpsItem}

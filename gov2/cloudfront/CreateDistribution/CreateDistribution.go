@@ -22,8 +22,8 @@ import (
 // CFDistributionAPI defines the interface for the CreateDistribution function.
 // We use this interface to test the function using a mocked service.
 type CFDistributionAPI interface {
-	CreateDistribution(bucketName, certificateSSLArn, domain string) (*cloudfront.CreateDistributionOutput, error)
-	createoriginAccessIdentity(domainName string) (string, error)
+	CreateDistribution(ctx context.Context, bucketName, certificateSSLArn, domain string) (*cloudfront.CreateDistributionOutput, error)
+	createoriginAccessIdentity(ctx context.Context, domainName string) (string, error)
 }
 
 type CFDistributionAPIImpl struct {
@@ -38,8 +38,8 @@ func createCFDistribution(s3client *s3.Client, cloudfront *cloudfront.Client) CF
 	}
 }
 
-func (c *CFDistributionAPIImpl) CreateDistribution(bucketName, certificateSSLArn, domain string) (*cloudfront.CreateDistributionOutput, error) {
-	locationOutput, err := c.s3Client.GetBucketLocation(context.Background(), &s3.GetBucketLocationInput{Bucket: aws.String(bucketName)})
+func (c *CFDistributionAPIImpl) CreateDistribution(ctx context.Context, bucketName, certificateSSLArn, domain string) (*cloudfront.CreateDistributionOutput, error) {
+	locationOutput, err := c.s3Client.GetBucketLocation(ctx, &s3.GetBucketLocationInput{Bucket: aws.String(bucketName)})
 
 	if err != nil {
 		return nil, err
@@ -50,12 +50,12 @@ func (c *CFDistributionAPIImpl) CreateDistribution(bucketName, certificateSSLArn
 		return nil, err
 	}
 
-	originAccessIdentityID, err := c.createoriginAccessIdentity(domain)
+	originAccessIdentityID, err := c.createoriginAccessIdentity(ctx, domain)
 	if err != nil {
 		return nil, err
 	}
 
-	cloudfrontResponse, err := c.cloudfrontClient.CreateDistribution(context.TODO(), &cloudfront.CreateDistributionInput{
+	cloudfrontResponse, err := c.cloudfrontClient.CreateDistribution(ctx, &cloudfront.CreateDistributionInput{
 		DistributionConfig: &cloudfrontTypes.DistributionConfig{
 			Enabled:           aws.Bool(true),
 			CallerReference:   &originDomain,
@@ -118,8 +118,7 @@ func (c *CFDistributionAPIImpl) CreateDistribution(bucketName, certificateSSLArn
 	return cloudfrontResponse, nil
 }
 
-func (c *CFDistributionAPIImpl) createoriginAccessIdentity(domainName string) (string, error) {
-	ctx := context.Background()
+func (c *CFDistributionAPIImpl) createoriginAccessIdentity(ctx context.Context, domainName string) (string, error) {
 	oai, err := c.cloudfrontClient.CreateCloudFrontOriginAccessIdentity(ctx, &cloudfront.CreateCloudFrontOriginAccessIdentityInput{
 		CloudFrontOriginAccessIdentityConfig: &cloudfrontTypes.CloudFrontOriginAccessIdentityConfig{
 			CallerReference: aws.String(domainName),
@@ -169,7 +168,8 @@ func main() {
 		return
 	}
 
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 
 	if err != nil {
 		fmt.Println("Couldn't load default configuration. Have you set up your AWS account?")
@@ -182,7 +182,7 @@ func main() {
 
 	cfDistribution := createCFDistribution(s3Client, cloudfrontClient)
 
-	result, err := cfDistribution.CreateDistribution(bucketName, certificateSSLArn, domain)
+	result, err := cfDistribution.CreateDistribution(ctx, bucketName, certificateSSLArn, domain)
 	if err != nil {
 		fmt.Println("Couldn't create distribution. Please check error message and try again.")
 		fmt.Println(err)

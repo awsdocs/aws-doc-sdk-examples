@@ -77,7 +77,6 @@ class ElasticLoadBalancerWrapper:
                     "Consider deleting unused target groups to create space for new ones."
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.elbv2.CreateTargetGroup]
 
@@ -113,7 +112,6 @@ class ElasticLoadBalancerWrapper:
                     "Ensure that the target group is no longer associated with any load balancers or resources.",
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
 
     def wait_for_target_group_deletion(
         self, elb_client, target_group_arn, max_attempts=10, delay=30
@@ -185,7 +183,6 @@ class ElasticLoadBalancerWrapper:
                     "You can delete unused load balancers or request an increase in the service quota from AWS Support."
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
         else:
             return load_balancer
 
@@ -248,7 +245,6 @@ class ElasticLoadBalancerWrapper:
                     "Please review the provided protocol, port, and target group settings."
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.elbv2.CreateListener]
 
@@ -281,7 +277,6 @@ class ElasticLoadBalancerWrapper:
                     "Please check the name and try again."
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.elbv2.DeleteLoadBalancer]
 
@@ -307,7 +302,6 @@ class ElasticLoadBalancerWrapper:
                     "Verify load balancer name and ensure it exists in the AWS console."
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
 
     # snippet-end:[python.cross_service.resilient_service.elbv2.DescribeLoadBalancers]
     @staticmethod
@@ -369,7 +363,6 @@ class ElasticLoadBalancerWrapper:
                     "and ensure it has not been deleted or created in a different account.",
                 )
             log.error(f"Full error:\n\t{err}")
-            pass
         else:
             return health_response["TargetHealthDescriptions"]
 

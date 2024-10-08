@@ -45,19 +45,19 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateDBCluster](src/aurora_scenario/mod.rs#L353)
-- [CreateDBClusterParameterGroup](src/aurora_scenario/mod.rs#L204)
-- [CreateDBClusterSnapshot](src/aurora_scenario/mod.rs#L353)
-- [CreateDBInstance](src/aurora_scenario/mod.rs#L353)
-- [DeleteDBCluster](src/aurora_scenario/mod.rs#L513)
-- [DeleteDBClusterParameterGroup](src/aurora_scenario/mod.rs#L513)
-- [DeleteDBInstance](src/aurora_scenario/mod.rs#L513)
-- [DescribeDBClusterParameters](src/aurora_scenario/mod.rs#L287)
-- [DescribeDBClusters](src/aurora_scenario/mod.rs#L353)
-- [DescribeDBEngineVersions](src/aurora_scenario/mod.rs#L142)
-- [DescribeDBInstances](src/aurora_scenario/mod.rs#L513)
-- [DescribeOrderableDBInstanceOptions](src/aurora_scenario/mod.rs#L179)
-- [ModifyDBClusterParameterGroup](src/aurora_scenario/mod.rs#L316)
+- [CreateDBCluster](src/rds.rs#L151)
+- [CreateDBClusterParameterGroup](src/rds.rs#L88)
+- [CreateDBClusterSnapshot](src/rds.rs#L206)
+- [CreateDBInstance](src/rds.rs#L174)
+- [DeleteDBCluster](src/aurora_scenario/tests.rs#L790)
+- [DeleteDBClusterParameterGroup](src/aurora_scenario/tests.rs#L790)
+- [DeleteDBInstance](src/aurora_scenario/tests.rs#L790)
+- [DescribeDBClusterParameters](src/aurora_scenario/tests.rs#L376)
+- [DescribeDBClusters](src/rds.rs#L106)
+- [DescribeDBEngineVersions](src/rds.rs#L56)
+- [DescribeDBInstances](src/aurora_scenario/tests.rs#L790)
+- [DescribeOrderableDBInstanceOptions](src/rds.rs#L69)
+- [ModifyDBClusterParameterGroup](src/rds.rs#L135)
 
 
 <!--custom.examples.start-->

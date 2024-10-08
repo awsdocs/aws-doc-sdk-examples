@@ -23,7 +23,7 @@ namespace WebsiteConfigExample
         /// </summary>
         public static async Task Main()
         {
-            const string bucketName = "doc-example-bucket";
+            const string bucketName = "amzn-s3-demo-bucket";
             const string indexDocumentSuffix = "index.html";
             const string errorDocument = "error.html";
 

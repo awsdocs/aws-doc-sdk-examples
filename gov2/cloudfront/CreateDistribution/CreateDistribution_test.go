@@ -21,7 +21,7 @@ type MockCFDistributionAPI struct {
 	cloudfrontClient *cloudfront.Client
 }
 
-func (m *MockCFDistributionAPI) CreateDistribution(bucketName, certificateSSLArn, domain string) (*cloudfront.CreateDistributionOutput, error) {
+func (m *MockCFDistributionAPI) CreateDistribution(ctx context.Context, bucketName, certificateSSLArn, domain string) (*cloudfront.CreateDistributionOutput, error) {
 	if bucketName == "" || certificateSSLArn == "" || domain == "" {
 		return nil, errors.New("bucket name, certificate SSL ARN, and domain are required")
 	}
@@ -38,7 +38,7 @@ func (m *MockCFDistributionAPI) CreateDistribution(bucketName, certificateSSLArn
 	}, nil
 }
 
-func (m *MockCFDistributionAPI) createoriginAccessIdentity(domainName string) (string, error) {
+func (m *MockCFDistributionAPI) createoriginAccessIdentity(ctx context.Context, domainName string) (string, error) {
 	return domainName, nil
 }
 
@@ -54,7 +54,8 @@ func TestCreateDistribution(t *testing.T) {
 	nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
 	t.Log("Starting integration test at " + nowString)
 
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 
 	if err != nil {
 		t.Log("Got an error ...:")
@@ -71,7 +72,7 @@ func TestCreateDistribution(t *testing.T) {
 	certificateSSLArn := "arn:aws:acm:ap-northeast-2:123456789000:certificate/000000000-0000-0000-0000-000000000000"
 	domain := "example.com"
 
-	result, err := mockCFDistribution.CreateDistribution(bucketName, certificateSSLArn, domain)
+	result, err := mockCFDistribution.CreateDistribution(ctx, bucketName, certificateSSLArn, domain)
 
 	if err != nil {
 		t.Error(err)

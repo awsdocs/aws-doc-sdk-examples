@@ -7,11 +7,11 @@ Purpose
 Shows how to create a fully serverless REST API for Rekognition Content Moderation Solution with URL Support.
 """
 
+import io
 import json
+
 import boto3
 import urllib3
-import io
-
 
 client = boto3.client("rekognition")
 manager = urllib3.PoolManager()

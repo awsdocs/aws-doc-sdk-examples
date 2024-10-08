@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 /**
  * The main entry point for the React application.
@@ -42,7 +43,7 @@ const render = () =>
     <React.StrictMode>
       <App model={model} isSignedIn={idToken !== null} config={Config} />
     </React.StrictMode>,
-    document.getElementById("root")
+    document.getElementById("root"),
   );
 
 model.subscribe(render);

@@ -17,11 +17,8 @@ final class MovieTests: XCTestCase {
 
     /// Class-wide setup function for the test case, which is run *once*
     /// before any tests are run.
-    ///
-    /// This function configures the AWS SDK log system to only log errors.
     override class func setUp() {
         super.setUp()
-        SDKLoggingSystem.initialize(logLevel: .error)
     }
 
     /// A structure containing the results of validating a `Movie` or movie

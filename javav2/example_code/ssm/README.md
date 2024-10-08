@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Systems Manager](src/main/java/com/example/ssm/HelloSSM.java#L6) (`listThings`)
+- [Hello Systems Manager](src/main/java/com/example/ssm/HelloSSM.java#L6) (`ListDocuments`)
 
 
 ### Basics

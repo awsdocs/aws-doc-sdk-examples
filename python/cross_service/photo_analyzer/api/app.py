@@ -15,13 +15,14 @@ lets clients do the following:
 """
 
 import logging
+
 import boto3
-from flask import Flask
-from flask_restful import Api
-from flask_cors import CORS
 from analysis import Analysis
-from photo_list import PhotoList
+from flask import Flask
+from flask_cors import CORS
+from flask_restful import Api
 from photo import Photo
+from photo_list import PhotoList
 from report import Report
 
 logger = logging.getLogger(__name__)
