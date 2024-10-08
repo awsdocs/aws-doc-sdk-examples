@@ -1,3 +1,5 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 import * as cdk from "aws-cdk-lib";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as events from "aws-cdk-lib/aws-events";
@@ -15,8 +17,6 @@ import { readAccountConfig } from "../../config/targets";
 import { readResourceConfig } from "../../config/resources";
 import * as fs from 'fs';
 
-const variableConfigJson = JSON.parse(fs.readFileSync('../../config/variables.json', 'utf-8'));
-
 const toolName = process.env.TOOL_NAME ?? "defaultToolName";
 
 class PluginStack extends cdk.Stack {
@@ -25,7 +25,7 @@ class PluginStack extends cdk.Stack {
   private batchMemory: string;
   private batchVcpus: string;
 
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, variables: Record<string, string>, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const acctConfig = readAccountConfig("../../config/targets.yaml");
@@ -62,7 +62,7 @@ class PluginStack extends cdk.Stack {
     );
   }
 
-  private initBatchFargate(): [batch.CfnJobDefinition, batch.CfnJobQueue] {
+  private initBatchFargate(variables: Record<string, string>): [batch.CfnJobDefinition, batch.CfnJobQueue] {
     const batchExecutionRole = new iam.Role(
       this,
       `BatchExecutionRole-${toolName}`,
@@ -118,11 +118,13 @@ class PluginStack extends cdk.Stack {
 
     const containerImageUri = `${this.adminAccountId}.dkr.ecr.us-east-1.amazonaws.com/${toolName}:latest`;
 
-    // Convert JSON to environment variable format for Batch.
-    const environmentVariables = Object.entries(variableConfigJson).map(([key, value]) => ({
-      name: key,
-      value: value as string,
-    }));
+     // Convert JSON array to environment variable format for Batch.
+    const environmentVariables = variables.map((obj: Record<string, string>) =>
+      Object.entries(obj).map(([key, value]) => ({
+        name: key,
+        value: value as string,
+      }))
+    ).flat();
 
     const jobDefinition = new batch.CfnJobDefinition(this, "JobDefn", {
       type: "container",
@@ -235,6 +237,7 @@ class PluginStack extends cdk.Stack {
   }
 
   private initLogFunction(adminBucketName: string): void {
+    // S3 Bucket to store logs within this account.
     const bucket = new s3.Bucket(this, "LogBucket", {
       versioned: false,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,

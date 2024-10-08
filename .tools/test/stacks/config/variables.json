@@ -1,3 +1,5 @@
-{
-  "S3_BUCKET_NAME_PREFIX": "sdk-example-code"
-}
+[
+  {
+    "S3_BUCKET_NAME_PREFIX": "sdk-example-code"
+  }
+]
