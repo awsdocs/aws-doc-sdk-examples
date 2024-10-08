@@ -52,7 +52,7 @@ public class CreateRetentionJob {
         S3Client s3 = S3Client.create();
         S3ControlClient s3ControlClient = S3ControlClient.create();
 
-        // Use CloudFormation to stand up the resource required for this scenario.
+        // Use CloudFormation to stand up the required resource.
         System.out.println("Use CloudFormation to stand up the resource required for this scenario.");
         CloudFormationHelper.deployCloudFormationStack(STACK_NAME);
 
