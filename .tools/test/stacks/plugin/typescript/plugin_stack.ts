@@ -27,7 +27,7 @@ class PluginStack extends cdk.Stack {
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-
+g
     const acctConfig = readAccountConfig("../../config/targets.yaml");
     const resourceConfig = readResourceConfig("../../config/resources.yaml");
 
