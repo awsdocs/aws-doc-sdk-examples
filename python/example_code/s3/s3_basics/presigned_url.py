@@ -86,7 +86,7 @@ def usage_demo():
             )
 
     if response is not None:
-        print(f"Status: {response.status_code}")
+        print(f"Status: {response.status_code}\nReason: {response.reason}")
 
     print("-" * 88)
 
