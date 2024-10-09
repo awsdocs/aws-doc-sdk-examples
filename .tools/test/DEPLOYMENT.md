@@ -33,7 +33,7 @@ Replace `<stack>` with one of the supported stacks:
 - `admin`: Deploys admin-specific resources.
 - `images`: Deploys image-related resources.
 - `plugin`: Deploys plugin-specific resources.
-  - To deploy only a specific language's plugin, pass `--language <language>` where language is an account in ./stacks/config/targets.yaml.
+  - To deploy only a specific language's plugin, pass `--language <language>` where language is an account in [targets.yaml](stacks/config/targets.yaml).
 
 #### Additional Notes
 
