@@ -61,6 +61,7 @@ func (scenario *ObjectLockScenario) CreateBuckets(ctx context.Context) {
 			"This example creates three buckets. Enter a prefix to name your buckets (remember bucket names must be globally unique):")
 
 		for _, info := range createInfo {
+			log.Println(fmt.Sprintf("%s.%s", prefix, info.name))
 			bucketName, err := scenario.s3Actions.CreateBucketWithLock(ctx, fmt.Sprintf("%s.%s", prefix, info.name), scenario.sdkConfig.Region, info.locked)
 			if err != nil {
 				switch err.(type) {

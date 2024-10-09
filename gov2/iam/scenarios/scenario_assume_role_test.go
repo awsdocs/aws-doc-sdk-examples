@@ -60,7 +60,7 @@ func (scenTest *AssumeRoleScenarioTest) SetupDataAndStubs() []testtools.Stub {
 		&testtools.StubError{Err: &smithy.GenericAPIError{Code: "AccessDenied"}, ContinueAfter: true}))
 	stubList = append(stubList, stubs.StubAssumeRole(roleArn, "AssumeRoleExampleSession",
 		900, keyId, keySecret, token, nil))
-	stubList = append(stubList, stubs.StubListBuckets([]string{"test-bucket-1", "test-bucket-2"}, nil))
+	stubList = append(stubList, stubs.StubListBuckets([]string{"amzn-s3-demo-bucket-1", "amzn-s3-demo-bucket-2"}, nil))
 	stubList = append(stubList, stubs.StubListAttachedRolePolicies(roleName,
 		map[string]string{listBucketsPolicy: listBucketsPolicyArn}, nil))
 	stubList = append(stubList, stubs.StubDetachRolePolicy(roleName, listBucketsPolicyArn, nil))
