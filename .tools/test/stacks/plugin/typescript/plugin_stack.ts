@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-
 import * as cdk from "aws-cdk-lib";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as events from "aws-cdk-lib/aws-events";
@@ -14,8 +13,9 @@ import * as sqs from "aws-cdk-lib/aws-sqs";
 import * as batch from "aws-cdk-lib/aws-batch";
 import * as subs from "aws-cdk-lib/aws-sns-subscriptions";
 import { Construct } from "constructs";
-import { readAccountConfig } from "../../config/types";
+import { readAccountConfig } from "../../config/targets";
 import { readResourceConfig } from "../../config/resources";
+import variableConfigJson from "../../config/variables.json";
 
 const toolName = process.env.TOOL_NAME ?? "defaultToolName";
 
@@ -31,10 +31,11 @@ class PluginStack extends cdk.Stack {
     const acctConfig = readAccountConfig("../../config/targets.yaml");
     const resourceConfig = readResourceConfig("../../config/resources.yaml");
 
-    const adminTopicName = resourceConfig["topic_name"];
-    const adminBucketName = resourceConfig["bucket_name"];
     this.awsRegion = resourceConfig["aws_region"];
     this.adminAccountId = resourceConfig["admin_acct"];
+    const adminTopicName = resourceConfig["topic_name"];
+    const adminBucketName = resourceConfig["bucket_name"];
+
     const snsTopic = this.initGetTopic(adminTopicName);
     const sqsQueue = new sqs.Queue(this, `BatchJobQueue-${toolName}`);
     if (acctConfig[`${toolName}`].status === "enabled") {
@@ -42,9 +43,11 @@ class PluginStack extends cdk.Stack {
       this.batchMemory = acctConfig[`${toolName}`]?.memory ?? "16384";
       this.batchVcpus = acctConfig[`${toolName}`]?.vcpus ?? "4";
     }
+
     const [jobDefinition, jobQueue] = this.initBatchFargate();
     const batchFunction = this.initBatchLambda(jobQueue, jobDefinition);
     this.initSqsLambdaIntegration(batchFunction, sqsQueue);
+
     if (acctConfig[`${toolName}`].status === "enabled") {
       this.initLogFunction(adminBucketName);
     }
@@ -134,6 +137,7 @@ class PluginStack extends cdk.Stack {
             value: this.batchMemory,
           },
         ],
+        environment: variableConfigJson,
       },
       platformCapabilities: ["FARGATE"],
     });
@@ -211,7 +215,6 @@ class PluginStack extends cdk.Stack {
         resources: [sqsQueue.queueArn],
       }),
     );
-
     // Additionally, ensure the Lambda function can create and write to CloudWatch Logs.
     lambdaFunction.addToRolePolicy(
       new iam.PolicyStatement({
