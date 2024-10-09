@@ -6,7 +6,6 @@ import subprocess
 import os
 import yaml
 import time
-import logging
 import re
 
 
@@ -31,8 +30,11 @@ def run_shell_command(command, env_vars=None):
     try:
         output = subprocess.check_output(command, stderr=subprocess.STDOUT, env=env)
         print(f"Command output: {output.decode()}")
-    except Exception as e:
+    except subprocess.CalledProcessError as e:
         print(f"Error executing command: {e.output.decode()}")
+        raise
+    except Exception as e:
+        print(f"Exception executing command: {e!r}")
         raise
 
 
@@ -100,6 +102,8 @@ def main():
     parser.add_argument("type", choices=["admin", "images", "plugin"])
     args = parser.parse_args()
 
+    accounts = None
+
     if args.type in {"admin", "images"}:
         try:
             with open("config/resources.yaml", "r") as file:
@@ -118,6 +122,9 @@ def main():
                 accounts = yaml.safe_load(file)
         except Exception as e:
             print(f"Failed to read config data: \n{e}")
+
+    if accounts is None:
+        raise ValueError(f"Could not load accounts for stack {args.type}")
 
     for account_name, account_info in accounts.items():
         print(
