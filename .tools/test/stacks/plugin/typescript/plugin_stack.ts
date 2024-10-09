@@ -15,8 +15,7 @@ import * as subs from "aws-cdk-lib/aws-sns-subscriptions";
 import { Construct } from "constructs";
 import { readAccountConfig } from "../../config/targets";
 import { readResourceConfig } from "../../config/resources";
-import * as fs from 'fs';
-
+import variableConfigJson from "../../config/variables.json";
 
 const toolName = process.env.TOOL_NAME ?? "defaultToolName";
 
@@ -28,8 +27,6 @@ class PluginStack extends cdk.Stack {
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
-
-    const variableConfigJson = JSON.parse(fs.readFileSync('../../config/variables.json', 'utf-8'));
 
     const acctConfig = readAccountConfig("../../config/targets.yaml");
     const resourceConfig = readResourceConfig("../../config/resources.yaml");
@@ -47,7 +44,7 @@ class PluginStack extends cdk.Stack {
       this.batchVcpus = acctConfig[`${toolName}`]?.vcpus ?? "4";
     }
 
-    const [jobDefinition, jobQueue] = this.initBatchFargate(variableConfigJson);
+    const [jobDefinition, jobQueue] = this.initBatchFargate();
     const batchFunction = this.initBatchLambda(jobQueue, jobDefinition);
     this.initSqsLambdaIntegration(batchFunction, sqsQueue);
 
@@ -65,7 +62,7 @@ class PluginStack extends cdk.Stack {
     );
   }
 
-  private initBatchFargate(variables: Array<string, string>): [batch.CfnJobDefinition, batch.CfnJobQueue] {
+  private initBatchFargate(): [batch.CfnJobDefinition, batch.CfnJobQueue] {
     const batchExecutionRole = new iam.Role(
       this,
       `BatchExecutionRole-${toolName}`,
@@ -121,11 +118,6 @@ class PluginStack extends cdk.Stack {
 
     const containerImageUri = `${this.adminAccountId}.dkr.ecr.us-east-1.amazonaws.com/${toolName}:latest`;
 
-    const environmentVariables = Object.entries(variables).map(([key, value]) => ({
-      name: key,
-      value: String(value),  // Ensure value is a string
-    }));
-
     const jobDefinition = new batch.CfnJobDefinition(this, "JobDefn", {
       type: "container",
       containerProperties: {
@@ -145,7 +137,7 @@ class PluginStack extends cdk.Stack {
             value: this.batchMemory,
           },
         ],
-        environment: environmentVariables,
+        environment: variableConfigJson,
       },
       platformCapabilities: ["FARGATE"],
     });
