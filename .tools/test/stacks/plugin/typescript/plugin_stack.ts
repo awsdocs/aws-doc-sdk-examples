@@ -275,6 +275,7 @@ class PluginStack extends cdk.Stack {
       }),
     );
 
+    // Attach custom policy to allow Lambda to get and put to local logs bucket.
     executionRole.addToPolicy(
       new iam.PolicyStatement({
         actions: [
