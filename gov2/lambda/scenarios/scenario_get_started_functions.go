@@ -108,7 +108,7 @@ func NewGetStartedFunctionsScenario(sdkConfig aws.Config, questioner demotools.I
 }
 
 // Run runs the interactive scenario.
-func (scenario GetStartedFunctionsScenario) Run() {
+func (scenario GetStartedFunctionsScenario) Run(ctx context.Context) {
 	defer func() {
 		if r := recover(); r != nil {
 			log.Printf("Something went wrong with the demo.\n")
@@ -119,13 +119,13 @@ func (scenario GetStartedFunctionsScenario) Run() {
 	log.Println("Welcome to the AWS Lambda get started with functions demo.")
 	log.Println(strings.Repeat("-", 88))
 
-	role := scenario.GetOrCreateRole()
-	funcName := scenario.CreateFunction(role)
-	scenario.InvokeIncrement(funcName)
-	scenario.UpdateFunction(funcName)
-	scenario.InvokeCalculator(funcName)
-	scenario.ListFunctions()
-	scenario.Cleanup(role, funcName)
+	role := scenario.GetOrCreateRole(ctx)
+	funcName := scenario.CreateFunction(ctx, role)
+	scenario.InvokeIncrement(ctx, funcName)
+	scenario.UpdateFunction(ctx, funcName)
+	scenario.InvokeCalculator(ctx, funcName)
+	scenario.ListFunctions(ctx)
+	scenario.Cleanup(ctx, role, funcName)
 
 	log.Println(strings.Repeat("-", 88))
 	log.Println("Thanks for watching!")
@@ -136,12 +136,12 @@ func (scenario GetStartedFunctionsScenario) Run() {
 // Otherwise, a role is created that specifies Lambda as a trusted principal.
 // The AWSLambdaBasicExecutionRole managed policy is attached to the role and the role
 // is returned.
-func (scenario GetStartedFunctionsScenario) GetOrCreateRole() *iamtypes.Role {
+func (scenario GetStartedFunctionsScenario) GetOrCreateRole(ctx context.Context) *iamtypes.Role {
 	var role *iamtypes.Role
 	iamClient := iam.NewFromConfig(scenario.sdkConfig)
 	log.Println("First, we need an IAM role that Lambda can assume.")
 	roleName := scenario.questioner.Ask("Enter a name for the role:", demotools.NotEmpty{})
-	getOutput, err := iamClient.GetRole(context.TODO(), &iam.GetRoleInput{
+	getOutput, err := iamClient.GetRole(ctx, &iam.GetRoleInput{
 		RoleName: aws.String(roleName)})
 	if err != nil {
 		var noSuch *iamtypes.NoSuchEntityException
@@ -165,7 +165,7 @@ func (scenario GetStartedFunctionsScenario) GetOrCreateRole() *iamtypes.Role {
 			}},
 		}
 		policyArn := "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-		createOutput, err := iamClient.CreateRole(context.TODO(), &iam.CreateRoleInput{
+		createOutput, err := iamClient.CreateRole(ctx, &iam.CreateRoleInput{
 			AssumeRolePolicyDocument: aws.String(trustPolicy.String()),
 			RoleName:                 aws.String(roleName),
 		})
@@ -173,7 +173,7 @@ func (scenario GetStartedFunctionsScenario) GetOrCreateRole() *iamtypes.Role {
 			log.Panicf("Couldn't create role %v. Here's why: %v\n", roleName, err)
 		}
 		role = createOutput.Role
-		_, err = iamClient.AttachRolePolicy(context.TODO(), &iam.AttachRolePolicyInput{
+		_, err = iamClient.AttachRolePolicy(ctx, &iam.AttachRolePolicyInput{
 			PolicyArn: aws.String(policyArn),
 			RoleName:  aws.String(roleName),
 		})
@@ -190,14 +190,14 @@ func (scenario GetStartedFunctionsScenario) GetOrCreateRole() *iamtypes.Role {
 
 // CreateFunction creates a Lambda function and uploads a handler written in Python.
 // The code for the Python handler is packaged as a []byte in .zip format.
-func (scenario GetStartedFunctionsScenario) CreateFunction(role *iamtypes.Role) string {
+func (scenario GetStartedFunctionsScenario) CreateFunction(ctx context.Context, role *iamtypes.Role) string {
 	log.Println("Let's create a function that increments a number.\n" +
 		"The function uses the 'lambda_handler_basic.py' script found in the \n" +
 		"'handlers' directory of this project.")
 	funcName := scenario.questioner.Ask("Enter a name for the Lambda function:", demotools.NotEmpty{})
 	zipPackage := scenario.helper.CreateDeploymentPackage("lambda_handler_basic.py", fmt.Sprintf("%v.py", funcName))
 	log.Printf("Creating function %v and waiting for it to be ready.", funcName)
-	funcState := scenario.functionWrapper.CreateFunction(funcName, fmt.Sprintf("%v.lambda_handler", funcName),
+	funcState := scenario.functionWrapper.CreateFunction(ctx, funcName, fmt.Sprintf("%v.lambda_handler", funcName),
 		role.Arn, zipPackage)
 	log.Printf("Your function is %v.", funcState)
 	log.Println(strings.Repeat("-", 88))
@@ -208,12 +208,12 @@ func (scenario GetStartedFunctionsScenario) CreateFunction(role *iamtypes.Role) 
 // parameters are contained in a Go struct that is used to serialize the parameters to
 // a JSON payload that is passed to the function.
 // The result payload is deserialized into a Go struct that contains an int value.
-func (scenario GetStartedFunctionsScenario) InvokeIncrement(funcName string) {
+func (scenario GetStartedFunctionsScenario) InvokeIncrement(ctx context.Context, funcName string) {
 	parameters := actions.IncrementParameters{Action: "increment"}
 	log.Println("Let's invoke our function. This function increments a number.")
 	parameters.Number = scenario.questioner.AskInt("Enter a number to increment:", demotools.NotEmpty{})
 	log.Printf("Invoking %v with %v...\n", funcName, parameters.Number)
-	invokeOutput := scenario.functionWrapper.Invoke(funcName, parameters, false)
+	invokeOutput := scenario.functionWrapper.Invoke(ctx, funcName, parameters, false)
 	var payload actions.LambdaResultInt
 	err := json.Unmarshal(invokeOutput.Payload, &payload)
 	if err != nil {
@@ -229,7 +229,7 @@ func (scenario GetStartedFunctionsScenario) InvokeIncrement(funcName string) {
 // []byte in .zip format.
 // After the code is updated, the configuration is also updated with a new log
 // level that instructs the handler to log additional information.
-func (scenario GetStartedFunctionsScenario) UpdateFunction(funcName string) {
+func (scenario GetStartedFunctionsScenario) UpdateFunction(ctx context.Context, funcName string) {
 	log.Println("Let's update the function to an arithmetic calculator.\n" +
 		"The function uses the 'lambda_handler_calculator.py' script found in the \n" +
 		"'handlers' directory of this project.")
@@ -238,11 +238,11 @@ func (scenario GetStartedFunctionsScenario) UpdateFunction(funcName string) {
 	zipPackage := scenario.helper.CreateDeploymentPackage("lambda_handler_calculator.py",
 		fmt.Sprintf("%v.py", funcName))
 	log.Println("...and updating the Lambda function and waiting for it to be ready.")
-	funcState := scenario.functionWrapper.UpdateFunctionCode(funcName, zipPackage)
+	funcState := scenario.functionWrapper.UpdateFunctionCode(ctx, funcName, zipPackage)
 	log.Printf("Updated function %v. Its current state is %v.", funcName, funcState)
 	log.Println("This function uses an environment variable to control logging level.")
 	log.Println("Let's set it to DEBUG to get the most logging.")
-	scenario.functionWrapper.UpdateFunctionConfiguration(funcName,
+	scenario.functionWrapper.UpdateFunctionConfiguration(ctx, funcName,
 		map[string]string{"LOG_LEVEL": "DEBUG"})
 	log.Println(strings.Repeat("-", 88))
 }
@@ -252,7 +252,7 @@ func (scenario GetStartedFunctionsScenario) UpdateFunction(funcName string) {
 // to the function.
 // The result payload is deserialized to a Go struct that stores the result as either an
 // int or float32, depending on the kind of operation that was specified.
-func (scenario GetStartedFunctionsScenario) InvokeCalculator(funcName string) {
+func (scenario GetStartedFunctionsScenario) InvokeCalculator(ctx context.Context, funcName string) {
 	wantInvoke := true
 	choices := []string{"plus", "minus", "times", "divided-by"}
 	for wantInvoke {
@@ -265,7 +265,7 @@ func (scenario GetStartedFunctionsScenario) InvokeCalculator(funcName string) {
 			X:      x,
 			Y:      y,
 		}
-		invokeOutput := scenario.functionWrapper.Invoke(funcName, calcParameters, true)
+		invokeOutput := scenario.functionWrapper.Invoke(ctx, funcName, calcParameters, true)
 		var payload any
 		if choice == 3 { // divide-by results in a float.
 			payload = actions.LambdaResultFloat{}
@@ -291,10 +291,10 @@ func (scenario GetStartedFunctionsScenario) InvokeCalculator(funcName string) {
 }
 
 // ListFunctions lists up to the specified number of functions for your account.
-func (scenario GetStartedFunctionsScenario) ListFunctions() {
+func (scenario GetStartedFunctionsScenario) ListFunctions(ctx context.Context) {
 	count := scenario.questioner.AskInt(
 		"Let's list functions for your account. How many do you want to see?", demotools.NotEmpty{})
-	functions := scenario.functionWrapper.ListFunctions(count)
+	functions := scenario.functionWrapper.ListFunctions(ctx, count)
 	log.Printf("Found %v functions:", len(functions))
 	for _, function := range functions {
 		log.Printf("\t%v", *function.FunctionName)
@@ -303,18 +303,18 @@ func (scenario GetStartedFunctionsScenario) ListFunctions() {
 }
 
 // Cleanup removes the IAM and Lambda resources created by the example.
-func (scenario GetStartedFunctionsScenario) Cleanup(role *iamtypes.Role, funcName string) {
+func (scenario GetStartedFunctionsScenario) Cleanup(ctx context.Context, role *iamtypes.Role, funcName string) {
 	if scenario.questioner.AskBool("Do you want to clean up resources created for this example? (y/n)",
 		"y") {
 		iamClient := iam.NewFromConfig(scenario.sdkConfig)
-		policiesOutput, err := iamClient.ListAttachedRolePolicies(context.TODO(),
+		policiesOutput, err := iamClient.ListAttachedRolePolicies(ctx,
 			&iam.ListAttachedRolePoliciesInput{RoleName: role.RoleName})
 		if err != nil {
 			log.Panicf("Couldn't get policies attached to role %v. Here's why: %v\n",
 				*role.RoleName, err)
 		}
 		for _, policy := range policiesOutput.AttachedPolicies {
-			_, err = iamClient.DetachRolePolicy(context.TODO(), &iam.DetachRolePolicyInput{
+			_, err = iamClient.DetachRolePolicy(ctx, &iam.DetachRolePolicyInput{
 				PolicyArn: policy.PolicyArn, RoleName: role.RoleName,
 			})
 			if err != nil {
@@ -322,13 +322,13 @@ func (scenario GetStartedFunctionsScenario) Cleanup(role *iamtypes.Role, funcNam
 					*policy.PolicyArn, *role.RoleName, err)
 			}
 		}
-		_, err = iamClient.DeleteRole(context.TODO(), &iam.DeleteRoleInput{RoleName: role.RoleName})
+		_, err = iamClient.DeleteRole(ctx, &iam.DeleteRoleInput{RoleName: role.RoleName})
 		if err != nil {
 			log.Panicf("Couldn't delete role %v. Here's why: %v\n", *role.RoleName, err)
 		}
 		log.Printf("Deleted role %v.\n", *role.RoleName)
 
-		scenario.functionWrapper.DeleteFunction(funcName)
+		scenario.functionWrapper.DeleteFunction(ctx, funcName)
 		log.Printf("Deleted function %v.\n", funcName)
 	} else {
 		log.Println("Okay. Don't forget to delete the resources when you're done with them.")

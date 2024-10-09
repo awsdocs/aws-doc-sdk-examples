@@ -8,9 +8,10 @@
 
 // snippet-start:[iam.swift.createservicelinkedrole.example]
 // snippet-start:[iam.swift.createservicelinkedrole.main.imports]
+import ArgumentParser
 import Foundation
 import ServiceHandler
-import ArgumentParser
+
 // snippet-end:[iam.swift.createservicelinkedrole.main.imports]
 
 /// The command line arguments and options available for this
@@ -37,13 +38,13 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[iam.swift.createservicelinkedrole.command.runasync]
     func runAsync() async throws {
-        let serviceHandler = await ServiceHandler()
-
         do {
+            let serviceHandler = try await ServiceHandler()
             // Create the role and output information about it.
             let role = try await serviceHandler.createServiceLinkedRole(
-                    service: servicename, suffix: suffix, description: description)
-            
+                service: servicename, suffix: suffix, description: description
+            )
+
             let roleID = role.roleId ?? "<unknown>"
             let roleARN = role.arn ?? "<unknown>"
             let roleDesc = role.description ?? "<none>"
@@ -62,11 +63,13 @@ struct ExampleCommand: ParsableCommand {
             print("    Created: \(dateFormatter.string(from: roleCreateDate))")
             print("Description: \(roleDesc)")
         } catch {
+            print("ERROR: CreateServiceLinkedRole runAsync:", dump(error))
             throw error
         }
     }
     // snippet-end:[iam.swift.createservicelinkedrole.command.runasync]
 }
+
 // snippet-end:[iam.swift.createservicelinkedrole.command]
 
 //
@@ -84,7 +87,8 @@ struct Main {
         } catch {
             ExampleCommand.exit(withError: error)
         }
-    }    
+    }
 }
+
 // snippet-end:[iam.swift.createservicelinkedrole.main]
 // snippet-end:[iam.swift.createservicelinkedrole.example]

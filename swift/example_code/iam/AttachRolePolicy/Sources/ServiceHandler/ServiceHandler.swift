@@ -31,12 +31,12 @@ public class ServiceHandler {
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[iam.swift.attachrolepolicy.handler.init]
-    public init() async {
+    public init() async throws {
         do {
-            client = try IAMClient(region: "us-east-1")
+            client = try await IAMClient()
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
-            exit(1)
+            throw error
         }
     }
     // snippet-end:[iam.swift.attachrolepolicy.handler.init]
@@ -47,7 +47,7 @@ public class ServiceHandler {
     ///   - role: The name of the role to attach the policy to.
     ///   - policyArn: The ARN of the policy to attach.
     ///
-    // snippet-start:[iam.swift.attachrolepolicy.handler.attachrolepolicy]
+    // snippet-start:[iam.swift.attachrolepolicy.handler.AttachRolePolicy]
     public func attachRolePolicy(role: String, policyArn: String) async throws {
         let input = AttachRolePolicyInput(
             policyArn: policyArn,
@@ -56,9 +56,10 @@ public class ServiceHandler {
         do {
             _ = try await client.attachRolePolicy(input: input)
         } catch {
+            print("ERROR: Attaching a role policy:", dump(error))
             throw error
         }
     }
-    // snippet-end:[iam.swift.attachrolepolicy.handler.attachrolepolicy]
+    // snippet-end:[iam.swift.attachrolepolicy.handler.AttachRolePolicy]
 }
 // snippet-end:[iam.swift.attachrolepolicy.handler]

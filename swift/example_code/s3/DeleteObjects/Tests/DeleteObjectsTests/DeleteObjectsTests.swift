@@ -32,7 +32,7 @@ final class DeleteObjectsTests: XCTestCase {
         super.setUp()
 
         Task() {
-            DeleteObjectsTests.serviceHandler = await ServiceHandler()
+            DeleteObjectsTests.serviceHandler = try await ServiceHandler()
             DeleteObjectsTests.demoCleanup = await S3DemoCleanup()
             tdSem.signal()
         }

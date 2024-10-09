@@ -50,10 +50,10 @@ type GetStartedScenarioTest struct {
 // SetupDataAndStubs sets up test data and builds the stubs that are used to return
 // mocked data.
 func (scenTest *GetStartedScenarioTest) SetupDataAndStubs() []testtools.Stub {
-	bucketName := "test-bucket-1"
+	bucketName := "amzn-s3-demo-bucket-1"
 	objectKey := "doc-example-key"
 	largeKey := "doc-example-large"
-	bucketList := []types.Bucket{{Name: aws.String(bucketName)}, {Name: aws.String("test-bucket-2")}}
+	bucketList := []types.Bucket{{Name: aws.String(bucketName)}, {Name: aws.String("amzn-s3-demo-bucket-2")}}
 	testConfig, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic(err)
@@ -102,7 +102,7 @@ func (scenTest *GetStartedScenarioTest) SetupDataAndStubs() []testtools.Stub {
 // or without errors.
 func (scenTest *GetStartedScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
 	mockQuestioner := demotools.MockQuestioner{Answers: scenTest.Answers}
-	RunGetStartedScenario(*stubber.SdkConfig, &mockQuestioner)
+	RunGetStartedScenario(context.Background(), *stubber.SdkConfig, &mockQuestioner)
 }
 
 // Cleanup deletes the output file created by the download test.

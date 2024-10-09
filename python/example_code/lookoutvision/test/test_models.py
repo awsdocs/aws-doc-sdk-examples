@@ -20,7 +20,7 @@ def test_create_model(make_stubber, error_code):
     project_name = "test-project_name"
     model_version = "test-model"
     model_arn = "test-arn"
-    out_buck = "doc-example-bucket"
+    out_buck = "amzn-s3-demo-bucket"
     out_folder = "test-results"
     training_results = f"s3://{out_buck}/{out_folder}"
     status = "TRAINED"
@@ -59,7 +59,7 @@ def test_describe_model(make_stubber, error_code):
     recall = 0.3
     precision = 0.5
     f1 = 0.7
-    out_buck = "doc-example-bucket"
+    out_buck = "amzn-s3-demo-bucket"
     out_folder = "test-folder"
 
     lookoutvision_stubber.stub_describe_model(

@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 import React, { useRef, useLayoutEffect } from "react";
 import { ColorMap } from "./Utils";
@@ -41,12 +42,12 @@ export const ImageDisplay = (props) => {
           context.beginPath();
           context.moveTo(
             canvas.width * points[0].X,
-            canvas.height * points[0].Y
+            canvas.height * points[0].Y,
           );
           points
             .slice(1)
             .forEach((point) =>
-              context.lineTo(canvas.width * point.X, canvas.height * point.Y)
+              context.lineTo(canvas.width * point.X, canvas.height * point.Y),
             );
           context.closePath();
           context.stroke();

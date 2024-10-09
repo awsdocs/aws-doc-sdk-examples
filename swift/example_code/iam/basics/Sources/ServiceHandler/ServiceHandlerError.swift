@@ -1,15 +1,15 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 /*
-   An enum encapsulating errors returned by service handler functions.
-   */
+ An enum encapsulating errors returned by service handler functions.
+ */
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[iam.swift.basics.enum.service-error]
 public enum ServiceHandlerError: Error {
-    case noSuchUser            /// No matching user found, or unable to create the user.
+    case noSuchUser /// No matching user found, or unable to create the user.
     case keyError
     case authError
     case noSuchRole
@@ -19,4 +19,5 @@ public enum ServiceHandlerError: Error {
     case arnMismatch
     case invalidArn
 }
+
 // snippet-end:[iam.swift.basics.enum.service-error]

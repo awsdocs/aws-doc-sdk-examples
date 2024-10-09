@@ -1,8 +1,8 @@
 # zexi 0.4.0
 kms_Hello:
-  title: Hello &kms-key;
-  title_abbrev: Hello &kms-key;
-  synopsis: get started using &kms-key;.
+  title: Hello &KMSlong;
+  title_abbrev: Hello &KMS;
+  synopsis: get started using &KMSlong;.
   category: Hello
   languages:
     Java:
@@ -14,8 +14,17 @@ kms_Hello:
             - description:
               snippet_tags:
                 - kms.java2_list_keys.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.basics.helloService
   services:
-    kms: {listKeysPaginator}
+    kms: {ListKeys}
 kms_TagResource:
   languages:
     Java:
@@ -36,6 +45,15 @@ kms_TagResource:
               snippet_tags:
                 - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.TagResource
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.tagResource
   services:
     kms: {TagResource}
 kms_Sign:
@@ -58,6 +76,15 @@ kms_Sign:
               snippet_tags:
                 - python.example_code.kms.KeyEncrypt.decl
                 - python.example_code.kms.Sign
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.sign
   services:
     kms: {Sign}
 kms_Verify:
@@ -93,6 +120,15 @@ kms_CreateKey:
             - description:
               snippet_tags:
                 - kms.java2_create_key.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.createKey
     Python:
       versions:
         - sdk_version: 3
@@ -149,6 +185,15 @@ kms_Decrypt:
             - description:
               snippet_tags:
                 - kms.java2_decrypt_data.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.decrypt
     Python:
       versions:
         - sdk_version: 3
@@ -196,6 +241,15 @@ kms_Encrypt:
             - description:
               snippet_tags:
                 - kms.java2_encrypt_data.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.encrypt
     Python:
       versions:
         - sdk_version: 3
@@ -297,6 +351,15 @@ kms_ListKeys:
             - description:
               snippet_tags:
                 - KMS.dotnetv3.ListKeysExample
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.listKeys
     Python:
       versions:
         - sdk_version: 3
@@ -374,6 +437,15 @@ kms_CreateAlias:
             - description:
               snippet_tags:
                 - kms.dotnetv3.CreateAliasExample
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.createAlias
     Python:
       versions:
         - sdk_version: 3
@@ -414,6 +486,15 @@ kms_CreateGrant:
             - description:
               snippet_tags:
                 - KMS.dotnetv3.CreateGrantExample
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.createGrant
     Python:
       versions:
         - sdk_version: 3
@@ -454,6 +535,15 @@ kms_DescribeKey:
             - description:
               snippet_tags:
                 - KMS.dotnetv3.DescribeKeyExample
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.describeKey
     Python:
       versions:
         - sdk_version: 3
@@ -494,6 +584,15 @@ kms_DisableKey:
             - description:
               snippet_tags:
                 - KMS.dotnetv3.DisableKeyExample
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.disableKey
     Python:
       versions:
         - sdk_version: 3
@@ -534,6 +633,15 @@ kms_EnableKey:
             - description:
               snippet_tags:
                 - KMS.dotnetv3.EnableKeyExample
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.enableKey
     Python:
       versions:
         - sdk_version: 3
@@ -556,6 +664,15 @@ kms_ScheduleKeyDeletion:
             - description:
               snippet_tags:
                 - kms.java2_delete_key.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.scheduleKeyDeletion
     Python:
       versions:
         - sdk_version: 3
@@ -597,6 +714,15 @@ kms_ListAliases:
             - description:
               snippet_tags:
                 - KMS.dotnetv3.ListAliasesExample
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.listAliases
     Python:
       versions:
         - sdk_version: 3
@@ -633,6 +759,15 @@ kms_DeleteAlias:
             - description:
               snippet_tags:
                 - kms.java2_delete_alias.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.deleteAlias
     Python:
       versions:
         - sdk_version: 3
@@ -674,6 +809,15 @@ kms_ListGrants:
             - description:
               snippet_tags:
                 - KMS.dotnetv3.ListGrantsExample
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.listGrants
     Python:
       versions:
         - sdk_version: 3
@@ -710,6 +854,15 @@ kms_RevokeGrant:
             - description:
               snippet_tags:
                 - kms.java2_revoke_grant.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.revokeGrant
     Python:
       versions:
         - sdk_version: 3
@@ -761,6 +914,15 @@ kms_GetKeyPolicy:
     kms: {GetKeyPolicy}
 kms_PutKeyPolicy:
   languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.service.putKeyPolicy
     Python:
       versions:
         - sdk_version: 3
@@ -856,6 +1018,15 @@ kms_Scenario_Basics:
                 - python.example_code.kms.KeyPolicy.decl
                 - python.example_code.kms.set_new_policy
                 - python.example_code.kms.GetKeyPolicy
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/kms
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.kms.Basics
+                - php.example_code.kms.service.KmsService
   services:
-    kms: {CreateKey, ListKeys, DescribeKey, GenerateDataKey, EnableKey, Sign, DisableKey, ScheduleKeyDeletion}
-    
+    kms: {CreateKey, Decrypt, Encrypt, ListAliases, CreateAlias, CreateGrant, DescribeKey, DisableKey, EnableKey, ListKeys, ListGrants, GetKeyPolicy, RevokeGrant, ListGrants, ScheduleKeyDeletion, TagResource, Sign}

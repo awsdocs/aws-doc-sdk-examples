@@ -18,7 +18,7 @@ namespace AbortMPUExample
     {
         public static async Task Main()
         {
-            string bucketName = "doc-example-bucket";
+            string bucketName = "amzn-s3-demo-bucket";
 
             // If the AWS Region defined for your default user is different
             // from the Region where your Amazon S3 bucket is located,

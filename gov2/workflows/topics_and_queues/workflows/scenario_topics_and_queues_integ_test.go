@@ -36,7 +36,8 @@ func TestRunTopicsAndQueuesScenario_Integration(t *testing.T) {
 		},
 	}
 
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)
 	}
@@ -45,7 +46,7 @@ func TestRunTopicsAndQueuesScenario_Integration(t *testing.T) {
 	var buf bytes.Buffer
 	log.SetOutput(&buf)
 
-	RunTopicsAndQueuesScenario(sdkConfig, mockQuestioner)
+	RunTopicsAndQueuesScenario(ctx, sdkConfig, mockQuestioner)
 
 	log.SetOutput(os.Stderr)
 	if !strings.Contains(buf.String(), "Thanks for watching") {

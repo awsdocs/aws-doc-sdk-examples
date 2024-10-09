@@ -6,6 +6,7 @@
 package actions
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"reflect"
@@ -20,10 +21,11 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
 )
 
-func enterTest() (*testtools.AwsmStubber, *TableBasics) {
+func enterTest() (context.Context, *testtools.AwsmStubber, *TableBasics) {
+	ctx := context.Background()
 	stubber := testtools.NewStubber()
 	basics := &TableBasics{TableName: "test-table", DynamoDbClient: dynamodb.NewFromConfig(*stubber.SdkConfig)}
-	return stubber, basics
+	return ctx, stubber, basics
 }
 
 func TestTableBasics_TableExists(t *testing.T) {
@@ -37,10 +39,10 @@ func TestTableBasics_TableExists(t *testing.T) {
 }
 
 func TableExists(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, basics := enterTest()
+	ctx, stubber, basics := enterTest()
 	stubber.Add(stubs.StubDescribeTable(basics.TableName, raiseErr))
 
-	exists, err := basics.TableExists()
+	exists, err := basics.TableExists(ctx)
 
 	testtools.VerifyError(err, raiseErr, t, &types.ResourceNotFoundException{})
 	var nfEx *types.ResourceNotFoundException
@@ -59,11 +61,11 @@ func TestTableBasics_CreateMovieTable(t *testing.T) {
 }
 
 func CreateMovieTable(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, basics := enterTest()
+	ctx, stubber, basics := enterTest()
 	stubber.Add(stubs.StubCreateTable(basics.TableName, raiseErr))
 	stubber.Add(stubs.StubDescribeTable(basics.TableName, raiseErr))
 
-	tableDesc, err := basics.CreateMovieTable()
+	tableDesc, err := basics.CreateMovieTable(ctx)
 
 	testtools.VerifyError(err, raiseErr, t)
 	if raiseErr == nil {
@@ -81,7 +83,7 @@ func TestTableBasics_AddMovie(t *testing.T) {
 }
 
 func AddMovie(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, basics := enterTest()
+	ctx, stubber, basics := enterTest()
 
 	movie := Movie{Title: "Test movie", Year: 2001}
 	item, marshErr := attributevalue.MarshalMap(movie)
@@ -91,7 +93,7 @@ func AddMovie(raiseErr *testtools.StubError, t *testing.T) {
 
 	stubber.Add(stubs.StubAddMovie(basics.TableName, item, raiseErr))
 
-	err := basics.AddMovie(movie)
+	err := basics.AddMovie(ctx, movie)
 
 	testtools.VerifyError(err, raiseErr, t)
 	testtools.ExitTest(stubber, t)
@@ -103,7 +105,7 @@ func TestTableBasics_UpdateMovie(t *testing.T) {
 }
 
 func UpdateMovie(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, basics := enterTest()
+	ctx, stubber, basics := enterTest()
 
 	ratingS := "3.5"
 	plot := "Test plot."
@@ -115,7 +117,7 @@ func UpdateMovie(raiseErr *testtools.StubError, t *testing.T) {
 
 	stubber.Add(stubs.StubUpdateMovie(basics.TableName, movie.GetKey(), ratingS, plot, raiseErr))
 
-	attribs, err := basics.UpdateMovie(movie)
+	attribs, err := basics.UpdateMovie(ctx, movie)
 
 	testtools.VerifyError(err, raiseErr, t)
 	if raiseErr == nil {
@@ -134,7 +136,7 @@ func TestTableBasics_AddMovieBatch(t *testing.T) {
 }
 
 func AddMovieBatch(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, basics := enterTest()
+	ctx, stubber, basics := enterTest()
 
 	var testData []Movie
 	var inputRequests []types.WriteRequest
@@ -158,7 +160,7 @@ func AddMovieBatch(raiseErr *testtools.StubError, t *testing.T) {
 	stubber.Add(stubs.StubAddMovieBatch(basics.TableName, inputRequests[0:25], raiseErr))
 	stubber.Add(stubs.StubAddMovieBatch(basics.TableName, inputRequests[25:30], raiseErr))
 
-	count, err := basics.AddMovieBatch(testData, 200)
+	count, err := basics.AddMovieBatch(ctx, testData, 200)
 
 	testtools.VerifyError(err, raiseErr, t)
 	if raiseErr == nil {
@@ -175,7 +177,7 @@ func TestTableBasics_GetMovie(t *testing.T) {
 }
 
 func GetMovie(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, basics := enterTest()
+	ctx, stubber, basics := enterTest()
 
 	rating := 3.5
 	ratingS := "3.5"
@@ -185,7 +187,7 @@ func GetMovie(raiseErr *testtools.StubError, t *testing.T) {
 	stubber.Add(stubs.StubGetMovie(basics.TableName, movie.GetKey(), movie.Title, strconv.Itoa(movie.Year),
 		ratingS, plot, raiseErr))
 
-	gotMovie, err := basics.GetMovie(movie.Title, movie.Year)
+	gotMovie, err := basics.GetMovie(ctx, movie.Title, movie.Year)
 
 	testtools.VerifyError(err, raiseErr, t)
 	if err == nil {
@@ -203,7 +205,7 @@ func TestTableBasics_Query(t *testing.T) {
 }
 
 func Query(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, basics := enterTest()
+	ctx, stubber, basics := enterTest()
 
 	title := "Test movie"
 	year := 2001
@@ -211,7 +213,7 @@ func Query(raiseErr *testtools.StubError, t *testing.T) {
 
 	stubber.Add(stubs.StubQuery(basics.TableName, title, yearS, raiseErr))
 
-	movies, err := basics.Query(year)
+	movies, err := basics.Query(ctx, year)
 
 	testtools.VerifyError(err, raiseErr, t)
 	if err == nil {
@@ -231,7 +233,7 @@ func TestTableBasics_Scan(t *testing.T) {
 }
 
 func Scan(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, basics := enterTest()
+	ctx, stubber, basics := enterTest()
 
 	title := "Test movie"
 	startYear := 2001
@@ -241,7 +243,7 @@ func Scan(raiseErr *testtools.StubError, t *testing.T) {
 
 	stubber.Add(stubs.StubScan(basics.TableName, title, startYearS, endYearS, raiseErr))
 
-	movies, err := basics.Scan(startYear, endYear)
+	movies, err := basics.Scan(ctx, startYear, endYear)
 
 	testtools.VerifyError(err, raiseErr, t)
 	if err == nil {
@@ -261,13 +263,13 @@ func TestTableBasics_DeleteMovie(t *testing.T) {
 }
 
 func DeleteMovie(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, basics := enterTest()
+	ctx, stubber, basics := enterTest()
 
 	movie := Movie{Title: "Test title", Year: 2001}
 
 	stubber.Add(stubs.StubDeleteItem(basics.TableName, movie.GetKey(), raiseErr))
 
-	err := basics.DeleteMovie(movie)
+	err := basics.DeleteMovie(ctx, movie)
 
 	testtools.VerifyError(err, raiseErr, t)
 	testtools.ExitTest(stubber, t)
@@ -279,11 +281,11 @@ func TestTableBasics_DeleteTable(t *testing.T) {
 }
 
 func DeleteTable(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, basics := enterTest()
+	ctx, stubber, basics := enterTest()
 
 	stubber.Add(stubs.StubDeleteTable(basics.TableName, raiseErr))
 
-	err := basics.DeleteTable()
+	err := basics.DeleteTable(ctx)
 
 	testtools.VerifyError(err, raiseErr, t)
 	testtools.ExitTest(stubber, t)
@@ -295,13 +297,13 @@ func TestTableBasics_ListTables(t *testing.T) {
 }
 
 func ListTables(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, basics := enterTest()
+	ctx, stubber, basics := enterTest()
 
 	tableNames := []string{"Table 1", "Table 2", "Table 3"}
 
 	stubber.Add(stubs.StubListTables(tableNames, raiseErr))
 
-	tables, err := basics.ListTables()
+	tables, err := basics.ListTables(ctx)
 
 	testtools.VerifyError(err, raiseErr, t)
 	if err == nil {

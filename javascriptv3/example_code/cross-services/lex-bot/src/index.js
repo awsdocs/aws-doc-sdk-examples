@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 /*
 ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
@@ -85,11 +86,11 @@ const createResponse = async () => {
     };
     try {
       const data = await comprehendClient.send(
-        new DetectDominantLanguageCommand(comprehendParams)
+        new DetectDominantLanguageCommand(comprehendParams),
       );
       console.log(
         "Success. The language code is: ",
-        data.Languages[0].LanguageCode
+        data.Languages[0].LanguageCode,
       );
       const translateParams = {
         SourceLanguageCode: data.Languages[0].LanguageCode,
@@ -98,7 +99,7 @@ const createResponse = async () => {
       };
       try {
         const data = await translateClient.send(
-          new TranslateTextCommand(translateParams)
+          new TranslateTextCommand(translateParams),
         );
         console.log("Success. Translated text: ", data.TranslatedText);
         const lexParams = {

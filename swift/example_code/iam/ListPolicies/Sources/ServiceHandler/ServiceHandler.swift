@@ -2,15 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
-   A class containing functions that interact with AWS services.
-*/
+ A class containing functions that interact with AWS services.
+ */
 
 // snippet-start:[iam.swift.listpolicies.handler]
 // snippet-start:[iam.swift.listpolicies.handler.imports]
-import Foundation
+import AWSClientRuntime
 import AWSIAM
 import ClientRuntime
-import AWSClientRuntime
+import Foundation
+
 // snippet-end:[iam.swift.listpolicies.handler.imports]
 
 /// Errors returned by `ServiceHandler` functions.
@@ -31,12 +32,12 @@ public class ServiceHandler {
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[iam.swift.listpolicies.handler.init]
-    public init() async {
+    public init() async throws {
         do {
-            client = try IAMClient(region: "us-east-1")
+            client = try await IAMClient()
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
-            exit(1)
+            throw error
         }
     }
     // snippet-end:[iam.swift.listpolicies.handler.init]
@@ -45,33 +46,40 @@ public class ServiceHandler {
     /// (IAM) policy names.
     ///
     /// - Returns: An array of user records.
-    // snippet-start:[iam.swift.listpolicies.handler.listpolicies]
+    // snippet-start:[iam.swift.listpolicies.handler.ListPolicies]
     public func listPolicies() async throws -> [MyPolicyRecord] {
         var policyList: [MyPolicyRecord] = []
-        var marker: String? = nil
-        var isTruncated: Bool
-        
-        repeat {
-            let input = ListPoliciesInput(marker: marker)
-            let output = try await client.listPolicies(input: input)
-            
-            guard let policies = output.policies else {
-                return policyList
-            }
 
-            for policy in policies {
-                guard   let name = policy.policyName,
-                        let id = policy.policyId,
-                        let arn = policy.arn else {
-                    throw ServiceHandlerError.noSuchPolicy
+        // Use "Paginated" to get all the policies.
+        // This lets the SDK handle the 'isTruncated' in "ListPoliciesOutput".
+        let input = ListPoliciesInput()
+        let output = client.listPoliciesPaginated(input: input)
+
+        do {
+            for try await page in output {
+                guard let policies = page.policies else {
+                    print("Error: no policies returned.")
+                    continue
                 }
-                policyList.append(MyPolicyRecord(name: name, id: id, arn: arn))
+
+                for policy in policies {
+                    guard let name = policy.policyName,
+                          let id = policy.policyId,
+                          let arn = policy.arn
+                    else {
+                        throw ServiceHandlerError.noSuchPolicy
+                    }
+                    policyList.append(MyPolicyRecord(name: name, id: id, arn: arn))
+                }
             }
-            marker = output.marker
-            isTruncated = output.isTruncated
-        } while isTruncated == true
+        } catch {
+            print("ERROR: listPolicies:", dump(error))
+            throw error
+        }
+
         return policyList
     }
-    // snippet-end:[iam.swift.listpolicies.handler.listpolicies]
+    // snippet-end:[iam.swift.listpolicies.handler.ListPolicies]
 }
+
 // snippet-end:[iam.swift.listpolicies.handler]

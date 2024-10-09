@@ -47,12 +47,12 @@ namespace AwsDocTest {
         "AWS": "arn:aws:iam::111111222222:user/UnitTester"
       },
       "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::doc-example-bucket/*"
+      "Resource": "arn:aws:s3:::amzn-s3-demo-bucket/*"
     }
   ]
 })";
 
-        result = AwsDoc::S3::putBucketPolicy("doc-example-bucket", policyString, *s_clientConfig);
+        result = AwsDoc::S3::putBucketPolicy("amzn-s3-demo-bucket", policyString, *s_clientConfig);
         ASSERT_TRUE(result);
     }
 } // namespace AwsDocTest

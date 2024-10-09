@@ -5,11 +5,13 @@ package com.example.s3;
 
 // snippet-start:[presigned.java2.getobjectpresigned.main]
 // snippet-start:[presigned.java2.getobjectpresigned.import]
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.time.Duration;
+
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
@@ -22,22 +24,22 @@ import software.amazon.awssdk.utils.IoUtils;
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetObjectPresignedUrl {
     public static void main(String[] args) {
         final String USAGE = """
 
-                Usage:
-                    <bucketName> <keyName>\s
+            Usage:
+                <bucketName> <keyName>\s
 
-                Where:
-                    bucketName - The Amazon S3 bucket name.\s
-                    keyName - A key name that represents a text file.\s
-                """;
+            Where:
+                bucketName - The Amazon S3 bucket name.\s
+                keyName - A key name that represents a text file.\s
+            """;
 
         if (args.length != 2) {
             System.out.println(USAGE);
@@ -48,24 +50,34 @@ public class GetObjectPresignedUrl {
         String keyName = args[1];
         Region region = Region.US_EAST_1;
         S3Presigner presigner = S3Presigner.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         getPresignedUrl(presigner, bucketName, keyName);
         presigner.close();
     }
 
+    /**
+     * Generates a pre-signed URL for an Amazon S3 object.
+     *
+     * @param presigner The {@link S3Presigner} instance to use for generating the pre-signed URL.
+     * @param bucketName The name of the Amazon S3 bucket where the object is stored.
+     * @param keyName The key name (file name) of the object in the Amazon S3 bucket.
+     *
+     * @throws S3Exception If there is an error interacting with the Amazon S3 service.
+     * @throws IOException If there is an error opening the HTTP connection or reading/writing the request/response.
+     */
     public static void getPresignedUrl(S3Presigner presigner, String bucketName, String keyName) {
         try {
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(keyName)
-                    .build();
+                .bucket(bucketName)
+                .key(keyName)
+                .build();
 
             GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(60))
-                    .getObjectRequest(getObjectRequest)
-                    .build();
+                .signatureDuration(Duration.ofMinutes(60))
+                .getObjectRequest(getObjectRequest)
+                .build();
 
             PresignedGetObjectRequest presignedGetObjectRequest = presigner.presignGetObject(getObjectPresignRequest);
             String theUrl = presignedGetObjectRequest.url().toString();
@@ -83,7 +95,7 @@ public class GetObjectPresignedUrl {
                 connection.setDoOutput(true);
 
                 try (InputStream signedPayload = presignedGetObjectRequest.signedPayload().get().asInputStream();
-                        OutputStream httpOutputStream = connection.getOutputStream()) {
+                     OutputStream httpOutputStream = connection.getOutputStream()) {
                     IoUtils.copy(signedPayload, httpOutputStream);
                 }
             }

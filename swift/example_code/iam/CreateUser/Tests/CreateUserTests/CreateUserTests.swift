@@ -31,7 +31,7 @@ final class CreateUserTests: XCTestCase {
         super.setUp()
 
         Task() {
-            CreateUserTests.serviceHandler = await ServiceHandler()
+            CreateUserTests.serviceHandler = try await ServiceHandler()
             tdSem.signal()
         }
         tdSem.wait()

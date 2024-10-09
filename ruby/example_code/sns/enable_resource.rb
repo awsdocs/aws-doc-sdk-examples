@@ -1,7 +1,7 @@
 ﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-sns"
-require "logger"
+require 'aws-sdk-sns'
+require 'logger'
 
 # snippet-start:[sns.Ruby.enableResource]
 # Service class to enable an SNS resource with a specified policy
@@ -41,29 +41,29 @@ class SnsResourceEnabler
   # @return [String] The policy as a JSON string
   def generate_policy(topic_arn, resource_arn)
     {
-      Version: "2008-10-17",
-      Id: "__default_policy_ID",
+      Version: '2008-10-17',
+      Id: '__default_policy_ID',
       Statement: [{
-                    Sid: "__default_statement_ID",
-                    Effect: "Allow",
-                    Principal: { "AWS": "*" },
-                    Action: ["SNS:Publish"],
-                    Resource: topic_arn,
-                    Condition: {
-                      ArnEquals: {
-                        "AWS:SourceArn": resource_arn
-                      }
-                    }
-                  }]
+        Sid: '__default_statement_ID',
+        Effect: 'Allow',
+        Principal: { "AWS": '*' },
+        Action: ['SNS:Publish'],
+        Resource: topic_arn,
+        Condition: {
+          ArnEquals: {
+            "AWS:SourceArn": resource_arn
+          }
+        }
+      }]
     }.to_json
   end
 end
 
 # Example usage:
 if $PROGRAM_NAME == __FILE__
-  topic_arn = "MY_TOPIC_ARN"     # Should be replaced with a real topic ARN
-  resource_arn = "MY_RESOURCE_ARN" # Should be replaced with a real resource ARN
-  policy_name = "POLICY_NAME"    # Typically, this is "Policy"
+  topic_arn = 'MY_TOPIC_ARN' # Should be replaced with a real topic ARN
+  resource_arn = 'MY_RESOURCE_ARN' # Should be replaced with a real resource ARN
+  policy_name = 'POLICY_NAME' # Typically, this is "Policy"
 
   sns_resource = Aws::SNS::Resource.new
   enabler = SnsResourceEnabler.new(sns_resource)

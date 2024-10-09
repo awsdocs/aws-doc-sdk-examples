@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello KMS key](src/main/java/com/example/kms/HelloKMS.java#L6) (`listKeysPaginator`)
+- [Hello AWS KMS](src/main/java/com/example/kms/HelloKMS.java#L6) (`ListKeys`)
 
 
 ### Basics
@@ -75,9 +75,9 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello KMS key
+#### Hello AWS KMS
 
-This example shows you how to get started using KMS key.
+This example shows you how to get started using AWS Key Management Service (AWS KMS).
 
 
 #### Learn the basics

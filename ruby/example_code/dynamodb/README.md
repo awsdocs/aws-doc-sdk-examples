@@ -45,18 +45,18 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchExecuteStatement](partiql/partiql_batch.rb#L25)
-- [BatchWriteItem](scaffold.rb#L83)
-- [CreateTable](scaffold.rb#L56)
-- [DeleteItem](basics/dynamodb_basics.rb#L127)
-- [DeleteTable](scaffold.rb#L109)
-- [DescribeTable](scaffold.rb#L37)
-- [ExecuteStatement](partiql/partiql_single.rb#L25)
+- [BatchExecuteStatement](partiql/partiql_batch.rb#L22)
+- [BatchWriteItem](scaffold.rb#L81)
+- [CreateTable](scaffold.rb#L53)
+- [DeleteItem](basics/dynamodb_basics.rb#L129)
+- [DeleteTable](scaffold.rb#L108)
+- [DescribeTable](scaffold.rb#L34)
+- [ExecuteStatement](partiql/partiql_single.rb#L22)
 - [GetItem](basics/dynamodb_basics.rb#L40)
-- [ListTables](scaffold.rb#L37)
-- [PutItem](basics/dynamodb_basics.rb#L23)
+- [ListTables](scaffold.rb#L34)
+- [PutItem](basics/dynamodb_basics.rb#L21)
 - [Query](basics/dynamodb_basics.rb#L75)
-- [Scan](basics/dynamodb_basics.rb#L94)
+- [Scan](basics/dynamodb_basics.rb#L95)
 - [UpdateItem](basics/dynamodb_basics.rb#L55)
 
 ### Scenarios

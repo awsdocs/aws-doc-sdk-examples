@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 /*
 ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
@@ -15,12 +16,10 @@ Inputs (replace in code):
 */
 // snippet-start:[dynamodb.JavaScript.apigateway.createclientv3]
 
-const { DynamoDBClient } = require ( "@aws-sdk/client-dynamodb" );
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 // Create an Amazon DynamoDB service client object.
 const dynamoClient = new DynamoDBClient({ region: REGION });
 module.exports = { dynamoClient };
 // snippet-end:[dynamodb.JavaScript.apigateway.createclientv3]
-
-

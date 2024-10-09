@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-elasticbeanstalk"
-require "logger"
+require 'aws-sdk-elasticbeanstalk'
+require 'logger'
 
 # snippet-start:[eb.Ruby.listApps]
 # Class to manage Elastic Beanstalk applications

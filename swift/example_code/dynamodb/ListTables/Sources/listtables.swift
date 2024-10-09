@@ -7,14 +7,14 @@
 /// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[ddb.swift.listtables]
-import Foundation
 import ArgumentParser
 import AWSDynamoDB
 import ClientRuntime
+import Foundation
 
 struct ExampleCommand: ParsableCommand {
     @Option(help: "The AWS Region to run AWS API calls in.")
-    var awsRegion = "us-east-2"
+    var awsRegion: String?
 
     @Option(
         help: ArgumentHelp("The level of logging for the Swift SDK to perform."),
@@ -45,7 +45,7 @@ struct ExampleCommand: ParsableCommand {
 
     /// Called by ``main()`` to asynchronously run the AWS example.
     func runAsync() async throws {
-        let session = try DynamoDBSession(region: awsRegion)
+        let session = try await DynamoDBSession(region: awsRegion)
         let dbManager = DatabaseManager(session: session)
 
         let tableList = try await dbManager.getTableList()
@@ -72,4 +72,5 @@ struct Main {
         }
     }
 }
+
 // snippet-end:[ddb.swift.listtables]

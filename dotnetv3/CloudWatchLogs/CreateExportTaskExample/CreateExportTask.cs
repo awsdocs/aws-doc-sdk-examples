@@ -25,7 +25,7 @@ namespace CreateExportTaskExample
             var client = new AmazonCloudWatchLogsClient();
             string taskName = "export-task-example";
             string logGroupName = "cloudwatchlogs-example-loggroup";
-            string destination = "doc-example-bucket";
+            string destination = "amzn-s3-demo-bucket";
             var fromTime = 1437584472382;
             var toTime = 1437584472833;
 

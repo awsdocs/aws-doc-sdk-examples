@@ -36,7 +36,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Systems Manager](hello.py#L4) (`listThings`)
+- [Hello Systems Manager](hello.py#L4) (`ListDocuments`)
 
 
 ### Basics

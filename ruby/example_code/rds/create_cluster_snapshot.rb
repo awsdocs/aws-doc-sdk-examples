@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # snippet-start:[rds.ruby.createClusterSnapshot]
-require "aws-sdk-rds"  # v2: require 'aws-sdk'
+require 'aws-sdk-rds' # v2: require 'aws-sdk'
 
 # Create a snapshot of an Amazon Relational Database Service (Amazon RDS)
 # Multi-AZ DB cluster.
@@ -21,7 +21,7 @@ rescue Aws::Errors::ServiceError => e
 end
 # snippet-end:[rds.ruby.createClusterSnapshot]
 
-if __FILE__ == $0
+if __FILE__ == $PROGRAM_NAME
   rds_resource = Aws::RDS::Resource.new
   multi_az_db_cluster_name = "rds-#{rand(10**4)}-cluster"
   create_cluster_snapshot(rds_resource, multi_az_db_cluster_name)

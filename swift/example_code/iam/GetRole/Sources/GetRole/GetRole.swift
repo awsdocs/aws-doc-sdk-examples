@@ -31,9 +31,8 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[iam.swift.getrole.command.runasync]
     func runAsync() async throws {
-        let serviceHandler = await ServiceHandler()
-
         do {
+            let serviceHandler = try await ServiceHandler()
             let role = try await serviceHandler.getRole(name: rolename)
             
             guard   let roleName = role.roleName,
@@ -73,6 +72,7 @@ struct ExampleCommand: ParsableCommand {
                 print("---------------------------")
             }
         } catch {
+            print("ERROR: GetRole runAsync:", dump(error))
             throw error
         }
     }

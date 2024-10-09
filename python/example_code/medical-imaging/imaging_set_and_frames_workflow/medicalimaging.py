@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 class MedicalImagingWrapper:
-    """Encapsulates Amazon HealthImaging functionality."""
+    """Encapsulates AWS HealthImaging functionality."""
 
     def __init__(self, medical_imaging_client, s3_client):
         """

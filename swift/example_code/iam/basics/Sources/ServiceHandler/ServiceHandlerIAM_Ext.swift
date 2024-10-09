@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
-   Extensions to the `ServiceHandlerIAM` class to handle tasks needed
-   for testing that aren't the purpose of this example.
-*/
+ Extensions to the `ServiceHandlerIAM` class to handle tasks needed
+ for testing that aren't the purpose of this example.
+ */
 
-import Foundation
 import AWSIAM
 import ClientRuntime
+import Foundation
 import SwiftUtilities
 
 public extension ServiceHandlerIAM {
@@ -25,6 +25,7 @@ public extension ServiceHandlerIAM {
             }
             return id
         } catch {
+            print("ERROR: getUserID:", dump(error))
             throw error
         }
     }
@@ -44,6 +45,7 @@ public extension ServiceHandlerIAM {
             }
             return role
         } catch {
+            print("ERROR: getRole:", dump(error))
             throw error
         }
     }
@@ -61,6 +63,7 @@ public extension ServiceHandlerIAM {
             }
             return id
         } catch {
+            print("ERROR: getRoleID:", dump(error))
             throw error
         }
     }
@@ -81,6 +84,7 @@ public extension ServiceHandlerIAM {
             }
             return policy
         } catch {
+            print("ERROR: getPolicy:", dump(error))
             throw error
         }
     }
@@ -101,7 +105,7 @@ public extension ServiceHandlerIAM {
     }
 
     /// Get the policy document with a particular name for a given role.
-    /// 
+    ///
     /// - Parameters:
     ///   - policyName: The name of the policy to get the policy document for.
     ///   - roleName: The name of the role the policy is part of.
@@ -118,31 +122,44 @@ public extension ServiceHandlerIAM {
             }
             return policyDocument
         } catch {
+            print("ERROR: getPgetRolePolicyDocumentolicy:", dump(error))
             throw error
         }
     }
 
     /// Return a list of the policies attached to a role, as an array of
     /// `IAMClientTypes.AttachedPolicy` objects.
-    /// 
+    ///
     /// - Parameter role: The role for which to return the attached policies.
     /// - Returns: An array of `IAMClientTypes.AttachedPolicy` objects giving
     ///   the names and ARNs of the policies attached to the role.
-    func getAttachedPolicies(forRole role:IAMClientTypes.Role) async throws
-            -> [IAMClientTypes.AttachedPolicy] {
+    func getAttachedPolicies(forRole role: IAMClientTypes.Role) async throws
+        -> [IAMClientTypes.AttachedPolicy]
+    {
+        var policyList: [IAMClientTypes.AttachedPolicy] = []
 
+        // Use "Paginated" to get all the objects.
+        // This lets the SDK handle the 'isTruncated' in "ListAttachedRolePoliciesOutput".
         let input = ListAttachedRolePoliciesInput(
             roleName: role.roleName
         )
-        do {
-            let output = try await iamClient.listAttachedRolePolicies(input: input)
+        let output = iamClient.listAttachedRolePoliciesPaginated(input: input)
 
-            guard let attachedPolicies = output.attachedPolicies else {
-                return []
+        do {
+            for try await page in output {
+                guard let attachedPolicies = page.attachedPolicies else {
+                    print("Error: no attached policies returned.")
+                    continue
+                }
+                for attachedPolicy in attachedPolicies {
+                    policyList.append(attachedPolicy)
+                }
             }
-            return attachedPolicies
         } catch {
+            print("ERROR: listAttachedRolePolicies:", dump(error))
             throw error
         }
+
+        return policyList
     }
 }

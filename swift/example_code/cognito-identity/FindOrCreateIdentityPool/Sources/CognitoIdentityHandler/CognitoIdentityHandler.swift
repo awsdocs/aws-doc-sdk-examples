@@ -2,10 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[cognitoidentity.swift.handler-imports]
-import Foundation
 import ClientRuntime
+import Foundation
+
 // snippet-start:[cognitoidentity.swift.import]
 import AWSCognitoIdentity
+
 // snippet-end:[cognitoidentity.swift.import]
 // snippet-end:[cognitoidentity.swift.handler-imports]
 
@@ -22,6 +24,7 @@ public class CognitoIdentityHandler {
     public init() async throws {
         cognitoIdentityClient = try await CognitoIdentityClient()
     }
+
     // snippet-end:[cognitoidentity.swift.init]
     
     // snippet-start:[cognitoidentity.swift.get-pool-id]
@@ -34,44 +37,39 @@ public class CognitoIdentityHandler {
     ///   or `nil` on error or if not found.
     ///
     func getIdentityPoolID(name: String) async throws -> String? {
-        var token: String? = nil
-        
-        // Iterate over the identity pools until a match is found.
+        let listPoolsInput = ListIdentityPoolsInput(maxResults: 25)
+        // Use "Paginated" to get all the objects.
+        // This lets the SDK handle the 'nextToken' field in "ListIdentityPoolsOutput".
+        let pages = cognitoIdentityClient.listIdentityPoolsPaginated(input: listPoolsInput)
 
-        repeat {
-            /// `token` is a value returned by `ListIdentityPools()` if the
-            /// returned list of identity pools is only a partial list. You
-            /// use the `token` to tell Amazon Cognito that you want to
-            /// continue where you left off previously. If you specify `nil`
-            /// or you don't provide the token, Amazon Cognito will start at
-            /// the beginning.
-            
-            let listPoolsInput = ListIdentityPoolsInput(maxResults: 25, nextToken: token)
-            
-            /// Read pages of identity pools from Cognito until one is found
-            /// whose name matches the one specified in the `name` parameter.
-            /// Return the matching pool's ID. Each time we ask for the next
-            /// page of identity pools, we pass in the token given by the
-            /// previous page.
-            
-            let output = try await cognitoIdentityClient.listIdentityPools(input: listPoolsInput)
+        do {
+            for try await page in pages {
+                guard let identityPools = page.identityPools else {
+                    print("ERROR: listIdentityPoolsPaginated returned nil contents.")
+                    continue
+                }
+                
+                /// Read pages of identity pools from Cognito until one is found
+                /// whose name matches the one specified in the `name` parameter.
+                /// Return the matching pool's ID.
 
-            if let identityPools = output.identityPools {
                 for pool in identityPools {
                     if pool.identityPoolName == name {
                         return pool.identityPoolId!
                     }
                 }
             }
-            
-            token = output.nextToken
-        } while token != nil
+        } catch {
+            print("ERROR: getIdentityPoolID:", dump(error))
+            throw error
+        }
         
         return nil
     }
+
     // snippet-end:[cognitoidentity.swift.get-pool-id]
     
-    // snippet-start:[cognitoidentity.swift.get-or-create-pool-id] 
+    // snippet-start:[cognitoidentity.swift.get-or-create-pool-id]
     /// Return the ID of the identity pool with the specified name.
     ///
     /// - Parameters:
@@ -83,12 +81,18 @@ public class CognitoIdentityHandler {
     public func getOrCreateIdentityPoolID(name: String) async throws -> String? {
         // See if the pool already exists. If it doesn't, create it.
         
-        guard let poolId = try await self.getIdentityPoolID(name: name) else {
-            return try await self.createIdentityPool(name: name)
+        do {
+            guard let poolId = try await getIdentityPoolID(name: name) else {
+                return try await createIdentityPool(name: name)
+            }
+            
+            return poolId
+        } catch {
+            print("ERROR: getOrCreateIdentityPoolID:", dump(error))
+            throw error
         }
-    
-        return poolId
     }
+
     // snippet-end:[cognitoidentity.swift.get-or-create-pool-id]
     
     // snippet-start:[cognitoidentity.swift.create-identity-pool]
@@ -101,16 +105,22 @@ public class CognitoIdentityHandler {
     ///   if an error occurred.
     ///
     func createIdentityPool(name: String) async throws -> String? {
-        let cognitoInputCall = CreateIdentityPoolInput(developerProviderName: "com.exampleco.CognitoIdentityDemo",
-                                                       identityPoolName: name)
-
-        let result = try await cognitoIdentityClient.createIdentityPool(input: cognitoInputCall)
-        guard let poolId = result.identityPoolId else {
-            return nil
+        do {
+            let cognitoInputCall = CreateIdentityPoolInput(developerProviderName: "com.exampleco.CognitoIdentityDemo",
+                                                           identityPoolName: name)
+            
+            let result = try await cognitoIdentityClient.createIdentityPool(input: cognitoInputCall)
+            guard let poolId = result.identityPoolId else {
+                return nil
+            }
+            
+            return poolId
+        } catch {
+            print("ERROR: createIdentityPool:", dump(error))
+            throw error
         }
-        
-        return poolId
     }
+
     // snippet-end:[cognitoidentity.swift.create-identity-pool]
 
     // snippet-start:[cognitoidentity.swift.delete-identity-pool]
@@ -120,11 +130,16 @@ public class CognitoIdentityHandler {
     ///   - id: The ID of the identity pool to delete.
     ///
     func deleteIdentityPool(id: String) async throws {
-        let input = DeleteIdentityPoolInput(
-            identityPoolId: id
-        )
-
-        _ = try await cognitoIdentityClient.deleteIdentityPool(input: input)
+        do {
+            let input = DeleteIdentityPoolInput(
+                identityPoolId: id
+            )
+            
+            _ = try await cognitoIdentityClient.deleteIdentityPool(input: input)
+        } catch {
+            print("ERROR: deleteIdentityPool:", dump(error))
+            throw error
+        }
     }
     // snippet-end:[cognitoidentity.swift.delete-identity-pool]
 }

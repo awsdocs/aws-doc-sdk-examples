@@ -6,6 +6,7 @@
 package scenarios
 
 import (
+	"context"
 	"testing"
 
 	"github.com/aws/aws-sdk-go-v2/service/iam/types"
@@ -25,8 +26,8 @@ func TestRunAssumeRoleScenario(t *testing.T) {
 
 // AssumeRoleScenarioTest encapsulates data for a scenario test.
 type AssumeRoleScenarioTest struct {
-	Answers   []string
-	helper testHelper
+	Answers []string
+	helper  testHelper
 }
 
 // SetupDataAndStubs sets up test data and builds the stubs that are used to return
@@ -42,7 +43,6 @@ func (scenTest *AssumeRoleScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	listBucketsPolicy := "test-list-buckets-policy"
 	listBucketsPolicyArn := listBucketsPolicy + "-arn"
 	userPolicy := "test-user-policy"
-
 
 	scenTest.helper = testHelper{names: []string{roleName, listBucketsPolicy, userPolicy}}
 	scenTest.Answers = []string{userName, "", "", "", "y"}
@@ -60,7 +60,7 @@ func (scenTest *AssumeRoleScenarioTest) SetupDataAndStubs() []testtools.Stub {
 		&testtools.StubError{Err: &smithy.GenericAPIError{Code: "AccessDenied"}, ContinueAfter: true}))
 	stubList = append(stubList, stubs.StubAssumeRole(roleArn, "AssumeRoleExampleSession",
 		900, keyId, keySecret, token, nil))
-	stubList = append(stubList, stubs.StubListBuckets([]string{"test-bucket-1", "test-bucket-2"}, nil))
+	stubList = append(stubList, stubs.StubListBuckets([]string{"amzn-s3-demo-bucket-1", "amzn-s3-demo-bucket-2"}, nil))
 	stubList = append(stubList, stubs.StubListAttachedRolePolicies(roleName,
 		map[string]string{listBucketsPolicy: listBucketsPolicyArn}, nil))
 	stubList = append(stubList, stubs.StubDetachRolePolicy(roleName, listBucketsPolicyArn, nil))
@@ -81,7 +81,7 @@ func (scenTest *AssumeRoleScenarioTest) RunSubTest(stubber *testtools.AwsmStubbe
 	mockQuestioner := demotools.MockQuestioner{Answers: scenTest.Answers}
 	scenario := NewAssumeRoleScenario(*stubber.SdkConfig, &mockQuestioner, &scenTest.helper)
 	scenario.isTestRun = true
-	scenario.Run()
+	scenario.Run(context.Background())
 }
 
 func (scenTest *AssumeRoleScenarioTest) Cleanup() {}

@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 import React, { useState, useEffect } from "react";
 import { ImageLoader } from "./ImageLoader";
@@ -32,7 +33,7 @@ function App(props) {
           Id: polyId,
           BlockType: blockType,
           Geometry: geometry,
-        })
+        }),
       );
     } else {
       setShownPolygons(shownPolygons.filter((poly) => poly.Id !== polyId));

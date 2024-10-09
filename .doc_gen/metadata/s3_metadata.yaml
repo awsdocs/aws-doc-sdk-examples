@@ -1002,32 +1002,6 @@ s3_GetObjectLegalHold:
             - description: Put an object legal hold.
               snippet_tags:
                 - python.example_code.s3.GetObjectLegalHold
-  services:
-    s3: {GetObjectLegalHold}
-s3_GetObjectLegalHoldConfiguration:
-  title: Get the legal hold configuration of an &S3; object using an &AWS; SDK
-  title_abbrev: Get the legal hold configuration of an object
-  synopsis: get the legal hold configuration of an S3 bucket.
-  category: Scenarios
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/s3
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - S3LockWorkflow.javav2.GetObjectLegalHold.main
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/S3/scenarios/S3ObjectLockScenario
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - S3LockWorkflow.dotnetv3.GetObjectLegalHold
     JavaScript:
       versions:
         - sdk_version: 3

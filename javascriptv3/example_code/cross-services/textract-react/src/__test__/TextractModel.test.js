@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 // Unit tests for the TextractModel component.
 
@@ -215,7 +216,7 @@ describe("extractDocument", () => {
       expect(sqs.send).toHaveBeenCalledTimes(2);
       expect(tm.extraction).toEqual(TestExtractDocument);
       expect(tm.inform).toHaveBeenCalled();
-    }
+    },
   );
 
   test("asynchronous form type calls analyze command", async () => {

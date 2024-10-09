@@ -4,6 +4,7 @@
 package workflows
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -37,7 +38,7 @@ type ScenarioRunner struct {
 	sqsActor   *actions.SqsActions
 }
 
-func (runner ScenarioRunner) CreateTopic() (string, string, bool, bool) {
+func (runner ScenarioRunner) CreateTopic(ctx context.Context) (string, string, bool, bool) {
 	log.Println("SNS topics can be configured as FIFO (First-In-First-Out) or standard.\n" +
 		"FIFO topics deliver messages in order and support deduplication and message filtering.")
 	isFifoTopic := runner.questioner.AskBool("\nWould you like to work with FIFO topics? (y/n) ", "y")
@@ -64,7 +65,7 @@ func (runner ScenarioRunner) CreateTopic() (string, string, bool, bool) {
 			"the topic name.", FIFO_SUFFIX)
 	}
 
-	topicArn, err := runner.snsActor.CreateTopic(topicName, isFifoTopic, contentBasedDeduplication)
+	topicArn, err := runner.snsActor.CreateTopic(ctx, topicName, isFifoTopic, contentBasedDeduplication)
 	if err != nil {
 		panic(err)
 	}
@@ -74,7 +75,7 @@ func (runner ScenarioRunner) CreateTopic() (string, string, bool, bool) {
 	return topicName, topicArn, isFifoTopic, contentBasedDeduplication
 }
 
-func (runner ScenarioRunner) CreateQueue(ordinal string, isFifoTopic bool) (string, string) {
+func (runner ScenarioRunner) CreateQueue(ctx context.Context, ordinal string, isFifoTopic bool) (string, string) {
 	queueName := runner.questioner.Ask(fmt.Sprintf("Enter a name for the %v SQS queue. ", ordinal))
 	if isFifoTopic {
 		queueName = fmt.Sprintf("%v%v", queueName, FIFO_SUFFIX)
@@ -83,7 +84,7 @@ func (runner ScenarioRunner) CreateQueue(ordinal string, isFifoTopic bool) (stri
 				"be appended to the queue name.\n", FIFO_SUFFIX)
 		}
 	}
-	queueUrl, err := runner.sqsActor.CreateQueue(queueName, isFifoTopic)
+	queueUrl, err := runner.sqsActor.CreateQueue(ctx, queueName, isFifoTopic)
 	if err != nil {
 		panic(err)
 	}
@@ -94,16 +95,16 @@ func (runner ScenarioRunner) CreateQueue(ordinal string, isFifoTopic bool) (stri
 }
 
 func (runner ScenarioRunner) SubscribeQueueToTopic(
-	queueName string, queueUrl string, topicName string, topicArn string, ordinal string,
+	ctx context.Context, queueName string, queueUrl string, topicName string, topicArn string, ordinal string,
 	isFifoTopic bool) (string, bool) {
 
-	queueArn, err := runner.sqsActor.GetQueueArn(queueUrl)
+	queueArn, err := runner.sqsActor.GetQueueArn(ctx, queueUrl)
 	if err != nil {
 		panic(err)
 	}
 	log.Printf("The ARN of your queue is: %v.\n", queueArn)
 
-	err = runner.sqsActor.AttachSendMessagePolicy(queueUrl, queueArn, topicArn)
+	err = runner.sqsActor.AttachSendMessagePolicy(ctx, queueUrl, queueArn, topicArn)
 	if err != nil {
 		panic(err)
 	}
@@ -141,7 +142,7 @@ func (runner ScenarioRunner) SubscribeQueueToTopic(
 		}
 	}
 
-	subscriptionArn, err := runner.snsActor.SubscribeQueue(topicArn, queueArn, filterPolicy)
+	subscriptionArn, err := runner.snsActor.SubscribeQueue(ctx, topicArn, queueArn, filterPolicy)
 	if err != nil {
 		panic(err)
 	}
@@ -151,7 +152,7 @@ func (runner ScenarioRunner) SubscribeQueueToTopic(
 	return subscriptionArn, filterPolicy != nil
 }
 
-func (runner ScenarioRunner) PublishMessages(topicArn string, isFifoTopic bool, contentBasedDeduplication bool, usingFilters bool) {
+func (runner ScenarioRunner) PublishMessages(ctx context.Context, topicArn string, isFifoTopic bool, contentBasedDeduplication bool, usingFilters bool) {
 	var message string
 	var groupId string
 	var dedupId string
@@ -180,7 +181,7 @@ func (runner ScenarioRunner) PublishMessages(topicArn string, isFifoTopic bool, 
 			}
 		}
 
-		err := runner.snsActor.Publish(topicArn, message, groupId, dedupId, TONE_KEY, toneSelection)
+		err := runner.snsActor.Publish(ctx, topicArn, message, groupId, dedupId, TONE_KEY, toneSelection)
 		if err != nil {
 			panic(err)
 		}
@@ -190,12 +191,12 @@ func (runner ScenarioRunner) PublishMessages(topicArn string, isFifoTopic bool, 
 	}
 }
 
-func (runner ScenarioRunner) PollForMessages(queueUrls []string) {
+func (runner ScenarioRunner) PollForMessages(ctx context.Context, queueUrls []string) {
 	log.Println("Polling queues for messages...")
 	for _, queueUrl := range queueUrls {
 		var messages []types.Message
 		for {
-			currentMsgs, err := runner.sqsActor.GetMessages(queueUrl, 10, 1)
+			currentMsgs, err := runner.sqsActor.GetMessages(ctx, queueUrl, 10, 1)
 			if err != nil {
 				panic(err)
 			}
@@ -223,7 +224,7 @@ func (runner ScenarioRunner) PollForMessages(queueUrls []string) {
 
 		if len(messages) > 0 {
 			log.Printf("Deleting %v messages from queue %v.\n", len(messages), queueUrl)
-			err := runner.sqsActor.DeleteMessages(queueUrl, messages)
+			err := runner.sqsActor.DeleteMessages(ctx, queueUrl, messages)
 			if err != nil {
 				panic(err)
 			}
@@ -246,13 +247,13 @@ func (runner ScenarioRunner) PollForMessages(queueUrls []string) {
 // It uses a questioner from the `demotools` package to get input during the example.
 // This package can be found in the ..\..\demotools folder of this repo.
 func RunTopicsAndQueuesScenario(
-	sdkConfig aws.Config, questioner demotools.IQuestioner) {
+	ctx context.Context, sdkConfig aws.Config, questioner demotools.IQuestioner) {
 	resources := Resources{}
 	defer func() {
 		if r := recover(); r != nil {
 			log.Println("Something went wrong with the demo.\n" +
 				"Cleaning up any resources that were created...")
-			resources.Cleanup()
+			resources.Cleanup(ctx)
 		}
 	}()
 	queueCount := 2
@@ -274,7 +275,7 @@ func RunTopicsAndQueuesScenario(
 	resources.snsActor = runner.snsActor
 	resources.sqsActor = runner.sqsActor
 
-	topicName, topicArn, isFifoTopic, contentBasedDeduplication := runner.CreateTopic()
+	topicName, topicArn, isFifoTopic, contentBasedDeduplication := runner.CreateTopic(ctx)
 	resources.topicArn = topicArn
 	log.Println(strings.Repeat("-", 88))
 
@@ -282,24 +283,24 @@ func RunTopicsAndQueuesScenario(
 	ordinals := []string{"first", "next"}
 	usingFilters := false
 	for _, ordinal := range ordinals {
-		queueName, queueUrl := runner.CreateQueue(ordinal, isFifoTopic)
+		queueName, queueUrl := runner.CreateQueue(ctx, ordinal, isFifoTopic)
 		resources.queueUrls = append(resources.queueUrls, queueUrl)
 
-		_, filtering := runner.SubscribeQueueToTopic(queueName, queueUrl, topicName, topicArn, ordinal, isFifoTopic)
+		_, filtering := runner.SubscribeQueueToTopic(ctx, queueName, queueUrl, topicName, topicArn, ordinal, isFifoTopic)
 		usingFilters = usingFilters || filtering
 	}
 
 	log.Println(strings.Repeat("-", 88))
-	runner.PublishMessages(topicArn, isFifoTopic, contentBasedDeduplication, usingFilters)
+	runner.PublishMessages(ctx, topicArn, isFifoTopic, contentBasedDeduplication, usingFilters)
 	log.Println(strings.Repeat("-", 88))
-	runner.PollForMessages(resources.queueUrls)
+	runner.PollForMessages(ctx, resources.queueUrls)
 
 	log.Println(strings.Repeat("-", 88))
 
 	wantCleanup := questioner.AskBool("Do you want to remove all AWS resources created for this scenario? (y/n) ", "y")
 	if wantCleanup {
 		log.Println("Cleaning up resources...")
-		resources.Cleanup()
+		resources.Cleanup(ctx)
 	}
 
 	log.Println(strings.Repeat("-", 88))

@@ -22,7 +22,13 @@ import (
 )
 
 func TestObjectLockScenario_Integration(t *testing.T) {
-	bucketPrefix := fmt.Sprintf("test-bucket-%d", time.Now().Unix())
+	bucketPrefix := os.Getenv("S3_BUCKET_NAME_PREFIX")
+	if bucketPrefix == "" {
+		bucketPrefix = "amzn-s3-demo-bucket"
+	} else {
+		// Use Unix time instead of UUID to keep the name short enough when the scenario suffix is added.
+		bucketPrefix = fmt.Sprintf("%s-%d", bucketPrefix, time.Now().Unix())
+	}
 
 	mockQuestioner := demotools.MockQuestioner{
 		Answers: []string{

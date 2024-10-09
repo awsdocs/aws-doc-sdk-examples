@@ -18,7 +18,7 @@ namespace DeleteMultipleObjectsExample
     {
         public static async Task Main()
         {
-            string bucketName = "doc-example-bucket";
+            string bucketName = "amzn-s3-demo-bucket";
 
             // If the AWS Region for your Amazon S3 bucket is different from
             // the AWS Region of the default user, define the AWS Region for

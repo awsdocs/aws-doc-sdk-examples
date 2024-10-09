@@ -6,9 +6,9 @@
 /// SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[ddb.swift.databasemanager-all]
-import Foundation
 import AWSDynamoDB
 import ClientRuntime
+import Foundation
 
 /// A protocol describing the implementation of functions that allow either
 /// calling through to Amazon DynamoDB or mocking DynamoDB functions.
@@ -22,15 +22,14 @@ public protocol DatabaseSession {
     /// - Parameter input: A `ListTablesInput` object specifying the input
     ///   parameters for the call to `listTables()`.
     ///
-    /// - Returns: A `ListTablesOutput` structure with the results.
-    func listTables(input: ListTablesInput) async throws -> ListTablesOutput
+    /// - Returns: A `[String]` list of table names..
+    func listTables(input: ListTablesInput) async throws -> [String]
 }
 
 // snippet-start:[ddb.swift.dynamodbsession]
 /// An implementation of the `DatabaseSession` protocol that calls through to
 /// DynamoDB for its operations.
 public struct DynamoDBSession: DatabaseSession {
-    let awsRegion: String
     let client: DynamoDBClient
 
     // snippet-start:[ddb.swift.dynamodbsession.init]
@@ -38,10 +37,17 @@ public struct DynamoDBSession: DatabaseSession {
     ///
     /// - Parameter region: The AWS Region to use for DynamoDB.
     ///
-    init(region: String = "us-east-2") throws {
-        self.awsRegion = region
-        self.client = try DynamoDBClient(region: awsRegion)
+    init(region: String? = nil) async throws {
+        do {
+            let config = try await DynamoDBClient.DynamoDBClientConfiguration()
+            if let region = region {
+                config.region = region
+            }
+
+            self.client = DynamoDBClient(config: config)
+        }
     }
+
     // snippet-end:[ddb.swift.dynamodbsession.init]
 
     // snippet-start:[ddb.swift.dynamodbsession.listtables]
@@ -52,13 +58,31 @@ public struct DynamoDBSession: DatabaseSession {
     ///   `ListTablesInput` object.
     ///
     /// - Returns: The `ListTablesOutput` returned by `listTables()`.
-    /// 
+    ///
     /// - Throws: Errors from DynamoDB are thrown as usual.
-    public func listTables(input: ListTablesInput) async throws -> ListTablesOutput {
-        return try await client.listTables(input: input)
+    public func listTables(input: ListTablesInput) async throws -> [String] {
+        do {
+            // Use "Paginated" to get all the tables.
+            // This lets the SDK handle the 'lastEvaluatedTableName' property in "ListTablesOutput".
+            let pages = client.listTablesPaginated(input: input)
+
+            var allTableNames: [String] = []
+            for try await page in pages {
+                guard let tableNames = page.tableNames else {
+                    print("Error: no table names returned.")
+                    continue
+                }
+                allTableNames += tableNames
+            }
+            return allTableNames
+        } catch {
+            print("ERROR: listTables:", dump(error))
+            throw error
+        }
     }
     // snippet-end:[ddb.swift.dynamodbsession.listtables]
 }
+
 // snippet-end:[ddb.swift.dynamodbsession]
 
 // snippet-start:[ddb.swift.databasemanager]
@@ -77,6 +101,7 @@ public class DatabaseManager {
     init(session: DatabaseSession) {
         self.session = session
     }
+
     // snippet-end:[ddb.swift.databasemanager.init]
 
     // snippet-start:[ddb.swift.databasemanager.gettablelist]
@@ -85,29 +110,12 @@ public class DatabaseManager {
     /// - Returns: An array of strings listing all of the tables available
     ///   in the Region specified when the session was created.
     public func getTableList() async throws -> [String] {
-        var tableList: [String] = []
-        var lastEvaluated: String? = nil
-
-        // Iterate over the list of tables, 25 at a time, until we have the
-        // names of every table. Add each group to the `tableList` array.
-        // Iteration is complete when `output.lastEvaluatedTableName` is `nil`.
-
-        repeat {
-            let input = ListTablesInput(
-                exclusiveStartTableName: lastEvaluated,
-                limit: 25
-            )
-            let output = try await self.session.listTables(input: input)
-            guard let tableNames = output.tableNames else {
-                return tableList
-            }
-            tableList.append(contentsOf: tableNames)
-            lastEvaluated = output.lastEvaluatedTableName
-        } while lastEvaluated != nil
-
-        return tableList
+        let input = ListTablesInput(
+        )
+        return try await session.listTables(input: input)
     }
     // snippet-end:[ddb.swift.databasemanager.gettablelist]
 }
+
 // snippet-end:[ddb.swift.databasemanager]
 // snippet-end:[ddb.swift.databasemanager-all]

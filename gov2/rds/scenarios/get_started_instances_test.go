@@ -3,6 +3,7 @@
 package scenarios
 
 import (
+	"context"
 	"fmt"
 	"strconv"
 	"testing"
@@ -127,7 +128,7 @@ func (scenTest *GetStartedInstancesTest) RunSubTest(stubber *testtools.AwsmStubb
 	mockQuestioner := demotools.MockQuestioner{Answers: scenTest.Answers}
 	scenario := NewGetStartedInstances(*stubber.SdkConfig, &mockQuestioner, &scenTest.helper)
 	scenario.isTestRun = true
-	scenario.Run(scenTest.dbEngine, scenTest.parameterGroupName, scenTest.instanceName, scenTest.dbName)
+	scenario.Run(context.Background(), scenTest.dbEngine, scenTest.parameterGroupName, scenTest.instanceName, scenTest.dbName)
 }
 
 func (scenTest *GetStartedInstancesTest) Cleanup() {}

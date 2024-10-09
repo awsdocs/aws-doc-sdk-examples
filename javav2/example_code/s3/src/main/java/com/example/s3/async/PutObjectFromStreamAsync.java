@@ -21,9 +21,8 @@ import java.util.concurrent.CompletableFuture;
 public class PutObjectFromStreamAsync {
     private static final Logger logger = LoggerFactory.getLogger(PutObjectFromStreamAsync.class);
 
-
     public static void main(String[] args) {
-        String bucketName = "x-" + UUID.randomUUID();
+        String bucketName = "amzn-s3-demo-bucket-" + UUID.randomUUID(); // Change bucket name.
         String key = UUID.randomUUID().toString();
 
         AsyncExampleUtils.createBucket(bucketName);

@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 /*
 ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
@@ -21,8 +22,8 @@ Inputs (replace in code):
 "use strict";
 const { ScanCommand } = require("@aws-sdk/client-dynamodb");
 const { PublishCommand } = require("@aws-sdk/client-sns");
-const {snsClient} = require ( "./libs/snsClient" );
-const {dynamoClient} = require ( "./libs/dynamoClient" );
+const { snsClient } = require("./libs/snsClient");
+const { dynamoClient } = require("./libs/dynamoClient");
 
 // Get today's date.
 const today = new Date();
@@ -63,9 +64,9 @@ exports.handler = async () => {
       const textParams = {
         PhoneNumber: element.phone.N,
         Message:
-            "Hi " +
-            element.firstName.S +
-            "; congratulations on your work anniversary!",
+          "Hi " +
+          element.firstName.S +
+          "; congratulations on your work anniversary!",
       };
       // Send message using Amazon SNS.
       sendText(textParams);
@@ -76,5 +77,3 @@ exports.handler = async () => {
 };
 // snippet-end:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3.handler]
 // snippet-end:[lambda.JavaScript.general-examples-dynamodb-lambda.scanAndPublishV3]
-
-

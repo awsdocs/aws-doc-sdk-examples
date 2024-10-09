@@ -22,17 +22,17 @@ import static software.amazon.awssdk.services.bedrockruntime.model.InvokeModelWi
 
 public class Llama3_InvokeModelWithResponseStream {
 
-    public static String invokeModelWithResponseStream() throws ExecutionException, InterruptedException {
+    public static String invokeModelWithResponseStream() {
 
         // Create a Bedrock Runtime client in the AWS Region you want to use.
         // Replace the DefaultCredentialsProvider with your preferred credentials provider.
         var client = BedrockRuntimeAsyncClient.builder()
                 .credentialsProvider(DefaultCredentialsProvider.create())
-                .region(Region.US_EAST_1)
+                .region(Region.US_WEST_2)
                 .build();
 
-        // Set the model ID, e.g., Llama 3 8b Instruct.
-        var modelId = "meta.llama3-8b-instruct-v1:0";
+        // Set the model ID, e.g., Llama 3 70b Instruct.
+        var modelId = "meta.llama3-70b-instruct-v1:0";
 
         // The InvokeModelWithResponseStream API uses the model's native payload.
         // Learn more about the available inference parameters and response fields at:
@@ -44,8 +44,7 @@ public class Llama3_InvokeModelWithResponseStream {
 
         // Embed the prompt in Llama 3's instruction format.
         var instruction = (
-                "<|begin_of_text|>\\n" +
-                "<|start_header_id|>user<|end_header_id|>\\n" +
+                "<|begin_of_text|><|start_header_id|>user<|end_header_id|>\\n" +
                 "{{prompt}} <|eot_id|>\\n" +
                 "<|start_header_id|>assistant<|end_header_id|>\\n"
         ).replace("{{prompt}}", prompt);

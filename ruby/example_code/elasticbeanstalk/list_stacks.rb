@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-elasticbeanstalk"
-require "logger"
+require 'aws-sdk-elasticbeanstalk'
+require 'logger'
 
 # snippet-start:[eb.Ruby.listStacks]
 # Manages listing of AWS Elastic Beanstalk solution stacks
@@ -50,6 +50,6 @@ end
 # Example usage:
 if $PROGRAM_NAME == __FILE__
   eb_client = Aws::ElasticBeanstalk::Client.new
-  stack_lister = StackLister.new(eb_client, "java")
+  stack_lister = StackLister.new(eb_client, 'java')
   stack_lister.list_stacks
 end

@@ -60,12 +60,18 @@ bool AwsDoc::DynamoDB::updateTable(const Aws::String &tableName,
             request);
     if (outcome.IsSuccess()) {
         std::cout << "Successfully updated the table." << std::endl;
-    }
-    else {
-        std::cerr << outcome.GetError().GetMessage() << std::endl;
+    } else {
+        const Aws::DynamoDB::DynamoDBError &error = outcome.GetError();
+        if (error.GetErrorType() == Aws::DynamoDB::DynamoDBErrors::VALIDATION &&
+            error.GetMessage().find("The provisioned throughput for the table will not change") != std::string::npos) {
+            std::cout << "The provisioned throughput for the table will not change." << std::endl;
+        } else {
+            std::cerr << outcome.GetError().GetMessage() << std::endl;
+            return false;
+        }
     }
 
-    return outcome.IsSuccess();
+    return waitTableActive(tableName, dynamoClient);
 }
 // snippet-end:[dynamodb.cpp.update_table.code]
 

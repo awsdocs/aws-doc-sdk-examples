@@ -5,6 +5,14 @@ redshift_Hello:
   synopsis: get started using &RS;.
   category: Hello
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.redshift.Hello
     Java:
       versions:
         - sdk_version: 2
@@ -23,7 +31,7 @@ redshift_Hello:
               snippet_tags:
                 - python.example_code.redshift.Hello
   services:
-    redshift: {describeClusters}
+    redshift: {DescribeClusters}
 redshift_ListDatabases:
   languages:
     Java:
@@ -39,6 +47,16 @@ redshift_ListDatabases:
     redshift: {ListDatabases}    
 redshift_CreateCluster:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.redshift.Imports
+                - gov2.redshift.ActionsStruct
+                - gov2.redshift.CreateCluster
     Kotlin:
       versions:
         - sdk_version: 1
@@ -86,6 +104,16 @@ redshift_CreateCluster:
     redshift: {CreateCluster}
 redshift_DeleteCluster:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.redshift.Imports
+                - gov2.redshift.ActionsStruct
+                - gov2.redshift.DeleteCluster
     Kotlin:
       versions:
         - sdk_version: 1
@@ -133,6 +161,16 @@ redshift_DeleteCluster:
     redshift: {DeleteCluster}
 redshift_DescribeClusters:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.redshift.Imports
+                - gov2.redshift.ActionsStruct
+                - gov2.redshift.DescribeClusters
     Kotlin:
       versions:
         - sdk_version: 1
@@ -180,6 +218,16 @@ redshift_DescribeClusters:
     redshift: {DescribeClusters}
 redshift_ModifyCluster:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.redshift.Imports
+                - gov2.redshift.ActionsStruct
+                - gov2.redshift.ModifyCluster
     Kotlin:
       versions:
         - sdk_version: 1
@@ -297,9 +345,17 @@ redshift_ExecuteStatement:
   services:
     redshift: {ExecuteStatement}
 redshift_Scenario:
-  synopsis: learn core operations for &RS; using an &AWS;.
+  synopsis: learn core operations for &RS; using an &AWS; SDK.
   category: Basics
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/redshift
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.redshift.BasicsScenario
     Java:
       versions:
         - sdk_version: 2
@@ -335,4 +391,4 @@ redshift_Scenario:
                 - python.example_code.redshift_data.ListDatabases
                 - python.example_code.redshift.DeleteCluster
   services:
-    redshift: {createCluster, describeClusters, executeStatement, describeStatement, modifyCluster, getStatementResult, listDatabasesPaginator}
+    redshift: {CreateCluster, DescribeClusters, ExecuteStatement, DescribeStatement, ModifyCluster, GetStatementResult, ListDatabasesPaginator}

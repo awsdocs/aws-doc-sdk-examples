@@ -12,23 +12,27 @@ import {
   GetObjectRetentionCommand,
   DeleteObjectCommand,
   waitUntilObjectNotExists,
+  waitUntilBucketExists,
+  waitUntilBucketNotExists,
 } from "@aws-sdk/client-s3";
 import { client as s3Client } from "../client.js";
 
-export function createBucket(bucketName) {
+export async function createBucket(bucketName) {
   const createBucketCommand = new CreateBucketCommand({
     Bucket: bucketName,
   });
 
-  return s3Client.send(createBucketCommand);
+  await s3Client.send(createBucketCommand);
+  await waitUntilBucketExists({ client: s3Client }, { Bucket: bucketName });
 }
 
-export function deleteBucket(bucketName) {
+export async function deleteBucket(bucketName) {
   const deleteBucketCommand = new DeleteBucketCommand({
     Bucket: bucketName,
   });
 
-  return s3Client.send(deleteBucketCommand);
+  await s3Client.send(deleteBucketCommand);
+  await waitUntilBucketNotExists({ client: s3Client }, { Bucket: bucketName });
 }
 
 export async function emptyBucket(bucketName) {

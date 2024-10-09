@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 
 import config
+from aws_doc_sdk_examples_tools.entities import expand_all_entities
 from aws_doc_sdk_examples_tools.metadata import Example
 from aws_doc_sdk_examples_tools.sdks import Sdk
 from aws_doc_sdk_examples_tools.services import Service
@@ -202,16 +203,6 @@ class Renderer:
                 sorted_cats[key] = post_cats[key]
         return sorted_cats
 
-    def _expand_entities(self, readme_text: str) -> str:
-        entities = set(re.findall(r"&[\dA-Za-z-_]+;", readme_text))
-        for entity in entities:
-            expanded = self.scanner.expand_entity(entity)
-            if expanded is not None:
-                readme_text = readme_text.replace(entity, expanded)
-            else:
-                logger.warning("Entity found with no expansion defined: %s", entity)
-        return readme_text
-
     def _lang_level_double_dots(self) -> str:
         return "../" * self.lang_config["service_folder"].count("/")
 
@@ -313,7 +304,10 @@ class Renderer:
             customs=customs,
             unsupported=unsupported,
         )
-        self.readme_text = self._expand_entities(self.readme_text)
+        [text, errors] = expand_all_entities(self.readme_text, self.scanner.doc_gen.entities)
+        if errors:
+            raise errors
+        self.readme_text = text
 
         # Check if the rendered text is different from the existing file
         if self.read_current() == self.readme_text:

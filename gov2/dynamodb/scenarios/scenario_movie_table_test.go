@@ -6,6 +6,7 @@
 package scenarios
 
 import (
+	"context"
 	"fmt"
 	"strconv"
 	"testing"
@@ -138,7 +139,7 @@ func (scenTest *MovieScenarioTest) SetupDataAndStubs() []testtools.Stub {
 // or without errors.
 func (scenTest *MovieScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
 	mockQuestioner := demotools.MockQuestioner{Answers: scenTest.Answers}
-	RunMovieScenario(*stubber.SdkConfig, &mockQuestioner, scenTest.TableName, scenTest.Sampler)
+	RunMovieScenario(context.Background(), *stubber.SdkConfig, &mockQuestioner, scenTest.TableName, scenTest.Sampler)
 }
 
 func (scenTest *MovieScenarioTest) Cleanup() {}

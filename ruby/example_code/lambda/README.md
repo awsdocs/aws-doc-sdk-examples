@@ -38,13 +38,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateFunction](lambda_basics.rb#L127)
-- [DeleteFunction](lambda_basics.rb#L277)
-- [GetFunction](lambda_basics.rb#L110)
-- [Invoke](lambda_basics.rb#L164)
-- [ListFunctions](lambda_basics.rb#L262)
-- [UpdateFunctionCode](lambda_basics.rb#L237)
-- [UpdateFunctionConfiguration](lambda_basics.rb#L212)
+- [CreateFunction](lambda_basics.rb#L131)
+- [DeleteFunction](lambda_basics.rb#L281)
+- [GetFunction](lambda_basics.rb#L114)
+- [Invoke](lambda_basics.rb#L166)
+- [ListFunctions](lambda_basics.rb#L266)
+- [UpdateFunctionCode](lambda_basics.rb#L241)
+- [UpdateFunctionConfiguration](lambda_basics.rb#L216)
 
 ### Scenarios
 

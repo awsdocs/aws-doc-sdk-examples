@@ -11,12 +11,12 @@ logger = logging.getLogger(__name__)
 
 def hello_medical_imaging(medical_imaging_client):
     """
-    Use the AWS SDK for Python (Boto3) to create an Amazon HealthImaging
+    Use the AWS SDK for Python (Boto3) to create an AWS HealthImaging
     client and list the data stores in your account.
     This example uses the default settings specified in your shared credentials
     and config files.
 
-    :param medical_imaging_client: A Boto3 Amazon HealthImaging Client object.
+    :param medical_imaging_client: A Boto3 AWS HealthImaging Client object.
     """
     print("Hello, Amazon Health Imaging! Let's list some of your data stores:\n")
     try:

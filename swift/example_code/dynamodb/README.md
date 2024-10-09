@@ -40,17 +40,17 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchGetItem](BatchGetItem/Sources/MovieDatabase.swift#L258)
-- [BatchWriteItem](basics/MovieList/MovieTable.swift#L162)
-- [CreateTable](basics/MovieList/MovieTable.swift#L53)
-- [DeleteItem](basics/MovieList/MovieTable.swift#L455)
-- [DeleteTable](basics/MovieList/MovieTable.swift#L121)
-- [GetItem](basics/MovieList/MovieTable.swift#L261)
-- [ListTables](ListTables/Sources/DatabaseManager.swift#L82)
-- [PutItem](basics/MovieList/MovieTable.swift#L219)
-- [Query](basics/MovieList/MovieTable.swift#L294)
-- [Scan](basics/MovieList/MovieTable.swift#L334)
-- [UpdateItem](basics/MovieList/MovieTable.swift#L397)
+- [BatchGetItem](BatchGetItem/Sources/MovieDatabase.swift#L304)
+- [BatchWriteItem](basics/MovieList/MovieTable.swift#L206)
+- [CreateTable](basics/MovieList/MovieTable.swift#L62)
+- [DeleteItem](basics/MovieList/MovieTable.swift#L545)
+- [DeleteTable](basics/MovieList/MovieTable.swift#L153)
+- [GetItem](basics/MovieList/MovieTable.swift#L324)
+- [ListTables](ListTables/Sources/DatabaseManager.swift#L107)
+- [PutItem](basics/MovieList/MovieTable.swift#L269)
+- [Query](basics/MovieList/MovieTable.swift#L363)
+- [Scan](basics/MovieList/MovieTable.swift#L415)
+- [UpdateItem](basics/MovieList/MovieTable.swift#L480)
 
 
 <!--custom.examples.start-->

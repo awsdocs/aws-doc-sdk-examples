@@ -28,9 +28,9 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[iam.swift.listusers.command.runasync]
     func runAsync() async throws {
-        let serviceHandler = await ServiceHandler()
-
         do {
+            let serviceHandler = try await ServiceHandler()
+            
             var users: [MyUserRecord]
             users = try await serviceHandler.listUsers()
             
@@ -39,6 +39,7 @@ struct ExampleCommand: ParsableCommand {
                 print("  \(user.name) (\(user.id))")
             }
         } catch {
+            print("ERROR: ListUsers runAsync:", dump(error))
             throw error
         }
     }

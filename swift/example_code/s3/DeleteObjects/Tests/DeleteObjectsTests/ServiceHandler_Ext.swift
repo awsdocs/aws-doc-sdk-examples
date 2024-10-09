@@ -20,12 +20,8 @@ public extension ServiceHandler {
     ///   - name: Name of the bucket to create.
     /// Throws an exception if an error occurs.
     func createBucket(name: String) async throws {
-        let config = S3ClientTypes.CreateBucketConfiguration(
-            locationConstraint: self.region
-        )
         let input = CreateBucketInput(
-            bucket: name,
-            createBucketConfiguration: config
+            bucket: name
         )
         _ = try await client.createBucket(input: input)
     }

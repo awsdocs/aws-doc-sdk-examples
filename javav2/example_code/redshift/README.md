@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello Amazon Redshift](src/main/java/com/example/redshift/HelloRedshift.java#L6) (`describeClusters`)
+- [Hello Amazon Redshift](src/main/java/com/example/redshift/HelloRedshift.java#L6) (`DescribeClusters`)
 
 
 ### Basics
@@ -73,7 +73,7 @@ This example shows you how to get started using Amazon Redshift.
 
 #### Learn the basics
 
-This example shows you how to learn core operations for Amazon Redshift using an AWS.
+This example shows you how to learn core operations for Amazon Redshift using an AWS SDK.
 
 
 <!--custom.basic_prereqs.redshift_Scenario.start-->

@@ -15,7 +15,7 @@ namespace ListObjectsPaginatorExample
     /// </summary>
     public class ListObjectsPaginator
     {
-        private const string BucketName = "doc-example-bucket";
+        private const string BucketName = "amzn-s3-demo-bucket";
 
         public static async Task Main()
         {
