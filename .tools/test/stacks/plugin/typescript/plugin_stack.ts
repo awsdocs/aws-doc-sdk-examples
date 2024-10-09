@@ -41,9 +41,10 @@ class PluginStack extends cdk.Stack {
     const sqsQueue = new sqs.Queue(this, `BatchJobQueue-${toolName}`);
     if (acctConfig[`${toolName}`].status === "enabled") {
       this.initSubscribeSns(sqsQueue, snsTopic);
-      this.batchMemory = acctConfig[`${toolName}`]?.memory ?? "16384";
-      this.batchVcpus = acctConfig[`${toolName}`]?.vcpus ?? "4";
-      this.batchStorage = acctConfig[`${toolName}`]?.storage ?? "20";
+      // https://docs.aws.amazon.com/batch/latest/APIReference/API_ResourceRequirement.html
+      this.batchMemory = acctConfig[`${toolName}`]?.memory ?? "16384"; // MiB
+      this.batchVcpus = acctConfig[`${toolName}`]?.vcpus ?? "4"; // CPUs
+      this.batchStorage = acctConfig[`${toolName}`]?.storage ?? "20"; // GiB
     }
 
     const [jobDefinition, jobQueue] = this.initBatchFargate();
