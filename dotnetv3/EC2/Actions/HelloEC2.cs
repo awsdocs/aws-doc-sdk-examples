@@ -11,7 +11,7 @@ public class HelloEc2
     /// HelloEc2 lists the existing security groups for the default users.
     /// </summary>
     /// <param name="args">Command line arguments</param>
-    /// <returns>A Task object.</returns>
+    /// <returns>Async task.</returns>
     static async Task Main(string[] args)
     {
         // Set up dependency injection for Amazon Elastic Compute Cloud (Amazon EC2).
@@ -25,22 +25,38 @@ public class HelloEc2
         // Now the client is available for injection.
         var ec2Client = host.Services.GetRequiredService<IAmazonEC2>();
 
-        var request = new DescribeSecurityGroupsRequest
+        try
         {
-            MaxResults = 10,
-        };
+            // Retrieve information for up to 10 Amazon EC2 security groups.
+            var request = new DescribeSecurityGroupsRequest { MaxResults = 10, };
+            var securityGroups = new List<SecurityGroup>();
 
+            var paginatorForSecurityGroups =
+                ec2Client.Paginators.DescribeSecurityGroups(request);
 
-        // Retrieve information about up to 10 Amazon EC2 security groups.
-        var response = await ec2Client.DescribeSecurityGroupsAsync(request);
+            await foreach (var securityGroup in paginatorForSecurityGroups.SecurityGroups)
+            {
+                securityGroups.Add(securityGroup);
+            }
 
-        // Now print the security groups returned by the call to
-        // DescribeSecurityGroupsAsync.
-        Console.WriteLine("Security Groups:");
-        response.SecurityGroups.ForEach(group =>
+            // Now print the security groups returned by the call to
+            // DescribeSecurityGroupsAsync.
+            Console.WriteLine("Welcome to the EC2 Hello Service example. " +
+                              "\nLet's list your Security Groups:");
+            securityGroups.ForEach(group =>
+            {
+                Console.WriteLine(
+                    $"Security group: {group.GroupName} ID: {group.GroupId}");
+            });
+        }
+        catch (AmazonEC2Exception ex)
         {
-            Console.WriteLine($"Security group: {group.GroupName} ID: {group.GroupId}");
-        });
+            Console.WriteLine($"An Amazon EC2 service error occurred while listing security groups. {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while listing security groups. {ex.Message}");
+        }
     }
 }
 // snippet-end:[EC2.dotnetv3.HelloEc2]

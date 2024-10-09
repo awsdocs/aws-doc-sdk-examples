@@ -24,7 +24,7 @@ public class CreateOutpostsBucket {
         try (S3ControlClient s3ControlClient = S3ControlClient.create()) {
             try {
                 CreateBucketResponse response = s3ControlClient.createBucket(b -> b
-                        .bucket("<bucket-name>")
+                        .bucket("<bucket-name>") // Enter bucket name.
                         .outpostId("op-<123456789abcdefgh>")
                         .createBucketConfiguration(CreateBucketConfiguration.builder().build()));
                 logger.info("Bucket created with Arn: [{}]", response.bucketArn());

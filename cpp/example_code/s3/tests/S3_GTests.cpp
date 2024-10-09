@@ -12,6 +12,7 @@
 #include <aws/s3/model/PutBucketPolicyRequest.h>
 #include <aws/s3/model/PutBucketWebsiteRequest.h>
 #include <aws/core/utils/UUID.h>
+#include <cstdlib>
 #include <fstream>
 
 Aws::SDKOptions AwsDocTest::S3_GTests::s_options;
@@ -88,9 +89,7 @@ void AwsDocTest::S3_GTests::TearDownTestSuite() {
 
 std::vector<Aws::String> AwsDocTest::S3_GTests::GetCachedS3Buckets(size_t count) {
     for (size_t index = s_cachedS3Buckets.size(); index < count; ++index) {
-        Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-        Aws::String bucketName = "amzn-s3-demo-bucket-" +
-                                 Aws::Utils::StringUtils::ToLower(uuid.c_str());
+        Aws::String bucketName = GetUniqueBucketName();
 
         if (CreateBucket(bucketName)) {
             s_cachedS3Buckets.push_back(bucketName);
@@ -418,6 +417,20 @@ void AwsDocTest::S3_GTests::AddCommandLineResponses(
         stringStream << response << "\n";
     }
     m_cinBuffer.str(stringStream.str());
+}
+
+Aws::String AwsDocTest::S3_GTests::GetUniqueBucketName() {
+    Aws::String uuid = Aws::Utils::UUID::RandomUUID();
+    return  GetBucketNamePrefix() + Aws::Utils::StringUtils::ToLower(uuid.c_str());
+}
+
+Aws::String AwsDocTest::S3_GTests::GetBucketNamePrefix() {
+    Aws::String bucketNamePrefix;
+    const char* envPrefix = std::getenv("S3TestsBucketPrefix");
+    if (envPrefix != nullptr) {
+        bucketNamePrefix = Aws::String(envPrefix) + "-";
+    }
+    return bucketNamePrefix;
 }
 
 AwsDocTest::MockHTTP::MockHTTP() {

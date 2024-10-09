@@ -208,6 +208,16 @@ func StubPresignedRequest(method string, bucketName string, objectKey string, ra
 	case "DELETE":
 		opName = "DeleteObject"
 		input = &s3.DeleteObjectInput{Bucket: aws.String(bucketName), Key: aws.String(objectKey)}
+	case "POST":
+		opName = "PutObject"
+		input = &s3.PutObjectInput{Bucket: aws.String(bucketName), Key: aws.String(objectKey)}
+		// special case since the object here is different
+		return testtools.Stub{
+			OperationName: opName,
+			Input:         input,
+			Output:        &s3.PresignedPostRequest{URL: "test-url", Values: map[string]string{}},
+			Error:         raiseErr,
+		}
 	}
 	return testtools.Stub{
 		OperationName: opName,

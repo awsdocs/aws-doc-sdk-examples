@@ -131,8 +131,9 @@ def main():
         items = [(args.language, accounts[args.language])]
     else:
         items = accounts.items()
-
+        
     for account_name, account_info in items:
+
         print(
             f"Reading from account {account_name} with ID {account_info['account_id']}"
         )

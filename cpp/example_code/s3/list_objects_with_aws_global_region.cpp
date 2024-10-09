@@ -4,7 +4,6 @@
 #include <thread>
 #include <iostream>
 #include <aws/core/Aws.h>
-#include <aws/core/utils/logging/LogLevel.h>
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/CreateBucketRequest.h>
@@ -42,10 +41,10 @@
 */
 static const int MAX_TIMEOUT_RETRIES = 20;
 
-static Aws::String createOneBucket(const Aws::S3::S3Client &s3Client) {
+static Aws::String createOneBucket(const Aws::String &bucketNamePrefix, const Aws::S3::S3Client &s3Client) {
     // Create an S3 bucket within the us-west-2 AWS Region.
     Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-    Aws::String bucketName = "amzn-s3-demo-bucket-" +
+    Aws::String bucketName = bucketNamePrefix +
                              Aws::Utils::StringUtils::ToLower(uuid.c_str());
 
     Aws::S3::Model::CreateBucketRequest createBucketRequest;
@@ -160,13 +159,14 @@ bool deleteABucket(const Aws::S3::S3Client &s3Client, const Aws::String &bucketN
 */
 
 bool AwsDoc::S3::listObjectsWithAwsGlobalRegion(
+        const Aws::String &bucketNamePrefix,
         const Aws::S3::S3ClientConfiguration &clientConfig) {
     Aws::S3::S3ClientConfiguration config(clientConfig);
     config.region = Aws::Region::AWS_GLOBAL;
 
     Aws::S3::S3Client s3Client(config);
 
-    Aws::String bucketName = createOneBucket(s3Client);
+    Aws::String bucketName = createOneBucket(bucketNamePrefix, s3Client);
     if (bucketName.empty()) {
         return false;
     }
@@ -186,17 +186,31 @@ bool AwsDoc::S3::listObjectsWithAwsGlobalRegion(
  *
  * main function
  *
+ * Usage: ' run_list_objects_with_aws_global_region_bucket <bucket_name_prefix>'
+ *
  */
 
 #ifndef EXCLUDE_MAIN_FUNCTION
 
-int main() {
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        std::cout << R"(
+Usage:
+    run_list_objects_with_aws_global_region_bucket <bucket_name_prefix>
+Where:
+    bucket_name - A bucket name prefix which will be made unique by appending a UUID.
+)" << std::endl;
+        return 1;
+    }
+
     Aws::SDKOptions options;
 
     InitAPI(options);
+
+    Aws::String bucketNamePrefix = argv[1];
     {
         Aws::S3::S3ClientConfiguration config;
-        AwsDoc::S3::listObjectsWithAwsGlobalRegion(config);
+        AwsDoc::S3::listObjectsWithAwsGlobalRegion(bucketNamePrefix, config);
     }
     ShutdownAPI(options);
 

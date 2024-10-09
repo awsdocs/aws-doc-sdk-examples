@@ -12,7 +12,14 @@ import {
   PutObjectRetentionCommand,
   ObjectLockLegalHoldStatus,
   ObjectLockRetentionMode,
+  GetBucketVersioningCommand,
+  BucketAlreadyExists,
+  BucketAlreadyOwnedByYou,
+  S3ServiceException,
+  waitUntilBucketExists,
 } from "@aws-sdk/client-s3";
+
+import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 /**
  * @typedef {import("@aws-doc-sdk-examples/lib/scenario/index.js")} Scenarios
@@ -22,19 +29,26 @@ import {
  * @typedef {import("@aws-sdk/client-s3").S3Client} S3Client
  */
 
-const bucketPrefix = "js-object-locking";
+/**
+ * @param {Scenarios} scenarios
+ */
+const getBucketPrefix = (scenarios) =>
+  new scenarios.ScenarioInput(
+    "bucketPrefix",
+    "Provide a prefix that will be used for bucket creation.",
+    { type: "input", default: "amzn-s3-demo-bucket" },
+  );
 
 /**
  * @param {Scenarios} scenarios
- * @param {S3Client} client
  */
 const createBuckets = (scenarios) =>
   new scenarios.ScenarioOutput(
     "createBuckets",
-    `The following buckets will be created:
-         ${bucketPrefix}-no-lock with object lock False.
-         ${bucketPrefix}-lock-enabled with object lock True.
-         ${bucketPrefix}-retention-after-creation with object lock False.`,
+    (state) => `The following buckets will be created:
+         ${state.bucketPrefix}-no-lock with object lock False.
+         ${state.bucketPrefix}-lock-enabled with object lock True.
+         ${state.bucketPrefix}-retention-after-creation with object lock False.`,
     { preformatted: true },
   );
 
@@ -52,22 +66,42 @@ const confirmCreateBuckets = (scenarios) =>
  */
 const createBucketsAction = (scenarios, client) =>
   new scenarios.ScenarioAction("createBucketsAction", async (state) => {
-    const noLockBucketName = `${bucketPrefix}-no-lock`;
-    const lockEnabledBucketName = `${bucketPrefix}-lock-enabled`;
-    const retentionBucketName = `${bucketPrefix}-retention-after-creation`;
+    const noLockBucketName = `${state.bucketPrefix}-no-lock`;
+    const lockEnabledBucketName = `${state.bucketPrefix}-lock-enabled`;
+    const retentionBucketName = `${state.bucketPrefix}-retention-after-creation`;
 
-    await client.send(new CreateBucketCommand({ Bucket: noLockBucketName }));
-    await client.send(
-      new CreateBucketCommand({
-        Bucket: lockEnabledBucketName,
-        ObjectLockEnabledForBucket: true,
-      }),
-    );
-    await client.send(new CreateBucketCommand({ Bucket: retentionBucketName }));
+    try {
+      await client.send(new CreateBucketCommand({ Bucket: noLockBucketName }));
+      await waitUntilBucketExists({ client }, { Bucket: noLockBucketName });
+      await client.send(
+        new CreateBucketCommand({
+          Bucket: lockEnabledBucketName,
+          ObjectLockEnabledForBucket: true,
+        }),
+      );
+      await waitUntilBucketExists(
+        { client },
+        { Bucket: lockEnabledBucketName },
+      );
+      await client.send(
+        new CreateBucketCommand({ Bucket: retentionBucketName }),
+      );
+      await waitUntilBucketExists({ client }, { Bucket: retentionBucketName });
 
-    state.noLockBucketName = noLockBucketName;
-    state.lockEnabledBucketName = lockEnabledBucketName;
-    state.retentionBucketName = retentionBucketName;
+      state.noLockBucketName = noLockBucketName;
+      state.lockEnabledBucketName = lockEnabledBucketName;
+      state.retentionBucketName = retentionBucketName;
+    } catch (caught) {
+      if (
+        caught instanceof BucketAlreadyExists ||
+        caught instanceof BucketAlreadyOwnedByYou
+      ) {
+        console.error(`${caught.name}: ${caught.message}`);
+        state.earlyExit = true;
+      } else {
+        throw caught;
+      }
+    }
   });
 
 /**
@@ -76,13 +110,13 @@ const createBucketsAction = (scenarios, client) =>
 const populateBuckets = (scenarios) =>
   new scenarios.ScenarioOutput(
     "populateBuckets",
-    `The following test files will be created:
-         file0.txt in ${bucketPrefix}-no-lock.
-         file1.txt in ${bucketPrefix}-no-lock.
-         file0.txt in ${bucketPrefix}-lock-enabled.
-         file1.txt in ${bucketPrefix}-lock-enabled.
-         file0.txt in ${bucketPrefix}-retention-after-creation.
-         file1.txt in ${bucketPrefix}-retention-after-creation.`,
+    (state) => `The following test files will be created:
+         file0.txt in ${state.bucketPrefix}-no-lock.
+         file1.txt in ${state.bucketPrefix}-no-lock.
+         file0.txt in ${state.bucketPrefix}-lock-enabled.
+         file1.txt in ${state.bucketPrefix}-lock-enabled.
+         file0.txt in ${state.bucketPrefix}-retention-after-creation.
+         file1.txt in ${state.bucketPrefix}-retention-after-creation.`,
     { preformatted: true },
   );
 
@@ -102,54 +136,64 @@ const confirmPopulateBuckets = (scenarios) =>
  */
 const populateBucketsAction = (scenarios, client) =>
   new scenarios.ScenarioAction("populateBucketsAction", async (state) => {
-    await client.send(
-      new PutObjectCommand({
-        Bucket: state.noLockBucketName,
-        Key: "file0.txt",
-        Body: "Content",
-        ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
-      }),
-    );
-    await client.send(
-      new PutObjectCommand({
-        Bucket: state.noLockBucketName,
-        Key: "file1.txt",
-        Body: "Content",
-        ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
-      }),
-    );
-    await client.send(
-      new PutObjectCommand({
-        Bucket: state.lockEnabledBucketName,
-        Key: "file0.txt",
-        Body: "Content",
-        ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
-      }),
-    );
-    await client.send(
-      new PutObjectCommand({
-        Bucket: state.lockEnabledBucketName,
-        Key: "file1.txt",
-        Body: "Content",
-        ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
-      }),
-    );
-    await client.send(
-      new PutObjectCommand({
-        Bucket: state.retentionBucketName,
-        Key: "file0.txt",
-        Body: "Content",
-        ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
-      }),
-    );
-    await client.send(
-      new PutObjectCommand({
-        Bucket: state.retentionBucketName,
-        Key: "file1.txt",
-        Body: "Content",
-        ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
-      }),
-    );
+    try {
+      await client.send(
+        new PutObjectCommand({
+          Bucket: state.noLockBucketName,
+          Key: "file0.txt",
+          Body: "Content",
+          ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
+        }),
+      );
+      await client.send(
+        new PutObjectCommand({
+          Bucket: state.noLockBucketName,
+          Key: "file1.txt",
+          Body: "Content",
+          ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
+        }),
+      );
+      await client.send(
+        new PutObjectCommand({
+          Bucket: state.lockEnabledBucketName,
+          Key: "file0.txt",
+          Body: "Content",
+          ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
+        }),
+      );
+      await client.send(
+        new PutObjectCommand({
+          Bucket: state.lockEnabledBucketName,
+          Key: "file1.txt",
+          Body: "Content",
+          ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
+        }),
+      );
+      await client.send(
+        new PutObjectCommand({
+          Bucket: state.retentionBucketName,
+          Key: "file0.txt",
+          Body: "Content",
+          ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
+        }),
+      );
+      await client.send(
+        new PutObjectCommand({
+          Bucket: state.retentionBucketName,
+          Key: "file1.txt",
+          Body: "Content",
+          ChecksumAlgorithm: ChecksumAlgorithm.SHA256,
+        }),
+      );
+    } catch (caught) {
+      if (caught instanceof S3ServiceException) {
+        console.error(
+          `Error from S3 while uploading object.  ${caught.name}: ${caught.message}`,
+        );
+      } else {
+        throw caught;
+      }
+    }
   });
 
 /**
@@ -158,8 +202,10 @@ const populateBucketsAction = (scenarios, client) =>
 const updateRetention = (scenarios) =>
   new scenarios.ScenarioOutput(
     "updateRetention",
-    `A bucket can be configured to use object locking with a default retention period.
-   A default retention period will be configured for ${bucketPrefix}-retention-after-creation.`,
+    (
+      state,
+    ) => `A bucket can be configured to use object locking with a default retention period.
+A default retention period will be configured for ${state.bucketPrefix}-retention-after-creation.`,
     { preformatted: true },
   );
 
@@ -189,6 +235,17 @@ const updateRetentionAction = (scenarios, client) =>
       }),
     );
 
+    const getBucketVersioning = new GetBucketVersioningCommand({
+      Bucket: state.retentionBucketName,
+    });
+
+    await retry({ intervalInMs: 500, maxRetries: 10 }, async () => {
+      const { Status } = await client.send(getBucketVersioning);
+      if (Status !== "Enabled") {
+        throw new Error(`Bucket versioning is not enabled.`);
+      }
+    });
+
     await client.send(
       new PutObjectLockConfigurationCommand({
         Bucket: state.retentionBucketName,
@@ -211,8 +268,8 @@ const updateRetentionAction = (scenarios, client) =>
 const updateLockPolicy = (scenarios) =>
   new scenarios.ScenarioOutput(
     "updateLockPolicy",
-    `Object lock policies can also be added to existing buckets.
-   An object lock policy will be added to ${bucketPrefix}-lock-enabled.`,
+    (state) => `Object lock policies can also be added to existing buckets.
+An object lock policy will be added to ${state.bucketPrefix}-lock-enabled.`,
     { preformatted: true },
   );
 
@@ -403,6 +460,7 @@ const setRetentionPeriodFileRetentionAction = (scenarios, client) =>
   );
 
 export {
+  getBucketPrefix,
   createBuckets,
   confirmCreateBuckets,
   createBucketsAction,

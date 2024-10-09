@@ -7,11 +7,12 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
-	"github.com/awsdocs/aws-doc-sdk-examples/gov2/redshift/scenarios"
 	"log"
 	"math/rand"
 	"time"
+
+	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
+	"github.com/awsdocs/aws-doc-sdk-examples/gov2/redshift/scenarios"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -24,7 +25,7 @@ import (
 //
 //   - `basics`    -  Runs the interactive Basics scenario to show core Redshift actions.
 func main() {
-	scenarioMap := map[string]func(sdkConfig aws.Config, helper scenarios.IScenarioHelper){
+	scenarioMap := map[string]func(ctx context.Context, sdkConfig aws.Config, helper scenarios.IScenarioHelper){
 		"basics": runRedshiftBasicsScenario,
 	}
 	choices := make([]string, len(scenarioMap))
@@ -42,7 +43,8 @@ func main() {
 		fmt.Printf("'%v' is not a valid scenario.\n", *scenario)
 		flag.Usage()
 	} else {
-		sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+		ctx := context.Background()
+		sdkConfig, err := config.LoadDefaultConfig(ctx)
 		if err != nil {
 			log.Fatalf("unable to load SDK config, %v", err)
 		}
@@ -52,12 +54,12 @@ func main() {
 			Prefix: "redshift_basics",
 			Random: rand.New(rand.NewSource(time.Now().UnixNano())),
 		}
-		runScenario(sdkConfig, helper)
+		runScenario(ctx, sdkConfig, helper)
 	}
 }
 
-func runRedshiftBasicsScenario(sdkConfig aws.Config, helper scenarios.IScenarioHelper) {
+func runRedshiftBasicsScenario(ctx context.Context, sdkConfig aws.Config, helper scenarios.IScenarioHelper) {
 	pauser := demotools.Pauser{}
 	scenario := scenarios.RedshiftBasics(sdkConfig, demotools.NewQuestioner(), pauser, demotools.NewStandardFileSystem(), helper)
-	scenario.Run()
+	scenario.Run(ctx)
 }

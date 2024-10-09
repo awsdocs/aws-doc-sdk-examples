@@ -8,6 +8,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/redshift"
@@ -18,7 +19,8 @@ import (
 // This example uses the default settings specified in your shared credentials
 // and config files.
 func main() {
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		fmt.Println("Couldn't load default configuration. Have you set up your AWS account?")
 		fmt.Println(err)
@@ -27,7 +29,7 @@ func main() {
 	redshiftClient := redshift.NewFromConfig(sdkConfig)
 	count := 20
 	fmt.Printf("Let's list up to %v clusters for your account.\n", count)
-	result, err := redshiftClient.DescribeClusters(context.TODO(), &redshift.DescribeClustersInput{
+	result, err := redshiftClient.DescribeClusters(ctx, &redshift.DescribeClustersInput{
 		MaxRecords: aws.Int32(int32(count)),
 	})
 	if err != nil {

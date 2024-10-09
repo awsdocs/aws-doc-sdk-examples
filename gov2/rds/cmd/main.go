@@ -23,7 +23,7 @@ import (
 //   - `instances`    -  Runs the interactive DB instances scenario that shows you how to use
 //     Amazon Relational Database Service (Amazon RDS) commands to work with DB instances and databases.
 func main() {
-	scenarioMap := map[string]func(sdkConfig aws.Config){
+	scenarioMap := map[string]func(ctx context.Context, sdkConfig aws.Config){
 		"instances": runInstanceScenario,
 	}
 	choices := make([]string, len(scenarioMap))
@@ -41,17 +41,18 @@ func main() {
 		fmt.Printf("'%v' is not a valid scenario.\n", *scenario)
 		flag.Usage()
 	} else {
-		sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+		ctx := context.Background()
+		sdkConfig, err := config.LoadDefaultConfig(ctx)
 		if err != nil {
 			log.Fatalf("unable to load SDK config, %v", err)
 		}
 
 		log.SetFlags(0)
-		runScenario(sdkConfig)
+		runScenario(ctx, sdkConfig)
 	}
 }
 
-func runInstanceScenario(sdkConfig aws.Config) {
+func runInstanceScenario(ctx context.Context, sdkConfig aws.Config) {
 	scenario := scenarios.NewGetStartedInstances(sdkConfig, demotools.NewQuestioner(), scenarios.ScenarioHelper{})
-	scenario.Run("mysql", "doc-example-parameter-group", "doc-example-instance", "docexampledb")
+	scenario.Run(ctx, "mysql", "doc-example-parameter-group", "doc-example-instance", "docexampledb")
 }

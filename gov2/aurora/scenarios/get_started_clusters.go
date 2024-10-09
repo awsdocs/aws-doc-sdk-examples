@@ -5,6 +5,7 @@ package scenarios
 
 import (
 	"aurora/actions"
+	"context"
 	"fmt"
 	"log"
 	"slices"
@@ -71,7 +72,7 @@ func NewGetStartedClusters(sdkConfig aws.Config, questioner demotools.IQuestione
 }
 
 // Run runs the interactive scenario.
-func (scenario GetStartedClusters) Run(dbEngine string, parameterGroupName string,
+func (scenario GetStartedClusters) Run(ctx context.Context, dbEngine string, parameterGroupName string,
 	clusterName string, dbName string) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -83,14 +84,14 @@ func (scenario GetStartedClusters) Run(dbEngine string, parameterGroupName strin
 	log.Println("Welcome to the Amazon Aurora DB Cluster demo.")
 	log.Println(strings.Repeat("-", 88))
 
-	parameterGroup := scenario.CreateParameterGroup(dbEngine, parameterGroupName)
-	scenario.SetUserParameters(parameterGroupName)
-	cluster := scenario.CreateCluster(clusterName, dbEngine, dbName, parameterGroup)
+	parameterGroup := scenario.CreateParameterGroup(ctx, dbEngine, parameterGroupName)
+	scenario.SetUserParameters(ctx, parameterGroupName)
+	cluster := scenario.CreateCluster(ctx, clusterName, dbEngine, dbName, parameterGroup)
 	scenario.helper.Pause(5)
-	dbInstance := scenario.CreateInstance(cluster)
+	dbInstance := scenario.CreateInstance(ctx, cluster)
 	scenario.DisplayConnection(cluster)
-	scenario.CreateSnapshot(clusterName)
-	scenario.Cleanup(dbInstance, cluster, parameterGroup)
+	scenario.CreateSnapshot(ctx, clusterName)
+	scenario.Cleanup(ctx, dbInstance, cluster, parameterGroup)
 
 	log.Println(strings.Repeat("-", 88))
 	log.Println("Thanks for watching!")
@@ -100,18 +101,18 @@ func (scenario GetStartedClusters) Run(dbEngine string, parameterGroupName strin
 // CreateParameterGroup shows how to get available engine versions for a specified
 // database engine and create a DB cluster parameter group that is compatible with a
 // selected engine family.
-func (scenario GetStartedClusters) CreateParameterGroup(dbEngine string,
+func (scenario GetStartedClusters) CreateParameterGroup(ctx context.Context, dbEngine string,
 	parameterGroupName string) *types.DBClusterParameterGroup {
 
 	log.Printf("Checking for an existing DB cluster parameter group named %v.\n",
 		parameterGroupName)
-	parameterGroup, err := scenario.dbClusters.GetParameterGroup(parameterGroupName)
+	parameterGroup, err := scenario.dbClusters.GetParameterGroup(ctx, parameterGroupName)
 	if err != nil {
 		panic(err)
 	}
 	if parameterGroup == nil {
 		log.Printf("Getting available database engine versions for %v.\n", dbEngine)
-		engineVersions, err := scenario.dbClusters.GetEngineVersions(dbEngine, "")
+		engineVersions, err := scenario.dbClusters.GetEngineVersions(ctx, dbEngine, "")
 		if err != nil {
 			panic(err)
 		}
@@ -128,11 +129,11 @@ func (scenario GetStartedClusters) CreateParameterGroup(dbEngine string,
 		familyIndex := scenario.questioner.AskChoice("Which family do you want to use?\n", families)
 		log.Println("Creating a DB cluster parameter group.")
 		_, err = scenario.dbClusters.CreateParameterGroup(
-			parameterGroupName, families[familyIndex], "Example parameter group.")
+			ctx, parameterGroupName, families[familyIndex], "Example parameter group.")
 		if err != nil {
 			panic(err)
 		}
-		parameterGroup, err = scenario.dbClusters.GetParameterGroup(parameterGroupName)
+		parameterGroup, err = scenario.dbClusters.GetParameterGroup(ctx, parameterGroupName)
 		if err != nil {
 			panic(err)
 		}
@@ -149,9 +150,9 @@ func (scenario GetStartedClusters) CreateParameterGroup(dbEngine string,
 
 // SetUserParameters shows how to get the parameters contained in a custom parameter
 // group and update some of the parameter values in the group.
-func (scenario GetStartedClusters) SetUserParameters(parameterGroupName string) {
+func (scenario GetStartedClusters) SetUserParameters(ctx context.Context, parameterGroupName string) {
 	log.Println("Let's set some parameter values in your parameter group.")
-	dbParameters, err := scenario.dbClusters.GetParameters(parameterGroupName, "")
+	dbParameters, err := scenario.dbClusters.GetParameters(ctx, parameterGroupName, "")
 	if err != nil {
 		panic(err)
 	}
@@ -171,12 +172,12 @@ func (scenario GetStartedClusters) SetUserParameters(parameterGroupName string) 
 			updateParams = append(updateParams, dbParam)
 		}
 	}
-	err = scenario.dbClusters.UpdateParameters(parameterGroupName, updateParams)
+	err = scenario.dbClusters.UpdateParameters(ctx, parameterGroupName, updateParams)
 	if err != nil {
 		panic(err)
 	}
 	log.Println("You can get a list of parameters you've set by specifying a source of 'user'.")
-	userParameters, err := scenario.dbClusters.GetParameters(parameterGroupName, "user")
+	userParameters, err := scenario.dbClusters.GetParameters(ctx, parameterGroupName, "user")
 	if err != nil {
 		panic(err)
 	}
@@ -190,11 +191,11 @@ func (scenario GetStartedClusters) SetUserParameters(parameterGroupName string) 
 // CreateCluster shows how to create an Aurora DB cluster that contains a database
 // of a specified type. The database is also configured to use a custom DB cluster
 // parameter group.
-func (scenario GetStartedClusters) CreateCluster(clusterName string, dbEngine string,
+func (scenario GetStartedClusters) CreateCluster(ctx context.Context, clusterName string, dbEngine string,
 	dbName string, parameterGroup *types.DBClusterParameterGroup) *types.DBCluster {
 
 	log.Println("Checking for an existing DB cluster.")
-	cluster, err := scenario.dbClusters.GetDbCluster(clusterName)
+	cluster, err := scenario.dbClusters.GetDbCluster(ctx, clusterName)
 	if err != nil {
 		panic(err)
 	}
@@ -203,7 +204,7 @@ func (scenario GetStartedClusters) CreateCluster(clusterName string, dbEngine st
 			"Enter an administrator user name for the database: ", demotools.NotEmpty{})
 		adminPassword := scenario.questioner.Ask(
 			"Enter a password for the administrator (at least 8 characters): ", demotools.NotEmpty{})
-		engineVersions, err := scenario.dbClusters.GetEngineVersions(dbEngine, *parameterGroup.DBParameterGroupFamily)
+		engineVersions, err := scenario.dbClusters.GetEngineVersions(ctx, dbEngine, *parameterGroup.DBParameterGroupFamily)
 		if err != nil {
 			panic(err)
 		}
@@ -219,14 +220,14 @@ func (scenario GetStartedClusters) CreateCluster(clusterName string, dbEngine st
 		log.Printf("and selected engine %v.\n", engineChoices[engineIndex])
 		log.Println("This typically takes several minutes.")
 		cluster, err = scenario.dbClusters.CreateDbCluster(
-			clusterName, *parameterGroup.DBClusterParameterGroupName, dbName, dbEngine,
+			ctx, clusterName, *parameterGroup.DBClusterParameterGroupName, dbName, dbEngine,
 			engineChoices[engineIndex], adminUsername, adminPassword)
 		if err != nil {
 			panic(err)
 		}
 		for *cluster.Status != "available" {
 			scenario.helper.Pause(30)
-			cluster, err = scenario.dbClusters.GetDbCluster(clusterName)
+			cluster, err = scenario.dbClusters.GetDbCluster(ctx, clusterName)
 			if err != nil {
 				panic(err)
 			}
@@ -248,9 +249,9 @@ func (scenario GetStartedClusters) CreateCluster(clusterName string, dbEngine st
 // CreateInstance shows how to create a DB instance in an existing Aurora DB cluster.
 // A new DB cluster contains no DB instances, so you must add one. The first DB instance
 // that is added to a DB cluster defaults to a read-write DB instance.
-func (scenario GetStartedClusters) CreateInstance(cluster *types.DBCluster) *types.DBInstance {
+func (scenario GetStartedClusters) CreateInstance(ctx context.Context, cluster *types.DBCluster) *types.DBInstance {
 	log.Println("Checking for an existing database instance.")
-	dbInstance, err := scenario.dbClusters.GetInstance(*cluster.DBClusterIdentifier)
+	dbInstance, err := scenario.dbClusters.GetInstance(ctx, *cluster.DBClusterIdentifier)
 	if err != nil {
 		panic(err)
 	}
@@ -258,7 +259,7 @@ func (scenario GetStartedClusters) CreateInstance(cluster *types.DBCluster) *typ
 		log.Println("Let's create a database instance in your DB cluster.")
 		log.Println("First, choose a DB instance type:")
 		instOpts, err := scenario.dbClusters.GetOrderableInstances(
-			*cluster.Engine, *cluster.EngineVersion)
+			ctx, *cluster.Engine, *cluster.EngineVersion)
 		if err != nil {
 			panic(err)
 		}
@@ -272,14 +273,14 @@ func (scenario GetStartedClusters) CreateInstance(cluster *types.DBCluster) *typ
 			"Which DB instance class do you want to use?\n", instChoices)
 		log.Println("Creating a database instance. This typically takes several minutes.")
 		dbInstance, err = scenario.dbClusters.CreateInstanceInCluster(
-			*cluster.DBClusterIdentifier, *cluster.DBClusterIdentifier, *cluster.Engine,
+			ctx, *cluster.DBClusterIdentifier, *cluster.DBClusterIdentifier, *cluster.Engine,
 			instChoices[instIndex])
 		if err != nil {
 			panic(err)
 		}
 		for *dbInstance.DBInstanceStatus != "available" {
 			scenario.helper.Pause(30)
-			dbInstance, err = scenario.dbClusters.GetInstance(*cluster.DBClusterIdentifier)
+			dbInstance, err = scenario.dbClusters.GetInstance(ctx, *cluster.DBClusterIdentifier)
 			if err != nil {
 				panic(err)
 			}
@@ -312,18 +313,18 @@ func (scenario GetStartedClusters) DisplayConnection(cluster *types.DBCluster) {
 }
 
 // CreateSnapshot shows how to create a DB cluster snapshot and wait until it's available.
-func (scenario GetStartedClusters) CreateSnapshot(clusterName string) {
+func (scenario GetStartedClusters) CreateSnapshot(ctx context.Context, clusterName string) {
 	if scenario.questioner.AskBool(
 		"Do you want to create a snapshot of your DB cluster (y/n)? ", "y") {
 		snapshotId := fmt.Sprintf("%v-%v", clusterName, scenario.helper.UniqueId())
 		log.Printf("Creating a snapshot named %v. This typically takes a few minutes.\n", snapshotId)
-		snapshot, err := scenario.dbClusters.CreateClusterSnapshot(clusterName, snapshotId)
+		snapshot, err := scenario.dbClusters.CreateClusterSnapshot(ctx, clusterName, snapshotId)
 		if err != nil {
 			panic(err)
 		}
 		for *snapshot.Status != "available" {
 			scenario.helper.Pause(30)
-			snapshot, err = scenario.dbClusters.GetClusterSnapshot(snapshotId)
+			snapshot, err = scenario.dbClusters.GetClusterSnapshot(ctx, snapshotId)
 			if err != nil {
 				panic(err)
 			}
@@ -343,18 +344,18 @@ func (scenario GetStartedClusters) CreateSnapshot(clusterName string) {
 // Cleanup shows how to clean up a DB instance, DB cluster, and DB cluster parameter group.
 // Before the DB cluster parameter group can be deleted, all associated DB instances and
 // DB clusters must first be deleted.
-func (scenario GetStartedClusters) Cleanup(dbInstance *types.DBInstance, cluster *types.DBCluster,
+func (scenario GetStartedClusters) Cleanup(ctx context.Context, dbInstance *types.DBInstance, cluster *types.DBCluster,
 	parameterGroup *types.DBClusterParameterGroup) {
 
 	if scenario.questioner.AskBool(
 		"\nDo you want to delete the database instance, DB cluster, and parameter group (y/n)? ", "y") {
 		log.Printf("Deleting database instance %v.\n", *dbInstance.DBInstanceIdentifier)
-		err := scenario.dbClusters.DeleteInstance(*dbInstance.DBInstanceIdentifier)
+		err := scenario.dbClusters.DeleteInstance(ctx, *dbInstance.DBInstanceIdentifier)
 		if err != nil {
 			panic(err)
 		}
 		log.Printf("Deleting database cluster %v.\n", *cluster.DBClusterIdentifier)
-		err = scenario.dbClusters.DeleteDbCluster(*cluster.DBClusterIdentifier)
+		err = scenario.dbClusters.DeleteDbCluster(ctx, *cluster.DBClusterIdentifier)
 		if err != nil {
 			panic(err)
 		}
@@ -363,20 +364,20 @@ func (scenario GetStartedClusters) Cleanup(dbInstance *types.DBInstance, cluster
 		for dbInstance != nil || cluster != nil {
 			scenario.helper.Pause(30)
 			if dbInstance != nil {
-				dbInstance, err = scenario.dbClusters.GetInstance(*dbInstance.DBInstanceIdentifier)
+				dbInstance, err = scenario.dbClusters.GetInstance(ctx, *dbInstance.DBInstanceIdentifier)
 				if err != nil {
 					panic(err)
 				}
 			}
 			if cluster != nil {
-				cluster, err = scenario.dbClusters.GetDbCluster(*cluster.DBClusterIdentifier)
+				cluster, err = scenario.dbClusters.GetDbCluster(ctx, *cluster.DBClusterIdentifier)
 				if err != nil {
 					panic(err)
 				}
 			}
 		}
 		log.Printf("Deleting parameter group %v.", *parameterGroup.DBClusterParameterGroupName)
-		err = scenario.dbClusters.DeleteParameterGroup(*parameterGroup.DBClusterParameterGroupName)
+		err = scenario.dbClusters.DeleteParameterGroup(ctx, *parameterGroup.DBClusterParameterGroupName)
 		if err != nil {
 			panic(err)
 		}

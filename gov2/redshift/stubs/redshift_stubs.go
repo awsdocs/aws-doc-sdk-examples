@@ -4,12 +4,12 @@
 package stubs
 
 import (
+	"time"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/redshift"
 	"github.com/aws/aws-sdk-go-v2/service/redshift/types"
-	"github.com/aws/smithy-go"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
-	"time"
 )
 
 func StubDescribeClusters(clusterId string, raiseErr *testtools.StubError) testtools.Stub {
@@ -27,9 +27,7 @@ func StubDescribeClusters(clusterId string, raiseErr *testtools.StubError) testt
 		Output: &redshift.DescribeClustersOutput{
 			Clusters: clusters,
 		},
-		SkipErrorTest: false,
-		IgnoreFields:  nil,
-		Error:         raiseErr,
+		Error: raiseErr,
 	}
 }
 
@@ -71,18 +69,11 @@ func StubModifyCluster(raiseErr *testtools.StubError) testtools.Stub {
 	}
 }
 
-func StubDeleteCluster(clusterId string) testtools.Stub {
+func StubDeleteCluster(clusterId string, raiseErr *testtools.StubError) testtools.Stub {
 	return testtools.Stub{
-		OperationName: "DescribeClusters", // Because a waiter is used, this is the actual called mocked.
-		Input: &redshift.DescribeClustersInput{
-			ClusterIdentifier: &clusterId,
-		},
-		SkipErrorTest: true,
-		Error: &testtools.StubError{
-			Err: &smithy.GenericAPIError{
-				Code:    "ClusterNotFound",
-				Message: "ClusterNotFound",
-			},
-		},
+		OperationName: "DeleteCluster",
+		Input:         &redshift.DeleteClusterInput{ClusterIdentifier: aws.String(clusterId), SkipFinalClusterSnapshot: aws.Bool(true)},
+		Output:        &redshift.DeleteClusterOutput{},
+		Error:         raiseErr,
 	}
 }

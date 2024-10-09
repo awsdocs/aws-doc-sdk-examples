@@ -31,7 +31,7 @@ func (scenTest *ObjectLockScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	if err != nil {
 		panic(err)
 	}
-	bucketPrefix := "test-bucket"
+	bucketPrefix := "amzn-s3-demo-bucket"
 	standardBucket := fmt.Sprintf("%s.%s", bucketPrefix, createInfo[0].name)
 	lockBucket := fmt.Sprintf("%s.%s", bucketPrefix, createInfo[1].name)
 	retentionBucket := fmt.Sprintf("%s.%s", bucketPrefix, createInfo[2].name)

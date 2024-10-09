@@ -146,12 +146,12 @@ bool AwsDoc::DynamoDB::deleteMoviesDynamoDBTable(
 /*!
   \sa waitTableActive()
   \param waitTableActive: The DynamoDB table's name.
-  \param clientConfiguration: AWS client configuration.
+  \param dynamoClient: A DynamoDB client.
   \return bool: Function succeeded.
 */
 bool AwsDoc::DynamoDB::waitTableActive(const Aws::String &tableName,
-                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
-    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+                                       const Aws::DynamoDB::DynamoDBClient &dynamoClient) {
+
     // Repeatedly call DescribeTable until table is ACTIVE.
     const int MAX_QUERIES = 20;
     Aws::DynamoDB::Model::DescribeTableRequest request;

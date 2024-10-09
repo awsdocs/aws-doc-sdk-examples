@@ -1,7 +1,8 @@
 {
     "require": {
         "aws/aws-sdk-php": "^3.209",
-        "ext-zip": "*"
+        "ext-zip": "*",
+        "ext-readline": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",

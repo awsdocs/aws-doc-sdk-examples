@@ -21,14 +21,14 @@ import (
 //
 // `-scenario` can be one of the following:
 //
-// * `movieTable`    -  Runs the interactive movie table scenario that shows you how to use
-//						Amazon DynamoDB API commands to work with DynamoDB tables and items.
-// * `partiQLSingle` - 	Runs a scenario that shows you how to use PartiQL statements
-//						to work with DynamoDB tables and items.
-// * `partiQLBatch`  - 	Runs a scenario that shows you how to use batches of PartiQL
-//						statements to work with DynamoDB tables and items.
+//   - `movieTable`    -  Runs the interactive movie table scenario that shows you how to use
+//     Amazon DynamoDB API commands to work with DynamoDB tables and items.
+//   - `partiQLSingle` - 	Runs a scenario that shows you how to use PartiQL statements
+//     to work with DynamoDB tables and items.
+//   - `partiQLBatch`  - 	Runs a scenario that shows you how to use batches of PartiQL
+//     statements to work with DynamoDB tables and items.
 func main() {
-	scenarioMap := map[string]func(sdkConfig aws.Config){
+	scenarioMap := map[string]func(ctx context.Context, sdkConfig aws.Config){
 		"movieTable":    runMovieScenario,
 		"partiQLSingle": runPartiQLSingleScenario,
 		"partiQLBatch":  runPartiQLBatchScenario,
@@ -48,18 +48,20 @@ func main() {
 		fmt.Printf("'%v' is not a valid scenario.\n", *scenario)
 		flag.Usage()
 	} else {
-		sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+		ctx := context.Background()
+		sdkConfig, err := config.LoadDefaultConfig(ctx)
 		if err != nil {
 			log.Fatalf("unable to load SDK config, %v", err)
 		}
 
 		log.SetFlags(0)
-		runScenario(sdkConfig)
+		runScenario(ctx, sdkConfig)
 	}
 }
 
-func runMovieScenario(sdkConfig aws.Config) {
+func runMovieScenario(ctx context.Context, sdkConfig aws.Config) {
 	scenarios.RunMovieScenario(
+		ctx,
 		sdkConfig,
 		demotools.NewQuestioner(),
 		"doc-example-movie-table",
@@ -67,10 +69,10 @@ func runMovieScenario(sdkConfig aws.Config) {
 	)
 }
 
-func runPartiQLSingleScenario(sdkConfig aws.Config) {
-	scenarios.RunPartiQLSingleScenario(sdkConfig, "doc-example-partiql-single-table")
+func runPartiQLSingleScenario(ctx context.Context, sdkConfig aws.Config) {
+	scenarios.RunPartiQLSingleScenario(ctx, sdkConfig, "doc-example-partiql-single-table")
 }
 
-func runPartiQLBatchScenario(sdkConfig aws.Config) {
-	scenarios.RunPartiQLBatchScenario(sdkConfig, "doc-example-partiql-batch-table")
+func runPartiQLBatchScenario(ctx context.Context, sdkConfig aws.Config) {
+	scenarios.RunPartiQLBatchScenario(ctx, sdkConfig, "doc-example-partiql-batch-table")
 }

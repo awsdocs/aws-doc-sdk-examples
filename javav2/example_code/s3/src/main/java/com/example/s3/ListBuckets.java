@@ -28,6 +28,12 @@ public class ListBuckets {
         listAllBuckets(s3);
 
     }
+
+    /**
+     * Lists all the S3 buckets available in the current AWS account.
+     *
+     * @param s3 The {@link S3Client} instance to use for interacting with the Amazon S3 service.
+     */
     public static void listAllBuckets(S3Client s3) {
         ListBucketsResponse response = s3.listBuckets();
         List<Bucket> bucketList = response.buckets();

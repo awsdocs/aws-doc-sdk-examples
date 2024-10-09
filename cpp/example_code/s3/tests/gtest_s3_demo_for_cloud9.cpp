@@ -11,8 +11,7 @@ namespace AwsDocTest {
 // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(S3_GTests, s3_demo_for_cloud9) {
         Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-        Aws::String bucketName = "amzn-s3-demo-bucket-" +
-                                 Aws::Utils::StringUtils::ToLower(uuid.c_str());
+        Aws::String bucketName = GetUniqueBucketName();
 
         Aws::S3::S3Client s3Client(*s_clientConfig);
 

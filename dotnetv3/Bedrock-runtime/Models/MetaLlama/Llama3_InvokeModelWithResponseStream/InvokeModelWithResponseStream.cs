@@ -14,18 +14,17 @@ using Amazon.BedrockRuntime;
 using Amazon.BedrockRuntime.Model;
 
 // Create a Bedrock Runtime client in the AWS Region you want to use.
-var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USEast1);
+var client = new AmazonBedrockRuntimeClient(RegionEndpoint.USWest2);
 
-// Set the model ID, e.g., Llama 3 8b Instruct.
-var modelId = "meta.llama3-8b-instruct-v1:0";
+// Set the model ID, e.g., Llama 3 70b Instruct.
+var modelId = "meta.llama3-70b-instruct-v1:0";
 
 // Define the prompt for the model.
 var prompt = "Describe the purpose of a 'hello world' program in one line.";
 
 // Embed the prompt in Llama 2's instruction format.
 var formattedPrompt = $@"
-<|begin_of_text|>
-<|start_header_id|>user<|end_header_id|>
+<|begin_of_text|><|start_header_id|>user<|end_header_id|>
 {prompt}
 <|eot_id|>
 <|start_header_id|>assistant<|end_header_id|>

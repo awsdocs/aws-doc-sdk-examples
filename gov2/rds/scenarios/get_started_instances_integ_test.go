@@ -51,7 +51,8 @@ func TestRunGetStartedClustersScenario_Integration(t *testing.T) {
 		},
 	}
 
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)
 	}
@@ -63,7 +64,7 @@ func TestRunGetStartedClustersScenario_Integration(t *testing.T) {
 	scenario := NewGetStartedInstances(sdkConfig, mockQuestioner, &helper)
 	testId := time.Now().Unix()
 	scenario.Run(
-		"mysql",
+		ctx, "mysql",
 		fmt.Sprintf("doc-example-parameter-group-%v", testId),
 		fmt.Sprintf("doc-example-instance-%v", testId),
 		"docexampledbinteg")

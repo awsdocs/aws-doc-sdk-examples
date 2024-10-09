@@ -4,6 +4,7 @@ package scenarios
 
 import (
 	"aurora/stubs"
+	"context"
 	"fmt"
 	"strconv"
 	"testing"
@@ -139,7 +140,7 @@ func (scenTest *GetStartedClustersTest) RunSubTest(stubber *testtools.AwsmStubbe
 	mockQuestioner := demotools.MockQuestioner{Answers: scenTest.Answers}
 	scenario := NewGetStartedClusters(*stubber.SdkConfig, &mockQuestioner, &scenTest.helper)
 	scenario.isTestRun = true
-	scenario.Run(scenTest.dbEngine, scenTest.parameterGroupName, scenTest.clusterName, scenTest.dbName)
+	scenario.Run(context.Background(), scenTest.dbEngine, scenTest.parameterGroupName, scenTest.clusterName, scenTest.dbName)
 }
 
 func (scenTest *GetStartedClustersTest) Cleanup() {}

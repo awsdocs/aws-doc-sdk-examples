@@ -45,9 +45,9 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AttachLoadBalancerTargetGroups](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L770)
+- [AttachLoadBalancerTargetGroups](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L890)
 - [CreateAutoScalingGroup](Actions/AutoScalingWrapper.cs#L28)
-- [DeleteAutoScalingGroup](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L573)
+- [DeleteAutoScalingGroup](../cross-service/ResilientService/AutoScalerActions/AutoScalerWrapper.cs#L693)
 - [DescribeAutoScalingGroups](Actions/AutoScalingWrapper.cs#L109)
 - [DescribeAutoScalingInstances](Actions/AutoScalingWrapper.cs#L109)
 - [DescribeScalingActivities](Actions/AutoScalingWrapper.cs#L86)

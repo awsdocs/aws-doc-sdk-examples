@@ -16,6 +16,12 @@ describe("util-string", () => {
       const u2 = getUniqueName(value);
       expect(u1).not.toEqual(u2);
     });
+
+    it("should throw an error if a falsy value is passed in for the prefix", () => {
+      expect(() => getUniqueName()).toThrowError();
+      expect(() => getUniqueName("")).toThrowError();
+      expect(() => getUniqueName(0)).toThrowError();
+    });
   });
 
   describe("postfix", () => {

@@ -10,16 +10,17 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
+	"math/rand"
+	"strings"
+	"time"
+
 	"github.com/aws/aws-sdk-go-v2/aws"
 	redshift_types "github.com/aws/aws-sdk-go-v2/service/redshift/types"
 	redshiftdata_types "github.com/aws/aws-sdk-go-v2/service/redshiftdata/types"
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/redshift/actions"
-	"log"
-	"math/rand"
-	"strings"
-	"time"
 
 	"github.com/aws/aws-sdk-go-v2/service/redshift"
 	"github.com/aws/aws-sdk-go-v2/service/redshiftdata"
@@ -111,7 +112,7 @@ type User struct {
 //
 // It uses a questioner from the `demotools` package to get input during the example.
 // This package can be found in the ..\..\demotools folder of this repo.
-func (runner *RedshiftBasicsScenario) Run() {
+func (runner *RedshiftBasicsScenario) Run(ctx context.Context) {
 
 	user := User{}
 	secretId := "s3express/basics/secrets"
@@ -122,7 +123,6 @@ func (runner *RedshiftBasicsScenario) Run() {
 	fileName := "Movies.json"
 	nodeType := "ra3.xlplus"
 	clusterType := "single-node"
-	ctx := context.TODO()
 
 	defer func() {
 		if r := recover(); r != nil {
