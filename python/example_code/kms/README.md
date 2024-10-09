@@ -34,39 +34,42 @@ python -m pip install -r requirements.txt
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](kms_scenario.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateAlias](alias_management.py#L78)
-- [CreateGrant](grant_management.py#L27)
-- [CreateKey](key_management.py#L28)
-- [Decrypt](key_encryption.py#L50)
-- [DeleteAlias](alias_management.py#L164)
-- [DescribeKey](key_management.py#L82)
-- [DisableKey](key_management.py#L128)
-- [EnableKey](key_management.py#L128)
-- [Encrypt](key_encryption.py#L26)
-- [GenerateDataKey](key_management.py#L104)
-- [GetKeyPolicy](key_policies.py#L50)
-- [ListAliases](alias_management.py#L103)
-- [ListGrants](grant_management.py#L61)
-- [ListKeyPolicies](key_policies.py#L28)
-- [ListKeys](key_management.py#L54)
-- [PutKeyPolicy](key_policies.py#L78)
-- [ReEncrypt](key_encryption.py#L76)
-- [RetireGrant](grant_management.py#L86)
-- [RevokeGrant](grant_management.py#L106)
-- [ScheduleKeyDeletion](key_management.py#L161)
-- [UpdateAlias](alias_management.py#L135)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Encrypt and decrypt text](key_encryption.py)
-- [Manage keys](key_management.py)
+- [CreateAlias](alias_management.py#L89)
+- [CreateGrant](grant_management.py#L38)
+- [CreateKey](key_management.py#L39)
+- [Decrypt](key_encryption.py#L66)
+- [DeleteAlias](alias_management.py#L172)
+- [DescribeKey](key_management.py#L110)
+- [DisableKey](key_management.py#L175)
+- [EnableKey](key_management.py#L156)
+- [EnableKeyRotation](key_management.py#L216)
+- [Encrypt](key_encryption.py#L37)
+- [GenerateDataKey](key_management.py#L132)
+- [GetKeyPolicy](key_policies.py#L62)
+- [ListAliases](alias_management.py#L113)
+- [ListGrants](grant_management.py#L67)
+- [ListKeyPolicies](key_policies.py#L39)
+- [ListKeys](key_management.py#L82)
+- [PutKeyPolicy](key_policies.py#L91)
+- [ReEncrypt](key_encryption.py#L88)
+- [RetireGrant](grant_management.py#L95)
+- [RevokeGrant](grant_management.py#L115)
+- [ScheduleKeyDeletion](key_management.py#L189)
+- [Sign](key_encryption.py#L123)
+- [TagResource](key_management.py#L235)
+- [UpdateAlias](alias_management.py#L143)
+- [Verify](key_encryption.py#L147)
 
 
 <!--custom.examples.start-->
@@ -81,29 +84,7 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Encrypt and decrypt text
-
-This example shows you how to do the following:
-
-- Encrypt plain text by using a KMS key.
-- Decrypt ciphertext by using a KMS key.
-- Reencrypt ciphertext by using a second KMS key.
-
-<!--custom.scenario_prereqs.kms_Scenario_KeyEncryption.start-->
-<!--custom.scenario_prereqs.kms_Scenario_KeyEncryption.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-python key_encryption.py
-```
-
-
-<!--custom.scenarios.kms_Scenario_KeyEncryption.start-->
-<!--custom.scenarios.kms_Scenario_KeyEncryption.end-->
-
-#### Manage keys
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -111,20 +92,23 @@ This example shows you how to do the following:
 - List KMS keys for your account and get details about them.
 - Enable and disable KMS keys.
 - Generate a symmetric data key that can be used for client-side encryption.
+- Generate an asymmetric key used to digitally sign data.
+- Tag keys.
 - Delete KMS keys.
 
-<!--custom.scenario_prereqs.kms_Scenario_KeyManagement.start-->
-<!--custom.scenario_prereqs.kms_Scenario_KeyManagement.end-->
+<!--custom.basic_prereqs.kms_Scenario_Basics.start-->
+<!--custom.basic_prereqs.kms_Scenario_Basics.end-->
 
 Start the example by running the following at a command prompt:
 
 ```
-python key_management.py
+python kms_scenario.py
 ```
 
 
-<!--custom.scenarios.kms_Scenario_KeyManagement.start-->
-<!--custom.scenarios.kms_Scenario_KeyManagement.end-->
+<!--custom.basics.kms_Scenario_Basics.start-->
+<!--custom.basics.kms_Scenario_Basics.end-->
+
 
 ### Tests
 

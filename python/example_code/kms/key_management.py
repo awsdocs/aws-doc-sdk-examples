@@ -11,45 +11,73 @@ to create, list, and manage keys.
 # snippet-start:[python.example_code.kms.Scenario_KeyManagement]
 import logging
 from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.kms.KeyManager]
+# snippet-start:[python.example_code.kms.KeyManager.decl]
 class KeyManager:
     def __init__(self, kms_client):
         self.kms_client = kms_client
         self.created_keys = []
 
-    # snippet-end:[python.example_code.kms.KeyManager]
+    @classmethod
+    def from_client(cls) -> "KeyManager":
+        """
+        Creates a KeyManager instance with a default KMS client.
+
+        :return: An instance of KeyManager initialized with the default KMS client.
+        """
+        kms_client = boto3.client("kms")
+        return cls(kms_client)
+
+    # snippet-end:[python.example_code.kms.KeyManager.decl]
 
     # snippet-start:[python.example_code.kms.CreateKey]
-    def create_key(self):
+    def create_key(self, key_description: str) -> dict[str, any]:
         """
-        Creates a key (or multiple keys) with a user-provided description.
+        Creates a key with a user-provided description.
+
+        :param key_description: A description for the key.
+        :return: The key ID.
         """
-        answer = "y"
-        while answer.lower() == "y":
-            key_desc = input("\nLet's create a key. Describe it for me: ")
-            if not key_desc:
-                key_desc = "Key management demo key"
-            try:
-                key = self.kms_client.create_key(Description=key_desc)["KeyMetadata"]
-            except ClientError as err:
-                logging.error(
-                    "Couldn't create your key. Here's why: %s",
-                    err.response["Error"]["Message"],
-                )
-                raise
-            else:
-                print("Key created:")
-                pprint(key)
-                self.created_keys.append(key)
-                answer = input("Create another (y/n)? ")
+        try:
+            key = self.kms_client.create_key(Description=key_description)["KeyMetadata"]
+            self.created_keys.append(key)
+            return key
+        except ClientError as err:
+            logging.error(
+                "Couldn't create your key. Here's why: %s",
+                err.response["Error"]["Message"],
+            )
+            raise
 
     # snippet-end:[python.example_code.kms.CreateKey]
+
+    # snippet-start:[python.example_code.kms.CreateAsymmetricKey]
+    def create_asymmetric_key(self) -> str:
+        """
+        Creates an asymmetric key in AWS KMS for signing messages.
+
+        :return: The ID of the created key.
+        """
+        try:
+            key = self.kms_client.create_key(
+                KeySpec="RSA_2048", KeyUsage="SIGN_VERIFY", Origin="AWS_KMS"
+            )["KeyMetadata"]
+            self.created_keys.append(key)
+            return key["KeyId"]
+        except ClientError as err:
+            logger.error(
+                "Couldn't create your key. Here's why: %s",
+                err.response["Error"]["Message"],
+            )
+            raise
+
+    # snippet-end:[python.example_code.kms.CreateAsymmetricKey]
 
     # snippet-start:[python.example_code.kms.ListKeys]
     def list_keys(self):
@@ -80,24 +108,24 @@ class KeyManager:
     # snippet-end:[python.example_code.kms.ListKeys]
 
     # snippet-start:[python.example_code.kms.DescribeKey]
-    def describe_key(self):
+    def describe_key(self, key_id: str) -> dict[str, any]:
         """
         Describes a key.
+
+        :param key_id: The ARN or ID of the key to describe.
+        :return: Information about the key.
         """
-        key_id = input("Enter a key ID or ARN here to get information about the key: ")
-        if key_id:
-            try:
-                key = self.kms_client.describe_key(KeyId=key_id)["KeyMetadata"]
-            except ClientError as err:
-                logging.error(
-                    "Couldn't get key '%s'. Here's why: %s",
-                    key_id,
-                    err.response["Error"]["Message"],
-                )
-            else:
-                print(f"Got key {key_id}:")
-                pprint(key)
-        return key_id
+
+        try:
+            key = self.kms_client.describe_key(KeyId=key_id)["KeyMetadata"]
+            return key
+        except ClientError as err:
+            logging.error(
+                "Couldn't get key '%s'. Here's why: %s",
+                key_id,
+                err.response["Error"]["Message"],
+            )
+            raise
 
     # snippet-end:[python.example_code.kms.DescribeKey]
 
@@ -125,41 +153,41 @@ class KeyManager:
 
     # snippet-end:[python.example_code.kms.GenerateDataKey]
 
-    # snippet-start:[python.example_code.kms.EnableDisableKey]
-    def enable_disable_key(self, key_id):
+    # snippet-start:[python.example_code.kms.EnableKey]
+    def enable_key(self, key_id: str) -> None:
         """
-        Disables and then enables a key. Gets the key state after each state change.
+        Enables a key. Gets the key state after each state change.
+
+        :param key_id: The ARN or ID of the key to enable.
         """
-        answer = input("Do you want to disable and then enable that key (y/n)? ")
-        if answer.lower() == "y":
-            try:
-                self.kms_client.disable_key(KeyId=key_id)
-                key = self.kms_client.describe_key(KeyId=key_id)["KeyMetadata"]
-            except ClientError as err:
-                logging.error(
-                    "Couldn't disable key '%s'. Here's why: %s",
-                    key_id,
-                    err.response["Error"]["Message"],
-                )
-            else:
-                print(f"AWS KMS says your key state is: {key['KeyState']}.")
+        try:
+            self.kms_client.enable_key(KeyId=key_id)
+        except ClientError as err:
+            logging.error(
+                "Couldn't enable key '%s'. Here's why: %s",
+                key_id,
+                err.response["Error"]["Message"],
+            )
+            raise
 
-            try:
-                self.kms_client.enable_key(KeyId=key_id)
-                key = self.kms_client.describe_key(KeyId=key_id)["KeyMetadata"]
-            except ClientError as err:
-                logging.error(
-                    "Couldn't enable key '%s'. Here's why: %s",
-                    key_id,
-                    err.response["Error"]["Message"],
-                )
-            else:
-                print(f"AWS KMS says your key state is: {key['KeyState']}.")
+    # snippet-end:[python.example_code.kms.EnableKey]
 
-    # snippet-end:[python.example_code.kms.EnableDisableKey]
+    # snippet-start:[python.example_code.kms.DisableKey]
+    def disable_key(self, key_id: str) -> None:
+        try:
+            self.kms_client.disable_key(KeyId=key_id)
+        except ClientError as err:
+            logging.error(
+                "Couldn't disable key '%s'. Here's why: %s",
+                key_id,
+                err.response["Error"]["Message"],
+            )
+            raise
+
+    # snippet-end:[python.example_code.kms.DisableKey]
 
     # snippet-start:[python.example_code.kms.ScheduleKeyDeletion]
-    def delete_keys(self, keys):
+    def delete_key(self, key_id: str, window: int) -> None:
         """
         Deletes a list of keys.
 
@@ -167,35 +195,65 @@ class KeyManager:
         Deleting a KMS key is a destructive and potentially dangerous operation. When a KMS key is deleted,
         all data that was encrypted under the KMS key is unrecoverable.
 
-        :param keys: The list of keys to delete.
+        :param key_id: The ARN or ID of the key to delete.
+        :param window: The waiting period, in days, before the KMS key is deleted.
         """
-        print("""
-        Warning:
-            Deleting a KMS key is a destructive and potentially dangerous operation. When a KMS key is deleted,
-            all data that was encrypted under the KMS key is unrecoverable.
-            """)
 
-        answer = input("Do you want to delete these keys (y/n)? ")
-        if answer.lower() == "y":
-            window = 7
-            for key in keys:
-                try:
-                    self.kms_client.schedule_key_deletion(
-                        KeyId=key["KeyId"], PendingWindowInDays=window
-                    )
-                except ClientError as err:
-                    logging.error(
-                        "Couldn't delete key %s. Here's why: %s",
-                        key["KeyId"],
-                        err.response["Error"]["Message"],
-                    )
-                else:
-                    print(
-                        f"Key {key['KeyId']} scheduled for deletion in {window} days."
-                    )
+        try:
+            self.kms_client.schedule_key_deletion(
+                KeyId=key_id, PendingWindowInDays=window
+            )
+        except ClientError as err:
+            logging.error(
+                "Couldn't delete key %s. Here's why: %s",
+                key_id,
+                err.response["Error"]["Message"],
+            )
+            raise
 
+    # snippet-end:[python.example_code.kms.ScheduleKeyDeletion]
 
-# snippet-end:[python.example_code.kms.ScheduleKeyDeletion]
+    # snippet-start:[python.example_code.kms.EnableKeyRotation]
+    def enable_key_rotation(self, key_id: str) -> None:
+        """
+        Enables rotation for a key.
+
+        :param key_id: The ARN or ID of the key to enable rotation for.
+        """
+        try:
+            self.kms_client.enable_key_rotation(KeyId=key_id)
+        except ClientError as err:
+            logging.error(
+                "Couldn't enable rotation for key '%s'. Here's why: %s",
+                key_id,
+                err.response["Error"]["Message"],
+            )
+            raise
+
+    # snippet-end:[python.example_code.kms.EnableKeyRotation]
+
+    # snippet-start:[python.example_code.kms.TagResource]
+    def tag_resource(self, key_id: str, tag_key: str, tag_value: str) -> None:
+        """
+        Add or edit tags on a customer managed key.
+
+        :param key_id: The ARN or ID of the key to enable rotation for.
+        :param tag_key: Key for the tag.
+        :param tag_value: Value for the tag.
+        """
+        try:
+            self.kms_client.tag_resource(
+                KeyId=key_id, Tags=[{"TagKey": tag_key, "TagValue": tag_value}]
+            )
+        except ClientError as err:
+            logging.error(
+                "Couldn't add a tag for the key '%s'. Here's why: %s",
+                key_id,
+                err.response["Error"]["Message"],
+            )
+            raise
+
+    # snippet-end:[python.example_code.kms.TagResource]
 
 
 def key_management(kms_client):
@@ -206,22 +264,66 @@ def key_management(kms_client):
     print("-" * 88)
 
     key_manager = KeyManager(kms_client)
-    key_manager.create_key()
+
+    answer = "y"
+    while answer.lower() == "y":
+        key_desc = input("\nLet's create a key. Describe it for me: ")
+        if not key_desc:
+            key_desc = "Key management demo key"
+        try:
+            key = key_manager.create_key(key_desc)
+        except ClientError as err:
+            logging.error(
+                "Couldn't create your key. Here's why: %s",
+                err.response["Error"]["Message"],
+            )
+            raise
+        else:
+            print("Key created:")
+            pprint(key)
+            answer = input("Create another (y/n)? ")
+
     print("-" * 88)
     key_manager.list_keys()
     print("-" * 88)
-    key_id = key_manager.describe_key()
+    key_id = input("Enter a key ID or ARN here to get information about the key: ")
     if key_id:
-        key_manager.enable_disable_key(key_id)
-        print("-" * 88)
-        key_manager.generate_data_key(key_id)
+        key = key_manager.describe_key(key_id)
+        print(f"Got key {key_id}:")
+        pprint(key)
+    if key_id:
+        answer = input("Do you want to disable and then enable that key (y/n)? ")
+        if answer.lower() == "y":
+            key_manager.disable_key(key_id)
+            key = key_manager.describe_key(key_id)
+            print(f"AWS KMS says your key state is: {key['KeyState']}.")
+            key_manager.enable_key(key_id)
+            key = key_manager.describe_key(key_id)
+            print(f"AWS KMS says your key state is: {key['KeyState']}.")
+
+    print("-" * 88)
+    key_manager.generate_data_key(key_id)
     print("-" * 88)
     print("For this demo, we created these keys:")
     for key in key_manager.created_keys:
         print(f"\tKeyId: {key['KeyId']}")
         print(f"\tDescription: {key['Description']}")
         print("-" * 66)
-    key_manager.delete_keys(key_manager.created_keys)
+    print(
+        """
+      Warning:
+          Deleting a KMS key is a destructive and potentially dangerous operation. When a KMS key is deleted,
+          all data that was encrypted under the KMS key is unrecoverable.
+          """
+    )
+
+    answer = input("Do you want to delete these keys (y/n)? ")
+    if answer.lower() == "y":
+        window = 7
+        for key in key_manager.created_keys:
+            key_manager.delete_key(key["KeyId"], window)
+            print(f"Key {key['KeyId']} scheduled for deletion in {window} days.")
+
     print("\nThanks for watching!")
     print("-" * 88)
 

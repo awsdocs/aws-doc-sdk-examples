@@ -6,8 +6,8 @@ Unit tests for key_management.py.
 """
 
 import boto3
-from botocore.exceptions import ClientError
 import pytest
+from botocore.exceptions import ClientError
 
 import key_management
 
@@ -53,15 +53,13 @@ def test_key_management(
             marker="test-token",
             raise_and_continue=True,
         )
-        runner.add(
-            kms_stubber.stub_describe_key, key_id, "CREATED", raise_and_continue=True
-        )
-        runner.add(kms_stubber.stub_disable_key, key_id, raise_and_continue=True)
+        runner.add(kms_stubber.stub_describe_key, key_id, "CREATED")
+        runner.add(kms_stubber.stub_disable_key, key_id)
         if stop_on_action != "stub_disable_key":
             runner.add(
                 kms_stubber.stub_describe_key, key_id, "DISABLED", keep_going=True
             )
-        runner.add(kms_stubber.stub_enable_key, key_id, raise_and_continue=True)
+        runner.add(kms_stubber.stub_enable_key, key_id)
         if stop_on_action != "stub_enable_key":
             runner.add(
                 kms_stubber.stub_describe_key, key_id, "ENABLED", keep_going=True
@@ -72,11 +70,16 @@ def test_key_management(
             "AES_256",
             raise_and_continue=True,
         )
-        runner.add(
-            kms_stubber.stub_schedule_key_deletion, key_id, 7, raise_and_continue=True
-        )
+        runner.add(kms_stubber.stub_schedule_key_deletion, key_id, 7)
 
-    if stop_on_action != "stub_create_key":
+    exception_raising_functions = [
+        "stub_create_key",
+        "stub_describe_key",
+        "stub_disable_key",
+        "stub_enable_key",
+        "stub_schedule_key_deletion",
+    ]
+    if stop_on_action not in exception_raising_functions:
         key_management.key_management(kms_client)
     else:
         with pytest.raises(ClientError):
