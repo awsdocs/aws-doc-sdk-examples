@@ -149,7 +149,7 @@ var (
 // and config files.
 func main() {
 
-	flag.StringVar(&bucketName, "bucket", "", "<EXAMPLE-BUCKET-NAME>")
+	flag.StringVar(&bucketName, "bucket", "", "amzn-s3-demo-bucket")
 	flag.StringVar(&certificateSSLArn, "cert", "", "<AWS CERTIFICATE MANGER ARN>")
 	flag.StringVar(&domain, "domain", "", "<YOUR DOMAIN>")
 	flag.Parse()

@@ -68,7 +68,7 @@ func TestCreateDistribution(t *testing.T) {
 
 	mockCFDistribution := createMockCFDistribution(s3Client, cloudfrontClient)
 
-	bucketName := "example-com"
+	bucketName := "amzn-s3-demo-bucket"
 	certificateSSLArn := "arn:aws:acm:ap-northeast-2:123456789000:certificate/000000000-0000-0000-0000-000000000000"
 	domain := "example.com"
 

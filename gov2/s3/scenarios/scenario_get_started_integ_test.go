@@ -3,8 +3,6 @@
 //go:build integration
 // +build integration
 
-// SPDX-License-Identifier: Apache-2.0
-
 // Integration test for the Amazon S3 get started scenario.
 
 package scenarios
@@ -12,6 +10,7 @@ package scenarios
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -19,13 +18,20 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
+	"github.com/google/uuid"
 )
 
 func TestGetStartedScenario_Integration(t *testing.T) {
+	bucket := os.Getenv("S3_BUCKET_NAME_PREFIX")
+	if bucket == "" {
+		bucket = "amzn-s3-demo-bucket"
+	} else {
+		bucket = fmt.Sprintf("%s-%s", bucket, uuid.New())
+	}
 	outFile := "integ-test.out"
 	mockQuestioner := &demotools.MockQuestioner{
 		Answers: []string{
-			"doc-example-go-test-bucket", "../README.md", "", outFile, "", "test-folder", "", "y",
+			bucket, "../README.md", "", outFile, "", "test-folder", "", "y",
 		},
 	}
 

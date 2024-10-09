@@ -54,7 +54,7 @@ type PresigningScenarioTest struct {
 // SetupDataAndStubs sets up test data and builds the stubs that are used to return
 // mocked data.
 func (scenTest *PresigningScenarioTest) SetupDataAndStubs() []testtools.Stub {
-	bucketName := "test-bucket-1"
+	bucketName := "amzn-s3-demo-bucket-1"
 	testConfig, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic(err)
