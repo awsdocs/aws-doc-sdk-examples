@@ -98,8 +98,9 @@ def deploy_resources(account_id, account_name, dir, lang="typescript"):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="admin, images, or plugin flag.")
+    parser = argparse.ArgumentParser(description="admin, images, or plugin stack.")
     parser.add_argument("type", choices=["admin", "images", "plugin"])
+    parser.add_argument("--language")
     args = parser.parse_args()
 
     accounts = None
@@ -122,11 +123,17 @@ def main():
                 accounts = yaml.safe_load(file)
         except Exception as e:
             print(f"Failed to read config data: \n{e}")
-
+    
     if accounts is None:
         raise ValueError(f"Could not load accounts for stack {args.type}")
 
-    for account_name, account_info in accounts.items():
+    if args.language:
+        items = [(args.language, accounts[args.language])]
+    else:
+        items = accounts.items()
+        
+    for account_name, account_info in items:
+
         print(
             f"Reading from account {account_name} with ID {account_info['account_id']}"
         )
