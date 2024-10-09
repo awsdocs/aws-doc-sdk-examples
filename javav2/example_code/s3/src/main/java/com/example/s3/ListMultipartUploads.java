@@ -48,6 +48,12 @@ public class ListMultipartUploads {
         s3.close();
     }
 
+    /**
+     * Lists the multipart uploads currently in progress in the specified Amazon S3 bucket.
+     *
+     * @param s3 the S3Client object used to interact with Amazon S3
+     * @param bucketName the name of the Amazon S3 bucket to list the multipart uploads for
+     */
     public static void listUploads(S3Client s3, String bucketName) {
         try {
             ListMultipartUploadsRequest listMultipartUploadsRequest = ListMultipartUploadsRequest.builder()

@@ -24,9 +24,15 @@ s3-control_CreateJob:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description:
+            - description: Create an asynchronous S3 job.
               snippet_tags:
                 - s3control.java2.create_job.async.main
+            - description: Create a compliance retention job.
+              snippet_tags:
+                - s3control.java2.create_job.compliance.main   
+            - description: Create a legal hold off job.
+              snippet_tags:
+                - s3control.java2.create_job.compliance.main       
   services:
     s3-control: {CreateJob}    
 s3-control_PutJobTagging:
@@ -108,10 +114,8 @@ s3-control_UpdateJobPriority:
   services:
     s3-control: {UpdateJobPriority}   
 s3-control_Basics:
-  title: Learn core operations for'&S3Control;' using an &AWS; SDK
-  title_abbrev: Learn core operations
   synopsis: learn core operations for'&S3Control;'.
-  category: Scenarios
+  category: Basics
   languages:
     Java:
       versions:

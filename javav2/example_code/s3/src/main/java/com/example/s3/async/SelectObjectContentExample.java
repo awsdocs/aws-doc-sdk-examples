@@ -46,7 +46,7 @@ import java.util.concurrent.CompletableFuture;
 // snippet-start:[s3.java2.async.selectObjectContentMethod.main]
 public class SelectObjectContentExample {
     static final Logger logger = LoggerFactory.getLogger(SelectObjectContentExample.class);
-    static final String BUCKET_NAME = "select-object-content-" + UUID.randomUUID();
+    static final String BUCKET_NAME = "amzn-s3-demo-bucket-" + UUID.randomUUID();
     static final S3AsyncClient s3AsyncClient = S3AsyncClient.create();
     static String FILE_CSV = "csv";
     static String FILE_JSON = "json";

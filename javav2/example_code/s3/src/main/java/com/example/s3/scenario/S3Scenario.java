@@ -44,25 +44,26 @@ public class S3Scenario {
     public static void main(String[] args) throws IOException {
         final String usage = """
             Usage:
-               <key> <objectPath> <savePath> <toBucket>
+               <bucketName> <key> <objectPath> <savePath> <toBucket>
 
             Where:
+                bucketName - The name of the  S3 bucket.
                 key - The unique identifier for the object stored in the S3 bucket.
                 objectPath - The full file path of the object within the S3 bucket (e.g., "documents/reports/annual_report.pdf").
                 savePath - The local file path where the object will be downloaded and saved (e.g., "C:/Users/username/Downloads/annual_report.pdf").
                 toBucket - The name of the S3 bucket to which the object will be copied.
             """;
 
-        if (args.length != 4) {
+        if (args.length != 5) {
             logger.info(usage);
             return;
         }
 
-        String bucketName = "scenario-" + UUID.randomUUID();
-        String key = args[0];
-        String objectPath = args[1];
-        String savePath = args[2];
-        String toBucket = args[3];
+        String bucketName = args[0];
+        String key = args[1];
+        String objectPath = args[2];
+        String savePath = args[3];
+        String toBucket = args[4];
 
         logger.info(DASHES);
         logger.info("Welcome to the Amazon Simple Storage Service (S3) example scenario.");
@@ -222,7 +223,28 @@ public class S3Scenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("7. Delete objects from the Amazon S3 bucket.");
+        logger.info("7. Copy the object to another Amazon S3 bucket using multi copy.");
+        waitForInputToContinue(scanner);
+
+        try {
+            CompletableFuture<String> future = s3Actions.performMultiCopy(toBucket, bucketName, key);
+            String result = future.join();
+            logger.info("Copy operation result: {}", result);
+
+        } catch (RuntimeException rt) {
+            Throwable cause = rt.getCause();
+            if (cause instanceof S3Exception s3Ex) {
+                logger.info("KMS error occurred: Error message: {}, Error code {}", s3Ex.getMessage(), s3Ex.awsErrorDetails().errorCode());
+            } else {
+                logger.info("An unexpected error occurred: " + rt.getMessage());
+            }
+        }
+        waitForInputToContinue(scanner);
+        logger.info(DASHES);
+
+
+        logger.info(DASHES);
+        logger.info("8. Delete objects from the Amazon S3 bucket.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = s3Actions.deleteObjectFromBucketAsync(bucketName, key);
@@ -254,7 +276,7 @@ public class S3Scenario {
         logger.info(DASHES);
 
         logger.info(DASHES);
-        logger.info("8. Delete the Amazon S3 bucket.");
+        logger.info("9. Delete the Amazon S3 bucket.");
         waitForInputToContinue(scanner);
         try {
             CompletableFuture<Void> future = s3Actions.deleteBucketAsync(bucketName);
