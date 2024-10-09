@@ -7,8 +7,10 @@ import { parse } from "yaml";
 interface AccountConfig {
   account_id: string;
   status: "enabled" | "disabled";
-  vcpus?: string;
-  memory?: string;
+  // https://docs.aws.amazon.com/batch/latest/APIReference/API_ResourceRequirement.html
+  vcpus?: string; // Count
+  memory?: string; // MiB, but limited based on vCPU count, see docs
+  storage?: string; // GiB, 20GiB to 200GiB
 }
 
 interface AccountConfigs {
