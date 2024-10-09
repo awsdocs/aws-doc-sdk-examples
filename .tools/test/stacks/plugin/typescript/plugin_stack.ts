@@ -65,7 +65,7 @@ class PluginStack extends cdk.Stack {
     );
   }
 
-  private initBatchFargate(variables: Record<string, string>): [batch.CfnJobDefinition, batch.CfnJobQueue] {
+  private initBatchFargate(variables: Array<string, string>): [batch.CfnJobDefinition, batch.CfnJobQueue] {
     const batchExecutionRole = new iam.Role(
       this,
       `BatchExecutionRole-${toolName}`,
