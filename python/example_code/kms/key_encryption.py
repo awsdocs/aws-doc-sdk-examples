@@ -17,7 +17,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.kms.KeyEncrypt]
+# snippet-start:[python.example_code.kms.KeyEncrypt.decl]
 class KeyEncrypt:
     def __init__(self, kms_client):
         self.kms_client = kms_client
@@ -32,7 +32,7 @@ class KeyEncrypt:
         kms_client = boto3.client("kms")
         return cls(kms_client)
 
-    # snippet-end:[python.example_code.kms.KeyEncrypt]
+    # snippet-end:[python.example_code.kms.KeyEncrypt.decl]
 
     # snippet-start:[python.example_code.kms.Encrypt]
     def encrypt(self, key_id: str, text: str) -> str:

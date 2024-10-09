@@ -300,10 +300,13 @@ Let's try to replace the automatically created policy with the following policy.
         return response["Enabled"] is True
 
     def clean_up(self):
+        """
+        Delete resources created by this scenario.
+        """
         if self.alias_name != "":
             print(f"Deleting the alias {self.alias_name}.")
             self.alias_manager.delete_alias(self.alias_name)
-        window = 7
+        window = 7  # The window in days for a scheduled deletion.
         if self.key_id != "":
             print(
                 """

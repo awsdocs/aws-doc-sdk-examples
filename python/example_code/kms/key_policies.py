@@ -19,7 +19,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.kms.KeyPolicy]
+# snippet-start:[python.example_code.kms.KeyPolicy.decl]
 class KeyPolicy:
     def __init__(self, kms_client):
         self.kms_client = kms_client
@@ -34,7 +34,7 @@ class KeyPolicy:
         kms_client = boto3.client("kms")
         return cls(kms_client)
 
-    # snippet-end:[python.example_code.kms.KeyPolicy]
+    # snippet-end:[python.example_code.kms.KeyPolicy.decl]
 
     # snippet-start:[python.example_code.kms.ListKeyPolicies]
     def list_policies(self, key_id):

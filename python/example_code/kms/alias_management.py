@@ -18,7 +18,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.kms.AliasManager]
+# snippet-start:[python.example_code.kms.AliasManager.decl]
 class AliasManager:
     def __init__(self, kms_client):
         self.kms_client = kms_client
@@ -34,7 +34,7 @@ class AliasManager:
         kms_client = boto3.client("kms")
         return cls(kms_client)
 
-    # snippet-end:[python.example_code.kms.AliasManager]
+    # snippet-end:[python.example_code.kms.AliasManager.decl]
 
     def setup(self):
         """

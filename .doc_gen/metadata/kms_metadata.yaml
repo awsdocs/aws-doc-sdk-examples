@@ -34,7 +34,7 @@ kms_TagResource:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyManager
+                - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.TagResource
   services:
     kms: {TagResource}
@@ -56,7 +56,7 @@ kms_Sign:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyEncrypt
+                - python.example_code.kms.KeyEncrypt.decl
                 - python.example_code.kms.Sign
   services:
     kms: {Sign}
@@ -69,7 +69,7 @@ kms_Verify:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyEncrypt
+                - python.example_code.kms.KeyEncrypt.decl
                 - python.example_code.kms.Verify
   services:
     kms: {Verify}
@@ -100,7 +100,7 @@ kms_CreateKey:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyManager
+                - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.CreateKey
     Ruby:
       versions:
@@ -156,7 +156,7 @@ kms_Decrypt:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyEncrypt
+                - python.example_code.kms.KeyEncrypt.decl
                 - python.example_code.kms.Decrypt
     Ruby:
       versions:
@@ -203,7 +203,7 @@ kms_Encrypt:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyEncrypt
+                - python.example_code.kms.KeyEncrypt.decl
                 - python.example_code.kms.Encrypt
     Ruby:
       versions:
@@ -232,7 +232,7 @@ kms_GenerateDataKey:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyManager
+                - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.GenerateDataKey
     Rust:
       versions:
@@ -304,7 +304,7 @@ kms_ListKeys:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyManager
+                - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.ListKeys
     Rust:
       versions:
@@ -325,7 +325,7 @@ kms_ReEncrypt:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyEncrypt
+                - python.example_code.kms.KeyEncrypt.decl
                 - python.example_code.kms.ReEncrypt
     Rust:
       versions:
@@ -381,7 +381,7 @@ kms_CreateAlias:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.AliasManager
+                - python.example_code.kms.AliasManager.decl
                 - python.example_code.kms.CreateAlias
   services:
     kms: {CreateAlias}
@@ -421,7 +421,7 @@ kms_CreateGrant:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.GrantManager
+                - python.example_code.kms.GrantManager.decl
                 - python.example_code.kms.CreateGrant
   services:
     kms: {CreateGrant}
@@ -461,7 +461,7 @@ kms_DescribeKey:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyManager
+                - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.DescribeKey
   services:
     kms: {DescribeKey}
@@ -501,7 +501,7 @@ kms_DisableKey:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyManager
+                - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.DisableKey
   services:
     kms: {DisableKey}
@@ -541,7 +541,7 @@ kms_EnableKey:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyManager
+                - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.EnableKey
   services:
     kms: {EnableKey}
@@ -564,7 +564,7 @@ kms_ScheduleKeyDeletion:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyManager
+                - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.ScheduleKeyDeletion
   services:
     kms: {ScheduleKeyDeletion}
@@ -604,7 +604,7 @@ kms_ListAliases:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.AliasManager
+                - python.example_code.kms.AliasManager.decl
                 - python.example_code.kms.ListAliases
   services:
     kms: {ListAliases}
@@ -618,7 +618,7 @@ kms_UpdateAlias:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.AliasManager
+                - python.example_code.kms.AliasManager.decl
                 - python.example_code.kms.UpdateAlias
   services:
     kms: {UpdateAlias}
@@ -641,7 +641,7 @@ kms_DeleteAlias:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.AliasManager
+                - python.example_code.kms.AliasManager.decl
                 - python.example_code.kms.DeleteAlias
   services:
     kms: {DeleteAlias}
@@ -681,7 +681,7 @@ kms_ListGrants:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.GrantManager
+                - python.example_code.kms.GrantManager.decl
                 - python.example_code.kms.ListGrants
   services:
     kms: {ListGrants}
@@ -695,7 +695,7 @@ kms_RetireGrant:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.GrantManager
+                - python.example_code.kms.GrantManager.decl
                 - python.example_code.kms.RetireGrant
   services:
     kms: {RetireGrant}
@@ -718,7 +718,7 @@ kms_RevokeGrant:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.GrantManager
+                - python.example_code.kms.GrantManager.decl
                 - python.example_code.kms.RevokeGrant
   services:
     kms: {RevokeGrant}
@@ -741,7 +741,7 @@ kms_ListKeyPolicies:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyPolicy
+                - python.example_code.kms.KeyPolicy.decl
                 - python.example_code.kms.ListKeyPolicies
   services:
     kms: {ListKeyPolicies}
@@ -755,7 +755,7 @@ kms_GetKeyPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyPolicy
+                - python.example_code.kms.KeyPolicy.decl
                 - python.example_code.kms.GetKeyPolicy
   services:
     kms: {GetKeyPolicy}
@@ -769,7 +769,7 @@ kms_PutKeyPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyPolicy
+                - python.example_code.kms.KeyPolicy.decl
                 - python.example_code.kms.PutKeyPolicy
   services:
     kms: {PutKeyPolicy}
@@ -783,7 +783,7 @@ kms_EnableKeyRotation:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.kms.KeyManager
+                - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.EnableKeyRotation
   services:
     kms: {EnableKeyRotation}
@@ -821,7 +821,7 @@ kms_Scenario_Basics:
                 - python.example_code.kms.kms_basics
             - description: Wrapper class and methods for &kms-key; management.
               snippet_tags:
-                - python.example_code.kms.KeyManager
+                - python.example_code.kms.KeyManager.decl
                 - python.example_code.kms.CreateKey
                 - python.example_code.kms.DescribeKey
                 - python.example_code.kms.EnableKeyRotation
@@ -831,14 +831,14 @@ kms_Scenario_Basics:
             - description: >
                 Wrapper class and methods for &kms-key; aliases.
               snippet_tags:
-                - python.example_code.kms.AliasManager
+                - python.example_code.kms.AliasManager.decl
                 - python.example_code.kms.CreateAlias
                 - python.example_code.kms.ListAliases
                 - python.example_code.kms.DeleteAlias
             - description: >
                 Wrapper class and methods for &kms-key; encryption.
               snippet_tags:
-                - python.example_code.kms.KeyEncrypt
+                - python.example_code.kms.KeyEncrypt.decl
                 - python.example_code.kms.Encrypt
                 - python.example_code.kms.Decrypt
                 - python.example_code.kms.Sign
@@ -846,14 +846,14 @@ kms_Scenario_Basics:
             - description: >
                 Wrapper class and methods for &kms-key; grants.
               snippet_tags:
-                - python.example_code.kms.GrantManager
+                - python.example_code.kms.GrantManager.decl
                 - python.example_code.kms.CreateGrant
                 - python.example_code.kms.ListGrants
                 - python.example_code.kms.RevokeGrant
             - description: >
                 Wrapper class and methods for &kms-key; policies.
               snippet_tags:
-                - python.example_code.kms.KeyPolicy
+                - python.example_code.kms.KeyPolicy.decl
                 - python.example_code.kms.set_new_policy
                 - python.example_code.kms.GetKeyPolicy
   services:

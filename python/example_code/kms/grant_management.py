@@ -18,7 +18,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.kms.GrantManager]
+# snippet-start:[python.example_code.kms.GrantManager.decl]
 class GrantManager:
     def __init__(self, kms_client):
         self.kms_client = kms_client
@@ -33,7 +33,7 @@ class GrantManager:
         kms_client = boto3.client("kms")
         return cls(kms_client)
 
-    # snippet-end:[python.example_code.kms.GrantManager]
+    # snippet-end:[python.example_code.kms.GrantManager.decl]
 
     # snippet-start:[python.example_code.kms.CreateGrant]
     def create_grant(
