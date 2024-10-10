@@ -39,6 +39,13 @@ python -m pip install -r requirements.txt
 - [Hello Lambda](hello/hello_lambda.py#L4) (`ListFunctions`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](lambda_handler_basic.py)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -60,7 +67,6 @@ functions within the same service.
 - [Create a lending library REST API](../../cross_service/aurora_rest_lending_library)
 - [Create a messenger application](../../cross_service/stepfunctions_messenger)
 - [Create a websocket chat application](../../cross_service/apigateway_websocket_chat)
-- [Get started with functions](lambda_handler_basic.py)
 - [Use API Gateway to invoke a Lambda function](../../example_code/lambda)
 - [Use scheduled events to invoke a Lambda function](../../example_code/lambda)
 
@@ -83,6 +89,29 @@ This example shows you how to get started using Lambda.
 ```
 python hello/hello_lambda.py
 ```
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create an IAM role and Lambda function, then upload handler code.
+- Invoke the function with a single parameter and get results.
+- Update the function code and configure with an environment variable.
+- Invoke the function with new parameters and get results. Display the returned execution log.
+- List the functions for your account, then clean up resources.
+
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python lambda_handler_basic.py
+```
+
+
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
 
 
 #### Create a REST API to track COVID-19 data
@@ -132,29 +161,6 @@ This example shows you how to create a chat application that is served by a webs
 
 <!--custom.scenarios.cross_ApiGatewayWebsocketChat.start-->
 <!--custom.scenarios.cross_ApiGatewayWebsocketChat.end-->
-
-#### Get started with functions
-
-This example shows you how to do the following:
-
-- Create an IAM role and Lambda function, then upload handler code.
-- Invoke the function with a single parameter and get results.
-- Update the function code and configure with an environment variable.
-- Invoke the function with new parameters and get results. Display the returned execution log.
-- List the functions for your account, then clean up resources.
-
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-python lambda_handler_basic.py
-```
-
-
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
 
 #### Use API Gateway to invoke a Lambda function
 
