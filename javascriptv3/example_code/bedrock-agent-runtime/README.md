@@ -34,6 +34,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 Code excerpts that show you how to call individual service functions.
 
 - [InvokeAgent](actions/invoke-agent.js)
+- [InvokeFlow](actions/invoke-agent.js)
 
 
 <!--custom.examples.start-->
