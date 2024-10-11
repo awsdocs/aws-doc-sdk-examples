@@ -111,6 +111,19 @@ scheduler_ScheduledEventsWorkflow:
     - Clean up resources and delete the stack.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridgescheduler
+          excerpts:
+            - description: Run the workflow.
+              genai: most
+              snippet_tags:
+                - scheduler.javav2.scenario.main
+            - description: Wrapper for service operations.
+              genai: most
+              snippet_tags:
+                - scheduler.javav2.actions.main
     .NET:
       versions:
         - sdk_version: 3

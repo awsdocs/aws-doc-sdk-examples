@@ -132,11 +132,11 @@ public class EventbridgeSchedulerScenario {
     public static void cleanUp() {
         logger.info("First, delete the schedule groups name");
         waitForInputToContinue(scanner);
-        eventbridgeActions.deleteScheduleGroupAsync(scheduleGroupName);
+        eventbridgeActions.deleteScheduleGroupAsync(scheduleGroupName).join();
 
         logger.info("Next, delete the schedules");
         waitForInputToContinue(scanner);
-        eventbridgeActions.deleteScheduleAsync("", recurringScheduleName);
+        eventbridgeActions.deleteScheduleAsync(recurringScheduleName, scheduleGroupName).join();
 
         logger.info("Finally, destroy the CloudFormation stack");
         waitForInputToContinue(scanner);
@@ -274,17 +274,6 @@ public class EventbridgeSchedulerScenario {
         // Prompt the user for the schedule rate (in minutes).
         int scheduleRateInMinutes = promptUserForInteger("Enter the desired schedule rate (in minutes): ");
         String scheduleExpression = "rate(" + scheduleRateInMinutes + " minutes)";
-       /*
-        try {
-            // Call the asynchronous method and wait for it to complete
-            eventbridgeActions.createScheduleGroup(scheduleName).join(); // Use join() to block until completion
-
-            logger.info("createScheduleGroupAsync completed successfully.");
-        } catch (RuntimeException e) {
-            // Handle the exception thrown from the whenComplete block
-            logger.info("Error occurred: {} ", e.getMessage());
-        }
-       */
         return eventbridgeActions.createScheduleAsync(
             recurringScheduleName,
             scheduleExpression,
