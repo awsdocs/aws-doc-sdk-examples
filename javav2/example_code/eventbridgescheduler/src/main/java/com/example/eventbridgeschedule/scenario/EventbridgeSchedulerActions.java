@@ -4,6 +4,7 @@
 package com.example.eventbridgeschedule.scenario;
 
 // snippet-start:[scheduler.javav2.actions.main]
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
@@ -18,6 +19,7 @@ import software.amazon.awssdk.services.scheduler.model.CreateScheduleGroupRespon
 import software.amazon.awssdk.services.scheduler.model.CreateScheduleRequest;
 import software.amazon.awssdk.services.scheduler.model.DeleteScheduleGroupRequest;
 import software.amazon.awssdk.services.scheduler.model.DeleteScheduleRequest;
+import software.amazon.awssdk.services.scheduler.model.DeleteScheduleResponse;
 import software.amazon.awssdk.services.scheduler.model.FlexibleTimeWindow;
 import software.amazon.awssdk.services.scheduler.model.FlexibleTimeWindowMode;
 import software.amazon.awssdk.services.scheduler.model.ResourceNotFoundException;
@@ -25,6 +27,7 @@ import software.amazon.awssdk.services.scheduler.model.Target;
 import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
 import java.time.Duration;
+import java.util.concurrent.CompletionException;
 
 public class EventbridgeSchedulerActions {
 
@@ -63,6 +66,7 @@ public class EventbridgeSchedulerActions {
     }
 
     // snippet-start:[scheduler.javav2.create.schedule.group.main]
+
     /**
      * Creates a new schedule group.
      *
@@ -78,8 +82,7 @@ public class EventbridgeSchedulerActions {
         CompletableFuture<CreateScheduleGroupResponse> futureResponse = getAsyncClient().createScheduleGroup(request);
         futureResponse.whenComplete((response, ex) -> {
             if (ex != null) {
-                // Throw an exception if something went wrong
-                throw new RuntimeException("Failed to create schedule group: " + name, ex);
+                throw new CompletionException("Failed to create schedule group: " + name, ex);
             } else if (response == null) {
                 throw new RuntimeException("Failed to create schedule group: response was null");
             } else {
@@ -114,11 +117,9 @@ public class EventbridgeSchedulerActions {
         boolean deleteAfterCompletion,
         boolean useFlexibleTimeWindow) {
 
-        // Define the time windows.
         int hoursToRun = 1;
         int flexibleTimeWindowMinutes = 10;
 
-        // Build the Target for the Schedule.
         Target target = Target.builder()
             .arn(targetArn)
             .roleArn(roleArn)
@@ -152,12 +153,12 @@ public class EventbridgeSchedulerActions {
 
         return getAsyncClient().createSchedule(request)
             .thenApply(response -> {
-                logger.info("Successfully created schedule '" + name + "' in schedule group '" + scheduleGroupName + "': " + response.scheduleArn());
+                logger.info("Successfully created schedule {} in schedule group {}, The ARN is {} ", name, scheduleGroupName, response.scheduleArn());
                 return true;
             })
             .whenComplete((result, ex) -> {
                 if (ex != null) {
-                    throw new RuntimeException("Error creating schedule: " + ex.getMessage(), ex);
+                    throw new CompletionException("Error creating schedule: " + ex.getMessage(), ex);
                 }
             });
     }
@@ -169,54 +170,51 @@ public class EventbridgeSchedulerActions {
      *
      * @param name the name of the schedule group to delete
      * @return a {@link CompletableFuture} that completes when the schedule group has been deleted
-     * @throws RuntimeException if an error occurs while deleting the schedule group
+     * @throws CompletionException if an error occurs while deleting the schedule group
      */
     public CompletableFuture<Void> deleteScheduleGroupAsync(String name) {
-        try {
-            DeleteScheduleGroupRequest request = DeleteScheduleGroupRequest.builder()
-                .name(name)
-                .build();
+        DeleteScheduleGroupRequest request = DeleteScheduleGroupRequest.builder()
+            .name(name)
+            .build();
 
-            return getAsyncClient().deleteScheduleGroup(request)
-                .thenRun(() -> {
-                    logger.info("Successfully deleted schedule group {}", name);
-                })
-                .whenComplete((result, ex) -> {
-                    if (ex != null) {
-                        throw new RuntimeException("Error deleting schedule group: " + ex.getMessage(), ex);
-                    }
-                });
-
-        } catch (Exception ex) {
-            throw new RuntimeException("Unexpected error occurred: " + ex.getMessage(), ex);
-        }
+        return getAsyncClient().deleteScheduleGroup(request)
+            .thenRun(() -> {
+                logger.info("Successfully deleted schedule group {}", name);
+            })
+            .whenComplete((result, ex) -> {
+                if (ex != null) {
+                    throw new CompletionException("Error deleting schedule group: " + ex.getMessage(), ex);
+                }
+            });
     }
     // snippet-end:[scheduler.javav2.delete.schedule.group.main]
 
     // snippet-start:[scheduler.javav2.delete.schedule.main]
+    /**
+     * Deletes a schedule with the specified name and group name.
+     *
+     * @param name      the name of the schedule to be deleted
+     * @param groupName the group name of the schedule to be deleted
+     * @return a {@link CompletableFuture} that, when completed, indicates whether the schedule was successfully deleted
+     * @throws CompletionException if an error occurs while deleting the schedule, except for the case where the schedule is not found
+     */
     public CompletableFuture<Boolean> deleteScheduleAsync(String name, String groupName) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                DeleteScheduleRequest request = DeleteScheduleRequest.builder()
-                    .name(name)
-                    .groupName(groupName)
-                    .build();
+        DeleteScheduleRequest request = DeleteScheduleRequest.builder()
+            .name(name)
+            .groupName(groupName)
+            .build();
 
-                getAsyncClient().deleteSchedule(request).get();
-                logger.info(String.format("Successfully deleted schedule with name '%s'.", name));
-                return true;
-            } catch (ResourceNotFoundException ex) {
-                logger.info(String.format("Failed to delete schedule with ID '%s' because the resource was not found: %s", name, ex.getMessage()));
-                return true;
-            } catch (Exception ex) {
-                logger.info(String.format("An error occurred while deleting schedule with ID '%s': %s", name, ex.getMessage()));
-                return false;
+        CompletableFuture<DeleteScheduleResponse> response = getAsyncClient().deleteSchedule(request);
+        return response.handle((result, ex) -> {
+            if (ex != null) {
+                if (ex instanceof ResourceNotFoundException) {
+                    throw new CompletionException("Resource not found while deleting schedule with ID: " + name, ex);
+                } else {
+                    throw new CompletionException("Failed to delete schedule.", ex);
+                }
             }
-        }).whenComplete((result, throwable) -> {
-            if (throwable != null) {
-                // Handle any exceptions that occurred during the operation
-                logger.info("Error deleting schedule: " + throwable.getMessage());
-            }
+            logger.info("Successfully deleted schedule with name {}.", name);
+            return true;
         });
     }
     // snippet-end:[scheduler.javav2.delete.schedule.main]
