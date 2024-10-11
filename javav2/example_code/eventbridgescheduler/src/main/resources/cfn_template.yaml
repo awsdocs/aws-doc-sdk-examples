@@ -19,7 +19,7 @@ Resources:
   SchedulerRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: example_scheduler_role2
+      RoleName: example_scheduler_role23
       Path: /
       AssumeRolePolicyDocument:
         Version: '2012-10-17'

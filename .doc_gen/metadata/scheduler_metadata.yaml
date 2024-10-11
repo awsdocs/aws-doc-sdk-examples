@@ -4,6 +4,14 @@ scheduler_hello:
   synopsis: get started using &EVS;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridgescheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.hello.main
     .NET:
       versions:
         - sdk_version: 3

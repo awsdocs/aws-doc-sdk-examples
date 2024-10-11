@@ -7,6 +7,7 @@ package com.example.eventbridgeschedule.scenario;
 // snippet-start:[scheduler.javav2.scenario.main]
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.services.scheduler.model.SchedulerException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /**
  * This Java code example performs the following tasks for the Amazon EventBridge Scheduler workflow:
@@ -44,11 +46,13 @@ import java.util.concurrent.CompletableFuture;
 public class EventbridgeSchedulerScenario {
 
     private static final Logger logger = LoggerFactory.getLogger(EventbridgeSchedulerScenario.class);
-    private static Scanner scanner = new Scanner(System.in);
-    private static String STACK_NAME = "scott-workflow-stack-name11";
-    private static final String scheduleGroupName = "scott-schedules-group11";
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final String STACK_NAME = "workflow-stack-name23";
+    private static final String scheduleGroupName = "schedules-group23";
 
     private static String recurringScheduleName = "";
+
+    private static String oneTimeScheduleName = "";
 
     private static final EventbridgeSchedulerActions eventbridgeActions = new EventbridgeSchedulerActions();
 
@@ -77,12 +81,12 @@ public class EventbridgeSchedulerScenario {
                         
             Lets get started... 
             """);
-        waitForInputToContinue(scanner);
+        waitForInputToContinue();
         logger.info(DASHES);
 
         logger.info(DASHES);
         logger.info("1. Prepare the application.");
-        waitForInputToContinue(scanner);
+        waitForInputToContinue();
         try {
             boolean prepareSuccess = prepareApplication();
             logger.info(DASHES);
@@ -90,24 +94,24 @@ public class EventbridgeSchedulerScenario {
             if (prepareSuccess) {
                 logger.info("2. Create one-time schedule.");
                 logger.info("""
-                    A one-time schedule in Amazon EventBridge Scheduler is an event trigger that allows 
-                    you to schedule a one-time event to run at a specific date and time. This is useful for 
-                    executing a specific task or workflow at a predetermined time, without the need for recurring 
+                    A one-time schedule in Amazon EventBridge Scheduler is an event trigger that allows
+                    you to schedule a one-time event to run at a specific date and time. This is useful for
+                    executing a specific task or workflow at a predetermined time, without the need for recurring
                     or complex scheduling.
                     """);
-                waitForInputToContinue(scanner);
+                waitForInputToContinue();
                 createOneTimeSchedule();
                 logger.info(DASHES);
 
                 logger.info("3. Create a reoccurring schedule.");
                 logger.info("""
-                    A recurring schedule is a feature that allows you to schedule and manage the execution 
+                    A recurring schedule is a feature that allows you to schedule and manage the execution
                     of your serverless applications or workloads on a recurring basis. For example, 
                     with EventBridge Scheduler, you can create custom schedules for your AWS Lambda functions, 
                     AWS Step Functions, and other supported event sources, enabling you to automate tasks and 
                     workflows without the need for complex infrastructure management. T
                     """);
-                waitForInputToContinue(scanner);
+                waitForInputToContinue();
                 createRecurringSchedule();
                 logger.info(DASHES);
             }
@@ -129,17 +133,45 @@ public class EventbridgeSchedulerScenario {
         logger.info(DASHES);
     }
 
+    /**
+     * Cleans up the resources associated with the EventBridge scheduler.
+     * If any errors occur during the cleanup process, the corresponding error messages are logged.
+     */
     public static void cleanUp() {
-        logger.info("First, delete the schedule groups name");
-        waitForInputToContinue(scanner);
-        eventbridgeActions.deleteScheduleGroupAsync(scheduleGroupName).join();
+        logger.info("First, delete the schedule group.");
+        waitForInputToContinue();
+        try {
+            eventbridgeActions.deleteScheduleGroupAsync(scheduleGroupName).join();
 
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof SchedulerException schedulerException) {
+                logger.error("Scheduler error occurred: Error message: {}, Error code {}",
+                    schedulerException.getMessage(), schedulerException.awsErrorDetails().errorCode(), schedulerException);
+            } else {
+                logger.error("An unexpected error occurred: {}", cause.getMessage());
+            }
+            return;
+        }
         logger.info("Next, delete the schedules");
-        waitForInputToContinue(scanner);
-        eventbridgeActions.deleteScheduleAsync(recurringScheduleName, scheduleGroupName).join();
+        waitForInputToContinue();
+        try {
+            eventbridgeActions.deleteScheduleAsync(recurringScheduleName, scheduleGroupName).join();
+            eventbridgeActions.deleteScheduleAsync(oneTimeScheduleName, scheduleGroupName).join();
+
+        } catch (CompletionException ce) {
+            Throwable cause = ce.getCause();
+            if (cause instanceof SchedulerException schedulerException) {
+                logger.error("Scheduler error occurred: Error message: {}, Error code {}",
+                    schedulerException.getMessage(), schedulerException.awsErrorDetails().errorCode(), schedulerException);
+            } else {
+                logger.error("An unexpected error occurred: {}", cause.getMessage());
+            }
+            return;
+        }
 
         logger.info("Finally, destroy the CloudFormation stack");
-        waitForInputToContinue(scanner);
+        waitForInputToContinue();
         CloudFormationHelper.destroyCloudFormationStack(STACK_NAME);
     }
 
@@ -153,15 +185,15 @@ public class EventbridgeSchedulerScenario {
     public static boolean prepareApplication() {
         logger.info("""
             This example creates resources in a CloudFormation stack, including an SNS topic
-            that will be subscribed to the EventBridge Scheduler events. 
-            You will need to confirm the subscription in order to receive event emails. 
+            that will be subscribed to the EventBridge Scheduler events.
+            You will need to confirm the subscription in order to receive event emails.
              """);
 
         String emailAddress = promptUserForEmail();
         logger.info("You entered {}", emailAddress);
 
         logger.info("Get the roleArn and snsTopicArn values using a Cloudformation template.");
-        waitForInputToContinue(scanner);
+        waitForInputToContinue();
         CloudFormationHelper.deployCloudFormationStack(STACK_NAME, emailAddress);
         Map<String, String> stackOutputs = CloudFormationHelper.getStackOutputs(STACK_NAME);
         roleArn = stackOutputs.get("RoleARN");
@@ -185,10 +217,8 @@ public class EventbridgeSchedulerScenario {
      * Waits for the user to enter 'c' followed by <ENTER> to continue the program.
      * This method is used to pause the program execution and wait for user input before
      * proceeding.
-     *
-     * @param scanner the Scanner object to read user input from
      */
-    private static void waitForInputToContinue(Scanner scanner) {
+    private static void waitForInputToContinue() {
         while (true) {
             logger.info("");
             logger.info("Enter 'c' followed by <ENTER> to continue:");
@@ -244,14 +274,14 @@ public class EventbridgeSchedulerScenario {
      * @return {@code true} if the schedule was created successfully, {@code false} otherwise
      */
     public static Boolean createOneTimeSchedule() {
-        String scheduleName = promptUserForResourceName("Enter a name for the one-time schedule:");
-        logger.info("Creating a one-time schedule named {} to send an initial event in 1 minute with a flexible time window...", scheduleName);
+        oneTimeScheduleName = promptUserForResourceName("Enter a name for the one-time schedule:");
+        logger.info("Creating a one-time schedule named {} to send an initial event in 1 minute with a flexible time window...", oneTimeScheduleName);
         LocalDateTime scheduledTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
         String scheduleExpression = "at(" + scheduledTime.format(formatter) + ")";
         return eventbridgeActions.createScheduleAsync(
-            scheduleName,
+            oneTimeScheduleName,
             scheduleExpression,
             scheduleGroupName,
             snsTopicArn,
