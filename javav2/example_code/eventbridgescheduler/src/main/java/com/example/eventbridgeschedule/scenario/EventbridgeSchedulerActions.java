@@ -17,8 +17,10 @@ import software.amazon.awssdk.services.scheduler.model.CreateScheduleGroupReques
 import software.amazon.awssdk.services.scheduler.model.CreateScheduleGroupResponse;
 import software.amazon.awssdk.services.scheduler.model.CreateScheduleRequest;
 import software.amazon.awssdk.services.scheduler.model.DeleteScheduleGroupRequest;
+import software.amazon.awssdk.services.scheduler.model.DeleteScheduleRequest;
 import software.amazon.awssdk.services.scheduler.model.FlexibleTimeWindow;
 import software.amazon.awssdk.services.scheduler.model.FlexibleTimeWindowMode;
+import software.amazon.awssdk.services.scheduler.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.scheduler.model.Target;
 import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
@@ -190,5 +192,33 @@ public class EventbridgeSchedulerActions {
         }
     }
     // snippet-end:[scheduler.javav2.delete.schedule.group.main]
+
+    // snippet-start:[scheduler.javav2.delete.schedule.main]
+    public CompletableFuture<Boolean> deleteScheduleAsync(String name, String groupName) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                DeleteScheduleRequest request = DeleteScheduleRequest.builder()
+                    .name(name)
+                    .groupName(groupName)
+                    .build();
+
+                getAsyncClient().deleteSchedule(request).get();
+                logger.info(String.format("Successfully deleted schedule with name '%s'.", name));
+                return true;
+            } catch (ResourceNotFoundException ex) {
+                logger.info(String.format("Failed to delete schedule with ID '%s' because the resource was not found: %s", name, ex.getMessage()));
+                return true;
+            } catch (Exception ex) {
+                logger.info(String.format("An error occurred while deleting schedule with ID '%s': %s", name, ex.getMessage()));
+                return false;
+            }
+        }).whenComplete((result, throwable) -> {
+            if (throwable != null) {
+                // Handle any exceptions that occurred during the operation
+                logger.info("Error deleting schedule: " + throwable.getMessage());
+            }
+        });
+    }
+    // snippet-end:[scheduler.javav2.delete.schedule.main]
 }
 // snippet-end:[scheduler.javav2.actions.main]

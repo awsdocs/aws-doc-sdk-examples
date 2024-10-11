@@ -17,6 +17,14 @@ scheduler_hello:
     scheduler: {ListSchedules}
 scheduler_CreateSchedule:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridgescheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.create.schedule.main
     .NET:
       versions:
         - sdk_version: 3
@@ -30,6 +38,14 @@ scheduler_CreateSchedule:
     scheduler: {CreateSchedule}
 scheduler_CreateScheduleGroup:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridgescheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.create.schedule.group.main
     .NET:
       versions:
         - sdk_version: 3
@@ -43,7 +59,15 @@ scheduler_CreateScheduleGroup:
     scheduler: {CreateScheduleGroup}
 scheduler_DeleteSchedule:
   languages:
-    .NET:
+   Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridgescheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.delete.schedule.main
+   .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EventBridge Scheduler
@@ -56,6 +80,14 @@ scheduler_DeleteSchedule:
     scheduler: {DeleteSchedule}
 scheduler_DeleteScheduleGroup:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridgescheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.delete.schedule.group.main
     .NET:
       versions:
         - sdk_version: 3
