@@ -48,6 +48,8 @@ public class EventbridgeSchedulerScenario {
     private static String STACK_NAME = "scott-workflow-stack-name11";
     private static final String scheduleGroupName = "scott-schedules-group11";
 
+    private static String recurringScheduleName = "";
+
     private static final EventbridgeSchedulerActions eventbridgeActions = new EventbridgeSchedulerActions();
 
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
@@ -131,6 +133,13 @@ public class EventbridgeSchedulerScenario {
         logger.info("First, delete the schedule groups name");
         waitForInputToContinue(scanner);
         eventbridgeActions.deleteScheduleGroupAsync(scheduleGroupName);
+
+        logger.info("Next, delete the schedules");
+        waitForInputToContinue(scanner);
+        eventbridgeActions.deleteScheduleAsync("", recurringScheduleName);
+
+        logger.info("Finally, destroy the CloudFormation stack");
+        waitForInputToContinue(scanner);
         CloudFormationHelper.destroyCloudFormationStack(STACK_NAME);
     }
 
@@ -260,11 +269,12 @@ public class EventbridgeSchedulerScenario {
      */
     public static Boolean createRecurringSchedule() {
         logger.info("Creating a recurring schedule to send events for one hour...");
-        String scheduleName = promptUserForResourceName("Enter a name for the recurring schedule:");
+        recurringScheduleName = promptUserForResourceName("Enter a name for the recurring schedule:");
 
         // Prompt the user for the schedule rate (in minutes).
         int scheduleRateInMinutes = promptUserForInteger("Enter the desired schedule rate (in minutes): ");
         String scheduleExpression = "rate(" + scheduleRateInMinutes + " minutes)";
+       /*
         try {
             // Call the asynchronous method and wait for it to complete
             eventbridgeActions.createScheduleGroup(scheduleName).join(); // Use join() to block until completion
@@ -274,14 +284,14 @@ public class EventbridgeSchedulerScenario {
             // Handle the exception thrown from the whenComplete block
             logger.info("Error occurred: {} ", e.getMessage());
         }
-
+       */
         return eventbridgeActions.createScheduleAsync(
-            scheduleName,
+            recurringScheduleName,
             scheduleExpression,
             scheduleGroupName,
             snsTopicArn,
             roleArn,
-            "Recurrent event test from schedule " + scheduleName,
+            "Recurrent event test from schedule " + recurringScheduleName,
             true,
             true).join();
     }
