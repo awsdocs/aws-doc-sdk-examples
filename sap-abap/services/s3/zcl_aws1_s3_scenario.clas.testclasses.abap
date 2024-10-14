@@ -8,7 +8,7 @@ CLASS ltc_zcl_aws1_s3_scenario DEFINITION FOR TESTING  DURATION SHORT RISK LEVEL
 
   PRIVATE SECTION.
     CONSTANTS: cv_pfl            TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO',
-               cv_bucket         TYPE /aws1/s3_bucketname VALUE 'code-example-scenario-bucket',
+               cv_bucket         TYPE /aws1/s3_bucketname VALUE 'amzn-s3-demo-bucket',
                cv_file           TYPE /aws1/s3_objectkey VALUE 's3_scenario_ex_file',
                cv_copy_to_folder TYPE /aws1/s3_bucketname VALUE 'code-example-scenario-folder'.
 
