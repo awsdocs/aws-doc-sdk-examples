@@ -35,7 +35,6 @@ describe("createDatastore/deleteDatastore", () => {
     let found = false;
     for (const datastore of listDatastoresCommandOutput) {
       if (datastore.datastoreId === datastoreID) {
-        // eslint-disable-line
         found = true;
         break;
       }

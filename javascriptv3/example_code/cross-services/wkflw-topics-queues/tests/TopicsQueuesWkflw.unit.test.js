@@ -156,7 +156,6 @@ describe("TopicsQueuesWkflw", () => {
       await topicsQueuesWkflw.createTopic();
       // Verify the mocked 'send' function was called with an instance of CreateTopicCommand
       expect(send.mock.calls[0][0]).toBeInstanceOf(CreateTopicCommand);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(send.mock.calls[0][0].input.Attributes.FifoTopic).toBe("true");
     });
   });
@@ -178,12 +177,10 @@ describe("TopicsQueuesWkflw", () => {
       );
 
       await topicsQueuesWkflw.createQueues();
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(SQSClientMock.send.mock.calls[0][0].input.QueueName).toBe(
         "queue-one.fifo",
       );
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(SQSClientMock.send.mock.calls[2][0].input.QueueName).toBe(
         "queue-two.fifo",
       );
@@ -224,7 +221,6 @@ describe("TopicsQueuesWkflw", () => {
       ).toBe(true);
 
       expect(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         SQSClientMock.send.mock.calls[0][0].input.Attributes.Policy,
       ).toBeTruthy();
 
@@ -234,7 +230,6 @@ describe("TopicsQueuesWkflw", () => {
       ).toBe(true);
 
       expect(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         SQSClientMock.send.mock.calls[1][0].input.Attributes.Policy,
       ).toBeTruthy();
     });
@@ -285,20 +280,17 @@ describe("TopicsQueuesWkflw", () => {
           SNSClientMock.send.mock.calls[index][0] instanceof SubscribeCommand,
         ).toBe(true);
 
-        expect(
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          SNSClientMock.send.mock.calls[index][0].input.TopicArn,
-        ).toBe(topicsQueuesWkflw.topicArn);
+        expect(SNSClientMock.send.mock.calls[index][0].input.TopicArn).toBe(
+          topicsQueuesWkflw.topicArn,
+        );
 
-        expect(
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          SNSClientMock.send.mock.calls[index][0].input.Protocol,
-        ).toBe("sqs");
+        expect(SNSClientMock.send.mock.calls[index][0].input.Protocol).toBe(
+          "sqs",
+        );
 
-        expect(
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          SNSClientMock.send.mock.calls[index][0].input.Endpoint,
-        ).toBe(queue.queueArn);
+        expect(SNSClientMock.send.mock.calls[index][0].input.Endpoint).toBe(
+          queue.queueArn,
+        );
       });
     });
   });
@@ -365,12 +357,10 @@ describe("TopicsQueuesWkflw", () => {
 
       await topicsQueuesWkflw.publishMessages();
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(PrompterMock.input.mock.calls[1][0]).toEqual({
         message: MESSAGES.groupIdPrompt,
       });
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(SNSClientMock.send.mock.calls[0][0].input.MessageGroupId).toBe(
         "group-id",
       );
@@ -393,7 +383,6 @@ describe("TopicsQueuesWkflw", () => {
 
       await topicsQueuesWkflw.publishMessages();
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(PrompterMock.input.mock.calls[1]).toBeUndefined();
     });
 
@@ -423,13 +412,11 @@ describe("TopicsQueuesWkflw", () => {
 
       await topicsQueuesWkflw.publishMessages();
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(PrompterMock.input.mock.calls[2][0]).toEqual({
         message: MESSAGES.deduplicationIdPrompt,
       });
 
       expect(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         SNSClientMock.send.mock.calls[0][0].input.MessageDeduplicationId,
       ).toBe("dedup-id");
     });
@@ -459,11 +446,9 @@ describe("TopicsQueuesWkflw", () => {
 
       await topicsQueuesWkflw.publishMessages();
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(PrompterMock.input.mock.calls[2]).toBeUndefined();
 
       expect(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         SNSClientMock.send.mock.calls[0][0].input.MessageDeduplicationId,
       ).toBeUndefined();
     });
@@ -492,7 +477,6 @@ describe("TopicsQueuesWkflw", () => {
 
       await topicsQueuesWkflw.publishMessages();
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(PrompterMock.checkbox.mock.calls[0][0]).toEqual({
         message: MESSAGES.messageAttributesPrompt,
         choices: [
@@ -504,7 +488,6 @@ describe("TopicsQueuesWkflw", () => {
       });
 
       expect(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         SNSClientMock.send.mock.calls[0][0].input.MessageAttributes,
       ).toEqual({
         tone: {
@@ -573,11 +556,9 @@ describe("TopicsQueuesWkflw", () => {
       await topicsQueuesWkflw.receiveAndDeleteMessages();
 
       expect(LoggerMock.log.mock.calls.length).toBe(2);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(LoggerMock.log.mock.calls[0][0]).toBe(
         "The following messages were received by the SQS queue 'queue-1'.",
       );
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(LoggerMock.log.mock.calls[1][0]).toBe(
         "The following messages were received by the SQS queue 'queue-2'.",
       );
@@ -605,7 +586,6 @@ describe("TopicsQueuesWkflw", () => {
 
       await topicsQueuesWkflw.receiveAndDeleteMessages();
       expect(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         SQSClientMock.send.mock.calls[1][0].input.Entries[0].ReceiptHandle,
       ).toBe("123");
     });

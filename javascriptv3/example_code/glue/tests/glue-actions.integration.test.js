@@ -73,7 +73,6 @@ const createStack = async () => {
     { StackName: stackName },
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   return getResourceNames(response.reason.Stacks[0]);
 };
 

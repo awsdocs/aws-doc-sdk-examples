@@ -8,9 +8,7 @@ import { getItemsHandler } from "../src/handlers/get-items-handler.js";
 describe("getItemsHandler", () => {
   it("should create a request handler that sends a response " +
     "with the result of the call to the SDK client", async () => {
-    // eslint-disable-next-line
     const sendable = { send: async <R>() => ({ records: [] }) as R };
-    // eslint-disable-next-line
     const handler = getItemsHandler.withClient({ rdsDataClient: sendable });
     const send: unknown = vi.fn();
 
