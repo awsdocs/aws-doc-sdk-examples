@@ -53,7 +53,7 @@ export const main = async ({ bucketName, key }) => {
 // snippet-end:[javascript.v3.s3.scenarios.multipartupload]
 
 // Call function if run directly
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import {
   isMain,
   validateArgs,

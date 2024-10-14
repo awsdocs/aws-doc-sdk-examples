@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import readline from "readline";
+import readline from "node:readline";
 
 import { parseString } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 

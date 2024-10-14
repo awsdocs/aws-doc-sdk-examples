@@ -13,7 +13,7 @@ const createFunctionHandler = async (commands) => {
 
   if (!(funcName && roleArn)) {
     log(
-      `Either the function name or .tmp file is missing. Did you initialize?`,
+      "Either the function name or .tmp file is missing. Did you initialize?",
     );
     return;
   }

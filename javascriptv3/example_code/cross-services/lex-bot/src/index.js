@@ -26,13 +26,13 @@ import { lexClient } from "./libs/lexClient.js";
 import { translateClient } from "./libs/translateClient.js";
 import { comprehendClient } from "./libs/comprehendClient.js";
 
-var g_text = "";
+let g_text = "";
 // Set the focus to the input box.
 document.getElementById("wisdom").focus();
 
 function showRequest() {
-  var conversationDiv = document.getElementById("conversation");
-  var requestPara = document.createElement("P");
+  const conversationDiv = document.getElementById("conversation");
+  const requestPara = document.createElement("P");
   requestPara.className = "userRequest";
   requestPara.appendChild(document.createTextNode(g_text));
   conversationDiv.appendChild(requestPara);
@@ -40,11 +40,11 @@ function showRequest() {
 }
 
 function showResponse(lexResponse) {
-  var conversationDiv = document.getElementById("conversation");
-  var responsePara = document.createElement("P");
+  const conversationDiv = document.getElementById("conversation");
+  const responsePara = document.createElement("P");
   responsePara.className = "lexResponse";
 
-  var lexTextResponse = lexResponse;
+  const lexTextResponse = lexResponse;
 
   responsePara.appendChild(document.createTextNode(lexTextResponse));
   responsePara.appendChild(document.createElement("br"));
@@ -54,18 +54,18 @@ function showResponse(lexResponse) {
 
 function handletext(text) {
   g_text = text;
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.addEventListener("load", loadNewItems, false);
   xhr.open("POST", "../text", true); // A Spring MVC controller
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); //necessary
-  xhr.send("text=" + text);
+  xhr.send(`text=${text}`);
 }
 
 function loadNewItems() {
   showRequest();
 
   // Re-enable input.
-  var wisdomText = document.getElementById("wisdom");
+  const wisdomText = document.getElementById("wisdom");
   wisdomText.value = "";
   wisdomText.locked = false;
 }
@@ -73,10 +73,10 @@ function loadNewItems() {
 // Respond to user's input.
 const createResponse = async () => {
   // Confirm there is text to submit.
-  var wisdomText = document.getElementById("wisdom");
-  if (wisdomText && wisdomText.value && wisdomText.value.trim().length > 0) {
+  const wisdomText = document.getElementById("wisdom");
+  if (wisdomText?.value && wisdomText.value.trim().length > 0) {
     // Disable input to show it is being sent.
-    var wisdom = wisdomText.value.trim();
+    const wisdom = wisdomText.value.trim();
     wisdomText.value = "...";
     wisdomText.locked = true;
     handletext(wisdom);
@@ -111,7 +111,7 @@ const createResponse = async () => {
         try {
           const data = await lexClient.send(new PostTextCommand(lexParams));
           console.log("Success. Response is: ", data.message);
-          var msg = data.message;
+          const msg = data.message;
           showResponse(msg);
         } catch (err) {
           console.log("Error responding to message. ", err);

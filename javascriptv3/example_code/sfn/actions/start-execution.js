@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 import { SFNClient, StartExecutionCommand } from "@aws-sdk/client-sfn";
@@ -30,7 +30,7 @@ export async function startExecution({ sfnClient, stateMachineArn }) {
 }
 
 // Call function if run directly
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   startExecution({ sfnClient: new SFNClient({}), stateMachineArn: "ARN" });
 }

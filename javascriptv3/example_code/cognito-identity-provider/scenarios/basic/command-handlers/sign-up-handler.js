@@ -34,7 +34,7 @@ const signUpHandler = async (commands) => {
     const values = getSecondValuesFromEntries(FILE_USER_POOLS);
     const clientId = values[0];
     validateClient(clientId);
-    log(`Signing up.`);
+    log("Signing up.");
     await signUp({ clientId, username, password, email });
     log(`Signed up. A confirmation email has been sent to: ${email}.`);
     log(`Run 'confirm-sign-up ${username} <code>' to confirm your account.`);

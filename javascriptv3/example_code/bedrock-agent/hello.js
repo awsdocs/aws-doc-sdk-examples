@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 import {
   BedrockAgentClient,
@@ -35,7 +35,7 @@ export const main = async () => {
   console.log(`Initializing Amazon Bedrock Agents client for ${region}...`);
   const client = new BedrockAgentClient({ region });
 
-  console.log(`Retrieving the list of existing agents...`);
+  console.log("Retrieving the list of existing agents...");
   const paginatorConfig = { client };
   const pages = paginateListAgents(paginatorConfig, {});
 

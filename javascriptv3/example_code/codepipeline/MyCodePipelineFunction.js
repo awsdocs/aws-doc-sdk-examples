@@ -4,28 +4,28 @@
 
 // snippet-start:[codepipeline.javascript.MyCodePipelineFunction.complete]
 
-var assert = require("assert");
-var AWS = require("aws-sdk");
-var http = require("http");
+const assert = require("node:assert");
+const AWS = require("aws-sdk");
+const http = require("node:http");
 
-exports.handler = function (event, context) {
-  var codepipeline = new AWS.CodePipeline();
+exports.handler = (event, context) => {
+  const codepipeline = new AWS.CodePipeline();
 
   // Retrieve the Job ID from the Lambda action
-  var jobId = event["CodePipeline.job"].id;
+  const jobId = event["CodePipeline.job"].id;
 
   // Retrieve the value of UserParameters from the Lambda action configuration in AWS CodePipeline, in this case a URL which will be
   // health checked by this function.
-  var url =
+  const url =
     event["CodePipeline.job"].data.actionConfiguration.configuration
       .UserParameters;
 
   // Notify AWS CodePipeline of a successful job
-  var putJobSuccess = function (message) {
-    var params = {
+  const putJobSuccess = (message) => {
+    const params = {
       jobId: jobId,
     };
-    codepipeline.putJobSuccessResult(params, function (err, data) {
+    codepipeline.putJobSuccessResult(params, (err, data) => {
       if (err) {
         context.fail(err);
       } else {
@@ -35,8 +35,8 @@ exports.handler = function (event, context) {
   };
 
   // Notify AWS CodePipeline of a failed job
-  var putJobFailure = function (message) {
-    var params = {
+  const putJobFailure = (message) => {
+    const params = {
       jobId: jobId,
       failureDetails: {
         message: JSON.stringify(message),
@@ -44,7 +44,7 @@ exports.handler = function (event, context) {
         externalExecutionId: context.invokeid,
       },
     };
-    codepipeline.putJobFailureResult(params, function (err, data) {
+    codepipeline.putJobFailureResult(params, (err, data) => {
       context.fail(message);
     });
   };
@@ -59,8 +59,8 @@ exports.handler = function (event, context) {
 
   // Helper function to make a HTTP GET request to the page.
   // The helper will test the response and succeed or fail the job accordingly
-  var getPage = function (url, callback) {
-    var pageObject = {
+  const getPage = (url, callback) => {
+    const pageObject = {
       body: "",
       statusCode: 0,
       contains: function (search) {
@@ -68,27 +68,27 @@ exports.handler = function (event, context) {
       },
     };
     http
-      .get(url, function (response) {
+      .get(url, (response) => {
         pageObject.body = "";
         pageObject.statusCode = response.statusCode;
 
-        response.on("data", function (chunk) {
+        response.on("data", (chunk) => {
           pageObject.body += chunk;
         });
 
-        response.on("end", function () {
+        response.on("end", () => {
           callback(pageObject);
         });
 
         response.resume();
       })
-      .on("error", function (error) {
+      .on("error", (error) => {
         // Fail the job if our request failed
         putJobFailure(error);
       });
   };
 
-  getPage(url, function (returnedPage) {
+  getPage(url, (returnedPage) => {
     try {
       // Check if the HTTP response has a 200 status
       assert(returnedPage.statusCode === 200);

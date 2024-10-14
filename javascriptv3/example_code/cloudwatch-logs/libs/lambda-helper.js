@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { readFileSync } from "fs";
+import { readFileSync } from "node:fs";
 import {
   CreateFunctionCommand,
   Architecture,
@@ -24,7 +24,7 @@ const cloudWatchLogsClient = new CloudWatchLogsClient({});
  * @param {string} roleArn
  */
 export const createFunction = async (name, roleArn) => {
-  const lambdaFunctionBuffer = readFileSync(`./tests/data/lambda-function.zip`);
+  const lambdaFunctionBuffer = readFileSync("./tests/data/lambda-function.zip");
   const command = new CreateFunctionCommand({
     Code: { ZipFile: lambdaFunctionBuffer },
     FunctionName: name,
@@ -60,9 +60,8 @@ export const addPermissionLogsInvokeFunction = async (
   let logGroup;
 
   for await (const page of logGroupPaginator) {
-    if (
-      (logGroup = page.logGroups.find((lg) => lg.logGroupName === logGroupName))
-    ) {
+    logGroup = page.logGroups.find((lg) => lg.logGroupName === logGroupName);
+    if (logGroup) {
       break;
     }
   }

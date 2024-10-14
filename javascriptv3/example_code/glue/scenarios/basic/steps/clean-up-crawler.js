@@ -6,14 +6,14 @@ import { log } from "../log.js";
 
 /** snippet-start:[javascript.v3.glue.scenarios.basic.CleanUpCrawler] */
 const cleanUpCrawlerStep = async (context) => {
-  log(`Deleting crawler.`);
+  log("Deleting crawler.");
 
   try {
     await deleteCrawler(process.env.CRAWLER_NAME);
     log("Crawler deleted.", { type: "success" });
   } catch (err) {
     if (err.name === "EntityNotFoundException") {
-      log(`Crawler is already deleted.`);
+      log("Crawler is already deleted.");
     } else {
       throw err;
     }

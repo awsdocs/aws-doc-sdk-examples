@@ -41,7 +41,7 @@ describe("describe-images", () => {
     error.name = "InvalidParameterValue";
 
     paginateDescribeImages.mockReturnValueOnce(
-      // eslint-disable-next-line require-yield
+      // biome-ignore lint/correctness/useYield: Mock generator function
       (async function* () {
         throw error;
       })(),
@@ -56,7 +56,7 @@ describe("describe-images", () => {
     const error = new Error("Retrieval failed");
 
     paginateDescribeImages.mockReturnValueOnce(
-      // eslint-disable-next-line require-yield
+      // biome-ignore lint/correctness/useYield: Mock generator function
       (async function* () {
         throw error;
       })(),

@@ -36,7 +36,7 @@ describe("list-buckets", () => {
     error.name = "ServiceException";
     const bucketName = "amzn-s3-demo-bucket";
     paginateListBuckets.mockImplementationOnce(
-      // eslint-disable-next-line require-yield
+      // biome-ignore  lint/correctness/useYield: Mock generator
       async function* () {
         throw error;
       },
@@ -54,7 +54,7 @@ describe("list-buckets", () => {
   it("should throw errors that are not S3 specific", async () => {
     const bucketName = "amzn-s3-demo-bucket";
     paginateListBuckets.mockImplementationOnce(
-      // eslint-disable-next-line require-yield
+      // biome-ignore  lint/correctness/useYield: Mock generator
       async function* () {
         throw new Error();
       },

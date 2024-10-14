@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[medical-imaging.JavaScript.datastore.createDatastoreV3]
 import { CreateDatastoreCommand } from "@aws-sdk/client-medical-imaging";
@@ -12,7 +12,7 @@ import { medicalImagingClient } from "../libs/medicalImagingClient.js";
  */
 export const createDatastore = async (datastoreName = "DATASTORE_NAME") => {
   const response = await medicalImagingClient.send(
-    new CreateDatastoreCommand({ datastoreName: datastoreName })
+    new CreateDatastoreCommand({ datastoreName: datastoreName }),
   );
   console.log(response);
   // {

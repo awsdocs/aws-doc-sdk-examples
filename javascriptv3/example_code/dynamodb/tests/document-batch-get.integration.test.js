@@ -19,7 +19,7 @@ describe("batch-get-item", () => {
 
   it("should return a list of items", async () => {
     const { Responses } = await main();
-    const books = Responses["Books"];
+    const books = Responses.Books;
     expect(books).toEqual(
       expect.arrayContaining([
         { PageCount: 10, Title: "How to AWS" },

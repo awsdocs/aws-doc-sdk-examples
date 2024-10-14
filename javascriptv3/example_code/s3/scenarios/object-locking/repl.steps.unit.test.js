@@ -50,11 +50,9 @@ describe("repl.steps.js", () => {
 
       const scenarios = {
         ...Scenarios,
-        ScenarioInput: function () {
-          return {
-            handle: handleMock,
-          };
-        },
+        ScenarioInput: () => ({
+          handle: handleMock,
+        }),
       };
       const action = replAction(scenarios, mockClient);
       mockClient.send.mockResolvedValue({ Versions: [] });
@@ -106,11 +104,9 @@ describe("repl.steps.js", () => {
 
       const scenarios = {
         ...Scenarios,
-        ScenarioInput: function () {
-          return {
-            handle: handleMock,
-          };
-        },
+        ScenarioInput: () => ({
+          handle: handleMock,
+        }),
       };
       const action = replAction(scenarios, mockClient);
       mockClient.send
@@ -154,11 +150,9 @@ describe("repl.steps.js", () => {
 
       const scenarios = {
         ...Scenarios,
-        ScenarioInput: function () {
-          return {
-            handle: handleMock,
-          };
-        },
+        ScenarioInput: () => ({
+          handle: handleMock,
+        }),
       };
 
       const action = replAction(scenarios, mockClient);
@@ -203,11 +197,9 @@ describe("repl.steps.js", () => {
 
       const scenarios = {
         ...Scenarios,
-        ScenarioInput: function () {
-          return {
-            handle: handleMock,
-          };
-        },
+        ScenarioInput: () => ({
+          handle: handleMock,
+        }),
       };
 
       const action = replAction(scenarios, mockClient);
@@ -251,11 +243,9 @@ describe("repl.steps.js", () => {
 
       const scenarios = {
         ...Scenarios,
-        ScenarioInput: function () {
-          return {
-            handle: handleMock,
-          };
-        },
+        ScenarioInput: () => ({
+          handle: handleMock,
+        }),
       };
 
       const action = replAction(scenarios, mockClient);
@@ -310,11 +300,9 @@ describe("repl.steps.js", () => {
 
       const scenarios = {
         ...Scenarios,
-        ScenarioInput: function () {
-          return {
-            handle: handleMock,
-          };
-        },
+        ScenarioInput: () => ({
+          handle: handleMock,
+        }),
       };
 
       const action = replAction(scenarios, mockClient);

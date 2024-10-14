@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[s3.JavaScript.buckets.presignedurlv3]
-import https from "https";
+import https from "node:https";
 
 import { XMLParser } from "fast-xml-parser";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
@@ -113,7 +113,7 @@ export const main = async ({ bucketName, key, region }) => {
 // snippet-end:[s3.JavaScript.buckets.presignedurlv3]
 
 // Call function if run directly
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import {
   isMain,
   validateArgs,

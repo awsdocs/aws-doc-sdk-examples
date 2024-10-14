@@ -42,8 +42,8 @@ export const main = async ({ instanceId, allocationId }) => {
 // snippet-end:[javascript.v3.ec2.actions.AssociateAddress]
 
 // Call function if run directly.
-import { fileURLToPath } from "url";
-import { parseArgs } from "util";
+import { fileURLToPath } from "node:url";
+import { parseArgs } from "node:util";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {
     allocationId: {

@@ -3,7 +3,7 @@
 
 // snippet-start:[ssm.JavaScript.Basics.updateMaintenanceWindow]
 import { UpdateMaintenanceWindowCommand, SSMClient } from "@aws-sdk/client-ssm";
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 
 /**
  * Update an SSM maintenance window.
@@ -40,7 +40,7 @@ export const main = async ({
   }
 };
 // snippet-end:[ssm.JavaScript.Basics.updateMaintenanceWindow]
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {

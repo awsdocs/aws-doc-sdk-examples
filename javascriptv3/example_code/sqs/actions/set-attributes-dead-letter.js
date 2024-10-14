@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[sqs.JavaScript.deadLetter.setQueueAttributesV3]
 import { SetQueueAttributesCommand, SQSClient } from "@aws-sdk/client-sqs";

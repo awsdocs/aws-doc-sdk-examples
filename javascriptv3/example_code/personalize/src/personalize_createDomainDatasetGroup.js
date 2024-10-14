@@ -20,8 +20,7 @@ node createDomainDatasetGroup.js
 
 // snippet-start:[personalize.JavaScript.createDomainDatasetGroupV3]
 // Get service clients module and commands using ES6 syntax.
-import {  CreateDatasetGroupCommand } from
-  "@aws-sdk/client-personalize";
+import { CreateDatasetGroupCommand } from "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Or, create the client here.
@@ -29,13 +28,16 @@ import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Set the domain dataset group parameters.
 export const domainDatasetGroupParams = {
-  name: 'NAME',  /* required */
-  domain: 'DOMAIN'   /* required for a domain dsg, specify ECOMMERCE or VIDEO_ON_DEMAND */
-}
+  name: "NAME" /* required */,
+  domain:
+    "DOMAIN" /* required for a domain dsg, specify ECOMMERCE or VIDEO_ON_DEMAND */,
+};
 
 export const run = async () => {
   try {
-    const response = await personalizeClient.send(new CreateDatasetGroupCommand(domainDatasetGroupParams));
+    const response = await personalizeClient.send(
+      new CreateDatasetGroupCommand(domainDatasetGroupParams),
+    );
     console.log("Success", response);
     return response; // For unit tests.
   } catch (err) {

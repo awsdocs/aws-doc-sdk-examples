@@ -21,22 +21,23 @@ node getPersonalizedRanking.js
 
 // snippet-start:[personalize.JavaScript.getPersonalizedRankingV3]
 // Get service clients module and commands using ES6 syntax.
-import { GetPersonalizedRankingCommand } from
-  "@aws-sdk/client-personalize-runtime";
+import { GetPersonalizedRankingCommand } from "@aws-sdk/client-personalize-runtime";
 import { personalizeRuntimeClient } from "./libs/personalizeClients.js";
 // Or, create the client here.
 // const personalizeRuntimeClient = new PersonalizeRuntimeClient({ region: "REGION"});
 
 // Set the ranking request parameters.
 export const getPersonalizedRankingParam = {
-  campaignArn: "CAMPAIGN_ARN", /* required */
-  userId: 'USER_ID',      /* required */
-  inputList: ["ITEM_ID_1", "ITEM_ID_2", "ITEM_ID_3", "ITEM_ID_4"]
-}
+  campaignArn: "CAMPAIGN_ARN" /* required */,
+  userId: "USER_ID" /* required */,
+  inputList: ["ITEM_ID_1", "ITEM_ID_2", "ITEM_ID_3", "ITEM_ID_4"],
+};
 
 export const run = async () => {
   try {
-    const response = await personalizeRuntimeClient.send(new GetPersonalizedRankingCommand(getPersonalizedRankingParam));
+    const response = await personalizeRuntimeClient.send(
+      new GetPersonalizedRankingCommand(getPersonalizedRankingParam),
+    );
     console.log("Success!", response);
     return response; // For unit tests.
   } catch (err) {

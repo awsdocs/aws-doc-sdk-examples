@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 /* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
-import { Handler } from "src/types/handler.js";
+import type { Handler } from "src/types/handler.js";
 import { command as getAllItemsCommand } from "../statement-commands/get-all-items.js";
 import { command as getArchivedItemsCommand } from "../statement-commands/get-archived-items.js";
 import { command as getActiveItemsCommand } from "../statement-commands/get-active-items.js";

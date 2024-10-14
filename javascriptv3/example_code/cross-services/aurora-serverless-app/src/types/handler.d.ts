@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import { RequestHandler } from "express";
+import type { RequestHandler } from "express";
 
 declare type Handler = {
   withClient: ({

@@ -11,7 +11,7 @@ Guidance on implementing this example is in the 'Amplify Docs' at https://docs.a
 // snippet-start:[javascript.v3.cognito.scenarios.lambda-triggers.VerifyAuthChallenge]
 const handler = async (event) => {
   if (
-    event.request.privateChallengeParameters.answer ==
+    event.request.privateChallengeParameters.answer ===
     event.request.challengeAnswer
   ) {
     event.response.answerCorrect = true;

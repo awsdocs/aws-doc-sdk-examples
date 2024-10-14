@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export const MESSAGES = {
-  greeting: `Welcome to the Amazon SageMaker pipeline example scenario. This example workflow will guide you through setting up and executing a SageMaker pipeline. The pipeline uses an AWS Lambda function and an Amazon Simple Queue Service (Amazon SQS) queue. It also runs a vector enrichment reverse geocode job to reverse geocode addresses in an input file and store the results in an export file.`,
+  greeting:
+    "Welcome to the Amazon SageMaker pipeline example scenario. This example workflow will guide you through setting up and executing a SageMaker pipeline. The pipeline uses an AWS Lambda function and an Amazon Simple Queue Service (Amazon SQS) queue. It also runs a vector enrichment reverse geocode job to reverse geocode addresses in an input file and store the results in an export file.",
   greetingHeader: "Welcome to Amazon SageMaker Pipelines.",
   creatingRole: "Creating IAM role: ${ROLE_NAME}.",
   roleCreated: "IAM role created: ${ROLE_NAME}.",

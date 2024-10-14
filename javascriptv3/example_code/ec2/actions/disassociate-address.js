@@ -32,8 +32,8 @@ export const main = async ({ associationId }) => {
 // snippet-end:[javascript.v3.ec2.actions.DisassociateAddress]
 
 // Invoke main function if this file was run directly.
-import { fileURLToPath } from "url";
-import { parseArgs } from "util";
+import { fileURLToPath } from "node:url";
+import { parseArgs } from "node:util";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {
     associationId: {

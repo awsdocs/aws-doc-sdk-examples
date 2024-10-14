@@ -11,7 +11,7 @@ import { listDatastores } from "../actions/list-datastores.js";
 
 describe("createDatastore/deleteDatastore", () => {
   let datastoreID = "";
-  const datastoreName = "jstest-" + Math.floor(Math.random() * 200000000);
+  const datastoreName = `jstest-${Math.floor(Math.random() * 200000000)}`;
 
   it("should create and delete a data store", async () => {
     // Create topic.
@@ -26,7 +26,7 @@ describe("createDatastore/deleteDatastore", () => {
       // Redundant check with test timeout.
       await wait(1);
       const getDatastoreCommandOutput = await getDatastore(datastoreID);
-      status = getDatastoreCommandOutput["datastoreStatus"];
+      status = getDatastoreCommandOutput.datastoreStatus;
       counter++;
     }
 

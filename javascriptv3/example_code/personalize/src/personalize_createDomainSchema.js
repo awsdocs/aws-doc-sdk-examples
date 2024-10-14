@@ -21,34 +21,36 @@ node createDomanSchema.js
 
 // snippet-start:[personalize.JavaScript.createDomainSchemaV3]
 // Get service clients module and commands using ES6 syntax.
-import { CreateSchemaCommand } from
-  "@aws-sdk/client-personalize";
+import { CreateSchemaCommand } from "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-import fs from 'fs';
+import fs from "node:fs";
 
-let schemaFilePath = "SCHEMA_PATH";
+const schemaFilePath = "SCHEMA_PATH";
 let mySchema = "";
 
 try {
   mySchema = fs.readFileSync(schemaFilePath).toString();
 } catch (err) {
-  mySchema = 'TEST' // for unit tests.
+  mySchema = "TEST"; // for unit tests.
 }
 
 // Set the domain schema parameters.
 export const createDomainSchemaParam = {
-  name: 'NAME', /* required */
-  schema: mySchema, /* required */
-  domain: 'DOMAIN'   /* required for a domain dataset group, specify ECOMMERCE or VIDEO_ON_DEMAND */
+  name: "NAME" /* required */,
+  schema: mySchema /* required */,
+  domain:
+    "DOMAIN" /* required for a domain dataset group, specify ECOMMERCE or VIDEO_ON_DEMAND */,
 };
 
 export const run = async () => {
   try {
-    const response = await personalizeClient.send(new CreateSchemaCommand(createDomainSchemaParam));
+    const response = await personalizeClient.send(
+      new CreateSchemaCommand(createDomainSchemaParam),
+    );
     console.log("Success", response);
     return response; // For unit tests.
   } catch (err) {

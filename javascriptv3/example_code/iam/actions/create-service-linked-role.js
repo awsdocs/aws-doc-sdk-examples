@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[iam.JavaScript.createservicelinkedrolev3]
 import {
@@ -40,9 +40,8 @@ export const createServiceLinkedRole = async (serviceName) => {
       return client.send(
         new GetRoleCommand({ RoleName: "AWSServiceRoleForElasticBeanstalk" }),
       );
-    } else {
-      throw caught;
     }
+    throw caught;
   }
 };
 // snippet-end:[iam.JavaScript.createservicelinkedrolev3]

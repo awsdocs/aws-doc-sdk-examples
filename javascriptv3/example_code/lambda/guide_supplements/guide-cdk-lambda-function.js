@@ -48,7 +48,7 @@ const routeRequest = (lambdaEvent) => {
 
 const handleGetRequest = async () => {
   if (process.env.BUCKET === "undefined") {
-    const err = new Error(`No bucket name provided.`);
+    const err = new Error("No bucket name provided.");
     err.name = "MissingBucketName";
     throw err;
   }

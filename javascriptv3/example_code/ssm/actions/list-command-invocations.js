@@ -3,7 +3,7 @@
 
 // snippet-start:[ssm.JavaScript.Basics.listCommandInvocations]
 import { paginateListCommandInvocations, SSMClient } from "@aws-sdk/client-ssm";
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 
 /**
  * List SSM command invocations on an instance.
@@ -12,7 +12,7 @@ import { parseArgs } from "util";
 export const main = async ({ instanceId }) => {
   const client = new SSMClient({});
   try {
-    let listCommandInvocationsPaginated = [];
+    const listCommandInvocationsPaginated = [];
     // The paginate function is a wrapper around the base command.
     const paginator = paginateListCommandInvocations(
       { client },
@@ -34,7 +34,7 @@ export const main = async ({ instanceId }) => {
   }
 };
 // snippet-end:[ssm.JavaScript.Basics.listCommandInvocations]
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {

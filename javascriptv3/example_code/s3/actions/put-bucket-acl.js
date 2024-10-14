@@ -69,7 +69,7 @@ export const main = async ({
 // snippet-end:[s3.JavaScript.perms.putBucketAclV3]
 
 // Call function if run directly
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import {
   isMain,
   validateArgs,

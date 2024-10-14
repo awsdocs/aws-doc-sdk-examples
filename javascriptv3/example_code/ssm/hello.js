@@ -7,7 +7,7 @@ import { paginateListDocuments, SSMClient } from "@aws-sdk/client-ssm";
 // Call ListDocuments and display the result.
 export const main = async () => {
   const client = new SSMClient();
-  let listDocumentsPaginated = [];
+  const listDocumentsPaginated = [];
   console.log(
     "Hello, AWS Systems Manager! Let's list some of your documents:\n",
   );
@@ -21,13 +21,14 @@ export const main = async () => {
     console.error(`There was a problem saying hello: ${caught.message}`);
     throw caught;
   }
-  listDocumentsPaginated.forEach(({ Name, DocumentFormat, CreatedDate }) => {
+
+  for (const { Name, DocumentFormat, CreatedDate } of listDocumentsPaginated) {
     console.log(`${Name} - ${DocumentFormat} - ${CreatedDate}`);
-  });
+  }
 };
 
 // Call function if run directly.
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   main();
 }

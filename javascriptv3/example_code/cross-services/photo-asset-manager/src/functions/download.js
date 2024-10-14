@@ -48,9 +48,11 @@ export const getImageKeysForLabels = async (labels) => {
    * @type {{ Images: string[]}[]}
    */
   const labelsTableResponses = Responses[LABELS_TABLE_NAME];
-  labelsTableResponses.forEach((response) => {
-    response.Images.forEach((image) => uniqueImageKeys.add(image));
-  });
+  for (const response of labelsTableResponses) {
+    for (const image of response.Images) {
+      uniqueImageKeys.add(image);
+    }
+  }
 
   return Array.from(uniqueImageKeys);
 };
@@ -118,10 +120,7 @@ const zipAndUpload = async (imageKeys) => {
  */
 const publishMessage = async (url) => {
   const client = new SNSClient({});
-  const message =
-    "Your images are ready for download at the following URL.\n" +
-    "Amazon SNS breaks up the long URL. Strip out the whitespace characters to get the correct link.\n" +
-    url;
+  const message = `Your images are ready for download at the following URL.\nAmazon SNS breaks up the long URL. Strip out the whitespace characters to get the correct link.\n${url}`;
   const command = new PublishCommand({
     Message: message,
     TopicArn: NOTIFICATION_TOPIC,

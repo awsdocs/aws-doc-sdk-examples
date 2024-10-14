@@ -19,7 +19,7 @@ export const main = async ({ bucketName, pageSize }) => {
   const objects = [];
   try {
     const paginator = paginateListObjectsV2(
-      { client, /* Max items per page */ pageSize: parseInt(pageSize) },
+      { client, /* Max items per page */ pageSize: Number.parseInt(pageSize) },
       { Bucket: bucketName },
     );
 
@@ -51,7 +51,7 @@ export const main = async ({ bucketName, pageSize }) => {
 // snippet-end:[s3.JavaScript.buckets.listObjectsV3]
 
 // Call function if run directly
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import {
   isMain,
   validateArgs,

@@ -69,7 +69,7 @@ export const confirm = new ScenarioInput("confirmContinue", "Continue?", {
 });
 
 export const exitOnNoConfirm = new ScenarioAction(
-  `exitOnConfirmContinueFalse`,
+  "exitOnConfirmContinueFalse",
   (/** @type { { earlyExit: boolean } & Record<string, any>} */ state) => {
     if (!state[confirm.name]) {
       state.earlyExit = true;
@@ -260,13 +260,15 @@ export const authorizeSecurityGroupIngress = new ScenarioAction(
       const ipAddress = await new Promise((res, rej) => {
         get("http://checkip.amazonaws.com", (response) => {
           let data = "";
-          response.on("data", (chunk) => (data += chunk));
+          response.on("data", (chunk) => {
+            data += chunk;
+          });
           response.on("end", () => res(data.trim()));
         }).on("error", (err) => {
           rej(err);
         });
       });
-      state[`ipAddress`] = ipAddress;
+      state.ipAddress = ipAddress;
       // Allow ingress from the IP address above to the security group.
       // This will allow you to SSH into the EC2 instance.
       const command = new AuthorizeSecurityGroupIngressCommand({
@@ -326,12 +328,12 @@ export const getImages = new ScenarioAction(
 
     try {
       for await (const page of getParametersByPathPaginator) {
-        page.Parameters.forEach((param) => {
+        for (const param of page.Parameters) {
           // Filter by Amazon Linux 2
           if (param.Name.includes("amzn2")) {
             AMIs.push(param.Value);
           }
-        });
+        }
       }
     } catch (caught) {
       if (caught instanceof Error && caught.name === "InvalidFilterValue") {
@@ -355,7 +357,7 @@ export const getImages = new ScenarioAction(
       }
 
       // Store the image details for later use.
-      state["images"] = imageDetails;
+      state.images = imageDetails;
     } catch (caught) {
       if (caught instanceof Error && caught.name === "InvalidAMIID.NotFound") {
         caught.message = `${caught.message}. Please provide a valid image id.`;
@@ -424,7 +426,7 @@ export const getCompatibleInstanceTypes = new ScenarioAction(
       state.errors.push(caught);
     }
 
-    state["instanceTypes"] = instanceTypes;
+    state.instanceTypes = instanceTypes;
   },
   { skipWhen: skipWhenErrors },
 );

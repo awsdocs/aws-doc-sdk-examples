@@ -28,6 +28,6 @@ describe("put-item", () => {
     });
 
     const { Item } = await client.send(command);
-    expect(Item["Flavor"]["S"]).toBe("Chocolate Chip");
+    expect(Item.Flavor.S).toBe("Chocolate Chip");
   });
 });

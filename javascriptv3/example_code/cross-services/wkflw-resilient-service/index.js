@@ -2,7 +2,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
 import {
   Scenario,
   parseScenarioArgs,
@@ -40,7 +39,7 @@ export const scenarios = {
 };
 
 // Call function if run directly
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   parseScenarioArgs(scenarios);

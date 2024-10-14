@@ -28,7 +28,7 @@
  * remove resources created for the demo.
  */
 
-import fs from "fs";
+import fs from "node:fs";
 import { Config } from "./src/Config.js";
 import {
   S3Client,
@@ -71,10 +71,10 @@ if (mode === "add") {
       let configOutputs =
         `  StackName: '${stackName}',\n` +
         `  DefaultImageName: '${DefaultImageName}',\n`;
-      Stacks[0].Outputs.forEach((current) => {
+      for (const current of Stacks[0].Outputs) {
         configOutputs += `  ${current.OutputKey}: '${current.OutputValue}',\n`;
         Config[current.OutputKey] = current.OutputValue;
-      });
+      }
       fs.writeFileSync(
         "src/Config.js",
         `export const Config = {\n${configOutputs}};`,
@@ -122,7 +122,7 @@ if (mode === "add") {
           UserPoolId: Config.CognitoUserPoolId,
         }),
       );
-      Users.forEach((user) => {
+      for (const user of Users) {
         console.log(`Deleting user ${user.Username}`);
         cogProvider.send(
           new AdminDeleteUserCommand({
@@ -130,7 +130,7 @@ if (mode === "add") {
             Username: user.Username,
           }),
         );
-      });
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -159,7 +159,7 @@ if (mode === "add") {
       console.log(error.message);
     }
 
-    let configOutputs = `  ConfigError: '${ConfigError}'\n`;
+    const configOutputs = `  ConfigError: '${ConfigError}'\n`;
     fs.writeFileSync(
       "src/Config.js",
       `export const Config = {\n${configOutputs}};`,

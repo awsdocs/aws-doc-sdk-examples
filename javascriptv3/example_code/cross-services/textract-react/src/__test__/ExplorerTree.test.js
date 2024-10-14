@@ -34,7 +34,7 @@ describe("extraction props", () => {
   });
 
   test("filter out text nodes when table type", () => {
-    let doc = {};
+    const doc = {};
     Object.assign(TestExtractDocument, doc);
     doc.ExtractType = "table";
     render(<ExplorerTree extraction={doc} shownPolygons={[]} />);

@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { describe, expect, test, vi } from "vitest";
-import path from "path";
-import { Writable } from "stream";
+import path from "node:path";
+import { Writable } from "node:stream";
 
 describe("ConverseStream with text generation models", () => {
   const fileName = "converseStream.js";

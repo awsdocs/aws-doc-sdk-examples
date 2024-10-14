@@ -23,7 +23,7 @@ describe("util-csv", () => {
       // it could interfere with other tests.
       const filename = getUniqueName("getFirstEntry-test");
       files.push(`./${filename}.tmp`);
-      setTmp(filename, `a,b,c\nd,e,f\ng,h,i\n`);
+      setTmp(filename, "a,b,c\nd,e,f\ng,h,i\n");
 
       expect(getFirstEntry(filename)).toEqual(
         expect.arrayContaining(["a", "b", "c"]),
@@ -40,7 +40,7 @@ describe("util-csv", () => {
     it("should return an array of the first elements of each entry", () => {
       const filename = getUniqueName("getFirstValuesFromEntries-test");
       files.push(`./${filename}.tmp`);
-      setTmp(filename, `a,b,c\nd,e,f\ng,h,i`);
+      setTmp(filename, "a,b,c\nd,e,f\ng,h,i");
 
       expect(getFirstValuesFromEntries(filename)).toEqual(
         expect.arrayContaining(["a", "d", "g"]),
@@ -52,7 +52,7 @@ describe("util-csv", () => {
     it("should return an array of the second elements of each entry", () => {
       const filename = getUniqueName("getSecondValuesFromEntries-test");
       files.push(`./${filename}.tmp`);
-      setTmp(filename, `a,b,c\nd,e,f\ng,h,i`);
+      setTmp(filename, "a,b,c\nd,e,f\ng,h,i");
 
       expect(getSecondValuesFromEntries(filename)).toEqual(
         expect.arrayContaining(["b", "e", "h"]),

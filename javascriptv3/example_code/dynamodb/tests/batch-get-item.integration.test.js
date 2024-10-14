@@ -19,7 +19,7 @@ describe("batch-get-item", () => {
 
   it("should return a list of items", async () => {
     const { Responses } = await main();
-    const pageAnalytics = Responses["PageAnalytics"];
+    const pageAnalytics = Responses.PageAnalytics;
     expect(pageAnalytics).toEqual(
       expect.arrayContaining([
         { PageViews: { N: "10" }, PageName: { S: "Home" } },

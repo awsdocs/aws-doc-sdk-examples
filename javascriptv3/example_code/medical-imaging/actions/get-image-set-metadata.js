@@ -1,12 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[medical-imaging.JavaScript.imageset.getImageSetMetadataV3]
 import { GetImageSetMetadataCommand } from "@aws-sdk/client-medical-imaging";
 import { medicalImagingClient } from "../libs/medicalImagingClient.js";
-import { writeFileSync } from "fs";
+import { writeFileSync } from "node:fs";
 
 /**
  * @param {string} metadataFileName - The name of the file for the gzipped metadata.
@@ -18,7 +18,7 @@ export const getImageSetMetadata = async (
   metadataFileName = "metadata.json.gzip",
   datastoreId = "xxxxxxxxxxxxxx",
   imagesetId = "xxxxxxxxxxxxxx",
-  versionID = ""
+  versionID = "",
 ) => {
   const params = { datastoreId: datastoreId, imageSetId: imagesetId };
 
@@ -27,7 +27,7 @@ export const getImageSetMetadata = async (
   }
 
   const response = await medicalImagingClient.send(
-    new GetImageSetMetadataCommand(params)
+    new GetImageSetMetadataCommand(params),
   );
   const buffer = await response.imageSetMetadataBlob.transformToByteArray();
   writeFileSync(metadataFileName, buffer);
@@ -59,7 +59,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await getImageSetMetadata(
       "metadata.json.gzip",
       "12345678901234567890123456789012",
-      "12345678901234567890123456789012"
+      "12345678901234567890123456789012",
     );
   } catch (err) {
     console.log("Error", err);
@@ -72,7 +72,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
       "metadata2.json.gzip",
       "12345678901234567890123456789012",
       "12345678901234567890123456789012",
-      "1"
+      "1",
     );
   } catch (err) {
     console.log("Error", err);

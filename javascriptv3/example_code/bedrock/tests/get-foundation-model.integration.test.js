@@ -13,7 +13,7 @@ const ExpectedSchema = z.object({
 
 describe("get-foundation-model", () => {
   it("should return the model' details", async () => {
-    let modelDetails = await getFoundationModel();
+    const modelDetails = await getFoundationModel();
     expect(modelDetails).not.toBeNull();
 
     const isModelDetails = ExpectedSchema.safeParse(modelDetails).success;

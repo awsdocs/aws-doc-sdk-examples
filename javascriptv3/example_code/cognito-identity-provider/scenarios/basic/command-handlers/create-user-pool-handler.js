@@ -41,7 +41,7 @@ const createUserPoolHandler = async (commands) => {
     const {
       UserPool: { Id },
     } = await createUserPool(poolName);
-    log(`User pool created.`);
+    log("User pool created.");
 
     log("Configuring user pool to only allow MFA via an authenticator app.");
     await setUserPoolMfaConfig(Id);
@@ -51,7 +51,7 @@ const createUserPoolHandler = async (commands) => {
     const {
       UserPoolClient: { ClientId },
     } = await createUserPoolClient(NAME_CLIENT, Id);
-    log(`Client created.`);
+    log("Client created.");
 
     storeUserPoolMeta(Id, ClientId, poolName);
   } catch (err) {

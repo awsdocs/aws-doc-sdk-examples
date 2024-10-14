@@ -10,7 +10,7 @@ import { EC2Client, paginateDescribeInstances } from "@aws-sdk/client-ec2";
  * @param {{ pageSize: string, architectures: string[] }} options
  */
 export const main = async ({ pageSize, architectures }) => {
-  pageSize = parseInt(pageSize);
+  pageSize = Number.parseInt(pageSize);
   const client = new EC2Client({});
   const d = new Date();
   const year = d.getFullYear();
@@ -41,7 +41,9 @@ export const main = async ({ pageSize, architectures }) => {
     const instanceList = [];
     for await (const page of paginator) {
       const { Reservations } = page;
-      Reservations.forEach((r) => instanceList.push(...r.Instances));
+      for (const reservation of Reservations) {
+        instanceList.push(...reservation.Instances);
+      }
     }
     console.log(
       `Running instances launched this month:\n\n${instanceList.map((instance) => instance.InstanceId).join("\n")}`,
@@ -57,8 +59,8 @@ export const main = async ({ pageSize, architectures }) => {
 // snippet-end:[ec2.JavaScript.Instances.describeInstancesV3]
 
 // Invoke main function if this file was run directly.
-import { fileURLToPath } from "url";
-import { parseArgs } from "util";
+import { fileURLToPath } from "node:url";
+import { parseArgs } from "node:util";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {
     architectures: {

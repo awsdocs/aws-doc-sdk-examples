@@ -21,7 +21,7 @@ export async function main() {
 }
 
 // Call function if run directly
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   main();
 }

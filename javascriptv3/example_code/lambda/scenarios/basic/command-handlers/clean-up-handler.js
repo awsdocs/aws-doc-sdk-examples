@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import { readdirSync } from "fs";
+import { readdirSync } from "node:fs";
 import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import {
   deleteFiles,

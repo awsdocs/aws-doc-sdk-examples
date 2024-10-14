@@ -14,8 +14,8 @@ if (!process.env.QUERY_START_DATE || !process.env.QUERY_END_DATE) {
 const cloudWatchQuery = new CloudWatchQuery(new CloudWatchLogsClient({}), {
   logGroupNames: ["/workflows/cloudwatch-logs/large-query"],
   dateRange: [
-    new Date(parseInt(process.env.QUERY_START_DATE)),
-    new Date(parseInt(process.env.QUERY_END_DATE)),
+    new Date(Number.parseInt(process.env.QUERY_START_DATE)),
+    new Date(Number.parseInt(process.env.QUERY_END_DATE)),
   ],
 });
 

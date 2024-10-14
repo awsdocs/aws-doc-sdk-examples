@@ -3,7 +3,7 @@
 
 // snippet-start:[ssm.JavaScript.Basics.createDocument]
 import { CreateDocumentCommand, SSMClient } from "@aws-sdk/client-ssm";
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 
 /**
  * Create an SSM document.
@@ -30,7 +30,7 @@ export const main = async ({ content, name, documentType }) => {
   }
 };
 // snippet-end:[ssm.JavaScript.Basics.createDocument]
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {

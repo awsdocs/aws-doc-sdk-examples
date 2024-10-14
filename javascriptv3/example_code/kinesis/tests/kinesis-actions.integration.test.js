@@ -51,6 +51,6 @@ describe("kinesis-actions", () => {
 
   it("should successfully use the PutRecords action", async () => {
     // Output key comes from stack.yaml in the kinesis directory.
-    await main({ streamArn: outputs["ExampleStreamArn"] });
+    await main({ streamArn: outputs.ExampleStreamArn });
   });
 });

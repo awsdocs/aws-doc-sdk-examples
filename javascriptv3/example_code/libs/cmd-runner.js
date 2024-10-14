@@ -31,7 +31,7 @@ function readCommands({ reader, handlers }) {
   reader.on("line", (input) => {
     const commands = getCommands(input);
 
-    for (let handler of handlers) {
+    for (const handler of handlers) {
       if (handler[0](commands)) {
         return handler[1](commands);
       }

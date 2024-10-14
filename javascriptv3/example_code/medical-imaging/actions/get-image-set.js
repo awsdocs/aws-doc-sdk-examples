@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[medical-imaging.JavaScript.imageset.getImageSetV3]
 import { GetImageSetCommand } from "@aws-sdk/client-medical-imaging";
@@ -16,14 +16,14 @@ import { medicalImagingClient } from "../libs/medicalImagingClient.js";
 export const getImageSet = async (
   datastoreId = "xxxxxxxxxxxxxxx",
   imageSetId = "xxxxxxxxxxxxxxx",
-  imageSetVersion = ""
+  imageSetVersion = "",
 ) => {
-  let params = { datastoreId: datastoreId, imageSetId: imageSetId };
+  const params = { datastoreId: datastoreId, imageSetId: imageSetId };
   if (imageSetVersion !== "") {
     params.imageSetVersion = imageSetVersion;
   }
   const response = await medicalImagingClient.send(
-    new GetImageSetCommand(params)
+    new GetImageSetCommand(params),
   );
   console.log(response);
   // {

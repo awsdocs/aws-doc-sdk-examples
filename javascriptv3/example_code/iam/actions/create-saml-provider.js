@@ -1,12 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[javascript.v3.iam.actions.CreateSAMLProvider]
 import { CreateSAMLProviderCommand, IAMClient } from "@aws-sdk/client-iam";
-import { readFileSync } from "fs";
-import * as path from "path";
+import { readFileSync } from "node:fs";
+import * as path from "node:path";
 import { dirnameFromMetaUrl } from "@aws-doc-sdk-examples/lib/utils/util-fs.js";
 
 const client = new IAMClient({});

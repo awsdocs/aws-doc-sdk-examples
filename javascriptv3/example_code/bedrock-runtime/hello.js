@@ -14,7 +14,7 @@
  * @property {Usage} usage
  */
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import {
   BedrockRuntimeClient,
   InvokeModelCommand,

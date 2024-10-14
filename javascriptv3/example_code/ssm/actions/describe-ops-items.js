@@ -8,16 +8,16 @@ import {
   paginateDescribeOpsItems,
   SSMClient,
 } from "@aws-sdk/client-ssm";
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 
 /**
  * Describe SSM OpsItems.
  * @param {{ opsItemId: string }}
  */
 export const main = async ({ opsItemId }) => {
-  let client = new SSMClient({});
+  const client = new SSMClient({});
   try {
-    let describeOpsItemsPaginated = [];
+    const describeOpsItemsPaginated = [];
     for await (const page of paginateDescribeOpsItems(
       { client },
       {
@@ -41,7 +41,7 @@ export const main = async ({ opsItemId }) => {
   }
 };
 // snippet-end:[ssm.JavaScript.Basics.describeOpsItems]
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {

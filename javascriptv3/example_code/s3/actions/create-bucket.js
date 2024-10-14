@@ -49,7 +49,7 @@ export const main = async ({ bucketName }) => {
 // snippet-end:[s3.JavaScript.buckets.createBucketV3]
 
 // Call function if run directly
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import {
   isMain,
   validateArgs,
