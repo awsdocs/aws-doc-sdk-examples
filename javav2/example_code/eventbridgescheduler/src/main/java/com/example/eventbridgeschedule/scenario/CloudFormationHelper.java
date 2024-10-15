@@ -67,13 +67,6 @@ public class CloudFormationHelper {
 
     public static void deployCloudFormationStack(String stackName, String email) {
         String templateBody;
-
-        // Check if the stack already exists
-        //   if (describeStack(stackName)) {
-        //       logger.info("Stack {} already exists", stackName);
-        //       return;
-        //   }
-
         // Read the CloudFormation template file
         try {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
