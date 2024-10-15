@@ -11,8 +11,7 @@
     "prepare": "cd .. && husky javascriptv3/.husky"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx}": ["biome format --write", "biome lint"],
-    "*.md": ["biome format --write"]
+    "*.{js,ts,jsx,tsx}": ["biome format --write", "biome lint"]
   },
   "workspaces": [
     "example_code/auto-scaling",

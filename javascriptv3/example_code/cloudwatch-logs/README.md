@@ -40,7 +40,7 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeSubscriptionFilters](actions/describe-subscription-filters.js#L4)
 - [GetQueryResults](scenarios/large-query/cloud-watch-query.js#L108)
 - [PutSubscriptionFilter](actions/put-subscription-filter.js#L4)
-- [StartQuery](scenarios/large-query/cloud-watch-query.js#L142)
+- [StartQuery](scenarios/large-query/cloud-watch-query.js#L141)
 
 ### Scenarios
 
