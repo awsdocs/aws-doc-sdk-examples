@@ -66,7 +66,6 @@ public class EventbridgeSchedulerActions {
     }
 
     // snippet-start:[scheduler.javav2.create.schedule.group.main]
-
     /**
      * Creates a new schedule group.
      *
