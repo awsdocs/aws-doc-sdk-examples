@@ -196,11 +196,13 @@ func StubDeleteObject(bucket string, key string, versionId string, bypassGoverna
 
 func StubDeleteObjects(bucket string, objVersions []types.ObjectVersion, bypassGov bool, raiseErr *testtools.StubError) testtools.Stub {
 	delObjs := make([]types.ObjectIdentifier, len(objVersions))
+	delOuts := make([]types.DeletedObject, len(objVersions))
 	for i := 0; i < len(objVersions); i++ {
 		delObjs[i] = types.ObjectIdentifier{
 			Key:       objVersions[i].Key,
 			VersionId: objVersions[i].VersionId,
 		}
+		delOuts[i] = types.DeletedObject{Key: objVersions[i].Key}
 	}
 	input := &s3.DeleteObjectsInput{
 		Bucket: aws.String(bucket),
@@ -215,10 +217,11 @@ func StubDeleteObjects(bucket string, objVersions []types.ObjectVersion, bypassG
 	return testtools.Stub{
 		OperationName: "DeleteObjects",
 		Input:         input,
-		Output:        &s3.DeleteObjectsOutput{},
+		Output:        &s3.DeleteObjectsOutput{Deleted: delOuts},
 		Error:         raiseErr,
 	}
 }
+
 func StubDeleteBucket(bucket string, raiseErr *testtools.StubError) testtools.Stub {
 	return testtools.Stub{
 		OperationName: "DeleteBucket",

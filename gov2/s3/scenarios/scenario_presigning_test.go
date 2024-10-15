@@ -69,6 +69,7 @@ func (scenTest *PresigningScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	stubList = append(stubList, stubs.StubHeadBucket(
 		bucketName, &testtools.StubError{Err: &types.NotFound{}, ContinueAfter: true}))
 	stubList = append(stubList, stubs.StubCreateBucket(bucketName, testConfig.Region, nil))
+	stubList = append(stubList, stubs.StubHeadBucket(bucketName, nil))
 	stubList = append(stubList, stubs.StubPresignedRequest("PUT", bucketName, objectKey, nil))
 	stubList = append(stubList, stubs.StubPresignedRequest("GET", bucketName, objectKey, nil))
 	stubList = append(stubList, stubs.StubPresignedRequest("POST", bucketName, objectKey, nil))

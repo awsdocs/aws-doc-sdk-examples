@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.s3.BucketBasics.complete]
+// snippet-start:[gov2.s3.BucketBasics.struct]
+
 import (
 	"bytes"
 	"context"
@@ -11,6 +14,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/feature/s3/manager"
@@ -18,9 +22,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/aws/smithy-go"
 )
-
-// snippet-start:[gov2.s3.BucketBasics.complete]
-// snippet-start:[gov2.s3.BucketBasics.struct]
 
 // BucketBasics encapsulates the Amazon Simple Storage Service (Amazon S3) actions
 // used in the examples.
@@ -36,12 +37,24 @@ type BucketBasics struct {
 
 // ListBuckets lists the buckets in the current account.
 func (basics BucketBasics) ListBuckets(ctx context.Context) ([]types.Bucket, error) {
-	result, err := basics.S3Client.ListBuckets(ctx, &s3.ListBucketsInput{})
+	var err error
+	var output *s3.ListBucketsOutput
 	var buckets []types.Bucket
-	if err != nil {
-		log.Printf("Couldn't list buckets for your account. Here's why: %v\n", err)
-	} else {
-		buckets = result.Buckets
+	bucketPaginator := s3.NewListBucketsPaginator(basics.S3Client, &s3.ListBucketsInput{})
+	for bucketPaginator.HasMorePages() {
+		output, err = bucketPaginator.NextPage(ctx)
+		if err != nil {
+			var apiErr smithy.APIError
+			if errors.As(err, &apiErr) && apiErr.ErrorCode() == "AccessDenied" {
+				fmt.Println("You don't have permission to list buckets for this account.")
+				err = apiErr
+			} else {
+				log.Printf("Couldn't list buckets for your account. Here's why: %v\n", err)
+			}
+			break
+		} else {
+			buckets = append(buckets, output.Buckets...)
+		}
 	}
 	return buckets, err
 }
@@ -89,8 +102,21 @@ func (basics BucketBasics) CreateBucket(ctx context.Context, name string, region
 		},
 	})
 	if err != nil {
-		log.Printf("Couldn't create bucket %v in Region %v. Here's why: %v\n",
-			name, region, err)
+		var owned *types.BucketAlreadyOwnedByYou
+		var exists *types.BucketAlreadyExists
+		if errors.As(err, &owned) {
+			log.Printf("You already own bucket %s.\n", name)
+			err = owned
+		} else if errors.As(err, &exists) {
+			log.Printf("Bucket %s already exists.\n", name)
+			err = exists
+		}
+	} else {
+		err = s3.NewBucketExistsWaiter(basics.S3Client).Wait(
+			ctx, &s3.HeadBucketInput{Bucket: aws.String(name)}, time.Minute)
+		if err != nil {
+			log.Printf("Failed attempt to wait for bucket %s to exist.\n", name)
+		}
 	}
 	return err
 }
@@ -112,8 +138,21 @@ func (basics BucketBasics) UploadFile(ctx context.Context, bucketName string, ob
 			Body:   file,
 		})
 		if err != nil {
-			log.Printf("Couldn't upload file %v to %v:%v. Here's why: %v\n",
-				fileName, bucketName, objectKey, err)
+			var apiErr smithy.APIError
+			if errors.As(err, &apiErr) && apiErr.ErrorCode() == "EntityTooLarge" {
+				log.Printf("Error while uploading object to %s. The object is too large.\n"+
+					"To upload objects larger than 5GB, use the S3 console (160GB max)\n"+
+					"or the multipart upload API (5TB max).", bucketName)
+			} else {
+				log.Printf("Couldn't upload file %v to %v:%v. Here's why: %v\n",
+					fileName, bucketName, objectKey, err)
+			}
+		} else {
+			err = s3.NewObjectExistsWaiter(basics.S3Client).Wait(
+				ctx, &s3.HeadObjectInput{Bucket: aws.String(bucketName), Key: aws.String(objectKey)}, time.Minute)
+			if err != nil {
+				log.Printf("Failed attempt to wait for object %s to exist.\n", objectKey)
+			}
 		}
 	}
 	return err
@@ -137,8 +176,20 @@ func (basics BucketBasics) UploadLargeObject(ctx context.Context, bucketName str
 		Body:   largeBuffer,
 	})
 	if err != nil {
-		log.Printf("Couldn't upload large object to %v:%v. Here's why: %v\n",
-			bucketName, objectKey, err)
+		var apiErr smithy.APIError
+		if errors.As(err, &apiErr) && apiErr.ErrorCode() == "EntityTooLarge" {
+			log.Printf("Error while uploading object to %s. The object is too large.\n"+
+				"The maximum size for a multipart upload is 5TB.", bucketName)
+		} else {
+			log.Printf("Couldn't upload large object to %v:%v. Here's why: %v\n",
+				bucketName, objectKey, err)
+		}
+	} else {
+		err = s3.NewObjectExistsWaiter(basics.S3Client).Wait(
+			ctx, &s3.HeadObjectInput{Bucket: aws.String(bucketName), Key: aws.String(objectKey)}, time.Minute)
+		if err != nil {
+			log.Printf("Failed attempt to wait for object %s to exist.\n", objectKey)
+		}
 	}
 
 	return err
@@ -155,7 +206,13 @@ func (basics BucketBasics) DownloadFile(ctx context.Context, bucketName string, 
 		Key:    aws.String(objectKey),
 	})
 	if err != nil {
-		log.Printf("Couldn't get object %v:%v. Here's why: %v\n", bucketName, objectKey, err)
+		var noKey *types.NoSuchKey
+		if errors.As(err, &noKey) {
+			log.Printf("Can't get object %s from bucket %s. No such key exists.\n", objectKey, bucketName)
+			err = noKey
+		} else {
+			log.Printf("Couldn't get object %v:%v. Here's why: %v\n", bucketName, objectKey, err)
+		}
 		return err
 	}
 	defer result.Body.Close()
@@ -203,14 +260,25 @@ func (basics BucketBasics) DownloadLargeObject(ctx context.Context, bucketName s
 
 // CopyToFolder copies an object in a bucket to a subfolder in the same bucket.
 func (basics BucketBasics) CopyToFolder(ctx context.Context, bucketName string, objectKey string, folderName string) error {
+	objectDest := fmt.Sprintf("%v/%v", folderName, objectKey)
 	_, err := basics.S3Client.CopyObject(ctx, &s3.CopyObjectInput{
 		Bucket:     aws.String(bucketName),
 		CopySource: aws.String(fmt.Sprintf("%v/%v", bucketName, objectKey)),
-		Key:        aws.String(fmt.Sprintf("%v/%v", folderName, objectKey)),
+		Key:        aws.String(objectDest),
 	})
 	if err != nil {
-		log.Printf("Couldn't copy object from %v:%v to %v:%v/%v. Here's why: %v\n",
-			bucketName, objectKey, bucketName, folderName, objectKey, err)
+		var notActive *types.ObjectNotInActiveTierError
+		if errors.As(err, &notActive) {
+			log.Printf("Couldn't copy object %s from %s because the object isn't in the active tier.\n",
+				objectKey, bucketName)
+			err = notActive
+		}
+	} else {
+		err = s3.NewObjectExistsWaiter(basics.S3Client).Wait(
+			ctx, &s3.HeadObjectInput{Bucket: aws.String(bucketName), Key: aws.String(objectDest)}, time.Minute)
+		if err != nil {
+			log.Printf("Failed attempt to wait for object %s to exist.\n", objectDest)
+		}
 	}
 	return err
 }
@@ -227,8 +295,18 @@ func (basics BucketBasics) CopyToBucket(ctx context.Context, sourceBucket string
 		Key:        aws.String(objectKey),
 	})
 	if err != nil {
-		log.Printf("Couldn't copy object from %v:%v to %v:%v. Here's why: %v\n",
-			sourceBucket, objectKey, destinationBucket, objectKey, err)
+		var notActive *types.ObjectNotInActiveTierError
+		if errors.As(err, &notActive) {
+			log.Printf("Couldn't copy object %s from %s because the object isn't in the active tier.\n",
+				objectKey, sourceBucket)
+			err = notActive
+		}
+	} else {
+		err = s3.NewObjectExistsWaiter(basics.S3Client).Wait(
+			ctx, &s3.HeadObjectInput{Bucket: aws.String(destinationBucket), Key: aws.String(objectKey)}, time.Minute)
+		if err != nil {
+			log.Printf("Failed attempt to wait for object %s to exist.\n", objectKey)
+		}
 	}
 	return err
 }
@@ -239,16 +317,27 @@ func (basics BucketBasics) CopyToBucket(ctx context.Context, sourceBucket string
 
 // ListObjects lists the objects in a bucket.
 func (basics BucketBasics) ListObjects(ctx context.Context, bucketName string) ([]types.Object, error) {
-	result, err := basics.S3Client.ListObjectsV2(ctx, &s3.ListObjectsV2Input{
+	var err error
+	var output *s3.ListObjectsV2Output
+	input := &s3.ListObjectsV2Input{
 		Bucket: aws.String(bucketName),
-	})
-	var contents []types.Object
-	if err != nil {
-		log.Printf("Couldn't list objects in bucket %v. Here's why: %v\n", bucketName, err)
-	} else {
-		contents = result.Contents
 	}
-	return contents, err
+	var objects []types.Object
+	objectPaginator := s3.NewListObjectsV2Paginator(basics.S3Client, input)
+	for objectPaginator.HasMorePages() {
+		output, err = objectPaginator.NextPage(ctx)
+		if err != nil {
+			var noBucket *types.NoSuchBucket
+			if errors.As(err, &noBucket) {
+				log.Printf("Bucket %s does not exist.\n", bucketName)
+				err = noBucket
+			}
+			break
+		} else {
+			objects = append(objects, output.Contents...)
+		}
+	}
+	return objects, err
 }
 
 // snippet-end:[gov2.s3.ListObjectsV2]
@@ -263,12 +352,32 @@ func (basics BucketBasics) DeleteObjects(ctx context.Context, bucketName string,
 	}
 	output, err := basics.S3Client.DeleteObjects(ctx, &s3.DeleteObjectsInput{
 		Bucket: aws.String(bucketName),
-		Delete: &types.Delete{Objects: objectIds},
+		Delete: &types.Delete{Objects: objectIds, Quiet: aws.Bool(true)},
 	})
-	if err != nil {
-		log.Printf("Couldn't delete objects from bucket %v. Here's why: %v\n", bucketName, err)
+	if err != nil || len(output.Errors) > 0 {
+		log.Printf("Error deleting objects from bucket %s.\n", bucketName)
+		if err != nil {
+			var noBucket *types.NoSuchBucket
+			if errors.As(err, &noBucket) {
+				log.Printf("Bucket %s does not exist.\n", bucketName)
+				err = noBucket
+			}
+		} else if len(output.Errors) > 0 {
+			for _, outErr := range output.Errors {
+				log.Printf("%s: %s\n", *outErr.Key, *outErr.Message)
+			}
+			err = fmt.Errorf("%s", *output.Errors[0].Message)
+		}
 	} else {
-		log.Printf("Deleted %v objects.\n", len(output.Deleted))
+		for _, delObjs := range output.Deleted {
+			err = s3.NewObjectNotExistsWaiter(basics.S3Client).Wait(
+				ctx, &s3.HeadObjectInput{Bucket: aws.String(bucketName), Key: delObjs.Key}, time.Minute)
+			if err != nil {
+				log.Printf("Failed attempt to wait for object %s to be deleted.\n", *delObjs.Key)
+			} else {
+				log.Printf("Deleted %s.\n", *delObjs.Key)
+			}
+		}
 	}
 	return err
 }
@@ -282,7 +391,21 @@ func (basics BucketBasics) DeleteBucket(ctx context.Context, bucketName string) 
 	_, err := basics.S3Client.DeleteBucket(ctx, &s3.DeleteBucketInput{
 		Bucket: aws.String(bucketName)})
 	if err != nil {
-		log.Printf("Couldn't delete bucket %v. Here's why: %v\n", bucketName, err)
+		var noBucket *types.NoSuchBucket
+		if errors.As(err, &noBucket) {
+			log.Printf("Bucket %s does not exist.\n", bucketName)
+			err = noBucket
+		} else {
+			log.Printf("Couldn't delete bucket %v. Here's why: %v\n", bucketName, err)
+		}
+	} else {
+		err = s3.NewBucketNotExistsWaiter(basics.S3Client).Wait(
+			ctx, &s3.HeadBucketInput{Bucket: aws.String(bucketName)}, time.Minute)
+		if err != nil {
+			log.Printf("Failed attempt to wait for bucket %s to be deleted.\n", bucketName)
+		} else {
+			log.Printf("Deleted %s.\n", bucketName)
+		}
 	}
 	return err
 }

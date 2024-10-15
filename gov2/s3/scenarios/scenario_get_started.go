@@ -3,9 +3,10 @@
 
 package scenarios
 
+// snippet-start:[gov2.s3.Scenario_GetStarted]
+
 import (
 	"context"
-	"crypto/rand"
 	"fmt"
 	"log"
 	"os"
@@ -17,20 +18,16 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/s3/actions"
 )
 
-// snippet-start:[gov2.s3.Scenario_GetStarted]
-
 // RunGetStartedScenario is an interactive example that shows you how to use Amazon
 // Simple Storage Service (Amazon S3) to create an S3 bucket and use it to store objects.
 //
 // 1. Create a bucket.
 // 2. Upload a local file to the bucket.
-// 3. Upload a large object to the bucket by using an upload manager.
-// 4. Download an object to a local file.
-// 5. Download a large object by using a download manager.
-// 6. Copy an object to a different folder in the bucket.
-// 7. List objects in the bucket.
-// 8. Delete all objects in the bucket.
-// 9. Delete the bucket.
+// 3. Download an object to a local file.
+// 4. Copy an object to a different folder in the bucket.
+// 5. List objects in the bucket.
+// 6. Delete all objects in the bucket.
+// 7. Delete the bucket.
 //
 // This example creates an Amazon S3 service client from the specified sdkConfig so that
 // you can replace it with a mocked or stubbed config for unit testing.
@@ -40,7 +37,11 @@ import (
 func RunGetStartedScenario(ctx context.Context, sdkConfig aws.Config, questioner demotools.IQuestioner) {
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Println("Something went wrong with the demo.\n", r)
+			log.Println("Something went wrong with the demo.")
+			_, isMock := questioner.(*demotools.MockQuestioner)
+			if isMock || questioner.AskBool("Do you want to see the full error message (y/n)?", "y") {
+				log.Println(r)
+			}
 		}
 	}()
 
@@ -95,20 +96,6 @@ func RunGetStartedScenario(ctx context.Context, sdkConfig aws.Config, questioner
 	log.Printf("Uploaded %v as %v.\n", smallFile, smallKey)
 	log.Println(strings.Repeat("-", 88))
 
-	mibs := 30
-	log.Printf("Let's create a slice of %v MiB of random bytes and upload it to your bucket. ", mibs)
-	questioner.Ask("Press Enter when you're ready.")
-	largeBytes := make([]byte, 1024*1024*mibs)
-	_, _ = rand.Read(largeBytes)
-	largeKey := "doc-example-large"
-	log.Println("Uploading...")
-	err = bucketBasics.UploadLargeObject(ctx, bucketName, largeKey, largeBytes)
-	if err != nil {
-		panic(err)
-	}
-	log.Printf("Uploaded %v MiB object as %v", mibs, largeKey)
-	log.Println(strings.Repeat("-", 88))
-
 	log.Printf("Let's download %v to a file.", smallKey)
 	downloadFileName := questioner.Ask("Enter a name for the downloaded file:", demotools.NotEmpty{})
 	err = bucketBasics.DownloadFile(ctx, bucketName, smallKey, downloadFileName)
@@ -116,16 +103,6 @@ func RunGetStartedScenario(ctx context.Context, sdkConfig aws.Config, questioner
 		panic(err)
 	}
 	log.Printf("File %v downloaded.", downloadFileName)
-	log.Println(strings.Repeat("-", 88))
-
-	log.Printf("Let's download the %v MiB object.", mibs)
-	questioner.Ask("Press Enter when you're ready.")
-	log.Println("Downloading...")
-	largeDownload, err := bucketBasics.DownloadLargeObject(ctx, bucketName, largeKey)
-	if err != nil {
-		panic(err)
-	}
-	log.Printf("Downloaded %v bytes.", len(largeDownload))
 	log.Println(strings.Repeat("-", 88))
 
 	log.Printf("Let's copy %v to a folder in the same bucket.", smallKey)
