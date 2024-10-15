@@ -120,23 +120,51 @@ export const ec2Scenario = new Scenario(
 /**
  * Run the EC2 introductory scenario. This will make changes
  * in your AWS account.
- * @param {{ confirmAll: boolean, verbose: boolean }} options
+ * @param {{ confirmAll: boolean, verbose: boolean, noArt: boolean }} options
  */
-export const main = async ({ confirmAll, verbose }) => {
-  await ec2Scenario.run({ confirmAll, verbose });
+export const main = async ({ confirmAll, verbose, noArt }) => {
+  await ec2Scenario.run({ confirmAll, verbose, noArt });
 };
 
-// Call function if run directly.
-import { fileURLToPath } from "node:url";
+// Call function if run directly
 import { parseArgs } from "node:util";
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const { values } = parseArgs({
-    options: {
-      yes: {
-        type: "boolean",
-        short: "y",
-      },
+import {
+  isMain,
+  validateArgs,
+  printManPage,
+} from "@aws-doc-sdk-examples/lib/utils/util-node.js";
+
+const loadArgs = () => {
+  const options = {
+    help: {
+      type: "boolean",
     },
-  });
-  main({ confirmAll: values.yes });
+    confirmAll: {
+      type: "boolean",
+      description: "Skip user input.",
+    },
+    noArt: {
+      type: "boolean",
+      description: "Do not display ASCII art or text decorations.",
+    },
+  };
+  const results = parseArgs({ options });
+  const { errors } = validateArgs({ options }, results);
+  if (results.values.help) {
+    printManPage(options, {
+      name: "EC2 Basics",
+      description: "Learn the basic SDK commands for Amazon EC2.",
+      synopsis: "node basics.js [OPTIONS]",
+    });
+  }
+  return { errors, results };
+};
+
+if (isMain(import.meta.url)) {
+  const { errors, results } = loadArgs();
+  if (errors) {
+    console.error(errors.join("\n"));
+  } else if (!results.values.help) {
+    main(results.values);
+  }
 }
