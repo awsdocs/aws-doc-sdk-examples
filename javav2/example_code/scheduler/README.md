@@ -1,13 +1,13 @@
-# Data Firehose code examples for the SDK for Java 2.x
+# EventBridge Scheduler code examples for the SDK for Java 2.x
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 2.x to work with Amazon Data Firehose.
+Shows how to use the AWS SDK for Java 2.x to work with Amazon EventBridge Scheduler.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Data Firehose is a fully managed service for delivering real-time streaming data to AWS destinations and third-party HTTP endpoints._
+_EventBridge Scheduler allows you to create, run, and manage tasks on a schedule from one central, managed service._
 
 ## ⚠ Important
 
@@ -29,6 +29,28 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello EventBridge Scheduler](src/main/java/com/example/eventbrideschedule/HelloScheduler.java#L6) (`ListSchedules`)
+
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [CreateSchedule](src/main/java/com/example/eventbrideschedule/scenario/EventbridgeSchedulerActions.java#L96)
+- [CreateScheduleGroup](src/main/java/com/example/eventbrideschedule/scenario/EventbridgeSchedulerActions.java#L68)
+- [DeleteSchedule](src/main/java/com/example/eventbrideschedule/scenario/EventbridgeSchedulerActions.java#L191)
+- [DeleteScheduleGroup](src/main/java/com/example/eventbrideschedule/scenario/EventbridgeSchedulerActions.java#L166)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Scheduled Events workflow](src/main/java/com/example/eventbrideschedule/scenario/EventbridgeSchedulerScenario.java)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 
@@ -40,7 +62,29 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello EventBridge Scheduler
 
+This example shows you how to get started using EventBridge Scheduler.
+
+
+
+#### Scheduled Events workflow
+
+This example shows you how to do the following:
+
+- Deploy a CloudFormation stack with required resources.
+- Create a EventBridge Scheduler schedule group.
+- Create a one-time EventBridge Scheduler schedule with a flexible time window.
+- Create a recurring EventBridge Scheduler schedule with a specified rate.
+- Delete EventBridge Scheduler the schedule and schedule group.
+- Clean up resources and delete the stack.
+
+<!--custom.scenario_prereqs.scheduler_ScheduledEventsWorkflow.start-->
+<!--custom.scenario_prereqs.scheduler_ScheduledEventsWorkflow.end-->
+
+
+<!--custom.scenarios.scheduler_ScheduledEventsWorkflow.start-->
+<!--custom.scenarios.scheduler_ScheduledEventsWorkflow.end-->
 
 ### Tests
 
@@ -57,9 +101,9 @@ in the `javav2` folder.
 
 ## Additional resources
 
-- [Data Firehose User Guide](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html)
-- [Data Firehose API Reference](https://docs.aws.amazon.com/firehose/latest/APIReference/Welcome.html)
-- [SDK for Java 2.x Data Firehose reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/firehose/package-summary.html)
+- [EventBridge Scheduler User Guide](https://docs.aws.amazon.com/scheduler/latest/userguide/intro.html)
+- [EventBridge Scheduler API Reference](https://docs.aws.amazon.com/scheduler/latest/apireference/Welcome.html)
+- [SDK for Java 2.x EventBridge Scheduler reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/firehose/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
