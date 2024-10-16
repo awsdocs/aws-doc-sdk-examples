@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
-import software.amazon.awssdk.services.scheduler.model.SchedulerException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -29,9 +27,9 @@ public class SchedulerTest {
     private static String roleArn = "";
     private static String snsTopicArn = "";
 
-    private static String oneTimeScheduleName = "testOneTime";
+    private static String oneTimeScheduleName = "testOneTime1";
 
-    private static String recurringScheduleName = "recurringSchedule";
+    private static String recurringScheduleName = "recurringSchedule1";
 
     private static final EventbridgeSchedulerActions eventbridgeActions = new EventbridgeSchedulerActions();
 
@@ -108,13 +106,22 @@ public class SchedulerTest {
     public void testDelOneTimeSchedule() {
         assertDoesNotThrow(() -> {
             eventbridgeActions.deleteScheduleAsync(oneTimeScheduleName, scheduleGroupName).join();
+
+        });
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(6)
+    public void testDelReoccringSchedule() {
+        assertDoesNotThrow(() -> {
             eventbridgeActions.deleteScheduleAsync(recurringScheduleName, scheduleGroupName).join();
         });
     }
 
     @Test
     @Tag("IntegrationTest")
-    @Order(4)
+    @Order(7)
     public void testDelStack() {
         assertDoesNotThrow(() -> {
             CloudFormationHelper.destroyCloudFormationStack(STACK_NAME);

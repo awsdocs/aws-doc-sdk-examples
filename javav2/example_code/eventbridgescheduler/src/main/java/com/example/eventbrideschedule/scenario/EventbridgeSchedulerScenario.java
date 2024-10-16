@@ -1,8 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
-package com.example.eventbridgeschedule.scenario;
+package com.example.eventbrideschedule.scenario;
 
 // snippet-start:[scheduler.javav2.scenario.main]
 import org.slf4j.Logger;
@@ -47,8 +46,8 @@ public class EventbridgeSchedulerScenario {
 
     private static final Logger logger = LoggerFactory.getLogger(EventbridgeSchedulerScenario.class);
     private static final Scanner scanner = new Scanner(System.in);
-    private static final String STACK_NAME = "workflow-stack-name23";
-    private static final String scheduleGroupName = "schedules-group23";
+    private static final String STACK_NAME = "workflow-stack-name";
+    private static final String scheduleGroupName = "schedules-group";
 
     private static String recurringScheduleName = "";
 
