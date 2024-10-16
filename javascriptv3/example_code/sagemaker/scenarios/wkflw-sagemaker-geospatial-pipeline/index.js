@@ -14,7 +14,7 @@ import { Prompter } from "@aws-doc-sdk-examples/lib/prompter.js";
 import { SageMakerPipelinesWkflw } from "./SageMakerPipelinesWkflw.js";
 
 const prompter = new Prompter();
-const logger = console; 
+const logger = console;
 
 export async function main() {
   const pipelineWkfw = new SageMakerPipelinesWkflw(prompter, logger, {

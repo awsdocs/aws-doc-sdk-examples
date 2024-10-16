@@ -93,12 +93,12 @@ export class ScenarioOutput extends Step {
     }
     const paddingTop = "\n";
     const paddingBottom = "\n";
-    const logger = this.logger
+    const logger = this.logger;
     const message = paddingTop + output + paddingBottom;
 
     if (this.stepOptions?.header) {
       if (stepHandlerOptions.noArt === true) {
-        await this.logger.log(message)
+        await this.logger.log(message);
       } else {
         await this.logger.log(this.logger.box(message));
       }
