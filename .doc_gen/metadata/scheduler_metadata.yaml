@@ -67,7 +67,7 @@ scheduler_CreateScheduleGroup:
     scheduler: {CreateScheduleGroup}
 scheduler_DeleteSchedule:
   languages:
-   Java:
+    Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/scheduler
