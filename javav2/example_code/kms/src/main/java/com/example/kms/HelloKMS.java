@@ -5,7 +5,6 @@ package com.example.kms;
 
 // snippet-start:[kms.java2_list_keys.main]
 // snippet-start:[kms.java2_list_keys.import]
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsAsyncClient;
 import software.amazon.awssdk.services.kms.model.ListKeysRequest;
 import software.amazon.awssdk.services.kms.paginators.ListKeysPublisher;
@@ -26,14 +25,19 @@ public class HelloKMS {
     }
 
     public static void listAllKeys() {
-        Region region = Region.US_WEST_2;
         KmsAsyncClient kmsAsyncClient = KmsAsyncClient.builder()
-            .region(region)
             .build();
         ListKeysRequest listKeysRequest = ListKeysRequest.builder()
             .limit(15)
             .build();
 
+        /*
+         * The `subscribe` method is required when using paginator methods in the AWS SDK
+         * because paginator methods return an instance of a `ListKeysPublisher`, which is
+         * based on a reactive stream. This allows asynchronous retrieval of paginated
+         * results as they become available. By subscribing to the stream, we can process
+         * each page of results as they are emitted.
+         */
         ListKeysPublisher keysPublisher = kmsAsyncClient.listKeysPaginator(listKeysRequest);
         CompletableFuture<Void> future = keysPublisher
             .subscribe(r -> r.keys().forEach(key ->
@@ -46,7 +50,6 @@ public class HelloKMS {
                 }
             });
 
-        // Wait for the asynchronous operation to complete
         try {
             future.join();
         } catch (Exception e) {
