@@ -14,7 +14,7 @@ export const startSnsWorkflow = () => {
   const snsClient = new SNSClient({});
   const sqsClient = new SQSClient({});
   const prompter = new Prompter();
-  const logger = console 
+  const logger = console;
 
   const wkflw = new TopicsQueuesWkflw(snsClient, sqsClient, prompter, logger);
 
