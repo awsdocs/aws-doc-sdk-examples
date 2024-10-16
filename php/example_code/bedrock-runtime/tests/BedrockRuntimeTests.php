@@ -1,10 +1,10 @@
 <?php
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-#
-# Integration tests for the Amazon Bedrock Runtime service.
-#
+/**
+ * Integration tests for the Amazon Bedrock Runtime service.
+ */
 
 namespace bedrockruntime\tests;
 
@@ -14,21 +14,13 @@ use PHPUnit\Framework\TestCase;
 /**
  * @group integ
  */
-
 class BedrockRuntimeTests extends TestCase
 {
-    protected BedrockRuntimeService $bedrockRuntimeService;
-
+    private BedrockRuntimeService $bedrockRuntimeService;
     private string $prompt = 'A test prompt';
-
     public function setup(): void
     {
-        $this->clientArgs = [
-            'region' => 'us-west-2',
-            'version' => 'latest',
-            'profile' => 'default',
-        ];
-        $this->bedrockRuntimeService = new BedrockRuntimeService($this->clientArgs);
+        $this->bedrockRuntimeService = new BedrockRuntimeService();
     }
 
     public function test_claude_can_be_invoked()
