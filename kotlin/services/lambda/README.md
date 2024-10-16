@@ -29,6 +29,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](src/main/kotlin/com/kotlin/lambda/LambdaScenario.kt)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -36,13 +43,6 @@ Code excerpts that show you how to call individual service functions.
 - [CreateFunction](src/main/kotlin/com/kotlin/lambda/CreateFunction.kt#L50)
 - [DeleteFunction](src/main/kotlin/com/kotlin/lambda/DeleteFunction.kt#L38)
 - [Invoke](src/main/kotlin/com/kotlin/lambda/LambdaInvoke.kt#L39)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with functions](src/main/kotlin/com/kotlin/lambda/LambdaScenario.kt)
 
 
 <!--custom.examples.start-->
@@ -57,8 +57,7 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Get started with functions
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -68,12 +67,13 @@ This example shows you how to do the following:
 - Invoke the function with new parameters and get results. Display the returned execution log.
 - List the functions for your account, then clean up resources.
 
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
 
 
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
+
 
 ### Tests
 
