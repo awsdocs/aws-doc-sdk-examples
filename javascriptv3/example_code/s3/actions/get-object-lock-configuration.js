@@ -43,7 +43,7 @@ export const main = async ({ bucketName }) => {
 };
 
 // Call function if run directly
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import {
   isMain,
   validateArgs,

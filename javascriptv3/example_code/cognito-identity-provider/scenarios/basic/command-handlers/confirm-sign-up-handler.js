@@ -43,7 +43,7 @@ const confirmSignUpHandler = async (commands) => {
     const values = getSecondValuesFromEntries(FILE_USER_POOLS);
     const clientId = values[0];
     validateClient(clientId);
-    log(`Confirming user.`);
+    log("Confirming user.");
     await confirmSignUp({ clientId, username, code });
     log(
       `User confirmed. Run 'admin-initiate-auth ${username} <password>' to sign in.`,

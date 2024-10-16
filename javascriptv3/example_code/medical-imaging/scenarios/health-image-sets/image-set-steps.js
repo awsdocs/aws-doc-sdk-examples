@@ -43,12 +43,11 @@ export const parseManifestFile = new ScenarioAction(
   "parseManifestFile",
   (/** @type {State} */ state) => {
     const imageSetIds =
-      state.manifestContent.jobSummary.imageSetsSummary.reduce(
-        (imageSetIds, next) => {
-          return { ...imageSetIds, [next.imageSetId]: next.imageSetId };
-        },
-        {},
-      );
+      state.manifestContent.jobSummary.imageSetsSummary.reduce((ids, next) => {
+        return Object.assign({}, ids, {
+          [next.imageSetId]: next.imageSetId,
+        });
+      }, {});
     state.imageSetIds = Object.keys(imageSetIds);
   },
 );

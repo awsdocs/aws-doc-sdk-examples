@@ -33,7 +33,7 @@ export const main = async ({ bucketName, retentionDays }) => {
               // but you can still grant some users permission to alter the retention settings
               // or delete the objects if necessary.
               Mode: "GOVERNANCE",
-              Days: parseInt(retentionDays),
+              Days: Number.parseInt(retentionDays),
             },
           },
         },
@@ -61,7 +61,7 @@ export const main = async ({ bucketName, retentionDays }) => {
 };
 
 // Call function if run directly
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import {
   isMain,
   validateArgs,

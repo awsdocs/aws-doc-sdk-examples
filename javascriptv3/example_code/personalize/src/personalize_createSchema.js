@@ -20,32 +20,33 @@ node createSchema.js
 
 // snippet-start:[personalize.JavaScript.createSchemaV3]
 // Get service clients module and commands using ES6 syntax.
-import { CreateSchemaCommand } from
-  "@aws-sdk/client-personalize";
+import { CreateSchemaCommand } from "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
-import fs from 'fs';
+import fs from "node:fs";
 
-let schemaFilePath = "SCHEMA_PATH";
+const schemaFilePath = "SCHEMA_PATH";
 let mySchema = "";
 
 try {
   mySchema = fs.readFileSync(schemaFilePath).toString();
 } catch (err) {
-  mySchema = 'TEST' // For unit tests.
+  mySchema = "TEST"; // For unit tests.
 }
 // Set the schema parameters.
 export const createSchemaParam = {
-  name: 'NAME', /* required */
-  schema: mySchema /* required */
+  name: "NAME" /* required */,
+  schema: mySchema /* required */,
 };
 
 export const run = async () => {
   try {
-    const response = await personalizeClient.send(new CreateSchemaCommand(createSchemaParam));
+    const response = await personalizeClient.send(
+      new CreateSchemaCommand(createSchemaParam),
+    );
     console.log("Success", response);
     return response; // For unit tests.
   } catch (err) {

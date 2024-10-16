@@ -3,7 +3,7 @@
 
 // snippet-start:[ssm.JavaScript.Basics.createOpsItem]
 import { CreateOpsItemCommand, SSMClient } from "@aws-sdk/client-ssm";
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 
 /**
  * Create an SSM OpsItem.
@@ -25,7 +25,7 @@ export const main = async ({
         Severity: severity,
       }),
     );
-    console.log("Ops item created with id: " + opsItemId);
+    console.log(`Ops item created with id: ${opsItemId}`);
     return { OpsItemArn: opsItemArn, OpsItemId: opsItemId };
   } catch (caught) {
     if (caught instanceof Error && caught.name === "MissingParameter") {
@@ -36,7 +36,7 @@ export const main = async ({
   }
 };
 // snippet-end:[ssm.JavaScript.Basics.createOpsItem]
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {

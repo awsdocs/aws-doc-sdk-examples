@@ -63,7 +63,7 @@
 
 #transcribedText,
 #translatedText {
-  width: 100%-20px;
+  width: 100% -20px;
   background-color: rgb(240, 240, 240);
   border: 1px solid darkgray;
   border-radius: 15px;

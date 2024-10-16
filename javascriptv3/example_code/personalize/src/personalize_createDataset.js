@@ -22,8 +22,7 @@ node createDataset.js
 
 // snippet-start:[personalize.JavaScript.createDatasetV3]
 // Get service clients module and commands using ES6 syntax.
-import { CreateDatasetCommand } from
-  "@aws-sdk/client-personalize";
+import { CreateDatasetCommand } from "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Or, create the client here.
@@ -31,15 +30,17 @@ import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Set the dataset's parameters.
 export const createDatasetParam = {
-  datasetGroupArn: 'DATASET_GROUP_ARN', /* required */
-  datasetType: 'DATASET_TYPE', /* required */
-  name: 'NAME', /* required */
-  schemaArn: 'SCHEMA_ARN' /* required */
-}
+  datasetGroupArn: "DATASET_GROUP_ARN" /* required */,
+  datasetType: "DATASET_TYPE" /* required */,
+  name: "NAME" /* required */,
+  schemaArn: "SCHEMA_ARN" /* required */,
+};
 
 export const run = async () => {
   try {
-    const response = await personalizeClient.send(new CreateDatasetCommand(createDatasetParam));
+    const response = await personalizeClient.send(
+      new CreateDatasetCommand(createDatasetParam),
+    );
     console.log("Success", response);
     return response; // For unit tests.
   } catch (err) {

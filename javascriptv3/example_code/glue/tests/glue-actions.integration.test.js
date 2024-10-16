@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { readFile } from "fs/promises";
+import { readFile } from "node:fs/promises";
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { config } from "dotenv";
 import {
@@ -43,7 +43,7 @@ config();
 
 const dirname = dirnameFromMetaUrl(import.meta.url);
 const cdkAppPath = `${dirname}../../../../resources/cdk/glue_role_bucket/setup.yaml`;
-const stackName = `glue-test-stack`;
+const stackName = "glue-test-stack";
 const fiveMinutesInMs = 5 * 60 * 1000; // 5 Minutes
 const fiveMinutesInSeconds = fiveMinutesInMs / 1000;
 
@@ -54,10 +54,9 @@ const fiveMinutesInSeconds = fiveMinutesInMs / 1000;
  */
 const getResourceNames = ({ Outputs }) =>
   Outputs.reduce((resourceNameMap, nextOutput) => {
-    return {
-      ...resourceNameMap,
+    return Object.assign({}, resourceNameMap, {
       [nextOutput.OutputKey]: nextOutput.OutputValue,
-    };
+    });
   }, {});
 
 const createStack = async () => {
@@ -74,7 +73,6 @@ const createStack = async () => {
     { StackName: stackName },
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   return getResourceNames(response.reason.Stacks[0]);
 };
 
@@ -102,7 +100,8 @@ const deleteStack = async () => {
 };
 
 describe("actions", () => {
-  let roleName, bucketName;
+  let roleName;
+  let bucketName;
 
   beforeAll(async () => {
     try {

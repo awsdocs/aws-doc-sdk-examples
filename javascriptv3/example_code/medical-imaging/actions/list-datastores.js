@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[medical-imaging.JavaScript.datastore.listDatastoresV3]
 import { paginateListDatastores } from "@aws-sdk/client-medical-imaging";
@@ -22,7 +22,7 @@ export const listDatastores = async () => {
   const datastoreSummaries = [];
   for await (const page of paginator) {
     // Each page contains a list of `jobSummaries`. The list is truncated if is larger than `pageSize`.
-    datastoreSummaries.push(...page["datastoreSummaries"]);
+    datastoreSummaries.push(...page.datastoreSummaries);
     console.log(page);
   }
   // {

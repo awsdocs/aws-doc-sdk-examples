@@ -40,7 +40,7 @@ describe("describeOpsItems", () => {
     mockError.name = "MissingParameter";
 
     paginateDescribeOpsItems.mockReturnValueOnce(
-      // eslint-disable-next-line require-yield
+      // biome-ignore lint/correctness/useYield: Mock generator function
       (async function* () {
         throw mockError;
       })(),
@@ -58,7 +58,7 @@ describe("describeOpsItems", () => {
   it("should throw any other errors", async () => {
     const mockError = new Error("Something went wrong");
     paginateDescribeOpsItems.mockReturnValueOnce(
-      // eslint-disable-next-line require-yield
+      // biome-ignore lint/correctness/useYield: Mock generator function
       (async function* () {
         throw mockError;
       })(),

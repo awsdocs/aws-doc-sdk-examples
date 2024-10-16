@@ -3,8 +3,8 @@
 
 // snippet-start:[ec2.JavaScript.Instances.start_stopInstancesV3]
 import { EC2Client, StartInstancesCommand } from "@aws-sdk/client-ec2";
-import { fileURLToPath } from "url";
-import { parseArgs } from "util";
+import { fileURLToPath } from "node:url";
+import { parseArgs } from "node:util";
 
 /**
  * Starts an Amazon EBS-backed instance that you've previously stopped.

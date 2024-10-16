@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[iam.JavaScript.users.listUsersV3]
 import { ListUsersCommand, IAMClient } from "@aws-sdk/client-iam";
@@ -12,9 +12,10 @@ export const listUsers = async () => {
   const command = new ListUsersCommand({ MaxItems: 10 });
 
   const response = await client.send(command);
-  response.Users?.forEach(({ UserName, CreateDate }) => {
+
+  for (const { UserName, CreateDate } of response.Users) {
     console.log(`${UserName} created on: ${CreateDate}`);
-  });
+  }
   return response;
 };
 // snippet-end:[iam.JavaScript.users.listUsersV3]

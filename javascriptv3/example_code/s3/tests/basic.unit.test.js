@@ -102,7 +102,7 @@ describe("S3 basic scenario", () => {
         folderPath: "",
       });
 
-      expect(logSpy).toHaveBeenCalledWith(` • file1\n • file2\n`);
+      expect(logSpy).toHaveBeenCalledWith(" • file1\n • file2\n");
     });
   });
 

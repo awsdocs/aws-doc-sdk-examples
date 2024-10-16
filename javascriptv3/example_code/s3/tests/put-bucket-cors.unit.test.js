@@ -27,7 +27,7 @@ describe("put-bucket-cors", () => {
     await main({ bucketName: "amzn-s3-demo-bucket" });
 
     expect(spy).toHaveBeenCalledWith(
-      `Successfully set CORS rules for bucket: amzn-s3-demo-bucket`,
+      "Successfully set CORS rules for bucket: amzn-s3-demo-bucket",
     );
   });
 

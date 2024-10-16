@@ -20,8 +20,7 @@ node getRecommendations.js
 
 // snippet-start:[personalize.JavaScript.getRecommendationsV3]
 // Get service clients module and commands using ES6 syntax.
-import { GetRecommendationsCommand } from
-  "@aws-sdk/client-personalize-runtime";
+import { GetRecommendationsCommand } from "@aws-sdk/client-personalize-runtime";
 
 import { personalizeRuntimeClient } from "./libs/personalizeClients.js";
 // Or, create the client here.
@@ -29,14 +28,16 @@ import { personalizeRuntimeClient } from "./libs/personalizeClients.js";
 
 // Set the recommendation request parameters.
 export const getRecommendationsParam = {
-  campaignArn: 'CAMPAIGN_ARN', /* required */
-  userId: 'USER_ID',      /* required */
-  numResults: 15    /* optional */
-}
+  campaignArn: "CAMPAIGN_ARN" /* required */,
+  userId: "USER_ID" /* required */,
+  numResults: 15 /* optional */,
+};
 
 export const run = async () => {
   try {
-    const response = await personalizeRuntimeClient.send(new GetRecommendationsCommand(getRecommendationsParam));
+    const response = await personalizeRuntimeClient.send(
+      new GetRecommendationsCommand(getRecommendationsParam),
+    );
     console.log("Success!", response);
     return response; // For unit tests.
   } catch (err) {

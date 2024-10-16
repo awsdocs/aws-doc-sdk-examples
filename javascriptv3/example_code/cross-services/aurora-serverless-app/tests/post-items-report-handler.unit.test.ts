@@ -31,9 +31,7 @@ describe("postItemsReportHandler", () => {
     it("should produce a valid csv with static headers from DBRecord content", () => {
       const result = makeCsv(records);
       expect(result).toBe(
-        "id,description,guide,status,name,archived" +
-          `\n${records[0][0].stringValue},${records[0][1].stringValue},${records[0][2].stringValue},${records[0][3].stringValue},${records[0][4].stringValue},${records[0][5].longValue}` +
-          `\n${records[1][0].stringValue},${records[1][1].stringValue},${records[1][2].stringValue},${records[1][3].stringValue},${records[1][4].stringValue},${records[1][5].longValue}`,
+        `id,description,guide,status,name,archived\n${records[0][0].stringValue},${records[0][1].stringValue},${records[0][2].stringValue},${records[0][3].stringValue},${records[0][4].stringValue},${records[0][5].longValue}\n${records[1][0].stringValue},${records[1][1].stringValue},${records[1][2].stringValue},${records[1][3].stringValue},${records[1][4].stringValue},${records[1][5].longValue}`,
       );
     });
   });

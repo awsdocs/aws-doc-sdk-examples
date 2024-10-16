@@ -44,7 +44,7 @@ describe("listCommandInvocations", () => {
     const consoleWarnSpy = vi.spyOn(console, "warn");
 
     paginateListCommandInvocationsMock.mockReturnValueOnce(
-      // eslint-disable-next-line require-yield
+      // biome-ignore lint/correctness/useYield: Mock generator
       (async function* () {
         throw mockError;
       })(),
@@ -63,7 +63,7 @@ describe("listCommandInvocations", () => {
     const mockError = new Error("Something went wrong");
 
     paginateListCommandInvocationsMock.mockReturnValueOnce(
-      // eslint-disable-next-line require-yield
+      // biome-ignore lint/correctness/useYield: Mock generator
       (async function* () {
         throw mockError;
       })(),

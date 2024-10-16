@@ -202,9 +202,7 @@ const populateBucketsAction = (scenarios, client) =>
 const updateRetention = (scenarios) =>
   new scenarios.ScenarioOutput(
     "updateRetention",
-    (
-      state,
-    ) => `A bucket can be configured to use object locking with a default retention period.
+    (state) => `A bucket can be configured to use object locking with a default retention period.
 A default retention period will be configured for ${state.bucketPrefix}-retention-after-creation.`,
     { preformatted: true },
   );
@@ -242,7 +240,7 @@ const updateRetentionAction = (scenarios, client) =>
     await retry({ intervalInMs: 500, maxRetries: 10 }, async () => {
       const { Status } = await client.send(getBucketVersioning);
       if (Status !== "Enabled") {
-        throw new Error(`Bucket versioning is not enabled.`);
+        throw new Error("Bucket versioning is not enabled.");
       }
     });
 

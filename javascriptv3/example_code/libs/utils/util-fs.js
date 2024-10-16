@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { unlink, readFile } from "fs/promises";
+import { unlink, readFile } from "node:fs/promises";
 import {
   readdirSync,
   createWriteStream,
@@ -9,9 +9,9 @@ import {
   writeFileSync,
   existsSync,
   mkdirSync,
-} from "fs";
+} from "node:fs";
 import archiver from "archiver";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import { log } from "./util-log.js";
 import { splitMapTrim } from "./util-string.js";
 
@@ -45,7 +45,7 @@ export const handleZipWarning = (resolve) => (w) => {
 };
 
 export const handleZipEnd = (resolve, path) => async () => {
-  log(`Zipped successfully.`);
+  log("Zipped successfully.");
   const buffer = await readFile(path);
   resolve(buffer);
 };

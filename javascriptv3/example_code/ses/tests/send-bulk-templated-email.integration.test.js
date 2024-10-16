@@ -27,8 +27,6 @@ describe("ses_sendbulktemplatedemail", () => {
     const result = await run();
     expect(result instanceof MessageRejected).toBe(true);
     if (result instanceof MessageRejected) {
-      // TODO: MessageRejected isn't typed properly. Remove eslint-disable if type is fixed.
-      // eslint-disable-next-line
       expect(result.Error.Message).toContain("Email address is not verified.");
     }
   });

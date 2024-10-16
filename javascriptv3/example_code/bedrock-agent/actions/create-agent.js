@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import { checkForPlaceholders } from "../lib/utils.js";
 
 import {
@@ -61,7 +61,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   // Check for unresolved placeholders in agentName and roleArn.
   checkForPlaceholders([agentName, roleArn]);
 
-  console.log(`Creating a new agent...`);
+  console.log("Creating a new agent...");
 
   const agent = await createAgent(agentName, foundationModel, roleArn);
   console.log(agent);

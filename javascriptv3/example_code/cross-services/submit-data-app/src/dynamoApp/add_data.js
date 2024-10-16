@@ -47,14 +47,14 @@ export const submitData = async () => {
     // Define the attributes and values of the item to be added. Adding ' + "" ' converts a value to
     // a string.
     Item: {
-      id: { N: id + "" },
-      title: { S: title + "" },
-      name: { S: name + "" },
-      body: { S: body + "" },
+      id: { N: `${id}` },
+      title: { S: `${title}` },
+      name: { S: `${name}` },
+      body: { S: `${body}` },
     },
   };
   // Check that all the fields are completed.
-  if (id != "" && title != "" && name != "" && body != "") {
+  if (id !== "" && title !== "" && name !== "" && body !== "") {
     try {
       //Upload the item to the table
       await dynamoClient.send(new PutItemCommand(params));
@@ -70,7 +70,7 @@ export const submitData = async () => {
         // Send the SNS message
         const data = await snsClient.send(new PublishCommand(messageParams));
         console.log(
-          "Success, message published. MessageID is " + data.MessageId,
+          `Success, message published. MessageID is ${data.MessageId}`,
         );
       } catch (err) {
         // Display error message if error is not sent

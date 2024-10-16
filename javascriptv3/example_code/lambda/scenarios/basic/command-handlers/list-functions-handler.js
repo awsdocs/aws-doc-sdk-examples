@@ -21,7 +21,7 @@ const getFunctionNames = (response) =>
 
 const listFunctionsHandler = async () => {
   try {
-    log(`Getting function list...`);
+    log("Getting function list...");
     const response = await listFunctions();
 
     const functionList = getFunctionNames(response);

@@ -16,10 +16,10 @@ import { SendEmailCommand, SESClient } from "@aws-sdk/client-ses";
 
 import { outputNames } from "./constants.js";
 
-const email = process.env["VERIFIED_EMAIL_ADDRESS"];
-const region = process.env["REGION"];
+const email = process.env.VERIFIED_EMAIL_ADDRESS;
+const region = process.env.REGION;
 /** @type {Record<string, string> } */
-const outputs = JSON.parse(process.env["CFN_OUTPUTS"]);
+const outputs = JSON.parse(process.env.CFN_OUTPUTS);
 
 const imagesBucketName = outputs[outputNames.IMAGES_BUCKET_OUTPUT];
 const reportsBucketName = outputs[outputNames.REPORTS_BUCKET_OUTPUT];
@@ -159,7 +159,7 @@ window.processImages = async () => {
  * @param {{ headers: string[], rows: string[][], name: string }}
  */
 const createCsv = async ({ headers, rows, name }) => {
-  let csv = `${headers.join(",")}\n${rows.map((row) => row.join(",")).join("\n")}`;
+  const csv = `${headers.join(",")}\n${rows.map((row) => row.join(",")).join("\n")}`;
   await uploadFile(csv, name);
 };
 
@@ -170,7 +170,7 @@ const uploadFile = async (csv, key) => {
       new PutObjectCommand({
         Bucket: reportsBucketName,
         Body: csv,
-        Key: key + ".csv",
+        Key: `${key}.csv`,
       }),
     );
     const region = await s3Client.config.region();
@@ -211,25 +211,16 @@ const sendEmail = async (key, linkToCSV) => {
           /* required */
           Html: {
             Charset: "UTF-8",
-            Data:
-              "<h1>Hello!</h1><p>Please see the the analyzed video report for " +
-              key +
-              " <a href=" +
-              linkToCSV +
-              "> here</a></p>",
+            Data: `<h1>Hello!</h1><p>Please see the the analyzed video report for ${key} <a href=${linkToCSV}> here</a></p>`,
           },
           Text: {
             Charset: "UTF-8",
-            Data:
-              "Hello,\\r\\n" +
-              "Please see the attached file for the analyzed video report at" +
-              linkToCSV +
-              "\n\n",
+            Data: `Hello,\\r\\nPlease see the attached file for the analyzed video report at${linkToCSV}\n\n`,
           },
         },
         Subject: {
           Charset: "UTF-8",
-          Data: key + " analyzed video report ready",
+          Data: `${key} analyzed video report ready`,
         },
       },
       Source: fromEmail, // SENDER_ADDRESS

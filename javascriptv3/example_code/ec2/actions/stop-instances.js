@@ -3,8 +3,8 @@
 
 // snippet-start:[javascript.v3.ec2.actions.StopInstances]
 import { EC2Client, StopInstancesCommand } from "@aws-sdk/client-ec2";
-import { fileURLToPath } from "url";
-import { parseArgs } from "util";
+import { fileURLToPath } from "node:url";
+import { parseArgs } from "node:util";
 
 /**
  * Stop one or more EC2 instances.

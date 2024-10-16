@@ -29,7 +29,7 @@ export const params = {
 export const run = async () => {
   try {
     const data = await transcribeClient.send(
-      new ListTranscriptionJobsCommand(params)
+      new ListTranscriptionJobsCommand(params),
     );
     console.log("Success", data.TranscriptionJobSummaries);
     return data; // For unit tests.

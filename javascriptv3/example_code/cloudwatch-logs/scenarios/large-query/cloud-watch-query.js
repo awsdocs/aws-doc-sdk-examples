@@ -133,9 +133,8 @@ export class CloudWatchQuery {
        */
       if (err instanceof DateOutOfBoundsError) {
         return [];
-      } else {
-        throw err;
       }
+      throw err;
     }
   }
 

@@ -22,11 +22,11 @@ const validateEnv = (context) => {
       reject(new Error("Missing context."));
     }
 
-    keys.forEach((key) => {
+    for (const key of keys) {
       if (!process.env[key]) {
         reject(new Error(`Missing environment variable. No value for ${key}.`));
       }
-    });
+    }
 
     log("Variables exist.", { type: "success" });
     resolve({ ...context });

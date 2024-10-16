@@ -42,8 +42,8 @@ export const main = async ({ streamArn }) => {
 };
 
 // Call function if run directly.
-import { fileURLToPath } from "url";
-import { parseArgs } from "util";
+import { fileURLToPath } from "node:url";
+import { parseArgs } from "node:util";
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {

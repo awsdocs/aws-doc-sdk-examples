@@ -72,7 +72,8 @@ describe("lib.js", () => {
             return Promise.resolve({
               Role: { Arn: "arn:aws:iam::123456789012:role/test-role" },
             });
-          } else if (command instanceof GetRoleCommand) {
+          }
+          if (command instanceof GetRoleCommand) {
             return Promise.resolve({
               Role: { Arn: "arn:aws:iam::123456789012:role/test-role" },
             });
@@ -95,7 +96,8 @@ describe("lib.js", () => {
         send: vi.fn((command) => {
           if (command instanceof AttachRolePolicyCommand) {
             return Promise.resolve({});
-          } else if (command instanceof DetachRolePolicyCommand) {
+          }
+          if (command instanceof DetachRolePolicyCommand) {
             return Promise.resolve({});
           }
         }),
@@ -128,7 +130,8 @@ describe("lib.js", () => {
                 Arn: "arn:aws:iam::123456789012:policy/test-policy",
               },
             });
-          } else if (command instanceof ListPoliciesCommand) {
+          }
+          if (command instanceof ListPoliciesCommand) {
             return Promise.resolve({
               Policies: [
                 {
@@ -137,7 +140,8 @@ describe("lib.js", () => {
                 },
               ],
             });
-          } else if (command instanceof DeletePolicyCommand) {
+          }
+          if (command instanceof DeletePolicyCommand) {
             return Promise.resolve();
           }
         }),
@@ -172,7 +176,8 @@ describe("lib.js", () => {
                 "arn:aws:lambda:us-west-2:123456789012:layer:sagemaker-wkflw-lambda-layer:1",
               Version: 1,
             });
-          } else if (command instanceof DeleteLayerVersionCommand) {
+          }
+          if (command instanceof DeleteLayerVersionCommand) {
             return Promise.resolve();
           }
         }),
@@ -204,14 +209,16 @@ describe("lib.js", () => {
               FunctionArn:
                 "arn:aws:lambda:us-west-2:123456789012:function:sagemaker-wkflw-lambda-function",
             });
-          } else if (command instanceof GetFunctionCommand) {
+          }
+          if (command instanceof GetFunctionCommand) {
             return Promise.resolve({
               Configuration: {
                 FunctionArn:
                   "arn:aws:lambda:us-west-2:123456789012:function:sagemaker-wkflw-lambda-function",
               },
             });
-          } else if (command instanceof DeleteFunctionCommand) {
+          }
+          if (command instanceof DeleteFunctionCommand) {
             return Promise.resolve();
           }
         }),
@@ -266,11 +273,13 @@ describe("lib.js", () => {
             return Promise.resolve({
               Role: { Arn: "arn:aws:iam::123456789012:role/test-role" },
             });
-          } else if (command instanceof GetRoleCommand) {
+          }
+          if (command instanceof GetRoleCommand) {
             return Promise.resolve({
               Role: { Arn: "arn:aws:iam::123456789012:role/test-role" },
             });
-          } else if (command instanceof DeleteRoleCommand) {
+          }
+          if (command instanceof DeleteRoleCommand) {
             return Promise.resolve();
           }
         }),
@@ -301,7 +310,8 @@ describe("lib.js", () => {
                 Arn: "arn:aws:iam::123456789012:policy/test-sagemaker-execution-policy",
               },
             });
-          } else if (command instanceof ListPoliciesCommand) {
+          }
+          if (command instanceof ListPoliciesCommand) {
             return Promise.resolve({
               Policies: [
                 {
@@ -310,7 +320,8 @@ describe("lib.js", () => {
                 },
               ],
             });
-          } else if (command instanceof DeletePolicyCommand) {
+          }
+          if (command instanceof DeletePolicyCommand) {
             return Promise.resolve();
           }
         }),
@@ -370,12 +381,14 @@ describe("lib.js", () => {
               PipelineArn:
                 "arn:aws:sagemaker:us-west-2:123456789012:pipeline/sagemaker-wkflw-pipeline",
             });
-          } else if (command instanceof DescribePipelineCommand) {
+          }
+          if (command instanceof DescribePipelineCommand) {
             return Promise.resolve({
               PipelineArn:
                 "arn:aws:sagemaker:us-west-2:123456789012:pipeline/sagemaker-wkflw-pipeline",
             });
-          } else if (command instanceof DeletePipelineCommand) {
+          }
+          if (command instanceof DeletePipelineCommand) {
             return Promise.resolve();
           }
         }),
@@ -410,13 +423,15 @@ describe("lib.js", () => {
               QueueUrl:
                 "https://sqs.us-west-2.amazonaws.com/123456789012/test-queue",
             });
-          } else if (command instanceof GetQueueAttributesCommand) {
+          }
+          if (command instanceof GetQueueAttributesCommand) {
             return Promise.resolve({
               Attributes: {
                 QueueArn: "arn:aws:sqs:us-west-2:123456789012:test-queue",
               },
             });
-          } else if (command instanceof DeleteQueueCommand) {
+          }
+          if (command instanceof DeleteQueueCommand) {
             return Promise.resolve();
           }
         }),
@@ -447,13 +462,15 @@ describe("lib.js", () => {
         send: vi.fn((command) => {
           if (command instanceof CreateEventSourceMappingCommand) {
             return Promise.resolve({ UUID: "test-uuid" });
-          } else if (command instanceof GetFunctionCommand) {
+          }
+          if (command instanceof GetFunctionCommand) {
             return Promise.resolve({
               Configuration: {
                 FunctionArn: functionArn,
               },
             });
-          } else if (command instanceof DeleteEventSourceMappingCommand) {
+          }
+          if (command instanceof DeleteEventSourceMappingCommand) {
             return Promise.resolve();
           }
         }),
@@ -490,9 +507,11 @@ describe("lib.js", () => {
         send: vi.fn((command) => {
           if (command instanceof CreateBucketCommand) {
             return Promise.resolve();
-          } else if (command instanceof DeleteObjectCommand) {
+          }
+          if (command instanceof DeleteObjectCommand) {
             return Promise.resolve();
-          } else if (command instanceof DeleteBucketCommand) {
+          }
+          if (command instanceof DeleteBucketCommand) {
             return Promise.resolve();
           }
         }),
@@ -608,7 +627,8 @@ describe("lib.js", () => {
                 },
               ],
             };
-          } else if (command instanceof GetObjectCommand) {
+          }
+          if (command instanceof GetObjectCommand) {
             return {
               Body: {
                 transformToString: () => "Sample output data",

@@ -78,7 +78,7 @@ describe("copy-image-set", () => {
       imageSetID,
       sourceVersionId,
       destinationImageSetID,
-      destinationVersionId
+      destinationVersionId,
     );
 
     expect(logSpy).toHaveBeenCalledWith(response);

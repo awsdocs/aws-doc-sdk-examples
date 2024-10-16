@@ -23,8 +23,8 @@ export class Prompter {
    * @param {string} prompt
    */
   checkContinue = async (prompt = "") => {
-    const prefix = prompt && prompt + " ";
-    let ok = await this.confirm({
+    const prefix = prompt && `${prompt} `;
+    const ok = await this.confirm({
       message: `${prefix}Continue?`,
     });
     if (!ok) throw new Error("Exiting...");

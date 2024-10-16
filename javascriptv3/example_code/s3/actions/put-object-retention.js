@@ -29,7 +29,7 @@ export const main = async ({ bucketName, key }) => {
 
   try {
     await client.send(command);
-    console.log(`Object Retention settings updated.`);
+    console.log("Object Retention settings updated.");
   } catch (caught) {
     if (
       caught instanceof S3ServiceException &&
@@ -49,7 +49,7 @@ export const main = async ({ bucketName, key }) => {
 };
 
 // Call function if run directly
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import {
   isMain,
   validateArgs,

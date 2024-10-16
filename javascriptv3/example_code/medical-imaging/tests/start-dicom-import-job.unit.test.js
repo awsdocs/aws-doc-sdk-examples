@@ -38,7 +38,7 @@ describe("start-dicom-import-job", () => {
       datastoreId,
       "arn:aws:iam::xxxxxxxxxxxx:role/ImportJobDataAccessRole",
       "s3://medical-imaging-dicom-input/dicom_input/",
-      "s3://medical-imaging-output/job_output/"
+      "s3://medical-imaging-output/job_output/",
     );
 
     expect(logSpy).toHaveBeenCalledWith(response);

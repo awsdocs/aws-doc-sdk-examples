@@ -7,7 +7,7 @@ import {
   PackageType,
   Runtime,
 } from "@aws-sdk/client-lambda";
-import { readFile } from "fs/promises";
+import { readFile } from "node:fs/promises";
 import { dirnameFromMetaUrl } from "@aws-doc-sdk-examples/lib/utils/util-fs.js";
 
 const dirname = dirnameFromMetaUrl(import.meta.url);

@@ -13,7 +13,7 @@ const ExpectedSchema = z.object({
 
 describe("list-foundation-models", () => {
   it("should return model summaries", async () => {
-    let modelSummaries = await listFoundationModels();
+    const modelSummaries = await listFoundationModels();
     expect(modelSummaries.length).toBeGreaterThan(0);
 
     const isModelSummary = ExpectedSchema.safeParse(modelSummaries[0]).success;

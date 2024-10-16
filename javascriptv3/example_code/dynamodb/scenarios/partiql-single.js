@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[javascript.dynamodb_scenarios.partiQL_basics]
 import {
@@ -108,7 +108,7 @@ this table, the scenario cannot continue. Delete it?`,
     Parameters: ["arabica", ["chocolate", "floral"]],
   });
   await client.send(addItemStatementCommand);
-  log(`Coffee inserted.`);
+  log("Coffee inserted.");
 
   /**
    * Select an item.
@@ -134,7 +134,7 @@ this table, the scenario cannot continue. Delete it?`,
     Parameters: [["fruity"], "arabica"],
   });
   await client.send(updateItemStatementCommand);
-  log(`Updated coffee`);
+  log("Updated coffee");
 
   /**
    * Delete the item.

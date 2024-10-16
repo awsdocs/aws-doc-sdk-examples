@@ -61,7 +61,7 @@ export const main = async ({ bucketName }) => {
 // snippet-end:[s3.JavaScript.v3.cors.putBucketCors]
 
 // Call function if run directly
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import {
   isMain,
   validateArgs,

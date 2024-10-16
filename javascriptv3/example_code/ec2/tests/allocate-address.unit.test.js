@@ -29,7 +29,7 @@ describe("allocate-address", () => {
 
     await main();
 
-    expect(logSpy).toHaveBeenNthCalledWith(2, `ID: bar Public IP: foo`);
+    expect(logSpy).toHaveBeenNthCalledWith(2, "ID: bar Public IP: foo");
   });
 
   it("should log MissingParameter errors", async () => {

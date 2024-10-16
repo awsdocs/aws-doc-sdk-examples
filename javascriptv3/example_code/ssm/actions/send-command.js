@@ -3,7 +3,7 @@
 
 // snippet-start:[ssm.JavaScript.Basics.sendCommand]
 import { SendCommandCommand, SSMClient } from "@aws-sdk/client-ssm";
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 
 /**
  * Send an SSM command to a managed node.
@@ -28,7 +28,7 @@ export const main = async ({ documentName }) => {
   }
 };
 // snippet-end:[ssm.JavaScript.Basics.sendCommand]
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {

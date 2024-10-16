@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[sqs.JavaScript.queues.listQueuesV3]
 import { paginateListQueues, SQSClient } from "@aws-sdk/client-sqs";
@@ -16,7 +16,9 @@ export const main = async () => {
   for await (const page of paginatedListQueues) {
     const nextUrls = page.QueueUrls?.filter((qurl) => !!qurl) || [];
     urls.push(...nextUrls);
-    urls.forEach((url) => console.log(url));
+    for (const url of urls) {
+      console.log(url);
+    }
   }
 
   return urls;

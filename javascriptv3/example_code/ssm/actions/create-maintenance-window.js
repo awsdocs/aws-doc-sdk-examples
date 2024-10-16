@@ -3,7 +3,7 @@
 
 // snippet-start:[ssm.JavaScript.Basics.createMaintenanceWindow]
 import { CreateMaintenanceWindowCommand, SSMClient } from "@aws-sdk/client-ssm";
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 
 /**
  * Create an SSM maintenance window.
@@ -30,7 +30,7 @@ export const main = async ({
         Schedule: schedule, // The schedule of the maintenance window in the form of a cron or rate expression.
       }),
     );
-    console.log("Maintenance window created with Id: " + windowId);
+    console.log(`Maintenance window created with Id: ${windowId}`);
     return { WindowId: windowId };
   } catch (caught) {
     if (caught instanceof Error && caught.name === "MissingParameter") {
@@ -41,7 +41,7 @@ export const main = async ({
   }
 };
 // snippet-end:[ssm.JavaScript.Basics.createMaintenanceWindow]
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {

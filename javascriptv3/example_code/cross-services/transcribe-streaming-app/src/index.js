@@ -44,7 +44,7 @@ const startRecording = async () => {
     const { startRecording } = await import("./libs/transcribeClient.js");
     await startRecording(selectedLanguage, onTranscriptionDataReceived);
   } catch (error) {
-    alert("An error occurred while recording: " + error.message);
+    alert(`An error occurred while recording: ${error.message}`);
     await stopRecording();
   }
 };
@@ -53,7 +53,7 @@ const onTranscriptionDataReceived = (data) => {
   transcribedText.insertAdjacentHTML("beforeend", data);
 };
 
-const stopRecording = async function () {
+const stopRecording = async () => {
   inputLanguageList.disabled = false;
   recordButton.setAttribute("class", "recordInactive");
   const { stopRecording } = await import("./libs/transcribeClient.js");
@@ -83,7 +83,7 @@ window.translateText = async () => {
       translatedText.innerHTML = translation;
     }
   } catch (error) {
-    alert("There was an error translating the text: " + error.message);
+    alert(`There was an error translating the text: ${error.message}`);
   }
 };
 
@@ -107,7 +107,7 @@ window.sendEmail = async () => {
     await sendEmail(sender, receiver, originalText, translation);
     alert("Success! Email sent!");
   } catch (error) {
-    alert("There was an error sending the email: " + error);
+    alert(`There was an error sending the email: ${error}`);
   }
 };
 // snippet-end:[transcribe.JavaScript.streaming.indexv3]

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { describe, it, expect, vi } from "vitest";
-import * as fs from "fs";
+import * as fs from "node:fs";
 
 const send = vi.fn();
 
@@ -87,7 +87,7 @@ describe("get-image-set-metadata", () => {
       metadataFileName,
       datastoreId,
       imageSetId,
-      versionID
+      versionID,
     );
 
     expect(logSpy).toHaveBeenCalledWith(response);

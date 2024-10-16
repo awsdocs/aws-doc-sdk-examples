@@ -74,7 +74,7 @@ describe("Role and policy test", () => {
     const policyName = getUniqueName("create-policy-test");
     await createPolicy(policyName);
 
-    let policy = await findPolicy(policyName);
+    const policy = await findPolicy(policyName);
 
     if (!policy?.Arn) {
       throw new Error("Policy not found");

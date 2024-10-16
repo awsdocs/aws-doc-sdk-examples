@@ -11,7 +11,7 @@ import { stackName } from "./src/constants.js";
 const defaultRegion = "us-east-1";
 const outputs = await getCfnOutputs(
   stackName,
-  process.env["REGION"] ?? defaultRegion,
+  process.env.REGION ?? defaultRegion,
 );
 
 export default {

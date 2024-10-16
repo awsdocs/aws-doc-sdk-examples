@@ -3,7 +3,7 @@
 
 // snippet-start:[GettingStarted.JavaScript.NodeJS.sampleV3]
 // This is used for getting user input.
-import { createInterface } from "readline/promises";
+import { createInterface } from "node:readline/promises";
 
 import {
   S3Client,
@@ -29,7 +29,7 @@ export async function main() {
   await s3Client.send(
     new CreateBucketCommand({
       Bucket: bucketName,
-    })
+    }),
   );
 
   // Put an object into an Amazon S3 bucket.
@@ -38,7 +38,7 @@ export async function main() {
       Bucket: bucketName,
       Key: "my-first-object.txt",
       Body: "Hello JavaScript SDK!",
-    })
+    }),
   );
 
   // Read the object.
@@ -46,7 +46,7 @@ export async function main() {
     new GetObjectCommand({
       Bucket: bucketName,
       Key: "my-first-object.txt",
-    })
+    }),
   );
 
   console.log(await Body.transformToString());
@@ -64,7 +64,7 @@ export async function main() {
     // Create an async iterator over lists of objects in a bucket.
     const paginator = paginateListObjectsV2(
       { client: s3Client },
-      { Bucket: bucketName }
+      { Bucket: bucketName },
     );
     for await (const page of paginator) {
       const objects = page.Contents;
@@ -72,7 +72,7 @@ export async function main() {
         // For every object in each page, delete it.
         for (const object of objects) {
           await s3Client.send(
-            new DeleteObjectCommand({ Bucket: bucketName, Key: object.Key })
+            new DeleteObjectCommand({ Bucket: bucketName, Key: object.Key }),
           );
         }
       }
@@ -85,7 +85,7 @@ export async function main() {
 
 // Call a function if this file was run directly. This allows the file
 // to be runnable without running on import.
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   main();
 }

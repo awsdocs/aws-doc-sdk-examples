@@ -34,7 +34,7 @@ const choices = {
 const replInput = (scenarios) =>
   new scenarios.ScenarioInput(
     "replChoice",
-    `Explore the S3 locking features by selecting one of the following choices`,
+    "Explore the S3 locking features by selecting one of the following choices",
     {
       type: "select",
       choices: [

@@ -44,7 +44,7 @@ export class SlowLogger extends Logger {
           await this._logSlow(line);
           line = "";
         }
-        line += word + " ";
+        line += `${word} `;
       }
     }
     await this._logSlow(line);
