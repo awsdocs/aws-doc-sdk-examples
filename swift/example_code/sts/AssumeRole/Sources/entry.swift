@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 /// A simple example that shows how to use the AWS SDK for Swift to
-/// authenticate using an AWS IAM role ARN.
+/// authenticate using optional static credentials and an AWS IAM role ARN.
 
-// snippet-start:[swift.static-resolver.imports]
+// snippet-start:[swift.AssumeRole.imports]
 import ArgumentParser
 import AWSClientRuntime
 import AWSS3
@@ -12,53 +12,59 @@ import AWSSDKIdentity
 import AWSSTS
 import Foundation
 import SmithyIdentity
-// snippet-end:[swift.static-resolver.imports]
+// snippet-end:[swift.AssumeRole.imports]
 
 struct ExampleCommand: ParsableCommand {
     @Option(help: "AWS access key ID")
-    var accessKey: String
+    var accessKey: String? = nil
     @Option(help: "AWS secret access key")
-    var secretKey: String
+    var secretKey: String? = nil
     @Option(help: "Session token")
     var sessionToken: String? = nil
     @Argument(help: "ARN of the role to assume")
     var roleArn: String
 
     static var configuration = CommandConfiguration(
-        commandName: "static-resolver",
+        commandName: "AssumeRole",
         abstract: """
-        Authenticate using the access key, secret access key, and role provided.
-        Then list the available buckets.
+        Authenticate using the specified role, optionally using specified
+        access key, secret access key, and session token first.
         """,
         discussion: """
-        This program uses the specified credentials when assuming the specified
-        role, then uses the credentials returned by the role to list the user's
-        buckets. This shows a couple of ways to use a
+        This program uses the specified access key, secret access key, and
+        optional session token, to request temporary credentials for the
+        specified role Then it uses the credentials to list the user's
+        Amazon S3 buckets. This shows a couple of ways to use a
         StaticAWSCredentialIdentityResolver object.
         """
     )
 
     /// Called by ``main()`` to do the actual running of the AWS
     /// example.
-    // snippet-start:[swift.static-resolver.command.runasync]
+    // snippet-start:[swift.AssumeRole.command.runasync]
     func runAsync() async throws {
-        // Authenticate using the command line inputs.
+        // If credentials are specified, create a credential identity
+        // resolver that uses them to authenticate. This identity will be used
+        // to ask for permission to use the specified role.
+
         var identityResolver: StaticAWSCredentialIdentityResolver? = nil
-        /*
-        do {
-            identityResolver = try getIdentityResolver(accessKey: accessKey, 
-                        secretKey: secretKey, sessionToken: sessionToken)
-        } catch {
-            print("ERROR: Unable to get identity resolver in runAsync:",
-                    dump(error))
-            throw error
+        
+        if accessKey != nil && secretKey != nil {
+            do {
+                identityResolver = try getIdentityResolver(accessKey: accessKey, 
+                            secretKey: secretKey, sessionToken: sessionToken)
+            } catch {
+                print("ERROR: Unable to get identity resolver in runAsync:",
+                        dump(error))
+                throw error
+            }
         }
-        */
 
-        // Assume the role.
+        // Assume the role using the credentials provided on the command line,
+        // or using the default credentials if none were specified.
 
         do {
-            // snippet-start: [swift.static-resolver.use-role-credentials]
+            // snippet-start: [swift.AssumeRole.use-role-credentials]
             let credentials = try await assumeRole(identityResolver: identityResolver,
                                         roleArn: roleArn)
             do {
@@ -72,7 +78,7 @@ struct ExampleCommand: ParsableCommand {
                         dump(error))
                 throw error
             }
-            // snippet-end: [swift.static-resolver.use-role-credentials]
+            // snippet-end: [swift.AssumeRole.use-role-credentials]
         } catch {
             print("ERROR: Error assuming role in runAsync:", dump(error))
             throw AssumeRoleExampleError.assumeRoleFailed
@@ -92,14 +98,21 @@ struct ExampleCommand: ParsableCommand {
             throw error
         }
     }
-    // snippet-end:[swift.static-resolver.command.runasync]
+    // snippet-end:[swift.AssumeRole.command.runasync]
 }
 
+/// An `Error` type used to return errors from the
+/// `assumeRole(identityResolver: roleArn:)` function.
 enum AssumeRoleExampleError: Error {
+    /// An error indicating that the STS `AssumeRole` request failed.
     case assumeRoleFailed
+    /// An error indicating that the returned credentials were missing
+    /// required information.
     case incompleteCredentials
+    /// An error indicating that no credentials were returned by `AssumeRole`.
     case missingCredentials
 
+    /// Return a human-readable explanation of the error.
     var errorDescription: String? {
         switch self {
         case .assumeRoleFailed:
@@ -112,7 +125,20 @@ enum AssumeRoleExampleError: Error {
     }
 }
 
-// snippet-start:[swift.static-resolver.assumeRole-function]
+// snippet-start:[swift.AssumeRole.assumeRole-function]
+/// Assume the specified role. If any kind of credential identity resolver is
+/// specified, that identity is adopted before assuming the role.
+/// 
+/// - Parameters:
+///   - identityResolver: Any kind of `AWSCredentialIdentityResolver`. If
+///     provided, this identity is adopted before attempting to assume the
+///     specified role.
+///   - roleArn: The ARN of the AWS role to assume.
+///
+/// - Throws: Re-throws STS errors. Also can throw any
+///   `AssumeRoleExampleError`. 
+/// - Returns: An `AWSCredentialIdentity` containing the temporary credentials
+///   assigned.
 func assumeRole(identityResolver: (any AWSCredentialIdentityResolver)?,
                 roleArn: String) async throws -> AWSCredentialIdentity {
     let stsConfiguration = try await STSClient.STSClientConfiguration(
@@ -120,62 +146,65 @@ func assumeRole(identityResolver: (any AWSCredentialIdentityResolver)?,
     )
     let stsClient = STSClient(config: stsConfiguration)
 
-    let input = AssumeRoleInput(
-        roleArn: roleArn,
-        roleSessionName: "Static-Resolver-Example"
-    )
-
     // Assume the role and return the assigned credentials.
 
-    do {
-        let output = try await stsClient.assumeRole(input: input)
+    // snippet-start: [swift.sts.AssumeRole]
+    let input = AssumeRoleInput(
+        roleArn: roleArn,
+        roleSessionName: "AssumeRole-Example"
+    )
 
-        guard let credentials = output.credentials else {
-            throw AssumeRoleExampleError.missingCredentials
-        }
+    let output = try await stsClient.assumeRole(input: input)
 
-        guard let accessKey = credentials.accessKeyId,
-              let secretKey = credentials.secretAccessKey,
-              let sessionToken = credentials.sessionToken else {
-            throw AssumeRoleExampleError.incompleteCredentials
-        }
-
-        // Return an `AWSCredentialIdentity` object with the temporary
-        // credentials.
-
-        let awsCredentials = AWSCredentialIdentity(
-            accessKey: accessKey,
-            secret: secretKey,
-            sessionToken: sessionToken
-        )
-        return awsCredentials
+    guard let credentials = output.credentials else {
+        throw AssumeRoleExampleError.missingCredentials
     }
-}
-// snippet-end:[swift.static-resolver.assumeRole-function]
 
-// snippet-start:[s3.swift.intro.getbucketnames]
-// Return an array containing the names of all available buckets.
-//
-// - Returns: An array of strings listing the buckets.
+    guard let accessKey = credentials.accessKeyId,
+            let secretKey = credentials.secretAccessKey,
+            let sessionToken = credentials.sessionToken else {
+        throw AssumeRoleExampleError.incompleteCredentials
+    }
+    // snippet-end: [swift.sts.AssumeRole]
+
+    // Return an `AWSCredentialIdentity` object with the temporary
+    // credentials.
+
+    let awsCredentials = AWSCredentialIdentity(
+        accessKey: accessKey,
+        secret: secretKey,
+        sessionToken: sessionToken
+    )
+    return awsCredentials
+}
+// snippet-end:[swift.AssumeRole.assumeRole-function]
+
+/// Return an array containing the names of all available buckets using
+/// the specified credential identity resolver to authenticate.
+///
+/// - Parameter identityResolver: Any type of `AWSCredentialIdentityResolver`,
+///   used to authenticate and authorize the user for access to the bucket
+///   names.
+///
+/// - Throws: Re-throws errors from `ListBucketsPaginated`.
+///
+/// - Returns: An array of strings listing the buckets.
 func getBucketNames(identityResolver: (any AWSCredentialIdentityResolver)?)
                     async throws -> [String] {
     do {
         // Get an S3Client with which to access Amazon S3.
-        // snippet-start:[s3.swift.intro.client-init]
+        // snippet-start:[swift.AssumeRole.use-resolver]
         let configuration = try await S3Client.S3ClientConfiguration(
             awsCredentialIdentityResolver: identityResolver
         )
-        //   configuration.region = "us-east-2" // Uncomment this to set the region programmatically.
         let client = S3Client(config: configuration)
-        // snippet-end:[s3.swift.intro.client-init]
 
-        // snippet-start:[s3.swift.intro.listbuckets]
-        // Use "Paginated" to get all the buckets.
-        // This lets the SDK handle the 'continuationToken' in "ListBucketsOutput".
+        // Use "Paginated" to get all the buckets. This lets the SDK handle
+        // the 'continuationToken' in "ListBucketsOutput".
         let pages = client.listBucketsPaginated(
             input: ListBucketsInput( maxBuckets: 10)
         )
-        // snippet-end:[s3.swift.intro.listbuckets]
+        // snippet-end:[swift.AssumeRole.use-resolver]
 
         // Get the bucket names.
         var bucketNames: [String] = []
@@ -183,7 +212,7 @@ func getBucketNames(identityResolver: (any AWSCredentialIdentityResolver)?)
         do {
             for try await page in pages {
                 guard let buckets = page.buckets else {
-                    print("Error: no buckets returned.")
+                    print("Error: page is empty.")
                     continue
                 }
 
@@ -210,22 +239,28 @@ func getBucketNames(identityResolver: (any AWSCredentialIdentityResolver)?)
 /// - Throws: Re-throws errors from AWSSDKIdentity.
 /// - Returns: A `StaticAWSCredentialIdentityResolver` that can be used when
 ///   configuring service clients.
-func getIdentityResolver(accessKey: String, secretKey: String,
+func getIdentityResolver(accessKey: String?, secretKey: String?,
                          sessionToken: String?)
-            throws -> StaticAWSCredentialIdentityResolver {
+            throws -> StaticAWSCredentialIdentityResolver? {
+    
+    if accessKey == nil || secretKey == nil {
+        return nil
+    }
+
+    guard let accessKey = accessKey,
+          let secretKey = secretKey else {
+        return nil
+    }
+
     let credentials = AWSCredentialIdentity(
         accessKey: accessKey,
         secret: secretKey,
-        //expiration: cognitoCredentials.expiration,
         sessionToken: sessionToken
     )
 
     return try StaticAWSCredentialIdentityResolver(credentials)
 }
 
-// snippet-end:[s3.swift.intro.getbucketnames]
-
-// snippet-start:[s3.swift.intro.main]
 /// The program's asynchronous entry point.
 @main
 struct Main {
@@ -240,5 +275,3 @@ struct Main {
         }
     }    
 }
-
-// snippet-end:[s3.swift.intro.main]
