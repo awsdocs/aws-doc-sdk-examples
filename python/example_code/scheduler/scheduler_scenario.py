@@ -42,7 +42,7 @@ class SchedulerScenario:
         self.eventbridge_scheduler = scheduler_wrapper
         self.cloud_formation_resource = cloud_formation_resource
         self.stack: ServiceResource = None
-        self.schedule_group_name = "workflow-schedules-group"
+        self.schedule_group_name = None
         self.sns_topic_arn = None
         self.role_arn = None
 
@@ -86,13 +86,11 @@ class SchedulerScenario:
             + "\n\nYou will need to confirm the subscription in order to receive event emails. "
         )
 
-        email_address = "meyertst@amazon.com"  # q.ask("Enter an email address to use for event subscriptions: ")
-        stack_name = (
-            "python-test"  # q.ask("Enter a name for the AWS Cloud Formation Stack: ")
-        )
+        email_address = q.ask("Enter an email address to use for event subscriptions: ")
+        stack_name = q.ask("Enter a name for the AWS Cloud Formation Stack: ")
 
         script_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
-        template_file = os.path.join(script_directory, "cfn_template.yaml")
+        template_file = SchedulerScenario.get_template_as_string()
 
         parameters = [{"ParameterKey": "email", "ParameterValue": email_address}]
 
@@ -126,11 +124,10 @@ class SchedulerScenario:
         """
         Creates a one-time schedule to send an initial event.
         """
+        schedule_name = q.ask("Enter a name for the one-time schedule:")
 
         scheduled_time = datetime.now(timezone.utc) + timedelta(minutes=1)
         formatted_scheduled_time = scheduled_time.strftime("%Y-%m-%dT%H:%M:%S")
-
-        schedule_name = q.ask("Enter a name for the one-time schedule:")
 
         print(
             f"Creating a one-time schedule named '{schedule_name}' "
@@ -179,20 +176,22 @@ class SchedulerScenario:
             self.eventbridge_scheduler.delete_schedule(schedule_name, self.schedule_group_name)
 
     def deploy_cloudformation_stack(
-        self, stack_name: str, template_file: str, parameters: [dict[str, str]]
+        self, stack_name: str, cfn_template: str, parameters: [dict[str, str]]
     ) -> ServiceResource:
         """
         Deploys prerequisite resources used by the scenario. The resources are
         defined in the associated `cfn_template.yaml` AWS CloudFormation script and are deployed
         as a CloudFormation stack, so they can be easily managed and destroyed.
-        """
 
-        with open(template_file) as setup_file:
-            setup_template = setup_file.read()
+        :param stack_name: The name of the CloudFormation stack.
+        :param cfn_template: The CloudFormation template as a string.
+        :param parameters: The parameters for the CloudFormation stack.
+        :return: The CloudFormation stack resource.
+        """
         print(f"Deploying CloudFormation stack: {stack_name}.")
         stack = self.cloud_formation_resource.create_stack(
             StackName=stack_name,
-            TemplateBody=setup_template,
+            TemplateBody=cfn_template,
             Capabilities=["CAPABILITY_NAMED_IAM"],
             Parameters=parameters,
         )
@@ -238,6 +237,16 @@ class SchedulerScenario:
             self.stack = None
             self.destroy_cloudformation_stack(stack)
         print("Stack deleted, demo complete.")
+
+    @staticmethod
+    def get_template_as_string() -> str:
+        """
+        Returns a string containing this scenario's CloudFormation template.
+        """
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        template_file_path = os.path.join(script_directory, "cfn_template.yaml")
+        file = open(template_file_path, "r")
+        return file.read()
 
 
 if __name__ == "__main__":
