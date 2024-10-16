@@ -5,7 +5,7 @@ This example shows how to use AWS SDKs to work with Amazon EventBridge Scheduler
 
 The target SNS topic and the AWS Identity and Access Management (IAM) role used with the schedules are created as part of an AWS CloudFormation stack that is deployed at the start of the workflow, and deleted when the workflow is complete.
 
-![Object Lock Features](../../../workflows/eventbridge_scheduler/resources/scheduler-workflow.png)
+![Object Lock Features](../../../../../../workflows/eventbridge_scheduler/resources/scheduler-workflow.png)
 
 This workflow demonstrates the following steps and tasks:
 
