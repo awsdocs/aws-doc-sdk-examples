@@ -67,15 +67,7 @@ scheduler_CreateScheduleGroup:
     scheduler: {CreateScheduleGroup}
 scheduler_DeleteSchedule:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/scheduler
-          excerpts:
-            - description:
-              snippet_tags:
-                - scheduler.javav2.delete.schedule.main
-   .NET:
+    .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EventBridge Scheduler
@@ -84,6 +76,14 @@ scheduler_DeleteSchedule:
               genai: most
               snippet_tags:
                 - Scheduler.dotnetv3.DeleteSchedule
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/scheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.delete.schedule.main
   services:
     scheduler: {DeleteSchedule}
 scheduler_DeleteScheduleGroup:
