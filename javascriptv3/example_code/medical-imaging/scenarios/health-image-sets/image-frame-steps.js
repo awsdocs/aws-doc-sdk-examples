@@ -121,5 +121,4 @@ export const outputImageFrameIds = new ScenarioOutput(
 
     return output;
   },
-  { slow: false },
 );
