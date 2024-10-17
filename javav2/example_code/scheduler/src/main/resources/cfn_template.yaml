@@ -1,0 +1,50 @@
+Parameters:
+  email:
+    Type: String
+    Default: 'scheduler_test@example.com'
+
+Resources:
+  SchedulerSnsTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      KmsMasterKeyId: alias/aws/sns
+
+  MySubscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Endpoint: !Ref email
+      Protocol: email
+      TopicArn: !Ref SchedulerSnsTopic
+
+  SchedulerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: example_scheduler_role23
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Service: 'scheduler.amazonaws.com'
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: 'Scheduler_SNS_policy'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - 'sns:Publish'
+                Resource: !Ref SchedulerSnsTopic
+
+Outputs:
+
+  SNStopicARN:
+    Description: SNS topic ARN
+    Value: !Ref SchedulerSnsTopic
+
+  RoleARN:
+    Description: Scheduler role ARN
+    Value: !GetAtt SchedulerRole.Arn
