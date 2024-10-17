@@ -30,7 +30,7 @@ can be used as a reference for writing this example in other languages.
 ### Create AWS resources
 
 The `PoolsAndTriggersBase` CDK construct in the  
-[reference implementation for Go](../../gov2/workflows/user_pools_and_lambda_triggers/cdk/lib/pools-and-triggers-base.ts) 
+[reference implementation for Go](../../gov2/workflows/user_pools_and_lambda_triggers/.cdk/lib/pools-and-triggers-base.ts) 
 folder creates all of the common AWS resources you need for this example:
 
 * Amazon DynamoDB table with a `UserEmail` primary key.
@@ -40,7 +40,7 @@ folder creates all of the common AWS resources you need for this example:
 
 This construct is intended as a base script that you copy to your implementation and include in a stack that 
 deploys Lambda handlers in the way that works best for your language. 
-For an example, see the [reference implementation for Go](../../gov2/workflows/user_pools_and_lambda_triggers/cdk/lib/pools-and-triggers-stack.ts).
+For an example, see the [reference implementation for Go](../../gov2/workflows/user_pools_and_lambda_triggers/.cdk/lib/pools-and-triggers-stack.ts).
 
 Because most languages require a bootstrap environment that contains an S3 bucket for staging Lambda handlers,
 it's recommended that you use `cdk deploy` to deploy resources, but if your language supports it you can use 
