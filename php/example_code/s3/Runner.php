@@ -7,7 +7,7 @@ namespace S3;
 use Aws\Exception\AwsException;
 use AwsUtilities\RunnableExample;
 
-require __DIR__ . "/vendor/autoload.php";
+require_once __DIR__ . "/vendor/autoload.php";
 
 require "GettingStartedWithS3.php";
 
