@@ -245,20 +245,23 @@ func getIdentityResolver(accessKey: String?, secretKey: String?,
     
     if accessKey == nil || secretKey == nil {
         return nil
-    }
+    }  
 
     guard let accessKey = accessKey,
           let secretKey = secretKey else {
         return nil
     }
 
+    // snippet-start:[swift.sts.AssumeRole.create-static-resolver]
     let credentials = AWSCredentialIdentity(
         accessKey: accessKey,
         secret: secretKey,
         sessionToken: sessionToken
     )
 
-    return try StaticAWSCredentialIdentityResolver(credentials)
+    let identityResolver = try StaticAWSCredentialIdentityResolver(credentials)
+    // snippet-end:[swift.sts.AssumeRole.create-static-resolver]
+    return identityResolver
 }
 
 /// The program's asynchronous entry point.
