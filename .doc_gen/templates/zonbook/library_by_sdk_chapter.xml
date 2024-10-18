@@ -1,5 +1,5 @@
 {{- template "prologue"}}
-{{- $omitted_sdks := makeSlice "java_1"}}
+{{- $omitted_sdks := makeSlice "java_1" "javascript_101" "javascript_102"}}
 {{- $html_only_sdks := makeSlice "cli_2" "powershell_4"}}
 {{- $chapter_id := "code_example_library_by_sdk"}}
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
