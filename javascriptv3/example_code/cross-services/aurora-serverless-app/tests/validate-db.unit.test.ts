@@ -3,6 +3,7 @@
 import { describe, expect, it, vi } from "vitest";
 import type { NextFunction, Request, Response } from "express";
 import { errorCodes, validateDb } from "../src/middleware/validate-db.js";
+import type { Sendable } from "../src/types/sendable.ts";
 
 describe("validate-db", () => {
   describe("generated handler", () => {

@@ -12,6 +12,7 @@
       "./example_code/medical-imaging/scenarios/health-image-sets/pixel-data-verification",
       "./example_code/kinesis/kinesis-cdk",
       "./example_code/medical-imaging/scenarios/health-image-sets/pixel-data-verification/openjphjs/openjphjs.js",
+      "./example_code/cross-services/textract-react",
       "**/dist"
     ]
   },
@@ -25,7 +26,12 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "correctness": {
+        "noUndeclaredVariables": {
+          "level": "error"
+        }
+      }
     }
   },
   "javascript": {

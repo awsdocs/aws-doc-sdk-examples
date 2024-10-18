@@ -12,7 +12,7 @@ import {
 } from "node:fs";
 import archiver from "archiver";
 import { fileURLToPath } from "node:url";
-import { log } from "./util-log.js";
+import { logger } from "./util-log.js";
 import { splitMapTrim } from "./util-string.js";
 
 /**
@@ -40,12 +40,12 @@ export const setTmp = (name, data) =>
   writeFileSync(`./${name}.tmp`, data, { encoding: "utf-8" });
 
 export const handleZipWarning = (resolve) => (w) => {
-  log(w);
+  logger.log(w);
   resolve();
 };
 
 export const handleZipEnd = (resolve, path) => async () => {
-  log("Zipped successfully.");
+  logger.log("Zipped successfully.");
   const buffer = await readFile(path);
   resolve(buffer);
 };
@@ -72,7 +72,7 @@ export const zip = (inputPath) =>
       return;
     }
     const archive = archiver("zip");
-    log(`Zipping ${inputPath}...`);
+    logger.log(`Zipping ${inputPath}...`);
 
     const output = createWriteStream(`${inputPath}.zip`);
     output.on("close", handleZipEnd(resolve, `${inputPath}.zip`));

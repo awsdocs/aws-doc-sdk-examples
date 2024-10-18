@@ -10,6 +10,19 @@ export const log = (str) => {
   return parsed;
 };
 
+export const logger = {
+  log: console.log,
+  warn: (message) => {
+    console.warn(`[WARNING] ${message}`);
+  },
+  debug: (message) => {
+    console.debug(`[DEBUG ${new Date().toISOString()}] ${message}`);
+  },
+  error: (message) => {
+    console.error(`[ERROR] ${message}`);
+  },
+};
+
 export class ProgressBar {
   /**
    * Create a progress bar that will display in the console.
