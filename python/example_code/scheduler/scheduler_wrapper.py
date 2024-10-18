@@ -1,9 +1,6 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
-
 """
 Purpose
 
@@ -20,8 +17,8 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.eventbridge.EventSchedulerWrapper.class]
-# snippet-start:[python.example_code.eventbridge.EventSchedulerWrapper.decl]
+# snippet-start:[python.example_code.scheduler.EventSchedulerWrapper.class]
+# snippet-start:[python.example_code.scheduler.EventSchedulerWrapper.decl]
 class SchedulerWrapper:
     def __init__(self, eventbridge_scheduler_client: client):
         self.scheduler_client = eventbridge_scheduler_client
@@ -36,9 +33,9 @@ class SchedulerWrapper:
         eventbridge_scheduler_client = boto3.client("scheduler")
         return cls(eventbridge_scheduler_client)
 
-    # snippet-end:[python.example_code.eventbridge.EventSchedulerWrapper.decl]
+    # snippet-end:[python.example_code.scheduler.EventSchedulerWrapper.decl]
 
-    # snippet-start:[python.example_code.eventbridge.CreateSchedule]
+    # snippet-start:[python.example_code.scheduler.CreateSchedule]
     def create_schedule(
         self,
         name: str,
@@ -100,7 +97,9 @@ class SchedulerWrapper:
                 logger.error("Error creating schedule: %s", err.response["Error"]["Message"])
             raise
 
-    # snippet-start:[python.example_code.eventbridge.DeleteSchedule]
+    # snippet-end:[python.example_code.scheduler.CreateSchedule]
+
+    # snippet-start:[python.example_code.scheduler.DeleteSchedule]
     def delete_schedule(self, name: str, schedule_group_name: str) -> None:
         """
         Deletes the schedule with the specified name and schedule group.
@@ -123,9 +122,9 @@ class SchedulerWrapper:
                 logger.error("Error deleting schedule: %s", err.response["Error"]["Message"])
                 raise
 
-    # snippet-end:[python.example_code.eventbridge.DeleteSchedule]
+    # snippet-end:[python.example_code.scheduler.DeleteSchedule]
 
-    # snippet-start:[python.example_code.eventbridge.CreateScheduleGroup]
+    # snippet-start:[python.example_code.scheduler.CreateScheduleGroup]
     def create_schedule_group(self, name: str) -> str:
         """
         Creates a new schedule group with the specified name and description.
@@ -149,9 +148,9 @@ class SchedulerWrapper:
                 logger.error("Error creating schedule group: %s", err.response["Error"]["Message"])
             raise
 
-    # snippet-end:[python.example_code.eventbridge.CreateScheduleGroup]
+    # snippet-end:[python.example_code.scheduler.CreateScheduleGroup]
 
-    # snippet-start:[python.example_code.eventbridge.DeleteScheduleGroup]
+    # snippet-start:[python.example_code.scheduler.DeleteScheduleGroup]
     def delete_schedule_group(self, name: str) -> None:
         """
         Deletes the schedule group with the specified name.
@@ -171,10 +170,10 @@ class SchedulerWrapper:
             else:
                 logger.error("Error deleting schedule group: %s", err.response["Error"]["Message"])
                 raise
-        # snippet-end:[python.example_code.eventbridge.DeleteScheduleGroup]
+        # snippet-end:[python.example_code.scheduler.DeleteScheduleGroup]
 
 
-# snippet-end:[python.example_code.eventbridge.EventSchedulerWrapper.class]
+# snippet-end:[python.example_code.scheduler.EventSchedulerWrapper.class]
 
 if __name__ == "__main__":
     try:

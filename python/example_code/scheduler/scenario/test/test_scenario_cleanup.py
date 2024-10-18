@@ -7,7 +7,6 @@ Unit tests for cleanup in scheduler_scenario.py.
 
 import pytest
 from botocore.exceptions import ClientError
-from scheduler_scenario import SchedulerScenario
 from botocore import waiter
 
 class MockManager:

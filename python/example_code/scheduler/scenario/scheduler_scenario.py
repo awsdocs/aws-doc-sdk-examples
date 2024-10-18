@@ -11,23 +11,27 @@ and receive events.
 import logging
 import sys
 from datetime import datetime, timedelta, timezone
-from scheduler_wrapper import SchedulerWrapper
-from boto3 import client
-from botocore.exceptions import ClientError
-from boto3.resources.base import ServiceResource
 import os
+from boto3.resources.base import ServiceResource
+from boto3 import resource
 
-import boto3
+# Add relative path to include SchedulerWrapper.
+sys.path.append('..')
+from scheduler_wrapper import SchedulerWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
-sys.path.append("../..")
+sys.path.append("../../..")
 import demo_tools.question as q
 
+
 DASHES = "-" * 80
+
+sys.path
 
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.scheduler.FeatureScenario]
 class SchedulerScenario:
     """
     A scenario that demonstrates how to use Boto3 to schedule and receive events using
@@ -253,7 +257,7 @@ if __name__ == "__main__":
     demo: SchedulerScenario = None
     try:
         scheduler_wrapper = SchedulerWrapper.from_client()
-        cloud_formation_resource = boto3.resource("cloudformation")
+        cloud_formation_resource = resource("cloudformation")
         demo = SchedulerScenario(scheduler_wrapper, cloud_formation_resource)
         demo.run()
 
@@ -262,3 +266,4 @@ if __name__ == "__main__":
         if demo is not None:
             demo.cleanup()
 
+# snippet-end:[python.example_code.scheduler.FeatureScenario]
