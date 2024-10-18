@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 import { startsWith } from "./utils/util-array.js";
-import { log } from "./utils/util-log.js";
+import { logger } from "./utils/util-log.js";
 
 /**
  * @typedef {(...args: unknown[]) => void} HandlerFn
@@ -42,7 +42,7 @@ function readCommands({ reader, handlers }) {
       return reader.close();
     }
 
-    return log("Command not recognized.");
+    return logger.error("Command not recognized.");
   });
 }
 

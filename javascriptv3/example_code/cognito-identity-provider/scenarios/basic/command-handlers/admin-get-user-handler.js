@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { getFirstEntry } from "@aws-doc-sdk-examples/lib/utils/util-csv.js";
-import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import { adminGetUser } from "../../../actions/admin-get-user.js";
 import { FILE_USER_POOLS } from "./constants.js";
 
@@ -41,9 +41,9 @@ const adminGetUserHandler = async ([_cmd, username]) => {
 
     const user = await getUser(username);
 
-    log(formatUser(user));
+    logger.log(formatUser(user));
   } catch (err) {
-    log(err);
+    logger.error(err);
   }
 };
 

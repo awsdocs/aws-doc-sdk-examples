@@ -10,7 +10,7 @@ import {
   waitUntilRoleExists,
 } from "@aws-sdk/client-iam";
 
-import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import { retry } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
 
 import {
@@ -66,7 +66,7 @@ describe("Creating, getting, invoking, listing, updating, and deleting", () => {
       });
       await iamClient.send(attachRolePolicyCommand);
     } catch (err) {
-      log(err);
+      logger.error(err);
       throw err;
     }
   });
@@ -81,7 +81,7 @@ describe("Creating, getting, invoking, listing, updating, and deleting", () => {
       const deleteRoleCommand = new DeleteRoleCommand({ RoleName: roleName });
       await iamClient.send(deleteRoleCommand);
     } catch (err) {
-      log(err);
+      logger.error(err);
       throw err;
     }
 
@@ -90,7 +90,7 @@ describe("Creating, getting, invoking, listing, updating, and deleting", () => {
       // before the deletion step.
       await deleteFunction(funcName);
     } catch (err) {
-      log(err);
+      logger.error(err);
     }
   });
 

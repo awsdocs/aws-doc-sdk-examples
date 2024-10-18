@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /** snippet-start:[javascript.v3.cognito-idp.scenarios.basic.SignUpHandler] **/
-import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import { signUp } from "../../../actions/sign-up.js";
 import { FILE_USER_POOLS } from "./constants.js";
 import { getSecondValuesFromEntries } from "@aws-doc-sdk-examples/lib/utils/util-csv.js";
@@ -34,12 +34,14 @@ const signUpHandler = async (commands) => {
     const values = getSecondValuesFromEntries(FILE_USER_POOLS);
     const clientId = values[0];
     validateClient(clientId);
-    log("Signing up.");
+    logger.log("Signing up.");
     await signUp({ clientId, username, password, email });
-    log(`Signed up. A confirmation email has been sent to: ${email}.`);
-    log(`Run 'confirm-sign-up ${username} <code>' to confirm your account.`);
+    logger.log(`Signed up. A confirmation email has been sent to: ${email}.`);
+    logger.log(
+      `Run 'confirm-sign-up ${username} <code>' to confirm your account.`,
+    );
   } catch (err) {
-    log(err);
+    logger.error(err);
   }
 };
 

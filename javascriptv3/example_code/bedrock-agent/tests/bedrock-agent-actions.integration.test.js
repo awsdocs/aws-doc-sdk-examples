@@ -5,7 +5,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import { getRandomAlphanumericString } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 import { wait } from "@aws-doc-sdk-examples/lib/utils/util-timers.js";
-import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 
 import {
   CreateRoleCommand,
@@ -97,7 +97,7 @@ describe("create-list-get-delete", () => {
         }),
       );
     } catch (err) {
-      log(err);
+      logger.error(err);
       throw err;
     }
   });
@@ -152,7 +152,7 @@ describe("create-list-get-delete", () => {
       );
       await iam.send(new DeleteRoleCommand({ RoleName: agentRoleName }));
     } catch (err) {
-      log(err);
+      logger.error(err);
       throw err;
     }
   });
