@@ -106,38 +106,6 @@ public class CloudFormationHelper {
             }).join();
     }
 
-       /*
-
-        CloudFormationWaiter waiter = CloudFormationWaiter.builder()
-            .client(client)
-            .build();
-
-        try {
-            // Create the stack
-            client.createStack(stackRequest);
-
-            // Use the waiter to wait for the stack creation to complete
-            WaiterResponse<DescribeStacksResponse> waiterResponse = waiter.waitUntilStackCreateComplete(
-                DescribeStacksRequest.builder().stackName(stackName).build()
-            );
-
-            // Check the result of the waiter
-            if (waiterResponse.matched().exception().isPresent()) {
-                throw waiterResponse.matched().exception().get(); // Rethrow the exception if the waiter fails
-            }
-
-            logger.info("Stack {} created successfully.", stackName);
-
-        } catch (Throwable e) {
-            logger.error("Failed to create CloudFormation stack: {}", e.getMessage(), e);
-
-            // Fetch stack events to find the reason for rollback
-            fetchStackFailureDetails(client, stackName);
-            throw new RuntimeException("Stack deployment failed", e);
-        }
-    }
-*/
-
     /**
      * Fetches and logs the details of the stack failure by describing stack events.
      */
@@ -228,18 +196,12 @@ public class CloudFormationHelper {
     }
 
     public static Map<String, String> getStackOutputs(String stackName) {
-        CloudFormationClient cloudFormationClient = CloudFormationClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
-
-        DescribeStacksRequest describeStacksRequest = DescribeStacksRequest.builder()
+       DescribeStacksRequest describeStacksRequest = DescribeStacksRequest.builder()
             .stackName(stackName)
             .build();
 
         try {
-            DescribeStacksResponse describeStacksResponse = cloudFormationClient.describeStacks(describeStacksRequest);
-
-            // Process the result
+            DescribeStacksResponse describeStacksResponse = getCloudFormationClient().describeStacks(describeStacksRequest).join();
             if (describeStacksResponse.stacks().isEmpty()) {
                 throw new RuntimeException("Stack not found: " + stackName);
             }
