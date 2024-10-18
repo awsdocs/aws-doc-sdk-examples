@@ -14,6 +14,7 @@ import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.scheduler.SchedulerAsyncClient;
 import software.amazon.awssdk.services.scheduler.model.ActionAfterCompletion;
+import software.amazon.awssdk.services.scheduler.model.ConflictException;
 import software.amazon.awssdk.services.scheduler.model.CreateScheduleGroupRequest;
 import software.amazon.awssdk.services.scheduler.model.CreateScheduleGroupResponse;
 import software.amazon.awssdk.services.scheduler.model.CreateScheduleRequest;
@@ -24,6 +25,7 @@ import software.amazon.awssdk.services.scheduler.model.FlexibleTimeWindow;
 import software.amazon.awssdk.services.scheduler.model.FlexibleTimeWindowMode;
 import software.amazon.awssdk.services.scheduler.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.scheduler.model.Target;
+
 import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
 import java.time.Duration;
@@ -66,6 +68,7 @@ public class EventbridgeSchedulerActions {
     }
 
     // snippet-start:[scheduler.javav2.create.schedule.group.main]
+
     /**
      * Creates a new schedule group.
      *
@@ -81,7 +84,12 @@ public class EventbridgeSchedulerActions {
         CompletableFuture<CreateScheduleGroupResponse> futureResponse = getAsyncClient().createScheduleGroup(request);
         futureResponse.whenComplete((response, ex) -> {
             if (ex != null) {
-                throw new CompletionException("Failed to create schedule group: " + name, ex);
+                if (ex instanceof CompletionException && ex.getCause() instanceof ConflictException) {
+                    // Rethrow the ConflictException
+                    throw (ConflictException) ex.getCause();
+                } else {
+                    throw new CompletionException("Failed to create schedule group: " + name, ex);
+                }
             } else if (response == null) {
                 throw new RuntimeException("Failed to create schedule group: response was null");
             } else {
@@ -94,10 +102,12 @@ public class EventbridgeSchedulerActions {
     // snippet-end:[scheduler.javav2.create.schedule.group.main]
 
     // snippet-start:[scheduler.javav2.create.schedule.main]
+
     /**
      * Creates a new schedule for a target task.
      *
      * @param name                  the name of the schedule
+     * @param scheduleExpression    The schedule expression that defines when the schedule should run.
      * @param scheduleGroupName     the name of the schedule group to which the schedule belongs
      * @param targetArn             the Amazon Resource Name (ARN) of the target task
      * @param roleArn               the ARN of the IAM role to be used for the schedule
@@ -157,13 +167,20 @@ public class EventbridgeSchedulerActions {
             })
             .whenComplete((result, ex) -> {
                 if (ex != null) {
-                    throw new CompletionException("Error creating schedule: " + ex.getMessage(), ex);
+                    if (ex instanceof ConflictException) {
+                        // Handle ConflictException
+                        logger.error("A conflict exception occurred while creating the schedule: {}", ex.getMessage());
+                        throw new CompletionException("A conflict exception occurred while creating the schedule: " + ex.getMessage(), ex);
+                    } else {
+                        throw new CompletionException("Error creating schedule: " + ex.getMessage(), ex);
+                    }
                 }
             });
     }
     // snippet-end:[scheduler.javav2.create.schedule.main]
 
     // snippet-start:[scheduler.javav2.delete.schedule.group.main]
+
     /**
      * Deletes the specified schedule group.
      *
@@ -182,13 +199,18 @@ public class EventbridgeSchedulerActions {
             })
             .whenComplete((result, ex) -> {
                 if (ex != null) {
-                    throw new CompletionException("Error deleting schedule group: " + ex.getMessage(), ex);
+                    if (ex instanceof ResourceNotFoundException) {
+                        throw new CompletionException("The resource was not found: " + ex.getMessage(), ex);
+                    } else {
+                        throw new CompletionException("Error deleting schedule group: " + ex.getMessage(), ex);
+                    }
                 }
             });
     }
     // snippet-end:[scheduler.javav2.delete.schedule.group.main]
 
     // snippet-start:[scheduler.javav2.delete.schedule.main]
+
     /**
      * Deletes a schedule with the specified name and group name.
      *

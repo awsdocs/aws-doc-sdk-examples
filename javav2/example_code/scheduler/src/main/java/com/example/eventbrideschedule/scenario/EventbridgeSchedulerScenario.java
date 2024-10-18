@@ -46,7 +46,7 @@ public class EventbridgeSchedulerScenario {
 
     private static final Logger logger = LoggerFactory.getLogger(EventbridgeSchedulerScenario.class);
     private static final Scanner scanner = new Scanner(System.in);
-    private static final String STACK_NAME = "workflow-stack-name";
+    private static String STACK_NAME = "workflow-stack-name";
     private static final String scheduleGroupName = "schedules-group";
 
     private static String recurringScheduleName = "";
@@ -100,18 +100,28 @@ public class EventbridgeSchedulerScenario {
                     """);
                 waitForInputToContinue();
                 createOneTimeSchedule();
+                logger.info("Do you want to delete the schedule {} (y/n) ?", oneTimeScheduleName);
+                String ans = scanner.nextLine().trim();
+                if (ans.equalsIgnoreCase("y")) {
+                    eventbridgeActions.deleteScheduleAsync(oneTimeScheduleName,scheduleGroupName);
+                }
                 logger.info(DASHES);
 
-                logger.info("3. Create a reoccurring schedule.");
+                logger.info("3. Create a recurring schedule.");
                 logger.info("""
                     A recurring schedule is a feature that allows you to schedule and manage the execution
                     of your serverless applications or workloads on a recurring basis. For example, 
                     with EventBridge Scheduler, you can create custom schedules for your AWS Lambda functions, 
                     AWS Step Functions, and other supported event sources, enabling you to automate tasks and 
-                    workflows without the need for complex infrastructure management. T
+                    workflows without the need for complex infrastructure management. 
                     """);
                 waitForInputToContinue();
                 createRecurringSchedule();
+                logger.info("Do you want to delete the schedule {} (y/n) ?", oneTimeScheduleName);
+                String ans2 = scanner.nextLine().trim();
+                if (ans2.equalsIgnoreCase("y")) {
+                    eventbridgeActions.deleteScheduleAsync(recurringScheduleName,scheduleGroupName);
+                }
                 logger.info(DASHES);
             }
         } catch (Exception ex) {
@@ -138,6 +148,7 @@ public class EventbridgeSchedulerScenario {
      */
     public static void cleanUp() {
         logger.info("First, delete the schedule group.");
+        logger.info("When the schedule group is deleted, schedules that are part of that group are deleted.");
         waitForInputToContinue();
         try {
             eventbridgeActions.deleteScheduleGroupAsync(scheduleGroupName).join();
@@ -152,24 +163,8 @@ public class EventbridgeSchedulerScenario {
             }
             return;
         }
-        logger.info("Next, delete the schedules");
-        waitForInputToContinue();
-        try {
-            eventbridgeActions.deleteScheduleAsync(recurringScheduleName, scheduleGroupName).join();
-            eventbridgeActions.deleteScheduleAsync(oneTimeScheduleName, scheduleGroupName).join();
 
-        } catch (CompletionException ce) {
-            Throwable cause = ce.getCause();
-            if (cause instanceof SchedulerException schedulerException) {
-                logger.error("Scheduler error occurred: Error message: {}, Error code {}",
-                    schedulerException.getMessage(), schedulerException.awsErrorDetails().errorCode(), schedulerException);
-            } else {
-                logger.error("An unexpected error occurred: {}", cause.getMessage());
-            }
-            return;
-        }
-
-        logger.info("Finally, destroy the CloudFormation stack");
+        logger.info("Destroy the CloudFormation stack");
         waitForInputToContinue();
         CloudFormationHelper.destroyCloudFormationStack(STACK_NAME);
     }
@@ -191,6 +186,15 @@ public class EventbridgeSchedulerScenario {
         String emailAddress = promptUserForEmail();
         logger.info("You entered {}", emailAddress);
 
+        logger.info("Do you want to use a custom Stack name (y/n) ?");
+        String ans = scanner.nextLine().trim();
+        if (ans.equalsIgnoreCase("y")) {
+            String newStackName = scanner.nextLine();
+            logger.info("You entered {} for the new stack name", newStackName);
+            waitForInputToContinue();
+            STACK_NAME = newStackName;
+        }
+
         logger.info("Get the roleArn and snsTopicArn values using a Cloudformation template.");
         waitForInputToContinue();
         CloudFormationHelper.deployCloudFormationStack(STACK_NAME, emailAddress);
@@ -204,6 +208,7 @@ public class EventbridgeSchedulerScenario {
         try {
             eventbridgeActions.createScheduleGroup(scheduleGroupName).join();
             logger.info("createScheduleGroupAsync completed successfully.");
+
         } catch (RuntimeException e) {
             logger.error("Error occurred: {} ", e.getMessage());
             return false;
