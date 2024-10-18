@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import com.example.eventbridgeschedule.scenario.CloudFormationHelper;
-import com.example.eventbridgeschedule.scenario.EventbridgeSchedulerActions;
+import com.example.eventbrideschedule.scenario.CloudFormationHelper;
+import com.example.eventbrideschedule.scenario.EventbridgeSchedulerActions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -10,9 +10,11 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
