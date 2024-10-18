@@ -41,3 +41,33 @@ export const validateArgs = (config, results) => {
 
   return { errors };
 };
+
+/**
+ * Take a list of options and program info and print a man page.
+ * @param {Record<string, {} extends { required?: boolean, description?: string }>} options
+ * @param {{ name: string, synopsis: string, description: string }} programInfo
+ */
+export const printManPage = (options, programInfo) => {
+  const { name, synopsis, description } = programInfo;
+
+  console.log("NAME");
+  console.log(`     ${name}`);
+  console.log();
+  console.log("SYNOPSIS");
+  console.log(`     ${synopsis}`);
+  console.log();
+  console.log("DESCRIPTION");
+  console.log(`     ${description}`);
+  console.log();
+  console.log("OPTIONS");
+
+  const optionPadding =
+    Math.max(...Object.keys(options).map((key) => key.length)) + 4;
+
+  for (const [key, value] of Object.entries(options)) {
+    const paddedKey = `--${key}`.padEnd(optionPadding);
+    console.log(
+      `     ${paddedKey}${value.type}${(value.description ?? "") && ` - ${value.description}`}`,
+    );
+  }
+};
