@@ -5,6 +5,7 @@ import { SendRawEmailCommand } from "@aws-sdk/client-ses";
 import { createMimeMessage, type TextFormat } from "mimetext";
 import { format } from "prettier";
 import type { Handler } from "src/types/handler.js";
+import type { DBRecords } from "src/types/db-record.js";
 import { command as getActiveItemsCommand } from "../statement-commands/get-active-items.js";
 
 const makeCsv = (records: DBRecords) => {
