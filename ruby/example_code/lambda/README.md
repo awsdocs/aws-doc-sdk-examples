@@ -34,6 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 - [Hello Lambda](hello/hello_lambda.rb#L4) (`ListFunctions`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](lambda_basics.rb)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -45,13 +52,6 @@ Code excerpts that show you how to call individual service functions.
 - [ListFunctions](lambda_basics.rb#L266)
 - [UpdateFunctionCode](lambda_basics.rb#L241)
 - [UpdateFunctionConfiguration](lambda_basics.rb#L216)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with functions](lambda_basics.rb)
 
 
 <!--custom.examples.start-->
@@ -74,8 +74,7 @@ This example shows you how to get started using Lambda.
 ruby hello/hello_lambda.rb
 ```
 
-
-#### Get started with functions
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -85,8 +84,8 @@ This example shows you how to do the following:
 - Invoke the function with new parameters and get results. Display the returned execution log.
 - List the functions for your account, then clean up resources.
 
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -94,8 +93,9 @@ Start the example by running the following at a command prompt:
 ruby lambda_basics.rb
 ```
 
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
+
 
 ### Tests
 
