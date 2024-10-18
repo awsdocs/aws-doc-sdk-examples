@@ -38,10 +38,10 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateSchedule](src/main/java/com/example/eventbrideschedule/scenario/EventbridgeSchedulerActions.java#L96)
-- [CreateScheduleGroup](src/main/java/com/example/eventbrideschedule/scenario/EventbridgeSchedulerActions.java#L68)
-- [DeleteSchedule](src/main/java/com/example/eventbrideschedule/scenario/EventbridgeSchedulerActions.java#L191)
-- [DeleteScheduleGroup](src/main/java/com/example/eventbrideschedule/scenario/EventbridgeSchedulerActions.java#L166)
+- [CreateSchedule](src/main/java/com/example/eventbrideschedule/scenario/EventbridgeSchedulerActions.java#L104)
+- [CreateScheduleGroup](src/main/java/com/example/eventbrideschedule/scenario/EventbridgeSchedulerActions.java#L70)
+- [DeleteSchedule](src/main/java/com/example/eventbrideschedule/scenario/EventbridgeSchedulerActions.java#L212)
+- [DeleteScheduleGroup](src/main/java/com/example/eventbrideschedule/scenario/EventbridgeSchedulerActions.java#L182)
 
 ### Scenarios
 
