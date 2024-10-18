@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /** snippet-start:[javascript.v3.cognito-idp.scenarios.basic.AdminRespondToAuthChallengeHandler] **/
-import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import { adminRespondToAuthChallenge } from "../../../actions/admin-respond-to-auth-challenge.js";
 import { getFirstEntry } from "@aws-doc-sdk-examples/lib/utils/util-csv.js";
 import { FILE_USER_POOLS } from "./constants.js";
@@ -47,9 +47,9 @@ const adminRespondToAuthChallengeHandler = async (commands) => {
 
     storeAccessToken(AuthenticationResult.AccessToken);
 
-    log("Successfully authenticated.");
+    logger.log("Successfully authenticated.");
   } catch (err) {
-    log(err);
+    logger.error(err);
   }
 };
 

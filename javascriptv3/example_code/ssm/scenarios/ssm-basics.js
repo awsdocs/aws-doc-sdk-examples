@@ -162,7 +162,7 @@ const sdkCreateSSMDoc = new ScenarioAction(
         }),
       );
     } catch (caught) {
-      console.log(`Exception type: (${typeof e})`);
+      console.log(`Exception type: (${typeof caught})`);
       if (caught instanceof DocumentAlreadyExists) {
         console.log("Document already exists. Continuing...\n");
       } else {

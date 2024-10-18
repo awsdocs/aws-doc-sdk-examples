@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 import { readdirSync } from "node:fs";
-import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import {
   deleteFiles,
   dirnameFromMetaUrl,
@@ -38,7 +38,7 @@ const getTmpFiles = getFilesByExt(".tmp");
  * @param {string[]} functionNames
  */
 const cleanUpFunctions = (functionNames) =>
-  Promise.all(functionNames.map((n) => deleteFunction(n).catch(log)));
+  Promise.all(functionNames.map((n) => deleteFunction(n).catch(logger.error)));
 
 /**
  * @param {string[]} tmpFileNames
@@ -47,9 +47,9 @@ const cleanUpTmpFiles = (tmpFileNames) =>
   deleteFiles(tmpFileNames.map((tmpFileName) => `./${tmpFileName}`));
 
 const cleanUpRolePolicy = (policyArn, roleName) =>
-  detachRolePolicy(policyArn, roleName).catch(log);
+  detachRolePolicy(policyArn, roleName).catch(logger.error);
 
-const cleanUpRole = (roleName) => deleteRole(roleName).catch(log);
+const cleanUpRole = (roleName) => deleteRole(roleName).catch(logger.error);
 
 const cleanUpHandler = async () => {
   const zippedFuncs = getZipFiles(`${dirname}../../../functions/`);
@@ -57,26 +57,26 @@ const cleanUpHandler = async () => {
   const funcNames = zippedFuncs.map((zip) => zip.split(".zip")[0]);
 
   try {
-    log("Tidying up");
+    logger.log("Tidying up");
 
-    log("Deleting Lambda functions.");
+    logger.log("Deleting Lambda functions.");
     await cleanUpFunctions(funcNames);
 
-    log("Removing policy from role created during initialization.");
+    logger.log("Removing policy from role created during initialization.");
     await cleanUpRolePolicy(
       ARN_POLICY_LAMBDA_BASIC_EXECUTION,
       NAME_ROLE_LAMBDA,
     );
 
-    log("Deleting role created during initialization.");
+    logger.log("Deleting role created during initialization.");
     await cleanUpRole(NAME_ROLE_LAMBDA);
 
-    log("Removing temporary files.");
+    logger.log("Removing temporary files.");
     cleanUpTmpFiles(tmpFiles);
 
-    log("All done ✨.");
+    logger.log("All done ✨.");
   } catch (err) {
-    log(err);
+    logger.error(err);
   }
 };
 
