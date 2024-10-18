@@ -44,23 +44,23 @@ functions within the same service.
 
 ### AI21 Labs Jurassic-2
 
-- [InvokeModel](BedrockRuntimeService.php#L72)
+- [InvokeModel](BedrockRuntimeService.php#L55)
 
 ### Amazon Titan Image Generator
 
-- [InvokeModel](BedrockRuntimeService.php#L184)
+- [InvokeModel](BedrockRuntimeService.php#L152)
 
 ### Anthropic Claude
 
-- [InvokeModel](BedrockRuntimeService.php#L33)
+- [InvokeModel](BedrockRuntimeService.php#L22)
 
 ### Meta Llama
 
-- [InvokeModel: Llama 2](BedrockRuntimeService.php#L107)
+- [InvokeModel: Llama 2](BedrockRuntimeService.php#L85)
 
 ### Stable Diffusion
 
-- [InvokeModel](BedrockRuntimeService.php#L142)
+- [InvokeModel](BedrockRuntimeService.php#L115)
 
 
 <!--custom.examples.start-->
