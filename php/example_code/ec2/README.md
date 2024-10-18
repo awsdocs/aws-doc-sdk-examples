@@ -29,6 +29,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [CreateVpc](EC2Service.php#L60)
+- [CreateVpcEndpoint](EC2Service.php#L39)
+- [DeleteVpc](EC2Service.php#L72)
+- [DeleteVpcEndpoint](EC2Service.php#L83)
+- [DescribeRouteTables](EC2Service.php#L94)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 
