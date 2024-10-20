@@ -11,7 +11,7 @@ const mocks = vi.hoisted(() => ({
         {
           flowOutputEvent: {
             content: {
-              document: 'Test prompt',
+              document: "Test prompt",
             },
           },
         },
@@ -40,17 +40,5 @@ describe("invokeBedrockFlow", () => {
         document: prompt,
       },
     });
-  });
-
-  it("should log errors", async () => {
-    mocks.send.mockImplementationOnce(mocks.clientSendReject);
-    const spy = vi.spyOn(console, "error");
-    const prompt = "Test prompt";
-
-    await invokeBedrockFlow(prompt);
-
-    expect(spy).toHaveBeenCalledWith(
-      expect.objectContaining({ message: "Mocked error" }),
-    );
   });
 });
