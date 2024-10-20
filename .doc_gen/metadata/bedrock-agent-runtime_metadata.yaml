@@ -13,11 +13,22 @@ bedrock-agent-runtime_InvokeAgent:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/bedrock-agent-runtime
-          sdkguide:
           excerpts:
             - description:
               snippet_files:
                 - javascriptv3/example_code/bedrock-agent-runtime/actions/invoke-agent.js
-                - javascriptv3/example_code/bedrock-agent-runtime/actions/invoke-flow.js
   services:
     bedrock-agent-runtime: {InvokeAgent}
+
+bedrock-agent-runtime_InvokeFlow:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/bedrock-agent-runtime
+          excerpts:
+            - description:
+              snippet_files:
+                - javascriptv3/example_code/bedrock-agent-runtime/actions/invoke-flow.js
+  services:
+    bedrock-agent-runtime: {InvokeFlow}
