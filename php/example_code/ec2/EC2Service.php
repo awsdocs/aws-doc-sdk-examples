@@ -2,6 +2,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[php.example_code.ec2.service.Ec2Service]
+
 namespace Ec2;
 
 use Aws\Ec2\Ec2Client;
@@ -46,54 +48,91 @@ class EC2Service
      */
     public function createVpcEndpoint(string $serviceName, string $vpcId, array $routeTableIds): array
     {
-        $result = $this->ec2Client->createVpcEndpoint([
-            'ServiceName' => $serviceName,
-            'VpcId' => $vpcId,
-            'RouteTableIds' => $routeTableIds,
-        ]);
+        try {
+            $result = $this->ec2Client->createVpcEndpoint([
+                'ServiceName' => $serviceName,
+                'VpcId' => $vpcId,
+                'RouteTableIds' => $routeTableIds,
+            ]);
 
-        return $result["VpcEndpoint"];
+            return $result["VpcEndpoint"];
+        } catch(Ec2Exception $caught){
+            echo "There was a problem creating the VPC Endpoint: {$caught->getAwsErrorMessage()}\n";
+            throw $caught;
+        }
     }
 
     // snippet-end:[php.example_code.ec2.service.createVpcEndpoint]
 
     // snippet-start:[php.example_code.ec2.service.createVpc]
 
-    public function createVpc($cidr)
+    /**
+     * @param string $cidr
+     * @return array
+     */
+    public function createVpc(string $cidr): array
     {
-        $result = $this->ec2Client->createVpc([
-            "CidrBlock" => $cidr,
-        ]);
-        return $result['Vpc'];
+        try {
+            $result = $this->ec2Client->createVpc([
+                "CidrBlock" => $cidr,
+            ]);
+            return $result['Vpc'];
+        }catch(Ec2Exception $caught){
+            echo "There was a problem creating the VPC: {$caught->getAwsErrorMessage()}\n";
+            throw $caught;
+        }
     }
 
     // snippet-end:[php.example_code.ec2.service.createVpc]
 
     // snippet-start:[php.example_code.ec2.service.deleteVpc]
 
-    public function deleteVpc(mixed $vpcId)
+    /**
+     * @param string $vpcId
+     * @return void
+     */
+    public function deleteVpc(string $vpcId)
     {
-        $result = $this->ec2Client->deleteVpc([
-            "VpcId" => $vpcId,
-        ]);
+        try {
+            $this->ec2Client->deleteVpc([
+                "VpcId" => $vpcId,
+            ]);
+        }catch(Ec2Exception $caught){
+            echo "There was a problem deleting the VPC: {$caught->getAwsErrorMessage()}\n";
+            throw $caught;
+        }
     }
 
     // snippet-end:[php.example_code.ec2.service.deleteVpc]
 
     // snippet-start:[php.example_code.ec2.service.deleteVpcEndpoint]
 
-    public function deleteVpcEndpoint(mixed $vpcEndpointId)
+    /**
+     * @param string $vpcEndpointId
+     * @return void
+     */
+    public function deleteVpcEndpoint(string $vpcEndpointId)
     {
-        $result = $this->ec2Client->deleteVpcEndpoints([
-            "VpcEndpointIds" => [$vpcEndpointId],
-        ]);
+        try {
+            $this->ec2Client->deleteVpcEndpoints([
+                "VpcEndpointIds" => [$vpcEndpointId],
+            ]);
+        }catch (Ec2Exception $caught){
+            echo "There was a problem deleting the VPC Endpoint: {$caught->getAwsErrorMessage()}\n";
+            throw $caught;
+        }
     }
 
     // snippet-end:[php.example_code.ec2.service.deleteVpcEndpoint]
 
     // snippet-start:[php.example_code.ec2.service.describeRouteTables]
 
-    public function describeRouteTables(array $routeTableIds = [], array $filters = [])
+    /**
+     * @param array $routeTableIds
+     * @param array $filters
+     * @return array
+     */
+    public function describeRouteTables(array $routeTableIds = [], array $filters = []): array
     {
         $parameters = [];
         if($routeTableIds){
@@ -121,17 +160,26 @@ class EC2Service
 
     // snippet-start:[php.example_code.ec2.service.waitForVpcAvailable]
 
-    public function waitForVpcAvailable(string $VpcId)
+    /**
+     * @param string $VpcId
+     * @return void
+     */
+    public function waitForVpcAvailable(string $VpcId): void
     {
+        try {
+            $waiter = $this->ec2Client->getWaiter("VpcAvailable", [
+                'VpcIds' => [$VpcId],
+            ]);
 
-        $waiter = $this->ec2Client->getWaiter("VpcAvailable", [
-            'VpcIds' => [$VpcId],
-        ]);
-
-        $promise = $waiter->promise();
-        $promise->wait();
-
+            $promise = $waiter->promise();
+            $promise->wait();
+        }catch(Ec2Exception $caught){
+            echo "There was a problem waiting for the VPC: {$caught->getAwsErrorMessage()}\n";
+            throw $caught;
+        }
     }
 
     // snippet-end:[php.example_code.ec2.service.waitForVpcAvailable]
 }
+
+// snippet-end:[php.example_code.ec2.service.Ec2Service]
