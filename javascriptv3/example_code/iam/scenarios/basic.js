@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[javascript.iam_scenarios.iam_basics]
 import {
@@ -63,9 +63,8 @@ export const createUser = async (name, confirmAll = false) => {
         new CreateUserCommand({ UserName: name }),
       );
       return User;
-    } else {
-      throw caught;
     }
+    throw caught;
   }
 };
 

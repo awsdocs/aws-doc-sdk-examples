@@ -94,7 +94,7 @@ export const getWorkflowStages = (scenarios, initialState = {}) => {
 };
 
 // Call function if run directly
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import { S3Client } from "@aws-sdk/client-s3";
 import { cleanupAction, confirmCleanup } from "./clean.steps.js";
 import { replAction } from "./repl.steps.js";

@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 import React, { useState } from "react";
 
@@ -58,14 +57,13 @@ export const ImageLoader = (props) => {
               Load
             </button>
           </div>
-          <div
+          <output
             className={`alert alert-danger ${
               props.modelError ? "" : "visually-hidden"
             }`}
-            role="status"
           >
             {props.modelError}
-          </div>
+          </output>
         </form>
       </div>
     </div>

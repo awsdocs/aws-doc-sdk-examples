@@ -32,7 +32,7 @@ import { personalizeEventsClient } from "./libs/personalizeClients.js";
 const sentAtDate = new Date(1613443801 * 1000); // 1613443801 is a testing value. Replace it with your sentAt timestamp in UNIX format.
 
 // Set put events parameters.
-var putEventsParam = {
+const putEventsParam = {
   eventList: [
     /* required */
     {

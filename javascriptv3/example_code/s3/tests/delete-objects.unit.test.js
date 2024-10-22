@@ -31,7 +31,7 @@ describe("delete-objects", () => {
       1,
       "Successfully deleted 2 objects from S3 bucket. Deleted objects:",
     );
-    expect(spy).toHaveBeenNthCalledWith(2, ` • foo\n • bar`);
+    expect(spy).toHaveBeenNthCalledWith(2, " • foo\n • bar");
   });
 
   it("should log a relevant error when the bucket doesn't exist", async () => {

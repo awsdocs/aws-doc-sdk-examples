@@ -7,17 +7,11 @@
     "merge-test-results": "jrm test-results.xml \"**/test_results/**/*.junit.xml\"",
     "log-tests": "cat test-results.xml",
     "lint": "lint-staged",
-    "ci-lint": "eslint",
-    "ci-format-check": "prettier --check"
+    "ci-lint": "biome check",
+    "prepare": "cd .. && husky javascriptv3/.husky"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx}": [
-      "eslint",
-      "prettier -w"
-    ],
-    "*.md": [
-      "prettier -w"
-    ]
+    "*.{js,ts,jsx,tsx}": ["biome format --write", "biome lint"]
   },
   "workspaces": [
     "example_code/auto-scaling",
@@ -73,15 +67,10 @@
     "example_code/sfn"
   ],
   "devDependencies": {
-    "@react-native-community/eslint-config": "^3.2.0",
-    "@typescript-eslint/eslint-plugin": "^6.7.2",
-    "@typescript-eslint/parser": "^6.7.2",
-    "eslint": "^8.49.0",
-    "eslint-import-resolver-typescript": "^3.6.0",
-    "eslint-plugin-import": "^2.28.1",
+    "@biomejs/biome": "1.9.3",
+    "husky": "^9.1.6",
     "junit-report-merger": "^7.0.0",
     "lint-staged": "^14.0.1",
-    "prettier": "^3.2.5",
     "typescript": "^5.2.2",
     "vitest": "^1.6.0"
   }

@@ -6,7 +6,7 @@
 }
 
 .loginForm {
-  min-width: 18em
+  min-width: 18em;
 }
 
 .smallButton {
@@ -15,7 +15,7 @@
 
 .inputText {
   font-size: 1.3em;
-  width: 100%
+  width: 100%;
 }
 
 button {

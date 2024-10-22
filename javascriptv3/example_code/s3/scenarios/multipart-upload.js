@@ -5,7 +5,10 @@
 import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 
-import { ProgressBar } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import {
+  ProgressBar,
+  logger,
+} from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 
 const twentyFiveMB = 25 * 1024 * 1024;
 
@@ -43,7 +46,7 @@ export const main = async ({ bucketName, key }) => {
     await upload.done();
   } catch (caught) {
     if (caught instanceof Error && caught.name === "AbortError") {
-      console.error(`Multipart upload was aborted. ${caught.message}`);
+      logger.error(`Multipart upload was aborted. ${caught.message}`);
     } else {
       throw caught;
     }
@@ -53,7 +56,7 @@ export const main = async ({ bucketName, key }) => {
 // snippet-end:[javascript.v3.s3.scenarios.multipartupload]
 
 // Call function if run directly
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import {
   isMain,
   validateArgs,
@@ -80,6 +83,6 @@ if (isMain(import.meta.url)) {
   if (!errors) {
     main(results.values);
   } else {
-    console.error(errors.join("\n"));
+    logger.error(errors.join("\n"));
   }
 }

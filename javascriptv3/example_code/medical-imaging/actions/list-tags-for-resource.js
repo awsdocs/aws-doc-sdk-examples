@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[medical-imaging.JavaScript.resource.listTagsForResourceV3]
 import { ListTagsForResourceCommand } from "@aws-sdk/client-medical-imaging";
@@ -11,10 +11,10 @@ import { medicalImagingClient } from "../libs/medicalImagingClient.js";
  * @param {string} resourceArn - The Amazon Resource Name (ARN) for the data store or image set.
  */
 export const listTagsForResource = async (
-  resourceArn = "arn:aws:medical-imaging:us-east-1:abc:datastore/def/imageset/ghi"
+  resourceArn = "arn:aws:medical-imaging:us-east-1:abc:datastore/def/imageset/ghi",
 ) => {
   const response = await medicalImagingClient.send(
-    new ListTagsForResourceCommand({ resourceArn: resourceArn })
+    new ListTagsForResourceCommand({ resourceArn: resourceArn }),
   );
   console.log(response);
   // {
@@ -36,6 +36,6 @@ export const listTagsForResource = async (
 // Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   await listTagsForResource(
-    "arn:aws:medical-imaging:us-east-1:1234567890:datastore/123456789901234567890123456789012"
+    "arn:aws:medical-imaging:us-east-1:1234567890:datastore/123456789901234567890123456789012",
   );
 }

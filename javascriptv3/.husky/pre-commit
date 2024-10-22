@@ -1,11 +1,10 @@
-#!/bin/bash
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
 set -e
 
 # Lint
-npm run lint
+npm run --prefix ./javascriptv3 lint
 
 # Test
-npm test
+npm test --prefix ./javascriptv3

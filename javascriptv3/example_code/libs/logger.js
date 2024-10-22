@@ -34,8 +34,7 @@ export class Logger {
     const maxContentLength = this.lineLength - (linePrefix + lineSuffix).length;
     const chunks = message
       .split("\n")
-      .map((l) => l && wrap(l, maxContentLength).split("\n"))
-      .flat();
+      .flatMap((l) => l && wrap(l, maxContentLength).split("\n"));
 
     /**
      * @param {string} c

@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import { listFunctions } from "../../../actions/list-functions.js";
 
 const makeListItem = (s) => `• ${s}`;
@@ -21,13 +21,13 @@ const getFunctionNames = (response) =>
 
 const listFunctionsHandler = async () => {
   try {
-    log(`Getting function list...`);
+    logger.log("Getting function list...");
     const response = await listFunctions();
 
     const functionList = getFunctionNames(response);
-    log(functionList);
+    logger.log(functionList);
   } catch (err) {
-    log(err);
+    logger.error(err);
   }
 };
 

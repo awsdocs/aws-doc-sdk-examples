@@ -43,7 +43,7 @@ export const params = {
 export const run = async () => {
   try {
     const data = await transcribeClient.send(
-      new StartMedicalTranscriptionJobCommand(params)
+      new StartMedicalTranscriptionJobCommand(params),
     );
     console.log("Success - put", data);
     return data; // For unit tests.

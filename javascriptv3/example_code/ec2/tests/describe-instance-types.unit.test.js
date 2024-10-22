@@ -42,7 +42,7 @@ describe("describe-instance-types", () => {
     error.name = "InvalidParameterValue";
 
     paginateDescribeInstanceTypes.mockReturnValueOnce(
-      // eslint-disable-next-line require-yield
+      // biome-ignore lint/correctness/useYield: Mock generator
       (async function* () {
         throw error;
       })(),
@@ -57,7 +57,7 @@ describe("describe-instance-types", () => {
     const error = new Error("Retrieval failed");
 
     paginateDescribeInstanceTypes.mockReturnValueOnce(
-      // eslint-disable-next-line require-yield
+      // biome-ignore lint/correctness/useYield: Mock generator
       (async function* () {
         throw error;
       })(),

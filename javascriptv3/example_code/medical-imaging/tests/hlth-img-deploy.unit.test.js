@@ -23,7 +23,6 @@ vi.doMock("@aws-doc-sdk-examples/lib/scenario/index.js", async () => {
     ...actual,
     ScenarioInput: vi.fn().mockImplementation(() => ({
       skipWhen(fn) {
-        // eslint-disable-next-line
         this.skip = fn;
         return this;
       },

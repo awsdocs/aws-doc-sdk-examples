@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 import {
   BedrockClient,
@@ -19,7 +19,7 @@ export const main = async () => {
 
   console.log("Listing the available Bedrock foundation models:");
 
-  for (let model of models) {
+  for (const model of models) {
     console.log("=".repeat(42));
     console.log(` Model: ${model.modelId}`);
     console.log("-".repeat(42));
@@ -31,7 +31,7 @@ export const main = async () => {
     console.log(` Supported customizations: ${model.customizationsSupported}`);
     console.log(` Supported inference types: ${model.inferenceTypesSupported}`);
     console.log(` Lifecycle status: ${model.modelLifecycle.status}`);
-    console.log("=".repeat(42) + "\n");
+    console.log(`${"=".repeat(42)}\n`);
   }
 
   const active = models.filter(

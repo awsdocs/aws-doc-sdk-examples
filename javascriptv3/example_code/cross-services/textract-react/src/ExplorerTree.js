@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 import React from "react";
 import { ColorMap, FilterMap } from "./Utils";
@@ -64,7 +63,7 @@ const ExplorerNode = (props) => {
  * @returns {JSX.Element}
  */
 const ExplorerList = (props) => {
-  let childNodes = props.Children
+  const childNodes = props.Children
     ? props.Children.filter((child) => {
         return FilterMap[props.extractType].includes(child.BlockType);
       }).map((child) => {
@@ -102,7 +101,7 @@ export const ExplorerTree = (props) => {
   return (
     <div>
       <div className="card-header">{props.extraction.Name}</div>
-      <div style={{ height: `calc(100vh - 200px)`, overflowY: "auto" }}>
+      <div style={{ height: "calc(100vh - 200px)", overflowY: "auto" }}>
         <ExplorerList
           listClasses={["list-group", "list-group-flush"]}
           Children={props.extraction.Children}

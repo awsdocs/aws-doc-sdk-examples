@@ -152,11 +152,12 @@ export class ScenarioInput extends Step {
 
     if (
       stepHandlerOptions.confirmAll &&
-      this.stepOptions.default != undefined
+      this.stepOptions.default !== undefined
     ) {
       state[this.name] = this.stepOptions.default;
       return state[this.name];
-    } else if (stepHandlerOptions.confirmAll) {
+    }
+    if (stepHandlerOptions.confirmAll) {
       if (this.stepOptions?.type === "confirm") {
         state[this.name] = true;
         return true;
@@ -223,7 +224,7 @@ export class ScenarioInput extends Step {
       typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
 
     if (!message) {
-      throw new Error(`Error handling ScenarioInput. Missing prompt.`);
+      throw new Error("Error handling ScenarioInput. Missing prompt.");
     }
 
     const result = await this.prompter.checkbox({
@@ -250,7 +251,7 @@ export class ScenarioInput extends Step {
       typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
 
     if (!message) {
-      throw new Error(`Error handling ScenarioInput. Missing prompt.`);
+      throw new Error("Error handling ScenarioInput. Missing prompt.");
     }
 
     if (this.stepOptions?.type === "select") {
@@ -280,7 +281,7 @@ export class ScenarioInput extends Step {
     const message = this.default ? `${prompt} (${this.default})` : prompt;
 
     if (!message) {
-      throw new Error(`Error handling ScenarioInput. Missing prompt.`);
+      throw new Error("Error handling ScenarioInput. Missing prompt.");
     }
 
     const result = await this.prompter.input({ message });
@@ -304,7 +305,7 @@ export class ScenarioInput extends Step {
       typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
 
     if (!message) {
-      throw new Error(`Error handling ScenarioInput. Missing prompt.`);
+      throw new Error("Error handling ScenarioInput. Missing prompt.");
     }
 
     const result = await this.prompter.confirm({

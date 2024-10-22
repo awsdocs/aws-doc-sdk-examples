@@ -44,19 +44,19 @@ const projectId = "PINPOINT_PROJECT_ID"; //e.g., XXXXXXXX66e4e9986478cXXXXXXXXX
 /* The type of SMS message that you want to send. If you plan to send
 time-sensitive content, specify TRANSACTIONAL. If you plan to send
 marketing-related content, specify PROMOTIONAL.*/
-var messageType = "TRANSACTIONAL";
+const messageType = "TRANSACTIONAL";
 
 // The registered keyword associated with the originating short code.
-var registeredKeyword = "myKeyword";
+const registeredKeyword = "myKeyword";
 
 /* The sender ID to use when sending the message. Support for sender ID
 // varies by country or region. For more information, see
 https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-sms-countries.html.*/
 
-var senderId = "MySenderID";
+const senderId = "MySenderID";
 
 // Specify the parameters to pass to the API.
-var params = {
+const params = {
   ApplicationId: projectId,
   MessageRequest: {
     Addresses: {
@@ -80,8 +80,7 @@ const run = async () => {
   try {
     const data = await pinClient.send(new SendMessagesCommand(params));
     console.log(
-      "Message sent! " +
-        data["MessageResponse"]["Result"][destinationNumber]["StatusMessage"],
+      `Message sent! ${data.MessageResponse.Result[destinationNumber].StatusMessage}`,
     );
   } catch (err) {
     console.log(err);

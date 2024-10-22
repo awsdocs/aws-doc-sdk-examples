@@ -22,8 +22,7 @@ node createCampaign.js
 // snippet-start:[personalize.JavaScript.createCampaignV3]
 // Get service clients module and commands using ES6 syntax.
 
-import { CreateCampaignCommand } from
-  "@aws-sdk/client-personalize";
+import { CreateCampaignCommand } from "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Or, create the client here.
@@ -31,14 +30,16 @@ import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Set the campaign's parameters.
 export const createCampaignParam = {
-  solutionVersionArn: 'SOLUTION_VERSION_ARN', /* required */
-  name: 'NAME',  /* required */
-  minProvisionedTPS: 1    /* optional integer */
-}
+  solutionVersionArn: "SOLUTION_VERSION_ARN" /* required */,
+  name: "NAME" /* required */,
+  minProvisionedTPS: 1 /* optional integer */,
+};
 
 export const run = async () => {
   try {
-    const response = await personalizeClient.send(new CreateCampaignCommand(createCampaignParam));
+    const response = await personalizeClient.send(
+      new CreateCampaignCommand(createCampaignParam),
+    );
     console.log("Success", response);
     return response; // For unit tests.
   } catch (err) {

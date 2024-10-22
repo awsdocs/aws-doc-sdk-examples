@@ -26,8 +26,7 @@ node createBatchSegmentJob.js
 
 // snippet-start:[personalize.JavaScript.createBatchSegmentJobV3]
 // Get service clients module and commands using ES6 syntax.
-import { CreateBatchSegmentJobCommand } from
-  "@aws-sdk/client-personalize";
+import { CreateBatchSegmentJobCommand } from "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Or, create the client here.
@@ -36,27 +35,27 @@ import { personalizeClient } from "./libs/personalizeClients.js";
 // Set the batch segment job's parameters.
 
 export const createBatchSegmentJobParam = {
-  jobName: 'NAME',
-  jobInput: {         /* required */
-    s3DataSource: {   /* required */
-      path: 'INPUT_PATH', /* required */
-      // kmsKeyArn: 'INPUT_KMS_KEY_ARN' /* optional */'
-    }
+  jobName: "NAME",
+  jobInput: {
+    s3DataSource: {
+      path: "INPUT_PATH",
+    },
   },
-  jobOutput: {         /* required */
-    s3DataDestination: {   /* required */
-      path: 'OUTPUT_PATH', /* required */
-      // kmsKeyArn: 'OUTPUT_KMS_KEY_ARN' /* optional */'
-    }
+  jobOutput: {
+    s3DataDestination: {
+      path: "OUTPUT_PATH",
+    },
   },
-  roleArn: 'ROLE_ARN', /* required */
-  solutionVersionArn: 'SOLUTION_VERSION_ARN', /* required */
-  numResults: 20 /* optional */
+  roleArn: "ROLE_ARN",
+  solutionVersionArn: "SOLUTION_VERSION_ARN",
+  numResults: 20,
 };
 
 export const run = async () => {
   try {
-    const response = await personalizeClient.send(new CreateBatchSegmentJobCommand(createBatchSegmentJobParam));
+    const response = await personalizeClient.send(
+      new CreateBatchSegmentJobCommand(createBatchSegmentJobParam),
+    );
     console.log("Success", response);
     return response; // For unit tests.
   } catch (err) {

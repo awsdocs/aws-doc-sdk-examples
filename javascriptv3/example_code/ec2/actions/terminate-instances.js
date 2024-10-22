@@ -3,8 +3,8 @@
 
 // snippet-start:[javascript.v2.ec2.actions.TerminateInstances]
 import { EC2Client, TerminateInstancesCommand } from "@aws-sdk/client-ec2";
-import { fileURLToPath } from "url";
-import { parseArgs } from "util";
+import { fileURLToPath } from "node:url";
+import { parseArgs } from "node:util";
 
 /**
  * Terminate one or more EC2 instances.
@@ -33,7 +33,6 @@ export const main = async ({ instanceIds }) => {
       throw caught;
     }
   }
-  ``;
 };
 // snippet-end:[javascript.v2.ec2.actions.TerminateInstances]
 

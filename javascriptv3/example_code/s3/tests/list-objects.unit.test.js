@@ -26,7 +26,7 @@ describe("list-objects", () => {
 
     await main({ bucketName: "amzn-s3-demo-bucket", pageSize: 1 });
 
-    expect(spy).toHaveBeenCalledWith(`Page 1\n------\n• foo\n`);
+    expect(spy).toHaveBeenCalledWith("Page 1\n------\n• foo\n");
   });
 
   it("should log a relevant error when the bucket doesn't exist", async () => {

@@ -15,9 +15,8 @@ const validUsers = {
 const authenticateUser = (username, password) => {
   if (validUsers[username] && validUsers[username].password === password) {
     return validUsers[username];
-  } else {
-    return null;
   }
+  return null;
 };
 
 const lookupUser = (username) => {
@@ -25,13 +24,12 @@ const lookupUser = (username) => {
 
   if (user) {
     return { emailAddress: user.emailAddress };
-  } else {
-    return null;
   }
+  return null;
 };
 
 const handler = async (event) => {
-  if (event.triggerSource == "UserMigration_Authentication") {
+  if (event.triggerSource === "UserMigration_Authentication") {
     // Authenticate the user with your existing user directory service
     const user = authenticateUser(event.userName, event.request.password);
     if (user) {
@@ -42,7 +40,7 @@ const handler = async (event) => {
       event.response.finalUserStatus = "CONFIRMED";
       event.response.messageAction = "SUPPRESS";
     }
-  } else if (event.triggerSource == "UserMigration_ForgotPassword") {
+  } else if (event.triggerSource === "UserMigration_ForgotPassword") {
     // Look up the user in your existing user directory service
     const user = lookupUser(event.userName);
     if (user) {

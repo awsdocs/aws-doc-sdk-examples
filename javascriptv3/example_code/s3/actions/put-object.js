@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[s3.JavaScript.buckets.uploadV3]
-import { readFile } from "fs/promises";
+import { readFile } from "node:fs/promises";
 
 import {
   PutObjectCommand,
@@ -53,7 +53,7 @@ or the multipart upload API (5TB max).`,
   node put-object.js --bucketName amzn-s3-demo-bucket --key movies.json \
   ../../../../resources/sample_files/movies.json
  */
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import {
   isMain,
   validateArgs,

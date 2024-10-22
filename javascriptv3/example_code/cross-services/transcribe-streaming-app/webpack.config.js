@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import webpack from "webpack";
-import path from "path";
+import path from "node:path";
 
 import { dirnameFromMetaUrl } from "@aws-doc-sdk-examples/lib/utils/util-fs.js";
 

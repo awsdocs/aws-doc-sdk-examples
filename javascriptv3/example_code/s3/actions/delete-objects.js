@@ -60,7 +60,7 @@ export const main = async ({ bucketName, keys }) => {
   Example usage:
   node delete-objects.js --bucketName amzn-s3-demo-bucket obj1.txt obj2.txt 
  */
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import {
   isMain,
   validateArgs,

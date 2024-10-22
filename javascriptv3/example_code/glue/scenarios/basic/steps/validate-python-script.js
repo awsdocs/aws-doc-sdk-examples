@@ -34,11 +34,10 @@ const makeValidatePythonScriptStep =
     if (scriptExists) {
       log("ETL python script exists.", { type: "success" });
       return { ...context };
-    } else {
-      throw new Error(
-        "Missing ETL python script. Did you run the setup steps in the readme?",
-      );
     }
+    throw new Error(
+      "Missing ETL python script. Did you run the setup steps in the readme?",
+    );
   };
 
 export { makeValidatePythonScriptStep };

@@ -31,8 +31,8 @@ export const main = async ({ groupName, description }) => {
 // snippet-end:[ec2.JavaScript.SecurityGroups.createSecurityGroupV3]
 
 // Invoke main function if this file was run directly.
-import { fileURLToPath } from "url";
-import { parseArgs } from "util";
+import { fileURLToPath } from "node:url";
+import { parseArgs } from "node:util";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {
     groupName: {

@@ -1,6 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-/* eslint-disable -- This file existed pre-eslint configuration. Fix the next time the file is touched. */
 
 import {
   DetectDocumentTextCommand,
@@ -75,7 +74,9 @@ export default class TextractModel {
    * Called when data changes to inform each subscriber of the change.
    */
   inform() {
-    this.onChanges.forEach((sub) => sub());
+    for (const sub of this.onChanges) {
+      sub();
+    }
   }
 
   /**
@@ -96,9 +97,7 @@ export default class TextractModel {
           return data;
         }
 
-        data += value.reduce(function (a, b) {
-          return a + String.fromCharCode(b);
-        }, "");
+        data += value.reduce((a, b) => a + String.fromCharCode(b), "");
       }
     } finally {
       reader.releaseLock();
@@ -164,7 +163,7 @@ export default class TextractModel {
     if (extractType === "text") {
       command = new DetectDocumentTextCommand(input);
     } else {
-      input["FeatureTypes"] =
+      input.FeatureTypes =
         extractType === "form" ? [FeatureType.FORMS] : [FeatureType.TABLES];
       command = new AnalyzeDocumentCommand(input);
     }
@@ -173,7 +172,7 @@ export default class TextractModel {
     this.extraction = {
       Name: this.imageData.objectKey,
       ExtractType: extractType,
-      Children: this._make_page_hierarchy(textractResponse["Blocks"]),
+      Children: this._make_page_hierarchy(textractResponse.Blocks),
     };
     console.log(textractResponse);
     this.inform();
@@ -209,7 +208,7 @@ export default class TextractModel {
     if (extractType === "text") {
       command = new StartDocumentTextDetectionCommand(input);
     } else {
-      input["FeatureTypes"] =
+      input.FeatureTypes =
         extractType === "form" ? [FeatureType.FORMS] : [FeatureType.TABLES];
       command = new StartDocumentAnalysisCommand(input);
     }
@@ -296,16 +295,16 @@ export default class TextractModel {
    */
   _add_children(block, block_dict) {
     const rels_list = block.Relationships || [];
-    rels_list.forEach((rels) => {
+    for (const rels of rels_list) {
       if (rels.Type === "CHILD") {
-        block["Children"] = [];
-        rels.Ids.forEach((relId) => {
+        block.Children = [];
+        for (const relId of rels.Ids) {
           const kid = block_dict[relId];
-          block["Children"].push(kid);
+          block.Children.push(kid);
           this._add_children(kid, block_dict);
-        });
+        }
       }
-    });
+    }
   }
 
   /**
@@ -317,15 +316,17 @@ export default class TextractModel {
    */
   _make_page_hierarchy(blocks) {
     const block_dict = {};
-    blocks.forEach((block) => (block_dict[block.Id] = block));
+    for (const block of blocks) {
+      block_dict[block.Id] = block;
+    }
 
     const pages = [];
-    blocks.forEach((block) => {
+    for (const block of blocks) {
       if (block.BlockType === "PAGE") {
         pages.push(block);
         this._add_children(block, block_dict);
       }
-    });
+    }
     return pages;
   }
 }

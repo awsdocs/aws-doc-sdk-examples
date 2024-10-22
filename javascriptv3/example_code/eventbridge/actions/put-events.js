@@ -48,7 +48,7 @@ export const putEvents = async (
 // snippet-end:[eventBridge.JavaScript.eb.putEventsV3]
 
 // Call function if run directly
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   putEvents();
 }

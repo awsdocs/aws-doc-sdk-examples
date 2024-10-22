@@ -21,15 +21,11 @@ export const getCfnOutputs = async (stackName, region) => {
     );
     if (!Stacks.length === 1) {
       throw new Error("Error getting CFN outputs. No stacks found.");
-    } else {
-      const outputs = Stacks[0].Outputs ?? [];
-      return outputs.reduce((prev, { OutputKey, OutputValue }) => {
-        return {
-          ...prev,
-          [OutputKey]: OutputValue,
-        };
-      }, {});
     }
+    const outputs = Stacks[0].Outputs ?? [];
+    return outputs.reduce((prev, { OutputKey, OutputValue }) => {
+      return Object.assign({}, prev, { [OutputKey]: OutputValue });
+    }, {});
   } catch (caught) {
     if (
       caught instanceof Error &&
@@ -38,8 +34,7 @@ export const getCfnOutputs = async (stackName, region) => {
       const error = new Error(`Stack with id ${stackName} was not found.`);
       error.name = "StackNotFound";
       throw error;
-    } else {
-      throw caught;
     }
+    throw caught;
   }
 };

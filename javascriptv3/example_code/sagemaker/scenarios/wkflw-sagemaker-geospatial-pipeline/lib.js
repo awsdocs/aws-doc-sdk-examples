@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[javascript.v3.sagemaker.wkflw.pipeline.library]
-import { readFileSync } from "fs";
+import { readFileSync } from "node:fs";
 
 import {
   CreateRoleCommand,
@@ -296,9 +296,8 @@ export async function createLambdaFunction({
           new GetFunctionCommand({ FunctionName: name }),
         );
         return Configuration;
-      } else {
-        throw caught;
       }
+      throw caught;
     }
   };
 
@@ -804,7 +803,7 @@ export async function waitForPipelineComplete({ arn, sagemakerClient, wait }) {
   });
 
   let complete = false;
-  let intervalInSeconds = 15;
+  const intervalInSeconds = 15;
   const COMPLETION_STATUSES = [
     PipelineExecutionStatus.FAILED,
     PipelineExecutionStatus.STOPPED,
@@ -825,7 +824,7 @@ export async function waitForPipelineComplete({ arn, sagemakerClient, wait }) {
     } else if (status === PipelineExecutionStatus.FAILED) {
       throw new Error(`Pipeline failed because: ${FailureReason}`);
     } else if (status === PipelineExecutionStatus.STOPPED) {
-      throw new Error(`Pipeline was forcefully stopped.`);
+      throw new Error("Pipeline was forcefully stopped.");
     } else {
       console.log(`Pipeline execution ${status}.`);
     }

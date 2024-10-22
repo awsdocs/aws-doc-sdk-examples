@@ -35,7 +35,7 @@ describe("describe-security-groups", () => {
     await main({});
 
     expect(logSpy).toHaveBeenCalledWith(
-      `Security groups:\n• group (sg-1): My security group`,
+      "Security groups:\n• group (sg-1): My security group",
     );
   });
 

@@ -5,7 +5,7 @@
 import { useEffect, useState } from "react";
 import {
   ListObjectsCommand,
-  ListObjectsCommandOutput,
+  type ListObjectsCommandOutput,
   S3Client,
 } from "@aws-sdk/client-s3";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-providers";

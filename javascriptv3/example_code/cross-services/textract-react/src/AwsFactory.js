@@ -33,17 +33,17 @@ export const awsFactory = ({
   });
 
   const clients = {};
-  clients["s3"] = new S3Client({
+  clients.s3 = new S3Client({
     region: deployRegion,
     credentials: creds,
   });
 
-  clients["textract"] = new TextractClient({
+  clients.textract = new TextractClient({
     region: deployRegion,
     credentials: creds,
   });
 
-  clients["sqs"] = new SQSClient({
+  clients.sqs = new SQSClient({
     region: deployRegion,
     credentials: creds,
   });

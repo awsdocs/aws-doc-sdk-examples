@@ -176,11 +176,7 @@ def run_me
   role_session_name = 'ReadAmazonS3Bucket'
   duration_seconds = 3600
   sts_client = Aws::STS::Client.new(region: region)
-<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
-=======
-  bucket_name = 'doc-example-bucket'
->>>>>>> 999c6133e (fixes)
 
   puts "Getting or creating user '#{user_name}'..."
 

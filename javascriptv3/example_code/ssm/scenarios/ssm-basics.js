@@ -9,7 +9,7 @@ import {
   ScenarioOutput,
   //} from "@aws-doc-sdk-examples/lib/scenario/index.js";
 } from "../../libs/scenario/index.js";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import {
   CreateDocumentCommand,
   CreateMaintenanceWindowCommand,
@@ -66,7 +66,7 @@ const greet = new ScenarioOutput(
 
 const createMaintenanceWindow = new ScenarioOutput(
   "createMaintenanceWindow",
-  `Step 1: Create a Systems Manager maintenance window.`,
+  "Step 1: Create a Systems Manager maintenance window.",
 );
 
 const getMaintenanceWindow = new ScenarioInput(
@@ -101,7 +101,7 @@ export const sdkCreateMaintenanceWindow = new ScenarioAction(
 
 const modifyMaintenanceWindow = new ScenarioOutput(
   "modifyMaintenanceWindow",
-  `Modify the maintenance window by changing the schedule.`,
+  "Modify the maintenance window by changing the schedule.",
 );
 
 const sdkModifyMaintenanceWindow = new ScenarioAction(
@@ -126,7 +126,7 @@ const sdkModifyMaintenanceWindow = new ScenarioAction(
 
 const createSystemsManagerActions = new ScenarioOutput(
   "createSystemsManagerActions",
-  `Create a document that defines the actions that Systems Manager performs on your EC2 instance.`,
+  "Create a document that defines the actions that Systems Manager performs on your EC2 instance.",
 );
 
 const getDocumentName = new ScenarioInput(
@@ -162,7 +162,7 @@ const sdkCreateSSMDoc = new ScenarioAction(
         }),
       );
     } catch (caught) {
-      console.log("Exception type: (" + typeof e + ")");
+      console.log(`Exception type: (${typeof caught})`);
       if (caught instanceof DocumentAlreadyExists) {
         console.log("Document already exists. Continuing...\n");
       } else {
@@ -216,7 +216,7 @@ const sdkEC2HelloWorld = new ScenarioAction(
 const sdkGetCommandTime = new ScenarioAction(
   "sdkGetCommandTime",
   async (/** @type {State} */ state) => {
-    let listInvocationsPaginated = [];
+    const listInvocationsPaginated = [];
     console.log(
       "Let's get the time when the specific command was sent to the specific managed node.",
     );
@@ -241,14 +241,14 @@ const sdkGetCommandTime = new ScenarioAction(
         ),
       );
     } catch (caught) {
-      if (caught.message == "Command Timed Out") {
+      if (caught.message === "Command Timed Out") {
         commandExecutedResult.state = "TIMED_OUT";
       } else {
         throw caught;
       }
     }
 
-    if (commandExecutedResult.state != "SUCCESS") {
+    if (commandExecutedResult.state !== "SUCCESS") {
       console.log(
         `The command with id: ${state.CommandId} did not execute in the allotted time. Canceling command.`,
       );
@@ -316,7 +316,7 @@ const sdkCreateSSMOpsItem = new ScenarioAction(
 const updateOpsItem = new ScenarioOutput(
   "updateOpsItem",
   (/** @type {State} */ state) =>
-    "Now we will update the OpsItem: " + state.opsItemId,
+    `Now we will update the OpsItem: ${state.opsItemId}`,
 );
 
 const sdkUpdateOpsItem = new ScenarioAction(
@@ -326,7 +326,7 @@ const sdkUpdateOpsItem = new ScenarioAction(
       const _response = await state.ssmClient.send(
         new UpdateOpsItemCommand({
           OpsItemId: state.opsItemId,
-          Description: "An update to " + state.opsItemId,
+          Description: `An update to ${state.opsItemId}`,
         }),
       );
     } catch (caught) {
@@ -342,7 +342,7 @@ const sdkUpdateOpsItem = new ScenarioAction(
 const getOpsItemStatus = new ScenarioOutput(
   "getOpsItemStatus",
   (/** @type {State} */ state) =>
-    "Now we will get the status of the OpsItem: " + state.opsItemId,
+    `Now we will get the status of the OpsItem: ${state.opsItemId}`,
 );
 
 const sdkOpsItemStatus = new ScenarioAction(
@@ -368,7 +368,7 @@ const sdkOpsItemStatus = new ScenarioAction(
 const resolveOpsItem = new ScenarioOutput(
   "resolveOpsItem",
   (/** @type {State} */ state) =>
-    "Now we will resolve the OpsItem: " + state.opsItemId,
+    `Now we will resolve the OpsItem: ${state.opsItemId}`,
 );
 
 const sdkResolveOpsItem = new ScenarioAction(
@@ -416,15 +416,10 @@ export const sdkDeleteResources = new ScenarioAction(
           OpsItemId: state.opsItemId,
         }),
       );
-      console.log(
-        "The ops item: " + state.opsItemId + " was successfully deleted.",
-      );
+      console.log(`The ops item: ${state.opsItemId} was successfully deleted.`);
     } catch (caught) {
       console.log(
-        "There was a problem deleting the ops item: " +
-          state.opsItemId +
-          ". Please delete it manually. Error: " +
-          caught.message,
+        `There was a problem deleting the ops item: ${state.opsItemId}. Please delete it manually. Error: ${caught.message}`,
       );
     }
 
@@ -436,16 +431,11 @@ export const sdkDeleteResources = new ScenarioAction(
         }),
       );
       console.log(
-        "The maintenance window: " +
-          state.maintenanceWindow +
-          " was successfully deleted.",
+        `The maintenance window: ${state.maintenanceWindow} was successfully deleted.`,
       );
     } catch (caught) {
       console.log(
-        "There was a problem deleting the maintenance window: " +
-          state.opsItemId +
-          ". Please delete it manually. Error: " +
-          caught.message,
+        `There was a problem deleting the maintenance window: ${state.opsItemId}. Please delete it manually. Error: ${caught.message}`,
       );
     }
 
@@ -456,14 +446,11 @@ export const sdkDeleteResources = new ScenarioAction(
         }),
       );
       console.log(
-        "The document: " + state.documentName + " was successfully deleted.",
+        `The document: ${state.documentName} was successfully deleted.`,
       );
     } catch (caught) {
       console.log(
-        "There was a problem deleting the document: " +
-          state.documentName +
-          ". Please delete it manually. Error: " +
-          caught.message,
+        `There was a problem deleting the document: ${state.documentName}. Please delete it manually. Error: ${caught.message}`,
       );
     }
   },

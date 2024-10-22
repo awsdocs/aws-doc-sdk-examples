@@ -9,7 +9,7 @@ import { EC2Client, paginateDescribeImages } from "@aws-sdk/client-ec2";
  * @param {{ architecture: string, pageSize: number }} options
  */
 export const main = async ({ architecture, pageSize }) => {
-  pageSize = parseInt(pageSize);
+  pageSize = Number.parseInt(pageSize);
   const client = new EC2Client({});
 
   // The paginate function is a wrapper around the base command.
@@ -37,11 +37,10 @@ export const main = async ({ architecture, pageSize }) => {
       if (page.Images.length) {
         images.push(...page.Images);
         break;
-      } else {
-        console.log(
-          `No matching image found yet. Searched ${recordsScanned} records.`,
-        );
       }
+      console.log(
+        `No matching image found yet. Searched ${recordsScanned} records.`,
+      );
     }
 
     if (images.length) {

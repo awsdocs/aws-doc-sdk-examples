@@ -1,16 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import { updateFunctionConfiguration } from "../../../actions/update-function-configuration.js";
 
 const updateFunctionConfigurationHandler = async (commands) => {
   const [_, funcName] = commands;
   try {
-    log(`Updating configuration for ${funcName}...`);
+    logger.log(`Updating configuration for ${funcName}...`);
     await updateFunctionConfiguration(funcName);
-    log(`Configuration for ${funcName} updated.`);
+    logger.log(`Configuration for ${funcName} updated.`);
   } catch (err) {
-    log(err);
+    logger.error(err);
   }
 };
 

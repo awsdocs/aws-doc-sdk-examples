@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import readline from "readline";
+import readline from "node:readline";
 
 import { parseString } from "@aws-doc-sdk-examples/lib/utils/util-string.js";
 
@@ -8,6 +8,19 @@ export const log = (str) => {
   const parsed = parseString(str);
   console.log(parsed);
   return parsed;
+};
+
+export const logger = {
+  log: console.log,
+  warn: (message) => {
+    console.warn(`[WARNING] ${message}`);
+  },
+  debug: (message) => {
+    console.debug(`[DEBUG ${new Date().toISOString()}] ${message}`);
+  },
+  error: (message) => {
+    console.error(`[ERROR] ${message}`);
+  },
 };
 
 export class ProgressBar {

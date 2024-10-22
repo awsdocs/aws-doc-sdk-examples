@@ -1,8 +1,18 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { SageMakerClient, SendPipelineExecutionStepFailureCommand, SendPipelineExecutionStepSuccessCommand } from '@aws-sdk/client-sagemaker';
-import { SageMakerGeospatialClient, ExportVectorEnrichmentJobCommand, GetVectorEnrichmentJobCommand, VectorEnrichmentJobStatus, StartVectorEnrichmentJobCommand } from '@aws-sdk/client-sagemaker-geospatial';
+import {
+  SageMakerClient,
+  SendPipelineExecutionStepFailureCommand,
+  SendPipelineExecutionStepSuccessCommand,
+} from "@aws-sdk/client-sagemaker";
+import {
+  SageMakerGeospatialClient,
+  ExportVectorEnrichmentJobCommand,
+  GetVectorEnrichmentJobCommand,
+  VectorEnrichmentJobStatus,
+  StartVectorEnrichmentJobCommand,
+} from "@aws-sdk/client-sagemaker-geospatial";
 
 /**
  * @typedef { {
@@ -44,11 +54,11 @@ async function handler(event) {
         Arn: event.vej_arn,
         ExecutionRoleArn: event.role,
         OutputConfig: outputConfig,
-      })
+      }),
     );
     console.info(
       "ExportVectorEnrichmentJob response",
-      JSON.stringify(response)
+      JSON.stringify(response),
     );
     return {
       export_vej_status: response.ExportStatus,
@@ -66,7 +76,7 @@ async function handler(event) {
       const { Status, ErrorDetails } = await sagemakerGeospatialClient.send(
         new GetVectorEnrichmentJobCommand({
           Arn: body.arguments.vej_arn,
-        })
+        }),
       );
 
       switch (Status) {
@@ -75,7 +85,7 @@ async function handler(event) {
             new SendPipelineExecutionStepSuccessCommand({
               CallbackToken: body.token,
               OutputParameters: [{ Name: "export_status", Value: Status }],
-            })
+            }),
           );
           break;
         case VectorEnrichmentJobStatus.FAILED:
@@ -83,7 +93,7 @@ async function handler(event) {
             new SendPipelineExecutionStepFailureCommand({
               CallbackToken: body.token,
               FailureReason: ErrorDetails.ErrorMessage,
-            })
+            }),
           );
           break;
         case VectorEnrichmentJobStatus.IN_PROGRESS:
@@ -105,7 +115,7 @@ async function handler(event) {
  */
 async function startVectorEnrichmentJob(
   client,
-  { name, jobConfig, inputConfig, role }
+  { name, jobConfig, inputConfig, role },
 ) {
   const command = new StartVectorEnrichmentJobCommand({
     Name: name,
@@ -117,4 +127,5 @@ async function startVectorEnrichmentJob(
   const { Arn: vej_arn } = await client.send(command);
 
   return { vej_arn };
-} export { handler };
+}
+export { handler };

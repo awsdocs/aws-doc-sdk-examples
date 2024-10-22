@@ -24,15 +24,9 @@ end
 
 # Example usage:
 def run_demo
-<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-file.txt"
   object_content = "This is the content of my-file.txt."
-=======
-  bucket_name = 'doc-example-bucket'
-  object_key = 'my-file.txt'
-  object_content = 'This is the content of my-file.txt.'
->>>>>>> 999c6133e (fixes)
 
   bucket = Aws::S3::Bucket.new(bucket_name)
   presigned_url = get_presigned_url(bucket, object_key)

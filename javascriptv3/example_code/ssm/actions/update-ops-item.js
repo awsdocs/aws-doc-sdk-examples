@@ -3,7 +3,7 @@
 
 // snippet-start:[ssm.JavaScript.Basics.updateOpsItem]
 import { UpdateOpsItemCommand, SSMClient } from "@aws-sdk/client-ssm";
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 
 /**
  * Update an SSM OpsItem.
@@ -37,7 +37,7 @@ export const main = async ({
   }
 };
 // snippet-end:[ssm.JavaScript.Basics.updateOpsItem]
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 // Call function if run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {

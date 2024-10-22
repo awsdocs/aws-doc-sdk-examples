@@ -26,7 +26,7 @@ const params = { Id: "JOB_ID" }; //JOB_ID
 const run = async () => {
   try {
     const data = await emcClient.send(new CancelJobCommand(params));
-    console.log("Job  " + params.Id + " is canceled");
+    console.log(`Job  ${params.Id} is canceled`);
     return data;
   } catch (err) {
     console.log("Error", err);

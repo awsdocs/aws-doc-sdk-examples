@@ -3,8 +3,8 @@
 
 // snippet-start:[javascript.v3.ec2.actions.UnmonitorInstances]
 import { EC2Client, UnmonitorInstancesCommand } from "@aws-sdk/client-ec2";
-import { fileURLToPath } from "url";
-import { parseArgs } from "util";
+import { fileURLToPath } from "node:url";
+import { parseArgs } from "node:util";
 
 /**
  * Turn off detailed monitoring for the selected instance.

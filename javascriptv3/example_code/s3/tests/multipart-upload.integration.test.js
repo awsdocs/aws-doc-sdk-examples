@@ -7,7 +7,7 @@ import { createBucket, deleteBucket, emptyBucket } from "../libs/s3Utils.js";
 import { main } from "../scenarios/multipart-upload.js";
 
 describe("multipart-upload", () => {
-  const bucketName = getUniqueName(process.env["S3_BUCKET_NAME_PREFIX"]);
+  const bucketName = getUniqueName(process.env.S3_BUCKET_NAME_PREFIX);
 
   beforeAll(async () => {
     await createBucket(bucketName);

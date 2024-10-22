@@ -27,7 +27,7 @@ import { personalizeEventsClient } from "./libs/personalizeClients.js";
 // const personalizeEventsClient = new PersonalizeEventsClient({ region: "REGION"});
 
 // Set the put users parameters. For string properties and values, use the \ character to escape quotes.
-var putUsersParam = {
+const putUsersParam = {
   datasetArn: "DATASET_ARN",
   users: [
     {

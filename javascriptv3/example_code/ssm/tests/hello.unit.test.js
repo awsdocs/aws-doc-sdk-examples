@@ -24,8 +24,8 @@ describe("hello", () => {
     const message =
       "Hello, AWS Systems Manager! Let's list some of your documents:\n";
     const docList = [
-      `test-doc-1 - testFormat - testDate`,
-      `test-doc-2 - testFormat - testDate`,
+      "test-doc-1 - testFormat - testDate",
+      "test-doc-2 - testFormat - testDate",
     ];
 
     const mockListDocuments = [
@@ -56,7 +56,7 @@ describe("hello", () => {
   it("should throw any errors", async () => {
     const mockError = new Error("Something went wrong");
     paginateListDocuments.mockReturnValueOnce(
-      // eslint-disable-next-line require-yield
+      // biome-ignore lint/correctness/useYield: Mock generator
       (async function* () {
         throw mockError;
       })(),

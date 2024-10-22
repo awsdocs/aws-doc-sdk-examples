@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[javascript.v3.dynamodb.doc-client.BatchGet]
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
@@ -32,7 +32,7 @@ export const main = async () => {
   });
 
   const response = await docClient.send(command);
-  console.log(response.Responses["Books"]);
+  console.log(response.Responses.Books);
   return response;
 };
 // snippet-end:[javascript.v3.dynamodb.doc-client.BatchGet]

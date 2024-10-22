@@ -54,9 +54,8 @@ const cleanupAction = (scenarios, client) =>
         if (e instanceof Error && e.name === "NoSuchBucket") {
           console.log("Object's bucket has already been deleted.");
           continue;
-        } else {
-          throw e;
         }
+        throw e;
       }
 
       for (const version of objectsResponse.Versions || []) {

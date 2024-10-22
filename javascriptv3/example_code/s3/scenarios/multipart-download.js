@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[javascript.v3.s3.scenarios.multipartdownload]
 import { GetObjectCommand, NoSuchKey, S3Client } from "@aws-sdk/client-s3";
-import { createWriteStream, rmSync } from "fs";
+import { createWriteStream, rmSync } from "node:fs";
 
 const s3Client = new S3Client({});
 const oneMB = 1024 * 1024;
@@ -27,9 +27,9 @@ export const getRangeAndLength = (contentRange) => {
   const [range, length] = contentRange.split("/");
   const [start, end] = range.split("-");
   return {
-    start: parseInt(start),
-    end: parseInt(end),
-    length: parseInt(length),
+    start: Number.parseInt(start),
+    end: Number.parseInt(end),
+    length: Number.parseInt(length),
   };
 };
 
@@ -83,7 +83,7 @@ export const main = async ({ bucketName, key }) => {
 // snippet-end:[javascript.v3.s3.scenarios.multipartdownload]
 
 // Call function if run directly
-import { parseArgs } from "util";
+import { parseArgs } from "node:util";
 import {
   isMain,
   validateArgs,

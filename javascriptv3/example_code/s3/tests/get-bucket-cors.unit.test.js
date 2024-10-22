@@ -37,13 +37,13 @@ describe("get-bucket-cors", () => {
     await main({ bucketName: "amzn-s3-demo-bucket" });
 
     expect(spy).toHaveBeenCalledWith(
-      `\nCORSRule 1`,
+      "\nCORSRule 1",
       `\n${"-".repeat(10)}`,
-      `\nAllowedHeaders: foo`,
-      `\nAllowedMethods: bar`,
-      `\nAllowedOrigins: baz`,
-      `\nExposeHeaders: qux`,
-      `\nMaxAgeSeconds: 123`,
+      "\nAllowedHeaders: foo",
+      "\nAllowedMethods: bar",
+      "\nAllowedOrigins: baz",
+      "\nExposeHeaders: qux",
+      "\nMaxAgeSeconds: 123",
     );
   });
 

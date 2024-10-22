@@ -46,7 +46,7 @@ export const invokeBedrockAgent = async (prompt, sessionId) => {
       throw new Error("Completion is undefined");
     }
 
-    for await (let chunkEvent of response.completion) {
+    for await (const chunkEvent of response.completion) {
       const chunk = chunkEvent.chunk;
       console.log(chunk);
       const decodedResponse = new TextDecoder("utf-8").decode(chunk.bytes);
@@ -60,7 +60,7 @@ export const invokeBedrockAgent = async (prompt, sessionId) => {
 };
 
 // Call function if run directly
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const result = await invokeBedrockAgent("I need help.", "123");
   console.log(result);

@@ -11,7 +11,7 @@ describe("getDatastore", () => {
     } catch (err) {
       console.log(err.message);
       expect(err.message).toEqual(
-        "1 validation error detected: Value 'DATASTORE_ID' at 'datastoreId' failed to satisfy constraint: Member must satisfy regular expression pattern: [0-9a-z]{32}"
+        "1 validation error detected: Value 'DATASTORE_ID' at 'datastoreId' failed to satisfy constraint: Member must satisfy regular expression pattern: [0-9a-z]{32}",
       );
     }
   });

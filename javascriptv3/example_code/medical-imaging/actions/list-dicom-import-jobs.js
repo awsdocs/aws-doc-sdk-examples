@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[medical-imaging.JavaScript.dicom.listDICOMImportJobsV3]
 import { paginateListDICOMImportJobs } from "@aws-sdk/client-medical-imaging";
@@ -11,7 +11,7 @@ import { medicalImagingClient } from "../libs/medicalImagingClient.js";
  * @param {string} datastoreId - The ID of the data store.
  */
 export const listDICOMImportJobs = async (
-  datastoreId = "xxxxxxxxxxxxxxxxxx"
+  datastoreId = "xxxxxxxxxxxxxxxxxx",
 ) => {
   const paginatorConfig = {
     client: medicalImagingClient,
@@ -21,10 +21,10 @@ export const listDICOMImportJobs = async (
   const commandParams = { datastoreId: datastoreId };
   const paginator = paginateListDICOMImportJobs(paginatorConfig, commandParams);
 
-  let jobSummaries = [];
+  const jobSummaries = [];
   for await (const page of paginator) {
     // Each page contains a list of `jobSummaries`. The list is truncated if is larger than `pageSize`.
-    jobSummaries.push(...page["jobSummaries"]);
+    jobSummaries.push(...page.jobSummaries);
     console.log(page);
   }
   // {
