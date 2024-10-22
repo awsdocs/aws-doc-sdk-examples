@@ -4,6 +4,14 @@ scheduler_hello:
   synopsis: get started using &EVS;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/scheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.hello.main
     .NET:
       versions:
         - sdk_version: 3
@@ -17,6 +25,14 @@ scheduler_hello:
     scheduler: {ListSchedules}
 scheduler_CreateSchedule:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/scheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.create.schedule.main
     .NET:
       versions:
         - sdk_version: 3
@@ -30,6 +46,14 @@ scheduler_CreateSchedule:
     scheduler: {CreateSchedule}
 scheduler_CreateScheduleGroup:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/scheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.create.schedule.group.main
     .NET:
       versions:
         - sdk_version: 3
@@ -52,10 +76,26 @@ scheduler_DeleteSchedule:
               genai: most
               snippet_tags:
                 - Scheduler.dotnetv3.DeleteSchedule
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/scheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.delete.schedule.main
   services:
     scheduler: {DeleteSchedule}
 scheduler_DeleteScheduleGroup:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/scheduler
+          excerpts:
+            - description:
+              snippet_tags:
+                - scheduler.javav2.delete.schedule.group.main
     .NET:
       versions:
         - sdk_version: 3
@@ -79,6 +119,19 @@ scheduler_ScheduledEventsWorkflow:
     - Clean up resources and delete the stack.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/scheduler
+          excerpts:
+            - description: Run the workflow.
+              genai: most
+              snippet_tags:
+                - scheduler.javav2.scenario.main
+            - description: Wrapper for service operations.
+              genai: most
+              snippet_tags:
+                - scheduler.javav2.actions.main
     .NET:
       versions:
         - sdk_version: 3
