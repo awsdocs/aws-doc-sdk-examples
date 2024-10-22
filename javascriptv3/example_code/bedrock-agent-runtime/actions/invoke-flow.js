@@ -12,18 +12,20 @@ import {
  * Invokes an alias of a flow to run the inputs that you specify and return
  * the output of each node as a stream.
  *
- * @param {string} flowIdentifier - The unique identifier of the flow.
- * @param {string} flowAliasIdentifier - The unique identifier of the flow alias.
- * @param {string} prompt - The input to send to the prompt flow input node.
- * @param {string} [region='us-east-1'] - The AWS region in use.
+ * @param {{
+ *  flowIdentifier: string,
+ *  flowAliasIdentifier: string,
+ *  prompt?: string,
+ *  region?: string
+ * }} options
  * @returns {Promise<import("@aws-sdk/client-bedrock-agent").FlowNodeOutput>} An object containing information about the output from flow invocation.
  */
-export const invokeBedrockFlow = async (
+export const invokeBedrockFlow = async ({
   flowIdentifier,
   flowAliasIdentifier,
-  prompt,
+  prompt = "Hi, how are you?",
   region = "us-east-1",
-) => {
+}) => {
   const client = new BedrockAgentRuntimeClient({ region });
 
   const command = new InvokeFlowCommand({
@@ -59,15 +61,39 @@ export const invokeBedrockFlow = async (
 };
 
 // Call function if run directly
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const flowIdentifier = "[YOUR_FLOW_ID]";
-  const flowAliasIdentifier = "[YOUR_FLOW_ALIAS_ID]";
-  const prompt = "Hi, how are you?";
+import { parseArgs } from "node:util";
+import {
+  isMain,
+  validateArgs,
+} from "@aws-doc-sdk-examples/lib/utils/util-node.js";
 
-  const result = await invokeBedrockFlow(
-    flowIdentifier,
-    flowAliasIdentifier,
-    prompt,
-  );
-  console.log("Final flow output: ", result);
+const loadArgs = () => {
+  const options = {
+    flowIdentifier: {
+      type: "string",
+      required: true,
+    },
+    flowAliasIdentifier: {
+      type: "string",
+      required: true,
+    },
+    prompt: {
+      type: "string",
+    },
+    region: {
+      type: "string",
+    },
+  };
+  const results = parseArgs({ options });
+  const { errors } = validateArgs({ options }, results);
+  return { errors, results };
+};
+
+if (isMain(import.meta.url)) {
+  const { errors, results } = loadArgs();
+  if (!errors) {
+    invokeBedrockFlow(results.values);
+  } else {
+    console.error(errors.join("\n"));
+  }
 }
