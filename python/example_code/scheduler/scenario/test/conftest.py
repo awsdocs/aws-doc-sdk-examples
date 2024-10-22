@@ -9,12 +9,20 @@ import sys
 
 import boto3
 import pytest
+import os
 
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Add relative path to include SchedulerWrapper.
+sys.path.append(script_dir)
+sys.path.append(os.path.dirname(script_dir))
 import scheduler_scenario
 from scheduler_wrapper import SchedulerWrapper
 
-# This is needed so Python can find test_tools on the path.
-sys.path.append("../..")
+# Add relative path to include demo_tools in this code example without need for setup.
+sys.path.append(os.path.join(script_dir, "../../.."))
+
 from test_tools.fixtures.common import *
 
 

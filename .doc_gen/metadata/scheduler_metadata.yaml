@@ -151,7 +151,7 @@ scheduler_ScheduledEventsWorkflow:
               genai: some
               snippet_tags:
                 - python.example_code.scheduler.FeatureScenario
-            - description: Define a class that wraps &EVlong; Scheduler actions.
+            - description: SchedulerWrapper class that wraps &EVlong; Scheduler actions.
               genai: some
               snippet_tags:
                 - python.example_code.scheduler.EventSchedulerWrapper.class

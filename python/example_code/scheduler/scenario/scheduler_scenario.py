@@ -15,13 +15,17 @@ import os
 from boto3.resources.base import ServiceResource
 from boto3 import resource
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
 # Add relative path to include SchedulerWrapper.
-sys.path.append('..')
+sys.path.append(os.path.dirname(script_dir))
 from scheduler_wrapper import SchedulerWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
-sys.path.append("../../..")
+sys.path.append(os.path.join(script_dir, "../../.."))
 import demo_tools.question as q
+
+
 
 
 DASHES = "-" * 80
@@ -93,7 +97,6 @@ class SchedulerScenario:
         email_address = q.ask("Enter an email address to use for event subscriptions: ")
         stack_name = q.ask("Enter a name for the AWS Cloud Formation Stack: ")
 
-        script_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
         template_file = SchedulerScenario.get_template_as_string()
 
         parameters = [{"ParameterKey": "email", "ParameterValue": email_address}]
