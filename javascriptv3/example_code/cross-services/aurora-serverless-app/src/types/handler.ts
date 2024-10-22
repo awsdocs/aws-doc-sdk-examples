@@ -1,8 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import type { RequestHandler } from "express";
 
-declare type Handler = {
+import type { RequestHandler } from "express";
+import type { Sendable } from "./sendable.js";
+
+export type Handler = {
   withClient: ({
     rdsDataClient,
     sesClient,
