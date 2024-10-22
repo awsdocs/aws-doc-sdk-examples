@@ -192,7 +192,7 @@ class PluginStack extends cdk.Stack {
     );
 
     return new lambda.Function(this, `SubmitBatchJob-${toolName}`, {
-      runtime: lambda.Runtime.PYTHON_3_8,
+      runtime: lambda.Runtime.PYTHON_3_9,
       handler: "submit_job.handler",
       code: lambda.Code.fromAsset("lambda"),
       environment: {
@@ -314,7 +314,7 @@ class PluginStack extends cdk.Stack {
 
     // Define the Lambda function.
     const lambdaFunction = new lambda.Function(this, "BatchJobCompleteLambda", {
-      runtime: lambda.Runtime.PYTHON_3_8,
+      runtime: lambda.Runtime.PYTHON_3_9,
       handler: "export_logs.handler",
       role: executionRole,
       code: lambda.Code.fromAsset("lambda"),
