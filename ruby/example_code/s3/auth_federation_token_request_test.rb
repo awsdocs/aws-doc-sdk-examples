@@ -104,15 +104,9 @@ end
 
 # Example usage:
 def run_me
-<<<<<<< HEAD
   region = "us-west-2"
   user_name = "my-user"
   bucket_name = "amzn-s3-demo-bucket"
-=======
-  region = 'us-west-2'
-  user_name = 'my-user'
-  bucket_name = 'doc-example-bucket'
->>>>>>> 999c6133e (fixes)
 
   iam = Aws::IAM::Client.new(region: region)
   user = get_user(iam, user_name)

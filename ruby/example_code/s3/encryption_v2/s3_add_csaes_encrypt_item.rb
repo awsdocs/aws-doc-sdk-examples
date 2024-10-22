@@ -83,15 +83,9 @@ end
 
 # Example usage:
 def run_me
-<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-file.txt"
   region = "us-west-2"
-=======
-  bucket_name = 'doc-example-bucket'
-  object_key = 'my-file.txt'
-  region = 'us-west-2'
->>>>>>> 999c6133e (fixes)
   object_content = File.read(object_key)
 
   # The following call generates a random AES256-GCM key. Alternatively, you can
