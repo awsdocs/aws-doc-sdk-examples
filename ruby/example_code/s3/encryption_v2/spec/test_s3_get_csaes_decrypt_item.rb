@@ -36,19 +36,11 @@ describe '#get_decrypted_object_content' do
     )
   end
 
-<<<<<<< HEAD
   let(:bucket_name) { "amzn-s3-demo-bucket" }
   let(:object_key) { "my-file.txt" }
   let(:object_content) { "This is the content of my-file.txt." }
   let(:encryption_key_string) { "XSiKrmzhtDKR9tTwJRSLjgwLhiMA82TC2z3GEXAMPLE=" }
   let(:encryption_key) { encryption_key_string.unpack("m")[0] }
-=======
-  let(:bucket_name) { 'doc-example-bucket' }
-  let(:object_key) { 'my-file.txt' }
-  let(:object_content) { 'This is the content of my-file.txt.' }
-  let(:encryption_key_string) { 'XSiKrmzhtDKR9tTwJRSLjgwLhiMA82TC2z3GEXAMPLE=' }
-  let(:encryption_key) { encryption_key_string.unpack1('m') }
->>>>>>> 999c6133e (fixes)
   # Note that Aws::S3::EncryptionV2::Client is a wrapper around
   #   Aws::S3::Client. So you must first stub Aws::S3::Client
   #   and then pass it into Aws::S3::EncryptionV2::Client

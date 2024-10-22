@@ -55,19 +55,11 @@ end
 
 # Example usage:
 def run_me
-<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-file.txt"
   object_content = "This is the content of my-file.txt."
   region = "us-west-2"
   public_key_file = "my-public-key.pem"
-=======
-  bucket_name = 'doc-example-bucket'
-  object_key = 'my-file.txt'
-  object_content = 'This is the content of my-file.txt.'
-  region = 'us-west-2'
-  public_key_file = 'my-public-key.pem'
->>>>>>> 999c6133e (fixes)
   public_key = OpenSSL::PKey::RSA.new(File.read(public_key_file))
 
   # When initializing this Amazon S3 encryption client, note:
