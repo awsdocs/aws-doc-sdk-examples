@@ -62,7 +62,7 @@ func (wrapper FunctionWrapper) CreateFunction(ctx context.Context, functionName 
 		Role:         iamRoleArn,
 		Handler:      aws.String(handlerName),
 		Publish:      true,
-		Runtime:      types.RuntimePython38,
+		Runtime:      types.RuntimePython39,
 	})
 	if err != nil {
 		var resConflict *types.ResourceConflictException

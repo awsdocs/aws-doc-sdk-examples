@@ -152,7 +152,7 @@ The tutorial shows you how to set up the following additional resources:
 - A VPC from Amazon Virtual Private Cloud (Amazon VPC)
 - A DAX cluster set up in your VPC 
 - An EC2 instance running in your VPC with the following installed:
-    - Python 3.7 or later
+    - Python 3.9 or later
     - Boto3 1.11.10 or later
     - Amazon DAX Client for Python 1.1.7 or later
 
