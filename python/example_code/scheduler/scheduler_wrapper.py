@@ -26,9 +26,9 @@ class SchedulerWrapper:
     @classmethod
     def from_client(cls) -> "SchedulerWrapper":
         """
-        Creates a SchedulerWrapper instance with a default EventBridge client.
+        Creates a SchedulerWrapper instance with a default EventBridge Scheduler client.
 
-        :return: An instance of SchedulerWrapper initialized with the default EventBridge client.
+        :return: An instance of SchedulerWrapper initialized with the default EventBridge Scheduler client.
         """
         eventbridge_scheduler_client = boto3.client("scheduler")
         return cls(eventbridge_scheduler_client)
@@ -94,7 +94,9 @@ class SchedulerWrapper:
                     err.response["Error"]["Message"],
                 )
             else:
-                logger.error("Error creating schedule: %s", err.response["Error"]["Message"])
+                logger.error(
+                    "Error creating schedule: %s", err.response["Error"]["Message"]
+                )
             raise
 
     # snippet-end:[python.example_code.scheduler.CreateSchedule]
@@ -119,7 +121,9 @@ class SchedulerWrapper:
                     err.response["Error"]["Message"],
                 )
             else:
-                logger.error("Error deleting schedule: %s", err.response["Error"]["Message"])
+                logger.error(
+                    "Error deleting schedule: %s", err.response["Error"]["Message"]
+                )
                 raise
 
     # snippet-end:[python.example_code.scheduler.DeleteSchedule]
@@ -145,7 +149,10 @@ class SchedulerWrapper:
                     err.response["Error"]["Message"],
                 )
             else:
-                logger.error("Error creating schedule group: %s", err.response["Error"]["Message"])
+                logger.error(
+                    "Error creating schedule group: %s",
+                    err.response["Error"]["Message"],
+                )
             raise
 
     # snippet-end:[python.example_code.scheduler.CreateScheduleGroup]
@@ -168,7 +175,10 @@ class SchedulerWrapper:
                     err.response["Error"]["Message"],
                 )
             else:
-                logger.error("Error deleting schedule group: %s", err.response["Error"]["Message"])
+                logger.error(
+                    "Error deleting schedule group: %s",
+                    err.response["Error"]["Message"],
+                )
                 raise
         # snippet-end:[python.example_code.scheduler.DeleteScheduleGroup]
 

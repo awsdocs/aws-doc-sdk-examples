@@ -26,8 +26,6 @@ sys.path.append(os.path.join(script_dir, "../../.."))
 import demo_tools.question as q
 
 
-
-
 DASHES = "-" * 80
 
 sys.path
@@ -76,7 +74,10 @@ class SchedulerScenario:
         print(DASHES)
 
         print(DASHES)
-        if q.ask("Do you want to delete all resources created by this workflow? (y/n) ", q.is_yesno):
+        if q.ask(
+            "Do you want to delete all resources created by this workflow? (y/n) ",
+            q.is_yesno,
+        ):
             self.cleanup()
         print(DASHES)
 
@@ -122,8 +123,12 @@ class SchedulerScenario:
         print(f"Stack output RoleARN: {self.role_arn}")
         print(f"Stack output SNStopicARN: a")
         schedule_group_name = "workflow-schedules-group"
-        schedule_group_arn = self.eventbridge_scheduler.create_schedule_group(schedule_group_name)
-        print(f"Successfully created schedule group '{self.schedule_group_name}': {schedule_group_arn}.")
+        schedule_group_arn = self.eventbridge_scheduler.create_schedule_group(
+            schedule_group_name
+        )
+        print(
+            f"Successfully created schedule group '{self.schedule_group_name}': {schedule_group_arn}."
+        )
         self.schedule_group_name = schedule_group_name
         print("Application preparation complete.")
 
@@ -151,20 +156,23 @@ class SchedulerScenario:
             delete_after_completion=True,
             use_flexible_time_window=True,
         )
-        print(f"Successfully created schedule '{schedule_name}' in schedule group 'workflow-schedules-group': {schedule_arn}.")
+        print(
+            f"Successfully created schedule '{schedule_name}' in schedule group 'workflow-schedules-group': {schedule_arn}."
+        )
         print(f"Subscription email will receive an email from this event.")
         print(f"You must confirm your subscription to receive event emails.")
         print(f"One-time schedule '{schedule_name}' created successfully.")
-
 
     def create_recurring_schedule(self) -> None:
         """
         Create a recurring schedule to send events at a specified rate in minutes.
         """
 
-        print("Creating a recurring schedule to send events for one hour...");
-        schedule_name = q.ask("Enter a name for the recurring schedule: ");
-        schedule_rate_in_minutes = q.ask("Enter the desired schedule rate (in minutes): ", q.is_int);
+        print("Creating a recurring schedule to send events for one hour...")
+        schedule_name = q.ask("Enter a name for the recurring schedule: ")
+        schedule_rate_in_minutes = q.ask(
+            "Enter the desired schedule rate (in minutes): ", q.is_int
+        )
 
         schedule_arn = self.eventbridge_scheduler.create_schedule(
             schedule_name,
@@ -175,12 +183,18 @@ class SchedulerScenario:
             f"Recurrent event test from schedule {schedule_name}.",
         )
 
-        print(f"Successfully created schedule '{schedule_name}' in schedule group 'workflow-schedules-group': {schedule_arn}.")
-        print(f"Subscription email will receive an email from this event.");
-        print(f"You must confirm your subscription to receive event emails.");
+        print(
+            f"Successfully created schedule '{schedule_name}' in schedule group 'workflow-schedules-group': {schedule_arn}."
+        )
+        print(f"Subscription email will receive an email from this event.")
+        print(f"You must confirm your subscription to receive event emails.")
 
-        if q.ask(f"Are you ready to delete the '{schedule_name}' schedule? (y/n)", q.is_yesno) :
-            self.eventbridge_scheduler.delete_schedule(schedule_name, self.schedule_group_name)
+        if q.ask(
+            f"Are you ready to delete the '{schedule_name}' schedule? (y/n)", q.is_yesno
+        ):
+            self.eventbridge_scheduler.delete_schedule(
+                schedule_name, self.schedule_group_name
+            )
 
     def deploy_cloudformation_stack(
         self, stack_name: str, cfn_template: str, parameters: [dict[str, str]]
@@ -220,7 +234,9 @@ class SchedulerScenario:
 
         :param stack: The CloudFormation stack that manages the example resources.
         """
-        print(f"CloudFormation stack '{stack.name}' is being deleted. This may take a few minutes.")
+        print(
+            f"CloudFormation stack '{stack.name}' is being deleted. This may take a few minutes."
+        )
         stack.delete()
         waiter = self.cloud_formation_resource.meta.client.get_waiter(
             "stack_delete_complete"

@@ -44,9 +44,9 @@ python -m pip install -r requirements.txt
 Code excerpts that show you how to call individual service functions.
 
 - [CreateSchedule](scheduler_wrapper.py#L38)
-- [CreateScheduleGroup](scheduler_wrapper.py#L127)
-- [DeleteSchedule](scheduler_wrapper.py#L102)
-- [DeleteScheduleGroup](scheduler_wrapper.py#L153)
+- [CreateScheduleGroup](scheduler_wrapper.py#L131)
+- [DeleteSchedule](scheduler_wrapper.py#L104)
+- [DeleteScheduleGroup](scheduler_wrapper.py#L160)
 
 ### Scenarios
 

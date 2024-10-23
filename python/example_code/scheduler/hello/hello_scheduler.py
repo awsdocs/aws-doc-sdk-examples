@@ -16,17 +16,18 @@ def hello_scheduler(scheduler_client):
                              the low-level Amazon EventBridge Scheduler service API.
     """
     print("Hello, Amazon EventBridge Scheduler! Let's list some of your schedules:\n")
-    paginator = scheduler_client.get_paginator('list_schedules')
-    page_iterator = paginator.paginate(PaginationConfig={'MaxItems':10})
+    paginator = scheduler_client.get_paginator("list_schedules")
+    page_iterator = paginator.paginate(PaginationConfig={"MaxItems": 10})
 
     schedule_names: [str] = []
     for page in page_iterator:
-        for schedule in page['Schedules']:
-            schedule_names.append(schedule['Name'])
+        for schedule in page["Schedules"]:
+            schedule_names.append(schedule["Name"])
 
     print(f"{len(schedule_names)} schedule(s) retrieved.")
     for schedule_name in schedule_names:
         print(f"\t{schedule_name}")
+
 
 if __name__ == "__main__":
     hello_scheduler(boto3.client("scheduler"))
