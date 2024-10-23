@@ -2542,6 +2542,29 @@ s3_Scenario_UsingLargeFiles:
             - description: Upload a single file.
               snippet_tags:
                 - s3.tm.java2.uploadfile.main
+            - description: The code examples use the following imports.
+              snippet_tags:
+                - s3.java2.performMultiPartUpload.import
+            - description: >-
+                Use the <ulink url="sdk-for-java/latest/developer-guide/transfer-manager.html"
+                type="documentation">S3 Transfer Manager</ulink> on top of the  <ulink
+                url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation">&AWS;
+                CRT-based S3 client</ulink> to transparently perform a multipart upload when the size of the
+                content exceeds a threshold. The default threshold size is 8 MB.
+              snippet_tags:
+                - s3.java2.performMultiPartUpload.transferManager
+            - description: >-
+                Use the <ulink
+                url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client
+                API</ulink>  to perform a multipart upload.
+              snippet_tags:
+                - s3.java2.performMultiPartUpload.s3Client
+            - description: >-
+                Use the <ulink
+                url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3AsyncClient.html">S3AsyncClient
+                API</ulink>  with multipart support enabled to perform a multipart upload.
+              snippet_tags:
+                - s3.java2.performMultiPartUpload.s3AsyncClient    
     .NET:
       versions:
         - sdk_version: 3
@@ -3148,43 +3171,6 @@ s3_Scenario_UploadStream:
 
   services:
     s3: {}
-s3_Scenario_MultipartUpload:
-  title: Perform a multipart upload of an &S3; object using an &AWS; SDK
-  title_abbrev: Perform a multipart upload
-  synopsis: perform a multipart upload to an &S3; object.
-  category: Scenarios
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/s3
-          sdkguide:
-          excerpts:
-            - description: The code examples use the following imports.
-              snippet_tags:
-                - s3.java2.performMultiPartUpload.import
-            - description: >-
-                Use the <ulink url="sdk-for-java/latest/developer-guide/transfer-manager.html"
-                type="documentation">S3 Transfer Manager</ulink> on top of the  <ulink
-                url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation">&AWS;
-                CRT-based S3 client</ulink> to transparently perform a multipart upload when the size of the
-                content exceeds a threshold. The default threshold size is 8 MB.
-              snippet_tags:
-                - s3.java2.performMultiPartUpload.transferManager
-            - description: >-
-                Use the <ulink
-                url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client
-                API</ulink>  to perform a multipart upload.
-              snippet_tags:
-                - s3.java2.performMultiPartUpload.s3Client
-            - description: >-
-                Use the <ulink
-                url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3AsyncClient.html">S3AsyncClient
-                API</ulink>  with multipart support enabled to perform a multipart upload.
-              snippet_tags:
-                - s3.java2.performMultiPartUpload.s3AsyncClient
-  services:
-    s3: {CreateMultipartUpload, UploadPart, CompleteMultipartUpload}
 s3_Scenario_UseChecksums:
   title: Use checksums to work with an &S3; object using an &AWS; SDK
   title_abbrev: Use checksums
