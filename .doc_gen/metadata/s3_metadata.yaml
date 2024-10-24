@@ -2789,6 +2789,7 @@ s3_Scenario_PresignedUrl:
           excerpts:
             - snippet_tags:
                 - s3.php.presigned_url.complete
+                - php.example_code.s3.service.S3Service
   services:
     s3: {}
 s3_Scenario_ObjectVersioningUsage:

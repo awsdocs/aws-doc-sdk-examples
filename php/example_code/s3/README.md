@@ -60,7 +60,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a presigned URL](PresignedURL.php)
+- [Create a presigned URL](S3Service.php)
 - [Create a serverless application to manage photos](../../applications/photo_asset_manager)
 
 
