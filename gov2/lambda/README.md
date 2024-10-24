@@ -34,6 +34,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 - [Hello Lambda](hello/hello.go#L4) (`ListFunctions`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](scenarios/scenario_get_started_functions.go)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -53,7 +60,6 @@ functions within the same service.
 
 - [Automatically confirm known users with a Lambda function](../workflows/user_pools_and_lambda_triggers/workflows/scenario_auto_confirm_trusted_accounts.go)
 - [Automatically migrate known users with a Lambda function](../workflows/user_pools_and_lambda_triggers/workflows/scenario_migrate_user.go)
-- [Get started with functions](scenarios/scenario_get_started_functions.go)
 - [Write custom activity data with a Lambda function after Amazon Cognito user authentication](../workflows/user_pools_and_lambda_triggers/workflows/scenario_activity_log.go)
 
 
@@ -84,6 +90,23 @@ and to get help for running a scenario, use the following command:
 ```
 go run ./cmd -h
 ```
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create an IAM role and Lambda function, then upload handler code.
+- Invoke the function with a single parameter and get results.
+- Update the function code and configure with an environment variable.
+- Invoke the function with new parameters and get results. Display the returned execution log.
+- List the functions for your account, then clean up resources.
+
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+
+
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
+
 
 #### Automatically confirm known users with a Lambda function
 
@@ -117,23 +140,6 @@ This example shows you how to automatically migrate known Amazon Cognito users w
 
 <!--custom.scenarios.cross_CognitoAutoMigrateUser.start-->
 <!--custom.scenarios.cross_CognitoAutoMigrateUser.end-->
-
-#### Get started with functions
-
-This example shows you how to do the following:
-
-- Create an IAM role and Lambda function, then upload handler code.
-- Invoke the function with a single parameter and get results.
-- Update the function code and configure with an environment variable.
-- Invoke the function with new parameters and get results. Display the returned execution log.
-- List the functions for your account, then clean up resources.
-
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
-
-
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
 
 #### Write custom activity data with a Lambda function after Amazon Cognito user authentication
 

@@ -34,6 +34,13 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 - [Hello Lambda](Actions/HelloLambda.cs#L4) (`ListFunctions`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Actions/LambdaWrapper.cs)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -53,7 +60,6 @@ functions within the same service.
 
 - [Create a serverless application to manage photos](../cross-service/PhotoAssetManager)
 - [Create an application to analyze customer feedback](../cross-service/FeedbackSentimentAnalyzer)
-- [Get started with functions](Actions/LambdaWrapper.cs)
 - [Transform data with S3 Object Lambda](../cross-service/S3ObjectLambdaFunction)
 
 
@@ -90,6 +96,23 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to get started using Lambda.
 
 
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create an IAM role and Lambda function, then upload handler code.
+- Invoke the function with a single parameter and get results.
+- Update the function code and configure with an environment variable.
+- Invoke the function with new parameters and get results. Display the returned execution log.
+- List the functions for your account, then clean up resources.
+
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+
+
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
+
 
 #### Create a serverless application to manage photos
 
@@ -114,42 +137,6 @@ This example shows you how to create an application that analyzes customer comme
 
 <!--custom.scenarios.cross_FSA.start-->
 <!--custom.scenarios.cross_FSA.end-->
-
-#### Get started with functions
-
-This example shows you how to do the following:
-
-- Create an IAM role and Lambda function, then upload handler code.
-- Invoke the function with a single parameter and get results.
-- Update the function code and configure with an environment variable.
-- Invoke the function with new parameters and get results. Display the returned execution log.
-- List the functions for your account, then clean up resources.
-
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
-
-
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-Before you can run the getting started with Lambda scenario, you must upload
-the following two files to an Amazon Simple Storage Service (Amazon S3) bucket that you
-own:
-
- * [LambdaIncrement.zip](LambdaIncrement.zip)
- * [LambdaCalculator.zip](LambdaCalculator.zip)
- 
-##### Configuration settings
-
-The scenario includes the following settings in `settings.json`:
-
- * `FunctionName` - A name for the Lambda function.
- * `Handler` - "LambdaIncrement::LambdaIncrement.Function::FunctionHandler"
- * `UpdatedHandler` - "LambdaCalculator::LambdaCalculator.Function::FunctionHandler"
- * `BucketName` - The name of the bucket containing the .zip files for the sample functions.
- * `IncrementKey` - "LambdaIncrement.zip",
- * `CalculatorKey` - "LambdaCalculator.zip",
- * `RoleName` - The name of the IAM role that gives the scenario permissions to access Lambda.
- * `PolicyArn` - The Amazon Resource Name (ARN) of a policy giving the IAM role permissions to access Lambda.
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
 
 #### Transform data with S3 Object Lambda
 

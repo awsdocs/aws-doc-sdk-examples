@@ -7,8 +7,9 @@
 .idea
 *.iml
 .metadata
-.phpunit.result.cache
 .recommenders
+.phpunit.result.cache
+.phpunit.cache
 .swiftpm
 .venv
 .vs
