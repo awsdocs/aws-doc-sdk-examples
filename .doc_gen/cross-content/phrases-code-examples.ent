@@ -152,3 +152,9 @@
 <!-- Marketplace Catalog Service -->
 <!ENTITY MKTCataloglong '&MKTlong; Catalog API'>
 <!ENTITY MKTCatalog '&MKT; Catalog API'>
+
+<!-- JavaScript runtimes for CloudFront Functions -->
+<!ENTITY CFJS10long 'JavaScript runtime 1.0 for &CFlong; Functions'>
+<!ENTITY CFJS10 'JavaScript runtime 1.0 for &CF; Functions'>
+<!ENTITY CFJS20long 'JavaScript runtime 2.0 for &CFlong; Functions'>
+<!ENTITY CFJS20 'JavaScript runtime 2.0 for &CF; Functions'>
