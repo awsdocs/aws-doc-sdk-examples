@@ -82,13 +82,16 @@ export const exitOnNoConfirm = new ScenarioAction(
 
 export const greeting = new ScenarioOutput(
   "greeting",
-  `Welcome to the Amazon EC2 basic usage scenario.
+  `
+
+Welcome to the Amazon EC2 basic usage scenario.
+
 Before you launch an instances, you'll need to provide a few things:
- • A key pair - This is for SSH access to your EC2 instance. You only need to provide the name.
- • A security group - This is used for configuring access to your instance. Again, only the name is needed.
- • An IP address - Your public IP address will be fetched.
- • An Amazon Machine Image (AMI)
- • A compatible instance type`,
+ - A key pair - This is for SSH access to your EC2 instance. You only need to provide the name.
+ - A security group - This is used for configuring access to your instance. Again, only the name is needed.
+ - An IP address - Your public IP address will be fetched.
+ - An Amazon Machine Image (AMI)
+ - A compatible instance type`,
   { header: true, preformatted: true, skipWhen: skipWhenErrors },
 );
 
@@ -376,7 +379,7 @@ export const provideImage = new ScenarioInput(
     type: "select",
     choices: (/** @type { State } */ state) =>
       state.images.map((image) => ({
-        name: `${image.ImageId} - ${image.Description}`,
+        name: `${image.Description}`,
         value: image,
       })),
     default: (/** @type { State } */ state) => state.images[0],
@@ -804,7 +807,7 @@ export const logErrors = new ScenarioOutput(
   "logErrors",
   (/** @type {State}*/ state) => {
     const errorList = state.errors
-      .map((err) => `• ${err.name}: ${err.message}`)
+      .map((err) => ` - ${err.name}: ${err.message}`)
       .join("\n");
     return `Scenario errors found:\n${errorList}`;
   },

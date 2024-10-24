@@ -3,10 +3,9 @@
 
 import { Prompter } from "../prompter.js";
 import { Logger } from "../logger.js";
-import { SlowLogger } from "../slow-logger.js";
 
 /**
- * @typedef {{ confirmAll: boolean, verbose: boolean }} StepHandlerOptions
+ * @typedef {{ confirmAll: boolean, verbose: boolean, noArt: boolean }} StepHandlerOptions
  */
 
 /**
@@ -56,7 +55,7 @@ export class Step {
 }
 
 /**
- * @typedef {{ slow: boolean, header: boolean, preformatted: boolean }} ScenarioOutputOptions
+ * @typedef {{ header: boolean, preformatted: boolean }} ScenarioOutputOptions
  */
 
 /**
@@ -68,10 +67,9 @@ export class ScenarioOutput extends Step {
    * @param {string | (state: Record<string, any>) => string | false} value
    * @param {Step<ScenarioOutputOptions>['stepOptions']} [scenarioOutputOptions]
    */
-  constructor(name, value, scenarioOutputOptions = { slow: true }) {
+  constructor(name, value, scenarioOutputOptions = {}) {
     super(name, scenarioOutputOptions);
     this.value = value;
-    this.slowLogger = new SlowLogger(20);
     this.logger = new Logger();
   }
 
@@ -95,14 +93,15 @@ export class ScenarioOutput extends Step {
     }
     const paddingTop = "\n";
     const paddingBottom = "\n";
-    const logger =
-      this.stepOptions?.slow && !stepHandlerOptions?.confirmAll
-        ? this.slowLogger
-        : this.logger;
+    const logger = this.logger;
     const message = paddingTop + output + paddingBottom;
 
     if (this.stepOptions?.header) {
-      await this.logger.log(this.logger.box(message));
+      if (stepHandlerOptions.noArt === true) {
+        await this.logger.log(message);
+      } else {
+        await this.logger.log(this.logger.box(message));
+      }
     } else {
       await logger.log(message, this.stepOptions?.preformatted);
     }
