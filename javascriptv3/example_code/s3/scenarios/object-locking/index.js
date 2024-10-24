@@ -101,5 +101,11 @@ import { replAction } from "./repl.steps.js";
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const objectLockingScenarios = getWorkflowStages(Scenarios);
-  Scenarios.parseScenarioArgs(objectLockingScenarios);
+  Scenarios.parseScenarioArgs(objectLockingScenarios, {
+    name: "Amazon S3 object locking workflow",
+    description:
+      "Work with Amazon Simple Storage Service (Amazon S3) object locking features.",
+    synopsis:
+      "node index.js --scenario <deploy | demo | clean> [-h|--help] [-y|--yes] [-v|--verbose]",
+  });
 }
