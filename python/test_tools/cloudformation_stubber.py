@@ -25,13 +25,15 @@ class CloudFormationStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_create_stack(
-        self, stack_name, setup_template, capabilities, stack_id, error_code=None
+        self, stack_name, setup_template, capabilities, stack_id, parameters= None, error_code=None
     ):
         expected_params = {
             "StackName": stack_name,
             "TemplateBody": setup_template,
             "Capabilities": capabilities,
         }
+        if parameters is not None:
+            expected_params["Parameters"] = parameters
         response = {"StackId": stack_id}
         self._stub_bifurcator(
             "create_stack", expected_params, response, error_code=error_code
