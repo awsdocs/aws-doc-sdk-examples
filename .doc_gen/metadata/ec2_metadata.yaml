@@ -1570,6 +1570,19 @@ ec2_DescribeInstances:
                 - aws-cli.bash-linux.ec2.aws_cli_error_log
   services:
     ec2: {DescribeInstances}
+ec2_DescribeRouteTables:
+  languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.ec2.service.describeRouteTables
+  services:
+    ec2: {DescribeRouteTables}
 ec2_DescribeRegions:
   languages:
     Rust:
@@ -1971,6 +1984,16 @@ ec2_CreateSubnet:
     ec2: {CreateSubnet}
 ec2_CreateVpc:
   languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.ec2.service.createVpc
+
     Ruby:
       versions:
         - sdk_version: 3
@@ -1982,6 +2005,45 @@ ec2_CreateVpc:
                 - ec2.Ruby.createVpc
   services:
     ec2: {CreateVpc}
+ec2_DeleteVpc:
+  languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.ec2.service.deleteVpc
+  services:
+    ec2: {DeleteVpc}
+ec2_CreateVpcEndpoint:
+  languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.ec2.service.createVpcEndpoint
+  services:
+    ec2: {CreateVpcEndpoint}
+ec2_DeleteVpcEndpoint:
+  languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.ec2.service.deleteVpcEndpoint
+  services:
+    ec2: {DeleteVpcEndpoint}
 ec2_DescribeIamInstanceProfileAssociations:
   languages:
     .NET:
