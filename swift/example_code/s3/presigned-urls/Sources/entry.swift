@@ -10,8 +10,8 @@ import AWSClientRuntime
 import AWSS3
 import Foundation
 import Smithy
-import AsyncHTTPClient
-import NIOFoundationCompat
+//import AsyncHTTPClient
+//import NIOFoundationCompat
 // snippet-end:[swift.s3.presigned.imports]
 
 enum TransferError: Error {
@@ -21,6 +21,8 @@ enum TransferError: Error {
     case uploadError
     /// An error occurred while reading the file's contents.
     case readError
+    /// An error occurred while presigning the URL.
+    case signingError
     /// An error occurred while writing the file's contents.
     case writeError
 
@@ -32,6 +34,8 @@ enum TransferError: Error {
             return "An error occurred attempting to upload the file"
         case .readError:
             return "An error occurred while reading the file data"
+        case .signingError:
+            return "An error occurred while pre-signing the URL"
         case .writeError:
             return "An error occurred while writing the file data"
         }
@@ -86,6 +90,7 @@ struct ExampleCommand: ParsableCommand {
 
     func downloadFile(bucket: String, key: String, destPath: String)
                 async throws {
+        print("downloadFile")
         let fileUrl = URL(fileURLWithPath: destPath)
 
         do {
@@ -96,23 +101,17 @@ struct ExampleCommand: ParsableCommand {
                 key: key
             )
 
-            let presignedURL = try await s3Client.presignedURLForGetObject(
-                input: getInput,
-                expiration: TimeInterval(3600)
-            )
-
-            let httpRequest = HTTPClientRequest(url: presignedURL.absoluteString)
-            let response = try await HTTPClient.shared.execute(httpRequest, timeout: .seconds(60))
-            
-            if response.status == .ok {
-                var body = try await response.body.collect(upTo: 1024*1024)
-
-                guard let data = Data.readBytes(length: body.readableBytes) else {
-                    throw TransferError.readError
-                }
+            let presignedRequest: URLRequest
+            do {
+                presignedRequest = try await s3Client.presignedRequestForGetObject(
+                    input: getInput,
+                    expiration: TimeInterval(3600)
+                )
+            } catch {
+                throw TransferError.signingError
             }
 
-/*
+            /*
             let getOutput = try await s3Client.getObject(input: getInput)
 
             guard let body = getOutput.body else {
@@ -122,11 +121,19 @@ struct ExampleCommand: ParsableCommand {
             guard let data = try await body.readData() else {
                 throw TransferError.readError
             }
-
+*/
+            do {
+                print("Sending request:")
+                dump(presignedRequest)
+                try await httpFetch(request: presignedRequest, dest: fileUrl)
+                print("Back from httpFetch")
+            } catch {
+                throw TransferError.readError
+            }
+            
             // Write the file to disk.
 
-            try data.write(to: fileUrl)
-*/
+            //try data.write(to: fileUrl)
         } catch {
             print("ERROR: failed to download the file", dump(error))
             throw error
@@ -147,27 +154,16 @@ struct ExampleCommand: ParsableCommand {
     }
 }
 
-func httpFetch(request: URLRequest) async throws -> Data {
-    var clientRequest = HTTPClientRequest(url: request.url)
-
-    let response = try await client.send(request)
-
-    /*
-    let task = try await URLSession.shared.downloadTask(with: srcURL) {
-            urlOrNil, responseOrNil, errorOrNil in
-        
-        guard let fileURL = urlOrNil else {
-            return
-        }
-
-        do {
-            try FileManager.default.moveItem(at: srcURL, to: destURL)
-        } catch {
-            print("ERROR: Error retrieving file", error)
-        }
+func httpFetch(request: URLRequest, dest: URL) async throws {
+    let (fileURL, response) = try await URLSession.shared.download(for: request)
+    print("Downloaded to: \(fileURL)")
+    print("Need to relocate to: \(dest)")
+    do {
+        print("Moving the file...")
+        try FileManager.default.moveItem(at: fileURL, to: dest)
+    } catch {
+        print("ERROR: Error relocating file", error)
     }
-    task.resume()
-    */
 }
 
 /// The program's asynchronous entry point.
