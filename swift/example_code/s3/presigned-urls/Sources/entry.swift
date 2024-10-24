@@ -10,6 +10,8 @@ import AWSClientRuntime
 import AWSS3
 import Foundation
 import Smithy
+import AsyncHTTPClient
+import NIOFoundationCompat
 // snippet-end:[swift.s3.presigned.imports]
 
 enum TransferError: Error {
@@ -85,19 +87,32 @@ struct ExampleCommand: ParsableCommand {
     func downloadFile(bucket: String, key: String, destPath: String)
                 async throws {
         let fileUrl = URL(fileURLWithPath: destPath)
-        
+
         do {
+            let s3Client = try await S3Client()
+
             let getInput = GetObjectInput(
                 bucket: bucket,
                 key: key
             )
 
-            let presignedURL = S3Client.presignedRequestForGetObject(
+            let presignedURL = try await s3Client.presignedURLForGetObject(
                 input: getInput,
                 expiration: TimeInterval(3600)
             )
 
-            let s3Client = try await S3Client()
+            let httpRequest = HTTPClientRequest(url: presignedURL.absoluteString)
+            let response = try await HTTPClient.shared.execute(httpRequest, timeout: .seconds(60))
+            
+            if response.status == .ok {
+                var body = try await response.body.collect(upTo: 1024*1024)
+
+                guard let data = Data.readBytes(length: body.readableBytes) else {
+                    throw TransferError.readError
+                }
+            }
+
+/*
             let getOutput = try await s3Client.getObject(input: getInput)
 
             guard let body = getOutput.body else {
@@ -111,6 +126,7 @@ struct ExampleCommand: ParsableCommand {
             // Write the file to disk.
 
             try data.write(to: fileUrl)
+*/
         } catch {
             print("ERROR: failed to download the file", dump(error))
             throw error
@@ -131,8 +147,13 @@ struct ExampleCommand: ParsableCommand {
     }
 }
 
-func httpFetch(srcURL: URL, destURL: URL) async throws -> Data {
-    let task = URLSession.shared.downloadTask(with: srcURL) {
+func httpFetch(request: URLRequest) async throws -> Data {
+    var clientRequest = HTTPClientRequest(url: request.url)
+
+    let response = try await client.send(request)
+
+    /*
+    let task = try await URLSession.shared.downloadTask(with: srcURL) {
             urlOrNil, responseOrNil, errorOrNil in
         
         guard let fileURL = urlOrNil else {
@@ -146,12 +167,14 @@ func httpFetch(srcURL: URL, destURL: URL) async throws -> Data {
         }
     }
     task.resume()
+    */
 }
 
 /// The program's asynchronous entry point.
 @main
 struct Main {
     static func main() async {
+        print("MAKE SURE YOU ADD CHUNKED FILE TRANSFERS IF NOT FREE WITH URLRequest!")
         let args = Array(CommandLine.arguments.dropFirst())
 
         do {

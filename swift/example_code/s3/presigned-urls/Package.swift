@@ -23,6 +23,10 @@ let package = Package(
             url: "https://github.com/apple/swift-argument-parser.git",
             branch: "main"
         ),
+        .package(
+            url: "https://github.com/swift-server/async-http-client.git",
+            from: "1.9.0"
+        )
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -32,6 +36,7 @@ let package = Package(
             dependencies: [
                 .product(name: "AWSS3", package: "aws-sdk-swift"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                .product(name: "AsyncHTTPClient", package: "async-http-client")
             ],
             path: "Sources")
     ]
