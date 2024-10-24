@@ -33,6 +33,13 @@ Additionally, to compile Lambda functions written in the Rust programming langua
 
 <!--custom.prerequisites.end-->
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](Cargo.toml)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -44,13 +51,6 @@ Code excerpts that show you how to call individual service functions.
 - [ListFunctions](src/actions.rs#L395)
 - [UpdateFunctionCode](src/actions.rs#L200)
 - [UpdateFunctionConfiguration](src/actions.rs#L449)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Get started with functions](Cargo.toml)
 
 
 <!--custom.examples.start-->
@@ -82,8 +82,7 @@ Other single action examples write directly to stdout, and can be executed with 
 <!--custom.instructions.end-->
 
 
-
-#### Get started with functions
+#### Learn the basics
 
 This example shows you how to do the following:
 
@@ -93,12 +92,13 @@ This example shows you how to do the following:
 - Invoke the function with new parameters and get results. Display the returned execution log.
 - List the functions for your account, then clean up resources.
 
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
 
 
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
+
 
 ### Tests
 

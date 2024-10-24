@@ -13,7 +13,7 @@ lambda_Hello:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.java2.ListLambdaFunctions.complete
+                - lambda.java2.list.main
     .NET:
       versions:
         - sdk_version: 3
@@ -384,6 +384,15 @@ lambda_Invoke:
     lambda: {Invoke}
 lambda_GetFunction:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.java2.get.function.main
     .NET:
       versions:
         - sdk_version: 3
@@ -469,6 +478,15 @@ lambda_GetFunction:
     lambda: {GetFunction}
 lambda_UpdateFunctionCode:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.java2.get.function.main
     .NET:
       versions:
         - sdk_version: 3
@@ -555,6 +573,15 @@ lambda_UpdateFunctionCode:
     lambda: {UpdateFunctionCode}
 lambda_UpdateFunctionConfiguration:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - lambda.java2.update.config.main
     .NET:
       versions:
         - sdk_version: 3
@@ -724,15 +751,13 @@ lambda_ListFunctions:
   services:
     lambda: {ListFunctions}
 lambda_Scenario_GettingStartedFunctions:
-  title: Get started creating and invoking &LAM; functions using an &AWS; SDK
-  title_abbrev: Get started with functions
   synopsis_list:
     - Create an &IAM; role and &LAM; function, then upload handler code.
     - Invoke the function with a single parameter and get results.
     - Update the function code and configure with an environment variable.
     - Invoke the function with new parameters and get results. Display the returned execution log.
     - List the functions for your account, then clean up resources.
-  category: Scenarios
+  category: Basics
   guide_topic:
     title: Create a &LAM; function with the console
     url: lambda/latest/dg/getting-started-create-function.html
