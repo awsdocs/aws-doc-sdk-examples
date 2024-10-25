@@ -7,7 +7,6 @@ import software.amazon.awssdk.services.acm.AcmClient;
 import software.amazon.awssdk.services.acm.model.AcmException;
 import software.amazon.awssdk.services.acm.model.AddTagsToCertificateRequest;
 import software.amazon.awssdk.services.acm.model.Tag;
-
 import java.util.List;
 
 // snippet-start:[acm.java2.add_tags.main]

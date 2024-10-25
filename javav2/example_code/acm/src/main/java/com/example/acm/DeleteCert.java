@@ -6,10 +6,8 @@ package com.example.acm;
 import software.amazon.awssdk.services.acm.AcmClient;
 import software.amazon.awssdk.services.acm.model.AcmException;
 import software.amazon.awssdk.services.acm.model.DeleteCertificateRequest;
-import software.amazon.awssdk.services.acm.model.DescribeCertificateRequest;
 
 // snippet-start:[acm.java2.del_cert.main]
-
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.

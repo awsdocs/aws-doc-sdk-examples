@@ -22,7 +22,7 @@ import java.nio.ByteBuffer;
  * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-public class importCert {
+public class ImportCert {
 
     public static void main(String[] args) {
 
