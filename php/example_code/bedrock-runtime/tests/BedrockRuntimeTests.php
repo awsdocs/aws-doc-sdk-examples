@@ -8,6 +8,7 @@
 
 namespace bedrockruntime\tests;
 
+use Aws\BedrockRuntime\BedrockRuntimeClient;
 use BedrockRuntime\BedrockRuntimeService;
 use PHPUnit\Framework\TestCase;
 
@@ -21,6 +22,23 @@ class BedrockRuntimeTests extends TestCase
     public function setup(): void
     {
         $this->bedrockRuntimeService = new BedrockRuntimeService();
+    }
+
+    public function test_default_constructor_creates_client()
+    {
+        $service = new BedrockRuntimeService();
+        self::assertNotNull($service->getClient());
+        self::assertEquals('us-east-1', $service->getClient()->getRegion());
+    }
+
+    public function test_constructor_uses_injected_client()
+    {
+        $client = new BedrockRuntimeClient([
+            'region' => 'us-west-2'
+        ]);
+        $service = new BedrockRuntimeService($client);
+        self::assertNotNull($service->getClient());
+        self::assertEquals($client, $service->getClient());
     }
 
     public function test_claude_can_be_invoked()

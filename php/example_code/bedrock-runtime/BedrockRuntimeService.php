@@ -11,12 +11,21 @@ use Exception;
 
 class BedrockRuntimeService extends AWSServiceClass
 {
-    public function __construct()
+    public function __construct(BedrockRuntimeClient $client = null)
     {
-        $this->bedrockRuntimeClient = new BedrockRuntimeClient([
-            'region' => 'us-east-1',
-            'profile' => 'default'
-        ]);
+        if ($client) {
+            $this->bedrockRuntimeClient = $client;
+        } else {
+            $this->bedrockRuntimeClient = new BedrockRuntimeClient([
+                'region' => 'us-east-1',
+                'profile' => 'default'
+            ]);
+        }
+    }
+
+    public function getClient(): BedrockRuntimeClient
+    {
+        return $this->bedrockRuntimeClient;
     }
 
     // snippet-start:[php.example_code.bedrock-runtime.service.invokeClaude]
@@ -29,7 +38,7 @@ class BedrockRuntimeService extends AWSServiceClass
         $completion = "";
         try {
             $modelId = 'anthropic.claude-v2';
-            // Claude requires you to enclose the prompt as follows:
+        // Claude requires you to enclose the prompt as follows:
             $prompt = "\n\nHuman: {$prompt}\n\nAssistant:";
             $body = [
                 'prompt' => $prompt,
