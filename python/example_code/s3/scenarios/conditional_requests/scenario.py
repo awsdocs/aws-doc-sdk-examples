@@ -12,6 +12,7 @@ Amazon Simple Storage Service (Amazon S3).
 import logging
 import random
 import sys
+import datetime
 
 import boto3
 from botocore.exceptions import ClientError
@@ -25,13 +26,12 @@ import demo_tools.question as q # noqa
 # Constants
 FILE_CONTENT = "This is a test file for S3 conditional requests."
 RANDOM_SUFFIX = str(random.randint(100, 999))
-LOG_FORMAT = "%(asctime)s [%(levelname)s] %(message)s"
 
 logger = logging.getLogger(__name__)
 
 
 # snippet-start:[python.example_code.s3.SetupScenario]
-def setup_scenario(s3_client, source_bucket: str, dest_bucket: str):
+def setup_scenario(s3_client, source_bucket: str, dest_bucket: str, object_key: str):
     """
     Sets up the scenario by creating a source and destination bucket.
     Prompts the user to provide a bucket name prefix.
@@ -39,6 +39,7 @@ def setup_scenario(s3_client, source_bucket: str, dest_bucket: str):
     :param s3_client: The Boto3 S3 client.
     :param source_bucket: The name of the source bucket.
     :param dest_bucket: The name of the destination bucket.
+    :param object_key: The name of a test file to add to the source bucket.
     """
     print("This scenario will create a source and destination bucket with sample files.")
 
@@ -52,16 +53,16 @@ def setup_scenario(s3_client, source_bucket: str, dest_bucket: str):
         logger.error(f"Error creating buckets: {error_code}")
         raise
 
-    # Upload test files into the source bucket.
-    for i in range(2):
-        key = f"file{i}.txt"
-        try:
-            print(f"Uploading file {key} to bucket {source_bucket}")
-            s3_client.put_object(Bucket=source_bucket, Key=key, Body=FILE_CONTENT)
+    # Upload test file into the source bucket.
+    try:
+        print(f"Uploading file {object_key} to bucket {source_bucket}")
+        response = s3_client.put_object(Bucket=source_bucket, Key=object_key, Body=FILE_CONTENT)
+        object_etag = response["ETag"]
+        return object_etag
 
-        except Exception as e:
-            logger.error(
-                f"Failed to upload file {key} to bucket {source_bucket}: {e}")
+    except Exception as e:
+        logger.error(
+            f"Failed to upload file {object_key} to bucket {source_bucket}: {e}")
 
 # snippet-end:[python.example_code.s3.SetupScenario]
 
@@ -122,11 +123,11 @@ def display_buckets(s3_client, source_bucket: str, dest_bucket: str):
 
 def list_bucket_contents(s3_client, bucket_name):
     """
-        Display a list of the objects in the bucket.
+    Display a list of the objects in the bucket.
 
-        :param s3_client: The Boto3 S3 client.
-        :param bucket_name: The name of the bucket.
-        """
+    :param s3_client: The Boto3 S3 client.
+    :param bucket_name: The name of the bucket.
+    """
     try:
         # Get list of all objects in the bucket.
         print(f"\t Items in bucket {bucket_name}")
@@ -138,7 +139,8 @@ def list_bucket_contents(s3_client, bucket_name):
             print("\t\tNo objects found.")
         for obj in objs:
             key = obj["Key"]
-            print(f"\t\t object: {key}")
+            print(f"\t\t object: {key} ETag {obj['ETag']}")
+        return objs
     except ClientError as e:
         error_code = e.response['Error']['Code']
         if error_code == 'NoSuchBucket':
@@ -150,7 +152,7 @@ def list_bucket_contents(s3_client, bucket_name):
 # snippet-start:[python.example_code.s3.DisplayMenu]
 
 
-def display_menu(s3_client, s3_conditional_requests, source_bucket: str, dest_bucket: str):
+def display_menu(s3_client, s3_conditional_requests, source_bucket: str, dest_bucket: str, object_key: str, etag: str):
     """
     Displays the menu of conditional request options for the user.
 
@@ -158,6 +160,8 @@ def display_menu(s3_client, s3_conditional_requests, source_bucket: str, dest_bu
     :param s3_conditional_requests: The wrapper for S3 conditional requests.
     :param source_bucket: The name of the source bucket.
     :param dest_bucket: The name of the destination bucket.
+    :param object_key: The key of the test object in the source bucket.
+    :param etag: The etag of the test object in the source bucket.
     """
 
     actions = [
@@ -169,44 +173,57 @@ def display_menu(s3_client, s3_conditional_requests, source_bucket: str, dest_bu
     ]
 
     conditions = [
-        "If-Match",
-        "If-None-Match",
-        "If-Modified-Since",
-        "If-Unmodified-Since",
-        "No Condition",
+        "If-Match: using the object's ETag. This condition should succeed.",
+        "If-None-Match: using the object's ETag. This condition should fail.",
+        "If-Modified-Since: using yesterday's date. This condition should succeed.",
+        "If-Unmodified-Since: using yesterday's date. This condition should fail.",
     ]
+
+    condition_types = ["IfMatch", "IfNoneMatch", "IfModifiedSince",
+                       "IfUnmodifiedSince"]
+    copy_condition_types = ["CopySourceIfMatch", "CopySourceIfNoneMatch", "CopySourceIfModifiedSince",
+                            "CopySourceIfUnmodifiedSince"]
+
+    yesterday_date = datetime.datetime.utcnow() - datetime.timedelta(days=1)
 
     choice = 0
     while choice != 4:
         print("-" * 88)
-        print("Choose an action to explore conditional request features.")
+        print("Choose an action to explore some example conditional requests.")
         choice = q.choose("Which action would you like to take? ", actions)
         if choice == 0:
             logging.info("Listing the objects and buckets.")
             display_buckets(s3_client, source_bucket, dest_bucket)
         elif choice == 1:
             logging.info("Perform a conditional read.")
-            object_name = q.ask("Enter the object name: ", lambda x: (x, f"'{x}' is not a valid object name."))
             condition_type = q.choose("Enter the condition type : ", conditions)
-            condition_types = ["IfMatch", "IfNoneMatch", "IfModifiedSince", "IfUnmodifiedSince"]
-            s3_conditional_requests.get_object_conditional(object_name, condition_types[condition_type])
+            if condition_type == 0 or condition_type == 1:
+                s3_conditional_requests.get_object_conditional(
+                    object_key, condition_types[condition_type], etag)
+            elif condition_type == 2 or condition_type == 3:
+                s3_conditional_requests.get_object_conditional(
+                    object_key, condition_types[condition_type], yesterday_date)
         elif choice == 2:
             logging.info("Perform a conditional copy.")
-            source_key = q.ask("Enter the source object key: ", lambda x: (x, f"'{x}' is not a valid object key."))
-            dest_key = q.ask("Enter the destination object key: ", lambda x: (x, f"'{x}' is not a valid object key."))
-            condition_type = q.choose("Enter the condition type (copy-source-if-match, copy-source-if-none-match, "
-                                      "copy-source-if-modified-since, copy-source-if-unmodified-since): ",
-                                      ["copy-source-if-match", "copy-source-if-none-match",
-                                       "copy-source-if-modified-since", "copy-source-if-unmodified-since"])
-            condition_types = ["CopySourceIfMatch", "CopySourceIfNoneMatch", "CopySourceIfModifiedSince",
-                               "CopySourceIfUnmodifiedSince"]
-            s3_conditional_requests.copy_object_conditional(source_key, dest_key, condition_types[condition_type])
+            condition_type = q.choose("Enter the condition type : ", conditions)
+            dest_key = q.ask("Enter a new object name: ", lambda x: (x, f"'{x}' is not a valid object name."))
+            if condition_type == 0 or condition_type == 1:
+                s3_conditional_requests.copy_object_conditional(
+                    object_key, dest_key, copy_condition_types[condition_type], etag)
+            elif condition_type == 2 or condition_type == 3:
+                s3_conditional_requests.copy_object_conditional(
+                    object_key, copy_condition_types[condition_type], yesterday_date)
         elif choice == 3:
             logging.info("Perform a conditional write.")
-            object_name = q.ask("Enter the object name: ", lambda x: (x, f"'{x}' is not a valid object name."))
+            object_key = q.ask("Enter a new object name: ", lambda x: (x, f"'{x}' is not a valid object name."))
             condition_type = q.choose("Enter the condition type (If-None-Match): ", ["If-None-Match"])
             condition_types = ["IfNoneMatch"]
-            s3_conditional_requests.put_object_conditional(object_name, b"Overwrite example data.", condition_types[condition_type])
+            if condition_type == 0 or condition_type == 1:
+                s3_conditional_requests.put_object_conditional(
+                    object_key, b"Overwrite example data.", copy_condition_types[condition_type], etag)
+            elif condition_type == 2 or condition_type == 3:
+                s3_conditional_requests.put_object_conditional(
+                    object_key, b"Overwrite example data.", copy_condition_types[condition_type], yesterday_date)
         elif choice == 4:
             logging.info("Proceeding to cleanup.")
 
@@ -223,13 +240,14 @@ def do_scenario(s3_client):
 
     source_bucket_name = f"{bucket_prefix}-source-{RANDOM_SUFFIX}"
     dest_bucket_name = f"{bucket_prefix}-dest-{RANDOM_SUFFIX}"
+    object_key = "test-upload-file.txt"
 
     try:
         conditional_requests = S3ConditionalRequests(s3_client, source_bucket_name, dest_bucket_name)
 
-        setup_scenario(s3_client, source_bucket_name, dest_bucket_name)
+        etag = setup_scenario(s3_client, source_bucket_name, dest_bucket_name, object_key)
 
-        display_menu(s3_client, conditional_requests, source_bucket_name, dest_bucket_name)
+        display_menu(s3_client, conditional_requests, source_bucket_name, dest_bucket_name, object_key, etag)
     finally:
         cleanup_scenario(s3_client, source_bucket_name, dest_bucket_name)
 
