@@ -1,370 +1,140 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
+
 import logging
 import random
 from datetime import datetime, timedelta
 from typing import Dict
 
-import coloredlogs
-from prettytable import PrettyTable
-
-# Constants
-BUCKET_PREFIX = "py-conditional-requests"
-FILE_CONTENT = "This is a test file for S3 conditional requests."
-RANDOM_SUFFIX = str(random.randint(100, 999))
-LOG_FORMAT = "%(asctime)s [%(levelname)s] %(message)s"
+from botocore.exceptions import ClientError
 
 # Configure logging
 logger = logging.getLogger(__name__)
-coloredlogs.install(level="DEBUG", logger=logger, fmt=LOG_FORMAT)
 
 
-def create_buckets(s3_client) -> Dict[str, str]:
-    """
-    Create S3 buckets with different configurations and save their names to a file.
+class S3ConditionalRequests:
+    """Encapsulates S3 conditional request operations."""
 
-    Args:
-        s3_client: Boto3 S3 client.
+    def __init__(self, s3_client, source_bucket: str, dest_bucket: str):
+        self.s3 = s3_client
+        self.source_bucket = source_bucket
+        self.dest_bucket = dest_bucket
 
-    Returns:
-        A dictionary containing the names of the created buckets.
-    """
-    buckets = {
-        "no_lock": f"{BUCKET_PREFIX}-no-lock-{RANDOM_SUFFIX}",
-        "lock_enabled": f"{BUCKET_PREFIX}-lock-enabled-{RANDOM_SUFFIX}",
-        "retention": f"{BUCKET_PREFIX}-retention-after-creation-{RANDOM_SUFFIX}",
-    }
+    # snippet-start:[python.example_code.s3.GetObjectConditional]
 
-    logger.info("Starting bucket creation with random suffix: %s", RANDOM_SUFFIX)
-    for name, bucket in buckets.items():
+    def get_object_conditional(self, object_key: str, condition_type: str, condition_value: str) -> bytes:
+        """
+        Retrieves an object from Amazon S3 with a conditional request.
+
+        :param object_key: The key of the object to retrieve.
+        :param condition_type: The type of condition to apply, e.g. 'IfMatch', 'IfNoneMatch', 'IfModifiedSince', 'IfUnmodifiedSince'.
+        :param condition_value: The value to use for the condition.
+        :return: The object data in bytes.
+        """
         try:
-            logger.debug("Creating bucket [%s]: %s", name, bucket)
-            s3_client.create_bucket(Bucket=bucket)
-        except Exception as e:
-            logger.error("Failed to create bucket [%s]: %s", bucket, e)
+            response = self.s3.get_object(
+                Bucket=self.source_bucket,
+                Key=object_key,
+                **{condition_type: condition_value}
+            )
+            return response['Body'].read()
+        except ClientError as e:
+            error_code = e.response['Error']['Code']
+            if error_code in ['NoSuchKey', 'NoSuchBucket']:
+                logger.error(f"Error: {error_code}")
+            elif error_code == 'PreconditionFailed':
+                logger.error("Conditional read failed: Precondition failed")
+            elif error_code == 'NotModified':
+                logger.error("Conditional read failed: Object not modified")
+            else:
+                logger.error(f"Unexpected error: {error_code}")
+            raise
 
-    logger.info(
-        "Enabling versioning and object lock configuration on necessary buckets."
-    )
-    for name in ["lock_enabled", "retention"]:
+    # snippet-end:[python.example_code.s3.GetObjectConditional]
+
+    # snippet-start:[python.example_code.s3.PutObjectConditional]
+
+    def put_object_conditional(self, object_key: str, data: bytes, condition_type: str, condition_value: str) -> dict:
+        """
+        Uploads an object to Amazon S3 with a conditional request.
+
+        :param object_key: The key of the object to upload.
+        :param data: The data to upload.
+        :param condition_type: The type of condition to apply, e.g. 'IfNoneMatch'.
+        :param condition_value: The value to use for the condition.
+        :return: The response from the PUT operation.
+        """
         try:
-            logger.debug("Enabling versioning for bucket [%s]: %s", name, buckets[name])
-            s3_client.put_bucket_versioning(
-                Bucket=buckets[name], VersioningConfiguration={"Status": "Enabled"}
+            response = self.s3.put_object(
+                Bucket=self.source_bucket,
+                Key=object_key,
+                Body=data,
+                **{condition_type: condition_value}
             )
-        except Exception as e:
-            logger.error(
-                "Failed to enable versioning for bucket [%s]: %s", buckets[name], e
+            return response
+        except ClientError as e:
+            error_code = e.response['Error']['Code']
+            if error_code == 'PreconditionFailed':
+                logger.error("Conditional write failed: Precondition failed")
+            else:
+                logger.error(f"Unexpected error: {error_code}")
+            raise
+
+    # snippet-end:[python.example_code.s3.PutObjectConditional]
+
+    # snippet-start:[python.example_code.s3.CopyObjectConditional]
+    def copy_object_conditional(self, source_key: str, dest_key: str, condition_type: str, condition_value: str) -> dict:
+        """
+        Copies an object from one Amazon S3 bucket to another with a conditional request.
+
+        :param source_key: The key of the source object to copy.
+        :param dest_key: The key of the destination object.
+        :param condition_type: The type of condition to apply, e.g. 'CopySourceIfMatch', 'CopySourceIfNoneMatch', 'CopySourceIfModifiedSince', 'CopySourceIfUnmodifiedSince'.
+        :param condition_value: The value to use for the condition.
+        :return: The response from the COPY operation.
+        """
+        try:
+            response = self.s3.copy_object(
+                Bucket=self.dest_bucket,
+                Key=dest_key,
+                CopySource={'Bucket': self.source_bucket, 'Key': source_key},
+                **{condition_type: condition_value}
             )
+            return response
+        except ClientError as e:
+            error_code = e.response['Error']['Code']
+            if error_code in ['NoSuchKey', 'NoSuchBucket']:
+                logger.error(f"Error: {error_code}")
+            elif error_code == 'PreconditionFailed':
+                logger.error("Conditional copy failed: Precondition failed")
+            elif error_code == 'NotModified':
+                logger.error("Conditional copy failed: Object not modified")
+            else:
+                logger.error(f"Unexpected error: {error_code}")
+            raise
 
-    try:
-        logger.debug(
-            "Enabling object lock configuration for bucket [lock_enabled]: %s",
-            buckets["lock_enabled"],
-        )
-        s3_client.put_object_lock_configuration(
-            Bucket=buckets["lock_enabled"],
-            ObjectLockConfiguration={"ObjectLockEnabled": "Enabled"},
-        )
-    except Exception as e:
-        logger.error(
-            "Failed to enable object lock for bucket [%s]: %s",
-            buckets["lock_enabled"],
-            e,
-        )
+    # snippet-end:[python.example_code.s3.CopyObjectConditional]
 
-    logger.info("Buckets created and configured successfully: %s", buckets)
-    _save_bucket_names_to_file(buckets)
-    _print_bucket_summary(buckets)
-    print()
+    def _print_bucket_summary(buckets: Dict[str, str]) -> None:
+        """
+        Print a summary table of the created buckets.
 
-    return buckets
-
-
-def _save_bucket_names_to_file(buckets: Dict[str, str]) -> None:
-    """
-    Save the bucket names to a file.
-
-    Args:
-        buckets: A dictionary containing the names of the created buckets.
-    """
-    with open("buckets.txt", "w") as f:
-        for name, bucket in buckets.items():
-            f.write(f"{name}={bucket}\n")
-
-
-def _print_bucket_summary(buckets: Dict[str, str]) -> None:
-    """
-    Print a summary table of the created buckets.
-
-    Args:
-        buckets: A dictionary containing the names of the created buckets.
-    """
-    summary_table = PrettyTable()
-    summary_table.field_names = [
-        "Bucket Name",
-        "Object Lock",
-        "Default Retention",
-        "Bucket Versioning",
-    ]
-    summary_table.align = "l"
-    summary_table.add_row([buckets["no_lock"], "Disabled", "Disabled", "Disabled"])
-    summary_table.add_row([buckets["lock_enabled"], "Enabled", "Disabled", "Enabled"])
-    summary_table.add_row([buckets["retention"], "Disabled", "Disabled", "Enabled"])
-
-    print("\nSummary of Buckets Created:")
-    print(summary_table)
-
-
-def populate_buckets(s3_client, buckets: Dict[str, str]) -> None:
-    """
-    Upload test files to each bucket.
-
-    Args:
-        s3_client: Boto3 S3 client.
-        buckets: A dictionary containing the names of the created buckets.
-    """
-    logger.info("Starting to populate buckets with test files.")
-    for bucket in buckets.values():
-        file_table = PrettyTable()
-        file_table.field_names = [
-            "File Name",
-            "Last Modified",
-            "Size",
-            "Storage Class",
-            "Legal Hold",
-            "Retention",
+        Args:
+            buckets: A dictionary containing the names of the created buckets.
+        """
+        summary_table = PrettyTable()
+        summary_table.field_names = [
+            "Bucket Name",
+            "Object Lock",
+            "Default Retention",
+            "Bucket Versioning",
         ]
-        file_table.align = "l"
-        for i in range(2):
-            key = f"file{i}.txt"
-            try:
-                logger.debug("Uploading file [%s] to bucket [%s]", key, bucket)
-                s3_client.put_object(Bucket=bucket, Key=key, Body=FILE_CONTENT)
+        summary_table.align = "l"
+        summary_table.add_row([buckets["no_lock"], "Disabled", "Disabled", "Disabled"])
+        summary_table.add_row([buckets["lock_enabled"], "Enabled", "Disabled", "Enabled"])
+        summary_table.add_row([buckets["retention"], "Disabled", "Disabled", "Enabled"])
 
-                # Mock the file details for display purposes
-                last_modified = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                size = "42.0 B"
-                storage_class = "Standard"
-                legal_hold = "OFF"
-                retention = "None"
-
-                file_table.add_row(
-                    [key, last_modified, size, storage_class, legal_hold, retention]
-                )
-            except Exception as e:
-                logger.error(
-                    "Failed to upload file [%s] to bucket [%s]: %s", key, bucket, e
-                )
-        print(f"Summary of Files Uploaded to {bucket}:")
-        print(file_table)
-        print()
+        print("\nSummary of Buckets Created:")
+        print(summary_table)
 
 
-def update_retention_policy(s3_client, bucket: str) -> None:
-    """
-    Update the retention policy for a specific bucket.
-
-    Args:
-        s3_client: Boto3 S3 client.
-        bucket: The name of the bucket to update the retention policy for.
-    """
-    logger.info("Updating retention policy for bucket: %s", bucket)
-    try:
-        s3_client.put_object_lock_configuration(
-            Bucket=bucket,
-            ObjectLockConfiguration={
-                "ObjectLockEnabled": "Enabled",
-                "Rule": {"DefaultRetention": {"Mode": "GOVERNANCE", "Years": 1}},
-            },
-        )
-        logger.debug("Retention policy updated successfully for bucket: %s", bucket)
-        retain_until = (datetime.now() + timedelta(days=365)).strftime(
-            "%Y-%m-%dT%H:%M:%SZ"
-        )
-        _print_retention_policy_update(bucket, None, None, retain_until)
-        print()
-    except Exception as e:
-        logger.error("Failed to update retention policy for bucket [%s]: %s", bucket, e)
-
-
-# snippet-start:[python.example_code.s3.GetObjectLegalHold]
-def get_legal_hold(s3_client, bucket: str, key: str) -> None:
-    """
-    Get the legal hold status of a specific file in a bucket.
-
-    Args:
-        s3_client: Boto3 S3 client.
-        bucket: The name of the bucket containing the file.
-        key: The key of the file to get the legal hold status of.
-    """
-    print()
-    logger.info("Getting legal hold status of file [%s] in bucket [%s]", key, bucket)
-    try:
-        response = s3_client.get_object_legal_hold(Bucket=bucket, Key=key)
-        legal_hold_status = response["LegalHold"]["Status"]
-        logger.debug(
-            "Legal hold status of file [%s] in bucket [%s] is [%s]",
-            key,
-            bucket,
-            legal_hold_status,
-        )
-    except Exception as e:
-        logger.error(
-            "Failed to get legal hold status of file [%s] in bucket [%s]: %s",
-            key,
-            bucket,
-            e,
-        )
-
-
-# snippet-end:[python.example_code.s3.GetObjectLegalHold]
-
-
-# snippet-start:[python.example_code.s3.PutObjectLegalHold]
-def set_legal_hold(s3_client, bucket: str, key: str) -> None:
-    """
-    Set a legal hold on a specific file in a bucket.
-
-    Args:
-        s3_client: Boto3 S3 client.
-        bucket: The name of the bucket containing the file.
-        key: The key of the file to set the legal hold on.
-    """
-    print()
-    logger.info("Setting legal hold on file [%s] in bucket [%s]", key, bucket)
-    try:
-        before_status = "OFF"
-        after_status = "ON"
-        s3_client.put_object_legal_hold(
-            Bucket=bucket, Key=key, LegalHold={"Status": after_status}
-        )
-        logger.debug(
-            "Legal hold set successfully on file [%s] in bucket [%s]", key, bucket
-        )
-        _print_legal_hold_update(bucket, key, before_status, after_status)
-    except Exception as e:
-        logger.error(
-            "Failed to set legal hold on file [%s] in bucket [%s]: %s", key, bucket, e
-        )
-
-
-# snippet-end:[python.example_code.s3.PutObjectLegalHold]
-
-
-def set_retention(s3_client, bucket: str, key: str, days: int) -> None:
-    """
-    Set a retention policy on a specific file in a bucket.
-
-    Args:
-        s3_client: Boto3 S3 client.
-        bucket: The name of the bucket containing the file.
-        key: The key of the file to set the retention policy on.
-        days: The number of days for the retention policy.
-    """
-    retain_until = (datetime.now() + timedelta(days=days)).strftime(
-        "%Y-%m-%dT%H:%M:%SZ"
-    )
-    print()
-    logger.info(
-        "Setting retention policy on file [%s] in bucket [%s] for %d days",
-        key,
-        bucket,
-        days,
-    )
-    logger.debug("Retention date: %s", retain_until)
-    try:
-        before_retention = "None"
-        s3_client.put_object_retention(
-            Bucket=bucket,
-            Key=key,
-            Retention={"Mode": "GOVERNANCE", "RetainUntilDate": retain_until},
-            BypassGovernanceRetention=True,
-        )
-        logger.debug(
-            "Retention policy set successfully on file [%s] in bucket [%s]", key, bucket
-        )
-        _print_retention_policy_update(bucket, key, before_retention, retain_until)
-    except Exception as e:
-        logger.error(
-            "Failed to set retention policy on file [%s] in bucket [%s]: %s",
-            key,
-            bucket,
-            e,
-        )
-
-
-def _print_retention_policy_update(
-    bucket: str, key: str, before_retention: str, after_retention: str
-) -> None:
-    """
-    Print a summary table of the retention policy updates.
-
-    Args:
-        bucket: The name of the bucket.
-        key: The key of the file.
-        before_retention: The retention status before the update.
-        after_retention: The retention status after the update.
-    """
-    retention_table = PrettyTable()
-    retention_table.field_names = [
-        "Bucket",
-        "Object",
-        "Object Lock Enabled",
-        "Retention Mode",
-        "Retention Until (BEFORE)",
-        "Retention Until (AFTER)",
-    ]
-    retention_table.align = "l"
-
-    # Populate the table with the BEFORE and AFTER information
-    retention_table.add_row(
-        [bucket, key, "Enabled", "GOVERNANCE", before_retention, after_retention]
-    )
-
-    logger.info("Retention Policy Updates:")
-    print(retention_table)
-
-
-def _print_legal_hold_update(
-    bucket: str, key: str, before_status: str, after_status: str
-) -> None:
-    """
-    Print a summary table of the legal hold updates.
-
-    Args:
-        bucket: The name of the bucket.
-        key: The key of the file.
-        before_status: The legal hold status before the update.
-        after_status: The legal hold status after the update.
-    """
-    legal_hold_table = PrettyTable()
-    legal_hold_table.field_names = [
-        "Bucket",
-        "Object",
-        "Legal Hold Status (BEFORE)",
-        "Legal Hold Status (AFTER)",
-    ]
-    legal_hold_table.align = "l"
-
-    # Populate the table with the BEFORE and AFTER information
-    legal_hold_table.add_row([bucket, key, before_status, after_status])
-
-    logger.info("Legal Hold Updates:")
-    print(legal_hold_table)
-
-
-def print_bucket_details(buckets: Dict[str, str]) -> None:
-    """
-    Print details of the created buckets.
-
-    Args:
-        buckets: A dictionary containing the names of the created buckets.
-    """
-    bucket_table = PrettyTable()
-    bucket_table.field_names = ["Bucket Name", "Configuration"]
-    bucket_table.align = "l"
-    bucket_table.add_row([buckets["no_lock"], "No Lock"])
-    bucket_table.add_row([buckets["lock_enabled"], "Lock Enabled"])
-    bucket_table.add_row([buckets["retention"], "Retention After Creation"])
-    print(bucket_table)
