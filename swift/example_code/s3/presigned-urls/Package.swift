@@ -11,8 +11,8 @@ let package = Package(
     name: "presigned",
     // Let Xcode know the minimum Apple platforms supported.
     platforms: [
-        .macOS(.v12),
-        .iOS(.v14)
+        .macOS(.v13),
+        .iOS(.v15)
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
