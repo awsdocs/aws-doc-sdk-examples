@@ -23,8 +23,8 @@ export const main = async ({
   maxCount = "1",
 }) => {
   const client = new EC2Client({});
-  minCount = parseInt(minCount);
-  maxCount = parseInt(maxCount);
+  minCount = Number.parseInt(minCount);
+  maxCount = Number.parseInt(maxCount);
   const command = new RunInstancesCommand({
     // Your key pair name.
     KeyName: keyName,

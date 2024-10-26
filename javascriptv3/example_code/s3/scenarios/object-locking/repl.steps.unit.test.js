@@ -1,5 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import * as Scenarios from "@aws-doc-sdk-examples/lib/scenario/index.js";
 import { choices, replAction, replInput } from "./repl.steps.js";
@@ -48,11 +49,9 @@ describe("repl.steps.js", () => {
 
       const scenarios = {
         ...Scenarios,
-        ScenarioInput: function () {
-          return {
-            handle: handleMock,
-          };
-        },
+        ScenarioInput: () => ({
+          handle: handleMock,
+        }),
       };
       const action = replAction(scenarios, mockClient);
       mockClient.send.mockResolvedValue({ Versions: [] });
@@ -104,11 +103,9 @@ describe("repl.steps.js", () => {
 
       const scenarios = {
         ...Scenarios,
-        ScenarioInput: function () {
-          return {
-            handle: handleMock,
-          };
-        },
+        ScenarioInput: () => ({
+          handle: handleMock,
+        }),
       };
       const action = replAction(scenarios, mockClient);
       mockClient.send
@@ -152,11 +149,9 @@ describe("repl.steps.js", () => {
 
       const scenarios = {
         ...Scenarios,
-        ScenarioInput: function () {
-          return {
-            handle: handleMock,
-          };
-        },
+        ScenarioInput: () => ({
+          handle: handleMock,
+        }),
       };
 
       const action = replAction(scenarios, mockClient);
@@ -201,11 +196,9 @@ describe("repl.steps.js", () => {
 
       const scenarios = {
         ...Scenarios,
-        ScenarioInput: function () {
-          return {
-            handle: handleMock,
-          };
-        },
+        ScenarioInput: () => ({
+          handle: handleMock,
+        }),
       };
 
       const action = replAction(scenarios, mockClient);
@@ -249,11 +242,9 @@ describe("repl.steps.js", () => {
 
       const scenarios = {
         ...Scenarios,
-        ScenarioInput: function () {
-          return {
-            handle: handleMock,
-          };
-        },
+        ScenarioInput: () => ({
+          handle: handleMock,
+        }),
       };
 
       const action = replAction(scenarios, mockClient);
@@ -308,11 +299,9 @@ describe("repl.steps.js", () => {
 
       const scenarios = {
         ...Scenarios,
-        ScenarioInput: function () {
-          return {
-            handle: handleMock,
-          };
-        },
+        ScenarioInput: () => ({
+          handle: handleMock,
+        }),
       };
 
       const action = replAction(scenarios, mockClient);

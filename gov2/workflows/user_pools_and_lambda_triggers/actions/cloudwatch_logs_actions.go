@@ -20,10 +20,10 @@ type CloudWatchLogsActions struct {
 }
 
 // GetLatestLogStream gets the most recent log stream for a Lambda function.
-func (actor CloudWatchLogsActions) GetLatestLogStream(functionName string) (types.LogStream, error) {
+func (actor CloudWatchLogsActions) GetLatestLogStream(ctx context.Context, functionName string) (types.LogStream, error) {
 	var logStream types.LogStream
 	logGroupName := fmt.Sprintf("/aws/lambda/%s", functionName)
-	output, err := actor.CwlClient.DescribeLogStreams(context.TODO(), &cloudwatchlogs.DescribeLogStreamsInput{
+	output, err := actor.CwlClient.DescribeLogStreams(ctx, &cloudwatchlogs.DescribeLogStreamsInput{
 		Descending:   aws.Bool(true),
 		Limit:        aws.Int32(1),
 		LogGroupName: aws.String(logGroupName),
@@ -38,11 +38,11 @@ func (actor CloudWatchLogsActions) GetLatestLogStream(functionName string) (type
 }
 
 // GetLogEvents gets the most recent eventCount events from the specified log stream.
-func (actor CloudWatchLogsActions) GetLogEvents(functionName string, logStreamName string, eventCount int32) (
+func (actor CloudWatchLogsActions) GetLogEvents(ctx context.Context, functionName string, logStreamName string, eventCount int32) (
 	[]types.OutputLogEvent, error) {
 	var events []types.OutputLogEvent
 	logGroupName := fmt.Sprintf("/aws/lambda/%s", functionName)
-	output, err := actor.CwlClient.GetLogEvents(context.TODO(), &cloudwatchlogs.GetLogEventsInput{
+	output, err := actor.CwlClient.GetLogEvents(ctx, &cloudwatchlogs.GetLogEventsInput{
 		LogStreamName: aws.String(logStreamName),
 		Limit:         aws.Int32(eventCount),
 		LogGroupName:  aws.String(logGroupName),

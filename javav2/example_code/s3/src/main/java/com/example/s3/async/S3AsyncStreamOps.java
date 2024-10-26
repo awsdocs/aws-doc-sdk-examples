@@ -33,7 +33,6 @@ public class S3AsyncStreamOps {
 
                 Where:
                     bucketName - The name of the Amazon S3 bucket (for example, bucket1).\s
-
                     objectKey - The name of the object (for example, book.pdf).\s
                     path - The local path to the file (for example, C:/AWS/book.pdf).\s
                 """;

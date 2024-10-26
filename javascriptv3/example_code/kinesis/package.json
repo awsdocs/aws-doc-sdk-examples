@@ -1,25 +1,23 @@
 {
-  "name": "@aws-doc-sdk-examples/aws-sdk-v3-kinesis-examples",
+  "name": "@aws-doc-sdk-examples/kinesis",
   "version": "1.0.0",
-  "main": "kinesis-example.js",
-  "scripts": {
-    "build": "webpack kinesis-example.js --mode development --target web --devtool false -o main.js",
-    "test": "exit 0"
+  "directories": {
+    "test": "tests"
   },
-  "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/kinesis.git",
-  "author": "https://github.com/brmur",
-  "license": "Apache 2.0",
+  "scripts": {
+    "integration-test": "vitest run **/*.integration.test.js --reporter=junit --outputFile=test_results/$npm_package_name.junit.xml"
+  },
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
   "dependencies": {
-    "@aws-sdk/client-cognito-identity": "^3.32.0",
-    "@aws-sdk/client-kinesis": "^3.32.0",
-    "@aws-sdk/credential-provider-cognito-identity": "^3.32.0",
-    "@aws-sdk/types": "^3.32.0"
+    "@aws-doc-sdk-examples/lib": "^1.0.1",
+    "@aws-sdk/client-cloudformation": "^3.651.1",
+    "@aws-sdk/client-kinesis": "^3.651.1"
   },
   "devDependencies": {
-    "@aws-sdk/types": "^3.32.0",
-    "@types/node": "^14.0.23",
-    "webpack": "^4.42.0",
-    "webpack-cli": "^3.3.11"
+    "vitest": "^2.1.1"
   },
-  "module": "type"
+  "engines": {
+    "node": "20"
+  }
 }

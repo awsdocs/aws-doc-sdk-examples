@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[javascript.iam_scenarios.iam_basics]
 import {
@@ -25,9 +25,9 @@ import { ScenarioInput } from "@aws-doc-sdk-examples/lib/scenario/index.js";
 
 // Set the parameters.
 const iamClient = new IAMClient({});
-const userName = "test_name";
-const policyName = "test_policy";
-const roleName = "test_role";
+const userName = "iam_basic_test_username";
+const policyName = "iam_basic_test_policy";
+const roleName = "iam_basic_test_role";
 
 /**
  * Create a new IAM user. If the user already exists, give
@@ -63,9 +63,8 @@ export const createUser = async (name, confirmAll = false) => {
         new CreateUserCommand({ UserName: name }),
       );
       return User;
-    } else {
-      throw caught;
     }
+    throw caught;
   }
 };
 
@@ -213,7 +212,7 @@ export const main = async (confirmAll = false) => {
   // List the S3 buckets again.
   // Retry the list buckets operation until it succeeds. AccessDenied might
   // be thrown while the role policy is still stabilizing.
-  await retry({ intervalInMs: 2000, maxRetries: 60 }, () =>
+  await retry({ intervalInMs: 2000, maxRetries: 120 }, () =>
     listBuckets(s3Client),
   );
 

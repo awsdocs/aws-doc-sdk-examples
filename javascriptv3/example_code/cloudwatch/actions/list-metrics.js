@@ -2,10 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[javascript.v3.cloudwatch.actions.ListMetrics]
-import { ListMetricsCommand } from "@aws-sdk/client-cloudwatch";
+import {
+  CloudWatchServiceException,
+  ListMetricsCommand,
+} from "@aws-sdk/client-cloudwatch";
 import { client } from "../libs/client.js";
 
-export const main = () => {
+export const main = async () => {
   // Use the AWS console to see available namespaces and metric names. Custom metrics can also be created.
   // https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/viewing_metrics_with_cloudwatch.html
   const command = new ListMetricsCommand({
@@ -18,13 +21,23 @@ export const main = () => {
     Namespace: "AWS/Logs",
   });
 
-  return client.send(command);
+  try {
+    const response = await client.send(command);
+    console.log(`Metrics count: ${response.Metrics?.length}`);
+    return response;
+  } catch (caught) {
+    if (caught instanceof CloudWatchServiceException) {
+      console.error(`Error from CloudWatch. ${caught.name}: ${caught.message}`);
+    } else {
+      throw caught;
+    }
+  }
 };
 // snippet-end:[javascript.v3.cloudwatch.actions.ListMetrics]
 
-// Call a function if this file was run directly. This allows the file
-// to be runnable without running on import.
-import { fileURLToPath } from "url";
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+// Call function if run directly
+import { isMain } from "@aws-doc-sdk-examples/lib/utils/util-node.js";
+
+if (isMain(import.meta.url)) {
   main();
 }

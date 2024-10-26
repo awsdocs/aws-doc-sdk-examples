@@ -23,7 +23,7 @@ import (
 //   - `functions` - Runs an interactive scenario that shows you how to create and
 //     invoke an AWS Lambda function, then update the code and invoke it again.
 func main() {
-	scenarioMap := map[string]func(sdkConfig aws.Config){
+	scenarioMap := map[string]func(ctx context.Context, sdkConfig aws.Config){
 		"functions": runGetStartedFunctionsScenario,
 	}
 	choices := make([]string, len(scenarioMap))
@@ -41,18 +41,19 @@ func main() {
 		fmt.Printf("'%v' is not a valid scenario.\n", *scenario)
 		flag.Usage()
 	} else {
-		sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+		ctx := context.Background()
+		sdkConfig, err := config.LoadDefaultConfig(ctx)
 		if err != nil {
 			log.Fatalf("unable to load SDK config, %v", err)
 		}
 
 		log.SetFlags(0)
-		runScenario(sdkConfig)
+		runScenario(ctx, sdkConfig)
 	}
 }
 
-func runGetStartedFunctionsScenario(sdkConfig aws.Config) {
+func runGetStartedFunctionsScenario(ctx context.Context, sdkConfig aws.Config) {
 	helper := scenarios.ScenarioHelper{HandlerPath: "handlers/"}
 	scenario := scenarios.NewGetStartedFunctionsScenario(sdkConfig, demotools.NewQuestioner(), &helper)
-	scenario.Run()
+	scenario.Run(ctx)
 }

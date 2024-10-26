@@ -39,15 +39,17 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 Code examples that show you how to perform the essential operations within a service.
 
 - [Learn the basics](GettingStartedWithS3.php)
+- [Learn the basics of S3 Express One Zone](S3ExpressBasics.php)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CopyObject](GettingStartedWithS3.php#L52)
-- [CreateBucket](GettingStartedWithS3.php#L52)
+- [CopyObject](GettingStartedWithS3.php#L104)
+- [CreateBucket](GettingStartedWithS3.php#L61)
 - [DeleteBucket](GettingStartedWithS3.php#L52)
+- [DeleteObject](S3Service.php#L258)
 - [DeleteObjects](GettingStartedWithS3.php#L52)
 - [GetObject](GettingStartedWithS3.php#L52)
 - [ListObjectsV2](GettingStartedWithS3.php#L52)
@@ -58,7 +60,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Create a presigned URL](PresignedURL.php)
+- [Create a presigned URL](S3Service.php)
 - [Create a serverless application to manage photos](../../applications/photo_asset_manager)
 
 
@@ -94,6 +96,26 @@ This example shows you how to do the following:
 
 <!--custom.basics.s3_Scenario_GettingStarted.start-->
 <!--custom.basics.s3_Scenario_GettingStarted.end-->
+
+#### Learn the basics of S3 Express One Zone
+
+This example shows you how to do the following:
+
+- Set up a VPC and VPC Endpoint
+- Set up the S3 Express Policies, Roles, and User to work with S3 Express buckets
+- Create two S3 Clients
+- Create two buckets
+- Create an object and copy it over
+- Demonstrate performance difference
+- Populate the buckets to show the lexicographical difference
+- Prompt the user to see if they want to clean up the resources
+
+<!--custom.basic_prereqs.s3_Scenario_ExpressBasics.start-->
+<!--custom.basic_prereqs.s3_Scenario_ExpressBasics.end-->
+
+
+<!--custom.basics.s3_Scenario_ExpressBasics.start-->
+<!--custom.basics.s3_Scenario_ExpressBasics.end-->
 
 
 #### Create a presigned URL

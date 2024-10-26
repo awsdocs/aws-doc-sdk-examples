@@ -59,7 +59,7 @@ func (h *handler) HandleRequest(ctx context.Context, event events.CognitoEventUs
 		log.Printf("Error looking up user '%v'.\n", user.UserName)
 		return event, err
 	}
-	if output.Items == nil || len(output.Items) == 0 {
+	if len(output.Items) == 0 {
 		log.Printf("User '%v' not found, not migrating user.\n", user.UserName)
 		return event, err
 	}
@@ -84,7 +84,8 @@ func (h *handler) HandleRequest(ctx context.Context, event events.CognitoEventUs
 }
 
 func main() {
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		log.Panicln(err)
 	}

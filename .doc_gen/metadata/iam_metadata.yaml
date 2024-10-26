@@ -580,7 +580,8 @@ iam_CreateAccessKey:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.basics.iam.createaccesskey
+                - iam.swift.import
+                - iam.swift.basics.iam.CreateAccessKey
     Bash:
       versions:
         - sdk_version: 2
@@ -688,7 +689,8 @@ iam_DeleteAccessKey:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.basics.iam.deleteaccesskey
+                - iam.swift.import
+                - iam.swift.basics.iam.DeleteAccessKey
     Bash:
       versions:
         - sdk_version: 2
@@ -1023,7 +1025,8 @@ iam_CreatePolicy:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.basics.iam.createpolicy
+                - iam.swift.import
+                - iam.swift.basics.iam.CreatePolicy
     Bash:
       versions:
         - sdk_version: 2
@@ -1114,7 +1117,8 @@ iam_DeletePolicy:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.basics.iam.deletepolicy
+                - iam.swift.import
+                - iam.swift.basics.iam.DeletePolicy
     Bash:
       versions:
         - sdk_version: 2
@@ -1211,7 +1215,8 @@ iam_ListPolicies:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.listpolicies.handler.listpolicies
+                - iam.swift.import
+                - iam.swift.listpolicies.handler.ListPolicies
     C++:
       versions:
         - sdk_version: 1
@@ -1298,7 +1303,8 @@ iam_GetPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.getpolicy.handler.getpolicy
+                - iam.swift.import
+                - iam.swift.getpolicy.handler.GetPolicy
     C++:
       versions:
         - sdk_version: 1
@@ -1419,7 +1425,8 @@ iam_AttachRolePolicy:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.attachrolepolicy.handler.attachrolepolicy
+                - iam.swift.import
+                - iam.swift.attachrolepolicy.handler.AttachRolePolicy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1535,7 +1542,8 @@ iam_ListAttachedRolePolicies:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.listattachedrolepolicies.handler.listattachedrolepolicies
+                - iam.swift.import
+                - iam.swift.listattachedrolepolicies.handler.ListAttachedRolePolicies
   services:
     iam: {ListAttachedRolePolicies}
 iam_DetachRolePolicy:
@@ -1636,7 +1644,8 @@ iam_DetachRolePolicy:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.basics.iam.detachrolepolicy
+                - iam.swift.import
+                - iam.swift.basics.iam.DetachRolePolicy
     Bash:
       versions:
         - sdk_version: 2
@@ -1742,7 +1751,8 @@ iam_CreateRole:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.createrole.handler.createrole
+                - iam.swift.import
+                - iam.swift.createrole.handler.CreateRole
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1849,7 +1859,8 @@ iam_ListRoles:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.listroles.handler.listroles
+                - iam.swift.import
+                - iam.swift.listroles.handler.ListRoles
   services:
     iam: {ListRoles}
 iam_GetRole:
@@ -1922,7 +1933,8 @@ iam_GetRole:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.getrole.handler.getrole
+                - iam.swift.import
+                - iam.swift.getrole.handler.GetRole
   services:
     iam: {GetRole}
 iam_DeleteRole:
@@ -1986,7 +1998,8 @@ iam_DeleteRole:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.basics.iam.deleterole
+                - iam.swift.import
+                - iam.swift.basics.iam.DeleteRole
     Bash:
       versions:
         - sdk_version: 2
@@ -2100,7 +2113,8 @@ iam_ListRolePolicies:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.listrolepolicies.handler.listrolepolicies
+                - iam.swift.import
+                - iam.swift.listrolepolicies.handler.ListRolePolicies
   services:
     iam: {ListRolePolicies}
 iam_Scenario_RoleManagement:
@@ -2201,7 +2215,8 @@ iam_CreateUser:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.createuser.handler.createuser
+                - iam.swift.import
+                - iam.swift.createuser.handler.CreateUser
     Go:
       versions:
         - sdk_version: 2
@@ -2344,7 +2359,8 @@ iam_DeleteUser:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.basics.iam.deleteuser
+                - iam.swift.import
+                - iam.swift.basics.iam.DeleteUser
     Bash:
       versions:
         - sdk_version: 2
@@ -2395,6 +2411,15 @@ iam_GetUser:
               snippet_tags:
                 - aws-cli.bash-linux.iam.errecho
                 - aws-cli.bash-linux.iam.GetUser
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.import
+                - iam.swift.basics.iam.GetUser
   services:
     iam: {GetUser}
 iam_ListUsers:
@@ -2467,7 +2492,8 @@ iam_ListUsers:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.listusers.handler.listusers
+                - iam.swift.import
+                - iam.swift.listusers.handler.ListUsers
     Go:
       versions:
         - sdk_version: 2
@@ -2675,7 +2701,8 @@ iam_PutUserPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.basics.iam.putuserpolicy
+                - iam.swift.import
+                - iam.swift.basics.iam.PutUserPolicy
   services:
     iam: {PutUserPolicy}
 iam_ListUserPolicies:
@@ -2734,7 +2761,8 @@ iam_DeleteUserPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.basics.iam.deleteuserpolicy
+                - iam.swift.import
+                - iam.swift.basics.iam.DeleteUserPolicy
   services:
     iam: {DeleteUserPolicy}
 iam_Scenario_UserPolicies:
@@ -3095,7 +3123,8 @@ iam_ListGroups:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.listgroups.handler.listgroups
+                - iam.swift.import
+                - iam.swift.listgroups.handler.ListGroups
   services:
     iam: {ListGroups}
 iam_CreateSAMLProvider:
@@ -3181,7 +3210,8 @@ iam_CreateServiceLinkedRole:
           excerpts:
             - description:
               snippet_tags:
-                - iam.swift.createservicelinkedrole.handler.createservicelinkedrole
+                - iam.swift.import
+                - iam.swift.createservicelinkedrole.handler.CreateServiceLinkedRole
   services:
     iam: {CreateServiceLinkedRole}
 iam_DeleteServiceLinkedRole:
@@ -3325,15 +3355,13 @@ iam_Scenario_GroupBasics:
     iam: {AddUserToGroup, CreateGroup, CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy, PutGroupPolicy,
           DeleteGroup, DeleteGroupPolicy, DeleteAccessKey, DeleteUser, RemoveUserFromGroup}
 iam_Scenario_CreateUserAssumeRole:
-  title: Create an &IAM-user; and assume a role with &STS; using an &AWS; SDK
-  title_abbrev: Create a user and assume a role
   synopsis: create a user and assume a role. &aws_sec_sdk_use-federation-warning;
   synopsis_list:
     - Create a user with no permissions.
     - Create a role that grants permission to list &S3; buckets for the account.
     - Add a policy to let the user assume the role.
     - Assume the role and list S3 buckets using temporary credentials, then clean up resources.
-  category: Scenarios
+  category: Basics
   languages:
     .NET:
       versions:

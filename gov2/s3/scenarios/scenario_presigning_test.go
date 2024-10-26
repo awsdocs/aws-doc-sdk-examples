@@ -27,6 +27,9 @@ type MockHttpRequester struct {
 func (httpReq MockHttpRequester) Get(url string) (resp *http.Response, err error) {
 	return &http.Response{Status: "Testing", StatusCode: 200, Body: httpReq.GetBody}, nil
 }
+func (httpReq MockHttpRequester) Post(url, contentType string, body io.Reader) (resp *http.Response, err error) {
+	return &http.Response{Status: "Testing", StatusCode: 200}, nil
+}
 func (httpReq MockHttpRequester) Put(url string, contentLength int64, body io.Reader) (resp *http.Response, err error) {
 	return &http.Response{Status: "Testing", StatusCode: 200}, nil
 }
@@ -51,7 +54,7 @@ type PresigningScenarioTest struct {
 // SetupDataAndStubs sets up test data and builds the stubs that are used to return
 // mocked data.
 func (scenTest *PresigningScenarioTest) SetupDataAndStubs() []testtools.Stub {
-	bucketName := "test-bucket-1"
+	bucketName := "amzn-s3-demo-bucket-1"
 	testConfig, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		panic(err)
@@ -59,7 +62,7 @@ func (scenTest *PresigningScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	objectKey := "doc-example-key"
 	scenTest.TestBody = io.NopCloser(strings.NewReader("Test data!"))
 	scenTest.Answers = []string{
-		bucketName, "../README.md", objectKey, "", "",
+		bucketName, "../README.md", objectKey, "", "", "",
 	}
 
 	var stubList []testtools.Stub
@@ -68,6 +71,7 @@ func (scenTest *PresigningScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	stubList = append(stubList, stubs.StubCreateBucket(bucketName, testConfig.Region, nil))
 	stubList = append(stubList, stubs.StubPresignedRequest("PUT", bucketName, objectKey, nil))
 	stubList = append(stubList, stubs.StubPresignedRequest("GET", bucketName, objectKey, nil))
+	stubList = append(stubList, stubs.StubPresignedRequest("POST", bucketName, objectKey, nil))
 	stubList = append(stubList, stubs.StubPresignedRequest("DELETE", bucketName, objectKey, nil))
 
 	return stubList
@@ -77,7 +81,7 @@ func (scenTest *PresigningScenarioTest) SetupDataAndStubs() []testtools.Stub {
 // or without errors.
 func (scenTest *PresigningScenarioTest) RunSubTest(stubber *testtools.AwsmStubber) {
 	mockQuestioner := demotools.MockQuestioner{Answers: scenTest.Answers}
-	RunPresigningScenario(*stubber.SdkConfig, &mockQuestioner, MockHttpRequester{GetBody: scenTest.TestBody})
+	RunPresigningScenario(context.Background(), *stubber.SdkConfig, &mockQuestioner, MockHttpRequester{GetBody: scenTest.TestBody})
 }
 
 func (scenTest *PresigningScenarioTest) Cleanup() {}

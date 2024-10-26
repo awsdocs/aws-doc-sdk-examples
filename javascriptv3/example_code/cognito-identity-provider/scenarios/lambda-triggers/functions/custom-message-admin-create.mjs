@@ -17,5 +17,5 @@ const handler = async (event) => {
   return event;
 };
 
-export { handler }
+export { handler };
 // snippet-end:[javascript.v3.cognito.scenarios.lambda-triggers.CustomMessageAdminCreate]

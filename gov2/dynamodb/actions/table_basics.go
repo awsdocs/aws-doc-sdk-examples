@@ -31,10 +31,10 @@ type TableBasics struct {
 // snippet-start:[gov2.dynamodb.DescribeTable]
 
 // TableExists determines whether a DynamoDB table exists.
-func (basics TableBasics) TableExists() (bool, error) {
+func (basics TableBasics) TableExists(ctx context.Context) (bool, error) {
 	exists := true
 	_, err := basics.DynamoDbClient.DescribeTable(
-		context.TODO(), &dynamodb.DescribeTableInput{TableName: aws.String(basics.TableName)},
+		ctx, &dynamodb.DescribeTableInput{TableName: aws.String(basics.TableName)},
 	)
 	if err != nil {
 		var notFoundEx *types.ResourceNotFoundException
@@ -57,9 +57,9 @@ func (basics TableBasics) TableExists() (bool, error) {
 // a string sort key named `title`, and a numeric partition key named `year`.
 // This function uses NewTableExistsWaiter to wait for the table to be created by
 // DynamoDB before it returns.
-func (basics TableBasics) CreateMovieTable() (*types.TableDescription, error) {
+func (basics TableBasics) CreateMovieTable(ctx context.Context) (*types.TableDescription, error) {
 	var tableDesc *types.TableDescription
-	table, err := basics.DynamoDbClient.CreateTable(context.TODO(), &dynamodb.CreateTableInput{
+	table, err := basics.DynamoDbClient.CreateTable(ctx, &dynamodb.CreateTableInput{
 		AttributeDefinitions: []types.AttributeDefinition{{
 			AttributeName: aws.String("year"),
 			AttributeType: types.ScalarAttributeTypeN,
@@ -84,7 +84,7 @@ func (basics TableBasics) CreateMovieTable() (*types.TableDescription, error) {
 		log.Printf("Couldn't create table %v. Here's why: %v\n", basics.TableName, err)
 	} else {
 		waiter := dynamodb.NewTableExistsWaiter(basics.DynamoDbClient)
-		err = waiter.Wait(context.TODO(), &dynamodb.DescribeTableInput{
+		err = waiter.Wait(ctx, &dynamodb.DescribeTableInput{
 			TableName: aws.String(basics.TableName)}, 5*time.Minute)
 		if err != nil {
 			log.Printf("Wait for table exists failed. Here's why: %v\n", err)
@@ -99,13 +99,13 @@ func (basics TableBasics) CreateMovieTable() (*types.TableDescription, error) {
 // snippet-start:[gov2.dynamodb.ListTables]
 
 // ListTables lists the DynamoDB table names for the current account.
-func (basics TableBasics) ListTables() ([]string, error) {
+func (basics TableBasics) ListTables(ctx context.Context) ([]string, error) {
 	var tableNames []string
 	var output *dynamodb.ListTablesOutput
 	var err error
 	tablePaginator := dynamodb.NewListTablesPaginator(basics.DynamoDbClient, &dynamodb.ListTablesInput{})
 	for tablePaginator.HasMorePages() {
-		output, err = tablePaginator.NextPage(context.TODO())
+		output, err = tablePaginator.NextPage(ctx)
 		if err != nil {
 			log.Printf("Couldn't list tables. Here's why: %v\n", err)
 			break
@@ -121,12 +121,12 @@ func (basics TableBasics) ListTables() ([]string, error) {
 // snippet-start:[gov2.dynamodb.PutItem]
 
 // AddMovie adds a movie the DynamoDB table.
-func (basics TableBasics) AddMovie(movie Movie) error {
+func (basics TableBasics) AddMovie(ctx context.Context, movie Movie) error {
 	item, err := attributevalue.MarshalMap(movie)
 	if err != nil {
 		panic(err)
 	}
-	_, err = basics.DynamoDbClient.PutItem(context.TODO(), &dynamodb.PutItemInput{
+	_, err = basics.DynamoDbClient.PutItem(ctx, &dynamodb.PutItemInput{
 		TableName: aws.String(basics.TableName), Item: item,
 	})
 	if err != nil {
@@ -142,7 +142,7 @@ func (basics TableBasics) AddMovie(movie Movie) error {
 // UpdateMovie updates the rating and plot of a movie that already exists in the
 // DynamoDB table. This function uses the `expression` package to build the update
 // expression.
-func (basics TableBasics) UpdateMovie(movie Movie) (map[string]map[string]interface{}, error) {
+func (basics TableBasics) UpdateMovie(ctx context.Context, movie Movie) (map[string]map[string]interface{}, error) {
 	var err error
 	var response *dynamodb.UpdateItemOutput
 	var attributeMap map[string]map[string]interface{}
@@ -152,7 +152,7 @@ func (basics TableBasics) UpdateMovie(movie Movie) (map[string]map[string]interf
 	if err != nil {
 		log.Printf("Couldn't build expression for update. Here's why: %v\n", err)
 	} else {
-		response, err = basics.DynamoDbClient.UpdateItem(context.TODO(), &dynamodb.UpdateItemInput{
+		response, err = basics.DynamoDbClient.UpdateItem(ctx, &dynamodb.UpdateItemInput{
 			TableName:                 aws.String(basics.TableName),
 			Key:                       movie.GetKey(),
 			ExpressionAttributeNames:  expr.Names(),
@@ -179,7 +179,7 @@ func (basics TableBasics) UpdateMovie(movie Movie) (map[string]map[string]interf
 // AddMovieBatch adds a slice of movies to the DynamoDB table. The function sends
 // batches of 25 movies to DynamoDB until all movies are added or it reaches the
 // specified maximum.
-func (basics TableBasics) AddMovieBatch(movies []Movie, maxMovies int) (int, error) {
+func (basics TableBasics) AddMovieBatch(ctx context.Context, movies []Movie, maxMovies int) (int, error) {
 	var err error
 	var item map[string]types.AttributeValue
 	written := 0
@@ -202,7 +202,7 @@ func (basics TableBasics) AddMovieBatch(movies []Movie, maxMovies int) (int, err
 				)
 			}
 		}
-		_, err = basics.DynamoDbClient.BatchWriteItem(context.TODO(), &dynamodb.BatchWriteItemInput{
+		_, err = basics.DynamoDbClient.BatchWriteItem(ctx, &dynamodb.BatchWriteItemInput{
 			RequestItems: map[string][]types.WriteRequest{basics.TableName: writeReqs}})
 		if err != nil {
 			log.Printf("Couldn't add a batch of movies to %v. Here's why: %v\n", basics.TableName, err)
@@ -222,9 +222,9 @@ func (basics TableBasics) AddMovieBatch(movies []Movie, maxMovies int) (int, err
 
 // GetMovie gets movie data from the DynamoDB table by using the primary composite key
 // made of title and year.
-func (basics TableBasics) GetMovie(title string, year int) (Movie, error) {
+func (basics TableBasics) GetMovie(ctx context.Context, title string, year int) (Movie, error) {
 	movie := Movie{Title: title, Year: year}
-	response, err := basics.DynamoDbClient.GetItem(context.TODO(), &dynamodb.GetItemInput{
+	response, err := basics.DynamoDbClient.GetItem(ctx, &dynamodb.GetItemInput{
 		Key: movie.GetKey(), TableName: aws.String(basics.TableName),
 	})
 	if err != nil {
@@ -245,7 +245,7 @@ func (basics TableBasics) GetMovie(title string, year int) (Movie, error) {
 // Query gets all movies in the DynamoDB table that were released in the specified year.
 // The function uses the `expression` package to build the key condition expression
 // that is used in the query.
-func (basics TableBasics) Query(releaseYear int) ([]Movie, error) {
+func (basics TableBasics) Query(ctx context.Context, releaseYear int) ([]Movie, error) {
 	var err error
 	var response *dynamodb.QueryOutput
 	var movies []Movie
@@ -261,7 +261,7 @@ func (basics TableBasics) Query(releaseYear int) ([]Movie, error) {
 			KeyConditionExpression:    expr.KeyCondition(),
 		})
 		for queryPaginator.HasMorePages() {
-			response, err = queryPaginator.NextPage(context.TODO())
+			response, err = queryPaginator.NextPage(ctx)
 			if err != nil {
 				log.Printf("Couldn't query for movies released in %v. Here's why: %v\n", releaseYear, err)
 				break
@@ -288,7 +288,7 @@ func (basics TableBasics) Query(releaseYear int) ([]Movie, error) {
 // and projects them to return a reduced set of fields.
 // The function uses the `expression` package to build the filter and projection
 // expressions.
-func (basics TableBasics) Scan(startYear int, endYear int) ([]Movie, error) {
+func (basics TableBasics) Scan(ctx context.Context, startYear int, endYear int) ([]Movie, error) {
 	var movies []Movie
 	var err error
 	var response *dynamodb.ScanOutput
@@ -307,7 +307,7 @@ func (basics TableBasics) Scan(startYear int, endYear int) ([]Movie, error) {
 			ProjectionExpression:      expr.Projection(),
 		})
 		for scanPaginator.HasMorePages() {
-			response, err = scanPaginator.NextPage(context.TODO())
+			response, err = scanPaginator.NextPage(ctx)
 			if err != nil {
 				log.Printf("Couldn't scan for movies released between %v and %v. Here's why: %v\n",
 					startYear, endYear, err)
@@ -332,8 +332,8 @@ func (basics TableBasics) Scan(startYear int, endYear int) ([]Movie, error) {
 // snippet-start:[gov2.dynamodb.DeleteItem]
 
 // DeleteMovie removes a movie from the DynamoDB table.
-func (basics TableBasics) DeleteMovie(movie Movie) error {
-	_, err := basics.DynamoDbClient.DeleteItem(context.TODO(), &dynamodb.DeleteItemInput{
+func (basics TableBasics) DeleteMovie(ctx context.Context, movie Movie) error {
+	_, err := basics.DynamoDbClient.DeleteItem(ctx, &dynamodb.DeleteItemInput{
 		TableName: aws.String(basics.TableName), Key: movie.GetKey(),
 	})
 	if err != nil {
@@ -347,8 +347,8 @@ func (basics TableBasics) DeleteMovie(movie Movie) error {
 // snippet-start:[gov2.dynamodb.DeleteTable]
 
 // DeleteTable deletes the DynamoDB table and all of its data.
-func (basics TableBasics) DeleteTable() error {
-	_, err := basics.DynamoDbClient.DeleteTable(context.TODO(), &dynamodb.DeleteTableInput{
+func (basics TableBasics) DeleteTable(ctx context.Context) error {
+	_, err := basics.DynamoDbClient.DeleteTable(ctx, &dynamodb.DeleteTableInput{
 		TableName: aws.String(basics.TableName)})
 	if err != nil {
 		log.Printf("Couldn't delete table %v. Here's why: %v\n", basics.TableName, err)

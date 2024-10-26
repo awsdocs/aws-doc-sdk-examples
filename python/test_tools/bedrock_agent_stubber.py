@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Stub functions that are used by the Agents for Amazon Bedrock unit tests.
+Stub functions that are used by the Amazon Bedrock Agents unit tests.
 """
 
 from test_tools.example_stubber import ExampleStubber
@@ -18,7 +18,7 @@ class BedrockAgentStubber(ExampleStubber):
         Initializes the object with a specific client and configures it for
         stubbing or AWS passthrough.
 
-        :param client: A Boto3 Agents for Amazon Bedrock client.
+        :param client: A Boto3 Amazon Bedrock Agents client.
         :param use_stubs: When True, uses stubs to intercept requests. Otherwise,
                           passes requests through to AWS.
         """
@@ -30,7 +30,7 @@ class BedrockAgentStubber(ExampleStubber):
         )
 
     def stub_create_agent_action_group(
-        self, expected_params, response, error_code=None
+            self, expected_params, response, error_code=None
     ):
         self._stub_bifurcator(
             "create_agent_action_group",
@@ -70,7 +70,7 @@ class BedrockAgentStubber(ExampleStubber):
         )
 
     def stub_list_agent_knowledge_bases(
-        self, expected_params, response, error_code=None
+            self, expected_params, response, error_code=None
     ):
         self._stub_bifurcator(
             "list_agent_knowledge_bases",

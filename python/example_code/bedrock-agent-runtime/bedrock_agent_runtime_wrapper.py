@@ -4,8 +4,8 @@
 """
 Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) with the Agents for Amazon
-Bedrock Runtime client to send prompts to an agent to process and respond to.
+Shows how to use the AWS SDK for Python (Boto3) with the Amazon Bedrock Agents Runtime
+client to send prompts to an agent to process and respond to.
 """
 
 import logging
@@ -18,12 +18,12 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.bedrock-agent-runtime.BedrockAgentsRuntimeWrapper.class]
 # snippet-start:[python.example_code.bedrock-agent-runtime.BedrockAgentRuntimeWrapper.decl]
 class BedrockAgentRuntimeWrapper:
-    """Encapsulates Agents for Amazon Bedrock Runtime actions."""
+    """Encapsulates Amazon Bedrock Agents Runtime actions."""
 
     def __init__(self, runtime_client):
         """
-        :param runtime_client: A low-level client representing the Agents for Amazon
-                               Bedrock Runtime. Describes the API operations for running
+        :param runtime_client: A low-level client representing the Amazon Bedrock Agents Runtime.
+                               Describes the API operations for running
                                inferences using Bedrock Agents.
         """
         self.agents_runtime_client = runtime_client
@@ -67,6 +67,5 @@ class BedrockAgentRuntimeWrapper:
         return completion
 
     # snippet-end:[python.example_code.bedrock-agent-runtime.InvokeAgent]
-
 
 # snippet-end:[python.example_code.bedrock-agent-runtime.BedrockAgentsRuntimeWrapper.class]

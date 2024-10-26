@@ -38,11 +38,12 @@ const model = new TextractModel({
 });
 
 const render = () =>
+  // biome-ignore lint/correctness/noRenderReturnValue: Only invalid in new react versions
   ReactDOM.render(
     <React.StrictMode>
       <App model={model} isSignedIn={idToken !== null} config={Config} />
     </React.StrictMode>,
-    document.getElementById("root")
+    document.getElementById("root"),
   );
 
 model.subscribe(render);

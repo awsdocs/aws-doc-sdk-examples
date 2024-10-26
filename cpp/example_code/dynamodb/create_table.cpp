@@ -68,9 +68,10 @@ bool AwsDoc::DynamoDB::createTable(const Aws::String &tableName,
     else {
         std::cerr << "Failed to create table: " << outcome.GetError().GetMessage()
                   << std::endl;
+        return false;
     }
 
-    return outcome.IsSuccess();
+    return waitTableActive(tableName, dynamoClient);
 }
 // snippet-end:[dynamodb.cpp.create_table.code]
 

@@ -28,8 +28,8 @@ export const main = async ({ groupId }) => {
 // snippet-end:[ec2.JavaScript.SecurityGroups.deleteSecurityGroupV3]
 
 // Invoke main function if this file was run directly.
-import { fileURLToPath } from "url";
-import { parseArgs } from "util";
+import { fileURLToPath } from "node:url";
+import { parseArgs } from "node:util";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const options = {
     groupId: {

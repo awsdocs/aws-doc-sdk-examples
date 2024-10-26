@@ -32,7 +32,7 @@ function App(props) {
           Id: polyId,
           BlockType: blockType,
           Geometry: geometry,
-        })
+        }),
       );
     } else {
       setShownPolygons(shownPolygons.filter((poly) => poly.Id !== polyId));

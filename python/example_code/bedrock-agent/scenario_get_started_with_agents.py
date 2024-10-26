@@ -4,7 +4,7 @@
 """
 Purpose
 
-This end-to-end scenario demonstrates how to use Agents for Amazon Bedrock with
+This end-to-end scenario demonstrates how to use Amazon Bedrock Agents with
 the AWS SDK for Python (Boto3). It covers the following steps:
 
 1. Creating an execution role for the Bedrock agent.
@@ -19,6 +19,7 @@ the AWS SDK for Python (Boto3). It covers the following steps:
 """
 
 import asyncio
+import boto3
 import io
 import json
 import logging
@@ -29,8 +30,6 @@ import sys
 import uuid
 import yaml
 import zipfile
-
-import boto3
 from botocore.exceptions import ClientError
 
 from bedrock_agent_wrapper import BedrockAgentWrapper
@@ -48,10 +47,10 @@ ROLE_POLICY_NAME = "agent_permissions"
 
 
 class BedrockAgentScenarioWrapper:
-    """Runs a scenario that shows how to get started using Agents for Amazon Bedrock."""
+    """Runs a scenario that shows how to get started using Amazon Bedrock Agents."""
 
     def __init__(
-        self, bedrock_agent_client, runtime_client, lambda_client, iam_resource, postfix
+            self, bedrock_agent_client, runtime_client, lambda_client, iam_resource, postfix
     ):
         self.iam_resource = iam_resource
         self.lambda_client = lambda_client

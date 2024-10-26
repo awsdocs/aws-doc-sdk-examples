@@ -6,8 +6,10 @@ Unit tests for key_policies.py.
 """
 
 import json
+
 import boto3
 import pytest
+from botocore.exceptions import ClientError
 
 import key_policies
 
@@ -38,15 +40,22 @@ def test_key_policies(
             kms_stubber.stub_list_key_policies,
             key_id,
             ["test-policy"] * 5,
-            raise_and_continue=True,
         )
         runner.add(
             kms_stubber.stub_get_key_policy,
             key_id,
             json.dumps(policy),
-            raise_and_continue=True,
         )
         if stop_on_action != "stub_get_key_policy":
-            runner.add(kms_stubber.stub_put_key_policy, key_id, raise_and_continue=True)
+            runner.add(kms_stubber.stub_put_key_policy, key_id)
 
-    key_policies.key_policies(kms_client)
+    exception_raising_functions = [
+        "stub_list_key_policies",
+        "stub_get_key_policy",
+        "stub_put_key_policy",
+    ]
+    if stop_on_action not in exception_raising_functions:
+        key_policies.key_policies(kms_client)
+    else:
+        with pytest.raises(ClientError):
+            key_policies.key_policies(kms_client)

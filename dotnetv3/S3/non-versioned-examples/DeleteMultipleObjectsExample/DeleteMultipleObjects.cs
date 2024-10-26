@@ -22,7 +22,7 @@ namespace DeleteMultipleObjectsExample
         /// </summary>
         public static async Task Main()
         {
-            const string bucketName = "doc-example-bucket";
+            const string bucketName = "amzn-s3-demo-bucket";
 
             // If the Amazon S3 bucket from which you wish to delete objects is not
             // located in the same AWS Region as the default user, define the

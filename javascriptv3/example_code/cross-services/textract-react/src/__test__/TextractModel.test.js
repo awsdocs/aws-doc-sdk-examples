@@ -140,83 +140,80 @@ describe("extractDocument", () => {
     expect(tm.modelError).toBe(testError);
   });
 
-  test(
-    "asynchronous text type calls detect command, waits for sqs, returns " +
-      "expected document",
-    async () => {
-      const syncType = "async";
-      const extractType = "text";
-      const imageData = {
-        bucketName: "test-bucket",
-        objectKey: TestExtractDocument.Name,
-      };
-      const snsTopicArn = "sns-topic-arn";
-      const roleArn = "role-arn";
-      const queueUrl = "queue-url";
-      const jobId = "job-id";
-      const textract = new TextractClient({});
-      textract.send = jest
-        .fn()
-        .mockImplementationOnce((command) => {
-          expect(command).toBeInstanceOf(StartDocumentTextDetectionCommand);
-          expect(command.input).toEqual({
-            DocumentLocation: {
-              S3Object: {
-                Bucket: imageData.bucketName,
-                Name: imageData.objectKey,
-              },
+  test("asynchronous text type calls detect command, waits for sqs, returns " +
+    "expected document", async () => {
+    const syncType = "async";
+    const extractType = "text";
+    const imageData = {
+      bucketName: "test-bucket",
+      objectKey: TestExtractDocument.Name,
+    };
+    const snsTopicArn = "sns-topic-arn";
+    const roleArn = "role-arn";
+    const queueUrl = "queue-url";
+    const jobId = "job-id";
+    const textract = new TextractClient({});
+    textract.send = jest
+      .fn()
+      .mockImplementationOnce((command) => {
+        expect(command).toBeInstanceOf(StartDocumentTextDetectionCommand);
+        expect(command.input).toEqual({
+          DocumentLocation: {
+            S3Object: {
+              Bucket: imageData.bucketName,
+              Name: imageData.objectKey,
             },
-            NotificationChannel: {
-              SNSTopicArn: snsTopicArn,
-              RoleArn: roleArn,
-            },
-          });
-          return { JobId: jobId };
-        })
-        .mockImplementationOnce((command) => {
-          expect(command).toBeInstanceOf(GetDocumentTextDetectionCommand);
-          expect(command.input).toEqual({ JobId: jobId });
-          return TestExtractResponse;
+          },
+          NotificationChannel: {
+            SNSTopicArn: snsTopicArn,
+            RoleArn: roleArn,
+          },
         });
-      const sqs = new SQSClient({});
-      sqs.send = jest
-        .fn()
-        .mockImplementationOnce((command) => {
-          expect(command).toBeInstanceOf(ReceiveMessageCommand);
-          expect(command.input).toEqual({
-            QueueUrl: queueUrl,
-            MaxNumberOfMessages: 1,
-          });
-          return {
-            Messages: [
-              {
-                ReceiptHandle: "receipt-handle",
-                Body: JSON.stringify({
-                  Message: JSON.stringify({ Status: JobStatus.SUCCEEDED }),
-                }),
-              },
-            ],
-          };
-        })
-        .mockImplementationOnce((command) => {
-          expect(command).toBeInstanceOf(DeleteMessageCommand);
-        });
-      const tm = new TextractModel({
-        textract: textract,
-        sqs: sqs,
-        snsTopicArn: snsTopicArn,
-        roleArn: roleArn,
-        queueUrl: queueUrl,
+        return { JobId: jobId };
+      })
+      .mockImplementationOnce((command) => {
+        expect(command).toBeInstanceOf(GetDocumentTextDetectionCommand);
+        expect(command.input).toEqual({ JobId: jobId });
+        return TestExtractResponse;
       });
-      tm.imageData = imageData;
-      tm.inform = jest.fn();
-      await tm.extractDocument(syncType, extractType);
-      expect(textract.send).toHaveBeenCalled();
-      expect(sqs.send).toHaveBeenCalledTimes(2);
-      expect(tm.extraction).toEqual(TestExtractDocument);
-      expect(tm.inform).toHaveBeenCalled();
-    }
-  );
+    const sqs = new SQSClient({});
+    sqs.send = jest
+      .fn()
+      .mockImplementationOnce((command) => {
+        expect(command).toBeInstanceOf(ReceiveMessageCommand);
+        expect(command.input).toEqual({
+          QueueUrl: queueUrl,
+          MaxNumberOfMessages: 1,
+        });
+        return {
+          Messages: [
+            {
+              ReceiptHandle: "receipt-handle",
+              Body: JSON.stringify({
+                Message: JSON.stringify({ Status: JobStatus.SUCCEEDED }),
+              }),
+            },
+          ],
+        };
+      })
+      .mockImplementationOnce((command) => {
+        expect(command).toBeInstanceOf(DeleteMessageCommand);
+      });
+    const tm = new TextractModel({
+      textract: textract,
+      sqs: sqs,
+      snsTopicArn: snsTopicArn,
+      roleArn: roleArn,
+      queueUrl: queueUrl,
+    });
+    tm.imageData = imageData;
+    tm.inform = jest.fn();
+    await tm.extractDocument(syncType, extractType);
+    expect(textract.send).toHaveBeenCalled();
+    expect(sqs.send).toHaveBeenCalledTimes(2);
+    expect(tm.extraction).toEqual(TestExtractDocument);
+    expect(tm.inform).toHaveBeenCalled();
+  });
 
   test("asynchronous form type calls analyze command", async () => {
     const syncType = "async";

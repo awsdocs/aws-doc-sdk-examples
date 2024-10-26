@@ -70,6 +70,7 @@ sts_AssumeRole:
           excerpts:
             - description:
               snippet_tags:
+                - sts.swift.import
                 - iam.swift.basics.sts.assumerole
 
     Rust:

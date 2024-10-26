@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[medical-imaging.JavaScript.dicom.startDicomImportJobV3]
 import { StartDICOMImportJobCommand } from "@aws-sdk/client-medical-imaging";
@@ -19,7 +19,7 @@ export const startDicomImportJob = async (
   datastoreId = "12345678901234567890123456789012",
   dataAccessRoleArn = "arn:aws:iam::xxxxxxxxxxxx:role/ImportJobDataAccessRole",
   inputS3Uri = "s3://medical-imaging-dicom-input/dicom_input/",
-  outputS3Uri = "s3://medical-imaging-output/job_output/"
+  outputS3Uri = "s3://medical-imaging-output/job_output/",
 ) => {
   const response = await medicalImagingClient.send(
     new StartDICOMImportJobCommand({
@@ -28,7 +28,7 @@ export const startDicomImportJob = async (
       dataAccessRoleArn: dataAccessRoleArn,
       inputS3Uri: inputS3Uri,
       outputS3Uri: outputS3Uri,
-    })
+    }),
   );
   console.log(response);
   // {

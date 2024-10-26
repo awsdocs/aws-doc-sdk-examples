@@ -57,7 +57,7 @@ describe("describe-instances", () => {
     error.name = "InvalidParameterName";
 
     paginateDescribeInstances.mockReturnValueOnce(
-      // eslint-disable-next-line require-yield
+      // biome-ignore lint/correctness/useYield: Mock generator function
       (async function* () {
         throw error;
       })(),

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # snippet-start:[rds.ruby.listSubnetGroups]
-require "aws-sdk-rds"  # v2: require 'aws-sdk'
+require 'aws-sdk-rds' # v2: require 'aws-sdk'
 
 # List all Amazon Relational Database Service (Amazon RDS) subnet groups.
 #
@@ -22,7 +22,7 @@ rescue Aws::Errors::ServiceError => e
 end
 # snippet-end:[rds.ruby.listSubnetGroups]
 
-if __FILE__ == $0
+if __FILE__ == $PROGRAM_NAME
   rds_resource = Aws::RDS::Resource.new
   list_subnet_groups(rds_resource)
 end

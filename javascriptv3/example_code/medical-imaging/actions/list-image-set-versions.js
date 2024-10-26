@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[medical-imaging.JavaScript.imageset.listImageSetVersionsV3]
 import { paginateListImageSetVersions } from "@aws-sdk/client-medical-imaging";
@@ -13,7 +13,7 @@ import { medicalImagingClient } from "../libs/medicalImagingClient.js";
  */
 export const listImageSetVersions = async (
   datastoreId = "xxxxxxxxxxxx",
-  imageSetId = "xxxxxxxxxxxx"
+  imageSetId = "xxxxxxxxxxxx",
 ) => {
   const paginatorConfig = {
     client: medicalImagingClient,
@@ -23,13 +23,13 @@ export const listImageSetVersions = async (
   const commandParams = { datastoreId, imageSetId };
   const paginator = paginateListImageSetVersions(
     paginatorConfig,
-    commandParams
+    commandParams,
   );
 
-  let imageSetPropertiesList = [];
+  const imageSetPropertiesList = [];
   for await (const page of paginator) {
     // Each page contains a list of `jobSummaries`. The list is truncated if is larger than `pageSize`.
-    imageSetPropertiesList.push(...page["imageSetPropertiesList"]);
+    imageSetPropertiesList.push(...page.imageSetPropertiesList);
     console.log(page);
   }
   // {

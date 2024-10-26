@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[sns.JavaScript.SMS.getSMSAttributesV3]
 import { GetSMSAttributesCommand } from "@aws-sdk/client-sns";

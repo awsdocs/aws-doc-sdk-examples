@@ -47,7 +47,14 @@ public class DeleteBucketPolicy {
         s3.close();
     }
 
-    // Delete the bucket policy.
+    /**
+     * Deletes the S3 bucket policy for the specified bucket.
+     *
+     * @param s3 the {@link S3Client} instance to use for the operation
+     * @param bucketName the name of the S3 bucket for which the policy should be deleted
+     *
+     * @throws S3Exception if there is an error deleting the bucket policy
+     */
     public static void deleteS3BucketPolicy(S3Client s3, String bucketName) {
         DeleteBucketPolicyRequest delReq = DeleteBucketPolicyRequest.builder()
                 .bucket(bucketName)

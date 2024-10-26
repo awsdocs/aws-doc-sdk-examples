@@ -5,6 +5,7 @@ package com.example.s3.batch;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.core.retry.RetryPolicy;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
@@ -43,6 +44,9 @@ import software.amazon.awssdk.services.s3control.model.JobReport;
 import software.amazon.awssdk.services.s3control.model.JobStatus;
 import software.amazon.awssdk.services.s3control.model.PutJobTaggingRequest;
 import software.amazon.awssdk.services.s3control.model.S3ControlException;
+import software.amazon.awssdk.services.s3control.model.S3ObjectLockRetentionMode;
+import software.amazon.awssdk.services.s3control.model.S3Retention;
+import software.amazon.awssdk.services.s3control.model.S3SetObjectRetentionOperation;
 import software.amazon.awssdk.services.s3control.model.S3SetObjectTaggingOperation;
 import software.amazon.awssdk.services.s3control.model.S3Tag;
 import software.amazon.awssdk.services.s3control.model.UpdateJobPriorityRequest;
@@ -54,6 +58,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -124,9 +129,7 @@ public class S3BatchActions {
             ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
                 .apiCallTimeout(Duration.ofMinutes(2))
                 .apiCallAttemptTimeout(Duration.ofSeconds(90))
-                .retryPolicy(RetryPolicy.builder()
-                    .numRetries(3)
-                    .build())
+                .retryStrategy(RetryMode.STANDARD)
                 .build();
 
             s3AsyncClient = S3AsyncClient.builder()

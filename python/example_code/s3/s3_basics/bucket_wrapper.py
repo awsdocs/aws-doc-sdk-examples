@@ -384,7 +384,7 @@ def usage_demo():
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     s3_resource = boto3.resource("s3")
-    prefix = "doc-example-bucket-"
+    prefix = "amzn-s3-demo-bucket-"
     created_buckets = [
         BucketWrapper(s3_resource.Bucket(prefix + str(uuid.uuid1()))) for _ in range(3)
     ]

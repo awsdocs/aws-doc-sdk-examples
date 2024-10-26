@@ -68,9 +68,8 @@ export const destroySteps = [
         "${TABLE_NAME}",
         NAMES.tableName,
       );
-    } else {
-      return MESSAGES.deletedTable.replace("${TABLE_NAME}", NAMES.tableName);
     }
+    return MESSAGES.deletedTable.replace("${TABLE_NAME}", NAMES.tableName);
   }),
   new ScenarioAction("deleteKeyPair", async (state) => {
     try {
@@ -90,12 +89,11 @@ export const destroySteps = [
         "${KEY_PAIR_NAME}",
         NAMES.keyPairName,
       );
-    } else {
-      return MESSAGES.deletedKeyPair.replace(
-        "${KEY_PAIR_NAME}",
-        NAMES.keyPairName,
-      );
     }
+    return MESSAGES.deletedKeyPair.replace(
+      "${KEY_PAIR_NAME}",
+      NAMES.keyPairName,
+    );
   }),
   new ScenarioAction("detachPolicyFromRole", async (state) => {
     try {
@@ -124,11 +122,10 @@ export const destroySteps = [
       return MESSAGES.detachPolicyFromRoleError
         .replace("${INSTANCE_POLICY_NAME}", NAMES.instancePolicyName)
         .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
-    } else {
-      return MESSAGES.detachedPolicyFromRole
-        .replace("${INSTANCE_POLICY_NAME}", NAMES.instancePolicyName)
-        .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
     }
+    return MESSAGES.detachedPolicyFromRole
+      .replace("${INSTANCE_POLICY_NAME}", NAMES.instancePolicyName)
+      .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
   }),
   new ScenarioAction("deleteInstancePolicy", async (state) => {
     const client = new IAMClient({});
@@ -153,12 +150,11 @@ export const destroySteps = [
         "${INSTANCE_POLICY_NAME}",
         NAMES.instancePolicyName,
       );
-    } else {
-      return MESSAGES.deletedPolicy.replace(
-        "${INSTANCE_POLICY_NAME}",
-        NAMES.instancePolicyName,
-      );
     }
+    return MESSAGES.deletedPolicy.replace(
+      "${INSTANCE_POLICY_NAME}",
+      NAMES.instancePolicyName,
+    );
   }),
   new ScenarioAction("removeRoleFromInstanceProfile", async (state) => {
     try {
@@ -179,11 +175,10 @@ export const destroySteps = [
       return MESSAGES.removeRoleFromInstanceProfileError
         .replace("${INSTANCE_PROFILE_NAME}", NAMES.instanceProfileName)
         .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
-    } else {
-      return MESSAGES.removedRoleFromInstanceProfile
-        .replace("${INSTANCE_PROFILE_NAME}", NAMES.instanceProfileName)
-        .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
     }
+    return MESSAGES.removedRoleFromInstanceProfile
+      .replace("${INSTANCE_PROFILE_NAME}", NAMES.instanceProfileName)
+      .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
   }),
   new ScenarioAction("deleteInstanceRole", async (state) => {
     try {
@@ -204,12 +199,11 @@ export const destroySteps = [
         "${INSTANCE_ROLE_NAME}",
         NAMES.instanceRoleName,
       );
-    } else {
-      return MESSAGES.deletedInstanceRole.replace(
-        "${INSTANCE_ROLE_NAME}",
-        NAMES.instanceRoleName,
-      );
     }
+    return MESSAGES.deletedInstanceRole.replace(
+      "${INSTANCE_ROLE_NAME}",
+      NAMES.instanceRoleName,
+    );
   }),
   new ScenarioAction("deleteInstanceProfile", async (state) => {
     try {
@@ -232,12 +226,11 @@ export const destroySteps = [
         "${INSTANCE_PROFILE_NAME}",
         NAMES.instanceProfileName,
       );
-    } else {
-      return MESSAGES.deletedInstanceProfile.replace(
-        "${INSTANCE_PROFILE_NAME}",
-        NAMES.instanceProfileName,
-      );
     }
+    return MESSAGES.deletedInstanceProfile.replace(
+      "${INSTANCE_PROFILE_NAME}",
+      NAMES.instanceProfileName,
+    );
   }),
   new ScenarioAction("deleteAutoScalingGroup", async (state) => {
     try {
@@ -256,12 +249,11 @@ export const destroySteps = [
         "${AUTO_SCALING_GROUP_NAME}",
         NAMES.autoScalingGroupName,
       );
-    } else {
-      return MESSAGES.deletedAutoScalingGroup.replace(
-        "${AUTO_SCALING_GROUP_NAME}",
-        NAMES.autoScalingGroupName,
-      );
     }
+    return MESSAGES.deletedAutoScalingGroup.replace(
+      "${AUTO_SCALING_GROUP_NAME}",
+      NAMES.autoScalingGroupName,
+    );
   }),
   new ScenarioAction("deleteLaunchTemplate", async (state) => {
     const client = new EC2Client({});
@@ -284,12 +276,11 @@ export const destroySteps = [
         "${LAUNCH_TEMPLATE_NAME}",
         NAMES.launchTemplateName,
       );
-    } else {
-      return MESSAGES.deletedLaunchTemplate.replace(
-        "${LAUNCH_TEMPLATE_NAME}",
-        NAMES.launchTemplateName,
-      );
     }
+    return MESSAGES.deletedLaunchTemplate.replace(
+      "${LAUNCH_TEMPLATE_NAME}",
+      NAMES.launchTemplateName,
+    );
   }),
   new ScenarioAction("deleteLoadBalancer", async (state) => {
     try {
@@ -319,12 +310,11 @@ export const destroySteps = [
         "${LB_NAME}",
         NAMES.loadBalancerName,
       );
-    } else {
-      return MESSAGES.deletedLoadBalancer.replace(
-        "${LB_NAME}",
-        NAMES.loadBalancerName,
-      );
     }
+    return MESSAGES.deletedLoadBalancer.replace(
+      "${LB_NAME}",
+      NAMES.loadBalancerName,
+    );
   }),
   new ScenarioAction("deleteLoadBalancerTargetGroup", async (state) => {
     // snippet-start:[javascript.v3.wkflw.resilient.DeleteTargetGroup]
@@ -355,12 +345,11 @@ export const destroySteps = [
         "${TARGET_GROUP_NAME}",
         NAMES.loadBalancerTargetGroupName,
       );
-    } else {
-      return MESSAGES.deletedLoadBalancerTargetGroup.replace(
-        "${TARGET_GROUP_NAME}",
-        NAMES.loadBalancerTargetGroupName,
-      );
     }
+    return MESSAGES.deletedLoadBalancerTargetGroup.replace(
+      "${TARGET_GROUP_NAME}",
+      NAMES.loadBalancerTargetGroupName,
+    );
   }),
   new ScenarioAction("detachSsmOnlyRoleFromProfile", async (state) => {
     try {
@@ -381,11 +370,10 @@ export const destroySteps = [
       return MESSAGES.detachSsmOnlyRoleFromProfileError
         .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
         .replace("${PROFILE_NAME}", NAMES.ssmOnlyInstanceProfileName);
-    } else {
-      return MESSAGES.detachedSsmOnlyRoleFromProfile
-        .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
-        .replace("${PROFILE_NAME}", NAMES.ssmOnlyInstanceProfileName);
     }
+    return MESSAGES.detachedSsmOnlyRoleFromProfile
+      .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
+      .replace("${PROFILE_NAME}", NAMES.ssmOnlyInstanceProfileName);
   }),
   new ScenarioAction("detachSsmOnlyCustomRolePolicy", async (state) => {
     try {
@@ -407,11 +395,10 @@ export const destroySteps = [
       return MESSAGES.detachSsmOnlyCustomRolePolicyError
         .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
         .replace("${POLICY_NAME}", NAMES.ssmOnlyPolicyName);
-    } else {
-      return MESSAGES.detachedSsmOnlyCustomRolePolicy
-        .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
-        .replace("${POLICY_NAME}", NAMES.ssmOnlyPolicyName);
     }
+    return MESSAGES.detachedSsmOnlyCustomRolePolicy
+      .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
+      .replace("${POLICY_NAME}", NAMES.ssmOnlyPolicyName);
   }),
   new ScenarioAction("detachSsmOnlyAWSRolePolicy", async (state) => {
     try {
@@ -432,11 +419,10 @@ export const destroySteps = [
       return MESSAGES.detachSsmOnlyAWSRolePolicyError
         .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
         .replace("${POLICY_NAME}", "AmazonSSMManagedInstanceCore");
-    } else {
-      return MESSAGES.detachedSsmOnlyAWSRolePolicy
-        .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
-        .replace("${POLICY_NAME}", "AmazonSSMManagedInstanceCore");
     }
+    return MESSAGES.detachedSsmOnlyAWSRolePolicy
+      .replace("${ROLE_NAME}", NAMES.ssmOnlyRoleName)
+      .replace("${POLICY_NAME}", "AmazonSSMManagedInstanceCore");
   }),
   new ScenarioAction("deleteSsmOnlyInstanceProfile", async (state) => {
     try {
@@ -457,12 +443,11 @@ export const destroySteps = [
         "${INSTANCE_PROFILE_NAME}",
         NAMES.ssmOnlyInstanceProfileName,
       );
-    } else {
-      return MESSAGES.deletedSsmOnlyInstanceProfile.replace(
-        "${INSTANCE_PROFILE_NAME}",
-        NAMES.ssmOnlyInstanceProfileName,
-      );
     }
+    return MESSAGES.deletedSsmOnlyInstanceProfile.replace(
+      "${INSTANCE_PROFILE_NAME}",
+      NAMES.ssmOnlyInstanceProfileName,
+    );
   }),
   new ScenarioAction("deleteSsmOnlyPolicy", async (state) => {
     try {
@@ -484,12 +469,11 @@ export const destroySteps = [
         "${POLICY_NAME}",
         NAMES.ssmOnlyPolicyName,
       );
-    } else {
-      return MESSAGES.deletedSsmOnlyPolicy.replace(
-        "${POLICY_NAME}",
-        NAMES.ssmOnlyPolicyName,
-      );
     }
+    return MESSAGES.deletedSsmOnlyPolicy.replace(
+      "${POLICY_NAME}",
+      NAMES.ssmOnlyPolicyName,
+    );
   }),
   new ScenarioAction("deleteSsmOnlyRole", async (state) => {
     try {
@@ -510,12 +494,11 @@ export const destroySteps = [
         "${ROLE_NAME}",
         NAMES.ssmOnlyRoleName,
       );
-    } else {
-      return MESSAGES.deletedSsmOnlyRole.replace(
-        "${ROLE_NAME}",
-        NAMES.ssmOnlyRoleName,
-      );
     }
+    return MESSAGES.deletedSsmOnlyRole.replace(
+      "${ROLE_NAME}",
+      NAMES.ssmOnlyRoleName,
+    );
   }),
   new ScenarioAction(
     "revokeSecurityGroupIngress",
@@ -546,9 +529,8 @@ export const destroySteps = [
         "${IP}",
         state.myIp,
       );
-    } else {
-      return MESSAGES.revokedSecurityGroupIngress.replace("${IP}", state.myIp);
     }
+    return MESSAGES.revokedSecurityGroupIngress.replace("${IP}", state.myIp);
   }),
 ];
 
@@ -580,10 +562,9 @@ async function deleteAutoScalingGroup(groupName) {
   } catch (err) {
     if (!(err instanceof Error)) {
       throw err;
-    } else {
-      console.log(err.name);
-      throw err;
     }
+    console.log(err.name);
+    throw err;
   }
 }
 

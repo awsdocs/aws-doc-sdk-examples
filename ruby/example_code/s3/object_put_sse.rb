@@ -8,7 +8,7 @@
 # block cipher.
 
 # snippet-start:[s3.ruby.s3_encrypt_file_upload.rb]
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # Wraps Amazon S3 object actions.
 class ObjectPutSseWrapper
@@ -30,7 +30,7 @@ end
 
 # Example usage:
 def run_demo
-  bucket_name = "doc-example-bucket"
+  bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-encrypted-content"
   object_content = "This is my super-secret content."
   encryption = "AES256"

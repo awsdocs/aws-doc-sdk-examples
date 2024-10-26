@@ -21,8 +21,7 @@ node createRecommender.js
 
 // snippet-start:[personalize.JavaScript.createRecommenderV3]
 // Get service clients module and commands using ES6 syntax.
-import { CreateRecommenderCommand } from
-  "@aws-sdk/client-personalize";
+import { CreateRecommenderCommand } from "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Or, create the client here.
@@ -30,14 +29,16 @@ import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Set the recommender's parameters.
 export const createRecommenderParam = {
-  name: 'NAME', /* required */
-  recipeArn: 'RECIPE_ARN', /* required */
-  datasetGroupArn: 'DATASET_GROUP_ARN'  /* required */
-}
+  name: "NAME" /* required */,
+  recipeArn: "RECIPE_ARN" /* required */,
+  datasetGroupArn: "DATASET_GROUP_ARN" /* required */,
+};
 
 export const run = async () => {
   try {
-    const response = await personalizeClient.send(new CreateRecommenderCommand(createRecommenderParam));
+    const response = await personalizeClient.send(
+      new CreateRecommenderCommand(createRecommenderParam),
+    );
     console.log("Success", response);
     return response; // For unit tests.
   } catch (err) {

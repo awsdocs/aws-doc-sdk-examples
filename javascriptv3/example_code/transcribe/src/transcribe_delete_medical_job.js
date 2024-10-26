@@ -29,7 +29,7 @@ export const params = {
 export const run = async () => {
   try {
     const data = await transcribeClient.send(
-      new DeleteMedicalTranscriptionJobCommand(params)
+      new DeleteMedicalTranscriptionJobCommand(params),
     );
     console.log("Success - deleted");
     return data; // For unit tests.

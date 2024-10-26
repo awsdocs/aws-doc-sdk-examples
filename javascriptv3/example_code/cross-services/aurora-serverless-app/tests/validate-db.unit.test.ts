@@ -1,8 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 import { describe, expect, it, vi } from "vitest";
-import { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import { errorCodes, validateDb } from "../src/middleware/validate-db.js";
+import type { Sendable } from "../src/types/sendable.ts";
 
 describe("validate-db", () => {
   describe("generated handler", () => {
@@ -11,7 +12,6 @@ describe("validate-db", () => {
         throw new Error(errorCodes.TABLE_NOT_FOUND);
       });
       const sendable: Sendable = { send };
-      // eslint-disable-next-line
       const handler = validateDb.withClient({ rdsDataClient: sendable });
       await handler(
         {} as Request,
@@ -28,7 +28,6 @@ describe("validate-db", () => {
       const send = vi.fn(async () => {}) as Sendable["send"];
       const sendable: Sendable = { send };
       const next = vi.fn();
-      // eslint-disable-next-line
       const handler = validateDb.withClient({ rdsDataClient: sendable });
 
       await handler(

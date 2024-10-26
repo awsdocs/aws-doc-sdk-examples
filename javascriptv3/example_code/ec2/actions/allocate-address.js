@@ -27,7 +27,7 @@ export const main = async () => {
   }
 };
 // snippet-end:[ec2.JavaScript.Addresses.allocateAddressV3]
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 // Call function if run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   main();

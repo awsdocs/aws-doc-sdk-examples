@@ -56,7 +56,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Sign up a user with a user pool that requires MFA](actions/verify-software-token.js)
+- [Sign up a user with a user pool that requires MFA](actions/admin-initiate-auth.js)
 
 
 <!--custom.examples.start-->

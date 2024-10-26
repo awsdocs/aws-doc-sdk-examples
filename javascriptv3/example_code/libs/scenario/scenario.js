@@ -3,10 +3,9 @@
 
 import { Prompter } from "../prompter.js";
 import { Logger } from "../logger.js";
-import { SlowLogger } from "../slow-logger.js";
 
 /**
- * @typedef {{ confirmAll: boolean, verbose: boolean }} StepHandlerOptions
+ * @typedef {{ confirmAll: boolean, verbose: boolean, noArt: boolean }} StepHandlerOptions
  */
 
 /**
@@ -56,7 +55,7 @@ export class Step {
 }
 
 /**
- * @typedef {{ slow: boolean, header: boolean, preformatted: boolean }} ScenarioOutputOptions
+ * @typedef {{ header: boolean, preformatted: boolean }} ScenarioOutputOptions
  */
 
 /**
@@ -68,10 +67,9 @@ export class ScenarioOutput extends Step {
    * @param {string | (state: Record<string, any>) => string | false} value
    * @param {Step<ScenarioOutputOptions>['stepOptions']} [scenarioOutputOptions]
    */
-  constructor(name, value, scenarioOutputOptions = { slow: true }) {
+  constructor(name, value, scenarioOutputOptions = {}) {
     super(name, scenarioOutputOptions);
     this.value = value;
-    this.slowLogger = new SlowLogger(20);
     this.logger = new Logger();
   }
 
@@ -95,14 +93,15 @@ export class ScenarioOutput extends Step {
     }
     const paddingTop = "\n";
     const paddingBottom = "\n";
-    const logger =
-      this.stepOptions?.slow && !stepHandlerOptions?.confirmAll
-        ? this.slowLogger
-        : this.logger;
+    const logger = this.logger;
     const message = paddingTop + output + paddingBottom;
 
     if (this.stepOptions?.header) {
-      await this.logger.log(this.logger.box(message));
+      if (stepHandlerOptions.noArt === true) {
+        await this.logger.log(message);
+      } else {
+        await this.logger.log(this.logger.box(message));
+      }
     } else {
       await logger.log(message, this.stepOptions?.preformatted);
     }
@@ -150,10 +149,14 @@ export class ScenarioInput extends Step {
         ? this.stepOptions.default(state)
         : this.stepOptions.default;
 
-    if (stepHandlerOptions.confirmAll && this.default) {
-      state[this.name] = this.default;
+    if (
+      stepHandlerOptions.confirmAll &&
+      this.stepOptions.default !== undefined
+    ) {
+      state[this.name] = this.stepOptions.default;
       return state[this.name];
-    } else if (stepHandlerOptions.confirmAll && !this.default) {
+    }
+    if (stepHandlerOptions.confirmAll) {
       if (this.stepOptions?.type === "confirm") {
         state[this.name] = true;
         return true;
@@ -220,7 +223,7 @@ export class ScenarioInput extends Step {
       typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
 
     if (!message) {
-      throw new Error(`Error handling ScenarioInput. Missing prompt.`);
+      throw new Error("Error handling ScenarioInput. Missing prompt.");
     }
 
     const result = await this.prompter.checkbox({
@@ -247,7 +250,7 @@ export class ScenarioInput extends Step {
       typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
 
     if (!message) {
-      throw new Error(`Error handling ScenarioInput. Missing prompt.`);
+      throw new Error("Error handling ScenarioInput. Missing prompt.");
     }
 
     if (this.stepOptions?.type === "select") {
@@ -258,7 +261,7 @@ export class ScenarioInput extends Step {
 
       if (!result && this.default) {
         state[this.name] = this.default;
-      } else if (!result) {
+      } else if (result == null) {
         throw new Error(
           `Error handing ScenarioInput. Result of ${this.name} was empty.`,
         );
@@ -277,14 +280,14 @@ export class ScenarioInput extends Step {
     const message = this.default ? `${prompt} (${this.default})` : prompt;
 
     if (!message) {
-      throw new Error(`Error handling ScenarioInput. Missing prompt.`);
+      throw new Error("Error handling ScenarioInput. Missing prompt.");
     }
 
     const result = await this.prompter.input({ message });
 
     if (!result && this.default) {
       state[this.name] = this.default;
-    } else if (!result) {
+    } else if (result === undefined) {
       throw new Error(
         `Error handing ScenarioInput. Result of ${this.name} was empty.`,
       );
@@ -301,7 +304,7 @@ export class ScenarioInput extends Step {
       typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
 
     if (!message) {
-      throw new Error(`Error handling ScenarioInput. Missing prompt.`);
+      throw new Error("Error handling ScenarioInput. Missing prompt.");
     }
 
     const result = await this.prompter.confirm({

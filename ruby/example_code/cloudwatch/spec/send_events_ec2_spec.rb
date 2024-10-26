@@ -1,11 +1,11 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative "../show_alarms"
-require "rspec"
+require_relative '../show_alarms'
+require 'rspec'
 
-describe "#topic_exists?", :quarantine do
-  let(:topic_arn) { "arn:aws:sns:us-east-1:111111111111:aws-doc-sdk-examples-topic" }
+describe '#topic_exists?', :quarantine do
+  let(:topic_arn) { 'arn:aws:sns:us-east-1:111111111111:aws-doc-sdk-examples-topic' }
   let(:sns_client) do
     Aws::SNS::Client.new(
       stub_responses: {
@@ -18,16 +18,16 @@ describe "#topic_exists?", :quarantine do
     )
   end
 
-  it "checks whether a topic exists" do
+  it 'checks whether a topic exists' do
     expect(
       topic_exists?(sns_client, topic_arn)
     ).to be(true)
   end
 end
 
-describe "#create_topic", :quarantine do
-  let(:topic_name) { "aws-doc-sdk-examples-topic" }
-  let(:email_address) { "mary@example.com" }
+describe '#create_topic', :quarantine do
+  let(:topic_name) { 'aws-doc-sdk-examples-topic' }
+  let(:email_address) { 'mary@example.com' }
   let(:topic_arn) { "arn:aws:sns:us-east-1:111111111111:#{topic_name}" }
   let(:sns_client) do
     Aws::SNS::Client.new(
@@ -42,15 +42,15 @@ describe "#create_topic", :quarantine do
     )
   end
 
-  it "creates a topic" do
+  it 'creates a topic' do
     expect(
       create_topic(sns_client, topic_name, email_address)
     ).to eq(topic_arn)
   end
 end
 
-describe "#role_exists?", :quarantine do
-  let(:role_name) { "aws-doc-sdk-examples-cloudwatch-events-rule-role" }
+describe '#role_exists?', :quarantine do
+  let(:role_name) { 'aws-doc-sdk-examples-cloudwatch-events-rule-role' }
   let(:role_arn) { "arn:aws:iam::111111111111:role/#{role_name}" }
   let(:iam_client) do
     Aws::IAM::Client.new(
@@ -58,25 +58,25 @@ describe "#role_exists?", :quarantine do
         list_roles: {
           roles: [
             arn: role_arn,
-            path: "/",
+            path: '/',
             role_name: role_name,
-            role_id: "AIDAJQABLZS4A3EXAMPLE",
-            create_date: Time.iso8601("2020-11-17T14:19:00-08:00")
+            role_id: 'AIDAJQABLZS4A3EXAMPLE',
+            create_date: Time.iso8601('2020-11-17T14:19:00-08:00')
           ]
         }
       }
     )
   end
 
-  it "checks whether a role exists" do
+  it 'checks whether a role exists' do
     expect(
       role_exists?(iam_client, role_arn)
     ).to be(true)
   end
 end
 
-describe "#create_role", :quarantine do
-  let(:role_name) { "aws-doc-sdk-examples-cloudwatch-events-rule-role" }
+describe '#create_role', :quarantine do
+  let(:role_name) { 'aws-doc-sdk-examples-cloudwatch-events-rule-role' }
   let(:role_arn) { "arn:aws:iam::111111111111:role/#{role_name}" }
   let(:iam_client) do
     Aws::IAM::Client.new(
@@ -84,25 +84,25 @@ describe "#create_role", :quarantine do
         create_role: {
           role: {
             arn: role_arn,
-            path: "/",
+            path: '/',
             role_name: role_name,
-            role_id: "AIDAJQABLZS4A3EXAMPLE",
-            create_date: Time.iso8601("2020-11-17T14:19:00-08:00")
+            role_id: 'AIDAJQABLZS4A3EXAMPLE',
+            create_date: Time.iso8601('2020-11-17T14:19:00-08:00')
           }
         }
       }
     )
   end
 
-  it "creates a role" do
+  it 'creates a role' do
     expect(
       create_role(iam_client, role_name)
     ).to eq(role_arn)
   end
 end
 
-describe "#rule_exists?", :quarantine do
-  let(:rule_name) { "aws-doc-sdk-examples-ec2-state-change" }
+describe '#rule_exists?', :quarantine do
+  let(:rule_name) { 'aws-doc-sdk-examples-ec2-state-change' }
   let(:cloudwatchevents_client) do
     Aws::CloudWatchEvents::Client.new(
       stub_responses: {
@@ -117,20 +117,20 @@ describe "#rule_exists?", :quarantine do
     )
   end
 
-  it "checks whether a rule exists" do
+  it 'checks whether a rule exists' do
     expect(
       rule_exists?(cloudwatchevents_client, rule_name)
     ).to be(true)
   end
 end
 
-describe "#rule_created?", :quarantine do
-  let(:rule_name) { "aws-doc-sdk-examples-ec2-state-change" }
-  let(:rule_description) { "Triggers when any available EC2 instance starts." }
-  let(:instance_state) { "running" }
-  let(:role_arn) { "arn:aws:iam::111111111111:role/aws-doc-sdk-examples-cloudwatch-events-rule-role" }
-  let(:target_id) { "sns-topic" }
-  let(:topic_arn) { "arn:aws:sns:us-east-1:111111111111:aws-doc-sdk-examples-topic" }
+describe '#rule_created?', :quarantine do
+  let(:rule_name) { 'aws-doc-sdk-examples-ec2-state-change' }
+  let(:rule_description) { 'Triggers when any available EC2 instance starts.' }
+  let(:instance_state) { 'running' }
+  let(:role_arn) { 'arn:aws:iam::111111111111:role/aws-doc-sdk-examples-cloudwatch-events-rule-role' }
+  let(:target_id) { 'sns-topic' }
+  let(:topic_arn) { 'arn:aws:sns:us-east-1:111111111111:aws-doc-sdk-examples-topic' }
   let(:cloudwatchevents_client) do
     Aws::CloudWatchEvents::Client.new(
       stub_responses: {
@@ -142,7 +142,7 @@ describe "#rule_created?", :quarantine do
     )
   end
 
-  it "creates a rule" do
+  it 'creates a rule' do
     expect(
       rule_created?(
         cloudwatchevents_client,
@@ -157,8 +157,8 @@ describe "#rule_created?", :quarantine do
   end
 end
 
-describe "#log_group_exists?", :quarantine do
-  let(:log_group_name) { "aws-doc-sdk-examples-cloudwatch-log" }
+describe '#log_group_exists?', :quarantine do
+  let(:log_group_name) { 'aws-doc-sdk-examples-cloudwatch-log' }
   let(:cloudwatchlogs_client) do
     Aws::CloudWatchLogs::Client.new(
       stub_responses: {
@@ -171,15 +171,15 @@ describe "#log_group_exists?", :quarantine do
     )
   end
 
-  it "checks whether a log group exists" do
+  it 'checks whether a log group exists' do
     expect(
       log_group_exists?(cloudwatchlogs_client, log_group_name)
     ).to be(true)
   end
 end
 
-describe "#log_group_created?", :quarantine do
-  let(:log_group_name) { "aws-doc-sdk-examples-cloudwatch-log" }
+describe '#log_group_created?', :quarantine do
+  let(:log_group_name) { 'aws-doc-sdk-examples-cloudwatch-log' }
   let(:cloudwatchlogs_client) do
     Aws::CloudWatchLogs::Client.new(
       stub_responses: {
@@ -188,20 +188,21 @@ describe "#log_group_created?", :quarantine do
     )
   end
 
-  it "creates a log group" do
+  it 'creates a log group' do
     expect(
       log_group_created?(cloudwatchlogs_client, log_group_name)
     ).to be(true)
   end
 end
 
-describe "#log_event", :quarantine do
-  let(:log_group_name) { "aws-doc-sdk-examples-cloudwatch-log" }
-  let(:log_stream_name) { "#{Time.now.year}/#{Time.now.month}/#{Time.now.day}/" \
+describe '#log_event', :quarantine do
+  let(:log_group_name) { 'aws-doc-sdk-examples-cloudwatch-log' }
+  let(:log_stream_name) do
+    "#{Time.now.year}/#{Time.now.month}/#{Time.now.day}/" \
     "#{SecureRandom.uuid}"
-  }
+  end
   let(:message) { "Instance 'i-033c48ef067af3dEX' restarted." }
-  let(:sequence_token) { "495426724868310740095796045676567882148068632824696073EX" }
+  let(:sequence_token) { '495426724868310740095796045676567882148068632824696073EX' }
   let(:cloudwatchlogs_client) do
     Aws::CloudWatchLogs::Client.new(
       stub_responses: {
@@ -212,7 +213,7 @@ describe "#log_event", :quarantine do
     )
   end
 
-  it "logs an event" do
+  it 'logs an event' do
     expect(
       log_event(
         cloudwatchlogs_client,
@@ -220,14 +221,14 @@ describe "#log_event", :quarantine do
         log_stream_name,
         message,
         sequence_token
-       )
+      )
     ).to eq(sequence_token)
   end
 end
 
-describe "#instance_restarted?", :quarantine do
-  let(:instance_id) { "i-033c48ef067af3dEX" }
-  let(:log_group_name) { "aws-doc-sdk-examples-cloudwatch-log" }
+describe '#instance_restarted?', :quarantine do
+  let(:instance_id) { 'i-033c48ef067af3dEX' }
+  let(:log_group_name) { 'aws-doc-sdk-examples-cloudwatch-log' }
   let(:ec2_client) do
     Aws::EC2::Client.new(
       stub_responses: {
@@ -236,12 +237,12 @@ describe "#instance_restarted?", :quarantine do
             {
               current_state: {
                 code: 80,
-                name: "stopped"
+                name: 'stopped'
               },
               instance_id: instance_id,
               previous_state: {
                 code: 16,
-                name: "running"
+                name: 'running'
               }
             }
           ]
@@ -251,12 +252,12 @@ describe "#instance_restarted?", :quarantine do
             {
               current_state: {
                 code: 16,
-                name: "running"
+                name: 'running'
               },
               instance_id: instance_id,
               previous_state: {
                 code: 80,
-                name: "stopped"
+                name: 'stopped'
               }
             }
           ]
@@ -268,7 +269,7 @@ describe "#instance_restarted?", :quarantine do
                 instance_id: instance_id,
                 state: {
                   code: 80,
-                  name: "stopped"
+                  name: 'stopped'
                 }
               ]
             ]
@@ -279,7 +280,7 @@ describe "#instance_restarted?", :quarantine do
                 instance_id: instance_id,
                 state: {
                   code: 16,
-                  name: "running"
+                  name: 'running'
                 }
               ]
             ]
@@ -296,7 +297,7 @@ describe "#instance_restarted?", :quarantine do
     )
   end
 
-  it "restarts an instance and logs related events" do
+  it 'restarts an instance and logs related events' do
     expect(
       instance_restarted?(
         ec2_client,
@@ -308,8 +309,8 @@ describe "#instance_restarted?", :quarantine do
   end
 end
 
-describe "#display_rule_activity", :quarantine do
-  let(:rule_name) { "aws-doc-sdk-examples-ec2-state-change" }
+describe '#display_rule_activity', :quarantine do
+  let(:rule_name) { 'aws-doc-sdk-examples-ec2-state-change' }
   let(:start_time) { Time.now - 600 }
   let(:end_time) { Time.now }
   let(:period) { 60 }
@@ -320,11 +321,11 @@ describe "#display_rule_activity", :quarantine do
           datapoints: [
             {
               sum: 1.0,
-              timestamp: Time.iso8601("2020-11-17T14:19:00-08:00")
+              timestamp: Time.iso8601('2020-11-17T14:19:00-08:00')
             },
             {
               sum: 2.0,
-              timestamp: Time.iso8601("2020-11-17T14:32:00-08:00")
+              timestamp: Time.iso8601('2020-11-17T14:32:00-08:00')
             }
           ]
         }
@@ -332,8 +333,8 @@ describe "#display_rule_activity", :quarantine do
     )
   end
 
-  it "displays activity for a rule" do
-    expect {
+  it 'displays activity for a rule' do
+    expect do
       display_rule_activity(
         cloudwatch_client,
         rule_name,
@@ -341,15 +342,16 @@ describe "#display_rule_activity", :quarantine do
         end_time,
         period
       )
-    }.not_to raise_error
+    end.not_to raise_error
   end
 end
 
-describe "#display_log_data", :quarantine do
-  let(:log_group_name) { "aws-doc-sdk-examples-cloudwatch-log" }
-  let(:log_stream_name) { "#{Time.now.year}/#{Time.now.month}/#{Time.now.day}/" \
+describe '#display_log_data', :quarantine do
+  let(:log_group_name) { 'aws-doc-sdk-examples-cloudwatch-log' }
+  let(:log_stream_name) do
+    "#{Time.now.year}/#{Time.now.month}/#{Time.now.day}/" \
     "#{SecureRandom.uuid}"
-  }
+  end
   let(:cloudwatchlogs_client) do
     Aws::CloudWatchLogs::Client.new(
       stub_responses: {
@@ -374,9 +376,9 @@ describe "#display_log_data", :quarantine do
     )
   end
 
-  it "displays log streams data" do
-    expect {
+  it 'displays log streams data' do
+    expect do
       display_log_data(cloudwatchlogs_client, log_group_name)
-    }.not_to raise_error
+    end.not_to raise_error
   end
 end

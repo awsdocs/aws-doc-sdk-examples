@@ -29,6 +29,41 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Get started
+
+- [Hello AWS KMS](HelloKMS.php#L5) (`ListKeys`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](KmsBasics.php)
+
+
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [CreateAlias](KmsService.php#L140)
+- [CreateGrant](KmsService.php#L164)
+- [CreateKey](KmsService.php#L35)
+- [Decrypt](KmsService.php#L64)
+- [DeleteAlias](KmsService.php#L460)
+- [DescribeKey](KmsService.php#L195)
+- [DisableKey](KmsService.php#L218)
+- [EnableKey](KmsService.php#L238)
+- [Encrypt](KmsService.php#L88)
+- [ListAliases](KmsService.php#L112)
+- [ListGrants](KmsService.php#L284)
+- [ListKeys](KmsService.php#L260)
+- [PutKeyPolicy](KmsService.php#L438)
+- [RevokeGrant](KmsService.php#L325)
+- [ScheduleKeyDeletion](KmsService.php#L346)
+- [Sign](KmsService.php#L390)
+- [TagResource](KmsService.php#L368)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 
@@ -40,6 +75,29 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `php` 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
+#### Hello AWS KMS
+
+This example shows you how to get started using AWS Key Management Service (AWS KMS).
+
+
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create a KMS key.
+- List KMS keys for your account and get details about them.
+- Enable and disable KMS keys.
+- Generate a symmetric data key that can be used for client-side encryption.
+- Generate an asymmetric key used to digitally sign data.
+- Tag keys.
+- Delete KMS keys.
+
+<!--custom.basic_prereqs.kms_Scenario_Basics.start-->
+<!--custom.basic_prereqs.kms_Scenario_Basics.end-->
+
+
+<!--custom.basics.kms_Scenario_Basics.start-->
+<!--custom.basics.kms_Scenario_Basics.end-->
 
 
 ### Tests

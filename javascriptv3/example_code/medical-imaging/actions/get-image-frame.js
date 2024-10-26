@@ -1,8 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
-import { writeFileSync } from "fs";
+import { fileURLToPath } from "node:url";
+import { writeFileSync } from "node:fs";
 
 // snippet-start:[medical-imaging.JavaScript.imageset.getImageFrameV3]
 import { GetImageFrameCommand } from "@aws-sdk/client-medical-imaging";
@@ -18,14 +18,14 @@ export const getImageFrame = async (
   imageFrameFileName = "image.jph",
   datastoreID = "DATASTORE_ID",
   imageSetID = "IMAGE_SET_ID",
-  imageFrameID = "IMAGE_FRAME_ID"
+  imageFrameID = "IMAGE_FRAME_ID",
 ) => {
   const response = await medicalImagingClient.send(
     new GetImageFrameCommand({
       datastoreId: datastoreID,
       imageSetId: imageSetID,
       imageFrameInformation: { imageFrameId: imageFrameID },
-    })
+    }),
   );
   const buffer = await response.imageFrameBlob.transformToByteArray();
   writeFileSync(imageFrameFileName, buffer);
@@ -53,6 +53,6 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     "test.jph",
     "12345678901234567890123456789012",
     "12345678901234567890123456789012",
-    "12345678901234567890123456789012"
+    "12345678901234567890123456789012",
   );
 }

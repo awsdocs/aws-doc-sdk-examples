@@ -1,9 +1,9 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require "aws-sdk-iam"
-require "aws-sdk-s3"
-require "logger"
+require 'aws-sdk-iam'
+require 'aws-sdk-s3'
+require 'logger'
 
 # snippet-start:[ruby.iam.Scenario_CreateUserAssumeRole]
 # Wraps the scenario actions.
@@ -20,7 +20,7 @@ class ScenarioCreateUserAssumeRole
   #
   # @param duration [Integer] The number of seconds to wait.
   def wait(duration)
-    puts("Give AWS time to propagate resources...")
+    puts('Give AWS time to propagate resources...')
     sleep(duration)
   end
 
@@ -33,7 +33,7 @@ class ScenarioCreateUserAssumeRole
     user = @iam_client.create_user(user_name: user_name).user
     @logger.info("Created demo user named #{user.user_name}.")
   rescue Aws::Errors::ServiceError => e
-    @logger.info("Tried and failed to create demo user.")
+    @logger.info('Tried and failed to create demo user.')
     @logger.info("\t#{e.code}: #{e.message}")
     @logger.info("\nCan't continue the demo without a user!")
     raise
@@ -67,12 +67,12 @@ class ScenarioCreateUserAssumeRole
   # @return [Aws::IAM::Role] The newly created role.
   def create_role(role_name, user)
     trust_policy = {
-      Version: "2012-10-17",
+      Version: '2012-10-17',
       Statement: [{
-                    Effect: "Allow",
-                    Principal: {'AWS': user.arn},
-                    Action: "sts:AssumeRole"
-                  }]
+        Effect: 'Allow',
+        Principal: { 'AWS': user.arn },
+        Action: 'sts:AssumeRole'
+      }]
     }.to_json
     role = @iam_client.create_role(
       role_name: role_name,
@@ -96,12 +96,12 @@ class ScenarioCreateUserAssumeRole
   # @return [Aws::IAM::Policy] The newly created policy.
   def create_and_attach_role_policy(policy_name, role)
     policy_document = {
-      Version: "2012-10-17",
+      Version: '2012-10-17',
       Statement: [{
-                    Effect: "Allow",
-                    Action: "s3:ListAllMyBuckets",
-                    Resource: "arn:aws:s3:::*"
-                  }]
+        Effect: 'Allow',
+        Action: 's3:ListAllMyBuckets',
+        Resource: 'arn:aws:s3:::*'
+      }]
     }.to_json
     policy = @iam_client.create_policy(
       policy_name: policy_name,
@@ -126,12 +126,12 @@ class ScenarioCreateUserAssumeRole
   # @return [Aws::IAM::UserPolicy] The newly created policy.
   def create_user_policy(policy_name, user, role)
     policy_document = {
-      Version: "2012-10-17",
+      Version: '2012-10-17',
       Statement: [{
-                    Effect: "Allow",
-                    Action: "sts:AssumeRole",
-                    Resource: role.arn
-                  }]
+        Effect: 'Allow',
+        Action: 'sts:AssumeRole',
+        Resource: role.arn
+      }]
     }.to_json
     @iam_client.put_user_policy(
       user_name: user.user_name,
@@ -166,8 +166,8 @@ class ScenarioCreateUserAssumeRole
       break if count.zero?
     end
   rescue Aws::Errors::ServiceError => e
-    if e.code == "AccessDenied"
-      puts("Attempt to list buckets with no permissions: AccessDenied.")
+    if e.code == 'AccessDenied'
+      puts('Attempt to list buckets with no permissions: AccessDenied.')
     else
       @logger.info("Couldn't list buckets for the account. Here's why: ")
       @logger.info("\t#{e.code}: #{e.message}")
@@ -195,7 +195,7 @@ class ScenarioCreateUserAssumeRole
     credentials = Aws::AssumeRoleCredentials.new(
       client: sts_client,
       role_arn: role_arn,
-      role_session_name: "create-use-assume-role-scenario"
+      role_session_name: 'create-use-assume-role-scenario'
     )
     @logger.info("Assumed role '#{role_arn}', got temporary credentials.")
     credentials
@@ -242,9 +242,9 @@ end
 
 # Runs the IAM create a user and assume a role scenario.
 def run_scenario(scenario)
-  puts("-" * 88)
-  puts("Welcome to the IAM create a user and assume a role demo!")
-  puts("-" * 88)
+  puts('-' * 88)
+  puts('Welcome to the IAM create a user and assume a role demo!')
+  puts('-' * 88)
   user = scenario.create_user("doc-example-user-#{Random.uuid}")
   user_key = scenario.create_access_key_pair(user)
   scenario.wait(10)
@@ -252,23 +252,25 @@ def run_scenario(scenario)
   scenario.create_and_attach_role_policy("doc-example-role-policy-#{Random.uuid}", role)
   scenario.create_user_policy("doc-example-user-policy-#{Random.uuid}", user, role)
   scenario.wait(10)
-  puts("Try to list buckets with credentials for a user who has no permissions.")
-  puts("Expect AccessDenied from this call.")
+  puts('Try to list buckets with credentials for a user who has no permissions.')
+  puts('Expect AccessDenied from this call.')
   scenario.list_buckets(
-    scenario.create_s3_resource(Aws::Credentials.new(user_key.access_key_id, user_key.secret_access_key)))
-  puts("Now, assume the role that grants permission.")
+    scenario.create_s3_resource(Aws::Credentials.new(user_key.access_key_id, user_key.secret_access_key))
+  )
+  puts('Now, assume the role that grants permission.')
   temp_credentials = scenario.assume_role(
-    role.arn, scenario.create_sts_client(user_key.access_key_id, user_key.secret_access_key))
-  puts("Here are your buckets:")
+    role.arn, scenario.create_sts_client(user_key.access_key_id, user_key.secret_access_key)
+  )
+  puts('Here are your buckets:')
   scenario.list_buckets(scenario.create_s3_resource(temp_credentials))
   puts("Deleting role '#{role.role_name}' and attached policies.")
   scenario.delete_role(role.role_name)
   puts("Deleting user '#{user.user_name}', policies, and keys.")
   scenario.delete_user(user.user_name)
-  puts("Thanks for watching!")
-  puts("-" * 88)
+  puts('Thanks for watching!')
+  puts('-' * 88)
 rescue Aws::Errors::ServiceError => e
-  puts("Something went wrong with the demo.")
+  puts('Something went wrong with the demo.')
   puts("\t#{e.code}: #{e.message}")
 end
 

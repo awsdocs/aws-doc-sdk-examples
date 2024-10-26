@@ -18,7 +18,7 @@ namespace EnableNotificationsExample
     {
         public static async Task Main()
         {
-            const string bucketName = "doc-example-bucket1";
+            const string bucketName = "amzn-s3-demo-bucket1";
             const string snsTopic = "arn:aws:sns:us-east-2:0123456789ab:bucket-notify";
             const string sqsQueue = "arn:aws:sqs:us-east-2:0123456789ab:Example_Queue";
 

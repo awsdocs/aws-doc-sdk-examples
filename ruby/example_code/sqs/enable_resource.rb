@@ -6,12 +6,12 @@
 # Amazon Simple Queue Service (Amazon SQS) queue.
 
 # snippet-start:[sqs.Ruby.enableResource]
-require "aws-sdk-sqs"  # v2: require 'aws-sdk'
+require 'aws-sdk-sqs' # v2: require 'aws-sdk'
 sqs = Aws::SQS::Client.new
 
-policy  = '{
+policy = '{
   "Version":"2008-10-17",
-  "Id":' + my-queue-arn + '/SQSDefaultPolicy",
+  "Id":' + my - queue - arn + '/SQSDefaultPolicy",
   "Statement":[{
     "Sid":"__default_statement_ID",
     "Effect":"Allow",
@@ -19,18 +19,18 @@ policy  = '{
       "AWS":"*"
     },
     "Action":["SQS:SendMessage"],
-    "Resource":"' + my-queue-arn + '",
+    "Resource":"' + my - queue - arn + '",
     "Condition":{
       "ArnEquals":{
-        "AWS:SourceArn":"' + my-resource-arn + '"}
+        "AWS:SourceArn":"' + my - resource - arn + '"}
      }
   }]
 }'
 
 sqs.set_queue_attributes({
-  queue_url: my-queue-url,
-  attributes: {
-    Policy: policy
-  }
-})
+                           queue_url: my - queue - url,
+                           attributes: {
+                             Policy: policy
+                           }
+                         })
 # snippet-end:[sqs.Ruby.enableResource]

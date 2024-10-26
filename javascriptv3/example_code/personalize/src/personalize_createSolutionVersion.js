@@ -19,20 +19,21 @@ node createSolutionVersion.js
 
 // snippet-start:[personalize.JavaScript.createSolutionVersionV3]
 // Get service clients module and commands using ES6 syntax.
-import { CreateSolutionVersionCommand } from
-  "@aws-sdk/client-personalize";
+import { CreateSolutionVersionCommand } from "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 // Or, create the client here.
 // const personalizeClient = new PersonalizeClient({ region: "REGION"});
 
 // Set the solution version parameters.
 export const solutionVersionParam = {
-  solutionArn: 'SOLUTION_ARN' /* required */
-}
+  solutionArn: "SOLUTION_ARN" /* required */,
+};
 
 export const run = async () => {
   try {
-    const response = await personalizeClient.send(new CreateSolutionVersionCommand(solutionVersionParam));
+    const response = await personalizeClient.send(
+      new CreateSolutionVersionCommand(solutionVersionParam),
+    );
     console.log("Success", response);
     return response; // For unit tests.
   } catch (err) {

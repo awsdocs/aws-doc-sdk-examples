@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-iam"
-require "logger"
+require 'aws-sdk-iam'
+require 'logger'
 
 # snippet-start:[iam.ruby.ManageAccountAliases]
 class IAMAliasManager
@@ -18,10 +18,10 @@ class IAMAliasManager
     response = @iam_client.list_account_aliases
 
     if response.account_aliases.count.positive?
-      @logger.info("Account aliases are:")
+      @logger.info('Account aliases are:')
       response.account_aliases.each { |account_alias| @logger.info("  #{account_alias}") }
     else
-      @logger.info("No account aliases found.")
+      @logger.info('No account aliases found.')
     end
   rescue Aws::IAM::Errors::ServiceError => e
     @logger.error("Error listing account aliases: #{e.message}")
@@ -57,7 +57,7 @@ end
 if __FILE__ == $PROGRAM_NAME
   iam_client = Aws::IAM::Client.new
   manager = IAMAliasManager.new(iam_client)
-  account_alias = "my-account-alias"
+  account_alias = 'my-account-alias'
 
   manager.list_aliases
 

@@ -26,6 +26,23 @@ Resources:
         Ref: bucketforimages293BECA3
       PolicyDocument:
         Statement:
+          - Action: s3:*
+            Condition:
+              Bool:
+                aws:SecureTransport: "false"
+            Effect: Deny
+            Principal:
+              AWS: "*"
+            Resource:
+              - Fn::GetAtt:
+                  - bucketforimages293BECA3
+                  - Arn
+              - Fn::Join:
+                  - ""
+                  - - Fn::GetAtt:
+                        - bucketforimages293BECA3
+                        - Arn
+                    - /*
           - Action:
               - s3:GetObject*
               - s3:GetBucket*

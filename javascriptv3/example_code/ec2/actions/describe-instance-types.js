@@ -10,7 +10,7 @@ import { EC2Client, paginateDescribeInstanceTypes } from "@aws-sdk/client-ec2";
  * @param {{ pageSize: string, supportedArch: string[], freeTier: boolean }} options
  */
 export const main = async ({ pageSize, supportedArch, freeTier }) => {
-  pageSize = parseInt(pageSize);
+  pageSize = Number.parseInt(pageSize);
   const client = new EC2Client({});
 
   // The paginate function is a wrapper around the underlying command.

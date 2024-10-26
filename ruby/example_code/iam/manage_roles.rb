@@ -1,7 +1,7 @@
 ﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-iam"
-require "logger"
+require 'aws-sdk-iam'
+require 'logger'
 
 # snippet-start:[ruby.iam.ManageRoles]
 # Manages IAM roles
@@ -12,7 +12,7 @@ class RoleManager
   def initialize(iam_client, logger: Logger.new($stdout))
     @iam_client = iam_client
     @logger = logger
-    @logger.progname = "RoleManager"
+    @logger.progname = 'RoleManager'
   end
 
   # snippet-start:[ruby.iam.ListRoles]
@@ -26,6 +26,7 @@ class RoleManager
     @iam_client.list_roles.each_page do |page|
       page.roles.each do |role|
         break if roles_counted >= count
+
         @logger.info("\t#{roles_counted + 1}: #{role.role_name}")
         role_names << role.role_name
         roles_counted += 1
@@ -48,7 +49,7 @@ class RoleManager
   # @return [Aws::IAM::Role] The retrieved role.
   def get_role(name)
     role = @iam_client.get_role({
-                                  role_name: name,
+                                  role_name: name
                                 }).role
     puts("Got data for role '#{role.role_name}'. Its ARN is '#{role.arn}'.")
   rescue Aws::Errors::ServiceError => e
@@ -97,7 +98,8 @@ class RoleManager
   # @return [String] The name of the created role
   def create_service_linked_role(service_name, description, suffix)
     response = @iam_client.create_service_linked_role(
-      aws_service_name: service_name, description: description, custom_suffix: suffix,)
+      aws_service_name: service_name, description: description, custom_suffix: suffix
+    )
     role_name = response.role.role_name
     @logger.info("Created service-linked role #{role_name}.")
     role_name
@@ -113,30 +115,28 @@ class RoleManager
   #
   # @param role_name [String] The name of the role to delete.
   def delete_role(role_name)
-    begin
-      # Detach and delete attached policies
-      @iam_client.list_attached_role_policies(role_name: role_name).each do |response|
-        response.attached_policies.each do |policy|
-          @iam_client.detach_role_policy({
-                                    role_name: role_name,
-                                    policy_arn: policy.policy_arn
-                                  })
-          # Check if the policy is a customer managed policy (not AWS managed)
-          unless policy.policy_arn.include?("aws:policy/")
-            @iam_client.delete_policy({ policy_arn: policy.policy_arn })
-            @logger.info("Deleted customer managed policy #{policy.policy_name}.")
-          end
+    # Detach and delete attached policies
+    @iam_client.list_attached_role_policies(role_name: role_name).each do |response|
+      response.attached_policies.each do |policy|
+        @iam_client.detach_role_policy({
+                                         role_name: role_name,
+                                         policy_arn: policy.policy_arn
+                                       })
+        # Check if the policy is a customer managed policy (not AWS managed)
+        unless policy.policy_arn.include?('aws:policy/')
+          @iam_client.delete_policy({ policy_arn: policy.policy_arn })
+          @logger.info("Deleted customer managed policy #{policy.policy_name}.")
         end
       end
-
-      # Delete the role
-      @iam_client.delete_role({ role_name: role_name })
-      @logger.info("Deleted role #{role_name}.")
-    rescue Aws::IAM::Errors::ServiceError => e
-      @logger.error("Couldn't detach policies and delete role #{role_name}. Here's why:")
-      @logger.error("\t#{e.code}: #{e.message}")
-      raise
     end
+
+    # Delete the role
+    @iam_client.delete_role({ role_name: role_name })
+    @logger.info("Deleted role #{role_name}.")
+  rescue Aws::IAM::Errors::ServiceError => e
+    @logger.error("Couldn't detach policies and delete role #{role_name}. Here's why:")
+    @logger.error("\t#{e.code}: #{e.message}")
+    raise
   end
   # snippet-end:[ruby.iam.DeleteRole]
 
@@ -161,10 +161,12 @@ class RoleManager
   def check_deletion_status(role_name, task_id)
     loop do
       response = @iam_client.get_service_linked_role_deletion_status(
-        deletion_task_id: task_id)
+        deletion_task_id: task_id
+      )
       status = response.status
       @logger.info("Deletion of #{role_name} #{status}.")
       break if %w[SUCCEEDED FAILED].include?(status)
+
       sleep(3)
     end
   end
@@ -174,11 +176,11 @@ class RoleManager
   # @param e [Aws::Errors::ServiceError] The error encountered during deletion
   # @param role_name [String] The name of the role attempted to delete
   def handle_deletion_error(e, role_name)
-    unless e.code == "NoSuchEntity"
-      @logger.error("Couldn't delete #{role_name}. Here's why:")
-      @logger.error("\t#{e.code}: #{e.message}")
-      raise
-    end
+    return if e.code == 'NoSuchEntity'
+
+    @logger.error("Couldn't delete #{role_name}. Here's why:")
+    @logger.error("\t#{e.code}: #{e.message}")
+    raise
   end
   # snippet-end:[ruby.iam.DeleteServiceLinkedRole]
 end
@@ -188,14 +190,14 @@ end
 if __FILE__ == $PROGRAM_NAME
   iam_client = Aws::IAM::Client.new
   role_manager = RoleManager.new(iam_client)
-  role_name = "my-ec2-s3-dynamodb-full-access-role"
+  role_name = 'my-ec2-s3-dynamodb-full-access-role'
   assume_role_policy_document = {
-    Version: "2012-10-17",
+    Version: '2012-10-17',
     Statement: [
       {
-        Effect: "Allow",
-        Principal: { Service: "ec2.amazonaws.com" },
-        Action: "sts:AssumeRole"
+        Effect: 'Allow',
+        Principal: { Service: 'ec2.amazonaws.com' },
+        Action: 'sts:AssumeRole'
       }
     ]
   }
@@ -204,7 +206,7 @@ if __FILE__ == $PROGRAM_NAME
   if (role_arn = role_manager.create_role(role_name, assume_role_policy_document, policy_arns))
     puts "Role created with ARN '#{role_arn}'."
   else
-    puts "Could not create role."
+    puts 'Could not create role.'
   end
 
   puts "Attempting to delete role #{role_name}..."

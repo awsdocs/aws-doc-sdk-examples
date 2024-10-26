@@ -54,10 +54,10 @@ You can run tests for a specific service, or for every service in this repositor
 If you run tests using the preceding commands, output will be stored in `unit_test.log` or `integration_test.log`. Errors are still logged to the console.
 
 ## Linting
-You can run ESLint to statically check for errors.
+You can run Biome to statically check for errors.
 
-To run ESLint, use the following command:
-  `npm run ci-lint .`
+To run Biome, use the following command:
+  `npm run ci-lint`
 
 ## Docker image (Beta)
 
@@ -87,13 +87,9 @@ run the example and verify that it ran correctly.
 
 ## Configure Visual Studio Code (VS Code)
 
-### ESLint
+### Biome
 
-To configure ESLint in VS Code, add the following to `settings.json`:
-
-```
-  "eslint.workingDirectories": ["javascriptv3/example_code/reactnative/ReactNativeApp", "javascriptv3"],
-```
+To configure Biome in VS Code, follow the instructions here: https://biomejs.dev/guides/getting-started/
 
 ## Additional resources
 

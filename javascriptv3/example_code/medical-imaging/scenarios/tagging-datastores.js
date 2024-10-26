@@ -4,7 +4,7 @@
 // snippet-start:[medical-imaging.JavaScript.medical-imaging_tagging_datastores.V3]
 // snippet-end:[medical-imaging.JavaScript.medical-imaging_tagging_datastores.V3]
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 const { tagResource } = await import("../actions/tag-resource.js");
 const { untagResource } = await import("../actions/untag-resource.js");

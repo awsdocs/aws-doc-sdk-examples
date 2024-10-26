@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { expect, it, vi, describe, beforeEach } from "vitest";
-import { gzip } from "zlib";
-import { promisify } from "util";
+import { gzip } from "node:zlib";
+import { promisify } from "node:util";
 import { Scenario } from "@aws-doc-sdk-examples/lib/scenario/scenario.js";
 
 const gzipAsync = promisify(gzip);

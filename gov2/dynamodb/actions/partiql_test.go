@@ -6,6 +6,7 @@
 package actions
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"testing"
@@ -16,10 +17,11 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
 )
 
-func enterPartiQLTest() (*testtools.AwsmStubber, *PartiQLRunner) {
+func enterPartiQLTest() (context.Context, *testtools.AwsmStubber, *PartiQLRunner) {
+	ctx := context.Background()
 	stubber := testtools.NewStubber()
 	runner := &PartiQLRunner{TableName: "test-table", DynamoDbClient: dynamodb.NewFromConfig(*stubber.SdkConfig)}
-	return stubber, runner
+	return ctx, stubber, runner
 }
 
 func TestPartiQL_AddMovie(t *testing.T) {
@@ -28,7 +30,7 @@ func TestPartiQL_AddMovie(t *testing.T) {
 }
 
 func AddMoviePartiQL(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, runner := enterPartiQLTest()
+	ctx, stubber, runner := enterPartiQLTest()
 
 	movie := Movie{Title: "Test movie", Year: 2001, Info: map[string]interface{}{
 		"rating": 3.5, "plot": "Not bad."}}
@@ -37,7 +39,7 @@ func AddMoviePartiQL(raiseErr *testtools.StubError, t *testing.T) {
 		fmt.Sprintf("INSERT INTO \"%v\" VALUE {'title': ?, 'year': ?, 'info': ?}", runner.TableName),
 		[]interface{}{movie.Title, movie.Year, movie.Info}, nil, nil, nil, nil, raiseErr))
 
-	err := runner.AddMovie(movie)
+	err := runner.AddMovie(ctx, movie)
 
 	testtools.VerifyError(err, raiseErr, t)
 	testtools.ExitTest(stubber, t)
@@ -49,7 +51,7 @@ func TestPartiQL_GetMovie(t *testing.T) {
 }
 
 func GetMoviePartiQL(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, runner := enterPartiQLTest()
+	ctx, stubber, runner := enterPartiQLTest()
 
 	movie := Movie{Title: "Test movie", Year: 2001, Info: map[string]interface{}{
 		"rating": 3.5, "plot": "Not bad."}}
@@ -58,7 +60,7 @@ func GetMoviePartiQL(raiseErr *testtools.StubError, t *testing.T) {
 		fmt.Sprintf("SELECT * FROM \"%v\" WHERE title=? AND year=?", runner.TableName),
 		[]interface{}{movie.Title, movie.Year}, nil, nil, movie, nil, raiseErr))
 
-	gotMovie, err := runner.GetMovie(movie.Title, movie.Year)
+	gotMovie, err := runner.GetMovie(ctx, movie.Title, movie.Year)
 
 	testtools.VerifyError(err, raiseErr, t)
 	if err == nil {
@@ -76,7 +78,7 @@ func TestPartiQL_GetAllMovies(t *testing.T) {
 }
 
 func GetAllMoviesPartiQL(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, runner := enterPartiQLTest()
+	ctx, stubber, runner := enterPartiQLTest()
 
 	outProjection := map[string]interface{}{"title": "Test movie", "rating": 3.5}
 
@@ -84,7 +86,7 @@ func GetAllMoviesPartiQL(raiseErr *testtools.StubError, t *testing.T) {
 		fmt.Sprintf("SELECT title, info.rating FROM \"%v\"", runner.TableName),
 		nil, aws.Int32(2), nil, outProjection, nil, raiseErr))
 
-	gotProjections, err := runner.GetAllMovies(2)
+	gotProjections, err := runner.GetAllMovies(ctx, 2)
 
 	testtools.VerifyError(err, raiseErr, t)
 	if err == nil {
@@ -104,7 +106,7 @@ func TestPartiQL_UpdateMovie(t *testing.T) {
 }
 
 func UpdateMoviePartiQL(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, runner := enterPartiQLTest()
+	ctx, stubber, runner := enterPartiQLTest()
 
 	movie := Movie{Title: "Test movie", Year: 2001, Info: map[string]interface{}{
 		"rating": 3.5, "plot": "Not bad."}}
@@ -114,7 +116,7 @@ func UpdateMoviePartiQL(raiseErr *testtools.StubError, t *testing.T) {
 		fmt.Sprintf("UPDATE \"%v\" SET info.rating=? WHERE title=? AND year=?", runner.TableName),
 		[]interface{}{newRating, movie.Title, movie.Year}, nil, nil, movie, nil, raiseErr))
 
-	err := runner.UpdateMovie(movie, newRating)
+	err := runner.UpdateMovie(ctx, movie, newRating)
 
 	testtools.VerifyError(err, raiseErr, t)
 	testtools.ExitTest(stubber, t)
@@ -126,7 +128,7 @@ func TestPartiQL_DeleteMovie(t *testing.T) {
 }
 
 func DeleteMoviePartiQL(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, runner := enterPartiQLTest()
+	ctx, stubber, runner := enterPartiQLTest()
 
 	movie := Movie{Title: "Test movie", Year: 2001, Info: map[string]interface{}{
 		"rating": 3.5, "plot": "Not bad."}}
@@ -135,7 +137,7 @@ func DeleteMoviePartiQL(raiseErr *testtools.StubError, t *testing.T) {
 		fmt.Sprintf("DELETE FROM \"%v\" WHERE title=? AND year=?", runner.TableName),
 		[]interface{}{movie.Title, movie.Year}, nil, nil, movie, nil, raiseErr))
 
-	err := runner.DeleteMovie(movie)
+	err := runner.DeleteMovie(ctx, movie)
 
 	testtools.VerifyError(err, raiseErr, t)
 	testtools.ExitTest(stubber, t)
@@ -147,7 +149,7 @@ func TestPartiQL_AddMovieBatch(t *testing.T) {
 }
 
 func AddMovieBatchPartiQL(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, runner := enterPartiQLTest()
+	ctx, stubber, runner := enterPartiQLTest()
 
 	movies := make([]Movie, 3)
 	statements := make([]string, len(movies))
@@ -166,7 +168,7 @@ func AddMovieBatchPartiQL(raiseErr *testtools.StubError, t *testing.T) {
 
 	stubber.Add(stubs.StubBatchExecuteStatement(statements, paramList, nil, raiseErr))
 
-	err := runner.AddMovieBatch(movies)
+	err := runner.AddMovieBatch(ctx, movies)
 
 	testtools.VerifyError(err, raiseErr, t)
 	testtools.ExitTest(stubber, t)
@@ -178,7 +180,7 @@ func TestPartiQL_GetMovieBatch(t *testing.T) {
 }
 
 func GetMovieBatchPartiQL(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, runner := enterPartiQLTest()
+	ctx, stubber, runner := enterPartiQLTest()
 
 	movies := make([]Movie, 3)
 	statements := make([]string, len(movies))
@@ -201,7 +203,7 @@ func GetMovieBatchPartiQL(raiseErr *testtools.StubError, t *testing.T) {
 	}
 	stubber.Add(stubs.StubBatchExecuteStatement(statements, paramList, intMovies, raiseErr))
 
-	outMovies, err := runner.GetMovieBatch(movies)
+	outMovies, err := runner.GetMovieBatch(ctx, movies)
 
 	testtools.VerifyError(err, raiseErr, t)
 	if err == nil {
@@ -223,7 +225,7 @@ func TestPartiQL_UpdateMovieBatch(t *testing.T) {
 }
 
 func UpdateMovieBatchPartiQL(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, runner := enterPartiQLTest()
+	ctx, stubber, runner := enterPartiQLTest()
 
 	movies := make([]Movie, 3)
 	newRatings := make([]float64, len(movies))
@@ -242,7 +244,7 @@ func UpdateMovieBatchPartiQL(raiseErr *testtools.StubError, t *testing.T) {
 
 	stubber.Add(stubs.StubBatchExecuteStatement(statements, paramList, nil, raiseErr))
 
-	err := runner.UpdateMovieBatch(movies, newRatings)
+	err := runner.UpdateMovieBatch(ctx, movies, newRatings)
 
 	testtools.VerifyError(err, raiseErr, t)
 	testtools.ExitTest(stubber, t)
@@ -254,7 +256,7 @@ func TestPartiQL_DeleteMovieBatch(t *testing.T) {
 }
 
 func DeleteMovieBatchPartiQL(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, runner := enterPartiQLTest()
+	ctx, stubber, runner := enterPartiQLTest()
 
 	movies := make([]Movie, 3)
 	statements := make([]string, len(movies))
@@ -271,7 +273,7 @@ func DeleteMovieBatchPartiQL(raiseErr *testtools.StubError, t *testing.T) {
 
 	stubber.Add(stubs.StubBatchExecuteStatement(statements, paramList, nil, raiseErr))
 
-	err := runner.DeleteMovieBatch(movies)
+	err := runner.DeleteMovieBatch(ctx, movies)
 
 	testtools.VerifyError(err, raiseErr, t)
 	testtools.ExitTest(stubber, t)

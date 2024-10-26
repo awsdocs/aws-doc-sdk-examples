@@ -13,110 +13,13 @@ import java.util.ArrayList;
 import com.amazonaws.services.redshift.model.*;
 
 public class ListAndPurchaseReservedNodeOffering {
+ /*
+   The AWS SDK for Java v1 is approaching end-of-support. For more information, see:
+   https://aws.amazon.com/blogs/developer/announcing-end-of-support-for-aws-sdk-for-java-v1-x-on-december-31-2025/
 
-    public static AmazonRedshift client;
-    public static String nodeTypeToPurchase = "dc2.large";
+   See the V2 version here:
+   https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/redshift
+   */
 
-    public static Double fixedPriceLimit = 10000.00;
-    public static ArrayList<ReservedNodeOffering> matchingNodes = new ArrayList<ReservedNodeOffering>();
-
-    public static void main(String[] args) throws IOException {
-
-        // Default client using the {@link
-        // com.amazonaws.auth.DefaultAWSCredentialsProviderChain}
-        client = AmazonRedshiftClientBuilder.defaultClient();
-
-        try {
-            listReservedNodes();
-            findReservedNodeOffer();
-            purchaseReservedNodeOffer();
-
-        } catch (Exception e) {
-            System.err.println("Operation failed: " + e.getMessage());
-        }
-    }
-
-    private static void listReservedNodes() {
-        DescribeReservedNodesResult result = client.describeReservedNodes();
-        System.out.println("Listing nodes already purchased.");
-        for (ReservedNode node : result.getReservedNodes()) {
-            printReservedNodeDetails(node);
-        }
-    }
-
-    private static void findReservedNodeOffer() {
-        DescribeReservedNodeOfferingsRequest request = new DescribeReservedNodeOfferingsRequest();
-        DescribeReservedNodeOfferingsResult result = client.describeReservedNodeOfferings(request);
-        Integer count = 0;
-
-        System.out.println("\nFinding nodes to purchase.");
-        for (ReservedNodeOffering offering : result.getReservedNodeOfferings()) {
-            if (offering.getNodeType().equals(nodeTypeToPurchase)) {
-
-                if (offering.getFixedPrice() < fixedPriceLimit) {
-                    matchingNodes.add(offering);
-                    printOfferingDetails(offering);
-                    count += 1;
-                }
-            }
-        }
-        if (count == 0) {
-            System.out.println("\nNo reserved node offering matches found.");
-        } else {
-            System.out.println("\nFound " + count + " matches.");
-        }
-    }
-
-    private static void purchaseReservedNodeOffer() throws IOException {
-        if (matchingNodes.size() == 0) {
-            return;
-        } else {
-            System.out.println("\nPurchasing nodes.");
-
-            for (ReservedNodeOffering offering : matchingNodes) {
-                printOfferingDetails(offering);
-                System.out.println("WARNING: purchasing this offering will incur costs.");
-                System.out.println("Purchase this offering [Y or N]?");
-                DataInput in = new DataInputStream(System.in);
-                String purchaseOpt = in.readLine();
-                if (purchaseOpt.equalsIgnoreCase("y")) {
-
-                    try {
-                        PurchaseReservedNodeOfferingRequest request = new PurchaseReservedNodeOfferingRequest()
-                                .withReservedNodeOfferingId(offering.getReservedNodeOfferingId());
-                        ReservedNode reservedNode = client.purchaseReservedNodeOffering(request);
-                        printReservedNodeDetails(reservedNode);
-                    } catch (ReservedNodeAlreadyExistsException ex1) {
-                    } catch (ReservedNodeOfferingNotFoundException ex2) {
-                    } catch (ReservedNodeQuotaExceededException ex3) {
-                    } catch (Exception ex4) {
-                    }
-                }
-            }
-            System.out.println("Finished.");
-
-        }
-    }
-
-    private static void printOfferingDetails(
-            ReservedNodeOffering offering) {
-        System.out.println("\nOffering Match:");
-        System.out.format("Id: %s\n", offering.getReservedNodeOfferingId());
-        System.out.format("Node Type: %s\n", offering.getNodeType());
-        System.out.format("Fixed Price: %s\n", offering.getFixedPrice());
-        System.out.format("Offering Type: %s\n", offering.getOfferingType());
-        System.out.format("Duration: %s\n", offering.getDuration());
-    }
-
-    private static void printReservedNodeDetails(ReservedNode node) {
-        System.out.println("\nPurchased Node Details:");
-        System.out.format("Id: %s\n", node.getReservedNodeOfferingId());
-        System.out.format("State: %s\n", node.getState());
-        System.out.format("Node Type: %s\n", node.getNodeType());
-        System.out.format("Start Time: %s\n", node.getStartTime());
-        System.out.format("Fixed Price: %s\n", node.getFixedPrice());
-        System.out.format("Offering Type: %s\n", node.getOfferingType());
-        System.out.format("Duration: %s\n", node.getDuration());
-    }
 }
 // snippet-end:[redshift.java.ListAndPurchaseReservedNodeOffering.complete]

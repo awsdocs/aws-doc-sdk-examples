@@ -25,14 +25,15 @@ python -m venv .venv && source .venv/bin/activate && pip install -r requirements
 #### Command Syntax
 
 ```bash
-python stacks/deploy.py --type <deployment_type>
+cd stacks ; python deploy.py <stack>
 ```
 
-Replace `<deployment_type>` with one of the supported types:
+Replace `<stack>` with one of the supported stacks:
 
 - `admin`: Deploys admin-specific resources.
 - `images`: Deploys image-related resources.
 - `plugin`: Deploys plugin-specific resources.
+  - To deploy only a specific language's plugin, pass `--language <language>` where language is an account in [targets.yaml](stacks/config/targets.yaml).
 
 #### Additional Notes
 

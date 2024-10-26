@@ -67,7 +67,7 @@ Python 3.8
 - [PEP 586](http://www.python.org/dev/peps/pep-0586), Literal types.
 - [PEP 589](http://www.python.org/dev/peps/pep-0589), TypedDict.
 
-Python 3.7
+Python 3.9
 
 - [PEP 557](http://www.python.org/dev/peps/pep-0557), Data Classes.
 

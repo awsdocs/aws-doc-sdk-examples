@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[medical-imaging.JavaScript.dicom.getDICOMImportJobV3]
 import { GetDICOMImportJobCommand } from "@aws-sdk/client-medical-imaging";
@@ -13,10 +13,10 @@ import { medicalImagingClient } from "../libs/medicalImagingClient.js";
  */
 export const getDICOMImportJob = async (
   datastoreId = "xxxxxxxxxxxxxxxxxxxx",
-  jobId = "xxxxxxxxxxxxxxxxxxxx"
+  jobId = "xxxxxxxxxxxxxxxxxxxx",
 ) => {
   const response = await medicalImagingClient.send(
-    new GetDICOMImportJobCommand({ datastoreId: datastoreId, jobId: jobId })
+    new GetDICOMImportJobCommand({ datastoreId: datastoreId, jobId: jobId }),
   );
   console.log(response);
   // {

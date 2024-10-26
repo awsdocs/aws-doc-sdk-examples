@@ -40,12 +40,12 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchExecuteStatement](DynamoDBService.php#L273)
+- [BatchExecuteStatement](DynamoDBService.php#L319)
 - [BatchWriteItem](DynamoDBService.php#L201)
 - [CreateTable](dynamodb_basics/GettingStartedWithDynamoDB.php#L52)
-- [DeleteItem](dynamodb_basics/GettingStartedWithDynamoDB.php#L100)
+- [DeleteItem](dynamodb_basics/GettingStartedWithDynamoDB.php#L148)
 - [DeleteTable](DynamoDBService.php#L84)
-- [ExecuteStatement](DynamoDBService.php#L243)
+- [ExecuteStatement](DynamoDBService.php#L263)
 - [GetItem](dynamodb_basics/GettingStartedWithDynamoDB.php#L131)
 - [ListTables](DynamoDBService.php#L64)
 - [PutItem](dynamodb_basics/GettingStartedWithDynamoDB.php#L67)
@@ -59,8 +59,8 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a serverless application to manage photos](../../applications/photo_asset_manager)
-- [Query a table by using batches of PartiQL statements](DynamoDBService.php)
-- [Query a table using PartiQL](DynamoDBService.php)
+- [Query a table by using batches of PartiQL statements](partiql_basics/GettingStartedWithPartiQLBatch.php)
+- [Query a table using PartiQL](partiql_basics/GettingStartedWithPartiQL.php)
 
 
 <!--custom.examples.start-->

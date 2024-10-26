@@ -21,7 +21,7 @@
     "@aws-sdk/client-rds-data": "^3.190.0",
     "@aws-sdk/client-ses": "^3.193.0",
     "cors": "^2.8.5",
-    "express": "^5.0.0-beta.3",
+    "express": "^5.0.0",
     "mimetext": "^2.0.10",
     "prettier": "^2.7.1",
     "uuid": "^9.0.0"

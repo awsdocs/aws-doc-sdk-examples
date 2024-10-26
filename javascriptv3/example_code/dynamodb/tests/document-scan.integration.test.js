@@ -26,8 +26,8 @@ describe("document-scan", () => {
     const spy = vi.spyOn(console, "log");
     await main();
 
-    expect(spy).toHaveBeenCalledWith(`Owl - (Brown, 13)`);
-    expect(spy).toHaveBeenCalledWith(`Bluejay - (Blue, 9)`);
-    expect(spy).toHaveBeenCalledWith(`Parrot - (Green, 1250)`);
+    expect(spy).toHaveBeenCalledWith("Owl - (Brown, 13)");
+    expect(spy).toHaveBeenCalledWith("Bluejay - (Blue, 9)");
+    expect(spy).toHaveBeenCalledWith("Parrot - (Green, 1250)");
   });
 });

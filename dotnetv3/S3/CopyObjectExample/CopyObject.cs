@@ -23,8 +23,8 @@ namespace CopyObject
             IAmazonS3 s3Client = new AmazonS3Client();
 
             // Remember to change these values to refer to your Amazon S3 objects.
-            string sourceBucketName = "doc-example-bucket1";
-            string destinationBucketName = "doc-example-bucket2";
+            string sourceBucketName = "amzn-s3-demo-bucket1";
+            string destinationBucketName = "amzn-s3-demo-bucket2";
             string sourceObjectKey = "testfile.txt";
             string destinationObjectKey = "testfilecopy.txt";
 

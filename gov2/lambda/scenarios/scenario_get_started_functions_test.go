@@ -5,6 +5,7 @@ package scenarios
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"testing"
@@ -53,7 +54,7 @@ func (scenTest *GetStartedFunctionsScenarioTest) SetupDataAndStubs() []testtools
 		Number: 5,
 	})
 	incremResult, _ := json.Marshal(actions.LambdaResultInt{Result: 6})
-	opChoice := "0"
+	opChoice := "1"
 	x := "6"
 	y := "7"
 	calcPayload, _ := json.Marshal(actions.CalculatorParameters{
@@ -122,7 +123,7 @@ func (scenTest *GetStartedFunctionsScenarioTest) RunSubTest(stubber *testtools.A
 	mockQuestioner := demotools.MockQuestioner{Answers: scenTest.Answers}
 	scenario := NewGetStartedFunctionsScenario(*stubber.SdkConfig, &mockQuestioner, &scenTest.helper)
 	scenario.isTestRun = true
-	scenario.Run()
+	scenario.Run(context.Background())
 }
 
 func (scenTest *GetStartedFunctionsScenarioTest) Cleanup() {}

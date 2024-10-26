@@ -22,8 +22,7 @@ node createDatasetImportJob.js
 
 // snippet-start:[personalize.JavaScript.createDatasetImportJobV3]
 // Get service clients module and commands using ES6 syntax.
-import {CreateDatasetImportJobCommand } from
-  "@aws-sdk/client-personalize";
+import { CreateDatasetImportJobCommand } from "@aws-sdk/client-personalize";
 import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Or, create the client here.
@@ -31,17 +30,20 @@ import { personalizeClient } from "./libs/personalizeClients.js";
 
 // Set the dataset import job parameters.
 export const datasetImportJobParam = {
-  datasetArn: 'DATASET_ARN', /* required */
-  dataSource: {  /* required */
-    dataLocation: 'S3_PATH'
+  datasetArn: "DATASET_ARN" /* required */,
+  dataSource: {
+    /* required */
+    dataLocation: "S3_PATH",
   },
-  jobName: 'NAME',/* required */
-  roleArn: 'ROLE_ARN' /* required */
-}
+  jobName: "NAME" /* required */,
+  roleArn: "ROLE_ARN" /* required */,
+};
 
 export const run = async () => {
   try {
-    const response = await personalizeClient.send(new CreateDatasetImportJobCommand(datasetImportJobParam));
+    const response = await personalizeClient.send(
+      new CreateDatasetImportJobCommand(datasetImportJobParam),
+    );
     console.log("Success", response);
     return response; // For unit tests.
   } catch (err) {

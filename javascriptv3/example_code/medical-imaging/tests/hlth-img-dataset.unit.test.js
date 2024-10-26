@@ -91,12 +91,12 @@ describe("dataset-steps", () => {
       Prefix: sourcePrefix,
     });
 
-    objectKeys.forEach((key) =>
+    for (const key of objectKeys) {
       expect(copyObjectCommand).toHaveBeenCalledWith({
         Bucket: targetBucket,
         CopySource: `/${sourceBucket}/${sourcePrefix}/${key}`,
         Key: `${targetPrefix}${key}`,
-      }),
-    );
+      });
+    }
   });
 });

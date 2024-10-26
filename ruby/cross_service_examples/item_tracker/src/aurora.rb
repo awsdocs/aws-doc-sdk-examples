@@ -3,21 +3,20 @@
 
 # frozen_string_literal: true
 
-require "logger"
-require "sequel"
-require "multi_json"
-require_relative "report"
+require 'logger'
+require 'sequel'
+require 'multi_json'
+require_relative 'report'
 
 # Issues commands directly to the Amazon Relational Database Service (Amazon RDS), including SQL statements.
 class AuroraActions
-
   # @param config [List]
   # @param rds_client [AWS::RDS::Client] An Amazon RDS client.
   def initialize(config, rds_client)
-    @cluster = config["resource_arn"]
-    @secret = config["secret_arn"]
-    @db_name = config["database"]
-    @table_name = config["table_name"]
+    @cluster = config['resource_arn']
+    @secret = config['secret_arn']
+    @db_name = config['database']
+    @table_name = config['table_name']
     @rds_client = rds_client
     @model = Sequel::Database.new
     @logger = Logger.new($stdout)
@@ -34,7 +33,7 @@ class AuroraActions
     sql = sql.where(work_item_id: item_id.to_i) if item_id
     sql = _format_sql(sql.sql)
     @logger.info("Prepared GET query: #{sql}")
-    results = run_statement(sql, "get")
+    results = run_statement(sql, 'get')
     response = parse_work_items(results)
     @logger.info("Received GET response: #{response}")
     response
@@ -54,7 +53,7 @@ class AuroraActions
     )
     sql = _format_sql(sql)
     @logger.info("Prepared POST query: #{sql}")
-    response = run_statement(sql, "post")
+    response = run_statement(sql, 'post')
     id = response[0][:long_value]
     @logger.info("Successfully created work_item_id: #{id}")
     id
@@ -67,7 +66,7 @@ class AuroraActions
     sql = @model.from(@table_name.to_sym).where(work_item_id: item_id).update_sql(archived: 1) # 1 is true, 0 is false
     sql = _format_sql(sql)
     @logger.info("Prepared PUT query: #{sql}")
-    run_statement(sql, "put")
+    run_statement(sql, 'put')
   end
 
   private
@@ -84,7 +83,7 @@ class AuroraActions
   # @param [String]
   # @return [Boolean]
   def true?(obj)
-    obj.to_s.downcase == "true"
+    obj.to_s.downcase == 'true'
   end
 
   # Helper method to centralize error formatting.
@@ -100,8 +99,8 @@ class AuroraActions
   def parse_work_items(results)
     output = []
     results.each do |x|
-      x["name"] = x["username"] # Note: Duplicative name/username field added due to front-end bug.
-      x["id"] = x["work_item_id"] # Note: Duplicative id/work_item_id field added due to front-end bug.
+      x['name'] = x['username'] # NOTE: Duplicative name/username field added due to front-end bug.
+      x['id'] = x['work_item_id'] # NOTE: Duplicative id/work_item_id field added due to front-end bug.
       output.append(x)
     end
     output
@@ -113,16 +112,12 @@ class AuroraActions
   # @return [RuntimeError, Boolean] If valid response, true; otherwise, RuntimeError.
   def validate_response(response, method)
     case method
-    when "get"
-      if response[:formatted_records].nil?
-        raise "Expected formatted records returned from GET action."
-      end
-    when "post"
-      if response[:number_of_records_updated] < 1
-        raise "Expected at least 1 updated record from POST action."
-      end
+    when 'get'
+      raise 'Expected formatted records returned from GET action.' if response[:formatted_records].nil?
+    when 'post'
+      raise 'Expected at least 1 updated record from POST action.' if response[:number_of_records_updated] < 1
     end
-    @logger.info("SQL call successful. Response body validated.")
+    @logger.info('SQL call successful. Response body validated.')
   end
 
   # Transforms inconsistent return bodies into something API-friendly.
@@ -131,7 +126,7 @@ class AuroraActions
   # @return [Array] Containing zero or more hashes of response data.
   def format_response(response, method)
     case method
-    when "get"
+    when 'get'
       JSON.parse(response[:formatted_records])
       # response example:
       # [{"work_item_id"=>1,
@@ -140,14 +135,14 @@ class AuroraActions
       #   "status"=>"in-progress",
       #   "username"=>"wkhalifa",
       #   "archived"=>1}]
-    when "post"
+    when 'post'
       [response[:generated_fields][0].to_h]
       # response example:
       # [{:long_value=>21}]
-    when "put"
+    when 'put'
       []
     else
-      raise "Configuration method. Must provide: get, post, or put."
+      raise 'Configuration method. Must provide: get, post, or put.'
     end
   end
 
@@ -161,12 +156,11 @@ class AuroraActions
       'resource_arn': @cluster,
       'secret_arn': @secret,
       'sql': sql,
-      'format_records_as': "JSON"
+      'format_records_as': 'JSON'
     }
     response = @rds_client.execute_statement(**run_args)
     validate_response(response, method)
     format_response(response, method)
-
   rescue Aws::RDS::Errors::ServiceError => e
     handle_error("SQL execution on #{@db_name} failed within RDS:\n#{e}")
   rescue StandardError => e

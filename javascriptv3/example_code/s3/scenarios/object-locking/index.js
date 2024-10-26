@@ -19,6 +19,7 @@ import {
   confirmUpdateRetention,
   createBuckets,
   createBucketsAction,
+  getBucketPrefix,
   populateBuckets,
   populateBucketsAction,
   setLegalHoldFileEnabledAction,
@@ -45,6 +46,7 @@ export const getWorkflowStages = (scenarios, initialState = {}) => {
         welcome(scenarios),
         welcomeContinue(scenarios),
         exitOnFalse(scenarios, "welcomeContinue"),
+        getBucketPrefix(scenarios),
         createBuckets(scenarios),
         confirmCreateBuckets(scenarios),
         exitOnFalse(scenarios, "confirmCreateBuckets"),
@@ -92,12 +94,18 @@ export const getWorkflowStages = (scenarios, initialState = {}) => {
 };
 
 // Call function if run directly
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import { S3Client } from "@aws-sdk/client-s3";
 import { cleanupAction, confirmCleanup } from "./clean.steps.js";
 import { replAction } from "./repl.steps.js";
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const objectLockingScenarios = getWorkflowStages(Scenarios);
-  Scenarios.parseScenarioArgs(objectLockingScenarios);
+  Scenarios.parseScenarioArgs(objectLockingScenarios, {
+    name: "Amazon S3 object locking workflow",
+    description:
+      "Work with Amazon Simple Storage Service (Amazon S3) object locking features.",
+    synopsis:
+      "node index.js --scenario <deploy | demo | clean> [-h|--help] [-y|--yes] [-v|--verbose]",
+  });
 }

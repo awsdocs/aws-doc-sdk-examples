@@ -7,6 +7,7 @@ Unit tests for grant_management.py.
 
 import boto3
 import pytest
+from botocore.exceptions import ClientError
 
 import grant_management
 
@@ -41,13 +42,11 @@ def test_grant_management(
             user,
             ["GenerateDataKey"],
             grant,
-            raise_and_continue=True,
         )
         runner.add(
             kms_stubber.stub_list_grants,
             key_id,
             ["test-grant"] * 5,
-            raise_and_continue=True,
         )
         if delete_choice == "retire":
             runner.add(
@@ -60,7 +59,16 @@ def test_grant_management(
                 kms_stubber.stub_revoke_grant,
                 key_id,
                 "test-grant-id",
-                raise_and_continue=True,
             )
 
-    grant_management.grant_management(kms_client)
+    exception_raising_functions = [
+        "stub_create_grant",
+        "stub_list_grants",
+        "stub_revoke_grant",
+    ]
+
+    if stop_on_action not in exception_raising_functions:
+        grant_management.grant_management(kms_client)
+    else:
+        with pytest.raises(ClientError):
+            grant_management.grant_management(kms_client)

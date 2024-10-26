@@ -63,7 +63,7 @@ describe("setup.steps.js", () => {
 
       expect(mockClient.send).toHaveBeenCalledTimes(6);
       for (const stateKey in state) {
-        ["file0.txt", "file1.txt"].forEach((fileName) => {
+        for (const fileName of ["file0.txt", "file1.txt"]) {
           expect(mockClient.send).toHaveBeenCalledWith(
             expect.objectContaining({
               input: {
@@ -74,7 +74,7 @@ describe("setup.steps.js", () => {
               },
             }),
           );
-        });
+        }
       }
     });
   });

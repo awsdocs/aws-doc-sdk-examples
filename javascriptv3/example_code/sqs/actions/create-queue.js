@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
-*/
+ */
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[sqs.JavaScript.queues.createQueueV3]
 import { CreateQueueCommand, SQSClient } from "@aws-sdk/client-sqs";

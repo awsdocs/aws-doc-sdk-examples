@@ -1,23 +1,23 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-from collections import defaultdict
 import datetime
 import logging
 import os
 import re
+from collections import defaultdict
 from dataclasses import asdict
 from enum import Enum
-from jinja2 import Environment, FileSystemLoader, select_autoescape
 from operator import itemgetter
 from pathlib import Path
 from typing import Dict, List, Tuple
 
+import config
+from aws_doc_sdk_examples_tools.entities import expand_all_entities
 from aws_doc_sdk_examples_tools.metadata import Example
 from aws_doc_sdk_examples_tools.sdks import Sdk
 from aws_doc_sdk_examples_tools.services import Service
-
-import config
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 from scanner import Scanner
 
 logger = logging.getLogger(__name__)
@@ -203,16 +203,6 @@ class Renderer:
                 sorted_cats[key] = post_cats[key]
         return sorted_cats
 
-    def _expand_entities(self, readme_text: str) -> str:
-        entities = set(re.findall(r"&[\dA-Za-z-_]+;", readme_text))
-        for entity in entities:
-            expanded = self.scanner.expand_entity(entity)
-            if expanded is not None:
-                readme_text = readme_text.replace(entity, expanded)
-            else:
-                logger.warning("Entity found with no expansion defined: %s", entity)
-        return readme_text
-
     def _lang_level_double_dots(self) -> str:
         return "../" * self.lang_config["service_folder"].count("/")
 
@@ -275,7 +265,12 @@ class Renderer:
         custom_cats = self._transform_custom_categories()
 
         if (
-            len(hello) + len(actions) + len(basics) + len(scenarios) + len(custom_cats) + len(crosses)
+            len(hello)
+            + len(actions)
+            + len(basics)
+            + len(scenarios)
+            + len(custom_cats)
+            + len(crosses)
             == 0
         ):
             return RenderStatus.NO_EXAMPLES
@@ -309,7 +304,10 @@ class Renderer:
             customs=customs,
             unsupported=unsupported,
         )
-        self.readme_text = self._expand_entities(self.readme_text)
+        [text, errors] = expand_all_entities(self.readme_text, self.scanner.doc_gen.entities)
+        if errors:
+            raise errors
+        self.readme_text = text
 
         # Check if the rendered text is different from the existing file
         if self.read_current() == self.readme_text:

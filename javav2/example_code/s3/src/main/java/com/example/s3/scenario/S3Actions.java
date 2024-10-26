@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
@@ -33,9 +34,11 @@ import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
+import software.amazon.awssdk.services.s3.model.UploadPartCopyRequest;
 import software.amazon.awssdk.services.s3.model.UploadPartRequest;
 import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Publisher;
 import software.amazon.awssdk.services.s3.waiters.S3AsyncWaiter;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -52,6 +55,7 @@ public class S3Actions {
 
     private static final Logger logger = LoggerFactory.getLogger(S3Actions.class);
     private static S3AsyncClient s3AsyncClient;
+
     public static S3AsyncClient getAsyncClient() {
         if (s3AsyncClient == null) {
             /*
@@ -71,6 +75,7 @@ public class S3Actions {
             ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
                 .apiCallTimeout(Duration.ofMinutes(2))  // Set the overall API call timeout.
                 .apiCallAttemptTimeout(Duration.ofSeconds(90))  // Set the individual call attempt timeout.
+                .retryStrategy(RetryMode.STANDARD)
                 .build();
 
             s3AsyncClient = S3AsyncClient.builder()
@@ -83,6 +88,7 @@ public class S3Actions {
     }
 
     // snippet-start:[s3.java2.create_bucket_waiters.main]
+
     /**
      * Creates an S3 bucket asynchronously.
      *
@@ -118,11 +124,12 @@ public class S3Actions {
     // snippet-end:[s3.java2.create_bucket_waiters.main]
 
     // snippet-start:[s3.java2.s3_object_upload.main]
+
     /**
      * Uploads a local file to an AWS S3 bucket asynchronously.
      *
      * @param bucketName the name of the S3 bucket to upload the file to
-     * @param key the key (object name) to use for the uploaded file
+     * @param key        the key (object name) to use for the uploaded file
      * @param objectPath the local file path of the file to be uploaded
      * @return a {@link CompletableFuture} that completes with the {@link PutObjectResponse} when the upload is successful, or throws a {@link RuntimeException} if the upload fails
      */
@@ -135,19 +142,20 @@ public class S3Actions {
         CompletableFuture<PutObjectResponse> response = getAsyncClient().putObject(objectRequest, AsyncRequestBody.fromFile(Paths.get(objectPath)));
         return response.whenComplete((resp, ex) -> {
             if (ex != null) {
-              throw new RuntimeException("Failed to upload file", ex);
+                throw new RuntimeException("Failed to upload file", ex);
             }
         });
     }
     // snippet-end:[s3.java2.s3_object_upload.main]
 
     // snippet-start:[s3.java2.getobjectdata.main]
+
     /**
      * Asynchronously retrieves the bytes of an object from an Amazon S3 bucket and writes them to a local file.
      *
      * @param bucketName the name of the S3 bucket containing the object
-     * @param keyName the key (or name) of the S3 object to retrieve
-     * @param path the local file path where the object's bytes will be written
+     * @param keyName    the key (or name) of the S3 object to retrieve
+     * @param path       the local file path where the object's bytes will be written
      * @return a {@link CompletableFuture} that completes when the object bytes have been written to the local file
      */
     public CompletableFuture<Void> getObjectBytesAsync(String bucketName, String keyName, String path) {
@@ -175,6 +183,7 @@ public class S3Actions {
     // snippet-end:[s3.java2.getobjectdata.main]
 
     // snippet-start:[s3.java2.list_objects.main]
+
     /**
      * Asynchronously lists all objects in the specified S3 bucket.
      *
@@ -201,12 +210,13 @@ public class S3Actions {
     // snippet-end:[s3.java2.list_objects.main]
 
     // snippet-start:[s3.java2.copy_object.main]
+
     /**
      * Asynchronously copies an object from one S3 bucket to another.
      *
      * @param fromBucket the name of the source S3 bucket
-     * @param objectKey the key (name) of the object to be copied
-     * @param toBucket the name of the destination S3 bucket
+     * @param objectKey  the key (name) of the object to be copied
+     * @param toBucket   the name of the destination S3 bucket
      * @return a {@link CompletableFuture} that completes with the copy result as a {@link String}
      * @throws RuntimeException if the URL could not be encoded or an S3 exception occurred during the copy
      */
@@ -236,7 +246,7 @@ public class S3Actions {
      * Performs a multipart upload to an Amazon S3 bucket.
      *
      * @param bucketName the name of the S3 bucket to upload the file to
-     * @param key the key (name) of the file to be uploaded
+     * @param key        the key (name) of the file to be uploaded
      * @return a {@link CompletableFuture} that completes when the multipart upload is successful
      */
     public CompletableFuture<Void> multipartUpload(String bucketName, String key) {
@@ -313,11 +323,12 @@ public class S3Actions {
     }
 
     // snippet-start:[s3.java2.delete_objects.main]
+
     /**
      * Deletes an object from an S3 bucket asynchronously.
      *
      * @param bucketName the name of the S3 bucket
-     * @param key the key (file name) of the object to be deleted
+     * @param key        the key (file name) of the object to be deleted
      * @return a {@link CompletableFuture} that completes when the object has been deleted
      */
     public CompletableFuture<Void> deleteObjectFromBucketAsync(String bucketName, String key) {
@@ -340,12 +351,13 @@ public class S3Actions {
     // snippet-end:[s3.java2.delete_objects.main]
 
     // snippet-start:[s3.java2.bucket_deletion.main]
+
     /**
      * Deletes an S3 bucket asynchronously.
      *
      * @param bucket the name of the bucket to be deleted
      * @return a {@link CompletableFuture} that completes when the bucket deletion is successful, or throws a {@link RuntimeException}
-     *         if an error occurs during the deletion process
+     * if an error occurs during the deletion process
      */
     public CompletableFuture<Void> deleteBucketAsync(String bucket) {
         DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder()
@@ -363,6 +375,44 @@ public class S3Actions {
         return response.thenApply(r -> null);
     }
     // snippet-end:[s3.java2.bucket_deletion.main]
+
+    // snippet-start:[s3.java2.multi_copy.main]
+    public CompletableFuture<String> performMultiCopy(String toBucket, String bucketName, String key) {
+        CreateMultipartUploadRequest createMultipartUploadRequest = CreateMultipartUploadRequest.builder()
+            .bucket(toBucket)
+            .key(key)
+            .build();
+
+        getAsyncClient().createMultipartUpload(createMultipartUploadRequest)
+            .thenApply(createMultipartUploadResponse -> {
+                String uploadId = createMultipartUploadResponse.uploadId();
+                System.out.println("Upload ID: " + uploadId);
+
+                UploadPartCopyRequest uploadPartCopyRequest = UploadPartCopyRequest.builder()
+                    .sourceBucket(bucketName)
+                    .destinationBucket(toBucket)
+                    .sourceKey(key)
+                    .destinationKey(key)
+                    .uploadId(uploadId)  // Use the valid uploadId.
+                    .partNumber(1)  // Ensure the part number is correct.
+                    .copySourceRange("bytes=0-1023")  // Adjust range as needed
+                    .build();
+
+                return getAsyncClient().uploadPartCopy(uploadPartCopyRequest);
+            })
+            .thenCompose(uploadPartCopyFuture -> uploadPartCopyFuture)
+            .whenComplete((uploadPartCopyResponse, exception) -> {
+                if (exception != null) {
+                    // Handle any exceptions.
+                    logger.error("Error during upload part copy: " + exception.getMessage());
+                } else {
+                    // Successfully completed the upload part copy.
+                    System.out.println("Upload Part Copy completed successfully. ETag: " + uploadPartCopyResponse.copyPartResult().eTag());
+                }
+            });
+        return null;
+    }
+    // snippet-end:[s3.java2.multi_copy.main]
 
     private static ByteBuffer getRandomByteBuffer(int size) {
         ByteBuffer buffer = ByteBuffer.allocate(size);

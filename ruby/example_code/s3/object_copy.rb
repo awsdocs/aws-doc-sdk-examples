@@ -6,7 +6,7 @@
 # Shows how to copy an object from one Amazon Simple Storage Service (Amazon S3) bucket to another.
 
 # snippet-start:[s3.ruby.copy_object_between_buckets.rb]
-require "aws-sdk-s3"
+require 'aws-sdk-s3'
 
 # Wraps Amazon S3 object actions.
 class ObjectCopyWrapper
@@ -33,9 +33,9 @@ end
 
 # Example usage:
 def run_demo
-  source_bucket_name = "doc-example-bucket1"
+  source_bucket_name = "amzn-s3-demo-bucket1"
   source_key = "my-source-file.txt"
-  target_bucket_name = "doc-example-bucket2"
+  target_bucket_name = "amzn-s3-demo-bucket2"
   target_key = "my-target-file.txt"
 
   source_bucket = Aws::S3::Bucket.new(source_bucket_name)

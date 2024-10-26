@@ -95,7 +95,13 @@ const scenarios = {
 };
 
 // Call function if run directly
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  parseScenarioArgs(scenarios);
+  parseScenarioArgs(scenarios, {
+    name: "Health Imaging Workflow",
+    description:
+      "Work with DICOM images using an AWS Health Imaging data store.",
+    synopsis:
+      "node index.js --scenario <deploy | demo | destroy> [-h|--help] [-y|--yes] [-v|--verbose]",
+  });
 }

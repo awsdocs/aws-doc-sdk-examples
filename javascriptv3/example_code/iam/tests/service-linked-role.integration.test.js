@@ -21,7 +21,7 @@ describe("Service linked role", () => {
     const roleName = Role.RoleName;
 
     // Get the role.
-    let getRoleResponse = await getRole(roleName);
+    const getRoleResponse = await getRole(roleName);
     expect(getRoleResponse.Role?.RoleName).toEqual(roleName);
 
     // Delete the role.

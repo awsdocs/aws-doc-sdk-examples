@@ -5,6 +5,7 @@ package com.example.s3.batch;
 // snippet-start:[s3control.java2.list_jobs.main]
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
+import software.amazon.awssdk.core.retry.RetryMode;
 import software.amazon.awssdk.core.retry.RetryPolicy;
 import software.amazon.awssdk.http.async.SdkAsyncHttpClient;
 import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
@@ -19,18 +20,28 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
+/**
+ * Before running this example:
+ * <p/>
+ * The SDK must be able to authenticate AWS requests on your behalf. If you have not configured
+ * authentication for SDKs and tools,see https://docs.aws.amazon.com/sdkref/latest/guide/access.html in the AWS SDKs and Tools Reference Guide.
+ * <p/>
+ * You must have a runtime environment configured with the Java SDK.
+ * See https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html in the Developer Guide if this is not set up.
+ */
 public class HelloS3Batch {
     private static S3ControlAsyncClient asyncClient;
-    public static void main(String []args ) {
+
+    public static void main(String[] args) {
         S3BatchActions actions = new S3BatchActions();
-        String accountId= actions.getAccountId();
+        String accountId = actions.getAccountId();
         try {
             listBatchJobsAsync(accountId)
                 .exceptionally(ex -> {
                     System.err.println("List batch jobs failed: " + ex.getMessage());
                     return null;
                 })
-                .join(); // Wait for completion
+                .join();
 
         } catch (CompletionException ex) {
             System.err.println("Failed to list batch jobs: " + ex.getMessage());
@@ -68,9 +79,7 @@ public class HelloS3Batch {
             ClientOverrideConfiguration overrideConfig = ClientOverrideConfiguration.builder()
                 .apiCallTimeout(Duration.ofMinutes(2))
                 .apiCallAttemptTimeout(Duration.ofSeconds(90))
-                .retryPolicy(RetryPolicy.builder()
-                    .numRetries(3)
-                    .build())
+                .retryStrategy(RetryMode.STANDARD)
                 .build();
 
             asyncClient = S3ControlAsyncClient.builder()
@@ -82,7 +91,6 @@ public class HelloS3Batch {
         }
         return asyncClient;
     }
-
 
     /**
      * Asynchronously lists batch jobs that have completed for the specified account.

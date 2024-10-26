@@ -24,7 +24,6 @@ final class BasicsTests: XCTestCase {
     ///
     /// This function sets up the following:
     ///
-    /// * Configures the AWS SDK log system to only log errors.
     /// * Initializes the service handler, which is used to call AWS
     ///   Identity and Access Management (IAM) functions.
     /// * Initializes the demo cleanup handler, which is used to track the
@@ -34,17 +33,15 @@ final class BasicsTests: XCTestCase {
         let tdSem = TestWaiter(name: "Setup")
         super.setUp()
 
-        SDKLoggingSystem.initialize(logLevel: .error)
-
         // A `Task` is used to allow us to call asynchronous setup functions
         // from within this synchronous function. A `TestWaiter` object is
         // used to wait until the setup task is complete before returning from
         // the `setUp()` function.
 
         Task() {
-            self.iamHandler = await ServiceHandlerIAM()
-            self.stsHandler = await ServiceHandlerSTS(region: self.region)
-            self.s3Handler = await ServiceHandlerS3(region: self.region)
+            self.iamHandler = try await ServiceHandlerIAM()
+            self.stsHandler = try await ServiceHandlerSTS(region: self.region)
+            self.s3Handler = try await ServiceHandlerS3(region: self.region)
             tdSem.signal()
         }
         tdSem.wait()
@@ -64,7 +61,7 @@ final class BasicsTests: XCTestCase {
             }
 
             // Try to fetch the new user's ID from AWS.
-
+        
             let getID = try await BasicsTests.iamHandler!.getUserID(name: name)
 
             XCTAssertTrue(userID == getID, "Created user's ID (\(userID)) doesn't match retrieved user's ID (\(getID))")
@@ -135,6 +132,10 @@ final class BasicsTests: XCTestCase {
 
     /// Test creating and deleting a user access key.
     func testCreateAndDeleteAccessKey() async throws {
+        typealias CleanupClosure = () async throws -> ()
+ 
+        var cleanupClosures: [CleanupClosure] = []
+
         do {
             let user = try await BasicsTests.iamHandler!.getUser()
 
@@ -144,6 +145,7 @@ final class BasicsTests: XCTestCase {
             }
             
             let accessKey = try await BasicsTests.iamHandler!.createAccessKey(userName: name)
+            cleanupClosures.append({ try await BasicsTests.iamHandler!.deleteAccessKey(user: user, key: accessKey) })
 
             guard let _ = accessKey.accessKeyId else {
                 XCTFail("Unable to get the new access key's ID.")
@@ -153,11 +155,21 @@ final class BasicsTests: XCTestCase {
             let account = try await BasicsTests.stsHandler!.getAccessKeyAccountNumber(key: accessKey)
             XCTAssertNotNil(Int(account), "Invalid account number returned for the generated access key.")
 
-            try await BasicsTests.iamHandler!.deleteAccessKey(key: accessKey)
-            //try await BasicsTests.iamHandler!.deleteUser(user: user)
+            try await performCleanup()
         } catch {
+            try await performCleanup()
             throw error
         }
+        
+        /// Clean up after the test by calling the closures stored in the
+        /// `cleanupClosures` list in the opposite order in which they were
+        /// added. The list is left empty when the cleanup is complete.
+        func performCleanup() async throws {
+            while(cleanupClosures.count != 0) {
+                try await cleanupClosures.removeLast()()
+            }
+        }
+
     }
 
     /// Test creating and deleting a policy.
@@ -341,7 +353,13 @@ final class BasicsTests: XCTestCase {
         if message != nil {
             print("\n*** \(message!) ***") 
         }
-        Thread.sleep(forTimeInterval: seconds)
+        do {
+            let duration = UInt64(seconds * 1_000_000_000)
+            try await Task.sleep(nanoseconds: duration)
+        }
+        catch {
+            print("Sleep error:", dump(error))
+        }
         print("\n")
     }
 }

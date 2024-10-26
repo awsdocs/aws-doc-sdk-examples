@@ -69,7 +69,7 @@ export const confirm = new ScenarioInput("confirmContinue", "Continue?", {
 });
 
 export const exitOnNoConfirm = new ScenarioAction(
-  `exitOnConfirmContinueFalse`,
+  "exitOnConfirmContinueFalse",
   (/** @type { { earlyExit: boolean } & Record<string, any>} */ state) => {
     if (!state[confirm.name]) {
       state.earlyExit = true;
@@ -82,13 +82,16 @@ export const exitOnNoConfirm = new ScenarioAction(
 
 export const greeting = new ScenarioOutput(
   "greeting",
-  `Welcome to the Amazon EC2 basic usage scenario.
+  `
+
+Welcome to the Amazon EC2 basic usage scenario.
+
 Before you launch an instances, you'll need to provide a few things:
- • A key pair - This is for SSH access to your EC2 instance. You only need to provide the name.
- • A security group - This is used for configuring access to your instance. Again, only the name is needed.
- • An IP address - Your public IP address will be fetched.
- • An Amazon Machine Image (AMI)
- • A compatible instance type`,
+ - A key pair - This is for SSH access to your EC2 instance. You only need to provide the name.
+ - A security group - This is used for configuring access to your instance. Again, only the name is needed.
+ - An IP address - Your public IP address will be fetched.
+ - An Amazon Machine Image (AMI)
+ - A compatible instance type`,
   { header: true, preformatted: true, skipWhen: skipWhenErrors },
 );
 
@@ -260,13 +263,15 @@ export const authorizeSecurityGroupIngress = new ScenarioAction(
       const ipAddress = await new Promise((res, rej) => {
         get("http://checkip.amazonaws.com", (response) => {
           let data = "";
-          response.on("data", (chunk) => (data += chunk));
+          response.on("data", (chunk) => {
+            data += chunk;
+          });
           response.on("end", () => res(data.trim()));
         }).on("error", (err) => {
           rej(err);
         });
       });
-      state[`ipAddress`] = ipAddress;
+      state.ipAddress = ipAddress;
       // Allow ingress from the IP address above to the security group.
       // This will allow you to SSH into the EC2 instance.
       const command = new AuthorizeSecurityGroupIngressCommand({
@@ -326,12 +331,12 @@ export const getImages = new ScenarioAction(
 
     try {
       for await (const page of getParametersByPathPaginator) {
-        page.Parameters.forEach((param) => {
+        for (const param of page.Parameters) {
           // Filter by Amazon Linux 2
           if (param.Name.includes("amzn2")) {
             AMIs.push(param.Value);
           }
-        });
+        }
       }
     } catch (caught) {
       if (caught instanceof Error && caught.name === "InvalidFilterValue") {
@@ -355,7 +360,7 @@ export const getImages = new ScenarioAction(
       }
 
       // Store the image details for later use.
-      state["images"] = imageDetails;
+      state.images = imageDetails;
     } catch (caught) {
       if (caught instanceof Error && caught.name === "InvalidAMIID.NotFound") {
         caught.message = `${caught.message}. Please provide a valid image id.`;
@@ -374,7 +379,7 @@ export const provideImage = new ScenarioInput(
     type: "select",
     choices: (/** @type { State } */ state) =>
       state.images.map((image) => ({
-        name: `${image.ImageId} - ${image.Description}`,
+        name: `${image.Description}`,
         value: image,
       })),
     default: (/** @type { State } */ state) => state.images[0],
@@ -424,7 +429,7 @@ export const getCompatibleInstanceTypes = new ScenarioAction(
       state.errors.push(caught);
     }
 
-    state["instanceTypes"] = instanceTypes;
+    state.instanceTypes = instanceTypes;
   },
   { skipWhen: skipWhenErrors },
 );
@@ -802,7 +807,7 @@ export const logErrors = new ScenarioOutput(
   "logErrors",
   (/** @type {State}*/ state) => {
     const errorList = state.errors
-      .map((err) => `• ${err.name}: ${err.message}`)
+      .map((err) => ` - ${err.name}: ${err.message}`)
       .join("\n");
     return `Scenario errors found:\n${errorList}`;
   },

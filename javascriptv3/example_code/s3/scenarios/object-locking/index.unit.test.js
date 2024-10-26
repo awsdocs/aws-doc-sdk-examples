@@ -17,9 +17,7 @@ describe("S3 Object Locking Workflow", () => {
   /**
    * @param {{}} state
    */
-  const mockHandle = function () {
-    return Promise.resolve();
-  };
+  const mockHandle = () => Promise.resolve();
 
   const initialState = {
     welcomeContinue: true,
@@ -69,7 +67,7 @@ describe("S3 Object Locking Workflow", () => {
            */
           handle(state) {
             if (this.name === "welcomeContinue") {
-              state["welcomeContinue"] = false;
+              state.welcomeContinue = false;
               return Promise.resolve(false);
             }
             return Promise.resolve(true);
@@ -100,7 +98,7 @@ describe("S3 Object Locking Workflow", () => {
            */
           handle(state) {
             if (this.name === "confirmCreateBuckets") {
-              state["confirmCreateBuckets"] = false;
+              state.confirmCreateBuckets = false;
               return Promise.resolve(false);
             }
             return Promise.resolve(true);
@@ -130,7 +128,7 @@ describe("S3 Object Locking Workflow", () => {
          */
         handle(state) {
           if (this.name === "confirmUpdateRetention") {
-            state["confirmUpdateRetention"] = false;
+            state.confirmUpdateRetention = false;
             return Promise.resolve(false);
           }
           return Promise.resolve(true);
@@ -159,7 +157,7 @@ describe("S3 Object Locking Workflow", () => {
            */
           handle(state) {
             if (this.name === "confirmPopulateBuckets") {
-              state["confirmPopulateBuckets"] = false;
+              state.confirmPopulateBuckets = false;
               return Promise.resolve(false);
             }
             return Promise.resolve(true);
@@ -190,7 +188,7 @@ describe("S3 Object Locking Workflow", () => {
            */
           handle(state) {
             if (this.name === "confirmUpdateLockPolicy") {
-              state["confirmUpdateLockPolicy"] = false;
+              state.confirmUpdateLockPolicy = false;
               return Promise.resolve(false);
             }
             return Promise.resolve(true);

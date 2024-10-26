@@ -1,10 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[javascript.dynamodb_scenarios.dynamodb_basics]
-import { readFileSync } from "fs";
+import { readFileSync } from "node:fs";
 import {
   BillingMode,
   CreateTableCommand,
@@ -227,7 +227,7 @@ export const main = async () => {
    * Scan the table for movies between 1980 and 1990.
    */
 
-  log(`Scan for movies released between 1980 and 1990`);
+  log("Scan for movies released between 1980 and 1990");
   // A 'Scan' operation always reads every item in the table. If your design requires
   // the use of 'Scan', consider indexing your table or changing your design.
   // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-query-scan.html

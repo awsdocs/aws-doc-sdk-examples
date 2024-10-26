@@ -27,18 +27,17 @@ public class ServiceHandler {
     public let client: IAMClient
 
     /// Initialize and return a new ``ServiceHandler`` object, which is used
-    /// to drive the AWS calls used for the example. The Region string
-    /// `AWS_GLOBAL` is used because users are shared across all Regions.
+    /// to drive the AWS calls used for the example.
     ///
     /// - Returns: A new ``ServiceHandler`` object, ready to be called to
     ///            execute AWS operations.
     // snippet-start:[iam.swift.getrole.handler.init]
-    public init() async {
+    public init() async throws {
         do {
-            client = try IAMClient(region: "AWS_GLOBAL")
+            client = try await IAMClient()
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
-            exit(1)
+            throw error
         }
     }
     // snippet-end:[iam.swift.getrole.handler.init]
@@ -48,7 +47,7 @@ public class ServiceHandler {
     /// - Parameter name: The name of the new IAM role.
     ///
     /// - Returns: The ID of the newly created role.
-    // snippet-start:[iam.swift.getrole.handler.getrole]
+    // snippet-start:[iam.swift.getrole.handler.GetRole]
     public func getRole(name: String) async throws -> IAMClientTypes.Role {
         let input = GetRoleInput(
             roleName: name
@@ -60,9 +59,10 @@ public class ServiceHandler {
             }
             return role
         } catch {
+            print("ERROR: getRole:", dump(error))
             throw error
         }
     }
-    // snippet-end:[iam.swift.getrole.handler.getrole]
+    // snippet-end:[iam.swift.getrole.handler.GetRole]
 }
 // snippet-end:[iam.swift.getrole.handler]

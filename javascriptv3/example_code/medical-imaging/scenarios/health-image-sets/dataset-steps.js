@@ -67,7 +67,7 @@ export const copyDataset = new ScenarioAction(
   "copyDataset",
   async (/** @type { State } */ state) => {
     const inputBucket = state.stackOutputs.BucketName;
-    const inputPrefix = `input/`;
+    const inputPrefix = "input/";
     const selectedDatasetId = state.selectDataset;
 
     const sourceBucket = "idc-open-data";

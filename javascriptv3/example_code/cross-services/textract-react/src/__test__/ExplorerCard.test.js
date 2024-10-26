@@ -14,7 +14,7 @@ describe("extraction props", () => {
     render(<ExplorerCard header={testHeader} />);
     expect(screen.queryByText(testHeader)).toBeInTheDocument();
     expect(
-      screen.queryByText(/Extracted data is shown here/i)
+      screen.queryByText(/Extracted data is shown here/i),
     ).toBeInTheDocument();
     expect(screen.queryByText(/Showing extracted/i)).toBeNull();
     expect(screen.queryByText(/Click an element/i)).toBeNull();
@@ -25,8 +25,8 @@ describe("extraction props", () => {
     render(<ExplorerCard header="test" extraction={testExtraction} />);
     expect(
       screen.queryByText(
-        new RegExp(`Showing extracted ${testExtraction.ExtractType} data`, "i")
-      )
+        new RegExp(`Showing extracted ${testExtraction.ExtractType} data`, "i"),
+      ),
     ).toBeInTheDocument();
     expect(screen.queryByText(/Click an element/i)).toBeInTheDocument();
   });

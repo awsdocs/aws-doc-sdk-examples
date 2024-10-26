@@ -24,16 +24,16 @@ describe("app functions", () => {
     render(<App model={model} config={Config} />);
     expect(screen.getByText(/Image location/i)).toBeInTheDocument();
     expect(screen.getByRole("textbox", { name: /Bucket/i })).toHaveValue(
-      Config.DefaultBucketName
+      Config.DefaultBucketName,
     );
     expect(screen.getByRole("textbox", { name: /Image name/i })).toHaveValue(
-      Config.DefaultImageName
+      Config.DefaultImageName,
     );
     expect(screen.getByAltText("Extraction source")).toBeInTheDocument();
     expect(screen.getByRole("toolbar")).toBeInTheDocument();
     expect(screen.getByText(/Data explorer/i)).toBeInTheDocument();
     expect(
-      screen.queryByText(new RegExp(Config.DefaultImageName, "i"))
+      screen.queryByText(new RegExp(Config.DefaultImageName, "i")),
     ).toBeNull();
   });
 
@@ -47,7 +47,7 @@ describe("app functions", () => {
     await userEvent.click(screen.getByRole("button", { name: /Load/i }));
     expect(model.loadImage).toHaveBeenCalledWith(
       Config.DefaultBucketName,
-      Config.DefaultImageName
+      Config.DefaultImageName,
     );
   });
 
@@ -62,7 +62,7 @@ describe("app functions", () => {
     model.extraction = TestExtractDocument;
     render(<App model={model} config={Config} />);
     expect(
-      screen.getByText(new RegExp(TestExtractDocument.Name, "i"))
+      screen.getByText(new RegExp(TestExtractDocument.Name, "i")),
     ).toBeInTheDocument();
     expect(screen.getByRole("checkbox", { name: /PAGE/i })).toBeInTheDocument();
   });

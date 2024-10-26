@@ -21,8 +21,8 @@ type CloudFormationActions struct {
 }
 
 // GetOutputs gets the outputs from a CloudFormation stack and puts them into a structured format.
-func (actor CloudFormationActions) GetOutputs(stackName string) StackOutputs {
-	output, err := actor.CfnClient.DescribeStacks(context.TODO(), &cloudformation.DescribeStacksInput{
+func (actor CloudFormationActions) GetOutputs(ctx context.Context, stackName string) StackOutputs {
+	output, err := actor.CfnClient.DescribeStacks(ctx, &cloudformation.DescribeStacksInput{
 		StackName: aws.String(stackName),
 	})
 	if err != nil || len(output.Stacks) == 0 {

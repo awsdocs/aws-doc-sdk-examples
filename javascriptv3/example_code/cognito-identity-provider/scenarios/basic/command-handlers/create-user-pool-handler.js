@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { log } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
+import { logger } from "@aws-doc-sdk-examples/lib/utils/util-log.js";
 import { getTmp, setTmp } from "@aws-doc-sdk-examples/lib/utils/util-fs.js";
 import { createUserPool } from "../../../actions/create-user-pool.js";
 import { FILE_USER_POOLS, NAME_CLIENT } from "./constants.js";
@@ -36,26 +36,28 @@ const createUserPoolHandler = async (commands) => {
   try {
     validateUserPool(poolName);
 
-    log(`Creating user pool: ${poolName}`);
+    logger.log(`Creating user pool: ${poolName}`);
 
     const {
       UserPool: { Id },
     } = await createUserPool(poolName);
-    log(`User pool created.`);
+    logger.log("User pool created.");
 
-    log("Configuring user pool to only allow MFA via an authenticator app.");
+    logger.log(
+      "Configuring user pool to only allow MFA via an authenticator app.",
+    );
     await setUserPoolMfaConfig(Id);
-    log("MFA configured.");
+    logger.log("MFA configured.");
 
-    log(`Creating user pool client: ${NAME_CLIENT}`);
+    logger.log(`Creating user pool client: ${NAME_CLIENT}`);
     const {
       UserPoolClient: { ClientId },
     } = await createUserPoolClient(NAME_CLIENT, Id);
-    log(`Client created.`);
+    logger.log("Client created.");
 
     storeUserPoolMeta(Id, ClientId, poolName);
   } catch (err) {
-    log(err);
+    logger.error(err);
   }
 };
 

@@ -4,6 +4,7 @@
 package workflows
 
 import (
+	"context"
 	"errors"
 	"log"
 	"strings"
@@ -39,15 +40,15 @@ func NewActivityLog(sdkConfig aws.Config, questioner demotools.IQuestioner, help
 }
 
 // AddUserToPool selects a user from the known users table and uses administrator credentials to add the user to the user pool.
-func (runner *ActivityLog) AddUserToPool(userPoolId string, tableName string) (string, string) {
+func (runner *ActivityLog) AddUserToPool(ctx context.Context, userPoolId string, tableName string) (string, string) {
 	log.Println("To facilitate this example, let's add a user to the user pool using administrator privileges.")
-	users, err := runner.helper.GetKnownUsers(tableName)
+	users, err := runner.helper.GetKnownUsers(ctx, tableName)
 	if err != nil {
 		panic(err)
 	}
 	user := users.Users[0]
 	log.Printf("Adding known user %v to the user pool.\n", user.UserName)
-	err = runner.cognitoActor.AdminCreateUser(userPoolId, user.UserName, user.UserEmail)
+	err = runner.cognitoActor.AdminCreateUser(ctx, userPoolId, user.UserName, user.UserEmail)
 	if err != nil {
 		panic(err)
 	}
@@ -56,7 +57,7 @@ func (runner *ActivityLog) AddUserToPool(userPoolId string, tableName string) (s
 		"(the password will not display as you type):", 8)
 	for !pwSet {
 		log.Printf("\nSetting password for user '%v'.\n", user.UserName)
-		err = runner.cognitoActor.AdminSetUserPassword(userPoolId, user.UserName, password)
+		err = runner.cognitoActor.AdminSetUserPassword(ctx, userPoolId, user.UserName, password)
 		if err != nil {
 			var invalidPassword *types.InvalidPasswordException
 			if errors.As(err, &invalidPassword) {
@@ -75,12 +76,12 @@ func (runner *ActivityLog) AddUserToPool(userPoolId string, tableName string) (s
 }
 
 // AddActivityLogTrigger adds a Lambda handler as an invocation target for the PostAuthentication trigger.
-func (runner *ActivityLog) AddActivityLogTrigger(userPoolId string, activityLogArn string) {
+func (runner *ActivityLog) AddActivityLogTrigger(ctx context.Context, userPoolId string, activityLogArn string) {
 	log.Println("Let's add a Lambda function to handle the PostAuthentication trigger from Cognito.\n" +
 		"This trigger happens after a user is authenticated, and lets your function take action, such as logging\n" +
 		"the outcome.")
 	err := runner.cognitoActor.UpdateTriggers(
-		userPoolId,
+		ctx, userPoolId,
 		actions.TriggerInfo{Trigger: actions.PostAuthentication, HandlerArn: aws.String(activityLogArn)})
 	if err != nil {
 		panic(err)
@@ -93,10 +94,10 @@ func (runner *ActivityLog) AddActivityLogTrigger(userPoolId string, activityLogA
 }
 
 // SignInUser signs in as the specified user.
-func (runner *ActivityLog) SignInUser(clientId string, userName string, password string) {
+func (runner *ActivityLog) SignInUser(ctx context.Context, clientId string, userName string, password string) {
 	log.Printf("Now we'll sign in user %v and check the results in the logs and the DynamoDB table.", userName)
 	runner.questioner.Ask("Press Enter when you're ready.")
-	authResult, err := runner.cognitoActor.SignIn(clientId, userName, password)
+	authResult, err := runner.cognitoActor.SignIn(ctx, clientId, userName, password)
 	if err != nil {
 		panic(err)
 	}
@@ -107,10 +108,10 @@ func (runner *ActivityLog) SignInUser(clientId string, userName string, password
 }
 
 // GetKnownUserLastLogin gets the login info for a user from the Amazon DynamoDB table and displays it.
-func (runner *ActivityLog) GetKnownUserLastLogin(tableName string, userName string) {
+func (runner *ActivityLog) GetKnownUserLastLogin(ctx context.Context, tableName string, userName string) {
 	log.Println("The PostAuthentication handler also writes login data to the DynamoDB table.")
 	runner.questioner.Ask("Press Enter when you're ready to continue.")
-	users, err := runner.helper.GetKnownUsers(tableName)
+	users, err := runner.helper.GetKnownUsers(ctx, tableName)
 	if err != nil {
 		panic(err)
 	}
@@ -124,11 +125,11 @@ func (runner *ActivityLog) GetKnownUserLastLogin(tableName string, userName stri
 }
 
 // Run runs the scenario.
-func (runner *ActivityLog) Run(stackName string) {
+func (runner *ActivityLog) Run(ctx context.Context, stackName string) {
 	defer func() {
 		if r := recover(); r != nil {
 			log.Println("Something went wrong with the demo.")
-			runner.resources.Cleanup()
+			runner.resources.Cleanup(ctx)
 		}
 	}()
 
@@ -137,20 +138,20 @@ func (runner *ActivityLog) Run(stackName string) {
 
 	log.Println(strings.Repeat("-", 88))
 
-	stackOutputs, err := runner.helper.GetStackOutputs(stackName)
+	stackOutputs, err := runner.helper.GetStackOutputs(ctx, stackName)
 	if err != nil {
 		panic(err)
 	}
 	runner.resources.userPoolId = stackOutputs["UserPoolId"]
-	runner.helper.PopulateUserTable(stackOutputs["TableName"])
-	userName, password := runner.AddUserToPool(stackOutputs["UserPoolId"], stackOutputs["TableName"])
+	runner.helper.PopulateUserTable(ctx, stackOutputs["TableName"])
+	userName, password := runner.AddUserToPool(ctx, stackOutputs["UserPoolId"], stackOutputs["TableName"])
 
-	runner.AddActivityLogTrigger(stackOutputs["UserPoolId"], stackOutputs["ActivityLogFunctionArn"])
-	runner.SignInUser(stackOutputs["UserPoolClientId"], userName, password)
-	runner.helper.ListRecentLogEvents(stackOutputs["ActivityLogFunction"])
-	runner.GetKnownUserLastLogin(stackOutputs["TableName"], userName)
+	runner.AddActivityLogTrigger(ctx, stackOutputs["UserPoolId"], stackOutputs["ActivityLogFunctionArn"])
+	runner.SignInUser(ctx, stackOutputs["UserPoolClientId"], userName, password)
+	runner.helper.ListRecentLogEvents(ctx, stackOutputs["ActivityLogFunction"])
+	runner.GetKnownUserLastLogin(ctx, stackOutputs["TableName"], userName)
 
-	runner.resources.Cleanup()
+	runner.resources.Cleanup(ctx)
 
 	log.Println(strings.Repeat("-", 88))
 	log.Println("Thanks for watching!")

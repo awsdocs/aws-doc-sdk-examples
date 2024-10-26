@@ -2,10 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import logging
+
+import werkzeug.datastructures
 from boto3.s3.transfer import S3UploadFailedError
 from botocore.exceptions import ClientError
 from flask_restful import Resource, reqparse
-import werkzeug.datastructures
 
 logger = logging.getLogger(__name__)
 

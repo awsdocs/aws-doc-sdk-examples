@@ -14,8 +14,8 @@
 
 // snippet-start:[javascript.v3.s3.scenarios.basic.imports]
 // Used to check if currently running file is this file.
-import { fileURLToPath } from "url";
-import { readdirSync, readFileSync, writeFileSync } from "fs";
+import { fileURLToPath } from "node:url";
+import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 
 // Local helper utils.
 import { dirnameFromMetaUrl } from "@aws-doc-sdk-examples/lib/utils/util-fs.js";
@@ -69,7 +69,7 @@ export const uploadFilesToBucket = async ({ bucketName, folderPath }) => {
     };
   });
 
-  for (let file of files) {
+  for (const file of files) {
     await s3Client.send(
       new PutObjectCommand({
         Bucket: bucketName,
@@ -88,7 +88,7 @@ export const listFilesInBucket = async ({ bucketName }) => {
   const { Contents } = await s3Client.send(command);
   const contentsList = Contents.map((c) => ` • ${c.Key}`).join("\n");
   console.log("\nHere's a list of files in the bucket:");
-  console.log(contentsList + "\n");
+  console.log(`${contentsList}\n`);
 };
 // snippet-end:[javascript.v3.s3.scenarios.basic.ListObjects]
 
@@ -100,37 +100,36 @@ export const copyFileFromBucket = async ({ destinationBucket }) => {
 
   if (!proceed) {
     return;
-  } else {
-    const copy = async () => {
-      try {
-        const sourceBucket = await prompter.input({
-          message: "Enter source bucket name:",
-        });
-        const sourceKey = await prompter.input({
-          message: "Enter source key:",
-        });
-        const destinationKey = await prompter.input({
-          message: "Enter destination key:",
-        });
-
-        const command = new CopyObjectCommand({
-          Bucket: destinationBucket,
-          CopySource: `${sourceBucket}/${sourceKey}`,
-          Key: destinationKey,
-        });
-        await s3Client.send(command);
-        await copyFileFromBucket({ destinationBucket });
-      } catch (err) {
-        console.error(`Copy error.`);
-        console.error(err);
-        const retryAnswer = await prompter.confirm({ message: "Try again?" });
-        if (retryAnswer) {
-          await copy();
-        }
-      }
-    };
-    await copy();
   }
+  const copy = async () => {
+    try {
+      const sourceBucket = await prompter.input({
+        message: "Enter source bucket name:",
+      });
+      const sourceKey = await prompter.input({
+        message: "Enter source key:",
+      });
+      const destinationKey = await prompter.input({
+        message: "Enter destination key:",
+      });
+
+      const command = new CopyObjectCommand({
+        Bucket: destinationBucket,
+        CopySource: `${sourceBucket}/${sourceKey}`,
+        Key: destinationKey,
+      });
+      await s3Client.send(command);
+      await copyFileFromBucket({ destinationBucket });
+    } catch (err) {
+      console.error("Copy error.");
+      console.error(err);
+      const retryAnswer = await prompter.confirm({ message: "Try again?" });
+      if (retryAnswer) {
+        await copy();
+      }
+    }
+  };
+  await copy();
 };
 // snippet-end:[javascript.v3.s3.scenarios.basic.CopyObject]
 
@@ -143,7 +142,7 @@ export const downloadFilesFromBucket = async ({ bucketName }) => {
     message: "Enter destination path for files:",
   });
 
-  for (let content of Contents) {
+  for (const content of Contents) {
     const obj = await s3Client.send(
       new GetObjectCommand({ Bucket: bucketName, Key: content.Key }),
     );

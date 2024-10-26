@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[javascript.dynamodb_scenarios.partiQL_batch_basics]
 import {
@@ -37,7 +37,7 @@ export const main = async (confirmAll = false) => {
 this table, the scenario cannot continue. Delete it?`,
       { type: "confirm", confirmAll },
     );
-    const deleteTable = await input.handle({});
+    const deleteTable = await input.handle({}, { confirmAll });
     if (deleteTable) {
       await client.send(new DeleteTableCommand({ tableName }));
     } else {
@@ -116,7 +116,7 @@ this table, the scenario cannot continue. Delete it?`,
     ],
   });
   await docClient.send(addItemsStatementCommand);
-  log(`Cities inserted.`);
+  log("Cities inserted.");
 
   /**
    * Select items.
@@ -162,7 +162,7 @@ this table, the scenario cannot continue. Delete it?`,
     ],
   });
   await docClient.send(updateItemStatementCommand);
-  log(`Updated cities.`);
+  log("Updated cities.");
 
   /**
    * Delete the items.

@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[medical-imaging.JavaScript.resource.unTagResourceV3]
 import { UntagResourceCommand } from "@aws-sdk/client-medical-imaging";
@@ -13,10 +13,10 @@ import { medicalImagingClient } from "../libs/medicalImagingClient.js";
  */
 export const untagResource = async (
   resourceArn = "arn:aws:medical-imaging:us-east-1:xxxxxx:datastore/xxxxx/imageset/xxx",
-  tagKeys = []
+  tagKeys = [],
 ) => {
   const response = await medicalImagingClient.send(
-    new UntagResourceCommand({ resourceArn: resourceArn, tagKeys: tagKeys })
+    new UntagResourceCommand({ resourceArn: resourceArn, tagKeys: tagKeys }),
   );
   console.log(response);
   // {
@@ -38,6 +38,6 @@ export const untagResource = async (
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   await untagResource(
     "arn:aws:medical-imaging:us-east-1:123502194722:datastore/728f13a131f748bf8d87a55d5ef6c5af",
-    ["Deployment"]
+    ["Deployment"],
   );
 }

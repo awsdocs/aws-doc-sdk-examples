@@ -21,7 +21,7 @@ describe("rendering", () => {
     const image = "test-image";
     render(<ImageLoader imageBucket={bucket} imageKey={image} />);
     expect(screen.getByRole("textbox", { name: /Bucket/i })).toHaveValue(
-      bucket
+      bucket,
     );
     expect(screen.getByRole("textbox", { name: /Image/i })).toHaveValue(image);
   });

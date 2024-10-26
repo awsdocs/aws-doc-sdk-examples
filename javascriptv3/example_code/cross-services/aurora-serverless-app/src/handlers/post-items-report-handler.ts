@@ -1,9 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
 import { SendRawEmailCommand } from "@aws-sdk/client-ses";
-import { createMimeMessage, TextFormat } from "mimetext";
+import { createMimeMessage, type TextFormat } from "mimetext";
 import { format } from "prettier";
-import { Handler } from "src/types/handler.js";
+import type { Handler } from "src/types/handler.js";
+import type { DBRecords } from "src/types/db-record.js";
 import { command as getActiveItemsCommand } from "../statement-commands/get-active-items.js";
 
 const makeCsv = (records: DBRecords) => {
@@ -47,7 +49,7 @@ const csvToHtmlTable = (csv: string) => {
 
 const buildSendRawEmailCommand = (
   emailAddress: string,
-  reportData: { csv: string; date: string; itemCount: number }
+  reportData: { csv: string; date: string; itemCount: number },
 ) => {
   const msg = createMimeMessage();
   msg.setSender({ name: emailAddress.split("@")[0], addr: emailAddress });
@@ -56,13 +58,13 @@ const buildSendRawEmailCommand = (
   msg.setMessage(
     "text/html",
     `<h1>Item Report</h1>
-    ${csvToHtmlTable(reportData.csv)}`
+    ${csvToHtmlTable(reportData.csv)}`,
   );
   msg.setMessage("text/plain", "Report");
   msg.setAttachment(
     "report.csv",
     "text/csv" as TextFormat,
-    Buffer.from(reportData.csv).toString("base64")
+    Buffer.from(reportData.csv).toString("base64"),
   );
 
   return new SendRawEmailCommand({
@@ -77,7 +79,7 @@ const postItemsReportHandler: Handler = {
     ({ rdsDataClient, sesClient }) =>
     async (req, res) => {
       const { records } = await rdsDataClient.send<{ records: DBRecords }>(
-        getActiveItemsCommand
+        getActiveItemsCommand,
       );
       const date = new Date().toLocaleString("en-US");
       const csv = makeCsv(records);

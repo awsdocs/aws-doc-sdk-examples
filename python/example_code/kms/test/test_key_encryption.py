@@ -7,6 +7,7 @@ Unit tests for key_encryption.py.
 
 import boto3
 import pytest
+from botocore.exceptions import ClientError
 
 import key_encryption
 
@@ -40,7 +41,6 @@ def test_key_encryption(
             key_id,
             cipher_text,
             plain_text.encode(),
-            raise_and_continue=True,
         )
         runner.add(
             kms_stubber.stub_re_encrypt,
@@ -50,4 +50,13 @@ def test_key_encryption(
             raise_and_continue=True,
         )
 
-    key_encryption.key_encryption(kms_client)
+    exception_raising_functions = [
+        "stub_encrypt",
+        "stub_decrypt",
+    ]
+
+    if stop_on_action not in exception_raising_functions:
+        key_encryption.key_encryption(kms_client)
+    else:
+        with pytest.raises(ClientError):
+            key_encryption.key_encryption(kms_client)

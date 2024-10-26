@@ -21,7 +21,8 @@ describe("custom-message-admin-create", () => {
     expect(result).toEqual(
       expect.objectContaining({
         response: expect.objectContaining({
-          emailMessage: `Welcome to the service. Your user name is Peccy. Your temporary password is 123`,
+          emailMessage:
+            "Welcome to the service. Your user name is Peccy. Your temporary password is 123",
         }),
       }),
     );

@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # snippet-start:[sns.Ruby.createSubscription]
-require "aws-sdk-sns"
-require "logger"
+require 'aws-sdk-sns'
+require 'logger'
 
 # Represents a service for creating subscriptions in Amazon Simple Notification Service (SNS)
 class SubscriptionService
@@ -23,7 +23,7 @@ class SubscriptionService
   # @return [Boolean] true if subscription was successfully created, false otherwise
   def create_subscription(topic_arn, protocol, endpoint)
     @sns_client.subscribe(topic_arn: topic_arn, protocol: protocol, endpoint: endpoint)
-    @logger.info("Subscription created successfully.")
+    @logger.info('Subscription created successfully.')
     true
   rescue Aws::SNS::Errors::ServiceError => e
     @logger.error("Error while creating the subscription: #{e.message}")
@@ -33,16 +33,16 @@ end
 
 # Main execution if the script is run directly
 if $PROGRAM_NAME == __FILE__
-  protocol = "email"
-  endpoint = "EMAIL_ADDRESS" # Should be replaced with a real email address
-  topic_arn = "TOPIC_ARN"    # Should be replaced with a real topic ARN
+  protocol = 'email'
+  endpoint = 'EMAIL_ADDRESS' # Should be replaced with a real email address
+  topic_arn = 'TOPIC_ARN'    # Should be replaced with a real topic ARN
 
   sns_client = Aws::SNS::Client.new
   subscription_service = SubscriptionService.new(sns_client)
 
-  @logger.info("Creating the subscription.")
+  @logger.info('Creating the subscription.')
   unless subscription_service.create_subscription(topic_arn, protocol, endpoint)
-    @logger.error("Subscription creation failed. Stopping program.")
+    @logger.error('Subscription creation failed. Stopping program.')
     exit 1
   end
 end

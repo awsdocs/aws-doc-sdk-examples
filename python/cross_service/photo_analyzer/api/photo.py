@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import logging
+
 from flask_restful import Resource
 
 logger = logging.getLogger(__name__)

@@ -1,6 +1,6 @@
 ﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-sns" # Use aws-sdk-sns for AWS SDK for Ruby V3.
+require 'aws-sdk-sns' # Use aws-sdk-sns for AWS SDK for Ruby V3.
 
 # snippet-start:[sns.Ruby.createTopic]
 # This class demonstrates how to create an Amazon Simple Notification Service (SNS) topic.
@@ -29,12 +29,12 @@ end
 
 # Example usage:
 if $PROGRAM_NAME == __FILE__
-  topic_name = "YourTopicName" # Replace with your topic name
+  topic_name = 'YourTopicName' # Replace with your topic name
   sns_topic_creator = SNSTopicCreator.new
 
   puts "Creating the topic '#{topic_name}'..."
   unless sns_topic_creator.create_topic(topic_name)
-    puts "The topic was not created. Stopping program."
+    puts 'The topic was not created. Stopping program.'
     exit 1
   end
 end

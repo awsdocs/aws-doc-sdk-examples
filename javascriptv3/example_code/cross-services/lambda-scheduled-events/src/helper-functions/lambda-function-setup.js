@@ -24,10 +24,8 @@ ts-node lambda-function-setup.ts
 
 // snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.LambdaFunctionSetUpV3]
 
-const {
-   CreateFunctionCommand,
-} = require("@aws-sdk/client-lambda");
-const {lambdaClient} = require ( "../libs/lambdaClient.js" );
+const { CreateFunctionCommand } = require("@aws-sdk/client-lambda");
+const { lambdaClient } = require("../libs/lambdaClient.js");
 
 const params = {
   Code: {
@@ -39,8 +37,8 @@ const params = {
   Role: "IAM_ROLE_ARN", // IAM_ROLE_ARN; e.g., arn:aws:iam::650138640062:role/v3-lambda-tutorial-lambda-role
   Runtime: "nodejs12.x",
   Description:
-      "Scans a DynamoDB table of employee details and using Amazon Simple Notification Service (Amazon SNS) to " +
-      "send employees an email on the anniversary of their start-date.",
+    "Scans a DynamoDB table of employee details and using Amazon Simple Notification Service (Amazon SNS) to " +
+    "send employees an email on the anniversary of their start-date.",
 };
 
 const run = async () => {

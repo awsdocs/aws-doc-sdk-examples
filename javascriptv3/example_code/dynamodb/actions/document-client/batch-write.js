@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[dynamodb.JavaScript.movies.batchwriteV3]
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
@@ -9,7 +9,7 @@ import {
   BatchWriteCommand,
   DynamoDBDocumentClient,
 } from "@aws-sdk/lib-dynamodb";
-import { readFileSync } from "fs";
+import { readFileSync } from "node:fs";
 
 // These modules are local to our GitHub repository. We recommend cloning
 // the project from GitHub if you want to run this example.
@@ -45,7 +45,7 @@ export const main = async () => {
       RequestItems: {
         // An existing table is required. A composite key of 'title' and 'year' is recommended
         // to account for duplicate titles.
-        ["BatchWriteMoviesTable"]: putRequests,
+        BatchWriteMoviesTable: putRequests,
       },
     });
 

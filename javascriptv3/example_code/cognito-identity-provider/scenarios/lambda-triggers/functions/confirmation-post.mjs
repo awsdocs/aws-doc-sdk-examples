@@ -17,7 +17,7 @@ const handler = async (event) => {
   if (event.request.userAttributes.email) {
     await sendTheEmail(
       event.request.userAttributes.email,
-      `Congratulations ${event.userName}, you have been confirmed.`
+      `Congratulations ${event.userName}, you have been confirmed.`,
     );
   }
   return event;

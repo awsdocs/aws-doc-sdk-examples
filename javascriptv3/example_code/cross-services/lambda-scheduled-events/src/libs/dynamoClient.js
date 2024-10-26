@@ -15,12 +15,10 @@ Inputs (replace in code):
 */
 // snippet-start:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.dynamoClient]
 
-const { DynamoDBClient } = require ( "@aws-sdk/client-dynamodb" );
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 // Create an Amazon DynamoDB service client object.
 const dynamoClient = new DynamoDBClient({ region: REGION });
 module.exports = { dynamoClient };
 // snippet-end:[lambda.JavaScript.cross-service-examples.lambda-scheduled-events.dynamoClient]
-
-

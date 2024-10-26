@@ -11,50 +11,56 @@ to manage permission grants for keys.
 # snippet-start:[python.example_code.kms.Scenario_GrantManagement]
 import logging
 from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.kms.GrantManager]
+# snippet-start:[python.example_code.kms.GrantManager.decl]
 class GrantManager:
     def __init__(self, kms_client):
         self.kms_client = kms_client
 
-    # snippet-end:[python.example_code.kms.GrantManager]
+    @classmethod
+    def from_client(cls) -> "GrantManager":
+        """
+        Creates a GrantManager instance with a default KMS client.
+
+        :return: An instance of GrantManager initialized with the default KMS client.
+        """
+        kms_client = boto3.client("kms")
+        return cls(kms_client)
+
+    # snippet-end:[python.example_code.kms.GrantManager.decl]
 
     # snippet-start:[python.example_code.kms.CreateGrant]
-    def create_grant(self, key_id):
+    def create_grant(
+        self, key_id: str, principal: str, operations: [str]
+    ) -> dict[str, str]:
         """
         Creates a grant for a key that lets a principal generate a symmetric data
         encryption key.
 
         :param key_id: The ARN or ID of the key.
+        :param principal: The principal to grant permission to.
+        :param operations: The operations to grant permission for.
         :return: The grant that is created.
         """
-        principal = input(
-            f"Enter the ARN of a principal, such as an IAM role, to grant that role "
-            f"GenerateDataKey permissions on key {key_id}: "
-        )
-        if principal != "":
-            try:
-                grant = self.kms_client.create_grant(
-                    KeyId=key_id,
-                    GranteePrincipal=principal,
-                    Operations=["GenerateDataKey"],
-                )
-            except ClientError as err:
-                logger.error(
-                    "Couldn't create a grant on key %s. Here's why: %s",
-                    key_id,
-                    err.response["Error"]["Message"],
-                )
-            else:
-                print(f"Grant created on key {key_id}.")
-                return grant
-        else:
-            print("Skipping grant creation.")
+        try:
+            return self.kms_client.create_grant(
+                KeyId=key_id,
+                GranteePrincipal=principal,
+                Operations=operations,
+            )
+        except ClientError as err:
+            logger.error(
+                "Couldn't create a grant on key %s. Here's why: %s",
+                key_id,
+                err.response["Error"]["Message"],
+            )
+            raise
 
     # snippet-end:[python.example_code.kms.CreateGrant]
 
@@ -66,20 +72,23 @@ class GrantManager:
         :param key_id: The ARN or ID of the key to query.
         :return: The grants for the key.
         """
-        answer = input(f"Ready to list grants on key {key_id} (y/n)? ")
-        if answer.lower() == "y":
-            try:
-                grants = self.kms_client.list_grants(KeyId=key_id)["Grants"]
-            except ClientError as err:
-                logger.error(
-                    "Couldn't list grants for key %s. Here's why: %s",
-                    key_id,
-                    err.response["Error"]["Message"],
-                )
-            else:
-                print(f"Grants for key {key_id}:")
-                pprint(grants)
-                return grants
+        try:
+            paginator = self.kms_client.get_paginator("list_grants")
+            grants = []
+            page_iterator = paginator.paginate(KeyId=key_id)
+            for page in page_iterator:
+                grants.extend(page["Grants"])
+
+            print(f"Grants for key {key_id}:")
+            pprint(grants)
+            return grants
+        except ClientError as err:
+            logger.error(
+                "Couldn't list grants for key %s. Here's why: %s",
+                key_id,
+                err.response["Error"]["Message"],
+            )
+            raise
 
     # snippet-end:[python.example_code.kms.ListGrants]
 
@@ -104,23 +113,22 @@ class GrantManager:
     # snippet-end:[python.example_code.kms.RetireGrant]
 
     # snippet-start:[python.example_code.kms.RevokeGrant]
-    def revoke_grant(self, key_id, grant):
+    def revoke_grant(self, key_id: str, grant_id: str) -> None:
         """
         Revokes a grant so that it can no longer be used.
 
         :param key_id: The ARN or ID of the key associated with the grant.
-        :param grant: The grant to revoke.
+        :param grant_id: The ID of the grant to revoke.
         """
         try:
-            self.kms_client.revoke_grant(KeyId=key_id, GrantId=grant["GrantId"])
+            self.kms_client.revoke_grant(KeyId=key_id, GrantId=grant_id)
         except ClientError as err:
             logger.error(
                 "Couldn't revoke grant %s. Here's why: %s",
-                grant["GrantId"],
+                grant_id,
                 err.response["Error"]["Message"],
             )
-        else:
-            print(f"Grant {grant['GrantId']} revoked.")
+            raise
 
 
 # snippet-end:[python.example_code.kms.RevokeGrant]
@@ -139,16 +147,26 @@ def grant_management(kms_client):
         return
 
     grant_manager = GrantManager(kms_client)
-    grant = grant_manager.create_grant(key_id)
+    principal = input(
+        f"Enter the ARN of a principal, such as an IAM role, to grant that role "
+        f"GenerateDataKey permissions on key {key_id}: "
+    )
+    grant = None
+    if principal != "":
+        grant = grant_manager.create_grant(key_id, principal, ["GenerateDataKey"])
+        print(f"Grant created on key {key_id}.")
     print("-" * 88)
-    grant_manager.list_grants(key_id)
+    answer = input(f"Ready to list grants on key {key_id} (y/n)? ")
+    if answer.lower() == "y":
+        grant_manager.list_grants(key_id)
     print("-" * 88)
     if grant is not None:
         action = input("Let's remove the demo grant. Enter 'retire' or 'revoke': ")
         if action == "retire":
             grant_manager.retire_grant(grant)
         elif action == "revoke":
-            grant_manager.revoke_grant(key_id, grant)
+            grant_manager.revoke_grant(key_id, grant["GrantId"])
+            print(f"Grant {grant['GrantId']} revoked.")
         else:
             print("Skipping grant removal.")
 

@@ -15,12 +15,10 @@ Inputs (replace in code):
 */
 // snippet-start:[dynamodb.JavaScript.apigateway.createclientv3]
 
-const { DynamoDBClient } = require ( "@aws-sdk/client-dynamodb" );
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 // Set the AWS Region.
 const REGION = "REGION"; //e.g. "us-east-1"
 // Create an Amazon DynamoDB service client object.
 const dynamoClient = new DynamoDBClient({ region: REGION });
 module.exports = { dynamoClient };
 // snippet-end:[dynamodb.JavaScript.apigateway.createclientv3]
-
-

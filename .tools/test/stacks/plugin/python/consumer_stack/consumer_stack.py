@@ -178,7 +178,7 @@ class ConsumerStack(Stack):
         function = _lambda.Function(
             self,
             f"SubmitBatchJob-{tool_name}",
-            runtime=_lambda.Runtime.PYTHON_3_8,
+            runtime=_lambda.Runtime.PYTHON_3_9,
             handler="submit_job.handler",
             role=execution_role,
             code=_lambda.Code.from_asset("lambda"),
@@ -301,7 +301,7 @@ class ConsumerStack(Stack):
         lambda_function = _lambda.Function(
             self,
             "BatchJobCompleteLambda",
-            runtime=_lambda.Runtime.PYTHON_3_8,
+            runtime=_lambda.Runtime.PYTHON_3_9,
             handler="export_logs.handler",
             role=execution_role,
             code=_lambda.Code.from_asset("lambda"),

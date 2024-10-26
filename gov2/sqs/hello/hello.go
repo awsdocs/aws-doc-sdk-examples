@@ -19,7 +19,8 @@ import (
 // This example uses the default settings specified in your shared credentials
 // and config files.
 func main() {
-	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
+	ctx := context.Background()
+	sdkConfig, err := config.LoadDefaultConfig(ctx)
 	if err != nil {
 		fmt.Println("Couldn't load default configuration. Have you set up your AWS account?")
 		fmt.Println(err)
@@ -30,7 +31,7 @@ func main() {
 	var queueUrls []string
 	paginator := sqs.NewListQueuesPaginator(sqsClient, &sqs.ListQueuesInput{})
 	for paginator.HasMorePages() {
-		output, err := paginator.NextPage(context.TODO())
+		output, err := paginator.NextPage(ctx)
 		if err != nil {
 			log.Printf("Couldn't get queues. Here's why: %v\n", err)
 			break

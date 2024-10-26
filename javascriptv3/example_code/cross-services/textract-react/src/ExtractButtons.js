@@ -24,11 +24,7 @@ export const ExtractButtons = (props) => {
       role="toolbar"
       aria-label="Toolbar with button groups"
     >
-      <div
-        className="btn-group me-2"
-        role="group"
-        aria-label="Sync/async group"
-      >
+      <fieldset className="btn-group me-2" aria-label="Sync/async group">
         <input
           type="radio"
           className="btn-check"
@@ -57,12 +53,8 @@ export const ExtractButtons = (props) => {
         <label className="btn btn-outline-secondary" htmlFor="asyncRadio">
           Asynchronous
         </label>
-      </div>
-      <div
-        className="btn-group me-2"
-        role="group"
-        aria-label="Extract type group"
-      >
+      </fieldset>
+      <fieldset className="btn-group me-2" aria-label="Extract type group">
         <input
           type="radio"
           className="btn-check"
@@ -105,8 +97,8 @@ export const ExtractButtons = (props) => {
         <label className="btn btn-outline-secondary" htmlFor="formRadio">
           Form
         </label>
-      </div>
-      <div className="btn-group" role="group" aria-label="Extract group">
+      </fieldset>
+      <fieldset className="btn-group" aria-label="Extract group">
         <button
           type="button"
           className="btn btn-primary"
@@ -127,7 +119,7 @@ export const ExtractButtons = (props) => {
             Extract
           </span>
         </button>
-      </div>
+      </fieldset>
     </div>
   );
 };

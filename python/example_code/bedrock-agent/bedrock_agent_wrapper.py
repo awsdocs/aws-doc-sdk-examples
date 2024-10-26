@@ -9,7 +9,6 @@ Bedrock Agents.
 """
 
 import logging
-import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -23,7 +22,7 @@ class BedrockAgentWrapper:
     def __init__(self, client):
         """
         :param client: A Boto3 Amazon Bedrock Agents client, which is a low-level client that
-                       represents Agents for Amazon Bedrock and describes the API operations
+                       represents Amazon Bedrock Agents and describes the API operations
                        for creating and managing Bedrock Agent resources.
         """
         self.client = client
@@ -42,7 +41,7 @@ class BedrockAgentWrapper:
         :param role_arn: The ARN of the IAM role with permissions needed by the agent.
         :param instruction: Instructions that tell the agent what it should do and how it should
                             interact with users.
-        :return: The response from Agents for Bedrock if successful, otherwise raises an exception.
+        :return: The response from Amazon Bedrock Agents if successful, otherwise raises an exception.
         """
         try:
             response = self.client.create_agent(
@@ -61,7 +60,7 @@ class BedrockAgentWrapper:
 
     # snippet-start:[python.example_code.bedrock-agent.CreateAgentActionGroup]
     def create_agent_action_group(
-        self, name, description, agent_id, agent_version, function_arn, api_schema
+            self, name, description, agent_id, agent_version, function_arn, api_schema
     ):
         """
         Creates an action group for an agent. An action group defines a set of actions that an
@@ -122,7 +121,7 @@ class BedrockAgentWrapper:
         Deletes an Amazon Bedrock agent.
 
         :param agent_id: The unique identifier of the agent to delete.
-        :return: The response from Agents for Bedrock if successful, otherwise raises an exception.
+        :return: The response from Amazon Bedrock Agents if successful, otherwise raises an exception.
         """
 
         try:
@@ -144,7 +143,7 @@ class BedrockAgentWrapper:
 
         :param agent_id: The unique identifier of the agent that the alias belongs to.
         :param agent_alias_id: The unique identifier of the alias to delete.
-        :return: The response from Agents for Bedrock if successful, otherwise raises an exception.
+        :return: The response from Amazon Bedrock Agents if successful, otherwise raises an exception.
         """
 
         try:
@@ -221,9 +220,9 @@ class BedrockAgentWrapper:
 
             paginator = self.client.get_paginator("list_agent_action_groups")
             for page in paginator.paginate(
-                agentId=agent_id,
-                agentVersion=agent_version,
-                PaginationConfig={"PageSize": 10},
+                    agentId=agent_id,
+                    agentVersion=agent_version,
+                    PaginationConfig={"PageSize": 10},
             ):
                 action_groups.extend(page["actionGroupSummaries"])
 
@@ -250,9 +249,9 @@ class BedrockAgentWrapper:
 
             paginator = self.client.get_paginator("list_agent_knowledge_bases")
             for page in paginator.paginate(
-                agentId=agent_id,
-                agentVersion=agent_version,
-                PaginationConfig={"PageSize": 10},
+                    agentId=agent_id,
+                    agentVersion=agent_version,
+                    PaginationConfig={"PageSize": 10},
             ):
                 knowledge_bases.extend(page["agentKnowledgeBaseSummaries"])
 
@@ -270,7 +269,7 @@ class BedrockAgentWrapper:
         Creates a DRAFT version of the agent that can be used for internal testing.
 
         :param agent_id: The unique identifier of the agent to prepare.
-        :return: The response from Agents for Bedrock if successful, otherwise raises an exception.
+        :return: The response from Amazon Bedrock Agents if successful, otherwise raises an exception.
         """
         try:
             prepared_agent_details = self.client.prepare_agent(agentId=agent_id)
@@ -281,6 +280,5 @@ class BedrockAgentWrapper:
             return prepared_agent_details
 
     # snippet-end:[python.example_code.bedrock-agent.PrepareAgent]
-
 
 # snippet-end:[python.example_code.bedrock-agent.BedrockAgentWrapper.class]

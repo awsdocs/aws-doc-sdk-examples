@@ -4,8 +4,8 @@ import {
   MedicalImagingClient,
   GetImageSetMetadataCommand,
 } from "@aws-sdk/client-medical-imaging";
-import { gunzip } from "zlib";
-import { promisify } from "util";
+import { gunzip } from "node:zlib";
+import { promisify } from "node:util";
 
 import {
   ScenarioAction,
@@ -121,5 +121,4 @@ export const outputImageFrameIds = new ScenarioOutput(
 
     return output;
   },
-  { slow: false },
 );

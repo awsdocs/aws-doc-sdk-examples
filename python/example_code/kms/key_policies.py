@@ -12,18 +12,29 @@ to manage the security policy for a key.
 import json
 import logging
 from pprint import pprint
+
 import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
 
-# snippet-start:[python.example_code.kms.KeyPolicy]
+# snippet-start:[python.example_code.kms.KeyPolicy.decl]
 class KeyPolicy:
     def __init__(self, kms_client):
         self.kms_client = kms_client
 
-    # snippet-end:[python.example_code.kms.KeyPolicy]
+    @classmethod
+    def from_client(cls) -> "KeyPolicy":
+        """
+        Creates a KeyPolicy instance with a default KMS client.
+
+        :return: An instance of KeyPolicy initialized with the default KMS client.
+        """
+        kms_client = boto3.client("kms")
+        return cls(kms_client)
+
+    # snippet-end:[python.example_code.kms.KeyPolicy.decl]
 
     # snippet-start:[python.example_code.kms.ListKeyPolicies]
     def list_policies(self, key_id):
@@ -41,6 +52,7 @@ class KeyPolicy:
                 "Couldn't list your policies. Here's why: %s",
                 err.response["Error"]["Message"],
             )
+            raise
         else:
             print(f"The policies for key {key_id} are:")
             pprint(policy_names)
@@ -48,7 +60,7 @@ class KeyPolicy:
     # snippet-end:[python.example_code.kms.ListKeyPolicies]
 
     # snippet-start:[python.example_code.kms.GetKeyPolicy]
-    def get_policy(self, key_id):
+    def get_policy(self, key_id: str) -> dict[str, str]:
         """
         Gets the policy of a key.
 
@@ -58,7 +70,7 @@ class KeyPolicy:
         if key_id != "":
             try:
                 response = self.kms_client.get_key_policy(
-                    KeyId=key_id, PolicyName="default"
+                    KeyId=key_id,
                 )
                 policy = json.loads(response["Policy"])
             except ClientError as err:
@@ -67,6 +79,7 @@ class KeyPolicy:
                     key_id,
                     err.response["Error"]["Message"],
                 )
+                raise
             else:
                 pprint(policy)
                 return policy
@@ -76,7 +89,7 @@ class KeyPolicy:
     # snippet-end:[python.example_code.kms.GetKeyPolicy]
 
     # snippet-start:[python.example_code.kms.PutKeyPolicy]
-    def set_policy(self, key_id, policy):
+    def set_policy(self, key_id: str, policy: dict[str, any]) -> None:
         """
         Sets the policy of a key. Setting a policy entirely overwrites the existing
         policy, so care is taken to add a statement to the existing list of statements
@@ -84,6 +97,7 @@ class KeyPolicy:
 
         :param key_id: The ARN or ID of the key to set the policy to.
         :param policy: The existing policy of the key.
+        :return: None
         """
         principal = input(
             "Enter the ARN of an IAM role to set as the principal on the policy: "
@@ -107,22 +121,45 @@ class KeyPolicy:
                 }
             )
             try:
-                self.kms_client.put_key_policy(
-                    KeyId=key_id, PolicyName="default", Policy=json.dumps(policy)
-                )
+                self.kms_client.put_key_policy(KeyId=key_id, Policy=json.dumps(policy))
             except ClientError as err:
                 logger.error(
                     "Couldn't set policy for key %s. Here's why %s",
                     key_id,
                     err.response["Error"]["Message"],
                 )
+                raise
             else:
                 print(f"Set policy for key {key_id}.")
         else:
             print("Skipping set policy demo.")
 
+    # snippet-end:[python.example_code.kms.PutKeyPolicy]
 
-# snippet-end:[python.example_code.kms.PutKeyPolicy]
+    # snippet-start:[python.example_code.kms.set_new_policy]
+    def set_new_policy(self, key_id: str, policy: dict[str, any]) -> None:
+        """
+        Sets the policy of a key. Setting a policy entirely overwrites the existing
+        policy, so care is taken to add a statement to the existing list of statements
+        rather than simply writing a new policy.
+
+        :param key_id: The ARN or ID of the key to set the policy to.
+        :param policy: A new key policy. The key policy must allow the calling principal to make a subsequent
+                       PutKeyPolicy request on the KMS key. This reduces the risk that the KMS key becomes unmanageable
+        """
+
+        try:
+            self.kms_client.put_key_policy(KeyId=key_id, Policy=json.dumps(policy))
+        except ClientError as err:
+            logger.error(
+                "Couldn't set policy for key %s. Here's why %s",
+                key_id,
+                err.response["Error"]["Message"],
+            )
+            raise
+
+
+# snippet-end:[python.example_code.kms.set_new_policy]
 
 
 def key_policies(kms_client):

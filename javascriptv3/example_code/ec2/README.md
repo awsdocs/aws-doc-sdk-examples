@@ -52,7 +52,7 @@ Code excerpts that show you how to call individual service functions.
 - [CreateLaunchTemplate](../cross-services/wkflw-resilient-service/steps-deploy.js#L279)
 - [CreateSecurityGroup](actions/create-security-group.js#L4)
 - [DeleteKeyPair](actions/delete-key-pair.js#L4)
-- [DeleteLaunchTemplate](../cross-services/wkflw-resilient-service/steps-destroy.js#L269)
+- [DeleteLaunchTemplate](../cross-services/wkflw-resilient-service/steps-destroy.js#L261)
 - [DeleteSecurityGroup](actions/delete-security-group.js#L4)
 - [DescribeAddresses](actions/describe-addresses.js#L4)
 - [DescribeIamInstanceProfileAssociations](../cross-services/wkflw-resilient-service/steps-demo.js#L241)

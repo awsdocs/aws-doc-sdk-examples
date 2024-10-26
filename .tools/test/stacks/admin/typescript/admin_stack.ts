@@ -42,7 +42,7 @@ class AdminStack extends Stack {
 
   private initRule(topic: sns.Topic): void {
     const rule = new events.Rule(this, "trigger-rule", {
-      schedule: events.Schedule.cron({ minute: "0", hour: "*" }),
+      schedule: events.Schedule.cron({ minute: "0", hour: "0" }),
     });
     rule.addTarget(new targets.SnsTopic(topic));
   }

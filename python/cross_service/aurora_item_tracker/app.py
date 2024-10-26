@@ -20,7 +20,6 @@ React client, see the accompanying README.
 import boto3
 from flask import Flask
 from flask_cors import CORS
-
 from item_list import ItemList
 from report import Report
 from storage import Storage

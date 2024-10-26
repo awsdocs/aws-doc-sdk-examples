@@ -1,0 +1,23 @@
+Resources:
+  RegularUser:
+    Type: AWS::IAM::User
+  ExpressUser:
+    Type: AWS::IAM::User
+  ExpressPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: AllowExpressOperations
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action:
+              - "s3express:CreateBucket"
+              - "s3express:CreateSession"
+            Resource: "*"
+      Users:
+        - !Ref ExpressUser
+Outputs:
+  RegularUser:
+    Value: !Ref RegularUser
+  ExpressUser:
+    Value: !Ref ExpressUser

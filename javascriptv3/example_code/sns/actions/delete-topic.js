@@ -1,6 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 // snippet-start:[sns.JavaScript.topics.deleteTopicV3]
 import { DeleteTopicCommand } from "@aws-sdk/client-sns";

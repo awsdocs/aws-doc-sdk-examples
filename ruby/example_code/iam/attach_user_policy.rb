@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-require "aws-sdk-iam"
-require "logger"
+require 'aws-sdk-iam'
+require 'logger'
 
 # Manages IAM user policies
 class UserPolicyManager
@@ -11,7 +11,7 @@ class UserPolicyManager
   def initialize(iam_client, logger: Logger.new($stdout))
     @iam_client = iam_client
     @logger = logger
-    @logger.progname = "UserManager"
+    @logger.progname = 'UserManager'
   end
 
   # snippet-start:[ruby.iam.PutUserPolicy]
@@ -22,10 +22,10 @@ class UserPolicyManager
   # @return [Boolean]
   def create_user_policy(username, policy_name, policy_document)
     @iam_client.put_user_policy({
-      user_name: username,
-      policy_name: policy_name,
-      policy_document: policy_document
-    })
+                                  user_name: username,
+                                  policy_name: policy_name,
+                                  policy_document: policy_document
+                                })
     @logger.info("Policy #{policy_name} created for user #{username}.")
     true
   rescue Aws::IAM::Errors::ServiceError => e
@@ -34,7 +34,6 @@ class UserPolicyManager
     false
   end
   # snippet-end:[ruby.iam.PutUserPolicy]
-
 
   # snippet-start:[ruby.iam.AttachUserPolicy]
   # Attaches a policy to a user
@@ -68,22 +67,21 @@ class UserPolicyManager
     @logger.info("Policy '#{policy_arn}' detached from user '#{user_name}' successfully.")
     true
   rescue Aws::IAM::Errors::NoSuchEntity
-    @logger.error("Error detaching policy: Policy or user does not exist.")
+    @logger.error('Error detaching policy: Policy or user does not exist.')
     false
   rescue Aws::IAM::Errors::ServiceError => e
     @logger.error("Error detaching policy from user '#{user_name}': #{e.message}")
     false
   end
   # snippet-end:[ruby.iam.DetachUserPolicy]
-
 end
 
 # Example usage:
 if __FILE__ == $PROGRAM_NAME
   iam_client = Aws::IAM::Client.new
   user_manager = UserPolicyManager.new(iam_client)
-  user_name = "my-user"
-  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+  user_name = 'my-user'
+  policy_arn = 'arn:aws:iam::aws:policy/AmazonS3FullAccess'
 
   if user_manager.attach_policy_to_user(user_name, policy_arn)
     puts "Policy attached to user '#{user_name}'."
@@ -100,12 +98,12 @@ if __FILE__ == $PROGRAM_NAME
   policy_name = "test-policy-#{Time.now.to_i}"
   policy_document =
     {
-      "Version" => "2012-10-17",
-      "Statement" => [
+      'Version' => '2012-10-17',
+      'Statement' => [
         {
-          "Effect" => "Allow",
-          "Action" => "s3:ListAllMyBuckets",
-          "Resource" => "arn:aws:s3:::*"
+          'Effect' => 'Allow',
+          'Action' => 's3:ListAllMyBuckets',
+          'Resource' => 'arn:aws:s3:::*'
         }
       ]
     }

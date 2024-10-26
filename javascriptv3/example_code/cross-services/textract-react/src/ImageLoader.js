@@ -57,14 +57,13 @@ export const ImageLoader = (props) => {
               Load
             </button>
           </div>
-          <div
+          <output
             className={`alert alert-danger ${
               props.modelError ? "" : "visually-hidden"
             }`}
-            role="status"
           >
             {props.modelError}
-          </div>
+          </output>
         </form>
       </div>
     </div>

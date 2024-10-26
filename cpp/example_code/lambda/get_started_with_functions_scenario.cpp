@@ -188,7 +188,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
 #error "Unimplemented architecture"
 #endif // defined(architecture)
 #else
-        request.SetRuntime(Aws::Lambda::Model::Runtime::python3_8);
+        request.SetRuntime(Aws::Lambda::Model::Runtime::python3_9);
 #endif
         request.SetRole(roleArn);
         request.SetHandler(LAMBDA_HANDLER_NAME);

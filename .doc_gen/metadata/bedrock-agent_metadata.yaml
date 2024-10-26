@@ -1,8 +1,8 @@
 # zexi 0.4.0
 bedrock-agent_Hello:
-  title: Hello Agents for &BR;
-  title_abbrev: Hello Agents for &BR;
-  synopsis: get started using Agents for &BR;.
+  title: Hello &BRA;
+  title_abbrev: Hello &BRA;
+  synopsis: get started using &BRA;.
   category: Hello
   languages:
     JavaScript:
@@ -186,7 +186,7 @@ bedrock-agent_PrepareAgent:
   services:
     bedrock-agent: {PrepareAgent}
 bedrock-agent_GettingStartedWithBedrockAgents:
-  title: An end-to-end example showing how to create and invoke &BR; agents using an &AWS; SDK
+  title: An end-to-end example showing how to create and invoke &BRA; using an &AWS; SDK
   title_abbrev: Create and invoke an agent
   synopsis_list:
     - Create an execution role for the agent.

@@ -4,6 +4,7 @@
 package workflows
 
 import (
+	"context"
 	"fmt"
 	"testing"
 	"user_pools_and_lambda_triggers/stubs"
@@ -54,8 +55,8 @@ func (scenTest *AutoConfirmScenarioTest) SetupDataAndStubs() []testtools.Stub {
 		popTableWriteReqs[i] = dynamotypes.WriteRequest{PutRequest: &dynamotypes.PutRequest{Item: user}}
 	}
 	preSignUpConfig := cogidptypes.LambdaConfigType{PreSignUp: aws.String(stackOutputs["AutoConfirmFunctionArn"])}
-	userName := "test_user_2"
-	userEmail := "test_email_2@example.com"
+	userName := "test_user_1"
+	userEmail := "test_email_1@example.com"
 	password := "test-password"
 	logStreamName := "test-log-stream-name"
 	logMsgs := []string{"test-message-1", "test-message-2", "test-message-3"}
@@ -114,7 +115,7 @@ func (scenTest *AutoConfirmScenarioTest) RunSubTest(stubber *testtools.AwsmStubb
 	helper := NewScenarioHelper(*stubber.SdkConfig, &mockQuestioner)
 	helper.isTestRun = true
 	scenario := NewAutoConfirm(*stubber.SdkConfig, &mockQuestioner, &helper)
-	scenario.Run(scenTest.stackName)
+	scenario.Run(context.Background(), scenTest.stackName)
 }
 
 func (scenTest *AutoConfirmScenarioTest) Cleanup() {}

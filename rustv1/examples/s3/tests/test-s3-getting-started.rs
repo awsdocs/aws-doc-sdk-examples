@@ -40,7 +40,7 @@ async fn setup() -> (Region, Client, String, String, String, String) {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    let bucket_name = format!("{}{}", "doc-example-bucket-", Uuid::new_v4());
+    let bucket_name = format!("{}{}", "amzn-s3-demo-bucket-", Uuid::new_v4());
     let file_name = "../s3/testfile.txt".to_string();
     let key = "test file key name".to_string();
     let target_key = "target_key".to_string();

@@ -23,7 +23,7 @@ import { rekognitionClient } from "./libs/rekognitionClient.js";
 // Calls DetectFaces API and shows estimated ages of detected faces.
 window.DetectFaces = async (imageData) => {
   // Set the parameters.
-  var params = {
+  const params = {
     Image: {
       Bytes: imageData,
     },
@@ -31,15 +31,10 @@ window.DetectFaces = async (imageData) => {
   };
   try {
     const data = await rekognitionClient.send(new DetectFacesCommand(params));
-    var table = "<table><tr><th>Low</th><th>High</th></tr>";
+    let table = "<table><tr><th>Low</th><th>High</th></tr>";
     // show each face and build out estimated age table
-    for (var i = 0; i < data.FaceDetails.length; i++) {
-      table +=
-        "<tr><td>" +
-        data.FaceDetails[i].AgeRange.Low +
-        "</td><td>" +
-        data.FaceDetails[i].AgeRange.High +
-        "</td></tr>";
+    for (let i = 0; i < data.FaceDetails.length; i++) {
+      table += `<tr><td>${data.FaceDetails[i].AgeRange.Low}</td><td>${data.FaceDetails[i].AgeRange.High}</td></tr>`;
     }
     table += "</table>";
     document.getElementById("opResult").innerHTML = table;
@@ -52,45 +47,43 @@ window.DetectFaces = async (imageData) => {
 // Loads selected image and unencodes image bytes for Rekognition DetectFaces API.
 window.ProcessImage = () => {
   /** @type {HTMLInputElement | null} */
-  var control = document.getElementById("fileToUpload");
-  var file = control.files[0];
+  const control = document.getElementById("fileToUpload");
+  const file = control.files[0];
 
   // Load base64 encoded image.
-  var reader = new FileReader();
-  reader.onload = (function () {
-    return function (e) {
-      var img = document.createElement("img");
-      var image = null;
-      img.src = e.target.result;
-      var jpg = true;
+  const reader = new FileReader();
+  reader.onload = (() => (e) => {
+    const img = document.createElement("img");
+    let image = null;
+    img.src = e.target.result;
+    let jpg = true;
+    try {
+      /** @type {string} */
+      const result = e.target.result;
+      image = atob(result.split("data:image/jpeg;base64,")[1]);
+      console.log("image", image);
+    } catch (e) {
+      jpg = false;
+    }
+    if (jpg === false) {
       try {
         /** @type {string} */
         const result = e.target.result;
-        image = atob(result.split("data:image/jpeg;base64,")[1]);
-        console.log("image", image);
+        image = atob(result.split("data:image/png;base64,")[1]);
       } catch (e) {
-        jpg = false;
+        alert("Not an image file Rekognition can process");
+        return;
       }
-      if (jpg == false) {
-        try {
-          /** @type {string} */
-          const result = e.target.result;
-          image = atob(result.split("data:image/png;base64,")[1]);
-        } catch (e) {
-          alert("Not an image file Rekognition can process");
-          return;
-        }
-      }
-      // Unencode image bytes for Rekognition DetectFaces API.
-      const length = image.length;
-      const imageBytes = new ArrayBuffer(length);
-      const ua = new Uint8Array(imageBytes);
-      for (var i = 0; i < length; i++) {
-        ua[i] = image.charCodeAt(i);
-      }
-      // Call Rekognition.
-      window.DetectFaces(ua);
-    };
+    }
+    // Unencode image bytes for Rekognition DetectFaces API.
+    const length = image.length;
+    const imageBytes = new ArrayBuffer(length);
+    const ua = new Uint8Array(imageBytes);
+    for (let i = 0; i < length; i++) {
+      ua[i] = image.charCodeAt(i);
+    }
+    // Call Rekognition.
+    window.DetectFaces(ua);
   })(file);
   reader.readAsDataURL(file);
 };

@@ -20,7 +20,7 @@ namespace SSECLowLevelMPUcopyObjectExample
     {
         public static async Task Main()
         {
-            string existingBucketName = "doc-example-bucket";
+            string existingBucketName = "amzn-s3-demo-bucket";
             string sourceKeyName = "sample_file.txt";
             string targetKeyName = "sample_file_copy.txt";
             string filePath = $"sample\\{targetKeyName}";

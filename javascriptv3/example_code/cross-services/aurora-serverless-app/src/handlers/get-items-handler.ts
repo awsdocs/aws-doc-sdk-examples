@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import { Handler } from "src/types/handler.js";
+
+import type { Handler } from "src/types/handler.js";
+import type { DBRecords } from "src/types/db-record.js";
 import { command as getAllItemsCommand } from "../statement-commands/get-all-items.js";
 import { command as getArchivedItemsCommand } from "../statement-commands/get-archived-items.js";
 import { command as getActiveItemsCommand } from "../statement-commands/get-active-items.js";
@@ -18,7 +20,7 @@ const getItemsHandler: Handler = {
       };
 
       const response = await rdsDataClient.send<{ records: DBRecords }>(
-        commands[archived] || getAllItemsCommand
+        commands[archived] || getAllItemsCommand,
       );
 
       res.send(response.records.map(parseItem));

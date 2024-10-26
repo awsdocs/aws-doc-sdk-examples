@@ -36,7 +36,7 @@ describe("run-instances", () => {
     });
 
     expect(logSpy).toHaveBeenCalledWith(
-      `Launched instances:\n• i-0e8810a92833675aa`,
+      "Launched instances:\n• i-0e8810a92833675aa",
     );
   });
 
