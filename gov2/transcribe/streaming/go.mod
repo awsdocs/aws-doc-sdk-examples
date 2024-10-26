@@ -6,7 +6,6 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.30.5
 	github.com/aws/aws-sdk-go-v2/service/transcribestreaming v1.19.6
 	github.com/gordonklaus/portaudio v0.0.0-20230709114228-aafa478834f5
-	k8s.io/klog/v2 v2.130.1
 )
 
 require (
@@ -14,5 +13,4 @@ require (
 	github.com/aws/aws-sdk-go-v2/internal/configsources v1.3.17 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.6.17 // indirect
 	github.com/aws/smithy-go v1.20.4 // indirect
-	github.com/go-logr/logr v1.4.1 // indirect
 )

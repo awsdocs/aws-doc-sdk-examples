@@ -1,4 +1,4 @@
-# Stream Transcription example for Go V2 SDK
+# Realtime Transcription example with AWS Transcribe using microphone as input source for Go V2 SDK
 
 
 ## Overview
