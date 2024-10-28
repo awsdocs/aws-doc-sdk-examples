@@ -90,7 +90,7 @@ class S3ConditionalRequests:
         except ClientError as e:
             error_code = e.response["Error"]["Code"]
             if error_code == "PreconditionFailed":
-                print("\tConditional copy failed: Precondition failed")
+                print("\tConditional write failed: Precondition failed")
             else:
                 logger.error(f"Unexpected error: {error_code}")
                 raise

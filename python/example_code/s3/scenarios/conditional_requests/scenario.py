@@ -52,9 +52,6 @@ class ConditionalRequestsScenario:
         :param dest_bucket: The name of the destination bucket.
         :param object_key: The name of a test file to add to the source bucket.
         """
-        print(
-            "This scenario will create a source and destination bucket with sample files."
-        )
 
         # Create the buckets.
         try:
@@ -262,6 +259,21 @@ class ConditionalRequestsScenario:
         print("-" * 88)
         print("Welcome to the Amazon S3 conditional requests example.")
         print("-" * 88)
+
+        print(
+            f"""\
+        This example demonstrates the use of conditional requests for S3 operations.
+        You can use conditional requests to add preconditions to S3 read requests to return or copy
+        an object based on its Entity tag (ETag), or last modified date. 
+        You can use a conditional write requests to prevent overwrites by ensuring 
+        there is no existing object with the same key. 
+        
+        This example will allow you to perform conditional reads
+        and writes that will succeed or fail based on your selected options.
+        
+        Sample buckets and a sample object will be created as part of the example.
+        """
+        )
 
         bucket_prefix = q.ask("Enter a bucket name prefix: ", q.non_empty)
         source_bucket_name = f"{bucket_prefix}-source-{RANDOM_SUFFIX}"
