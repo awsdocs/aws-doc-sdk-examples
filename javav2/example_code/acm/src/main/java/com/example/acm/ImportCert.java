@@ -42,7 +42,8 @@ public class ImportCert {
 
         String certificatePath = args[0];
         String privateKeyPath = args[1];
-        importCertificate(certificatePath, privateKeyPath);
+        String certificateArn = importCertificate(certificatePath, privateKeyPath);
+        System.out.println("Certificate imported with ARN: " + certificateArn);
     }
 
     /**
@@ -53,7 +54,7 @@ public class ImportCert {
      * @param privateKeyPath  the file path to the private key associated with the certificate
      * @throws IOException if there is an error reading the certificate or private key files
      */
-    public static void importCertificate(String certificatePath, String privateKeyPath) {
+    public static String importCertificate(String certificatePath, String privateKeyPath) {
         AcmClient acmClient = AcmClient.create();
         try {
             byte[] certificateBytes = readFileBytes(certificatePath);
@@ -66,10 +67,11 @@ public class ImportCert {
 
             ImportCertificateResponse response = acmClient.importCertificate(request);
             String certificateArn = response.certificateArn();
-            System.out.println("Certificate imported with ARN: " + certificateArn);
+            return certificateArn;
         } catch (IOException e) {
             System.err.println("Error reading certificate or private key file: " + e.getMessage());
         }
+        return "";
     }
 
     private static byte[] readFileBytes(String filePath) throws IOException {
