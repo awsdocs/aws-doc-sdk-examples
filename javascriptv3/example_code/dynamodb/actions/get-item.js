@@ -10,6 +10,7 @@ const client = new DynamoDBClient({});
 
 export const main = async () => {
   const command = new GetItemCommand({
+    ConsistentRead: true,
     TableName: "CafeTreats",
     // For more information about data types,
     // see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes and
