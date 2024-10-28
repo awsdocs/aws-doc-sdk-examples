@@ -1,13 +1,13 @@
-# AWS Batch code examples for the SDK for Java 2.x
+# ACM code examples for the SDK for Java 2.x
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 2.x to work with AWS Batch.
+Shows how to use the AWS SDK for Java 2.x to work with AWS Certificate Manager (ACM).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_AWS Batch enables you to run batch computing workloads on the AWS Cloud._
+_ACM helps you to provision, manage, and renew publicly trusted TLS certificates on AWS based websites._
 
 ## ⚠ Important
 
@@ -29,35 +29,20 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
-### Get started
-
-- [Hello AWS Batch](src/main/java/com/example/batch/HelloBatch.java#L6) (`listJobsPaginator`)
-
-
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateComputeEnvironment](src/main/java/com/example/batch/scenario/BatchActions.java#L102)
-- [CreateJobQueue](src/main/java/com/example/batch/scenario/BatchActions.java#L193)
-- [DeleteComputeEnvironment](src/main/java/com/example/batch/scenario/BatchActions.java#L142)
-- [DeleteJobQueue](src/main/java/com/example/batch/scenario/BatchActions.java#L370)
-- [DeregisterJobDefinition](src/main/java/com/example/batch/scenario/BatchActions.java#L323)
-- [DescribeComputeEnvironments](src/main/java/com/example/batch/scenario/BatchActions.java#L162)
-- [DescribeJobQueues](src/main/java/com/example/batch/scenario/BatchActions.java#L394)
-- [DescribeJobs](src/main/java/com/example/batch/scenario/BatchActions.java#L490)
-- [ListJobsPaginator](src/main/java/com/example/batch/scenario/BatchActions.java#L230)
-- [RegisterJobDefinition](src/main/java/com/example/batch/scenario/BatchActions.java#L257)
-- [SubmitJob](src/main/java/com/example/batch/scenario/BatchActions.java#L463)
-- [UpdateComputeEnvironment](src/main/java/com/example/batch/scenario/BatchActions.java#L439)
-- [UpdateJobQueue](src/main/java/com/example/batch/scenario/BatchActions.java#L347)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Learn AWS Batch core operations](src/main/java/com/example/batch/scenario/BatchScenario.java)
+- [AddTagsToCertificate](src/main/java/com/example/acm/AddTagsToCertificate.java#L12)
+- [DeleteCertificate](src/main/java/com/example/acm/DeleteCert.java#L10)
+- [DescribeCertificate](src/main/java/com/example/acm/DescribeCert.java#L11)
+- [ExportCertificate](src/main/java/com/example/acm/ExportCertificate.java#L20)
+- [ImportCertificate](src/main/java/com/example/acm/ImportCert.java#L16)
+- [ListCertificates](src/main/java/com/example/acm/ListCerts.java#L13)
+- [ListTagsForCertificate](src/main/java/com/example/acm/ListCertTags.java#L13)
+- [RemoveTagsFromCertificate](src/main/java/com/example/acm/RemoveTagsFromCert.java#L13)
+- [RenewCertificate](src/main/java/com/example/acm/RenewCert.java#L10)
+- [RequestCertificate](src/main/java/com/example/acm/RequestCert.java#L12)
 
 
 <!--custom.examples.start-->
@@ -71,31 +56,7 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello AWS Batch
 
-This example shows you how to get started using AWS Batch.
-
-
-
-#### Learn AWS Batch core operations
-
-This example shows you how to do the following:
-
-- Create an AWS Batch compute environment.
-- Check the status of the compute environment.
-- Set up an AWS Batch job queue and job definition.
-- Register a job definition.
-- Submit an AWS Batch Job.
-- Get a list of jobs applicable to the job queue.
-- Check the status of job.
-- Delete AWS Batch resources.
-
-<!--custom.scenario_prereqs.batch_Scenario.start-->
-<!--custom.scenario_prereqs.batch_Scenario.end-->
-
-
-<!--custom.scenarios.batch_Scenario.start-->
-<!--custom.scenarios.batch_Scenario.end-->
 
 ### Tests
 
@@ -112,9 +73,9 @@ in the `javav2` folder.
 
 ## Additional resources
 
-- [AWS Batch User Guide](https://docs.aws.amazon.com/batch/latest/userguide/what-is-batch.html)
-- [AWS Batch API Reference](https://docs.aws.amazon.com/batch/latest/APIReference/Welcome.html)
-- [SDK for Java 2.x AWS Batch reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/ec2/package-summary.html)
+- [ACM User Guide](https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html)
+- [ACM API Reference](https://docs.aws.amazon.com/acm/latest/APIReference/Welcome.html)
+- [SDK for Java 2.x ACM reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/ec2/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
