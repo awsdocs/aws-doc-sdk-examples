@@ -7,7 +7,7 @@ Shows how to use the AWS SDK for Java 2.x to work with Amazon S3 Control.
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon S3 Control _
+_Amazon S3 Control lets you manage S3 resources._
 
 ## ⚠ Important
 
