@@ -248,7 +248,7 @@ class ConditionalRequestsScenario:
                     object_key, source_bucket, b"Conditional write example data."
                 )
             elif choice == 4:
-                logging.info("Proceeding to cleanup.")
+                print("Proceeding to cleanup.")
 
     # snippet-end:[python.example_code.s3.DisplayMenu]
 
