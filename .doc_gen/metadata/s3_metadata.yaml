@@ -2598,14 +2598,16 @@ s3_Scenario_UsingLargeFiles:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description: Upload a large object by using an upload manager to break the data into parts and upload them concurrently.
+            - description: Create functions that use upload and download managers to break the data into parts and 
+                transfer them concurrently.
               snippet_tags:
                 - gov2.s3.BucketBasics.struct
                 - gov2.s3.Upload
-            - description: Download a large object by using a download manager to get the data in parts and download them
-                concurrently.
-              snippet_tags:
                 - gov2.s3.Download
+            - description: Run an interactive scenario that shows you how to use the upload and download
+                managers in context.
+              snippet_tags:
+                - gov2.s3.Scenario_LargeObjects
     Python:
       versions:
         - sdk_version: 3
@@ -2971,7 +2973,7 @@ s3_Scenario_GettingStarted:
             - description: Define a struct that wraps bucket and object actions used by the scenario.
               snippet_tags:
                 - gov2.s3.BucketBasics.complete
-            - description: Run an interactive scenario that shows you how work with S3 buckets and objects.
+            - description: Run an interactive scenario that shows you how to work with S3 buckets and objects.
               snippet_tags:
                 - gov2.s3.Scenario_GetStarted
     Rust:
