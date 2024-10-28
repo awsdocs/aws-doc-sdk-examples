@@ -3506,3 +3506,20 @@ s3_Scenario_ExpressBasics:
                 - php.example_code.s3.service.S3Service
   services:
     s3: {CreateVpc, DescribeRouteTables, CreateVpcEndpoint, CreateBucket, CopyObject, GetObject, PutObject, ListObjects, DeleteObject, DeleteBucket, DeleteVpcEndpoint, DeleteVpc}
+s3_Scenario_DownloadS3Directory:
+  title: Download S3 'directories' from an &S3long; (&S3;) bucket
+  title_abbrev: Download S3 'directories'
+  synopsis: download and filter the contents of &S3; bucket 'directories'.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: This example show how to use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink> in the &JavaV2long; to download 'directories' from an &S3; bucket. It also demonstrates how to use <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/config/DownloadFilter.html">DownloadFilters</ulink> in the request.
+              snippet_tags:
+                - s3.tm.java2.download-s3-directories.main
+  services:
+    s3: {}

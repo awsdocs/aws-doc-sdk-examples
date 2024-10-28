@@ -5,6 +5,7 @@ import com.example.s3.transfermanager.DownloadFile;
 import com.example.s3.transfermanager.DownloadToDirectory;
 import com.example.s3.transfermanager.ObjectCopy;
 import com.example.s3.transfermanager.S3ClientFactory;
+import com.example.s3.transfermanager.S3DirectoriesDownloader;
 import com.example.s3.transfermanager.UploadADirectory;
 import com.example.s3.transfermanager.UploadFile;
 import com.example.s3.transfermanager.UploadStream;
@@ -50,6 +51,7 @@ class TransferManagerTest {
         logger.info("... S3TransferManager tests finished");
     }
 
+    @Test
     @Tag("IntegrationTest")
     public void uploadSingleFileWorks() {
         UploadFile upload = new UploadFile();
@@ -141,6 +143,15 @@ class TransferManagerTest {
             AsyncExampleUtils.deleteObject(bucketName, key);
             AsyncExampleUtils.deleteBucket(bucketName);
         }
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    public void s3DirectoriesDownloadWorks() {
+        S3DirectoriesDownloader downloader = new S3DirectoriesDownloader();
+        Integer numFilesDownloaded = downloader.downloadS3Directories(S3ClientFactory.transferManager, downloader.destinationPathURI, downloader.bucketName);
+        Assertions.assertEquals(6, numFilesDownloaded);
+        downloader.cleanUp();
     }
 
     private String getLoggedMessages() {

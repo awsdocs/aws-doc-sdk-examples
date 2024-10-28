@@ -80,6 +80,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Delete incomplete multipart uploads](src/main/java/com/example/s3/AbortMultipartUploadExamples.java)
+- [Download S3 'directories'](src/main/java/com/example/s3/transfermanager/S3DirectoriesDownloader.java)
 - [Download objects to a local directory](src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java)
 - [Lock Amazon S3 objects](src/main/java/com/example/s3/lockscenario/S3ObjectLockWorkflow.java)
 - [Parse URIs](src/main/java/com/example/s3/ParseUri.java)
@@ -139,6 +140,18 @@ This example shows you how to how to delete or stop incomplete Amazon S3 multipa
 
 <!--custom.scenarios.s3_Scenario_AbortMultipartUpload.start-->
 <!--custom.scenarios.s3_Scenario_AbortMultipartUpload.end-->
+
+#### Download S3 'directories'
+
+This example shows you how to download and filter the contents of Amazon S3 bucket 'directories'.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_DownloadS3Directory.start-->
+<!--custom.scenario_prereqs.s3_Scenario_DownloadS3Directory.end-->
+
+
+<!--custom.scenarios.s3_Scenario_DownloadS3Directory.start-->
+<!--custom.scenarios.s3_Scenario_DownloadS3Directory.end-->
 
 #### Download objects to a local directory
 
