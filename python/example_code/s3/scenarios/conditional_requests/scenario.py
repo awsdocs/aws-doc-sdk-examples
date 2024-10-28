@@ -1,6 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# snippet-start:[python.example_code.s3.S3ConditionalRequests.scenario]
 """
 Purpose
 
@@ -283,3 +284,4 @@ if __name__ == "__main__":
         S3ConditionalRequests.from_client(), boto3.client("s3")
     )
     scenario.run_scenario()
+# snippet-end:[python.example_code.s3.S3ConditionalRequests.scenario]

@@ -33,7 +33,7 @@ todo
 
 ```
 - Amazon S3 objects created in the scenario:
-  - Three test files in the source bucket, using a name prefix provided by the user.
+  - One test file in the source bucket.
     
 Example:
 
@@ -74,12 +74,16 @@ todo
 ---
 
 ## Errors
+The PreconditionFailed exceptions are part of the flow of this scenario. After a success or failure,
+the user can print the contents of the buckets to see the result.
 
-| action                | Error | Handling |
-|-----------------------|-------|----------|
-| `GetObject`           | todo  | todo     |
-| `CopyObject`          | todo  | todo     |
-| `PutObject`           | todo  | todo     |
+| action       | Error                 | Handling                                   |
+|--------------|-----------------------|--------------------------------------------|
+| `GetObject`  | PreconditionFailed    | Notify the user and do not print contents. |
+| `GetObject`  | ObjectNotModified 304 | Notify the user and do not print contents. |
+| `CopyObject` | PreconditionFailed    | Notify the user of the failure.            |
+| `CopyObject` | ObjectNotModified 304 | Notify the user of the failure.            |
+| `PutObject`  | PreconditionFailed    | Notify the user of the failure.            |
 
 
 ---

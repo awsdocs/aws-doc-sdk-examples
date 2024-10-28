@@ -1,6 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# snippet-start:[python.example_code.s3.S3ConditionalRequests.wrapper]
+
 import boto3
 import logging
 
@@ -10,6 +12,7 @@ from botocore.exceptions import ClientError
 logger = logging.getLogger(__name__)
 
 
+# snippet-start:[python.example_code.s3.helper.S3ConditionalRequests]
 class S3ConditionalRequests:
     """Encapsulates S3 conditional request operations."""
 
@@ -23,6 +26,8 @@ class S3ConditionalRequests:
         """
         s3_client = boto3.client("s3")
         return cls(s3_client)
+
+    # snippet-end:[python.example_code.s3.helper.S3ConditionalRequests]
 
     # snippet-start:[python.example_code.s3.GetObjectConditional]
 
@@ -134,3 +139,4 @@ class S3ConditionalRequests:
                 raise
 
     # snippet-end:[python.example_code.s3.CopyObjectConditional]
+# snippet-end:[python.example_code.s3.S3ConditionalRequests.wrapper]

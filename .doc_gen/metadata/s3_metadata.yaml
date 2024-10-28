@@ -294,6 +294,11 @@ s3_CopyObject:
               snippet_tags:
                 - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.CopyObject
+            - description: Copy an object using a conditional request.
+              genai: some
+              snippet_tags:
+                - python.example_code.s3.helper.S3ConditionalRequests
+                - python.example_code.s3.CopyObjectConditional
     Ruby:
       versions:
         - sdk_version: 3
@@ -872,6 +877,11 @@ s3_GetObject:
               snippet_tags:
                 - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.GetObject
+            - description: Get an object using a conditional request.
+              genai: some
+              snippet_tags:
+                - python.example_code.s3.helper.S3ConditionalRequests
+                - python.example_code.s3.GetObjectConditional
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1510,6 +1520,11 @@ s3_PutObject:
               snippet_tags:
                 - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.PutObject
+            - description: Upload an object using a conditional request.
+              genai: some
+              snippet_tags:
+                - python.example_code.s3.helper.S3ConditionalRequests
+                - python.example_code.s3.PutObjectConditional
     Rust:
       versions:
         - sdk_version: 1
@@ -3456,6 +3471,28 @@ s3_Scenario_DeleteAllObjects:
                 - javascriptv3/example_code/s3/scenarios/delete-all-objects.js
   services:
     s3: {DeleteObjects, ListObjectsV2}
+s3_Scenario_ConditionalRequests:
+  title: Make &S3; conditional requests using an &AWS; SDK.
+  title_abbrev: Make conditional requests
+  synopsis: add preconditions to &S3; requests.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3/scenarios/conditional_requests
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &S3; conditional requests.
+              genai: some
+              snippet_tags:
+                - python.example_code.s3.S3ConditionalRequests.scenario
+            - description: A wrapper class that defines the conditional request operations.
+              genai: some
+              snippet_tags:
+                - python.example_code.s3.S3ConditionalRequests.wrapper
+  services:
+    s3: {GetObject, PutObject, CopyObject}
 s3_Scenario_ExpressBasics:
   title: Learn the basics of Amazon S3 Express One Zone with an &AWS; SDK
   title_abbrev: Learn the basics of S3 Express One Zone
