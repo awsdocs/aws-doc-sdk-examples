@@ -1,11 +1,11 @@
 
-# Amazon S3 Object Lock Workflow for the SDK for Python (boto3)
+# Amazon S3 Conditional Requests Feature Scenario for the SDK for Python (boto3)
 
 ## Overview
 
-This example demonstrates how to use the AWS SDK for Python (boto3) to work with Amazon Simple Storage Service (Amazon S3) object locking features. The workflow shows how to create, update, view, and modify object locks, as well as how locked objects behave regarding requests to delete and overwrite.
+This example demonstrates how to use the AWS SDK for Python (boto3) to work with Amazon Simple Storage Service (Amazon S3) conditional request features. The scenario demonstrates how to add preconditions to S3 operations, and how those operations will succeed or fail based on the conditional requests.
 
-[Amazon S3 Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html) can help prevent Amazon S3 objects from being deleted or overwritten for a fixed amount of time or indefinitely. Object Lock can help meet regulatory requirements or protect against object changes or deletion.
+[Amazon S3 Conditional Requests](https://docs.aws.amazon.com/AmazonS3/latest/userguide/conditional-requests.html) are used to add preconditions to S3 read, copy, or write requests.
 
 ## ⚠ Important
 
@@ -24,25 +24,25 @@ To run these examples, you need:
 - Run `python pip install -r requirements.txt`
 - AWS credentials configured. For more information, see [Configuring the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
 
-### Scenarios
+### Scenario
 
-This example uses a workflow approach to demonstrate various aspects of S3 Object Locking. The workflow is divided into three stages:
+This example uses a feature scenario to demonstrate various aspects of S3 conditional requests. The scenario is divided into three stages:
 
-1. **Deploy**: Create buckets with different object locking configurations, populate buckets with objects, and set object lock and retention policies.
-2. **Demo**: Explore S3 locking features by listing objects, attempting to delete or overwrite locked objects, and viewing retention and legal hold settings.
-3. **Clean**: Remove object locks and retention periods, delete all objects and buckets.
+1. **Setup**: Create test buckets and objects.
+2. **Conditional Reads and Writes**: Explore S3 conditional requests by listing objects, attempting to read or write with conditional requests, and viewing request results.
+3. **Clean**: Delete all objects and buckets.
 
-#### Running the workflow
-To run this workflow, pull AWS tokens and run the command below:
+#### Running the scenario
+To run this feature scenario, run the command below from this directory:
 
-```bash
-python main.py
+```
+python scenario.py
 ```
 
 
 ## Additional resources
 
-- [Amazon S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html)
+- [Amazon S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/conditional-requests.html)
 - [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
 - [boto3 Amazon S3 reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html)
 
