@@ -17,7 +17,10 @@ func main() {
 	logger := log.New(os.Stdout, "", log.Lmsgprefix)
 	ctx := context.Background()
 
-	mic := NewMicProvider(logger)
+	mic, err := NewMicProvider(logger)
+	if err != nil {
+		log.Fatal("failed to initialize port audio:", err)
+	}
 
 	cp := aws.CredentialsProviderFunc(func(ctx context.Context) (aws.Credentials, error) {
 		return aws.Credentials{
@@ -65,7 +68,10 @@ func startMicrophone(ctx context.Context, mic *MicProvider, stream *transcribe.S
 				},
 			}
 
-			stream.Send(ctx, audioStream)
+			err := stream.Send(ctx, audioStream)
+			if err != nil {
+				log.Println("failed to send audio chunk: ", err)
+			}
 		}
 	}()
 }

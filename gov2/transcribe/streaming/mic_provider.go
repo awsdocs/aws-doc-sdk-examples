@@ -11,8 +11,11 @@ type MicProvider struct {
 	stream *portaudio.Stream
 }
 
-func NewMicProvider(log *log.Logger) *MicProvider {
-	portaudio.Initialize()
+func NewMicProvider(log *log.Logger) (*MicProvider, error) {
+	err := portaudio.Initialize()
+	if err != nil {
+		return nil, err
+	}
 
 	defaultBytesToRead := 2048
 
@@ -23,15 +26,18 @@ func NewMicProvider(log *log.Logger) *MicProvider {
 
 	stream, err := portaudio.OpenDefaultStream(inputChannels, 0, float64(samplingRate), len(intBuf), intBuf)
 	if err != nil {
-		log.Fatal("failed to initialize port audio:", err)
+		return nil, err
 	}
 
-	stream.Start()
+	err = stream.Start()
+	if err != nil {
+		return nil, err
+	}
 
 	return &MicProvider{
 		intBuf: intBuf,
 		stream: stream,
-	}
+	}, nil
 }
 
 func (mp *MicProvider) Read() []int16 {
