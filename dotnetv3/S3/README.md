@@ -40,7 +40,6 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [AbortMultipartUploads](AbortMPUExample/AbortMPU.cs#L6)
 - [CopyObject](CopyObjectExample/CopyObject.cs#L11)
 - [CreateBucket](S3_Basics/S3Bucket.cs#L12)
 - [DeleteBucket](S3_Basics/S3Bucket.cs#L266)
