@@ -109,7 +109,4 @@ public static class HelloCloudFormation
             return false;
         }
     }
-}
-
-
-// snippet-end:[CloudFormation.dotnetv3.CloudFormationActions.HelloCloudFormation]
+}// snippet-end:[CloudFormation.dotnetv3.CloudFormationActions.HelloCloudFormation]
