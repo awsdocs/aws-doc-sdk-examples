@@ -67,7 +67,7 @@ class S3ExpressBasics implements RunnableExample
         $uuid = uniqid();
 
         echo <<<INTRO
-Let's get started! First, please not that S3 Express One Zone works best when working within the AWS infrastructure,
+Let's get started! First, please note that S3 Express One Zone works best when working within the AWS infrastructure,
 specifically when working in the same Availability Zone. To see the best results in this example, and when you implement
 Directory buckets into your infrastructure, it is best to put your Compute resources in the same AZ as your Directory
 bucket.\n
