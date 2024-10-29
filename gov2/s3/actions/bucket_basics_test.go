@@ -8,17 +8,29 @@ package actions
 import (
 	"context"
 	"errors"
+	"reflect"
 	"testing"
 
 	"github.com/aws/aws-sdk-go-v2/service/s3"
+	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/s3/stubs"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/testtools"
 )
 
-func enterTest() (*testtools.AwsmStubber, *BucketBasics) {
+func enterTest() (context.Context, *testtools.AwsmStubber, *BucketBasics) {
 	stubber := testtools.NewStubber()
 	basics := &BucketBasics{S3Client: s3.NewFromConfig(*stubber.SdkConfig)}
-	return stubber, basics
+	return context.Background(), stubber, basics
+}
+
+func wrapErr(expectedErr error) (error, *testtools.StubError) {
+	return expectedErr, &testtools.StubError{Err: expectedErr}
+}
+
+func verifyErr(expectedErr error, actualErr error, t *testing.T) {
+	if reflect.TypeOf(expectedErr) != reflect.TypeOf(actualErr) {
+		t.Errorf("Expected error %T, got %T", expectedErr, actualErr)
+	}
 }
 
 func TestBucketBasics_CopyToBucket(t *testing.T) {
@@ -27,12 +39,13 @@ func TestBucketBasics_CopyToBucket(t *testing.T) {
 }
 
 func CopyToBucket(raiseErr *testtools.StubError, t *testing.T) {
-	stubber, basics := enterTest()
-	stubber.Add(stubs.StubCopyObject("amzn-s3-demo-bucket-source", "object-key", "amzn-s3-demo-bucket-dest", "object-key", raiseErr))
-	ctx := context.Background()
+	ctx, stubber, basics := enterTest()
+	defer testtools.ExitTest(stubber, t)
 
-	err := basics.CopyToBucket(ctx, "amzn-s3-demo-bucket-source", "amzn-s3-demo-bucket-dest", "object-key")
+	expectedErr, stubErr := wrapErr(&types.ObjectNotInActiveTierError{})
+	stubber.Add(stubs.StubCopyObject("amzn-s3-demo-bucket-source", "object-key", "amzn-s3-demo-bucket-dest", "object-key", stubErr))
+	stubber.Add(stubs.StubHeadObject("amzn-s3-demo-bucket-source", "object-key", raiseErr))
 
-	testtools.VerifyError(err, raiseErr, t)
-	testtools.ExitTest(stubber, t)
+	actualErr := basics.CopyToBucket(ctx, "amzn-s3-demo-bucket-source", "amzn-s3-demo-bucket-dest", "object-key")
+	verifyErr(expectedErr, actualErr, t)
 }

@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.workflows.s3.ObjectLock.S3Actions.complete]
+// snippet-start:[gov2.workflows.s3.ObjectLock.S3Actions.struct]
+
 import (
 	"bytes"
 	"context"
@@ -17,9 +20,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/aws/smithy-go"
 )
-
-// snippet-start:[gov2.workflows.s3.ObjectLock.S3Actions.complete]
-// snippet-start:[gov2.workflows.s3.ObjectLock.S3Actions.struct]
 
 // S3Actions wraps S3 service actions.
 type S3Actions struct {
@@ -397,7 +397,13 @@ func (actor S3Actions) DeleteObject(ctx context.Context, bucket string, key stri
 			}
 		}
 	} else {
-		deleted = true
+		err = s3.NewObjectNotExistsWaiter(actor.S3Client).Wait(
+			ctx, &s3.HeadObjectInput{Bucket: aws.String(bucket), Key: aws.String(key)}, time.Minute)
+		if err != nil {
+			log.Printf("Failed attempt to wait for object %s in bucket %s to be deleted.\n", key, bucket)
+		} else {
+			deleted = true
+		}
 	}
 	return deleted, err
 }
@@ -436,6 +442,16 @@ func (actor S3Actions) DeleteObjects(ctx context.Context, bucket string, objects
 				log.Printf("%s: %s\n", *outErr.Key, *outErr.Message)
 			}
 			err = fmt.Errorf("%s", *delOut.Errors[0].Message)
+		}
+	} else {
+		for _, delObjs := range delOut.Deleted {
+			err = s3.NewObjectNotExistsWaiter(actor.S3Client).Wait(
+				ctx, &s3.HeadObjectInput{Bucket: aws.String(bucket), Key: delObjs.Key}, time.Minute)
+			if err != nil {
+				log.Printf("Failed attempt to wait for object %s to be deleted.\n", *delObjs.Key)
+			} else {
+				log.Printf("Deleted %s.\n", *delObjs.Key)
+			}
 		}
 	}
 	return err

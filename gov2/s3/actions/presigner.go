@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.s3.Presigner.complete]
+// snippet-start:[gov2.Presigner.struct]
+
 import (
 	"context"
 	"log"
@@ -12,9 +15,6 @@ import (
 	v4 "github.com/aws/aws-sdk-go-v2/aws/signer/v4"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
-
-// snippet-start:[gov2.s3.Presigner.complete]
-// snippet-start:[gov2.Presigner.struct]
 
 // Presigner encapsulates the Amazon Simple Storage Service (Amazon S3) presign actions
 // used in the examples.
@@ -47,7 +47,7 @@ func (presigner Presigner) GetObject(
 
 // snippet-end:[gov2.s3.PresignGetObject]
 
-// snippet-start:[gov2.s3.PresignPubObject]
+// snippet-start:[gov2.s3.PresignPutObject]
 
 // PutObject makes a presigned request that can be used to put an object in a bucket.
 // The presigned request is valid for the specified number of seconds.
@@ -66,7 +66,7 @@ func (presigner Presigner) PutObject(
 	return request, err
 }
 
-// snippet-end:[gov2.s3.PresignPubObject]
+// snippet-end:[gov2.s3.PresignPutObject]
 
 // snippet-start:[gov2.s3.PresignDeleteObject]
 

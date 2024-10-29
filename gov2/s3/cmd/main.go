@@ -23,13 +23,16 @@ import (
 //   - `getstarted`    -  Runs the interactive get started scenario that shows you how to use
 //     Amazon Simple Storage Service (Amazon S3) actions to work with
 //     S3 buckets and objects.
+//   - `largeobjects` - Runs the interactive large objects scenario that shows you how to upload
+//     and download large objects by using a transfer manager.
 //   - `presigning` - 	Runs the interactive presigning scenario that shows you how to
 //     get presigned requests that contain temporary credentials
 //     and can be used to make requests from any HTTP client.
 func main() {
 	scenarioMap := map[string]func(ctx context.Context, sdkConfig aws.Config){
-		"getstarted": runGetStartedScenario,
-		"presigning": runPresigningScenario,
+		"getstarted":   runGetStartedScenario,
+		"largeobjects": runLargeObjectScenario,
+		"presigning":   runPresigningScenario,
 	}
 	choices := make([]string, len(scenarioMap))
 	choiceIndex := 0
@@ -59,6 +62,10 @@ func main() {
 
 func runGetStartedScenario(ctx context.Context, sdkConfig aws.Config) {
 	scenarios.RunGetStartedScenario(ctx, sdkConfig, demotools.NewQuestioner())
+}
+
+func runLargeObjectScenario(ctx context.Context, sdkConfig aws.Config) {
+	scenarios.RunLargeObjectScenario(ctx, sdkConfig, demotools.NewQuestioner())
 }
 
 func runPresigningScenario(ctx context.Context, sdkConfig aws.Config) {

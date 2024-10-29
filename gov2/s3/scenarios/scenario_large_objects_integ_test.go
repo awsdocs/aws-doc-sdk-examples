@@ -21,7 +21,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func TestGetStartedScenario_Integration(t *testing.T) {
+func TestLargeObjectScenario_Integration(t *testing.T) {
 	bucket := os.Getenv("S3_BUCKET_NAME_PREFIX")
 	if bucket == "" {
 		bucket = "amzn-s3-demo-bucket"
@@ -31,7 +31,7 @@ func TestGetStartedScenario_Integration(t *testing.T) {
 	outFile := "integ-test.out"
 	mockQuestioner := &demotools.MockQuestioner{
 		Answers: []string{
-			bucket, "../README.md", outFile, "test-folder", "", "y",
+			bucket, "", "", "y",
 		},
 	}
 
@@ -45,7 +45,7 @@ func TestGetStartedScenario_Integration(t *testing.T) {
 	var buf bytes.Buffer
 	log.SetOutput(&buf)
 
-	RunGetStartedScenario(ctx, sdkConfig, mockQuestioner)
+	RunLargeObjectScenario(ctx, sdkConfig, mockQuestioner)
 
 	_ = os.Remove(outFile)
 
