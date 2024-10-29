@@ -111,4 +111,5 @@ public static class HelloCloudFormation
     }
 }
 
+
 // snippet-end:[CloudFormation.dotnetv3.CloudFormationActions.HelloCloudFormation]
