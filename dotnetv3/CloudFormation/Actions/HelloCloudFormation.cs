@@ -83,13 +83,14 @@ public static class HelloCloudFormation
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("If you are usnig SSO, be sure to install" +
-                    " the AWSSDK.SSO and AWSSDK.SSOOIDC packages.");
+                                  " the AWSSDK.SSO and AWSSDK.SSOOIDC packages.");
             }
             else
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
             }
+
             return false;
         }
         catch (ArgumentNullException ex)
@@ -104,6 +105,7 @@ public static class HelloCloudFormation
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
             }
+
             return false;
         }
     }
