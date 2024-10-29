@@ -15,7 +15,7 @@ Resources:
               - "s3express:CreateSession"
             Resource: "*"
       Users:
-        - !Ref ExpressUser
+        - [!Ref ExpressUser, !Ref RegularUser]
 Outputs:
   RegularUser:
     Value: !Ref RegularUser
