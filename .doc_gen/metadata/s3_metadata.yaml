@@ -1189,19 +1189,6 @@ s3_DeleteBucketLifecycle:
                 - python.example_code.s3.DeleteBucketLifecycleConfiguration
   services:
     s3: {DeleteBucketLifecycle}
-s3_AbortMultipartUploads:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/S3
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - S3.dotnetv3.AbortMPUExample
-  services:
-    s3: {AbortMultipartUploads}
 s3_AbortMultipartUpload:
   languages:
     C++:

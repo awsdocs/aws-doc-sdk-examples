@@ -14,8 +14,8 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: |
-            5.0.x
             6.0.x
+            8.0.x
       - name: Checkout files
         uses: actions/checkout@v4
         with:
