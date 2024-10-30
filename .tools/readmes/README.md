@@ -9,15 +9,7 @@ This is an internal tool intended for use only by the AWS code examples team.
 
 ## Prerequisites
 
-You must have a recent version of Python installed to run this tool,
-and a recent version of pip (Python's package manager) to install the
-required packages.
-
-### Install packages
-
-We recommend a virtual environment. Create a virtual environment
-and install packages by running the following commands in the
-`.tools/readmes` folder:
+We recommend a virtual environment to run this tool.
 
 ```
 cd .tools/readmes
@@ -36,12 +28,14 @@ the commands might vary slightly. For example, on Windows, use `py` in place of
 
 ## Generate a README
 
+> These instructions assume you're running the commands from the `.tools/writeme`
+> directory, using the venv installed there.
+
 WRITEME creates content primarily from metadata you have already
 authored for the SOS project. After you have authored metadata and snippet tags
 for your examples, run the following command in the root folder of the repo:
 
 ```
-cd .tools/readmes # (if not already in the readme directory)
 python -m writeme --languages <language>:<version> --services <service>
 ```
 
