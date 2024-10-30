@@ -5,6 +5,7 @@ import logging
 import sys
 import os
 import uuid
+import time
 from boto3.resources.base import ServiceResource
 from boto3 import resource
 from boto3 import client
@@ -150,7 +151,7 @@ bucket.
             "Directory buckets behave in different ways from regular S3 buckets, which we will explore here."
         )
         print(
-            "We'll also create a normal bucket, put an object into the normal bucket, and copy it over to the Directory bucket."
+            "We'll also create a normal bucket, put an object_key into the normal bucket, and copy it over to the Directory bucket."
         )
         # Create a directory bucket. These are different from normal S3 buckets in subtle ways.
         bucket_prefix = q.ask("Enter a bucket name prefix that will be used for both buckets: ", q.non_empty)
@@ -168,6 +169,11 @@ bucket.
                           'Location' : { 'Name' : availability_zone['ZoneId'],
                                          'Type' :  'AvailabilityZone'}
                           }
+        q.ask("Press Enter to continue...")
+        print(
+            "Now, let's create the actual Directory bucket, as well as a regular bucket."
+        )
+        q.ask("Press Enter to continue...")
 
         self.create_bucket(self.s3_express_client, directory_bucket_name, configuration)
         print(f"Created directory bucket, '{directory_bucket_name}'")
@@ -176,25 +182,27 @@ bucket.
         print(f"Created regular bucket, '{regular_bucket_name}'")
         self.regular_bucket_name = regular_bucket_name
 
-        q.ask("Press Enter to continue...")
-        print(
-            "Now, let's create the actual Directory bucket, as well as a regular bucket."
-        )
-        q.ask("Press Enter to continue...")
         print("Great! Both buckets were created.")
         q.ask("Press Enter to continue...")
+
+        # 5. Create an object_key and copy it over.
         print("")
-        print("5. Create an object and copy it over.")
+        print("5. Create an object_key and copy it over.")
         print(
-            "We'll create a basic object consisting of some text and upload it to the normal bucket."
+            "We'll create a basic object_key consisting of some text and upload it to the normal bucket."
         )
         print(
-            "Next, we'll copy the object into the Directory bucket using the regular client."
+            "Next, we'll copy the object_key into the Directory bucket using the regular client."
         )
         print(
             "This works fine, because Copy operations are not restricted for Directory buckets."
         )
         q.ask("Press Enter to continue...")
+
+        bucket_object = "basic-text-object_key"
+        S3ExpressScenario.put_object(self.s3_regular_client, self.regular_bucket_name, bucket_object, "Look Ma, I'm a bucket!")
+        self.create_express_session()
+        self.copy_object(self.s3_express_client, self.regular_bucket_name, bucket_object, self.directory_bucket_name, bucket_object)
         print(
             "It worked! It's important to remember the user permissions when interacting with Directory buckets."
         )
@@ -205,22 +213,44 @@ bucket.
             "This allows for much faster connection speeds on every call. For single calls, this is low, but for many concurrent calls, this adds up to a lot of time saved."
         )
         q.ask("Press Enter to continue...")
+
+        # 6. Demonstrate performance difference.
         print("")
         print("6. Demonstrate performance difference.")
         print(
-            "Now, let's do a performance test. We'll download the same object from each bucket $downloads times and compare the total time needed. Note: the performance difference will be much more pronounced if this example is run in an EC2 instance in the same AZ as the bucket."
+            "Now, let's do a performance test. We'll download the same object_key from each bucket $downloads times and compare the total time needed. Note: the performance difference will be much more pronounced if this example is run in an EC2 instance in the same AZ as the bucket."
         )
+        downloads = 1000
+        print(f"The number of downloads of the same object_key for this example is set at {downloads}.")
+        if q.ask("Would you like to download a different number? (y/n) ", q.is_yesno):
+            max_downloads = 1000000
+            downloads = q.ask(f"Enter a number between 1 and {max_downloads} for the number of downloads: ", q.is_int, q.in_range(1, len(max_downloads)))
 
-        # $downloadChoice = testable_readline(
-        #     "If you would like to download each object $downloads times, press enter. Otherwise, enter a custom amount and press enter.");
+        # Download the object_key $downloads times from each bucket and time it to demonstrate the speed difference.
+        print("Downloading from the Directory bucket.")
+        directory_time_start = time.time_ns()
+        for index in range(downloads):
+            if index % 10 == 0:
+                print(f"Download {index} of {downloads}")
+            S3ExpressScenario.get_object(self.s3_express_client, self.directory_bucket_name, bucket_object)
+        directory_time_difference = time.time_ns() - directory_time_start
 
+        print("Downloading from the normal bucket.")
+        normal_time_start = time.time_ns()
+        for index in range(downloads):
+            if index % 10 == 0:
+                print(f"Download {index} of {downloads}")
+            S3ExpressScenario.get_object(self.s3_regular_client, self.regular_bucket_name, bucket_object)
+
+        normal_time_difference = time.time_ns() - normal_time_start
         print(
-            "The directory bucket took $directoryTimeDiff nanoseconds, while the normal bucket took $normalTimeDiff."
+            f"The directory bucket took {directory_time_difference} nanoseconds, while the normal bucket took {normal_time_difference}."
         )
-        # print("That's a difference of ".($normalTimeDiff - $directoryTimeDiff)." nanoseconds, or ".(
-        #     ($normalTimeDiff - $directoryTimeDiff) / 1000000000).
-        # " seconds.")
+        print(f"That's a difference of {normal_time_difference - directory_time_difference} nanoseconds, or")
+        print(f"{(normal_time_difference - directory_time_difference) / 1000000000} seconds.")
         q.ask("Press Enter to continue...")
+
+        # 7. Populate the buckets to show the lexicographical difference.
         print("")
         print("7. Populate the buckets to show the lexicographical difference.")
         print(
@@ -243,24 +273,46 @@ bucket.
             "Let's add a few more objects with layered directories as see how the output of ListObjects changes."
         )
         q.ask("Press Enter to continue...")
+
+        # Populate a few more files in each bucket so that we can use ListObjects and show the difference.
+        other_object = f"other/{bucket_object}"
+        alt_object = f"alt/{bucket_object}"
+        other_alt_object = f"other/alt/{bucket_object}"
+
+        S3ExpressScenario.put_object(self.s3_regular_client, self.regular_bucket_name, other_object, "")
+        S3ExpressScenario.put_object(self.s3_express_client, self.directory_bucket_name, other_object, "")
+
+        S3ExpressScenario.put_object(self.s3_regular_client, self.regular_bucket_name, alt_object, "")
+        S3ExpressScenario.put_object(self.s3_express_client, self.directory_bucket_name, alt_object, "")
+
+        S3ExpressScenario.put_object(self.s3_regular_client, self.regular_bucket_name, other_alt_object, "")
+        S3ExpressScenario.put_object(self.s3_express_client, self.directory_bucket_name, other_alt_object, "")
+
+        directory_bucket_objects = S3ExpressScenario.list_objects(self.s3_express_client, self.directory_bucket_name)
+        regular_bucket_objects = S3ExpressScenario.list_objects(self.s3_regular_client, self.regular_bucket_name)
+
         print("Directory bucket content")
-        # print($result['Key'].
-        # "")
+        for bucket_object in directory_bucket_objects:
+            print(f"   {bucket_object['Key']}")
+
         print("Normal bucket content")
-        # print($result['Key'].
-        # "")
+        for bucket_object in regular_bucket_objects:
+            print(f"   {bucket_object['Key']}")
+
         print(
-            'Notice how the normal bucket lists objects in lexicographical order, while the directory bucket does not. This is because the normal bucket considers the whole "key" to be the object identifies, while the directory bucket actually creates directories and uses the object "key" as a path to the object.'
+            'Notice how the normal bucket lists objects in lexicographical order, while the directory bucket does not.'
         )
+        print('This is because the normal bucket considers the whole "key" to be the object_key identifies, while the')
+        print('directory bucket actually creates directories and uses the object_key "key" as a path to the object_key.')
+
         q.ask("Press Enter to continue...")
         print("")
         print(
             "That's it for our tour of the basic operations for S3 Express One Zone."
         )
 
-        # $cleanUp = testable_readline(
-        #     "Would you like to delete all the resources created during this demo? Enter Y/y to delete all the resources.");
-        self.cleanup()
+        if q.ask("Would you like to delete all the resources created during this demo (y/n)? ", q.is_yesno):
+            self.cleanup()
 
     def cleanup(self):
         """
@@ -268,10 +320,12 @@ bucket.
         """
         if self.directory_bucket_name is not None:
             self.delete_bucket_and_objects(self.s3_express_client, self.directory_bucket_name)
+            print(f"Deleted directory bucket, '{self.directory_bucket_name}'")
             self.directory_bucket_name = None
 
         if self.regular_bucket_name  is not None:
             self.delete_bucket_and_objects(self.s3_regular_client, self.regular_bucket_name)
+            print(f"Deleted regular bucket, '{self.regular_bucket_name}'")
             self.regular_bucket_name = None
 
         if self.stack is not None:
@@ -332,7 +386,11 @@ bucket.
             for page in page_iterator:
                 if 'Contents' in page:
                     delete_keys = {'Objects': [{'Key': obj['Key']} for obj in page['Contents']]}
-                    s3_client.delete_objects(Bucket=bucket_name, Delete=delete_keys)
+                    response = s3_client.delete_objects(Bucket=bucket_name, Delete=delete_keys)
+                    if 'Errors' in response:
+                        for error in response['Errors']:
+                            logging.error("Couldn't delete object %s. Here's why: %s", error['Key'], error['Message'])
+
 
             s3_client.delete_bucket(Bucket=bucket_name)
         except ClientError as client_error:
@@ -341,6 +399,107 @@ bucket.
                 bucket_name,
                 client_error.response["Error"]["Message"]
             )
+
+    @staticmethod
+    def put_object(s3_client : client, bucket_name: str, object_key: str, content: str) -> None:
+        """
+        Puts an object into a bucket.
+        :param s3_client: The S3 client to use.
+        :param bucket_name: The name of the bucket.
+        :param object_key: The key of the object.
+        :param content: The content of the object.
+        """
+        try:
+            s3_client.put_object(Body=content, Bucket=bucket_name, Key=object_key)
+        except ClientError as client_error:
+            logging.error(
+                "Couldn't put the object %s into bucket %s. Here's why: %s",
+                object_key,
+                bucket_name,
+                client_error.response["Error"]["Message"]
+            )
+            raise
+
+
+    @staticmethod
+    def get_object(s3_client : client, bucket_name: str, object_key: str) -> None:
+        """
+        Gets an object from a bucket.
+        :param s3_client: The S3 client to use.
+        :param bucket_name: The name of the bucket.
+        :param object_key: The key of the object.
+        """
+        try:
+            s3_client.get_object(Bucket=bucket_name, Key=object_key)
+        except ClientError as client_error:
+            logging.error(
+                "Couldn't get the object %s from bucket %s. Here's why: %s",
+                object_key,
+                bucket_name,
+                client_error.response["Error"]["Message"]
+            )
+            raise
+
+    @staticmethod
+    def list_objects(s3_client : client, bucket :str ) -> list[str]:
+        """
+        Lists objects in a bucket.
+        :param s3_client: The S3 client to use.
+        :param bucket: The name of the bucket.
+        :return: The list of objects in the bucket.
+        """
+        try:
+            response = s3_client.list_objects_v2(Bucket=bucket)
+            return response.get("Contents", [])
+        except ClientError as client_error:
+            logging.error(
+                "Couldn't list objects in bucket %s. Here's why: %s",
+                bucket,
+                client_error.response["Error"]["Message"]
+            )
+            raise
+
+    def create_express_session(self) -> None:
+        """
+        Creates an express session.
+        """
+        try:
+            response = self.s3_express_client.create_session(Bucket=self.directory_bucket_name)
+        except ClientError as client_error:
+            logging.error(
+                "Couldn't create the express session for bucket %s. Here's why: %s",
+                self.directory_bucket_name,
+                client_error.response["Error"]["Message"],
+            )
+            raise
+
+
+    def copy_object(self, s3_client : client, source_bucket : str, source_key : str, destination_bucket :str,
+                    destination_key :str) -> None:
+        """
+        Copies an object from one bucket to another.
+        :param s3_client: The S3 client to use.
+        :param source_bucket: The source bucket.
+        :param source_key: The source key.
+        :param destination_bucket: The destination bucket.
+        :param destination_key: The destination key.
+        :return: None
+        """
+        try:
+            s3_client.copy_object(
+                CopySource={"Bucket": source_bucket, "Key": source_key},
+                Bucket=destination_bucket,
+                Key=destination_key,
+            )
+        except ClientError as client_error:
+            logging.error(
+                "Couldn't copy object %s from bucket %s to bucket %s. Here's why: %s",
+                source_key,
+                source_bucket,
+                destination_bucket,
+                client_error.response["Error"]["Message"],
+            )
+            raise
 
     def select_availability_zone_id(self, region :str) -> dict[str, any]:
         """
@@ -484,6 +643,12 @@ bucket.
 
 if __name__ == "__main__":
     s3_express_scenario = None
+    my_s3_client = client("s3")
+    # delete all directory buckets
+    bucket_list = my_s3_client.list_directory_buckets()
+    for bucket in bucket_list["Buckets"]:
+        print(f"Deleting bucket {bucket['Name']}")
+        S3ExpressScenario.delete_bucket_and_objects(my_s3_client, bucket["Name"])
     try:
         a_cloud_formation_resource = resource("cloudformation")
         an_ec2_client = client("ec2")
@@ -497,6 +662,10 @@ if __name__ == "__main__":
             s3_express_scenario.cleanup()
     except ParamValidationError as err:
         logging.exception("Parameter validation error in demo!")
+        if s3_express_scenario is not None:
+            s3_express_scenario.cleanup()
+    except TypeError as err:
+        logging.exception("Type error in demo!")
         if s3_express_scenario is not None:
             s3_express_scenario.cleanup()
 

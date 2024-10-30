@@ -18,14 +18,17 @@ Resources:
               - "s3express:PutObject"
               - "s3express:ListObjects"
               - "s3express:DeleteObjects"
+              - "s3express:DeleteObject"
               - "s3express:DeleteBucket"
+              - "s3:GetObject"
+              - "s3:CopyObject"
             Resource: "*"
       Users:
         - !Ref ExpressUser
   RegularPolicy:
     Type: AWS::IAM::Policy
     Properties:
-      PolicyName: AllowExpressOperations
+      PolicyName: AllowRegularOperations
       PolicyDocument:
         Statement:
           - Effect: Allow
@@ -35,6 +38,7 @@ Resources:
               - "s3:GetObject"
               - "S3:ListObjects"
               - "S3:DeleteObjects"
+              - "S3:DeleteObject"
               - "s3:ListBucket"
               - "s3:DeleteBucket"
             Resource: "*"
