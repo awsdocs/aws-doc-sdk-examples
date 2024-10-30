@@ -9,7 +9,6 @@ from boto3.resources.base import ServiceResource
 from boto3 import resource
 from boto3 import client
 from botocore.exceptions import ClientError, ParamValidationError
-from botocore.config import Config
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -171,8 +170,10 @@ bucket.
                           }
 
         self.create_bucket(self.s3_express_client, directory_bucket_name, configuration)
+        print(f"Created directory bucket, '{directory_bucket_name}'")
         self.directory_bucket_name = directory_bucket_name
         self.create_bucket(self.s3_regular_client, regular_bucket_name)
+        print(f"Created regular bucket, '{regular_bucket_name}'")
         self.regular_bucket_name = regular_bucket_name
 
         q.ask("Press Enter to continue...")
@@ -288,10 +289,10 @@ bucket.
         try:
             access_key = self.iam_client.create_access_key(UserName=user_name)
             return access_key["AccessKey"]
-        except ClientError as err:
+        except ClientError as client_error:
             logging.error(
                 "Couldn't create the access key. Here's why: %s",
-                err.response["Error"]["Message"],
+                client_error.response["Error"]["Message"],
             )
             raise
 
@@ -309,9 +310,11 @@ bucket.
                 params["CreateBucketConfiguration"] = bucket_configuration
 
             s3_client.create_bucket(**params)
-        except ClientError as err:
+        except ClientError as client_error:
             logging.error(
-                "Couldn't create the bucket. Here's why: %s", err.response["Error"]["Message"]
+                "Couldn't create the bucket %s. Here's why: %s",
+                bucket_name,
+                client_error.response["Error"]["Message"]
             )
             raise
 
@@ -332,9 +335,11 @@ bucket.
                     s3_client.delete_objects(Bucket=bucket_name, Delete=delete_keys)
 
             s3_client.delete_bucket(Bucket=bucket_name)
-        except ClientError as err:
+        except ClientError as client_error:
             logging.error(
-                "Couldn't delete the bucket. Here's why: %s", err.response["Error"]["Message"]
+                "Couldn't delete the bucket %s. Here's why: %s",
+                bucket_name,
+                client_error.response["Error"]["Message"]
             )
 
     def select_availability_zone_id(self, region :str) -> dict[str, any]:
@@ -354,10 +359,10 @@ bucket.
             zone_names = [zone["ZoneName"] for zone in availability_zones]
             index = q.choose("Select an availability zone: ", zone_names)
             return availability_zones[index]
-        except  ClientError as err:
+        except  ClientError as client_error:
             logging.error(
                 "Couldn't describe availability zones. Here's why: %s",
-                err.response["Error"]["Message"],
+                client_error.response["Error"]["Message"],
             )
             raise
 
@@ -428,10 +433,10 @@ bucket.
             waiter.wait(VpcIds=[self.vpc_id])
             print(f"Created vpc {self.vpc_id}")
 
-        except ClientError as err:
+        except ClientError as client_error:
             logging.error(
                 "Couldn't create the vpc. Here's why: %s",
-                err.response["Error"]["Message"],
+                client_error.response["Error"]["Message"],
             )
             raise
         try:
@@ -445,10 +450,10 @@ bucket.
             self.vcp_endpoint_id = response["VpcEndpoint"]["VpcEndpointId"]
             print(f"Created vpc endpoint {self.vcp_endpoint_id}")
 
-        except ClientError as err:
+        except ClientError as client_error:
             logging.error(
                 "Couldn't create the vpc endpoint. Here's why: %s",
-                err.response["Error"]["Message"],
+                client_error.response["Error"]["Message"],
             )
             raise
 
@@ -459,22 +464,22 @@ bucket.
                 self.ec2_client.delete_vpc_endpoints(VpcEndpointIds=[self.vcp_endpoint_id])
                 print(f"Deleted vpc endpoint {self.vcp_endpoint_id}.")
                 self.vcp_endpoint_id = None
-            except ClientError as err:
+            except ClientError as client_error:
                 logging.error(
                     "Couldn't delete the vpc endpoint %s. Here's why: %s",
                     self.vcp_endpoint_id,
-                    err.response["Error"]["Message"],
+                    client_error.response["Error"]["Message"],
                 )
         if self.vpc_id is not None:
             try:
                 self.ec2_client.delete_vpc(VpcId=self.vpc_id)
                 print(f"Deleted vpc {self.vpc_id}")
                 self.vpc_id = None
-            except ClientError as err:
+            except ClientError as client_error:
                 logging.error(
                     "Couldn't delete the vpc %s. Here's why: %s",
                     self.vpc_id,
-                    err.response["Error"]["Message"],
+                    client_error.response["Error"]["Message"],
                 )
 
 if __name__ == "__main__":

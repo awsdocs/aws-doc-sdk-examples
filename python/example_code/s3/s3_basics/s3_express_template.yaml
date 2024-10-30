@@ -13,9 +13,33 @@ Resources:
             Action:
               - "s3express:CreateBucket"
               - "s3express:CreateSession"
+              - "s3express:CopyObject"
+              - "s3express:GetObject"
+              - "s3express:PutObject"
+              - "s3express:ListObjects"
+              - "s3express:DeleteObjects"
+              - "s3express:DeleteBucket"
             Resource: "*"
       Users:
-        - [!Ref ExpressUser, !Ref RegularUser]
+        - !Ref ExpressUser
+  RegularPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: AllowExpressOperations
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action:
+              - "s3:CreateBucket"
+              - "s3:PutObject"
+              - "s3:GetObject"
+              - "S3:ListObjects"
+              - "S3:DeleteObjects"
+              - "s3:ListBucket"
+              - "s3:DeleteBucket"
+            Resource: "*"
+      Users:
+        - !Ref RegularUser
 Outputs:
   RegularUser:
     Value: !Ref RegularUser
