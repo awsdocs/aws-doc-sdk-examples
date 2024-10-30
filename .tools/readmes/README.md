@@ -20,10 +20,14 @@ and install packages by running the following commands in the
 `.tools/readmes` folder:
 
 ```
+cd .tools/readmes
 python -m venv .venv
-.venv\Scripts\activate # Windows
-source .venv/bin/activate # *nix
-python -m pip install -r requirements.txt
+
+# Windows
+.venv\Scripts\activate 
+
+# Linux or MacOS
+source .venv/bin/activate 
 ```
 
 Depending on how you have Python installed and on your operating system,
@@ -37,7 +41,8 @@ authored for the SOS project. After you have authored metadata and snippet tags
 for your examples, run the following command in the root folder of the repo:
 
 ```
-python .tools/readmes/writeme.py --languages <language>:<version> --services <service>
+cd .tools/readmes # (if not already in the readme directory)
+python -m writeme --languages <language>:<version> --services <service>
 ```
 
 WRITEME reads metadata and config data and generates READMEs in the service
@@ -46,7 +51,7 @@ folder for the specified languages, versions, and services.
 For example, to generate an S3 README for Python:
 
 ```
-python .tools/readmes/writeme.py --languages Python:3 --services s3
+python -m writeme --languages Python:3 --services s3
 ```
 
 This creates a README.md file in the `python/example_code/s3` folder.
@@ -65,7 +70,7 @@ This creates a README.md file in the `python/example_code/s3` folder.
 You can get inline usage info by using the `-h` flag:
 
 ```
-python .tools/readmes/writeme.py -h
+python -m writeme -h
 ```
 
 ### Configuration
@@ -129,7 +134,7 @@ This creates the README.md files in `python/example_code/s3` and other folders.
 To build all READMEs for Rust:
 
 ```
-$ python .tools/readmes/writeme.py --languages Rust:1
+$ python -m writeme --languages Rust:1
 INFO:root:Dry run, no changes will be made.
 DEBUG:root:Rendering Rust:1:acm
 DEBUG:root:Rendering Rust:1:api-gateway
@@ -146,5 +151,5 @@ and complete folder override as the value. See dotnetv3 for an example.
 And yes, building all readmes for all languages after changing metadata or templates is now as easy as
 
 ```
-python .tools/readmes/writeme.py
+python -m writeme
 ```
