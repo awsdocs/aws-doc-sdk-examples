@@ -43,6 +43,9 @@ class Scanner:
         self.doc_gen.process_metadata(
             self.doc_gen.root / ".doc_gen" / "metadata" / "cross_metadata.yaml"
         )
+        self.doc_gen.process_metadata(
+                    self.doc_gen.root / ".doc_gen" / "metadata" / "tributary-lite_metadata.yaml"
+                )
 
     def _build_examples(self):
         self.examples = defaultdict(list)
