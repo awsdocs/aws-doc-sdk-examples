@@ -73,7 +73,7 @@ This example is implemented in the following languages:
 
 * [Java](../../javav2/example_code/scheduler/README.md)
 * [Python](../../python/example_code/scheduler/README.md)
-* [.NET](../../dotnetv3/EventBridge Scheduler/README.md)
+* [.NET](<../../dotnetv3/EventBridge Scheduler/README.md>)
 
 ## Additional resources
 
