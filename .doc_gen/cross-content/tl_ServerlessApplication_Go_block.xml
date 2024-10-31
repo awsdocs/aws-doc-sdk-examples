@@ -5,10 +5,10 @@
 ]>
 <block>
     <para>
-      Shows how to build and load test a serverless application with &ABP; backed by four &LAM; functions and an &DDB; table for storage using the .NET SDK.
+      Shows how to build and load test a serverless application with &ABP; backed by four &LAM; functions and a &DDB; table for storage using the Go SDK.
     </para>
      <para>
         For complete source code and instructions on how to set up and run, see the full example on
-        <ulink url="https://github.com/aws-samples/serverless-dotnet-demo">GitHub</ulink>.
+        <ulink url="https://github.com/aws-samples/serverless-go-demo">GitHub</ulink>.
     </para>
 </block>
