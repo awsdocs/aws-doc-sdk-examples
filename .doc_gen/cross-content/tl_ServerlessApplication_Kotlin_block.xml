@@ -5,7 +5,7 @@
 ]>
 <block>
     <para>
-      Shows how to build and load test a serverless application with &ABP; backed by four &LAM; functions and a &DDB; table for storage using the Kotlin SDK.
+      Shows how to build and load test a serverless application using &ABP; with &LAM; and &DDB; using the Kotlin SDK.
     </para>
      <para>
         For complete source code and instructions on how to set up and run, see the full example on
