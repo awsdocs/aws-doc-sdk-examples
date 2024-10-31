@@ -1,13 +1,13 @@
 # zexi 0.4.0
 tributary-lite_serverless-application:
-  title: Build and test a serverless application using &ABP;, &LAM; functions, and &DDB;
-  title_abbrev: Serverless application
-  synopsis: build and load test a serverless application with &ABP; backed by four &LAM; functions and an &DDB; table for storage
-  category: Related Examples
+  title: Build and test a serverless application using &ABP; with &LAM; and &DDB;
+  title_abbrev: Build and test a serverless application
+  synopsis: build and load test a serverless application with &ABP; backed by four &LAM; functions and a &DDB; table for storage
+  category: Community Examples
   languages:
     .NET:
       versions:
-        - sdk_version: 1
+        - sdk_version: 3
           block_content: tl_ServerlessApplication_DotNet_block.xml
     Rust:
       versions:
