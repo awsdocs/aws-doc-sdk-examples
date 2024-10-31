@@ -2,7 +2,7 @@
 tributary-lite_serverless-application:
   title: Build and test a serverless application using &ABP; with &LAM; and &DDB;
   title_abbrev: Build and test a serverless application
-  synopsis: build and load test a serverless application with &ABP; backed by four &LAM; functions and a &DDB; table for storage
+  synopsis: build and load test a serverless application using &ABP; with &LAM; and &DDB;
   category: Community Examples
   languages:
     .NET:
