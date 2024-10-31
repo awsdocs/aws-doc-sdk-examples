@@ -9,6 +9,18 @@ tributary-lite_serverless-application:
       versions:
         - sdk_version: 3
           block_content: tl_ServerlessApplication_DotNet_block.xml
+    Go:
+      versions:
+        - sdk_version: 2
+          block_content: tl_ServerlessApplication_Go_block.xml
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: tl_ServerlessApplication_Java_block.xml
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: tl_ServerlessApplication_Kotlin_block.xml
     Rust:
       versions:
         - sdk_version: 1
