@@ -1,0 +1,8 @@
+{
+  "name": "@aws-doc-examples/wkflw-pools-triggers",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "description": ""
+}
