@@ -5,7 +5,7 @@
 ]>
 <block>
     <para>
-      Shows how to build and load test a serverless application that consists of an &ABP; with &LAM; and &DDB; using the .NET SDK.
+      Shows how to build and test a serverless application that consists of an &ABP; with &LAM; and &DDB; using the .NET SDK.
     </para>
      <para>
         For complete source code and instructions on how to set up and run, see the full example on
