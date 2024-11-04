@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.iam.UserWrapper.complete]
+// snippet-start:[gov2.iam.UserWrapper.struct]
+
 import (
 	"context"
 	"encoding/json"
@@ -14,9 +17,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/iam/types"
 	"github.com/aws/smithy-go"
 )
-
-// snippet-start:[gov2.iam.UserWrapper.complete]
-// snippet-start:[gov2.iam.UserWrapper.struct]
 
 // UserWrapper encapsulates user actions used in the examples.
 // It contains an IAM service client that is used to perform user actions.

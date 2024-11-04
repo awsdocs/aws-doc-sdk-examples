@@ -794,9 +794,6 @@ lambda_Scenario_GettingStartedFunctions:
             - description: Create a struct that wraps individual &LAM; actions.
               snippet_tags:
                 - gov2.lambda.FunctionWrapper.complete
-            - description: Create a struct that implements functions to help run the scenario.
-              snippet_tags:
-                - gov2.lambda.GetStartedFunctions_Helper
             - description: Define a &LAM; handler that increments a number.
               snippet_tags:
                 - gov2.lambda.handlers.increment

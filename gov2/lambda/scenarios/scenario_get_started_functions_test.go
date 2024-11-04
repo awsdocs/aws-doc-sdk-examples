@@ -86,7 +86,7 @@ func (scenTest *GetStartedFunctionsScenarioTest) SetupDataAndStubs() []testtools
 
 	// CreateFunction
 	stubList = append(stubList, stubs.StubCreateFunction(funcName, codeBytes, roleArn,
-		fmt.Sprintf("%v.lambda_handler", funcName), true, lambdatypes.RuntimePython38,
+		fmt.Sprintf("%v.lambda_handler", funcName), true, lambdatypes.RuntimePython39,
 		lambdatypes.StateActive, nil))
 	stubList = append(stubList, stubs.StubGetFunction(funcName, lambdatypes.StateActive,
 		lambdatypes.LastUpdateStatusSuccessful, nil))

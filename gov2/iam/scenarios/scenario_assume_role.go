@@ -3,6 +3,8 @@
 
 package scenarios
 
+// snippet-start:[gov2.iam.Scenario_AssumeRole]
+
 import (
 	"context"
 	"errors"
@@ -23,32 +25,6 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/iam/actions"
 )
-
-// IScenarioHelper abstracts input and wait functions from a scenario so that they
-// can be mocked for unit testing.
-type IScenarioHelper interface {
-	GetName() string
-	Pause(secs int)
-}
-
-const rMax = 100000
-
-type ScenarioHelper struct {
-	Prefix string
-	Random *rand.Rand
-}
-
-// GetName returns a unique name formed of a prefix and a random number.
-func (helper *ScenarioHelper) GetName() string {
-	return fmt.Sprintf("%v%v", helper.Prefix, helper.Random.Intn(rMax))
-}
-
-// Pause waits for the specified number of seconds.
-func (helper ScenarioHelper) Pause(secs int) {
-	time.Sleep(time.Duration(secs) * time.Second)
-}
-
-// snippet-start:[gov2.iam.Scenario_AssumeRole]
 
 // AssumeRoleScenario shows you how to use the AWS Identity and Access Management (IAM)
 // service to perform the following actions:
@@ -340,6 +316,30 @@ func (scenario AssumeRoleScenario) Cleanup(ctx context.Context, user *types.User
 		log.Println(strings.Repeat("-", 88))
 	}
 
+}
+
+// IScenarioHelper abstracts input and wait functions from a scenario so that they
+// can be mocked for unit testing.
+type IScenarioHelper interface {
+	GetName() string
+	Pause(secs int)
+}
+
+const rMax = 100000
+
+type ScenarioHelper struct {
+	Prefix string
+	Random *rand.Rand
+}
+
+// GetName returns a unique name formed of a prefix and a random number.
+func (helper *ScenarioHelper) GetName() string {
+	return fmt.Sprintf("%v%v", helper.Prefix, helper.Random.Intn(rMax))
+}
+
+// Pause waits for the specified number of seconds.
+func (helper ScenarioHelper) Pause(secs int) {
+	time.Sleep(time.Duration(secs) * time.Second)
 }
 
 // snippet-end:[gov2.iam.Scenario_AssumeRole]

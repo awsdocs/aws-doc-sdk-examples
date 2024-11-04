@@ -3,6 +3,8 @@
 
 package workflows
 
+// snippet-start:[gov2.workflows.PoolsAndTriggers.ActivityLog]
+
 import (
 	"context"
 	"errors"
@@ -15,8 +17,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider/types"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 )
-
-// snippet-start:[gov2.workflows.PoolsAndTriggers.ActivityLog]
 
 // ActivityLog separates the steps of this scenario into individual functions so that
 // they are simpler to read and understand.

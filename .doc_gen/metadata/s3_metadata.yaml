@@ -2742,6 +2742,7 @@ s3_Scenario_PresignedUrl:
             - description: Run an interactive example that generates and uses presigned URLs to upload, download, and delete
                 an S3 object.
               snippet_tags:
+                - gov2.s3.Scenario_Presigning.imports
                 - gov2.s3.Scenario_Presigning
             - description: Define an HTTP request wrapper used by the example to make HTTP requests.
               snippet_tags:

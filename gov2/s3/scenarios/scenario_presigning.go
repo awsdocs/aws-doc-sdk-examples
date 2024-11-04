@@ -3,7 +3,7 @@
 
 package scenarios
 
-// snippet-start:[gov2.s3.IHttpRequester.helper]
+// snippet-start:[gov2.s3.Scenario_Presigning.imports]
 
 import (
 	"bytes"
@@ -20,6 +20,9 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/s3/actions"
 )
+
+// snippet-end:[gov2.s3.Scenario_Presigning.imports]
+// snippet-start:[gov2.s3.IHttpRequester.helper]
 
 // IHttpRequester abstracts HTTP requests into an interface so it can be mocked during
 // unit testing.

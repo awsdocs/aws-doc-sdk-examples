@@ -3,6 +3,8 @@
 
 package scenarios
 
+// snippet-start:[gov2.bedrock-runtime.Scenario_InvokeModels]
+
 import (
 	"context"
 	"encoding/base64"
@@ -19,8 +21,6 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 )
 
-// snippet-start:[gov2.bedrock-runtime.Scenario_InvokeModels]
-
 // InvokeModelsScenario demonstrates how to use the Amazon Bedrock Runtime client
 // to invoke various foundation models for text and image generation
 //
@@ -28,7 +28,7 @@ import (
 // 2. Generate text with AI21 Labs Jurassic-2
 // 3. Generate text with Meta Llama 2 Chat
 // 4. Generate text and asynchronously process the response stream with Anthropic Claude 2
-// 5. Generate and image with the Amazon Titan image generation model
+// 5. Generate an image with the Amazon Titan image generation model
 // 6. Generate text with Amazon Titan Text G1 Express model
 type InvokeModelsScenario struct {
 	sdkConfig             aws.Config
