@@ -7,14 +7,18 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "jest",
+    "test": "vitest run **/*.unit.test.ts",
     "cdk": "cdk"
   },
   "devDependencies": {
+    "@aws-sdk/client-dynamodb": "^3.682.0",
+    "@aws-sdk/lib-dynamodb": "^3.685.0",
+    "@types/aws-lambda": "^8.10.145",
     "@types/node": "22.5.4",
     "aws-cdk": "2.158.0",
     "ts-node": "^10.9.2",
-    "typescript": "~5.6.2"
+    "typescript": "~5.6.2",
+    "vitest": "^2.1.4"
   },
   "dependencies": {
     "aws-cdk-lib": "2.158.0",
