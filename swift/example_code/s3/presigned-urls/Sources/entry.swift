@@ -37,8 +37,9 @@ struct ExampleCommand: ParsableCommand {
     static var configuration = CommandConfiguration(
         commandName: "presigned",
         abstract: """
-        Transfer a file up or down between the local device and an Amazon S3
-        URI.
+        This example shows how to use presigned requests when transferring files
+        using Amazon Simple Storage Service (Amazon S3). In addition, you can
+        optionally use a flag on the command line to use multi-part uploads.
         """,
         discussion: """
         """
