@@ -95,7 +95,7 @@ struct ExampleCommand: ParsableCommand {
         } catch {
             throw TransferError.signingError
         }
-        // snippet-start:[swift.s3.presigned.presign-PutObject]
+        // snippet-end:[swift.s3.presigned.presign-PutObject]
 
         // Send the HTTP request and upload the file to Amazon S3.
         
@@ -294,7 +294,7 @@ struct ExampleCommand: ParsableCommand {
             return S3ClientTypes.CompletedPart(eTag: eTag, partNumber: partNumber)
         }
     }
-    // snippet-start:[swift.s3.presigned.presign-upload-part]
+    // snippet-end:[swift.s3.presigned.presign-upload-part]
 
     // MARK: Support
     
