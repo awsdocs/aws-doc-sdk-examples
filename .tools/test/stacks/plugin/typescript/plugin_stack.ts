@@ -24,7 +24,7 @@ class PluginStack extends cdk.Stack {
   private adminAccountId: string;
   private batchMemory: string;
   private batchVcpus: string;
-  private batchStorage: string;
+  private batchStorage: number;
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -44,7 +44,8 @@ class PluginStack extends cdk.Stack {
       // https://docs.aws.amazon.com/batch/latest/APIReference/API_ResourceRequirement.html
       this.batchMemory = acctConfig[`${toolName}`]?.memory ?? "16384"; // MiB
       this.batchVcpus = acctConfig[`${toolName}`]?.vcpus ?? "4"; // CPUs
-      this.batchStorage = acctConfig[`${toolName}`]?.storage ?? "20"; // GiB
+      const batchStorage = Number(acctConfig[`${toolName}`]?.storage ?? undefined);
+      this.batchStorage = isNaN(batchStorage) ? 20 : batchStorage; // GiB
     }
 
     const [jobDefinition, jobQueue] = this.initBatchFargate();
@@ -141,7 +142,7 @@ class PluginStack extends cdk.Stack {
           },
         ],
         ephemeralStorage: {
-          sizeInGib: this.batchStorage,
+          sizeInGiB: this.batchStorage,
         },
         environment: variableConfigJson,
       },
