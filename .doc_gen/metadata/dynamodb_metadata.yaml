@@ -394,6 +394,8 @@ dynamodb_BatchWriteItem:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.BatchWriteItem
+            - description: Define a Movie struct that is used in this example.
+              snippet_tags:
                 - gov2.dynamodb.Movie.struct
     Java:
       versions:
@@ -643,6 +645,8 @@ dynamodb_PutItem:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.PutItem
+            - description: Define a Movie struct that is used in this example.
+              snippet_tags:
                 - gov2.dynamodb.Movie.struct
     Kotlin:
       versions:
@@ -780,6 +784,8 @@ dynamodb_GetItem:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.GetItem
+            - description: Define a Movie struct that is used in this example.
+              snippet_tags:
                 - gov2.dynamodb.Movie.struct
     Kotlin:
       versions:
@@ -908,6 +914,8 @@ dynamodb_UpdateItem:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.UpdateItem
+            - description: Define a Movie struct that is used in this example.
+              snippet_tags:
                 - gov2.dynamodb.Movie.struct
     Kotlin:
       versions:
@@ -1024,6 +1032,8 @@ dynamodb_DeleteItem:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.DeleteItem
+            - description: Define a Movie struct that is used in this example.
+              snippet_tags:
                 - gov2.dynamodb.Movie.struct
     Kotlin:
       versions:
@@ -1309,6 +1319,8 @@ dynamodb_Query:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.Query
+            - description: Define a Movie struct that is used in this example.
+              snippet_tags:
                 - gov2.dynamodb.Movie.struct
     Kotlin:
       versions:
@@ -1448,6 +1460,8 @@ dynamodb_Scan:
               snippet_tags:
                 - gov2.dynamodb.TableBasics.struct
                 - gov2.dynamodb.Scan
+            - description: Define a Movie struct that is used in this example.
+              snippet_tags:
                 - gov2.dynamodb.Movie.struct
     Kotlin:
       versions:
@@ -1578,6 +1592,9 @@ dynamodb_ExecuteStatement:
         - sdk_version: 2
           github: gov2/dynamodb
           excerpts:
+            - description: Define a function receiver struct for the example.
+              snippet_tags:
+                - gov2.dynamodb.PartiQLRunner.struct
             - description: Use an INSERT statement to add an item.
               snippet_tags:
                 - gov2.dynamodb.ExecuteStatement.Insert
@@ -1699,6 +1716,9 @@ dynamodb_BatchExecuteStatement:
         - sdk_version: 2
           github: gov2/dynamodb
           excerpts:
+            - description: Define a function receiver struct for the example.
+              snippet_tags:
+                - gov2.dynamodb.PartiQLRunner.struct
             - description: Use batches of INSERT statements to add items.
               snippet_tags:
                 - gov2.dynamodb.BatchExecuteStatement.Insert

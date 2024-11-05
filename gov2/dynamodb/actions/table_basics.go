@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.dynamodb.TableBasics.complete]
+// snippet-start:[gov2.dynamodb.TableBasics.struct]
+
 import (
 	"context"
 	"errors"
@@ -15,9 +18,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 )
-
-// snippet-start:[gov2.dynamodb.TableBasics.complete]
-// snippet-start:[gov2.dynamodb.TableBasics.struct]
 
 // TableBasics encapsulates the Amazon DynamoDB service actions used in the examples.
 // It contains a DynamoDB service client that is used to act on the specified table.

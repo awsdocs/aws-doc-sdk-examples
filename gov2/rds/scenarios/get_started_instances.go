@@ -3,6 +3,8 @@
 
 package scenarios
 
+// snippet-start:[gov2.rds.Scenario_GetStartedInstances]
+
 import (
 	"context"
 	"fmt"
@@ -19,26 +21,6 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/rds/actions"
 	"github.com/google/uuid"
 )
-
-// IScenarioHelper abstracts the function from a scenario so that it
-// can be mocked for unit testing.
-type IScenarioHelper interface {
-	Pause(secs int)
-	UniqueId() string
-}
-type ScenarioHelper struct{}
-
-// Pause waits for the specified number of seconds.
-func (helper ScenarioHelper) Pause(secs int) {
-	time.Sleep(time.Duration(secs) * time.Second)
-}
-
-// UniqueId returns a new UUID.
-func (helper ScenarioHelper) UniqueId() string {
-	return uuid.New().String()
-}
-
-// snippet-start:[gov2.rds.Scenario_GetStartedInstances]
 
 // GetStartedInstances is an interactive example that shows you how to use the AWS SDK for Go
 // with Amazon Relation Database Service (Amazon RDS) to do the following:
@@ -337,6 +319,24 @@ func (scenario GetStartedInstances) Cleanup(
 			panic(err)
 		}
 	}
+}
+
+// IScenarioHelper abstracts the function from a scenario so that it
+// can be mocked for unit testing.
+type IScenarioHelper interface {
+	Pause(secs int)
+	UniqueId() string
+}
+type ScenarioHelper struct{}
+
+// Pause waits for the specified number of seconds.
+func (helper ScenarioHelper) Pause(secs int) {
+	time.Sleep(time.Duration(secs) * time.Second)
+}
+
+// UniqueId returns a new UUID.
+func (helper ScenarioHelper) UniqueId() string {
+	return uuid.New().String()
 }
 
 // snippet-end:[gov2.rds.Scenario_GetStartedInstances]

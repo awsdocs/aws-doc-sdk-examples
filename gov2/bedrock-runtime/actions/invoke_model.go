@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.bedrock-runtime.InvokeModelWrapper.complete]
+// snippet-start:[gov2.bedrock-runtime.InvokeModelWrapper.struct]
+
 import (
 	"context"
 	"encoding/json"
@@ -12,9 +15,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime"
 )
-
-// snippet-start:[gov2.bedrock-runtime.InvokeModelWrapper.complete]
-// snippet-start:[gov2.bedrock-runtime.InvokeModelWrapper.struct]
 
 // InvokeModelWrapper encapsulates Amazon Bedrock actions used in the examples.
 // It contains a Bedrock Runtime client that is used to invoke foundation models.
