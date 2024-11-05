@@ -2662,18 +2662,6 @@ iam_DetachUserPolicy:
                 - ruby.iam.DetachUserPolicy
   services:
     iam: {DetachUserPolicy}
-iam_PutGroupPolicy:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/IAM
-          excerpts:
-            - description:
-              snippet_tags:
-                - IAM.dotnetv3.PutGroupPolicy
-  services:
-    iam: {PutGroupPolicy}
 iam_PutUserPolicy:
   languages:
     Go:

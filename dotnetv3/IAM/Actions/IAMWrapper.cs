@@ -19,26 +19,6 @@ public class IAMWrapper
         _IAMService = IAMService;
     }
 
-    // snippet-start:[IAM.dotnetv3.AddUserToGroup]
-    /// <summary>
-    /// Add an existing IAM user to an existing IAM group.
-    /// </summary>
-    /// <param name="userName">The username of the user to add.</param>
-    /// <param name="groupName">The name of the group to add the user to.</param>
-    /// <returns>A Boolean value indicating the success of the action.</returns>
-    public async Task<bool> AddUserToGroupAsync(string userName, string groupName)
-    {
-        var response = await _IAMService.AddUserToGroupAsync(new AddUserToGroupRequest
-        {
-            GroupName = groupName,
-            UserName = userName,
-        });
-
-        return response.HttpStatusCode == HttpStatusCode.OK;
-    }
-
-    // snippet-end:[IAM.dotnetv3.AddUserToGroup]
-
     // snippet-start:[IAM.dotnetv3.AttachRolePolicy]
     /// <summary>
     /// Attach an IAM policy to a role.
@@ -78,20 +58,6 @@ public class IAMWrapper
     }
 
     // snippet-end:[IAM.dotnetv3.CreateAccessKey]
-
-    // snippet-start:[IAM.dotnetv3.CreateGroup]
-    /// <summary>
-    /// Create an IAM group.
-    /// </summary>
-    /// <param name="groupName">The name to give the IAM group.</param>
-    /// <returns>The IAM group that was created.</returns>
-    public async Task<Group> CreateGroupAsync(string groupName)
-    {
-        var response = await _IAMService.CreateGroupAsync(new CreateGroupRequest { GroupName = groupName });
-        return response.Group;
-    }
-
-    // snippet-end:[IAM.dotnetv3.CreateGroup]
 
     // snippet-start:[IAM.dotnetv3.CreatePolicy]
     /// <summary>
@@ -190,42 +156,6 @@ public class IAMWrapper
     }
 
     // snippet-end:[IAM.dotnetv3.DeleteAccessKey]
-
-    // snippet-start:[IAM.dotnetv3.DeleteGroup]
-    /// <summary>
-    /// Delete an IAM group.
-    /// </summary>
-    /// <param name="groupName">The name of the IAM group to delete.</param>
-    /// <returns>A Boolean value indicating the success of the action.</returns>
-    public async Task<bool> DeleteGroupAsync(string groupName)
-    {
-        var response = await _IAMService.DeleteGroupAsync(new DeleteGroupRequest { GroupName = groupName });
-        return response.HttpStatusCode == HttpStatusCode.OK;
-    }
-
-    // snippet-end:[IAM.dotnetv3.DeleteGroup]
-
-    // snippet-start:[IAM.dotnetv3.DeleteGroupPolicy]
-    /// <summary>
-    /// Delete an IAM policy associated with an IAM group.
-    /// </summary>
-    /// <param name="groupName">The name of the IAM group associated with the
-    /// policy.</param>
-    /// <param name="policyName">The name of the policy to delete.</param>
-    /// <returns>A Boolean value indicating the success of the action.</returns>
-    public async Task<bool> DeleteGroupPolicyAsync(string groupName, string policyName)
-    {
-        var request = new DeleteGroupPolicyRequest()
-        {
-            GroupName = groupName,
-            PolicyName = policyName,
-        };
-
-        var response = await _IAMService.DeleteGroupPolicyAsync(request);
-        return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
-    }
-
-    // snippet-end:[IAM.dotnetv3.DeleteGroupPolicy]
 
     // snippet-start:[IAM.dotnetv3.DeletePolicy]
     /// <summary>
@@ -522,51 +452,6 @@ public class IAMWrapper
     }
 
     // snippet-end:[IAM.dotnetv3.ListUsers]
-
-    // snippet-start:[IAM.dotnetv3.RemoveUserFromGroup]
-    /// <summary>
-    /// Remove a user from an IAM group.
-    /// </summary>
-    /// <param name="userName">The username of the user to remove.</param>
-    /// <param name="groupName">The name of the IAM group to remove the user from.</param>
-    /// <returns>A Boolean value indicating the success of the action.</returns>
-    public async Task<bool> RemoveUserFromGroupAsync(string userName, string groupName)
-    {
-        // Remove the user from the group.
-        var removeUserRequest = new RemoveUserFromGroupRequest()
-        {
-            UserName = userName,
-            GroupName = groupName,
-        };
-
-        var response = await _IAMService.RemoveUserFromGroupAsync(removeUserRequest);
-        return response.HttpStatusCode == HttpStatusCode.OK;
-    }
-
-    // snippet-end:[IAM.dotnetv3.RemoveUserFromGroup]
-
-    // snippet-start:[IAM.dotnetv3.PutGroupPolicy]
-    /// <summary>
-    /// Add or update an inline policy document that is embedded in an IAM group.
-    /// </summary>
-    /// <param name="groupName">The name of the IAM group.</param>
-    /// <param name="policyName">The name of the IAM policy.</param>
-    /// <param name="policyDocument">The policy document defining the IAM policy.</param>
-    /// <returns>A Boolean value indicating the success of the action.</returns>
-    public async Task<bool> PutGroupPolicyAsync(string groupName, string policyName, string policyDocument)
-    {
-        var request = new PutGroupPolicyRequest
-        {
-            GroupName = groupName,
-            PolicyName = policyName,
-            PolicyDocument = policyDocument
-        };
-
-        var response = await _IAMService.PutGroupPolicyAsync(request);
-        return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
-    }
-
-    // snippet-end:[IAM.dotnetv3.PutGroupPolicy]
 
     // snippet-start:[IAM.dotnetv3.PutRolePolicy]
     /// <summary>
