@@ -1,4 +1,0 @@
-{{- template "prologue"}}
-<block>
-{{- template "service_synopsis" .}}
-</block>
