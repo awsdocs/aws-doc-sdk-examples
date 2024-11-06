@@ -12,8 +12,8 @@ import com.example.bedrockagents.runtime.InvokeFlow;
 public class InvokeFlowTest {
 
     // Fill in with the Prompt Flow Id and Alias.
-    String flowId = "MKM4D2W4RG";
-    String flowAliasId = "JOIUMSMGLC";
+    String flowId = "";
+    String flowAliasId = "";
     String inputText = "Is putting pineapple on pizza a good idea?";
     String[] args = {flowId, flowAliasId, inputText};
 
