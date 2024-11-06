@@ -85,8 +85,8 @@ public class TranscribeMedicalStreamingDemoApp {
             .languageCode(LanguageCode.EN_US.toString()) // For medical transcription, EN_US is typically used.
             .mediaEncoding(MediaEncoding.PCM)
             .mediaSampleRateHertz(mediaSampleRateHertz)
-            .specialty("PRIMARYCARE") // Specify the medical specialty.
-            .type("CONVERSATION") // Set the type as CONVERSATION or DICTATION.
+            .specialty(Specialty.PRIMARYCARE) // Specify the medical specialty.
+            .type(Type.CONVERSATION) // Set the type as CONVERSATION or DICTATION.
             .build();
     }
 
@@ -105,7 +105,7 @@ public class TranscribeMedicalStreamingDemoApp {
                 System.out.println("=== All records streamed successfully ===");
             })
             .subscriber(event -> {
-                List<Result> results = ((TranscriptEvent) event).transcript().results();
+                List<MedicalResult> results = ((MedicalTranscriptEvent) event).transcript().results();
                 if (results.size() > 0) {
                     if (!results.get(0).alternatives().get(0).transcript().isEmpty()) {
                         System.out.println(results.get(0).alternatives().get(0).transcript());
