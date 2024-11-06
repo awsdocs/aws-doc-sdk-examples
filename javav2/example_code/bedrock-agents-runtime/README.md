@@ -1,4 +1,4 @@
-# Agents for Amazon Bedrock code examples for the SDK for Java 2.x
+# Amazon Bedrock Agents Runtime code examples for the SDK for Java 2.x
 
 ## Overview
 
@@ -7,7 +7,7 @@ Shows how to use the AWS SDK for Java 2.x to work with Amazon Bedrock Agents, Am
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Agents for Amazon Bedrock offer you the ability to build and configure autonomous agents in your application._
+_Amazon Bedrock Agents Runtime offers you the ability to interact with your Amazon Bedrock Agents, Amazon Bedrock Knowledge Bases, and Amazon Bedrock Prompt Flows._
 
 ## ⚠ Important
 
@@ -20,6 +20,8 @@ _Agents for Amazon Bedrock offer you the ability to build and configure autonomo
 <!--custom.important.end-->
 
 ## Code examples
+
+* [InvokeFlow](src/main/java/com/example/bedrockagents/runtime/InvokeFlow.java#L30)
 
 ### Prerequisites
 
