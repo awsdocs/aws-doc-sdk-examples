@@ -37,7 +37,6 @@ and handling the transcription response.
  */
 
 public class TranscribeMedicalStreamingDemoApp {
-    private static final Region REGION = Region.US_EAST_1;
     private static TranscribeStreamingAsyncClient client;
 
     public static void main(String args[])
@@ -45,7 +44,6 @@ public class TranscribeMedicalStreamingDemoApp {
 
         client = TranscribeStreamingAsyncClient.builder()
             .credentialsProvider(getCredentials())
-            .region(REGION)
             .build();
 
         CompletableFuture<Void> result = client.startMedicalStreamTranscription(getMedicalRequest(16_000),

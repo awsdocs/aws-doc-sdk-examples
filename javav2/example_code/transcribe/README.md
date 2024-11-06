@@ -34,7 +34,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 Code excerpts that show you how to call individual service functions.
 
 - [ListTranscriptionJobs](src/main/java/com/amazonaws/transcribe/ListTranscriptionJobs.java#L12)
-- [StartTranscriptionJob](src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoApp.java#L26)
+- [StartMedicalStreamTranscription](src/main/java/com/amazonaws/transcribestreaming/TranscribeMedicalStreamingDemoApp.java#L25)
+- [StartStreamTranscription](src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoApp.java#L26)
 
 ### Scenarios
 

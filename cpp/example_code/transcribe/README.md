@@ -41,7 +41,7 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [StartStreamTranscriptionAsync](get_transcript.cpp#L28)
+- [StartStreamTranscription](get_transcript.cpp#L28)
 
 
 <!--custom.examples.start-->
