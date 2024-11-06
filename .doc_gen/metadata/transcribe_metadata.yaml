@@ -347,15 +347,6 @@ transcribe_Scenario_CustomVocabulary:
                  ListVocabularies, DeleteVocabulary}
 transcribe_StartMedicalTranscriptionJob:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/transcribe
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - transcribe.java-medical-demo
     .NET:
       versions:
         - sdk_version: 3
