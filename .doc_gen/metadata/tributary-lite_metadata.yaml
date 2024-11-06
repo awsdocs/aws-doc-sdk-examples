@@ -3,7 +3,7 @@ cross_tributary-lite_serverless-application:
   title: Build and test a serverless application
   title_abbrev: Build and test a serverless application
   synopsis: build and test a serverless application using &ABP; with &LAM; and &DDB;
-  category: Community examples
+  category: AWS community contributions
   languages:
     .NET:
       versions:
