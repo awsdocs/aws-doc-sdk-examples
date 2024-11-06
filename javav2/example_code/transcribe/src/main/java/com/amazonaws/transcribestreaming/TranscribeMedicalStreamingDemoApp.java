@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 
-// snippet-start:[transcribe.java-medical-demo]
+// snippet-start:[transcribe.java-medical-streaming-demo]
 /*
 To run this AWS code example, ensure that you have set up your development
  environment, including your AWS credentials.
@@ -205,4 +205,4 @@ public class TranscribeMedicalStreamingDemoApp {
         }
     }
 }
-// snippet-end:[transcribe.java-medical-demo]
+// snippet-end:[transcribe.java-medical-streaming-demo]

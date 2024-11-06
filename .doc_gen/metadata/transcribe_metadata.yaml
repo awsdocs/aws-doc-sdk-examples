@@ -1,15 +1,6 @@
 # zexi 0.4.3
 transcribe_StartTranscriptionJob:
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/transcribe
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - transcribe.java-streaming-demo
     .NET:
       versions:
         - sdk_version: 3
@@ -251,8 +242,17 @@ transcribe_DeleteVocabulary:
                 - python.example_code.transcribe.DeleteVocabulary
   services:
     transcribe: {DeleteVocabulary}
-transcribe_StartStreamTranscriptionAsync:
+transcribe_StartStreamTranscription:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.java-streaming-demo
     C++:
       versions:
         - sdk_version: 1
@@ -262,7 +262,20 @@ transcribe_StartStreamTranscriptionAsync:
               snippet_tags:
                 - transcribe.cpp.stream_transcription_async.code
   services:
-    transcribe: {StartStreamTranscriptionAsync}
+    transcribe: {StartStreamTranscription}
+transcribe_StartMedicalStreamTranscription:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.java-medical-streaming-demo
+  services:
+    transcribe: {StartMedicalStreamTranscription}
 transcribe_Scenario_GettingStartedTranscriptionJobs:
   title: Transcribe audio and get job data with &TSC; using an &AWS; SDK
   title_abbrev: Transcribe audio and get job data
