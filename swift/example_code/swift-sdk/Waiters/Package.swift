@@ -9,6 +9,11 @@ import PackageDescription
 
 let package = Package(
     name: "Waiters",
+    // Let Xcode know the minimum Apple platforms supported.
+    platforms: [
+        .macOS(.v11),
+        .iOS(.v13)
+    ],
     dependencies: [
         // This project requires the AWS SDK for Swift.
         .package(
