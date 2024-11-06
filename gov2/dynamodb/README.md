@@ -40,13 +40,13 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchExecuteStatement](actions/partiql.go#L164)
+- [BatchExecuteStatement](actions/partiql.go#L7)
 - [BatchWriteItem](actions/table_basics.go#L177)
 - [CreateTable](actions/table_basics.go#L54)
 - [DeleteItem](actions/table_basics.go#L332)
 - [DeleteTable](actions/table_basics.go#L347)
 - [DescribeTable](actions/table_basics.go#L31)
-- [ExecuteStatement](actions/partiql.go#L30)
+- [ExecuteStatement](actions/partiql.go#L7)
 - [GetItem](actions/table_basics.go#L221)
 - [ListTables](actions/table_basics.go#L99)
 - [PutItem](actions/table_basics.go#L121)

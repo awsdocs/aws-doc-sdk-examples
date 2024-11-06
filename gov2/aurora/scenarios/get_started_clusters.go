@@ -3,6 +3,8 @@
 
 package scenarios
 
+// snippet-start:[gov2.aurora.Scenario_GetStartedClusters]
+
 import (
 	"aurora/actions"
 	"context"
@@ -20,26 +22,6 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 	"github.com/google/uuid"
 )
-
-// IScenarioHelper abstracts the function from a scenario so that it
-// can be mocked for unit testing.
-type IScenarioHelper interface {
-	Pause(secs int)
-	UniqueId() string
-}
-type ScenarioHelper struct{}
-
-// Pause waits for the specified number of seconds.
-func (helper ScenarioHelper) Pause(secs int) {
-	time.Sleep(time.Duration(secs) * time.Second)
-}
-
-// UniqueId returns a new UUID.
-func (helper ScenarioHelper) UniqueId() string {
-	return uuid.New().String()
-}
-
-// snippet-start:[gov2.aurora.Scenario_GetStartedClusters]
 
 // GetStartedClusters is an interactive example that shows you how to use the AWS SDK for Go
 // with Amazon Aurora to do the following:
@@ -382,6 +364,24 @@ func (scenario GetStartedClusters) Cleanup(ctx context.Context, dbInstance *type
 			panic(err)
 		}
 	}
+}
+
+// IScenarioHelper abstracts the function from a scenario so that it
+// can be mocked for unit testing.
+type IScenarioHelper interface {
+	Pause(secs int)
+	UniqueId() string
+}
+type ScenarioHelper struct{}
+
+// Pause waits for the specified number of seconds.
+func (helper ScenarioHelper) Pause(secs int) {
+	time.Sleep(time.Duration(secs) * time.Second)
+}
+
+// UniqueId returns a new UUID.
+func (helper ScenarioHelper) UniqueId() string {
+	return uuid.New().String()
 }
 
 // snippet-end:[gov2.aurora.Scenario_GetStartedClusters]

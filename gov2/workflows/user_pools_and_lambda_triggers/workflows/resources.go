@@ -3,6 +3,8 @@
 
 package workflows
 
+// snippet-start:[gov2.cognito-identity-provider.Resources.complete]
+
 import (
 	"context"
 	"log"
@@ -10,8 +12,6 @@ import (
 
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 )
-
-// snippet-start:[gov2.cognito-identity-provider.Resources.complete]
 
 // Resources keeps track of AWS resources created during an example and handles
 // cleanup when the example finishes.

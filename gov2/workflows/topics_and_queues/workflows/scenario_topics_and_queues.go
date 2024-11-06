@@ -3,6 +3,8 @@
 
 package workflows
 
+// snippet-start:[gov2.workflows.TopicsAndQueues]
+
 import (
 	"context"
 	"encoding/json"
@@ -17,8 +19,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/sqs/types"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 )
-
-// snippet-start:[gov2.workflows.TopicsAndQueues]
 
 const FIFO_SUFFIX = ".fifo"
 const TONE_KEY = "tone"

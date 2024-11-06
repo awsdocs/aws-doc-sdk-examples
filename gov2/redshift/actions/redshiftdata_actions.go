@@ -3,6 +3,8 @@
 
 package actions
 
+// snippet-start:[gov2.redshift.DataActionsStruct]
+
 import (
 	"context"
 	"errors"
@@ -12,8 +14,6 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 	"log"
 )
-
-// snippet-start:[gov2.redshift.DataActionsStruct]
 
 // RedshiftDataActions wraps RedshiftData actions.
 type RedshiftDataActions struct {
