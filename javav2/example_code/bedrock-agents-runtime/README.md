@@ -62,7 +62,7 @@ in the `javav2` folder.
 - [Amazon Bedrock Agents User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html)
 - [Amazon Bedrock Knowledge Bases User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html)
 - [Amazon Bedrock Propt Flow User Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/flows.html)
-- [Amazon Bedrock Agents Runtime API Reference]([https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock.html](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html))
+- [Amazon Bedrock Agents Runtime API Reference](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_Operations_Agents_for_Amazon_Bedrock_Runtime.html)
 - [SDK for Java 2.x Amazon Bedrock Agents Runtime reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/bedrockagentruntime/package-summary.html)
 
 <!--custom.resources.start-->
