@@ -1,5 +1,6 @@
 allow_list:
   # Git commits
+  - "590efc9536cbf8ec65ddd396f21b0e94188f69ce"
   - "cd5e746ec203c8c3c61647e0886a8df8c1e78e41"
   - "725feb26d6f73bc1d83dbbe075ae8ea991efb245"
   - "e9772d140489982e0e3704fea5ee93d536f1e275"
