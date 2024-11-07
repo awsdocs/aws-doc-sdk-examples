@@ -153,6 +153,10 @@
 <!ENTITY MKTCataloglong '&MKTlong; Catalog API'>
 <!ENTITY MKTCatalog '&MKT; Catalog API'>
 
+<!-- Transcribe Streaming Service -->
+<!ENTITY TSCStreaminglong '&TSClong; Streaming'>
+<!ENTITY TSCStreaming '&TSC; Streaming'>
+
 <!-- JavaScript runtimes for CloudFront Functions -->
 <!ENTITY CFJS10long 'JavaScript runtime 1.0 for &CFlong; Functions'>
 <!ENTITY CFJS10 'JavaScript runtime 1.0 for &CF; Functions'>
