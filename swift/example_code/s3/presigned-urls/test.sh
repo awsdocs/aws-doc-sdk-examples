@@ -2,9 +2,6 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
-#
 # A script that is run by `swiftbuild.py` instead of using `swiftc test` to
 # test this example, which does not have a standard Swift test available.
 #
