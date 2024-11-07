@@ -42,5 +42,10 @@ export const scenarios = {
 import { fileURLToPath } from "node:url";
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  parseScenarioArgs(scenarios);
+  parseScenarioArgs(scenarios, {
+    name: "Resilient Workflow",
+    synopsis:
+      "node index.js --scenario <deploy | demo | destroy> [-h|--help] [-y|--yes] [-v|--verbose]",
+    description: "Deploy and interact with scalable EC2 instances.",
+  });
 }

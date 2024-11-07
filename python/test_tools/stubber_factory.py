@@ -63,6 +63,7 @@ from test_tools.transcribe_stubber import TranscribeStubber
 from test_tools.medical_imaging_stubber import MedicalImagingStubber
 from test_tools.redshift_stubber import RedshiftStubber
 from test_tools.redshift_data_stubber import RedshiftDataStubber
+from test_tools.scheduler_stubber import SchedulerStubber
 
 
 class StubberFactoryNotImplemented(Exception):
@@ -160,6 +161,8 @@ def stubber_factory(service_name):
         return S3Stubber
     elif service_name == "s3control":
         return S3ControlStubber
+    elif service_name == "scheduler":
+        return SchedulerStubber
     elif service_name == "secretsmanager":
         return SecretsManagerStubber
     elif service_name == "ses":

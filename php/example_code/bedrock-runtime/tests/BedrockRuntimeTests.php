@@ -1,34 +1,44 @@
 <?php
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
-#
-# Integration tests for the Amazon Bedrock Runtime service.
-#
+/**
+ * Integration tests for the Amazon Bedrock Runtime service.
+ */
 
 namespace bedrockruntime\tests;
 
+use Aws\BedrockRuntime\BedrockRuntimeClient;
 use BedrockRuntime\BedrockRuntimeService;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @group integ
  */
-
 class BedrockRuntimeTests extends TestCase
 {
-    protected BedrockRuntimeService $bedrockRuntimeService;
-
+    private BedrockRuntimeService $bedrockRuntimeService;
     private string $prompt = 'A test prompt';
-
     public function setup(): void
     {
-        $this->clientArgs = [
-            'region' => 'us-west-2',
-            'version' => 'latest',
-            'profile' => 'default',
-        ];
-        $this->bedrockRuntimeService = new BedrockRuntimeService($this->clientArgs);
+        $this->bedrockRuntimeService = new BedrockRuntimeService();
+    }
+
+    public function test_default_constructor_creates_client()
+    {
+        $service = new BedrockRuntimeService();
+        self::assertNotNull($service->getClient());
+        self::assertEquals('us-east-1', $service->getClient()->getRegion());
+    }
+
+    public function test_constructor_uses_injected_client()
+    {
+        $client = new BedrockRuntimeClient([
+            'region' => 'us-west-2'
+        ]);
+        $service = new BedrockRuntimeService($client);
+        self::assertNotNull($service->getClient());
+        self::assertEquals($client, $service->getClient());
     }
 
     public function test_claude_can_be_invoked()

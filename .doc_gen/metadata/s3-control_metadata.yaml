@@ -7,21 +7,21 @@ s3-control_Hello:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/s3
+          github: javav2/example_code/s3/src/main/java/com/example/s3/batch
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
                 - s3control.java2.list_jobs.main
   services:
-    s3-control: {ListJobsPaginator}
+    s3-control: {ListJobs}
 
 s3-control_CreateJob:
   languages:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/s3
+          github: javav2/example_code/s3/src/main/java/com/example/s3/batch
           sdkguide:
           excerpts:
             - description: Create an asynchronous S3 job.
@@ -40,7 +40,7 @@ s3-control_PutJobTagging:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/s3
+          github: javav2/example_code/s3/src/main/java/com/example/s3/batch
           sdkguide:
           excerpts:
             - description:
@@ -53,7 +53,7 @@ s3-control_DescribeJob:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/s3
+          github: javav2/example_code/s3/src/main/java/com/example/s3/batch
           sdkguide:
           excerpts:
             - description:
@@ -66,7 +66,7 @@ s3-control_DeleteJobTagging:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/s3
+          github: javav2/example_code/s3/src/main/java/com/example/s3/batch
           sdkguide:
           excerpts:
             - description:
@@ -79,7 +79,7 @@ s3-control_GetJobTagging:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/s3
+          github: javav2/example_code/s3/src/main/java/com/example/s3/batch
           sdkguide:
           excerpts:
             - description:
@@ -92,7 +92,7 @@ s3-control_UpdateJobStatus:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/s3
+          github: javav2/example_code/s3/src/main/java/com/example/s3/batch
           sdkguide:
           excerpts:
             - description:
@@ -105,7 +105,7 @@ s3-control_UpdateJobPriority:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/s3
+          github: javav2/example_code/s3/src/main/java/com/example/s3/batch
           sdkguide:
           excerpts:
             - description:
@@ -120,7 +120,7 @@ s3-control_Basics:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/s3
+          github: javav2/example_code/s3/src/main/java/com/example/s3/batch
           sdkguide:
           excerpts:
             - description: Learn core operations.

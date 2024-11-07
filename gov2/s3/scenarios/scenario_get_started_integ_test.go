@@ -31,7 +31,7 @@ func TestGetStartedScenario_Integration(t *testing.T) {
 	outFile := "integ-test.out"
 	mockQuestioner := &demotools.MockQuestioner{
 		Answers: []string{
-			bucket, "../README.md", "", outFile, "", "test-folder", "", "y",
+			bucket, "../README.md", outFile, "test-folder", "", "y",
 		},
 	}
 

@@ -80,10 +80,10 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Delete incomplete multipart uploads](src/main/java/com/example/s3/AbortMultipartUploadExamples.java)
+- [Download S3 'directories'](src/main/java/com/example/s3/transfermanager/S3DirectoriesDownloader.java)
 - [Download objects to a local directory](src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java)
 - [Lock Amazon S3 objects](src/main/java/com/example/s3/lockscenario/S3ObjectLockWorkflow.java)
 - [Parse URIs](src/main/java/com/example/s3/ParseUri.java)
-- [Perform a multipart upload](src/main/java/com/example/s3/PerformMultiPartUpload.java)
 - [Process S3 event notifications](src/main/java/com/example/s3/ProcessS3EventNotification.java)
 - [Send event notifications to EventBridge](src/main/java/com/example/s3/PutBucketS3EventNotificationEventBridge.java)
 - [Track uploads and downloads](src/main/java/com/example/s3/transfermanager/UploadFile.java)
@@ -141,6 +141,18 @@ This example shows you how to how to delete or stop incomplete Amazon S3 multipa
 <!--custom.scenarios.s3_Scenario_AbortMultipartUpload.start-->
 <!--custom.scenarios.s3_Scenario_AbortMultipartUpload.end-->
 
+#### Download S3 'directories'
+
+This example shows you how to download and filter the contents of Amazon S3 bucket 'directories'.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_DownloadS3Directory.start-->
+<!--custom.scenario_prereqs.s3_Scenario_DownloadS3Directory.end-->
+
+
+<!--custom.scenarios.s3_Scenario_DownloadS3Directory.start-->
+<!--custom.scenarios.s3_Scenario_DownloadS3Directory.end-->
+
 #### Download objects to a local directory
 
 This example shows you how to download all objects in an Amazon Simple Storage Service (Amazon S3) bucket to a local directory.
@@ -176,18 +188,6 @@ This example shows you how to parse Amazon S3 URIs to extract important componen
 
 <!--custom.scenarios.s3_Scenario_URIParsing.start-->
 <!--custom.scenarios.s3_Scenario_URIParsing.end-->
-
-#### Perform a multipart upload
-
-This example shows you how to perform a multipart upload to an Amazon S3 object.
-
-
-<!--custom.scenario_prereqs.s3_Scenario_MultipartUpload.start-->
-<!--custom.scenario_prereqs.s3_Scenario_MultipartUpload.end-->
-
-
-<!--custom.scenarios.s3_Scenario_MultipartUpload.start-->
-<!--custom.scenarios.s3_Scenario_MultipartUpload.end-->
 
 #### Process S3 event notifications
 

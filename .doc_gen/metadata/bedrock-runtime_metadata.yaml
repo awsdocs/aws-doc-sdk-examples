@@ -555,6 +555,7 @@ bedrock-runtime_InvokeModel_Ai21LabsJurassic2:
           excerpts:
             - description: Use the Invoke Model API to send a text message.
               snippet_tags:
+                - gov2.bedrock-runtime.InvokeModelWrapper.struct
                 - gov2.bedrock-runtime.InvokeJurassic2
     JavaScript:
       versions:
@@ -620,6 +621,7 @@ bedrock-runtime_InvokeModel_TitanText:
           excerpts:
             - description: Use the Invoke Model API to send a text message.
               snippet_tags:
+                - gov2.bedrock-runtime.InvokeModelWrapper.struct
                 - gov2.bedrock-runtime.InvokeTitanText
   services:
     bedrock-runtime: {InvokeModel}
@@ -669,6 +671,7 @@ bedrock-runtime_InvokeModel_AnthropicClaude:
           excerpts:
             - description: Invoke the Anthropic Claude 2 foundation model to generate text.
               snippet_tags:
+                - gov2.bedrock-runtime.InvokeModelWrapper.struct
                 - gov2.bedrock-runtime.InvokeClaude
     PHP:
       versions:
@@ -799,6 +802,7 @@ bedrock-runtime_InvokeModel_MetaLlama2:
           excerpts:
             - description: Use the Invoke Model API to send a text message.
               snippet_tags:
+                - gov2.bedrock-runtime.InvokeModelWrapper.struct
                 - gov2.bedrock-runtime.InvokeLlama2
     JavaScript:
       versions:
@@ -972,6 +976,7 @@ bedrock-runtime_InvokeModelWithResponseStream_AnthropicClaude:
           excerpts:
             - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
               snippet_tags:
+                - gov2.bedrock-runtime.InvokeModelWrapper.struct
                 - gov2.bedrock-runtime.InvokeModelWithResponseStream
     JavaScript:
       versions:
@@ -1195,6 +1200,7 @@ bedrock-runtime_InvokeModel_TitanImageGenerator:
           excerpts:
             - description: Create an image with the Amazon Titan Image Generator.
               snippet_tags:
+                - gov2.bedrock-runtime.InvokeModelWrapper.struct
                 - gov2.bedrock-runtime.InvokeTitanImage
     PHP:
       versions:

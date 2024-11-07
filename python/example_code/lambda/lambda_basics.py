@@ -160,7 +160,7 @@ class LambdaWrapper:
             response = self.lambda_client.create_function(
                 FunctionName=function_name,
                 Description="AWS Lambda doc example",
-                Runtime="python3.8",
+                Runtime="python3.9",
                 Role=iam_role.arn,
                 Handler=handler_name,
                 Code={"ZipFile": deployment_package},

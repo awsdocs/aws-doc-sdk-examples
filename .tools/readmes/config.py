@@ -53,6 +53,7 @@ language = {
             "service_folder": 'javav2/example_code/{{service["name"]}}',
             "sdk_api_ref": 'https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/{{service["name"]}}/package-summary.html',
             "service_folder_overrides": {
+                "s3-control": "javav2/example_code/s3/src/main/java/com/example/s3/batch",
                 "medical-imaging": "javav2/example_code/medicalimaging",
             },
         },

@@ -52,21 +52,11 @@ describe '#get_decrypted_object_content' do
     )
   end
 
-<<<<<<< HEAD
   let(:bucket_name) { "amzn-s3-demo-bucket" }
   let(:object_key) { "my-file.txt" }
   let(:object_content) { "This is the content of my-file.txt." }
   let(:kms_key_id) { "9041e78c-7a20-4db3-929e-828abEXAMPLE" }
   let(:kms_ciphertext_blob) { Base64.decode64("AQIDAHiWj6qDEnwihp7W7g6VZb1xqsat5jdSUdEaGhgZepHdLAGASCQI7LZz\nz7GzCpm6y4sHAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEH\nATAeBglghkgBZQMEAS4wEQQMJMJe6d8DkRTWwlvtAgEQgDtBCwiibCTS8pb7\n6BYKklVjy+CmO9q3r6y4u/9jJ8lk9eg5GwiskmcBtPMcWogMzx/vh+/65Cjb\nsQBpLQ==\n") }
-=======
-  let(:bucket_name) { 'doc-example-bucket' }
-  let(:object_key) { 'my-file.txt' }
-  let(:object_content) { 'This is the content of my-file.txt.' }
-  let(:kms_key_id) { '9041e78c-7a20-4db3-929e-828abEXAMPLE' }
-  let(:kms_ciphertext_blob) do
-    Base64.decode64("AQIDAHiWj6qDEnwihp7W7g6VZb1xqsat5jdSUdEaGhgZepHdLAGASCQI7LZz\nz7GzCpm6y4sHAAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEH\nATAeBglghkgBZQMEAS4wEQQMJMJe6d8DkRTWwlvtAgEQgDtBCwiibCTS8pb7\n6BYKklVjy+CmO9q3r6y4u/9jJ8lk9eg5GwiskmcBtPMcWogMzx/vh+/65Cjb\nsQBpLQ==\n")
-  end
->>>>>>> 999c6133e (fixes)
   let(:kms_plaintext) { Base64.decode64("5V7JWe+UDRhv66TaDg+tP6JONf/GkTdXk6Jq61weM+w=\n") }
   # Note that Aws::S3::EncryptionV2::Client is a wrapper around
   #   Aws::S3::Client. So you must first stub Aws::S3::Client

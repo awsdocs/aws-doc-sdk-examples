@@ -148,13 +148,8 @@ def run_me
   statistic = 'Average'
   dimensions = [
     {
-<<<<<<< HEAD
       name: "BucketName",
       value: "amzn-s3-demo-bucket"
-=======
-      name: 'BucketName',
-      value: 'doc-example-bucket'
->>>>>>> 999c6133e (fixes)
     },
     {
       name: 'StorageType',

@@ -30,15 +30,9 @@ end
 
 # Example usage:
 def run_demo
-<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-object-key"
   file_path = "my-local-file.txt"
-=======
-  bucket_name = 'doc-example-bucket'
-  object_key = 'my-object-key'
-  file_path = 'my-local-file.txt'
->>>>>>> 999c6133e (fixes)
 
   wrapper = ObjectPutWrapper.new(Aws::S3::Object.new(bucket_name, object_key))
   success = wrapper.put_object(file_path)

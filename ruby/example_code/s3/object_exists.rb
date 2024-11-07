@@ -30,13 +30,8 @@ end
 
 # Example usage:
 def run_demo
-<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
   object_key = "my-object.txt"
-=======
-  bucket_name = 'doc-example-bucket'
-  object_key = 'my-object.txt'
->>>>>>> 999c6133e (fixes)
 
   wrapper = ObjectExistsWrapper.new(Aws::S3::Object.new(bucket_name, object_key))
   exists = wrapper.exists?

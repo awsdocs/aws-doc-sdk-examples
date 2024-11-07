@@ -148,7 +148,7 @@ public static class S3ObjectLockWorkflow
 
         Console.WriteLine("\nObject lock policies can also be added to existing buckets.");
         await _s3ActionsWrapper.EnableObjectLockOnBucket(lockEnabledBucketName);
-        
+
         Console.WriteLine("Press Enter to continue.");
         if (interactive)
             Console.ReadLine();

@@ -71,7 +71,9 @@ The workflow covers the following EventBridge Scheduler API actions:
 
 This example is implemented in the following languages:
 
-- [.NET](../../dotnetv3/EventBridge Scheduler/README.md)
+* [Java](../../javav2/example_code/scheduler/README.md)
+* [Python](../../python/example_code/scheduler/README.md)
+* [.NET](<../../dotnetv3/EventBridge Scheduler/README.md>)
 
 ## Additional resources
 

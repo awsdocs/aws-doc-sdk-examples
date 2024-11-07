@@ -2,11 +2,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[php.example_code.s3.service.S3Service]
+
 namespace S3;
 
 use Aws\CommandInterface;
 use Aws\Exception\AwsException;
 use Aws\Result;
+use Aws\S3\Exception\S3Exception;
 use Aws\S3\S3Client;
 use AwsUtilities\AWSServiceClass;
 use DateTimeInterface;
@@ -50,6 +53,7 @@ class S3Service extends AWSServiceClass
     }
 
     // snippet-start:[php.example_code.s3.service.emptyAndDeleteBucket]
+
     public function emptyAndDeleteBucket($bucketName, array $args = [])
     {
         try {
@@ -67,9 +71,11 @@ class S3Service extends AWSServiceClass
             throw $exception;
         }
     }
+
     // snippet-end:[php.example_code.s3.service.emptyAndDeleteBucket]
 
     // snippet-start:[php.example_code.s3.service.createBucket]
+
     public function createBucket(string $bucketName, array $args = [])
     {
         $parameters = array_merge(['Bucket' => $bucketName], $args);
@@ -86,9 +92,11 @@ class S3Service extends AWSServiceClass
             throw $exception;
         }
     }
+
     // snippet-end:[php.example_code.s3.service.createBucket]
 
     // snippet-start:[php.example_code.s3.service.putObject]
+
     public function putObject(string $bucketName, string $key, array $args = [])
     {
         $parameters = array_merge(['Bucket' => $bucketName, 'Key' => $key], $args);
@@ -105,9 +113,11 @@ class S3Service extends AWSServiceClass
             throw $exception;
         }
     }
+
     // snippet-end:[php.example_code.s3.service.putObject]
 
     // snippet-start:[php.example_code.s3.service.getObject]
+
     public function getObject(string $bucketName, string $key, array $args = []): Result
     {
         $parameters = array_merge(['Bucket' => $bucketName, 'Key' => $key], $args);
@@ -125,9 +135,11 @@ class S3Service extends AWSServiceClass
         }
         return $object;
     }
+
     // snippet-end:[php.example_code.s3.service.getObject]
 
     // snippet-start:[php.example_code.s3.service.copyObject]
+
     public function copyObject($bucketName, $key, $copySource, array $args = [])
     {
         $parameters = array_merge(['Bucket' => $bucketName, 'Key' => $key, "CopySource" => $copySource], $args);
@@ -144,9 +156,11 @@ class S3Service extends AWSServiceClass
             throw $exception;
         }
     }
+
     // snippet-end:[php.example_code.s3.service.copyObject]
 
     // snippet-start:[php.example_code.s3.service.listObjects]
+
     public function listObjects(string $bucketName, $start = 0, $max = 1000, array $args = [])
     {
         $parameters = array_merge(['Bucket' => $bucketName, 'Marker' => $start, "MaxKeys" => $max], $args);
@@ -164,25 +178,33 @@ class S3Service extends AWSServiceClass
         }
         return $objects;
     }
+
     // snippet-end:[php.example_code.s3.service.listObjects]
 
     // snippet-start:[php.example_code.s3.service.listAllObjects]
+
     public function listAllObjects($bucketName, array $args = [])
     {
         $parameters = array_merge(['Bucket' => $bucketName], $args);
 
         $contents = [];
         $paginator = $this->client->getPaginator("ListObjectsV2", $parameters);
+
         foreach ($paginator as $result) {
-            foreach ($result['Content'] as $object) {
+            if($result['KeyCount'] == 0){
+                break;
+            }
+            foreach ($result['Contents'] as $object) {
                 $contents[] = $object;
             }
         }
         return $contents;
     }
+
     // snippet-end:[php.example_code.s3.service.listAllObjects]
 
     // snippet-start:[php.example_code.s3.service.deleteObjects]
+
     public function deleteObjects(string $bucketName, array $objects, array $args = [])
     {
         $listOfObjects = array_map(
@@ -191,6 +213,9 @@ class S3Service extends AWSServiceClass
             },
             array_column($objects, 'Key')
         );
+        if(!$listOfObjects){
+            return;
+        }
 
         $parameters = array_merge(['Bucket' => $bucketName, 'Delete' => ['Objects' => $listOfObjects]], $args);
         try {
@@ -206,9 +231,11 @@ class S3Service extends AWSServiceClass
             throw $exception;
         }
     }
+
     // snippet-end:[php.example_code.s3.service.deleteObjects]
 
     // snippet-start:[php.example_code.s3.service.deleteBucket]
+
     public function deleteBucket(string $bucketName, array $args = [])
     {
         $parameters = array_merge(['Bucket' => $bucketName], $args);
@@ -225,9 +252,11 @@ class S3Service extends AWSServiceClass
             throw $exception;
         }
     }
+
     // snippet-end:[php.example_code.s3.service.deleteBucket]
 
     // snippet-start:[php.example_code.s3.service.deleteObject]
+
     public function deleteObject(string $bucketName, string $fileName, array $args = [])
     {
         $parameters = array_merge(['Bucket' => $bucketName, 'Key' => $fileName], $args);
@@ -244,9 +273,11 @@ class S3Service extends AWSServiceClass
             throw $exception;
         }
     }
+
     // snippet-end:[php.example_code.s3.service.deleteObject]
 
     // snippet-start:[php.example_code.s3.service.listBuckets]
+
     public function listBuckets(array $args = [])
     {
         try {
@@ -263,9 +294,11 @@ class S3Service extends AWSServiceClass
         }
         return $buckets;
     }
+
     // snippet-end:[php.example_code.s3.service.listBuckets]
 
     // snippet-start:[php.example_code.s3.service.preSignedUrl]
+
     public function preSignedUrl(CommandInterface $command, DateTimeInterface|int|string $expires, array $options = [])
     {
         $request = $this->client->createPresignedRequest($command, $expires, $options);
@@ -280,5 +313,27 @@ class S3Service extends AWSServiceClass
         }
         return $presignedUrl;
     }
+
     // snippet-end:[php.example_code.s3.service.preSignedUrl]
+
+    // snippet-start:[php.example_code.s3.service.createSession]
+
+    public function createSession(string $bucketName)
+    {
+        try{
+            $result = $this->client->createSession([
+                'Bucket' => $bucketName,
+            ]);
+            return $result;
+        }catch(S3Exception $caught){
+            if($caught->getAwsErrorType() == "NoSuchBucket"){
+                echo "The specified bucket does not exist.";
+            }
+            throw $caught;
+        }
+    }
+
+    // snippet-end:[php.example_code.s3.service.createSession]
 }
+
+// snippet-end:[php.example_code.s3.service.S3Service]

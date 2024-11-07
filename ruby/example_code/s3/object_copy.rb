@@ -33,17 +33,10 @@ end
 
 # Example usage:
 def run_demo
-<<<<<<< HEAD
   source_bucket_name = "amzn-s3-demo-bucket1"
   source_key = "my-source-file.txt"
   target_bucket_name = "amzn-s3-demo-bucket2"
   target_key = "my-target-file.txt"
-=======
-  source_bucket_name = 'doc-example-bucket1'
-  source_key = 'my-source-file.txt'
-  target_bucket_name = 'doc-example-bucket2'
-  target_key = 'my-target-file.txt'
->>>>>>> 999c6133e (fixes)
 
   source_bucket = Aws::S3::Bucket.new(source_bucket_name)
   wrapper = ObjectCopyWrapper.new(source_bucket.object(source_key))

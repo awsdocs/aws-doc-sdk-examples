@@ -75,11 +75,7 @@ end
 
 # Example usage:
 def run_demo
-<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
-=======
-  bucket_name = 'doc-example-bucket'
->>>>>>> 999c6133e (fixes)
   allowed_methods = %w[GET PUT]
   allowed_origins = %w[http://www.example.com]
 

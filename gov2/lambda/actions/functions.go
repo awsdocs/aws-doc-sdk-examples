@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.lambda.FunctionWrapper.complete]
+// snippet-start:[gov2.lambda.FunctionWrapper.struct]
+
 import (
 	"bytes"
 	"context"
@@ -15,9 +18,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/lambda"
 	"github.com/aws/aws-sdk-go-v2/service/lambda/types"
 )
-
-// snippet-start:[gov2.lambda.FunctionWrapper.complete]
-// snippet-start:[gov2.lambda.FunctionWrapper.struct]
 
 // FunctionWrapper encapsulates function actions used in the examples.
 // It contains an AWS Lambda service client that is used to perform user actions.
@@ -62,7 +62,7 @@ func (wrapper FunctionWrapper) CreateFunction(ctx context.Context, functionName 
 		Role:         iamRoleArn,
 		Handler:      aws.String(handlerName),
 		Publish:      true,
-		Runtime:      types.RuntimePython38,
+		Runtime:      types.RuntimePython39,
 	})
 	if err != nil {
 		var resConflict *types.ResourceConflictException

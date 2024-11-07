@@ -66,7 +66,7 @@ export class SetupStack extends cdk.Stack {
       this,
       "doc-example-stepfunctions-scan-messages",
       {
-        runtime: Runtime.PYTHON_3_7,
+        runtime: Runtime.PYTHON_3_9,
         handler: "index.lambda_handler",
         code: Code.fromInline(
           "import boto3\n" +

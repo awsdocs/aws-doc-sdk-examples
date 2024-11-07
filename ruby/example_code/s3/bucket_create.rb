@@ -46,13 +46,8 @@ end
 
 # Example usage:
 def run_demo
-<<<<<<< HEAD
   region = "us-west-2"
   wrapper = BucketCreateWrapper.new(Aws::S3::Bucket.new("amzn-s3-demo-bucket-#{Random.uuid}"))
-=======
-  region = 'us-west-2'
-  wrapper = BucketCreateWrapper.new(Aws::S3::Bucket.new("doc-example-bucket-#{Random.uuid}"))
->>>>>>> 999c6133e (fixes)
   return unless wrapper.create?(region)
 
   puts "Created bucket #{wrapper.bucket.name}."
