@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 /// A simple example that shows how to use the AWS SDK for Swift to
-/// authenticate using optional static credentials and an AWS IAM role ARN.
+/// perform file uploads and downloads to Amazon S3, both with and
+/// without presigned requests. Also included is code to perform
+/// multi-part uploads.
 
 // snippet-start:[swift.s3.presigned.imports]
 import ArgumentParser
@@ -12,10 +14,6 @@ import Foundation
 import Smithy
 import SmithyHTTPAPI
 // snippet-end:[swift.s3.presigned.imports]
-
-// Import ClientRuntime for logging controls
-
-import ClientRuntime
 
 // -MARK: - Async command line tool
 
@@ -487,9 +485,6 @@ struct ExampleCommand: ParsableCommand {
 struct Main {
     static func main() async {
         let args = Array(CommandLine.arguments.dropFirst())
-
-        await SDKLoggingSystem().initialize(logLevel: .critical)
-        SDKDefaultIO.setLogLevel(level: .fatal)
 
         do {
             let command = try ExampleCommand.parse(args)
