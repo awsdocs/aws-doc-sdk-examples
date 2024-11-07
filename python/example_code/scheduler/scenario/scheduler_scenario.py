@@ -25,10 +25,7 @@ from scheduler_wrapper import SchedulerWrapper
 sys.path.append(os.path.join(script_dir, "../../.."))
 import demo_tools.question as q
 
-
 DASHES = "-" * 80
-
-sys.path
 
 logger = logging.getLogger(__name__)
 
