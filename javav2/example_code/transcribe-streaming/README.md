@@ -1,13 +1,13 @@
-# Amazon Transcribe code examples for the SDK for Java 2.x
+# Amazon Transcribe Streaming code examples for the SDK for Java 2.x
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 2.x to work with Amazon Transcribe.
+Shows how to use the AWS SDK for Java 2.x to work with Amazon Transcribe Streaming.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon Transcribe provides transcription services for your audio files and audio streams._
+_Amazon Transcribe Streaming produces real-time transcriptions for your media content._
 
 ## ⚠ Important
 
@@ -33,14 +33,8 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [ListTranscriptionJobs](src/main/java/com/amazonaws/transcribe/ListTranscriptionJobs.java#L12)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Transcribe audio and get job data](../transcribe-streaming/src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoFile.java)
+- [StartMedicalStreamTranscription](src/main/java/com/amazonaws/transcribestreaming/TranscribeMedicalStreamingDemoApp.java#L25)
+- [StartStreamTranscription](src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoApp.java#L26)
 
 
 <!--custom.examples.start-->
@@ -55,21 +49,6 @@ functions within the same service.
 <!--custom.instructions.end-->
 
 
-
-#### Transcribe audio and get job data
-
-This example shows you how to do the following:
-
-- Start a transcription job with Amazon Transcribe.
-- Wait for the job to complete.
-- Get the URI where the transcript is stored.
-
-<!--custom.scenario_prereqs.transcribe_Scenario_GettingStartedTranscriptionJobs.start-->
-<!--custom.scenario_prereqs.transcribe_Scenario_GettingStartedTranscriptionJobs.end-->
-
-
-<!--custom.scenarios.transcribe_Scenario_GettingStartedTranscriptionJobs.start-->
-<!--custom.scenarios.transcribe_Scenario_GettingStartedTranscriptionJobs.end-->
 
 ### Tests
 
@@ -86,9 +65,9 @@ in the `javav2` folder.
 
 ## Additional resources
 
-- [Amazon Transcribe Developer Guide](https://docs.aws.amazon.com/transcribe/latest/dg/what-is.html)
-- [Amazon Transcribe API Reference](https://docs.aws.amazon.com/transcribe/latest/APIReference/Welcome.html)
-- [SDK for Java 2.x Amazon Transcribe reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/transcribe/package-summary.html)
+- [Amazon Transcribe Streaming Developer Guide](https://docs.aws.amazon.com/transcribe/latest/dg/streaming.html)
+- [Amazon Transcribe Streaming API Reference](https://docs.aws.amazon.com/transcribe/latest/APIReference/Welcome.html)
+- [SDK for Java 2.x Amazon Transcribe Streaming reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/transcribe/package-summary.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
