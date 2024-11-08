@@ -63,7 +63,7 @@ public class TranscribeMedicalStreamingDemoApp {
 
         if (!AudioSystem.isLineSupported(info)) {
             System.out.println("Line not supported");
-            System.exit(0);
+            throw new LineUnavailableException("The audio system microphone line is not supported.");
         }
 
         TargetDataLine line = (TargetDataLine) AudioSystem.getLine(info);
