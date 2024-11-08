@@ -1,0 +1,36 @@
+# zexi 0.4.3
+
+transcribe_streaming_StartStreamTranscription:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.java-streaming-demo
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/transcribe
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.cpp.stream_transcription_async.code
+  services:
+    transcribe-streaming: {StartStreamTranscription}
+transcribe_streaming_StartMedicalStreamTranscription:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.java-medical-streaming-demo
+  services:
+    transcribe-streaming: {StartMedicalStreamTranscription}
