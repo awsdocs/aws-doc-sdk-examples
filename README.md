@@ -77,7 +77,7 @@ Our team reviews all requests, evaluating them for the following:
 - Relevance
 - Feasibility
 
-**All examples request should be made as early as possible. For larger examples, this should be at least two months in advance of the requied date.**
+**All examples requests should be made as early as possible. For larger examples, this should be at least two months in advance of the required date.**
 
 Based on the evaluation, we determine the priority of each request and allocate resources accordingly. We prioritize requests that are clear, relevant, and can be completed in a reasonable amount of time. An accompanying high quality PR increases the chance we can address the request.
 
