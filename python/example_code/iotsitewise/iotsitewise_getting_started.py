@@ -9,24 +9,23 @@ Shows how to use the AWS SDK for Python (Boto3) with AWS IoT SiteWise to manage 
 
 import logging
 import sys
-from datetime import datetime, timedelta, timezone
+import time
 import os
 from boto3.resources.base import ServiceResource
 from boto3 import resource
+from botocore.exceptions import ClientError
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Add relative path to include SchedulerWrapper.
+# Add relative path to include IoTSitewiseWrapper.
 sys.path.append(os.path.dirname(script_dir))
 from iotsitewise_wrapper import IoTSitewiseWrapper
-
 
 # Add relative path to include demo_tools in this code example without need for setup.
 sys.path.append(os.path.join(script_dir, "../.."))
 import demo_tools.question as q
 
 logger = logging.getLogger(__name__)
-
 
 no_art = False  # 'no_art' suppresses 'art' to improve accessibility.
 def print_dashes():
@@ -57,6 +56,8 @@ class IoTSitewiseGettingStarted:
         self.iot_sitewise_wrapper = iot_sitewise_wrapper
         self.cloud_formation_resource = cloud_formation_resource
         self.stack: ServiceResource = None
+        self.asset_model_id: str = None
+        self.asset_id = None
 
     def run(self) -> None:
         """
@@ -107,52 +108,78 @@ Let's get started...
         print_dashes()
         print(f"1. Create an AWS SiteWise Asset Model")
         print("""
-        An AWS IoT SiteWise Asset Model is a way to represent the physical assets, such as equipment,
-        processes, and systems, that exist in an industrial environment. This model provides a structured and
-        hierarchical representation of these assets, allowing users to define the relationships and properties
-        of each asset.
-        
-        This scenario creates two asset model properties: temperature and humidity.
+An AWS IoT SiteWise Asset Model is a way to represent the physical assets, such as equipment,
+processes, and systems, that exist in an industrial environment. This model provides a structured and
+hierarchical representation of these assets, allowing users to define the relationships and double_properties
+of each asset.
+
+This scenario creates two asset model double_properties: temperature and humidity.
         """);
         press_enter_to_continue()
-        # print(f"Asset Model successfully created. Asset Model ID: {assetModelId}. ")
-        # print(f"The Asset Model {assetModelName} already exists. The id of the existing model is {assetModelId}. Moving on...")
-        # logging.error("An unexpected error occurred: " + cause.getMessage(), cause);
+        asset_model_name = "MyAssetModel1"
+        try:
+            self.asset_model_id = self.iot_sitewise_wrapper.create_asset_model(
+                asset_model_name
+            )
+            print(f"Asset Model successfully created. Asset Model ID: {self.asset_model_id}. ")
+        except ClientError as err:
+            if err.response["Error"]["Code"] == "ResourceAlreadyExistsException":
+                self.asset_model_id = self.get_model_id_for_model_name(
+                    asset_model_name
+                )
+                print(f"Asset Model {asset_model_name} already exists. Asset Model ID: {self.asset_model_id}. ")
+            else:
+                raise
+
         press_enter_to_continue()
         print_dashes()
         print(f"2. Create an AWS IoT SiteWise Asset")
         print("""
-        The IoT SiteWise model that we just created defines the structure and metadata for your physical assets.
-        Now we create an asset from the asset model.
+The IoT SiteWise model that we just created defines the structure and metadata for your physical assets.
+Now we create an asset from the asset model.
         
         """);
-        print(f"Let's wait 30 seconds for the asset to be ready.")
+        print(f"Let's wait for the asset model to become active.")
         press_enter_to_continue()
-        # print(f"Asset created with ID: {assetId}")
-        # print(f"The asset model id was not found: {cause.getMessage()}")
-        # logging.error("An unexpected error occurred: {}", cause.getMessage(), cause);
+        self.iot_sitewise_wrapper.wait_asset_model_active(self.asset_model_id)
+        self.asset_id = self.iot_sitewise_wrapper.create_asset("MyAsset1", self.asset_model_id)
+        self.iot_sitewise_wrapper.wait_asset_active(self.asset_id)
+        print(f"Asset created with ID: {self.asset_id}")
         press_enter_to_continue()
         print_dashes()
         print_dashes()
         print(f"3. Retrieve the property ID values")
         print("""
-        To send data to an asset, we need to get the property ID values. In this scenario, we access the
-        temperature and humidity property ID values.
+To send data to an asset, we need to get the property ID values. In this scenario, we access the
+temperature and humidity property ID values.
         """);
         press_enter_to_continue()
-        # print(f"The Humidity property Id is {humPropId}")
-        # print(f"The Temperature property Id is {tempPropId}")
+        property_ids = self.iot_sitewise_wrapper.list_asset_model_properties(self.asset_model_id)
+        humidity_property_id = None
+        temperature_property_id = None
+        for property_id in property_ids:
+            if property_id.get("name") == "humidity":
+                humidity_property_id = property_id.get("id")
+            elif property_id.get("name") == "temperature":
+                temperature_property_id = property_id.get("id")
+        if humidity_property_id is None or temperature_property_id is None:
+            error_string = f"Failed to retrieve property IDs from Asset Model."
+            logger.error(error_string)
+            raise ValueError(error_string)
+
+        print(f"The Humidity property Id is {humidity_property_id}")
+        print(f"The Temperature property Id is {temperature_property_id}")
         press_enter_to_continue()
         print_dashes()
         print_dashes()
         print(f"4. Send data to an AWS IoT SiteWise Asset")
         print("""
-        By sending data to an IoT SiteWise Asset, you can aggregate data from
-        multiple sources, normalize the data into a standard format, and store it in a
-        centralized location. This makes it easier to analyze and gain insights from the data.
-        
-        In this example, we generate sample temperature and humidity data and send it to the AWS IoT SiteWise asset.
-        
+By sending data to an IoT SiteWise Asset, you can aggregate data from
+multiple sources, normalize the data into a standard format, and store it in a
+centralized location. This makes it easier to analyze and gain insights from the data.
+
+In this example, we generate sample temperature and humidity data and send it to the AWS IoT SiteWise asset.
+
         """);
         press_enter_to_continue()
         print(f"Data sent successfully.")
@@ -161,9 +188,9 @@ Let's get started...
         print_dashes()
         print(f"5. Retrieve the value of the IoT SiteWise Asset property")
         print("""
-        IoT SiteWise is an AWS service that allows you to collect, process, and analyze industrial data
-        from connected equipment and sensors. One of the key benefits of reading an IoT SiteWise property
-        is the ability to gain valuable insights from your industrial data.
+IoT SiteWise is an AWS service that allows you to collect, process, and analyze industrial data
+from connected equipment and sensors. One of the key benefits of reading an IoT SiteWise property
+is the ability to gain valuable insights from your industrial data.
         
         """);
         press_enter_to_continue()
@@ -177,8 +204,8 @@ Let's get started...
         print_dashes()
         print(f"6. Create an IoT SiteWise Portal")
         print("""
-        An IoT SiteWise Portal allows you to aggregate data from multiple industrial sources,
-        such as sensors, equipment, and control systems, into a centralized platform.
+An IoT SiteWise Portal allows you to aggregate data from multiple industrial sources,
+such as sensors, equipment, and control systems, into a centralized platform.
         """);
         press_enter_to_continue()
 #        print(f"Portal created successfully. Portal ID {portalId}")
@@ -187,7 +214,7 @@ Let's get started...
         print_dashes()
         print(f"7. Describe the Portal")
         print("""
-        In this step, we get a description of the portal and display the portal URL.
+In this step, we get a description of the portal and display the portal URL.
         """);
         press_enter_to_continue()
 #        print(f"Portal URL: {portalUrl}")
@@ -235,6 +262,16 @@ Let's get started...
         Deletes the CloudFormation stack and the resources created for the demo.
         """
 
+        if self.asset_id is not None:
+            self.iot_sitewise_wrapper.delete_asset(self.asset_id)
+            print(f"Deleted asset with id {self.asset_id}.")
+            self.iot_sitewise_wrapper.wait_asset_deleted(self.asset_id)
+            self.asset_id = None
+
+        if self.asset_model_id is not None:
+            self.iot_sitewise_wrapper.delete_asset_model(self.asset_model_id)
+            print(f"Deleted asset model with id {self.asset_model_id}.")
+            self.asset_model_id = None
         if self.stack is not None:
             stack = self.stack
             self.stack = None
@@ -297,6 +334,21 @@ Let's get started...
         template_file_path = os.path.join(script_dir, "SitewiseRoles-template.yaml")
         file = open(template_file_path, "r")
         return file.read()
+
+    def get_model_id_for_model_name(self, model_name: str) -> str:
+        """
+        Returns the model ID for the given model name.
+
+        :param model_name: The name of the model.
+        :return: The model ID.
+        """
+        model_id = None
+        asset_models = self.iot_sitewise_wrapper.list_asset_models()
+        for asset_model in asset_models:
+            if asset_model["name"] == model_name:
+                model_id = asset_model["id"]
+                break
+        return model_id
 
 if __name__ == "__main__":
     demo: IoTSitewiseGettingStarted = None
