@@ -353,7 +353,7 @@ async fn test_happy_path() {
         {
             mock_ec2
                 .expect_delete_key_pair()
-                .with(eq("kp-12345"))
+                .with(eq("test_key"))
                 .returning(|_| Ok(()));
 
             mock_util
@@ -591,7 +591,7 @@ async fn test_unhappy_path_instance_takes_too_long() {
         {
             mock_ec2
                 .expect_delete_key_pair()
-                .with(eq("kp-12345"))
+                .with(eq("test_key"))
                 .returning(|_| Ok(()));
 
             mock_util
