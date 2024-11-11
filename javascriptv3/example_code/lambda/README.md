@@ -51,7 +51,7 @@ Code excerpts that show you how to call individual service functions.
 - [Invoke](actions/invoke.js#L5)
 - [ListFunctions](actions/list-functions.js#L5)
 - [UpdateFunctionCode](actions/update-function-code.js#L15)
-- [UpdateFunctionConfiguration](actions/update-function-configuration.js#L12)
+- [UpdateFunctionConfiguration](actions/update-function-configuration.js#L14)
 
 ### Scenarios
 
