@@ -24,7 +24,7 @@ aws-smithy-types = { version = "1.0.1", features = ["http-body-0-4-x"] }
 sdk-examples-test-utils = { path = "../../test-utils" }
 anyhow = "1.0.70"
 bytes = "1.4.0"
-clap = { version = "~4.4", features = ["derive"] }
+clap = { version = "4.4", features = ["derive"] }
 futures-util = { version = "0.3.21", features = ["alloc"] }
 http = "0.2.8"
 http-body = "0.4.5"
