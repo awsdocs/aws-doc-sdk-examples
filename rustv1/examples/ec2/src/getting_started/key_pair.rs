@@ -47,17 +47,18 @@ impl KeyPairManager {
         util: &Util,
         key_name: String,
     ) -> Result<KeyPairInfo, EC2Error> {
-        let (key_pair, material) = ec2
-            .create_key_pair(key_name.clone())
-            .await
-            .map_err(|e| e.add_message(format!("Couldn't create key {key_name}")))?;
+        let (key_pair, material) = ec2.create_key_pair(key_name.clone()).await.map_err(|e| {
+            self.key_pair = KeyPairInfo::builder().key_name(key_name.clone()).build();
+            e.add_message(format!("Couldn't create key {key_name}"))
+        })?;
 
         let path = self.key_file_dir.join(format!("{key_name}.pem"));
 
-        util.write_secure(&key_name, &path, material)?;
-
-        self.key_file_path = Some(path);
+        // Save the key_pair information immediately, so it can get cleaned up if write_secure fails.
+        self.key_file_path = Some(path.clone());
         self.key_pair = key_pair.clone();
+
+        util.write_secure(&key_name, &path, material)?;
 
         Ok(key_pair)
     }
@@ -65,8 +66,8 @@ impl KeyPairManager {
 
     // snippet-start:[ec2.rust.delete_key.wrapper]
     pub async fn delete(self, ec2: &EC2, util: &Util) -> Result<(), EC2Error> {
-        if let Some(key_pair_id) = self.key_pair.key_pair_id() {
-            ec2.delete_key_pair(key_pair_id).await?;
+        if let Some(key_name) = self.key_pair.key_name() {
+            ec2.delete_key_pair(key_name).await?;
             if let Some(key_path) = self.key_file_path() {
                 if let Err(err) = util.remove(key_path) {
                     eprintln!("Failed to remove {key_path:?} ({err:?})");
