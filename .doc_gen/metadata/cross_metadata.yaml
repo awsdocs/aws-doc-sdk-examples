@@ -822,6 +822,30 @@ cross_CognitoAutoConfirmUser:
             - description: Clean up resources.
               snippet_tags:
                 - gov2.cognito-identity-provider.Resources.complete
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-pools-triggers
+          sdk_guide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - javascript.v3.wkflw.pools-triggers.index
+                - javascript.v3.wkflw.pools-triggers.AutoConfirm
+                - javascript.v3.wkflw.pools-triggers.common
+            - description: Handle the <code>PreSignUp</code> trigger with a &LAM; function.
+              snippet_tags:
+                - javascript.v3.wkflw.pools-triggers.handler.AutoConfirm
+            - description: &CWL; actions
+              snippet_files:
+                - javascriptv3/example_code/cross-services/wkflw-pools-triggers/actions/cloudwatch-logs-actions.js
+            - description: &COG; actions
+              snippet_files:
+                - javascriptv3/example_code/cross-services/wkflw-pools-triggers/actions/cognito-actions.js
+            - description: &DDB; actions
+              snippet_files:
+                - javascriptv3/example_code/cross-services/wkflw-pools-triggers/actions/dynamodb-actions.js
+
   services:
     cognito-identity-provider: {UpdateUserPool, SignUp, InitiateAuth, DeleteUser}
     lambda: {}

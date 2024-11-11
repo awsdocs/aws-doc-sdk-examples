@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[javascript.v3.wkflw.pools-triggers.handler.AutoConfirm]
 import type { PreSignUpTriggerEvent, Handler } from "aws-lambda";
 import type { UserRepository } from "./user-repository";
 import { DynamoDBUserRepository } from "./user-repository";
@@ -72,3 +73,4 @@ export const handler: Handler = async (event: PreSignUpTriggerEvent) => {
   const preSignUpHandler = createPreSignUpHandler();
   return preSignUpHandler.handlePreSignUpTriggerEvent(event);
 };
+// snippet-end:[javascript.v3.wkflw.pools-triggers.handler.AutoConfirm]

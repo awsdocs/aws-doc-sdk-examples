@@ -753,6 +753,14 @@ cognito-identity-provider_DeleteUser:
               snippet_tags:
                 - gov2.cognito-identity-provider.CognitoActions.struct
                 - gov2.cognito-identity-provider.DeleteUser
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-pools-triggers
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.DeleteUser
   services:
     cognito-identity-provider: {DeleteUser}
 cognito-identity-provider_CreateUserPool:
@@ -793,6 +801,15 @@ cognito-identity-provider_UpdateUserPool:
               snippet_tags:
                 - gov2.cognito-identity-provider.CognitoActions.struct
                 - gov2.cognito-identity-provider.UpdateUserPool
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-pools-triggers
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito-idp.actions.UpdateUserPool
   services:
     cognito-identity-provider: {UpdateUserPool}
 cognito-identity-provider_ForgotPassword:

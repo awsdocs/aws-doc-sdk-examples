@@ -17,12 +17,15 @@ export class PoolsAndTriggersStack extends Stack {
 
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
-    this.createFunction("autoConfirmHandler");
+    this.createFunction("AutoConfirmHandler");
     this.poolsAndTriggersBase.outputs(this);
   }
 
   createFunction(name: string): NodejsFunction {
     const fn = new NodejsFunction(this, name, {
+      // An "entry" property is optional. By default, NodejsFunction
+      // will look for a file named `${this.stackName}.${name}.ts`
+      // entry: "",
       environment: {
         TABLE_NAME: this.poolsAndTriggersBase.tableName,
       },
@@ -30,7 +33,7 @@ export class PoolsAndTriggersStack extends Stack {
       runtime: Runtime.NODEJS_20_X,
     });
     fn.grantInvoke(this.cognitoPrincipal);
-    new CfnOutput(this, name, { value: fn.functionName });
+    new CfnOutput(this, `${name}Name`, { value: fn.functionName });
     new CfnOutput(this, `${name}Arn`, { value: fn.functionArn });
     return fn;
   }
