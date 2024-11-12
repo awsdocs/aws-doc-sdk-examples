@@ -761,10 +761,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Llama3_InvokeModelWithRespo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Llama3_InvokeModel", "Bedrock-runtime\Models\MetaLlama\Llama3_InvokeModel\Llama3_InvokeModel.csproj", "{FF724338-934A-45B3-90A5-9DB9CDFD3E1D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Llama2_InvokeModelWithResponseStream", "Bedrock-runtime\Models\MetaLlama\Llama2_InvokeModelWithResponseStream\Llama2_InvokeModelWithResponseStream.csproj", "{E3F8818A-4ED8-4453-9D46-2B3A5FC404BC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Llama2_InvokeModel", "Bedrock-runtime\Models\MetaLlama\Llama2_InvokeModel\Llama2_InvokeModel.csproj", "{A7C68A53-0A9D-4006-BEE9-0EDBDC17DD39}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConverseStream", "Bedrock-runtime\Models\MetaLlama\ConverseStream\ConverseStream.csproj", "{8D49CCB6-F604-49DF-A687-8CBDE52EF1E5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Converse", "Bedrock-runtime\Models\MetaLlama\Converse\Converse.csproj", "{31051885-0A31-4547-A8E8-6C31923B7D40}"
