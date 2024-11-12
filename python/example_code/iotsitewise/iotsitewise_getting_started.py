@@ -58,6 +58,8 @@ class IoTSitewiseGettingStarted:
         self.stack: ServiceResource = None
         self.asset_model_id: str = None
         self.asset_id = None
+        self.portal_id = None
+        self.gateway_id = None
 
     def run(self) -> None:
         """
@@ -93,33 +95,51 @@ Let's get started...
             "python-iot-sitewise-basics", template_file
         )
         outputs = self.stack.outputs
-        iamRole = None
+        iam_role = None
         for output in outputs:
             if output.get("OutputKey") == "SitewiseRoleArn":
-                iamRole = output.get("OutputValue")
+                iam_role = output.get("OutputValue")
 
-        if iamRole is None:
-            error_string = f"Failed to retrieve iamRole from CloudFormation stack."
+        if iam_role is None:
+            error_string = f"Failed to retrieve iam_role from CloudFormation stack."
             logger.error(error_string)
             raise ValueError(error_string)
 
-        print(f"The ARN of the IAM role is {iamRole}")
+        print(f"The ARN of the IAM role is {iam_role}")
         print_dashes()
         print_dashes()
         print(f"1. Create an AWS SiteWise Asset Model")
         print("""
 An AWS IoT SiteWise Asset Model is a way to represent the physical assets, such as equipment,
 processes, and systems, that exist in an industrial environment. This model provides a structured and
-hierarchical representation of these assets, allowing users to define the relationships and double_properties
+hierarchical representation of these assets, allowing users to define the relationships and values
 of each asset.
 
-This scenario creates two asset model double_properties: temperature and humidity.
+This scenario creates two asset model values: temperature and humidity.
         """);
         press_enter_to_continue()
         asset_model_name = "MyAssetModel1"
+        temperature_property_name = "temperature"
+        humidity_property_name = "humidity"
         try:
+            properties = [
+                {
+                    "name": temperature_property_name,
+                    "dataType": "DOUBLE",
+                    "type": {
+                        "measurement": {},
+                    },
+                },
+                {
+                    "name": humidity_property_name,
+                    "dataType": "DOUBLE",
+                    "type": {
+                        "measurement": {},
+                    },
+                }
+            ]
             self.asset_model_id = self.iot_sitewise_wrapper.create_asset_model(
-                asset_model_name
+                asset_model_name, properties
             )
             print(f"Asset Model successfully created. Asset Model ID: {self.asset_model_id}. ")
         except ClientError as err:
@@ -139,11 +159,10 @@ The IoT SiteWise model that we just created defines the structure and metadata f
 Now we create an asset from the asset model.
         
         """);
-        print(f"Let's wait for the asset model to become active.")
         press_enter_to_continue()
-        self.iot_sitewise_wrapper.wait_asset_model_active(self.asset_model_id)
+
         self.asset_id = self.iot_sitewise_wrapper.create_asset("MyAsset1", self.asset_model_id)
-        self.iot_sitewise_wrapper.wait_asset_active(self.asset_id)
+
         print(f"Asset created with ID: {self.asset_id}")
         press_enter_to_continue()
         print_dashes()
@@ -158,9 +177,9 @@ temperature and humidity property ID values.
         humidity_property_id = None
         temperature_property_id = None
         for property_id in property_ids:
-            if property_id.get("name") == "humidity":
+            if property_id.get("name") == humidity_property_name:
                 humidity_property_id = property_id.get("id")
-            elif property_id.get("name") == "temperature":
+            elif property_id.get("name") == temperature_property_name:
                 temperature_property_id = property_id.get("id")
         if humidity_property_id is None or temperature_property_id is None:
             error_string = f"Failed to retrieve property IDs from Asset Model."
@@ -182,7 +201,16 @@ In this example, we generate sample temperature and humidity data and send it to
 
         """);
         press_enter_to_continue()
+
+        values = [{"propertyId": humidity_property_id,
+                   "valueType" : "doubleValue",
+                   "value" : 65.0},
+                  {"propertyId": temperature_property_id,
+                   "valueType": "doubleValue",
+                   "value": 23.5}]
+        self.iot_sitewise_wrapper.batch_put_asset_property_value(self.asset_id, values)
         print(f"Data sent successfully.")
+
         press_enter_to_continue()
         print_dashes()
         print_dashes()
@@ -194,11 +222,15 @@ is the ability to gain valuable insights from your industrial data.
         
         """);
         press_enter_to_continue()
-        # print(f"The value of this property is: {assetVal}")
-        # press_enter_to_continue()
-        # print(f"The value of this property is: {assetVal}")
-        # print(f"The AWS resource was not found: {cause.getMessage()}")
-        # logging.error("An unexpected error occurred: {}", cause.getMessage(), cause);
+
+        property_value = self.iot_sitewise_wrapper.get_asset_property_value(self.asset_id, temperature_property_id)
+        print(f"The property name is '{temperature_property_name}'.")
+        print(f"The value of this property is: {property_value["value"]["doubleValue"]}")
+        press_enter_to_continue()
+
+        property_value = self.iot_sitewise_wrapper.get_asset_property_value(self.asset_id, humidity_property_id)
+        print(f"The property name is '{humidity_property_name}'.")
+        print(f"The value of this property is: {property_value["value"]["doubleValue"]}")
         press_enter_to_continue()
         print_dashes()
         print_dashes()
@@ -207,8 +239,12 @@ is the ability to gain valuable insights from your industrial data.
 An IoT SiteWise Portal allows you to aggregate data from multiple industrial sources,
 such as sensors, equipment, and control systems, into a centralized platform.
         """);
+
         press_enter_to_continue()
-#        print(f"Portal created successfully. Portal ID {portalId}")
+        contact_email = "meyertst@amazon.com" # q.ask("Enter a contact email for the portal:", q.non_empty)
+        print("Creating the portal. The portal may take a while to become active.")
+        self.portal_id = self.iot_sitewise_wrapper.create_portal("MyPortal1", iam_role, contact_email)
+        print(f"Portal created successfully. Portal ID {self.portal_id}")
         press_enter_to_continue()
         print_dashes()
         print_dashes()
@@ -217,57 +253,53 @@ such as sensors, equipment, and control systems, into a centralized platform.
 In this step, we get a description of the portal and display the portal URL.
         """);
         press_enter_to_continue()
-#        print(f"Portal URL: {portalUrl}")
+        portal_description = self.iot_sitewise_wrapper.describe_portal(self.portal_id)
+        print(f"Portal URL: {portal_description["portalStartUrl"]}")
         press_enter_to_continue()
         print_dashes()
         print_dashes()
         print(f"8. Create an IoT SiteWise Gateway")
         press_enter_to_continue()
-#        print(f"Gateway creation completed successfully. id is {gatewayId}")
+        self.gateway_id = self.iot_sitewise_wrapper.create_gateway("MyGateway1", "MyThing1")
+        print(f"Gateway creation completed successfully. id is {self.gateway_id}")
         print_dashes()
         print_dashes()
         print(f"9. Describe the IoT SiteWise Gateway")
         press_enter_to_continue()
-        # print(f"Gateway Name: {response.gatewayName()}")
-        # print(f"Gateway ARN: {response.gatewayArn()}")
-        # print(f"Gateway Platform: {response.gatewayPlatform()}")
-        # print(f"Gateway Creation Date: {response.creationDate()}")
+        gateway_description = self.iot_sitewise_wrapper.describe_gateway(self.gateway_id)
+        print(f"Gateway Name: {gateway_description["gatewayName"]}")
+        print(f"Gateway ARN: {gateway_description["gatewayArn"]}")
+        print(f"Gateway Platform:\n{gateway_description["gatewayPlatform"]}")
+        print(f"Gateway Creation Date: {gateway_description["gatewayArn"]}")
         print_dashes()
         print_dashes()
         print(f"10. Delete the AWS IoT SiteWise Assets")
-        print(f"Would you like to delete the IoT SiteWise Assets? (y/n)")
-        print(f"You selected to delete the SiteWise assets.")
-        press_enter_to_continue()
-        # print(f"Portal {portalId} was deleted successfully.")
-        # print(f"Gateway {gatewayId} was deleted successfully.")
-        # print(f"Request to delete asset {assetId} sent successfully")
-        print(f"Let's wait 1 minute for the asset to be deleted.")
-        press_enter_to_continue()
-        print(f"Delete the AWS IoT SiteWise Asset Model")
-        print(f"Asset model deleted successfully.")
-        press_enter_to_continue()
-        print(f"The resources will not be deleted.")
+        if q.ask("Would you like to delete the IoT SiteWise Assets? (y/n)", q.is_yesno):
+            self.cleanup()
+        else:
+            print(f"The resources will not be deleted.")
         print_dashes()
         print_dashes()
         print(f"This concludes the AWS IoT SiteWise Scenario")
-        print_dashes()
-        print(f"Enter 'c' followed by <ENTER> to continue:")
-        print(f"Continuing with the program...")
-        print(f"Invalid input. Please try again.")
-        print(f"Countdown complete!")
-        self.cleanup()
 
     def cleanup(self) -> None:
         """
         Deletes the CloudFormation stack and the resources created for the demo.
         """
 
+        if self.gateway_id is not None:
+            self.iot_sitewise_wrapper.delete_gateway(self.gateway_id)
+            print(f"Deleted gateway with id {self.gateway_id}.")
+            self.gateway_id = None
+        if self.portal_id is not None:
+            self.iot_sitewise_wrapper.delete_portal(self.portal_id)
+            print(f"Deleted portal with id {self.portal_id}.")
+            self.portal_id = None
         if self.asset_id is not None:
             self.iot_sitewise_wrapper.delete_asset(self.asset_id)
             print(f"Deleted asset with id {self.asset_id}.")
             self.iot_sitewise_wrapper.wait_asset_deleted(self.asset_id)
             self.asset_id = None
-
         if self.asset_model_id is not None:
             self.iot_sitewise_wrapper.delete_asset_model(self.asset_model_id)
             print(f"Deleted asset model with id {self.asset_model_id}.")
@@ -276,7 +308,6 @@ In this step, we get a description of the portal and display the portal URL.
             stack = self.stack
             self.stack = None
             self.destroy_cloudformation_stack(stack)
-        print("Stack deleted, demo complete.")
 
 
     def deploy_cloudformation_stack(
