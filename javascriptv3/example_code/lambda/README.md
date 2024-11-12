@@ -53,6 +53,13 @@ Code excerpts that show you how to call individual service functions.
 - [UpdateFunctionCode](actions/update-function-code.js#L15)
 - [UpdateFunctionConfiguration](actions/update-function-configuration.js#L12)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Automatically confirm known users with a Lambda function](../cross-services/wkflw-pools-triggers/index.js)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -115,6 +122,22 @@ This example shows you how to do the following:
 <!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
 <!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
 
+
+#### Automatically confirm known users with a Lambda function
+
+This example shows you how to automatically confirm known Amazon Cognito users with a Lambda function.
+
+- Configure a user pool to call a Lambda function for the <code>PreSignUp</code> trigger.
+- Sign up a user with Amazon Cognito.
+- The Lambda function scans a DynamoDB table and automatically confirms known users.
+- Sign in as the new user, then clean up resources.
+
+<!--custom.scenario_prereqs.cross_CognitoAutoConfirmUser.start-->
+<!--custom.scenario_prereqs.cross_CognitoAutoConfirmUser.end-->
+
+
+<!--custom.scenarios.cross_CognitoAutoConfirmUser.start-->
+<!--custom.scenarios.cross_CognitoAutoConfirmUser.end-->
 
 ### Tests
 
