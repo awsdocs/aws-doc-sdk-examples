@@ -828,10 +828,19 @@ cross_CognitoAutoConfirmUser:
           github: javascriptv3/example_code/cross-services/wkflw-pools-triggers
           sdk_guide:
           excerpts:
-            - description: Run an interactive scenario at a command prompt.
+            - description: |
+                Configure an interactive "Scenario" run. The JavaScript (v3) examples
+                share a Scenario runner to streamline complex examples. The complete
+                source code is on GitHub.
               snippet_tags:
                 - javascript.v3.wkflw.pools-triggers.index
+            - description: |
+                This Scenario demonstrates auto-confirming a known user.
+                It orchestrates the example steps.
+              snippet_tags:
                 - javascript.v3.wkflw.pools-triggers.AutoConfirm
+            - description: These are steps that are shared with other Scenarios.
+              snippet_tags:
                 - javascript.v3.wkflw.pools-triggers.common
             - description: Handle the <code>PreSignUp</code> trigger with a &LAM; function.
               snippet_tags:
