@@ -1,5 +1,5 @@
 {
-  "name": "@aws-doc-examples/wkflw-pools-triggers",
+  "name": "@aws-doc-sdk-examples/wkflw-pools-triggers",
   "version": "1.0.0",
   "author": "Corey Pyle <corepyle@amazon.com>",
   "license": "Apache-2.0",
