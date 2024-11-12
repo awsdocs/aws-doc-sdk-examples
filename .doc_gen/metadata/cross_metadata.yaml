@@ -842,16 +842,16 @@ cross_CognitoAutoConfirmUser:
             - description: These are steps that are shared with other Scenarios.
               snippet_tags:
                 - javascript.v3.wkflw.pools-triggers.common
-            - description: Handle the <code>PreSignUp</code> trigger with a &LAM; function.
+            - description: A handler for the <code>PreSignUp</code> trigger with a &LAM; function.
               snippet_tags:
                 - javascript.v3.wkflw.pools-triggers.handler.AutoConfirm
-            - description: Module of &CWL; actions
+            - description: Module of &CWL; actions.
               snippet_files:
                 - javascriptv3/example_code/cross-services/wkflw-pools-triggers/actions/cloudwatch-logs-actions.js
-            - description: Module of &COG; actions
+            - description: Module of &COG; actions.
               snippet_files:
                 - javascriptv3/example_code/cross-services/wkflw-pools-triggers/actions/cognito-actions.js
-            - description: Module of &DDB; actions
+            - description: Module of &DDB; actions.
               snippet_files:
                 - javascriptv3/example_code/cross-services/wkflw-pools-triggers/actions/dynamodb-actions.js
   services:
