@@ -17,7 +17,7 @@ aws-smithy-types = { version = "1.0.1" }
 aws-smithy-runtime = { version = "1.0.1", features = ["test-util"] }
 aws-smithy-runtime-api = { version = "1.0.1", features = ["test-util"] }
 aws-types = { version = "1.0.1" }
-clap = { version = "~4.4", features = ["derive"] }
+clap = { version = "4.4", features = ["derive"] }
 http = "0.2.9"
 mockall = "0.11.4"
 serde_json = "1"
