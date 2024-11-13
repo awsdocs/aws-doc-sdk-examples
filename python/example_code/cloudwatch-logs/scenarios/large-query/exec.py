@@ -85,6 +85,7 @@ class CloudWatchLogsQueryRunner:
         start_date_iso8601,
         end_date_iso8601,
         log_group="/workflows/cloudwatch-logs/large-query",
+        query="fields @timestamp, @message | sort @timestamp asc"
     ):
         """
         Creates a CloudWatchQuery instance and executes the query with provided date range.
@@ -97,7 +98,8 @@ class CloudWatchLogsQueryRunner:
         :type log_group: str
         """
         cloudwatch_query = CloudWatchQuery(
-            [start_date_iso8601, end_date_iso8601],
+            log_group=log_group,
+            query_string=query
         )
         cloudwatch_query.query_logs((start_date_iso8601, end_date_iso8601))
         logging.info("Query executed successfully.")
