@@ -40,7 +40,7 @@ class IoTSitewiseWrapper:
 
     # snippet-end:[python.example_code.iotsitewise.IoTSitewiseWrapper.decl]
 
-    # snipped-start:[python.example_code.iotsitewise.CreateAssetModel]
+    # snippet-start:[python.example_code.iotsitewise.CreateAssetModel]
     def create_asset_model(self, asset_model_name: str, properties : List[Dict[str, Any]]) -> str:
         """
         Creates an AWS IoT SiteWise Asset Model.
@@ -67,9 +67,9 @@ class IoTSitewiseWrapper:
                 logger.error("Error creating asset model %s. Here's why %s",
                          asset_model_name, err.response["Error"]["Message"])
             raise
-    # snipped-end:[python.example_code.iotsitewise.CreateAssetModel]
+    # snippet-end:[python.example_code.iotsitewise.CreateAssetModel]
 
-    # snipped-start:[python.example_code.iotsitewise.CreateAsset]
+    # snippet-start:[python.example_code.iotsitewise.CreateAsset]
     def create_asset(self, asset_name: str, asset_model_id: str) -> str:
         """
         Creates an AWS IoT SiteWise Asset.
@@ -94,9 +94,9 @@ class IoTSitewiseWrapper:
                 logger.error("Error creating asset %s. Here's why %s",
                          asset_name, err.response["Error"]["Message"])
             raise
-    # snipped-end:[python.example_code.iotsitewise.CreateAsset]
+    # snippet-end:[python.example_code.iotsitewise.CreateAsset]
 
-    # snipped-start:[python.example_code.iotsitewise.ListAssetModels]
+    # snippet-start:[python.example_code.iotsitewise.ListAssetModels]
     def list_asset_models(self) -> List[Dict[str, Any]]:
         """
         Lists all AWS IoT SiteWise Asset Models.
@@ -115,9 +115,9 @@ class IoTSitewiseWrapper:
             logger.error("Error listing asset models. Here's why %s",
                          err.response["Error"]["Message"])
             raise
-    # snipped-end:[python.example_code.iotsitewise.ListAssetModels]
+    # snippet-end:[python.example_code.iotsitewise.ListAssetModels]
 
-    # snipped-start:[python.example_code.iotsitewise.ListAssetModelProperties]
+    # snippet-start:[python.example_code.iotsitewise.ListAssetModelProperties]
     def list_asset_model_properties(self, asset_model_id: str) -> List[Dict[str, Any]]:
         """
         Lists all AWS IoT SiteWise Asset Model Properties.
@@ -136,8 +136,9 @@ class IoTSitewiseWrapper:
             logger.error("Error listing asset model values. Here's why %s",
                          err.response["Error"]["Message"])
             raise
+    # snippet-end:[python.example_code.iotsitewise.ListAssetModelProperties]
 
-    # snipped-start:[python.example_code.iotsitewise.BatchPutAssetPropertyValue]
+    # snippet-start:[python.example_code.iotsitewise.BatchPutAssetPropertyValue]
     def batch_put_asset_property_value(self, asset_id: str, values: List[Dict[str, str]]) -> None:
         """
         Sends data to an AWS IoT SiteWise Asset.
@@ -188,9 +189,9 @@ class IoTSitewiseWrapper:
                          err.response["Error"]["Message"])
             raise
 
-    # snipped-end:[python.example_code.iotsitewise.BatchPutAssetPropertyValue]
+    # snippet-end:[python.example_code.iotsitewise.BatchPutAssetPropertyValue]
 
-    # snipped-start:[python.example_code.iotsitewise.GetAssetPropertyValue]
+    # snippet-start:[python.example_code.iotsitewise.GetAssetPropertyValue]
     def get_asset_property_value(self, asset_id: str, property_id: str) -> Dict[str, Any]:
         """
         Gets the value of an AWS IoT SiteWise Asset Property.
@@ -212,9 +213,9 @@ class IoTSitewiseWrapper:
                 logger.error("Error getting asset property value. Here's why %s",
                          err.response["Error"]["Message"])
             raise
-    # snipped-end:[python.example_code.iotsitewise.GetAssetPropertyValue]
+    # snippet-end:[python.example_code.iotsitewise.GetAssetPropertyValue]
 
-    # snipped-start:[python.example_code.iotsitewise.CreatePortal]
+    # snippet-start:[python.example_code.iotsitewise.CreatePortal]
     def create_portal(self, portal_name: str, iam_role_arn:str, portal_contact_email: str) -> str:
         """
         Creates an AWS IoT SiteWise Portal.
@@ -241,9 +242,9 @@ class IoTSitewiseWrapper:
                 logger.error("Error creating portal %s. Here's why %s",
                          portal_name, err.response["Error"]["Message"])
             raise
-    # snipped-end:[python.example_code.iotsitewise.CreatePortal]
+    # snippet-end:[python.example_code.iotsitewise.CreatePortal]
 
-    # snipped-start:[python.example_code.iotsitewise.DescribePortal]
+    # snippet-start:[python.example_code.iotsitewise.DescribePortal]
     def describe_portal(self, portal_id: str) -> Dict[str, Any]:
         """
         Describes an AWS IoT SiteWise Portal.
@@ -259,9 +260,9 @@ class IoTSitewiseWrapper:
                          portal_id, err.response["Error"]["Message"])
             raise
 
-    # snipped-end:[python.example_code.iotsitewise.DescribePortal]
+    # snippet-end:[python.example_code.iotsitewise.DescribePortal]
 
-    # snipped-start:[python.example_code.iotsitewise.CreateGateway]
+    # snippet-start:[python.example_code.iotsitewise.CreateGateway]
     def create_gateway(self, gateway_name: str, my_thing: str) -> str:
         """
         Creates an AWS IoT SiteWise Gateway.
@@ -287,10 +288,9 @@ class IoTSitewiseWrapper:
                 logger.error("Error creating gateway %s. Here's why %s",
                          gateway_name, err.response["Error"]["Message"])
             raise
+    # snippet-end:[python.example_code.iotsitewise.CreateGateway]
 
-    # snipped-end:[python.example_code.iotsitewise.CreateGateway]
-
-    # snipped-start:[python.example_code.iotsitewise.DescribeGateway]
+    # snippet-start:[python.example_code.iotsitewise.DescribeGateway]
     def describe_gateway(self, gateway_id: str) -> Dict[str, Any]:
         """
         Describes an AWS IoT SiteWise Gateway.
@@ -308,9 +308,9 @@ class IoTSitewiseWrapper:
                 logger.error("Error describing gateway %s. Here's why %s",
                          gateway_id, err.response["Error"]["Message"])
             raise
-    # snipped-start:[python.example_code.iotsitewise.DescribeGateway]
+    # snippet-end:[python.example_code.iotsitewise.DescribeGateway]
 
-    # snipped-start:[python.example_code.iotsitewise.DeleteGateway]
+    # snippet-start:[python.example_code.iotsitewise.DeleteGateway]
     def delete_gateway(self, gateway_id: str) -> None:
         """
         Deletes an AWS IoT SiteWise Gateway.
@@ -326,9 +326,9 @@ class IoTSitewiseWrapper:
                 logger.error("Error deleting gateway %s. Here's why %s",
                          gateway_id, err.response["Error"]["Message"])
             raise
-    # snipped-end:[python.example_code.iotsitewise.DeleteGateway]
+    # snippet-end:[python.example_code.iotsitewise.DeleteGateway]
 
-    # snipped-start:[python.example_code.iotsitewise.DeletePortal]
+    # snippet-start:[python.example_code.iotsitewise.DeletePortal]
     def delete_portal(self, portal_id: str) -> None:
         """
         Deletes an AWS IoT SiteWise Portal.
@@ -345,7 +345,9 @@ class IoTSitewiseWrapper:
                          portal_id, err.response["Error"]["Message"])
             raise
 
-    # snipped-start:[python.example_code.iotsitewise.DeleteAsset]
+    # snippet-end:[python.example_code.iotsitewise.DeletePortal]
+
+    # snippet-start:[python.example_code.iotsitewise.DeleteAsset]
     def delete_asset(self, asset_id: str) -> None:
         """
         Deletes an AWS IoT SiteWise Asset.
@@ -358,9 +360,9 @@ class IoTSitewiseWrapper:
             logger.error("Error deleting asset %s. Here's why %s",
                          asset_id, err.response["Error"]["Message"])
             raise
-    # snipped-end:[python.example_code.iotsitewise.DeleteAsset]
+    # snippet-end:[python.example_code.iotsitewise.DeleteAsset]
 
-    # snipped-start:[python.example_code.iotsitewise.DeleteAssetModel]
+    # snippet-start:[python.example_code.iotsitewise.DeleteAssetModel]
     def delete_asset_model(self, asset_model_id: str) -> None:
         """
         Deletes an AWS IoT SiteWise Asset Model.
@@ -373,7 +375,7 @@ class IoTSitewiseWrapper:
             logger.error("Error deleting asset model %s. Here's why %s",
                          asset_model_id, err.response["Error"]["Message"])
             raise
-    # snipped-end:[python.example_code.iotsitewise.DeleteAssetModel]
+    # snippet-end:[python.example_code.iotsitewise.DeleteAssetModel]
 
     def wait_asset_deleted(self, asset_id: str) -> None:
         """
@@ -388,3 +390,4 @@ class IoTSitewiseWrapper:
             logger.error("Error waiting for asset %s to be deleted. Here's why %s",
                          asset_id, err.response["Error"]["Message"])
             raise
+# snippet-end:[python.example_code.iotsitewise.IoTSitewiseWrapper.class]

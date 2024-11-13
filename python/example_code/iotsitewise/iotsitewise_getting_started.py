@@ -9,8 +9,8 @@ Shows how to use the AWS SDK for Python (Boto3) with AWS IoT SiteWise to manage 
 
 import logging
 import sys
-import time
 import os
+import argparse
 from boto3.resources.base import ServiceResource
 from boto3 import resource
 from botocore.exceptions import ClientError
@@ -41,7 +41,7 @@ def press_enter_to_continue():
         q.ask("Press Enter to continue...")
 
 
-# snippet-start:[python.example_code.scheduler.FeatureScenario]
+# snippet-start:[python.example_code.iotsitewise.FeatureScenario]
 class IoTSitewiseGettingStarted:
     """
     A scenario that demonstrates how to use Boto3 to manage IoT physical assets using
@@ -122,6 +122,7 @@ This scenario creates two asset model values: temperature and humidity.
         temperature_property_name = "temperature"
         humidity_property_name = "humidity"
         try:
+            # snippet-start:[python.example_code.iotsitewise.CreateAssetModel.properties]
             properties = [
                 {
                     "name": temperature_property_name,
@@ -138,6 +139,7 @@ This scenario creates two asset model values: temperature and humidity.
                     },
                 }
             ]
+            # snippet-end:[python.example_code.iotsitewise.CreateAssetModel.properties]
             self.asset_model_id = self.iot_sitewise_wrapper.create_asset_model(
                 asset_model_name, properties
             )
@@ -202,12 +204,14 @@ In this example, we generate sample temperature and humidity data and send it to
         """);
         press_enter_to_continue()
 
+        # snippet-start:[python.example_code.iotsitewise.BatchPutAssetPropertyValue.values]
         values = [{"propertyId": humidity_property_id,
                    "valueType" : "doubleValue",
                    "value" : 65.0},
                   {"propertyId": temperature_property_id,
                    "valueType": "doubleValue",
                    "value": 23.5}]
+        # snippet-end:[python.example_code.iotsitewise.BatchPutAssetPropertyValue.values]
         self.iot_sitewise_wrapper.batch_put_asset_property_value(self.asset_id, values)
         print(f"Data sent successfully.")
 
@@ -380,8 +384,13 @@ In this step, we get a description of the portal and display the portal URL.
                 model_id = asset_model["id"]
                 break
         return model_id
+# snippet-end:[python.example_code.iotsitewise.FeatureScenario]
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Run IoT Sitewise getting started scenario.')
+    parser.add_argument('--no-art', action="store_true", help='accessibility setting that suppresses art in the console output.')
+    args = parser.parse_args()
+    no_art = args.no_art
     demo: IoTSitewiseGettingStarted = None
     try:
         an_iot_sitewise_wrapper = IoTSitewiseWrapper.from_client()
