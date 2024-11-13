@@ -1,13 +1,13 @@
-# Amazon Transcribe code examples for the SDK for C++
+# Amazon Transcribe Streaming code examples for the SDK for C++
 
 ## Overview
 
-Shows how to use the AWS SDK for C++ to work with Amazon Transcribe.
+Shows how to use the AWS SDK for C++ to work with Amazon Transcribe Streaming.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_Amazon Transcribe provides transcription services for your audio files and audio streams._
+_Amazon Transcribe Streaming produces real-time transcriptions for your media content._
 
 ## ⚠ Important
 
@@ -41,7 +41,7 @@ Next, for information on code example structures and how to build and run the ex
 
 Code excerpts that show you how to call individual service functions.
 
-- [StartStreamTranscriptionAsync](get_transcript.cpp#L28)
+- [StartStreamTranscription](get_transcript.cpp#L28)
 
 
 <!--custom.examples.start-->
@@ -88,9 +88,9 @@ folder.
 
 ## Additional resources
 
-- [Amazon Transcribe Developer Guide](https://docs.aws.amazon.com/transcribe/latest/dg/what-is.html)
-- [Amazon Transcribe API Reference](https://docs.aws.amazon.com/transcribe/latest/APIReference/Welcome.html)
-- [SDK for C++ Amazon Transcribe reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-transcribe/html/annotated.html)
+- [Amazon Transcribe Streaming Developer Guide](https://docs.aws.amazon.com/transcribe/latest/dg/streaming.html)
+- [Amazon Transcribe Streaming API Reference](https://docs.aws.amazon.com/transcribe/latest/APIReference/Welcome.html)
+- [SDK for C++ Amazon Transcribe Streaming reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-transcribe/html/annotated.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
