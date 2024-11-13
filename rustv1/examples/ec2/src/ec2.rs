@@ -62,12 +62,12 @@ impl EC2Impl {
     // snippet-end:[ec2.rust.list_keys.impl]
 
     // snippet-start:[ec2.rust.delete_key.impl]
-    pub async fn delete_key_pair(&self, key_pair_id: &str) -> Result<(), EC2Error> {
-        let key_pair_id: String = key_pair_id.into();
-        tracing::info!("Deleting key pair {key_pair_id}");
+    pub async fn delete_key_pair(&self, key_name: &str) -> Result<(), EC2Error> {
+        let key_name: String = key_name.into();
+        tracing::info!("Deleting key pair {key_name}");
         self.client
             .delete_key_pair()
-            .key_pair_id(key_pair_id)
+            .key_name(key_name)
             .send()
             .await?;
         Ok(())
