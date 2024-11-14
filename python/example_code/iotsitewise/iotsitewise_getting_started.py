@@ -96,6 +96,7 @@ Let's get started...
         )
         outputs = self.stack.outputs
         iam_role = None
+
         for output in outputs:
             if output.get("OutputKey") == "SitewiseRoleArn":
                 iam_role = output.get("OutputValue")
@@ -193,6 +194,7 @@ temperature and humidity property ID values.
         press_enter_to_continue()
         print_dashes()
         print_dashes()
+
         print(f"4. Send data to an AWS IoT SiteWise Asset")
         print("""
 By sending data to an IoT SiteWise Asset, you can aggregate data from
@@ -218,73 +220,74 @@ In this example, we generate sample temperature and humidity data and send it to
         press_enter_to_continue()
         print_dashes()
         print_dashes()
-        print(f"5. Retrieve the value of the IoT SiteWise Asset property")
-        print("""
-IoT SiteWise is an AWS service that allows you to collect, process, and analyze industrial data
-from connected equipment and sensors. One of the key benefits of reading an IoT SiteWise property
-is the ability to gain valuable insights from your industrial data.
-        
-        """);
-        press_enter_to_continue()
+        if False:
+            print(f"5. Retrieve the value of the IoT SiteWise Asset property")
+            print("""
+    IoT SiteWise is an AWS service that allows you to collect, process, and analyze industrial data
+    from connected equipment and sensors. One of the key benefits of reading an IoT SiteWise property
+    is the ability to gain valuable insights from your industrial data.
+            
+            """);
+            press_enter_to_continue()
 
-        property_value = self.iot_sitewise_wrapper.get_asset_property_value(self.asset_id, temperature_property_id)
-        print(f"The property name is '{temperature_property_name}'.")
-        print(f"The value of this property is: {property_value["value"]["doubleValue"]}")
-        press_enter_to_continue()
+            property_value = self.iot_sitewise_wrapper.get_asset_property_value(self.asset_id, temperature_property_id)
+            print(f"The property name is '{temperature_property_name}'.")
+            print(f"The value of this property is: {property_value["value"]["doubleValue"]}")
+            press_enter_to_continue()
 
-        property_value = self.iot_sitewise_wrapper.get_asset_property_value(self.asset_id, humidity_property_id)
-        print(f"The property name is '{humidity_property_name}'.")
-        print(f"The value of this property is: {property_value["value"]["doubleValue"]}")
-        press_enter_to_continue()
-        print_dashes()
-        print_dashes()
-        print(f"6. Create an IoT SiteWise Portal")
-        print("""
-An IoT SiteWise Portal allows you to aggregate data from multiple industrial sources,
-such as sensors, equipment, and control systems, into a centralized platform.
-        """);
+            property_value = self.iot_sitewise_wrapper.get_asset_property_value(self.asset_id, humidity_property_id)
+            print(f"The property name is '{humidity_property_name}'.")
+            print(f"The value of this property is: {property_value["value"]["doubleValue"]}")
+            press_enter_to_continue()
+            print_dashes()
+            print_dashes()
+            print(f"6. Create an IoT SiteWise Portal")
+            print("""
+    An IoT SiteWise Portal allows you to aggregate data from multiple industrial sources,
+    such as sensors, equipment, and control systems, into a centralized platform.
+            """);
 
-        press_enter_to_continue()
-        contact_email = "meyertst@amazon.com" # q.ask("Enter a contact email for the portal:", q.non_empty)
-        print("Creating the portal. The portal may take a while to become active.")
-        self.portal_id = self.iot_sitewise_wrapper.create_portal("MyPortal1", iam_role, contact_email)
-        print(f"Portal created successfully. Portal ID {self.portal_id}")
-        press_enter_to_continue()
-        print_dashes()
-        print_dashes()
-        print(f"7. Describe the Portal")
-        print("""
-In this step, we get a description of the portal and display the portal URL.
-        """);
-        press_enter_to_continue()
-        portal_description = self.iot_sitewise_wrapper.describe_portal(self.portal_id)
-        print(f"Portal URL: {portal_description["portalStartUrl"]}")
-        press_enter_to_continue()
-        print_dashes()
-        print_dashes()
-        print(f"8. Create an IoT SiteWise Gateway")
-        press_enter_to_continue()
-        self.gateway_id = self.iot_sitewise_wrapper.create_gateway("MyGateway1", "MyThing1")
-        print(f"Gateway creation completed successfully. id is {self.gateway_id}")
-        print_dashes()
-        print_dashes()
-        print(f"9. Describe the IoT SiteWise Gateway")
-        press_enter_to_continue()
-        gateway_description = self.iot_sitewise_wrapper.describe_gateway(self.gateway_id)
-        print(f"Gateway Name: {gateway_description["gatewayName"]}")
-        print(f"Gateway ARN: {gateway_description["gatewayArn"]}")
-        print(f"Gateway Platform:\n{gateway_description["gatewayPlatform"]}")
-        print(f"Gateway Creation Date: {gateway_description["gatewayArn"]}")
-        print_dashes()
-        print_dashes()
-        print(f"10. Delete the AWS IoT SiteWise Assets")
-        if q.ask("Would you like to delete the IoT SiteWise Assets? (y/n)", q.is_yesno):
-            self.cleanup()
-        else:
-            print(f"The resources will not be deleted.")
-        print_dashes()
-        print_dashes()
-        print(f"This concludes the AWS IoT SiteWise Scenario")
+            press_enter_to_continue()
+            contact_email = "meyertst@amazon.com" # q.ask("Enter a contact email for the portal:", q.non_empty)
+            print("Creating the portal. The portal may take a while to become active.")
+            self.portal_id = self.iot_sitewise_wrapper.create_portal("MyPortal1", iam_role, contact_email)
+            print(f"Portal created successfully. Portal ID {self.portal_id}")
+            press_enter_to_continue()
+            print_dashes()
+            print_dashes()
+            print(f"7. Describe the Portal")
+            print("""
+    In this step, we get a description of the portal and display the portal URL.
+            """);
+            press_enter_to_continue()
+            portal_description = self.iot_sitewise_wrapper.describe_portal(self.portal_id)
+            print(f"Portal URL: {portal_description["portalStartUrl"]}")
+            press_enter_to_continue()
+            print_dashes()
+            print_dashes()
+            print(f"8. Create an IoT SiteWise Gateway")
+            press_enter_to_continue()
+            self.gateway_id = self.iot_sitewise_wrapper.create_gateway("MyGateway1", "MyThing1")
+            print(f"Gateway creation completed successfully. id is {self.gateway_id}")
+            print_dashes()
+            print_dashes()
+            print(f"9. Describe the IoT SiteWise Gateway")
+            press_enter_to_continue()
+            gateway_description = self.iot_sitewise_wrapper.describe_gateway(self.gateway_id)
+            print(f"Gateway Name: {gateway_description["gatewayName"]}")
+            print(f"Gateway ARN: {gateway_description["gatewayArn"]}")
+            print(f"Gateway Platform:\n{gateway_description["gatewayPlatform"]}")
+            print(f"Gateway Creation Date: {gateway_description["gatewayArn"]}")
+            print_dashes()
+            print_dashes()
+            print(f"10. Delete the AWS IoT SiteWise Assets")
+            if q.ask("Would you like to delete the IoT SiteWise Assets? (y/n)", q.is_yesno):
+                self.cleanup()
+            else:
+                print(f"The resources will not be deleted.")
+            print_dashes()
+            print_dashes()
+            print(f"This concludes the AWS IoT SiteWise Scenario")
 
     def cleanup(self) -> None:
         """

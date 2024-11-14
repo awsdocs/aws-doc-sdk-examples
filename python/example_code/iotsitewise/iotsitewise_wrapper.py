@@ -151,35 +151,7 @@ class IoTSitewiseWrapper:
         """
         try:
 
-            entries = []
-            for value in values:
-                epoch_ns = time.time_ns()
-                self.entry_id += 1
-                if value["valueType"] == "stringValue":
-                    property_value = {"stringValue": value["value"]}
-                elif value["valueType"] == "integerValue":
-                    property_value = {"integerValue": value["value"]}
-                elif value["valueType"] == "booleanValue":
-                    property_value = {"booleanValue": value["value"]}
-                elif value["valueType"] == "doubleValue":
-                    property_value = {"doubleValue": value["value"]}
-                else:
-                    raise ValueError("Invalid valueType: %s", value["valueType"])
-                entry = {
-                        "entryId": f"{self.entry_id}",
-                        "assetId": asset_id,
-                        "propertyId": value["propertyId"],
-                        "propertyValues": [
-                            {
-                                "value": property_value,
-                                "timestamp": {
-                                    "timeInSeconds": int(epoch_ns / 1000000000),
-                                    "offsetInNanos": epoch_ns % 1000000000
-                                }
-                            }
-                        ]
-                }
-                entries.append(entry)
+            entries = self.properties_to_values(asset_id, values)
             self.iotsitewise_client.batch_put_asset_property_value(entries=entries)
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceNotFoundException":
@@ -190,6 +162,51 @@ class IoTSitewiseWrapper:
             raise
 
     # snippet-end:[python.example_code.iotsitewise.BatchPutAssetPropertyValue]
+
+    # snippet-start:[python.example_code.iotsitewise.BatchPutAssetPropertyValue.properties_to_values]
+    def properties_to_values(self, asset_id:str, values : list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """
+        Utility function to convert a values list to the entries parameter for batch_put_asset_property_value.
+        :param asset_id : The asset ID.
+        :param values : A list of dictionaries containing the values in the form
+                        {propertyId : property_id,
+                        valueType : [stringValue|integerValue|doubleValue|booleanValue],
+                        value : the_value}.
+        :return: An entries list to pass as the 'entries' parameter to batch_put_asset_property_value.
+        """
+        entries = []
+        for value in values:
+            epoch_ns = time.time_ns()
+            self.entry_id += 1
+            if value["valueType"] == "stringValue":
+                property_value = {"stringValue": value["value"]}
+            elif value["valueType"] == "integerValue":
+                property_value = {"integerValue": value["value"]}
+            elif value["valueType"] == "booleanValue":
+                property_value = {"booleanValue": value["value"]}
+            elif value["valueType"] == "doubleValue":
+                property_value = {"doubleValue": value["value"]}
+            else:
+                raise ValueError("Invalid valueType: %s", value["valueType"])
+            entry = {
+                "entryId": f"{self.entry_id}",
+                "assetId": asset_id,
+                "propertyId": value["propertyId"],
+                "propertyValues": [
+                    {
+                        "value": property_value,
+                        "timestamp": {
+                            "timeInSeconds": int(epoch_ns / 1000000000),
+                            "offsetInNanos": epoch_ns % 1000000000
+                        }
+                    }
+                ]
+            }
+            entries.append(entry)
+        return entries
+
+    # snippet-end:[python.example_code.iotsitewise.BatchPutAssetPropertyValue.properties_to_values]
+
 
     # snippet-start:[python.example_code.iotsitewise.GetAssetPropertyValue]
     def get_asset_property_value(self, asset_id: str, property_id: str) -> Dict[str, Any]:
