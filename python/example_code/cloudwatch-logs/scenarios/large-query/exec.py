@@ -16,6 +16,8 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s",
 )
 
+DEFAULT_QUERY_LOG_GROUP = "/workflows/cloudwatch-logs/large-query"
+
 
 class CloudWatchLogsQueryRunner:
     def __init__(self):
@@ -42,8 +44,10 @@ class CloudWatchLogsQueryRunner:
     def fetch_environment_variables(self):
         """
         Fetches and validates required environment variables for query start and end dates.
+        Fetches the environment variable for log group, returning the default value if it
+        does not exist.
 
-        :return: Tuple of query start date and end date as integers.
+        :return: Tuple of query start date and end date as integers and the log group.
         :rtype: tuple
         :raises SystemExit: If required environment variables are missing or invalid.
         """
@@ -58,8 +62,14 @@ class CloudWatchLogsQueryRunner:
         except ValueError as e:
             logging.error(f"Error parsing date environment variables: {e}")
             sys.exit(1)
+        
+        try:
+            log_group = os.environ["QUERY_LOG_GROUP"]
+        except KeyError:
+            logging.warning("No QUERY_LOG_GROUP environment variable, using default value")
+            log_group = DEFAULT_QUERY_LOG_GROUP
 
-        return query_start_date, query_end_date
+        return query_start_date, query_end_date, log_group
 
     def convert_dates_to_iso8601(self, start_date, end_date):
         """
@@ -96,6 +106,8 @@ class CloudWatchLogsQueryRunner:
         :type end_date_iso8601: str
         :param log_group: Log group to search: "/workflows/cloudwatch-logs/large-query"
         :type log_group: str
+        :param query: Query string to pass to the CloudWatchQuery instance
+        :type query: str
         """
         cloudwatch_query = CloudWatchQuery(
             log_group=log_group,
@@ -115,12 +127,12 @@ def main():
     """
     logging.info("Starting a recursive CloudWatch logs query...")
     runner = CloudWatchLogsQueryRunner()
-    query_start_date, query_end_date = runner.fetch_environment_variables()
+    query_start_date, query_end_date, log_group = runner.fetch_environment_variables()
     start_date_iso8601 = DateUtilities.convert_unix_timestamp_to_iso8601(
         query_start_date
     )
     end_date_iso8601 = DateUtilities.convert_unix_timestamp_to_iso8601(query_end_date)
-    runner.execute_query(start_date_iso8601, end_date_iso8601)
+    runner.execute_query(start_date_iso8601, end_date_iso8601, log_group=log_group)
 
 
 if __name__ == "__main__":
