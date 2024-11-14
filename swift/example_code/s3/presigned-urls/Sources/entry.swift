@@ -378,6 +378,7 @@ struct ExampleCommand: ParsableCommand {
 
         // Create a presigned URLRequest with the `GetObject` action.
         
+        // snippet-start:[swift.s3.presigned.getobject]
         let getInput = GetObjectInput(
             bucket: bucket,
             key: key
@@ -392,6 +393,7 @@ struct ExampleCommand: ParsableCommand {
         } catch {
             throw TransferError.signingError
         }
+        // snippet-end:[swift.s3.presigned.getobject]
 
         // Use the presigned request to fetch the file from Amazon S3 and
         // store it at the location given by the `destPath` parameter.
