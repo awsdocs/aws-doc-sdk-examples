@@ -344,7 +344,8 @@ struct ExampleCommand: ParsableCommand {
     
     // snippet-start:[swift.s3.presigned.download-file]
     /// Download a file from the specified bucket and store it in the local
-    /// filesystem.
+    /// filesystem. Demonstrates using a custom configuration when presigning
+    /// a request.
     ///
     /// - Parameters:
     ///   - bucket: The Amazon S3 bucket name from which to retrieve the file.
@@ -376,22 +377,29 @@ struct ExampleCommand: ParsableCommand {
                 
         let s3Client = try await S3Client()
 
-        // Create a presigned URLRequest with the `GetObject` action.
+        // Create a presigned URLRequest with the `GetObject` action. Use a
+        // custom configuration to increase the maximum number of attempts.
         
-        let getInput = GetObjectInput(
-            bucket: bucket,
-            key: key
-        )
-
+        // snippet-start:[swift.s3.presigned.getobject.advanced]
         let presignedRequest: URLRequest
         do {
-            presignedRequest = try await s3Client.presignedRequestForGetObject(
-                input: getInput,
-                expiration: TimeInterval(5 * 60)
+            let request = try await GetObjectInput(
+                bucket: bucket,
+                key: key
+            ).presign(
+                config: try S3Client.S3ClientConfiguration(
+                    maxAttempts: 6
+                ),
+                expiration: TimeInterval(3600)
             )
+            guard let request else {
+                throw TransferError.signingError
+            }
+            try await presignedRequest = HTTPRequest.makeURLRequest(from: request)
         } catch {
             throw TransferError.signingError
         }
+        // snippet-end:[swift.s3.presigned.getobject.advanced]
 
         // Use the presigned request to fetch the file from Amazon S3 and
         // store it at the location given by the `destPath` parameter.
