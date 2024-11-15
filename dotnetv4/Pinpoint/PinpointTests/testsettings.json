@@ -1,0 +1,9 @@
+{
+  "SenderAddress": "sender@example.com",
+  "ToAddress": "recipient@example.com",
+  "AppId": "ce796be37f32f178af652b26eexample",
+  "OriginationNumber": "+12344567",
+  "DestinationNumber": "+12345567",
+  "RegisteredKeyword": "myKeyword",
+  "SenderId": "mySenderId"
+}

@@ -1,0 +1,7 @@
+{
+  "roleName": "sagemaker-sdk-example-role",
+  "queueName": "sagemaker-sdk-example-queue",
+  "bucketName": "sagemaker-sdk-example-bucket",
+  "pipelineName": "sagemaker-sdk-example-pipeline",
+  "inputFileName": "sagemaker-sdk-example-input-file"
+}

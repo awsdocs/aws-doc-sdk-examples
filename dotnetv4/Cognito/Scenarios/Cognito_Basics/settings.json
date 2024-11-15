@@ -1,0 +1,9 @@
+{
+  "ClientId": "client_id_from_cdk",
+  "PoolId": "client_id_from_cdk",
+  "UserName": "username",
+  "Password": "EXAMPLEPASSWORD",
+  "Email": "useremail",
+  "adminUserName": "admin",
+  "adminPassword": "EXAMPLEPASSWORD"
+}
