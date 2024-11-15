@@ -7,7 +7,6 @@ public class ActionTest_InvokeModel
 {
     [Theory, Trait("Category", "Integration")]
     [InlineData(typeof(Mistral.InvokeModel))]
-    [InlineData(typeof(MetaLlama2.InvokeModel))]
     [InlineData(typeof(MetaLlama3.InvokeModel))]
     [InlineData(typeof(CohereCommand.InvokeModel))]
     [InlineData(typeof(CohereCommandR.InvokeModel))]

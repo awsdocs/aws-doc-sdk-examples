@@ -1,6 +1,7 @@
-﻿using System.Linq;
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
+
+using System.Linq;
 
 namespace FaceRekognitionExample
 {
@@ -84,6 +85,7 @@ namespace FaceRekognitionExample
                                        select bb)
                     {
                         Console.WriteLine($"Bounding box = ({bb.Left}, {bb.Top}, {bb.Height}, {bb.Width})");
+
                         // Draw the rectangle using the bounding box values.
                         // They are percentages so scale them to the picture.
                         graphics.DrawRectangle(
