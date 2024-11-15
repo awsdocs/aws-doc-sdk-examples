@@ -116,7 +116,7 @@ struct ExampleCommand: ParsableCommand {
                 bucket: bucket,
                 key: fileName
             ).presign(
-                config: config,
+                config: putConfig,
                 expiration: TimeInterval(10 * 60)
             )
             
