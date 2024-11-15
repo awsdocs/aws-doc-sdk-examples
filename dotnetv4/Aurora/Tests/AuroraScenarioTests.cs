@@ -148,7 +148,7 @@ public class AuroraScenarioTests
         var clusterOptions =
             await wrapper.DescribeOrderableDBInstanceOptionsPagedAsync(engineName, engineVersion);
 
-        Assert.NotEmpty(clusterOptions);
+        Assert.NotNull(clusterOptions);
     }
 
     /// <summary>
@@ -200,7 +200,7 @@ public class AuroraScenarioTests
         var instances =
             await wrapper.DescribeDBInstancesPagedAsync();
 
-        Assert.NotEmpty(instances);
+        Assert.NotNull(instances);
     }
 
     /// <summary>

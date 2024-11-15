@@ -72,7 +72,7 @@ public class AutoScalingBasics
         await autoScalingWrapper.CreateAutoScalingGroupAsync(
             groupName!,
             launchTemplateName,
-            availabilityZones.First().ZoneName);
+            availabilityZones[0].ZoneName);
 
         // Keep checking the details of the new group until its lifecycle state
         // is "InService".
