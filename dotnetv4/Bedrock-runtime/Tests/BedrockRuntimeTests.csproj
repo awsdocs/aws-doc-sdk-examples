@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<RootNamespace>BedrockRuntimeTests</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.11.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+		<PackageReference Include="xunit" Version="2.9.2" />
+		<PackageReference Include="Xunit.Extensions.Ordering" Version="1.4.5" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="coverlet.collector" Version="6.0.2">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Models\Ai21LabsJurassic2\Converse\Converse.csproj" />
+	  <ProjectReference Include="..\Models\Ai21LabsJurassic2\InvokeModel\InvokeModel.csproj" />
+	  <ProjectReference Include="..\Models\AmazonTitanText\ConverseStream\ConverseStream.csproj" />
+	  <ProjectReference Include="..\Models\AmazonTitanText\Converse\Converse.csproj" />
+	  <ProjectReference Include="..\Models\AmazonTitanText\InvokeModelWithResponseStream\InvokeModelWithResponseStream.csproj" />
+	  <ProjectReference Include="..\Models\AmazonTitanText\InvokeModel\InvokeModel.csproj" />
+	  <ProjectReference Include="..\Models\AnthropicClaude\ConverseStream\ConverseStream.csproj" />
+	  <ProjectReference Include="..\Models\AnthropicClaude\Converse\Converse.csproj" />
+	  <ProjectReference Include="..\Models\AnthropicClaude\InvokeModelWithResponseStream\InvokeModelWithResponseStream.csproj" />
+	  <ProjectReference Include="..\Models\AnthropicClaude\InvokeModel\InvokeModel.csproj" />
+	  <ProjectReference Include="..\Models\CohereCommand\Command_InvokeModelWithResponseStream\Command_InvokeModelWithResponseStream.csproj" />
+	  <ProjectReference Include="..\Models\CohereCommand\Command_InvokeModel\Command_InvokeModel.csproj" />
+	  <ProjectReference Include="..\Models\CohereCommand\Command_R_InvokeModelWithResponseStream\Command_R_InvokeModelWithResponseStream.csproj" />
+	  <ProjectReference Include="..\Models\CohereCommand\Command_R_InvokeModel\Command_R_InvokeModel.csproj" />
+	  <ProjectReference Include="..\Models\CohereCommand\ConverseStream\ConverseStream.csproj" />
+	  <ProjectReference Include="..\Models\CohereCommand\Converse\Converse.csproj" />
+	  <ProjectReference Include="..\Models\MetaLlama\ConverseStream\ConverseStream.csproj" />
+	  <ProjectReference Include="..\Models\MetaLlama\Converse\Converse.csproj" />
+	  <ProjectReference Include="..\Models\MetaLlama\Llama2_InvokeModelWithResponseStream\Llama2_InvokeModelWithResponseStream.csproj" />
+	  <ProjectReference Include="..\Models\MetaLlama\Llama2_InvokeModel\Llama2_InvokeModel.csproj" />
+	  <ProjectReference Include="..\Models\MetaLlama\Llama3_InvokeModelWithResponseStream\Llama3_InvokeModelWithResponseStream.csproj" />
+	  <ProjectReference Include="..\Models\MetaLlama\Llama3_InvokeModel\Llama3_InvokeModel.csproj" />
+	  <ProjectReference Include="..\Models\Mistral\ConverseStream\ConverseStream.csproj" />
+	  <ProjectReference Include="..\Models\Mistral\Converse\Converse.csproj" />
+	  <ProjectReference Include="..\Models\Mistral\InvokeModelWithResponseStream\InvokeModelWithResponseStream.csproj" />
+	  <ProjectReference Include="..\Models\Mistral\InvokeModel\InvokeModel.csproj" />
+	</ItemGroup>
+
+</Project>

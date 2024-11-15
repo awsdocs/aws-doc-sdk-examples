@@ -1,0 +1,8 @@
+{
+  "ActivityName": "mvp-activity",
+  "StateMachineName": "mvp-state-machine",
+  "RoleName": "step-functions-mvp-role",
+  "RepoBaseDir": "PATH TO THE FORK OF THE AWS CODE EXAMPLES REPOSITORY",
+  "JsonFilePath": "resources\\sample_files\\",
+  "JsonFileName": "chat_sfn_state_machine.json"
+}

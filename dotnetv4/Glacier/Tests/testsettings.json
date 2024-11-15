@@ -1,0 +1,7 @@
+{
+  "DownloadFilePath": "*** Local path and file name to save file to.",
+  "ArchiveName": "*** Name of the file to upload/download.",
+  "TagValue":  "*** Tag to add to archive.",
+  "UploadFilePath":  "*** The local path and file name of the file to upload.",
+  "VaultName": "vault-test-vault"
+}
