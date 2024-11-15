@@ -103,6 +103,11 @@ struct ExampleCommand: ParsableCommand {
         let dataStream = ByteStream.data(fileData)
         let presignedRequest: URLRequest
 
+        let putConfig = try await S3Client.S3ClientConfiguration(
+            maxAttempts: 6,
+            region: region
+        )
+
         config.maxAttempts = 6
         
         do {
