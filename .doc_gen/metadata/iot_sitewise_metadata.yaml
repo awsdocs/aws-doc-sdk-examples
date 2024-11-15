@@ -278,9 +278,9 @@ iotsitewise_BatchPutAssetPropertyValue:
                A helper function to generate the entries parameter from a values
                list.
               snippet_tags:
-                - python.example_code.iotsitewise.BatchPutAssetPropertyValue.properties_to_
+                - python.example_code.iotsitewise.BatchPutAssetPropertyValue.properties_to_values
             - description: >
-               Here is an example of a values list to pass to the helper 
+               Here is an example of a values list to pass to the helper
                function.
               snippet_tags:
                 - python.example_code.iotsitewise.BatchPutAssetPropertyValue.values

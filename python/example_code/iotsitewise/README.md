@@ -1,8 +1,8 @@
-# AWS IoT SiteWise code examples for the SDK for Java 2.x
+# AWS IoT SiteWise code examples for the SDK for Python
 
 ## Overview
 
-Shows how to use the AWS SDK for Java 2.x to work with AWS IoT SiteWise.
+Shows how to use the AWS SDK for Python (Boto3) to work with AWS IoT SiteWise.
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
@@ -23,42 +23,47 @@ _AWS IoT SiteWise _
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `python` folder.
 
+Install the packages required by these examples by running the following in a virtual environment:
+
+```
+python -m pip install -r requirements.txt
+```
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
 ### Get started
 
-- [Hello AWS IoT SiteWise](src/main/java/com/example/iotsitewise/HelloSitewise.java#L14) (`ListAssetModels`)
+- [Hello AWS IoT SiteWise](hello/hello_iot_sitewise.py#L4) (`ListAssetModels`)
 
 
 ### Basics
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](src/main/java/com/example/iotsitewise/scenario/SitewiseScenario.java)
+- [Learn the basics](iotsitewise_getting_started.py)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [BatchPutAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L169)
-- [CreateAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L138)
-- [CreateAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L88)
-- [CreateGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L468)
-- [CreatePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L347)
-- [DeleteAsset](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L293)
-- [DeleteAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L320)
-- [DeleteGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L513)
-- [DeletePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L381)
-- [DescribeGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L540)
-- [DescribePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L439)
-- [GetAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L233)
-- [ListAssetModelProperties](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L264)
-- [ListAssetModels](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L408)
+- [BatchPutAssetPropertyValue](iotsitewise_wrapper.py#L155)
+- [CreateAsset](iotsitewise_wrapper.py#L75)
+- [CreateAssetModel](iotsitewise_wrapper.py#L41)
+- [CreateGateway](iotsitewise_wrapper.py#L315)
+- [CreatePortal](iotsitewise_wrapper.py#L259)
+- [DeleteAsset](iotsitewise_wrapper.py#L415)
+- [DeleteAssetModel](iotsitewise_wrapper.py#L434)
+- [DeleteGateway](iotsitewise_wrapper.py#L371)
+- [DeletePortal](iotsitewise_wrapper.py#L393)
+- [DescribeGateway](iotsitewise_wrapper.py#L347)
+- [DescribePortal](iotsitewise_wrapper.py#L315)
+- [GetAssetPropertyValue](iotsitewise_wrapper.py#L229)
+- [ListAssetModelProperties](iotsitewise_wrapper.py#L129)
+- [ListAssetModels](iotsitewise_wrapper.py#L105)
 
 
 <!--custom.examples.start-->
@@ -76,6 +81,9 @@ Code excerpts that show you how to call individual service functions.
 
 This example shows you how to get started using AWS IoT SiteWise.
 
+```
+python hello/hello_iot_sitewise.py
+```
 
 #### Learn the basics
 
@@ -84,6 +92,12 @@ This example shows you how to Learn core operations for AWS IoT SiteWise using a
 
 <!--custom.basic_prereqs.iotsitewise_Scenario.start-->
 <!--custom.basic_prereqs.iotsitewise_Scenario.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python iotsitewise_getting_started.py
+```
 
 
 <!--custom.basics.iotsitewise_Scenario.start-->
@@ -96,7 +110,7 @@ This example shows you how to Learn core operations for AWS IoT SiteWise using a
 
 
 To find instructions for running these tests, see the [README](../../README.md#Tests)
-in the `javav2` folder.
+in the `python` folder.
 
 
 
@@ -107,7 +121,7 @@ in the `javav2` folder.
 
 - [AWS IoT SiteWise Developer Guide](https://docs.aws.amazon.com/iot-sitewise/latest/userguide/what-is-sitewise.html)
 - [AWS IoT SiteWise API Reference](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/Welcome.html)
-- [SDK for Java 2.x AWS IoT SiteWise reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/iotsitewise/package-summary.html)
+- [SDK for Python AWS IoT SiteWise reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotsitewise.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
