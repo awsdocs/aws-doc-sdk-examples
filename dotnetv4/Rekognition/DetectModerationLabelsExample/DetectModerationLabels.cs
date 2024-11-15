@@ -1,0 +1,57 @@
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
+namespace DetectModerationLabelsExample
+{
+    // snippet-start:[Rekognition.dotnetv4.DetectModerationLabelsExample]
+    using System;
+    using System.Threading.Tasks;
+    using Amazon.Rekognition;
+    using Amazon.Rekognition.Model;
+
+    /// <summary>
+    /// Uses the Amazon Rekognition Service to detect unsafe content in a
+    /// JPEG or PNG format image.
+    /// </summary>
+    public class DetectModerationLabels
+    {
+        public static async Task Main(string[] args)
+        {
+            string photo = "input.jpg";
+            string bucket = "amzn-s3-demo-bucket";
+
+            var rekognitionClient = new AmazonRekognitionClient();
+
+            var detectModerationLabelsRequest = new DetectModerationLabelsRequest()
+            {
+                Image = new Image()
+                {
+                    S3Object = new S3Object()
+                    {
+                        Name = photo,
+                        Bucket = bucket,
+                    },
+                },
+                MinConfidence = 60F,
+            };
+
+            try
+            {
+                var detectModerationLabelsResponse = await rekognitionClient.DetectModerationLabelsAsync(detectModerationLabelsRequest);
+                Console.WriteLine("Detected labels for " + photo);
+                foreach (ModerationLabel label in detectModerationLabelsResponse.ModerationLabels)
+                {
+                    Console.WriteLine($"Label: {label.Name}");
+                    Console.WriteLine($"Confidence: {label.Confidence}");
+                    Console.WriteLine($"Parent: {label.ParentName}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    }
+
+    // snippet-end:[Rekognition.dotnetv4.DetectModerationLabelsExample]
+}

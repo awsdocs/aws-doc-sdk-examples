@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetachPolicyExample", "DetachPolicyExample\DetachPolicyExample.csproj", "{784ECFF6-9587-4210-8EA8-A1EE2BFAA1AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{784ECFF6-9587-4210-8EA8-A1EE2BFAA1AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{784ECFF6-9587-4210-8EA8-A1EE2BFAA1AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{784ECFF6-9587-4210-8EA8-A1EE2BFAA1AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{784ECFF6-9587-4210-8EA8-A1EE2BFAA1AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35FF8FD2-DEA6-4E4C-8D1A-942D1EDD3298}
+	EndGlobalSection
+EndGlobal

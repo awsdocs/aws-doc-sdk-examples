@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+
+	<ItemGroup>
+		<Content Include="settings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="settings.*.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<DependentUpon>settings.json</DependentUpon>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+    <PackageReference Include="AWSSDK.EventBridge" Version="4.0.0-preview.4" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.0-preview.4" />
+    <PackageReference Include="AWSSDK.IdentityManagement" Version="4.0.0-preview.4" />
+    <PackageReference Include="AWSSDK.S3" Version="4.0.0-preview.4" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="4.0.0-preview.4" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Actions\EventBridgeActions.csproj" />
+  </ItemGroup>
+
+</Project>
