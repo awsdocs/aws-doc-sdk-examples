@@ -4,7 +4,6 @@
 // snippet-start:[ACM.dotnetv4.DescribeCertificate]
 using System;
 using System.Threading.Tasks;
-using Amazon;
 using Amazon.CertificateManager;
 using Amazon.CertificateManager.Model;
 
@@ -15,13 +14,11 @@ namespace DescribeCertificate
         // The following example retrieves and displays the metadata for a
         // certificate using the AWS Certificate Manager (ACM) service.
 
-        // Specify your AWS Region (an example Region is shown).
-        private static readonly RegionEndpoint ACMRegion = RegionEndpoint.USEast1;
         private static AmazonCertificateManagerClient _client;
 
         static void Main(string[] args)
         {
-            _client = new Amazon.CertificateManager.AmazonCertificateManagerClient(ACMRegion);
+            _client = new Amazon.CertificateManager.AmazonCertificateManagerClient();
 
             var describeCertificateReq = new DescribeCertificateRequest();
             // The ARN used here is just an example. Replace it with the ARN of
