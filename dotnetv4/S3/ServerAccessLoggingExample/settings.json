@@ -1,0 +1,6 @@
+{
+  "BucketName": "amzn-s3-demo-source-bucket",
+  "LogBucketName": "amzn-s3-demo-destination-bucket",
+  "LogObjectKeyPrefix": "access-logs/",
+  "AccountId": "111122223333"
+}

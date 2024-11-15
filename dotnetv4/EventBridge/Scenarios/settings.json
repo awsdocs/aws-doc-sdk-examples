@@ -1,0 +1,6 @@
+{
+  "roleName": "eventbridge-events-rule-role",
+  "testBucketName": "amzn-s3-demo-bucket",
+  "topicName": "example-eventbridge-topic-name",
+  "eventRuleName": "example-event-rule"
+}
