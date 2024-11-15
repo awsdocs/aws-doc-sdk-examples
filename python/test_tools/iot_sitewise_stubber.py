@@ -103,6 +103,7 @@ class IoTSitewiseStubber(ExampleStubber):
 
             ]
         }
+        print(f"stub_list_asset_model_properties nextToken {nextToken} truncated {truncated}")
         if truncated:
             response["nextToken"] = "test-token"
 
@@ -111,14 +112,14 @@ class IoTSitewiseStubber(ExampleStubber):
         )
         
     @classmethod
-    def properties_to_values(cls, asset_id, entry_id, values):
+    def properties_to_values(cls, asset_id, entry_id, values, time_ns):
         """
         Utility function to convert a values list to an entries parameter for batch_put_asset_property_value.
         This matches a function in IoTSitewiseWrapper
         """
         entries = []
         for value in values:
-            epoch_ns = time.time_ns()
+            epoch_ns = time_ns
             entry_id += 1
             if value["valueType"] == "stringValue":
                 property_value = {"stringValue": value["value"]}
@@ -147,8 +148,8 @@ class IoTSitewiseStubber(ExampleStubber):
             entries.append(entry)
         return entries
 
-    def stub_batch_put_asset_property_value(self, asset_id, entry_id, values, error_code=None):
-        entries= self.properties_to_values(asset_id, entry_id, values)
+    def stub_batch_put_asset_property_value(self, asset_id, entry_id, values, time_ns, error_code=None):
+        entries= self.properties_to_values(asset_id, entry_id, values, time_ns)
         expected_params = {"entries": entries}
         response = {
             "errorEntries": []
@@ -156,4 +157,124 @@ class IoTSitewiseStubber(ExampleStubber):
 
         self._stub_bifurcator(
             "batch_put_asset_property_value", expected_params, response, error_code=error_code
+        )
+    
+    def stub_get_asset_property_value(self, asset_id, property_id, property_value, time_ns, error_code=None):
+        expected_params = {"assetId": asset_id, "propertyId": property_id}
+        response = {
+            "propertyValue": {"value": {"doubleValue": property_value},
+                              "timestamp" : {"timeInSeconds": int(time_ns / 1000000000),
+                                             "offsetInNanos": time_ns % 1000000000
+
+                                             }
+                              }
+        }
+
+        self._stub_bifurcator(
+            "get_asset_property_value", expected_params, response, error_code=error_code
+        )
+    
+    def stub_create_portal(self, portal_name, iam_role, email, portal_id, error_code=None):
+        expected_params = {
+            "portalName": portal_name,
+            "roleArn": iam_role,
+            "portalContactEmail": email
+        }
+        response = {
+            "portalId": portal_id,
+            "portalArn": "arn:aws:iotsitewise:us-west-2:123456789012:portal/a1b2c3d4-5678-90ab-cdef-22222EXAMPLE",
+            "portalStatus": {"state": "CREATING"},
+            "portalStartUrl": f"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX{portal_id}",
+            "ssoApplicationId" : "01234567-1234-0123-1234-0123456789ae"
+        }
+        self._stub_bifurcator(
+            "create_portal", expected_params, response, error_code=error_code
+        )
+
+    def stub_describe_portal(self, portal_id, portal_name, error_code=None):
+        expected_params = {"portalId": portal_id}
+        response = {
+            "portalId": portal_id,
+            "portalName": portal_name,
+            "portalArn": "arn:aws:iotsitewise:us-west-2:123456789012:portal/a1b2c3d4-5678-90ab-cdef-22222EXAMPLE",
+            "portalStatus": {"state": "ACTIVE"},
+            "portalStartUrl": f"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX{portal_id}",
+            "portalClientId" : "12345678-1234-0123-1234-0123456789ae",
+            "portalContactEmail" : "user@example.com",
+            "portalCreationDate" : datetime.datetime(2015, 1, 1),
+            "portalLastUpdateDate" : datetime.datetime(2015, 1, 1),
+        }
+        self._stub_bifurcator(
+            "describe_portal", expected_params, response, error_code=error_code
+        )
+        
+    def stub_create_gateway(self, gateway_name, my_thing, gateway_id, error_code=None):
+        expected_params = {
+            "gatewayName": gateway_name,
+            "gatewayPlatform": {
+                "greengrassV2": {"coreDeviceThingName": my_thing},
+            },
+            "tags" : {"Environment": "Production"},
+        }
+        response = {
+            "gatewayId": gateway_id,
+            "gatewayArn": "arn:aws:iotsitewise:us-west-2:123456789012:portal/a1b2c3d4-5678-90ab-cdef-22222EXAMPLE",
+        }
+        self._stub_bifurcator(
+            "create_gateway", expected_params, response, error_code=error_code
+        )
+
+    def stub_describe_gateway(self, gateway_id, error_code=None):
+        expected_params = {"gatewayId": gateway_id}
+        response = {
+            "gatewayId": gateway_id,
+            "gatewayName": "MyGateway",
+            "gatewayArn": "arn:aws:iotsitewise:us-west-2:123456789012:gateway/a1b2c3d4-5678-90ab-cdef-22222EXAMPLE",
+            "gatewayPlatform": {
+                "greengrassV2": {
+                    "coreDeviceThingName": "MyThing"
+                }
+            },
+            "gatewayCapabilitySummaries": [],
+            "creationDate": datetime.datetime(2015, 1, 1),
+            "lastUpdateDate": datetime.datetime(2015, 1, 1),
+        }
+        self._stub_bifurcator(
+            "describe_gateway", expected_params, response, error_code=error_code
+        )
+
+    def stub_delete_gateway(self, gateway_id, error_code=None):
+        expected_params = {"gatewayId": gateway_id}
+        self._stub_bifurcator(
+            "delete_gateway", expected_params, error_code=error_code
+        )
+
+    def stub_delete_portal(self, portal_id, error_code=None):
+        expected_params = {"portalId": portal_id}
+
+        response = {
+            "portalStatus": {"state": "DELETING"},
+        }
+        self._stub_bifurcator(
+            "delete_portal", expected_params, response, error_code=error_code
+        )
+    
+    def stub_delete_asset(self, asset_id, error_code=None):
+        expected_params = {"assetId": asset_id}
+
+        response = {
+            "assetStatus": {"state": "DELETING"},
+        }
+        self._stub_bifurcator(
+            "delete_asset", expected_params, response, error_code=error_code
+        )
+    
+    def stub_delete_asset_model(self, asset_model_id, error_code=None):
+        expected_params = {"assetModelId": asset_model_id}
+
+        response = {
+            "assetModelStatus": {"state": "DELETING"},
+        }
+        self._stub_bifurcator(
+            "delete_asset_model", expected_params, response, error_code=error_code
         )

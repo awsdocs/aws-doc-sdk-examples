@@ -28,6 +28,8 @@ import demo_tools.question as q
 logger = logging.getLogger(__name__)
 
 no_art = False  # 'no_art' suppresses 'art' to improve accessibility.
+
+
 def print_dashes():
     """
     Print a line of dashes to separate sections of the output.
@@ -35,7 +37,10 @@ def print_dashes():
     if not no_art:
         print("-" * 80)
 
+
 use_press_enter_to_continue = False
+
+
 def press_enter_to_continue():
     if use_press_enter_to_continue:
         q.ask("Press Enter to continue...")
@@ -55,8 +60,8 @@ class IoTSitewiseGettingStarted:
     ):
         self.iot_sitewise_wrapper = iot_sitewise_wrapper
         self.cloud_formation_resource = cloud_formation_resource
-        self.stack: ServiceResource = None
-        self.asset_model_id: str = None
+        self.stack = None
+        self.asset_model_id  = None
         self.asset_id = None
         self.portal_id = None
         self.gateway_id = None
@@ -65,7 +70,8 @@ class IoTSitewiseGettingStarted:
         """
         Runs the scenario.
         """
-        print("""
+        print(
+            """
 AWS IoT SiteWise is a fully managed software-as-a-service (SaaS) that
 makes it easy to collect, store, organize, and monitor data from industrial equipment and processes.
 It is designed to help industrial and manufacturing organizations collect data from their equipment and
@@ -84,11 +90,14 @@ to be secure and compliant, with features like role-based access controls, data 
 and integration with other AWS services for additional security and compliance features.
 
 Let's get started...
-        """);
+        """
+        )
         press_enter_to_continue()
         print_dashes()
         print(f"")
-        print(f"Use AWS CloudFormation to create an IAM role that is required for this scenario.")
+        print(
+            f"Use AWS CloudFormation to create an IAM role that is required for this scenario."
+        )
         template_file = IoTSitewiseGettingStarted.get_template_as_string()
 
         self.stack = self.deploy_cloudformation_stack(
@@ -110,14 +119,16 @@ Let's get started...
         print_dashes()
         print_dashes()
         print(f"1. Create an AWS SiteWise Asset Model")
-        print("""
+        print(
+            """
 An AWS IoT SiteWise Asset Model is a way to represent the physical assets, such as equipment,
 processes, and systems, that exist in an industrial environment. This model provides a structured and
 hierarchical representation of these assets, allowing users to define the relationships and values
 of each asset.
 
 This scenario creates two asset model values: temperature and humidity.
-        """);
+        """
+        )
         press_enter_to_continue()
         asset_model_name = "MyAssetModel1"
         temperature_property_name = "temperature"
@@ -138,45 +149,55 @@ This scenario creates two asset model values: temperature and humidity.
                     "type": {
                         "measurement": {},
                     },
-                }
+                },
             ]
             # snippet-end:[python.example_code.iotsitewise.CreateAssetModel.properties]
             self.asset_model_id = self.iot_sitewise_wrapper.create_asset_model(
                 asset_model_name, properties
             )
-            print(f"Asset Model successfully created. Asset Model ID: {self.asset_model_id}. ")
+            print(
+                f"Asset Model successfully created. Asset Model ID: {self.asset_model_id}. "
+            )
         except ClientError as err:
             if err.response["Error"]["Code"] == "ResourceAlreadyExistsException":
-                self.asset_model_id = self.get_model_id_for_model_name(
-                    asset_model_name
+                self.asset_model_id = self.get_model_id_for_model_name(asset_model_name)
+                print(
+                    f"Asset Model {asset_model_name} already exists. Asset Model ID: {self.asset_model_id}. "
                 )
-                print(f"Asset Model {asset_model_name} already exists. Asset Model ID: {self.asset_model_id}. ")
             else:
                 raise
 
         press_enter_to_continue()
         print_dashes()
         print(f"2. Create an AWS IoT SiteWise Asset")
-        print("""
+        print(
+            """
 The IoT SiteWise model that we just created defines the structure and metadata for your physical assets.
 Now we create an asset from the asset model.
         
-        """);
+        """
+        )
         press_enter_to_continue()
 
-        self.asset_id = self.iot_sitewise_wrapper.create_asset("MyAsset1", self.asset_model_id)
+        self.asset_id = self.iot_sitewise_wrapper.create_asset(
+            "MyAsset1", self.asset_model_id
+        )
 
         print(f"Asset created with ID: {self.asset_id}")
         press_enter_to_continue()
         print_dashes()
         print_dashes()
         print(f"3. Retrieve the property ID values")
-        print("""
+        print(
+            """
 To send data to an asset, we need to get the property ID values. In this scenario, we access the
 temperature and humidity property ID values.
-        """);
+        """
+        )
         press_enter_to_continue()
-        property_ids = self.iot_sitewise_wrapper.list_asset_model_properties(self.asset_model_id)
+        property_ids = self.iot_sitewise_wrapper.list_asset_model_properties(
+            self.asset_model_id
+        )
         humidity_property_id = None
         temperature_property_id = None
         for property_id in property_ids:
@@ -196,23 +217,31 @@ temperature and humidity property ID values.
         print_dashes()
 
         print(f"4. Send data to an AWS IoT SiteWise Asset")
-        print("""
+        print(
+            """
 By sending data to an IoT SiteWise Asset, you can aggregate data from
 multiple sources, normalize the data into a standard format, and store it in a
 centralized location. This makes it easier to analyze and gain insights from the data.
 
 In this example, we generate sample temperature and humidity data and send it to the AWS IoT SiteWise asset.
 
-        """);
+        """
+        )
         press_enter_to_continue()
 
         # snippet-start:[python.example_code.iotsitewise.BatchPutAssetPropertyValue.values]
-        values = [{"propertyId": humidity_property_id,
-                   "valueType" : "doubleValue",
-                   "value" : 65.0},
-                  {"propertyId": temperature_property_id,
-                   "valueType": "doubleValue",
-                   "value": 23.5}]
+        values = [
+            {
+                "propertyId": humidity_property_id,
+                "valueType": "doubleValue",
+                "value": 65.0,
+            },
+            {
+                "propertyId": temperature_property_id,
+                "valueType": "doubleValue",
+                "value": 23.5,
+            },
+        ]
         # snippet-end:[python.example_code.iotsitewise.BatchPutAssetPropertyValue.values]
         self.iot_sitewise_wrapper.batch_put_asset_property_value(self.asset_id, values)
         print(f"Data sent successfully.")
@@ -220,74 +249,100 @@ In this example, we generate sample temperature and humidity data and send it to
         press_enter_to_continue()
         print_dashes()
         print_dashes()
-        if False:
-            print(f"5. Retrieve the value of the IoT SiteWise Asset property")
-            print("""
-    IoT SiteWise is an AWS service that allows you to collect, process, and analyze industrial data
-    from connected equipment and sensors. One of the key benefits of reading an IoT SiteWise property
-    is the ability to gain valuable insights from your industrial data.
-            
-            """);
-            press_enter_to_continue()
 
-            property_value = self.iot_sitewise_wrapper.get_asset_property_value(self.asset_id, temperature_property_id)
-            print(f"The property name is '{temperature_property_name}'.")
-            print(f"The value of this property is: {property_value["value"]["doubleValue"]}")
-            press_enter_to_continue()
+        print(f"5. Retrieve the value of the IoT SiteWise Asset property")
+        print(
+            """
+IoT SiteWise is an AWS service that allows you to collect, process, and analyze industrial data
+from connected equipment and sensors. One of the key benefits of reading an IoT SiteWise property
+is the ability to gain valuable insights from your industrial data.
+        
+        """
+        )
+        press_enter_to_continue()
 
-            property_value = self.iot_sitewise_wrapper.get_asset_property_value(self.asset_id, humidity_property_id)
-            print(f"The property name is '{humidity_property_name}'.")
-            print(f"The value of this property is: {property_value["value"]["doubleValue"]}")
-            press_enter_to_continue()
-            print_dashes()
-            print_dashes()
-            print(f"6. Create an IoT SiteWise Portal")
-            print("""
-    An IoT SiteWise Portal allows you to aggregate data from multiple industrial sources,
-    such as sensors, equipment, and control systems, into a centralized platform.
-            """);
+        property_value = self.iot_sitewise_wrapper.get_asset_property_value(
+            self.asset_id, temperature_property_id
+        )
+        print(f"The property name is '{temperature_property_name}'.")
 
-            press_enter_to_continue()
-            contact_email = "meyertst@amazon.com" # q.ask("Enter a contact email for the portal:", q.non_empty)
-            print("Creating the portal. The portal may take a while to become active.")
-            self.portal_id = self.iot_sitewise_wrapper.create_portal("MyPortal1", iam_role, contact_email)
-            print(f"Portal created successfully. Portal ID {self.portal_id}")
-            press_enter_to_continue()
-            print_dashes()
-            print_dashes()
-            print(f"7. Describe the Portal")
-            print("""
-    In this step, we get a description of the portal and display the portal URL.
-            """);
-            press_enter_to_continue()
-            portal_description = self.iot_sitewise_wrapper.describe_portal(self.portal_id)
-            print(f"Portal URL: {portal_description["portalStartUrl"]}")
-            press_enter_to_continue()
-            print_dashes()
-            print_dashes()
-            print(f"8. Create an IoT SiteWise Gateway")
-            press_enter_to_continue()
-            self.gateway_id = self.iot_sitewise_wrapper.create_gateway("MyGateway1", "MyThing1")
-            print(f"Gateway creation completed successfully. id is {self.gateway_id}")
-            print_dashes()
-            print_dashes()
-            print(f"9. Describe the IoT SiteWise Gateway")
-            press_enter_to_continue()
-            gateway_description = self.iot_sitewise_wrapper.describe_gateway(self.gateway_id)
-            print(f"Gateway Name: {gateway_description["gatewayName"]}")
-            print(f"Gateway ARN: {gateway_description["gatewayArn"]}")
-            print(f"Gateway Platform:\n{gateway_description["gatewayPlatform"]}")
-            print(f"Gateway Creation Date: {gateway_description["gatewayArn"]}")
-            print_dashes()
-            print_dashes()
-            print(f"10. Delete the AWS IoT SiteWise Assets")
-            if q.ask("Would you like to delete the IoT SiteWise Assets? (y/n)", q.is_yesno):
-                self.cleanup()
-            else:
-                print(f"The resources will not be deleted.")
-            print_dashes()
-            print_dashes()
-            print(f"This concludes the AWS IoT SiteWise Scenario")
+        print(
+            f"The value of this property is: {property_value['value']['doubleValue']}"
+        )
+        press_enter_to_continue()
+
+        property_value = self.iot_sitewise_wrapper.get_asset_property_value(
+            self.asset_id, humidity_property_id
+        )
+        print(f"The property name is '{humidity_property_name}'.")
+        print(
+            f"The value of this property is: {property_value['value']['doubleValue']}"
+        )
+        press_enter_to_continue()
+        print_dashes()
+        print_dashes()
+
+        print(f"6. Create an IoT SiteWise Portal")
+        print(
+            """
+An IoT SiteWise Portal allows you to aggregate data from multiple industrial sources,
+such as sensors, equipment, and control systems, into a centralized platform.
+        """
+        )
+
+        press_enter_to_continue()
+        contact_email = q.ask("Enter a contact email for the portal:", q.non_empty)
+        print("Creating the portal. The portal may take a while to become active.")
+        self.portal_id = self.iot_sitewise_wrapper.create_portal(
+            "MyPortal1", iam_role, contact_email
+        )
+        print(f"Portal created successfully. Portal ID {self.portal_id}")
+        press_enter_to_continue()
+        print_dashes()
+        print_dashes()
+
+        print(f"7. Describe the Portal")
+        print(
+            """
+In this step, we get a description of the portal and display the portal URL.
+        """
+        )
+        press_enter_to_continue()
+        portal_description = self.iot_sitewise_wrapper.describe_portal(self.portal_id)
+        print(f"Portal URL: {portal_description['portalStartUrl']}")
+        press_enter_to_continue()
+        print_dashes()
+        print_dashes()
+
+        print(f"8. Create an IoT SiteWise Gateway")
+        press_enter_to_continue()
+        self.gateway_id = self.iot_sitewise_wrapper.create_gateway(
+            "MyGateway1", "MyThing1"
+        )
+        print(f"Gateway creation completed successfully. id is {self.gateway_id}")
+        print_dashes()
+        print_dashes()
+        print(f"9. Describe the IoT SiteWise Gateway")
+        press_enter_to_continue()
+
+        gateway_description = self.iot_sitewise_wrapper.describe_gateway(
+            self.gateway_id
+        )
+        print(f"Gateway Name: {gateway_description['gatewayName']}")
+        print(f"Gateway ARN: {gateway_description['gatewayArn']}")
+        print(f"Gateway Platform:\n{gateway_description['gatewayPlatform']}")
+        print(f"Gateway Creation Date: {gateway_description['gatewayArn']}")
+        print_dashes()
+        print_dashes()
+
+        print(f"10. Delete the AWS IoT SiteWise Assets")
+        if q.ask("Would you like to delete the IoT SiteWise Assets? (y/n)", q.is_yesno):
+            self.cleanup()
+        else:
+            print(f"The resources will not be deleted.")
+        print_dashes()
+        print_dashes()
+        print(f"This concludes the AWS IoT SiteWise Scenario")
 
     def cleanup(self) -> None:
         """
@@ -316,7 +371,6 @@ In this example, we generate sample temperature and humidity data and send it to
             self.stack = None
             self.destroy_cloudformation_stack(stack)
 
-
     def deploy_cloudformation_stack(
         self, stack_name: str, cfn_template: str
     ) -> ServiceResource:
@@ -327,7 +381,6 @@ In this example, we generate sample temperature and humidity data and send it to
 
         :param stack_name: The name of the CloudFormation stack.
         :param cfn_template: The CloudFormation template as a string.
-        :param parameters: The parameters for the CloudFormation stack.
         :return: The CloudFormation stack resource.
         """
         print(f"Deploying CloudFormation stack: {stack_name}.")
@@ -387,18 +440,28 @@ In this example, we generate sample temperature and humidity data and send it to
                 model_id = asset_model["id"]
                 break
         return model_id
+
+
 # snippet-end:[python.example_code.iotsitewise.FeatureScenario]
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Run IoT Sitewise getting started scenario.')
-    parser.add_argument('--no-art', action="store_true", help='accessibility setting that suppresses art in the console output.')
+    parser = argparse.ArgumentParser(
+        description="Run IoT Sitewise getting started scenario."
+    )
+    parser.add_argument(
+        "--no-art",
+        action="store_true",
+        help="accessibility setting that suppresses art in the console output.",
+    )
     args = parser.parse_args()
     no_art = args.no_art
-    demo: IoTSitewiseGettingStarted = None
+    demo = None
     try:
         an_iot_sitewise_wrapper = IoTSitewiseWrapper.from_client()
-        cloud_formation_resource = resource("cloudformation")
-        demo = IoTSitewiseGettingStarted(an_iot_sitewise_wrapper, cloud_formation_resource)
+        a_cloud_formation_resource = resource("cloudformation")
+        demo = IoTSitewiseGettingStarted(
+            an_iot_sitewise_wrapper, a_cloud_formation_resource
+        )
         demo.run()
 
     except Exception as exception:
