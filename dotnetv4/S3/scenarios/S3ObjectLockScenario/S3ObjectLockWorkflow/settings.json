@@ -1,0 +1,4 @@
+{
+  "resourcePrefix": "dotnet-s3-lock-example",
+  "exampleFileName": "dotnet-example-file.txt"
+}
