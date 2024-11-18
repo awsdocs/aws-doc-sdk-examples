@@ -21,6 +21,15 @@ translate_StartTextTranslationJob:
     translate: {StartTextTranslationJob}
 translate_DescribeTextTranslationJob:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - translate.java2._describe_jobs.main
     .NET:
       versions:
         - sdk_version: 3
@@ -42,6 +51,15 @@ translate_DescribeTextTranslationJob:
     translate: {DescribeTextTranslationJob}
 translate_ListTextTranslationJobs:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - translate.java2._list_jobs.main
     .NET:
       versions:
         - sdk_version: 3
@@ -84,6 +102,15 @@ translate_StopTextTranslationJob:
     translate: {StopTextTranslationJob}
 translate_TranslateText:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - translate.java2._list_jobs.main
     .NET:
       versions:
         - sdk_version: 3
