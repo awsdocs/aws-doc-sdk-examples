@@ -32,23 +32,6 @@ mediaconvert_CreateJob:
             - description: Create the job using the wrapper method and return the job ID.
               snippet_tags:
                 - MediaConvert.dotnetv3.CreateJob
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/mediaconvert
-          excerpts:
-            - description:
-              snippet_tags:
-                - mediaconvert.java.createjob.complete
-    Kotlin:
-      versions:
-        - sdk_version: 1
-          github: kotlin/services/mediaconvert
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - mediaconvert.kotlin.createjob.main
     C++:
       versions:
         - sdk_version: 1

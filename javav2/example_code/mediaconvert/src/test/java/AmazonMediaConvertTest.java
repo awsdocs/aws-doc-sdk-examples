@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.mediaconvert.CreateJob;
-import com.example.mediaconvert.GetEndpointURL;
 import com.example.mediaconvert.GetJob;
 import com.example.mediaconvert.ListJobs;
 import com.google.gson.Gson;
