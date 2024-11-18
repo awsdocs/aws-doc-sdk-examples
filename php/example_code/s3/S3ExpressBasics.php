@@ -18,7 +18,7 @@
  *
  * or as a PHPUnit test:
  * vendor/bin/phpunit S3ExpressBasicsTests.php
- * /**/
+ **/
 
 namespace S3;
 use Aws\CloudFormation\CloudFormationClient;
@@ -67,7 +67,7 @@ class S3ExpressBasics implements RunnableExample
         $uuid = uniqid();
 
         echo <<<INTRO
-Let's get started! First, please not that S3 Express One Zone works best when working within the AWS infrastructure,
+Let's get started! First, please note that S3 Express One Zone works best when working within the AWS infrastructure,
 specifically when working in the same Availability Zone. To see the best results in this example, and when you implement
 Directory buckets into your infrastructure, it is best to put your Compute resources in the same AZ as your Directory
 bucket.\n
@@ -123,7 +123,7 @@ INTRO;
             echo "Error waiting for the CloudFormation stack to create: {$caught->getAwsErrorMessage()}\n";
             throw $caught;
         }
-        $this->resources['StackName'] = $stackName;
+        $this->resources['stackName'] = $stackName;
         $stackInfo = $this->cloudFormationClient->describeStacks([
             'StackName' => $result['StackId'],
         ]);
@@ -138,10 +138,14 @@ INTRO;
                 $expressUserName = $output['OutputValue'];
             }
         }
+        $this->resources['regularUserName'] = $regularUserName;
+        $this->resources['expressUserName'] = $expressUserName;
         $regularKey = $this->iamService->createAccessKey($regularUserName);
         $regularCredentials = new Credentials($regularKey['AccessKeyId'], $regularKey['SecretAccessKey']);
+        $this->resources['regularKey'] = $regularKey['AccessKeyId'];
         $expressKey = $this->iamService->createAccessKey($expressUserName);
         $expressCredentials = new Credentials($expressKey['AccessKeyId'], $expressKey['SecretAccessKey']);
+        $this->resources['expressKey'] = $expressKey['AccessKeyId'];
 
         // 3. Create an additional client using the credentials with S3 Express permissions.
         echo "\n";
@@ -317,19 +321,12 @@ INTRO;
         }
 
         //delete the stack
-        if(isset($this->resources['StackName'])){
+        if(isset($this->resources['stackName'])){
             $this->cloudFormationClient->deleteStack([
-                'StackName' => $this->resources['StackName'],
+                'StackName' => $this->resources['stackName'],
             ]);
-            unset($this->resources['StackName']);
+            unset($this->resources['stackName']);
         }
-
-//        $this->iamService->deleteRole($this->resources['roleName']);
-//        unset($this->resources['roleName']);
-
-        // delete User
-//        $this->iamService->deleteUser($this->resources['userName']);
-//        unset($this->resources['userName']);
 
         // delete all the objects in both buckets
         if(isset($this->resources['objectKey'])){
