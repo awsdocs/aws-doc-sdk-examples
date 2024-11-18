@@ -328,24 +328,6 @@ INTRO;
             unset($this->resources['stackName']);
         }
 
-        // delete User data
-        if(isset($this->resources['regularKey'])) {
-            $this->iamService->deleteAccessKey($this->resources['regularKey'], $this->resources['regularUserName']);
-            unset($this->resources['regularKey']);
-        }
-        if(isset($this->resources['regularUserName'])) {
-            $this->iamService->deleteUser($this->resources['regularUserName']);
-            unset($this->resources['regularUserName']);
-        }
-        if(isset($this->resources['expressKey'])) {
-            $this->iamService->deleteAccessKey($this->resources['expressKey'], $this->resources['expressUserName']);
-            unset($this->resources['expressKey']);
-        }
-        if(isset($this->resources['expressUserName'])) {
-            $this->iamService->deleteUser($this->resources['expressUserName']);
-            unset($this->resources['expressUserName']);
-        }
-
         // delete all the objects in both buckets
         if(isset($this->resources['objectKey'])){
             $this->s3Service->deleteObject($this->resources['directoryBucketName'], $this->resources['objectKey']);
