@@ -1,0 +1,23 @@
+{
+  "name": "@aws-doc-sdk-examples/wkflw-pools-triggers",
+  "version": "1.0.0",
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "test": "npm run cdk-test",
+    "integration-test": "vitest run **/*.integration.test.js --reporter=junit --outputFile=test_results/$npm_package_name.junit.xml",
+    "cdk-test": "npm run test --prefix ./cdk"
+  },
+  "engines": {
+    "node": "^20.17.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cloudwatch-logs": "^3.686.0",
+    "@aws-sdk/client-dynamodb": "^3.682.0",
+    "@aws-sdk/lib-dynamodb": "^3.685.0"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-cloudformation": "^3.687.0"
+  }
+}
