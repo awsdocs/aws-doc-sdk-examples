@@ -33,7 +33,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateJob](src/main/java/com/example/mediaconvert/CreateJob.java#L4)
 - [GetJob](src/main/java/com/example/mediaconvert/GetJob.java#L6)
 - [ListJobs](src/main/java/com/example/mediaconvert/ListJobs.java#L6)
 
