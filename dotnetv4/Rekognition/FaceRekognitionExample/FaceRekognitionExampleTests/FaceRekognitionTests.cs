@@ -53,7 +53,7 @@ namespace FaceRekognitionExampleTests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task IdentifyCelebretiesTest()
+        public async Task IdentifyCelebritiesTest()
         {
             var mockClient = new Mock<AmazonRekognitionClient>();
 
