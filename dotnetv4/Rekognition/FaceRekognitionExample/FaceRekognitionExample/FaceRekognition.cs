@@ -55,7 +55,7 @@ namespace FaceRekognitionExample
         /// <param name="client">The Rekognition client used to call
         /// RecognizeCelebritiesAsync.</param>
         /// <param name="filename">The name of the file that potentially
-        /// contins images of celebrities.</param>
+        /// contains images of celebrities.</param>
         public static async Task IdentifyFaces(AmazonRekognitionClient client, string filename)
         {
             // Request needs image bytes, so read and add to request.
