@@ -6,6 +6,7 @@ Shows how to use the AWS SDK for Java 2.x to work with AWS Elemental MediaConver
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
+
 _MediaConvert is a service that formats and compresses offline video content for delivery to televisions or connected devices._
 
 ## ⚠ Important
