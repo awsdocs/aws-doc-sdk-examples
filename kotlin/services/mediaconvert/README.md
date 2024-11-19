@@ -33,7 +33,6 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `kotli
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateJob](src/main/kotlin/com/kotlin/mediaconvert/CreateJob.kt#L137)
 - [GetJob](src/main/kotlin/com/kotlin/mediaconvert/GetJob.kt#L41)
 - [ListJobs](src/main/kotlin/com/kotlin/mediaconvert/ListJobs.kt#L28)
 
