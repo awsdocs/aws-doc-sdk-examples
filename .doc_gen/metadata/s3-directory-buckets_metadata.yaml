@@ -1,0 +1,24 @@
+s3-directory-buckets_Scenario_ExpressBasics:
+  synopsis_list:
+    - Set up a VPC and VPC Endpoint
+    - Set up the S3 Express Policies, Roles, and User to work with S3 Express buckets
+    - Create two S3 Clients
+    - Create two buckets
+    - Create an object and copy it over
+    - Demonstrate performance difference
+    - Populate the buckets to show the lexicographical difference
+    - Prompt the user to see if they want to clean up the resources
+  category: Basics
+  languages:
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Run a scenario demonstrating the basics of &S3; Express One Zone.
+              snippet_tags:
+                - php.example_code.s3.ExpressBasics
+                - php.example_code.s3.service.S3Service
+  services:
+    s3-directory-buckets: {CreateBucket, CopyObject, GetObject, PutObject, ListObjects, DeleteObject, DeleteBucket}

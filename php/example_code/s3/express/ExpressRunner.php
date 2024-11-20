@@ -6,6 +6,7 @@ namespace S3;
 
 use Aws\Exception\AwsException;
 use AwsUtilities\RunnableExample;
+use S3\express\S3ExpressBasics;
 
 require_once __DIR__ . "/vendor/autoload.php";
 
