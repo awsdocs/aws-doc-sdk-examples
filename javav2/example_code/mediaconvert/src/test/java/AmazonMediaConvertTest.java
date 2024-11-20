@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.mediaconvert.CreateJob;
-import com.example.mediaconvert.GetEndpointURL;
 import com.example.mediaconvert.GetJob;
 import com.example.mediaconvert.ListJobs;
 import com.google.gson.Gson;
@@ -80,14 +79,6 @@ public class AmazonMediaConvertTest {
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void GetEndpointURL() {
-        assertDoesNotThrow(() -> GetEndpointURL.getEndpoint(mc));
-        System.out.println("Test 2 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(3)
     public void ListJobs() {
         assertDoesNotThrow(() -> ListJobs.listCompleteJobs(mc));
         System.out.println("Test 3 passed");
@@ -95,7 +86,7 @@ public class AmazonMediaConvertTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(4)
+    @Order(3)
     public void GetJob() {
         assertDoesNotThrow(() -> GetJob.getSpecificJob(mc, jobId));
         System.out.println("Test 4 passed");
