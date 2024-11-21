@@ -101,6 +101,8 @@ class HealthLakeWrapper:
             )
             raise
 
+    # snippet-end:[python.example_code.healthlake.DescribeFHIRDatastore]
+
     # snippet-start:[python.example_code.healthlake.ListFHIRDatastores]
     def list_fhir_datastores(self) -> list[dict[str, any]]:
         """
@@ -127,6 +129,7 @@ class HealthLakeWrapper:
                 "Couldn't list datastores. Here's why", err.response["Error"]["Message"]
             )
             raise
+    # snippet-end:[python.example_code.healthlake.ListFHIRDatastores]
 
     # snippet-start:[python.example_code.healthlake.DeleteFHIRDatastore]
     def delete_fhir_datastore(self, datastore_id: str) -> None:
