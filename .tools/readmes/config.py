@@ -124,6 +124,9 @@ language = {
             "base_folder": "php",
             "service_folder": 'php/example_code/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.{{service["name"] | capitalize}}.html',
+            "service_folder_overrides": {
+            "s3-directory-buckets": "php/example_code/s3/express",
+            }
         }
     },
     "Python": {
