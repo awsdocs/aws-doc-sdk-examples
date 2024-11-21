@@ -13,7 +13,7 @@ s3-directory-buckets_Scenario_ExpressBasics:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/s3
+          github: php/example_code/s3/express
           sdkguide:
           excerpts:
             - description: Run a scenario demonstrating the basics of &S3; Express One Zone.
