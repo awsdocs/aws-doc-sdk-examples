@@ -63,14 +63,6 @@ struct ExampleCommand: ParsableCommand {
     
         print("Uploading file from \(fileURL.path) to \(bucket)/\(fileName).")
 
-        // Presign the `PutObject` request with a 10-minute expiration. The
-        // presigned request has a custom configuration that asks for up to
-        // six attempts to put the file.
-        //
-        // The presigned `URLRequest` can then be sent using the URL Loading System
-        // (https://developer.apple.com/documentation/foundation/url_loading_system/uploading_data_to_a_website).
-
-        // snippet-start:[swift.s3.presigned.presign-PutObject-advanced]
         let fileData = try Data(contentsOf: fileURL)
         let dataStream = ByteStream.data(fileData)
 
