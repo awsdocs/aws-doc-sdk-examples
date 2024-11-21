@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+    <AccessControlList>
+        <Grant>
+            <Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser">
+                <DisplayName>owner</DisplayName>
+                <ID>dad784318ac45facc6a8c74b9b44f18afd317c85fa8776eeb2b000c8942bc8d9</ID>
+            </Grantee>
+            <Permission>FULL_CONTROL</Permission>
+        </Grant>
+        <Grant>
+            <Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group">
+                <DisplayName>my-grantee</DisplayName>
+                <URI>http://acs.amazonaws.com/groups/global/AuthenticatedUsers</URI>
+            </Grantee>
+            <Permission>READ_ACP</Permission>
+        </Grant>
+    </AccessControlList>
+    <Owner>
+        <ID>dad784318ac45facc6a8c74b9b44f18afd317c85fa8776eeb2b000c8942bc8d9</ID>
+    </Owner>
+</AccessControlPolicy>

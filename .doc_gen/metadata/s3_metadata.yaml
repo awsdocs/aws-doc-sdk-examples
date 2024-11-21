@@ -3524,3 +3524,20 @@ s3_Scenario_DownloadS3Directory:
                 - s3.tm.java2.download-s3-directories.main
   services:
     s3: {}
+s3_Scenario_DoesBucketExist:
+  title: Check if a bucket exists
+  title_abbrev: Check if a bucket exists
+  synopsis: check if a bucket exists.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: You can use the following <code>doesBucketExists</code> method as a replacement for the the &Java; V1 <ulink url="https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/s3/AmazonS3Client.html#doesBucketExistV2-java.lang.String-">AmazonS3Client#doesBucketExistV2(String)</ulink> method.
+              snippet_tags:
+                - s3.java2.does-bucket-exist-main
+  services:
+    s3: {GetBucketAcl}

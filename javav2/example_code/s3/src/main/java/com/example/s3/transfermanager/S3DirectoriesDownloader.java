@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
 
 public class S3DirectoriesDownloader {
     private static final Logger logger = LoggerFactory.getLogger(S3DirectoriesDownloader.class);
-    public final String bucketName = "amzn-s3-demo-bucket" + UUID.randomUUID(); // Change bucket name.
+    public final String bucketName = "junk-s3-demo-bucket" + UUID.randomUUID(); // Change bucket name.
     public URI destinationPathURI;
     private final Set<String> downloadedFileNameSet = new HashSet<>();
     private final String destinationDirName = "downloadDirectory";
