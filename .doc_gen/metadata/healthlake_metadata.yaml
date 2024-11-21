@@ -11,7 +11,7 @@ healthlake_CreateFHIRDatastore:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
                 - python.example_code.healthlake.CreateFHIRDatastore
             - description: >
-                The following code shows the parameters for SMART on
+                The following code shows an example of parameters for a SMART on
                 FHIR-enabled HealthLake data store.
               snippet_tags:
                 - python.example_code.healthlake.CreateFHIRDatastore.smart

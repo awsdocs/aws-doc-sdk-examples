@@ -34,13 +34,13 @@ class HealthLakeWrapper:
 
         :return: An instance of HealthLakeWrapper initialized with the default HealthLake client.
         """
-        kms_client = boto3.client("healthlake")
-        return cls(kms_client)
+        health_lake_client = boto3.client("healthlake")
+        return cls(health_lake_client)
 
     # snippet-end:[python.example_code.healthlake.HealthLakeWrapper.decl]
 
     # snippet-start:[python.example_code.healthlake.CreateFHIRDatastore]
-    def create_fihr_datastore(
+    def create_fhir_datastore(
         self,
         datastore_name: str,
         sse_configuration: dict[str, any] = None,
@@ -73,7 +73,7 @@ class HealthLakeWrapper:
             return response
         except ClientError as err:
             logger.exception(
-                "Couldn't create datastore %s. Here's why",
+                "Couldn't create datastore %s. Here's why %s",
                 datastore_name,
                 err.response["Error"]["Message"],
             )
@@ -95,7 +95,7 @@ class HealthLakeWrapper:
             return response["DatastoreProperties"]
         except ClientError as err:
             logger.exception(
-                "Couldn't describe datastore with ID %s. Here's why",
+                "Couldn't describe datastore with ID %s. Here's why %s",
                 datastore_id,
                 err.response["Error"]["Message"],
             )
@@ -112,6 +112,8 @@ class HealthLakeWrapper:
         try:
             next_token = None
             datastores = []
+
+            # Loop through paginated results.
             while True:
                 parameters = {}
                 if next_token is not None:
@@ -122,11 +124,11 @@ class HealthLakeWrapper:
                     next_token = response["NextToken"]
                 else:
                     break
-            response = self.health_lake_client.list_fhir_datastores()
-            return response["DatastorePropertiesList"]
+
+            return datastores
         except ClientError as err:
             logger.exception(
-                "Couldn't list datastores. Here's why", err.response["Error"]["Message"]
+                "Couldn't list datastores. Here's why %s", err.response["Error"]["Message"]
             )
             raise
     # snippet-end:[python.example_code.healthlake.ListFHIRDatastores]
@@ -141,7 +143,7 @@ class HealthLakeWrapper:
             self.health_lake_client.delete_fhir_datastore(DatastoreId=datastore_id)
         except ClientError as err:
             logger.exception(
-                "Couldn't delete datastore with ID %s. Here's why",
+                "Couldn't delete datastore with ID %s. Here's why %s",
                 datastore_id,
                 err.response["Error"]["Message"],
             )
@@ -150,7 +152,7 @@ class HealthLakeWrapper:
     # snippet-end:[python.example_code.healthlake.DeleteFHIRDatastore]
 
     # snippet-start:[python.example_code.healthlake.StartFHIRImportJob]
-    def start_fihr_import_job(
+    def start_fhir_import_job(
         self,
         job_name: str,
         datastore_id: str,
@@ -185,7 +187,7 @@ class HealthLakeWrapper:
             return response
         except ClientError as err:
             logger.exception(
-                "Couldn't start import job. Here's why",
+                "Couldn't start import job. Here's why %s",
                 err.response["Error"]["Message"],
             )
             raise
@@ -193,7 +195,7 @@ class HealthLakeWrapper:
     # snippet-end:[python.example_code.healthlake.StartFHIRImportJob]
 
     # snippet-start:[python.example_code.healthlake.DescribeFHIRImportJob]
-    def describe_fihr_import_job(
+    def describe_fhir_import_job(
         self, datastore_id: str, job_id: str
     ) -> dict[str, any]:
         """
@@ -209,7 +211,7 @@ class HealthLakeWrapper:
             return response["ImportJobProperties"]
         except ClientError as err:
             logger.exception(
-                "Couldn't describe import job with ID %s. Here's why",
+                "Couldn't describe import job with ID %s. Here's why %s",
                 job_id,
                 err.response["Error"]["Message"],
             )
@@ -247,6 +249,7 @@ class HealthLakeWrapper:
                 parameters["SubmittedAfter"] = submitted_after
             next_token = None
             jobs = []
+            # Loop through paginated results.
             while True:
                 if next_token is not None:
                     parameters["NextToken"] = next_token
@@ -259,7 +262,7 @@ class HealthLakeWrapper:
             return jobs
         except ClientError as err:
             logger.exception(
-                "Couldn't list import jobs. Here's why",
+                "Couldn't list import jobs. Here's why %s",
                 err.response["Error"]["Message"],
             )
             raise
@@ -297,7 +300,7 @@ class HealthLakeWrapper:
             return response
         except ClientError as err:
             logger.exception(
-                "Couldn't start export job. Here's why",
+                "Couldn't start export job. Here's why %s",
                 err.response["Error"]["Message"],
             )
             raise
@@ -321,7 +324,7 @@ class HealthLakeWrapper:
             return response["ExportJobProperties"]
         except ClientError as err:
             logger.exception(
-                "Couldn't describe export job with ID %s. Here's why",
+                "Couldn't describe export job with ID %s. Here's why %s",
                 job_id,
                 err.response["Error"]["Message"],
             )
@@ -359,6 +362,7 @@ class HealthLakeWrapper:
                 parameters["SubmittedAfter"] = submitted_after
             next_token = None
             jobs = []
+            # Loop through paginated results.
             while True:
                 if next_token is not None:
                     parameters["NextToken"] = next_token
@@ -371,7 +375,7 @@ class HealthLakeWrapper:
             return jobs
         except ClientError as err:
             logger.exception(
-                "Couldn't list export jobs. Here's why",
+                "Couldn't list export jobs. Here's why %s",
                 err.response["Error"]["Message"],
             )
             raise
@@ -389,7 +393,7 @@ class HealthLakeWrapper:
             self.health_lake_client.tag_resource(ResourceARN=resource_arn, Tags=tags)
         except ClientError as err:
             logger.exception(
-                "Couldn't tag resource %s. Here's why",
+                "Couldn't tag resource %s. Here's why %s",
                 resource_arn,
                 err.response["Error"]["Message"],
             )
@@ -411,7 +415,7 @@ class HealthLakeWrapper:
             return response["Tags"]
         except ClientError as err:
             logger.exception(
-                "Couldn't list tags for resource %s. Here's why",
+                "Couldn't list tags for resource %s. Here's why %s",
                 resource_arn,
                 err.response["Error"]["Message"],
             )
@@ -432,7 +436,7 @@ class HealthLakeWrapper:
             )
         except ClientError as err:
             logger.exception(
-                "Couldn't untag resource %s. Here's why",
+                "Couldn't untag resource %s. Here's why %s",
                 resource_arn,
                 err.response["Error"]["Message"],
             )
@@ -491,7 +495,7 @@ class HealthLakeWrapper:
         )
         status = "IN_PROGRESS"
         while counter < max_count_minutes:
-            job = self.describe_fihr_import_job(datastore_id, job_id)
+            job = self.describe_fhir_import_job(datastore_id, job_id)
             status = job["JobStatus"]
             if status == "COMPLETED" or status == "COMPLETED_WITH_ERRORS":
                 break
@@ -545,15 +549,15 @@ class HealthLakeWrapper:
             )
 
     def health_lake_demo(self) -> None:
-        use_smart_on_fihr_data_store = True
+        use_smart_on_fhir_data_store = True
 
         datastore_name = "health_imaging_datastore2"
-        if use_smart_on_fihr_data_store:
+        if use_smart_on_fhir_data_store:
             # snippet-start:[python.example_code.healthlake.CreateFHIRDatastore.smart]
             sse_configuration = {
                 "KmsEncryptionConfig": {"CmkType": "AWS_OWNED_KMS_KEY"}
             }
-
+            # TODO: Update the metadata to match your environment.
             metadata = {
                 "issuer": "https://ehr.example.com",
                 "jwks_uri": "https://ehr.example.com/.well-known/jwks.json",
@@ -577,18 +581,19 @@ class HealthLakeWrapper:
                     "client-public",
                 ],
             }
-            indentity_provider_configuration = {
+            # TODO: Update the IdpLambdaArn.
+            identity_provider_configuration = {
                 "AuthorizationStrategy": "SMART_ON_FHIR_V1",
                 "FineGrainedAuthorizationEnabled": True,
-                "IdpLambdaArn": "arn:aws:lambda:us-east-1:123502194722:function:healthlaketest37-ahl-introspec:active",
+                "IdpLambdaArn": "arn:aws:lambda:your-region:your-account-id:function:your-lambda-name",
                 "Metadata": json.dumps(metadata),
             }
-            data_store = self.create_fihr_datastore(
-                datastore_name, sse_configuration, indentity_provider_configuration
+            data_store = self.create_fhir_datastore(
+                datastore_name, sse_configuration, identity_provider_configuration
             )
             # snippet-end:[python.example_code.healthlake.CreateFHIRDatastore.smart]
         else:
-            data_store = self.create_fihr_datastore(datastore_name)
+            data_store = self.create_fhir_datastore(datastore_name)
 
         data_store_id = data_store["DatastoreId"]
         data_store_arn = data_store["DatastoreArn"]
@@ -629,7 +634,7 @@ class HealthLakeWrapper:
         data_access_role_arn = (
             "arn:aws:iam::123502194722:role/healthlaketest37-ahl-full-access"
         )
-        import_job = self.start_fihr_import_job(
+        import_job = self.start_fhir_import_job(
             job_name,
             data_store_id,
             input_s3_uri,
@@ -671,8 +676,8 @@ class HealthLakeWrapper:
                 f"Job id: {export_job['JobId']}, status: {export_job['JobStatus']}, submit time: {export_job['SubmitTime']}"
             )
 
-
-#       self.delete_fhir_datastore(data_store_id)
+        self.delete_fhir_datastore(data_store_id)
+        print(f"Data store with ID {data_store_id} deleted.")
 
 
 if __name__ == "__main__":

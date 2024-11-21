@@ -7,7 +7,11 @@ tests.
 """
 
 import sys
+import os
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # This is needed so Python can find test_tools on the path.
-sys.path.append("../..")
+sys.path.append(os.path.join(script_dir, "../../.."))
+
 from test_tools.fixtures.common import *
