@@ -9,6 +9,7 @@ redshift_Hello:
       versions:
         - sdk_version: 2
           github: gov2/redshift
+          genai: some
           excerpts:
             - description:
               snippet_tags:
