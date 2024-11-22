@@ -38,7 +38,7 @@ def print_dashes():
         print("-" * 80)
 
 
-use_press_enter_to_continue = False
+use_press_enter_to_continue = True
 
 
 def press_enter_to_continue():
