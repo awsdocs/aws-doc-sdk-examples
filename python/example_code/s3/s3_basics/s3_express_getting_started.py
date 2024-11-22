@@ -11,6 +11,8 @@ from boto3 import resource
 from boto3 import client
 from botocore.exceptions import ClientError, ParamValidationError
 
+import boto3
+
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Add relative path to include demo_tools in this code example without need for setup.
@@ -26,6 +28,13 @@ def print_dashes():
     """
     if not no_art:
         print("-" * 80)
+
+use_press_enter_to_continue = True
+
+
+def press_enter_to_continue():
+    if use_press_enter_to_continue:
+        q.ask("Press Enter to continue...")
 
 
 # snippet-start:[python.example_code.s3.s3_express_basics]
@@ -68,7 +77,7 @@ Directory buckets into your infrastructure, it is best to put your Compute resou
 bucket.
     """
         )
-        q.ask("Press Enter to continue...")
+        press_enter_to_continue()
 
         # 1. Configure a gateway VPC endpoint. This is the recommended method to allow S3 Express One Zone traffic without
         # the need to pass through an internet gateway or NAT device.
@@ -84,7 +93,7 @@ bucket.
                 "Great! Let's set up a VPC, retrieve the Route Table from it, and create a VPC Endpoint to connect the S3 Client to."
             )
             self.setup_vpc()
-            q.ask("Press Enter to continue...")
+            press_enter_to_continue()
         else:
             print("Skipping the VPC setup. Don't forget to use this in production!")
 
@@ -93,7 +102,7 @@ bucket.
         print(
             "Now, we'll set up some policies, roles, and a user. This user will only have permissions to do S3 Express One Zone actions."
         )
-        q.ask("Press Enter to continue...")
+        press_enter_to_continue()
         stack_name = f"cfn-stack-s3-express-basics--{uuid.uuid4()}"
         template_as_string = S3ExpressScenario.get_template_as_string()
         self.stack = self.deploy_cloudformation_stack(stack_name, template_as_string)
@@ -126,20 +135,18 @@ bucket.
         print(
             "This client is created with the credentials associated with the user account with the S3 Express policy attached, so it can perform S3 Express operations."
         )
-        q.ask("Press Enter to continue...")
-        self.s3_regular_client = client(service_name = "s3", region_name = self.region,
-                                   aws_access_key_id=regular_credentials['AccessKeyId'],
-                                   aws_secret_access_key=regular_credentials['SecretAccessKey'])
-        self.s3_express_client = client(service_name="s3", region_name=self.region,
-                                     aws_access_key_id=express_credentials['AccessKeyId'],
-                                     aws_secret_access_key=express_credentials['SecretAccessKey'])
+        press_enter_to_continue()
+        self.s3_regular_client = self.create_s3__client_with_access_key_credentials(regular_credentials)
+
+        self.s3_express_client = self.create_s3__client_with_access_key_credentials(express_credentials)
+
         print(
             "All the roles and policies were created an attached to the user. Then, a new S3 Client and Service were created using that user's credentials."
         )
         print(
             "We can now use this client to make calls to S3 Express operations. Keeping permissions in mind (and adhering to least-privilege) is crucial to S3 Express."
         )
-        q.ask("Press Enter to continue...")
+        press_enter_to_continue()
 
         # 4. Create two buckets.
         print("")
@@ -169,11 +176,11 @@ bucket.
                           'Location' : { 'Name' : availability_zone['ZoneId'],
                                          'Type' :  'AvailabilityZone'}
                           }
-        q.ask("Press Enter to continue...")
+        press_enter_to_continue()
         print(
             "Now, let's create the actual Directory bucket, as well as a regular bucket."
         )
-        q.ask("Press Enter to continue...")
+        press_enter_to_continue()
 
         self.create_bucket(self.s3_express_client, directory_bucket_name, configuration)
         print(f"Created directory bucket, '{directory_bucket_name}'")
@@ -183,7 +190,7 @@ bucket.
         self.regular_bucket_name = regular_bucket_name
 
         print("Great! Both buckets were created.")
-        q.ask("Press Enter to continue...")
+        press_enter_to_continue()
 
         # 5. Create an object and copy it over.
         print("")
@@ -197,7 +204,7 @@ bucket.
         print(
             "This works fine, because Copy operations are not restricted for Directory buckets."
         )
-        q.ask("Press Enter to continue...")
+        press_enter_to_continue()
 
         bucket_object = "basic-text-object"
         S3ExpressScenario.put_object(self.s3_regular_client, self.regular_bucket_name, bucket_object, "Look Ma, I'm a bucket!")
@@ -212,7 +219,7 @@ bucket.
         print(
             "This allows for much faster connection speeds on every call. For single calls, this is low, but for many concurrent calls, this adds up to a lot of time saved."
         )
-        q.ask("Press Enter to continue...")
+        press_enter_to_continue()
 
         # 6. Demonstrate performance difference.
         print("")
@@ -248,7 +255,7 @@ bucket.
         )
         print(f"That's a difference of {normal_time_difference - directory_time_difference} nanoseconds, or")
         print(f"{(normal_time_difference - directory_time_difference) / 1000000000} seconds.")
-        q.ask("Press Enter to continue...")
+        press_enter_to_continue()
 
         # 7. Populate the buckets to show the lexicographical difference.
         print("")
@@ -272,7 +279,7 @@ bucket.
         print(
             "Let's add a few more objects with layered directories as see how the output of ListObjects changes."
         )
-        q.ask("Press Enter to continue...")
+        press_enter_to_continue()
 
         # Populate a few more files in each bucket so that we can use ListObjects and show the difference.
         other_object = f"other/{bucket_object}"
@@ -305,7 +312,7 @@ bucket.
         print('This is because the normal bucket considers the whole "key" to be the object identifies, while the')
         print('directory bucket actually creates directories and uses the object "key" as a path to the object.')
 
-        q.ask("Press Enter to continue...")
+        press_enter_to_continue()
         print("")
         print(
             "That's it for our tour of the basic operations for S3 Express One Zone."
@@ -346,6 +353,27 @@ bucket.
         except ClientError as client_error:
             logging.error(
                 "Couldn't create the access key. Here's why: %s",
+                client_error.response["Error"]["Message"],
+            )
+            raise
+
+    def create_s3__client_with_access_key_credentials(self, access_key: dict[str, any]) -> client:
+        """
+        Creates an S3 client with access key credentials.
+        :param access_key: The access key for the user.
+        :return: The S3 Express One Zone client.
+        """
+        try:
+            s3_express_client = boto3.client(
+                "s3",
+                aws_access_key_id=access_key["AccessKeyId"],
+                aws_secret_access_key=access_key["SecretAccessKey"],
+                region_name=self.region,
+            )
+            return s3_express_client
+        except ClientError as client_error:
+            logging.error(
+                "Couldn't create the S3 Express One Zone client. Here's why: %s",
                 client_error.response["Error"]["Message"],
             )
             raise
