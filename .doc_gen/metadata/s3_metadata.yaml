@@ -213,6 +213,18 @@ s3_CreateBucket:
                 - aws-cli.bash-linux.s3.CreateBucket
   services:
     s3: {CreateBucket}
+s3_UploadPartCopy:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.multi_copy.main
+    s3: {UploadPartCopy}
 s3_CopyObject:
   languages:
     .NET:
