@@ -38,7 +38,7 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeCertificate](src/main/java/com/example/acm/DescribeCert.java#L11)
 - [ExportCertificate](src/main/java/com/example/acm/ExportCertificate.java#L20)
 - [ImportCertificate](src/main/java/com/example/acm/ImportCert.java#L16)
-- [ListCertificates](src/main/java/com/example/acm/ListCerts.java#L13)
+- [ListCertificates](src/main/java/com/example/acm/ListCerts.java#L12)
 - [ListTagsForCertificate](src/main/java/com/example/acm/ListCertTags.java#L13)
 - [RemoveTagsFromCertificate](src/main/java/com/example/acm/RemoveTagsFromCert.java#L13)
 - [RenewCertificate](src/main/java/com/example/acm/RenewCert.java#L10)
