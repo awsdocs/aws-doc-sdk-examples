@@ -62,7 +62,6 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeGateway](iotsitewise_wrapper.py#L347)
 - [DescribePortal](iotsitewise_wrapper.py#L315)
 - [GetAssetPropertyValue](iotsitewise_wrapper.py#L229)
-- [ListAssetModelProperties](iotsitewise_wrapper.py#L129)
 - [ListAssetModels](iotsitewise_wrapper.py#L105)
 
 

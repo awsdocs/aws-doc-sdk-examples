@@ -54,10 +54,10 @@ Code excerpts that show you how to call individual service functions.
 - [DeleteAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L320)
 - [DeleteGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L513)
 - [DeletePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L381)
+- [DescribeAssetModel](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L264)
 - [DescribeGateway](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L540)
 - [DescribePortal](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L439)
 - [GetAssetPropertyValue](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L233)
-- [ListAssetModelProperties](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L264)
 - [ListAssetModels](src/main/java/com/example/iotsitewise/scenario/SitewiseActions.java#L408)
 
 

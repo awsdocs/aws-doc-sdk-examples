@@ -223,17 +223,8 @@ iotsitewise_DescribeAssetModel:
             - description:
               snippet_tags:
                 - sitewise.java2.describe.asset.model.main
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/iotsitewise
-          excerpts:
-            - description:
-              snippet_tags:
-                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
-                - python.example_code.iotsitewise.ListAssetModelProperties
   services:
-    iotsitewise: {ListAssetModelProperties}
+    iotsitewise: {DescribeAssetModel}
 iotsitewise_GetAssetPropertyValue:
   languages:
     Java:
