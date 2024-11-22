@@ -61,7 +61,7 @@ class IoTSitewiseGettingStarted:
         self.iot_sitewise_wrapper = iot_sitewise_wrapper
         self.cloud_formation_resource = cloud_formation_resource
         self.stack = None
-        self.asset_model_id  = None
+        self.asset_model_id = None
         self.asset_id = None
         self.portal_id = None
         self.gateway_id = None
@@ -376,7 +376,7 @@ In this step, we get a description of the portal and display the portal URL.
     ) -> ServiceResource:
         """
         Deploys prerequisite resources used by the scenario. The resources are
-        defined in the associated `cfn_template.yaml` AWS CloudFormation script and are deployed
+        defined in the associated `SitewiseRoles-template.yaml` AWS CloudFormation script and are deployed
         as a CloudFormation stack, so they can be easily managed and destroyed.
 
         :param stack_name: The name of the CloudFormation stack.

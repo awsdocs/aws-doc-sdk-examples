@@ -24,7 +24,7 @@ class IoTSitewiseWrapper:
                            access to AWS IoT SiteWise services.
         """
         self.iotsitewise_client = iotsitewise_client
-        self.entry_id = 0
+        self.entry_id = 0 # Incremented to generate unique entry IDs for batch_put_asset_property_value.
 
     @classmethod
     def from_client(cls) -> "IoTSitewiseWrapper":
