@@ -151,7 +151,7 @@ bucket.
             "Directory buckets behave in different ways from regular S3 buckets, which we will explore here."
         )
         print(
-            "We'll also create a normal bucket, put an object_key into the normal bucket, and copy it over to the Directory bucket."
+            "We'll also create a normal bucket, put an object into the normal bucket, and copy it over to the Directory bucket."
         )
         # Create a directory bucket. These are different from normal S3 buckets in subtle ways.
         bucket_prefix = q.ask("Enter a bucket name prefix that will be used for both buckets: ", q.non_empty)
@@ -185,21 +185,21 @@ bucket.
         print("Great! Both buckets were created.")
         q.ask("Press Enter to continue...")
 
-        # 5. Create an object_key and copy it over.
+        # 5. Create an object and copy it over.
         print("")
-        print("5. Create an object_key and copy it over.")
+        print("5. Create an object and copy it over.")
         print(
-            "We'll create a basic object_key consisting of some text and upload it to the normal bucket."
+            "We'll create a basic object consisting of some text and upload it to the normal bucket."
         )
         print(
-            "Next, we'll copy the object_key into the Directory bucket using the regular client."
+            "Next, we'll copy the object into the Directory bucket using the regular client."
         )
         print(
             "This works fine, because Copy operations are not restricted for Directory buckets."
         )
         q.ask("Press Enter to continue...")
 
-        bucket_object = "basic-text-object_key"
+        bucket_object = "basic-text-object"
         S3ExpressScenario.put_object(self.s3_regular_client, self.regular_bucket_name, bucket_object, "Look Ma, I'm a bucket!")
         self.create_express_session()
         self.copy_object(self.s3_express_client, self.regular_bucket_name, bucket_object, self.directory_bucket_name, bucket_object)
@@ -218,15 +218,15 @@ bucket.
         print("")
         print("6. Demonstrate performance difference.")
         print(
-            "Now, let's do a performance test. We'll download the same object_key from each bucket $downloads times and compare the total time needed. Note: the performance difference will be much more pronounced if this example is run in an EC2 instance in the same AZ as the bucket."
+            "Now, let's do a performance test. We'll download the same object from each bucket $downloads times and compare the total time needed. Note: the performance difference will be much more pronounced if this example is run in an EC2 instance in the same AZ as the bucket."
         )
         downloads = 1000
-        print(f"The number of downloads of the same object_key for this example is set at {downloads}.")
+        print(f"The number of downloads of the same object for this example is set at {downloads}.")
         if q.ask("Would you like to download a different number? (y/n) ", q.is_yesno):
             max_downloads = 1000000
             downloads = q.ask(f"Enter a number between 1 and {max_downloads} for the number of downloads: ", q.is_int, q.in_range(1, len(max_downloads)))
 
-        # Download the object_key $downloads times from each bucket and time it to demonstrate the speed difference.
+        # Download the object $downloads times from each bucket and time it to demonstrate the speed difference.
         print("Downloading from the Directory bucket.")
         directory_time_start = time.time_ns()
         for index in range(downloads):
@@ -302,8 +302,8 @@ bucket.
         print(
             'Notice how the normal bucket lists objects in lexicographical order, while the directory bucket does not.'
         )
-        print('This is because the normal bucket considers the whole "key" to be the object_key identifies, while the')
-        print('directory bucket actually creates directories and uses the object_key "key" as a path to the object_key.')
+        print('This is because the normal bucket considers the whole "key" to be the object identifies, while the')
+        print('directory bucket actually creates directories and uses the object "key" as a path to the object.')
 
         q.ask("Press Enter to continue...")
         print("")
