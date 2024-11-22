@@ -4,14 +4,14 @@
 /// An example demonstrating how to perform multi-part uploads to Amazon S3
 /// using the AWS SDK for Swift.
 
-// snippet-start:[swift.s3.multipart-upload-upload.imports]
+// snippet-start:[swift.s3.multipart-upload.imports]
 import ArgumentParser
 import AsyncHTTPClient
 import AWSClientRuntime
 import AWSS3
 import Foundation
 import Smithy
-// snippet-end:[swift.s3.multipart-upload-upload.imports]
+// snippet-end:[swift.s3.multipart-upload.imports]
 
 // -MARK: - Async command line tool
 
@@ -113,7 +113,7 @@ struct ExampleCommand: ParsableCommand {
         print("Done. Uploaded as \(fileName) in bucket \(bucket).")
     }
 
-    // snippet-start:[swift.s3.multipart-upload.create]
+    // snippet-start:[swift.s3.multipart-upload.CreateMultipartUpload]
     /// Start a multi-part upload to Amazon S3.
     /// - Parameters:
     ///   - bucket: The name of the bucket to upload into.
@@ -147,9 +147,9 @@ struct ExampleCommand: ParsableCommand {
 
         return uploadID
     }
-    // snippet-end:[swift.s3.multipart-upload.create]
+    // snippet-end:[swift.s3.multipart-upload.CreateMultipartUpload]
 
-    // snippet-start:[swift.s3.multipart-upload.upload-part]
+    // snippet-start:[swift.s3.multipart-upload.UploadPart]
     /// Upload the specified data as part of an Amazon S3 multi-part upload.
     ///
     /// - Parameters:
@@ -160,7 +160,7 @@ struct ExampleCommand: ParsableCommand {
     ///   - partNumber: The part number within the file that the specified data represents.
     ///   - data: The data to send as the specified object part number in the object.
     ///
-    /// - Throws: `TransferError.signingError`, `TransferError.uploadError`
+    /// - Throws: `TransferError.uploadError`
     ///
     /// - Returns: A `CompletedPart` object describing the part that was uploaded.
     ///   contains the part number as well as the ETag returned by Amazon S3.
@@ -186,13 +186,11 @@ struct ExampleCommand: ParsableCommand {
             throw TransferError.uploadError(error.localizedDescription)
         }
     }
-    // snippet-end:[swift.s3.multipart-upload.upload-part]
+    // snippet-end:[swift.s3.multipart-upload.UploadPart]
 
-    // snippet-start:[swift.s3.multipart-upload.upload-complete]
-    /// Complete a multi-part upload by creating a `CompletedMultipartUpload`
-    /// with the array of completed part descriptions. This is used as the
-    /// value of the `multipartUpload` property when calling
-    /// `completeMultipartUpload(input:)`.
+    // snippet-start:[swift.s3.multipart-upload.CompleteMultipartUpload]
+    /// Complete a multi-part upload using an array of `CompletedMultipartUpload`
+    /// objects describing the completed parts.
     ///
     /// - Parameters:
     ///   - client: The S3Client to finish uploading with.
@@ -219,7 +217,7 @@ struct ExampleCommand: ParsableCommand {
             throw TransferError.multipartFinishError(error.localizedDescription)
         }
     }
-    // snippet-end:[swift.s3.multipart-upload.upload-complete]
+    // snippet-end:[swift.s3.multipart-upload.CompleteMultipartUpload]
 
     // -MARK: - File access
 
