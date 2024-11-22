@@ -6,9 +6,8 @@ package com.example.acm;
 import software.amazon.awssdk.services.acm.AcmClient;
 import software.amazon.awssdk.services.acm.model.CertificateStatus;
 import software.amazon.awssdk.services.acm.model.ListCertificatesRequest;
-import software.amazon.awssdk.services.acm.model.ListCertificatesResponse;
-import software.amazon.awssdk.services.acm.model.CertificateSummary;
 import software.amazon.awssdk.services.acm.model.AcmException;
+import software.amazon.awssdk.services.acm.paginators.ListCertificatesIterable;
 
 // snippet-start:[acm.java2.list_certs.main]
 /**
@@ -34,15 +33,16 @@ public class ListCerts {
                 .certificateStatuses(CertificateStatus.ISSUED)
                 .maxItems(100)
                 .build();
-            ListCertificatesResponse listResponse = acmClient.listCertificates(listRequest);
+            ListCertificatesIterable listResponse = acmClient.listCertificatesPaginator(listRequest);
 
-            // Print the certificate details
-            for (CertificateSummary certificate : listResponse.certificateSummaryList()) {
-                System.out.println("Certificate ARN: " + certificate.certificateArn());
-                System.out.println("Certificate Domain Name: " + certificate.domainName());
-                System.out.println("Certificate Status: " + certificate.statusAsString());
-                System.out.println("---");
-            }
+            // Print the certificate details using streams
+            listResponse.certificateSummaryList().stream()
+                .forEach(certificate -> {
+                    System.out.println("Certificate ARN: " + certificate.certificateArn());
+                    System.out.println("Certificate Domain Name: " + certificate.domainName());
+                    System.out.println("Certificate Status: " + certificate.statusAsString());
+                    System.out.println("---");
+                });
 
         } catch (AcmException e) {
             System.err.println(e.getMessage());
