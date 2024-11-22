@@ -88,7 +88,7 @@ bucket.
         print(
             "Are you running this in an EC2 instance located in the same AZ as your intended Directory buckets?"
         )
-        if q.ask("Do you want to setup a VPC Endpoint? (y/n) "):
+        if q.ask("Do you want to setup a VPC Endpoint? (y/n) ", q.is_yesno):
             print(
                 "Great! Let's set up a VPC, retrieve the Route Table from it, and create a VPC Endpoint to connect the S3 Client to."
             )
@@ -231,7 +231,7 @@ bucket.
         print(f"The number of downloads of the same object for this example is set at {downloads}.")
         if q.ask("Would you like to download a different number? (y/n) ", q.is_yesno):
             max_downloads = 1000000
-            downloads = q.ask(f"Enter a number between 1 and {max_downloads} for the number of downloads: ", q.is_int, q.in_range(1, len(max_downloads)))
+            downloads = q.ask(f"Enter a number between 1 and {max_downloads} for the number of downloads: ", q.is_int, q.in_range(1, max_downloads))
 
         # Download the object $downloads times from each bucket and time it to demonstrate the speed difference.
         print("Downloading from the Directory bucket.")
@@ -253,8 +253,14 @@ bucket.
         print(
             f"The directory bucket took {directory_time_difference} nanoseconds, while the normal bucket took {normal_time_difference}."
         )
-        print(f"That's a difference of {normal_time_difference - directory_time_difference} nanoseconds, or")
-        print(f"{(normal_time_difference - directory_time_difference) / 1000000000} seconds.")
+
+        difference = normal_time_difference - directory_time_difference
+        print(f"That's a difference of {difference} nanoseconds, or")
+        print(f"{(difference) / 1000000000} seconds.")
+        if difference < 0:
+            print(
+                "The directory buckets were slower. This can happen if you are not running on the cloud within a vpc."
+            )
         press_enter_to_continue()
 
         # 7. Populate the buckets to show the lexicographical difference.
