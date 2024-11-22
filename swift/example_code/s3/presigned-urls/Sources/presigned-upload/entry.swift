@@ -145,17 +145,15 @@ struct ExampleCommand: ParsableCommand {
         let dataStream = ByteStream.data(fileData)
         let presignedURL: URL
 
-        let putConfig = try await S3Client.S3ClientConfiguration(
-            maxAttempts: 6,
-            region: region
-        )
-
-        config.maxAttempts = 6
-        
         // Create a presigned URL representing the `PutObject` request that
         // will upload the file to Amazon S3. If no URL is generated, a
         // `TransferError.signingError` is thrown.
 
+        let putConfig = try await S3Client.S3ClientConfiguration(
+            maxAttempts: 6,
+            region: region
+        )
+        
         do {
             let url = try await PutObjectInput(
                 body: dataStream,
