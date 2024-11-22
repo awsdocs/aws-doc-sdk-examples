@@ -224,6 +224,7 @@ s3_UploadPartCopy:
             - description:
               snippet_tags:
                 - s3.java2.multi_copy.main
+  services:
     s3: {UploadPartCopy}
 s3_CopyObject:
   languages:
