@@ -1,29 +1,79 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import com.amazonaws.services.kms.model.KMSInvalidStateException;
-import com.example.s3.directorybucket.*;
-import org.junit.jupiter.api.*;
+import com.example.s3.directorybucket.AbortDirectoryBucketMultipartUploads;
+import com.example.s3.directorybucket.CompleteDirectoryBucketMultipartUpload;
+import com.example.s3.directorybucket.CopyDirectoryBucketObject;
+import com.example.s3.directorybucket.CreateDirectoryBucket;
+import com.example.s3.directorybucket.CreateDirectoryBucketMultipartUpload;
+import com.example.s3.directorybucket.DeleteDirectoryBucket;
+import com.example.s3.directorybucket.DeleteDirectoryBucketEncryption;
+import com.example.s3.directorybucket.DeleteDirectoryBucketObject;
+import com.example.s3.directorybucket.DeleteDirectoryBucketObjects;
+import com.example.s3.directorybucket.DeleteDirectoryBucketPolicy;
+import com.example.s3.directorybucket.GeneratePresignedGetURLForDirectoryBucket;
+import com.example.s3.directorybucket.GetDirectoryBucketObject;
+import com.example.s3.directorybucket.GetDirectoryBucketObjectAttributes;
+import com.example.s3.directorybucket.GetDirectoryBucketPolicy;
+import com.example.s3.directorybucket.HeadDirectoryBucket;
+import com.example.s3.directorybucket.HeadDirectoryBucketObject;
+import com.example.s3.directorybucket.ListDirectoryBucketMultipartUpload;
+import com.example.s3.directorybucket.ListDirectoryBucketObjectsV2;
+import com.example.s3.directorybucket.ListDirectoryBucketParts;
+import com.example.s3.directorybucket.ListDirectoryBuckets;
+import com.example.s3.directorybucket.PutDirectoryBucketEncryption;
+import com.example.s3.directorybucket.PutDirectoryBucketObject;
+import com.example.s3.directorybucket.UploadPartCopyForDirectoryBucket;
+import com.example.s3.directorybucket.UploadPartForDirectoryBucket;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.services.s3.model.CompletedPart;
+import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
+import software.amazon.awssdk.services.s3.model.MultipartUpload;
+import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
+import software.amazon.awssdk.services.s3.model.Part;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.s3.directorybucket.GetDirectoryBucketEncryption.getDirectoryBucketEncryption;
-import static com.example.s3.util.S3DirectoryBucketUtils.*;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static com.example.s3.util.S3DirectoryBucketUtils.abortDirectoryBucketMultipartUploads;
+import static com.example.s3.util.S3DirectoryBucketUtils.checkBucketExists;
+import static com.example.s3.util.S3DirectoryBucketUtils.checkObjectExists;
+import static com.example.s3.util.S3DirectoryBucketUtils.completeDirectoryBucketMultipartUpload;
+import static com.example.s3.util.S3DirectoryBucketUtils.createDirectoryBucket;
+import static com.example.s3.util.S3DirectoryBucketUtils.createDirectoryBucketMultipartUpload;
+import static com.example.s3.util.S3DirectoryBucketUtils.createKmsKey;
+import static com.example.s3.util.S3DirectoryBucketUtils.deleteAllObjectsInDirectoryBucket;
+import static com.example.s3.util.S3DirectoryBucketUtils.doesBucketExist;
+import static com.example.s3.util.S3DirectoryBucketUtils.getAwsAccountId;
+import static com.example.s3.util.S3DirectoryBucketUtils.getBucketEncryptionType;
+import static com.example.s3.util.S3DirectoryBucketUtils.getDirectoryBucketPolicy;
+import static com.example.s3.util.S3DirectoryBucketUtils.getFilePath;
+import static com.example.s3.util.S3DirectoryBucketUtils.multipartUploadForDirectoryBucket;
+import static com.example.s3.util.S3DirectoryBucketUtils.putDirectoryBucketEncryption;
+import static com.example.s3.util.S3DirectoryBucketUtils.putDirectoryBucketObject;
+import static com.example.s3.util.S3DirectoryBucketUtils.putDirectoryBucketPolicy;
+import static com.example.s3.util.S3DirectoryBucketUtils.scheduleKeyDeletion;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -64,12 +114,12 @@ public class S3DirectoryBucketIntegrationTest {
     private static String mpuObject2 = "large-object-2";
 
     // File paths
-    private static String localFilePath1 = "src/main/resources/directoryBucket/sample1.txt";
-    private static String localFilePath2 = "src/main/resources/directoryBucket/sample2.txt";
-    private static String localLargeFilePath = "src/main/resources/directoryBucket/sample-large-object.jpg";
-    private static Path filePath1 = Paths.get(localFilePath1);
-    private static Path filePath2 = Paths.get(localFilePath2);
-    private static Path filePathLarge = Paths.get(localLargeFilePath);
+    private static String localFilePath1 = "directoryBucket/sample1.txt";
+    private static String localFilePath2 = "directoryBucket/sample2.txt";
+    private static String localLargeFilePath = "directoryBucket/sample-large-object.jpg";
+    private static Path filePath1 = getFilePath(localFilePath1);
+    private static Path filePath2 = getFilePath(localFilePath2);
+    private static Path filePathLarge = getFilePath(localLargeFilePath);
 
     // Static block to initialize time-dependent names
     static {
@@ -98,9 +148,11 @@ public class S3DirectoryBucketIntegrationTest {
     private static String generateBucketName(String baseName, long timestamp) {
         return baseName + "-" + timestamp + "--" + ZONE + "--x-s3";
     }
+    private static final KmsClient kmsClient = KmsClient.builder().region(region).build();
+    private static String KMS_KEY_ID = null;
 
     @BeforeAll
-    static void setup() throws Exception {
+    static void setup() {
         // Initialize the S3 client
         s3Client = S3Client.builder().region(region).build();
        
@@ -121,11 +173,11 @@ public class S3DirectoryBucketIntegrationTest {
         putDirectoryBucketObject(s3Client, testSourceBucketName, objectKey1, filePath1);
         //putDirectoryBucketObject(s3Client, testSourceBucketName, objectKey2, filePath2);
 
-
-        
         // Create a bucket for policy testing
         createDirectoryBucket(s3Client, policyBucketName, ZONE);
         createBuckets.add(policyBucketName);
+
+        KMS_KEY_ID = createKmsKey(kmsClient);
 
     }
 
@@ -165,7 +217,7 @@ public class S3DirectoryBucketIntegrationTest {
                 "    ]\n" +
                 "}";
 
-        String appliedPolicy = null;
+        String appliedPolicy;
         JsonNode expectedPolicyJson;
         JsonNode appliedPolicyJson;
         try {
@@ -193,7 +245,7 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testGetBucketPolicy() {
-        String retrievedPolicy = null;
+        String retrievedPolicy;
         JsonNode expectedPolicyJson;
         JsonNode retrievedPolicyJson;
         try {
@@ -248,9 +300,7 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testPutBucketEncryption() {
-        KmsClient kmsClient = createKmsClient(region);
-        final String[] kmsKeyId = new String[1];
-        String encryptionType = null;
+        String encryptionType;
         long timestamp = System.currentTimeMillis();
         final String PUT_ENCRYPTION_BUCKET_BASE_NAME = "test-put-encrypt-bucket-name";
         String testPutEncryptionBucketName = generateBucketName(PUT_ENCRYPTION_BUCKET_BASE_NAME, timestamp);
@@ -259,9 +309,8 @@ public class S3DirectoryBucketIntegrationTest {
         createBuckets.add(testPutEncryptionBucketName);
 
         try {
-            // Create a new KMS key and set bucket encryption using the KMS key
-            kmsKeyId[0] = createKmsKey(kmsClient);
-            PutDirectoryBucketEncryption.putDirectoryBucketEncryption(s3Client, testPutEncryptionBucketName, kmsKeyId[0]);
+            // Set bucket encryption using the KMS key
+            PutDirectoryBucketEncryption.putDirectoryBucketEncryption(s3Client, testPutEncryptionBucketName, KMS_KEY_ID);
 
             // Verify the encryption type of the bucket
             encryptionType = getBucketEncryptionType(s3Client, testPutEncryptionBucketName);
@@ -278,7 +327,7 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testGetBucketEncryption() {
-        String encryptionType = null;
+        String encryptionType;
 
         final String GET_ENCRYPTION_BUCKET_BASE_NAME = "test-get-encrypt-bucket-name";
         String testGetEncryptionBucketName;
@@ -304,7 +353,7 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testDeleteBucketEncryption() {
-        String encryptionTypeAfterDeletion = null;
+        String encryptionTypeAfterDeletion;
         long timestamp = System.currentTimeMillis();
         final String DELETE_ENCRYPTION_BUCKET_BASE_NAME = "test-delete-encrypt-bucket-name";
         String testDeleteEncryptionBucketName;
@@ -315,8 +364,7 @@ public class S3DirectoryBucketIntegrationTest {
 
         try {
             // Set the bucket encryption to SSE-KMS
-            String kmsKeyId = createKmsKey(createKmsClient(region));
-            putDirectoryBucketEncryption(s3Client, testDeleteEncryptionBucketName, kmsKeyId);
+            putDirectoryBucketEncryption(s3Client, testDeleteEncryptionBucketName, KMS_KEY_ID);
 
             // Delete the bucket encryption
             DeleteDirectoryBucketEncryption.deleteDirectoryBucketEncryption(s3Client, testDeleteEncryptionBucketName);
@@ -337,7 +385,7 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testListDirectoryBuckets() {
-        List<String> bucketNames = null;
+        List<String> bucketNames;
 
         try {
             // List directory buckets
@@ -357,7 +405,7 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testHeadBucket() {
-        boolean bucketExists = false;
+        boolean bucketExists;
 
         try {
             // Perform the head bucket operation
@@ -376,7 +424,7 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testDeleteBucket() {
-        boolean bucketDeleted = false;
+        boolean bucketDeleted;
         final String EXCEPTION_BUCKET_BASE_NAME = "exception-bucket-name";
         String exceptionBucketName;
         long timestamp = System.currentTimeMillis();
@@ -404,7 +452,7 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testPutObject() {
-        boolean objectExists = false;
+        boolean objectExists;
 
         try {
             // Put the object into the bucket
@@ -426,7 +474,7 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testCopyObject() {
-        boolean objectExists = false;
+        boolean objectExists ;
         long timestamp = System.currentTimeMillis();
         final String DESTINATION_BUCKET_BASE_NAME = "test-destination-bucket";
         String testDestinationBucketName;
@@ -454,7 +502,7 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testListObjectsV2() {
-        List<String> objectKeys = null;
+        List<String> objectKeys ;
 
         try {
             // In set up, one object is put into the bucket: testSourceBucketName.
@@ -473,7 +521,7 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testGetObject() {
-        boolean objectRetrieved = false;
+        boolean objectRetrieved;
 
         try {
             // Retrieve the object from the bucket
@@ -492,7 +540,7 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testHeadObject() {
-        boolean objectExists = false;
+        boolean objectExists;
 
         try {
             // Perform the head object operation
@@ -510,7 +558,7 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testGetObjectAttributes() {
-        boolean attributesRetrieved = false;
+        boolean attributesRetrieved;
 
         try {
             // Retrieve the object attributes from the bucket
@@ -565,8 +613,8 @@ public class S3DirectoryBucketIntegrationTest {
     @Tag("IntegrationTest")
     void testDeleteObject() {
         String objectKeyDelete1 = "example-object-1-delete";
-        boolean objectExistsBeforeDeletion = false;
-        boolean objectDeleted = false;
+        boolean objectExistsBeforeDeletion;
+        boolean objectDeleted;
 
         try {
             // Put an object into the bucket for testing deletion
@@ -604,8 +652,8 @@ public class S3DirectoryBucketIntegrationTest {
         createBuckets.add(testDeleteObjectsBucketName);
         String objectKeyDelete1 = "example-object-1-delete";
         String objectKeyDelete2 = "example-object-2-delete";
-        boolean objectsExistBeforeDeletion = false;
-        boolean objectsDeleted = false;
+        boolean objectsExistBeforeDeletion;
+        boolean objectsDeleted;
 
         try {
             putDirectoryBucketObject(s3Client, testDeleteObjectsBucketName, objectKeyDelete1, filePath1);
@@ -637,24 +685,18 @@ public class S3DirectoryBucketIntegrationTest {
     @Test
     @Tag("IntegrationTest")
     void testCreateMultipartUpload() {
-        String uploadId = null;
-        boolean multipartUploadCreated = false;
+        String uploadId ;
 
         try {
             // Create a multipart upload
             uploadId = CreateDirectoryBucketMultipartUpload.createDirectoryBucketMultipartUpload(s3Client, testSourceBucketName, mpuObject1);
-
-            // Check if the uploadId is not null
-            if (uploadId != null) {
-                multipartUploadCreated = true;
-            }
         } catch (RuntimeException e) {
             logger.error("Failed to create multipart upload for '{}': {}", testSourceBucketName, e.getMessage());
             throw e;
         }
 
         // Verify the multipart upload was created successfully
-        Assertions.assertTrue(multipartUploadCreated, "The multipart upload should be created successfully");
+        Assertions.assertNotNull(uploadId, "The multipart upload should be created successfully");
         logger.info("Test passed: Created multipart upload successfully for '{}'", testSourceBucketName);
     }
 
@@ -663,11 +705,9 @@ public class S3DirectoryBucketIntegrationTest {
     @Tag("IntegrationTest")
     void testUploadPart() throws IOException {
         final String MPU_BUCKET_BASE_NAME = "test-mpu-bucket-name";
-        String testMPUBucketName;
         long timestamp = System.currentTimeMillis();
-        testMPUBucketName = generateBucketName(MPU_BUCKET_BASE_NAME, timestamp);
-        List<CompletedPart> completedParts = null;
-        boolean partUploaded = false;
+        String testMPUBucketName = generateBucketName(MPU_BUCKET_BASE_NAME, timestamp);
+        List<CompletedPart> completedParts ;
 
         // Create the bucket and multipart upload
         createDirectoryBucket(s3Client, testMPUBucketName, ZONE);
@@ -677,18 +717,13 @@ public class S3DirectoryBucketIntegrationTest {
         try {
             // Upload a part for the multipart upload
             completedParts = UploadPartForDirectoryBucket.multipartUploadForDirectoryBucket(s3Client, testMPUBucketName, mpuObject1, uploadId1, filePathLarge);
-
-            // Check if the part was uploaded successfully by verifying if completedParts is not null or empty
-            if (completedParts != null && !completedParts.isEmpty()) {
-                partUploaded = true;
-            }
         } catch (RuntimeException | IOException e) {
             logger.error("Failed to upload part for '{}': {}", testMPUBucketName, e.getMessage());
             throw e;
         }
 
         // Verify the part was uploaded successfully
-        Assertions.assertTrue(partUploaded, "The part should be uploaded successfully");
+        Assertions.assertFalse(completedParts.isEmpty(), "The part should be uploaded successfully");
         logger.info("Test passed: Uploaded part successfully for '{}'", testMPUBucketName);
     }
 
@@ -698,8 +733,8 @@ public class S3DirectoryBucketIntegrationTest {
     void testUploadPartCopy() throws IOException {
         String uploadIdSourceMPU;
         String uploadIdDestinationMPU;
-        List<CompletedPart> uploadedPartsListSource = null;
-        List<CompletedPart> copiedPartsListDestination = null;
+        List<CompletedPart> uploadedPartsListSource ;
+        List<CompletedPart> copiedPartsListDestination ;
         boolean copySuccessful = false;
 
         // Create a multipart upload of source bucket for testing
@@ -737,31 +772,23 @@ public class S3DirectoryBucketIntegrationTest {
     @Tag("IntegrationTest")
     void testListParts() throws IOException {
         // Create a multipart upload for ListParts and ListMultipartUpload testing
-        String uploadId2;
-        uploadId2 = createDirectoryBucketMultipartUpload(s3Client, testBucketName, mpuObject1);
-        List<CompletedPart> uploadedPartsList;
+        String uploadId2 = createDirectoryBucketMultipartUpload(s3Client, testBucketName, mpuObject1);
 
         // Perform multipart upload in the directory bucket for testing
-        uploadedPartsList = multipartUploadForDirectoryBucket(s3Client, testBucketName, mpuObject1, uploadId2, filePathLarge);
+        multipartUploadForDirectoryBucket(s3Client, testBucketName, mpuObject1, uploadId2, filePathLarge);
 
-        List<Part> parts = null;
-        boolean partsListed = false;
+        List<Part> parts;
 
         try {
             // List the parts of the multipart upload
             parts = ListDirectoryBucketParts.listDirectoryBucketMultipartUploadParts(s3Client, testBucketName, mpuObject1, uploadId2);
-
-            // Check if the parts list is not null or empty
-            if (parts != null && !parts.isEmpty()) {
-                partsListed = true;
-            }
         } catch (RuntimeException e) {
             logger.error("Failed to list parts for '{}': {}", testBucketName, e.getMessage());
             throw e;
         }
 
         // Verify the parts were listed successfully
-        Assertions.assertTrue(partsListed, "The parts should be listed successfully");
+        Assertions.assertFalse(parts.isEmpty(), "The parts should be listed successfully");
         parts.forEach(part -> logger.info("Part Number: {}, ETag: {}, Size: {}", part.partNumber(), part.eTag(), part.size()));
         logger.info("Test passed: Listed parts successfully for '{}'", testBucketName);
     }
@@ -772,29 +799,23 @@ public class S3DirectoryBucketIntegrationTest {
     void testListMultipartUpload() throws IOException {
         // Create a multipart upload for testing
         String uploadId = createDirectoryBucketMultipartUpload(s3Client, testBucketName, mpuObject1);
-        List<CompletedPart> uploadedPartsList;
 
         // Perform multipart upload in the directory bucket for testing
-        uploadedPartsList = multipartUploadForDirectoryBucket(s3Client, testBucketName, mpuObject1, uploadId, filePathLarge);
+        multipartUploadForDirectoryBucket(s3Client, testBucketName, mpuObject1, uploadId, filePathLarge);
 
-        boolean uploadsListed = false;
-        List<MultipartUpload> multipartUploads = null;
+        List<MultipartUpload> multipartUploads;
 
         try {
             // List the multipart uploads in the bucket
             multipartUploads = ListDirectoryBucketMultipartUpload.listDirectoryBucketMultipartUploads(s3Client, testBucketName);
 
-            // Check if the multipart uploads list is not null or empty
-            if (multipartUploads != null && !multipartUploads.isEmpty()) {
-                uploadsListed = true;
-            }
         } catch (RuntimeException e) {
             logger.error("Failed to list multipart uploads for '{}': {}", testBucketName, e.getMessage());
             throw e;
         }
 
         // Verify the multipart uploads were listed successfully
-        Assertions.assertTrue(uploadsListed, "The multipart uploads should be listed successfully");
+        Assertions.assertFalse(multipartUploads.isEmpty(), "The multipart uploads should be listed successfully");
         multipartUploads.forEach(upload -> logger.info("Upload ID: {}, Key: {}", upload.uploadId(), upload.key()));
         logger.info("Test passed: Listed multipart uploads successfully for '{}'", testBucketName);
     }
@@ -805,23 +826,24 @@ public class S3DirectoryBucketIntegrationTest {
     @Tag("IntegrationTest")
     void testCompleteMultipartUpload() throws IOException {
         String uploadId3;
-        boolean multipartUploadCompleted = false;
 
         // Create a multipart upload for testing
         uploadId3 = createDirectoryBucketMultipartUpload(s3Client, testBucketName, mpuObject2);
         // Perform multipart upload in the directory bucket for testing
         List<CompletedPart> uploadedPartsList = multipartUploadForDirectoryBucket(s3Client, testBucketName, mpuObject2, uploadId3, filePathLarge);
+        Integer numUploadsBeforeComplete = s3Client.listMultipartUploads(b -> b.bucket(testBucketName)).uploads().size();
 
         try {
             // Complete the multipart upload
-            multipartUploadCompleted = CompleteDirectoryBucketMultipartUpload.completeDirectoryBucketMultipartUpload(s3Client, testBucketName, mpuObject2, uploadId3, uploadedPartsList);
+            CompleteDirectoryBucketMultipartUpload.completeDirectoryBucketMultipartUpload(s3Client, testBucketName, mpuObject2, uploadId3, uploadedPartsList);
         } catch (RuntimeException e) {
             logger.error("Failed to complete multipart upload for '{}': {}", testBucketName, e.getMessage());
             throw e;
         }
+        Integer numUploadsAfterComplete = s3Client.listMultipartUploads(b -> b.bucket(testBucketName)).uploads().size();
 
         // Verify the multipart upload was completed successfully
-        Assertions.assertTrue(multipartUploadCompleted, "The multipart upload should be completed successfully");
+        Assertions.assertEquals(1, numUploadsBeforeComplete - numUploadsAfterComplete, "The multipart upload should be completed successfully");
         logger.info("Test passed: Completed multipart upload successfully for '{}'", testBucketName);
     }
 
@@ -830,29 +852,26 @@ public class S3DirectoryBucketIntegrationTest {
     @Tag("IntegrationTest")
     void testAbortMultipartUpload() {
         String uploadId4;
-        boolean abortSuccessful = false;
-
         // Create a multipart upload for testing
         uploadId4 = createDirectoryBucketMultipartUpload(s3Client, testSourceBucketName, mpuObject1);
+        Integer numUploadsBeforeAbort = s3Client.listMultipartUploads(b -> b.bucket(testSourceBucketName)).uploads().size();
 
         try {
             // Abort the multipart upload
-            abortSuccessful = AbortDirectoryBucketMultipartUploads.abortDirectoryBucketMultipartUpload(s3Client, testSourceBucketName, mpuObject1, uploadId4);
+            AbortDirectoryBucketMultipartUploads.abortDirectoryBucketMultipartUpload(s3Client, testSourceBucketName, mpuObject1, uploadId4);
         } catch (RuntimeException e) {
             logger.error("Failed to abort multipart upload for '{}': {}", testSourceBucketName, e.getMessage());
             throw e;
         }
-
+        Integer numUploadsAfterAbort = s3Client.listMultipartUploads(b -> b.bucket(testSourceBucketName)).uploads().size();
         // Verify the multipart upload was aborted successfully
-        Assertions.assertTrue(abortSuccessful, "The multipart upload should be aborted successfully");
+        Assertions.assertEquals(1, numUploadsBeforeAbort - numUploadsAfterAbort, "The multipart upload should be aborted successfully");
         logger.info("Test passed: Aborted multipart upload successfully for '{}'", testSourceBucketName);
     }
 
 
     @AfterAll
-    static void teardown() throws Exception {
-        KmsClient kmsClient = createKmsClient(region);
-        String kmsKeyId = null;
+    static void teardown() {
 
         // Empty and delete the S3 buckets created for testing
         for (String bucketName : createBuckets) {
@@ -888,9 +907,9 @@ public class S3DirectoryBucketIntegrationTest {
         }
 
         // Schedule the deletion of the created KMS key
-        if (kmsKeyId != null) {
+        if (KMS_KEY_ID != null) {
             try {
-                String deletionDate = scheduleKeyDeletion(kmsClient, kmsKeyId, 7); // 7 days waiting period
+                String deletionDate = scheduleKeyDeletion(kmsClient, KMS_KEY_ID, 7); // 7 days waiting period
                 logger.info("Key scheduled for deletion on: {}", deletionDate);
             } catch (RuntimeException e) {
                 logger.error("Failed to schedule key deletion: {}", e.getMessage());

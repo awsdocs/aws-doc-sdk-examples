@@ -4,34 +4,45 @@
 package com.example.s3.directorybucket;
 
 // snippet-start:[s3directorybuckets.java2.directory_bucket_create_bucket.import]
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.*;
-import static com.example.s3.util.S3DirectoryBucketUtils.*;
+import software.amazon.awssdk.services.s3.model.BucketInfo;
+import software.amazon.awssdk.services.s3.model.BucketType;
+import software.amazon.awssdk.services.s3.model.CreateBucketConfiguration;
+import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
+import software.amazon.awssdk.services.s3.model.CreateBucketResponse;
+import software.amazon.awssdk.services.s3.model.DataRedundancy;
+import software.amazon.awssdk.services.s3.model.LocationInfo;
+import software.amazon.awssdk.services.s3.model.LocationType;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+
+import static com.example.s3.util.S3DirectoryBucketUtils.createS3Client;
+import static com.example.s3.util.S3DirectoryBucketUtils.deleteDirectoryBucket;
 // snippet-end:[s3directorybuckets.java2.directory_bucket_create_bucket.import]
 
 /**
  * Before running this example:
- * <p/>
+ * <p>
  * The SDK must be able to authenticate AWS requests on your behalf. If you have
  * not configured
  * authentication for SDKs and tools, see
  * https://docs.aws.amazon.com/sdkref/latest/guide/access.html in the AWS SDKs
  * and Tools Reference Guide.
- * <p/>
+ * <p>
  * You must have a runtime environment configured with the Java SDK.
  * See
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html in
  * the Developer Guide if this is not set up.
- * <p/>
+ * <p>
  * To use S3 directory buckets, configure a gateway VPC endpoint. This is the
  * recommended method to enable directory bucket traffic without
  * requiring an internet gateway or NAT device. For more information on
  * configuring VPC gateway endpoints, visit
  * https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-networking.html#s3-express-networking-vpc-gateway.
- * <p/>
+ * <p>
  * Directory buckets are available in specific AWS Regions and Zones. For
  * details on Regions and Zones supporting directory buckets, see
  * https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-networking.html#s3-express-endpoints.
@@ -70,7 +81,7 @@ public class CreateDirectoryBucket {
             logger.info("Bucket created successfully with location: {}", response.location());
         } catch (S3Exception e) {
             logger.error("Error creating bucket: {} - Error code: {}", e.awsErrorDetails().errorMessage(),
-                    e.awsErrorDetails().errorCode());
+                    e.awsErrorDetails().errorCode(), e);
             throw e;
         }
     }
@@ -86,17 +97,15 @@ public class CreateDirectoryBucket {
             createDirectoryBucket(s3Client, bucketName, zone);
         } catch (S3Exception e) {
             logger.error("An error occurred during S3 operations: {} - Error code: {}",
-                    e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode());
+                    e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode(), e);
         } finally {
-            try {
+            try (s3Client) {
                 deleteDirectoryBucket(s3Client, bucketName);
             } catch (S3Exception e) {
                 logger.error("Failed to delete the bucket due to S3 error: {} - Error code: {}",
-                        e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode());
-            } catch (Exception e) {
-                logger.error("Failed to delete the bucket due to unexpected error: {}", e.getMessage());
-            } finally {
-                s3Client.close();
+                        e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode(), e);
+            } catch (RuntimeException e) {
+                logger.error("Failed to delete the bucket due to unexpected error: {}", e.getMessage(), e);
             }
         }
     }

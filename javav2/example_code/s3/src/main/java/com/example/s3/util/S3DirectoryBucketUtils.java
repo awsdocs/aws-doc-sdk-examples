@@ -2,25 +2,74 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.example.s3.util;
 
+import com.example.s3.directorybucket.CompleteDirectoryBucketMultipartUpload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.awscore.exception.AwsErrorDetails;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.kms.model.*;
+import software.amazon.awssdk.services.kms.KmsClient;
+import software.amazon.awssdk.services.kms.model.CreateKeyRequest;
+import software.amazon.awssdk.services.kms.model.CreateKeyResponse;
+import software.amazon.awssdk.services.kms.model.KmsException;
+import software.amazon.awssdk.services.kms.model.ScheduleKeyDeletionRequest;
+import software.amazon.awssdk.services.kms.model.ScheduleKeyDeletionResponse;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.services.s3.model.AbortMultipartUploadRequest;
+import software.amazon.awssdk.services.s3.model.BucketInfo;
+import software.amazon.awssdk.services.s3.model.BucketType;
+import software.amazon.awssdk.services.s3.model.CompleteMultipartUploadRequest;
+import software.amazon.awssdk.services.s3.model.CompleteMultipartUploadResponse;
+import software.amazon.awssdk.services.s3.model.CompletedMultipartUpload;
+import software.amazon.awssdk.services.s3.model.CompletedPart;
+import software.amazon.awssdk.services.s3.model.CreateBucketConfiguration;
+import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
+import software.amazon.awssdk.services.s3.model.CreateBucketResponse;
+import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest;
+import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
+import software.amazon.awssdk.services.s3.model.DataRedundancy;
+import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetBucketEncryptionRequest;
+import software.amazon.awssdk.services.s3.model.GetBucketEncryptionResponse;
+import software.amazon.awssdk.services.s3.model.GetBucketPolicyRequest;
+import software.amazon.awssdk.services.s3.model.GetBucketPolicyResponse;
+import software.amazon.awssdk.services.s3.model.HeadBucketRequest;
+import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
+import software.amazon.awssdk.services.s3.model.ListMultipartUploadsRequest;
+import software.amazon.awssdk.services.s3.model.ListMultipartUploadsResponse;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
+import software.amazon.awssdk.services.s3.model.LocationInfo;
+import software.amazon.awssdk.services.s3.model.LocationType;
+import software.amazon.awssdk.services.s3.model.MultipartUpload;
+import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
+import software.amazon.awssdk.services.s3.model.NoSuchKeyException;
+import software.amazon.awssdk.services.s3.model.PutBucketEncryptionRequest;
+import software.amazon.awssdk.services.s3.model.PutBucketPolicyRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.S3Object;
+import software.amazon.awssdk.services.s3.model.ServerSideEncryption;
+import software.amazon.awssdk.services.s3.model.ServerSideEncryptionByDefault;
+import software.amazon.awssdk.services.s3.model.ServerSideEncryptionConfiguration;
+import software.amazon.awssdk.services.s3.model.ServerSideEncryptionRule;
+import software.amazon.awssdk.services.s3.model.UploadPartRequest;
+import software.amazon.awssdk.services.s3.model.UploadPartResponse;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.sts.StsClient;
 import software.amazon.awssdk.services.sts.model.GetCallerIdentityRequest;
 import software.amazon.awssdk.services.sts.model.GetCallerIdentityResponse;
-import software.amazon.awssdk.services.kms.KmsClient;
+
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.UncheckedIOException;
+import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class S3DirectoryBucketUtils {
     private static final Logger logger = LoggerFactory.getLogger(S3DirectoryBucketUtils.class);
@@ -37,6 +86,9 @@ public class S3DirectoryBucketUtils {
 
     /**
      * Creates a new S3 directory bucket.
+     * <p>
+     * Once the CreateBucket API call returns successfully, the bucket exists and is ready for immediate use. You don't
+     * need to use S3Waiter to wait for the bucket to exist before performing operations on the bucket.
      *
      * @param s3Client   The S3 client used to create the bucket
      * @param bucketName The name of the bucket to be created
@@ -181,7 +233,7 @@ public class S3DirectoryBucketUtils {
             // Return the type of server-side encryption applied to the bucket
             return rule.applyServerSideEncryptionByDefault().sseAlgorithmAsString();
         } catch (S3Exception e) {
-            logger.error("Failed to retrieve encryption for bucket: {} - Error code: {}", bucketName, e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode());
+            logger.error("Failed to retrieve encryption for bucket: {} - Error message: {}- Error code: {}", bucketName, e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode());
             throw e;
         }
     }
@@ -248,7 +300,12 @@ public class S3DirectoryBucketUtils {
             s3Client.putObject(putObj, filePath);
             logger.info("Successfully placed {} into bucket {}", objectKey, bucketName);
         } catch (UncheckedIOException e) {
-            throw S3Exception.builder().message("Failed to read the file: " + e.getMessage()).cause(e).build();
+            throw S3Exception.builder().message("Failed to read the file: " + e.getMessage()).cause(e)
+                    .awsErrorDetails(AwsErrorDetails.builder()
+                            .errorCode("ClientSideException:FailedToReadFile")
+                            .errorMessage(e.getMessage())
+                            .build())
+                    .build();
         } catch (S3Exception e) {
             logger.error("Failed to put object: {} - Error code: {}", e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode());
             throw e;
@@ -270,7 +327,7 @@ public class S3DirectoryBucketUtils {
         } catch (NoSuchBucketException e) {
             return false; // If NoSuchBucketException is thrown, the bucket does not exist
         } catch (S3Exception e) {
-            logger.error("Failed to check if bucket exists: {} - Error code: {}", bucketName, e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode());
+            logger.error("Failed to check if bucket exists: {} - Error message: {} -Error code: {}", bucketName, e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode());
             throw e;
         }
     }
@@ -291,7 +348,7 @@ public class S3DirectoryBucketUtils {
         } catch (NoSuchKeyException e) {
             return false; // If NoSuchKeyException is thrown, the object does not exist
         } catch (S3Exception e) {
-            logger.error("Failed to check if object exists: {} - Error code: {}", objectKey, e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode());
+            logger.error("Failed to check if bucket exists: {} - Error message: {} -Error code: {}", objectKey, e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode());
             throw e;
         }
     }
@@ -356,7 +413,7 @@ public class S3DirectoryBucketUtils {
 
     /**
      * Method to get AWS account ID
-     *
+     * <p>
      * This method uses the AWS Security Token Service (STS) to get the
      * account ID of the current AWS account. It builds an STS client,
      * sends a GetCallerIdentity request, and retrieves the account ID
@@ -365,10 +422,11 @@ public class S3DirectoryBucketUtils {
      * @return The AWS account ID
      */
     public static String getAwsAccountId() {
-        StsClient stsClient = StsClient.builder().region(Region.US_WEST_2).build();
-        GetCallerIdentityRequest request = GetCallerIdentityRequest.builder().build();
-        GetCallerIdentityResponse response = stsClient.getCallerIdentity(request);
-        return response.account();
+        try (StsClient stsClient = StsClient.builder().region(Region.US_WEST_2).build()) {
+            GetCallerIdentityRequest request = GetCallerIdentityRequest.builder().build();
+            GetCallerIdentityResponse response = stsClient.getCallerIdentity(request);
+            return response.account();
+        }
     }
 
     /**
@@ -593,5 +651,15 @@ public class S3DirectoryBucketUtils {
         }
     }
 
-
+    public static Path getFilePath(String pathRelativeToResourcesDir) {
+        Path filePath = null;
+        try {
+            filePath = Paths.get(S3DirectoryBucketUtils.class.getClassLoader()
+                    .getResource(pathRelativeToResourcesDir)
+                    .toURI());
+        } catch (URISyntaxException e) {
+            logger.error("Error getting file path: {}", e.getMessage());
+        }
+        return filePath;
+    }
 }

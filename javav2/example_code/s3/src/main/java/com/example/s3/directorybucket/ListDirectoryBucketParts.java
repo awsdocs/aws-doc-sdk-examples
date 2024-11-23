@@ -4,41 +4,49 @@
 package com.example.s3.directorybucket;
 
 // snippet-start:[s3directorybuckets.java2.directory_bucket_list_multipart_upload_parts.import]
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.*;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-
-import static com.example.s3.util.S3DirectoryBucketUtils.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.ListPartsRequest;
+import software.amazon.awssdk.services.s3.model.ListPartsResponse;
+import software.amazon.awssdk.services.s3.model.Part;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
+
+import static com.example.s3.util.S3DirectoryBucketUtils.abortDirectoryBucketMultipartUploads;
+import static com.example.s3.util.S3DirectoryBucketUtils.createDirectoryBucket;
+import static com.example.s3.util.S3DirectoryBucketUtils.createDirectoryBucketMultipartUpload;
+import static com.example.s3.util.S3DirectoryBucketUtils.createS3Client;
+import static com.example.s3.util.S3DirectoryBucketUtils.deleteDirectoryBucket;
+import static com.example.s3.util.S3DirectoryBucketUtils.getFilePath;
+import static com.example.s3.util.S3DirectoryBucketUtils.multipartUploadForDirectoryBucket;
 // snippet-end:[s3directorybuckets.java2.directory_bucket_list_multipart_upload_parts.import]
 
 /**
  * Before running this example:
- * <p/>
+ * <p>
  * The SDK must be able to authenticate AWS requests on your behalf. If you have
  * not configured
  * authentication for SDKs and tools, see
  * https://docs.aws.amazon.com/sdkref/latest/guide/access.html in the AWS SDKs
  * and Tools Reference Guide.
- * <p/>
+ * <p>
  * You must have a runtime environment configured with the Java SDK.
  * See
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html in
  * the Developer Guide if this is not set up.
- * <p/>
+ * <p>
  * To use S3 directory buckets, configure a gateway VPC endpoint. This is the
  * recommended method to enable directory bucket traffic without
  * requiring an internet gateway or NAT device. For more information on
  * configuring VPC gateway endpoints, visit
  * https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-networking.html#s3-express-networking-vpc-gateway.
- * <p/>
+ * <p>
  * Directory buckets are available in specific AWS Regions and Zones. For
  * details on Regions and Zones supporting directory buckets, see
  * https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-networking.html#s3-express-endpoints.
@@ -93,7 +101,7 @@ public class ListDirectoryBucketParts {
         String bucketName = "test-bucket-" + System.currentTimeMillis() + "--" + zone + "--x-s3";
         String objectKey = "largeObject"; // your-object-key
         String uploadId; // your-upload-id
-        Path filePath = Paths.get("src/main/resources/directoryBucket/sample-large-object.jpg"); // path to your file
+        Path filePath = getFilePath("directoryBucket/sample-large-object.jpg"); // path to your file
 
         try {
             // Create the directory bucket
@@ -101,15 +109,15 @@ public class ListDirectoryBucketParts {
             // Create a multipart upload
             uploadId = createDirectoryBucketMultipartUpload(s3Client, bucketName, objectKey);
             // Perform multipart upload for the directory bucket
-            List<CompletedPart> uploadedParts = multipartUploadForDirectoryBucket(s3Client, bucketName, objectKey,
+            multipartUploadForDirectoryBucket(s3Client, bucketName, objectKey,
                     uploadId, filePath);
             // List parts of the multipart upload in the directory bucket
-            List<Part> parts = listDirectoryBucketMultipartUploadParts(s3Client, bucketName, objectKey, uploadId);
+            listDirectoryBucketMultipartUploadParts(s3Client, bucketName, objectKey, uploadId);
         } catch (S3Exception e) {
             logger.error("An error occurred during S3 operations: {} - Error code: {}",
-                    e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode());
+                    e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode(), e);
         } catch (IOException e) {
-            logger.error("An I/O error occurred: {}", e.getMessage());
+            logger.error("An I/O error occurred: {}", e.getMessage(), e);
         } finally {
             try {
                 logger.info("Aborting Multipart Uploads in bucket: {}", bucketName);
@@ -119,9 +127,9 @@ public class ListDirectoryBucketParts {
                 deleteDirectoryBucket(s3Client, bucketName);
             } catch (S3Exception e) {
                 logger.error("Failed to clean up S3 resources: {} - Error code: {}", e.awsErrorDetails().errorMessage(),
-                        e.awsErrorDetails().errorCode());
-            } catch (Exception e) {
-                logger.error("Failed to clean up resources due to unexpected error: {}", e.getMessage());
+                        e.awsErrorDetails().errorCode(), e);
+            } catch (RuntimeException e) {
+                logger.error("Failed to clean up resources due to unexpected error: {}", e.getMessage(), e);
             } finally {
                 s3Client.close();
             }

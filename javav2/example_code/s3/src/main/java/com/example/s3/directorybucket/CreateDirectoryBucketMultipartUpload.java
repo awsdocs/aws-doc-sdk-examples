@@ -13,29 +13,31 @@ import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
-import static com.example.s3.util.S3DirectoryBucketUtils.*;
+import static com.example.s3.util.S3DirectoryBucketUtils.createDirectoryBucket;
+import static com.example.s3.util.S3DirectoryBucketUtils.createS3Client;
+import static com.example.s3.util.S3DirectoryBucketUtils.deleteDirectoryBucket;
 // snippet-end:[s3directorybuckets.java2.create_directory_bucket_multipart_upload.import]
 
 /**
  * Before running this example:
- * <p/>
+ * <p>
  * The SDK must be able to authenticate AWS requests on your behalf. If you have
  * not configured
  * authentication for SDKs and tools, see
  * https://docs.aws.amazon.com/sdkref/latest/guide/access.html in the AWS SDKs
  * and Tools Reference Guide.
- * <p/>
+ * <p>
  * You must have a runtime environment configured with the Java SDK.
  * See
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html in
  * the Developer Guide if this is not set up.
- * <p/>
+ * <p>
  * To use S3 directory buckets, configure a gateway VPC endpoint. This is the
  * recommended method to enable directory bucket traffic without
  * requiring an internet gateway or NAT device. For more information on
  * configuring VPC gateway endpoints, visit
  * https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-networking.html#s3-express-networking-vpc-gateway.
- * <p/>
+ * <p>
  * Directory buckets are available in specific AWS Regions and Zones. For
  * details on Regions and Zones supporting directory buckets, see
  * https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-networking.html#s3-express-endpoints.
@@ -73,7 +75,7 @@ public class CreateDirectoryBucketMultipartUpload {
 
         } catch (S3Exception e) {
             logger.error("Failed to create multipart upload: {} - Error code: {}", e.awsErrorDetails().errorMessage(),
-                    e.awsErrorDetails().errorCode());
+                    e.awsErrorDetails().errorCode(), e);
             throw e;
         }
     }
@@ -95,7 +97,7 @@ public class CreateDirectoryBucketMultipartUpload {
             logger.info("Upload ID: {}", uploadId);
         } catch (S3Exception e) {
             logger.error("An error occurred during S3 operations: {} - Error code: {}",
-                    e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode());
+                    e.awsErrorDetails().errorMessage(), e.awsErrorDetails().errorCode(), e);
         } finally {
             // Abort Multipart Uploads and Tear down by deleting the bucket
             try {
@@ -104,9 +106,9 @@ public class CreateDirectoryBucketMultipartUpload {
                 deleteDirectoryBucket(s3Client, bucketName);
             } catch (S3Exception e) {
                 logger.error("Error during cleanup: {} - Error code: {}", e.awsErrorDetails().errorMessage(),
-                        e.awsErrorDetails().errorCode());
-            } catch (Exception e) {
-                logger.error("Unexpected error during cleanup: {}", e.getMessage());
+                        e.awsErrorDetails().errorCode(), e);
+            } catch (RuntimeException e) {
+                logger.error("Unexpected error during cleanup: {}", e.getMessage(), e);
             } finally {
                 s3Client.close();
             }
