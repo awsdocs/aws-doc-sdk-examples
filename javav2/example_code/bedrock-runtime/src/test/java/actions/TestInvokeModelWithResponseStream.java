@@ -34,13 +34,7 @@ public class TestInvokeModelWithResponseStream extends IntegrationTestBase {
     }
 
     @Test
-    void testLlama2() throws ExecutionException, InterruptedException {
-        String result = com.example.bedrockruntime.models.metaLlama.Llama2_InvokeModelWithResponseStream.invokeModelWithResponseStream();
-        assertNotNullOrEmpty(result);
-    }
-
-    @Test
-    void testLlama3() throws ExecutionException, InterruptedException {
+    void testLlama3() {
         String result = com.example.bedrockruntime.models.metaLlama.Llama3_InvokeModelWithResponseStream.invokeModelWithResponseStream();
         assertNotNullOrEmpty(result);
     }

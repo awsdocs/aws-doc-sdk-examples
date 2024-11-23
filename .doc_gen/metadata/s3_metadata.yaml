@@ -1191,6 +1191,15 @@ s3_DeleteBucketLifecycle:
     s3: {DeleteBucketLifecycle}
 s3_AbortMultipartUpload:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.abort_multipart_uploads.main
     C++:
       versions:
         - sdk_version: 1

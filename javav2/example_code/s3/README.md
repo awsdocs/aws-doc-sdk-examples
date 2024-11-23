@@ -45,6 +45,7 @@ Code examples that show you how to perform the essential operations within a ser
 
 Code excerpts that show you how to call individual service functions.
 
+- [AbortMultipartUpload](src/main/java/com/example/s3/AbortMultipartUploadExamples.java#L6)
 - [CopyObject](src/main/java/com/example/s3/scenario/S3Actions.java#L212)
 - [CreateBucket](src/main/java/com/example/s3/scenario/S3Actions.java#L90)
 - [DeleteBucket](src/main/java/com/example/s3/scenario/S3Actions.java#L353)

@@ -218,62 +218,6 @@ namespace BedrockRuntimeActions
 
         // snippet-end:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.Jurassic2]
 
-        // snippet-start:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.Llama2]
-
-        /// <summary>
-        /// Asynchronously invokes the Meta Llama 2 Chat model to run an inference based on the provided input.
-        /// </summary>
-        /// <param name="prompt">The prompt that you want Llama 2 to complete.</param>
-        /// <returns>The inference response from the model</returns>
-        /// <remarks>
-        /// The different model providers have individual request and response formats.
-        /// For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
-        ///     https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
-        /// </remarks>
-        public static async Task<string> InvokeLlama2Async(string prompt)
-        {
-            string llama2ModelId = "meta.llama2-13b-chat-v1";
-
-            AmazonBedrockRuntimeClient client = new(RegionEndpoint.USEast1);
-
-            string payload = new JsonObject()
-            {
-                { "prompt", prompt },
-                { "max_gen_len", 512 },
-                { "temperature", 0.5 },
-                { "top_p", 0.9 }
-            }.ToJsonString();
-
-            string generatedText = "";
-            try
-            {
-                InvokeModelResponse response = await client.InvokeModelAsync(new InvokeModelRequest()
-                {
-                    ModelId = llama2ModelId,
-                    Body = AWSSDKUtils.GenerateMemoryStreamFromString(payload),
-                    ContentType = "application/json",
-                    Accept = "application/json"
-                });
-
-                if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    return JsonNode.ParseAsync(response.Body)
-                        .Result?["generation"]?.GetValue<string>() ?? "";
-                }
-                else
-                {
-                    Console.WriteLine("InvokeModelAsync failed with status code " + response.HttpStatusCode);
-                }
-            }
-            catch (AmazonBedrockRuntimeException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            return generatedText;
-        }
-
-        // snippet-end:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.Llama2]
-
         // snippet-start:[BedrockRuntime.dotnetv3.BedrockRuntimeActions.InvokeModelAsync.TitanTextG1]
 
         /// <summary>

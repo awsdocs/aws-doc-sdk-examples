@@ -137,57 +137,6 @@ func (wrapper InvokeModelWrapper) InvokeJurassic2(ctx context.Context, prompt st
 
 // snippet-end:[gov2.bedrock-runtime.InvokeJurassic2]
 
-// snippet-start:[gov2.bedrock-runtime.InvokeLlama2]
-
-// Each model provider has their own individual request and response formats.
-// For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
-// https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
-
-type Llama2Request struct {
-	Prompt       string  `json:"prompt"`
-	MaxGenLength int     `json:"max_gen_len,omitempty"`
-	Temperature  float64 `json:"temperature,omitempty"`
-}
-
-type Llama2Response struct {
-	Generation string `json:"generation"`
-}
-
-// Invokes Meta Llama 2 Chat on Amazon Bedrock to run an inference using the input
-// provided in the request body.
-func (wrapper InvokeModelWrapper) InvokeLlama2(ctx context.Context, prompt string) (string, error) {
-	modelId := "meta.llama2-13b-chat-v1"
-
-	body, err := json.Marshal(Llama2Request{
-		Prompt:       prompt,
-		MaxGenLength: 512,
-		Temperature:  0.5,
-	})
-
-	if err != nil {
-		log.Fatal("failed to marshal", err)
-	}
-
-	output, err := wrapper.BedrockRuntimeClient.InvokeModel(ctx, &bedrockruntime.InvokeModelInput{
-		ModelId:     aws.String(modelId),
-		ContentType: aws.String("application/json"),
-		Body:        body,
-	})
-
-	if err != nil {
-		ProcessError(err, modelId)
-	}
-
-	var response Llama2Response
-	if err := json.Unmarshal(output.Body, &response); err != nil {
-		log.Fatal("failed to unmarshal", err)
-	}
-
-	return response.Generation, nil
-}
-
-// snippet-end:[gov2.bedrock-runtime.InvokeLlama2]
-
 // snippet-start:[gov2.bedrock-runtime.InvokeTitanImage]
 
 type TitanImageRequest struct {

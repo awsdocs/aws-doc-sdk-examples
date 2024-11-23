@@ -27,8 +27,6 @@ class GettingStartedWithBedrockRuntime
         echo $bedrockRuntimeService->invokeClaude($prompt);
         echo "\n\nAI21 Labs Jurassic-2: ";
         echo $bedrockRuntimeService->invokeJurassic2($prompt);
-        echo "\n\nMeta Llama 2 Chat: ";
-        echo $bedrockRuntimeService->invokeLlama2($prompt);
         echo "\n---------------------------------------------------------------------\n";
         $image_prompt = 'stylized picture of a cute old steampunk robot';
         echo "\nImage prompt: " . $image_prompt;

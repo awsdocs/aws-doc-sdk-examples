@@ -162,3 +162,6 @@
 <!ENTITY CFJS10 'JavaScript runtime 1.0 for &CF; Functions'>
 <!ENTITY CFJS20long 'JavaScript runtime 2.0 for &CFlong; Functions'>
 <!ENTITY CFJS20 'JavaScript runtime 2.0 for &CF; Functions'>
+
+<!-- S3 only entity to account for super-short usage -->
+<!ENTITY S3only 'S3'>

@@ -90,6 +90,7 @@ This workflow demonstrates the following steps and tasks:
 This example is implemented in the following languages:
 
 - [Go](../../gov2/workflows/user_pools_and_lambda_triggers/README.md)
+- [JavaScript](../../javascriptv3/example_code/cross-services/wkflw-pools-triggers/README.md)
 
 ## Additional reading
 
