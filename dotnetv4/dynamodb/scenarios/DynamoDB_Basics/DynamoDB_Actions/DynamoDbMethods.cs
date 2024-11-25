@@ -329,7 +329,7 @@ namespace DynamoDB_Actions
             // supplied criteria.
             var moviesFound = 0;
 
-            Search search = movieTable.Query(config);
+            var search = movieTable.Query(config);
             do
             {
                 var movieList = await search.GetNextSetAsync();

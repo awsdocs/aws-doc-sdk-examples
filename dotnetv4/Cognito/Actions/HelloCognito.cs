@@ -3,6 +3,8 @@
 
 // snippet-start:[Cognito.dotnetv4.HelloCognito]
 
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+
 namespace CognitoActions;
 
 /// <summary>
@@ -49,7 +51,7 @@ public class HelloCognito
         {
             userPools.ForEach(userPool =>
             {
-                Console.WriteLine($"{userPool.Name}\t{userPool.Id}\t{userPool.Status}");
+                Console.WriteLine($"{userPool.Name}\t{userPool.Id}");
             });
         }
         else

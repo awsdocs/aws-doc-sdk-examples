@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using AWS.Messaging;
+using AWS.Messaging.Publishers.EventBridge;
 using Microsoft.AspNetCore.Http;
 using Moq;
 using Publisher;
@@ -23,7 +24,7 @@ public class PublisherTests
         // Mock the publish operation.
         mockMessagePublisher.Setup(mp =>
             mp.PublishAsync(
-                It.IsAny<GreetingMessage>(), CancellationToken.None)).Returns(Task.CompletedTask);
+                It.IsAny<GreetingMessage>(), CancellationToken.None).Result).Returns(new EventBridgePublishResponse());
 
 
         var message = new Publisher.GreetingMessage()
@@ -52,7 +53,8 @@ public class PublisherTests
         // Mock the publish operation.
         mockMessagePublisher.Setup(mp =>
             mp.PublishAsync(
-                It.IsAny<GreetingMessage>(), CancellationToken.None)).Returns(Task.CompletedTask);
+                It.IsAny<GreetingMessage>(), CancellationToken.None).Result).Returns(new EventBridgePublishResponse());
+
 
         // Message is missing the sender.
         var message = new Publisher.GreetingMessage()
