@@ -1,6 +1,0 @@
-{
-  "KeyspaceName": "test_keyspace",
-  "TableName": "test_movie_table",
-  "MovieFile": "PATH TO MOVIES.JSON",
-  "RestoredTableName": "restored_movie_table"
-}

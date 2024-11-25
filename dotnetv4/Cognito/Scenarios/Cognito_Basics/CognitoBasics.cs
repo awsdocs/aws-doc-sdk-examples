@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[Cognito.dotnetv4.Main]
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
+
 namespace CognitoBasics;
 
 public class CognitoBasics
