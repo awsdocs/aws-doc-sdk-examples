@@ -72,9 +72,7 @@ functions within the same service.
 
 - [Converse](models/metaLlama/converse.js#L4)
 - [ConverseStream](models/metaLlama/converseStream.js#L4)
-- [InvokeModel: Llama 2](models/metaLlama/llama2/invoke_model_quickstart.js#L4)
 - [InvokeModel: Llama 3](models/metaLlama/llama3/invoke_model_quickstart.js#L4)
-- [InvokeModelWithResponseStream: Llama 2](models/metaLlama/llama2/invoke_model_with_response_stream_quickstart.js#L4)
 - [InvokeModelWithResponseStream: Llama 3](models/metaLlama/llama3/invoke_model_with_response_stream_quickstart.js#L4)
 
 ### Mistral AI

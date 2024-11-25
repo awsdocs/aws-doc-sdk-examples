@@ -20,7 +20,7 @@
  * vendor/bin/phpunit S3ExpressBasicsTests.php
  **/
 
-namespace S3;
+namespace S3\express;
 use Aws\CloudFormation\CloudFormationClient;
 use Aws\CloudFormation\Exception\CloudFormationException;
 use Aws\Credentials\Credentials;
@@ -31,6 +31,7 @@ use Aws\Sts\StsClient;
 use AwsUtilities\RunnableExample;
 use Ec2\EC2Service;
 use Iam\IAMService;
+use S3\S3Service;
 use function AwsUtilities\pressEnter;
 use function AwsUtilities\testable_readline;
 
@@ -110,7 +111,7 @@ INTRO;
 
         $this->cloudFormationClient = new CloudFormationClient([]);
         $stackName = "cfn-stack-s3-express-basics-" . uniqid();
-        $file = file_get_contents(__DIR__ . "/../../../resources/cfn/s3_express_basics/s3_express_template.yml");
+        $file = file_get_contents(__DIR__ . "/../../../../resources/cfn/s3_express_basics/s3_express_template.yml");
         $result = $this->cloudFormationClient->createStack([
             'StackName' => $stackName,
             'TemplateBody' => $file,
@@ -138,14 +139,10 @@ INTRO;
                 $expressUserName = $output['OutputValue'];
             }
         }
-        $this->resources['regularUserName'] = $regularUserName;
-        $this->resources['expressUserName'] = $expressUserName;
         $regularKey = $this->iamService->createAccessKey($regularUserName);
         $regularCredentials = new Credentials($regularKey['AccessKeyId'], $regularKey['SecretAccessKey']);
-        $this->resources['regularKey'] = $regularKey['AccessKeyId'];
         $expressKey = $this->iamService->createAccessKey($expressUserName);
         $expressCredentials = new Credentials($expressKey['AccessKeyId'], $expressKey['SecretAccessKey']);
-        $this->resources['expressKey'] = $expressKey['AccessKeyId'];
 
         // 3. Create an additional client using the credentials with S3 Express permissions.
         echo "\n";

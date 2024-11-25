@@ -74,10 +74,6 @@ func (scenario InvokeModelsScenario) Run(ctx context.Context) {
 	log.Printf("Invoking Jurassic-2 with prompt: %v\n", text2textPrompt)
 	scenario.InvokeJurassic2(ctx, text2textPrompt)
 
-	log.Println(strings.Repeat("-", 77))
-	log.Printf("Invoking Llama2 with prompt: %v\n", text2textPrompt)
-	scenario.InvokeLlama2(ctx, text2textPrompt)
-
 	log.Println(strings.Repeat("=", 77))
 	log.Printf("Now, let's invoke Claude with the asynchronous client and process the response stream:\n\n")
 
@@ -118,14 +114,6 @@ func (scenario InvokeModelsScenario) InvokeJurassic2(ctx context.Context, prompt
 		panic(err)
 	}
 	log.Printf("\nJurassic-2 : %v\n", strings.TrimSpace(completion))
-}
-
-func (scenario InvokeModelsScenario) InvokeLlama2(ctx context.Context, prompt string) {
-	completion, err := scenario.invokeModelWrapper.InvokeLlama2(ctx, prompt)
-	if err != nil {
-		panic(err)
-	}
-	log.Printf("\nLlama 2    : %v\n\n", strings.TrimSpace(completion))
 }
 
 func (scenario InvokeModelsScenario) InvokeWithResponseStream(ctx context.Context, prompt string) {

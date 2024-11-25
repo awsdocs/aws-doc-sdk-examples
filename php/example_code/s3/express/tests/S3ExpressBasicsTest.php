@@ -6,18 +6,15 @@
 // Integration test runner for S3ExpressBasics.php.
 //
 
-namespace S3\tests;
+namespace S3\express\tests;
 
-use Aws\CloudFormation\CloudFormationClient;
 use Aws\S3\Exception\S3Exception;
-use Aws\S3\S3Client;
 use PHPUnit\Framework\TestCase;
-use S3\S3ExpressBasics;
-use S3\S3Service;
+use S3\express\S3ExpressBasics;
 
 /**
  * @group  integ
- * @covers \S3\S3ExpressBasics
+ * @covers \S3\express\S3ExpressBasics
  * @covers \S3\S3Service
  */
 class S3ExpressBasicsTest extends TestCase

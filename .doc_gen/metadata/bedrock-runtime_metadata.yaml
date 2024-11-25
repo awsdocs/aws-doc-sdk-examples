@@ -765,64 +765,6 @@ bedrock-runtime_InvokeModel_CohereCommandR:
   services:
     bedrock-runtime: {InvokeModel}
 
-bedrock-runtime_InvokeModel_MetaLlama2:
-  title: Invoke Meta Llama 2 on &BR; using the Invoke Model API
-  title_abbrev: "InvokeModel: Llama 2"
-  synopsis: send a text message to Meta Llama 2, using the Invoke Model API.
-  category: Meta Llama
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModel_MetaLlama2
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModel_MetaLlama2
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModel_MetaLlama2
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - gov2.bedrock-runtime.InvokeModelWrapper.struct
-                - gov2.bedrock-runtime.InvokeLlama2
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - javascript.v3.bedrock-runtime.InvokeModel_Llama2_Quickstart
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message.
-              snippet_tags:
-                - php.example_code.bedrock-runtime.service.invokeLlama2
-  services:
-    bedrock-runtime: {InvokeModel}
-
 bedrock-runtime_InvokeModel_MetaLlama3:
   title: Invoke Meta Llama 3 on &BR; using the Invoke Model API
   title_abbrev: "InvokeModel: Llama 3"
@@ -1054,47 +996,6 @@ bedrock-runtime_InvokeModelWithResponseStream_CohereCommandR:
                 - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_CohereCommandR
   services:
     bedrock-runtime: {InvokeModel}
-
-bedrock-runtime_InvokeModelWithResponseStream_MetaLlama2:
-  title: Invoke Meta Llama 2 on &BR; using the Invoke Model API with a response stream
-  title_abbrev: "InvokeModelWithResponseStream: Llama 2"
-  synopsis: send a text message to Meta Llama 2, using the Invoke Model API, and print the response stream.
-  category: Meta Llama
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - bedrock-runtime.java2.InvokeModelWithResponseStream_MetaLlama2
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - BedrockRuntime.dotnetv3.InvokeModelWithResponseStream_MetaLlama2
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - python.example_code.bedrock-runtime.InvokeModelWithResponseStream_MetaLlama2
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/bedrock-runtime
-          excerpts:
-            - description: Use the Invoke Model API to send a text message and process the response stream in real-time.
-              snippet_tags:
-                - javascript.v3.bedrock-runtime.InvokeModelWithResponseStream_Llama2_Quickstart
-  services:
-    bedrock-runtime: {InvokeModelWithResponseStream}
 
 bedrock-runtime_InvokeModelWithResponseStream_MetaLlama3:
   title: Invoke Meta Llama 3 on &BR; using the Invoke Model API with a response stream
