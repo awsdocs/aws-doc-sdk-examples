@@ -31,8 +31,11 @@ s3-control_CreateJob:
               snippet_tags:
                 - s3control.java2.create_job.compliance.main   
             - description: Create a legal hold off job.
+                snippet_tags:
+                  - s3control.java2.create_job.compliance.main  
+            - description: Create a governance retemtion job.
               snippet_tags:
-                - s3control.java2.create_job.compliance.main       
+                - s3.java2.create_governance_retemtion.main       
   services:
     s3-control: {CreateJob}    
 s3-control_PutJobTagging:
