@@ -34,6 +34,7 @@ public class CreateGovernanceRetentionJob {
                 bucketName - The ARN of the S3 bucket where the job report will be stored.
                 roleArn - The ARN of the IAM role that will be used to perform the governance retention operation.
                 accountId - Your AWS account Id.
+                manifestObjectVersionId =  A unique value that is used as the `eTag` property of the `JobManifestLocation` object.
             """;
 
         if (args.length != 4) {
@@ -45,13 +46,13 @@ public class CreateGovernanceRetentionJob {
         String jobReportBucketArn = args[1];
         String roleArn = args[2];
         String accountId = args[3];
+        String manifestObjectVersionId = args[4];
 
         S3ControlClient s3ControlClient = S3ControlClient.create();
-        createGovernanceRetentionJob(s3ControlClient, manifestObjectArn, jobReportBucketArn, roleArn, accountId);
+        createGovernanceRetentionJob(s3ControlClient, manifestObjectArn, jobReportBucketArn, roleArn, accountId, manifestObjectVersionId);
     }
 
-    public static String createGovernanceRetentionJob(final S3ControlClient s3ControlClient, String manifestObjectArn, String jobReportBucketArn, String roleArn, String accountId) throws ParseException {
-        final String manifestObjectVersionId = "15ad5ba069e6bbc465c77bf83d541385";
+    public static String createGovernanceRetentionJob(final S3ControlClient s3ControlClient, String manifestObjectArn, String jobReportBucketArn, String roleArn, String accountId, String manifestObjectVersionId) throws ParseException {
         final JobManifestLocation manifestLocation = JobManifestLocation.builder()
             .objectArn(manifestObjectArn)
             .eTag(manifestObjectVersionId)
