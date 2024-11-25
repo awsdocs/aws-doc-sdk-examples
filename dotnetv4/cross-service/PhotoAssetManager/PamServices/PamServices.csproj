@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.103.5" />
-    <PackageReference Include="AWSSDK.Rekognition" Version="3.7.107.1" />
-    <PackageReference Include="AWSSDK.S3" Version="3.7.104.16" />
-    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.101.66" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="4.0.0-preview.4" />
+    <PackageReference Include="AWSSDK.Rekognition" Version="4.0.0-preview.4" />
+    <PackageReference Include="AWSSDK.S3" Version="4.0.0-preview.4" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="4.0.0-preview.4" />
   </ItemGroup>
 
 </Project>
