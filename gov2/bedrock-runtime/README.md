@@ -57,10 +57,6 @@ functions within the same service.
 - [InvokeModel](actions/invoke_model.go#L7)
 - [InvokeModelWithResponseStream](actions/invoke_model_with_response_stream.go#L30)
 
-### Meta Llama
-
-- [InvokeModel: Llama 2](actions/invoke_model.go#L7)
-
 
 <!--custom.examples.start-->
 > ⚠ You must request access to a model before you can use it. If you try to use the model (with the API or console) before you have requested access to it, you will receive an error message. For more information, see [Model access](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html).

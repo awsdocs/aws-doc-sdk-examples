@@ -822,6 +822,38 @@ cross_CognitoAutoConfirmUser:
             - description: Clean up resources.
               snippet_tags:
                 - gov2.cognito-identity-provider.Resources.complete
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-pools-triggers
+          sdk_guide:
+          excerpts:
+            - description: |
+                Configure an interactive "Scenario" run. The JavaScript (v3) examples
+                share a Scenario runner to streamline complex examples. The complete
+                source code is on GitHub.
+              snippet_tags:
+                - javascript.v3.wkflw.pools-triggers.index
+            - description: |
+                This Scenario demonstrates auto-confirming a known user.
+                It orchestrates the example steps.
+              snippet_tags:
+                - javascript.v3.wkflw.pools-triggers.AutoConfirm
+            - description: These are steps that are shared with other Scenarios.
+              snippet_tags:
+                - javascript.v3.wkflw.pools-triggers.common
+            - description: A handler for the <code>PreSignUp</code> trigger with a &LAM; function.
+              snippet_tags:
+                - javascript.v3.wkflw.pools-triggers.handler.AutoConfirm
+            - description: Module of &CWL; actions.
+              snippet_files:
+                - javascriptv3/example_code/cross-services/wkflw-pools-triggers/actions/cloudwatch-logs-actions.js
+            - description: Module of &COG; actions.
+              snippet_files:
+                - javascriptv3/example_code/cross-services/wkflw-pools-triggers/actions/cognito-actions.js
+            - description: Module of &DDB; actions.
+              snippet_files:
+                - javascriptv3/example_code/cross-services/wkflw-pools-triggers/actions/dynamodb-actions.js
   services:
     cognito-identity-provider: {UpdateUserPool, SignUp, InitiateAuth, DeleteUser}
     lambda: {}
