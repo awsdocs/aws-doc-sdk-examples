@@ -256,7 +256,7 @@ public class CognitoWrapper
         };
 
         var response = await _cognitoService.ConfirmDeviceAsync(request);
-        return response.UserConfirmationNecessary;
+        return response.UserConfirmationNecessary.GetValueOrDefault();
     }
 
     // snippet-end:[Cognito.dotnetv4.ConfirmDevice]
