@@ -11,9 +11,9 @@
     <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Amazon.Lambda.Core" Version="2.1.0" />
-    <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.3.1" />
-    <PackageReference Include="AWS.Lambda.Powertools.Logging" Version="1.3.2" />
+    <PackageReference Include="Amazon.Lambda.Core" Version="2.5.0" />
+    <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.4.4" />
+    <PackageReference Include="AWS.Lambda.Powertools.Logging" Version="1.6.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FsaServices\FsaServices.csproj" />
