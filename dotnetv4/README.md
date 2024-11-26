@@ -1,9 +1,9 @@
-# AWS SDK for .NET 3.x documentation examples
+# AWS SDK for .NET 4.x documentation examples
 
 ## Overview
-The code examples in this topic show you how to use the AWS SDK for .NET 3.x with AWS.
+The code examples in this topic show you how to use the AWS SDK for .NET 4.x with AWS.
 
-The AWS SDK for .NET 3.x provides a .NET API for AWS infrastructure services. Using the SDK, you can build applications on top of Amazon S3, Amazon EC2, Amazon DynamoDB, and more.
+The AWS SDK for .NET 4.x provides a .NET API for AWS infrastructure services. Using the SDK, you can build applications on top of Amazon S3, Amazon EC2, Amazon DynamoDB, and more.
 
 ## Types of code examples
 * **Single-service actions** - Code examples that show you how to call individual service functions.
@@ -13,9 +13,8 @@ The AWS SDK for .NET 3.x provides a .NET API for AWS infrastructure services. Us
 * **Cross-service examples** - Sample applications that work across multiple AWS services.
 
 ### Find code examples
-Single-service actions and scenarios are organized by AWS service in the [*dotnetv3 folder*](/dotnetv3/). A README in each folder lists and describes how to run the examples.
+Single-service actions and scenarios are organized by AWS service in the [*dotnetv4 folder*](/dotnetv4/). A README in each folder lists and describes how to run the examples.
 
-Cross-service examples are located in the [*cross-services folder*](/dotnetv3/cross-service/). A README in each folder describes how to run the example.
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account.
@@ -27,7 +26,7 @@ Cross-service examples are located in the [*cross-services folder*](/dotnetv3/cr
 
 To build and run the code examples for the AWS SDK for .NET, you need the following:
 
-- The appropriate [.NET SDK for .NET](https://dotnet.microsoft.com/en-us/download/visual-studio-sdks). Most examples use .NET 6, but some require .NET 5.
+- The appropriate [.NET SDK for .NET](https://dotnet.microsoft.com/en-us/download/visual-studio-sdks). Most examples use .NET 8, but some require .NET 6.
 
 - The AWS SDK for .NET. For more information, see the [AWS SDK for .NET
 Developer Guide](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/welcome.html).
@@ -93,32 +92,6 @@ or
 ```
 dotnet test --filter Category=Integration -l "console;verbosity=detailed"
 ```
-
-## Docker image (Beta)
-This example code will soon be available in a container image
-hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded 
-with all .NET examples ready to build and run, so that you can explore
-these examples in an isolated environment.
-
-⚠️ As of February 2023, the [SDK for .NET v3 image](https://gallery.ecr.aws/b4v4v1s0/dotnetv3) is available on ECR Public but is still
-undergoing active development. Refer to 
-[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4126) 
-for more information. 
-
-### Build the Docker image
-
-1. Install and run Docker on your machine.
-2. Navigate to the same directory as this README.
-3. Run `docker build -t <image_name> .` where `image_name` is a name you provide for the image.
-
-### Launch the Docker container
-
-1. Run `docker run -it -v <your_credentials_folder_path>/.aws/credentials:/root/.aws/credentials <image_name>`. `-it` launches an
-   interactive terminal. `-v <your_cred...` is optional but recommended. It will mount your local credentials
-   file to the container.
-2. The terminal initiates a bash instance at the root of the container. Run `cd dotnetv3`. Then, you
-   can run examples and tests by navigating to a service folder and following the README instructions there. 
-   For example, navigate to the `dotnetv3/Route53/Scenarios` folder and execute the `dotnet run` command to build and run an interactive scenario for Amazon Route 53.
 
 ## Additional resources
 

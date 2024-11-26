@@ -146,7 +146,8 @@ public class AutoScalingWrapper
 
             var scalingGroupsRequest = new DescribeAutoScalingInstancesRequest
             {
-                MaxRecords = 10, InstanceIds = instanceIds,
+                MaxRecords = 10,
+                InstanceIds = instanceIds,
             };
 
             var response =
