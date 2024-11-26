@@ -34,14 +34,13 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 Code excerpts that show you how to call individual service functions.
 
 - [ListTranscriptionJobs](src/main/java/com/amazonaws/transcribe/ListTranscriptionJobs.java#L12)
-- [StartTranscriptionJob](src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoApp.java#L26)
 
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Transcribe audio and get job data](src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoFile.java)
+- [Transcribe audio and get job data](../transcribe-streaming/src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoFile.java)
 
 
 <!--custom.examples.start-->

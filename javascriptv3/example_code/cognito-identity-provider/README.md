@@ -44,11 +44,13 @@ Code excerpts that show you how to call individual service functions.
 - [AssociateSoftwareToken](actions/associate-software-token.js#L9)
 - [ConfirmDevice](actions/confirm-device.js#L9)
 - [ConfirmSignUp](actions/confirm-sign-up.js#L9)
+- [DeleteUser](../cross-services/wkflw-pools-triggers/actions/cognito-actions.js#L122)
 - [InitiateAuth](actions/initiate-auth.js#L10)
 - [ListUsers](actions/list-users.js#L9)
 - [ResendConfirmationCode](actions/resend-confirmation-code.js#L9)
 - [RespondToAuthChallenge](actions/respond-to-auth-challenge.js#L10)
 - [SignUp](actions/sign-up.js#L9)
+- [UpdateUserPool](../cross-services/wkflw-pools-triggers/actions/cognito-actions.js#L13)
 - [VerifySoftwareToken](actions/verify-software-token.js#L9)
 
 ### Scenarios
@@ -56,6 +58,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+- [Automatically confirm known users with a Lambda function](../cross-services/wkflw-pools-triggers/index.js)
 - [Sign up a user with a user pool that requires MFA](actions/admin-initiate-auth.js)
 
 
@@ -103,6 +106,22 @@ This example shows you how to get started using Amazon Cognito.
 node ./hello.js
 ```
 
+
+#### Automatically confirm known users with a Lambda function
+
+This example shows you how to automatically confirm known Amazon Cognito users with a Lambda function.
+
+- Configure a user pool to call a Lambda function for the <code>PreSignUp</code> trigger.
+- Sign up a user with Amazon Cognito.
+- The Lambda function scans a DynamoDB table and automatically confirms known users.
+- Sign in as the new user, then clean up resources.
+
+<!--custom.scenario_prereqs.cross_CognitoAutoConfirmUser.start-->
+<!--custom.scenario_prereqs.cross_CognitoAutoConfirmUser.end-->
+
+
+<!--custom.scenarios.cross_CognitoAutoConfirmUser.start-->
+<!--custom.scenarios.cross_CognitoAutoConfirmUser.end-->
 
 #### Sign up a user with a user pool that requires MFA
 

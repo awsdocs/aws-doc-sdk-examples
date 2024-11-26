@@ -1,0 +1,288 @@
+Resources:
+  PoolsAndTriggersBasedocexamplecustomusers6450C4F6:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: UserEmail
+          AttributeType: S
+      KeySchema:
+        - AttributeName: UserEmail
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      TableName: doc-example-custom-users
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: PoolsAndTriggersStack/PoolsAndTriggersBase/doc-example-custom-users/Resource
+  PoolsAndTriggersBasedocexamplepoolsandtriggers537A7FEC:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      AccountRecoverySetting:
+        RecoveryMechanisms:
+          - Name: verified_email
+            Priority: 1
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: false
+      DeletionProtection: INACTIVE
+      EmailVerificationMessage: The verification code to your new account is {####}
+      EmailVerificationSubject: Verify your new account
+      Schema:
+        - Mutable: false
+          Name: email
+          Required: true
+      SmsVerificationMessage: The verification code to your new account is {####}
+      UserPoolName: doc-examples-pools-and-triggers
+      VerificationMessageTemplate:
+        DefaultEmailOption: CONFIRM_WITH_CODE
+        EmailMessage: The verification code to your new account is {####}
+        EmailSubject: Verify your new account
+        SmsMessage: The verification code to your new account is {####}
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: PoolsAndTriggersStack/PoolsAndTriggersBase/doc-example-pools-and-triggers/Resource
+  PoolsAndTriggersBasedocexamplepoolsandtriggersclientDC762CAB:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      AllowedOAuthFlows:
+        - implicit
+        - code
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthScopes:
+        - profile
+        - phone
+        - email
+        - openid
+        - aws.cognito.signin.user.admin
+      CallbackURLs:
+        - https://example.com
+      ClientName: doc-example-pools-and-triggers-client
+      ExplicitAuthFlows:
+        - ALLOW_USER_PASSWORD_AUTH
+        - ALLOW_REFRESH_TOKEN_AUTH
+      SupportedIdentityProviders:
+        - COGNITO
+      UserPoolId:
+        Ref: PoolsAndTriggersBasedocexamplepoolsandtriggers537A7FEC
+    Metadata:
+      aws:cdk:path: PoolsAndTriggersStack/PoolsAndTriggersBase/doc-example-pools-and-triggers-client/Resource
+  PoolsAndTriggersBasedocexamplepoolsandtriggerslambdaroleE5B33257:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      RoleName: doc-example-pools-and-triggers-lambda-role
+    Metadata:
+      aws:cdk:path: PoolsAndTriggersStack/PoolsAndTriggersBase/doc-example-pools-and-triggers-lambda-role/Resource
+  PoolsAndTriggersBasedocexamplepoolsandtriggerslambdaroleDefaultPolicy7DBD0FD6:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:BatchWriteItem
+              - dynamodb:ConditionCheckItem
+              - dynamodb:DeleteItem
+              - dynamodb:DescribeTable
+              - dynamodb:GetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:PutItem
+              - dynamodb:Query
+              - dynamodb:Scan
+              - dynamodb:UpdateItem
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - PoolsAndTriggersBasedocexamplecustomusers6450C4F6
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: PoolsAndTriggersBasedocexamplepoolsandtriggerslambdaroleDefaultPolicy7DBD0FD6
+      Roles:
+        - Ref: PoolsAndTriggersBasedocexamplepoolsandtriggerslambdaroleE5B33257
+    Metadata:
+      aws:cdk:path: PoolsAndTriggersStack/PoolsAndTriggersBase/doc-example-pools-and-triggers-lambda-role/DefaultPolicy/Resource
+  AutoConfirmHandlerE436DFD8:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: 84a8b65cf18df89d90819bf96e9edd69bdc3aca847cf6cdbd6bb9825907809ae.zip
+      Environment:
+        Variables:
+          TABLE_NAME: doc-example-custom-users
+      Handler: index.handler
+      Role:
+        Fn::GetAtt:
+          - PoolsAndTriggersBasedocexamplepoolsandtriggerslambdaroleE5B33257
+          - Arn
+      Runtime: nodejs20.x
+    DependsOn:
+      - PoolsAndTriggersBasedocexamplepoolsandtriggerslambdaroleDefaultPolicy7DBD0FD6
+      - PoolsAndTriggersBasedocexamplepoolsandtriggerslambdaroleE5B33257
+    Metadata:
+      aws:cdk:path: PoolsAndTriggersStack/AutoConfirmHandler/Resource
+      aws:asset:path: asset.84a8b65cf18df89d90819bf96e9edd69bdc3aca847cf6cdbd6bb9825907809ae
+      aws:asset:is-bundled: true
+      aws:asset:property: Code
+  AutoConfirmHandlerInvokeJ9h1Fmrpvqfr9TPEEx65FOCskl35ksvNASPE0Ak2kIDCC10771:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - AutoConfirmHandlerE436DFD8
+          - Arn
+      Principal: cognito-idp.amazonaws.com
+    Metadata:
+      aws:cdk:path: PoolsAndTriggersStack/AutoConfirmHandler/InvokeJ9h1Fmrpvqfr9TPEEx6+5FOCskl35ksvNASPE0Ak2kI=
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Analytics: v2:deflate64:H4sIAAAAAAAA/01Oy07DMBD8lt6dJW2F4EojcYQqhXPk2E61ibOLsg5VZfnfkROIOM3szkNzgP3jM5Q7fZPC2KHw2EK8BG0GpW/SRHsnPbJtIX7o1jtVdbSQpAxfCQND/BQ3nZl91jb+RyqPjsJ/af0khXqEWPPaueCZPZp7PleWlNdja3VDbF0v8LbA60wmIJOSY6NFXBB4yaDkCKfZDC6ctLjfKMSqoy2Rm900oggypaRqJzxPxqml4BL0FemaXe9z+JqX1Zul6qhispiLksqLoJeH70MJ+ycod70gFtNMAUcH9Yo/prhxn1wBAAA=
+    Metadata:
+      aws:cdk:path: PoolsAndTriggersStack/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Outputs:
+  AutoConfirmHandlerName:
+    Value:
+      Ref: AutoConfirmHandlerE436DFD8
+  AutoConfirmHandlerArn:
+    Value:
+      Fn::GetAtt:
+        - AutoConfirmHandlerE436DFD8
+        - Arn
+  TableName:
+    Value: doc-example-custom-users
+  UserPoolId:
+    Value:
+      Ref: PoolsAndTriggersBasedocexamplepoolsandtriggers537A7FEC
+  UserPoolArn:
+    Value:
+      Fn::GetAtt:
+        - PoolsAndTriggersBasedocexamplepoolsandtriggers537A7FEC
+        - Arn
+  UserPoolClientId:
+    Value:
+      Ref: PoolsAndTriggersBasedocexamplepoolsandtriggersclientDC762CAB
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - af-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-3
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-4
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-south-2
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - il-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+      - Fn::Equals:
+          - Ref: AWS::Region
+          - us-west-2
+Parameters:
+  BootstrapVersion:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cdk-bootstrap/hnb659fds/version
+    Description: Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]
+
