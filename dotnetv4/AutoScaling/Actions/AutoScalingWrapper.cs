@@ -102,6 +102,7 @@ public class AutoScalingWrapper
         string groupName)
     {
         var activities = new List<Activity>();
+        var activities = new List<Activity>();
         var scalingActivitiesRequest = new DescribeScalingActivitiesRequest
         {
             AutoScalingGroupName = groupName,
@@ -186,6 +187,10 @@ public class AutoScalingWrapper
         };
 
         var response = await _amazonAutoScaling.DescribeAutoScalingGroupsAsync(request);
+        if (response.AutoScalingGroups != null)
+        {
+            groups = response.AutoScalingGroups;
+        }
         if (response.AutoScalingGroups != null)
         {
             groups = response.AutoScalingGroups;
