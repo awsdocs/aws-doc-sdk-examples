@@ -28,9 +28,17 @@ public static class HelloAurora
         // You can use await and any of the async methods to get a response.
         var response = await rdsClient.DescribeDBClustersAsync(new DescribeDBClustersRequest { IncludeShared = true });
         Console.WriteLine($"Hello Amazon RDS Aurora! Let's list some clusters in this account:");
-        foreach (var cluster in response.DBClusters)
+        if (response.DBClusters == null)
         {
-            Console.WriteLine($"\tCluster: database: {cluster.DatabaseName} identifier: {cluster.DBClusterIdentifier}.");
+            Console.WriteLine($"\tNo clusters found.");
+        }
+        else
+        {
+            foreach (var cluster in response.DBClusters)
+            {
+                Console.WriteLine(
+                    $"\tCluster: database: {cluster.DatabaseName} identifier: {cluster.DBClusterIdentifier}.");
+            }
         }
     }
 }
