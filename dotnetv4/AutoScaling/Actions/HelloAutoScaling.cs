@@ -23,15 +23,16 @@ public class HelloAutoScaling
 
         var response = await client.DescribeAutoScalingGroupsAsync();
 
+        if (response.AutoScalingGroups == null || response.AutoScalingGroups.Count == 0)
+        {
+            Console.WriteLine("Sorry, you don't have any Amazon EC2 Auto Scaling groups.");
+            return;
+        }
         response.AutoScalingGroups.ForEach(autoScalingGroup =>
         {
             Console.WriteLine($"{autoScalingGroup.AutoScalingGroupName}\t{autoScalingGroup.AvailabilityZones}");
         });
 
-        if (response.AutoScalingGroups.Count == 0)
-        {
-            Console.WriteLine("Sorry, you don't have any Amazon EC2 Auto Scaling groups.");
-        }
     }
 }
 
