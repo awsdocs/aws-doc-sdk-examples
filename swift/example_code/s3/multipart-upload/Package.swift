@@ -8,7 +8,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "presigned",
+    name: "multipart",
     // Let Xcode know the minimum Apple platforms supported.
     platforms: [
         .macOS(.v13),
@@ -22,10 +22,6 @@ let package = Package(
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
             branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-server/async-http-client.git",
-            from: "1.9.0"
         )
     ],
     targets: [
@@ -33,20 +29,12 @@ let package = Package(
         // Targets can depend on other targets in this package and products
         // from dependencies.
         .executableTarget(
-            name: "presigned-download",
+            name: "mpupload",
             dependencies: [
                 .product(name: "AWSS3", package: "aws-sdk-swift"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
-            path: "Sources/presigned-download"),
-        .executableTarget(
-            name: "presigned-upload",
-            dependencies: [
-                .product(name: "AWSS3", package: "aws-sdk-swift"),
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
-                .product(name: "AsyncHTTPClient", package: "async-http-client")
-            ],
-            path: "Sources/presigned-upload")
+            path: "Sources")
 
     ]
 )
