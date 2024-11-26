@@ -1,8 +1,0 @@
-{
-  "UserName": "someuser",
-  "Email": "someone@example.com",
-  "Password": "AGoodPassword1234",
-  "UserPoolId": "IDENTIFY_POOL_ID",
-  "ClientId": "CLIENT_ID_FROM_CDK_SCRIPT",
-  "PoolId": "USER_POOL_ID_FROM_CDK_SCRIPT"
-}

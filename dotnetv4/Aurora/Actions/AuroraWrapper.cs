@@ -275,7 +275,10 @@ public class AuroraWrapper
         do
         {
             response = await _amazonRDS.DescribeDBClustersAsync(request);
-            results.AddRange(response.DBClusters);
+            if (response.DBClusters != null)
+            {
+                results.AddRange(response.DBClusters);
+            }
             request.Marker = response.Marker;
         }
         while (response.Marker is not null);
