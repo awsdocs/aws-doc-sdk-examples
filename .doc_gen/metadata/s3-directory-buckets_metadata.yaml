@@ -18,7 +18,7 @@ s3-directory-buckets_Hello:
 
 s3-directory-buckets_CreateBucket:
   languages:
-      Java:
+    Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
@@ -165,21 +165,6 @@ s3-directory-buckets_DeleteBucketPolicy:
                 - s3directorybuckets.java2.directory_bucket_delete_policy.main
   services:
     s3-directory-buckets: {DeleteBucketPolicy}
-
-s3-directory-buckets_GeneratePresignedGetURLForDirectoryBucket:
-  languages:
-      Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
-          sdkguide:
-          excerpts:
-            - description: Generate a presigned GET URL for accessing an object in an S3 directory bucket.
-              snippet_tags:
-                - s3directorybuckets.java2.directory_bucket_generate_presigned_url.import
-                - s3directorybuckets.java2.directory_bucket_generate_presigned_url.main    
-  services:
-    s3-directory-buckets: {GetObject}
 
 s3-directory-buckets_GetBucketEncryption:
   languages:
@@ -432,3 +417,22 @@ s3-directory-buckets_Scenario_ExpressBasics:
                 - php.example_code.s3.service.S3Service
   services:
     s3-directory-buckets: {CreateBucket, CopyObject, GetObject, PutObject, ListObjects, DeleteObject, DeleteBucket}
+
+s3-directory-buckets_GeneratePresignedGetURLForDirectoryBucket:
+  title: Create a presigned URL for &S3; directory buckets to get an object using an &AWS; SDK
+  title_abbrev: Create a presigned URL to get an object
+  synopsis: create a presigned URL for S3 directory buckets and get an object.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3/src/main/java/com/example/s3/directorybucket
+          sdkguide:
+          excerpts:
+            - description: Generate a presigned GET URL for accessing an object in an S3 directory bucket.
+              snippet_tags:
+                - s3directorybuckets.java2.directory_bucket_generate_presigned_url.import
+                - s3directorybuckets.java2.directory_bucket_generate_presigned_url.main
+  services:
+    s3-directory-buckets: {GetObject}
