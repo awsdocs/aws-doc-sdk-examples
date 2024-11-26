@@ -39,7 +39,7 @@ For prerequisites, see the [README](../../../../../../../../../README.md#Prerequ
 Code excerpts that show you how to call individual service functions.
 
 - [AbortMultipartUpload](AbortDirectoryBucketMultipartUploads.java#L6)
-- [CompleteMultipartUpload](CompleteDirectoryBucketMultipartUpload.java#L3)
+- [CompleteMultipartUpload](CompleteDirectoryBucketMultipartUpload.java#L5)
 - [CopyObject](CopyDirectoryBucketObject.java#L6)
 - [CreateBucket](CreateDirectoryBucket.java#L6)
 - [CreateMultipartUpload](CreateDirectoryBucketMultipartUpload.java#L6)
