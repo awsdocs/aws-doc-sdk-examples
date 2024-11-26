@@ -58,10 +58,17 @@ public class AutoScalingWrapper
             MaxSize = 6,
             MinSize = 1
         };
-
-        var response = await _amazonAutoScaling.CreateAutoScalingGroupAsync(request);
-        Console.WriteLine($"{groupName} Auto Scaling Group created");
-        return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        try
+        {
+            var response = await _amazonAutoScaling.CreateAutoScalingGroupAsync(request);
+            Console.WriteLine($"{groupName} Auto Scaling Group created");
+            return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        }
+        catch (AlreadyExistsException)
+        {
+            Console.WriteLine($"{groupName} Auto Scaling Group already exists.");
+            return true;
+        }
     }
 
     // snippet-end:[AutoScaling.dotnetv4.AutoScalingActions.CreateAutoScalingGroup]
@@ -91,9 +98,10 @@ public class AutoScalingWrapper
     /// </summary>
     /// <param name="groupName">The name of the Amazon EC2 Auto Scaling group.</param>
     /// <returns>A list of Amazon EC2 Auto Scaling activities.</returns>
-    public async Task<List<Amazon.AutoScaling.Model.Activity>> DescribeScalingActivitiesAsync(
+    public async Task<List<Activity>> DescribeScalingActivitiesAsync(
         string groupName)
     {
+        var activities = new List<Activity>();
         var scalingActivitiesRequest = new DescribeScalingActivitiesRequest
         {
             AutoScalingGroupName = groupName,
@@ -101,7 +109,11 @@ public class AutoScalingWrapper
         };
 
         var response = await _amazonAutoScaling.DescribeScalingActivitiesAsync(scalingActivitiesRequest);
-        return response.Activities;
+        if (response.Activities != null)
+        {
+            activities = response.Activities;
+        }
+        return activities;
     }
 
     // snippet-end:[AutoScaling.dotnetv4.AutoScalingActions.DescribeScalingActivities]
@@ -118,25 +130,33 @@ public class AutoScalingWrapper
     {
         var groups = await DescribeAutoScalingGroupsAsync(groupName);
         var instanceIds = new List<string>();
-        groups!.ForEach(group =>
+        var instanceDetails = new List<AutoScalingInstanceDetails>();
+        if (groups != null)
         {
-            if (group.AutoScalingGroupName == groupName)
+            groups.ForEach(group =>
             {
-                group.Instances.ForEach(instance =>
+                if (group.AutoScalingGroupName == groupName && group.Instances != null)
                 {
-                    instanceIds.Add(instance.InstanceId);
-                });
+                    group.Instances.ForEach(instance =>
+                    {
+                        instanceIds.Add(instance.InstanceId);
+                    });
+                }
+            });
+
+            var scalingGroupsRequest = new DescribeAutoScalingInstancesRequest
+            {
+                MaxRecords = 10, InstanceIds = instanceIds,
+            };
+
+            var response =
+                await _amazonAutoScaling.DescribeAutoScalingInstancesAsync(
+                    scalingGroupsRequest);
+            if (response.AutoScalingInstances != null)
+            {
+                instanceDetails = response.AutoScalingInstances;
             }
-        });
-
-        var scalingGroupsRequest = new DescribeAutoScalingInstancesRequest
-        {
-            MaxRecords = 10,
-            InstanceIds = instanceIds,
-        };
-
-        var response = await _amazonAutoScaling.DescribeAutoScalingInstancesAsync(scalingGroupsRequest);
-        var instanceDetails = response.AutoScalingInstances;
+        }
 
         return instanceDetails;
     }
@@ -150,9 +170,10 @@ public class AutoScalingWrapper
     /// </summary>
     /// <param name="groupName">The name of the Amazon EC2 Auto Scaling group.</param>
     /// <returns>A list of Amazon EC2 Auto Scaling groups.</returns>
-    public async Task<List<AutoScalingGroup>?> DescribeAutoScalingGroupsAsync(
+    public async Task<List<AutoScalingGroup>> DescribeAutoScalingGroupsAsync(
         string groupName)
     {
+        var groups = new List<AutoScalingGroup>();
         var groupList = new List<string>
             {
                 groupName,
@@ -164,7 +185,10 @@ public class AutoScalingWrapper
         };
 
         var response = await _amazonAutoScaling.DescribeAutoScalingGroupsAsync(request);
-        var groups = response.AutoScalingGroups;
+        if (response.AutoScalingGroups != null)
+        {
+            groups = response.AutoScalingGroups;
+        }
 
         return groups;
     }

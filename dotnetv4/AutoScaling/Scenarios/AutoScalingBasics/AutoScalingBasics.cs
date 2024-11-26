@@ -127,9 +127,9 @@ public class AutoScalingBasics
         Console.WriteLine("Get the two instance Id values");
 
         // Empty the group before getting the details again.
-        groups!.Clear();
+        groups.Clear();
         groups = await autoScalingWrapper.DescribeAutoScalingGroupsAsync(groupName!);
-        if (groups is not null)
+        if (groups.Any())
         {
             foreach (AutoScalingGroup group in groups)
             {
@@ -147,7 +147,7 @@ public class AutoScalingBasics
         uiWrapper.DisplayTitle("Scaling Activities");
         Console.WriteLine("Let's list the scaling activities that have occurred for the group.");
         var activities = await autoScalingWrapper.DescribeScalingActivitiesAsync(groupName!);
-        if (activities is not null)
+        if (activities.Any())
         {
             activities.ForEach(activity =>
             {
@@ -158,19 +158,22 @@ public class AutoScalingBasics
 
         // Display the Amazon CloudWatch metrics that have been collected.
         var metrics = await cloudWatchWrapper.GetCloudWatchMetricsAsync(groupName!);
-        Console.WriteLine($"Metrics collected for {groupName}:");
-        metrics.ForEach(metric =>
+        if (metrics.Any())
         {
-            Console.Write($"Metric name: {metric.MetricName}\t");
-            Console.WriteLine($"Namespace: {metric.Namespace}");
-        });
+            Console.WriteLine($"Metrics collected for {groupName}:");
+            metrics.ForEach(metric =>
+            {
+                Console.Write($"Metric name: {metric.MetricName}\t");
+                Console.WriteLine($"Namespace: {metric.Namespace}");
+            });
+        }
 
         var dataPoints = await cloudWatchWrapper.GetMetricStatisticsAsync(groupName!);
-        Console.WriteLine("Details for the metrics collected:");
-        dataPoints.ForEach(detail =>
+        if (dataPoints.Any())
         {
-            Console.WriteLine(detail);
-        });
+            Console.WriteLine("Details for the metrics collected:");
+            dataPoints.ForEach(detail => { Console.WriteLine(detail); });
+        }
 
         // Disable metrics collection.
         Console.WriteLine("Disabling the collection of metrics for {groupName}.");

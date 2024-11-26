@@ -277,9 +277,9 @@ namespace AutoScalingTests
         {
             foreach (var group in _groups!)
             {
-                if (group.AutoScalingGroupName == _groupName)
+                if (group.AutoScalingGroupName == _groupName && group.Instances != null)
                 {
-                    foreach (Amazon.AutoScaling.Model.Instance instance in group.Instances)
+                    foreach (Instance instance in group.Instances)
                     {
                         var retries = 3;
                         var success = false;
@@ -334,9 +334,7 @@ namespace AutoScalingTests
         }
 
         /// <summary>
-        /// Test the DescribeAccountLimitsAsync method. It doesn't matter when
-        /// this runs, since it is retrieving information that should be
-        /// available at any time.
+        /// Test the DescribeAccountLimitsAsync method. 
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]

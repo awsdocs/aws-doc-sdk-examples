@@ -29,8 +29,9 @@ public class CloudWatchWrapper
     /// </summary>
     /// <param name="groupName">The name of the Auto Scaling group.</param>
     /// <returns>A list of Metrics collected for the Auto Scaling group.</returns>
-    public async Task<List<Amazon.CloudWatch.Model.Metric>> GetCloudWatchMetricsAsync(string groupName)
+    public async Task<List<Metric>> GetCloudWatchMetricsAsync(string groupName)
     {
+        var metrics = new List<Metric>();
         var filter = new DimensionFilter
         {
             Name = "AutoScalingGroupName",
@@ -45,8 +46,11 @@ public class CloudWatchWrapper
         };
 
         var response = await _amazonCloudWatch.ListMetricsAsync(request);
-
-        return response.Metrics;
+        if (response.Metrics != null)
+        {
+            metrics = response.Metrics;
+        }
+        return metrics;
     }
 
     /// <summary>
@@ -56,6 +60,7 @@ public class CloudWatchWrapper
     /// <returns>A list of data points.</returns>
     public async Task<List<Datapoint>> GetMetricStatisticsAsync(string groupName)
     {
+        var dataPoints = new List<Datapoint>();
         var metricDimensions = new List<Dimension>
             {
                 new Dimension
@@ -80,8 +85,12 @@ public class CloudWatchWrapper
         };
 
         var response = await _amazonCloudWatch.GetMetricStatisticsAsync(request);
+        if (response.Datapoints != null)
+        {
+            dataPoints = response.Datapoints;
+        }
 
-        return response.Datapoints;
+        return dataPoints;
     }
 
 }
