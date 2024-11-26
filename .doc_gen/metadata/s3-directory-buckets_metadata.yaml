@@ -1,6 +1,6 @@
 s3-directory-buckets_Hello:
-  title: Hello &S3; Directory Buckets
-  title_abbrev: Hello &S3; Directory Buckets
+  title: Hello &S3; directory buckets
+  title_abbrev: Hello &S3; directory buckets
   synopsis: get started using &S3; directory buckets.
   category: Hello
   languages:
@@ -392,11 +392,9 @@ s3-directory-buckets_UploadPart:
     s3-directory-buckets: {UploadPart}
 
 s3-directory-buckets_Scenario_ExpressBasics:
-  title: Learn the basics of Amazon S3 Express One Zone with an &AWS; SDK
-  title_abbrev: Learn the basics of S3 Express One Zone
   synopsis_list:
     - Set up a VPC and VPC Endpoint
-    - Set up the S3 Express Policies, Roles, and User to work with S3 Express buckets
+    - Set up the Policies, Roles, and User to work with S3 directory buckets and the S3 Express One Zone storage class
     - Create two S3 Clients
     - Create two buckets
     - Create an object and copy it over
@@ -411,7 +409,7 @@ s3-directory-buckets_Scenario_ExpressBasics:
           github: php/example_code/s3/express
           sdkguide:
           excerpts:
-            - description: Run a scenario demonstrating the basics of &S3; Express One Zone.
+            - description: Run a scenario demonstrating the basics of &S3; directory buckets and S3 Express One Zone.
               snippet_tags:
                 - php.example_code.s3.ExpressBasics
                 - php.example_code.s3.service.S3Service
