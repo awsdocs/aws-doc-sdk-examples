@@ -27,7 +27,7 @@ public class CreateGovernanceRetentionJob {
         final String usage = """
 
             Usage:
-                <manifestObjectArn> <jobReportBucketArn> <roleArn> <accountId>
+                <manifestObjectArn> <jobReportBucketArn> <roleArn> <accountId> <manifestObjectVersionId>
 
             Where:
                 manifestObjectArn - The Amazon Resource Name (ARN) of the S3 object that contains the manifest file for the governance objects.\s
