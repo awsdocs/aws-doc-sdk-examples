@@ -23,7 +23,7 @@ _Aurora is a fully managed relational database engine that's built for the cloud
 
 ### Prerequisites
 
-For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3` folder.
+For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4` folder.
 
 
 <!--custom.prerequisites.start-->
@@ -60,13 +60,6 @@ Code excerpts that show you how to call individual service functions.
 - [DescribeDBInstances](Actions/AuroraWrapper.cs#L236)
 - [DescribeOrderableDBInstanceOptions](Actions/AuroraWrapper.cs#L154)
 - [ModifyDBClusterParameterGroup](Actions/AuroraWrapper.cs#L115)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Create an Aurora Serverless work item tracker](../cross-service/AuroraItemTracker)
 
 
 <!--custom.examples.start-->
@@ -118,26 +111,13 @@ This example shows you how to do the following:
 <!--custom.basics.aurora_Scenario_GetStartedClusters.start-->
 <!--custom.basics.aurora_Scenario_GetStartedClusters.end-->
 
-
-#### Create an Aurora Serverless work item tracker
-
-This example shows you how to create a web application that tracks work items in an Amazon Aurora Serverless database and uses Amazon Simple Email Service (Amazon SES) (Amazon SES) to send reports.
-
-
-<!--custom.scenario_prereqs.cross_RDSDataTracker.start-->
-<!--custom.scenario_prereqs.cross_RDSDataTracker.end-->
-
-
-<!--custom.scenarios.cross_RDSDataTracker.start-->
-<!--custom.scenarios.cross_RDSDataTracker.end-->
-
 ### Tests
 
 ⚠ Running tests might result in charges to your AWS account.
 
 
 To find instructions for running these tests, see the [README](../README.md#Tests)
-in the `dotnetv3` folder.
+in the `dotnetv4` folder.
 
 
 
