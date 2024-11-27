@@ -67,6 +67,7 @@ Code excerpts that show you how to call individual service functions.
 - [PutBucketCors](src/main/java/com/example/s3/S3Cors.java#L6)
 - [PutBucketLifecycleConfiguration](src/main/java/com/example/s3/LifecycleConfiguration.java#L6)
 - [PutBucketPolicy](src/main/java/com/example/s3/SetBucketPolicy.java#L6)
+- [PutBucketReplication](src/main/java/com/example/s3/replication/BucketReplication.java#L175)
 - [PutBucketWebsite](src/main/java/com/example/s3/SetWebsiteConfiguration.java#L6)
 - [PutObject](src/main/java/com/example/s3/scenario/S3Actions.java#L126)
 - [PutObjectLegalHold](src/main/java/com/example/s3/lockscenario/S3LockActions.java#L255)
