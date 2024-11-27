@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
-// snippet-start:[s3.java2.create_governance_retemtion.main]
+// snippet-start:[s3.java2.create_governance_retention.main]
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
@@ -37,7 +37,7 @@ public class CreateGovernanceRetentionJob {
                 manifestObjectVersionId =  A unique value that is used as the `eTag` property of the `JobManifestLocation` object.
             """;
 
-        if (args.length != 4) {
+        if (args.length != 5) {
             System.out.println(usage);
             return;
         }
@@ -109,4 +109,4 @@ public class CreateGovernanceRetentionJob {
         return result.jobId();
     }
 }
-// snippet-end:[s3.java2.create_governance_retemtion.main]
+// snippet-end:[s3.java2.create_governance_retention.main]
