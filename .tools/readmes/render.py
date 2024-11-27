@@ -333,7 +333,11 @@ class Renderer:
     def read_current(self):
         try:
             with self.readme_filename.open("r", encoding="utf-8") as f:
-                return f.read()
+                current = f.read()
+                if current[-1] != "\n":
+                    # Ensure there's always an ending newline
+                    current += "\n"
+                return current
         except FileNotFoundError:
             return ""
 
