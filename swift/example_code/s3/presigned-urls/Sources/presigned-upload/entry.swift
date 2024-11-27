@@ -171,7 +171,6 @@ struct ExampleCommand: ParsableCommand {
         } catch {
             throw TransferError.signingError
         }
-        // snippet-end:[swift.s3.presigned.presign-PutObject-advanced]
 
         // Send the HTTP request and upload the file to Amazon S3.
 
@@ -180,6 +179,7 @@ struct ExampleCommand: ParsableCommand {
         request.body = .bytes(fileData)
 
         _ = try await HTTPClient.shared.execute(request, timeout: .seconds(5*60))
+        // snippet-end:[swift.s3.presigned.presign-PutObject-advanced]
 
         print("Uploaded (presigned) \(sourcePath) to \(bucket)/\(fileName).")
     }
