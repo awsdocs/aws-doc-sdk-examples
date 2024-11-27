@@ -1,0 +1,243 @@
+regions:
+  - TARGET_REGION # will be overridden during execution based on region parameter
+
+account-blocklist:
+  - 1234567890
+
+resource-types:
+  excludes:
+    - ACMCertificate
+    - AWSBackupPlan
+    - AWSBackupRecoveryPoint
+    - AWSBackupSelection
+    - AWSBackupVault
+    - AWSBackupVaultAccessPolicy
+    - CloudTrailTrail
+    - CloudWatchEventsTarget
+    - CodeCommitRepository
+    - CodeStarProject
+    - ConfigServiceConfigRule
+    - ECRRepository
+    - EC2Address
+    - EC2ClientVpnEndpoint
+    - EC2ClientVpnEndpointAttachment
+    - EC2CustomerGateway
+    - EC2DHCPOption
+    - EC2DefaultSecurityGroupRule
+    - EC2EgressOnlyInternetGateway
+    - EC2InternetGateway
+    - EC2InternetGatewayAttachment
+    - EC2KeyPair
+    - EC2NetworkACL
+    - EC2NetworkInterface
+    - EC2RouteTable
+    - EC2SecurityGroup
+    - EC2Subnet
+    - EC2VPC
+    - EC2VPCEndpoint
+    - IAMGroup
+    - IAMGroupPolicy
+    - IAMGroupPolicyAttachment
+    - IAMInstanceProfile
+    - IAMInstanceProfileRole
+    - IAMLoginProfile
+    - IAMOpenIDConnectProvider
+    - IAMPolicy
+    - IAMRole
+    - IAMRolePolicy
+    - IAMRolePolicyAttachment
+    - IAMSAMLProvider
+    - IAMServerCertificate
+    - IAMServiceSpecificCredential
+    - IAMSigningCertificate
+    - IAMUser
+    - IAMUserAccessKey
+    - IAMUserGroupAttachment
+    - IAMUserPolicy
+    - IAMUserPolicyAttachment
+    - IAMUserSSHPublicKey
+    - IAMVirtualMFADevice
+    - KMSAlias
+    - KMSKey
+    - Route53HostedZone
+    - Route53ResourceRecordSet
+    - S3Bucket
+    - S3Object
+    - SecretsManagerSecret
+    - SQSQueue
+    - SSMParameter
+    
+accounts:
+  ACCOUNT:
+    filters:
+      EC2VPC:
+        - property: IsDefault
+          value: "true"
+      EC2DHCPOption:
+        - property: DefaultVPC
+          value: "true"
+      EC2InternetGateway:
+        - property: DefaultVPC
+          value: "true"
+      EC2InternetGatewayAttachment:
+        - property: DefaultVPC
+          value: "true"
+      EC2Subnet:
+        - property: DefaultVPC
+          value: "true"
+      EC2RouteTable:
+        - property: DefaultVPC
+          value: "true"
+      EC2DefaultSecurityGroupRule:
+        - property: SecurityGroupId
+          type: glob
+          value: "*"
+      SQSQueue:
+        - property: "QueueURL"
+          type: "glob"
+          value: "*PluginStack-*"
+      SQSQueuePolicy:
+        - property: "name"
+          type: "glob"
+          value: "*PluginStack-*"
+      SNSSubscription:
+        - property: "name"
+          type: "glob"
+          value: "*PluginStack-*"
+      IAMRole:
+        - property: "name"
+          type: "glob"
+          value: "*PluginStack-*"
+      IAMPolicy:
+        - property: "name"
+          type: "glob"
+          value: "*PluginStack-*"
+      SecurityGroup:
+        - property: "group-name"
+          type: "glob"
+          value: "*PluginStack-*"
+      BatchComputeEnvironment:
+        - property: "name"
+          type: "glob"
+          value: "*PluginStack-*"
+      BatchJobDefinition:
+        - property: "name"
+          type: "glob"
+          value: "*PluginStack-*"
+      BatchJobQueue:
+        - property: "name"
+          type: "glob"
+          value: "*PluginStack-*"
+      LambdaFunction:
+        - property: "Name"
+          type: "glob"
+          value: "*PluginStack-*"
+      LambdaEventSourceMapping:
+        - property: "EventSourceArn"
+          type: "glob"
+          value: "*PluginStack-*"
+        - property: "FunctionArn"
+          type: "glob"
+          value: "*PluginStack-*"
+      S3Bucket:
+        - property: "name"
+          type: "glob"
+          value: "*PluginStack-*"
+      S3BucketPolicy:
+        - property: "bucket-name"
+          type: "glob"
+          value: "*PluginStack-*"
+      EventRule:
+        - property: "name"
+          type: "glob"
+          value: "*PluginStack-*"
+        - property: "arn"
+          type: "glob"
+          value: "*:events:us-east-1:*:rule/PluginStack-*"
+      LambdaPermission:
+        - property: "name"
+          type: "glob"
+          value: "*PluginStack-*"
+      CDKMetadata:
+        - property: "name"
+          type: "glob"
+          value: "*PluginStack-*"
+      CloudWatchEventsRule:
+        - property: "Name"
+          type: "glob"
+          value: "PluginStack-*"
+      CloudWatchEventsTarget:
+        - property: "Rule"
+          type: "glob"
+          value: "*PluginStack-*"
+        - property: "Target ID"
+          type: "glob"
+          value: "*PluginStack-*"
+      GuardDutyDetector:
+        - property: DetectorID
+          type: glob
+          value: "*"
+      CloudTrailTrail:
+        - type: regex
+          value: "^(AccountGuardian|Isengard).*DO-NOT-DELETE.*$"
+      CloudWatchEventsRule:
+        - type: regex
+          value: "^Rule: (AccountGuardian-.*DO-NOT-DELETE|AwsSecurity.*DO-NOT-DELETE|DO-NOT-DELETE-GatedGarden-.*)$"
+      CloudWatchEventsTarget:
+        - type: regex
+          value: "^Rule: (AccountGuardian-.*DO-NOT-DELETE.*|AwsSecurity.*DO-NOT-DELETE|DO-NOT-DELETE-GatedGarden-.*)$"
+      CloudWatchLogsLogGroup:
+        - type: regex
+          value: "^(AccountGuardian-).*$"
+      ConfigServiceDeliveryChannel:
+        - "pitbull-default"
+      ConfigServiceConfigRule:
+        - type: regex
+          value: "^(managed-ec2-patch-compliance|ec2-managed-by-systems-manager-REMEDIATE|pvre-.*-REMEDIATE|.*-pvre-.*-REMEDIATE)$"
+      S3Bucket:
+        - property: Name
+          type: regex
+          value: "^(cdktoolkit-stagingbucket-.*|pitbull-aws-config-.*|cloudtrail-awslogs-.*-isengard-do-not-delete|do-not-delete-gatedgarden-audit-.*)$"
+      S3Object:
+        - property: Bucket
+          type: regex
+          value: "^(cdktoolkit-stagingbucket-.*|pitbull-aws-config-.*|cloudtrail-awslogs-.*-isengard-do-not-delete|do-not-delete-gatedgarden-audit-.*)$"
+      ConfigServiceConfigurationRecorder:
+        - "MainRecorder"
+      CloudFormationStack:
+        - property: Name
+          type: regex
+          value: "^(CDKToolkit|AccountGuardian|.*DO-NOT-DELETE)$"
+        - property: Name
+          type: regex
+          value: "^(PluginStack).*$"
+        - property: Name
+          type: regex
+          value: "^(pvre.*|PVRE.*)$"
+        - property: Name
+          type: regex
+          value: "^(.*PatchBaseline.*)$"
+      IAMPolicy:
+        - property: Name
+          type: regex
+          value: "^(ConfigAccessPolicy|ResourceConfigurationCollectorPolicy|CloudFormationRefereeService|EC2CapacityReservationService|AwsSecurit.*AuditPolicy)$"
+      IAMRole:
+        - property: Name
+          type: regex
+          value: "^(AWSServiceRoleFor.*|.*DO-NOT-DELETE|^Isengard.*|Admin|ReadOnly|GatedGarden.*Audit|ShadowTrooper.*|InternalAuditInternal|EC2CapacityReservationService|AccessAnalyzerTrustedService|EC2CapacityReservationService|AwsSecurit.*Audit|AWS.*Audit)$"
+      IAMRolePolicy:
+        - property: role:RoleName
+          type: regex
+          value: "^(.*DO-NOT-DELETE|Isengard.*|GatedGarden.*Audit|AccountGuardian.*|ShadowTrooper.*|AccessAnalyzerTrustedService|AwsSecurit.*Audit)$"
+      IAMRolePolicyAttachment:
+        - property: RoleName
+          type: regex
+          value: "^(Admin|ReadOnly|AWSServiceRoleFor.*|.*DO-NOT-DELETE|Isengard.*|InternalAuditInternal|EC2CapacityReservationService|AWSVAPTAudit|AwsSecurit.*Audit)$"
+      SSMDocument:
+        - type: regex
+          value: "^(AccountGuardian|Isengard).*DO-NOT-DELETE.*$"
+      SSMResourceDataSync:
+        - type: regex
+          value: "^(AccountGuardian|Isengard).*DO-NOT-DELETE.*$"
+
+
