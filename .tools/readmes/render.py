@@ -304,6 +304,7 @@ class Renderer:
             customs=customs,
             unsupported=unsupported,
         )
+        self.readme_text += "\n" # Jinja is the worst and strips trailing new lines
         [text, errors] = expand_all_entities(self.readme_text, self.scanner.doc_gen.entities)
         if errors:
             raise errors
@@ -332,7 +333,11 @@ class Renderer:
     def read_current(self):
         try:
             with self.readme_filename.open("r", encoding="utf-8") as f:
-                return f.read()
+                current = f.read()
+                if current[-1] != "\n":
+                    # Ensure there's always an ending newline
+                    current += "\n"
+                return current
         except FileNotFoundError:
             return ""
 
