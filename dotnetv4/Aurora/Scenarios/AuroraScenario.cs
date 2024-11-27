@@ -127,7 +127,6 @@ public class AuroraScenario
             Console.WriteLine(sepBar);
         }
         catch (Exception ex)
-
         {
             await CleanupResources(newInstance, newCluster, parameterGroup);
             logger.LogError(ex, "There was a problem executing the scenario.");
@@ -367,7 +366,6 @@ public class AuroraScenario
         Console.WriteLine($"Available DB instance classes for engine {engine} and version {engineVersion}:");
         int i = 1;
 
-
         foreach (var instance in allowedInstances)
         {
             Console.WriteLine(
@@ -418,7 +416,6 @@ public class AuroraScenario
         }
         else
         {
-
             newInstance = await auroraWrapper.CreateDBInstanceInClusterAsync(
                 clusterIdentifier,
                 instanceIdentifier,
