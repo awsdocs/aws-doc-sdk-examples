@@ -72,7 +72,7 @@ aws s3 cp nuke_config_update.py --region us-east-1 s3://{your-bucket-name}
 
 * The workflow also sends out a detailed report to an SNS topic with an active email subscription on what resources were deleted after the job is successful for each region which simplifies traversing and parsing the complex logs spit out by the aws-nuke binary. 
 
-* If the workflow is successful , the stack will send out
+* If the workflow is successful, the stack will send out
   - One email for each of the regions where nuke CodeBuild job was invoked with details of the build execution , the list of resources which was deleted along with the log file path. 
   - The StepFunctions workflow also sends out another email when the whole Map state process completes successfully. Sample email template given below.
 
