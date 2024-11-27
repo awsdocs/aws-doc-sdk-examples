@@ -173,6 +173,12 @@ def main():
 
 def make_diff(renderer, id):
     current = renderer.read_current().split("\n")
+    if current[-1] != "":
+        # Ensure final "last" line
+        current += [""]
     expected = renderer.readme_text.split("\n")
+    if expected[-1] != "":
+        # Ensure final "last" line
+        expected += [""]
     diff = unified_diff(current, expected, f"{id}/current", f"{id}/expected")
     return "\n".join(diff)

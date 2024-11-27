@@ -304,6 +304,7 @@ class Renderer:
             customs=customs,
             unsupported=unsupported,
         )
+        self.readme_text += "\n" # Jinja is the worst and strips trailing new lines
         [text, errors] = expand_all_entities(self.readme_text, self.scanner.doc_gen.entities)
         if errors:
             raise errors
