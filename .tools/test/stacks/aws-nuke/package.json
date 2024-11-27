@@ -2,7 +2,7 @@
   "name": "nuke_cleanser",
   "version": "0.1.0",
   "bin": {
-    "nuke_cleanser": "bin/nuke_cleanser.js"
+    "nuke_cleanser": "nuke_cleanser.ts"
   },
   "scripts": {
     "build": "tsc",

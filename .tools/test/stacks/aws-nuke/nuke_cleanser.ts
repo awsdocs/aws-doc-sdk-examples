@@ -1,9 +1,9 @@
+#!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib';
 import * as codebuild from 'aws-cdk-lib/aws-codebuild';
 import * as events from 'aws-cdk-lib/aws-events';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as s3 from 'aws-cdk-lib/aws-s3';
-import * as sns from 'aws-cdk-lib/aws-sns';
 import * as stepfunctions from 'aws-cdk-lib/aws-stepfunctions';
 
 export interface NukeCleanserStackProps extends cdk.StackProps {
@@ -39,17 +39,13 @@ export interface NukeCleanserStackProps extends cdk.StackProps {
   readonly owner?: string;
 }
 
-/**
- * This CFN Template creates a StepFunction state machine definition , to invoke a CodeBuild Project and  associated resources for setting up a single-account script that cleanses the resources across supplied regions via AWS-Nuke. It also creates the role for the nuke cleanser which is used for configuring the credentials for aws-nuke binary to cleanse resources within that account/region.
-
- */
-export class NukeCleanserStack extends cdk.Stack {
+class NukeCleanserStack extends cdk.Stack {
   /**
    * S3 bucket created with the random generated name
    */
   public readonly nukeS3BucketValue;
 
-  public constructor(scope: cdk.App, id: string, props: NukeCleanserStackProps = {}) {
+  constructor(scope: cdk.App, id: string, props: NukeCleanserStackProps = {}) {
     super(scope, id, props);
 
     // Applying default props
@@ -266,7 +262,7 @@ export class NukeCleanserStack extends cdk.Stack {
 
     const nukeAccountCleanserRole = new iam.CfnRole(this, 'NukeAccountCleanserRole', {
       roleName: props.nukeCleanserRoleName!,
-      description: 'Nuke Auto account cleanser role for target accounts',
+      description: 'Nuke Auto account cleanser role for Dev/Sandbox accounts',
       maxSessionDuration: 7200,
       tags: [
         {
@@ -462,6 +458,7 @@ export class NukeCleanserStack extends cdk.Stack {
         "StartAt": "StartNukeCodeBuildForEachRegion",
         "States": {
           "StartNukeCodeBuildForEachRegion": {
+            "End": true,
             "Type": "Map",
             "ItemsPath": "$.InputPayLoad.region_list",
             "Parameters": {
@@ -469,7 +466,6 @@ export class NukeCleanserStack extends cdk.Stack {
               "nuke_dry_run.$": "$.InputPayLoad.nuke_dry_run",
               "nuke_version.$": "$.InputPayLoad.nuke_version"
             },
-            "Next": "Clean Output and Notify",
             "MaxConcurrency": 0,
             "Iterator": {
               "StartAt": "Trigger Nuke CodeBuild Job",
@@ -654,3 +650,12 @@ export class NukeCleanserStack extends cdk.Stack {
     });
   }
 }
+
+const app = new cdk.App();
+new NukeCleanserStack(app, 'NukeCleanser', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+});
+app.synth();
