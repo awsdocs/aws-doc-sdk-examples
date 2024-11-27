@@ -7,6 +7,7 @@ import os
 import yaml
 import time
 import re
+from nuke.typescript.upload_job_scripts import process_stack_and_upload_files
 
 
 def run_shell_command(command, env_vars=None):
@@ -60,7 +61,7 @@ def deploy_resources(account_id, account_name, dir, lang="typescript"):
     Args:
     account_id (str): The AWS account ID where resources will be deployed.
     account_name (str): A human-readable name for the account, used for environment variables.
-    dir (str): The base directory containing deployment scripts or configurations.
+    dir (str): The base directory containing deployment scripts or configurations. One of: admin, plugin, images
     lang (str, optional): The programming language of the deployment scripts. Defaults to 'typescript'.
 
     Changes to the desired directory, sets up necessary environment variables, and executes
@@ -135,9 +136,22 @@ def main():
     for account_name, account_info in items:
 
         print(
-            f"Reading from account {account_name} with ID {account_info['account_id']}"
+            f"Deploying to account {account_name} with ID {account_info['account_id']}"
         )
         deploy_resources(account_info["account_id"], account_name, args.type)
+        if 'plugin' in args.type:
+            print(
+                f"Also: 💣 deploying nuke to account {account_name} with ID {account_info['account_id']}"
+            )
+            os.chdir("../..")
+            deploy_resources(account_info["account_id"], account_name, 'nuke')
+            breakpoint()
+            process_stack_and_upload_files(
+                "NukeCleanser",
+                ["nuke_generic_config.yaml", "nuke_config_update.py"],
+                region="us-east-1"
+            )
+            os.chdir("../..")
 
 
 if __name__ == "__main__":

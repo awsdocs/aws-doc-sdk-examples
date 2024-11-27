@@ -43,24 +43,29 @@ The code in this repository helps you set up the following architecture:
 cdk bootstrap && cdk deploy
 ```
 
-## Testing
-Once stack is created, upload the [nuke generic config file](nuke_generic_config.yaml) and the [python script](cp nuke_config_update.py) to the S3 bucket using the commands below.
+Note a successful stack creation, e.g.: 
 
-You can find the name of the S3 bucket generated from the CloudFormation console `Outputs` tab.
-```sh
-aws s3 cp nuke_generic_config.yaml --region us-east-1 s3://{your-bucket-name}
-aws s3 cp nuke_config_update.py --region us-east-1 s3://{your-bucket-name}
+```bash
+ ✅  NukeCleanser
+
+✨  Deployment time: 172.66s
+
+Outputs:
+NukeCleanser.NukeS3BucketValue = nuke-account-cleanser-config-616362312345-us-east-1-c043b470
+Stack ARN:
+arn:aws:cloudformation:us-east-1:123456788985:stack/NukeCleanser/cfhdkiott-acec-11ef-ba2e-4555c1356d07
 ```
-* Run the stack manually by triggering the StepFunctions with the below sample input payload. (which is pre-configured in the EventBridge Target as a Constant JSON input). You can configure this to run in parallel on the required number of regions by updating the region_list parameter.
 
+Next, run `python upload_job_files.py` to upload two files in this directory: `nuke_config_update.py` and `nuke_generic_config.yaml`.
+
+## Testing
+To test this stack, run `python trigger_dry_run.py` which will invoke the state machine execution in dry-run mode using the following payload:
 ```sh
 {
   "InputPayLoad": {
     "nuke_dry_run": "true",
     "nuke_version": "2.21.2",
     "region_list": [
-      "global",
-      "us-west-1",
       "us-east-1"
     ]
   }
