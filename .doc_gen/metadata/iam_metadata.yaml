@@ -1706,7 +1706,7 @@ iam_CreateRole:
           github: javav2/example_code/iam
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - iam.java2.create_role.main
     PHP:
