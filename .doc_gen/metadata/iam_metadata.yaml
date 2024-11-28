@@ -1706,9 +1706,12 @@ iam_CreateRole:
           github: javav2/example_code/iam
           sdkguide:
           excerpts:
-            - description:
+            - description: Creates an IAM role.
               snippet_tags:
                 - iam.java2.create_role.main
+            - description: Creates an IAM role with the necessary permissions to perform object lock operations on an S3 bucket.
+              snippet_tags:
+                - iam.java2.s3_role.main
     PHP:
       versions:
         - sdk_version: 3
