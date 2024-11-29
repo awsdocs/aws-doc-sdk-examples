@@ -23,7 +23,7 @@ _Amazon Bedrock Runtime is a fully managed service that makes it easy to use fou
 
 ### Prerequisites
 
-For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3` folder.
+For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4` folder.
 
 
 <!--custom.prerequisites.start-->
@@ -81,7 +81,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 ### Instructions
 
 For general instructions to run the examples, see the
-[README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
+[README](../README.md#building-and-running-the-code-examples) in the `dotnetv4` folder.
 
 Some projects might include a settings.json file. Before compiling the project,
 you can change these values to match your own account and resources. Alternatively,
@@ -109,7 +109,7 @@ Alternatively, you can run the example from within your IDE.
 
 
 To find instructions for running these tests, see the [README](../README.md#Tests)
-in the `dotnetv3` folder.
+in the `dotnetv4` folder.
 
 
 
