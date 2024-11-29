@@ -98,7 +98,8 @@ functions within the same service.
 
 <!--custom.examples.start-->
 - [Create a presigned URL for download](src/main/java/com/example/s3/GeneratePresignedGetUrlAndRetrieve.java)
-- [Create a presigned URL for upload](src/main/java/com/example/s3/GeneratePresignedUrlAndPutFileWithMetadata.java)
+- [Create a presigned URL with metadata in headers for upload](src/main/java/com/example/s3/GeneratePresignedUrlAndPutFileWithMetadata.java)
+- [Create a presigned URL with query parameters for upload](src/main/java/com/example/s3/GeneratePresignedUrlAndPutFileWithQueryParams.java)
 <!--custom.examples.end-->
 
 ## Run the examples
