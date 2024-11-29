@@ -38,7 +38,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 Code examples that show you how to perform the essential operations within a service.
 
-- [Learn the basics](src/main/java/com/example/dynamodb/Scenario.java)
+- [Learn the basics](src/main/java/com/example/dynamodb/scenario/Scenario.java)
 
 
 ### Single actions
@@ -63,8 +63,8 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Query a table by using batches of PartiQL statements](src/main/java/com/example/dynamodb/ScenarioPartiQLBatch.java)
-- [Query a table using PartiQL](src/main/java/com/example/dynamodb/ScenarioPartiQ.java)
+- [Query a table by using batches of PartiQL statements](src/main/java/com/example/dynamodb/scenario/ScenarioPartiQLBatch.java)
+- [Query a table using PartiQL](src/main/java/com/example/dynamodb/scenario/ScenarioPartiQ.java)
 
 
 <!--custom.examples.start-->

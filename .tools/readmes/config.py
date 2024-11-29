@@ -54,6 +54,7 @@ language = {
             "sdk_api_ref": 'https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/{{service["name"]}}/package-summary.html',
             "service_folder_overrides": {
                 "s3-control": "javav2/example_code/s3/src/main/java/com/example/s3/batch",
+                "s3-directory-buckets": "javav2/example_code/s3/src/main/java/com/example/s3/directorybucket",
                 "medical-imaging": "javav2/example_code/medicalimaging",
             },
         },
@@ -124,6 +125,9 @@ language = {
             "base_folder": "php",
             "service_folder": 'php/example_code/{{service["name"]}}',
             "sdk_api_ref": 'https://docs.aws.amazon.com/aws-sdk-php/v3/api/namespace-Aws.{{service["name"] | capitalize}}.html',
+            "service_folder_overrides": {
+            "s3-directory-buckets": "php/example_code/s3/express",
+            }
         }
     },
     "Python": {

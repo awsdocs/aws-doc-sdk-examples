@@ -31,12 +31,6 @@ public class TestConverseAsync extends IntegrationTestBase {
     }
 
     @Test
-    void testLlama2() {
-        String result = com.example.bedrockruntime.models.metaLlama.ConverseAsync.converseAsync();
-        assertNotNullOrEmpty(result);
-    }
-
-    @Test
     void testMistral() {
         String result = com.example.bedrockruntime.models.mistral.ConverseAsync.converseAsync();
         assertNotNullOrEmpty(result);
