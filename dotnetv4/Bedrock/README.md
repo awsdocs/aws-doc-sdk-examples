@@ -23,7 +23,7 @@ _Amazon Bedrock enables you to build and scale generative AI applications with f
 
 ### Prerequisites
 
-For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3` folder.
+For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv4` folder.
 
 
 <!--custom.prerequisites.start-->
@@ -49,7 +49,7 @@ Code excerpts that show you how to call individual service functions.
 ### Instructions
 
 For general instructions to run the examples, see the
-[README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
+[README](../README.md#building-and-running-the-code-examples) in the `dotnetv4` folder.
 
 Some projects might include a settings.json file. Before compiling the project,
 you can change these values to match your own account and resources. Alternatively,
@@ -81,7 +81,7 @@ This example shows you how to get started using Amazon Bedrock.
 
 
 To find instructions for running these tests, see the [README](../README.md#Tests)
-in the `dotnetv3` folder.
+in the `dotnetv4` folder.
 
 
 
