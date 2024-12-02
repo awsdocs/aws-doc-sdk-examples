@@ -1,7 +1,7 @@
 s3-control_Hello:
   title: Hello &S3Control;
-  title_abbrev: Hello '&S3Control;'
-  synopsis: get started using '&S3Control;'
+  title_abbrev: Hello &S3Control;
+  synopsis: get started using '&S3Control;.
   category: Hello
   languages:
     Java:
