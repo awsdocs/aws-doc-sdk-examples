@@ -53,7 +53,7 @@ Code examples that show you how to perform the essential operations within a ser
 This example shows you how to do the following:
 
 - Set up a VPC and VPC Endpoint
-- Set up the S3 Express Policies, Roles, and User to work with S3 Express buckets
+- Set up the Policies, Roles, and User to work with S3 directory buckets and the S3 Express One Zone storage class
 - Create two S3 Clients
 - Create two buckets
 - Create an object and copy it over
