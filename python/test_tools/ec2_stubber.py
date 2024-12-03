@@ -388,9 +388,22 @@ class Ec2Stubber(ExampleStubber):
             "delete_launch_template", expected_params, response, error_code=error_code
         )
 
-    def stub_describe_availability_zones(self, zones, error_code=None):
+    def stub_describe_availability_zones(
+        self, zones, filters=None, zone_ids=None, error_code=None
+    ):
         expected_params = {}
-        response = {"AvailabilityZones": [{"ZoneName": zone} for zone in zones]}
+        if filters is not None:
+            expected_params["Filters"] = filters
+
+        availability_zones = []
+        for i, zone in enumerate(zones):
+            zone_info = {"ZoneName": zone}
+            if zone_ids and i < len(zone_ids):
+                zone_info["ZoneId"] = zone_ids[i]
+            availability_zones.append(zone_info)
+
+        response = {"AvailabilityZones": availability_zones}
+
         self._stub_bifurcator(
             "describe_availability_zones",
             expected_params,
@@ -469,7 +482,9 @@ class Ec2Stubber(ExampleStubber):
             "create_vpc", expected_params, response, error_code=error_code
         )
 
-    def stub_describe_route_tables(self, filters, vpc_id, route_table_id, error_code=None):
+    def stub_describe_route_tables(
+        self, filters, vpc_id, route_table_id, error_code=None
+    ):
         expected_params = {"Filters": filters}
         response = {
             "RouteTables": [
@@ -522,8 +537,10 @@ class Ec2Stubber(ExampleStubber):
         self._stub_bifurcator(
             "describe_route_tables", expected_params, response, error_code=error_code
         )
-    
-    def stub_create_vpc_endpoint(self, vpc_id, route_table_id, service_name, error_code=None):
+
+    def stub_create_vpc_endpoint(
+        self, vpc_id, route_table_id, service_name, error_code=None
+    ):
         expected_params = {
             "VpcId": vpc_id,
             "RouteTableIds": [route_table_id],
