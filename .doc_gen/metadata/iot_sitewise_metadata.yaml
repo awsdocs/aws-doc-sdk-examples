@@ -185,7 +185,7 @@ iotsitewise_CreateAssetModel:
   services:
     iotsitewise: {CreateAssetModel}
 iotsitewise_Scenario:
-  synopsis: Learn core operations for &ITSWlong; using an &AWS; SDK.
+  synopsis: learn core operations for &ITSWlong; using an &AWS; SDK.
   category: Basics
   languages:
     Java:
