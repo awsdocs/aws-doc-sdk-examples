@@ -117,7 +117,7 @@ s3-control_UpdateJobPriority:
   services:
     s3-control: {UpdateJobPriority}   
 s3-control_Basics:
-  synopsis: learn core operations for'&S3Control;'.
+  synopsis: learn core operations for &S3Control;.
   category: Basics
   languages:
     Java:
