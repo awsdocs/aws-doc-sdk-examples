@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// snippet-start:[s3.java2.bucket_replication.main]
 /**
  * Before running this Java V2 code example, set up your development
  * environment, including your credentials.
@@ -36,7 +35,7 @@ public class BucketReplication {
     public static void main(String[] args) throws IOException {
         final String usage = """
             Usage:
-               <roleName> <bucketRegion> <sourceBucketName> <destBucketName> <roleARN> <destinationBucketARN>
+               <roleName> <bucketRegion> <sourceBucketName> <destBucketName> 
 
             Where:
                 roleName - The name of the IAM role that will be used to access the S3 buckets.
@@ -124,11 +123,11 @@ public class BucketReplication {
         waitForInputToContinue(scanner);
         deleteBucket(s3Client, sourceBucketName);
         deleteBucket(s3Client, destBucketName);
-        deleteRole(iamClient, roleName);
         System.out.println("This concludes the Cross-Region Replication example");
         System.out.println(DASHES);
     }
 
+    // snippet-start:[s3.java2.bucket_enable.version.main]
     /**
      * Enables bucket versioning for the specified S3 bucket.
      *
@@ -148,7 +147,9 @@ public class BucketReplication {
         s3Client.putBucketVersioning(versioningRequest);
         System.out.println("Bucket versioning has been enabled for "+bucketName);
     }
+    // snippet-end:[s3.java2.bucket_enable.version.main]
 
+    // snippet-start:[s3.java2.bucket_replication.main]
     /**
      * Sets the replication configuration for an Amazon S3 bucket.
      *
@@ -214,7 +215,9 @@ public class BucketReplication {
             System.err.println("SDK Exception: " + e.getMessage());
         }
     }
+    // snippet-end:[s3.java2.bucket_replication.main]
 
+    // snippet-start:[s3.java2.bucket_get.replication.main]
     /**
      * Retrieves the replication details for the specified S3 bucket.
      *
@@ -239,6 +242,7 @@ public class BucketReplication {
             System.err.println("Failed to retrieve replication details: " + e.awsErrorDetails().errorMessage());
         }
     }
+    // snippet-end:[s3.java2.bucket_get.replication.main]
 
     /**
      * Creates an Amazon S3 bucket.
@@ -348,39 +352,6 @@ public class BucketReplication {
     }
 
     /**
-     * Deletes an IAM role and the inline policy attached to it.
-     *
-     * @param iam        An instance of the {@link IamClient} used to interact with the IAM service.
-     * @param roleName   The name of the IAM role to be deleted.
-     *
-     * @throws IamException if there is an error deleting the role or the inline policy.
-     */
-    public static void deleteRole(IamClient iam, String roleName) {
-        try {
-            // First, delete the inline policy attached to the role.
-            DeleteRolePolicyRequest deleteRolePolicyRequest = DeleteRolePolicyRequest.builder()
-                .roleName(roleName)
-                .policyName("crrRolePolicy") // The name you used when adding the policy
-                .build();
-
-            iam.deleteRolePolicy(deleteRolePolicyRequest);
-            System.out.println("Deleted inline policy: crrRolePolicy");
-
-            // Now delete the role itself.
-            DeleteRoleRequest deleteRoleRequest = DeleteRoleRequest.builder()
-                .roleName(roleName)
-                .build();
-
-            iam.deleteRole(deleteRoleRequest);
-            System.out.println("Successfully deleted role: " + roleName);
-
-        } catch (IamException e) {
-            System.err.println("IAM Exception: " + e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-    }
-
-    /**
      * Retrieves the account number of the current AWS user using the AWS STS (Security Token Service)
      * client.
      *
@@ -408,4 +379,3 @@ public class BucketReplication {
         }
     }
 }
-// snippet-end:[s3.java2.bucket_replication.main]
