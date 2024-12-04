@@ -67,12 +67,12 @@ Code excerpts that show you how to call individual service functions.
 
 #### Hello Amazon S3 Control
 
-This example shows you how to get started using 'Amazon S3 Control.
+This example shows you how to get started using Amazon S3 Control.
 
 
 #### Learn the basics
 
-This example shows you how to learn core operations for'Amazon S3 Control'.
+This example shows you how to learn core operations for Amazon S3 Control.
 
 
 <!--custom.basic_prereqs.s3-control_Basics.start-->
