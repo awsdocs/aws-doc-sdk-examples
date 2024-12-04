@@ -360,6 +360,19 @@ s3_CopyObject:
                 - aws-cli.bash-linux.s3.CopyObject
   services:
     s3: {CopyObject}
+s3_PutBucketReplication:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.bucket_replication.main
+  services:
+    s3: {PutBucketReplication}
 s3_DeleteBucketPolicy:
   languages:
     C++:
