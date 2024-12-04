@@ -6,6 +6,9 @@ import {
   InitiateAuthCommand,
   SignUpCommand,
   ConfirmSignUpCommand,
+  type InitiateAuthCommandInput,
+  type SignUpCommandInput,
+  type ConfirmSignUpCommandInput,
 } from "@aws-sdk/client-cognito-identity-provider";
 import config from "./config.json";
 
@@ -14,7 +17,7 @@ export const cognitoClient = new CognitoIdentityProviderClient({
 });
 
 export const signIn = async (username: string, password: string) => {
-  const params = {
+  const params: InitiateAuthCommandInput = {
     AuthFlow: "USER_PASSWORD_AUTH",
     ClientId: config.clientId,
     AuthParameters: {
@@ -44,7 +47,7 @@ export const signIn = async (username: string, password: string) => {
 };
 
 export const signUp = async (email: string, password: string) => {
-  const params = {
+  const params: SignUpCommandInput = {
     ClientId: config.clientId,
     Username: email,
     Password: password,
@@ -67,7 +70,7 @@ export const signUp = async (email: string, password: string) => {
 };
 
 export const confirmSignUp = async (username: string, code: string) => {
-  const params = {
+  const params: ConfirmSignUpCommandInput = {
     ClientId: config.clientId,
     Username: username,
     ConfirmationCode: code,
