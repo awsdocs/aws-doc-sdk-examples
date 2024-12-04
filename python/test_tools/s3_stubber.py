@@ -325,6 +325,26 @@ class S3Stubber(ExampleStubber):
             "list_objects", expected_params, response, error_code=error_code
         )
 
+    def stub_list_objects_v2(
+        self,
+        bucket_name,
+        object_keys=None,
+        prefix=None,
+        delimiter=None,
+        error_code=None,
+    ):
+        if not object_keys:
+            object_keys = []
+        expected_params = {"Bucket": bucket_name}
+        if prefix is not None:
+            expected_params["Prefix"] = prefix
+        if delimiter is not None:
+            expected_params["Delimiter"] = delimiter
+        response = {"Contents": [{"Key": key} for key in object_keys]}
+        self._stub_bifurcator(
+            "list_objects_v2", expected_params, response, error_code=error_code
+        )
+
     def stub_delete_objects(self, bucket_name, object_keys, error_code=None):
         expected_params = {
             "Bucket": bucket_name,
