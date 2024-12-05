@@ -652,10 +652,13 @@ class NukeCleanserStack extends cdk.Stack {
 }
 
 const app = new cdk.App();
+
 new NukeCleanserStack(app, 'NukeCleanser', {
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEFAULT_REGION,
   },
+  terminationProtection: true
 });
+
 app.synth();
