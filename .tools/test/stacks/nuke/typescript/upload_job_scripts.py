@@ -7,7 +7,9 @@ import boto3
 from botocore.exceptions import ClientError
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 # Constants
 STACK_NAME = "NukeCleanser"

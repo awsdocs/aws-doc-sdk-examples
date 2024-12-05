@@ -1,7 +1,12 @@
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+"""
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+
+This module contains functions to deploy resources to AWS accounts using AWS CDK.
+"""
 
 import argparse
+import logging
 import os
 import re
 import shutil
@@ -15,8 +20,19 @@ from botocore.exceptions import ClientError, NoCredentialsError
 from nuke.typescript.create_account_alias import create_account_alias
 from nuke.typescript.upload_job_scripts import process_stack_and_upload_files
 
+logger = logging.getLogger(__name__)
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 
 def get_caller_identity():
+    """
+    Get the caller identity from AWS STS.
+
+    Logs the account ID, ARN, and user ID of the caller.
+    Logs an error if no credentials are found or if there is a client error.
+    """
     try:
         # Create an STS client
         session = boto3.Session()
@@ -25,18 +41,24 @@ def get_caller_identity():
         # Get the caller identity
         caller_identity = sts_client.get_caller_identity()
 
-        # Print the caller identity details
-        print("Account ID:", caller_identity["Account"])
-        print("Arn:", caller_identity["Arn"])
-        print("UserId:", caller_identity["UserId"])
+        # Log the caller identity details
+        logger.info(f"Credentials Account ID: {caller_identity['Account']}")
+        logger.debug(f"Arn: {caller_identity['Arn']}")
+        logger.debug(f"UserId: {caller_identity['UserId']}")
 
     except NoCredentialsError:
-        print("No credentials found in shared folder. Credentials wiped!")
+        logger.info("No credentials found in shared folder. Credentials wiped!")
     except ClientError as e:
-        print(f"An error occurred: {e}")
+        logger.error(f"An error occurred: {e}")
 
 
 def delete_aws_directory():
+    """
+    Delete the .aws directory in the user's home directory.
+
+    This function removes the .aws directory and all its contents from the user's
+    home directory. If the directory does not exist, it logs a message.
+    """
     # Path to the .aws directory
     aws_dir = os.path.expanduser("~/.aws")
 
@@ -45,24 +67,23 @@ def delete_aws_directory():
         try:
             # Recursively delete the directory and all its contents
             shutil.rmtree(aws_dir)
-            print(f"Deleted all contents under {aws_dir}.")
+            logger.info(f"Deleted all contents under {aws_dir}.")
         except Exception as e:
-            print(f"Error deleting {aws_dir}: {e}")
+            logger.error(f"Error deleting {aws_dir}: {e}")
     else:
-        print(f"{aws_dir} does not exist.")
+        logger.info(f"{aws_dir} does not exist.")
 
 
-# Call the function
 def run_shell_command(command, env_vars=None):
     """
-    Execute a given shell command securely and return its output.
+    Execute a given shell command securely and log its output.
 
     Args:
-    command (list): The command and its arguments listed as separate items.
-    env_vars (dict, optional): Additional environment variables to set for the command.
+        command (list): The command and its arguments listed as separate items.
+        env_vars (dict, optional): Additional environment variables to set for the command.
 
-    Outputs the result of the command execution to the console. In case of an error,
-    it outputs the error message and the stack trace.
+    Logs the command being executed and its output. In case of an error,
+    it logs the error message and the stack trace.
     """
     # Prepare the environment
     env = os.environ.copy()
@@ -70,15 +91,15 @@ def run_shell_command(command, env_vars=None):
         env.update(env_vars)
 
     command_str = " ".join(command)
-    print("COMMAND: " + command_str)
+    logger.info(f"COMMAND: {command_str}")
     try:
         output = subprocess.check_output(command, stderr=subprocess.STDOUT, env=env)
-        print(f"Command output: {output.decode()}")
+        logger.info(f"STDOUT:\n{output.decode()}")
     except subprocess.CalledProcessError as e:
-        print(f"Error executing command: {e.output.decode()}")
+        logger.error(f"Error executing command: {e.output.decode()}")
         raise
     except Exception as e:
-        print(f"Exception executing command: {e!r}")
+        logger.error(f"Exception executing command: {e!r}")
         raise
 
 
@@ -87,11 +108,11 @@ def validate_alphanumeric(value, name):
     Validate that the given value is alphanumeric.
 
     Args:
-    value (str): The value to validate.
-    name (str): The name of the variable for error messages.
+        value (str): The value to validate.
+        name (str): The name of the variable for error messages.
 
     Raises:
-    ValueError: If the value is not alphanumeric.
+        ValueError: If the value is not alphanumeric.
     """
     if not re.match(r"^\w+$", value):
         raise ValueError(f"{name} must be alphanumeric. Received: {value}")
@@ -99,7 +120,14 @@ def validate_alphanumeric(value, name):
 
 def get_tokens(account_id):
     """
-    Get AWS tokens
+    Get AWS tokens for the specified account.
+
+    Args:
+        account_id (str): The AWS account ID for which tokens will be obtained.
+
+    Retrieves temporary AWS credentials for the specified account using a token tool
+    and provider specified in environment variables. Sets the AWS_DEFAULT_REGION
+    environment variable and logs the caller identity.
     """
     get_token_tool = os.getenv("TOKEN_TOOL")
     get_token_provider = os.getenv("TOKEN_PROVIDER")
@@ -122,15 +150,15 @@ def get_tokens(account_id):
     get_caller_identity()
 
 
-def deploy_resources(account_id, account_name, dir, lang="typescript"):
+def deploy_resources(account_id, account_name, dir_path, lang="typescript"):
     """
     Deploy resources to a specified account using configuration specified by directory and language.
 
     Args:
-    account_id (str): The AWS account ID where resources will be deployed.
-    account_name (str): A human-readable name for the account, used for environment variables.
-    dir (str): The base directory containing deployment scripts or configurations. One of: admin, plugin, images
-    lang (str, optional): The programming language of the deployment scripts. Defaults to 'typescript'.
+        account_id (str): The AWS account ID where resources will be deployed.
+        account_name (str): A human-readable name for the account, used for environment variables.
+        dir_path (str): The base directory containing deployment scripts or configurations. One of: admin, plugin, images
+        lang (str, optional): The programming language of the deployment scripts. Defaults to 'typescript'.
 
     Changes to the desired directory, sets up necessary environment variables, and executes
     deployment commands.
@@ -138,13 +166,13 @@ def deploy_resources(account_id, account_name, dir, lang="typescript"):
     validate_alphanumeric(account_id, "account_id")
     validate_alphanumeric(account_name, "account_name")
 
-    if dir not in os.getcwd():
-        os.chdir(f"{dir}/{lang}")
+    if dir_path not in os.getcwd():
+        os.chdir(os.path.join(dir_path, lang))
 
     # Deploy using CDK
     run_shell_command(["cdk", "acknowledge", "31885"])
     deploy_command = ["cdk", "deploy", "--require-approval", "never"]
-    print(" ".join(deploy_command))
+    logger.info(" ".join(deploy_command))
     run_shell_command(deploy_command, env_vars={"TOOL_NAME": account_name})
 
     # Delay to avoid CLI conflicts
@@ -159,7 +187,12 @@ def deploy_resources(account_id, account_name, dir, lang="typescript"):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="admin, images, or plugin stack.")
+    """
+    Main function to deploy resources to AWS accounts based on the specified stack type.
+    """
+    parser = argparse.ArgumentParser(
+        description="Deploy admin, images, or plugin stack."
+    )
     parser.add_argument("type", choices=["admin", "images", "plugin"])
     parser.add_argument("--language")
     args = parser.parse_args()
@@ -177,13 +210,13 @@ def main():
                     }
                 }
         except Exception as e:
-            print(f"Failed to read config data: \n{e}")
-    elif args.type in {"plugin"}:
+            logger.error(f"Failed to read config data: {e}")
+    elif args.type == "plugin":
         try:
             with open("config/targets.yaml", "r") as file:
                 accounts = yaml.safe_load(file)
         except Exception as e:
-            print(f"Failed to read config data: \n{e}")
+            logger.error(f"Failed to read config data: {e}")
 
     if accounts is None:
         raise ValueError(f"Could not load accounts for stack {args.type}")
@@ -194,13 +227,13 @@ def main():
         items = accounts.items()
 
     for account_name, account_info in items:
-        print(
-            f"\n\n\n\n #### NEW DEPLOYMENT #### \n\n\n\n Deploying 🚀 Plugin stack to account {account_name} with ID {account_info['account_id']}"
+        logger.info(
+            f"\n\n\n\n #### NEW DEPLOYMENT #### \n\n\n\n Deploying 🚀 {args.type} stack to account {account_name} with ID {account_info['account_id']}"
         )
         get_tokens(account_info["account_id"])
         deploy_resources(account_info["account_id"], account_name, args.type)
         if "plugin" in args.type:
-            print(
+            logger.info(
                 f"Deploying ☢️  AWS-Nuke to account {account_name} with ID {account_info['account_id']}"
             )
             os.chdir("../..")
