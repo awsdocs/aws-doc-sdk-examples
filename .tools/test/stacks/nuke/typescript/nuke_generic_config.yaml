@@ -92,87 +92,87 @@ accounts:
         - property: SecurityGroupId
           type: glob
           value: "*"
-      SQSQueue:
-        - property: "QueueURL"
-          type: "glob"
-          value: "*PluginStack-*"
-      SQSQueuePolicy:
-        - property: "name"
-          type: "glob"
-          value: "*PluginStack-*"
-      SNSSubscription:
-        - property: "name"
-          type: "glob"
-          value: "*PluginStack-*"
-      IAMRole:
-        - property: "name"
-          type: "glob"
-          value: "*PluginStack-*"
-      IAMPolicy:
-        - property: "name"
-          type: "glob"
-          value: "*PluginStack-*"
-      SecurityGroup:
-        - property: "group-name"
-          type: "glob"
-          value: "*PluginStack-*"
-      BatchComputeEnvironment:
-        - property: "name"
-          type: "glob"
-          value: "*PluginStack-*"
-      BatchJobDefinition:
-        - property: "name"
-          type: "glob"
-          value: "*PluginStack-*"
-      BatchJobQueue:
-        - property: "name"
-          type: "glob"
-          value: "*PluginStack-*"
-      LambdaFunction:
-        - property: "Name"
-          type: "glob"
-          value: "*PluginStack-*"
-      LambdaEventSourceMapping:
-        - property: "EventSourceArn"
-          type: "glob"
-          value: "*PluginStack-*"
-        - property: "FunctionArn"
-          type: "glob"
-          value: "*PluginStack-*"
-      S3Bucket:
-        - property: "name"
-          type: "glob"
-          value: "*PluginStack-*"
-      S3BucketPolicy:
-        - property: "bucket-name"
-          type: "glob"
-          value: "*PluginStack-*"
-      EventRule:
-        - property: "name"
-          type: "glob"
-          value: "*PluginStack-*"
-        - property: "arn"
-          type: "glob"
-          value: "*:events:us-east-1:*:rule/PluginStack-*"
-      LambdaPermission:
-        - property: "name"
-          type: "glob"
-          value: "*PluginStack-*"
-      CDKMetadata:
-        - property: "name"
-          type: "glob"
-          value: "*PluginStack-*"
-      CloudWatchEventsRule:
-        - property: "Name"
-          type: "glob"
-          value: "PluginStack-*"
-      CloudWatchEventsTarget:
-        - property: "Rule"
-          type: "glob"
-          value: "*PluginStack-*"
-        - property: "Target ID"
-          type: "glob"
-          value: "*PluginStack-*"
+#      SQSQueue:
+#        - property: "QueueURL"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      SQSQueuePolicy:
+#        - property: "name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      SNSSubscription:
+#        - property: "name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      IAMRole:
+#        - property: "name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      IAMPolicy:
+#        - property: "name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      SecurityGroup:
+#        - property: "group-name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      BatchComputeEnvironment:
+#        - property: "name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      BatchJobDefinition:
+#        - property: "name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      BatchJobQueue:
+#        - property: "name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      LambdaFunction:
+#        - property: "Name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      LambdaEventSourceMapping:
+#        - property: "EventSourceArn"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#        - property: "FunctionArn"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      S3Bucket:
+#        - property: "name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      S3BucketPolicy:
+#        - property: "bucket-name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      EventRule:
+#        - property: "name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#        - property: "arn"
+#          type: "glob"
+#          value: "*:events:us-east-1:*:rule/PluginStack-*"
+#      LambdaPermission:
+#        - property: "name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      CDKMetadata:
+#        - property: "name"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#      CloudWatchEventsRule:
+#        - property: "Name"
+#          type: "glob"
+#          value: "PluginStack-*"
+#      CloudWatchEventsTarget:
+#        - property: "Rule"
+#          type: "glob"
+#          value: "*PluginStack-*"
+#        - property: "Target ID"
+#          type: "glob"
+#          value: "*PluginStack-*"
       GuardDutyDetector:
         - property: DetectorID
           type: glob
