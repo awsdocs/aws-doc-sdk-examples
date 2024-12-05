@@ -393,14 +393,14 @@ s3-directory-buckets_UploadPart:
 
 s3-directory-buckets_Scenario_ExpressBasics:
   synopsis_list:
-    - Set up a VPC and VPC Endpoint
-    - Set up the Policies, Roles, and User to work with S3 directory buckets and the S3 Express One Zone storage class
-    - Create two S3 Clients
-    - Create two buckets
-    - Create an object and copy it over
-    - Demonstrate performance difference
-    - Populate the buckets to show the lexicographical difference
-    - Prompt the user to see if they want to clean up the resources
+    - Set up a VPC and VPC Endpoint.
+    - Set up the Policies, Roles, and User to work with S3 directory buckets and the S3 Express One Zone storage class.
+    - Create two S3 Clients.
+    - Create two buckets.
+    - Create an object and copy it over.
+    - Demonstrate performance difference.
+    - Populate the buckets to show the lexicographical difference.
+    - Prompt the user to see if they want to clean up the resources.
   category: Basics
   languages:
     PHP:

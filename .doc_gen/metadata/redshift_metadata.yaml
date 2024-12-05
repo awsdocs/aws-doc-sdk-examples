@@ -9,9 +9,9 @@ redshift_Hello:
       versions:
         - sdk_version: 2
           github: gov2/redshift
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - gov2.redshift.Hello
     Java:

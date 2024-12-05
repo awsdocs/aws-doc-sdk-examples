@@ -1219,7 +1219,7 @@ bedrock-runtime_Scenario_ToolUseDemo_AnthropicClaude:
             - description: "The weather tool used by the demo. This script defines the tool specification and implements the logic to retrieve weather data using from the Open-Meteo API."
               snippet_tags:
                 - rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.weather-tool
-            - description: "Utilities to print the Message Content Blocks"
+            - description: "Utilities to print the Message Content Blocks."
               snippet_tags:
                 - rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.user-interface
             - description: "Use statements, Error utility, and constants."
