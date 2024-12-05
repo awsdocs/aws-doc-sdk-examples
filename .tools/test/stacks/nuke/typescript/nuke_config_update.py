@@ -2,10 +2,11 @@
     Python class responsible for updating the nuke generic config , based on exceptions to be filtered
     and also updates dynamically the region attribute passed in from the StepFunctions invocation. This should be modified to suit your needs.
 """
-import boto3
-import yaml
 import argparse
 import copy
+
+import boto3
+import yaml
 
 GLOBAL_RESOURCE_EXCEPTIONS = [
     {"property": "tag:DoNotNuke", "value": "True"},
@@ -18,7 +19,6 @@ GLOBAL_RESOURCE_EXCEPTIONS = [
 
 
 class StackInfo:
-
     def __init__(self, account, target_regions):
         self.session = boto3.Session(profile_name="nuke")
         # Regions to be targeted set from the Stepfunctions/CodeBuild workflow
@@ -79,7 +79,9 @@ class StackInfo:
                         if resource.get("ResourceType") == "AWS::CloudFormation::Stack":
                             self.GetCFNResources(resource, cfn_client)
                         else:
-                            nuke_type = self.UpdateResourceName(resource["ResourceType"])
+                            nuke_type = self.UpdateResourceName(
+                                resource["ResourceType"]
+                            )
                             if nuke_type in self.resources:
                                 self.resources[nuke_type].append(
                                     {
@@ -173,7 +175,9 @@ class StackInfo:
 
 try:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--account", dest="account", help="Account to nuke") # Account and Region from StepFunctions - CodeBuild overridden params
+    parser.add_argument(
+        "--account", dest="account", help="Account to nuke"
+    )  # Account and Region from StepFunctions - CodeBuild overridden params
     parser.add_argument("--region", dest="region", help="Region to target for nuke")
     args = parser.parse_args()
     if not args.account or not args.region:

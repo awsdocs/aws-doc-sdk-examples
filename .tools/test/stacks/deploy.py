@@ -2,51 +2,43 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import argparse
-import subprocess
 import os
-import yaml
-import time
 import re
-from nuke.typescript.upload_job_scripts import process_stack_and_upload_files
-from nuke.typescript.create_account_alias import create_account_alias
+import shutil
+import subprocess
+import time
 
 import boto3
+import yaml
 from botocore.exceptions import ClientError, NoCredentialsError
-import shutil
+
+from nuke.typescript.create_account_alias import create_account_alias
+from nuke.typescript.upload_job_scripts import process_stack_and_upload_files
+
 
 def get_caller_identity():
     try:
         # Create an STS client
         session = boto3.Session()
-        sts_client = session.client('sts')
+        sts_client = session.client("sts")
 
         # Get the caller identity
         caller_identity = sts_client.get_caller_identity()
 
         # Print the caller identity details
-        print("Account ID:", caller_identity['Account'])
-        print("Arn:", caller_identity['Arn'])
-        print("UserId:", caller_identity['UserId'])
-
-        # Check if temporary credentials are being used
-        if 'SessionContext' in caller_identity:
-            session_context = caller_identity['SessionContext']
-            if session_context is not None:
-                print("Temporary Credentials:")
-                print("SessionName:", session_context.get('SessionName', 'N/A'))
-                print("CreationDate:", session_context.get('CreationDate', 'N/A'))
-                print("ExpirationDate:", session_context.get('Expiration', 'N/A'))
-        else:
-            print("Long-term Credentials")
+        print("Account ID:", caller_identity["Account"])
+        print("Arn:", caller_identity["Arn"])
+        print("UserId:", caller_identity["UserId"])
 
     except NoCredentialsError:
         print("No credentials found in shared folder. Credentials wiped!")
     except ClientError as e:
         print(f"An error occurred: {e}")
 
+
 def delete_aws_directory():
     # Path to the .aws directory
-    aws_dir = os.path.expanduser('~/.aws')
+    aws_dir = os.path.expanduser("~/.aws")
 
     # Check if the directory exists
     if os.path.exists(aws_dir):
@@ -58,6 +50,7 @@ def delete_aws_directory():
             print(f"Error deleting {aws_dir}: {e}")
     else:
         print(f"{aws_dir} does not exist.")
+
 
 # Call the function
 def run_shell_command(command, env_vars=None):
@@ -103,12 +96,13 @@ def validate_alphanumeric(value, name):
     if not re.match(r"^\w+$", value):
         raise ValueError(f"{name} must be alphanumeric. Received: {value}")
 
+
 def get_tokens(account_id):
     """
     Get AWS tokens
     """
-    get_token_tool = os.getenv('TOKEN_TOOL')
-    get_token_provider = os.getenv('TOKEN_PROVIDER')
+    get_token_tool = os.getenv("TOKEN_TOOL")
+    get_token_provider = os.getenv("TOKEN_PROVIDER")
 
     # Securely update tokens
     get_tokens_command = [
@@ -124,8 +118,9 @@ def get_tokens(account_id):
         "--once",
     ]
     run_shell_command(get_tokens_command)
-    os.environ['AWS_DEFAULT_REGION'] = 'us-east-1'
+    os.environ["AWS_DEFAULT_REGION"] = "us-east-1"
     get_caller_identity()
+
 
 def deploy_resources(account_id, account_name, dir, lang="typescript"):
     """
@@ -189,7 +184,7 @@ def main():
                 accounts = yaml.safe_load(file)
         except Exception as e:
             print(f"Failed to read config data: \n{e}")
-    
+
     if accounts is None:
         raise ValueError(f"Could not load accounts for stack {args.type}")
 
@@ -197,29 +192,24 @@ def main():
         items = [(args.language, accounts[args.language])]
     else:
         items = accounts.items()
-        
-    for account_name, account_info in items:
 
+    for account_name, account_info in items:
         print(
             f"\n\n\n\n #### NEW DEPLOYMENT #### \n\n\n\n Deploying 🚀 Plugin stack to account {account_name} with ID {account_info['account_id']}"
         )
         get_tokens(account_info["account_id"])
-        deploy_resources(
-            account_info["account_id"],
-            account_name,
-            args.type
-        )
-        if 'plugin' in args.type:
+        deploy_resources(account_info["account_id"], account_name, args.type)
+        if "plugin" in args.type:
             print(
                 f"Deploying ☢️  AWS-Nuke to account {account_name} with ID {account_info['account_id']}"
             )
             os.chdir("../..")
 
             get_tokens(account_info["account_id"])
-            create_account_alias('weathertop-test')
+            create_account_alias("weathertop-test")
 
             get_tokens(account_info["account_id"])
-            deploy_resources(account_info["account_id"], account_name, 'nuke')
+            deploy_resources(account_info["account_id"], account_name, "nuke")
 
             get_tokens(account_info["account_id"])
             process_stack_and_upload_files()
@@ -227,7 +217,6 @@ def main():
             os.chdir("../..")
 
 
-
 if __name__ == "__main__":
-    os.environ['JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION'] = 'true'
+    os.environ["JSII_SILENCE_WARNING_UNTESTED_NODE_VERSION"] = "true"
     main()

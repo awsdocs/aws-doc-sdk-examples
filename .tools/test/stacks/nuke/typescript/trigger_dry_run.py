@@ -1,5 +1,7 @@
-import boto3
 import json
+
+import boto3
+
 
 def get_step_function_arn(stack_name):
     """
@@ -8,15 +10,15 @@ def get_step_function_arn(stack_name):
     :param stack_name: The name of the CloudFormation stack.
     :return: The ARN of the Step Function, or None if not found.
     """
-    cloudformation = boto3.client('cloudformation')
+    cloudformation = boto3.client("cloudformation")
 
     try:
         response = cloudformation.describe_stack_resources(StackName=stack_name)
-        resources = response['StackResources']
+        resources = response["StackResources"]
 
         for resource in resources:
-            if resource['ResourceType'] == 'AWS::StepFunctions::StateMachine':
-                return resource['PhysicalResourceId']
+            if resource["ResourceType"] == "AWS::StepFunctions::StateMachine":
+                return resource["PhysicalResourceId"]
 
         print(f"No Step Function found in stack '{stack_name}'.")
         return None
@@ -33,16 +35,15 @@ def trigger_step_function(step_function_arn, payload):
     :param step_function_arn: The ARN of the Step Function to trigger.
     :param payload: The input payload to pass to the Step Function execution.
     """
-    stepfunctions = boto3.client('stepfunctions')
+    stepfunctions = boto3.client("stepfunctions")
 
     try:
         response = stepfunctions.start_execution(
-            stateMachineArn=step_function_arn,
-            input=json.dumps(payload)
+            stateMachineArn=step_function_arn, input=json.dumps(payload)
         )
         print(f"Step Function triggered successfully.")
         print(f"Execution ARN: {response['executionArn']}")
-        return response['executionArn']
+        return response["executionArn"]
 
     except stepfunctions.exceptions.ClientError as e:
         print(f"Error triggering Step Function: {e}")
@@ -58,9 +59,7 @@ if __name__ == "__main__":
         "InputPayLoad": {
             "nuke_dry_run": "true",
             "nuke_version": "2.21.2",
-            "region_list": [
-                "us-east-1"
-            ]
+            "region_list": ["us-east-1"],
         }
     }
 
@@ -73,4 +72,3 @@ if __name__ == "__main__":
         trigger_step_function(step_function_arn, input_payload)
     else:
         print(f"Failed to find a Step Function in stack '{stack_name}'.")
-
