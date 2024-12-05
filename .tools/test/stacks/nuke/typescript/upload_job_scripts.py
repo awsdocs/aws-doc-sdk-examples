@@ -12,7 +12,7 @@ logging.basicConfig(
 )
 
 # Constants
-STACK_NAME = "NukeCleanser"
+STACK_NAME = "AccountNukerStack"
 REGION = "us-east-1"
 FILES_TO_UPLOAD = ["nuke_generic_config.yaml", "nuke_config_update.py"]
 INPUT_PAYLOAD = {

@@ -653,7 +653,7 @@ class NukeStack extends cdk.Stack {
 
 const app = new cdk.App();
 
-new NukeStack(app, `NukeStack-${process.env.TOOL_NAME?.replace("_", "-")}`,
+new NukeStack(app, `AccountNukerStack-${process.env.TOOL_NAME?.replace("_", "-")}`,
     {
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
