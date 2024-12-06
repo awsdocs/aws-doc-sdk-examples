@@ -26,9 +26,9 @@ ssm_Hello:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.Hello
   services:
@@ -110,9 +110,9 @@ ssm_CreateOpsItem:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.OpsItemWrapper.decl
                 - python.example_code.ssm.CreateOpsItem
@@ -142,9 +142,9 @@ ssm_UpdateMaintenanceWindow:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.MaintenanceWindowWrapper.decl
                 - python.example_code.ssm.UpdateMaintenanceWindow
@@ -174,9 +174,9 @@ ssm_CreateMaintenanceWindow:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.MaintenanceWindowWrapper.decl
                 - python.example_code.ssm.CreateMaintenanceWindow
@@ -206,9 +206,9 @@ ssm_SendCommand:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.DocumentWrapper.decl
                 - python.example_code.ssm.SendCommand
@@ -229,9 +229,9 @@ ssm_ListCommandInvocations:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.DocumentWrapper.decl
                 - python.example_code.ssm.ListCommandInvocations
@@ -261,9 +261,9 @@ ssm_CreateDocument:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.DocumentWrapper.decl
                 - python.example_code.ssm.CreateDocument
@@ -293,9 +293,9 @@ ssm_DescribeOpsItems:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.OpsItemWrapper.decl
                 - python.example_code.ssm.DescribeOpsItem
@@ -307,9 +307,9 @@ ssm_DeleteOpsItem:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.OpsItemWrapper.decl
                 - python.example_code.ssm.DeleteOpsItem
@@ -339,9 +339,9 @@ ssm_DeleteMaintenanceWindow:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.MaintenanceWindowWrapper.decl
                 - python.example_code.ssm.DeleteMaintenanceWindow
@@ -371,9 +371,9 @@ ssm_DeleteDocument:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.DocumentWrapper.decl
                 - python.example_code.ssm.DeleteDocument
@@ -403,9 +403,9 @@ ssm_UpdateOpsItem:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.OpsItemWrapper.decl
                 - python.example_code.ssm.UpdateOpsItem
@@ -432,27 +432,30 @@ ssm_Scenario:
         - sdk_version: 3
           github: javascriptv3/example_code/ssm
           sdkguide:
-          genai: some
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - ssm.JavaScript.Basics.scenario
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/ssm
-          genai: some
           excerpts:
             - description: Run an interactive scenario at a command prompt.
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.Scenario_GetStartedSSM
             - description: Define a class that wraps document and command actions.
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.DocumentWrapper.class
             - description: Define a class that wraps ops item actions.
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.OpsItemWrapper.class
             - description: Define a class that wraps maintenance window actions.
+              genai: some
               snippet_tags:
                 - python.example_code.ssm.MaintenanceWindowWrapper.class
   services:
