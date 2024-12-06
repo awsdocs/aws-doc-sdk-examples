@@ -13,11 +13,6 @@ import Smithy
 import SmithyHTTPAPI
 import SmithyStreams
 
-// Include FoundationNetworking on non-Apple platforms.
-
-#if canImport(FoundationNetworking)
-import FoundationNetworking
-#endif
 // snippet-end:[swift.s3.binary-streaming.imports]
 
 // -MARK: - Async command line tool
