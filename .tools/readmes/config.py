@@ -118,6 +118,15 @@ language = {
                 "transcribe": "dotnetv3/Transcribe",
                 "translate": "dotnetv3/Translate",
             },
+        },
+        4: {
+            "base_folder": "dotnetv4",
+            "service_folder": 'dotnetv4/{{service["name"] | capitalize}}',
+            "sdk_api_ref": 'https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/{{service["name"] | capitalize}}/N{{service["name"] | capitalize}}.html',
+            "service_folder_overrides": {
+                "aurora": "dotnetv4/Aurora",
+                "auto-scaling": "dotnetv4/AutoScaling",
+            },
         }
     },
     "PHP": {
