@@ -219,7 +219,7 @@ class HealthLakeWrapper:
 
     # snippet-end:[python.example_code.healthlake.DescribeFHIRImportJob]
 
-    # snippet-start:[python.example_code.healthlake.ListFHIRDatastoreImportJobs]
+    # snippet-start:[python.example_code.healthlake.ListFHIRImportJobs]
     def list_fhir_import_jobs(
         self,
         datastore_id: str,
@@ -267,7 +267,7 @@ class HealthLakeWrapper:
             )
             raise
 
-    # snippet-end:[python.example_code.healthlake.ListFHIRDatastoreImportJobs]
+    # snippet-end:[python.example_code.healthlake.ListFHIRImportJobs]
 
     # snippet-start:[python.example_code.healthlake.StartFHIRExportJob]
     def start_fhir_export_job(

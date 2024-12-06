@@ -5,6 +5,7 @@ healthlake_CreateFHIRDatastore:
       versions:
         - sdk_version: 3
           github: python/example_code/healthlake
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -23,6 +24,7 @@ healthlake_DescribeFHIRDatastore:
       versions:
         - sdk_version: 3
           github: python/example_code/healthlake
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -36,6 +38,7 @@ healthlake_ListFHIRDatastores:
       versions:
         - sdk_version: 3
           github: python/example_code/healthlake
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -49,6 +52,7 @@ healthlake_DeleteFHIRDatastore:
       versions:
         - sdk_version: 3
           github: python/example_code/healthlake
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -62,6 +66,7 @@ healthlake_StartFHIRImportJob:
       versions:
         - sdk_version: 3
           github: python/example_code/healthlake
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -75,6 +80,7 @@ healthlake_DescribeFHIRImportJob:
       versions:
         - sdk_version: 3
           github: python/example_code/healthlake
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -82,25 +88,27 @@ healthlake_DescribeFHIRImportJob:
                 - python.example_code.healthlake.DescribeFHIRImportJob
   services:
     healthlake: {DescribeFHIRImportJob}
-healthlake_ListFHIRDatastoreImportJobs:
+healthlake_ListFHIRImportJobs:
   languages:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/healthlake
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
                 - python.example_code.healthlake.HealthLakeWrapper.decl
-                - python.example_code.healthlake.ListFHIRDatastoreImportJobs
+                - python.example_code.healthlake.ListFHIRImportJobs
   services:
-    healthlake: {ListFHIRDatastoreImportJobs}
+    healthlake: {ListFHIRImportJobs}
 healthlake_StartFHIRExportJob:
   languages:
     Python:
       versions:
         - sdk_version: 3
           github: python/example_code/healthlake
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -114,6 +122,7 @@ healthlake_DescribeFHIRExportJob:
       versions:
         - sdk_version: 3
           github: python/example_code/healthlake
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -127,6 +136,7 @@ healthlake_ListFHIRExportJobs:
       versions:
         - sdk_version: 3
           github: python/example_code/healthlake
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -140,6 +150,7 @@ healthlake_TagResource:
       versions:
         - sdk_version: 3
           github: python/example_code/healthlake
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -153,6 +164,7 @@ healthlake_ListTagsForResource:
       versions:
         - sdk_version: 3
           github: python/example_code/healthlake
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
@@ -166,6 +178,7 @@ healthlake_UntagResource:
       versions:
         - sdk_version: 3
           github: python/example_code/healthlake
+          github_note_at_bottom: true
           excerpts:
             - description:
               snippet_tags:
