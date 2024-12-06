@@ -141,7 +141,7 @@ class PluginStack extends cdk.Stack {
           },
         ],
         ephemeralStorage: {
-          sizeInGib: this.batchStorage,
+          sizeInGiB: this.batchStorage,
         },
         environment: variableConfigJson,
       },
