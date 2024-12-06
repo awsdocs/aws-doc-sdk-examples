@@ -35,7 +35,7 @@ describe("Scenario - AutoConfirm", () => {
       }),
     );
     await retry(
-      { intervalInMs: 2000, maxRetries: 60, backoff: 1000 },
+      { intervalInMs: 2000, maxRetries: 100, backoff: 5000 },
       async () => {
         const { Stacks } = await cloudformationClient.send(
           new DescribeStacksCommand({ StackName: stackName }),
