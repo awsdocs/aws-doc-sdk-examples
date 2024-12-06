@@ -826,7 +826,6 @@ cross_CognitoAutoConfirmUser:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cross-services/wkflw-pools-triggers
-          sdk_guide:
           excerpts:
             - description: |
                 Configure an interactive "Scenario" run. The JavaScript (v3) examples
