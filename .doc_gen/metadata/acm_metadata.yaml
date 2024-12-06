@@ -1,6 +1,15 @@
 # zexi 0.4.0
 acm_DescribeCertificate:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/acm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - acm.java2.describe_cert.main
     .NET:
       versions:
         - sdk_version: 3
@@ -52,6 +61,15 @@ acm_GetCertificate:
     acm: {GetCertificate}
 acm_ListCertificates:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/acm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - acm.java2.list_certs.main
     .NET:
       versions:
         - sdk_version: 3
@@ -82,6 +100,15 @@ acm_ListCertificates:
     acm: {ListCertificates}
 acm_ImportCertificate:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/acm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - acm.java2.import_cert.main
     Python:
       versions:
         - sdk_version: 3
@@ -103,6 +130,15 @@ acm_ImportCertificate:
     acm: {ImportCertificate}
 acm_DeleteCertificate:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/acm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - acm.java2.del_cert.main
     Python:
       versions:
         - sdk_version: 3
@@ -124,6 +160,15 @@ acm_DeleteCertificate:
     acm: {DeleteCertificate}
 acm_AddTagsToCertificate:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/acm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - acm.java2.add_tags.main
     Python:
       versions:
         - sdk_version: 3
@@ -145,6 +190,15 @@ acm_AddTagsToCertificate:
     acm: {AddTagsToCertificate}
 acm_ExportCertificate:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/acm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - acm.java2.export_cert.main
     C++:
       versions:
         - sdk_version: 1
@@ -157,6 +211,15 @@ acm_ExportCertificate:
     acm: {ExportCertificate}
 acm_ListTagsForCertificate:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/acm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - acm.java2.list_cert_tags.main
     Python:
       versions:
         - sdk_version: 3
@@ -178,6 +241,15 @@ acm_ListTagsForCertificate:
     acm: {ListTagsForCertificate}
 acm_RemoveTagsFromCertificate:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/acm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - acm.java2.remove_tags.main
     Python:
       versions:
         - sdk_version: 3
@@ -199,6 +271,15 @@ acm_RemoveTagsFromCertificate:
     acm: {RemoveTagsFromCertificate}
 acm_RequestCertificate:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/acm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - acm.java2.request_cert.main
     Python:
       versions:
         - sdk_version: 3
@@ -241,6 +322,15 @@ acm_ResendValidationEmail:
     acm: {ResendValidationEmail}
 acm_RenewCertificate:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/acm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - acm.java2.renew_cert.main
     C++:
       versions:
         - sdk_version: 1

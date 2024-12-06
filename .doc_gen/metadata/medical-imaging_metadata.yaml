@@ -1232,28 +1232,28 @@ medical-imaging_Scenario_ImageSetsAndFrames:
           github: javascriptv3/example_code/medical-imaging
           github_note_at_bottom: true
           excerpts:
-            - description: <noloc>index.js</noloc> - Orchestrate steps.
+            - description: Orchestrate steps (<noloc>index.js</noloc>).
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/index.js
-            - description: <noloc>deploy-steps.js</noloc> - Deploy resources.
+            - description: Deploy resources (<noloc>deploy-steps.js</noloc>).
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/deploy-steps.js
-            - description: <noloc>dataset-steps.js</noloc> - Copy DICOM files. 
+            - description: Copy DICOM files (<noloc>dataset-steps.js</noloc>).
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/dataset-steps.js
-            - description: <noloc>import-steps.js</noloc> - Start import into datastore.
+            - description: Start import into datastore (<noloc>import-steps.js</noloc>).
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/import-steps.js
-            - description: <noloc>image-set-steps.js</noloc> - Get image set IDs.
+            - description: Get image set IDs (<noloc>image-set-steps.js</noloc> - ).
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/image-set-steps.js
-            - description: <noloc>image-frame-steps.js</noloc> - Get image frame IDs.
+            - description: Get image frame IDs (<noloc>image-frame-steps.js</noloc>).
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/image-frame-steps.js
-            - description: <noloc>verify-steps.js</noloc> - Verify image frames. The <ulink url="https://github.com/aws-samples/aws-healthimaging-samples/tree/main/pixel-data-verification">&AWS; HealthImaging Pixel Data Verification</ulink> library was used for verification.
+            - description: Verify image frames (<noloc>verify-steps.js</noloc>). The <ulink url="https://github.com/aws-samples/aws-healthimaging-samples/tree/main/pixel-data-verification">&AWS; HealthImaging Pixel Data Verification</ulink> library was used for verification.
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/verify-steps.js
-            - description: <noloc>clean-up-steps.js</noloc> - Destroy resources.
+            - description: Destroy resources (<noloc>clean-up-steps.js</noloc>).
               snippet_files:
                 - javascriptv3/example_code/medical-imaging/scenarios/health-image-sets/clean-up-steps.js
   services:

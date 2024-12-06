@@ -7,7 +7,6 @@ namespace BedrockRuntimeTests
     {
         [Theory, Trait("Category", "Integration")]
         [InlineData(typeof(Mistral.InvokeModelWithResponseStream))]
-        [InlineData(typeof(MetaLlama2.InvokeModelWithResponseStream))]
         [InlineData(typeof(MetaLlama3.InvokeModelWithResponseStream))]
         [InlineData(typeof(CohereCommand.InvokeModelWithResponseStream))]
         [InlineData(typeof(CohereCommandR.InvokeModelWithResponseStream))]

@@ -34,15 +34,18 @@ describe("Scenario - AutoConfirm", () => {
         Capabilities: [Capability.CAPABILITY_NAMED_IAM],
       }),
     );
-    await retry({ intervalInMs: 2000, maxRetries: 60 }, async () => {
-      const { Stacks } = await cloudformationClient.send(
-        new DescribeStacksCommand({ StackName: stackName }),
-      );
-      const stack = Stacks[0];
-      if (stack.StackStatus !== "CREATE_COMPLETE") {
-        throw new Error("Stack creation incomplete.");
-      }
-    });
+    await retry(
+      { intervalInMs: 2000, maxRetries: 100, backoff: 5000 },
+      async () => {
+        const { Stacks } = await cloudformationClient.send(
+          new DescribeStacksCommand({ StackName: stackName }),
+        );
+        const stack = Stacks[0];
+        if (stack.StackStatus !== "CREATE_COMPLETE") {
+          throw new Error("Stack creation incomplete.");
+        }
+      },
+    );
   });
 
   afterAll(async () => {
