@@ -86,7 +86,7 @@ python hello/hello_iot_sitewise.py
 
 #### Learn the basics
 
-This example shows you how to Learn core operations for AWS IoT SiteWise using an AWS SDK.
+This example shows you how to learn core operations for AWS IoT SiteWise using an AWS SDK.
 
 
 <!--custom.basic_prereqs.iotsitewise_Scenario.start-->
