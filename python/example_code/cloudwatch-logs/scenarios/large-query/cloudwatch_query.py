@@ -8,6 +8,8 @@ import boto3
 
 from date_utilities import DateUtilities
 
+DEFAULT_QUERY = "fields @timestamp, @message | sort @timestamp asc"
+DEFAULT_LOG_GROUP = "/workflows/cloudwatch-logs/large-query"
 
 class DateOutOfBoundsError(Exception):
     """Exception raised when the date range for a query is out of bounds."""
@@ -19,17 +21,18 @@ class CloudWatchQuery:
     """
     A class to query AWS CloudWatch logs within a specified date range.
 
-    :ivar date_range: Start and end datetime for the query.
     :vartype date_range: tuple
     :ivar limit: Maximum number of log entries to return.
     :vartype limit: int
+    :log_group str: Name of the log group to query
+    :query_string str: query
     """
 
-    def __init__(self, date_range):
+    def __init__(self, log_group: str = DEFAULT_LOG_GROUP, query_string: str=DEFAULT_QUERY) -> None:
         self.lock = threading.Lock()
-        self.log_groups = "/workflows/cloudwatch-logs/large-query"
+        self.log_group = log_group
+        self.query_string = query_string
         self.query_results = []
-        self.date_range = date_range
         self.query_duration = None
         self.datetime_format = "%Y-%m-%d %H:%M:%S.%f"
         self.date_utilities = DateUtilities()
@@ -50,8 +53,9 @@ class CloudWatchQuery:
 
         logging.info(
             f"Original query:"
-            f"\n       START:    {start_date}"
-            f"\n       END:      {end_date}"
+            f"\n       START:     {start_date}"
+            f"\n       END:       {end_date}"
+            f"\n       LOG GROUP: {self.log_group}"
         )
         self.recursive_query((start_date, end_date))
         end_time = datetime.now()
@@ -143,10 +147,10 @@ class CloudWatchQuery:
                     self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[1])
                 )
                 response = client.start_query(
-                    logGroupName=self.log_groups,
+                    logGroupName=self.log_group,
                     startTime=start_time,
                     endTime=end_time,
-                    queryString="fields @timestamp, @message | sort @timestamp asc",
+                    queryString=self.query_string,
                     limit=self.limit,
                 )
                 query_id = response["queryId"]
@@ -185,10 +189,10 @@ class CloudWatchQuery:
                 self.date_utilities.convert_iso8601_to_unix_timestamp(date_range[1])
             )
             response = client.start_query(
-                logGroupName=self.log_groups,
+                logGroupName=self.log_group,
                 startTime=start_time,
                 endTime=end_time,
-                queryString="fields @timestamp, @message | sort @timestamp asc",
+                queryString=self.query_string,
                 limit=max_logs,
             )
             return response["queryId"]
