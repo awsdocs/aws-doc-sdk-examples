@@ -2743,7 +2743,24 @@ s3_Scenario_PresignedUrl:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description: Generate a pre-signed URL for an object, then download it (GET request).
+            - description: >-
+                The following shows three example of how to create presigned URLs and use the URLs with
+                  HTTP client libraries:</para>
+                <itemizedlist>
+                  <listitem>
+                    <para>An HTTP GET request that uses the URL with three HTTP client libraries</para>
+                  </listitem>
+                  <listitem>
+                    <para>An HTTP PUT request with metadata in headers that uses the URL with three HTTP client
+                      libraries</para>
+                  </listitem>
+                  <listitem>
+                    <para>An HTTP PUT request with query parameters that uses the URL with one HTTP client
+                      library</para>
+                  </listitem>
+                </itemizedlist>
+                <para>
+                  Generate a pre-signed URL for an object, then download it (GET request).
             - description: Imports.
               snippet_tags:
                 - presigned.java2.generatepresignedgeturlandretrieve.import
