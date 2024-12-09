@@ -481,6 +481,11 @@ class Ec2Stubber(ExampleStubber):
         self._stub_bifurcator(
             "create_vpc", expected_params, response, error_code=error_code
         )
+    
+    def stub_delete_vpc(self, vpc_id, error_code=None):
+        expected_params = {"VpcId": vpc_id}
+        response = {}
+        self._stub_bifurcator("delete_vpc", expected_params, response, error_code=error_code)
 
     def stub_describe_route_tables(
         self, filters, vpc_id, route_table_id, error_code=None
@@ -548,7 +553,7 @@ class Ec2Stubber(ExampleStubber):
         }
         response = {
             "VpcEndpoint": {
-                "VpcEndpointId": "vpce-XXXXXXXXXXXXXXXXX",
+                "VpcEndpointId": f"vpce-{vpc_id}",
                 "VpcEndpointType": "Interface",
                 "VpcId": vpc_id,
                 "ServiceName": service_name,
@@ -566,4 +571,12 @@ class Ec2Stubber(ExampleStubber):
         }
         self._stub_bifurcator(
             "create_vpc_endpoint", expected_params, response, error_code=error_code
+        )
+
+    def stub_delete_vpc_endpoints(self, vpc_endpoint_ids, error_code=None):
+        expected_params = {"VpcEndpointIds": vpc_endpoint_ids}
+        response = {
+        }
+        self._stub_bifurcator(
+            "delete_vpc_endpoints", expected_params, response, error_code=error_code
         )
