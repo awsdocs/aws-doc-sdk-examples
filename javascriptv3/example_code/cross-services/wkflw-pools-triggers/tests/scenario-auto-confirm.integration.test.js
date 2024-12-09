@@ -42,7 +42,9 @@ describe("Scenario - AutoConfirm", () => {
         );
         const stack = Stacks[0];
         if (stack.StackStatus !== "CREATE_COMPLETE") {
-          throw new Error("Stack creation incomplete.");
+          throw new Error(
+            `Stack creation incomplete. STATUS:  ${stack.StackStatus}`,
+          );
         }
       },
     );
