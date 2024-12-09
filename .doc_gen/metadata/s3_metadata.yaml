@@ -2744,7 +2744,7 @@ s3_Scenario_PresignedUrl:
           sdkguide:
           excerpts:
             - description: >-
-                <para>The following shows three example of how to create presigned URLs and use the URLs with
+                The following shows three example of how to create presigned URLs and use the URLs with
                   HTTP client libraries:</para>
                 <itemizedlist>
                   <listitem>
@@ -2760,8 +2760,7 @@ s3_Scenario_PresignedUrl:
                   </listitem>
                 </itemizedlist>
                 <para>
-                  <emphasis role="bold">Generate a pre-signed URL for an object, then download it (GET request).</emphasis>
-                </para>
+                  Generate a pre-signed URL for an object, then download it (GET request).
             - description: Imports.
               snippet_tags:
                 - presigned.java2.generatepresignedgeturlandretrieve.import
