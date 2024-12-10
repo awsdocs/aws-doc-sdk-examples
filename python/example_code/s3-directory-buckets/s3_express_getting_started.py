@@ -6,6 +6,7 @@ import sys
 import os
 import uuid
 import time
+import argparse
 from boto3.resources.base import ServiceResource
 from boto3 import resource
 from boto3 import client
@@ -16,10 +17,9 @@ import boto3
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Add relative path to include demo_tools in this code example without need for setup.
-sys.path.append(os.path.join(script_dir, "../../.."))
+sys.path.append(os.path.join(script_dir, "../.."))
 import demo_tools.question as q
 
-no_art = False  # 'no_art' suppresses 'art' to improve accessibility.
 logger = logging.getLogger(__name__)
 
 
@@ -48,12 +48,11 @@ class S3ExpressScenario:
         cloud_formation_resource: ServiceResource,
         ec2_client: client,
         iam_client: client,
-        region: str = None,
     ):
         self.cloud_formation_resource = cloud_formation_resource
         self.ec2_client = ec2_client
         self.iam_client = iam_client
-        self.region = region if region else ec2_client.meta.region_name
+        self.region = ec2_client.meta.region_name
         self.stack = None
         self.vpc_id = None
         self.vpc_endpoint_id = None
@@ -93,7 +92,7 @@ bucket.
         self.demonstrate_performance(bucket_object)
 
         # Populate the buckets to show the lexicographical difference between regular and express buckets.
-        self.show_lexigraphical_differences(bucket_object)
+        self.show_lexicographical_differences(bucket_object)
 
         print("")
         print("That's it for our tour of the basic operations for S3 Express One Zone.")
@@ -104,7 +103,11 @@ bucket.
         ):
             self.cleanup()
 
-    def create_vpc_and_users(self):
+    def create_vpc_and_users(self) -> None:
+        """
+        Optionally create a VPC.
+        Create two IAM users, one with S3 Express One Zone permissions and one without.
+        """
         # Configure a gateway VPC endpoint. This is the recommended method to allow S3 Express One Zone traffic without
         # the need to pass through an internet gateway or NAT device.
         print("")
@@ -148,7 +151,14 @@ bucket.
             raise ValueError(error_string)
         return express_user_name, regular_user_name
 
-    def setup_clients_and_buckets(self, express_user_name, regular_user_name):
+    def setup_clients_and_buckets(
+        self, express_user_name: str, regular_user_name: str
+    ) -> None:
+        """
+        Set up two S3 clients, one regular and one express, and two buckets, one regular and one express.
+        :param express_user_name: The name of the user with S3 Express permissions.
+        :param regular_user_name: The name of the user with regular S3 permissions.
+        """
         regular_credentials = self.create_access_key(regular_user_name)
         express_credentials = self.create_access_key(express_user_name)
         # 3. Create an additional client using the credentials with S3 Express permissions.
@@ -220,7 +230,10 @@ bucket.
         print("Great! Both buckets were created.")
         press_enter_to_continue()
 
-    def create_session_and_add_objects(self):
+    def create_session_and_add_objects(self) -> None:
+        """
+        Create a session for the express S3 client and add objects to the buckets.
+        """
         print("")
         print("5. Create an object and copy it over.")
         print(
@@ -260,7 +273,11 @@ bucket.
         press_enter_to_continue()
         return bucket_object
 
-    def demonstrate_performance(self, bucket_object):
+    def demonstrate_performance(self, bucket_object: str) -> None:
+        """
+        Demonstrate performance differences between regular and Directory buckets.
+        :param bucket_object: The name of the object to download from each bucket.
+        """
         print("")
         print("6. Demonstrate performance difference.")
         print(
@@ -308,7 +325,12 @@ bucket.
             )
         press_enter_to_continue()
 
-    def show_lexigraphical_differences(self, bucket_object):
+    def show_lexicographical_differences(self, bucket_object: str) -> None:
+        """
+        Show the lexicographical difference between Directory buckets and regular buckets.
+        This is done by creating a few objects in each bucket and listing them to show the difference.
+        :param bucket_object: The object to use for the listing operations.
+        """
         print("")
         print("7. Populate the buckets to show the lexicographical difference.")
         print(
@@ -376,7 +398,7 @@ bucket.
         )
         press_enter_to_continue()
 
-    def cleanup(self):
+    def cleanup(self) -> None:
         """
         Delete resources created by this scenario.
         """
@@ -728,7 +750,7 @@ bucket.
             )
             raise
 
-    def tear_done_vpc(self):
+    def tear_done_vpc(self) -> None:
         if self.vpc_endpoint_id is not None:
             try:
                 self.ec2_client.delete_vpc_endpoints(
@@ -753,16 +775,22 @@ bucket.
                     self.vpc_id,
                     client_error.response["Error"]["Message"],
                 )
-
+# snippet-end:[python.example_code.s3.s3_express_basics]
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Run S3 Express getting started scenario."
+    )
+    parser.add_argument(
+        "--no-art",
+        action="store_true",
+        help="accessibility setting that suppresses art in the console output.",
+    )
+    args = parser.parse_args()
+    no_art = args.no_art
+
     s3_express_scenario = None
-    my_s3_client = client("s3")
-    # delete all directory buckets
-    bucket_list = my_s3_client.list_directory_buckets()
-    for bucket in bucket_list["Buckets"]:
-        print(f"Deleting bucket {bucket['Name']}")
-        S3ExpressScenario.delete_bucket_and_objects(my_s3_client, bucket["Name"])
+
     try:
         a_cloud_formation_resource = resource("cloudformation")
         an_ec2_client = client("ec2")
@@ -784,4 +812,4 @@ if __name__ == "__main__":
         if s3_express_scenario is not None:
             s3_express_scenario.cleanup()
 
-# snippet-end:[python.example_code.s3.s3_express_basics]
+
