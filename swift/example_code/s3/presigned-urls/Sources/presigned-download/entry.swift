@@ -80,7 +80,7 @@ struct ExampleCommand: ParsableCommand {
                 
         let s3Client = try await S3Client()
 
-        // Create a presigned URLRequest with the `GetObject` action.
+        // Download the file using `GetObject` and the stream's `readData()`.
         
         let getInput = GetObjectInput(
             bucket: bucket,
