@@ -413,6 +413,17 @@ s3-directory-buckets_Scenario_ExpressBasics:
               snippet_tags:
                 - php.example_code.s3.ExpressBasics
                 - php.example_code.s3.service.S3Service
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3-directory-buckets/
+          sdkguide:
+          excerpts:
+            - description: >
+               Run a scenario demonstrating the basics of &S3; directory buckets
+               and S3 Express One Zone.
+              snippet_tags:
+                - python.example_code.s3.s3_express_basics
   services:
     s3-directory-buckets: {CreateBucket, CopyObject, GetObject, PutObject, ListObjects, DeleteObject, DeleteBucket}
 
