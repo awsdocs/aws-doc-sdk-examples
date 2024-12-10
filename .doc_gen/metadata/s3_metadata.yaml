@@ -3262,7 +3262,32 @@ s3_Scenario_UploadStream:
               snippet_tags:
                 - s3.tm.java2.upload_stream.import
                 - s3.tm.java2.upload_stream.main
-
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/binary-streaming
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.s3.streaming-up.imports
+                - swift.s3.streaming-up
+  services:
+    s3: {}
+s3_Scenario_DownloadStream:
+  title: Download a stream of unknown size from an &S3; object using an &AWS; SDK
+  title_abbrev: Download stream of unknown size
+  synopsis: download a stream of unknown size from an &S3; object.
+  category: Scenarios
+  languages:
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/binary-streaming
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.s3.streaming-down.imports
+                - swift.s3.streaming-down
   services:
     s3: {}
 s3_Scenario_UseChecksums:
