@@ -132,13 +132,13 @@ accounts:
 #        - property: "Name"
 #          type: "glob"
 #          value: "*PluginStack-*"
-#      LambdaEventSourceMapping:
-#        - property: "EventSourceArn"
-#          type: "glob"
-#          value: "*PluginStack-*"
-#        - property: "FunctionArn"
-#          type: "glob"
-#          value: "*PluginStack-*"
+      LambdaEventSourceMapping:
+        - property: "EventSourceArn"
+          type: "glob"
+          value: "*PluginStack-*"
+        - property: "FunctionArn"
+          type: "glob"
+          value: "*PluginStack-*"
 #      S3Bucket:
 #        - property: "name"
 #          type: "glob"
@@ -154,10 +154,10 @@ accounts:
 #        - property: "arn"
 #          type: "glob"
 #          value: "*:events:us-east-1:*:rule/PluginStack-*"
-#      LambdaPermission:
-#        - property: "name"
-#          type: "glob"
-#          value: "*PluginStack-*"
+      LambdaPermission:
+        - property: "name"
+          type: "glob"
+          value: "*PluginStack-*"
 #      CDKMetadata:
 #        - property: "name"
 #          type: "glob"

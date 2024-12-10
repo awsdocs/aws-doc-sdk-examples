@@ -39,10 +39,63 @@ logger = logging.getLogger(__name__)
 # AWS session
 session = boto3.Session(region_name=REGION)
 
+def _get_stack_name(partial_stack_name: str) -> Optional[str]:
+    """
+    Retrieves the full stack name from a partial stack name.
 
-def _get_resource_from_stack(stack_name: str, resource_type: str) -> Optional[str]:
-    """Retrieve a specific resource from a CloudFormation stack."""
+    Args:
+        partial_stack_name (str): The partial stack name to search for.
+
+    Returns:
+        Optional[str]: The full stack name if found, otherwise None.
+    """
+    session = boto3.Session()
     cloudformation = session.client("cloudformation")
+
+    try:
+        # List all stacks with status CREATE_COMPLETE
+        response = cloudformation.list_stacks(
+            StackStatusFilter=['CREATE_COMPLETE']
+        )
+    except ClientError as e:
+        print(f"Error listing stacks: {e}")
+        return None
+
+    matching_stacks = []
+    for stack in response['StackSummaries']:
+        if partial_stack_name in stack['StackName']:
+            matching_stacks.append(stack['StackName'])
+
+    if not matching_stacks:
+        print(f"No matching stacks found for partial name: {partial_stack_name}")
+        return None
+    elif len(matching_stacks) > 1:
+        print(f"WARNING: Found multiple stacks sharing the same partial name: {partial_stack_name}.")
+        return None
+    else:
+        return matching_stacks[0]
+
+
+def _get_resource_from_stack(partial_stack_name: str, resource_type: str) -> Optional[str]:
+    """
+    Retrieve a specific resource from a CloudFormation stack.
+
+    Args:
+        partial_stack_name (str): The partial name of the CloudFormation stack.
+        resource_type (str): The type of resource to retrieve (e.g., "AWS::IAM::Role").
+
+    Returns:
+        Optional[str]: The physical resource ID if found, otherwise None.
+    """
+    session = boto3.Session()
+    cloudformation = session.client("cloudformation")
+
+    # Get the full stack name from the partial name
+    stack_name = _get_stack_name(partial_stack_name)
+    if not stack_name:
+        logger.warning(f"No stack found with partial name: {partial_stack_name}")
+        return None
+
     try:
         response = cloudformation.describe_stack_resources(StackName=stack_name)
         for resource in response["StackResources"]:
@@ -56,6 +109,7 @@ def _get_resource_from_stack(stack_name: str, resource_type: str) -> Optional[st
 
 def _get_s3_bucket_from_stack(stack_name: str) -> Optional[str]:
     """Retrieve the S3 bucket name from a CloudFormation stack."""
+    breakpoint()
     return _get_resource_from_stack(stack_name, "AWS::S3::Bucket")
 
 
