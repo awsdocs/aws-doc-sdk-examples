@@ -7,95 +7,84 @@ Tests for s3_express_getting_started.py.
 
 import pytest
 
-import boto3
+
 from botocore.exceptions import ClientError
-from botocore import waiter
-import os
-import sys
-import uuid
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Append directory for s3_express_getting_started.py
-sys.path.append(os.path.join(script_dir, ".."))
-import s3_express_getting_started
 
 number_of_uploads = 10
 
 
-stop_on_index = []
-for i in range(len(stop_on_index), len(stop_on_index) + number_of_uploads):
-    stop_on_index.append((f"TESTERROR-stub_get_object_directory", i))
+class MockManager:
+    def __init__(self, stub_runner, scenario_data, input_mocker):
+        self.scenario_data = scenario_data
+        self.my_uuid = "0000"
 
-for i in range(len(stop_on_index), len(stop_on_index) + number_of_uploads):
-    stop_on_index.append((f"TESTERROR-stub_get_object_regular", i))
+        self.availability_zone_ids = ["use1-az2"]
+
+        self.bucket_name_prefix = "amzn-s3-demo-bucket"
+        self.directory_bucket_name = f"{self.bucket_name_prefix}-{self.my_uuid}--{self.availability_zone_ids[0]}--x-s3"
+        self.regular_bucket_name = f"{self.bucket_name_prefix}-regular-{self.my_uuid}"
+
+        self.object_name = "basic-text-object"
+
+        answers = [
+            "y",
+            number_of_uploads,
+        ]
+        input_mocker.mock_answers(answers)
+        self.stub_runner = stub_runner
+
+        scenario_data.scenario.s3_express_client = scenario_data.s3_client
+        scenario_data.scenario.s3_regular_client = scenario_data.s3_client
+        scenario_data.scenario.regular_bucket_name = self.regular_bucket_name
+        scenario_data.scenario.directory_bucket_name = self.directory_bucket_name
+
+    def setup_stubs(self, error, stop_on, s3_stubber):
+        with self.stub_runner(error, stop_on) as runner:
+            for _ in range(number_of_uploads):
+                runner.add(
+                    s3_stubber.stub_get_object,
+                    self.directory_bucket_name,
+                    self.object_name,
+                )
+
+            for _ in range(number_of_uploads):
+                runner.add(
+                    s3_stubber.stub_get_object,
+                    self.regular_bucket_name,
+                    self.object_name,
+                )
+
+
+@pytest.fixture
+def mock_mgr(stub_runner, scenario_data, input_mocker):
+    return MockManager(stub_runner, scenario_data, input_mocker)
 
 
 @pytest.mark.integ
+def test_scenario_demonstrate_performance(mock_mgr, capsys, monkeypatch):
+    mock_mgr.setup_stubs(None, None, mock_mgr.scenario_data.s3_stubber)
+
+    mock_mgr.scenario_data.scenario.demonstrate_performance(mock_mgr.object_name)
+
+
+parameter_values = []
+for i in range(len(parameter_values), len(parameter_values) + number_of_uploads):
+    parameter_values.append((f"TESTERROR-stub_get_object_directory", i))
+
+for i in range(len(parameter_values), len(parameter_values) + number_of_uploads):
+    parameter_values.append((f"TESTERROR-stub_get_object_regular", i))
+
+
 @pytest.mark.parametrize(
-    "error_code, stop_on_index",
-    stop_on_index,
+    "error, stop_on_index",
+    parameter_values,
 )
-def test_s3_express_scenario(
-    make_stubber, stub_runner, error_code, stop_on_index, monkeypatch
+@pytest.mark.integ
+def test_scenario_demonstrate_performance_error(
+    mock_mgr, caplog, error, stop_on_index, monkeypatch
 ):
-    region = "us-east-1"
-    cloud_formation_resource = boto3.resource("cloudformation")
+    mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.s3_stubber)
 
-    ec2_client = boto3.client("ec2", region_name=region)
-
-    iam_client = boto3.client("iam")
-
-    s3_client = boto3.client("s3")
-    s3_stubber = make_stubber(s3_client)
-
-    my_uuid = "0000"
-
-    availability_zone_ids = ["use1-az2"]
-
-    bucket_name_prefix = "amzn-s3-demo-bucket"
-    directory_bucket_name = (
-        f"{bucket_name_prefix}-{my_uuid}--{availability_zone_ids[0]}--x-s3"
-    )
-    regular_bucket_name = f"{bucket_name_prefix}-regular-{my_uuid}"
-
-    object_name = "basic-text-object"
-
-    inputs = [
-        "y",
-        number_of_uploads,
-    ]
-    monkeypatch.setattr("builtins.input", lambda x: inputs.pop(0))
-
-    s3_express_getting_started.use_press_enter_to_continue = False
-
-    with stub_runner(error_code, stop_on_index) as runner:
-        for _ in range(number_of_uploads):
-            runner.add(s3_stubber.stub_get_object, directory_bucket_name, object_name)
-
-        for _ in range(number_of_uploads):
-            runner.add(s3_stubber.stub_get_object, regular_bucket_name, object_name)
-
-    def mock_wait(self, **kwargs):
-        return
-
-    # Mock the waiters.
-    monkeypatch.setattr(waiter.Waiter, "wait", mock_wait)
-
-    scenario = s3_express_getting_started.S3ExpressScenario(
-        cloud_formation_resource, ec2_client, iam_client
-    )
-
-    scenario.s3_express_client = s3_client
-    scenario.s3_regular_client = s3_client
-    scenario.regular_bucket_name = regular_bucket_name
-    scenario.directory_bucket_name = directory_bucket_name
-
-    monkeypatch.setattr(uuid, "uuid4", lambda: my_uuid)
-
-    if error_code is None:
-        scenario.demonstrate_performance(object_name)
-    else:
-        with pytest.raises(ClientError) as exc_info:
-            scenario.demonstrate_performance(object_name)
-        assert exc_info.value.response["Error"]["Code"] == error_code
+    with pytest.raises(ClientError):
+        mock_mgr.scenario_data.scenario.demonstrate_performance(mock_mgr.object_name)
