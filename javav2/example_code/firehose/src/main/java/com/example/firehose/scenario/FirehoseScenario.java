@@ -29,6 +29,8 @@ import java.util.stream.Collectors;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+
+// snippet-start:[firehose.java2.scenario.main]
 public class FirehoseScenario {
     private static FirehoseClient firehoseClient;
     private static CloudWatchClient cloudWatchClient;
@@ -227,3 +229,4 @@ public class FirehoseScenario {
         }
     }
 }
+// snippet-end:[firehose.java2.scenario.main]
