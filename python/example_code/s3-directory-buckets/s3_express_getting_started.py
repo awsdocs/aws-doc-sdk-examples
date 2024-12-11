@@ -22,7 +22,7 @@ import demo_tools.question as q
 
 logger = logging.getLogger(__name__)
 
-
+no_art = False
 def print_dashes():
     """
     Print a line of dashes to separate sections of the output.
