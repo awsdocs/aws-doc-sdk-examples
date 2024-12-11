@@ -99,7 +99,7 @@ struct ExampleCommand: ParsableCommand {
             }
         }
 
-        // Start the transcription running.
+        // Start the transcription running on the audio stream.
 
         let output = try await client.startStreamTranscription(
             input: StartStreamTranscriptionInput(
@@ -109,10 +109,6 @@ struct ExampleCommand: ParsableCommand {
                 mediaSampleRateHertz: sampleRate
             )
         )
-
-        // A variable to receive the complete text.
-
-        var text = ""
 
         // Iterate over the events in the transcript result stream. Each
         // `transcriptevent` contains a list of result fragments which need
@@ -125,20 +121,19 @@ struct ExampleCommand: ParsableCommand {
                     continue
                 }
 
+                // When the complete fragment of transcribed text is ready,
+                // print it. This could just as easily be used to draw the
+                // text as a subtitle over a playing video, though timing
+                // would need to be managed.
+
                 if !result.isPartial {
                     print(transcript)
-                    text.append(transcript + "\n")
                 }
             }
             default:
                 print("Error: Unexpected message from Amazon Transcribe:")
             }
         }
-
-        print("Transcription complete.")
-        print("-----------------------")
-        print(text)
-        print("-----------------------")
     }
 }
 
