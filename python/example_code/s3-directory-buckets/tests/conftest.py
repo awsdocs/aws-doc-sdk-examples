@@ -29,15 +29,14 @@ class ScenarioData:
     def __init__(
         self,
         ec2_client,
-            s3_client,
-            iam_client,
+        s3_client,
+        iam_client,
         cloud_formation_resource,
-            ec2_stubber,
-            s3_stubber,
-            iam_stubber,
-
+        ec2_stubber,
+        s3_stubber,
+        iam_stubber,
         cloud_formation_stubber,
-            region,
+        region,
     ):
         self.ec2_client = ec2_client
         self.s3_client = s3_client
@@ -50,8 +49,8 @@ class ScenarioData:
         self.region = region
         self.scenario = s3_express_getting_started.S3ExpressScenario(
             cloud_formation_resource=self.cloud_formation_resource,
-            ec2_client = self.ec2_client,
-            iam_client = self.iam_client,
+            ec2_client=self.ec2_client,
+            iam_client=self.iam_client,
         )
         s3_express_getting_started.use_press_enter_to_continue = False
 
@@ -70,13 +69,13 @@ def scenario_data(make_stubber):
     s3_client = boto3.client("s3")
     s3_stubber = make_stubber(s3_client)
     return ScenarioData(
-        ec2_client = ec2_client,
-        s3_client = s3_client,
-        iam_client = iam_client,
-        cloud_formation_resource = cloud_formation_resource,
-        ec2_stubber = ec2_stubber,
-        s3_stubber = s3_stubber,
-        iam_stubber = iam_stubber,
-        cloud_formation_stubber = cloud_formation_stubber,
-        region = region
+        ec2_client=ec2_client,
+        s3_client=s3_client,
+        iam_client=iam_client,
+        cloud_formation_resource=cloud_formation_resource,
+        ec2_stubber=ec2_stubber,
+        s3_stubber=s3_stubber,
+        iam_stubber=iam_stubber,
+        cloud_formation_stubber=cloud_formation_stubber,
+        region=region,
     )
