@@ -243,7 +243,7 @@ bucket.
             "Next, we'll copy the object into the Directory bucket using the regular client."
         )
         print(
-            "This works fine, because Copy operations are not restricted for Directory buckets."
+            "This works fine, because copy operations are not restricted for Directory buckets."
         )
         press_enter_to_continue()
         bucket_object = "basic-text-object"
@@ -775,6 +775,8 @@ bucket.
                     self.vpc_id,
                     client_error.response["Error"]["Message"],
                 )
+
+
 # snippet-end:[python.example_code.s3.s3_express_basics]
 
 if __name__ == "__main__":
@@ -811,5 +813,3 @@ if __name__ == "__main__":
         logging.exception("Type error in demo!")
         if s3_express_scenario is not None:
             s3_express_scenario.cleanup()
-
-
