@@ -1,6 +1,14 @@
 # zexi 0.4.0
 firehose_PutRecord:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/firehose
+          excerpts:
+            - description:
+              snippet_tags:
+                - firehose.java2.put_record.main
     Python:
       versions:
         - sdk_version: 3
@@ -14,6 +22,14 @@ firehose_PutRecord:
     firehose: {PutRecord}
 firehose_PutRecordBatch:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/firehose
+          excerpts:
+            - description:
+              snippet_tags:
+                - firehose.java2.put_batch_records.main
     Rust:
       versions:
         - sdk_version: 1
@@ -40,6 +56,14 @@ firehose_Scenario_PutRecords:
   synopsis: use &FH; to process individual and batch records.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/firehose
+          excerpts:
+            - description: This example puts individual and batch records to &FH;.
+              snippet_tags:
+                - firehose.java2.scenario.main
     Python:
       versions:
         - sdk_version: 3
