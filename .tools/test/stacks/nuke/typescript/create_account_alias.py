@@ -6,8 +6,8 @@ operation is not supported by the AWS CDK.
 """
 
 import logging
-import subprocess
 import re
+import subprocess
 from typing import Optional
 
 logger = logging.getLogger(__name__)

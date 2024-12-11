@@ -13,7 +13,7 @@ The uploaded files and Step Function execution are used by CodeBuild to execute 
 import json
 import logging
 import os
-from typing import Optional, Dict
+from typing import Dict, Optional
 
 import boto3
 from botocore.exceptions import ClientError
@@ -39,6 +39,7 @@ logger = logging.getLogger(__name__)
 # AWS session
 session = boto3.Session(region_name=REGION)
 
+
 def _get_stack_name(partial_stack_name: str) -> Optional[str]:
     """
     Retrieves the full stack name from a partial stack name.
@@ -54,29 +55,31 @@ def _get_stack_name(partial_stack_name: str) -> Optional[str]:
 
     try:
         # List all stacks with status CREATE_COMPLETE
-        response = cloudformation.list_stacks(
-            StackStatusFilter=['CREATE_COMPLETE']
-        )
+        response = cloudformation.list_stacks(StackStatusFilter=["CREATE_COMPLETE"])
     except ClientError as e:
         print(f"Error listing stacks: {e}")
         return None
 
     matching_stacks = []
-    for stack in response['StackSummaries']:
-        if partial_stack_name in stack['StackName']:
-            matching_stacks.append(stack['StackName'])
+    for stack in response["StackSummaries"]:
+        if partial_stack_name in stack["StackName"]:
+            matching_stacks.append(stack["StackName"])
 
     if not matching_stacks:
         print(f"No matching stacks found for partial name: {partial_stack_name}")
         return None
     elif len(matching_stacks) > 1:
-        print(f"WARNING: Found multiple stacks sharing the same partial name: {partial_stack_name}.")
+        print(
+            f"WARNING: Found multiple stacks sharing the same partial name: {partial_stack_name}."
+        )
         return None
     else:
         return matching_stacks[0]
 
 
-def _get_resource_from_stack(partial_stack_name: str, resource_type: str) -> Optional[str]:
+def _get_resource_from_stack(
+    partial_stack_name: str, resource_type: str
+) -> Optional[str]:
     """
     Retrieve a specific resource from a CloudFormation stack.
 
