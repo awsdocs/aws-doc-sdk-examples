@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+		<AssemblyName>AnthropicClaude.$(MSBuildProjectName)</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AWSSDK.BedrockRuntime" Version="4.0.0-preview.4" />
+      <PackageReference Include="AWSSDK.Core" Version="4.0.0-preview.4" />
+    </ItemGroup>
+</Project>
