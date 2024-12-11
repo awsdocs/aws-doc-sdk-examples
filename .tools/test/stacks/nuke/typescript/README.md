@@ -25,12 +25,7 @@ The code in this repository helps you set up the following architecture:
 ## Prerequisites
 
 1. **AWS-Nuke Binary**: Open-source library from [ekristen](https://github.com/ekristen/aws-nuke) staged in S3.  
-2. **AWS Account Alias**: Must exist in the IAM Dashboard for the target  account.  
-3. **AWS CodeBuild**: Required for runtime and compute.  
-4. **AWS S3 Bucket**: Stores the nuke config file and AWS-Nuke binary (latest version).  
-5. **AWS Step Functions**: Orchestrates multi-region parallel CodeBuild invocations.  
-6. **AWS SNS Topic**: Sends daily resource cleanup reports and CodeBuild job statuses.  
-7. **AWS EventBridge Rule**: Cron-based schedule to trigger the workflow with region inputs.  
+2. **AWS Account Alias**: Must exist in the IAM Dashboard for the target  account.
 8. **Network Connectivity**: Ensure VPC allows downloads from GitHub or stage the binary in S3/artifactory for restricted environments.
 
 ## Setup and Installation
@@ -58,21 +53,7 @@ arn:aws:cloudformation:us-east-1:123456788985:stack/NukeCleanser/cfhdkiott-acec-
 
 Next, run `python upload_job_files.py` to upload two files in this directory: `nuke_config_update.py` and `nuke_generic_config.yaml`.
 
-## Testing
-To test this stack, run `python trigger_dry_run.py` which will invoke the state machine execution in dry-run mode using the following payload:
-```sh
-{
-  "InputPayLoad": {
-    "nuke_dry_run": "true",
-    "nuke_version": "2.21.2",
-    "region_list": [
-      "us-east-1"
-    ]
-  }
-}
-```
-
-## Other notes:
+## When it runs
 * The tool is currently configured to run at a schedule as desired typically off hours 3:00a EST. It can be easily configured with a rate() or cron() expression by editing the cfn template file
 
 * The workflow also sends out a detailed report to an SNS topic with an active email subscription on what resources were deleted after the job is successful for each region which simplifies traversing and parsing the complex logs spit out by the aws-nuke binary. 

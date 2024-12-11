@@ -1,3 +1,5 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 """
 This module is used to create an AWS account alias, which is required by the deploy.py script.
 
@@ -8,7 +10,6 @@ operation is not supported by the AWS CDK.
 import logging
 import re
 import subprocess
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 

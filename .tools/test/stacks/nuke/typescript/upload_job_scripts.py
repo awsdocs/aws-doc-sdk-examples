@@ -1,3 +1,5 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
 """
 This module is part of the AccountNuker stack deployment process.
 It's invoked by the stacks/deploy.py script to support integration testing.
