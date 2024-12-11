@@ -8,7 +8,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "streamup",
+    name: "binary-streaming",
     // Let Xcode know the minimum Apple platforms supported.
     platforms: [
         .macOS(.v13),
@@ -34,6 +34,15 @@ let package = Package(
                 .product(name: "AWSS3", package: "aws-sdk-swift"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
-            path: "Sources"),
+            path: "Sources/streamup"
+        ),
+        .executableTarget(
+            name: "streamdown",
+            dependencies: [
+                .product(name: "AWSS3", package: "aws-sdk-swift"),
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+            ],
+            path: "Sources/streamdown"
+        ),
     ]
 )

@@ -4,7 +4,7 @@
 /// A simple example that shows how to use the AWS SDK for Swift to
 /// upload files using binary streaming.
 
-// snippet-start:[swift.s3.binary-streaming.imports]
+// snippet-start:[swift.s3.streaming-up.imports]
 import ArgumentParser
 import AWSClientRuntime
 import AWSS3
@@ -13,7 +13,7 @@ import Smithy
 import SmithyHTTPAPI
 import SmithyStreams
 
-// snippet-end:[swift.s3.binary-streaming.imports]
+// snippet-end:[swift.s3.streaming-up.imports]
 
 // -MARK: - Async command line tool
 
@@ -38,14 +38,14 @@ struct ExampleCommand: ParsableCommand {
         """
     )
 
-    // snippet-start:[swift.s3.binary-streaming.upload-file]
+    // snippet-start:[swift.s3.streaming-up]
     /// Upload a file to the specified bucket.
     ///
     /// - Parameters:
     ///   - bucket: The Amazon S3 bucket name to store the file into.
     ///   - key: The name (or path) of the file to upload to in the `bucket`.
-    ///   - sourcePath: The pathname on the local filesystem at which to store
-    ///     the uploaded file.
+    ///   - sourcePath: The pathname on the local filesystem of the file to
+    ///     upload.
     func uploadFile(sourcePath: String, bucket: String, key: String?) async throws {
         let fileURL: URL = URL(fileURLWithPath: sourcePath)
         let fileName: String
@@ -91,7 +91,7 @@ struct ExampleCommand: ParsableCommand {
 
         print("File uploaded to \(fileURL.path).")
     }
-    // snippet-end:[swift.s3.binary-streaming.upload-file]
+    // snippet-end:[swift.s3.streaming-up]
 
     // -MARK: - Asynchronous main code
     
