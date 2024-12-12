@@ -45,7 +45,7 @@ transcribe-streaming_StartMedicalStreamTranscription:
 transcribe-streaming_Scenario_StreamEvents:
   title: Generate a transcription of an audio stream using an &AWS; SDK
   title_abbrev: Transcribe an audio file
-  synopsis: generate a transcription of a source audio file using &TSC;streaming.
+  synopsis: generate a transcription of a source audio file using &TSC; streaming.
   category: Scenarios
   languages:
     Swift:
