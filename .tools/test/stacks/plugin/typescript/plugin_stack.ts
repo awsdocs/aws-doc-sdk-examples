@@ -116,7 +116,7 @@ class PluginStack extends cdk.Stack {
           securityGroupIds: [sg.securityGroupId],
           maxvCpus: 1,
         },
-      }
+      },
     );
 
     const containerImageUri = `${this.adminAccountId}.dkr.ecr.us-east-1.amazonaws.com/${toolName}:latest`;
@@ -141,7 +141,7 @@ class PluginStack extends cdk.Stack {
           },
         ],
         ephemeralStorage: {
-          sizeInGib: this.batchStorage,
+          sizeInGiB: this.batchStorage,
         },
         environment: variableConfigJson,
       },
@@ -314,7 +314,7 @@ class PluginStack extends cdk.Stack {
 
     // Define the Lambda function.
     const lambdaFunction = new lambda.Function(this, "BatchJobCompleteLambda", {
-      runtime: lambda.Runtime.PYTHON_3_8,
+      runtime: lambda.Runtime.PYTHON_3_9,
       handler: "export_logs.handler",
       role: executionRole,
       code: lambda.Code.fromAsset("lambda"),
