@@ -1,8 +1,8 @@
 {
-  "name": "nuke_cleanser",
+  "name": "account_nuker",
   "version": "0.1.0",
   "bin": {
-    "nuke_cleanser": "nuke_cleanser.ts"
+    "nuke_cleanser": "account_nuker.ts"
   },
   "scripts": {
     "build": "tsc",

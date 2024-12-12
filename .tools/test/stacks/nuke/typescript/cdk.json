@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node --prefer-ts-exts nuke_cleanser.ts",
+  "app": "npx ts-node --prefer-ts-exts account_nuker.ts",
   "watch": {
     "include": [
       "**"
