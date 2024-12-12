@@ -1,33 +1,35 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 //
-/// An example that demonstrates how to watch an transcribe event stream.
 
-// snippet-start:[swift.s3.binary-streaming.imports]
+// snippet-start:[swift.transcribe-streaming.all]
+/// An example that demonstrates how to watch an transcribe event stream to
+/// transcribe audio from a file to the console.
+
+// snippet-start:[swift.transcribe-streaming.imports]
 import ArgumentParser
 import AWSClientRuntime
 import AWSTranscribeStreaming
 import Foundation
-import Smithy
-//import SmithyHTTPAPI
-import SmithyStreams
+// snippet-end:[swift.transcribe-streaming.imports]
 
-// snippet-end:[swift.s3.binary-streaming.imports]
+// snippet-start:[swift.transcribe-streaming.transcribeformat-enum]
+/// Identify one of the media file formats supported by Amazon Transcribe.
+enum TranscribeFormat: String, ExpressibleByArgument {
+    case ogg = "ogg"
+    case pcm = "pcm"
+    case flac = "flac"
+}
+// snippet-end:[swift.transcribe-streaming.transcribeformat-enum]
 
 // -MARK: - Async command line tool
 
 struct ExampleCommand: ParsableCommand {
-    enum MediaFormat: String, ExpressibleByArgument {
-        case ogg = "ogg"
-        case pcm = "pcm"
-        case flac = "flac"
-    }
-
     // -MARK: Command arguments
     @Option(help: "Language code to transcribe into")
     var lang: String = "en-US"
     @Option(help: "Format of the source audio file")
-    var format: MediaFormat
+    var format: TranscribeFormat
     @Option(help: "Sample rate of the source audio file in Hertz")
     var sampleRate: Int = 16000
     @Option(help: "Path of the source audio file")
@@ -44,28 +46,18 @@ struct ExampleCommand: ParsableCommand {
         """
     )
 
-    func transcribe() async throws {
-        let config = try await TranscribeStreamingClient.TranscribeStreamingClientConfiguration(
-            region: region
-        )
-        let client = TranscribeStreamingClient(config: config)
-
-        let mediaEncoding: TranscribeStreamingClientTypes.MediaEncoding
-        switch format {
-        case .flac:
-            mediaEncoding = .flac
-        case .ogg:
-            mediaEncoding = .oggOpus
-        case .pcm:
-            mediaEncoding = .pcm
-        }
-
-        // Create the source audio stream.
+    // snippet-start:[swift.transcribe-streaming.createaudiostream]
+    /// Create and return an Amazon Transcribe audio stream from the file
+    /// specified in the arguments.
+    /// 
+    /// - Throws: Errors from `TranscribeError`.
+    ///
+    /// - Returns: `AsyncThrowingStream<TranscribeStreamingClientTypes.AudioStream, Error>`
+    func createAudioStream() async throws
+                -> AsyncThrowingStream<TranscribeStreamingClientTypes.AudioStream, Error> {
 
         let fileURL: URL = URL(fileURLWithPath: path)
         let audioData = try Data(contentsOf: fileURL)
-
-        print("Processing file...")
 
         // Properties defining the size of audio chunks and the total size of
         // the audio file in bytes.
@@ -83,6 +75,10 @@ struct ExampleCommand: ParsableCommand {
                 var currentStart = 0
                 var currentEnd = min(chunkSize, audioDataSize - currentStart)
 
+                // Generate and send chunks of audio data as `audioevent`
+                // events until the entire file has been sent. Each event is
+                // yielded to the SDK after being created.
+
                 while currentStart < audioDataSize {
                     let dataChunk = audioData[currentStart ..< currentEnd]
                     
@@ -95,24 +91,58 @@ struct ExampleCommand: ParsableCommand {
                     currentEnd = min(currentStart + chunkSize, audioDataSize)
                 }
 
+                // Let the SDK's continuation block know the stream is over.
+
                 continuation.finish()
             }
         }
+
+        return audioStream
+    }
+    // snippet-end:[swift.transcribe-streaming.createaudiostream]
+
+    // snippet-start:[swift.transcribe-streaming]
+    /// Run the transcription process.
+    ///
+    /// - Throws: An error from `TranscribeError`.
+    func transcribe() async throws {
+        // Convert the value of the `--format` option into the Transcribe
+        // Streaming `MediaEncoding` type.
+
+        let mediaEncoding: TranscribeStreamingClientTypes.MediaEncoding
+        switch format {
+        case .flac:
+            mediaEncoding = .flac
+        case .ogg:
+            mediaEncoding = .oggOpus
+        case .pcm:
+            mediaEncoding = .pcm
+        }
+
+        // Create the Transcribe Streaming client.
+
+        // snippet-start:[swift.transcribe-streaming.StartStreamTranscription]
+        let client = TranscribeStreamingClient(
+            config: try await TranscribeStreamingClient.TranscribeStreamingClientConfiguration(
+                                region: region
+            )
+        )
 
         // Start the transcription running on the audio stream.
 
         let output = try await client.startStreamTranscription(
             input: StartStreamTranscriptionInput(
-                audioStream: audioStream,
+                audioStream: try await createAudioStream(),
                 languageCode: TranscribeStreamingClientTypes.LanguageCode(rawValue: lang),
                 mediaEncoding: mediaEncoding,
                 mediaSampleRateHertz: sampleRate
             )
         )
+        // snippet-end:[swift.transcribe-streaming.StartStreamTranscription]
 
-        // Iterate over the events in the transcript result stream. Each
-        // `transcriptevent` contains a list of result fragments which need
-        // to be concatenated together to build the final transcript.
+        // Iterate over the events in the returned transcript result stream.
+        // Each `transcriptevent` contains a list of result fragments which
+        // need to be concatenated together to build the final transcript.
         for try await event in output.transcriptResultStream! {
             switch event {
             case .transcriptevent(let event):
@@ -135,6 +165,7 @@ struct ExampleCommand: ParsableCommand {
             }
         }
     }
+    // snippet-end:[swift.transcribe-streaming]
 }
 
 // -MARK: - Entry point
@@ -155,3 +186,4 @@ struct Main {
         }
     }    
 }
+// snippet-end:[swift.transcribe-streaming.all]

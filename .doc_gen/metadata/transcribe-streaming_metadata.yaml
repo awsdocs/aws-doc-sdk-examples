@@ -19,6 +19,14 @@ transcribe-streaming_StartStreamTranscription:
             - description:
               snippet_tags:
                 - transcribe.cpp.stream_transcription_async.code
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/transcribe-streaming
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.transcribe-streaming.StartStreamTranscription
   services:
     transcribe-streaming: {StartStreamTranscription}
 transcribe-streaming_StartMedicalStreamTranscription:
@@ -34,3 +42,21 @@ transcribe-streaming_StartMedicalStreamTranscription:
                 - transcribe.java-medical-streaming-demo
   services:
     transcribe-streaming: {StartMedicalStreamTranscription}
+transcribe-streaming_Scenario_StreamEvents:
+  title: Generate a transcription of an audio stream using an &AWS; SDK
+  title_abbrev: Transcribe an audio file
+  synopsis: generate a transcription of a source audio file using &TSC;streaming.
+  category: Scenarios
+  languages:
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/transcribe-streaming
+          sdkguide:
+          excerpts:
+            - description: Use &TSC; streaming to transcribe the spoken language in an audio file.
+              snippet_tags:
+                - swift.transcribe-streaming.all
+                - swift.transcribe-streaming.transcribeerror
+  services:
+    transcribe-streaming: {StartStreamTranscription}

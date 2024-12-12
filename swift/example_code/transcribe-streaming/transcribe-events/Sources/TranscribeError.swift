@@ -1,6 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[swift.transcribe-streaming.transcribeerror]
 /// Errors thrown by the example's functions.
 enum TranscribeError: Error {
     /// No transcription stream available.
@@ -17,3 +18,4 @@ enum TranscribeError: Error {
         }
     }
 }
+// snippet-end:[swift.transcribe-streaming.transcribeerror]
