@@ -930,8 +930,8 @@ class MedicalImagingWrapper:
 
 if __name__ == "__main__":
     # Replace these values with your own.
-    source_s3_uri = "s3://medical-imaging-dicom-input/dicom_input/"
-    dest_s3_uri = "s3://medical-imaging-output/job_output/"
+    source_s3_uri = "s3://amzn-s3-demo-input/dicom_input/"
+    dest_s3_uri = "s3://amzn-s3-demo-output/job_output/"
     data_access_role_arn = "arn:aws:iam::123456789012:role/ImportJobDataAccessRole"
 
     # snippet-start:[python.example_code.medical-imaging.MedicalImagingWrapper.instantiation]

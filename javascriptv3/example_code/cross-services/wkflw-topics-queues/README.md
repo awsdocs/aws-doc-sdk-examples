@@ -34,8 +34,6 @@ The sample code builds a command line application that asks you for input. This 
 1. Install dependencies. `npm i`
 2. Run the example. `node index.js`
 
-**Note**: By default the prompts in the example will print slowly for readability. To disable this, pass the `--no-logger-delay` option.
-
 ## Tests
 
 ⚠ Running tests might result in charges to your AWS account.

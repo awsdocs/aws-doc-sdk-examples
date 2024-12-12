@@ -5,11 +5,7 @@ require 'rspec'
 require_relative '../bucket_create'
 
 describe BucketCreateWrapper do
-<<<<<<< HEAD
   let(:bucket_name) { "amzn-s3-demo-bucket" }
-=======
-  let(:bucket_name) { 'doc-example-bucket' }
->>>>>>> 999c6133e (fixes)
   let(:bucket) { Aws::S3::Bucket.new(bucket_name, stub_responses: true) }
   let(:wrapper) { BucketCreateWrapper.new(bucket) }
 

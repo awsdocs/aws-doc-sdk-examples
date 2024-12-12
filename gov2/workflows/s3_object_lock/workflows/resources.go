@@ -3,18 +3,19 @@
 
 package workflows
 
+// snippet-start:[gov2.workflows.s3.ObjectLock.Resources.complete]
+
 import (
 	"context"
 	"log"
 	"s3_object_lock/actions"
+	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 )
-
-// snippet-start:[gov2.workflows.s3.ObjectLock.Resources.complete]
 
 // DemoBucket contains metadata for buckets used in this example.
 type DemoBucket struct {
@@ -73,6 +74,16 @@ func (resources *Resources) deleteBuckets(ctx context.Context) {
 		})
 		if err != nil {
 			panic(err)
+		}
+	}
+	for _, info := range createInfo {
+		bucket := resources.demoBuckets[info.name]
+		err := s3.NewBucketNotExistsWaiter(resources.s3Actions.S3Client).Wait(
+			ctx, &s3.HeadBucketInput{Bucket: aws.String(bucket.name)}, time.Minute)
+		if err != nil {
+			log.Printf("Failed attempt to wait for bucket %s to be deleted.\n", bucket.name)
+		} else {
+			log.Printf("Deleted %s.\n", bucket.name)
 		}
 	}
 	resources.demoBuckets = map[string]*DemoBucket{}

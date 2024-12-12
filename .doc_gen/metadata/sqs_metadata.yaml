@@ -980,6 +980,9 @@ sqs_Scenario_TopicsAndQueues:
             - description: Define a struct that wraps &SQS; actions used in this example.
               snippet_tags:
                 - gov2.sqs.SqsActions.complete
+            - description: Clean up resources.
+              snippet_tags:
+                - gov2.workflows.TopicsAndQueues.Resources.complete
     JavaScript:
       versions:
         - sdk_version: 3

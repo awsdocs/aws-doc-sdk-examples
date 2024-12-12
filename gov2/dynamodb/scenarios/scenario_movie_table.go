@@ -3,6 +3,8 @@
 
 package scenarios
 
+// snippet-start:[gov2.dynamodb.Scenario_GettingStartedMovies]
+
 import (
 	"context"
 	"fmt"
@@ -14,8 +16,6 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/actions"
 )
-
-// snippet-start:[gov2.dynamodb.Scenario_GettingStartedMovies]
 
 // RunMovieScenario is an interactive example that shows you how to use the AWS SDK for Go
 // to create and use an Amazon DynamoDB table that stores data about movies.

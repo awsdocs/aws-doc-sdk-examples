@@ -3,19 +3,11 @@
 
 require_relative '../s3_add_cskms_encrypt_item'
 
-<<<<<<< HEAD
 describe "#encrypted_object_uploaded?" do
   let(:bucket_name) { "amzn-s3-demo-bucket" }
   let(:object_key) { "my-file.txt" }
   let(:object_content) { "This is the content of my-file.txt." }
   let(:kms_key_id) { "9041e78c-7a20-4db3-929e-828abEXAMPLE" }
-=======
-describe '#encrypted_object_uploaded?' do
-  let(:bucket_name) { 'doc-example-bucket' }
-  let(:object_key) { 'my-file.txt' }
-  let(:object_content) { 'This is the content of my-file.txt.' }
-  let(:kms_key_id) { '9041e78c-7a20-4db3-929e-828abEXAMPLE' }
->>>>>>> 999c6133e (fixes)
   # Note that Aws::S3::EncryptionV2::Client is a wrapper around
   #   Aws::S3::Client. So you must first stub Aws::S3::Client
   #   and then pass it into Aws::S3::EncryptionV2::Client

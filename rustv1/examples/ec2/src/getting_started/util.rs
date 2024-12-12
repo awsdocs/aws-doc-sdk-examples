@@ -132,6 +132,9 @@ impl UtilImpl {
 fn open_file_0600(path: &PathBuf) -> Result<std::fs::File, EC2Error> {
     use std::os::unix::fs::OpenOptionsExt;
     std::fs::OpenOptions::new()
+        .write(true)
+        .create(true)
+        .truncate(true)
         .mode(0o600)
         .open(path.clone())
         .map_err(|e| EC2Error::new(format!("Failed to create {path:?} ({e:?})")))

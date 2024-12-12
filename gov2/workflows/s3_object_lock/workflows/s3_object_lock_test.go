@@ -104,9 +104,11 @@ func (scenTest *ObjectLockScenarioTest) SetupDataAndStubs() []testtools.Stub {
 	// DeleteObject
 	stubList = append(stubList, stubListAll()...)
 	stubList = append(stubList, stubs.StubDeleteObject(standardBucket, *objVersions[0].Key, *objVersions[0].VersionId, false, nil))
+	stubList = append(stubList, stubs.StubHeadObject(standardBucket, *objVersions[0].Key, &testtools.StubError{Err: &types.NotFound{}, ContinueAfter: true}))
 	// DeleteRetentionObject
 	stubList = append(stubList, stubListAll()...)
 	stubList = append(stubList, stubs.StubDeleteObject(standardBucket, *objVersions[0].Key, *objVersions[0].VersionId, true, nil))
+	stubList = append(stubList, stubs.StubHeadObject(standardBucket, *objVersions[0].Key, &testtools.StubError{Err: &types.NotFound{}, ContinueAfter: true}))
 	// OverwriteObject
 	stubList = append(stubList, stubListAll()...)
 	stubList = append(stubList, stubs.StubPutObject(standardBucket, *objVersions[0].Key, &checksum, nil))
@@ -130,7 +132,15 @@ func (scenTest *ObjectLockScenarioTest) SetupDataAndStubs() []testtools.Stub {
 			stubList = append(stubList, stubs.StubPutObjectLegalHold(bucket, *version.Key, *version.VersionId, types.ObjectLockLegalHoldStatusOff, nil))
 		}
 		stubList = append(stubList, stubs.StubDeleteObjects(bucket, objVersions, info.name != "standard-bucket", nil))
+		for _, ver := range objVersions {
+			stubList = append(stubList, stubs.StubHeadObject(bucket, *ver.Key,
+				&testtools.StubError{Err: &types.NotFound{}, ContinueAfter: true}))
+		}
 		stubList = append(stubList, stubs.StubDeleteBucket(bucket, nil))
+	}
+	for _, info := range createInfo {
+		bucket := fmt.Sprintf("%s.%s", bucketPrefix, info.name)
+		stubList = append(stubList, stubs.StubHeadBucket(bucket, &testtools.StubError{Err: &types.NotFound{}, ContinueAfter: true}))
 	}
 
 	return stubList

@@ -165,6 +165,7 @@ func TestDeleteObject(t *testing.T) {
 		ctx, stubber, actor := enterTest()
 		_, stubErr := wrapErr(raisedErr)
 		stubber.Add(stubs.StubDeleteObject("amzn-s3-demo-bucket", "test-key", "test-version", true, stubErr))
+		stubber.Add(stubs.StubHeadObject("amzn-s3-demo-bucket", "test-key", &testtools.StubError{Err: &types.NotFound{}, ContinueAfter: true}))
 		_, actualErr := actor.DeleteObject(ctx, "amzn-s3-demo-bucket", "test-key", "test-version", true)
 		expectedErr := raisedErr
 		if _, ok := raisedErr.(*smithy.GenericAPIError); ok {
@@ -181,6 +182,7 @@ func TestDeleteObjects(t *testing.T) {
 
 	expectedErr, stubErr := wrapErr(&types.NoSuchBucket{})
 	stubber.Add(stubs.StubDeleteObjects("amzn-s3-demo-bucket", []types.ObjectVersion{{Key: aws.String("test-key"), VersionId: aws.String("test-version")}}, true, stubErr))
+	stubber.Add(stubs.StubHeadObject("amzn-s3-demo-bucket", "test-key", &testtools.StubError{Err: &types.NotFound{}, ContinueAfter: true}))
 	actualErr := actor.DeleteObjects(ctx, "amzn-s3-demo-bucket", []types.ObjectIdentifier{{Key: aws.String("test-key"), VersionId: aws.String("test-version")}}, true)
 	verifyErr(expectedErr, actualErr, t)
 }

@@ -88,6 +88,7 @@ functions within the same service.
 - [Create an Amazon Textract explorer application](../../cross_service/textract_explorer)
 - [Detect entities in text extracted from an image](../../cross_service/textract_comprehend_notebook)
 - [Detect objects in images](../../cross_service/photo_analyzer)
+- [Make conditional requests](scenarios/conditional_requests/scenario.py)
 - [Manage versioned objects in batches with a Lambda function](../../example_code/s3/s3_versioning)
 - [Upload or download large files](file_transfer/file_transfer.py)
 - [Work with versioned objects](s3_versioning/versioning.py)
@@ -189,6 +190,24 @@ This example shows you how to build an app that uses Amazon Rekognition to detec
 
 <!--custom.scenarios.cross_RekognitionPhotoAnalyzer.start-->
 <!--custom.scenarios.cross_RekognitionPhotoAnalyzer.end-->
+
+#### Make conditional requests
+
+This example shows you how to add preconditions to Amazon S3 requests.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_ConditionalRequests.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ConditionalRequests.end-->
+
+Start the example by running the following at a command prompt:
+
+```
+python scenarios/conditional_requests/scenario.py
+```
+
+
+<!--custom.scenarios.s3_Scenario_ConditionalRequests.start-->
+<!--custom.scenarios.s3_Scenario_ConditionalRequests.end-->
 
 #### Manage versioned objects in batches with a Lambda function
 

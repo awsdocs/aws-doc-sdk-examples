@@ -3,6 +3,8 @@
 
 package workflows
 
+// snippet-start:[gov2.workflows.PoolsAndTriggers.ScenarioHelper]
+
 import (
 	"context"
 	"log"
@@ -16,8 +18,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 )
-
-// snippet-start:[gov2.workflows.PoolsAndTriggers.ScenarioHelper]
 
 // IScenarioHelper defines common functions used by the workflows in this example.
 type IScenarioHelper interface {

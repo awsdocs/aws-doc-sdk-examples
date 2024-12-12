@@ -42,6 +42,13 @@ Next, for information on code example structures and how to build and run the ex
 - [Hello Lambda](hello_lambda/CMakeLists.txt#L4) (`ListFunctions`)
 
 
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](get_started_with_functions_scenario.cpp)
+
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -60,7 +67,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 functions within the same service.
 
 - [Create a serverless application to manage photos](../../example_code/cross-service/photo_asset_manager)
-- [Get started with functions](get_started_with_functions_scenario.cpp)
 
 
 <!--custom.examples.start-->
@@ -91,6 +97,23 @@ folder.
 This example shows you how to get started using Lambda.
 
 
+#### Learn the basics
+
+This example shows you how to do the following:
+
+- Create an IAM role and Lambda function, then upload handler code.
+- Invoke the function with a single parameter and get results.
+- Update the function code and configure with an environment variable.
+- Invoke the function with new parameters and get results. Display the returned execution log.
+- List the functions for your account, then clean up resources.
+
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basic_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
+
+
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+<!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
+
 
 #### Create a serverless application to manage photos
 
@@ -103,23 +126,6 @@ This example shows you how to create a serverless application that lets users ma
 
 <!--custom.scenarios.cross_PAM.start-->
 <!--custom.scenarios.cross_PAM.end-->
-
-#### Get started with functions
-
-This example shows you how to do the following:
-
-- Create an IAM role and Lambda function, then upload handler code.
-- Invoke the function with a single parameter and get results.
-- Update the function code and configure with an environment variable.
-- Invoke the function with new parameters and get results. Display the returned execution log.
-- List the functions for your account, then clean up resources.
-
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenario_prereqs.lambda_Scenario_GettingStartedFunctions.end-->
-
-
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-<!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
 
 ### Tests
 

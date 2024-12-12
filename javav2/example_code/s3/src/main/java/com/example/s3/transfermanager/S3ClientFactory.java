@@ -7,6 +7,7 @@ import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.waiters.S3Waiter;
 import software.amazon.awssdk.transfer.s3.S3TransferManager;
 
 import static software.amazon.awssdk.transfer.s3.SizeConstant.MB;
@@ -23,6 +24,7 @@ import static software.amazon.awssdk.transfer.s3.SizeConstant.MB;
 public class S3ClientFactory {
     public static final S3TransferManager transferManager = createCustomTm();
     public static final S3Client s3Client;
+    public static final S3Waiter s3Waiter;
 
     private static S3TransferManager createCustomTm() {
         // snippet-start:[s3.tm.java2.s3clientfactory.create_custom_tm]
@@ -48,9 +50,7 @@ public class S3ClientFactory {
     }
 
     static {
-        s3Client = S3Client.builder()
-                .credentialsProvider(DefaultCredentialsProvider.create())
-                .region(Region.US_EAST_1)
-                .build();
+        s3Client = S3Client.create();
+        s3Waiter = s3Client.waiter();
     }
 }

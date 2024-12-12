@@ -21,6 +21,15 @@ scheduler_hello:
               genai: some
               snippet_tags:
                 - Scheduler.dotnetv3.HelloScheduler
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/scheduler
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.scheduler.Hello
   services:
     scheduler: {ListSchedules}
 scheduler_CreateSchedule:
@@ -42,6 +51,16 @@ scheduler_CreateSchedule:
               genai: most
               snippet_tags:
                 - Scheduler.dotnetv3.CreateSchedule
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/scheduler
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.scheduler.EventSchedulerWrapper.decl
+                - python.example_code.scheduler.CreateSchedule
   services:
     scheduler: {CreateSchedule}
 scheduler_CreateScheduleGroup:
@@ -63,6 +82,16 @@ scheduler_CreateScheduleGroup:
               genai: most
               snippet_tags:
                 - Scheduler.dotnetv3.CreateScheduleGroup
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/scheduler
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.scheduler.EventSchedulerWrapper.decl
+                - python.example_code.scheduler.CreateScheduleGroup
   services:
     scheduler: {CreateScheduleGroup}
 scheduler_DeleteSchedule:
@@ -76,6 +105,16 @@ scheduler_DeleteSchedule:
               genai: most
               snippet_tags:
                 - Scheduler.dotnetv3.DeleteSchedule
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/scheduler
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.scheduler.EventSchedulerWrapper.decl
+                - python.example_code.scheduler.DeleteSchedule
     Java:
       versions:
         - sdk_version: 2
@@ -105,6 +144,16 @@ scheduler_DeleteScheduleGroup:
               genai: most
               snippet_tags:
                 - Scheduler.dotnetv3.DeleteScheduleGroup
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/scheduler
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.scheduler.EventSchedulerWrapper.decl
+                - python.example_code.scheduler.DeleteScheduleGroup
   services:
     scheduler: {DeleteScheduleGroup}
 scheduler_ScheduledEventsWorkflow:
@@ -145,5 +194,19 @@ scheduler_ScheduledEventsWorkflow:
               genai: most
               snippet_tags:
                 - Scheduler.dotnetv3.SchedulerWrapper
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/scheduler
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              genai: some
+              snippet_tags:
+                - python.example_code.scheduler.FeatureScenario
+            - description: SchedulerWrapper class that wraps &EVlong; Scheduler actions.
+              genai: some
+              snippet_tags:
+                - python.example_code.scheduler.EventSchedulerWrapper.class
   services:
     scheduler: {CreateSchedule, CreateScheduleGroup, DeleteSchedule, DeleteScheduleGroups}

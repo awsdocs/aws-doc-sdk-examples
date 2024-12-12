@@ -44,7 +44,11 @@ public class MemoryLog4jAppender extends AbstractAppender {
         } else {
             eventMap.put (eventWithParameters.toString(), null);
         }
-        stringBuilder.append(eventWithParameters.getFormattedMessage() + "\n");
+        if (eventWithParameters.getFormat() != null) {
+            stringBuilder.append(eventWithParameters.getFormattedMessage() + "\n");
+        } else {
+            stringBuilder.append(eventWithParameters.getMessage() + "\n");
+        }
     }
 
     public Map<String, String> getEventMap(){

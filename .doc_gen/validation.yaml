@@ -208,6 +208,8 @@ allow_list:
   - "aws/s3/model/AbortMultipartUploadRequest"
   - "src/main/kotlin/com/example/ecr/HelloECR"
   - "aws/ec2/model/DisassociateAddressRequest"
+  - "src/main/java/com/example/acm/DeleteCert"
+  - "src/main/java/com/example/acm/ImportCert"
 sample_files:
   - "README.md"
   - "chat_sfn_state_machine.json"

@@ -41,11 +41,7 @@ end
 
 # Example usage:
 def run_demo
-<<<<<<< HEAD
   bucket_name = "amzn-s3-demo-bucket"
-=======
-  bucket_name = 'doc-example-bucket'
->>>>>>> 999c6133e (fixes)
   wrapper = BucketEncryptionWrapper.new(Aws::S3::Client.new)
   return unless wrapper.set_encryption(bucket_name)
 

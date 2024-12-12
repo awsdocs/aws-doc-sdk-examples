@@ -31,8 +31,9 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
  * 4. Uploads an object using multipart upload.
  * 5. List all objects located in the Amazon S3 bucket.
  * 6. Copies the object to another Amazon S3 bucket.
- * 7. Deletes the object from the Amazon S3 bucket.
- * 8. Deletes the Amazon S3 bucket.
+ * 7. Copy the object to another Amazon S3 bucket using multi copy.
+ * 8. Deletes the object from the Amazon S3 bucket.
+ * 9. Deletes the Amazon S3 bucket.
  */
 
 public class S3Scenario {
