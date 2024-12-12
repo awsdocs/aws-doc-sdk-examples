@@ -1,10 +1,9 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+import boto3
 import logging
 import sys
-
-import boto3
 
 
 def delete_selected_public_ecr_repos(delete_images=False):
