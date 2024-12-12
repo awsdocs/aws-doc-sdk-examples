@@ -72,8 +72,8 @@ class S3ExpressScenario:
         print(
             """
 Let's get started! First, please note that S3 Express One Zone works best when working within the AWS infrastructure,
-specifically when working in the same Availability Zone. To see the best results in this example, and when you implement
-Directory buckets into your infrastructure, it is best to put your Compute resources in the same AZ as your Directory
+specifically when working in the same Availability Zone. To see the best results in this example and when you implement
+Directory buckets into your infrastructure, it is best to put your compute resources in the same AZ as your Directory
 bucket.
     """
         )
@@ -110,12 +110,10 @@ bucket.
         """
         # Configure a gateway VPC endpoint. This is the recommended method to allow S3 Express One Zone traffic without
         # the need to pass through an internet gateway or NAT device.
-        print("")
-        print(
-            "1. First, we'll set up a new VPC and VPC Endpoint if this program is running in an EC2 instance in the same AZ as your Directory buckets will be."
-        )
-        print(
-            "Are you running this in an EC2 instance located in the same AZ as your intended Directory buckets?"
+        print("""
+1. First, we'll set up a new VPC and VPC Endpoint if this program is running in an EC2 instance in the same AZ as your 
+Directory buckets will be. Are you running this in an EC2 instance located in the same AZ as your intended Directory buckets?
+"""
         )
         if q.ask("Do you want to setup a VPC Endpoint? (y/n) ", q.is_yesno):
             print(
@@ -125,10 +123,11 @@ bucket.
             press_enter_to_continue()
         else:
             print("Skipping the VPC setup. Don't forget to use this in production!")
-        print("")
-        print("2. Policies, users, and roles with CDK.")
         print(
-            "Now, we'll set up some policies, roles, and a user. This user will only have permissions to do S3 Express One Zone actions."
+            """            
+2. Policies, users, and roles with CDK.
+Now, we'll set up some policies, roles, and a user. This user will only have permissions to do S3 Express One Zone actions.
+            """
         )
         press_enter_to_continue()
         stack_name = f"cfn-stack-s3-express-basics--{uuid.uuid4()}"
@@ -162,12 +161,11 @@ bucket.
         regular_credentials = self.create_access_key(regular_user_name)
         express_credentials = self.create_access_key(express_user_name)
         # 3. Create an additional client using the credentials with S3 Express permissions.
-        print("")
         print(
-            "3. Create an additional client using the credentials with S3 Express permissions."
-        )
-        print(
-            "This client is created with the credentials associated with the user account with the S3 Express policy attached, so it can perform S3 Express operations."
+            """            
+3. Create an additional client using the credentials with S3 Express permissions. This client is created with the 
+credentials associated with the user account with the S3 Express policy attached, so it can perform S3 Express operations.
+"""
         )
         press_enter_to_continue()
         self.s3_regular_client = self.create_s3__client_with_access_key_credentials(
@@ -177,23 +175,21 @@ bucket.
             express_credentials
         )
         print(
-            "All the roles and policies were created an attached to the user. Then, a new S3 Client and Service were created using that user's credentials."
-        )
-        print(
-            "We can now use this client to make calls to S3 Express operations. Keeping permissions in mind (and adhering to least-privilege) is crucial to S3 Express."
+            """
+All the roles and policies were created and attached to the user. Then a new S3 Client were created using 
+that user's credentials. We can now use this client to make calls to S3 Express operations. Keeping permissions in mind
+(and adhering to least-privilege) is crucial to S3 Express.
+ """
         )
         press_enter_to_continue()
         # 4. Create two buckets.
-        print("")
-        print("3. Create two buckets.")
         print(
-            "Now we will create a Directory bucket, which is the linchpin of the S3 Express One Zone service."
-        )
-        print(
-            "Directory buckets behave in different ways from regular S3 buckets, which we will explore here."
-        )
-        print(
-            "We'll also create a normal bucket, put an object into the normal bucket, and copy it over to the Directory bucket."
+            """
+3. Create two buckets.
+Now we will create a Directory bucket which is the linchpin of the S3 Express One Zone service. Directory buckets 
+behave in different ways from regular S3 buckets which we will explore here. We'll also create a normal bucket, put 
+an object into the normal bucket, and copy it over to the Directory bucket.
+"""
         )
         # Create a directory bucket. These are different from normal S3 buckets in subtle ways.
         bucket_prefix = q.ask(
@@ -234,17 +230,12 @@ bucket.
         """
         Create a session for the express S3 client and add objects to the buckets.
         """
-        print("")
-        print("5. Create an object and copy it over.")
-        print(
-            "We'll create a basic object consisting of some text and upload it to the normal bucket."
-        )
-        print(
-            "Next, we'll copy the object into the Directory bucket using the regular client."
-        )
-        print(
-            "This works fine, because copy operations are not restricted for Directory buckets."
-        )
+        print("""    
+5. Create an object and copy it over.
+We'll create a basic object consisting of some text and upload it to the normal bucket. Next we'll copy the object 
+into the Directory bucket using the regular client. This works fine because copy operations are not restricted for 
+Directory buckets.
+        """)
         press_enter_to_continue()
         bucket_object = "basic-text-object"
         S3ExpressScenario.put_object(
@@ -262,13 +253,12 @@ bucket.
             bucket_object,
         )
         print(
-            "It worked! It's important to remember the user permissions when interacting with Directory buckets."
-        )
-        print(
-            "Instead of validating permissions on every call as normal buckets do, Directory buckets utilize the user credentials and session token to validate."
-        )
-        print(
-            "This allows for much faster connection speeds on every call. For single calls, this is low, but for many concurrent calls, this adds up to a lot of time saved."
+            """
+It worked! It's important to remember the user permissions when interacting with Directory buckets. Instead of validating
+permissions on every call as normal buckets do, Directory buckets utilize the user credentials and session token to validate.
+This allows for much faster connection speeds on every call. For single calls, this is low, but for many concurrent calls 
+this adds up to a lot of time saved.
+"""
         )
         press_enter_to_continue()
         return bucket_object
@@ -281,7 +271,11 @@ bucket.
         print("")
         print("6. Demonstrate performance difference.")
         print(
-            "Now, let's do a performance test. We'll download the same object from each bucket $downloads times and compare the total time needed. Note: the performance difference will be much more pronounced if this example is run in an EC2 instance in the same AZ as the bucket."
+            """
+Now, let's do a performance test. We'll download the same object from each bucket 'downloads' times 
+and compare the total time needed. Note: the performance difference will be much more pronounced if this
+example is run in an EC2 instance in the same Availability Zone as the bucket.
+"""
         )
         downloads = 1000
         print(
@@ -294,7 +288,7 @@ bucket.
                 q.is_int,
                 q.in_range(1, max_downloads),
             )
-        # Download the object $downloads times from each bucket and time it to demonstrate the speed difference.
+        # Download the object 'downloads' times from each bucket and time it to demonstrate the speed difference.
         print("Downloading from the Directory bucket.")
         directory_time_start = time.time_ns()
         for index in range(downloads):
@@ -331,27 +325,15 @@ bucket.
         This is done by creating a few objects in each bucket and listing them to show the difference.
         :param bucket_object: The object to use for the listing operations.
         """
-        print("")
-        print("7. Populate the buckets to show the lexicographical difference.")
-        print(
-            "Now let's explore how Directory buckets store objects in a different manner to regular buckets."
-        )
-        print('The key is in the name "Directory!"')
-        print(
-            "Where regular buckets store their key/value pairs in a flat manner, Directory buckets use actual directories/folders."
-        )
-        print(
-            "This allows for more rapid indexing, traversing, and therefore retrieval times!"
-        )
-        print(
-            "The more segmented your bucket is, with lots of directories, sub-directories, and objects, the more efficient it becomes."
-        )
-        print(
-            "This structural difference also causes ListObjects to behave differently, which can cause unexpected results."
-        )
-        print(
-            "Let's add a few more objects with layered directories as see how the output of ListObjects changes."
-        )
+        print("""
+7. Populate the buckets to show the lexicographical difference.
+Now let's explore how Directory buckets store objects in a different manner to regular buckets. The key is in the name 
+"Directory". Where regular buckets store their key/value pairs in a flat manner, Directory buckets use actual 
+directories/folders. This allows for more rapid indexing, traversing, and therefore retrieval times! The more segmented 
+your bucket is, with lots of directories, sub-directories, and objects, the more efficient it becomes. This structural 
+difference also causes ListObjects to behave differently, which can cause unexpected results. Let's add a few more 
+objects with layered directories to see how the output of ListObjects changes.
+        """)
         press_enter_to_continue()
         # Populate a few more files in each bucket so that we can use ListObjects and show the difference.
         other_object = f"other/{bucket_object}"
@@ -387,14 +369,11 @@ bucket.
         print("Normal bucket content")
         for bucket_object in regular_bucket_objects:
             print(f"   {bucket_object['Key']}")
-        print(
-            "Notice how the normal bucket lists objects in lexicographical order, while the directory bucket does not."
-        )
-        print(
-            'This is because the normal bucket considers the whole "key" to be the object identifies, while the'
-        )
-        print(
-            'directory bucket actually creates directories and uses the object "key" as a path to the object.'
+        print("""
+Notice how the normal bucket lists objects in lexicographical order, while the directory bucket does not. This is 
+because the normal bucket considers the whole "key" to be the object identifier, while the directory bucket actually 
+creates directories and uses the object "key" as a path to the object.
+            """
         )
         press_enter_to_continue()
 
