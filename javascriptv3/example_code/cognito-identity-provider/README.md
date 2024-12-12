@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Amazon Cognito](hello.js#L6) (`ListUserPools`)
+- [Hello Amazon Cognito Identity Provider](hello.js#L6) (`ListUserPools`)
 
 
 ### Single actions
@@ -98,9 +98,9 @@ for that file.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Amazon Cognito
+#### Hello Amazon Cognito Identity Provider
 
-This example shows you how to get started using Amazon Cognito.
+This example shows you how to get started using Amazon Cognito Identity Provider.
 
 ```bash
 node ./hello.js
