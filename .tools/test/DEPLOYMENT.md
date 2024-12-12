@@ -1,100 +1,92 @@
 # Deployment Instructions
 
-This repository contains infrastructure deployment scripts for testing SDK example code. The infrastructure is managed through AWS CDK and can be deployed in two ways:
-1. [deploy.py](#1-using-the-deploy-script)
-2. [invoking the CDK directly](#2-invoking-cdk-directly)
+There are two ways to deploy the code in this directory.
 
-## Option 1. Using `deploy.py`
+## 1. Using the deploy script
 
-The [deploy.py](stacks/deploy.py) script is the primary method for deploying the infrastructure stacks.
-
-It is designed to run from MacOS terminal.
-
-It uses Python's `subprocess` module to execute CDK commands (as CDK doesn't support exist as a Python library). It relies on environment variables (noted in this document) throughout the deployment process.
-
-The script handles three types of deployments:
-
-1. **Images Stack** (`images`):
-   - Creates empty ECR private repositories for all tools listed in [targets.yaml](stacks/config/targets.yaml)
-   - Users must implement their own image versioning and pushing mechanism
-   - Example: GitHub Actions with OIDC provider works well for this purpose
-
-2. **Admin Stack** (`admin`):
-   - Deploys event emission infrastructure
-   - Creates IAM policies for cross-account event subscription
-   - **Required**: Must be deployed before any plugin stacks
-   - Works with single or multiple accounts listed in [targets.yaml](stacks/config/targets.yaml)
-
-3. **Plugin Stack** (`plugin`):
-   - Deploys two stacks to each account in [targets.yaml](stacks/config/targets.yaml):
-     1. Plugin stack that subscribes to admin stack events
-     2. Account nuker stack that cleans up residual test resources
-   - Requires `admin` stack to be deployed first
+To deploy any stack in this directory, run the [deploy.py](stacks/deploy.py) script.
 
 ### Script Prerequisites
 
-- MacOS terminal environment
 - Python 3.11 installed
+- `ada` or equivalent CLI library for fetching AWS credentials.
+- Dependencies installed in Python virtual environment:
+
+```
+python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+```
+
 - AWS CLI and CDK installed and configured (NodeJS 18+)
 - Permissions to execute AWS CDK and shell commands (`AdministratorAccess` will work for non-production test environments)
-- Configuration files [resources.yaml](stacks/config/resources.yaml) and [targets.yaml](stacks/config/targets.yaml)
-- Environment variables set for:
-  - `TOKEN_TOOL`: Path to credential management tool
-  - `TOKEN_PROVIDER`: Identity provider for AWS credentials
-- Dependencies installed in Python virtual environment:
-```
-python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt``
-```
+- Configuration files `resources.yaml` and `targets.yaml`, which exist in the [stacks/config](stacks/config) directory within the same directory as the script
 
 ### Usage
 
 #### Command Syntax
 
 ```bash
-cd stacks ; python deploy.py <stack-type>
+cd stacks ; python deploy.py <stack>
 ```
 
-Replace `<stack-type>` with one of the supported stacks:
+Replace `<stack>` with one of the supported stacks:
 
 - `admin`: Deploys admin-specific resources.
 - `images`: Deploys image-related resources.
 - `plugin`: Deploys plugin-specific resources.
-  - To deploy only a specific language's plugin only, pass `--language <language>` where `<language>` is an account name in [targets.yaml](stacks/config/targets.yaml). E.g. `python`
-
-## Technical Notes
-This creates some brittleness but provides necessary flexibility for cross-account deployments
+  - To deploy only a specific language's plugin, pass `--language <language>` where language is an account in [targets.yaml](stacks/config/targets.yaml).
 
 #### Additional Notes
-Some non-obvious quirks of the script include:
- - programmatic file traversing to the required CDK directory based on the type and language of CDK deployment (`typescript` is the default).
- - a random-seeming sleep period after deployment to avoid conflicts with the previous CDK operation that may have not killed its thread yet.
- - more generally, extensive use of the `subprocess` module which creates some acceptable brittleness that may result in future regression.
+
+The script automatically navigates to the required directory based on the type and language of deployment (typescript is the default).
+
+Environment variables are set and used during the deployment process.
+
+Errors during command execution are caught and displayed.
+
+The script includes a sleep period after deployment to avoid conflicts with simultaneous CDK operations.
+
+Make sure to check the script's output for any errors or confirmation messages that indicate the deployment's success or failure. Adjust the config files as necessary to match your deployment requirements.
+
 ---
 
-## Option 2. Invoking CDK directly
+## 2. Invoking CDK directly
 
-This option involves navigating to each stack directory([images](stacks/images), [admin](stacks/admin), or [plugin](stacks/plugin)) and running the `cdk` commands explained below.
+The second option involves navigating to each stack directory and running the CDK commands.
 
-Required steps for all stack types:
-1. Set Python virtualenv within [plugin directory](stacks/plugin/admin).
-1. Get AWS account tokens for target account.
-1. Run `cdk bootstrap` and `cdk deploy`.
+The following instructions assume a "plugin account" (the AWS account where testing activities will occur) of "python" (corresponding to a Docker image) per [this repository's configuration](config/targets.yaml).
+You can replace Python with any of the other languages listed in this repository's configuration.
 
-### Special details for `plugin` type
-For the `plugin` type, there are a few important details: 
-1. User must also run `export LANGUAGE_NAME=python` if your tool is `python`.
-1. For the stack to begin accepting test events, you must set `status` to `enabled` for your tool (e.g. `python`) in [targets.yaml](stacks/config/targets.yaml) and redeploy the `admin` stack.
-1. To manually trigger test runs, [submit a test job](#submit-test-job) in AWS Batch.
+To request an alternate configuration for your own repository or use case, please [submit an issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/new?labels=type%2Fenhancement&labels=Tools&title=%5BEnhancement%5D%3A+Weathertop+Customization+Request&&) with the `Tools` label.
 
-## Testing & Validation
-Users can trigger test runs from within the AWS Console after deploying the `plugin` stack for their chosen tool.
+### 1. Deploy Plugin Stack for your language (e.g. Python)
 
-### Submit test job
+User will:
 
-Users can trigger test runs from within the AWS Console after deploying the `plugin` stack for their chosen tool.
+1. Set Python virtualenv within [plugin directory](plugin/admin).
+1. `export LANGUAGE_NAME=python`.
+1. Get AWS account tokens for plugin account.
+1. `cdk bootstrap` and `cdk deploy`.
 
-Steps:
-1. Log into console for tool AWS account (e.g. `python`)
+### 2. Enable Consumer Stack to receive event notifications
+
+User will:
+
+1. Set `status` to `enabled` in [targets.yaml](config/targets.yaml) for your language
+1. Raise PR.
+
+Admin will:
+
+1. Approve and merge PR.
+1. Set Python virtualenv within [admin directory](stacks/admin).
+1. Get Admin account tokens.
+1. `cdk bootstrap` and `cdk deploy`.
+1. Request that user [submit a test job](#3-submit-test-job).
+
+### 3. Submit test job
+
+User will:
+
+1. Log into console for Python account
 1. Navigate to "Job Definitions".
    ![](docs/validation-flow-1.jpg)
 1. Click "Submit Job".
@@ -105,12 +97,10 @@ Steps:
    ![](docs/validation-flow-4.jpg)
 1. Click "Create job".
    ![](docs/validation-flow-5.jpg)
-1. [Validate results of test job](#view-test-run-results)
+1. [Validate results of test job](#3-optional-view-test-job-results)
 
-### View test run results
-1. Log into console for tool AWS account (e.g. `python`)
-1. Click `Jobs` and select the only job queue.
-2. Toggle `Load all jobs`.
-1. View job details by clicking the hyperlinked value in the `Name` field.
-2. When status is `SUCCEEDED` or `FAILED`, click "Logging" tab.
+### 3. Optional: View CloudWatch job results in Batch
+
+1. Navigate to a job
+1. When status is `SUCCEEDED` or `FAILED`, click "Logging" tab.
    ![](docs/validation-flow-6.jpg)
