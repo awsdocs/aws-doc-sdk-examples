@@ -118,26 +118,6 @@ def get_caller_identity() -> None:
     except ClientError as e:
         logger.error(f"An error occurred: {e}")
 
-
-def delete_aws_directory() -> None:
-    """
-    Delete the .aws directory in the user's home directory.
-
-    This function removes the .aws directory and all its contents from the user's
-    home directory. If the directory does not exist, it logs a message.
-    """
-    aws_dir = Path.home() / ".aws"
-
-    if aws_dir.exists():
-        try:
-            shutil.rmtree(aws_dir)
-            logger.info(f"Deleted all contents under {aws_dir}.")
-        except Exception as e:
-            logger.error(f"Error deleting {aws_dir}: {e}")
-    else:
-        logger.info(f"{aws_dir} does not exist.")
-
-
 def run_shell_command(
     command: List[str], env_vars: Optional[Dict[str, str]] = None
 ) -> None:
@@ -245,7 +225,6 @@ def deploy_resources(
     # TODO: Replace with proper waiter implementation
     time.sleep(15)
 
-    delete_aws_directory()
     get_caller_identity()
 
 
