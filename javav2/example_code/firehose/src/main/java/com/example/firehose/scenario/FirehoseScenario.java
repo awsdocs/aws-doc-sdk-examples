@@ -171,7 +171,7 @@ public class FirehoseScenario {
             throw new RuntimeException("Failed to put record batch: " + e.getMessage(), e);
         }
     }
-    // snippet-start:[firehose.java2.put_batch_records.main]
+    // snippet-end:[firehose.java2.put_batch_records.main]
 
     public static void monitorMetrics(String deliveryStreamName) {
         Instant endTime = Instant.now();
