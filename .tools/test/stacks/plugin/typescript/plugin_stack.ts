@@ -44,7 +44,7 @@ class PluginStack extends cdk.Stack {
       // https://docs.aws.amazon.com/batch/latest/APIReference/API_ResourceRequirement.html
       this.batchMemory = acctConfig[`${toolName}`]?.memory ?? "16384"; // MiB
       this.batchVcpus = acctConfig[`${toolName}`]?.vcpus ?? "4"; // CPUs
-      this.batchStorage = acctConfig[`${toolName}`]?.storage ?? 20; // GiB
+      this.batchStorage = acctConfig[`${toolName}`]?.storage ?? 30; // GiB
     }
 
     const [jobDefinition, jobQueue] = this.initBatchFargate();
@@ -116,7 +116,7 @@ class PluginStack extends cdk.Stack {
           securityGroupIds: [sg.securityGroupId],
           maxvCpus: 1,
         },
-      },
+      }
     );
 
     const containerImageUri = `${this.adminAccountId}.dkr.ecr.us-east-1.amazonaws.com/${toolName}:latest`;
@@ -141,7 +141,7 @@ class PluginStack extends cdk.Stack {
           },
         ],
         ephemeralStorage: {
-          sizeInGiB: this.batchStorage,
+          sizeInGiB: +this.batchStorage,
         },
         environment: variableConfigJson,
       },
@@ -348,6 +348,7 @@ new PluginStack(
       account: process.env.CDK_DEFAULT_ACCOUNT,
       region: process.env.CDK_DEFAULT_REGION,
     },
+    terminationProtection: true
   },
 );
 
