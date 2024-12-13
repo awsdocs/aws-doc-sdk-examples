@@ -39,7 +39,7 @@ The script uses Python's subprocess module to execute the AWS Cloud Development 
 - Command line interface (CLI) on macOS installed, such as zsh or bash
 - Python 3.11 installed
 - AWS CLI and CDK installed and configured (NodeJS 18+)
-- Permissions to execute AWS CDK and shell commands (`AdministratorAccess` will work for non-production test environments)
+- Admin-like IAM permissions on the role assumed (`AdministratorAccess` will work for non-production test environments).
 - Configuration files [resources.yaml](stacks/config/resources.yaml) and [targets.yaml](stacks/config/targets.yaml)
 - Environment variables set for:
   - `TOKEN_TOOL`: Path to credential management tool
