@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
-// snippet-end:[firehose.java2.scenario.main]
+// snippet-start:[firehose.java2.scenario.main]
 /**
  * Amazon Firehose Scenario example using Java V2 SDK.
  *
@@ -219,5 +219,4 @@ public class FirehoseScenario {
         }
     }
 }
-
 // snippet-end:[firehose.java2.scenario.main]
