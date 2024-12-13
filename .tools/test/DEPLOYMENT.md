@@ -8,10 +8,7 @@ This repository contains infrastructure deployment scripts for testing SDK examp
 
 The [deploy.py](stacks/deploy.py) script is the primary method for deploying the infrastructure stacks.
 
-It is designed to run from MacOS terminal.
-
-It uses Python's `subprocess` module to execute CDK commands (as CDK doesn't support exist as a Python library). It relies on environment variables (noted in this document) throughout the deployment process.
-
+### Deployment types
 The script handles three types of deployments:
 
 1. **Images Stack** (`images`):
@@ -31,9 +28,15 @@ The script handles three types of deployments:
      2. Account nuker stack that cleans up residual test resources
    - Requires `admin` stack to be deployed first
 
+### Environment
+It is designed to run from the command line interface (CLI) on macOS or Linux systems. You can use the default terminal emulator on macOS, such as zsh or bash, or any other terminal emulator of your choice.
+
+### Why subprocess?
+The script uses Python's subprocess module to execute the AWS Cloud Development Kit (CDK) command-line interface (CLI) commands. While the CDK provides a Python CDK library, 1) we use the TypeScript version per team standard, and 2) that Python CDK library does not expose a way to invoke the script itself from within a Python script. As a consequence, we are stuck using the `subprocess` module to invoke the CDK CLI commands for our TypeScript stack.
+
 ### Script Prerequisites
 
-- MacOS terminal environment
+- Command line interface (CLI) on macOS installed, such as zsh or bash
 - Python 3.11 installed
 - AWS CLI and CDK installed and configured (NodeJS 18+)
 - Permissions to execute AWS CDK and shell commands (`AdministratorAccess` will work for non-production test environments)
