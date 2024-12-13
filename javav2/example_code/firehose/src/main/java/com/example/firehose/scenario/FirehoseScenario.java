@@ -42,7 +42,7 @@ public class FirehoseScenario {
             return;
         }
 
-        String deliveryStreamName = "stream35" ; //args[0];
+        String deliveryStreamName = args[0];
 
         try {
             // Read and parse sample data.
