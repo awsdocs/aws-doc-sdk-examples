@@ -42,7 +42,7 @@ public class FirehoseScenario {
             return;
         }
 
-        String deliveryStreamName = args[0];
+        String deliveryStreamName = "stream35" ; //args[0];
 
         try {
             // Read and parse sample data.
@@ -65,7 +65,7 @@ public class FirehoseScenario {
 
             // Process batch records.
             System.out.println("Processing batch records...");
-            putRecordBatch(sampleData.subList(100, sampleData.size()), 50, deliveryStreamName);
+            putRecordBatch(sampleData.subList(100, sampleData.size()), 500, deliveryStreamName);
             monitorMetrics(deliveryStreamName);
 
         } catch (Exception e) {
