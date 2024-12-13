@@ -2,6 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.firehose.*;
+import com.example.firehose.scenario.FirehoseScenario;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -11,6 +16,8 @@ import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import java.io.*;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 

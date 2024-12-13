@@ -37,11 +37,20 @@ public class FirehoseScenario {
     private static String deliveryStreamName;
 
     public static void main(String[] args) {
-        firehoseClient = FirehoseClient.builder().region(Region.US_EAST_1).build();
-        cloudWatchClient = CloudWatchClient.builder().region(Region.US_EAST_1).build();
+        final String usage = """
 
-        // Replace with your region and delivery stream name
-        deliveryStreamName = "stream35";
+                Usage:
+                    <deliveryStreamName> \s
+
+                Where:
+                    deliveryStreamName - The data stream name.\s
+                """;
+
+        if (args.length != 1) {
+            System.out.println(usage);
+            return;
+        }
+        deliveryStreamName = args[0];
 
         /*
            See the Readme in the scenario folder for information about the sample_records.json file.
@@ -56,7 +65,7 @@ public class FirehoseScenario {
                 new TypeReference<>() {}
             );
 
-            // Process individual records
+            // Process individual records.
             System.out.println("Processing individual records...");
             sampleData.subList(0, 100).forEach(record -> {
                 try {
@@ -70,7 +79,7 @@ public class FirehoseScenario {
 
             // Process batch records.
             System.out.println("Processing batch records...");
-            putRecordBatch(sampleData.subList(100, 200), 50);
+            putRecordBatch(sampleData.subList(100, sampleData.size()), 50);
             monitorMetrics();
         } catch (Exception e) {
             System.out.println("Error processing records: " + e.getMessage());
@@ -78,7 +87,34 @@ public class FirehoseScenario {
             closeClients();
         }
 
-        System.out.println("This concludes the AWS Firehose scenario...");
+        System.out.println("This concludes the Amazon Firehose scenario...");
+    }
+
+    /**
+     * Retrieves a singleton instance of the FirehoseClient.
+     *
+     * <p>If the {@code firehoseClient} instance is null, it is created using the
+     * {@code FirehoseClient.create()} method. Otherwise, the existing instance is returned.</p>
+     *
+     * @return the FirehoseClient instance
+     */
+    private static FirehoseClient getFirehoseClient() {
+        if (firehoseClient == null) {
+            firehoseClient = FirehoseClient.create();
+        }
+        return firehoseClient;
+    }
+
+    /**
+     * Retrieves a singleton instance of the cloudWatchClient.
+     *
+     * @return the CloudWatchClient instance
+     */
+    private static CloudWatchClient getCloudWatchClient() {
+        if (cloudWatchClient == null) {
+            cloudWatchClient = CloudWatchClient.create();
+        }
+        return cloudWatchClient;
     }
 
     /**
@@ -102,7 +138,7 @@ public class FirehoseScenario {
                 .record(firehoseRecord)
                 .build();
 
-            firehoseClient.putRecord(putRecordRequest);
+            getFirehoseClient().putRecord(putRecordRequest);
             System.out.println("Record sent successfully: " + jsonRecord);
         } catch (Exception e) {
             System.out.println("Failed to send record. Error: " + e.getMessage());
@@ -140,7 +176,7 @@ public class FirehoseScenario {
                     .records(batchRecords)
                     .build();
 
-                PutRecordBatchResponse response = firehoseClient.putRecordBatch(request);
+                PutRecordBatchResponse response = getFirehoseClient().putRecordBatch(request);
 
                 if (response.failedPutCount() > 0) {
                     System.out.println("Failed to send " + response.failedPutCount() + " records in batch of " + batchRecords.size());
@@ -198,7 +234,7 @@ public class FirehoseScenario {
             .statistics(Statistic.SUM)
             .build();
 
-        GetMetricStatisticsResponse response = cloudWatchClient.getMetricStatistics(request);
+        GetMetricStatisticsResponse response = getCloudWatchClient().getMetricStatistics(request);
         double totalSum = response.datapoints().stream()
             .mapToDouble(Datapoint::sum)
             .sum();
