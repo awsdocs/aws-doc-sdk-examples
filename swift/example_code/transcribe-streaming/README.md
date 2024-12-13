@@ -69,7 +69,7 @@ and run commands.
 
 #### Transcribe an audio file
 
-This example shows you how to generate a transcription of a source audio file using Amazon Transcribestreaming.
+This example shows you how to generate a transcription of a source audio file using Amazon Transcribe streaming.
 
 
 <!--custom.scenario_prereqs.transcribe-streaming_Scenario_StreamEvents.start-->
