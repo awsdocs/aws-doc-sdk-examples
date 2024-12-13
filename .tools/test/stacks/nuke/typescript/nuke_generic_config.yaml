@@ -1,5 +1,5 @@
 regions:
-  - TARGET_REGION # will be overridden during execution based on region parameter
+  - TARGET_REGION  # will be overridden during execution based on region parameter
 
 account-blocklist:
   - 1234567890
@@ -169,5 +169,3 @@ accounts:
       SSMResourceDataSync:
         - type: regex
           value: "^(AccountGuardian|Isengard).*DO-NOT-DELETE.*$"
-
-

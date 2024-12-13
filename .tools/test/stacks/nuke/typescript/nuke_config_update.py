@@ -1,6 +1,5 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
-
 """
 Python class responsible for updating the nuke generic config, based on exceptions to be filtered,
 and also updates dynamically the region attribute passed in from the StepFunctions invocation.
