@@ -27,6 +27,7 @@ entities = {
     "&kms-key;": "KMS key",
     "&kms-keys;": "KMS keys",
     "&S3long;": "Amazon Simple Storage Service",
+    "&S3only;": "S3",
     "&SLN;": "Amazon States Language",
 }
 language = {

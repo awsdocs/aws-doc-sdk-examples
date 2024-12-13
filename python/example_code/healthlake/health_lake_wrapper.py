@@ -47,8 +47,8 @@ class HealthLakeWrapper:
         identity_provider_configuration: dict[str, any] = None,
     ) -> dict[str, str]:
         """
-        Creates a new HealthLake datastore.
-        When creating a SMART on FHIR datastore, the following parameters are required:
+        Creates a new HealthLake data store.
+        When creating a SMART on FHIR data store, the following parameters are required:
         - sse_configuration: The server-side encryption configuration for a SMART on FHIR-enabled data store.
         - identity_provider_configuration: The identity provider configuration for a SMART on FHIR-enabled data store.
 
@@ -73,7 +73,7 @@ class HealthLakeWrapper:
             return response
         except ClientError as err:
             logger.exception(
-                "Couldn't create datastore %s. Here's why %s",
+                "Couldn't create data store %s. Here's why %s",
                 datastore_name,
                 err.response["Error"]["Message"],
             )
@@ -84,9 +84,9 @@ class HealthLakeWrapper:
     # snippet-start:[python.example_code.healthlake.DescribeFHIRDatastore]
     def describe_fhir_datastore(self, datastore_id: str) -> dict[str, any]:
         """
-        Describes a HealthLake datastore.
-        :param datastore_id: The datastore ID.
-        :return: The datastore description.
+        Describes a HealthLake data store.
+        :param datastore_id: The data store ID.
+        :return: The data store description.
         """
         try:
             response = self.health_lake_client.describe_fhir_datastore(
@@ -95,7 +95,7 @@ class HealthLakeWrapper:
             return response["DatastoreProperties"]
         except ClientError as err:
             logger.exception(
-                "Couldn't describe datastore with ID %s. Here's why %s",
+                "Couldn't describe data store with ID %s. Here's why %s",
                 datastore_id,
                 err.response["Error"]["Message"],
             )
@@ -106,8 +106,8 @@ class HealthLakeWrapper:
     # snippet-start:[python.example_code.healthlake.ListFHIRDatastores]
     def list_fhir_datastores(self) -> list[dict[str, any]]:
         """
-        Lists all HealthLake datastores.
-        :return: A list of datastore descriptions.
+        Lists all HealthLake data stores.
+        :return: A list of data store descriptions.
         """
         try:
             next_token = None
@@ -128,7 +128,7 @@ class HealthLakeWrapper:
             return datastores
         except ClientError as err:
             logger.exception(
-                "Couldn't list datastores. Here's why %s", err.response["Error"]["Message"]
+                "Couldn't list data stores. Here's why %s", err.response["Error"]["Message"]
             )
             raise
     # snippet-end:[python.example_code.healthlake.ListFHIRDatastores]
@@ -136,14 +136,14 @@ class HealthLakeWrapper:
     # snippet-start:[python.example_code.healthlake.DeleteFHIRDatastore]
     def delete_fhir_datastore(self, datastore_id: str) -> None:
         """
-        Deletes a HealthLake datastore.
-        :param datastore_id: The datastore ID.
+        Deletes a HealthLake data store.
+        :param datastore_id: The data store ID.
         """
         try:
             self.health_lake_client.delete_fhir_datastore(DatastoreId=datastore_id)
         except ClientError as err:
             logger.exception(
-                "Couldn't delete datastore with ID %s. Here's why %s",
+                "Couldn't delete data store with ID %s. Here's why %s",
                 datastore_id,
                 err.response["Error"]["Message"],
             )
@@ -164,7 +164,7 @@ class HealthLakeWrapper:
         """
         Starts a HealthLake import job.
         :param job_name: The import job name.
-        :param datastore_id: The datastore ID.
+        :param datastore_id: The data store ID.
         :param input_s3_uri: The input S3 URI.
         :param job_output_s3_uri: The job output S3 URI.
         :param kms_key_id: The KMS key ID associated with the output S3 bucket.
@@ -200,7 +200,7 @@ class HealthLakeWrapper:
     ) -> dict[str, any]:
         """
         Describes a HealthLake import job.
-        :param datastore_id: The datastore ID.
+        :param datastore_id: The data store ID.
         :param job_id: The import job ID.
         :return: The import job description.
         """
@@ -230,7 +230,7 @@ class HealthLakeWrapper:
     ) -> list[dict[str, any]]:
         """
         Lists HealthLake import jobs satisfying the conditions.
-        :param datastore_id: The datastore ID.
+        :param datastore_id: The data store ID.
         :param job_name: The import job name.
         :param job_status: The import job status.
         :param submitted_before: The import job submitted before the specified date.
@@ -281,7 +281,7 @@ class HealthLakeWrapper:
         """
         Starts a HealthLake export job.
         :param job_name: The export job name.
-        :param datastore_id: The datastore ID.
+        :param datastore_id: The data store ID.
         :param output_s3_uri: The output S3 URI.
         :param kms_key_id: The KMS key ID associated with the output S3 bucket.
         :param data_access_role_arn: The data access role ARN.
@@ -313,7 +313,7 @@ class HealthLakeWrapper:
     ) -> dict[str, any]:
         """
         Describes a HealthLake export job.
-        :param datastore_id: The datastore ID.
+        :param datastore_id: The data store ID.
         :param job_id: The export job ID.
         :return: The export job description.
         """
@@ -343,7 +343,7 @@ class HealthLakeWrapper:
     ) -> list[dict[str, any]]:
         """
         Lists HealthLake export jobs satisfying the conditions.
-        :param datastore_id: The datastore ID.
+        :param datastore_id: The data store ID.
         :param job_name: The export job name.
         :param job_status: The export job status.
         :param submitted_before: The export job submitted before the specified date.
@@ -448,11 +448,11 @@ class HealthLakeWrapper:
 
     def wait_datastore_active(self, datastore_id: str) -> None:
         """
-        Waits for a HealthLake datastore to become active.
-        :param datastore_id: The datastore ID.
+        Waits for a HealthLake data store to become active.
+        :param datastore_id: The data store ID.
         """
         counter = 0
-        max_count_minutes = 40  # It can take a while to create a datastore, so we'll wait up to 40 minutes.
+        max_count_minutes = 40  # It can take a while to create a data store, so we'll wait up to 40 minutes.
         status = "CREATING"
         while counter < max_count_minutes:
             datastore = self.health_lake_client.describe_fhir_datastore(
@@ -468,17 +468,17 @@ class HealthLakeWrapper:
 
         if status == "ACTIVE":
             print(
-                f"Datastore with ID {datastore_id} is active after {counter} minutes."
+                f"Data store with ID {datastore_id} is active after {counter} minutes."
             )
         elif status == "CREATE_FAILED":
             raise ClientError(
-                "Create datastore with ID %s failed after %d minutes.",
+                "Create data store with ID %s failed after %d minutes.",
                 datastore_id,
                 counter,
             )
         else:
             raise ClientError(
-                "Datastore with ID %s is not active after %d minutes.",
+                "Data store with ID %s is not active after %d minutes.",
                 datastore_id,
                 counter,
             )
@@ -486,7 +486,7 @@ class HealthLakeWrapper:
     def wait_import_job_complete(self, datastore_id: str, job_id: str) -> None:
         """
         Waits for a HealthLake import job to complete.
-        :param datastore_id: The datastore ID.
+        :param datastore_id: The data store ID.
         :param job_id: The import job ID.
         """
         counter = 0
@@ -520,7 +520,7 @@ class HealthLakeWrapper:
     def wait_export_job_complete(self, datastore_id: str, job_id: str) -> None:
         """
         Waits for a HealthLake export job to complete.
-        :param datastore_id: The datastore ID.
+        :param datastore_id: The data store ID.
         :param job_id: The export job ID.
         """
         counter = 0
@@ -549,9 +549,22 @@ class HealthLakeWrapper:
             )
 
     def health_lake_demo(self) -> None:
-        use_smart_on_fhir_data_store = True
+        use_smart_on_fhir_data_store = False
 
-        datastore_name = "health_imaging_datastore2"
+        # Change the following variables to match your environment.
+        datastore_name = "health_imaging_datastore"
+        import_job_name = "my_import_job"
+        input_s3_uri = (
+            "s3://amzn-s3-demo-bucket/import/examples/patient_example.json"
+        )
+        kms_key_id = "arn:aws:kms:us-east-1:123456789012:key/b7f645cb-e564-4981-8672-9e012d1ff1a0"
+        data_access_role_arn = (
+            "arn:aws:iam::123456789012:role/healthlake_access"
+        )
+        export_job_name = "my_export_job"
+        output_s3_uri = "s3://amzn-s3-demo-bucket/export/output/"
+
+
         if use_smart_on_fhir_data_store:
             # snippet-start:[python.example_code.healthlake.CreateFHIRDatastore.smart]
             sse_configuration = {
@@ -605,7 +618,7 @@ class HealthLakeWrapper:
         for data_store in data_stores:
             if data_store["DatastoreId"] == data_store_id:
                 logger.info(
-                    "Datastore with ID %s is %s.",
+                    "Data store with ID %s is %s.",
                     data_store_id,
                     data_store["DatastoreStatus"],
                 )
@@ -625,17 +638,8 @@ class HealthLakeWrapper:
 
         self.untag_resource(data_store_arn, keys)
 
-        job_name = "my_import_job"
-        input_s3_uri = (
-            "s3://health-lake-test-827365/import/examples/patient_example_chalmers.json"
-        )
-        output_s3_uri = "s3://health-lake-test-827365/import/output/"
-        kms_key_id = "arn:aws:kms:us-east-1:123502194722:key/b7f645cb-e564-4981-8672-9e012d1ff1a0"
-        data_access_role_arn = (
-            "arn:aws:iam::123502194722:role/healthlaketest37-ahl-full-access"
-        )
         import_job = self.start_fhir_import_job(
-            job_name,
+            import_job_name,
             data_store_id,
             input_s3_uri,
             output_s3_uri,
@@ -657,10 +661,8 @@ class HealthLakeWrapper:
                 f"Job id: {import_job['JobId']}, status: {import_job['JobStatus']}, submit time: {import_job['SubmitTime']}"
             )
 
-        job_name = "my_export_job"
-        output_s3_uri = "s3://health-lake-test-827365/export/output/"
         export_job = self.start_fhir_export_job(
-            job_name, data_store_id, output_s3_uri, kms_key_id, data_access_role_arn
+            export_job_name, data_store_id, output_s3_uri, kms_key_id, data_access_role_arn
         )
 
         export_job_id = export_job["JobId"]
