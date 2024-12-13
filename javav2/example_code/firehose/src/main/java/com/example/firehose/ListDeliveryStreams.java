@@ -42,7 +42,6 @@ public class ListDeliveryStreams {
 
         } catch (FirehoseException e) {
             System.out.println(e.getLocalizedMessage());
-            System.exit(1);
         }
     }
 }
