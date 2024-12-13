@@ -49,6 +49,10 @@ The script uses Python's subprocess module to execute the AWS Cloud Development 
 python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt``
 ```
 
+### Note on EnvVars `TOKEN_TOOL` and `TOKEN_PROVIDER`
+These environment variables are designed to partly obscure the tooling used by AWS.
+The `get_tokens` function on [deploy.py#L167](stacks/deploy.py#L167) may require additional refactoring to comply with whatever token tool you are using.
+
 ### Usage
 
 #### Command Syntax
