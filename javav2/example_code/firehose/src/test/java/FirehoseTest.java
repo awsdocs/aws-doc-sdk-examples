@@ -47,8 +47,7 @@ public class FirehoseTest {
         SecretValues values = gson.fromJson(json, SecretValues.class);
         bucketARN = values.getBucketARN();
         roleARN = values.getRoleARN();
-        //newStream = values.getNewStream() + java.util.UUID.randomUUID();
-        newStream = "stream35";
+        newStream = values.getNewStream() + java.util.UUID.randomUUID();
         textValue = values.getTextValue();
         // Uncomment this code block if you prefer using a config.properties file to
         // retrieve AWS values required for these tests.
