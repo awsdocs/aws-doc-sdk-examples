@@ -9,95 +9,72 @@ import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.*;
 import software.amazon.awssdk.services.firehose.FirehoseClient;
-import software.amazon.awssdk.services.firehose.model.PutRecordBatchRequest;
-import software.amazon.awssdk.services.firehose.model.PutRecordBatchResponse;
-import software.amazon.awssdk.services.firehose.model.PutRecordRequest;
+import software.amazon.awssdk.services.firehose.model.*;
 import software.amazon.awssdk.services.firehose.model.Record;
-import software.amazon.awssdk.regions.Region;
+
 import java.io.InputStream;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
-
+// snippet-end:[firehose.java2.scenario.main]
 /**
- * Before running this Java V2 code example, set up your development
- * environment, including your credentials.
+ * Amazon Firehose Scenario example using Java V2 SDK.
  *
- * For more information, see the following documentation topic:
- *
- * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ * Demonstrates individual and batch record processing,
+ * and monitoring Firehose delivery stream metrics.
  */
-
-// snippet-start:[firehose.java2.scenario.main]
 public class FirehoseScenario {
+
     private static FirehoseClient firehoseClient;
     private static CloudWatchClient cloudWatchClient;
-    private static String deliveryStreamName;
 
     public static void main(String[] args) {
         final String usage = """
-
                 Usage:
-                    <deliveryStreamName> \s
-
+                    <deliveryStreamName>
                 Where:
-                    deliveryStreamName - The data stream name.\s
+                    deliveryStreamName - The Firehose delivery stream name.
                 """;
 
         if (args.length != 1) {
             System.out.println(usage);
             return;
         }
-        deliveryStreamName = args[0];
 
-        /*
-           See the Readme in the scenario folder for information about the sample_records.json file.
-           After you create this file, place in your project's resources folder After you perform these tasks,
-           the sample data file can be used in this scenario.
-         */
-        String jsonContent = readJsonFile("sample_records.json");
-        ObjectMapper objectMapper = new ObjectMapper();
+        String deliveryStreamName = args[0];
+
         try {
-            List<Map<String, Object>> sampleData = objectMapper.readValue(
-                jsonContent,
-                new TypeReference<>() {}
-            );
+            // Read and parse sample data.
+            String jsonContent = readJsonFile("sample_records.json");
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<Map<String, Object>> sampleData = objectMapper.readValue(jsonContent, new TypeReference<>() {});
 
             // Process individual records.
             System.out.println("Processing individual records...");
             sampleData.subList(0, 100).forEach(record -> {
                 try {
-                    putRecord(record);
+                    putRecord(record, deliveryStreamName);
                 } catch (Exception e) {
-                    System.out.println("Put record failed: " + e.getMessage());
+                    System.err.println("Error processing record: " + e.getMessage());
                 }
             });
 
-            monitorMetrics();
+            // Monitor metrics.
+            monitorMetrics(deliveryStreamName);
 
             // Process batch records.
             System.out.println("Processing batch records...");
-            putRecordBatch(sampleData.subList(100, sampleData.size()), 50);
-            monitorMetrics();
+            putRecordBatch(sampleData.subList(100, sampleData.size()), 50, deliveryStreamName);
+            monitorMetrics(deliveryStreamName);
+
         } catch (Exception e) {
-            System.out.println("Error processing records: " + e.getMessage());
+            System.err.println("Scenario failed: " + e.getMessage());
         } finally {
             closeClients();
         }
-
-        System.out.println("This concludes the Amazon Firehose scenario...");
     }
 
-    /**
-     * Retrieves a singleton instance of the FirehoseClient.
-     *
-     * <p>If the {@code firehoseClient} instance is null, it is created using the
-     * {@code FirehoseClient.create()} method. Otherwise, the existing instance is returned.</p>
-     *
-     * @return the FirehoseClient instance
-     */
     private static FirehoseClient getFirehoseClient() {
         if (firehoseClient == null) {
             firehoseClient = FirehoseClient.create();
@@ -105,11 +82,6 @@ public class FirehoseScenario {
         return firehoseClient;
     }
 
-    /**
-     * Retrieves a singleton instance of the cloudWatchClient.
-     *
-     * @return the CloudWatchClient instance
-     */
     private static CloudWatchClient getCloudWatchClient() {
         if (cloudWatchClient == null) {
             cloudWatchClient = CloudWatchClient.create();
@@ -117,20 +89,23 @@ public class FirehoseScenario {
         return cloudWatchClient;
     }
 
+    // snippet-start:[firehose.java2.put_record.main]
     /**
      * Puts a record to the specified Amazon Kinesis Data Firehose delivery stream.
      *
-     * @param record a {@link java.util.Map} containing the data to be sent to the Firehose delivery stream
-     * @throws RuntimeException if an exception occurs while sending the record to the Firehose delivery stream
+     * @param record The record to be put to the delivery stream. The record must be a {@link Map} of String keys and Object values.
+     * @param deliveryStreamName The name of the Amazon Kinesis Data Firehose delivery stream to which the record should be put.
+     * @throws IllegalArgumentException if the input record or delivery stream name is null or empty.
+     * @throws RuntimeException if there is an error putting the record to the delivery stream.
      */
-    public static void putRecord(Map<String, Object> record) {
+    public static void putRecord(Map<String, Object> record, String deliveryStreamName) {
+        if (record == null || deliveryStreamName == null || deliveryStreamName.isEmpty()) {
+            throw new IllegalArgumentException("Invalid input: record or delivery stream name cannot be null/empty");
+        }
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            String jsonRecord = objectMapper.writeValueAsString(record);
-            ByteBuffer data = ByteBuffer.wrap(jsonRecord.getBytes());
-
+            String jsonRecord = new ObjectMapper().writeValueAsString(record);
             Record firehoseRecord = Record.builder()
-                .data(SdkBytes.fromByteBuffer(data))
+                .data(SdkBytes.fromByteArray(jsonRecord.getBytes(StandardCharsets.UTF_8)))
                 .build();
 
             PutRecordRequest putRecordRequest = PutRecordRequest.builder()
@@ -139,37 +114,44 @@ public class FirehoseScenario {
                 .build();
 
             getFirehoseClient().putRecord(putRecordRequest);
-            System.out.println("Record sent successfully: " + jsonRecord);
+            System.out.println("Record sent: " + jsonRecord);
         } catch (Exception e) {
-            System.out.println("Failed to send record. Error: " + e.getMessage());
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to put record: " + e.getMessage(), e);
         }
     }
+    // snippet-end:[firehose.java2.put_record.main]
 
+
+    // snippet-start:[firehose.java2.put_batch_records.main]
     /**
-     * Puts a batch of records to the Amazon Kinesis Firehose delivery stream.
+     * Puts a batch of records to an Amazon Kinesis Data Firehose delivery stream.
      *
-     * @param records     a list of maps representing the records to be sent to the delivery stream
-     * @param batchSize   the maximum number of records to include in each batch
-     *
-     * @throws RuntimeException if there is an error converting the records to Firehose records or sending the batch to the delivery stream
+     * @param records           a list of maps representing the records to be sent
+     * @param batchSize         the maximum number of records to include in each batch
+     * @param deliveryStreamName the name of the Kinesis Data Firehose delivery stream
+     * @throws IllegalArgumentException if the input parameters are invalid (null or empty)
+     * @throws RuntimeException         if there is an error putting the record batch
      */
-    public static void putRecordBatch(List<Map<String, Object>> records, int batchSize) {
+    public static void putRecordBatch(List<Map<String, Object>> records, int batchSize, String deliveryStreamName) {
+        if (records == null || records.isEmpty() || deliveryStreamName == null || deliveryStreamName.isEmpty()) {
+            throw new IllegalArgumentException("Invalid input: records or delivery stream name cannot be null/empty");
+        }
         ObjectMapper objectMapper = new ObjectMapper();
+
         try {
             for (int i = 0; i < records.size(); i += batchSize) {
                 List<Map<String, Object>> batch = records.subList(i, Math.min(i + batchSize, records.size()));
-                List<Record> batchRecords = batch.stream()
-                    .map(record -> {
-                        try {
-                            String jsonRecord = objectMapper.writeValueAsString(record);
-                            return Record.builder()
-                                .data(SdkBytes.fromByteArray(jsonRecord.getBytes()))
-                                .build();
-                        } catch (Exception e) {
-                            throw new RuntimeException("Error converting record to Firehose Record", e);
-                        }
-                    }).collect(Collectors.toList());
+
+                List<Record> batchRecords = batch.stream().map(record -> {
+                    try {
+                        String jsonRecord = objectMapper.writeValueAsString(record);
+                        return Record.builder()
+                            .data(SdkBytes.fromByteArray(jsonRecord.getBytes(StandardCharsets.UTF_8)))
+                            .build();
+                    } catch (Exception e) {
+                        throw new RuntimeException("Error creating Firehose record", e);
+                    }
+                }).collect(Collectors.toList());
 
                 PutRecordBatchRequest request = PutRecordBatchRequest.builder()
                     .deliveryStreamName(deliveryStreamName)
@@ -179,90 +161,63 @@ public class FirehoseScenario {
                 PutRecordBatchResponse response = getFirehoseClient().putRecordBatch(request);
 
                 if (response.failedPutCount() > 0) {
-                    System.out.println("Failed to send " + response.failedPutCount() + " records in batch of " + batchRecords.size());
                     response.requestResponses().stream()
                         .filter(r -> r.errorCode() != null)
-                        .forEach(r -> System.out.println("Error: " + r.errorMessage()));
-                } else {
-                    System.out.println("Successfully sent batch of " + batchRecords.size() + " records");
+                        .forEach(r -> System.err.println("Failed record: " + r.errorMessage()));
                 }
+                System.out.println("Batch sent with size: " + batchRecords.size());
             }
         } catch (Exception e) {
-            System.out.println("Failed to send batch records. Error: " + e.getMessage());
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to put record batch: " + e.getMessage(), e);
         }
     }
+    // snippet-start:[firehose.java2.put_batch_records.main]
 
-    /**
-     * Monitors the specified metrics over the last 10 minutes (600 seconds).
-     * <p>
-     * This method retrieves the values of the following metrics:
-     * <ul>
-     *     <li>IncomingBytes</li>
-     *     <li>IncomingRecords</li>
-     *     <li>FailedPutCount</li>
-     * </ul>
-     * and logs any exceptions that occur during the monitoring process.
-     */
-    public static void monitorMetrics() {
+    public static void monitorMetrics(String deliveryStreamName) {
+        Instant endTime = Instant.now();
+        Instant startTime = endTime.minusSeconds(600);
+
+        List<String> metrics = List.of("IncomingBytes", "IncomingRecords", "FailedPutCount");
+        metrics.forEach(metric -> monitorMetric(metric, startTime, endTime, deliveryStreamName));
+    }
+
+    private static void monitorMetric(String metricName, Instant startTime, Instant endTime, String deliveryStreamName) {
         try {
-            Instant endTime = Instant.now();
-            Instant startTime = endTime.minusSeconds(600);
+            GetMetricStatisticsRequest request = GetMetricStatisticsRequest.builder()
+                .namespace("AWS/Firehose")
+                .metricName(metricName)
+                .dimensions(Dimension.builder().name("DeliveryStreamName").value(deliveryStreamName).build())
+                .startTime(startTime)
+                .endTime(endTime)
+                .period(60)
+                .statistics(Statistic.SUM)
+                .build();
 
-            List<String> metrics = List.of("IncomingBytes", "IncomingRecords", "FailedPutCount");
-            metrics.forEach(metric -> monitorMetric(metric, startTime, endTime));
+            GetMetricStatisticsResponse response = getCloudWatchClient().getMetricStatistics(request);
+            double totalSum = response.datapoints().stream().mapToDouble(Datapoint::sum).sum();
+            System.out.println(metricName + ": " + totalSum);
         } catch (Exception e) {
-            System.out.println("Failed to monitor metrics. Error: " + e.getMessage());
+            System.err.println("Failed to monitor metric " + metricName + ": " + e.getMessage());
         }
-    }
-
-    /**
-     * Monitors a specific metric and logs the total sum of the metric values.
-     *
-     * @param metricName the name of the metric to monitor
-     * @param startTime the start time of the metric collection period
-     * @param endTime the end time of the metric collection period
-     */
-    private static void monitorMetric(String metricName, Instant startTime, Instant endTime) {
-        GetMetricStatisticsRequest request = GetMetricStatisticsRequest.builder()
-            .namespace("AWS/Firehose")
-            .metricName(metricName)
-            .dimensions(Dimension.builder().name("DeliveryStreamName").value(deliveryStreamName).build())
-            .startTime(startTime)
-            .endTime(endTime)
-            .period(60)
-            .statistics(Statistic.SUM)
-            .build();
-
-        GetMetricStatisticsResponse response = getCloudWatchClient().getMetricStatistics(request);
-        double totalSum = response.datapoints().stream()
-            .mapToDouble(Datapoint::sum)
-            .sum();
-
-        System.out.println(metricName + ": " + Math.round(totalSum));
     }
 
     public static String readJsonFile(String fileName) {
-        ClassLoader classLoader = FirehoseScenario.class.getClassLoader();
-        try (InputStream inputStream = classLoader.getResourceAsStream(fileName);
-             Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8.name())) {
+        try (InputStream inputStream = FirehoseScenario.class.getClassLoader().getResourceAsStream(fileName);
+             Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8)) {
             return scanner.useDelimiter("\\A").next();
         } catch (Exception e) {
-            throw new RuntimeException("Error reading resource file: " + fileName, e);
+            throw new RuntimeException("Error reading file: " + fileName, e);
         }
     }
 
     private static void closeClients() {
         try {
-            if (firehoseClient != null) {
-                firehoseClient.close();
-            }
-            if (cloudWatchClient != null) {
-                cloudWatchClient.close();
-            }
+            if (firehoseClient != null) firehoseClient.close();
+            if (cloudWatchClient != null) cloudWatchClient.close();
         } catch (Exception e) {
-            System.out.println("Failed to close clients: " + e.getMessage());
+            System.err.println("Error closing clients: " + e.getMessage());
         }
     }
 }
+
 // snippet-end:[firehose.java2.scenario.main]
