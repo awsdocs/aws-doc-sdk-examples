@@ -36,7 +36,7 @@ public class CreateDeliveryStream {
 
         if (args.length != 3) {
             System.out.println(usage);
-            System.exit(1);
+            return;
         }
 
         String bucketARN = args[0];
@@ -70,7 +70,6 @@ public class CreateDeliveryStream {
 
         } catch (FirehoseException e) {
             System.out.println(e.getLocalizedMessage());
-            System.exit(1);
         }
     }
 }
