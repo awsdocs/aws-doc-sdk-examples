@@ -7,6 +7,8 @@ This repository contains infrastructure deployment scripts for testing SDK examp
 ## Option 1. Using `deploy.py`
 
 The [deploy.py](stacks/deploy.py) script is the primary method for deploying the infrastructure stacks.
+It exists in order to facilitate stack deployments to an infinite number of AWS accounts, without requiring the user to
+fetch new tokens and set new variables for each deployment.
 
 ### Deployment types
 The script handles three types of deployments:
