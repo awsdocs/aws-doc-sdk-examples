@@ -29,6 +29,21 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [PutRecord](src/main/java/com/example/firehose/scenario/FirehoseScenario.java#L92)
+- [PutRecordBatch](src/main/java/com/example/firehose/scenario/FirehoseScenario.java#L125)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Put records to Data Firehose](src/main/java/com/example/firehose/scenario/FirehoseScenario.java)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 
@@ -41,6 +56,18 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 <!--custom.instructions.end-->
 
 
+
+#### Put records to Data Firehose
+
+This example shows you how to use Data Firehose to process individual and batch records.
+
+
+<!--custom.scenario_prereqs.firehose_Scenario_PutRecords.start-->
+<!--custom.scenario_prereqs.firehose_Scenario_PutRecords.end-->
+
+
+<!--custom.scenarios.firehose_Scenario_PutRecords.start-->
+<!--custom.scenarios.firehose_Scenario_PutRecords.end-->
 
 ### Tests
 

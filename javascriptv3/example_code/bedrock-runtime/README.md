@@ -36,7 +36,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Amazon Bedrock](hello.js) (`InvokeModel`)
+- [Hello Amazon Bedrock Runtime](hello.js) (`InvokeModel`)
 
 ### Scenarios
 
@@ -118,9 +118,9 @@ for that file.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Amazon Bedrock
+#### Hello Amazon Bedrock Runtime
 
-This example shows you how to get started using Amazon Bedrock.
+This example shows you how to get started using Amazon Bedrock Runtime.
 
 ```bash
 node ./hello.js

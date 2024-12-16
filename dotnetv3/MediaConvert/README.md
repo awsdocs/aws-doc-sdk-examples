@@ -83,7 +83,7 @@ The project includes the following settings in `settings.json`:
 
 #### Hello MediaConvert
 
-This example shows you how to get started using AWS Elemental MediaConvert.
+This example shows you how to get started using MediaConvert.
 
 
 

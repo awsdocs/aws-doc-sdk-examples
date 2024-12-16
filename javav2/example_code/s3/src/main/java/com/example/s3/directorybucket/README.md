@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../../../../../../../../README.md#Prerequ
 
 ### Get started
 
-- [Hello Amazon S3 directory buckets](HelloS3DirectoryBuckets.java#L4) (`CreateBucket`)
+- [Hello S3 Directory Buckets](HelloS3DirectoryBuckets.java#L4) (`CreateBucket`)
 
 
 ### Single actions
@@ -83,9 +83,9 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Amazon S3 directory buckets
+#### Hello S3 Directory Buckets
 
-This example shows you how to get started using Amazon S3 directory buckets.
+This example shows you how to get started using S3 Directory Buckets.
 
 
 
