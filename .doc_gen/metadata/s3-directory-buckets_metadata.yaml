@@ -391,6 +391,21 @@ s3-directory-buckets_UploadPart:
   services:
     s3-directory-buckets: {UploadPart}
 
+s3-directory-buckets_CreateSession:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/s3-directory-buckets
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3_directory.S3ExpressWrapper.decl
+                - python.example_code.s3_directory.CreateSession
+  services:
+    s3-directory-buckets: {CreateSession}
+
 s3-directory-buckets_Scenario_ExpressBasics:
   synopsis_list:
     - Set up a VPC and VPC Endpoint.
