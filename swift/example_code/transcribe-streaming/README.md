@@ -33,7 +33,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `swift
 
 Code excerpts that show you how to call individual service functions.
 
-- [StartStreamTranscription](transcribe-events/Sources/entry.swift#L124)
+- [StartStreamTranscription](transcribe-events/Sources/entry.swift#L145)
 
 ### Scenarios
 
