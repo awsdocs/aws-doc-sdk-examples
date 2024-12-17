@@ -26,6 +26,8 @@ enum TranscribeFormat: String, ExpressibleByArgument {
 
 struct ExampleCommand: ParsableCommand {
     // -MARK: Command arguments
+    @Flag(help: "Show partial results")
+    var showPartial = false
     @Option(help: "Language code to transcribe into")
     var lang: String = "en-US"
     @Option(help: "Format of the source audio file")
@@ -60,9 +62,11 @@ struct ExampleCommand: ParsableCommand {
         let audioData = try Data(contentsOf: fileURL)
 
         // Properties defining the size of audio chunks and the total size of
-        // the audio file in bytes.
+        // the audio file in bytes. You should try to send chunks that last on
+        // average 125 milliseconds.
 
-        let chunkSize = 16384
+        let chunkSizeInMilliseconds = 125.0
+        let chunkSize = Int(chunkSizeInMilliseconds  / 1000.0 * Double(sampleRate) * 2.0)
         let audioDataSize = audioData.count
 
         // Create an audio stream from the source data. The stream's job is
@@ -85,7 +89,24 @@ struct ExampleCommand: ParsableCommand {
                     let audioEvent = TranscribeStreamingClientTypes.AudioStream.audioevent(
                         .init(audioChunk: dataChunk)
                     )
-                    continuation.yield(audioEvent)
+                    let yieldResult = continuation.yield(audioEvent)
+                    switch yieldResult {
+                        case .enqueued(_):
+                            // The chunk was successfully enqueued into the
+                            // stream. The `remaining` parameter estimates how
+                            // much room is left in the queue, but is ignored here.
+                            break
+                        case .dropped(_):
+                            // The chunk was dropped because the queue buffer
+                            // is full. This will cause transcription errors.
+                            print("Warning: Dropped audio! The transcription will be incomplete.")
+                        case .terminated:
+                            print("Audio stream terminated.")
+                            continuation.finish()
+                            return
+                        default:
+                            print("Warning: Unrecognized response during audio streaming.")
+                    }
 
                     currentStart = currentEnd
                     currentEnd = min(currentStart + chunkSize, audioDataSize)
@@ -151,12 +172,25 @@ struct ExampleCommand: ParsableCommand {
                     continue
                 }
 
+                // If showing partial results is enabled and the result is
+                // partial, show it. Partial results may be incomplete, and
+                // may be inaccurate, with upcoming audio making the
+                // transcription complete or by giving more context to make
+                // transcription make more sense.
+
+                if (result.isPartial && showPartial) {
+                    print("[Partial] \(transcript)")
+                }
+
                 // When the complete fragment of transcribed text is ready,
                 // print it. This could just as easily be used to draw the
                 // text as a subtitle over a playing video, though timing
                 // would need to be managed.
 
                 if !result.isPartial {
+                    if (showPartial) {
+                        print("[Final  ] ", terminator: "")
+                    }
                     print(transcript)
                 }
             }
