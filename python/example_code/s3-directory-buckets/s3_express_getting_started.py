@@ -14,6 +14,8 @@ from botocore.exceptions import ClientError, ParamValidationError
 
 import boto3
 
+from s3_express_wrapper import S3ExpressWrapper
+
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Add relative path to include demo_tools in this code example without need for setup.
@@ -58,8 +60,8 @@ class S3ExpressScenario:
         self.vpc_endpoint_id = None
         self.regular_bucket_name = None
         self.directory_bucket_name = None
-        self.s3_express_client = None
-        self.s3_regular_client = None
+        self.s3_express_wrapper = None
+        self.s3_regular_wrapper = None
 
     def s3_express_scenario(self):
         """
@@ -168,12 +170,14 @@ credentials associated with the user account with the S3 Express policy attached
 """
         )
         press_enter_to_continue()
-        self.s3_regular_client = self.create_s3__client_with_access_key_credentials(
+        s3_regular_client = self.create_s3__client_with_access_key_credentials(
             regular_credentials
         )
-        self.s3_express_client = self.create_s3__client_with_access_key_credentials(
+        self.s3_regular_wrapper = S3ExpressWrapper(s3_regular_client)
+        s3_express_client = self.create_s3__client_with_access_key_credentials(
             express_credentials
         )
+        self.s3_express_wrapper = S3ExpressWrapper(s3_express_client)
         print(
             """
 All the roles and policies were created and attached to the user. Then a new S3 Client were created using 
@@ -191,36 +195,59 @@ behave in different ways from regular S3 buckets which we will explore here. We'
 an object into the normal bucket, and copy it over to the Directory bucket.
 """
         )
+
         # Create a directory bucket. These are different from normal S3 buckets in subtle ways.
         bucket_prefix = q.ask(
             "Enter a bucket name prefix that will be used for both buckets: ",
-            q.non_empty,
+            q.re_match(r"[a-z0-9](?:[a-z0-9-\.]*)[a-z0-9]$")
         )
-        availability_zone = self.select_availability_zone_id(self.region)
-        # Construct the parts of a directory bucket name that is made unique with a UUID string.
-        directory_bucket_suffix = f"--{availability_zone['ZoneId']}--x-s3"
-        max_uuid_length = 63 - len(bucket_prefix) - len(directory_bucket_suffix) - 1
-        bucket_uuid = str(uuid.uuid4()).replace("-", "")[:max_uuid_length]
-        directory_bucket_name = (
-            f"{bucket_prefix}-{bucket_uuid}{directory_bucket_suffix}"
-        )
-        regular_bucket_name = f"{bucket_prefix}-regular-{bucket_uuid}"
-        configuration = {
-            "Bucket": {"Type": "Directory", "DataRedundancy": "SingleAvailabilityZone"},
-            "Location": {
-                "Name": availability_zone["ZoneId"],
-                "Type": "AvailabilityZone",
-            },
-        }
-        press_enter_to_continue()
+
+        # Some availability zones are not supported for Directory buckets. We'll choose one that is supported.
         print(
-            "Now, let's create the actual Directory bucket, as well as a regular bucket."
+            "Now, let's choose an availability zone for the Directory bucket. We'll choose one that is supported."
         )
-        press_enter_to_continue()
-        self.create_bucket(self.s3_express_client, directory_bucket_name, configuration)
+        while True:
+            availability_zone = self.select_availability_zone_id(self.region)
+            # Construct the parts of a directory bucket name that is made unique with a UUID string.
+            directory_bucket_suffix = f"--{availability_zone['ZoneId']}--x-s3"
+            max_uuid_length = 63 - len(bucket_prefix) - len(directory_bucket_suffix) - 1
+            bucket_uuid = str(uuid.uuid4()).replace("-", "")[:max_uuid_length]
+            directory_bucket_name = (
+                f"{bucket_prefix}-{bucket_uuid}{directory_bucket_suffix}"
+            )
+            regular_bucket_name = f"{bucket_prefix}-regular-{bucket_uuid}"
+            configuration = {
+                "Bucket": {"Type": "Directory", "DataRedundancy": "SingleAvailabilityZone"},
+                "Location": {
+                    "Name": availability_zone["ZoneId"],
+                    "Type": "AvailabilityZone",
+                },
+            }
+            press_enter_to_continue()
+            print(
+                "Now, let's create the actual Directory bucket, as well as a regular bucket."
+            )
+            press_enter_to_continue()
+            try :
+                self.s3_express_wrapper.create_bucket(
+                    directory_bucket_name, configuration
+                )
+                break
+            except ClientError as client_error:
+                if client_error.response["Error"]["Code"] == "InvalidBucketName":
+                    print(
+                        f"Bucket '{directory_bucket_name}' is invalid. This may be because of selected availability zone."
+                    )
+                    if q.ask("Would you like to select a different availability zone? ", q.is_yesno) :
+                        continue
+                    else :
+                        raise
+                else:
+                    raise
         print(f"Created directory bucket, '{directory_bucket_name}'")
         self.directory_bucket_name = directory_bucket_name
-        self.create_bucket(self.s3_regular_client, regular_bucket_name)
+
+        self.s3_regular_wrapper.create_bucket(regular_bucket_name)
         print(f"Created regular bucket, '{regular_bucket_name}'")
         self.regular_bucket_name = regular_bucket_name
         print("Great! Both buckets were created.")
@@ -238,15 +265,11 @@ Directory buckets.
         """)
         press_enter_to_continue()
         bucket_object = "basic-text-object"
-        S3ExpressScenario.put_object(
-            self.s3_regular_client,
-            self.regular_bucket_name,
-            bucket_object,
-            "Look Ma, I'm a bucket!",
+        self.s3_regular_wrapper.put_object(
+            self.regular_bucket_name, bucket_object, "Look Ma, I'm a bucket!"
         )
-        self.create_express_session()
-        self.copy_object(
-            self.s3_express_client,
+        self.s3_express_wrapper.create_session(self.directory_bucket_name)
+        self.s3_express_wrapper.copy_object(
             self.regular_bucket_name,
             bucket_object,
             self.directory_bucket_name,
@@ -291,21 +314,24 @@ example is run in an EC2 instance in the same Availability Zone as the bucket.
         # Download the object 'downloads' times from each bucket and time it to demonstrate the speed difference.
         print("Downloading from the Directory bucket.")
         directory_time_start = time.time_ns()
+
         for index in range(downloads):
             if index % 10 == 0:
                 print(f"Download {index} of {downloads}")
-            S3ExpressScenario.get_object(
-                self.s3_express_client, self.directory_bucket_name, bucket_object
-            )
+
+            self.s3_express_wrapper.get_object(
+                self.directory_bucket_name, bucket_object)
+
         directory_time_difference = time.time_ns() - directory_time_start
         print("Downloading from the normal bucket.")
         normal_time_start = time.time_ns()
+
         for index in range(downloads):
             if index % 10 == 0:
                 print(f"Download {index} of {downloads}")
-            S3ExpressScenario.get_object(
-                self.s3_regular_client, self.regular_bucket_name, bucket_object
-            )
+            self.s3_regular_wrapper.get_object(
+                    self.regular_bucket_name, bucket_object)
+
         normal_time_difference = time.time_ns() - normal_time_start
         print(
             f"The directory bucket took {directory_time_difference} nanoseconds, while the normal bucket took {normal_time_difference}."
@@ -339,30 +365,28 @@ objects with layered directories to see how the output of ListObjects changes.
         other_object = f"other/{bucket_object}"
         alt_object = f"alt/{bucket_object}"
         other_alt_object = f"other/alt/{bucket_object}"
-        S3ExpressScenario.put_object(
-            self.s3_regular_client, self.regular_bucket_name, other_object, ""
+        self.s3_regular_wrapper.put_object(
+            self.regular_bucket_name, other_object, ""
         )
-        S3ExpressScenario.put_object(
-            self.s3_express_client, self.directory_bucket_name, other_object, ""
+        self.s3_express_wrapper.put_object(
+            self.directory_bucket_name, other_object, ""
         )
-        S3ExpressScenario.put_object(
-            self.s3_regular_client, self.regular_bucket_name, alt_object, ""
+        self.s3_regular_wrapper.put_object(
+            self.regular_bucket_name, alt_object, ""
         )
-        S3ExpressScenario.put_object(
-            self.s3_express_client, self.directory_bucket_name, alt_object, ""
+        self.s3_express_wrapper.put_object(
+            self.directory_bucket_name, alt_object, ""
         )
-        S3ExpressScenario.put_object(
-            self.s3_regular_client, self.regular_bucket_name, other_alt_object, ""
+        self.s3_regular_wrapper.put_object(
+            self.regular_bucket_name, other_alt_object, ""
         )
-        S3ExpressScenario.put_object(
-            self.s3_express_client, self.directory_bucket_name, other_alt_object, ""
+        self.s3_express_wrapper.put_object(
+            self.directory_bucket_name, other_alt_object, ""
         )
-        directory_bucket_objects = S3ExpressScenario.list_objects(
-            self.s3_express_client, self.directory_bucket_name
-        )
-        regular_bucket_objects = S3ExpressScenario.list_objects(
-            self.s3_regular_client, self.regular_bucket_name
-        )
+        directory_bucket_objects = self.s3_express_wrapper.list_objects(self.directory_bucket_name)
+
+        regular_bucket_objects = self.s3_regular_wrapper.list_objects(self.regular_bucket_name)
+
         print("Directory bucket content")
         for bucket_object in directory_bucket_objects:
             print(f"   {bucket_object['Key']}")
@@ -382,15 +406,15 @@ creates directories and uses the object "key" as a path to the object.
         Delete resources created by this scenario.
         """
         if self.directory_bucket_name is not None:
-            self.delete_bucket_and_objects(
-                self.s3_express_client, self.directory_bucket_name
+            self.s3_express_wrapper.delete_bucket_and_objects(
+                self.directory_bucket_name
             )
             print(f"Deleted directory bucket, '{self.directory_bucket_name}'")
             self.directory_bucket_name = None
 
         if self.regular_bucket_name is not None:
-            self.delete_bucket_and_objects(
-                self.s3_regular_client, self.regular_bucket_name
+            self.s3_regular_wrapper.delete_bucket_and_objects(
+                self.regular_bucket_name
             )
             print(f"Deleted regular bucket, '{self.regular_bucket_name}'")
             self.regular_bucket_name = None
@@ -436,174 +460,6 @@ creates directories and uses the object "key" as a path to the object.
         except ClientError as client_error:
             logging.error(
                 "Couldn't create the S3 Express One Zone client. Here's why: %s",
-                client_error.response["Error"]["Message"],
-            )
-            raise
-
-    @staticmethod
-    def create_bucket(
-        s3_client: client, bucket_name: str, bucket_configuration: dict[str, any] = None
-    ) -> None:
-        """
-        Creates a bucket.
-        :param s3_client: The S3 client to use.
-        :param bucket_name: The name of the bucket.
-        :param bucket_configuration: The optional configuration for the bucket.
-        """
-        try:
-            params = {"Bucket": bucket_name}
-            if bucket_configuration:
-                params["CreateBucketConfiguration"] = bucket_configuration
-
-            s3_client.create_bucket(**params)
-        except ClientError as client_error:
-            logging.error(
-                "Couldn't create the bucket %s. Here's why: %s",
-                bucket_name,
-                client_error.response["Error"]["Message"],
-            )
-            raise
-
-    @staticmethod
-    def delete_bucket_and_objects(s3_client: client, bucket_name: str) -> None:
-        """
-        Deletes a bucket and its objects.
-        :param s3_client: The S3 client to use.
-        :param bucket_name: The name of the bucket.
-        """
-        try:
-            # Delete the objects in the bucket first. This is required for a bucket to be deleted.
-            paginator = s3_client.get_paginator("list_objects_v2")
-            page_iterator = paginator.paginate(Bucket=bucket_name)
-            for page in page_iterator:
-                if "Contents" in page:
-                    delete_keys = {
-                        "Objects": [{"Key": obj["Key"]} for obj in page["Contents"]]
-                    }
-                    response = s3_client.delete_objects(
-                        Bucket=bucket_name, Delete=delete_keys
-                    )
-                    if "Errors" in response:
-                        for error in response["Errors"]:
-                            logging.error(
-                                "Couldn't delete object %s. Here's why: %s",
-                                error["Key"],
-                                error["Message"],
-                            )
-
-            s3_client.delete_bucket(Bucket=bucket_name)
-        except ClientError as client_error:
-            logging.error(
-                "Couldn't delete the bucket %s. Here's why: %s",
-                bucket_name,
-                client_error.response["Error"]["Message"],
-            )
-
-    @staticmethod
-    def put_object(
-        s3_client: client, bucket_name: str, object_key: str, content: str
-    ) -> None:
-        """
-        Puts an object into a bucket.
-        :param s3_client: The S3 client to use.
-        :param bucket_name: The name of the bucket.
-        :param object_key: The key of the object.
-        :param content: The content of the object.
-        """
-        try:
-            s3_client.put_object(Body=content, Bucket=bucket_name, Key=object_key)
-        except ClientError as client_error:
-            logging.error(
-                "Couldn't put the object %s into bucket %s. Here's why: %s",
-                object_key,
-                bucket_name,
-                client_error.response["Error"]["Message"],
-            )
-            raise
-
-    @staticmethod
-    def get_object(s3_client: client, bucket_name: str, object_key: str) -> None:
-        """
-        Gets an object from a bucket.
-        :param s3_client: The S3 client to use.
-        :param bucket_name: The name of the bucket.
-        :param object_key: The key of the object.
-        """
-        try:
-            s3_client.get_object(Bucket=bucket_name, Key=object_key)
-        except ClientError as client_error:
-            logging.error(
-                "Couldn't get the object %s from bucket %s. Here's why: %s",
-                object_key,
-                bucket_name,
-                client_error.response["Error"]["Message"],
-            )
-            raise
-
-    @staticmethod
-    def list_objects(s3_client: client, bucket: str) -> list[str]:
-        """
-        Lists objects in a bucket.
-        :param s3_client: The S3 client to use.
-        :param bucket: The name of the bucket.
-        :return: The list of objects in the bucket.
-        """
-        try:
-            response = s3_client.list_objects_v2(Bucket=bucket)
-            return response.get("Contents", [])
-        except ClientError as client_error:
-            logging.error(
-                "Couldn't list objects in bucket %s. Here's why: %s",
-                bucket,
-                client_error.response["Error"]["Message"],
-            )
-            raise
-
-    def create_express_session(self) -> None:
-        """
-        Creates an express session.
-        """
-        try:
-            response = self.s3_express_client.create_session(
-                Bucket=self.directory_bucket_name
-            )
-        except ClientError as client_error:
-            logging.error(
-                "Couldn't create the express session for bucket %s. Here's why: %s",
-                self.directory_bucket_name,
-                client_error.response["Error"]["Message"],
-            )
-            raise
-
-    def copy_object(
-        self,
-        s3_client: client,
-        source_bucket: str,
-        source_key: str,
-        destination_bucket: str,
-        destination_key: str,
-    ) -> None:
-        """
-        Copies an object from one bucket to another.
-        :param s3_client: The S3 client to use.
-        :param source_bucket: The source bucket.
-        :param source_key: The source key.
-        :param destination_bucket: The destination bucket.
-        :param destination_key: The destination key.
-        :return: None
-        """
-        try:
-            s3_client.copy_object(
-                CopySource={"Bucket": source_bucket, "Key": source_key},
-                Bucket=destination_bucket,
-                Key=destination_key,
-            )
-        except ClientError as client_error:
-            logging.error(
-                "Couldn't copy object %s from bucket %s to bucket %s. Here's why: %s",
-                source_key,
-                source_bucket,
-                destination_bucket,
                 client_error.response["Error"]["Message"],
             )
             raise
