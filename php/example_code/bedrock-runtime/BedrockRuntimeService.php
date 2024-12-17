@@ -91,36 +91,6 @@ class BedrockRuntimeService extends AWSServiceClass
     }
     // snippet-end:[php.example_code.bedrock-runtime.service.invokeJurassic2]
 
-    // snippet-start:[php.example_code.bedrock-runtime.service.invokeLlama2]
-    public function invokeLlama2($prompt)
-    {
-        // The different model providers have individual request and response formats.
-        // For the format, ranges, and default values for Meta Llama 2 Chat, refer to:
-        // https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-meta.html
-
-        $completion = "";
-        try {
-            $modelId = 'meta.llama2-13b-chat-v1';
-            $body = [
-                'prompt' => $prompt,
-                'temperature' => 0.5,
-                'max_gen_len' => 512,
-            ];
-            $result = $this->bedrockRuntimeClient->invokeModel([
-                'contentType' => 'application/json',
-                'body' => json_encode($body),
-                'modelId' => $modelId,
-            ]);
-            $response_body = json_decode($result['body']);
-            $completion = $response_body->generation;
-        } catch (Exception $e) {
-            echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
-        }
-
-        return $completion;
-    }
-    // snippet-end:[php.example_code.bedrock-runtime.service.invokeLlama2]
-
     // snippet-start:[php.example_code.bedrock-runtime.service.invokeStableDiffusion]
     public function invokeStableDiffusion(string $prompt, int $seed, string $style_preset)
     {

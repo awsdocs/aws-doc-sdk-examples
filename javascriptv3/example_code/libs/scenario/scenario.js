@@ -110,7 +110,7 @@ export class ScenarioOutput extends Step {
 
 /**
  * @typedef {{
- *   type: "confirm" | "input" | "multi-select" | "select",
+ *   type: "confirm" | "input" | "multi-select" | "select" | "password",
  *   choices: (string | { name: string, value: string })[] | () => (string | { name: string, value: string })[],
  *   default: string | string[] | boolean | () => string | string[] | boolean }
  *   } ScenarioInputOptions
@@ -153,7 +153,7 @@ export class ScenarioInput extends Step {
       stepHandlerOptions.confirmAll &&
       this.stepOptions.default !== undefined
     ) {
-      state[this.name] = this.stepOptions.default;
+      state[this.name] = this.default;
       return state[this.name];
     }
     if (stepHandlerOptions.confirmAll) {
@@ -178,6 +178,9 @@ export class ScenarioInput extends Step {
         break;
       case "confirm":
         await this._handleConfirm(state);
+        break;
+      case "password":
+        await this._handlePassword(state);
         break;
       default:
         throw new Error(
@@ -308,6 +311,24 @@ export class ScenarioInput extends Step {
     }
 
     const result = await this.prompter.confirm({
+      message,
+    });
+
+    state[this.name] = result;
+  }
+
+  /**
+   * @param {*} state
+   */
+  async _handlePassword(state) {
+    const message =
+      typeof this.prompt === "function" ? this.prompt(state) : this.prompt;
+
+    if (!message) {
+      throw new Error("Error handling ScenarioInput. Missing prompt.");
+    }
+
+    const result = await this.prompter.password({
       message,
     });
 

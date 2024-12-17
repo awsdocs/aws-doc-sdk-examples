@@ -3,6 +3,8 @@
 
 package workflows
 
+// snippet-start:[gov2.workflows.TopicsAndQueues.Resources.complete]
+
 import (
 	"context"
 	"fmt"
@@ -45,3 +47,5 @@ func (resources Resources) Cleanup(ctx context.Context) {
 		}
 	}
 }
+
+// snippet-end:[gov2.workflows.TopicsAndQueues.Resources.complete]

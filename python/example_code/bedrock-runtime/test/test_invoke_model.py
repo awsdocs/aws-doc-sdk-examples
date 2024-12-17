@@ -12,7 +12,6 @@ files_under_test = [
     "models/anthropic_claude/invoke_model.py",
     "models/cohere_command/command_invoke_model.py",
     "models/cohere_command/command_r_invoke_model.py",
-    "models/meta_llama/llama2_invoke_model.py",
     "models/meta_llama/llama3_invoke_model.py",
     "models/mistral_ai/invoke_model.py",
     # Embeddings models

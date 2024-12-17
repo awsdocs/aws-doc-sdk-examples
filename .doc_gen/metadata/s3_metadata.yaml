@@ -74,7 +74,7 @@ s3_Hello:
           excerpts:
             - snippet_tags:
                 - s3.rust.s3-helloworld
-            - description: S3ExampleError utilities
+            - description: S3ExampleError utilities.
             - snippet_tags:
                 - s3.rust.s3-example-error
   services:
@@ -213,6 +213,19 @@ s3_CreateBucket:
                 - aws-cli.bash-linux.s3.CreateBucket
   services:
     s3: {CreateBucket}
+s3_UploadPartCopy:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.multi_copy.main
+  services:
+    s3: {UploadPartCopy}
 s3_CopyObject:
   languages:
     .NET:
@@ -347,6 +360,45 @@ s3_CopyObject:
                 - aws-cli.bash-linux.s3.CopyObject
   services:
     s3: {CopyObject}
+s3_GetBucketReplication:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.bucket_get.replication.main
+  services:
+    s3: {GetBucketReplication}
+s3_PutBucketVersioning:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.bucket_enable.version.main
+  services:
+    s3: {PutBucketVersioning}
+s3_PutBucketReplication:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.bucket_replication.main
+  services:
+    s3: {PutBucketReplication}
 s3_DeleteBucketPolicy:
   languages:
     C++:
@@ -1191,6 +1243,15 @@ s3_DeleteBucketLifecycle:
     s3: {DeleteBucketLifecycle}
 s3_AbortMultipartUpload:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.abort_multipart_uploads.main
     C++:
       versions:
         - sdk_version: 1
@@ -2682,7 +2743,24 @@ s3_Scenario_PresignedUrl:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description: Generate a pre-signed URL for an object, then download it (GET request).
+            - description: >-
+                The following shows three example of how to create presigned URLs and use the URLs with
+                  HTTP client libraries:</para>
+                <itemizedlist>
+                  <listitem>
+                    <para>An HTTP GET request that uses the URL with three HTTP client libraries</para>
+                  </listitem>
+                  <listitem>
+                    <para>An HTTP PUT request with metadata in headers that uses the URL with three HTTP client
+                      libraries</para>
+                  </listitem>
+                  <listitem>
+                    <para>An HTTP PUT request with query parameters that uses the URL with one HTTP client
+                      library</para>
+                  </listitem>
+                </itemizedlist>
+                <para>
+                  Generate a pre-signed URL for an object, then download it (GET request).
             - description: Imports.
               snippet_tags:
                 - presigned.java2.generatepresignedgeturlandretrieve.import
@@ -2700,7 +2778,7 @@ s3_Scenario_PresignedUrl:
               snippet_tags:
                 - presigned.java2.generatepresignedgeturlandretrieve.sdkhttpclient
 
-            - description: Generate a pre-signed URL for an upload, then upload a file (PUT request).
+            - description: Generate a pre-signed URL with metadata in headers for an upload, then upload a file (PUT request).
             - description: Imports.
               snippet_tags:
                 - presigned.java2.generatepresignedurlandputfilewithmetadata.import
@@ -2717,6 +2795,17 @@ s3_Scenario_PresignedUrl:
             - description: Use the &AWS; for Java V2 <code>SdkHttpClient</code> class to do the upload.
               snippet_tags:
                 - presigned.java2.generatepresignedurlandputfilewithmetadata.sdkhttpclient
+
+            - description: Generate a pre-signed URL with query parameters for an upload, then upload a file (PUT request).
+            - description: Imports.
+              snippet_tags:
+                - presigned.java2.generatepresignedurlandputfilewithqueryparams.import
+            - description: Generate the URL.
+              snippet_tags:
+                - presigned.java2.generatepresignedurlandputfilewithqueryparams.createpresignedurl
+            - description: Use the &AWS; for Java V2 <code>SdkHttpClient</code> class to do the upload.
+              snippet_tags:
+                - presigned.java2.generatepresignedurlandputfilewithqueryparams.sdkhttpclient
     Python:
       versions:
         - sdk_version: 3
@@ -2742,6 +2831,7 @@ s3_Scenario_PresignedUrl:
             - description: Run an interactive example that generates and uses presigned URLs to upload, download, and delete
                 an S3 object.
               snippet_tags:
+                - gov2.s3.Scenario_Presigning.imports
                 - gov2.s3.Scenario_Presigning
             - description: Define an HTTP request wrapper used by the example to make HTTP requests.
               snippet_tags:
@@ -3172,7 +3262,32 @@ s3_Scenario_UploadStream:
               snippet_tags:
                 - s3.tm.java2.upload_stream.import
                 - s3.tm.java2.upload_stream.main
-
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/binary-streaming
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.s3.streaming-up.imports
+                - swift.s3.streaming-up
+  services:
+    s3: {}
+s3_Scenario_DownloadStream:
+  title: Download a stream of unknown size from an &S3; object using an &AWS; SDK
+  title_abbrev: Download stream of unknown size
+  synopsis: download a stream of unknown size from an &S3; object.
+  category: Scenarios
+  languages:
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3/binary-streaming
+          excerpts:
+            - description:
+              snippet_tags:
+                - swift.s3.streaming-down.imports
+                - swift.s3.streaming-down
   services:
     s3: {}
 s3_Scenario_UseChecksums:
@@ -3320,20 +3435,20 @@ s3_Scenario_ObjectLock:
           sdkguide:
           excerpts:
             - description: |
-                <noloc>index.js</noloc> - Entrypoint for the workflow. This orchestrates all of the steps.
+                Entrypoint for the workflow (<noloc>index.js</noloc>). This orchestrates all of the steps.
                 Visit GitHub to see the implementation details for Scenario, ScenarioInput, ScenarioOutput, and ScenarioAction.
               snippet_files:
                 - javascriptv3/example_code/s3/scenarios/object-locking/index.js
-            - description: <noloc>welcome.steps.js</noloc> - Output welcome messages to the console.
+            - description: Output welcome messages to the console (<noloc>welcome.steps.js</noloc>).
               snippet_files:
                 - javascriptv3/example_code/s3/scenarios/object-locking/welcome.steps.js
-            - description: <noloc>setup.steps.js</noloc> - Deploy buckets, objects, and file settings.
+            - description: Deploy buckets, objects, and file settings (<noloc>setup.steps.js</noloc>).
               snippet_files:
                 - javascriptv3/example_code/s3/scenarios/object-locking/setup.steps.js
-            - description: <noloc>repl.steps.js</noloc> - View and delete files in the buckets.
+            - description: View and delete files in the buckets (<noloc>repl.steps.js</noloc>).
               snippet_files:
                 - javascriptv3/example_code/s3/scenarios/object-locking/repl.steps.js
-            - description: <noloc>clean.steps.js</noloc> - Destroy all created resources.
+            - description: Destroy all created resources (<noloc>clean.steps.js</noloc>).
               snippet_files:
                 - javascriptv3/example_code/s3/scenarios/object-locking/clean.steps.js
   services:
@@ -3424,7 +3539,7 @@ s3_Scenario_AbortMultipartUpload:
   services:
     s3: {ListMultipartUploads, AbortMultipartUpload, PutBucketLifecycleConfiguration}
 s3_Scenario_ProcessS3EventNotification:
-  title: Receive and process &S3; event notifications by using an &AWS; SDK.
+  title: Receive and process &S3; event notifications by using an &AWS; SDK
   title_abbrev: Process S3 event notifications
   synopsis: work with S3 event notifications in an object-oriented way.
   category: Scenarios
@@ -3442,7 +3557,7 @@ s3_Scenario_ProcessS3EventNotification:
     s3: {PutBucketNotificationConfiguration}
     sqs: {ReceiveMessage, GetQueueAttributes, DeleteMessageBatch}
 s3_Scenario_DeleteAllObjects:
-  title: Delete all objects in a given &S3; bucket using an &AWS; SDK.
+  title: Delete all objects in a given &S3; bucket using an &AWS; SDK
   title_abbrev: Delete all objects in a bucket
   synopsis: delete all of the objects in an &S3; bucket.
   category: Scenarios
@@ -3459,7 +3574,7 @@ s3_Scenario_DeleteAllObjects:
   services:
     s3: {DeleteObjects, ListObjectsV2}
 s3_Scenario_ConditionalRequests:
-  title: Make &S3; conditional requests using an &AWS; SDK.
+  title: Make &S3; conditional requests using an &AWS; SDK
   title_abbrev: Make conditional requests
   synopsis: add preconditions to &S3; requests.
   category: Scenarios
@@ -3480,32 +3595,6 @@ s3_Scenario_ConditionalRequests:
                 - python.example_code.s3.S3ConditionalRequests.wrapper
   services:
     s3: {GetObject, PutObject, CopyObject}
-s3_Scenario_ExpressBasics:
-  title: Learn the basics of Amazon S3 Express One Zone with an &AWS; SDK
-  title_abbrev: Learn the basics of S3 Express One Zone
-  synopsis_list:
-    - Set up a VPC and VPC Endpoint
-    - Set up the S3 Express Policies, Roles, and User to work with S3 Express buckets
-    - Create two S3 Clients
-    - Create two buckets
-    - Create an object and copy it over
-    - Demonstrate performance difference
-    - Populate the buckets to show the lexicographical difference
-    - Prompt the user to see if they want to clean up the resources
-  category: Basics
-  languages:
-    PHP:
-      versions:
-        - sdk_version: 3
-          github: php/example_code/s3
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - php.example_code.s3.ExpressBasics
-                - php.example_code.s3.service.S3Service
-  services:
-    s3: {CreateVpc, DescribeRouteTables, CreateVpcEndpoint, CreateBucket, CopyObject, GetObject, PutObject, ListObjects, DeleteObject, DeleteBucket, DeleteVpcEndpoint, DeleteVpc}
 s3_Scenario_DownloadS3Directory:
   title: Download S3 'directories' from an &S3long; (&S3;) bucket
   title_abbrev: Download S3 'directories'
@@ -3523,3 +3612,20 @@ s3_Scenario_DownloadS3Directory:
                 - s3.tm.java2.download-s3-directories.main
   services:
     s3: {}
+s3_Scenario_DoesBucketExist:
+  title: Check if a bucket exists
+  title_abbrev: Check if a bucket exists
+  synopsis: check if a bucket exists.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: You can use the following <code>doesBucketExists</code> method as a replacement for the the &Java; V1 <ulink url="https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/s3/AmazonS3Client.html#doesBucketExistV2-java.lang.String-">AmazonS3Client#doesBucketExistV2(String)</ulink> method.
+              snippet_tags:
+                - s3.java2.does-bucket-exist-main
+  services:
+    s3: {GetBucketAcl}

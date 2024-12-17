@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.cognito-identity-provider.CognitoActions.complete]
+// snippet-start:[gov2.cognito-identity-provider.CognitoActions.struct]
+
 import (
 	"context"
 	"errors"
@@ -12,10 +15,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider"
 	"github.com/aws/aws-sdk-go-v2/service/cognitoidentityprovider/types"
 )
-
-// snippet-start:[gov2.cognito-identity-provider.CognitoActions.complete]
-
-// snippet-start:[gov2.cognito-identity-provider.CognitoActions.struct]
 
 type CognitoActions struct {
 	CognitoClient *cognitoidentityprovider.Client

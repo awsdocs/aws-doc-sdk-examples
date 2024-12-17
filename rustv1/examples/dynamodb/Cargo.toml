@@ -17,7 +17,7 @@ aws-sdk-dynamodb = { version = "1.3.0" }
 aws-smithy-runtime = { version = "1.0.1", features = ["test-util"] }
 aws-smithy-types = { version = "1.0.1" }
 axum = "0.5.16"
-clap = { version = "~4.4", features = ["derive"] }
+clap = { version = "4.4", features = ["derive"] }
 futures = "0.3"
 http = "0.2.5"
 log = "0.4.17"

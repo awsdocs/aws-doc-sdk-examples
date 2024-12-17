@@ -27,6 +27,7 @@ describe("update-item", () => {
     const command = new GetCommand({
       TableName: tableName,
       Key: { Flavor: "Vanilla" },
+      ConsistentRead: true,
     });
 
     const beforeResponse = await client.send(command);

@@ -31,22 +31,22 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 ### Get started
 
-- [Hello Amazon Cognito](hello/hello.go#L4) (`ListUserPools`)
+- [Hello Amazon Cognito Identity Provider](hello/hello.go#L4) (`ListUserPools`)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [AdminCreateUser](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L183)
-- [AdminSetUserPassword](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L208)
-- [ConfirmForgotPassword](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L145)
-- [DeleteUser](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L168)
-- [ForgotPassword](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L128)
-- [InitiateAuth](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L103)
+- [AdminCreateUser](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L182)
+- [AdminSetUserPassword](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L207)
+- [ConfirmForgotPassword](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L144)
+- [DeleteUser](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L167)
+- [ForgotPassword](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L127)
+- [InitiateAuth](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L102)
 - [ListUserPools](hello/hello.go#L4)
-- [SignUp](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L75)
-- [UpdateUserPool](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L26)
+- [SignUp](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L74)
+- [UpdateUserPool](../workflows/user_pools_and_lambda_triggers/actions/cognito_actions.go#L25)
 
 ### Scenarios
 
@@ -69,9 +69,9 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Amazon Cognito
+#### Hello Amazon Cognito Identity Provider
 
-This example shows you how to get started using Amazon Cognito.
+This example shows you how to get started using Amazon Cognito Identity Provider.
 
 ```
 go run ./hello

@@ -10,13 +10,13 @@ const wait = (seconds) =>
 
 /**
  * @template T
- * @param {{ intervalInMs: number, maxRetries: number, swallowError?: boolean, quiet?: boolean }} config
+ * @param {{ intervalInMs: number, maxRetries: number, backoff?: number, swallowError?: boolean, quiet?: boolean }} config
  * @param {() => Promise<T>} fn
  * @returns {Promise<T>}
  */
 const retry = (config, fn) =>
   new Promise((resolve, reject) => {
-    const { intervalInMs = 500, maxRetries = 10 } = config;
+    const { intervalInMs = 500, maxRetries = 10, backoff = 0 } = config;
     fn()
       .then(resolve)
       .catch((err) => {
@@ -32,10 +32,14 @@ const retry = (config, fn) =>
           config.swallowError ? resolve() : reject(err);
         } else {
           setTimeout(() => {
-            retry({ ...config, maxRetries: maxRetries - 1 }, fn).then(
-              resolve,
-              reject,
-            );
+            retry(
+              {
+                ...config,
+                intervalInMs: intervalInMs + backoff,
+                maxRetries: maxRetries - 1,
+              },
+              fn,
+            ).then(resolve, reject);
           }, intervalInMs);
         }
       });

@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.sqs.SqsActions.complete]
+// snippet-start:[gov2.sqs.SqsActions.struct]
+
 import (
 	"context"
 	"encoding/json"
@@ -13,9 +16,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/sqs"
 	"github.com/aws/aws-sdk-go-v2/service/sqs/types"
 )
-
-// snippet-start:[gov2.sqs.SqsActions.complete]
-// snippet-start:[gov2.sqs.SqsActions.struct]
 
 // SqsActions encapsulates the Amazon Simple Queue Service (Amazon SQS) actions
 // used in the examples.

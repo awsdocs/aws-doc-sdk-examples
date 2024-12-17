@@ -182,7 +182,7 @@ async fn run_iam_operations(
     let assumed_role = sts_client
         .assume_role()
         .role_arn(assume_role_role.arn())
-        .role_session_name(&format!("{}{}", "iam_demo_assumerole_session_", uuid))
+        .role_session_name(format!("iam_demo_assumerole_session_{uuid}"))
         .send()
         .await;
     println!("Assumed role: {:?}", assumed_role);

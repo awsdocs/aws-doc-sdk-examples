@@ -9,6 +9,11 @@ import PackageDescription
 
 let package = Package(
     name: "mocking",
+    // Let Xcode know the minimum Apple platforms supported.
+    platforms: [
+        .macOS(.v11),
+        .iOS(.v13)
+    ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(

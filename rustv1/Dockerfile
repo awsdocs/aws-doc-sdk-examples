@@ -14,4 +14,4 @@ RUN apt-get update && \
 # Copy source code
 COPY . /rustv1/
 ENV PATH="${PATH}:/${CARGO_HOME}/bin"
-CMD ["/bin/bash", "-x", "/rustv1/run_all.sh"]
+CMD ["/bin/bash", "-x", "/rustv1/run_all.sh", "--clean"]

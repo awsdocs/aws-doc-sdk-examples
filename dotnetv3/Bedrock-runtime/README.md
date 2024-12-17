@@ -60,9 +60,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 - [Converse](Models/MetaLlama/Converse/Converse.cs#L4)
 - [ConverseStream](Models/MetaLlama/ConverseStream/ConverseStream.cs#L4)
-- [InvokeModel: Llama 2](Models/MetaLlama/Llama2_InvokeModel/InvokeModel.cs#L4)
 - [InvokeModel: Llama 3](Models/MetaLlama/Llama3_InvokeModel/InvokeModel.cs#L4)
-- [InvokeModelWithResponseStream: Llama 2](Models/MetaLlama/Llama2_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 - [InvokeModelWithResponseStream: Llama 3](Models/MetaLlama/Llama3_InvokeModelWithResponseStream/InvokeModelWithResponseStream.cs#L4)
 
 ### Mistral AI

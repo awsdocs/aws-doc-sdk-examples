@@ -53,12 +53,6 @@ class BedrockRuntimeTests extends TestCase
         self::assertNotEmpty($completion);
     }
 
-    public function test_llama2_can_be_invoked()
-    {
-        $completion = $this->bedrockRuntimeService->invokeLlama2($this->prompt);
-        self::assertNotEmpty($completion);
-    }
-
     public function test_stable_diffusion_can_be_invoked()
     {
         $seed = 0;

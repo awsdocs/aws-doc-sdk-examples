@@ -130,8 +130,10 @@ class KinesisStream:
         """
         Gets records from the stream. This function is a generator that first gets
         a shard iterator for the stream, then uses the shard iterator to get records
-        in batches from the stream. Each batch of records is yielded back to the
-        caller until the specified maximum number of records has been retrieved.
+        in batches from the stream. The shard iterator can be accessed through the
+        'details' property, which is populated using the 'describe' function of this class.
+        Each batch of records is yielded back to the caller until the specified
+        maximum number of records has been retrieved.
 
         :param max_records: The maximum number of records to retrieve.
         :return: Yields the current batch of retrieved records.

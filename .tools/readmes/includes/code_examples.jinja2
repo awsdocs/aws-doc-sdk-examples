@@ -33,7 +33,14 @@ functions within the same service.
 {{ macs.list_examples(scenarios) }}
 {% endif %}
 {% for cat, cat_examples in custom_cats.items() %}
+{% set cat_info = categories.get(cat) %}
+{% if cat_info %}
+### {{ cat_info.display }}
+{% if cat_info.description %}_{{ cat_info.display }}_ {{ cat_info.description }}{% endif %}
+
+{% else %}
 ### {{ cat }}
+{% endif %}
 
 {{ macs.list_examples(cat_examples) }}
 {% endfor %}

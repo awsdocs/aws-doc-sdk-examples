@@ -3,6 +3,8 @@
 
 package main
 
+// snippet-start:[gov2.lambda.ActivityLogHandler]
+
 import (
 	"context"
 	"fmt"
@@ -18,8 +20,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	dynamodbtypes "github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 )
-
-// snippet-start:[gov2.lambda.ActivityLogHandler]
 
 const TABLE_NAME = "TABLE_NAME"
 

@@ -265,6 +265,7 @@ kinesis_GetRecords:
               snippet_tags:
                 - python.example_code.kinesis.KinesisStream.class
                 - python.example_code.kinesis.GetRecords
+                - python.example_code.kinesis.DescribeStream
     SAP ABAP:
       versions:
         - sdk_version: 1

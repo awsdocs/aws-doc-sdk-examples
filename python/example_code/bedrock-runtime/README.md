@@ -80,9 +80,7 @@ python -m pip install -r requirements.txt
 
 - [Converse](models/meta_llama/converse.py#L4)
 - [ConverseStream](models/meta_llama/converse_stream.py#L4)
-- [InvokeModel: Llama 2](models/meta_llama/llama2_invoke_model.py#L4)
 - [InvokeModel: Llama 3](models/meta_llama/llama3_invoke_model.py#L4)
-- [InvokeModelWithResponseStream: Llama 2](models/meta_llama/llama2_invoke_model_with_response_stream.py#L4)
 - [InvokeModelWithResponseStream: Llama 3](models/meta_llama/llama3_invoke_model_with_response_stream.py#L4)
 
 ### Mistral AI

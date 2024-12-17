@@ -97,24 +97,6 @@ namespace IAMActions.Tests
         }
 
         /// <summary>
-        /// Test the call to create an AWS Identity and Access Management (IAM)
-        /// group. The resulting group object should not be null.
-        /// </summary>
-        /// <returns>Async Task.</returns>
-        [Fact()]
-        [Order(1)]
-        [Trait("Category", "Integration")]
-        public async Task CreateGroupAsyncTest()
-        {
-            if (_groupName is not null)
-            {
-                var group = await _iamWrapper.CreateGroupAsync(_groupName);
-                Assert.Equal(_groupName, group.GroupName);
-                Assert.NotNull(group);
-            }
-        }
-
-        /// <summary>
         /// Tests the call to create an IAM user. The IAM user returned should
         /// not be null.
         /// </summary>
@@ -232,24 +214,10 @@ namespace IAMActions.Tests
             Assert.NotNull(groups);
         }
 
-        /// <summary>
-        /// Test the call to add an IAM policy to a group. Success should
-        /// be true.
-        /// </summary>
-        /// <returns>Async Task.</returns>
-        [Fact()]
-        [Order(8)]
-        [Trait("Category", "Integration")]
-        public async Task PutGroupPolicyAsyncTest()
-        {
-            var success = await _iamWrapper.PutGroupPolicyAsync(_groupName, _groupPolicyName, _listBucketsPolicyDocument);
-            Assert.True(success, $"Could not embed policy {_s3ListBucketsPolicyName} to {_groupName}");
-        }
-
         [Fact()]
         [Order(9)]
         [Trait("Category", "Integration")]
-        public async Task PutRolePollicyTest()
+        public async Task PutRolePolicyTest()
         {
             var success = await _iamWrapper.PutRolePolicyAsync(_rolePolicyName, _roleName, _listBucketsPolicyDocument);
             Assert.True(success, "Could not embed policy {_s3ListBucketsPolicyName}.");
@@ -318,20 +286,6 @@ namespace IAMActions.Tests
         {
             var users = await _iamWrapper.ListUsersAsync();
             Assert.True(users.Count >= 1, "No users to list.");
-        }
-
-        /// <summary>
-        /// Tests the call to add an IAM user to a group. Success should be
-        /// true.
-        /// </summary>
-        /// <returns>Async Task.</returns>
-        [Fact()]
-        [Order(15)]
-        [Trait("Category", "Integration")]
-        public async Task AddUserToGroupTest()
-        {
-            var success = await _iamWrapper.AddUserToGroupAsync(_userName, _groupName);
-            Assert.True(success, $"Couldn't add user, {_userName}, to group, {_groupName}.");
         }
 
         /// <summary>
@@ -421,20 +375,6 @@ namespace IAMActions.Tests
         {
             var success = await _iamWrapper.DeleteAccessKeyAsync(_accessKeyId, _userName);
             Assert.True(success);
-        }
-
-        /// <summary>
-        /// Tests the call to remove an IAM user from a group. Success should
-        /// be true.
-        /// </summary>
-        /// <returns>Async Task.</returns>
-        [Fact]
-        [Order(22)]
-        [Trait("Category", "Integration")]
-        public async Task RemoveUserFromGroupTest()
-        {
-            var success = await _iamWrapper.RemoveUserFromGroupAsync(_userName, _groupName);
-            Assert.True(success, $"Couldn't remove user {_userName} from the group {_groupName}");
         }
 
         /// <summary>
@@ -531,22 +471,5 @@ namespace IAMActions.Tests
             Assert.True(success, "Could not delete the policy.");
         }
 
-        [Fact()]
-        [Order(29)]
-        [Trait("Category", "Integration")]
-        public async Task DeleteGroupPolicyAsyncTest()
-        {
-            var success = await _iamWrapper.DeleteGroupPolicyAsync(_groupName, _groupPolicyName);
-            Assert.True(success);
-        }
-
-        [Fact()]
-        [Order(30)]
-        [Trait("Category", "Integration")]
-        public async Task DeleteGroupAsyncTest()
-        {
-            var success = await _iamWrapper.DeleteGroupAsync(_groupName);
-            Assert.True(success, $"Couldn't delete the IAM group {_groupName}");
-        }
     }
 }

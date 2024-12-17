@@ -23,15 +23,14 @@ const waitForJobRun = async (getJobRun, jobName, jobRunId) => {
     case "FAILED":
     case "TIMEOUT":
     case "STOPPED":
+    case "ERROR":
       throw new Error(
         `Job ${JobRun.JobRunState}. Error: ${JobRun.ErrorMessage}`,
       );
-    case "RUNNING":
-      break;
     case "SUCCEEDED":
       return;
     default:
-      throw new Error(`Unknown job run state: ${JobRun.JobRunState}`);
+      break;
   }
 
   log(

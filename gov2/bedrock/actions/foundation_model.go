@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.bedrock.FoundationModelWrapper.complete]
+// snippet-start:[gov2.bedrock.FoundationModelWrapper.struct]
+
 import (
 	"context"
 	"log"
@@ -10,9 +13,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/bedrock"
 	"github.com/aws/aws-sdk-go-v2/service/bedrock/types"
 )
-
-// snippet-start:[gov2.bedrock.FoundationModelWrapper.complete]
-// snippet-start:[gov2.bedrock.FoundationModelWrapper.struct]
 
 // FoundationModelWrapper encapsulates Amazon Bedrock actions used in the examples.
 // It contains a Bedrock service client that is used to perform foundation model actions.

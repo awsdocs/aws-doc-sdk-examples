@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../../../../../../../../README.md#Prerequ
 
 ### Get started
 
-- [Hello 'Amazon S3 Control'](HelloS3Batch.java#L5) (`ListJobs`)
+- [Hello Amazon S3 Control](HelloS3Batch.java#L5) (`ListJobs`)
 
 
 ### Basics
@@ -65,14 +65,14 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello 'Amazon S3 Control'
+#### Hello Amazon S3 Control
 
-This example shows you how to get started using 'Amazon S3 Control'
+This example shows you how to get started using Amazon S3 Control.
 
 
 #### Learn the basics
 
-This example shows you how to learn core operations for'Amazon S3 Control'.
+This example shows you how to learn core operations for Amazon S3 Control.
 
 
 <!--custom.basic_prereqs.s3-control_Basics.start-->

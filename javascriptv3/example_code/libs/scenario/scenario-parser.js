@@ -11,7 +11,7 @@ import { logger } from "../utils/util-log.js";
  */
 export const parseScenarioArgs = (
   scenarios,
-  { name = "", synopsis = "", description = "" } = {},
+  { name = "", synopsis, description = "" } = {},
 ) => {
   const options = {
     help: {

@@ -4,6 +4,7 @@
 package com.example.s3.presignurl;
 
 import com.example.s3.GeneratePresignedUrlAndPutFileWithMetadata;
+import com.example.s3.GeneratePresignedUrlAndPutFileWithQueryParams;
 import com.example.s3.GeneratePresignedUrlAndUploadObject;
 import com.example.s3.util.PresignUrlUtils;
 import org.junit.jupiter.api.AfterAll;
@@ -16,6 +17,9 @@ import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 
 import java.io.File;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -23,7 +27,9 @@ class GeneratePresignedPutUrlTests {
     private static final String BUCKET_NAME = "b-" + UUID.randomUUID();
     private static final String KEY_NAME = "k-" + UUID.randomUUID();
     private static final S3Client s3Client = S3Client.create();
-    private static final Map<String, String> METADATA = Map.of("meta1", "value1");
+    private static final String METADATA_KEY = "meta1";
+    private static final String METADATA_VALUE = "value1";
+    private static final Map<String, String> METADATA = Map.of(METADATA_KEY, METADATA_VALUE);
     private static final File PDF_FILE = GeneratePresignedUrlAndPutFileWithMetadata
             .getFileForForClasspathResource("multipartUploadFiles/s3-userguide.pdf");
 
@@ -53,11 +59,61 @@ class GeneratePresignedPutUrlTests {
 
     @Test
     @Tag("IntegrationTest")
+    void test_create_presigned_url_using_query_params_does_not_add_to_signed_headers() {
+        Map<String, String> queryParams = Map.of(
+                "x-amz-meta-author", "Bob",
+                "x-amz-meta-version", "1.0.0.0",
+                "x-amz-acl", "private",
+                "x-amz-server-side-encryption", "AES256"
+        );
+
+        GeneratePresignedUrlAndPutFileWithQueryParams presign = new GeneratePresignedUrlAndPutFileWithQueryParams();
+        String presignedUrl = presign.createPresignedUrl(BUCKET_NAME,  KEY_NAME, queryParams);
+
+        Map<String, String> queryStringMap = parseQueryString(presignedUrl);
+        Assertions.assertFalse(queryStringMap.get("X-Amz-SignedHeaders").contains("x-amz-meta-author"));
+        Assertions.assertFalse(queryStringMap.get("X-Amz-SignedHeaders").contains("x-amz-server-side-encryption"));
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    void test_create_presigned_url_using_query_params_works() {
+        Map<String, String> queryParams = Map.of(
+                "x-amz-meta-author", "Bob",
+                "x-amz-meta-version", "1.0.0.0",
+                "x-amz-server-side-encryption", "AES256"
+        );
+
+        GeneratePresignedUrlAndPutFileWithQueryParams classUnderTest = new GeneratePresignedUrlAndPutFileWithQueryParams();
+        String presignedUrl = classUnderTest.createPresignedUrl(BUCKET_NAME, KEY_NAME, queryParams);
+
+        classUnderTest.useSdkHttpClientToPut(presignedUrl, PDF_FILE);
+
+        try (S3Client s3Client = S3Client.create()){
+            s3Client.getObject(builder -> {
+                builder.bucket(BUCKET_NAME);
+                builder.key(KEY_NAME);
+                builder.build();
+            }, (response, stream) -> {
+                stream.abort();
+                Assertions.assertEquals("Bob", response.metadata().get("author"));
+                Assertions.assertEquals("1.0.0.0", response.metadata().get("version"));
+                Assertions.assertEquals("AES256", response.serverSideEncryptionAsString());
+                return null;
+            });
+        }
+    }
+
+    @Test
+    @Tag("IntegrationTest")
     void testCreatePresignedUrlForPut() {
         GeneratePresignedUrlAndPutFileWithMetadata presignInstanceUnderTest = new GeneratePresignedUrlAndPutFileWithMetadata();
 
         final String presignedUrlString = presignInstanceUnderTest.createPresignedUrl(BUCKET_NAME, KEY_NAME, METADATA);
-        Assertions.assertTrue(presignedUrlString.contains("meta1"));
+        final Map<String, String> queryParamsMap = parseQueryString(presignedUrlString);
+        // Assert that the metadata key, but not the value, is in the signed headers.
+        Assertions.assertTrue(queryParamsMap.get("X-Amz-SignedHeaders").contains("x-amz-meta-" + METADATA_KEY));
+        Assertions.assertFalse(queryParamsMap.get("X-Amz-SignedHeaders").contains("x-amz-meta-" + METADATA_VALUE));
     }
 
     @Test
@@ -106,4 +162,47 @@ class GeneratePresignedPutUrlTests {
         // The SDK strips off the leading "x-amz-meta-" from the metadata key.
         return response.metadata().get("meta1").equals(GeneratePresignedPutUrlTests.METADATA.get("meta1"));
     }
+
+    public static Map<String, String> parseQueryString(String queryString) {
+        Map<String, String> params = new HashMap<>();
+
+        // Return empty map for null or empty input
+        if (queryString == null || queryString.isEmpty()) {
+            return params;
+        }
+
+        // Split the query string into key-value pairs
+        String[] pairs = queryString.split("&");
+
+        for (String pair : pairs) {
+            // Find the separator between key and value
+            int separatorIndex = pair.indexOf("=");
+
+            // Handle key-only parameters (no value)
+            if (separatorIndex <= 0) {
+                params.put(URLDecoder.decode(pair, StandardCharsets.UTF_8), null);
+                continue;
+            }
+
+            // Extract and decode the key
+            String key = URLDecoder.decode(
+                    pair.substring(0, separatorIndex),
+                    StandardCharsets.UTF_8
+            );
+
+            // Extract and decode the value if it exists
+            String value = null;
+            if (pair.length() > separatorIndex + 1) {
+                value = URLDecoder.decode(
+                        pair.substring(separatorIndex + 1),
+                        StandardCharsets.UTF_8
+                );
+            }
+
+            params.put(key, value);
+        }
+
+        return params;
+    }
+
 }

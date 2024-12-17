@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.rds.DbInstances.complete]
+// snippet-start:[gov2.rds.DbInstances.struct]
+
 import (
 	"context"
 	"errors"
@@ -12,9 +15,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/rds"
 	"github.com/aws/aws-sdk-go-v2/service/rds/types"
 )
-
-// snippet-start:[gov2.rds.DbInstances.complete]
-// snippet-start:[gov2.rds.DbInstances.struct]
 
 type DbInstances struct {
 	RdsClient *rds.Client

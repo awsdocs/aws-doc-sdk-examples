@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.iam.RoleWrapper.complete]
+// snippet-start:[gov2.iam.RoleWrapper.struct]
+
 import (
 	"context"
 	"encoding/json"
@@ -12,9 +15,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/iam"
 	"github.com/aws/aws-sdk-go-v2/service/iam/types"
 )
-
-// snippet-start:[gov2.iam.RoleWrapper.complete]
-// snippet-start:[gov2.iam.RoleWrapper.struct]
 
 // RoleWrapper encapsulates AWS Identity and Access Management (IAM) role actions
 // used in the examples.

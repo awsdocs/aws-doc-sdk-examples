@@ -45,8 +45,6 @@
 	  <ProjectReference Include="..\Models\CohereCommand\Converse\Converse.csproj" />
 	  <ProjectReference Include="..\Models\MetaLlama\ConverseStream\ConverseStream.csproj" />
 	  <ProjectReference Include="..\Models\MetaLlama\Converse\Converse.csproj" />
-	  <ProjectReference Include="..\Models\MetaLlama\Llama2_InvokeModelWithResponseStream\Llama2_InvokeModelWithResponseStream.csproj" />
-	  <ProjectReference Include="..\Models\MetaLlama\Llama2_InvokeModel\Llama2_InvokeModel.csproj" />
 	  <ProjectReference Include="..\Models\MetaLlama\Llama3_InvokeModelWithResponseStream\Llama3_InvokeModelWithResponseStream.csproj" />
 	  <ProjectReference Include="..\Models\MetaLlama\Llama3_InvokeModel\Llama3_InvokeModel.csproj" />
 	  <ProjectReference Include="..\Models\Mistral\ConverseStream\ConverseStream.csproj" />

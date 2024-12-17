@@ -1,7 +1,7 @@
 s3-control_Hello:
   title: Hello &S3Control;
-  title_abbrev: Hello '&S3Control;'
-  synopsis: get started using '&S3Control;'
+  title_abbrev: Hello &S3Control;
+  synopsis: get started using &S3Control;.
   category: Hello
   languages:
     Java:
@@ -32,7 +32,10 @@ s3-control_CreateJob:
                 - s3control.java2.create_job.compliance.main   
             - description: Create a legal hold off job.
               snippet_tags:
-                - s3control.java2.create_job.compliance.main       
+                - s3control.java2.create_job.compliance.main  
+            - description: Create a new governance retemtion job.
+              snippet_tags:
+                - s3.java2.create_governance_retemtion.main       
   services:
     s3-control: {CreateJob}    
 s3-control_PutJobTagging:
@@ -114,7 +117,7 @@ s3-control_UpdateJobPriority:
   services:
     s3-control: {UpdateJobPriority}   
 s3-control_Basics:
-  synopsis: learn core operations for'&S3Control;'.
+  synopsis: learn core operations for &S3Control;.
   category: Basics
   languages:
     Java:

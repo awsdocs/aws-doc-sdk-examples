@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 ### Get started
 
-- [Hello AWS IoT SiteWise](src/main/java/com/example/iotsitewise/HelloSitewise.java#L14) (`ListVersions`)
+- [Hello AWS IoT SiteWise](src/main/java/com/example/iotsitewise/HelloSitewise.java#L14) (`ListAssetModels`)
 
 
 ### Basics
@@ -79,7 +79,7 @@ This example shows you how to get started using AWS IoT SiteWise.
 
 #### Learn the basics
 
-This example shows you how to Learn core operations for AWS IoT SiteWise using an AWS SDK.
+This example shows you how to learn core operations for AWS IoT SiteWise using an AWS SDK.
 
 
 <!--custom.basic_prereqs.iotsitewise_Scenario.start-->

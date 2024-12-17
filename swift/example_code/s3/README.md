@@ -50,6 +50,14 @@ Code excerpts that show you how to call individual service functions.
 - [ListObjectsV2](basics/Sources/ServiceHandler/ServiceHandler.swift#L280)
 - [PutObject](basics/Sources/ServiceHandler/ServiceHandler.swift#L107)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Download stream of unknown size](binary-streaming/Sources/streamdown/streamdown.swift)
+- [Upload stream of unknown size](binary-streaming/Sources/streamup/streamup.swift)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -91,6 +99,30 @@ This example shows you how to do the following:
 <!--custom.basics.s3_Scenario_GettingStarted.start-->
 <!--custom.basics.s3_Scenario_GettingStarted.end-->
 
+
+#### Download stream of unknown size
+
+This example shows you how to download a stream of unknown size from an Amazon S3 object.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_DownloadStream.start-->
+<!--custom.scenario_prereqs.s3_Scenario_DownloadStream.end-->
+
+
+<!--custom.scenarios.s3_Scenario_DownloadStream.start-->
+<!--custom.scenarios.s3_Scenario_DownloadStream.end-->
+
+#### Upload stream of unknown size
+
+This example shows you how to upload a stream of unknown size to an Amazon S3 object.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_UploadStream.start-->
+<!--custom.scenario_prereqs.s3_Scenario_UploadStream.end-->
+
+
+<!--custom.scenarios.s3_Scenario_UploadStream.start-->
+<!--custom.scenarios.s3_Scenario_UploadStream.end-->
 
 ### Tests
 

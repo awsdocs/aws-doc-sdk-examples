@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.sns.SnsActions.complete]
+// snippet-start:[gov2.sns.SnsActions.struct]
+
 import (
 	"context"
 	"encoding/json"
@@ -12,9 +15,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/sns"
 	"github.com/aws/aws-sdk-go-v2/service/sns/types"
 )
-
-// snippet-start:[gov2.sns.SnsActions.complete]
-// snippet-start:[gov2.sns.SnsActions.struct]
 
 // SnsActions encapsulates the Amazon Simple Notification Service (Amazon SNS) actions
 // used in the examples.

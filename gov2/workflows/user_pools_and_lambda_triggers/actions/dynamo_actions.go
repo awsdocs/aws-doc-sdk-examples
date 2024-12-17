@@ -3,6 +3,8 @@
 
 package actions
 
+// snippet-start:[gov2.dynamodb.DynamoActions.complete]
+
 import (
 	"context"
 	"fmt"
@@ -13,8 +15,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 )
-
-// snippet-start:[gov2.dynamodb.DynamoActions.complete]
 
 // DynamoActions encapsulates the Amazon Simple Notification Service (Amazon SNS) actions
 // used in the examples.

@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.iam.PolicyWrapper.complete]
+// snippet-start:[gov2.iam.PolicyWrapper.struct]
+
 import (
 	"context"
 	"encoding/json"
@@ -12,28 +15,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/iam"
 	"github.com/aws/aws-sdk-go-v2/service/iam/types"
 )
-
-// snippet-start:[gov2.iam.PolicyWrapper.complete]
-// snippet-start:[gov2.iam.PolicyDocument.struct]
-
-// PolicyDocument defines a policy document as a Go struct that can be serialized
-// to JSON.
-type PolicyDocument struct {
-	Version   string
-	Statement []PolicyStatement
-}
-
-// PolicyStatement defines a statement in a policy document.
-type PolicyStatement struct {
-	Effect    string
-	Action    []string
-	Principal map[string]string `json:",omitempty"`
-	Resource  *string           `json:",omitempty"`
-}
-
-// snippet-end:[gov2.iam.PolicyDocument.struct]
-
-// snippet-start:[gov2.iam.PolicyWrapper.struct]
 
 // PolicyWrapper encapsulates AWS Identity and Access Management (IAM) policy actions
 // used in the examples.
@@ -63,6 +44,21 @@ func (wrapper PolicyWrapper) ListPolicies(ctx context.Context, maxPolicies int32
 // snippet-end:[gov2.iam.ListPolicies]
 
 // snippet-start:[gov2.iam.CreatePolicy]
+
+// PolicyDocument defines a policy document as a Go struct that can be serialized
+// to JSON.
+type PolicyDocument struct {
+	Version   string
+	Statement []PolicyStatement
+}
+
+// PolicyStatement defines a statement in a policy document.
+type PolicyStatement struct {
+	Effect    string
+	Action    []string
+	Principal map[string]string `json:",omitempty"`
+	Resource  *string           `json:",omitempty"`
+}
 
 // CreatePolicy creates a policy that grants a list of actions to the specified resource.
 // PolicyDocument shows how to work with a policy document as a data structure and

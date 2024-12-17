@@ -48,19 +48,15 @@ functions within the same service.
 
 ### Amazon Titan Image Generator
 
-- [InvokeModel](BedrockRuntimeService.php#L161)
+- [InvokeModel](BedrockRuntimeService.php#L131)
 
 ### Anthropic Claude
 
 - [InvokeModel](BedrockRuntimeService.php#L31)
 
-### Meta Llama
-
-- [InvokeModel: Llama 2](BedrockRuntimeService.php#L94)
-
 ### Stable Diffusion
 
-- [InvokeModel](BedrockRuntimeService.php#L124)
+- [InvokeModel](BedrockRuntimeService.php#L94)
 
 
 <!--custom.examples.start-->

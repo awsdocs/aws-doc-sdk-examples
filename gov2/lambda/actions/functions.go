@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.lambda.FunctionWrapper.complete]
+// snippet-start:[gov2.lambda.FunctionWrapper.struct]
+
 import (
 	"bytes"
 	"context"
@@ -15,9 +18,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/lambda"
 	"github.com/aws/aws-sdk-go-v2/service/lambda/types"
 )
-
-// snippet-start:[gov2.lambda.FunctionWrapper.complete]
-// snippet-start:[gov2.lambda.FunctionWrapper.struct]
 
 // FunctionWrapper encapsulates function actions used in the examples.
 // It contains an AWS Lambda service client that is used to perform user actions.

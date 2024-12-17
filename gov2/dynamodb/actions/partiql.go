@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.dynamodb.PartiQLRunner.complete]
+// snippet-start:[gov2.dynamodb.PartiQLRunner.struct]
+
 import (
 	"context"
 	"fmt"
@@ -13,9 +16,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 )
-
-// snippet-start:[gov2.dynamodb.PartiQLRunner.complete]
-// snippet-start:[gov2.dynamodb.PartiQLRunner.struct]
 
 // PartiQLRunner encapsulates the Amazon DynamoDB service actions used in the
 // PartiQL examples. It contains a DynamoDB service client that is used to act on the

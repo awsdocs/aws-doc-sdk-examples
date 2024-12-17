@@ -3,6 +3,8 @@
 
 package scenarios
 
+// snippet-start:[gov2.dynamodb.Scenario_PartiQLSingle]
+
 import (
 	"context"
 	"fmt"
@@ -14,8 +16,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/dynamodb/actions"
 )
-
-// snippet-start:[gov2.dynamodb.Scenario_PartiQLSingle]
 
 // RunPartiQLSingleScenario shows you how to use the AWS SDK for Go
 // to use PartiQL to query a table that stores data about movies.

@@ -74,8 +74,8 @@ public class LifecycleConfiguration {
      */
     public static void setLifecycleConfig(S3Client s3, String bucketName, String accountId) {
         try {
-            // Create a rule to archive objects with the "glacierobjects/" prefix to Amazon
-            // S3 Glacier.
+            // Create a rule to archive objects with the "glacierobjects/" prefix to the
+            // S3 Glacier Flexible Retrieval storage class immediately.
             LifecycleRuleFilter ruleFilter = LifecycleRuleFilter.builder()
                 .prefix("glacierobjects/")
                 .build();

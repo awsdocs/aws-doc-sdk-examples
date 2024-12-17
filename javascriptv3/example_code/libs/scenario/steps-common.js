@@ -30,6 +30,17 @@ export const loadState = new Scenarios.ScenarioAction(
   },
 );
 
+export const deleteState = new Scenarios.ScenarioAction(
+  "deleteState",
+  async (state) => {
+    try {
+      await fs.rm("state.json");
+    } catch (err) {
+      console.warn("Failed to delete state:", err);
+    }
+  },
+);
+
 /**
  * Step factories.
  */

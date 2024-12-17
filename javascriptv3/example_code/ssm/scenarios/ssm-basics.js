@@ -7,8 +7,7 @@ import {
   ScenarioAction,
   ScenarioInput,
   ScenarioOutput,
-  //} from "@aws-doc-sdk-examples/lib/scenario/index.js";
-} from "../../libs/scenario/index.js";
+} from "@aws-doc-sdk-examples/lib/scenario/index.js";
 import { fileURLToPath } from "node:url";
 import {
   CreateDocumentCommand,

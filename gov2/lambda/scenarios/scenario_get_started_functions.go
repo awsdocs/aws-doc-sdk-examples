@@ -3,6 +3,8 @@
 
 package scenarios
 
+// snippet-start:[gov2.lambda.Scenario_GetStartedFunctions]
+
 import (
 	"archive/zip"
 	"bytes"
@@ -23,59 +25,6 @@ import (
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/demotools"
 	"github.com/awsdocs/aws-doc-sdk-examples/gov2/lambda/actions"
 )
-
-// snippet-start:[gov2.lambda.GetStartedFunctions_Helper]
-
-// IScenarioHelper abstracts I/O and wait functions from a scenario so that they
-// can be mocked for unit testing.
-type IScenarioHelper interface {
-	Pause(secs int)
-	CreateDeploymentPackage(sourceFile string, destinationFile string) *bytes.Buffer
-}
-
-// ScenarioHelper lets the caller specify the path to Lambda handler functions.
-type ScenarioHelper struct {
-	HandlerPath string
-}
-
-// Pause waits for the specified number of seconds.
-func (helper *ScenarioHelper) Pause(secs int) {
-	time.Sleep(time.Duration(secs) * time.Second)
-}
-
-// CreateDeploymentPackage creates an AWS Lambda deployment package from a source file. The
-// deployment package is stored in .zip format in a bytes.Buffer. The buffer can be
-// used to pass a []byte to Lambda when creating the function.
-// The specified destinationFile is the name to give the file when it's deployed to Lambda.
-func (helper *ScenarioHelper) CreateDeploymentPackage(sourceFile string, destinationFile string) *bytes.Buffer {
-	var err error
-	buffer := &bytes.Buffer{}
-	writer := zip.NewWriter(buffer)
-	zFile, err := writer.Create(destinationFile)
-	if err != nil {
-		log.Panicf("Couldn't create destination archive %v. Here's why: %v\n", destinationFile, err)
-	}
-	sourceBody, err := os.ReadFile(fmt.Sprintf("%v/%v", helper.HandlerPath, sourceFile))
-	if err != nil {
-		log.Panicf("Couldn't read handler source file %v. Here's why: %v\n",
-			sourceFile, err)
-	} else {
-		_, err = zFile.Write(sourceBody)
-		if err != nil {
-			log.Panicf("Couldn't write handler %v to zip archive. Here's why: %v\n",
-				sourceFile, err)
-		}
-	}
-	err = writer.Close()
-	if err != nil {
-		log.Panicf("Couldn't close zip writer. Here's why: %v\n", err)
-	}
-	return buffer
-}
-
-// snippet-end:[gov2.lambda.GetStartedFunctions_Helper]
-
-// snippet-start:[gov2.lambda.Scenario_GetStartedFunctions]
 
 // GetStartedFunctionsScenario shows you how to use AWS Lambda to perform the following
 // actions:
@@ -333,6 +282,53 @@ func (scenario GetStartedFunctionsScenario) Cleanup(ctx context.Context, role *i
 	} else {
 		log.Println("Okay. Don't forget to delete the resources when you're done with them.")
 	}
+}
+
+// IScenarioHelper abstracts I/O and wait functions from a scenario so that they
+// can be mocked for unit testing.
+type IScenarioHelper interface {
+	Pause(secs int)
+	CreateDeploymentPackage(sourceFile string, destinationFile string) *bytes.Buffer
+}
+
+// ScenarioHelper lets the caller specify the path to Lambda handler functions.
+type ScenarioHelper struct {
+	HandlerPath string
+}
+
+// Pause waits for the specified number of seconds.
+func (helper *ScenarioHelper) Pause(secs int) {
+	time.Sleep(time.Duration(secs) * time.Second)
+}
+
+// CreateDeploymentPackage creates an AWS Lambda deployment package from a source file. The
+// deployment package is stored in .zip format in a bytes.Buffer. The buffer can be
+// used to pass a []byte to Lambda when creating the function.
+// The specified destinationFile is the name to give the file when it's deployed to Lambda.
+func (helper *ScenarioHelper) CreateDeploymentPackage(sourceFile string, destinationFile string) *bytes.Buffer {
+	var err error
+	buffer := &bytes.Buffer{}
+	writer := zip.NewWriter(buffer)
+	zFile, err := writer.Create(destinationFile)
+	if err != nil {
+		log.Panicf("Couldn't create destination archive %v. Here's why: %v\n", destinationFile, err)
+	}
+	sourceBody, err := os.ReadFile(fmt.Sprintf("%v/%v", helper.HandlerPath, sourceFile))
+	if err != nil {
+		log.Panicf("Couldn't read handler source file %v. Here's why: %v\n",
+			sourceFile, err)
+	} else {
+		_, err = zFile.Write(sourceBody)
+		if err != nil {
+			log.Panicf("Couldn't write handler %v to zip archive. Here's why: %v\n",
+				sourceFile, err)
+		}
+	}
+	err = writer.Close()
+	if err != nil {
+		log.Panicf("Couldn't close zip writer. Here's why: %v\n", err)
+	}
+	return buffer
 }
 
 // snippet-end:[gov2.lambda.Scenario_GetStartedFunctions]

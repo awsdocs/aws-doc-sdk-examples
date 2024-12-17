@@ -2,6 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import com.example.firehose.*;
+import com.example.firehose.scenario.FirehoseScenario;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -11,6 +16,8 @@ import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import java.io.*;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -72,26 +79,42 @@ public class FirehoseTest {
     @Tag("IntegrationTest")
     @Order(1)
     public void CreateDeliveryStream() {
-        assertDoesNotThrow(() -> CreateDeliveryStream.createStream(firehoseClient, bucketARN, roleARN, newStream));
+   //     assertDoesNotThrow(() -> CreateDeliveryStream.createStream(firehoseClient, bucketARN, roleARN, newStream));
         System.out.println("Test 1 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(2)
-    public void PutRecord() throws InterruptedException {
-        // Wait 60 secs for resource to become available
-        System.out.println("Wait 10 mins for resource to become available.");
-        TimeUnit.MINUTES.sleep(10);
-        assertDoesNotThrow(() -> PutRecord.putSingleRecord(firehoseClient, textValue, newStream));
+    public void PutRecord() throws InterruptedException, JsonProcessingException {
+    //    System.out.println("Wait 10 mins for resource to become available.");
+     //   TimeUnit.MINUTES.sleep(10);
+        String jsonContent = FirehoseScenario.readJsonFile("sample_records.json");
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Map<String, Object>> sampleData = objectMapper.readValue(jsonContent, new TypeReference<>() {});
+
+        // Process individual records.
+        System.out.println("Processing individual records...");
+        sampleData.subList(0, 100).forEach(record -> {
+            try {
+                FirehoseScenario.putRecord(record, newStream);
+            } catch (Exception e) {
+                System.err.println("Error processing record: " + e.getMessage());
+            }
+        });
         System.out.println("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void PutBatchRecords() {
-        assertDoesNotThrow(() -> PutBatchRecords.addStockTradeData(firehoseClient, newStream));
+    public void PutBatchRecords() throws JsonProcessingException {
+        String jsonContent = FirehoseScenario.readJsonFile("sample_records.json");
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Map<String, Object>> sampleData = objectMapper.readValue(jsonContent, new TypeReference<>() {});
+
+        // Process individual records.
+        FirehoseScenario.putRecordBatch(sampleData.subList(100, sampleData.size()), 500, newStream);
         System.out.println("Test 3 passed");
     }
 

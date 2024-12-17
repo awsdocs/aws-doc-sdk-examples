@@ -98,7 +98,7 @@ in the `swift` folder.
 
 - [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
 - [IAM API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
-- [SDK for Swift IAM reference](https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWSIam/Home)
+- [SDK for Swift IAM reference](https://sdk.amazonaws.com/swift/api/awsiam/latest/documentation/awsiam)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

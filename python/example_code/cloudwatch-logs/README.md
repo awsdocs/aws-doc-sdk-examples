@@ -38,8 +38,8 @@ python -m pip install -r requirements.txt
 
 Code excerpts that show you how to call individual service functions.
 
-- [GetQueryResults](scenarios/large-query/cloudwatch_query.py#L200)
-- [StartQuery](scenarios/large-query/cloudwatch_query.py#L126)
+- [GetQueryResults](scenarios/large-query/cloudwatch_query.py#L204)
+- [StartQuery](scenarios/large-query/cloudwatch_query.py#L130)
 
 ### Scenarios
 

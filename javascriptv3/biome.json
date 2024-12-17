@@ -13,7 +13,9 @@
       "./example_code/kinesis/kinesis-cdk",
       "./example_code/medical-imaging/scenarios/health-image-sets/pixel-data-verification/openjphjs/openjphjs.js",
       "./example_code/cross-services/textract-react",
-      "**/dist"
+      "**/dist",
+      "**/cdk.out",
+      "cdk.json"
     ]
   },
   "formatter": {

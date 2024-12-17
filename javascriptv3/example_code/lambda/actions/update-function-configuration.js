@@ -3,9 +3,11 @@
 import {
   LambdaClient,
   UpdateFunctionConfigurationCommand,
+  waitUntilFunctionUpdated,
 } from "@aws-sdk/client-lambda";
 import { readFileSync } from "node:fs";
 import { dirnameFromMetaUrl } from "@aws-doc-sdk-examples/lib/utils/util-fs.js";
+import { waitForFunctionUpdated } from "../waiters/index.js";
 
 const dirname = dirnameFromMetaUrl(import.meta.url);
 
@@ -17,7 +19,9 @@ const updateFunctionConfiguration = (funcName) => {
     ...JSON.parse(config),
     FunctionName: funcName,
   });
-  return client.send(command);
+  const result = client.send(command);
+  waitForFunctionUpdated({ FunctionName: funcName });
+  return result;
 };
 /** snippet-end:[javascript.v3.lambda.actions.UpdateFunctionConfiguration] */
 

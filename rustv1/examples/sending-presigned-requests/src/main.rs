@@ -7,7 +7,8 @@ use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::presigning::{PresignedRequest, PresigningConfig};
 use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client};
 use clap::Parser;
-use http::{HeaderName, HeaderValue};
+use hyper::http::{HeaderName, HeaderValue};
+use hyper_util::rt::TokioExecutor;
 use std::error::Error;
 use std::time::Duration;
 
@@ -94,7 +95,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     // Presigned requests can be used in several ways. Here are a few examples:
     print_as_curl_request(&presigned_request, Some(body.as_str()));
     send_presigned_request_with_reqwest(&presigned_request, body.clone()).await;
-    send_presigned_request_with_hyper(presigned_request, hyper::Body::from(body.clone())).await;
+    send_presigned_request_with_hyper(presigned_request, body.clone()).await;
 
     Ok(())
 }
@@ -125,10 +126,10 @@ fn print_as_curl_request(presigned_req: &PresignedRequest, body: Option<&str>) {
 }
 
 /// This function demonstrates how you can send a presigned request using [hyper](https://crates.io/crates/hyper)
-async fn send_presigned_request_with_hyper(req: PresignedRequest, body: hyper::Body) {
+async fn send_presigned_request_with_hyper(req: PresignedRequest, body: String) {
     let conn = hyper_tls::HttpsConnector::new();
-    let client = hyper::Client::builder().build(conn);
-    let req = req.into_http_02x_request(body);
+    let client = hyper_util::client::legacy::Client::builder(TokioExecutor::new()).build(conn);
+    let req = req.into_http_1x_request(body);
 
     let res = client.request(req).await;
 

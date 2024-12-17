@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.iam.AccountWrapper.complete]
+// snippet-start:[gov2.iam.AccountWrapper.struct]
+
 import (
 	"context"
 	"log"
@@ -10,9 +13,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/iam"
 	"github.com/aws/aws-sdk-go-v2/service/iam/types"
 )
-
-// snippet-start:[gov2.iam.AccountWrapper.complete]
-// snippet-start:[gov2.iam.AccountWrapper.struct]
 
 // AccountWrapper encapsulates AWS Identity and Access Management (IAM) account actions
 // used in the examples.

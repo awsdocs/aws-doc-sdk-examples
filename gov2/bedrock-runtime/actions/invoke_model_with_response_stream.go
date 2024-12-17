@@ -3,6 +3,9 @@
 
 package actions
 
+// snippet-start:[gov2.bedrock-runtime.InvokeModelWithResponseStreamWrapper.complete]
+// snippet-start:[gov2.bedrock-runtime.InvokeModelWithResponseStreamWrapper.struct]
+
 import (
 	"bytes"
 	"context"
@@ -15,9 +18,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime"
 	"github.com/aws/aws-sdk-go-v2/service/bedrockruntime/types"
 )
-
-// snippet-start:[gov2.bedrock-runtime.InvokeModelWithResponseStreamWrapper.complete]
-// snippet-start:[gov2.bedrock-runtime.InvokeModelWithResponseStreamWrapper.struct]
 
 // InvokeModelWithResponseStreamWrapper encapsulates Amazon Bedrock actions used in the examples.
 // It contains a Bedrock Runtime client that is used to invoke foundation models.

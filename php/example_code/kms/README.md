@@ -77,7 +77,7 @@ Code excerpts that show you how to call individual service functions.
 
 #### Hello AWS KMS
 
-This example shows you how to get started using AWS Key Management Service (AWS KMS).
+This example shows you how to get started using AWS KMS.
 
 
 #### Learn the basics

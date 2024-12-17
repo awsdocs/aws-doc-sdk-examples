@@ -11,6 +11,7 @@ redshift_Hello:
           github: gov2/redshift
           excerpts:
             - description:
+              genai: some
               snippet_tags:
                 - gov2.redshift.Hello
     Java:

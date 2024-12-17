@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 package actions
 
+// snippet-start:[gov2.aurora.DbClusters.complete]
+// snippet-start:[gov2.aurora.DbClusters.struct]
+
 import (
 	"context"
 	"errors"
@@ -11,9 +14,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/rds"
 	"github.com/aws/aws-sdk-go-v2/service/rds/types"
 )
-
-// snippet-start:[gov2.aurora.DbClusters.complete]
-// snippet-start:[gov2.aurora.DbClusters.struct]
 
 type DbClusters struct {
 	AuroraClient *rds.Client

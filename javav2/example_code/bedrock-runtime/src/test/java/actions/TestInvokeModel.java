@@ -49,12 +49,6 @@ public class TestInvokeModel extends IntegrationTestBase {
     }
 
     @Test
-    void testLlama2() {
-        String result = com.example.bedrockruntime.models.metaLlama.Llama2_InvokeModel.invokeModel();
-        assertNotNullOrEmpty(result);
-    }
-
-    @Test
     void testLlama3() {
         String result = com.example.bedrockruntime.models.metaLlama.Llama3_InvokeModel.invokeModel();
         assertNotNullOrEmpty(result);

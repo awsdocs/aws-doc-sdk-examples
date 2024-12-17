@@ -73,9 +73,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 
 - [Converse](src/main/java/com/example/bedrockruntime/models/metaLlama/Converse.java#L6)
 - [ConverseStream](src/main/java/com/example/bedrockruntime/models/metaLlama/ConverseStream.java#L6)
-- [InvokeModel: Llama 2](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama2_InvokeModel.java#L6)
 - [InvokeModel: Llama 3](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama3_InvokeModel.java#L6)
-- [InvokeModelWithResponseStream: Llama 2](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama2_InvokeModelWithResponseStream.java#L6)
 - [InvokeModelWithResponseStream: Llama 3](src/main/java/com/example/bedrockruntime/models/metaLlama/Llama3_InvokeModelWithResponseStream.java#L6)
 
 ### Mistral AI

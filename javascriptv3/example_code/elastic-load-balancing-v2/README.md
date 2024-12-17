@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javas
 
 ### Get started
 
-- [Hello Elastic Load Balancing](hello.js) (`DescribeLoadBalancers`)
+- [Hello Elastic Load Balancing - Version 2](hello.js) (`DescribeLoadBalancers`)
 
 
 ### Single actions
@@ -91,9 +91,9 @@ for that file.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Elastic Load Balancing
+#### Hello Elastic Load Balancing - Version 2
 
-This example shows you how to get started using Elastic Load Balancing.
+This example shows you how to get started using Elastic Load Balancing - Version 2.
 
 ```bash
 node ./hello.js

@@ -14,8 +14,16 @@ iotsitewise_Hello:
             - description:
               snippet_tags:
                 - iotsitewise.hello.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.Hello
   services:
-    iotsitewise: {ListVersions}
+    iotsitewise: {ListAssetModels}
 iotsitewise_DescribeGateway:
   languages:
     Java:
@@ -26,6 +34,15 @@ iotsitewise_DescribeGateway:
             - description:
               snippet_tags:
                 - sitewise.java2.describe.gateway.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.DescribeGateway
   services:
     iotsitewise: {DescribeGateway}
 iotsitewise_DeleteGateway:
@@ -38,6 +55,15 @@ iotsitewise_DeleteGateway:
             - description:
               snippet_tags:
                 - sitewise.java2.delete.gateway.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.DeleteGateway
   services:
     iotsitewise: {DeleteGateway}
 iotsitewise_CreateGateway:
@@ -50,6 +76,15 @@ iotsitewise_CreateGateway:
             - description:
               snippet_tags:
                 - sitewise.java2.create.gateway.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.CreateGateway
   services:
     iotsitewise: {CreateGateway}
 iotsitewise_DescribePortal:
@@ -62,6 +97,15 @@ iotsitewise_DescribePortal:
             - description:
               snippet_tags:
                 - sitewise.java2.describe.portal.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.CreateGateway
   services:
     iotsitewise: {DescribePortal}
 iotsitewise_ListAssetModels:
@@ -74,6 +118,15 @@ iotsitewise_ListAssetModels:
             - description:
               snippet_tags:
                 - sitewise.java2.list.asset.model.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.ListAssetModels
   services:
     iotsitewise: {ListAssetModels}
 iotsitewise_DeletePortal:
@@ -86,6 +139,15 @@ iotsitewise_DeletePortal:
             - description:
               snippet_tags:
                 - sitewise.java2.delete.portal.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.DeletePortal
   services:
     iotsitewise: {DeletePortal}
 iotsitewise_CreatePortal:
@@ -98,6 +160,15 @@ iotsitewise_CreatePortal:
             - description:
               snippet_tags:
                 - sitewise.java2.create.portal.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.CreatePortal
   services:
     iotsitewise: {CreatePortal}
 iotsitewise_DeleteAssetModel:
@@ -110,6 +181,15 @@ iotsitewise_DeleteAssetModel:
             - description:
               snippet_tags:
                 - sitewise.java2.delete.asset.model.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.DeleteAssetModel
   services:
     iotsitewise: {DeleteAssetModel}
 iotsitewise_DeleteAsset:
@@ -122,6 +202,15 @@ iotsitewise_DeleteAsset:
             - description:
               snippet_tags:
                 - sitewise.java2.delete.asset.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.DeleteAsset
   services:
     iotsitewise: {DeleteAsset}
 iotsitewise_DescribeAssetModel:
@@ -146,6 +235,15 @@ iotsitewise_GetAssetPropertyValue:
             - description:
               snippet_tags:
                 - sitewise.java2_get_property.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.GetAssetPropertyValue
   services:
     iotsitewise: {GetAssetPropertyValue}
 iotsitewise_BatchPutAssetPropertyValue:
@@ -158,6 +256,25 @@ iotsitewise_BatchPutAssetPropertyValue:
             - description:
               snippet_tags:
                 - sitewise.java2_put_batch_property.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.BatchPutAssetPropertyValue
+            - description: >
+               A helper function to generate the entries parameter from a values
+               list.
+              snippet_tags:
+                - python.example_code.iotsitewise.BatchPutAssetPropertyValue.properties_to_values
+            - description: >
+               Here is an example of a values list to pass to the helper
+               function.
+              snippet_tags:
+                - python.example_code.iotsitewise.BatchPutAssetPropertyValue.values
   services:
     iotsitewise: {BatchPutAssetPropertyValue}
 iotsitewise_CreateAsset:
@@ -170,6 +287,15 @@ iotsitewise_CreateAsset:
             - description:
               snippet_tags:
                 - sitewise.java2_create_asset.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.CreateAsset
   services:
     iotsitewise: {CreateAsset}
 iotsitewise_CreateAssetModel:
@@ -182,10 +308,23 @@ iotsitewise_CreateAssetModel:
             - description:
               snippet_tags:
                 - sitewise.java2_create_asset_model.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.decl
+                - python.example_code.iotsitewise.CreateAssetModel
+            - description: >
+                Here is an example of a properties list to pass to the function.
+              snippet_tags:
+                - python.example_code.iotsitewise.CreateAssetModel.properties
   services:
     iotsitewise: {CreateAssetModel}
 iotsitewise_Scenario:
-  synopsis: Learn core operations for &ITSWlong; using an &AWS; SDK.
+  synopsis: learn core operations for &ITSWlong; using an &AWS; SDK.
   category: Basics
   languages:
     Java:
@@ -200,5 +339,19 @@ iotsitewise_Scenario:
             - description: A wrapper class for &ITSW; SDK methods.
               snippet_tags:
                 - iotsitewise.java2.actions.main 
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iotsitewise
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              genai: some
+              snippet_tags:
+                - python.example_code.iotsitewise.FeatureScenario
+            - description: IoTSitewiseWrapper class that wraps &ITSW; actions.
+              genai: some
+              snippet_tags:
+                - python.example_code.iotsitewise.IoTSitewiseWrapper.class
   services:
     iotsitewise: {}

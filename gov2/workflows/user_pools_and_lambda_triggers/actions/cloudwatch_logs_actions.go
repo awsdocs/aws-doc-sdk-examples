@@ -3,6 +3,8 @@
 
 package actions
 
+// snippet-start:[gov2.cloudwatch-logs.CloudWatchLogsActions.complete]
+
 import (
 	"context"
 	"fmt"
@@ -12,8 +14,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs/types"
 )
-
-// snippet-start:[gov2.cloudwatch-logs.CloudWatchLogsActions.complete]
 
 type CloudWatchLogsActions struct {
 	CwlClient *cloudwatchlogs.Client

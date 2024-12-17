@@ -35,13 +35,13 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     func runAsync() async throws {
         do {
-            // snippet-start: [swift.identity.sso.create-resolver]
+            // snippet-start:[swift.identity.sso.create-resolver]
             let identityResolver = try SSOAWSCredentialIdentityResolver(
                 profileName: profile,
                 configFilePath: config,
                 credentialsFilePath: credentials
             )
-            // snippet-end: [swift.identity.sso.create-resolver]
+            // snippet-end:[swift.identity.sso.create-resolver]
 
             // Call the function that fetches the Amazon S3 bucket names, then
             // output the names.

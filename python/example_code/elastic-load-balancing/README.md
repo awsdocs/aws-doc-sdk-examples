@@ -40,7 +40,7 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello Elastic Load Balancing](hello.py#L4) (`DescribeLoadBalancers`)
+- [Hello Elastic Load Balancing - Version 2](hello.py#L4) (`DescribeLoadBalancers`)
 
 
 ### Single actions
@@ -74,9 +74,9 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Elastic Load Balancing
+#### Hello Elastic Load Balancing - Version 2
 
-This example shows you how to get started using Elastic Load Balancing.
+This example shows you how to get started using Elastic Load Balancing - Version 2.
 
 ```
 python hello.py

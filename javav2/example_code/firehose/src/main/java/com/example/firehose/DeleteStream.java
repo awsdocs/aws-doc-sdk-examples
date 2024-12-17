@@ -33,7 +33,7 @@ public class DeleteStream {
 
         if (args.length != 1) {
             System.out.println(usage);
-            System.exit(1);
+            return;
         }
 
         String streamName = args[0];
@@ -57,7 +57,6 @@ public class DeleteStream {
 
         } catch (FirehoseException e) {
             System.out.println(e.getLocalizedMessage());
-            System.exit(1);
         }
     }
 }

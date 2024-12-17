@@ -57,8 +57,8 @@ public static class NewsletterWorkflow
     private static string _textWelcomeFile = "welcome.txt";
     private static string _couponsDataFile = "sample_coupons.json";
 
-    // Relative location of the shared workflow resources folder.
-    private static string _resourcesFilePathLocation = "../../../../../../../workflows/sesv2_weekly_mailer/resources/";
+    // Relative location of the resources folder.
+    private static string _resourcesFilePathLocation = "../../../../resources/";
 
     public static async Task Main(string[] args)
     {

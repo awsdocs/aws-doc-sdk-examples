@@ -3,6 +3,8 @@
 
 package actions
 
+// snippet-start:[gov2.dynamodb.Movie.struct]
+
 import (
 	"archive/zip"
 	"bytes"
@@ -15,8 +17,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 )
-
-// snippet-start:[gov2.dynamodb.Movie.struct]
 
 // Movie encapsulates data about a movie. Title and Year are the composite primary key
 // of the movie in Amazon DynamoDB. Title is the sort key, Year is the partition key,

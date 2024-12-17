@@ -19,7 +19,6 @@ import (
 
 const CLAUDE_MODEL_ID = "anthropic.claude-v2"
 const JURASSIC2_MODEL_ID = "ai21.j2-mid-v1"
-const LLAMA2_MODEL_ID = "meta.llama2-13b-chat-v1"
 const TITAN_IMAGE_MODEL_ID = "amazon.titan-image-generator-v1"
 const TITAN_TEXT_EXPRESS_MODEL_ID = "amazon.titan-text-express-v1"
 
@@ -48,12 +47,6 @@ func CallInvokeModelActions(sdkConfig aws.Config) {
 	}
 	log.Println(jurassic2Completion)
 
-	llama2Completion, err := wrapper.InvokeLlama2(ctx, prompt)
-	if err != nil {
-		panic(err)
-	}
-	log.Println(llama2Completion)
-
 	seed := int64(0)
 	titanImageCompletion, err := wrapper.InvokeTitanImage(ctx, prompt, seed)
 	if err != nil {
@@ -81,7 +74,6 @@ func (scenTest *InvokeModelActionsTest) SetupDataAndStubs() []testtools.Stub {
 	var stubList []testtools.Stub
 	stubList = append(stubList, stubInvokeModel(CLAUDE_MODEL_ID))
 	stubList = append(stubList, stubInvokeModel(JURASSIC2_MODEL_ID))
-	stubList = append(stubList, stubInvokeModel(LLAMA2_MODEL_ID))
 	stubList = append(stubList, stubInvokeModel(TITAN_IMAGE_MODEL_ID))
 	stubList = append(stubList, stubInvokeModel(TITAN_TEXT_EXPRESS_MODEL_ID))
 
@@ -120,16 +112,6 @@ func stubInvokeModel(modelId string) testtools.Stub {
 			Completions: []Completion{
 				{Data: Data{Text: "A fake response"}},
 			},
-		})
-
-	case LLAMA2_MODEL_ID:
-		request, _ = json.Marshal(Llama2Request{
-			Prompt:       prompt,
-			MaxGenLength: 512,
-			Temperature:  0.5,
-		})
-		response, _ = json.Marshal(Llama2Response{
-			Generation: "A fake response",
 		})
 
 	case TITAN_IMAGE_MODEL_ID:

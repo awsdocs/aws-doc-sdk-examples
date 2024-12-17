@@ -31,7 +31,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 ### Get started
 
-- [Hello Amazon S3 Glacier](Actions/HelloGlacier.cs#L4) (`ListVaults`)
+- [Hello S3 Glacier](Actions/HelloGlacier.cs#L4) (`ListVaults`)
 
 
 ### Single actions
@@ -76,9 +76,9 @@ Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Amazon S3 Glacier
+#### Hello S3 Glacier
 
-This example shows you how to get started using Amazon S3 Glacier.
+This example shows you how to get started using S3 Glacier.
 
 
 

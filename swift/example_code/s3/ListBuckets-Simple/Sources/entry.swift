@@ -26,13 +26,13 @@ func getBucketNames() async throws -> [String] {
         let client = S3Client(config: configuration)
         // snippet-end:[s3.swift.intro.client-init]
 
-        // snippet-start:[s3.swift.intro.listbuckets]
+        // snippet-start:[s3.swift.intro.listbuckets_getnames]
         // Use "Paginated" to get all the buckets.
         // This lets the SDK handle the 'continuationToken' in "ListBucketsOutput".
         let pages = client.listBucketsPaginated(
             input: ListBucketsInput( maxBuckets: 10)
         )
-        // snippet-end:[s3.swift.intro.listbuckets]
+        // snippet-end:[s3.swift.intro.listbuckets_getnames]
 
         // Get the bucket names.
         var bucketNames: [String] = []
