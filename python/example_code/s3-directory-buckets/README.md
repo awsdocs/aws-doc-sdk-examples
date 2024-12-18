@@ -41,6 +41,13 @@ Code examples that show you how to perform the essential operations within a ser
 - [Learn the basics](s3_express_getting_started.py)
 
 
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+- [CreateSession](s3_express_wrapper.py#L162)
+
+
 <!--custom.examples.start-->
 <!--custom.examples.end-->
 

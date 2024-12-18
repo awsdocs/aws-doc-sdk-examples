@@ -439,6 +439,9 @@ s3-directory-buckets_Scenario_ExpressBasics:
                and S3 Express One Zone.
               snippet_tags:
                 - python.example_code.s3.s3_express_basics
+            - description: A wrapper class for &S3; Express SDK functions.
+              snippet_tags:
+                - python.example_code.s3_directory.S3ExpressWrapper.class
   services:
     s3-directory-buckets: {CreateBucket, CopyObject, GetObject, PutObject, ListObjects, DeleteObject, DeleteBucket}
 
