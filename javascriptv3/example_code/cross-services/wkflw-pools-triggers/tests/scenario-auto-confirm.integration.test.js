@@ -1,13 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
+import { spawn } from "node:child_process";
 
-import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { describe, it, beforeAll, afterAll } from "vitest";
 import {
-  Capability,
   CloudFormationClient,
-  CreateStackCommand,
   DeleteStackCommand,
   DescribeStacksCommand,
 } from "@aws-sdk/client-cloudformation";
@@ -24,16 +22,24 @@ describe("Scenario - AutoConfirm", () => {
   const stackName = "PoolsAndTriggersStack";
 
   beforeAll(async () => {
-    const path = join(__dirname, "../cdk/stack.yaml");
-    const stack = await readFile(path, { encoding: "utf8" });
+    const cdkDeploy = spawn("cdk", ["deploy", "--require-approval", "never"], {
+      cwd: `${__dirname}/../cdk`,
+    });
 
-    await cloudformationClient.send(
-      new CreateStackCommand({
-        StackName: stackName,
-        TemplateBody: stack,
-        Capabilities: [Capability.CAPABILITY_NAMED_IAM],
-      }),
-    );
+    cdkDeploy.stderr.on("data", (d) => {
+      console.error(d);
+    });
+
+    await new Promise((resolve, reject) => {
+      cdkDeploy.on("exit", (code) => {
+        if (code === 0) {
+          resolve();
+        } else {
+          reject();
+        }
+      });
+    });
+
     await retry(
       { intervalInMs: 2000, maxRetries: 100, backoff: 5000 },
       async () => {
