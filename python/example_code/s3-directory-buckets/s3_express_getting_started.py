@@ -25,6 +25,8 @@ import demo_tools.question as q
 logger = logging.getLogger(__name__)
 
 no_art = False
+
+
 def print_dashes():
     """
     Print a line of dashes to separate sections of the output.
@@ -112,7 +114,8 @@ bucket.
         """
         # Configure a gateway VPC endpoint. This is the recommended method to allow S3 Express One Zone traffic without
         # the need to pass through an internet gateway or NAT device.
-        print("""
+        print(
+            """
 1. First, we'll set up a new VPC and VPC Endpoint if this program is running in an EC2 instance in the same AZ as your 
 Directory buckets will be. Are you running this in an EC2 instance located in the same AZ as your intended Directory buckets?
 """
@@ -199,7 +202,7 @@ an object into the normal bucket, and copy it over to the Directory bucket.
         # Create a directory bucket. These are different from normal S3 buckets in subtle ways.
         bucket_prefix = q.ask(
             "Enter a bucket name prefix that will be used for both buckets: ",
-            q.re_match(r"[a-z0-9](?:[a-z0-9-\.]*)[a-z0-9]$")
+            q.re_match(r"[a-z0-9](?:[a-z0-9-\.]*)[a-z0-9]$"),
         )
 
         # Some availability zones are not supported for Directory buckets. We'll choose one that is supported.
@@ -217,7 +220,10 @@ an object into the normal bucket, and copy it over to the Directory bucket.
             )
             regular_bucket_name = f"{bucket_prefix}-regular-{bucket_uuid}"
             configuration = {
-                "Bucket": {"Type": "Directory", "DataRedundancy": "SingleAvailabilityZone"},
+                "Bucket": {
+                    "Type": "Directory",
+                    "DataRedundancy": "SingleAvailabilityZone",
+                },
                 "Location": {
                     "Name": availability_zone["ZoneId"],
                     "Type": "AvailabilityZone",
@@ -228,7 +234,7 @@ an object into the normal bucket, and copy it over to the Directory bucket.
                 "Now, let's create the actual Directory bucket, as well as a regular bucket."
             )
             press_enter_to_continue()
-            try :
+            try:
                 self.s3_express_wrapper.create_bucket(
                     directory_bucket_name, configuration
                 )
@@ -238,9 +244,12 @@ an object into the normal bucket, and copy it over to the Directory bucket.
                     print(
                         f"Bucket '{directory_bucket_name}' is invalid. This may be because of selected availability zone."
                     )
-                    if q.ask("Would you like to select a different availability zone? ", q.is_yesno) :
+                    if q.ask(
+                        "Would you like to select a different availability zone? ",
+                        q.is_yesno,
+                    ):
                         continue
-                    else :
+                    else:
                         raise
                 else:
                     raise
@@ -257,12 +266,14 @@ an object into the normal bucket, and copy it over to the Directory bucket.
         """
         Create a session for the express S3 client and add objects to the buckets.
         """
-        print("""    
+        print(
+            """    
 5. Create an object and copy it over.
 We'll create a basic object consisting of some text and upload it to the normal bucket. Next we'll copy the object 
 into the Directory bucket using the regular client. This works fine because copy operations are not restricted for 
 Directory buckets.
-        """)
+        """
+        )
         press_enter_to_continue()
         bucket_object = "basic-text-object"
         self.s3_regular_wrapper.put_object(
@@ -320,7 +331,8 @@ example is run in an EC2 instance in the same Availability Zone as the bucket.
                 print(f"Download {index} of {downloads}")
 
             self.s3_express_wrapper.get_object(
-                self.directory_bucket_name, bucket_object)
+                self.directory_bucket_name, bucket_object
+            )
 
         directory_time_difference = time.time_ns() - directory_time_start
         print("Downloading from the normal bucket.")
@@ -329,8 +341,7 @@ example is run in an EC2 instance in the same Availability Zone as the bucket.
         for index in range(downloads):
             if index % 10 == 0:
                 print(f"Download {index} of {downloads}")
-            self.s3_regular_wrapper.get_object(
-                    self.regular_bucket_name, bucket_object)
+            self.s3_regular_wrapper.get_object(self.regular_bucket_name, bucket_object)
 
         normal_time_difference = time.time_ns() - normal_time_start
         print(
@@ -351,7 +362,8 @@ example is run in an EC2 instance in the same Availability Zone as the bucket.
         This is done by creating a few objects in each bucket and listing them to show the difference.
         :param bucket_object: The object to use for the listing operations.
         """
-        print("""
+        print(
+            """
 7. Populate the buckets to show the lexicographical difference.
 Now let's explore how Directory buckets store objects in a different manner to regular buckets. The key is in the name 
 "Directory". Where regular buckets store their key/value pairs in a flat manner, Directory buckets use actual 
@@ -359,33 +371,30 @@ directories/folders. This allows for more rapid indexing, traversing, and theref
 your bucket is, with lots of directories, sub-directories, and objects, the more efficient it becomes. This structural 
 difference also causes ListObjects to behave differently, which can cause unexpected results. Let's add a few more 
 objects with layered directories to see how the output of ListObjects changes.
-        """)
+        """
+        )
         press_enter_to_continue()
         # Populate a few more files in each bucket so that we can use ListObjects and show the difference.
         other_object = f"other/{bucket_object}"
         alt_object = f"alt/{bucket_object}"
         other_alt_object = f"other/alt/{bucket_object}"
-        self.s3_regular_wrapper.put_object(
-            self.regular_bucket_name, other_object, ""
-        )
-        self.s3_express_wrapper.put_object(
-            self.directory_bucket_name, other_object, ""
-        )
-        self.s3_regular_wrapper.put_object(
-            self.regular_bucket_name, alt_object, ""
-        )
-        self.s3_express_wrapper.put_object(
-            self.directory_bucket_name, alt_object, ""
-        )
+        self.s3_regular_wrapper.put_object(self.regular_bucket_name, other_object, "")
+        self.s3_express_wrapper.put_object(self.directory_bucket_name, other_object, "")
+        self.s3_regular_wrapper.put_object(self.regular_bucket_name, alt_object, "")
+        self.s3_express_wrapper.put_object(self.directory_bucket_name, alt_object, "")
         self.s3_regular_wrapper.put_object(
             self.regular_bucket_name, other_alt_object, ""
         )
         self.s3_express_wrapper.put_object(
             self.directory_bucket_name, other_alt_object, ""
         )
-        directory_bucket_objects = self.s3_express_wrapper.list_objects(self.directory_bucket_name)
+        directory_bucket_objects = self.s3_express_wrapper.list_objects(
+            self.directory_bucket_name
+        )
 
-        regular_bucket_objects = self.s3_regular_wrapper.list_objects(self.regular_bucket_name)
+        regular_bucket_objects = self.s3_regular_wrapper.list_objects(
+            self.regular_bucket_name
+        )
 
         print("Directory bucket content")
         for bucket_object in directory_bucket_objects:
@@ -393,7 +402,8 @@ objects with layered directories to see how the output of ListObjects changes.
         print("Normal bucket content")
         for bucket_object in regular_bucket_objects:
             print(f"   {bucket_object['Key']}")
-        print("""
+        print(
+            """
 Notice how the normal bucket lists objects in lexicographical order, while the directory bucket does not. This is 
 because the normal bucket considers the whole "key" to be the object identifier, while the directory bucket actually 
 creates directories and uses the object "key" as a path to the object.
@@ -413,9 +423,7 @@ creates directories and uses the object "key" as a path to the object.
             self.directory_bucket_name = None
 
         if self.regular_bucket_name is not None:
-            self.s3_regular_wrapper.delete_bucket_and_objects(
-                self.regular_bucket_name
-            )
+            self.s3_regular_wrapper.delete_bucket_and_objects(self.regular_bucket_name)
             print(f"Deleted regular bucket, '{self.regular_bucket_name}'")
             self.regular_bucket_name = None
 

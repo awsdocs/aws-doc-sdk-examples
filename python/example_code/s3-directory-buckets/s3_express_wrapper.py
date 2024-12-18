@@ -34,6 +34,8 @@ class S3ExpressWrapper:
         s3_client = boto3.client("s3")
         return cls(s3_client)
 
+    # snippet-end:[python.example_code.s3_directory.S3ExpressWrapper.decl]
+
     def create_bucket(
         self, bucket_name: str, bucket_configuration: dict[str, any] = None
     ) -> None:
@@ -91,9 +93,7 @@ class S3ExpressWrapper:
                 client_error.response["Error"]["Message"],
             )
 
-    def put_object(
-        self, bucket_name: str, object_key: str, content: str
-    ) -> None:
+    def put_object(self, bucket_name: str, object_key: str, content: str) -> None:
         """
         Puts an object into a bucket.
         :param bucket_name: The name of the bucket.
@@ -166,9 +166,7 @@ class S3ExpressWrapper:
         :param bucket_name: The name of the bucket.
         """
         try:
-            self.s3_client.create_session(
-                Bucket=bucket_name
-            )
+            self.s3_client.create_session(Bucket=bucket_name)
         except ClientError as client_error:
             logging.error(
                 "Couldn't create the express session for bucket %s. Here's why: %s",
@@ -176,6 +174,7 @@ class S3ExpressWrapper:
                 client_error.response["Error"]["Message"],
             )
             raise
+
     # snippet-end:[python.example_code.s3_directory.CreateSession]
 
     def get_object(self, bucket_name: str, object_key: str) -> None:
@@ -194,3 +193,6 @@ class S3ExpressWrapper:
                 client_error.response["Error"]["Message"],
             )
             raise
+
+
+# snippet-end:[python.example_code.s3_directory.S3ExpressWrapper.class]
