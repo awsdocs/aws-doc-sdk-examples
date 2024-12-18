@@ -48,6 +48,7 @@ func main() {
 	}
 
 	message := map[string]interface{}{
+		"default": "Default Value",
 		"GCM": string(notificationDataJSON),
 	}
 
@@ -75,7 +76,8 @@ func main() {
 	// JSON marshalling, you can do that by passing it in the following format:
 	//
 	// Message: aws.String(
-	// "{\"GCM\":\"{\\\"notification\\\":{" +
+	// "{\"default\":\"Default Value\","+
+	//   "\"GCM\":\"{\\\"notification\\\":{" +
 	// 		"\\\"body\\\":\\\"Body\\\"," +
 	// 		"\\\"title\\\":\\\"Title\\\"" +
 	// 		"}," +
