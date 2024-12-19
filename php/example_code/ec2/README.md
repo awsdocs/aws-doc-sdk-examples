@@ -36,7 +36,7 @@ Code excerpts that show you how to call individual service functions.
 - [CreateVpc](EC2Service.php#L67)
 - [CreateVpcEndpoint](EC2Service.php#L41)
 - [DeleteVpc](EC2Service.php#L88)
-- [DeleteVpcEndpoint](EC2Service.php#L108)
+- [DeleteVpcEndpoints](EC2Service.php#L108)
 - [DescribeRouteTables](EC2Service.php#L128)
 
 

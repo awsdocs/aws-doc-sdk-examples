@@ -6,6 +6,7 @@ Helper class for running scenarios at a command prompt. Asks questions, validate
 and converts input, and returns answers.
 """
 
+import re
 
 # snippet-start:[python.demo_tools.Question]
 def ask(question, *validators):
@@ -101,5 +102,18 @@ def in_range(lower, upper):
 
     return _validate
 
+def re_match(pattern):
+    """
+    Validate that the answer matches a regular expression.
+    :return: The answer, if it is a match; otherwise, None.
+    """
+
+    def _validate(answer):
+        return (
+            answer if re.match(pattern, answer) is not None else None,
+            f"{answer} must match the regular expression {pattern}.",
+        )
+
+    return _validate
 
 # snippet-end:[python.demo_tools.Question]
