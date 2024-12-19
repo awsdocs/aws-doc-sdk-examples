@@ -1,0 +1,28 @@
+# zexi 0.4.0
+tributary-lite_serverless-application:
+  title: Build and test a serverless application
+  title_abbrev: Build and test a serverless application
+  synopsis: build and test a serverless application using &ABP; with &LAM; and &DDB;
+  category: "TributaryLite"
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          block_content: tl_ServerlessApplication_DotNet_block.xml
+    Go:
+      versions:
+        - sdk_version: 2
+          block_content: tl_ServerlessApplication_Go_block.xml
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: tl_ServerlessApplication_Java_block.xml
+    Rust:
+      versions:
+        - sdk_version: 1
+          block_content: tl_ServerlessApplication_Rust_block.xml
+  service_main: lambda
+  services:
+    lambda:
+    dynamodb:
+    api-gateway:
