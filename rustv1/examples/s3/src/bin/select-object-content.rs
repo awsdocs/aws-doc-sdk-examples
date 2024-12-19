@@ -25,7 +25,7 @@ struct Opt {
     bucket: String,
 
     /// The object key to scan. This example expects the object to be an uncompressed CSV file with:
-
+    ///
     /// Name,PhoneNumber,City,Occupation
     /// Person1,(nnn) nnn-nnnn,City1,Occupation1,Comment
     /// ...

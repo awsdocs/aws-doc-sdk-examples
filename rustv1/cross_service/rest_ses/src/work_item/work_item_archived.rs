@@ -104,7 +104,7 @@ impl<'de> Deserialize<'de> for WorkItemArchived {
         /// The RDS table encodes status as 1 and 0.
         /// This serde visit handles those disparate cases, using the try_from impls.
         struct Visitor;
-        impl<'de> de::Visitor<'de> for Visitor {
+        impl de::Visitor<'_> for Visitor {
             type Value = WorkItemArchived;
 
             fn visit_u64<E>(self, value: u64) -> Result<Self::Value, E>
