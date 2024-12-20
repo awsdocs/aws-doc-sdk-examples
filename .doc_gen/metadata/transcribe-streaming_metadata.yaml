@@ -42,8 +42,8 @@ transcribe-streaming_StartMedicalStreamTranscription:
                 - transcribe.java-medical-streaming-demo
   services:
     transcribe-streaming: {StartMedicalStreamTranscription}
-transcribe-streaming_Scenario_StreamEvents:
-  title: Generate a transcription of an audio stream using an &AWS; SDK
+transcribe-streaming_Scenario_StreamEvents_File:
+  title: Generate a transcription of a file using an &AWS; SDK
   title_abbrev: Transcribe an audio file
   synopsis: generate a transcription of a source audio file using &TSC; streaming.
   category: Scenarios
@@ -58,5 +58,39 @@ transcribe-streaming_Scenario_StreamEvents:
               snippet_tags:
                 - swift.transcribe-streaming.all
                 - swift.transcribe-streaming.transcribeerror
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe-streaming
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.java-streaming-demo-file.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/transcribe-streaming
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.cpp.stream_transcription_async.code
+  services:
+    transcribe-streaming: {StartStreamTranscription}
+transcribe-streaming_Scenario_StreamEvents_Microphone:
+  title: Generate a transcription from a microphone using an &AWS; SDK
+  title_abbrev: Transcribe audio from a microphone
+  synopsis: generate a transcription from a microphone using &TSC; streaming.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/transcribe-streaming
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - transcribe.java-streaming-demo
   services:
     transcribe-streaming: {StartStreamTranscription}
