@@ -210,6 +210,7 @@ allow_list:
   - "aws/ec2/model/DisassociateAddressRequest"
   - "src/main/java/com/example/acm/DeleteCert"
   - "src/main/java/com/example/acm/ImportCert"
+  - "EnablePropagateAdditionalUserContextData"
 sample_files:
   - "README.md"
   - "chat_sfn_state_machine.json"

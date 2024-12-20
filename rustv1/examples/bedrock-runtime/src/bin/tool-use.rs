@@ -1,6 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+//! This demo illustrates a tool use scenario using Amazon Bedrock's Converse API and a weather tool.
+//! The script interacts with a foundation model on Amazon Bedrock to provide weather information based on user
+//! input. It uses the Open-Meteo API (https://open-meteo.com) to retrieve current weather data for a given location.
+
 // snippet-start:[rust.bedrock-runtime.Converse_AnthropicClaude.tool-use.supporting]
 use std::{collections::HashMap, io::stdin};
 
@@ -18,10 +22,6 @@ use aws_sdk_bedrockruntime::{
 use aws_smithy_runtime_api::http::Response;
 use aws_smithy_types::Document;
 use tracing::debug;
-
-/// This demo illustrates a tool use scenario using Amazon Bedrock's Converse API and a weather tool.
-/// The script interacts with a foundation model on Amazon Bedrock to provide weather information based on user
-/// input. It uses the Open-Meteo API (https://open-meteo.com) to retrieve current weather data for a given location.
 
 // Set the model ID, e.g., Claude 3 Haiku.
 const MODEL_ID: &str = "anthropic.claude-3-haiku-20240307-v1:0";
