@@ -23,4 +23,4 @@ COPY --chown=automation:automation ./workflows /workflows
 # Set default command
 # `npm i` needs to be run in the container. Otherwise it causes a dependency issue: https://github.com/evanw/esbuild/issues/1646#issuecomment-1238080595
 # `aws-cdk` is required by some integration tests in order to deploy resources
-CMD npm i -g aws-cdk && npm i --prefix /javascriptv3 && npm run --prefix /javascriptv3 integration-test
+CMD npm i aws-cdk && npm i --prefix /javascriptv3 && npm run --prefix /javascriptv3 integration-test
