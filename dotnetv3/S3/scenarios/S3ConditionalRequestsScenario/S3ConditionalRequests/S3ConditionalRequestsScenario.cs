@@ -86,39 +86,6 @@ public static class S3ConditionalRequestsScenario
         }
     }
 
-    public static async Task<bool> RunScenario()
-    {
-        try
-        {
-            Console.WriteLine(new string('-', 80));
-            Console.WriteLine("Welcome to the Amazon Simple Storage Service (S3) Conditional Requests Feature Scenario.");
-            Console.WriteLine(new string('-', 80));
-            ConfigurationSetup();
-            _sampleObjectEtag = await Setup(_sourceBucketName, _destinationBucketName, _sampleObjectKey);
-
-            await DisplayDemoChoices(_sourceBucketName, _destinationBucketName, _sampleObjectKey, _sampleObjectEtag, 0);
-
-            Console.WriteLine(new string('-', 80));
-            Console.WriteLine("Cleaning up resources.");
-            Console.WriteLine(new string('-', 80));
-            await Cleanup(true);
-
-            Console.WriteLine(new string('-', 80));
-            Console.WriteLine("Amazon S3 Conditional Requests Feature Scenario is complete.");
-            Console.WriteLine(new string('-', 80));
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(new string('-', 80));
-            Console.WriteLine($"There was a problem: {ex.Message}");
-            await CleanupScenario(_sourceBucketName, _destinationBucketName);
-            Console.WriteLine(new string('-', 80));
-            return false;
-        }
-
-        return true;
-    }
-
     /// <summary>
     /// Populate the services for use within the console application.
     /// </summary>
