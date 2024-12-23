@@ -1,20 +1,10 @@
-# Amazon S3 Object Lock Workflow
+# Amazon S3 Conditional Requests Feature Scenario for the SDK for .NET
 
 ## Overview
 
-This example shows how to use AWS SDKs to work with Amazon Simple Storage Service (Amazon S3) object locking features. The workflow demonstrates how to create, update, view, and modify object locks, as well as how locked objects behave regarding requests to delete and overwrite.
+This example demonstrates how to use the AWS SDK for Python (boto3) to work with Amazon Simple Storage Service (Amazon S3) conditional request features. The scenario demonstrates how to add preconditions to S3 operations, and how those operations will succeed or fail based on the conditional requests.
 
-[Amazon S3 Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html) can help prevent Amazon S3 objects from being deleted or overwritten for a fixed amount of time or indefinitely. Object Lock can help meet regulatory requirements or protect against object changes or deletion.
-
-![Object Lock Features](../../../../workflows/s3_object_lock/resources/Diagram_Amazon-S3-Object-Lock.png)
-
-This workflow demonstrates the following steps and tasks:
-1. Add object lock settings to both new and existing S3 buckets.
-   1. Add objects to buckets with optional object lock or retention period settings.
-2. Attempt to delete or overwrite locked objects.
-3. Retrieve and view the object lock and retention period settings of buckets and objects.
-4. Delete the objects and buckets.
-   1. Remove any object locks and use the BypassGovernanceRetention setting.
+[Amazon S3 Conditional Requests](https://docs.aws.amazon.com/AmazonS3/latest/userguide/conditional-requests.html) are used to add preconditions to S3 read, copy, or write requests.
 
 ## ⚠ Important
 
@@ -25,15 +15,19 @@ This workflow demonstrates the following steps and tasks:
 
 ## Scenario
 
+This example uses a feature scenario to demonstrate various aspects of S3 conditional requests. The scenario is divided into three stages:
+
+1. **Setup**: Create test buckets and objects.
+2. **Conditional Reads and Writes**: Explore S3 conditional requests by listing objects, attempting to read or write with conditional requests, and viewing request results.
+3. **Clean**: Delete all objects and buckets.
+
 ### Prerequisites
 
 For general prerequisites, see the [README](../../../README.md) in the `dotnetv3` folder.
 
 ### Resources
 
-The workflow scenario steps create the buckets and objects needed for the example. No additional resources are required.
-
-This workflow includes an optional step to add a governance mode retention period of one day to objects in an S3 bucket. In order to delete these objects, you must have the `s3:BypassGovernanceRetention` permission. If you do not have this permission, you will be unable to delete these objects until the retention period has expired.
+The scenario steps create the buckets and objects needed for the example. No additional resources are required.
 
 ### Instructions
 
@@ -46,11 +40,11 @@ dotnet run
 
 Alternatively, you can run the example from within your IDE.
 
-This starts an interactive scenario that walks you through creating, exploring, and deleting S3 buckets and objects with various object lock settings.
+This starts an interactive scenario that walks you through exploring conditional requests for read, write, and copy operations.
 
 ## Additional resources
 
-- [S3 Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html)
+- [Amazon S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/conditional-requests.html)
 
 ---
 

@@ -21,6 +21,7 @@ The scenario steps create the buckets and objects needed for the example. No add
 This example is implemented in the following languages:
 
 - [Python](../../python/example_code/s3/scenarios/conditional_requests/README.md)
+- [.NET](../../dotnetv3/S3/scenarios/S3ConditionalRequestsScenario/README.md)
 
 ## Additional reading
 
