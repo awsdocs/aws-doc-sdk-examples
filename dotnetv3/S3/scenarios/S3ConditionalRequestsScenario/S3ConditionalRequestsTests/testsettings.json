@@ -1,4 +1,3 @@
 {
-  "resourcePrefix": "dotnet-s3-lock-example",
-  "exampleFileName": "dotnet-example-file.txt"
+  "resourcePrefix": "dotnet-s3-conditional-requests-example-test"
 }

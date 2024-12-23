@@ -3,13 +3,13 @@
 
 using Amazon.S3;
 using Microsoft.Extensions.Configuration;
-using S3ObjectLockScenario;
-using Xunit.Extensions.Ordering;
+using Microsoft.Extensions.Logging;
+using S3ConditionalRequestsScenario;
 
-namespace S3ObjectLockTests;
+namespace S3ConditionalRequestsTests;
 
 /// <summary>
-/// Tests for the ObjectLockScenario example.
+/// Tests for the Conditional Requests example.
 /// </summary>
 public class S3ConditionalRequestsScenarioTests
 {
@@ -17,6 +17,7 @@ public class S3ConditionalRequestsScenarioTests
 
     private readonly S3ActionsWrapper _s3ActionsWrapper = null!;
     private readonly string _resourcePrefix;
+    private readonly ILoggerFactory _loggerFactory;
 
     /// <summary>
     /// Constructor for the test class.
@@ -30,14 +31,18 @@ public class S3ConditionalRequestsScenarioTests
                 true) // Optionally, load local settings.
             .Build();
 
-        _resourcePrefix = _configuration["resourcePrefix"] ?? "dotnet-example";
+        _loggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.AddConsole();
+        });
+
+        _resourcePrefix = _configuration["resourcePrefix"] ?? "dotnet-example-test";
 
         _s3ActionsWrapper = new S3ActionsWrapper(
-            new AmazonS3Client(),
-            _configuration);
+            new AmazonS3Client(), new Logger<S3ActionsWrapper>(_loggerFactory));
 
-        S3ObjectLockWorkflow._s3ActionsWrapper = _s3ActionsWrapper;
-        S3ObjectLockWorkflow._configuration = _configuration;
+        S3ConditionalRequestsScenario.S3ConditionalRequestsScenario._s3ActionsWrapper = _s3ActionsWrapper;
+        S3ConditionalRequestsScenario.S3ConditionalRequestsScenario._configuration = _configuration;
     }
 
     /// <summary>
@@ -45,64 +50,30 @@ public class S3ConditionalRequestsScenarioTests
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
-    [Order(1)]
     [Trait("Category", "Integration")]
-    public async Task TestSetup()
+    public async Task TestScenario()
     {
         // Arrange.
-        S3ObjectLockWorkflow.ConfigurationSetup();
+        S3ConditionalRequestsScenario.S3ConditionalRequestsScenario._interactive = false;
 
         // Act.
-        var success = await S3ObjectLockWorkflow.Setup(false);
+        S3ConditionalRequestsScenario.S3ConditionalRequestsScenario.ConfigurationSetup();
+        var sourceName = S3ConditionalRequestsScenario.S3ConditionalRequestsScenario
+            ._sourceBucketName;
+        var destName = S3ConditionalRequestsScenario.S3ConditionalRequestsScenario
+            ._destinationBucketName;
+        var objKey = S3ConditionalRequestsScenario.S3ConditionalRequestsScenario
+            ._sampleObjectKey;
+        var sampleObjectEtag = await S3ConditionalRequestsScenario.S3ConditionalRequestsScenario.Setup(sourceName, destName, objKey);
 
-        var finished = false;
-        while (!finished)
-        {
-            // Make sure the buckets are available before moving on.
-            var created = await S3ObjectLockWorkflow.ListBucketsAndObjects(false);
-            finished = created.Count > 0;
-        }
-
-        // Assert.
-        Assert.True(success);
-    }
-
-    /// <summary>
-    /// Run the list object step of the workflow. Should return successful.
-    /// </summary>
-    /// <returns>Async task.</returns>
-    [Fact]
-    [Order(2)]
-    [Trait("Category", "Integration")]
-    public async Task TestObjects()
-    {
-        // Arrange.
-        S3ObjectLockWorkflow.ConfigurationSetup();
-
-        // Act.
-        var objects = await S3ObjectLockWorkflow.ListBucketsAndObjects(false);
+        // Run all the options of the demo. No exceptions should be thrown.
+        await S3ConditionalRequestsScenario.S3ConditionalRequestsScenario.DisplayDemoChoices(sourceName, destName, objKey, sampleObjectEtag, 1);
+        await S3ConditionalRequestsScenario.S3ConditionalRequestsScenario.DisplayDemoChoices(sourceName, destName, objKey, sampleObjectEtag, 2);
+        await S3ConditionalRequestsScenario.S3ConditionalRequestsScenario.DisplayDemoChoices(sourceName, destName, objKey, sampleObjectEtag, 3);
+        await S3ConditionalRequestsScenario.S3ConditionalRequestsScenario.DisplayDemoChoices(sourceName, destName, objKey, sampleObjectEtag, 4);
+        await S3ConditionalRequestsScenario.S3ConditionalRequestsScenario.Cleanup(false);
 
         // Assert.
-        Assert.NotEmpty(objects);
-    }
-
-
-    /// <summary>
-    /// Run the cleanup step of the workflow. Should return successful.
-    /// </summary>
-    /// <returns>Async task.</returns>
-    [Fact]
-    [Order(3)]
-    [Trait("Category", "Integration")]
-    public async Task TestCleanup()
-    {
-        // Arrange.
-        S3ObjectLockWorkflow.ConfigurationSetup();
-
-        // Act.
-        var success = await S3ObjectLockWorkflow.Cleanup(false);
-
-        // Assert.
-        Assert.True(success);
+        Assert.NotNull(sampleObjectEtag);
     }
 }

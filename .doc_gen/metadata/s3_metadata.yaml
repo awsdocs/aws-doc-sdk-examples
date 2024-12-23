@@ -236,6 +236,10 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - S3.dotnet35.CopyObject
+            - description: Copy an object using a conditional request.
+              genai: some
+              snippet_tags:
+                - S3ConditionalRequests.dotnetv3.CopyObjectConditional
     C++:
       versions:
         - sdk_version: 1
@@ -854,6 +858,10 @@ s3_GetObject:
             - description:
               snippet_tags:
                 - S3.dotnetv3.S3_Basics-DownloadObject
+            - description: Get an object using a conditional request.
+              genai: some
+              snippet_tags:
+                - S3ConditionalRequests.dotnetv3.GetObjectConditional
     C++:
       versions:
         - sdk_version: 1
@@ -1491,6 +1499,10 @@ s3_PutObject:
             - description: Upload an object with server-side encryption.
               snippet_tags:
                 - S3.dotnetv3.ServerSideEncryptionExample
+            - description: Put an object using a conditional request.
+              genai: some
+              snippet_tags:
+                - S3ConditionalRequests.dotnetv3.PutObjectConditional
     C++:
       versions:
         - sdk_version: 1
@@ -3593,6 +3605,18 @@ s3_Scenario_ConditionalRequests:
               genai: some
               snippet_tags:
                 - python.example_code.s3.S3ConditionalRequests.wrapper
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/S3/scenarios/S3ConditionalRequestsScenario
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario demonstrating &S3; conditional request features.
+              snippet_tags:
+                - S3ConditionalRequests.dotnetv3.Scenario
+            - description: A wrapper class for S3 functions.
+              snippet_tags:
+                - S3ConditionalRequests.dotnetv3.S3ActionsWrapper
   services:
     s3: {GetObject, PutObject, CopyObject}
 s3_Scenario_DownloadS3Directory:

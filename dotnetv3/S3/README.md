@@ -84,6 +84,7 @@ functions within the same service.
 - [Get started with encryption](SSEClientEncryptionExample/SSEClientEncryption.cs)
 - [Get started with tags](ObjectTagExample/ObjectTag.cs)
 - [Lock Amazon S3 objects](scenarios/S3ObjectLockScenario/S3ObjectLockWorkflow/S3ObjectLockWorkflow.cs)
+- [Make conditional requests](scenarios/S3ConditionalRequestsScenario/S3ConditionalRequests/S3ConditionalRequestsScenario.cs)
 - [Manage access control lists (ACLs)](ManageACLsExample/ManageACLs.cs)
 - [Perform a multipart copy](MPUapiCopyObjExample/MPUapiCopyObj.cs)
 - [Transform data with S3 Object Lambda](../cross-service/S3ObjectLambdaFunction)
@@ -208,6 +209,18 @@ This example shows you how to work with S3 object lock features.
 
 <!--custom.scenarios.s3_Scenario_ObjectLock.start-->
 <!--custom.scenarios.s3_Scenario_ObjectLock.end-->
+
+#### Make conditional requests
+
+This example shows you how to add preconditions to Amazon S3 requests.
+
+
+<!--custom.scenario_prereqs.s3_Scenario_ConditionalRequests.start-->
+<!--custom.scenario_prereqs.s3_Scenario_ConditionalRequests.end-->
+
+
+<!--custom.scenarios.s3_Scenario_ConditionalRequests.start-->
+<!--custom.scenarios.s3_Scenario_ConditionalRequests.end-->
 
 #### Manage access control lists (ACLs)
 
