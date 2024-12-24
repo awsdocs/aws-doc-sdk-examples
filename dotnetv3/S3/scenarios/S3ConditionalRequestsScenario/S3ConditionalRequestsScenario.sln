@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3ConditionalRequestsScenario", "S3ConditionalRequests\S3ConditionalRequestsScenario.csproj", "{DE58C919-2A2E-4768-AC07-5A5C7E34CE53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3ConditionalRequestsTests", "S3ConditionalRequestsTests\S3ConditionalRequestsTests.csproj", "{E1F6B013-7462-4C31-8103-EA359ECCC653}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE58C919-2A2E-4768-AC07-5A5C7E34CE53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE58C919-2A2E-4768-AC07-5A5C7E34CE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE58C919-2A2E-4768-AC07-5A5C7E34CE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE58C919-2A2E-4768-AC07-5A5C7E34CE53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1F6B013-7462-4C31-8103-EA359ECCC653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1F6B013-7462-4C31-8103-EA359ECCC653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1F6B013-7462-4C31-8103-EA359ECCC653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1F6B013-7462-4C31-8103-EA359ECCC653}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2318334-46A6-4814-892D-EE6AE0307BEC}
+	EndGlobalSection
+EndGlobal
