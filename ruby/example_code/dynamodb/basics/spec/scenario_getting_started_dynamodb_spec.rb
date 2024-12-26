@@ -56,7 +56,7 @@ describe DynamoDBBasics do
       years[:start] = 1989
       years[:end] = 1990
       releases = sdk.scan_items(years)
-      expect(releases.count).to be.positive?
+      expect(releases.count).to be_positive
       expect(releases[0]['title']).to be
     end
 
