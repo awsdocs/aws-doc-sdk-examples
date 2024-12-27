@@ -3,22 +3,21 @@
 
 import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
-import { Stack, StackProps, aws_ecr as ecr, RemovalPolicy } from "aws-cdk-lib";
-import { type Construct } from "constructs";
-import { readAccountConfig } from "./../../config/types";
+import { Construct } from "constructs";
+import { readAccountConfig } from "./../../config/targets";
 
-class ImageStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
+class ImageStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const acctConfig = readAccountConfig("../../config/targets.yaml");
 
     for (const language of Object.keys(acctConfig)) {
       if (acctConfig[language].status === "enabled") {
-        new ecr.Repository(this, `${language}-examples`, {
+        new cdk.ecr.Repository(this, `${language}-examples`, {
           repositoryName: `${language}`,
           imageScanOnPush: true,
-          removalPolicy: RemovalPolicy.RETAIN,
+          removalPolicy: cdk.RemovalPolicy.RETAIN,
         });
       }
     }
@@ -29,9 +28,10 @@ const app = new cdk.App();
 
 new ImageStack(app, "ImageStack", {
   env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT!,
-    region: process.env.CDK_DEFAULT_REGION!,
+    account: cdk.process.env.CDK_DEFAULT_ACCOUNT!,
+    region: cdk.process.env.CDK_DEFAULT_REGION!,
   },
+  terminationProtection: true
 });
 
 app.synth();

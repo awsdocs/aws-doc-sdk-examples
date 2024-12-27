@@ -10,7 +10,7 @@ interface AccountConfig {
   // https://docs.aws.amazon.com/batch/latest/APIReference/API_ResourceRequirement.html
   vcpus?: string; // Count
   memory?: string; // MiB, but limited based on vCPU count, see docs
-  storage?: number; // GiB, 20GiB to 200GiB
+  storage?: number; // GiB, 21GiB to 200GiB
 }
 
 type AccountConfigYaml = {
@@ -41,7 +41,7 @@ export function readAccountConfig(filePath: string): AccountConfigs {
         status,
         vcpus,
         memory,
-        storage: numberOrDefault(storage, 20),
+        storage: numberOrDefault(storage, 30),
       }
       return data;
     }, {} as Record<string, AccountConfig>)
