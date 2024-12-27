@@ -16,13 +16,14 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html
 
 """
 
-import logging
-import sys
-import os
-import docker
 import argparse
-import json
 import base64
+import json
+import logging
+import os
+import sys
+
+import docker
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -47,7 +48,7 @@ def print_dashes():
         print("-" * 80)
 
 
-use_press_enter_to_continue = False
+use_press_enter_to_continue = True
 
 
 def press_enter_to_continue():
@@ -55,7 +56,7 @@ def press_enter_to_continue():
         q.ask("Press Enter to continue...")
 
 
-# snippet-start:[python.example_code.ecr.FeatureScenario]
+# snippet-start:[python.example_code.ecr.BasicsScenario]
 class ECRGettingStarted:
     """
     A scenario that demonstrates how to use Boto3 to perform basic operations using
@@ -65,19 +66,22 @@ class ECRGettingStarted:
     def __init__(
         self,
         ecr_wrapper: ECRWrapper,
-            docker_client: docker.DockerClient,
+        docker_client: docker.DockerClient,
     ):
         self.ecr_wrapper = ecr_wrapper
         self.docker_client = docker_client
-        self.docker_image_tag = "echo-text"
-        self.repo_name = "echo-text"
+        self.tag = "echo-text"
+        self.repo_name = "ecr-basics"
         self.docker_image = None
+        self.full_tag_name = None
+        self.repository = None
 
     def run(self, role_arn: str) -> None:
         """
         Runs the scenario.
         """
-        print("""
+        print(
+            """
 The Amazon Elastic Container Registry (ECR) is a fully-managed Docker container registry
 service provided by AWS. It allows developers and organizations to securely
 store, manage, and deploy Docker container images.
@@ -93,71 +97,82 @@ host and manage a container registry.
 
 This scenario walks you through how to perform key operations for this service.
 Let's get started...
-        """)
+        """
+        )
         press_enter_to_continue()
         print_dashes()
-        print(f"""
+        print(
+            f"""
 * Create an ECR repository.
 
-The first task is to create a local Docker image named echo-text if it does not already exist.
-A Python Docker client is used to execute Docker commands.
-You must have Docker installed and running.
-A Docker image named "{self.docker_image_tag}" will be created if it does not already exist.
-        """)
-
-        self.docker_image = None
-
-        try:
-            self.docker_image = docker_client.images.get(self.docker_image_tag)
-        except docker.errors.ImageNotFound:
-            pass
-
-        if self.docker_image is not None:
-            print(f"The docker image with tag '{self.docker_image_tag}' already exists.")
-        else:
-            print(f"Building a docker image from 'docker_files/Dockerfile' with tag '{self.docker_image_tag}")
-            self.docker_image = docker_client.images.build(path = "docker_files", tag = self.docker_image_tag)
-
-        print("""
 An ECR repository is a private Docker container repository provided
 by Amazon Web Services (AWS). It is a managed service that makes it easy
 to store, manage, and deploy Docker container images.
-        """)
+        """
+        )
         print(f"Creating a repository named {self.repo_name}")
-        self.repo_arn = ecr_wrapper.create_repository(self.repo_name)
-        print(f"The ARN of the ECR repository is {self.repo_arn}")
+        self.repository = ecr_wrapper.create_repository(self.repo_name)
+        print(f"The ARN of the ECR repository is {self.repository['repositoryArn']}")
+        repository_uri = self.repository["repositoryUri"]
+        press_enter_to_continue()
+        print_dashes()
+
+        print(
+            f"""
+* Build a Docker image.
+
+Create a local Docker image if it does not already exist.
+A Python Docker client is used to execute Docker commands.
+You must have Docker installed and running.
+            """
+        )
+        print(f"Building a docker image from 'docker_files/Dockerfile'")
+        self.full_tag_name = f"{repository_uri}:{self.tag}"
+        self.docker_image = docker_client.images.build(
+            path="docker_files", tag=self.full_tag_name
+        )[0]
+        self.docker_image.tag(repository=repository_uri, tag=self.tag)
+        print(f"Docker image {self.full_tag_name} successfully built.")
         press_enter_to_continue()
         print_dashes()
 
         if role_arn is None:
-            print("""
+            print(
+                """
 * Because an IAM role ARN was not provided, a role policy will not be set for this repository.
-            """)
-        else :
-            print("""
+            """
+            )
+        else:
+            print(
+                """
 * Set an ECR repository policy.
 
 Setting an ECR repository policy using the `setRepositoryPolicy` function is crucial for maintaining
 the security and integrity of your container images. The repository policy allows you to
 define specific rules and restrictions for accessing and managing the images stored within your ECR
 repository.
-        """)
+        """
+            )
             self.grant_role_download_access(role_arn)
+            print(f"Download access granted to the IAM role ARN {role_arn}")
             press_enter_to_continue()
             print_dashes()
 
-            print("""
+            print(
+                """
 * Display ECR repository policy.
 
 Now we will retrieve the ECR policy to ensure it was successfully set.
-            """)
-            policyText = ecr_wrapper.get_repository_policy(self.repo_name)
+            """
+            )
+            policy_text = ecr_wrapper.get_repository_policy(self.repo_name)
             print("Policy Text:")
-            print(f"{policyText}")
+            print(f"{policy_text}")
             press_enter_to_continue()
             print_dashes()
 
-        print("""
+        print(
+            """
 * Retrieve an ECR authorization token.
 
 You need an authorization token to securely access and interact with the Amazon ECR registry.
@@ -167,11 +182,14 @@ valid authorization token, which is required to authenticate your requests to th
 
 Without a valid authorization token, you would not be able to perform any operations on the
 ECR repository, such as pushing, pulling, or managing your Docker images.
-        """)
+        """
+        )
         authorization_token = ecr_wrapper.get_authorization_token()
+        print("Authorization token retrieved.")
         press_enter_to_continue()
         print_dashes()
-        print("""
+        print(
+            """
 * Get the ECR Repository URI.
 
 The URI  of an Amazon ECR repository is important. When you want to deploy a container image to
@@ -179,15 +197,16 @@ a container orchestration platform like Amazon Elastic Kubernetes Service (EKS)
 or Amazon Elastic Container Service (ECS), you need to specify the full image URI,
 which includes the ECR repository URI. This allows the container runtime to pull the
 correct container image from the ECR repository.
-        """)
-        repository_descriptions =  ecr_wrapper.describe_repositories([self.repo_name])
+        """
+        )
+        repository_descriptions = ecr_wrapper.describe_repositories([self.repo_name])
         repository_uri = repository_descriptions[0]["repositoryUri"]
         print(f"Repository URI found: {repository_uri}")
         press_enter_to_continue()
         print_dashes()
 
-
-        print("""
+        print(
+            """
 * Set an ECR Lifecycle Policy.
 
 An ECR Lifecycle Policy is used to manage the lifecycle of Docker images stored in your ECR repositories.
@@ -197,23 +216,31 @@ freeing up storage space and reducing costs.
 This example policy helps to maintain the size and efficiency of the container registry
 by automatically removing older and potentially unused images, ensuring that the
 storage is optimized and the registry remains up-to-date.
-            """)
+            """
+        )
         press_enter_to_continue()
+        self.put_expiration_policy()
+        print(f"An expiration policy was added to the repository.")
         print_dashes()
 
-        print("""
+        print(
+            """
 * Push a docker image to the Amazon ECR Repository.
 
 The method uses the authorization token to create an `AuthConfig` object, which is used to authenticate
 the Docker client when pushing the image. Finally, the method tags the Docker image with the specified
 repository name and image tag, and then pushes the image to the ECR repository using the Docker client.
-        """)
+        """
+        )
         decoded_authorization = base64.b64decode(authorization_token).decode("utf-8")
         username, password = decoded_authorization.split(":")
+
+        print(f"username {username}\n{password}")
+
         resp = self.docker_client.api.push(
-            repository = repository_uri,
-            auth_config= {"username": username, "password": password},
-            tag=self.docker_image_tag,
+            repository=repository_uri,
+            auth_config={"username": username, "password": password},
+            tag=self.tag,
             stream=True,
             decode=True,
         )
@@ -222,41 +249,64 @@ repository name and image tag, and then pushes the image to the ECR repository u
 
         print_dashes()
 
-        if False:
-            print("* Verify if the image is in the ECR Repository.")
-            print_dashes()
-            print("* As an optional step, you can interact with the image in Amazon ECR by using the CLI.")
-            print("Would you like to view instructions on how to use the CLI to run the image? (y/n)")
-            print(f"{instructions}")
-            print_dashes()
-            print("* Delete the ECR Repository.")
-            print("")
-            print("Would you like to delete the Amazon ECR Repository? (y/n)")
-            print("You selected to delete the AWS ECR resources.")
-            print_dashes()
-            print("This concludes the Amazon ECR SDK scenario")
-            print_dashes()
-            print("")
-            print("Enter 'c' followed by <ENTER> to continue:")
-            print("Continuing with the program...")
-            print("")
-            print("Invalid input. Please try again.")
+        print("* Verify if the image is in the ECR Repository.")
+        image_descriptions = ecr_wrapper.describe_images(self.repo_name, [self.tag])
+        if len(image_descriptions) > 0:
+            print("Image found in ECR Repository.")
+        else:
+            print("Image not found in ECR Repository.")
+        press_enter_to_continue()
+        print_dashes()
 
-        self.cleanup()
+        print(
+            "* As an optional step, you can interact with the image in Amazon ECR by using the CLI."
+        )
+        if q.ask(
+            "Would you like to view instructions on how to use the CLI to run the image? (y/n)",
+            q.is_yesno,
+        ):
+            print(
+                f"""
+1. Authenticate with ECR - Before you can pull the image from Amazon ECR, you need to authenticate with the registry. You can do this using the AWS CLI:
 
-    def cleanup(self):
+    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin {repository_uri.split("/")[0]}
+
+2. Describe the image using this command:
+
+   aws ecr describe-images --repository-name {self.repo_name} --image-ids imageTag={self.tag}
+
+3. Run the Docker container and view the output using this command:
+
+   docker run --rm {self.full_tag_name}
+"""
+            )
+
+        self.cleanup(True)
+
+    def cleanup(self, ask: bool):
         """
         Deletes the resources created in this scenario.
+        :param ask: If True, prompts the user to confirm before deleting the resources.
         """
+        if self.repository is not None and (
+            not ask
+            or q.ask(
+                f"Would you like to delete the ECR repository '{self.repo_name}? (y/n) "
+            )
+        ):
+            print(f"Deleting the ECR repository '{self.repo_name}'.")
+            self.ecr_wrapper.delete_repository(self.repo_name)
 
-        if self.repo_arn is not None:
-            print("Deleting the ECR repository.")
-            ecr_wrapper.delete_repository(self.repo_name)
+        if self.full_tag_name is not None and (
+            not ask
+            or q.ask(
+                f"Would you like to delete the local Docker image '{self.full_tag_name}? (y/n) "
+            )
+        ):
+            print(f"Deleting the docker image '{self.full_tag_name}'.")
+            self.docker_client.images.remove(self.full_tag_name)
 
-        if self.docker_image is not None:
-            print("Deleting the docker image.")
-            self.docker_client.images.remove(self.docker_image_tag)
-
+    # snippet-start:[python.example_code.ecr.grant_role_download_access]
     def grant_role_download_access(self, role_arn: str):
         """
         Grants the specified role access to download images from the ECR repository.
@@ -264,46 +314,45 @@ repository name and image tag, and then pushes the image to the ECR repository u
         :param role_arn: The ARN of the role to grant access to.
         """
         policy_json = {
-    "Version": "2008-10-17",
-    "Statement": [
-        {
-            "Sid": "AllowDownload",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": role_arn
-            },
-            "Action": [
-                "ecr:BatchGetImage"
-            ]
+            "Version": "2008-10-17",
+            "Statement": [
+                {
+                    "Sid": "AllowDownload",
+                    "Effect": "Allow",
+                    "Principal": {"AWS": role_arn},
+                    "Action": ["ecr:BatchGetImage"],
+                }
+            ],
         }
-    ]
-}
 
-        ecr_wrapper.set_repository_policy(self.repo_name, json.dumps(policy_json))
+        self.ecr_wrapper.set_repository_policy(self.repo_name, json.dumps(policy_json))
 
+    # snippet-end:[python.example_code.ecr.grant_role_download_access]
+
+    # snippet-start:[python.example_code.ecr.put_expiration_policy]
     def put_expiration_policy(self):
         """
         Puts an expiration policy on the ECR repository.
         """
-        policy_json =            {
-             "rules": [
-                 {
-                     "rulePriority": 1,
-                     "description": "Expire images older than 14 days",
-                     "selection": {
-                         "tagStatus": "any",
-                         "countType": "sinceImagePushed",
-                         "countUnit": "days",
-                         "countNumber": 14
-                     },
-                     "action": {
-                         "type": "expire"
-                     }
-                 }
+        policy_json = {
+            "rules": [
+                {
+                    "rulePriority": 1,
+                    "description": "Expire images older than 14 days",
+                    "selection": {
+                        "tagStatus": "any",
+                        "countType": "sinceImagePushed",
+                        "countUnit": "days",
+                        "countNumber": 14,
+                    },
+                    "action": {"type": "expire"},
+                }
             ]
-            }
+        }
 
-        ecr_wrapper.put_lifecycle_policy(self.repo_name, json.dumps(policy_json))
+        self.ecr_wrapper.put_lifecycle_policy(self.repo_name, json.dumps(policy_json))
+    # snippet-end:[python.example_code.ecr.put_expiration_policy]
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -314,7 +363,7 @@ if __name__ == "__main__":
         type=str,
         default=None,
         help="an optional IAM role ARN that will be granted access to download images from a repository.",
-        required=False
+        required=False,
     )
     parser.add_argument(
         "--no-art",
@@ -331,25 +380,24 @@ if __name__ == "__main__":
         if not docker_client.ping():
             raise docker.errors.DockerException("Docker is not running.")
     except docker.errors.DockerException as err:
-        logging.error("""
+        logging.error(
+            """
         The Python Docker could not be created. 
         Do you have Docker installed and running?
         Here is the error message:
         %s
-        """, err)
+        """,
+            err,
+        )
         sys.exit("Error with Docker.")
     try:
         ecr_wrapper = ECRWrapper.from_client()
-        demo = ECRGettingStarted(
-            ecr_wrapper,
-            docker_client
-        )
+        demo = ECRGettingStarted(ecr_wrapper, docker_client)
         demo.run(iam_role_arn)
-
 
     except Exception as exception:
         logging.exception("Something went wrong with the demo!")
         if demo is not None:
-            demo.cleanup()
+            demo.cleanup(False)
 
-# snippet-end:[python.example_code.ecr.FeatureScenario]
+# snippet-end:[python.example_code.ecr.BasicsScenario]

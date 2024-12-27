@@ -1,13 +1,13 @@
-# EventBridge Scheduler code examples for the SDK for Python
+# Amazon ECR code examples for the SDK for Python
 
 ## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) to work with Amazon EventBridge Scheduler.
+Shows how to use the AWS SDK for Python (Boto3) to work with Amazon Elastic Container Registry (Amazon ECR).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-_EventBridge Scheduler allows you to create, run, and manage tasks on a schedule from one central, managed service._
+_Amazon ECR is a fully managed Docker container registry that makes it easy for developers to store, manage, and deploy Docker container images._
 
 ## ⚠ Important
 
@@ -36,24 +36,28 @@ python -m pip install -r requirements.txt
 
 ### Get started
 
-- [Hello EventBridge Scheduler](hello/hello_scheduler.py#L4) (`ListSchedules`)
+- [Hello Amazon ECR](hello/hello_ecr.py#L4) (`listImages`)
+
+
+### Basics
+
+Code examples that show you how to perform the essential operations within a service.
+
+- [Learn the basics](ecr_getting_started.py)
 
 
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
-- [CreateSchedule](scheduler_wrapper.py#L38)
-- [CreateScheduleGroup](scheduler_wrapper.py#L131)
-- [DeleteSchedule](scheduler_wrapper.py#L104)
-- [DeleteScheduleGroup](scheduler_wrapper.py#L160)
-
-### Scenarios
-
-Code examples that show you how to accomplish a specific task by calling multiple
-functions within the same service.
-
-- [Scheduled Events workflow](scenario/scheduler_scenario.py)
+- [CreateRepository](ecr_wrapper.py#L38)
+- [DeleteRepository](ecr_wrapper.py#L66)
+- [DescribeImages](ecr_wrapper.py#L207)
+- [DescribeRepositories](ecr_wrapper.py#L161)
+- [GetAuthorizationToken](ecr_wrapper.py#L142)
+- [GetRepositoryPolicy](ecr_wrapper.py#L115)
+- [PutLifeCyclePolicy](ecr_wrapper.py#L183)
+- [SetRepositoryPolicy](ecr_wrapper.py#L88)
 
 
 <!--custom.examples.start-->
@@ -67,38 +71,41 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello EventBridge Scheduler
+#### Hello Amazon ECR
 
-This example shows you how to get started using EventBridge Scheduler.
+This example shows you how to get started using Amazon ECR.
 
 ```
-python hello/hello_scheduler.py
+python hello/hello_ecr.py
 ```
 
-
-#### Scheduled Events workflow
+#### Learn the basics
 
 This example shows you how to do the following:
 
-- Deploy a CloudFormation stack with required resources.
-- Create a EventBridge Scheduler schedule group.
-- Create a one-time EventBridge Scheduler schedule with a flexible time window.
-- Create a recurring EventBridge Scheduler schedule with a specified rate.
-- Delete EventBridge Scheduler the schedule and schedule group.
-- Clean up resources and delete the stack.
+- Create an Amazon ECR repository.
+- Set repository policies.
+- Retrieve repository URIs.
+- Get Amazon ECR authorization tokens.
+- Set lifecycle policies for Amazon ECR repositories.
+- Push a Docker image to an Amazon ECR repository.
+- Verify the existence of an image in an Amazon ECR repository.
+- List Amazon ECR repositories for your account and get details about them.
+- Delete Amazon ECR repositories.
 
-<!--custom.scenario_prereqs.scheduler_ScheduledEventsWorkflow.start-->
-<!--custom.scenario_prereqs.scheduler_ScheduledEventsWorkflow.end-->
+<!--custom.basic_prereqs.ecr_Scenario_RepositoryManagement.start-->
+<!--custom.basic_prereqs.ecr_Scenario_RepositoryManagement.end-->
 
 Start the example by running the following at a command prompt:
 
 ```
-python scenario/scheduler_scenario.py
+python ecr_getting_started.py
 ```
 
 
-<!--custom.scenarios.scheduler_ScheduledEventsWorkflow.start-->
-<!--custom.scenarios.scheduler_ScheduledEventsWorkflow.end-->
+<!--custom.basics.ecr_Scenario_RepositoryManagement.start-->
+<!--custom.basics.ecr_Scenario_RepositoryManagement.end-->
+
 
 ### Tests
 
@@ -115,9 +122,9 @@ in the `python` folder.
 
 ## Additional resources
 
-- [EventBridge Scheduler User Guide](https://docs.aws.amazon.com/scheduler/latest/userguide/intro.html)
-- [EventBridge Scheduler API Reference](https://docs.aws.amazon.com/scheduler/latest/apireference/Welcome.html)
-- [SDK for Python EventBridge Scheduler reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/scheduler.html)
+- [Amazon ECR User Guide](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html)
+- [Amazon ECR API Reference](https://docs.aws.amazon.com/AmazonECR/latest/APIReference/Welcome.html)
+- [SDK for Python Amazon ECR reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/scheduler.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

@@ -9,7 +9,7 @@ and receive events.
 """
 
 import logging
-from datetime import datetime, timedelta, timezone
+
 import boto3
 from boto3 import client
 from botocore.exceptions import ClientError
@@ -36,23 +36,23 @@ class ECRWrapper:
     # snippet-end:[python.example_code.ecr.ECRWrapper.decl]
 
     # snippet-start:[python.example_code.ecr.ECRWrapper.CreateRepository]
-    def create_repository(self, repository_name: str) -> str:
+    def create_repository(self, repository_name: str) -> dict[str, any]:
         """
         Creates an ECR repository.
 
         :param repository_name: The name of the repository to create.
-        :return: The ARN of the created repository.
+        :return: A dictionary of the created repository.
         """
         try:
             response = self.ecr_client.create_repository(repositoryName=repository_name)
-            return response["repository"]["repositoryArn"]
+            return response["repository"]
         except ClientError as err:
             if err.response["Error"]["Code"] == "RepositoryAlreadyExistsException":
                 print(f"Repository {repository_name} already exists.")
                 response = self.ecr_client.describe_repositories(
                     repositoryNames=[repository_name]
                 )
-                return response["repositories"][0]["repositoryArn"]
+                return response["repository"]
             else:
                 logger.error(
                     "Error creating repository %s. Here's why %s",
@@ -60,7 +60,8 @@ class ECRWrapper:
                     err.response["Error"]["Message"],
                 )
                 raise
-    # snippet-start:[python.example_code.ecr.ECRWrapper.CreateRepository]
+
+    # snippet-end:[python.example_code.ecr.ECRWrapper.CreateRepository]
 
     # snippet-start:[python.example_code.ecr.ECRWrapper.DeleteRepository]
     def delete_repository(self, repository_name: str):
@@ -71,14 +72,17 @@ class ECRWrapper:
         """
         try:
             self.ecr_client.delete_repository(
-                repositoryName=repository_name, force = True
+                repositoryName=repository_name, force=True
             )
             logger.info("Deleted repository %s.", repository_name)
         except ClientError as err:
-            logger.exception("Couldn't delete repository %s.. Here's why %s",
-                             repository_name,
-                             err.response["Error"]["Message"],)
+            logger.exception(
+                "Couldn't delete repository %s.. Here's why %s",
+                repository_name,
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.ecr.ECRWrapper.DeleteRepository]
 
     # snippet-start:[python.example_code.ecr.ECRWrapper.SetRepositoryPolicy]
@@ -96,15 +100,16 @@ class ECRWrapper:
             logger.info("Set repository policy for repository %s.", repository_name)
         except ClientError as err:
             if err.response["Error"]["Code"] == "RepositoryPolicyNotFoundException":
-                logger.info(
-                    "Repository does not exist. %s.", repository_name
-                )
+                logger.info("Repository does not exist. %s.", repository_name)
                 raise
             else:
-                logger.exception("Couldn't set repository policy for repository %s. Here's why %s",
-                             repository_name,
-                             err.response["Error"]["Message"],)
+                logger.exception(
+                    "Couldn't set repository policy for repository %s. Here's why %s",
+                    repository_name,
+                    err.response["Error"]["Message"],
+                )
                 raise
+
     # snippet-end:[python.example_code.ecr.ECRWrapper.SetRepositoryPolicy]
 
     # snippet-start:[python.example_code.ecr.ECRWrapper.GetRepositoryPolicy]
@@ -122,14 +127,14 @@ class ECRWrapper:
             return response["policyText"]
         except ClientError as err:
             if err.response["Error"]["Code"] == "RepositoryPolicyNotFoundException":
-                logger.info(
-                    "Repository does not exist. %s.", repository_name
-                )
+                logger.info("Repository does not exist. %s.", repository_name)
                 raise
             else:
-                logger.exception("Couldn't get repository policy for repository %s. Here's why %s",
-                             repository_name,
-                             err.response["Error"]["Message"],)
+                logger.exception(
+                    "Couldn't get repository policy for repository %s. Here's why %s",
+                    repository_name,
+                    err.response["Error"]["Message"],
+                )
                 raise
 
     # snippet-end:[python.example_code.ecr.ECRWrapper.GetRepositoryPolicy]
@@ -145,10 +150,13 @@ class ECRWrapper:
             response = self.ecr_client.get_authorization_token()
             return response["authorizationData"][0]["authorizationToken"]
         except ClientError as err:
-            logger.exception("Couldn't get authorization token. Here's why %s",
-                             err.response["Error"]["Message"],)
+            logger.exception(
+                "Couldn't get authorization token. Here's why %s",
+                err.response["Error"]["Message"],
+            )
             raise
-    # snippet-start:[python.example_code.ecr.ECRWrapper.GetAuthorizationToken]
+
+    # snippet-end:[python.example_code.ecr.ECRWrapper.GetAuthorizationToken]
 
     # snippet-start:[python.example_code.ecr.ECRWrapper.DescribeRepositories]
     def describe_repositories(self, repository_names: list[str]) -> list[dict]:
@@ -164,9 +172,12 @@ class ECRWrapper:
             )
             return response["repositories"]
         except ClientError as err:
-            logger.exception("Couldn't describe repositories. Here's why %s",
-                             err.response["Error"]["Message"],)
+            logger.exception(
+                "Couldn't describe repositories. Here's why %s",
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.ecr.ECRWrapper.DescribeRepositories]
 
     # snippet-start:[python.example_code.ecr.ECRWrapper.PutLifeCyclePolicy]
@@ -180,14 +191,51 @@ class ECRWrapper:
         try:
             self.ecr_client.put_lifecycle_policy(
                 repositoryName=repository_name,
-                lifecyclePolicyText=lifecycle_policy_text
+                lifecyclePolicyText=lifecycle_policy_text,
             )
             logger.info("Put lifecycle policy for repository %s.", repository_name)
         except ClientError as err:
-            logger.exception("Couldn't put lifecycle policy for repository %s. Here's why %s",
-                             repository_name,
-                             err.response["Error"]["Message"],)
+            logger.exception(
+                "Couldn't put lifecycle policy for repository %s. Here's why %s",
+                repository_name,
+                err.response["Error"]["Message"],
+            )
             raise
+
+    # snippet-end:[python.example_code.ecr.ECRWrapper.PutLifeCyclePolicy]
+
+    # snippet-start:[python.example_code.ecr.ECRWrapper.DescribeImages]
+    def describe_images(
+        self, repository_name: str, image_ids: list[str] = None
+    ) -> list[dict]:
+        """
+        Describes ECR images.
+
+        :param repository_name: The name of the repository to describe images for.
+        :param image_ids: The optional IDs of images to describe.
+        :return: The list of image descriptions.
+        """
+        try:
+            params = {
+                "repositoryName": repository_name,
+            }
+            if image_ids is not None:
+                params["imageIds"] = [{"imageTag": tag} for tag in image_ids]
+
+            paginator = self.ecr_client.get_paginator("describe_images")
+            image_descriptions = []
+            for page in paginator.paginate(**params):
+                image_descriptions.extend(page["imageDetails"])
+            return image_descriptions
+        except ClientError as err:
+            logger.exception(
+                "Couldn't describe images. Here's why %s",
+                err.response["Error"]["Message"],
+            )
+            raise
+
+    # snippet-end:[python.example_code.ecr.ECRWrapper.DescribeImages]
+
 
 # snippet-end:[python.example_code.ecr.ECRWrapper.class]
 
