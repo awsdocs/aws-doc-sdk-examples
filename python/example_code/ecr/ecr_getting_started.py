@@ -7,7 +7,8 @@ Purpose
 Shows how to use the AWS SDK for Python (Boto3) with Amazon Elastic Container Registry (Amazon ECR) to perform
 basic operations.
 
-This Boto3 code example requires an IAM Role that has permissions to interact with the Amazon ECR service.
+To demonstrate granting permissions with a policy, an AWS Identity and Access Management (IAM) role Amazon Resource Name (ARN)
+can be passed as a script argument.
 
 To create an IAM role, see:
 
@@ -27,7 +28,7 @@ import docker
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Add relative path to include ecrWrapper.
+# Add relative path to include ecr_wrapper.
 sys.path.append(os.path.dirname(script_dir))
 from ecr_wrapper import ECRWrapper
 
@@ -71,7 +72,7 @@ class ECRGettingStarted:
         self.ecr_wrapper = ecr_wrapper
         self.docker_client = docker_client
         self.tag = "echo-text"
-        self.repo_name = "ecr-basics"
+        self.repository_name = "ecr-basics"
         self.docker_image = None
         self.full_tag_name = None
         self.repository = None
@@ -110,8 +111,8 @@ by Amazon Web Services (AWS). It is a managed service that makes it easy
 to store, manage, and deploy Docker container images.
         """
         )
-        print(f"Creating a repository named {self.repo_name}")
-        self.repository = ecr_wrapper.create_repository(self.repo_name)
+        print(f"Creating a repository named {self.repository_name}")
+        self.repository = self.ecr_wrapper.create_repository(self.repository_name)
         print(f"The ARN of the ECR repository is {self.repository['repositoryArn']}")
         repository_uri = self.repository["repositoryUri"]
         press_enter_to_continue()
@@ -128,7 +129,7 @@ You must have Docker installed and running.
         )
         print(f"Building a docker image from 'docker_files/Dockerfile'")
         self.full_tag_name = f"{repository_uri}:{self.tag}"
-        self.docker_image = docker_client.images.build(
+        self.docker_image = self.docker_client.images.build(
             path="docker_files", tag=self.full_tag_name
         )[0]
         self.docker_image.tag(repository=repository_uri, tag=self.tag)
@@ -153,6 +154,7 @@ define specific rules and restrictions for accessing and managing the images sto
 repository.
         """
             )
+
             self.grant_role_download_access(role_arn)
             print(f"Download access granted to the IAM role ARN {role_arn}")
             press_enter_to_continue()
@@ -165,7 +167,8 @@ repository.
 Now we will retrieve the ECR policy to ensure it was successfully set.
             """
             )
-            policy_text = ecr_wrapper.get_repository_policy(self.repo_name)
+
+            policy_text = self.ecr_wrapper.get_repository_policy(self.repository_name)
             print("Policy Text:")
             print(f"{policy_text}")
             press_enter_to_continue()
@@ -184,7 +187,8 @@ Without a valid authorization token, you would not be able to perform any operat
 ECR repository, such as pushing, pulling, or managing your Docker images.
         """
         )
-        authorization_token = ecr_wrapper.get_authorization_token()
+
+        authorization_token = self.ecr_wrapper.get_authorization_token()
         print("Authorization token retrieved.")
         press_enter_to_continue()
         print_dashes()
@@ -199,7 +203,9 @@ which includes the ECR repository URI. This allows the container runtime to pull
 correct container image from the ECR repository.
         """
         )
-        repository_descriptions = ecr_wrapper.describe_repositories([self.repo_name])
+        repository_descriptions = self.ecr_wrapper.describe_repositories(
+            [self.repository_name]
+        )
         repository_uri = repository_descriptions[0]["repositoryUri"]
         print(f"Repository URI found: {repository_uri}")
         press_enter_to_continue()
@@ -229,13 +235,11 @@ storage is optimized and the registry remains up-to-date.
 
 The method uses the authorization token to create an `AuthConfig` object, which is used to authenticate
 the Docker client when pushing the image. Finally, the method tags the Docker image with the specified
-repository name and image tag, and then pushes the image to the ECR repository using the Docker client.
+repository name and image image_tag, and then pushes the image to the ECR repository using the Docker client.
         """
         )
         decoded_authorization = base64.b64decode(authorization_token).decode("utf-8")
         username, password = decoded_authorization.split(":")
-
-        print(f"username {username}\n{password}")
 
         resp = self.docker_client.api.push(
             repository=repository_uri,
@@ -250,7 +254,9 @@ repository name and image tag, and then pushes the image to the ECR repository u
         print_dashes()
 
         print("* Verify if the image is in the ECR Repository.")
-        image_descriptions = ecr_wrapper.describe_images(self.repo_name, [self.tag])
+        image_descriptions = self.ecr_wrapper.describe_images(
+            self.repository_name, [self.tag]
+        )
         if len(image_descriptions) > 0:
             print("Image found in ECR Repository.")
         else:
@@ -273,7 +279,7 @@ repository name and image tag, and then pushes the image to the ECR repository u
 
 2. Describe the image using this command:
 
-   aws ecr describe-images --repository-name {self.repo_name} --image-ids imageTag={self.tag}
+   aws ecr describe-images --repository-name {self.repository_name} --image-ids imageTag={self.tag}
 
 3. Run the Docker container and view the output using this command:
 
@@ -291,11 +297,11 @@ repository name and image tag, and then pushes the image to the ECR repository u
         if self.repository is not None and (
             not ask
             or q.ask(
-                f"Would you like to delete the ECR repository '{self.repo_name}? (y/n) "
+                f"Would you like to delete the ECR repository '{self.repository_name}? (y/n) "
             )
         ):
-            print(f"Deleting the ECR repository '{self.repo_name}'.")
-            self.ecr_wrapper.delete_repository(self.repo_name)
+            print(f"Deleting the ECR repository '{self.repository_name}'.")
+            self.ecr_wrapper.delete_repository(self.repository_name)
 
         if self.full_tag_name is not None and (
             not ask
@@ -325,7 +331,9 @@ repository name and image tag, and then pushes the image to the ECR repository u
             ],
         }
 
-        self.ecr_wrapper.set_repository_policy(self.repo_name, json.dumps(policy_json))
+        self.ecr_wrapper.set_repository_policy(
+            self.repository_name, json.dumps(policy_json)
+        )
 
     # snippet-end:[python.example_code.ecr.grant_role_download_access]
 
@@ -350,7 +358,10 @@ repository name and image tag, and then pushes the image to the ECR repository u
             ]
         }
 
-        self.ecr_wrapper.put_lifecycle_policy(self.repo_name, json.dumps(policy_json))
+        self.ecr_wrapper.put_lifecycle_policy(
+            self.repository_name, json.dumps(policy_json)
+        )
+
     # snippet-end:[python.example_code.ecr.put_expiration_policy]
 
 
@@ -374,15 +385,15 @@ if __name__ == "__main__":
     no_art = args.no_art
     iam_role_arn = args.iam_role_arn
     demo = None
-    docker_client = None
+    a_docker_client = None
     try:
-        docker_client = docker.from_env()
-        if not docker_client.ping():
+        a_docker_client = docker.from_env()
+        if not a_docker_client.ping():
             raise docker.errors.DockerException("Docker is not running.")
     except docker.errors.DockerException as err:
         logging.error(
             """
-        The Python Docker could not be created. 
+        The Python Docker client could not be created. 
         Do you have Docker installed and running?
         Here is the error message:
         %s
@@ -391,8 +402,8 @@ if __name__ == "__main__":
         )
         sys.exit("Error with Docker.")
     try:
-        ecr_wrapper = ECRWrapper.from_client()
-        demo = ECRGettingStarted(ecr_wrapper, docker_client)
+        an_ecr_wrapper = ECRWrapper.from_client()
+        demo = ECRGettingStarted(an_ecr_wrapper, a_docker_client)
         demo.run(iam_role_arn)
 
     except Exception as exception:

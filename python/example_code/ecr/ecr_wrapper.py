@@ -52,7 +52,7 @@ class ECRWrapper:
                 response = self.ecr_client.describe_repositories(
                     repositoryNames=[repository_name]
                 )
-                return response["repository"]
+                return self.describe_repositories([repository_name])[0]
             else:
                 logger.error(
                     "Error creating repository %s. Here's why %s",
