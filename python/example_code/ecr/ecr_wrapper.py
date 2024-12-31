@@ -74,9 +74,9 @@ class ECRWrapper:
             self.ecr_client.delete_repository(
                 repositoryName=repository_name, force=True
             )
-            logger.info("Deleted repository %s.", repository_name)
+            print(f"Deleted repository {repository_name}.")
         except ClientError as err:
-            logger.exception(
+            logger.error(
                 "Couldn't delete repository %s.. Here's why %s",
                 repository_name,
                 err.response["Error"]["Message"],
@@ -97,13 +97,13 @@ class ECRWrapper:
             self.ecr_client.set_repository_policy(
                 repositoryName=repository_name, policyText=policy_text
             )
-            logger.info("Set repository policy for repository %s.", repository_name)
+            print(f"Set repository policy for repository {repository_name}.")
         except ClientError as err:
             if err.response["Error"]["Code"] == "RepositoryPolicyNotFoundException":
-                logger.info("Repository does not exist. %s.", repository_name)
+                logger.error("Repository does not exist. %s.", repository_name)
                 raise
             else:
-                logger.exception(
+                logger.error(
                     "Couldn't set repository policy for repository %s. Here's why %s",
                     repository_name,
                     err.response["Error"]["Message"],
@@ -127,10 +127,10 @@ class ECRWrapper:
             return response["policyText"]
         except ClientError as err:
             if err.response["Error"]["Code"] == "RepositoryPolicyNotFoundException":
-                logger.info("Repository does not exist. %s.", repository_name)
+                logger.error("Repository does not exist. %s.", repository_name)
                 raise
             else:
-                logger.exception(
+                logger.error(
                     "Couldn't get repository policy for repository %s. Here's why %s",
                     repository_name,
                     err.response["Error"]["Message"],
@@ -150,7 +150,7 @@ class ECRWrapper:
             response = self.ecr_client.get_authorization_token()
             return response["authorizationData"][0]["authorizationToken"]
         except ClientError as err:
-            logger.exception(
+            logger.error(
                 "Couldn't get authorization token. Here's why %s",
                 err.response["Error"]["Message"],
             )
@@ -172,7 +172,7 @@ class ECRWrapper:
             )
             return response["repositories"]
         except ClientError as err:
-            logger.exception(
+            logger.error(
                 "Couldn't describe repositories. Here's why %s",
                 err.response["Error"]["Message"],
             )
@@ -193,9 +193,9 @@ class ECRWrapper:
                 repositoryName=repository_name,
                 lifecyclePolicyText=lifecycle_policy_text,
             )
-            logger.info("Put lifecycle policy for repository %s.", repository_name)
+            print(f"Put lifecycle policy for repository {repository_name}.")
         except ClientError as err:
-            logger.exception(
+            logger.error(
                 "Couldn't put lifecycle policy for repository %s. Here's why %s",
                 repository_name,
                 err.response["Error"]["Message"],
@@ -228,7 +228,7 @@ class ECRWrapper:
                 image_descriptions.extend(page["imageDetails"])
             return image_descriptions
         except ClientError as err:
-            logger.exception(
+            logger.error(
                 "Couldn't describe images. Here's why %s",
                 err.response["Error"]["Message"],
             )

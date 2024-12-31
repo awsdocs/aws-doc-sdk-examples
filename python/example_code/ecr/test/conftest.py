@@ -30,10 +30,6 @@ class MockDockerImage:
         self.image_tag = (None,)
         self.path = None
 
-    def tag(self, repository: str, tag: str) -> None:
-        assert repository == self.repository, "MockDockerImage.tag"
-        assert tag == self.image_tag, "MockDockerImage.tag"
-
     def build(self, path: str, tag: str) -> tuple["MockDockerImage", None]:
         assert path == self.path, "MockDockerImage.build"
         assert tag == f"{self.repository}:{self.image_tag}", "MockDockerImage.build"

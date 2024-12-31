@@ -132,7 +132,6 @@ You must have Docker installed and running.
         self.docker_image = self.docker_client.images.build(
             path="docker_files", tag=self.full_tag_name
         )[0]
-        self.docker_image.tag(repository=repository_uri, tag=self.tag)
         print(f"Docker image {self.full_tag_name} successfully built.")
         press_enter_to_continue()
         print_dashes()
@@ -179,7 +178,7 @@ Now we will retrieve the ECR policy to ensure it was successfully set.
 * Retrieve an ECR authorization token.
 
 You need an authorization token to securely access and interact with the Amazon ECR registry.
-The `getAuthorizationToken` method of the `EcrAsyncClient` is responsible for securely accessing
+The `get_authorization_token` method of the `ecr` client is responsible for securely accessing
 and interacting with an Amazon ECR repository. This operation is responsible for obtaining a
 valid authorization token, which is required to authenticate your requests to the ECR service.
 
@@ -233,9 +232,8 @@ storage is optimized and the registry remains up-to-date.
             """
 * Push a docker image to the Amazon ECR Repository.
 
-The method uses the authorization token to create an `AuthConfig` object, which is used to authenticate
-the Docker client when pushing the image. Finally, the method tags the Docker image with the specified
-repository name and image image_tag, and then pushes the image to the ECR repository using the Docker client.
+The Docker client uses the authorization token is used to authenticate the when pushing the image to the 
+ECR repository.
         """
         )
         decoded_authorization = base64.b64decode(authorization_token).decode("utf-8")
