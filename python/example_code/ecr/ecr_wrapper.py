@@ -4,8 +4,8 @@
 """
 Purpose
 
-Shows how to use the AWS SDK for Python (Boto3) with Amazon Elastic Container Registry (Amazon ECR) API to schedule
-and receive events.
+Shows how to use the AWS SDK for Python (Boto3) with Amazon Elastic Container Registry (Amazon ECR) API to perform
+actions.
 """
 
 import logging
@@ -243,4 +243,4 @@ if __name__ == "__main__":
     try:
         ecr_wrapper = ECRWrapper.from_client()
     except Exception:
-        logging.exception("Something went wrong with the demo!")
+        logging.exception("Something went wrong creating a client!")

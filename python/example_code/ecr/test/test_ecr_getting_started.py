@@ -158,15 +158,6 @@ def test_ecr_getting_started(mock_mgr):
         ("TESTERROR-stub_put_lifecycle_policy", 5),
         ("TESTERROR-stub_describe_images", 6),
         ("TESTERROR-stub_delete_repository", 7),
-        # ("TESTERROR-stub_create_portal", 8),
-        # ("TESTERROR-stub_describe_portal", 9),
-        # ("TESTERROR-stub_create_gateway", 10),
-        # ("TESTERROR-stub_describe_gateway", 11),
-        # ("TESTERROR-stub_delete_gateway", 11),
-        # ("TESTERROR-stub_delete_portal", 11),
-        # ("TESTERROR-stub_delete_asset", 11),
-        # ("TESTERROR-stub_delete_asset_model", 11),
-        # ("TESTERROR-stub_delete_stack", 12),
     ],
 )
 @pytest.mark.integ
