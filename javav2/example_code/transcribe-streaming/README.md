@@ -34,7 +34,15 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav
 Code excerpts that show you how to call individual service functions.
 
 - [StartMedicalStreamTranscription](src/main/java/com/amazonaws/transcribestreaming/TranscribeMedicalStreamingDemoApp.java#L25)
-- [StartStreamTranscription](src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoApp.java#L26)
+- [StartStreamTranscription](src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoApp.java#L36)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Transcribe an audio file](src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoFile.java)
+- [Transcribe audio from a microphone](src/main/java/com/amazonaws/transcribestreaming/TranscribeStreamingDemoApp.java)
 
 
 <!--custom.examples.start-->
@@ -49,6 +57,30 @@ Code excerpts that show you how to call individual service functions.
 <!--custom.instructions.end-->
 
 
+
+#### Transcribe an audio file
+
+This example shows you how to generate a transcription of a source audio file using Amazon Transcribe streaming.
+
+
+<!--custom.scenario_prereqs.transcribe-streaming_Scenario_StreamEvents_File.start-->
+<!--custom.scenario_prereqs.transcribe-streaming_Scenario_StreamEvents_File.end-->
+
+
+<!--custom.scenarios.transcribe-streaming_Scenario_StreamEvents_File.start-->
+<!--custom.scenarios.transcribe-streaming_Scenario_StreamEvents_File.end-->
+
+#### Transcribe audio from a microphone
+
+This example shows you how to generate a transcription from a microphone using Amazon Transcribe streaming.
+
+
+<!--custom.scenario_prereqs.transcribe-streaming_Scenario_StreamEvents_Microphone.start-->
+<!--custom.scenario_prereqs.transcribe-streaming_Scenario_StreamEvents_Microphone.end-->
+
+
+<!--custom.scenarios.transcribe-streaming_Scenario_StreamEvents_Microphone.start-->
+<!--custom.scenarios.transcribe-streaming_Scenario_StreamEvents_Microphone.end-->
 
 ### Tests
 
