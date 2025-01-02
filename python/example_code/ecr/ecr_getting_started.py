@@ -13,8 +13,6 @@ can be passed as a script argument.
 To create an IAM role, see:
 
 https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create.html
-
-
 """
 
 import argparse
