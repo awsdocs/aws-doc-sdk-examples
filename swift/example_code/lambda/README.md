@@ -85,6 +85,21 @@ This example shows you how to do the following:
 
 
 <!--custom.basics.lambda_Scenario_GettingStartedFunctions.start-->
+##### Build and deploy the example
+
+This example consists of the main program and two AWS Lambda functions. To
+build and deploy it:
+
+1. Build the `increment` lambda function (`cd increment && swift build`).
+2. Archive the `increment` lambda function for use as a Lambda function:
+   `swift package archive --allow-network-connections docker`. When archiving
+   is complete, the archive's path is displayed. Take note of it.
+3. Build the `calculator` lambda function (`cd ../calculator && swift build`).
+4. Archive it for use as a Lambda function: `swift package archive
+   --allow-network-connections docker`. Take note of this created Zip file's
+   path, too.
+5. Build the main program in the `lambda-basics` directory.
+6. Run the main program with the command `swift run lambda-basics --incpath <path-of-increment-archive> --calcpath <path-of-calculator-archive>`.
 <!--custom.basics.lambda_Scenario_GettingStartedFunctions.end-->
 
 
