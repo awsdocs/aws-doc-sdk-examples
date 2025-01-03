@@ -8,33 +8,27 @@
 import PackageDescription
 
 let package = Package(
-    name: "lambda-basics",
+    name: "increment",
     // Let Xcode know the minimum Apple platforms supported.
     platforms: [
-        .macOS(.v13),
-        .iOS(.v15)
+        .macOS(.v13)
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(
-            url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "1.0.0"),
-        .package(
-            url: "https://github.com/apple/swift-argument-parser.git",
-            branch: "main"
-        )
+            url: "https://github.com/swift-server/swift-aws-lambda-runtime.git",
+            from: "1.0.0-alpha"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products
         // from dependencies.
         .executableTarget(
-            name: "lambda-basics",
+            name: "increment",
             dependencies: [
-                .product(name: "AWSLambda", package: "aws-sdk-swift"),
-                .product(name: "AWSIAM", package: "aws-sdk-swift"),
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                .product(name: "AWSLambdaRuntime", package: "swift-aws-lambda-runtime"),
             ],
-            path: "Sources"),
+            path: "Sources"
+        )
     ]
 )
