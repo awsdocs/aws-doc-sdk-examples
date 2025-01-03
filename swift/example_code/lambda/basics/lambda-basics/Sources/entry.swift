@@ -4,14 +4,16 @@
 /// An example that demonstrates how to watch an transcribe event stream to
 /// transcribe audio from a file to the console.
 
-// snippet-start:[swift.lambda-basics.imports]
+// snippet-start:[swift.lambda-basics.imports-all]
 import ArgumentParser
-import AWSClientRuntime
 import AWSIAM
+import SmithyWaitersAPI
+// snippet-start:[swift.lambda-basics.imports]
+import AWSClientRuntime
 import AWSLambda
 import Foundation
-import SmithyWaitersAPI
 // snippet-end:[swift.lambda-basics.imports]
+// snippet-end:[swift.lambda-basics.imports-all]
 
 // snippet-start:[swift.lambda-basics.InvokeInput.types]
 /// Represents the contents of the requests being received from the client.
@@ -157,7 +159,7 @@ struct ExampleCommand: ParsableCommand {
 
         return true
     }
-    // snippet-start:[swift.lambda-basics.GetFunctionInput]
+    // snippet-end:[swift.lambda-basics.GetFunctionInput]
 
     // snippet-start:[swift.lambda-basics.CreateFunction.wait]
     /// Create the specified AWS Lambda function.
@@ -193,7 +195,6 @@ struct ExampleCommand: ParsableCommand {
                 )
             )
         } catch {
-            dump(error)
             return false
         }
         // snippet-end:[swift.lambda-basics.CreateFunction]
@@ -218,7 +219,7 @@ struct ExampleCommand: ParsableCommand {
     }
     // snippet-end:[swift.lambda-basics.CreateFunction.wait]
 
-    // snippet-start:[swift.lambda-basics.UpdateFunction.wait]
+    // snippet-start:[swift.lambda-basics.UpdateFunctionCode.wait]
     /// Update the AWS Lambda function with new code to run when the function
     /// is invoked.
     /// 
@@ -232,7 +233,7 @@ struct ExampleCommand: ParsableCommand {
     ///   Otherwise, returns `false`.
     func updateFunctionCode(lambdaClient: LambdaClient, name: String,
                             path: String) async throws -> Bool {
-        // snippet-start:[swift.lambda-basics.UpdateFunction]
+        // snippet-start:[swift.lambda-basics.UpdateFunctionCode]
         let zipUrl = URL(fileURLWithPath: path)
         let zipData: Data
 
@@ -257,7 +258,7 @@ struct ExampleCommand: ParsableCommand {
         } catch {
             return false
         }
-        // snippet-start:[swift.lambda-basics.UpdateFunction.wait]
+        // snippet-end:[swift.lambda-basics.UpdateFunctionCode]
 
         let output = try await lambdaClient.waitUntilFunctionUpdatedV2(
             options: WaiterOptions(
@@ -277,7 +278,7 @@ struct ExampleCommand: ParsableCommand {
                 return false
         }
     }
-    // snippet-end:[swift.lambda-basics.UpdateFunction.wait]
+    // snippet-end:[swift.lambda-basics.UpdateFunctionCode.wait]
 
     // snippet-start:[swift.lambda-basics.ListFunctionsPaginated]
     /// Returns an array containing the names of all AWS Lambda functions
@@ -309,7 +310,7 @@ struct ExampleCommand: ParsableCommand {
     }
     // snippet-end:[swift.lambda-basics.ListFunctionsPaginated]
 
-    // snippet-start:[swift.lambda-basics.InvokeInput]
+    // snippet-start:[swift.lambda-basics.Invoke]
     /// Invoke the Lambda function to increment a value.
     /// 
     /// - Parameters:
@@ -344,7 +345,7 @@ struct ExampleCommand: ParsableCommand {
             throw ExampleError.invokeError
         }
     }
-    // snippet-end:[swift.lambda-basics.InvokeInput]
+    // snippet-end:[swift.lambda-basics.Invoke]
 
     /// Invoke the calculator Lambda function.
     /// 
