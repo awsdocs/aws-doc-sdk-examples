@@ -62,8 +62,9 @@ $ swift build
 ```
 
 To build one of these examples in Xcode, navigate to the example's directory
-Then type `xed.` to open the example directory in Xcode. You can then use
-standard Xcode build and run commands.
+(such as the `ListUsers` directory, to build that example). Then type `xed.`
+to open the example directory in Xcode. You can then use standard Xcode build
+and run commands.
 
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
