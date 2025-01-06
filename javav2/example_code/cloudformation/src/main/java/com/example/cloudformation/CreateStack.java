@@ -53,54 +53,37 @@ public class CreateStack {
                     value - The value associated with the parameter.\s
                 """;
 
-        if (args.length != 5) {
-            System.out.println(usage);
-            System.exit(1);
+        if (args.length != 3) {
+           System.out.println(usage);
+           System.exit(1);
         }
 
-        String stackName = args[0];
-        String roleARN = args[1];
-        String location = args[2];
-        String key = args[3];
-        String value = args[4];
-
+        String stackName = "Stack106" ; //args[0];
+        String roleARN = "arn:aws:iam::814548047983:role/roleCF" ; //args[1];
+        String location = "https://s3.amazonaws.com/cdbucket2-scott/CloudFormationTemplate.yml" ; //args[2];
         Region region = Region.US_EAST_1;
         CloudFormationClient cfClient = CloudFormationClient.builder()
                 .region(region)
                 .build();
 
-        createCFStack(cfClient, stackName, roleARN, location, key, value);
+        createCFStack(cfClient, stackName, roleARN, location);
         cfClient.close();
     }
 
     public static void createCFStack(CloudFormationClient cfClient,
             String stackName,
             String roleARN,
-            String location,
-            String key,
-            String value) {
+            String location) {
         try {
             CloudFormationWaiter waiter = cfClient.waiter();
-            Parameter myParameter = Parameter.builder()
-                    .parameterKey(key)
-                    .parameterValue(value)
-                    .build();
-
             CreateStackRequest stackRequest = CreateStackRequest.builder()
                     .stackName(stackName)
                     .templateURL(location)
                     .roleARN(roleARN)
                     .onFailure(OnFailure.ROLLBACK)
-                    .parameters(myParameter)
                     .build();
 
             cfClient.createStack(stackRequest);
-            DescribeStacksRequest stacksRequest = DescribeStacksRequest.builder()
-                    .stackName(stackName)
-                    .build();
-
-            WaiterResponse<DescribeStacksResponse> waiterResponse = waiter.waitUntilStackCreateComplete(stacksRequest);
-            waiterResponse.matched().response().ifPresent(System.out::println);
             System.out.println(stackName + " is ready");
 
         } catch (CloudFormationException e) {

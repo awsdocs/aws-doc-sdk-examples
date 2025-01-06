@@ -37,7 +37,7 @@ public class CloudFormationTest {
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        stackName = values.getStackName();
+        stackName = values.getStackName()+"150";
         roleARN = values.getRoleARN();
         location = values.getLocation();
         key = values.getKey();
@@ -73,7 +73,7 @@ public class CloudFormationTest {
     @Tag("IntegrationTest")
     @Order(1)
     public void CreateStack() {
-        assertDoesNotThrow(() -> CreateStack.createCFStack(cfClient, stackName, roleARN, location, key, value));
+        assertDoesNotThrow(() -> CreateStack.createCFStack(cfClient, stackName, roleARN, location));
         System.out.println("Test 1 passed");
     }
 
