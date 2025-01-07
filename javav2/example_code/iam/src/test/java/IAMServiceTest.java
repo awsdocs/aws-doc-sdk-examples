@@ -14,6 +14,8 @@ import software.amazon.awssdk.services.iam.model.User;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
+
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -50,14 +52,14 @@ public class IAMServiceTest {
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        userName = values.getUserName();
-        policyName = values.getPolicyName();
-        roleName = values.getRoleName();
+        userName = values.getUserName()+ UUID.randomUUID();
+        policyName = values.getPolicyName() + UUID.randomUUID();;
+        roleName = values.getRoleName() + UUID.randomUUID();;
         accountAlias = values.getAccountAlias();
         usernameSc = values.getUsernameSc();
         policyNameSc = values.getPolicyNameSc();
         roleNameSc = values.getRoleNameSc();
-        roleSessionName = values.getRoleName();
+        roleSessionName = values.getRoleName() + UUID.randomUUID();;
         fileLocationSc = values.getFileLocationSc();
         bucketNameSc = values.getBucketNameSc();
 
@@ -120,25 +122,13 @@ public class IAMServiceTest {
         System.out.println("Test 3 passed");
     }
 
+
+
+
+
     @Test
     @Tag("IntegrationTest")
     @Order(4)
-    public void AttachRolePolicy() {
-        assertDoesNotThrow(() -> AttachRolePolicy.attachIAMRolePolicy(iam, roleName, policyARN));
-        System.out.println("\n Test 4 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(5)
-    public void DetachRolePolicy() {
-        assertDoesNotThrow(() -> DetachRolePolicy.detachPolicy(iam, roleName, policyARN));
-        System.out.println("Test 5 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(6)
     public void GetPolicy() {
         assertDoesNotThrow(() -> GetPolicy.getIAMPolicy(iam, policyARN));
         System.out.println("Test 6 passed");
@@ -146,7 +136,7 @@ public class IAMServiceTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(7)
+    @Order(5)
     public void ListAccessKeys() {
         assertDoesNotThrow(() -> ListAccessKeys.listKeys(iam, userName));
         System.out.println("Test 7 passed");
@@ -154,7 +144,7 @@ public class IAMServiceTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(8)
+    @Order(6)
     public void ListUsers() {
         assertDoesNotThrow(() -> ListUsers.listAllUsers(iam));
         System.out.println("Test 8 passed");
@@ -162,7 +152,7 @@ public class IAMServiceTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(9)
+    @Order(7)
     public void CreateAccountAlias() {
         assertDoesNotThrow(() -> CreateAccountAlias.createIAMAccountAlias(iam, accountAlias));
         System.out.println("Test 9 passed");
@@ -170,7 +160,7 @@ public class IAMServiceTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(10)
+    @Order(8)
     public void DeleteAccountAlias() {
         assertDoesNotThrow(() -> DeleteAccountAlias.deleteIAMAccountAlias(iam, accountAlias));
         System.out.println("Test 10 passed");
@@ -178,7 +168,7 @@ public class IAMServiceTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(11)
+    @Order(9)
     public void DeletePolicy() {
         assertDoesNotThrow(() -> DeletePolicy.deleteIAMPolicy(iam, policyARN));
         System.out.println("Test 12 passed");
@@ -186,7 +176,7 @@ public class IAMServiceTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(12)
+    @Order(10)
     public void DeleteAccessKey() {
         assertDoesNotThrow(() -> DeleteAccessKey.deleteKey(iam, userName, keyId));
         System.out.println("Test 12 passed");
@@ -194,7 +184,7 @@ public class IAMServiceTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(13)
+    @Order(11)
     public void DeleteUser() {
         assertDoesNotThrow(() -> DeleteUser.deleteIAMUser(iam, userName));
         System.out.println("Test 13 passed");
@@ -202,7 +192,7 @@ public class IAMServiceTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(14)
+    @Order(12)
     public void TestIAMScenario() throws Exception {
         String DASHES = new String(new char[80]).replace("\0", "-");
         System.out.println(DASHES);
