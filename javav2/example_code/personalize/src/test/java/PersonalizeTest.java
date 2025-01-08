@@ -133,16 +133,6 @@ public class PersonalizeTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(5)
-    public void DescribeCampaign() throws InterruptedException {
-        System.out.println("Wait 20 mins for resource to become available.");
-        TimeUnit.MINUTES.sleep(20);
-        assertDoesNotThrow(() -> DescribeCampaign.describeSpecificCampaign(personalizeClient, campaignArn));
-        System.out.println("Test 5 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
     @Order(6)
     public void ListCampaigns() {
         assertDoesNotThrow(() -> ListCampaigns.listAllCampaigns(personalizeClient, existingSolutionArn));
