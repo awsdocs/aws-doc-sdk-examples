@@ -100,16 +100,16 @@ public class CreateDBInstance {
 
         try {
             CreateDbInstanceRequest instanceRequest = CreateDbInstanceRequest.builder()
-                    .dbInstanceIdentifier(dbInstanceIdentifier)
-                    .allocatedStorage(100)
-                    .dbName(dbName)
-                    .engine("mysql")
-                    .dbInstanceClass("db.m4.large")
-                    .engineVersion("8.0")
-                    .storageType("standard")
-                    .masterUsername(userName)
-                    .masterUserPassword(userPassword)
-                    .build();
+                .dbInstanceIdentifier(dbInstanceIdentifier)
+                .allocatedStorage(100)
+                .dbName(dbName)
+                .engine("mysql")
+                .dbInstanceClass("db.t3.medium") // Updated to a supported class
+                .engineVersion("8.0.32")         // Updated to a supported version
+                .storageType("gp2")             // Changed to General Purpose SSD (gp2)
+                .masterUsername(userName)
+                .masterUserPassword(userPassword)
+                .build();
 
             CreateDbInstanceResponse response = rdsClient.createDBInstance(instanceRequest);
             System.out.print("The status is " + response.dbInstance().dbInstanceStatus());
