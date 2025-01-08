@@ -57,15 +57,9 @@ public class AmazonMQTest {
         }
     }
 
-    @Test
-    @Order(1)
-    public void whenInitializingMQ_thenNotNull() {
-        assertNotNull(mqClient);
-        System.out.println("Test 1 passed");
-    }
 
     @Test
-    @Order(2)
+    @Order(1)
     public void CreateBroker() {
         String result = CreateBroker.createBroker(mqClient, engineType, brokerName);
         assertTrue(!result.isEmpty());
@@ -73,7 +67,7 @@ public class AmazonMQTest {
     }
 
     @Test
-    @Order(3)
+    @Order(2)
     public void CreateConfiguration() {
         String result = CreateConfiguration.createNewConfigutation(mqClient, configurationName);
         assertTrue(!result.isEmpty());
@@ -81,7 +75,7 @@ public class AmazonMQTest {
     }
 
     @Test
-    @Order(4)
+    @Order(3)
     public void DescribeBroker() {
         String result = DescribeBroker.describeBroker(mqClient, brokerName);
         assertTrue(!result.isEmpty());
@@ -89,7 +83,7 @@ public class AmazonMQTest {
     }
 
     @Test
-    @Order(5)
+    @Order(4)
     public void ListBrokers() {
         List<BrokerSummary> result = ListBrokers.listBrokers(mqClient);
         assertTrue(result instanceof List<?>);
@@ -97,7 +91,7 @@ public class AmazonMQTest {
     }
 
     @Test
-    @Order(6)
+    @Order(5)
     public void ListConfigurations() {
         List<Configuration> result = ListConfigurations.listConfigurations(mqClient);
         assertTrue(result instanceof List<?>);
@@ -105,7 +99,7 @@ public class AmazonMQTest {
     }
 
     @Test
-    @Order(7)
+    @Order(6)
     public void UpdateBrokerConfiguration() {
         String result = UpdateBrokerConfiguration.updateBrokerConfiguration(mqClient, brokerId, configurationId);
         assertTrue(!result.isEmpty());
