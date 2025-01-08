@@ -119,7 +119,7 @@ public class MediaStoreTest {
         System.out.println("Test 5 passed");
     }
 
-    
+
     @Test
     @Tag("IntegrationTest")
     @Order(7)
