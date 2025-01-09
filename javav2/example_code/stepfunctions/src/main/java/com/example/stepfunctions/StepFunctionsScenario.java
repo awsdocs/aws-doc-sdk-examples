@@ -80,15 +80,15 @@ public class StepFunctionsScenario {
                     jsonFile - The location of the chat_sfn_state_machine.json file. You can located it in resources/sample_files. 
                 """;
 
-       // if (args.length != 3) {
-      //      System.out.println(usage);
-      //      System.exit(1);
-      //  }
+        if (args.length != 4) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String roleName = "stepFunctionsRole380" ; //args[0];
-        String activityName = "ScottActivity" ; //args[1];
-        String stateMachineName = "Scott670Machine" ; //args[2];
-        String jsonFile = "C:\\AWS\\chat.json" ;
+        String roleName = args[0];
+        String activityName = args[1];
+        String stateMachineName = args[2];
+        String jsonFile = args[3];
         String polJSON = "{\n" +
                 "    \"Version\": \"2012-10-17\",\n" +
                 "    \"Statement\": [\n" +
