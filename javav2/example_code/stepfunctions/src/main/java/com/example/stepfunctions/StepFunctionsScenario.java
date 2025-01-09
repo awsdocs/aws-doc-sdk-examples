@@ -29,6 +29,9 @@ import software.amazon.awssdk.services.sfn.model.SfnException;
 import software.amazon.awssdk.services.sfn.model.StartExecutionRequest;
 import software.amazon.awssdk.services.sfn.model.StartExecutionResponse;
 import software.amazon.awssdk.services.sfn.model.StateMachineType;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,16 +77,18 @@ public class StepFunctionsScenario {
                     roleName - The name of the IAM role to create for this state machine.
                     activityName - The name of an activity to create.
                     stateMachineName - The name of the state machine to create.
+                    jsonFile - The location of the chat_sfn_state_machine.json file. You can located it in resources/sample_files. 
                 """;
 
-        if (args.length != 3) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+       // if (args.length != 3) {
+      //      System.out.println(usage);
+      //      System.exit(1);
+      //  }
 
-        String roleName = args[0];
-        String activityName = args[1];
-        String stateMachineName = args[2];
+        String roleName = "stepFunctionsRole380" ; //args[0];
+        String activityName = "ScottActivity" ; //args[1];
+        String stateMachineName = "Scott670Machine" ; //args[2];
+        String jsonFile = "C:\\AWS\\chat.json" ;
         String polJSON = "{\n" +
                 "    \"Version\": \"2012-10-17\",\n" +
                 "    \"Statement\": [\n" +
@@ -121,12 +126,10 @@ public class StepFunctionsScenario {
         System.out.println("The ARN of the activity is " + activityArn);
         System.out.println(DASHES);
 
-        // Get JSON to use for the state machine and place the activityArn value into
-        // it.
-        InputStream input = StepFunctionsScenario.class.getClassLoader()
-                .getResourceAsStream("chat_sfn_state_machine.json");
+        // Read the file using FileInputStream
+        FileInputStream inputStream = new FileInputStream(jsonFile);
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readValue(input, JsonNode.class);
+        JsonNode jsonNode = mapper.readValue(inputStream, JsonNode.class);
         String jsonString = mapper.writeValueAsString(jsonNode);
 
         // Modify the Resource node.
