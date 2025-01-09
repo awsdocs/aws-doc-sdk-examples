@@ -72,12 +72,12 @@ and run commands.
 This example shows you how to generate a transcription of a source audio file using Amazon Transcribe streaming.
 
 
-<!--custom.scenario_prereqs.transcribe-streaming_Scenario_StreamEvents.start-->
-<!--custom.scenario_prereqs.transcribe-streaming_Scenario_StreamEvents.end-->
+<!--custom.scenario_prereqs.transcribe-streaming_Scenario_StreamEvents_File.start-->
+<!--custom.scenario_prereqs.transcribe-streaming_Scenario_StreamEvents_File.end-->
 
 
-<!--custom.scenarios.transcribe-streaming_Scenario_StreamEvents.start-->
-<!--custom.scenarios.transcribe-streaming_Scenario_StreamEvents.end-->
+<!--custom.scenarios.transcribe-streaming_Scenario_StreamEvents_File.start-->
+<!--custom.scenarios.transcribe-streaming_Scenario_StreamEvents_File.end-->
 
 ### Tests
 
