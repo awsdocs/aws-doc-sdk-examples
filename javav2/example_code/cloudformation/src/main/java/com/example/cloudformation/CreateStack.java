@@ -49,18 +49,16 @@ public class CreateStack {
                     stackName - The name of the AWS CloudFormation stack.\s
                     roleARN - The ARN of the role that has AWS CloudFormation permissions.\s
                     location - The location of file containing the template body. (for example, https://s3.amazonaws.com/<bucketname>/template.yml).\s
-                    key - The key associated with the parameter.\s
-                    value - The value associated with the parameter.\s
-                """;
+               """;
 
         if (args.length != 3) {
            System.out.println(usage);
            System.exit(1);
         }
 
-        String stackName = "Stack106" ; //args[0];
-        String roleARN = "arn:aws:iam::814548047983:role/roleCF" ; //args[1];
-        String location = "https://s3.amazonaws.com/cdbucket2-scott/CloudFormationTemplate.yml" ; //args[2];
+        String stackName = args[0];
+        String roleARN = args[1];
+        String location = args[2];
         Region region = Region.US_EAST_1;
         CloudFormationClient cfClient = CloudFormationClient.builder()
                 .region(region)
