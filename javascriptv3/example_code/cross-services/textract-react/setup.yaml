@@ -344,7 +344,9 @@ Outputs:
     Value:
       Fn::Join:
         - ""
-        - - https://textract-demo.auth.
+        - - https://
+          - Ref: textractcognitodemoidtextractcognitodemodomainEBB6899F
+          - .auth.
           - Ref: AWS::Region
           - .amazoncognito.com/login?client_id=
           - Ref: textractcognitodemoidtextractcognitodemoclientidB9ABA9D2
