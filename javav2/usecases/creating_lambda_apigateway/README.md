@@ -8,7 +8,7 @@
 | Required Skills   | Java, Maven                                                                                                                                            |
 
 ## Purpose
-Amazon API Gateway is a powerful AWS service that enables developers to create, publish, maintain, monitor, and secure a wide range of APIs, including REST, HTTP, and WebSocket APIs. With API Gateway, developers can build APIs that access AWS services, other web services, or data stored in the AWS Cloud. This makes it easy for API developers to create APIs for use in their own client applications.
+Amazon API Gateway is an AWS service that enables developers to create, publish, maintain, monitor, and secure a wide range of APIs, including REST, HTTP, and WebSocket APIs. With API Gateway, developers can build APIs that access AWS services, other web services, or data stored in the AWS Cloud. This makes it easy for API developers to create APIs for use in their own client applications.
 
 One of the key features of API Gateway is its ability to invoke AWS Lambda functions. By configuring API Gateway to trigger a Lambda function, developers can easily integrate serverless computing into their API architecture. This allows for highly scalable and cost-effective API deployments, as the underlying infrastructure is managed by AWS. For more information, see [What is Amazon API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html).
 
@@ -32,8 +32,6 @@ This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains
 
 ![AWS Tracking Application](images/employeetable2.png)
 
-**Note**: To learn how to invoke an AWS Lambda function using scheduled events, see [Creating scheduled events to invoke Lambda functions](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_scheduled_events).
-
 #### Topics
 +	Prerequisites
 +	Create an AWS Identity and Access Management (IAM) role that is used to execute Lambda functions
@@ -48,13 +46,13 @@ This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains
 To follow along with this tutorial, you need the following:
 + An AWS Account with proper credentials.
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
-+ Java 1.8 JDK.
++ Java 17 JDK.
 + Maven 3.6 or higher.
 
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
 + Running this code might result in charges to your AWS account. 
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
@@ -124,122 +122,7 @@ At this point, you have a new project named **LambdaCronFunctions**.
 
 ![AWS Tracking Application](images/pomlam.png)
 
-The pom.xml file looks like the following.
-
-```xml
-   <?xml version="1.0" encoding="UTF-8"?>
-   <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <modelVersion>4.0.0</modelVersion>
-   <groupId>LambdaCronFunctions</groupId>
-   <artifactId>LambdaCronFunctions</artifactId>
-   <version>1.0-SNAPSHOT</version>
-   <packaging>jar</packaging>
-   <name>java-basic-function</name>
-   <properties>
-     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-     <maven.compiler.source>1.8</maven.compiler.source>
-     <maven.compiler.target>1.8</maven.compiler.target>
-   </properties>
-   <dependencies>
-    <dependency>
-        <groupId>com.amazonaws</groupId>
-        <artifactId>aws-lambda-java-core</artifactId>
-        <version>1.2.1</version>
-    </dependency>
-    <dependency>
-        <groupId>com.google.code.gson</groupId>
-        <artifactId>gson</artifactId>
-        <version>2.8.9</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-api</artifactId>
-        <version>2.17.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-core</artifactId>
-        <version>2.17.0</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-slf4j18-impl</artifactId>
-        <version>2.17.0</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-api</artifactId>
-        <version>5.8.2</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.8.2</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>com.googlecode.json-simple</groupId>
-        <artifactId>json-simple</artifactId>
-        <version>1.1.1</version>
-    </dependency>
-    <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>dynamodb-enhanced</artifactId>
-        <version>2.17.110</version>
-    </dependency>
-    <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>dynamodb</artifactId>
-        <version>2.17.110</version>
-    </dependency>
-    <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>sns</artifactId>
-        <version>2.17.110</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M5</version>
-        <type>maven-plugin</type>
-    </dependency>
-  </dependencies>
-  <build>
-    <plugins>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-shade-plugin</artifactId>
-            <version>3.2.2</version>
-            <configuration>
-                <createDependencyReducedPom>false</createDependencyReducedPom>
-            </configuration>
-            <executions>
-                <execution>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>shade</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.1</version>
-            <configuration>
-                <source>1.8</source>
-                <target>1.8</target>
-            </configuration>
-        </plugin>
-    </plugins>
-    </build>
-   </project>
-```    
+Use the pom.xml file that is located in this repository.
 
 ## Create a Lambda function by using the AWS Lambda runtime Java API
 

@@ -15,6 +15,7 @@ import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.services.sns.model.SnsException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -35,21 +36,21 @@ public class ScanEmployees {
 
         Region region = Region.US_WEST_2;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .region(region)
-                .build();
+            .region(region)
+            .build();
 
         // Create a DynamoDbEnhancedClient and use the DynamoDbClient object.
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(ddb)
-                .build();
+            .dynamoDbClient(ddb)
+            .build();
 
         // Create a DynamoDbTable object based on Employee.
         DynamoDbTable<Employee> table = enhancedClient.table("Employee", TableSchema.fromBean(Employee.class));
 
         try {
             AttributeValue attVal = AttributeValue.builder()
-                    .s(myDate)
-                    .build();
+                .s(myDate)
+                .build();
 
             // Get only items in the Employee table that match the date.
             Map<String, AttributeValue> myMap = new HashMap<>();
@@ -59,15 +60,15 @@ public class ScanEmployees {
             myExMap.put("#startDate", "startDate");
 
             Expression expression = Expression.builder()
-                    .expressionValues(myMap)
-                    .expressionNames(myExMap)
-                    .expression("#startDate = :val1")
-                    .build();
+                .expressionValues(myMap)
+                .expressionNames(myExMap)
+                .expression("#startDate = :val1")
+                .build();
 
             ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
-                    .filterExpression(expression)
-                    .limit(15) // you can increase this value.
-                    .build();
+                .filterExpression(expression)
+                .limit(15) // you can increase this value.
+                .build();
 
             // Get items in the Employee table.
             for (Employee employee : table.scan(enhancedRequest).items()) {
@@ -89,16 +90,16 @@ public class ScanEmployees {
     private void sentTextMessage(String first, String phone) {
 
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_WEST_2)
-                .build();
+            .region(Region.US_WEST_2)
+            .build();
         String message = first
-                + " happy one year anniversary. We are very happy that you have been working here for a year! ";
+            + " happy one year anniversary. We are very happy that you have been working here for a year! ";
 
         try {
             PublishRequest request = PublishRequest.builder()
-                    .message(message)
-                    .phoneNumber(phone)
-                    .build();
+                .message(message)
+                .phoneNumber(phone)
+                .build();
 
             snsClient.publish(request);
         } catch (SnsException e) {
