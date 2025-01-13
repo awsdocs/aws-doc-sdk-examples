@@ -44,11 +44,11 @@ functions within the same service.
 
 ### AI21 Labs Jurassic-2
 
-- [InvokeModel](BedrockRuntimeService.php#L64)
+- [InvokeModel](BedrockRuntimeService.php#L66)
 
 ### Amazon Titan Image Generator
 
-- [InvokeModel](BedrockRuntimeService.php#L131)
+- [InvokeModel](BedrockRuntimeService.php#L133)
 
 ### Anthropic Claude
 
@@ -56,7 +56,7 @@ functions within the same service.
 
 ### Stable Diffusion
 
-- [InvokeModel](BedrockRuntimeService.php#L94)
+- [InvokeModel](BedrockRuntimeService.php#L96)
 
 
 <!--custom.examples.start-->
