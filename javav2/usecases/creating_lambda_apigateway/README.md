@@ -8,7 +8,9 @@
 | Required Skills   | Java, Maven                                                                                                                                            |
 
 ## Purpose
-You can configure Amazon API Gateway to invoke an AWS Lambda function. Amazon API Gateway is an AWS service for creating, publishing, maintaining, monitoring, and securing REST, HTTP, and WebSocket APIs at scale. API developers can create APIs that access AWS or other web services, as well as data stored in the AWS Cloud. As an API Gateway developer, you can create APIs for use in your own client applications. For more information, see [What is Amazon API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html).
+Amazon API Gateway is a powerful AWS service that enables developers to create, publish, maintain, monitor, and secure a wide range of APIs, including REST, HTTP, and WebSocket APIs. With API Gateway, developers can build APIs that access AWS services, other web services, or data stored in the AWS Cloud. This makes it easy for API developers to create APIs for use in their own client applications.
+
+One of the key features of API Gateway is its ability to invoke AWS Lambda functions. By configuring API Gateway to trigger a Lambda function, developers can easily integrate serverless computing into their API architecture. This allows for highly scalable and cost-effective API deployments, as the underlying infrastructure is managed by AWS. For more information, see [What is Amazon API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html).
 
 Lambda is a compute service that enables you to run code without provisioning or managing servers. You can create Lambda functions in various programming languages. For more information about AWS Lambda, see
 [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
