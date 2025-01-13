@@ -37,7 +37,10 @@ describe("copy-object", () => {
   });
 
   it("should log a relevant error message if the object is in an archive tier", async () => {
-    send.mockRejectedValue(new ObjectNotInActiveTierError());
+    const error = new ObjectNotInActiveTierError();
+    error.$fault = "server"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
+    error.$metadata = "metadata"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
+    send.mockRejectedValue(error);
 
     const spy = vi.spyOn(console, "error");
 

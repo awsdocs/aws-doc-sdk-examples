@@ -39,6 +39,8 @@ describe("put-bucket-acl", () => {
 
   it("should log a relevant error when the bucket doesn't exist", async () => {
     const error = new S3ServiceException("The specified bucket does not exist");
+    error.$fault = "server"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
+    error.$metadata = "metadata"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
     error.name = "NoSuchBucket";
     send.mockRejectedValueOnce(error);
 
@@ -59,6 +61,8 @@ describe("put-bucket-acl", () => {
     const error = new S3ServiceException({
       message: "Some S3 service exception",
     });
+    error.$fault = "server"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
+    error.$metadata = "metadata"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
     error.name = "ServiceException";
     send.mockRejectedValueOnce(error);
 

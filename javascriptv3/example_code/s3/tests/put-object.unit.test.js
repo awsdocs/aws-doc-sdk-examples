@@ -41,6 +41,8 @@ describe("put-object", () => {
 
   it("should log a relevant error when the bucket doesn't exist", async () => {
     const error = new S3ServiceException("The specified bucket does not exist");
+    error.$fault = "server"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
+    error.$metadata = "metadata"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
     error.name = "EntityTooLarge";
     const bucketName = "amzn-s3-demo-bucket";
     send.mockRejectedValueOnce(error);
@@ -61,7 +63,11 @@ or the multipart upload API (5TB max).`,
   });
 
   it("should indicate a failure came from S3 when the error isn't generic", async () => {
-    const error = new S3ServiceException("Some S3 service exception.");
+    const error = new S3ServiceException({
+      message: "Some S3 service exception.",
+    });
+    error.$fault = "server"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
+    error.$metadata = "metadata"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
     error.name = "ServiceException";
     const bucketName = "amzn-s3-demo-bucket";
     send.mockRejectedValueOnce(error);
