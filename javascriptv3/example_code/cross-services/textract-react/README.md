@@ -66,6 +66,8 @@ documents like medical records, financial reports, and tax forms.
 
         The stack is deployed when it reports a StackStatus of CREATE_COMPLETE.
 
+1.  Replace `<DOMAIN>` in in the `LoginUrl` value of `./src/Config.js` with the domain created for the Cognito user pool.
+
 1.  Add additional assets needed for the example by running the `AddRemoveAssets.js`
     script with the `add` option and pass the stack name you used in the previous step.
 

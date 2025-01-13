@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React from "react";
-import { ColorMap, FilterMap } from "./Utils";
+import { ColorMap, FilterMap } from "./Utils.js";
 
 /**
  * An individual node that displays a block item from Amazon Textract as a checkbox.
