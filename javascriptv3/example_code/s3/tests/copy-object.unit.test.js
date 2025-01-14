@@ -37,7 +37,10 @@ describe("copy-object", () => {
   });
 
   it("should log a relevant error message if the object is in an archive tier", async () => {
-    send.mockRejectedValue(new ObjectNotInActiveTierError());
+    const error = new ObjectNotInActiveTierError();
+    error.$fault = "server"; // Workaround until PR is released. https://github.com/smithy-lang/smithy-typescript/pull/1503
+    error.$metadata = "metadata"; // Workaround until PR is released. https://github.com/smithy-lang/smithy-typescript/pull/1503
+    send.mockRejectedValue(error);
 
     const spy = vi.spyOn(console, "error");
 
