@@ -3,7 +3,7 @@
 ## Overview
 | Heading      | Description                                                                                                                                            |
 | ----------- |--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Description | Dicusses how to develop an AWS Lambda function using the Java run-time API and then how to configure Amazon API Gateway to invoke the Lambda function. |
+| Description | Discusses how to develop an AWS Lambda function using the Java runtime API, and then how to configure Amazon API Gateway to invoke the Lambda function. |
 | Audience   | Developer (beginner / intermediate)                                                                                                                    |
 | Required Skills   | Java, Maven                                                                                                                                            |
 
