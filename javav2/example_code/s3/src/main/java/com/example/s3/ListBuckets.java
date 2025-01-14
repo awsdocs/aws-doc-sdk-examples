@@ -8,6 +8,8 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.Bucket;
 import software.amazon.awssdk.services.s3.model.ListBucketsResponse;
+import software.amazon.awssdk.services.s3.paginators.ListBucketsIterable;
+
 import java.util.List;
 
 /**
@@ -35,14 +37,13 @@ public class ListBuckets {
      * @param s3 The {@link S3Client} instance to use for interacting with the Amazon S3 service.
      */
     public static void listAllBuckets(S3Client s3) {
-        ListBucketsResponse response = s3.listBuckets();
-        List<Bucket> bucketList = response.buckets();
-        // Print bucket names
-        System.out.println("Your Amazon S3 buckets are:");
-        for (Bucket bucket : bucketList) {
-            System.out.println(bucket.name());
-            System.out.println(bucket.creationDate());
-        }
+        ListBucketsIterable response = s3.listBucketsPaginator();
+
+        // Iterate over each response page and print bucket names.
+        response.stream()
+            .map(ListBucketsResponse::buckets)
+            .flatMap(buckets -> buckets.stream())
+            .forEach(bucket -> System.out.println("Bucket Name: " + bucket.name()));
     }
 }
 // snippet-end:[s3.java2.list.buckets.main]
