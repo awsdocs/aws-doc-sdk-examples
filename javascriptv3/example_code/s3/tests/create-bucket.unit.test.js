@@ -34,8 +34,8 @@ describe("create-bucket", () => {
 
   it("should log a relevant error message if a bucket already exists globally", async () => {
     const error = new BucketAlreadyExists();
-    error.$fault = "server"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
-    error.$metadata = "metadata"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
+    error.$fault = "server"; // Workaround until PR is released. https://github.com/smithy-lang/smithy-typescript/pull/1503
+    error.$metadata = "metadata"; // Workaround until PR is released. https://github.com/smithy-lang/smithy-typescript/pull/1503
     send.mockRejectedValue(error);
 
     const spy = vi.spyOn(console, "error");
@@ -49,8 +49,8 @@ describe("create-bucket", () => {
 
   it("should log a relevant error message if a bucket already exists in the users AWS account", async () => {
     const error = new BucketAlreadyOwnedByYou();
-    error.$fault = "server"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
-    error.$metadata = "metadata"; // Workaround until PR is released. https://code.amazon.com/reviews/CR-171722725/revisions/1#/reviewers
+    error.$fault = "server"; // Workaround until PR is released. https://github.com/smithy-lang/smithy-typescript/pull/1503
+    error.$metadata = "metadata"; // Workaround until PR is released. https://github.com/smithy-lang/smithy-typescript/pull/1503
     send.mockRejectedValue(error);
 
     const spy = vi.spyOn(console, "error");
