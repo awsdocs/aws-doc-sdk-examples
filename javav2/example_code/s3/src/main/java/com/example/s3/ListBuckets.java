@@ -37,8 +37,11 @@ public class ListBuckets {
     public static void listAllBuckets(S3Client s3) {
         ListBucketsResponse response = s3.listBuckets();
         List<Bucket> bucketList = response.buckets();
-        for (Bucket bucket: bucketList) {
-            System.out.println("Bucket name "+bucket.name());
+        // Print bucket names
+        System.out.println("Your Amazon S3 buckets are:");
+        for (Bucket bucket : bucketList) {
+            System.out.println(bucket.name());
+            System.out.println(bucket.creationDate());
         }
     }
 }

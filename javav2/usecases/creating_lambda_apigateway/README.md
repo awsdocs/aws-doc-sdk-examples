@@ -1,14 +1,16 @@
-#  Using Amazon API Gateway to invoke  Lambda functions
+#  Configuring Amazon API Gateway to invoke  Lambda functions
 
 ## Overview
-| Heading      | Description |
-| ----------- | ----------- |
-| Description | Dicusses how to develop an AWS Lambda function using the Java run-time API and then how to invoke it by using Amazon API Gateway.  |
-| Audience   |  Developer (beginner / intermediate)        |
-| Required Skills   | Java, Maven  |
+| Heading      | Description                                                                                                                                            |
+| ----------- |--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Description | Discusses how to develop an AWS Lambda function using the Java runtime API, and then how to configure Amazon API Gateway to invoke the Lambda function. |
+| Audience   | Developer (beginner / intermediate)                                                                                                                    |
+| Required Skills   | Java, Maven                                                                                                                                            |
 
 ## Purpose
-You can invoke an AWS Lambda function by using Amazon API Gateway, which is an AWS service for creating, publishing, maintaining, monitoring, and securing REST, HTTP, and WebSocket APIs at scale. API developers can create APIs that access AWS or other web services, as well as data stored in the AWS Cloud. As an API Gateway developer, you can create APIs for use in your own client applications. For more information, see [What is Amazon API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html).
+Amazon API Gateway is an AWS service that enables developers to create, publish, maintain, monitor, and secure a wide range of APIs, including REST, HTTP, and WebSocket APIs. With API Gateway, developers can build APIs that access AWS services, other web services, or data stored in the AWS Cloud. This makes it easy for API developers to create APIs for use in their own client applications.
+
+One of the key features of API Gateway is its ability to invoke AWS Lambda functions. By configuring API Gateway to trigger a Lambda function, developers can easily integrate serverless computing into their API architecture. This allows for highly scalable and cost-effective API deployments, as the underlying infrastructure is managed by AWS. For more information, see [What is Amazon API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html).
 
 Lambda is a compute service that enables you to run code without provisioning or managing servers. You can create Lambda functions in various programming languages. For more information about AWS Lambda, see
 [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
@@ -17,7 +19,7 @@ In this tutorial, you create a Lambda function by using the AWS Lambda Java runt
 
 ![AWS Tracking Application](images/picPhone.png)
 
-This tutorial shows you how to use Java logic to create a solution that performs this use case.  For example, you'll learn how to read a database to determine which employees have reached the one year anniversary date, how to process the data, and send out a text message all by using a Lambda function. Then you’ll learn how to use Amazon API Gateway to invoke this Lambda function by using a Rest endpoint. For example, you can invoke the Lambda function by using this curl command:  
+This tutorial shows you how to create a solution that performs this use case.  For example, you'll learn how to read a database to determine which employees have reached the one year anniversary date, how to process the data, and send out a text message all by using a Lambda function. Then you’ll learn how to use Amazon API Gateway to invoke this Lambda function by using a Rest endpoint. For example, you can invoke the Lambda function by using this curl command:  
   
       curl -XGET "https://xxxxqjko1o3.execute-api.us-east-1.amazonaws.com/cronstage/employee" 
 
@@ -29,8 +31,6 @@ This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains
 -	**startDate** – the employee’s start date.
 
 ![AWS Tracking Application](images/employeetable2.png)
-
-**Note**: To learn how to invoke an AWS Lambda function using scheduled events, see [Creating scheduled events to invoke Lambda functions](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases/creating_scheduled_events).
 
 #### Topics
 +	Prerequisites
@@ -46,13 +46,13 @@ This AWS tutorial uses an Amazon DynamoDB table named **Employee** that contains
 To follow along with this tutorial, you need the following:
 + An AWS Account with proper credentials.
 + A Java IDE (for this tutorial, the IntelliJ IDE is used).
-+ Java 1.8 JDK.
++ Java 17 JDK.
 + Maven 3.6 or higher.
 
 ### Important
 
 + The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
-+  This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
++ This code has not been tested in all AWS Regions. Some AWS services are available only in specific regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services). 
 + Running this code might result in charges to your AWS account. 
 + Be sure to terminate all of the resources you create while going through this tutorial to ensure that you’re not charged.
 
@@ -122,122 +122,7 @@ At this point, you have a new project named **LambdaCronFunctions**.
 
 ![AWS Tracking Application](images/pomlam.png)
 
-The pom.xml file looks like the following.
-
-```xml
-   <?xml version="1.0" encoding="UTF-8"?>
-   <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <modelVersion>4.0.0</modelVersion>
-   <groupId>LambdaCronFunctions</groupId>
-   <artifactId>LambdaCronFunctions</artifactId>
-   <version>1.0-SNAPSHOT</version>
-   <packaging>jar</packaging>
-   <name>java-basic-function</name>
-   <properties>
-     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-     <maven.compiler.source>1.8</maven.compiler.source>
-     <maven.compiler.target>1.8</maven.compiler.target>
-   </properties>
-   <dependencies>
-    <dependency>
-        <groupId>com.amazonaws</groupId>
-        <artifactId>aws-lambda-java-core</artifactId>
-        <version>1.2.1</version>
-    </dependency>
-    <dependency>
-        <groupId>com.google.code.gson</groupId>
-        <artifactId>gson</artifactId>
-        <version>2.8.9</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-api</artifactId>
-        <version>2.17.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-core</artifactId>
-        <version>2.17.0</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-slf4j18-impl</artifactId>
-        <version>2.17.0</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-api</artifactId>
-        <version>5.8.2</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.8.2</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>com.googlecode.json-simple</groupId>
-        <artifactId>json-simple</artifactId>
-        <version>1.1.1</version>
-    </dependency>
-    <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>dynamodb-enhanced</artifactId>
-        <version>2.17.110</version>
-    </dependency>
-    <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>dynamodb</artifactId>
-        <version>2.17.110</version>
-    </dependency>
-    <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>sns</artifactId>
-        <version>2.17.110</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M5</version>
-        <type>maven-plugin</type>
-    </dependency>
-  </dependencies>
-  <build>
-    <plugins>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-shade-plugin</artifactId>
-            <version>3.2.2</version>
-            <configuration>
-                <createDependencyReducedPom>false</createDependencyReducedPom>
-            </configuration>
-            <executions>
-                <execution>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>shade</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.1</version>
-            <configuration>
-                <source>1.8</source>
-                <target>1.8</target>
-            </configuration>
-        </plugin>
-    </plugins>
-    </build>
-   </project>
-```    
+Use the pom.xml file that is located in this repository.
 
 ## Create a Lambda function by using the AWS Lambda runtime Java API
 
@@ -247,7 +132,7 @@ Use the AWS Lambda runtime Java API to create the Java class that defines the La
 
 Create these Java classes:
 
-+ **Handler** - used as the Lambda function that performs the use case described in this AWS tutorial. The application logic that's executed is located in the **handleRequest** method. 
++ **Handler** - the Lambda function that performs the use case described in this AWS tutorial. The application logic that's executed is located in the **handleRequest** method. 
 + **ScanEmployees** - uses the Amazon DynamoDB Java V2 API to scan the **Employee** table using an **Expression** object. This class also uses the Amazon Simple Notification Service (Amazon SNS) Java V2 API to send a message to an employee.
 + **Employee** - a Java class that is used with the DynamoDB Enhanced client. The fields in this class match the columns in the **Employee** table. 
 
