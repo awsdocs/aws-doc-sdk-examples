@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useRef } from "react";
-import { ExplorerTree } from "./ExplorerTree";
+import { ExplorerTree } from "./ExplorerTree.js";
 
 /**
  * Displays output from Amazon Textract as a hierarchical tree of checkboxes.

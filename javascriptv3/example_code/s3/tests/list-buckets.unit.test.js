@@ -33,6 +33,8 @@ describe("list-buckets", () => {
 
   it("should indicate a failure came from S3 when the error isn't generic", async () => {
     const error = new S3ServiceException("Some S3 service exception.");
+    error.$fault = "server"; // Workaround until PR is released. https://github.com/smithy-lang/smithy-typescript/pull/1503
+    error.$metadata = "metadata"; // Workaround until PR is released. https://github.com/smithy-lang/smithy-typescript/pull/1503
     error.name = "ServiceException";
     const bucketName = "amzn-s3-demo-bucket";
     paginateListBuckets.mockImplementationOnce(

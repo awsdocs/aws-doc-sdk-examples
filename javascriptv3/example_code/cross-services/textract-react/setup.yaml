@@ -201,7 +201,19 @@ Resources:
   textractcognitodemoidtextractcognitodemodomainEBB6899F:
     Type: AWS::Cognito::UserPoolDomain
     Properties:
-      Domain: textract-demo
+      Domain:
+        Fn::Join:
+          - '-'
+          - - textract-react
+            - Fn::Select:
+              - 4
+              - Fn::Split:
+                - '-'
+                - Fn::Select:
+                  - 2
+                  - Fn::Split:
+                    - /
+                    - Ref: AWS::StackId
       UserPoolId:
         Ref: textractcognitodemoidA350B90F
     Metadata:
@@ -332,7 +344,9 @@ Outputs:
     Value:
       Fn::Join:
         - ""
-        - - https://textract-demo.auth.
+        - - https://
+          - Ref: textractcognitodemoidtextractcognitodemodomainEBB6899F
+          - .auth.
           - Ref: AWS::Region
           - .amazoncognito.com/login?client_id=
           - Ref: textractcognitodemoidtextractcognitodemoclientidB9ABA9D2

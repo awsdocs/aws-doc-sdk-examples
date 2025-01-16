@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React, { useRef, useLayoutEffect } from "react";
-import { ColorMap } from "./Utils";
+import { ColorMap } from "./Utils.js";
 
 /**
  * Displays a PNG image formatted as a Base64 string and draws polygons on top of

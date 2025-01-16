@@ -38,7 +38,10 @@ describe("get-object", () => {
   it("should log a relevant error message when the object key doesn't exist in the bucket", async () => {
     const bucketName = "amzn-s3-demo-bucket";
     const key = "foo";
-    send.mockRejectedValueOnce(new NoSuchKey());
+    const error = new NoSuchKey();
+    error.$fault = "server"; // Workaround until PR is released. https://github.com/smithy-lang/smithy-typescript/pull/1503
+    error.$metadata = "metadata"; // Workaround until PR is released. https://github.com/smithy-lang/smithy-typescript/pull/1503
+    send.mockRejectedValueOnce(error);
 
     const spy = vi.spyOn(console, "error");
 
@@ -51,6 +54,8 @@ describe("get-object", () => {
 
   it("should indicate a failure came from S3 when the error isn't generic", async () => {
     const error = new S3ServiceException("Some S3 service exception.");
+    error.$fault = "server"; // Workaround until PR is released. https://github.com/smithy-lang/smithy-typescript/pull/1503
+    error.$metadata = "metadata"; // Workaround until PR is released. https://github.com/smithy-lang/smithy-typescript/pull/1503
     error.name = "ServiceException";
     const bucketName = "amzn-s3-demo-bucket";
     const key = "foo";
