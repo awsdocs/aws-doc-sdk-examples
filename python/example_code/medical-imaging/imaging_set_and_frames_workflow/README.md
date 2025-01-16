@@ -22,7 +22,7 @@ python -m pip install -r requirements.txt
 
 ### Resources
 
-The workflow scenario steps deploy and clean up resources as needed.
+The feature scenario steps deploy and clean up resources as needed.
 
 ### Instructions
 
@@ -42,20 +42,20 @@ This workflow runs as a command-line application prompting for user input.
     3. An Amazon S3 output bucket for a DICOM import job.
     4. An AWS Identity and Access Management (IAM) role with the appropriate permissions for a DICOM import job.
 
-![CloudFormation stack diagram](../../../../workflows/healthimaging_image_sets/.images/cfn_stack.png)
+![CloudFormation stack diagram](../../../../scenarios/features/healthimaging_image_sets/.images/cfn_stack.png)
 
 2. The user chooses a DICOM study to copy from the [National Cancer Institute Imaging Data Commons (IDC) Collections](https://registry.opendata.aws/nci-imaging-data-commons/) public S3 bucket.
 3. The chosen study is copied to the user's input S3 bucket.
 
-![DICOM copy diagram](../../../../workflows/healthimaging_image_sets/.images/copy_dicom.png)
+![DICOM copy diagram](../../../../scenarios/features/healthimaging_image_sets/.images/copy_dicom.png)
 
 4. A HealthImaging DICOM import job is run.
 
-![DICOM import diagram](../../../../workflows/healthimaging_image_sets/.images/dicom_import.png)
+![DICOM import diagram](../../../../scenarios/features/healthimaging_image_sets/.images/dicom_import.png)
 
 5. The workflow retrieves the IDs for the HealthImaging image frames created by the DICOM import job.
 
-![Image frame ID retrieval diagram](../../../../workflows/healthimaging_image_sets/.images/get_image_frame_ids.png)
+![Image frame ID retrieval diagram](../../../../scenarios/features/healthimaging_image_sets/.images/get_image_frame_ids.png)
 
 6. The HealthImaging image frames are downloaded, decoded to a bitmap format, and verified using a CRC32 checksum.
 7. The created resources can then be deleted, if the user chooses.

@@ -1,4 +1,4 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[Scheduler.dotnetv3.SchedulerWorkflow]
@@ -27,8 +27,8 @@ public class SchedulerWorkflow
        - Prompt the user for an email address to use for the subscription for the SNS topic subscription.
        - Prompt the user for a name for the Cloud Formation stack.
        - Deploy the Cloud Formation template in resources/cfn_template.yaml for resource creation.
-       - Store the outputs of the stack into variables for use in the workflow.
-       - Create a schedule group for all workflow schedules.
+       - Store the outputs of the stack into variables for use in the scenario.
+       - Create a schedule group for all schedules.
 
     2. Create one-time Schedule:
        - Create a one-time schedule to send an initial event.
@@ -55,9 +55,9 @@ public class SchedulerWorkflow
     private static string _snsTopicArn = null!;
 
     public static bool _interactive = true;
-    private static string _stackName = "default-scheduler-workflow-stack-name";
-    private static string _scheduleGroupName = "workflow-schedules-group";
-    private static string _stackResourcePath = "../../../../../../workflows/eventbridge_scheduler/resources/cfn_template.yaml";
+    private static string _stackName = "default-scheduler-scenario-stack-name";
+    private static string _scheduleGroupName = "scenario-schedules-group";
+    private static string _stackResourcePath = "../../../../../../scenarios/features/eventbridge_scheduler/resources/cfn_template.yaml";
 
     public static async Task Main(string[] args)
     {
@@ -83,7 +83,7 @@ public class SchedulerWorkflow
         }
 
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine("Welcome to the Amazon EventBridge Scheduler Workflow.");
+        Console.WriteLine("Welcome to the Amazon EventBridge Scheduler Scenario.");
         Console.WriteLine(new string('-', 80));
 
         try
@@ -109,12 +109,12 @@ public class SchedulerWorkflow
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "There was a problem with the workflow, initiating cleanup...");
+            _logger.LogError(ex, "There was a problem with the scenario, initiating cleanup...");
             _interactive = false;
             await Cleanup();
         }
 
-        Console.WriteLine("Amazon EventBridge Scheduler workflow completed.");
+        Console.WriteLine("Amazon EventBridge Scheduler scenario completed.");
     }
 
     /// <summary>
@@ -141,7 +141,7 @@ public class SchedulerWorkflow
 
             if (deploySuccess)
             {
-                // Create a schedule group for all workflow schedules
+                // Create a schedule group for all schedules
                 await _schedulerWrapper.CreateScheduleGroupAsync(_scheduleGroupName);
 
                 Console.WriteLine("Application preparation complete.");
@@ -414,14 +414,14 @@ public class SchedulerWorkflow
     }
 
     /// <summary>
-    /// Cleans up the resources created during the workflow.
+    /// Cleans up the resources created during the scenario.
     /// </summary>
     /// <returns>True if the cleanup was successful.</returns>
     public static async Task<bool> Cleanup()
     {
         // Prompt the user to confirm cleanup.
         var cleanup = !_interactive || GetYesNoResponse(
-            "Do you want to delete all resources created by this workflow? (y/n) ");
+            "Do you want to delete all resources created by this scenario? (y/n) ");
         if (cleanup)
         {
             try
@@ -441,7 +441,7 @@ public class SchedulerWorkflow
                 return false;
             }
         }
-        _logger.LogInformation("EventBridge Scheduler workflow is complete.");
+        _logger.LogInformation("EventBridge Scheduler scenario is complete.");
         return true;
     }
 

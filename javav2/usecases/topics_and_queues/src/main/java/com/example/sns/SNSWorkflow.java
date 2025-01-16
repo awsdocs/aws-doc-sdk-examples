@@ -113,7 +113,7 @@ public class SNSWorkflow {
 
         System.out.println(DASHES);
         System.out.println("Welcome to messaging with topics and queues.");
-        System.out.println("In this workflow, you will create an SNS topic and subscribe an SQS queue to the topic.\n" +
+        System.out.println("In this scenario, you will create an SNS topic and subscribe an SQS queue to the topic.\n" +
                 "You can select from several options for configuring the topic and the subscriptions for the queue.\n" +
                 "You can then post to the topic and see the results in the queue.");
         System.out.println(DASHES);

@@ -53,7 +53,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Scheduled Events workflow](scenario/scheduler_scenario.py)
+- [Scheduled Events](scenario/scheduler_scenario.py)
 
 
 <!--custom.examples.start-->
@@ -76,7 +76,7 @@ python hello/hello_scheduler.py
 ```
 
 
-#### Scheduled Events workflow
+#### Scheduled Events
 
 This example shows you how to do the following:
 
@@ -87,8 +87,8 @@ This example shows you how to do the following:
 - Delete EventBridge Scheduler the schedule and schedule group.
 - Clean up resources and delete the stack.
 
-<!--custom.scenario_prereqs.scheduler_ScheduledEventsWorkflow.start-->
-<!--custom.scenario_prereqs.scheduler_ScheduledEventsWorkflow.end-->
+<!--custom.scenario_prereqs.scheduler_ScheduledEventsScenario.start-->
+<!--custom.scenario_prereqs.scheduler_ScheduledEventsScenario.end-->
 
 Start the example by running the following at a command prompt:
 
@@ -97,8 +97,8 @@ python scenario/scheduler_scenario.py
 ```
 
 
-<!--custom.scenarios.scheduler_ScheduledEventsWorkflow.start-->
-<!--custom.scenarios.scheduler_ScheduledEventsWorkflow.end-->
+<!--custom.scenarios.scheduler_ScheduledEventsScenario.start-->
+<!--custom.scenarios.scheduler_ScheduledEventsScenario.end-->
 
 ### Tests
 

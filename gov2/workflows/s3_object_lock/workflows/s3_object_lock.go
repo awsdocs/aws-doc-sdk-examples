@@ -347,7 +347,7 @@ func (scenario *ObjectLockScenario) makeObjectChoiceList(bucketObjects []BucketK
 	return choices
 }
 
-// Run runs the S3 Object Lock workflow scenario.
+// Run runs the S3 Object Lock scenario.
 func (scenario *ObjectLockScenario) Run(ctx context.Context) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -361,7 +361,7 @@ func (scenario *ObjectLockScenario) Run(ctx context.Context) {
 	}()
 
 	log.Println(strings.Repeat("-", 88))
-	log.Println("Welcome to the Amazon S3 Object Lock Workflow Scenario.")
+	log.Println("Welcome to the Amazon S3 Object Lock Feature Scenario.")
 	log.Println(strings.Repeat("-", 88))
 
 	scenario.CreateBuckets(ctx)

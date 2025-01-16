@@ -53,7 +53,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-- [Newsletter workflow](newsletter.py)
+- [Newsletter scenario](newsletter.py)
 
 
 <!--custom.examples.start-->
@@ -68,7 +68,7 @@ functions within the same service.
 
 #### SESv2 Newsletter Workflow
 
-Review the usage instructions in [`workflows/sesv2_weekly_mailer/README.md`](../../../workflows/sesv2_weekly_mailer/README.md).
+Review the usage instructions in [`workflows/sesv2_weekly_mailer/README.md`](../../../scenarios/features/sesv2_weekly_mailer/README.md).
 
 To run the Newsletter example, copy the files from workflows/sesv2_weekly_mailer/resources into this folder.
 
@@ -76,9 +76,9 @@ To run the Newsletter example, copy the files from workflows/sesv2_weekly_mailer
 
 
 
-#### Newsletter workflow
+#### Newsletter scenario
 
-This example shows you how to run the Amazon SES v2 API newsletter workflow.
+This example shows you how to run the Amazon SES v2 API newsletter scenario.
 
 
 <!--custom.scenario_prereqs.sesv2_NewsletterWorkflow.start-->

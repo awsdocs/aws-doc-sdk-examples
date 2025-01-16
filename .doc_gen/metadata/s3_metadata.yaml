@@ -3447,7 +3447,7 @@ s3_Scenario_ObjectLock:
           sdkguide:
           excerpts:
             - description: |
-                Entrypoint for the workflow (<noloc>index.js</noloc>). This orchestrates all of the steps.
+                Entrypoint for the scenario (<noloc>index.js</noloc>). This orchestrates all of the steps.
                 Visit GitHub to see the implementation details for Scenario, ScenarioInput, ScenarioOutput, and ScenarioAction.
               snippet_files:
                 - javascriptv3/example_code/s3/scenarios/object-locking/index.js

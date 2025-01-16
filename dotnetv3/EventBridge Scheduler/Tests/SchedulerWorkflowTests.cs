@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 using Amazon.CloudFormation;
@@ -18,7 +18,7 @@ public class SchedulerWorkflowTests
     private SchedulerWrapper _schedulerWrapper = null!;
 
     /// <summary>
-    /// Verifies the workflow with an integration test. No errors should be logged.
+    /// Verifies the scenario with an integration test. No errors should be logged.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
