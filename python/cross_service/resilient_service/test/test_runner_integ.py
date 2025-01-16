@@ -32,7 +32,7 @@ class TestRunnerIntegration(unittest.TestCase):
 
         # Initialize the services and runner
         cls.prefix = "test-doc-example-resilience"
-        cls.resource_path = "../../../workflows/resilient_service/resources"
+        cls.resource_path = "../../../scenarios/features/resilient_service/resources"
         cls.recommendation = RecommendationService(
             "test-recommendation-service", cls.ddb_client
         )

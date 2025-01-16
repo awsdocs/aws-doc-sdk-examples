@@ -418,9 +418,9 @@ sesv2_DeleteEmailTemplate:
   services:
     sesv2: {DeleteEmailTemplate}
 sesv2_NewsletterWorkflow:
-  title: A complete &SESv2; Newsletter workflow using an &AWS; SDK
-  title_abbrev: Newsletter workflow
-  synopsis: run the &SESv2; newsletter workflow.
+  title: A complete &SESv2; Newsletter scenario using an &AWS; SDK
+  title_abbrev: Newsletter scenario
+  synopsis: run the &SESv2; newsletter scenario.
   category: Scenarios
   languages:
     .NET:
@@ -428,7 +428,7 @@ sesv2_NewsletterWorkflow:
         - sdk_version: 3
           github: dotnetv3/SESv2
           excerpts:
-            - description: Run the workflow.
+            - description: Run the scenario.
               genai: most
               snippet_tags:
                 - SESWorkflow.dotnetv3.NewsletterWorkflow
