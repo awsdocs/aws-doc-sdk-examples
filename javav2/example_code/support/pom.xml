@@ -52,8 +52,7 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>support</artifactId>
-            <version>2.20.26</version>
-        </dependency>
+            </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>

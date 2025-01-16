@@ -48,7 +48,6 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>dynamodb-enhanced</artifactId>
-            <version>2.20.26</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
@@ -115,7 +114,6 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>memorydb</artifactId>
-            <version>2.20.26</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
