@@ -29,7 +29,7 @@ class MockManager:
                 'OutputValue': 'arn:aws:sns:us-west-2:123456789012:my-topic'
             }
         ]
-        self.schedule_group_name = "workflow-schedules-group"
+        self.schedule_group_name = "scenario-schedules-group"
         self.schedule_group_arn = "arn:aws:scheduler:us-east-1:123456789012:schedule-group/tests"
         answers = [
             self.email_address,

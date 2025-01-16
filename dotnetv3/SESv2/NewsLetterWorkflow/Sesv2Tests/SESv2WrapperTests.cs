@@ -1,4 +1,4 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 using System.Net;
@@ -16,7 +16,7 @@ namespace Sesv2Tests;
 public class SESv2WrapperTests
 {
     /// <summary>
-    /// Run the preparation step of the workflow. Should return successful.
+    /// Run the preparation step of the scenario. Should return successful.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]

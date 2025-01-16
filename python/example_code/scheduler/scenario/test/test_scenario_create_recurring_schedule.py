@@ -14,7 +14,7 @@ class MockManager:
     def __init__(self, stub_runner, scenario_data, input_mocker):
         self.scenario_data = scenario_data
         self.schedule_name = "python-test2"
-        self.schedule_group_name = "workflow-schedules-group"
+        self.schedule_group_name = "scenario-schedules-group"
         self.role_arn = "arn:aws:iam::123456789012:role/Test-Role"
         self.sns_topic_arn = "arn:aws:sns:us-west-2:123456789012:my-topic"
         self.schedule_rate_in_minutes = 5
@@ -23,7 +23,7 @@ class MockManager:
         self.schedule_arn = f"arn:aws:scheduler:us-east-1:123456789012:schedule/{self.schedule_group_name}/{self.schedule_name}"
         scenario_data.scenario.sns_topic_arn = self.sns_topic_arn
         scenario_data.scenario.role_arn = self.role_arn
-        scenario_data.scenario.schedule_group_name = "workflow-schedules-group"
+        scenario_data.scenario.schedule_group_name = "scenario-schedules-group"
         answers = [
             self.schedule_name,
             str(self.schedule_rate_in_minutes),

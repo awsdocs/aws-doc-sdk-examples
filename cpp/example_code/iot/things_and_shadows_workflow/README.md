@@ -1,10 +1,10 @@
-## AWS IoT Things and Shadows Workflow
+## AWS IoT Things and Shadows Scenario
 This example demonstrates various interactions with the AWS Internet of things (IoT) Core service using the AWS SDK. 
 The program guides you through a series of steps, showcasing AWS IoT capabilities and providing a comprehensive example for developers.
 
 
 
-### Workflow Steps
+### Scenario Steps
 
 #### Create an AWS IoT thing:
 

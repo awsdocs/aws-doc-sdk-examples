@@ -22,7 +22,7 @@ using RecommendationService;
 namespace ResilientService;
 
 /// <summary>
-/// The scenario to run for the resilience workflow.
+/// The scenario to run for the resilience scenario.
 /// </summary>
 public static class ResilientServiceWorkflow
 {

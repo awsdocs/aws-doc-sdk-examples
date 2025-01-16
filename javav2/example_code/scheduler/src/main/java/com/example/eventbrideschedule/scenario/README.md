@@ -1,13 +1,13 @@
-# Amazon EventBridge Scheduler Workflow
+# Amazon EventBridge Scheduler Scenario
 
 ## Overview
 This example shows how to use AWS SDKs to work with Amazon EventBridge Scheduler with schedules and schedule groups. The workflow demonstrates how to create and delete one-time and recurring schedules within a schedule group to generate events on a specified target, such as an Amazon Simple Notification Service (Amazon SNS) Topic.
 
-The target SNS topic and the AWS Identity and Access Management (IAM) role used with the schedules are created as part of an AWS CloudFormation stack that is deployed at the start of the workflow, and deleted when the workflow is complete.
+The target SNS topic and the AWS Identity and Access Management (IAM) role used with the schedules are created as part of an AWS CloudFormation stack that is deployed at the start of the scenario, and deleted when the scenario is complete.
 
-![Scheduler application structure](../../../../../../../../../../workflows/eventbridge_scheduler/resources/scheduler-workflow.png)
+![Scheduler application structure](../../../../../../../../../../scenarios/features/eventbridge_scheduler/resources/scheduler-workflow.png)
 
-This workflow demonstrates the following steps and tasks:
+This scenario demonstrates the following steps and tasks:
 
 1. **Prepare the Application**
 
@@ -15,8 +15,8 @@ This workflow demonstrates the following steps and tasks:
    - Prompts the user for a name for the Cloud Formation stack. 
      - The user must confirm the email subscription to receive event emails.
    - Deploys the Cloud Formation template in resources/cfn_template.yaml for resource creation. 
-     - Stores the outputs of the stack into variables for use in the workflow.
-   - Creates a schedule group for all workflow schedules.
+     - Stores the outputs of the stack into variables for use in the scenario.
+   - Creates a schedule group for all scenario schedules.
 
 2. **Create a one-time Schedule**
 
@@ -50,13 +50,13 @@ This workflow demonstrates the following steps and tasks:
 
 ### Prerequisites
 
-Before running this workflow, ensure you have:
+Before running this scenario, ensure you have:
 
 - An AWS account with proper permissions to use Amazon EventBridge Scheduler and Amazon EventBridge.
 
 ### AWS Services Used
 
-This workflow uses the following AWS services:
+This scenario uses the following AWS services:
 
 - Amazon EventBridge Scheduler
 - Amazon EventBridge
@@ -65,7 +65,7 @@ This workflow uses the following AWS services:
 
 ### Resources
 
-The workflow scenario deploys the AWS CloudFormation stack with the required resources.
+The feature scenario deploys the AWS CloudFormation stack with the required resources.
 
 ### Instructions
 
@@ -82,7 +82,7 @@ This starts an interactive scenario that walks you through creating different ty
 
 ## Amazon EventBridge Scheduler Actions
 
-The workflow covers the following EventBridge Scheduler API actions:
+The scenario covers the following EventBridge Scheduler API actions:
 
 - [`CreateSchedule`](https://docs.aws.amazon.com/scheduler/latest/APIReference/API_CreateSchedule.html)
 - [`CreateScheduleGroup`](https://docs.aws.amazon.com/scheduler/latest/APIReference/API_CreateScheduleGroup.html)

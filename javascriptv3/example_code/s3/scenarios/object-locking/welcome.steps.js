@@ -10,7 +10,7 @@
 const welcome = (scenarios) =>
   new scenarios.ScenarioOutput(
     "welcome",
-    "Welcome to the Amazon Simple Storage Service (S3) Object Locking Workflow Scenario. For this workflow, we will use the AWS SDK for JavaScript to create several S3 buckets and files to demonstrate working with S3 locking features.",
+    "Welcome to the Amazon Simple Storage Service (S3) Object Locking Feature Scenario. For this workflow, we will use the AWS SDK for JavaScript to create several S3 buckets and files to demonstrate working with S3 locking features.",
     { header: true },
   );
 

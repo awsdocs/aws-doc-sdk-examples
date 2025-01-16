@@ -331,7 +331,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--resource_path",
-        default="../../../workflows/resilient_service/resources",
+        default="../../../scenarios/features/resilient_service/resources",
         help="The path to resource files used by this example, such as IAM policies and\n"
         "instance scripts.",
     )

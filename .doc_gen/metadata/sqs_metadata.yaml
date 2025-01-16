@@ -989,10 +989,10 @@ sqs_Scenario_TopicsAndQueues:
           github: javascriptv3/example_code/cross-services/wkflw-topics-queues
           sdkguide:
           excerpts:
-            - description: This is the entry point for this workflow.
+            - description: This is the entry point for this scenario.
               snippet_tags:
                 - javascript.v3.wkflw.topicsandqueues.index
-            - description: The preceding code provides the necessary dependencies and starts the workflow. The next section
+            - description: The preceding code provides the necessary dependencies and starts the scenario. The next section
                 contains the bulk of the example.
               snippet_tags:
                 - javascript.v3.wkflw.topicsandqueues.wrapper

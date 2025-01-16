@@ -74,23 +74,6 @@ functions within the same service.
 
 
 <!--custom.examples.start-->
-### Workflows
-
-Examples that show you how to complete a specific task.
-
-#### [Object lock workflow](../workflows/s3_object_lock/README.md)
-
-This workflow demonstrates the following steps and tasks:
-
-1. Add object lock settings to both new and existing S3 buckets.
-    * Add objects to buckets with optional object lock or retention period settings.
-2. Attempt to delete or overwrite locked objects.
-3. Retrieve and view the object lock and retention period settings of buckets and objects.
-4. Delete the objects and buckets.
-    * Remove any object locks and use the BypassGovernanceRetention setting.
-
-The code for this example is in the `gov2/workflows/s3_object_lock` folder.
-Instructions for how to run are in the [README](../workflows/s3_object_lock/README.md) in the same folder.
 <!--custom.examples.end-->
 
 ## Run the examples

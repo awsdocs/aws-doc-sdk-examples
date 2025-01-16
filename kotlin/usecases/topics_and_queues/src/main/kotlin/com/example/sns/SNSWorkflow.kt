@@ -72,7 +72,7 @@ suspend fun main() {
     println("Welcome to the AWS SDK for Kotlin messaging with topics and queues.")
     println(
         """
-                In this workflow, you will create an SNS topic and subscribe an SQS queue to the topic.
+                In this scenario, you will create an SNS topic and subscribe an SQS queue to the topic.
                 You can select from several options for configuring the topic and the subscriptions for the queue.
                 You can then post to the topic and see the results in the queue.
         """.trimIndent(),
