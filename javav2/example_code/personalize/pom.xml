@@ -40,6 +40,7 @@
                 <artifactId>bom</artifactId>
                 <version>2.29.45</version>
                 <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -59,7 +60,6 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>secretsmanager</artifactId>
-            <version>2.20.45</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -80,17 +80,14 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>personalizeruntime</artifactId>
-            <version>2.19.14</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>personalizeevents</artifactId>
-            <version>2.19.14</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>personalize</artifactId>
-            <version>2.19.14</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>

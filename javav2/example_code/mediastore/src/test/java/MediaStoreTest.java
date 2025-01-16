@@ -109,11 +109,9 @@ public class MediaStoreTest {
         System.out.println("Test 3 passed");
     }
 
-
-
     @Test
     @Tag("IntegrationTest")
-    @Order(5)
+    @Order(4)
     public void ListItems() {
         assertDoesNotThrow(() -> ListItems.listAllItems(mediaStoreData, containerName));
         System.out.println("Test 5 passed");
@@ -122,7 +120,7 @@ public class MediaStoreTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(7)
+    @Order(5)
     public void DeleteContainer() throws InterruptedException {
         System.out.println("Wait 1 min to delete container");
         TimeUnit.MINUTES.sleep(1);

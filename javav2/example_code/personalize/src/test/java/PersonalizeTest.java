@@ -133,7 +133,7 @@ public class PersonalizeTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(6)
+    @Order(5)
     public void ListCampaigns() {
         assertDoesNotThrow(() -> ListCampaigns.listAllCampaigns(personalizeClient, existingSolutionArn));
         System.out.println("Test 6 passed");
@@ -141,7 +141,7 @@ public class PersonalizeTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(7)
+    @Order(6)
     public void DescribeRecipe() {
         assertDoesNotThrow(() -> DescribeRecipe.describeSpecificRecipe(personalizeClient, recipeArn));
         System.out.println("Test 7 passed");
@@ -149,7 +149,7 @@ public class PersonalizeTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(8)
+    @Order(7)
     public void ListRecipes() {
         assertDoesNotThrow(() -> ListRecipes.listAllRecipes(personalizeClient));
         System.out.println("Test 8 passed");
@@ -157,7 +157,7 @@ public class PersonalizeTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(9)
+    @Order(8)
     public void ListDatasetGroups() {
         assertDoesNotThrow(() -> ListDatasetGroups.listDSGroups(personalizeClient));
         System.out.println("Test 9 passed");
@@ -165,7 +165,7 @@ public class PersonalizeTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(10)
+    @Order(9)
     public void DeleteSolution() {
         assertDoesNotThrow(() -> DeleteSolution.deleteGivenSolution(personalizeClient, solutionArn));
         System.out.println("Test 10 passed");
@@ -173,7 +173,7 @@ public class PersonalizeTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(11)
+    @Order(10)
     public void GetRecommendations() {
         assertDoesNotThrow(() -> GetRecommendations.getRecs(personalizeRuntimeClient, campaignArn, userId));
         System.out.println("Test 11 passed");
@@ -181,7 +181,7 @@ public class PersonalizeTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(12)
+    @Order(11)
     public void DeleteCampaign() {
         assertDoesNotThrow(() -> DeleteCampaign.deleteSpecificCampaign(personalizeClient, campaignArn));
         System.out.println("Test 12 passed");

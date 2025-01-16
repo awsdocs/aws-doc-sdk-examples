@@ -70,13 +70,10 @@
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>pinpointsmsvoice</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/pinpointemail -->
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>pinpointemail</artifactId>
-            <version>2.22.12</version>
         </dependency>
-
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>pinpoint</artifactId>
