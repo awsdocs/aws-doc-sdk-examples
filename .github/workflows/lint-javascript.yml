@@ -16,7 +16,7 @@ jobs:
           sparse-checkout: |
             .github
             javascriptv3
-            workflows
+            scenarios
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@e9772d140489982e0e3704fea5ee93d536f1e275
