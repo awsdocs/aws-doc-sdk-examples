@@ -1,4 +1,4 @@
-﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[S3LockWorkflow.dotnetv3.ObjectLockWorkflow]
@@ -64,7 +64,7 @@ public static class S3ObjectLockWorkflow
         try
         {
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("Welcome to the Amazon Simple Storage Service (S3) Object Locking Workflow Scenario.");
+            Console.WriteLine("Welcome to the Amazon Simple Storage Service (S3) Object Locking Feature Scenario.");
             Console.WriteLine(new string('-', 80));
             await Setup(true);
 
@@ -76,7 +76,7 @@ public static class S3ObjectLockWorkflow
             await Cleanup(true);
 
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("Amazon S3 Object Locking Workflow is complete.");
+            Console.WriteLine("Amazon S3 Object Locking Scenario is complete.");
             Console.WriteLine(new string('-', 80));
         }
         catch (Exception ex)
@@ -121,7 +121,7 @@ public static class S3ObjectLockWorkflow
     public static async Task<bool> Setup(bool interactive)
     {
         Console.WriteLine(
-            "\nFor this workflow, we will use the AWS SDK for .NET to create several S3\n" +
+            "\nFor this scenario, we will use the AWS SDK for .NET to create several S3\n" +
             "buckets and files to demonstrate working with S3 locking features.\n");
 
         Console.WriteLine(new string('-', 80));
@@ -271,7 +271,7 @@ public static class S3ObjectLockWorkflow
             "Attempt to overwrite a file.",
             "View the object and bucket retention settings for a file.",
             "View the legal hold settings for a file.",
-            "Finish the workflow."};
+            "Finish the scenario."};
 
         var choice = 0;
         // Keep asking the user until they choose to move on.

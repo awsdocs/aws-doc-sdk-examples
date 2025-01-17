@@ -12,7 +12,7 @@ The following components are used in this example:
 - [Amazon S3](https://aws.amazon.com/s3/) is used as the destination for the Data Firehose delivery stream, storing the ingested data.
 - [Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html) hosts the Firehose metrics used to monitor Firehose performance.
 
-For detailed information on this workflow, see the [firehose/README.md](../../../../../workflows/firehose/README.md).
+For detailed information on this workflow, see the [firehose/README.md](../../../../../scenarios/features/firehose/README.md).
 
 ## ⚠ Important
 
@@ -27,7 +27,7 @@ For detailed information on this workflow, see the [firehose/README.md](../../..
 
 For Python language prerequisites, see [/python/README.md](../../../../../python/README.md).
 
-To run this example, you need to set up the necessary infrastructure and generate mock data. Follow the steps outlined in the [workflow README](../../../../../workflows/firehose/README.md#setup) to create a Data Firehose delivery stream and generate sample data.
+To run this example, you need to set up the necessary infrastructure and generate mock data. Follow the steps outlined in the [workflow README](../../../../../scenarios/features/firehose/README.md#setup) to create a Data Firehose delivery stream and generate sample data.
 
 ### Execution
 

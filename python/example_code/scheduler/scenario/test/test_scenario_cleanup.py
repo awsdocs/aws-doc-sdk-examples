@@ -13,7 +13,7 @@ class MockManager:
     def __init__(self, stub_runner, scenario_data, input_mocker):
         self.scenario_data = scenario_data
         self.stack_name = "python-tests"
-        self.schedule_group_name = "workflow-schedules-group"
+        self.schedule_group_name = "scenario-schedules-group"
         scenario_data.scenario.schedule_group_name = self.schedule_group_name
         scenario_data.scenario.stack = scenario_data.cloud_formation_resource.Stack(self.stack_name)
         self.stub_runner = stub_runner

@@ -72,7 +72,7 @@ public class ResilientServiceTests
     }
 
     /// <summary>
-    /// Run the deploy step of the workflow. Should return successful.
+    /// Run the deploy step of the scenario. Should return successful.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
@@ -91,7 +91,7 @@ public class ResilientServiceTests
     }
 
     /// <summary>
-    /// Run the demo step of the workflow. Should return successful.
+    /// Run the demo step of the scenario. Should return successful.
     /// </summary>
     /// <returns></returns>
     [Fact]
@@ -110,7 +110,7 @@ public class ResilientServiceTests
     }
 
     /// <summary>
-    /// Run the destroy step of the workflow. Should return successful.
+    /// Run the destroy step of the scenario. Should return successful.
     /// </summary>
     /// <returns></returns>
     [Fact]

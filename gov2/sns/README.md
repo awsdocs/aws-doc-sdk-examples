@@ -53,21 +53,6 @@ functions within the same service.
 
 
 <!--custom.examples.start-->
-### Workflows
-
-Examples that show you how to complete a specific task.
-
-#### [Publish messages to queues](../workflows/topics_and_queues/workflows/scenario_topics_and_queues.go)
-
-This example shows you how to do the following:
-
-- Create topic (FIFO or non-FIFO).
-- Subscribe several queues to the topic with an option to apply a filter.
-- Publish messages to the topic.
-- Poll the queues for messages received.
-
-The code for this example is in the `gov2/workflows/topics_and_queues` folder.
-Instructions for how to run are in the [README](../workflows/topics_and_queues/README.md) in the same folder.
 <!--custom.examples.end-->
 
 ## Run the examples
