@@ -44,7 +44,7 @@ without needing to create a fork.
 
 ## Best practices for coding
 1. Follow [coding best practices](https://en.wikipedia.org/wiki/Coding_best_practices) such 
-as [DRY](https://www.digitalocean.com/community/tutorials/what-is-dry-development) and [SOLID](https://www.digitalocean.com/community/conceptual-articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) where possible.
+as [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and [SOLID](https://en.wikipedia.org/wiki/SOLID) where possible.
 2. Carefully read the pull request template and follow it closely.
 3. Don't include AWS account identifiers or secret keys in your examples.
 
