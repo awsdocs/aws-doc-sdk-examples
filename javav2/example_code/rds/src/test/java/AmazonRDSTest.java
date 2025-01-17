@@ -174,7 +174,7 @@ public class AmazonRDSTest {
     @Test
     @Tag("IntegrationTest")
     @Order(8)
-    public void TestRDSScenario() throws InterruptedException {
+    public void TestRDSScenario() {
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(RDSScenario.getSecretValues(secretDBName)), User.class);
         assertDoesNotThrow(() -> RDSScenario.describeDBEngines(rdsClient));

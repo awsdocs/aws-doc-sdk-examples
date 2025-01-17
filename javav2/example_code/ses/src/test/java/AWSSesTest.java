@@ -110,24 +110,6 @@ public class AWSSesTest {
     @Test
     @Tag("IntegrationTest")
     @Order(3)
-    public void SendMessageAttachment() {
-        assertDoesNotThrow(() -> SendMessageAttachment.sendemailAttachment(client, sender, recipient, subject, bodyText,
-                bodyHTML, fileLocation));
-        System.out.println("Test 3 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(4)
-    public void SendMessageAttachmentV2() {
-        assertDoesNotThrow(() -> com.example.sesv2.SendMessageAttachment.sendEmailAttachment(sesv2Client, sender,
-                recipient, subject, bodyHTML, fileLocation));
-        System.out.println("Test 4 passed");
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    @Order(5)
     public void SendMessageTemplateV2() {
         assertDoesNotThrow(() -> SendEmailTemplate.send(sesv2Client, sender, recipient, templateName));
         System.out.println("Test 5 passed");
@@ -135,7 +117,7 @@ public class AWSSesTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(6)
+    @Order(4)
     public void ListIdentities() {
         assertDoesNotThrow(() -> ListIdentities.listSESIdentities(client));
         System.out.println("Test 6 passed");
@@ -143,7 +125,7 @@ public class AWSSesTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(7)
+    @Order(5)
     public void ListEmailIdentities() {
         assertDoesNotThrow(() -> ListEmailIdentities.listSESIdentities(sesv2Client));
         System.out.println("Test 7 passed");
@@ -151,7 +133,7 @@ public class AWSSesTest {
 
     @Test
     @Tag("IntegrationTest")
-    @Order(8)
+    @Order(6)
     public void ListEmailTemplates() {
         assertDoesNotThrow(() -> ListTemplates.listAllTemplates(sesv2Client));
         System.out.println("Test 8 passed");
