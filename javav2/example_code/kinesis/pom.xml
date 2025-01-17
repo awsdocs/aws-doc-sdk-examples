@@ -69,7 +69,6 @@
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>netty-nio-client</artifactId>
-            <version>2.20.95</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
