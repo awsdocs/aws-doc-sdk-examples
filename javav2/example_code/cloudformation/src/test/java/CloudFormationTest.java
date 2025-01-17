@@ -37,7 +37,7 @@ public class CloudFormationTest {
         Gson gson = new Gson();
         String json = getSecretValues();
         SecretValues values = gson.fromJson(json, SecretValues.class);
-        stackName = values.getStackName()+"150";
+        stackName = values.getStackName();
         roleARN = values.getRoleARN();
         location = values.getLocation();
         key = values.getKey();
