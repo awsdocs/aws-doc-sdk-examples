@@ -504,7 +504,7 @@ function sts_assume_role() {
         return 0
         ;;
       \?)
-        ech o"Invalid parameter"
+        echo "Invalid parameter"
         usage
         return 1
         ;;
