@@ -11,21 +11,25 @@ Please use caution and configure this tool to delete unused resources only in yo
 
 ## Overview
 
-The code in this repository deploys the following architecture to a peovided "Plugin" AWS account:
+Defined in [account_nuker.ts](account_nuker.ts), this CDK stack deploys an AWS Lambda function that runs in a Docker container, scheduled to execute weekly via EventBridge.
+
+It includes:
+- A Docker-based Lambda function with ARM64 architecture and 1GB memory
+- An IAM role with administrative permissions for the Lambda
+- An EventBridge rule that triggers the function every Sunday at midnight
+- Deployment configurations including termination protection
+
+The Lambda function is built from a [Dockerfile](Dockerfile) and runs with a 15-minute timeout. It contains [this Nuke configuration](nuke_generic_config.yaml).
 
 ![infrastructure-overview](nuke-overview.png)
 
-## Feature Outline
-
-1. **Scheduled Trigger**: Amazon EventBridge invokes AWS Step Functions daily.
-2. **Regional Scalability**: Runs AWS CodeBuild projects per region.
-4. **Custom Config**: Pulls resource filters and region targets in [nuke_generic_config.yaml](nuke_generic_config.yaml).
-
 ## Prerequisites  
-1. **Non-Prod AWS Account Alias**: A non-prod account alias must exist in target account. Set the alias by running `python create_account_alias.py demo` or following [these instructions](https://docs.aws.amazon.com/IAM/latest/UserGuide/account-alias-create.html).
+1. **Non-Prod AWS Account Alias**: A non-prod account alias must exist in target account. Set the alias by running `python create_account_alias.py weathertop-test` or following [these instructions](https://docs.aws.amazon.com/IAM/latest/UserGuide/account-alias-create.html).
 
 ## Setup and Installation
-* Deploy the stack using the below command. You can run it in any desired region.
+For multi-account deployments, please use the [deploy.py](../../../DEPLOYMENT.md#option-1-using-deploypy) script.
+
+For single-account deployment, you can just run:
 ```sh
 cdk bootstrap && cdk deploy
 ```
@@ -33,12 +37,17 @@ cdk bootstrap && cdk deploy
 Note a successful stack creation, e.g.: 
 
 ```bash
+NukeStack: success: Published 956fbd116734e79edb987e767fe7f45d0b97e23b8882e6b1af543843f80ba4c1:616362385685-us-east-1
+Stack undefined
+NukeStack: deploying... [1/1]
+NukeStack: creating CloudFormation changeset...
+
  ✅  NukeStack
 
-✨  Deployment time: 172.66s
+✨  Deployment time: 27.93s
 
-Outputs:
-NukeStack.NukeS3BucketValue = nuke-account-stack-config-616362312345-us-east-1-c043b470
 Stack ARN:
-arn:aws:cloudformation:us-east-1:123456788985:stack/NukeStack/cfhdkiott-acec-11ef-ba2e-4555c1356d07
+arn:aws:cloudformation:us-east-1:616362385685:stack/NukeStack/9835cc20-d358-11ef-bccf-123407dc82dd
+
+✨  Total time: 33.24s
 ```
