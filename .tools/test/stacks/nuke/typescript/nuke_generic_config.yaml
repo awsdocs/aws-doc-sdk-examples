@@ -1,7 +1,7 @@
 regions:
-  - TARGET_REGION  # will be overridden during execution based on region parameter
+  - us-east-1
 
-account-blocklist:
+blocklist:
   - 1234567890
 
 resource-types:
@@ -68,7 +68,7 @@ resource-types:
     - SSMParameter
     
 accounts:
-  ACCOUNT:
+  AWSACCOUNTID:
     filters:
       EC2VPC:
         - property: IsDefault
@@ -95,14 +95,15 @@ accounts:
       LambdaEventSourceMapping:
         - property: "EventSourceArn"
           type: "glob"
-          value: "*PluginStack-*"
+          value: "^(PluginStack|NukeStack)*$"
         - property: "FunctionArn"
           type: "glob"
-          value: "*PluginStack-*"
+          value: "^(PluginStack|NukeStack)*$"
+          "*PluginStack-*"
       LambdaPermission:
         - property: "name"
           type: "glob"
-          value: "*PluginStack-*"
+          value: "^(PluginStack|NukeStack)*$"
       GuardDutyDetector:
         - property: DetectorID
           type: glob
@@ -127,11 +128,11 @@ accounts:
       S3Bucket:
         - property: Name
           type: regex
-          value: "^(cdktoolkit-stagingbucket-.*|pitbull-aws-config-.*|cloudtrail-awslogs-.*-isengard-do-not-delete|do-not-delete-gatedgarden-audit-.*)$"
+          value: "^(cdktoolkit-stagingbucket-.*|pitbull-aws-config-.*|cloudtrail-awslogs-.*-isengard-do-not-delete|do-not-delete-gatedgarden-audit-.*|aws-nuke.*)$"
       S3Object:
         - property: Bucket
           type: regex
-          value: "^(cdktoolkit-stagingbucket-.*|pitbull-aws-config-.*|cloudtrail-awslogs-.*-isengard-do-not-delete|do-not-delete-gatedgarden-audit-.*)$"
+          value: "^(cdktoolkit-stagingbucket-.*|pitbull-aws-config-.*|cloudtrail-awslogs-.*-isengard-do-not-delete|do-not-delete-gatedgarden-audit-.*|aws-nuke.*)$"
       ConfigServiceConfigurationRecorder:
         - "MainRecorder"
       CloudFormationStack:
@@ -140,7 +141,7 @@ accounts:
           value: "^(CDKToolkit|AccountGuardian|.*DO-NOT-DELETE)$"
         - property: Name
           type: regex
-          value: "^(PluginStack).*$"
+          value: "^(PluginStack|NukeStack)*$"
         - property: Name
           type: regex
           value: "^(pvre.*|PVRE.*)$"

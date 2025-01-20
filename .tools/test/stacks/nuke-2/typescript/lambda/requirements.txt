@@ -1,2 +1,0 @@
-backoff==1.10.0
-botocore==1.29.71
