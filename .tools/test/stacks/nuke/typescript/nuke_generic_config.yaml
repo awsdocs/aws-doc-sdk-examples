@@ -99,7 +99,6 @@ accounts:
         - property: "FunctionArn"
           type: "glob"
           value: "^(PluginStack|NukeStack)*$"
-          "*PluginStack-*"
       LambdaPermission:
         - property: "name"
           type: "glob"
