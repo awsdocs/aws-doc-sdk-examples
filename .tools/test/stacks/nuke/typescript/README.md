@@ -3,7 +3,7 @@
 
 AWS Nuke is an open source tool maintained by [ekristen](https://github.com/ekristen/aws-nuke) that searches for deleteable resources in a provided AWS account and deletes those not considered "Default" or "AWS-Managed".
 
-This tool is implemented using the Cloud Development Kit (CDK) scripts in this directory. These scripts deploy the official AWS Nuke image to a Lambda function, which runs on a schedule.
+This tool is implemented using the Cloud Development Kit (CDK) script in this directory which deploy the official AWS Nuke image to a Lambda function.
 
 ## ⚠ Important
 This is a very destructive tool! It should not be deployed without fully understanding the impact it will have on your AWS accounts.
