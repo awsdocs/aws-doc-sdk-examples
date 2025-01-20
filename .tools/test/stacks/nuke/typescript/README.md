@@ -15,9 +15,8 @@ Defined in [account_nuker.ts](account_nuker.ts), this CDK stack deploys an AWS L
 
 It includes:
 - A Docker-based Lambda function with ARM64 architecture and 1GB memory
-- An IAM role with administrative permissions for the Lambda
+- An IAM role with administrative permissions for the Lambda's nuking function 
 - An EventBridge rule that triggers the function every Sunday at midnight
-- Deployment configurations including termination protection
 
 The Lambda function is built from a [Dockerfile](Dockerfile) and runs with a 15-minute timeout. It contains a [nuke_generic_config.yml](nuke_generic_config.yaml) config and executes a [run.sh](run.sh).
 
