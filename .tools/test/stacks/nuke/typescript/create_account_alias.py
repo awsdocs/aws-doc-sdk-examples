@@ -95,21 +95,21 @@ def create_account_alias(alias_name: str) -> None:
             f"Unexpected error occurred while creating account alias '{alias_name}': {str(e)}"
         )
 
+
 if __name__ == "__main__":
     import argparse
-    
+
     # Set up logging
     logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s'
+        level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
     )
-    
+
     # Create argument parser
-    parser = argparse.ArgumentParser(description='Create an AWS account alias')
-    parser.add_argument('alias', help='The alias name for the AWS account')
-    
+    parser = argparse.ArgumentParser(description="Create an AWS account alias")
+    parser.add_argument("alias", help="The alias name for the AWS account")
+
     # Parse arguments
     args = parser.parse_args()
-    
+
     # Call the function with the provided alias
     create_account_alias(args.alias)
