@@ -37,7 +37,7 @@ cdk bootstrap && cdk deploy
 Note a successful stack creation, e.g.: 
 
 ```bash
-NukeStack: success: Published 956fbd116734e79edb987e767fe7f45d0b97e23b8882e6b1af543843f80ba4c1:616362385685-us-east-1
+NukeStack: success: Published 956fbd116734e79edb987e767fe7f45d0b97e2123456789109103f80ba4c1:123456789101-us-east-1
 Stack undefined
 NukeStack: deploying... [1/1]
 NukeStack: creating CloudFormation changeset...
@@ -47,7 +47,7 @@ NukeStack: creating CloudFormation changeset...
 ✨  Deployment time: 27.93s
 
 Stack ARN:
-arn:aws:cloudformation:us-east-1:616362385685:stack/NukeStack/9835cc20-d358-11ef-bccf-123407dc82dd
+arn:aws:cloudformation:us-east-1:123456789101:stack/NukeStack/9835cc20-d358-11ef-bccf-123407dc82dd
 
 ✨  Total time: 33.24s
 ```
