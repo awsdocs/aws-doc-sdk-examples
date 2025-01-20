@@ -429,7 +429,7 @@ iot_CreateThing:
   services:
     iot: {CreateThing}
 iot_Scenario:
-   synopsis_list:
+  synopsis_list:
     - Create an &IoT; Thing.
     - Generate a device certificate.
     - Update an &IoT; Thing with Attributes.
