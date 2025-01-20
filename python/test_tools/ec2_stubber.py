@@ -388,9 +388,22 @@ class Ec2Stubber(ExampleStubber):
             "delete_launch_template", expected_params, response, error_code=error_code
         )
 
-    def stub_describe_availability_zones(self, zones, error_code=None):
+    def stub_describe_availability_zones(
+        self, zones, filters=None, zone_ids=None, error_code=None
+    ):
         expected_params = {}
-        response = {"AvailabilityZones": [{"ZoneName": zone} for zone in zones]}
+        if filters is not None:
+            expected_params["Filters"] = filters
+
+        availability_zones = []
+        for i, zone in enumerate(zones):
+            zone_info = {"ZoneName": zone}
+            if zone_ids and i < len(zone_ids):
+                zone_info["ZoneId"] = zone_ids[i]
+            availability_zones.append(zone_info)
+
+        response = {"AvailabilityZones": availability_zones}
+
         self._stub_bifurcator(
             "describe_availability_zones",
             expected_params,
@@ -452,4 +465,119 @@ class Ec2Stubber(ExampleStubber):
             expected_params,
             response,
             error_code=error_code,
+        )
+
+    def stub_create_vpc(self, cidr, vpc_id, error_code=None):
+        expected_params = {"CidrBlock": cidr}
+        response = {
+            "Vpc": {
+                "VpcId": vpc_id,
+                "CidrBlock": cidr,
+                "CidrBlockAssociationSet": [
+                    {"CidrBlock": cidr, "AssociationId": "XXXXXXXXXXXXXXXXXXXXXXX"}
+                ],
+            }
+        }
+        self._stub_bifurcator(
+            "create_vpc", expected_params, response, error_code=error_code
+        )
+
+    def stub_delete_vpc(self, vpc_id, error_code=None):
+        expected_params = {"VpcId": vpc_id}
+        response = {}
+        self._stub_bifurcator(
+            "delete_vpc", expected_params, response, error_code=error_code
+        )
+
+    def stub_describe_route_tables(
+        self, filters, vpc_id, route_table_id, error_code=None
+    ):
+        expected_params = {"Filters": filters}
+        response = {
+            "RouteTables": [
+                {
+                    "Associations": [
+                        {
+                            "Main": True,
+                            "RouteTableAssociationId": "string",
+                            "RouteTableId": "string",
+                            "SubnetId": "string",
+                            "GatewayId": "string",
+                            "AssociationState": {
+                                "State": "associating",
+                                "StatusMessage": "string",
+                            },
+                        },
+                    ],
+                    "PropagatingVgws": [
+                        {"GatewayId": "string"},
+                    ],
+                    "RouteTableId": route_table_id,
+                    "Routes": [
+                        {
+                            "DestinationCidrBlock": "string",
+                            "DestinationIpv6CidrBlock": "string",
+                            "DestinationPrefixListId": "string",
+                            "EgressOnlyInternetGatewayId": "string",
+                            "GatewayId": "string",
+                            "InstanceId": "string",
+                            "InstanceOwnerId": "string",
+                            "NatGatewayId": "string",
+                            "TransitGatewayId": "string",
+                            "LocalGatewayId": "string",
+                            "CarrierGatewayId": "string",
+                            "NetworkInterfaceId": "string",
+                            "Origin": "CreateRouteTable",
+                            "State": "blackhole",
+                            "VpcPeeringConnectionId": "string",
+                            "CoreNetworkArn": "string",
+                        },
+                    ],
+                    "Tags": [
+                        {"Key": "string", "Value": "string"},
+                    ],
+                    "VpcId": vpc_id,
+                    "OwnerId": "string",
+                },
+            ],
+        }
+        self._stub_bifurcator(
+            "describe_route_tables", expected_params, response, error_code=error_code
+        )
+
+    def stub_create_vpc_endpoint(
+        self, vpc_id, route_table_id, service_name, error_code=None
+    ):
+        expected_params = {
+            "VpcId": vpc_id,
+            "RouteTableIds": [route_table_id],
+            "ServiceName": service_name,
+        }
+        response = {
+            "VpcEndpoint": {
+                "VpcEndpointId": f"vpce-{vpc_id}",
+                "VpcEndpointType": "Interface",
+                "VpcId": vpc_id,
+                "ServiceName": service_name,
+                "RouteTableIds": [route_table_id],
+                "SubnetIds": [],
+                "Groups": [],
+                "NetworkInterfaceIds": [],
+                "PrivateDnsEnabled": True,
+                "RequesterManaged": False,
+                "DnsEntries": [],
+                "CreationTimestamp": "2023-04-25T20:57:41.000Z",
+                "Tags": [],
+                "OwnerId": "string",
+            }
+        }
+        self._stub_bifurcator(
+            "create_vpc_endpoint", expected_params, response, error_code=error_code
+        )
+
+    def stub_delete_vpc_endpoints(self, vpc_endpoint_ids, error_code=None):
+        expected_params = {"VpcEndpointIds": vpc_endpoint_ids}
+        response = {}
+        self._stub_bifurcator(
+            "delete_vpc_endpoints", expected_params, response, error_code=error_code
         )

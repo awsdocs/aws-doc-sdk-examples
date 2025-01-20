@@ -9,6 +9,7 @@ set up stubs and passes all calls through to the Boto 3 client.
 """
 
 import io
+import datetime
 import json
 from botocore.stub import ANY
 
@@ -45,9 +46,13 @@ class S3Stubber(ExampleStubber):
             version["LastModified"] = last_modified
         return version
 
-    def stub_create_bucket(self, bucket_name, region_name=None, error_code=None):
+    def stub_create_bucket(
+        self, bucket_name, region_name=None, bucket_configuration=None, error_code=None
+    ):
         expected_params = {"Bucket": bucket_name}
-        if region_name is not None:
+        if bucket_configuration is not None:
+            expected_params["CreateBucketConfiguration"] = bucket_configuration
+        elif region_name is not None:
             expected_params["CreateBucketConfiguration"] = {
                 "LocationConstraint": region_name
             }
@@ -320,6 +325,26 @@ class S3Stubber(ExampleStubber):
             "list_objects", expected_params, response, error_code=error_code
         )
 
+    def stub_list_objects_v2(
+        self,
+        bucket_name,
+        object_keys=None,
+        prefix=None,
+        delimiter=None,
+        error_code=None,
+    ):
+        if not object_keys:
+            object_keys = []
+        expected_params = {"Bucket": bucket_name}
+        if prefix is not None:
+            expected_params["Prefix"] = prefix
+        if delimiter is not None:
+            expected_params["Delimiter"] = delimiter
+        response = {"Contents": [{"Key": key} for key in object_keys]}
+        self._stub_bifurcator(
+            "list_objects_v2", expected_params, response, error_code=error_code
+        )
+
     def stub_delete_objects(self, bucket_name, object_keys, error_code=None):
         expected_params = {
             "Bucket": bucket_name,
@@ -447,4 +472,25 @@ class S3Stubber(ExampleStubber):
         response = {url}
         self._stub_bifurcator(
             "generate_presigned_url", expected_params, response, error_code=error_code
+        )
+
+    def stub_create_session(self, bucket_name, error_code=None):
+        expected_params = {
+            "Bucket": bucket_name,
+        }
+
+        response = {
+            "Credentials": {
+                "AccessKeyId": "string",
+                "SecretAccessKey": "string",
+                "SessionToken": "string",
+                "Expiration": datetime.datetime(2015, 1, 1),
+            },
+        }
+
+        self._stub_bifurcator(
+            "create_session",
+            expected_params=expected_params,
+            response=response,
+            error_code=error_code,
         )

@@ -1581,6 +1581,15 @@ ec2_DescribeRouteTables:
             - description:
               snippet_tags:
                 - php.example_code.ec2.service.describeRouteTables
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.VpcWrapper.decl
+                - python.example_code.ec2.DescribeRouteTables
   services:
     ec2: {DescribeRouteTables}
 ec2_DescribeRegions:
@@ -2003,6 +2012,15 @@ ec2_CreateVpc:
             - description:
               snippet_tags:
                 - ec2.Ruby.createVpc
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.VpcWrapper.decl
+                - python.example_code.ec2.CreateVpc
   services:
     ec2: {CreateVpc}
 ec2_DeleteVpc:
@@ -2016,6 +2034,15 @@ ec2_DeleteVpc:
             - description:
               snippet_tags:
                 - php.example_code.ec2.service.deleteVpc
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.VpcWrapper.decl
+                - python.example_code.ec2.DeleteVpc
   services:
     ec2: {DeleteVpc}
 ec2_CreateVpcEndpoint:
@@ -2029,9 +2056,18 @@ ec2_CreateVpcEndpoint:
             - description:
               snippet_tags:
                 - php.example_code.ec2.service.createVpcEndpoint
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.VpcWrapper.decl
+                - python.example_code.ec2.CreateVpcEndpoint
   services:
     ec2: {CreateVpcEndpoint}
-ec2_DeleteVpcEndpoint:
+ec2_DeleteVpcEndpoints:
   languages:
     PHP:
       versions:
@@ -2042,8 +2078,17 @@ ec2_DeleteVpcEndpoint:
             - description:
               snippet_tags:
                 - php.example_code.ec2.service.deleteVpcEndpoint
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ec2.VpcWrapper.decl
+                - python.example_code.ec2.DeleteVpcEndpoints
   services:
-    ec2: {DeleteVpcEndpoint}
+    ec2: {DeleteVpcEndpoints}
 ec2_DescribeIamInstanceProfileAssociations:
   languages:
     .NET:

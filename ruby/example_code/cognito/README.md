@@ -31,7 +31,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 ### Get started
 
-- [Hello Amazon Cognito](hello/hello_cognito.rb#L4) (`ListUserPools`)
+- [Hello Amazon Cognito Identity Provider](hello/hello_cognito.rb#L4) (`ListUserPools`)
 
 
 <!--custom.examples.start-->
@@ -45,9 +45,9 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-#### Hello Amazon Cognito
+#### Hello Amazon Cognito Identity Provider
 
-This example shows you how to get started using Amazon Cognito.
+This example shows you how to get started using Amazon Cognito Identity Provider.
 
 ```
 ruby hello/hello_cognito.rb

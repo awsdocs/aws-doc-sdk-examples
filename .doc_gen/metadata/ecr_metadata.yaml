@@ -23,6 +23,14 @@ ecr_Hello:
             - description:
               snippet_tags:
                 - ecr.java2_hello.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ecr.Hello
   services:
     ecr: {listImages}
 ecr_PushImageCmd:
@@ -67,6 +75,18 @@ ecr_SetRepositoryPolicy:
             - description:
               snippet_tags:
                 - ecr.java2.set.repo.policy.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ecr.ECRWrapper.decl
+                - python.example_code.ecr.ECRWrapper.SetRepositoryPolicy
+            - description: Example that grants an IAM role download access.
+              snippet_tags:
+                - python.example_code.ecr.grant_role_download_access
   services:
     ecr: {SetRepositoryPolicy}
 ecr_GetRepositoryPolicy:
@@ -89,6 +109,15 @@ ecr_GetRepositoryPolicy:
             - description:
               snippet_tags:
                 - ecr.java2.get.repo.policy.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ecr.ECRWrapper.decl
+                - python.example_code.ecr.ECRWrapper.GetRepositoryPolicy
   services:
     ecr: {GetRepositoryPolicy}
 ecr_GetAuthorizationToken:
@@ -111,6 +140,15 @@ ecr_GetAuthorizationToken:
             - description:
               snippet_tags:
                 - ecr.java2.get.token.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ecr.ECRWrapper.decl
+                - python.example_code.ecr.ECRWrapper.GetAuthorizationToken
   services:
     ecr: {GetAuthorizationToken}
 ecr_StartLifecyclePolicyPreview:
@@ -135,6 +173,22 @@ ecr_StartLifecyclePolicyPreview:
                 - ecr.java2.verify.image.main
   services:
     ecr: {StartLifecyclePolicyPreview}
+ecr_PutLifeCyclePolicy:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ecr.ECRWrapper.decl
+                - python.example_code.ecr.ECRWrapper.PutLifeCyclePolicy
+            - description: Example that puts an expiration date policy.
+              snippet_tags:
+                - python.example_code.ecr.put_expiration_policy
+  services:
+    ecr: {PutLifeCyclePolicy}
 ecr_DescribeImages:
   languages:
     Kotlin:
@@ -155,6 +209,15 @@ ecr_DescribeImages:
             - description:
               snippet_tags:
                 - ecr.java2.verify.image.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ecr.ECRWrapper.decl
+                - python.example_code.ecr.ECRWrapper.DescribeImages
   services:
     ecr: {DescribeImages}
 ecr_DeleteRepository:
@@ -177,6 +240,15 @@ ecr_DeleteRepository:
             - description:
               snippet_tags:
                 - ecr.java2.delete.repo.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ecr.ECRWrapper.decl
+                - python.example_code.ecr.ECRWrapper.DeleteRepository
   services:
     ecr: {DeleteRepository}
 ecr_CreateRepository:
@@ -199,6 +271,15 @@ ecr_CreateRepository:
             - description:
               snippet_tags:
                 - ecr.java2.create.repo.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ecr.ECRWrapper.decl
+                - python.example_code.ecr.ECRWrapper.CreateRepository
   services:
     ecr: {CreateRepository}
 ecr_DescribeRepositories:
@@ -230,6 +311,15 @@ ecr_DescribeRepositories:
             - description:
               snippet_tags:
                 - ecr.rust.describe-repos
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ecr
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.ecr.ECRWrapper.decl
+                - python.example_code.ecr.ECRWrapper.DescribeRepositories
   services:
     ecr: {DescribeRepositories}
 ecr_ListImages:
@@ -282,5 +372,19 @@ ecr_Scenario_RepositoryManagement:
             - description: A wrapper class for &ECR; SDK methods.
               snippet_tags:
                 - ecr.java2_scenario.main
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ecr
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              genai: some
+              snippet_tags:
+                - python.example_code.ecr.BasicsScenario
+            - description: ECRWrapper class that wraps &ECR; actions.
+              genai: some
+              snippet_tags:
+                - python.example_code.ecr.ECRWrapper.class
   services:
     ecr: {CreateRepository, DescribeRepositories, DeleteRepository, DescribeImages, StartLifecyclePolicyPreview, GetAuthorizationToken, GetRepositoryPolicy, SetRepositoryPolicy}

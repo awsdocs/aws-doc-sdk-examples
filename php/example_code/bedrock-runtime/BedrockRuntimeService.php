@@ -37,14 +37,16 @@ class BedrockRuntimeService extends AWSServiceClass
 
         $completion = "";
         try {
-            $modelId = 'anthropic.claude-v2';
+            $modelId = 'anthropic.claude-3-haiku-20240307-v1:0';
         // Claude requires you to enclose the prompt as follows:
-            $prompt = "\n\nHuman: {$prompt}\n\nAssistant:";
             $body = [
-                'prompt' => $prompt,
-                'max_tokens_to_sample' => 200,
+                'anthropic_version' => 'bedrock-2023-05-31',
+                'max_tokens' => 512,
                 'temperature' => 0.5,
-                'stop_sequences' => ["\n\nHuman:"],
+                'messages' => [[
+                    'role' => 'user',
+                    'content' => $prompt
+                ]]
             ];
             $result = $this->bedrockRuntimeClient->invokeModel([
                 'contentType' => 'application/json',
@@ -52,7 +54,7 @@ class BedrockRuntimeService extends AWSServiceClass
                 'modelId' => $modelId,
             ]);
             $response_body = json_decode($result['body']);
-            $completion = $response_body->completion;
+            $completion = $response_body->content[0]->text;
         } catch (Exception $e) {
             echo "Error: ({$e->getCode()}) - {$e->getMessage()}\n";
         }

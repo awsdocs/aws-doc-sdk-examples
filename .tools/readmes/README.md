@@ -28,12 +28,12 @@ the commands might vary slightly. For example, on Windows, use `py` in place of
 
 ## Generate a README
 
-> These instructions assume you're running the commands from the `.tools/writeme`
+> These instructions assume you're running the commands from the `.tools/readmes`
 > directory, using the venv installed there.
 
 WRITEME creates content primarily from metadata you have already
 authored for the SOS project. After you have authored metadata and snippet tags
-for your examples, run the following command in the root folder of the repo:
+for your examples, run the following command in the `.tools/readmes` folder:
 
 ```
 python -m writeme --languages <language>:<version> --services <service>

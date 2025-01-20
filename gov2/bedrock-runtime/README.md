@@ -31,7 +31,7 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `gov2` fo
 
 ### Get started
 
-- [Hello Amazon Bedrock](hello/hello.go#L4) (`InvokeModel`)
+- [Hello Amazon Bedrock Runtime](hello/hello.go#L4) (`InvokeModel`)
 
 ### Scenarios
 
@@ -78,9 +78,9 @@ go run ./hello -region=eu-central-1
 Be aware that not all regions may support Bedrock and its models yet. Verify service availability for your region [here](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/). For available models per region, refer to the [Bedrock dashboard](https://console.aws.amazon.com/bedrock) in the AWS Management Console.
 <!--custom.instructions.end-->
 
-#### Hello Amazon Bedrock
+#### Hello Amazon Bedrock Runtime
 
-This example shows you how to get started using Amazon Bedrock.
+This example shows you how to get started using Amazon Bedrock Runtime.
 
 ```
 go run ./hello

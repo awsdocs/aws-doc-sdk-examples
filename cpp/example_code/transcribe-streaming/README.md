@@ -43,6 +43,13 @@ Code excerpts that show you how to call individual service functions.
 
 - [StartStreamTranscription](get_transcript.cpp#L28)
 
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+- [Transcribe an audio file](get_transcript.cpp)
+
 
 <!--custom.examples.start-->
 <!--custom.examples.end-->
@@ -68,6 +75,18 @@ folder.
 <!--custom.instructions.end-->
 
 
+
+#### Transcribe an audio file
+
+This example shows you how to generate a transcription of a source audio file using Amazon Transcribe streaming.
+
+
+<!--custom.scenario_prereqs.transcribe-streaming_Scenario_StreamEvents_File.start-->
+<!--custom.scenario_prereqs.transcribe-streaming_Scenario_StreamEvents_File.end-->
+
+
+<!--custom.scenarios.transcribe-streaming_Scenario_StreamEvents_File.start-->
+<!--custom.scenarios.transcribe-streaming_Scenario_StreamEvents_File.end-->
 
 ### Tests
 
