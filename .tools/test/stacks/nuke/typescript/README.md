@@ -1,9 +1,9 @@
 
 # aws-nuke for Weathertop
 
-AWS Nuke is an open source tool maintained by [ekristen](https://github.com/ekristen/aws-nuke) that searches for deleteable resources in a provided AWS account and deletes those not considered "Default" or "AWS-Managed".
+[aws-nuke](https://github.com/ekristen/aws-nuke) is an open-source tool that deletes resources in a provided AWS account that are not considered "Default" or "AWS-Managed".
 
-This tool is implemented using the Cloud Development Kit (CDK) script in this directory which deploy the official AWS Nuke image to a Lambda function.
+This tool is implemented using the Cloud Development Kit (CDK) script in this directory which deploy the [official aws-nuke image](https://github.com/ekristen/aws-nuke/pkgs/container/aws-nuke) to an AWS Lambda function.
 
 ## ⚠ Important
 This is a very destructive tool! It should not be deployed without fully understanding the impact it will have on your AWS accounts.
@@ -19,7 +19,7 @@ It includes:
 - An EventBridge rule that triggers the function every Sunday at midnight
 - Deployment configurations including termination protection
 
-The Lambda function is built from a [Dockerfile](Dockerfile) and runs with a 15-minute timeout. It contains [this Nuke configuration](nuke_generic_config.yaml).
+The Lambda function is built from a [Dockerfile](Dockerfile) and runs with a 15-minute timeout. It contains a [nuke_generic_config.yml](nuke_generic_config.yaml) config and executes a [run.sh](run.sh).
 
 ![infrastructure-overview](nuke-overview.png)
 
