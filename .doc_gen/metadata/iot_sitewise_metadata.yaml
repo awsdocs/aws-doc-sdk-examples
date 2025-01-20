@@ -444,8 +444,7 @@ iotsitewise_CreateAssetModel:
   services:
     iotsitewise: {CreateAssetModel}
 iotsitewise_Scenario:
-  synopsis: learn core operations for &ITSWlong; using an &AWS; SDK.
-    synopsis_list:
+  synopsis_list:
     - Create an &ITSWlong; Asset Model.
     - Create an &ITSWlong; Asset.
     - Retrieve the property ID values.
