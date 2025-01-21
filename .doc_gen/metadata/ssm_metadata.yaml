@@ -413,13 +413,13 @@ ssm_UpdateOpsItem:
     ssm: {UpdateOpsItem}
 ssm_Scenario:
   synopsis_list:
-    - Create an AWS &SYS; maintenance window.
+    - Create a maintenance window.
     - Modify the maintenance window schedule.
-    - Create a &SYS; document.
+    - Create a document.
     - Send a command to a specified EC2 instance.
-    - Create a &SYS; OpsItem.
+    - Create an OpsItem.
     - Update and resolve the OpsItem.
-    - Delete the &SYS; maintenance window, OpsItem, and document.
+    - Delete the maintenance window, OpsItem, and document.
   category: Basics
   languages:
     Java:
