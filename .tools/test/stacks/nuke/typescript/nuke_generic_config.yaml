@@ -66,7 +66,7 @@ resource-types:
     - SecretsManagerSecret
     - SQSQueue
     - SSMParameter
-    
+
 accounts:
   AWSACCOUNTID:
     filters:
@@ -107,46 +107,37 @@ accounts:
         - property: DetectorID
           type: glob
           value: "*"
-      CloudTrailTrail:
-        - type: regex
-          value: "^(AccountGuardian|Isengard).*DO-NOT-DELETE.*$"
       CloudWatchEventsRule:
         - type: regex
-          value: "^Rule: (AccountGuardian-.*DO-NOT-DELETE|AwsSecurity.*DO-NOT-DELETE|DO-NOT-DELETE-GatedGarden-.*)$"
+          value: "^Rule: (AwsSecurity.*)$"
       CloudWatchEventsTarget:
         - type: regex
-          value: "^Rule: (AccountGuardian-.*DO-NOT-DELETE.*|AwsSecurity.*DO-NOT-DELETE|DO-NOT-DELETE-GatedGarden-.*)$"
+          value: "^Rule: (AwsSecurity.*)$"
       CloudWatchLogsLogGroup:
         - type: regex
-          value: "^(AccountGuardian-).*$"
+          value: "^.*$"
       ConfigServiceDeliveryChannel:
-        - "pitbull-default"
+        - "default"
       ConfigServiceConfigRule:
         - type: regex
-          value: "^(managed-ec2-patch-compliance|ec2-managed-by-systems-manager-REMEDIATE|pvre-.*-REMEDIATE|.*-pvre-.*-REMEDIATE)$"
+          value: "^(managed-ec2-patch-compliance|ec2-managed-by-systems-manager-REMEDIATE)$"
       S3Bucket:
         - property: Name
           type: regex
-          value: "^(cdktoolkit-stagingbucket-.*|pitbull-aws-config-.*|cloudtrail-awslogs-.*-isengard-do-not-delete|do-not-delete-gatedgarden-audit-.*|aws-nuke.*)$"
+          value: "^(cdktoolkit-stagingbucket-.*|aws-nuke.*)$"
       S3Object:
         - property: Bucket
           type: regex
-          value: "^(cdktoolkit-stagingbucket-.*|pitbull-aws-config-.*|cloudtrail-awslogs-.*-isengard-do-not-delete|do-not-delete-gatedgarden-audit-.*|aws-nuke.*)$"
+          value: "^(cdktoolkit-stagingbucket-.*|aws-nuke.*)$"
       ConfigServiceConfigurationRecorder:
         - "MainRecorder"
       CloudFormationStack:
         - property: Name
           type: regex
-          value: "^(CDKToolkit|AccountGuardian|.*DO-NOT-DELETE)$"
+          value: "^(CDKToolkit)$"
         - property: Name
           type: regex
           value: "^(PluginStack|NukeStack)*$"
-        - property: Name
-          type: regex
-          value: "^(pvre.*|PVRE.*)$"
-        - property: Name
-          type: regex
-          value: "^(.*PatchBaseline.*)$"
       IAMPolicy:
         - property: Name
           type: regex
@@ -154,18 +145,12 @@ accounts:
       IAMRole:
         - property: Name
           type: regex
-          value: "^(AWSServiceRoleFor.*|.*DO-NOT-DELETE|^Isengard.*|Admin|ReadOnly|GatedGarden.*Audit|ShadowTrooper.*|InternalAuditInternal|EC2CapacityReservationService|AccessAnalyzerTrustedService|EC2CapacityReservationService|AwsSecurit.*Audit|AWS.*Audit)$"
+          value: "^(AWSServiceRoleFor.*|Admin|ReadOnly|InternalAuditInternal|EC2CapacityReservationService|AccessAnalyzerTrustedService|AwsSecurit.*Audit|AWS.*Audit)$"
       IAMRolePolicy:
         - property: role:RoleName
           type: regex
-          value: "^(.*DO-NOT-DELETE|Isengard.*|GatedGarden.*Audit|AccountGuardian.*|ShadowTrooper.*|AccessAnalyzerTrustedService|AwsSecurit.*Audit)$"
+          value: "^(AccessAnalyzerTrustedService|AwsSecurit.*Audit)$"
       IAMRolePolicyAttachment:
         - property: RoleName
           type: regex
-          value: "^(Admin|ReadOnly|AWSServiceRoleFor.*|.*DO-NOT-DELETE|Isengard.*|InternalAuditInternal|EC2CapacityReservationService|AWSVAPTAudit|AwsSecurit.*Audit)$"
-      SSMDocument:
-        - type: regex
-          value: "^(AccountGuardian|Isengard).*DO-NOT-DELETE.*$"
-      SSMResourceDataSync:
-        - type: regex
-          value: "^(AccountGuardian|Isengard).*DO-NOT-DELETE.*$"
+          value: "^(Admin|ReadOnly|AWSServiceRoleFor.*|InternalAuditInternal|EC2CapacityReservationService|AWSVAPTAudit|AwsSecurit.*Audit)$"

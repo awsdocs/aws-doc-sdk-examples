@@ -1,9 +1,7 @@
 
 # aws-nuke for Weathertop
 
-[aws-nuke](https://github.com/ekristen/aws-nuke) is an open-source tool that deletes resources in a provided AWS account that are not considered "Default" or "AWS-Managed".
-
-This tool is implemented using the Cloud Development Kit (CDK) script in this directory which deploy the [official aws-nuke image](https://github.com/ekristen/aws-nuke/pkgs/container/aws-nuke) to an AWS Lambda function.
+[aws-nuke](https://github.com/ekristen/aws-nuke) is an open-source tool that deletes non-default resources in a provided AWS account. It's implemented here in this directory using Cloud Development Kit (CDK) code that deploys the [official aws-nuke image](https://github.com/ekristen/aws-nuke/pkgs/container/aws-nuke) to an AWS Lambda function.
 
 ## ⚠ Important
 This is a very destructive tool! It should not be deployed without fully understanding the impact it will have on your AWS accounts.
@@ -11,14 +9,12 @@ Please use caution and configure this tool to delete unused resources only in yo
 
 ## Overview
 
-Defined in [account_nuker.ts](account_nuker.ts), this CDK stack deploys an AWS Lambda function that runs in a Docker container, scheduled to execute weekly via EventBridge.
-
-It includes:
+This CDK stack is defined in [account_nuker.ts](account_nuker.ts). It includes:
 - A Docker-based Lambda function with ARM64 architecture and 1GB memory
 - An IAM role with administrative permissions for the Lambda's nuking function 
 - An EventBridge rule that triggers the function every Sunday at midnight
 
-The Lambda function is built from a [Dockerfile](Dockerfile) and runs with a 15-minute timeout. It contains a [nuke_generic_config.yml](nuke_generic_config.yaml) config and executes a [run.sh](run.sh).
+More specifically, this Lambda function is built from a [Dockerfile](Dockerfile) and runs with a 15-minute timeout. It contains a [nuke_generic_config.yml](nuke_generic_config.yaml) config and executes a [run.sh](run.sh) when invoked every Sunday at midnight UTC.
 
 ![infrastructure-overview](nuke-overview.png)
 
