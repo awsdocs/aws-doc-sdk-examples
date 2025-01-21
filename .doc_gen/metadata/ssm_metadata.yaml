@@ -412,7 +412,16 @@ ssm_UpdateOpsItem:
   services:
     ssm: {UpdateOpsItem}
 ssm_Scenario:
-  synopsis: work with &SYS; maintenance windows, documents, and OpsItems.
+  synopsis_list:
+    - Create an &ECR; repository.
+    - Set repository policies.
+    - Retrieve repository URIs.
+    - Get &ECR; authorization tokens.
+    - Set lifecycle policies for &ECR; repositories.
+    - Push a Docker image to an &ECR; repository.
+    - Verify the existence of an image in an &ECR; repository.
+    - List &ECR; repositories for your account and get details about them.
+    - Delete &ECR; repositories.
   category: Basics
   languages:
     Java:
